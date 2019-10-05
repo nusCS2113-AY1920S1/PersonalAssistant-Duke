@@ -11,7 +11,7 @@ We are a team based in the http://www.comp.nus.edu.sg[School of Computing, Natio
 == Project Team
 
 === Teh Zi Huai
-image::ZiHuai.jpg[width="150", align="left"]
+image::TehZiHuai.png[width="150", align="left"]
 {empty}[https://github.com/TehZiHuai[github]] [<<johndoe#, portfolio>>]
 
 Role: Team Lead +
@@ -20,7 +20,7 @@ Responsibilities: UI
 '''
 
 === Tay Tze-wei, Caleb
-image::caleb.jpg[width="150", align="left"]
+image::calebtay.png[width="150", align="left"]
 {empty}[https://github.com/calebtay[github]] [<<johndoe#, portfolio>>]
 
 Role: Developer +
@@ -29,7 +29,7 @@ Responsibilities: Debugging
 '''
 
 === Tay Ryan
-image::Ryan.jpg[width="150", align="left"]
+image::tyeryan.png[width="150", align="left"]
 {empty}[https://github.com/tyeryan[github]] [<<johndoe#, portfolio>>]
 
 Role: Developer +
@@ -38,7 +38,7 @@ Responsibilities: Dev Ops + Data
 '''
 
 === Tran Minh Duong (Harry)
-image::Harry.jpg[width="150", align="left"]
+image::benitokun123.png[width="150", align="left"]
 {empty}[https://github.com/benitokun123[github]] [<<johndoe#, portfolio>>]
 
 Role: Developer +
