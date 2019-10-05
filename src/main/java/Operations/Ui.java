@@ -226,4 +226,9 @@ public class Ui {
         System.out.println("\te.g. 1 high");
     }
 
+    /**
+     * Notifies the user that their task's priority has been set
+     */
+    public void prioritySet() { System.out.println("Your task's priority has been set"); }
+
 }

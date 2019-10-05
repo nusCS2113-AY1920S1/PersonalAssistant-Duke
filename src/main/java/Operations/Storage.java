@@ -2,6 +2,7 @@ package Operations;
 
 import CustomExceptions.RoomShareException;
 import Enums.ExceptionType;
+import Enums.Priority;
 import Enums.SaveType;
 import Model_Classes.*;
 
@@ -45,6 +46,8 @@ public class Storage {
             for (String list : tempList) {
                 String[] temp = list.split("#");
                 SaveType type;
+                Priority priority = Priority.valueOf(temp[2]);
+                boolean done = temp[1].equals("y");
                 try {
                     type = SaveType.valueOf(temp[0]);
                 } catch (IllegalArgumentException e) {
@@ -53,62 +56,41 @@ public class Storage {
                 if (list.contains("#week") || list.contains("#day") || list.contains("#month")) {
                     switch (type) {
                         case T:
-                            RecurringToDo tempToDo = new RecurringToDo(temp[2], temp[3]);
-                            if (temp[1].equals("y")) {
-                                tempToDo.setDone();
-                            }
+                            RecurringToDo tempToDo = new RecurringToDo(temp[3], temp[4], done, priority);
                             taskArrayList.add(tempToDo);
                             break;
 
                         case E:
-                            Date by = parser.formatDate(temp[3]);
-                            RecurringEvent tempEvent = new RecurringEvent(temp[2], by, temp[4]);
-                            if (temp[1].equals("y")) {
-                                tempEvent.setDone();
-                            }
+                            Date by = parser.formatDate(temp[4]);
+                            RecurringEvent tempEvent = new RecurringEvent(temp[3], by, temp[5], done, priority);
                             taskArrayList.add(tempEvent);
                             break;
                         case D:
-                            Date deadlineBy = parser.formatDate(temp[3]);
-                            RecurringDeadline tempDeadline = new RecurringDeadline(temp[2], deadlineBy, temp[4]);
-                            if (temp[1].equals("y")) {
-                                tempDeadline.setDone();
-                            }
+                            Date deadlineBy = parser.formatDate(temp[4]);
+                            RecurringDeadline tempDeadline = new RecurringDeadline(temp[3], deadlineBy, temp[5], done, priority);
                             taskArrayList.add(tempDeadline);
                             break;
                     }
                 } else {
                     switch (type) {
                         case T:
-                            ToDo tempToDo = new ToDo(temp[2]);
-                            if (temp[1].equals("y")) {
-                                tempToDo.setDone();
-                            }
+                            ToDo tempToDo = new ToDo(temp[3], done, priority);
                             taskArrayList.add(tempToDo);
                             break;
                         case E:
-                            Date by = parser.formatDate(temp[3]);
-                            if( temp.length == 5 ){
-                                FixedDuration tempEvent = new FixedDuration(temp[2], by, Integer.parseInt(temp[4]));
-                                if (temp[1].equals("y")) {
-                                    tempEvent.setDone();
-                                }
+                            Date by = parser.formatDate(temp[4]);
+                            if( temp.length == 6 ){
+                                FixedDuration tempEvent = new FixedDuration(temp[3], by, Integer.parseInt(temp[5]), done, priority);
                                 taskArrayList.add(tempEvent);
                             } else {
-                                Event tempEvent = new Event(temp[2], by);
-                                if (temp[1].equals("y")) {
-                                    tempEvent.setDone();
-                                }
+                                Event tempEvent = new Event(temp[3], by, done, priority);
                                 taskArrayList.add(tempEvent);
                             }
 
                             break;
                         case D:
-                            Date deadlineBy = parser.formatDate(temp[3]);
-                            Deadline tempDeadline = new Deadline(temp[2], deadlineBy);
-                            if (temp[1].equals("y")) {
-                                tempDeadline.setDone();
-                            }
+                            Date deadlineBy = parser.formatDate(temp[4]);
+                            Deadline tempDeadline = new Deadline(temp[3], deadlineBy, done, priority);
                             taskArrayList.add(tempDeadline);
                             break;
                         default:
@@ -137,14 +119,15 @@ public class Storage {
             for (Task s : list) {
                 String done = s.getDone() ? "y" : "n";
                 String type = String.valueOf(s.toString().charAt(1));
+                String priority = s.getPriority().name();
                 String description = s.getDescription();
                 String time = convertForStorage(s);
                 if( s instanceof FixedDuration ){
                     String duration = Integer.toString(((FixedDuration) s).getDuration());
-                    String out = type + "#" + done + "#" + description + "#" + time + "#" + duration;
+                    String out = type + "#" + done + "#" + priority + "#" + description + "#" + time + "#" + duration;
                     writer.write(out);
                 } else {
-                    String out = type + "#" + done + "#" + description + "#" + time;
+                    String out = type + "#" + done + "#" + priority + "#" + description + "#" + time;
                     writer.write(out);
                 }
                 writer.newLine();

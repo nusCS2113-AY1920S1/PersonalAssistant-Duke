@@ -105,14 +105,19 @@ public class RoomShare {
                     break;
 
                 case priority:
+                    boolean success = true;
                     try {
                         taskList.list();
                         ui.priority();
                         taskList.setPriority(parser.getPriority());
                     } catch (RoomShareException e) {
-                        e.printStackTrace();
+                        success = false;
+                        ui.priority();
                     } finally {
-                        taskList.sortPriority();
+                        if(success) {
+                            taskList.sortPriority();
+                            ui.prioritySet();
+                        }
                     }
                     break;
 

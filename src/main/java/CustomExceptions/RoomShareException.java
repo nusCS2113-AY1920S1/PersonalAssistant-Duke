@@ -8,6 +8,7 @@ public class RoomShareException extends Exception {
     private static final String emptylist_Text = "List is empty";
     private static final String timeclash_Text = "Time Clash Detected";
     private static final String wrongFormat_Text = "Wrong Format Detected";
+    private static final String wrongPriority_Text = "Wrong Priority Detected";
 
     /**
      * Constructor for DukeException Exception
@@ -30,6 +31,10 @@ public class RoomShareException extends Exception {
 
             case outOfBounds:
                 System.out.println(outOfBounds_Text);
+                break;
+
+            case wrongPriority:
+                System.out.println(wrongPriority_Text);
                 break;
 
             default:

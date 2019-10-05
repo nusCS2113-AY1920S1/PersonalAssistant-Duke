@@ -127,6 +127,7 @@ public class Parser {
      * @return the index and priority of the task the user wants to set
      */
     public String[] getPriority() {
+        String empty = scanner.nextLine();
         return scanner.nextLine().trim().split(" ", 2);
     }
 
