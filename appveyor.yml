@@ -1,0 +1,9 @@
+# AppVeyor configuration file
+# For more details see https://www.appveyor.com/docs/build-configuration/
+
+# Call on gradle to build and run tests
+build_script:
+  - gradlew.bat assemble checkstyleMain checkstyleTest
+
+test_script:
+  - gradlew.bat headless allTests
