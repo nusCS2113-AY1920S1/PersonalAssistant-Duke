@@ -29,7 +29,7 @@ public class timer implements Runnable {
             }
         } catch (Exception e) {}
 
-	System.out.println("Congralations, you made it all the way! Good job and well done!");
+	System.out.println("Timer mode has ended.");
     }
 
     public void decrementSeconds() {
@@ -55,6 +55,9 @@ public class timer implements Runnable {
     }
 
     public void printTimeLeft() {
-        System.out.println("time remaining: " + hours + "hr " + minutes + "min " + seconds + "sec");
+        System.out.println("time remaining: "
+                           + (hours < 10 ? "0" : "") + hours + "hr "
+                           + (minutes < 10 ? "0" : "") + minutes + "min "
+                           + (seconds < 10 ? "0" : "") + seconds + "sec");
     }
 }
