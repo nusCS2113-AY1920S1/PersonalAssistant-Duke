@@ -15,6 +15,15 @@ public class Ui {
     private Scanner scan = new Scanner(System.in);
 
     /**
+     * Scans for an integer of user input.
+     *
+     * @return Scanner to scan for an integer of user input.
+     */
+    public int scanInt() {
+        return scan.nextInt();
+    }
+
+    /**
      * Scans for a line of user input.
      *
      * @return Scanner to scan for next line of user input.
@@ -134,6 +143,17 @@ public class Ui {
     }
 
     /**
+     * Displays the newly added recurring tasks.
+     * @param arr TaskList containing saved tasks.
+     */
+    public void printRecurringMessage(TaskList arr) {
+        printLine();
+        System.out.println("\tI have added recurring tasks:");
+        printTaskList(arr);
+        printLine();
+    }
+
+    /**
      * Retrieves a new Timestamp from the user for the Task
      * to be snoozed.
      *
@@ -218,6 +238,19 @@ public class Ui {
             }
             printLine();
         }
+    }
+
+    /**
+     * Prints list of options for the recurring frequency of a task.
+     */
+    public void printRecurringOptions() {
+        String options = "\tListed are the available options for recurring tasks!\n"
+                + "\t1. Daily\n"
+                + "\t2. Weekly\n"
+                + "\t3. Monthly\n"
+                + "\t4. Yearly\n"
+                + "\tPlease choose one of the four options for your recurring frequency!\n";
+        System.out.println(options);
     }
 
     /**
