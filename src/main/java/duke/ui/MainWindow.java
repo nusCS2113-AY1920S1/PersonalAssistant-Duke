@@ -5,6 +5,7 @@ import duke.commons.core.LogsCenter;
 import duke.logic.Logic;
 import duke.logic.command.commons.CommandResult;
 import duke.logic.command.exceptions.CommandException;
+import duke.parser.exceptions.ParseException;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -84,8 +85,9 @@ public class MainWindow extends UiPart<Stage> {
         String input = userInput.getText();
         try {
             CommandResult commandResult = logic.execute(input);
+            showPage(commandResult.getDisplayedPage());
             showMessagePopUp(commandResult.getFeedbackToUser());
-        } catch (CommandException e) {
+        } catch (CommandException | ParseException e) {
             showErrorPopUp(e.getMessage());
         }
         userInput.clear();
@@ -134,6 +136,24 @@ public class MainWindow extends UiPart<Stage> {
         popUp.setVisible(true);
     }
 
+    private void showPage(CommandResult.DisplayedPage toDisplay) {
+        switch (toDisplay) {
+            case SALE:
+                showSalesPage();
+                break;
+            case ORDER:
+                showOrderPage();
+                break;
+            case RECIPE:
+                showRecipePage();
+                break;
+            case INVENTORY:
+                showInventoryPage();
+                break;
+            default:
+                showOrderPage();
+        }
+    }
     private void showOrderPage() {
         pagePane.getChildren().clear();
         pagePane.getChildren().add(orderPage.getRoot());

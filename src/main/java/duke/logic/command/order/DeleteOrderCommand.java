@@ -1,7 +1,7 @@
 //package duke.logic.command.order;
 //
 //import duke.commons.DukeException;
-//import duke.commons.Message;
+//import duke.commons.core.Message;
 //import duke.logic.command.commons.Undoable;
 //import duke.logic.command.exceptions.CommandException;
 //import duke.model.Model;

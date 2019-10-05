@@ -1,7 +1,7 @@
 package duke.parser;
 
 import duke.commons.DukeException;
-import duke.commons.Message;
+import duke.commons.core.Message;
 import duke.parser.exceptions.ParseException;
 import org.ocpsoft.prettytime.PrettyTime;
 import org.ocpsoft.prettytime.nlp.PrettyTimeParser;

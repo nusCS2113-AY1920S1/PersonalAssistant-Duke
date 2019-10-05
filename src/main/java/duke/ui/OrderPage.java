@@ -32,7 +32,7 @@ public class OrderPage extends UiPart<AnchorPane> {
                 setGraphic(null);
                 setText(null);
             } else {
-                setGraphic(new OrderCard(order, getIndex()).getRoot());
+                setGraphic(new OrderCard(order, getIndex() + 1).getRoot());
             }
         }
     }

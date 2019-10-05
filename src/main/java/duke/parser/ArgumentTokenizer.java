@@ -1,6 +1,6 @@
 package duke.parser;
 
-import duke.commons.Message;
+import duke.commons.core.Message;
 import duke.parser.exceptions.ParseException;
 
 import java.util.ArrayList;
@@ -31,8 +31,8 @@ public class ArgumentTokenizer {
      * @return ArgumentMultimap object that maps prefixes to their arguments
      */
     public static ArgumentMultimap tokenize(String argsString, Prefix... prefixes) {
-        String preamble = extractPreambleAndArgs(argsString).get(0);
-        String args = extractPreambleAndArgs(argsString).get(1);
+        String preamble = extractPreambleAndArgs(argsString).get(0).strip();
+        String args = extractPreambleAndArgs(argsString).get(1).strip();
         ArgumentMultimap map = extractArgs(prefixes, argsString);
         map.put(new Prefix(""), preamble);
         return map;
@@ -44,8 +44,10 @@ public class ArgumentTokenizer {
             throw new ParseException(Message.MESSAGE_INVALID_COMMAND_FORMAT);
         }
         List<String> res = new ArrayList<>();
-        res.add(matcher.group(1));
-        res.add(matcher.group(2));
+        if (matcher.group(1) == null) res.add("");
+        else res.add(matcher.group(1));
+        if (matcher.group(2) == null) res.add("");
+        else res.add(matcher.group(2));
         return res;
     }
 

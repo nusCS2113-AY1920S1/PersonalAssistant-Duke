@@ -3,6 +3,7 @@ package duke.logic;
 import duke.logic.command.commons.Command;
 import duke.logic.command.commons.CommandResult;
 import duke.logic.command.exceptions.CommandException;
+import duke.logic.command.order.EditOrderCommand;
 import duke.model.Model;
 import duke.model.ReadOnlyBakingHome;
 import duke.model.order.Order;
@@ -26,6 +27,8 @@ public class LogicManager implements Logic {
     public CommandResult execute(String commandText) throws CommandException, ParseException {
         CommandResult commandResult;
         Command command = bakingHomeParser.parseCommand(commandText);
+        System.out.println(commandText);
+        System.out.println(command instanceof EditOrderCommand);
         commandResult = command.execute(model);
 
 //        try {

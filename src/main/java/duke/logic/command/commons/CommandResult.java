@@ -1,7 +1,5 @@
 package duke.logic.command.commons;
 
-import java.util.Objects;
-
 import static java.util.Objects.requireNonNull;
 
 /**
@@ -9,12 +7,19 @@ import static java.util.Objects.requireNonNull;
  */
 public class CommandResult {
 
+    public static enum DisplayedPage {
+        RECIPE,
+        ORDER,
+        INVENTORY,
+        SALE
+    }
+
     private final String feedbackToUser;
 
     /**
      * Help information should be shown to the user.
      */
-    private final boolean showHelp;
+    private final DisplayedPage displayedPage;
 
     /**
      * The application should exit.
@@ -24,52 +29,27 @@ public class CommandResult {
     /**
      * Constructs a {@code CommandResult} with the specified fields.
      */
-    public CommandResult(String feedbackToUser, boolean showHelp, boolean exit) {
+    public CommandResult(String feedbackToUser, DisplayedPage displayedPage, boolean exit) {
         this.feedbackToUser = requireNonNull(feedbackToUser);
-        this.showHelp = showHelp;
+        this.displayedPage = displayedPage;
         this.exit = exit;
     }
 
-    /**
-     * Constructs a {@code CommandResult} with the specified {@code feedbackToUser},
-     * and other fields set to their default value.
-     */
-    public CommandResult(String feedbackToUser) {
-        this(feedbackToUser, false, false);
+    public CommandResult(String feedbackToUser, DisplayedPage displayedPage) {
+        this(feedbackToUser, displayedPage, false);
     }
 
     public String getFeedbackToUser() {
         return feedbackToUser;
     }
 
-    public boolean isShowHelp() {
-        return showHelp;
+    public DisplayedPage getDisplayedPage() {
+        return displayedPage;
     }
 
     public boolean isExit() {
         return exit;
     }
 
-    @Override
-    public boolean equals(Object other) {
-        if (other == this) {
-            return true;
-        }
-
-        // instanceof handles nulls
-        if (!(other instanceof CommandResult)) {
-            return false;
-        }
-
-        CommandResult otherCommandResult = (CommandResult) other;
-        return feedbackToUser.equals(otherCommandResult.feedbackToUser)
-                && showHelp == otherCommandResult.showHelp
-                && exit == otherCommandResult.exit;
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(feedbackToUser, showHelp, exit);
-    }
 
 }

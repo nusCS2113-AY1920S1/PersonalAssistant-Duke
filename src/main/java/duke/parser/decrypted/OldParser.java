@@ -1,7 +1,7 @@
 //package duke.parser.decrypted;
 //
 //import duke.commons.DukeException;
-//import duke.commons.Message;
+//import duke.commons.core.Message;
 //import duke.logic.command.commons.Command;
 //import duke.logic.command.decrypted.ExecuteShortcut;
 //import duke.logic.command.decrypted.RedoCommand;

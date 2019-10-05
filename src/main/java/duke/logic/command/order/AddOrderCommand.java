@@ -25,7 +25,7 @@ public class AddOrderCommand extends OrderCommand implements Undoable {
 
     public CommandResult execute(Model model) throws CommandException {
         model.addOrder(toAdd);
-        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd.getId()));
+        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd.getId()), CommandResult.DisplayedPage.ORDER);
     }
 
     @Override

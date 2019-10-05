@@ -1,6 +1,6 @@
 package duke.parser;
 
-import duke.commons.Message;
+import duke.commons.core.Message;
 import duke.logic.command.commons.Command;
 import duke.logic.command.order.OrderCommand;
 import duke.parser.exceptions.ParseException;
