@@ -1,10 +1,10 @@
 package duke.parsers;
 
-import duke.tasks.DoWithin;
+import duke.data.tasks.DoWithin;
 import org.junit.jupiter.api.Test;
-import duke.tasks.Deadline;
-import duke.tasks.Event;
-import duke.tasks.Todo;
+import duke.data.tasks.Deadline;
+import duke.data.tasks.Event;
+import duke.data.tasks.Todo;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertEquals;

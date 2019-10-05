@@ -1,4 +1,4 @@
-package duke.tasks;
+package duke.data.tasks;
 
 /**
  * Class representing a to-do.

@@ -1,7 +1,7 @@
 package duke.ui;
 
-import duke.tasks.Task;
-import duke.tasks.UniqueTaskList;
+import duke.data.UniqueTaskList;
+import duke.data.tasks.Task;
 import duke.ui.calendar.CalendarWindow;
 import javafx.scene.image.Image;
 import javafx.scene.layout.VBox;
@@ -21,6 +21,20 @@ public class Ui {
     private static final String MESSAGE_ADDITION = "Got it. I've added this task:\n  ";
     private static final String MESSAGE_DELETE = "Alright! I've removed this task:\n  ";
     private static final String MESSAGE_UPDATE = "No problem! I've rescheduled this task:\n  ";
+    private static final String MESSAGE_HELP = "Here is the list of commands:\n"
+            + "Add Tasks:\n"
+            + "    To Do: todo <desc>\n"
+            + "    Event: event <desc> /at <time>\n"
+            + "    Deadline: deadline <desc> /by <time>\n"
+            + "    Recurring Task: repeat <desc> /by <time> /every <num of days>\n"
+            + "    Do Within Task: within <desc> /between <time> /and <time>\n"
+            + "\n"
+            + "Modifying Tasks:\n"
+            + "    Snooze: snooze <index> /to <date>\n"
+            + "\n"
+            + "Task Querying\n"
+            + "    Reminder: reminder\n"
+            + "    View by Date: fetch <date>\n";
 
     private VBox dialogContainer;
     private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/duke.png"));
@@ -52,7 +66,7 @@ public class Ui {
     }
 
     /**
-     * Prints the list of duke.tasks.
+     * Prints the list of duke.data.tasks.
      */
     public void showList(UniqueTaskList tasks) {
         String result = "Here are the list of tasks:\n";
@@ -105,5 +119,14 @@ public class Ui {
      */
     public void showCalendar(UniqueTaskList tasks) {
         new CalendarWindow(tasks).show();
+    }
+
+    /**
+     * Shows the help message.
+     */
+    public void showHelp() {
+        dialogContainer.getChildren().addAll(
+                DialogBox.getDukeDialog(MESSAGE_HELP, dukeImage)
+        );
     }
 }

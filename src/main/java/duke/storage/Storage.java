@@ -3,8 +3,8 @@ package duke.storage;
 import duke.commons.DukeException;
 import duke.commons.MessageUtil;
 import duke.parsers.ParserStorageUtil;
-import duke.tasks.Task;
-import duke.tasks.UniqueTaskList;
+import duke.data.tasks.Task;
+import duke.data.UniqueTaskList;
 import duke.ui.Ui;
 
 import java.io.File;
@@ -24,7 +24,7 @@ public class Storage {
     private Ui ui;
 
     /**
-     * Constructs a Storage object that contains duke.tasks and duke.storage related operations.
+     * Constructs a Storage object that contains duke.data.tasks and duke.storage related operations.
      *
      * @param filePath The filepath to the txt file.
      * @param ui The user interface displaying events on the task list.
@@ -37,7 +37,7 @@ public class Storage {
     }
 
     /**
-     * Reads duke.tasks from filepath. Creates empty duke.tasks if file cannot be read.
+     * Reads duke.data.tasks from filepath. Creates empty duke.data.tasks if file cannot be read.
      */
     private void read() {
         List<Task> newTasks = new ArrayList<>();
@@ -61,7 +61,7 @@ public class Storage {
     }
 
     /**
-     * Writes the duke.tasks into a file of the given filepath.
+     * Writes the duke.data.tasks into a file of the given filepath.
      */
     public void write() {
         try {

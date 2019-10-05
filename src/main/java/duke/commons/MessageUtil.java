@@ -14,4 +14,5 @@ public class MessageUtil {
     public static final String DUPLICATED_TASK = "✇ Task already exists! :-(";
     public static final String TASK_NOT_FOUND = "☢ Task not found! :-(";
     public static final String ANOMALY_FOUND = "⚡ Anomaly detected! Please check your tasks. :-(";
+    public static final String DATA_NOT_FOUND = "☹ I'm sorry, something went wrong while fetching data. :-(";
 }

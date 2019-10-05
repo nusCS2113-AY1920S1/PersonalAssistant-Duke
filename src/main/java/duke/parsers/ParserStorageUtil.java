@@ -3,12 +3,13 @@ package duke.parsers;
 import duke.commons.DukeDateTimeParseException;
 import duke.commons.DukeException;
 import duke.commons.MessageUtil;
-import duke.tasks.Deadline;
-import duke.tasks.DoWithin;
-import duke.tasks.Event;
-import duke.tasks.RecurringTask;
-import duke.tasks.Task;
-import duke.tasks.Todo;
+import duke.data.tasks.Deadline;
+import duke.data.tasks.DoWithin;
+import duke.data.tasks.Event;
+import duke.data.tasks.Fixed;
+import duke.data.tasks.RecurringTask;
+import duke.data.tasks.Task;
+import duke.data.tasks.Todo;
 
 import java.time.LocalDateTime;
 
@@ -47,6 +48,10 @@ public class ParserStorageUtil {
         } else if ("R".equals(type)) {
             task = new RecurringTask(description, ParserTimeUtil.parseStringToDate(taskParts[3].strip()),
                     Integer.parseInt(taskParts[4].strip()));
+        } else if ("F".equals(type)) {
+            int hour = Integer.parseInt(taskParts[3].strip());
+            int min = Integer.parseInt(taskParts[4].strip());
+            task = new Fixed(description, hour, min);
         } else {
             task = new Todo(description);
         }
@@ -72,6 +77,8 @@ public class ParserStorageUtil {
         } else if (task instanceof RecurringTask) {
             return ("R | " + task.isDone() + " | " + task.getDescription() + " | "
                     + ((RecurringTask) task).getStartDate() + " | " +  ((RecurringTask) task).getRepeatInterval());
+        } else if (task instanceof Fixed) {
+            return "F | " + task.isDone() + " | " + task.getDescription() + " | " + ((Fixed) task).getFixed();
         }
         throw new DukeException(MessageUtil.CORRUPTED_TASK);
     }

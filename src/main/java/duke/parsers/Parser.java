@@ -5,7 +5,9 @@ import duke.commands.FindCommand;
 import duke.commands.AddCommand;
 import duke.commands.Command;
 import duke.commands.ExitCommand;
+import duke.commands.HelpCommand;
 import duke.commands.ListCommand;
+import duke.commands.LocationSearchCommand;
 import duke.commands.MarkDoneCommand;
 import duke.commands.ReminderCommand;
 import duke.commands.FreeTimeCommand;
@@ -13,6 +15,7 @@ import duke.commands.RescheduleCommand;
 import duke.commands.ViewScheduleCommand;
 import duke.commons.DukeException;
 import duke.commons.MessageUtil;
+
 
 /**
  * Parser for duke.commands entered by the duke.Duke user. It reads from standard input and
@@ -57,6 +60,12 @@ public class Parser {
             return new RescheduleCommand(ParserUtil.getSafeIndex(userInput), ParserUtil.getScheduleDate(userInput));
         case "repeat":
             return new AddCommand(ParserUtil.createRecurringTask(userInput));
+        case "fixed":
+            return new AddCommand(ParserUtil.createFixed(userInput));
+        case "help":
+            return new HelpCommand();
+        case "search":
+            return new LocationSearchCommand(getWord(userInput));
         default:
             throw new DukeException(MessageUtil.UNKNOWN_COMMAND);
         }

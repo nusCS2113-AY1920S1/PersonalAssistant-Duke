@@ -1,4 +1,4 @@
-package duke.tasks;
+package duke.data.tasks;
 
 import java.time.LocalDateTime;
 
@@ -25,7 +25,7 @@ public class RecurringTask extends TaskWithDates {
     /**
      * Update the date if necessary.
      */
-    private void updateRecurringTask() {
+    protected void updateRecurringTask() {
         while (LocalDateTime.now().isAfter(getStartDate())) {
             setStartDate(getStartDate().plusDays(repeatInterval));
         }

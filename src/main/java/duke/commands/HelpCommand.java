@@ -1,20 +1,20 @@
 package duke.commands;
 
-import duke.commons.DukeException;
 import duke.storage.Storage;
 import duke.ui.Ui;
 
-import java.io.IOException;
-
 /**
- * Abstract class representing individual duke.commands.
+ * Class representing a command to show the help message.
  */
-public abstract class Command {
+public class HelpCommand extends Command {
     /**
      * Executes this command on the given task list and user interface.
      *
      * @param ui The user interface displaying events on the task list.
      * @param storage The duke.storage object containing task list.
      */
-    public abstract void execute(Ui ui, Storage storage) throws DukeException, IOException;
+    @Override
+    public void execute(Ui ui, Storage storage) {
+        ui.showHelp();
+    }
 }

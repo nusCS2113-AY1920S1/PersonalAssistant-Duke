@@ -1,9 +1,11 @@
-package duke.tasks;
+package duke.data;
 
 import duke.commons.DukeException;
 import duke.commons.DuplicateTaskException;
 import duke.commons.MessageUtil;
 import duke.commons.TaskNotFoundException;
+import duke.data.tasks.Task;
+import duke.data.tasks.TaskWithDates;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
