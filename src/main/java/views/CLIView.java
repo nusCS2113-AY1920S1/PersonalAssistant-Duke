@@ -308,4 +308,9 @@ public class CLIView {
         consolePrint("Added new member to: " + projectToManage.getDescription(), ""
             + "Member details: " + newMember.getDetails());
     }
+
+    public void viewAllMembers(IProject projectToManage) {
+        ArrayList<String> allMemberDetails = projectToManage.getMembers().getAllMemberDetails();
+        consolePrint(allMemberDetails.toArray(new String[0]));
+    }
 }

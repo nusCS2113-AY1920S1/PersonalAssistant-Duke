@@ -1,6 +1,6 @@
 package models.member;
 
-public class Member {
+public class Member implements IMember{
     private String name;
     private String phone;
     private String email;
@@ -15,11 +15,13 @@ public class Member {
         this.indexNumber = indexNumber;
     }
 
+    @Override
     public String getDetails() {
         return this.indexNumber + ". " + this.name + " (Phone: " + this.phone + " | Email: "
             + this.email + ")";
     }
 
+    @Override
     public void setIndexNumber(int indexNumber) {
         this.indexNumber = indexNumber;
     }

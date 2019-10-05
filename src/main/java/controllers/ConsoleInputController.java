@@ -241,10 +241,13 @@ public class ConsoleInputController implements IViewController {
                                 consoleView.exitProject(projectName);
                                 break;
                             case "add member":
+                                consoleView.consolePrint("Enter member details: n/NAME p/PHONE e/EMAIL");
                                 String memberDetails = manageProjectInput.nextLine();
                                 Member newMember = MemberFactory.createMember(memberDetails);
                                 consoleView.addMember(projectToManage, newMember);
                                 break;
+                            case "view members":
+                                consoleView.viewAllMembers(projectToManage);
                         }
                     } else {
                         consoleView.consolePrint("Please enter a command.");

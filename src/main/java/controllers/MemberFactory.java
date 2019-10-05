@@ -14,14 +14,11 @@ public class MemberFactory {
         String [] memberDetails = input.split(" ");
         for (int i = 0; i < memberDetails.length; i++) {
             String s = memberDetails[i];
-            System.out.println(s);
             switch (s.substring(0,2)) {
                 case "n/":
-                    System.out.println(s.substring(2));
                     name = s.substring(2);
                     break;
                 case "p/":
-                    System.out.println(s.substring(2));
                     phone = s.substring(2);
                     break;
                 case "e/":

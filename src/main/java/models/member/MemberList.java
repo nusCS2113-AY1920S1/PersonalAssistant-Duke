@@ -25,11 +25,12 @@ public class MemberList {
         }
     }
 
-    public ArrayList<String> getMemberDetails() {
+    public ArrayList<String> getAllMemberDetails() {
         ArrayList<String> memberDetails = new ArrayList<>();
         for (Member member : this.memberList) {
             memberDetails.add(member.getDetails());
         }
         return memberDetails;
     }
+
 }
