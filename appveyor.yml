@@ -6,4 +6,4 @@ build_script:
   - gradlew.bat assemble checkstyleMain checkstyleTest
 
 test_script:
-  - gradlew.bat headless allTests
+  - gradlew.bat test
