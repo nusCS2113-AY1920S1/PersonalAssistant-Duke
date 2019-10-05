@@ -2,7 +2,7 @@ package controllers;
 
 import models.member.Member;
 
-public class MemberFactory {
+public class MemberFactoryUtil {
     /**
      * Method to create a new member.
      * @param input Input containing details of member to be added (name, phone, email).

@@ -243,7 +243,7 @@ public class ConsoleInputController implements IViewController {
                         case "add member":
                             consoleView.consolePrint("Enter member details: n/NAME p/PHONE e/EMAIL");
                             String memberDetails = manageProjectInput.nextLine();
-                            Member newMember = MemberFactory.createMember(memberDetails);
+                            Member newMember = MemberFactoryUtil.createMember(memberDetails);
                             consoleView.addMember(projectToManage, newMember);
                             break;
                         case "view members":

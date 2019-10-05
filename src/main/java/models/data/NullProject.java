@@ -21,5 +21,8 @@ public class NullProject implements IProject {
 
     @Override
     public void addMember(Member newMember) {
+        /*
+        Empty method
+         */
     }
 }
