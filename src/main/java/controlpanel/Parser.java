@@ -122,7 +122,8 @@ public class Parser {
             moneyCommand = new DeleteIncomeCommand(cmd);
         } else if (cmd.startsWith("delete expenditure")) {
             moneyCommand = new DeleteExpenditureCommand(cmd);
-
+        } else if (cmd.startsWith("done goal")) {
+            moneyCommand = new DoneGoalCommand(cmd);
         } else {
             throw new DukeException("OOPS!!! I'm sorry, but I don't know what that means");
         }

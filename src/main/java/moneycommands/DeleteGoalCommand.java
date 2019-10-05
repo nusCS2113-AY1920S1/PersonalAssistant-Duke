@@ -42,9 +42,9 @@ public class DeleteGoalCommand extends MoneyCommand {
 //        System.out.println("  " + account.getShortTermGoals().get(serialNo-1).toString() + "\n");
 //        System.out.println(" Now you have " + (account.getShortTermGoals().size()-1) + " tasks in the list.");
 
-        ui.appendToOutput(" Noted. I've removed this task:\n");
+        ui.appendToOutput(" Noted. I've removed this Goal:\n");
         ui.appendToOutput("  " + account.getShortTermGoals().get(serialNo-1).toString() + "\n");
-        ui.appendToOutput(" Now you have " + (account.getShortTermGoals().size()-1) + " tasks in the list.\n");
+        ui.appendToOutput(" Now you have " + (account.getShortTermGoals().size()-1) + " goals in the list.\n");
 
         account.getShortTermGoals().remove(serialNo-1);
         storage.writeToFile(account);
