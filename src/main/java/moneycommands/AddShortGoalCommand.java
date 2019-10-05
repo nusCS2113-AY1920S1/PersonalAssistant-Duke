@@ -57,7 +57,7 @@ public class AddShortGoalCommand extends MoneyCommand {
         account.getShortTermGoals().add(g);
         storage.writeToFile(account);
 
-        ui.appendToOutput(" Got it. I've added this task: \n");
+        ui.appendToOutput(" Got it. I've added this Goal: \n");
         ui.appendToOutput("     " + account.getShortTermGoals().get(account.getShortTermGoals().size() - 1).toString()
                 + "\n");
         ui.appendToOutput(" Now you have " + account.getShortTermGoals().size() + " Goals in the list.\n");
