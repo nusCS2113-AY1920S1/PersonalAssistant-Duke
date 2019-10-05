@@ -1,5 +1,7 @@
 package dukeobjects;
 
+import exception.DukeException;
+
 import java.io.File;
 import java.util.List;
 
@@ -10,6 +12,11 @@ public class ExpenseList extends DukeList<Expense> {
         super(new File(userDirectory, FILE_NAME));
     }
 
+    /**
+     * Updates {@code externalList}, then returns it.
+     *
+     * @return {@code externalList}.
+     */
     @Override
     public List<Expense> getExternalList() {
         List<Expense> filteredSortedList = internalList;
@@ -17,8 +24,11 @@ public class ExpenseList extends DukeList<Expense> {
         return filteredSortedList;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    protected Expense itemFromStorageString(String storageString) {
+    protected Expense itemFromStorageString(String storageString) throws DukeException {
         return new Expense.Builder(storageString).build();
     }
 }

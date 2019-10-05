@@ -52,8 +52,8 @@ abstract class DukeList<T extends DukeItem> {
     }
 
     /**
-     * Updates, then returns the externalList.
-     * The externalList should be updated based on filter, sort and view which are implemented
+     * Updates, then returns  {@code externalList}.
+     * {@code externalList} should be updated based on filter, sort and view which are implemented
      * by the subclasses.
      *
      * @return the up-to-date externalList.
@@ -85,10 +85,11 @@ abstract class DukeList<T extends DukeItem> {
     }
 
     /**
-     * Returns the number of items in the list.
-     * @return the number of items in the list.
+     * Returns the number of items in {@code internalList}.
+     *
+     * @return the number of items in {@code internalList}.
      */
-    public int size() {
+    public int internalSize() {
         return internalList.size();
     }
 
@@ -166,8 +167,9 @@ abstract class DukeList<T extends DukeItem> {
      *
      * @param storageString the storage string of the item.
      * @return the item.
+     * @throws DukeException if the item could not be created from the storage string.
      */
-    protected abstract T itemFromStorageString(String storageString);
+    protected abstract T itemFromStorageString(String storageString) throws DukeException;
 
     /**
      * Reverts the state of {@code internalList} some number of times to an earlier state.

@@ -1,5 +1,7 @@
 package dukeobjects;
 
+import exception.DukeException;
+
 import java.util.Map;
 import java.util.StringJoiner;
 
@@ -50,8 +52,13 @@ public class Expense extends DukeItem {
         /**
          * {@inheritDoc}
          */
-        Builder(Map<String, String> mappedStorageString) {
+        Builder(Map<String, String> mappedStorageString) throws DukeException {
             super(mappedStorageString);
+            if (!mappedStorageString.containsKey("amount")
+                    || !mappedStorageString.containsKey("description")
+                    || !mappedStorageString.containsKey("isTentative")) {
+                throw new DukeException("Expense missing field in storage string"); // todo: Update DukeException
+            }
             amount = Double.parseDouble(mappedStorageString.get("amount"));
             description = mappedStorageString.get("description");
             isTentative = Boolean.parseBoolean(mappedStorageString.get("isTentative"));
@@ -113,6 +120,33 @@ public class Expense extends DukeItem {
     }
 
     /**
+     * Returns the amount of the expense.
+     *
+     * @return {@link #amount}.
+     */
+    public double getAmount() {
+        return amount;
+    }
+
+    /**
+     * Returns the description of the expense.
+     *
+     * @return {@link #description}.
+     */
+    public String getDescription() {
+        return description;
+    }
+
+    /**
+     * Returns whether the expense is tentative.
+     *
+     * @return {@link #isTentative}.
+     */
+    public boolean isTentative() {
+        return isTentative;
+    }
+
+    /**
      * Converts the expense into a string.
      *
      * @return the expense as a string.
@@ -126,9 +160,7 @@ public class Expense extends DukeItem {
             stringJoiner.add("(tentative)");
         }
         if (!tags.isEmpty()) {
-            stringJoiner.add("Tags: " + tags.stream()
-                    .reduce((string, tag) -> string + " " + tag)
-                    .toString());
+            stringJoiner.add("Tags: " + String.join(" ", tags));
         }
 
         return stringJoiner.toString();

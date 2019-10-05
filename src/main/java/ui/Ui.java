@@ -67,7 +67,7 @@ public class Ui {
      * @param ExpenseList {@code ExpenseList} that we want to be printed
      */
     public void printExpenseList(ExpenseList ExpenseList) {
-        if (ExpenseList.size() > 0) {
+        if (ExpenseList.internalSize() > 0) {
             int count = 1;
             for (Expense expense : ExpenseList.getExternalList()) {
                 println(expense.toString());

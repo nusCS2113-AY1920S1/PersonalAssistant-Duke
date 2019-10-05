@@ -1,5 +1,7 @@
 package dukeobjects;
 
+import exception.DukeException;
+
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Map;
@@ -70,7 +72,7 @@ abstract class DukeItem implements Serializable {
         }
 
         /**
-         * Constructs an item from its storage string. Used to load expenses from storage.
+         * Constructs an item from its storage string. Used to load items from storage.
          *
          * @param storageString the item's storage string.
          */
@@ -79,11 +81,15 @@ abstract class DukeItem implements Serializable {
         }
 
         /**
-         * Constructs an item from its mapped storage string. Used internally to load expenses from storage.
+         * Constructs an item from its mapped storage string. Used internally to load items from storage.
          *
          * @param mappedStorageString a map of the item's storage string.
+         * @throws DukeException if the mapped storage string is missing a required field.
          */
-        protected Builder(Map<String, String> mappedStorageString) {
+        protected Builder(Map<String, String> mappedStorageString) throws DukeException {
+            if (!mappedStorageString.containsKey("tags")) {
+                throw new DukeException("DukeItem missing field in storage string"); // todo: Update DukeException
+            }
             tags = Stream.of(mappedStorageString.get("tags")
                     .split(STORAGE_TAG_SEPARATOR))
                     .filter(s -> !s.equals(""))
@@ -136,9 +142,7 @@ abstract class DukeItem implements Serializable {
      */
     protected String toStorageString() {
         StringJoiner stringJoiner = new StringJoiner(STORAGE_FIELD_DELIMITER);
-        stringJoiner.add("tags" + STORAGE_NAME_SEPARATOR + tags.stream()
-                .reduce("", (storageString, tag) -> storageString + STORAGE_TAG_SEPARATOR + tag)
-                .toString());
+        stringJoiner.add("tags" + STORAGE_NAME_SEPARATOR + String.join(" ", tags));
         return stringJoiner.toString();
     }
 

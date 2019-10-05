@@ -26,11 +26,11 @@ public class ListCommand extends Command {
      * @param storage The storage of Duke.
      */
     public void execute(CommandParams commandParams, ExpenseList expensesList, Ui ui, Storage storage) {
-        if (expensesList.size() == 0) {
+        if (expensesList.internalSize() == 0) {
             ui.println("Ops, you haven't added any task!");
         } else {
             ui.println("Here are the expensesList in your list:");
-            for (int i = 1; i <= expensesList.size(); i++) {
+            for (int i = 1; i <= expensesList.internalSize(); i++) {
                 ui.println(i + ". " + expensesList.get(i).toString());
             }
         }
