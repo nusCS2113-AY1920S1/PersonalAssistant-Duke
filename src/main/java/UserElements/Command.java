@@ -1,6 +1,8 @@
 package UserElements;
 
 import Events.EventTypes.Event;
+import Events.EventTypes.EventSubclasses.AssessmentSubclasses.Exam;
+import Events.EventTypes.EventSubclasses.AssessmentSubclasses.Recital;
 import Events.EventTypes.EventSubclasses.Concert;
 import Events.EventTypes.EventSubclasses.RecurringEventSubclasses.Lesson;
 import Events.EventTypes.EventSubclasses.RecurringEventSubclasses.Practice;
@@ -101,6 +103,14 @@ public class Command {
 
             case "practice":
                 createNewEvent(events, ui, 'P');
+                break;
+
+            case "exam":
+                createNewEvent(events, ui, 'E');
+                break;
+
+            case "recital":
+                createNewEvent(events, ui, 'R');
                 break;
 
             case "view":
@@ -207,10 +217,14 @@ public class Command {
                                 entryForEvent.getEndDate());
                         break;
                     case 'E':
-
+                        newEvent = new Exam(entryForEvent.getDescription(), false, entryForEvent.getStartDate(),
+                                entryForEvent.getEndDate());
+                        break;
 
                     case 'R':
-
+                        newEvent = new Recital(entryForEvent.getDescription(), false, entryForEvent.getStartDate(),
+                                entryForEvent.getEndDate());
+                        break;
 
                 }
                 boolean succeeded;

@@ -1,6 +1,8 @@
 package Events.Storage;
 
 import Events.EventTypes.Event;
+import Events.EventTypes.EventSubclasses.AssessmentSubclasses.Exam;
+import Events.EventTypes.EventSubclasses.AssessmentSubclasses.Recital;
 import Events.EventTypes.EventSubclasses.Concert;
 import Events.EventTypes.EventSubclasses.RecurringEventSubclasses.Lesson;
 import Events.EventTypes.EventSubclasses.RecurringEventSubclasses.Practice;
@@ -67,12 +69,26 @@ public class EventList {
                     endDateAndTime = "";
                 }
 
-                if (eventType == CONCERT) {
-                    eventArrayList.add(new Concert(description, isDone, startDateAndTime, endDateAndTime));
-                } else if (eventType == LESSON) {
-                    eventArrayList.add(new Lesson(description, isDone, startDateAndTime, endDateAndTime));
-                } else if (eventType == PRACTICE) {
-                    eventArrayList.add(new Practice(description, isDone, startDateAndTime, endDateAndTime));
+                switch (eventType) {
+                    case CONCERT:
+                        eventArrayList.add(new Concert(description, isDone, startDateAndTime, endDateAndTime));
+                        break;
+
+                    case LESSON:
+                        eventArrayList.add(new Lesson(description, isDone, startDateAndTime, endDateAndTime));
+                        break;
+
+                    case PRACTICE:
+                        eventArrayList.add(new Practice(description, isDone, startDateAndTime, endDateAndTime));
+                        break;
+
+                    case EXAM:
+                        eventArrayList.add(new Exam(description, isDone, startDateAndTime, endDateAndTime));
+                        break;
+
+                    case RECITAL:
+                        eventArrayList.add(new Recital(description, isDone, startDateAndTime, endDateAndTime));
+                        break;
                 }
             }
         }
@@ -86,7 +102,7 @@ public class EventList {
      * and false if not
      */
     public boolean addEvent(Event event) {
-        if (event.getType() == 'T') {
+        /*if (event.getType() == 'T') {
             DateObj eventStartDate = new DateObj(event.getStartDate().getUserInputDateString());
             this.eventArrayList.add(new ToDo(event.getDescription(), eventStartDate.getUserInputDateString()));
             return true;
@@ -101,7 +117,10 @@ public class EventList {
                 }
                 return true;
             } else return false;
-        }
+        }*/
+
+        eventArrayList.add(event);
+        return true;
     }
 
     /**
