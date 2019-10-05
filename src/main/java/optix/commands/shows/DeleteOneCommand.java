@@ -4,6 +4,7 @@ import optix.Ui;
 import optix.commands.Command;
 import optix.core.Storage;
 import optix.core.Theatre;
+import optix.exceptions.OptixInvalidDateException;
 import optix.util.OptixDateFormatter;
 import optix.util.ShowMap;
 
@@ -25,15 +26,25 @@ public class DeleteOneCommand extends Command {
 	@Override
 	public void execute(ShowMap shows, Ui ui, Storage storage) {
 		StringBuilder message = new StringBuilder();
-		LocalDate showLocalDate = formatter.toLocalDate(showDate);
-		Theatre showToDelete = shows.get(showLocalDate);
 
-		if (showToDelete != null && showToDelete.hasSameName(showName)) {
-			shows.remove(showLocalDate, showToDelete);
-			message.append(String.format("Noted. The show <%s> scheduled on <%s> has been removed.\n", showName, showDate));
-		} else {
-			message.append(String.format("Unable to find show called <%s> scheduled on <%s>.\n", showName, showDate));
+		try {
+			if (!formatter.isValidDate(showDate)) {
+				throw new OptixInvalidDateException();
+			}
+
+			LocalDate showLocalDate = formatter.toLocalDate(showDate);
+			Theatre showToDelete = shows.get(showLocalDate);
+
+			if (showToDelete != null && showToDelete.hasSameName(showName)) {
+				shows.remove(showLocalDate, showToDelete);
+				message.append(String.format("Noted. The show <%s> scheduled on <%s> has been removed.\n", showName, showDate));
+			} else {
+				message.append(String.format("Unable to find show called <%s> scheduled on <%s>.\n", showName, showDate));
+			}
+		} catch (OptixInvalidDateException e) {
+			message.append(e.getMessage());
+		} finally {
+			ui.setMessage(message.toString());
 		}
-		ui.setMessage(message.toString());
 	}
 }

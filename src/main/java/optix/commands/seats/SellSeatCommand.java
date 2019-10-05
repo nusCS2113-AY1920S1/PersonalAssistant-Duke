@@ -5,6 +5,7 @@ import optix.commands.Command;
 import optix.constant.OptixResponse;
 import optix.core.Storage;
 import optix.core.Theatre;
+import optix.exceptions.OptixInvalidDateException;
 import optix.util.OptixDateFormatter;
 import optix.util.ShowMap;
 
@@ -39,21 +40,33 @@ public class SellSeatCommand extends Command {
     @Override
     public void execute(ShowMap shows, Ui ui, Storage storage) {
         StringBuilder message = new StringBuilder();
-        LocalDate showLocalDate = formatter.toLocalDate(showDate);
-        if (!shows.isEmpty() && shows.containsKey(showLocalDate) && shows.get(showLocalDate).hasSameName(showName)) {
-            Theatre show = shows.get(showLocalDate);
-            if (seats.length == 0) {
-                new ViewSeatsCommand(showName, showDate).execute(shows, ui, storage);
-                System.out.println(ui.showLine());
-                message.append(querySeats(ui, show));
-            } else {
-                message.append(show.sellSeats(buyerName, seats));
+        try {
+            if (!formatter.isValidDate(showDate)) {
+                throw new OptixInvalidDateException();
             }
-        } else {
-            message = new StringBuilder(response.SHOW_NOT_FOUND);
-        }
 
-        ui.setMessage(message.toString());
+            LocalDate showLocalDate = formatter.toLocalDate(showDate);
+
+            if (!shows.isEmpty() && shows.containsKey(showLocalDate) && shows.get(showLocalDate).hasSameName(showName)) {
+                Theatre show = shows.get(showLocalDate);
+
+                if (seats.length == 0) {
+                    new ViewSeatsCommand(showName, showDate).execute(shows, ui, storage);
+                    System.out.println(ui.showLine());
+                    message.append(querySeats(ui, show));
+                } else {
+                    message.append(show.sellSeats(buyerName, seats));
+                }
+
+            } else {
+                message = new StringBuilder(response.SHOW_NOT_FOUND);
+            }
+
+        } catch (OptixInvalidDateException e) {
+            message.append(e.getMessage());
+        } finally {
+            ui.setMessage(message.toString());
+        }
     }
 
     @Override

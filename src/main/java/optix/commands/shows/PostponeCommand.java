@@ -5,6 +5,7 @@ import optix.commands.Command;
 import optix.constant.OptixResponse;
 import optix.core.Storage;
 import optix.core.Theatre;
+import optix.exceptions.OptixInvalidDateException;
 import optix.util.OptixDateFormatter;
 import optix.util.ShowMap;
 
@@ -28,33 +29,42 @@ public class PostponeCommand extends Command {
 
     @Override
     public void execute(ShowMap shows, Ui ui, Storage storage) {
-        String message;
+        String message = "";
         LocalDate today = storage.getToday();
-        LocalDate localOldDate = formatter.toLocalDate(oldDate);
-        LocalDate localNewDate = formatter.toLocalDate(newDate);
-
-
-        if (localOldDate.compareTo(today) <= 0) {
-            message = response.SHOW_OVER;
-        } else if (localNewDate.compareTo(today) <= 0) {
-
-            message = response.POSTPONE_PAST;
-        } else {
-            if (!shows.containsKey(localOldDate)) {
-                message = response.SHOW_NOT_FOUND;
-            } else if (shows.containsKey(localNewDate)) {
-                message = response.POSTPONE_CLASH + newDate + "\n";
-            } else if (!shows.get(localOldDate).hasSameName(showName)) {
-                message = response.SHOW_DOES_NOT_MATCH;
-            } else {
-                Theatre postponedShow = shows.removeShow(localOldDate);
-                shows.put(localNewDate, postponedShow);
-
-                message = String.format("%s has been postponed from %s to %s\n", showName, oldDate, newDate);
+        
+        try {
+            if (!formatter.isValidDate(oldDate) || !formatter.isValidDate(newDate)) {
+                throw new OptixInvalidDateException();
             }
-        }
+            
+            LocalDate localOldDate = formatter.toLocalDate(oldDate);
+            LocalDate localNewDate = formatter.toLocalDate(newDate);
 
-        ui.setMessage(message);
+
+            if (localOldDate.compareTo(today) <= 0) {
+                message = response.SHOW_OVER;
+            } else if (localNewDate.compareTo(today) <= 0) {
+
+                message = response.POSTPONE_PAST;
+            } else {
+                if (!shows.containsKey(localOldDate)) {
+                    message = response.SHOW_NOT_FOUND;
+                } else if (shows.containsKey(localNewDate)) {
+                    message = response.POSTPONE_CLASH + newDate + "\n";
+                } else if (!shows.get(localOldDate).hasSameName(showName)) {
+                    message = response.SHOW_DOES_NOT_MATCH;
+                } else {
+                    Theatre postponedShow = shows.removeShow(localOldDate);
+                    shows.put(localNewDate, postponedShow);
+
+                    message = String.format("%s has been postponed from %s to %s\n", showName, oldDate, newDate);
+                }
+            }
+        } catch (OptixInvalidDateException e) {
+            message = e.getMessage();
+        } finally {
+            ui.setMessage(message);
+        }
     }
 
     @Override

@@ -5,6 +5,7 @@ import optix.commands.Command;
 import optix.constant.OptixResponse;
 import optix.core.Storage;
 import optix.core.Theatre;
+import optix.exceptions.OptixInvalidDateException;
 import optix.util.OptixDateFormatter;
 import optix.util.ShowMap;
 
@@ -31,16 +32,25 @@ public class AddCommand extends Command {
     public void execute(ShowMap shows, Ui ui, Storage storage) {
         Theatre theatre = new Theatre(showName, cost, seatBasePrice);
         LocalDate today = storage.getToday();
-        LocalDate showLocalDate = formatter.toLocalDate(date);
 
-        if (showLocalDate.compareTo(today) <= 0) {
-            ui.setMessage("☹ OOPS!!! It is not possible to perform in the past.\n");
-        } else if (shows.containsKey(showLocalDate)) {
-            ui.setMessage("☹ OOPS!!! There is already a show being added on that date.\n"
-                    + "Please try again. \n");
-        } else {
-            shows.put(showLocalDate, theatre);
-            ui.setMessage(response.ADD + theatre.getShowName() + " at: " + this.date + "\n");
+        try {
+            if (!formatter.isValidDate(showName)) {
+                throw new OptixInvalidDateException();
+            }
+
+            LocalDate showLocalDate = formatter.toLocalDate(date);
+
+            if (showLocalDate.compareTo(today) <= 0) {
+                ui.setMessage("☹ OOPS!!! It is not possible to perform in the past.\n");
+            } else if (shows.containsKey(showLocalDate)) {
+                ui.setMessage("☹ OOPS!!! There is already a show being added on that date.\n"
+                        + "Please try again. \n");
+            } else {
+                shows.put(showLocalDate, theatre);
+                ui.setMessage(response.ADD + theatre.getShowName() + " at: " + this.date + "\n");
+            }
+        } catch (OptixInvalidDateException e) {
+            ui.setMessage(e.getMessage());
         }
     }
 

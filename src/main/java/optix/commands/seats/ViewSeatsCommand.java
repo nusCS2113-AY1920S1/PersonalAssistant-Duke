@@ -4,6 +4,7 @@ import optix.Ui;
 import optix.commands.Command;
 import optix.core.Storage;
 import optix.core.Theatre;
+import optix.exceptions.OptixInvalidDateException;
 import optix.util.OptixDateFormatter;
 import optix.util.ShowMap;
 
@@ -22,18 +23,27 @@ public class ViewSeatsCommand extends Command {
 
     @Override
     public void execute(ShowMap shows, Ui ui, Storage storage) {
-        LocalDate showLocalDate = formatter.toLocalDate(showDate);
+        StringBuilder message = new StringBuilder();
+        try {
+            if (!formatter.isValidDate(showDate)) {
+                throw new OptixInvalidDateException();
+            }
 
-        StringBuilder message = new StringBuilder("Here is the layout of the theatre for " + showName + " on " + showDate + ": \n");
+            LocalDate showLocalDate = formatter.toLocalDate(showDate);
+            message.append(String.format("Here is the layout of the theatre for %s on %s :\n", showName, showDate));
 
-        if (!shows.isEmpty() && shows.get(showLocalDate).hasSameName(showName)) {
-            Theatre theatre = shows.get(showLocalDate);
-            message.append(theatre.getSeatingArrangement());
-        } else {
-            message = new StringBuilder("☹ OOPS!!! Sorry the show " + showName + " cannot be found.");
+            if (!shows.isEmpty() && shows.containsKey(showLocalDate) && shows.get(showLocalDate).hasSameName(showName)) {
+                Theatre theatre = shows.get(showLocalDate);
+                message.append(theatre.getSeatingArrangement());
+            } else {
+                message = new StringBuilder("☹ OOPS!!! Sorry the show " + showName + " cannot be found.\n");
+            }
+
+        } catch (OptixInvalidDateException e) {
+            message.append(e.getMessage());
+        } finally {
+            ui.setMessage(message.toString());
         }
-
-        ui.setMessage(message.toString());
     }
 
     @Override

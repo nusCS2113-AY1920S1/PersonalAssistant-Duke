@@ -5,7 +5,6 @@ import java.time.format.DateTimeFormatter;
 
 /**
  * Formats input date to YYYY-MM-DD to be sorted in ShowMap.
- * Formats stored date to DD/MM/YYYY to increase readability.
  */
 public class OptixDateFormatter {
 
@@ -40,7 +39,38 @@ public class OptixDateFormatter {
     public LocalDate toLocalDate(String dateString) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern(getFormat(dateString));
         //Convert string to localdate
-        LocalDate localDate = LocalDate.parse(dateString,formatter);
-        return localDate;
+        return LocalDate.parse(dateString,formatter);
+    }
+
+    /**
+     * Checks if date given exists in calendar.
+     * @param date String input of the date.
+     * @return {@code true} date can be found in the calendar
+     *         {@code false} otherwise
+     */
+    public boolean isValidDate(String date) {
+        String[] splitStr = date.split("/");
+        int yr = Integer.parseInt(splitStr[2]);
+        int mth = Integer.parseInt(splitStr[1]);
+        int dy = Integer.parseInt(splitStr[0]);
+
+        if (mth == 2) {
+            return (isLeap(yr) && dy <= 29) || (!isLeap(yr) && dy <= 28);
+        } else if (mth == 4 || mth == 6 || mth == 9 || mth == 11) {
+            return dy <= 30;
+        } else if (mth == 1 || mth == 3 || mth == 5 || mth == 7 || mth == 8 || mth == 10 || mth == 12){
+            return dy <= 31;
+        }
+        return false;
+    }
+
+    /**
+     * Check if it is a leap year.
+     * @param year to check whether its a leap year
+     * @return {@code true} if it is a leap year
+     *         {@code false} otherwise
+     */
+    private boolean isLeap(int year) {
+        return year % 400 == 0 || (year % 4 == 0 && year % 100 != 0);
     }
 }
