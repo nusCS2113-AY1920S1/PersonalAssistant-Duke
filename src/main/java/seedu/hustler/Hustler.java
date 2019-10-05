@@ -15,6 +15,7 @@ import seedu.hustler.data.Storage;
 import seedu.hustler.data.Folder;
 import seedu.hustler.task.TaskList;
 import seedu.hustler.parser.CommandParser;
+import seedu.hustler.ui.timer.*;
 
 /**
  * A personal assitant that takes in user input and gives and performs
@@ -48,6 +49,11 @@ public class Hustler {
      * Avatar instance that keeps track of the User's progress.
      */
     public static Avatar avatar;
+
+    /**
+     * TimerManager instance that starts the timer.
+     */
+    public static timerManager Jackie = new timerManager();
 
     /**
      * Runs Duke which commences the user to machine

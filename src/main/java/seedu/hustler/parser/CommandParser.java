@@ -57,6 +57,10 @@ public class CommandParser extends Parser {
             return new CheckAvatarCommand();
         } else if (Arrays.binarySearch(taskCommands, userInput[0]) >= 0) {
             return new AddCommand(userInput);
+        } else if (userInput[0].equals("timer")) {
+            return new TimerCommand(userInput);
+        } else if (userInput[0].equals("stoptimer")) {
+            return new StopTimerCommand();
         } else {
             return new InvalidCommand();
         }
