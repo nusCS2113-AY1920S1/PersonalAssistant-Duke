@@ -47,9 +47,7 @@ public class AddShortGoalCommand extends MoneyCommand {
 
         String desc = inputString.split("/amt ")[0].replaceFirst("goal-short ", "");
         float price = Float.parseFloat(inputString.split("/amt ")[1].split("/by ")[0]);
-        //Date byDate = simpleDateFormat.parse(inputString.split("/by ")[1].split("/priority ")[0]);
-        LocalDate byDate = LocalDate.parse(inputString.split("/by ")[1].split(" /priority ")[0],
-                dateTimeFormatter);
+        LocalDate byDate = Parser.shortcutTime(inputString.split("/by ")[1].split(" /priority ")[0]);
         String priorityLevel = inputString.split("/priority ")[1];
         String category = "GS";
         //System.out.println(priorityLevel);

@@ -1,6 +1,9 @@
 package moneycommands;
 
-import controlpanel.*;
+import controlpanel.Parser;
+import controlpanel.MoneyStorage;
+import controlpanel.Ui;
+import controlpanel.DukeException;
 import money.Account;
 import money.Expenditure;
 
@@ -8,7 +11,6 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.Date;
 
 /**
  * This command adds an expenditure to the Total Expenditure List.
@@ -51,7 +53,7 @@ public class AddExpenditureCommand extends MoneyCommand {
         float price = Float.parseFloat(furSplit[0]);
         String[] morSplit = furSplit[1].split("/on ", 2);
         String category = morSplit[0];
-        LocalDate boughtTime = LocalDate.parse(morSplit[1], dateTimeFormatter);
+        LocalDate boughtTime = Parser.shortcutTime(morSplit[1]);
         Expenditure e = new Expenditure(price, description, category, boughtTime);
         account.getExpListTotal().add(e);
         storage.writeToFile(account);
