@@ -1,4 +1,4 @@
-import list.ExpenseList;
+import dukeobjects.ExpenseList;
 import parser.CommandParams;
 import storage.Storage;
 import ui.Ui;
@@ -7,7 +7,6 @@ import command.Command;
 import parser.Parser;
 
 import java.io.File;
-import java.util.StringJoiner;
 
 /**
  * Represents our Duke and contains the main program of Duke.

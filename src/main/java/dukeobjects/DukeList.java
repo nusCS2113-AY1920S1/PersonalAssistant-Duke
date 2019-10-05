@@ -1,4 +1,4 @@
-package list;
+package dukeobjects;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;

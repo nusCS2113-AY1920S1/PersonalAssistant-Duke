@@ -1,4 +1,4 @@
-package list;
+package dukeobjects;
 
 import java.util.Map;
 import java.util.StringJoiner;

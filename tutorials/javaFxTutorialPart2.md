@@ -6,7 +6,7 @@ In this tutorial, we will be creating a GUI for Duke from scratch based on the f
 
 ## JavaFX controls
 
-Controls are reusable UI elements. Refer to the [JavaFX's official documentation](https://openjfx.io/javadoc/11/javafx.controls/javafx/scene/control/package-summary.html) for a list of controls available.
+Controls are reusable UI elements. Refer to the [JavaFX's official documentation](https://openjfx.io/javadoc/11/javafx.controls/javafx/scene/control/package-summary.html) for a dukeobjects of controls available.
 From the mockup above, can you identify the controls that we will need to use? 
 
 Mockup | Control 
@@ -30,7 +30,7 @@ From the diagram, you see that the root `Node` can contain many other `Nodes` an
 
 But how do we get the exact layout we want in the UI? JavaFX provides that functionality in the form of **layout panes** in `javafx.scene.layouts`. Each layout pane follows a _layout policy_ to decide how to arrange its children. For example, the `VBox` lays out its children in a single vertical column and its counterpart, the `HBox` lays out its children in a single horizontal row. 
 
-:bulb: A comprehensive list of layouts and how they behave is available here from the [official documentation](https://openjfx.io/javadoc/11/javafx.graphics/javafx/scene/layout/package-summary.html).
+:bulb: A comprehensive dukeobjects of layouts and how they behave is available here from the [official documentation](https://openjfx.io/javadoc/11/javafx.graphics/javafx/scene/layout/package-summary.html).
 
 One way to obtain the layout in the mockup is as follows. 
 
@@ -94,7 +94,7 @@ That is not what we were expecting, what did we forget to do?
 
 ## Styling the Controls
 
-Almost every JavaFX object offer properties that you can set to customize its look and feel. For example, the `Stage` allows you to set its preferred size and title. Again, refer to the official JavaFX documentation for a comprehensive list of properties that you can modify. Here’s how you can get the application to look like the mockup:
+Almost every JavaFX object offer properties that you can set to customize its look and feel. For example, the `Stage` allows you to set its preferred size and title. Again, refer to the official JavaFX documentation for a comprehensive dukeobjects of properties that you can modify. Here’s how you can get the application to look like the mockup:
 
 Add the following code to the bottom of the `start` method. You'll have to add `import javafx.scene.layout.Region;` to the imports too.
 

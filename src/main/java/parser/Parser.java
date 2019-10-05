@@ -21,7 +21,7 @@ public class Parser {
         switch (commandName) {
         case "add":
             return new AddExpenseCommand();
-        case "list":
+        case "dukeobjects":
             return new ListCommand();
 
         case "delete":

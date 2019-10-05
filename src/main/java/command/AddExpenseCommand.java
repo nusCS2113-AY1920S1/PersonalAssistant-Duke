@@ -1,8 +1,8 @@
 package command;
 
 
-import list.Expense;
-import list.ExpenseList;
+import dukeobjects.Expense;
+import dukeobjects.ExpenseList;
 import parser.CommandParams;
 import storage.Storage;
 import ui.Ui;

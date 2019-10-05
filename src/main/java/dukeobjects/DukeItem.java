@@ -1,7 +1,6 @@
-package list;
+package dukeobjects;
 
 import java.io.Serializable;
-import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
@@ -85,10 +84,10 @@ abstract class DukeItem implements Serializable {
          * @param mappedStorageString a map of the item's storage string.
          */
         protected Builder(Map<String, String> mappedStorageString) {
-            Stream.of(mappedStorageString.get("tags")
+            tags = Stream.of(mappedStorageString.get("tags")
                     .split(STORAGE_TAG_SEPARATOR))
                     .filter(s -> !s.equals(""))
-                    .forEach(s -> tags.add(s));
+                    .collect(Collectors.toSet());
         }
 
         /**
