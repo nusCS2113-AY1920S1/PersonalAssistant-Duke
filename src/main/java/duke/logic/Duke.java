@@ -1,33 +1,31 @@
 package duke.logic;
 
-import duke.logic.command.commons.CommandResult;
-import duke.logic.command.exceptions.CommandException;
-import duke.model.Model;
-import duke.model.ModelManager;
-import duke.parser.BakingHomeParser;
-import duke.storage.Storage;
 import duke.ui.Ui;
 
 //import duke.storage.BakingList;
 
 public class Duke {
 
-    private static final Storage STORAGE = new Storage();
+    //    private static final Storage STORAGE = new Storage();
     //private static BakingList bakingList = new BakingList();
     private Ui ui;
     //private CommandManager commandManager;
 
     public Duke(Ui ui) {
-        Model model = new ModelManager();
-        BakingHomeParser parser = new BakingHomeParser();
-        Logic logic = new LogicManager(model, STORAGE, parser);
-        try {
-            CommandResult commandResult = logic.execute("order add -name jj");
-            System.out.println(commandResult.getFeedbackToUser());
-            System.out.println(model.getFilteredOrderList().get(0));
-        } catch (CommandException e) {
-            e.printStackTrace();
-        }
+//        Model model = new ModelManager();
+//        BakingHomeParser parser = new BakingHomeParser();
+        //Logic logic = new LogicManager(model, STORAGE, parser);
+//        try {
+//            CommandResult commandResult = logic.execute("order add -name jj "
+//                                                        + "-item bread, 1 -item coffee, 12");
+//            System.out.println(commandResult.getFeedbackToUser());
+//            System.out.println(model.getFilteredOrderList().get(0).getItems());
+//            System.out.println(model.getFilteredOrderList().get(0).getCustomer());
+//            System.out.println(model.getFilteredOrderList().get(0).getDeliveryDate());
+//            System.out.println(model.getFilteredOrderList().get(0).getStatus());
+//        } catch (CommandException e) {
+//            e.printStackTrace();
+//        }
 
 //        this.ui = ui;
 //        try {

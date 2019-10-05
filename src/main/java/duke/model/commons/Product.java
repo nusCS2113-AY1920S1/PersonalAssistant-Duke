@@ -1,5 +1,7 @@
 package duke.model.commons;
 
+import java.util.Objects;
+
 import static duke.commons.util.AppUtil.checkEmpty;
 import static java.util.Objects.requireNonNull;
 
@@ -22,14 +24,15 @@ public class Product {
     }
 
     @Override
-    public boolean equals(Object other) {
-        return other == this // short circuit if same object
-                || (other instanceof Product // instanceof handles nulls
-                && name.equals(((Product) other).name)); // state check
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Product product = (Product) o;
+        return name.equals(product.name);
     }
 
     @Override
     public int hashCode() {
-        return name.hashCode();
+        return Objects.hash(name);
     }
 }

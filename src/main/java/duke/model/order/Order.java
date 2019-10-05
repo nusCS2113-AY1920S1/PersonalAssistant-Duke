@@ -3,10 +3,10 @@ package duke.model.order;
 import duke.model.commons.Customer;
 import duke.model.commons.Product;
 
-import java.util.Calendar;
+import java.util.Collections;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 import static duke.commons.util.CollectionUtil.requireAllNonNull;
 
@@ -19,36 +19,62 @@ public class Order {
 
     private Customer customer;
     private final long id;
-    private Date deliveryDate;
-    private Map<Product, Integer> items = new HashMap<>();
-    private String remarks;
-    private Status status;
+    private final Date deliveryDate;
+    private final Map<Product, Integer> items;
+    private final String remarks;
+    private final Status status;
 
-    public Order() {
-        this.customer = new Customer("N/A", "N/A");
-        this.deliveryDate = Calendar.getInstance().getTime();
-        ;
-        this.status = Status.ACTIVE;
-        this.remarks = "N/A";
-        this.id = System.currentTimeMillis();
-    }
-
-    public Order(Customer customer, Date deliveryDate, Status status, String remarks, Product... products) {
-        requireAllNonNull(customer, deliveryDate, status, remarks, products);
+    public Order(Customer customer, Date deliveryDate, Status status, String remarks, Map<Product, Integer> items) {
+        requireAllNonNull(customer, deliveryDate, status, remarks, items);
 
         this.customer = customer;
         this.deliveryDate = deliveryDate;
         this.status = status;
         this.remarks = remarks;
         this.id = System.currentTimeMillis();
-        for (Product product : products) {
-            if (items.containsKey(product)) {
-                items.put(product, 1);
-            } else {
-                items.put(product, items.get(product) + 1);
-            }
-        }
+        this.items = items;
     }
 
+    public Customer getCustomer() {
+        return customer;
+    }
 
+    public long getId() {
+        return id;
+    }
+
+    public Date getDeliveryDate() {
+        return deliveryDate;
+    }
+
+    public Map<Product, Integer> getItems() {
+        return Collections.unmodifiableMap(items);
+    }
+
+    public String getRemarks() {
+        return remarks;
+    }
+
+    public Status getStatus() {
+        return status;
+    }
+
+    @Override
+    public String toString() {
+        return String.format("ID: %s Customer: [%s] Date: %s Status: %s Items: %s",
+                id, customer, deliveryDate, status, items);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Order order = (Order) o;
+        return id == order.id;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
+    }
 }

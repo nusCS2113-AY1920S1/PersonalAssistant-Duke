@@ -1,9 +1,12 @@
 package duke.ui;
 
 import com.jfoenix.controls.JFXButton;
-import duke.entities.Sale;
+import duke.commons.core.LogsCenter;
 import duke.entities.recipe.Recipe;
 import duke.logic.Duke;
+import duke.logic.Logic;
+import duke.logic.command.commons.CommandResult;
+import duke.logic.command.exceptions.CommandException;
 import duke.model.order.Order;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -11,10 +14,22 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
+import javafx.stage.Stage;
 
 import java.util.List;
+import java.util.logging.Logger;
 
-public class MainWindow extends AnchorPane {
+public class MainWindow extends UiPart<Stage> {
+
+    private static final String FXML = "MainWindow.fxml";
+    private final Logger logger = LogsCenter.getLogger(getClass());
+    private Stage primaryStage;
+    private Logic logic;
+
+    private OrderPage orderPage;
+    private RecipePage recipePage;
+    private SalesPage salesPage;
+    private InventoryPage inventoryPage;
 
     private Duke duke;
     private Ui ui;
@@ -45,24 +60,44 @@ public class MainWindow extends AnchorPane {
     @FXML
     private JFXButton salesButton;
 
-    private OrderPage orderPage;
-    private RecipePage recipePage;
-    private InventoryPage inventoryPage;
-    private SalePage salePage;
+    public MainWindow(Stage primaryStage, Logic logic) {
+        super(FXML, primaryStage);
 
+        // Set dependencies
+        this.primaryStage = primaryStage;
+        this.logic = logic;
 
-    public void initialize() {
-        Ui ui = new Ui(this);
-        duke = new Duke(ui);
-        popUp.setVisible(false);
     }
+
+    public Stage getPrimaryStage() {
+        return primaryStage;
+    }
+
+    void fillInnerParts() {
+        orderPage = new OrderPage(logic.getFilteredOrderList());
+        setPageAnchor(orderPage.getRoot());
+    }
+
+    void show() {
+        primaryStage.show();
+    }
+//    public void initialize() {
+//        Ui ui = new Ui(this);
+//        duke = new Duke(ui);
+//        popUp.setVisible(false);
+//    }
 
 
     @FXML
     private void handleUserInput() {
         popUp.setVisible(false);
         String input = userInput.getText();
-        duke.executeInput(input);
+        try {
+            CommandResult commandResult = logic.execute(input);
+            showMessage(commandResult.getFeedbackToUser());
+        } catch (CommandException e) {
+            showErrorPopUp(e.getMessage());
+        }
         userInput.clear();
     }
 
@@ -88,30 +123,13 @@ public class MainWindow extends AnchorPane {
 
     @FXML
     private void handleShowSale() {
-        showSalePage();
+        showSalesPage();
     }
 
-    void initializePages() {
-        orderPage = new OrderPage();
-        setPageAnchor(orderPage);
-
-        recipePage = new RecipePage();
-        AnchorPane.setLeftAnchor(recipePage, 0.0);
-        AnchorPane.setRightAnchor(recipePage, 0.0);
-        AnchorPane.setTopAnchor(recipePage, 0.0);
-        AnchorPane.setBottomAnchor(recipePage, 4.0);
-        setPageAnchor(recipePage);
-
-        inventoryPage = new InventoryPage();
-        setPageAnchor(inventoryPage);
-
-        salePage = new SalePage();
-        AnchorPane.setLeftAnchor(salePage, 0.0);
-        AnchorPane.setRightAnchor(salePage, 0.0);
-        AnchorPane.setTopAnchor(salePage, 0.0);
-        AnchorPane.setBottomAnchor(salePage, 4.0);
-        setPageAnchor(salePage);
-    }
+//    void initializePages() {
+//        orderPage = new OrderPage();
+//        setPageAnchor(orderPage);
+//    }
 
     void showMessage(String message) {
         popUpLabel.setText(message);
@@ -144,7 +162,7 @@ public class MainWindow extends AnchorPane {
 
     void showOrderPage() {
         pagePane.getChildren().clear();
-        pagePane.getChildren().add(orderPage);
+        pagePane.getChildren().add(orderPage.getRoot());
 
         recipeButton.setButtonType(JFXButton.ButtonType.FLAT);
         orderButton.setButtonType(JFXButton.ButtonType.RAISED);
@@ -154,9 +172,6 @@ public class MainWindow extends AnchorPane {
         currentPage.setText("Orders");
     }
 
-    void refreshSaleList(List<Sale> sales, List<Sale> all) {
-        this.salePage.refreshSaleList(sales, all);
-    }
 
     void showRecipePage() {
         pagePane.getChildren().clear();
@@ -183,9 +198,9 @@ public class MainWindow extends AnchorPane {
         currentPage.setText("Inventory");
     }
 
-    void showSalePage() {
+    void showSalesPage() {
         pagePane.getChildren().clear();
-        pagePane.getChildren().add(salePage);
+        pagePane.getChildren().add(salesPage);
 
         recipeButton.setButtonType(JFXButton.ButtonType.FLAT);
         orderButton.setButtonType(JFXButton.ButtonType.FLAT);

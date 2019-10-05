@@ -56,9 +56,11 @@ public class ArgumentTokenizer {
         while (matcher.find()) {
             String prefixString = matcher.group(1).strip();
             Prefix prefix = new Prefix(prefixString);
-            String value = "";
+            String value;
             if (matcher.group(2) != null) {
                 value = matcher.group(2).strip();
+            } else {
+                value = "";
             }
             if (prefixList.contains(prefix)) {
                 map.put(prefix, value);

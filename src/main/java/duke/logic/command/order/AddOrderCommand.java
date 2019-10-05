@@ -15,7 +15,7 @@ import static java.util.Objects.requireNonNull;
 public class AddOrderCommand extends OrderCommand implements Undoable {
 
     public static final String COMMAND_WORD = "add";
-    public static final String MESSAGE_SUCCESS = "New order added: %1$s";
+    public static final String MESSAGE_SUCCESS = "New order added [Order ID: %s]";
     private final Order toAdd;
 
     public AddOrderCommand(Order toAdd) {
@@ -25,29 +25,16 @@ public class AddOrderCommand extends OrderCommand implements Undoable {
 
     public CommandResult execute(Model model) throws CommandException {
         model.addOrder(toAdd);
-        return new CommandResult(MESSAGE_SUCCESS);
+        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd.getId()));
     }
 
     @Override
     public void undo(Model model) throws CommandException {
-//        model.getOrderList().remove(toAdd);
-//        storage.serialize(model);
-//        ui.refreshOrderList(model.getOrderList(), model.getOrderList());
-//        ui.showMessage("Undo: Add order");
     }
 
     @Override
     public void redo(Model model) throws CommandException {
-//        try {
-//            execute(bakingList);
-//        } catch (CommandException e) {
-//            e.printStackTrace();
-//        }
-//        ui.showMessage("Redo: Add order");
-    }
 
-//    private void addOrder(Order order, BakingList bakingList) {
-//        bakingList.getOrderList().add(0, order);
-//    }
+    }
 
 }
