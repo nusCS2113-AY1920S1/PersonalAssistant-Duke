@@ -17,7 +17,7 @@ import java.util.Locale;
 
 public class RecurringCommand {
 
-    public void AddRecurring(ArrayList<Task> list, String list_description, Storage storage) throws ParseException, IOException {
+    public void AddRecurring(ArrayList<Task> list,int numbercheck ,String list_description, Storage storage) throws ParseException, IOException {
         String[] splitstring;
         String[] datesplitstring;
         String[] toget_description;
@@ -33,7 +33,7 @@ public class RecurringCommand {
                 toget_description = splitstring[0].split("\\|");
                 String description = toget_description[toget_description.length - 1];
                 Event new_weeklyEvent = new Event(description, (conc_time));
-                list.add(new_weeklyEvent);
+                list.set(numbercheck,new_weeklyEvent);
                 System.out.print("\nI've automatically added this weekly task again:\n" + new_weeklyEvent.listFormat()
                         + "\nNow you have " + list.size() + " tasks in the list.\n");
                 StringBuilder sb = new StringBuilder();
@@ -51,7 +51,7 @@ public class RecurringCommand {
                 toget_description = splitstring[0].split("\\|");
                 String description = toget_description[toget_description.length - 1];
                 Deadline new_weeklyDeadline = new Deadline(description, (conc_time));
-                list.add(new_weeklyDeadline);
+                list.set(numbercheck,new_weeklyDeadline);
                 System.out.print("\nI've automatically added this weekly task again:\n" + new_weeklyDeadline.listFormat()
                         + "\nNow you have " + list.size() + " tasks in the list.\n");
                 StringBuilder sb = new StringBuilder();
@@ -71,7 +71,7 @@ public class RecurringCommand {
                 toget_description = splitstring[0].split("\\|");
                 String description = toget_description[toget_description.length - 1];
                 Event new_monthlyEvent = new Event(description, (conc_time));
-                list.add(new_monthlyEvent);
+                list.set(numbercheck,new_monthlyEvent);
                 System.out.print("\nI've automatically added this monthly task again:\n" + new_monthlyEvent.listFormat()
                         + "\nNow you have " + list.size() + " tasks in the list.\n");
                 StringBuilder sb = new StringBuilder();
@@ -89,7 +89,7 @@ public class RecurringCommand {
                 toget_description = splitstring[0].split("\\|");
                 String description = toget_description[toget_description.length - 1];
                 Deadline new_monthlyDeadline = new Deadline(description, (conc_time));
-                list.add(new_monthlyDeadline);
+                list.set(numbercheck,new_monthlyDeadline);
                 System.out.print("\nI've automatically added this monthly task again:\n" + new_monthlyDeadline.listFormat()
                         + "\nNow you have " + list.size() + " tasks in the list.\n");
                 StringBuilder sb = new StringBuilder();
@@ -109,7 +109,7 @@ public class RecurringCommand {
                 toget_description = splitstring[0].split("\\|");
                 String description = toget_description[toget_description.length - 1];
                 Event new_yearlyEvent = new Event(description, (conc_time));
-                list.add(new_yearlyEvent);
+                list.set(numbercheck,new_yearlyEvent);
                 System.out.print("\nI've automatically added this yearly task again:\n" + new_yearlyEvent.listFormat()
                         + "\nNow you have " + list.size() + " tasks in the list.\n");
                 StringBuilder sb = new StringBuilder();
@@ -127,7 +127,7 @@ public class RecurringCommand {
                 toget_description = splitstring[0].split("\\|");
                 String description = toget_description[toget_description.length - 1];
                 Deadline new_yearlyDeadline = new Deadline(description, (conc_time));
-                list.add(new_yearlyDeadline);
+                list.set(numbercheck,new_yearlyDeadline);
                 System.out.print("\nI've automatically added this yearly task again:\n" + new_yearlyDeadline.listFormat()
                         + "\nNow you have " + list.size() + " tasks in the list.\n");
 

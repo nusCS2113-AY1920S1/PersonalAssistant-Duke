@@ -21,9 +21,8 @@ public class Duke {
         Storage store = new Storage();
         boolean isExit = false;
         Ui ui = new Ui();
-        ui.showWelcome();
-
         try {
+            ui.showWelcome();
             list = store.ReadFile();
             ui.UpcomingTask(list);
             while (!isExit) {
