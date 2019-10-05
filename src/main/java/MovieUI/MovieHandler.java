@@ -112,6 +112,16 @@ public class MovieHandler extends Controller implements RequestListener{
         //mMovieTypeListView.getSelectionModel().select(0);
 
 
+        mSearchTextField.addEventFilter(KeyEvent.KEY_PRESSED, event -> {
+            if (event.getCode() == KeyCode.TAB) {
+                System.out.println("Tab pressed");
+                event.consume();
+            }else if(event.getCode().equals(KeyCode.ENTER)) {
+                System.out.println("Enter pressed");
+//
+            }
+        });
+
         mMovieRequest.beginMovieRequest(RetrieveRequest.MoviesRequestType.NOW_SHOWING);
 
 

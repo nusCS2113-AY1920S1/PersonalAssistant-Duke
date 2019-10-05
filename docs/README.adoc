@@ -1,16 +1,12 @@
 = Entertainment Pro
 ifdef::env-github,env-browser[:relfileprefix: docs/]
 
-
 ifdef::env-github[]
-<<<<<<< HEAD
-image::docs/images/Ui.png[width="600"]
+image::docs/images/Ui.png[width="600" height="400"]
 endif::[]
 
 ifndef::env-github[]
-=======
->>>>>>> upstream/master
-image::images/Ui.png[width="600"]
+image::images/Ui.png[width="600" height="400"]
 endif::[]
 
 * This is a desktop application for managing maker spaces. It has a GUI but most of the user interactions happen through a CLI (Command Line Interface).
@@ -18,7 +14,8 @@ endif::[]
 * It is *written in OOP fashion*. It provides a *reasonably well-written* code that is based on https://github.com/se-edu/addressbook-level4[Address Book (level 4)].
 * *Features*:
 ** A GUI for displaying all available movies and TV shows.
-** Comes with a todo list that can store updates about movies and TV shows. 
+** Comes with a favourites' list that can store updates about movies and TV shows. 
+** Users can also set preferences.
 
 * *Target user profile*:
 ** This desktop application is intended for users who
