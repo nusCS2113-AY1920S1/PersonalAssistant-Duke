@@ -54,23 +54,18 @@ public abstract class Event {
             return "[" + getDoneSymbol() + "][T] " + getDescription() + " BY: " + this.getStartDate().getFormattedDateString();
         } else { //multiple date entries
             return "[" + getDoneSymbol() + "][" + getType() + "] " +
-                    getDescription() + " START: " + startDateObj.getSplitDate() +
-                    " END: " + endDateObj.getSplitDate();
+                    getDescription() + " START: " + startDateObj.getFormattedDateString() +
+                    " END: " + endDateObj.getFormattedDateString();
         }
     }
 
     public String toStringForFile() { //string that is to be saved to file.
-        getStartDate().formatToInputPattern();
-        getEndDate().formatToInputPattern();
         if (getEndDate() == null) {
-            getStartDate().formatToInputPattern();
             return getDoneSymbol() + getType() + " " + getDescription() + " " +
-                    getStartDate().getFormattedDateString();
+                    getStartDate().getUserInputDateString();
         }
-        getStartDate().formatToInputPattern();
-        getEndDate().formatToInputPattern();
         return getDoneSymbol() + getType() + " " + getDescription() + " " +
-                getStartDate().getFormattedDateString() + " " + getEndDate().getFormattedDateString();
+                getStartDate().getUserInputDateString() + " " + getEndDate().getUserInputDateString();
     }
     
     public char getType() {

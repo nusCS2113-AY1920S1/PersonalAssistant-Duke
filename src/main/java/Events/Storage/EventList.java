@@ -22,10 +22,10 @@ public class EventList {
      * list of Model_Class.Event objects currently stored.
      */
     private ArrayList<Event> eventArrayList;
-    
+
     /**
-	 * Filter type codes
-	 */
+     * Filter type codes
+     */
     static final int DATE = 0;
     static final int TYPE = 1;
 
@@ -87,22 +87,17 @@ public class EventList {
      */
     public boolean addEvent(Event event) {
         if (event.getType() == 'T') {
-            DateObj eventStartDate = new DateObj(event.getStartDate().getSplitDate());
-            eventStartDate.formatDate();
-            this.eventArrayList.add(new ToDo(event.getDescription(), eventStartDate.getFormattedDateString()));
+            DateObj eventStartDate = new DateObj(event.getStartDate().getUserInputDateString());
+            this.eventArrayList.add(new ToDo(event.getDescription(), eventStartDate.getUserInputDateString()));
             return true;
         }
         else {
             Event clashEvent = clashEvent(event); //check the list for a schedule clash
             if (clashEvent == null) { //null means no clash was found
-                DateObj eventStartDate = new DateObj(event.getStartDate().getSplitDate());
-                DateObj eventEndDate = new DateObj(event.getEndDate().getSplitDate());
-                eventStartDate.formatDate();
-                eventEndDate.formatDate();
                 if (event.getType() == 'L') {
-                    this.eventArrayList.add(new Lesson(event.getDescription(), eventStartDate.getFormattedDateString(), eventEndDate.getFormattedDateString()));
+                    this.eventArrayList.add(new Lesson(event.getDescription(), event.getStartDate().getUserInputDateString(), event.getEndDate().getUserInputDateString()));
                 } else if (event.getType() == 'P') {
-                    this.eventArrayList.add(new Practice(event.getDescription(), eventStartDate.getFormattedDateString(), eventEndDate.getFormattedDateString()));
+                    this.eventArrayList.add(new Practice(event.getDescription(), event.getStartDate().getUserInputDateString(), event.getEndDate().getUserInputDateString()));
                 }
                 return true;
             } else return false;
@@ -116,27 +111,17 @@ public class EventList {
      * @param period Period of the recursion.
      */
     public boolean addRecurringEvent(Event event, int period) {
-        DateObj eventStartDate = new DateObj(event.getStartDate().getSplitDate());
-        DateObj eventEndDate = new DateObj(event.getEndDate().getSplitDate());
-        eventStartDate.formatDate();
-        eventEndDate.formatDate();
         Calendar calendarStartDate = Calendar.getInstance();
         Calendar calendarEndDate = Calendar.getInstance();
-        calendarStartDate.setTime(eventStartDate.getEventJavaDate());
-        calendarEndDate.setTime(eventEndDate.getEventJavaDate());
+        calendarStartDate.setTime(event.getStartDate().getEventJavaDate());
+        calendarEndDate.setTime(event.getEndDate().getEventJavaDate());
         for (int addEventCount = 0; addEventCount*period <= ONE_SEMESTER_DAYS; addEventCount++) {
-            DateObj dateObjForFormattingStartDate = new DateObj(calendarStartDate.getTime().toString());
-            DateObj dateObjForFormattingEndDate = new DateObj(calendarEndDate.getTime().toString());
-            String toFormatStart = dateObjForFormattingStartDate.formatToString(calendarStartDate.getTime());
-            String toFormatEnd = dateObjForFormattingEndDate.formatToString(calendarEndDate.getTime());
-            DateObj formattingStartDate = new DateObj(toFormatStart);
-            formattingStartDate.formatDate();
-            DateObj formattingEndDate = new DateObj(toFormatEnd);
-            formattingEndDate.formatDate();
+            DateObj toFormatCalendarStartDate = new DateObj(calendarStartDate.getTime());
+            DateObj toFormatCalendarEndDate = new DateObj(calendarEndDate.getTime());
             if (event.getType() == 'L') {
-                this.eventArrayList.add(new Lesson(event.getDescription(), formattingStartDate.getFormattedDateString(),formattingEndDate.getFormattedDateString()));
+                this.eventArrayList.add(new Lesson(event.getDescription(), toFormatCalendarStartDate.getUserInputDateString(), toFormatCalendarEndDate.getUserInputDateString()));
             } else if (event.getType() == 'P') {
-                this.eventArrayList.add(new Practice(event.getDescription(), formattingStartDate.getFormattedDateString(),formattingEndDate.getFormattedDateString()));
+                this.eventArrayList.add(new Practice(event.getDescription(), toFormatCalendarStartDate.getUserInputDateString(), toFormatCalendarEndDate.getUserInputDateString()));
             }
             calendarStartDate.add(Calendar.DATE, period);
             calendarEndDate.add(Calendar.DATE, period);
@@ -213,7 +198,7 @@ public class EventList {
         }
         return allEvents;
     }
-    
+
     /**
      * Gets a filtered list of events based on a predicate.
      * @return String containing the filtered list of events, separated by a newline.
@@ -223,18 +208,18 @@ public class EventList {
         int j = 1;
         for (int i = 0; i < eventArrayList.size(); ++i) {
             if (eventArrayList.get(i) == null) {
-            	continue;
+                continue;
             } else if (filterCode == DATE) {
                 if (eventArrayList.get(i) != null) {
-                	if (!predicate.check(eventArrayList.get(i).getStartDate())) {
-                		continue;
-                	}
+                    if (!predicate.check(eventArrayList.get(i).getStartDate())) {
+                        continue;
+                    }
                 } else {
-                	continue;
+                    continue;
                 }
             } else if (filterCode == TYPE) {
                 if (!predicate.check(eventArrayList.get(i).getType())) {
-                	continue;
+                    continue;
                 }
             }
             filteredEvents += j + ". " + this.getEvent(i).toString() + "\n";

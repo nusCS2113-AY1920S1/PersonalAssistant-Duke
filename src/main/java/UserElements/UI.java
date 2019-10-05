@@ -38,7 +38,7 @@ public class UI {
                 + "| |_| | |_| |   <  __/\n"
                 + "|____/ \\__,_|_|\\_\\___|\n";
         System.out.println("Hello from\n" + logo);
-        System.out.println(lineSeparation + "Hello! I'm Duke\nWhat can i do for you?\n");
+        System.out.println(lineSeparation + "Hello! I'm Duke\nWhat can I do for you?\n");
 
         System.out.println("Commands:");
         System.out.println("1. list: Print a list of events currently stored.");
@@ -115,8 +115,6 @@ public class UI {
      */
     public void eventAdded(Event eventAdded, int numEvents) {
         try {
-            eventAdded.getStartDate().formatDate();
-            eventAdded.getEndDate().formatDate();
             System.out.println(lineSeparation + "Got it. I've added this event:");
             System.out.println("[" + eventAdded.getDoneSymbol() + "][" + eventAdded.getType() + "] " +
                     eventAdded.getDescription() + " START: " + eventAdded.getStartDate().getFormattedDateString() +
@@ -124,7 +122,6 @@ public class UI {
             System.out.println("Now you have " + numEvents + " events in the list.");
             System.out.print(lineSeparation);
         } catch (NullPointerException e) {
-            eventAdded.getStartDate().formatDate();
             System.out.println(lineSeparation + "Got it. I've added this event:");
             System.out.println("[" + eventAdded.getDoneSymbol() + "][" + eventAdded.getType() + "] " +
                     eventAdded.getDescription() + " BY: " + eventAdded.getStartDate().getFormattedDateString());
@@ -224,8 +221,6 @@ public class UI {
      * prints message when recurring events are added to the list successfully
      */
     public void recurringEventAdded(Event eventAdded, int numEvents, int period) {
-        eventAdded.getStartDate().formatDate();
-        eventAdded.getEndDate().formatDate();
         System.out.println(lineSeparation + "Got it. I've added these recurring events:");
         System.out.println("[" + eventAdded.getDoneSymbol() + "][" + eventAdded.getType() + "] " +
                 eventAdded.getDescription() + " START: " + eventAdded.getStartDate().getFormattedDateString() +
