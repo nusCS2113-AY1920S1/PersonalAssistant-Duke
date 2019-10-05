@@ -5,7 +5,6 @@ import duke.command.ExitCommand;
 import duke.dukeexception.DukeException;
 import duke.parser.Parser;
 import duke.storage.Storage;
-import duke.task.Contacts;
 import duke.task.TaskList;
 import duke.ui.Ui;
 
@@ -17,7 +16,6 @@ import java.io.IOException;
 public class Duke {
     private Storage storage;
     private TaskList items;
-    private Contacts contactStorage;
     private Ui ui;
 
     /**
@@ -30,11 +28,9 @@ public class Duke {
         storage = new Storage(filePath, filePathForContacts);
         try {
             items = new TaskList(storage.read());
-//            contactStorage = new ContactList(contactStorage.readContacts());
         } catch (IOException e) {
             ui.showLoadingError();
             items = new TaskList();
-//            contactStorage = new ContactList();
         }
     }
 
