@@ -2,10 +2,9 @@ package command;
 
 import java.util.ArrayList;
 
+import Dictionary.WordBank;
 import command.Command;
 import storage.Storage;
-import task.Task;
-import task.TaskList;
 import ui.Ui;
 
 /**
@@ -22,10 +21,10 @@ public class ViewSchedule extends Command {
     }
 
     @Override
-    public void execute(Ui ui, TaskList tasks, Storage storage) {
+    public void execute(Ui ui, WordBank wordBank, Storage storage) {
         //ask ui to print something
         //ask tasks to store the thing in arraylist
-        ArrayList<Task> foundItems = tasks.findAllDates(searchPhrase);
-        ui.showFound(foundItems);
+        //rrayList<Task> foundItems = tasks.findAllDates(searchPhrase);
+        //ui.showFound(foundItems);
     }
 }

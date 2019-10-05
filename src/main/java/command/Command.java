@@ -1,15 +1,15 @@
 package command;
 
-import task.Task;
-import task.TaskList;
+import Dictionary.Word;
+import Dictionary.WordBank;
 import storage.Storage;
 import ui.Ui;
 
 public abstract class Command {
 
-    protected Task task;
+    protected Word word;
 
-    public void execute(Ui ui, TaskList tasks, Storage storage) {
+    public void execute(Ui ui, WordBank wordBank, Storage storage) {
         //ask ui to print something
         //ask storage to store the thing into tasks
     }
