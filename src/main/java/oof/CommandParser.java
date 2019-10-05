@@ -8,9 +8,11 @@ import oof.command.CompleteCommand;
 import oof.command.DeleteCommand;
 import oof.command.ExitCommand;
 import oof.command.FindCommand;
+import oof.command.HelpCommand;
 import oof.command.ListCommand;
 import oof.command.ScheduleCommand;
 import oof.command.SnoozeCommand;
+
 import oof.exception.OofException;
 
 /**
@@ -32,6 +34,8 @@ public class CommandParser {
             return new ExitCommand();
         case "list":
             return new ListCommand();
+        case "help":
+            return new HelpCommand();
         case "done":
             if (arr.length == 1) {
                 throw new OofException("OOPS!!! Please enter a number!");
