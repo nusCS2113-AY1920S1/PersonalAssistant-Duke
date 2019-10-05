@@ -8,7 +8,6 @@ import javafx.beans.binding.Bindings;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
@@ -21,12 +20,11 @@ import javafx.util.Callback;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class RecipePage extends AnchorPane {
-
+public class RecipePage extends UiPart<AnchorPane> {
+    private static final String FXML = "RecipePage.fxml";
 
     @FXML
     private AnchorPane recipeShowPane;
@@ -50,14 +48,7 @@ public class RecipePage extends AnchorPane {
     private Recipe rcp;
 
     public RecipePage() {
-        try {
-            FXMLLoader fxmlLoader = new FXMLLoader(MainWindow.class.getResource("/view/RecipePage.fxml"));
-            fxmlLoader.setController(this);
-            fxmlLoader.setRoot(this);
-            fxmlLoader.load();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        super(FXML);
 
         Recipe recipe = new Recipe("");
         recipe.init();

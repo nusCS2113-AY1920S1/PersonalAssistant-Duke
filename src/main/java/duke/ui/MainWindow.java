@@ -2,8 +2,6 @@ package duke.ui;
 
 import com.jfoenix.controls.JFXButton;
 import duke.commons.core.LogsCenter;
-import duke.entities.recipe.Recipe;
-import duke.logic.Duke;
 import duke.logic.Logic;
 import duke.logic.command.commons.CommandResult;
 import duke.logic.command.exceptions.CommandException;
@@ -12,10 +10,8 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
-import java.util.List;
 import java.util.logging.Logger;
 
 public class MainWindow extends UiPart<Stage> {
@@ -23,15 +19,13 @@ public class MainWindow extends UiPart<Stage> {
     private static final String FXML = "MainWindow.fxml";
     private final Logger logger = LogsCenter.getLogger(getClass());
     private Stage primaryStage;
+
     private Logic logic;
 
     private OrderPage orderPage;
     private RecipePage recipePage;
-    private SalesPage salesPage;
+    private SalePage salePage;
     private InventoryPage inventoryPage;
-
-    private Duke duke;
-    private Ui ui;
 
     //Popup box
     @FXML
@@ -74,18 +68,15 @@ public class MainWindow extends UiPart<Stage> {
 
     void fillInnerParts() {
         orderPage = new OrderPage(logic.getFilteredOrderList());
-        setPageAnchor(orderPage.getRoot());
+        recipePage = new RecipePage();
+        salePage = new SalePage();
+        inventoryPage = new InventoryPage();
+        setAllPageAnchor(orderPage.getRoot(), recipePage.getRoot(), salePage.getRoot(), inventoryPage.getRoot());
     }
 
     void show() {
         primaryStage.show();
     }
-//    public void initialize() {
-//        Ui ui = new Ui(this);
-//        duke = new Duke(ui);
-//        popUp.setVisible(false);
-//    }
-
 
     @FXML
     private void handleUserInput() {
@@ -93,7 +84,7 @@ public class MainWindow extends UiPart<Stage> {
         String input = userInput.getText();
         try {
             CommandResult commandResult = logic.execute(input);
-            showMessage(commandResult.getFeedbackToUser());
+            showMessagePopUp(commandResult.getFeedbackToUser());
         } catch (CommandException e) {
             showErrorPopUp(e.getMessage());
         }
@@ -125,14 +116,8 @@ public class MainWindow extends UiPart<Stage> {
         showSalesPage();
     }
 
-//    void initializePages() {
-//        orderPage = new OrderPage();
-//        setPageAnchor(orderPage);
-//    }
-
-    void showMessage(String message) {
+    private void showMessagePopUp(String message) {
         popUpLabel.setText(message);
-        popUpLabel.setTextFill(Color.valueOf("#ffffff"));
         popUpButton.getStyleClass().clear();
         popUpButton.getStyleClass().add("message-popup");
         popUp.getStyleClass().clear();
@@ -140,9 +125,8 @@ public class MainWindow extends UiPart<Stage> {
         popUp.setVisible(true);
     }
 
-    void showErrorPopUp(String message) {
+    private void showErrorPopUp(String message) {
         popUpLabel.setText(message);
-        popUpLabel.setTextFill(Color.valueOf("#ffffff"));
         popUpButton.getStyleClass().clear();
         popUpButton.getStyleClass().add("error-popup");
         popUp.getStyleClass().clear();
@@ -150,16 +134,7 @@ public class MainWindow extends UiPart<Stage> {
         popUp.setVisible(true);
     }
 
-//    void refreshOrderList(List<Order> orders, List<Order> all) {
-//        this.orderPage.refreshOrderList(orders, all);
-//    }
-
-    void refreshRecipeListPage(List<Recipe> recipes) {
-        this.recipePage.refreshRecipeListPage(recipes);
-    }
-
-
-    void showOrderPage() {
+    private void showOrderPage() {
         pagePane.getChildren().clear();
         pagePane.getChildren().add(orderPage.getRoot());
 
@@ -171,10 +146,9 @@ public class MainWindow extends UiPart<Stage> {
         currentPage.setText("Orders");
     }
 
-
-    void showRecipePage() {
+    private void showRecipePage() {
         pagePane.getChildren().clear();
-        pagePane.getChildren().add(recipePage);
+        pagePane.getChildren().add(recipePage.getRoot());
 
         recipeButton.setButtonType(JFXButton.ButtonType.RAISED);
         orderButton.setButtonType(JFXButton.ButtonType.FLAT);
@@ -184,10 +158,9 @@ public class MainWindow extends UiPart<Stage> {
         currentPage.setText("Recipes");
     }
 
-
-    void showInventoryPage() {
+    private void showInventoryPage() {
         pagePane.getChildren().clear();
-        pagePane.getChildren().add(inventoryPage);
+        pagePane.getChildren().add(inventoryPage.getRoot());
 
         recipeButton.setButtonType(JFXButton.ButtonType.FLAT);
         orderButton.setButtonType(JFXButton.ButtonType.FLAT);
@@ -197,9 +170,9 @@ public class MainWindow extends UiPart<Stage> {
         currentPage.setText("Inventory");
     }
 
-    void showSalesPage() {
+    private void showSalesPage() {
         pagePane.getChildren().clear();
-        pagePane.getChildren().add(salesPage);
+        pagePane.getChildren().add(salePage.getRoot());
 
         recipeButton.setButtonType(JFXButton.ButtonType.FLAT);
         orderButton.setButtonType(JFXButton.ButtonType.FLAT);
@@ -213,10 +186,12 @@ public class MainWindow extends UiPart<Stage> {
         userInput.setDisable(true);
     }
 
-    private void setPageAnchor(AnchorPane page) {
-        AnchorPane.setLeftAnchor(page, 0.0);
-        AnchorPane.setRightAnchor(page, 0.0);
-        AnchorPane.setTopAnchor(page, 0.0);
-        AnchorPane.setBottomAnchor(page, 4.0);
+    private void setAllPageAnchor(AnchorPane... pages) {
+        for (AnchorPane page : pages) {
+            AnchorPane.setLeftAnchor(page, 0.0);
+            AnchorPane.setRightAnchor(page, 0.0);
+            AnchorPane.setTopAnchor(page, 0.0);
+            AnchorPane.setBottomAnchor(page, 4.0);
+        }
     }
 }

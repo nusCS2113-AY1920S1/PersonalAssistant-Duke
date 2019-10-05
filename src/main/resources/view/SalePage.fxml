@@ -3,10 +3,10 @@
 <?import com.jfoenix.controls.JFXButton?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
-<fx:root prefHeight="400.0" prefWidth="600.0" type="AnchorPane" xmlns="http://javafx.com/javafx"
-         xmlns:fx="http://javafx.com/fxml">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1"
+            xmlns:fx="http://javafx.com/fxml/1">
     <children>
         <JFXButton layoutX="200.0" layoutY="128.0" prefHeight="159.0" prefWidth="304.0"/>
         <Label layoutX="8.0" layoutY="65.0" prefHeight="17.0" prefWidth="534.0" text="Label"/>
     </children>
-</fx:root>
+</AnchorPane>

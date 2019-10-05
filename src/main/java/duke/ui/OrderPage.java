@@ -2,7 +2,6 @@ package duke.ui;
 
 import duke.commons.core.LogsCenter;
 import duke.model.order.Order;
-import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.ListCell;
@@ -20,19 +19,6 @@ public class OrderPage extends UiPart<AnchorPane> {
 
     public OrderPage(ObservableList<Order> orderList) {
         super(FXML);
-        orderList.addListener(new ListChangeListener<Order>() {
-            @Override
-            public void onChanged(Change<? extends Order> c) {
-                System.out.println("changed");
-            }
-        });
-//        OrderList oo = new OrderList();
-//        oo.add(new Order(
-//                new Customer("1","1"),
-//                TimeParser.convertStringToDate("now"),
-//                Order.Status.ACTIVE,
-//                "NA",
-//                new HashMap<Product, Integer>()));
         orderListView.setItems(orderList);
         orderListView.setCellFactory(listView -> new OrderListViewCell());
     }
@@ -41,23 +27,14 @@ public class OrderPage extends UiPart<AnchorPane> {
         @Override
         protected void updateItem(Order order, boolean empty) {
             super.updateItem(order, empty);
-
+            updateSelected(false);
             if (empty || order == null) {
                 setGraphic(null);
                 setText(null);
             } else {
-                setGraphic(new OrderCard(order, 1).getRoot());
+                setGraphic(new OrderCard(order, getIndex()).getRoot());
             }
         }
     }
-
-//    public void refreshOrderList(List<Order> orders, List<Order> all) {
-//        orderVBox.getChildren().clear();
-//        int index = 1;
-//        for (Order order : orders) {
-//            orderVBox.getChildren().add(new OrderCard(order, index));
-//            index++;
-//        }
-//    }
 
 }
