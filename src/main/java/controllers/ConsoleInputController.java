@@ -221,6 +221,35 @@ public class ConsoleInputController implements IViewController {
                 consoleView.consolePrint("Project created!");
             }
             break;
+        case "manage":
+            if (inputReader.hasNext()) {
+                int projectNumber = Integer.parseInt(inputReader.next());
+                IProject projectToManage = projectRepository.getProject(projectNumber);
+                String projectName = projectToManage.getDescription();
+                consoleView.consolePrint("Now managing: " + projectName);
+                //branch into project and begin to read commands to manage project
+                Scanner manageProjectInput = new Scanner(System.in);
+
+                boolean continueManaging = true;
+                while (continueManaging) {
+                    if (manageProjectInput.hasNextLine()) {
+                        String projectCommand = manageProjectInput.nextLine();
+                        switch (projectCommand) {
+                            case "exit":
+                                continueManaging = false;
+                                consoleView.exitProject(projectName);
+                                break;
+                            case "add member":
+                                break;
+                        }
+                    } else {
+                        consoleView.consolePrint("Please enter a command.");
+                    }
+                }
+            } else {
+                consoleView.consolePrint("Please enter a project number!");
+            }
+            break;
         case "view":
             ArrayList<IProject> allProjects = projectRepository.getAll();
             consoleView.viewAllProjects(allProjects);

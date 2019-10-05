@@ -2,9 +2,8 @@ package repositories;
 
 
 import controllers.ProjectFactory;
-import models.data.IProject;
-
 import java.util.ArrayList;
+import models.data.IProject;
 
 public class ProjectRepository implements IRepository<IProject> {
     private ArrayList<IProject> allProjects;
@@ -28,6 +27,11 @@ public class ProjectRepository implements IRepository<IProject> {
         }
         allProjects.add(newProject);
         return true;
+    }
+
+    @Override
+    public IProject getProject(int projectNumber) {
+        return this.allProjects.get(projectNumber - 1);
     }
 
     @Override

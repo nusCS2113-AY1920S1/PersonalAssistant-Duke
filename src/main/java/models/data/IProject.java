@@ -9,4 +9,5 @@ public interface IProject {
     MemberList getMembers();
 
     int getNumOfMembers();
+
 }

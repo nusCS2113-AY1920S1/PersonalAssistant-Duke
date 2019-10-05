@@ -297,4 +297,8 @@ public class CLIView {
         String newEventInput = "event " + description + " /at " + formattedInputDate;
         consoleInputController.onCommandReceived(newEventInput);
     }
+
+    public void exitProject(String projectName) {
+        consolePrint("Exited project: " + projectName);
+    }
 }
