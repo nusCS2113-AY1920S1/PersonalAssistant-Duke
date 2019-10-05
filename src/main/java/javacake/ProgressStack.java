@@ -65,25 +65,7 @@ public class ProgressStack {
     /**
      * Goes to Sub List Index 1.
      */
-    public void listIndex3ToSubList1() {
-        if (checkProgress() == 2) {
-            currentProgress.push(1);
-        }
-    }
-
-    /**
-     * Goes to Sub List Index 2.
-     */
-    public void listIndex3ToSubList2() {
-        if (checkProgress() == 2) {
-            currentProgress.push(1);
-        }
-    }
-
-    /**
-     * Goes to Sub List Index 3.
-     */
-    public void listIndex3ToSubList3() {
+    public void listIndexToSubList() {
         if (checkProgress() == 2) {
             currentProgress.push(1);
         }
