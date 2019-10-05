@@ -102,25 +102,17 @@ public class EventList {
      * and false if not
      */
     public boolean addEvent(Event event) {
-        /*if (event.getType() == 'T') {
-            DateObj eventStartDate = new DateObj(event.getStartDate().getUserInputDateString());
-            this.eventArrayList.add(new ToDo(event.getDescription(), eventStartDate.getUserInputDateString()));
+        if (event.getType() == 'T') {
+            this.eventArrayList.add(event);
             return true;
         }
         else {
             Event clashEvent = clashEvent(event); //check the list for a schedule clash
             if (clashEvent == null) { //null means no clash was found
-                if (event.getType() == 'L') {
-                    this.eventArrayList.add(new Lesson(event.getDescription(), event.getStartDate().getUserInputDateString(), event.getEndDate().getUserInputDateString()));
-                } else if (event.getType() == 'P') {
-                    this.eventArrayList.add(new Practice(event.getDescription(), event.getStartDate().getUserInputDateString(), event.getEndDate().getUserInputDateString()));
-                }
-                return true;
-            } else return false;
-        }*/
-
-        eventArrayList.add(event);
-        return true;
+                this.eventArrayList.add(event);
+                return true; //succeeded
+            } else return false; //failed due to schedule clash
+        }
     }
 
     /**
