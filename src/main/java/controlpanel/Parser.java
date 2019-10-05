@@ -1,6 +1,6 @@
 package controlpanel;
 
-import MoneyCommands.*;
+import moneycommands.*;
 import commands.AddCommand;
 import commands.ChooseEventTime;
 import commands.Command;
@@ -14,12 +14,32 @@ import commands.SearchCommand;
 import commands.ViewCommand;
 import commands.ViewScheduleCommand;
 
+import moneycommands.AddExpenditureCommand;
+import moneycommands.AddIncomeCommand;
+import moneycommands.AddShortGoalCommand;
+import moneycommands.CreateBankAccountCommand;
+import moneycommands.DeleteExpenditureCommand;
+import moneycommands.DeleteGoalCommand;
+import moneycommands.DeleteIncomeCommand;
+import moneycommands.ExitMoneyCommand;
+import moneycommands.initCommand;
+import moneycommands.ListBankTrackerCommand;
+import moneycommands.ListGoalsCommand;
+import moneycommands.ListTotalExpenditureCommand;
+import moneycommands.ListTotalIncomeCommand;
+import moneycommands.startCommand;
+import moneycommands.MoneyCommand;
+import moneycommands.ViewPastMonthIncome;
 
-import java.awt.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.TimeZone;
 
 /**
  * This class which takes in the user input from command line and identifies the
@@ -91,7 +111,7 @@ public class Parser {
     public static MoneyCommand moneyParse(String cmd, boolean isNewUser) throws DukeException, ParseException {
         MoneyCommand moneyCommand = null;
 
-        if(cmd.equals("start")) {
+        if (cmd.equals("start")) {
             moneyCommand = new startCommand(isNewUser);
         } else if (cmd.startsWith("init")) {
             moneyCommand = new initCommand(cmd, isNewUser);
@@ -123,6 +143,8 @@ public class Parser {
             moneyCommand = new DeleteIncomeCommand(cmd);
         } else if (cmd.startsWith("delete expenditure")) {
             moneyCommand = new DeleteExpenditureCommand(cmd);
+        } else if (cmd.startsWith("done goal")) {
+            moneyCommand = new DoneGoalCommand(cmd);
         } else {
             throw new DukeException("OOPS!!! I'm sorry, but I don't know what that means");
         }
@@ -137,64 +159,82 @@ public class Parser {
      * @return formatted Date based on user inputted date
      * @throws ParseException if invalid date is parsed
      */
-    public static Date shortcutTime(String dateStr) throws ParseException {
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("d/M/yyyy");
+    public static LocalDate shortcutTime(String dateStr) throws ParseException {
+        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("d/M/yyyy");
         String time = dateStr.replaceAll(" ", "");
 
-        if (time.equals("now")) {
-            Date currDate = new Date();
-            String passDate = simpleDateFormat.format(currDate);
-            return simpleDateFormat.parse(passDate);
-        } else if (time.equals("ytd")) {
+        switch (time) {
+        case "now": {
+            LocalDate currDate = LocalDate.now();
+            String passDate = dateTimeFormatter.format(currDate);
+            return LocalDate.parse(passDate, dateTimeFormatter);
+        }
+        case "ytd": {
             final Calendar cal = Calendar.getInstance();
             cal.add(Calendar.DATE, -1);
             Date ytdDate = cal.getTime();
-            String passDate = simpleDateFormat.format(ytdDate);
-            return simpleDateFormat.parse(passDate);
-        } else if (time.equals("tmr")) {
+            LocalDate ytdLocalDate = ytdDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+            String passDate = dateTimeFormatter.format(ytdLocalDate);
+            return LocalDate.parse(passDate, dateTimeFormatter);
+        }
+        case "tmr": {
             final Calendar cal = Calendar.getInstance();
             cal.add(Calendar.DATE, +1);
             Date tmrDate = cal.getTime();
-            String passDate = simpleDateFormat.format(tmrDate);
-            return simpleDateFormat.parse(passDate);
-        } else if (time.equals("lstwk")) {
+            LocalDate tmrLocalDate = tmrDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+            String passDate = dateTimeFormatter.format(tmrLocalDate);
+            return LocalDate.parse(passDate, dateTimeFormatter);
+        }
+        case "lstwk": {
             final Calendar cal = Calendar.getInstance();
             cal.add(Calendar.DATE, -7);
             Date lastWeekDate = cal.getTime();
-            String passDate = simpleDateFormat.format(lastWeekDate);
-            return simpleDateFormat.parse(passDate);
-        } else if (time.equals("nxtwk")) {
+            LocalDate lastWeekLocalDate = lastWeekDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+            String passDate = dateTimeFormatter.format(lastWeekLocalDate);
+            return LocalDate.parse(passDate, dateTimeFormatter);
+        }
+        case "nxtwk": {
             final Calendar cal = Calendar.getInstance();
             cal.add(Calendar.DATE, +7);
             Date nextWeekDate = cal.getTime();
-            String passDate = simpleDateFormat.format(nextWeekDate);
-            return simpleDateFormat.parse(passDate);
-        } else if (time.equals("lstmth")) {
+            LocalDate nextWeekLocalDate = nextWeekDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+            String passDate = dateTimeFormatter.format(nextWeekLocalDate);
+            return LocalDate.parse(passDate, dateTimeFormatter);
+        }
+        case "lstmth": {
             final Calendar cal = Calendar.getInstance();
             cal.add(Calendar.MONTH, -1);
             Date lastMonthDate = cal.getTime();
-            String passDate = simpleDateFormat.format(lastMonthDate);
-            return simpleDateFormat.parse(passDate);
-        } else if (time.equals("nxtmth")) {
+            LocalDate lastMonthLocalDate = lastMonthDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+            String passDate = dateTimeFormatter.format(lastMonthLocalDate);
+            return LocalDate.parse(passDate, dateTimeFormatter);
+        }
+        case "nxtmth": {
             final Calendar cal = Calendar.getInstance();
             cal.add(Calendar.MONTH, +1);
             Date nextMonthDate = cal.getTime();
-            String passDate = simpleDateFormat.format(nextMonthDate);
-            return simpleDateFormat.parse(passDate);
-        } else if (time.equals("lstyr")) {
+            LocalDate nextMonthLocalDate = nextMonthDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+            String passDate = dateTimeFormatter.format(nextMonthLocalDate);
+            return LocalDate.parse(passDate, dateTimeFormatter);
+        }
+        case "lstyr": {
             final Calendar cal = Calendar.getInstance();
             cal.add(Calendar.YEAR, -1);
             Date lastYearDate = cal.getTime();
-            String passDate = simpleDateFormat.format(lastYearDate);
-            return simpleDateFormat.parse(passDate);
-        } else if (time.equals("nxtyr")) {
+            LocalDate lastYearLocalDate = lastYearDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+            String passDate = dateTimeFormatter.format(lastYearLocalDate);
+            return LocalDate.parse(passDate, dateTimeFormatter);
+        }
+        case "nxtyr": {
             final Calendar cal = Calendar.getInstance();
             cal.add(Calendar.YEAR, +1);
             Date nextYearDate = cal.getTime();
-            String passDate = simpleDateFormat.format(nextYearDate);
-            return simpleDateFormat.parse(passDate);
-        } else {
-            return simpleDateFormat.parse(dateStr);
+            LocalDate nextYearLocalDate = nextYearDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+            String passDate = dateTimeFormatter.format(nextYearLocalDate);
+            return LocalDate.parse(passDate, dateTimeFormatter);
+        }
+        default:
+            return LocalDate.parse(dateStr, dateTimeFormatter);
         }
     }
 }

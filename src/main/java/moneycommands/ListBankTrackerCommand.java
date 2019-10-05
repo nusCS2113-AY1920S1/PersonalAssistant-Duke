@@ -1,7 +1,8 @@
-package MoneyCommands;
+package moneycommands;
 
-import Money.Account;
-import Money.BankTracker;
+import controlpanel.MoneyStorage;
+import money.Account;
+import money.BankTracker;
 import controlpanel.Storage;
 import controlpanel.Ui;
 
@@ -18,7 +19,7 @@ public class ListBankTrackerCommand extends MoneyCommand{
     }
 
     @Override
-    public void execute(Account account, Ui ui, Storage storage) {
+    public void execute(Account account, Ui ui, MoneyStorage storage) {
         ArrayList<BankTracker> accountList = account.getBankTrackerList();
         ui.appendToOutput("Here are the bank accounts and their info:\n");
         for (int i = 0; i < accountList.size(); i++) {

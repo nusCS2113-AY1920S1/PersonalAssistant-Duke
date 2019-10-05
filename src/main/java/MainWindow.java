@@ -1,4 +1,3 @@
-import Money.Account;
 import controlpanel.Ui;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -49,6 +48,7 @@ public class MainWindow extends AnchorPane {
         String welcomeDuke = mainWindowUi.showWelcome();
         dialogContainer.getChildren().addAll(
                 DialogBox.getDukeDialog("enter start to begin", dukeImage));
+
         FileReader fileReader = new FileReader("data/iconPath.txt");
         BufferedReader bufferedReader = new BufferedReader(fileReader);
         String iconPath = bufferedReader.readLine();

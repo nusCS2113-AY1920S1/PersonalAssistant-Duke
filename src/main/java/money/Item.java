@@ -1,4 +1,4 @@
-package Money;
+package money;
 
 public class Item {
     private float price;

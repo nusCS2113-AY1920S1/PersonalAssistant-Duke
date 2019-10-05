@@ -1,7 +1,11 @@
-package MoneyCommands;
+package moneycommands;
 
 import controlpanel.*;
-import Money.Account;
+import money.Account;
+import money.Goal;
+
+import java.math.RoundingMode;
+import java.text.DecimalFormat;
 
 /**
  * This command lists all short-term goals within the Short-Term Goal List to the user
@@ -27,10 +31,22 @@ public class ListGoalsCommand extends MoneyCommand{
      * @param storage Saves and loads data into/from the local disk
      */
     @Override
-    public void execute(Account account, Ui ui, Storage storage) {
+    public void execute(Account account, Ui ui, MoneyStorage storage) {
         for (int i = 1; i <= account.getShortTermGoals().size();i++) {
-            //System.out.println(" " + i + "." + account.getShortTermGoals().get(i-1).toString() + "\n");
-            ui.appendToOutput(" " + i + "." + account.getShortTermGoals().get(i-1).toString() + "\n");
+            Goal currGoal = account.getShortTermGoals().get(i-1);
+            float currGoalPrice = currGoal.getPrice();
+            String goalProgress = "";
+
+            if(account.getGoalSavings() >= currGoalPrice){
+                goalProgress = "[\u2713]";
+            }else{
+                float percentageProgress = (account.getGoalSavings()/currGoalPrice)*100;
+                DecimalFormat df = new DecimalFormat("#.##");
+                df.setRoundingMode(RoundingMode.CEILING);
+                goalProgress = "[" + df.format(percentageProgress) + "%]";
+            }
+
+            ui.appendToOutput(" " + i + "." + goalProgress + account.getShortTermGoals().get(i-1).toString() + "\n");
         }
         //System.out.println("current Goal Savings: $" + account.getGoalSavings());
         ui.appendToOutput("current Goal Savings: $" + account.getGoalSavings() + "\n");

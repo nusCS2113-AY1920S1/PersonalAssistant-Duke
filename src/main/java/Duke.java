@@ -1,10 +1,7 @@
-import Money.Account;
-import MoneyCommands.MoneyCommand;
+import controlpanel.*;
+import money.Account;
+import moneycommands.MoneyCommand;
 import commands.Command;
-import controlpanel.DukeException;
-import controlpanel.Parser;
-import controlpanel.Storage;
-import controlpanel.Ui;
 import tasks.TaskList;
 
 import java.nio.file.Path;
@@ -19,6 +16,7 @@ public class Duke {
     private Ui ui;
     private TaskList tasks;
     private Storage storage;
+    private MoneyStorage moneyStorage;
     private Account account;
 
     /**
@@ -27,38 +25,22 @@ public class Duke {
      */
     public Duke() {
         Path currentDir = Paths.get("data/tasks.txt");
+        Path moneyDir = Paths.get("data/moneyAccount.txt");
         String filePath = currentDir.toAbsolutePath().toString();
+        String moneyFilePath = moneyDir.toAbsolutePath().toString();
         ui = new Ui();
         storage = new Storage(filePath);
+        moneyStorage = new MoneyStorage(moneyFilePath);
         try {
             tasks = new TaskList(storage.load());
-            account = new Account();//need to load from storage on program init
+            account = new Account(moneyStorage.load());//need to load from storage on program init
         } catch (Exception e) {
             ui.showLoadingError();
             tasks = new TaskList();
+            account = new Account();
         }
     }
 
-    /**
-     * This method runs the overall program.
-     */
-    public void run() {
-        ui.showWelcome();
-        boolean isExit = false;
-        while (!isExit && ui.inputStatus()) {
-            try {
-                String fullCommand = ui.readCommand();
-                ui.showLine();
-                Command c = Parser.parse(fullCommand);
-                c.execute(tasks, ui, storage);
-                isExit = c.isExit();
-            } catch (ParseException | DukeException e) {
-                ui.showError(e.getMessage());
-            } finally {
-                ui.showLine();
-            }
-        }
-    }
 
     /**
      * This method prints a line that Duke will print out in the program.
@@ -71,7 +53,7 @@ public class Duke {
             ui.appendToOutput(ui.showLine());
             boolean isNewUser = account.isToInitialize();
             MoneyCommand c = Parser.moneyParse(input, isNewUser);
-            c.execute(account, ui, storage);
+            c.execute(account, ui, moneyStorage);
 
             if (c.isExit()) {
                 System.exit(0);

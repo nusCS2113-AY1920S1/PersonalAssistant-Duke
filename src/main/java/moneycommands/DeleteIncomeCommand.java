@@ -1,12 +1,13 @@
-package MoneyCommands;
+package moneycommands;
 
 import controlpanel.DukeException;
+import controlpanel.MoneyStorage;
 import controlpanel.Storage;
 import controlpanel.Ui;
-import Money.Account;
+import money.Account;
 
 /**
- * This command deletes an income source from the Total Income List according to index
+ * This command deletes an income source from the Total Income List according to index.
  */
 public class DeleteIncomeCommand extends MoneyCommand {
 
@@ -15,10 +16,10 @@ public class DeleteIncomeCommand extends MoneyCommand {
 
     /**
      * Constructor of the command which initialises the delete income command
-     * with the index of the item to be deleted within the user input
+     * with the index of the item to be deleted within the user input.
      * @param command delete command inputted from user
      */
-    public DeleteIncomeCommand(String command){
+    public DeleteIncomeCommand(String command) {
         inputString = command;
         String temp = inputString.replaceAll("[^0-9]", "");
         serialNo = Integer.parseInt(temp);
@@ -39,18 +40,16 @@ public class DeleteIncomeCommand extends MoneyCommand {
      * @throws DukeException When the index given is out of bounds of the list
      */
     @Override
-    public void execute(Account account, Ui ui, Storage storage) throws DukeException {
-        if (serialNo > account.getIncomeListTotal().size()){
+    public void execute(Account account, Ui ui, MoneyStorage storage) throws DukeException {
+        if (serialNo > account.getIncomeListTotal().size()) {
             throw new DukeException("The serial number of the income is Out Of Bounds!");
         }
-//        System.out.println(" Noted. I've removed this income source:\n");
-//        System.out.println("  " + account.getIncomeListTotal().get(serialNo-1).toString() + "\n");
-//        System.out.println(" Now you have " + (account.getIncomeListTotal().size()-1) + " income sources in the list.");
 
         ui.appendToOutput(" Noted. I've removed this income source:\n");
-        ui.appendToOutput("  " + account.getIncomeListTotal().get(serialNo-1).toString() + "\n");
-        ui.appendToOutput(" Now you have " + (account.getIncomeListTotal().size()-1) + " income sources in the list.\n");
-
-        account.getIncomeListTotal().remove(serialNo-1);
+        ui.appendToOutput("  " + account.getIncomeListTotal().get(serialNo - 1).toString() + "\n");
+        ui.appendToOutput(" Now you have " + (account.getIncomeListTotal().size() - 1));
+        ui.appendToOutput(" income sources in the list.\n");
+        account.getIncomeListTotal().remove(serialNo - 1);
+        storage.writeToFile(account);
     }
 }

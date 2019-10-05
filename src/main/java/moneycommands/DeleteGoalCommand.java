@@ -1,7 +1,7 @@
-package MoneyCommands;
+package moneycommands;
 
 import controlpanel.*;
-import Money.Account;
+import money.Account;
 
 /**
  * This command deletes a short-term goal from the Short-Term Goal List according to index
@@ -34,7 +34,7 @@ public class DeleteGoalCommand extends MoneyCommand {
      * @throws DukeException When the index given is out of bounds of the list
      */
     @Override
-    public void execute(Account account, Ui ui, Storage storage) throws DukeException {
+    public void execute(Account account, Ui ui, MoneyStorage storage) throws DukeException {
         if (serialNo > account.getShortTermGoals().size()){
             throw new DukeException("The serial number of the task is Out Of Bounds!");
         }
@@ -42,11 +42,11 @@ public class DeleteGoalCommand extends MoneyCommand {
 //        System.out.println("  " + account.getShortTermGoals().get(serialNo-1).toString() + "\n");
 //        System.out.println(" Now you have " + (account.getShortTermGoals().size()-1) + " tasks in the list.");
 
-        ui.appendToOutput(" Noted. I've removed this task:\n");
+        ui.appendToOutput(" Noted. I've removed this Goal:\n");
         ui.appendToOutput("  " + account.getShortTermGoals().get(serialNo-1).toString() + "\n");
-        ui.appendToOutput(" Now you have " + (account.getShortTermGoals().size()-1) + " tasks in the list.\n");
+        ui.appendToOutput(" Now you have " + (account.getShortTermGoals().size()-1) + " goals in the list.\n");
 
         account.getShortTermGoals().remove(serialNo-1);
-        //storage.writeTheFile(account.getShortTermGoals());
+        storage.writeToFile(account);
     }
 }
