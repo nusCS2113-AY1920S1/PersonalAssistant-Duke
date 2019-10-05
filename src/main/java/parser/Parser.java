@@ -20,7 +20,7 @@ public class Parser {
     public static Command getCommand(String commandName) throws DukeException {
         switch (commandName) {
         case "add":
-            return new AddExpense();
+            return new AddExpenseCommand();
         case "list":
             return new ListCommand();
 

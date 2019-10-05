@@ -13,8 +13,9 @@ import java.util.StringJoiner;
  * Represents our Duke and contains the main program of Duke.
  */
 public class Duke {
+    private final static String USER_DIR = "data" + File.separator + "duke";
 
-    private Storage storage;
+    private Storage storage = null;
     private ExpenseList expenseList;
     private Ui ui;
 
@@ -22,17 +23,11 @@ public class Duke {
      * Constructs the Duke with the filePath of storage.txt
      * If errors occur during the loading process, an empty taskList will be initialized instead.
      *
-     * @param filePath The filePath of storage.txt
+     * @param userDirectory The user directory to store all the files associated with Duke.
      */
-    public Duke(String filePath) {
+    public Duke(File userDirectory) {
         ui = new Ui();
-        storage = new Storage(filePath);
-        try {
-            expenseList = new ExpenseList(storage.load());
-        } catch (DukeException e) {
-            ui.showError(e);
-            expenseList = new ExpenseList();
-        }
+        expenseList = new ExpenseList(userDirectory);
     }
 
     /**
@@ -59,12 +54,9 @@ public class Duke {
      * @param args additional arguments provided by the user from the command line. Currently unused.
      */
     public static void main(String[] args) {
-        String storageFile = new StringJoiner(File.separator)
-                .add(System.getProperty("user.dir"))
-                .add("data")
-                .add("ExpenseListStorage.txt")
-                .toString();
-        new Duke(storageFile).run();
+        File userDirectory = new File(USER_DIR);
+        userDirectory.mkdirs();
+        new Duke(userDirectory).run();
     }
 
 }

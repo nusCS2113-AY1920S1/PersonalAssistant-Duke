@@ -10,13 +10,20 @@ import java.io.ObjectInput;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutput;
 import java.io.ObjectOutputStream;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 import java.util.Stack;
 
 import exception.DukeException;
 
-public abstract class DukeList<T extends DukeItem> {
+/**
+ * The generic parent list of all lists in Duke, which are responsible for saving their own information
+ * and have undo and redo capabilities.
+ *
+ * @param <T> The {@code DukeItem} contained in the list.
+ */
+abstract class DukeList<T extends DukeItem> {
     private static String STORAGE_DELIMITER = "\n\n";
 
     private File file;
@@ -24,7 +31,7 @@ public abstract class DukeList<T extends DukeItem> {
     private byte[] currentState;
     private Stack<byte[]> redoStates;
 
-    private List<T> internalList;
+    protected List<T> internalList;
     protected List<T> externalList;
 
     /**
@@ -35,7 +42,9 @@ public abstract class DukeList<T extends DukeItem> {
      */
     public DukeList(File file) throws DukeException {
         this.file = file;
+        internalList = new ArrayList<T>();
         load();
+        externalList = getExternalList();
 
         undoStates = new Stack<byte[]>();
         currentState = toByteArray(internalList);
@@ -73,6 +82,14 @@ public abstract class DukeList<T extends DukeItem> {
         } catch (IndexOutOfBoundsException e) {
             throw new DukeException("TODO"); // todo: update DukeException
         }
+    }
+
+    /**
+     * Returns the number of items in the list.
+     * @return the number of items in the list.
+     */
+    public int size() {
+        return internalList.size();
     }
 
     /**
