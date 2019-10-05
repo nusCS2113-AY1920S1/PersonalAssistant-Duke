@@ -3,6 +3,7 @@ package views;
 import controllers.ConsoleInputController;
 import models.commands.RescheduleCommand;
 import models.data.IProject;
+import models.member.Member;
 import models.tasks.ITask;
 import models.tasks.TaskList;
 import models.tasks.Tentative;
@@ -300,5 +301,11 @@ public class CLIView {
 
     public void exitProject(String projectName) {
         consolePrint("Exited project: " + projectName);
+    }
+
+    public void addMember(IProject projectToManage, Member newMember) {
+        projectToManage.addMember(newMember);
+        consolePrint("Added new member to: " + projectToManage.getDescription(), ""
+            + "Member details: " + newMember.getDetails());
     }
 }

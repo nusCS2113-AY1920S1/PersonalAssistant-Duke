@@ -16,7 +16,7 @@ public class Member {
     }
 
     public String getDetails() {
-        return this.indexNumber + ". " + this.name + " (Phone:" + this.phone + " | Email: "
+        return this.indexNumber + ". " + this.name + " (Phone: " + this.phone + " | Email: "
             + this.email + ")";
     }
 

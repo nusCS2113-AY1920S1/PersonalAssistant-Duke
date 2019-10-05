@@ -1,5 +1,6 @@
 package models.data;
 
+import models.member.Member;
 import models.member.MemberList;
 
 public interface IProject {
@@ -10,4 +11,5 @@ public interface IProject {
 
     int getNumOfMembers();
 
+    void addMember(Member newMember);
 }

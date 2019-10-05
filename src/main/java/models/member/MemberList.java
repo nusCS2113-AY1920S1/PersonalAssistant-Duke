@@ -9,8 +9,8 @@ public class MemberList {
         this.memberList = new ArrayList<Member>();
     }
 
-    public void addMember(String name, String phone, String email) {
-        Member newMember = new Member(name, phone, email, memberList.size() + 1);
+    public void addMember(Member newMember) {
+        newMember.setIndexNumber(this.memberList.size() + 1);
         this.memberList.add(newMember);
     }
 

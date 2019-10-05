@@ -15,6 +15,7 @@ import java.util.Date;
 import java.util.Scanner;
 import models.commands.RescheduleCommand;
 import models.data.IProject;
+import models.member.Member;
 import models.tasks.IRecurring;
 import models.tasks.ITask;
 import models.tasks.PeriodTask;
@@ -240,6 +241,9 @@ public class ConsoleInputController implements IViewController {
                                 consoleView.exitProject(projectName);
                                 break;
                             case "add member":
+                                String memberDetails = manageProjectInput.nextLine();
+                                Member newMember = MemberFactory.createMember(memberDetails);
+                                consoleView.addMember(projectToManage, newMember);
                                 break;
                         }
                     } else {

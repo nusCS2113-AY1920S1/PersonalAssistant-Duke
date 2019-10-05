@@ -1,5 +1,6 @@
 package models.data;
 
+import models.member.Member;
 import models.member.MemberList;
 
 public class Project implements IProject {
@@ -24,6 +25,11 @@ public class Project implements IProject {
     @Override
     public int getNumOfMembers() {
         return 0;
+    }
+
+    @Override
+    public void addMember(Member newMember) {
+        this.memberList.addMember(newMember);
     }
 
 }
