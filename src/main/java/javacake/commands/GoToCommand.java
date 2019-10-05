@@ -92,17 +92,17 @@ public class GoToCommand extends Command {
             } else if (progressStack.checkProgress() == 2 && index.equals("3.1")) {
                 progressStack.listIndex3ToSubList1();
                 BufferedReader reader = new BufferedReader(
-                        new FileReader("main/content/MainList/ListIndex3/Enumerations/Enumerations.txt"));
+                        new FileReader("content/MainList/ListIndex3/Enumerations/Enumerations.txt"));
                 ui.displayTextFile(reader);
             } else if (progressStack.checkProgress() == 2 && index.equals("3.2")) {
                 progressStack.listIndex3ToSubList2();
                 BufferedReader reader = new BufferedReader(
-                        new FileReader("main/content/MainList/ListIndex3/Varargs/Varargs.txt"));
+                        new FileReader("content/MainList/ListIndex3/Varargs/Varargs.txt"));
                 ui.displayTextFile(reader);
             } else if (progressStack.checkProgress() == 2 && index.equals("3.3")) {
                 progressStack.listIndex3ToSubList3();
                 BufferedReader reader = new BufferedReader(
-                        new FileReader("main/content/MainList/ListIndex3/Exceptions/Exceptions.txt"));
+                        new FileReader("content/MainList/ListIndex3/Exceptions/Exceptions.txt"));
                 ui.displayTextFile(reader);
             }
         } catch (IOException e) {
