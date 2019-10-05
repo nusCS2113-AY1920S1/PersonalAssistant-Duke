@@ -1,12 +1,14 @@
 package models.data;
 
+import models.member.MemberList;
+
 public class Project implements IProject {
     private String description;
-    private String members;
+    private MemberList memberList;
 
     public Project(String description, String members) {
         this.description = description;
-        this.members = members;
+        this.memberList = new MemberList();
     }
 
     @Override
@@ -15,8 +17,8 @@ public class Project implements IProject {
     }
 
     @Override
-    public String getMembers() {
-        return this.members;
+    public MemberList getMembers() {
+        return this.memberList;
     }
 
     @Override

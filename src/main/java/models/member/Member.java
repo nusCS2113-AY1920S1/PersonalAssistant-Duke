@@ -15,4 +15,13 @@ public class Member {
         this.indexNumber = indexNumber;
     }
 
+    public String getDetails() {
+        return this.indexNumber + ". " + this.name + " (Phone:" + this.phone + " | Email: "
+            + this.email + ")";
+    }
+
+    public void setIndexNumber(int indexNumber) {
+        this.indexNumber = indexNumber;
+    }
+
 }

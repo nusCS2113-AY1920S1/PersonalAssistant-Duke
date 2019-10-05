@@ -1,5 +1,7 @@
 package models.data;
 
+import models.member.MemberList;
+
 public class NullProject implements IProject {
     @Override
     public String getDescription() {
@@ -7,7 +9,7 @@ public class NullProject implements IProject {
     }
 
     @Override
-    public String getMembers() {
+    public MemberList getMembers() {
         return null;
     }
 
