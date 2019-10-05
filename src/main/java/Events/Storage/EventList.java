@@ -10,6 +10,7 @@ import Events.EventTypes.EventSubclasses.ToDo;
 import Events.Formatting.DateObj;
 import Events.Formatting.Predicate;
 import UserElements.Parser;
+import UserElements.UI;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -98,10 +99,11 @@ public class EventList {
      * Checks for a clash, then adds a new event if possible.
      *
      * @param event Model_Class.Event object to be added
+     * @param ui user interface class
      * @return boolean signifying whether or not the event was added successfully. True if succeeded
      * and false if not
      */
-    public boolean addEvent(Event event) {
+    public boolean addEvent(Event event, UI ui) {
         if (event.getType() == 'T') {
             this.eventArrayList.add(event);
             return true;
@@ -111,7 +113,10 @@ public class EventList {
             if (clashEvent == null) { //null means no clash was found
                 this.eventArrayList.add(event);
                 return true; //succeeded
-            } else return false; //failed due to schedule clash
+            } else { //if clash is found, notify user via terminal.
+                ui.scheduleClash(clashEvent);
+                return false; //failed
+            }
         }
     }
 
@@ -147,12 +152,34 @@ public class EventList {
      * @return event that causes a clash
      */
     private Event clashEvent(Event checkingEvent) {
-        for (Event currEvent : eventArrayList) {
-            try {
-                if (currEvent.toString().equals(checkingEvent.toString())) {
+        /*  NOTE: DateObj userInputString is arranged as follows: dd-MM-yyyy HHmm.
+            for now, only have one date with differing start time and end time, date in startDateObj will be same as
+            in endDateObj
+        */
+
+        //split new event date string into date and time.
+        String[] newEventSplitDateTime = checkingEvent.getStartDate().getUserInputDateString().split(" ");
+        String newEventDate = newEventSplitDateTime[0]; //assign date
+        int newEventStartTime = Integer.parseInt(newEventSplitDateTime[1]); //assign time
+        int newEventEndTime = Integer.parseInt(checkingEvent.getEndDate().getUserInputDateString().substring(10));
+
+        for (Event currEvent : eventArrayList) { //scan list for clashes
+            String[] currEventSplitDateTime = currEvent.getStartDate().getUserInputDateString().split(" ");
+            if (newEventDate.equals(currEventSplitDateTime[0])) { //if date is same on two accounts
+                int currEventStartTime = Integer.parseInt(currEventSplitDateTime[1]); //assign time
+                int currEventEndTime = Integer.parseInt(currEvent.getEndDate().getUserInputDateString().substring(10));
+
+                if (newEventStartTime > currEventStartTime) { //new event starts after current event
+                    if (currEventEndTime > newEventStartTime) {
+                        return currEvent;
+                    }
+                } else if (newEventStartTime < currEventStartTime){ //new event starts before current event
+                    if (newEventEndTime > currEventStartTime) {
+                        return currEvent;
+                    }
+                } else { //new event starts at the same time as current event
                     return currEvent;
                 }
-            } catch (Exception e){
             }
         }
         return null;

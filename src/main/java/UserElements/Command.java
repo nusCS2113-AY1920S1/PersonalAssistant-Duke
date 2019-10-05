@@ -230,19 +230,17 @@ public class Command {
                 boolean succeeded;
 
                 if (entryForEvent.getPeriod() == NO_PERIOD) { //add non-recurring event
-                    succeeded = events.addEvent(newEvent);
+                    succeeded = events.addEvent(newEvent, ui);
                 } else { //add recurring event
                     succeeded = events.addRecurringEvent(newEvent, entryForEvent.getPeriod());
                 }
 
-                if (succeeded) {
+                if (succeeded) { //if succeeded, print success message, otherwise clash handling done in EventList
                     if (entryForEvent.getPeriod() == NO_PERIOD) {
                         ui.eventAdded(newEvent, events.getNumEvents());
                     } else {
                         ui.recurringEventAdded(newEvent, events.getNumEvents(), entryForEvent.getPeriod());
                     }
-                } else {
-                    ui.scheduleClash(newEvent);
                 }
             } catch (StringIndexOutOfBoundsException outOfBoundsE) {
                 ui.eventFormatWrong();
@@ -257,7 +255,7 @@ public class Command {
         }
         EntryForEvent entryForEvent = new EntryForEvent().invoke(); //separate all info into relevant details
         Event newEvent = new ToDo(entryForEvent.getDescription(), entryForEvent.getStartDate());
-        events.addEvent(newEvent);
+        events.addEvent(newEvent, ui);
         ui.eventAdded(newEvent, events.getNumEvents());
     }
 //
