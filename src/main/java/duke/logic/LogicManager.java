@@ -44,6 +44,6 @@ public class LogicManager implements Logic {
 
     @Override
     public ObservableList<Order> getFilteredOrderList() {
-        return null;
+        return model.getFilteredOrderList();
     }
 }

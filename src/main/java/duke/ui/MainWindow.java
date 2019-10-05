@@ -7,7 +7,6 @@ import duke.logic.Duke;
 import duke.logic.Logic;
 import duke.logic.command.commons.CommandResult;
 import duke.logic.command.exceptions.CommandException;
-import duke.model.order.Order;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -151,9 +150,9 @@ public class MainWindow extends UiPart<Stage> {
         popUp.setVisible(true);
     }
 
-    void refreshOrderList(List<Order> orders, List<Order> all) {
-        this.orderPage.refreshOrderList(orders, all);
-    }
+//    void refreshOrderList(List<Order> orders, List<Order> all) {
+//        this.orderPage.refreshOrderList(orders, all);
+//    }
 
     void refreshRecipeListPage(List<Recipe> recipes) {
         this.recipePage.refreshRecipeListPage(recipes);

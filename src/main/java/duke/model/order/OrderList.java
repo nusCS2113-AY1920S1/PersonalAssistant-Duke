@@ -15,6 +15,10 @@ public class OrderList implements Iterable<Order> {
     private final ObservableList<Order> internalUnmodifiableList =
             FXCollections.unmodifiableObservableList(internalList);
 
+    public OrderList() {
+
+    }
+
     public boolean contains(Order toCheck) {
         requireNonNull(toCheck);
         return internalList.contains(toCheck);
