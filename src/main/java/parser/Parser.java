@@ -1,7 +1,11 @@
 package parser;
 
-
-import command.*;
+import command.AddExpenseCommand;
+import command.Command;
+import command.DeleteCommand;
+import command.ExitCommand;
+import command.FindCommand;
+import command.ListCommand;
 import exception.DukeException;
 
 /**
@@ -21,7 +25,8 @@ public class Parser {
         switch (commandName) {
         case "add":
             return new AddExpenseCommand();
-        case "dukeobjects":
+
+        case "list":
             return new ListCommand();
 
         case "delete":
@@ -32,7 +37,6 @@ public class Parser {
 
         case "bye":
             return new ExitCommand();
-
 
         default:
             throw new DukeException("☹ OOPS!!! I don't know what that means :-(");

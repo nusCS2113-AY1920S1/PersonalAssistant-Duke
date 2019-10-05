@@ -1,7 +1,10 @@
-package dukeobjects;
+package dukeobject;
 
 import exception.DukeException;
+import parser.LocalDateTimeParser;
 
+import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.Map;
 import java.util.StringJoiner;
 
@@ -9,7 +12,7 @@ public class Expense extends DukeItem {
     /**
      * The amount of money of the expense.
      */
-    private final double amount;
+    private final BigDecimal amount;
     /**
      * The description of the expense.
      */
@@ -18,28 +21,35 @@ public class Expense extends DukeItem {
      * Whether or not the expense is tentative.
      */
     private final boolean isTentative;
+    /**
+     * The time of the expense.
+     */
+    private final LocalDateTime time;
 
     /**
      * {@inheritDoc}
      */
     public static class Builder extends DukeItem.Builder<Builder> {
-        private double amount = 0;
+        private BigDecimal amount = BigDecimal.ZERO;
         private String description = "";
         private boolean isTentative = false;
+        private LocalDateTime time = LocalDateTime.now();
+
+        public Builder() {
+
+        }
 
         /**
-         * {@inheritDoc}
-         */
-        public Builder() {}
-
-        /**
-         * {@inheritDoc}
+         * Constructs a builder from an existing expense.
+         *
+         * @param expense the expense whose values to use as the builder's default values.
          */
         public Builder(Expense expense) {
             super(expense);
             amount = expense.amount;
             description = expense.description;
             isTentative = expense.isTentative;
+            time = expense.time;
         }
 
         /**
@@ -55,13 +65,15 @@ public class Expense extends DukeItem {
         Builder(Map<String, String> mappedStorageString) throws DukeException {
             super(mappedStorageString);
             if (!mappedStorageString.containsKey("amount")
-                    || !mappedStorageString.containsKey("description")
-                    || !mappedStorageString.containsKey("isTentative")) {
+                || !mappedStorageString.containsKey("description")
+                || !mappedStorageString.containsKey("isTentative")
+                || !mappedStorageString.containsKey("time")) {
                 throw new DukeException("Expense missing field in storage string"); // todo: Update DukeException
             }
-            amount = Double.parseDouble(mappedStorageString.get("amount"));
+            amount = new BigDecimal(mappedStorageString.get("amount"));
             description = mappedStorageString.get("description");
             isTentative = Boolean.parseBoolean(mappedStorageString.get("isTentative"));
+            time = LocalDateTimeParser.fromString(mappedStorageString.get("time"));
         }
 
         /**
@@ -70,9 +82,25 @@ public class Expense extends DukeItem {
          * @param amount the amount of the expense.
          * @return this builder.
          */
-        public Builder setAmount(double amount) {
+        public Builder setAmount(BigDecimal amount) {
             this.amount = amount;
             return this;
+        }
+
+        /**
+         * Sets the amount of the expense using a string. 
+         * @see #setAmount(BigDecimal) 
+         * 
+         * @param amount the amount of the expense as a string.
+         * @return this builder. 
+         * @throws DukeException if the value in amount cannot be converted into a {@code BigDecimal}
+         */
+        public Builder setAmount(String amount) throws DukeException {
+            try {
+                return setAmount(new BigDecimal(amount));
+            } catch (NumberFormatException e) {
+                throw new DukeException("Invalid amount format"); // todo: update DukeException.
+            }
         }
 
         /**
@@ -89,12 +117,35 @@ public class Expense extends DukeItem {
         /**
          * Sets the tentativeness of the expense.
          *
-         * @param tentative the description of the expense.
+         * @param tentative whether the expense is tentative.
          * @return this builder.
          */
         public Builder setTentative(boolean tentative) {
             isTentative = tentative;
             return this;
+        }
+
+        /**
+         * Sets the time of the expense.
+         *
+         * @param time the time of the expense.
+         * @return this builder.
+         */
+        public Builder setTime(LocalDateTime time) {
+            this.time = time;
+            return this;
+        }
+
+        /**
+         * Sets the time of the expense using a string.
+         * @see #setTime(LocalDateTime) 
+         *
+         * @param time the time of the expense as a string.
+         * @return this builder.
+         * @throws DukeException if the time string cannot be parsed into a {@code LocalDateTime} object. 
+         */
+        public Builder setTime(String time) throws DukeException {
+            return setTime(LocalDateTimeParser.fromString(time));
         }
 
         /**
@@ -117,6 +168,7 @@ public class Expense extends DukeItem {
         amount = builder.amount;
         description = builder.description;
         isTentative = builder.isTentative;
+        time = builder.time;
     }
 
     /**
@@ -124,7 +176,7 @@ public class Expense extends DukeItem {
      *
      * @return {@link #amount}.
      */
-    public double getAmount() {
+    public BigDecimal getAmount() {
         return amount;
     }
 
@@ -147,6 +199,15 @@ public class Expense extends DukeItem {
     }
 
     /**
+     * Returns the date of the expense.
+     *
+     * @return {@link #time}.
+     */
+    public LocalDateTime getTime() {
+        return time;
+    }
+
+    /**
      * Converts the expense into a string.
      *
      * @return the expense as a string.
@@ -156,6 +217,7 @@ public class Expense extends DukeItem {
         StringJoiner stringJoiner = new StringJoiner(" ");
         stringJoiner.add("$" + amount);
         stringJoiner.add(description);
+        stringJoiner.add(LocalDateTimeParser.toString(time));
         if (isTentative) {
             stringJoiner.add("(tentative)");
         }
@@ -177,6 +239,7 @@ public class Expense extends DukeItem {
         stringJoiner.add(super.toStorageString());
         stringJoiner.add("amount" + STORAGE_NAME_SEPARATOR + amount);
         stringJoiner.add("description" + STORAGE_NAME_SEPARATOR + description);
+        stringJoiner.add("time" + STORAGE_NAME_SEPARATOR + LocalDateTimeParser.toString(time));
         stringJoiner.add("isTentative" + STORAGE_NAME_SEPARATOR + isTentative);
 
         return stringJoiner.toString();

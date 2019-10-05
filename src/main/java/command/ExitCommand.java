@@ -1,6 +1,6 @@
 package command;
 
-import dukeobjects.ExpenseList;
+import dukeobject.ExpenseList;
 import parser.CommandParams;
 import storage.Storage;
 import ui.Ui;
@@ -21,9 +21,9 @@ public class ExitCommand extends Command {
     /**
      * Shows bye to user.
      *
-     * @param expensesList   The ExpenseList of Duke.
-     * @param ui      The ui of Duke.
-     * @param storage The storage of Duke.
+     * @param expensesList The ExpenseList of Duke.
+     * @param ui           The ui of Duke.
+     * @param storage      The storage of Duke.
      */
     public void execute(CommandParams commandParams, ExpenseList expensesList, Ui ui, Storage storage) {
         ui.println("Bye. Hope to see you again soon!");

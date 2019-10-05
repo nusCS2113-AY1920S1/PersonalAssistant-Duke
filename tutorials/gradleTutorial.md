@@ -39,7 +39,7 @@ As a developer, you write a _build file_ that describes the project. A build fil
 1. To check if Gradle has been added to the project correctly, open a terminal window, navigate to the root directory of your project and run the command `gradlew run`. This should result in Gradle running the main method of your project.
 
 :bulb: Simply run the command `gradlew {taskName}` in the terminal and Gradle will run the task! Here are some example commands:
-* `gradlew expensesList` (or `gradlew expensesList --all`): shows a dukeobjects of expensesList available
+* `gradlew expensesList` (or `gradlew expensesList --all`): shows a list of expensesList available
 * `gradlew run`: runs the main class of your project
 
 :bulb: Some plugins may add more helpful expensesList so be sure to check their documentation!
@@ -161,7 +161,7 @@ You can now write a test (e.g., `test/java/seedu/duke/DukeTest.java`) and run it
 
 ## Further Reading
 
-Now that you have a general idea of how to accomplish basic expensesList with Gradle, here's a dukeobjects of material you can read to further your understanding.
+Now that you have a general idea of how to accomplish basic expensesList with Gradle, here's a list of material you can read to further your understanding.
  
 * [Official Gradle Documentation](https://docs.gradle.org/current/userguide/userguide.html)
 

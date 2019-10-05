@@ -1,6 +1,6 @@
 package command;
 
-import dukeobjects.ExpenseList;
+import dukeobject.ExpenseList;
 import parser.CommandParams;
 import storage.Storage;
 import ui.Ui;
@@ -21,13 +21,13 @@ public class ListCommand extends Command {
     /**
      * Lists all expensesList in ExpenseList of Duke by using ui of Duke.
      *
-     * @param expensesList   The ExpenseList of Duke.
-     * @param ui      The ui of Duke.
-     * @param storage The storage of Duke.
+     * @param expensesList The ExpenseList of Duke.
+     * @param ui           The ui of Duke.
+     * @param storage      The storage of Duke.
      */
     public void execute(CommandParams commandParams, ExpenseList expensesList, Ui ui, Storage storage) {
         if (expensesList.internalSize() == 0) {
-            ui.println("Ops, you haven't added any task!");
+            ui.println("Oops, you haven't added any task!");
         } else {
             ui.println("Here are the expensesList in your list:");
             for (int i = 1; i <= expensesList.internalSize(); i++) {

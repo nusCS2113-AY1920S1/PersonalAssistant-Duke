@@ -1,7 +1,7 @@
 package ui;
 
-import dukeobjects.Expense;
-import dukeobjects.ExpenseList;
+import dukeobject.Expense;
+import dukeobject.ExpenseList;
 import exception.DukeException;
 
 
@@ -13,6 +13,7 @@ import java.util.Scanner;
  */
 public class Ui {
     private Scanner dukeIn;
+    private String mostRecent;
 
     /**
      * Constructs an Ui object.
@@ -26,10 +27,10 @@ public class Ui {
      */
     public void showWelcome() {
         String logo = " ____        _        \n"
-                + "|  _ \\ _   _| | _____ \n"
-                + "| | | | | | | |/ / _ \\\n"
-                + "| |_| | |_| |   <  __/\n"
-                + "|____/ \\__,_|_|\\_\\___|\n";
+            + "|  _ \\ _   _| | _____ \n"
+            + "| | | | | | | |/ / _ \\\n"
+            + "| |_| | |_| |   <  __/\n"
+            + "|____/ \\__,_|_|\\_\\___|\n";
         System.out.println("Hello from\n" + logo);
         System.out.println("I am Duke. What can I do for you?");
     }
@@ -50,6 +51,7 @@ public class Ui {
      */
     public void println(String s) {
         System.out.println(s);
+        mostRecent = s;
     }
 
     /**
@@ -59,20 +61,27 @@ public class Ui {
      */
     public void showError(DukeException e) {
         System.out.println(e.getMessage());
+        mostRecent = e.getMessage();
     }
 
     /**
      * Prints the {@code ExpenseList} given.
      *
-     * @param ExpenseList {@code ExpenseList} that we want to be printed
+     * @param expenseList {@code ExpenseList} that we want to be printed
      */
-    public void printExpenseList(ExpenseList ExpenseList) {
-        if (ExpenseList.internalSize() > 0) {
+    public void printExpenseList(ExpenseList expenseList) {
+        if (expenseList.internalSize() > 0) {
             int count = 1;
-            for (Expense expense : ExpenseList.getExternalList()) {
+            for (Expense expense : expenseList.getExternalList()) {
                 println(expense.toString());
                 count++;
             }
         }
     }
+
+    public String getMostRecent() {
+        return mostRecent;
+    }
+
+
 }

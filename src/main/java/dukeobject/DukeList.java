@@ -1,4 +1,4 @@
-package dukeobjects;
+package dukeobject;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -192,11 +192,11 @@ abstract class DukeList<T extends DukeItem> {
     }
 
     /**
-     * @see #undo
      * Forwards the state of {@code internalList} some number of times to a later state.
      *
      * @param times the number of times to redo.
      * @throws DukeException if {@code internalList} has no later state.
+     * @see #undo
      */
     public void redo(int times) throws DukeException {
         if (redoStates.isEmpty()) {
@@ -218,11 +218,11 @@ abstract class DukeList<T extends DukeItem> {
      *
      * @return the byte array of the current {@code internalList}.
      * @throws DukeException if an IO error occurs; this should never happen due to
-     * the self-contained nature of this function.
+     *                       the self-contained nature of this function.
      */
     private byte[] toByteArray(List<T> list) {
         try (ByteArrayOutputStream bos = new ByteArrayOutputStream();
-             ObjectOutput out = new ObjectOutputStream(bos)) {
+            ObjectOutput out = new ObjectOutputStream(bos)) {
             out.writeObject(list);
             return bos.toByteArray();
         } catch (IOException e) {
@@ -239,12 +239,12 @@ abstract class DukeList<T extends DukeItem> {
      * @param bytes a byte array corresponding to a previous state of {@code internalList}.
      * @return the previous state of {@code internalList}.
      * @throws DukeException if an {@code IOException} or {@code ClassNotFoundException} occurs;
-     * this should never happen due to the self-contained nature of this function.
+     *                       this should never happen due to the self-contained nature of this function.
      */
     @SuppressWarnings("unchecked")
     private List<T> fromByteArray(byte[] bytes) {
         try (ByteArrayInputStream bis = new ByteArrayInputStream(bytes);
-             ObjectInput in = new ObjectInputStream(bis)) {
+            ObjectInput in = new ObjectInputStream(bis)) {
             return (List<T>) in.readObject();
         } catch (IOException | ClassNotFoundException e) {
             throw new DukeException("TODO"); // todo: update DukeException

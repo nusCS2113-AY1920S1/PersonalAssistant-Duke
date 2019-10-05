@@ -1,8 +1,11 @@
-package dukeobjects;
+package dukeobject;
 
 import exception.DukeException;
 import org.junit.jupiter.api.Test;
+import parser.LocalDateTimeParser;
 
+import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -10,13 +13,15 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 
 public class ExpenseTest {
-    private static final double DEFAULT_AMOUNT = 0;
+    private static final BigDecimal DEFAULT_AMOUNT = BigDecimal.ZERO;
     private static final String DEFAULT_DESCRIPTION = "";
     private static final boolean DEFAULT_TENTATIVE = false;
+    private static final String DEFAULT_TIME = LocalDateTimeParser.toString(LocalDateTime.now());
 
-    private static final double TEST_AMOUNT = 1.23;
+    private static final BigDecimal TEST_AMOUNT = new BigDecimal("1.23");
     private static final String TEST_DESCRIPTION = "test description";
     private static final boolean TEST_TENTATIVE = true;
+    private static final String TEST_TIME = "18:00 01/01/2000";
     private static final String[] TEST_TAGS = {"tag1", "tag2", "tag3"};
     private static final String[] TEST_FLIP_TAGS = {"tag1", "tag2", "tag4"};
     private static final String[] TEST_FLIPPED_TAGS = {"tag3", "tag4"};
@@ -26,10 +31,15 @@ public class ExpenseTest {
             + "d:1\n"
             + "t:2";
 
-    private static final String ACTUAL_TO_STRING = "$1.23 test description (tentative) Tags: tag1 tag2 tag3";
+    private static final String ACTUAL_TO_STRING = "$1.23 "
+            + "test description "
+            + "18:00 01/01/2000 "
+            + "(tentative) "
+            + "Tags: tag1 tag2 tag3";
     private static final String ACTUAL_TO_STORAGE_STRING = "tags:tag1 tag2 tag3\n"
             + "amount:1.23\n"
             + "description:test description\n"
+            + "time:18:00 01/01/2000\n"
             + "isTentative:true";
 
     @Test
@@ -38,6 +48,7 @@ public class ExpenseTest {
         assertEquals(testExpense.getAmount(), DEFAULT_AMOUNT);
         assertEquals(testExpense.getDescription(), DEFAULT_DESCRIPTION);
         assertEquals(testExpense.isTentative(), DEFAULT_TENTATIVE);
+        assertEquals(LocalDateTimeParser.toString(testExpense.getTime()), DEFAULT_TIME);
         assertTrue(testExpense.getTags().isEmpty());
     }
 
@@ -47,12 +58,14 @@ public class ExpenseTest {
                 .setAmount(TEST_AMOUNT)
                 .setDescription(TEST_DESCRIPTION)
                 .setTentative(TEST_TENTATIVE)
+                .setTime(TEST_TIME)
                 .invertTags(TEST_TAGS)
                 .build();
         Expense testExpenseTwo = new Expense.Builder(testExpense).build();
         assertEquals(testExpense.getAmount(), testExpenseTwo.getAmount());
         assertEquals(testExpense.getDescription(), testExpenseTwo.getDescription());
         assertEquals(testExpense.getTags(), testExpenseTwo.getTags());
+        assertEquals(testExpense.getTime(), testExpenseTwo.getTime());
         assertEquals(testExpense.getAmount(), testExpenseTwo.getAmount());
     }
 
@@ -75,6 +88,12 @@ public class ExpenseTest {
     }
 
     @Test
+    public void testTime() {
+        Expense testExpense = new Expense.Builder().setTime(TEST_TIME).build();
+        assertEquals(LocalDateTimeParser.toString(testExpense.getTime()), TEST_TIME);
+    }
+
+    @Test
     public void testTags() {
         Expense testExpense = new Expense.Builder().invertTags(TEST_TAGS).build();
         assertEquals(testExpense.getTags(), Set.of(TEST_TAGS));
@@ -88,6 +107,7 @@ public class ExpenseTest {
                         .setAmount(TEST_AMOUNT)
                         .setDescription(TEST_DESCRIPTION)
                         .setTentative(TEST_TENTATIVE)
+                        .setTime(TEST_TIME)
                         .invertTags(TEST_TAGS)
                         .build()
                         .toString(),
@@ -100,6 +120,7 @@ public class ExpenseTest {
                         .setAmount(TEST_AMOUNT)
                         .setDescription(TEST_DESCRIPTION)
                         .setTentative(TEST_TENTATIVE)
+                        .setTime(TEST_TIME)
                         .invertTags(TEST_TAGS)
                         .build()
                         .toStorageString();
@@ -108,6 +129,7 @@ public class ExpenseTest {
         assertEquals(testExpense.getAmount(), TEST_AMOUNT);
         assertEquals(testExpense.getDescription(), TEST_DESCRIPTION);
         assertEquals(testExpense.isTentative(), TEST_TENTATIVE);
+        assertEquals(LocalDateTimeParser.toString(testExpense.getTime()), TEST_TIME);
         assertEquals(testExpense.getTags(), Set.of(TEST_TAGS));
     }
 

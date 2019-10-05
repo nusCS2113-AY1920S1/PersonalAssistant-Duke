@@ -1,4 +1,4 @@
-package dukeobjects;
+package dukeobject;
 
 import exception.DukeException;
 import org.junit.jupiter.api.Test;
@@ -6,20 +6,21 @@ import org.junit.jupiter.api.io.TempDir;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.math.BigDecimal;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
 public class ExpenseListTest {
     @TempDir
-    File USER_DIR;
+    File userDirectory;
 
     private static final String STORAGE_DELIMITER = "\n\n";
 
 
     @Test
     public void testBasicOperations() throws FileNotFoundException {
-        ExpenseList testExpenseList = new ExpenseList(USER_DIR);
+        ExpenseList testExpenseList = new ExpenseList(userDirectory);
         Expense testExpense = new Expense.Builder().build();
         testExpenseList.add(testExpense);
         testExpenseList.update();
@@ -32,7 +33,7 @@ public class ExpenseListTest {
 
     @Test
     public void testInvalidBasicOperations() {
-        ExpenseList testExpenseList = new ExpenseList(USER_DIR);
+        ExpenseList testExpenseList = new ExpenseList(userDirectory);
         Expense testExpense = new Expense.Builder().build();
         testExpenseList.add(testExpense);
         testExpenseList.update();
@@ -57,7 +58,7 @@ public class ExpenseListTest {
 
     @Test
     public void testUndoRedo() {
-        ExpenseList testExpenseList = new ExpenseList(USER_DIR);
+        ExpenseList testExpenseList = new ExpenseList(userDirectory);
         Expense testExpense = new Expense.Builder().build();
         testExpenseList.add(testExpense);
         testExpenseList.update();
@@ -97,5 +98,21 @@ public class ExpenseListTest {
             // todo: Test that the error message is correct when it's implemented
             e.printStackTrace();
         }
+    }
+
+    @Test
+    public void testGetTotalAmount() {
+        ExpenseList testExpenseList = new ExpenseList(userDirectory);
+        Expense testExpenseOne = new Expense.Builder().build();
+        Expense testExpenseTwo = new Expense.Builder().setAmount("12").build();
+        Expense testExpenseThree = new Expense.Builder().setAmount("13").build();
+        Expense testExpenseFour = new Expense.Builder().setAmount("12.4").build();
+        Expense testExpenseFive = new Expense.Builder().setAmount("12.23").build();
+        testExpenseList.add(testExpenseOne);
+        testExpenseList.add(testExpenseTwo);
+        testExpenseList.add(testExpenseThree);
+        testExpenseList.add(testExpenseFour);
+        testExpenseList.add(testExpenseFive);
+        assertEquals(testExpenseList.getTotalAmount(), new BigDecimal("49.63"));
     }
 }

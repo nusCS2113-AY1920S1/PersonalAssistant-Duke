@@ -1,4 +1,4 @@
-import dukeobjects.ExpenseList;
+import dukeobject.ExpenseList;
 import parser.CommandParams;
 import storage.Storage;
 import ui.Ui;
@@ -12,7 +12,7 @@ import java.io.File;
  * Represents our Duke and contains the main program of Duke.
  */
 public class Duke {
-    private final static String USER_DIR = "data" + File.separator + "duke";
+    private static final String USER_DIR = "data" + File.separator + "duke";
 
     private Storage storage = null;
     private ExpenseList expenseList;

@@ -1,4 +1,4 @@
-package dukeobjects;
+package dukeobject;
 
 import exception.DukeException;
 
@@ -41,10 +41,10 @@ abstract class DukeItem implements Serializable {
      */
     protected static Map<String, String> storageStringToMap(String storageString) {
         return Stream.of(storageString.split(STORAGE_FIELD_DELIMITER))
-                .map(s -> s.split(STORAGE_NAME_SEPARATOR, 2))
-                .collect(Collectors.toMap(
-                        s -> s[0],
-                        s -> s.length > 1 ? s[1] : ""));
+            .map(s -> s.split(STORAGE_NAME_SEPARATOR, 2))
+            .collect(Collectors.toMap(
+                s -> s[0],
+                s -> s.length > 1 ? s[1] : ""));
     }
 
     /**
@@ -60,7 +60,9 @@ abstract class DukeItem implements Serializable {
         /**
          * Constructs an empty item with default values for all fields.
          */
-        protected Builder() {}
+        protected Builder() {
+
+        }
 
         /**
          * Constructs an item from an existing item.
@@ -91,9 +93,9 @@ abstract class DukeItem implements Serializable {
                 throw new DukeException("DukeItem missing field in storage string"); // todo: Update DukeException
             }
             tags = Stream.of(mappedStorageString.get("tags")
-                    .split(STORAGE_TAG_SEPARATOR))
-                    .filter(s -> !s.equals(""))
-                    .collect(Collectors.toSet());
+                .split(STORAGE_TAG_SEPARATOR))
+                .filter(s -> !s.equals(""))
+                .collect(Collectors.toSet());
         }
 
         /**
