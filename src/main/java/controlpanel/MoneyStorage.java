@@ -39,10 +39,16 @@ public class MoneyStorage {
             while ((line = bufferedReader.readLine()) != null) {
                 String[] info = line.split(" @ ");
                 if (!(info[0].equals("BS") || info[0].equals("I") || info[0].equals("EXP") ||
-                        info[0].equals("G") || info[0].equals("INS"))) {
+                        info[0].equals("G") || info[0].equals("INS") || info[0].equals("INIT"))) {
                     throw new DukeException("OOPS!! Your file has been corrupted/ input file is invalid!");
                 }
                 switch(info[0]) {
+                    case "INIT":
+                        account.setToInitialize(Boolean.parseBoolean(info[1]));
+                        break;
+                    case "BS":
+                        account.setBaseSavings(Float.parseFloat((info[1])));
+                        break;
                     case "I":
                         Income i = new Income(Float.parseFloat(info[1]), info[2],
                                 LocalDate.parse(info[3], dateTimeFormatter));
@@ -74,6 +80,8 @@ public class MoneyStorage {
             FileWriter fileWriter = new FileWriter(fileName);
             BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
             bufferedWriter.write("");
+
+            bufferedWriter.write("INIT @ " + account.isToInitialize() + "\n");
             bufferedWriter.write("BS @ " + account.getBaseSavings() + "\n");
 
             for (Income i : account.getIncomeListTotal()) {
