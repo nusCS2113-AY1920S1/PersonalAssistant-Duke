@@ -4,6 +4,8 @@ plugins {
     id 'checkstyle'
     id 'com.github.johnrengelman.shadow' version '5.1.0'
     id 'org.openjfx.javafxplugin' version '0.0.7'
+    id 'net.saliman.cobertura' version '2.6.1'
+    id 'com.github.kt3k.coveralls' version '2.8.4'
 }
 
 group 'duke'
@@ -42,6 +44,8 @@ shadowJar {
 test {
     useJUnitPlatform()
 }
+
+cobertura.coverageFormats = ['html', 'xml']
 
 dependencies {
     testImplementation 'org.junit.jupiter:junit-jupiter:5.5.0'
