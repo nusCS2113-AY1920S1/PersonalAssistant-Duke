@@ -6,6 +6,8 @@ import money.Expenditure;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 
 /**
@@ -42,13 +44,14 @@ public class AddExpenditureCommand extends MoneyCommand {
      */
     @Override
     public void execute(Account account, Ui ui, MoneyStorage storage) throws ParseException, DukeException {
+        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("d/M/yyyy");
         String[] splitStr = inputString.split("/amt ", 2);
         String description = splitStr[0];
         String[] furSplit = splitStr[1].split("/cat ", 2);
         float price = Float.parseFloat(furSplit[0]);
-        String[] morSplit = furSplit[1].split("/on", 2);
+        String[] morSplit = furSplit[1].split("/on ", 2);
         String category = morSplit[0];
-        Date boughtTime = Parser.shortcutTime(morSplit[1]);
+        LocalDate boughtTime = LocalDate.parse(morSplit[1], dateTimeFormatter);
         Expenditure e = new Expenditure(price, description, category, boughtTime);
         account.getExpListTotal().add(e);
         storage.writeToFile(account);

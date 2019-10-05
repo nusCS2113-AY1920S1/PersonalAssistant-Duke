@@ -33,7 +33,7 @@ public class Duke {
         moneyStorage = new MoneyStorage(moneyFilePath);
         try {
             tasks = new TaskList(storage.load());
-            account = new Account();//need to load from storage on program init
+            account = new Account(moneyStorage.load());//need to load from storage on program init
         } catch (Exception e) {
             ui.showLoadingError();
             tasks = new TaskList();

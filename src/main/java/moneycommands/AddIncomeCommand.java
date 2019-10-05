@@ -6,6 +6,8 @@ import money.Income;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 
 /**
@@ -40,11 +42,12 @@ public class AddIncomeCommand extends MoneyCommand {
      */
     @Override
     public void execute(Account account, Ui ui, MoneyStorage storage) throws ParseException, DukeException {
+        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("d/M/yyyy");
         String[] splitStr = inputString.split("/amt ", 2);
         String description = splitStr[0];
         String[] furSplit = splitStr[1].split("/payday ", 2);
         float salary = Float.parseFloat(furSplit[0]);
-        Date payDay = Parser.shortcutTime(furSplit[1]);
+        LocalDate payDay = LocalDate.parse(furSplit[1], dateTimeFormatter);
         Income i = new Income(salary, description, payDay);
         account.getIncomeListTotal().add(i);
         storage.writeToFile(account);

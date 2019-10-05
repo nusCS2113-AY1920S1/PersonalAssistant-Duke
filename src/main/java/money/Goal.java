@@ -1,5 +1,6 @@
 package money;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 public class Goal extends Expenditure {
@@ -12,7 +13,7 @@ public class Goal extends Expenditure {
 
     private Priority priority;
 
-    public Goal(float price, String description, String category, Date goalBy, String priorityLevel) {
+    public Goal(float price, String description, String category, LocalDate goalBy, String priorityLevel) {
         super(price, description, category, goalBy);
         switch (priorityLevel) {
         case "low" : {
