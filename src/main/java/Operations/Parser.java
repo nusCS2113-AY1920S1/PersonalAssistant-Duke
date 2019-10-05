@@ -122,4 +122,13 @@ public class Parser {
         return ReplyType.valueOf(temp);
     }
 
+    /**
+     * Returns the index of the task and priority the user wants to set it to
+     * @return the index and priority of the task the user wants to set
+     */
+    public String[] getPriority() {
+        String empty = scanner.nextLine();
+        return scanner.nextLine().trim().split(" ", 2);
+    }
+
 }

@@ -1,5 +1,7 @@
 package Model_Classes;
 
+import Enums.Priority;
+
 import java.util.Date;
 
 public class RecurringEvent extends Event {
@@ -7,12 +9,24 @@ public class RecurringEvent extends Event {
     /**
      * Constructor for RecurringEvent object
      * Takes in inputs for description of the event and the time the event occurs
-     *
+     * @param recurrence Frequency task is repeated
      * @param description Description of the event
-     * @param at          Time the event happens
+     * @param at Time the event happens
      */
     public RecurringEvent(String description, Date at, String recurrence) {
         super(description, at);
+        this.recurrence = recurrence;
+    }
+
+    /**
+     * Overload constructor for RecurringEvent object
+     * Takes in inputs for description of the event and the time the event occurs
+     * @param recurrence Frequency task is repeated
+     * @param description Description of the event
+     * @param at Time the event happens
+     */
+    public RecurringEvent(String description, Date at, String recurrence, boolean done, Priority priority) {
+        super(description, at, done, priority);
         this.recurrence = recurrence;
     }
 

@@ -1,5 +1,7 @@
 package Model_Classes;
 
+import Enums.Priority;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
@@ -11,6 +13,7 @@ public class Task{
     private String description;
     private boolean isDone;
     private String created;
+    private Priority priority;
 
     /**
      * Constructor for the task object. takes in the description of the task
@@ -22,6 +25,22 @@ public class Task{
         DateTimeFormatter dateTimeFormatterNow = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
         LocalDateTime now = LocalDateTime.now();
         this.created = now.format(dateTimeFormatterNow);
+        this.priority = Priority.low;
+    }
+
+    /**
+     * Overload constructor for the task object. takes in the description of the task
+     * @param description Description of the task.
+     * @param done Whether the task is completed.
+     * @param priority Priority of the task.
+     */
+    public Task(String description, boolean done, Priority priority) {
+        this.description = description;
+        this.isDone = done;
+        DateTimeFormatter dateTimeFormatterNow = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
+        LocalDateTime now = LocalDateTime.now();
+        this.created = now.format(dateTimeFormatterNow);
+        this.priority = priority;
     }
 
     /**
@@ -56,6 +75,12 @@ public class Task{
     }
 
     /**
+     * Returns the priority of the task
+     * @return priority of the task
+     */
+    public Priority getPriority() { return priority; }
+
+    /**
      * Sets the task to be done
      */
     public void setDone() {
@@ -67,6 +92,14 @@ public class Task{
      */
     public void setNotDone() {
         isDone = false;
+    }
+
+    /**
+     * Sets the priority of the task
+     * @param p priority of the task
+     */
+    public void setPriority(Priority p) {
+        priority = p;
     }
 
     /**

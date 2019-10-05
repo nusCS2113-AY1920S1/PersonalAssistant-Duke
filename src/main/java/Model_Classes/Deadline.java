@@ -1,5 +1,7 @@
 package Model_Classes;
 
+import Enums.Priority;
+
 import java.util.Date;
 
 /**
@@ -17,6 +19,19 @@ public class Deadline extends Task {
      */
     public Deadline (String description, Date by) {
         super(description);
+        this.by = by;
+    }
+
+    /**
+     * Overload Constructor for the Deadline object.
+     * Takes in inputs for description and date/time the tasks should be done by.
+     * @param description Description of the task.
+     * @param by The time the tasks should be done by.
+     * @param done Whether the task is completed.
+     * @param priority Priority of the task.
+     */
+    public Deadline (String description, Date by, boolean done, Priority priority) {
+        super(description, done, priority);
         this.by = by;
     }
 

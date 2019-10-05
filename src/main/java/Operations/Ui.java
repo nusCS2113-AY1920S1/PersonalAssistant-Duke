@@ -217,4 +217,18 @@ public class Ui {
     public void showTimeError(){
         System.out.println("Please indicate a valid amount of time");
     }
+
+    /**
+     * Provides user with instructions to prioritise task
+     */
+    public void priority() {
+        System.out.println("Enter task index followed by priority (high, medium, low)");
+        System.out.println("\te.g. 1 high");
+    }
+
+    /**
+     * Notifies the user that their task's priority has been set
+     */
+    public void prioritySet() { System.out.println("Your task's priority has been set"); }
+
 }
