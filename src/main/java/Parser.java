@@ -1,9 +1,6 @@
 import Dictionary.Word;
 import command.*;
-import exception.CommandInvalidException;
-import exception.DukeException;
-import exception.EmptyWordException;
-import exception.WrongAddFormatException;
+import exception.*;
 
 import java.util.ArrayList;
 
@@ -29,6 +26,9 @@ public class Parser {
                 return null;
             } else if (taskInfo[0].equals("add")) {
                 // FIX ADD COMMAND TO ADD TO DICTIONARY
+                if (taskInfo.length == 1) {
+                    throw new WrongAddFormatException();
+                }
                 String[] wordDetail = taskInfo[1].split("w/");
                 if (wordDetail.length != 3) {
                     throw new WrongAddFormatException();
@@ -56,13 +56,29 @@ public class Parser {
                 return new AddCommand(word);
             } else if (taskInfo[0].equals("delete")) {
                 // FIX DELETE COMMAND TO DELETE WORD FROM DICTIONARY (BOTH TAG AND WORD)
-                return null;
+                if (taskInfo.length == 1 || !taskInfo[1].startsWith("w/")) {
+                    throw new WrongDeleteFormatException();
+                }
+                return new DeleteCommand(taskInfo[1].substring(2));
             } else if (taskInfo[0].equals("search")) {
                 // CREATE A SEARCH COMMAND TO SEARCH FOR A WORD
-                return null;
+                if (taskInfo.length == 1 || !taskInfo[1].startsWith("w/")) {
+                    throw new WrongSearchFormatException();
+                }
+                return new SearchCommand(taskInfo[1].substring(2));
             } else if (taskInfo[0].equals("list")) {
                 //FIX LIST COMMAND TO MATCH THE TASK WE NEED TO DO
-                return new ListCommand();
+                String order = "";
+                if (taskInfo.length > 1) {
+                    if (!taskInfo[1].startsWith("o/")) {
+                        throw new WrongListFormatDescription();
+                    }
+                    order = taskInfo[1].substring(2);
+                    if (!order.equals("asc") && !order.equals("desc")) {
+                        throw new WrongListFormatDescription();
+                    }
+                }
+                return new ListCommand(order);
             } else if (taskInfo[0].equals("edit")) {
                 // CREATE AN EDIT COMMAND TO DEAL WITH EDIT WORD
                 return null;

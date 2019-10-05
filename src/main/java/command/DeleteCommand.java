@@ -14,8 +14,10 @@ import ui.Ui;
  */
 public class DeleteCommand extends Command {
 
-    public DeleteCommand(Word deletedWord) {
-        this.word = deletedWord;
+    String deletedWord;
+
+    public DeleteCommand(String deletedWord) {
+        this.deletedWord = deletedWord;
     }
 
     @Override
@@ -24,7 +26,7 @@ public class DeleteCommand extends Command {
         //ask tasks to store the thing in arraylist
         //ask storage to write to file
         try {
-            wordBank.delete(word.getWord());
+            word = wordBank.getAndDelete(this.deletedWord);
             ui.showDeleted(word);
         } catch (NoWordFoundException e) {
             e.showError();

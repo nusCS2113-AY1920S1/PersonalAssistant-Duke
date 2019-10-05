@@ -59,9 +59,9 @@ public class WordBank {
         }
     }
 
-    public void delete(String word) throws NoWordFoundException {
+    public Word getAndDelete(String word) throws NoWordFoundException {
         if (wordBank.containsKey(word)) {
-            wordBank.remove(word);
+            return wordBank.remove(word);
         }
         else {
             throw new NoWordFoundException(word);

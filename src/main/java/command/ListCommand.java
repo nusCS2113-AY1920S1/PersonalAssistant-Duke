@@ -10,6 +10,13 @@ import ui.Ui;
  * Inherits from Command class.
  */
 public class ListCommand extends Command {
+
+    String order;
+
+    public ListCommand(String order) {
+        this.order = order;
+    }
+
     @Override
     public void execute(Ui ui, WordBank wordBank, Storage storage) {
         //ask ui to print something
@@ -19,7 +26,7 @@ public class ListCommand extends Command {
             if (wordBank.getWordBank().isEmpty()) {
                 throw new WordBankEmptyException();
             }
-            ui.showList(wordBank);
+            ui.showList(wordBank, this.order);
         } catch (WordBankEmptyException e) {
             e.showError();
         }
