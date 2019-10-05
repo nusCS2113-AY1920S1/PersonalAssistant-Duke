@@ -1,7 +1,8 @@
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-public class Booking {
+public class Booking /*extends Facility*/ {
+
 
     protected LocalDateTime dateTime;
 
@@ -9,7 +10,14 @@ public class Booking {
 
     protected int pax;
 
+    /**
+     * Facility.Booking constructor to make booking
+     * @param description the specific room code
+     * @param timing when you are booking the facility
+     * @param people how many people you are accommodating
+     */
     public Booking (String description, String timing, String people) {
+
         this.venue = description;
         this.pax = Integer.parseInt(people);
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/mm/yyyy HH:mm");
