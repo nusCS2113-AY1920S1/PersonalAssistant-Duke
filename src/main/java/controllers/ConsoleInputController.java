@@ -236,19 +236,24 @@ public class ConsoleInputController implements IViewController {
                     if (manageProjectInput.hasNextLine()) {
                         String projectCommand = manageProjectInput.nextLine();
                         switch (projectCommand) {
-                            case "exit":
-                                continueManaging = false;
-                                consoleView.exitProject(projectName);
-                                break;
-                            case "add member":
-                                consoleView.consolePrint("Enter member details: n/NAME p/PHONE e/EMAIL");
-                                String memberDetails = manageProjectInput.nextLine();
-                                Member newMember = MemberFactory.createMember(memberDetails);
-                                consoleView.addMember(projectToManage, newMember);
-                                break;
-                            case "view members":
-                                consoleView.viewAllMembers(projectToManage);
+                        case "exit":
+                            continueManaging = false;
+                            consoleView.exitProject(projectName);
+                            break;
+                        case "add member":
+                            consoleView.consolePrint("Enter member details: n/NAME p/PHONE e/EMAIL");
+                            String memberDetails = manageProjectInput.nextLine();
+                            Member newMember = MemberFactory.createMember(memberDetails);
+                            consoleView.addMember(projectToManage, newMember);
+                            break;
+                        case "view members":
+                            consoleView.viewAllMembers(projectToManage);
+                            break;
+                        default:
+                            consoleView.consolePrint("Invalid command. Try again!");
+                            break;
                         }
+
                     } else {
                         consoleView.consolePrint("Please enter a command.");
                     }

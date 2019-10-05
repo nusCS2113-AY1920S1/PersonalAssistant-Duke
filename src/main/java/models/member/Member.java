@@ -1,13 +1,20 @@
 package models.member;
 
-public class Member implements IMember{
+public class Member implements IMember {
     private String name;
     private String phone;
     private String email;
     private int indexNumber;
     private int totalCredit;
 
-    public Member (String name, String phone, String email, int indexNumber) {
+    /**
+     * Class representing a member in a project team.
+     * @param name The name of the member.
+     * @param phone The phone number of the member.
+     * @param email The email address of the member.
+     * @param indexNumber The index number assigned to the member, unique to the project.
+     */
+    public Member(String name, String phone, String email, int indexNumber) {
         this.name = name;
         this.phone = phone;
         this.email = email;
