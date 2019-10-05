@@ -1,3 +1,5 @@
+package MovieUI;
+
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -121,17 +123,17 @@ public class MovieInfoController extends Controller implements RequestListener {
     }
 
     @FXML private void searchButtonClicked() {
-        if (mSearchTextField.getText().equals("show current movie")) {
-            mMovieRequest.beginMovieRequest(RetrieveRequest.MoviesRequestType.NOW_SHOWING);
-        } else if (mSearchTextField.getText().equals("show upcoming movie")) {
-            mMovieRequest.beginMovieRequest(RetrieveRequest.MoviesRequestType.UPCOMING);
-        } else if (mSearchTextField.getText().equals("show popular movie")) {
-            mMovieRequest.beginMovieRequest(RetrieveRequest.MoviesRequestType.POPULAR);
-        } else if (mSearchTextField.getText().equals("show current tv")) {
-            mMovieRequest.beginMovieRequest(RetrieveRequest.MoviesRequestType.TV_SHOWS);
-        } else if (!mSearchTextField.getText().isEmpty()) {
-            mMovieRequest.beginSearchRequest(mSearchTextField.getText());
-        }
+//        if (mSearchTextField.getText().equals("show current movie")) {
+//            mMovieRequest.beginMovieRequest(RetrieveRequest.MoviesRequestType.NOW_SHOWING);
+//        } else if (mSearchTextField.getText().equals("show upcoming movie")) {
+//            mMovieRequest.beginMovieRequest(RetrieveRequest.MoviesRequestType.UPCOMING);
+//        } else if (mSearchTextField.getText().equals("show popular movie")) {
+//            mMovieRequest.beginMovieRequest(RetrieveRequest.MoviesRequestType.POPULAR);
+//        } else if (mSearchTextField.getText().equals("show current tv")) {
+//            mMovieRequest.beginMovieRequest(RetrieveRequest.MoviesRequestType.TV_SHOWS);
+//        } else if (!mSearchTextField.getText().isEmpty()) {
+//            mMovieRequest.beginSearchRequest(mSearchTextField.getText());
+//        }
     }
 
     // Menu item events
