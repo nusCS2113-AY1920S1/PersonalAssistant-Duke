@@ -1,5 +1,6 @@
 package duke;
 
+import duke.components.Song;
 import duke.tasks.RecurringTask;
 import duke.tasks.Task;
 
@@ -202,5 +203,77 @@ public class Ui {
         }
         return wrap(result.toString());
 
+    }
+
+    /**
+     * Returns a String formatted for display that indicates that a duke.components.Song object has been added
+     * by the new command.
+     *
+     * @param list the song list
+     * @param song the item that was added to the song list
+     * @return the formatted String to be displayed
+     */
+    public String formatNewSong(ArrayList<Task> list, Song song) {
+        String word = (list.size() == 1) ? "song" : "songs";
+        String result = "Got it. I've added this song:\n  "
+                + song.getName()
+                + "\nNow you have "
+                + list.size()
+                + " "
+                + word
+                + " in the list.";
+        return wrap(result);
+    }
+
+    /**
+     * Returns a String formatted for display that shows all the elements in the command list
+     * due to the help command.
+     * @param list the command list
+     * @return the formatted String to be displayed
+     */
+    public String formatHelp(ArrayList<Task> list) {
+        StringBuilder result = new StringBuilder();
+        for (int i = 0; i < list.size(); i++) {
+            result.append(i + 1)
+                    .append(". ")
+                    .append(list.get(i).toString());
+            if (i != list.size() - 1) {
+                result.append("\n");
+            }
+        }
+        if (list.size() == 0) {
+            result.append("The list is empty!");
+        }
+        return wrap(result.toString());
+    }
+
+    /**
+     * Returns a String formatted for display that shows a song in the song list due to the view command.
+     * @param task the item that is to be displayed
+     * @return the formatted String to be displayed
+     */
+    public String formatView(Task task) {
+        //return song.getBars().toString();
+        return task.toString();
+    }
+
+    /**
+     * Returns a String formatted for display that indicates that a duke.components.Bar object has been added
+     * by the addbar command.
+     *
+     * @param list the song list
+     * @param song the item that was modified
+     * @return the formatted String to be displayed
+     */
+    public String formatAddBar(ArrayList<Task> list, Task song) {
+        String word = (list.size() == 1) ? "bar" : "bars";
+        String result = "Got it. I've added this bar:\n  "
+                + song.toString()
+                + "\nNow you have "
+                + list.size()
+                + " "
+                + word
+                + " in the song.";
+        return wrap(result);
     }
 }

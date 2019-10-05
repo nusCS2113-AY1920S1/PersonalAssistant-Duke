@@ -13,6 +13,10 @@ import duke.Ui;
  *     <li>DeleteCommand</li>
  *     <li>FindCommand</li>
  *     <li>ByeCommand</li>
+ *     <li>NewCommand</li>
+ *     <li>HelpCommand</li>
+ *     <li>ViewCommand</li>
+ *     <li>AddBarCommand</li>
  * </ul>
  */
 public abstract class Command {

@@ -43,7 +43,9 @@ public class DukeException extends Exception {
         String word = input.trim().equals("event") ? "an " : "a ";
 
         if (input.trim().equals("todo") || input.trim().equals("event")
-                || input.trim().equals("deadline") || input.trim().equals("doafter")) {
+                || input.trim().equals("deadline") || input.trim().equals("doafter")
+                || input.trim().equals("new") || input.trim().equals("view")
+                || input.trim().equals("addbar")) {
 
             message = "OOPS!!! The description of "
                     + word
@@ -71,8 +73,20 @@ public class DukeException extends Exception {
                 if (!input.contains("/after")) {
                     message = "OOPS!!! duke.tasks.DoAfter is missing a task it is supposed to be done after.";
                 } else {
-                    message = "Please enter the task number of the task that the DoAfter should be after";
+                    message = "Please enter the task number of the task that the DoAfter should be after.";
                 }
+                break;
+            }
+            case "new": {
+                message = "OOPS!!! duke.components.Song cannot be created due to invalid input format.";
+                break;
+            }
+            case "view": {
+                message = "OOPS!!! I don't know that song. Please be more specific in the song name.";
+                break;
+            }
+            case "addbar": {
+                message = "OOPS!!! New bar cannot be added due to invalid input.";
                 break;
             }
             case "io": {
