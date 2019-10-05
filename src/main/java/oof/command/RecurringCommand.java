@@ -82,8 +82,7 @@ public class RecurringCommand extends Command {
      */
     private void setRecurringTask(Ui ui, TaskList taskList,int index, int count, int frequency) throws OofException {
         Task task = taskList.getTask(index);
-        String description = setDescription(frequency) + task.getLine();
-        task.setLine(description);
+        task.setFrequency(frequency);
         taskList.deleteTask(index);
         taskList.addTaskToIndex(index, task);
         recurInstances(ui, taskList, task, count, frequency);
@@ -106,6 +105,7 @@ public class RecurringCommand extends Command {
                 String datetime = ((Deadline) task).getBy();
                 datetime = dateTimeIncrement(task, datetime, frequency, i);
                 Task newtask = new Deadline(task.getLine(), datetime);
+                newtask.setFrequency(frequency);
                 taskList.addTask(newtask);
             }
         } else if (task instanceof Event) {
@@ -115,6 +115,7 @@ public class RecurringCommand extends Command {
                 startTiming = dateTimeIncrement(task, startTiming, frequency, i);
                 endTiming = dateTimeIncrement(task, endTiming, frequency, i);
                 Task newtask = new Event(task.getLine(), startTiming, endTiming);
+                newtask.setFrequency(frequency);
                 taskList.addTask(newtask);
             }
         }
@@ -153,23 +154,6 @@ public class RecurringCommand extends Command {
             throw new OofException("OOPS!!! Datetime is in the wrong format!");
         }
         return datetime;
-    }
-
-    /**
-     * Adds a label to recurring tasks.
-     * @param frequency Frequency of recurrence of task.
-     * @return Label based on the frequency number.
-     */
-    private String setDescription(int frequency) {
-        if (frequency == DAILY) {
-            return "[DAILY] ";
-        } else if (frequency == WEEKLY) {
-            return "[WEEKLY] ";
-        } else if (frequency == MONTHLY) {
-            return "[MONTHLY] ";
-        } else {
-            return "[YEARLY] ";
-        }
     }
 
     /**
