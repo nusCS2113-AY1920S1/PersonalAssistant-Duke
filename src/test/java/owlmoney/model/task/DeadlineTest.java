@@ -9,8 +9,6 @@ import java.time.format.DateTimeFormatter;
 
 import org.junit.jupiter.api.Test;
 
-import owlmoney.logic.exception.DukeException;
-
 public class DeadlineTest {
 
     @Test

@@ -1,12 +1,12 @@
 package owlmoney;
 
-import owlmoney.logic.command.OwlMoneyCommand;
+import java.util.Scanner;
+
+import owlmoney.logic.command.Command;
 import owlmoney.logic.parser.ParseCommand;
 import owlmoney.logic.parser.exception.ParserException;
 import owlmoney.model.profile.Profile;
 import owlmoney.ui.Ui;
-
-import java.util.Scanner;
 
 
 /**
@@ -21,7 +21,7 @@ class Main {
     //private Storage storage;
 
     /**
-     * Initializes a new Duke session.
+     * Initializes a new OwlMoney session.
      */
     private Main() {
         ui = new Ui();
@@ -36,7 +36,7 @@ class Main {
     }
 
     /**
-     * Starts up the initialized Duke session.
+     * Starts up the initialized OwlMoney session.
      */
     private void run() {
         boolean hasExited = false;
@@ -45,12 +45,12 @@ class Main {
         Scanner scanner = new Scanner(System.in);
         String username = scanner.nextLine();
         profile = new Profile(username);
-        // until above this line
         ui.greet(profile.getUsername());
+        // until above this line
         while (parser.hasNextLine()) {
             try {
-                OwlMoneyCommand nextCommand = parser.parseLine(profile);
-                nextCommand.execute(profile, ui);
+                Command command = parser.parseLine();
+                command.execute(profile, ui);
             } catch (ParserException exceptionMessage) {
                 ui.printError(exceptionMessage.toString());
             }

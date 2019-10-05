@@ -9,7 +9,6 @@ import java.util.ArrayList;
 
 import org.junit.jupiter.api.Test;
 
-import owlmoney.logic.exception.DukeException;
 import owlmoney.model.task.Task;
 import owlmoney.model.task.TaskList;
 

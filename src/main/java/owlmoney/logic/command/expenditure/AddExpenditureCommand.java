@@ -1,11 +1,11 @@
 package owlmoney.logic.command.expenditure;
 
-import owlmoney.logic.command.OwlMoneyCommand;
+import owlmoney.logic.command.Command;
 import owlmoney.model.expenditure.Expenditure;
 import owlmoney.model.profile.Profile;
 import owlmoney.ui.Ui;
 
-public class AddExpenditureCommand extends OwlMoneyCommand {
+public class AddExpenditureCommand extends Command {
 
     private final String accName;
     private final double amount;

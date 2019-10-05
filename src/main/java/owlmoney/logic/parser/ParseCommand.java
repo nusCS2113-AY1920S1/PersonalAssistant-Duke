@@ -2,9 +2,8 @@ package owlmoney.logic.parser;
 
 import java.util.Scanner;
 
-import owlmoney.logic.command.OwlMoneyCommand;
+import owlmoney.logic.command.Command;
 import owlmoney.logic.parser.exception.ParserException;
-import owlmoney.model.profile.Profile;
 
 public class ParseCommand extends Parser {
     ParseType parseType = new ParseType();
@@ -14,7 +13,7 @@ public class ParseCommand extends Parser {
         return scanner.hasNextLine();
     }
 
-    public OwlMoneyCommand parseLine(Profile profile) throws ParserException {
+    public Command parseLine() throws ParserException {
         String input = scanner.nextLine();
         parseIsBlank(input);
         String command = parseFirstField(input);
@@ -29,7 +28,7 @@ public class ParseCommand extends Parser {
     }
 
     //for now is pass profile all the way in. Double check if is correct structure
-    private OwlMoneyCommand parseCommandMenu(String command, String data) throws ParserException{
+    private Command parseCommandMenu(String command, String data) throws ParserException{
         switch (command) {
         case "/add":
             System.out.println("You added");

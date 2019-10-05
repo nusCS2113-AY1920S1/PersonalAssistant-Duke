@@ -2,10 +2,9 @@ package owlmoney.logic.parser.expenditure;
 
 import java.util.Iterator;
 
-import owlmoney.logic.command.OwlMoneyCommand;
+import owlmoney.logic.command.Command;
 import owlmoney.logic.command.expenditure.AddExpenditureCommand;
 import owlmoney.logic.parser.exception.ParserException;
-import owlmoney.model.profile.Profile;
 
 public class ParseAddExpenditure extends ParseExpenditure {
 
@@ -36,7 +35,7 @@ public class ParseAddExpenditure extends ParseExpenditure {
 
     //current name is just a place holder. This is to create the command and execute it
     //might need to restructure in future
-    public OwlMoneyCommand getCommand() {
+    public Command getCommand() {
         AddExpenditureCommand newAddExpenditureCommand = new AddExpenditureCommand(expendituresParameters.get(FROM),
                 Double.parseDouble(expendituresParameters.get(AMOUNT)), (expendituresParameters.get(DATE)),
                 (expendituresParameters.get(DESCRIPTION)), (expendituresParameters.get(CATEGORY)));

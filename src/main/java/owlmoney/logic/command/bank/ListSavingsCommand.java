@@ -1,10 +1,10 @@
 package owlmoney.logic.command.bank;
 
-import owlmoney.logic.command.OwlMoneyCommand;
+import owlmoney.logic.command.Command;
 import owlmoney.model.profile.Profile;
 import owlmoney.ui.Ui;
 
-public class ListSavingsCommand extends OwlMoneyCommand {
+public class ListSavingsCommand extends Command {
 
     public ListSavingsCommand (){
     }

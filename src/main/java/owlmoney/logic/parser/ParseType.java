@@ -1,6 +1,6 @@
 package owlmoney.logic.parser;
 
-import owlmoney.logic.command.OwlMoneyCommand;
+import owlmoney.logic.command.Command;
 import owlmoney.logic.command.PlaceHolderEmptyCommand;
 import owlmoney.logic.command.bank.ListSavingsCommand;
 import owlmoney.logic.parser.exception.ParserException;
@@ -13,7 +13,7 @@ import owlmoney.logic.parser.saving.ParseEditSaving;
 
 class ParseType extends Parser {
     //added profile
-    OwlMoneyCommand parseData(String command, String data) throws ParserException {
+    Command parseData(String command, String data) throws ParserException {
         String type = parseFirstField(data);
         String rawData;
         if(command.equals("/list")) {
@@ -30,7 +30,7 @@ class ParseType extends Parser {
         }
     }
     //added profile to pass to command
-    private OwlMoneyCommand parseTypeMenu(String command, String type, String rawData) throws ParserException {
+    private Command parseTypeMenu(String command, String type, String rawData) throws ParserException {
         switch (type) {
         case "/profile":
             isDeleteProfile(command);
