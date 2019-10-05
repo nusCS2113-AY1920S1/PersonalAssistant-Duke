@@ -6,8 +6,8 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.Font?>
-<fx:root prefHeight="591.0" prefWidth="877.0" stylesheets="@../css/recipe.css" type="AnchorPane"
-         xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane prefHeight="591.0" prefWidth="877.0" stylesheets="@../css/recipe.css"
+            xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
 
     <children>
 
@@ -101,7 +101,4 @@
     </children>
 
 
-
-
-
-</fx:root>
+</AnchorPane>

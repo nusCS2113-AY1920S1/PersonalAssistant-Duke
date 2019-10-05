@@ -1,35 +1,39 @@
 package duke.ui;
 
-import duke.entities.Order;
+import duke.commons.core.LogsCenter;
+import duke.model.order.Order;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
+import javafx.scene.control.ListCell;
+import javafx.scene.control.ListView;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.VBox;
 
-import java.io.IOException;
-import java.util.List;
+import java.util.logging.Logger;
 
-public class OrderPage extends AnchorPane {
+public class OrderPage extends UiPart<AnchorPane> {
+    private static final String FXML = "OrderPage.fxml";
+    private final Logger logger = LogsCenter.getLogger(OrderPage.class);
+
     @FXML
-    private VBox orderList;
+    private ListView<Order> orderListView;
 
-    public OrderPage() {
-        try {
-            FXMLLoader fxmlLoader = new FXMLLoader(MainWindow.class.getResource("/view/OrderPage.fxml"));
-            fxmlLoader.setController(this);
-            fxmlLoader.setRoot(this);
-            fxmlLoader.load();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    public OrderPage(ObservableList<Order> orderList) {
+        super(FXML);
+        orderListView.setItems(orderList);
+        orderListView.setCellFactory(listView -> new OrderListViewCell());
     }
 
-    public void refreshOrderList(List<Order> orders, List<Order> all) {
-        orderList.getChildren().clear();
-        int index = 1;
-        for (Order order : orders) {
-            orderList.getChildren().add(new OrderCard(order, index));
-            index++;
+    class OrderListViewCell extends ListCell<Order> {
+        @Override
+        protected void updateItem(Order order, boolean empty) {
+            super.updateItem(order, empty);
+            updateSelected(false);
+            if (empty || order == null) {
+                setGraphic(null);
+                setText(null);
+            } else {
+                setGraphic(new OrderCard(order, getIndex() + 1).getRoot());
+            }
         }
     }
 

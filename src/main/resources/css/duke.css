@@ -3,14 +3,6 @@
     -fx-font-size: 10pt;
 }
 
-/*.jfx-text-field {*/
-/*    -fx-font-weight: BOLD;*/
-/*    -fx-prompt-text-fill: #808080;*/
-/*    -jfx-focus-color: #4059A9;*/
-/*    -jfx-unfocus-color: #4d4d4d;*/
-/*    -fx-max-width: 300;*/
-/*}*/
-
 .scroll-pane {
     -fx-background-insets: 0;
     -fx-padding: 0;
@@ -62,6 +54,27 @@
     -fx-text-fill: #ffffff;
 }
 
+.list-view {
+    -fx-background-insets: 0;
+    -fx-padding: 0;
+    -fx-background-color: white;
+    -fx-selection-bar: white;
+    -fx-selection-bar-non-focused: white;
+}
+
+.list-cell {
+    -fx-padding: 10 10 10 10;
+}
+
+.list-cell:filled {
+    -fx-background-color: -fx-background;
+    -fx-background-insets: 0;
+}
+
+.list-cell:filled:selected {
+    -fx-background-color: -fx-background;
+    -fx-background-insets: 0;
+}
 
 
 

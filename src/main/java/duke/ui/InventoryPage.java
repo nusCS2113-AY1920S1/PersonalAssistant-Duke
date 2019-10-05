@@ -1,23 +1,12 @@
 package duke.ui;
 
-import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.AnchorPane;
 
-import java.io.IOException;
-
-public class InventoryPage extends AnchorPane {
+public class InventoryPage extends UiPart<AnchorPane> {
+    private static final String FXML = "InventoryPage.fxml";
 
     public InventoryPage() {
-
-        try {
-            FXMLLoader fxmlLoader = new FXMLLoader(MainWindow.class.getResource("/view/InventoryPage.fxml"));
-            fxmlLoader.setController(this);
-            fxmlLoader.setRoot(this);
-            fxmlLoader.load();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        super(FXML);
     }
 }
 

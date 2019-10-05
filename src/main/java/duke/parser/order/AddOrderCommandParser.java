@@ -1,59 +1,39 @@
 package duke.parser.order;
 
-import duke.command.order.AddOrderCommand;
-import duke.commons.Message;
-import duke.entities.Order;
+import duke.logic.command.order.AddOrderCommand;
+import duke.model.commons.Customer;
+import duke.model.order.Order;
 import duke.parser.*;
 import duke.parser.exceptions.ParseException;
 
-import java.util.List;
+import static duke.parser.CliSyntax.*;
 
 
 public class AddOrderCommandParser implements Parser<AddOrderCommand> {
     @Override
     public AddOrderCommand parse(String args) throws ParseException {
         ArgumentMultimap map = ArgumentTokenizer.tokenize(args,
-                CliSyntax.PREFIX_ORDER_NAME,
-                CliSyntax.PREFIX_ORDER_CONTACT,
-                CliSyntax.PREFIX_ORDER_ITEM,
-                CliSyntax.PREFIX_ORDER_DEADLINE,
-                CliSyntax.PREFIX_ORDER_STATUS,
-                CliSyntax.PREFIX_ORDER_REMARKS
+                PREFIX_CUSTOMER_NAME,
+                PREFIX_CUSTOMER_CONTACT,
+                PREFIX_ORDER_ITEM,
+                PREFIX_ORDER_DEADLINE,
+                PREFIX_ORDER_STATUS,
+                PREFIX_ORDER_REMARKS
         );
-        Order order = new Order();
-        order.setCustomerName(map.getValue(CliSyntax.PREFIX_ORDER_NAME).orElse(""));
-        order.setCustomerContact(map.getValue(CliSyntax.PREFIX_ORDER_CONTACT).orElse(""));
-        order.setRemarks(map.getValue(CliSyntax.PREFIX_ORDER_REMARKS).orElse(""));
-        order.setStatus(Order.Status.valueOf(map.getValue(
-                CliSyntax.PREFIX_ORDER_STATUS).orElse("ACTIVE")
-                .toUpperCase())
+        Customer customer = new Customer(
+                map.getValue(PREFIX_CUSTOMER_NAME).orElse("customer"),
+                map.getValue(PREFIX_CUSTOMER_CONTACT).orElse("N/A"));
+
+        Order order = new Order(
+                customer,
+                TimeParser.convertStringToDate(map.getValue(PREFIX_ORDER_DEADLINE).orElse("now")),
+                ParseUtil.parseStatus(map.getValue(PREFIX_ORDER_STATUS).orElse("ACTIVE")),
+                map.getValue(PREFIX_ORDER_REMARKS).orElse("N/A"),
+                ParseUtil.parseItems(map.getAllValues(PREFIX_ORDER_ITEM))
         );
-        order.setDeliveryDate(TimeParser.convertStringToDate(
-                map.getValue(CliSyntax.PREFIX_ORDER_DEADLINE)
-                        .orElse("now")));
-        if (map.getValue(CliSyntax.PREFIX_ORDER_ITEM).isPresent()) {
-            addItemsToOder(map.getAllValues(CliSyntax.PREFIX_ORDER_ITEM), order);
-        }
+
         return new AddOrderCommand(order);
     }
 
-    private static void addItemsToOder(List<String> itemArg, Order toAdd) throws ParseException {
-        if (itemArg.size() == 0) {
-            return;
-        }
-        for (String itemString : itemArg) {
-            String[] itemAndQty = itemString.split(",");
-            if (itemAndQty.length < 2) {
-                throw new ParseException(Message.MESSAGE_ITEM_MISSING_NAME_OR_QUANTITY);
-            }
-            if (itemAndQty[0].strip().equals("") || itemAndQty[1].strip().equals("")) {
-                throw new ParseException(Message.MESSAGE_ITEM_MISSING_NAME_OR_QUANTITY);
-            }
-            try {
-                toAdd.addItem(itemAndQty[0].strip(), Integer.parseInt(itemAndQty[1].strip()));
-            } catch (NumberFormatException e) {
-                throw new ParseException(Message.MESSAGE_INVALID_NUMBER_FORMAT);
-            }
-        }
-    }
+
 }

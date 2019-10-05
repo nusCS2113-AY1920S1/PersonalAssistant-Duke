@@ -1,10 +1,8 @@
 package duke.parser;
 
-import duke.command.Command;
-import duke.command.RedoCommand;
-import duke.command.UndoCommand;
-import duke.command.order.OrderCommand;
-import duke.commons.Message;
+import duke.commons.core.Message;
+import duke.logic.command.commons.Command;
+import duke.logic.command.order.OrderCommand;
 import duke.parser.exceptions.ParseException;
 import duke.parser.order.OrderCommandParser;
 
@@ -34,13 +32,7 @@ public class BakingHomeParser {
         switch (primaryCommand) {
             case OrderCommand.COMMAND_WORD:
                 return new OrderCommandParser().parse(subCommandAndArgs);
-            case UndoCommand.COMMAND_WORD:
-                System.out.println("1");
-                return new UndoCommand();
-            case RedoCommand.COMMAND_WORD:
-                return new RedoCommand();
             default:
-                System.out.println(primaryCommand);
                 throw new ParseException(Message.MESSAGE_UNKNOWN_COMMAND);
         }
     }
