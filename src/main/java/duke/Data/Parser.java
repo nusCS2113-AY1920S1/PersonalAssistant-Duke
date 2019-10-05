@@ -290,11 +290,13 @@ public class Parser {
              * Format for adding student is: student add [age] [Name].
              */
             case "student":
-                if (word[1].equals("add")) {
-                    String age = word[2];
-                    index = input.indexOf(word[3]);
-                    String name = input.substring(index);
-                    MyStudent myNewStudent = new MyStudent(name, age);
+                if (word[1].equals("add/")) {
+//                    index = input.indexOf(word[2]);
+                    String[] splitByComma = input.split("/ ");
+                    String name = splitByComma[1];
+                    String age = splitByComma[2];
+                    String address = splitByComma[3];
+                    MyStudent myNewStudent = new MyStudent(name, age, address);
                     students.addStudent(myNewStudent);
                 }
                 if (word[1].equals("list")) {
