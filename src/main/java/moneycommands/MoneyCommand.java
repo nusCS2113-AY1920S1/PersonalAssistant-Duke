@@ -1,5 +1,6 @@
 package moneycommands;
 
+import controlpanel.MoneyStorage;
 import money.*;
 import controlpanel.DukeException;
 import controlpanel.Storage;
@@ -14,5 +15,5 @@ public abstract class MoneyCommand {
     }
 
     public abstract boolean isExit();
-    public abstract void execute(Account account, Ui ui, Storage storage) throws DukeException, ParseException;
+    public abstract void execute(Account account, Ui ui, MoneyStorage storage) throws DukeException, ParseException;
 }

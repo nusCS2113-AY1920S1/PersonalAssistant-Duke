@@ -1,5 +1,6 @@
 package money;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -29,8 +30,21 @@ public class Account {
         toInitialize = true;
     }
 
+    public Account(Account account) {
+        incomeListTotal = account.getIncomeListTotal();
+        expListTotal = account.getExpListTotal();
+        incomeListCurrMonth = account.getIncomeListCurrMonth();
+        expListCurrMonth = account.getExpListCurrMonth();
+        shortTermGoals = account.getShortTermGoals();
+        installments = account.getInstallments();
+        bankTrackerList = account.getBankTrackerList();
+        if (account.isInitialised()) {
+            toInitialize = false;
+        } else { toInitialize = true; }
+    }
+
     public void initialize(float userSavings, float avgExp) {
-        Date nowDate = new Date();
+        LocalDate nowDate = LocalDate.now();
         Income initialSavings;
         if (userSavings > avgExp * 6) {
             this.baseSavings = avgExp * 6;
@@ -135,6 +149,12 @@ public class Account {
         return toInitialize;
     }
 
+    public boolean isInitialised() {
+        return getIncomeListTotal().isEmpty() || getExpListTotal().isEmpty() ||
+                getShortTermGoals().isEmpty() || getInstallments().isEmpty() ||
+                getBankTrackerList().isEmpty();
+    }
+/*
     public void populateCurrentMonthLists() {
         Date currDate = new Date();
         Calendar dateNow = Calendar.getInstance();
@@ -152,4 +172,5 @@ public class Account {
             }
         }
     }
+ */
 }

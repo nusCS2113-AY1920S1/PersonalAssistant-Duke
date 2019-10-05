@@ -1,13 +1,15 @@
 package money;
 
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 
 public class Expenditure extends Item {
 
     private String category;
-    private Date boughtTime;
-    private SimpleDateFormat simpleDateFormat;
+    private LocalDate boughtTime;
+    private DateTimeFormatter dateTimeFormatter;
 
     /**
      * Constructor of the Expenditure Object to record expenditure.
@@ -16,11 +18,11 @@ public class Expenditure extends Item {
      * @param category Category the item is grouped under
      * @param boughtTime Date which the item is bought
      */
-    public Expenditure(float price, String description, String category, Date boughtTime) {
+    public Expenditure(float price, String description, String category, LocalDate boughtTime) {
         super(price, description);
         this.category = category;
         this.boughtTime = boughtTime;
-        simpleDateFormat  = new SimpleDateFormat("d/M/yyyy");
+        dateTimeFormatter = DateTimeFormatter.ofPattern("d/M/yyyy");
     }
 
     @Override
@@ -32,11 +34,11 @@ public class Expenditure extends Item {
         return category;
     }
 
-    public Date getDateBoughtTime() {
+    public LocalDate getDateBoughtTime() {
         return boughtTime;
     }
 
     public String getBoughtTime() {
-        return simpleDateFormat.format(boughtTime);
+        return boughtTime.format(dateTimeFormatter);
     }
 }

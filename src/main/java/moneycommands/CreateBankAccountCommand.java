@@ -1,5 +1,6 @@
 package moneycommands;
 
+import controlpanel.MoneyStorage;
 import money.Account;
 import money.BankTracker;
 import controlpanel.Parser;
@@ -8,6 +9,8 @@ import controlpanel.Ui;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 
 public class CreateBankAccountCommand extends MoneyCommand {
@@ -15,12 +18,12 @@ public class CreateBankAccountCommand extends MoneyCommand {
     private BankTracker newTracker;
 
     public CreateBankAccountCommand(String inputString) throws ParseException {
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("d/M/yyyy");
+        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("d/M/yyyy");
         String desc = inputString.split(" /amt ")[0];
         String info = inputString.split(" /amt ")[1];
         desc = desc.replaceFirst("bank-account ","");
         String[] words = info.split(" ");
-        Date initialDate = Parser.shortcutTime(words[2]);
+        LocalDate initialDate = LocalDate.parse(words[2], dateTimeFormatter);
         newTracker = new BankTracker(desc, Integer.parseInt(words[0]),
                 initialDate, Double.parseDouble(words[4]));
     }
@@ -31,7 +34,7 @@ public class CreateBankAccountCommand extends MoneyCommand {
     }
 
     @Override
-    public void execute(Account account, Ui ui, Storage storage) {
+    public void execute(Account account, Ui ui, MoneyStorage storage) {
         account.getBankTrackerList().add(newTracker);
         ui.appendToOutput("New bank account tracker has been added to the list: \n");
         ui.appendToOutput(newTracker.getBankAccountInfo() + "\n");

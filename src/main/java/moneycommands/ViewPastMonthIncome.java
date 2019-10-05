@@ -1,5 +1,6 @@
 package moneycommands;
 
+import controlpanel.MoneyStorage;
 import money.Account;
 import controlpanel.DukeException;
 import controlpanel.Storage;
@@ -25,7 +26,7 @@ public class ViewPastMonthIncome extends MoneyCommand {
     }
 
     @Override
-    public void execute(Account account, Ui ui, Storage storage) throws DukeException, ParseException {
+    public void execute(Account account, Ui ui, MoneyStorage storage) throws DukeException, ParseException {
         if (month < 1 || month > 12) {
             throw new DukeException("Month is invalid! Please pick a month from 1-12");
         }

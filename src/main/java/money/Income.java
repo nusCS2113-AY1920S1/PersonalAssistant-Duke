@@ -1,11 +1,13 @@
 package money;
 
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 
 public class Income extends Item {
-    private Date payday;
-    private SimpleDateFormat simpleDateFormat;
+    private LocalDate payday;
+    private DateTimeFormatter dateTimeFormatter;
 
     /**
      * The constructor for the Income Object to record income sources.
@@ -13,13 +15,13 @@ public class Income extends Item {
      * @param description info of the income source
      * @param payday Date which the income is received
      */
-    public Income(float price, String description, Date payday) {
+    public Income(float price, String description, LocalDate payday) {
         super(price, description);
         this.payday = payday;
-        simpleDateFormat  = new SimpleDateFormat("d/M/yyyy");
+        dateTimeFormatter  = DateTimeFormatter.ofPattern("d/M/yyyy");
     }
 
-    public Date getPayday() {
+    public LocalDate getPayday() {
         return payday;
     }
 
@@ -30,6 +32,6 @@ public class Income extends Item {
     }
 
     public String getPaidTime() {
-        return simpleDateFormat.format(payday);
+        return payday.format(dateTimeFormatter);
     }
 }

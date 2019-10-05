@@ -21,7 +21,7 @@ public class startCommand extends MoneyCommand{
     }
 
     @Override
-    public void execute(Account account, Ui ui, Storage storage) {
+    public void execute(Account account, Ui ui, MoneyStorage storage) {
         //System.out.println("current Goal Savings: $" + account.getGoalSavings());
         ui.appendToOutput(message);
 

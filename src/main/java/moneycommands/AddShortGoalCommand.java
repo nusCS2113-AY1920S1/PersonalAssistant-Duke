@@ -1,14 +1,13 @@
 package moneycommands;
 
-import controlpanel.Storage;
-import controlpanel.Ui;
-import controlpanel.DukeException;
-import controlpanel.Parser;
+import controlpanel.*;
 import money.Goal;
 import money.Account;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 
 /**
@@ -17,7 +16,7 @@ import java.util.Date;
 public class AddShortGoalCommand extends MoneyCommand {
 
     private String inputString;
-    private SimpleDateFormat simpleDateFormat;
+    private DateTimeFormatter dateTimeFormatter;
 
     /**
      * Constructor of the command which initialises the add short-term goal command.
@@ -26,7 +25,7 @@ public class AddShortGoalCommand extends MoneyCommand {
      */
     public AddShortGoalCommand(String cmd) {
         inputString = cmd;
-        simpleDateFormat  = new SimpleDateFormat("d/M/yyyy");
+        dateTimeFormatter  = DateTimeFormatter.ofPattern("d/M/yyyy");
     }
 
     @Override
@@ -44,17 +43,19 @@ public class AddShortGoalCommand extends MoneyCommand {
      * @throws DukeException When the command is invalid
      */
     @Override
-    public void execute(Account account, Ui ui, Storage storage) throws ParseException, DukeException {
+    public void execute(Account account, Ui ui, MoneyStorage storage) throws ParseException, DukeException {
 
         String desc = inputString.split("/amt ")[0].replaceFirst("goal-short ", "");
         float price = Float.parseFloat(inputString.split("/amt ")[1].split("/by ")[0]);
         //Date byDate = simpleDateFormat.parse(inputString.split("/by ")[1].split("/priority ")[0]);
-        Date byDate = Parser.shortcutTime(inputString.split("/by ")[1].split("/priority ")[0]);
+        LocalDate byDate = LocalDate.parse(inputString.split("/by ")[1].split(" /priority ")[0],
+                dateTimeFormatter);
         String priorityLevel = inputString.split("/priority ")[1];
         String category = "GS";
         //System.out.println(priorityLevel);
         Goal g = new Goal(price, desc, category,byDate, priorityLevel);
         account.getShortTermGoals().add(g);
+        storage.writeToFile(account);
 
         ui.appendToOutput(" Got it. I've added this task: \n");
         ui.appendToOutput("     " + account.getShortTermGoals().get(account.getShortTermGoals().size() - 1).toString()
