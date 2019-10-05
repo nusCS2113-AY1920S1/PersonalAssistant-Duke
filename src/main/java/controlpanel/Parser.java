@@ -111,7 +111,7 @@ public class Parser {
     public static MoneyCommand moneyParse(String cmd, boolean isNewUser) throws DukeException, ParseException {
         MoneyCommand moneyCommand = null;
 
-        if(cmd.equals("start")) {
+        if (cmd.equals("start")) {
             moneyCommand = new startCommand(isNewUser);
         } else if (cmd.startsWith("init")) {
             moneyCommand = new initCommand(cmd, isNewUser);
@@ -164,77 +164,77 @@ public class Parser {
         String time = dateStr.replaceAll(" ", "");
 
         switch (time) {
-            case "now": {
-                LocalDate currDate = LocalDate.now();
-                String passDate = dateTimeFormatter.format(currDate);
-                return LocalDate.parse(passDate, dateTimeFormatter);
-            }
-            case "ytd": {
-                final Calendar cal = Calendar.getInstance();
-                cal.add(Calendar.DATE, -1);
-                Date ytdDate = cal.getTime();
-                LocalDate ytdLocalDate = ytdDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-                String passDate = dateTimeFormatter.format(ytdLocalDate);
-                return LocalDate.parse(passDate, dateTimeFormatter);
-            }
-            case "tmr": {
-                final Calendar cal = Calendar.getInstance();
-                cal.add(Calendar.DATE, +1);
-                Date tmrDate = cal.getTime();
-                LocalDate tmrLocalDate = tmrDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-                String passDate = dateTimeFormatter.format(tmrLocalDate);
-                return LocalDate.parse(passDate, dateTimeFormatter);
-            }
-            case "lstwk": {
-                final Calendar cal = Calendar.getInstance();
-                cal.add(Calendar.DATE, -7);
-                Date lastWeekDate = cal.getTime();
-                LocalDate lastWeekLocalDate = lastWeekDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-                String passDate = dateTimeFormatter.format(lastWeekLocalDate);
-                return LocalDate.parse(passDate, dateTimeFormatter);
-            }
-            case "nxtwk": {
-                final Calendar cal = Calendar.getInstance();
-                cal.add(Calendar.DATE, +7);
-                Date nextWeekDate = cal.getTime();
-                LocalDate nextWeekLocalDate = nextWeekDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-                String passDate = dateTimeFormatter.format(nextWeekLocalDate);
-                return LocalDate.parse(passDate, dateTimeFormatter);
-            }
-            case "lstmth": {
-                final Calendar cal = Calendar.getInstance();
-                cal.add(Calendar.MONTH, -1);
-                Date lastMonthDate = cal.getTime();
-                LocalDate lastMonthLocalDate = lastMonthDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-                String passDate = dateTimeFormatter.format(lastMonthLocalDate);
-                return LocalDate.parse(passDate, dateTimeFormatter);
-            }
-            case "nxtmth": {
-                final Calendar cal = Calendar.getInstance();
-                cal.add(Calendar.MONTH, +1);
-                Date nextMonthDate = cal.getTime();
-                LocalDate nextMonthLocalDate = nextMonthDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-                String passDate = dateTimeFormatter.format(nextMonthLocalDate);
-                return LocalDate.parse(passDate, dateTimeFormatter);
-            }
-            case "lstyr": {
-                final Calendar cal = Calendar.getInstance();
-                cal.add(Calendar.YEAR, -1);
-                Date lastYearDate = cal.getTime();
-                LocalDate lastYearLocalDate = lastYearDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-                String passDate = dateTimeFormatter.format(lastYearLocalDate);
-                return LocalDate.parse(passDate, dateTimeFormatter);
-            }
-            case "nxtyr": {
-                final Calendar cal = Calendar.getInstance();
-                cal.add(Calendar.YEAR, +1);
-                Date nextYearDate = cal.getTime();
-                LocalDate nextYearLocalDate = nextYearDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-                String passDate = dateTimeFormatter.format(nextYearLocalDate);
-                return LocalDate.parse(passDate, dateTimeFormatter);
-            }
-            default:
-                return LocalDate.parse(dateStr, dateTimeFormatter);
+        case "now": {
+            LocalDate currDate = LocalDate.now();
+            String passDate = dateTimeFormatter.format(currDate);
+            return LocalDate.parse(passDate, dateTimeFormatter);
+        }
+        case "ytd": {
+            final Calendar cal = Calendar.getInstance();
+            cal.add(Calendar.DATE, -1);
+            Date ytdDate = cal.getTime();
+            LocalDate ytdLocalDate = ytdDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+            String passDate = dateTimeFormatter.format(ytdLocalDate);
+            return LocalDate.parse(passDate, dateTimeFormatter);
+        }
+        case "tmr": {
+            final Calendar cal = Calendar.getInstance();
+            cal.add(Calendar.DATE, +1);
+            Date tmrDate = cal.getTime();
+            LocalDate tmrLocalDate = tmrDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+            String passDate = dateTimeFormatter.format(tmrLocalDate);
+            return LocalDate.parse(passDate, dateTimeFormatter);
+        }
+        case "lstwk": {
+            final Calendar cal = Calendar.getInstance();
+            cal.add(Calendar.DATE, -7);
+            Date lastWeekDate = cal.getTime();
+            LocalDate lastWeekLocalDate = lastWeekDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+            String passDate = dateTimeFormatter.format(lastWeekLocalDate);
+            return LocalDate.parse(passDate, dateTimeFormatter);
+        }
+        case "nxtwk": {
+            final Calendar cal = Calendar.getInstance();
+            cal.add(Calendar.DATE, +7);
+            Date nextWeekDate = cal.getTime();
+            LocalDate nextWeekLocalDate = nextWeekDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+            String passDate = dateTimeFormatter.format(nextWeekLocalDate);
+            return LocalDate.parse(passDate, dateTimeFormatter);
+        }
+        case "lstmth": {
+            final Calendar cal = Calendar.getInstance();
+            cal.add(Calendar.MONTH, -1);
+            Date lastMonthDate = cal.getTime();
+            LocalDate lastMonthLocalDate = lastMonthDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+            String passDate = dateTimeFormatter.format(lastMonthLocalDate);
+            return LocalDate.parse(passDate, dateTimeFormatter);
+        }
+        case "nxtmth": {
+            final Calendar cal = Calendar.getInstance();
+            cal.add(Calendar.MONTH, +1);
+            Date nextMonthDate = cal.getTime();
+            LocalDate nextMonthLocalDate = nextMonthDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+            String passDate = dateTimeFormatter.format(nextMonthLocalDate);
+            return LocalDate.parse(passDate, dateTimeFormatter);
+        }
+        case "lstyr": {
+            final Calendar cal = Calendar.getInstance();
+            cal.add(Calendar.YEAR, -1);
+            Date lastYearDate = cal.getTime();
+            LocalDate lastYearLocalDate = lastYearDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+            String passDate = dateTimeFormatter.format(lastYearLocalDate);
+            return LocalDate.parse(passDate, dateTimeFormatter);
+        }
+        case "nxtyr": {
+            final Calendar cal = Calendar.getInstance();
+            cal.add(Calendar.YEAR, +1);
+            Date nextYearDate = cal.getTime();
+            LocalDate nextYearLocalDate = nextYearDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+            String passDate = dateTimeFormatter.format(nextYearLocalDate);
+            return LocalDate.parse(passDate, dateTimeFormatter);
+        }
+        default:
+            return LocalDate.parse(dateStr, dateTimeFormatter);
         }
     }
 }
