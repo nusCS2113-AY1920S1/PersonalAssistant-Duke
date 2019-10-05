@@ -1,5 +1,6 @@
 package UI;
 
+import Storage.Storage;
 import Tasks.Deadline;
 import Tasks.Event;
 import Tasks.Task;
@@ -22,14 +23,30 @@ public class Ui {
         FullCommand = reader.readLine();
     }
 
-    public String showWelcome() {
-        String logo = " ____        _        \n"
-                + "|  _ \\ _   _| | _____ \n"
-                + "| | | | | | | |/ / _ \\\n"
-                + "| |_| | |_| |   <  __/\n"
-                + "|____/ \\__,_|_|\\_\\___|\n";
-        System.out.println("Hello from\n" + logo);
-        return logo;
+    public String showWelcome() throws IOException {
+        System.out.println("Input password to enter Gazeebo:");
+        String logo = " ___   ___  ___  ___  ___  ___   ___ \n"
+                + "|     |   |   / |    |    |   \\ |   |\n"
+                + "|  __ |__ |  /  |___ |___ |___| |   |\n"
+                + "|___| |   | /__ |___ |___ |___/ |___|";
+        String welcomemessage = "\nWelcome to Gazeebo"
+                + "\n__________________________________________\n"
+                + logo
+                + "\n__________________________________________\n";
+
+         while (true) {
+             ReadCommand();
+            ArrayList<String> password_list;
+            Storage store = new Storage();
+            password_list = store.Password();
+            if (FullCommand.equals(password_list.get(0))) {
+                System.out.println(welcomemessage);
+                break;
+            } else {
+                System.out.println("Incorrect password, please try again:");
+            }
+        }
+         return welcomemessage;
     }
 
     public void UpcomingTask(ArrayList<Task> list) throws ParseException {

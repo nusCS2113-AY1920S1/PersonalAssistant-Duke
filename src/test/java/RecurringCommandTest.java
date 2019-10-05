@@ -41,7 +41,7 @@ public class RecurringCommandTest  {
         list.add(newd);
         ui.FullCommand = "done 1";
 
-        testR.AddRecurring(list, list.get(0).toString(),storage);
+        testR.AddRecurring(list, 0,list.get(0).toString(),storage);
         assertEquals("\nI've automatically added this yearly task again:\n[D][\u2718]yearly assignment(by:01 Jan 2020 01:01:01)"
                 + "\nNow you have " + list.size() + " tasks in the list.\n",output.toString());
     }

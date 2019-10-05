@@ -13,16 +13,34 @@ import java.util.Scanner;
 
 
 public class Storage {
-    //String directory = System.getProperty("user.home");
-    //String fileName = "sample.txt";
 
     private String absolutePath = "Save.txt";
+    private String absolutePath_password = "Password.txt";
 
     public void Storages(String fileContent) throws IOException {
         FileWriter fileWriter = new FileWriter(absolutePath);
         fileWriter.write(fileContent);
         fileWriter.flush();
         fileWriter.close();
+    }
+
+    public void Storages_password(String fileContent) throws IOException {
+        FileWriter fileWriter = new FileWriter(absolutePath_password);
+        fileWriter.write(fileContent);
+        fileWriter.flush();
+        fileWriter.close();
+    }
+
+    public ArrayList<String> Password() throws IOException {
+        ArrayList<String> passwordList = new ArrayList<>();
+        if(new File(absolutePath_password).exists()) {
+            File file = new File(absolutePath_password);
+            Scanner sc = new Scanner(file);
+            while(sc.hasNext()) {
+                passwordList.add(sc.nextLine());
+            }
+        }
+        return passwordList;
     }
 
     public ArrayList<Task> ReadFile() throws IOException {
