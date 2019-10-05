@@ -64,9 +64,11 @@ public class MyPlan {
         System.out.println("You have loaded plan " + plan_num + " into the list");
     }
 
-    public void viewPlan() {
+    public void viewPlan(String intensity) {
         for (MyTraining i : getList()) {
-            System.out.println(getList().toString());
+            if (i.getIntensity().equals(intensity)) {
+                System.out.println(i.toString());
+            }
         }
     }
 
@@ -105,5 +107,10 @@ public class MyPlan {
         } catch (Exception e) {
             System.out.println("Please enter a valid intensity level (High,Moderate,Relaxed)");
         }
+    }
+
+    public void deletePlan(String newName, int newSets, int newReps, int newActivity_num) {
+        this.activity_num = newActivity_num;
+        //pass
     }
 }

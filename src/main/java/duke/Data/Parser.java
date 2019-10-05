@@ -139,19 +139,6 @@ public class Parser {
                 tasks.findTask(searchWord);
                 break;
 
-                /**
-                 * Command is in the form: plan new [intensity level] or plan view [intensity] [plan number]
-                 *
-                 */
-                case "plan":
-                    MyPlan plan = new MyPlan();
-                    if (word[1].equals("view")) {
-                        plan.loadPlan(word[2]);
-                    } else if (word[1].equals("new")) {
-                        plan.createPlan(word[3]);
-                    }
-                    break;
-
             case "date":
                 String searchDate = input.substring(5);
                 if (searchDate.length() < 10) {
@@ -241,6 +228,38 @@ public class Parser {
                     case "delete-all": {
                         String date = word[2];
                         System.out.println(goal.removeAllGoal(date));
+                        break;
+                    }
+                }
+                break;
+
+            /**
+             * View: training view-all [intensity]|training view [plan number]
+             * Add: training add [name] [sets] [reps] [intensity level]
+             * Delete: training delete-all|training delete [name] [sets] [reps] [intensity level]
+             */
+            case "training":
+                MyPlan plan = new MyPlan();
+                switch(word[1]) {
+                    case "view": {
+                        plan.loadPlan(word[2]);
+                        break;
+                    }
+                    case "view-all": {
+                        //view all with specified intensity
+                        plan.viewPlan(word[2]);
+                        break;
+                    }
+                    case "add": {
+                        plan.addActivity(word[2],Integer.parseInt(word[3]),Integer.parseInt(word[4]),Integer.parseInt(word[5]));
+                        break;
+                    }
+                    case "delete": {
+                        plan.deletePlan(word[2],Integer.parseInt(word[3]),Integer.parseInt(word[4]),Integer.parseInt(word[5]));
+                        break;
+                    }
+                    case "delete-all": {
+                        plan.clearPlan();
                         break;
                     }
                 }
