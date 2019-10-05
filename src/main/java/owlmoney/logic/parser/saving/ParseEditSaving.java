@@ -25,7 +25,7 @@ public class ParseEditSaving extends ParseSaving {
                 if (!value.isEmpty() && !value.isBlank()) {
                     changeCounter++;
                     if (INCOME.equals(key) || AMOUNT.equals(key)) {
-                        checkIfDouble(value);
+                        checkIfDouble(key, value);
                     }
                 }
             }

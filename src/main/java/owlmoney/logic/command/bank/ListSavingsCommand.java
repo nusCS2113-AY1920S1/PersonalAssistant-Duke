@@ -9,6 +9,7 @@ public class ListSavingsCommand extends Command {
     public ListSavingsCommand (){
     }
 
+    @Override
     public void execute(Profile profile, Ui ui) {
         profile.listBanks(ui);
     }

@@ -9,8 +9,9 @@ import owlmoney.logic.parser.exception.ParserException;
 
 public class ParseAddSaving extends ParseSaving {
 
-    public ParseAddSaving(String data) {
+    public ParseAddSaving(String data) throws ParserException {
         super(data);
+        checkRedundantParameter(NEW_NAME);
     }
 
     public void checkParameter() throws ParserException {
@@ -20,14 +21,11 @@ public class ParseAddSaving extends ParseSaving {
         while (savingsIterator.hasNext()) {
             String key = savingsIterator.next();
             String value = savingsParameters.get(key);
-            if (NEW_NAME.equals(key) && !value.isEmpty() && !value.isBlank()) {
-                throw new ParserException("/newname parameter cannot be used for adding.");
-            }
             if (!NEW_NAME.equals(key) && (value.isBlank() || value.isEmpty())) {
                 throw new ParserException(key + " cannot be empty when adding savings account");
             }
             if (INCOME.equals(key) || AMOUNT.equals(key)) {
-                checkIfDouble(value);
+                checkIfDouble(key, value);
             }
         }
     }

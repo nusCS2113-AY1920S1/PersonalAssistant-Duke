@@ -20,6 +20,7 @@ public class AddSavingsCommand extends Command {
         this.name = name;
     }
 
+    @Override
     public void execute(Profile profile, Ui ui) {
         Bank newSaving = new Saving(this.name, this.amount, this.income);
         //newSaving.getDescription();

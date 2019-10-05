@@ -9,8 +9,11 @@ import owlmoney.logic.parser.exception.ParserException;
 
 public class ParseDeleteSaving extends ParseSaving {
 
-    public ParseDeleteSaving(String data) {
+    public ParseDeleteSaving(String data) throws ParserException {
         super(data);
+        checkRedundantParameter(AMOUNT);
+        checkRedundantParameter(INCOME);
+        checkRedundantParameter(NEW_NAME);
     }
 
     public void checkParameter() throws ParserException {
