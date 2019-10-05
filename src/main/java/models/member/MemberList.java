@@ -3,7 +3,7 @@ package models.member;
 import java.util.ArrayList;
 
 public class MemberList {
-    ArrayList<Member> memberList;
+    private ArrayList<Member> memberList;
 
     /**
      * Class representing a list with all members and their details.

@@ -13,8 +13,6 @@ public class MemberFactory {
         String phone = "No phone number";
         String email = "No email address";
 
-        int nameFlag = -1;
-
         String [] memberDetails = input.split(" ");
         for (int i = 0; i < memberDetails.length; i++) {
             String s = memberDetails[i];

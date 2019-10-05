@@ -5,7 +5,6 @@ public class Member implements IMember {
     private String phone;
     private String email;
     private int indexNumber;
-    private int totalCredit;
 
     /**
      * Class representing a member in a project team.
@@ -18,7 +17,6 @@ public class Member implements IMember {
         this.name = name;
         this.phone = phone;
         this.email = email;
-        this.totalCredit = 0;
         this.indexNumber = indexNumber;
     }
 
