@@ -37,6 +37,7 @@ public class Duke {
         } catch (Exception e) {
             ui.showLoadingError();
             tasks = new TaskList();
+            account = new Account();
         }
     }
 

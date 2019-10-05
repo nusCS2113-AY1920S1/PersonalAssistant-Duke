@@ -1,3 +1,8 @@
-BS @ 0.0
-I @ 1200.0 @ InitialSavings @ 5/10/2019
-G @ 99999.0 @ fk duke  @ GS @ 12/12/2012 @ HIGH
+INIT @ false
+BS @ 1200.0
+I @ 30000.0 @ InitialSavings @ 5/10/2019
+I @ 560.0 @ TA  @ 10/12/2040
+I @ 5.0 @ cashback  @ 9/12/2020
+EXP @ 3.0 @ ice-cream  @ food  @ 10/12/2040
+G @ 100000.0 @ buy Lambo  @ GS @ 10/12/2040 @ MEDIUM
+G @ 100000.0 @ buy Boat  @ GS @ 11/12/2050 @ LOW

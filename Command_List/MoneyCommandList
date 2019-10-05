@@ -1,6 +1,5 @@
-goal-short buy HDB /amt 100000 /by 9/12/2030 /priority high
-goal-short buy Lambo /amt 100000 /by 10/12/2040 /priority medium
-goal-short buy Boat /amt 100000 /by 11/12/2050 /priority low
+goal-short buy Lambo /amt 100000 /by 10/12/2040 /priority MEDIUM
+goal-short buy Boat /amt 100000 /by 11/12/2050 /priority LOW
 list goals
 delete goal 2
 add income TA /amt 560 /payday 10/12/2040

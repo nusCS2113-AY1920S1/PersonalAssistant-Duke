@@ -16,15 +16,15 @@ public class Goal extends Expenditure {
     public Goal(float price, String description, String category, LocalDate goalBy, String priorityLevel) {
         super(price, description, category, goalBy);
         switch (priorityLevel) {
-        case "low" : {
+        case "LOW" : {
             this.priority = Priority.LOW;
             break;
         }
-        case "medium": {
+        case "MEDIUM": {
             this.priority = Priority.MEDIUM;
             break;
         }
-        case "high": {
+        case "HIGH": {
             this.priority = Priority.HIGH;
             break;
         }

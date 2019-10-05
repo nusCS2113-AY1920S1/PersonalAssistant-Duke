@@ -38,9 +38,12 @@ public class Account {
         shortTermGoals = account.getShortTermGoals();
         installments = account.getInstallments();
         bankTrackerList = account.getBankTrackerList();
-        if (account.isInitialised()) {
-            toInitialize = false;
-        } else { toInitialize = true; }
+        toInitialize = account.isToInitialize();
+        baseSavings = account.getBaseSavings();
+        updateSavings();
+//        if (account.isInitialised()) {
+//            toInitialize = false;
+//        } else { toInitialize = true; }
     }
 
     public void initialize(float userSavings, float avgExp) {
@@ -49,10 +52,10 @@ public class Account {
         if (userSavings > avgExp * 6) {
             this.baseSavings = avgExp * 6;
             this.goalSavings = userSavings - baseSavings;
-            initialSavings = new Income(userSavings, "InitialSavings", nowDate);
+            initialSavings = new Income(userSavings, "Initial Savings", nowDate);
             incomeListTotal.add(initialSavings);
         } else {
-            initialSavings = new Income(userSavings, "InitialSavings", nowDate);
+            initialSavings = new Income(userSavings, "Initial Savings", nowDate);
             incomeListTotal.add(initialSavings);
             this.baseSavings = totalSavings;
             this.goalSavings = 0;
@@ -173,4 +176,12 @@ public class Account {
         }
     }
  */
+
+    public void setToInitialize(boolean initStatus) {
+        this.toInitialize = initStatus;
+    }
+
+    public void setBaseSavings(float baseSavings) {
+        this.baseSavings = baseSavings;
+    }
 }
