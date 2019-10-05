@@ -1,6 +1,6 @@
 package com.algosenpai.app.controller;
 
-import com.algosenpai.app.constant.FilePath;
+import com.algosenpai.app.constant.ResourcePathConstant;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 
@@ -24,7 +24,7 @@ class MusicController {
         if (isLoaded) {
             mediaPlayer.stop();
         }
-        String musicFile = FilePath.soundFilePath + musicName;
+        String musicFile = ResourcePathConstant.soundFilePath + musicName;
         Media sound = new Media(new File(musicFile).toURI().toString());
         mediaPlayer = new MediaPlayer(sound);
         mediaPlayer.setAutoPlay(true);

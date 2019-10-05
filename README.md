@@ -42,3 +42,4 @@ Team Members:
 # Resources
 - https://discuss.gradle.org/t/testfx-headless-java-options-from-cli-not-used-running-the-tests/28197
 - https://medium.com/information-and-technology/test-driven-development-in-javafx-with-testfx-66a84cd561e0
+- https://www.baeldung.com/java-pdf-creation

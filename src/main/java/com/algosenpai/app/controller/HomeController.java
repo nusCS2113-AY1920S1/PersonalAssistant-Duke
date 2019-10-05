@@ -1,31 +1,87 @@
 package com.algosenpai.app.controller;
 
-import javafx.event.ActionEvent;
+import com.algosenpai.app.constant.ImagesConstant;
+import com.algosenpai.app.constant.JavaFxConstant;
+import com.algosenpai.app.constant.ResourcePathConstant;
+import com.algosenpai.app.utility.ResourceRandomUtility;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.stage.Stage;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 
-public class HomeController extends ParentController {
+import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
+
+public class HomeController extends SceneController implements Initializable {
+
+
+    @FXML
+    private ImageView characterImage;
 
     @FXML
     private Label sceneTitle;
 
     @FXML
-    private Button nextButton;
-
-    @FXML
     private TextField userInput;
 
-    @FXML
-    private Button settings;
+    private String characterImageName;
 
+    public HomeController() {
+        characterImageName = "miku.png";
+        handle();
+    }
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        Image image = new Image(getClass().getResourceAsStream(
+                ResourcePathConstant.imagesResourcePath + characterImageName));
+        characterImage.setFitHeight(ImagesConstant.imageHeight);
+        characterImage.setFitWidth(ImagesConstant.imageWidth);
+        characterImage.setImage(image);
+    }
+
+    private void handle() {
+        AnimationTimerController backgroundSceneTimer = new AnimationTimerController(JavaFxConstant.sceneInterval) {
+            @Override
+            public void handle() {
+                String imageName = ResourceRandomUtility.randomResources(ImagesConstant.quizImages);
+                changeBackgroundImage(ResourcePathConstant.imagesResourcePath + imageName);
+            }
+        };
+        backgroundSceneTimer.start();
+    }
+
+    /**
+     * Handle shortcut key inputs.
+     * @param keyEvent key inputs.
+     * @throws IOException key input error.
+     */
     @FXML
-    private void handleButtonAction(ActionEvent event) throws Exception {
-        Stage stage = getStage(event);
-        MusicController.playMusic("saturation.wav");
-        changeScene(stage, "/view/quiz.fxml");
+    public void handleKeyPressed(KeyEvent keyEvent) throws IOException {
+        if (keyEvent.getCode() == KeyCode.N) {
+            MusicController.playMusic("saturation.wav");
+            changeScene(ResourcePathConstant.viewResourcePath + "quiz.fxml");
+        }
+        if (keyEvent.getCode() == KeyCode.ESCAPE) {
+            userInput.getParent().requestFocus();
+        }
+    }
+
+    /**
+     * Handle mouse clicking inputs.
+     * @param mouseEvent mouse inputs.
+     */
+    @FXML
+    public void handleMouseClicked(MouseEvent mouseEvent) {
+        if (!userInput.equals(mouseEvent.getSource())) {
+            userInput.getParent().requestFocus();
+        }
     }
 
 }
