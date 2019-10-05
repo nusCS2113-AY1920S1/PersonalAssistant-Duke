@@ -13,8 +13,8 @@ public class HelpCommand extends Command {
     /**
      * Add list of available commands to an ArrayList.
      *
-     * @param commands ArrayList of commands available to user
-     * @return updated ArrayList of commands
+     * @param commands ArrayList of commands available to user.
+     * @return updated ArrayList of commands.
      */
     private ArrayList<String> createCommandList(ArrayList<String> commands) {
         // TODO implement ArrayList of String array [instruction Desc, instruction format] for extension
