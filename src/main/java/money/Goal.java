@@ -36,7 +36,7 @@ public class Goal extends Expenditure {
 
     @Override
     public String toString() {
-        return "[GS]" + " " + super.getDescription() + "(target: $" + super.getPrice() + ") (to achieve by: "
+        return "[GS]" + " " + super.getDescription() + "(target: $" + super.getPrice() + ")\n (to achieve by: "
                 + getGoalBy() + ") " + getPriority();
     }
 
