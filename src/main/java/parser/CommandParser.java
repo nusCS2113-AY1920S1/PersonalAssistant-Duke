@@ -1,224 +1,110 @@
 package parser;
 
-import javafx.util.Pair;
+import Commands.*;
+import Execution.CommandStack;
+import MovieUI.Controller;
 import wrapper.CommandPair;
-
-import java.util.*;
+import Commands.COMMAND_KEYS;
 
 public class CommandParser {
-
-    public enum Commands {search , movies , tvshows , cast , none ,undef , more , help, view , profile , filters , preferences , watchlist}
-    public static String[] RootCommandStr = {"search" , "more" , "help" , "view"};
-
-    public static String[] SubCommandStr = {"movies" , "tvshows" , "cast" , "profile" , "filters" , "preferences" , "watchlist"};
-
-
-    public static TreeMap<String , ArrayList<String>> flagMap = new TreeMap<String, ArrayList<String>>();
-
 
     /**
      * Entry point to command parser Class
      *
      * @param command command that was entered by the user
      */
-    public static void parseCommands(String command){
+    public static void parseCommands(String command , Controller UIController) {
         command = command.toLowerCase();
         String commandArr[] = command.split(" ");
-
-        CommandPair UserCommand = obtainCommands(commandArr);
-        TreeMap<String , ArrayList<String>> flags = processFlags(commandArr);
-        String PayLoad = processPayload(UserCommand , commandArr);
-
-
-        System.out.println(UserCommand.getRoot());
-        System.out.println(UserCommand.getSub());
-        System.out.println(PayLoad);
-
-        if(UserCommand.getRoot() == Commands.undef){
-            commandSpellChecker(commandArr[0] ,true);
-        }
-
-        if(UserCommand.getSub() == Commands.undef){
-            commandSpellChecker(commandArr[1] ,false);
-        }
+        rootCommand(commandArr, UIController);
 
     }
 
+    public static void processCommand(CommandPair command , String[] CommandArr , Controller UIController){
 
-    public static CommandPair obtainCommands(String[] Command){
-        Commands root = rootCommand(Command[0]);
-        Commands subroot = subCommand(root , Command);
-        return new CommandPair( root , subroot);
-    }
-
-    public static Commands rootCommand(String root){
-
-        switch(root){
-            case "search":
-                return Commands.search;
-            case "view":
-                return Commands.view;
-            case "help":
-                return Commands.help;
-            case "more":
-                return Commands.more;
-            default:
-                return Commands.undef;
-
-        }
-    }
-
-
-
-    public static Commands subCommand(Commands root , String[] CommandArr){
-
-        switch(root){
+        switch(command.getRootCommand()){
             case search:
-
-                switch(CommandArr[1]){
-                    case "movies":
-                        return Commands.movies;
-                    case "tvshows":
-                        return Commands.tvshows;
-                    case "cast":
-                        return Commands.cast;
-                    default:
-                        return Commands.undef;
-                }
+                System.out.println("Search");
+                SearchCommand sc = new SearchCommand(UIController);
+                sc.initCommand(CommandArr , command.getSubRootCommand());
+                System.out.println(sc.getRoot());
+                System.out.println(sc.getSubRootCommand());
+                CommandStack.pushCmd(sc);
+                break;
             case view:
-                switch(CommandArr[1]){
-                    case "profile":
-                        return Commands.profile;
-                    case "filters":
-                        return Commands.filters;
-                    case "preferences":
-                        return Commands.preferences;
-                    case "watchlist":
-                        return Commands.watchlist;
-                    default:
-                        return Commands.undef;
-                }
+                System.out.println("View");
+                ViewCommand vc = new ViewCommand(UIController);
+                vc.initCommand(CommandArr , command.getSubRootCommand());
+                CommandStack.pushCmd(vc);
+                break;
+            case help:
+                System.out.println("Help");
+                HelpCommand hc = new HelpCommand(UIController);
+                hc.initCommand(CommandArr, command.getSubRootCommand());
+                CommandStack.pushCmd(hc);
+                break;
+            case more:
+                System.out.println("More");
+                MoreCommand mc = new MoreCommand(UIController);
+                mc.initCommand(CommandArr, command.getSubRootCommand());
+                CommandStack.pushCmd(mc);
+                break;
+            case yes:
+                System.out.println("Yes");
+                YesCommand yc = new YesCommand(UIController);
+                yc.initCommand(CommandArr, command.getSubRootCommand());
+                CommandStack.pushCmd(yc);
+                break;
             default:
-                return Commands.none;
-
-        }
-    }
+                CommandPair pair = Command_Debugger.commandSpellChecker(CommandArr , COMMAND_KEYS.none , UIController);
 
 
-    public static TreeMap<String , ArrayList<String>> processFlags(String commandArr[]){
-        TreeMap<String , ArrayList<String>> flagMap = new TreeMap<String , ArrayList<String>>();
-        String f = "";
-        boolean found = false;
-        for(String s : commandArr){
-            System.out.println(s);
-            if(found && !s.matches("-[a-z]")){
-                System.out.println("Added");
-                System.out.println(f);
-                System.out.println(s);
-                ArrayList<String> listOfString = flagMap.get(f);
-                if (listOfString == null) {
-                    listOfString = new ArrayList<String>();
-                    listOfString.add(s);
-                    flagMap.put(f, listOfString);
-
-                }else{
-                    listOfString.add(s);
-                }
-
-            }
-            if(s.matches("-[a-z]")) {
-                System.out.println("FOund");
-                System.out.println(s);
-                f = s;
-                flagMap.put(f, new ArrayList<String>());
-                found = true;
-            }
-        }
-        for (Map.Entry<String, ArrayList<String>> entry : flagMap.entrySet()) {
-            System.out.println("Key: " + entry.getKey() + " Value: " + entry.getValue());
-        }
-
-        return flagMap;
-    }
-
-
-    public static String processPayload(CommandPair userCommand , String []CommandArr){
-        if(userCommand.getRoot() != Commands.none){
-            if(userCommand.getSub() != Commands.none){
-                return getPayload(2 , CommandArr);
-            }else{
-                return getPayload(1 , CommandArr);
-            }
-        }else{
-            return "";
-        }
-    }
-
-    public static String getPayload(int start , String []CommandArr){
-        int i  = 0;
-        while( i < CommandArr.length && !CommandArr[i].matches("-[a-z]")){
-            i++;
-        }
-        String payload = "";
-        for(int j = start;j < i ; j++ ){
-            payload += CommandArr[j];
-            payload += " ";
-        }
-        return payload.trim();
-    }
-
-    private static void commandSpellChecker(String undefinedCommand , boolean Root){
-        System.out.println("Cant find anything");
-        double score = -1;
-        String MostSimilar = "";
-        if(Root){
-            for (String s : RootCommandStr){
-                double temp = calculateJaccardSimilarity(s , undefinedCommand);
-                if (temp > score){
-                    MostSimilar = s;
-                    score = temp;
-                }
-            }
-            System.out.println("Did you mean" + MostSimilar);
-        }else{
-            for (String s : SubCommandStr){
-                double temp = calculateJaccardSimilarity(s , undefinedCommand);
-                if (temp > score){
-                    MostSimilar = s;
-                    score = temp;
-                }
-            }
-            System.out.println("Did you mean" + MostSimilar);
         }
 
     }
 
+    public static void rootCommand(String[] CommandArr , Controller UIController){
 
-    private static Double calculateJaccardSimilarity(CharSequence left, CharSequence right) {
-        Set<String> intersectionSet = new HashSet<String>();
-        Set<String> unionSet = new HashSet<String>();
-        boolean unionFilled = false;
-        int leftLength = left.length();
-        int rightLength = right.length();
-        if (leftLength == 0 || rightLength == 0) {
-            return 0d;
+        System.out.print("Whats happening");
+        switch(CommandArr[0]){
+            case "search":
+                System.out.println("Search");
+                SearchCommand sc = new SearchCommand(UIController);
+                sc.initCommand(CommandArr);
+                System.out.println(sc.getRoot());
+                System.out.println(sc.getSubRootCommand());
+                CommandStack.pushCmd(sc);
+                break;
+            case "view":
+                System.out.println("View");
+                ViewCommand vc = new ViewCommand(UIController);
+                vc.initCommand(CommandArr);
+                CommandStack.pushCmd(vc);
+                break;
+            case "help":
+                System.out.println("Help");
+                HelpCommand hc = new HelpCommand(UIController);
+                hc.initCommand(CommandArr);
+                CommandStack.pushCmd(hc);
+                break;
+            case "more":
+                System.out.println("More");
+                MoreCommand mc = new MoreCommand(UIController);
+                mc.initCommand(CommandArr);
+                CommandStack.pushCmd(mc);
+                break;
+            case "yes":
+                System.out.println("Yes");
+                YesCommand yc = new YesCommand(UIController);
+                yc.initCommand(CommandArr);
+                CommandStack.pushCmd(yc);
+                break;
+            default:
+                CommandPair pair = Command_Debugger.commandSpellChecker(CommandArr , COMMAND_KEYS.none, UIController);
+                processCommand(pair , CommandArr , UIController);
+
         }
 
-        for (int leftIndex = 0; leftIndex < leftLength; leftIndex++) {
-            unionSet.add(String.valueOf(left.charAt(leftIndex)));
-            for (int rightIndex = 0; rightIndex < rightLength; rightIndex++) {
-                if (!unionFilled) {
-                    unionSet.add(String.valueOf(right.charAt(rightIndex)));
-                }
-                if (left.charAt(leftIndex) == right.charAt(rightIndex)) {
-                    intersectionSet.add(String.valueOf(left.charAt(leftIndex)));
-                }
-            }
-            unionFilled = true;
-        }
-        return Double.valueOf(intersectionSet.size()) / Double.valueOf(unionSet.size());
     }
-
-
 
 }

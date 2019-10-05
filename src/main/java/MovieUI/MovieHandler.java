@@ -1,4 +1,5 @@
-import Contexts.CommandContext;
+package MovieUI;
+
 import Contexts.SearchResultContext;
 import javafx.application.Platform;
 import javafx.event.EventHandler;
@@ -13,11 +14,15 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
 import movieRequesterAPI.RequestListener;
 import movieRequesterAPI.RetrieveRequest;
 import object.MovieInfoObject;
 import parser.CommandParser;
 import ui.Ui;
+
+import javax.xml.stream.EventFilter;
+import javax.xml.stream.events.XMLEvent;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -28,10 +33,26 @@ public class MovieHandler extends Controller implements RequestListener{
     @FXML
     private VBox mMovieTypeVBox;
 
-    private FlowPane mMoviesFlowPane;
+    @FXML
+    private Label titleLabel;
 
     @FXML
-    private ListView<String> mMovieTypeListView;
+    private Label titleLabel2;
+
+    @FXML
+    private Text ageText;
+
+    @FXML
+    private Text genreText;
+
+    @FXML
+    private Text text;
+
+
+    private FlowPane mMoviesFlowPane;
+
+    //@FXML
+    //private ListView<String> mMovieTypeListView;
 
     @FXML
     private Label mStatusLabel;
@@ -42,79 +63,72 @@ public class MovieHandler extends Controller implements RequestListener{
     @FXML
     private TextField mSearchTextField;
 
-    @FXML
-    private Button mSearchButton;
+    //@FXML
+    //private Button mSearchButton;
 
-    @FXML
-    private Button mClearSearchButton;
+    //@FXML
+    //private Button mClearSearchButton;
 
     private ArrayList<MovieInfoObject> mMovies;
     private double[] mImagesLoadingProgress;
+
     private RetrieveRequest mMovieRequest;
+
+    class KeyboardClick implements EventHandler<KeyEvent> {
+
+        private Controller control;
+
+        KeyboardClick(Controller control){
+            this.control = control;
+        }
+
+        @Override
+        public void handle(KeyEvent event) {
+            if(event.getCode().equals(KeyCode.ENTER)) {
+//                    SearchResultContext.AddKeyWord(mSearchTextField.getText());
+                // do something
+                System.out.println("Hello");
+                CommandParser.parseCommands(mSearchTextField.getText() ,control );
+            }else if(event.getCode().equals(KeyCode.TAB)){
+                System.out.println("Tab presjenksjessed");
+                event.consume();
+            }
+        }
+    }
+
 
 
     @FXML public void initialize()
     {
         mMovieRequest = new RetrieveRequest(this);
 
+        //mMovieTypeVBox.setStyle("-fx-border-color: white;");
 
-        mMovieTypeListView.getItems().addAll("Now Showing", "Popular", "TV Shows", "Upcoming Movies");
-        mMovieTypeListView.getSelectionModel().select(0);
+
+
+
+
+        //mMovieTypeListView.getItems().addAll("Now Showing", "Popular", "TV Shows", "Upcoming Movies");
+        //mMovieTypeListView.getSelectionModel().select(0);
 
 
         mMovieRequest.beginMovieRequest(RetrieveRequest.MoviesRequestType.NOW_SHOWING);
 
 
-        mSearchButton.disableProperty().bind(mSearchTextField.textProperty().isEmpty());
-        mClearSearchButton.disableProperty().bind(mSearchTextField.textProperty().isEmpty());
+        //mSearchButton.disableProperty().bind(mSearchTextField.textProperty().isEmpty());
+        //mClearSearchButton.disableProperty().bind(mSearchTextField.textProperty().isEmpty());
 
         //Real time changes to text field
         mSearchTextField.textProperty().addListener((observable, oldValue, newValue) -> {
             System.out.println("textfield changed from " + oldValue + " to " + newValue);
         });
 
+        System.out.println(text.getText());
+
         //Enter is Pressed
-        mSearchTextField.setOnKeyPressed(new EventHandler<KeyEvent>() {
+        mSearchTextField.setOnKeyPressed(new KeyboardClick(this));
 
-            @Override
-            public void handle(KeyEvent event) {
-                if(event.getCode().equals(KeyCode.ENTER)) {
-//                    SearchResultContext.AddKeyWord(mSearchTextField.getText());
-                    // do something
-                    System.out.println("Hello");
-                    CommandParser.parseCommands(mSearchTextField.getText());
-                }else if(event.getCode().equals(KeyCode.TAB)){
-                    System.out.println("Tab presjenksjessed");
-
-                }
-            }
-        });
-
-        //Consumes Tab navigation
-        mSearchTextField.addEventFilter(KeyEvent.KEY_PRESSED, event -> {
-            if (event.getCode() == KeyCode.TAB) {
-                System.out.println("TAB pressed");
-                ArrayList<String> hints = SearchResultContext.getPossibilities(mSearchTextField.getText());
-                if(hints.size()==0){
-                    System.out.println("No Hints");
-                }else if(hints.size()==1){
-                    mSearchTextField.setText(mSearchTextField.getText() + hints.get(0));
-                }else{
-                    String options = "";
-                    for(String a: hints){
-                        options += a;
-                        options += " ";
-                    }
-                    mSearchTextField.setText(mSearchTextField.getText() + "\n" + options + "\n");
-                }
-
-                event.consume();
-            }
-        });
-
-
-
-        mMovieTypeListView.getSelectionModel().selectedIndexProperty().addListener((observable, oldValue, newValue) -> moviesTypeSelectionChanged(oldValue.intValue(), newValue.intValue()));
+       // mMovieTypeListView.getSelectionModel().selectedIndexProperty().addListener((observable, oldValue, newValue) -> moviesTypeSelectionChanged(oldValue.intValue(), newValue.intValue()));
     }
 
     // Called when the fetch request for the movie data is completed
@@ -178,7 +192,7 @@ public class MovieHandler extends Controller implements RequestListener{
     private AnchorPane buildMoviePosterPane(MovieInfoObject movie) {
         try {
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(MovieHandler.class.getResource("MoviePoster.fxml"));
+            loader.setLocation(getClass().getClassLoader().getResource("MoviePoster.fxml"));
             AnchorPane posterView = loader.load();
             posterView.setOnMouseClicked((mouseEvent) -> moviePosterClicked(movie));
 
@@ -259,10 +273,13 @@ public class MovieHandler extends Controller implements RequestListener{
         mMainApplication.transitToMovieInfoController(movie);
     }
 
-    @FXML private void searchButtonClicked() {
-        if (!mSearchTextField.getText().isEmpty()) {
-            mMovieRequest.beginSearchRequest(mSearchTextField.getText());
-        }
+
+    public void setFeedbackText(String txt){
+        text.setText(txt);
+    }
+
+    public RetrieveRequest getAPIRequester(){
+        return mMovieRequest;
     }
 
     @FXML private void clearSearchButtonClicked()

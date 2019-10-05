@@ -1,7 +1,21 @@
 BorderPane, ScrollPane, VBox, HBox, FlowPane, AnchorPane{
-    -fx-background-color: #001f4d;
+    -fx-background-color: #1d1d1d;
     -fx-background: #1d1d1d;
     -fx-border-width: 0px;
+}
+
+
+ProgressBar .track{
+    -fx-background-radius: 2em;
+    -fx-border-radius: 2em;
+    -fx-border-color: white;
+    -fx-background-color: #403F3F;
+}
+
+ProgressBar .bar{
+    -fx-background-color: white;
+    -fx-background-radius: 2em;
+    -fx-border-radius: 2em;
 }
 
 ScrollPane .scroll-bar:vertical{
@@ -33,17 +47,30 @@ ScrollPane .scroll-bar:vertical .thumb:hover{
     -fx-background-color: white;
 }
 
-ProgressBar .track{
-    -fx-background-radius: 2em;
-    -fx-border-radius: 2em;
-    -fx-border-color: white;
-    -fx-background-color: #403F3F;
+Label{
+    -fx-text-fill: white;
 }
 
-ProgressBar .bar{
-    -fx-background-color: white;
-    -fx-background-radius: 2em;
-    -fx-border-radius: 2em;
+.titleLabel{
+    -fx-font-size: 10pt;
+    -fx-font-family: Verdana;
+}
+
+.subtitle{
+    -fx-font-size: 8pt;
+    -fx-font-family: Tahoma;
+}
+
+#ageText{
+    -fx-text-fill: white;
+}
+
+#langText{
+-fx-font-color:white;
+}
+
+#genreText{
+-fx-text-fill:white;
 }
 
 ToolBar{
@@ -83,15 +110,9 @@ MenuBar .context-menu{
     -fx-padding: 0 0 0 0;
 }
 
-Button{
-    -fx-background-radius: 2em;
-    -fx-background-color: #403F3F;
-    -fx-text-fill: white;
-}
 
-Button:hover{
-    -fx-background-color: white;
-    -fx-text-fill: #403F3F;
+#text{
+-fx-padding: 6, 6, 6, 6;
 }
 
 TextField{
@@ -103,25 +124,6 @@ TextField{
 
 TextField:focused, TextField:hover{
     -fx-border-color: white;
-}
-
-ListView{
-    -fx-background-color: #1d1d1d;
-    -fx-control-inner-background: #1d1d1d;
-}
-
-Label{
-    -fx-text-fill: white;
-}
-
-.titleLabel{
-    -fx-font-size: 12pt;
-    -fx-font-family: Verdana;
-}
-
-.subtitle{
-    -fx-font-size: 8pt;
-    -fx-font-family: Tahoma;
 }
 
 .posterPane:hover{

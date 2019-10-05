@@ -1,23 +1,21 @@
 package wrapper;
 
-
-import parser.CommandParser;
-import task.Tasks;
+import Commands.COMMAND_KEYS;
 
 public class CommandPair {
-    private CommandParser.Commands RootCommand;
-    private CommandParser.Commands SubCommand;
+    private COMMAND_KEYS RootCommand;
+    private COMMAND_KEYS SubRootCommand;
 
-    public CommandPair(CommandParser.Commands rt, CommandParser.Commands st) {
-        this.RootCommand = rt;
-        this.SubCommand = st;
+    public CommandPair(COMMAND_KEYS rootCommand, COMMAND_KEYS subRootCommand) {
+        RootCommand = rootCommand;
+        SubRootCommand = subRootCommand;
     }
 
-    public CommandParser.Commands getRoot() {
+    public COMMAND_KEYS getRootCommand() {
         return RootCommand;
     }
 
-    public CommandParser.Commands getSub() {
-        return SubCommand;
+    public COMMAND_KEYS getSubRootCommand() {
+        return SubRootCommand;
     }
 }

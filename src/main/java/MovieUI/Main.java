@@ -1,3 +1,5 @@
+package MovieUI;
+
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -29,7 +31,8 @@ public class Main extends Application {
     private void setUp() {
         try {
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(Main.class.getResource("MainPage.fxml"));
+            loader.setLocation(getClass().getClassLoader().getResource("MainPage.fxml"));
+           // loader.getStylesheets().add(this.getClass().getResource("view/MainView.css").toExt‌​ernalForm())
             mainLayout = loader.load();
 
             // setup the controller's window and reference to this main application class
@@ -46,7 +49,7 @@ public class Main extends Application {
     public void transitToMovieInfoController(MovieInfoObject movie) {
         try {
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(Main.class.getResource("InsideMovie.fxml"));
+            loader.setLocation(getClass().getClassLoader().getResource("InsideMovie.fxml"));
             Pane layout = loader.load();
 
             // setup controller

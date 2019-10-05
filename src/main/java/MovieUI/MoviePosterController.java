@@ -1,5 +1,5 @@
-/**
- * File: MoviePosterController.java
+package MovieUI; /**
+ * File: MovieUI.MoviePosterController.java
  * Description: Simple controller for setting and getting the controls in the Movie Poster View
  * Author: Asad Ahmed
  */
