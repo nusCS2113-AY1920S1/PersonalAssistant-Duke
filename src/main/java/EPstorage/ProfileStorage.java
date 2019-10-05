@@ -97,66 +97,74 @@ public class ProfileStorage {
         newFile.renameTo(new File(data.getAbsolutePath()));
     }
 
-    public void addGenre(String genre) throws IOException {
-        File oldFile = data;
-        File newFile = new File("EPdata/tempProfile.txt");
+//    public void addGenre(ArrayList<Integer> genreList) throws IOException {
+//        File oldFile = data;
+//        File newFile = new File("EPdata/tempProfile.txt");
+//
+//        FileWriter fw = new FileWriter(newFile, true);
+//        BufferedWriter bw = new BufferedWriter(fw);
+//        PrintWriter pw = new PrintWriter(bw);
+//        openFile();
+//
+//        while (scan.hasNextLine()){
+//            String dataType = scan.next();
+//
+//            if (dataType.equals("//genre")){
+//                pw.println("//genre ");
+//                pw.print(scan.nextLine());
+////                for (Integer genre : genreList){
+////                    pw.println(" , " + genre);
+////                }
+//            } else{
+//                pw.println(dataType);
+//                pw.println(scan.nextLine());
+//            }
+//        }
+//        scan.close();
+//        pw.flush();
+//        pw.close();
+//        oldFile.delete();
+//        newFile.renameTo(new File(data.getAbsolutePath()));
+//    }
+//
+//    public void removeGenre(ArrayList<Integer> genreList) throws IOException {
+//        File oldFile = data;
+//        File newFile = new File("EPdata/tempProfile.txt");
+//
+//        FileWriter fw = new FileWriter(newFile, true);
+//        BufferedWriter bw = new BufferedWriter(fw);
+//        PrintWriter pw = new PrintWriter(bw);
+//        openFile();
+//
+//        while (scan.hasNextLine()){
+//            String dataType = scan.next();
+//            if (dataType.equals("//genre")){
+//                String tokens[] = scan.nextLine().split(Pattern.quote(" , "));
+//                pw.print("//genre ");
+//                for (Integer genre : genreList) {
+//                    boolean flag = true;
+//                    for (String log : tokens) {
+//                        if (!log.equals(genre)) {
+//                            if (flag) {
+//                                pw.print(log);
+//                                flag = false;
+//                            }
+//                            pw.print(" , " + log);
+//                        }
+//                    }
+//                }
+//            } else{
+//                pw.println(dataType + " " + scan.nextLine());
+//            }
+//        }
+//        scan.close();
+//        pw.flush();
+//        pw.close();
+//        oldFile.delete();
+//        newFile.renameTo(new File(data.getAbsolutePath()));
+//    }
 
-        FileWriter fw = new FileWriter(newFile, true);
-        BufferedWriter bw = new BufferedWriter(fw);
-        PrintWriter pw = new PrintWriter(bw);
-        openFile();
-
-        while (scan.hasNextLine()){
-            String dataType = scan.next();
-            if (dataType.equals("//genre")){
-                pw.println("//genre " + scan.nextLine() + " , " + genre);
-            } else{
-                pw.println(dataType + " " + scan.nextLine());
-            }
-        }
-        scan.close();
-        pw.flush();
-        pw.close();
-        oldFile.delete();
-        newFile.renameTo(new File(data.getAbsolutePath()));
-    }
-
-    public void deleteGenre(String genre) throws IOException {
-        File oldFile = data;
-        File newFile = new File("EPdata/tempProfile.txt");
-
-        FileWriter fw = new FileWriter(newFile, true);
-        BufferedWriter bw = new BufferedWriter(fw);
-        PrintWriter pw = new PrintWriter(bw);
-        openFile();
-
-        while (scan.hasNextLine()){
-            String dataType = scan.next();
-            if (dataType.equals("//genre")){
-                String tokens[] = scan.nextLine().split(Pattern.quote(" , "));
-                pw.print("//genre ");
-                boolean flag = true;
-                for (String log : tokens){
-                    if (!log.equals(genre)){
-                        if (flag){
-                            pw.print(log);
-                            flag = false;
-                        }
-                        pw.print(" , " + log);
-                    }
-                }
-            } else{
-                pw.println(dataType + " " + scan.nextLine());
-            }
-        }
-        scan.close();
-        pw.flush();
-        pw.close();
-        oldFile.delete();
-        newFile.renameTo(new File(data.getAbsolutePath()));
-    }
-
-    public void changeGenre(ArrayList<Integer> genreList) throws IOException {
+    public void setGenre(ArrayList<Integer> genreList) throws IOException {
         File oldFile = data;
         File newFile = new File("EPdata/tempProfile.txt");
 
@@ -179,6 +187,73 @@ public class ProfileStorage {
                     }
                 }
                 scan.nextLine();
+            }
+        }
+
+        closeFile();
+        pw.flush();
+        pw.close();
+        oldFile.delete();
+        newFile.renameTo(new File(data.getAbsolutePath()));
+    }
+
+    public void addGenre(ArrayList<Integer> genreList) throws IOException {
+        File oldFile = data;
+        File newFile = new File("EPdata/tempProfile.txt");
+
+        FileWriter fw = new FileWriter(newFile, true);
+        BufferedWriter bw = new BufferedWriter(fw);
+        PrintWriter pw = new PrintWriter(bw);
+        openFile();
+
+        while (scan.hasNextLine()) {
+            String dataType = scan.nextLine();
+            pw.println(dataType);
+            if (dataType.equals("//genre")) {
+                String toPrint = scan.nextLine();
+                for (Integer log : genreList) {
+                    toPrint += " , " + log;
+                }
+                pw.println(toPrint);
+            }
+        }
+
+        closeFile();
+        pw.flush();
+        pw.close();
+        oldFile.delete();
+        newFile.renameTo(new File(data.getAbsolutePath()));
+    }
+
+    public void removeGenre(ArrayList<Integer> genreList) throws IOException {
+        File oldFile = data;
+        File newFile = new File("EPdata/tempProfile.txt");
+
+        FileWriter fw = new FileWriter(newFile, true);
+        BufferedWriter bw = new BufferedWriter(fw);
+        PrintWriter pw = new PrintWriter(bw);
+        openFile();
+
+        while (scan.hasNextLine()) {
+            String dataType = scan.nextLine();
+            pw.println(dataType);
+            if (dataType.equals("//genre")) {
+                String toPrint = "";
+                String[] tokens = scan.nextLine().split(" , ");
+                for (String log : tokens){
+                    boolean flag = true;
+                    for (Integer newLog : genreList){
+                        if (!Integer.toString(newLog).equals(log)){
+                            if (flag) {
+                                toPrint += log;
+                                flag = false;
+                            } else {
+                                toPrint += " , " + log;
+                            }
+                        }
+                    }
+                }
+                pw.println(toPrint);
             }
         }
 

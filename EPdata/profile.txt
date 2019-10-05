@@ -1,6 +1,6 @@
 //name
-oofsie
+yikes
 //age
 420
 //genre
-14 , 12 , 28 , 10749 , 35
+16

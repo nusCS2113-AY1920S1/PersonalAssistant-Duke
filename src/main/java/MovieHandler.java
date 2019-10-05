@@ -19,6 +19,7 @@ import object.MovieInfoObject;
 import ui.Ui;
 
 import javax.swing.text.html.ListView;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
@@ -82,7 +83,7 @@ public class MovieHandler extends Controller implements RequestListener{
     @FXML public void initialize() throws IOException {
         profileStorage = new ProfileStorage();
         userProfile = profileStorage.load();
-        Commands command = new Commands();
+        Commands command = new Commands(userProfile);
         userNameLabel.setText(userProfile.getUserName());
         userAgeLabel.setText(Integer.toString(userProfile.getUserAge()));
         genreListLabel.setText(command.convertToLabel(userProfile.getGenreId()));
@@ -107,7 +108,7 @@ public class MovieHandler extends Controller implements RequestListener{
         //mClearSearchButton.disableProperty().bind(mSearchTextField.textProperty().isEmpty());
 
 
-       // mMovieTypeListView.getSelectionModel().selectedIndexProperty().addListener((observable, oldValue, newValue) -> moviesTypeSelectionChanged(oldValue.intValue(), newValue.intValue()));
+        // mMovieTypeListView.getSelectionModel().selectedIndexProperty().addListener((observable, oldValue, newValue) -> moviesTypeSelectionChanged(oldValue.intValue(), newValue.intValue()));
     }
 
     // Called when the fetch request for the movie data is completed
@@ -258,16 +259,24 @@ public class MovieHandler extends Controller implements RequestListener{
 
     @FXML private void searchButtonClicked() throws IOException {
         String userInput = mSearchTextField.getText();
+        Commands command = new Commands(userProfile);
         //for setting up profile preferences
         String[] tokens = userInput.split((" "), 3);
         if (tokens.length == 3) {
-            Commands command = new Commands();
             if (tokens[0].equals("set") && tokens[1].equals("name")) {
                 command.setName(tokens[2]);
                 clearText(mSearchTextField);
                 initialize();
             } else if (tokens[0].equals("set") && tokens[1].equals("age")) {
                 command.setAge(tokens[2]);
+                clearText(mSearchTextField);
+                initialize();
+            } else if (tokens[0].equals("add") && tokens[1].equals("preference")) {
+                command.addPreference(tokens[2]);
+                clearText(mSearchTextField);
+                initialize();
+            } else if (tokens[0].equals("remove") && tokens[1].equals("preference")) {
+                command.removePreference(tokens[2]);
                 clearText(mSearchTextField);
                 initialize();
             } else if (tokens[0].equals("set") && tokens[1].equals("preference")) {
@@ -277,7 +286,7 @@ public class MovieHandler extends Controller implements RequestListener{
             }
         }
         //for searching movies
-        else if (userInput.equals("show current movie")) {
+         if (userInput.equals("show current movie")) {
             mMovieRequest.beginMovieRequest(RetrieveRequest.MoviesRequestType.NOW_SHOWING);
         } else if (userInput.equals("show upcoming movie")) {
             mMovieRequest.beginMovieRequest(RetrieveRequest.MoviesRequestType.UPCOMING);
@@ -286,7 +295,25 @@ public class MovieHandler extends Controller implements RequestListener{
         } else if (userInput.equals("show current tv")) {
             mMovieRequest.beginMovieRequest(RetrieveRequest.MoviesRequestType.TV_SHOWS);
         } else if (!userInput.isEmpty()) {
-            mMovieRequest.beginSearchRequest(userInput);
+            if (userInput.contains(" -g ")){
+                ArrayList<Integer> inputGenre = new ArrayList<>(10);
+                String[] token = userInput.split(" -");
+                for (int i = 1; i < token.length ; i++){
+                    if (token[i].charAt(0) == 'g'){
+                        token[i] = token[i].substring(2);
+                        if (token[i].equals("my preference")){
+                            inputGenre.addAll(userProfile.getGenreId());
+                        } else{
+                            inputGenre.add(Integer.parseInt(command.findGenreID(token[i])));
+                        }
+                    }
+                }
+                mMovieRequest.beginSearchRequestWithGenre(token[0], inputGenre);
+                clearText(mSearchTextField);
+            } else{
+                mMovieRequest.beginSearchRequest(userInput);
+                clearText(mSearchTextField);
+            }
         }
     }
 

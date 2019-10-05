@@ -3,30 +3,33 @@ package EPstorage;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.regex.Pattern;
 
+
+/**
+ * commands for storage
+ */
 public class Commands {
     private File genreList;
     private ProfileStorage profileStorage;
     private UserProfile userProfile;
 
-    public Commands()  {
+    public Commands(UserProfile userProfile)  {
         genreList = new File("/Users/wenhui/main/EPdata/genreIDlist.txt");
         profileStorage = new ProfileStorage();
-        userProfile = new UserProfile();
+        this.userProfile = userProfile;
     }
 
     public void setName(String name) throws IOException {
         profileStorage.changeName(name);
-        userProfile.setUserName(name);
+//        userProfile.setUserName(name);
     }
 
     public void setAge(String age) throws IOException {
         profileStorage.changeAge(age);
-        userProfile.setUserAge(Integer.parseInt(age));
+//        userProfile.setUserAge(Integer.parseInt(age));
     }
 
     public void setPreference(String preferences) throws IOException {
@@ -40,8 +43,38 @@ public class Commands {
                 }
             }
         }
-        profileStorage.changeGenre(genrePreferences);
-        userProfile.setGenreId(genrePreferences);
+        profileStorage.setGenre(genrePreferences);
+//        userProfile.setGenreId(genrePreferences);
+    }
+
+    public void addPreference(String preferences) throws IOException {
+        String tokens[] = preferences.split(Pattern.quote("-"));
+        ArrayList<Integer> genrePreferences = new ArrayList<>(50);
+        for (String log : tokens){
+            if (log.length() > 0){
+                if (log.charAt(0) == 'g') {
+                    log = log.substring(2).trim();
+                    genrePreferences.add(Integer.parseInt(findGenreID(log)));
+                }
+            }
+        }
+        profileStorage.addGenre(genrePreferences);
+//        userProfile.addGenreId(genrePreferences);
+        }
+
+    public void removePreference(String preferences) throws IOException {
+        String tokens[] = preferences.split(Pattern.quote("-"));
+        ArrayList<Integer> genrePreferences = new ArrayList<>(50);
+        for (String log : tokens){
+            if (log.length() > 0){
+                if (log.charAt(0) == 'g') {
+                    log = log.substring(2).trim();
+                    genrePreferences.add(Integer.parseInt(findGenreID(log)));
+                }
+            }
+        }
+        profileStorage.removeGenre(genrePreferences);
+//        userProfile.addGenreId(genrePreferences);
     }
 
     public String findGenreID(String genreName) throws FileNotFoundException {

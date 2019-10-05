@@ -6,6 +6,7 @@ import org.json.simple.parser.JSONParser;
 import object.MovieInfoObject;
 
 import java.io.*;
+import java.lang.reflect.Array;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLEncoder;
@@ -19,7 +20,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 
-public class RetrieveRequest implements InfoFetcher {
+public class RetrieveRequest implements InfoFetcher, InfoFetcherWithGenre {
     private RequestListener mListener;
 
     // API Usage constants
@@ -98,6 +99,16 @@ public class RetrieveRequest implements InfoFetcher {
         }
     }
 
+    public void beginSearchRequestWithGenre(String movieTitle, ArrayList<Integer> genreID) {
+        try {
+            String url = MAIN_URL + MOVIE_SEARCH_URL + API_KEY + "&query=" + URLEncoder.encode(movieTitle, "UTF-8");
+            fetchJSONDataWithGenre(url, genreID);
+
+        } catch (UnsupportedEncodingException ex) {
+            ex.printStackTrace();
+        }
+    }
+
     public void beginSearchGenre (String genre) {
         try{
             String url = MAIN_URL + "movie/" + URLEncoder.encode(genre, "UTF-8") + LIST
@@ -137,6 +148,43 @@ public class RetrieveRequest implements InfoFetcher {
         }
     }
 
+    @Override
+    public void fetchedMoviesJSONWithGenre(String json, ArrayList<Integer> genreID) {
+        // If null string returned then there was a lack of internet connection
+        if (json == null) {
+            mListener.requestFailed();
+            return;
+        }
+
+        // Parse received movies
+        JSONParser parser = new JSONParser();
+        JSONObject movieData;
+        try {
+            movieData = (JSONObject) parser.parse(json);
+
+            JSONArray movies = (JSONArray) movieData.get("results");
+            ArrayList<MovieInfoObject> parsedMovies = new ArrayList(20);
+
+            for (int i = 0; i < movies.size(); i++) {
+                MovieInfoObject newMovie = parseMovieJSON((JSONObject) movies.get(i));
+                long[] movieGenre = newMovie.getGenreIDs();
+                for (Integer id : genreID){
+                    for (long movieGenreID : movieGenre){
+                        if (movieGenreID == id){
+                            parsedMovies.add(newMovie);
+                            break;
+                        }
+                    }
+                }
+            }
+
+            // Notify Listener
+            mListener.requestCompleted(parsedMovies);
+        } catch (org.json.simple.parser.ParseException ex) {
+            Logger.getLogger(RetrieveRequest.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
     // The fetcher reported a connection time out. Notify the request listener.
     @Override
     public void connectionTimedOut() {
@@ -147,6 +195,16 @@ public class RetrieveRequest implements InfoFetcher {
         Thread fetchThread = null;
         try {
             fetchThread = new Thread(new MovieInfoFetcher(new URL(URLString), this));
+            fetchThread.start();
+        } catch (MalformedURLException ex) {
+            Logger.getLogger(RetrieveRequest.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    private void fetchJSONDataWithGenre(String URLString, ArrayList<Integer> genreID) {
+        Thread fetchThread = null;
+        try {
+            fetchThread = new Thread(new MovieInfoFetcherWithGenre(new URL(URLString), this, genreID));
             fetchThread.start();
         } catch (MalformedURLException ex) {
             Logger.getLogger(RetrieveRequest.class.getName()).log(Level.SEVERE, null, ex);

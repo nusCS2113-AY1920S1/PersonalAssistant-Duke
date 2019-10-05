@@ -7,12 +7,6 @@ public class UserProfile {
     private int userAge;
     private ArrayList<Integer> genreId;
 
-//    public UserProfile(String userName, int userAge, ArrayList<String> userGenre){
-//        this.userName = userName;
-//        this.userAge = userAge;
-//        this.userGenre = userGenre;
-//    }
-
     public String getUserName(){
         return userName;
     }
@@ -35,5 +29,13 @@ public class UserProfile {
 
     public void setGenreId(ArrayList<Integer> inputGenre) {
         genreId = inputGenre;
+    }
+
+    public void addGenreId(ArrayList<Integer> inputGenre) {
+        genreId.addAll(inputGenre);
+    }
+
+    public void removeGenreId(ArrayList<Integer> inputGenre) {
+        genreId.removeAll(inputGenre);
     }
 }
