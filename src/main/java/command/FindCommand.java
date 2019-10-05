@@ -1,12 +1,10 @@
 package command;
 
-import DukeObjects.ExpenseList;
+import dukeobjects.ExpenseList;
 import exception.DukeException;
 import parser.CommandParams;
 import ui.Ui;
 import storage.Storage;
-
-import java.util.ArrayList;
 
 /**
  * Represents a specified command as FindCommand by extending the {@code Command} class.

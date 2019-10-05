@@ -1,8 +1,9 @@
 package command;
 
 
-import DukeObjects.Expense;
-import DukeObjects.ExpenseList;
+import dukeobjects.Expense;
+import dukeobjects.ExpenseList;
+import exception.DukeException;
 import parser.CommandParams;
 import storage.Storage;
 import ui.Ui;
@@ -22,10 +23,18 @@ public class AddExpense extends Command {
 
     @Override
     public void execute(CommandParams commandParams, ExpenseList expensesList, Ui ui, Storage storage) {
-        String expenseString = commandParams.getMainParam();
-        Double expenseAmount = Double.valueOf(expenseString);
+        String expenseAmount = commandParams.getMainParam();
+        if (expenseAmount == null) {
+            throw new DukeException("Empty amount!");
+        }
+
         String expenseDescription = commandParams.getParam("d");
+        if (expenseDescription == null) {
+            throw new DukeException("Empty description!");
+        }
         Expense expense = new Expense(expenseAmount, expenseDescription);
         expensesList.add(expense);
+        ui.println("Ok! Added " + expense.toString());
     }
+
 }

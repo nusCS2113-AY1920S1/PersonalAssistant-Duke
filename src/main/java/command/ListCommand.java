@@ -1,6 +1,6 @@
 package command;
 
-import DukeObjects.ExpenseList;
+import dukeobjects.ExpenseList;
 import parser.CommandParams;
 import storage.Storage;
 import ui.Ui;
@@ -29,7 +29,7 @@ public class ListCommand extends Command {
         if (expensesList.getSize() == 0) {
             ui.println("Ops, you haven't added any task!");
         } else {
-            ui.println("Here are the expensesList in your list:");
+            ui.println("Here are the expenses:");
             for (int i = 0; i < expensesList.getSize(); i++) {
                 ui.println((i + 1) + ". " + expensesList.getExpense(i).toString());
             }
