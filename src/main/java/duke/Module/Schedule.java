@@ -227,12 +227,15 @@ public class Schedule {
         return "New training has been added";
     }
 
-    public String delClass(String name) {
+    public String delClass(String startTime, String name) throws ParseException {
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy HHmm");
+        Date start = simpleDateFormat.parse(startTime);
         int index = 0;
-        if (this.list.isEmpty())
+        if (this.list.isEmpty()) {
             return "No class available";
+        }
         for (TimeSlot i: this.list) {
-            if (i.getClassName().equals(name)){
+            if (i.getClassName().equals(name) && i.getStartTime().equals(start)){
                 this.list.remove(index);
                 updateTimeSlot(this.list);
                 return "Class removed";
@@ -241,4 +244,18 @@ public class Schedule {
         }
         return "Class not found";
     }
+
+    public String delAllClass(String date) throws ParseException {
+        for (TimeSlot i: this.list) {
+            DateFormat df = new SimpleDateFormat("HHmm");
+            String today = df.format(i.getStartTime());
+            String[] temp = today.split(" ");
+            if (temp[0].equals(date)) {
+                this.list.remove(i);
+            }
+        }
+        updateTimeSlot(this.list);
+        return "All classes on " + date + " are cleared";
+    }
+
 }
