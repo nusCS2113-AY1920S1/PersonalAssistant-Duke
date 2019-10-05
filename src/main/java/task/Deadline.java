@@ -56,7 +56,7 @@ public class Deadline extends Task {
     @Override
     public String toList() {
         return "[D][" + this.getStatusIcon() + "] " + this.getDescription()
-                + " (by: " + this.getDueDate() + ")";
+                + " (By: " + this.getDueDate() + ")";
     }
 
     /**

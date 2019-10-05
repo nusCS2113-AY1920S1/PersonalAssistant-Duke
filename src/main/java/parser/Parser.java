@@ -46,7 +46,7 @@ public class Parser {
         String command = temp.next();
         if (command.matches("list|bye")) {
             if (temp.hasNextLine()) {
-                throw new DukeException("List should not have any other arguments (whitespace acceptable");
+                throw new DukeException("List should not have any other arguments (whitespace acceptable)");
             } else {
                 if (command.matches("list")) {
                     return new PrintCommand() {
@@ -81,6 +81,7 @@ public class Parser {
         }
         return new BadCommand("bad", "");
     }
+
     /*
      *//**
      * Takes in the taskList to be used for recording tasks.

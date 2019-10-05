@@ -140,7 +140,7 @@ public class TaskList {
     /**
      * passes a new date into the event or deadline class.
      *
-     * @param input User input of the date as a string.
+     * @param input User input of the command to snooze a task as a string.
      * @throws DukeException throws when incorrect range or format was passed.
      */
     public void snoozeTask(String input) throws DukeException {
@@ -151,7 +151,7 @@ public class TaskList {
             if (split.length < 2) {
                 throw new DukeException("Please use /to to indicate date");
             } else if (isOutOfRange(request)) {
-                throw new DukeException("The index was not found withing range");
+                throw new DukeException("The index was not found within range");
             } else if (!(list.get(request).getType().matches("E") | list.get(request).getType().matches("D"))) {
                 throw new DukeException("Only Events and Deadlines can be snoozed");
             } else {
@@ -302,6 +302,27 @@ public class TaskList {
             int counter = 1;
             for (Task task : list) {
                 System.out.println(counter++ + ". " + task.toList());
+            }
+        }
+    }
+
+    /**
+     * Prints out all deadlines and events at startup
+     */
+    public void printReminders() {
+        ArrayList<Task> reminderList = new ArrayList<Task>();
+        for (Task task : list) {
+            if (task.getType().matches("E")|task.getType().matches("D")){
+                reminderList.add(task);
+            };
+        }
+
+        int counter = 1;
+        if (reminderList.size() > 0){
+            System.out.println("Here are your reminders for upcoming tasks:");
+            for (Task task : reminderList) {
+                System.out.println(counter + ". " + task.toList());
+                counter++;
             }
         }
     }

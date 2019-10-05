@@ -1,0 +1,264 @@
+= Duke 2.0 - Developer Guide
+:site-section: DeveloperGuide
+:toc:
+:toc-title:
+:toc-placement: preamble
+:sectnums:
+:imagesDir: images
+:stylesDir: stylesheets
+:xrefstyle: full
+:experimental:
+ifdef::env-github[]
+:tip-caption: :bulb:
+:note-caption: :information_source:
+endif::[]
+:repoURL: https://github.com/se-edu/addressbook-level3
+
+By: `Team F10-2`      Since: `August 2019`      Licence: `MIT`
+
+
+== Introduction
+=== Purpose
+
+This document illustrates on the architecture designs and the software decisions implemented for the desktop application D2. Duke 2.0 (D2) is a desktop application which enables the prospective applicants of NUS Faculty of Engineering to better plan out their university life. It is an extended task manager, which not only allows for prospective applicants to manage their deadlines and events pertaining to the freshman orientations and document submission, but also provides a coherent and concise platform to compare two engineering degrees of their choice and explore many other details related to the degree. Students can also create lists of engineering degrees of their choice and update it as per their choice. The developer guide will provide you with information such as an overall view of the system hierarchy, logical view of the system’s components, and a process view of the system’s communications that will enable you to help contribute to it too. 
+
+=== Scope
+
+This document describes the software architecture and various other software decisions undertaken for the implementation of D2. The intended audience of this document are developers, designers, software testers of D2 and for those who wish to modify the source files to fit for their own purposes. You may also have a look at it if you wish to understand how this application works. 
+
+<<<
+== Setting Up
+=== Prerequisites
+While Duke 2.0 may work using diffferent versions of Java and with other IDEs, the following are recommended because they have been used for testing:
+
+* Java Development Kit '11'
+* Intellij IDE
+
+=== Setup on local Computer
+
+
+*Manual Import:*
+
+. `Fork` this Repository and `Clone` your remote repository locally to your computer
+. Open *Intellij IDE* and set up JDK `11`
+.. Click `Configure` > `Project Defaults` > `Project Structure`
+.. Click `New...` > `JDK` and select the path of the installed JDK `11`
+.. Click `OK`
+. Click `Import Project`
+. Locate project directory of the cloned repository
+. Click `Next`
+. Ensure that the `src folder` is checked ✅, and Click `Next` until the `Finish` button appears
+. Click the `Finish` button
+
+
+*Automatic Import using Intellij Check Out:*
+
+. `Fork` this Repository
+. Open *Intellij IDE* and set up JDK `11`
+.. Click `Configure` > `Project Defaults` > `Project Structure`
+.. Click `New...` > `JDK` and select the path of the installed JDK `11`
+.. Click `OK`
+. Click `Check out from Version Control` > `Git`
+. Enter URL of your remote repository > Click `Clone`
+. Wait for Intellij to Set Up the project
+
+
+=== Verifying Setup
+. Ensure that Gradle has been imported by running `src/java/javafx/Launcher.java`
+. Test out basic Duke 2.0 commands by referring to the User Guide 
+
+<<<
+== Design
+
+
+== Implementation
+
+== Testing
+
+== Documentation
+
+<<<
+== Appendix A: User Stories
+
+|===
+|User Stories | Priority
+
+|As a student entering NUS, I can view all the details of the course and their modules in one place rather than going through multiple websites so that I can avoid confusion 
+|High
+
+|As a student applying to NUS, I wish to be able to save a list of possible personal degrees so that I can have a neat way of accessing my list of possible degrees that I have brainstormed to apply for
+|High 
+
+|As a student applying to NUS, I wish to compare the details of two majors on a single platform so that I can clearly see what details of the major are important and relevant to me.
+|High
+
+|As an impulsive user, I can delete/rank degrees from my personal selection list so that I can correct old decisions that I made the last time in order to have my most updated list at all times.
+|High
+
+|As a student presented with too many options, I would want to have a narrowed-down view of the major requirements to make a clearer decision. 
+|High
+
+|As a student applying to NUS, I should be able to have a list wherein I can add general/unrestricted modules I am interested in and also have the option to delete them whenever needed so that I can have the most updated list at all times.
+|High
+
+|As a prospective student choosing between NUS and other universities’ engineering courses, I will prefer to easily look up all the modules and their details required for the engineering degree, and having one for NUS makes us more attractive than other unis
+|High
+
+|As a student applying to NUS, I would want to keep track of all the deadlines to submit documents or housing, and of the various freshman events so that I don't miss out any.
+|High
+
+|As a new student, I want to know the module details of the courses as soon as possible, without resorting to manually searching through all modules so that I can know easily learn more about upcoming modules.
+|High
+
+|As a student applying to NUS, I want to know all the modules required and their details for the next few years so that I can make a more informed decision.
+|High
+
+|As a user who prefers side by side comparisons, I would want to be able to compare between any two majors simultaneously, without the need to switch tabs so as to not get confused. 
+|High
+
+|As a novice user, I can type a “help” command and receive all the possible commands that DukeJr provides so that I can use the software to its fullest potential 
+|Medium
+
+|As a student applying to NUS and having specific interests, I want to see if the core modules have any overlap with my interests so that I am better able to decide which engineering disciplines suits me the most
+|Medium
+
+|As a student applying to NUS and wishing to explore, it should able to propose to me a 2nd Major and point out how many overlaps are there with another degree, so that I am able to decide which second major would be the most beneficial for me.
+|Medium
+
+|As a student applying to NUS and who is organised, I would want to view the module requirements for the two degrees in a tabular format which can also provide a percentage similarity between the two.
+|Medium
+
+|As a student, I would want to be able to view the complexity of each module in the major and an overall calculation for the complexity of the entire degree so as to see other students’ perceptions regarding the major
+|Medium
+
+|As a careless typer, I can type mistakes into the command without DukeJr. crashing so that I do not have to re-run the program at every mistake.
+|Medium
+
+|As a user, I can save my personal module selection list onto the hard drive so that I can go back to it when I turn on the program the next time.
+|Medium
+
+|As a student applying to NUS, I wish to see a recommended schedule so that I can better plan around
+|Medium
+
+|As a student applying to NUS, it can show me past statistics of the module so that I can make a better decision when choosing my modules based on my competency level
+|Medium
+
+|As a student applying to NUS, I would like to know the module workload for the upcoming semester so that I can better plan for electives.
+|Medium
+
+|As a thorough decision-maker, I want to be able to visit the NUS website associated with the module so that I can view the official webpage of the degree for extremely specific details.
+|Medium
+
+|As a person ambitious about a certain engineering discipline, I would want to know about everything NUS offers such as modules, research projects, internships etc. for it so as to make a more informed decision.
+|Medium
+
+|As an advanced user, there should be an option to toggle the Module Name display so that I can view it in a format suitable for me.
+|Medium
+
+|As a person who likes to keep it short, I would want the user commands to be as simple as possible to search up for anything so that I don’t have to memorize and remember many long commands
+|Medium
+
+|As an advanced user, I want to make/delete user defined commands which execute a certain command for me 
+|Medium
+
+|As an ambitious student, I can see which majors have a rigorous course curriculum so that I can apply for degree that is personally challenging.
+|Medium
+
+|As an enthusiastic student applying to NUS, it can link me to resources (Eg textbooks, external websites) for the module so that I can have a headstart in my studies. 
+|Low
+
+|As a practical person, I can view what majors are the most in demand by employers in the job market so that I make my choices on my job prospects.
+|Low
+
+|As a student applying to NUS, I would want to be able to view the past cohort sizes so that I know what sort of competition awaits me in my university career.
+|Low
+
+|As a lazy typer, duke will auto suggest things according to my most frequently used words so that DukeJr. becomes easier to use as time goes on
+|Low
+
+|===
+
+
+
+ 
+
+
+
+<<<
+== Appendix B: Use Cases
+
+[cols="4*"] 
+|===
+|System
+|Actor
+|Use Case
+|Steps
+
+|Duke 2.0 (D2)
+|Prospective Applicant to NUS Faculty of Engineering
+|View the whole list of possible commands for D2
+|User requires help with command syntax +
+ +
+User types in the command in the following manner: `help` +
+ +
+D2 returns all the possible commands that it will accept +
+ +
+User reads the information
+
+|Duke 2.0 (D2)
+|Prospective Applicant to NUS Faculty of Engineering
+|Check core modules for Bachelor of Engineering (Electrical Engineering)
+|User identifies a degree that he/she wishes to research +
+ +
+User types in the command in the following manner: `details EE` +
+ +
+D2 displays the degree requirements, including the core modules +
+ +
+User reads the information
+
+|Duke 2.0 (D2)
+|Prospective Applicant to NUS Faculty of Engineering
+|Compare core modules for EE and CEG
+|User identifies two degrees she wishes to compare +
+ +
+User types in the command in the following manner: `compare EE CEG` +
+ +
+D2 displays similar and different modules from the two degrees +
+ +
+User reads the information
+
+|Duke 2.0 (D2)
+|Prospective Applicant to NUS Faculty of Engineering
+|Add CEG into degree list and view degree list
+|User identifies the degree he/she wishes to add to his/her list of possible degrees +
+ +
+User types in the command in the following manner: `add EE` +
+ +
+D2 adds Electrical Engineering to the user’s degree list +
+ +
+User types in the command in the following manner: `degreelist` +
+ +
+D2 returns the user’s degree list with Electrical Engineering added
+
+|Duke 2.0 (D2)
+|Prospective Applicant to NUS Faculty of Engineering
+|Swap CEG with EE in degree list
+|User identifies two degrees that he/she wishes to switch in the degree list +
+ +
+User types in the command in the following manner: `swap CEG EE` +
+ +
+D2 returns the user’s degree list with CEG and EE having switched indexes
+|===
+
+<<<
+== Appendix C: Non-Functional Requirements
+
+. D2 is a fast application.
+. It can be used on any platform (any PC), and is hence light-weight.
+. The information provided is accurate as of the latest semester.
+. The application has simple functions, with more options provided for advanced users.
+. The application is fairly easy and understandable to navigate through.
+. Multi-step commands are available for beginners, as compared to one step for advanced users.
+. The application provided tabular formatting of information for better analysis.
+. It is inviting to the eye with a well-designed graphical user interface. 
+
