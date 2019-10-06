@@ -39,7 +39,7 @@ public class FindCommand extends Command {
      */
     @Override
     public String executeGui(TaskList items, Ui ui) {
-        String str = ui.showFindGui(items, keyword);
+        String str = Ui.showFindGui(items, keyword);
         return str;
     }
 

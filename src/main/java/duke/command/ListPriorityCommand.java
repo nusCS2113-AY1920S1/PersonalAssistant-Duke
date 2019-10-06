@@ -8,7 +8,7 @@ import duke.task.TaskList;
 /**
  * Representing a command that lists all tasks stored in task list.
  */
-public class ListPriorityCommand extends Command{
+public class ListPriorityCommand extends Command {
 
     /**
      * Executes a command with task list and ui.
@@ -41,7 +41,7 @@ public class ListPriorityCommand extends Command{
      */
 
     public String executeGui(TaskList items, Ui ui) {
-        String str = ui.showTaskListGui(items);
+        String str = Ui.showTaskListGui(items);
         return str;
     }
 
