@@ -1,4 +1,4 @@
 language: java
 
 script: >-
-    ./gradlew clean checkstyleMain checkstyleTest
+    ./gradlew checkstyleMain checkstyleTest
