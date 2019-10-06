@@ -22,7 +22,7 @@ public class Question {
     }
 
     /**
-     * Checks if user's answer to the question is correct.
+     * Checks if user's answer to the question is correct. User input is always converted to lowercase before checking.
      * @param input user's inputted answer
      * @return true if input matches answer, false otherwise.
      */

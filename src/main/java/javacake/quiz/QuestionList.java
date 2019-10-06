@@ -5,6 +5,7 @@ import java.util.Random;
 
 public class QuestionList {
     private ArrayList<Question> chosenQuestions;
+    /** The maximum number of questions in one session of a quiz. */
     public static final int MAX_QUESTIONS = 1;
 
     public QuestionList() {
@@ -19,7 +20,7 @@ public class QuestionList {
         String q2 = "wake me up\n a. before you go go\n b. when september ends\n c. WAKE ME UP INSIDE";
         String a2 = "c";
         String q3 = "The Scanner class allows a program to read from file. T/F?";
-        String a3 = "t";
+        String a3 = "t"; // Scanner s = new Scanner(file);
 
         basicQuestionList.add(new BasicQuestion(q1, a1));
         basicQuestionList.add(new BasicQuestion(q2, a2));
@@ -93,9 +94,9 @@ public class QuestionList {
     }
 
     /**
-     * Randomly selects MAX_QUESTIONS number of questions of the specified type from the list of all questions.
+     * Randomly selects MAX_QUESTIONS number of questions of the specified topic from the list of all questions.
      * @param type QuestionType of questions to be selected.
-     * @return ArrayList of Question of specified type of size MAX_QUESTIONS.
+     * @return ArrayList of Question of specified topic of size MAX_QUESTIONS.
      */
     public ArrayList<Question> pickQuestions(Question.QuestionType type) {
         ArrayList<Question> tempList = new ArrayList<>();

@@ -123,4 +123,35 @@ public class Ui {
             throw new DukeException("File not found!");
         }
     }
+
+    /**
+     * Displays the quiz question.
+     * @param question the question to be shown to the user.
+     * @param index the current question the user is on.
+     * @param maxQuestions the maximum number of questions in the quiz session.
+     */
+    public void displayQuiz(String question, int index, int maxQuestions) {
+        System.out.println(index + "/" + maxQuestions);
+        System.out.println(question);
+    }
+
+    /**
+     * Displays the results of a quiz.
+     * @param score the user's score in that quiz.
+     * @param maxScore the maximum score possible in that quiz.
+     */
+    public void displayResults(int score, int maxScore) {
+        System.out.println("This is your score:");
+        System.out.println("    " + score + " / " + maxScore);
+
+        if ((double)score / maxScore <= 0.5) {
+            System.out.println("Aw, that's too bad! Try revising the topics and try again. Don't give up!");
+        } else if ((double)score / maxScore != 1.0) {
+            System.out.println("Almost there! Clarify some of your doubts and try again.");
+        } else {
+            System.out.println("Congrats! Full marks, you're amazing!");
+        }
+
+        System.out.println("Type \"back\" to go back to the table of contents.");
+    }
 }

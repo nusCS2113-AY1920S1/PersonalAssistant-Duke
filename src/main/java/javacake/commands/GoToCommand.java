@@ -5,6 +5,7 @@ import javacake.ProgressStack;
 import javacake.Profile;
 import javacake.Ui;
 import javacake.Storage;
+import javacake.quiz.Question;
 import javacake.topics.ListIndex1;
 import javacake.topics.ListIndex2;
 import javacake.topics.ListIndex3;
@@ -49,6 +50,7 @@ public class GoToCommand extends Command {
                 ListIndex3 listIndex3 = new ListIndex3();
                 listIndex3.printList();
             } else if (progressStack.checkProgress() == 1 && index.equals("4")) {
+                new QuizCommand().execute(progressStack, ui, storage, profile);
 
             } else if (progressStack.checkProgress() == 2 && index.equals("1.1")) {
                 progressStack.listIndexToSubList();
@@ -68,7 +70,7 @@ public class GoToCommand extends Command {
                 ui.displayTextFile(reader);
 
             } else if (progressStack.checkProgress() == 2 && index.equals("1.4")) {
-
+                new QuizCommand(Question.QuestionType.BASIC).execute(progressStack, ui, storage, profile);
 
             } else if (progressStack.checkProgress() == 2 && index.equals("2.1")) {
                 progressStack.listIndexToSubList();
@@ -94,6 +96,9 @@ public class GoToCommand extends Command {
                         new FileReader("content/MainList/ListIndex2/content/oop/4.txt"));
                 ui.displayTextFile(reader);
 
+            } else if (progressStack.checkProgress() == 2 && index.equals("2.5")) {
+                new QuizCommand(Question.QuestionType.OOP).execute(progressStack, ui, storage, profile);
+
             } else if (progressStack.checkProgress() == 2 && index.equals("3.1")) {
                 progressStack.listIndexToSubList();
                 BufferedReader reader = new BufferedReader(
@@ -109,6 +114,8 @@ public class GoToCommand extends Command {
                 BufferedReader reader = new BufferedReader(
                         new FileReader("content/MainList/ListIndex3/Exceptions/Exceptions.txt"));
                 ui.displayTextFile(reader);
+            } else if (progressStack.checkProgress() == 2 && index.equals("3.4")) {
+                new QuizCommand(Question.QuestionType.EXTENSIONS).execute(progressStack, ui, storage, profile);
             }
         } catch (IOException e) {
             throw new DukeException("File does not exists");
