@@ -1,5 +1,7 @@
 package money;
 
+import controlpanel.DukeException;
+
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -183,5 +185,25 @@ public class Account {
 
     public void setBaseSavings(float baseSavings) {
         this.baseSavings = baseSavings;
+    }
+
+    /**
+     * This method helps to find the corresponding bank account tracker by given description(name)
+     * @param name The given description
+     * @return The corresponding tracker
+     * @throws DukeException Handle the case when there is no such account
+     */
+    public BankTracker findTrackerByName(String name) throws DukeException {
+        BankTracker bankTracker = null;
+        for (BankTracker b : bankTrackerList) {
+            if (b.getDescription().equals(name)) {
+                bankTracker = b;
+                break;
+            }
+        }
+        if (bankTracker == null) {
+            throw new DukeException("Sorry, FG does not find this account...");
+        }
+        return bankTracker;
     }
 }

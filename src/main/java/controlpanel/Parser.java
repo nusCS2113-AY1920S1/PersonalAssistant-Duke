@@ -123,6 +123,10 @@ public class Parser {
             moneyCommand = new CreateBankAccountCommand(cmd);
         } else if (cmd.equals("list bank trackers")) {
             moneyCommand = new ListBankTrackerCommand();
+        } else if (cmd.startsWith("check-balance ")) {
+            moneyCommand = new CheckFutureBalanceCommand(cmd);
+        } else if (cmd.startsWith("withdraw ") || cmd.startsWith("deposit")) {
+            moneyCommand = new InternalTransferCommand(cmd);
         } else if (cmd.startsWith("goal-short")) {
             moneyCommand = new AddShortGoalCommand(cmd);
         } else if (cmd.equals("list goals")) {

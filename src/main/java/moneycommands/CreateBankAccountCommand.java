@@ -1,5 +1,6 @@
 package moneycommands;
 
+import controlpanel.DukeException;
 import controlpanel.MoneyStorage;
 import controlpanel.Parser;
 import controlpanel.Ui;
@@ -9,6 +10,7 @@ import money.BankTracker;
 import java.text.ParseException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 
 /**
  * This class create a bank account tracker for the user to track their
@@ -30,6 +32,7 @@ public class CreateBankAccountCommand extends MoneyCommand {
         String desc = inputString.split(" /amt ")[0];
         String info = inputString.split(" /amt ")[1];
         desc = desc.replaceFirst("bank-account ","");
+
         String[] words = info.split(" ");
         LocalDate initialDate = Parser.shortcutTime(words[2]);
         newTracker = new BankTracker(desc, Integer.parseInt(words[0]),
@@ -52,9 +55,16 @@ public class CreateBankAccountCommand extends MoneyCommand {
      * @param account The class record all the financial information of the user
      * @param ui The user interface
      * @param storage The class used to store the information to the local disk
+     * @throws DukeException The self-defined exception to handle the duplicate description
      */
     @Override
-    public void execute(Account account, Ui ui, MoneyStorage storage) {
+    public void execute(Account account, Ui ui, MoneyStorage storage) throws DukeException {
+        ArrayList<BankTracker> currList = account.getBankTrackerList();
+        for (BankTracker b : currList) {
+            if (b.getDescription().equals(newTracker.getDescription())) {
+                throw new DukeException("There is a account with the same name! Please change the description!");
+            }
+        }
         account.getBankTrackerList().add(newTracker);
         ui.appendToOutput("New bank account tracker has been added to the list: \n");
         ui.appendToOutput(newTracker.getBankAccountInfo() + "\n");
