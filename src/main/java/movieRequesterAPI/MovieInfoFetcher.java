@@ -35,6 +35,7 @@ public class MovieInfoFetcher implements Runnable
         {
             String json = URLRetriever.readURLAsString(mRequestURL);
             mRequestListener.fetchedMoviesJSON(json);
+            System.out.println("passed");
         } 
         catch (SocketTimeoutException ex)
         {

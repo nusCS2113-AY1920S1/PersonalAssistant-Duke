@@ -27,14 +27,20 @@ public class RetrieveRequest implements InfoFetcher {
     private static final String API_KEY = "2a888e02edd08043185889ba862cb073";
 
     // Movie Data Request URL's
-    private static final String NOW_SHOWING_URL = "movie/now_playing?api_key=";
-    private static final String POPULAR_URL = "movie/popular?api_key=";
-    private static final String TOP_RATED_URL = "movie/top_rated?api_key=";
-    private static final String UPCOMING_URL = "movie/upcoming?api_key=";
+    private static final String CURRENT_MOVIE_URL = "movie/now_playing?api_key=";
+    private static final String POP_MOVIE_URL = "movie/popular?api_key=";
+    private static final String UPCOMING_MOVIE_URL = "movie/upcoming?api_key=";
     private static final String MOVIE_SEARCH_URL = "search/movie?api_key=";
+    //=====================================================
+    private static final String TV_SEARCH_URL = "";
+    private static final String CURRENT_TV_URL = "tv/on_the_air?api_key=";
+    private static final String POP_TV_URL = "tv/popular?api_key=";
+    private static final String NEW_TV_URL = "tv/latest?api_key=";
+    //======================================================
+    private static final String TREND = "trending/all/day?api_key=";
+    private static final String POP_CAST_URL = "person/popular?api_key=";
     private static final String GENRE_LIST_URL = "genre/movie/list?api_key=";
-    private static final String TV_SHOWS = "tv/popular?api_key=";
-    private static final String LIST = "/lists?api_key=";
+
 
 
     // Movie Data Keys
@@ -49,10 +55,15 @@ public class RetrieveRequest implements InfoFetcher {
 
 
     public enum MoviesRequestType {
-        NOW_SHOWING,
-        POPULAR,
-        UPCOMING,
-        TV_SHOWS,
+        CURRENT_MOVIES,
+        POPULAR_MOVIES,
+        UPCOMING_MOVIES,
+        CURRENT_TV,
+        POPULAR_TV,
+        UPCOMING_TV,
+        TREND,
+        POP_CAST,
+        NEW_TV
     }
 
     public RetrieveRequest(RequestListener listener) {
@@ -65,22 +76,37 @@ public class RetrieveRequest implements InfoFetcher {
     public void beginMovieRequest(RetrieveRequest.MoviesRequestType type) {
         String requestURL = RetrieveRequest.MAIN_URL;
         switch (type) {
-            case NOW_SHOWING:
-                requestURL += RetrieveRequest.NOW_SHOWING_URL + RetrieveRequest.API_KEY;
+            case CURRENT_MOVIES:
+                requestURL += RetrieveRequest.CURRENT_MOVIE_URL + RetrieveRequest.API_KEY +
+                    "&language=en-US&page=1&region=SG";
                 break;
-
-            case POPULAR:
-                requestURL += RetrieveRequest.POPULAR_URL + RetrieveRequest.API_KEY;
+            case POPULAR_MOVIES:
+                requestURL += RetrieveRequest.POP_MOVIE_URL + RetrieveRequest.API_KEY +
+                    "&language=en-US&page=1&region=SG";
                 break;
-
-            case UPCOMING:
-                requestURL += RetrieveRequest.UPCOMING_URL + RetrieveRequest.API_KEY;
+            case UPCOMING_MOVIES:
+                requestURL += RetrieveRequest.UPCOMING_MOVIE_URL + RetrieveRequest.API_KEY +
+                    "&language=en-US&page=1&region=SG";
                 break;
-
-            case TV_SHOWS:
-                requestURL += RetrieveRequest.TV_SHOWS + RetrieveRequest.API_KEY;
+            case CURRENT_TV:
+                requestURL += RetrieveRequest.CURRENT_TV_URL + RetrieveRequest.API_KEY +
+                    "&language=en-US&page=1";
                 break;
-
+            case POPULAR_TV:
+                requestURL += RetrieveRequest.POP_TV_URL + RetrieveRequest.API_KEY +
+                    "&language=en-US&page=1";
+                break;
+            case POP_CAST:
+                requestURL += RetrieveRequest.POP_CAST_URL + RetrieveRequest.API_KEY +
+                    "&language=en-US&page=1";
+                break;
+            case TREND:
+                requestURL += RetrieveRequest.TREND + RetrieveRequest.API_KEY;
+                break;
+            case NEW_TV:
+                requestURL += RetrieveRequest.NEW_TV_URL + RetrieveRequest.API_KEY +
+                    "&language=en-US&page=1";
+                break;
             default:
                 requestURL = null;
         }
@@ -98,24 +124,18 @@ public class RetrieveRequest implements InfoFetcher {
         }
     }
 
-    public void beginSearchGenre (String genre) {
-        try{
-            String url = MAIN_URL + "movie/" + URLEncoder.encode(genre, "UTF-8") + LIST
-                + API_KEY + "&language=en-US&page=1";
-            fetchJSONData(url);
-        } catch (UnsupportedEncodingException ex) {
-            ex.printStackTrace();
-        }
-    }
 
     // JSON data was fetched by the fetcher
     @Override
     public void fetchedMoviesJSON(String json) {
         // If null string returned then there was a lack of internet connection
+        System.out.println("so far ok0");
         if (json == null) {
             mListener.requestFailed();
+            System.out.println("so far not ok");
             return;
         }
+        System.out.println("so far ok1");
 
         // Parse received movies
         JSONParser parser = new JSONParser();
@@ -124,14 +144,16 @@ public class RetrieveRequest implements InfoFetcher {
             movieData = (JSONObject) parser.parse(json);
 
             JSONArray movies = (JSONArray) movieData.get("results");
-            ArrayList<MovieInfoObject> parsedMovies = new ArrayList(20);
+            ArrayList<MovieInfoObject> parsedMovies = new ArrayList(10);
 
             for (int i = 0; i < movies.size(); i++) {
                 parsedMovies.add(parseMovieJSON((JSONObject) movies.get(i)));
             }
+            System.out.println("so far ok2");
 
             // Notify Listener
             mListener.requestCompleted(parsedMovies);
+            System.out.println("so far ok3");
         } catch (org.json.simple.parser.ParseException ex) {
             Logger.getLogger(RetrieveRequest.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -148,6 +170,7 @@ public class RetrieveRequest implements InfoFetcher {
         try {
             fetchThread = new Thread(new MovieInfoFetcher(new URL(URLString), this));
             fetchThread.start();
+            System.out.println("bef MovieInfoFetcher");
         } catch (MalformedURLException ex) {
             Logger.getLogger(RetrieveRequest.class.getName()).log(Level.SEVERE, null, ex);
         }

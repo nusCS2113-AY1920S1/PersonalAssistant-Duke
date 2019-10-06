@@ -1,3 +1,8 @@
+package trial;
+
+import info.movito.themoviedbapi.TmdbApi;
+import info.movito.themoviedbapi.TmdbMovies;
+import info.movito.themoviedbapi.model.MovieDb;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -10,6 +15,7 @@ import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
+import javafx.stage.Stage;
 import movieRequesterAPI.RequestListener;
 import movieRequesterAPI.RetrieveRequest;
 import object.MovieInfoObject;
@@ -66,28 +72,9 @@ public class MovieHandler extends Controller implements RequestListener{
     private RetrieveRequest mMovieRequest;
 
 
-    @FXML public void initialize()
-    {
+    @FXML public void initialize() {
         mMovieRequest = new RetrieveRequest(this);
-
-        //mMovieTypeVBox.setStyle("-fx-border-color: white;");
-
-
-
-
-
-        //mMovieTypeListView.getItems().addAll("Now Showing", "Popular", "TV Shows", "Upcoming Movies");
-        //mMovieTypeListView.getSelectionModel().select(0);
-
-
-        mMovieRequest.beginMovieRequest(RetrieveRequest.MoviesRequestType.NOW_SHOWING);
-
-
-        //mSearchButton.disableProperty().bind(mSearchTextField.textProperty().isEmpty());
-        //mClearSearchButton.disableProperty().bind(mSearchTextField.textProperty().isEmpty());
-
-
-       // mMovieTypeListView.getSelectionModel().selectedIndexProperty().addListener((observable, oldValue, newValue) -> moviesTypeSelectionChanged(oldValue.intValue(), newValue.intValue()));
+        //mMovieRequest.beginMovieRequest(RetrieveRequest.MoviesRequestType.NOW_SHOWING);
     }
 
     // Called when the fetch request for the movie data is completed
@@ -151,7 +138,8 @@ public class MovieHandler extends Controller implements RequestListener{
     private AnchorPane buildMoviePosterPane(MovieInfoObject movie) {
         try {
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(MovieHandler.class.getResource("MoviePoster.fxml"));
+            text.setText("error");
+            loader.setLocation(getClass().getClassLoader().getResource("MoviePoster.fxml"));
             AnchorPane posterView = loader.load();
             posterView.setOnMouseClicked((mouseEvent) -> moviePosterClicked(movie));
 
@@ -160,7 +148,9 @@ public class MovieHandler extends Controller implements RequestListener{
             Image posterImage = new Image(movie.getFullPosterPath(), true);
             posterImage.progressProperty().addListener((observable, oldValue, newValue) -> updateProgressBar(movie, newValue.doubleValue()));
 
-            controller.getMovieTitleLabel().setText(movie.getTitle());
+            controller.getMovieTitleLabel().setText(movie.getTitle() + " [#" + movie.getID() +
+                "]");
+            controller.getMovieTitleLabel().setFont(Font.font(18));
             controller.getPosterImageView().setImage(posterImage);
 
             return posterView;
@@ -193,39 +183,6 @@ public class MovieHandler extends Controller implements RequestListener{
         }
     }
 
-    // movieTypeSelectionChanged event - Reload the movies for the new movies request type
-    private void moviesTypeSelectionChanged(int oldIndex, int newIndex)
-    {
-        if(newIndex >= 0 && (newIndex != oldIndex)){
-
-            if (mMoviesFlowPane != null) {
-                mMoviesFlowPane.getChildren().clear();
-            }
-
-
-            switch (newIndex) {
-                case 0:
-                    mMovieRequest.beginMovieRequest(RetrieveRequest.MoviesRequestType.NOW_SHOWING);
-                    break;
-
-                case 1:
-                    mMovieRequest.beginMovieRequest(RetrieveRequest.MoviesRequestType.POPULAR);
-                    break;
-
-                case 2:
-                    mMovieRequest.beginMovieRequest(RetrieveRequest.MoviesRequestType.TV_SHOWS);
-                    break;
-
-                case 3:
-                    mMovieRequest.beginMovieRequest(RetrieveRequest.MoviesRequestType.UPCOMING);
-                    break;
-
-                default:
-                    break;
-            }
-        }
-    }
-
     // User clicks on a movie poster
     private void moviePosterClicked(MovieInfoObject movie) {
 
@@ -234,13 +191,21 @@ public class MovieHandler extends Controller implements RequestListener{
 
     @FXML private void searchButtonClicked() {
         if (mSearchTextField.getText().equals("show current movie")) {
-            mMovieRequest.beginMovieRequest(RetrieveRequest.MoviesRequestType.NOW_SHOWING);
+            mMovieRequest.beginMovieRequest(RetrieveRequest.MoviesRequestType.CURRENT_MOVIES);
         } else if (mSearchTextField.getText().equals("show upcoming movie")) {
-            mMovieRequest.beginMovieRequest(RetrieveRequest.MoviesRequestType.UPCOMING);
+            mMovieRequest.beginMovieRequest(RetrieveRequest.MoviesRequestType.UPCOMING_MOVIES);
         } else if (mSearchTextField.getText().equals("show popular movie")) {
-            mMovieRequest.beginMovieRequest(RetrieveRequest.MoviesRequestType.POPULAR);
+            mMovieRequest.beginMovieRequest(RetrieveRequest.MoviesRequestType.POPULAR_MOVIES);
+        } else if (mSearchTextField.getText().equals("show popular tv")) {
+            mMovieRequest.beginMovieRequest(RetrieveRequest.MoviesRequestType.POPULAR_TV);
+        } else if (mSearchTextField.getText().equals("show trending")) {
+            mMovieRequest.beginMovieRequest(RetrieveRequest.MoviesRequestType.TREND);
         } else if (mSearchTextField.getText().equals("show current tv")) {
-            mMovieRequest.beginMovieRequest(RetrieveRequest.MoviesRequestType.TV_SHOWS);
+            mMovieRequest.beginMovieRequest(RetrieveRequest.MoviesRequestType.CURRENT_TV);
+        } else if (mSearchTextField.getText().equals("show new tv")) {
+            mMovieRequest.beginMovieRequest(RetrieveRequest.MoviesRequestType.NEW_TV);
+        } else if (mSearchTextField.getText().equals("show popular people")) {
+            mMovieRequest.beginMovieRequest(RetrieveRequest.MoviesRequestType.POP_CAST);
         } else if (!mSearchTextField.getText().isEmpty()) {
             mMovieRequest.beginSearchRequest(mSearchTextField.getText());
         }
@@ -260,4 +225,5 @@ public class MovieHandler extends Controller implements RequestListener{
     @FXML public void aboutMenuItemClicked()
     {
     }
+
 }

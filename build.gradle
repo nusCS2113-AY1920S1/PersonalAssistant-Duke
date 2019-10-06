@@ -23,6 +23,7 @@ version '0.1.0'
 dependencies {
     testImplementation 'org.junit.jupiter:junit-jupiter:5.5.0'
     compile group: 'com.googlecode.json-simple', name: 'json-simple', version: '1.1'
+    compile group: 'info.movito', name: 'themoviedbapi', version:'1.9'
 }
 
 test {
@@ -31,6 +32,7 @@ test {
 
 repositories {
     mavenCentral()
+    jcenter()
 }
 
 javafx {

@@ -1,5 +1,5 @@
-/**
- * File: MoviePosterController.java
+package trial; /**
+ * File: trial.MoviePosterController.java
  * Description: Simple controller for setting and getting the controls in the Movie Poster View
  * Author: Asad Ahmed
  */
@@ -12,6 +12,25 @@ public class MoviePosterController
 {
     @FXML
     private Label movieTitleLabel;
+
+    public Label getMovieID() {
+        return movieID;
+    }
+
+    public void setMovieID(Label movieID) {
+        this.movieID = movieID;
+    }
+
+    public ImageView getMoviePosterImageView() {
+        return moviePosterImageView;
+    }
+
+    public void setMoviePosterImageView(ImageView moviePosterImageView) {
+        this.moviePosterImageView = moviePosterImageView;
+    }
+
+    @FXML
+    private Label movieID;
 
     @FXML
     private ImageView moviePosterImageView;

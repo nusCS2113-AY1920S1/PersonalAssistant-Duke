@@ -1,3 +1,5 @@
+package trial;
+
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -13,6 +15,7 @@ import javafx.scene.layout.VBox;
 import movieRequesterAPI.RequestListener;
 import movieRequesterAPI.RetrieveRequest;
 import object.MovieInfoObject;
+import trial.MovieHandler;
 import ui.Ui;
 
 import java.io.IOException;
@@ -122,13 +125,21 @@ public class MovieInfoController extends Controller implements RequestListener {
 
     @FXML private void searchButtonClicked() {
         if (mSearchTextField.getText().equals("show current movie")) {
-            mMovieRequest.beginMovieRequest(RetrieveRequest.MoviesRequestType.NOW_SHOWING);
+            mMovieRequest.beginMovieRequest(RetrieveRequest.MoviesRequestType.CURRENT_MOVIES);
         } else if (mSearchTextField.getText().equals("show upcoming movie")) {
-            mMovieRequest.beginMovieRequest(RetrieveRequest.MoviesRequestType.UPCOMING);
+            mMovieRequest.beginMovieRequest(RetrieveRequest.MoviesRequestType.UPCOMING_MOVIES);
         } else if (mSearchTextField.getText().equals("show popular movie")) {
-            mMovieRequest.beginMovieRequest(RetrieveRequest.MoviesRequestType.POPULAR);
+            mMovieRequest.beginMovieRequest(RetrieveRequest.MoviesRequestType.POPULAR_MOVIES);
+        } else if (mSearchTextField.getText().equals("show popular tv")) {
+            mMovieRequest.beginMovieRequest(RetrieveRequest.MoviesRequestType.POPULAR_TV);
+        } else if (mSearchTextField.getText().equals("show trending")) {
+            mMovieRequest.beginMovieRequest(RetrieveRequest.MoviesRequestType.TREND);
         } else if (mSearchTextField.getText().equals("show current tv")) {
-            mMovieRequest.beginMovieRequest(RetrieveRequest.MoviesRequestType.TV_SHOWS);
+            mMovieRequest.beginMovieRequest(RetrieveRequest.MoviesRequestType.CURRENT_TV);
+        } else if (mSearchTextField.getText().equals("show new tv")) {
+            mMovieRequest.beginMovieRequest(RetrieveRequest.MoviesRequestType.NEW_TV);
+        } else if (mSearchTextField.getText().equals("show popular people")) {
+            mMovieRequest.beginMovieRequest(RetrieveRequest.MoviesRequestType.POP_CAST);
         } else if (!mSearchTextField.getText().isEmpty()) {
             mMovieRequest.beginSearchRequest(mSearchTextField.getText());
         }
