@@ -1,23 +1,21 @@
 package command;
 
-import Dictionary.Word;
 import Dictionary.WordBank;
-import exception.DukeException;
 import exception.NoWordFoundException;
 import storage.Storage;
 import ui.Ui;
 
 /**
- * Represents a command from user to delete a task.
+ * Represents a command from user to find tasks containing keywords specified.
  * Inherits from Command class.
  * @author Zhang Yue Han
  */
-public class DeleteCommand extends Command {
+public class SearchCommand extends Command {
 
-    String deletedWord;
+    String searchedWord;
 
-    public DeleteCommand(String deletedWord) {
-        this.deletedWord = deletedWord;
+    public SearchCommand(String searchedWord) {
+        this.searchedWord = searchedWord;
     }
 
     @Override
@@ -26,11 +24,11 @@ public class DeleteCommand extends Command {
         //ask tasks to store the thing in arraylist
         //ask storage to write to file
         try {
-            word = wordBank.getAndDelete(this.deletedWord);
-            ui.showDeleted(word);
-        } catch (NoWordFoundException e) {
+            String meaning = wordBank.searchForMeaning(this.searchedWord);
+            ui.showSearch(this.searchedWord, meaning);
+        }
+        catch (NoWordFoundException e) {
             e.showError();
         }
     }
-
 }

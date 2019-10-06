@@ -1,21 +1,8 @@
-import command.Command;
-import command.ExitCommand;
-import command.AddCommand;
-import command.DeleteCommand;
-import command.DoneCommand;
-import command.FindCommand;
-import command.ListCommand;
-import command.BadCommand;
-import exception.DukeException;
-import storage.Storage;
-import task.Deadline;
-import task.Event;
-import task.Recurring;
-import task.Todo;
-import command.ViewSchedule;
-import task.FixedDuration;
+import Dictionary.Word;
+import command.*;
+import exception.*;
+
 import java.util.ArrayList;
-import java.util.Arrays;
 
 /**
  * Creates a Command object after extracting information needed.
@@ -31,180 +18,85 @@ public class Parser {
     public static Command parse(String input) {
         try {
             String[] taskInfo = input.split(" ", 2);
-            if (taskInfo[0].equals("bye")) {
+            if (taskInfo[0].equals("exit")) {
                 //create an ExitCommand
                 return new ExitCommand();
-            } else if (taskInfo[0].equals("done")) {
-                if ((taskInfo.length < 2) || !(taskInfo[1].trim().length() > 0)) {
-                    throw new DukeException(DukeException.ErrorType.INDEX_MISSING);
+            } else if (taskInfo[0].equals("help")) {
+                // CREATE A HELP COMMAND TO SHOW THE AVAILABLE INSTRUCTION
+                return null;
+            } else if (taskInfo[0].equals("add")) {
+                // FIX ADD COMMAND TO ADD TO DICTIONARY
+                if (taskInfo.length == 1) {
+                    throw new WrongAddFormatException();
                 }
-                //create a DoneCommand object
-                return new DoneCommand(Integer.parseInt(taskInfo[1]));
+                String[] wordDetail = taskInfo[1].split("w/");
+                if (wordDetail.length != 3) {
+                    throw new WrongAddFormatException();
+                }
+                String wordDescription = wordDetail[1].trim();
+                if (wordDescription.length() == 0) {
+                    throw new EmptyWordException();
+                }
+                String[] meaningAndTag = wordDetail[2].split("t/");
+                String meaning = meaningAndTag[0].trim();
+                if (meaning.length() == 0) {
+                    throw new EmptyWordException();
+                }
+                Word word;
+                if (meaningAndTag.length > 1) {
+                    ArrayList<String> tags = new ArrayList<>();
+                    for (int j = 1; j < meaningAndTag.length; ++j) {
+                        tags.add(meaningAndTag[j]);
+                    }
+                    word = new Word(wordDescription, meaning, tags);
+                }
+                else {
+                    word = new Word(wordDescription, meaning);
+                }
+                return new AddCommand(word);
             } else if (taskInfo[0].equals("delete")) {
-                if ((taskInfo.length < 2) || !(taskInfo[1].trim().length() > 0)) {
-                    throw new DukeException(DukeException.ErrorType.INDEX_MISSING);
+                // FIX DELETE COMMAND TO DELETE WORD FROM DICTIONARY (BOTH TAG AND WORD)
+                if (taskInfo.length == 1 || !taskInfo[1].startsWith("w/")) {
+                    throw new WrongDeleteFormatException();
                 }
-                //create a DeleteCommand
-                return new DeleteCommand(Integer.parseInt(taskInfo[1]));
-            } else if (taskInfo[0].equals("find")) {
-                if ((taskInfo.length < 2) || !(taskInfo[1].trim().length() > 0)) {
-                    throw new DukeException(DukeException.ErrorType.SEARCHPHRASE_MISSING);
+                return new DeleteCommand(taskInfo[1].substring(2));
+            } else if (taskInfo[0].equals("search")) {
+                // CREATE A SEARCH COMMAND TO SEARCH FOR A WORD
+                if (taskInfo.length == 1 || !taskInfo[1].startsWith("w/")) {
+                    throw new WrongSearchFormatException();
                 }
-                //create a FindCommand
-                return new FindCommand(taskInfo[1]);
+                return new SearchCommand(taskInfo[1].substring(2));
             } else if (taskInfo[0].equals("list")) {
-                return new ListCommand();
-            } else {
-                if (taskInfo[0].equals("todo")) {
-                    //parse and throw into AddCommand
-                    if ((taskInfo.length < 2) || !(taskInfo[1].trim().length() > 0)) {
-                        throw new DukeException(DukeException.ErrorType.FORMAT_TODO);
+                //FIX LIST COMMAND TO MATCH THE TASK WE NEED TO DO
+                String order = "";
+                if (taskInfo.length > 1) {
+                    if (!taskInfo[1].startsWith("o/")) {
+                        throw new WrongListFormatDescription();
                     }
-                    Todo t = new Todo(taskInfo[1]);
-                    return new AddCommand(t);
-                } else if (taskInfo[0].equals("deadline")) {
-                    //parse date
-                    if ((taskInfo.length < 2) || !(taskInfo[1].trim().length() > 0)) {
-                        throw new DukeException(DukeException.ErrorType.FORMAT_DEADLINE);
+                    order = taskInfo[1].substring(2);
+                    if (!order.equals("asc") && !order.equals("desc")) {
+                        throw new WrongListFormatDescription();
                     }
-                    ArrayList<String> dateInfo = parseDate("deadline", taskInfo);
-                    //throw exception if there is no date entered; did not find "/by" keyword
-                    if ((dateInfo.isEmpty())  || (dateInfo.size() < 2)) {
-                        throw new DukeException(DukeException.ErrorType.FORMAT_DEADLINE);
-                    }
-                    Date d = new Date();
-                    Deadline t;
-                    //parse remindDate if it exists
-                    if (dateInfo.size() == 3) {
-                        dateInfo.set(1,(d.convertDate(dateInfo.get(1))));
-                        dateInfo.set(2,(d.convertDate(dateInfo.get(2))));
-                        if (dateInfo.get(1).equals("[null]") || dateInfo.get(2).equals("[null]")) {
-                            throw new DukeException(DukeException.ErrorType.FORMAT_DEADLINE);
-                        }
-                        t = new Deadline(dateInfo.get(0), dateInfo.get(1), dateInfo.get(2));
-                    } else {
-                        //no reminder parse date
-                        dateInfo.set(1,(d.convertDate(dateInfo.get(1))));
-                        if (dateInfo.get(1).equals("[null]")) {
-                            throw new DukeException(DukeException.ErrorType.FORMAT_DEADLINE);
-                        }
-                        t = new Deadline(dateInfo.get(0), dateInfo.get(1));
-                    }
-                    //create deadline object
-                    return new AddCommand(t);
-                } else if (taskInfo[0].equals("event")) {
-                    if ((taskInfo.length < 2) || !(taskInfo[1].trim().length() > 0)) {
-                        throw new DukeException(DukeException.ErrorType.FORMAT_EVENT);
-                    }
-                    ArrayList<String> dateInfo = parseDate("event", taskInfo);
-                    if ((dateInfo.isEmpty())  || (dateInfo.size() < 2)) {
-                        throw new DukeException(DukeException.ErrorType.FORMAT_DEADLINE);
-                    }
-                    Date d = new Date();
-                    dateInfo.set(1,(d.convertDate(dateInfo.get(1))));
-                    if (dateInfo.get(1).equals("[null]")) {
-                        throw new DukeException(DukeException.ErrorType.FORMAT_DEADLINE);
-                    }
-                    Event t = new Event(dateInfo.get(0), dateInfo.get(1));
-                    //create event object
-                    return new AddCommand(t);
-                } else if (taskInfo[0].equals("recurring")) {
-                    if ((taskInfo.length < 2) || !(taskInfo[1].trim().length() > 0)) {
-                        throw new DukeException(DukeException.ErrorType.FORMAT_RECURRING);
-                    }
-                    ArrayList<String> dateInfo = parseDate("recurring", taskInfo);
-                    if (dateInfo.isEmpty() || (dateInfo.size() < 2)) {
-                        throw new DukeException(DukeException.ErrorType.FORMAT_RECURRING);
-                    }
-                    Date d = new Date();
-                    String temp = dateInfo.get(1);
-                    dateInfo.set(1,(d.convertDate(dateInfo.get(1))));
-                    if (!dateInfo.get(1).equals("null")) {
-                        throw new DukeException(DukeException.ErrorType.FORMAT_RECURRING_DATE);
-                    }
-                    //create event object
-                    Recurring t = new Recurring(dateInfo.get(0), temp);
-                    return new AddCommand(t);
-                } else if (taskInfo[0].equals("fixed")) {
-                    if ((taskInfo.length < 2) || !(taskInfo[1].trim().length() > 0)) {
-                        throw new DukeException(DukeException.ErrorType.FORMAT_FIXED);
-                    }
-                    ArrayList<String> dateInfo = parseDate("fixed", taskInfo);
-                    if ((dateInfo.isEmpty() || (dateInfo.size() < 2))) {
-                        throw new DukeException(DukeException.ErrorType.FORMAT_FIXED);
-                    }
-                    Date d = new Date();
-                    dateInfo.set(1, d.getDuration(dateInfo.get(1)));
-                    if (dateInfo.get(1) == null) {
-                        throw new DukeException(DukeException.ErrorType.FORMAT_FIXED);
-                    }
-                    //create event object
-                    FixedDuration t = new FixedDuration(dateInfo.get(0), dateInfo.get(1));
-                    return new AddCommand(t);
-                } else if (taskInfo[0].equals("view")) {
-                    //System.out.println("lookUpDate before conversion is "+taskInfo[1]);
-                    if ((taskInfo.length < 2) || !(taskInfo[1].trim().length() > 0)) {
-                        throw new DukeException(DukeException.ErrorType.FORMAT_VIEW);
-                    }
-                    String dateInfo = taskInfo[1];
-                    if ((dateInfo.equals("[null]"))) {
-                        throw new DukeException(DukeException.ErrorType.FORMAT_VIEW);
-                    }
-                    Date d = new Date();
-                    dateInfo = d.convertDate(dateInfo);
-                    String lookUpDate = dateInfo;
-                    return new ViewSchedule(lookUpDate);
-                } else {
-                    try {
-                        throw new DukeException(DukeException.ErrorType.COMMAND_INVALID);
-                    } catch (DukeException e){
-                        e.showError();
-                        return new BadCommand();
-                    }
+                }
+                return new ListCommand(order);
+            } else if (taskInfo[0].equals("edit")) {
+                // CREATE AN EDIT COMMAND TO DEAL WITH EDIT WORD
+                return null;
+            } else if (taskInfo[0].equals("tag")) {
+                //CREATE TAG COMMAND TO ADD TAG TO A WORD
+                return null;
+            }
+            else {
+                try {
+                    throw new CommandInvalidException(input);
+                } catch (CommandInvalidException e){
+                    e.showError();
+                    return new BadCommand();
                 }
             }
         } catch (DukeException e) {
             e.showError();
             return new BadCommand();
         }
-    }
-
-    public static ArrayList<String> parseDate(String type, String[] taskInfo) {
-        ArrayList<String> dateInfo = new ArrayList<String>();
-        String[] a;
-        String[] b;
-
-        if (type.equals("deadline")) {
-            a = taskInfo[1].split("/by ");
-            b = a[1].split("/remind");
-            if (b.length > 1) {
-                //there is a remind command
-                dateInfo.add(a[0].trim()); //description
-                dateInfo.add(b[0].trim()); //deadline date
-                dateInfo.add(b[1].trim()); //reminder date
-
-                String filePath = "src/main/data/reminders.txt";
-                String reminderInfo = dateInfo.get(0) + " | " + dateInfo.get(1) + " | " + dateInfo.get(2);
-                Storage.writeReminderFile(reminderInfo, filePath);
-
-            } else {
-                //there is no remind command
-                dateInfo.addAll(Arrays.asList(a)); //contains description and deadline
-            }
-
-        } else if (type.equals("event")) {
-            //tell AddCommand to go add itself
-            a = taskInfo[1].split("/at ");
-            dateInfo.addAll(Arrays.asList(a));
-        } else if (type.equals("recurring")) {
-            //tell AddCommand to go add itself
-            a = taskInfo[1].split("/every ");
-            dateInfo.addAll(Arrays.asList(a));
-        } else if (type.equals("fixed")) {
-            a = taskInfo[1].split("/take ");
-            dateInfo.addAll(Arrays.asList(a));
-            //tell AddCommand to go add itself
-        }
-        return dateInfo;
     }
 }

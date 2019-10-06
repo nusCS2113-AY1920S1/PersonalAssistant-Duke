@@ -1,12 +1,5 @@
 package storage;
 
-import task.Task;
-import task.Event;
-import task.Todo;
-import task.Recurring;
-import task.Deadline;
-import task.FixedDuration;
-
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.FileReader;
@@ -29,6 +22,11 @@ public class Storage {
         FILE_PATH = filePath;
     }
 
+    /**
+     * Convert all data from text file in storage to list of words
+     * @return an arraylist containing all words in dictionary
+     */
+    /*
     public ArrayList<Task> loadFile() {
         File file = new File(FILE_PATH);
         FileReader fr = null;
@@ -40,24 +38,7 @@ public class Storage {
             String line = br.readLine();
 
             while (line != null) {
-                String[] data = line.split("\\| ");
-                if (data[0].equals("T ")) {
-                    Todo t = new Todo(data[2], data[1].contains("1"));
-                    listContent.add(t);
-                } else if (data[0].equals("D ")) {
-                    Deadline t = new Deadline(data[2], data[3], data[1].contains("1"));
-                    listContent.add(t);
-                } else if (data[0].equals("E ")) {
-                    Event t = new Event(data[2], data[3], data[1].contains("1"));
-                    listContent.add(t);
-                } else if (data[0].equals("R ")) {
-                    Recurring t = new Recurring(data[2], data[3], data[1].contains("1"));
-                    listContent.add(t);
-                } else if (data[0].equals("F ")) {
-                    FixedDuration t = new FixedDuration(data[2], data[3], data[1].contains("1"));
-                    listContent.add(t);
-                }
-                line = br.readLine();
+                // get data from storage
             }
             return listContent;
 
@@ -73,6 +54,7 @@ public class Storage {
             }
         }
     }
+    */
 
     public ArrayList<String[]> loadReminderFile(String filePath) {
         File file = new File(filePath);
@@ -125,6 +107,7 @@ public class Storage {
         }
     }
 
+    /*
     public static void writeReminderFile(String s, String filePath) {
         File file = new File(filePath);
         FileWriter fw = null;
@@ -145,6 +128,7 @@ public class Storage {
             }
         }
     }
+    */
 
     public void deleteItemFromFile(String oldString, String filePath) {
         File file = new File(filePath);

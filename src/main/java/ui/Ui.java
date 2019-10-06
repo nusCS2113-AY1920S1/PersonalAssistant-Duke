@@ -1,9 +1,10 @@
 package ui;
 
-import task.Task;
-import task.TaskList;
+import Dictionary.Word;
+import Dictionary.WordBank;
+import exception.NoWordFoundException;
 
-import java.util.ArrayList;
+import java.util.Map;
 import java.util.Scanner;
 
 /**
@@ -36,16 +37,12 @@ public class Ui {
         System.out.println("     Bye. Hope to see you again soon!");
     }
 
-    public void showDone(Task t) {
-        System.out.println("     Nice! I've marked this task as done:");
-        System.out.println("       " + t.toString());
+    public void showDeleted(Word w) {
+        System.out.println("     Noted. I've removed this word:");
+        System.out.println("       " + w.toString());
     }
 
-    public void showDeleted(Task t) {
-        System.out.println("     Noted. I've removed this task:");
-        System.out.println("       " + t.toString());
-    }
-
+    /*
     public void showFound(ArrayList<Task> foundItems) {
         if (foundItems.size() > 0) {
             System.out.println("     Here are the matching tasks in your list:");
@@ -58,20 +55,29 @@ public class Ui {
             System.out.println("     No task matching description. Try another keyword!");
         }
     }
+    */
 
-    public void showAdded(Task t, TaskList tasks) {
-        System.out.println("     Got it. I've added this task:");
-        System.out.println("       " + t.toString());
-        System.out.println("     Now you have " + tasks.getSize() + " task(s) in the list.");
+    public void showAdded(Word w) {
+        System.out.println("     Got it. I've added this word:");
+        System.out.println("       " + w.toString());
     }
 
-    public void showList(TaskList tasks) {
-        System.out.println("     Here are the tasks in your list:");
-        int count = 0;
-        for (Task task : tasks.getList()) {
-            ++count;
-            System.out.println("     " + count + "." + task.toString());
+    public void showList(WordBank wordBank, String order) {
+        System.out.println("     Here are your words:");
+        if (order.equals("asc") || order.equals("")) {
+            for (Map.Entry<String, Word> entry : wordBank.getWordBank().entrySet()) {
+                System.out.println("     " + entry.getValue());
+            }
         }
+        else {
+            for (String description : wordBank.getWordBank().descendingKeySet()) {
+                System.out.println("     " + wordBank.getWordBank().get(description));
+            }
+        }
+    }
+
+    public void showSearch(String description, String meaning){
+        System.out.println("     Here is the meaning of " + description + ": " + meaning);
     }
 }
 
