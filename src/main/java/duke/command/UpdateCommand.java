@@ -74,7 +74,7 @@ public class UpdateCommand extends Command {
         } catch (Exception e) {
             ui.showErrorMsg(e.getMessage());
         }
-        String str = ui.showUpdateGui(items, index);
+        String str = Ui.showUpdateGui(items, index);
         return str;
     }
 

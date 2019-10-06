@@ -1,10 +1,9 @@
 package duke.task;
 
 import duke.command.AddCommand;
-import duke.command.AddMultipleCommand;
 
-import java.util.Scanner;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 /**
  * Represents a priority list that stores a list of priorities associated with each task.
@@ -86,7 +85,7 @@ public class PriorityList {
             String input = sc.nextLine();
             try {
                 priority = Integer.parseInt(input.trim());
-                if ((1 <= priority) && (priority <=5)) {
+                if ((1 <= priority) && (priority <= 5)) {
                     System.out.printf("     Set the priority to %d\n", priority);
                     break;
                 } else {
@@ -102,7 +101,7 @@ public class PriorityList {
 
 
     /**
-     * Get the length/size of the priority list
+     * Get the length/size of the priority list.
      *
      * @return The size of the priority list.
      */

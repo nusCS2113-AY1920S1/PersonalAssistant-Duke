@@ -231,12 +231,15 @@ public class Parser {
             }
             taskDesc = description.split(" /for ")[0].trim();
             durDesc = description.split(" /for ")[1].trim();
+            DetectDuplicate detectDuplicate = new DetectDuplicate(items);
 
             if (taskDesc.isEmpty()) {
                 throw new DukeException("     (>_<) OOPS!!! The description of a " + arr[0] + " cannot be empty.");
             } else if (durDesc.isEmpty()) {
                 throw new DukeException("     (>_<) OOPS!!! The description of duration for "
                         + arr[0] + " cannot be empty.");
+            } else if (detectDuplicate.isDuplicate(arr[0], taskDesc)) {
+                return new DuplicateFoundCommand();
             } else {
                 try {
                     duration = Integer.parseInt(durDesc.split(" ")[0].trim());
