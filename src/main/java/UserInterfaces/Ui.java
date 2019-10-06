@@ -62,6 +62,15 @@ public class Ui {
         show("\nInput: ");
         return scanner.nextLine();
     }
+
+    public void getEnter() {
+        try {
+            System.in.read();
+        } catch (IOException e) {
+            showError("Something went wrong!");
+        }
+    }
+
     public String showAsciiArt(String filepath) {
         String output = getAsciiArt(filepath);
         System.out.println(output);
