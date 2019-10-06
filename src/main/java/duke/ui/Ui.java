@@ -4,9 +4,7 @@ import duke.MainWindow;
 
 import java.util.Scanner;
 
-import static duke.common.Messages.filePath;
 import static duke.common.Messages.MESSAGE_BYE;
-import static duke.common.Messages.ERROR_MESSAGE_LOADING;
 import static duke.common.Messages.DIVIDER;
 
 public class Ui {
@@ -14,8 +12,8 @@ public class Ui {
     private Scanner scanner;
     private MainWindow mainWindow;
 
-    public Ui(MainWindow mainWindow) {
-        this.mainWindow = mainWindow;
+    public Ui() {
+        this.mainWindow = new MainWindow();
     }
 
 //    public Ui() {
@@ -25,28 +23,16 @@ public class Ui {
     /**
      * Display welcome message of the program.
      */
-    public void showWelcome() {
-        String logo =
-                "      ___         _        \n"
-                        + "     |  _ \\ _   _| | _____ \n"
-                        + "     | | | | | | | |/ / _ \\\n"
-                        + "     | |_| | |_| |   <  __/\n"
-                        + "     |____/ \\__,_|_|\\_\\___|\n"
-                        + "\n";
-
-        System.out.println(DIVIDER + logo + "     Hello! I'm Duke\n" + "     What can I do for you?\n" + DIVIDER);
+    public String showWelcome() {
+        return DIVIDER + "     Hello! I'm Duke\n" + "     What can I do for you?\n" + DIVIDER;
     }
 
-    public void showGoodbye() {
-        System.out.println(MESSAGE_BYE);
+    public String showGoodbye() {
+        return MESSAGE_BYE;
     }
 
-    public String readCommand() {
-        return scanner.nextLine();
-    }
-
-    public void showLine() {
-        System.out.print(DIVIDER);
+    public String showLine() {
+        return DIVIDER;
     }
 
     public void showLoadingError() {

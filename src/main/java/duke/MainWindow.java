@@ -22,7 +22,6 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -53,16 +52,19 @@ public class MainWindow extends AnchorPane {
     private AnchorPane root;
 
     @FXML
-    private ListView listView;
+    private ListView<String> listView;
 
     @FXML
     public void initialize() {
         if (!Main.isScreenLoaded) {
             loadStartingScreen();
         }
-        Ui ui = new Ui(this);
+        Ui ui = new Ui();
         duke = new Duke(ui);
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
+        dialogContainer.getChildren().addAll(
+            DialogBox.getWelcome(duke.showWelcome())
+        );
     }
 
     public void setDuke(Duke d) {
@@ -76,22 +78,20 @@ public class MainWindow extends AnchorPane {
     @FXML
     private void handleUserInput() throws DukeException {
         String input = userInput.getText();
-//        duke.runProgram(input);
         String response = duke.getResponse(input);
         resultDisplay.setText(input);
         for (int i = 0; i < duke.getList().size(); i++) {
             listView.getItems().add(duke.getList().get(i));
         }
         dialogContainer.getChildren().addAll(
-                DialogBox.getUserDialog(input, userImage),
-                DialogBox.getDukeDialog("hi", dukeImage)
+            DialogBox.getUserDialog(input)
         );
         userInput.clear();
     }
 
     public void handleListTask() {
         for (int i = 0; i < duke.getList().size(); i++) {
-            listView.getItems().add(duke.getList().get(i));
+                listView.getItems().add(duke.getList().get(i));
         }
     }
 
@@ -147,7 +147,6 @@ public class MainWindow extends AnchorPane {
                 try {
                     FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/view/MainWindow.fxml"));
                     AnchorPane ap = fxmlLoader.load();
-//                    AnchorPane parentContent = FXMLLoader.load(getClass().getResource(("/view/MainWindow.fxml")));
                     root.getChildren().setAll(ap);
                     fxmlLoader.<MainWindow>getController().setDuke(duke);
                 } catch (IOException ex) {

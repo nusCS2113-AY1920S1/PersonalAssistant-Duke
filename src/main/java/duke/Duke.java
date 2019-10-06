@@ -18,7 +18,7 @@ import static duke.common.Messages.filePath;
 public class Duke {
 
     private Storage storage;
-    private TaskList tasks;
+    private TaskList taskList;
     private Ui ui;
 
 //    private MainWindow mainWindow;
@@ -31,11 +31,15 @@ public class Duke {
         this.ui = ui;
         storage = new Storage(filePath);
         try {
-            tasks = new TaskList(storage.load());
+            taskList = new TaskList(storage.load());
         } catch (DukeException e) {
             ui.showLoadingError();
-            tasks = new TaskList();
+            taskList = new TaskList();
         }
+    }
+
+    public String showWelcome() {
+        return ui.showWelcome();
     }
 
 //    /**
@@ -69,7 +73,7 @@ public class Duke {
 
     public void runProgram(String fullCommand) throws DukeException, ParseException {
         Command c = Parser.parse(fullCommand);
-        c.execute(tasks, ui, storage);
+        c.execute(taskList, ui, storage);
     }
 
     /**
@@ -81,9 +85,9 @@ public class Duke {
     public String getResponse(String input) throws DukeException {
         String output = "";
         if (input.contains("list")) {
-            output =  "Duke heard: " + tasks.listTask();
+            output =  "Duke heard: " + taskList.listTask();
         } else if (input.contains("find")) {
-            output = "Duke heard: " + tasks.findTask(input.trim().split("\\s", 2)[1]);
+            output = "Duke heard: " + taskList.findTask(input.trim().split("\\s", 2)[1]);
         } else {
             output = "unknown";
         }
@@ -91,10 +95,7 @@ public class Duke {
     }
 
     public ArrayList<String> getList(){
-        TaskList taskList = new TaskList();
-//        for (int i = 0; i < tasks.listTask().size(); i++) {
-        ArrayList<String> arrayList = new ArrayList<>(tasks.listTask());
-//        }
-        return arrayList;
+//        TaskList taskList = new TaskList();
+        return new ArrayList<>(taskList.listTask());
     }
 }
