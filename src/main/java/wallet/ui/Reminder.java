@@ -19,7 +19,6 @@ public class Reminder {
      */
     public Reminder(Wallet wallet) {
         this.loanList = wallet.getLoanList();
-        int number = 1;
         autoRemind = true;
         timeInSeconds = 1800; //set default time interval of auto remind to be 30 minutes
         thread = new MyThread(false, wallet.getLoanList(), timeInSeconds);

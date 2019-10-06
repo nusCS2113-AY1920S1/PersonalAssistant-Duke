@@ -10,7 +10,7 @@ class MyThread implements Runnable {
     private Thread thread;
     private int timeInSeconds;
     private int counter;
-    LoanList loanList;
+    private LoanList loanList;
     private Ui ui;
 
     /**

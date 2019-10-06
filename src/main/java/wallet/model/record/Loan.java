@@ -7,10 +7,10 @@ import java.time.format.DateTimeFormatter;
 
 
 public class Loan extends Record {
-    String description;
+    private String description;
     private double amount;
-    Contact person;
-    LocalDate createdDate;
+    private Contact person;
+    private LocalDate createdDate;
     private boolean isLend;
     private boolean isSettled;
 
