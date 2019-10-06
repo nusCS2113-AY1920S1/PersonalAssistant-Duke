@@ -3,21 +3,30 @@ package duke.data;
 import java.util.ArrayList;
 
 public class BusService {
-    private String ServiceNo;
-    private ArrayList<String> Direction1;
-    private ArrayList<String> Direction2;
+    private String service;
+    private ArrayList<String> direction1;
+    private ArrayList<String> direction2;
 
-    public BusService (String ServiceNo) {
-        this.ServiceNo = ServiceNo;
-        this.Direction1 = new ArrayList<>();
-        this.Direction2 = new ArrayList<>();
+    /**
+     * Create bus object.
+     */
+    public BusService(String service) {
+        this.service = service;
+        this.direction1 = new ArrayList<>();
+        this.direction2 = new ArrayList<>();
     }
 
-    public void addRoute (String buscode, int direction) {
+    /**
+     * Add the bus stop code to the route which the bus would travel to.
+     *
+     * @param buscode Code of bus stop
+     * @param direction Direction of travel to next bus stop
+     */
+    public void addRoute(String buscode, int direction) {
         if (direction == 1) {
-            this.Direction1.add(buscode);
+            this.direction1.add(buscode);
         } else {
-            this.Direction2.add(buscode);
+            this.direction2.add(buscode);
         }
     }
 

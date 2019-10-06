@@ -18,16 +18,15 @@ public class GetBusStopCommand extends Command {
 
     @Override
     public void execute(Ui ui, Storage storage) throws DukeException, IOException {
-            ArrayList<BusStop> allBus = ApiParser.getBusStop();
-            for (BusStop temp : allBus) {
-                if (temp.getBusCode().equals(this.buscode)) {
-                    ui.show("This is the information for this Bus Stop:\n"
-                            + temp.getAddress() + "\n"
-                            + temp.getLatitude() + "\n"
-                            + temp.getLongitude());
-                }
+        ArrayList<BusStop> allBus = ApiParser.getBusStop();
+        for (BusStop temp : allBus) {
+            if (temp.getBusCode().equals(this.buscode)) {
+                ui.show("This is the information for this Bus Stop:\n"
+                        + temp.getAddress() + "\n"
+                        + temp.getLatitude() + "\n"
+                        + temp.getLongitude());
             }
-
+        }
     }
 
 }

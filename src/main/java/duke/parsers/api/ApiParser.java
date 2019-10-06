@@ -90,26 +90,26 @@ public class ApiParser {
     public static HashMap<String, BusService> getBusRoute() throws DukeException, IOException {
         String path = "BusRoutes";
         int skip = 0;
-        HashMap<String, BusService> BusMap = new HashMap<>();
+        HashMap<String, BusService> busMap = new HashMap<>();
         while (skip < 26000) {
             DataMallHttpRequest req = new DataMallHttpRequest("BusRoutes", path, Integer.toString(skip));
             skip += 500;
             JsonObject jsonRes = req.execute();
             JsonArray arr = jsonRes.getAsJsonArray("value");
             for (int i = 0; i < arr.size(); i++) {
-                String ServiceNo = arr.get(i).getAsJsonObject().get("ServiceNo").getAsString();
-                if (!BusMap.containsKey(ServiceNo)) {
-                    BusService bus = new BusService(ServiceNo);
-                    BusMap.put(ServiceNo, bus);
+                String serviceNo = arr.get(i).getAsJsonObject().get("ServiceNo").getAsString();
+                if (!busMap.containsKey(serviceNo)) {
+                    BusService bus = new BusService(serviceNo);
+                    busMap.put(serviceNo, bus);
                     bus.addRoute(arr.get(i).getAsJsonObject().get("BusStopCode").getAsString(),
                             arr.get(i).getAsJsonObject().get("Direction").getAsInt());
                 } else {
-                    BusMap.get(ServiceNo).addRoute(arr.get(i).getAsJsonObject().get("BusStopCode").getAsString(),
+                    busMap.get(serviceNo).addRoute(arr.get(i).getAsJsonObject().get("BusStopCode").getAsString(),
                             arr.get(i).getAsJsonObject().get("Direction").getAsInt());
                 }
             }
         }
 
-        return BusMap;
+        return busMap;
     }
 }
