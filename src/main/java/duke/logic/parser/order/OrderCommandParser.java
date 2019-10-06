@@ -19,8 +19,6 @@ public class OrderCommandParser implements SubCommandParser<OrderCommand> {
                 return new AddOrderCommandParser().parse(args);
             case EditOrderCommand.COMMAND_WORD:
                 return new EditOrderCommandParser().parse(args);
-//            case EditOrderCommand.COMMAND_WORD:
-//                return new EditOrderCommandParser().parse(args);
         }
         throw new ParseException(Message.MESSAGE_UNKNOWN_COMMAND);
     }

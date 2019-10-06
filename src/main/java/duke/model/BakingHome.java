@@ -1,11 +1,13 @@
 package duke.model;
 
+import duke.commons.core.index.Index;
 import duke.model.order.Order;
 import duke.model.order.OrderList;
 import javafx.collections.ObservableList;
 
 import java.util.List;
 
+import static duke.commons.util.CollectionUtil.requireAllNonNull;
 import static java.util.Objects.requireNonNull;
 
 public class BakingHome implements ReadOnlyBakingHome {
@@ -66,6 +68,12 @@ public class BakingHome implements ReadOnlyBakingHome {
         requireNonNull(editedOrder);
 
         orders.setOrder(target, editedOrder);
+    }
+
+    public void setOrder(Index index, Order order) {
+        requireAllNonNull(index, order);
+
+        orders.setOrder(index, order);
     }
 
     /**

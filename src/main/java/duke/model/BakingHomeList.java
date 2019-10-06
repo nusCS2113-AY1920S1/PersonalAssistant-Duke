@@ -1,4 +1,4 @@
-package duke.model.order;
+package duke.model;
 
 import duke.commons.core.index.Index;
 import duke.model.exceptions.OrderNotFoundException;
@@ -10,94 +10,85 @@ import java.util.List;
 
 import static java.util.Objects.requireNonNull;
 
-public class OrderList implements Iterable<Order> {
+public abstract class BakingHomeList<T> implements Iterable<T> {
 
-    private final ObservableList<Order> internalList = FXCollections.observableArrayList();
-    private final ObservableList<Order> internalUnmodifiableList =
+    private final ObservableList<T> internalList = FXCollections.observableArrayList();
+    private final ObservableList<T> internalUnmodifiableList =
             FXCollections.unmodifiableObservableList(internalList);
 
-    public OrderList() {
-
-    }
-
-    public boolean contains(Order toCheck) {
+    public boolean contains(T toCheck) {
         requireNonNull(toCheck);
         return internalList.contains(toCheck);
     }
 
-    public void add(Order toAdd) {
+    public void add(T toAdd) {
         requireNonNull(toAdd);
         internalList.add(toAdd);
     }
 
-    public void setOrder(Order target, Order editedOrder) {
+    public void set(T target, T edited) {
         requireNonNull(target);
-        requireNonNull(editedOrder);
+        requireNonNull(edited);
 
         int index = internalList.indexOf(target);
         if (index == -1) {
             throw new OrderNotFoundException();
         }
 
-        internalList.set(index, editedOrder);
+        internalList.set(index, edited);
     }
 
-    public void setOrder(Index index, Order editedOrder) {
+    public void set(Index index, T edited) {
         requireNonNull(index);
-        requireNonNull(editedOrder);
+        requireNonNull(edited);
 
         if (index.getZeroBased() < 0 || index.getZeroBased() >= internalList.size()) {
             throw new OrderNotFoundException();
         }
 
-        internalList.set(index.getZeroBased(), editedOrder);
+        internalList.set(index.getZeroBased(), edited);
     }
 
 
-    public void remove(Order toRemove) {
+    public void remove(T toRemove) {
         requireNonNull(toRemove);
         if (!internalList.remove(toRemove)) {
             throw new OrderNotFoundException();
         }
     }
 
-    public void setOrders(OrderList replacement) {
+    public void setAll(BakingHomeList<T> replacement) {
         requireNonNull(replacement);
         internalList.setAll(replacement.internalList);
     }
 
-    /**
-     * Replaces the contents of this list with {@code persons}.
-     * {@code persons} must not contain duplicate persons.
-     */
-    public void setOrders(List<Order> orders) {
-        //requireAllNonNull(orders);
+    public void setAll(List<T> replacement) {
+        requireNonNull(replacement);
 
-        internalList.setAll(orders);
+        internalList.setAll(replacement);
     }
 
     /**
      * Returns the backing list as an unmodifiable {@code ObservableList}.
      */
-    public ObservableList<Order> asUnmodifiableObservableList() {
+    public ObservableList<T> asUnmodifiableObservableList() {
         return internalUnmodifiableList;
     }
 
     @Override
-    public Iterator<Order> iterator() {
+    public Iterator<T> iterator() {
         return internalList.iterator();
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof OrderList // instanceof handles nulls
-                && internalList.equals(((OrderList) other).internalList));
+                || (other instanceof BakingHomeList // instanceof handles nulls
+                && internalList.equals(((BakingHomeList) other).internalList));
     }
 
     @Override
     public int hashCode() {
         return internalList.hashCode();
     }
-
 }

@@ -27,6 +27,7 @@ public class EditOrderCommand extends OrderCommand implements Undoable {
 
     private final Index index;
     private final EditOrderDescriptor editOrderDescriptor;
+    private Order orderToEdit;
 
     /**
      * Creates an EditOrderCommand to modify the details of an {@code Order}.
@@ -43,10 +44,14 @@ public class EditOrderCommand extends OrderCommand implements Undoable {
 
     @Override
     public void undo(Model model) throws CommandException {
+        requireNonNull(model);
+
+        model.setOrder(index, orderToEdit);
     }
 
     @Override
     public void redo(Model model) throws CommandException {
+        execute(model);
     }
 
     @Override
@@ -58,7 +63,7 @@ public class EditOrderCommand extends OrderCommand implements Undoable {
             throw new CommandException(Message.MESSAGE_INVALID_INDEX);
         }
 
-        Order orderToEdit = lastShownList.get(index.getZeroBased());
+        orderToEdit = lastShownList.get(index.getZeroBased());
         Order editedOrder = createEditedOrder(orderToEdit, editOrderDescriptor);
 
         model.setOrder(orderToEdit, editedOrder);

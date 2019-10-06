@@ -1,11 +1,13 @@
 package duke.model;
 
+import duke.commons.core.index.Index;
 import duke.model.order.Order;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 
 import java.util.function.Predicate;
 
+import static duke.commons.util.CollectionUtil.requireAllNonNull;
 import static java.util.Objects.requireNonNull;
 
 public class ModelManager implements Model {
@@ -55,6 +57,13 @@ public class ModelManager implements Model {
         requireNonNull(editedOrder);
 
         bakingHome.setOrder(target, editedOrder);
+    }
+
+    @Override
+    public void setOrder(Index index, Order order) {
+        requireAllNonNull(index, order);
+
+        bakingHome.setOrder(index, order);
     }
 
     @Override

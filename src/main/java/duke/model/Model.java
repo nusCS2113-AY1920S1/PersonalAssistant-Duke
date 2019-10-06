@@ -1,5 +1,6 @@
 package duke.model;
 
+import duke.commons.core.index.Index;
 import duke.model.order.Order;
 import javafx.collections.ObservableList;
 
@@ -22,6 +23,8 @@ public interface Model {
     void addOrder(Order order);
 
     void setOrder(Order target, Order editedOrder);
+
+    void setOrder(Index index, Order order);
 
     ObservableList<Order> getFilteredOrderList();
 

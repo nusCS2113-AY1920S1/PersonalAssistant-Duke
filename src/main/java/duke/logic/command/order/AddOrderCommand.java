@@ -35,11 +35,12 @@ public class AddOrderCommand extends OrderCommand implements Undoable {
 
     @Override
     public void undo(Model model) throws CommandException {
+        model.deleteOrder(toAdd);
     }
 
     @Override
     public void redo(Model model) throws CommandException {
-
+        model.addOrder(toAdd);
     }
 
 }
