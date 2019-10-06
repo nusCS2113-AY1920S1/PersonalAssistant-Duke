@@ -30,6 +30,14 @@ public class FindPathCommand extends Command {
         this.startPointIndex = startPointIndex;
     }
 
+    private static Holiday getHoliday(String index, UniqueTaskList t) throws DukeException {
+        Task t1 = t.get(Integer.parseInt(index) - 1);
+        if (t1 instanceof Holiday) {
+            return (Holiday) t1;
+        }
+        throw new DukeException("Sorry the numbers you entered are not a holiday destination");
+    }
+
     /**
      * Executes this command with given param.
      */
@@ -51,12 +59,4 @@ public class FindPathCommand extends Command {
         ui.show("some map");
     }
 
-
-    private static Holiday getHoliday(String index, UniqueTaskList t) throws DukeException {
-        Task t1 = t.get(Integer.parseInt(index) - 1);
-        if (t1 instanceof Holiday) {
-            return (Holiday) t1;
-        }
-        throw new DukeException("Sorry the numbers you entered are not a holiday destination");
-    }
 }
