@@ -25,13 +25,13 @@ class DeleteAllCommandTest {
 		addTestShow2.execute(shows, ui, storage);
 		DeleteAllCommand testCommand = new DeleteAllCommand(new String[]{"Test Show 1", "Test Show 2","Intentionally missing show"});
 		testCommand.execute(shows, ui, storage);
-		String expected = "_________________________________________\n"
+		String expected = "__________________________________________________________________________________\n"
 				+ "Noted. These are the deleted entries:\n"
 				+ "2020-05-05 Test Show 1\n"
 				+ "2020-05-06 Test Show 2\n"
 				+ "Sorry, these shows were not found:\n"
 				+ "Intentionally missing show\n"
-				+ "_________________________________________\n";
+				+ "__________________________________________________________________________________\n";
 
 		assertEquals(expected, ui.showLine());
 		filePath.deleteOnExit();

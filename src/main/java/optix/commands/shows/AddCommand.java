@@ -34,7 +34,7 @@ public class AddCommand extends Command {
         LocalDate today = storage.getToday();
 
         try {
-            if (!formatter.isValidDate(showName)) {
+            if (!formatter.isValidDate(date)) {
                 throw new OptixInvalidDateException();
             }
 

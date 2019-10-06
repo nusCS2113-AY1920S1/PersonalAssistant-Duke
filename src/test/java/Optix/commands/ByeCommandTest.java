@@ -21,9 +21,9 @@ class ByeCommandTest {
 		ByeCommand testCommand = new ByeCommand();
 		testCommand.execute(shows, ui, storage);
 
-		String expected = "_________________________________________\n"
+		String expected = "__________________________________________________________________________________\n"
 				+ "Bye. Hope to see you again soon!\n"
-				+ "_________________________________________\n";
+				+ "__________________________________________________________________________________\n";
 		assertEquals(expected, ui.showLine());
 	}
 }

@@ -22,18 +22,18 @@ private Storage storage = new Storage(filePath);
 void execute() {
 	AddCommand addTestShow1 = new AddCommand("Test Show 1","5/5/2020", 2000, 20);
 	addTestShow1.execute(shows, ui, storage);
-	DeleteOneCommand testCommand1 = new DeleteOneCommand("5/5/2020", "Test Show 1");
+	DeleteOneCommand testCommand1 = new DeleteOneCommand("Test Show 1", "5/5/2020");
 	testCommand1.execute(shows, ui, storage);
-	String expected1 = "_________________________________________\n"
+	String expected1 = "__________________________________________________________________________________\n"
 			+ "Noted. The show <Test Show 1> scheduled on <5/5/2020> has been removed.\n"
-			+ "_________________________________________\n";
+			+ "__________________________________________________________________________________\n";
 	assertEquals(expected1, ui.showLine());
 
-	DeleteOneCommand testCommand2 = new DeleteOneCommand("4/5/2020", "Non-existent show");
+	DeleteOneCommand testCommand2 = new DeleteOneCommand("Non-existent show", "4/5/2020");
 	testCommand2.execute(shows, ui, storage);
-	String expected2 = "_________________________________________\n"
+	String expected2 = "__________________________________________________________________________________\n"
 			+ "Unable to find show called <Non-existent show> scheduled on <4/5/2020>.\n"
-			+ "_________________________________________\n";
+			+ "__________________________________________________________________________________\n";
 	assertEquals(expected2,ui.showLine());
 	filePath.deleteOnExit();
 	}

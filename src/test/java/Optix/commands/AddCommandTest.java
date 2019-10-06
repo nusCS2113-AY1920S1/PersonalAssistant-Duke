@@ -8,6 +8,8 @@ import org.junit.jupiter.api.Test;
 
 import java.io.File;
 
+import static org.junit.jupiter.api.Assertions.*;
+
 class AddCommandTest {
 	private ShowMap shows = new ShowMap();
 	private Ui ui = new Ui();
@@ -20,11 +22,11 @@ class AddCommandTest {
 		AddCommand testCommand = new AddCommand("dummy show name","5/5/2020",2000,20);
 
 		testCommand.execute(shows, ui, storage);
-		String expected = "_________________________________________\n"
+		String expected = "__________________________________________________________________________________\n"
 				+ "Got it. I've added this show:\n"
-				+ "dummy show name at: 2020-05-05\n"
-				+ "_________________________________________\n";
-		assert expected.equals(ui.showLine());
+				+ "dummy show name at: 5/5/2020\n"
+				+ "__________________________________________________________________________________\n";
+		assertEquals(expected,ui.showLine());
 		filePath.deleteOnExit();
 	}
 }

@@ -19,7 +19,7 @@ public class OptixResponse {
 
     public final String POSTPONE_PAST = "☹ OOPS!!! It is not possible to postpone to the past.\n";
 
-    public final String POSTPONE_CLASH = "☹ OOPS!!! There exist a show for ";
+    public final String POSTPONE_CLASH = "☹ OOPS!!! There already exists a show for ";
 
     public final String SHOW_DOES_NOT_MATCH = "☹ OOPS!!! Did you get the wrong date or wrong show. \n"
                                               + "Try again!\n";

@@ -18,7 +18,6 @@ public class DeleteOneCommand extends Command {
 
 
 	public DeleteOneCommand(String showName, String showDate) {
-
 		this.showDate = showDate;
 		this.showName = showName;
 	}

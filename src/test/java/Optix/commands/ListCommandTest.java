@@ -23,9 +23,9 @@ void execute() {
 	// testing for an empty show list
 	ListCommand testCommand1 = new ListCommand();
 	testCommand1.execute(shows, ui, storage);
-	String expected1 = "_________________________________________\n"
+	String expected1 = "__________________________________________________________________________________\n"
 			+ "☹ OOPS!!! There are no shows in the near future.\n"
-			+ "_________________________________________\n";
+			+ "__________________________________________________________________________________\n";
 	assertEquals(expected1, ui.showLine());
 
 	// testing for a filled show list
@@ -35,11 +35,11 @@ void execute() {
 	addShow2.execute(shows,ui,storage);
 	ListCommand testCommand2 = new ListCommand();
 	testCommand2.execute(shows,ui,storage);
-	String expected2 = "_________________________________________\n"
+	String expected2 = "__________________________________________________________________________________\n"
 			+ "Here are the list of shows:\n"
 			+ "1. dummy test 1 (on: 2020-05-05)\n"
 			+ "2. dummy test 2 (on: 2020-05-06)\n"
-			+ "_________________________________________\n";
+			+ "__________________________________________________________________________________\n";
 	assertEquals(expected2,ui.showLine());
 	filePath.deleteOnExit();
 	}
