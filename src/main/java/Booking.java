@@ -12,13 +12,13 @@ public class Booking /*extends Facility*/ {
 
     /**
      * Facility.Booking constructor to make booking
-     * @param description the specific room code
+     * @param roomcode the specific room code
      * @param timing when you are booking the facility
      * @param people how many people you are accommodating
      */
-    public Booking (String description, String timing, String people) {
+    public Booking (String roomcode, String timing, String people) {
 
-        this.venue = description;
+        this.venue = roomcode;
         this.pax = Integer.parseInt(people);
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/mm/yyyy HH:mm");
         this.dateTime = LocalDateTime.parse(timing, formatter);
