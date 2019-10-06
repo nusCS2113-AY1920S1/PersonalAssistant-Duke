@@ -9,18 +9,27 @@ import java.util.ArrayList;
 public abstract class Achievements {
 
     /**
-     * List of achievement that the user unlocked.
+     *
      */
-    private ArrayList<String> achievementUnlocked = new ArrayList<>();
+    private String achievementDescription;
+
 
     /**
-     * List of achievement that can be unlocked.
+     *
      */
-    private ArrayList<String> achievementList = new ArrayList<>();
+    public Achievements(){
+        this.achievementDescription = "Gained: ";
+    }
 
     /**
-     * User's current point.
+     *
+     * @return
      */
-    private int points = 0;
+    public String ToString(){
+        return "You have attained ";
+    }
+
+
+
 
 }

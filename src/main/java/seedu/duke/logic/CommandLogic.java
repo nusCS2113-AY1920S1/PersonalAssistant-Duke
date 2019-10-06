@@ -2,10 +2,6 @@ package seedu.duke.logic;
 
 import seedu.duke.parser.DateTimeParser;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import seedu.duke.parser.DateTimeParser;
-
 /**
  * Checks if the user input are desired by Duke by checking if the format of the String input is valid based off
  * the command type.
