@@ -7,6 +7,10 @@ import UI.Ui;
 import java.io.IOException;
 import java.util.ArrayList;
 
+/**
+ * This
+ */
+
 public class ChangePasswordCommand extends Command {
     @Override
     public void execute (ArrayList<Task> list, Ui ui, Storage storage) throws IOException {

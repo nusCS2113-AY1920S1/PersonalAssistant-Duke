@@ -41,8 +41,7 @@ public class EditCommand extends Command {
             System.out.print("Ok, we have edited your ToDo description. \n\tFrom: " + list.get(num_in_list - 1).listFormat() +
                     "\n\tTo:   " + newtodo.listFormat());
             list.set(num_in_list - 1, newtodo);
-        }
-        else if (break_list_words[0].equals("D")) {
+        } else if (break_list_words[0].equals("D")) {
 //            System.out.println("Please input your new Deadline description and time:");
             String[] break_deadline = newChangeString.split("/by ");
             String description = break_deadline[0];

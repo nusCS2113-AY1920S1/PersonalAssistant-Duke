@@ -34,8 +34,8 @@ public class Ui {
                 + logo
                 + "\n__________________________________________\n";
 
-         while (true) {
-             ReadCommand();
+        while (true) {
+            ReadCommand();
             ArrayList<String> password_list;
             Storage store = new Storage();
             password_list = store.Password();
@@ -46,7 +46,7 @@ public class Ui {
                 System.out.println("Incorrect password, please try again:");
             }
         }
-         return welcomemessage;
+        return welcomemessage;
     }
 
     public void UpcomingTask(ArrayList<Task> list) throws ParseException {

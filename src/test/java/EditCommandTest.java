@@ -28,7 +28,7 @@ public class EditCommandTest {
     }
 
     @AfterEach
-    void restoreStream(){
+    void restoreStream() {
         System.out.flush();
         System.setOut(original);
     }
@@ -43,7 +43,7 @@ public class EditCommandTest {
         Deadline testd = new Deadline("tutorial homework", "2019-12-12 10:10:10");
         tasks.add(testd);
         ui.FullCommand = "edit 1 monthly assign /by 2019-12-12 10:10:10";
-        test.execute(tasks,ui,storage);
+        test.execute(tasks, ui, storage);
         assertEquals("Ok, we have edited your Deadline description and time. \n" +
                         "\tFrom: [D][\u2718]tutorial homework(by:12 Dec 2019 10:10:10)\n" +
                         "\tTo:   [D][\u2718]monthly assign (by:12 Dec 2019 10:10:10)",

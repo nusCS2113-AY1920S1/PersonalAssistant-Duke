@@ -33,10 +33,10 @@ public class Storage {
 
     public ArrayList<String> Password() throws IOException {
         ArrayList<String> passwordList = new ArrayList<>();
-        if(new File(absolutePath_password).exists()) {
+        if (new File(absolutePath_password).exists()) {
             File file = new File(absolutePath_password);
             Scanner sc = new Scanner(file);
-            while(sc.hasNext()) {
+            while (sc.hasNext()) {
                 passwordList.add(sc.nextLine());
             }
         }
@@ -66,8 +66,7 @@ public class Storage {
                         d.isDone = false;
                     }
                     tList.add(d);
-                }
-                else if (details[0].equals("E)")){
+                } else if (details[0].equals("E)")) {
                     Event e = new Event(details[2].trim(), details[3].substring(3).trim());
                     if (details[1].equals("\u2713")) {
                         e.isDone = true;
@@ -75,8 +74,7 @@ public class Storage {
                         e.isDone = false;
                     }
                     tList.add(e);
-                }
-                else if (details[0].equals("P")) {
+                } else if (details[0].equals("P")) {
                     Timebound tb = new Timebound(details[2].trim(), details[3].substring(8).trim());
                     if (details[1].equals("\u2713")) {
                         tb.isDone = true;
@@ -84,8 +82,7 @@ public class Storage {
                         tb.isDone = false;
                     }
                     tList.add(tb);
-                }
-                else if (details[0].equals("FD")) {
+                } else if (details[0].equals("FD")) {
                     FixedDuration FD = new FixedDuration(details[2].trim(), details[3].trim());
                     if (details[1].equals("\u2713")) {
                         FD.isDone = true;
@@ -99,21 +96,20 @@ public class Storage {
                         DA.isDone = true;
                     } else
                         DA.isDone = false;
-                } else if(details[0].equals("TE")){
+                } else if (details[0].equals("TE")) {
                     ArrayList<String> timeslots = new ArrayList<String>();
-                    for(int i=3;i<details.length;i++){
+                    for (int i = 3; i < details.length; i++) {
                         timeslots.add(details[i]);
                     }
-                    TentativeEvent TE = new TentativeEvent(details[2].trim(),timeslots);
+                    TentativeEvent TE = new TentativeEvent(details[2].trim(), timeslots);
                     if (details[1].equals("\u2713")) {
                         TE.isDone = true;
                     } else {
                         TE.isDone = false;
                     }
                     tList.add(TE);
-                }
-                else {
-                    if(details[3].contains("at:") || details[3].contains("by:")) {
+                } else {
+                    if (details[3].contains("at:") || details[3].contains("by:")) {
                         Event e = new Event(details[2].trim(), details[3].substring(3).trim());
                         if (details[1].equals("\u2713")) {
                             e.isDone = true;
@@ -121,7 +117,7 @@ public class Storage {
                             e.isDone = false;
                         }
                         tList.add(e);
-                    } else if(details[0].contains("P")) {
+                    } else if (details[0].contains("P")) {
                         Timebound tb = new Timebound(details[2].trim(), details[3].trim());
                         if (details[1].equals("\u2713")) {
                             tb.isDone = true;

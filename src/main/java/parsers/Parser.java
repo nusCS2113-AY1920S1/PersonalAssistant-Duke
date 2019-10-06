@@ -24,7 +24,7 @@ public class Parser {
             else {
                 return new ListCommand();
             }
-        }else if (command.contains("done")) {
+        } else if (command.contains("done")) {
             return new DoneCommand();
         } else if (command.contains("delete")) {
             return new DeleteCommand();
@@ -36,11 +36,9 @@ public class Parser {
             return new EventCommand();
         } else if (command.contains("todo")) {
             return new TodoCommand();
-        }
-        else if (command.contains("/between")) {
+        } else if (command.contains("/between")) {
             return new TimeboundCommand();
-        }
-        else if (command.contains("find")) {
+        } else if (command.contains("find")) {
             return new FindCommand();
         } else if (command.contains("bye")) {
             return new ByeCommand();
@@ -58,12 +56,11 @@ public class Parser {
             return new ConfirmTentativeCommand();
         } else if (command.contains("undo")) {
             return new UndoCommand();
-        } else if(command.contains("edit")) {
+        } else if (command.contains("edit")) {
             return new EditCommand();
-        } else if(command.contains("change password")) {
+        } else if (command.contains("change password")) {
             return new ChangePasswordCommand();
-        }
-        else {
+        } else {
             throw new DukeException("OOPS!!! I'm sorry, but I don't know what that means :-(");
         }
     }
