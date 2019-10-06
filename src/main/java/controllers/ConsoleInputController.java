@@ -15,7 +15,6 @@ import java.util.Date;
 import java.util.Scanner;
 import models.commands.RescheduleCommand;
 import models.data.IProject;
-import models.member.Member;
 import models.tasks.IRecurring;
 import models.tasks.ITask;
 import models.tasks.PeriodTask;
@@ -226,38 +225,9 @@ public class ConsoleInputController implements IViewController {
             if (inputReader.hasNext()) {
                 int projectNumber = Integer.parseInt(inputReader.next());
                 IProject projectToManage = projectRepository.getProject(projectNumber);
-                String projectName = projectToManage.getDescription();
-                consoleView.consolePrint("Now managing: " + projectName);
                 //branch into project and begin to read commands to manage project
-                Scanner manageProjectInput = new Scanner(System.in);
-
-                boolean continueManaging = true;
-                while (continueManaging) {
-                    if (manageProjectInput.hasNextLine()) {
-                        String projectCommand = manageProjectInput.nextLine();
-                        switch (projectCommand) {
-                        case "exit":
-                            continueManaging = false;
-                            consoleView.exitProject(projectName);
-                            break;
-                        case "add member":
-                            consoleView.consolePrint("Enter member details: n/NAME p/PHONE e/EMAIL");
-                            String memberDetails = manageProjectInput.nextLine();
-                            Member newMember = MemberFactoryUtil.createMember(memberDetails);
-                            consoleView.addMember(projectToManage, newMember);
-                            break;
-                        case "view members":
-                            consoleView.viewAllMembers(projectToManage);
-                            break;
-                        default:
-                            consoleView.consolePrint("Invalid command. Try again!");
-                            break;
-                        }
-
-                    } else {
-                        consoleView.consolePrint("Please enter a command.");
-                    }
-                }
+                ProjectInputController projectController = new ProjectInputController(projectToManage, consoleView);
+                projectController.manageProject();
             } else {
                 consoleView.consolePrint("Please enter a project number!");
             }
