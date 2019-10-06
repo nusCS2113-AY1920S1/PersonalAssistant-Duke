@@ -48,52 +48,40 @@ public class Parser {
         String description;
         Integer indexOfTask;
         LocalDateTime nullDate = LocalDateTime.of(1, 1, 1, 1, 1, 1, 1);
+        LocalDateTime atDate = nullDate;
+        LocalDateTime toDate = nullDate;
+        LocalDateTime fromDate = nullDate;
+        final String dateTimeFromUser;
 
         switch (command) {
         case "todo":
             return parseTodo(command, userInput);
         case "deadline":
-            // fall through to avoid rewriting the same code multiple times!
+            return parseDeadline(command, userInput);
         case "event":
             try {
                 taskFeatures = userInput.split("\\s+", 2)[1].trim();
             } catch (ArrayIndexOutOfBoundsException e) {
                 throw new DukeException(DukeException.emptyUserDescription());
             }
-            if (taskFeatures.isEmpty()) {
+            checkType = "/at";
+            String taskDescription = taskFeatures.split(checkType, 2)[0].trim();
+            if (taskDescription.isEmpty()) {
                 throw new DukeException(DukeException.emptyUserDescription());
-            } else {
-                if (command.contains("deadline")) {
-                    checkType = "/by";
-                } else {
-                    checkType = "/at";
-                }
-                String taskDescription = taskFeatures.split(checkType, 2)[0].trim();
-                if (taskDescription.isEmpty()) {
-                    throw new DukeException(DukeException.emptyUserDescription());
-                }
-                String dateTimeFromUser;
-                LocalDateTime atDate = nullDate;
-                LocalDateTime toDate = nullDate;
-                LocalDateTime fromDate = nullDate;
-                try {
-                    dateTimeFromUser = taskFeatures.split(checkType, 2)[1].trim();
-                    if (checkType.contains("/by")) {
-                        atDate = DateTimeExtractor.extractDateTime(dateTimeFromUser, command);
-                    } else {
-                        String obtainStartDate = dateTimeFromUser.split("-", 2)[0].trim();
-                        fromDate = DateTimeExtractor.extractDateTime(obtainStartDate, command);
-                        String obtainEndDate = dateTimeFromUser.split("-", 2)[1].trim();
-                        toDate = DateTimeExtractor.extractDateTime(obtainEndDate, command);
-                    }
-
-                } catch (ArrayIndexOutOfBoundsException e) {
-                    throw new DukeException(DukeException.emptyDateOrTime());
-                } catch (ParseException e) {
-                    throw new DukeException(DukeException.wrongDateOrTime());
-                }
-                return new AddCommand(command, taskDescription, atDate, toDate, fromDate);
             }
+            try {
+                dateTimeFromUser = taskFeatures.split(checkType, 2)[1].trim();
+                String obtainStartDate = dateTimeFromUser.split("-", 2)[0].trim();
+                fromDate = DateTimeExtractor.extractDateTime(obtainStartDate, command);
+                String obtainEndDate = dateTimeFromUser.split("-", 2)[1].trim();
+                toDate = DateTimeExtractor.extractDateTime(obtainEndDate, command);
+            } catch (ArrayIndexOutOfBoundsException e) {
+                throw new DukeException(DukeException.emptyDateOrTime());
+            } catch (ParseException e) {
+                throw new DukeException(DukeException.wrongDateOrTime());
+            }
+            return new AddCommand(command, taskDescription, atDate, toDate, fromDate);
+
         case "find":
             String findKeyWord = userInput.split(command, 2)[1].trim();
             if (findKeyWord.isEmpty()) {
@@ -121,10 +109,10 @@ public class Parser {
             return parseRemind(userInput, command);
 
         case "postpone":
-            LocalDateTime atDate = nullDate;
-            LocalDateTime toDate = nullDate;
-            LocalDateTime fromDate = nullDate;
-            final String dateTimeFromUser;
+            atDate = nullDate;
+            toDate = nullDate;
+            fromDate = nullDate;
+
             checkType = "/to";
 
             if (!userInput.contains(checkType)) {
@@ -249,5 +237,32 @@ public class Parser {
     private static int extractReminderValue(String description) {
         String substring = description.split("in", 2)[1].trim();
         return Integer.parseInt(substring.split(" ", 2)[0].trim());
+    }
+
+    private static Command parseDeadline(String command, String userInput) throws DukeException {
+        String taskFeatures;
+        String checkType = "/by";
+
+        try {
+            taskFeatures = userInput.split("\\s+", 2)[1].trim();
+        } catch (ArrayIndexOutOfBoundsException e) {
+            throw new DukeException(DukeException.emptyUserDescription());
+        }
+        String taskDescription = taskFeatures.split(checkType, 2)[0].trim();
+        if (taskDescription.isEmpty()) {
+            throw new DukeException(DukeException.emptyUserDescription());
+        }
+        String dateTimeFromUser;
+        LocalDateTime atDate = NULL_DATE;
+        try {
+            dateTimeFromUser = taskFeatures.split(checkType, 2)[1].trim();
+            atDate = DateTimeExtractor.extractDateTime(dateTimeFromUser, command);
+        } catch (ArrayIndexOutOfBoundsException e) {
+            throw new DukeException(DukeException.emptyDateOrTime());
+        } catch (ParseException e) {
+            throw new DukeException(DukeException.wrongDateOrTime());
+        }
+        assert atDate.equals(NULL_DATE);
+        return new AddCommand(command, taskDescription, atDate, NULL_DATE, NULL_DATE);
     }
 }
