@@ -149,6 +149,8 @@ public class Parser {
             moneyCommand = new DeleteExpenditureCommand(cmd);
         } else if (cmd.startsWith("done goal")) {
             moneyCommand = new DoneGoalCommand(cmd);
+        } else if (cmd.startsWith("graph")) {
+            moneyCommand = new GraphCommand();
         } else {
             throw new DukeException("OOPS!!! I'm sorry, but I don't know what that means");
         }
