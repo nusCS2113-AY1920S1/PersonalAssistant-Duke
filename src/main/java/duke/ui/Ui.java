@@ -99,7 +99,7 @@ public class Ui {
         out.println("     Here are the tasks in your list with priority shown:\n");
         out.printf("     Priority |\tTask\n");
         for (int i = 0; i < items.size() && i < priorities.getSize(); i++) {
-            out.printf("        [%d]\t  |\t%d.%s\n", priorities.getList().get(i), i+1, items.get(i));
+            out.printf("        [%d]\t  |\t%d.%s\n", priorities.getList().get(i), i + 1, items.get(i));
         }
     }
 

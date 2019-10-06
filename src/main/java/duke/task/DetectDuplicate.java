@@ -23,7 +23,7 @@ public class DetectDuplicate {
      * @return Boolean that states if the input is a duplicate.
      */
     public boolean isDuplicate(String command, String description) {
-        if ("todo".equals(command)) {
+        if ("todo".equals(command) || "fixedduration".equals(command)) {
             for (int i = 0; i < items.size(); i++) {
                 if (items.get(i).isContain(description)) {
                     //contains, is implemented in Task.java
@@ -34,15 +34,5 @@ public class DetectDuplicate {
             return false;
         }
         return false;
-    }
-
-    /**
-     * Display an alert for repeated tasks.
-     *
-     * @return String to be displayed.
-     */
-    @Override
-    public String toString() {
-        return "     The same task is already in the list!";
     }
 }

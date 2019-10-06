@@ -42,7 +42,7 @@ public class AddCommand extends Command {
     @Override
     public String executeGui(TaskList items, Ui ui) {
         items.add(task);
-        String str = ui.showAddGui(items);
+        String str = Ui.showAddGui(items);
         return str;
     }
 

@@ -1,11 +1,13 @@
 package duke.storage;
 
 import duke.task.PriorityList;
-import duke.task.Task;
-import duke.task.TaskList;
-import duke.ui.Ui;
 
-import java.io.*;
+import java.io.IOException;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.File;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
 import java.util.ArrayList;
 
 public class PriorityStorage {
@@ -43,7 +45,7 @@ public class PriorityStorage {
     }
 
     /**
-     * Updates the text file from interpreting the priorities of the priorityList
+     * Updates the text file from interpreting the priorities of the priorityList.
      *
      * @param priorityList The list of priorities associated with each task.
      * @throws IOException  If there is an error writing the text file.

@@ -41,7 +41,7 @@ public class DoneCommand extends Command {
     @Override
     public String executeGui(TaskList items, Ui ui) {
         items.get(index).setStatusIcon(true);
-        String str = ui.showDoneGui(items, index);
+        String str = Ui.showDoneGui(items, index);
         return str;
     }
 
