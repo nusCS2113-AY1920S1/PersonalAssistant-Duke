@@ -18,6 +18,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Parser is the controller for the string inputs received by the standard input.
@@ -30,6 +32,8 @@ public class Parser {
      *
      * @param io
      */
+    Logger logger = Logger.getLogger("main");
+
     public void parseInput(String io, TaskList tasks, Storage storage) throws FileNotFoundException, ParseException {
         int index = 1;
         String input = io;

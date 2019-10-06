@@ -6,24 +6,27 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.sql.Time;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
-import java.util.TreeMap;
 
 /**
  * Class manages the timetable for the user.
  */
 public class Schedule {
 
+    /**
+     * loading path.
+     */
     private String filePath;
+    /**
+     * Inpu  scan
+     */
     private Scanner fileInput;
     private ArrayList<TimeSlot> list;
 
@@ -36,6 +39,7 @@ public class Schedule {
 
     /**
      * This function saves the newly created TimeSlot into timeslots.txt
+     *
      * @param t The TimeSlot object created to be saved
      */
     public void saveTimeSlot(TimeSlot t) {
@@ -61,7 +65,7 @@ public class Schedule {
                 SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy HHmm");
                 Date date1 = simpleDateFormat.parse(data[1]);
                 Date date2 = simpleDateFormat.parse(data[2]);
-                TimeSlot t = new TimeSlot(date1,date2,data[3],data[0]);
+                TimeSlot t = new TimeSlot(date1, date2, data[3], data[0]);
                 temp.add(t);
             }
             fileInput.close();
@@ -74,6 +78,7 @@ public class Schedule {
     /**
      * This function updates the list of tasks.
      * Erases the entire list that exists presently and rewrites the file.
+     *
      * @param up The updated ArrayList that must be used to recreate the updated duke.txt
      * @throws IOException io
      */
@@ -103,7 +108,7 @@ public class Schedule {
      */
     private String day;
 
-    public void setDay (String newDay) {
+    public void setDay(String newDay) {
         day = newDay;
     }
 
@@ -197,11 +202,12 @@ public class Schedule {
     /**
      * Function gets all the hours in the selected day.
      * Will load events if events have been allocated.
+     *
      * @param dayOfClass The selected day of the month. e.g 5/10/2019
      * @return String of every hour from 8am inside the day.
      */
     public String getDay(String dayOfClass) throws ParseException {
-        for (int i=0; i<=24; i++) {
+        for (int i = 0; i <= 24; i++) {
             String time = (i < 10) ? "0" + i + "00" : i + "00";
             SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy HHmm");
             Date now = simpleDateFormat.parse(dayOfClass + " " + time);
@@ -221,7 +227,7 @@ public class Schedule {
         return "--------------------------";
     }
 
-    public String addClass(String startTime, String endTime, String location, String className , TaskList taskList) {
+    public String addClass(String startTime, String endTime, String location, String className, TaskList taskList) {
         Date start = taskList.dateConvert(startTime);
         Date end = taskList.dateConvert(endTime);
         TimeSlot timeSlot = new TimeSlot(start, end, location, className);
@@ -233,10 +239,11 @@ public class Schedule {
 
     public String delClass(String name) {
         int index = 0;
-        if (this.list.isEmpty())
+        if (this.list.isEmpty()) {
             return "No class available";
-        for (TimeSlot i: this.list) {
-            if (i.getClassName().equals(name)){
+        }
+        for (TimeSlot i : this.list) {
+            if (i.getClassName().equals(name)) {
                 this.list.remove(index);
                 updateTimeSlot(this.list);
                 return "Class removed";

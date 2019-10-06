@@ -50,7 +50,7 @@ public class ManageStudents {
 
     /**
      * Adding a new student and listing the total number of students
-     * @param index of the new student added
+     * @param student of the new student added
      */
     public void addStudent(MyStudent student) {
         getStudentList().add(student);
@@ -75,11 +75,11 @@ public class ManageStudents {
 /**
  * This class is called when option 2 is chosen
  */
-public class ManageStudents {
-
-//    public ManageStudents(String myCategory, String menu) {
-//        super(myCategory, menu);
-//    }
+//public class ManageStudents {
+//
+////    public ManageStudents(String myCategory, String menu) {
+////        super(myCategory, menu);
+////    }
 
     public void manageStudentsCategory() {
         System.out.println("1. View all Students\n" +
