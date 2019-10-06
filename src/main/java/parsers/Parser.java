@@ -48,6 +48,8 @@ public class Parser {
             return new FixDurationCommand();
         } else if (command.contains("reschedule")) {
             return new RescheduleCommand();
+        } else if (command.contains("scheduleDaily")) {
+            return new ScheduleDailyCommand();
         } else if (command.contains("scheduleWeekly")) {
             return new ScheduleWeeklyCommand();
         } else if (command.contains("snooze")) {
