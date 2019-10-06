@@ -154,8 +154,7 @@ public class Parser {
                     dateInfo = d.convertDate(dateInfo);
                     String lookUpDate = dateInfo;
                     return new ViewSchedule(lookUpDate);
-                }
-                else {
+                } else {
                     try {
                         throw new DukeException(DukeException.ErrorType.COMMAND_INVALID);
                     } catch (DukeException e){
