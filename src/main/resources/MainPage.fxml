@@ -14,7 +14,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Text?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="485.0" prefWidth="676.0" stylesheets="@Main_Styles.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="MovieHandler">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="485.0" prefWidth="676.0" stylesheets="@Main_Styles.css" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="MovieUI.MovieHandler">
     <bottom>
         <HBox alignment="BOTTOM_LEFT" spacing="10.0" BorderPane.alignment="CENTER">
             <children>
@@ -37,6 +37,7 @@
             </children>
         </AnchorPane>
     </center>
+
     <left>
         <VBox fx:id="mMovieTypeVBox" alignment="TOP_CENTER" prefHeight="343.0" prefWidth="145.0" spacing="8.0" BorderPane.alignment="CENTER">
             <children>
@@ -93,7 +94,7 @@
                 </MenuBar>
                 <VBox prefHeight="74.0" prefWidth="676.0">
                     <children>
-                        <TextField fx:id="mSearchTextField" onAction="#searchButtonClicked" prefWidth="400.0" promptText="Enter a command here...">
+                        <TextField fx:id="mSearchTextField"  prefWidth="400.0" promptText="Enter a command here...">
                             <VBox.margin>
                                 <Insets bottom="2.0" left="10.0" right="10.0" top="2.0" />
                             </VBox.margin>
@@ -106,6 +107,8 @@
                     </children>
                 </VBox>
             </children>
+
+
         </VBox>
     </top>
 </BorderPane>

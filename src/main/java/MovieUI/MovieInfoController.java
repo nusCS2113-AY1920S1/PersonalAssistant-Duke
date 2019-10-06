@@ -1,6 +1,9 @@
+package MovieUI;
+
 import EPstorage.Commands;
 import EPstorage.ProfileStorage;
 import EPstorage.UserProfile;
+
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -19,7 +22,6 @@ import object.MovieInfoObject;
 import ui.Ui;
 
 import java.io.IOException;
-import java.net.URISyntaxException;
 import java.util.ArrayList;
 
 public class MovieInfoController extends Controller implements RequestListener {
@@ -178,27 +180,28 @@ public class MovieInfoController extends Controller implements RequestListener {
         } else if (userInput.equals("show current tv")) {
             mMovieRequest.beginMovieRequest(RetrieveRequest.MoviesRequestType.TV_SHOWS);
         } else if (!userInput.isEmpty()) {
-            if (userInput.contains(" -g ")){
+            if (userInput.contains(" -g ")) {
                 ArrayList<Integer> inputGenre = new ArrayList<>(10);
                 String[] token = userInput.split(" -");
-                for (int i = 1; i < token.length ; i++){
-                    if (token[i].charAt(0) == 'g'){
+                for (int i = 1; i < token.length; i++) {
+                    if (token[i].charAt(0) == 'g') {
                         token[i] = token[i].substring(2);
-                        if (token[i].equals("my preference")){
+                        if (token[i].equals("my preference")) {
                             inputGenre.addAll(userProfile.getGenreId());
-                        } else{
+                        } else {
                             inputGenre.add(Integer.parseInt(command.findGenreID(token[i])));
                         }
                     }
                 }
                 mMovieRequest.beginSearchRequestWithGenre(token[0], inputGenre);
                 clearText(mSearchTextField);
-            } else{
+            } else {
                 mMovieRequest.beginSearchRequest(userInput);
                 clearText(mSearchTextField);
             }
         }
     }
+
 
 
     // Menu item events

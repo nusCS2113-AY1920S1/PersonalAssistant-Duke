@@ -1,27 +1,33 @@
+package MovieUI;
+
 import EPstorage.Commands;
 import EPstorage.ProfileStorage;
 import EPstorage.UserProfile;
+
+import Contexts.SearchResultContext;
 import javafx.application.Platform;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.geometry.Orientation;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.VBox;
-import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import movieRequesterAPI.RequestListener;
 import movieRequesterAPI.RetrieveRequest;
 import object.MovieInfoObject;
+import parser.CommandParser;
 import ui.Ui;
 
-import javax.swing.text.html.ListView;
-import java.io.FileNotFoundException;
+import javax.xml.stream.EventFilter;
+import javax.xml.stream.events.XMLEvent;
 import java.io.IOException;
-import java.net.URISyntaxException;
 import java.util.ArrayList;
 
 /**
@@ -77,7 +83,31 @@ public class MovieHandler extends Controller implements RequestListener{
 
     private ArrayList<MovieInfoObject> mMovies;
     private double[] mImagesLoadingProgress;
+
     private RetrieveRequest mMovieRequest;
+
+    class KeyboardClick implements EventHandler<KeyEvent> {
+
+        private Controller control;
+
+        KeyboardClick(Controller control){
+            this.control = control;
+        }
+
+        @Override
+        public void handle(KeyEvent event) {
+            if(event.getCode().equals(KeyCode.ENTER)) {
+//                    SearchResultContext.AddKeyWord(mSearchTextField.getText());
+                // do something
+                System.out.println("Hello");
+                CommandParser.parseCommands(mSearchTextField.getText() ,control );
+            }else if(event.getCode().equals(KeyCode.TAB)){
+                System.out.println("Tab presjenksjessed");
+                event.consume();
+            }
+        }
+    }
+
 
 
     @FXML public void initialize() throws IOException {
@@ -101,12 +131,31 @@ public class MovieHandler extends Controller implements RequestListener{
         //mMovieTypeListView.getSelectionModel().select(0);
 
 
+        mSearchTextField.addEventFilter(KeyEvent.KEY_PRESSED, event -> {
+            if (event.getCode() == KeyCode.TAB) {
+                System.out.println("Tab pressed");
+                event.consume();
+            }else if(event.getCode().equals(KeyCode.ENTER)) {
+                System.out.println("Enter pressed");
+//
+            }
+        });
+
         mMovieRequest.beginMovieRequest(RetrieveRequest.MoviesRequestType.NOW_SHOWING);
 
 
         //mSearchButton.disableProperty().bind(mSearchTextField.textProperty().isEmpty());
         //mClearSearchButton.disableProperty().bind(mSearchTextField.textProperty().isEmpty());
 
+        //Real time changes to text field
+        mSearchTextField.textProperty().addListener((observable, oldValue, newValue) -> {
+            System.out.println("textfield changed from " + oldValue + " to " + newValue);
+        });
+
+        System.out.println(text.getText());
+
+        //Enter is Pressed
+        mSearchTextField.setOnKeyPressed(new KeyboardClick(this));
 
         // mMovieTypeListView.getSelectionModel().selectedIndexProperty().addListener((observable, oldValue, newValue) -> moviesTypeSelectionChanged(oldValue.intValue(), newValue.intValue()));
     }
@@ -172,7 +221,7 @@ public class MovieHandler extends Controller implements RequestListener{
     private AnchorPane buildMoviePosterPane(MovieInfoObject movie) {
         try {
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(MovieHandler.class.getResource("MoviePoster.fxml"));
+            loader.setLocation(getClass().getClassLoader().getResource("MoviePoster.fxml"));
             AnchorPane posterView = loader.load();
             posterView.setOnMouseClicked((mouseEvent) -> moviePosterClicked(movie));
 
@@ -286,7 +335,7 @@ public class MovieHandler extends Controller implements RequestListener{
             }
         }
         //for searching movies
-         if (userInput.equals("show current movie")) {
+        if (userInput.equals("show current movie")) {
             mMovieRequest.beginMovieRequest(RetrieveRequest.MoviesRequestType.NOW_SHOWING);
         } else if (userInput.equals("show upcoming movie")) {
             mMovieRequest.beginMovieRequest(RetrieveRequest.MoviesRequestType.UPCOMING);
@@ -295,26 +344,34 @@ public class MovieHandler extends Controller implements RequestListener{
         } else if (userInput.equals("show current tv")) {
             mMovieRequest.beginMovieRequest(RetrieveRequest.MoviesRequestType.TV_SHOWS);
         } else if (!userInput.isEmpty()) {
-            if (userInput.contains(" -g ")){
+            if (userInput.contains(" -g ")) {
                 ArrayList<Integer> inputGenre = new ArrayList<>(10);
                 String[] token = userInput.split(" -");
-                for (int i = 1; i < token.length ; i++){
-                    if (token[i].charAt(0) == 'g'){
+                for (int i = 1; i < token.length; i++) {
+                    if (token[i].charAt(0) == 'g') {
                         token[i] = token[i].substring(2);
-                        if (token[i].equals("my preference")){
+                        if (token[i].equals("my preference")) {
                             inputGenre.addAll(userProfile.getGenreId());
-                        } else{
+                        } else {
                             inputGenre.add(Integer.parseInt(command.findGenreID(token[i])));
                         }
                     }
                 }
                 mMovieRequest.beginSearchRequestWithGenre(token[0], inputGenre);
                 clearText(mSearchTextField);
-            } else{
+            } else {
                 mMovieRequest.beginSearchRequest(userInput);
                 clearText(mSearchTextField);
             }
         }
+    }
+
+    public void setFeedbackText(String txt){
+        text.setText(txt);
+    }
+
+    public RetrieveRequest getAPIRequester(){
+        return mMovieRequest;
     }
 
 
