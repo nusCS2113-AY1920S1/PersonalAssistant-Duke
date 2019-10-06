@@ -22,7 +22,8 @@ public class Duke extends Application {
     public static Stage window;
 
     public Duke() {
-
+        //TODO CREATE LOGGER FILE
+        //Logger logger = logger.getLogger("main")
     }
 
     public Duke(String filePath) throws FileNotFoundException {
