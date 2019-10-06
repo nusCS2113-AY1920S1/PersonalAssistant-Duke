@@ -6,6 +6,7 @@ import java.util.Scanner;
 
 import duke.Data.Storage;
 import duke.GUI.ViewModules;
+import duke.Sports.ManageStudents;
 import duke.Task.*;
 
 import javafx.application.Application;
@@ -17,6 +18,7 @@ public class Duke extends Application {
     private Ui ui;
     private Storage storage;
     private TaskList tasks;
+    private ManageStudents students;
     public static Stage window;
 
     public Duke() {
@@ -27,6 +29,7 @@ public class Duke extends Application {
         ui = new Ui();
         storage = new Storage(filePath);
         tasks = new TaskList();
+        students = new ManageStudents();
     }
 
     /**
@@ -48,7 +51,8 @@ public class Duke extends Application {
                     ui.goodbye();
                     System.exit(0);
                 }
-                ui.readCommand(input, tasks, storage);
+
+                ui.readCommand(input, tasks, storage, students);
             }
         }
     }
