@@ -1,18 +1,14 @@
 import controlpanel.Ui;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.stage.*;
+import javafx.stage.FileChooser;
 
-import java.awt.*;
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -38,7 +34,6 @@ public class MainWindow extends AnchorPane {
     private Button sendButton;
 
     private Duke duke;
-    private Ui mainWindowUi;
 
     private static Image userImage;
     private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
@@ -50,7 +45,7 @@ public class MainWindow extends AnchorPane {
     public void initialize() throws IOException {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
         scrollPane2.vvalueProperty().bind(graphContainer.heightProperty());
-        mainWindowUi = new Ui();
+        Ui mainWindowUi = new Ui();
         String welcomeDuke = mainWindowUi.showWelcome();
         dialogContainer.getChildren().addAll(
                 DialogBox.getDukeDialog("enter start to begin", dukeImage));
@@ -100,6 +95,14 @@ public class MainWindow extends AnchorPane {
                     DialogBox.getUserDialog(input, userImage),
                     DialogBox.getDukeDialog(response, dukeImage)
             );
+            userInput.clear();
+            if (input.startsWith("graph")) {
+                graphContainer.getChildren().removeAll();
+                float[] data = duke.getMonthlyData();
+                graphContainer.getChildren().addAll(
+                        Histogram.getHistogram("The Month Report", data[0], data[1])
+                );
+            }
         }
         userInput.clear();
     }

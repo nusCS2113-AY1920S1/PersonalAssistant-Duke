@@ -48,7 +48,6 @@ public class Duke {
      */
     public String getResponse(String input) {
         try {
-
             ui.clearOutputString();
             ui.appendToOutput(ui.showLine());
             boolean isNewUser = account.isToInitialize();
@@ -67,6 +66,13 @@ public class Duke {
             ui.appendToOutput(ui.showLine());
         }
         return ui.getOutputString();
+    }
+
+    public float[] getMonthlyData() {
+        float[] data = new float[2];
+        data[0] = account.getTotalIncome();
+        data[1] = account.getTotalExp();
+        return data;
     }
 
 }
