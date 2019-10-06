@@ -1,0 +1,47 @@
+= About Us
+:site-section: AboutUs
+:relfileprefix: team/
+:imagesDir: images
+:stylesDir: stylesheets
+
+Duke Email Manager is developed by team F11-3 in CS2113T AY1920S1 +
+{empty} +
+We are a team based in the http://www.comp.nus.edu.sg[School of Computing, National University of Singapore].
+
+== Project Team
+
+=== Ryan Lim
+image::limryan.png[width="150", align="left"]
+{empty}[https://github.com/limryan[github]] [<<limryan#, portfolio>>]
+
+Role: Developer +
+Responsiblities: UI/Navigation
+
+'''
+
+=== Vivian Lee
+image::lee761.png[width="150", align="left"]
+{empty}[http://github.com/lee761[github]] [<<lee761#, portfolio>>]
+
+Role: Developer +
+Responsibilities: Regular Expression Matching
+
+'''
+
+=== Yan Zhiwen
+image::jokeryan.png[width="150", align="left"]
+{empty}[http://github.com/JokerYan[github]] [<<JokerYan#, portfolio>>]
+
+Role: Developer +
+Responsibilities: Email Authentication and Manipulation
+
+'''
+
+=== Yang Zi Yun
+image::ziyun99.png[width="150", align="left"]
+{empty}[http://github.com/ziyun99[github]] [<<ziyun99#, portfolio>>]
+
+Role: Developer +
+Responsibilities: Local Storage
+
+'''
