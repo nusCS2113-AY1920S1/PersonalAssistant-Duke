@@ -254,7 +254,7 @@ D2 returns the user’s degree list with CEG and EE having switched indexes
 == Appendix C: Non-Functional Requirements
 
 . D2 is a fast application.
-. It can be used on any platform (any PC), and is hence light-weight.
+. D2 can be used on any platform (any PC), and is hence light-weight.
 . The information provided is accurate as of the latest semester.
 . The application has simple functions, with more options provided for advanced users.
 . The application is fairly easy and understandable to navigate through.
