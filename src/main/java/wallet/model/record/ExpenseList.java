@@ -50,6 +50,7 @@ public class ExpenseList {
      * @param e The expense to be added.
      */
     public void addExpense(Expense e) {
+        e.setId(getLargestId(this.expenseList) + 1);
         expenseList.add(e);
     }
 
@@ -139,5 +140,21 @@ public class ExpenseList {
                 counter++;
             }
         }
+    }
+
+    /**
+     * Returns the largest id.
+     *
+     * @param expenseList The list of expenses.
+     * @return The largest id.
+     */
+    public int getLargestId(ArrayList<Expense> expenseList) {
+        int max = 0;
+        for (Expense expense : expenseList) {
+            if (expense.getId() > max) {
+                max = expense.getId();
+            }
+        }
+        return max;
     }
 }

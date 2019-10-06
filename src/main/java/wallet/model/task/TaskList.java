@@ -183,7 +183,7 @@ public class TaskList {
         ArrayList<Date> possibleDates = t.getPossibleDates();
         for (Date d : possibleDates) {
             String formatDate = new SimpleDateFormat("dd/MM/yyyy HHmm").format(d);
-            System.out.println(Integer.toString(possibleDates.indexOf(d) + 1) + "." + d);
+            System.out.println((possibleDates.indexOf(d) + 1) + "." + d);
         }
 
         Ui getDates = new Ui();

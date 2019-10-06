@@ -1,7 +1,9 @@
 package wallet.storage;
 
+import wallet.model.contact.Contact;
 import wallet.model.record.Budget;
 import wallet.model.record.Expense;
+import wallet.model.record.Loan;
 import wallet.model.task.Task;
 
 import java.io.File;
@@ -13,6 +15,8 @@ public class StorageManager {
 
     private TaskStorage taskStorage;
     private ExpenseStorage expenseStorage;
+    private LoanStorage loanStorage;
+    private ContactStorage contactStorage;
     private BudgetStorage budgetStorage;
 
     /**
@@ -22,6 +26,9 @@ public class StorageManager {
         createDir();
         this.taskStorage = new TaskStorage();
         this.expenseStorage = new ExpenseStorage();
+        this.loanStorage = new LoanStorage();
+        this.contactStorage = new ContactStorage();
+        this.loanStorage.setContactStorage(this.contactStorage);
         this.budgetStorage = new BudgetStorage();
     }
 
@@ -39,31 +46,104 @@ public class StorageManager {
         }
     }
 
+    /**
+     * Loads the Task objects into an ArrayList of Tasks.
+     *
+     * @return The ArrayList of Tasks.
+     */
     public ArrayList<Task> loadTask() {
         return taskStorage.loadFile();
     }
 
+    /**
+     * Writes a Task object into task.txt.
+     *
+     * @param task The Task object.
+     */
     public void addTask(Task task) {
         taskStorage.writeToFile(task);
     }
 
+    /**
+     * Deletes the Task from the file.
+     *
+     * @param taskList The ArrayList of Task objects.
+     * @param index The index of the Task object.
+     */
     public void deleteTask(ArrayList<Task> taskList, int index) {
         taskStorage.removeFromFile(taskList, index);
     }
 
+    /**
+     * Loads the Expense objects into an ArrayList of Expenses.
+     *
+     * @return The ArrayList of Expenses.
+     */
     public ArrayList<Expense> loadExpense() {
         return expenseStorage.loadFile();
     }
 
+    /**
+     * Writes an Expense String into expense.txt.
+     *
+     * @param expense The Expense object.
+     */
     public void addExpense(Expense expense) {
         expenseStorage.writeToFile(expense);
     }
 
+    /**
+     * Loads the Loan objects into an ArrayList of Loans.
+     *
+     * @return The ArrayList of Loans.
+     */
+    public ArrayList<Loan> loadLoan() {
+        return loanStorage.loadFile();
+    }
+
+    /**
+     * Writes a Loan String into loan.txt.
+     *
+     * @param loan The Loan object.
+     */
+    public void addLoan(Loan loan) {
+        loanStorage.writeToFile(loan);
+    }
+
+    /**
+     * Loads the Contact objects into an ArrayList of Contacts.
+     *
+     * @return The ArrayList of Contacts.
+     */
+    public ArrayList<Contact> loadContact() {
+        return contactStorage.loadFile();
+    }
+
+    /**
+     * Writes a Contact String into contact.txt.
+     *
+     * @param contact The Contact object.
+     */
+    public void addContact(Contact contact) {
+        contactStorage.writeToFile(contact);
+    }
+
+    /**
+     * Writes a Budget String into budget.txt.
+     *
+     * @param budget The Budget object.
+     */
     public void addBudget(Budget budget) {
         budgetStorage.writeToFile(budget);
     }
 
+    /**
+     * Loads the Budget object in the ArrayList of Budget objects.
+     *
+     * @return the ArrayList of Budgets objects.
+     */
     public ArrayList<Budget> loadBudget() {
         return budgetStorage.loadFile();
+
     }
 }

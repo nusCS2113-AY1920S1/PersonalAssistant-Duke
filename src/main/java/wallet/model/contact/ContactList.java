@@ -15,42 +15,47 @@ public class ContactList {
         this.contactList = new ArrayList<Contact>();
     }
 
+    public ContactList(ArrayList<Contact> contactList) {
+        this.contactList = contactList;
+    }
+
     /**
      * Add the given contact into the contactList.
      *
      * @param contact The contact to be added.
      */
     public void addContact(Contact contact) {
+        contact.setId(getLargestId(this.contactList) + 1);
         contactList.add(contact);
     }
 
     /**
      * Retrieve the contact at the given index of the contactList.
      *
-     * @param index The index of the contact in the contactList.
-     * @return The contact at the given index.
+     * @param id The id of the contact in the contactList.
+     * @return The contact object with the specified id.
      */
-    public Contact getContact(int index) {
-        return contactList.get(index);
+    public Contact getContact(int id) {
+        return contactList.get(id);
     }
 
     /**
      * Modify the value of the contact at the given index in the contactList.
      *
-     * @param index  The index of the contact in the list.
+     * @param id      The id of the contact in the list.
      * @param contact The contact with modified values.
      */
-    public void editContact(int index, Contact contact) {
-        contactList.set(index, contact);
+    public void editContact(int id, Contact contact) {
+        contactList.set(id, contact);
     }
 
     /**
      * Removes the contact at the given index of the contactList.
      *
-     * @param index The index of the contact in the list
+     * @param id The id of the contact in the list.
      */
-    public void deleteContact(int index) {
-        contactList.remove(index);
+    public void deleteContact(int id) {
+        contactList.remove(id);
     }
 
     /**
@@ -72,9 +77,26 @@ public class ContactList {
     }
 
     /**
+     * Returns the largest id.
+     *
+     * @param contactList The list of contact.
+     * @return The largest id.
+     */
+    public int getLargestId(ArrayList<Contact> contactList) {
+        int max = 0;
+        for (Contact contact : contactList) {
+            if (contact.getId() > max) {
+                max = contact.getId();
+            }
+        }
+        return max;
+    }
+
+    /**
      * Creates Contact object.
-     * @param name Name of the contact.
-     * @param detail Details of the contact.
+     *
+     * @param name     Name of the contact.
+     * @param detail   Details of the contact.
      * @param phoneNum Phone Number of the contact.
      * @return The Contact Object.
      */

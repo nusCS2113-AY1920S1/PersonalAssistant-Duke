@@ -1,19 +1,23 @@
 package wallet.model.record;
 
+import wallet.logic.command.ListCommand;
+
 import java.util.ArrayList;
 
 public class LoanList {
     private ArrayList<Loan> loanList;
 
-    /**
-     * Constructs the LoanList Object.
-     */
+    public LoanList(ArrayList<Loan> loanList) {
+        this.loanList = loanList;
+    }
+
     public LoanList() {
         this.loanList = new ArrayList<Loan>();
     }
 
     /**
      * Returns the list of loans.
+     *
      * @return The list of loans.
      */
     public ArrayList<Loan> getLoanList() {
@@ -35,6 +39,7 @@ public class LoanList {
      * @param loan The Loan object.
      */
     public void addLoan(Loan loan) {
+        loan.setId(getLargestId(this.loanList) + 1);
         this.loanList.add(loan);
     }
 
@@ -52,7 +57,7 @@ public class LoanList {
      * Edits the Loan object in the list of loans.
      *
      * @param index The index of the Loan object in the list of loans.
-     * @param loan The Loan object.
+     * @param loan  The Loan object.
      */
     public void editLoan(int index, Loan loan) {
         this.loanList.set(index, loan);
@@ -75,5 +80,33 @@ public class LoanList {
      */
     public int getSize() {
         return this.loanList.size();
+    }
+
+    /**
+     * Lists the list of loans.
+     */
+    public void listLoanList() {
+        int counter = 1;
+        System.out.println(ListCommand.MESSAGE_LIST_LOANS);
+        for (Loan l : this.loanList) {
+            System.out.println(counter + ". " + l.toString());
+            counter++;
+        }
+    }
+
+    /**
+     * Returns the largest id.
+     *
+     * @param loanList The list of loans.
+     * @return The largest id.
+     */
+    public int getLargestId(ArrayList<Loan> loanList) {
+        int max = 0;
+        for (Loan loan : loanList) {
+            if (loan.getId() > max) {
+                max = loan.getId();
+            }
+        }
+        return max;
     }
 }

@@ -90,12 +90,14 @@ public class AddCommand extends Command {
         }
         if (contact != null) {
             wallet.getContactList().addContact(contact);
+            storageManager.addContact(contact);
             System.out.println(MESSAGE_SUCCESS_ADD_CONTACT);
             System.out.println(contact.toString());
         }
         if (loan != null) {
             wallet.getLoanList().addLoan(loan);
             wallet.getRecordList().addRecord(loan);
+            storageManager.addLoan(loan);
             System.out.println(MESSAGE_SUCCESS_ADD_LOAN);
             System.out.println(loan.toString());
         }
