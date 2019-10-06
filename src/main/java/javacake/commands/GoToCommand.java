@@ -51,18 +51,18 @@ public class GoToCommand extends Command {
             } else if (progressStack.checkProgress() == 1 && index.equals("4")) {
 
             } else if (progressStack.checkProgress() == 2 && index.equals("1.1")) {
-                progressStack.listIndex3ToSubList1();
+                progressStack.listIndexToSubList();
                 BufferedReader reader = new BufferedReader(
                         new FileReader("content/MainList/ListIndex1/javabasics/1.txt"));
                 ui.displayTextFile(reader);
             } else if (progressStack.checkProgress() == 2 && index.equals("1.2")) {
-                progressStack.listIndex3ToSubList1();
+                progressStack.listIndexToSubList();
                 BufferedReader reader = new BufferedReader(
                         new FileReader("content/MainList/ListIndex1/javabasics/2.txt"));
                 ui.displayTextFile(reader);
 
             } else if (progressStack.checkProgress() == 2 && index.equals("1.3")) {
-                progressStack.listIndex3ToSubList1();
+                progressStack.listIndexToSubList();
                 BufferedReader reader = new BufferedReader(
                         new FileReader("content/MainList/ListIndex1/javabasics/3.txt"));
                 ui.displayTextFile(reader);
@@ -71,41 +71,41 @@ public class GoToCommand extends Command {
 
 
             } else if (progressStack.checkProgress() == 2 && index.equals("2.1")) {
-                progressStack.listIndex3ToSubList1();
+                progressStack.listIndexToSubList();
                 BufferedReader reader = new BufferedReader(
                         new FileReader("content/MainList/ListIndex2/oop/1.txt"));
                 ui.displayTextFile(reader);
 
             } else if (progressStack.checkProgress() == 2 && index.equals("2.2")) {
-                progressStack.listIndex3ToSubList1();
+                progressStack.listIndexToSubList();
                 BufferedReader reader = new BufferedReader(
                         new FileReader("content/MainList/ListIndex2/oop/2.txt"));
                 ui.displayTextFile(reader);
 
             } else if (progressStack.checkProgress() == 2 && index.equals("2.3")) {
-                progressStack.listIndex3ToSubList1();
+                progressStack.listIndexToSubList();
                 BufferedReader reader = new BufferedReader(
                         new FileReader("content/MainList/ListIndex2/oop/3.txt"));
                 ui.displayTextFile(reader);
 
             } else if (progressStack.checkProgress() == 2 && index.equals("2.4")) {
-                progressStack.listIndex3ToSubList1();
+                progressStack.listIndexToSubList();
                 BufferedReader reader = new BufferedReader(
                         new FileReader("content/MainList/ListIndex2/content/oop/4.txt"));
                 ui.displayTextFile(reader);
 
             } else if (progressStack.checkProgress() == 2 && index.equals("3.1")) {
-                progressStack.listIndex3ToSubList1();
+                progressStack.listIndexToSubList();
                 BufferedReader reader = new BufferedReader(
                         new FileReader("content/MainList/ListIndex3/Enumerations/Enumerations.txt"));
                 ui.displayTextFile(reader);
             } else if (progressStack.checkProgress() == 2 && index.equals("3.2")) {
-                progressStack.listIndex3ToSubList2();
+                progressStack.listIndexToSubList();
                 BufferedReader reader = new BufferedReader(
                         new FileReader("content/MainList/ListIndex3/Varargs/Varargs.txt"));
                 ui.displayTextFile(reader);
             } else if (progressStack.checkProgress() == 2 && index.equals("3.3")) {
-                progressStack.listIndex3ToSubList3();
+                progressStack.listIndexToSubList();
                 BufferedReader reader = new BufferedReader(
                         new FileReader("content/MainList/ListIndex3/Exceptions/Exceptions.txt"));
                 ui.displayTextFile(reader);

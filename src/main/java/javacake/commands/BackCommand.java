@@ -27,14 +27,29 @@ public class BackCommand extends Command {
             progressStack.listIndexToMainList();
             ListCommand listCommand = new ListCommand();
             listCommand.execute(progressStack, ui, storage, profile);
+
         } else if (progressStack.checkProgress() == 1) {
             ListCommand listCommand = new ListCommand();
             listCommand.execute(progressStack, ui, storage, profile);
-        } else if (progressStack.checkProgress() == 3 && progressStack.checkPreviousState() == 3) {
-            progressStack.clearCurrentState();
-            GoToCommand goToCommand = new GoToCommand("goto 3");
-            goToCommand.execute(progressStack, ui, storage, profile);
+
+        } else if (progressStack.checkProgress() == 3) {
+            int previousState = progressStack.checkPreviousState();
+
+            if (previousState == 3) {
+                progressStack.clearCurrentState();
+                GoToCommand goToCommand = new GoToCommand("goto 3");
+                goToCommand.execute(progressStack, ui, storage, profile);
+
+            } else if (previousState == 2) {
+                progressStack.clearCurrentState();
+                GoToCommand goToCommand = new GoToCommand("goto 2");
+                goToCommand.execute(progressStack, ui, storage, profile);
+
+            } else if (previousState == 1) {
+                progressStack.clearCurrentState();
+                GoToCommand goToCommand = new GoToCommand("goto 1");
+                goToCommand.execute(progressStack, ui, storage, profile);
+            }
         }
     }
-
 }
