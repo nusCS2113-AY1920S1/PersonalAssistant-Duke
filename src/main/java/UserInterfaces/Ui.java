@@ -53,13 +53,13 @@ public class Ui {
     public void showMenu(boolean hasSave) {
         show("Menu:");
         if(hasSave){
-            show("\t\u2022 Load Save\n");
+            show("\t\u2022 Load Save");
         }
         show("\t\u2022 New Game\n\t\u2022 Quit");
     }
 
     public String getInput() {
-        show("Input: ");
+        show("\nInput: ");
         return scanner.nextLine();
     }
     public String showAsciiArt(String filepath) {
