@@ -13,13 +13,13 @@ import java.util.ArrayList;
 public class TagCommand extends Command {
     @Override
     public void execute(ArrayList<Task> list, Ui ui, Storage storage) throws DukeException, ParseException, IOException, NullPointerException {
+        ArrayList<Task> tagList = new ArrayList<>();
         try {
             if (ui.FullCommand.equals("#") || ui.FullCommand.equals("# ")) {
                 throw new DukeException("The tag description cannot be empty.");
             } else {
-                ArrayList<Task> tagList = new ArrayList<>();
-                String tag = ui.FullCommand.substring(1);
 
+                String tag = ui.FullCommand.substring(1);
                 for (Task it : list) {
                     if (it.description.contains("#")) {
                         if (it.description.split("#")[1].trim().equals(tag)) {
@@ -27,7 +27,6 @@ public class TagCommand extends Command {
                         }
                     }
                 }
-
                 System.out.println("Here are the matching tags in your list:");
                 for (int i = 0; i < tagList.size(); i++) {
                     System.out.println(i + 1 + "." + tagList.get(i).listFormat());
