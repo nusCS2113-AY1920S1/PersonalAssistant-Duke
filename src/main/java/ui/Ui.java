@@ -2,6 +2,9 @@ package ui;
 
 import Dictionary.Word;
 import Dictionary.WordBank;
+import exception.NoWordFoundException;
+
+import java.util.Map;
 import java.util.Scanner;
 
 /**
@@ -59,9 +62,22 @@ public class Ui {
         System.out.println("       " + w.toString());
     }
 
-    public void showList(WordBank wordBank) {
+    public void showList(WordBank wordBank, String order) {
         System.out.println("     Here are your words:");
-        System.out.println(wordBank.getBankData());
+        if (order.equals("asc") || order.equals("")) {
+            for (Map.Entry<String, Word> entry : wordBank.getWordBank().entrySet()) {
+                System.out.println("     " + entry.getValue());
+            }
+        }
+        else {
+            for (String description : wordBank.getWordBank().descendingKeySet()) {
+                System.out.println("     " + wordBank.getWordBank().get(description));
+            }
+        }
+    }
+
+    public void showSearch(String description, String meaning){
+        System.out.println("     Here is the meaning of " + description + ": " + meaning);
     }
 }
 

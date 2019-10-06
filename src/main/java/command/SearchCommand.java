@@ -1,25 +1,20 @@
 package command;
 
-import Dictionary.Word;
 import Dictionary.WordBank;
 import exception.NoWordFoundException;
 import storage.Storage;
-import task.Task;
-import task.TaskList;
 import ui.Ui;
-
-import java.util.ArrayList;
 
 /**
  * Represents a command from user to find tasks containing keywords specified.
  * Inherits from Command class.
  * @author Zhang Yue Han
  */
-public class FindCommand extends Command {
+public class SearchCommand extends Command {
 
     String searchedWord;
 
-    public FindCommand(String searchedWord) {
+    public SearchCommand(String searchedWord) {
         this.searchedWord = searchedWord;
     }
 
@@ -29,9 +24,8 @@ public class FindCommand extends Command {
         //ask tasks to store the thing in arraylist
         //ask storage to write to file
         try {
-            word = wordBank.getWordAndMeaning(searchedWord);
-            wordBank.searchForMeaning(searchedWord);
-            System.out.println("     Here is the word that you are looking for: " + word);
+            String meaning = wordBank.searchForMeaning(this.searchedWord);
+            ui.showSearch(this.searchedWord, meaning);
         }
         catch (NoWordFoundException e) {
             e.showError();
