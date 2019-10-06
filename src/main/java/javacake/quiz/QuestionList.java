@@ -1,5 +1,7 @@
 package javacake.quiz;
 
+import javacake.DukeException;
+
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -72,7 +74,7 @@ public class QuestionList {
      * Randomly selects MAX_QUESTIONS number of questions from the list of all questions.
      * @return ArrayList of Question of size MAX_QUESTIONS.
      */
-    public ArrayList<Question> pickQuestions() {
+    public ArrayList<Question> pickQuestions() throws DukeException {
         ArrayList<Question> allQuestions = new ArrayList<>();
         allQuestions.addAll(initBasicList());
         allQuestions.addAll(initOOPList());
@@ -88,7 +90,11 @@ public class QuestionList {
                 randomNum = rand.nextInt(allQuestions.size());
             } while (chosenNumbers.contains(randomNum)); // prevents repeat questions
             chosenNumbers.add(randomNum);
-            chosenQuestions.add(allQuestions.get(randomNum));
+            try {
+                chosenQuestions.add(allQuestions.get(randomNum));
+            } catch (IndexOutOfBoundsException e) {
+                throw new DukeException("Something went wrong when loading the quiz: index out of bounds.");
+            }
         }
         return chosenQuestions;
     }
@@ -98,7 +104,7 @@ public class QuestionList {
      * @param type QuestionType of questions to be selected.
      * @return ArrayList of Question of specified topic of size MAX_QUESTIONS.
      */
-    public ArrayList<Question> pickQuestions(Question.QuestionType type) {
+    public ArrayList<Question> pickQuestions(Question.QuestionType type) throws DukeException {
         ArrayList<Question> tempList = new ArrayList<>();
         switch (type) {
         case BASIC:
@@ -124,7 +130,11 @@ public class QuestionList {
                 randomNum = rand.nextInt(tempList.size());
             } while (chosenNumbers.contains(randomNum)); // prevents repeat questions
             chosenNumbers.add(randomNum);
-            chosenQuestions.add(tempList.get(randomNum));
+            try {
+                chosenQuestions.add(tempList.get(randomNum));
+            } catch (IndexOutOfBoundsException e) {
+                throw new DukeException("Something went wrong when loading the quiz: index out of bounds.");
+            }
         }
         return chosenQuestions;
     }

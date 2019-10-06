@@ -17,7 +17,7 @@ public class QuizCommand extends Command {
     /**
      * QuizCommand constructor for overall quiz.
      */
-    public QuizCommand() {
+    public QuizCommand() throws DukeException {
         type = CmdType.QUIZ;
         questionList = new QuestionList();
         chosenQuestions = new ArrayList<>();
@@ -29,7 +29,7 @@ public class QuizCommand extends Command {
      * QuizCommand constructor for topic-based quiz.
      * @param questionType the topic of the quiz.
      */
-    public QuizCommand(Question.QuestionType questionType) {
+    public QuizCommand(Question.QuestionType questionType) throws DukeException {
         type = CmdType.QUIZ;
         questionList = new QuestionList();
         chosenQuestions = new ArrayList<>();
@@ -55,10 +55,11 @@ public class QuizCommand extends Command {
             if (question.isAnswerCorrect(userAnswer)) {
                 score++;
             }
+            ui.showLine();
         }
-        if (score <= QuestionList.MAX_QUESTIONS) {
-            throw new DukeException("Something went wrong when calculating the score.\n" +
-                    "ERROR: calculated score is greater than maximum possible score.");
+        if (score > QuestionList.MAX_QUESTIONS) {
+            throw new DukeException("Something went wrong when calculating the score:\n" +
+                    "Calculated score is greater than maximum possible score.");
         }
         ui.displayResults(score, QuestionList.MAX_QUESTIONS);
     }
