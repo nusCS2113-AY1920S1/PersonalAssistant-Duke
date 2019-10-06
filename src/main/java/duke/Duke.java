@@ -71,7 +71,7 @@ public class Duke {
 //        new Duke(filePath).run();
 //    }
 
-    public void runProgram(String fullCommand) throws DukeException, ParseException {
+    void runProgram(String fullCommand) throws DukeException, ParseException {
         Command c = Parser.parse(fullCommand);
         c.execute(taskList, ui, storage);
     }

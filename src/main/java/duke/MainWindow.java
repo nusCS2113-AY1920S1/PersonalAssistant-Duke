@@ -1,5 +1,6 @@
 package duke;
 
+import duke.command.Command;
 import duke.exception.DukeException;
 import duke.tasklist.TaskList;
 import duke.ui.DialogBox;
@@ -24,6 +25,7 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 
 import java.io.IOException;
+import java.text.ParseException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -57,7 +59,7 @@ public class MainWindow extends AnchorPane {
     private ListView<String> listView;
 
     @FXML
-    public void initialize() {
+    public void initialize() throws ParseException, DukeException {
         if (!Main.isScreenLoaded) {
             loadStartingScreen();
         }
@@ -78,7 +80,7 @@ public class MainWindow extends AnchorPane {
      * the dialog container. Clears the user input after processing.
      */
     @FXML
-    private void handleUserInput() throws DukeException {
+    private void handleUserInput() throws DukeException, ParseException {
         String input = userInput.getText();
 //        String response = duke.getResponse(input);
 //        listView.getItems().addAll(duke.getList());
@@ -87,9 +89,10 @@ public class MainWindow extends AnchorPane {
         } else {
             resultDisplay.clear();
             listView.getItems().clear();
-            for (int i = 0; i < duke.getSize() / 3; i++) {
-                listView.getItems().add(duke.getList().get(i));
-            }
+            duke.runProgram(input);
+//            for (int i = 0; i < duke.getSize() / 3; i++) {
+//                listView.getItems().add(duke.getList().get(i));
+//            }
             dialogContainer.getChildren().addAll(
                     DialogBox.getUserDialog(input)
             );
@@ -98,9 +101,9 @@ public class MainWindow extends AnchorPane {
     }
 
     public void handleListTask() {
-//        for (int i = 0; i < duke.getList().size(); i++) {
-//            listView.getItems().add(duke.getList().get(i));
-//        }
+        for (int i = 0; i < duke.getList().size() / 3; i++) {
+            listView.getItems().add(duke.getList().get(i));
+        }
     }
 
     public void handleLoadingError() {
