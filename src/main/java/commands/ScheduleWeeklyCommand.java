@@ -3,18 +3,22 @@ import Storage.Storage;
 import Tasks.Deadline;
 import Tasks.Event;
 import Tasks.Task;
+import Tasks.Timebound;
 import UI.Ui;
 
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import static java.time.temporal.ChronoUnit.DAYS;
 import java.util.ArrayList;
+
+
 
 /**
  * Lists out all the tasks the user has on the specified day.
  */
-public class ScheduleCommandWeekly extends Command {
+public class ScheduleWeeklyCommand extends Command {
     //format for the command: scheduleWeekly <yyyy-MM-dd(Mon) yyyy-MM-dd(Sun)>
     protected LocalDate mon;
     protected LocalDate sun;
@@ -51,18 +55,19 @@ public class ScheduleCommandWeekly extends Command {
                 return;
             }
 
-            int numOfDays = sun.getDayOfMonth() - mon.getDayOfMonth() + 1;
+            long numOfDays = DAYS.between(mon, sun) + 1;
             if (mon.getDayOfWeek() != DayOfWeek.MONDAY) {
                 System.out.println("The first date has to be a Monday.");
                 return;
             } else if (sun.getDayOfWeek() != DayOfWeek.SUNDAY) {
                 System.out.println("The second date has to be a Sunday.");
                 return;
-            } else if (mon.getDayOfMonth() >= sun.getDayOfMonth()) {
+            } else if (mon.isAfter(sun)) {
                 System.out.println("The second date has to be later than the first date.");
                 return;
             } else if (numOfDays != ONE_WEEK) {
                 System.out.println("The duration you have specified is longer than 1 week.");
+                System.out.println(numOfDays);
                 assert numOfDays > 7 : "numOfDays should be more than 7";
                 return;
             }
@@ -79,16 +84,23 @@ public class ScheduleCommandWeekly extends Command {
             } else if (t.getClass().getName().equals("Tasks.Deadline")) {
                 tDate = ((Deadline) t).by.toLocalDate();
             } else if (t.getClass().getName().equals("Tasks.Timebound")) {
-                
+                LocalDate startDate = ((Timebound) t).dateStart;
+                LocalDate endDate = ((Timebound) t).dateEnd;
+                if (endDate.equals(mon) || (startDate.isBefore(mon) && endDate.isAfter(mon)) ||
+                        startDate.equals(mon) || (startDate.isAfter(mon) && startDate.isBefore(sun)) ||
+                        startDate.equals(sun)) {
+                    schedule.add(t);
+                }
             }
-            if (date.equals(tDate)) {
+            if (tDate != null && (tDate.equals(mon) || (tDate.isAfter(mon) &&
+                    tDate.isBefore(sun)) || tDate.equals(sun))) {
                 schedule.add(t);
             }
         }
         if (schedule.isEmpty()) {
-            System.out.println("You have nothing scheduled on this day!");
+            System.out.println("You have nothing scheduled for this week!");
         } else {
-            System.out.println("Here is your schedule for " + date.format(fmt) + ":");
+            System.out.println("Here is your schedule for the week:");
             for (int i = 0; i < schedule.size(); i++) {
                 System.out.println((i+1) + "." + schedule.get(i).listFormat());
             }
