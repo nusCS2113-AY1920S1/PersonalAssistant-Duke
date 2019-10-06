@@ -14,6 +14,7 @@ import java.io.IOException;
 public class EventCommand extends Command {
     String[] splitE;
     String[] startEnd;
+    boolean canAdd = true;
 
     /**
      * Create new Event object.
@@ -48,10 +49,12 @@ public class EventCommand extends Command {
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException, IOException {
         Event event = new Event(splitE[0], startEnd[0], startEnd[1]);
-        tasks.add(event);
-        storage.saveToFile(tasks);
-        ui.showString("Got it. I've added this task:\n"
-                + event.toString() + "\n"
-                + "Now you have " + tasks.size() + " task(s) in the list.");
+        if (canAdd) {
+            tasks.add(event);
+            storage.saveToFile(tasks);
+            ui.showString("Got it. I've added this task:\n"
+                    + event.toString() + "\n"
+                    + "Now you have " + tasks.size() + " task(s) in the list.");
+        }
     }
 }
