@@ -13,6 +13,7 @@ public class ListIndex1 extends ListFormat {
         listIndex1SubList.add("Print");
         listIndex1SubList.add("Read");
         listIndex1SubList.add("Classes and Objects");
+        listIndex1SubList.add("Quiz");
     }
 
     /**

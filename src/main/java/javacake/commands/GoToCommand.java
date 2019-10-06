@@ -48,6 +48,8 @@ public class GoToCommand extends Command {
                 progressStack.mainListToListIndex3();
                 ListIndex3 listIndex3 = new ListIndex3();
                 listIndex3.printList();
+            } else if (progressStack.checkProgress() == 1 && index.equals("4")) {
+
             } else if (progressStack.checkProgress() == 2 && index.equals("1.1")) {
                 progressStack.listIndex3ToSubList1();
                 BufferedReader reader = new BufferedReader(
@@ -64,6 +66,9 @@ public class GoToCommand extends Command {
                 BufferedReader reader = new BufferedReader(
                         new FileReader("content/MainList/ListIndex1/javabasics/3.txt"));
                 ui.displayTextFile(reader);
+
+            } else if (progressStack.checkProgress() == 2 && index.equals("1.4")) {
+
 
             } else if (progressStack.checkProgress() == 2 && index.equals("2.1")) {
                 progressStack.listIndex3ToSubList1();
