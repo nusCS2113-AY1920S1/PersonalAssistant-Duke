@@ -10,6 +10,11 @@ import java.util.ArrayList;
 public class ContactStorage extends Storage<Contact> {
     public static final String DEFAULT_STORAGE_FILEPATH_CONTACT = "./data/contact.txt";
 
+    /**
+     * Loads the contacts from contact.txt into a temporary ArrayList of Contact objects.
+     *
+     * @return The ArrayList of Contact objects.
+     */
     @Override
     public ArrayList<Contact> loadFile() {
         ArrayList<Contact> contactList = new ArrayList<>();
@@ -40,6 +45,11 @@ public class ContactStorage extends Storage<Contact> {
         return contactList;
     }
 
+    /**
+     * Writes the contact into contacts.txt.
+     *
+     * @param contact The Contact object.
+     */
     @Override
     public void writeToFile(Contact contact) {
         try {

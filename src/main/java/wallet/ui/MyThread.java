@@ -1,6 +1,5 @@
 package wallet.ui;
 
-import wallet.model.Wallet;
 import wallet.model.record.Loan;
 import wallet.model.record.LoanList;
 
@@ -14,6 +13,13 @@ class MyThread implements Runnable {
     LoanList loanList;
     private Ui ui;
 
+    /**
+     * Constructs a custom thread.
+     *
+     * @param isExit        A boolean variable to continue running thread/terminate.
+     * @param loanList      The LoanList object.
+     * @param timeInSeconds The time in seconds.
+     */
     MyThread(boolean isExit, LoanList loanList, int timeInSeconds) {
         this.isExit = isExit;
         this.timeInSeconds = timeInSeconds;
@@ -25,7 +31,9 @@ class MyThread implements Runnable {
     }
 
 
-    // execution of thread starts from run() method
+    /**
+     * Executes the thread.
+     */
     public void run() {
         int i = 0;
         while (!isExit) {
@@ -48,8 +56,10 @@ class MyThread implements Runnable {
         }
     }
 
-    // for stopping the thread
-    public void stop(){
+    /**
+     * Stops the thread.
+     */
+    public void stop() {
         thread.interrupt();
         isExit = true;
     }

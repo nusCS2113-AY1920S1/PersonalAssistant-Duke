@@ -67,7 +67,7 @@ public abstract class Record {
         this.id = id;
     }
 
-    public int getId(){
+    public int getId() {
         return this.id;
     }
 

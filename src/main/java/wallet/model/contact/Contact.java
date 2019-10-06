@@ -78,7 +78,7 @@ public class Contact {
     }
 
     /**
-     * Sets the id of the contact object
+     * Sets the id of the contact object.
      *
      * @param id The identity of the contact object.
      */
@@ -105,6 +105,11 @@ public class Contact {
         return "[ID: " + this.id + "]" + this.name + " " + this.detail + " " + this.phoneNum;
     }
 
+    /**
+     * Form a string to write to contact.txt.
+     *
+     * @return The String to be written in contact.txt.
+     */
     public String writeToFile() {
         return getId() + "," + this.name + "," + this.detail + "," + this.phoneNum;
     }

@@ -49,7 +49,7 @@ public class ExpenseList {
      * @param e The expense to be added.
      */
     public void addExpense(Expense e) {
-        e.setId(getLargestId(this.expenseList)+1);
+        e.setId(getLargestId(this.expenseList) + 1);
         expenseList.add(e);
     }
 

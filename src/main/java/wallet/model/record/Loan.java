@@ -93,11 +93,15 @@ public class Loan extends Record {
     @Override
     public String toString() {
         if (isLend) {
-            return "[ID: " + getId() + "]" + "[" + (isSettled ? "Settled" : "Not Settled") + "]" + "[Lend] " + description + " Amount:$"
-                    + amount + " Date:" + DateTimeFormatter.ofPattern("dd MMM yyyy").format(getDate()) + "[Contact: " + person.toString() + "]";
+            return "[ID: " + getId() + "]" + "[" + (isSettled ? "Settled" : "Not Settled") + "]"
+                    + "[Lend] " + description + " Amount:$" + amount
+                    + " Date:" + DateTimeFormatter.ofPattern("dd MMM yyyy").format(getDate())
+                    + "[Contact: " + person.toString() + "]";
         } else { //isBorrow
-            return "[ID: " + getId() + "]" + "[" + (isSettled ? "Settled" : "Not Settled") + "]" + "[Borrow] " + description + " Amount:$"
-                    + amount + " Date:" + DateTimeFormatter.ofPattern("dd MMM yyyy").format(getDate()) + "[Contact: " + person.toString() + "]";
+            return "[ID: " + getId() + "]" + "[" + (isSettled ? "Settled" : "Not Settled") + "]"
+                    + "[Borrow] " + description + " Amount:$" + amount
+                    + " Date:" + DateTimeFormatter.ofPattern("dd MMM yyyy").format(getDate())
+                    + "[Contact: " + person.toString() + "]";
         }
     }
 
@@ -105,16 +109,20 @@ public class Loan extends Record {
     public String writeToFile() {
         if (!isLend && !isSettled) {
             return getId() + "," + getDescription() + "," + amount + ","
-                    + DateTimeFormatter.ofPattern("dd/MM/yyyy").format(getDate()) + "," + "0" + "," + "0" + ","  + person.getId();
+                    + DateTimeFormatter.ofPattern("dd/MM/yyyy").format(getDate())
+                    + "," + "0" + "," + "0" + "," + person.getId();
         } else if (!isLend && isSettled) {
             return getId() + "," + getDescription() + "," + amount + ","
-                    + DateTimeFormatter.ofPattern("dd/MM/yyyy").format(getDate()) + "," + "0" + "," + "1" + ","  + person.getId();
+                    + DateTimeFormatter.ofPattern("dd/MM/yyyy").format(getDate())
+                    + "," + "0" + "," + "1" + "," + person.getId();
         } else if (isLend && !isSettled) {
             return getId() + "," + getDescription() + "," + amount + ","
-                    + DateTimeFormatter.ofPattern("dd/MM/yyyy").format(getDate()) + "," + "1" + "," + "0" + ","  + person.getId();
-        } else if(isLend && isSettled) {
+                    + DateTimeFormatter.ofPattern("dd/MM/yyyy").format(getDate())
+                    + "," + "1" + "," + "0" + "," + person.getId();
+        } else if (isLend && isSettled) {
             return getId() + "," + getDescription() + "," + amount + ","
-                    + DateTimeFormatter.ofPattern("dd/MM/yyyy").format(getDate()) + "," + "1" + "," + "1" + ","  + person.getId();
+                    + DateTimeFormatter.ofPattern("dd/MM/yyyy").format(getDate())
+                    + "," + "1" + "," + "1" + "," + person.getId();
         }
         return null;
     }

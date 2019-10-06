@@ -17,6 +17,7 @@ public class LoanList {
 
     /**
      * Returns the list of loans.
+     *
      * @return The list of loans.
      */
     public ArrayList<Loan> getLoanList() {
@@ -38,7 +39,7 @@ public class LoanList {
      * @param loan The Loan object.
      */
     public void addLoan(Loan loan) {
-        loan.setId(getLargestId(this.loanList)+1);
+        loan.setId(getLargestId(this.loanList) + 1);
         this.loanList.add(loan);
     }
 
@@ -56,7 +57,7 @@ public class LoanList {
      * Edits the Loan object in the list of loans.
      *
      * @param index The index of the Loan object in the list of loans.
-     * @param loan The Loan object.
+     * @param loan  The Loan object.
      */
     public void editLoan(int index, Loan loan) {
         this.loanList.set(index, loan);
@@ -81,6 +82,9 @@ public class LoanList {
         return this.loanList.size();
     }
 
+    /**
+     * Lists the list of loans.
+     */
     public void listLoanList() {
         int counter = 1;
         System.out.println(ListCommand.MESSAGE_LIST_LOANS);

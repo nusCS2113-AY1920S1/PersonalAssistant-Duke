@@ -12,6 +12,11 @@ import java.util.ArrayList;
 public class ExpenseStorage extends Storage<Expense> {
     public static final String DEFAULT_STORAGE_FILEPATH_EXPENSE = "./data/expense.txt";
 
+    /**
+     * Loads the expenses from expense.txt into a temporary ArrayList of Expense objects.
+     *
+     * @return The ArrayList of Expense objects.
+     */
     @Override
     public ArrayList<Expense> loadFile() {
         ArrayList<Expense> expenseList = new ArrayList<>();
@@ -47,6 +52,11 @@ public class ExpenseStorage extends Storage<Expense> {
         return expenseList;
     }
 
+    /**
+     * Write the Expense object as a String into expense.txt.
+     *
+     * @param expense The Expense object.
+     */
     @Override
     public void writeToFile(Expense expense) {
         try {

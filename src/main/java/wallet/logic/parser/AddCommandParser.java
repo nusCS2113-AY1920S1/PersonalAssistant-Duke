@@ -44,7 +44,6 @@ public class AddCommandParser implements Parser<AddCommand> {
             } else {
                 break;
             }
-
         case "expense":
             Expense expense = parseExpense(arguments[1]);
             if (expense != null) {
@@ -79,7 +78,7 @@ public class AddCommandParser implements Parser<AddCommand> {
      *
      * @param input A string input.
      * @return The Expense object.
-     * @throws NumberFormatException Wrong format.
+     * @throws NumberFormatException          Wrong format.
      * @throws ArrayIndexOutOfBoundsException Out of index.
      */
     private Expense parseExpense(String input) throws NumberFormatException, ArrayIndexOutOfBoundsException {
@@ -123,7 +122,7 @@ public class AddCommandParser implements Parser<AddCommand> {
      * @param input The string after "loan".
      * @return The Loan object.
      * @throws ArrayIndexOutOfBoundsException Out of index.
-     * @throws ParseException ParseException.
+     * @throws ParseException                 ParseException.
      */
     private Loan parseLoan(String input) throws ArrayIndexOutOfBoundsException, ParseException {
         Loan loan = null;
@@ -131,7 +130,7 @@ public class AddCommandParser implements Parser<AddCommand> {
 
         String[] info = input.split(" ", 4);
         String description = info[0];
-        double amount = Double.parseDouble(info[1].replace("$",""));
+        double amount = Double.parseDouble(info[1].replace("$", ""));
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         LocalDate createdDate = LocalDate.parse(info[2].trim(), formatter);
 
@@ -146,7 +145,7 @@ public class AddCommandParser implements Parser<AddCommand> {
             isLend = false;
         }
         ArrayList<Contact> contactList = storageManager.loadContact();
-        Contact person = new ContactList(contactList).getContact(contactId-1);
+        Contact person = new ContactList(contactList).getContact(contactId - 1);
         loan = new Loan(description, createdDate, amount, isLend, false, person);
         return loan;
     }
@@ -171,10 +170,10 @@ public class AddCommandParser implements Parser<AddCommand> {
      * Returns a Task Object based on command and input.
      *
      * @param command A string command.
-     * @param input A string input.
+     * @param input   A string input.
      * @return The Task object.
      * @throws ArrayIndexOutOfBoundsException Out of index.
-     * @throws ParseException ParseException.
+     * @throws ParseException                 ParseException.
      */
     private Task parseTask(String command, String input) throws ArrayIndexOutOfBoundsException, ParseException {
         Task task = null;
@@ -214,7 +213,7 @@ public class AddCommandParser implements Parser<AddCommand> {
      *
      * @return The StorageManager objcet.
      */
-    public StorageManager getStorageManager(){
+    public StorageManager getStorageManager() {
         return this.storageManager;
     }
 
@@ -223,7 +222,7 @@ public class AddCommandParser implements Parser<AddCommand> {
      *
      * @param storageManager The StorageManager object.
      */
-    public void setStorageManager(StorageManager storageManager){
+    public void setStorageManager(StorageManager storageManager) {
         this.storageManager = storageManager;
     }
 

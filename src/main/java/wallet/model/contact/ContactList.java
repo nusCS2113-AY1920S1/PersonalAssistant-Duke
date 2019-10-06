@@ -25,7 +25,7 @@ public class ContactList {
      * @param contact The contact to be added.
      */
     public void addContact(Contact contact) {
-        contact.setId(getLargestId(this.contactList)+1);
+        contact.setId(getLargestId(this.contactList) + 1);
         contactList.add(contact);
     }
 
@@ -42,7 +42,7 @@ public class ContactList {
     /**
      * Modify the value of the contact at the given index in the contactList.
      *
-     * @param id  The id of the contact in the list.
+     * @param id      The id of the contact in the list.
      * @param contact The contact with modified values.
      */
     public void editContact(int id, Contact contact) {
@@ -52,7 +52,7 @@ public class ContactList {
     /**
      * Removes the contact at the given index of the contactList.
      *
-     * @param id The id of the contact in the list
+     * @param id The id of the contact in the list.
      */
     public void deleteContact(int id) {
         contactList.remove(id);
@@ -94,8 +94,9 @@ public class ContactList {
 
     /**
      * Creates Contact object.
-     * @param name Name of the contact.
-     * @param detail Details of the contact.
+     *
+     * @param name     Name of the contact.
+     * @param detail   Details of the contact.
      * @param phoneNum Phone Number of the contact.
      * @return The Contact Object.
      */

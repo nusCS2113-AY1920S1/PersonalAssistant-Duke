@@ -15,6 +15,11 @@ public class LoanStorage extends Storage<Loan> {
     public static final String DEFAULT_STORAGE_FILEPATH_LOAN = "./data/loan.txt";
     private ContactStorage contactStorage = null;
 
+    /**
+     * Loads the loans from loan.txt into a temporary ArrayList of Loan objects.
+     *
+     * @return The ArrayList of Loan objects.
+     */
     @Override
     public ArrayList<Loan> loadFile() {
         ArrayList<Loan> loanList = new ArrayList<>();
@@ -33,9 +38,9 @@ public class LoanStorage extends Storage<Loan> {
 
                 isLend = !data[4].equals("0");
                 isSettled = !data[5].equals("0");
-                person = new ContactList(contactStorage.loadFile()).getContact(Integer.parseInt(data[6])-1);
+                person = new ContactList(contactStorage.loadFile()).getContact(Integer.parseInt(data[6]) - 1);
                 if (data.length == 7 && person != null) {
-                    loan = new Loan(data[1],LocalDate.parse(data[3], formatter), Double.parseDouble(data[2]),
+                    loan = new Loan(data[1], LocalDate.parse(data[3], formatter), Double.parseDouble(data[2]),
                             isLend, isSettled, person);
                 }
 
@@ -53,6 +58,11 @@ public class LoanStorage extends Storage<Loan> {
         return loanList;
     }
 
+    /**
+     * Write the Loan object as a String into loan.txt.
+     *
+     * @param loan The Loan object.
+     */
     @Override
     public void writeToFile(Loan loan) {
         try {
@@ -78,10 +88,21 @@ public class LoanStorage extends Storage<Loan> {
 
     }
 
-    public void setContactStorage(ContactStorage contactStorage){
+    /**
+     * Sets the ContactStorage object.
+     *
+     * @param contactStorage The ContactStorage object.
+     */
+    public void setContactStorage(ContactStorage contactStorage) {
         this.contactStorage = contactStorage;
     }
-    public ContactStorage getContactStorage(){
+
+    /**
+     * Returns the ContactStorage object.
+     *
+     * @return The ContactStorage object.
+     */
+    public ContactStorage getContactStorage() {
         return this.contactStorage;
     }
 }

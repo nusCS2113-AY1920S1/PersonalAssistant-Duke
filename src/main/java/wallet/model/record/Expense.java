@@ -82,10 +82,20 @@ public class Expense extends Record {
         isRecurring = recurring;
     }
 
+    /**
+     * Gets the recurring frequency string.
+     *
+     * @return A string indicating the recurring frequency.
+     */
     public String getRecFrequency() {
         return recFrequency;
     }
 
+    /**
+     * Sets the recurring frequency.
+     *
+     * @param recFrequency The recurring frequency string.
+     */
     public void setRecFrequency(String recFrequency) {
         this.recFrequency = recFrequency;
     }
@@ -93,10 +103,12 @@ public class Expense extends Record {
     @Override
     public String toString() {
         if (isRecurring) {
-            return "[ID: " + getId() + "]" + "[" + recFrequency + "] " + getDescription() + " Amount:$" + amount + " Date:"
+            return "[ID: " + getId() + "]" + "[" + recFrequency + "] "
+                    + getDescription() + " Amount:$" + amount + " Date:"
                     + DateTimeFormatter.ofPattern("dd MMM yyyy").format(getDate()) + " Category:" + category;
         } else {
-            return "[ID: " + getId() + "]" + " " + getDescription() + " Amount:$" + amount + " Date:"
+            return "[ID: " + getId() + "]" + " "
+                    + getDescription() + " Amount:$" + amount + " Date:"
                     + DateTimeFormatter.ofPattern("dd MMM yyyy").format(getDate()) + " Category:" + category;
         }
     }

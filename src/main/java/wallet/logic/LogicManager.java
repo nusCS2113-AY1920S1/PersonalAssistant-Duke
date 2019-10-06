@@ -1,10 +1,13 @@
 package wallet.logic;
 
-import wallet.model.contact.ContactList;
 import wallet.logic.command.Command;
 import wallet.logic.parser.ParserManager;
 import wallet.model.Wallet;
-import wallet.model.record.*;
+import wallet.model.contact.ContactList;
+import wallet.model.record.ExpenseList;
+import wallet.model.record.ExpenseParser;
+import wallet.model.record.LoanList;
+import wallet.model.record.RecordList;
 import wallet.model.task.ScheduleList;
 import wallet.model.task.TaskList;
 import wallet.storage.StorageManager;
@@ -22,14 +25,16 @@ public class LogicManager {
      */
     public LogicManager() {
         this.storageManager = new StorageManager();
-        this.wallet = new Wallet(new RecordList(), new ExpenseList(storageManager.loadExpense()),new ContactList(storageManager.loadContact()),
-                new TaskList(storageManager.loadTask()), new ScheduleList(), new LoanList(storageManager.loadLoan()));
+        this.wallet = new Wallet(new RecordList(), new ExpenseList(storageManager.loadExpense()),
+                new ContactList(storageManager.loadContact()), new TaskList(storageManager.loadTask()),
+                new ScheduleList(), new LoanList(storageManager.loadLoan()));
         this.parserManager = new ParserManager();
         this.parserManager.setStorageManager(this.storageManager);
     }
 
     /**
      * Executes the command and returns the result.
+     *
      * @param fullCommand The full command input by user.
      * @return
      */
@@ -49,7 +54,12 @@ public class LogicManager {
         return isExit;
     }
 
-    public Wallet getWallet(){
+    /**
+     * Gets the Wallet object.
+     *
+     * @return The Wallet object.
+     */
+    public Wallet getWallet() {
         return this.wallet;
     }
 }
