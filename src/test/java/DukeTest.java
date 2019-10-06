@@ -17,15 +17,6 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 public class DukeTest {
     @Test
-    public void testUi() {
-        Ui ui = new Ui();
-        assertEquals(" ____        _        \n"
-                + "|  _ \\ _   _| | _____ \n"
-                + "| | | | | | | |/ / _ \\\n"
-                + "| |_| | |_| |   <  __/\n"
-                + "|____/ \\__,_|_|\\_\\___|\n", ui.showWelcome());
-    }
-    @Test
    public void test() {
         DeadlineCommand deadlineCommand = new DeadlineCommand();
         ArrayList<Task> tasks = new ArrayList<Task>();

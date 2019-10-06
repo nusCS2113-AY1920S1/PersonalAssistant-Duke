@@ -82,6 +82,8 @@ public class Parser {
         }
         else if(command.contains("edit")) {
             return new EditCommand();
+        } else if(command.contains("change password")) {
+            return new ChangePasswordCommand();
         }
         else if(command.contains("#")) {
             return new TagCommand();

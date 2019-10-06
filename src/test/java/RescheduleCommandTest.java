@@ -30,6 +30,8 @@ public class RescheduleCommandTest {
         Task RescheduledDeadline = new Deadline(Decription, ui.FullCommand);
         tasks.remove(index);
         tasks.add(RescheduledDeadline);
+
         assertEquals(tasks.get(0).toString(),"D|ND|return book |by: 2019-09-18 05:05:05");
+
     }
 }

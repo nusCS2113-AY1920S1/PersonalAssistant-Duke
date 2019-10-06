@@ -35,11 +35,11 @@ public class DoneCommand extends Command {
                 }
             }
             /**
-             * Add some weekly task
+             * Add some recurring task
              */
 
             RecurringCommand rc = new RecurringCommand();
-            rc.AddRecurring(list, list.get(numbercheck).toString(), storage);
+            rc.AddRecurring(list, numbercheck,list.get(numbercheck).toString(), storage);
 
             StringBuilder sb = new StringBuilder();
             for (int i = 0; i < list.size(); i++) {

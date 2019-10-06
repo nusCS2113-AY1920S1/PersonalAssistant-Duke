@@ -13,16 +13,34 @@ import java.util.Scanner;
 
 
 public class Storage {
-    //String directory = System.getProperty("user.home");
-    //String fileName = "sample.txt";
 
     private String absolutePath = "Save.txt";
+    private String absolutePath_password = "Password.txt";
 
     public void Storages(String fileContent) throws IOException {
         FileWriter fileWriter = new FileWriter(absolutePath);
         fileWriter.write(fileContent);
         fileWriter.flush();
         fileWriter.close();
+    }
+
+    public void Storages_password(String fileContent) throws IOException {
+        FileWriter fileWriter = new FileWriter(absolutePath_password);
+        fileWriter.write(fileContent);
+        fileWriter.flush();
+        fileWriter.close();
+    }
+
+    public ArrayList<String> Password() throws IOException {
+        ArrayList<String> passwordList = new ArrayList<>();
+        if(new File(absolutePath_password).exists()) {
+            File file = new File(absolutePath_password);
+            Scanner sc = new Scanner(file);
+            while(sc.hasNext()) {
+                passwordList.add(sc.nextLine());
+            }
+        }
+        return passwordList;
     }
 
     public ArrayList<Task> ReadFile() throws IOException {
@@ -52,6 +70,7 @@ public class Storage {
                 else if (details[0].equals("E)")){
                     Event e = new Event(details[2].trim(), details[3].substring(3).trim());
                     if (details[1].equals("D")) {
+
                         e.isDone = true;
                     } else {
                         e.isDone = false;
@@ -61,6 +80,7 @@ public class Storage {
                 else if (details[0].equals("P")) {
                     Timebound tb = new Timebound(details[2].trim(), details[3].substring(8).trim());
                     if (details[1].equals("D")) {
+
                         tb.isDone = true;
                     } else {
                         tb.isDone = false;
@@ -88,6 +108,7 @@ public class Storage {
                    }
                    TentativeEvent TE = new TentativeEvent(details[2].trim(),timeslots);
                     if (details[1].equals("D")) {
+
                         TE.isDone = true;
                     } else {
                         TE.isDone = false;
