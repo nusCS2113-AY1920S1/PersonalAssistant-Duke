@@ -1,0 +1,67 @@
+package duke.parsers.api;
+
+import duke.commons.DukeException;
+import duke.data.Location;
+import duke.data.tasks.Holiday;
+
+/**
+ * Class to handle all API requests.
+ */
+public class ApiConstraintParser {
+
+    public static Holiday getConstraintLocation(Holiday holiday, String constraint) throws DukeException {
+        switch (constraint) {
+            case "onlyBus":
+                return getBus(holiday);
+            case "onlyMRT":
+                return getMRT(holiday);
+            case "Hybrid":
+                return getHybrid(holiday);
+        }
+        return holiday;
+    }
+
+    private static Holiday getHybrid(Holiday holiday) throws DukeException {
+
+        // Make calls to the API and get the new coordinates of the longitude and latitude of the nearest constraint;
+
+        /*
+        double latitude = 1; dummy value
+        double longitude = 0; dummy value
+        holiday.setLocation(holiday.getLocation().setLatitude(latitude));
+        holiday.setLocation(holiday.getLocation().setLongitude(longitude));
+        */
+
+        return holiday;
+    }
+
+    private static Holiday getBus(Holiday holiday) {
+
+        // Make calls to the API and get the new coordinates of the longitude and latitude of the nearest busstop;
+
+        /*
+        double latitude = 1; dummy value
+        double longitude = 0; dummy value
+        holiday.setLocation(holiday.getLocation().setLatitude(latitude));
+        holiday.setLocation(holiday.getLocation().setLongitude(longitude));
+        */
+
+
+        return holiday;
+    }
+
+    private static Holiday getMRT(Holiday holiday) {
+
+        // Make calls to the API and get the new coordinates of the longitude and latitude of the nearest mrt;
+
+        /*
+        double latitude = 1; dummy value
+        double longitude = 0; dummy value
+        holiday.setLocation(holiday.getLocation().setLatitude(latitude));
+        holiday.setLocation(holiday.getLocation().setLongitude(longitude));
+        */
+
+        return holiday;
+    }
+
+}

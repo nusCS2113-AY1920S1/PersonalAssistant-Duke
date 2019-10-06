@@ -2,6 +2,7 @@ package duke.commands;
 
 import duke.commons.DukeException;
 import duke.data.Location;
+import duke.data.tasks.Holiday;
 import duke.storage.Storage;
 import duke.ui.Ui;
 import duke.parsers.api.ApiParser;
@@ -22,7 +23,6 @@ public class LocationSearchCommand extends Command {
     @Override
     public void execute(Ui ui, Storage storage) throws DukeException {
         Location result = ApiParser.getLocationSearch(param);
-
         ui.show("These are the coordinates of your search:\n"
                 + result.getAddress() + "\n" + result.getLatitude() + " "
                 + result.getLongitude());

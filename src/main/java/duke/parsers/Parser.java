@@ -5,6 +5,7 @@ import duke.commands.FindCommand;
 import duke.commands.AddCommand;
 import duke.commands.Command;
 import duke.commands.ExitCommand;
+import duke.commands.FindPathCommand;
 import duke.commands.HelpCommand;
 import duke.commands.ListCommand;
 import duke.commands.LocationSearchCommand;
@@ -15,6 +16,10 @@ import duke.commands.RescheduleCommand;
 import duke.commands.ViewScheduleCommand;
 import duke.commons.DukeException;
 import duke.commons.MessageUtil;
+import duke.data.UniqueTaskList;
+import duke.data.tasks.Holiday;
+import duke.data.tasks.Task;
+import duke.storage.Storage;
 
 
 /**
@@ -66,6 +71,11 @@ public class Parser {
             return new HelpCommand();
         case "search":
             return new LocationSearchCommand(getWord(userInput));
+        case "holiday":
+            return new AddCommand(ParserUtil.createHoliday(userInput));
+        case "findPath":
+            return new FindPathCommand(getWord(userInput),  getHolidayIndexInList(1, userInput),
+                    getHolidayIndexInList(2, userInput));
         default:
             throw new DukeException(MessageUtil.UNKNOWN_COMMAND);
         }
@@ -92,6 +102,18 @@ public class Parser {
             return userInput.strip().split(" ", 2)[1];
         } catch (ArrayIndexOutOfBoundsException e) {
             throw new DukeException(MessageUtil.INVALID_FORMAT);
+        }
+    }
+
+    private static String getHolidayIndexInList( int index, String userInput)
+    {
+        if(index == 1)
+        {
+            return userInput.strip().split(" ", 2)[2];
+        }
+        else
+        {
+            return userInput.strip().split(" ", 2)[3];
         }
     }
 }

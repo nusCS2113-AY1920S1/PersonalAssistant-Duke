@@ -42,7 +42,6 @@ public class ApiParser {
         return result;
          */
     }
-
     private static boolean isFound(JsonObject jsonRes) {
         return Integer.parseInt(String.valueOf(jsonRes.getAsJsonPrimitive("found"))) > 0;
     }

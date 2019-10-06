@@ -22,9 +22,14 @@ public class Holiday extends DoWithin {
      * Get coordinates of the destination.
      */
     public Location getLocation() throws DukeException {
-        if (location == null) {
-            location = ApiParser.getLocationSearch(getDescription());
+        if (this.location == null) {
+            this.location = ApiParser.getLocationSearch(getDescription());
         }
-        return location;
+        return this.location;
+    }
+
+    public void setLocation(Location location)
+    {
+        this.location = location;
     }
 }

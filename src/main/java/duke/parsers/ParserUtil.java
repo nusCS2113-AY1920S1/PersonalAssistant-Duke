@@ -7,6 +7,7 @@ import duke.data.tasks.Deadline;
 import duke.data.tasks.DoWithin;
 import duke.data.tasks.Event;
 import duke.data.tasks.Fixed;
+import duke.data.tasks.Holiday;
 import duke.data.tasks.RecurringTask;
 import duke.data.tasks.Task;
 import duke.data.tasks.Todo;
@@ -198,5 +199,18 @@ public class ParserUtil {
         } catch (ArrayIndexOutOfBoundsException e) {
             throw new DukeException(MessageUtil.EMPTY_DESCRIPTION);
         }
+    }
+
+    public static Holiday createHoliday(String userInput) throws DukeException {
+        String[] withinDetails = userInput.substring("holiday".length()).strip().split("between|and");
+        if (withinDetails.length != 3 || withinDetails[1] == null || withinDetails[2] == null) {
+            throw new DukeException(MessageUtil.INVALID_FORMAT);
+        }
+        if (withinDetails[0].strip().isEmpty()) {
+            throw new DukeException(MessageUtil.EMPTY_DESCRIPTION);
+        }
+        LocalDateTime start = ParserTimeUtil.parseStringToDate(withinDetails[1].strip());
+        LocalDateTime end = ParserTimeUtil.parseStringToDate(withinDetails[2].strip());
+        return new Holiday(withinDetails[0].strip(), start, end);
     }
 }
