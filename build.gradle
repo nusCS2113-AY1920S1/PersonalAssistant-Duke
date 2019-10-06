@@ -9,7 +9,7 @@ checkstyle {
     toolVersion = '8.23'
 }
 
-group 'seedu.duke'
+group 'seedu.hustler'
 version '0.1.0'
 
 repositories {
@@ -18,7 +18,7 @@ repositories {
 
 application {
     // Change this to your main class.
-    mainClassName = "seedu.duke.Duke"
+    mainClassName = "seedu.hustler.Hustler"
 }
 
 run {
@@ -34,7 +34,7 @@ test {
 }
 
 shadowJar {
-    archiveBaseName = "duke"
+    archiveBaseName = "hustler"
     archiveVersion = "mid-v1.1"
     archiveClassifier = null
     archiveAppendix = null
