@@ -6,6 +6,7 @@ public class Location {
     private double distX;
     private double distY;
     private String address;
+
     /**
      * Creates a location object.
      */
@@ -26,11 +27,11 @@ public class Location {
         return longitude;
     }
 
-    public void setLatitude(double latitude){
+    public void setLatitude(double latitude) {
         this.latitude = latitude;
     }
 
-    public void setLongitude(double longitude){
+    public void setLongitude(double longitude) {
         this.longitude = longitude;
     }
 

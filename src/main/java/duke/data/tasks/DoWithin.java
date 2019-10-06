@@ -9,6 +9,8 @@ public class DoWithin extends TaskWithDates {
      * Initializes a task to be done within two date the given description.
      *
      * @param description A description of this task.
+     * @param startDate Starting date of task
+     * @param endDate Ending date of task
      */
     public DoWithin(String description, LocalDateTime startDate, LocalDateTime endDate) {
         super(description, startDate);

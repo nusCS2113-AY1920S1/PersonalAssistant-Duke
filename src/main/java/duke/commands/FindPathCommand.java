@@ -16,6 +16,14 @@ public class FindPathCommand extends Command {
     private String startPointIndex;
     private String endPointIndex;
 
+    /**
+     * Constructor to initialise FindPathCommand.
+     *
+     * @param constraint The constraint of the location request
+     * @param startPointIndex Index of starting location of trip
+     * @param endPointIndex Index of ending location of trip
+     */
+
     public FindPathCommand(String constraint, String startPointIndex, String endPointIndex) {
         this.constraint = constraint;
         this.endPointIndex = endPointIndex;
@@ -45,10 +53,10 @@ public class FindPathCommand extends Command {
 
 
     private static Holiday getHoliday(String index, UniqueTaskList t) throws DukeException {
-            Task t1 = t.get(Integer.parseInt(index)- 1);
-            if(t1 instanceof Holiday){
-                return (Holiday) t1;
-            }
-            throw new DukeException("Sorry the numbers you entered are not a holiday destination");
+        Task t1 = t.get(Integer.parseInt(index) - 1);
+        if (t1 instanceof Holiday) {
+            return (Holiday) t1;
+        }
+        throw new DukeException("Sorry the numbers you entered are not a holiday destination");
     }
 }

@@ -105,14 +105,10 @@ public class Parser {
         }
     }
 
-    private static String getHolidayIndexInList(int index, String userInput)
-    {
-        if(index == 1)
-        {
+    private static String getHolidayIndexInList(int index, String userInput) {
+        if (index == 1) {
             return userInput.strip().split(" ", 4)[2];
-        }
-        else
-        {
+        } else {
             return userInput.strip().split(" ", 4)[3];
         }
     }

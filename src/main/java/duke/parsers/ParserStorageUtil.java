@@ -61,9 +61,9 @@ public class ParserStorageUtil {
             double longitude = Double.parseDouble(taskParts[6].strip());
             double latitude = Double.parseDouble(taskParts[7].strip());
             double distX = Double.parseDouble(taskParts[7].strip());
-            double distY =Double.parseDouble(taskParts[8].strip());
+            double distY = Double.parseDouble(taskParts[8].strip());
             Location location = new Location(address,latitude,longitude,distX,distY);
-            task = new Holiday(description, start, end ,location);
+            task = new Holiday(description, start, end, location);
         } else {
             task = new Todo(description);
         }

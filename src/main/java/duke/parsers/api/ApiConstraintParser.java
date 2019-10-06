@@ -5,20 +5,28 @@ import duke.data.Location;
 import duke.data.tasks.Holiday;
 
 /**
- * Class to handle all API requests.
+ * Class to handle all API constraint parsing.
  */
 public class ApiConstraintParser {
 
+    /**
+     * Parses the userInput and return a new Holiday constructed from it.
+     *
+     * @param holiday The holiday object which needs to subject to constraint
+     * @param constraint The constraint to be applied
+     * @return The updated Holiday object with constraint
+     */
     public static Holiday getConstraintLocation(Holiday holiday, String constraint) throws DukeException {
         switch (constraint) {
-            case "onlyBus":
-                return getBus(holiday);
-            case "onlyMRT":
-                return getMRT(holiday);
-            case "Hybrid":
-                return getHybrid(holiday);
+        case "onlyBus":
+            return getBus(holiday);
+        case "onlyMRT":
+            return getMrt(holiday);
+        case "Hybrid":
+            return getHybrid(holiday);
+        default:
+            return holiday;
         }
-        return holiday;
     }
 
     private static Holiday getHybrid(Holiday holiday) throws DukeException {
@@ -50,7 +58,7 @@ public class ApiConstraintParser {
         return holiday;
     }
 
-    private static Holiday getMRT(Holiday holiday) {
+    private static Holiday getMrt(Holiday holiday) {
 
         // Make calls to the API and get the new coordinates of the longitude and latitude of the nearest mrt;
 
