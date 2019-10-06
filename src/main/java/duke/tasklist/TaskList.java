@@ -15,6 +15,7 @@ import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
+import java.util.concurrent.SynchronousQueue;
 
 import static duke.common.Messages.DISPLAYED_INDEX_OFFSET;
 import static duke.common.Messages.MESSAGE_ADDED;
@@ -80,6 +81,7 @@ public class TaskList {
             final int displayIndex = i + DISPLAYED_INDEX_OFFSET;
             arrList.add("     " + displayIndex + ". " + taskList.get(i));
         }
+        System.out.println("this is the number of items in the list: " + getSize());
         return arrList;
     }
 

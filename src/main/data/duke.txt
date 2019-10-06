@@ -4,18 +4,18 @@ T | + | text ui testing
 TS | + | book empty slots | 2/12/2019 1800
 P | - | task | 2/2/2019 | 3/3/2019
 E | - | project meeting  |  Aug 6th 2-4pm
-D | - | return book  | 2nd of December 2019, 6.00pm
-D | - | assignment 3  | 9th of September 2019, 12.00pm
+D | - | return book  | 2/12/2019 1800
+D | - | assignment 3  | 9/9/2019 1200
 T | - | JUnit testing
 T | - | return book  |  the exam is over
 T | - | text ui testing
-D | - | return book  | 2nd of December 2019, 6.00pm
+D | - | return book  | 2/12/2019 1800
 E | - | party  |  beach
-D | - | submit assignment  | 17th of September 2019, 11.59pm
+D | - | submit assignment  | 17/9/2019 2359
 T | - | text ui testing
-D | - | return book  | 2nd of December 2019, 6.00pm
+D | - | return book  | 2/12/2019 1800
 T | - | text ui testing
-D | - | return book  | 2nd of December 2019, 6.00pm
+D | - | return book  | 2/12/2019 1800
 T | - | return book between 2/2/2019 /and 3/3/2019
 T | - | return book /between 2/2/2019 /and 3/3/2019
 E | - | project meeting  |  Aug 6th 2-4pm

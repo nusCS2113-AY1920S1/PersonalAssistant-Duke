@@ -32,9 +32,9 @@ public class Duke {
         storage = new Storage(filePath);
         try {
             taskList = new TaskList(storage.load());
+            System.out.println(taskList.getSize());
         } catch (DukeException e) {
             ui.showLoadingError();
-            taskList = new TaskList();
         }
     }
 
@@ -95,7 +95,10 @@ public class Duke {
     }
 
     public ArrayList<String> getList(){
-//        TaskList taskList = new TaskList();
-        return new ArrayList<>(taskList.listTask());
+        return taskList.listTask();
+    }
+
+    public int getSize() {
+        return taskList.getSize();
     }
 }

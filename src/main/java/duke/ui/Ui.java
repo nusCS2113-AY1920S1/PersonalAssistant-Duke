@@ -9,16 +9,11 @@ import static duke.common.Messages.DIVIDER;
 
 public class Ui {
 
-    private Scanner scanner;
     private MainWindow mainWindow;
 
     public Ui() {
         this.mainWindow = new MainWindow();
     }
-
-//    public Ui() {
-//        this.scanner = new Scanner(System.in);
-//    }
 
     /**
      * Display welcome message of the program.

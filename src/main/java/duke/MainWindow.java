@@ -1,11 +1,13 @@
 package duke;
 
 import duke.exception.DukeException;
+import duke.tasklist.TaskList;
 import duke.ui.DialogBox;
 import duke.ui.ExitWindow;
 import duke.ui.HelpWindow;
 import duke.ui.Ui;
 import javafx.animation.FadeTransition;
+import javafx.application.Application;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -78,21 +80,27 @@ public class MainWindow extends AnchorPane {
     @FXML
     private void handleUserInput() throws DukeException {
         String input = userInput.getText();
-        String response = duke.getResponse(input);
-        resultDisplay.setText(input);
-        for (int i = 0; i < duke.getList().size(); i++) {
-            listView.getItems().add(duke.getList().get(i));
+//        String response = duke.getResponse(input);
+//        listView.getItems().addAll(duke.getList());
+        if (input.isEmpty()) {
+            resultDisplay.setText("Pls input command to proceed");
+        } else {
+            resultDisplay.clear();
+            listView.getItems().clear();
+            for (int i = 0; i < duke.getSize() / 3; i++) {
+                listView.getItems().add(duke.getList().get(i));
+            }
+            dialogContainer.getChildren().addAll(
+                    DialogBox.getUserDialog(input)
+            );
+            userInput.clear();
         }
-        dialogContainer.getChildren().addAll(
-            DialogBox.getUserDialog(input)
-        );
-        userInput.clear();
     }
 
     public void handleListTask() {
-        for (int i = 0; i < duke.getList().size(); i++) {
-                listView.getItems().add(duke.getList().get(i));
-        }
+//        for (int i = 0; i < duke.getList().size(); i++) {
+//            listView.getItems().add(duke.getList().get(i));
+//        }
     }
 
     public void handleLoadingError() {
@@ -144,6 +152,7 @@ public class MainWindow extends AnchorPane {
             });
 
             fadeOut.setOnFinished((e) -> {
+                Main.isScreenLoaded = true;
                 try {
                     FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/view/MainWindow.fxml"));
                     AnchorPane ap = fxmlLoader.load();
