@@ -4,7 +4,7 @@
 //import duke.logic.command.commons.Command;
 //import duke.logic.command.commons.Undoable;
 //import duke.commons.DukeException;
-//import duke.parser.decrypted.OldParser;
+//import duke.logic.parser.decrypted.OldParser;
 //import duke.storage.BakingList;
 //import duke.storage.Storage;
 //import duke.ui.Ui;

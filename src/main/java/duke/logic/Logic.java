@@ -2,9 +2,9 @@ package duke.logic;
 
 import duke.logic.command.commons.CommandResult;
 import duke.logic.command.exceptions.CommandException;
+import duke.logic.parser.exceptions.ParseException;
 import duke.model.ReadOnlyBakingHome;
 import duke.model.order.Order;
-import duke.parser.exceptions.ParseException;
 import javafx.collections.ObservableList;
 
 /**

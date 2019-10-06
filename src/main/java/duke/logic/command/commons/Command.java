@@ -4,15 +4,16 @@ import duke.logic.command.exceptions.CommandException;
 import duke.model.Model;
 
 /**
- * A command that is executable by the user.
+ * Represents a command with hidden internal logic and the ability to be executed.
  */
 public abstract class Command {
 
     /**
-     * Executes the command.
+     * Executes the command and returns the result message.
      *
-     * @param model A BakingList object containing application data.
-     * @throws CommandException If the execution fails.
+     * @param model {@code Model} which the command should operate on.
+     * @return feedback message of the operation result for display
+     * @throws CommandException If an error occurs during command execution.
      */
     public abstract CommandResult execute(Model model) throws CommandException;
 }

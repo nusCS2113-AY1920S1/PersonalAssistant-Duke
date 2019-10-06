@@ -1,6 +1,6 @@
 package duke.storage.recipe;
 
-import duke.entities.recipe.Recipe;
+import duke.entities_decrypted.recipe.Recipe;
 
 import java.util.ArrayList;
 import java.util.List;

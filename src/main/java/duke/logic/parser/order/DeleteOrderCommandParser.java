@@ -1,0 +1,17 @@
+//package duke.logic.parser.order;
+//
+//import duke.logic.command.order.DeleteOrderCommand;
+//import duke.logic.parser.*;
+//import duke.logic.parser.exceptions.ParseException;
+//
+//
+//public class DeleteOrderCommandParser implements Parser<DeleteOrderCommand> {
+//    @Override
+//    public DeleteOrderCommand parse(String args) throws ParseException {
+//        ArgumentMultimap map = ArgumentTokenizer.tokenize(args,
+//                CliSyntax.PREFIX_ORDER_INDEX
+//        );
+//        return new DeleteOrderCommand(ParserUtil.getIndexes(map.getPreamble()));
+//    }
+//
+//}

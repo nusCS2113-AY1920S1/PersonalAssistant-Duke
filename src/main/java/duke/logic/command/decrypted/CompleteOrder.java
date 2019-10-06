@@ -5,7 +5,7 @@
 //import duke.logic.command.commons.Command;
 //import duke.logic.command.commons.Undoable;
 //import duke.model.order.Order;
-//import duke.parser.decrypted.CommandParser;
+//import duke.logic.parser.decrypted.CommandParser;
 //import duke.storage.BakingList;
 //import duke.storage.Storage;
 //import duke.ui.Ui;

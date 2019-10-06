@@ -28,6 +28,12 @@ public class EditOrderCommand extends OrderCommand implements Undoable {
     private final Index index;
     private final EditOrderDescriptor editOrderDescriptor;
 
+    /**
+     * Creates an EditOrderCommand to modify the details of an {@code Order}.
+     *
+     * @param index               of the the order in the filtered order list
+     * @param editOrderDescriptor details to edit the order with
+     */
     public EditOrderCommand(Index index, EditOrderDescriptor editOrderDescriptor) {
         requireAllNonNull(index, editOrderDescriptor);
 
@@ -76,49 +82,9 @@ public class EditOrderCommand extends OrderCommand implements Undoable {
         return new Order(newCustomer, newDate, newStatus, newRemarks, newItems);
     }
 
-//    private Order getOrder(BakingList bakingList) throws DukeException {
-//        if (params.containsKey(("i"))) {
-//            return getOrderByIndex(bakingList, params.get("i").get(0));
-//        } else {
-//            return getOrderById(bakingList, params.get("id").get(0));
-//        }
-//    }
-
-//    private Order getOrderById(BakingList bakingList, String i) throws DukeException {
-//        long id;
-//        try {
-//            id = Long.parseLong(params.get("id").get(0));
-//        } catch (NumberFormatException e) {
-//            throw new DukeException("Please provide a valid order ID");
-//        }
-//
-//        for (Order order : bakingList.getOrderList()) {
-//            if (order.getId() == id) {
-//                return order;
-//            }
-//        }
-//
-//        throw new DukeException("Unknown ID");
-//    }
-
-//    private Order getOrderByIndex(BakingList bakingList, String i) throws DukeException {
-//        int index;
-//        try {
-//            index = Integer.parseInt(params.get("i").get(0)) - 1;
-//        } catch (NumberFormatException e) {
-//            throw new DukeException("Please provide a valid index");
-//        }
-//
-//        if (index < 0 || index >= bakingList.getOrderList().size()) {
-//            throw new DukeException("Index out of bound.");
-//        }
-//
-//        return bakingList.getOrderList().get(index);
-//    }
-
     /**
-     * Stores the details to edit the person with. Each non-empty field value will replace the
-     * corresponding field value of the person.
+     * Stores the details to edit the order with. Each non-empty field value will replace the
+     * corresponding field value of the order.
      */
     public static class EditOrderDescriptor {
         private String customerName;
@@ -131,6 +97,10 @@ public class EditOrderCommand extends OrderCommand implements Undoable {
         public EditOrderDescriptor() {
         }
 
+        /**
+         * Copy constructor.
+         * @param toCopy the EditOrderDescriptor to copy from
+         */
         public EditOrderDescriptor(EditOrderDescriptor toCopy) {
             setCustomerName(toCopy.customerName);
             setCustomerContact(toCopy.customerContact);
