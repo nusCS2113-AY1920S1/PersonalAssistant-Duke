@@ -3,7 +3,7 @@ package duchess.model.task;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import duchess.exceptions.DukeException;
+import duchess.exceptions.DuchessException;
 import duchess.model.TimeFrame;
 
 import java.time.LocalDateTime;
@@ -21,12 +21,12 @@ public class Event extends Task {
      * Create an event task from user input.
      *
      * @param input tokenized user input
-     * @throws DukeException error if user input is invalid
+     * @throws DuchessException error if user input is invalid
      */
-    public Event(List<String> input) throws DukeException {
+    public Event(List<String> input) throws DuchessException {
         int separatorIndex = input.indexOf("/at");
         if (input.size() == 0 || separatorIndex <= 0) {
-            throw new DukeException("Format for event: event <event> /at <start datetime> to <end datetime>");
+            throw new DuchessException("Format for event: event <event> /at <start datetime> to <end datetime>");
         }
 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/uuuu HHmm")
@@ -39,12 +39,12 @@ public class Event extends Task {
             this.start = LocalDateTime.parse(strStart, formatter);
             this.end = LocalDateTime.parse(strEnd, formatter);
             if (end.isBefore(start)) {
-                throw new DukeException("Start datetime cannot be after end datetime.");
+                throw new DuchessException("Start datetime cannot be after end datetime.");
             }
         } catch (IndexOutOfBoundsException e) {
-            throw new DukeException("Format for event: event <event> /at <start datetime> to <end datetime>");
+            throw new DuchessException("Format for event: event <event> /at <start datetime> to <end datetime>");
         } catch (DateTimeParseException e) {
-            throw new DukeException("Invalid datetime. Correct format: dd/mm/yyyy hhmm");
+            throw new DuchessException("Invalid datetime. Correct format: dd/mm/yyyy hhmm");
         }
     }
 
@@ -72,11 +72,11 @@ public class Event extends Task {
      */
     @JsonCreator
     public Event(
-            @JsonProperty("start") LocalDateTime start,
-            @JsonProperty("end") LocalDateTime end
+            @JsonProperty("start") String start,
+            @JsonProperty("end") String end
     ) {
-        this.start = start;
-        this.end = end;
+        this.start = LocalDateTime.parse(start);
+        this.end = LocalDateTime.parse(end);
     }
 
     @Override
@@ -93,12 +93,12 @@ public class Event extends Task {
     }
 
     @JsonGetter("end")
-    public LocalDateTime getEnd() {
-        return end;
+    public String getEnd() {
+        return end.toString();
     }
 
     @JsonGetter("start")
-    public LocalDateTime getStart() {
-        return start;
+    public String getStart() {
+        return start.toString();
     }
 }

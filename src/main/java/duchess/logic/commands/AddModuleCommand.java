@@ -1,6 +1,6 @@
 package duchess.logic.commands;
 
-import duchess.exceptions.DukeException;
+import duchess.exceptions.DuchessException;
 import duchess.storage.Storage;
 import duchess.storage.Store;
 import duchess.ui.Ui;
@@ -17,9 +17,9 @@ public class AddModuleCommand extends Command {
      *
      * @param words arguments supplied by the user
      */
-    public AddModuleCommand(List<String> words) throws DukeException {
+    public AddModuleCommand(List<String> words) throws DuchessException {
         if (words.size() < 2) {
-            throw new DukeException("Usage: add modules <module code> <module name>");
+            throw new DuchessException("Usage: add modules <module code> <module name>");
         }
 
         moduleCode = words.get(0);
@@ -27,7 +27,7 @@ public class AddModuleCommand extends Command {
     }
 
     @Override
-    public void execute(Store store, Ui ui, Storage storage) throws DukeException {
+    public void execute(Store store, Ui ui, Storage storage) throws DuchessException {
         Module module = new Module(moduleCode, moduleName);
         store.getModuleList().add(module);
         ui.showModuleAdded(module, store.getModuleList());

@@ -1,4 +1,4 @@
-import duchess.exceptions.DukeException;
+import duchess.exceptions.DuchessException;
 import duchess.model.task.Deadline;
 import org.junit.jupiter.api.Test;
 
@@ -8,7 +8,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class TaskTest {
     @Test
-    void maskAsDone_works() throws DukeException {
+    void maskAsDone_works() throws DuchessException {
         Deadline deadline = new Deadline(
                 List.of("return book /by 12/12/2020 1200".split(" "))
         );

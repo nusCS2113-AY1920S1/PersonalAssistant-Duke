@@ -1,4 +1,4 @@
-import duchess.exceptions.DukeException;
+import duchess.exceptions.DuchessException;
 import duchess.model.task.Event;
 import duchess.model.task.Task;
 import duchess.storage.Store;
@@ -17,7 +17,7 @@ public class DetectAnomaliesTest {
     }
 
     @Test
-    void clash_returnsTrue() throws DukeException {
+    void clash_returnsTrue() throws DuchessException {
         Store store = new Store();
         Task task = new Event(getList("meeting /at 12/12/2020 1800 to 12/12/2020 1900"));
         store.getTaskList().add(task);
@@ -33,7 +33,7 @@ public class DetectAnomaliesTest {
     }
 
     @Test
-    void no_clash_returnsFalse() throws DukeException {
+    void no_clash_returnsFalse() throws DuchessException {
         Store store = new Store();
         Task task = new Event(getList("Event meeting /at 12/12/2020 1800 to 12/12/2020 1900"));
         store.getTaskList().add(task);

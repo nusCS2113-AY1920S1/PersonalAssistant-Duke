@@ -1,5 +1,5 @@
 import duchess.logic.commands.Command;
-import duchess.exceptions.DukeException;
+import duchess.exceptions.DuchessException;
 import duchess.logic.parser.Parser;
 import duchess.model.task.DuchessLog;
 import duchess.storage.Storage;
@@ -24,7 +24,7 @@ public class Duke {
 
         try {
             store = storage.load();
-        } catch (DukeException e) {
+        } catch (DuchessException e) {
             ui.showError(e.getMessage());
             store = new Store();
         }
@@ -46,7 +46,7 @@ public class Duke {
                 Command c = Parser.parse(fullCommand);
                 c.execute(store, ui, storage);
                 isExit = c.isExit();
-            } catch (DukeException e) {
+            } catch (DuchessException e) {
                 ui.showError(e.getMessage());
             } finally {
                 ui.endBlock();

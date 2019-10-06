@@ -1,6 +1,6 @@
 package duchess.logic.commands;
 
-import duchess.exceptions.DukeException;
+import duchess.exceptions.DuchessException;
 import duchess.model.TimeFrame;
 import duchess.model.task.Task;
 import duchess.storage.Storage;
@@ -27,24 +27,24 @@ public class ViewScheduleCommand extends Command {
      * Constructor for class.
      *
      * @param words User input with start and end date time
-     * @throws DukeException Exception thrown for invalid or missing date time
+     * @throws DuchessException Exception thrown for invalid or missing date time
      */
-    public ViewScheduleCommand(List<String> words) throws DukeException {
+    public ViewScheduleCommand(List<String> words) throws DuchessException {
         this.words = words;
         this.date = processString("/for");
         this.view = processString("view");
         if (!view.equals("day") && !view.equals("week")) {
-            throw new DukeException("Invalid view. Please choose either day or week view.");
+            throw new DuchessException("Invalid view. Please choose either day or week view.");
         }
         LocalDateTime start = processDate(" 0000");
         LocalDateTime end = processDate(" 2359");
         this.timeFrame = new TimeFrame(start, end);
     }
 
-    private String processString(String keyword) throws DukeException {
+    private String processString(String keyword) throws DuchessException {
         int index = words.indexOf(keyword);
         if (index == -1) {
-            throw new DukeException("Format for viewing schedule: schedule /for <date> view <view>");
+            throw new DuchessException("Format for viewing schedule: schedule /for <date> view <view>");
         }
         return words.get(index + 1);
     }
@@ -56,9 +56,9 @@ public class ViewScheduleCommand extends Command {
      *
      * @param time either " 0000" or " 2359" to indicate timeframe
      * @return the LocalDateTime instance
-     * @throws DukeException Thrown for invalid or missing date time and command format
+     * @throws DuchessException Thrown for invalid or missing date time and command format
      */
-    private LocalDateTime processDate(String time) throws DukeException {
+    private LocalDateTime processDate(String time) throws DuchessException {
         try {
             boolean isWeek = view.equals("week");
             boolean isStartOfDay = time.equals(" 0000");
@@ -74,20 +74,20 @@ public class ViewScheduleCommand extends Command {
             }
             return localDateTime;
         } catch (DateTimeParseException e) {
-            throw new DukeException("Invalid date format. Please follow dd/MM/yyyy.");
+            throw new DuchessException("Invalid date format. Please follow dd/MM/yyyy.");
         } catch (IndexOutOfBoundsException e) {
-            throw new DukeException("Format for viewing schedule: schedule /for <date> view <view>");
+            throw new DuchessException("Format for viewing schedule: schedule /for <date> view <view>");
         }
     }
 
     @Override
-    public void execute(Store store, Ui ui, Storage storage) throws DukeException {
+    public void execute(Store store, Ui ui, Storage storage) throws DuchessException {
         List<Task> tasksForToday =
                 store.getTaskList().stream()
                         .filter(task -> task.getTimeFrame().fallsWithin(this.timeFrame))
                         .collect(Collectors.toList());
         if (tasksForToday.size() <= 0) {
-            throw new DukeException("There are no tasks in the schedule.");
+            throw new DuchessException("There are no tasks in the schedule.");
         } else if (view.equals("week")) {
             date = "the week with " + date;
         }

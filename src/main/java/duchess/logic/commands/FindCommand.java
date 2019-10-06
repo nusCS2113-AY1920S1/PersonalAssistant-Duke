@@ -1,6 +1,6 @@
 package duchess.logic.commands;
 
-import duchess.exceptions.DukeException;
+import duchess.exceptions.DuchessException;
 import duchess.model.task.Task;
 import duchess.storage.Storage;
 import duchess.storage.Store;
@@ -17,7 +17,7 @@ public class FindCommand extends Command {
     }
 
     @Override
-    public void execute(Store store, Ui ui, Storage storage) throws DukeException {
+    public void execute(Store store, Ui ui, Storage storage) throws DuchessException {
         if (words.size() > 0) {
             String searchTerm = String.join(" ", words.subList(0, words.size()));
             List<Task> filteredTasks =
@@ -27,10 +27,10 @@ public class FindCommand extends Command {
             if (filteredTasks.size() > 0) {
                 ui.showSearchResult(filteredTasks);
             } else {
-                throw new DukeException("There are no matching tasks.");
+                throw new DuchessException("There are no matching tasks.");
             }
         } else {
-            throw new DukeException("Please enter at least a keyword to search.");
+            throw new DuchessException("Please enter at least a keyword to search.");
         }
     }
 }

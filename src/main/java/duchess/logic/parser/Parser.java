@@ -15,7 +15,7 @@ import duchess.logic.commands.LogCommand;
 import duchess.logic.commands.ReminderCommand;
 import duchess.logic.commands.SnoozeCommand;
 import duchess.logic.commands.ViewScheduleCommand;
-import duchess.exceptions.DukeException;
+import duchess.exceptions.DuchessException;
 
 import java.util.Arrays;
 import java.util.List;
@@ -26,9 +26,9 @@ public class Parser {
      *
      * @param input the user input
      * @return the command to execute
-     * @throws DukeException the exception if user input is invalid
+     * @throws DuchessException the exception if user input is invalid
      */
-    public static Command parse(String input) throws DukeException {
+    public static Command parse(String input) throws DuchessException {
         List<String> words = Arrays.asList(input.split(" "));
         String keyword = words.get(0);
         List<String> arguments = words.subList(1, words.size());
@@ -48,7 +48,7 @@ public class Parser {
                     throw new IllegalArgumentException();
                 }
             } catch (IndexOutOfBoundsException | IllegalArgumentException e) {
-                throw new DukeException("Usage: list (tasks | modules)");
+                throw new DuchessException("Usage: list (tasks | modules)");
             }
         case "add":
             try {
@@ -60,7 +60,7 @@ public class Parser {
                     throw new IllegalArgumentException();
                 }
             } catch (IndexOutOfBoundsException | IllegalArgumentException e) {
-                throw new DukeException("Usage: add module <module-code> <module-name>");
+                throw new DuchessException("Usage: add module <module-code> <module-name>");
             }
         case "find":
             return new FindCommand(arguments);
@@ -85,7 +85,7 @@ public class Parser {
         case "log":
             return new LogCommand();
         default:
-            throw new DukeException("Please enter a valid command.");
+            throw new DuchessException("Please enter a valid command.");
         }
     }
 }

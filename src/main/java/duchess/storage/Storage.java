@@ -3,7 +3,7 @@ package duchess.storage;
 import com.fasterxml.jackson.databind.MapperFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
-import duchess.exceptions.DukeException;
+import duchess.exceptions.DuchessException;
 
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -23,14 +23,14 @@ public class Storage {
      * Returns the tasklist loaded from file.
      */
     @SuppressWarnings("unchecked")
-    public Store load() throws DukeException {
+    public Store load() throws DuchessException {
         try {
             FileInputStream fileStream = new FileInputStream(this.fileName);
             Store store = getObjectMapper().readValue(fileStream, Store.class);
             fileStream.close();
             return store;
         } catch (IOException | ClassCastException e) {
-            throw new DukeException("Unable to read file, continuing with empty list.");
+            throw new DuchessException("Unable to read file, continuing with empty list.");
         }
     }
 
@@ -38,15 +38,15 @@ public class Storage {
      * Saves the given tasklist to file.
      *
      * @param store the store to save
-     * @throws DukeException an error if unable to write to file
+     * @throws DuchessException an error if unable to write to file
      */
-    public void save(Store store) throws DukeException {
+    public void save(Store store) throws DuchessException {
         try {
             FileOutputStream fileStream = new FileOutputStream(this.fileName);
             getObjectMapper().writeValue(fileStream, store);
             fileStream.close();
         } catch (IOException e) {
-            throw new DukeException("An unexpected error occurred when writing to the file. " + e);
+            throw new DuchessException("An unexpected error occurred when writing to the file. " + e);
         }
     }
 

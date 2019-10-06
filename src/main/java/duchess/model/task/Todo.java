@@ -1,7 +1,7 @@
 package duchess.model.task;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
-import duchess.exceptions.DukeException;
+import duchess.exceptions.DuchessException;
 import duchess.model.TimeFrame;
 
 import java.util.List;
@@ -12,11 +12,11 @@ public class Todo extends Task {
      * Creates a todo task from given user input.
      *
      * @param input tokenized user input
-     * @throws DukeException the error if user input is invalid
+     * @throws DuchessException the error if user input is invalid
      */
-    public Todo(List<String> input) throws DukeException {
+    public Todo(List<String> input) throws DuchessException {
         if (input.size() == 0) {
-            throw new DukeException("Format for todo: todo <task>");
+            throw new DuchessException("Format for todo: todo <task>");
         }
 
         this.description = String.join(" ", input);
@@ -33,8 +33,8 @@ public class Todo extends Task {
     }
 
     @Override
-    public void snooze() throws DukeException {
-        throw new DukeException("You can't snooze that task.");
+    public void snooze() throws DuchessException {
+        throw new DuchessException("You can't snooze that task.");
     }
 
     @Override

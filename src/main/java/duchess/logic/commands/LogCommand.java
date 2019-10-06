@@ -1,6 +1,6 @@
 package duchess.logic.commands;
 
-import duchess.exceptions.DukeException;
+import duchess.exceptions.DuchessException;
 import duchess.model.task.DuchessLog;
 import duchess.storage.Storage;
 import duchess.storage.Store;
@@ -12,7 +12,7 @@ import duchess.ui.Ui;
 public class LogCommand extends Command {
 
     @Override
-    public void execute(Store store, Ui ui, Storage storage) throws DukeException {
+    public void execute(Store store, Ui ui, Storage storage) throws DuchessException {
         ui.showUserHistory(DuchessLog.getLog());
     }
 }

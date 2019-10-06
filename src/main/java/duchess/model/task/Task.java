@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonSetter;
-import duchess.exceptions.DukeException;
+import duchess.exceptions.DuchessException;
 import duchess.model.Module;
 import duchess.model.TimeFrame;
 
@@ -72,7 +72,7 @@ public abstract class Task implements Comparable<Task> {
 
     public abstract TimeFrame getTimeFrame();
 
-    public abstract void snooze() throws DukeException;
+    public abstract void snooze() throws DuchessException;
 
     public abstract Optional<Task> getReminder();
 }

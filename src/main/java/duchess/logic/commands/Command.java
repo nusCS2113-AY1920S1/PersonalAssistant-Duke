@@ -1,6 +1,6 @@
 package duchess.logic.commands;
 
-import duchess.exceptions.DukeException;
+import duchess.exceptions.DuchessException;
 import duchess.storage.Storage;
 import duchess.storage.Store;
 import duchess.ui.Ui;
@@ -12,5 +12,5 @@ public abstract class Command {
         return this.isExit;
     }
 
-    public abstract void execute(Store store, Ui ui, Storage storage) throws DukeException;
+    public abstract void execute(Store store, Ui ui, Storage storage) throws DuchessException;
 }

@@ -1,6 +1,6 @@
 package duchess.logic.commands;
 
-import duchess.exceptions.DukeException;
+import duchess.exceptions.DuchessException;
 import duchess.model.task.Task;
 import duchess.storage.Storage;
 import duchess.storage.Store;
@@ -16,7 +16,7 @@ public class SnoozeCommand extends Command {
     }
 
     @Override
-    public void execute(Store store, Ui ui, Storage storage) throws DukeException {
+    public void execute(Store store, Ui ui, Storage storage) throws DuchessException {
         try {
             int taskNo = Integer.parseInt(words.get(0)) - 1;
             Task task = store.getTaskList().get(taskNo);
@@ -25,9 +25,9 @@ public class SnoozeCommand extends Command {
             ui.showSnoozedTask(task);
             storage.save(store);
         } catch (NumberFormatException e) {
-            throw new DukeException("Please supply a number. Eg: done 2");
+            throw new DuchessException("Please supply a number. Eg: done 2");
         } catch (IndexOutOfBoundsException e) {
-            throw new DukeException("Please supply a valid number.");
+            throw new DuchessException("Please supply a valid number.");
         }
     }
 }
