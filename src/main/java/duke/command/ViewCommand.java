@@ -1,6 +1,6 @@
 package duke.command;
 
-import duke.DukeContext;
+import duke.DukeCore;
 import duke.exception.DukeException;
 
 import java.time.LocalDate;
@@ -37,8 +37,8 @@ public class ViewCommand extends ArgCommand {
     }
 
     @Override
-    public void execute(DukeContext ctx) throws DukeException {
+    public void execute(DukeCore core) throws DukeException {
         String scheduleStr = "Here are your tasks for " + arg + ":";
-        ctx.ui.print(scheduleStr + ctx.taskList.listSchedule(date));
+        core.ui.print(scheduleStr + core.taskList.listSchedule(date));
     }
 }

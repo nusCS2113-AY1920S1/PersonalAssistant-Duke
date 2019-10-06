@@ -1,6 +1,6 @@
 package duke.command;
 
-import duke.DukeContext;
+import duke.DukeCore;
 import duke.exception.DukeException;
 import duke.task.EventTask;
 import duke.task.TimedTask;
@@ -51,15 +51,15 @@ public class NewEventCommand extends NewTimedTaskCommand {
     }
 
     @Override
-    public void execute(DukeContext ctx) throws DukeException {
-        super.execute(ctx);
-        String addStr = ctx.taskList.addTask(new EventTask(argv[0], taskDateTime, endDatetime));
-        ctx.storage.writeTaskFile(ctx.taskList.getFileStr());
-        ctx.ui.print(ctx.taskList.getAddReport(System.lineSeparator() + "  " + addStr, 1));
+    public void execute(DukeCore core) throws DukeException {
+        super.execute(core);
+        String addStr = core.taskList.addTask(new EventTask(argv[0], taskDateTime, endDatetime));
+        core.storage.writeTaskFile(core.taskList.getFileStr());
+        core.ui.print(core.taskList.getAddReport(System.lineSeparator() + "  " + addStr, 1));
     }
 
     @Override
-    public String silentExecute(DukeContext ctx) {
-        return ctx.taskList.addTask(new EventTask(argv[0], taskDateTime, endDatetime));
+    public String silentExecute(DukeCore core) {
+        return core.taskList.addTask(new EventTask(argv[0], taskDateTime, endDatetime));
     }
 }

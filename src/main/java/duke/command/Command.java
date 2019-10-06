@@ -1,6 +1,6 @@
 package duke.command;
 
-import duke.DukeContext;
+import duke.DukeCore;
 import duke.exception.DukeException;
 
 /**
@@ -21,22 +21,22 @@ public abstract class Command {
     /**
      * Runs the command using the parameters loaded with Command's parse method.
      *
-     * @param ctx The DukeContext object for this command to operate on.
+     * @param core The DukeCore object for this command to operate on.
      * @throws DukeException If command fails to execute.
-     * @see DukeContext
+     * @see DukeCore
      */
-    public abstract void execute(DukeContext ctx) throws DukeException;
+    public abstract void execute(DukeCore core) throws DukeException;
 
     /**
      * Runs the command using the parameters loaded with Command's parse method, but without any changes to storage and
      * returning output that would ordinarily be printed, although not necessarily in the same format.
      *
-     * @param ctx The DukeContext object for this command to operate on.
+     * @param core The DukeCore object for this command to operate on.
      * @return String containing output would be printed during ordinary execution.
      * @throws DukeException If command fails to execute.
-     * @see DukeContext
+     * @see DukeCore
      */
-    public String silentExecute(DukeContext ctx) throws DukeException {
+    public String silentExecute(DukeCore core) throws DukeException {
         return null;
     }
 }
