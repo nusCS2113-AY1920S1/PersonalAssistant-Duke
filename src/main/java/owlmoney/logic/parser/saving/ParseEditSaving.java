@@ -17,7 +17,7 @@ public class ParseEditSaving extends ParseSaving {
         while (savingsIterator.hasNext()) {
             String key = savingsIterator.next();
             String value = savingsParameters.get(key);
-            if("/name".equals(key)) {
+            if ("/name".equals(key)) {
                 if (value.isEmpty() || value.isBlank()) {
                     throw new ParserException("/name cannot be empty.");
                 }
@@ -30,7 +30,7 @@ public class ParseEditSaving extends ParseSaving {
                 }
             }
         }
-        if(changeCounter == 0) {
+        if (changeCounter == 0) {
             throw new ParserException("Edit should have at least 1 differing parameter to change.");
         }
     }

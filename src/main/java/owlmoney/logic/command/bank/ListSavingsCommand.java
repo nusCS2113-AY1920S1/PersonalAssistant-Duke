@@ -6,7 +6,7 @@ import owlmoney.ui.Ui;
 
 public class ListSavingsCommand extends Command {
 
-    public ListSavingsCommand (){
+    public ListSavingsCommand() {
     }
 
     @Override

@@ -7,7 +7,7 @@ import owlmoney.ui.Ui;
 public class DeleteSavingsCommand extends Command {
     private final String bankName;
 
-    public DeleteSavingsCommand (String bankName) {
+    public DeleteSavingsCommand(String bankName) {
         this.bankName = bankName;
     }
 

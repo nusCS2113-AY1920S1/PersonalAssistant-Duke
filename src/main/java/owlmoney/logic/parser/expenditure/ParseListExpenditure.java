@@ -6,7 +6,7 @@ import owlmoney.logic.command.Command;
 import owlmoney.logic.command.expenditure.ListExpenditureCommand;
 import owlmoney.logic.parser.exception.ParserException;
 
-public class ParseListExpenditure extends ParseExpenditure{
+public class ParseListExpenditure extends ParseExpenditure {
     public ParseListExpenditure(String data) {
         super(data);
     }

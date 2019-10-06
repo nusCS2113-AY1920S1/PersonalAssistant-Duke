@@ -6,6 +6,7 @@ import owlmoney.ui.Ui;
 
 public class ListExpenditureCommand extends Command {
     private final String accName;
+
     public ListExpenditureCommand(String name) {
         this.accName = name;
     }

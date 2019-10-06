@@ -19,9 +19,9 @@ public class ParseAddExpenditure extends ParseExpenditure {
         while (savingsIterator.hasNext()) {
             String key = savingsIterator.next();
             String value = expendituresParameters.get(key);
-            if (EXPNO.equals(key)&& !value.isBlank() && !value.isEmpty()) {
+            if (EXPNO.equals(key) && !value.isBlank() && !value.isEmpty()) {
                 throw new ParserException(key + "cannot be used when adding a new expenditure");
-            } else if (!EXPNO.equals(key) &&!CATEGORY.equals(key) &&
+            } else if (!EXPNO.equals(key) && !CATEGORY.equals(key) &&
                     (value.isBlank() || value.isEmpty())) {
                 throw new ParserException(key + " cannot be empty when adding a new expenditure");
             } else if (CATEGORY.equals(key) && (value.isBlank() || value.isEmpty())) {
