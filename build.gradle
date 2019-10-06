@@ -34,7 +34,7 @@ test {
 }
 
 shadowJar {
-    archiveBaseName = "duke"
+    archiveBaseName = "hustler"
     archiveVersion = "mid-v1.1"
     archiveClassifier = null
     archiveAppendix = null

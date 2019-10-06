@@ -2,8 +2,19 @@ package seedu.hustler.parser;
 
 import java.util.Arrays;
 
-import seedu.hustler.command.*;
+import seedu.hustler.command.ListCommand;
+import seedu.hustler.command.DoneCommand;
+import seedu.hustler.command.DeleteCommand;
+import seedu.hustler.command.AddCommand;
+import seedu.hustler.command.InvalidCommand;
+import seedu.hustler.command.CheckAvatarCommand;
+import seedu.hustler.command.RemindCommand;
+import seedu.hustler.command.ScheduleCommand;
+import seedu.hustler.command.SnoozeCommand;
+import seedu.hustler.command.FindCommand;
+import seedu.hustler.command.Command;
 import seedu.hustler.logic.CommandLineException;
+
 
 /**
  * Takes raw user input as string, makes sense out of the input using

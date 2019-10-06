@@ -27,8 +27,8 @@ public class AddCommand extends Command {
      *
      */
     public void execute() {
+        Ui ui = new Ui();
         if (this.taskInfo.length == 1) {
-            Ui ui = new Ui();
             ui.empty_description_error();
             return;
         }
@@ -41,14 +41,18 @@ public class AddCommand extends Command {
         }
 
         String taskType = "";
-
-        switch (taskDescription[1].split(" ")[0]) {
+        
+        String timeCommand = taskDescription[1].split(" ")[0];
+        switch (timeCommand) {
         case "by":
             taskType = "deadline";
             break;
         case "at":
             taskType = "event";
             break;
+        default:
+            ui.show_message("/" + timeCommand + " is an invalid addition to /add");
+            return;
         }
         Hustler.list.add(taskType, this.taskInfo[1]);
     }
