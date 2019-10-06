@@ -3,13 +3,13 @@ package duke.parsers;
 import duke.commons.DukeDateTimeParseException;
 import duke.commons.DukeException;
 import duke.commons.MessageUtil;
-import duke.tasks.Deadline;
-import duke.tasks.DoWithin;
-import duke.tasks.Event;
-import duke.tasks.Fixed;
-import duke.tasks.RecurringTask;
-import duke.tasks.Task;
-import duke.tasks.Todo;
+import duke.data.tasks.Deadline;
+import duke.data.tasks.DoWithin;
+import duke.data.tasks.Event;
+import duke.data.tasks.Fixed;
+import duke.data.tasks.RecurringTask;
+import duke.data.tasks.Task;
+import duke.data.tasks.Todo;
 
 import java.time.LocalDateTime;
 

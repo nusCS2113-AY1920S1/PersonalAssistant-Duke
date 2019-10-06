@@ -1,4 +1,4 @@
-package duke.tasks;
+package duke.data.tasks;
 
 /**
  * A generic task, which can be marked as done.

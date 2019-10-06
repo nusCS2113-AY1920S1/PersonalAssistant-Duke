@@ -3,8 +3,8 @@ package duke.commands;
 import duke.UiStub;
 import duke.commons.DukeException;
 import duke.storage.Storage;
-import duke.tasks.Task;
-import duke.tasks.Todo;
+import duke.data.tasks.Task;
+import duke.data.tasks.Todo;
 import javafx.scene.layout.VBox;
 import org.junit.jupiter.api.Test;
 

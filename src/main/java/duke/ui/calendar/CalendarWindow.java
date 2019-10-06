@@ -1,11 +1,11 @@
 package duke.ui.calendar;
 
 import duke.commons.DukeException;
-import duke.tasks.DoWithin;
-import duke.tasks.RecurringTask;
-import duke.tasks.Task;
-import duke.tasks.TaskWithDates;
-import duke.tasks.UniqueTaskList;
+import duke.data.tasks.DoWithin;
+import duke.data.tasks.RecurringTask;
+import duke.data.tasks.Task;
+import duke.data.tasks.TaskWithDates;
+import duke.data.UniqueTaskList;
 import duke.ui.UiPart;
 import javafx.fxml.FXML;
 import javafx.collections.transformation.SortedList;

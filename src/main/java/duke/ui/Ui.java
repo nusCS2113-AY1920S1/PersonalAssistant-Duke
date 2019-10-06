@@ -1,7 +1,7 @@
 package duke.ui;
 
-import duke.tasks.Task;
-import duke.tasks.UniqueTaskList;
+import duke.data.UniqueTaskList;
+import duke.data.tasks.Task;
 import duke.ui.calendar.CalendarWindow;
 import javafx.scene.image.Image;
 import javafx.scene.layout.VBox;
@@ -66,7 +66,7 @@ public class Ui {
     }
 
     /**
-     * Prints the list of duke.tasks.
+     * Prints the list of duke.data.tasks.
      */
     public void showList(UniqueTaskList tasks) {
         String result = "Here are the list of tasks:\n";

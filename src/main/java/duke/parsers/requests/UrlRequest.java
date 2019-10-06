@@ -1,18 +1,16 @@
-package duke.requests;
+package duke.parsers.requests;
 
 import com.google.gson.JsonObject;
 import duke.commons.DukeException;
 
-import java.io.IOException;
-
 /**
  * Abstract class representing individual URL requests.
  */
-public abstract class UrlReq {
+public abstract class UrlRequest {
     protected String url;
     protected String param;
 
-    public UrlReq(String url, String param) {
+    public UrlRequest(String url, String param) {
         this.url = url;
         this.param = param;
     }
@@ -20,5 +18,5 @@ public abstract class UrlReq {
     /**
      * Executes and sends the given URL request.
      */
-    public abstract JsonObject execute() throws DukeException, IOException;
+    public abstract JsonObject execute() throws DukeException;
 }

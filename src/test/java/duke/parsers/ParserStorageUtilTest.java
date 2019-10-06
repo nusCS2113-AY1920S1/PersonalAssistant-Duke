@@ -1,7 +1,7 @@
 package duke.parsers;
 
 import duke.commons.DukeException;
-import duke.tasks.Deadline;
+import duke.data.tasks.Deadline;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDateTime;

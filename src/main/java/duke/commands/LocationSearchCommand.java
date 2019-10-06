@@ -1,16 +1,10 @@
 package duke.commands;
 
-import duke.requests.LocationSearchUrlReq;
 import duke.commons.DukeException;
+import duke.data.Location;
 import duke.storage.Storage;
 import duke.ui.Ui;
-import duke.api.ApiParser;
-
-import java.io.IOException;
-import java.util.ArrayList;
-
-import com.google.gson.JsonObject;
-import javafx.util.Pair;
+import duke.parsers.api.ApiParser;
 
 /**
  * Class representing a command to send the test URL connection.
@@ -26,10 +20,11 @@ public class LocationSearchCommand extends Command {
      * Executes this command with given param.
      */
     @Override
-    public void execute(Ui ui, Storage storage) throws IOException, DukeException {
-        Pair<Double, Double> result = ApiParser.getLocationSearch(param);
+    public void execute(Ui ui, Storage storage) throws DukeException {
+        Location result = ApiParser.getLocationSearch(param);
 
-        ui.show("These are the coordinates of your search:");
-        ui.show(result.getKey() + " " + result.getValue());
+        ui.show("These are the coordinates of your search:\n"
+                + result.getAddress() + "\n" + result.getLatitude() + " "
+                + result.getLongitude());
     }
 }

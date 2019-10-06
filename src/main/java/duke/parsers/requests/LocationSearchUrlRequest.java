@@ -1,4 +1,4 @@
-package duke.requests;
+package duke.parsers.requests;
 
 import com.google.gson.JsonElement;
 import duke.commons.DukeException;
@@ -16,21 +16,23 @@ import duke.commons.MessageUtil;
 /**
  * URL request to OneMap API to get coordinates of location.
  */
-public class LocationSearchUrlReq extends UrlReq {
+public class LocationSearchUrlRequest extends UrlRequest {
     private static final String paramType = "searchVal";
     private static final String optionalVariables = "&returnGeom=Y&getAddrDetails=Y&pageNum=1";
 
     /**
      * Construct the URL Request.
+     *
      * @param url The URL
      * @param param The query
      */
-    public LocationSearchUrlReq(String url, String param) {
+    public LocationSearchUrlRequest(String url, String param) {
         super(url, param);
     }
 
     /**
      * Executes the URL request to OneMap API.
+     *
      * @return JSONObject The response from request
      */
     @Override

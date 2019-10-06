@@ -3,7 +3,7 @@ package duke.commands;
 import duke.commons.DukeException;
 import duke.commons.MessageUtil;
 import duke.storage.Storage;
-import duke.tasks.Task;
+import duke.data.tasks.Task;
 import duke.ui.Ui;
 
 /**
