@@ -21,7 +21,7 @@
 //        Ui ui = new Ui();
 //        Storage storage = new Storage();
 //        RecurringCommand testR = new RecurringCommand();
-//        assertEquals("I've automatically added this weekly task again:\n[D][?]yearly assignment (by:01 Jan 2020 01:01:01)",
-//                testR.AddRecurring(list, "[D][?]yearly assignment (by:01 Jan 2019 01:01:01)" ,storage));
+//        assertEquals("I've automatically added this weekly task again:\n[D][ND] yearly assignment (by:01 Jan 2020 01:01:01)",
+//                testR.AddRecurring(list, "[D][ND] yearly assignment (by:01 Jan 2019 01:01:01)" ,storage));
 //    }
 //}

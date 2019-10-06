@@ -19,7 +19,6 @@ public class DoneCommand extends Command {
             int numbercheck = Integer.parseInt(ui.FullCommand.substring(5)) - 1;
             list.get(numbercheck).isDone = true;
 
-
             System.out.println("Nice! I've marked this task as done: ");
             System.out.println(list.get(numbercheck).listFormat());
 
