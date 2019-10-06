@@ -44,10 +44,9 @@ public class FindPathCommand extends Command {
     }
 
 
-    private static Holiday getHoliday (String index, UniqueTaskList t) throws DukeException {
-            Task t1 = t.get(Integer.parseInt(index));
-            if(t1 instanceof Holiday)
-            {
+    private static Holiday getHoliday(String index, UniqueTaskList t) throws DukeException {
+            Task t1 = t.get(Integer.parseInt(index)- 1);
+            if(t1 instanceof Holiday){
                 return (Holiday) t1;
             }
             throw new DukeException("Sorry the numbers you entered are not a holiday destination");
