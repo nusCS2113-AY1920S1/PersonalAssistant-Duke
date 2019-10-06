@@ -12,6 +12,7 @@ import duke.Module.Reminder;
 import duke.Ui;
 import duke.Sports.MyPlan;
 
+import javax.swing.plaf.synth.SynthSpinnerUI;
 import java.io.FileNotFoundException;
 import java.text.ParseException;
 import java.util.ArrayList;
@@ -252,32 +253,32 @@ public class Parser {
                 break;
 
             /**
-             * View: training view-all [intensity]|training view [plan number]
-             * Add: training add [name] [sets] [reps] [intensity level]
-             * Delete: training delete-all|training delete [name] [sets] [reps] [intensity level]
+             * View: training view [plan number]
+             * Add: training add-activity [name] [sets] [reps] [activity number]|training add-plan [plan number]
+             * Delete: training delete-all|training delete [plan number]
              */
             case "training":
-                MyPlan plan = new MyPlan();
+                MyPlan plan = new MyPlan(".\\src\\main\\java\\duke\\Sports\\plan.txt");
                 switch(word[1]) {
                     case "view": {
                         System.out.println(plan.loadPlan(word[2]));
+                        System.out.println(plan.viewPlan());
                         break;
                     }
-                    case "view-all": {
-                        //view all with specified intensity
-                        System.out.println(plan.viewPlan(word[2]));
+                    case "add-plan": {
+                        //pass
                         break;
                     }
-                    case "add": {
-                        plan.addActivity(word[2],Integer.parseInt(word[3]),Integer.parseInt(word[4]),Integer.parseInt(word[5]));
+                    case "add-activity": {
+                        System.out.println(plan.addActivity(word[2],Integer.parseInt(word[3]),Integer.parseInt(word[4]),Integer.parseInt(word[5])));
                         break;
                     }
                     case "delete": {
-                        System.out.println(plan.deletePlan(word[2],Integer.parseInt(word[3]),Integer.parseInt(word[4]),Integer.parseInt(word[5])));
+                        //pass
                         break;
                     }
                     case "delete-all": {
-                        System.out.println(plan.clearPlan());
+                        //pass
                         break;
                     }
                 }
