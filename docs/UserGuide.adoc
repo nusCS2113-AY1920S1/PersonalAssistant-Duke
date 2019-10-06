@@ -77,19 +77,11 @@ _Available in:_ <<Home>>, <<Patient>>, <<Impression>>, <<Treatment and Evidence>
 
 This will be available in every context, and will function essentially the same way, just with different commands.
 
-==== `critical` - Display all critical observations and plans of all Patients [v2.0]
-
-Format: `critical`
-
 ==== `discharge` - Generate a discharge report for the Patient and delete him from the system [[home-discharge]]
 
 Format: `discharge _patient_id_ [-sum[mary] <discharge summary>]`
 
-The discharge report will contain all information being tracked regarding the Patient, and an optional discharge summary that can be specified in the command. In v1.4, Patients will simply be deleted after the report is generated. In v2.0, they will be archived.
-
-==== `archive` - Display discharged Patients  [v2.0]
-
-Format: `archive`
+The discharge report will contain all information being tracked regarding the Patient, and an optional discharge summary that can be specified in the command. In v1.x, Patients will simply be deleted after the report is generated. In v2.0, they will be archived.
 
 ==== `open` - Go to a more detailed view of a particular Patient
 
@@ -134,6 +126,14 @@ Format: `redo <number of commands>`
 _Available in:_ <<Home>>, <<Patient>>, <<Impression>>, <<Treatment and Evidence>>
 
 After undoing some commands, sending any command other than `undo` or `redo` will clear the redo stack. The undone commands cannot be redone from that point onwards.
+
+==== `critical` - Display all critical observations and plans of all Patients [v2.0]
+
+Format: `critical`
+
+==== `archive` - Display discharged Patients  [v2.0]
+
+Format: `archive`
 
 === Patient
 
