@@ -52,6 +52,8 @@ public class Parser {
             return new ScheduleDailyCommand();
         } else if (command.contains("scheduleWeekly")) {
             return new ScheduleWeeklyCommand();
+        } else if (command.contains("scheduleMonthly")) {
+            return new ScheduleMonthlyCommand();
         } else if (command.contains("snooze")) {
             return new SnoozeCommand();
         } else if (command.contains("tentative")) {

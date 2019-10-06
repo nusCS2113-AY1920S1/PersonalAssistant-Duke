@@ -14,9 +14,10 @@ import java.util.ArrayList;
 /**
  * Lists out all the tasks the user has on the specified day.
  */
-public class ScheduleDailyCommand extends Command {
-    //format for the command: scheduleDaily <yyyy-MM-dd>
-    protected LocalDate date;
+public class ScheduleMonthlyCommand extends Command {
+    //format for the command: scheduleMonthly <yyyy-MM>
+    protected LocalDate startMonth;
+    protected LocalDate endMonth;
     /**
      * This is the main body of the ScheduleDaily command.
      *
@@ -30,16 +31,18 @@ public class ScheduleDailyCommand extends Command {
         DateTimeFormatter fmt = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         String[] command = ui.FullCommand.trim().split(" ");
         if (command.length > 2) {
-            System.out.println("The command should be in the format \"scheduleDaily yyyy-MM-dd\".");
+            System.out.println("The command should be in the format \"scheduleMonthly yyyy-MM\".");
             return;
         }
         try {
-            date = LocalDate.parse(command[1], fmt);
+            startMonth = LocalDate.parse(command[1]+"-01", fmt);
+            String lengthOfMonth = Integer.toString(startMonth.lengthOfMonth());
+            endMonth = LocalDate.parse(command[1] + "-" + lengthOfMonth, fmt);
         } catch (DateTimeParseException e) {
-            System.out.println("Please input the date in yyyy-MM-dd format.");
+            System.out.println("Please input the date in yyyy-MM format.");
             return;
         } catch (IndexOutOfBoundsException i) {
-            System.out.println("OOPS!!! The description of a scheduleDaily cannot be empty.");
+            System.out.println("OOPS!!! The description of a scheduleMonthly cannot be empty.");
             return;
         }
         ArrayList<Task> schedule = new ArrayList<Task>();
@@ -55,20 +58,20 @@ public class ScheduleDailyCommand extends Command {
                 case "Tasks.Timebound":
                     LocalDate startDate = ((Timebound) t).dateStart;
                     LocalDate endDate = ((Timebound) t).dateEnd;
-                    if (date.equals(startDate) || date.equals(endDate) ||
-                            (date.isAfter(startDate) && date.isBefore(endDate))) {
+                    if (!(endDate.isBefore(startMonth) || startDate.isAfter(endMonth))) {
                         schedule.add(t);
                     }
                     break;
             }
-            if (date.equals(tDate)) {
+            if (tDate != null && startMonth.getYear() == tDate.getYear() &&
+                    startMonth.getMonthValue() == tDate.getMonthValue()) {
                 schedule.add(t);
             }
         }
         if (schedule.isEmpty()) {
-            System.out.println("You have nothing scheduled on this day!");
+            System.out.println("You have nothing scheduled for this month!");
         } else {
-            System.out.println("Here is your schedule for " + date.format(fmt) + ":");
+            System.out.println("Here is your schedule for " + command[1] + ":");
             for (int i = 0; i < schedule.size(); i++) {
                 System.out.println((i+1) + "." + schedule.get(i).listFormat());
             }
@@ -83,7 +86,4 @@ public class ScheduleDailyCommand extends Command {
     public boolean isExit() {
         return false;
     }
-
 }
-
-
