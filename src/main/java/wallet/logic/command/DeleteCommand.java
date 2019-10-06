@@ -49,6 +49,7 @@ public class DeleteCommand extends Command {
         case "expense":
             Expense expense = wallet.getExpenseList().deleteExpense(index);
             if (expense != null) {
+                wallet.getExpenseList().setModified(true);
                 System.out.println(MESSAGE_SUCCESS_DELETE_EXPENSE);
                 System.out.println(expense.toString());
             } else {

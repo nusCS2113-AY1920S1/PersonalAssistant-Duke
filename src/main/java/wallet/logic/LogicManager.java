@@ -17,6 +17,7 @@ import wallet.storage.StorageManager;
  * The LogicManager Class handles the logic of Wallet.
  */
 public class LogicManager {
+    public static final String MESSAGE_ERROR_COMMAND = "An error encountered while executing command.";
     private final StorageManager storageManager;
     private final ParserManager parserManager;
     private final Wallet wallet;
@@ -30,7 +31,6 @@ public class LogicManager {
                 new ExpenseList(storageManager.loadExpense()),
                 new ContactList(storageManager.loadContact()), new TaskList(storageManager.loadTask()),
                 new ScheduleList(), new LoanList(storageManager.loadLoan()));
-
         this.parserManager = new ParserManager();
         this.parserManager.setStorageManager(this.storageManager);
     }
@@ -47,11 +47,10 @@ public class LogicManager {
             Command command = parserManager.parseCommand(fullCommand);
             isExit = command.execute(wallet, storageManager);
             ExpenseParser.updateRecurringRecords(wallet, storageManager);
-
-
+            storageManager.save(wallet);
         } catch (Exception e) {
             e.printStackTrace();
-            System.out.println("Error encountered while executing command.");
+            System.out.println(MESSAGE_ERROR_COMMAND);
         }
 
         return isExit;

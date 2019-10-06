@@ -1,5 +1,6 @@
 package wallet.storage;
 
+import wallet.model.Wallet;
 import wallet.model.contact.Contact;
 import wallet.model.record.Budget;
 import wallet.model.record.Expense;
@@ -84,30 +85,12 @@ public class StorageManager {
     }
 
     /**
-     * Writes an Expense String into expense.txt.
-     *
-     * @param expense The Expense object.
-     */
-    public void addExpense(Expense expense) {
-        expenseStorage.writeToFile(expense);
-    }
-
-    /**
      * Loads the Loan objects into an ArrayList of Loans.
      *
      * @return The ArrayList of Loans.
      */
     public ArrayList<Loan> loadLoan() {
         return loanStorage.loadFile();
-    }
-
-    /**
-     * Writes a Loan String into loan.txt.
-     *
-     * @param loan The Loan object.
-     */
-    public void addLoan(Loan loan) {
-        loanStorage.writeToFile(loan);
     }
 
     /**
@@ -120,30 +103,33 @@ public class StorageManager {
     }
 
     /**
-     * Writes a Contact String into contact.txt.
-     *
-     * @param contact The Contact object.
-     */
-    public void addContact(Contact contact) {
-        contactStorage.writeToFile(contact);
-    }
-
-    /**
-     * Writes a Budget String into budget.txt.
-     *
-     * @param budget The Budget object.
-     */
-    public void addBudget(Budget budget) {
-        budgetStorage.writeToFile(budget);
-    }
-
-    /**
      * Loads the Budget object in the ArrayList of Budget objects.
      *
      * @return the ArrayList of Budgets objects.
      */
     public ArrayList<Budget> loadBudget() {
         return budgetStorage.loadFile();
+    }
 
+    /**
+     * Checks if lists are modified and updates save file.
+     */
+    public void save(Wallet wallet) {
+        if (wallet.getExpenseList().getIsModified()) {
+            expenseStorage.writeListToFile(wallet.getExpenseList().getExpenseList());
+            wallet.getExpenseList().setModified(false);
+        }
+        if (wallet.getLoanList().getIsModified()) {
+            loanStorage.writeListToFile(wallet.getLoanList().getLoanList());
+            wallet.getLoanList().setModified(false);
+        }
+        if (wallet.getContactList().getIsModified()) {
+            contactStorage.writeListToFile(wallet.getContactList().getContactList());
+            wallet.getContactList().setModified(false);
+        }
+        if (wallet.getBudgetList().getIsModified()) {
+            budgetStorage.writeListToFile(wallet.getBudgetList().getBudgetList());
+            wallet.getBudgetList().setModified(false);
+        }
     }
 }

@@ -5,6 +5,7 @@ import wallet.logic.command.ListCommand;
 import java.util.ArrayList;
 
 public class LoanList {
+    private boolean isModified = false;
     private ArrayList<Loan> loanList;
 
     public LoanList(ArrayList<Loan> loanList) {
@@ -22,6 +23,20 @@ public class LoanList {
      */
     public ArrayList<Loan> getLoanList() {
         return this.loanList;
+    }
+
+    /**
+     * Returns true if list is modified, else false.
+     */
+    public boolean getIsModified() {
+        return isModified;
+    }
+
+    /**
+     * Sets status of whether list is modified.
+     */
+    public void setModified(boolean modified) {
+        isModified = modified;
     }
 
     /**

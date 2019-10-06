@@ -78,7 +78,7 @@ public class AddCommand extends Command {
         if (expense != null) {
             wallet.getExpenseList().addExpense(expense);
             wallet.getRecordList().addRecord(expense);
-            storageManager.addExpense(expense);
+            wallet.getExpenseList().setModified(true);
             System.out.println(MESSAGE_SUCCESS_ADD_EXPENSE);
             System.out.println(expense.toString());
         }
@@ -90,14 +90,14 @@ public class AddCommand extends Command {
         }
         if (contact != null) {
             wallet.getContactList().addContact(contact);
-            storageManager.addContact(contact);
+            wallet.getContactList().setModified(true);
             System.out.println(MESSAGE_SUCCESS_ADD_CONTACT);
             System.out.println(contact.toString());
         }
         if (loan != null) {
             wallet.getLoanList().addLoan(loan);
             wallet.getRecordList().addRecord(loan);
-            storageManager.addLoan(loan);
+            wallet.getLoanList().setModified(true);
             System.out.println(MESSAGE_SUCCESS_ADD_LOAN);
             System.out.println(loan.toString());
         }

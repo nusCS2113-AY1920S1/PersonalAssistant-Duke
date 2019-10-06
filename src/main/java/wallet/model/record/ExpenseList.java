@@ -9,7 +9,7 @@ import java.util.ArrayList;
  * The ExpenseList Class that maintains a list of Expense objects.
  */
 public class ExpenseList {
-
+    private boolean isModified = false;
     private ArrayList<Expense> expenseList;
 
     /**
@@ -24,6 +24,20 @@ public class ExpenseList {
      */
     public ExpenseList(ArrayList<Expense> expenseList) {
         this.expenseList = expenseList;
+    }
+
+    /**
+     * Returns true if list is modified, else false.
+     */
+    public boolean getIsModified() {
+        return isModified;
+    }
+
+    /**
+     * Sets status of whether list is modified.
+     */
+    public void setModified(boolean modified) {
+        isModified = modified;
     }
 
     /**

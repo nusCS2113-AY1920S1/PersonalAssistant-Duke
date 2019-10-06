@@ -53,32 +53,23 @@ public class ExpenseStorage extends Storage<Expense> {
     }
 
     /**
-     * Write the Expense object as a String into expense.txt.
-     *
-     * @param expense The Expense object.
+     * Writes the expense list into expense.txt.
      */
     @Override
-    public void writeToFile(Expense expense) {
+    public void writeListToFile(ArrayList<Expense> expenseList) {
         try {
             RandomAccessFile raf = new RandomAccessFile(DEFAULT_STORAGE_FILEPATH_EXPENSE, "rws");
-            raf.seek(raf.length());
-            if (raf.getFilePointer() != 0) {
-                raf.writeBytes("\r\n");
+            raf.setLength(0);
+
+            for (Expense expense : expenseList) {
+                if (raf.getFilePointer() != 0) {
+                    raf.writeBytes("\r\n");
+                }
+                raf.writeBytes(expense.writeToFile());
             }
-            raf.writeBytes(expense.writeToFile());
             raf.close();
         } catch (IOException e) {
             System.out.println("IOException: " + e.getMessage());
         }
-    }
-
-    @Override
-    public void updateToFile(Expense expense, int index) {
-
-    }
-
-    @Override
-    public void removeFromFile(ArrayList<Expense> expenseList, int index) {
-
     }
 }
