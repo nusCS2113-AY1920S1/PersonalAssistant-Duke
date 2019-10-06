@@ -1,8 +1,8 @@
 package duke.ui;
 
-import duke.entities.Ingredient;
-import duke.entities.recipe.Recipe;
-import duke.entities.recipe.Step;
+import duke.entities_decrypted.Ingredient;
+import duke.entities_decrypted.recipe.Recipe;
+import duke.entities_decrypted.recipe.Step;
 import duke.ui.recipe.IngredientBox;
 import javafx.beans.binding.Bindings;
 import javafx.collections.FXCollections;

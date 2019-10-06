@@ -5,7 +5,7 @@ import duke.commons.core.LogsCenter;
 import duke.logic.Logic;
 import duke.logic.command.commons.CommandResult;
 import duke.logic.command.exceptions.CommandException;
-import duke.parser.exceptions.ParseException;
+import duke.logic.parser.exceptions.ParseException;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -138,22 +138,23 @@ public class MainWindow extends UiPart<Stage> {
 
     private void showPage(CommandResult.DisplayedPage toDisplay) {
         switch (toDisplay) {
-            case SALE:
-                showSalesPage();
-                break;
-            case ORDER:
-                showOrderPage();
-                break;
-            case RECIPE:
-                showRecipePage();
-                break;
-            case INVENTORY:
-                showInventoryPage();
-                break;
-            default:
-                showOrderPage();
+        case SALE:
+            showSalesPage();
+            break;
+        case ORDER:
+            showOrderPage();
+            break;
+        case RECIPE:
+            showRecipePage();
+            break;
+        case INVENTORY:
+            showInventoryPage();
+            break;
+        default:
+            showOrderPage();
         }
     }
+
     private void showOrderPage() {
         pagePane.getChildren().clear();
         pagePane.getChildren().add(orderPage.getRoot());

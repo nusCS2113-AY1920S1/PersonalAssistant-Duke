@@ -10,7 +10,7 @@ import duke.model.order.Order;
 import static java.util.Objects.requireNonNull;
 
 /**
- * A command to add an <code>Order</code> object to an <code>OrderList</code> object.
+ * A command to add an order to BakingHome.
  */
 public class AddOrderCommand extends OrderCommand implements Undoable {
 
@@ -18,6 +18,11 @@ public class AddOrderCommand extends OrderCommand implements Undoable {
     public static final String MESSAGE_SUCCESS = "New order added [Order ID: %s]";
     private final Order toAdd;
 
+    /**
+     * Creates an AddOrderCommand to add the specified {@code Order}.
+     *
+     * @param toAdd the {@code Order} to be added
+     */
     public AddOrderCommand(Order toAdd) {
         requireNonNull(toAdd);
         this.toAdd = toAdd;

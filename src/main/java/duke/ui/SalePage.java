@@ -1,6 +1,6 @@
 package duke.ui;
 
-import duke.entities.Sale;
+import duke.entities_decrypted.Sale;
 import javafx.fxml.FXML;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;

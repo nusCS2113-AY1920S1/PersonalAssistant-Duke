@@ -1,8 +1,8 @@
 package duke.ui;
 
+import duke.logic.parser.commons.TimeParser;
 import duke.model.commons.Product;
 import duke.model.order.Order;
-import duke.parser.TimeParser;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;

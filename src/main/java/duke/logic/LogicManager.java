@@ -4,11 +4,11 @@ import duke.logic.command.commons.Command;
 import duke.logic.command.commons.CommandResult;
 import duke.logic.command.exceptions.CommandException;
 import duke.logic.command.order.EditOrderCommand;
+import duke.logic.parser.commons.BakingHomeParser;
+import duke.logic.parser.exceptions.ParseException;
 import duke.model.Model;
 import duke.model.ReadOnlyBakingHome;
 import duke.model.order.Order;
-import duke.parser.BakingHomeParser;
-import duke.parser.exceptions.ParseException;
 import duke.storage.Storage;
 import javafx.collections.ObservableList;
 
