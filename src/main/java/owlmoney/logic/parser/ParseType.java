@@ -1,5 +1,8 @@
 package owlmoney.logic.parser;
 
+import java.util.Arrays;
+import java.util.List;
+
 import owlmoney.logic.command.Command;
 import owlmoney.logic.command.PlaceHolderEmptyCommand;
 import owlmoney.logic.command.bank.ListSavingsCommand;
@@ -11,12 +14,45 @@ import owlmoney.logic.parser.saving.ParseAddSaving;
 import owlmoney.logic.parser.saving.ParseDeleteSaving;
 import owlmoney.logic.parser.saving.ParseEditSaving;
 
+/**
+ * Represents the second layer of parsing for secondary category of command.
+ * This determines what type of command the user desires after specifying the command.
+ */
+
 class ParseType extends Parser {
-    //added profile
+
+    /**
+     * List of whitelisted keywords that the user can use.
+     */
+    private static final String[] TYPE_KEYWORDS = new String[] {
+            "/savings",
+            "/investment",
+            "/expenditure",
+            "/goals",
+            "/card",
+            "/recurexpenditure",
+            "/bonds",
+            "/profile"
+    };
+    private static final List<String> TYPE_KEYWORD_LISTS = Arrays.asList(TYPE_KEYWORDS);
+
+    /**
+     * Determines the type of command and checks if it is of valid type.
+     * After determining that it is of a legal type.
+     * The type is extracted just like how the first field was extracted when extracting command.
+     *
+     * @param command The command previously extracted from the first field of user input.
+     * @param data    The remaining user input string with command removed.
+     * @return The raw data left with command and type removed.
+     * @throws ParserException if the user specified an invalid type.
+     */
     Command parseData(String command, String data) throws ParserException {
         String type = parseFirstField(data);
+        if (!TYPE_KEYWORD_LISTS.contains(type)) {
+            throw new ParserException(type + " is an invalid type");
+        }
         String rawData;
-        if(command.equals("/list")) {
+        if (command.equals("/list")) {
             rawData = removeListFirstField(data, type);
         } else {
             rawData = removeFirstField(data, type);
@@ -24,12 +60,27 @@ class ParseType extends Parser {
         return parseTypeMenu(command, type, rawData);
     }
 
+    /**
+     * Checks if the user wants to delete profile.
+     *
+     * @param command The extracted first field from the initial user input that determines the command.
+     * @throws ParserException if the user wants to delete his profile.
+     */
     private void isDeleteProfile(String command) throws ParserException {
         if (command.equals("/delete")) {
             throw new ParserException("Profile cannot be deleted");
         }
     }
-    //added profile to pass to command
+
+    /**
+     * The parseTypeMenu determines what type of command object to generate based on the command and type.
+     *
+     * @param command The command extracted from the initial first field.
+     * @param type    The type of command extracted from the subsequent first field after first layer of parsing.
+     * @param rawData The remaining data after removing command and type.
+     * @return The command object that is required to be executed.
+     * @throws ParserException when an invalid type if specified.
+     */
     private Command parseTypeMenu(String command, String type, String rawData) throws ParserException {
         switch (type) {
         case "/profile":

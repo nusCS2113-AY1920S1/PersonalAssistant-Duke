@@ -7,6 +7,11 @@ import java.util.Scanner;
 import owlmoney.logic.command.Command;
 import owlmoney.logic.parser.exception.ParserException;
 
+/**
+ * Represents the first instance of parsing user input.
+ * This determines what type of command the user has entered.
+ */
+
 public class ParseCommand extends Parser {
     private ParseType parseType = new ParseType();
     private final Scanner scanner = new Scanner(System.in);
@@ -14,10 +19,23 @@ public class ParseCommand extends Parser {
             {"/help", "/undo", "/add", "/edit", "/delete", "/list", "/find", "/transfer", "/exit"};
     private static final List<String> COMMAND_KEYWORD_LISTS = Arrays.asList(COMMAND_KEYWORDS);
 
+    /**
+     * Checks if there are any more user input if using I/O redirection.
+     *
+     * @return a boolean true when there are more inputs and false when no more input is detected.
+     */
     public boolean hasNextLine() {
         return scanner.hasNextLine();
     }
 
+    /**
+     * Takes in the user input and checks if it is blank first before extracting the command.
+     * The command extracted is then check against a whitelist before removing it from the input.
+     * The command then determines which command to execute.
+     *
+     * @return a Command object that is required to be executed.
+     * @throws ParserException if command is not in the whitelist.
+     */
     public Command parseLine() throws ParserException {
         String input = scanner.nextLine();
         parseIsBlank(input);
@@ -29,12 +47,25 @@ public class ParseCommand extends Parser {
         return parseCommandMenu(command, data);
     }
 
+    /**
+     * Checks if the user input is full of spaces or is empty.
+     *
+     * @param input The user input.
+     * @throws ParserException if it is blank or full of spaces.
+     */
     private void parseIsBlank(String input) throws ParserException {
         if (input.isBlank() || input.isEmpty()) {
             throw new ParserException("Input cannot be blank or space-bar only");
         }
     }
 
+    /**
+     * The command menu determines what type of command to execute and pass to parseType.
+     * @param command The command extracted with parseFirstField.
+     * @param data The data that has command removed from the first field.
+     * @return The Command object that is required to be executed.
+     * @throws ParserException When an invalid command is detected.
+     */
     //for now is pass profile all the way in. Double check if is correct structure
     private Command parseCommandMenu(String command, String data) throws ParserException {
         switch (command) {
@@ -50,10 +81,6 @@ public class ParseCommand extends Parser {
         case "/list":
             System.out.println("You listed");
             return parseType.parseData(command, data);
-        /*case "/test": //for testing of output
-            profile.listMyExpenditure();
-            break;
-         */
         case "/exit":
             System.exit(0);
         default:

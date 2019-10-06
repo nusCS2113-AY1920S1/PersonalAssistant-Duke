@@ -8,7 +8,6 @@ import owlmoney.logic.parser.exception.ParserException;
 import owlmoney.model.profile.Profile;
 import owlmoney.ui.Ui;
 
-
 /**
  * The main class.
  */

@@ -25,6 +25,9 @@ public class Ui {
         printMessage("What can I do for you?");
     }
 
+    /**
+     * Prompts the user for a username on first instance of running this program.
+     */
     public void firstTimeRun() {
         printMessage("Please enter a username:");
     }
