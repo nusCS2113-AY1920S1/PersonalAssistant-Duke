@@ -32,6 +32,24 @@ public class AddCommand extends Command {
             ui.empty_description_error();
             return;
         }
-        Hustler.list.add(this.taskInfo[0], this.taskInfo[1]);
+
+        String[] taskDescription = this.taskInfo[1].split("/");
+
+        if (taskDescription.length == 1) {
+            Hustler.list.add("todo", taskDescription[0]);
+            return;
+        }
+
+        String taskType = "";
+
+        switch (taskDescription[1].split(" ")[0]) {
+        case "by":
+            taskType = "deadline";
+            break;
+        case "at":
+            taskType = "event";
+            break;
+        }
+        Hustler.list.add(taskType, this.taskInfo[1]);
     }
 }
