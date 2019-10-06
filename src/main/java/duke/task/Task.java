@@ -1,5 +1,7 @@
 package duke.task;
 
+import duke.dukeexception.DukeException;
+
 import java.time.LocalDateTime;
 
 /**
@@ -11,6 +13,8 @@ public class Task {
     public int numberOfDays = 0;
     public LocalDateTime currentDate;
     public LocalDateTime dueDate;
+
+    public int priority;
 
     /**
      * Creates a task with the specified description.
@@ -32,11 +36,20 @@ public class Task {
     }
 
     /**
+     * Sets the description of a task.
+     *
+     * @param description String of the description.
+     */
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    /**
      * Returns a boolean of the task being done or not.
      *
      * @return Boolean of isDone.
      */
-    public boolean getisDone() {
+    public boolean isDone() {
         return isDone;
     }
 
@@ -47,6 +60,15 @@ public class Task {
      */
     public String getStatusIcon() {
         return (isDone ? "[/]" : "[X]"); //return [✓] : [✗] symbols; [/][X] for jar
+    }
+
+    /**
+     * Sets the status icon of a task to true/false.
+     *
+     * @param setDone The boolean of the task.
+     */
+    public void setStatusIcon(boolean setDone) {
+        isDone = setDone;
     }
 
     /**
@@ -68,42 +90,53 @@ public class Task {
     }
 
     /**
-     * Sets the status icon of a task to true/false.
-     *
-     * @param setDone The boolean of the task.
-     */
-    public void setStatusIcon(boolean setDone) {
-        isDone = setDone;
-    }
-
-    /**
-     * Set the remaining days of reminder
+     * Set the remaining days of reminder.
      *
      * @param remainingDays The number of days left of the reminded task.
      */
-    public void setReminder(int remainingDays){
+    public void setReminder(int remainingDays) {
         this.numberOfDays = remainingDays;
     }
 
     /**
-     * Set the remaining days of reminder
+     * Set the remaining days of reminder.
      *
-     * @return boolean that triggers the reminder
+     * @return boolean that triggers the reminder.
      */
-    public boolean triggerReminder(){
-//        if (dueDate != null) {
-//            LocalDateTime reminderDate = dueDate.minusDays(numberOfDays);
-//            return LocalDateTime.now().isAfter(reminderDate);
-//        }
-//        if (currentDate != null) {
-//            LocalDateTime reminderDate = currentDate.minusDays(numberOfDays);
-//            return LocalDateTime.now().isAfter(reminderDate);
-//        }
-        if (getisDone()==false) {
-            System.out.println("High priority: ");
+    public boolean isTriggerReminder() {
+        /*if (dueDate != null) {
+            LocalDateTime reminderDate = dueDate.minusDays(numberOfDays);
+            return LocalDateTime.now().isAfter(reminderDate);
+        }
+        if (currentDate != null) {
+            LocalDateTime reminderDate = currentDate.minusDays(numberOfDays);
+            return LocalDateTime.now().isAfter(reminderDate);
+        }*/
+        if (isDone() == false) {
+            System.out.println("     High priority: ");
         }
         return false;
     }
+
+    /**
+     * Set the priority of one task.
+     *
+     * @param  priorityLevel The priority level of the task, 1 to 5, high to low.
+     */
+    public void setPriority(int priorityLevel) {
+        this.priority = priorityLevel;
+    }
+
+    /**
+     * Set the priority of one task.
+     *
+     * @return the priority of the task.
+     */
+    public int getPriority() {
+        return this.priority;
+    }
+
+
     /**
      * Extracting a task content into readable string.
      *
@@ -143,8 +176,28 @@ public class Task {
      *
      * @return String of Date (Only in Deadline and Event)
      */
-    public String getDateString() {
+    public String getDateTime() {
         return null;
     }
 
+    /**
+     * Set the date of the task.
+     *
+     * @param dateTime String of the date/time.
+     * @throws Exception  If there is an error interpreting the user input
+     */
+    public void setDateTime(String dateTime) throws Exception {
+        throw new DukeException("     Error! This task does not have date/time.");
+    }
+
+    /**
+     * Checks if the input and description matches.
+     *
+     * @param arr1 Input from user.
+     * @return Boolean that states if the input is a duplicate.
+     */
+    public boolean isContain(String arr1) {
+        return arr1.equalsIgnoreCase(description);
+
+    }
 }

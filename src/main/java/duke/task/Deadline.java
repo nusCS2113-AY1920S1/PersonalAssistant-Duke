@@ -62,7 +62,7 @@ public class Deadline extends Task {
         }
         String suffixStr = day + suf[sufIndex];
         displayDT = suffixStr + " of " + displayDT;
-        return "[D]" + super.toString() + " (from: " + displayDT + ")";
+        return "[D]" + super.toString() + " (by: " + displayDT + ")";
     }
 
     /**
@@ -96,7 +96,7 @@ public class Deadline extends Task {
         }
         String suffixStr = day + suf[sufIndex];
         displayDT = suffixStr + " of " + displayDT;
-        return "[D]" + super.toStringGui() + " (from: " + displayDT + ")";
+        return "[D]" + super.toStringGui() + " (by: " + displayDT + ")";
     }
 
     /**
@@ -116,8 +116,23 @@ public class Deadline extends Task {
      * @return String of Date.
      */
     @Override
-    public String getDateString() {
+    public String getDateTime() {
         String datetimeStr = datetimeFormat.format(by);
         return datetimeStr;
+    }
+
+    /**
+     * Sets the date of the task.
+     */
+    @Override
+    public void setDateTime(String by) throws Exception {
+        Date dateTime;
+        try {
+            dateTime = datetimeFormat.parse(by);
+            this.by = dateTime;
+        } catch (ParseException e) {
+            System.out.println("Error reading date/time, please use this format \"d/MM/yyyy HHmm\"");
+            throw e;
+        }
     }
 }

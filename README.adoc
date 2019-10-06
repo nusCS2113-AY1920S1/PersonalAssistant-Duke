@@ -9,8 +9,8 @@ ifndef::env-github[]
 image::docs/images/Ui.png[width="600"]
 endif::[]
 
-* DUKE manager is a desktop application. It has a GUI but most of the user interactions happen using a CLI (Command Line Interface).
-* It is used as a handbook to address undergraduate students' problems such as time management issues by organizing their tasks so that they can concentrate on their work.
+* DUKE manager is a desktop application. It has a GUI (Graphical User Interface) to promote user-friendliness but the core functions work well using a CLI (Command Line Interface).
+* It is used as a digital academic handbook to address Engineering Undergraduates' issues such as time management issues by organizing multiple tasks and deadlines so that they can concentrate on their work without missing out any important events.
 
 == Site Map
 

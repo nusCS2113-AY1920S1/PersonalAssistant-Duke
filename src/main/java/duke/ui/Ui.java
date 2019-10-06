@@ -1,12 +1,13 @@
 package duke.ui;
 
-import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.Scanner;
-import java.io.PrintStream;
-
+import duke.task.PriorityList;
 import duke.task.Task;
 import duke.task.TaskList;
+
+import java.io.InputStream;
+import java.io.PrintStream;
+import java.util.ArrayList;
+import java.util.Scanner;
 
 /**
  * Represents a ui that informs the user.
@@ -65,13 +66,16 @@ public class Ui {
      *
      * @param tasks The task list that contains all reminders.
      */
-    public static void showReminder(TaskList tasks){
+    public static void showReminder(TaskList tasks) {
         ArrayList<Task> taskList = tasks.getTasks();
-        System.out.println("You currently have these upcoming tasks:\n");
+        System.out.println("     You currently have these upcoming tasks:\n");
+        int currentIndex = 1;
         for (Task remaining: taskList) {
-            remaining.triggerReminder();
-            System.out.println(remaining.toString());
+            remaining.isTriggerReminder();
+            System.out.println("     " + currentIndex + "." + remaining.toString());
+            currentIndex += 1;
         }
+        System.out.println(line);
     }
 
     /**
@@ -84,6 +88,21 @@ public class Ui {
         out.print(items.getList());
     }
 
+
+    /**
+     * Outputs all the tasks of the task list to the user.
+     *
+     * @param items The task list that contains a list of tasks.
+     * @param priorities The list of priorities associated with each task.
+     */
+    public void showTaskListWithPriority(TaskList items, PriorityList priorities) {
+        out.println("     Here are the tasks in your list with priority shown:\n");
+        out.printf("     Priority |\tTask\n");
+        for (int i = 0; i < items.size() && i < priorities.getSize(); i++) {
+            out.printf("        [%d]\t  |\t%d.%s\n", priorities.getList().get(i), i + 1, items.get(i));
+        }
+    }
+
     /**
      * Outputs all the tasks of the task list to the user (GUI).
      *
@@ -92,6 +111,30 @@ public class Ui {
      */
     public static String showTaskListGui(TaskList items) {
         String str = "     Here are the tasks in your list:\n" + items.getListGui();
+        return str;
+    }
+
+    /**
+     * Outputs task that is updated to the user.
+     *
+     * @param items The task list that contains a list of tasks.
+     * @param index The index of the task.
+     */
+    public void showUpdate(TaskList items, int index) {
+        out.println("     Nice! I've updated this task ^^:");
+        out.println("       " + (index + 1) + "." + items.get(index).toString());
+    }
+
+    /**
+     * Outputs task that is updated to the user (GUI).
+     *
+     * @param items The task list that contains a list of tasks.
+     * @param index The index of the task.
+     * @return String of the task that is updated.
+     */
+    public static String showUpdateGui(TaskList items, int index) {
+        String str = "     Nice! I've updated this task ^^:\n"
+                + "       " + (index + 1) + "." + items.get(index).toString();
         return str;
     }
 
@@ -270,5 +313,12 @@ public class Ui {
      */
     public static String showErrorMsgGui(String message) {
         return message + "\n";
+    }
+
+    /**
+     * Outputs an alert when a duplicated inout is detected.
+     */
+    public void showDuplicateMsg() {
+        out.println("     The same task is already in the list!");
     }
 }

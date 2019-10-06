@@ -43,9 +43,9 @@ public class TaskList {
     }
 
     /**
-     * Get remaining tasks in the ArrayList
+     * Get remaining tasks in the ArrayList.
      *
-     * @return tasks that represents the items
+     * @return tasks that represents the items.
      */
     public ArrayList<Task> getTasks() {
         return items;
@@ -104,11 +104,11 @@ public class TaskList {
      * @param keyDesc description of the task
      * @return returns true if task is marked as done, false otherwise.
      */
-    public boolean getTaskStatus(String keyDesc) {
+    public boolean isTaskDone(String keyDesc) {
         ArrayList searchList = new ArrayList<Task>();
         for (Task searchTask : items) {
             if (searchTask.toString().contains(keyDesc)) {
-                if (searchTask.getStatusIcon() == "[✓]") {
+                if (searchTask.isDone()) {
                     return true;
                 }
             }

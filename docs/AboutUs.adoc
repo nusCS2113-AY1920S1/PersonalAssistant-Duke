@@ -9,30 +9,40 @@ We are a team based in the http://www.comp.nus.edu.sg[School of Computing, Natio
 == Project Team
 
 === Ting Wei
+image::talesrune.png[width="150", align="left"]
+{empty}[https://github.com/talesrune[github]] [https://github.com/talesrune[portfolio]]
 
 Role: Project Coder
 
 '''
 
 === Rui Huan
+image::e0318465.PNG[width="150", align="left"]
+{empty}[https://github.com/e0318465[github]] [https://github.com/e0318465[portfolio]]
 
 Role: Project Coder 
 
 '''
 
 === Yu Xuan
+image::maxxyx96.PNG[width="150", align="left"]
+{empty}[https://github.com/maxxyx96[github]] [https://github.com/maxxyx96[portfolio]]
 
 Role: Project Coder
 
 '''
 
 === Gervaise Ang
+image::gervaiseang.png[width="150", align="left"]
+{empty}[https://github.com/gervaiseang[github]] [https://github.com/gervaiseang[portfolio]]
 
 Role: Project Coder
 
 '''
 
 === Mao Kang
+image::Dou-Maokang.png[width="150", align="left"]
+{empty}[https://github.com/Dou-Maokang[github]] [https://github.com/Dou-Maokang[portfolio]]
 
 Role: Project Coder
 

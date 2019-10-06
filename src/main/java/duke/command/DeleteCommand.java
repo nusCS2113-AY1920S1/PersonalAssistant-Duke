@@ -2,6 +2,7 @@ package duke.command;
 
 
 import duke.storage.Storage;
+import duke.task.PriorityList;
 import duke.ui.Ui;
 import duke.task.TaskList;
 
@@ -34,6 +35,23 @@ public class DeleteCommand extends Command {
     }
 
     /**
+     * Executes a command that deletes the task from the task list together with its priority.
+     *
+     * @param items The task list that contains a list of tasks.
+     * @param ui To tell the user that it is deleted successfully.
+     * @param priorities The list of priorities.
+     */
+    @Override
+    public void execute(TaskList items, PriorityList priorities, Ui ui) {
+        String deletedStr = "       " + items.get(index).toString();
+        items.remove(index);
+        priorities.remove(index);
+        ui.showDelete(items, deletedStr);
+    }
+
+
+
+    /**
      * Executes a command that deletes the task from the task list and outputs the result (GUI).
      *
      * @param items The task list that contains a list of tasks.
@@ -44,7 +62,7 @@ public class DeleteCommand extends Command {
     public String executeGui(TaskList items, Ui ui) {
         String deletedStr = "       " + items.get(index).toStringGui();
         items.remove(index);
-        String str = ui.showDeleteGui(items, deletedStr);
+        String str = Ui.showDeleteGui(items, deletedStr);
         return str;
     }
 

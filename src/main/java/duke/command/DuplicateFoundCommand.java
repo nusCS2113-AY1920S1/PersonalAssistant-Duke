@@ -1,36 +1,37 @@
 package duke.command;
 
 import duke.storage.Storage;
-import duke.ui.Ui;
 import duke.task.TaskList;
+import duke.ui.Ui;
+
+import java.io.IOException;
 
 /**
- * Representing a command that lists all tasks stored in task list.
+ * Representing a command that states a task is duplicated.
  */
-public class ListCommand extends Command {
-
+public class DuplicateFoundCommand extends Command {
     /**
-     * Executes a command that gathers all tasks from task list and outputs the result.
+     * Outputs the alert when duplicated task is detected.
      *
      * @param items The task list that contains a list of tasks.
-     * @param ui To tell the user the list of tasks stored in task list.
+     * @param ui To tell the user that it is marked as done successfully.
      */
     @Override
     public void execute(TaskList items, Ui ui) {
-        ui.showTaskList(items);
+        ui.showDuplicateMsg();
     }
 
     /**
-     * Executes a command that gathers all tasks from task list and outputs the result (GUI).
+     * Executes a command that marks the task as done in the task list and outputs the result (GUI).
+     * (Not in use)
      *
      * @param items The task list that contains a list of tasks.
-     * @param ui To tell the user the list of tasks stored in task list.
+     * @param ui To tell the user that it is marked as done successfully.
      * @return String to be outputted to the user.
      */
     @Override
     public String executeGui(TaskList items, Ui ui) {
-        String str = Ui.showTaskListGui(items);
-        return str;
+        return "";
     }
 
     /**
@@ -42,6 +43,6 @@ public class ListCommand extends Command {
      * @param storage The storage to be overwritten.
      */
     @Override
-    public void executeStorage(TaskList items, Ui ui, Storage storage) {
+    public void executeStorage(TaskList items, Ui ui, Storage storage) throws IOException {
     }
 }

@@ -11,7 +11,14 @@ import duke.task.FixedDuration;
 import duke.ui.Ui;
 import duke.dukeexception.DukeException;
 
-import java.io.*;
+//import java.io.FileOutputStream;
+//import java.io.ObjectOutputStream;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 
 /**
@@ -69,7 +76,7 @@ public class Storage {
                         }
                     }
                 }
-                Boolean checked = false;
+                boolean checked = false;
                 if (commandList.length > 1) {
                     if (!(commandList[1].equals("1") || commandList[1].equals("0"))) {
                         throw new DukeException("Error reading 1 or 0, skipping to next line");
@@ -131,7 +138,7 @@ public class Storage {
                         items.add(t);
                     }
                 } else if (!commandList[0].isEmpty()) {
-                    throw new DukeException("Error reading whether if its T, D, E, R, or A, skipping to next line");
+                    throw new DukeException("Error reading whether if its T, D, E, R, A, or F skipping to next line");
                 }
             } catch (Exception e) {
                 ui.showErrorMsg("     Error when reading current line, please fix the text file:");
@@ -159,16 +166,16 @@ public class Storage {
         writer.close();
     }
 
-    public void saveFile(ArrayList<Task> listOfTasks){
-        try {
-            FileOutputStream fw = new FileOutputStream(filePath);
-            ObjectOutputStream objectOutputStream = new ObjectOutputStream(fw);
-            objectOutputStream.writeObject(listOfTasks);
-            objectOutputStream.close(); //always close
-            fw.flush();
-            fw.close();
-        } catch (IOException IOE) {
-            System.out.println("Something went wrong " + IOE.getMessage());
-        }
-    }
+    //    public void saveFile(ArrayList<Task> listOfTasks){
+    //        try {
+    //            FileOutputStream fw = new FileOutputStream(filePath);
+    //            ObjectOutputStream objectOutputStream = new ObjectOutputStream(fw);
+    //            objectOutputStream.writeObject(listOfTasks);
+    //            objectOutputStream.close(); //always close
+    //            fw.flush();
+    //            fw.close();
+    //        } catch (IOException IOE) {
+    //            System.out.println("Something went wrong " + IOE.getMessage());
+    //        }
+    //    }
 }

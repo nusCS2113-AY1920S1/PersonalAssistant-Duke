@@ -1,5 +1,7 @@
 package duke.task;
 
+import duke.dukeexception.DukeException;
+
 /**
  * Represents a to-do that stores description.
  */
@@ -42,5 +44,13 @@ public class Todo extends Task {
     @Override
     public String toFile() {
         return "T|" + super.toFile();
+    }
+
+    /**
+     * Sets the date of the task.
+     */
+    @Override
+    public void setDateTime(String dateTime) throws Exception {
+        throw new DukeException("     Error! Todo does not have date/time.");
     }
 }

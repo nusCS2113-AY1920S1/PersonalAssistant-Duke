@@ -71,9 +71,24 @@ public class Repeat extends Task {
      * @return String of Date.
      */
     @Override
-    public String getDateString() {
+    public String getDateTime() {
         String datetimeStr = datetimeFormat.format(from);
         return datetimeStr;
+    }
+
+    /**
+     * Sets the date of the task.
+     */
+    @Override
+    public void setDateTime(String from) throws Exception {
+        Date dateTime;
+        try {
+            dateTime = datetimeFormat.parse(from);
+            this.from = dateTime;
+        } catch (ParseException e) {
+            System.out.println("Error reading date/time, please use this format \"d/MM/yyyy HHmm\"");
+            throw e;
+        }
     }
 
     /**

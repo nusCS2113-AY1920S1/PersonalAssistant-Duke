@@ -10,6 +10,7 @@ public class FixedDuration extends Task {
      *
      * @param description Description of the Task.
      * @param duration The duration needed to complete the task.
+     * @param unit The time unit.
      */
     public FixedDuration(String description, int duration, String unit) {
         super(description);
