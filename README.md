@@ -30,8 +30,8 @@ The trainer is able to navigate across the different features of the app easily.
 
 
 ## Site Map
-* [About Us](https://github.com/AY1920S1-CS2113T-W13-1/main/blob/master/doc/AboutUs.adoc)
+* [About Us](https://github.com/AY1920S1-CS2113T-W13-1/main/blob/master/docs/AboutUs.adoc)
 
-* [User Document](https://github.com/AY1920S1-CS2113T-W13-1/main/blob/master/doc/UserDoc.adoc)
+* [User Document](https://github.com/AY1920S1-CS2113T-W13-1/main/blob/master/docs/UserDoc.adoc)
 
-* [Developer Guide](https://github.com/AY1920S1-CS2113T-W13-1/main/blob/master/doc/DeveloperGuide.adoc)
+* [Developer Guide](https://github.com/AY1920S1-CS2113T-W13-1/main/blob/master/docs/DeveloperGuide.adoc)
