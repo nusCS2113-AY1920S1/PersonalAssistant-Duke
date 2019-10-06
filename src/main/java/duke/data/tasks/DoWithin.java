@@ -26,7 +26,7 @@ public class DoWithin extends TaskWithDates {
         return super.getStartDate().toString() + " | " + this.endDate.toString();
     }
 
-    String getEndDate() {
+    protected String getEndDate() {
         return this.endDate.toString();
     }
 }
