@@ -2,6 +2,7 @@ package wallet.model.record;
 
 import wallet.logic.command.ListCommand;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 /**
@@ -90,6 +91,29 @@ public class ExpenseList {
      */
     public int getSize() {
         return expenseList.size();
+    }
+
+    /**
+     * Returns the monthly expenses.
+     * @param month month of user expenses.
+     * @param year year of user expenses.
+     * @return sum of expenses in a given month and year.
+     */
+    public double getMonthExpenses(int month, int year) {
+        int expenseMonth;
+        int expenseYear;
+        double totalExpenses = 0;
+
+        for (Expense e : this.expenseList) {
+            LocalDate expenseDate = e.getDate();
+            expenseMonth = expenseDate.getMonthValue();
+            expenseYear = expenseDate.getYear();
+            if (expenseMonth == month && expenseYear == year) {
+                totalExpenses += e.getAmount();
+            }
+        }
+
+        return totalExpenses;
     }
 
     /**

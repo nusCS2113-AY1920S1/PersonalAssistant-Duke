@@ -1,6 +1,7 @@
 package wallet.storage;
 
 import wallet.model.contact.Contact;
+import wallet.model.record.Budget;
 import wallet.model.record.Expense;
 import wallet.model.record.Loan;
 import wallet.model.task.Task;
@@ -16,6 +17,7 @@ public class StorageManager {
     private ExpenseStorage expenseStorage;
     private LoanStorage loanStorage;
     private ContactStorage contactStorage;
+    private BudgetStorage budgetStorage;
 
     /**
      * Constructs a new StorageManager object with all storage classes.
@@ -27,6 +29,7 @@ public class StorageManager {
         this.loanStorage = new LoanStorage();
         this.contactStorage = new ContactStorage();
         this.loanStorage.setContactStorage(this.contactStorage);
+        this.budgetStorage = new BudgetStorage();
     }
 
     /**
@@ -81,7 +84,7 @@ public class StorageManager {
     }
 
     /**
-     * Writes an Expense object into expense.txt.
+     * Writes an Expense String into expense.txt.
      *
      * @param expense The Expense object.
      */
@@ -99,7 +102,7 @@ public class StorageManager {
     }
 
     /**
-     * Writes a Loan object into loan.txt.
+     * Writes a Loan String into loan.txt.
      *
      * @param loan The Loan object.
      */
@@ -117,11 +120,30 @@ public class StorageManager {
     }
 
     /**
-     * Writes a Contact object into contact.txt.
+     * Writes a Contact String into contact.txt.
      *
      * @param contact The Contact object.
      */
     public void addContact(Contact contact) {
         contactStorage.writeToFile(contact);
+    }
+
+    /**
+     * Writes a Budget String into budget.txt.
+     *
+     * @param budget The Budget object.
+     */
+    public void addBudget(Budget budget) {
+        budgetStorage.writeToFile(budget);
+    }
+
+    /**
+     * Loads the Budget object in the ArrayList of Budget objects.
+     *
+     * @return the ArrayList of Budgets objects.
+     */
+    public ArrayList<Budget> loadBudget() {
+        return budgetStorage.loadFile();
+
     }
 }
