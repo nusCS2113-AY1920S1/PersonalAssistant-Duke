@@ -48,7 +48,7 @@ public class Event extends Task implements Serializable, Comparable<Event> {
     @Override
     public String toString() {
 
-        return "[E]" + "[" + super.getStatusIcon() + "]" + this.description + "(at: "
+        return "[E]" + "[" + super.getStatusIcon() + "] " + this.description + "(at: "
                 + this.startDate.format(DateTimeExtractor.DATE_FORMATTER) + "-"
                 + this.endDate.format(DateTimeExtractor.DATE_FORMATTER) + ")";
     }

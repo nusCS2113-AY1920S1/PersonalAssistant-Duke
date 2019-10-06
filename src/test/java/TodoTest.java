@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 
 import exception.DukeException;
 import parser.DateTimeExtractor;
+import parser.Parser;
 import task.Todo;
 
 /**
@@ -22,7 +23,14 @@ public class TodoTest {
     public void testTodoCreation() {
         String title = todo.description;
         Assertions.assertEquals(title, "testing todo");
-        Assertions.assertEquals(todo.toString(), "[T][" + "✘" + "] testing todo");
+        Assertions.assertEquals(todo.toString(), "[T][✘] testing todo");
+    }
+
+    @Test
+    public void whenExceptionThrown() {
+        Assertions.assertThrows(DukeException.class, () -> {
+            Parser.parse("todo");
+        });
     }
 
     @Test
