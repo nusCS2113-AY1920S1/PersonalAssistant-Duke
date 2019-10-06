@@ -260,12 +260,12 @@ public class Parser {
                 MyPlan plan = new MyPlan();
                 switch(word[1]) {
                     case "view": {
-                        plan.loadPlan(word[2]);
+                        System.out.println(plan.loadPlan(word[2]));
                         break;
                     }
                     case "view-all": {
                         //view all with specified intensity
-                        plan.viewPlan(word[2]);
+                        System.out.println(plan.viewPlan(word[2]));
                         break;
                     }
                     case "add": {
@@ -273,11 +273,11 @@ public class Parser {
                         break;
                     }
                     case "delete": {
-                        plan.deletePlan(word[2],Integer.parseInt(word[3]),Integer.parseInt(word[4]),Integer.parseInt(word[5]));
+                        System.out.println(plan.deletePlan(word[2],Integer.parseInt(word[3]),Integer.parseInt(word[4]),Integer.parseInt(word[5])));
                         break;
                     }
                     case "delete-all": {
-                        plan.clearPlan();
+                        System.out.println(plan.clearPlan());
                         break;
                     }
                 }
