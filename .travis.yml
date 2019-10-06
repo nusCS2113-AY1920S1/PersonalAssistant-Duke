@@ -1,7 +1,4 @@
 language: java
-matrix:
-  include:
-    - jdk: openjdk11
 
 script: >-
     ./gradlew clean checkstyleMain checkstyleTest
