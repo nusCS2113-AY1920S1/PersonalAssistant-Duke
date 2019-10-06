@@ -32,8 +32,6 @@ public class SearchCommand extends Command {
             e.showError();
         }*/
         String meaning = wordBank.searchForMeaning(this.searchedWord);
-        word = new Word(searchedWord, meaning);
-        wordBank.addWord(word);
         ui.showSearch(this.searchedWord,meaning);
     }
 }
