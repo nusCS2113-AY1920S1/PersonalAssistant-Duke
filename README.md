@@ -1,4 +1,4 @@
-# Vocab Buddy
+# WordUp
 
 **Welcome to your personal vocabulary builder app!**
 
