@@ -5,6 +5,7 @@ package wallet.model.contact;
  */
 public class Contact {
 
+    private int id;
     private String name;
     private String detail;
     private String phoneNum;
@@ -77,12 +78,35 @@ public class Contact {
     }
 
     /**
+     * Sets the id of the contact object
+     *
+     * @param id The identity of the contact object.
+     */
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    /**
+     * Returns the id of the contact object.
+     *
+     * @return The id of the contact object.
+     */
+    public int getId() {
+        return this.id;
+    }
+
+    /**
      * Returns the concatenated string with all the required fields.
      *
      * @return The concatenated string with all the required fields.
      */
     @Override
     public String toString() {
-        return this.name + " " + this.detail + " " + this.phoneNum;
+        return "[ID: " + this.id + "]" + this.name + " " + this.detail + " " + this.phoneNum;
     }
+
+    public String writeToFile() {
+        return getId() + "," + this.name + "," + this.detail + "," + this.phoneNum;
+    }
+
 }

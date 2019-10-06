@@ -22,9 +22,10 @@ public class LogicManager {
      */
     public LogicManager() {
         this.storageManager = new StorageManager();
-        this.wallet = new Wallet(new RecordList(), new ExpenseList(storageManager.loadExpense()),new ContactList(),
+        this.wallet = new Wallet(new RecordList(), new ExpenseList(storageManager.loadExpense()),new ContactList(storageManager.loadContact()),
                 new TaskList(storageManager.loadTask()), new ScheduleList(), new LoanList(storageManager.loadLoan()));
         this.parserManager = new ParserManager();
+        this.parserManager.setStorageManager(this.storageManager);
     }
 
     /**

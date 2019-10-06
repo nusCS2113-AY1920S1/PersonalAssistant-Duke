@@ -2,6 +2,7 @@ package wallet.logic.parser;
 
 import wallet.logic.command.AddCommand;
 import wallet.model.contact.Contact;
+import wallet.model.contact.ContactList;
 import wallet.model.record.Expense;
 import wallet.model.record.Loan;
 import wallet.model.task.Deadline;
@@ -9,15 +10,18 @@ import wallet.model.task.DoWithinPeriod;
 import wallet.model.task.Event;
 import wallet.model.task.Task;
 import wallet.model.task.Todo;
+import wallet.storage.StorageManager;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.Date;
 
 public class AddCommandParser implements Parser<AddCommand> {
 
+    private StorageManager storageManager;
 
     /**
      * Returns an AddCommand object.
@@ -131,12 +135,19 @@ public class AddCommandParser implements Parser<AddCommand> {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         LocalDate createdDate = LocalDate.parse(info[2].trim(), formatter);
 
-        if (info[3].equals("/l")) {
+        info = info[3].split("/c ");
+        System.out.println(info[0]);
+        int contactId = Integer.parseInt(info[1]);
+        System.out.println(info[1]);
+
+        if (info[0].equals("/l")) {
             isLend = true;
-        } else if (info[3].equals("/b")) {
+        } else if (info[0].equals("/b")) {
             isLend = false;
         }
-        loan = new Loan(description, createdDate, amount, isLend, false);
+        ArrayList<Contact> contactList = storageManager.loadContact();
+        Contact person = new ContactList(contactList).getContact(contactId-1);
+        loan = new Loan(description, createdDate, amount, isLend, false, person);
         return loan;
     }
 
@@ -197,4 +208,23 @@ public class AddCommandParser implements Parser<AddCommand> {
 
         return task;
     }
+
+    /**
+     * Returns the StorageManager object.
+     *
+     * @return The StorageManager objcet.
+     */
+    public StorageManager getStorageManager(){
+        return this.storageManager;
+    }
+
+    /**
+     * Sets teh StorageManager object.
+     *
+     * @param storageManager The StorageManager object.
+     */
+    public void setStorageManager(StorageManager storageManager){
+        this.storageManager = storageManager;
+    }
+
 }

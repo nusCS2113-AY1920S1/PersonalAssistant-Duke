@@ -1,5 +1,6 @@
 package wallet.storage;
 
+import wallet.model.contact.Contact;
 import wallet.model.record.Expense;
 import wallet.model.record.Loan;
 import wallet.model.task.Task;
@@ -14,6 +15,7 @@ public class StorageManager {
     private TaskStorage taskStorage;
     private ExpenseStorage expenseStorage;
     private LoanStorage loanStorage;
+    private ContactStorage contactStorage;
 
     /**
      * Constructs a new StorageManager object with all storage classes.
@@ -23,6 +25,8 @@ public class StorageManager {
         this.taskStorage = new TaskStorage();
         this.expenseStorage = new ExpenseStorage();
         this.loanStorage = new LoanStorage();
+        this.contactStorage = new ContactStorage();
+        this.loanStorage.setContactStorage(this.contactStorage);
     }
 
     /**
@@ -65,5 +69,13 @@ public class StorageManager {
 
     public void addLoan(Loan loan) {
         loanStorage.writeToFile(loan);
+    }
+
+    public ArrayList<Contact> loadContact() {
+        return contactStorage.loadFile();
+    }
+
+    public void addContact(Contact contact) {
+        contactStorage.writeToFile(contact);
     }
 }

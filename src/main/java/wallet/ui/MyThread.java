@@ -43,14 +43,14 @@ class MyThread implements Runnable {
                 ui.printLine();
                 Thread.sleep(timeInSeconds * 1000);
             } catch (InterruptedException e) {
-                System.out.println("Caught:" + e);
+                System.out.println("Stopping auto reminders...:");
             }
         }
-        System.out.println("Stopped.");
     }
 
     // for stopping the thread
-    public void stop() {
+    public void stop(){
+        thread.interrupt();
         isExit = true;
     }
 }

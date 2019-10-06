@@ -90,6 +90,7 @@ public class AddCommand extends Command {
         }
         if (contact != null) {
             wallet.getContactList().addContact(contact);
+            storageManager.addContact(contact);
             System.out.println(MESSAGE_SUCCESS_ADD_CONTACT);
             System.out.println(contact.toString());
         }
