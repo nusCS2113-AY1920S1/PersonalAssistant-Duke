@@ -13,15 +13,15 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 
 public class DataMallHttpRequest extends HttpRequest {
-    public DataMallHttpRequest(String reqType, String param) {
-        super(reqType, "http://datamall2.mytransport.sg/ltaodataservice/", param);
+    public DataMallHttpRequest(String reqType, String path, String param) {
+        super(reqType, "http://datamall2.mytransport.sg/ltaodataservice/" + path, param);
     }
 
     @Override
     public JsonObject execute() throws DukeException, IOException {
         String response;
         try {
-            URL url = new URL(this.url + this.param);
+            URL url = new URL(this.url + "?$skip=" + this.param);
             HttpURLConnection con = (HttpURLConnection) url.openConnection();
             con.setRequestMethod("GET");
             con.setRequestProperty("accept", "application/json");

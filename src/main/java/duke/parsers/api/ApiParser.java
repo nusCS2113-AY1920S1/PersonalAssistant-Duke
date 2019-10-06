@@ -3,6 +3,7 @@ package duke.parsers.api;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import duke.commons.MessageUtil;
+import duke.data.BusService;
 import duke.data.BusStop;
 import duke.data.Location;
 import duke.parsers.requests.LocationSearchUrlRequest;
@@ -11,6 +12,7 @@ import duke.parsers.requests.DataMallHttpRequest;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  * Class to handle all API requests.
@@ -59,20 +61,55 @@ public class ApiParser {
      */
     public static ArrayList<BusStop> getBusStop() throws DukeException, IOException {
         String path = "BusStops";
-
-        DataMallHttpRequest req = new DataMallHttpRequest("Bus", path);
-        JsonObject jsonRes = req.execute();
+        int skip = 0;
         ArrayList<BusStop> allBus = new ArrayList<>();
-        JsonArray arr = jsonRes.getAsJsonArray("value");
-        for (int i = 0; i < arr.size(); i++) {
-            BusStop busstop = new BusStop(
-                    arr.get(i).getAsJsonObject().get("BusStopCode").getAsString(),
-                    arr.get(i).getAsJsonObject().get("Description").getAsString(),
-                    arr.get(i).getAsJsonObject().get("RoadName").getAsString(),
-                    arr.get(i).getAsJsonObject().get("Latitude").getAsDouble(),
-                    arr.get(i).getAsJsonObject().get("Longitude").getAsDouble());
-            allBus.add(busstop);
+        while (skip < 5500) {
+            DataMallHttpRequest req = new DataMallHttpRequest("BusStops", path, Integer.toString(skip));
+            skip += 500;
+            JsonObject jsonRes = req.execute();
+            JsonArray arr = jsonRes.getAsJsonArray("value");
+            for (int i = 0; i < arr.size(); i++) {
+                BusStop busstop = new BusStop(
+                        arr.get(i).getAsJsonObject().get("BusStopCode").getAsString(),
+                        arr.get(i).getAsJsonObject().get("Description").getAsString(),
+                        arr.get(i).getAsJsonObject().get("RoadName").getAsString(),
+                        arr.get(i).getAsJsonObject().get("Latitude").getAsDouble(),
+                        arr.get(i).getAsJsonObject().get("Longitude").getAsDouble());
+                allBus.add(busstop);
+            }
         }
+
         return allBus;
+    }
+
+    /**
+     * Return all bus route in Singapore.
+     *
+     * @return bus route
+     */
+    public static HashMap<String, BusService> getBusRoute() throws DukeException, IOException {
+        String path = "BusRoutes";
+        int skip = 0;
+        HashMap<String, BusService> BusMap = new HashMap<>();
+        while (skip < 26000) {
+            DataMallHttpRequest req = new DataMallHttpRequest("BusRoutes", path, Integer.toString(skip));
+            skip += 500;
+            JsonObject jsonRes = req.execute();
+            JsonArray arr = jsonRes.getAsJsonArray("value");
+            for (int i = 0; i < arr.size(); i++) {
+                String ServiceNo = arr.get(i).getAsJsonObject().get("ServiceNo").getAsString();
+                if (!BusMap.containsKey(ServiceNo)) {
+                    BusService bus = new BusService(ServiceNo);
+                    BusMap.put(ServiceNo, bus);
+                    bus.addRoute(arr.get(i).getAsJsonObject().get("BusStopCode").getAsString(),
+                            arr.get(i).getAsJsonObject().get("Direction").getAsInt());
+                } else {
+                    BusMap.get(ServiceNo).addRoute(arr.get(i).getAsJsonObject().get("BusStopCode").getAsString(),
+                            arr.get(i).getAsJsonObject().get("Direction").getAsInt());
+                }
+            }
+        }
+
+        return BusMap;
     }
 }
