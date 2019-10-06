@@ -22,14 +22,7 @@ public class DeleteCommandParser implements Parser<DeleteCommand> {
     public DeleteCommand parse(String input) throws ParseException {
         String[] arguments = input.split(" ", 2);
 
-        switch (arguments[0]) {
-        case "task":
-            int index = Integer.parseInt(arguments[1]) - 1;
-            return new DeleteCommand(arguments[0], index);
-
-        default:
-            break;
-        }
-        return null;
+        int index = Integer.parseInt(arguments[1]);
+        return new DeleteCommand(arguments[0], index);
     }
 }
