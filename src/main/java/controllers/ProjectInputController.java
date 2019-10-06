@@ -2,7 +2,6 @@ package controllers;
 
 import java.util.Scanner;
 import models.data.IProject;
-import models.member.Member;
 import repositories.ProjectRepository;
 import views.CLIView;
 
@@ -33,8 +32,13 @@ public class ProjectInputController {
                     case "add member":
                         consoleView.consolePrint("Enter member details: n/NAME p/PHONE e/EMAIL");
                         String memberDetails = manageProjectInput.nextLine();
-                        Member newMember = MemberFactoryUtil.createMember(memberDetails);
-                        consoleView.addMember(projectToManage, newMember);
+                        MemberFactoryUtil memberFactory = new MemberFactoryUtil();
+                        if (memberFactory.memberIsCreated(memberDetails)) {
+                            consoleView.addMember(projectToManage, memberFactory.getNewMember());
+                        } else {
+                            consoleView.consolePrint("Failed to add member. Please ensure you have entered "
+                                + "at least the name of the new member.");
+                        }
                         break;
                     case "view members":
                         consoleView.viewAllMembers(projectToManage);
