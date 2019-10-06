@@ -50,7 +50,7 @@ public class MyPlan {
         return this.list;
     }
 
-    public void loadPlan(String plan_num) throws FileNotFoundException {
+    public String loadPlan(String plan_num) throws FileNotFoundException {
         String filepath = ".\\src\\main\\java\\duke\\Sports\\plan.txt";
         Scanner file = new Scanner(new File(filepath));
         String l1 = file.nextLine();
@@ -61,19 +61,22 @@ public class MyPlan {
                 getList().add(activity);
             }
         }
-        System.out.println("You have loaded plan " + plan_num + " into the list");
+        return "You have loaded plan " + plan_num + " into the list";
     }
 
-    public void viewPlan(String intensity) {
+    public String viewPlan(String intensity) {
+        String message = "";
         for (MyTraining i : getList()) {
             if (i.getIntensity().equals(intensity)) {
-                System.out.println(i.toString());
+                message += i.toString() + "\n";
             }
         }
+        return message;
     }
 
-    public void clearPlan() {
+    public String clearPlan() {
         getList().clear();
+        return "All your training plans are cleared.";
     }
 
     public void addActivity(String newName, int newSets, int newReps, int newActivity_num) {
@@ -109,8 +112,8 @@ public class MyPlan {
         }
     }
 
-    public void deletePlan(String newName, int newSets, int newReps, int newActivity_num) {
+    public String deletePlan(String newName, int newSets, int newReps, int newActivity_num) {
         this.activity_num = newActivity_num;
-        //pass
+        return "You have deleted the training plan: " + newName + " with " + newSets + " sets of " + newReps + "reps.";
     }
 }
