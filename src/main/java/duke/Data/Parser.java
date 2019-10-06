@@ -18,8 +18,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  * Parser is the controller for the string inputs received by the standard input.
@@ -32,15 +30,12 @@ public class Parser {
      *
      * @param io
      */
-    Logger logger = Logger.getLogger("main");
-
-    public void parseInput(String io, TaskList tasks, Storage storage) throws FileNotFoundException, ParseException {
+    public void parseInput(String io, TaskList tasks, Storage storage, ManageStudents students) throws FileNotFoundException, ParseException {
         int index = 1;
         String input = io;
         String[] word = io.split(" ");
         String cmd = word[0];
         Schedule schedule = new Schedule(".\\src\\main\\java\\duke\\Module\\timeslots.txt");
-
         switch (cmd) {
 
             case "list":
@@ -144,19 +139,6 @@ public class Parser {
                 tasks.findTask(searchWord);
                 break;
 
-                /**
-                 * Command is in the form: plan new [intensity level] or plan view [intensity] [plan number]
-                 *
-                 */
-                case "plan":
-                    MyPlan plan = new MyPlan();
-                    if (word[1].equals("view")) {
-                        plan.loadPlan(word[2]);
-                    } else if (word[1].equals("new")) {
-                        plan.createPlan(word[3]);
-                    }
-                    break;
-
             case "date":
                 String searchDate = input.substring(5);
                 if (searchDate.length() < 10) {
@@ -187,7 +169,7 @@ public class Parser {
             /**
              * View: schedule view-month|schedule view-week|schedule view-day 5/10/2019
              * Add: schedule add 5/10/2019 1500 5/10/2019 1600 pool Swimming
-             * Delete: schedule delete Swimming
+             * Delete: schedule delete 5/10/2019 1500 Swimming|schedule delete-all 5/10/2019
              */
             case "schedule":
                 if (word[1].equals("view-week")) {
@@ -207,8 +189,12 @@ public class Parser {
                     String className = word[7];
                     System.out.println(schedule.addClass(startTime, endTime, location, className, tasks));
                 } else if (word[1].equals("delete")) {
-                    String name = word[2];
-                    System.out.println(schedule.delClass(name));
+                    String startTime = word[2] + " " + word[3];
+                    String className = word[4];
+                    System.out.println(schedule.delClass(startTime, className));
+                } else if (word[1].equals("delete-all")) {
+                    String date = word[2];
+                    System.out.println(schedule.delAllClass(date));
                 }
                 break;
 
@@ -242,6 +228,38 @@ public class Parser {
                     case "delete-all": {
                         String date = word[2];
                         System.out.println(goal.removeAllGoal(date));
+                        break;
+                    }
+                }
+                break;
+
+            /**
+             * View: training view-all [intensity]|training view [plan number]
+             * Add: training add [name] [sets] [reps] [intensity level]
+             * Delete: training delete-all|training delete [name] [sets] [reps] [intensity level]
+             */
+            case "training":
+                MyPlan plan = new MyPlan();
+                switch(word[1]) {
+                    case "view": {
+                        plan.loadPlan(word[2]);
+                        break;
+                    }
+                    case "view-all": {
+                        //view all with specified intensity
+                        plan.viewPlan(word[2]);
+                        break;
+                    }
+                    case "add": {
+                        plan.addActivity(word[2],Integer.parseInt(word[3]),Integer.parseInt(word[4]),Integer.parseInt(word[5]));
+                        break;
+                    }
+                    case "delete": {
+                        plan.deletePlan(word[2],Integer.parseInt(word[3]),Integer.parseInt(word[4]),Integer.parseInt(word[5]));
+                        break;
+                    }
+                    case "delete-all": {
+                        plan.clearPlan();
                         break;
                     }
                 }
@@ -291,16 +309,21 @@ public class Parser {
                 break;
 
             /**
-             * When cmd is to add class or student
+             * When cmd student is called
+             * Format for adding student is: student add [age] [Name].
              */
-            case "add":
-                if (word[1].equals("student")) {
-                    index = input.indexOf("student");
-                    String info = input.substring(4, index-1);
-                    String age = input.substring(index + 2);
-                    MyStudent myStudent = new MyStudent(info, age);
-                    ManageStudents student = new ManageStudents();
-                    student.addStudent(myStudent);
+            case "student":
+                if (word[1].equals("add/")) {
+//                    index = input.indexOf(word[2]);
+                    String[] splitByComma = input.split("/ ");
+                    String name = splitByComma[1];
+                    String age = splitByComma[2];
+                    String address = splitByComma[3];
+                    MyStudent myNewStudent = new MyStudent(name, age, address);
+                    students.addStudent(myNewStudent);
+                }
+                if (word[1].equals("list")) {
+                    students.listAllStudents();
                 }
                 break;
 
