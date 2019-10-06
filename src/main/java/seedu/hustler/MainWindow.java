@@ -30,7 +30,7 @@ public class MainWindow extends AnchorPane {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
     }
 
-    public void setDuke(Hustler h) {
+    public void setHustler(Hustler h) {
         hustler = h;
     }
 
