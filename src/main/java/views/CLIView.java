@@ -3,6 +3,7 @@ package views;
 import controllers.ConsoleInputController;
 import models.commands.RescheduleCommand;
 import models.data.IProject;
+import models.member.Member;
 import models.tasks.ITask;
 import models.tasks.TaskList;
 import models.tasks.Tentative;
@@ -296,5 +297,34 @@ public class CLIView {
         String formattedInputDate = formatter.format(chosenDateTimeObject);
         String newEventInput = "event " + description + " /at " + formattedInputDate;
         consoleInputController.onCommandReceived(newEventInput);
+    }
+
+    /**
+     * Method called to inform the user that the project has exited.
+     * @param projectName The name of the project exited.
+     */
+    public void exitProject(String projectName) {
+        consolePrint("Exited project: " + projectName);
+    }
+
+    /**
+     * Adds a member to the project.
+     * @param projectToManage The project specified by the user.
+     * @param newMember A new member with details specified by the user.
+     */
+    public void addMember(IProject projectToManage, Member newMember) {
+        projectToManage.addMember(newMember);
+        consolePrint("Added new member to: " + projectToManage.getDescription(), ""
+            + "Member details: " + newMember.getDetails());
+    }
+
+    /**
+     * Shows the details of all the members in the project.
+     * Can be updated later on to include more information (tasks etc).
+     * @param projectToManage The project specified by the user.
+     */
+    public void viewAllMembers(IProject projectToManage) {
+        ArrayList<String> allMemberDetails = projectToManage.getMembers().getAllMemberDetails();
+        consolePrint(allMemberDetails.toArray(new String[0]));
     }
 }
