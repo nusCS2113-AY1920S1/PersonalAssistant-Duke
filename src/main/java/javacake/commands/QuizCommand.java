@@ -58,8 +58,8 @@ public class QuizCommand extends Command {
             ui.showLine();
         }
         if (score > QuestionList.MAX_QUESTIONS) {
-            throw new DukeException("Something went wrong when calculating the score:\n" +
-                    "Calculated score is greater than maximum possible score.");
+            throw new DukeException("Something went wrong when calculating the score:\n"
+                    + "Calculated score is greater than maximum possible score.");
         }
         ui.displayResults(score, QuestionList.MAX_QUESTIONS);
     }

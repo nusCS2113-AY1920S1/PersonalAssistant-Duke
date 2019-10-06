@@ -31,43 +31,43 @@ public class QuestionList {
         return basicQuestionList;
     }
 
-    private ArrayList<OOPQuestion> initOOPList() {
-        ArrayList<OOPQuestion> OOPQuestionList = new ArrayList<>();
+    private ArrayList<OopQuestion> initOopList() {
+        ArrayList<OopQuestion> oopQuestionList = new ArrayList<>();
 
-        String q1 = "What does OOP stand for in software engineering context?\n" +
-                " a. Out Of Print\n b. Object-Oriented Programming\n c. Ogre Onion Paradigm";
+        String q1 = "What does OOP stand for in software engineering context?\n"
+                + " a. Out Of Print\n b. Object-Oriented Programming\n c. Ogre Onion Paradigm";
         String a1 = "b";
         String q2 = "Name a class that does not inherit from any other class.";
         String a2 = "object";
         String q3 = "An interface implements methods that can be inherited by its subclasses. T/F?";
         String a3 = "f";
 
-        OOPQuestionList.add(new OOPQuestion(q1, a1));
-        OOPQuestionList.add(new OOPQuestion(q2, a2));
-        OOPQuestionList.add(new OOPQuestion(q3, a3));
+        oopQuestionList.add(new OopQuestion(q1, a1));
+        oopQuestionList.add(new OopQuestion(q2, a2));
+        oopQuestionList.add(new OopQuestion(q3, a3));
 
-        return OOPQuestionList;
+        return oopQuestionList;
     }
 
     private ArrayList<ExtensionQuestion> initExtensionList() {
-        ArrayList<ExtensionQuestion> ExtensionQuestionList = new ArrayList<>();
+        ArrayList<ExtensionQuestion> extensionQuestionList = new ArrayList<>();
 
-        String q1 = "What should you NOT do to handle an exception in main?\n" +
-                " a. Rethrow the exception\n b. Print error message \n c. Call backup method";
+        String q1 = "What should you NOT do to handle an exception in main?\n"
+                + " a. Rethrow the exception\n b. Print error message \n c. Call backup method";
         String a1 = "a";
-        String q2 = "What does the [finally] block do? Choose the best answer.\n" +
-                " a. specify code that is guaranteed to execute with or without exception.\n" +
-                " b. specify code that is guaranteed to execute at the end of a program.\n" +
-                " c. specify code that is guaranteed to execute after an assertion returns false.";
+        String q2 = "What does the [finally] block do? Choose the best answer.\n"
+                + " a. specify code that is guaranteed to execute with or without exception.\n"
+                + " b. specify code that is guaranteed to execute at the end of a program.\n"
+                + " c. specify code that is guaranteed to execute after an assertion returns false.";
         String a2 = "a";
         String q3 = "What's the actual best programming language?";
         String a3 = "assembly";
 
-        ExtensionQuestionList.add(new ExtensionQuestion(q1, a1));
-        ExtensionQuestionList.add(new ExtensionQuestion(q2, a2));
-        ExtensionQuestionList.add(new ExtensionQuestion(q3, a3));
+        extensionQuestionList.add(new ExtensionQuestion(q1, a1));
+        extensionQuestionList.add(new ExtensionQuestion(q2, a2));
+        extensionQuestionList.add(new ExtensionQuestion(q3, a3));
 
-        return ExtensionQuestionList;
+        return extensionQuestionList;
     }
 
     /**
@@ -77,9 +77,9 @@ public class QuestionList {
     public ArrayList<Question> pickQuestions() throws DukeException {
         ArrayList<Question> allQuestions = new ArrayList<>();
         allQuestions.addAll(initBasicList());
-        allQuestions.addAll(initOOPList());
+        allQuestions.addAll(initOopList());
         allQuestions.addAll(initExtensionList());
-        assert(allQuestions.size() >= MAX_QUESTIONS);
+        assert (allQuestions.size() >= MAX_QUESTIONS);
 
         Random rand = new Random();
         ArrayList<Integer> chosenNumbers = new ArrayList<>();
@@ -112,12 +112,18 @@ public class QuestionList {
             tempList.addAll(initBasicList());
             break;
         case OOP:
-            assert (initOOPList().size() >= MAX_QUESTIONS);
-            tempList.addAll(initOOPList());
+            assert (initOopList().size() >= MAX_QUESTIONS);
+            tempList.addAll(initOopList());
             break;
         case EXTENSIONS:
             assert (initExtensionList().size() >= MAX_QUESTIONS);
             tempList.addAll(initExtensionList());
+            break;
+        default:
+            tempList.addAll(initBasicList());
+            tempList.addAll(initOopList());
+            tempList.addAll(initExtensionList());
+            assert (tempList.size() >= MAX_QUESTIONS);
             break;
         }
 

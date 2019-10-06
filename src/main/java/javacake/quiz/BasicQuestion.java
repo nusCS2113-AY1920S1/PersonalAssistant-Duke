@@ -1,6 +1,6 @@
 package javacake.quiz;
 
-public class BasicQuestion extends Question{
+public class BasicQuestion extends Question {
     QuestionType type;
 
     public BasicQuestion(String question, String answer) {

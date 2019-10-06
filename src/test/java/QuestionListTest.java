@@ -21,7 +21,7 @@ public class QuestionListTest {
         // check if there are the correct number and type of test questions
         assertEquals(testQuestions.size(), MAX_QUESTIONS);
         for (Question qn : testQuestions) {
-            assert(qn instanceof BasicQuestion);
+            assertEquals(qn.getClass(), BasicQuestion.class);
         }
 
         // check if there are any duplicate questions

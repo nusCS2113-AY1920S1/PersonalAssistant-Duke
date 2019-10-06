@@ -1,9 +1,9 @@
 package javacake.quiz;
 
-public class OOPQuestion extends Question{
+public class OopQuestion extends Question {
     QuestionType type;
 
-    public OOPQuestion(String question, String answer) {
+    public OopQuestion(String question, String answer) {
         super(question, answer);
         type = QuestionType.OOP;
     }
