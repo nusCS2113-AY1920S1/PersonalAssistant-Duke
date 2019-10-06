@@ -23,10 +23,15 @@ import java.nio.file.StandardCopyOption;
  * Controller for MainWindow. Provides the layout for the other controls.
  */
 public class MainWindow extends AnchorPane {
+
     @FXML
     private ScrollPane scrollPane;
     @FXML
     private VBox dialogContainer;
+    @FXML
+    public ScrollPane scrollPane2;
+    @FXML
+    public VBox graphContainer;
     @FXML
     private TextField userInput;
     @FXML
@@ -44,6 +49,7 @@ public class MainWindow extends AnchorPane {
     @FXML
     public void initialize() throws IOException {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
+        scrollPane2.vvalueProperty().bind(graphContainer.heightProperty());
         mainWindowUi = new Ui();
         String welcomeDuke = mainWindowUi.showWelcome();
         dialogContainer.getChildren().addAll(

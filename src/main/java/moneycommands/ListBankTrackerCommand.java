@@ -8,16 +8,31 @@ import controlpanel.Ui;
 
 import java.util.ArrayList;
 
+/**
+ * This class responds to "list bank trackers" command to list down all
+ * the existing bank account trackers.
+ */
 public class ListBankTrackerCommand extends MoneyCommand{
 
     public ListBankTrackerCommand() {
     }
 
+    /**
+     * This method labels whether this command means ceasing the overall program.
+     * @return Whether this command means ceasing the overall program.
+     */
     @Override
     public boolean isExit() {
         return false;
     }
 
+    /**
+     * This method execute the list command to list down all the existing bank
+     * account trackers by getting the information from account object.
+     * @param account The class record all the financial information of the user
+     * @param ui The user interface
+     * @param storage The class used to store the information to the local disk
+     */
     @Override
     public void execute(Account account, Ui ui, MoneyStorage storage) {
         ArrayList<BankTracker> accountList = account.getBankTrackerList();

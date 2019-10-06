@@ -11,8 +11,12 @@ list all income
 list all expenditure
 start (only works if is a new user)
 init 30000 200 (only works if is a new user)
-bank-account OCBC /amt 0 /at 27/7/2017 /rate 0.005
+bank-account OCBC /amt 30 /at 27/7/2017 /rate 0.005
 bank-account DBS /amt 100 /at 14/8/2018 /rate 0
+check-balance OCBC /at 8/2/2020
+check-balance OCBC /at 8/7/2050
+deposit 200 OCBC /at 3/3/2018
+withdraw 10 DBS /at 5/5/2020
 list bank trackers
 Shortcuts for all add commands: now, tmr, ytd, lstwk, nxtwk, lstmth, nxtmth, lstyr, nxtyr
 change icon
