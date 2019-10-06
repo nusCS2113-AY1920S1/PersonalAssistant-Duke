@@ -3,30 +3,32 @@ package controllers;
 import java.util.Scanner;
 import models.data.IProject;
 import models.member.Member;
+import repositories.ProjectRepository;
 import views.CLIView;
 
 public class ProjectInputController {
     private Scanner manageProjectInput;
-    private boolean continueManaging;
-    private IProject projectToManage;
+    private ProjectRepository projectRepository;
     private CLIView consoleView;
 
-    public ProjectInputController(IProject projectToManage, CLIView consoleView) {
+    public ProjectInputController(CLIView consoleView, ProjectRepository projectRepository) {
         this.manageProjectInput = new Scanner(System.in);
-        this.continueManaging = true;
-        this.projectToManage = projectToManage;
+        this.projectRepository = projectRepository;
         this.consoleView = consoleView;
     }
 
-    public void manageProject() {
-        this.consoleView.consolePrint("Now managing: " + this.projectToManage.getDescription());
+    public void manageProject(String input) {
+        int projectNumber = Integer.parseInt(input);
+        IProject projectToManage = projectRepository.getProject(projectNumber);
+        this.consoleView.consolePrint("Now managing: " + projectToManage.getDescription());
+        boolean continueManaging = true;
         while (continueManaging) {
             if (manageProjectInput.hasNextLine()) {
                 String projectCommand = manageProjectInput.nextLine();
                 switch (projectCommand) {
                     case "exit":
                         continueManaging = false;
-                        consoleView.exitProject(this.projectToManage.getDescription());
+                        consoleView.exitProject(projectToManage.getDescription());
                         break;
                     case "add member":
                         consoleView.consolePrint("Enter member details: n/NAME p/PHONE e/EMAIL");

@@ -32,6 +32,7 @@ public class ConsoleInputController implements IViewController {
     private TaskList taskList;
     private String filePath = "src/main/saves/savefile.txt";
     private ProjectRepository projectRepository;
+    private ProjectInputController projectInputController;
 
     /**
      * Constructor.
@@ -44,6 +45,7 @@ public class ConsoleInputController implements IViewController {
         this.recurringFactory = new RecurringFactory();
         this.periodTaskFactory = new PeriodTaskFactory();
         this.projectRepository = new ProjectRepository();
+        this.projectInputController = new ProjectInputController(this.consoleView, this.projectRepository);
     }
 
     private void checkRecurring() {
@@ -223,11 +225,7 @@ public class ConsoleInputController implements IViewController {
             break;
         case "manage":
             if (inputReader.hasNext()) {
-                int projectNumber = Integer.parseInt(inputReader.next());
-                IProject projectToManage = projectRepository.getProject(projectNumber);
-                //branch into project and begin to read commands to manage project
-                ProjectInputController projectController = new ProjectInputController(projectToManage, consoleView);
-                projectController.manageProject();
+                this.projectInputController.manageProject(inputReader.next());
             } else {
                 consoleView.consolePrint("Please enter a project number!");
             }
