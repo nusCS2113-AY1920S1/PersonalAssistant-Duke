@@ -57,6 +57,7 @@ public class MealList {
     }
 
     public boolean checkDate(String date) {
-        return mealTracker.containsKey(date);
+        ArrayList<Meal> temp = getMeals(date);
+        return temp.size() > 0;
     }
 }
