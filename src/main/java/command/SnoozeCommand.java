@@ -65,8 +65,8 @@ public class SnoozeCommand extends Command {
             throw new DukeException("☹ OOPS!!! This task cannot be postponed!");
         }
         storage.saveToFile(tasks);
-        ui.showString("Got it. I have postponed this task by " + hours + " hours.");
-        ui.showString(tasks.get(num).toString());
+        ui.addToOutput("Got it. I have postponed this task by " + hours + " hours.");
+        ui.addToOutput(tasks.get(num).toString());
     }
 
     /**

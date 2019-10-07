@@ -84,7 +84,7 @@ public class FindFreeTimesCommand extends Command {
                 freeTime = last.getDateTimeEnd();
             }
         }
-        ui.showString("Next available time slot is: " + freeTime.toString());
+        ui.addToOutput("Next available time slot is: " + freeTime.toString());
     }
 
     /**

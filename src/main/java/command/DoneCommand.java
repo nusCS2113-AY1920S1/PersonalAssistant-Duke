@@ -67,7 +67,7 @@ public class DoneCommand extends Command {
                 Recurring recurring = tasks.get(num - 1).recreate(tempDesc, strDate, tempFreq);
                 tasks.add(recurring);
             }
-            System.out.println("I've also repeated the same task for the following " + tempFreq.toLowerCase() + "!");
+            ui.addToOutput("I've also repeated the same task for the following " + tempFreq.toLowerCase() + "!");
         }
         storage.saveToFile(tasks);
     }

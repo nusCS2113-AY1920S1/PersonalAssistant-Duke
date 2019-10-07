@@ -50,7 +50,7 @@ public class DeadlineCommand extends Command {
         Deadline deadline = new Deadline(splitD[0], splitD[1]);
         tasks.add(deadline);
         storage.saveToFile(tasks);
-        ui.showString("Got it. I've added this task:\n"
+        ui.addToOutput("Got it. I've added this task:\n"
                 + deadline.toString() + "\n"
                 + "Now you have " + tasks.size() + " task(s) in the list.");
     }
