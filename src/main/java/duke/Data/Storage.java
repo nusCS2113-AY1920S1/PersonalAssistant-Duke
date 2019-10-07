@@ -1,5 +1,6 @@
 package duke.Data;
 
+import duke.Module.TimeSlot;
 import duke.Task.*;
 
 import java.io.File;
@@ -76,6 +77,68 @@ public class Storage {
             try {
                 FileWriter fileWriter = new FileWriter(filePath, true);
                 fileWriter.write(i.getType() + "-" + i.checkStatus() + "-" + i.getInfo() + "-" + i.getRawDate() + "\n");
+                fileWriter.close();
+            } catch (IOException io) {
+                System.out.println("File not found:" + io.getMessage());
+            }
+        }
+    }
+
+    /**
+     * Reads filePath, takes in Strings and turns them into a list of TimeSlot objects
+     */
+    public ArrayList<TimeSlot> loadSchedule() throws ParseException {
+        try {
+            ArrayList<TimeSlot> temp = new ArrayList<>();
+            while (fileInput.hasNextLine()) {
+                String s1 = fileInput.nextLine();
+                String[] data = s1.split("-");
+                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy HHmm");
+                Date date1 = simpleDateFormat.parse(data[1]);
+                Date date2 = simpleDateFormat.parse(data[2]);
+                TimeSlot t = new TimeSlot(date1, date2, data[3], data[0]);
+                temp.add(t);
+            }
+            fileInput.close();
+            return temp;
+        } catch (ArrayIndexOutOfBoundsException e) {
+            return null;
+        }
+    }
+
+    /**
+     * This function saves the newly created TimeSlot into timeslots.txt
+     * @param t The TimeSlot object created to be saved
+     */
+    public void saveSchedule(TimeSlot t) {
+        try {
+            FileWriter fileWriter = new FileWriter(filePath, true);
+            DateFormat df = new SimpleDateFormat("HHmm");
+            fileWriter.write(t.getClassName() + "-" + df.format(t.getStartTime()) + "-" + df.format(t.getEndTime()) + "-" + t.getLocation() + "\n");
+            fileWriter.close();
+        } catch (IOException io) {
+            System.out.println("File not found:" + io.getMessage());
+        }
+    }
+
+    /**
+     * This function updates the list of tasks.
+     * @param up The updated ArrayList that must be used to recreate the updated timeslots.txt
+     */
+    public void updateSchedule(ArrayList<TimeSlot> up) {
+        try {
+            FileWriter fileWriter = new FileWriter(filePath);
+            fileWriter.write("");
+            fileWriter.close();
+        } catch (IOException io) {
+            System.out.println("File not found:" + io.getMessage());
+        }
+
+        for (TimeSlot t : up) {
+            try {
+                FileWriter fileWriter = new FileWriter(filePath, true);
+                DateFormat df = new SimpleDateFormat("dd/MM/yyyy HHmm");
+                fileWriter.write(t.getClassName() + "-" + df.format(t.getStartTime()) + "-" + df.format(t.getEndTime()) + "-" + t.getLocation() + "\n");
                 fileWriter.close();
             } catch (IOException io) {
                 System.out.println("File not found:" + io.getMessage());
