@@ -38,7 +38,7 @@ repositories {
 
 application {
     // Change this to your main class.
-    mainClassName = "eggventory.Duke"
+    mainClassName = "eggventory.Eggventory"
 }
 
 run {

@@ -132,7 +132,7 @@ public class Stock {
      * To be used with the 'stock' command.
      */
     public void printAvailable() {
-        System.out.println(description + ": " + numAvailable());
+        System.out.println(description + ": " + numAvailable() + " available.");
     }
 
     /**
@@ -141,7 +141,7 @@ public class Stock {
      * To be used with the 'stock loan' command.
      */
     public void printLoan() {
-        System.out.println(description + ": " + lost);
+        System.out.println(description + ": " + loaned + " on loan.");
     }
 
     /**
@@ -150,7 +150,7 @@ public class Stock {
      * To be used with the 'stock lost' command.
      */
     public void printLost() {
-        System.out.println(description + ": " + lost);
+        System.out.println(description + ": " + lost + " lost.");
     }
 
 }
