@@ -60,8 +60,14 @@ There are plentiful examples provided to aid your understanding of the commands'
 ====
 
 === Viewing help : `help`
+Shows a list of commands that can be used.
 
 Format: `help`
+
+Example:
+
+* `help` +
+Provides a list of commands available to the user.
 
 === Adding a task: `deadline`
 Adds a task with a deadline to be completed by. +
@@ -117,14 +123,28 @@ Adds a do-after task called `buy groceries` that will be displayed once the 1st 
 === Adding a task: `recurring`
 Adds a task that will be repeated every week.
 
-Format: `reccuring DESCRIPTION`
+<<<<<<<<< Temporary merge branch 1
+Format: `recurring DESCRIPTION`
+=========
+Format: `recurring INDEX NUMBER_OF_OCCURRENCES`
+>>>>>>>>> Temporary merge branch 2
 
-* `Description` of the task to be done can have multiple words, not just limited to single word descriptions.
+* The `INDEX` refers to the index number displayed in the list of tasks recorded. (`list` can be used to display the saved tasks).
+* `NUMBER_OF_OCCURRENCES` refers to the number of times the selected task recurs.
+* User chooses to enter a `FREQUENCY` which is an option from 1-4.
+
+[NOTE]
+
+The task will require the user to enter the frequency of recurrence in this manner afterwards: +
+1. DAILY +
+2. WEEKLY +
+3. MONTHLY +
+4. YEARLY
 
 Example:
 
-* `recurring math lecture` +
-Adds a recurring task called `math lecture` that will be repeated every week.
+* `recurring 4 3` +
+Adds a recurring task called at index `4` that will be repeated for `3` times. User can then choose an option by entering a number `1-4` to choose the frequency of recurrence.
 
 === Adding a task: `tentative`
 Adds a task that can be confirmed at a later time.
@@ -217,6 +237,18 @@ Examples:
 * `colorcode 1 #008000` +
 Color codes the 1st task in the list of tasks to a green color.
 
+=== Viewing a summary of a day's task by date: `schedule`
+Gives a summary of all the tasks and events that is related to a specific date.
+
+Format: `schedule DD-MM-YYYY`
+
+* `Date` have to strictly be in the format as stated above.
+
+Example:
+
+* `schedule 04-10-2019` +
+Provides a summary of all the tasks and events that will occur on `04-10-2019`.
+
 === Viewing a summary of the next day’s task: `summary`
 Gives a summary of all the tasks to be done for the next day.
 
@@ -242,10 +274,15 @@ Transforms all current tasks recorded into a week view to plan for the week.
 
 Format: `viewWeek`
 
-===  Viewing all tasks in calendar view: `viewCalendar`
+===  Viewing all tasks in calendar view: `calendar`
 Transforms all current tasks recorded into a calendar view for easy time management. 
 
-Format: `viewCalendar`
+Format: `calendar MONTH YEAR`
+
+* `MONTH` is an integer from 1-12 (representing January to December).
+* `YEAR` is an integer greater than or equal to 0.
+
+Example: `calendar 10 2019`
 
 === Setting reminders for upcoming deadlines: `reminder`
 Reminders will be given when the application is launched if deadlines are due in less than 24 hours.
@@ -344,7 +381,10 @@ e.g. `filter todo`
 e.g. `threshold 48`
 
 * *Colorcode*: `colorcode INDEX #RRGGBB` +
-e.g. `colorcode 1 #008000` 
+e.g. `colorcode 1 #008000`
+
+* *Schedule*: `schedule DD-MM-YYYY` +
+e.g. `schedule 04-10-2019`
 
 * *Summary*: `summary` 
 
