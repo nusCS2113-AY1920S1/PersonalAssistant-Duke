@@ -12,6 +12,7 @@ import duke.Module.Reminder;
 import duke.Ui;
 import duke.Sports.MyPlan;
 
+import javax.swing.plaf.synth.SynthSpinnerUI;
 import java.io.FileNotFoundException;
 import java.text.ParseException;
 import java.util.ArrayList;
@@ -172,29 +173,33 @@ public class Parser {
              * Delete: schedule delete 5/10/2019 1500 Swimming|schedule delete-all 5/10/2019
              */
             case "schedule":
-                if (word[1].equals("view-week")) {
-                    System.out.println(schedule.getWeek());
-                } else if (word[1].equals("view-month")) {
-                    System.out.println(schedule.getMonth());
-                } else if (word[1].equals("view-day")) {
-                    try {
-                        System.out.println(schedule.getDay(word[2]));
-                    } catch (ArrayIndexOutOfBoundsException | ParseException e) {
-                        System.err.println("Enter a date please.");
+                try {
+                    if (word[1].equals("view-week")) {
+                        System.out.println(schedule.getWeek());
+                    } else if (word[1].equals("view-month")) {
+                        System.out.println(schedule.getMonth());
+                    } else if (word[1].equals("view-day")) {
+                        try {
+                            System.out.println(schedule.getDay(word[2]));
+                        } catch (ArrayIndexOutOfBoundsException | ParseException e) {
+                            System.err.println("Enter a date please.");
+                        }
+                    } else if (word[1].equals("add")) {
+                        String startTime = word[2] + " " + word[3];
+                        String endTime = word[4] + " " + word[5];
+                        String location = word[6];
+                        String className = word[7];
+                        System.out.println(schedule.addClass(startTime, endTime, location, className, tasks));
+                    } else if (word[1].equals("delete")) {
+                        String startTime = word[2] + " " + word[3];
+                        String className = word[4];
+                        System.out.println(schedule.delClass(startTime, className));
+                    } else if (word[1].equals("delete-all")) {
+                        String date = word[2];
+                        System.out.println(schedule.delAllClass(date));
                     }
-                } else if (word[1].equals("add")) {
-                    String startTime = word[2] + " " + word[3];
-                    String endTime = word[4] + " " + word[5];
-                    String location = word[6];
-                    String className = word[7];
-                    System.out.println(schedule.addClass(startTime, endTime, location, className, tasks));
-                } else if (word[1].equals("delete")) {
-                    String startTime = word[2] + " " + word[3];
-                    String className = word[4];
-                    System.out.println(schedule.delClass(startTime, className));
-                } else if (word[1].equals("delete-all")) {
-                    String date = word[2];
-                    System.out.println(schedule.delAllClass(date));
+                } catch (ArrayIndexOutOfBoundsException e) {
+                    System.out.println("Please enter the full command.");
                 }
                 break;
 
@@ -205,61 +210,75 @@ public class Parser {
              */
             case "goal":
                 Goal goal = new Goal(".\\src\\main\\java\\duke\\Module\\goals.txt");
-                switch (word[1]) {
-                    case "view": {
-                        String date = word[2];
-                        System.out.print(goal.viewGoal(date));
-                        break;
+                try {
+                    switch (word[1]) {
+                        case "view": {
+                            String date = word[2];
+                            System.out.print(goal.viewGoal(date));
+                            break;
+                        }
+                        case "add": {
+                            String date = word[2];
+                            index = input.indexOf(word[3]);
+                            String message = input.substring(index);
+                            System.out.println(goal.addGoal(date, message));
+                            break;
+                        }
+                        case "delete": {
+                            String date = word[2];
+                            index = input.indexOf(word[3]);
+                            String message = input.substring(index);
+                            System.out.println(goal.removeGoal(date, message));
+                            break;
+                        }
+                        case "delete-all": {
+                            String date = word[2];
+                            System.out.println(goal.removeAllGoal(date));
+                            break;
+                        }
                     }
-                    case "add": {
-                        String date = word[2];
-                        index = input.indexOf(word[3]);
-                        String message = input.substring(index);
-                        System.out.println(goal.addGoal(date, message));
-                        break;
-                    }
-                    case "delete": {
-                        String date = word[2];
-                        index = input.indexOf(word[3]);
-                        String message = input.substring(index);
-                        System.out.println(goal.removeGoal(date, message));
-                        break;
-                    }
-                    case "delete-all": {
-                        String date = word[2];
-                        System.out.println(goal.removeAllGoal(date));
-                        break;
-                    }
+                } catch (ArrayIndexOutOfBoundsException e) {
+                    System.out.println("Please enter the full command.\n" +
+                        "To view a goal of the day, enter input in the format: goal view dd/MM/yyyy\n" +
+                        "To add a goal to a day, enter input in the format: goal add dd/MM/yyyy {goal}\n" +
+                        "To delete all goals of a day, enter input in the format: goal delete-all dd/MM/yyyy\n" +
+                        "To delete a goal of the day, enter input in the format: goal delete dd/MM/yyyy {goal}");
+                } catch (ParseException e) {
+                    System.out.println("Please enter the details in the correct format.\n" +
+                        "To view a goal of the day, enter input in the format: goal view dd/MM/yyyy\n" +
+                        "To add a goal to a day, enter input in the format: goal add dd/MM/yyyy {goal}\n" +
+                        "To delete all goals of a day, enter input in the format: goal delete-all dd/MM/yyyy\n" +
+                        "To delete a goal of the day, enter input in the format: goal delete dd/MM/yyyy {goal}");
                 }
                 break;
 
             /**
-             * View: training view-all [intensity]|training view [plan number]
-             * Add: training add [name] [sets] [reps] [intensity level]
-             * Delete: training delete-all|training delete [name] [sets] [reps] [intensity level]
+             * View: training view [plan number]
+             * Add: training add-activity [name] [sets] [reps] [activity number]|training add-plan [plan number]
+             * Delete: training delete-all|training delete [plan number]
              */
             case "training":
-                MyPlan plan = new MyPlan();
+                MyPlan plan = new MyPlan(".\\src\\main\\java\\duke\\Sports\\plan.txt");
                 switch(word[1]) {
                     case "view": {
-                        plan.loadPlan(word[2]);
+                        System.out.println(plan.loadPlan(word[2]));
+                        System.out.println(plan.viewPlan());
                         break;
                     }
-                    case "view-all": {
-                        //view all with specified intensity
-                        plan.viewPlan(word[2]);
+                    case "add-plan": {
+                        //pass
                         break;
                     }
-                    case "add": {
-                        plan.addActivity(word[2],Integer.parseInt(word[3]),Integer.parseInt(word[4]),Integer.parseInt(word[5]));
+                    case "add-activity": {
+                        System.out.println(plan.addActivity(word[2],Integer.parseInt(word[3]),Integer.parseInt(word[4]),Integer.parseInt(word[5])));
                         break;
                     }
                     case "delete": {
-                        plan.deletePlan(word[2],Integer.parseInt(word[3]),Integer.parseInt(word[4]),Integer.parseInt(word[5]));
+                        //pass
                         break;
                     }
                     case "delete-all": {
-                        plan.clearPlan();
+                        //pass
                         break;
                     }
                 }
