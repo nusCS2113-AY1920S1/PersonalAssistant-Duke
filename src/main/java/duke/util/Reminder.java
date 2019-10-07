@@ -80,7 +80,7 @@ public class Reminder {
                     Thread.sleep(sleepSeconds * 1000);
                 } catch (InterruptedException ignored) {
                     targetTime = LocalDateTime.now();
-                    continue;
+                    break;
                 }
             }
         }

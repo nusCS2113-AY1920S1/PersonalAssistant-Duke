@@ -18,14 +18,18 @@ import com.google.gson.JsonObject;
 
 public class RequestsData {
 
-
-
     private Gson gson;
-    private static Integer val = 0;
-
 
     public RequestsData() {
         gson = new Gson();
+    }
+
+    private HttpRequest httpRequestBuilder(String mod) {
+        return HttpRequest.newBuilder()
+                .uri(URI.create("https://api.nusmods.com/v2/2018-2019/modules/" + mod + ".json"))
+                .timeout(Duration.ofMinutes(1))
+                .header("Content-Type", "application/json")
+                .build();
     }
 
 
@@ -33,25 +37,15 @@ public class RequestsData {
      * With reference from :https://openjdk.java.net/groups/net/httpclient/intro.html.
      * Using the nusMods V2 API : https://api.nusmods.com/v2/
      */
-    public void setRequestData(String mod, Storage store) {
+    public void getModJsonString(String mod, Storage store) {
         // Api calls only work with upper case module code
-        mod = mod.toUpperCase();
+        String trimMod = mod.trim();
         HttpClient client = HttpClient.newHttpClient();
-        HttpRequest request = HttpRequest.newBuilder()
-                .uri(URI.create("https://api.nusmods.com/v2/2018-2019/modules/" + mod + ".json"))
-                .timeout(Duration.ofMinutes(1))
-                .header("Content-Type", "application/json")
-                .build();
+        HttpRequest request = httpRequestBuilder(trimMod);
         try {
-            // TODO: Remove this after testing
-            if (val == 0) {
-                val++;
-                return;
-            }
             // Response.body() contains the returned module info as JSON string
             HttpResponse<String> response =
                     client.send(request, HttpResponse.BodyHandlers.ofString());
-            System.out.println(response.statusCode());
             // If return status is not 200, and error request has been made
             if (response.statusCode() != 200) {
                 return;
@@ -62,7 +56,6 @@ public class RequestsData {
             JsonObject jsonObject = element.getAsJsonObject();
             System.out.println(jsonObject);
             store.writeModsData(responseList);
-            val++;
         } catch (IOException e) {
             e.printStackTrace();
         } catch (InterruptedException ie) {

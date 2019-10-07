@@ -44,6 +44,11 @@ public class Storage {
         setFileExists();
     }
 
+    public Storage(String filePath) {
+        dataPath = Paths.get(filePath);
+        setDataPathExists();
+    }
+
     /**
      * Reads the stored data file, if it exists
      * and returns the previously stored data as a TaskList.

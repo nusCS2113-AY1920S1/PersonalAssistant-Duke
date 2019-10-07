@@ -4,6 +4,7 @@ import duke.command.Command;
 import duke.exceptions.DukeException;
 import duke.exceptions.DukeTimeIntervalTooCloseException;
 import duke.util.ParserWrapper;
+import duke.util.RequestsData;
 import duke.util.Storage;
 import duke.util.TaskList;
 import duke.util.Ui;
@@ -20,6 +21,9 @@ public class Duke {
     private TaskList tasks;
     private ParserWrapper parser;
     private Reminder reminder;
+    private RequestsData data;
+
+    private static Integer val = 0;
 
     /**
      * Constructor for Duke class.
@@ -39,15 +43,21 @@ public class Duke {
     private void run() {
         ui.helloMsg();
         boolean isExit = false;
+        // Starting reminder threads and pulling data from API
         try {
             reminder = new Reminder(tasks.getTasks());
             reminder.run();
+            data = new RequestsData();
         } catch (DukeTimeIntervalTooCloseException e) {
             System.out.println(e.getMessage());
         }
         while (!isExit) {
             try {
                 String fullCommand = ui.readCommand();
+                if (val > 0) {
+                    data.getModJsonString(fullCommand, store);
+                }
+                val++;
                 ui.showLine();
                 Command c = parser.parse(fullCommand);
                 c.execute(tasks, ui, store, reminder);
