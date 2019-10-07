@@ -60,34 +60,35 @@ public class EditCommand extends Command {
                     ui.display("\t Please choose what you want to edit (1 or 2)\n\t 1. The description " +
                             "\n\t 2. The deadline/period");
                     String userEditTPart = ui.readCommand();
-                    int choice = Integer.parseInt(userEditTPart.trim());
-                    if (choice == 1){
-                        ui.display("\t Please enter the new description of the task");
-                        t.setTask(ui.readCommand());
-                    }
-                    else if (choice == 2){
-                        if (t.isDeadline()){
-                            ui.display("\t Please enter the new deadline of the task");
-                            String deadlineString = ui.readCommand();
-                            Date d = new Date(deadlineString);
-                            DeadlinesTask deadlinesTask = (DeadlinesTask) t;
-                            deadlinesTask.setDeadlines(d);
-                        }
-                        else{ //event task
-                            ui.display("\t Please enter the new period of the task");
-                            String periodString = ui.readCommand();
-                            String[] dateString = periodString.split(" - ");
-                            if(dateString.length == 1){
-                                throw new EmptyEventDateException();
+                    if ( userEditTPart.matches("\\d+")) {
+                        int choice = Integer.parseInt(userEditTPart.trim());
+                        if (choice == 1) {
+                            ui.display("\t Please enter the new description of the task");
+                            t.setTask(ui.readCommand());
+                        } else if (choice == 2) {
+                            if (t.isDeadline()) {
+                                ui.display("\t Please enter the new deadline of the task");
+                                String deadlineString = ui.readCommand();
+                                Date d = new Date(deadlineString);
+                                DeadlinesTask deadlinesTask = (DeadlinesTask) t;
+                                deadlinesTask.setDeadlines(d);
+                            } else { //event task
+                                ui.display("\t Please enter the new period of the task");
+                                String periodString = ui.readCommand();
+                                String[] dateString = periodString.split(" - ");
+                                if (dateString.length == 1) {
+                                    throw new EmptyEventDateException();
+                                } else if (dateString[0].isBlank() || dateString[1].isBlank()) {
+                                    throw new EmptyEventDateException();
+                                }
+                                Date date1 = new Date(dateString[0]);
+                                Date date2 = new Date(dateString[1]);
+                                tasks.verifyConflictDate(date1, date2);
+                                EventsTask eventsTask = (EventsTask) t;
+                                eventsTask.reschedule(date1, date2);
                             }
-                            else if(dateString[0].isBlank() || dateString[1].isBlank()){
-                                throw new EmptyEventDateException();
-                            }
-                            Date date1 = new Date(dateString[0]);
-                            Date date2 = new Date(dateString[1]);
-                            tasks.verifyConflictDate(date1,date2);
-                            EventsTask eventsTask = (EventsTask) t;
-                            eventsTask.reschedule(date1,date2);
+                        } else {
+                            throw new MeaninglessException();
                         }
                     }
                     else {
