@@ -24,7 +24,7 @@ mkdir data
 # fi
 
 # run the program, feed commands from input.txt file and redirect the output to the ACTUAL.TXT
-java -classpath ../bin/main seedu.hustler.Hustler < input.txt > ACTUAL.TXT
+java -jar ../build/libs/hustler-mid-v1.1.jar seedu.hustler.Hustler < input.txt > ACTUAL.TXT
 
 rm -rf data 
 

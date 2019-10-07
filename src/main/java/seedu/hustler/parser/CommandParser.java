@@ -2,8 +2,19 @@ package seedu.hustler.parser;
 
 import java.util.Arrays;
 
-import seedu.hustler.command.*;
+import seedu.hustler.command.ListCommand;
+import seedu.hustler.command.DoneCommand;
+import seedu.hustler.command.DeleteCommand;
+import seedu.hustler.command.AddCommand;
+import seedu.hustler.command.InvalidCommand;
+import seedu.hustler.command.CheckAvatarCommand;
+import seedu.hustler.command.RemindCommand;
+import seedu.hustler.command.ScheduleCommand;
+import seedu.hustler.command.SnoozeCommand;
+import seedu.hustler.command.FindCommand;
+import seedu.hustler.command.Command;
 import seedu.hustler.logic.CommandLineException;
+
 
 /**
  * Takes raw user input as string, makes sense out of the input using
@@ -37,8 +48,8 @@ public class CommandParser extends Parser {
     public Command parse(String rawInput) throws CommandLineException {
         String[] userInput = this.split(rawInput);
 
-        String[] taskCommands = {"todo", "deadline", "event"};
-        Arrays.sort(taskCommands);
+        /* String[] taskCommands = {"todo", "deadline", "event"}; */
+        /* Arrays.sort(taskCommands); */
         if (userInput[0].equals("find")) {
             return new FindCommand(userInput);
         } else if (userInput[0].equals("delete")) {
@@ -55,7 +66,7 @@ public class CommandParser extends Parser {
             return new SnoozeCommand(userInput);
         } else if (userInput[0].equals("/avatar")) {
             return new CheckAvatarCommand();
-        } else if (Arrays.binarySearch(taskCommands, userInput[0]) >= 0) {
+        } else if (userInput[0].equals("/add")) {
             return new AddCommand(userInput);
         } else {
             return new InvalidCommand();
