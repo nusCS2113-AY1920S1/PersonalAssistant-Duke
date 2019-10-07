@@ -1,17 +1,17 @@
-package seedu.duke.email.emailcommand;
+package seedu.duke.email.command;
 
 import seedu.duke.Duke;
-import seedu.duke.email.EmailList;
+import seedu.duke.email.entity.EmailList;
 import seedu.duke.Parser;
-import seedu.duke.command.Command;
+import seedu.duke.common.command.Command;
 
 import java.io.IOException;
 
-public class ShowEmailCommand extends Command {
+public class EmailShowCommand extends Command {
     private EmailList emailList;
     private int index;
 
-    public ShowEmailCommand(EmailList emailList, int index) {
+    public EmailShowCommand(EmailList emailList, int index) {
         this.emailList = emailList;
         this.index = index;
     }

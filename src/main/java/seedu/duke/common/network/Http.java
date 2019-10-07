@@ -1,11 +1,10 @@
-package seedu.duke.client;
+package seedu.duke.common.network;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import seedu.duke.Duke;
-import seedu.duke.email.Email;
-import seedu.duke.email.EmailList;
+import seedu.duke.email.entity.Email;
+import seedu.duke.email.entity.EmailList;
 import seedu.duke.email.EmailParser;
 import seedu.duke.email.EmailStorage;
 
@@ -22,7 +21,6 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
 import java.util.Iterator;
 
 /**

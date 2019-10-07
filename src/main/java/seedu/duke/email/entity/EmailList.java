@@ -1,4 +1,4 @@
-package seedu.duke.email;
+package seedu.duke.email.entity;
 
 import seedu.duke.Parser;
 

@@ -11,8 +11,8 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import seedu.duke.Duke;
 import seedu.duke.Parser;
-import seedu.duke.TaskList;
-import seedu.duke.Storage;
+import seedu.duke.task.entity.TaskList;
+import seedu.duke.task.TaskStorage;
 import seedu.duke.email.EmailStorage;
 
 import java.util.function.UnaryOperator;
@@ -85,7 +85,7 @@ public class MainWindow extends AnchorPane {
         );
         setInputPrefix();
         if (response.contains("Bye, hope to see you again.")) {
-            Storage.saveTasks(duke.getTaskList());
+            TaskStorage.saveTasks(duke.getTaskList());
             EmailStorage.saveEmails(duke.getEmailList());
             Platform.exit();
         }

@@ -1,6 +1,7 @@
-package seedu.duke;
+package seedu.duke.task.entity;
 
-import seedu.duke.task.Task;
+import seedu.duke.Duke;
+import seedu.duke.Parser;
 
 import java.util.ArrayList;
 

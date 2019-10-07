@@ -1,8 +1,10 @@
 package seedu.duke.email;
 
 import seedu.duke.Duke;
-import seedu.duke.Storage;
-import seedu.duke.client.Http;
+import seedu.duke.email.entity.Email;
+import seedu.duke.email.entity.EmailList;
+import seedu.duke.task.TaskStorage;
+import seedu.duke.common.network.Http;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -225,7 +227,7 @@ public class EmailStorage {
             while (scanner.hasNextLine()) {
                 String input = scanner.nextLine();
                 if (input.length() <= 2) {
-                    throw new Storage.StorageException("Invalid Save File!");
+                    throw new TaskStorage.StorageException("Invalid Save File!");
                 }
                 String subject = input.split("\\|")[0].strip();
                 Email email = new Email(subject);
@@ -238,8 +240,8 @@ public class EmailStorage {
             return emailList;
         } catch (IOException e) {
             Duke.getUI().showError("Read save file IO exception");
-        } catch (Storage.StorageException e) {
-            Duke.getUI().showError(e.toString());
+        } catch (TaskStorage.StorageException e) {
+            Duke.getUI().showError(e.getMessage());
             emailList = new EmailList();
         }
         return emailList;

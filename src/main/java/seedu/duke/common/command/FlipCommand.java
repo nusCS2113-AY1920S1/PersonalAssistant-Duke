@@ -1,7 +1,8 @@
-package seedu.duke.command;
+package seedu.duke.common.command;
 
 import seedu.duke.Duke;
 import seedu.duke.Parser;
+import seedu.duke.common.command.Command;
 
 public class FlipCommand extends Command {
     private Parser.InputType inputType;

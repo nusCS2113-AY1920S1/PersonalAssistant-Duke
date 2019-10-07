@@ -1,8 +1,11 @@
-package seedu.duke;
+package seedu.duke.task;
 
-import seedu.duke.command.Command;
-import seedu.duke.command.ReminderCommand;
-import seedu.duke.task.Task;
+import seedu.duke.Duke;
+import seedu.duke.Parser;
+import seedu.duke.common.command.Command;
+import seedu.duke.task.entity.TaskList;
+import seedu.duke.task.command.TaskReminderCommand;
+import seedu.duke.task.entity.Task;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -16,7 +19,7 @@ import java.util.Scanner;
 /**
  * Interacts with the file storing the task information.
  */
-public class Storage {
+public class TaskStorage {
     private static String getSaveFileDir() {
         String dir = "";
         String workingDir = System.getProperty("user.dir");
@@ -99,13 +102,13 @@ public class Storage {
             }
             Duke.getUI().showMessage("Saved task file successfully loaded...");
             in.close();
-            new ReminderCommand(taskList).execute();
+            new TaskReminderCommand(taskList).execute();
         } catch (FileNotFoundException e) {
             return taskList; //it is acceptable if there is no save file
         } catch (IOException e) {
             Duke.getUI().showError("Read save file IO exception");
         } catch (StorageException e) {
-            Duke.getUI().showError(e.toString());
+            Duke.getUI().showError(e.getMessage());
             taskList = new TaskList();
         }
         return taskList;
@@ -133,7 +136,7 @@ public class Storage {
          * @return message of the exception.
          */
         @Override
-        public String toString() {
+        public String getMessage() {
             return msg;
         }
     }

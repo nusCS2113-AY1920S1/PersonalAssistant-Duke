@@ -1,13 +1,14 @@
-package seedu.duke.command;
+package seedu.duke.task.command;
 
 import seedu.duke.Duke;
 import seedu.duke.Parser;
-import seedu.duke.TaskList;
+import seedu.duke.task.entity.TaskList;
+import seedu.duke.common.command.Command;
 
 /**
  * DeleteCommand that is used delete a task from the task list with its index.
  */
-public class DeleteCommand extends Command {
+public class TaskDeleteCommand extends Command {
     private TaskList taskList;
     private int index;
 
@@ -17,7 +18,7 @@ public class DeleteCommand extends Command {
      * @param taskList the task list where the task is added to.
      * @param index    the index of task that is to be deleted
      */
-    public DeleteCommand(TaskList taskList, int index) {
+    public TaskDeleteCommand(TaskList taskList, int index) {
         this.taskList = taskList;
         this.index = index;
     }
@@ -39,7 +40,7 @@ public class DeleteCommand extends Command {
             return true;
         } catch (Parser.UserInputException e) {
             if (!silent) {
-                Duke.getUI().showError(e.toString());
+                Duke.getUI().showError(e.getMessage());
             }
             return false;
         }

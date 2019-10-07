@@ -1,4 +1,4 @@
-package seedu.duke.command;
+package seedu.duke.common.command;
 
 /**
  * This is an abstract command that all kinds of command inherit from. It has execute() function to be

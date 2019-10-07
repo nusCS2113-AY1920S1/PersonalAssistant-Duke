@@ -1,20 +1,20 @@
-package seedu.duke.command;
+package seedu.duke.task.command;
 
 import seedu.duke.Duke;
-import seedu.duke.task.Deadline;
-import seedu.duke.task.Event;
-import seedu.duke.task.Task;
-import seedu.duke.TaskList;
-import seedu.duke.task.ToDo;
+import seedu.duke.common.command.Command;
+import seedu.duke.task.entity.Deadline;
+import seedu.duke.task.entity.Event;
+import seedu.duke.task.entity.Task;
+import seedu.duke.task.entity.TaskList;
+import seedu.duke.task.entity.ToDo;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Date;
 
 /**
  * AddCommand is a specific kind of command used to add task to the task list.
  */
-public class AddCommand extends Command {
+public class TaskAddCommand extends Command {
     private TaskList taskList;
     private Task.TaskType taskType;
     private String name;
@@ -31,8 +31,8 @@ public class AddCommand extends Command {
      * @param time     the time of the task, which is needed to instantiate the task. ToDo tasks does not have
      *                 time attribute, so any Date can be passed in and will be ignored.
      */
-    public AddCommand(TaskList taskList, Task.TaskType taskType, String name, LocalDateTime time,
-                      String doAfter, ArrayList<String> tags) {
+    public TaskAddCommand(TaskList taskList, Task.TaskType taskType, String name, LocalDateTime time,
+                          String doAfter, ArrayList<String> tags) {
         this.taskList = taskList;
         this.taskType = taskType;
         this.name = name;

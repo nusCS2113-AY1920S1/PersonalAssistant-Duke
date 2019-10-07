@@ -1,4 +1,6 @@
-package seedu.duke.command;
+package seedu.duke.common.command;
+
+import seedu.duke.common.command.Command;
 
 /**
  * InvalidCommand is a specific kind of command indicating the input is not recognised as any known command.

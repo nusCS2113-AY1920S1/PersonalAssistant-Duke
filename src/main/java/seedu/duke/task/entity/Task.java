@@ -1,4 +1,4 @@
-package seedu.duke.task;
+package seedu.duke.task.entity;
 
 import seedu.duke.Parser;
 

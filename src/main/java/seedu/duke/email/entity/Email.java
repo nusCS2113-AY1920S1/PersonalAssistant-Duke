@@ -1,6 +1,7 @@
-package seedu.duke.email;
+package seedu.duke.email.entity;
 
 import seedu.duke.Duke;
+import seedu.duke.email.EmailParser;
 
 import java.awt.Desktop;
 import java.io.File;

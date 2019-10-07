@@ -1,12 +1,13 @@
-package seedu.duke.command;
+package seedu.duke.task.command;
 
 import seedu.duke.Duke;
-import seedu.duke.TaskList;
+import seedu.duke.task.entity.TaskList;
+import seedu.duke.common.command.Command;
 
 /**
  * FindCommand is a specific kind of command used to find a task from task list with a keyword.
  */
-public class FindCommand extends Command {
+public class TaskFindCommand extends Command {
     private TaskList taskList;
     private String keyword;
 
@@ -16,7 +17,7 @@ public class FindCommand extends Command {
      * @param taskList the task list where the task is looked for
      * @param keyword  the keyword that the target task needs to match
      */
-    public FindCommand(TaskList taskList, String keyword) {
+    public TaskFindCommand(TaskList taskList, String keyword) {
         this.taskList = taskList;
         this.keyword = keyword;
     }
