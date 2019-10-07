@@ -73,6 +73,6 @@ public class Budget {
     }
 
     public String writeToFile() {
-        return getAmount() + "," + getMonth() + "," + getYear();
+        return amount + "," + month + "," + year;
     }
 }
