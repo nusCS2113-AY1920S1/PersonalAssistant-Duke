@@ -1,11 +1,12 @@
 = Dolla - User Guide
 :site-section: UserGuide
 :imagesDir: images
+:experimental:
 :toc:
 :toc-title:
 :toc-placement: preamble
 :sectnums:
-:repoURL: https://github.com/AY1920S1-CS2113T-F11-2/main/releases
+:repoURL: https://github.com/AY1920S1-CS2113T-F11-2/main/releases/tag/mid-v1.1
 
 By: `Team AY1920S1-CS2113T-F11-2`      Since: `Sep 2019`      Licence: `MIT`
 
@@ -15,8 +16,8 @@ image::Ui.png[width="800", align="center"]
 
 {nbsp} +
 Dolla is a *finance management app* that is specially designed for students who stay in the campus of NUS. It uses chat box style interface to provide a
-more interactive and interesting user experience. Dolla will help the user to keep track of their spendings and incomes, set reminders, give suggestions
-or many more other cool features. Users can interact with Dolla with the various keywords such as `expense`, `income`, `reminder` and many more. Proceed to
+more interactive and interesting user experience. Dolla will help the user to keep track of their spending and income, set reminders, give suggestions
+and many other cool features. Users can interact with Dolla with the various keywords such as `expense`, `income`, `reminder` and many more. Proceed to
 <<Quick Start>> to get started!
 
 == Quick Start
@@ -26,11 +27,11 @@ or many more other cool features. Users can interact with Dolla with the various
 .  Copy the file to the folder you want to use as the home folder for your Dolla.
 .  Double-click the file to start the app.The GUI should appear in a few seconds.
 .  Type the command in the command box and press kbd:[Enter] to execute it. +
-e.g. type `*list*` and press kbd:[enter] with list all the income and expense.
+e.g. type `entries` and press kbd:[Enter] will list all the income and expense.
 .  Here are some example command you can try:
-* *`list`* : List all the income and expense with the most recently added on the top
+* `entries` : List all the income and expense with the most recently added on the top
 * **`add expense`**`$7 watch movie /on 24/09/2019` : add an expense of $7 for watching movie on 24/09/2019
-* **`set limit`**`/tag food $300` : set a limit for the user on the amount of money they can spend on food
+* **`set budget`**`/tag food $300` : set a budget for the user on the amount of money they can spend on food
 * *`bye`* : exits the app
 .  Refer to <<Features>> for the details of each command.
 
@@ -77,7 +78,7 @@ e.g. `*add recurring expense* [AMOUNT] [DESCRIPTION] /every [DURATION]` should b
 
 *NOTE*: Words in *bold* are the keywords that define the type of command to be executed. e.g. `*remove* [LIST NO.]` `*remove*` is the keyword that will execute the remove command.
 
-*NOTE*: Dolla is a mode based bot, and will takes in different inputs depending on the mode the user is currently on.
+*NOTE*: Dolla is a mode based bot, and will take in different inputs depending on the mode the user is currently on.
 ====
 {nbsp} +
 
@@ -85,10 +86,15 @@ e.g. `*add recurring expense* [AMOUNT] [DESCRIPTION] /every [DURATION]` should b
 
 Format: +
 `*help*`
+{nbsp} +
+{nbsp} +
 
 === Common Commands
 
-These commands can be used in the modes entries, limits, debts and shortcut.
+These commands can be used in the modes `*entries*`, `*budgets*`, `*debts*` and `*shortcuts*`.
+
+Common Commands Available: +
+`*page*` `*remove*` `*find*` `*modify*` `*sort /date*` `*sort /tag*` `*sort /amount*`
 
 ==== Change the page of the list: `page`
 
@@ -96,59 +102,77 @@ Each page of the list will only show 10 different tasks at a time. User can chan
 Format: +
 `*page* [PAGE NO.]`
 
-Example: +
-`page 3`
+Example:
 
-==== Remove a task from the list: `remove`
+* `page 3`
 
-Remove a particular task from the list based on the list number. +
+==== Remove an entry from the list: `remove`
+
+Remove a particular entry from the list based on the list number. +
 Format: +
 `*remove* [LIST NO.]`
 
-*NOTE*: `*[LIST NO.]*` should be a positive integer and should be within the total number of listings available.
+*NOTE*: `*[LIST NO.]*` should be a positive integer and within the total number of listings available.
 
-Example: +
-`remove 2`
+Example:
 
-==== Modify a expense/income: `modify`
+* `remove 2`
 
-Modify the whole or a component of a particular entry in the list. +
+==== Find a task from the list: `find`
+
+Find entries from the list based on the keyword(s) input by the user. +
+Format: +
+`*find* [KEYWORD(S)]`
+
+Example:
+
+* `find milk`
+
+==== Modify an expense/income: `modify`
+
+Modify the whole entry or a component of a particular entry in the list. +
 Format: +
 `*modify* [LIST NO.] {COMPONENT}`
 
-Examples: +
-`modify 3` +
-`modify 4 description`
+Examples:
+
+* `modify 3` +
+* `modify 4 description`
 
 ==== Sort the list by date: `sort /date`
 
 Sort the list by date in ascending or descending order. +
 Format: +
-`*sort* /date ascending` +
-`*sort* /date descending`
+`*sort /date* ascending` +
+`*sort /date* descending`
 
-Example: +
-`sort /date ascending`
+Example:
+
+* `sort /date ascending`
 
 ==== Sort the list by tag: `sort /tag`
 
 Sort the list by tag alphabetically in ascending or descending order. +
 Format: +
-`*sort* /tag ascending` +
-`*sort* /tag descending`
+`*sort /tag* ascending` +
+`*sort /tag* descending`
 
-Example: +
-`sort /tag descending`
+Example:
 
-==== Sort the list by amount in ascending or descending order: `sort /amount`
+* `*sort /tag* descending`
+
+==== Sort the list by amount: `sort /amount`
 
 Sort the list by the amount in ascending or descending order. +
 Format: +
-`*sort* /amount ascending` +
-`*sort* /amount descending`
+`*sort /amount* ascending` +
+`*sort /amount* descending`
 
-Example: +
-`sort /amount ascending`
+Example:
+
+* `sort /amount ascending`
+
+{nbsp} +
 
 === Switch the mode to dolla: `dolla`
 
@@ -168,21 +192,21 @@ Examples:
 * `add expense $45 MRT concession pass /on 24/09/2019 /tag transport`
 * `add income $500 part time tuition /on 01/09/2019`
 
-==== Add a new entry to the shortcut: `create expense/income shortcut`
+==== Add a new entry to the shortcut: `create shortcut expense`, `create shortcut income`
 
-Add a new expense or income to the shortcut. +
+Add a new expense or income to shortcuts. +
 Format: +
-`*create shortcut expense/income* [DESCRIPTION] [AMOUNT] {TAG}`
+`*create shortcut expense* [DESCRIPTION] [AMOUNT] {TAG}` +
+`*create shortcut income* [DESCRIPTION] [AMOUNT] {TAG}`
 
 Examples:
 
 * `create income shortcut tuition $100`
-
 * `create shortcut expense ice-cream $5 food`
 
-==== Add recurring expenses or income: `add recurring expense`, `add recurring income`
+==== Add recurring expense or income: `add recurring expense`, `add recurring income`
 
-Add a recurring expenses or income that happen once in a while. +
+Add a recurring expense or income that happens periodically. +
 Format: +
 `*add recurring expense* [AMOUNT] [DESCRIPTION] /every [DURATION] {/starting [STARTDATE]} {/tag [TAG]}` +
 `*add recurring income* [AMOUNT] [DESCRIPTION] /every [DURATION] {/starting [STARTDATE]} {/tag [TAG]}`
@@ -195,31 +219,31 @@ Examples:
 
 * `add recurring income $800 part time job /every month`
 
-==== Add duration-based expenses limit: `set limit`
+==== Add duration-based expenses budget: `set budget`
 
-Set the limit on the amount you can spend within the time period you have input. +
+Set the budget on the amount you can spend within the time period you have input. +
 Format: +
-`*set limit* [AMOUNT] /every [DURATION]`
+`*set budget* [AMOUNT] /every [DURATION]`
 
 *NOTE*: `*[DURATION]*` can be daily, weekly, monthly or yearly.
 
 Example:
 
-* `set limit $50 every week`
+* `set budget $50 every week`
 
-==== Add tag-based expense limit: `set limit`
+==== Add tag-based expense budget: `set budget`
 
-Set expense limit on particular types of spending. +
+Set expense budget on particular types of spending. +
 Format: +
-`*set limit* /tag [TAG] [AMOUNT]`
+`*set budget* /tag [TAG] [AMOUNT]`
 
 Example:
 
-* `set limit /tag bubble tea $20`
+* `set budget /tag bubble tea $20`
 
 ==== Set target saving: `set saving`
 
-Set target saving for a particular duration. +
+Set a target saving for a specified duration. +
 Format: +
 `*set saving* [AMOUNT] /for [DURATION]`
 
@@ -231,19 +255,19 @@ Example:
 
 ==== Reminders: `reminder`
 
-Reminders for upcoming payments and limits that are about to be broken. +
+Reminders for upcoming payments and budgets that are about to be broken. +
 Format: +
 `*reminder*`
 
-*NOTE*: Reminders will auto pop up with the greeting message.
+*NOTE*: Reminders will automatically pop up with the greeting message when the app is ran.
 
 Example:
 
 * `reminder`
 
-==== Add loans and debts: `owe` `borrow`
+==== Add loans and debts: `owe`, `borrow`
 
-Add loans and debts that are one off kind. +
+Add ad-hoc loans and debts that are one-off. +
 Format: +
 `*owe* [FRIEND] [AMOUNT] [DESCRIPTION]` +
 `*borrow* [FRIEND] [AMOUNT] [DESCRIPTION]`
@@ -254,7 +278,7 @@ Examples:
 
 * `borrow xx $10 lunch`
 
-==== View statistics: `stats` `view`
+==== View statistics: `stats`, `view`
 
 View spending statistics on a specific tag for a specified duration. +
 Format: +
@@ -276,14 +300,16 @@ Examples:
 
 * `view 11/11/2011`
 
+{nbsp} +
+
 === Switch the mode to Entries: `entries`
 
-Users can check and edit the tasks in entries. +
+Users can look through, edit and remove entries in this mode. +
 Format: +
 `*entries*`
 
-==== Common Commands Available: +
-`*page*` `*remove*` `*modify*` `*sort /date*` `*sort /tag*` `*sort /amount*`
+Common Commands Available: +
+`*page*` `*remove*` `*find*` `*modify*` `*sort /date*` `*sort /tag*` `*sort /amount*`
 
 ==== Add to shortcut: `create shortcut`
 
@@ -295,36 +321,42 @@ Example:
 
 * `create shortcut 3`
 
-=== Switch the mode to Limits: `limits`
+{nbsp} +
 
-Users can check and edit the tasks in limits. +
+=== Switch the mode to Budgets: `budgets`
+
+Users can look through, edit and remove budgets in this mode. +
 Format: +
-`*limits*`
+`*budgets*`
 
-Common Commands Available: +
-`*page*` `*remove*` `*modify*` `*sort /date*` `*sort /tag*` `*sort /amount*`
+==== Common Commands Available: +
+`*page*` `*remove*` `*find*` `*modify*` `*sort /date*` `*sort /tag*` `*sort /amount*`
+
+{nbsp} +
 
 === Switch the mode to Debts: `debts`
 
-Users can check and edit the tasks in debts. +
+Users can look through, edit and remove debts in this mode. +
 Format: +
 `*debts*`
 
-==== Common Commands Available: +
-`*page*` `*remove*` `*modify*` `*sort /date*` `*sort /tag*` `*sort /amount*`
+Common Commands Available: +
+`*page*` `*remove*` `*find*` `*modify*` `*sort /date*` `*sort /tag*` `*sort /amount*`
+
+{nbsp} +
 
 === Switch the mode to Shortcuts: `shortcuts`
 
-Users can check and edit the tasks in shortcuts. +
+Users can look through, edit and remove shortcuts in this mode. +
 Format: +
 `*shortcuts*`
 
-==== Common Commands Available: +
-`*page*` `*remove*` `*modify*` `*sort /date*` `*sort /tag*` `*sort /amount*`
+Common Commands Available: +
+`*page*` `*remove*` `*find*` `*modify*` `*sort /date*` `*sort /tag*` `*sort /amount*`
 
-==== Add a task from a shortcut to entries `add shortcut`
+==== Add an entry from your shortcuts to entries: `add shortcut`
 
-Add a task from the shortcut to the expense/income list. +
+Add an entry from the shortcut to the expense/income list. +
 Format: +
 `*add shortcut* [SHORTCUT NO.]`
 
@@ -332,7 +364,7 @@ Example:
 
 * `add shortcut 8`
 
-
+{nbsp} +
 
 === Switch the mode to Settings: `settings` [coming in v2.0]
 
@@ -342,54 +374,62 @@ Format: +
 
 == FAQ
 
-*Q*: How do I transfer my data to another computer
+*Q*: How do I transfer my data to another computer?
 
 *A*: Install the app in the new computer and overwrite the empty data file it creates with the file that contains the data of your previous data folder.
 
 == Command Summary
 
-* `*dolla*`
-* `*entries*`
-* `*limits*`
-* `*debts*`
-* `*shortcuts*`
-* `*settings*`
-* `*add expenses/income*`  `add expense [AMOUNT] [DESCRIPTION] /on [DATE] {/tag [TAG]}` +
+* `dolla`
+* `entries`
+* `budgets`
+* `debts`
+* `shortcuts`
+* `settings` [coming in v2.0]
+* *add expense:*  `add expense [AMOUNT] [DESCRIPTION] /on [DATE] {/tag [TAG]}` +
 e.g. `add expense $45 MRT concession pass /on 24/09/2019 /tag transport`
-* `*page* [PAGE NO.]` +
+* *add income:*  `add income [AMOUNT] [DESCRIPTION] /on [DATE] {/tag [TAG]}` +
+e.g. `add expense $400 tuition /on 24/09/2019 /tag job`
+* *page:* `[PAGE NO.]` +
 e.g. `page 3`
-* `*remove*` `remove [LIST NO.]` +
+* *remove:* `remove [LIST NO.]` +
 e.g. `remove 3`
-* `*modify*` `modify [LIST NO.] {COMPONENT}` +
+* *find:* `find [KEYWORD(S)]` +
+e.g. `find milk`
+* *modify:* `modify [LIST NO.] {COMPONENT}` +
 e.g. `modify 4 tag`
-* `*sort /date*` `sort /date ascending/descending` +
+* *sort /date:* `sort /date ascending/descending` +
 e.g. sort /date ascending
-* `*sort /tag*` `sort /tag ascending/descending` +
+* *sort /tag:* `sort /tag ascending/descending` +
 e.g. sort /tag descending
-* `*sort /amount*` `sort /amount ascending/descending` +
+* *sort /amount:* `sort /amount ascending/descending` +
 e.g. sort /amount ascending
-* `*add recurring expenses/income*` `add recurring expense/income [AMOUNT] [DESCRIPTION] /every [DURATION] {/starting [STARTDATE]} {/tag [TAG]}` +
+* *add recurring expense:* `add recurring expense [AMOUNT] [DESCRIPTION] /every [DURATION] {/starting [STARTDATE]} {/tag [TAG]}` +
 e.g. `add recurring expense $59 phone bill /every month /starting 01/01/2019 /tag bill`
-* `*set limit*` `set limit [AMOUNT] /every [DURATION]` +
-* `*set limit*` `set limit /tag [TAG] [AMOUNT]` +
-e.g. `set limit /tag bubble tea $20`
-e.g. `set limit $50 every week`
-* `*set saving*` `set saving [AMOUNT] /for [DURATION]` +
+* *add recurring income:* `add recurring income [AMOUNT] [DESCRIPTION] /every [DURATION] {/starting [STARTDATE]} {/tag [TAG]}` +
+e.g. `add recurring income $800 pocket money /every month /starting 01/01/2019 /tag allowances`
+* *set budget* `set budget [AMOUNT] /every [DURATION]` +
+* *set budget* `set budget /tag [TAG] [AMOUNT]` +
+e.g. `set budget /tag bubble tea $20`
+e.g. `set budget $50 every week`
+* *set saving* `set saving [AMOUNT] /for [DURATION]` +
 e.g. `set saving $300 /for every month`
-* `*reminder*` `reminder`
-* `*owe*` `owe [FRIEND] [AMOUNT] [DESCRIPTION]` +
+* *reminder:* `reminder`
+* *owe:* `owe [FRIEND] [AMOUNT] [DESCRIPTION]` +
 e.g. `owe xx $4 bubble tea`
-* `*borrow*` `borrow [FRIEND] [AMOUNT] [DESCRIPTION]` +
+* *borrow:* `borrow [FRIEND] [AMOUNT] [DESCRIPTION]` +
 e.g. `borrow xx $10 lunch`
-* `*stats*` `stats [TAG] [DURATION] [CHART_TYPE]` +
+* *stats:* `stats [TAG] [DURATION] [CHART_TYPE]` +
 e.g. stats Food September histogram
-* `*stats*` `stats [DATE/MONTH/YEAR]` +
+* *stats:* `stats [DATE/MONTH/YEAR]` +
 e.g. stats today
-* `*view*` `view [DATE/MONTH/YEAR]` +
+* *view:* `view [DATE/MONTH/YEAR]` +
 e.g. view 11/11/2011
-* `*create shortcut*` `create shortcut [LIST NO.]` +
+* *create shortcut:* `create shortcut [LIST NO.]` +
 e.g. `create shortcut 3`
-* `*create expense/income shortcut*` `create shortcut expense/income [DESCRIPTION] [AMOUNT] {TAG}` +
-e.g. create shortcut expense ice-cream $5 food
-* `*add shortcut*` `add shortcut [SHORTCUT NO.]` +
-e.g. add shortcut 8
+* *create shortcut expense:* `create shortcut expense [DESCRIPTION] [AMOUNT] {TAG}` +
+e.g. `create shortcut expense ice-cream $5 food`
+* *create shortcut income:* `create shortcut income [DESCRIPTION] [AMOUNT] {TAG}` +
+e.g. `create shortcut income part time job $400`
+* *add shortcut:* `add shortcut [SHORTCUT NO.]` +
+e.g. `add shortcut 8`
