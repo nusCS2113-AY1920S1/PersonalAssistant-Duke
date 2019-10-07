@@ -26,10 +26,10 @@ public class DurationCommand extends Command {
             throw new DukeException(ERROR_MESSAGE_GENERAL + MESSAGE_FOLLOWUP_NUll);
         } else if (userInputCommand.trim().charAt(5) == ' ') {
             String description = userInputCommand.split("\\s",2)[1].trim();
-            if (description.contains(" /need ")) {
-                String details = description.split(" /need ", 2)[0].trim();
-                String need = description.split(" /need ", 2)[1].trim();
-                if (details == null || need == null) {
+            if (description.contains("/need")) {
+                String details = description.split("/need", 2)[0].trim();
+                String need = description.split("/need", 2)[1].trim();
+                if (details.isEmpty() || need.isEmpty()) {
                     throw new DukeException(ERROR_MESSAGE_DURATION);
                 } else {
                     taskList.addDurationTask(details, need);

@@ -1,0 +1,173 @@
+= ChefDuke - User Guide
+:site-section: UserGuide
+:toc:
+:toc-title:
+:toc-placement: preamble
+:sectnums:
+:imagesDir: images
+:stylesDir: stylesheets
+:xrefstyle: full
+:experimental:
+ifdef::env-github[]
+:tip-caption: :bulb:
+:note-caption: :information_source:
+endif::[]
+:repoURL: https://github.com/AY1920S1-CS2113T-T12-4/main
+
+== Introduction
+
+ChefDuke is for private home chef who *prefer to use a desktop app for managing administrative tasks for their business. More importantly, ChefDuke is optimized to work with a Command Line Interface (CLI).
+
+== Quick Start
+
+. Install JDK 11
+. Download the latest jar and put it in a directory of your choice
+. Double click the jar file to run
+. Command Overview:
+* *`addbooking`*: List all the tasks that are available
+* **`deletebooking`**: Adds a general task to the list (No duration/time listed)
+* **`viewbydate`**: Deletes the task at corresponding index from the list
+* *`viewallbookings`*: Exits the app
+* *`addrecipe`*: Exits the app
+* *`deleterecipe`*: Exits the app
+* *`editrecipe`*: Exits the app
+* *`viewallrecipes`*: Exits the app
+* *`viewrecipe`*: Exits the app
+* *`vaddingredient`*: Exits the app
+* *`userecipe`*: Exits the app
+* *`exit`*: Exits the app
+.  Refer to <<Features>> for details of each command.
+
+[[Features]]
+== Features
+
+====
+*Managing Bookings*
+====
+
+===  Adding a new booking: `addbooking`
+
+Adds a customer booking to the booking list +
+Format: `addbooking <customer_name> <customer_contact> <number_of_pax> <booking_date_dd/MM/yyyy> <recipe_name>`
+
+Examples: `addbooking adam 81234567 4 12/12/2012 garlic prawn, ribeye steak`
+
+===  Deleting a booking: `deletebooking`
+
+Deletes a customer booking in the booking list +
+Format:
+
+* `deletebooking <booking_number>`
+* `deletebooking <customer_name> <booking_date_ddMMyyy>`
+
+Examples:
+
+* `deletebooking 1`
+* `deletebooking adam 12/12/2012`
+
+===  Viewing bookings on a specific date: `viewbydate`
+
+Views a specific customer booking in the booking list +
+Format: `viewbydate <booking_date_ddMMyyy>`
+
+Examples: `viewbydate 15/10/2015`
+
+===  Viewing all current bookings: `viewallbookings`
+
+Views all customer bookings in the booking list +
+Format: `viewallbooking`
+
+Output Result:
+
+* `John 96587452 No. of pax:2 11/11/2015 smoked salmon, beef bolognese`
+* `Adam 81234567 No. of pax:4 12/12/2012 garlic prawn, ribeye steak`
+
+====
+*Managing Recipes*
+====
+
+===  Adding a new recipe: `addrecipe`
+
+Adds a new recipe to the recipe list +
+Format: `addrecipe <recipe_name>`
+
+Examples: `addrecipe garlic prawn`
+
+===  Deleting a recipe: `deleterecipe`
+
+Deletes a new recipe in the recipe list +
+Format:
+
+* `deleterecipe <recipe_number>`
+* `deleterecipe <recipe_name>`
+
+Examples:
+
+* `deleterecipe 2`
+* `deleterecipe garlic prawn`
+
+===  Editing a recipe: `editrecipe`
+
+Edits a recipe in the recipe list +
+Format:
+* `editrecipe <recipe_number> OR editrecipe <recipe_name>`
+* `field1 <changes>, field2 <changes>, field3 <changes> field4 <changes>`
+
+Examples:
+
+* `editrecipe 2`
+* `editrecipe garlic prawn`
+* `rating 9/10, ingredient garlic & prawn, cooking_steps pan-fry prawn for 8 minutes, feedback too salty`
+
+===  Viewing all recipes: `viewallrecipes`
+
+Views all recipes in the recipe list +
+Format: `viewallrecipe`
+
+Output Result:
+
+* `1. garlic prawn`
+* `2. tomato egg`
+
+===  Viewing a specific recipe: `viewrecipe`
+
+Views a new recipe in the recipe list +
+Format: `viewrecipe <recipe_name>`
+
+Examples: `viewrecipe garlic prawn`
+
+====
+*Managing Inventory*
+====
+
+===  Adding ingredients to the inventory list: `addingredient`
+
+Adds ingredients to the inventory list +
+Format: `addingredient <ingredient_name> <quantity>`
+
+Examples:
+
+* `addingredient fish 2`
+* `addingredient prawn 10`
+
+===  Updating inventory after using a recipe: `userecipe`
+
+Updates the status of the recipe in the inventory list +
+Format:
+
+* `userecipe <recipe_name>`
+* `userecipe <recipe_number>`
+
+Examples:
+* `userecipe 2`
+* `userecipe garlic prawn`
+
+===  Exiting the program: `exit`
+
+===  Saving the data
+
+Data is automatically saved after each command.
+
+===  Generating recipe based on ingredients [coming in v2.0]
+
+_{Explain how we make use of machine learning and big data to generate suitable recipes for customers}_
