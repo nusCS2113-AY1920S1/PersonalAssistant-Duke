@@ -13,7 +13,7 @@ public class ViewPastMonthExpenditure extends MoneyCommand {
     private int year;
 
     public ViewPastMonthExpenditure(String command) {
-        String inputString = command.replaceFirst("check income ", "");
+        String inputString = command.replaceFirst("check expenditure ", "");
         String[] splitStr = inputString.split(" ");
         month = Integer.parseInt(splitStr[0]);
         year = Integer.parseInt(splitStr[1]);

@@ -11,6 +11,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.Calendar;
 import java.util.Date;
 
 /**
@@ -54,6 +55,13 @@ public class AddIncomeCommand extends MoneyCommand {
         Income i = new Income(salary, description, payDay);
         account.getIncomeListTotal().add(i);
         storage.writeToFile(account);
+
+        Calendar currDate = Calendar.getInstance();
+        int currMonth = currDate.get(Calendar.MONTH) + 1;
+        int currYear = currDate.get(Calendar.YEAR);
+        if (payDay.getMonthValue() == currMonth && payDay.getYear() == currYear) {
+            account.getIncomeListCurrMonth().add(i);
+        }
 
         ui.appendToOutput(" Got it. I've added this income source: \n");
         ui.appendToOutput("     ");
