@@ -3,9 +3,10 @@ package owlmoney.logic.command;
 import owlmoney.model.profile.Profile;
 import owlmoney.ui.Ui;
 
-public class PlaceHolderEmptyCommand extends OwlMoneyCommand{
+public class PlaceHolderEmptyCommand extends Command {
     String message;
-    public PlaceHolderEmptyCommand () {
+
+    public PlaceHolderEmptyCommand() {
         this.message = "Execute command";
     }
 

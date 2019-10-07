@@ -1,20 +1,19 @@
 package owlmoney.logic.parser.saving;
 
-import java.text.ParseException;
 import java.util.Iterator;
-import java.util.Map;
 
-import owlmoney.logic.command.OwlMoneyCommand;
+import owlmoney.logic.command.Command;
 import owlmoney.logic.command.bank.DeleteSavingsCommand;
-import owlmoney.model.profile.Profile;
 
-import owlmoney.logic.command.bank.AddSavingsCommand;
 import owlmoney.logic.parser.exception.ParserException;
 
 public class ParseDeleteSaving extends ParseSaving {
 
-    public ParseDeleteSaving(String data) {
+    public ParseDeleteSaving(String data) throws ParserException {
         super(data);
+        checkRedundantParameter(AMOUNT);
+        checkRedundantParameter(INCOME);
+        checkRedundantParameter(NEW_NAME);
     }
 
     public void checkParameter() throws ParserException {
@@ -31,7 +30,7 @@ public class ParseDeleteSaving extends ParseSaving {
         }
     }
 
-    public OwlMoneyCommand getCommand() {
+    public Command getCommand() {
         DeleteSavingsCommand newDeleteSavingsCommand = new DeleteSavingsCommand(savingsParameters.get(NAME));
         return newDeleteSavingsCommand;
     }

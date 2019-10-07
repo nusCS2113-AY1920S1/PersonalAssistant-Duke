@@ -9,8 +9,10 @@ public abstract class ParseExpenditure {
     HashMap<String, String> expendituresParameters = new HashMap<String, String>();
     ParseRawData parseRawData = new ParseRawData();
     String rawData;
-    static final String[] SAVINGS_KEYWORD = new String[] {"/name", "/amount", "/date", "/description", "/category",
-            "/from", "/expno"};
+    static final String[] SAVINGS_KEYWORD = new String[] {
+            "/name", "/amount", "/date", "/description", "/category",
+            "/from", "/expno"
+    };
     static final String AMOUNT = "/amount";
     static final String DATE = "/date";
     static final String DESCRIPTION = "/description";
@@ -24,17 +26,17 @@ public abstract class ParseExpenditure {
 
     public void fillHashTable() throws ParserException {
         expendituresParameters.put(AMOUNT,
-                parseRawData.extractParameter(rawData,AMOUNT, SAVINGS_KEYWORD));
+                parseRawData.extractParameter(rawData, AMOUNT, SAVINGS_KEYWORD));
         expendituresParameters.put(DATE,
-                parseRawData.extractParameter(rawData,DATE, SAVINGS_KEYWORD));
+                parseRawData.extractParameter(rawData, DATE, SAVINGS_KEYWORD));
         expendituresParameters.put(DESCRIPTION,
-                parseRawData.extractParameter(rawData,DESCRIPTION, SAVINGS_KEYWORD));
+                parseRawData.extractParameter(rawData, DESCRIPTION, SAVINGS_KEYWORD));
         expendituresParameters.put(CATEGORY,
-                parseRawData.extractParameter(rawData,CATEGORY, SAVINGS_KEYWORD));
+                parseRawData.extractParameter(rawData, CATEGORY, SAVINGS_KEYWORD));
         expendituresParameters.put(FROM,
-                parseRawData.extractParameter(rawData,FROM, SAVINGS_KEYWORD));
+                parseRawData.extractParameter(rawData, FROM, SAVINGS_KEYWORD));
         expendituresParameters.put(EXPNO,
-                parseRawData.extractParameter(rawData,EXPNO, SAVINGS_KEYWORD));
+                parseRawData.extractParameter(rawData, EXPNO, SAVINGS_KEYWORD));
     }
 
     void checkIfDouble(String valueString) throws ParserException {

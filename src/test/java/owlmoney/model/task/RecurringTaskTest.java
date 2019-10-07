@@ -8,8 +8,6 @@ import java.time.format.DateTimeFormatter;
 
 import org.junit.jupiter.api.Test;
 
-import owlmoney.logic.exception.DukeException;
-
 public class RecurringTaskTest {
 
     private static final DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
