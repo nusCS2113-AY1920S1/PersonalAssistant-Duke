@@ -136,6 +136,20 @@ public class TaskList {
         return sortedDateList;
     }
 
+    /**
+     * This function allows the user to edit the task description.
+     *
+     * @param indexOfTask Location of task in the list
+     * @param newDescription The new task description to be updated
+     *
+     * @return taskToBeEdited The task that had its description edited
+     */
+    public Task editTaskDescription(int indexOfTask,String newDescription) {
+        Task taskToBeEdited = listOfTasks.get(indexOfTask);
+        taskToBeEdited.description = newDescription;
+        return taskToBeEdited;
+    }
+
     public ArrayList<Task> getTasks() {
         return listOfTasks;
     }
