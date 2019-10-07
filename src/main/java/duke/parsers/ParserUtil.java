@@ -39,7 +39,7 @@ public class ParserUtil {
      * @return The new deadline object.
      */
     protected static Deadline createDeadline(String userInput) throws DukeException {
-        String[] deadlineDetails = userInput.substring("deadline".length()).strip().split("/by");
+        String[] deadlineDetails = userInput.substring("deadline".length()).strip().split("by");
         if (deadlineDetails.length != 2 || deadlineDetails[1] == null) {
             throw new DukeException(MessageUtil.INVALID_FORMAT);
         }
@@ -61,7 +61,7 @@ public class ParserUtil {
      * @return The new event object.
      */
     protected static Event createEvent(String userInput) throws DukeException {
-        String[] eventDetails = userInput.substring("event".length()).strip().split("/at");
+        String[] eventDetails = userInput.substring("event".length()).strip().split("at");
         if (eventDetails.length != 2 || eventDetails[1] == null) {
             throw new DukeException(MessageUtil.INVALID_FORMAT);
         }
@@ -101,9 +101,9 @@ public class ParserUtil {
      * @return The new recurring task.
      */
     protected static Task createRecurringTask(String userInput) throws DukeException {
-        String[] taskDetails = userInput.substring("repeat".length()).strip().split("/at");
+        String[] taskDetails = userInput.substring("repeat".length()).strip().split("at");
         try {
-            String[] dateDetails = taskDetails[1].split("/every");
+            String[] dateDetails = taskDetails[1].split("every");
             if (dateDetails.length != 2 || dateDetails[1] == null) {
                 throw new DukeException(MessageUtil.INVALID_FORMAT);
             }
@@ -212,7 +212,7 @@ public class ParserUtil {
     protected static LocalDateTime getScheduleDate(String userInput) throws DukeException {
         try {
             return ParserTimeUtil.parseStringToDate(
-                    userInput.substring("reschedule".length()).strip().split("/to")[1].strip());
+                    userInput.substring("reschedule".length()).strip().split("to")[1].strip());
         } catch (DukeDateTimeParseException e) {
             throw new DukeException(MessageUtil.INVALID_FORMAT);
         } catch (ArrayIndexOutOfBoundsException e) {
