@@ -1,16 +1,6 @@
 package parser;
 
-import command.AddCommand;
-import command.Command;
-import command.DeleteCommand;
-import command.DoneCommand;
-import command.ExitCommand;
-import command.FindCommand;
-import command.ListCommand;
-import command.PostponeCommand;
-import command.RemindCommand;
-import command.SearchCommand;
-import command.ViewCommand;
+import command.*;
 import exception.DukeException;
 import ui.Ui;
 
@@ -38,7 +28,6 @@ public class Parser {
      *         command for further processing
      * @throws DukeException The DukeException class has all the respective methods
      *                       and messages!
-     *
      */
     public static Command parse(String userInput) throws DukeException {
 
@@ -101,6 +90,12 @@ public class Parser {
             }
             return new FindCommand(findKeyWord);
 
+        case "edit":
+            String[] commandPortion = userInput.split(" ", 3);
+            indexOfTask = Integer.parseInt(commandPortion[1]) - 1;
+            description = commandPortion[2];
+            return new EditCommand(indexOfTask, description);
+
         case "delete":
             description = userInput.split(command, 2)[1].trim();
             if (description.isEmpty()) {
@@ -108,6 +103,7 @@ public class Parser {
             }
             indexOfTask = Integer.parseInt(description) - 1;
             return new DeleteCommand(indexOfTask);
+
 
         case "done":
             description = userInput.split(command, 2)[1].trim();
@@ -154,9 +150,11 @@ public class Parser {
                 throw new DukeException(DukeException.wrongDateOrTime());
             }
             return new PostponeCommand(indexOfTask, atDate, fromDate, toDate);
+
         case "view":
             String userScheduleDate = userInput.split(" ", 2)[1].trim();
             return new ViewCommand(userScheduleDate);
+
         case "list":
             return new ListCommand();
         case "bye":
@@ -169,6 +167,7 @@ public class Parser {
                 throw new DukeException(DukeException.wrongDateOrTime());
             }
             return new SearchCommand(duration);
+
         default:
             // Empty string or unknown command.
             Ui.printUnknownInput();
@@ -198,7 +197,7 @@ public class Parser {
     }
 
     private static Command parseToDoDuration(String taskFeatures, String[] taskDetails, String checkType,
-            String command) throws DukeException {
+                                             String command) throws DukeException {
         {
             String dateTimeFromUser = taskDetails[1];
             String taskDescription = taskFeatures.split(checkType, 2)[0].trim();
