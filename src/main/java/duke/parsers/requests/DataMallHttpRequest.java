@@ -18,7 +18,7 @@ public class DataMallHttpRequest extends HttpRequest {
     }
 
     @Override
-    public JsonObject execute() throws DukeException, IOException {
+    public JsonObject execute() throws DukeException {
         String response;
         try {
             URL url = new URL(this.url + "?$skip=" + this.param);
