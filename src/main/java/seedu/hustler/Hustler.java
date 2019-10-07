@@ -68,7 +68,6 @@ public class Hustler {
     public static void run() throws IOException {
         ui.show_opening_string();
         Folder.checkDirectory();
-        //settings.load();
         list = new TaskList(storage.load());
 
         // Display reminders at the start

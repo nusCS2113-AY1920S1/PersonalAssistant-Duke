@@ -1,5 +1,9 @@
 package seedu.hustler.game.avatar;
 
+import seedu.hustler.data.AvatarStorage;
+
+import java.io.IOException;
+
 /**
  * A class for the avatar in Hustler.
  */
