@@ -82,6 +82,8 @@ public class ViewScheduleCommand extends Command {
 
     @Override
     public void execute(Store store, Ui ui, Storage storage) throws DuchessException {
+        storage.setPreviousUndoFalse();
+
         List<Task> tasksForToday =
                 store.getTaskList().stream()
                         .filter(task -> task.getTimeFrame().fallsWithin(this.timeFrame))

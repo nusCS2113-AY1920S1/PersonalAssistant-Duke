@@ -23,6 +23,8 @@ public class DoneCommand extends Command {
             task.markAsDone();
             ui.showDoneTask(task);
             storage.save(store);
+
+            storage.setPreviousUndoFalse();
         } catch (NumberFormatException e) {
             throw new DuchessException("Please supply a number. Eg: done 2");
         } catch (IndexOutOfBoundsException e) {

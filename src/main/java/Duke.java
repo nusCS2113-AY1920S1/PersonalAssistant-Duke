@@ -1,5 +1,5 @@
-import duchess.logic.commands.Command;
 import duchess.exceptions.DuchessException;
+import duchess.logic.commands.Command;
 import duchess.logic.parser.Parser;
 import duchess.model.task.DuchessLog;
 import duchess.storage.Storage;
@@ -44,6 +44,11 @@ public class Duke {
                 duchessLog.add(fullCommand);
                 ui.beginBlock();
                 Command c = Parser.parse(fullCommand);
+                duchessLog.addValidCommands(c);
+
+                // Take snapshot here, you save copies of Store store here
+                storage.addToUndoStackPush(store);
+
                 c.execute(store, ui, storage);
                 isExit = c.isExit();
             } catch (DuchessException e) {
@@ -57,5 +62,4 @@ public class Duke {
     public static void main(String[] args) {
         new Duke("data.json").run();
     }
-
 }

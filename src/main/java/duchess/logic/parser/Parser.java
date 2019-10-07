@@ -1,5 +1,6 @@
 package duchess.logic.parser;
 
+import duchess.exceptions.DuchessException;
 import duchess.logic.commands.AddDeadlineCommand;
 import duchess.logic.commands.AddEventCommand;
 import duchess.logic.commands.AddModuleCommand;
@@ -14,8 +15,8 @@ import duchess.logic.commands.ListTasksCommand;
 import duchess.logic.commands.LogCommand;
 import duchess.logic.commands.ReminderCommand;
 import duchess.logic.commands.SnoozeCommand;
+import duchess.logic.commands.UndoCommand;
 import duchess.logic.commands.ViewScheduleCommand;
-import duchess.exceptions.DuchessException;
 
 import java.util.Arrays;
 import java.util.List;
@@ -84,6 +85,8 @@ public class Parser {
             return new ByeCommand();
         case "log":
             return new LogCommand();
+        case "undo":
+            return new UndoCommand(arguments);
         default:
             throw new DuchessException("Please enter a valid command.");
         }
