@@ -17,7 +17,12 @@ public class SetBudgetCommand extends Command {
     public static final String MESSAGE_NOTE = "Note that to update your budget, "
             + "simply set the budget for the same month and year again.";
     public static final String MESSAGE_USAGE = "Error in format for command."
-            + "\nExample: " + COMMAND_WORD + " 100 01/2019";
+            + "\nExample: " + COMMAND_WORD + " $100 01/2019"
+            + "\nExample: " + COMMAND_WORD + " $0 01/2019 " + "(To remove your budget for the month/year)";
+    public static final String MESSAGE_EDIT_BUDGET = "You successfully edited your budget for ";
+    public static final String MESSAGE_REMOVE_BUDGET = "You have successfully removed your budget for ";
+    public static final String MESSAGE_NO_BUDGET_TO_REMOVE = "There is no budget for removal";
+    public static final String MESSAGE_NO_NEGATIVE_BUDGET = "Budget must be more than or equals to zero";
 
     private Budget budget = null;
 
@@ -28,17 +33,47 @@ public class SetBudgetCommand extends Command {
     @Override
     public boolean execute(Wallet wallet, StorageManager storageManager) {
         try {
+            if (budget.getAmount() < 0) {
+                System.out.println(MESSAGE_NO_NEGATIVE_BUDGET);
+                System.out.println(MESSAGE_USAGE);
+                return false;
+            }
             if (budget != null) {
                 BudgetList budgetList = wallet.getBudgetList();
-                if (budgetList.getBudgetList().size() != 0) {
+                if (budgetList.getBudgetList().size() == 0 && budget.getAmount() == 0) {
+                    System.out.println(MESSAGE_NO_BUDGET_TO_REMOVE);
+                    return false;
+                } else if (budgetList.getBudgetList().size() != 0 && budget.getAmount() == 0) {
                     int index = checkDuplicates(wallet.getBudgetList());
                     if (index != -1) {
-                        wallet.getBudgetList().editBudget(index, budget);
+                        wallet.getBudgetList().getBudgetList().remove(index);
+                        updateSaveFile(wallet, storageManager);
+                        System.out.println(MESSAGE_REMOVE_BUDGET + new DateFormatSymbols().getMonths()[budget.getMonth() - 1]
+                                + budget.getYear());
+                    } else {
+                        System.out.println(MESSAGE_NO_BUDGET_TO_REMOVE);
                     }
+                    return false;
+                } else if (budgetList.getBudgetList().size() != 0 && budget.getAmount() > 0) {
+                    int index = checkDuplicates(wallet.getBudgetList());
+                    if (index != -1) { //There is a duplicate
+                        wallet.getBudgetList().editBudget(index, budget);
+                    } else {
+                        wallet.getBudgetList().addBudget(budget);
+                    }
+                    System.out.println(budget.getAmount() + MESSAGE_SET_BUDGET
+                            + new DateFormatSymbols().getMonths()[budget.getMonth() - 1] + " " + budget.getYear());
+                    updateSaveFile(wallet, storageManager);
+                    if (index != -1) {
+                        System.out.println(MESSAGE_EDIT_BUDGET
+                                + new DateFormatSymbols().getMonths()[budget.getMonth() - 1] + " " + budget.getYear());
+                    }
+                    return false;
                 }
                 wallet.getBudgetList().addBudget(budget);
                 System.out.println(budget.getAmount() + MESSAGE_SET_BUDGET
                         + new DateFormatSymbols().getMonths()[budget.getMonth() - 1] + " " + budget.getYear());
+                updateSaveFile(wallet, storageManager);
                 System.out.println(MESSAGE_NOTE);
             }
         } catch (Exception e) {
@@ -57,5 +92,9 @@ public class SetBudgetCommand extends Command {
         return -1;
     }
 
+    private void updateSaveFile(Wallet wallet, StorageManager storageManager) {
+        wallet.getBudgetList().setModified(true);
+        storageManager.save(wallet);
+    }
 }
 
