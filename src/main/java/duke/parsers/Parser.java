@@ -93,8 +93,8 @@ public class Parser {
                     }
                 }
 
-                throw new DukeException("Please enter index of meal to delete on today's list or " +
-                        "date and index of meal to delete");
+                throw new DukeException("Please enter index of meal to delete on today's list or "
+                        + "date and index of meal to delete");
             case "update":
                 return new UpdateWeightCommand(description);
             default:
