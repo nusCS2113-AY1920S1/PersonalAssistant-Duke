@@ -4,9 +4,11 @@ import oof.exception.OofException;
 import oof.task.Event;
 import oof.task.Task;
 
+import java.io.FileReader;
+import java.io.File;
+import java.io.BufferedReader;
+import java.io.IOException;
 import java.time.DayOfWeek;
-import java.time.LocalDate;
-import java.time.Month;
 import java.time.YearMonth;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -21,6 +23,7 @@ public class Ui {
     private static final int DAYS_IN_WEEK = 7;
     private static final int INDEX_SPACE = 0;
     private static final int INDEX_START_OF_ARRAY = 0;
+    private static final String FILEPATH = "src/main/manual.txt";
 
     /**
      * Scans for an integer of user input.
@@ -277,21 +280,22 @@ public class Ui {
     }
 
     /**
-<<<<<<<<< Temporary merge branch 1
      * Prints all commands available to user.
      *
-     * @param commands ArrayList containing list of commands available to user
+     * @throws IOException if unable to read file from filepath
      */
-    public void printHelpCommands(ArrayList commands) {
-        printLine();
-        System.out.println("\tHere is a list of OOF commands: ");
-        for (int i = 0; i < commands.size(); i++) {
-            System.out.println("\t" + (i + 1) + ". " + commands.get(i));
+    public void printHelpCommands() throws IOException {
+        File file = new File(FILEPATH);
+        FileReader fileReader = new FileReader(file);
+        BufferedReader br = new BufferedReader(fileReader);
+        String line;
+        while ((line = br.readLine()) != null) {
+            System.out.println(line);
         }
         printLine();
     }
 
-=========
+    /**
      * Prints calendar.
      *
      * @param yearMonth Object containing month and year information.
@@ -359,5 +363,4 @@ public class Ui {
             System.out.println("-------------------------------------------------------------------------------------");
         }
     }
->>>>>>>>> Temporary merge branch 2
 }

@@ -5,6 +5,7 @@ import oof.Storage;
 import oof.TaskList;
 import oof.Ui;
 
+import java.io.IOException;
 import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -29,7 +30,7 @@ public abstract class Command {
      *                objects to hard disk.
      * @throws OofException Catches invalid commands given by user.
      */
-    public abstract void execute(TaskList tasks, Ui ui, Storage storage) throws OofException;
+    public abstract void execute(TaskList tasks, Ui ui, Storage storage) throws OofException, IOException;
 
     /**
      * Parses the Timestamp given by the user and returns the parsed

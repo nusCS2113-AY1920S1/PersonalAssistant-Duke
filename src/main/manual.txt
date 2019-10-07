@@ -1,0 +1,51 @@
+========== OOF MANUAL ==========
+
+NAME
+    OOF -- Outstanding Organisation Friend
+
+DESCRIPTION
+    The following options are available:
+
+    Deadline            deadline DESCRIPTION /by DD-MM-YYYY HH:MM
+
+    Event               event DESCRIPTION /from DD-MM-YYYY HH:MM /to DD-MM-YYYY HH:MM
+
+    Todo                todo DESCRIPTION
+
+    Do-after            do-after INDEX DESCRIPTION
+
+    Recurring           recurring DESCRIPTION
+
+    Tentative           tentative DESCRIPTION
+
+    List                list
+
+    Done                done INDEX
+
+    Delete              delete INDEX
+
+    Find                find DESCRIPTION
+
+    Filter              filter CATEGORY
+
+    Threshold           threshold HH
+
+    Color Code          colorcode INDEX #RRGGBB
+
+    Schedule            schedule DD-MM-YYYY
+
+    Summary             summary
+
+    Sort                sort
+
+    View Undone         viewUndone
+
+    View Free           viewFree
+
+    View Week           viewWeek
+
+    View Calendar       viewCalendar
+
+    Reminder            reminder
+
+    Exit                bye
