@@ -22,7 +22,7 @@ import models.tasks.ITask;
 import models.tasks.PeriodTask;
 import models.tasks.Recurring;
 import models.tasks.TaskList;
-import repositories.ProjectRepository;
+import util.repositories.ProjectRepository;
 import views.CLIView;
 
 public class ConsoleInputController implements IViewController {

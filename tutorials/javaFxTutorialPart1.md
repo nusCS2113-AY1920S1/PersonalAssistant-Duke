@@ -32,7 +32,7 @@ plugins {
     id 'org.openjfx.javafxplugin' version '0.0.7'
 }
 
-repositories {
+util.repositories {
     mavenCentral()
 }
 

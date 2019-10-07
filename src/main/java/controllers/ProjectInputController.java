@@ -2,7 +2,7 @@ package controllers;
 
 import java.util.Scanner;
 import models.data.IProject;
-import repositories.ProjectRepository;
+import util.repositories.ProjectRepository;
 import views.CLIView;
 
 public class ProjectInputController {
