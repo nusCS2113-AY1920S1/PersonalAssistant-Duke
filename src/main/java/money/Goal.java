@@ -45,7 +45,7 @@ public class Goal extends Expenditure {
     }
 
     public String getGoalBy() {
-        String goalByDateTime = super.getBoughtTime();
+        String goalByDateTime = super.getBoughtDate();
         String goalByDate = goalByDateTime.split(" ")[0];
         return goalByDate;
     }
