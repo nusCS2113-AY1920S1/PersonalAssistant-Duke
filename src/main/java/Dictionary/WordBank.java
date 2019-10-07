@@ -1,8 +1,8 @@
 package Dictionary;
-
+import java.util.Locale;
 import exception.DukeException;
 import exception.NoWordFoundException;
-
+import command.OxfordCall;
 import java.util.Map;
 import java.util.TreeMap;
 
@@ -35,13 +35,15 @@ public class WordBank {
      * @return a string represents meaning of that word
      * @throws NoWordFoundException if the word doesn't exist in the word bank
      */
-    public String searchForMeaning(String word) throws NoWordFoundException {
-        if (wordBank.containsKey(word)) {
-            return wordBank.get(word).getMeaning();
+    public String searchForMeaning(String word){ //throws NoWordFoundException {
+        word = word.toLowerCase();
+        if (!(wordBank.containsKey(word))){
+            System.out.println("Unable to locate "+word+" in local dictionary. Looking up Oxford Dictionary\n");
+            String result = OxfordCall.onlineSearch(word);
+            Word temp = new Word(word,result);
+            wordBank.put(word,temp);
         }
-        else {
-            throw new NoWordFoundException(word);
-        }
+        return wordBank.get(word).getMeaning();
     }
 
     /**
