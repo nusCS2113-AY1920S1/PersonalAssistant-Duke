@@ -50,12 +50,12 @@ public class TaskList {
         }
         return c1;
     }
+
     /**
      * Removes an element from the task list.
      *
      * @param index the index of the duke.tasks.Task in the task list that is to be removed
      */
-
     public void remove(int index) {
         list.remove(index);
     }
@@ -124,14 +124,20 @@ public class TaskList {
         return list;
     }
 
-
+    /**
+     * Returns the duke.tasks.Task object at the specified index
+     *
+     * @param num the index of the duke.tasks.Task object
+     * @return the duke.tasks.Task object
+     */
     public Task getTaskIndex(int num) {
         return list.get(num);
     }
 
     /**
      * Removes from this list all of its elements that are contained in the ArrayList.
-     * @param removeList The specified collection; its elements are removed from the list.
+     *
+     * @param removeList the specified collection; its elements are removed from the list.
      */
     public void removeAll(ArrayList<Task> removeList) {
         list.removeAll(removeList);
