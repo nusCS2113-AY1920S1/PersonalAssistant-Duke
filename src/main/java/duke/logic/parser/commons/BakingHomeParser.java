@@ -3,7 +3,7 @@ package duke.logic.parser.commons;
 import duke.commons.core.Message;
 import duke.logic.command.Command;
 import duke.logic.command.shortcut.SetShortcutCommand;
-import duke.logic.command.shortcut.ExecuteShortCutCommand;
+import duke.logic.command.shortcut.ExecuteShortcutCommand;
 import duke.logic.command.order.OrderCommand;
 import duke.logic.parser.exceptions.ParseException;
 import duke.logic.parser.order.OrderCommandParser;
@@ -50,7 +50,7 @@ public class BakingHomeParser {
             return new OrderCommandParser().parse(subCommandAndArgs);
         case SetShortcutCommand.COMMAND_WORD:
             return new SetShortcutCommandParser().parse(subCommandAndArgs);
-        case ExecuteShortCutCommand.COMMAND_WORD:
+        case ExecuteShortcutCommand.COMMAND_WORD:
             return new ExecuteShortcutCommandParser().parse(subCommandAndArgs);
         default:
             throw new ParseException(Message.MESSAGE_UNKNOWN_COMMAND);
