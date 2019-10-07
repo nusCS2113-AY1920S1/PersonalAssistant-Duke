@@ -36,7 +36,6 @@ public class Parser {
         String input = io;
         String[] word = io.split(" ");
         String cmd = word[0];
-        Schedule schedule = new Schedule(".\\src\\main\\java\\duke\\Module\\timeslots.txt");
         switch (cmd) {
 
             case "list":
@@ -173,6 +172,8 @@ public class Parser {
              * Delete: schedule delete 5/10/2019 1500 Swimming|schedule delete-all 5/10/2019
              */
             case "schedule":
+                Storage scheduleStorage = new Storage(".\\src\\main\\java\\duke\\Module\\timeslots.txt");
+                Schedule schedule = new Schedule(scheduleStorage.loadSchedule());
                 try {
                     if (word[1].equals("view-week")) {
                         System.out.println(schedule.getWeek());
@@ -189,14 +190,14 @@ public class Parser {
                         String endTime = word[4] + " " + word[5];
                         String location = word[6];
                         String className = word[7];
-                        System.out.println(schedule.addClass(startTime, endTime, location, className, tasks));
+                        System.out.println(schedule.addClass(startTime, endTime, location, className, tasks, scheduleStorage));
                     } else if (word[1].equals("delete")) {
                         String startTime = word[2] + " " + word[3];
                         String className = word[4];
-                        System.out.println(schedule.delClass(startTime, className));
+                        System.out.println(schedule.delClass(startTime, className, scheduleStorage));
                     } else if (word[1].equals("delete-all")) {
                         String date = word[2];
-                        System.out.println(schedule.delAllClass(date));
+                        System.out.println(schedule.delAllClass(date, scheduleStorage));
                     }
                 } catch (ArrayIndexOutOfBoundsException e) {
                     System.out.println("Please enter the full command.");
@@ -209,7 +210,8 @@ public class Parser {
              * Delete: goal delete-all 5/10/2019|goal delete 5/10/2019 Makes sure every student masters freestyle
              */
             case "goal":
-                Goal goal = new Goal(".\\src\\main\\java\\duke\\Module\\goals.txt");
+                Storage goalStorage = new Storage(".\\src\\main\\java\\duke\\Module\\goals.txt");
+                Goal goal = new Goal(goalStorage.loadGoal());
                 try {
                     switch (word[1]) {
                         case "view": {
@@ -221,19 +223,19 @@ public class Parser {
                             String date = word[2];
                             index = input.indexOf(word[3]);
                             String message = input.substring(index);
-                            System.out.println(goal.addGoal(date, message));
+                            System.out.println(goal.addGoal(date, message, goalStorage));
                             break;
                         }
                         case "delete": {
                             String date = word[2];
                             index = input.indexOf(word[3]);
                             String message = input.substring(index);
-                            System.out.println(goal.removeGoal(date, message));
+                            System.out.println(goal.removeGoal(date, message, goalStorage));
                             break;
                         }
                         case "delete-all": {
                             String date = word[2];
-                            System.out.println(goal.removeAllGoal(date));
+                            System.out.println(goal.removeAllGoal(date, goalStorage));
                             break;
                         }
                     }
