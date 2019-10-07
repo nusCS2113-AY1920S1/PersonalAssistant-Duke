@@ -18,19 +18,17 @@ import java.util.Date;
  */
 public class Schedule {
 
+    /**
+     * loading path.
+     */
+    private String filePath;
+    /**
+     * Input  scan
+     */
     private ArrayList<TimeSlot> list;
 
     public Schedule(ArrayList<TimeSlot> timeSlots) {
         this.list = timeSlots;
-    }
-
-    /**
-     * Defined day which a class needs to be made;
-     */
-    private String day;
-
-    public void setDay(String newDay) {
-        day = newDay;
     }
 
     /**

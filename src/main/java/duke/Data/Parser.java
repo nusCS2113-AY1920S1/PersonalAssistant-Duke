@@ -31,11 +31,12 @@ public class Parser {
      *
      * @param io
      */
-    public void parseInput(String io, TaskList tasks, Storage storage, ManageStudents students) throws FileNotFoundException, ParseException {
+    public void parseInput(String io, TaskList tasks, Storage storage, ManageStudents students, Schedule schedule) throws FileNotFoundException, ParseException {
         int index = 1;
         String input = io;
         String[] word = io.split(" ");
         String cmd = word[0];
+
         switch (cmd) {
 
             case "list":
@@ -173,7 +174,7 @@ public class Parser {
              */
             case "schedule":
                 Storage scheduleStorage = new Storage(".\\src\\main\\java\\duke\\Module\\timeslots.txt");
-                Schedule schedule = new Schedule(scheduleStorage.loadSchedule());
+
                 try {
                     if (word[1].equals("view-week")) {
                         System.out.println(schedule.getWeek());
