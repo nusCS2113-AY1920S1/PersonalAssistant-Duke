@@ -11,7 +11,7 @@ import java.util.Date;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class RecurringTest {
-    private RecurringFactory recurringFactory = new RecurringFactory();
+    RecurringFactory recurringFactory = new RecurringFactory();
 
     @Test
     public void alwaysTrue() {
