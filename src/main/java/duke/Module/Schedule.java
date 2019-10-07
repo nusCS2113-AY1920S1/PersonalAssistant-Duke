@@ -24,21 +24,21 @@ public class Schedule {
      */
     private String filePath;
     /**
-     * Inpu  scan
+     * Input  scan
      */
     private Scanner fileInput;
     private ArrayList<TimeSlot> list;
 
-    public Schedule(String filePath) throws FileNotFoundException, ParseException {
-        this.filePath = filePath;
-        File f = new File(filePath);
-        fileInput = new Scanner(f);
-        this.list = loadTimeSlot();
+    public Schedule(String path) throws FileNotFoundException, ParseException {
+//        this.filePath = path;
+//        File f = new File(filePath);
+//        fileInput = new Scanner(f);
+//        this.list = loadTimeSlot();
     }
 
     /**
      * This function saves the newly created TimeSlot into timeslots.txt
-     *
+     *hggc
      * @param t The TimeSlot object created to be saved
      */
     public void saveTimeSlot(TimeSlot t) {
@@ -100,15 +100,6 @@ public class Schedule {
                 System.out.println("File not found:" + io.getMessage());
             }
         }
-    }
-
-    /**
-     * Defined day which a class needs to be made;
-     */
-    private String day;
-
-    public void setDay(String newDay) {
-        day = newDay;
     }
 
     /**
