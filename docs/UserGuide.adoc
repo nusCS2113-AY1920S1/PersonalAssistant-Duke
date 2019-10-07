@@ -117,14 +117,25 @@ Adds a do-after task called `buy groceries` that will be displayed once the 1st 
 === Adding a task: `recurring`
 Adds a task that will be repeated every week.
 
-Format: `reccuring DESCRIPTION`
+Format: `recurring INDEX NUMBER_OF_OCCURRENCES`
 
-* `Description` of the task to be done can have multiple words, not just limited to single word descriptions.
+* The `INDEX` refers to the index number displayed in the list of tasks recorded. (`list` can be used to display the saved tasks).
+* `NUMBER_OF_OCCURRENCES` refers to the number of times the selected task recurs.
+
+[NOTE]
+
+The task will require the user to enter the frequency of recurrence in this manner afterwards: +
+1. DAILY +
+2. WEEKLY +
+3. MONTHLY +
+4. YEARLY
+
+* User chooses to enter a `FREQUENCY` which is an option from 1-4.
 
 Example:
 
-* `recurring math lecture` +
-Adds a recurring task called `math lecture` that will be repeated every week.
+* `recurring 4 3` +
+Adds a recurring task called at index `4` that will be repeated for `3` times. User can then choose an option by entering a number `1-4` to choose the frequency of recurrence.
 
 === Adding a task: `tentative`
 Adds a task that can be confirmed at a later time.
