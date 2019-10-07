@@ -7,6 +7,13 @@ import duke.core.Parser;
 import duke.core.Storage;
 import duke.core.TaskList;
 import duke.core.Ui;
+import org.apache.commons.csv.CSVFormat;
+import org.apache.commons.csv.CSVRecord;
+
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.Reader;
 
 /**
  * Represents Duke, a Personal Assistant to help
@@ -49,6 +56,11 @@ public class Duke implements Runnable {
      * Reads user input until a "bye" message is received.
      */
     public void run() {
+        try {
+            testCSV();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         globalUi.showWelcome();
         boolean isExit = false;
         while (!isExit) {
@@ -79,5 +91,15 @@ public class Duke implements Runnable {
         Thread t2 = new Thread(r);
         t1.start();
         t2.start();
+    }
+    public void testCSV() throws FileNotFoundException, IOException {
+        Reader in = new FileReader("./data/file.csv");
+        Iterable<CSVRecord> records = CSVFormat.EXCEL.withHeader("Last Name", "First Name").withFirstRecordAsHeader().parse(in);
+//        Iterable<CSVRecord> records = CSVFormat.EXCEL.parse(in);
+        for (CSVRecord record : records) {
+            String lastName = record.get("Last Name");
+            String firstName = record.get("First Name");
+            System.out.println(lastName + " | " + firstName);
+        }
     }
 }
