@@ -14,8 +14,8 @@ import java.util.Date;
 import java.util.Scanner;
 
 public class CLIView {
-    public static final String horiLine = "\t____________________________________________________________";
-    public static final String indentation = "\t";
+    private static final String horiLine = "\t____________________________________________________________";
+    private static final String indentation = "\t";
 
     private ConsoleInputController consoleInputController;
 
@@ -98,7 +98,7 @@ public class CLIView {
         ArrayList<String> toPrint = new ArrayList<>();
         toPrint.add("Nice! I've marked the following task(s) as done:");
         for (String i : allInputs) {
-            if (!i.equals("done")) {
+            if (!("done").equals(i)) {
                 int index = Integer.parseInt(i) - 1;
                 ITask chosenToDos = taskList.getTask(index);
                 chosenToDos.markAsDone();
@@ -119,7 +119,6 @@ public class CLIView {
     /**
      * Method that is called when user wishes to delete a task.
      * This method is responsible for handling printing of horizontal lines.
-     * However, certain printing has been abstracted to DeleteCommand
      * @param taskList : List of tasks from which the chosen task should be deleted from.
      * @param input : Input containing task numbers to delete as given by the user.
      */
@@ -128,7 +127,7 @@ public class CLIView {
         toPrint.add("Noted. I've removed the following task(s):");
         String[] allInputs = input.split(" ");
         for (String i : allInputs) {
-            if (!i.equals("delete")) {
+            if (!("delete").equals(i)) {
                 int index = Integer.parseInt(i) - 1;
                 ITask chosenTask = taskList.getTask(index);
                 toPrint.add(chosenTask.getFullDescription());
@@ -229,9 +228,7 @@ public class CLIView {
         ArrayList<String> toPrint = new ArrayList<>();
         ArrayList<String> freeTimeSlots = taskList.findFreeSlots(tempDate);
         toPrint.add("Here are the free time slots you have between your tasks:");
-        for (String freeTimeSlot : freeTimeSlots) {
-            toPrint.add(freeTimeSlot);
-        }
+        toPrint.addAll(freeTimeSlots);
         consolePrint(toPrint.toArray(new String[0]));
     }
 

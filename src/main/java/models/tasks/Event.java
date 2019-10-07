@@ -2,9 +2,8 @@ package models.tasks;
 
 import exceptions.InvalidDateTimeException;
 import models.commands.IDateSettable;
+
 import java.io.Serializable;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class Event implements ITask, IDateSettable, Serializable {
@@ -23,8 +22,7 @@ public class Event implements ITask, IDateSettable, Serializable {
      * @param description : Description of the Event
      * @param eventDateTimeString : Timing at which the Event is held
      */
-    public Event(String description, String eventDateTimeString, Date eventDateTimeObject)
-        throws InvalidDateTimeException {
+    public Event(String description, String eventDateTimeString, Date eventDateTimeObject) {
         this.description = description;
         this.isDone = false;
         this.initials = "E";

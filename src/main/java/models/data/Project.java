@@ -7,7 +7,7 @@ public class Project implements IProject {
     private String description;
     private MemberList memberList;
 
-    public Project(String description, String members) {
+    public Project(String description) {
         this.description = description;
         this.memberList = new MemberList();
     }

@@ -1,9 +1,11 @@
 package models.tasks;
 
+import models.commands.IDateSettable;
+
 import java.io.Serializable;
 import java.util.Date;
 
-public interface ITask extends Serializable {
+public interface ITask extends Serializable, IDateSettable {
     String getStatusIcon();
 
     void markAsDone();

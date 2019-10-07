@@ -1,5 +1,4 @@
 import controllers.RecurringFactory;
-import controllers.TaskFactory;
 import exceptions.DukeException;
 import models.tasks.ITask;
 import models.tasks.Recurring;
@@ -7,12 +6,12 @@ import org.junit.jupiter.api.Test;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class RecurringTest {
-    RecurringFactory recurringFactory = new RecurringFactory();
+    private RecurringFactory recurringFactory = new RecurringFactory();
 
     @Test
     public void alwaysTrue() {
@@ -20,7 +19,7 @@ public class RecurringTest {
     }
 
     @Test
-    void testRecurringCreation() {
+    public void testRecurringCreation() {
         try {
             String input = "recurring do Tutorial /by 23/09/2019 1600";
             SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HHmm");

@@ -32,15 +32,12 @@ public class ProjectFactory implements IArchDukeFactory<IProject> {
         }
         int nameFlag = input.indexOf("n/");
         int numberFlag = input.indexOf("i/");
-        String description = null;
-        String members = null;
+        String description;
         if (nameFlag < numberFlag) {
-            members = input.substring(numberFlag + 2);
             description = input.substring(nameFlag + 2, numberFlag - 1);
         } else {
-            members = input.substring(numberFlag + 2, nameFlag - 1);
             description = input.substring(nameFlag + 2);
         }
-        return new Project(description, members);
+        return new Project(description);
     }
 }
