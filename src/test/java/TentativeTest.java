@@ -24,7 +24,7 @@ public class TentativeTest {
     void tentativeTaskCreation() {
         try {
             String input = "tentative do Tutorial /at 23/09/2019 1600 or 19/10/2019 1200";
-            String[] dummyTentativeDateStrings = {"23 September 2019 04.00 pm", "19 October 2019 12.00 pm"};
+            String[] dummyTentativeDateStrings = {"23 September 2019 04.00 PM", "19 October 2019 12.00 PM"};
 
             SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy hhmm");
             Date dummyDate = formatter.parse("23/09/2019 1600");
