@@ -4,6 +4,7 @@ import controlpanel.DukeException;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Calendar;
 
 public class Account {
     private ArrayList<Income> incomeListTotal;
@@ -173,7 +174,7 @@ public class Account {
             }
         }
         for (Expenditure e : expListTotal) {
-            if (e.getDateBoughtTime().getMonthValue() == currMonth && e.getDateBoughtTime().getYear() == currYear) {
+            if (e.getDateBoughtDate().getMonthValue() == currMonth && e.getDateBoughtDate().getYear() == currYear) {
                 expListCurrMonth.add(e);
             }
         }

@@ -101,7 +101,7 @@ public class ViewPastMonthExpenditure extends MoneyCommand {
         float totalMonthExpenditure = 0;
         int counter = 1;
         for (Expenditure i : account.getExpListTotal()) {
-            if (i.getDateBoughtTime().getMonthValue() == month && i.getDateBoughtTime().getYear() == year) {
+            if (i.getDateBoughtDate().getMonthValue() == month && i.getDateBoughtDate().getYear() == year) {
                 ui.appendToOutput(" " + counter + "." + i.toString() + "\n");
                 counter++;
                 totalMonthExpenditure += i.getPrice();
