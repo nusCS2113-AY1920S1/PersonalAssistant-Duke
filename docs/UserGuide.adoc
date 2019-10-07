@@ -121,6 +121,7 @@ Format: `recurring INDEX NUMBER_OF_OCCURRENCES`
 
 * The `INDEX` refers to the index number displayed in the list of tasks recorded. (`list` can be used to display the saved tasks).
 * `NUMBER_OF_OCCURRENCES` refers to the number of times the selected task recurs.
+* User chooses to enter a `FREQUENCY` which is an option from 1-4.
 
 [NOTE]
 
@@ -129,8 +130,6 @@ The task will require the user to enter the frequency of recurrence in this mann
 2. WEEKLY +
 3. MONTHLY +
 4. YEARLY
-
-* User chooses to enter a `FREQUENCY` which is an option from 1-4.
 
 Example:
 
