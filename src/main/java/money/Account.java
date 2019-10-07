@@ -161,6 +161,10 @@ public class Account {
                 getBankTrackerList().isEmpty();
     }
 
+    /**
+     * This method is run upon initialisation to fill the Month Income List and
+     * Month Expenditure List.
+     */
     public void populateCurrentMonthLists() {
         Calendar dateNow = Calendar.getInstance();
         int currMonth = dateNow.get(Calendar.MONTH) + 1;
