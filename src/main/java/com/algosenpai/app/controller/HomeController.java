@@ -3,9 +3,7 @@ package com.algosenpai.app.controller;
 import com.algosenpai.app.constant.ImagesConstant;
 import com.algosenpai.app.constant.JavaFxConstant;
 import com.algosenpai.app.constant.ResourcePathConstant;
-import com.algosenpai.app.utility.ResourceRandomUtility;
 import com.algosenpai.app.Chapter1;
-import com.itextpdf.text.Chapter;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
@@ -49,14 +47,14 @@ public class HomeController extends SceneController implements Initializable {
         characterImage.setFitHeight(ImagesConstant.imageHeight);
         characterImage.setFitWidth(ImagesConstant.imageWidth);
         characterImage.setImage(image);
+
     }
 
     private void handle() {
         AnimationTimerController backgroundSceneTimer = new AnimationTimerController(JavaFxConstant.sceneInterval) {
             @Override
             public void handle() {
-                String imageName = ResourceRandomUtility.randomResources(ImagesConstant.quizImages);
-                changeBackgroundImage(ResourcePathConstant.imagesResourcePath + imageName);
+
             }
         };
         backgroundSceneTimer.start();
@@ -69,14 +67,24 @@ public class HomeController extends SceneController implements Initializable {
      */
     @FXML
     public void handleKeyPressed(KeyEvent keyEvent) throws IOException {
-        if (keyEvent.getCode() == KeyCode.N) {
+        if (keyEvent.getCode() == KeyCode.Q) {
             MusicController.playMusic("saturation.wav");
             changeScene(ResourcePathConstant.viewResourcePath + "quiz.fxml");
+        }
+        if (keyEvent.getCode() == KeyCode.R) {
+            MusicController.playMusic("saturation.wav");
+            changeScene(ResourcePathConstant.viewResourcePath + "review.fxml");
+        }
+        if (keyEvent.getCode() == KeyCode.G) {
+            MusicController.playMusic("saturation.wav");
+            changeScene(ResourcePathConstant.viewResourcePath + "girls.fxml");
         }
         if (keyEvent.getCode() == KeyCode.ESCAPE) {
             userInput.getParent().requestFocus();
         }
-
+        if (keyEvent.getCode() == KeyCode.M) {
+            toggleVolume();
+        }
         //handling the user commands entered
         if (keyEvent.getCode() == KeyCode.ENTER) {
             switch (userInput.getText()) {

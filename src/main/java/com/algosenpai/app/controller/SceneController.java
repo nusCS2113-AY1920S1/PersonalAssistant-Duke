@@ -1,8 +1,10 @@
 package com.algosenpai.app.controller;
 
 
+import com.algosenpai.app.constant.ImagesConstant;
 import com.algosenpai.app.constant.JavaFxConstant;
 import com.algosenpai.app.constant.ResourcePathConstant;
+import com.algosenpai.app.utility.ResourceRandomUtility;
 import javafx.application.Application;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -30,10 +32,16 @@ public class SceneController extends Application {
         stage.setScene(scene);
         stage.setResizable(false);
         stage.show();
+        String imageName = ResourceRandomUtility.randomResources(ImagesConstant.startAppImages);
+        changeBackgroundImage(ResourcePathConstant.imagesResourcePath + imageName);
     }
 
     private static Stage getStage() {
         return stage;
+    }
+
+    static void toggleVolume() {
+        MusicController.toggleVolume();
     }
 
     public static void setRoot(Pane root) {

@@ -12,8 +12,10 @@ class MusicController {
 
     private static boolean isLoaded = false;
 
+    private static boolean isMuted = false;
+
     MusicController() {
-        playMusic("asayake-no-starmine.wav");
+        playMusic("promise.wav");
     }
 
     /**
@@ -32,4 +34,13 @@ class MusicController {
         isLoaded = true;
     }
 
+    static void toggleVolume() {
+        if (isMuted) {
+            mediaPlayer.setMute(false);
+            isMuted = false;
+        } else {
+            mediaPlayer.setMute(true);
+            isMuted = true;
+        }
+    }
 }
