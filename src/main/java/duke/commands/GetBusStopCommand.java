@@ -6,7 +6,6 @@ import duke.parsers.api.ApiParser;
 import duke.storage.Storage;
 import duke.ui.Ui;
 
-import java.io.IOException;
 import java.util.ArrayList;
 
 public class GetBusStopCommand extends Command {
@@ -17,7 +16,7 @@ public class GetBusStopCommand extends Command {
     }
 
     @Override
-    public void execute(Ui ui, Storage storage) throws DukeException, IOException {
+    public void execute(Ui ui, Storage storage) throws DukeException {
         ArrayList<BusStop> allBus = ApiParser.getBusStop();
         for (BusStop temp : allBus) {
             if (temp.getBusCode().equals(this.buscode)) {

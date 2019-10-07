@@ -59,7 +59,7 @@ public class ApiParser {
      *
      * @return List of Bus Stop
      */
-    public static ArrayList<BusStop> getBusStop() throws DukeException, IOException {
+    public static ArrayList<BusStop> getBusStop() throws DukeException {
         String path = "BusStops";
         int skip = 0;
         ArrayList<BusStop> allBus = new ArrayList<>();

@@ -69,6 +69,5 @@ public class MainWindow extends UiPart<Stage> {
         );
 
         duke.getResponse(input);
-        new MapWindow().show();
     }
 }
