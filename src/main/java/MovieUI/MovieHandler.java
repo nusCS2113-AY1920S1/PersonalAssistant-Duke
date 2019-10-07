@@ -1,7 +1,7 @@
 package MovieUI;
 
 import EPstorage.Commands;
-import EPstorage.ProfileStorage;
+import EPstorage.EditProfileJson;
 import EPstorage.UserProfile;
 
 import Contexts.SearchResultContext;
@@ -58,7 +58,6 @@ public class MovieHandler extends Controller implements RequestListener{
     @FXML Label userNameLabel;
     @FXML Label userAgeLabel;
     @FXML Label genreListLabel;
-    private ProfileStorage profileStorage;
     private UserProfile userProfile;
 
     private FlowPane mMoviesFlowPane;
@@ -111,8 +110,8 @@ public class MovieHandler extends Controller implements RequestListener{
 
 
     @FXML public void initialize() throws IOException {
-        profileStorage = new ProfileStorage();
-        userProfile = profileStorage.load();
+        EditProfileJson editProfileJson = new EditProfileJson();
+        userProfile = editProfileJson.load();
         Commands command = new Commands(userProfile);
         userNameLabel.setText(userProfile.getUserName());
         userAgeLabel.setText(Integer.toString(userProfile.getUserAge()));
@@ -121,43 +120,45 @@ public class MovieHandler extends Controller implements RequestListener{
 
         mMovieRequest = new RetrieveRequest(this);
 
-        //mMovieTypeVBox.setStyle("-fx-border-color: white;");
-
-
-
-
-
-        //mMovieTypeListView.getItems().addAll("Now Showing", "Popular", "TV Shows", "Upcoming Movies");
-        //mMovieTypeListView.getSelectionModel().select(0);
-
-
-        mSearchTextField.addEventFilter(KeyEvent.KEY_PRESSED, event -> {
-            if (event.getCode() == KeyCode.TAB) {
-                System.out.println("Tab pressed");
-                event.consume();
-            }else if(event.getCode().equals(KeyCode.ENTER)) {
-                System.out.println("Enter pressed");
 //
-            }
-        });
-
+//
+//        //mMovieTypeVBox.setStyle("-fx-border-color: white;");
+//
+//
+//
+//
+//
+//        //mMovieTypeListView.getItems().addAll("Now Showing", "Popular", "TV Shows", "Upcoming Movies");
+//        //mMovieTypeListView.getSelectionModel().select(0);
+//
+//
+//        mSearchTextField.addEventFilter(KeyEvent.KEY_PRESSED, event -> {
+//            if (event.getCode() == KeyCode.TAB) {
+//                System.out.println("Tab pressed");
+//                event.consume();
+//            }else if(event.getCode().equals(KeyCode.ENTER)) {
+//                System.out.println("Enter pressed");
+////
+//            }
+//        });
+//
         mMovieRequest.beginMovieRequest(RetrieveRequest.MoviesRequestType.NOW_SHOWING);
-
-
-        //mSearchButton.disableProperty().bind(mSearchTextField.textProperty().isEmpty());
-        //mClearSearchButton.disableProperty().bind(mSearchTextField.textProperty().isEmpty());
-
-        //Real time changes to text field
-        mSearchTextField.textProperty().addListener((observable, oldValue, newValue) -> {
-            System.out.println("textfield changed from " + oldValue + " to " + newValue);
-        });
-
-        System.out.println(text.getText());
-
-        //Enter is Pressed
-        mSearchTextField.setOnKeyPressed(new KeyboardClick(this));
-
-        // mMovieTypeListView.getSelectionModel().selectedIndexProperty().addListener((observable, oldValue, newValue) -> moviesTypeSelectionChanged(oldValue.intValue(), newValue.intValue()));
+//
+//
+//        //mSearchButton.disableProperty().bind(mSearchTextField.textProperty().isEmpty());
+//        //mClearSearchButton.disableProperty().bind(mSearchTextField.textProperty().isEmpty());
+//
+//        //Real time changes to text field
+//        mSearchTextField.textProperty().addListener((observable, oldValue, newValue) -> {
+//            System.out.println("textfield changed from " + oldValue + " to " + newValue);
+//        });
+//
+//        System.out.println(text.getText());
+//
+//        //Enter is Pressed
+//        mSearchTextField.setOnKeyPressed(new KeyboardClick(this));
+//
+//        // mMovieTypeListView.getSelectionModel().selectedIndexProperty().addListener((observable, oldValue, newValue) -> moviesTypeSelectionChanged(oldValue.intValue(), newValue.intValue()));
     }
 
     // Called when the fetch request for the movie data is completed
@@ -353,7 +354,7 @@ public class MovieHandler extends Controller implements RequestListener{
                         if (token[i].equals("my preference")) {
                             inputGenre.addAll(userProfile.getGenreId());
                         } else {
-                            inputGenre.add(Integer.parseInt(command.findGenreID(token[i])));
+                            inputGenre.add(command.findGenreID(token[i]));
                         }
                     }
                 }

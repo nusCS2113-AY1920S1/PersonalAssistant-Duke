@@ -1,7 +1,6 @@
 package MovieUI;
 
 import EPstorage.Commands;
-import EPstorage.ProfileStorage;
 import EPstorage.UserProfile;
 
 import javafx.application.Platform;
@@ -50,7 +49,6 @@ public class MovieInfoController extends Controller implements RequestListener {
     @FXML Label userNameLabel;
     @FXML Label userAgeLabel;
     @FXML Label genreListLabel;
-    private ProfileStorage profileStorage;
     private UserProfile userProfile;
 
     // Set the movie for this controller
@@ -60,9 +58,6 @@ public class MovieInfoController extends Controller implements RequestListener {
     }
 
     @FXML public void initialize() throws IOException {
-
-        profileStorage = new ProfileStorage();
-        userProfile = profileStorage.load();
         Commands command = new Commands(userProfile);
         userNameLabel.setText(userProfile.getUserName());
         userAgeLabel.setText(Integer.toString(userProfile.getUserAge()));
@@ -189,7 +184,7 @@ public class MovieInfoController extends Controller implements RequestListener {
                         if (token[i].equals("my preference")) {
                             inputGenre.addAll(userProfile.getGenreId());
                         } else {
-                            inputGenre.add(Integer.parseInt(command.findGenreID(token[i])));
+                            inputGenre.add(command.findGenreID(token[i]));
                         }
                     }
                 }

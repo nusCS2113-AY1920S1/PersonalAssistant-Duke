@@ -1,8 +1,9 @@
 package EPstorage;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.regex.Pattern;
@@ -13,23 +14,23 @@ import java.util.regex.Pattern;
  */
 public class Commands {
     private File genreList;
-    private ProfileStorage profileStorage;
     private UserProfile userProfile;
+    private EditProfileJson editProfileJson;
 
-    public Commands(UserProfile userProfile)  {
+    public Commands(UserProfile userProfile) throws FileNotFoundException {
         genreList = new File("/Users/wenhui/main/EPdata/genreIDlist.txt");
-        profileStorage = new ProfileStorage();
         this.userProfile = userProfile;
+        this.editProfileJson = new EditProfileJson();
     }
 
     public void setName(String name) throws IOException {
-        profileStorage.changeName(name);
-//        userProfile.setUserName(name);
+        userProfile.setUserName(name);
+        editProfileJson.updateProfile(userProfile);
     }
 
     public void setAge(String age) throws IOException {
-        profileStorage.changeAge(age);
-//        userProfile.setUserAge(Integer.parseInt(age));
+        userProfile.setUserAge(Integer.parseInt(age));
+        editProfileJson.updateProfile(userProfile);
     }
 
     public void setPreference(String preferences) throws IOException {
@@ -39,12 +40,12 @@ public class Commands {
             if (log.length() > 0){
                 if (log.charAt(0) == 'g') {
                     log = log.substring(2).trim();
-                    genrePreferences.add(Integer.parseInt(findGenreID(log)));
+                    genrePreferences.add(findGenreID(log));
                 }
             }
         }
-        profileStorage.setGenre(genrePreferences);
-//        userProfile.setGenreId(genrePreferences);
+        userProfile.setGenreId(genrePreferences);
+        editProfileJson.updateProfile(userProfile);
     }
 
     public void addPreference(String preferences) throws IOException {
@@ -54,12 +55,12 @@ public class Commands {
             if (log.length() > 0){
                 if (log.charAt(0) == 'g') {
                     log = log.substring(2).trim();
-                    genrePreferences.add(Integer.parseInt(findGenreID(log)));
+                    genrePreferences.add(findGenreID(log));
                 }
             }
         }
-        profileStorage.addGenre(genrePreferences);
-//        userProfile.addGenreId(genrePreferences);
+        userProfile.addGenreId(genrePreferences);
+        editProfileJson.updateProfile(userProfile);
         }
 
     public void removePreference(String preferences) throws IOException {
@@ -69,42 +70,48 @@ public class Commands {
             if (log.length() > 0){
                 if (log.charAt(0) == 'g') {
                     log = log.substring(2).trim();
-                    genrePreferences.add(Integer.parseInt(findGenreID(log)));
+                    genrePreferences.add(findGenreID(log));
                 }
             }
         }
-        profileStorage.removeGenre(genrePreferences);
-//        userProfile.addGenreId(genrePreferences);
+        userProfile.removeGenreId(genrePreferences);
+        editProfileJson.updateProfile(userProfile);
     }
 
-    public String findGenreID(String genreName) throws FileNotFoundException {
-        Scanner scan = new Scanner(genreList);
-        while (scan.hasNextLine()){
-            String genreInfo = scan.nextLine();
-            String[] tokens = genreInfo.split(Pattern.quote(" - "));
-            if (tokens[0].equalsIgnoreCase(genreName)){
-                return tokens[1];
+    public Integer findGenreID(String genreName) throws IOException {
+        ObjectMapper mapper = new ObjectMapper();
+        InputStream inputStream = new FileInputStream("EPdata/GenreId.json");
+        TypeReference<ArrayList<GenreId>> typeReference = new TypeReference<ArrayList<GenreId>>() {};
+        ArrayList<GenreId> genreIds = mapper.readValue(inputStream, typeReference);
+        for (GenreId log : genreIds){
+            if (log.getGenre().equalsIgnoreCase(genreName)){
+                inputStream.close();
+                return log.getId();
             }
         }
-        return "0000000";
+        inputStream.close();
+        return 0;
     }
 
-    public String findGenreName(String ID) throws FileNotFoundException {
-        Scanner scan = new Scanner(genreList);
-        while (scan.hasNextLine()){
-            String genreInfo = scan.nextLine();
-            String[] tokens = genreInfo.split(Pattern.quote(" - "));
-            if (tokens[1].equals(ID)){
-                return tokens[0];
+    public String findGenreName(int ID) throws IOException {
+        ObjectMapper mapper = new ObjectMapper();
+        InputStream inputStream = new FileInputStream("EPdata/GenreId.json");
+        TypeReference<ArrayList<GenreId>> typeReference = new TypeReference<ArrayList<GenreId>>() {};
+        ArrayList<GenreId> genreIds = mapper.readValue(inputStream, typeReference);
+        for (GenreId log : genreIds){
+            if (log.getId() == ID){
+                inputStream.close();
+                return log.getGenre();
             }
         }
-        return "0000000";
+        inputStream.close();
+        return "0";
     }
 
-    public String convertToLabel(ArrayList<Integer> userList) throws FileNotFoundException {
+    public String convertToLabel(ArrayList<Integer> userList) throws IOException {
         String labelText = "";
         for (Integer log : userList){
-            labelText += findGenreName(Integer.toString(log));
+            labelText += findGenreName(log);
             labelText += "\n";
         }
         return labelText;

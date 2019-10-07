@@ -1,6 +1,0 @@
-//name
-yikes
-//age
-420
-//genre
-16

@@ -94,7 +94,7 @@
                 </MenuBar>
                 <VBox prefHeight="74.0" prefWidth="676.0">
                     <children>
-                        <TextField fx:id="mSearchTextField"  prefWidth="400.0" promptText="Enter a command here...">
+                        <TextField fx:id="mSearchTextField" onAction="#searchButtonClicked" prefWidth="400.0" promptText="Enter a command here...">
                             <VBox.margin>
                                 <Insets bottom="2.0" left="10.0" right="10.0" top="2.0" />
                             </VBox.margin>

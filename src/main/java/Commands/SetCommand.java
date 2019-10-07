@@ -24,5 +24,15 @@ public class SetCommand extends CommandSuper{
         }
     }
 
-    private void executeSetName
+    private void executeSetName() {
+
+    }
+
+    private void executeSetAge() {
+
+    }
+
+    private void executeSetPreference() {
+
+    }
 }
