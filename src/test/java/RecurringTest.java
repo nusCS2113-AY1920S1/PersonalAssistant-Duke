@@ -1,7 +1,7 @@
-import controllers.RecurringFactory;
+import controllers.temp.RecurringFactory;
 import exceptions.DukeException;
-import models.tasks.ITask;
-import models.tasks.Recurring;
+import models.temp.tasks.ITask;
+import models.temp.tasks.Recurring;
 import org.junit.jupiter.api.Test;
 
 import java.text.ParseException;

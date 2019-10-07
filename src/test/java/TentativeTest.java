@@ -1,8 +1,8 @@
-import controllers.TaskFactory;
+import controllers.temp.TaskFactory;
 import exceptions.DukeException;
-import models.tasks.ITask;
-import models.tasks.TaskList;
-import models.tasks.Tentative;
+import models.temp.tasks.ITask;
+import models.temp.tasks.TaskList;
+import models.temp.tasks.Tentative;
 import org.junit.jupiter.api.Test;
 
 import java.text.ParseException;

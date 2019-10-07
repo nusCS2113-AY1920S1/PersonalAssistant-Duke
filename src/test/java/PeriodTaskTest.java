@@ -1,7 +1,7 @@
-import controllers.PeriodTaskFactory;
+import controllers.temp.PeriodTaskFactory;
 import exceptions.DukeException;
-import models.tasks.ITask;
-import models.tasks.PeriodTask;
+import models.temp.tasks.ITask;
+import models.temp.tasks.PeriodTask;
 import org.junit.jupiter.api.Test;
 
 import java.text.ParseException;

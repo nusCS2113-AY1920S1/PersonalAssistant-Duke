@@ -1,5 +1,5 @@
 import javafx.application.Application;
-import ui.Main;
+import views.ui.Main;
 
 /**
  * A launcher class to workaround classpath issues.

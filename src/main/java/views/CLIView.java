@@ -1,12 +1,12 @@
 package views;
 
-import controllers.ConsoleInputController;
-import models.commands.RescheduleCommand;
+import controllers.temp.ConsoleInputController;
+import models.temp.commands.RescheduleCommand;
 import models.data.IProject;
 import models.member.Member;
-import models.tasks.ITask;
-import models.tasks.TaskList;
-import models.tasks.Tentative;
+import models.temp.tasks.ITask;
+import models.temp.tasks.TaskList;
+import models.temp.tasks.Tentative;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
