@@ -8,6 +8,7 @@ import duke.tasks.DoWithin;
 import duke.tasks.Events;
 import duke.tasks.FixedDurationTasks;
 import duke.tasks.RecurringTask;
+import duke.tasks.FixedDurationTasks;
 import duke.tasks.Task;
 import duke.tasks.Todo;
 import java.io.IOException;

@@ -26,7 +26,7 @@ ModPlan is a module planning system that expands on NUSMODS to help NUS Computer
 == Quick Start
 
 .  Ensure you have Java `11` or above installed in your Computer.
-.  Download the latest `ModPlan.jar` link:{repoURL}/releases[here]. (change this)
+.  Download the latest `ModPlan.jar` link:{repoURL}/releases[here].
 .  Copy the file to the folder you want to use as the home folder for your ModPlan application.
 //.  Double-click the file to start the app. The GUI should appear in a few seconds.
 +
@@ -70,8 +70,8 @@ Adds a task which has a specific date and time to be completed by. +
 Format: `deadline TASK_NAME /by DATE TIME`
 
 ****
-* The date must be in the dd-mm-yyyy format so that the program understands it.
-* The time must be in the hh:mm format so that the program understands it.
+* The date must be in the dd-mm-yyyy format that the program understands it.
+* The time must be in the hh:mm format that the program understands it.
 ****
 
 ==== Adding a DoWithin task: `doWithin`
@@ -82,8 +82,8 @@ Format: `doWithin TASK_NAME /begin DATE TIME /end DATE TIME`
 ****
 * The first date and time is the starting date.
 * The second date and time is the ending date.
-* The date must be in the dd-mm-yyyy format so that the program understands it.
-* The time must be in the hh:mm format so that the program understands it.
+* The date must be in the dd-mm-yyyy format that the program understands it.
+* The time must be in the hh:mm format that the program understands it.
 ****
 
 Examples:
@@ -97,8 +97,8 @@ Adds a task which is occuring at a specific date and time. +
 Format: `event TASK_NAME /at DATE TIME`
 
 ****
-* The date must be in the dd-mm-yyyy format so that the program understands it.
-* The time must be in the hh:mm format so that the program understands it.
+* The date must be in the dd-mm-yyyy format that the program understands it.
+* The time must be in the hh:mm format that the program understands it.
 ****
 
 ==== Adding a FixedDuration task: `fixedDuration` 
@@ -107,7 +107,7 @@ Adds a task which requires a fixed amount of time to be completed in, but does n
 Format: `fixedDuration TASK_NAME /needs TIME`
 
 ****
-* The time must be in the hh:mm format so that the program understands it.
+* The time must be in the hh:mm format that the program understands it.
 ****
 
 ==== Adding a Recurring task: `recurring`
@@ -236,30 +236,35 @@ image::DukeException.PNG[width="250"]
 ****
 
 === `DukeInvalidTimeException`
-This error appears when the user inputs a date or time that is not of an acceptable format. +
-(add screenshot here)
+This error appears when the user inputs a date or time that is not of an acceptable format.
+
+image::DukeInvalidTimeException.PNG[width="300"]
 
 ****
-* Example: `deadline assignment /by 30/9/2019 12 o'clock` + Here 12 o'clock is not an acceptable format, instead use 1200.
+* Example: `deadline assignment /by 30/9/2019 12 o'clock` + 
+Here 12 o'clock is not an acceptable format, instead use 1200.
 ****
 === `DukeInvalidTimePeriodException`
-This error appears when the use inputs a time period that is not of an acceptable range. +
-(add screenshot here)
+This error appears when the use inputs a time period that is not of an acceptable range.
 
 ****
-* Currently only available for DoWithin tasks
+* This is only valid for the DoWithin task.
+* Example: `doWithin write essay /begin 12-08-2019 12:00 /end 1-08-2019 12:00`+
+Here the end date is earlier than the start date.
 ****
 
 === `DukeMissingArgumentException`
-This error appears when the user does not input valid parameters into the command line. +
-(add screenshot here)
+This error appears when the user does not input valid parameters into the command line. 
+
 ****
-* Example: `deadline /by 30/9/2019 1245` + 
+* Example: `deadline /by 30-9-2019 12:45` + 
 Here the description is missing for the Deadline task, and the error message is shown.
 ****
 
 === `DukeCommandException` 
-This error appears when the user does not input a valid command name into the command line. +
+This error appears when the user does not input a valid command name into the command line. 
+
+image::DukeCommandException.PNG[width="300"]
 
 ****
 * Example: `activity finish writing book` +
@@ -267,26 +272,50 @@ Since there is no such command for activity, the program will be unable to proce
 ****
 
 === `DukeEmptyCommandException` 
-This error appears when the user does not input anything after writing a valid command into the command line.+
+This error appears when the user does not input anything after writing a valid command into the command line.
+
+image::DukeCommandException.PNG[width="300"]
 
 **** 
 * Example: `delete`  +
 Since there is no index specified after `delete`, the program is unable to process which task to delete.
+****
 
 === `DukeEmptyListException` 
 This error appears when the user does not input any tasks into the list or has deleted all the current tasks in the list. 
 
+image::DukeEmptyListException.PNG[width="300"]
+
 ****
-* This is only valid for the `list` command
+* This is only valid for the `list` command.
 ****
 
 === `DukeMultipleValuesForSameArgumentException`
-This error.
+This error appears when the user inputs duplicated commands into the command line.
+
+image::DukeMultipleValuesForSameArgumentException.PNG[width="400"]
+
+****
+* Example: `doWithin test /begin 10am /begin 2pm /end 3pm` +
+Here the `/begin` is repeated twice so the program is unable to determine which start time to be procesed.
+****
+
+=== `DukeScheduleException`
+This error appears when the user inputs a task that already exists in the task list.
+
+image::DukeScheduleException.PNG[width="400"]
+
+=== `DukeNoTimeException` 
+This error appears when the user reschedule a non-time-based task.
+
+****
+* This is only valid for rescheduling a todo task. 
+****
 
 == FAQ
 
 *Q*: How do I transfer my data to another Computer? +
-*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Address Book folder.
+*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Data folder.
 
 == Command Summary
 
