@@ -1,4 +1,4 @@
-package duke.logic.command.commons;
+package duke.logic.command;
 
 import duke.logic.command.exceptions.CommandException;
 import duke.model.Model;
@@ -14,7 +14,7 @@ public interface Undoable {
      * @param model {@code Model} which the command should operate on.
      * @throws CommandException If an error occurs during command execution.
      */
-    public abstract void undo(Model model) throws CommandException;
+    void undo(Model model) throws CommandException;
 
     /**
      * Restores any actions that have been previously undone using undo.
@@ -22,6 +22,6 @@ public interface Undoable {
      * @param model {@code Model} which the command should operate on.
      * @throws CommandException If an error occurs during command execution.
      */
-    public abstract void redo(Model model) throws CommandException;
+    void redo(Model model) throws CommandException;
 
 }

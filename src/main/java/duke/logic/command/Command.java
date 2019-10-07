@@ -1,4 +1,4 @@
-package duke.logic.command.commons;
+package duke.logic.command;
 
 import duke.logic.command.exceptions.CommandException;
 import duke.model.Model;

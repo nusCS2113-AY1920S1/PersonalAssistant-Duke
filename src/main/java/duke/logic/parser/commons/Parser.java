@@ -1,6 +1,6 @@
 package duke.logic.parser.commons;
 
-import duke.logic.command.commons.Command;
+import duke.logic.command.Command;
 import duke.logic.parser.exceptions.ParseException;
 
 /**

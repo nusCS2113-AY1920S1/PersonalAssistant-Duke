@@ -2,18 +2,26 @@ package duke.model;
 
 import duke.commons.core.index.Index;
 import duke.model.order.Order;
+import duke.model.shortcut.Shortcut;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 
+import java.util.List;
 import java.util.function.Predicate;
 
 import static duke.commons.util.CollectionUtil.requireAllNonNull;
 import static java.util.Objects.requireNonNull;
 
+/**
+ * Represents the in-memory model of baking home data.
+ */
 public class ModelManager implements Model {
     private final BakingHome bakingHome;
     private final FilteredList<Order> filteredOrders;
 
+    /**
+     * Initializes a ModelManager with the given BakingHome.
+     */
     public ModelManager(ReadOnlyBakingHome bakingHome) {
         super();
         this.bakingHome = new BakingHome(bakingHome);
@@ -34,6 +42,8 @@ public class ModelManager implements Model {
         return this.bakingHome;
     }
 
+    //================Order operations=================
+
     @Override
     public boolean hasOrder(Order order) {
         requireNonNull(order);
@@ -48,7 +58,7 @@ public class ModelManager implements Model {
     @Override
     public void addOrder(Order order) {
         bakingHome.addOrder(order);
-        updateFilteredPersonList(PREDICATE_SHOW_ALL_ORDERS);
+        updateFilteredOrderList(PREDICATE_SHOW_ALL_ORDERS);
     }
 
     @Override
@@ -72,8 +82,35 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void updateFilteredPersonList(Predicate<Order> predicate) {
+    public void updateFilteredOrderList(Predicate<Order> predicate) {
         requireNonNull(predicate);
         filteredOrders.setPredicate(predicate);
     }
+
+    //========Shortcut operations=========
+
+    @Override
+    public void setShortcut(Shortcut shortcut) {
+        requireNonNull(shortcut);
+
+        bakingHome.setShortcut(shortcut);
+    }
+
+    @Override
+    public void removeShortcut(Shortcut shortcut) {
+        requireNonNull(shortcut);
+        bakingHome.removeShortcut(shortcut);
+    }
+
+    @Override
+    public boolean hasShortcut(Shortcut shortcut) {
+        requireNonNull(shortcut);
+        return bakingHome.hasShortcut(shortcut);
+    }
+
+    @Override
+    public List<Shortcut> getShortcutList() {
+        return bakingHome.getShortcutList();
+    }
+
 }

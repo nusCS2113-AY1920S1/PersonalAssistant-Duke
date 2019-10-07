@@ -3,12 +3,12 @@ package duke.logic.command.order;
 import duke.commons.core.Message;
 import duke.commons.core.index.Index;
 import duke.commons.util.CollectionUtil;
-import duke.logic.command.commons.CommandResult;
-import duke.logic.command.commons.Undoable;
+import duke.logic.command.CommandResult;
+import duke.logic.command.Undoable;
 import duke.logic.command.exceptions.CommandException;
 import duke.model.Model;
-import duke.model.commons.Customer;
 import duke.model.commons.Product;
+import duke.model.order.Customer;
 import duke.model.order.Order;
 
 import java.util.*;
@@ -67,7 +67,7 @@ public class EditOrderCommand extends OrderCommand implements Undoable {
         Order editedOrder = createEditedOrder(orderToEdit, editOrderDescriptor);
 
         model.setOrder(orderToEdit, editedOrder);
-        model.updateFilteredPersonList(Model.PREDICATE_SHOW_ALL_ORDERS);
+        model.updateFilteredOrderList(Model.PREDICATE_SHOW_ALL_ORDERS);
         return new CommandResult(String.format(MESSAGE_EDIT_PERSON_SUCCESS, editedOrder),
                 CommandResult.DisplayedPage.ORDER);
     }

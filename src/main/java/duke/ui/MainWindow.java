@@ -3,7 +3,7 @@ package duke.ui;
 import com.jfoenix.controls.JFXButton;
 import duke.commons.core.LogsCenter;
 import duke.logic.Logic;
-import duke.logic.command.commons.CommandResult;
+import duke.logic.command.CommandResult;
 import duke.logic.command.exceptions.CommandException;
 import duke.logic.parser.exceptions.ParseException;
 import javafx.fxml.FXML;
@@ -151,7 +151,7 @@ public class MainWindow extends UiPart<Stage> {
             showInventoryPage();
             break;
         default:
-            showOrderPage();
+            break;
         }
     }
 

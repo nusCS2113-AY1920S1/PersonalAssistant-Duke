@@ -1,8 +1,8 @@
 package duke.logic.command.order;
 
 
-import duke.logic.command.commons.CommandResult;
-import duke.logic.command.commons.Undoable;
+import duke.logic.command.CommandResult;
+import duke.logic.command.Undoable;
 import duke.logic.command.exceptions.CommandException;
 import duke.model.Model;
 import duke.model.order.Order;
