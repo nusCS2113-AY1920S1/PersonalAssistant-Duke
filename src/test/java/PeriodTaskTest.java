@@ -1,4 +1,4 @@
-import controllers.PeriodTaskFactory;
+import controllers.temp.PeriodTaskFactory;
 import exceptions.DukeException;
 import models.tasks.ITask;
 import models.tasks.PeriodTask;

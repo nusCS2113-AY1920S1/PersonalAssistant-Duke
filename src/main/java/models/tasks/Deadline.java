@@ -1,6 +1,5 @@
 package models.tasks;
 
-import exceptions.InvalidDateTimeException;
 import models.commands.IDateSettable;
 
 import java.io.Serializable;

@@ -1,4 +1,4 @@
-import controllers.RecurringFactory;
+import controllers.temp.RecurringFactory;
 import exceptions.DukeException;
 import models.tasks.ITask;
 import models.tasks.Recurring;
