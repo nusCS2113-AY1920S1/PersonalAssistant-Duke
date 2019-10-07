@@ -55,6 +55,7 @@ public class Patient extends DukeObject {
      * Todo write the function
      */
     public void discharge() {
+        // Todo
     }
 
     /**
