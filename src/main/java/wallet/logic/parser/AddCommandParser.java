@@ -21,9 +21,6 @@ import java.util.ArrayList;
 import java.util.Date;
 
 public class AddCommandParser implements Parser<AddCommand> {
-
-    private StorageManager storageManager;
-
     /**
      * Returns an AddCommand object.
      *
@@ -91,7 +88,7 @@ public class AddCommandParser implements Parser<AddCommand> {
         String cat;
         LocalDate date = LocalDate.now();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-        String freq = "NULL";
+        String freq = null;
 
         if (arguments[1].contains("/on")) {
             arguments = arguments[1].split(" ", 2);

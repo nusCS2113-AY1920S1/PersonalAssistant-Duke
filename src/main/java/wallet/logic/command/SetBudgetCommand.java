@@ -2,7 +2,6 @@ package wallet.logic.command;
 
 import wallet.model.Wallet;
 import wallet.model.record.Budget;
-import wallet.storage.StorageManager;
 
 import java.text.DateFormatSymbols;
 
@@ -24,7 +23,7 @@ public class SetBudgetCommand extends Command {
     }
 
     @Override
-    public boolean execute(Wallet wallet, StorageManager storageManager) {
+    public boolean execute(Wallet wallet) {
         try {
             wallet.getBudgetList().addBudget(budget);
             System.out.println(budget.getAmount() + MESSAGE_SET_BUDGET

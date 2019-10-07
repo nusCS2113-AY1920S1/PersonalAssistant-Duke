@@ -3,7 +3,6 @@ package wallet.logic.command;
 import wallet.model.Wallet;
 import wallet.model.record.Expense;
 import wallet.model.task.Task;
-import wallet.storage.StorageManager;
 
 /**
  * DeleteCommand class handles any command that involves deletion of Record objects.
@@ -32,16 +31,14 @@ public class DeleteCommand extends Command {
      * Deletes the specific Record object and returns false.
      *
      * @param wallet The Wallet object.
-     * @param storageManager The StorageManager object.
      * @return A boolean which indicates whether program terminates.
      */
     @Override
-    public boolean execute(Wallet wallet, StorageManager storageManager) {
+    public boolean execute(Wallet wallet) {
         switch (object) {
         case "task":
             Task task = wallet.getTaskList().getTask(index);
             wallet.getTaskList().deleteTask(index);
-            storageManager.deleteTask(wallet.getTaskList().getTaskList(), index);
             System.out.println(MESSAGE_SUCCESS_DELETE_TASK);
             System.out.println(task.toString());
             break;

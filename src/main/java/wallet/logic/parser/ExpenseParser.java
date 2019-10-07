@@ -4,7 +4,6 @@ import wallet.logic.command.AddCommand;
 import wallet.model.Wallet;
 import wallet.model.record.Expense;
 import wallet.model.record.ExpenseList;
-import wallet.storage.StorageManager;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -33,7 +32,7 @@ public class ExpenseParser {
      * Updates the expense list with recurring expenses from the
      * input date until the end of the current month.
      */
-    public static void updateRecurringRecords(Wallet wallet, StorageManager storageManager) {
+    public static void updateRecurringRecords(Wallet wallet) {
         ExpenseList expenseList = wallet.getExpenseList();
         ArrayList<Expense> recList = getRecurringRecords(expenseList);
         LocalDate currentDate = LocalDate.now();
@@ -66,7 +65,7 @@ public class ExpenseParser {
                         expense = new Expense(e.getDescription(), expenseDate,
                                 e.getAmount(), e.getCategory(), false, null);
                     }
-                    new AddCommand(expense).execute(wallet, storageManager);
+                    new AddCommand(expense).execute(wallet);
                     expenseDate = expenseDate.plusDays(1);
                 }
             } else if (e.getRecFrequency().equals("WEEKLY")) {
@@ -89,7 +88,7 @@ public class ExpenseParser {
                         expense = new Expense(e.getDescription(), expenseDate,
                                 e.getAmount(), e.getCategory(), false, null);
                     }
-                    new AddCommand(expense).execute(wallet, storageManager);
+                    new AddCommand(expense).execute(wallet);
                     expenseDate = expenseDate.plusDays(7);
                 }
             } else if (e.getRecFrequency().equals("MONTHLY")) {
@@ -110,7 +109,7 @@ public class ExpenseParser {
                         expense = new Expense(e.getDescription(), expenseDate,
                                 e.getAmount(), e.getCategory(), false, null);
                     }
-                    new AddCommand(expense).execute(wallet, storageManager);
+                    new AddCommand(expense).execute(wallet);
                     expenseDate = expenseDate.plusMonths(1);
                 }
             }
