@@ -36,7 +36,6 @@ public class Parser {
      *                       or the command is not recognized
      */
     public static Command parse(String fullCommand, Autocorrect autocorrect) throws DukeException {
-        //TODO: Put error for invalid input and what not
         String[] splitCommand = fullCommand.split(" ", 2);
         String command = splitCommand[0];
         autocorrect.setWord(command);
@@ -79,10 +78,13 @@ public class Parser {
                 }
                 return new ListCommand();
             case "done":
-                index = Integer.parseInt(description);
-                return (new MarkDoneCommand(index));
+                name = description.split(" /date ", 2)[0];
+                if (description.split(" /date ").length > 1) {
+                    date = description.split(" /date ")[1];
+                    return new MarkDoneCommand(name, date);
+                }
             case "find":
-                name = description.split(" /date ")[0];
+                name = description.split(" /date ", 2)[0];
                 if (description.split(" /date ").length > 1) {
                     date = description.split(" /date ")[1];
                     return new FindCommand(name, date);
