@@ -1,9 +1,16 @@
 package duke.logic.parser.commons;
 
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
+
 /**
  * Contains Command Line Interface (CLI) syntax definitions common to multiple commands.
  */
 public class CliSyntax {
+    /* Command keywords */
+    public static final Set<String> KEYWORDS = new HashSet<>(Arrays
+            .asList("order", "add", "remove", "edit", "short"));
 
     /* Prefix definitions */
     public static final Prefix PREFIX_ORDER_ITEM = new Prefix("-item");

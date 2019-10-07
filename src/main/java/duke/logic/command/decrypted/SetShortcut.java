@@ -1,7 +1,7 @@
 //package duke.logic.command.decrypted;
 //
-//import duke.logic.command.commons.Command;
-//import duke.logic.command.commons.Undoable;
+//import duke.logic.command.Command;
+//import duke.logic.command.Undoable;
 //import duke.commons.DukeException;
 //import duke.storage.BakingList;
 //import duke.storage.Storage;
