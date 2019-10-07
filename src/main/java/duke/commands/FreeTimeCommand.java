@@ -1,7 +1,7 @@
 package duke.commands;
 
-import duke.commons.DukeException;
-import duke.commons.MessageUtil;
+import duke.commons.exceptions.DukeException;
+import duke.commons.Messages;
 import duke.storage.Storage;
 import duke.data.tasks.Task;
 import duke.data.tasks.TaskWithDates;
@@ -46,6 +46,6 @@ public class FreeTimeCommand extends Command {
             }
         }
         //change to time not found later, but this line of code should nvr be executed
-        ui.showError(MessageUtil.FILE_NOT_FOUND);
+        ui.showError(Messages.FILE_NOT_FOUND);
     }
 }

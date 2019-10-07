@@ -1,9 +1,9 @@
 package duke.data;
 
-import duke.commons.DukeException;
-import duke.commons.DuplicateTaskException;
-import duke.commons.MessageUtil;
-import duke.commons.TaskNotFoundException;
+import duke.commons.exceptions.DukeException;
+import duke.commons.exceptions.DukeDuplicateTaskException;
+import duke.commons.Messages;
+import duke.commons.exceptions.DukeTaskNotFoundException;
 import duke.data.tasks.Task;
 import duke.data.tasks.TaskWithDates;
 import javafx.collections.FXCollections;
@@ -47,9 +47,9 @@ public class UniqueTaskList implements Iterable<Task> {
      */
     public void add(Task toAdd) throws DukeException {
         if (contains(toAdd)) {
-            throw new DuplicateTaskException();
+            throw new DukeDuplicateTaskException();
         } else if (hasAnomaly(toAdd)) {
-            throw new DukeException(MessageUtil.ANOMALY_FOUND);
+            throw new DukeException(Messages.ANOMALY_FOUND);
         }
         internalList.add(toAdd);
     }
@@ -79,11 +79,11 @@ public class UniqueTaskList implements Iterable<Task> {
     public void setTask(Task target, Task editedTask) throws DukeException {
         int index = internalList.indexOf(target);
         if (index == -1) {
-            throw new TaskNotFoundException();
+            throw new DukeTaskNotFoundException();
         }
 
         if (!target.isSameTask(editedTask) && contains(editedTask)) {
-            throw new DuplicateTaskException();
+            throw new DukeDuplicateTaskException();
         }
 
         internalList.set(index, editedTask);
@@ -95,7 +95,7 @@ public class UniqueTaskList implements Iterable<Task> {
      */
     public void remove(Task toRemove) throws DukeException {
         if (!internalList.remove(toRemove)) {
-            throw new TaskNotFoundException();
+            throw new DukeTaskNotFoundException();
         }
     }
 
@@ -113,7 +113,7 @@ public class UniqueTaskList implements Iterable<Task> {
      */
     public void setTasks(List<Task> tasks) throws DukeException {
         if (!tasksAreUnique(tasks)) {
-            throw new DuplicateTaskException();
+            throw new DukeDuplicateTaskException();
         }
 
         internalList.setAll(tasks);

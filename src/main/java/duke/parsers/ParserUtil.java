@@ -1,8 +1,8 @@
 package duke.parsers;
 
-import duke.commons.DukeDateTimeParseException;
-import duke.commons.DukeException;
-import duke.commons.MessageUtil;
+import duke.commons.exceptions.DukeDateTimeParseException;
+import duke.commons.exceptions.DukeException;
+import duke.commons.Messages;
 import duke.data.tasks.Deadline;
 import duke.data.tasks.DoWithin;
 import duke.data.tasks.Event;
@@ -27,7 +27,7 @@ public class ParserUtil {
     protected static Todo createTodo(String userInput) throws DukeException {
         String description = userInput.substring("todo".length()).strip();
         if (description.isEmpty()) {
-            throw new DukeException(MessageUtil.EMPTY_DESCRIPTION);
+            throw new DukeException(Messages.EMPTY_DESCRIPTION);
         }
         return new Todo(description);
     }
@@ -41,10 +41,10 @@ public class ParserUtil {
     protected static Deadline createDeadline(String userInput) throws DukeException {
         String[] deadlineDetails = userInput.substring("deadline".length()).strip().split("by");
         if (deadlineDetails.length != 2 || deadlineDetails[1] == null) {
-            throw new DukeException(MessageUtil.INVALID_FORMAT);
+            throw new DukeException(Messages.INVALID_FORMAT);
         }
         if (deadlineDetails[0].strip().isEmpty()) {
-            throw new DukeException(MessageUtil.EMPTY_DESCRIPTION);
+            throw new DukeException(Messages.EMPTY_DESCRIPTION);
         }
         try {
             return new Deadline(deadlineDetails[0].strip(),
@@ -63,10 +63,10 @@ public class ParserUtil {
     protected static Event createEvent(String userInput) throws DukeException {
         String[] eventDetails = userInput.substring("event".length()).strip().split("at");
         if (eventDetails.length != 2 || eventDetails[1] == null) {
-            throw new DukeException(MessageUtil.INVALID_FORMAT);
+            throw new DukeException(Messages.INVALID_FORMAT);
         }
         if (eventDetails[0].strip().isEmpty()) {
-            throw new DukeException(MessageUtil.EMPTY_DESCRIPTION);
+            throw new DukeException(Messages.EMPTY_DESCRIPTION);
         }
         try {
             return new Event(eventDetails[0].strip(), ParserTimeUtil.parseStringToDate(eventDetails[1].strip()));
@@ -84,10 +84,10 @@ public class ParserUtil {
     protected static DoWithin createWithin(String userInput) throws DukeException {
         String[] withinDetails = userInput.substring("within".length()).strip().split("between|and");
         if (withinDetails.length != 3 || withinDetails[1] == null || withinDetails[2] == null) {
-            throw new DukeException(MessageUtil.INVALID_FORMAT);
+            throw new DukeException(Messages.INVALID_FORMAT);
         }
         if (withinDetails[0].strip().isEmpty()) {
-            throw new DukeException(MessageUtil.EMPTY_DESCRIPTION);
+            throw new DukeException(Messages.EMPTY_DESCRIPTION);
         }
         LocalDateTime start = ParserTimeUtil.parseStringToDate(withinDetails[1].strip());
         LocalDateTime end = ParserTimeUtil.parseStringToDate(withinDetails[2].strip());
@@ -105,15 +105,15 @@ public class ParserUtil {
         try {
             String[] dateDetails = taskDetails[1].split("every");
             if (dateDetails.length != 2 || dateDetails[1] == null) {
-                throw new DukeException(MessageUtil.INVALID_FORMAT);
+                throw new DukeException(Messages.INVALID_FORMAT);
             }
             if (taskDetails[0].strip().isEmpty()) {
-                throw new DukeException(MessageUtil.EMPTY_DESCRIPTION);
+                throw new DukeException(Messages.EMPTY_DESCRIPTION);
             }
             return new RecurringTask(taskDetails[0].strip(), ParserTimeUtil.parseStringToDate(dateDetails[0].strip()),
                     getIndex(dateDetails[1].strip()) + 1);
         } catch (ArrayIndexOutOfBoundsException e) {
-            throw new DukeException(MessageUtil.INVALID_FORMAT);
+            throw new DukeException(Messages.INVALID_FORMAT);
         }
     }
 
@@ -126,10 +126,10 @@ public class ParserUtil {
     protected static Fixed createFixed(String userInput) throws  DukeException {
         String[] fixedDetails = userInput.substring("fixed".length()).strip().split("needs");
         if (fixedDetails.length != 2 || fixedDetails[1] == null) {
-            throw new DukeException(MessageUtil.INVALID_FORMAT);
+            throw new DukeException(Messages.INVALID_FORMAT);
         }
         if (fixedDetails[0].strip().isEmpty()) {
-            throw new DukeException(MessageUtil.EMPTY_DESCRIPTION);
+            throw new DukeException(Messages.EMPTY_DESCRIPTION);
         }
         try {
             int hour = 0;
@@ -147,7 +147,7 @@ public class ParserUtil {
             }
             return new Fixed(fixedDetails[0].strip(),hour,min);
         } catch (NumberFormatException e) {
-            throw new DukeException(MessageUtil.INVALID_FORMAT);
+            throw new DukeException(Messages.INVALID_FORMAT);
         }
 
     }
@@ -161,10 +161,10 @@ public class ParserUtil {
     public static Holiday createHoliday(String userInput) throws DukeException {
         String[] withinDetails = userInput.substring("holiday".length()).strip().split("between|and");
         if (withinDetails.length != 3 || withinDetails[1] == null || withinDetails[2] == null) {
-            throw new DukeException(MessageUtil.INVALID_FORMAT);
+            throw new DukeException(Messages.INVALID_FORMAT);
         }
         if (withinDetails[0].strip().isEmpty()) {
-            throw new DukeException(MessageUtil.EMPTY_DESCRIPTION);
+            throw new DukeException(Messages.EMPTY_DESCRIPTION);
         }
         LocalDateTime start = ParserTimeUtil.parseStringToDate(withinDetails[1].strip());
         LocalDateTime end = ParserTimeUtil.parseStringToDate(withinDetails[2].strip());
@@ -182,7 +182,7 @@ public class ParserUtil {
             int index = Integer.parseInt(userInput.replaceAll("\\D+", ""));
             return index - 1;
         } catch (NumberFormatException e) {
-            throw new DukeException(MessageUtil.INVALID_FORMAT);
+            throw new DukeException(Messages.INVALID_FORMAT);
         }
     }
 
@@ -197,9 +197,9 @@ public class ParserUtil {
             String index = userInput.split(" ")[1].strip();
             return Integer.parseInt(index) - 1;
         } catch (ArrayIndexOutOfBoundsException e) {
-            throw new DukeException(MessageUtil.OUT_OF_BOUNDS);
+            throw new DukeException(Messages.OUT_OF_BOUNDS);
         } catch (NumberFormatException e) {
-            throw new DukeException(MessageUtil.INVALID_FORMAT);
+            throw new DukeException(Messages.INVALID_FORMAT);
         }
     }
 
@@ -214,9 +214,9 @@ public class ParserUtil {
             return ParserTimeUtil.parseStringToDate(
                     userInput.substring("reschedule".length()).strip().split("to")[1].strip());
         } catch (DukeDateTimeParseException e) {
-            throw new DukeException(MessageUtil.INVALID_FORMAT);
+            throw new DukeException(Messages.INVALID_FORMAT);
         } catch (ArrayIndexOutOfBoundsException e) {
-            throw new DukeException(MessageUtil.EMPTY_DESCRIPTION);
+            throw new DukeException(Messages.EMPTY_DESCRIPTION);
         }
     }
 }

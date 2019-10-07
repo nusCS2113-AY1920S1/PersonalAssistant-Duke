@@ -3,8 +3,8 @@ package duke.parsers.requests;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import duke.commons.DukeException;
-import duke.commons.MessageUtil;
+import duke.commons.exceptions.DukeException;
+import duke.commons.Messages;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -33,7 +33,7 @@ public class DataMallHttpRequest extends HttpRequest {
             response = in.readLine();
             in.close();
         } catch (IOException e) {
-            throw new DukeException(MessageUtil.DATA_NOT_FOUND);
+            throw new DukeException(Messages.DATA_NOT_FOUND);
         }
 
         //TODO: if response == null/api call fail, do some handling

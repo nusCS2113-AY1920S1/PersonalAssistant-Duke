@@ -2,12 +2,12 @@ package duke.parsers.api;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
-import duke.commons.MessageUtil;
+import duke.commons.Messages;
 import duke.data.BusService;
 import duke.data.BusStop;
 import duke.data.Location;
 import duke.parsers.requests.LocationSearchUrlRequest;
-import duke.commons.DukeException;
+import duke.commons.exceptions.DukeException;
 import duke.parsers.requests.DataMallHttpRequest;
 
 import java.io.IOException;
@@ -37,7 +37,7 @@ public class ApiParser {
                     arr.get(0).getAsJsonObject().get("X").getAsDouble(),
                     arr.get(0).getAsJsonObject().get("Y").getAsDouble());
         }
-        throw new DukeException(MessageUtil.DATA_NOT_FOUND);
+        throw new DukeException(Messages.DATA_NOT_FOUND);
         /*
         ArrayList<String> result = new ArrayList<>();
         for (int i = 0; i < Integer.parseInt(String.valueOf(jsonRes.getAsJsonPrimitive("found")))

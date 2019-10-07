@@ -47,4 +47,8 @@ public class Location {
         return address;
     }
 
+    @Override
+    public String toString() {
+        return getAddress() + " | " + getLatitude() + " | " + getLongitude() + " | " + getDistX() + " | " + getDistY();
+    }
 }

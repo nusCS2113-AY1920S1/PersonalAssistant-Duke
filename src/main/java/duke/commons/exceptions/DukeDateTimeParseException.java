@@ -1,7 +1,9 @@
-package duke.commons;
+package duke.commons.exceptions;
+
+import duke.commons.Messages;
 
 public class DukeDateTimeParseException extends DukeException {
     public DukeDateTimeParseException() {
-        super(MessageUtil.INVALID_FORMAT);
+        super(Messages.INVALID_FORMAT);
     }
 }

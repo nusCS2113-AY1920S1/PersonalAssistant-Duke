@@ -1,6 +1,7 @@
 package duke.commands;
 
-import duke.commons.DukeException;
+import duke.commons.Messages;
+import duke.commons.exceptions.DukeException;
 import duke.data.UniqueTaskList;
 import duke.data.tasks.Holiday;
 import duke.data.tasks.Task;
@@ -19,9 +20,9 @@ public class FindPathCommand extends Command {
     /**
      * Constructor to initialise FindPathCommand.
      *
-     * @param constraint The constraint of the location request
-     * @param startPointIndex Index of starting location of trip
-     * @param endPointIndex Index of ending location of trip
+     * @param constraint The constraint of the location request.
+     * @param startPointIndex Index of starting location of trip.
+     * @param endPointIndex Index of ending location of trip.
      */
 
     public FindPathCommand(String constraint, String startPointIndex, String endPointIndex) {
@@ -35,11 +36,14 @@ public class FindPathCommand extends Command {
         if (t1 instanceof Holiday) {
             return (Holiday) t1;
         }
-        throw new DukeException("Sorry the numbers you entered are not a holiday destination");
+        throw new DukeException(Messages.TASK_NOT_HOLIDAY);
     }
 
     /**
-     * Executes this command with given param.
+     * Executes this command on the given task list and user interface.
+     *
+     * @param ui The user interface displaying events on the task list.
+     * @param storage The duke.storage object containing task list.
      */
     @Override
     public void execute(Ui ui, Storage storage) throws DukeException {

@@ -1,7 +1,7 @@
 package duke.storage;
 
-import duke.commons.DukeException;
-import duke.commons.MessageUtil;
+import duke.commons.exceptions.DukeException;
+import duke.commons.Messages;
 import duke.parsers.ParserStorageUtil;
 import duke.data.tasks.Task;
 import duke.data.UniqueTaskList;
@@ -51,7 +51,7 @@ public class Storage {
         } catch (DukeException e) {
             ui.showError(e.getMessage());
         } catch (FileNotFoundException e) {
-            ui.showError(MessageUtil.FILE_NOT_FOUND);
+            ui.showError(Messages.FILE_NOT_FOUND);
         }
         try {
             tasks.setTasks(newTasks);
@@ -71,7 +71,7 @@ public class Storage {
             }
             writer.close();
         } catch (IOException e) {
-            ui.showError(MessageUtil.FILE_NOT_SAVE);
+            ui.showError(Messages.FILE_NOT_SAVE);
         } catch (DukeException e) {
             ui.showError(e.getMessage());
         }

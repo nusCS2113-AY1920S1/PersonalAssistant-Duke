@@ -16,8 +16,8 @@ import duke.commands.MarkDoneCommand;
 import duke.commands.ReminderCommand;
 import duke.commands.RescheduleCommand;
 import duke.commands.ViewScheduleCommand;
-import duke.commons.DukeException;
-import duke.commons.MessageUtil;
+import duke.commons.exceptions.DukeException;
+import duke.commons.Messages;
 
 
 /**
@@ -79,7 +79,7 @@ public class Parser {
         case "map":
             return new MapCommand();
         default:
-            throw new DukeException(MessageUtil.UNKNOWN_COMMAND);
+            throw new DukeException(Messages.UNKNOWN_COMMAND);
         }
     }
 
@@ -103,7 +103,7 @@ public class Parser {
         try {
             return userInput.strip().split(" ", 2)[1];
         } catch (ArrayIndexOutOfBoundsException e) {
-            throw new DukeException(MessageUtil.INVALID_FORMAT);
+            throw new DukeException(Messages.INVALID_FORMAT);
         }
     }
 

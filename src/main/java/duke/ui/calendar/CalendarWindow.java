@@ -1,6 +1,6 @@
 package duke.ui.calendar;
 
-import duke.commons.DukeException;
+import duke.commons.exceptions.DukeException;
 import duke.data.tasks.DoWithin;
 import duke.data.tasks.RecurringTask;
 import duke.data.tasks.Task;
