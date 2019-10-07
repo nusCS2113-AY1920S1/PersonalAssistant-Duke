@@ -1,4 +1,4 @@
-package duke.logic.command.commons;
+package duke.logic.command.shortcut;
 
 import duke.logic.command.Command;
 import duke.logic.command.CommandResult;

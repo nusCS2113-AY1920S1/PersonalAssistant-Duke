@@ -23,7 +23,7 @@ public class EditOrderCommand extends OrderCommand implements Undoable {
 
     public static final String COMMAND_WORD = "edit";
 
-    public static final String MESSAGE_EDIT_PERSON_SUCCESS = "Edited Order: %1$s";
+    public static final String MESSAGE_EDIT_PERSON_SUCCESS = "Edited Order [%1$s]";
 
     private final Index index;
     private final EditOrderDescriptor editOrderDescriptor;
@@ -68,7 +68,7 @@ public class EditOrderCommand extends OrderCommand implements Undoable {
 
         model.setOrder(orderToEdit, editedOrder);
         model.updateFilteredOrderList(Model.PREDICATE_SHOW_ALL_ORDERS);
-        return new CommandResult(String.format(MESSAGE_EDIT_PERSON_SUCCESS, editedOrder),
+        return new CommandResult(String.format(MESSAGE_EDIT_PERSON_SUCCESS, editedOrder.getId()),
                 CommandResult.DisplayedPage.ORDER);
     }
 

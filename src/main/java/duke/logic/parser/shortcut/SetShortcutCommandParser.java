@@ -1,6 +1,6 @@
 package duke.logic.parser.shortcut;
 
-import duke.logic.command.commons.SetShortcutCommand;
+import duke.logic.command.shortcut.SetShortcutCommand;
 import duke.logic.parser.commons.SubCommandParser;
 import duke.logic.parser.exceptions.ParseException;
 import duke.model.shortcut.Shortcut;
@@ -11,6 +11,7 @@ import java.util.List;
 
 import static duke.logic.parser.commons.CliSyntax.KEYWORDS;
 import static java.util.Objects.requireNonNull;
+
 
 public class SetShortcutCommandParser implements SubCommandParser<SetShortcutCommand> {
     private static final String MESSAGE_CONTAIN_KEYWORD = "[%s] is a keyword and cannot be set as shortcut name.";

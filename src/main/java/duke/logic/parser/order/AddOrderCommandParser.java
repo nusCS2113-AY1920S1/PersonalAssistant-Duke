@@ -8,7 +8,6 @@ import duke.model.order.Order;
 
 import static duke.logic.parser.commons.CliSyntax.*;
 
-
 public class AddOrderCommandParser implements Parser<AddOrderCommand> {
     @Override
     public AddOrderCommand parse(String args) throws ParseException {
