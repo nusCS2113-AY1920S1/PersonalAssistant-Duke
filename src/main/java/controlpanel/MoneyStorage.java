@@ -5,20 +5,15 @@ import java.io.BufferedWriter;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
-import java.util.ArrayList;
-import java.util.Date;
 
 import money.Account;
 import money.Expenditure;
 import money.Goal;
 import money.Income;
-import money.Installment;
-import money.Item;
+import money.Instalment;
 
 public class MoneyStorage {
 
@@ -64,6 +59,11 @@ public class MoneyStorage {
                                 LocalDate.parse(info[4], dateTimeFormatter), info[5]);
                         account.getShortTermGoals().add(g);
                         break;
+                    case "INS":
+                        Instalment ins = new Instalment(Float.parseFloat(info[1]), info[2], info[3],
+                                LocalDate.parse(info[4], dateTimeFormatter), Integer.parseInt(info[5]), Float.parseFloat(info[6]) * 100);
+                        account.getInstalments().add(ins);
+                        break;
                     default:
                         break;
                 }
@@ -91,7 +91,7 @@ public class MoneyStorage {
 
             for (Expenditure exp : account.getExpListTotal()) {
                 bufferedWriter.write("EXP @ " + exp.getPrice() + " @ " + exp.getDescription() + " @ " +
-                        exp.getCategory() + " @ " + exp.getBoughtTime() + "\n");
+                        exp.getCategory() + " @ " + exp.getBoughtDate() + "\n");
             }
 
             for (Goal g : account.getShortTermGoals()) {
@@ -99,9 +99,10 @@ public class MoneyStorage {
                         g.getCategory() + " @ " + g.getGoalBy() + " @ " + g.getPriority() + "\n");
             }
 
-            for (Installment ins : account.getInstallments()) {
+            for (Instalment ins : account.getInstalments()) {
                 bufferedWriter.write("INS @ " + ins.getPrice() + " @ " + ins.getDescription() + " @ " +
-                        ins.getCategory() + " @ " + ins.getBoughtTime() + "\n");
+                        ins.getCategory() + " @ " + ins.getBoughtDate() + " @ " + ins.getNumOfPayments() + " @ " +
+                        ins.getAIR() + "\n");
             }
 
             bufferedWriter.close();
