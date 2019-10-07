@@ -144,6 +144,7 @@ public class AddCommandParser implements Parser<AddCommand> {
         } else if (info[0].equals("/b")) {
             isLend = false;
         }
+
         ArrayList<Contact> contactList = storageManager.loadContact();
         Contact person = new ContactList(contactList).getContact(contactId - 1);
         loan = new Loan(description, createdDate, amount, isLend, false, person);
