@@ -23,13 +23,11 @@ public class Ui {
 
     public void greet() {
         showLine();
-        System.out.println(
-                "     Hello! I'm" + "      ____        _        \n"
-                        +  "                    |  _ \\ _   _| | _____ \n"
-                        + "                    | | | | | | | |/ / _ \\\n"
-                        + "                    | |_| | |_| |   <  __/\n"
-                        + "                    |____/ \\__,_|_|\\_\\___|\n\n"
-                        + "     What can I do for you?");
+        System.out.println("\n                      |  | _  _ _|  /  \\ _  \n"
+                        + "                      |/\\|(_)| (_|  \\__/|_) \n"
+                        + "                                        |   \n\n"
+                        + "             Welcome, what would you like to do today?"
+        );
         showLine();
     }
 

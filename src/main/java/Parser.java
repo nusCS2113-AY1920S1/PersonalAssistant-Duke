@@ -6,7 +6,6 @@ import java.util.ArrayList;
 
 /**
  * Creates a Command object after extracting information needed.
- * @author Zhang Yue Han
  */
 public class Parser {
 
@@ -94,7 +93,7 @@ public class Parser {
                     return new BadCommand();
                 }
             }
-        } catch (DukeException e) {
+        } catch (WordUpException e) {
             e.showError();
             return new BadCommand();
         }

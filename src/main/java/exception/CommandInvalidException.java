@@ -1,6 +1,6 @@
 package exception;
 
-public class CommandInvalidException extends DukeException {
+public class CommandInvalidException extends WordUpException {
     private String command;
 
     public CommandInvalidException(String falseCommand) {

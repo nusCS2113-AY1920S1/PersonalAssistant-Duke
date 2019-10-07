@@ -5,6 +5,9 @@ import Dictionary.WordBank;
 import storage.Storage;
 import ui.Ui;
 
+/**
+ * Represents a general command from user.
+ */
 public abstract class Command {
 
     protected Word word;
