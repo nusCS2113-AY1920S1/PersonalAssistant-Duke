@@ -214,6 +214,7 @@ public class UI {
         System.out.print(lineSeparation);
         System.out.println("That event clashes with another in the schedule! " +
                 "Please resolve the conflict and try again!");
+        System.out.println("Clashes with: " + event.toString());
         System.out.print(lineSeparation);
     }
 

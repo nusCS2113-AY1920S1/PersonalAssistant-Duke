@@ -1,6 +1,8 @@
 package Events.Storage;
 
 import Events.EventTypes.Event;
+import Events.EventTypes.EventSubclasses.AssessmentSubclasses.Exam;
+import Events.EventTypes.EventSubclasses.AssessmentSubclasses.Recital;
 import Events.EventTypes.EventSubclasses.Concert;
 import Events.EventTypes.EventSubclasses.RecurringEventSubclasses.Lesson;
 import Events.EventTypes.EventSubclasses.RecurringEventSubclasses.Practice;
@@ -8,6 +10,7 @@ import Events.EventTypes.EventSubclasses.ToDo;
 import Events.Formatting.DateObj;
 import Events.Formatting.Predicate;
 import UserElements.Parser;
+import UserElements.UI;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -67,12 +70,26 @@ public class EventList {
                     endDateAndTime = "";
                 }
 
-                if (eventType == CONCERT) {
-                    eventArrayList.add(new Concert(description, isDone, startDateAndTime, endDateAndTime));
-                } else if (eventType == LESSON) {
-                    eventArrayList.add(new Lesson(description, isDone, startDateAndTime, endDateAndTime));
-                } else if (eventType == PRACTICE) {
-                    eventArrayList.add(new Practice(description, isDone, startDateAndTime, endDateAndTime));
+                switch (eventType) {
+                    case CONCERT:
+                        eventArrayList.add(new Concert(description, isDone, startDateAndTime, endDateAndTime));
+                        break;
+
+                    case LESSON:
+                        eventArrayList.add(new Lesson(description, isDone, startDateAndTime, endDateAndTime));
+                        break;
+
+                    case PRACTICE:
+                        eventArrayList.add(new Practice(description, isDone, startDateAndTime, endDateAndTime));
+                        break;
+
+                    case EXAM:
+                        eventArrayList.add(new Exam(description, isDone, startDateAndTime, endDateAndTime));
+                        break;
+
+                    case RECITAL:
+                        eventArrayList.add(new Recital(description, isDone, startDateAndTime, endDateAndTime));
+                        break;
                 }
             }
         }
@@ -82,25 +99,24 @@ public class EventList {
      * Checks for a clash, then adds a new event if possible.
      *
      * @param event Model_Class.Event object to be added
+     * @param ui user interface class
      * @return boolean signifying whether or not the event was added successfully. True if succeeded
      * and false if not
      */
-    public boolean addEvent(Event event) {
+    public boolean addEvent(Event event, UI ui) {
         if (event.getType() == 'T') {
-            DateObj eventStartDate = new DateObj(event.getStartDate().getUserInputDateString());
-            this.eventArrayList.add(new ToDo(event.getDescription(), eventStartDate.getUserInputDateString()));
+            this.eventArrayList.add(event);
             return true;
         }
         else {
             Event clashEvent = clashEvent(event); //check the list for a schedule clash
             if (clashEvent == null) { //null means no clash was found
-                if (event.getType() == 'L') {
-                    this.eventArrayList.add(new Lesson(event.getDescription(), event.getStartDate().getUserInputDateString(), event.getEndDate().getUserInputDateString()));
-                } else if (event.getType() == 'P') {
-                    this.eventArrayList.add(new Practice(event.getDescription(), event.getStartDate().getUserInputDateString(), event.getEndDate().getUserInputDateString()));
-                }
-                return true;
-            } else return false;
+                this.eventArrayList.add(event);
+                return true; //succeeded
+            } else { //if clash is found, notify user via terminal.
+                ui.scheduleClash(clashEvent);
+                return false; //failed
+            }
         }
     }
 
@@ -136,12 +152,34 @@ public class EventList {
      * @return event that causes a clash
      */
     private Event clashEvent(Event checkingEvent) {
-        for (Event currEvent : eventArrayList) {
-            try {
-                if (currEvent.toString().equals(checkingEvent.toString())) {
+        /*  NOTE: DateObj userInputString is arranged as follows: dd-MM-yyyy HHmm.
+            for now, only have one date with differing start time and end time, date in startDateObj will be same as
+            in endDateObj
+        */
+
+        //split new event date string into date and time.
+        String[] newEventSplitDateTime = checkingEvent.getStartDate().getUserInputDateString().split(" ");
+        String newEventDate = newEventSplitDateTime[0]; //assign date
+        int newEventStartTime = Integer.parseInt(newEventSplitDateTime[1]); //assign time
+        int newEventEndTime = Integer.parseInt(checkingEvent.getEndDate().getUserInputDateString().substring(10));
+
+        for (Event currEvent : eventArrayList) { //scan list for clashes
+            String[] currEventSplitDateTime = currEvent.getStartDate().getUserInputDateString().split(" ");
+            if (newEventDate.equals(currEventSplitDateTime[0])) { //if date is same on two accounts
+                int currEventStartTime = Integer.parseInt(currEventSplitDateTime[1]); //assign time
+                int currEventEndTime = Integer.parseInt(currEvent.getEndDate().getUserInputDateString().substring(10));
+
+                if (newEventStartTime > currEventStartTime) { //new event starts after current event
+                    if (currEventEndTime > newEventStartTime) {
+                        return currEvent;
+                    }
+                } else if (newEventStartTime < currEventStartTime){ //new event starts before current event
+                    if (newEventEndTime > currEventStartTime) {
+                        return currEvent;
+                    }
+                } else { //new event starts at the same time as current event
                     return currEvent;
                 }
-            } catch (Exception e){
             }
         }
         return null;
