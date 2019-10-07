@@ -13,6 +13,10 @@ import java.util.Date;
  * Represents a Reminder class to remind user on upcoming deadlines.
  */
 public class Reminder {
+
+    private static final long TWENTY_FOUR_HOURS = 24;
+    private static final long HOUR = 60 * 60 * 1000;
+
     /**
      * Checks Task objects dates to determine if it is due soon.
      *
@@ -53,7 +57,7 @@ public class Reminder {
      */
     private boolean isUpcoming(Date dueDate, Date now) {
         long diff = dueDate.getTime() - now.getTime(); // difference in time in milliseconds
-        long diffHours = diff / (60 * 60 * 1000);
-        return diffHours <= 24;
+        long diffHours = diff / HOUR;
+        return diffHours <= TWENTY_FOUR_HOURS;
     }
 }

@@ -1,4 +1,4 @@
 [T][Y] borrow another book
-[T][N] testing
 [T][N] homework
-[D][N] finish (by: 2019-01-30T11:12:00)
+[E][N] lecture (from: 08-10-2019 10:00 to: 08-10-2019 12:00)
+[E][N] tutorial (from: 09-10-2019 17:00 to: 09-10-2019 18:00)
