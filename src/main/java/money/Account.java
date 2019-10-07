@@ -4,8 +4,6 @@ import controlpanel.DukeException;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
 
 public class Account {
     private ArrayList<Income> incomeListTotal;
@@ -13,7 +11,7 @@ public class Account {
     private ArrayList<Income> incomeListCurrMonth;
     private ArrayList<Expenditure> expListCurrMonth;
     private ArrayList<Goal> shortTermGoals;
-    private ArrayList<Installment> installments;
+    private ArrayList<Instalment> instalments;
     private ArrayList<BankTracker> bankTrackerList;
     private float totalSavings;
     private float currMonthSavings;
@@ -27,7 +25,7 @@ public class Account {
         incomeListCurrMonth = new ArrayList<>();
         expListCurrMonth = new ArrayList<>();
         shortTermGoals = new ArrayList<>();
-        installments = new ArrayList<>();
+        instalments = new ArrayList<>();
         bankTrackerList = new ArrayList<>();
         toInitialize = true;
     }
@@ -38,7 +36,7 @@ public class Account {
         incomeListCurrMonth = account.getIncomeListCurrMonth();
         expListCurrMonth = account.getExpListCurrMonth();
         shortTermGoals = account.getShortTermGoals();
-        installments = account.getInstallments();
+        instalments = account.getInstalments();
         bankTrackerList = account.getBankTrackerList();
         toInitialize = account.isToInitialize();
         baseSavings = account.getBaseSavings();
@@ -86,8 +84,8 @@ public class Account {
         return shortTermGoals;
     }
 
-    public ArrayList<Installment> getInstallments() {
-        return installments;
+    public ArrayList<Instalment> getInstalments() {
+        return instalments;
     }
 
     public ArrayList<BankTracker> getBankTrackerList() {
@@ -157,7 +155,7 @@ public class Account {
 
     public boolean isInitialised() {
         return getIncomeListTotal().isEmpty() || getExpListTotal().isEmpty() ||
-                getShortTermGoals().isEmpty() || getInstallments().isEmpty() ||
+                getShortTermGoals().isEmpty() || getInstalments().isEmpty() ||
                 getBankTrackerList().isEmpty();
     }
 
