@@ -66,9 +66,14 @@ public class Ui {
     }
 
     public void showDeleted(Meal currentMeal, ArrayList<Meal> meals) {
-        System.out.println(padding + "Noted. I've removed this task:");
+        System.out.println(padding + "Noted. I've removed this meal:");
         System.out.println(padding + currentMeal);
-        System.out.println(padding + "Now you have " + meals.size()  + " tasks in the list.");
+        System.out.println(padding + "Now you have " + meals.size()  + " meals in the list.");
+    }
+
+    public void showCleared(String startDateStr, String endDateStr) {
+        System.out.println(padding + "Noted. Meals from " + startDateStr + " to "
+                + endDateStr + " have been cleared");
     }
 
     public String readCommand(Scanner in) {

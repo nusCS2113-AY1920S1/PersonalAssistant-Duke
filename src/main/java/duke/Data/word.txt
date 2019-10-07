@@ -10,3 +10,4 @@ find
 delete
 bye
 update
+clear
