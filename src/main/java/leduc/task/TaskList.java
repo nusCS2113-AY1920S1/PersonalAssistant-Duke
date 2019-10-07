@@ -98,4 +98,54 @@ public class TaskList {
             throw new ConflictDateException(conflictTasks);
         }
     }
+
+
+    /**
+     * Sorts the list of tasks by date.
+     * @param filteredTasklist which filters out all Tasks that do not have a date field..
+     * @param extractedTodos which is a list of all Todo objects, will get appended to the final sorted list.
+     */
+    public  ArrayList<Task> sort(ArrayList<Task> filteredTasklist, ArrayList<Task> extractedTodos){
+        ArrayList<Task> sortedTasks = new ArrayList<Task>();
+        for(int i = 0; filteredTasklist.size() > 0; i++){
+            Task initialTask = filteredTasklist.get(0);//set initial task
+            for(int j = 0; j < filteredTasklist.size(); j++){
+                if((filteredTasklist.get(j).getDate().compareTo(initialTask.getDate())) < 0) {//compare each date to initialdate
+                    initialTask = filteredTasklist.get(j);//update if necessary
+                }
+            }
+            sortedTasks.add(initialTask);
+            filteredTasklist.remove(initialTask);
+        }
+        sortedTasks.addAll(extractedTodos);
+        return sortedTasks;
+    }
+
+    /**
+     * Extracts all EventsTask/DeadlinesTask into a seperate arraylist. Tasks with/without dates must be seperated prior to sorting
+     *@param tasks tasks is the list of tasks
+     */
+    public  ArrayList<Task> filterTasks(TaskList tasks){
+        ArrayList<Task> filteredTasklist = new ArrayList<Task>();
+        for (int i = 0; i < tasks.size(); i++){
+            if (!(tasks.get(i) instanceof TodoTask)){
+                filteredTasklist.add(tasks.get(i));
+            }
+        }
+        return filteredTasklist;
+    }
+
+    /**
+     * Extracts all Todo's into a seperate arraylist. Tasks with/without dates must be separated prior to sorting
+     * @param  tasks is the list of tasks
+     */
+    public  ArrayList<Task> extractTodo(TaskList tasks){
+        ArrayList<Task> extractedTodos = new ArrayList<Task>();
+        for (int i = 0; i < tasks.size(); i++){
+            if ((tasks.get(i) instanceof TodoTask)){
+                extractedTodos.add(tasks.get(i));
+            }
+        }
+        return extractedTodos;
+    }
 }
