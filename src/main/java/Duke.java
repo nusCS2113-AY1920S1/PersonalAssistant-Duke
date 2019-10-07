@@ -1,7 +1,6 @@
 import controlpanel.*;
 import money.Account;
 import moneycommands.MoneyCommand;
-import commands.Command;
 import tasks.TaskList;
 
 import java.nio.file.Path;
