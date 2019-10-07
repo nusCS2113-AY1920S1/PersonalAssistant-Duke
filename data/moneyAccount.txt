@@ -4,6 +4,7 @@ I @ 30000.0 @ InitialSavings @ 5/10/2019
 I @ 560.0 @ TA  @ 10/12/2040
 I @ 5.0 @ cashback  @ 9/12/2020
 I @ 560.0 @ TA  @ 12/10/2019
+I @ 500.0 @ shit  @ 7/10/2019
 EXP @ 3.0 @ ice-cream  @ food  @ 10/12/2040
 EXP @ 10000.0 @ buy Motorbike  @ GS @ 5/10/2019
 EXP @ 10000.0 @ buy expensive watch  @ GS @ 5/10/2019

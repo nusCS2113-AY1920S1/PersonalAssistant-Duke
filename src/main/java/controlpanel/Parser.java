@@ -151,6 +151,12 @@ public class Parser {
             moneyCommand = new DoneGoalCommand(cmd);
         } else if (cmd.startsWith("graph")) {
             moneyCommand = new GraphCommand();
+        } else if (cmd.equals("list month income")) {
+            moneyCommand = new ListMonthIncomeCommand();
+        } else if (cmd.equals("list month expenditure")) {
+            moneyCommand = new ListMonthExpenditureCommand();
+        } else if (cmd.startsWith("check income")) {
+            moneyCommand = new ViewPastMonthIncome(cmd);
         } else {
             throw new DukeException("OOPS!!! I'm sorry, but I don't know what that means");
         }

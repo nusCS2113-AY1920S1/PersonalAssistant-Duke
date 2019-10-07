@@ -43,6 +43,7 @@ public class Account {
         toInitialize = account.isToInitialize();
         baseSavings = account.getBaseSavings();
         updateSavings();
+        populateCurrentMonthLists();
 //        if (account.isInitialised()) {
 //            toInitialize = false;
 //        } else { toInitialize = true; }
@@ -159,25 +160,23 @@ public class Account {
                 getShortTermGoals().isEmpty() || getInstallments().isEmpty() ||
                 getBankTrackerList().isEmpty();
     }
-/*
+
     public void populateCurrentMonthLists() {
-        Date currDate = new Date();
         Calendar dateNow = Calendar.getInstance();
-        int currMonth = currDate.getMonth(); // there's an issue here of depreciation
-        int currYear = currDate.getYear();
+        int currMonth = dateNow.get(Calendar.MONTH) + 1;
+        int currYear  = dateNow.get(Calendar.YEAR);
         for (Income i : incomeListTotal) {
-            Calendar cal = Calendar.getInstance();
-            if (i.getPayday().getMonth() == currMonth && i.getPayday().getYear() == currYear) {
+            if (i.getPayday().getMonthValue() == currMonth && i.getPayday().getYear() == currYear) {
                 incomeListCurrMonth.add(i);
             }
         }
         for (Expenditure e : expListTotal) {
-            if (e.getDateBoughtTime().getMonth() == currMonth && e.getDateBoughtTime().getYear() == currYear) {
+            if (e.getDateBoughtTime().getMonthValue() == currMonth && e.getDateBoughtTime().getYear() == currYear) {
                 expListCurrMonth.add(e);
             }
         }
     }
- */
+
 
     public void setToInitialize(boolean initStatus) {
         this.toInitialize = initStatus;

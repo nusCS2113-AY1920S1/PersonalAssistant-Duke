@@ -29,10 +29,10 @@ public class Duke {
         String filePath = currentDir.toAbsolutePath().toString();
         String moneyFilePath = moneyDir.toAbsolutePath().toString();
         ui = new Ui();
-        storage = new Storage(filePath);
+        //storage = new Storage(filePath);
         moneyStorage = new MoneyStorage(moneyFilePath);
         try {
-            tasks = new TaskList(storage.load());
+            //tasks = new TaskList(storage.load());
             account = new Account(moneyStorage.load());//need to load from storage on program init
         } catch (Exception e) {
             ui.showLoadingError();
