@@ -53,8 +53,10 @@ public class Parser {
                 throw new DukeException("\u2639 OOPS!!! The description of a " + command + " cannot be empty.");
             }
         }
+
         String name;
         String info;
+        String date = "";
         int index;
         switch (command) {
             case "bye":
@@ -80,7 +82,12 @@ public class Parser {
                 index = Integer.parseInt(description);
                 return (new MarkDoneCommand(index));
             case "find":
-                return new FindCommand(description);
+                name = description.split(" /date ")[0];
+                if (description.split(" /date ").length > 1) {
+                    date = description.split(" /date ")[1];
+                    return new FindCommand(name, date);
+                }
+                return new FindCommand(name);
             case "delete":
                 index = Integer.parseInt(description);
                 return new DeleteCommand(index);

@@ -15,6 +15,7 @@ import duke.user.User;
  */
 public class MarkDoneCommand extends Command {
     private int index;
+    private Meal meal;
 
     /**
      * This is a constructor for MarkDoneCommand.
@@ -23,7 +24,10 @@ public class MarkDoneCommand extends Command {
     public MarkDoneCommand(int index) {
         this.index = index;
     }
-
+    public MarkDoneCommand(String date, Meal meal) {
+        this.currentDate = date;
+        this.meal = meal;
+    }
     /**
      * The object will execute the "mark done" command, updating the current tasks, ui, and storage in the process.
      * @param tasks the TaskList object to be marked done
@@ -37,5 +41,6 @@ public class MarkDoneCommand extends Command {
         currentMeal.markAsDone();
         storage.updateFile(tasks.getMealTracker());
         ui.showDone(currentMeal);
+
     }
 }
