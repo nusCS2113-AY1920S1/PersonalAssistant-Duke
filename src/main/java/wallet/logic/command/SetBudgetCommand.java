@@ -48,7 +48,8 @@ public class SetBudgetCommand extends Command {
                     if (index != -1) {
                         wallet.getBudgetList().getBudgetList().remove(index);
                         updateSaveFile(wallet, storageManager);
-                        System.out.println(MESSAGE_REMOVE_BUDGET + new DateFormatSymbols().getMonths()[budget.getMonth() - 1]
+                        System.out.println(MESSAGE_REMOVE_BUDGET
+                                + new DateFormatSymbols().getMonths()[budget.getMonth() - 1]
                                 + budget.getYear());
                     } else {
                         System.out.println(MESSAGE_NO_BUDGET_TO_REMOVE);
