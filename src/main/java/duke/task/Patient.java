@@ -4,24 +4,6 @@ import duke.exception.DukeException;
 
 import java.util.ArrayList;
 
-/*
- * Represents the patient.
- * A Patient object corresponds to the biometric information of a patient,
- * patient details, medical history, the impressions the doctor has about a patient.
- *
- * Attributes:
- * - name: the name of the patient
- * - bedNo: the bed number of the patient
- * - height: the height of the patient
- * - weight: the weight of the patient
- * - age: the age of the patient
- * - number: the contact details of a patient's NOK
- * - address: the residential address of a patient
- * - history: the medical history of a patient
- * - priDiagnosis: the chief complaint or most serious impression of a patient
- * - allergies: the Food and Drug allergies a patient has
- * - impression: the list of all impressions of a patient
- */
 public class Patient extends DukeObject {
 
     private int bedNo;
@@ -36,6 +18,23 @@ public class Patient extends DukeObject {
     private String address;
     private String history;
 
+    /**
+     * Represents the patient.
+     * A Patient object corresponds to the biometric information of a patient,
+     * patient details, medical history, the impressions the doctor has about a patient.
+     * Attributes:
+     * - name: the name of the patient
+     * - bedNo: the bed number of the patient
+     * - height: the height of the patient
+     * - weight: the weight of the patient
+     * - age: the age of the patient
+     * - number: the contact details of a patient's NOK
+     * - address: the residential address of a patient
+     * - history: the medical history of a patient
+     * - priDiagnosis: the chief complaint or most serious impression of a patient
+     * - allergies: the Food and Drug allergies a patient has
+     * - impression: the list of all impressions of a patient
+     */
     public Patient(String name, int bedNo, String allergies) {
         super(name);
         this.bedNo = bedNo;
@@ -51,18 +50,17 @@ public class Patient extends DukeObject {
         this.history = null;
     }
 
-    /*
+    /**
      * This discharge function runs the procedure to discharges a patient from the hospital.
      * Todo write the function
-     * @return void
      */
     public void discharge() {
         return;
     }
 
-    /*
-     * This addNewImpression function adds a new impression to the impressions list
-     * @param Impression the impression to be added
+    /**
+     * This addNewImpression function adds a new impression to the impressions list.
+     * @param newImpression the impression to be added
      * @return the Impression newly added
      */
     public Impression addNewImpression(Impression newImpression) {
@@ -70,10 +68,10 @@ public class Patient extends DukeObject {
         return newImpression;
     }
 
-    /*
+    /**
      * This deleteImpression function deletes an impression at the specified index
-     * from the impressions list
-     * @param the index of the impression
+     * from the impressions list.
+     * @param idx index of the impression
      * @return the Impression of the deleted Impression
      */
     public Impression deleteImpression(int idx) throws DukeException {
@@ -86,9 +84,9 @@ public class Patient extends DukeObject {
         }
     }
 
-    /*
-     * This getImpression function returns the impression from the impressions list at the specified index
-     * @param the index of the impression
+    /**
+     * This getImpression function returns the impression from the impressions list at the specified index.
+     * @param idx index of the impression
      * @return Impression the impression specified by the index
      */
     public Impression getImpression(int idx) throws DukeException {
@@ -99,10 +97,9 @@ public class Patient extends DukeObject {
         }
     }
 
-    /*
-     * Sets the Primary Diagnosis of the patient specified by the index chosen
-     * @param the index of the impression
-     * @return void
+    /**
+     * Sets the Primary Diagnosis of the patient specified by the index chosen.
+     * @param idx index of the impression
      */
     public void setPriDiagnosis(int idx) throws DukeException {
         if (idx >= 0 && idx < this.impressions.size()) {
@@ -113,10 +110,10 @@ public class Patient extends DukeObject {
         }
     }
 
-    /*
+    /**
      * This function find returns a list of all DukeObjs
-     * with names related to the patient containing the search term
-     * @param the searchTerm String to be used to filter the DukeObj
+     * with names related to the patient containing the search term.
+     * @param searchTerm String to be used to filter the DukeObj
      * @return the list of DukeObjs
      */
     public ArrayList<DukeObject> find(String searchTerm) throws DukeException {
