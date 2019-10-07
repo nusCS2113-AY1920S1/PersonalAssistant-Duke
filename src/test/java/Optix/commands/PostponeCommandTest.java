@@ -2,13 +2,14 @@ package Optix.commands;
 
 import optix.Ui;
 import optix.commands.shows.AddCommand;
+import optix.commands.shows.PostponeCommand;
 import optix.core.Storage;
 import optix.util.ShowMap;
 import org.junit.jupiter.api.Test;
 
 import java.io.File;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class PostponeCommandTest {
 	private ShowMap shows = new ShowMap();

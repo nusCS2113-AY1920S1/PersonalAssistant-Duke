@@ -1,6 +1,7 @@
 package Optix.commands;
 
 import optix.Ui;
+import optix.commands.seats.ViewSeatsCommand;
 import optix.commands.shows.AddCommand;
 import optix.core.Storage;
 import optix.util.ShowMap;
@@ -8,7 +9,7 @@ import org.junit.jupiter.api.Test;
 
 import java.io.File;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class ViewSeatsCommandTest {
 	private ShowMap shows = new ShowMap();

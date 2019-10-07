@@ -12,7 +12,9 @@ import java.time.LocalDate;
 
 public class EditCommand extends Command {
 
-    private static final String MESSAGE_UPDATE_SHOW = "Show has been successfully updated to ";
+    private static final String MESSAGE_UPDATE_SUCCESSFUL = "Show has been successfully updated to ";
+
+    private static final String MESSAGE_UPDATE_UNSUCCESSFUL = "☹ OOPS!!! The show you are finding does not exist!\n";
 
     private String oldShowName;
     private String showDate;
@@ -28,6 +30,7 @@ public class EditCommand extends Command {
 
     @Override
     public void execute(ShowMap shows, Ui ui, Storage storage) {
+        String message;
         try {
             if (!formatter.isValidDate(showDate)) {
                 throw new OptixInvalidDateException();
@@ -39,10 +42,11 @@ public class EditCommand extends Command {
                 show.setShowName(newShowName);
 
                 shows.replace(localShowDate, show);
+                message = MESSAGE_UPDATE_SUCCESSFUL + newShowName + ".\n";
+            } else {
+                message = MESSAGE_UPDATE_UNSUCCESSFUL;
             }
-
-            ui.setMessage(MESSAGE_UPDATE_SHOW + newShowName + "\n");
-
+            ui.setMessage(message);
         } catch (OptixInvalidDateException e) {
             ui.setMessage(e.getMessage());
         }
