@@ -13,6 +13,7 @@ public class ListIndex3 extends ListFormat {
         listIndex3SubList.add("Enumerations");
         listIndex3SubList.add("Varargs");
         listIndex3SubList.add("Exceptions");
+        listIndex3SubList.add("Quiz");
     }
 
     /**

@@ -14,6 +14,7 @@ public class ListIndex2 extends ListFormat {
         listIndex2SubList.add("Encapsulation");
         listIndex2SubList.add("Abstration");
         listIndex2SubList.add("Polymorphism");
+        listIndex2SubList.add("Quiz");
     }
 
     /**
