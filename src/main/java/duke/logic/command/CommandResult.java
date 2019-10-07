@@ -1,4 +1,4 @@
-package duke.logic.command.commons;
+package duke.logic.command;
 
 import static java.util.Objects.requireNonNull;
 
@@ -7,11 +7,8 @@ import static java.util.Objects.requireNonNull;
  */
 public class CommandResult {
 
-    public static enum DisplayedPage {
-        RECIPE,
-        ORDER,
-        INVENTORY,
-        SALE
+    public CommandResult(String feedbackToUser) {
+        this(feedbackToUser, DisplayedPage.SAME, false);
     }
 
     private final String feedbackToUser;
@@ -37,6 +34,14 @@ public class CommandResult {
 
     public CommandResult(String feedbackToUser, DisplayedPage displayedPage) {
         this(feedbackToUser, displayedPage, false);
+    }
+
+    public enum DisplayedPage {
+        RECIPE,
+        ORDER,
+        INVENTORY,
+        SALE,
+        SAME
     }
 
     public String getFeedbackToUser() {

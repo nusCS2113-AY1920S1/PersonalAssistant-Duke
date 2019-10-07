@@ -1,7 +1,10 @@
 package duke.model;
 
 import duke.model.order.Order;
+import duke.model.shortcut.Shortcut;
 import javafx.collections.ObservableList;
+
+import java.util.List;
 
 /**
  * Unmodifiable view of an address book.
@@ -13,4 +16,5 @@ public interface ReadOnlyBakingHome {
      */
     ObservableList<Order> getOrderList();
 
+    List<Shortcut> getShortcutList();
 }

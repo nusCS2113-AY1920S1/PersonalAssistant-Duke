@@ -3,7 +3,7 @@ package duke.logic.parser.order;
 import duke.logic.command.order.AddOrderCommand;
 import duke.logic.parser.commons.*;
 import duke.logic.parser.exceptions.ParseException;
-import duke.model.commons.Customer;
+import duke.model.order.Customer;
 import duke.model.order.Order;
 
 import static duke.logic.parser.commons.CliSyntax.*;

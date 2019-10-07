@@ -1,6 +1,6 @@
 package duke.logic;
 
-import duke.logic.command.commons.CommandResult;
+import duke.logic.command.CommandResult;
 import duke.logic.command.exceptions.CommandException;
 import duke.logic.parser.exceptions.ParseException;
 import duke.model.ReadOnlyBakingHome;

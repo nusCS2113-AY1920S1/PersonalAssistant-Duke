@@ -1,6 +1,5 @@
 package duke.model.order;
 
-import duke.model.commons.Customer;
 import duke.model.commons.Product;
 
 import java.util.Collections;
@@ -10,20 +9,24 @@ import java.util.Objects;
 
 import static duke.commons.util.CollectionUtil.requireAllNonNull;
 
+/**
+ * Represents an order in order list.
+ */
 public class Order {
-    public static enum Status {
-        ACTIVE,
-        COMPLETED,
-        CANCELED
-    }
 
-    private Customer customer;
+    //Identity field
     private final long id;
+    //Data fields
+    private final Customer customer;
     private final Date deliveryDate;
     private final Map<Product, Integer> items;
     private final String remarks;
     private final Status status;
 
+    /**
+     * Creates an order.
+     * Every field must be present and not null.
+     */
     public Order(Customer customer, Date deliveryDate, Status status, String remarks, Map<Product, Integer> items) {
         requireAllNonNull(customer, deliveryDate, status, remarks, items);
 
@@ -33,6 +36,12 @@ public class Order {
         this.remarks = remarks;
         this.id = System.currentTimeMillis();
         this.items = items;
+    }
+
+    public enum Status {
+        ACTIVE,
+        COMPLETED,
+        CANCELED
     }
 
     public Customer getCustomer() {
