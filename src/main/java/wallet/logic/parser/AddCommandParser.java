@@ -1,5 +1,6 @@
 package wallet.logic.parser;
 
+import wallet.logic.LogicManager;
 import wallet.logic.command.AddCommand;
 import wallet.model.contact.Contact;
 import wallet.model.contact.ContactList;
@@ -144,7 +145,8 @@ public class AddCommandParser implements Parser<AddCommand> {
         } else if (info[0].equals("/b")) {
             isLend = false;
         }
-        ArrayList<Contact> contactList = storageManager.loadContact();
+
+        ArrayList<Contact> contactList = LogicManager.getWallet().getContactList().getContactList();
         Contact person = new ContactList(contactList).getContact(contactId - 1);
         loan = new Loan(description, createdDate, amount, isLend, false, person);
         return loan;
@@ -207,23 +209,4 @@ public class AddCommandParser implements Parser<AddCommand> {
 
         return task;
     }
-
-    /**
-     * Returns the StorageManager object.
-     *
-     * @return The StorageManager objcet.
-     */
-    public StorageManager getStorageManager() {
-        return this.storageManager;
-    }
-
-    /**
-     * Sets teh StorageManager object.
-     *
-     * @param storageManager The StorageManager object.
-     */
-    public void setStorageManager(StorageManager storageManager) {
-        this.storageManager = storageManager;
-    }
-
 }

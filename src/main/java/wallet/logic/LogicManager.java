@@ -18,9 +18,9 @@ import wallet.storage.StorageManager;
  */
 public class LogicManager {
     public static final String MESSAGE_ERROR_COMMAND = "An error encountered while executing command.";
-    private final StorageManager storageManager;
-    private final ParserManager parserManager;
-    private final Wallet wallet;
+    private StorageManager storageManager;
+    private ParserManager parserManager;
+    private static Wallet wallet;
 
     /**
      * Constructs a LogicManager object.
@@ -32,7 +32,6 @@ public class LogicManager {
                 new ContactList(storageManager.loadContact()), new TaskList(storageManager.loadTask()),
                 new ScheduleList(), new LoanList(storageManager.loadLoan()));
         this.parserManager = new ParserManager();
-        this.parserManager.setStorageManager(this.storageManager);
     }
 
     /**
@@ -61,7 +60,7 @@ public class LogicManager {
      *
      * @return The Wallet object.
      */
-    public Wallet getWallet() {
-        return this.wallet;
+    public static Wallet getWallet() {
+        return wallet;
     }
 }
