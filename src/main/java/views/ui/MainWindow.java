@@ -1,4 +1,4 @@
-package ui;
+package views.ui;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -9,7 +9,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 
 /**
- * Controller for ui.MainWindow. Provides the layout for the other controls.
+ * Controller for views.ui.MainWindow. Provides the layout for the other controls.
  */
 public class MainWindow extends AnchorPane {
     @FXML

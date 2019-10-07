@@ -1,4 +1,4 @@
-package ui;
+package views.ui;
 
 public class DukeUI  {
     public String getResponse(String input) {
