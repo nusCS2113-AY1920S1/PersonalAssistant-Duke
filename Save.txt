@@ -1,1 +1,6 @@
-D|?|yearly assignment|by: 2020-01-01 01:01:01
+D|ND|monthly assignment|by: 2018-10-10 10:10:10
+T|ND| eat
+E|ND|trg|at: 2019-12-12 09:09:09-10:10:10
+DA|ND|bathe|training
+FD|ND|basketball trg|4 hours
+P|ND|return books|2019-12-04 and 2019-12-05

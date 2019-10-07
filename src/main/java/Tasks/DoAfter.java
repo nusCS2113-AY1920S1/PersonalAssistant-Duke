@@ -12,7 +12,7 @@ public class DoAfter extends Task {
 
     @Override
     public String toString() {
-        return "DA" + "|" + super.getStatusIcon() + "| " + after + "| " + before;
+        return "DA" + "|" + super.getStatusIcon() + "|" + after + "|" + before;
     }
 
     @Override

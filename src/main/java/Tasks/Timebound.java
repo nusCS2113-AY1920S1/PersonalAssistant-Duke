@@ -22,7 +22,7 @@ public class Timebound extends Task {
 
     @Override
     public String toString() {
-        return "P"+ " | " + super.getStatusIcon() + " | " + super.description + " | " + dateStart.format(fmtD) + " and " + dateEnd.format(fmtD);
+        return "P"+ "|" + super.getStatusIcon() + "|" + super.description + "|" + dateStart.format(fmtD) + " and " + dateEnd.format(fmtD);
     }
 
     @Override

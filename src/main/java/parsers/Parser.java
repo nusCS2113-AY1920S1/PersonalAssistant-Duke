@@ -59,7 +59,7 @@ public class Parser {
             return new UndoCommand();
         } else if (splitcommand[0].equals("edit")) {
             return new EditCommand();
-        } else if (splitcommand[0].equals("change password")) {
+        }   else if ((splitcommand[0] + " " + splitcommand[1]).equals("change password")) {
             return new ChangePasswordCommand();
         } else {
             throw new DukeException("OOPS!!! I'm sorry, but I don't know what that means :-(");

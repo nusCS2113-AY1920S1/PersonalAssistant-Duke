@@ -75,7 +75,7 @@ public class Storage {
                     }
                     tList.add(e);
                 } else if (details[0].equals("P")) {
-                    Timebound tb = new Timebound(details[2].trim(), details[3].substring(8).trim());
+                    Timebound tb = new Timebound(details[2].trim(), details[3].trim());
                     if (details[1].equals("\u2713")) {
                         tb.isDone = true;
                     } else {
@@ -94,8 +94,10 @@ public class Storage {
                     DoAfter DA = new DoAfter(details[3].trim(), details[3].trim(), details[2].trim());
                     if (details[1].equals("\u2713")) {
                         DA.isDone = true;
-                    } else
+                    } else {
                         DA.isDone = false;
+                    }
+                    tList.add(DA);
                 } else if (details[0].equals("TE")) {
                     ArrayList<String> timeslots = new ArrayList<String>();
                     for (int i = 3; i < details.length; i++) {
