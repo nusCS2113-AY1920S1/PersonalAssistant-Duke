@@ -37,7 +37,8 @@ public class WordUp {
     }
 
     public static void main(String[] args) {
-        new WordUp("src/main/data/duke.txt").run();
+        new WordUp("data/duke.txt").run();
+
     }
 }
 
