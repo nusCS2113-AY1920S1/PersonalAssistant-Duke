@@ -1,0 +1,48 @@
+plugins {
+    id 'java'
+    id 'application'
+    id 'checkstyle'
+    id 'com.github.johnrengelman.shadow' version '5.1.0'
+    id 'org.openjfx.javafxplugin' version '0.0.7'
+}
+
+group 'seedu.oof'
+version '0.1.0'
+
+repositories {
+    mavenCentral()
+}
+
+application {
+    // Change this to your main class.
+    mainClassName = "oof.Oof"
+}
+
+checkstyle {
+    toolVersion = '8.23'
+}
+
+shadowJar {
+    archiveBaseName = "mid"
+    archiveVersion = "v1.1"
+    archiveClassifier = null
+    archiveAppendix = null
+}
+
+dependencies {
+    testImplementation('org.junit.jupiter:junit-jupiter:5.5.0')
+    testRuntime('org.junit.jupiter:junit-jupiter-engine:5.5.0')
+}
+
+test {
+    useJUnitPlatform()
+}
+
+javafx {
+    version = "11.0.2"
+    modules = [ 'javafx.controls', 'javafx.fxml' ]
+}
+
+run {
+    standardInput = System.in
+}

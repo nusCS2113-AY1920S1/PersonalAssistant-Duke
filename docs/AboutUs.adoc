@@ -1,0 +1,46 @@
+= About Us
+:site-section: AboutUs
+:relfileprefix: team/
+:imagesDir: images
+:stylesDir: stylesheets
+
+OOF (Outstanding Organisation Friend) was developed by the https://github.com/AY1920S1-CS2113T-W17-4/main team. +
+{empty} +
+We are a team based in the http://www.comp.nus.edu.sg[School of Computing, National University of Singapore].
+
+== Project Team
+
+=== Kenneth Lee
+image::kenlhc.png[width="150", align="left"]
+{empty}[http://github.com/Kenlhc[github]] [<<Kenlhc#, portfolio>>]
+
+Role: Team lead + Time Keeper +
+Responsibilities: Storage + Guides
+
+'''
+
+=== Jasper Ong
+image::jasperosy.png[width="150", align="left"]
+{empty}[https://github.com/jasperosy[github]] [<<jasperosy#, portfolio>>]
+
+Role: Developer +
+Responsibilities: Pull Requests maintainer + code maintainer
+
+'''
+
+=== Kah Lok Kee
+image::kahlokkee.png[width="150", align="left"]
+{empty}[http://github.com/KahLokKee[github]] [<<KahLokKee#, portfolio>>]
+
+Role: Developer +
+Responsibilities: Code Maintainer + Logic + Quality Control
+
+'''
+
+=== Debbie Tan
+image::debbiextan.png[width="150", align="left"]
+{empty}[http://github.com/debbiextan[github]] [<<debbiextan#, portfolio>>]
+
+Role: Developer +
+Responsibilities: Ui + design
+
