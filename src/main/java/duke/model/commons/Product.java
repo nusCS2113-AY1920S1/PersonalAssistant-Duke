@@ -1,5 +1,6 @@
 package duke.model.commons;
 
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
@@ -27,6 +28,10 @@ public class Product {
 
         this.name = name;
         this.ingredients = ingredients;
+    }
+
+    public Product(String name) {
+        this(name, new HashMap<>());
     }
 
     @Override
