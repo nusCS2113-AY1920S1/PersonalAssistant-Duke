@@ -27,6 +27,8 @@ public class DeadlineTest {
             Date date = formatter.parse("02/08/2012 1830");
             ITask dummyTask = new Deadline("return book", "02 August 2012 06.30 pm", date);
             expectedTask = taskFactory.createTask(input);
+            System.out.println(dummyTask.getDescription());
+            System.out.println(expectedTask.getDescription());
             assertEquals(dummyTask.getDescription(), expectedTask.getDescription());
         } catch (DukeException | ParseException e) {
             e.printStackTrace();
