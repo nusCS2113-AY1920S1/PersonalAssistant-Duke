@@ -13,7 +13,7 @@ import duke.tasks.Meal;
 import duke.tasks.Breakfast;
 import duke.user.User;
 import duke.user.Gender;
-import duke.user.tuple;
+import duke.user.Tuple;
 import duke.autocorrect.Autocorrect;
 
 /**
