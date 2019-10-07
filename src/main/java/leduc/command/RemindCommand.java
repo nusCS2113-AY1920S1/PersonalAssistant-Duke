@@ -32,7 +32,7 @@ public class RemindCommand extends Command {
      * Extracts all EventsTask/DeadlinesTask into a seperate arraylist. Tasks with/without dates must be seperated prior to sorting
      *@param tasks tasks is the list of tasks
      */
-    public static ArrayList filterTasks(TaskList tasks){
+    public static ArrayList<Task> filterTasks(TaskList tasks){
         ArrayList<Task> filteredTasklist = new ArrayList<Task>();
         for (int i = 0; i < tasks.size(); i++){
             if (!(tasks.get(i) instanceof TodoTask)){
@@ -46,7 +46,7 @@ public class RemindCommand extends Command {
      * Extracts all Todo's into a seperate arraylist. Tasks with/without dates must be separated prior to sorting
      * @param  tasks is the list of tasks
      */
-    public static ArrayList extractTodo(TaskList tasks){
+    public static ArrayList<Task> extractTodo(TaskList tasks){
         ArrayList<Task> extractedTodos = new ArrayList<Task>();
         for (int i = 0; i < tasks.size(); i++){
             if ((tasks.get(i) instanceof TodoTask)){
@@ -78,7 +78,7 @@ public class RemindCommand extends Command {
      * @param filteredTasklist which filters out all Tasks that do not have a date field..
      * @param extractedTodos which is a list of all Todo objects, will get appended to the final sorted list.
      */
-    public static ArrayList sort(ArrayList<Task> filteredTasklist, ArrayList<Task> extractedTodos){
+    public static ArrayList<Task> sort(ArrayList<Task> filteredTasklist, ArrayList<Task> extractedTodos){
         ArrayList<Task> sortedTasks = new ArrayList<Task>();
         for(int i = 0; filteredTasklist.size() > 0; i++){
             Task initialTask = filteredTasklist.get(0);//set initial task
