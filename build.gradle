@@ -21,6 +21,7 @@ shadowJar {
 
 dependencies {
     testImplementation 'org.junit.jupiter:junit-jupiter:5.5.0'
+    compile "org.apache.commons:commons-csv:1.7"
 }
 
 test {
