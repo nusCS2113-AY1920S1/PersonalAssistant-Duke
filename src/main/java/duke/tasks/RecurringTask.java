@@ -1,5 +1,7 @@
 package duke.tasks;
 
+import duke.exceptions.DukeInvalidTimePeriodException;
+
 public class RecurringTask extends Task {
 
     // Each period is 1 day.
@@ -9,7 +11,7 @@ public class RecurringTask extends Task {
      * Constructor for recurring tasks.
      * @param input User input for task.
      */
-    public RecurringTask(String... input) {
+    public RecurringTask(String... input) throws DukeInvalidTimePeriodException {
         super(input[0]);
         setRecurring(input[input.length - 1]);
     }
