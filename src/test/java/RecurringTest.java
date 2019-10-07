@@ -21,10 +21,10 @@ public class RecurringTest {
     @Test
     public void testRecurringCreation() {
         try {
-            String input = "recurring do Tutorial /by 23/09/2019 1600";
+            String input = "recurring do Tutorial /at 23/09/2019 1500";
             SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HHmm");
             Date dummyDate = formatter.parse("23/09/2019 1500");
-            Recurring dummyTask = new Recurring("do Tutorial", "23 September 2019", dummyDate);
+            Recurring dummyTask = new Recurring("do Tutorial", "23 September 2019 03.00 pm", dummyDate);
             ITask generatedTask = recurringFactory.createTask(input);
             assertEquals(generatedTask.getDescription(), dummyTask.getDescription());
         } catch (DukeException | ParseException e) {

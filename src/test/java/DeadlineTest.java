@@ -25,7 +25,7 @@ public class DeadlineTest {
         try {
             SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HHmm");
             Date date = formatter.parse("02/08/2012 1830");
-            ITask dummyTask = new Deadline("return book", "02 August 2012 06.30 PM", date);
+            ITask dummyTask = new Deadline("return book", "02 August 2012 06.30 pm", date);
             expectedTask = taskFactory.createTask(input);
             assertEquals(expectedTask.getDescription(), dummyTask.getDescription());
         } catch (DukeException e) {
