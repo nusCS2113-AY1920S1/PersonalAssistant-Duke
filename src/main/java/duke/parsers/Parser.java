@@ -1,5 +1,6 @@
 package duke.parsers;
 
+import duke.autocorrect.Autocorrect;
 import duke.commands.*;
 import duke.exceptions.DukeException;
 import duke.tasks.Dinner;
@@ -34,10 +35,13 @@ public class Parser {
      * @throws DukeException either there is no description in "done", "todo", "event", and "deadline" command
      *                       or the command is not recognized
      */
-    public static Command parse(String fullCommand) throws DukeException {
+    public static Command parse(String fullCommand, Autocorrect autocorrect) throws DukeException {
         //TODO: Put error for invalid input and what not
         String[] splitCommand = fullCommand.split(" ", 2);
         String command = splitCommand[0];
+        autocorrect.setWord(command);
+        autocorrect.execute();
+        command = autocorrect.getWord();
         String description = "";
 
         if (splitCommand.length >= 2) {
@@ -58,15 +62,15 @@ public class Parser {
             case "breakfast":
                 name = description.split("/", 2)[0];
                 info = "/" + description.split("/", 2)[1];
-                return new AddCommand(new Breakfast(name, info));
+                return new AddCommand(new Breakfast(name, info, autocorrect));
             case "lunch":
                 name = description.split("/", 2)[0];
                 info = "/" + description.split("/", 2)[1];
-                return new AddCommand(new Lunch(name, info));
+                return new AddCommand(new Lunch(name, info, autocorrect));
             case "dinner":
                 name = description.split("/", 2)[0];
                 info = "/" + description.split("/", 2)[1];
-                return new AddCommand(new Dinner(name, info));
+                return new AddCommand(new Dinner(name, info, autocorrect));
             case "list":
                 if (splitCommand.length > 1) {
                     return new ListCommand(splitCommand[1]);
@@ -80,6 +84,8 @@ public class Parser {
             case "delete":
                 index = Integer.parseInt(description);
                 return new DeleteCommand(index);
+            case "update":
+                return new UpdateWeightCommand(description);
             default:
                 throw new DukeException("\u2639 OOPS!!! I'm sorry, but I don't know what that means :-(");
         }

@@ -13,7 +13,8 @@ import duke.tasks.Meal;
 import duke.tasks.Breakfast;
 import duke.user.User;
 import duke.user.Gender;
-import duke.user.Tuple;
+import duke.user.tuple;
+import duke.autocorrect.Autocorrect;
 
 /**
  * Storage is a public class, a storage class encapsulates the filePath to read from disk and write to disk.
@@ -26,6 +27,8 @@ public class Storage {
     private BufferedWriter bufferedWriter = null;
     private DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
     private File nameFile = null;
+    private File wordFile = null;
+
     /**
      * The function will act to load txt file specified by the filepath, parse it and store it in a new task ArrayList
      * to be added in that TaskList.
@@ -188,6 +191,21 @@ public class Storage {
         } catch (Exception e) {
             System.out.println("Error writing to file");
             e.printStackTrace();
+        }
+    }
+
+    public void loadWord(Autocorrect autocorrect) throws DukeException {
+        String sep = System.getProperty("file.separator");
+        wordFile = new File("src" + sep + "main" + sep + "java" + sep + "duke"
+                + sep + "Data" + sep + "word.txt");
+        try {
+            bufferedReader = new BufferedReader(new FileReader(wordFile));
+            while ((line = bufferedReader.readLine()) != null) {
+                autocorrect.load(line.trim());
+            }
+            bufferedReader.close();
+        } catch (Exception e) {
+            throw new DukeException(e.getMessage());
         }
     }
 }

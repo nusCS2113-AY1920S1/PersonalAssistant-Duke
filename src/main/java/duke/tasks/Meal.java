@@ -1,5 +1,7 @@
 package duke.tasks;
 
+import duke.autocorrect.Autocorrect;
+
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -22,7 +24,7 @@ public class Meal {
      * This is the constructor of Task object.
      * @param description the description of the task
      */
-    public Meal(String description, String details) {
+    public Meal(String description, String details, Autocorrect autocorrect) {
         this.description = description;
         //todo: date input can only be accepted at the back of the statement
         if (details.contains("/date")) {
@@ -41,7 +43,9 @@ public class Meal {
             for (String data : splitString1) {
                 if (data.trim().length() != 0) {
                     String[] partitionedData = data.split(" ", 2);
-                    String nutrient = partitionedData[0];
+                    autocorrect.setWord(partitionedData[0]);
+                    autocorrect.execute();
+                    String nutrient = autocorrect.getWord();
                     int value = Integer.valueOf(partitionedData[1].trim());
                     nutritionValue.put(nutrient, value);
                 }
