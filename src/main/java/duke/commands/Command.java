@@ -16,5 +16,5 @@ public abstract class Command {
      * @param ui The user interface displaying events on the task list.
      * @param storage The duke.storage object containing task list.
      */
-    public abstract void execute(Ui ui, Storage storage) throws DukeException, IOException;
+    public abstract void execute(Ui ui, Storage storage) throws DukeException;
 }
