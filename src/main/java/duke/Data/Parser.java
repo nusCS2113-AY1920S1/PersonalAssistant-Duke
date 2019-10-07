@@ -209,7 +209,8 @@ public class Parser {
              * Delete: goal delete-all 5/10/2019|goal delete 5/10/2019 Makes sure every student masters freestyle
              */
             case "goal":
-                Goal goal = new Goal(".\\src\\main\\java\\duke\\Module\\goals.txt");
+                Storage goalStorage = new Storage(".\\src\\main\\java\\duke\\Module\\goals.txt");
+                Goal goal = new Goal(goalStorage.loadGoal());
                 try {
                     switch (word[1]) {
                         case "view": {
@@ -221,19 +222,19 @@ public class Parser {
                             String date = word[2];
                             index = input.indexOf(word[3]);
                             String message = input.substring(index);
-                            System.out.println(goal.addGoal(date, message));
+                            System.out.println(goal.addGoal(date, message, goalStorage));
                             break;
                         }
                         case "delete": {
                             String date = word[2];
                             index = input.indexOf(word[3]);
                             String message = input.substring(index);
-                            System.out.println(goal.removeGoal(date, message));
+                            System.out.println(goal.removeGoal(date, message, goalStorage));
                             break;
                         }
                         case "delete-all": {
                             String date = word[2];
-                            System.out.println(goal.removeAllGoal(date));
+                            System.out.println(goal.removeAllGoal(date, goalStorage));
                             break;
                         }
                     }

@@ -1,95 +1,32 @@
 package duke.Data;
 
-import duke.Sports.MyClass;
 import duke.Task.*;
 
 import java.io.File;
 import java.io.FileWriter;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Scanner;
 
 /**
  * Storage handles all the loading and saving of data
- * from and into the duke.txt file respectively.
+ * from and into the respective text files.
  */
 public class Storage {
     private String filePath;
     private Scanner fileInput;
-    private ArrayList<Item> oldList = new ArrayList<>();
 
     public Storage(String filePath) throws FileNotFoundException {
         this.filePath = filePath;
         File f = new File(filePath);
         fileInput = new Scanner(f);
-    }
-
-    public String dateRevert(String date) {
-        try {
-            Date newDateFormat = new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy").parse(date);
-            String oldDateFormat = new SimpleDateFormat("dd/MM/yyyy HHmm").format(newDateFormat);
-            return oldDateFormat;
-        } catch (ParseException pe) {
-            System.err.println("Error: Date in wrong format");
-            return date;
-        }
-    }
-
-    /**
-     * This function parses the info of the duke.txt into an ArrayList.
-     * @return ArrayList containing all the parsed data from the duke.txt file
-     * @throws FileNotFoundException          e
-     * @throws ArrayIndexOutOfBoundsException e
-     */
-    public ArrayList<Item> loadFile() {
-        try {
-            while (fileInput.hasNextLine()) { //do something
-                String type, info;
-                Boolean stat;
-                String s1 = fileInput.nextLine();
-                String[] data = s1.split("-");
-                type = data[0];
-                stat = (data[1].equals("1"));
-
-                switch (type) {
-                case "D":
-                    Item deadline = new Deadline(data[2], stat, dateRevert(data[3]));
-                    oldList.add(deadline);
-                    break;
-
-                case "E":
-                    Item event = new Event(data[2], stat, dateRevert(data[3]));
-                    oldList.add(event);
-                    break;
-
-                case "T":
-                    Item todo = new ToDo(data[2], stat, data[3]);
-                    oldList.add(todo);
-                    break;
-
-                case "A":
-                    Item after = new After(data[2], stat, dateRevert(data[3]));
-                    oldList.add(after);
-                    break;
-
-                case "C":
-                    Item myClass = new MyClass(data[2], stat, data[3]);
-                    oldList.add(myClass);
-                    break;
-
-                default:
-                    System.out.println("No data");
-                }
-            }
-            fileInput.close();
-            return oldList;
-        } catch (ArrayIndexOutOfBoundsException e) {
-            return null;
-        }
     }
 
     /**
@@ -143,6 +80,66 @@ public class Storage {
             } catch (IOException io) {
                 System.out.println("File not found:" + io.getMessage());
             }
+        }
+    }
+
+    /**
+     * Reads filePath, takes in Strings and turns them into a hash map of goals.
+     * @return A hash map of goals.
+     * @throws ParseException if the user input is in wrong format.
+     */
+    public Map<Date,ArrayList<String>> loadGoal() throws ParseException {
+        try {
+            Map<Date,ArrayList<String>> temp = new HashMap<>();
+            while (fileInput.hasNextLine()) {
+                String s1 = fileInput.nextLine();
+                String[] data = s1.split("-");
+                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
+                Date date = simpleDateFormat.parse(data[0]);
+                ArrayList<String> temp2 = new ArrayList<>();
+                for (String str : data) {
+                    if (!str.equals(data[0])) {
+                        temp2.add(str);
+                    }
+                }
+                temp.put(date,temp2);
+            }
+            fileInput.close();
+            return temp;
+        } catch (ArrayIndexOutOfBoundsException e) {
+            return null;
+        }
+    }
+
+    /**
+     * This function updates the hash map of goals.
+     * Erases the entire hash map that exists presently and rewrites the file.
+     * @param goals The updated hash map that must be used to recreate the updated goals.txt
+     * @throws IOException io if the file cannot be found.
+     */
+    public void updateGoal(Map<Date,ArrayList<String>> goals) {
+        try {
+            FileWriter fileWriter = new FileWriter(filePath);
+            fileWriter.write("");
+            fileWriter.close();
+        } catch (IOException io) {
+            System.out.println("File not found:" + io.getMessage());
+        }
+
+        try {
+            FileWriter fileWriter = new FileWriter(filePath, true);
+            DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+            for (Map.Entry<Date,ArrayList<String>> entry : goals.entrySet()) {
+                String extra = "";
+                ArrayList<String> temp = entry.getValue();
+                for (String str : temp) {
+                    extra += "-" + str;
+                }
+                fileWriter.write(df.format(entry.getKey()) + extra + "\n");
+            }
+            fileWriter.close();
+        } catch (IOException io) {
+            System.out.println("File not found:" + io.getMessage());
         }
     }
 }
