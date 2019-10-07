@@ -14,7 +14,7 @@ public class MapWindow extends UiPart<Stage> {
     private AnchorPane map;
 
     private static final String FXML = "MapWindow.fxml";
-    ObservableList<Location> locations = FXCollections.observableArrayList();
+    private ObservableList<Location> locations = FXCollections.observableArrayList();
 
     private void generateNodes() {
         locations.add(new Location("sentosa", 1.2454983, 103.8437327, 0, 0));

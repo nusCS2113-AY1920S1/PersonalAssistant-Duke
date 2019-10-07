@@ -2,7 +2,6 @@ package duke.ui;
 
 import duke.Duke;
 import duke.Main;
-import duke.ui.map.MapWindow;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
