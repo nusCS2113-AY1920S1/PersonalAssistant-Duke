@@ -27,17 +27,15 @@ public class Duke extends Application {
     private Schedule schedule;
     public static Stage window;
 
-    public Duke() {
-        //TODO CREATE LOGGER FILE
-        //Logger logger = logger.getLogger("main")
-    }
 
-    public Duke(String filePath) throws FileNotFoundException, ParseException {
+
+    public Duke() throws FileNotFoundException, ParseException {
         ui = new Ui();
-        storage = new Storage(filePath);
+        storage = new Storage(".\\src\\main\\java\\duke\\Data\\duke.txt");
         tasks = new TaskList();
         students = new ManageStudents();
-        schedule = new Schedule(".\\src\\main\\java\\duke\\Data\\timeslots.txt");
+        Schedule schedule = new Schedule(new Storage("duke/Data/timeslots.txt").loadSchedule());
+
     }
 
     /**
@@ -45,7 +43,7 @@ public class Duke extends Application {
      * @param args expects array of string objects
      */
     public static void main(String[] args) throws FileNotFoundException, ParseException {
-        new Duke(".\\src\\main\\java\\duke\\Data\\duke.txt").run();
+        new Duke().run();
     }
 
     public void run() throws FileNotFoundException, ParseException {
