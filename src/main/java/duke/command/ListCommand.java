@@ -2,7 +2,6 @@ package duke.command;
 
 import duke.dukeobject.ExpenseList;
 import duke.parser.CommandParams;
-import duke.storage.Storage;
 import duke.ui.Ui;
 
 /**
@@ -20,12 +19,10 @@ public class ListCommand extends Command {
 
     /**
      * Lists all expensesList in ExpenseList of Duke by using ui of Duke.
-     *
-     * @param expensesList The ExpenseList of Duke.
+     *  @param expensesList The ExpenseList of Duke.
      * @param ui           The ui of Duke.
-     * @param storage      The storage of Duke.
      */
-    public void execute(CommandParams commandParams, ExpenseList expensesList, Ui ui, Storage storage) {
+    public void execute(CommandParams commandParams, ExpenseList expensesList, Ui ui) {
         if (expensesList.internalSize() == 0) {
             ui.println("Oops, you haven't added any task!");
         } else {

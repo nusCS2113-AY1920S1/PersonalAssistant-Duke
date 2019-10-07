@@ -4,7 +4,6 @@ import duke.dukeobject.ExpenseList;
 import duke.exception.DukeException;
 import duke.parser.CommandParams;
 import duke.ui.Ui;
-import duke.storage.Storage;
 
 /**
  * Represents a specified command as FindCommand by extending the {@code Command} class.
@@ -27,10 +26,9 @@ public class FindCommand extends Command {
      *
      * @param expensesList The ExpenseList of Duke.
      * @param ui           The ui of Duke.
-     * @param storage      The storage of Duke.
      * @throws DukeException if a search string was not given.
      */
-    public void execute(CommandParams commandParams, ExpenseList expensesList, Ui ui, Storage storage) {
+    public void execute(CommandParams commandParams, ExpenseList expensesList, Ui ui) {
         /*
         if (commandParams.getMainParam() == null) {
             throw new DukeException("☹ OOPS!!! I don't what to find.");

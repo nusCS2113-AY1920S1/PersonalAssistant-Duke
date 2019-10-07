@@ -2,7 +2,6 @@ package duke;
 
 import duke.dukeobject.ExpenseList;
 import duke.parser.CommandParams;
-import duke.storage.Storage;
 import duke.ui.Ui;
 import duke.exception.DukeException;
 import duke.command.Command;
@@ -14,10 +13,9 @@ import java.io.File;
  * Represents our Duke and contains the main program of Duke.
  */
 public class Duke {
-    private static final String USER_DIR = "data" + File.separator + "duke";
+    private static final String DEFAULT_USER_DIR = "data" + File.separator + "duke";
 
-    private Storage storage = null;
-    private ExpenseList expenseList;
+    final ExpenseList expenseList;
     private Ui ui;
 
     /**
@@ -27,37 +25,29 @@ public class Duke {
      * @param userDirectory The user directory to store all the files associated with Duke.
      */
     public Duke(File userDirectory) {
+        userDirectory.mkdirs();
         ui = new Ui();
         expenseList = new ExpenseList(userDirectory);
     }
 
+    public Duke() {
+        // In case we support changing Duke's directory in the future
+        this(new File(DEFAULT_USER_DIR));
+    }
+
     /**
-     * Runs the Duke.
-     * This terminates when the user typed in "bye" command.
+     * Gets the output from Duke's logic.
+     * @param fullCommand String of the full command that the user entered.
+     * @return String containing last output message of Duke.
      */
-    public void run() {
-        ui.showWelcome();
-        while (true) {
-            String fullCommand = ui.readCommand();
-            try {
-                CommandParams commandParams = new CommandParams(fullCommand);
-                Command command = Parser.getCommand(commandParams.getCommandName());
-                command.execute(commandParams, expenseList, ui, storage);
-            } catch (DukeException e) {
-                ui.showError(e);
-            }
+    public String getResponse(String fullCommand) {
+        try {
+            CommandParams commandParams = new CommandParams(fullCommand);
+            Command command = Parser.getCommand(commandParams.getCommandName());
+            command.execute(commandParams, expenseList, ui);
+        } catch (DukeException e) {
+            ui.showError(e);
         }
+        return ui.getMostRecent();
     }
-
-    /**
-     * Runs the main program of the Duke.
-     *
-     * @param args additional arguments provided by the user from the command line. Currently unused.
-     */
-    public static void main(String[] args) {
-        File userDirectory = new File(USER_DIR);
-        userDirectory.mkdirs();
-        new Duke(userDirectory).run();
-    }
-
 }

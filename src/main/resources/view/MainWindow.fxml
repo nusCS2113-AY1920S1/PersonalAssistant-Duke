@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import javafx.scene.text.Text?>
+<BorderPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="duke.MainWindow"
+            prefHeight="400.0" prefWidth="600.0"
+            fx:id="main">
+    <top>
+        <VBox alignment="CENTER">
+            <Label fx:id="totalSpentLabel" text="Total: $0.00"  />
+            <ListView fx:id="expenseListView" >
+            </ListView>
+        </VBox>
+    </top>
+    <bottom>
+        <VBox>
+            <Label fx:id="lastCommandLabel" text="Hello, welcome to Duke++!" prefWidth="Infinity"/>
+            <TextField fx:id="inputField" promptText="enter a command" onAction="#onEnter"/>
+        </VBox>
+    </bottom>
+</BorderPane>

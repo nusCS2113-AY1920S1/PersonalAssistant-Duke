@@ -5,7 +5,6 @@ import duke.dukeobject.Expense;
 import duke.dukeobject.ExpenseList;
 import duke.exception.DukeException;
 import duke.parser.CommandParams;
-import duke.storage.Storage;
 import duke.ui.Ui;
 
 import java.util.stream.Collectors;
@@ -46,7 +45,7 @@ public class AddExpenseCommand extends Command {
     }
 
     @Override
-    public void execute(CommandParams commandParams, ExpenseList expensesList, Ui ui, Storage storage) {
+    public void execute(CommandParams commandParams, ExpenseList expensesList, Ui ui) {
         String expenseString = commandParams.getMainParam();
         if (expenseString == null) {
             throw new DukeException("I need to know how much this costs!");

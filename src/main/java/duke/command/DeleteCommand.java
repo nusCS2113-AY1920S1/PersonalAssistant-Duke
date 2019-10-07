@@ -3,7 +3,6 @@ package duke.command;
 import duke.dukeobject.ExpenseList;
 import duke.exception.DukeException;
 import duke.parser.CommandParams;
-import duke.storage.Storage;
 import duke.ui.Ui;
 
 /**
@@ -28,10 +27,9 @@ public class DeleteCommand extends Command {
      *
      * @param expensesList The ExpenseList of Duke.
      * @param ui           The ui of Duke.
-     * @param storage      The storage of Duke.
      * @throws DukeException If the index given is out of range, invalid, or does not exist.
      */
-    public void execute(CommandParams commandParams, ExpenseList expensesList, Ui ui, Storage storage) {
+    public void execute(CommandParams commandParams, ExpenseList expensesList, Ui ui) {
         /*
         if (commandParams.getMainParam() == null) {
             throw new DukeException("☹ OOPS!!! I don't know which task to delete!");
