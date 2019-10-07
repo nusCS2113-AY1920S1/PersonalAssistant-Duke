@@ -21,7 +21,8 @@ public abstract class Evidence extends DukeData {
     @Override
     public int updatePriority(int priorityVal) throws DukeException {
         if (priorityVal >= 0 && priorityVal < 5) {
-            return super.setPriority(priorityVal);
+            super.setPriority(priorityVal);
+            return super.getPriority();
         } else {
             throw new DukeException("The priority must be within 0 to 4!");
         }

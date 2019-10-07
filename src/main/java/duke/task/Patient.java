@@ -55,7 +55,6 @@ public class Patient extends DukeObject {
      * Todo write the function
      */
     public void discharge() {
-        return;
     }
 
     /**
@@ -148,5 +147,73 @@ public class Patient extends DukeObject {
     public String toReportString() {
         // Todo
         return null;
+    }
+
+    public int getBedNo() {
+        return bedNo;
+    }
+
+    public ArrayList<Impression> getImpressions() {
+        return impressions;
+    }
+
+    public String getAllergies() {
+        return allergies;
+    }
+
+    public void setAllergies(String allergies) {
+        this.allergies = allergies;
+    }
+
+    public Impression getPriDiagnosis() {
+        return priDiagnosis;
+    }
+
+    public int getHeight() {
+        return height;
+    }
+
+    public void setHeight(int height) {
+        this.height = height;
+    }
+
+    public int getWeight() {
+        return weight;
+    }
+
+    public void setWeight(int weight) {
+        this.weight = weight;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
+    }
+
+    public int getNumber() {
+        return number;
+    }
+
+    public void setNumber(int number) {
+        this.number = number;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getHistory() {
+        return history;
+    }
+
+    public void setHistory(String history) {
+        this.history = history;
     }
 }

@@ -30,8 +30,19 @@ public abstract class DukeData extends DukeObject {
      */
     public abstract int updatePriority(int priorityVal) throws DukeException;
 
-    public int setPriority(int priority) {
+    public Impression getImpression() {
+        return impression;
+    }
+
+    public void setImpression(Impression impression) {
+        this.impression = impression;
+    }
+
+    public int getPriority() {
+        return priority;
+    }
+
+    public void setPriority(int priority) {
         this.priority = priority;
-        return this.priority;
     }
 }

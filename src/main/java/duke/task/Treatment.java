@@ -4,8 +4,8 @@ import duke.exception.DukeException;
 
 public abstract class Treatment extends DukeData {
 
-    int status;
-    String[] statusArr;
+    private int status;
+    private String[] statusArr;
 
     /**
      * Abstraction of the actions taken to treat an impression the Doctor has about a patient.
@@ -28,7 +28,8 @@ public abstract class Treatment extends DukeData {
     @Override
     public int updatePriority(int priorityVal) throws DukeException {
         if (priorityVal >= 0 && priorityVal < 5) {
-            return super.setPriority(priorityVal);
+            super.setPriority(priorityVal);
+            return super.getPriority();
         } else {
             throw new DukeException("The priority must be within 0 to 4!");
         }
@@ -37,10 +38,25 @@ public abstract class Treatment extends DukeData {
     /*
      * Updates status of the observation, i.e. the stage of completion
      * @param int the integer value of the status
-     * @return int
      */
-    public int updateStatus(int statusIdx) {
-        this.status = statusIdx;
-        return this.status;
+    public void updateStatus(int statusIdx, String[] statusArr) {
+        setStatus(statusIdx);
+        setStatusArr(statusArr);
+    }
+
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
+    }
+
+    public String[] getStatusArr() {
+        return statusArr;
+    }
+
+    public void setStatusArr(String[] statusArr) {
+        this.statusArr = statusArr;
     }
 }

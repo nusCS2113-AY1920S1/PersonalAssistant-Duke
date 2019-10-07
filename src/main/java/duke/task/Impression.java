@@ -154,4 +154,24 @@ public class Impression extends DukeObject {
         // Todo
         return null;
     }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public Patient getPatient() {
+        return patient;
+    }
+
+    public ArrayList<Evidence> getEvidences() {
+        return evidences;
+    }
+
+    public ArrayList<Treatment> getTreatments() {
+        return treatments;
+    }
 }
