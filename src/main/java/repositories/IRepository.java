@@ -1,4 +1,4 @@
-package util.repositories;
+package repositories;
 
 import java.util.ArrayList;
 import models.data.IProject;

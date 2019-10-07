@@ -1,4 +1,4 @@
-package util.repositories;
+package repositories;
 
 
 import controllers.ProjectFactory;
