@@ -42,7 +42,7 @@ public class DoAfterCommand extends Command {
         DoAfter after = new DoAfter(splitD[0], splitD[1]);
         tasks.add(after);
         storage.saveToFile(tasks);
-        ui.showString("Got it. I've added this task:\n" +
+        ui.addToOutput("Got it. I've added this task:\n" +
                 after.toString() + "\n" +
                 "Now you have " + tasks.size() + " task(s) in the list");
     }

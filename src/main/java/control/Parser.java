@@ -1,3 +1,5 @@
+package control;
+
 import command.ByeCommand;
 import command.Command;
 import command.DeadlineCommand;
@@ -17,15 +19,13 @@ import command.UpcomingCommand;
 import command.ViewScheduleCommand;
 import exception.DukeException;
 
-import java.text.ParseException;
-
 /**
  * Parse input and execute respective user command.
  */
 public class Parser {
 
     /**
-     * Converts user input into commands for Duke.
+     * Converts user input into commands for control.Duke.
      * @param input from user
      * @return Command to be executed
      * @throws DukeException if user enters wrong input format
@@ -65,11 +65,8 @@ public class Parser {
             return new DoAfterCommand(input, splitStr);
         case "dowithin":
             return new DoWithinPeriodCommand(input, splitStr);
-
-
         default:
             throw new DukeException("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
-
         }
     }
 }

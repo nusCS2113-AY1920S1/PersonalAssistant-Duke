@@ -54,7 +54,7 @@ public class ViewScheduleCommand extends Command {
         scheduleList.sort(
                 Comparator.comparing(Task::getDateTime));
         for (Task i : scheduleList) {
-            ui.showString(i.toString());
+            ui.addToOutput(i.toString());
         }
     }
 }
