@@ -11,6 +11,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.Calendar;
 
 /**
  * This command adds an expenditure to the Total Expenditure List.
@@ -18,7 +19,6 @@ import java.time.format.DateTimeFormatter;
 public class AddExpenditureCommand extends MoneyCommand {
 
     private String inputString;
-    private SimpleDateFormat simpleDateFormat;
 
     /**
      * Constructor of the command which initialises the add expenditure command
@@ -27,7 +27,6 @@ public class AddExpenditureCommand extends MoneyCommand {
      */
     public AddExpenditureCommand(String command) {
         inputString = command.replaceFirst("spent ", "");
-        simpleDateFormat = new SimpleDateFormat("d/M/yyyy");
     }
 
     @Override
@@ -46,7 +45,6 @@ public class AddExpenditureCommand extends MoneyCommand {
      */
     @Override
     public void execute(Account account, Ui ui, MoneyStorage storage) throws ParseException, DukeException {
-        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("d/M/yyyy");
         String[] splitStr = inputString.split("/amt ", 2);
         String description = splitStr[0];
         String[] furSplit = splitStr[1].split("/cat ", 2);
@@ -57,6 +55,13 @@ public class AddExpenditureCommand extends MoneyCommand {
         Expenditure e = new Expenditure(price, description, category, boughtTime);
         account.getExpListTotal().add(e);
         storage.writeToFile(account);
+
+        Calendar currDate = Calendar.getInstance();
+        int currMonth = currDate.get(Calendar.MONTH) + 1;
+        int currYear = currDate.get(Calendar.YEAR);
+        if (boughtTime.getMonthValue() == currMonth && boughtTime.getYear() == currYear) {
+            account.getExpListCurrMonth().add(e);
+        }
 
         ui.appendToOutput(" Got it. I've added this to your total spending: \n");
         ui.appendToOutput("     ");

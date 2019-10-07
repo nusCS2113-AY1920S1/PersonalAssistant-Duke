@@ -92,6 +92,14 @@ public class Parser {
             moneyCommand = new AddInstalmentCommand(cmd);
         } else if(cmd.startsWith("list all instalment")) {
             moneyCommand = new ListInstalmentCommand();
+        } else if (cmd.equals("list month income")) {
+            moneyCommand = new ListMonthIncomeCommand();
+        } else if (cmd.equals("list month expenditure")) {
+            moneyCommand = new ListMonthExpenditureCommand();
+        } else if (cmd.startsWith("check income")) {
+            moneyCommand = new ViewPastMonthIncome(cmd);
+        } else if (cmd.startsWith("check expenditure")) {
+            moneyCommand = new ViewPastMonthExpenditure(cmd);
         } else {
             throw new DukeException("OOPS!!! I'm sorry, but I don't know what that means");
         }

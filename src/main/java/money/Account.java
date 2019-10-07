@@ -4,6 +4,7 @@ import controlpanel.DukeException;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Calendar;
 
 public class Account {
     private ArrayList<Income> incomeListTotal;
@@ -41,6 +42,7 @@ public class Account {
         toInitialize = account.isToInitialize();
         baseSavings = account.getBaseSavings();
         updateSavings();
+        populateCurrentMonthLists();
 //        if (account.isInitialised()) {
 //            toInitialize = false;
 //        } else { toInitialize = true; }
@@ -157,25 +159,27 @@ public class Account {
                 getShortTermGoals().isEmpty() || getInstalments().isEmpty() ||
                 getBankTrackerList().isEmpty();
     }
-/*
+
+    /**
+     * This method is run upon initialisation to fill the Month Income List and
+     * Month Expenditure List.
+     */
     public void populateCurrentMonthLists() {
-        Date currDate = new Date();
         Calendar dateNow = Calendar.getInstance();
-        int currMonth = currDate.getMonth(); // there's an issue here of depreciation
-        int currYear = currDate.getYear();
+        int currMonth = dateNow.get(Calendar.MONTH) + 1;
+        int currYear  = dateNow.get(Calendar.YEAR);
         for (Income i : incomeListTotal) {
-            Calendar cal = Calendar.getInstance();
-            if (i.getPayday().getMonth() == currMonth && i.getPayday().getYear() == currYear) {
+            if (i.getPayday().getMonthValue() == currMonth && i.getPayday().getYear() == currYear) {
                 incomeListCurrMonth.add(i);
             }
         }
         for (Expenditure e : expListTotal) {
-            if (e.getDateBoughtTime().getMonth() == currMonth && e.getDateBoughtTime().getYear() == currYear) {
+            if (e.getDateBoughtDate().getMonthValue() == currMonth && e.getDateBoughtDate().getYear() == currYear) {
                 expListCurrMonth.add(e);
             }
         }
     }
- */
+
 
     public void setToInitialize(boolean initStatus) {
         this.toInitialize = initStatus;
