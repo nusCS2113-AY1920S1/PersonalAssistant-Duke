@@ -17,7 +17,7 @@ public class DoAfter extends Task {
 
     @Override
     public String listFormat() {
-        return "[DA]" + "[" + super.getStatusIcon() + "]" + after + "(/after:" + before + ")";
+        return "[DA]" + "[" + super.getStatusIcon() + "] " + after + "(/after:" + before + ")";
     }
 
 }

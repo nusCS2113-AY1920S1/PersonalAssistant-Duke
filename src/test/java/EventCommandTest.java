@@ -44,9 +44,9 @@ class EventCommandTest {
         tasks.add(e);
         ec.execute(tasks, ui, storage);
         assertEquals("The following event(s) clash with your current event:\r\n" +
-                "1.[E][\u2718]eat(at:12 Dec 2019 03:03:03-04:04:04)\r\n\r\n" +
+                "1.[E][ND] eat(at:12 Dec 2019 03:03:03-04:04:04)\r\n\r\n" +
                 "Got it. I've added this task:\r\n" +
-                "[E][\u2718]sleep(at:12 Dec 2019 03:03:03-04:04:04)\r\n" +
+                "[E][ND] sleep(at:12 Dec 2019 03:03:03-04:04:04)\r\n" +
                 "Now you have 2 tasks in the list.\r\n", output.toString());
     }
 
@@ -62,9 +62,9 @@ class EventCommandTest {
         tasks.add(e);
         ec.execute(tasks, ui, storage);
         assertEquals("The following event(s) clash with your current event:\r\n" +
-                "1.[E][\u2718]eat(at:12 Dec 2019 03:03:03-04:04:04)\r\n\r\n" +
+                "1.[E][ND] eat(at:12 Dec 2019 03:03:03-04:04:04)\r\n\r\n" +
                 "Got it. I've added this task:\r\n" +
-                "[E][\u2718]sleep(at:12 Dec 2019 02:03:03-03:10:04)\r\n" +
+                "[E][ND] sleep(at:12 Dec 2019 02:03:03-03:10:04)\r\n" +
                 "Now you have 2 tasks in the list.\r\n", output.toString());
     }
 
@@ -80,9 +80,9 @@ class EventCommandTest {
         tasks.add(e);
         ec.execute(tasks, ui, storage);
         assertEquals("The following event(s) clash with your current event:\r\n" +
-                "1.[E][\u2718]eat(at:12 Dec 2019 03:03:03-04:04:04)\r\n\r\n" +
+                "1.[E][ND] eat(at:12 Dec 2019 03:03:03-04:04:04)\r\n\r\n" +
                 "Got it. I've added this task:\r\n" +
-                "[E][\u2718]sleep(at:12 Dec 2019 03:10:03-03:50:04)\r\n" +
+                "[E][ND] sleep(at:12 Dec 2019 03:10:03-03:50:04)\r\n" +
                 "Now you have 2 tasks in the list.\r\n", output.toString());
     }
 
@@ -97,7 +97,7 @@ class EventCommandTest {
         tasks.add(e);
         ec.execute(tasks, ui, storage);
         assertEquals("Got it. I've added this task:\r\n" +
-                "[E][\u2718]sleep(at:12 Dec 2019 12:03:03-14:10:04)\r\n" +
+                "[E][ND] sleep(at:12 Dec 2019 12:03:03-14:10:04)\r\n" +
                 "Now you have 2 tasks in the list.\r\n", output.toString());
     }
 

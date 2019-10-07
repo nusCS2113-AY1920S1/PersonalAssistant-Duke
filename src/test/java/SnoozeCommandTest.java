@@ -41,6 +41,8 @@ public class SnoozeCommandTest {
         Task snoozedDeadline = new Deadline(Description,newBy);
         tasks.remove(index);
         tasks.add(snoozedDeadline);
-        assertEquals(tasks.get(0).toString(),"D|✘|return book |by: 2009-08-08 04:03:03");
+
+        assertEquals(tasks.get(0).toString(),"D|ND|return book |by: 2009-08-08 04:03:03");
+
     }
 }
