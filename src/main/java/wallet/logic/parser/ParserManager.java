@@ -17,9 +17,6 @@ import java.text.ParseException;
  * The ParserManager Class that handles all CommandParser classes.
  */
 public class ParserManager {
-
-    private StorageManager storageManager;
-
     /**
      * Parses the user input command and returns the corresponding Command object.
      * @param fullCommand The input of user.
@@ -31,7 +28,6 @@ public class ParserManager {
         switch (arguments[0]) {
         case AddCommand.COMMAND_WORD:
             AddCommandParser addCommandParser = new AddCommandParser();
-            addCommandParser.setStorageManager(this.storageManager);
             return addCommandParser.parse(arguments[1]);
 
         case EditCommand.COMMAND_WORD:
@@ -58,9 +54,5 @@ public class ParserManager {
         default:
             return new HelpCommand();
         }
-    }
-
-    public void setStorageManager(StorageManager storageManager) {
-        this.storageManager = storageManager;
     }
 }

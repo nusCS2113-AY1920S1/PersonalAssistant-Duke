@@ -95,7 +95,7 @@ public class TaskStorage extends Storage<Task> {
 
     @Override
     public void writeListToFile(ArrayList<Task> objectList) {
-
+        //TODO: ...
     }
 
     /**
