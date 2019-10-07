@@ -13,9 +13,9 @@ public abstract class Task {
         YEARLY;
     }
 
-    protected String line;
-    protected boolean status;
-    protected Frequency frequency;
+    private String line;
+    private boolean status;
+    private Frequency frequency;
     private static final int DAILY = 1;
     private static final int WEEKLY = 2;
     private static final int MONTHLY = 3;

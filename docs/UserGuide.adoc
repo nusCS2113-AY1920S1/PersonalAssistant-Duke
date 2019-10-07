@@ -252,10 +252,15 @@ Transforms all current tasks recorded into a week view to plan for the week.
 
 Format: `viewWeek`
 
-===  Viewing all tasks in calendar view: `viewCalendar`
+===  Viewing all tasks in calendar view: `calendar`
 Transforms all current tasks recorded into a calendar view for easy time management. 
 
-Format: `viewCalendar`
+Format: `calendar MONTH YEAR`
+
+* `MONTH` is an integer from 1-12 (representing January to December).
+* `YEAR` is an integer greater than or equal to 0.
+
+Example: `calendar 10 2019`
 
 === Setting reminders for upcoming deadlines: `reminder`
 Reminders will be given when the application is launched if deadlines are due in less than 24 hours.

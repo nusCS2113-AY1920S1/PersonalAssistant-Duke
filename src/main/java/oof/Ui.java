@@ -4,6 +4,10 @@ import oof.exception.OofException;
 import oof.task.Event;
 import oof.task.Task;
 
+import java.time.DayOfWeek;
+import java.time.LocalDate;
+import java.time.Month;
+import java.time.YearMonth;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -13,6 +17,10 @@ import java.util.Scanner;
 public class Ui {
 
     private Scanner scan = new Scanner(System.in);
+    private static final int DAY_FIRST = 1;
+    private static final int DAYS_IN_WEEK = 7;
+    private static final int INDEX_SPACE = 0;
+    private static final int INDEX_START_OF_ARRAY = 0;
 
     /**
      * Scans for an integer of user input.
@@ -144,6 +152,7 @@ public class Ui {
 
     /**
      * Displays the newly added recurring tasks.
+     *
      * @param arr TaskList containing saved tasks.
      */
     public void printRecurringMessage(TaskList arr) {
@@ -267,4 +276,72 @@ public class Ui {
         printLine();
     }
 
+    /**
+     * Prints calendar.
+     *
+     * @param yearMonth Object containing month and year information.
+     */
+    public void printCalendar(YearMonth yearMonth) {
+        printCalendarHeader(yearMonth);
+        printCalendarBody(yearMonth);
+    }
+
+    /**
+     * Prints calendar header.
+     *
+     * @param yearMonth Object containing month and year information.
+     */
+    public void printCalendarHeader(YearMonth yearMonth) {
+        String[] months = {"", "JANUARY", "FEBRUARY", "MARCH", "APRIL", "MAY", "JUNE", "JULY", "AUGUST",
+                "SEPTEMBER", "OCTOBER", "NOVEMBER", "DECEMBER"};
+        String month = months[yearMonth.getMonthValue()];
+        String year = Integer.toString(yearMonth.getYear());
+        System.out.println(month + " " + year);
+        System.out.println("-------------------------------------------------------------------------------------");
+        System.out.println("|    SUN    |    MON    |    TUE    |    WED    |    THU    |    FRI    |    SAT    |");
+        System.out.println("-------------------------------------------------------------------------------------");
+    }
+
+    /**
+     * Prints calendar body.
+     *
+     * @param yearMonth Object containing month and year information.
+     */
+    public void printCalendarBody(YearMonth yearMonth) {
+        String[] date = {"  ", " 1", " 2", " 3", " 4", " 5", " 6", " 7",
+                " 8", " 9", "10", "11", "12", "13", "14", "15",
+                "16", "17", "18", "19", "20", "21", "22", "23",
+                "24", "25", "26", "27", "28", "29", "30", "31"};
+        ArrayList<String> calendarDates = new ArrayList<>();
+        for (int i = 1; i <= yearMonth.lengthOfMonth(); i++) {
+            calendarDates.add(date[i]);
+        }
+
+        DayOfWeek firstDayOfMonth = yearMonth.atDay(DAY_FIRST).getDayOfWeek();
+        if (firstDayOfMonth != DayOfWeek.SUNDAY) {
+            for (int dayCount = 0; dayCount < firstDayOfMonth.getValue(); dayCount++) {
+                calendarDates.add(INDEX_START_OF_ARRAY, date[INDEX_SPACE]);
+            }
+        }
+
+        while (calendarDates.size() % DAYS_IN_WEEK != 0) {
+            calendarDates.add(date[INDEX_SPACE]);
+        }
+
+        int numberOfWeeks = (int) Math.ceil((double) calendarDates.size() / DAYS_IN_WEEK);
+        for (int week = 0; week < numberOfWeeks; week++) {
+            int dayIndex = week * DAYS_IN_WEEK;
+            System.out.print("|");
+            for (int day = 0; day < DAYS_IN_WEEK; day++) {
+                System.out.print(" " + calendarDates.get(dayIndex) + "        |");
+                dayIndex++;
+            }
+            System.out.println();
+            System.out.println("|           |           |           |           |           |           |           |");
+            System.out.println("|           |           |           |           |           |           |           |");
+            System.out.println("|           |           |           |           |           |           |           |");
+            System.out.println("|           |           |           |           |           |           |           |");
+            System.out.println("-------------------------------------------------------------------------------------");
+        }
+    }
 }

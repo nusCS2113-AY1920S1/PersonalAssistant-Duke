@@ -11,6 +11,7 @@ import java.text.SimpleDateFormat;
 import java.time.DateTimeException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Date;
 
 /**
  * Represents a Command object that corresponds to specific commands
@@ -39,9 +40,9 @@ public abstract class Command {
      */
     public String parseTimeStamp(String date) {
         try {
-            SimpleDateFormat format = new java.text.SimpleDateFormat("dd-MM-yyyy HH:mm");
+            SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy HH:mm");
             format.parse(date);
-            String pattern = "dd-MM-yyyy HH:mm";
+            String pattern = "dd MMMM yyyy hh:mmaa";
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern(pattern);
             LocalDateTime localDateTime = LocalDateTime.from(formatter.parse(date));
             Timestamp timestamp = Timestamp.valueOf(localDateTime);
