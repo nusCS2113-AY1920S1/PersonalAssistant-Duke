@@ -19,7 +19,8 @@ public class CommandLogic {
     private static final String WRONG_FORMAT_AFTER = "Adding an after ToDo needs to have /\"after\" before inputting the index of linked task!";
     private static final String WRONG_FORMAT_NEEDS = "FixedDurationTasks need to have/\"needs\" before inputting duration!";
     private static final String INVALID_NUMBER = "Please enter a valid number!";
-    private static final String INVALID_SNOOZE = "Please only snooze either a specific DD/MM/YYYY or \"<number> <time to delay>\"\n etc: 3 days";
+    private static final String INVALID_SNOOZE = "Please only snooze either a specific DD/MM/YYYY or \"<number> "
+        + "<time to delay>\"\n etc: 3 days";
 
     /**
      * Tries to check for errors for a deadline input.
@@ -39,7 +40,16 @@ public class CommandLogic {
         }
         return true;
     }
-
+    
+    /**
+     * Validates event to check for format. 
+     *
+     * @param rawInput raw user input
+     * @param userInput split user input
+     *
+     * @return true if event is validated
+     * @throws CommandLineException Exception for format
+     */
     public static boolean validateEvent(String rawInput, String[] userInput) throws CommandLineException {
         if (isOneWord(rawInput)) {
             throw new CommandLineException(WRONG_FORMAT_NO_DESCRIPTION);
@@ -48,7 +58,16 @@ public class CommandLogic {
         }
         return true;
     }
-
+    
+    /**
+     * Validates todo to check for format.
+     *
+     * @param rawInput raw user input
+     * @param userInput split user input
+     *
+     * @return true if validated
+     * @throws CommandLineException Exception for format
+     */
     public static boolean validateToDo(String rawInput, String[] userInput) throws CommandLineException {
         if (isOneWord(rawInput)) {
             throw new CommandLineException(WRONG_FORMAT_NO_DESCRIPTION);
@@ -58,6 +77,15 @@ public class CommandLogic {
         return true;
     }
 
+    /**
+     * Validates Range to check for format.
+     *
+     * @param rawInput raw user input
+     * @param userInput split user input
+     *
+     * @return true if validated
+     * @throws CommandLineException Exception for format
+     */
     public static boolean validateRange(String rawInput, String[] userInput) throws CommandLineException {
         if (isOneWord(rawInput)) {
             throw new CommandLineException(WRONG_FORMAT_NO_DESCRIPTION);
@@ -71,6 +99,15 @@ public class CommandLogic {
         return true;
     }
 
+    /**
+     * Validates DoAfter to check for format.
+     *
+     * @param rawInput raw user input
+     * @param userInput split user input
+     *
+     * @return true if validated
+     * @throws CommandLineException Exception for format
+     */
     public static boolean validateDoAfter(String rawInput, String[] userInput) throws CommandLineException {
         if (isOneWord(rawInput)) {
             throw new CommandLineException(WRONG_FORMAT_NO_DESCRIPTION);
@@ -94,6 +131,14 @@ public class CommandLogic {
         return true;
     }
 
+    /**
+     * Validates number command to check for format.
+     *
+     * @param rawInput raw user input
+     *
+     * @return true if validated
+     * @throws CommandLineException Exception for format
+     */
     public static boolean validateNumberCommand(String rawInput) throws CommandLineException {
         if (!isTwoWord(rawInput)) {
             throw new CommandLineException(WRONG_FORMAT_LENGTH + rawInput.split(" ")[0] + " <number ID of task>\"");
@@ -106,6 +151,14 @@ public class CommandLogic {
         return true;
     }
 
+    /**
+     * Validates snooze command to check for format.
+     *
+     * @param command raw user input
+     *
+     * @return true if validated
+     * @throws CommandLineException Exception for format
+     */
     public static boolean validateSnooze(String command) throws CommandLineException {
         /**
          * Checks if user is inputting snooze in form of (number of times) (delay) or a specific date.
@@ -134,6 +187,14 @@ public class CommandLogic {
         return true;
     }
 
+    /**
+     * Validates find command to check for format.
+     *
+     * @param rawInput raw user input
+     *
+     * @return true if validated
+     * @throws CommandLineException Exception for format
+     */
     public static boolean validateFind(String rawInput) throws CommandLineException {
         if (!isTwoWord(rawInput)) {
             throw new CommandLineException(WRONG_FORMAT_LENGTH + rawInput.split(" ")[0] + " <keyword>\"");
@@ -141,6 +202,14 @@ public class CommandLogic {
         return true;
     }
 
+    /**
+     * Validates show command to check for format.
+     *
+     * @param rawInput raw user input
+     *
+     * @return true if validated
+     * @throws CommandLineException Exception for format
+     */
     public static boolean validateShow(String rawInput) throws CommandLineException {
         if (!isTwoWord(rawInput)) {
             throw new CommandLineException(WRONG_FORMAT_LENGTH + rawInput.split(" ")[0] + " <DD/MM/YYYY>");
@@ -150,6 +219,14 @@ public class CommandLogic {
         return true;
     }
 
+    /**
+     * Validates one word command to check for format.
+     *
+     * @param rawInput raw user input
+     *
+     * @return true if validated
+     * @throws CommandLineException Exception for format
+     */
     public static boolean validateOneWord(String rawInput) throws CommandLineException {
         if (!isOneWord(rawInput)) {
             throw new CommandLineException(WRONG_FORMAT_LENGTH + rawInput.split(" ")[0] + "\"");
@@ -157,10 +234,24 @@ public class CommandLogic {
         return true;
     }
 
+    /**
+     * Checks one word.
+     *
+     * @param rawInput raw user input
+     *
+     * @return true or false to check
+     */
     private static boolean isOneWord(String rawInput) {
         return rawInput.split(" ").length == 1;
     }
 
+    /**
+     * Checks two words.
+     *
+     * @param rawInput raw user input
+     *
+     * @return true or false to check
+     */
     private static boolean isTwoWord(String rawInput) {
         return rawInput.split(" ").length == 2;
     }
