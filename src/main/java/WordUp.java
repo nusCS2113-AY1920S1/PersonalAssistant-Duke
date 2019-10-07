@@ -4,14 +4,14 @@ import exception.CommandEmptyException;
 import storage.Storage;
 import ui.Ui;
 
-public class Duke {
+public class WordUp {
 
     public Ui ui;
     public Storage storage;
     public WordBank wordBank;
 
 
-    public Duke(String filePath) {
+    public WordUp(String filePath) {
         ui = new Ui();
         storage = new Storage(filePath);
         wordBank = new WordBank();
@@ -37,7 +37,8 @@ public class Duke {
     }
 
     public static void main(String[] args) {
-        new Duke("data/duke.txt").run();
+        new WordUp("data/duke.txt").run();
+
     }
 }
 

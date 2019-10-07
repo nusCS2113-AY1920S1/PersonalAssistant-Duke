@@ -1,6 +1,8 @@
 package Dictionary;
+
 import java.util.Locale;
-import exception.DukeException;
+import exception.WordUpException;
+
 import exception.NoWordFoundException;
 import command.OxfordCall;
 import java.util.Map;
@@ -30,7 +32,7 @@ public class WordBank {
     }
 
     /**
-     * Look up for meaning of a specific word
+     * Looks up for meaning of a specific word
      * @param word word to be searched for its meaning
      * @return a string represents meaning of that word
      * @throws NoWordFoundException if the word doesn't exist in the word bank
@@ -47,7 +49,7 @@ public class WordBank {
     }
 
     /**
-     * Update the meaning of a specific word
+     * Updates the meaning of a specific word
      * @param wordToBeEdited word whose meaning is updated
      * @param newMeaning new meaning of the word
      * @throws NoWordFoundException if the word doesn't exist in the word bank
@@ -71,7 +73,7 @@ public class WordBank {
     }
 
     /**
-     * Add a tag to a specific word in word bank
+     * Adds a tag to a specific word in word bank
      * @param wordToBeAddedTag word that the tag is set for
      * @param tag new tag input by user
      * @throws NoWordFoundException if the word doesn't exist in the word bank

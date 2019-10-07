@@ -9,11 +9,10 @@ import ui.Ui;
 /**
  * Represents a command from user to find tasks containing keywords specified.
  * Inherits from Command class.
- * @author Zhang Yue Han
  */
 public class SearchCommand extends Command {
 
-    String searchedWord;
+    protected String searchedWord;
 
     public SearchCommand(String queryWord) {
         this.searchedWord = queryWord;

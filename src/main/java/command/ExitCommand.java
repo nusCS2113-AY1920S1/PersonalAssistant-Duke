@@ -7,7 +7,6 @@ import ui.Ui;
 /**
  * Represents the command from user to exit application.
  * Inherits from Command class.
- * @author Zhang Yue Han
  */
 
 public class ExitCommand extends Command {

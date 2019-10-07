@@ -4,6 +4,10 @@ import Dictionary.WordBank;
 import storage.Storage;
 import ui.Ui;
 
+/**
+ * Represents a command from system to abort task due to bad user command.
+ * Inherits from Command class.
+ */
 public class BadCommand extends Command {
 
     @Override
