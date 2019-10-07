@@ -1,16 +1,18 @@
 package duke.parsers;
 
-import duke.commands.DeleteCommand;
-import duke.commands.FindCommand;
 import duke.commands.AddCommand;
 import duke.commands.Command;
+import duke.commands.DeleteCommand;
 import duke.commands.ExitCommand;
+import duke.commands.FindCommand;
+import duke.commands.FreeTimeCommand;
+import duke.commands.GetBusStopCommand;
+import duke.commands.FindPathCommand;
 import duke.commands.HelpCommand;
 import duke.commands.ListCommand;
 import duke.commands.LocationSearchCommand;
 import duke.commands.MarkDoneCommand;
 import duke.commands.ReminderCommand;
-import duke.commands.FreeTimeCommand;
 import duke.commands.RescheduleCommand;
 import duke.commands.ViewScheduleCommand;
 import duke.commons.DukeException;
@@ -66,6 +68,13 @@ public class Parser {
             return new HelpCommand();
         case "search":
             return new LocationSearchCommand(getWord(userInput));
+        case "bus":
+            return new GetBusStopCommand(getWord(userInput));
+        case "holiday":
+            return new AddCommand(ParserUtil.createHoliday(userInput));
+        case "findPath":
+            return new FindPathCommand(getWord(userInput),  getHolidayIndexInList(1, userInput),
+                    getHolidayIndexInList(2, userInput));
         default:
             throw new DukeException(MessageUtil.UNKNOWN_COMMAND);
         }
@@ -92,6 +101,14 @@ public class Parser {
             return userInput.strip().split(" ", 2)[1];
         } catch (ArrayIndexOutOfBoundsException e) {
             throw new DukeException(MessageUtil.INVALID_FORMAT);
+        }
+    }
+
+    private static String getHolidayIndexInList(int index, String userInput) {
+        if (index == 1) {
+            return userInput.strip().split(" ", 4)[2];
+        } else {
+            return userInput.strip().split(" ", 4)[3];
         }
     }
 }

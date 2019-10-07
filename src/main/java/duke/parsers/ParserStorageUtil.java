@@ -3,10 +3,12 @@ package duke.parsers;
 import duke.commons.DukeDateTimeParseException;
 import duke.commons.DukeException;
 import duke.commons.MessageUtil;
+import duke.data.Location;
 import duke.data.tasks.Deadline;
 import duke.data.tasks.DoWithin;
 import duke.data.tasks.Event;
 import duke.data.tasks.Fixed;
+import duke.data.tasks.Holiday;
 import duke.data.tasks.RecurringTask;
 import duke.data.tasks.Task;
 import duke.data.tasks.Todo;
@@ -52,6 +54,16 @@ public class ParserStorageUtil {
             int hour = Integer.parseInt(taskParts[3].strip());
             int min = Integer.parseInt(taskParts[4].strip());
             task = new Fixed(description, hour, min);
+        }  else if ("H".equals(type)) {
+            LocalDateTime start = ParserTimeUtil.parseStringToDate(taskParts[3].strip());
+            LocalDateTime end = ParserTimeUtil.parseStringToDate(taskParts[4].strip());
+            String address = taskParts[5].strip();
+            double longitude = Double.parseDouble(taskParts[6].strip());
+            double latitude = Double.parseDouble(taskParts[7].strip());
+            double distX = Double.parseDouble(taskParts[7].strip());
+            double distY = Double.parseDouble(taskParts[8].strip());
+            Location location = new Location(address,latitude,longitude,distX,distY);
+            task = new Holiday(description, start, end, location);
         } else {
             task = new Todo(description);
         }
@@ -72,6 +84,8 @@ public class ParserStorageUtil {
             return  "T | " + task.isDone() + " | " + task.getDescription();
         } else if (task instanceof Event) {
             return "E | " + task.isDone() + " | " + task.getDescription() + " | " + ((Event) task).getEvent();
+        } else if (task instanceof Holiday) {
+            return "H | " + task.isDone() + " | " + task.getDescription() + " | " + ((Holiday) task).getHoliday();
         } else if (task instanceof DoWithin) {
             return "W | " + task.isDone() + " | " + task.getDescription() + " | " + ((DoWithin) task).getWithin();
         } else if (task instanceof RecurringTask) {

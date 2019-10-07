@@ -1,14 +1,17 @@
 package duke.parsers.requests;
 
+import com.google.gson.JsonObject;
 import duke.commons.DukeException;
+
+import java.io.IOException;
 
 /**
  * Abstract class representing individual HTTP requests.
  */
 public abstract class HttpRequest {
-    private String reqType;
-    private String url;
-    private String param;
+    protected String reqType;
+    protected String url;
+    protected String param;
 
     /**
      * Initialises HTTP Request parameters.
@@ -25,6 +28,7 @@ public abstract class HttpRequest {
 
     /**
      * Executes the HTTP Request.
+     * @return
      */
-    public abstract void execute() throws DukeException;
+    public abstract JsonObject execute() throws DukeException, IOException;
 }
