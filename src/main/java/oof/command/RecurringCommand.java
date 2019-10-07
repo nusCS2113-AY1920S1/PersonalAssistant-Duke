@@ -22,8 +22,8 @@ public class RecurringCommand extends Command {
     private int index;
     private int count;
     private int frequency;
-    private static final int MINCOUNT = 1;
-    private static final int MAXCOUNT = 10;
+    private static final int COUNT_MIN = 1;
+    private static final int COUNT_MAX = 10;
     private static final int DAILY = 1;
     private static final int WEEKLY = 2;
     private static final int MONTHLY = 3;
@@ -102,11 +102,11 @@ public class RecurringCommand extends Command {
             throw new OofException("OOPS!!! Selected task is a todo, it will be labelled instead!");
         } else if (task instanceof Deadline) {
             for (int i = 1; i <= count; i++) {
-                String datetime = ((Deadline) task).getBy();
-                datetime = dateTimeIncrement(task, datetime, frequency, i);
-                Task newtask = new Deadline(task.getLine(), datetime);
-                newtask.setFrequency(frequency);
-                taskList.addTask(newtask);
+                String dateTime = ((Deadline) task).getBy();
+                dateTime = dateTimeIncrement(task, dateTime, frequency, i);
+                Task newTask = new Deadline(task.getLine(), dateTime);
+                newTask.setFrequency(frequency);
+                taskList.addTask(newTask);
             }
         } else if (task instanceof Event) {
             for (int i = 1; i <= count; i++) {
@@ -114,9 +114,9 @@ public class RecurringCommand extends Command {
                 String endTiming = ((Event) task).getEndTiming();
                 startTiming = dateTimeIncrement(task, startTiming, frequency, i);
                 endTiming = dateTimeIncrement(task, endTiming, frequency, i);
-                Task newtask = new Event(task.getLine(), startTiming, endTiming);
-                newtask.setFrequency(frequency);
-                taskList.addTask(newtask);
+                Task newTask = new Event(task.getLine(), startTiming, endTiming);
+                newTask.setFrequency(frequency);
+                taskList.addTask(newTask);
             }
         }
     }
@@ -134,9 +134,9 @@ public class RecurringCommand extends Command {
         try {
             SimpleDateFormat format;
             if (task instanceof Deadline) {
-                format = new java.text.SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
+                format = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
             } else {
-                format = new java.text.SimpleDateFormat("dd-MM-yyyy HH:mm");
+                format = new SimpleDateFormat("dd-MM-yyyy HH:mm");
             }
             Calendar calendar = Calendar.getInstance();
             calendar.setTime(format.parse(datetime));
@@ -145,9 +145,9 @@ public class RecurringCommand extends Command {
             } else if (frequency == WEEKLY) {
                 calendar.add(Calendar.DATE, WEEK * increment);
             } else if (frequency == MONTHLY) {
-                calendar.add(Calendar.MONTH, MINCOUNT * increment);
+                calendar.add(Calendar.MONTH, COUNT_MIN * increment);
             } else if (frequency == YEARLY) {
-                calendar.add(Calendar.YEAR, MINCOUNT * increment);
+                calendar.add(Calendar.YEAR, COUNT_MIN * increment);
             }
             datetime = format.format(calendar.getTime());
         } catch (ParseException e) {
@@ -162,7 +162,7 @@ public class RecurringCommand extends Command {
      * @return True if count is valid, false otherwise.
      */
     private boolean isCountValid(int count) {
-        return ((count >= MINCOUNT) && (count <= MAXCOUNT));
+        return ((count >= COUNT_MIN) && (count <= COUNT_MAX));
     }
 
     /**

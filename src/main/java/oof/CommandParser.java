@@ -3,6 +3,7 @@ package oof;
 import oof.command.AddDeadlineCommand;
 import oof.command.AddEventCommand;
 import oof.command.AddToDoCommand;
+import oof.command.CalendarCommand;
 import oof.command.Command;
 import oof.command.CompleteCommand;
 import oof.command.DeleteCommand;
@@ -23,6 +24,11 @@ import java.util.InputMismatchException;
 public class CommandParser {
 
     private static Ui ui;
+    private static final int LENGTH_COMMAND_ONLY = 1;
+    private static final int LENGTH_COMMAND_AND_TASK = 2;
+    private static final int INDEX_ARGUMENT_COMMAND = 0;
+    private static final int INDEX_ARGUMENT_TASK_NUMBER = 1;
+    private static final int INDEX_ARGUMENT_COUNT = 2;
 
     /**
      * Parses the input given by user and calls specific Commands
@@ -33,18 +39,18 @@ public class CommandParser {
      * @throws OofException Catches invalid commands given by user.
      */
     public static Command parse(String line) throws OofException {
-        String[] arr = line.split(" ");
-        switch (arr[0]) {
+        String[] argumentArray = line.split(" ");
+        switch (argumentArray[INDEX_ARGUMENT_COMMAND]) {
         case "bye":
             return new ExitCommand();
         case "list":
             return new ListCommand();
         case "done":
-            if (arr.length == 1) {
+            if (argumentArray.length == LENGTH_COMMAND_ONLY) {
                 throw new OofException("OOPS!!! Please enter a number!");
             }
             try {
-                int completeIndex = Integer.parseInt(arr[1]) - 1;
+                int completeIndex = Integer.parseInt(argumentArray[INDEX_ARGUMENT_TASK_NUMBER]) - 1;
                 return new CompleteCommand(completeIndex);
             } catch (NumberFormatException e) {
                 throw new OofException("OOPS!!! Please enter a valid number!");
@@ -59,11 +65,11 @@ public class CommandParser {
             line = line.replaceFirst("event ", "");
             return new AddEventCommand(line);
         case "delete":
-            if (arr.length == 1) {
+            if (argumentArray.length == LENGTH_COMMAND_ONLY) {
                 throw new OofException("OOPS!!! Please enter a number!");
             }
             try {
-                int deleteIndex = Integer.parseInt(arr[1]) - 1;
+                int deleteIndex = Integer.parseInt(argumentArray[INDEX_ARGUMENT_TASK_NUMBER]) - 1;
                 return new DeleteCommand(deleteIndex);
             } catch (NumberFormatException e) {
                 throw new OofException("OOPS!!! Please enter a valid number!");
@@ -71,11 +77,11 @@ public class CommandParser {
         case "find":
             return new FindCommand(line);
         case "snooze":
-            if (arr.length == 1) {
+            if (argumentArray.length == LENGTH_COMMAND_ONLY) {
                 throw new OofException("OOPS!!! Please enter a number!");
             }
             try {
-                int snoozeIndex = Integer.parseInt(arr[1]) - 1;
+                int snoozeIndex = Integer.parseInt(argumentArray[INDEX_ARGUMENT_TASK_NUMBER]) - 1;
                 return new SnoozeCommand(snoozeIndex);
             } catch (NumberFormatException e) {
                 throw new OofException("OOPS!!! Please enter a valid number!");
@@ -84,14 +90,14 @@ public class CommandParser {
             line = line.replaceFirst("schedule ", "");
             return new ScheduleCommand(line);
         case "recurring":
-            if (arr.length == 1) {
+            if (argumentArray.length == LENGTH_COMMAND_ONLY) {
                 throw new OofException("OOPS!!! Please enter the task number and number of recurrences!");
-            } else if (arr.length == 2) {
+            } else if (argumentArray.length ==  LENGTH_COMMAND_AND_TASK) {
                 throw new OofException("OOPS!!! Please enter the number of recurrences!");
             }
             try {
-                int recurringIndex = Integer.parseInt(arr[1]) - 1;
-                int recurringCount = Integer.parseInt(arr[2]);
+                int recurringIndex = Integer.parseInt(argumentArray[INDEX_ARGUMENT_TASK_NUMBER]) - 1;
+                int recurringCount = Integer.parseInt(argumentArray[INDEX_ARGUMENT_COUNT]);
                 ui = new Ui();
                 ui.printRecurringOptions();
                 int recurringFrequency = ui.scanInt();
@@ -101,6 +107,8 @@ public class CommandParser {
             } catch (InputMismatchException e) {
                 throw new OofException("OOPS!!! Please enter a valid number!");
             }
+        case "calendar":
+            return new CalendarCommand(argumentArray);
         default:
             throw new OofException("OOPS!!! I'm sorry, but I don't know what that means :-(");
         }
