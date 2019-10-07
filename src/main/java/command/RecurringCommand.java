@@ -46,7 +46,7 @@ public class RecurringCommand extends Command {
         Recurring recurring = new Recurring(splitR[0], splitR[1], splitR1[1].substring(1).toUpperCase());
         tasks.add(recurring);
         storage.saveToFile(tasks);
-        ui.showString("Got it. I've added this task:\n"
+        ui.addToOutput("Got it. I've added this task:\n"
                 + recurring.toString() + "\n"
                 + "Now you have " + tasks.size() + " task(s) in the list.");
     }

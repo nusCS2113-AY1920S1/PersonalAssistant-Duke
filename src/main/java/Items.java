@@ -1,4 +1,4 @@
-public class Items{
+public class Items {
     String name;
     int amount;
 
@@ -6,5 +6,8 @@ public class Items{
         this.name = name;
         this.amount = amount;
     }
+
+    @Override
+    public String toString() { return (this.name + " : " + this.amount);}
 }
 

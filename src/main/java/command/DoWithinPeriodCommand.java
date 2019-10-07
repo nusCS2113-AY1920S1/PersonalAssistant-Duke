@@ -45,7 +45,7 @@ public class DoWithinPeriodCommand extends Command{
         DoWithinPeriod duration = new DoWithinPeriod(doWithin[0], periods[0], periods[1]);
         tasks.add(duration);
         storage.saveToFile(tasks);
-        ui.showString("Got it. I've added this task:\n"
+        ui.addToOutput("Got it. I've added this task:\n"
                 + duration.toString() + "\n"
                 + "Now you have " + tasks.size() + " task(s) in the list");
     }
