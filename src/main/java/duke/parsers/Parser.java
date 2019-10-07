@@ -82,8 +82,19 @@ public class Parser {
             case "find":
                 return new FindCommand(description);
             case "delete":
-                index = Integer.parseInt(description);
-                return new DeleteCommand(index);
+                if (splitCommand.length > 1) {
+                    // user specifies date and index.
+                    if (description.split(" ").length >= 2) {
+                        String[] splitArgs = description.split(" ", 2);
+                        return new DeleteCommand(splitArgs[0], splitArgs[1]);
+                    } else {
+                        // user only specifies index to delete for current day.
+                        return new DeleteCommand(description);
+                    }
+                }
+
+                throw new DukeException("Please enter index of meal to delete on today's list or " +
+                        "date and index of meal to delete");
             case "update":
                 return new UpdateWeightCommand(description);
             default:

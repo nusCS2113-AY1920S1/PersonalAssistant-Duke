@@ -33,10 +33,14 @@ public class MealList {
 
     /**
      * This function is used to delete the task of a particular index.
-     * @param index the index of task to be deleted
+     * @param date date of the meal to be deleted.
+     * @param index the index of task to be deleted.
+     * @return Returns the meal that was deleted.
      */
-    public void delete(int index) {
-        this.mealTracker.get(currentDate).remove(index - 1);
+    public Meal delete(String date, int index) {
+        Meal deletedMeal = this.mealTracker.get(date).get(index - 1);
+        this.mealTracker.get(date).remove(index - 1);
+        return deletedMeal;
     }
 
     public void setMeals(String inputDate) {
