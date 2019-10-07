@@ -9,11 +9,11 @@ public class TimeboundTest {
     @Test
     void getDescriptionTest() {
 
-        assertEquals("[P][\u2718] task to be done(between: 12 Aug 2019 and 13 Aug 2019)", timeboundTest.listFormat());
+        assertEquals("[P][ND] task to be done(between: 12 Aug 2019 and 13 Aug 2019)", timeboundTest.listFormat());
     }
 
     @Test
     void getFormatTest() {
-        assertEquals("P | \u2718 | task to be done | between: 12 Aug 2019 and 13 Aug 2019", timeboundTest.toString());
+        assertEquals("P | ND | task to be done | 2019-08-12 and 2019-08-13", timeboundTest.toString());
     }
 }
