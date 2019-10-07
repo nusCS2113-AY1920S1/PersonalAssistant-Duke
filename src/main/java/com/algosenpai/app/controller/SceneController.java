@@ -4,6 +4,7 @@ package com.algosenpai.app.controller;
 import com.algosenpai.app.constant.JavaFxConstant;
 import com.algosenpai.app.constant.ResourcePathConstant;
 import javafx.application.Application;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
@@ -55,5 +56,4 @@ public class SceneController extends Application {
     private String getFxBackgroundImageStyle(String imageName) {
         return "-fx-background-image: url('" + imageName + "'); -fx-background-size: cover;";
     }
-
 }

@@ -4,6 +4,8 @@ import com.algosenpai.app.constant.ImagesConstant;
 import com.algosenpai.app.constant.JavaFxConstant;
 import com.algosenpai.app.constant.ResourcePathConstant;
 import com.algosenpai.app.utility.ResourceRandomUtility;
+import com.algosenpai.app.Chapter1;
+import com.itextpdf.text.Chapter;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
@@ -26,6 +28,9 @@ public class HomeController extends SceneController implements Initializable {
 
     @FXML
     private Label sceneTitle;
+
+    @FXML
+    private Label sceneText;
 
     @FXML
     private TextField userInput;
@@ -58,7 +63,7 @@ public class HomeController extends SceneController implements Initializable {
     }
 
     /**
-     * Handle shortcut key inputs.
+     * Handle shortcut key  inputs.
      * @param keyEvent key inputs.
      * @throws IOException key input error.
      */
@@ -70,6 +75,29 @@ public class HomeController extends SceneController implements Initializable {
         }
         if (keyEvent.getCode() == KeyCode.ESCAPE) {
             userInput.getParent().requestFocus();
+        }
+
+        //handling the user commands entered
+        if (keyEvent.getCode() == KeyCode.ENTER) {
+            switch (userInput.getText()) {
+            case "menu":
+                sceneText.setText("These are the commands available");
+                break;
+            case "start":
+                sceneText.setText("The game is loading....");
+                int questionNumber = 0;
+                while (questionNumber < 10) {
+                    Chapter1.generateQuestions();
+                    questionNumber++;
+                }
+                break;
+            case "exit":
+                sceneText.setText("Aww you're leaving already? See you soon!");
+                break;
+            default:
+                sceneText.setText("I'm sorry, I don't understand what you mean..");
+            }
+            userInput.setText("");
         }
     }
 
