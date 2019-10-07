@@ -1,6 +1,7 @@
 package duke.Data;
 
 import duke.Module.TimeSlot;
+import duke.Sports.MyClass;
 import duke.Task.*;
 
 import java.io.File;
@@ -57,6 +58,72 @@ public class Storage {
             System.out.println("File not found:" + io.getMessage());
         }
     }
+
+    public String dateRevert(String date) {
+        try {
+            Date newDateFormat = new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy").parse(date);
+            String oldDateFormat = new SimpleDateFormat("dd/MM/yyyy HHmm").format(newDateFormat);
+            return oldDateFormat;
+        } catch (ParseException pe) {
+            System.err.println("Error: Date in wrong format");
+            return date;
+        }
+    }
+
+    /**
+     * This function parses the info of the duke.txt into an ArrayList.
+     * @return ArrayList containing all the parsed data from the duke.txt file
+     * @throws FileNotFoundException          e
+     * @throws ArrayIndexOutOfBoundsException e
+     */
+    public ArrayList<Item> loadFile() {
+        try {
+            ArrayList<Item> list = new ArrayList<>();
+            while (fileInput.hasNextLine()) { //do something
+                String type;
+                Boolean stat;
+                String s1 = fileInput.nextLine();
+                String[] data = s1.split("-");
+                type = data[0];
+                stat = (data[1].equals("1"));
+
+                switch (type) {
+                case "D":
+                    Item deadline = new Deadline(data[2], stat, dateRevert(data[3]));
+                    list.add(deadline);
+                    break;
+
+                case "E":
+                    Item event = new Event(data[2], stat, dateRevert(data[3]));
+                    list.add(event);
+                    break;
+
+                case "T":
+                    Item todo = new ToDo(data[2], stat, data[3]);
+                    list.add(todo);
+                    break;
+
+                case "A":
+                    Item after = new After(data[2], stat, dateRevert(data[3]));
+                    list.add(after);
+                    break;
+
+                case "C":
+                    Item myClass = new MyClass(data[2], stat, data[3]);
+                    list.add(myClass);
+                    break;
+
+                default:
+                    System.out.println("No data");
+                }
+            }
+            fileInput.close();
+            return list;
+        } catch (ArrayIndexOutOfBoundsException e) {
+            return null;
+        }
+    }
+
 
     /**
      * This function updates the list of tasks.
