@@ -13,12 +13,11 @@ import java.util.ArrayList;
 public class TagCommand extends Command {
     @Override
     public void execute(ArrayList<Task> list, Ui ui, Storage storage) throws DukeException, ParseException, IOException, NullPointerException {
-        ArrayList<Task> tagList = new ArrayList<>();
         try {
             if (ui.FullCommand.equals("#") || ui.FullCommand.equals("# ")) {
                 throw new DukeException("The tag description cannot be empty.");
             } else {
-
+                ArrayList<Task> tagList = new ArrayList<>();
                 String tag = ui.FullCommand.substring(1);
                 for (Task it : list) {
                     if (it.description.contains("#")) {
