@@ -2,17 +2,14 @@ package seedu.hustler;
 
 import java.io.IOException;
 
+import seedu.hustler.data.*;
 import seedu.hustler.game.avatar.Avatar;
 import seedu.hustler.command.Command;
 import java.util.Scanner;
 
-import seedu.hustler.data.AvatarStorage;
-import seedu.hustler.data.Schedule;
 import seedu.hustler.logic.CommandLineException;
 import seedu.hustler.task.Reminders;
 import seedu.hustler.ui.Ui;
-import seedu.hustler.data.Storage;
-import seedu.hustler.data.Folder;
 import seedu.hustler.task.TaskList;
 import seedu.hustler.parser.CommandParser;
 
@@ -50,6 +47,11 @@ public class Hustler {
     public static Avatar avatar;
 
     /**
+     * The settings instance that keeps track of User's preference.
+     */
+    public static Settings settings;
+
+    /**
      * Runs Duke which commences the user to machine
      * feedback loop until the user enters "bye".
      * Loads existing tasklist and avatar, and performs operations
@@ -66,6 +68,7 @@ public class Hustler {
     public static void run() throws IOException {
         ui.show_opening_string();
         Folder.checkDirectory();
+        //settings.load();
         list = new TaskList(storage.load());
 
         // Display reminders at the start

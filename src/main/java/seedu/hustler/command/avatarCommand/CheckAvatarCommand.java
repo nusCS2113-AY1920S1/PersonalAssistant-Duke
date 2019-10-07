@@ -1,11 +1,12 @@
-package seedu.hustler.command;
+package seedu.hustler.command.avatarCommand;
 
 import seedu.hustler.Hustler;
+import seedu.hustler.command.Command;
 
 /**
  * Command that checks the avatar's current status.
  */
-public class CheckAvatarCommand extends Command{
+public class CheckAvatarCommand extends Command {
 
     public CheckAvatarCommand() {
 

@@ -2,7 +2,10 @@ package seedu.hustler.parser;
 
 import java.util.Arrays;
 
-import seedu.hustler.command.*;
+import seedu.hustler.command.Command;
+import seedu.hustler.command.avatarCommand.CheckAvatarCommand;
+import seedu.hustler.command.avatarCommand.SetNameCommand;
+import seedu.hustler.command.taskCommand.*;
 import seedu.hustler.logic.CommandLineException;
 
 /**
@@ -54,11 +57,16 @@ public class CommandParser extends Parser {
         } else if (userInput[0].equals("snooze")) {
             return new SnoozeCommand(userInput);
         } else if (userInput[0].equals("/avatar")) {
-            return new CheckAvatarCommand();
+            if (userInput[1].equals("stats")) {
+                return new CheckAvatarCommand();
+            } else if(userInput[1].contains("setname")) {
+                return new SetNameCommand(userInput);
+            }
         } else if (Arrays.binarySearch(taskCommands, userInput[0]) >= 0) {
             return new AddCommand(userInput);
         } else {
             return new InvalidCommand();
         }
+        return null;
     }
 }

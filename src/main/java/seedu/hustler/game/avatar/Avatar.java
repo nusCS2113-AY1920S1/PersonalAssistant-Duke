@@ -43,6 +43,16 @@ public class Avatar implements Convertible {
     }
 
     /**
+     * Sets the name for the avatar.
+     * @param preferredName the new name to update to the avatar.
+     * @return the avatar with the updated name.
+     */
+    public Avatar setName(String preferredName) {
+        this.name = preferredName;
+        return this;
+    }
+
+    /**
      * Increases avatar xp by 1. Avatar levels up and increases
      * its stats if the xp gained levels it up.
      *
