@@ -247,7 +247,7 @@ D2 returns the user’s degree list with Electrical Engineering added
  +
 User types in the command in the following manner: `swap CEG EE` +
  +
-D2 returns the user’s degree list with CEG and EE having switched indexes
+D2 returns the user’s degree list with CEG and EE having switched indexes 
 |===
 
 <<<
