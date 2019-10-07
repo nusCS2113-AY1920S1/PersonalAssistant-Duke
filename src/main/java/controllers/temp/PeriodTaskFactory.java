@@ -1,7 +1,7 @@
 package controllers.temp;
 
 import exceptions.DukeException;
-import models.tasks.PeriodTask;
+import models.temp.tasks.PeriodTask;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;

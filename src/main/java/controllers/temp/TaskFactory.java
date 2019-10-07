@@ -6,12 +6,12 @@ import exceptions.temp.NoTaskDetailsException;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
 
-import models.tasks.ITask;
-import models.tasks.Deadline;
-import models.tasks.ToDos;
-import models.tasks.Event;
-import models.tasks.DoAfter;
-import models.tasks.Tentative;
+import models.temp.tasks.ITask;
+import models.temp.tasks.Deadline;
+import models.temp.tasks.ToDos;
+import models.temp.tasks.Event;
+import models.temp.tasks.DoAfter;
+import models.temp.tasks.Tentative;
 
 
 import java.awt.image.ImagingOpException;
@@ -35,7 +35,7 @@ public class TaskFactory {
      * Factory class responsible for creation of objects based on interface.
      *
      * @param input : Command typed into CLI.
-     * @return : returns an models.tasks.ITask based on command typed into CLI.
+     * @return : returns an models.temp.tasks.ITask based on command typed into CLI.
      * @throws DukeException : when command entered does not match existing Tasks.
      */
     public ITask createTask(String input) throws DukeException {

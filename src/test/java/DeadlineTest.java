@@ -3,8 +3,8 @@ import exceptions.DukeException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import models.tasks.Deadline;
-import models.tasks.ITask;
+import models.temp.tasks.Deadline;
+import models.temp.tasks.ITask;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;

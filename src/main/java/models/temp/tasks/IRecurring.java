@@ -1,4 +1,4 @@
-package models.tasks;
+package models.temp.tasks;
 
 import java.io.Serializable;
 import java.util.Date;

@@ -1,7 +1,7 @@
-package models.commands;
+package models.temp.commands;
 
-import models.tasks.ITask;
-import models.tasks.TaskList;
+import models.temp.tasks.ITask;
+import models.temp.tasks.TaskList;
 
 public class DoneCommand implements ICommand {
 

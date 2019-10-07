@@ -1,7 +1,7 @@
 package controllers.temp;
 
 import exceptions.DukeException;
-import models.tasks.Recurring;
+import models.temp.tasks.Recurring;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;

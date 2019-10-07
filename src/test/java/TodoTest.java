@@ -1,7 +1,7 @@
 import controllers.temp.TaskFactory;
 import exceptions.DukeException;
-import models.tasks.ITask;
-import models.tasks.ToDos;
+import models.temp.tasks.ITask;
+import models.temp.tasks.ToDos;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;

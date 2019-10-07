@@ -1,6 +1,6 @@
-package models.tasks;
+package models.temp.tasks;
 
-import models.commands.IDateSettable;
+import models.temp.commands.IDateSettable;
 
 import java.io.Serializable;
 import java.util.Date;
