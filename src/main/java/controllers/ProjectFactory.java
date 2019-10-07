@@ -4,9 +4,6 @@ import models.data.IProject;
 import models.data.NullProject;
 import models.data.Project;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-
 public class ProjectFactory implements IArchDukeFactory<IProject> {
     /**
      * Data Validation

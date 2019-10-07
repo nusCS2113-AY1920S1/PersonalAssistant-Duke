@@ -1,8 +1,5 @@
 package models.commands;
 
-import exceptions.DukeException;
-import models.tasks.Deadline;
-import models.tasks.ITask;
 import models.tasks.TaskList;
 import models.tasks.ToDos;
 

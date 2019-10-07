@@ -54,7 +54,6 @@ public class ConsoleInputController implements IViewController {
         ArrayList<IRecurring> allRecurringTasks = this.taskList.getAllRecurringTasks();
         for (IRecurring recurringTask : allRecurringTasks) {
             long diff = date.getTime() - recurringTask.getStartDate().getTime();
-            long diffDays = diff / (24 * 60 * 60 * 1000);
             if (diff == 0) {
                 LocalDateTime localDateTime = date.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime();
                 localDateTime = localDateTime.plusDays(7);

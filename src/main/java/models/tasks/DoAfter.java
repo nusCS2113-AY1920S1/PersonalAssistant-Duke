@@ -58,9 +58,4 @@ public class DoAfter implements ITask {
     public String getFullDescription() {
         return null;
     }
-
-    @Override
-    public void setDateTime(String newDateTime) {
-
-    }
 }
