@@ -10,6 +10,8 @@ public class Booking /*extends Facility*/ {
 
     protected int pax;
 
+    protected String description;
+
     /**
      * Facility.Booking constructor to make booking
      * @param roomcode the specific room code
@@ -21,7 +23,7 @@ public class Booking /*extends Facility*/ {
         this.venue = roomcode;
         this.pax = Integer.parseInt(people);
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/mm/yyyy HH:mm");
-        this.dateTime = LocalDateTime.parse(timing, formatter);
+        this.dateTime = LocalDateTime.parse(timing, formatter); //add start time and end time
     }
 
     @Override

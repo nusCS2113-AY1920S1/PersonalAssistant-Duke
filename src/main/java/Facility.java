@@ -6,7 +6,9 @@ public class Facility {
 
     protected String roomCode;
 
-    protected ArrayList <Items> inventory;
+    protected String Name;
+
+    protected ArrayList <Items> inventory; //convert to 2d array
 
     protected int capacity;
 
@@ -26,6 +28,8 @@ public class Facility {
             if (inventory.get(i).name.contains(item)) {
                 found = true;
                 inventory.get(i).amount = amount;
+                System.out.println("This place now has:\n");
+                System.out.println((i + 1) + ". " + inventory.get(i).toString() + "\n");
                 break;
             }
         }
