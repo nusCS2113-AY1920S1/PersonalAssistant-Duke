@@ -1,7 +1,6 @@
 package moneycommands;
 
 import controlpanel.MoneyStorage;
-import controlpanel.Storage;
 import controlpanel.Ui;
 import money.Account;
 import money.Expenditure;
