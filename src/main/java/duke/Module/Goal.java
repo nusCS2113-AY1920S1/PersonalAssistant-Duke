@@ -2,14 +2,10 @@ package duke.Module;
 
 import duke.Data.Storage;
 
-import java.io.FileWriter;
-import java.io.IOException;
-import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.Map;
 
 public class Goal {
