@@ -82,10 +82,20 @@ public class Expense extends Record {
         isRecurring = recurring;
     }
 
+    /**
+     * Gets the recurring frequency string.
+     *
+     * @return A string indicating the recurring frequency.
+     */
     public String getRecFrequency() {
         return recFrequency;
     }
 
+    /**
+     * Sets the recurring frequency.
+     *
+     * @param recFrequency The recurring frequency string.
+     */
     public void setRecFrequency(String recFrequency) {
         this.recFrequency = recFrequency;
     }
@@ -93,10 +103,12 @@ public class Expense extends Record {
     @Override
     public String toString() {
         if (isRecurring) {
-            return "[" + recFrequency + "] " + getDescription() + " Amount:$" + amount + " Date:"
+            return "[ID: " + getId() + "]" + "[" + recFrequency + "] "
+                    + getDescription() + " Amount:$" + amount + " Date:"
                     + DateTimeFormatter.ofPattern("dd MMM yyyy").format(getDate()) + " Category:" + category;
         } else {
-            return getDescription() + " Amount:$" + amount + " Date:"
+            return "[ID: " + getId() + "]" + " "
+                    + getDescription() + " Amount:$" + amount + " Date:"
                     + DateTimeFormatter.ofPattern("dd MMM yyyy").format(getDate()) + " Category:" + category;
         }
     }
@@ -105,10 +117,10 @@ public class Expense extends Record {
     @Override
     public String writeToFile() {
         if (isRecurring) {
-            return getDescription() + "," + amount + ","
+            return getId() + "," + getDescription() + "," + amount + ","
                     + DateTimeFormatter.ofPattern("dd/MM/yyyy").format(getDate()) + "," + category + "," + recFrequency;
         } else {
-            return getDescription() + "," + amount + ","
+            return getId() + "," + getDescription() + "," + amount + ","
                     + DateTimeFormatter.ofPattern("dd/MM/yyyy").format(getDate()) + "," + category;
         }
     }

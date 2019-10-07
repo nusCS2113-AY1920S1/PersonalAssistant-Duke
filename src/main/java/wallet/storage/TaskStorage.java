@@ -93,12 +93,16 @@ public class TaskStorage extends Storage<Task> {
         return taskList;
     }
 
+    @Override
+    public void writeListToFile(ArrayList<Task> objectList) {
+        //TODO: ...
+    }
+
     /**
      * Attempts to write newly added task into a save file on the local computer.
      *
      * @param task The new task that is added.
      */
-    @Override
     public void writeToFile(Task task) {
         try {
             RandomAccessFile raf = new RandomAccessFile(DEFAULT_STORAGE_FILEPATH, "rws");
@@ -119,7 +123,6 @@ public class TaskStorage extends Storage<Task> {
      * @param task  The task to be marked as done.
      * @param index The index of the task in the list.
      */
-    @Override
     public void updateToFile(Task task, int index) {
         try {
             RandomAccessFile raf = new RandomAccessFile(DEFAULT_STORAGE_FILEPATH, "rws");
@@ -150,7 +153,6 @@ public class TaskStorage extends Storage<Task> {
      * @param taskList The list of task to update.
      * @param index    The index of the task in the list to be removed.
      */
-    @Override
     public void removeFromFile(ArrayList<Task> taskList, int index) {
         try {
             RandomAccessFile raf = new RandomAccessFile(DEFAULT_STORAGE_FILEPATH, "rws");

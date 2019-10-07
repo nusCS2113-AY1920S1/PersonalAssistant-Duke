@@ -41,18 +41,21 @@ public class BudgetStorage extends Storage<Budget> {
     }
 
     /**
-     * Writes budget to file.
-     * @param budget Budget object.
+     * Writes budget list to file.
+     * @param budgetList The list of budgets.
      */
     @Override
-    public void writeToFile(Budget budget) {
+    public void writeListToFile(ArrayList<Budget> budgetList) {
         try {
             RandomAccessFile raf = new RandomAccessFile(DEFAULT_STORAGE_FILEPATH_BUDGET, "rws");
-            raf.seek(raf.length());
-            if (raf.getFilePointer() != 0) {
-                raf.writeBytes("\r\n");
+            raf.setLength(0);
+
+            for (Budget budget : budgetList) {
+                if (raf.getFilePointer() != 0) {
+                    raf.writeBytes("\r\n");
+                }
+                raf.writeBytes(budget.writeToFile());
             }
-            raf.writeBytes(budget.writeToFile());
             raf.close();
         } catch (IOException e) {
             System.out.println("IOException: " + e.getMessage());
@@ -64,7 +67,6 @@ public class BudgetStorage extends Storage<Budget> {
      * @param budget  The object to be modified.
      * @param index The index of the object in the list.
      */
-    @Override
     public void updateToFile(Budget budget, int index) {
         //blank
     }
@@ -74,9 +76,7 @@ public class BudgetStorage extends Storage<Budget> {
      * @param budgetArrayList The list to update.
      * @param index The index of the object in the list to be deleted.
      */
-    @Override
     public void removeFromFile(ArrayList<Budget> budgetArrayList, int index) {
         //blank
     }
-
 }

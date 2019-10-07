@@ -1,7 +1,9 @@
 package wallet.logic.parser;
 
+import wallet.logic.LogicManager;
 import wallet.logic.command.AddCommand;
 import wallet.model.contact.Contact;
+import wallet.model.contact.ContactList;
 import wallet.model.record.Expense;
 import wallet.model.record.Loan;
 import wallet.model.task.Deadline;
@@ -9,14 +11,18 @@ import wallet.model.task.DoWithinPeriod;
 import wallet.model.task.Event;
 import wallet.model.task.Task;
 import wallet.model.task.Todo;
+import wallet.storage.StorageManager;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.Date;
 
 public class AddCommandParser implements Parser<AddCommand> {
+
+    private StorageManager storageManager;
 
     /**
      * Returns an AddCommand object.
@@ -39,7 +45,6 @@ public class AddCommandParser implements Parser<AddCommand> {
             } else {
                 break;
             }
-
         case "expense":
             Expense expense = parseExpense(arguments[1]);
             if (expense != null) {
@@ -74,7 +79,7 @@ public class AddCommandParser implements Parser<AddCommand> {
      *
      * @param input A string input.
      * @return The Expense object.
-     * @throws NumberFormatException Wrong format.
+     * @throws NumberFormatException          Wrong format.
      * @throws ArrayIndexOutOfBoundsException Out of index.
      */
     private Expense parseExpense(String input) throws NumberFormatException, ArrayIndexOutOfBoundsException {
@@ -118,7 +123,7 @@ public class AddCommandParser implements Parser<AddCommand> {
      * @param input The string after "loan".
      * @return The Loan object.
      * @throws ArrayIndexOutOfBoundsException Out of index.
-     * @throws ParseException ParseException.
+     * @throws ParseException                 ParseException.
      */
     private Loan parseLoan(String input) throws ArrayIndexOutOfBoundsException, ParseException {
         Loan loan = null;
@@ -126,16 +131,24 @@ public class AddCommandParser implements Parser<AddCommand> {
 
         String[] info = input.split(" ", 4);
         String description = info[0];
-        double amount = Double.parseDouble(info[1].replace("$",""));
+        double amount = Double.parseDouble(info[1].replace("$", ""));
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         LocalDate createdDate = LocalDate.parse(info[2].trim(), formatter);
 
-        if (info[3].equals("/l")) {
+        info = info[3].split("/c ");
+        System.out.println(info[0]);
+        int contactId = Integer.parseInt(info[1]);
+        System.out.println(info[1]);
+
+        if (info[0].equals("/l")) {
             isLend = true;
-        } else if (info[3].equals("/b")) {
+        } else if (info[0].equals("/b")) {
             isLend = false;
         }
-        loan = new Loan(description, createdDate, amount, isLend, false);
+
+        ArrayList<Contact> contactList = LogicManager.getWallet().getContactList().getContactList();
+        Contact person = new ContactList(contactList).getContact(contactId - 1);
+        loan = new Loan(description, createdDate, amount, isLend, false, person);
         return loan;
     }
 
@@ -159,10 +172,10 @@ public class AddCommandParser implements Parser<AddCommand> {
      * Returns a Task Object based on command and input.
      *
      * @param command A string command.
-     * @param input A string input.
+     * @param input   A string input.
      * @return The Task object.
      * @throws ArrayIndexOutOfBoundsException Out of index.
-     * @throws ParseException ParseException.
+     * @throws ParseException                 ParseException.
      */
     private Task parseTask(String command, String input) throws ArrayIndexOutOfBoundsException, ParseException {
         Task task = null;

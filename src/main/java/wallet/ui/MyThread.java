@@ -1,56 +1,67 @@
 package wallet.ui;
 
-import wallet.model.Wallet;
 import wallet.model.record.Loan;
 import wallet.model.record.LoanList;
 
 class MyThread implements Runnable {
 
     // to stop the thread
-    private boolean exit;
+    private boolean isExit;
     private Thread thread;
     private int timeInSeconds;
     private int counter;
+    private LoanList loanList;
     private Ui ui;
-    private Wallet wallet;
 
-    MyThread(boolean exit, LoanList loanList, int timeInSeconds) {
-        this.exit = exit;
+    /**
+     * Constructs a custom thread.
+     *
+     * @param isExit        A boolean variable to continue running thread/terminate.
+     * @param loanList      The LoanList object.
+     * @param timeInSeconds The time in seconds.
+     */
+    MyThread(boolean isExit, LoanList loanList, int timeInSeconds) {
+        this.isExit = isExit;
         this.timeInSeconds = timeInSeconds;
+        this.loanList = loanList;
+        this.ui = new Ui();
         thread = new Thread(this);
-        System.out.println("New thread: " + thread);
+        //System.out.println("New thread: " + thread);
         thread.start(); // Starting the thread
     }
 
 
-    // execution of thread starts from run() method
+    /**
+     * Executes the thread.
+     */
     public void run() {
         int i = 0;
-        while (!exit) {
-            System.out.println(i);
+        while (!isExit) {
             i++;
             try {
-                Thread.sleep(timeInSeconds * 1000);
                 counter = 1;
                 ui.printLine();
                 System.out.println("Remember to settle your loans soon!");
-                for (Loan l : wallet.getLoanList().getLoanList()) {
+                for (Loan l : loanList.getLoanList()) {
                     if (!l.isSettled()) {
                         System.out.println(counter + ". " + l.toString());
                     }
                     counter++;
                 }
                 ui.printLine();
+                Thread.sleep(timeInSeconds * 1000);
             } catch (InterruptedException e) {
-                System.out.println("Caught:" + e);
+                System.out.println("Stopping auto reminders...:");
             }
         }
-        System.out.println("Stopped.");
     }
 
-    // for stopping the thread
+    /**
+     * Stops the thread.
+     */
     public void stop() {
-        exit = true;
+        thread.interrupt();
+        isExit = true;
     }
 }
 

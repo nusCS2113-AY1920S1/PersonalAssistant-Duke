@@ -18,12 +18,10 @@ public class Reminder {
      * @param wallet The Wallet object.
      */
     public Reminder(Wallet wallet) {
-        ui = new Ui();
-        this.loanList = loanList;
-        number = 1;
+        this.loanList = wallet.getLoanList();
         autoRemind = true;
-        timeInSeconds = 5; //set default time interval of auto remind to be 30 minutes
-        thread = new MyThread(true, wallet.getLoanList(), timeInSeconds);
+        timeInSeconds = 1800; //set default time interval of auto remind to be 30 minutes
+        thread = new MyThread(false, wallet.getLoanList(), timeInSeconds);
     }
 
 

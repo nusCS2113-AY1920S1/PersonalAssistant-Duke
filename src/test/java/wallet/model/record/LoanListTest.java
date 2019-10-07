@@ -1,4 +1,4 @@
-package wallet.model.record;
+/*package wallet.model.record;
 
 import org.junit.jupiter.api.Test;
 import java.time.LocalDate;
@@ -59,4 +59,4 @@ public class LoanListTest {
         }
     }
 }
-
+*/

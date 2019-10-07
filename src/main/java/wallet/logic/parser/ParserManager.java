@@ -9,6 +9,7 @@ import wallet.logic.command.HelpCommand;
 import wallet.logic.command.ListCommand;
 import wallet.logic.command.SetBudgetCommand;
 import wallet.logic.command.ViewCommand;
+import wallet.storage.StorageManager;
 
 import java.text.ParseException;
 
@@ -26,7 +27,8 @@ public class ParserManager {
 
         switch (arguments[0]) {
         case AddCommand.COMMAND_WORD:
-            return new AddCommandParser().parse(arguments[1]);
+            AddCommandParser addCommandParser = new AddCommandParser();
+            return addCommandParser.parse(arguments[1]);
 
         case EditCommand.COMMAND_WORD:
             return new EditCommandParser().parse(arguments[1]);
