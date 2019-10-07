@@ -76,7 +76,7 @@ public class Command {
                     taskList.modifyTask(num, task);
                     System.out.println("Nice! I've marked this task as done:");
                     System.out.println(task.toString());
-                    fileIO.updateToFile(task, num);
+                    //fileIO.updateToFile(task, num);
                 }
             } catch (IndexOutOfBoundsException e) {
                 System.out.println("☹ OOPS!!! I'm sorry, but this task does not exist");
@@ -91,7 +91,7 @@ public class Command {
                     System.out.println("Got it. I've added this task:");
                     System.out.println(task.toString());
                     System.out.println("Now you have " + taskList.getTaskListSize() + " tasks in the list.");
-                    fileIO.writeToFile(task);
+                    //fileIO.writeToFile(task);
                 }
             } catch (ArrayIndexOutOfBoundsException e) {
                 System.out.println("☹ OOPS!!! The description of " + command[0] + " cannot be empty");
@@ -101,7 +101,7 @@ public class Command {
                 int index = Integer.parseInt(command[1]) - 1;
                 Task task = taskList.getTask(index);
                 taskList.deleteTask(index);
-                fileIO.removeFromFile(taskList.getTaskList(), index);
+                //fileIO.removeFromFile(taskList.getTaskList(), index);
                 System.out.println("Noted. I've removed this task:");
                 System.out.println(task.toString());
                 System.out.println("Now you have " + taskList.getTaskListSize() + " tasks in the list.");
@@ -121,7 +121,7 @@ public class Command {
                     System.out.println("Got it. I've added this task:");
                     System.out.println(task.toString());
                     System.out.println("Now you have " + taskList.getTaskListSize() + " tasks in the list.");
-                    fileIO.writeToFile(task);
+                    //fileIO.writeToFile(task);
                 }
             } catch (ArrayIndexOutOfBoundsException e) {
                 System.out.println("☹ OOPS!!! The description of " + command[0] + " cannot be empty");
@@ -140,12 +140,12 @@ public class Command {
                     if (newEvent != null) {
                         taskList.addTask(newEvent);
                         taskList.deleteTask(num);
-                        fileIO.removeFromFile(taskList.getTaskList(), num);
+                        //fileIO.removeFromFile(taskList.getTaskList(), num);
                         System.out.println("Got it. I've updated it into an event:");
                         System.out.println(newEvent.toString());
                         System.out.println("Now you have " + taskList.getTaskListSize() + " tasks in the list.");
-                        fileIO.writeToFile(newEvent);
-                        fileIO.removeFromFile(taskList.getTaskList(), num);
+                        //fileIO.writeToFile(newEvent);
+                        //fileIO.removeFromFile(taskList.getTaskList(), num);
                     }
                 } else {
                     System.out.println("☹ OOPS!!! I'm sorry, but this task is not a tentative schedule");

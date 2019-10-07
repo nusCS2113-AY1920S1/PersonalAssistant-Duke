@@ -59,33 +59,26 @@ public class LoanStorage extends Storage<Loan> {
     }
 
     /**
-     * Write the Loan object as a String into loan.txt.
+     * Writes the loan list into loan.txt.
      *
-     * @param loan The Loan object.
+     * @param loanList The Loan object.
      */
     @Override
-    public void writeToFile(Loan loan) {
+    public void writeListToFile(ArrayList<Loan> loanList) {
         try {
             RandomAccessFile raf = new RandomAccessFile(DEFAULT_STORAGE_FILEPATH_LOAN, "rws");
-            raf.seek(raf.length());
-            if (raf.getFilePointer() != 0) {
-                raf.writeBytes("\r\n");
+            raf.setLength(0);
+
+            for (Loan loan : loanList) {
+                if (raf.getFilePointer() != 0) {
+                    raf.writeBytes("\r\n");
+                }
+                raf.writeBytes(loan.writeToFile());
             }
-            raf.writeBytes(loan.writeToFile());
             raf.close();
         } catch (IOException e) {
             System.out.println("IOException: " + e.getMessage());
         }
-    }
-
-    @Override
-    public void updateToFile(Loan loan, int index) {
-
-    }
-
-    @Override
-    public void removeFromFile(ArrayList<Loan> loanList, int index) {
-
     }
 
     /**

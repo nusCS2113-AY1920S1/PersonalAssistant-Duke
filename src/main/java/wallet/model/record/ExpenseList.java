@@ -9,7 +9,7 @@ import java.util.ArrayList;
  * The ExpenseList Class that maintains a list of Expense objects.
  */
 public class ExpenseList {
-
+    private boolean isModified = false;
     private ArrayList<Expense> expenseList;
 
     /**
@@ -24,6 +24,20 @@ public class ExpenseList {
      */
     public ExpenseList(ArrayList<Expense> expenseList) {
         this.expenseList = expenseList;
+    }
+
+    /**
+     * Returns true if list is modified, else false.
+     */
+    public boolean getIsModified() {
+        return isModified;
+    }
+
+    /**
+     * Sets status of whether list is modified.
+     */
+    public void setModified(boolean modified) {
+        isModified = modified;
     }
 
     /**
@@ -156,5 +170,36 @@ public class ExpenseList {
             }
         }
         return max;
+    }
+
+    /**
+     * Deletes an expense using its id.
+     * @param id The id of the expense to delete.
+     * @return
+     */
+    public Expense deleteExpense(int id) {
+        int index = findExpenseWithId(id);
+        if (index >= 0) {
+            Expense expense = getExpense(index);
+            expenseList.remove(index);
+            return expense;
+        }
+        return null;
+    }
+
+    /**
+     * Finds and returns expense using its id.
+     * @param id The id of the expense to find.
+     * @return
+     */
+    public int findExpenseWithId(int id) {
+        int index = 0;
+        for (Expense e : this.expenseList) {
+            if (e.getId() == id) {
+                return index;
+            }
+            index++;
+        }
+        return -1;
     }
 }

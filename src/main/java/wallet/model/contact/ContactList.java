@@ -3,6 +3,7 @@ package wallet.model.contact;
 import java.util.ArrayList;
 
 public class ContactList {
+    private boolean isModified = false;
     /**
      * Stores the current list of contacts of the user.
      */
@@ -17,6 +18,20 @@ public class ContactList {
 
     public ContactList(ArrayList<Contact> contactList) {
         this.contactList = contactList;
+    }
+
+    /**
+     * Returns true if list is modified, else false.
+     */
+    public boolean getIsModified() {
+        return isModified;
+    }
+
+    /**
+     * Sets status of whether list is modified.
+     */
+    public void setModified(boolean modified) {
+        isModified = modified;
     }
 
     /**

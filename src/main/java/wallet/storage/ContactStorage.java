@@ -46,32 +46,25 @@ public class ContactStorage extends Storage<Contact> {
     }
 
     /**
-     * Writes the contact into contacts.txt.
+     * Writes the contact list into contacts.txt.
      *
-     * @param contact The Contact object.
+     * @param contactList The list of contacts.
      */
     @Override
-    public void writeToFile(Contact contact) {
+    public void writeListToFile(ArrayList<Contact> contactList) {
         try {
             RandomAccessFile raf = new RandomAccessFile(DEFAULT_STORAGE_FILEPATH_CONTACT, "rws");
-            raf.seek(raf.length());
-            if (raf.getFilePointer() != 0) {
-                raf.writeBytes("\r\n");
+            raf.setLength(0);
+
+            for (Contact contact : contactList) {
+                if (raf.getFilePointer() != 0) {
+                    raf.writeBytes("\r\n");
+                }
+                raf.writeBytes(contact.writeToFile());
             }
-            raf.writeBytes(contact.writeToFile());
             raf.close();
         } catch (IOException e) {
             System.out.println("IOException: " + e.getMessage());
         }
-    }
-
-    @Override
-    public void updateToFile(Contact contact, int index) {
-
-    }
-
-    @Override
-    public void removeFromFile(ArrayList<Contact> contactList, int index) {
-
     }
 }

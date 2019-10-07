@@ -3,7 +3,7 @@ package wallet.model.record;
 import java.util.ArrayList;
 
 public class BudgetList {
-
+    private boolean isModified = false;
     private ArrayList<Budget> budgetList;
 
     /**
@@ -27,6 +27,20 @@ public class BudgetList {
      */
     public ArrayList<Budget> getBudgetList() {
         return budgetList;
+    }
+
+    /**
+     * Returns true if list is modified, else false.
+     */
+    public boolean getIsModified() {
+        return isModified;
+    }
+
+    /**
+     * Sets status of whether list is modified.
+     */
+    public void setModified(boolean modified) {
+        isModified = modified;
     }
 
     /**
