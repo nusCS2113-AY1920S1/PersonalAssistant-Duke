@@ -24,6 +24,7 @@ public class RequestsData {
         gson = new Gson();
     }
 
+    //TODO: should the requests for each query be separate?
     private HttpRequest httpRequestBuilder(String mod) {
         return HttpRequest.newBuilder()
                 .uri(URI.create("https://api.nusmods.com/v2/2018-2019/modules/" + mod + ".json"))
