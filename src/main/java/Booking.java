@@ -1,7 +1,8 @@
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-public class Booking {
+public class Booking /*extends Facility*/ {
+
 
     protected LocalDateTime dateTime;
 
@@ -9,11 +10,20 @@ public class Booking {
 
     protected int pax;
 
-    public Booking (String description, String timing, String people) {
-        this.venue = description;
+    protected String description;
+
+    /**
+     * Facility.Booking constructor to make booking
+     * @param roomcode the specific room code
+     * @param timing when you are booking the facility
+     * @param people how many people you are accommodating
+     */
+    public Booking (String roomcode, String timing, String people) {
+
+        this.venue = roomcode;
         this.pax = Integer.parseInt(people);
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/mm/yyyy HH:mm");
-        this.dateTime = LocalDateTime.parse(timing, formatter);
+        this.dateTime = LocalDateTime.parse(timing, formatter); //add start time and end time
     }
 
     @Override
