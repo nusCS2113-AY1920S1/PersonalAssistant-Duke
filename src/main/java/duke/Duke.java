@@ -95,6 +95,7 @@ public class Duke implements Runnable {
     public void testCSV() throws FileNotFoundException, IOException {
         Reader in = new FileReader("./data/file.csv");
         Iterable<CSVRecord> records = CSVFormat.EXCEL.withHeader("Last Name", "First Name").withFirstRecordAsHeader().parse(in);
+        Iterable<CSVRecord> records = CSVFormat.EXCEL.withHeader("Last Name", "First Name").withFirstRecordAsHeader().parse(in).getRecords();
 //        Iterable<CSVRecord> records = CSVFormat.EXCEL.parse(in);
         for (CSVRecord record : records) {
             String lastName = record.get("Last Name");
