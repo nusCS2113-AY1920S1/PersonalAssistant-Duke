@@ -14,14 +14,15 @@ import duke.user.User;
  * @author Ivan Andika Lie
  */
 public class MarkDoneCommand extends Command {
-    private int index;
-
+    private String type;
     /**
      * This is a constructor for MarkDoneCommand.
-     * @param index the index of task to be marked done
+     * @param type the type of meal
+     * @param date the date which meals are to be marked as done
      */
-    public MarkDoneCommand(int index) {
-        this.index = index;
+    public MarkDoneCommand(String type, String date) {
+        this.type = type.substring(0, 1).toUpperCase();
+        this.currentDate = date;
     }
 
     /**
@@ -32,10 +33,16 @@ public class MarkDoneCommand extends Command {
      */
     @Override
     public void execute(MealList tasks, Ui ui, Storage storage, User user) {
+        ArrayList<Meal> matchingMeals = new ArrayList<>();
         ArrayList<Meal> currentMeals = tasks.getMeals(currentDate);
-        Meal currentMeal = currentMeals.get(index - 1);
-        currentMeal.markAsDone();
+        for (Meal element: currentMeals) {
+            if (element.getType().equals(type)) {
+                element.markAsDone();
+                matchingMeals.add(element);
+            }
+        }
         storage.updateFile(tasks.getMealTracker());
-        ui.showDone(currentMeal);
+        ui.showDone(matchingMeals);
+        ui.showRemainingCalorie(currentMeals, user);
     }
 }

@@ -22,7 +22,10 @@ public class FindCommand extends Command {
     public FindCommand(String description) {
         this.description = description;
     }
-
+    public FindCommand(String description, String date) {
+        this.description = description;
+        this.currentDate = date;
+    }
     /**
      * This function will execute the "find" command.
      * @param tasks the TaskList object in which the task is supposed to be found

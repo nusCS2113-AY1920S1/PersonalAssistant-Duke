@@ -36,7 +36,6 @@ public class Parser {
      *                       or the command is not recognized
      */
     public static Command parse(String fullCommand, Autocorrect autocorrect) throws DukeException {
-        //TODO: Put error for invalid input and what not
         String[] splitCommand = fullCommand.split(" ", 2);
         String command = splitCommand[0];
         autocorrect.setWord(command);
@@ -53,8 +52,10 @@ public class Parser {
                 throw new DukeException("\u2639 OOPS!!! The description of a " + command + " cannot be empty.");
             }
         }
+
         String name;
         String info;
+        String date = "";
         int index;
         switch (command) {
             case "bye":
@@ -77,10 +78,18 @@ public class Parser {
                 }
                 return new ListCommand();
             case "done":
-                index = Integer.parseInt(description);
-                return (new MarkDoneCommand(index));
+                name = description.split(" /date ", 2)[0];
+                if (description.split(" /date ").length > 1) {
+                    date = description.split(" /date ")[1];
+                    return new MarkDoneCommand(name, date);
+                }
             case "find":
-                return new FindCommand(description);
+                name = description.split(" /date ", 2)[0];
+                if (description.split(" /date ").length > 1) {
+                    date = description.split(" /date ")[1];
+                    return new FindCommand(name, date);
+                }
+                return new FindCommand(name);
             case "delete":
                 if (splitCommand.length > 1) {
                     // user specifies date and index.

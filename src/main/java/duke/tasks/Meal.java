@@ -73,7 +73,7 @@ public class Meal {
      *          <code>[\u2718]</code> if the task is not done
      */
     public String getStatusIcon() {
-        return (isDone ? "[\u2713]" : "[\u2718]"); //return tick or X symbols
+        return (isDone ? "[YES]" : "[NO]"); //return tick or X symbols
     }
 
     /**

@@ -37,7 +37,7 @@ public class Ui {
         System.out.println("     " + "Bye. Hope to see you again soon!");
     }
 
-    public void showList(ArrayList<Meal> meals) {
+    public void showList(ArrayList<Meal> meals)  {
         showPadding();
         System.out.println("Here are the tasks in your list: ");
         for (int i = 1; i <= meals.size(); i++) {
@@ -47,11 +47,14 @@ public class Ui {
         }
     }
 
-    public void showDone(Meal currentMeal) {
+    public void showDone(ArrayList<Meal> meals) {
         showPadding();
-        System.out.println("Nice! I've marked this task as done:");
-        showPadding();
-        System.out.println("  " + currentMeal);
+        System.out.println("Nice! I've marked these tasks as done:");
+        for (int i = 1; i <= meals.size(); i++) {
+            Meal currentMeal = meals.get(i - 1);
+            showPadding();
+            System.out.println(i + ". " + currentMeal);
+        }
     }
 
     public void showAdded(Meal currentMeal, ArrayList<Meal> meals, User user, String date) {
@@ -118,7 +121,9 @@ public class Ui {
         int limit = user.getDailyCalorie();
         int consumeTotal = 0;
         for (int i = 0; i < mealsOfDay.size(); i += 1) {
-            consumeTotal += mealsOfDay.get(i).getNutritionalValue().get("calorie");
+            if (mealsOfDay.get(i).getIsDone()) {
+                consumeTotal += mealsOfDay.get(i).getNutritionalValue().get("calorie");
+            }
         }
         System.out.println(padding + Integer.toString(limit - consumeTotal));
     }

@@ -1,16 +1,17 @@
-B|0|fried rice |date|30/09/2019|calorie|200
+B|1|fried rice |date|30/09/2019|calorie|200
 L|0|fried rice |date|30/09/2019|calorie|300
-B|0|kueh |date|01/10/2019||300|calorie|300
-B|0|kueh |date|01/10/2019||300|calorie|300
-B|0|kueh |date|01/10/2019||300|calorie|300
-B|0|kueh |date|01/10/2019||300|calorie|300
-B|0|kueh |date|01/10/2019||300|calorie|300
-B|0|kueh |date|01/10/2019||300|calorie|300
-B|0|kueh |date|01/10/2019|calorie|300|clacium|300
-B|0|kueh |date|01/10/2019|calorie|300|clacium|300
-B|0|kueh |date|01/10/2019|calorie|300|clacium|300
-B|0|kueh |date|01/10/2019|calcium|300|calorie|300
+B|1|kueh |date|01/10/2019||300|calorie|300
+B|1|kueh |date|01/10/2019||300|calorie|300
+B|1|kueh |date|01/10/2019||300|calorie|300
+B|1|kueh |date|01/10/2019||300|calorie|300
+B|1|kueh |date|01/10/2019||300|calorie|300
+B|1|kueh |date|01/10/2019||300|calorie|300
+B|1|kueh |date|01/10/2019|calorie|300|clacium|300
+B|1|kueh |date|01/10/2019|calorie|300|clacium|300
+B|1|kueh |date|01/10/2019|calorie|300|clacium|300
+B|1|kueh |date|01/10/2019|calcium|300|calorie|300
+L|1|mcchicken |date|07/10/2019|calorie|100
 B|0|kaya |date|28/09/2019|calorie|300
-D|0|kaya toast  |date|28/09/2019|calcium|3000|calorie|300
-D|0|kaya toast  |date|29/09/2019|calcium|3000|calorie|300
+D|1|kaya toast  |date|28/09/2019|calcium|3000|calorie|300
+D|1|kaya toast  |date|29/09/2019|calcium|3000|calorie|300
 B|0|kueh |date|29/09/2019|calorie|300
