@@ -359,7 +359,7 @@ It should finish with the `BUILD SUCCESSFUL` message. This will generate the res
 
 Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (unlikely to have) - `*`
 
-[width="59%",cols="22%,<23%,<25%,<30%",options="header",]
+[width="100%",cols="22%,<23%,<25%,<30%",options="header",]
 |=======================================================================
 |Priority |As a ... |I want to ... |So that I can...
 |`* * *` |project leader |be able to track deadlines for each project |prioritize which project to be completed earlier
@@ -592,7 +592,7 @@ Use case ends.
 Use case resumes at step 1.
 
 [discrete]
-=== Use case: Generate report for a specific project (UC07)
+=== Use case: Generate report for a specific project (UC10)
 
 *MSS*
 
@@ -614,61 +614,11 @@ Use case resumes at step 1.
 5. ArchDuke should be smooth and fast to view and edit.
 6. ArchDuke output should be organised clearly with proper tabbing.
 
-[appendix]
-== Glossary
+//[appendix]
+//== Glossary
 
 // [[mainstream-os]] Mainstream OS::
 // Windows, Linux, Unix, macOS
 
 // [[private-contact-detail]] Private contact detail::
 // A contact detail that is not meant to be shared with others
-
-[appendix]
-== Product Survey
-
-*Product Name*
-
-Author: ...
-
-Pros:
-
-* ...
-* ...
-
-Cons:
-
-* ...
-* ...
-
-[appendix]
-== Instructions for Manual Testing
-
-// Given below are instructions to test the app manually.
-
-// [NOTE]
-// These instructions only provide a starting point for testers to work on; testers are expected to do more _exploratory_ testing.
-
-=== G.1. Launch and Shutdown
-
-// . Initial launch
-
-// .. Download the jar file and copy into an empty folder
-// .. Double-click the jar file +
-//    Expected: Shows the GUI with a set of sample contacts. The window size may not be optimum.
-
-// . Saving window preferences
-
-// .. Resize the window to an optimum size. Move the window to a different location. Close the window.
-// .. Re-launch the app by double-clicking the jar file. +
-//    Expected: The most recent window size and location is retained.
-
-_{ more test cases ... }_
-
-
-=== G.2. Saving data
-
-// . Dealing with missing/corrupted data files
-
-// .. _{explain how to simulate a missing/corrupted file and the expected behavior}_
-
-// _{ more test cases ... }_

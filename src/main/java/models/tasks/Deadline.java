@@ -2,9 +2,8 @@ package models.tasks;
 
 import exceptions.InvalidDateTimeException;
 import models.commands.IDateSettable;
+
 import java.io.Serializable;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class Deadline implements ITask, IDateSettable, Serializable {
@@ -23,9 +22,8 @@ public class Deadline implements ITask, IDateSettable, Serializable {
      * @param description Description or name of deadline/
      * @param dateTimeString Formatted due date of deadline, in String format
      * @param dateTimeObject Due date of deadline, as a Date object
-     * @throws InvalidDateTimeException If user input date is not in correct format.
      */
-    public Deadline(String description, String dateTimeString, Date dateTimeObject) throws InvalidDateTimeException {
+    public Deadline(String description, String dateTimeString, Date dateTimeObject) {
         this.description = description;
         this.isDone = false;
         this.initials = "D";

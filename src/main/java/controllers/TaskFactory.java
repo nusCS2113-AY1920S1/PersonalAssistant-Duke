@@ -127,8 +127,7 @@ public class TaskFactory {
      */
     private Date getTaskDateTime(String inputDateTime) throws ParseException {
         SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HHmm");
-        Date date = formatter.parse(inputDateTime);
-        return date;
+        return formatter.parse(inputDateTime);
     }
 
     /**

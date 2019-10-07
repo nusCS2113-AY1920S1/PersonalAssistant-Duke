@@ -7,8 +7,6 @@ public class PeriodTask implements ITask {
     private String initials;
     private String description;
     private String taskDuration;
-    private Date startDate;
-    private Date endDate;
     
     /**
      * Constructor of the Recurring data model.
@@ -22,8 +20,6 @@ public class PeriodTask implements ITask {
         this.initials = "P";
         this.description = description;
         this.taskDuration = taskDuration;
-        this.startDate = startDate;
-        this.endDate = endDate;
     }
 
     @Override

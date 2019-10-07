@@ -19,7 +19,7 @@ public class DeadlineTest {
     }
 
     @Test
-    public void test_createTask_deadlineValidDate() throws ParseException {
+    public void test_createTask_deadlineValidDate() {
         String input = "deadline return book /by 02/08/2012 1830";
         ITask expectedTask;
         try {
@@ -27,8 +27,10 @@ public class DeadlineTest {
             Date date = formatter.parse("02/08/2012 1830");
             ITask dummyTask = new Deadline("return book", "02 August 2012 06.30 PM", date);
             expectedTask = taskFactory.createTask(input);
-            assertEquals(expectedTask.getDescription(), dummyTask.getDescription());
-        } catch (DukeException e) {
+            System.out.println(dummyTask.getDescription());
+            System.out.println(expectedTask.getDescription());
+            assertEquals(dummyTask.getDescription(), expectedTask.getDescription());
+        } catch (DukeException | ParseException e) {
             e.printStackTrace();
         }
     }
