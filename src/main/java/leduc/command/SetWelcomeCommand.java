@@ -21,6 +21,7 @@ public class SetWelcomeCommand extends Command{
      * @param tasks leduc.task.TaskList which is the list of task.
      * @param ui leduc.Ui which deals with the interactions with the user.
      * @param storage leduc.storage.Storage which deals with loading tasks from the file and saving tasks in the file.
+     * @throws FileException Exception caught when the file can't be open or read or modify.
      */
     public void execute(TaskList tasks, Ui ui , Storage storage) throws FileException {
         FileWriter fileWriter = null;

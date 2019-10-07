@@ -74,6 +74,13 @@ public class TaskList {
     }
 
     /**
+     * Setter of the list
+     */
+    public void setList(ArrayList<Task> task){
+        this.tasks= task;
+    }
+
+    /**
      * Verify if there are event that are in conflict with the date
      * @param date1 the start date
      * @param date2 the end date
