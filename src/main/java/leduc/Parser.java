@@ -45,6 +45,9 @@ public class Parser {
         else if (user.matches("delete \\d+")) {// if it is done and a number of task
             c = new DeleteCommand(user);
         }
+        else if (user.matches("sort (.*)")){
+            c = new SortCommand(user);
+        }
         else if (user.matches("todo(.*)")) {
             c = new TodoCommand(user);
         }

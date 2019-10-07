@@ -1,6 +1,5 @@
 package leduc;
 
-import leduc.command.SetWelcomeCommand;
 import leduc.exception.DukeException;
 import leduc.exception.FileException;
 import leduc.task.TaskList;
@@ -14,8 +13,6 @@ import java.util.Scanner;
  */
 public class Ui {
     private Scanner sc;
-    private File file;
-    private SetWelcomeCommand w;
 
     /**
      * Constructor of the leduc.Ui
@@ -140,6 +137,7 @@ public class Ui {
         System.out.println("\t All parameters will be written in UPPER_CASE");
         System.out.println("\t Parameters are :");
         System.out.println("\t DESCRIPTION : the description of a task");
+        System.out.println("\t SORTTYPE : the date or description");
         System.out.println("\t DATE : the date of a task");
         System.out.println("\t INDEX : the index of the task (goes from 1 to ...)");
         System.out.println("\t KEYWORD : the keyword to find a task");
@@ -157,6 +155,7 @@ public class Ui {
         System.out.println("\t find KEYWORD : find the task with a keyword");
         System.out.println("\t snooze INDEX : snooze a task of index INDEX");
         System.out.println("\t postpone INDEX /by DATE : postpone a deadline task");
+        System.out.println("\t sort SORTTYPE : Sort all task by date/description");
         System.out.println("\t reschedule INDEX /at DATE - DATE : reschedule an event task");
         System.out.println("\t remind : remind the first three task");
         System.out.println("\t setwelcome WELCOME : customize the welcome message");
