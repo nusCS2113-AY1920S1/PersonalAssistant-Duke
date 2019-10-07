@@ -1,6 +1,6 @@
 package duke.entities_decrypted.inventory;
 
-import duke.entities_decrypted.Ingredient;
+import duke.model.ingredient.Ingredient;
 
 import java.util.LinkedHashMap;
 
