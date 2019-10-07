@@ -234,18 +234,4 @@ public class Ui {
         printLine();
     }
 
-    /**
-     * Prints all commands available to user.
-     *
-     * @param commands ArrayList containing list of commands available to user
-     */
-    public void printHelpCommands(ArrayList commands) {
-        printLine();
-        System.out.println("\tHere is a list of OOF commands: ");
-        for (int i = 0; i < commands.size(); i++) {
-            System.out.println("\t" + (i + 1) + ". " + commands.get(i));
-        }
-        printLine();
-    }
-
 }
