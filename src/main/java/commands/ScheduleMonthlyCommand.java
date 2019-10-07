@@ -49,19 +49,19 @@ public class ScheduleMonthlyCommand extends Command {
         for (Task t: list) {
             LocalDate tDate = null;
             switch (t.getClass().getName()) {
-                case "Tasks.Event":
-                    tDate = ((Event) t).date;
-                    break;
-                case "Tasks.Deadline":
-                    tDate = ((Deadline) t).by.toLocalDate();
-                    break;
-                case "Tasks.Timebound":
-                    LocalDate startDate = ((Timebound) t).dateStart;
-                    LocalDate endDate = ((Timebound) t).dateEnd;
-                    if (!(endDate.isBefore(startMonth) || startDate.isAfter(endMonth))) {
-                        schedule.add(t);
-                    }
-                    break;
+            case "Tasks.Event":
+                tDate = ((Event) t).date;
+                break;
+            case "Tasks.Deadline":
+                tDate = ((Deadline) t).by.toLocalDate();
+                break;
+            case "Tasks.Timebound":
+                LocalDate startDate = ((Timebound) t).dateStart;
+                LocalDate endDate = ((Timebound) t).dateEnd;
+                if (!(endDate.isBefore(startMonth) || startDate.isAfter(endMonth))) {
+                    schedule.add(t);
+                }
+                break;
             }
             if (tDate != null && startMonth.getYear() == tDate.getYear() &&
                     startMonth.getMonthValue() == tDate.getMonthValue()) {

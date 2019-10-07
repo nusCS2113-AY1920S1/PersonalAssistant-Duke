@@ -9,93 +9,64 @@ public class Parser {
         if (command.contains("list")) {
             if (command.contains("event")) {
                 return new CategoryListCommand();
-            }
-            else if (command.contains("deadline")) {
+            } else if (command.contains("deadline")) {
                 return new CategoryListCommand();
-            }
-            else if (command.contains("todo")) {
+            } else if (command.contains("todo")) {
                 return new CategoryListCommand();
-            }
-            else if (command.contains("fixed")) {
+            } else if (command.contains("fixed")) {
                 return new CategoryListCommand();
-            }
-            else if (command.contains("timebound")) {
+            } else if (command.contains("timebound")) {
                 return new CategoryListCommand();
-            }
-            else {
+            } else {
                 return new ListCommand();
             }
-        }
-        else if (command.equals("done list")) {
+        } else if (command.equals("done list")) {
             return new DoneListCommand();
-        }
-        else if (command.equals("undo list")) {
+        } else if (command.equals("undo list")) {
             return new UndoneListCommand();
-        }
-        else if (command.contains("done")) {
+        } else if (command.contains("done")) {
             return new DoneCommand();
-        }
-        else if (command.contains("delete")) {
+        } else if (command.contains("delete")) {
             return new DeleteCommand();
-        }
-        else if (command.contains("deadline")) {
+        } else if (command.contains("deadline")) {
             return new DeadlineCommand();
-        }
-        else if (command.contains("/after")) {
+        } else if (command.contains("/after")) {
             return new DoAfterCommand();
-        }
-        else if (command.contains("event")) {
+        } else if (command.contains("event")) {
             return new EventCommand();
-        }
-        else if (command.contains("todo")) {
+        } else if (command.contains("todo")) {
             return new TodoCommand();
-        }
-        else if (command.contains("/between")) {
+        } else if (command.contains("/between")) {
             return new TimeboundCommand();
-        }
-        else if (command.contains("find")) {
+        } else if (command.contains("find")) {
             return new FindCommand();
-        }
-        else if (command.contains("bye")) {
+        } else if (command.contains("bye")) {
             return new ByeCommand();
-        }
-        else if (command.contains("/require")) {
+        } else if (command.contains("/require")) {
             return new FixDurationCommand();
-        }
-        else if (command.contains("reschedule")) {
+        } else if (command.contains("reschedule")) {
             return new RescheduleCommand();
-        }
-        else if (command.contains("scheduleDaily")) {
+        } else if (command.contains("scheduleDaily")) {
             return new ScheduleDailyCommand();
-        }
-        else if (command.contains("scheduleWeekly")) {
+        } else if (command.contains("scheduleWeekly")) {
             return new ScheduleWeeklyCommand();
-        }
-        else if (command.contains("scheduleMonthly")) {
+        } else if (command.contains("scheduleMonthly")) {
             return new ScheduleMonthlyCommand();
-        }
-        else if (command.contains("snooze")) {
+        } else if (command.contains("snooze")) {
             return new SnoozeCommand();
-        }
-        else if (command.contains("tentative")) {
+        } else if (command.contains("tentative")) {
             return new TentativeEventCommand();
-        }
-        else if (command.contains("confirm")) {
+        } else if (command.contains("confirm")) {
             return new ConfirmTentativeCommand();
-        }
-        else if (command.contains("undo")) {
+        } else if (command.contains("undo")) {
             return new UndoCommand();
-        }
-        else if(command.contains("edit")) {
+        } else if(command.contains("edit")) {
             return new EditCommand();
-        }
-        else if(command.contains("change password")) {
+        } else if(command.contains("change password")) {
             return new ChangePasswordCommand();
-        }
-        else if(command.contains("#")) {
+        } else if(command.contains("#")) {
             return new TagCommand();
-        }
-        else {
+        } else {
             throw new DukeException("OOPS!!! I'm sorry, but I don't know what that means :-(");
         }
     }
