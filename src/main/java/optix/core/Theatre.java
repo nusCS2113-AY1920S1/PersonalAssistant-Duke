@@ -67,6 +67,10 @@ public class Theatre {
         }
     }
 
+    public void setShowName(String showName) {
+        this.showName = showName;
+    }
+
     public String getShowName() {
         return showName;
     }
