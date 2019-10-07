@@ -12,7 +12,11 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+<<<<<<< HEAD
 import java.util.ArrayList;
+=======
+import java.util.Calendar;
+>>>>>>> 888708f6a416811139a34973742c4e0af557ca3d
 
 /**
  * This command adds an expenditure to the Total Expenditure List.
@@ -20,7 +24,6 @@ import java.util.ArrayList;
 public class AddExpenditureCommand extends MoneyCommand {
 
     private String inputString;
-    private SimpleDateFormat simpleDateFormat;
 
     /**
      * Constructor of the command which initialises the add expenditure command
@@ -29,7 +32,6 @@ public class AddExpenditureCommand extends MoneyCommand {
      */
     public AddExpenditureCommand(String command) {
         inputString = command.replaceFirst("spent ", "");
-        simpleDateFormat = new SimpleDateFormat("d/M/yyyy");
     }
 
     @Override
@@ -58,6 +60,13 @@ public class AddExpenditureCommand extends MoneyCommand {
         Expenditure e = new Expenditure(price, description, category, boughtTime);
         account.getExpListTotal().add(e);
         storage.writeToFile(account);
+
+        Calendar currDate = Calendar.getInstance();
+        int currMonth = currDate.get(Calendar.MONTH) + 1;
+        int currYear = currDate.get(Calendar.YEAR);
+        if (boughtTime.getMonthValue() == currMonth && boughtTime.getYear() == currYear) {
+            account.getExpListCurrMonth().add(e);
+        }
 
         ui.appendToOutput(" Got it. I've added this to your total spending: \n");
         ui.appendToOutput("     ");

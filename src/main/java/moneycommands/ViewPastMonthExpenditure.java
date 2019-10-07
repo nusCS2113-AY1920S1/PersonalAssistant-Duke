@@ -3,27 +3,26 @@ package moneycommands;
 import controlpanel.MoneyStorage;
 import money.Account;
 import controlpanel.DukeException;
-import controlpanel.Ui;
 ;import controlpanel.Ui;
-import money.Income;
+import money.Expenditure;
 
 import java.text.ParseException;
 
 /**
- * This command allows users to check the income
+ * This command allows users to check the expenditure
  * for a previous or future month specified by the user input.
  */
-public class ViewPastMonthIncome extends MoneyCommand {
+public class ViewPastMonthExpenditure extends MoneyCommand {
     private int month;
     private int year;
 
     /**
-     * Constructor of the command which initialises the check income command
+     * Constructor of the command which initialises the check expenditure command
      * with the data for the month and year to check as given in the user input.
      * @param command Check command inputted from user
      */
-    public ViewPastMonthIncome(String command) {
-        String inputString = command.replaceFirst("check income ", "");
+    public ViewPastMonthExpenditure(String command) {
+        String inputString = command.replaceFirst("check expenditure ", "");
         String[] splitStr = inputString.split(" ");
         month = Integer.parseInt(splitStr[0]);
         year = Integer.parseInt(splitStr[1]);
@@ -83,9 +82,9 @@ public class ViewPastMonthIncome extends MoneyCommand {
     }
 
     /**
-     * This method executes the check income command. Takes the input from the user
-     * and checks the Total Income List for expenditures which occur in the month specified
-     * in the user input. Prints the income sources found and computes the total income for that
+     * This method executes the check expenditure command. Takes the input from the user
+     * and checks the Total Expenditure List for expenditures which occur in the month specified
+     * in the user input. Prints the expenditures found and computes the total expenditure for that
      * month and prints to the user.
      * @param account Account object containing all financial info of user saved on the programme
      * @param ui Handles interaction with the user
@@ -99,21 +98,19 @@ public class ViewPastMonthIncome extends MoneyCommand {
             throw new DukeException("Month is invalid! Please pick a month from 1-12");
         }
 
-        float totalMonthIncome = 0;
+        float totalMonthExpenditure = 0;
         int counter = 1;
-        for (Income i : account.getIncomeListTotal()) {
-            if (i.getPayday().getMonthValue() == month && i.getPayday().getYear() == year) {
+        for (Expenditure i : account.getExpListTotal()) {
+            if (i.getDateBoughtDate().getMonthValue() == month && i.getDateBoughtDate().getYear() == year) {
                 ui.appendToOutput(" " + counter + "." + i.toString() + "\n");
                 counter++;
-                totalMonthIncome += i.getPrice();
+                totalMonthExpenditure += i.getPrice();
             }
         }
 
-        ui.appendToOutput("Total income for " + getMonthName(month) + " of " + year + " : $");
-        ui.appendToOutput(totalMonthIncome + "\n");
+        ui.appendToOutput("Total expenditure for " + getMonthName(month) + " of " + year + " : $");
+        ui.appendToOutput(totalMonthExpenditure + "\n");
 
     }
-
-    @Override
-    public void undo(Account account, Ui ui, MoneyStorage storage) { return; }
 }
+

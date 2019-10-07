@@ -1,9 +1,8 @@
 import controlpanel.*;
 import money.Account;
 import moneycommands.MoneyCommand;
-import commands.Command;
 import moneycommands.UndoCommand;
-import tasks.TaskList;
+
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -15,35 +14,27 @@ import java.text.ParseException;
 public class Duke {
 
     private Ui ui;
-    private TaskList tasks;
-    private Storage storage;
     private MoneyStorage moneyStorage;
     private Account account;
     private UndoCommand undoCommand;
 
     /**
      * Duke class acts as a constructor to initialize and setup
-     * //@param filePath the path of the tasks.txt which contains the data of the tasks' list
+     * //@param filePath the path of the moneyAccount.txt which contains the finance of the users
      */
     public Duke() {
-        Path currentDir = Paths.get("data/tasks.txt");
         Path moneyDir = Paths.get("data/moneyAccount.txt");
-        String filePath = currentDir.toAbsolutePath().toString();
         String moneyFilePath = moneyDir.toAbsolutePath().toString();
         ui = new Ui();
-        storage = new Storage(filePath);
         moneyStorage = new MoneyStorage(moneyFilePath);
         undoCommand = new UndoCommand();
         try {
-            tasks = new TaskList(storage.load());
             account = new Account(moneyStorage.load());//need to load from storage on program init
         } catch (Exception e) {
             ui.showLoadingError();
-            tasks = new TaskList();
             account = new Account();
         }
     }
-
 
     /**
      * This method prints a line that Duke will print out in the program.

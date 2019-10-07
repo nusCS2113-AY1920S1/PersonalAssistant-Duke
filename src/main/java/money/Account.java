@@ -5,7 +5,6 @@ import controlpanel.DukeException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 
 public class Account {
     private ArrayList<Income> incomeListTotal;
@@ -13,7 +12,7 @@ public class Account {
     private ArrayList<Income> incomeListCurrMonth;
     private ArrayList<Expenditure> expListCurrMonth;
     private ArrayList<Goal> shortTermGoals;
-    private ArrayList<Installment> installments;
+    private ArrayList<Instalment> instalments;
     private ArrayList<BankTracker> bankTrackerList;
     private float totalSavings;
     private float currMonthSavings;
@@ -27,7 +26,7 @@ public class Account {
         incomeListCurrMonth = new ArrayList<>();
         expListCurrMonth = new ArrayList<>();
         shortTermGoals = new ArrayList<>();
-        installments = new ArrayList<>();
+        instalments = new ArrayList<>();
         bankTrackerList = new ArrayList<>();
         toInitialize = true;
     }
@@ -38,11 +37,12 @@ public class Account {
         incomeListCurrMonth = account.getIncomeListCurrMonth();
         expListCurrMonth = account.getExpListCurrMonth();
         shortTermGoals = account.getShortTermGoals();
-        installments = account.getInstallments();
+        instalments = account.getInstalments();
         bankTrackerList = account.getBankTrackerList();
         toInitialize = account.isToInitialize();
         baseSavings = account.getBaseSavings();
         updateSavings();
+        populateCurrentMonthLists();
 //        if (account.isInitialised()) {
 //            toInitialize = false;
 //        } else { toInitialize = true; }
@@ -85,8 +85,8 @@ public class Account {
         return shortTermGoals;
     }
 
-    public ArrayList<Installment> getInstallments() {
-        return installments;
+    public ArrayList<Instalment> getInstalments() {
+        return instalments;
     }
 
     public ArrayList<BankTracker> getBankTrackerList() {
@@ -156,28 +156,30 @@ public class Account {
 
     public boolean isInitialised() {
         return getIncomeListTotal().isEmpty() || getExpListTotal().isEmpty() ||
-                getShortTermGoals().isEmpty() || getInstallments().isEmpty() ||
+                getShortTermGoals().isEmpty() || getInstalments().isEmpty() ||
                 getBankTrackerList().isEmpty();
     }
-/*
+
+    /**
+     * This method is run upon initialisation to fill the Month Income List and
+     * Month Expenditure List.
+     */
     public void populateCurrentMonthLists() {
-        Date currDate = new Date();
         Calendar dateNow = Calendar.getInstance();
-        int currMonth = currDate.getMonth(); // there's an issue here of depreciation
-        int currYear = currDate.getYear();
+        int currMonth = dateNow.get(Calendar.MONTH) + 1;
+        int currYear  = dateNow.get(Calendar.YEAR);
         for (Income i : incomeListTotal) {
-            Calendar cal = Calendar.getInstance();
-            if (i.getPayday().getMonth() == currMonth && i.getPayday().getYear() == currYear) {
+            if (i.getPayday().getMonthValue() == currMonth && i.getPayday().getYear() == currYear) {
                 incomeListCurrMonth.add(i);
             }
         }
         for (Expenditure e : expListTotal) {
-            if (e.getDateBoughtTime().getMonth() == currMonth && e.getDateBoughtTime().getYear() == currYear) {
+            if (e.getDateBoughtDate().getMonthValue() == currMonth && e.getDateBoughtDate().getYear() == currYear) {
                 expListCurrMonth.add(e);
             }
         }
     }
- */
+
 
     public void setToInitialize(boolean initStatus) {
         this.toInitialize = initStatus;
