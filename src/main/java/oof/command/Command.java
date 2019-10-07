@@ -42,7 +42,7 @@ public abstract class Command {
         try {
             SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy HH:mm");
             format.parse(date);
-            String pattern = "dd MMMM yyyy hh:mmaa";
+            String pattern = "dd-MM-yyyy HH:mm";
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern(pattern);
             LocalDateTime localDateTime = LocalDateTime.from(formatter.parse(date));
             Timestamp timestamp = Timestamp.valueOf(localDateTime);
