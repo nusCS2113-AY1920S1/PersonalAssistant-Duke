@@ -69,4 +69,7 @@ public class CreateBankAccountCommand extends MoneyCommand {
         ui.appendToOutput("New bank account tracker has been added to the list: \n");
         ui.appendToOutput(newTracker.getBankAccountInfo() + "\n");
     }
+
+    @Override
+    public void undo(Account account, Ui ui, MoneyStorage storage) { return; };
 }

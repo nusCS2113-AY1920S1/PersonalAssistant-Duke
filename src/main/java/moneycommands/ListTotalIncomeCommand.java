@@ -40,4 +40,7 @@ public class ListTotalIncomeCommand extends MoneyCommand {
         //System.out.println("Total income so far: $" + account.getTotalIncome());
         ui.appendToOutput("Total income so far: $" + account.getTotalIncome() + "\n");
     }
+
+    @Override
+    public void undo(Account account, Ui ui, MoneyStorage storage) { return; }
 }

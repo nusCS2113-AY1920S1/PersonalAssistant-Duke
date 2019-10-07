@@ -42,8 +42,7 @@ import java.util.Date;
  * correct command type. Calls the appropriate MoneyCommand from control panel
  */
 public class Parser {
-    public Parser() throws DukeException, ParseException {
-    }
+    public Parser() throws DukeException, ParseException {}
 
     /**
      * The constructor which runs the parser.
@@ -147,6 +146,8 @@ public class Parser {
             moneyCommand = new DoneGoalCommand(cmd);
         } else if (cmd.startsWith("graph")) {
             moneyCommand = new GraphCommand();
+        } else if (cmd.startsWith("undo")) {
+            moneyCommand = new UndoCommand();
         } else {
             throw new DukeException("OOPS!!! I'm sorry, but I don't know what that means");
         }

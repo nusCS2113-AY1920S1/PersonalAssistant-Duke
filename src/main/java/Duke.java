@@ -2,6 +2,7 @@ import controlpanel.*;
 import money.Account;
 import moneycommands.MoneyCommand;
 import commands.Command;
+import moneycommands.UndoCommand;
 import tasks.TaskList;
 
 import java.nio.file.Path;
@@ -18,6 +19,7 @@ public class Duke {
     private Storage storage;
     private MoneyStorage moneyStorage;
     private Account account;
+    private UndoCommand undoCommand;
 
     /**
      * Duke class acts as a constructor to initialize and setup
@@ -31,6 +33,7 @@ public class Duke {
         ui = new Ui();
         storage = new Storage(filePath);
         moneyStorage = new MoneyStorage(moneyFilePath);
+        undoCommand = new UndoCommand();
         try {
             tasks = new TaskList(storage.load());
             account = new Account(moneyStorage.load());//need to load from storage on program init
@@ -52,12 +55,14 @@ public class Duke {
             ui.appendToOutput(ui.showLine());
             boolean isNewUser = account.isToInitialize();
             MoneyCommand c = Parser.moneyParse(input, isNewUser);
-            c.execute(account, ui, moneyStorage);
-
             if (c.isExit()) {
                 System.exit(0);
+            } else if (!c.getClass().equals(UndoCommand.class)) {
+                c.execute(account, ui, moneyStorage);
+            } else {
+                undoCommand.execute(account, ui, moneyStorage);
             }
-
+            undoCommand.setLastIssuedCommand(c);
         } catch (ParseException | DukeException e) {
             ui.clearOutputString();
             ui.appendToOutput(ui.showError(e.getMessage()));

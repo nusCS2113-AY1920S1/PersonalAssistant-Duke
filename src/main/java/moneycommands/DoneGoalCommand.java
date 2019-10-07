@@ -64,4 +64,7 @@ public class DoneGoalCommand extends MoneyCommand {
         //ui.appendToOutput(doneGoal);
 
     }
+
+    @Override
+    public void undo(Account account, Ui ui, MoneyStorage storage) throws DukeException, ParseException {return;}
 }

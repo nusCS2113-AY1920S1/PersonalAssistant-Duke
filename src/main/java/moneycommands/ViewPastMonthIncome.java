@@ -32,4 +32,7 @@ public class ViewPastMonthIncome extends MoneyCommand {
         }
 
     }
+
+    @Override
+    public void undo(Account account, Ui ui, MoneyStorage storage) { return; }
 }

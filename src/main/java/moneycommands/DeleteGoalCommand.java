@@ -2,6 +2,7 @@ package moneycommands;
 
 import controlpanel.*;
 import money.Account;
+import moneycommands.MoneyCommand;
 
 /**
  * This command deletes a short-term goal from the Short-Term Goal List according to index
@@ -49,4 +50,7 @@ public class DeleteGoalCommand extends MoneyCommand {
         account.getShortTermGoals().remove(serialNo-1);
         storage.writeToFile(account);
     }
+
+    @Override
+    public void undo(Account account, Ui ui, MoneyStorage moneyStorage) { return; }
 }

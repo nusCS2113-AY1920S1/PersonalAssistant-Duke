@@ -43,4 +43,7 @@ public class ListBankTrackerCommand extends MoneyCommand{
             ui.appendToOutput("-------------------------------------------\n");
         }
     }
+
+    @Override
+    public void undo(Account account, Ui ui, MoneyStorage storage) { return; }
 }
