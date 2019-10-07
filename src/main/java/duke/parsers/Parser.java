@@ -84,8 +84,8 @@ public class Parser {
             case "delete":
                 if (splitCommand.length > 1) {
                     // user specifies date and index.
-                    if (description.split(" ").length >= 2) {
-                        String[] splitArgs = description.split(" ", 2);
+                    if (description.split("/date").length >= 2) {
+                        String[] splitArgs = description.split("/date", 2);
                         return new DeleteCommand(splitArgs[0], splitArgs[1]);
                     } else {
                         // user only specifies index to delete for current day.

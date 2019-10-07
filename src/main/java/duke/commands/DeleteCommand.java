@@ -18,15 +18,15 @@ import duke.user.User;
  */
 public class DeleteCommand extends Command {
     private int index;
-    private final String helpText = "Please follow: delete <date> <index> or "
+    private final String helpText = "Please follow: delete <index> /date <date> or "
             + "delete <index> to delete for current day.";
 
     /**
      * This is a constructor DeleteCommand.
-     * @param date Date of meal to be deleted.
      * @param indexStr the index of meal on the date to be deleted.
+     * @param date Date of meal to be deleted.
      */
-    public DeleteCommand(String date, String indexStr) throws DukeException {
+    public DeleteCommand(String indexStr, String date) throws DukeException {
         this(indexStr);
         Date temp;
         try {
@@ -39,9 +39,9 @@ public class DeleteCommand extends Command {
 
     public DeleteCommand(String indexStr) throws DukeException {
         try {
-            this.index = Integer.parseInt(indexStr);
+            this.index = Integer.parseInt(indexStr.strip());
         } catch (NumberFormatException nfe) {
-            throw new DukeException("Unable to parse input as integer index. " + helpText);
+            throw new DukeException("Unable to parse input " + indexStr + " as integer index. " + helpText);
         }
     }
 
