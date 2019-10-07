@@ -7,6 +7,8 @@ import controlpanel.Ui;
 import money.Account;
 import money.Instalment;
 
+import java.math.RoundingMode;
+import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
@@ -45,13 +47,16 @@ public class AddInstalmentCommand extends MoneyCommand{
         account.getInstalments().add(instalment);
         storage.writeToFile(account);
 
+        DecimalFormat df = new DecimalFormat("#.##");
+        df.setRoundingMode(RoundingMode.CEILING);
+
         ui.appendToOutput(" Got it. I've added this to your instalments: \n");
         ui.appendToOutput("     ");
         ui.appendToOutput(account.getInstalments().get(account.getInstalments().size() - 1).toString() + "\n");
         ui.appendToOutput(" Now you have " + account.getInstalments().size() + " instalments listed\n");
-        ui.appendToOutput(" You are paying " + instalment.EqualMonthlyInstalment() + " per month\n");
+        ui.appendToOutput(" You are paying $" + df.format(instalment.EqualMonthlyInstalment()) + " per month\n");
         ui.appendToOutput(" For " + instalment.getNumOfPayments() + " months\n");
         ui.appendToOutput(" Until " + instalment.getDateEndDate() + "\n");
-        ui.appendToOutput(" The total amount you will pay is " + instalment.totalAmount() + "\n");
+        ui.appendToOutput(" The total amount you will pay is $" + instalment.totalAmount() + "\n");
     }
 }

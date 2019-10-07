@@ -90,6 +90,8 @@ public class Parser {
             moneyCommand = new GraphCommand();
         } else if (cmd.startsWith("add instalment")) {
             moneyCommand = new AddInstalmentCommand(cmd);
+        } else if(cmd.startsWith("list all instalment")) {
+            moneyCommand = new ListInstalmentCommand();
         } else {
             throw new DukeException("OOPS!!! I'm sorry, but I don't know what that means");
         }

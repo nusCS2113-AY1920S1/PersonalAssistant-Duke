@@ -22,3 +22,4 @@ Shortcuts for all add commands: now, tmr, ytd, lstwk, nxtwk, lstmth, nxtmth, lst
 change icon
 graph
 add instalment mortgage /amt 100000 /within 200 months /from 12/12/2010 @6%
+list all instalments
