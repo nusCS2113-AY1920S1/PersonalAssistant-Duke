@@ -386,3 +386,4 @@ e.g. `range study for exam /from 01-10-2019 21:00 /to 05-10-2019 11:00`
 * *ViewDual*: `viewDual [_coming soon in v2.0_]`
 
 * *Export*: `export [_coming soon in v2.0_]`
+
