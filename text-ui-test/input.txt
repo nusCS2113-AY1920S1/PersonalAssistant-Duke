@@ -1,0 +1,8 @@
+deadline code for GUI /by 6/9/2019 1400
+event code jam /at 6/6/2011 1100
+list
+today reminders
+upcoming reminders
+past reminders
+schedule /on 14/09/2019
+bye

@@ -1,0 +1,18 @@
+list
+todo some stuff
+deadline Duke Documentation /by 17/09/2019 2359
+event code jam /at 6/6/2011 1100 to 7/7/2011 1400
+period IPPT /from  18/09/2019 1400 /to 19/09/2019 1800
+find keyword
+done 1
+delete 2
+today reminders
+upcoming reminders
+past reminders
+schedule /on 14/09/2019
+reschedule event 1 /at 6/6/2011 1100 to 7/7/2011 1400
+reschedule deadline 4 /by 13/2/2019 1200
+reschedule deadline 4 /by 16/9/2019 1800
+free-time 2 hrs /on 1/1/2020 0000
+free-time 4 hrs /on 6/6/2011 1300
+multiEvent something /at 6/6/2011 1100 to 7/7/2011 1400 /or 7/6/2011 1100 to 8/7/2011 1400

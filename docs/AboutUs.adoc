@@ -1,0 +1,56 @@
+= About Us
+:site-section: AboutUs
+:relfileprefix: team/
+:imagesDir: images
+:stylesDir: stylesheets
+
+Financial Ghost - Level 1 developed by the https://se-edu.github.io/docs/Team.html[dream] team. +
+{empty} +
+We are a team based in the http://www.comp.nus.edu.sg[School of Computing, National University of Singapore].
+
+== Project Team
+
+=== Cheng Weixuan
+image::chengweixuan.png[width="150", align="left"]
+{empty} [https://github.com/chengweixuan[github]] [<<johndoe#, portfolio>>]
+
+Role: Developer +
+Responsibilities: Documentation + Intergration
+
+'''
+
+=== Nicholas Cheong
+image::therealnickcheong.png[width="150", align="left"]
+{empty}[http://github.com/therealnickcheong[github]] [<<johndoe#, portfolio>>]
+
+Role: Team Lead +
+Responsibilities: Deliverables and deadlines + Scheduling and Tracking
+
+'''
+
+=== Chen Chao
+image::chenchao19.png[width="150", align="left"]
+{empty}[http://github.com/ChenChao19[github]] [<<johndoe#, portfolio>>]
+
+Role: Developer +
+Responsibilities: Code Quality + Model
+
+'''
+
+=== Chen Tong
+image::cctt1014.png[width="150", align="left"]
+{empty}[http://github.com/cctt1014[github]] [<<johndoe#, portfolio>>]
+
+Role: Developer +
+Responsibilities: Data + UI
+
+'''
+
+=== Aw Chian Hao
+image::chianhaoplanks.png[width="150", align="left"]
+{empty}[http://github.com/Chianhaoplanks[github]] [<<johndoe#, portfolio>>]
+
+Role: Developer +
+Responsibilities: Storage + Testing
+
+'''

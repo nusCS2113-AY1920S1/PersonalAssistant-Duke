@@ -1,0 +1,7 @@
+M | 0 | something  | 6/6/2011 1100 to 7/7/2011 1400 /or | 1
+P | 0 | IPPT  | 18/9/2019 1400 | 19/9/2019 1800
+E | 0 | code jam  | 6/6/2011 1100 | 7/7/2011 1400
+D | 0 | Duke Documentation  | 17/9/2020 2359
+T | 0 | some stuff
+M | 0 | something  | 6/6/2011 1100 to 7/7/2020 1400 /or | 1
+M | 0 | something  | 6/6/2020 1100 to 7/7/2020 1400 /or | 1
