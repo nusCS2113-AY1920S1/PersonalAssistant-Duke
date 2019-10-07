@@ -143,6 +143,7 @@ public class Ui {
         System.out.println("\t DATE : the date of a task");
         System.out.println("\t INDEX : the index of the task (goes from 1 to ...)");
         System.out.println("\t KEYWORD : the keyword to find a task");
+        System.out.println("\t WELCOME: the welcome message");
         System.out.println("\t Date format is DD/MM/YYYY HH:mm");
         System.out.println("\t All blank space should be respected");
         System.out.println("\t Here are the list of all command:");
@@ -158,6 +159,8 @@ public class Ui {
         System.out.println("\t postpone INDEX /by DATE : postpone a deadline task");
         System.out.println("\t reschedule INDEX /at DATE - DATE : reschedule an event task");
         System.out.println("\t remind : remind the first three task");
+        System.out.println("\t setwelcome WELCOME : customize the welcome message");
+        System.out.println("\t edit : edit a task (then, you have to follow the instructions)");
         System.out.println("\t help : show the list of all command");
         System.out.println("\t---------------------------------------------------------------------------------");
     }
