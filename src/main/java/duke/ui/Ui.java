@@ -116,7 +116,9 @@ public class Ui {
         int limit = user.getDailyCalorie();
         int consumeTotal = 0;
         for (int i = 0; i < mealsOfDay.size(); i += 1) {
-            consumeTotal += mealsOfDay.get(i).getNutritionalValue().get("calorie");
+            if (mealsOfDay.get(i).getIsDone()) {
+                consumeTotal += mealsOfDay.get(i).getNutritionalValue().get("calorie");
+            }
         }
         System.out.println(padding + Integer.toString(limit - consumeTotal));
     }
