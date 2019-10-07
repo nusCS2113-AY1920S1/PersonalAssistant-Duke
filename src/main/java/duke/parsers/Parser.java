@@ -97,8 +97,16 @@ public class Parser {
                         + "date and index of meal to delete");
             case "update":
                 return new UpdateWeightCommand(description);
+            case "clear":
+                if (splitCommand.length > 1) {
+                    String[] splitArgs = description.split(" ", 2);
+                    if (splitArgs.length >= 2) {
+                        return new ClearCommand(splitArgs[0], splitArgs[1]);
+                    }
+                }
+                throw new DukeException("Please enter 2 dates; Start and End dates to clear meals from.");
             default:
-                throw new DukeException("\u2639 OOPS!!! I'm sorry, but I don't know what that means :-(");
+                throw new DukeException("\u2639 OOPS!!! I'm sorry, but I don't know what" + command + " means :-(");
         }
     }
 }

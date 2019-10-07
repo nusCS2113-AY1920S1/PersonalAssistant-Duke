@@ -43,6 +43,12 @@ public class MealList {
         return deletedMeal;
     }
 
+    public void deleteAllMealsOnDate(String date) {
+        if (mealTracker.containsKey(date)) {
+            this.mealTracker.get(date).clear();
+        }
+    }
+
     public void setMeals(String inputDate) {
         mealTracker.put(inputDate, new ArrayList<Meal>());
     }

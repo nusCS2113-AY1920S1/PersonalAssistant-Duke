@@ -71,6 +71,11 @@ public class Ui {
         System.out.println(padding + "Now you have " + meals.size()  + " meals in the list.");
     }
 
+    public void showCleared(String startDateStr, String endDateStr) {
+        System.out.println(padding + "Noted. Meals from " + startDateStr + " to "
+                + endDateStr + " have been cleared");
+    }
+
     public String readCommand(Scanner in) {
         String input = in.nextLine();
         return input;
