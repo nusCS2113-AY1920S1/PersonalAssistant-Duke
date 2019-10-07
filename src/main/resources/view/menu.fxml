@@ -133,7 +133,7 @@
                               <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
                            </padding>
                         </TextField>
-                        <Button fx:id="submit" mnemonicParsing="false" prefHeight="46.0" prefWidth="151.0" text="Submit">
+                        <Button fx:id="submit" mnemonicParsing="false" prefHeight="46.0" prefWidth="151.0" text="Submit" onAction="#handleSubmit">
                            <padding>
                               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                            </padding>
@@ -152,3 +152,5 @@
     </AnchorPane>
   </children>
 </VBox>
+
+
