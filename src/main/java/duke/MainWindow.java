@@ -1,5 +1,7 @@
-import dukeobjects.Expense;
-import dukeobjects.ExpenseList;
+package duke;
+
+import duke.dukeobject.Expense;
+import duke.dukeobject.ExpenseList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
@@ -31,10 +33,10 @@ public class MainWindow extends BorderPane {
         String userInput = inputField.getText();
         String response = duke.getResponse(userInput);
         lastCommandLabel.setText(response);
-        ExpenseList expenseList = (ExpenseList) duke.getExpenseList();
-        setExpenseListView(expenseList);
+        ExpenseList expenseList = duke.expenseList;
+        updateExpenseListView();
         inputField.clear();
-        updateTotalSpentLabel(duke.getExpenseList());
+        updateTotalSpentLabel();
     }
 
     /**
@@ -44,16 +46,16 @@ public class MainWindow extends BorderPane {
      */
     public void setDuke(Duke d) {
         this.duke = d;
-        updateTotalSpentLabel(d.getExpenseList());
+        updateTotalSpentLabel();
     }
 
     /**
      * Populate the ListView with a list of expenses.
      */
-    private void setExpenseListView(ExpenseList expensesList) {
+    private void updateExpenseListView() {
         expenseListView.getItems().clear();
         int count = 1;
-        for (Expense expense : expensesList.getExpenseList()) {
+        for (Expense expense : duke.expenseList.getExternalList()) {
             expenseListView.getItems().add(count + ". " + expense.toString());
             count++;
         }
@@ -61,11 +63,9 @@ public class MainWindow extends BorderPane {
 
     /**
      * Updates the total amount label.
-     *
-     * @param expenseList The <code>ExpenseList</code> object stored in Duke
      */
-    public void updateTotalSpentLabel(ExpenseList expenseList) {
-        totalSpentLabel.setText("Total: $" + expenseList.getTotalAmount());
+    public void updateTotalSpentLabel() {
+        totalSpentLabel.setText("Total: $" + duke.expenseList.getTotalAmount());
     }
 }
 

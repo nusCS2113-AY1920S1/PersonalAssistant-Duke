@@ -1,9 +1,8 @@
-package command;
+package duke.command;
 
-import dukeobjects.ExpenseList;
-import parser.CommandParams;
-import storage.Storage;
-import ui.Ui;
+import duke.dukeobject.ExpenseList;
+import duke.parser.CommandParams;
+import duke.ui.Ui;
 
 import java.util.Map;
 
@@ -36,9 +35,9 @@ public abstract class Command {
     /**
      * Creates a new command object, with its name, description, usage and secondary parameters.
      *
-     * @param name the name of the command to create.
-     * @param description the description of the command to create.
-     * @param usage the usage of the command to create.
+     * @param name            the name of the command to create.
+     * @param description     the description of the command to create.
+     * @param usage           the usage of the command to create.
      * @param secondaryParams the secondary parameters of the command to create.
      */
     protected Command(String name, String description, String usage, Map<String, String> secondaryParams) {
@@ -50,12 +49,10 @@ public abstract class Command {
 
     /**
      * Executes the command with parameters given by the user.
-     *
-     * @param commandParams the parameters given by the user, parsed into a {@code CommandParams} object.
-     * @param expensesList The ExpenseList of Duke.
-     * @param ui The ui of Duke.
-     * @param storage The storage of Duke.
+     *  @param commandParams the parameters given by the user, parsed into a {@code CommandParams} object.
+     * @param expensesList  The ExpenseList of Duke.
+     * @param ui            The ui of Duke.
      */
-    public void execute(CommandParams commandParams, ExpenseList expensesList, Ui ui, Storage storage) {
+    public void execute(CommandParams commandParams, ExpenseList expensesList, Ui ui) {
     }
 }

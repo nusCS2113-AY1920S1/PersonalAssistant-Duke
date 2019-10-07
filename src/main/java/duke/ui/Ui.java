@@ -1,8 +1,8 @@
-package ui;
+package duke.ui;
 
-import dukeobjects.Expense;
-import dukeobjects.ExpenseList;
-import exception.DukeException;
+import duke.dukeobject.Expense;
+import duke.dukeobject.ExpenseList;
+import duke.exception.DukeException;
 
 
 import java.util.Scanner;
@@ -27,10 +27,10 @@ public class Ui {
      */
     public void showWelcome() {
         String logo = " ____        _        \n"
-                + "|  _ \\ _   _| | _____ \n"
-                + "| | | | | | | |/ / _ \\\n"
-                + "| |_| | |_| |   <  __/\n"
-                + "|____/ \\__,_|_|\\_\\___|\n";
+            + "|  _ \\ _   _| | _____ \n"
+            + "| | | | | | | |/ / _ \\\n"
+            + "| |_| | |_| |   <  __/\n"
+            + "|____/ \\__,_|_|\\_\\___|\n";
         System.out.println("Hello from\n" + logo);
         System.out.println("I am Duke. What can I do for you?");
     }
@@ -70,9 +70,9 @@ public class Ui {
      * @param expenseList {@code ExpenseList} that we want to be printed
      */
     public void printExpenseList(ExpenseList expenseList) {
-        if (expenseList.getSize() > 0) {
+        if (expenseList.internalSize() > 0) {
             int count = 1;
-            for (Expense expense : ExpenseList.getExpenseList()) {
+            for (Expense expense : expenseList.getExternalList()) {
                 println(expense.toString());
                 count++;
             }

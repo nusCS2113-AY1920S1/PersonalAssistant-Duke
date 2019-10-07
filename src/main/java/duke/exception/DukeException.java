@@ -1,4 +1,4 @@
-package exception;
+package duke.exception;
 
 /**
  * Specifies the name of exception the Duke can throw

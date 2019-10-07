@@ -1,4 +1,4 @@
-package utils;
+package duke.utils;
 
 import java.util.Calendar;
 import java.util.Date;
@@ -18,11 +18,7 @@ public class DateCompare {
         calendar.add(Calendar.DATE, 1);
         calendar.add(Calendar.SECOND, -1);
         Date day1End = calendar.getTime();
-        if (day2.after(day1) && day2.before(day1End)) {
-            return true;
-        } else {
-            return false;
-        }
+        return day2.after(day1) && day2.before(day1End);
     }
 
     /**
@@ -47,13 +43,11 @@ public class DateCompare {
             return true;
         } else if (startDateB.after(startDateA) && endDateB.before(startDateB)) {
             return true;
-        }  else if (startDateA.equals(startDateB)
+        } else {
+            return startDateA.equals(startDateB)
                 || endDateA.equals(endDateB)
                 || startDateA.equals(endDateB)
-                || endDateA.equals(startDateB)) {
-            return true;
-        } else {
-            return false;
+                || endDateA.equals(startDateB);
         }
     }
 }

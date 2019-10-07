@@ -1,10 +1,9 @@
-package command;
+package duke.command;
 
-import dukeobjects.ExpenseList;
-import exception.DukeException;
-import parser.CommandParams;
-import storage.Storage;
-import ui.Ui;
+import duke.dukeobject.ExpenseList;
+import duke.exception.DukeException;
+import duke.parser.CommandParams;
+import duke.ui.Ui;
 
 /**
  * Represents a specified command as DeleteCommand by extending the {@code Command} class.
@@ -27,11 +26,10 @@ public class DeleteCommand extends Command {
      * Responses the result to user by using ui of Duke.
      *
      * @param expensesList The ExpenseList of Duke.
-     * @param ui The ui of Duke.
-     * @param storage The storage of Duke.
+     * @param ui           The ui of Duke.
      * @throws DukeException If the index given is out of range, invalid, or does not exist.
      */
-    public void execute(CommandParams commandParams, ExpenseList expensesList, Ui ui, Storage storage) {
+    public void execute(CommandParams commandParams, ExpenseList expensesList, Ui ui) {
         /*
         if (commandParams.getMainParam() == null) {
             throw new DukeException("☹ OOPS!!! I don't know which task to delete!");

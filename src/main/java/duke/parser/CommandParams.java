@@ -1,6 +1,6 @@
-package parser;
+package duke.parser;
 
-import exception.DukeException;
+import duke.exception.DukeException;
 
 import java.util.regex.Pattern;
 import java.util.HashMap;
@@ -117,7 +117,7 @@ public class CommandParams {
     /**
      * Returns true if all parameters specified by {@code paramNames} exist in the {@code CommandParams}
      * object, and false otherwise.
-     *
+     * <p>
      * Can be used to check for optional flags.
      *
      * @param paramNames the parameter(s) whose existence to check for.

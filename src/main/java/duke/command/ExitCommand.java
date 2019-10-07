@@ -1,9 +1,8 @@
-package command;
+package duke.command;
 
-import dukeobjects.ExpenseList;
-import parser.CommandParams;
-import storage.Storage;
-import ui.Ui;
+import duke.dukeobject.ExpenseList;
+import duke.parser.CommandParams;
+import duke.ui.Ui;
 
 /**
  * Represents a specified command as ExitCommand by extending the {@code Command} class.
@@ -20,12 +19,10 @@ public class ExitCommand extends Command {
 
     /**
      * Shows bye to user.
-     *
-     * @param expensesList   The ExpenseList of Duke.
-     * @param ui      The ui of Duke.
-     * @param storage The storage of Duke.
+     *  @param expensesList The ExpenseList of Duke.
+     * @param ui           The ui of Duke.
      */
-    public void execute(CommandParams commandParams, ExpenseList expensesList, Ui ui, Storage storage) {
+    public void execute(CommandParams commandParams, ExpenseList expensesList, Ui ui) {
         ui.println("Bye. Hope to see you again soon!");
         System.exit(0);
     }
