@@ -1,3 +1,9 @@
+package rims.command;
+
+import rims.core.*;
+import rims.exception.*;
+import rims.resource.*;
+
 import java.util.*;
 import java.io.*;
 import java.text.*;
