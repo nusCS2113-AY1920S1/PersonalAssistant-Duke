@@ -11,6 +11,7 @@ import duke.Task.*;
 import duke.Module.Reminder;
 import duke.Ui;
 import duke.Sports.MyPlan;
+import duke.exceptions.DukeException;
 
 import javax.swing.plaf.synth.SynthSpinnerUI;
 import java.io.FileNotFoundException;
@@ -329,20 +330,27 @@ public class Parser {
 
             /**
              * When cmd student is called
-             * Format for adding student is: student add [age] [Name].
+             * Format for adding student is: student add/ Name/ age/ address.
              */
             case "student":
-                if (word[1].equals("add/")) {
-//                    index = input.indexOf(word[2]);
-                    String[] splitByComma = input.split("/ ");
-                    String name = splitByComma[1];
-                    String age = splitByComma[2];
-                    String address = splitByComma[3];
-                    MyStudent myNewStudent = new MyStudent(name, age, address);
-                    students.addStudent(myNewStudent);
-                }
-                if (word[1].equals("list")) {
-                    students.listAllStudents();
+                try {
+                    switch (word[1]) {
+                        case "add/":
+                            String[] splitByComma = input.split("/ ");
+                            String name = splitByComma[1];
+                            String age = splitByComma[2];
+                            String address = splitByComma[3];
+                            MyStudent myNewStudent = new MyStudent(name, age, address);
+                            students.addStudent(myNewStudent);
+                            break;
+
+                        case "list":
+                            students.listAllStudents();
+                            break;
+
+                    }
+                } catch (Exception e) {
+                    System.out.println("Invalid format");
                 }
                 break;
 
