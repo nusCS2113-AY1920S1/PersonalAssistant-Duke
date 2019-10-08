@@ -17,17 +17,13 @@ import moneycommands.ListTotalExpenditureCommand;
 import moneycommands.ListTotalIncomeCommand;
 import moneycommands.startCommand;
 import moneycommands.MoneyCommand;
-import moneycommands.ViewPastMonthIncome;
 
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.TimeZone;
 
 /**
  * This class which takes in the user input from command line and identifies the
@@ -90,7 +86,9 @@ public class Parser {
             moneyCommand = new GraphCommand();
         } else if (cmd.startsWith("add instalment")) {
             moneyCommand = new AddInstalmentCommand(cmd);
-        } else if(cmd.startsWith("list all instalment")) {
+        } else if (cmd.startsWith("delete instalment")) {
+            moneyCommand = new DeleteInstalmentCommand(cmd);
+        } else if (cmd.startsWith("list all instalment")) {
             moneyCommand = new ListInstalmentCommand();
         } else {
             throw new DukeException("OOPS!!! I'm sorry, but I don't know what that means");
