@@ -7,24 +7,18 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import seedu.duke.Duke;
 import seedu.duke.Parser;
 import seedu.duke.TaskList;
 import seedu.duke.Storage;
-import seedu.duke.email.Email;
 import seedu.duke.email.EmailStorage;
-import seedu.duke.task.Deadline;
-import seedu.duke.task.Event;
 import seedu.duke.task.Task;
-import seedu.duke.task.ToDo;
-import seedu.duke.gui.TaskCard;
 
-import java.util.Collection;
-import java.util.Iterator;
+import java.util.*;
 import java.util.function.UnaryOperator;
-import java.util.Set;
-import java.util.HashSet;
 
 /**
  * Controller for MainWindow. Provides the layout for the other controls.
@@ -42,9 +36,9 @@ public class MainWindow extends AnchorPane {
     @FXML
     private Button sendButton;
     @FXML
-    private ListView<String> tasksListView;
+    private ListView<HBoxCell> tasksListView;
     @FXML
-    private ListView<String> emailsListView;
+    private ListView<EmailHBoxCell> emailsListView;
 
     private Duke duke;
 
@@ -54,6 +48,12 @@ public class MainWindow extends AnchorPane {
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
+        String welcome = "Hi, I'm Duke!\nHow may I help you?";
+        dialogContainer.getChildren().addAll(
+                DialogBox.getDukeDialog(welcome, dukeImage)
+        );
+        updateTasksList();
+        updateEmailsList();
     }
 
     public void setDuke(Duke d) {
@@ -135,34 +135,80 @@ public class MainWindow extends AnchorPane {
     }
 
     private void updateTasksList() {
-        ObservableList<String> observableList = FXCollections.observableArrayList();
+//        ObservableList<String> observableList = FXCollections.observableArrayList();
+//        for (int i = 0; i < Duke.getTaskList().size(); i++) {
+//            Task task = Duke.getTaskList().get(i);
+//            String output = (i+1) + ". " + task.getName() + "\n" +
+//                    (task.getDone() ? "\u2713" : "\u2718") + "  " + task.getTaskType();
+//            switch (Duke.getTaskList().get(i).getTaskType()) {
+//                case Deadline:
+//                    Deadline deadline = (Deadline) Duke.getTaskList().get(i);
+//                    output += "\nBy: " + deadline.getTime();
+//                    break;
+//                case Event:
+//                    Event event = (Event) Duke.getTaskList().get(i);
+//                    output += "\nAt: " + event.getTime();
+//                    break;
+//            }
+//            if (!(task.getDoAfterDescription() == null)) {
+//                output += "\nAfter which: " + task.getDoAfterDescription();
+//            }
+//            observableList.add(output);
+//        }
+        ArrayList<HBoxCell> list = new ArrayList<>();
         for (int i = 0; i < Duke.getTaskList().size(); i++) {
-            Task task = Duke.getTaskList().get(i);
-            String output = (i+1) + ". " + task.getName() + "\n" +
-                    (task.getDone() ? "\u2713" : "\u2718") + "  " + task.getTaskType();
-            switch (Duke.getTaskList().get(i).getTaskType()) {
-                case Deadline:
-                    Deadline deadline = (Deadline) Duke.getTaskList().get(i);
-                    output += "\nBy: " + deadline.getTime();
-                    break;
-                case Event:
-                    Event event = (Event) Duke.getTaskList().get(i);
-                    output += "\nAt: " + event.getTime();
-                    break;
-            }
-            if (!(task.getDoAfterDescription() == null)) {
-                output += "\nAfter which: " + task.getDoAfterDescription();
-            }
-            observableList.add(output);
+            list.add(new HBoxCell(Duke.getTaskList().get(i), i));
         }
+        ObservableList<HBoxCell> observableList = FXCollections.observableList(list);
         tasksListView.setItems(observableList);
     }
 
-    private void updateEmailsList() {
-        ObservableList<String> observableList = FXCollections.observableArrayList();
-        for (int i = 0; i < Duke.getEmailList().size(); i++) {
-            observableList.add(Duke.getEmailList().get(i).toFileString());
+    public class HBoxCell extends HBox {
+
+        private Label taskName = new Label();
+        private Label taskType = new Label();
+        private Label id = new Label();
+
+        HBoxCell(Task task, int i) {
+            super();
+
+            taskName.setText(task.getName());
+            taskName.setMaxWidth(Double.MAX_VALUE);
+            HBox.setHgrow(taskName, Priority.ALWAYS);
+
+            taskType.setText(task.getTaskType().toString());
+
+            id.setText(String.valueOf(i+1));
+
+            this.getChildren().addAll(taskName, taskType, id);
         }
+    }
+
+    private void updateEmailsList() {
+//        ObservableList<String> observableList = FXCollections.observableArrayList();
+//        for (int i = 0; i < Duke.getEmailList().size(); i++) {
+//            observableList.add((i+1) + ". " + Duke.getEmailList().get(i).toFileString());
+//        }
+        ArrayList<EmailHBoxCell> list = new ArrayList<>();
+        for (int i = 0; i < Duke.getEmailList().size(); i++) {
+            list.add(new EmailHBoxCell(Duke.getEmailList().get(i).toFileString(), i));
+        }
+        ObservableList<EmailHBoxCell> observableList = FXCollections.observableList(list);
         emailsListView.setItems(observableList);
+    }
+
+    public static class EmailHBoxCell extends HBox {
+
+        EmailHBoxCell(String email, int i) {
+            super();
+
+            Label emailName = new Label();
+            emailName.setWrapText(true);
+            emailName.setText((i+1) + ". " + email);
+            emailName.setMaxWidth(USE_COMPUTED_SIZE);
+            HBox.setHgrow(emailName, Priority.ALWAYS);
+
+            this.getChildren().addAll(emailName);
+        }
     }
 }
