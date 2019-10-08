@@ -17,17 +17,11 @@ public class MealList {
     private Calendar calendarDate = Calendar.getInstance();
     private String currentDate = dateFormat.format(calendarDate.getTime());
     private HashMap<String, ArrayList<Meal>> mealTracker = new HashMap<>();
+    private HashMap<String, HashMap<String, Integer>> storedItems = new HashMap<>();
 
     /**
-     * This is the constructor of TaskList object.
-     */
-    public MealList(HashMap<String, ArrayList<Meal>> mealTracker) {
-        this.mealTracker = mealTracker;
-    }
-
-    /**
-     * This is the constructor of TaskList object if there is no argument.
-     * The TaskList object will initialise a new empty arraylist of task.
+     * This is the constructor of MealList object if there is no argument.
+     * The MealList object will initialise a new empty arraylist of meals.
      */
     public MealList() {
     }
@@ -68,7 +62,7 @@ public class MealList {
     public Meal updateMeal(Meal newMeal) throws DukeException {
         String dateStr = newMeal.getDate();
         if (mealTracker.containsKey(dateStr)) {
-            ArrayList<Meal> meals = getMeals(dateStr);
+            ArrayList<Meal> meals = getMealsList(dateStr);
             for (int idx = 0; idx < meals.size(); idx++) {
                 Meal currMeal = meals.get(idx);
                 if (isSameMeal(currMeal, newMeal)) {
@@ -93,7 +87,38 @@ public class MealList {
         return meal1.getDescription().equals(meal2.getDescription()) && meal1.getDate().equals(meal2.getDate());
     }
 
-    public ArrayList<Meal> getMeals(String inputDate) {
+    public void setMealTracker(HashMap<String, ArrayList<Meal>> mealTracker) {
+        this.mealTracker = mealTracker;
+    }
+
+    public void addMeals(Meal data) throws DukeException {
+        ArrayList<Meal> mealList;
+        if (mealTracker.containsKey(data.getDate())) {
+            mealList = mealTracker.get(data.getDate());
+        } else {
+            mealTracker.put(data.getDate(), new ArrayList<>());
+            mealList = mealTracker.get(data.getDate());
+        }
+        //match meal description to stored meals. If it matches a stored meal, compare nutrition data,
+        // and fill in any missing fields
+        if (storedItems.get(data.getDescription()) != null) {
+            HashMap<String, Integer> storedNutritionValue = storedItems.get(data.getDescription());
+            HashMap<String, Integer> nutritionValue = data.getNutritionalValue();
+            for (String i: storedNutritionValue.keySet()) {
+                if (nutritionValue.get(i) == null) {
+                    nutritionValue.put(i, storedNutritionValue.get(i));
+                }
+            }
+        }
+        if (data.getNutritionalValue().size() == 0) {
+            throw new DukeException("\u2639 OOPS!!! It appears there are no default values associated with this meal\n"
+                    + "     Please set a default value for this meal using the \"add\" command, or manually\n"
+                    + "     specify nutritional values for this meal");
+        }
+        mealList.add(data);
+    }
+
+    public ArrayList<Meal> getMealsList(String inputDate) {
         if (mealTracker.containsKey(inputDate)) {
             return mealTracker.get(inputDate);
         } else {
@@ -102,12 +127,57 @@ public class MealList {
         }
     }
 
+    /**
+     * This function is a getter for the mealtracker HashMap.
+     * @return mealTracker the data structure storing the list of all meals
+     */
     public HashMap<String, ArrayList<Meal>> getMealTracker() {
         return mealTracker;
     }
 
+
     public boolean hasMealsOnDate(String date) {
-        ArrayList<Meal> temp = getMeals(date);
+        ArrayList<Meal> temp = getMealsList(date);
         return temp.size() > 0;
+    }
+
+    /**
+     * This function is used to check if a entry with the corresponding date is stored.
+     * @param date the date to be checked
+     * @return boolean
+     */
+    public boolean checkDate(String date) {
+        return mealTracker.containsKey(date);
+    }
+
+    /**
+     * This function is used to add or update default values for a specified meal item.
+     * @param item The data to be set as default for a meal item with matching descriptor
+     */
+    public void addStoredItem(Meal item) {
+        String keyword = item.getDescription();
+        HashMap<String, Integer> data = item.getNutritionalValue();
+        if (storedItems.get(keyword) == null) {
+            storedItems.put(keyword, data);
+        } else {
+            storedItems.remove(keyword);
+            storedItems.put(keyword, data);
+        }
+    }
+
+    public HashMap<String, Integer> getStoredItem(String keyword) {
+        return storedItems.get(keyword);
+    }
+
+    public void removeStoredItem(String keyword) {
+        storedItems.remove(keyword);
+    }
+
+    /**
+     * This function is a getter for the StoredItems HashMap.
+     * @return storedItems the data structure storing the list of all meals
+     */
+    public HashMap<String, HashMap<String, Integer>> getStoredList() {
+        return storedItems;
     }
 }

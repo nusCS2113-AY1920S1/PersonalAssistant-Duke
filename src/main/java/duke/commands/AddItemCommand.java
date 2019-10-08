@@ -2,7 +2,6 @@ package duke.commands;
 
 import java.util.ArrayList;
 
-import duke.exceptions.DukeException;
 import duke.tasks.Meal;
 import duke.tasks.MealList;
 import duke.ui.Ui;
@@ -10,11 +9,11 @@ import duke.storage.Storage;
 import duke.user.User;
 
 /**
- * AddCommand is a public class that inherits from abstract class Command.
- * An AddCommand object encapsulates the current meal that is to be added.
+ * AddItemCommand is a public class that inherits from abstract class Command.
+ * An AddItemCommand object encapsulates the current meal that is to be added.
  * @author Ivan Andika Lie
  */
-public class AddCommand extends Command {
+public class AddItemCommand extends Command {
     private Meal meal;
 
     /**
@@ -22,21 +21,21 @@ public class AddCommand extends Command {
      * the meal specified as the instance field meal.
      * @param meal The meal to be added.
      */
-    public AddCommand(Meal meal) {
+    public AddItemCommand(Meal meal) {
         this.meal = meal;
     }
 
     /**
-     * The object will execute the "add" command, updating the current tasks, ui, and storage in the process.
+     * The object will execute the "add" command, updating the default meal data, ui, and storage in the process.
      * @param meals the MealList object in which the meal is supposed to be added
      * @param ui the ui object to display the user interface of an "add" command
      * @param storage the storage object that stores the list of meals
      */
+
     @Override
-    public void execute(MealList meals, Ui ui, Storage storage, User user) throws DukeException {
-        meals.addMeals(this.meal);
-        ArrayList<Meal> mealData = meals.getMealTracker().get(this.meal.getDate());
-        ui.showAdded(this.meal, mealData, user, this.meal.getDate());
+    public void execute(MealList meals, Ui ui, Storage storage, User user) {
+        meals.addStoredItem(this.meal);
+        ui.showAddedItem(this.meal);
         storage.updateFile(meals);
     }
 }

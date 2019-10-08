@@ -53,6 +53,11 @@ public class Meal {
         }
     }
 
+    /**
+     * This is the secondary constructor of Task object.
+     * used mainly in storage parsing
+     * @param description the description of the task
+     */
     public Meal(String description, String[] details) {
         this.description = description.stripLeading().stripTrailing();
         try {
@@ -65,6 +70,13 @@ public class Meal {
         for (int i = 2; i < details.length; i += 2) {
             nutritionValue.put(details[i], Integer.valueOf(details[i + 1]));
         }
+    }
+
+    /**
+     * This is the no argument constructor for meal task object.
+     * used to satisfy requirement for default constructor, not used otherwise
+     */
+    public Meal() {
     }
 
     /**
@@ -133,7 +145,7 @@ public class Meal {
         for (String i : nutritionValue.keySet()) {
             temp += i + ":" + nutritionValue.get(i) + " ";
         }
-        return this.getStatusIcon() + " " + this.description + " " + temp;
+        return this.getStatusIcon() + " " + this.description + " | " + temp;
         //TODO: refactor this by using type also
     }
 

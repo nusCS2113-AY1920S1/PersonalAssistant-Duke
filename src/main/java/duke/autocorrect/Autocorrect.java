@@ -15,14 +15,12 @@ public class Autocorrect {
     private int[] counter = new int[26];
 
     public Autocorrect() {
-
     }
 
     /**
      * This is a function that will store the pre defined correct words into the object.
      * @param word pre defined correct words to be stored.
      */
-
     public void load(String word) {
         int[] counting = new int[26];
         for (int i = 0; i < 26; i += 1) {

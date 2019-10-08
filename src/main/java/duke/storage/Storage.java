@@ -7,10 +7,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import duke.exceptions.DukeException;
-import duke.tasks.Dinner;
-import duke.tasks.Lunch;
-import duke.tasks.Meal;
-import duke.tasks.Breakfast;
+import duke.tasks.*;
 import duke.user.User;
 import duke.user.Gender;
 import duke.user.Tuple;
@@ -31,12 +28,11 @@ public class Storage {
 
     /**
      * The function will act to load txt file specified by the filepath, parse it and store it in a new task ArrayList
-     * to be added in that TaskList.
-     * @return the ArrayList of task loaded from the file
+     * to be added in that MealList.
      * @throws DukeException if either the object is unable to open file or it is unable to read the file
      */
 
-    public HashMap<String, ArrayList<Meal>> load() throws DukeException {
+    public void load(MealList meals) throws DukeException {
         HashMap<String, ArrayList<Meal>> mealTracker = new HashMap<>();
         String sep = System.getProperty("file.separator");
         file = new File("src" + sep + "main" + sep + "java" + sep + "duke"
@@ -49,7 +45,7 @@ public class Storage {
         try {
             while ((line = bufferedReader.readLine()) != null) {
                 //TODO: Parse the line
-                loadFile(line, mealTracker);
+                loadFile(line, mealTracker, meals);
             }
             bufferedReader.close();
         } catch (FileNotFoundException e) {
@@ -57,15 +53,16 @@ public class Storage {
         } catch (IOException e) {
             throw new DukeException("Error reading file");
         }
-        return mealTracker;
+        meals.setMealTracker(mealTracker);
     }
 
     /**
-     * This function acts as a line by line parser from the text file which is used to load a particular type of task.
+     * This function acts as a parser from the text file which is used to store data from the previous session.
      * @param line the line input from the input file
-     * @param mealTracker the task arraylist that will store the tasks from the input file
+     * @param mealTracker the meal arraylist that will store the meals from the input file
+     * @param meals the structure that encapsulates the meal data for this session
      */
-    private void loadFile(String line, HashMap<String, ArrayList<Meal>> mealTracker) {
+    private void loadFile(String line, HashMap<String, ArrayList<Meal>> mealTracker, MealList meals) {
         String[] splitLine = line.split("\\|",4);
         String taskType = splitLine[0];
         boolean isDone = splitLine[1].equals("1");
@@ -78,26 +75,33 @@ public class Storage {
             newMeal = new Lunch(description, nutritionalValue);
         } else if (taskType.equals("D")) {
             newMeal = new Dinner(description, nutritionalValue);
+        } else if (taskType.equals("S")) {
+            newMeal = new Item(description, nutritionalValue);
         }
-        if (isDone) {
-            newMeal.markAsDone();
-        }
-        String mealDate = newMeal.getDate();
-        if (!mealTracker.containsKey(mealDate)) {
-            mealTracker.put(mealDate, new ArrayList<Meal>());
-            mealTracker.get(mealDate).add(newMeal);
+        if (taskType.equals("S") == false) {
+            if (isDone) {
+                newMeal.markAsDone();
+            }
+            String mealDate = newMeal.getDate();
+            if (!mealTracker.containsKey(mealDate)) {
+                mealTracker.put(mealDate, new ArrayList<Meal>());
+                mealTracker.get(mealDate).add(newMeal);
+            } else {
+                mealTracker.get(mealDate).add(newMeal);
+            }
         } else {
-            mealTracker.get(mealDate).add(newMeal);
+            meals.addStoredItem(newMeal);
         }
-
     }
 
     /**
-     * This is a function that will update the input/output file from the current arraylist of tasks.
-     * @param meals the task arraylist that will store the tasks from the input file
+     * This is a function that will update the input/output file from the current arraylist of meals.
+     * @param mealData the structure that will store the tasks from the input file
      */
     //TODO: maybe we can put the errors in the ui file
-    public void updateFile(HashMap<String, ArrayList<Meal>> meals) {
+    public void updateFile(MealList mealData) {
+        HashMap<String, ArrayList<Meal>> meals = mealData.getMealTracker();
+        HashMap<String, HashMap<String, Integer>> storedItems = mealData.getStoredList();
         try {
             bufferedWriter = new BufferedWriter(new FileWriter(file));
         } catch (Exception e) {
@@ -105,7 +109,7 @@ public class Storage {
             e.printStackTrace();
         }
         try {
-            for (String i : meals.keySet()) {
+            for (String i : meals.keySet()) { //write process for stored food entries
                 ArrayList<Meal> mealsInDay = meals.get(i);
                 for (int j = 0; j < meals.get(i).size(); j++) {
                     Meal currentMeal = mealsInDay.get(j);
@@ -125,6 +129,19 @@ public class Storage {
                     }
                     bufferedWriter.write(toWrite);
                 }
+            }
+            for (String i : storedItems.keySet()) { //write process for stored default food values
+                String toWrite = "";
+                toWrite += "S|0|" + i;
+                HashMap<String, Integer> nutritionData = storedItems.get(i);
+                if (nutritionData.size() != 0) {
+                    toWrite += "|";
+                    for (String k : nutritionData.keySet()) {
+                        toWrite += k + "|" + nutritionData.get(k) + "|";
+                    }
+                    toWrite = toWrite.substring(0, toWrite.length() - 1) + "\n";
+                }
+                bufferedWriter.write(toWrite);
             }
             bufferedWriter.close();
         } catch (IOException e) {

@@ -3,6 +3,7 @@ package duke;
 import duke.commands.Command;
 import duke.exceptions.DukeException;
 import duke.storage.Storage;
+import duke.tasks.Item;
 import duke.tasks.MealList;
 import duke.ui.Ui;
 import duke.parsers.Parser;
@@ -13,12 +14,12 @@ import java.util.Scanner;
 
 /**
  * Duke is a public class that contains the main function to drive the program.
- * It encapsulates a Storage object, a TaskList object, and an Ui object.
+ * It encapsulates a Storage object, a MealList object, and an Ui object.
  */
 public class Duke {
 
     private Storage storage;
-    private MealList tasks;
+    private MealList tasks = new MealList();
     private Ui ui;
     private Scanner in = new Scanner(System.in);
     private User user;
@@ -33,7 +34,7 @@ public class Duke {
         user = new User();
         autocorrect = new Autocorrect();
         try {
-            tasks = new MealList(storage.load());
+            storage.load(tasks);
         } catch (DukeException e) {
             ui.showLoadingError();
             tasks = new MealList();

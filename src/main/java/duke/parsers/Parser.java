@@ -5,6 +5,7 @@ import duke.commands.*;
 import duke.exceptions.DukeException;
 import duke.tasks.Dinner;
 import duke.tasks.Breakfast;
+import duke.tasks.Item;
 import duke.tasks.Lunch;
 import duke.tasks.Meal;
 import java.util.Calendar;
@@ -21,20 +22,21 @@ public class Parser {
      * @param fullCommand the string the user input in the CLI
      * @return <code>new ExitCommand()</code>
      *         if the user input "bye"
-     *         <code>new AddCommand(new ToDo())</code> if the user input
-     *         "todo" followed by the description of the activity
-     *         <code>new AddCommand(new Event()</code> if the user input
-     *         "event" followed by the time the event is held
+     *         <code>new AddCommand(new Breakfast())</code> if the user input
+     *         "breakfast" followed by the description of the meal
+     *         <code>new AddCommand(new Lunch()</code> if the user input
+     *         "lunch" followed by the description of the meal
+     *         <code>new AddCommand(new Dinner()</code> if the user input
+     *         "dinner" followed by the description of the meal
      *         <code>new ListCommand()</code> if the user input
      *         list
      *         <code>new MarkDoneCommand(index)</code> if the user input
-     *         "done" followed by the index of the task to be marked done
+     *         "done" followed by the index of the meal to be marked completed
      *         <code>new FindCommand(description)</code> if the user input
      *         "find" followed by the string that needs to be added
      *         <code>new DeleteCommand(index) </code> if the sure input
      *         "delete" followed by the index of the task to be deleted
-     * @throws DukeException either there is no description in "done", "todo", "event", and "deadline" command
-     *                       or the command is not recognized
+     * @throws DukeException when the command is not recognized or command syntax is invalid
      */
     public static Command parse(String fullCommand, Autocorrect autocorrect) throws DukeException {
         String[] splitCommand = fullCommand.split(" ", 2);
@@ -63,17 +65,33 @@ public class Parser {
             case "bye":
                 return new ExitCommand();
             case "breakfast":
-                name = description.split("/", 2)[0];
-                info = "/" + description.split("/", 2)[1];
-                return new AddCommand(new Breakfast(name, info, autocorrect));
+                if (description.contains("/")) {
+                    name = description.split("/", 2)[0].trim();
+                    info = "/" + description.split("/", 2)[1];
+                    return new AddCommand(new Breakfast(name, info, autocorrect));
+                } else {
+                    return new AddCommand(new Breakfast(description, "", autocorrect));
+                }
             case "lunch":
-                name = description.split("/", 2)[0];
-                info = "/" + description.split("/", 2)[1];
-                return new AddCommand(new Lunch(name, info, autocorrect));
+                if (description.contains("/")) {
+                    name = description.split("/", 2)[0].trim();
+                    info = "/" + description.split("/", 2)[1];
+                    return new AddCommand(new Lunch(name, info, autocorrect));
+                } else {
+                    return new AddCommand(new Lunch(description, "", autocorrect));
+                }
             case "dinner":
-                name = description.split("/", 2)[0];
+                if (description.contains("/")) {
+                    name = description.split("/", 2)[0].trim();
+                    info = "/" + description.split("/", 2)[1];
+                    return new AddCommand(new Dinner(name, info, autocorrect));
+                } else {
+                    return new AddCommand(new Dinner(description, "", autocorrect));
+                }
+            case "add" :
+                name = description.split("/", 2)[0].trim();
                 info = "/" + description.split("/", 2)[1];
-                return new AddCommand(new Dinner(name, info, autocorrect));
+                return new AddItemCommand(new Item(name, info, autocorrect));
             case "list":
                 if (splitCommand.length > 1) {
                     return new ListCommand(splitCommand[1]);

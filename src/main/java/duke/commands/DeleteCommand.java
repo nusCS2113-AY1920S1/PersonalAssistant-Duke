@@ -5,12 +5,11 @@ import duke.tasks.Meal;
 import duke.tasks.MealList;
 import duke.ui.Ui;
 import duke.storage.Storage;
+import duke.user.User;
 
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Date;
-
-import duke.user.User;
 
 /**
  * DeleteCommand is a public class that inherits from abstract class Command.
@@ -47,17 +46,18 @@ public class DeleteCommand extends Command {
 
     /**
      * The object will execute the "delete" command, updating the current tasks, ui, and storage in the process.
-     * @param mealList the TaskList object in which the the indexed task is supposed to be deleted from
+     * @param mealList the MealList object in which the the indexed meal is supposed to be deleted from
      * @param ui the ui object to display the user interface of a "delete" command
-     * @param storage the storage object that stores the list of tasks
+     * @param storage the storage object that stores the list of meals
+     * @param user the storage object for user info
      */
     @Override
     public void execute(MealList mealList, Ui ui, Storage storage, User user) throws DukeException {
-        if (index <= 0 || index > mealList.getMeals(currentDate).size()) {
+        if (index <= 0 || index > mealList.getMealsList(currentDate).size()) {
             throw new DukeException("Index provided out of bounds for list of meals on " + currentDate);
         }
         Meal currentMeal = mealList.delete(currentDate, index);
-        ui.showDeleted(currentMeal, mealList.getMeals(currentDate));
-        storage.updateFile(mealList.getMealTracker());
+        ui.showDeleted(currentMeal, mealList.getMealsList(currentDate));
+        storage.updateFile(mealList);
     }
 }

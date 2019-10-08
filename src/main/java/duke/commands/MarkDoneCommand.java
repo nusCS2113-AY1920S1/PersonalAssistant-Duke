@@ -10,7 +10,7 @@ import duke.user.User;
 
 /**
  * MarkDoneCommand is a public class that inherits form abstract class Command.
- * A MarkDoneCommand object encapsulates the index of task to be marked as done.
+ * A MarkDoneCommand object encapsulates the index of meal to be marked as done.
  * @author Ivan Andika Lie
  */
 public class MarkDoneCommand extends Command {
@@ -26,23 +26,24 @@ public class MarkDoneCommand extends Command {
     }
 
     /**
-     * The object will execute the "mark done" command, updating the current tasks, ui, and storage in the process.
-     * @param tasks the TaskList object to be marked done
+     * The object will execute the "mark done" command, updating the current meals, ui, and storage in the process.
+     * @param tasks the MealList object to be marked done
      * @param ui the ui object to display the user interface of an "mark done" command
-     * @param storage the storage object that stores the list of tasks
+     * @param storage the storage object that stores the list of meals
      */
     @Override
     public void execute(MealList tasks, Ui ui, Storage storage, User user) {
         ArrayList<Meal> matchingMeals = new ArrayList<>();
-        ArrayList<Meal> currentMeals = tasks.getMeals(currentDate);
+        ArrayList<Meal> currentMeals = tasks.getMealsList(currentDate);
         for (Meal element: currentMeals) {
             if (element.getType().equals(type)) {
                 element.markAsDone();
                 matchingMeals.add(element);
             }
         }
-        storage.updateFile(tasks.getMealTracker());
+        storage.updateFile(tasks);
         ui.showDone(matchingMeals);
         ui.showRemainingCalorie(currentMeals, user);
+
     }
 }
