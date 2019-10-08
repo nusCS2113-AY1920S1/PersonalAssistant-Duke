@@ -1,19 +1,25 @@
 package duke.command;
 
 import duke.core.DukeException;
+import duke.core.Ui;
+import duke.patient.Patient;
 import duke.patient.PatientList;
 import duke.storage.PatientStorage;
-import duke.storage.Storage;
 import duke.storage.TaskStorage;
 import duke.task.TaskList;
-import duke.core.Ui;
 
-public class HelpCommand extends Command {
+public class AddPatientCommand extends Command {
+
+    private Patient newPatient;
+    public AddPatientCommand(Patient newPatient) {
+        super();
+        this.newPatient = newPatient;
+    }
 
     @Override
     public void execute(TaskList tasks, PatientList patientList, Ui ui, TaskStorage taskStorage, PatientStorage patientStorage) throws DukeException {
-        ui.showHelpCommand();
-
+        patientList.addPatient(newPatient);
+        patientStorage.save(patientList.getPatientList());
     }
 
     @Override
