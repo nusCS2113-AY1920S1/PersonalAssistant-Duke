@@ -33,4 +33,9 @@ public class DeleteInstalmentCommand extends MoneyCommand{
         account.getInstalments().remove(serialNo - 1);
         storage.writeToFile(account);
     }
+
+    @Override
+    public void undo(Account account, Ui ui, MoneyStorage storage) throws DukeException, ParseException {
+        return;
+    }
 }

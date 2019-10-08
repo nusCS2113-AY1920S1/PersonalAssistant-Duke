@@ -83,10 +83,8 @@ public class Parser {
             moneyCommand = new DoneGoalCommand(cmd);
         } else if (cmd.startsWith("graph")) {
             moneyCommand = new GraphCommand();
-<<<<<<< HEAD
         } else if (cmd.startsWith("undo")) {
             moneyCommand = new UndoCommand();
-=======
         } else if (cmd.startsWith("add instalment")) {
             moneyCommand = new AddInstalmentCommand(cmd);
         } else if (cmd.startsWith("delete instalment")) {
@@ -101,7 +99,6 @@ public class Parser {
             moneyCommand = new ViewPastMonthIncome(cmd);
         } else if (cmd.startsWith("check expenditure")) {
             moneyCommand = new ViewPastMonthExpenditure(cmd);
->>>>>>> 888708f6a416811139a34973742c4e0af557ca3d
         } else {
             throw new DukeException("OOPS!!! I'm sorry, but I don't know what that means");
         }
