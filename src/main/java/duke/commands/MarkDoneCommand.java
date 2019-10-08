@@ -35,7 +35,7 @@ public class MarkDoneCommand extends Command {
         ArrayList<Meal> currentMeals = tasks.getMeals(currentDate);
         Meal currentMeal = currentMeals.get(index - 1);
         currentMeal.markAsDone();
-        storage.updateFile(tasks.getMealTracker());
+        storage.updateFile(tasks);
         ui.showDone(currentMeal);
     }
 }

@@ -18,13 +18,6 @@ public class MealList {
     private HashMap<String, HashMap<String, Integer>> storedItems = new HashMap<>();
 
     /**
-     * This is the constructor of TaskList object.
-     */
-    public MealList(HashMap<String, ArrayList<Meal>> mealTracker) {
-        this.mealTracker = mealTracker;
-    }
-
-    /**
      * This is the constructor of TaskList object if there is no argument.
      * The TaskList object will initialise a new empty arraylist of task.
      */
@@ -42,6 +35,10 @@ public class MealList {
 
     public void setMeals(String inputDate) {
         mealTracker.put(inputDate, new ArrayList<Meal>());
+    }
+
+    public void setMealTracker(HashMap<String, ArrayList<Meal>> mealTracker) {
+        this.mealTracker = mealTracker;
     }
 
     public ArrayList<Meal> getMeals(String inputDate) {
@@ -87,5 +84,9 @@ public class MealList {
 
     public void removeStoredItem(String keyword) {
         storedItems.remove(keyword);
+    }
+
+    public HashMap<String, HashMap<String, Integer>> getStoredList() {
+        return storedItems;
     }
 }

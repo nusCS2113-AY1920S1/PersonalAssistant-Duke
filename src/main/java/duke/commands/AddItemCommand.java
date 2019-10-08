@@ -36,6 +36,6 @@ public class AddItemCommand extends Command {
     public void execute(MealList meals, Ui ui, Storage storage, User user) {
         meals.addStoredItem(this.meal);
         ui.showAddedItem(this.meal);
-        storage.updateFile(meals.getMealTracker());
+        storage.updateFile(meals);
     }
 }

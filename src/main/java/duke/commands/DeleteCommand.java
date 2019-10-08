@@ -36,6 +36,6 @@ public class DeleteCommand extends Command {
         Meal currentMeal = currentMeals.get(index - 1);
         tasks.delete(index);
         ui.showDeleted(currentMeal, currentMeals);
-        storage.updateFile(tasks.getMealTracker());
+        storage.updateFile(tasks);
     }
 }

@@ -34,7 +34,7 @@ public class Duke {
         user = new User();
         autocorrect = new Autocorrect();
         try {
-            tasks = new MealList(storage.load());
+            storage.load(tasks);
         } catch (DukeException e) {
             ui.showLoadingError();
             tasks = new MealList();

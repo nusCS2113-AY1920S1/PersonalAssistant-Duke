@@ -33,7 +33,7 @@ public class Storage {
      * @throws DukeException if either the object is unable to open file or it is unable to read the file
      */
 
-    public HashMap<String, ArrayList<Meal>> load() throws DukeException {
+    public void load(MealList meals) throws DukeException {
         HashMap<String, ArrayList<Meal>> mealTracker = new HashMap<>();
         String sep = System.getProperty("file.separator");
         file = new File("src" + sep + "main" + sep + "java" + sep + "duke"
@@ -46,7 +46,7 @@ public class Storage {
         try {
             while ((line = bufferedReader.readLine()) != null) {
                 //TODO: Parse the line
-                loadFile(line, mealTracker);
+                loadFile(line, mealTracker, meals);
             }
             bufferedReader.close();
         } catch (FileNotFoundException e) {
@@ -54,7 +54,7 @@ public class Storage {
         } catch (IOException e) {
             throw new DukeException("Error reading file");
         }
-        return mealTracker;
+        meals.setMealTracker(mealTracker);
     }
 
     /**
@@ -62,7 +62,7 @@ public class Storage {
      * @param line the line input from the input file
      * @param mealTracker the task arraylist that will store the tasks from the input file
      */
-    private void loadFile(String line, HashMap<String, ArrayList<Meal>> mealTracker) {
+    private void loadFile(String line, HashMap<String, ArrayList<Meal>> mealTracker, MealList meals) {
         String[] splitLine = line.split("\\|",4);
         String taskType = splitLine[0];
         boolean isDone = splitLine[1].equals("1");
@@ -90,7 +90,7 @@ public class Storage {
                 mealTracker.get(mealDate).add(newMeal);
             }
         } else {
-            //meals.addStoredItem(newMeal);
+            meals.addStoredItem(newMeal);
         }
     }
 
@@ -99,7 +99,9 @@ public class Storage {
      * @param meals the task arraylist that will store the tasks from the input file
      */
     //TODO: maybe we can put the errors in the ui file
-    public void updateFile(HashMap<String, ArrayList<Meal>> meals) {
+    public void updateFile(MealList mealData) {
+        HashMap<String, ArrayList<Meal>> meals = mealData.getMealTracker();
+        HashMap<String, HashMap<String, Integer>> storedItems = mealData.getStoredList();
         try {
             bufferedWriter = new BufferedWriter(new FileWriter(file));
         } catch (Exception e) {
@@ -107,7 +109,7 @@ public class Storage {
             e.printStackTrace();
         }
         try {
-            for (String i : meals.keySet()) {
+            for (String i : meals.keySet()) { //write process for stored food entries
                 ArrayList<Meal> mealsInDay = meals.get(i);
                 for (int j = 0; j < meals.get(i).size(); j++) {
                     Meal currentMeal = mealsInDay.get(j);
@@ -127,6 +129,19 @@ public class Storage {
                     }
                     bufferedWriter.write(toWrite);
                 }
+            }
+            for (String i : storedItems.keySet()) { //write process for stored default food values
+                String toWrite = "";
+                toWrite += "S|" + i;
+                HashMap<String, Integer> nutritionData = storedItems.get(i);
+                if (nutritionData.size() != 0) {
+                    toWrite += "|";
+                    for (String k : nutritionData.keySet()) {
+                        toWrite += k + "|" + nutritionData.get(k) + "|";
+                    }
+                    toWrite = toWrite.substring(0, toWrite.length() - 1) + "\n";
+                }
+                bufferedWriter.write(toWrite);
             }
             bufferedWriter.close();
         } catch (IOException e) {
