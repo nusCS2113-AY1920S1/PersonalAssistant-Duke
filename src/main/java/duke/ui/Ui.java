@@ -63,16 +63,6 @@ public class Ui {
     }
 
     /**
-     * Show the help page
-     *
-     * @return an event requesting to view the help page
-     */
-    public static String helpRequest(TaskList items){
-        String str = "     Here are the commands available in Duke Manager:";
-        return  str;
-    }
-
-    /**
      * Outputs all the reminders of the user.
      *
      * @param tasks The task list that contains all reminders.
