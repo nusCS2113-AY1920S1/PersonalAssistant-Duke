@@ -55,4 +55,8 @@ public class BudgetList {
             System.out.println("Budget addition failed. Please try again.");
         }
     }
+
+    public void editBudget(int index, Budget budget) {
+        budgetList.set(index, budget);
+    }
 }

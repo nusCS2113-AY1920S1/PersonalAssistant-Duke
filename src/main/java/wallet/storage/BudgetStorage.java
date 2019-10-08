@@ -61,4 +61,22 @@ public class BudgetStorage extends Storage<Budget> {
             System.out.println("IOException: " + e.getMessage());
         }
     }
+
+    /**
+     * Updates Budget to file.
+     * @param budget  The object to be modified.
+     * @param index The index of the object in the list.
+     */
+    public void updateToFile(Budget budget, int index) {
+        //blank
+    }
+
+    /**
+     * Remove Budget from file.
+     * @param budgetArrayList The list to update.
+     * @param index The index of the object in the list to be deleted.
+     */
+    public void removeFromFile(ArrayList<Budget> budgetArrayList, int index) {
+        //blank
+    }
 }
