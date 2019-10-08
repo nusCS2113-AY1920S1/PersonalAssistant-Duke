@@ -1,7 +1,12 @@
 package duke.parsers.api;
 
 import duke.commons.DukeException;
+import duke.data.BusStop;
+import duke.data.Location;
 import duke.data.tasks.Holiday;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Class to handle all API constraint parsing.
@@ -69,6 +74,32 @@ public class ApiConstraintParser {
         */
 
         return holiday;
+    }
+
+    /**
+     * Get nearest bus stop to location.
+     * @param place Starting location
+     * @param busStopMap Map of all bus stop
+     * @return nearest bus stop
+     */
+    public static BusStop getNearestBusStop(Location place, HashMap<String, BusStop> busStopMap) {
+        double placeLatitude = place.getLatitude();
+        double placeLongitude = place.getLongitude();
+        double minimumDisplacement = 1000;
+        BusStop nearestBusStop = null;
+        for (Map.Entry mapElement : busStopMap.entrySet()) {
+            BusStop cur = (BusStop)mapElement.getValue();
+            //no idea why the lang and long is swap
+            double displacement = Math.pow(Math.abs(placeLatitude - cur.getLongitude()), 2)
+                                + Math.pow(Math.abs(placeLongitude - cur.getLatitude()), 2);
+            displacement = Math.sqrt(displacement);
+            if (displacement < minimumDisplacement) {
+                minimumDisplacement = displacement;
+                nearestBusStop = cur;
+            }
+        }
+
+        return nearestBusStop;
     }
 
 }

@@ -7,6 +7,8 @@ import duke.parsers.Parser;
 import duke.storage.Storage;
 import duke.ui.Ui;
 
+import java.io.IOException;
+
 /**
  * The Duke program is a simple Personal Assistant Chatbot
  * that helps a person to keep track of various things.
@@ -41,7 +43,7 @@ public class Duke {
             if (c instanceof ExitCommand) {
                 tryExitApp();
             }
-        } catch (DukeException e) {
+        } catch (DukeException | IOException e) {
             ui.showError(e.getMessage());
         }
     }

@@ -1,12 +1,21 @@
 package duke.commands;
 
+import duke.PathFinder;
 import duke.commons.DukeException;
+import duke.data.BusService;
+import duke.data.BusStop;
+import duke.data.Location;
 import duke.data.UniqueTaskList;
 import duke.data.tasks.Holiday;
 import duke.data.tasks.Task;
 import duke.parsers.api.ApiConstraintParser;
+import duke.parsers.api.ApiParser;
 import duke.storage.Storage;
 import duke.ui.Ui;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  * Class representing a command to send the test URL connection.
@@ -42,15 +51,23 @@ public class FindPathCommand extends Command {
      * Executes this command with given param.
      */
     @Override
-    public void execute(Ui ui, Storage storage) throws DukeException {
+    public void execute(Ui ui, Storage storage) throws DukeException, IOException {
 
         Holiday startPoint = getHoliday(this.startPointIndex, storage.getTasks());
+        Location startLocation = startPoint.getLocation();
         Holiday endPoint = getHoliday(this.endPointIndex, storage.getTasks());
-
+        Location endLocation = endPoint.getLocation();
         startPoint = ApiConstraintParser.getConstraintLocation(startPoint, this.constraint);
         endPoint = ApiConstraintParser.getConstraintLocation(endPoint, this.constraint);
 
         // calculate the shortest path using algorithm with 2 locations as parameters
+        PathFinder pathFinder = new PathFinder();
+        ArrayList<BusStop> route = pathFinder.execute(startLocation, endLocation);
+
+        ui.show("Found Path:");
+        for (BusStop busStop : route) {
+            ui.show(busStop.getBusCode());
+        }
 
         /* CustomAlgorithm.calculateShortestPath(endPoint.getLocation(), startPoint.getLocation()); */
 
