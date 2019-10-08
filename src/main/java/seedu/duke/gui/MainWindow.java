@@ -3,11 +3,15 @@ package seedu.duke.gui;
 import javafx.application.Platform;
 import javafx.collections.ObservableList;
 import javafx.collections.FXCollections;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.web.WebView;
 import seedu.duke.Duke;
 import seedu.duke.Parser;
 import seedu.duke.TaskList;
@@ -45,6 +49,8 @@ public class MainWindow extends AnchorPane {
     private ListView<String> tasksListView;
     @FXML
     private ListView<String> emailsListView;
+    @FXML
+    private WebView webView;
 
     private Duke duke;
 
@@ -103,6 +109,28 @@ public class MainWindow extends AnchorPane {
             Storage.saveTasks(duke.getTaskList());
             EmailStorage.saveEmails(duke.getEmailList());
             Platform.exit();
+        }
+    }
+
+    @FXML
+    private void handleKeyEvent(KeyEvent e) {
+        // Get the Type of the Event
+        String type = e.getEventType().getName();
+
+        // Get the KeyCode of the Event
+        KeyCode keyCode = e.getCode();
+
+        String keyInfo = type + "Key Code=" + keyCode.getName() +
+                ", Text=" + e.getText()+"\n";
+
+        // print key pressed info to terminal for debugging purpose.
+        System.out.println(keyInfo);
+
+        // Do sth if ESC key is pressed
+        if (e.getCode() == KeyCode.ESCAPE)
+        {
+            userInput.appendText(keyInfo);
+            e.consume();
         }
     }
 
