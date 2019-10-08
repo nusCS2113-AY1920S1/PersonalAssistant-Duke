@@ -1,10 +1,18 @@
 package duke;
 
+<<<<<<< HEAD
 import duke.command.Command;
 import duke.command.ExitCommand;
 import duke.command.ListPriorityCommand;
 import duke.command.DeleteCommand;
 import duke.command.AddMultipleCommand;
+=======
+import duke.command.DeleteCommand;
+import duke.command.AddMultipleCommand;
+import duke.command.Command;
+import duke.command.ExitCommand;
+import duke.command.ListPriorityCommand;
+>>>>>>> branch-GUI
 import duke.dukeexception.DukeException;
 import duke.parser.Parser;
 import duke.storage.PriorityStorage;
@@ -109,18 +117,16 @@ public class Duke {
 
         while (true) {
             sentence = ui.readCommand();
-
+            ui.showLine(); //Please do not remove!
             try {
                 Command cmd = Parser.parse(sentence, items);
                 if (cmd instanceof ExitCommand) {
                     priorityStorage.write(priorityList);
                     cmd.executeStorage(items, ui, storage);
                     break;
-                } else if (cmd instanceof ListPriorityCommand) {
-                    cmd.execute(items, priorityList, ui);
-                } else if (cmd instanceof AddMultipleCommand) {
-                    cmd.execute(items, priorityList, ui);
-                } else if (cmd instanceof DeleteCommand) {
+                } else if (cmd instanceof ListPriorityCommand
+                        || cmd instanceof AddMultipleCommand
+                        || cmd instanceof DeleteCommand) {
                     cmd.execute(items, priorityList, ui);
                 } else {
                     cmd.execute(items,ui);
