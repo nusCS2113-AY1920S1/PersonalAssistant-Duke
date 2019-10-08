@@ -2,6 +2,7 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
@@ -28,6 +29,9 @@
             <Button layoutY="280.0" mnemonicParsing="false" prefHeight="70.0" prefWidth="176.0" text="Avatar" />
          </children>
       </AnchorPane>
-      <Pane layoutX="175.0" opacity="0.5" prefHeight="558.0" prefWidth="399.0" />
+      <Pane layoutX="175.0" opacity="0.5" prefHeight="558.0" prefWidth="399.0">
+         <children>
+            <TextArea fx:id="console" prefHeight="558.0" prefWidth="399.0" />
+         </children></Pane>
     </children>
 </AnchorPane>

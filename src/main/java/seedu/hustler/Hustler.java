@@ -1,6 +1,5 @@
 package seedu.hustler;
 
-import java.awt.*;
 import java.io.IOException;
 
 import seedu.hustler.game.avatar.Avatar;
@@ -67,7 +66,7 @@ public class Hustler extends Application {
      * @see Ui
      * @see Schedule
      */
-    public static void run() throws IOException {
+    public static void initialize() throws IOException {
         ui.show_opening_string();
         Folder.checkDirectory();
         list = new TaskList(storage.load());
@@ -78,47 +77,22 @@ public class Hustler extends Application {
         System.out.println();
         avatar = AvatarStorage.load();
         AvatarStorage.save(avatar);
-
-        // Taking the the first raw input
-        String rawInput = ui.take_input();
-
-        // Taking input and printing till user input is bye
-        while (!rawInput.equals("bye")) {
-            try {
-                Command command = parser.parse(rawInput);
-                command.execute();
-                try {
-                    storage.save(list.return_list());
-                } catch (IOException e) {
-                    ui.show_save_error();
-                }
-                rawInput = ui.take_input();
-
-                System.out.println();
-            } catch (CommandLineException e) {
-                e.getErrorMsg();
-                rawInput = ui.take_input();
-            }
-        }
-        ui.show_bye_message();
     }
 
-    /**
-     * Main function run by java.
-     *
-     * @param args the command line parameters
-     */
-    public static void main(final String[] args) throws IOException {
-        Hustler.run();
+    public static void run(String rawInput) throws CommandLineException {
+        if (rawInput.equals("bye")) {
+            ui.show_bye_message();
+            return;
+        }
+        Command command = parser.parse(rawInput);
+        command.execute();
+        try {
+            storage.save(list.return_list());
+        } catch (IOException e) {
+            ui.show_save_error();
+        }
+        System.out.println();
     }
 
     public void start(Stage stage) {};
-
-    /**
-     * You should have your own function to generate a response to user input.
-     * Replace this stub with your completed method.
-     */
-    public String getResponse(String input) {
-        return "Duke heard: " + input;
-    }
 }
