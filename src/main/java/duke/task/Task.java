@@ -1,10 +1,6 @@
 package duke.task;
 
-import duke.core.DateTimeParser;
-import duke.core.DukeException;
-
-import java.time.LocalDate;
-import java.time.LocalDateTime;
+import java.util.ArrayList;
 
 
 /**
@@ -16,40 +12,38 @@ public abstract class Task {
     /**
      * A String that represents the description of the task.
      */
-    protected String description;
+    private String description;
 
     /**
      * A boolean that represents the status of the task( 1 means done, 0 means not yet).
      */
-    protected boolean isDone;
+    private boolean isDone;
 
     /**
-     * a localDateTime constructor to save the date and time.
+     * A string to describe the date/time of the task.
      */
-    protected LocalDateTime ld = null;
+    private String dateTime = null;
 
     /**
-     * A boolean that represents whether or not a task is recurring. True = recurring, False = non-recurring
+     * An arraylist of things the nurse can bring for the task.
      */
-    protected boolean isRecurring = false;
-
-    /**
-     * An enumerator meant to specify the frequency of a recurring task.
-     */
-    public enum RecurringFrequency { DAILY, WEEKLY, MONTHLY, ONCE; }
-
-    /**
-     * An extended class that retains information about a recurring task.
-     */
-    protected RecurringTask recurringTask;
+    private ArrayList<String> thingsToBring;
 
     /**
      * Initialises the minimum fields required to setup a Task.
      *
      * @param description A string that represents the description of certain task.
      */
+    public Task(String description, String dateTime) {
+            this.description = description;
+            this.isDone = false;
+            this.thingsToBring = new ArrayList<String>();
+            this.dateTime = dateTime;
+    }
+
     public Task(String description) {
         this.description = description;
+        this.thingsToBring = new ArrayList<String>();
         this.isDone = false;
     }
 
@@ -72,13 +66,6 @@ public abstract class Task {
     }
 
     /**
-     * Returns a string with the following format to be stored in a local file.
-     *
-     * @return A string in a specific format to be stored in a local file.
-     */
-    public abstract String writeTxt();
-
-    /**
      * Marks the task as done.
      */
     public void markAsDone() {
@@ -86,33 +73,11 @@ public abstract class Task {
     }
 
     /**
-     * Marks the task as recurring.
+     * Returns a string with the following format to be stored in a local file.
+     *
+     * @return A string in a specific format to be stored in a local file.
      */
-    public void makeTaskRecurring(RecurringFrequency frequency) {
-        isRecurring = true;
-        switch (frequency) {
-        case DAILY:
-            this.recurringTask = new RecurringTask(this, RecurringTask.RecurringFrequency.DAILY);
-            break;
-        case WEEKLY:
-            this.recurringTask = new RecurringTask(this, RecurringTask.RecurringFrequency.WEEKLY);
-            break;
-        case MONTHLY:
-            this.recurringTask = new RecurringTask(this, RecurringTask.RecurringFrequency.MONTHLY);
-            break;
-        case ONCE:
-            break;
-            //Do at in a default case here
-        }
-        if (this.recurringTask != null) {
-            this.recurringTask.recurringTaskTimeUpdate(this);
-        }
-    }
-
-    /**
-     * Returns boolean stating whether task is recurring.
-     */
-    public boolean isTaskRecurring() { return isRecurring; }
+    public abstract String writeTxt();
 
     /**
      * Returns a string with the status icon and the description of the task.
@@ -134,27 +99,18 @@ public abstract class Task {
     }
 
     /**
-     * update the <code>LocalDateTime</> constructor to save the date and time
+     * update the dateTime String to save the date and time
      * @param newDateTime the time retrieved from user input.
      */
-    public void updateLocalDateTime(String newDateTime) throws DukeException {
-        ld = DateTimeParser.convertToLocalDateTime(newDateTime);
-    }
+    public void updateDateTime(String newDateTime) { this.dateTime = newDateTime; }
 
     /**
-     * Returns the data and time information stored in the task without a certain format.
+     * Returns the dateTime String.
      *
-     * @return A LocalDateTime Variable that contains the date and time information.
      */
-    public LocalDateTime getDateTime()
-    {
-        if (recurringTask != null) {
-            this.ld = recurringTask.recurringTaskTimeUpdate(this);
-        }
-        return ld;
-    }
+    public String getDateTime()
+    { return dateTime; }
 
-    public LocalDate getDate() {
-        return ld.toLocalDate();
-    }
+    public void addThingToBring(String object) { thingsToBring.add(object); }
+
 }

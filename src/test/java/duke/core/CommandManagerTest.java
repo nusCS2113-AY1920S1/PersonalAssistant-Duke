@@ -5,24 +5,24 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class ParserTest {
+public class CommandManagerTest {
     /**
      * Test the return command type of Parser.parse(userInput)
      * @throws DukeException referencing a Duke specified exception with error log
      */
     @Test
     public void commandTypeTest() throws DukeException {
-        Command c1 = Parser.parse("bye");
-        Command c2 = Parser.parse("done 1");
-        Command c3 = Parser.parse("delete 2");
-        Command c4 = Parser.parse("list");
-        Command c5 = Parser.parse("find MEETING");
-        Command c6 = Parser.parse("todo abc");
-        Command c7 = Parser.parse("event Meeting /at 27/07/2020 1630");
-        Command c8 = Parser.parse("deadline event Homework ABC /by 27/07/2020 1630");
-        Command c9 = Parser.parse("view 16/09/2019");
-        Command c10 = Parser.parse("period periodTaskTest /from 27/07/2020 1630 /to 27/08/2020 1630");
-        Command c11 = Parser.parse("reschedule 1 27/07/2020 1630");
+        Command c1 = CommandManager.manageCommand("bye");
+        Command c2 = CommandManager.manageCommand("done 1");
+        Command c3 = CommandManager.manageCommand("delete 2");
+        Command c4 = CommandManager.manageCommand("list");
+        Command c5 = CommandManager.manageCommand("find MEETING");
+        Command c6 = CommandManager.manageCommand("todo abc");
+        Command c7 = CommandManager.manageCommand("event Meeting /at 27/07/2020 1630");
+        Command c8 = CommandManager.manageCommand("deadline event Homework ABC /by 27/07/2020 1630");
+        Command c9 = CommandManager.manageCommand("view 16/09/2019");
+        Command c10 = CommandManager.manageCommand("period periodTaskTest /from 27/07/2020 1630 /to 27/08/2020 1630");
+        Command c11 = CommandManager.manageCommand("reschedule 1 27/07/2020 1630");
 
         assertTrue(c1 instanceof ExitCommand, "The command type should be ");
         assertTrue(c2 instanceof DoneCommand, "The command type should be 'DoneCommand'");
