@@ -59,7 +59,7 @@ public class Meal {
      * @param description the description of the task
      */
     public Meal(String description, String[] details) {
-        this.description = description.stripLeading().stripTrailing();
+        this.description = description.trim();
         try {
             Date day;
             day = dateparser.parse(details[1]);

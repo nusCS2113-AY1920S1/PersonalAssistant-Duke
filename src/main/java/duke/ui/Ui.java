@@ -8,18 +8,12 @@ import java.util.Scanner;
 
 public class Ui {
     private static final String padding = "     ";
-    private static final String logo = padding + " ____        _        \n"
-            + padding + "|  _ \\ _   _| | _____ \n"
-            + padding + "| | | | | | | |/ / _ \\\n"
-            + padding + "| |_| | |_| |   <  __/\n"
-            + padding + "|____/ \\__,_|_|\\_\\___|\n";
     private static final String boundary = "    ____________________________________________________________";
     public Scanner in = new Scanner(System.in);
 
     public void showWelcome() {
-        System.out.println(padding + "Hello from\n" + logo);
         System.out.println(boundary);
-        System.out.println(padding + "Hello! I'm Duke");
+        System.out.println(padding + "Hello! I'm DIYeats");
         System.out.println(padding + "What can I do for you?");
         System.out.println(boundary);
         System.out.println();
@@ -39,7 +33,7 @@ public class Ui {
 
     public void showList(ArrayList<Meal> meals)  {
         showPadding();
-        System.out.println("Here are the tasks in your list: ");
+        System.out.println("Here are the meals in your list: ");
         for (int i = 1; i <= meals.size(); i++) {
             Meal currentMeal = meals.get(i - 1);
             showPadding();
@@ -137,7 +131,7 @@ public class Ui {
     }
 
     public void showRemainingCalorie(ArrayList<Meal> mealsOfDay, User user) {
-        System.out.println(padding + "You can consume this many calorie today");
+        System.out.println(padding + "You can consume this many calories today");
         int limit = user.getDailyCalorie();
         int consumeTotal = 0;
         for (int i = 0; i < mealsOfDay.size(); i += 1) {

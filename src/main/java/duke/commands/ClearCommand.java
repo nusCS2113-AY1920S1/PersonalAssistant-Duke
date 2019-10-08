@@ -33,6 +33,6 @@ public class ClearCommand extends Command {
             mealList.deleteAllMealsOnDate(dateFormat.format(cal.getTime()));
         }
         ui.showCleared(dateFormat.format(startDate), dateFormat.format(endDate));
-        storage.updateFile(mealList.getMealTracker());
+        storage.updateFile(mealList);
     }
 }

@@ -17,7 +17,7 @@ public class EditCommand extends Command{
     public void execute(MealList meals, Ui ui, Storage storage, User user) throws DukeException {
         updatedMeal = meals.updateMeal(updatedMeal);
         String dateStr = updatedMeal.getDate();
-        ui.showUpdated(this.updatedMeal, meals.getMeals(this.updatedMeal.getDate()), user, dateStr);
-        storage.updateFile(meals.getMealTracker());
+        ui.showUpdated(this.updatedMeal, meals.getMealsList(this.updatedMeal.getDate()), user, dateStr);
+        storage.updateFile(meals);
     }
 }
