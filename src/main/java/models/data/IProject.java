@@ -12,6 +12,7 @@ public interface IProject {
     MemberList getMembers();
 
     TaskList getTasks();
+
     int getNumOfMembers();
 
     void addMember(Member newMember);

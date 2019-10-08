@@ -29,7 +29,7 @@ public class TaskList {
      * Adds a new task to the list of this project.
      * @param task A new task to be added to the project.
      */
-    public void addTask(Task task){
+    public void addTask(Task task) {
         taskList.add(task);
     }
 

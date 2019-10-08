@@ -9,7 +9,7 @@ public class TaskFactory {
      * @param input Input containing the information about the task and priority.
      * @return Task as an object
      */
-    public Task createTask(String input){
+    public Task createTask(String input) {
         String [] taskDetails = input.split(" ");
         return new Task(taskDetails[0], Integer.parseInt(taskDetails[1]));
     }

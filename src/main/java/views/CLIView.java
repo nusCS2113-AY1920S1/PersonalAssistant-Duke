@@ -317,6 +317,12 @@ public class CLIView {
         consolePrint("Added new member to: " + projectToManage.getDescription(), ""
             + "Member details: " + newMember.getDetails());
     }
+
+    /**
+     * Adds a member to the project.
+     * @param projectToManage The project specified by the user.
+     * @param newTask A new task with details specified by the user.
+     */
     public void addTask(IProject projectToManage, Task newTask) {
         projectToManage.addTask(newTask);
         consolePrint("Added new task to the list.");
@@ -331,9 +337,13 @@ public class CLIView {
         ArrayList<String> allMemberDetails = projectToManage.getMembers().getAllMemberDetails();
         consolePrint(allMemberDetails.toArray(new String[0]));
     }
+
+    /**
+     * Shows the details of all the task in the project.
+     * @param projectToManage The project specified by the user.
+     */
     public void viewAllTasks(IProject projectToManage) {
         ArrayList<String> allTaskDetails = projectToManage.getTasks().getAllTaskDetails();
         consolePrint(allTaskDetails.toArray(new String[0]));
-    //        projectToManage.getTasks().viewTaskList();
     }
 }

@@ -9,7 +9,7 @@ public class Task {
      * @param taskName The name of the task.
      * @param taskPriority The priority value of the task.
      */
-    public Task(String taskName, int taskPriority){
+    public Task(String taskName, int taskPriority) {
         this.taskName = taskName;
         this.taskPriority = taskPriority;
     }
@@ -18,7 +18,7 @@ public class Task {
         return taskName;
     }
 
-    public int getTaskPriority(){
+    public int getTaskPriority() {
         return taskPriority;
     }
 

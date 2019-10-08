@@ -10,6 +10,10 @@ public class Project implements IProject {
     private MemberList memberList;
     private TaskList taskList;
 
+    /**
+     * Class representing a task in a project.
+     * @param description The description of the project.
+     */
     public Project(String description) {
         this.description = description;
         this.memberList = new MemberList();
