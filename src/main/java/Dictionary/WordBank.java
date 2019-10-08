@@ -5,14 +5,16 @@ import exception.WordUpException;
 
 import exception.NoWordFoundException;
 import command.OxfordCall;
+import storage.Storage;
+
 import java.util.Map;
 import java.util.TreeMap;
 
 public class WordBank {
     private TreeMap<String, Word> wordBank;
 
-    public WordBank() {
-        wordBank = new TreeMap<>();
+    public WordBank(Storage storage) {
+        wordBank = storage.loadFile();
     }
 
     public WordBank(TreeMap<String, Word> wordBank) {
