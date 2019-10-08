@@ -7,10 +7,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import duke.exceptions.DukeException;
-import duke.tasks.Dinner;
-import duke.tasks.Lunch;
-import duke.tasks.Meal;
-import duke.tasks.Breakfast;
+import duke.tasks.*;
 import duke.user.User;
 import duke.user.Gender;
 import duke.user.Tuple;
@@ -78,18 +75,23 @@ public class Storage {
             newMeal = new Lunch(description, nutritionalValue);
         } else if (taskType.equals("D")) {
             newMeal = new Dinner(description, nutritionalValue);
+        } else if (taskType.equals("S")) {
+            newMeal = new Item(description, nutritionalValue);
         }
-        if (isDone) {
-            newMeal.markAsDone();
-        }
-        String mealDate = newMeal.getDate();
-        if (!mealTracker.containsKey(mealDate)) {
-            mealTracker.put(mealDate, new ArrayList<Meal>());
-            mealTracker.get(mealDate).add(newMeal);
+        if (taskType.equals("S") == false) {
+            if (isDone) {
+                newMeal.markAsDone();
+            }
+            String mealDate = newMeal.getDate();
+            if (!mealTracker.containsKey(mealDate)) {
+                mealTracker.put(mealDate, new ArrayList<Meal>());
+                mealTracker.get(mealDate).add(newMeal);
+            } else {
+                mealTracker.get(mealDate).add(newMeal);
+            }
         } else {
-            mealTracker.get(mealDate).add(newMeal);
+            //meals.addStoredItem(newMeal);
         }
-
     }
 
     /**

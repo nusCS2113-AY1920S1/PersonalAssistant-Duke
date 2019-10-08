@@ -5,7 +5,7 @@
 :toclevels: 3
 :toc-placement: preamble
 :sectnums:
-:imagesDir: Images
+:imagesDir: images
 :stylesDir: stylesheets
 :xrefstyle: full
 :experimental:

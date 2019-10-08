@@ -3,6 +3,7 @@ package duke;
 import duke.commands.Command;
 import duke.exceptions.DukeException;
 import duke.storage.Storage;
+import duke.tasks.Item;
 import duke.tasks.MealList;
 import duke.ui.Ui;
 import duke.parsers.Parser;
@@ -18,7 +19,7 @@ import java.util.Scanner;
 public class Duke {
 
     private Storage storage;
-    private MealList tasks;
+    private MealList tasks = new MealList();
     private Ui ui;
     private Scanner in = new Scanner(System.in);
     private User user;

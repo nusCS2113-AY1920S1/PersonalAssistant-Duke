@@ -15,6 +15,7 @@ public class MealList {
     private Calendar calendarDate = Calendar.getInstance();
     private String currentDate = dateFormat.format(calendarDate.getTime());
     private HashMap<String, ArrayList<Meal>> mealTracker = new HashMap<>();
+    private HashMap<String, HashMap<String, Integer>> storedItems = new HashMap<>();
 
     /**
      * This is the constructor of TaskList object.
@@ -52,11 +53,39 @@ public class MealList {
         }
     }
 
+    /**
+     * This function is a getter for the mealtracker HashMap.
+     * @return HashMap<String, ArrayList<Meal>> mealTracker
+     */
     public HashMap<String, ArrayList<Meal>> getMealTracker() {
         return mealTracker;
     }
 
+    /**
+     * This function is used to check if a entry with the corresponding date is stored
+     * @param date
+     * @return boolean
+     */
     public boolean checkDate(String date) {
         return mealTracker.containsKey(date);
+    }
+
+    public void addStoredItem(Meal item) {
+        String keyword = item.getDescription();
+        HashMap <String, Integer> data = item.getNutritionalValue();
+        if (storedItems.get(keyword) == null) {
+            storedItems.put(keyword, data);
+        } else {
+            storedItems.remove(keyword);
+            storedItems.put(keyword, data);
+        }
+    }
+
+    public HashMap<String, Integer> getStoredItem(String keyword) {
+        return storedItems.get(keyword);
+    }
+
+    public void removeStoredItem(String keyword) {
+        storedItems.remove(keyword);
     }
 }

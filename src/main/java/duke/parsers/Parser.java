@@ -5,6 +5,7 @@ import duke.commands.*;
 import duke.exceptions.DukeException;
 import duke.tasks.Dinner;
 import duke.tasks.Breakfast;
+import duke.tasks.Item;
 import duke.tasks.Lunch;
 import java.util.Calendar;
 
@@ -71,6 +72,10 @@ public class Parser {
                 name = description.split("/", 2)[0];
                 info = "/" + description.split("/", 2)[1];
                 return new AddCommand(new Dinner(name, info, autocorrect));
+            case "add" :
+                name = description.split("/", 2)[0];
+                info = "/" + description.split("/", 2)[1];
+                return new AddItemCommand(new Item(name, info, autocorrect));
             case "list":
                 if (splitCommand.length > 1) {
                     return new ListCommand(splitCommand[1]);

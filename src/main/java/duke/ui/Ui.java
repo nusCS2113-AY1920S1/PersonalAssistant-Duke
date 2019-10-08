@@ -65,6 +65,11 @@ public class Ui {
                 - totalConsume) + " calories left on " + date);
     }
 
+    public void showAddedItem(Meal currentMeal) {
+        System.out.println(padding + "Got it. I've added the default values for this meal:");
+        System.out.println(padding + currentMeal);
+    }
+
     public void showDeleted(Meal currentMeal, ArrayList<Meal> meals) {
         System.out.println(padding + "Noted. I've removed this task:");
         System.out.println(padding + currentMeal);
