@@ -12,7 +12,6 @@ public class TaskList implements Serializable {
     private static final int DAYS_FROM_NOW = 7;
     private ArrayList<ITask> listOfTasks;
     private ArrayList<IRecurring> listOfRecurringTasks;
-    private ArrayList<ITask> searchedTasks;
     private ArrayList<ITask> schedule;
 
     public TaskList() {
@@ -79,7 +78,7 @@ public class TaskList implements Serializable {
      */
     public ArrayList<ITask> getSearchedTasks(String input) {
         String [] allInputs = input.split(" ");
-        searchedTasks = new ArrayList<>();
+        ArrayList<ITask> searchedTasks = new ArrayList<>();
         for (ITask task : listOfTasks) {
             if (task.getDescription().contains(allInputs[1])) {
                 searchedTasks.add(task);
@@ -143,7 +142,7 @@ public class TaskList implements Serializable {
         Date currentDateTime = new Date(System.currentTimeMillis());
 
         //If no limit given by user, by default will remind user of tasks in coming 7 days
-        if (limit.equals("")) {
+        if (("").equals(limit)) {
             Calendar c = Calendar.getInstance();
             c.setTime(currentDateTime);
             c.add(Calendar.DATE, DAYS_FROM_NOW);

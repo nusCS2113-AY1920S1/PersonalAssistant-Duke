@@ -1,17 +1,17 @@
 import controllers.temp.TaskFactory;
 import exceptions.DukeException;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import models.temp.tasks.Deadline;
 import models.temp.tasks.ITask;
 import org.junit.jupiter.api.Test;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertSame;
 
 public class DeadlineTest {
-    TaskFactory taskFactory = new TaskFactory();
+    private TaskFactory taskFactory = new TaskFactory();
 
     @Test
     public void alwaysTrue() {

@@ -30,7 +30,7 @@ public class PeriodTaskFactory {
             Date startDate = formatter.parse(startEndDate[0]);
             Date endDate = formatter.parse(startEndDate[1]);
             String periodDescription = dateFormatHelper(startDate) + " and " + dateFormatHelper(endDate);
-            return new PeriodTask(parsedStrings[0], periodDescription, startDate, endDate);
+            return new PeriodTask(parsedStrings[0], periodDescription);
         } catch (ParseException e) {
             throw new DukeException("Your date cannot be parsed correctly");
         } catch (IndexOutOfBoundsException e) {
@@ -39,7 +39,6 @@ public class PeriodTaskFactory {
     }
 
     private String dateFormatHelper(Date date) {
-        String formattedDate = new SimpleDateFormat("dd MMM yyyy").format(date);
-        return formattedDate;
+        return new SimpleDateFormat("dd MMM yyyy").format(date);
     }
 }

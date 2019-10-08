@@ -1,15 +1,15 @@
 import controllers.temp.TaskFactory;
 import exceptions.DukeException;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import models.temp.tasks.Deadline;
 import models.temp.tasks.Event;
 import models.temp.tasks.ToDos;
 import org.junit.jupiter.api.Test;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class DukeTest {
     @Test
@@ -52,10 +52,5 @@ public class DukeTest {
         Date date = formatter.parse("16/10/2019 0800");
         assertEquals("project meeting (at: 16 October 2019 08.00 AM)",
             new Event("project meeting", "16 October 2019 08.00 AM", date).getDescription());
-    }
-
-    @Test
-    void alwaysTrue() {
-        assertTrue(true);
     }
 }

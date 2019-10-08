@@ -12,10 +12,8 @@ public class PeriodTask implements ITask {
      * Constructor of the Recurring data model.
      *
      * @param description : Description of the new period task
-     * @param startDate : Start date of this period Task
-     * @param endDate : End date of this period Task
      */
-    public PeriodTask(String description, String taskDuration,Date startDate, Date endDate) {
+    public PeriodTask(String description, String taskDuration) {
         this.isDone = false;
         this.initials = "P";
         this.description = description;
@@ -59,6 +57,6 @@ public class PeriodTask implements ITask {
 
     @Override
     public void setDateTime(String newDateTime) {
-
+        // Not implemented
     }
 }
