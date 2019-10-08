@@ -1,4 +1,6 @@
 Id,Name,Room,Remark,isHospitalised
-1,John,2A,apple,TRUE
-2,Alpha,3C,pear,FALSE
-3,Beta,3C,pear,FALSE
+1,John,apple,2A,false
+2,Alpha,pear,3C,false
+3,newPatient3,room3,review3,false
+5,xk,apple,2A,false
+6,new,apple,bad,false
