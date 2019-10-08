@@ -4,7 +4,6 @@ import Interface.Duke;
 import Interface.Storage;
 import Interface.Ui;
 import Tasks.Event;
-import Tasks.Task;
 import Tasks.TaskList;
 
 import java.io.FileNotFoundException;
@@ -14,11 +13,11 @@ import java.util.ArrayList;
  * Handles Commnand to plan Tentative Schedule
  */
 public class TentativeSchedulingCommand extends Command{
-    private TaskList tentativeDates = Duke.getTentativeDates();
-    private String description;
-    private ArrayList<String> dateString;
-    private ArrayList<String> startTimeString;
-    private ArrayList<String> endTimeString;
+    private final TaskList tentativeDates = Duke.getTentativeDates();
+    private final String description;
+    private final ArrayList<String> dateString;
+    private final ArrayList<String> startTimeString;
+    private final ArrayList<String> endTimeString;
     /**
      * Creates a Tentative Scheduling object.
      * @param des Description of event
@@ -32,7 +31,7 @@ public class TentativeSchedulingCommand extends Command{
         this.startTimeString = startTimeString;
         this.endTimeString = endTimeString;
         for (int i = 0; i < dateString.size();i++){
-            Event event = new Event(description, dateString.get(i),startTimeString.get(i),endTimeString.get(i));
+            Event event = new Event(description, dateString.get(i),startTimeString.get(i),endTimeString.get(i), null);
             this.tentativeDates.addTask(event);
         }
         Storage.updateTentativeDates(tentativeDates);
@@ -44,7 +43,7 @@ public class TentativeSchedulingCommand extends Command{
      * @return This returns the method in the Ui object which returns the string to display Tentative Schedule
      */
     @Override
-    public String execute(TaskList todos, TaskList events, TaskList deadlines, Ui ui, Storage storage) throws Exception {
+    public String execute(TaskList todos, TaskList events, TaskList deadlines, Ui ui, Storage storage) {
         return ui.showTentativeSchedule(this.tentativeDates);
     }
 }

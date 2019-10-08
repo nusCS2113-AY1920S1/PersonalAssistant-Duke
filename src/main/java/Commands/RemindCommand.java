@@ -17,7 +17,7 @@ public class RemindCommand extends Command {
     /**
      * Checks if date of tasks is within the current week.
      */
-    public boolean withinWeek(Date date) {
+    private boolean withinWeek(Date date) {
         //Solution below adapted from https://stackoverflow.com/questions/23930216/how-to-check-if-the-date-belongs-to-current-week-or-not/23930578#23930578
         Calendar c = Calendar.getInstance();
         c.setFirstDayOfWeek(Calendar.SUNDAY);
@@ -64,8 +64,8 @@ public class RemindCommand extends Command {
                 }
             } else if (task.toString().contains("[E]") && task.toString().contains("\u2718")) {
                 DateFormat format = new SimpleDateFormat("dd/MM/yyyy hh:mm a");
-                String arr[] = task.getDateTime().split("to");
-                String arr1[] = arr[0].trim().split(" ");
+                String[] arr = task.getDateTime().split("to");
+                String[] arr1 = arr[0].trim().split(" ");
                 String date = arr1[1].trim() + " " + arr[1].trim();
                 Date currentDate = format.parse(date);
                 if (withinWeek(currentDate)) {
