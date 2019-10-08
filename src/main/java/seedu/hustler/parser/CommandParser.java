@@ -55,6 +55,8 @@ public class CommandParser extends Parser {
             return new SnoozeCommand(userInput);
         } else if (userInput[0].equals("/avatar")) {
             return new CheckAvatarCommand();
+        } else if (userInput[0].equals("achievement")) {
+            return new AchievementCommand();
         } else if (Arrays.binarySearch(taskCommands, userInput[0]) >= 0) {
             return new AddCommand(userInput);
         } else {

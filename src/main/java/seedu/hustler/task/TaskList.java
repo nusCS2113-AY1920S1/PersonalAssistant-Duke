@@ -9,10 +9,15 @@ import java.util.ArrayList;
 import seedu.hustler.Hustler;
 import seedu.hustler.data.AvatarStorage;
 import seedu.hustler.data.Schedule;
+import seedu.hustler.game.achievement.AchievementList;
 import java.util.Scanner;
 
+import seedu.hustler.game.achievement.AddTask;
+import seedu.hustler.game.achievement.DoneTask;
 import seedu.hustler.ui.Ui;
 
+import static seedu.hustler.game.achievement.AddTask.addAchievementLevel;
+import static seedu.hustler.game.achievement.DoneTask.doneAchievementLevel;
 import static seedu.hustler.parser.DateTimeParser.getDateTime;
 
 /**
@@ -138,6 +143,10 @@ public class TaskList {
             }
         }
         if (!checkAnomaly) {
+            AddTask.increment();
+            AddTask.updateStatus();
+            AddTask.updatePoints();
+            AchievementList.updateAddTask(addAchievementLevel);
             String output = "\t  " + list.get(list.size() - 1).toString();
             System.out.println("\t_____________________________________");
             System.out.println("\tGot it. I've added this task:");
@@ -168,6 +177,10 @@ public class TaskList {
         try {
             list.get(i).markAsDone();
             if (list.get(i).isDone) {
+                DoneTask.increment();
+                DoneTask.updateAchievementLevel();
+                DoneTask.updatePoints();
+                AchievementList.updateDoneTask(doneAchievementLevel);
                 System.out.println("\t_____________________________________");
                 System.out.println("\tNice! I've marked this task as done:");
                 System.out.println("\t  " + (i + 1) + "." + list.get(i).toString());

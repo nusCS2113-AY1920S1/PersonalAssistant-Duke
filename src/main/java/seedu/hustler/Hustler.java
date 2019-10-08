@@ -2,19 +2,19 @@ package seedu.hustler;
 
 import java.io.IOException;
 
+import seedu.hustler.data.*;
 import seedu.hustler.game.avatar.Avatar;
 import seedu.hustler.command.Command;
 import java.util.Scanner;
 
-import seedu.hustler.data.AvatarStorage;
-import seedu.hustler.data.Schedule;
 import seedu.hustler.logic.CommandLineException;
 import seedu.hustler.task.Reminders;
 import seedu.hustler.ui.Ui;
-import seedu.hustler.data.Storage;
-import seedu.hustler.data.Folder;
 import seedu.hustler.task.TaskList;
 import seedu.hustler.parser.CommandParser;
+import seedu.hustler.game.achievement.AchievementList;
+
+import static seedu.hustler.game.achievement.AchievementList.achievementList;
 
 /**
  * A personal assitant that takes in user input and gives and performs
@@ -59,7 +59,7 @@ public class Hustler {
      * data/duke.txt.
      * @see Storage
      * @see TaskList
-     * @see Parser
+     * @see CommandParser
      * @see Ui
      * @see Schedule
      */
@@ -68,10 +68,18 @@ public class Hustler {
         Folder.checkDirectory();
         list = new TaskList(storage.load());
 
+
+        //Loads achievements and print out achievements.
+        AchievementList.firstStart(AchievementStorage.logon());
+        AchievementStorage.loadStatus();
+        AchievementStorage.loadAchievements();
+
         // Display reminders at the start
         Reminders.runAll(list);
         Reminders.displayReminders();
         System.out.println();
+
+        //Loads avatar.
         avatar = AvatarStorage.load();
         AvatarStorage.save(avatar);
 
@@ -96,6 +104,8 @@ public class Hustler {
                 rawInput = ui.take_input();
             }
         }
+        AchievementStorage.saveAchievements(achievementList);
+        AchievementStorage.saveStatus();
         ui.show_bye_message();
     }
 
