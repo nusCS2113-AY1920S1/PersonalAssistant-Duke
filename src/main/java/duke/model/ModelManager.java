@@ -2,6 +2,7 @@ package duke.model;
 
 import duke.commons.core.index.Index;
 import duke.model.order.Order;
+import duke.model.product.Product;
 import duke.model.shortcut.Shortcut;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -18,6 +19,7 @@ import static java.util.Objects.requireNonNull;
 public class ModelManager implements Model {
     private final BakingHome bakingHome;
     private final FilteredList<Order> filteredOrders;
+    private final FilteredList<Product> filteredProducts;
 
     /**
      * Initializes a ModelManager with the given BakingHome.
@@ -26,6 +28,7 @@ public class ModelManager implements Model {
         super();
         this.bakingHome = new BakingHome(bakingHome);
         this.filteredOrders = new FilteredList<>(this.bakingHome.getOrderList());
+        this.filteredProducts = new FilteredList<>(this.bakingHome.getProductList());
     }
 
     public ModelManager() {
@@ -86,7 +89,26 @@ public class ModelManager implements Model {
         requireNonNull(predicate);
         filteredOrders.setPredicate(predicate);
     }
+    //========Product operations==========
+    @Override
+    public void addProduct(Product product) {
+        bakingHome.addProduct(product);
+        updateFilteredProductList(PREDICATE_SHOW_ACTIVE_PRODUCTS);
+    }
 
+    /**
+     * Returns an unmodifiable view of the filtered product list.
+     */
+    @Override
+    public ObservableList<Product> getFilteredProductList() {
+        return filteredProducts;
+    }
+
+    @Override
+    public void updateFilteredProductList(Predicate<Product> predicate) {
+        requireNonNull(predicate);
+        filteredProducts.setPredicate(predicate);
+    }
     //========Shortcut operations=========
 
     @Override

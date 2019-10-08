@@ -1,6 +1,8 @@
 package duke.ui;
 
+import duke.commons.core.LogsCenter;
 import duke.model.ingredient.Ingredient;
+import duke.model.order.Order;
 import duke.model.product.Product;
 import javafx.beans.binding.Bindings;
 import javafx.collections.FXCollections;
@@ -13,25 +15,26 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
 
 public class ProductPage extends UiPart<AnchorPane> {
     private static final String FXML = "RecipePage.fxml";
+    private final Logger logger = LogsCenter.getLogger(ProductPage.class);
 
     @FXML
     private Label tableTitle;
+    //@FXML
+    //private TableView productListTable;
+    //@FXML
+    //private TableView showProductTable;
     @FXML
-    private TableView productListTable;
-    @FXML
-    private TableView showProductTable;
+    private TableView tableView;
 
 
-    public ProductPage() {
+    public ProductPage(ObservableList<Product> productList) {
         super(FXML);
 
-        Product product = new Product("");
-        product.init();
-        List<Product> rpl = new ArrayList<>();
-        rpl.add(product);
+        tableView.setItems(productList);
     }
 
 

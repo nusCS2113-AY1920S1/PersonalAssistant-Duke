@@ -2,6 +2,7 @@ package duke.model;
 
 import duke.commons.core.index.Index;
 import duke.model.order.Order;
+import duke.model.product.Product;
 import duke.model.shortcut.Shortcut;
 import javafx.collections.ObservableList;
 
@@ -13,6 +14,11 @@ import java.util.function.Predicate;
  */
 public interface Model {
     Predicate<Order> PREDICATE_SHOW_ALL_ORDERS = unused -> true;
+
+    Predicate<Product> PREDICATE_SHOW_ALL_PRODUCTS = unused -> true;
+    Predicate<Product> PREDICATE_SHOW_ACTIVE_PRODUCTS = product -> {
+        return product.getStatus() == Product.Status.ACTIVE;
+    };
 
     /**
      * Returns the BakingHome.
@@ -70,6 +76,17 @@ public interface Model {
 
     //========Product operations=========
 
+    /** Adds the given product */
+    void addProduct(Product product);
+
+    /**
+     * Returns an unmodifiable view of the filtered product list.
+     */
+    ObservableList<Product> getFilteredProductList(); //implement archive
+
+    void updateFilteredProductList(Predicate<Product> predicate);
+
+
     //========Finance operations=========
 
     //========Ingredient operations======
@@ -99,4 +116,6 @@ public interface Model {
      * Returns an unmodifiable view of the shortcut list.
      */
     List<Shortcut> getShortcutList();
+
+
 }
