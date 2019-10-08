@@ -14,7 +14,7 @@ import java.util.Set;
 /**
  * A class that represents the command to delete an item from the task list.
  */
-public class DeleteCommand extends Command {
+public class DeleteCommand extends Command<TaskList> {
 
     private int index;
 

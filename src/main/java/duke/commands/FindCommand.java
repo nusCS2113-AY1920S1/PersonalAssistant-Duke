@@ -12,7 +12,7 @@ import java.util.ArrayList;
  * A class representing the command used to find all tasks in the task list that contain the
  * inputted query.
  */
-public class FindCommand extends Command {
+public class FindCommand extends Command<TaskList> {
 
     private String query;
 

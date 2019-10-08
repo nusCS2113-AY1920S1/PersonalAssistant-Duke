@@ -9,7 +9,7 @@ import duke.Ui;
 
 
 
-public class ByeCommand extends Command {
+public class ByeCommand extends Command<TaskList> {
 
     private boolean exit = false;
 

@@ -1,5 +1,6 @@
 package duke;
 
+import duke.components.Bar;
 import duke.components.Song;
 import duke.tasks.RecurringTask;
 import duke.tasks.Task;
@@ -213,7 +214,7 @@ public class Ui {
      * @param song the item that was added to the song list
      * @return the formatted String to be displayed
      */
-    public String formatNewSong(ArrayList<Task> list, Song song) {
+    public String formatNewSong(ArrayList<Song> list, Song song) {
         String word = (list.size() == 1) ? "song" : "songs";
         String result = "Got it. I've added this song:\n  "
                 + song.getName()
@@ -231,7 +232,7 @@ public class Ui {
      * @param list the command list
      * @return the formatted String to be displayed
      */
-    public String formatHelp(ArrayList<Task> list) {
+    public String formatHelp(ArrayList<Song> list) {
         StringBuilder result = new StringBuilder();
         for (int i = 0; i < list.size(); i++) {
             result.append(i + 1)
@@ -242,19 +243,18 @@ public class Ui {
             }
         }
         if (list.size() == 0) {
-            result.append("The list is empty!");
+            result.append("The help list for that command is empty!");
         }
         return wrap(result.toString());
     }
 
     /**
      * Returns a String formatted for display that shows a song in the song list due to the view command.
-     * @param task the item that is to be displayed
+     * @param song the item that is to be displayed
      * @return the formatted String to be displayed
      */
-    public String formatView(Task task) {
-        //return song.getBars().toString();
-        return task.toString();
+    public String formatView(Song song) {
+        return song.getBars().toString();
     }
 
     /**
@@ -265,12 +265,14 @@ public class Ui {
      * @param song the item that was modified
      * @return the formatted String to be displayed
      */
-    public String formatAddBar(ArrayList<Task> list, Task song) {
+    public String formatAddBar(ArrayList<Song> list, Bar bar, Song song) {
         String word = (list.size() == 1) ? "bar" : "bars";
         String result = "Got it. I've added this bar:\n  "
-                + song.toString()
+                + bar.toString()
+                + "\nto "
+                + song.getName()
                 + "\nNow you have "
-                + list.size()
+                + song.getBars().size()
                 + " "
                 + word
                 + " in the song.";

@@ -4,7 +4,7 @@ import duke.Storage;
 import duke.TaskList;
 import duke.Ui;
 
-public class ListCommand extends Command {
+public class ListCommand extends Command<TaskList> {
 
     /**
      * Modifies the task list in use and returns the messages intended to be displayed.

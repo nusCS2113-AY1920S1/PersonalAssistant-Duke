@@ -20,7 +20,7 @@ import duke.tasks.ToDo;
 /**
  * A class representing the command to add tasks to the task list.
  */
-public class AddCommand extends Command {
+public class AddCommand extends Command<TaskList> {
 
     /**
      * Constructor for the command to add a task to the task list.
