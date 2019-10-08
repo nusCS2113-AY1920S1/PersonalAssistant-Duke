@@ -1,4 +1,4 @@
-import duke.Module.Reminder;
+import duke.module.Reminder;
 import duke.Task.TaskList;
 import org.junit.jupiter.api.Test;
 

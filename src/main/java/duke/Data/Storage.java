@@ -1,7 +1,7 @@
 package duke.Data;
 
-import duke.Module.TimeSlot;
-import duke.Sports.MyClass;
+import duke.module.TimeSlot;
+import duke.sports.MyClass;
 import duke.Task.*;
 
 import java.io.File;
