@@ -65,6 +65,6 @@ public class AddInstalmentCommand extends MoneyCommand{
 
         ui.appendToOutput(" Last command undone: \n");
         ui.appendToOutput(ins.toString() + "\n");
-        ui.appendToOutput(" Now you have " + account.getInstalments().size() + " income listed\n");
+        ui.appendToOutput(" Now you have " + account.getInstalments().size() + " instalments listed\n");
     }
 }
