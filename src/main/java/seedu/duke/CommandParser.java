@@ -334,7 +334,6 @@ public class CommandParser {
         }
         String description = "";
         for (Option option : optionList) {
-            Duke.getUI().showMessage(option.getKey() + ": " + option.getValue());
             if (option.getKey().equals("msg")) {
                 description = option.getValue();
                 break;
