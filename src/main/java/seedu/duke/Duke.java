@@ -79,9 +79,11 @@ public class Duke {
      * @param input user input
      * @return the response from the parsed and executed command
      */
-    public String getResponse(String input) {
+    public String respond(String input) {
         try {
+            ui.setInput(input);
             Command command = commandParser.parseCommand(input);
+            ui.setCommand(command.toString());
             command.execute();
             return command.toString();
         } catch (Exception e) {

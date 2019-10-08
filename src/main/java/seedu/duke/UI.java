@@ -1,5 +1,9 @@
 package seedu.duke;
 
+import javafx.scene.image.Image;
+import javafx.scene.layout.VBox;
+import seedu.duke.gui.DialogBox;
+
 public class UI {
     private static final String ANSI_RESET = "\u001B[0m";
     private static final String ANSI_BLACK = "\u001B[30m";
@@ -12,6 +16,16 @@ public class UI {
     private static final String ANSI_WHITE = "\u001B[37m";
     private static boolean debug = false;
 
+    // to output result to GUI
+    private VBox dialogContainer;
+    private Image userImage;
+    private Image dukeImage;
+    private String input = "";
+    private String command = "";
+
+    private boolean isGuiSet = false;
+
+    // variable returned to GUI
     private String emailPath = "";
     private String responseMsg = "";
 
@@ -40,6 +54,7 @@ public class UI {
      */
     public void showMessage(String msg) {
         System.out.println(msg);
+        showGUI(msg);
     }
 
     /**
@@ -52,6 +67,7 @@ public class UI {
         System.out.println("------------------------------");
         System.out.println(msg);
         System.out.println("------------------------------\n");
+        showGUI(msg);
     }
 
     /**
@@ -60,7 +76,9 @@ public class UI {
      * @param msg the error message that is to be shown
      */
     public void showError(String msg) {
-        System.out.println(ANSI_RED + msg + ANSI_RESET);
+        String errorMsg = ANSI_RED + msg + ANSI_RESET;
+        System.out.println(errorMsg);
+        showGUI(errorMsg);
     }
 
     /**
@@ -69,9 +87,11 @@ public class UI {
      * @param msg the debug message that is to be shown
      */
     public void showDebug(String msg) {
+        String debugMsg = ANSI_YELLOW + msg + ANSI_RESET;
         if (debug) {
-            System.out.println(ANSI_YELLOW + msg + ANSI_RESET);
+            System.out.println(debugMsg);
         }
+        showGUI(debugMsg);
     }
 
     public void setEmailPath(String emailPath) {
@@ -84,5 +104,30 @@ public class UI {
 
     public String getResponseMsg() {
         return responseMsg;
+    }
+
+    public void setupGui(VBox dialogContainer, Image userImage, Image dukeImage) {
+        this.dialogContainer = dialogContainer;
+        this.userImage = userImage;
+        this.dukeImage = dukeImage;
+        isGuiSet = true;
+    }
+
+    public void showGUI(String msg) {
+        if (!isGuiSet) {
+            return;
+        };
+        dialogContainer.getChildren().addAll(
+                DialogBox.getUserDialog(input, userImage),
+                DialogBox.getDukeDialog(command + "\n\n" + msg, dukeImage)
+        );
+    }
+
+    public void setInput(String input) {
+        this.input = input;
+    }
+
+    public void setCommand(String command) {
+        this.command = command;
     }
 }

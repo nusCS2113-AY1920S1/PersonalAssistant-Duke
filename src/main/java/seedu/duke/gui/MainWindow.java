@@ -67,8 +67,8 @@ public class MainWindow extends AnchorPane {
     @FXML
     public void initialize() {
         resizeToFitScreen();
-        scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
 
+        scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
         // show welcome message
         dialogContainer.getChildren().addAll(
                 DialogBox.getDukeDialog("Welcome!", dukeImage)
@@ -99,6 +99,7 @@ public class MainWindow extends AnchorPane {
     public void setDuke(Duke d) {
         duke = d;
         ui = duke.getUI();
+        ui.setupGui(dialogContainer, userImage, dukeImage);
     }
 
     /**
@@ -107,14 +108,17 @@ public class MainWindow extends AnchorPane {
      */
     @FXML
     private void handleUserInput() {
+
         webView.setDisable(false);
         String input = userInput.getText();
-        String command = duke.getResponse(input);  // for debugging purpose
-        String response = ui.getResponseMsg();
-        dialogContainer.getChildren().addAll(
-                DialogBox.getUserDialog(input, userImage),
-                DialogBox.getDukeDialog(command + "\n\n" + response, dukeImage)
-        );
+        duke.respond(input);
+
+        //String response = ui.getResponseMsg();
+        //dialogContainer.getChildren().addAll(
+        //        DialogBox.getUserDialog(input, userImage),
+        //        DialogBox.getDukeDialog(command + "\n\n" + response, dukeImage)
+        //);
+
         setInputPrefix();
         updateTasksList();
         updateEmailsList();
