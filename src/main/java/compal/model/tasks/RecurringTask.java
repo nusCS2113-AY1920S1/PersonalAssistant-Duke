@@ -1,4 +1,4 @@
-package compal.tasks;
+package compal.model.tasks;
 
 /**
  * Represents recurring task type with date and time.

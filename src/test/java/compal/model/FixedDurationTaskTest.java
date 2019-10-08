@@ -1,4 +1,4 @@
-package compal.tasks;
+package compal.model;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -7,41 +7,40 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import static compal.tasks.Task.Priority.high;
+import static compal.model.Task.Priority.high;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class RecurringTaskTesting {
+public class FixedDurationTaskTest {
     private String description = "Test content";
     private String date = "01/10/2019";
     private String startTime = "1130";
     private String endTime = "1230";
-    private String symbol = "RT";
     private Task.Priority priority = high;
-    private RecurringTask recurringTask;
+    private FixedDurationTask fdt;
 
     @BeforeEach
     public void setup() {
-        recurringTask = new RecurringTask(description, priority, date, startTime, endTime, symbol);
+        fdt = new FixedDurationTask(description, priority, date, startTime, endTime);
     }
 
     @Test
     void getPriority() {
-        assertEquals(priority, recurringTask.getPriority());
+        assertEquals(priority, fdt.getPriority());
     }
 
     @Test
     void getStatusIcon() {
-        assertEquals("\u2718", recurringTask.getStatusIcon());
+        assertEquals("\u2718", fdt.getStatusIcon());
     }
 
     @Test
     void getIsDone() {
-        assertEquals("false", recurringTask.getisDone());
+        assertEquals("false", fdt.getisDone());
     }
 
     @Test
     void getSymbol() {
-        assertEquals(symbol, recurringTask.getSymbol());
+        assertEquals("FDT", fdt.getSymbol());
     }
 
     @Test
@@ -53,19 +52,19 @@ public class RecurringTaskTesting {
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        assertEquals(d, recurringTask.getDate());
+        assertEquals(d, fdt.getDate());
     }
 
     @Test
     void setDateTest() {
-        Date d = recurringTask.getDate();
-        recurringTask.setDate(date);
-        assertEquals(d, recurringTask.getDate());
+        Date d = fdt.getDate();
+        fdt.setDate(date);
+        assertEquals(d, fdt.getDate());
     }
 
     @Test
     void getStringdate() {
-        assertEquals(date, recurringTask.getStringDate());
+        assertEquals(date, fdt.getStringDate());
     }
 
     @Test
@@ -77,19 +76,19 @@ public class RecurringTaskTesting {
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        assertEquals(d, recurringTask.getStartTime());
+        assertEquals(d, fdt.getStartTime());
     }
 
     @Test
     void setStartTimeTest() {
-        Date d = recurringTask.getStartTime();
-        recurringTask.setStartTime(startTime);
-        assertEquals(d, recurringTask.getStartTime());
+        Date d = fdt.getStartTime();
+        fdt.setStartTime(startTime);
+        assertEquals(d, fdt.getStartTime());
     }
 
     @Test
     void getStringStartTime() {
-        assertEquals(startTime, recurringTask.getStringStartTime());
+        assertEquals(startTime, fdt.getStringStartTime());
     }
 
     @Test
@@ -101,50 +100,50 @@ public class RecurringTaskTesting {
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        assertEquals(d, recurringTask.getEndTime());
+        assertEquals(d, fdt.getEndTime());
     }
 
     @Test
     void setEndTimeTest() {
-        Date d = recurringTask.getEndTime();
-        recurringTask.setEndTime(endTime);
-        assertEquals(d, recurringTask.getEndTime());
+        Date d = fdt.getEndTime();
+        fdt.setEndTime(endTime);
+        assertEquals(d, fdt.getEndTime());
     }
 
     @Test
     void getStringEndTime() {
-        assertEquals(endTime, recurringTask.getStringEndTime());
+        assertEquals(endTime, fdt.getStringEndTime());
     }
 
     @Test
     void sethasReminder() {
-        recurringTask.setHasReminder();
-        assertEquals(true, recurringTask.hasReminder());
+        fdt.setHasReminder();
+        assertEquals(true, fdt.hasReminder());
     }
 
     @Test
     void getDescription() {
-        assertEquals(description, recurringTask.getDescription());
+        assertEquals(description, fdt.getDescription());
     }
 
     @Test
     void markAsDoneTest() {
-        recurringTask.markAsDone();
-        assertEquals(true, recurringTask.isDone);
+        fdt.markAsDone();
+        assertEquals(true, fdt.isDone);
     }
 
     @Test
     void toStringTest() {
-        assertEquals("\n" + "[" + symbol + "]" + "[" + "\u2718" + "] " + description
+        assertEquals("\n" + "[FDT]" + "[" + "\u2718" + "] " + description
                 + " \nDate: " + date + " \nStart Time: " + startTime
                 + " \nEnd Time: " + endTime + " \nPriority: " + priority
-                + "\n***************", recurringTask.toString());
+                + "\n***************", fdt.toString());
     }
 
     @Test
     void getAllDetailsTest() {
         StringBuilder list = new StringBuilder();
-        list.append(symbol);
+        list.append("FDT");
         list.append("_");
         list.append(description);
         list.append("_");
@@ -158,7 +157,7 @@ public class RecurringTaskTesting {
         list.append("_");
         list.append(endTime);
         list.append("_");
-        list.append(recurringTask.gethasReminder());
-        assertEquals(list.toString(), recurringTask.getAllDetailsAsString());
+        list.append(fdt.gethasReminder());
+        assertEquals(list.toString(), fdt.getAllDetailsAsString());
     }
 }

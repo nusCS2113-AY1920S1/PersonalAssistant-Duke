@@ -1,9 +1,9 @@
-package compal.tasks;
+package compal.model;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static compal.tasks.Task.Priority.high;
+import static compal.model.Task.Priority.high;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 

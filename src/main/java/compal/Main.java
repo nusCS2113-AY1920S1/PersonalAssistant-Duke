@@ -10,6 +10,8 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import compal.commons.Compal;
+import compal.ui.Ui;
+import compal.ui.UiManager;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -29,10 +31,7 @@ public class Main extends Application {
     //Class Properties/Variables
 
     private Compal compal = new Compal();
-
-    public static void main(String[] args) {
-        launch(args);
-    }
+    private Ui ui;
 
     /**
      * Initializes and sets up the GUI.
@@ -43,67 +42,11 @@ public class Main extends Application {
      */
     @Override
     public void start(Stage primaryStage) throws Exception {
-        try {
+        ui = new UiManager(compal);
+        ui.start(primaryStage);
+    }
 
-            FXMLLoader fxmlLoader = new FXMLLoader();
-            fxmlLoader.setLocation(Main.class.getResource("/view/MainWindow.fxml"));
-            AnchorPane ap = fxmlLoader.load();
-
-            TabPane tabReference = (TabPane) ap.getChildren().get(2);
-            compal.ui.tabWindow = tabReference;
-
-            //Create MainWindow Pane
-            VBox root = new VBox();
-            ScrollPane mainPane = new ScrollPane();
-            mainPane.setContent(root);
-
-            Tab mainTab = new Tab();
-            mainTab.setText("Main Window");
-            mainTab.setContent(mainPane);
-            tabReference.getTabs().add(0, mainTab);
-
-            //Create DailyCal Pane
-            DailyCal dc = new DailyCal();
-            String datePattern = "dd/MM/yyyy";
-            compal.ui.dateState = new SimpleDateFormat(datePattern).format(new Date());
-            ScrollPane dailyPane = dc.init(compal.ui.dateState);
-
-            Tab dailyTab = new Tab();
-            dailyTab.setText(compal.ui.dateState);
-            dailyTab.setContent(dailyPane);
-            tabReference.getTabs().add(1, dailyTab);
-
-            compal.ui.mainWindow = mainPane; //gets a reference to the main display viewport
-            compal.ui.secondaryWindow = (ScrollPane) ap.getChildren().get(3); //get reference to secondary viewport
-            Scene s1 = new Scene(ap);
-
-            //Sets up primary stage --------------------------------------------------------------->
-            primaryStage.setScene(s1);
-            primaryStage.setTitle("ComPAL");
-            primaryStage.setOpacity(0.96);
-            primaryStage.getIcons().add(new Image(new FileInputStream(new File("./icon.png"))));
-            //----------------------------------------------------------------------------------------------->
-
-            //Gets and shows the current user system time ------------------------------------------------------->
-            Label date = (Label) ap.getChildren().get(6);
-
-            SimpleDateFormat formatter = new SimpleDateFormat("dd MMMM yyyy");
-            Date d = new Date();
-
-            date.setText("Today's Date:" + formatter.format(d));
-            //------------------------------------------------------------------------------------------------->
-
-            //Passes the initialized Compal object to the controller class to link them up
-            fxmlLoader.<MainWindow>getController().setCompal(compal);
-
-            primaryStage.show();
-            System.out.println("Main:LOG: Primary Stage Initialized. Setting Scene and running initialization code.");
-
-            //Runs ui's initialization code
-            compal.ui.checkInit();
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    public static void main(String[] args) {
+        launch(args);
     }
 }

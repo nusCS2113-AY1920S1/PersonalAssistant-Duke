@@ -1,7 +1,7 @@
 package compal.ui;
 
 import compal.commons.Compal;
-import compal.tasks.Task;
+import compal.model.tasks.Task;
 import javafx.scene.Group;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.StackPane;
@@ -10,7 +10,6 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
 

@@ -15,7 +15,7 @@ import compal.logic.commands.RecurTaskCommand;
 import compal.logic.commands.SetReminderCommand;
 import compal.logic.commands.ViewCommand;
 import compal.logic.commands.ViewReminderCommand;
-import compal.tasks.TaskList;
+import compal.model.tasks.TaskList;
 
 import static compal.commons.Messages.MESSAGE_INVALID_COMMAND;
 import static compal.commons.Messages.MESSAGE_MISSING_INPUT;

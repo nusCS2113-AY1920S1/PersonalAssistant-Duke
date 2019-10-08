@@ -1,4 +1,4 @@
-package compal.tasks;
+package compal.model;
 
 import compal.commons.Compal;
 import org.junit.jupiter.api.BeforeEach;
