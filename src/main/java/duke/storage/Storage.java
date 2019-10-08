@@ -154,7 +154,6 @@ public class Storage {
      * This is a function that will load user info from user.txt.
      * @Author Foo Chi Hen
      */
-
     public User loadUser() throws DukeException {
         User tempUser;
         String sep = System.getProperty("file.separator");
@@ -239,6 +238,26 @@ public class Storage {
             bufferedReader.close();
         } catch (Exception e) {
             throw new DukeException(e.getMessage());
+        }
+    }
+
+    public void loadHelp(ArrayList<String> lines) throws DukeException {
+        String line = "";
+        String sep = System.getProperty("file.separator");
+        file = new File("src" + sep + "main" + sep + "java" + sep + "duke"
+                            + sep + "Data" + sep + "help.txt");
+        try {
+            bufferedReader = new BufferedReader(new FileReader(file));
+        } catch (Exception e) {
+            throw new DukeException("Unable to access help file");
+        }
+        try {
+            while ((line = bufferedReader.readLine()) != null) {
+                lines.add(line);
+            }
+            bufferedReader.close();
+        } catch (IOException e) {
+            throw new DukeException("Error reading help file");
         }
     }
 }
