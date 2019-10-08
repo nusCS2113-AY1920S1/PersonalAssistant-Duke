@@ -1,0 +1,4 @@
+Id,Name,Room,Remark,isHospitalised
+1,John,2A,apple,TRUE
+2,Alpha,3C,pear,FALSE
+3,Beta,3C,pear,FALSE
