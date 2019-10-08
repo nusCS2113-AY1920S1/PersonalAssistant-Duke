@@ -18,7 +18,7 @@ public class FindCommand extends Command {
             } else {
                 ArrayList<Task> searchedlist = new ArrayList<Task>();
                 for (Task it : list) {
-                    if (it.description.contains(ui.FullCommand.substring(6).trim())) {
+                    if (it.description.contains(ui.FullCommand.substring(4).trim())) {
                         searchedlist.add(it);
                     }
                 }
@@ -29,6 +29,7 @@ public class FindCommand extends Command {
             }
 
         }
+
         catch (DukeException e) {
             System.out.println(e.getMessage());
         }

@@ -12,15 +12,17 @@ public class Timebound extends Task {
 
     public Timebound (String description, String period) {
         super(description);
-        String[] dates = period.split(" and ");
 
-        this.dateStart = LocalDate.parse(dates[0], fmtD);
-        this.dateEnd = LocalDate.parse(dates[1], fmtD);
+        String[] date = period.split(" and ");
+
+        this.dateStart = LocalDate.parse(date[0], fmtD);
+        this.dateEnd = LocalDate.parse(date[1], fmtD);
+
     }
 
     @Override
     public String toString() {
-        return "P"+ " | " + super.getStatusIcon() + " | " + super.description + " | " + dateStart.format(fmtD) + " and " + dateEnd.format(fmtD);
+        return "P"+ "|" + super.getStatusIcon() + "|" + super.description + "|" + dateStart.format(fmtD) + " and " + dateEnd.format(fmtD);
     }
 
     @Override
@@ -29,3 +31,4 @@ public class Timebound extends Task {
         return "[P]" + "[" + super.getStatusIcon() + "] " + super.description + "(between: " + dateStart.format(DateTimeFormatter.ofPattern("dd LLL yyyy")) + " and " + dateEnd.format(DateTimeFormatter.ofPattern("dd LLL yyyy")) + ")";
     }
 }
+

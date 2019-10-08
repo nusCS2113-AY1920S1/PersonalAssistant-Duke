@@ -3,6 +3,7 @@ import Storage.Storage;
 import Tasks.Deadline;
 import Tasks.Event;
 import Tasks.Task;
+import Tasks.Timebound;
 import UI.Ui;
 import Exception.DukeException;
 import java.io.IOException;
@@ -16,11 +17,11 @@ import java.util.Stack;
 /**
  * Lists out all the tasks the user has on the specified day.
  */
-public class ScheduleCommand extends Command {
-    //format for the command: schedule <yyyy-MM-dd>
+public class ScheduleDailyCommand extends Command {
+    //format for the command: scheduleDaily <yyyy-MM-dd>
     protected LocalDate date;
     /**
-     * This is the main body of the schedule command.
+     * This is the main body of the ScheduleDaily command.
      *
      * @param list the tasks list.
      * @param ui the object that deals with printing things to the user.
@@ -32,22 +33,38 @@ public class ScheduleCommand extends Command {
     @Override
     public void execute(ArrayList<Task> list, Ui ui, Storage storage, Stack<String> commandStack, ArrayList<Task> deletedTask) throws DukeException, ParseException, IOException, NullPointerException {
         DateTimeFormatter fmt = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        String[] command = ui.FullCommand.trim().split(" ");
+        if (command.length > 2) {
+            System.out.println("The command should be in the format \"scheduleDaily yyyy-MM-dd\".");
+            return;
+        }
         try {
-            date = LocalDate.parse(ui.FullCommand.trim().split(" ")[1], fmt);
+            date = LocalDate.parse(command[1], fmt);
         } catch (DateTimeParseException e) {
             System.out.println("Please input the date in yyyy-MM-dd format.");
             return;
         } catch (IndexOutOfBoundsException i) {
-            System.out.println("OOPS!!! The description of a schedule cannot be empty.");
+            System.out.println("OOPS!!! The description of a scheduleDaily cannot be empty.");
             return;
         }
         ArrayList<Task> schedule = new ArrayList<Task>();
         for (Task t: list) {
             LocalDate tDate = null;
-            if (t.getClass().getName().equals("Tasks.Event")) {
-                tDate = ((Event) t).date;
-            } else if (t.getClass().getName().equals("Tasks.Deadline")) {
-                tDate = ((Deadline) t).by.toLocalDate();
+            switch (t.getClass().getName()) {
+                case "Tasks.Event":
+                    tDate = ((Event) t).date;
+                    break;
+                case "Tasks.Deadline":
+                    tDate = ((Deadline) t).by.toLocalDate();
+                    break;
+                case "Tasks.Timebound":
+                    LocalDate startDate = ((Timebound) t).dateStart;
+                    LocalDate endDate = ((Timebound) t).dateEnd;
+                    if (date.equals(startDate) || date.equals(endDate) ||
+                            (date.isAfter(startDate) && date.isBefore(endDate))) {
+                        schedule.add(t);
+                    }
+                    break;
             }
             if (date.equals(tDate)) {
                 schedule.add(t);

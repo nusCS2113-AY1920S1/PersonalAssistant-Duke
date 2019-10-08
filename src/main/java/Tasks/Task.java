@@ -12,7 +12,7 @@ public class Task {
         return (isDone ? "D" : "ND"); //return tick or X symbols
     }
 
-    public String listFormat(){
+    public String listFormat() {
         return "";
     }
 

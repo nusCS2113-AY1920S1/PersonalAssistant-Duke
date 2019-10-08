@@ -7,6 +7,8 @@ import Exception.DukeException;
 import java.io.IOException;
 import java.text.ParseException;
 import java.util.*;
+import java.util.ArrayList;
+
 
 public class CategoryListCommand extends Command {
     @Override
@@ -15,7 +17,7 @@ public class CategoryListCommand extends Command {
         ArrayList<Event> EventList = new ArrayList<Event>();
         ArrayList<Todo> TodoList = new ArrayList<>();
         ArrayList<FixedDuration> FDList = new ArrayList<>();
-        //ArrayList<Timebound> TBList = new ArrayList<>();
+        ArrayList<Timebound> TBList = new ArrayList<>();
 
         for (Task task : list) {
             if (task.getClass().getName().equals("Tasks.Deadline")) {
@@ -27,14 +29,15 @@ public class CategoryListCommand extends Command {
             } else if (task.getClass().getName().equals("Tasks.Todo")) {
                 Todo todo = new Todo(task.description);
                 TodoList.add(todo);
-            } else if (task.getClass().getName().equals("Tasks.FixedDuration")) {
-                FixedDuration fixedDuration = new FixedDuration(task.description, task.toString().split("requires:")[1].trim());
+            }
+            else if (task.getClass().getName().equals("Tasks.FixedDuration")) {
+                FixedDuration fixedDuration = new FixedDuration(task.description, task.toString().split("\\|")[3].trim());
                 FDList.add(fixedDuration);
             }
-//            else if (task.getClass().getName().equals("Tasks.Timebound")) { //issue with datetimeparse
-//                Timebound timebound = new Timebound(task.description, task.toString().split("between:")[1].trim());
-//                TBList.add(timebound);
-//            }
+            else if (task.getClass().getName().equals("Tasks.Timebound")) {
+                Timebound timebound = new Timebound(task.description, task.toString().split("\\|")[3].trim());
+                TBList.add(timebound);
+            }
         }
 
         if(ui.FullCommand.equals("deadline list")) {
@@ -58,12 +61,12 @@ public class CategoryListCommand extends Command {
                 System.out.println(i + 1 + "." + FDList.get(i).listFormat());
             }
         }
-//        else if (ui.FullCommand.equals("timebound list")) { //issue with datetimeparse
-//            System.out.println("List of timebounded tasks:");
-//            for (int i = 0; i < TBList.size(); i++) {
-//                System.out.println(i + 1 + "." + TBList.get(i).listFormat());
-//            }
-//        }
+        else if (ui.FullCommand.equals("timebound list")) {
+            System.out.println("List of timebounded tasks:");
+            for (int i = 0; i < TBList.size(); i++) {
+                System.out.println(i + 1 + "." + TBList.get(i).listFormat());
+            }
+        }
     }
 
     @Override

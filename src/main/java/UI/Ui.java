@@ -23,19 +23,24 @@ public class Ui {
         FullCommand = reader.readLine();
     }
 
+    /**
+     * This method prompts the user to input the password to login into GAZEEEBO and print a logo and message to welcome the user when he successfully log in.
+     * @return the logo
+     * @throws IOException if tDate doesn't get updated.
+     */
     public String showWelcome() throws IOException {
         System.out.println("Input password to enter Gazeebo:");
-        String logo = " ___   ___  ___  ___  ___  ___   ___ \n"
-                + "|     |   |   / |    |    |   \\ |   |\n"
-                + "|  __ |__ |  /  |___ |___ |___| |   |\n"
-                + "|___| |   | /__ |___ |___ |___/ |___|";
+        String logo = " ___   ___  ___  ___  ___  ___  ___   ___ \n"
+                + "|     |   |   / |    |    |    |   \\ |   |\n"
+                + "|  __ |__ |  /  |___ |___ |___ |___| |   |\n"
+                + "|___| |   | /__ |___ |___ |___ |___/ |___|";
         String welcomemessage = "\nWelcome to Gazeebo"
                 + "\n__________________________________________\n"
                 + logo
                 + "\n__________________________________________\n";
 
-         while (true) {
-             ReadCommand();
+        while (true) {
+            ReadCommand();
             ArrayList<String> password_list;
             Storage store = new Storage();
             password_list = store.Password();
@@ -46,7 +51,7 @@ public class Ui {
                 System.out.println("Incorrect password, please try again:");
             }
         }
-         return welcomemessage;
+        return welcomemessage;
     }
 
     public void UpcomingTask(ArrayList<Task> list) throws ParseException {

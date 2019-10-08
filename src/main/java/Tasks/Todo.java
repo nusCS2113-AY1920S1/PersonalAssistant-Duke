@@ -9,7 +9,7 @@ public class Todo extends Task {
         return "T"+ "|" + super.getStatusIcon() + "| " + super.description;
     }
     public String listFormat(){
-        return "[T]" + "[" + super.getStatusIcon() + "]" + super.description ;
+        return "[T]" + "[" + super.getStatusIcon() + "] " + super.description ;
     }
 
 }

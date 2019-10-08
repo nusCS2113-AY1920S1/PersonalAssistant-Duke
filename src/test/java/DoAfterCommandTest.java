@@ -8,13 +8,13 @@ public class DoAfterCommandTest {
     DoAfter testdoAfter = new DoAfter("read book","read book","return book");
     @Test
     void testtoString() {
-        assertEquals("DA|\u2718| return book| read book", testdoAfter.toString());
+        assertEquals("DA|ND| return book| read book", testdoAfter.toString());
     }
 
 
     @Test
     void testlistformat() {
-        assertEquals("[DA][\u2718]return book(/after:read book)", testdoAfter.listFormat());
+        assertEquals("[DA][ND] return book(/after:read book)", testdoAfter.listFormat());
     }
 
 }
