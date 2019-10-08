@@ -1,33 +1,4 @@
-T | + | text ui testing
-D | - | watch movie | 69/9/2019 1830
-E | - | go run | track
-D | + | buy book | 12/12/2019 1800
-D | - | buy phone | 8/11/2019 2300
-T | - | eating
-F | - | eating | 2 hours
-D | - | submit assignment | 2/2/2019 1800
-TS | + | book empty slots | 2/12/2019 1800
-TS | + | book slots | 3/12/2019 1900
-TS | + | book  slots | 3/3/2019 1900
-T | - | homework
-P | - | sleep | this | then
-R | + | assignment | weekly | Thursday
-R | + | exams | monthly | 21
-T | + | 3
-D | - | assignment | 12/11/2011 2359
-T | - | 6
-T | - | 6
-R | - | work | daily
-T | - | eating
-E | - | meeting | school
-F | - | homework | 3 hours
-D | - | code | 2/2/2019 1800
-P | - | task | 2/2/2019 | 3/3/2019
-R | - | task | daily
-R | - | task | weekly | Thursday
-R | - | task | monthly | 2
-R | - | task | daily
-R | - | task | monthly | 1
-R | - | task | weekly | Friday
-R | - | task | weekly | Thursday
-R | - | task | weekly | Thursday
+booking | zihan | 91520567 | 2 | 10/10/2019 | steak and fish
+booking | John | 8473739 | 2 | 1/1/2019 | pasta, garlic prawn
+booking | Alex | 91837462 | 2 | 30/12/2019 | beef bolognese
+booking | Jack | 92817361 | 4 | 5/6/2019 | Honey latte, Chicken pie

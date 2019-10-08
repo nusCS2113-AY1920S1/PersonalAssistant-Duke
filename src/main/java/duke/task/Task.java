@@ -10,6 +10,9 @@ public abstract class Task {
     protected boolean isDone; //To check if the task is completed
     protected TaskType taskType;
 
+    protected Task() {
+    }
+
     public enum TaskType {
         DEADLINE, TENTATIVESCHEDULING, EVENT, TODO
     }

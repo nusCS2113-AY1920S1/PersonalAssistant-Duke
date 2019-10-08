@@ -7,7 +7,7 @@ public class Messages {
 
     public static final int DISPLAYED_INDEX_OFFSET = 1;
 
-    public static final String filePath = "C:\\Users\\Wen Jian\\Desktop\\main\\src\\main\\data\\duke.txt";
+    public static final String filePath = "C:\\Users\\acern\\main\\src\\main\\data\\duke.txt";
 
     public static final String MESSAGE_ADDED = "     Got it. I've added this task:\n";
     public static final String MESSAGE_BYE = "     Bye. Hope to see you again soon!";

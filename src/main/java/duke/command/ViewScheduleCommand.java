@@ -1,3 +1,4 @@
+/*
 package duke.command;
 
 import duke.exception.DukeException;
@@ -65,4 +66,4 @@ public class ViewScheduleCommand extends Command {
     public boolean isExit() {
         return false;
     }
-}
+}*/

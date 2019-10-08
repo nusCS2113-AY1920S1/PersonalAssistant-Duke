@@ -1,15 +1,10 @@
 package duke.storage;
 
 import duke.exception.DukeException;
-import duke.task.TentativeScheduling;
-import duke.task.Recurring;
-import duke.task.Period;
-import duke.task.Deadline;
-import duke.task.Duration;
-import duke.task.Todo;
-import duke.task.Event;
+import duke.task.Booking;
 import duke.task.Task;
 import duke.tasklist.TaskList;
+
 
 import java.io.FileReader;
 import java.io.BufferedReader;
@@ -67,56 +62,25 @@ public class Storage {
             BufferedReader bufferedReader = new BufferedReader(fileReader);
             String content = "";
             while ((content = bufferedReader.readLine()) != null) {
-                if (content.charAt(0) == 'T') {
-                    if (content.charAt(1) == 'S') {
-                        String[] split = content.substring(9).split(" \\| ", 2);
-                        Task task = new TentativeScheduling(split[0], split[1]);
-                        if (content.charAt(5) == '+') {
-                            task.markAsDone();
-                        }
-                        arrTaskList.add(task);
-                    } else {
-                        String details = content.substring(8);
-                        Task task = new Todo(details);
-                        if (content.charAt(4) == '+') {
-                            task.markAsDone();
-                        }
-                        arrTaskList.add(task);
-                    }
-                } else {
-                    //need to escape character in string for "|" by adding "\\" in front of "|"
-                    //if not the split will be on the wrong place
-                    String[] split = content.substring(8).split(" \\| ");
-                    if (content.charAt(0) == 'D') {
-                        Task task = new Deadline(split[0], split[1]);
-                        assignTaskMarker(content, task);
-                    } else if (content.charAt(0) == 'E') {
-                        Task task = new Event(split[0], split[1]);
-                        assignTaskMarker(content, task);
-                    } else if (content.charAt(0) == 'F') {
-                        Task task = new Duration(split[0], split[1]);
-                        assignTaskMarker(content, task);
-                    } else if (content.charAt(0) == 'P') {
-                        if (split.length == 3) {
-                            Task task = new Period(split[0], split[1], split[2]);
-                            assignTaskMarker(content, task);
-                        }
-                    } else if (content.charAt(0) == 'R') {
-                        if (split.length == 2) { // daily
-                            Task task = new Recurring(split[0], split[1], "");
-                            assignTaskMarker(content, task);
-                        } else if (split.length == 3) { // weekly, monthly, yearly
-                            Task task = new Recurring(split[0], split[1], split[2]);
-                            assignTaskMarker(content, task);
-                        }
-                    }
+
+                if(content.split("\\|",6)[0].trim().equals("booking")) {
+
+                    String customerName = content.split("\\|",6)[1].trim();
+                    String customerContact = content.split("\\|",6)[2].trim();
+                    String numberOfPax = content.split("\\|",6)[3].trim();
+                    String bookingDate = content.split("\\|",6)[4].trim();
+                    String orderName = content.split("\\|",6)[5].trim();
+                    Task task = new Booking(customerName, customerContact, numberOfPax, bookingDate, orderName);
+                    arrTaskList.add(task);
                 }
             }
             fileReader.close();
         } catch (FileNotFoundException ex) {
             System.out.println("Unable to open file '" + filePath + "'");
-        } catch (IOException | ParseException ex) {
+        } catch (IOException ex) {
             System.out.println("Error reading file '" + filePath + "'");
+        } catch (ParseException e) {
+            e.printStackTrace();
         }
         return arrTaskList;
     }
