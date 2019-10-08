@@ -1,15 +1,15 @@
 package duke.command;
 
-import duke.DukeContext;
+import duke.DukeCore;
 import duke.exception.DukeException;
 
 public class ListCommand extends Command {
 
     @Override
-    public void execute(DukeContext ctx) throws DukeException {
+    public void execute(DukeCore core) throws DukeException {
         String listStr = "Here are the tasks in your list:";
-        listStr = (listStr + ctx.taskList.listTasks()).replace(System.lineSeparator(),
+        listStr = (listStr + core.taskList.listTasks()).replace(System.lineSeparator(),
                 System.lineSeparator() + "  ");
-        ctx.ui.print(listStr);
+        core.ui.print(listStr);
     }
 }

@@ -1,6 +1,6 @@
 package duke.command;
 
-import duke.DukeContext;
+import duke.DukeCore;
 import duke.exception.DukeException;
 
 import java.util.HashMap;
@@ -16,7 +16,7 @@ public abstract class ArgCommand extends Command {
     protected HashMap<String, ArgLevel> switches; //list of recognised switches
 
     @Override
-    public void execute(DukeContext ctx) throws DukeException, DukeException {
+    public void execute(DukeCore core) throws DukeException, DukeException {
         if (arg == null) {
             throw new DukeException("Command needs to parse argument first!");
         }

@@ -21,14 +21,14 @@ public class SnoozeCommandTest extends CommandTest {
      */
     @BeforeEach
     public void setupTaskList() {
-        ctx.taskList = new TaskList();
+        core.taskList = new TaskList();
         ToDoTask todo = new ToDoTask("JUnit tests");
         LocalDateTime t = LocalDateTime.parse("12/09/2019 1400", TimedTask.getPatDatetime());
         EventTask event = new EventTask("tutorial", t, t);
         DeadlineTask deadline = new DeadlineTask("submission", t);
-        ctx.taskList.addTask(todo);
-        ctx.taskList.addTask(event);
-        ctx.taskList.addTask(deadline);
+        core.taskList.addTask(todo);
+        core.taskList.addTask(event);
+        core.taskList.addTask(deadline);
     }
 
     @Test
@@ -37,8 +37,8 @@ public class SnoozeCommandTest extends CommandTest {
         String taskListStr = null;
         try {
             uut.parse("3 19/09/2019 1400");
-            uut.execute(ctx);
-            taskListStr = ctx.taskList.listTasks();
+            uut.execute(core);
+            taskListStr = core.taskList.listTasks();
         } catch (DukeException excp) {
             System.out.println(excp.getMessage());
             fail("Exception thrown on valid command!");
@@ -55,11 +55,11 @@ public class SnoozeCommandTest extends CommandTest {
         try {
             uut.parse("4 19/09/2019 1400");
             assertThrows(DukeException.class, () -> {
-                uut.execute(ctx);
+                uut.execute(core);
             });
             uut.parse("1 19/09/2019 1400");
             assertThrows(DukeException.class, () -> {
-                uut.execute(ctx);
+                uut.execute(core);
             });
         } catch (AssertionError excp) {
             fail("Failed to catch command snoozing invalid targets!");

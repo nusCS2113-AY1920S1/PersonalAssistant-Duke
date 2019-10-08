@@ -1,6 +1,6 @@
 package duke.command;
 
-import duke.DukeContext;
+import duke.DukeCore;
 import duke.exception.DukeException;
 
 public class DeleteCommand extends ArgCommand {
@@ -10,9 +10,9 @@ public class DeleteCommand extends ArgCommand {
     }
 
     @Override
-    public void execute(DukeContext ctx) throws DukeException {
-        String delStr = ctx.taskList.deleteTask(arg);
-        ctx.storage.writeTaskFile(ctx.taskList.getFileStr());
-        ctx.ui.print(ctx.taskList.getDelReport(System.lineSeparator() + "  " + delStr, 1));
+    public void execute(DukeCore core) throws DukeException {
+        String delStr = core.taskList.deleteTask(arg);
+        core.storage.writeTaskFile(core.taskList.getFileStr());
+        core.ui.print(core.taskList.getDelReport(System.lineSeparator() + "  " + delStr, 1));
     }
 }

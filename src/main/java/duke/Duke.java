@@ -9,13 +9,13 @@ import duke.task.Storage;
 import java.io.File;
 
 public class Duke {
-    private DukeContext ctx; //holds the tasklist, ui and storage classes
+    private DukeCore core; //holds the tasklist, ui and storage classes
 
     /**
-     * Creates a new Duke object, with an associated DukeContext.
+     * Creates a new Duke object, with an associated DukeCore.
      *
      * @param filePath The path where the data file will be located.
-     * @see DukeContext
+     * @see DukeCore
      */
     private Duke(String filePath) {
         Ui ui = new Ui(System.in, System.out); //UI construction is safe, send welcome first
@@ -23,15 +23,15 @@ public class Duke {
 
         try {
             //construct tasklist from storage and ui
-            ctx = new DukeContext(new Storage(filePath), ui);
-            String reminderStr = ctx.taskList.listReminders().replace(System.lineSeparator(),
+            core = new DukeCore(new Storage(filePath), ui);
+            String reminderStr = core.taskList.listReminders().replace(System.lineSeparator(),
                     System.lineSeparator() + "  ");
-            ctx.ui.print("Here are your reminders:" + reminderStr);
-            ctx.ui.printHello();
+            core.ui.print("Here are your reminders:" + reminderStr);
+            core.ui.printHello();
         } catch (DukeFatalException excp) {
             excp.killProgram(ui); //standard exit on fatal exception
         } catch (DukeException excp) {
-            ctx.ui.print("You have no reminders.");
+            core.ui.print("You have no reminders.");
         }
     }
 
@@ -41,10 +41,10 @@ public class Duke {
     private void run() {
         while (true) {
             try {
-                Command c = ctx.ui.parseCommand();
-                c.execute(ctx);
+                Command c = core.ui.parseCommand();
+                c.execute(core);
             } catch (DukeException excp) {
-                ctx.ui.printError(excp);
+                core.ui.printError(excp);
             }
         }
     }

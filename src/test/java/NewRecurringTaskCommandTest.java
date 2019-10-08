@@ -29,7 +29,7 @@ public class NewRecurringTaskCommandTest extends CommandTest {
         NewRecurringTaskCommand uut = new NewRecurringTaskCommand();
         try {
             uut.parse("deadline submission /by 18/09/2019 2359 /repeats weekly /count 9");
-            uut.execute(ctx);
+            uut.execute(core);
         } catch (DukeException excp) {
             fail("Exception thrown on valid recurring task!");
         }
@@ -43,7 +43,7 @@ public class NewRecurringTaskCommandTest extends CommandTest {
         try {
             uut.parse("deadline submission /by 18/09/2019 2359 /repeats weekly "
                     + "/until 23/11/2019 1300");
-            uut.execute(ctx);
+            uut.execute(core);
         } catch (DukeException excp) {
             fail("Exception thrown on valid recurring task!");
         }
@@ -58,32 +58,32 @@ public class NewRecurringTaskCommandTest extends CommandTest {
         try {
             uut.parse("deadline submission /by 18/09/2019 2359 /repeats weekly");
             assertThrows(DukeException.class, () -> {
-                uut.execute(ctx);
+                uut.execute(core);
             });
             uut.parse("deadline submission /by 18/09/2019 2359 /repeats weekly "
                     + "/until 23/11/2019 1300 /count 100");
             assertThrows(DukeException.class, () -> {
-                uut.execute(ctx);
+                uut.execute(core);
             });
             uut.parse("deadline submission /by 18/09/2019 2359 /repeats weekly "
                     + "/until 231119 1300");
             assertThrows(DukeException.class, () -> {
-                uut.execute(ctx);
+                uut.execute(core);
             });
             uut.parse("deadline submission /by 18/09/2019 2359 /repeats weekly "
                     + "/count -100");
             assertThrows(DukeException.class, () -> {
-                uut.execute(ctx);
+                uut.execute(core);
             });
             uut.parse("deadline submission /by 18/09/2019 2359 /repeats weekly "
                     + "/until 23/11/2019 1300 /until 23/11/2019 1500");
             assertThrows(DukeException.class, () -> {
-                uut.execute(ctx);
+                uut.execute(core);
             });
             uut.parse("deadline submission /by 18/09/2019 2359 /repeats weekly "
                     + "/count 100 /count 10");
             assertThrows(DukeException.class, () -> {
-                uut.execute(ctx);
+                uut.execute(core);
             });
         } catch (DukeException excp) {
             fail("Parser failed to recognise valid command with '/repeats'!");
