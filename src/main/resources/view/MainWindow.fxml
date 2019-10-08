@@ -19,7 +19,9 @@
                <children>
                   <AnchorPane layoutY="704.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
                      <children>
-                        <TextField fx:id="userInput" onAction="#handleUserInput" prefHeight="42.0" prefWidth="277.0" text="task " AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="63.0">
+                        <TextField fx:id="userInput" onAction="#handleUserInput" onKeyPressed="#handleKeyEvent"
+                                   prefHeight="42.0"
+                                   prefWidth="277.0" text="task " AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="63.0">
                            <font>
                               <Font size="14.0" />
                            </font>
