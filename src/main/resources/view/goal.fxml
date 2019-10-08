@@ -61,9 +61,10 @@
                <content>
                   <AnchorPane prefHeight="445.0" prefWidth="676.0" />
                </content></TitledPane>
-            <Button layoutX="881.0" layoutY="85.0" mnemonicParsing="false" prefHeight="100.0" prefWidth="160.0" text="Add a goal to a day" />
+            <Button layoutX="881.0" layoutY="107.0" mnemonicParsing="false" prefHeight="100.0" prefWidth="160.0" text="Add a goal to a day" />
             <Button layoutX="881.0" layoutY="264.0" mnemonicParsing="false" prefHeight="100.0" prefWidth="160.0" text="Delete a goal from a day" />
-            <Button layoutX="881.0" layoutY="438.0" mnemonicParsing="false" prefHeight="100.0" prefWidth="160.0" text="Delete all goals from a day" />
+            <Button layoutX="881.0" layoutY="421.0" mnemonicParsing="false" prefHeight="100.0" prefWidth="160.0" text="Delete all goals from a day" />
+            <Button layoutX="1120.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="160.0" text="Back to Schedule" />
          </children>
       </AnchorPane>
       <SplitPane dividerPositions="0.5" prefHeight="65.0" prefWidth="600.0">
