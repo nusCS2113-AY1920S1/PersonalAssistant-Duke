@@ -27,7 +27,7 @@ public class CommandParserTest {
         assertTrue(CommandParser.isCommandFormat("deadline 123abc -by asdas -asd nisnds"));
         assertTrue(CommandParser.isCommandFormat("deadline 123abc 123abc -by asdas -asd nisnds"));
         assertFalse(CommandParser.isCommandFormat("deadline -by asdas -asd nisnds"));
-        assertFalse(CommandParser.isCommandFormat("deadline 123abc -by asdas -asd nis nds"));
+        assertTrue(CommandParser.isCommandFormat("deadline 123abc -by asdas -asd nis nds"));
         assertFalse(CommandParser.isCommandFormat("123abc -by asdas"));
         assertFalse(CommandParser.isCommandFormat("deadline 123abc -by "));
         assertTrue(CommandParser.isCommandFormat("deadline 123abc"));
@@ -43,6 +43,10 @@ public class CommandParserTest {
         assertEquals("pick", CommandParser.parseOptions("todo 123abc -tag sad -remarks pick").get(0).getValue());
         assertEquals("tag", CommandParser.parseOptions("todo 123abc -tag sad -remarks pick").get(1).getKey());
         assertEquals("sad", CommandParser.parseOptions("todo 123abc -tag sad -remarks pick").get(1).getValue());
+        assertEquals("remarks",
+                CommandParser.parseOptions("todo 123abc -tag sad -remarks pick one side").get(0).getKey());
+        assertEquals("pick one side",
+                CommandParser.parseOptions("todo 123abc -tag sad -remarks pick one side").get(0).getValue());
         assertEquals(0, CommandParser.parseOptions("todo 123abc").size());
     }
 
@@ -155,7 +159,7 @@ public class CommandParserTest {
 
             ArrayList<Command.Option> optionListEmpty = new ArrayList<>();
             ArrayList<Command.Option> optionListCorrect = new ArrayList<>(Arrays.asList(new Command.Option(
-                    "msg","do after description")));
+                    "msg", "do after description")));
             ArrayList<Command.Option> optionListExtra = new ArrayList<>(Arrays.asList(new Command.Option(
                     "msg", "do after description"), new Command.Option("tag", "123")));
             method.invoke(null, "doAfter 1", null, optionListCorrect);
@@ -201,5 +205,33 @@ public class CommandParserTest {
         } catch (IllegalAccessException e) {
             fail("No Access");
         }
+    }
+
+    @Test
+    public void parseAddToDoCommandTest() {
+        //try {
+        //    Class<?> parser = Class.forName("seedu.duke.CommandParser");
+        //    Method method = parser.getDeclaredMethod("parseAddToDoCommand", TaskList.class, String.class,
+        //            String.class, ArrayList.class);
+        //    method.setAccessible(true);
+        //
+        //    ArrayList<String> tagList = new ArrayList<>(Arrays.asList("123", "234"));
+        //    String doafter = "345";
+        //
+        //    assertTrue(method.invoke(null, null, "todo 123", null, null) instanceof TaskSnoozeCommand);
+        //    assertTrue(method.invoke(null, "snooze 1", null, null) instanceof TaskSnoozeCommand);
+        //    assertTrue(method.invoke(null, "snooze 1  ", null, null) instanceof TaskSnoozeCommand);
+        //    assertTrue(method.invoke(null, "snooze ", null, null) instanceof InvalidCommand);
+        //    assertTrue(method.invoke(null, "snooze 1  a", null, null) instanceof InvalidCommand);
+        //    assertTrue(method.invoke(null, "snooze 1a", null, null) instanceof InvalidCommand);
+        //} catch (ClassNotFoundException e) {
+        //    fail("No such class");
+        //} catch (NoSuchMethodException e) {
+        //    fail("No such method");
+        //} catch (InvocationTargetException e) {
+        //    fail(e.getMessage());
+        //} catch (IllegalAccessException e) {
+        //    fail("No Access");
+        //}
     }
 }

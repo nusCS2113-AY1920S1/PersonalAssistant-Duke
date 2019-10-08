@@ -18,7 +18,7 @@ public class TaskDoAfterCommand extends Command {
      * Instantiation of do after command.
      *
      * @param taskList           list of tasks.
-     * @param index         index of task.
+     * @param index              index of task.
      * @param doAfterDescription of task.
      */
     public TaskDoAfterCommand(TaskList taskList, int index, String doAfterDescription) {

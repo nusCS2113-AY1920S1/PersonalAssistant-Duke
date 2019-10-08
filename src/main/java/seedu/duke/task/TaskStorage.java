@@ -88,9 +88,10 @@ public class TaskStorage {
                 }
                 input = input.split(" ", 2)[1];
                 try {
-                    Command adddCommand = CommandParser.parseAddTaskCommand(taskList, input);
-                    adddCommand.setSilent();
-                    adddCommand.execute();
+                    Command addCommand = CommandParser.parseAddTaskCommand(taskList, input,
+                            new ArrayList<Command.Option>());
+                    addCommand.setSilent();
+                    addCommand.execute();
                 } catch (CommandParser.UserInputException e) {
                     throw new StorageException("Invalid Save File!");
                 }
