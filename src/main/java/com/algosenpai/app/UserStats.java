@@ -5,9 +5,16 @@ import javafx.util.Pair;
 
 import java.util.ArrayList;
 
+/**
+ * Handles temporary storage of user stats while the program is running.
+ */
 public class UserStats {
 
-     static class ChapterStat {
+    /**
+     * Inner class to hold the 3 data for each chapter.
+     * the chapter name, total questions answered and correct answers.
+     */
+    static class ChapterStat {
         String chapterName;
         int totalAnswered;
         int correctAnswers;
@@ -26,7 +33,10 @@ public class UserStats {
 
     private ArrayList<ChapterStat> data;
 
-
+    /**
+     *
+     * @param size The initial size of the arraylist containing the data. Should be equal to the number of chapters.
+     */
     public UserStats(int size) {
         data = new ArrayList<ChapterStat>();
         for (int i = 0; i < size; i++) {
@@ -34,10 +44,20 @@ public class UserStats {
         }
     }
 
+    /**
+     * Get the stats for a particular chapter.
+     * @param index The index of the chapter.
+     * @return A pair of (correct answers , total Qs answered).
+     */
     public Pair<Integer,Integer> getStats(int index) {
         return new Pair<>(data.get(index).correctAnswers, data.get(index).totalAnswered);
     }
 
+    /**
+     * Get the stats for a particular chapter.
+     * @param chapterName The name of the chapter.
+     * @return A pair of (correct answers , total Qs answered), or null if no such chapter found.
+     */
     public Pair<Integer,Integer> getStats(String chapterName) {
 
         ChapterStat target = getStatsByName(chapterName);
@@ -47,6 +67,11 @@ public class UserStats {
         return new Pair<>(target.correctAnswers, target.totalAnswered);
     }
 
+    /**
+     * Call this after each question is answered to update the stats for that chapter.
+     * @param index The index of the chapter to update.
+     * @param wasAnsweredCorrectly Whether the answer that is being added was answered correctly.
+     */
     public void updateStats(int index, boolean wasAnsweredCorrectly) {
         data.get(index).totalAnswered++;
         if (wasAnsweredCorrectly) {
@@ -54,6 +79,11 @@ public class UserStats {
         }
     }
 
+    /**
+     * Call this after each question is answered to update the stats for that chapter.
+     * @param chapterName The name of the chapter to update.
+     * @param wasAnsweredCorrectly Whether the answer that is being added was answered correctly.
+     */
     public void updateStats(String chapterName, boolean wasAnsweredCorrectly) {
         ChapterStat target = getStatsByName(chapterName);
         if (target == null) {
@@ -64,6 +94,8 @@ public class UserStats {
             target.correctAnswers++;
         }
     }
+
+
 
     private ChapterStat getStatsByName(String chapterName) {
         ChapterStat target = null;
