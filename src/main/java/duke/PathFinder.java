@@ -1,6 +1,6 @@
 package duke;
 
-import duke.commons.DukeException;
+import duke.commons.exceptions.DukeException;
 import duke.data.BusService;
 import duke.data.BusStop;
 import duke.data.Location;
@@ -24,9 +24,11 @@ public class PathFinder {
      * Initialise Pathfinder object.
      *
      */
-    public PathFinder() throws IOException, DukeException {
+    public PathFinder() throws DukeException {
         this.busMap = ApiParser.getBusRoute();
         this.busStopMap = ApiParser.getBusStop();
+        this.visited = new HashSet<>();
+        this.path = new HashMap<>();
         fillBusStop();
     }
 
@@ -54,12 +56,9 @@ public class PathFinder {
         BusStop startBusStop = ApiConstraintParser.getNearestBusStop(start, this.busStopMap);
         BusStop endBusStop = ApiConstraintParser.getNearestBusStop(end, this.busStopMap);
 
-        System.out.println(startBusStop.getBusCode());
-        System.out.println(endBusStop.getBusCode());
         BusStop cur = startBusStop;
         int i = 0;
-        this.visited = new HashSet<>();
-        this.path = new HashMap<>();
+
         while (!found && i < 3) {
             this.visited.clear();
             this.path.clear();
@@ -85,8 +84,10 @@ public class PathFinder {
         if (i == 0 || this.visited.contains(cur)) {
             return;
         }
+
         this.visited.add(cur);
         i -= 1;
+
         for (String bus : cur.getBuses()) { //loop through all bus in bus stop
             for (String busCode : this.busMap.get(bus).getDirection(1)) { // depth search the bus route
                 if (!this.found) {

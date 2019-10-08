@@ -43,7 +43,7 @@ public class Duke {
             if (c instanceof ExitCommand) {
                 tryExitApp();
             }
-        } catch (DukeException | IOException e) {
+        } catch (DukeException e) {
             ui.showError(e.getMessage());
         }
     }

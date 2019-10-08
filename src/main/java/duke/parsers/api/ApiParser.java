@@ -87,7 +87,7 @@ public class ApiParser {
      *
      * @return bus route
      */
-    public static HashMap<String, BusService> getBusRoute() throws DukeException, IOException {
+    public static HashMap<String, BusService> getBusRoute() throws DukeException {
         String path = "BusRoutes";
         int skip = 0;
         HashMap<String, BusService> busMap = new HashMap<>();

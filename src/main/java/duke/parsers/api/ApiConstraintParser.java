@@ -89,9 +89,8 @@ public class ApiConstraintParser {
         BusStop nearestBusStop = null;
         for (Map.Entry mapElement : busStopMap.entrySet()) {
             BusStop cur = (BusStop)mapElement.getValue();
-            //no idea why the lang and long is swap
-            double displacement = Math.pow(Math.abs(placeLatitude - cur.getLongitude()), 2)
-                                + Math.pow(Math.abs(placeLongitude - cur.getLatitude()), 2);
+            double displacement = Math.pow(Math.abs(placeLatitude - cur.getLatitude()), 2)
+                    + Math.pow(Math.abs(placeLongitude - cur.getLongitude()), 2);
             displacement = Math.sqrt(displacement);
             if (displacement < minimumDisplacement) {
                 minimumDisplacement = displacement;

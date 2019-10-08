@@ -1,8 +1,6 @@
 package duke.commands;
 
 import duke.PathFinder;
-import duke.commons.DukeException;
-import duke.data.BusService;
 import duke.data.BusStop;
 import duke.data.Location;
 import duke.commons.Messages;
@@ -11,13 +9,11 @@ import duke.data.UniqueTaskList;
 import duke.data.tasks.Holiday;
 import duke.data.tasks.Task;
 import duke.parsers.api.ApiConstraintParser;
-import duke.parsers.api.ApiParser;
 import duke.storage.Storage;
 import duke.ui.Ui;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
 
 /**
  * Class representing a command to send the test URL connection.
@@ -56,7 +52,7 @@ public class FindPathCommand extends Command {
      * @param storage The duke.storage object containing task list.
      */
     @Override
-    public void execute(Ui ui, Storage storage) throws DukeException, IOException {
+    public void execute(Ui ui, Storage storage) throws DukeException {
 
         Holiday startPoint = getHoliday(this.startPointIndex, storage.getTasks());
         Location startLocation = startPoint.getLocation();
