@@ -119,7 +119,7 @@ public class Storage {
             String startTimeString = timeFormat.format(startTime);
             Date endTime = timeFormat.parse(string.substring(string.indexOf("to") + 3, string.indexOf(')')).trim());
             String endTimeString = timeFormat.format(endTime);
-            line = new Event(string.substring(7, string.indexOf("at:")-2), dateString, startTimeString, endTimeString);
+            line = new Event(string.substring(7, string.indexOf("at:")-2), dateString, startTimeString, endTimeString, null);
         } if(string.contains("\u2713")) {
             line.setDone(true);
         }

@@ -2,7 +2,7 @@ package Tasks;
 /**
  * Represents a task in the Duke program.
  */
-public class Task {
+public abstract class Task {
     private String description;
     private boolean isDone;
     private String type;
@@ -45,4 +45,6 @@ public class Task {
     public String getDateTime(){
         return "void";
     }
+
+    public abstract String getModCode();
 }

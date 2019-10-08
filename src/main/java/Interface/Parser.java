@@ -77,13 +77,15 @@ public class Parser {
                 } else {
                     return new AddCommand(new Todo(activity));
                 }
-            } else if (fullCommand.trim().substring(0, 5).equals("event")) {
-                try { //event description /at date from time to time
+            } else if (fullCommand.trim().substring(0, 5).equals("add/e")) {
+                try { //add/e module_code description /at date from time to time
                     String activity = fullCommand.trim().substring(5);
-                    arr = activity.split("/at"); //arr[0] is "description", arr[1] is "date from time to time"
+                    arr = activity.split("/at"); //arr[0] is " module_code description", arr[1] is "date from time to time"
                     if (arr[0].trim().isEmpty()) {
                         throw new DukeException("\u2639" + " OOPS!!! The description of a event cannot be empty.");
                     }
+                    arr3 = arr[0].split(" ");
+                    String modCode = arr3[0];
                     arr1 = arr[1].split("from"); //arr1[0] is "date", arr1[1] is "time to time"
                     SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy"); //format date
                     Date date = formatter.parse(arr1[0].trim());
@@ -96,7 +98,7 @@ public class Parser {
                     String dateString = dateFormat.format(date);
                     String startTimeString = timeFormat.format(startTime);
                     String endTimeString = timeFormat.format(endTime);
-                    return new AddCommand(new Event(arr[0].trim(), dateString, startTimeString, endTimeString));
+                    return new AddCommand(new Event(arr[0].trim(), dateString, startTimeString, endTimeString, modCode));
                 } catch (ParseException | ArrayIndexOutOfBoundsException e) {
                     throw new DukeException("OOPS!!! Please enter event as follows:\n" +
                             "event name_of_event /at dd/MM/yyyy from HHmm to HHmm\n" +
@@ -169,7 +171,7 @@ public class Parser {
                         Date date = formatter.parse(arr[1].trim());
                         SimpleDateFormat dateFormat = new SimpleDateFormat("E dd/MM/yyyy hh:mm a");
                         String dateString = dateFormat.format(date);
-                        return new SnoozeCommand(index, dateString, dateString, dateString);
+                        return new SnoozeCommand(index, dateString, dateString, dateString, null);
                     } else {
                         arr2 = arr[1].trim().split("to");
                         arr3 = arr2[0].trim().split(" ");
@@ -183,7 +185,7 @@ public class Parser {
                         String dateString = dateFormat.format(date);
                         String startTimeString = timeFormat.format(startTime);
                         String endTimeString = timeFormat.format(endTime);
-                        return new SnoozeCommand(index, dateString, startTimeString, endTimeString);
+                        return new SnoozeCommand(index, dateString, startTimeString, endTimeString, null);
                     }
                 } catch (ParseException | ArrayIndexOutOfBoundsException e) {
                     throw new DukeException(" OOPS!!! Please enter snooze as follows respectively:\n" +
