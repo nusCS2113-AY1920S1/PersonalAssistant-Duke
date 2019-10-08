@@ -20,7 +20,7 @@ public abstract class Command {
      * @param tasks task list
      * @param ui user interface
      * @param storage handles read write of text file
-     * @throws DukeException if Duke specific exception found
+     * @throws DukeException if control.Duke specific exception found
      * @throws IOException if IO exception found
      */
 

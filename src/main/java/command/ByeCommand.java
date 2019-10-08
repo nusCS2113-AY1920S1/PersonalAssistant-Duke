@@ -9,7 +9,7 @@ import java.io.IOException;
 import java.text.ParseException;
 
 /**
- * command.Command to exit Duke programme.
+ * command.Command to exit control.Duke programme.
  */
 public class ByeCommand extends Command {
 
@@ -19,7 +19,7 @@ public class ByeCommand extends Command {
      * @param ui user interface
      * @param storage handles read write of text file
      * @throws IOException if IOException found
-     * @throws DukeException if Duke specific exception found
+     * @throws DukeException if control.Duke specific exception found
      */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws IOException, DukeException, ParseException {

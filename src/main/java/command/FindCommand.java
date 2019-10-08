@@ -40,7 +40,7 @@ public class FindCommand extends Command {
             }
         }
         if (!found) {
-            ui.showString("No items match your search!");
+            ui.addToOutput("No items match your search!");
         }
     }
 }

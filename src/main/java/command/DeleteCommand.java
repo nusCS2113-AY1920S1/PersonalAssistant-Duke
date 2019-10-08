@@ -27,7 +27,7 @@ public class DeleteCommand extends Command {
      * @param tasks task list
      * @param ui user interface
      * @param storage handles read write of text file
-     * @throws DukeException for Duke specific exception
+     * @throws DukeException for control.Duke specific exception
      * @throws IOException if IO exception found
      */
     @Override
@@ -35,10 +35,10 @@ public class DeleteCommand extends Command {
         if (this.num < 1 || this.num > tasks.size()) {
             throw new DukeException("☹ OOPS!!! That task is not in your list");
         }
-        ui.showString("Got it. I've removed this task:\n"
+        ui.addToOutput("Got it. I've removed this task:\n"
                 + tasks.get(this.num - 1).toString());
         tasks.remove(this.num - 1);
         storage.saveToFile(tasks);
-        ui.showString("Now you have " + tasks.size() + " task(s) in the list.");
+        ui.addToOutput("Now you have " + tasks.size() + " task(s) in the list.");
     }
 }

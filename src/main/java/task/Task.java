@@ -74,9 +74,8 @@ public abstract class Task {
      * @param frequency of recurrence
      * @return
      */
-    public Recurring recreate(String description, String dateTime, String frequency){
-        Recurring recurring = new Recurring(description, dateTime, frequency);
-        return recurring;
+    public Recurring recreate(String description, String dateTime, String frequency) {
+        return new Recurring(description, dateTime, frequency);
     }
 
     public Date getBy() {
@@ -87,7 +86,7 @@ public abstract class Task {
         return description;
     }
 
-    public String getFreq(){
+    public String getFreq() {
         return frequency;
     }
 }
