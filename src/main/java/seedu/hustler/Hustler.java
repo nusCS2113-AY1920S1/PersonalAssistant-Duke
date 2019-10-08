@@ -1,5 +1,6 @@
 package seedu.hustler;
 
+import java.awt.*;
 import java.io.IOException;
 
 import seedu.hustler.game.avatar.Avatar;
@@ -17,30 +18,14 @@ import seedu.hustler.task.TaskList;
 import seedu.hustler.parser.CommandParser;
 
 import javafx.application.Application;
-import javafx.scene.Scene;
 import javafx.stage.Stage;
-import javafx.scene.control.Button;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.control.TextField;
-import javafx.scene.layout.VBox;
-import javafx.scene.image.Image;
 
 /**
- * A personal assitant that takes in user input and gives and performs
+ * A personal assistant that takes in user input and gives and performs
  * an operation that can help the user
- * in his day to day needs. Has a tasklist with multiple features.
+ * in his day to day needs. Has a task list with multiple features.
  */
 public class Hustler extends Application {
-
-    private ScrollPane scrollPane;
-    private VBox dialogContainer;
-    private TextField userInput;
-    private Button sendButton;
-    private Scene scene;
-
-    private Image user = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
-    private Image duke = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
-
     /**
      * TaskList instance that  stores all the tasks added by the
      * user and from storage.
