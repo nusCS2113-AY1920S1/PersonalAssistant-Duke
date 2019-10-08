@@ -4,6 +4,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import seedu.duke.Duke;
+import seedu.duke.email.entity.Email;
+import seedu.duke.email.entity.EmailList;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;

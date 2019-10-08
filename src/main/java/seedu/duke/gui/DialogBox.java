@@ -56,7 +56,7 @@ public class DialogBox extends HBox {
      * Constructs a dialog box from the text and img given.
      *
      * @param text text to be displayed
-     * @param img img to be displayed
+     * @param img  img to be displayed
      * @return dialogBox ready to be displayed
      */
     public static DialogBox getDukeDialog(String text, Image img) {
