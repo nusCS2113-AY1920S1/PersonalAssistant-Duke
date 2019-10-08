@@ -1,9 +1,9 @@
-package duke;
+package duke.Exceptions;
 
 import java.lang.Exception;
 
 /**
- * Represents exceptions specific to Duke
+ * Represents duke.exceptions specific to Duke
  */
 public class DukeException extends Exception {
     public DukeException (String message) {

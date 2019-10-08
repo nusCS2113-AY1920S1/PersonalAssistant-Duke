@@ -1,22 +1,14 @@
 package duke.Module;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.text.DateFormat;
+import duke.Data.Storage;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.Map;
-import java.util.Scanner;
 
 public class Goal {
-
-    private String filePath;
-    private Scanner fileInput;
 
     /**
      * A hash map which holds the optional goal of the day for any day.
@@ -25,75 +17,10 @@ public class Goal {
 
     /**
      * Constructor for Goal objects.
-     * @param filePath The path of the file goals.txt
-     * @throws FileNotFoundException if the file specified by the filepath cannot be found.
-     * @throws ParseException if the user input is in wrong format.
+     * @param dateArrayListMap The hash map of goals of the day from loading the goals.txt text file.
      */
-    public Goal(String filePath) throws FileNotFoundException, ParseException {
-        this.filePath = filePath;
-        File f = new File(filePath);
-        fileInput = new Scanner(f);
-        this.goals = loadGoal();
-    }
-
-    /**
-     * Reads filePath, takes in Strings and turns them into a hash map of goals.
-     * @return A hash map of goals.
-     * @throws ParseException if the user input is in wrong format.
-     */
-    public Map<Date,ArrayList<String>> loadGoal() throws ParseException {
-        try {
-            Map<Date,ArrayList<String>> temp = new HashMap<>();
-            while (fileInput.hasNextLine()) {
-                String s1 = fileInput.nextLine();
-                String[] data = s1.split("-");
-                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
-                Date date = simpleDateFormat.parse(data[0]);
-                ArrayList<String> temp2 = new ArrayList<>();
-                for (String str : data) {
-                    if (!str.equals(data[0])) {
-                        temp2.add(str);
-                    }
-                }
-                temp.put(date,temp2);
-            }
-            fileInput.close();
-            return temp;
-        } catch (ArrayIndexOutOfBoundsException e) {
-            return null;
-        }
-    }
-
-    /**
-     * This function updates the hash map of goals.
-     * Erases the entire hash map that exists presently and rewrites the file.
-     * @param goals The updated hash map that must be used to recreate the updated goals.txt
-     * @throws IOException io if the file cannot be found.
-     */
-    public void updateGoal(Map<Date,ArrayList<String>> goals) {
-        try {
-            FileWriter fileWriter = new FileWriter(filePath);
-            fileWriter.write("");
-            fileWriter.close();
-        } catch (IOException io) {
-            System.out.println("File not found:" + io.getMessage());
-        }
-
-        try {
-            FileWriter fileWriter = new FileWriter(filePath, true);
-            DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
-            for (Map.Entry<Date,ArrayList<String>> entry : goals.entrySet()) {
-                String extra = "";
-                ArrayList<String> temp = entry.getValue();
-                for (String str : temp) {
-                    extra += "-" + str;
-                }
-                fileWriter.write(df.format(entry.getKey()) + extra + "\n");
-            }
-            fileWriter.close();
-        } catch (IOException io) {
-            System.out.println("File not found:" + io.getMessage());
-        }
+    public Goal(Map<Date, ArrayList<String>> dateArrayListMap) {
+        this.goals = dateArrayListMap;
     }
 
     /**
@@ -131,7 +58,7 @@ public class Goal {
      * @return A message showing task completed successfully.
      * @throws ParseException if the user input is in wrong format.
      */
-    public String addGoal(String date, String message) throws ParseException {
+    public String addGoal(String date, String message, Storage goalStorage) throws ParseException {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
         Date today = simpleDateFormat.parse(date);
         boolean alreadyHaveDate = false;
@@ -146,7 +73,7 @@ public class Goal {
             temp.add(message);
             goals.put(today, temp);
         }
-        updateGoal(goals);
+        goalStorage.updateGoal(goals);
         return "New goal of the day has been added";
     }
 
@@ -157,7 +84,7 @@ public class Goal {
      * @return A message showing task completed successfully.
      * @throws ParseException if the user input is in wrong format.
      */
-    public String removeGoal(String day, String message) throws ParseException {
+    public String removeGoal(String day, String message, Storage goalStorage) throws ParseException {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
         Date today = simpleDateFormat.parse(day);
         if (goals.containsKey(today)) {
@@ -166,7 +93,7 @@ public class Goal {
                 goals.remove(today);
             }
         }
-        updateGoal(goals);
+        goalStorage.updateGoal(goals);
         return "Goal of the day on " + day + " has been removed";
     }
 
@@ -176,12 +103,12 @@ public class Goal {
      * @return A message showing task completed successfully.
      * @throws ParseException if the user input is in wrong format.
      */
-    public String removeAllGoal(String day) throws ParseException {
+    public String removeAllGoal(String day, Storage goalStorage) throws ParseException {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
         Date today = simpleDateFormat.parse(day);
         if (goals.containsKey(today)) {
             goals.remove(today);
-            updateGoal(goals);
+            goalStorage.updateGoal(goals);
             return "All the goals for the day " + day + " have been cleared";
         } else {
             return "There are no goals of the day to remove for " + day;
