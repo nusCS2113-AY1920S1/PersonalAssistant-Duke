@@ -41,7 +41,29 @@ public class MealList {
         this.mealTracker = mealTracker;
     }
 
-    public ArrayList<Meal> getMeals(String inputDate) {
+    public void addMeals(Meal data) {
+        ArrayList<Meal> mealList;
+        if (mealTracker.containsKey(data.getDate())) {
+             mealList = mealTracker.get(data.getDate());
+        } else {
+            mealTracker.put(data.getDate(), new ArrayList<>());
+            mealList = mealTracker.get(data.getDate());
+        }
+        //match meal description to stored meals. If it matches a stored meal, compare nutrition data,
+        // and fill in any missing fields
+        if (storedItems.get(data.getDescription()) != null) {
+            HashMap<String, Integer> storedNutritionValue = storedItems.get(data.getDescription());
+            HashMap<String, Integer> nutritionValue = data.getNutritionalValue();
+            for (String i: storedNutritionValue.keySet()) {
+                if (nutritionValue.get(i) == null) {
+                    nutritionValue.put(i, storedNutritionValue.get(i));
+                }
+            }
+        }
+        mealList.add(data);
+    }
+
+    public ArrayList<Meal> getMealsList(String inputDate) {
         if (mealTracker.containsKey(inputDate)) {
             return mealTracker.get(inputDate);
         } else {

@@ -132,7 +132,7 @@ public class Storage {
             }
             for (String i : storedItems.keySet()) { //write process for stored default food values
                 String toWrite = "";
-                toWrite += "S|" + i;
+                toWrite += "S|0|" + i;
                 HashMap<String, Integer> nutritionData = storedItems.get(i);
                 if (nutritionData.size() != 0) {
                     toWrite += "|";

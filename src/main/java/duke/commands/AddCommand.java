@@ -31,15 +31,11 @@ public class AddCommand extends Command {
      * @param ui the ui object to display the user interface of an "add" command
      * @param storage the storage object that stores the list of tasks
      */
-  
     @Override
     public void execute(MealList meals, Ui ui, Storage storage, User user) {
-        if (!meals.checkDate(this.meal.getDate())) {
-            meals.setMeals(this.meal.getDate());
-        }
-        ArrayList<Meal> currentMeals = meals.getMeals(this.meal.getDate());
-        currentMeals.add(this.meal);
-        ui.showAdded(this.meal, currentMeals, user, this.meal.getDate());
+        meals.addMeals(this.meal);
+        ArrayList<Meal> mealData = meals.getMealTracker().get(this.meal.getDate());
+        ui.showAdded(this.meal, mealData, user, this.meal.getDate());
         storage.updateFile(meals);
     }
 }

@@ -1,17 +1,3 @@
-B|0|fried rice |date|30/09/2019|calorie|200
-L|0|fried rice |date|30/09/2019|calorie|300
-B|0|kueh |date|01/10/2019||300|calorie|300
-B|0|kueh |date|01/10/2019||300|calorie|300
-B|0|kueh |date|01/10/2019||300|calorie|300
-B|0|kueh |date|01/10/2019||300|calorie|300
-B|0|kueh |date|01/10/2019||300|calorie|300
-B|0|kueh |date|01/10/2019||300|calorie|300
-B|0|kueh |date|01/10/2019|calorie|300|clacium|300
-B|0|kueh |date|01/10/2019|calorie|300|clacium|300
-B|0|kueh |date|01/10/2019|calorie|300|clacium|300
-B|0|kueh |date|01/10/2019|calcium|300|calorie|300
-B|0|kaya |date|28/09/2019|calorie|300
-D|0|kaya toast  |date|28/09/2019|calcium|3000|calorie|300
-D|0|kaya toast  |date|29/09/2019|calcium|3000|calorie|300
-B|0|kueh |date|29/09/2019|calorie|300
-S|burger |calorie|100
+B|0|burger|date|08/10/2019|sodium|200|fats|120|calorie|100
+B|0|burger|date|08/10/2019|sodium|200|fats|120|calorie|2000
+S|0|burger|sodium|200|fats|120|calorie|100

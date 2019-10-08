@@ -19,7 +19,7 @@ public class Item extends Meal {
      */
     public Item(String description, String[] details) {
         super.description = description;
-        for (int i = 2; i < details.length; i += 2) {
+        for (int i = 0; i < details.length; i += 2) {
             super.nutritionValue.put(details[i], Integer.valueOf(details[i + 1]));
         }
     }
@@ -34,6 +34,6 @@ public class Item extends Meal {
         for (String i : nutritionValue.keySet()) {
             temp += i + ":" + nutritionValue.get(i) + " ";
         }
-        return this.description + temp;
+        return this.description + " | " + temp;
     }
 }

@@ -32,7 +32,7 @@ public class MarkDoneCommand extends Command {
      */
     @Override
     public void execute(MealList tasks, Ui ui, Storage storage, User user) {
-        ArrayList<Meal> currentMeals = tasks.getMeals(currentDate);
+        ArrayList<Meal> currentMeals = tasks.getMealsList(currentDate);
         Meal currentMeal = currentMeals.get(index - 1);
         currentMeal.markAsDone();
         storage.updateFile(tasks);

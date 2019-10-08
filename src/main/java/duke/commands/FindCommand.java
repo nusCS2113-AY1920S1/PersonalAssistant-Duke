@@ -32,7 +32,7 @@ public class FindCommand extends Command {
     @Override
     public void execute(MealList tasks, Ui ui, Storage storage, User user) {
         ArrayList<Meal> matchingMeals = new ArrayList<>();
-        ArrayList<Meal> currentMeals = tasks.getMeals(currentDate);
+        ArrayList<Meal> currentMeals = tasks.getMealsList(currentDate);
         for (Meal element: currentMeals) {
             String currentTaskString = element.toString();
             if (currentTaskString.contains(description)) {

@@ -61,19 +61,31 @@ public class Parser {
             case "bye":
                 return new ExitCommand();
             case "breakfast":
-                name = description.split("/", 2)[0];
-                info = "/" + description.split("/", 2)[1];
-                return new AddCommand(new Breakfast(name, info, autocorrect));
+                if (description.contains("/")) {
+                    name = description.split("/", 2)[0].trim();
+                    info = "/" + description.split("/", 2)[1];
+                    return new AddCommand(new Breakfast(name, info, autocorrect));
+                } else {
+                    return new AddCommand(new Breakfast(description, "", autocorrect));
+                }
             case "lunch":
-                name = description.split("/", 2)[0];
-                info = "/" + description.split("/", 2)[1];
-                return new AddCommand(new Lunch(name, info, autocorrect));
+                if (description.contains("/")) {
+                    name = description.split("/", 2)[0].trim();
+                    info = "/" + description.split("/", 2)[1];
+                    return new AddCommand(new Lunch(name, info, autocorrect));
+                } else {
+                    return new AddCommand(new Lunch(description, "", autocorrect));
+                }
             case "dinner":
-                name = description.split("/", 2)[0];
-                info = "/" + description.split("/", 2)[1];
-                return new AddCommand(new Dinner(name, info, autocorrect));
+                if (description.contains("/")) {
+                    name = description.split("/", 2)[0].trim();
+                    info = "/" + description.split("/", 2)[1];
+                    return new AddCommand(new Dinner(name, info, autocorrect));
+                } else {
+                    return new AddCommand(new Dinner(description, "", autocorrect));
+                }
             case "add" :
-                name = description.split("/", 2)[0];
+                name = description.split("/", 2)[0].trim();
                 info = "/" + description.split("/", 2)[1];
                 return new AddItemCommand(new Item(name, info, autocorrect));
             case "list":

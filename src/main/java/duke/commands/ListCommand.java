@@ -42,7 +42,7 @@ public class ListCommand extends Command {
     @Override
     public void execute(MealList tasks, Ui ui, Storage storage, User user) throws DukeException {
         ui.showCalorie(user);
-        ArrayList<Meal> currentMeals = tasks.getMeals(currentDate);
+        ArrayList<Meal> currentMeals = tasks.getMealsList(currentDate);
         if (!tasks.checkDate(currentDate)) {
             throw new DukeException("There isn't any food on " + currentDate);
         }
