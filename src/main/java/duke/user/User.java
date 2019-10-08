@@ -10,6 +10,11 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Scanner;
 
+/**
+ * This is a class that will store user information to be used for processing
+ * @Author Foo Chi Hen
+ */
+
 public class User {
     private ArrayList<Tuple> weight = new ArrayList();
     private int height = 0;
@@ -21,18 +26,39 @@ public class User {
     private double[] factor = {1.2, 1.375, 1.55, 1.725, 1.9};
     private boolean loseWeight;
 
+    /**
+     * This is a contructor to create an empty user profile.
+     * @Author Foo Chi Hen
+     */
     public User() {
         this.isSetup = false;
     }
 
+    /**
+     * This is a contructor to create an user profile with all the info.
+     * Used during loading.
+     * @param name name of user
+     * @param age age of user
+     * @param height height of user
+     * @param sex biological gender of user
+     * @param activityLevel how active the user is
+     * @param loseWeight if they would like to lose weight or maintain
+     */
+
     public User(String name, int age, int height, Gender sex, int activityLevel, boolean loseWeight) {
         this.name = name;
         this.height = height;
+        this.age = age;
         this.sex = sex;
         this.isSetup = true;
         this.activityLevel = activityLevel;
         this.loseWeight = loseWeight;
     }
+
+    /**
+     * This is a contructor to update an empty user profile with all the info.
+     * Used during startup.
+     */
 
     public void setup() throws DukeException {
         Scanner in = new Scanner(System.in);
@@ -95,12 +121,23 @@ public class User {
         this.isSetup = true;
     }
 
+    /**
+     * This is a function to update weight at time of input
+     * @param weight Weight at time of input
+     */
+
     public void setWeight(int weight) {
         Calendar calendarDate = Calendar.getInstance();
         DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
         String currentDate = dateFormat.format(calendarDate.getTime());
         this.weight.add(new Tuple(currentDate, weight));
     }
+
+    /**
+     * This is a function to update weight at input date
+     * @param weight Weight at time of input
+     * @param date String of the date in DD/MM/YYYY format
+     */
 
     public void setWeight(int weight, String date) throws DukeException {
         DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
@@ -146,6 +183,10 @@ public class User {
         return this.weight.get(this.weight.size() - 1).weight;
     }
 
+    /**
+     * This is a function to obtain all the weight at different date
+     */
+
     public ArrayList<Tuple> getAllWeight() {
         return this.weight;
     }
@@ -175,6 +216,10 @@ public class User {
     public Gender getSex() {
         return this.sex;
     }
+
+    /**
+     * This is a function to check if it's an empty profile
+     */
 
     public boolean getIsSetup() {
         return this.isSetup;

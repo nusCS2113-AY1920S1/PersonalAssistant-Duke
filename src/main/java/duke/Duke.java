@@ -39,7 +39,7 @@ public class Duke {
             tasks = new MealList();
         }
         try {
-            user = storage.loadUser();
+            user = storage.loadUser(); //load user inf
         } catch (DukeException e) {
             ui.showUserLoadingError();
         }
@@ -60,7 +60,7 @@ public class Duke {
         } else {
             ui.showWelcomeBack(user);
         }
-        while (user.getIsSetup() == false) {
+        while (user.getIsSetup() == false) { //setup user profile if it's empty
             try {
                 user.setup();
                 ui.showUserSetupDone(user);
