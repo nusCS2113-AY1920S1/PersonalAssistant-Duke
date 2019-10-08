@@ -344,14 +344,17 @@ public class Parser {
                         students.addStudent(myNewStudent);
                         break;
 
-                    case "delete/":
-                        // delete index of student
+                        // Format: student delete [index]
+                    case "delete":
+                        index = Integer.parseInt(word[2]); // Convert string into int
+                        students.deleteStudent(index);
+                        break;
 
-                    case "details/":
+                    case "details":
                         //add student details
 
                     case "edit":
-                        //
+                        // editStudentDetails(detail)
 
                     case "list":
                         students.listAllStudents();
