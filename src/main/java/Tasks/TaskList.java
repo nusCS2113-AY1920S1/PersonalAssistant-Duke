@@ -250,7 +250,7 @@ public class TaskList {
      * @return This returns the ArrayList
      * @throws DukeException On invalid input or when wrong input format is entered
      */
-    public ArrayList<Task> snoozeTask(ArrayList<Task> list, int index, String dateString, String start, String end) throws DukeException {
+    public ArrayList<Task> snoozeTask(ArrayList<Task> list, int index, String dateString, String start, String end, String modCode) throws DukeException {
         try {
             if (end == dateString) {
                 Task temp = list.get(index);
@@ -258,7 +258,7 @@ public class TaskList {
                 list.remove(index);
             } else {
                 Task temp = list.get(index);
-                list.add(new Event(temp.getDescription(), dateString, start, end));
+                list.add(new Event(temp.getDescription(), dateString, start, end, modCode));
                 list.remove(index);
             }
         } catch (ArrayIndexOutOfBoundsException e) {
