@@ -13,6 +13,13 @@ public class Expense extends Record {
     private String recFrequency;
 
     /**
+     * Default constructor.
+     */
+    public Expense() {
+        this.recFrequency = "";
+    }
+
+    /**
      * Constructs the Expense object.
      *
      * @param amount      The amount of expense.

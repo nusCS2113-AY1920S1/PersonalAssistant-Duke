@@ -188,7 +188,7 @@ public class ExpenseList {
     }
 
     /**
-     * Finds and returns expense using its id.
+     * Finds and returns expense index using its id.
      * @param id The id of the expense to find.
      * @return
      */

@@ -11,7 +11,6 @@ import wallet.model.task.DoWithinPeriod;
 import wallet.model.task.Event;
 import wallet.model.task.Task;
 import wallet.model.task.Todo;
-import wallet.storage.StorageManager;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
