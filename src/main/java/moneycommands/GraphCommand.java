@@ -22,4 +22,7 @@ public class GraphCommand extends MoneyCommand{
     public void execute(Account account, Ui ui, MoneyStorage storage) throws DukeException, ParseException {
         ui.appendToOutput("Got it, graph will be printed in the other pane!\n");
     }
+
+    @Override
+    public void undo(Account account, Ui ui, MoneyStorage storage) throws DukeException, ParseException { return; }
 }

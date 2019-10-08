@@ -68,4 +68,6 @@ public class CheckFutureBalanceCommand extends MoneyCommand {
                 + dateTimeFormatter.format(futureDate) + "\n");
     }
 
+    @Override
+    public void undo(Account account, Ui ui, MoneyStorage storage) { return; };
 }

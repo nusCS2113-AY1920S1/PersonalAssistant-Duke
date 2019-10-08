@@ -4,6 +4,7 @@ import controlpanel.DukeException;
 import controlpanel.MoneyStorage;
 import controlpanel.Ui;
 import money.Account;
+import moneycommands.MoneyCommand;
 
 /**
  * This command deletes an expenditure from the Total Expenditure List according to index.
@@ -51,4 +52,7 @@ public class DeleteExpenditureCommand extends MoneyCommand {
         account.getExpListTotal().remove(serialNo - 1);
         storage.writeToFile(account);
     }
+
+    @Override
+    public void undo(Account account, Ui ui, MoneyStorage storage) { return; }
 }

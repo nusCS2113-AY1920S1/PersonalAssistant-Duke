@@ -40,4 +40,7 @@ public class ListTotalExpenditureCommand extends MoneyCommand {
         ui.appendToOutput("Total expenditure so far: $" + account.getTotalExp() + "\n");
 
     }
+
+    @Override
+    public void undo(Account account, Ui ui, MoneyStorage storage) { return; }
 }

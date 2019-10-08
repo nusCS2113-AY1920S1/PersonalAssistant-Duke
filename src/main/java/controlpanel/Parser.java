@@ -30,8 +30,7 @@ import java.util.Date;
  * correct command type. Calls the appropriate MoneyCommand from control panel
  */
 public class Parser {
-    public Parser() throws DukeException, ParseException {
-    }
+    public Parser() throws DukeException, ParseException {}
 
     /**
      * Constructor which runs the parser to parse all commands
@@ -84,12 +83,25 @@ public class Parser {
             moneyCommand = new DoneGoalCommand(cmd);
         } else if (cmd.startsWith("graph")) {
             moneyCommand = new GraphCommand();
+<<<<<<< HEAD
+        } else if (cmd.startsWith("undo")) {
+            moneyCommand = new UndoCommand();
+=======
         } else if (cmd.startsWith("add instalment")) {
             moneyCommand = new AddInstalmentCommand(cmd);
         } else if (cmd.startsWith("delete instalment")) {
             moneyCommand = new DeleteInstalmentCommand(cmd);
         } else if (cmd.startsWith("list all instalment")) {
             moneyCommand = new ListInstalmentCommand();
+        } else if (cmd.equals("list month income")) {
+            moneyCommand = new ListMonthIncomeCommand();
+        } else if (cmd.equals("list month expenditure")) {
+            moneyCommand = new ListMonthExpenditureCommand();
+        } else if (cmd.startsWith("check income")) {
+            moneyCommand = new ViewPastMonthIncome(cmd);
+        } else if (cmd.startsWith("check expenditure")) {
+            moneyCommand = new ViewPastMonthExpenditure(cmd);
+>>>>>>> 888708f6a416811139a34973742c4e0af557ca3d
         } else {
             throw new DukeException("OOPS!!! I'm sorry, but I don't know what that means");
         }
