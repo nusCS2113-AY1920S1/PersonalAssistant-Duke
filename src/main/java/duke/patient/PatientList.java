@@ -27,4 +27,8 @@ public class PatientList {
     public void updatePatientInfo(Patient patient){
         patientIDMap.put(patient.getID(), patient);
     }
+
+    public ArrayList<Patient> getPatientList(){
+        return new ArrayList<>(patientIDMap.values());
+    }
 }

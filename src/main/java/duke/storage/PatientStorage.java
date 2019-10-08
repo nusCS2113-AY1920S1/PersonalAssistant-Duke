@@ -2,10 +2,14 @@ package duke.storage;
 
 import duke.core.DukeException;
 import duke.patient.Patient;
+import duke.patient.PatientList;
 import org.apache.commons.csv.CSVFormat;
+import org.apache.commons.csv.CSVPrinter;
 import org.apache.commons.csv.CSVRecord;
 
 import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 
 public class PatientStorage {
@@ -25,7 +29,7 @@ public class PatientStorage {
         this.filePath = path;
     }
 
-    public ArrayList<Patient> Load() throws DukeException {
+    public PatientList load() throws DukeException {
         ArrayList<Patient> patientList = new ArrayList<Patient>();
         try {
             Reader in = new FileReader(filePath);
@@ -37,15 +41,36 @@ public class PatientStorage {
                 String name = record.get("Name");
                 String remark = record.get("Remark");
                 String room = record.get("Room");
-                String hospitalised = record.get("Hospitalised");
-                if (hospitalised.equals("True")) {
+                String hospitalised = record.get("isHospitalised");
+                if (hospitalised.equals("TRUE")) {
                     isHospitalised = true;
                 }
                 patientList.add(new Patient(id, name, remark, room, isHospitalised));
-                System.out.println(id + " | " + name + "|" + remark + "|" + room);
+                System.out.println(id + " | " + name + " | " + remark + " | " + room + " | " + isHospitalised);
             }
-            return patientList;
+            return new PatientList(patientList);
         } catch (IOException e) {
+            throw new DukeException(e.getMessage());
+        }
+    }
+
+    public void save(PatientList patientList) throws DukeException {
+        try{
+            BufferedWriter writer = Files.newBufferedWriter(Paths.get(filePath));
+            CSVPrinter csvPrinter = new CSVPrinter(writer, CSVFormat.DEFAULT
+                    .withHeader("ID", "Name", "Room", "Remark", "isHospitalised"));
+            ArrayList<Patient> patients = patientList.getPatientList();
+            for (Patient patient : patients){
+                int id = patient.getID();
+                String room = patient.getRoom();
+                String name = patient.getName();
+                boolean isHospitalised = patient.isHospitalised();
+                String remark = patient.getRemark();
+                csvPrinter.printRecord(id, name, room, remark, isHospitalised);
+            }
+            csvPrinter.flush();
+        }
+        catch(IOException e){
             throw new DukeException(e.getMessage());
         }
     }
