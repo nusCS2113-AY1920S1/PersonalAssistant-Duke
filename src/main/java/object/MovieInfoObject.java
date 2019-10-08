@@ -12,6 +12,7 @@ public class MovieInfoObject {
     private String mFullPosterPath;
     private String mBackdropPath;
     private String mFullBackdropPath;
+    //private String[] mCastIDs;
     private double mRating;
     private long[] mGenreIDs;
 
@@ -25,6 +26,7 @@ public class MovieInfoObject {
         mPosterPath = posterPath;
         mBackdropPath = backdropPath;
         mGenreIDs = genreIDs;
+        //mCastIDs = castID;
     }
 
     public void setPosterRootPath(String rootPath, String posterSize, String backdropSize) {
@@ -72,4 +74,7 @@ public class MovieInfoObject {
         return mFullBackdropPath;
     }
 
+    //public String[] getmCastIDs() {
+      //  return mCastIDs;
+    //}
 }

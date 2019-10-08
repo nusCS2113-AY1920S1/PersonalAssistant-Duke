@@ -35,7 +35,9 @@ public class MovieInfoController extends Controller implements RequestListener {
     @FXML private ScrollPane movieScrollPane;
     @FXML private VBox movieMainVBox;
    // @FXML private GridPane movieGridPane;
+    @FXML private AnchorPane anchorPane;
     @FXML private TextField mSearchTextField;
+    @FXML private Label movieCastLabel;
     @FXML private Label mStatusLabel;
     @FXML private ProgressBar mProgressBar;
     private FlowPane mMoviesFlowPane;
@@ -55,13 +57,9 @@ public class MovieInfoController extends Controller implements RequestListener {
     }
 
     @FXML public void initialize() {
-
-
-        //mMovieRequest = new RetrieveRequest(this);
         // Load the movie info if movie has been set
         if (mMovie != null) {
             movieTitleLabel.setText(mMovie.getTitle());
-            //movieCastLabel.setText(mMovie.getmCast());
             movieRatingLabel.setText(String.format("%.2f", mMovie.getRating()));
 
             if (mMovie.getReleaseDate() != null) {
@@ -73,19 +71,38 @@ public class MovieInfoController extends Controller implements RequestListener {
                 String printDate = new SimpleDateFormat("dd-MM-yyyy").format(date);
                 movieReleaseDateLabel.setText(String.format("%s", mMovie.getReleaseDate().toString()));
                 movieReleaseDateLabel.setText(printDate);
-            } else{
+            } else {
                 movieReleaseDateLabel.setText("N/A");
             }
 
             movieSummaryLabel.setText(mMovie.getSummary());
             loadMovieBackdrop();
             loadGenres();
+            loadCast();
         }
 
         movieMainVBox.prefWidthProperty().bind(movieScrollPane.widthProperty());
         movieBackdropImageView.setPreserveRatio(true);
         //movieGridPane.prefWidthProperty().bind(movieScrollPane.widthProperty());
     }
+
+    private void loadCast() {
+        movieCastLabel.setText("");
+        Thread t = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                String casts = RetrieveRequest.getCastStrings(mMovie);
+                Platform.runLater(new Runnable() {
+                    @Override
+                    public void run() {
+                        movieCastLabel.setText(casts);
+                    }
+                });
+            }
+        });
+        t.start();
+    }
+
 
     // User clicks on the back button to navigate back to the movies scene
     @FXML public void backToMoviesButtonClick()
@@ -209,11 +226,11 @@ public class MovieInfoController extends Controller implements RequestListener {
         mMoviesFlowPane.setPadding(new Insets(10, 8, 4, 8));
         mMoviesFlowPane.prefWrapLengthProperty().bind(movieScrollPane.widthProperty());   // bind to scroll pane width
 
-        for (MovieInfoObject movie : movies)
-        {
-            AnchorPane posterPane = buildMoviePosterPane(movie);
-            mMoviesFlowPane.getChildren().add(posterPane);
-        }
+       // for (MovieInfoObject movie : movies)
+        //{
+          //  AnchorPane posterPane = buildMoviePosterPane(movie);
+            mMoviesFlowPane.getChildren().add(anchorPane);
+        //}
 
         movieScrollPane.setContent(mMoviesFlowPane);
     }

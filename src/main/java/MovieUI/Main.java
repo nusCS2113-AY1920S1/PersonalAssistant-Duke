@@ -48,7 +48,7 @@ public class Main extends Application {
     public void transitToMovieInfoController(MovieInfoObject movie) {
         try {
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(getClass().getClassLoader().getResource("InsideMovie.fxml"));
+            loader.setLocation(getClass().getClassLoader().getResource("InsideMovieDup.fxml"));
             Pane layout = loader.load();
 
             // setup controller

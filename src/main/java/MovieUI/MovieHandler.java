@@ -303,4 +303,8 @@ public class MovieHandler extends Controller implements RequestListener {
         mMovieRequest.beginMovieRequest(RetrieveRequest.MoviesRequestType.TRENDING_TV);
     }
 
+    @FXML
+    private void keyPressed() {
+
+    }
 }

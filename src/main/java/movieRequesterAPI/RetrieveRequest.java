@@ -59,6 +59,42 @@ public class RetrieveRequest implements InfoFetcher {
     private static final String kMOVIE_POSTER_PATH = "poster_path";
     private static final String kMOVIE_CAST = "cast_id";
 
+    public static String getCastStrings(MovieInfoObject mMovie) {
+
+        try {
+                String jsonResult = "";
+                if (index == 0) {
+                    jsonResult = URLRetriever.readURLAsString(new URL(MAIN_URL + "movie/" + mMovie.getID() + "/credits?api_key=" +
+                    RetrieveRequest.API_KEY));
+                } else {
+                    jsonResult = URLRetriever.readURLAsString(new URL(MAIN_URL + GENRE_LIST_TV_URL + API_KEY));
+
+                }
+                JSONParser parser = new JSONParser();
+                JSONObject jsonData = (JSONObject) parser.parse(jsonResult);
+                JSONArray casts = (JSONArray) jsonData.get("cast");
+
+                String castStrings = "";
+                for (int i = 0; i < casts.size(); i += 1) {
+                    JSONObject castPair = (JSONObject) casts.get(i);
+                    castStrings += castPair.get("name");
+                    if (i != casts.size() - 1) {
+                        castStrings += ", ";
+                    }
+                }
+
+                return castStrings;
+            } catch (MalformedURLException ex) {
+                ex.printStackTrace();
+            } catch (org.json.simple.parser.ParseException ex) {
+                ex.printStackTrace();
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+
+            return null;
+        }
+
 
     public enum MoviesRequestType {
         CURRENT_MOVIES,
