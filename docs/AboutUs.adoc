@@ -1,0 +1,55 @@
+= About Us
+:site-section: AboutUs
+:relfileprefix: team/
+:imagesDir: images
+:stylesDir: stylesheets
+
+ArchDuke was developed by the https://se-edu.github.io/docs/Team.html[se-edu] team. +
+We are a team based in the http://www.comp.nus.edu.sg[School of Computing, National University of Singapore].
+
+== Project Team
+
+=== Jerry
+image::lucria.jpg[width="150", align="left"]
+{empty}[https://github.com/Lucria[github]] [https://github.com/Lucria[portfolio]]
+
+Role: Team Lead +
+Responsibilities: Documentation, Implementation of Data Models, Unit Tests
+
+'''
+
+=== Kee Hui (Dillen)
+image::dkenobi.jpg[width="150", align="left"]
+{empty}[https://github.com/Dkenobi[github]] [https://github.com/Dkenobi[portfolio]]
+
+Role: Architecture Lead +
+Responsibilities: Architecture of ArchDuke, Documentation, Implementation of Data models
+
+'''
+
+=== Abhishek
+image::iamabhishek98.jpg[width="150", align="left"]
+{empty}[https://github.com/iamabhishek98[github]] [https://github.com/iamabhishek98[portfolio]]
+
+Role: Release and Tags Manager +
+Responsibilities: Documentation, Releases, Implementation of Domain Logic
+
+'''
+
+=== Sean
+image::seanlimhx.jpg[width="150", align="left"]
+{empty}[https://github.com/seanlimhx[github]] [https://github.com/seanlimhx[portfolio]]
+
+Role: Tests Lead +
+Responsibilities: Unit Tests, Implementation of Domain Logic, Documentation
+
+'''
+
+=== Cynthia
+image::sinteary.jpg[width="150", align="left"]
+{empty}[https://github.com/sinteary[github]] [https://github.com/sinteary[portfolio]]
+
+Role: UI Lead +
+Responsibilities: UI Design, Implementation of UI models, Documentation
+
+'''

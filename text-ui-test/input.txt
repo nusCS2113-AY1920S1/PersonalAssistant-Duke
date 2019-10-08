@@ -1,0 +1,6 @@
+hi
+list
+todo borrow book
+event project meeting /at 28/09/2014 1234
+delete 1 2
+bye

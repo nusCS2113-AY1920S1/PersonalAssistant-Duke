@@ -1,3 +1,6 @@
+# Configuration Files in saves
+/src/main/saves/
+
 # IDEA files
 /.idea/
 /out/
