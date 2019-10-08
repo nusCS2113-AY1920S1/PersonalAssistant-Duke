@@ -93,9 +93,9 @@ Format: `archive`
 
 #### `open` - Go to a more detailed view of a particular Patient
 
-Format: `open _patient_id_ [-im[pression] [<impression index>]]`
+Format: `open _patient_id_ [-im[pression]]`
 
-If the `-b` switch is used, look up the bed number. If the `-i` switch is used, go to the impression specified by the index, or go to the primary impression for that particular Patient if no index is specified. 
+If the `-b` switch is used, look up the bed number. If the `-im` switch is used, go to the primary impression for that particular Patient. 
 
 #### `new` - Add a new Patient to the system
 
