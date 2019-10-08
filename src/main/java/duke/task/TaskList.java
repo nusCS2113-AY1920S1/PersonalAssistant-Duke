@@ -43,6 +43,16 @@ public class TaskList {
     }
 
     /**
+     * To update a task with different type.
+     *
+     * @param index The index of task to be removed.
+     * @param taskObj The index of task to be removed.
+     */
+    public void setTaskType(int index, Task taskObj) {
+        items.set(index, taskObj);
+    }
+
+    /**
      * Get remaining tasks in the ArrayList.
      *
      * @return tasks that represents the items.

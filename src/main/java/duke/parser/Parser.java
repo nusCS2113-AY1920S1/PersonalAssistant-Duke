@@ -1,5 +1,6 @@
 package duke.parser;
 
+import duke.command.ListPriorityCommand;
 import duke.command.UpdateCommand;
 import duke.command.DoneCommand;
 import duke.command.ExitCommand;
@@ -46,7 +47,7 @@ public class Parser {
         if (sentence.equals("list")) {
             return new ListCommand();
         } else if (sentence.equals("priority")) {
-            return new duke.command.ListPriorityCommand();
+            return new ListPriorityCommand();
         } else if (arr.length > 0 && (arr[0].equals("done") || arr[0].equals("delete") || arr[0].equals("del"))) {
             if (arr.length == 1) {
                 throw new DukeException("     (>_<) OOPS!!! The task number cannot be empty.");
@@ -271,7 +272,7 @@ public class Parser {
             String in = description.split(" /in ", 2)[1].trim();
             int howManyDays = Integer.parseInt(in.split(" ", 2)[0].trim());
             return new RemindCommand(duration, howManyDays);
-        } else if (arr.length > 0 && (arr[0].equals("update"))) { /////HERE
+        } else if (arr.length > 0 && (arr[0].equals("update"))) {
             if (arr.length == 1) {
                 throw new DukeException("     (>_<) OOPS!!! The task number cannot be empty.");
             } else {
@@ -283,35 +284,48 @@ public class Parser {
                             + "Format: update <tasknum> <type> <desc or date>");
                 } else {
                     int typeOfUpdate = -1;
+                    String typeDesc = "";
                     for (int i = 2; i < arr.length; i++) {
                         if (i == 2) {
-                            if (arr[i].trim().isEmpty() || (!arr[i].equals("/desc") && !arr[i].equals("/date"))) {
-                                throw new DukeException("     (>_<) OOPS!!! Unable to find either /date or /desc.");
+                            if (arr[i].trim().isEmpty()
+                                    || (!arr[i].equals("/desc")
+                                    && !arr[i].equals("/date")
+                                    && !arr[i].equals("/type"))) {
+                                throw new DukeException("     (>_<) OOPS!!! Unable to find either "
+                                        + "/date, /desc, or /type.");
                             } else {
                                 if (arr[i].equals("/desc")) {
                                     typeOfUpdate = 1;
-                                } else { //equals /date
+                                } else if (arr[i].equals("/date")) {
                                     typeOfUpdate = 2;
+                                } else { //equals /type
+                                    typeOfUpdate = 3;
                                 }
                             }
                         } else {
                             if (typeOfUpdate == 1) {
                                 taskDesc += arr[i] + " ";
-                            } else { //type of update is number 2
+                            } else if (typeOfUpdate == 2) {
                                 dateDesc += arr[i] + " ";
+                            } else { //type of update is number 3
+                                typeDesc += arr[i] + " ";
                             }
                         }
                     }
                     taskDesc = taskDesc.trim();
                     dateDesc = dateDesc.trim();
+                    typeDesc = typeDesc.trim();
                     if (typeOfUpdate == 1 && taskDesc.isEmpty()) {
                         throw new DukeException("     (>_<) OOPS!!! The description of a "
                                 + arr[0] + " cannot be empty.");
                     } else if (typeOfUpdate == 2 && dateDesc.isEmpty()) {
                         throw new DukeException("     (>_<) OOPS!!! The description of date/time for "
                                 + arr[0] + " cannot be empty.");
+                    } else if (typeOfUpdate == 3 && typeDesc.isEmpty()) {
+                        throw new DukeException("     (>_<) OOPS!!! The description of type for "
+                                + arr[0] + " cannot be empty.");
                     } else {
-                        return new UpdateCommand(taskDesc, dateDesc, typeOfUpdate, tasknum);
+                        return new UpdateCommand(taskDesc, dateDesc, typeDesc, typeOfUpdate, tasknum);
                     }
                 }
             }
