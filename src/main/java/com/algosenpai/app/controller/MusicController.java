@@ -1,6 +1,6 @@
 package com.algosenpai.app.controller;
 
-import com.algosenpai.app.constant.FilePath;
+import com.algosenpai.app.constant.ResourcePathConstant;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 
@@ -12,8 +12,10 @@ class MusicController {
 
     private static boolean isLoaded = false;
 
+    private static boolean isMuted = false;
+
     MusicController() {
-        playMusic("asayake-no-starmine.wav");
+        playMusic("promise.wav");
     }
 
     /**
@@ -24,7 +26,7 @@ class MusicController {
         if (isLoaded) {
             mediaPlayer.stop();
         }
-        String musicFile = FilePath.soundFilePath + musicName;
+        String musicFile = ResourcePathConstant.soundFilePath + musicName;
         Media sound = new Media(new File(musicFile).toURI().toString());
         mediaPlayer = new MediaPlayer(sound);
         mediaPlayer.setAutoPlay(true);
@@ -32,4 +34,13 @@ class MusicController {
         isLoaded = true;
     }
 
+    static void toggleVolume() {
+        if (isMuted) {
+            mediaPlayer.setMute(false);
+            isMuted = false;
+        } else {
+            mediaPlayer.setMute(true);
+            isMuted = true;
+        }
+    }
 }

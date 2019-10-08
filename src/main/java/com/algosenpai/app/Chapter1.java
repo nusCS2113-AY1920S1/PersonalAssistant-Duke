@@ -1,15 +1,18 @@
 package com.algosenpai.app;
 
+import com.algosenpai.app.controller.HomeController;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Random;
 import java.util.Scanner;
 import java.util.HashSet;
 
-class Chapter1 {
+public class Chapter1 {
 
     private static Random random = new Random();
     private static Scanner s = new Scanner(System.in);
+
 
     /**
      * Generates the question by using a random number to determine which of the
@@ -17,7 +20,7 @@ class Chapter1 {
      * 
      * @return True if a correct answer is given and false if the answer is wrong.
      */
-    public Boolean generateQuestions() {
+    public static Boolean generateQuestions() {
         int questionType = random.nextInt(4);
         switch (questionType) {
         case 0:
@@ -42,7 +45,7 @@ class Chapter1 {
      * @return True if the input matches the answer, and false if the answer is
      *         wrong.
      */
-    private Boolean selectionSortSwapsQuestion() {
+    public static Boolean selectionSortSwapsQuestion() {
         int arraySize = random.nextInt(4) + 5;
         ArrayList<Integer> initialArray = new ArrayList<>(generateArray(arraySize));
         int swaps = random.nextInt(arraySize - 5) + 1;
@@ -80,7 +83,7 @@ class Chapter1 {
      * @return True if a correct answer is given, and false if the answer does not
      *         match.
      */
-    private static Boolean insertionSortSwapsQuestion() {
+    public static Boolean insertionSortSwapsQuestion() {
         int arraySize = random.nextInt(4) + 5;
         ArrayList<Integer> initialArray = new ArrayList<>(generateArray(arraySize));
         int swaps = random.nextInt(arraySize - 2) + 1;
@@ -117,7 +120,7 @@ class Chapter1 {
      * 
      * @return True if the answer is correct, false if the answer is wrong.
      */
-    private static Boolean quickSortPivotsQuestion() {
+    public static Boolean quickSortPivotsQuestion() {
         int arraySize = random.nextInt(6) + 6;
         ArrayList<Integer> initialArray = new ArrayList<>(generateArray(arraySize));
         Integer[] arr = initialArray.toArray(new Integer[arraySize]);
@@ -167,7 +170,7 @@ class Chapter1 {
      * 
      * @return true if the answer matches, and false if the answer is wrong.
      */
-    private static Boolean bubbleSortPassesQuestion() {
+    public static Boolean bubbleSortPassesQuestion() {
         int arraySize = random.nextInt(7) + 3;
 
         ArrayList<Integer> initialArray = new ArrayList<>(generateArray(arraySize));
@@ -201,7 +204,7 @@ class Chapter1 {
      * @param arr   The ArrayList to be sorted.
      * @param swaps The number of swaps before the program terminates.
      */
-    private void selectionSort(ArrayList<Integer> arr, int swaps) {
+    private static void selectionSort(ArrayList<Integer> arr, int swaps) {
         int i;
         int j;
         int minIdx;
