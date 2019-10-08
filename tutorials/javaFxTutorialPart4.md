@@ -29,7 +29,7 @@ FXML is a XML-based language that allows us to define our user interface. Proper
 
 The FXML snippet define a TextField similar to the one that we programmatically defined previous in Tutorial 2. Notice how concise FXML is compared to the plain Java version.
 
-Let's return to duke and convert it to use FXML instead.
+Let's return to duchess and convert it to use FXML instead.
 
 # Rebuilding the Scene using FXML
 
@@ -101,7 +101,7 @@ We will get to that later.
 
 ## Using Controllers
 
-As part of the effort to separate the code handling duke's logic and UI, let's _refactor_ the UI-related code to its own class.
+As part of the effort to separate the code handling duchess's logic and UI, let's _refactor_ the UI-related code to its own class.
 We call these UI classes _controllers_. 
 
 Let's implement the `MainWindow` controller class that we specified in `MainWindow.fxml`.
@@ -128,7 +128,7 @@ public class MainWindow extends AnchorPane {
     @FXML
     private Button sendButton;
 
-    private duke duke;
+    private duchess duchess;
 
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
     private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
@@ -138,18 +138,18 @@ public class MainWindow extends AnchorPane {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
     }
 
-    public void setDuke(duke d) {
-        duke = d;
+    public void setDuke(duchess d) {
+        duchess = d;
     }
 
     /**
-     * Creates two dialog boxes, one echoing user input and the other containing duke's reply and then appends them to
+     * Creates two dialog boxes, one echoing user input and the other containing duchess's reply and then appends them to
      * the dialog container. Clears the user input after processing.
      */
     @FXML
     private void handleUserInput() {
         String input = userInput.getText();
-        String response = duke.getResponse(input);
+        String response = duchess.getResponse(input);
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
                 DialogBox.getDukeDialog(response, dukeImage)
@@ -168,7 +168,7 @@ Similarly, methods like private methods like `handleUserInput` can be used in FX
 
 ## Using FXML in our application
 
-Let's create a new `Main` class as the bridge between the existing logic in `duke` and the UI in `MainWindow`.
+Let's create a new `Main` class as the bridge between the existing logic in `duchess` and the UI in `MainWindow`.
 
 **Main.java**
 ```java
@@ -182,11 +182,11 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 /**
- * A GUI for duke using FXML.
+ * A GUI for duchess using FXML.
  */
 public class Main extends Application {
 
-    private duke duke = new duke();
+    private duchess duchess = new duchess();
 
     @Override
     public void start(Stage stage) {
@@ -195,7 +195,7 @@ public class Main extends Application {
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
             stage.setScene(scene);
-            fxmlLoader.<MainWindow>getController().setDuke(duke);
+            fxmlLoader.<MainWindow>getController().setDuke(duchess);
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();

@@ -1,6 +1,6 @@
+import duchess.exceptions.DuchessException;
 import duchess.logic.commands.AddDeadlineCommand;
 import duchess.logic.commands.ReminderCommand;
-import duchess.exceptions.DuchessException;
 import duchess.logic.parser.Parser;
 import duchess.model.task.DuchessLog;
 import duchess.storage.Storage;

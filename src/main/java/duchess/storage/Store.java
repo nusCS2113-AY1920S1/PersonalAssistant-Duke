@@ -2,8 +2,8 @@ package duchess.storage;
 
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonSetter;
-import duchess.model.task.Task;
 import duchess.model.Module;
+import duchess.model.task.Task;
 
 import java.util.ArrayList;
 import java.util.List;

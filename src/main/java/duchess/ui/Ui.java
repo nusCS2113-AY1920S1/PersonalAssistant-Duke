@@ -1,8 +1,8 @@
 
 package duchess.ui;
 
-import duchess.model.task.Task;
 import duchess.model.Module;
+import duchess.model.task.Task;
 
 import java.util.List;
 import java.util.Scanner;
@@ -63,7 +63,7 @@ public class Ui {
     /**
      * Displays the newly added module as well as other modules.
      *
-     * @param module newly added module
+     * @param module  newly added module
      * @param modules existing modules
      */
     public void showModuleAdded(Module module, List<Module> modules) {
@@ -127,7 +127,8 @@ public class Ui {
      * @param tasks List of tasks to show
      * @param date  Date
      */
-    public void showScheduleResult(List<Task> tasks, String date) {
+    public void showScheduleResult(List<Task> tasks, String date, String academicContext) {
+        printIndented(academicContext);
         printIndented("Here is your schedule for " + date + ":");
         int counter = 1;
         for (Task t : tasks) {

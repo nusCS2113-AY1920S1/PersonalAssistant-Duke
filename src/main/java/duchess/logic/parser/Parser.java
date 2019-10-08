@@ -80,7 +80,18 @@ public class Parser {
         case "snooze":
             return new SnoozeCommand(arguments);
         case "schedule":
-            return new ViewScheduleCommand(arguments);
+            try {
+                String view = words.get(2);
+                boolean isInvalidView = !view.equals("day") && !view.equals("week");
+                boolean isIllegalArgument = isInvalidView && (words.size() > 3);
+                if (isIllegalArgument) {
+                    throw new IllegalArgumentException();
+                }
+                String date = words.get(1);
+                return new ViewScheduleCommand(date, view);
+            } catch (IndexOutOfBoundsException e) {
+                throw new DuchessException("Usage: schedule <date> (day | week)");
+            }
         case "bye":
             return new ByeCommand();
         case "log":

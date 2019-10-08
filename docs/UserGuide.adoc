@@ -26,7 +26,7 @@ Duchess is a calendar application tailor-made for NUS students. Duchess closes t
 .  Copy the file to the folder you want to use as the home folder for your Calendar.
 .  Double-click the file to start the app.
 +
-image::Ui.PNG[]
+image::Ui.png[]
 +
 .  Type a command in the input field and press kbd:[Enter] to execute it.
 .  Refer to <<Features>> for details of all commands.
@@ -227,10 +227,37 @@ Noted. I've snoozed this task:
   [D][✘] health and wellness transcript (by: 26/09/2019 0800)
 ```
 
+=== Saving the data
+
+Duchess data are saved in the hard disk automatically after any command that changes the data.
+
+=== Add recurring task: `[coming in V2.0]`
+
+Add recurring task to task list.
+
+* Recurring task can be tagged by user. eg `tutorial`, `lab`, `lecture`
+* Recurring task will be repeated on a time basis as defined by user.
+
+=== Auto-scheduling: `[coming in V2.0]`
+
+Adds task to timetable according to user-defined time constraints.
+
+=== Display task list as timetable: `[coming in V2.0]`
+
+Displays task list as timetable instead of list format.
+
+=== Export task list and timetable: `[coming in V2.0]`
+
+Save task list and timetable view of task list in text file on local hard disk.
+
+=== Undo command: `[coming in V2.0]`
+
+Undoes the most recent command entered.
+
 == FAQ
 
 *Q*: Am I able to export my schedule from command line? +
-*A*: All schedules are saved in a text file which can be accessed outside of CLI.
+*A*: `[coming in V2.0]` All schedules are saved in a text file which can be accessed outside of CLI.
 
 == Command Summary
 

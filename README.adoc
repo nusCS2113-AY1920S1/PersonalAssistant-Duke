@@ -1,5 +1,8 @@
 = Duchess
-![alt text](https://github.com/AY1920S1-CS2113T-T09-2/main/blob/master/docs/images/Ui.PNG)
+
+image::https://travis-ci.org/AY1920S1-CS2113T-T09-2/main.svg?branch=master[]
+
+image::docs/images/Ui.png[]
 
 * Duchess is a calendar application tailor-made for NUS students. 
 * It provides an interface for students to manage both their school and extra-curriculum commitments while providing academic contextual information.
@@ -13,4 +16,4 @@
 
 == Acknowledgements
 * This application is a morph of the CS2113 Duke application.
-* Libraries used:
+* Libraries used: https://github.com/FasterXML/jackson[Jackson]

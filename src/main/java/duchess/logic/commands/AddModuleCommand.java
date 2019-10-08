@@ -1,10 +1,10 @@
 package duchess.logic.commands;
 
 import duchess.exceptions.DuchessException;
+import duchess.model.Module;
 import duchess.storage.Storage;
 import duchess.storage.Store;
 import duchess.ui.Ui;
-import duchess.model.Module;
 
 import java.util.List;
 
