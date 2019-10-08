@@ -140,21 +140,6 @@ public class Parser {
                 tasks.findTask(searchWord);
                 break;
 
-                /**
-                 * Command is in the form: plan new [intensity level] or plan view [intensity] plan/[plan number]
-                 *
-                 */
-                case "plan":
-                    MyPlan plan = new MyPlan();
-                    if (word[1].equals("view")) {
-                        plan.loadPlan(word[2].toLowerCase(),word[3]);
-                    } else if (word[1].equals("new")) {
-                        plan.createPlan(word[3].toLowerCase());
-                    } else if (word[1].equals("edit")) {
-                        //not yet created
-                    }
-                    break;
-
             case "date":
                 String searchDate = input.substring(5);
                 if (searchDate.length() < 10) {
@@ -288,6 +273,20 @@ public class Parser {
                 }
                 break;
 
+            /**
+             * Command is in the form: plan new [intensity level] or plan view [intensity] plan/[plan number]
+             *
+             */
+            case "plan":
+                MyPlan plan = new MyPlan();
+                if (word[1].equals("view")) {
+                    plan.loadPlan(word[2].toLowerCase(),word[3]);
+                } else if (word[1].equals("new")) {
+                    plan.createPlan(word[3].toLowerCase());
+                } else if (word[1].equals("edit")) {
+                    //not yet created
+                }
+                break;
 
             default:
                 System.out.println("\u2639 OOPS!!! I'm sorry, but I don't know what that means :-(");
