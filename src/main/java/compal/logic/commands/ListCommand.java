@@ -2,8 +2,8 @@ package compal.logic.commands;
 
 import compal.logic.parser.CommandParser;
 import compal.commons.Compal;
-import compal.tasks.Task;
-import compal.tasks.TaskList;
+import compal.model.tasks.Task;
+import compal.model.tasks.TaskList;
 import javafx.scene.paint.Color;
 
 import java.util.ArrayList;

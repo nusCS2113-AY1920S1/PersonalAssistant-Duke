@@ -5,7 +5,7 @@ import compal.commons.Compal;
 
 import java.text.ParseException;
 
-import compal.tasks.Task;
+import compal.model.tasks.Task;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
