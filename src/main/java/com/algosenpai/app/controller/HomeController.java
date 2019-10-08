@@ -1,8 +1,6 @@
 package com.algosenpai.app.controller;
 
 import com.algosenpai.app.constant.ImagesConstant;
-import com.algosenpai.app.constant.JavaFxConstant;
-import com.algosenpai.app.constant.ResourcePathConstant;
 import com.algosenpai.app.utility.ResourceRandomUtility;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -100,4 +98,7 @@ public class HomeController extends SceneController implements Initializable {
         }
     }
 
+    public String getSceneTitle() {
+        return sceneTitle.getText();
+    }
 }

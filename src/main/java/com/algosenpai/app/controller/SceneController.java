@@ -2,12 +2,10 @@ package com.algosenpai.app.controller;
 
 
 import com.algosenpai.app.constant.ImagesConstant;
-import com.algosenpai.app.constant.ImagesEnum;
 import com.algosenpai.app.constant.JavaFxConstant;
 import com.algosenpai.app.constant.ResourcePathConstant;
 import com.algosenpai.app.utility.ResourceRandomUtility;
 import javafx.application.Application;
-import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Scene;
@@ -29,21 +27,7 @@ public class SceneController extends Application {
         SceneController.stage = stage;
         SceneController.musicController = new MusicController();
         String imageName = ResourceRandomUtility.randomResources(ImagesConstant.startAppImages);
-
         changeScene("home.fxml", imageName);
-        /*
-        SceneController.root = FXMLLoader.load(getClass().getResource(
-                ResourcePathConstant.viewResourcePath + "home.fxml"));
-        Scene scene = new Scene(root, JavaFxConstant.windowWidth, JavaFxConstant.windowHeight);
-        stage.setScene(scene);
-        stage.setResizable(false);
-        stage.show();
-
-
-        String imageName = ResourceRandomUtility.randomResources(ImagesConstant.startAppImages);
-        changeBackgroundImage(ResourcePathConstant.imagesResourcePath + imageName);
-
-         */
     }
 
     private static Stage getStage() {
