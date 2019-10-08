@@ -53,9 +53,4 @@ public class DukeTest {
         assertEquals("project meeting (at: 16 October 2019 08.00 AM)",
             new Event("project meeting", "16 October 2019 08.00 AM", date).getDescription());
     }
-
-    @Test
-    void alwaysTrue() {
-        assertTrue(true);
-    }
 }
