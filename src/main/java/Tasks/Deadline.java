@@ -31,4 +31,9 @@ public class Deadline extends Task {
     public String getDateTime() {
         return by;
     }
+
+    @Override
+    public String getModCode() {
+        return null;
+    }
 }

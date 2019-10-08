@@ -9,7 +9,7 @@ import java.io.FileNotFoundException;
  */
 public class DoneCommand extends Command {
 
-    private int index;
+    private final int index;
 
     /**
      * Creates a DoneCommand object.

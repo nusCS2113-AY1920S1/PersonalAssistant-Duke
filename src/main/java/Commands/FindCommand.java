@@ -9,7 +9,7 @@ import java.util.ArrayList;
  */
 public class FindCommand extends Command {
 
-    private String key;
+    private final String key;
 
     /**
      * Creates a FindCommand object.
