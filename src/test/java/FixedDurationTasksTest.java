@@ -14,7 +14,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class FixedDurationTasksTest {
     Ui ui = new Ui();
-    Storage storage = new Storage(System.getProperty("user.dir") + "\\data\\duke.txt");
+    Storage storage = new Storage();
 
     @Test
     public void FindEarliestFreeTimesTestEmptyList() throws Exception {

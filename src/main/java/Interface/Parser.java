@@ -5,6 +5,7 @@ import Tasks.*;
 import javafx.scene.control.Alert;
 
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -19,6 +20,17 @@ public class Parser {
     private static String[] arr1;
     private static String[] arr2;
     private static String[] arr3;
+    private static LookupTable LT;
+    static {
+        try {
+            LT = new LookupTable();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public Parser() throws IOException, ParseException {
+    }
 
     /**
      * This method breaks apart the user's input and tries to make sense with it.
@@ -124,15 +136,18 @@ public class Parser {
                 } catch (ArrayIndexOutOfBoundsException e) {
                     throw new DukeException("\u2639" + " OOPS!!! Please do not leave task number or list name blank.");
                 }
-            } else if (fullCommand.trim().substring(0, 8).equals("deadline")) {
+            } else if (fullCommand.trim().substring(0, 5).equals("add/d")) {//deadline
                 try {
-                    String activity = fullCommand.trim().substring(8);
+                    String activity = fullCommand.trim().substring(5);
                     arr = activity.split("/by");
                     if (arr[0].trim().isEmpty()) {
                         throw new DukeException("\u2639" + " OOPS!!! The description of a deadline cannot be empty.");
                     }
+                    String weekdate = arr[1].substring(0,arr[1].length()- 4); // week x day y
+                    String time = arr[1].substring(arr[1].length()- 4); // time E.g 0300
+                    weekdate = LT.getDate(weekdate) + " " + time;
                     SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HHmm");
-                    Date date = formatter.parse(arr[1].trim());
+                    Date date = formatter.parse(weekdate);
                     SimpleDateFormat dateFormat = new SimpleDateFormat("E dd/MM/yyyy hh:mm a");
                     String dateString = dateFormat.format(date);
                     return new AddCommand(new Deadline(arr[0].trim(), dateString));
@@ -193,7 +208,7 @@ public class Parser {
                             "To snooze events: snooze event index /to dd/MM/yyyy HHmm to HHmm\n" +
                             "For example: snooze event 2 /to 2/12/2019 1800 to 1900");
                 }
-            } else if (!(fullCommand.startsWith("todo") || fullCommand.startsWith("deadline") || fullCommand.startsWith("event")) &&
+            } else if (!(fullCommand.startsWith("todo") || fullCommand.startsWith("add/d") || fullCommand.startsWith("event")) &&
                     fullCommand.contains("(needs ") && fullCommand.endsWith(" hours)")) {
                 try{
                     int index;
@@ -244,6 +259,15 @@ public class Parser {
                     throw new DukeException(" OOPS!!! Please enter Do Within Period Task as follows:\n" +
                             " 'Task Description' '(from DD/MM/yyyy to DD/MM/yyyy)'");
                 }
+            }else if(fullCommand.trim().substring(0,4).equals("week")){
+                String out = "";
+                 out +=LT.getDate(fullCommand);
+               // String out = "test";
+                AlertBox.display("Warning message", "Invalid date", out ,
+                        Alert.AlertType.WARNING);
+
+                return new ConfirmCommand();
+
             } else if (fullCommand.trim().substring(0, 18).equalsIgnoreCase("Tentative Schedule")) {
                 try {
                     String activity = fullCommand.trim().substring(18);
