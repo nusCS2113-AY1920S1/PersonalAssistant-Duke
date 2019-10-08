@@ -22,13 +22,11 @@ public class PeriodTaskTest {
         try {
             String input = "period collect test /between 23/09/2019 and 26/09/2019";
             SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
-            Date dummyStartDate = formatter.parse("23/09/2019");
-            Date dummyEndDate = formatter.parse("26/09/2019");
             String dummyPeriodDescription = "23 Sep 2019 and 26 Sep 2019";
             PeriodTask dummyTask = new PeriodTask("collect test", dummyPeriodDescription);
             ITask generatedTask = periodTaskFactory.createTask(input);
             assertEquals(generatedTask.getDescription(), dummyTask.getDescription());
-        } catch (DukeException | ParseException e) {
+        } catch (DukeException e) {
             e.printStackTrace();
         }
     }
