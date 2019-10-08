@@ -37,7 +37,7 @@ public class FixedDurationCommand extends Command {
         FixedDuration duration = new FixedDuration(splitD[0], splitD[1]);
         tasks.add(duration);
         storage.saveToFile(tasks);
-        ui.showString("Got it. I've added this task:\n"
+        ui.addToOutput("Got it. I've added this task:\n"
                 + duration.toString() + "\n"
                 + "Now you have " + tasks.size() + " task(s) in the list");
     }

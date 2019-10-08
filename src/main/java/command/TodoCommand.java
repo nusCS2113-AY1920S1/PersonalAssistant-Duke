@@ -32,7 +32,7 @@ public class TodoCommand extends Command {
         Todo todo = new Todo(this.string);
         tasks.add(todo);
         storage.saveToFile(tasks);
-        ui.showString("Got it. I've added this task:\n"
+        ui.addToOutput("Got it. I've added this task:\n"
                 + todo.toString() + "\n"
                 + "Now you have " + tasks.size() + " task(s) in the list.");
     }

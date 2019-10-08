@@ -33,14 +33,16 @@ public class TaskList extends ArrayList<Task> {
                         splitStr[Constants.DESCRIPTION], splitStr[Constants.NEEDS]));
                 break;
             case "R":
-                this.add(new Recurring(splitStr[Constants.ISDONE], splitStr[Constants.DESCRIPTION], splitStr[Constants.TIME],
-                        splitStr[4], splitStr[5]));
+                this.add(new Recurring(splitStr[Constants.ISDONE], splitStr[Constants.DESCRIPTION],
+                        splitStr[Constants.TIME], splitStr[4], splitStr[5]));
                 break;
             case "DA":
-                this.add(new DoAfter(splitStr[Constants.ISDONE], splitStr[Constants.DESCRIPTION], splitStr[Constants.TIME]));
+                this.add(new DoAfter(splitStr[Constants.ISDONE], splitStr[Constants.DESCRIPTION],
+                        splitStr[Constants.TIME]));
                 break;
             case "DW":
-                this.add(new DoWithinPeriod(splitStr[Constants.ISDONE], splitStr[Constants.DESCRIPTION], splitStr[Constants.TIMESTART], splitStr[Constants.TIMEEND]));
+                this.add(new DoWithinPeriod(splitStr[Constants.ISDONE], splitStr[Constants.DESCRIPTION],
+                        splitStr[Constants.TIMESTART], splitStr[Constants.TIMEEND]));
                 break;
             default:
                 throw new DukeException("File format incorrect");
