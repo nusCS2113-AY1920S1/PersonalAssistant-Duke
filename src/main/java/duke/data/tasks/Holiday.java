@@ -1,7 +1,7 @@
 package duke.data.tasks;
 
 import duke.parsers.api.ApiParser;
-import duke.commons.DukeException;
+import duke.commons.exceptions.DukeException;
 import duke.data.Location;
 
 import java.time.LocalDateTime;
@@ -58,8 +58,6 @@ public class Holiday extends DoWithin {
      * Returns the string to store the Holiday object in persistent storage.
      */
     public String getHoliday() {
-        return super.getStartDate().toString() + " | " + super.getEndDate() + "|" + this.location.getAddress()
-                + "|" + this.location.getLatitude() + "|" + this.location.getLongitude() + "|"
-                + this.location.getDistX() + "|" + this.location.getDistY();
+        return super.getWithin() + " | " + location.toString();
     }
 }

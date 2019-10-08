@@ -1,6 +1,6 @@
 package duke.parsers.api;
 
-import duke.commons.DukeException;
+import duke.commons.exceptions.DukeException;
 import duke.data.tasks.Holiday;
 
 /**

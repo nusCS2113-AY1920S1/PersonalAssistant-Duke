@@ -3,7 +3,7 @@ package duke.commons;
 /**
  * Messages used by duke.Duke.
  */
-public class MessageUtil {
+public class Messages {
     public static final String UNKNOWN_COMMAND = "☹ I'm sorry, but I don't know what that means :-(";
     public static final String EMPTY_DESCRIPTION = "⛔ The description cannot be empty. :-(";
     public static final String INVALID_FORMAT = "⚡ Invalid format. Refer to help for command formats. :-(";
@@ -15,4 +15,5 @@ public class MessageUtil {
     public static final String TASK_NOT_FOUND = "☢ Task not found! :-(";
     public static final String ANOMALY_FOUND = "⚡ Anomaly detected! Please check your tasks. :-(";
     public static final String DATA_NOT_FOUND = "☹ I'm sorry, something went wrong while fetching data. :-(";
+    public static final String TASK_NOT_HOLIDAY = "Sorry, the numbers you entered are not a holiday destination.";
 }

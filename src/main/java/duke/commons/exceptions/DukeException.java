@@ -1,4 +1,4 @@
-package duke.commons;
+package duke.commons.exceptions;
 
 /**
  * Represents an error during operation of duke.Duke.
