@@ -3,6 +3,11 @@ package duke.autocorrect;
 import java.util.HashMap;
 import java.util.ArrayList;
 
+/**
+ * This is a class that will help to correct minor typo
+ * @Author Foo Chi Hen
+ */
+
 public class Autocorrect {
     private String word;
     private HashMap<String,int[]> mapper = new HashMap();
@@ -10,6 +15,11 @@ public class Autocorrect {
     private int[] counter = new int[26];
 
     public Autocorrect() {}
+
+    /**
+     * This is a function that will store the pre defined correct words into the object.
+     * @param word pre defined correct words to be stored.
+     */
 
     public void load(String word) {
         int[] counting = new int[26];
@@ -23,6 +33,11 @@ public class Autocorrect {
         words.add(word);
     }
 
+    /**
+     * This is a function that will store the user input word into the object.
+     * @param word word to be stored.
+     */
+
     public void setWord(String word) {
         this.word = word;
         for (int i = 0; i < 26; i += 1) {
@@ -32,6 +47,11 @@ public class Autocorrect {
             counter[(int)word.charAt(i) - 97] += 1;
         }
     }
+
+    /**
+     * This is a function that will compare the word in the object against
+     * pre defined correct words and change it to those words
+     */
 
     public void execute() {
         int currentDistance = 4;

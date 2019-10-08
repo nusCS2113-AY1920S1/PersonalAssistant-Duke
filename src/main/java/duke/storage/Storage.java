@@ -13,7 +13,7 @@ import duke.tasks.Meal;
 import duke.tasks.Breakfast;
 import duke.user.User;
 import duke.user.Gender;
-import duke.user.tuple;
+import duke.user.Tuple;
 import duke.autocorrect.Autocorrect;
 
 /**
@@ -133,13 +133,18 @@ public class Storage {
         }
     }
 
+    /**
+     * This is a function that will load user info from user.txt.
+     * @Author Foo Chi Hen
+     */
+
     public User loadUser() throws DukeException {
         User tempUser;
         String sep = System.getProperty("file.separator");
         nameFile = new File("src" + sep + "main" + sep + "java" + sep + "duke"
                 + sep + "Data" + sep + "user.txt");
 
-        if (nameFile.length() == 0) {
+        if (nameFile.length() == 0) { //user.txt has nothing
             return new User();
         }
 
@@ -169,6 +174,12 @@ public class Storage {
         }
     }
 
+    /**
+     * This is a function that will store the user information into a file
+     * @param user the user class that contains all personal information to be stored.
+     * @Author Foo Chi Hen
+     */
+
     public void saveUser(User user) throws DukeException {
         String toWrite = user.getName() + "|" + user.getAge() + "|"
                 + user.getHeight() + "|" + user.getActivityLevel() + "|" + user.getLoseWeight() + "|";
@@ -193,6 +204,11 @@ public class Storage {
             e.printStackTrace();
         }
     }
+
+    /**
+     * This is a function that will load all the words to be autocorrected to.
+     * @Author Foo Chi Hen
+     */
 
     public void loadWord(Autocorrect autocorrect) throws DukeException {
         String sep = System.getProperty("file.separator");
