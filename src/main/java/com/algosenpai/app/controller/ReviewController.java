@@ -65,13 +65,19 @@ public class ReviewController extends SceneController implements Initializable {
     public void handleKeyPressed(KeyEvent keyEvent) throws IOException {
         if (keyEvent.getCode() == KeyCode.H) {
             MusicController.playMusic("rezero.wav");
-            changeScene(ResourcePathConstant.viewResourcePath + "home.fxml");
+            String imageName = ResourceRandomUtility.randomResources(ImagesConstant.startAppImages);
+
+            changeScene("home.fxml", imageName);
+            //changeScene(ResourcePathConstant.viewResourcePath + "home.fxml");
         }
         if (keyEvent.getCode() == KeyCode.G) {
             MusicController.playMusic("rezero.wav");
-            changeScene(ResourcePathConstant.viewResourcePath + "girls.fxml");
             String imageName = ResourceRandomUtility.randomResources(ImagesConstant.startAppImages);
-            changeBackgroundImage(ResourcePathConstant.imagesResourcePath + imageName);
+
+            changeScene("girls.fxml", imageName);
+            //changeScene(ResourcePathConstant.viewResourcePath + "girls.fxml");
+            //String imageName = ResourceRandomUtility.randomResources(ImagesConstant.startAppImages);
+            //changeBackgroundImage(ResourcePathConstant.imagesResourcePath + imageName);
         }
         if (keyEvent.getCode() == KeyCode.ESCAPE) {
             userInput.getParent().requestFocus();

@@ -1,20 +1,14 @@
 package com.algosenpai.app.controller;
 
 import com.algosenpai.app.constant.ImagesConstant;
-import com.algosenpai.app.constant.JavaFxConstant;
-import com.algosenpai.app.constant.ResourcePathConstant;
-
-import com.algosenpai.app.chapters.ChapterSorting;
-import com.algosenpai.app.Question;
+import com.algosenpai.app.utility.ResourceRandomUtility;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.text.Text;
 
 import java.io.IOException;
 import java.net.URL;
@@ -23,39 +17,35 @@ import java.util.ResourceBundle;
 public class HomeController extends SceneController implements Initializable {
 
     @FXML
-    private ImageView characterImage;
-
-    @FXML
-    private Label sceneTitle;
-
-    @FXML
-    private Label sceneText;
+    private Text sceneTitle;
 
     @FXML
     private TextField userInput;
 
-    private String characterImageName;
-
     public HomeController() {
-        characterImageName = "miku.png";
         handle();
     }
 
+    private int userInputY = 0;
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        Image image = new Image(getClass().getResourceAsStream(
-                ResourcePathConstant.imagesResourcePath + characterImageName));
-        characterImage.setFitHeight(ImagesConstant.imageHeight);
-        characterImage.setFitWidth(ImagesConstant.imageWidth);
-        characterImage.setImage(image);
-
+        sceneTitle.setText("Welcome to AlgoSenpai Adventures!");
+        setNodePos(sceneTitle, 0, 0);
+        setTextStyle(sceneTitle, 237, 16, 160, true);
+        userInput.setPrefWidth(500.0);
+        setNodePos(userInput, 500.0, -250);
     }
 
     private void handle() {
-        AnimationTimerController backgroundSceneTimer = new AnimationTimerController(JavaFxConstant.sceneInterval) {
+        AnimationTimerController backgroundSceneTimer = new AnimationTimerController(1) {
             @Override
             public void handle() {
+                if (userInputY <= 250) {
+                    userInputY += 1;
+                    setNodePos(sceneTitle, userInputY, 0);
 
+                }
             }
         };
         backgroundSceneTimer.start();
@@ -70,15 +60,24 @@ public class HomeController extends SceneController implements Initializable {
     public void handleKeyPressed(KeyEvent keyEvent) throws IOException {
         if (keyEvent.getCode() == KeyCode.Q) {
             MusicController.playMusic("saturation.wav");
-            changeScene(ResourcePathConstant.viewResourcePath + "quiz.fxml");
+            String imageName = ResourceRandomUtility.randomResources(ImagesConstant.startAppImages);
+
+            changeScene("quiz.fxml", imageName);
+            //changeScene(ResourcePathConstant.viewResourcePath + "quiz.fxml");
         }
         if (keyEvent.getCode() == KeyCode.R) {
             MusicController.playMusic("saturation.wav");
-            changeScene(ResourcePathConstant.viewResourcePath + "review.fxml");
+            String imageName = ResourceRandomUtility.randomResources(ImagesConstant.startAppImages);
+
+            changeScene("review.fxml", imageName);
+            //changeScene(ResourcePathConstant.viewResourcePath + "review.fxml");
         }
         if (keyEvent.getCode() == KeyCode.G) {
             MusicController.playMusic("saturation.wav");
-            changeScene(ResourcePathConstant.viewResourcePath + "girls.fxml");
+            String imageName = ResourceRandomUtility.randomResources(ImagesConstant.startAppImages);
+
+            changeScene("girls.fxml", imageName);
+            //changeScene(ResourcePathConstant.viewResourcePath + "girls.fxml");
         }
         if (keyEvent.getCode() == KeyCode.ESCAPE) {
             userInput.getParent().requestFocus();
@@ -99,4 +98,7 @@ public class HomeController extends SceneController implements Initializable {
         }
     }
 
+    public String getSceneTitle() {
+        return sceneTitle.getText();
+    }
 }

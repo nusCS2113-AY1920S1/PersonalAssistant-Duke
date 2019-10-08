@@ -71,14 +71,20 @@ public class QuizController extends SceneController implements Initializable {
     public void handleKeyPressed(KeyEvent keyEvent) throws IOException {
         if (keyEvent.getCode() == KeyCode.H) {
             MusicController.playMusic("rezero.wav");
-            changeScene(ResourcePathConstant.viewResourcePath + "home.fxml");
+            String imageName = ResourceRandomUtility.randomResources(ImagesConstant.startAppImages);
+
+            changeScene("home.fxml", imageName);
+            //changeScene(ResourcePathConstant.viewResourcePath + "home.fxml");
             backgroundSceneTimer.stop();
         }
         if (keyEvent.getCode() == KeyCode.E) {
             MusicController.playMusic("rezero.wav");
-            changeScene(ResourcePathConstant.viewResourcePath + "end.fxml");
             String imageName = ResourceRandomUtility.randomResources(ImagesConstant.startAppImages);
-            changeBackgroundImage(ResourcePathConstant.imagesResourcePath + imageName);
+
+            changeScene("end.fxml", imageName);
+            //changeScene(ResourcePathConstant.viewResourcePath + "end.fxml");
+            //String imageName = ResourceRandomUtility.randomResources(ImagesConstant.startAppImages);
+            //changeBackgroundImage(ResourcePathConstant.imagesResourcePath + imageName);
         }
         if (keyEvent.getCode() == KeyCode.ESCAPE) {
             userInput.getParent().requestFocus();
