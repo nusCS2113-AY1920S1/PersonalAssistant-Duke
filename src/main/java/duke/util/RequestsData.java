@@ -14,6 +14,11 @@ import java.util.List;
 
 public class RequestsData {
 
+    /**
+     * Request builder for API call summary module data.
+     * @param mod Module of interest to be queried.
+     * @return HttpRequest formatted with the nusMods API call.
+     */
     public HttpRequest requestModule(String mod) {
         String upperMod = mod.trim().toUpperCase();
         return HttpRequest.newBuilder()
@@ -23,6 +28,11 @@ public class RequestsData {
                 .build();
     }
 
+    /**
+     * Request builder for API call summary module data.
+     * @param academicYear Academic year of interest
+     * @return HttpRequest formatted with the nusMods API call.
+     */
     public HttpRequest requestModuleList(String academicYear) {
         return HttpRequest.newBuilder()
                 .uri(URI.create("https://api.nusmods.com/v2/" + academicYear + "/moduleList/.json"))
@@ -31,6 +41,11 @@ public class RequestsData {
                 .build();
     }
 
+    /**
+     * Request builder for API call detailed module data.
+     * @param academicYear Academic year of interest
+     * @return HttpRequest formatted with the nusMods API call.
+     */
     private HttpRequest requestModuleListDetailed(String academicYear) {
         return HttpRequest.newBuilder()
                 .uri(URI.create("https://api.nusmods.com/v2/" + academicYear + "/moduleInfo/.json"))
@@ -64,6 +79,11 @@ public class RequestsData {
         }
     }
 
+    /**
+     * Formats a string to list of strings based on new line character.
+     * @param responseBody String containing response from HttpRequest.
+     * @return A list of string, separated by new line characters.
+     */
     private List<String> getResponseList(String responseBody) {
         String[] test = responseBody.split("\n");
         List<String> ret = new ArrayList<>(Collections.emptyList());
