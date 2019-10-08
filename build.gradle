@@ -27,6 +27,8 @@ dependencies {
     implementation 'com.fasterxml.jackson.core:jackson-core:2.9.8'
     implementation 'com.fasterxml.jackson.core:jackson-annotations:2.9.8'
     implementation 'com.fasterxml.jackson.core:jackson-databind:2.9.8'
+
+    compile group: 'info.movito', name: 'themoviedbapi', version:'1.9'
 }
 
 test {
@@ -35,6 +37,7 @@ test {
 
 repositories {
     mavenCentral()
+    jcenter()
 }
 
 javafx {

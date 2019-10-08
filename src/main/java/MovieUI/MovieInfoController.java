@@ -22,10 +22,14 @@ import javafx.scene.text.Text;
 import movieRequesterAPI.RequestListener;
 import movieRequesterAPI.RetrieveRequest;
 import object.MovieInfoObject;
+import parser.TimeParser;
 import ui.Ui;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 
 public class MovieInfoController extends Controller implements RequestListener {
 
@@ -37,7 +41,7 @@ public class MovieInfoController extends Controller implements RequestListener {
     @FXML private ImageView movieBackdropImageView;
     @FXML private ScrollPane movieScrollPane;
     @FXML private VBox movieMainVBox;
-    @FXML private GridPane movieGridPane;
+   // @FXML private GridPane movieGridPane;
     @FXML private TextField mSearchTextField;
     @FXML private Label mStatusLabel;
     @FXML private ProgressBar mProgressBar;
@@ -106,10 +110,18 @@ public class MovieInfoController extends Controller implements RequestListener {
         // Load the movie info if movie has been set
         if (mMovie != null) {
             movieTitleLabel.setText(mMovie.getTitle());
+            //movieCastLabel.setText(mMovie.getmCast());
             movieRatingLabel.setText(String.format("%.2f", mMovie.getRating()));
 
             if (mMovie.getReleaseDate() != null) {
+                Date date = mMovie.getReleaseDate();
+                //System.out.println("date is" + date);
+                //String printDate = TimeParser.convertDateToLine(date);
+                Calendar calendar = Calendar.getInstance();
+                calendar.setTime(date);
+                String printDate = new SimpleDateFormat("dd-MM-yyyy").format(date);
                 movieReleaseDateLabel.setText(String.format("%s", mMovie.getReleaseDate().toString()));
+                movieReleaseDateLabel.setText(printDate);
             } else{
                 movieReleaseDateLabel.setText("N/A");
             }
@@ -121,7 +133,7 @@ public class MovieInfoController extends Controller implements RequestListener {
 
         movieMainVBox.prefWidthProperty().bind(movieScrollPane.widthProperty());
         movieBackdropImageView.setPreserveRatio(true);
-        movieGridPane.prefWidthProperty().bind(movieScrollPane.widthProperty());
+//        movieGridPane.prefWidthProperty().bind(movieScrollPane.widthProperty());
 
         mSearchTextField.addEventFilter(KeyEvent.KEY_PRESSED, event -> {
             if (event.getCode() == KeyCode.TAB) {
@@ -141,6 +153,8 @@ public class MovieInfoController extends Controller implements RequestListener {
 
         //Enter is Pressed
         mSearchTextField.setOnKeyPressed(new KeyboardClick(this));
+
+        //movieGridPane.prefWidthProperty().bind(movieScrollPane.widthProperty());
     }
 
     // User clicks on the back button to navigate back to the movies scene
@@ -171,8 +185,11 @@ public class MovieInfoController extends Controller implements RequestListener {
 
                 for (String genre : genres){
                     builder.append(genre);
-
+                    System.out.println(genre);
                     // if not last string in array, append a ,
+                    if (genres.length == 0) {
+                        System.out.println("no genres");
+                    }
                     if (!genres[genres.length - 1].equals(genre)){
                         builder.append(", ");
                     }

@@ -33,7 +33,6 @@ public class Main extends Application {
         try {
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(getClass().getClassLoader().getResource("MainPage.fxml"));
-           // loader.getStylesheets().add(this.getClass().getResource("view/MainView.css").toExt‌​ernalForm())
             mainLayout = loader.load();
 
             // setup the controller's window and reference to this main application class
@@ -64,7 +63,6 @@ public class Main extends Application {
             e.printStackTrace();
         }
     }
-
 
     public void transitionBackToMoviesController()
     {

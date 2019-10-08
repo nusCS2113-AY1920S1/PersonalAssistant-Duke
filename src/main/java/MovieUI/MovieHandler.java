@@ -58,9 +58,6 @@ public class MovieHandler extends Controller implements RequestListener{
 
     private FlowPane mMoviesFlowPane;
 
-    //@FXML
-    //private ListView<String> mMovieTypeListView;
-
     @FXML
     private Label mStatusLabel;
 
@@ -70,28 +67,23 @@ public class MovieHandler extends Controller implements RequestListener{
     @FXML
     private TextField mSearchTextField;
 
-    //@FXML
-    //private Button mSearchButton;
-
-    //@FXML
-    //private Button mClearSearchButton;
-
     private ArrayList<MovieInfoObject> mMovies;
+
     private double[] mImagesLoadingProgress;
 
-    private RetrieveRequest mMovieRequest;
+    private static RetrieveRequest mMovieRequest;
 
     class KeyboardClick implements EventHandler<KeyEvent> {
 
         private Controller control;
 
-        KeyboardClick(Controller control){
+        KeyboardClick(Controller control) {
             this.control = control;
         }
 
         @Override
         public void handle(KeyEvent event) {
-            if(event.getCode().equals(KeyCode.ENTER)) {
+            if (event.getCode().equals(KeyCode.ENTER)) {
 //                    SearchResultContext.AddKeyWord(mSearchTextField.getText());
                 // do something
                 System.out.println("Hello");
@@ -106,8 +98,6 @@ public class MovieHandler extends Controller implements RequestListener{
             }
         }
     }
-
-
 
     @FXML public void initialize() throws IOException {
         EditProfileJson editProfileJson = new EditProfileJson();
@@ -138,18 +128,16 @@ public class MovieHandler extends Controller implements RequestListener{
             if (event.getCode() == KeyCode.TAB) {
                 System.out.println("Tab pressed");
                 event.consume();
-            }else if(event.getCode().equals(KeyCode.ENTER)) {
+            } else if (event.getCode().equals(KeyCode.ENTER)) {
                 System.out.println("Enter pressed");
 //
             }
         });
 
-        mMovieRequest.beginMovieRequest(RetrieveRequest.MoviesRequestType.NOW_SHOWING);
-//
-//
-//        //mSearchButton.disableProperty().bind(mSearchTextField.textProperty().isEmpty());
-//        //mClearSearchButton.disableProperty().bind(mSearchTextField.textProperty().isEmpty());
-//
+        mMovieRequest.beginMovieRequest(RetrieveRequest.MoviesRequestType.CURRENT_MOVIES);
+
+        //mMovieRequest.beginMovieRequest(RetrieveRequest.MoviesRequestType.CURRENT_MOVIES);
+
         //Real time changes to text field
         mSearchTextField.textProperty().addListener((observable, oldValue, newValue) -> {
             System.out.println("textfield changed from " + oldValue + " to " + newValue);
@@ -160,13 +148,12 @@ public class MovieHandler extends Controller implements RequestListener{
         //Enter is Pressed
         mSearchTextField.setOnKeyPressed(new KeyboardClick(this));
 
-//        // mMovieTypeListView.getSelectionModel().selectedIndexProperty().addListener((observable, oldValue, newValue) -> moviesTypeSelectionChanged(oldValue.intValue(), newValue.intValue()));
+        // mMovieTypeListView.getSelectionModel().selectedIndexProperty().addListener((observable, oldValue, newValue) -> moviesTypeSelectionChanged(oldValue.intValue(), newValue.intValue()));
     }
 
     // Called when the fetch request for the movie data is completed
     @Override
-    public void requestCompleted(ArrayList<MovieInfoObject> moviesInfo)
-    {
+    public void requestCompleted(ArrayList<MovieInfoObject> moviesInfo) {
         // Build the Movie poster views and add to the flow pane on the main thread
         mMovies = moviesInfo;
         mImagesLoadingProgress = new double[mMovies.size()];
@@ -175,21 +162,18 @@ public class MovieHandler extends Controller implements RequestListener{
 
     // Called when the request to fetch movie data timed out.
     @Override
-    public void requestTimedOut()
-    {
+    public void requestTimedOut() {
         Platform.runLater(() -> showDownloadFailureAlert("Request timed out"));
     }
 
     // Called when the request fails due to an invalid internet connection
     @Override
-    public void requestFailed()
-    {
+    public void requestFailed() {
         Platform.runLater(() -> showDownloadFailureAlert("No internet connection"));
     }
 
 
-    private void showDownloadFailureAlert(String headerText)
-    {
+    private void showDownloadFailureAlert(String headerText) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle("Failed to download");
         alert.setHeaderText(headerText);
@@ -197,8 +181,7 @@ public class MovieHandler extends Controller implements RequestListener{
         alert.showAndWait();
     }
 
-    private void buildMoviesFlowPane(ArrayList<MovieInfoObject> movies)
-    {
+    private void buildMoviesFlowPane(ArrayList<MovieInfoObject> movies) {
         // Setup progress bar and status label
         mProgressBar.setProgress(0.0);
         mProgressBar.setVisible(true);
@@ -226,6 +209,7 @@ public class MovieHandler extends Controller implements RequestListener{
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(getClass().getClassLoader().getResource("MoviePoster.fxml"));
             AnchorPane posterView = loader.load();
+            //posterView.setOnScroll();
             posterView.setOnMouseClicked((mouseEvent) -> moviePosterClicked(movie));
 
             // set the movie info
@@ -236,69 +220,35 @@ public class MovieHandler extends Controller implements RequestListener{
             controller.getMovieTitleLabel().setText(movie.getTitle());
             controller.getPosterImageView().setImage(posterImage);
             controller.getMovieNumberLabel().setText(Integer.toString(index));
-
             return posterView;
-        } catch (IOException ex){
+        } catch (IOException ex) {
             Ui.printLine();
         }
 
         return null;
     }
 
-    private void updateProgressBar(MovieInfoObject movie, double progress)
-    {
+    private void updateProgressBar(MovieInfoObject movie, double progress) {
         // update the progress for that movie in the array
         int index = mMovies.indexOf(movie);
-        if (index >= 0){
+        if (index >= 0) {
             mImagesLoadingProgress[index] = progress;
         }
 
         double currentTotalProgress = 0.0;
-        for (double value : mImagesLoadingProgress){
+        for (double value : mImagesLoadingProgress) {
             currentTotalProgress += value;
         }
 
         //System.out.println("Current total progress: " + currentTotalProgress);
         mProgressBar.setProgress((currentTotalProgress / mMovies.size()));
 
-        if(currentTotalProgress >= mMovies.size()){
+        if (currentTotalProgress >= mMovies.size()) {
             mProgressBar.setVisible(false);
             mStatusLabel.setText("");
         }
     }
 
-    // movieTypeSelectionChanged event - Reload the movies for the new movies request type
-    private void moviesTypeSelectionChanged(int oldIndex, int newIndex)
-    {
-        if(newIndex >= 0 && (newIndex != oldIndex)){
-
-            if (mMoviesFlowPane != null) {
-                mMoviesFlowPane.getChildren().clear();
-            }
-
-
-            switch (newIndex) {
-                case 0:
-                    mMovieRequest.beginMovieRequest(RetrieveRequest.MoviesRequestType.NOW_SHOWING);
-                    break;
-
-                case 1:
-                    mMovieRequest.beginMovieRequest(RetrieveRequest.MoviesRequestType.POPULAR);
-                    break;
-
-                case 2:
-                    mMovieRequest.beginMovieRequest(RetrieveRequest.MoviesRequestType.TV_SHOWS);
-                    break;
-
-                case 3:
-                    mMovieRequest.beginMovieRequest(RetrieveRequest.MoviesRequestType.UPCOMING);
-                    break;
-
-                default:
-                    break;
-            }
-        }
-    }
 
     // User clicks on a movie poster
     private void moviePosterClicked(MovieInfoObject movie) {
@@ -310,11 +260,11 @@ public class MovieHandler extends Controller implements RequestListener{
         mSearchTextField.setText("");
     }
 
-    public void setFeedbackText(String txt){
+    public void setFeedbackText(String txt) {
         text.setText(txt);
     }
 
-    public RetrieveRequest getAPIRequester(){
+    public RetrieveRequest getAPIRequester() {
         return mMovieRequest;
     }
 
@@ -337,12 +287,69 @@ public class MovieHandler extends Controller implements RequestListener{
     }
 
     // Menu item events
-    @FXML public void exitMenuItemClicked()
-    {
+    @FXML
+    public void exitMenuItemClicked() {
         System.exit(0);
     }
 
-    @FXML public void aboutMenuItemClicked()
-    {
+    @FXML
+    public void aboutMenuItemClicked() {
     }
+
+    /**
+     * Displays list of current movies showing on cinemas.
+     */
+    public static void showCurrentMovies() {
+        mMovieRequest.beginMovieRequest(RetrieveRequest.MoviesRequestType.CURRENT_MOVIES);
+    }
+
+    /**
+     * Displays list of current tv shows showing.
+     */
+    public static void showCurrentTV() {
+        mMovieRequest.beginMovieRequest(RetrieveRequest.MoviesRequestType.CURRENT_TV);
+    }
+
+    /**
+     * Displays list of upcoming movies.
+     */
+    public static void showUpcomingMovies() {
+        mMovieRequest.beginMovieRequest(RetrieveRequest.MoviesRequestType.UPCOMING_MOVIES);
+    }
+
+    /**
+     * Displays list of upcoming tv shows.
+     */
+    public static void showUpcomingTV() {
+        mMovieRequest.beginMovieRequest(RetrieveRequest.MoviesRequestType.NEW_TV);
+    }
+
+    /**
+     * Displays list of popular movies.
+     */
+    public static void showPopMovies() {
+        mMovieRequest.beginMovieRequest(RetrieveRequest.MoviesRequestType.POPULAR_MOVIES);
+    }
+
+    /**
+     * Displays list of popular tv shows.
+     */
+    public static void showPopTV() {
+        mMovieRequest.beginMovieRequest(RetrieveRequest.MoviesRequestType.POPULAR_TV);
+    }
+
+    /**
+     * Displays list of trending movies.
+     */
+    public static void showTrendMovies() {
+        mMovieRequest.beginMovieRequest(RetrieveRequest.MoviesRequestType.TRENDING_MOVIES);
+    }
+
+    /**
+     * Displays list of trending tv shows.
+     */
+    public static void showTrendTV() {
+        mMovieRequest.beginMovieRequest(RetrieveRequest.MoviesRequestType.TRENDING_TV);
+    }
+
 }

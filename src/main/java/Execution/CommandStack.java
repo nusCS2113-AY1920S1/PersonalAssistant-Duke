@@ -12,34 +12,33 @@ public class CommandStack {
     public static void pushCmd(CommandSuper cmd) throws IOException {
         if(cmd.getRoot() == COMMAND_KEYS.yes){
             executeLastCommand();
-        }else{
+        } else {
             MyStack.push(cmd);
-            if(cmd.isExecute()){
+            if (cmd.isExecute()) {
                 cmd.executeCommands();
             }
         }
 
     }
 
-    public static CommandSuper popCmd(){
+    public static CommandSuper popCmd() {
         CommandSuper topCmd = MyStack.peek();
         MyStack.pop();
         return topCmd;
     }
 
-    public static void topCmd(){
+    public static void topCmd() {
         MyStack.peek();
     }
 
-    public static void clearStack(){
+    public static void clearStack() {
         MyStack.clear();
     }
-
 
     public static void executeLastCommand() throws IOException {
         System.out.println("Execute LAst Command");
         CommandSuper cmd = MyStack.peek();
-        if(!cmd.isExecute()){
+        if (!cmd.isExecute()) {
             cmd.executeCommands();
         }
         //TODO Execute Last Command

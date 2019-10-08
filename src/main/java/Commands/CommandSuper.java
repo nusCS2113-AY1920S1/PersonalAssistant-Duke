@@ -16,11 +16,10 @@ public abstract class CommandSuper {
     private COMMAND_KEYS[] SubCommand;
     private COMMAND_KEYS Root;
 
-    private TreeMap<String , ArrayList<String>> flagMap = new TreeMap<String, ArrayList<String>>();
+    private TreeMap<String, ArrayList<String>> flagMap = new TreeMap<String, ArrayList<String>>();
     private COMMAND_KEYS subRootCommand;
     private String Payload;
     private boolean execute = false;
-
 
 
     public boolean isExecute() {
@@ -43,7 +42,7 @@ public abstract class CommandSuper {
         return Payload;
     }
 
-    public CommandSuper(COMMAND_KEYS Root , COMMAND_KEYS[] SubCommand , Controller UIController){
+    public CommandSuper(COMMAND_KEYS Root, COMMAND_KEYS[] SubCommand, Controller UIController) {
 
         this.UIController = UIController;
         this.SubCommand = SubCommand;
@@ -55,61 +54,74 @@ public abstract class CommandSuper {
         return UIController;
     }
 
-    public void initCommand(String[] CommandArr){
+    public void initCommand(String[] CommandArr) {
         subCommand(CommandArr);
         processFlags(CommandArr);
         processPayload(CommandArr);
-        if(SubCommand.length ==0){
+        if (SubCommand.length == 0) {
             execute = true;
         }
     }
-    public void initCommand(String[] CommandArr, COMMAND_KEYS subRootCommand){
+
+    public void initCommand(String[] CommandArr, COMMAND_KEYS subRootCommand) {
         this.subRootCommand = subRootCommand;
         processFlags(CommandArr);
         processPayload(CommandArr);
     }
 
 
-    public void subCommand(String[] CommandArr){
-        try{
-            for(COMMAND_KEYS cmd : SubCommand){
-                if(COMMAND_KEYS.valueOf(CommandArr[1])== cmd){
-                    System.out.println("FOUND Sub command" + cmd);
+    public void subCommand(String[] CommandArr) {
+        try {
+            for (COMMAND_KEYS cmd : SubCommand) {
+                if (COMMAND_KEYS.valueOf(CommandArr[1]) == cmd) {
+                    System.out.println("FOUND Sub command " + cmd);
                     subRootCommand = cmd;
                     execute = true;
                     return;
                 }
             }
-        }catch(Exception e){
+        } catch (Exception e) {
             System.out.println(e);
         }
 
-        CommandPair cmds = Command_Debugger.commandSpellChecker(CommandArr , Root , this.UIController);
+        CommandPair cmds = Command_Debugger.commandSpellChecker(CommandArr, Root, this.UIController);
         subRootCommand = cmds.getSubRootCommand();
 
     }
 
-    public void processFlags(String commandArr[]){
+    public static boolean isNotRightWord(String word) {
+        if ((word.equals("-[c]")) || (word.equals("-[u]")) || (word.equals("-[t]")) ||
+            (word.equals("-[p]"))) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    public void processFlags(String commandArr[]) {
 
         String f = "";
         boolean found = false;
-        for(String s : commandArr){
-            if(found && !s.matches("-[a-z]")){
+        for (String s : commandArr) {
+            if (found && !s.matches("-[a-z]") && isNotRightWord(s)) {
                 ArrayList<String> listOfString = flagMap.get(f);
                 if (listOfString == null) {
                     listOfString = new ArrayList<String>();
                     listOfString.add(s);
                     flagMap.put(f, listOfString);
 
-                }else{
+                } else {
                     listOfString.add(s);
                 }
 
             }
-            if(s.matches("-[a-z]")) {
+            if ((s.matches("-[a-z]")) || (!isNotRightWord(s))) {
                 f = s;
+                System.out.println(f);
                 //flagMap.put(f, new ArrayList<String>());
                 found = true;
+                ArrayList<String> listOfString = new ArrayList<String>();
+                flagMap.put(f, listOfString);
             }
         }
         for (Map.Entry<String, ArrayList<String>> entry : flagMap.entrySet()) {
@@ -119,25 +131,32 @@ public abstract class CommandSuper {
     }
 
 
-    public void processPayload(String []CommandArr){
-        if(this.Root != COMMAND_KEYS.none){
-            if(this.subRootCommand != COMMAND_KEYS.none){
-                Payload =  getThePayload(2 , CommandArr);
-            }else{
-                Payload = getThePayload(1 , CommandArr);
+    /**
+     * This function extracts payload from a particular command.
+     *
+     * @param CommandArr which contains the whole command by user.
+     */
+    public void processPayload(String[] CommandArr) {
+        if (this.Root != COMMAND_KEYS.none) {
+            if (this.subRootCommand != COMMAND_KEYS.none) {
+                Payload = getThePayload(2, CommandArr);
+            } else {
+                Payload = getThePayload(1, CommandArr);
             }
-        }else{
+        } else {
             Payload = "";
         }
     }
 
-    public static String getThePayload(int start , String []CommandArr){
-        int i  = 0;
-        while( i < CommandArr.length && !CommandArr[i].matches("-[a-z]")){
+    public static String getThePayload(int start, String[] CommandArr) {
+        int i = 0;
+        while (i < CommandArr.length && !CommandArr[i].matches("-[a-z]") &&
+            isNotRightWord(CommandArr[i])) {
+            System.out.println(i + "." + CommandArr[i]);
             i++;
         }
         String payload = "";
-        for(int j = start;j < i ; j++ ){
+        for (int j = start; j < i; j++) {
             payload += CommandArr[j];
             payload += " ";
         }
@@ -145,6 +164,5 @@ public abstract class CommandSuper {
     }
 
     public abstract void executeCommands() throws IOException;
-
 
 }
