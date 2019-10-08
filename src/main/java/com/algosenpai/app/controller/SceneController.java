@@ -2,6 +2,7 @@ package com.algosenpai.app.controller;
 
 
 import com.algosenpai.app.constant.ImagesConstant;
+import com.algosenpai.app.constant.ImagesEnum;
 import com.algosenpai.app.constant.JavaFxConstant;
 import com.algosenpai.app.constant.ResourcePathConstant;
 import com.algosenpai.app.utility.ResourceRandomUtility;
@@ -31,7 +32,7 @@ public class SceneController extends Application {
     public void start(Stage stage) throws Exception {
         SceneController.stage = stage;
         SceneController.musicController = new MusicController();
-        String imageName = ResourceRandomUtility.randomResources(ImagesConstant.startAppImages);
+        String imageName = ImagesConstant.startAppImages.get(ImagesEnum.START_APP_2);
         changeScene("home.fxml", imageName);
     }
 
@@ -73,8 +74,9 @@ public class SceneController extends Application {
         node.setTranslateY(downShift);
     }
 
-    void setTextStyle(Node node, int red, int green, int blue, boolean bold) {
+    void setTextStyle(Node node, int red, int green, int blue, boolean bold, int fontSize, String fontStyle) {
         node.applyCss();
-        node.setStyle("-fx-fill:rgb(" + red + "," + green + "," + blue + ");" + (bold ? "-fx-font-weight:bold;" : ""));
+        node.setStyle("-fx-fill:rgb(" + red + "," + green + "," + blue + "); -fx-font: " + fontSize +
+                " " + fontStyle + ";" + (bold ? "-fx-font-weight:bold;" : ""));
     }
 }
