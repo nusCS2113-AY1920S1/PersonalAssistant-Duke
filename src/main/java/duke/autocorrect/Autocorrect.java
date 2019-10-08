@@ -44,7 +44,9 @@ public class Autocorrect {
             counter[i] = 0;
         }
         for (int i = 0; i < word.length() - 1; i += 1) {
-            counter[(int)word.charAt(i) - 97] += 1;
+            if ((int)word.charAt(i) - 97 > 0 && (int)word.charAt(i) - 97 < 26) {
+                counter[(int) word.charAt(i) - 97] += 1;
+            }
         }
     }
 
