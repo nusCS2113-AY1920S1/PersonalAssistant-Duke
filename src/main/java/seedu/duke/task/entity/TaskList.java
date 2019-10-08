@@ -130,6 +130,16 @@ public class TaskList extends ArrayList<Task> {
         return msg;
     }
 
+    public String setDoAfter(int index, String description) throws CommandParser.UserInputException {
+        if (index < 0 || index >= this.size()) {
+            throw new CommandParser.UserInputException("Invalid index");
+        }
+        Task task = this.get(index);
+        task.setDoAfterDescription(description);
+        String msg = "Do after task " + description + " has been added to task " + index;
+        return msg;
+    }
+
     /**
      * Detect if a task being added clashes with another task in the list.
      *

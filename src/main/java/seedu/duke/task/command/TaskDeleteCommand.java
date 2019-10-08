@@ -2,6 +2,7 @@ package seedu.duke.task.command;
 
 import seedu.duke.Duke;
 import seedu.duke.CommandParser;
+import seedu.duke.task.TaskStorage;
 import seedu.duke.task.entity.TaskList;
 import seedu.duke.common.command.Command;
 

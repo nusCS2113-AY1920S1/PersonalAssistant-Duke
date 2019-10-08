@@ -101,7 +101,6 @@ public class CommandParser {
         return input.replaceAll("\\s*(?<key>-[\\w]+)\\s+(?<value>[\\w]+)\\s*", "");
     }
 
-
     /**
      * Parses the user/file input as command. It returns a command that is not yet executed. It also needs to
      * get a UI from Duke to display the messages.
@@ -151,8 +150,8 @@ public class CommandParser {
         } else if (input.startsWith("reminder")) {
             return parseReminderCommand(input, taskList, optionList);
         } else if (input.startsWith("doafter")) {
-            return parseDoAfterCommand(input, taskList);
-        } else if (input.startsWith("snooze ")) {
+            return parseDoAfterCommand(input, taskList, optionList);
+        } else if (input.startsWith("snooze")) {
             return parseSnoozeCommand(input, taskList);
         } else if (input.startsWith("todo") | input.startsWith("deadline") | input.startsWith("event")) {
             return parseAddTaskCommand(taskList, input);
@@ -199,7 +198,7 @@ public class CommandParser {
 
     private static Command parseShowEmailCommand(EmailList emailList, String input) throws UserInputException {
         if (input.length() <= 4) {
-            throw new UserInputException("Please enter index of email to be shown after \'email "
+            throw new UserInputException("Please enter a valid index of email to be shown after \'email "
                     + "show\'");
         }
         try {
@@ -216,7 +215,7 @@ public class CommandParser {
 
     private static Command parseSnoozeCommand(String input, TaskList taskList) {
         if (input.length() <= 7) {
-            ui.showError("Please enter index of task after \'snooze\'");
+            ui.showError("Please enter a valid index of task after \'snooze\'");
             return new InvalidCommand();
         } else {
             try {
@@ -229,30 +228,12 @@ public class CommandParser {
         return new InvalidCommand();
     }
 
-    private static Command parseDoAfterCommand(String input, TaskList taskList) {
-        if (input.length() < 8) {
-            ui.showError("Please enter index of task after \'doafter\'");
-        } else if (input.length() < 11) {
-            ui.showError("Please enter description for do-after task");
-        } else {
-            String[] splitInput = input.split(" /");
-            try {
-                int itemNumber = Integer.parseInt(splitInput[1].trim());
-                return new TaskDoAfterCommand(taskList, itemNumber, splitInput[2]);
-            } catch (NumberFormatException | IndexOutOfBoundsException e) {
-                ui.showError(e.toString());
-                return new InvalidCommand();
-            }
-        }
-        return new InvalidCommand();
-    }
-
     private static Command parseDoneCommand(String input, ArrayList<Option> optionList) {
         Pattern doneCommandPattern = Pattern.compile("^done\\s+(?<index>\\d+)\\s*$");
         Matcher doneCommandMatcher = doneCommandPattern.matcher(input);
         if (!doneCommandMatcher.matches()) {
             if (ui != null) {
-                ui.showError("Please enter index of task after \'done\'");
+                ui.showError("Please enter a valid index of task after \'done\'");
             }
             return new InvalidCommand();
         }
@@ -273,7 +254,7 @@ public class CommandParser {
         Matcher deleteCommandMatcher = deleteCommandPattern.matcher(input);
         if (!deleteCommandMatcher.matches()) {
             if (ui != null) {
-                ui.showError("Please enter index of task after \'delete\'");
+                ui.showError("Please enter a valid index of task after \'delete\'");
             }
             return new InvalidCommand();
         } else {
@@ -282,7 +263,8 @@ public class CommandParser {
                 return new TaskDeleteCommand(taskList, index);
             } catch (NumberFormatException e) {
                 if (ui != null) {
-                    ui.showError("Please enter correct task index");
+                    ui.showError("Please enter correct task index: " + deleteCommandMatcher.group(
+                            "index"));
                 }
             }
         }
@@ -290,14 +272,18 @@ public class CommandParser {
     }
 
     private static int parseIndex(String input) throws NumberFormatException {
-        return Integer.parseInt(input) - 1;
+        int index = Integer.parseInt(input) - 1;
+        if (index < 0) {
+            throw new NumberFormatException();
+        }
+        return index;
     }
 
     private static Command parseFindCommand(String input, TaskList taskList, ArrayList<Option> optionList) {
         Pattern findCommandPattern = Pattern.compile("^find\\s+(?<keyword>[\\w]+[\\s|\\w]*)\\s*$");
         Matcher findCommandMatcher = findCommandPattern.matcher(input);
         if (!findCommandMatcher.matches()) {
-            if(ui != null) {
+            if (ui != null) {
                 ui.showError("Please enter keyword for searching after \'find\'");
             }
         } else {
@@ -308,18 +294,65 @@ public class CommandParser {
     }
 
     private static Command parseReminderCommand(String input, TaskList taskList, ArrayList<Option> optionList) {
+        Pattern reminderCommandPattern = Pattern.compile("^reminder(?:\\s+(?<dayLimit>[\\d]*)\\s*)?");
+        Matcher reminderCommandMatcher = reminderCommandPattern.matcher(input);
+        if (!reminderCommandMatcher.matches()) {
+            if (ui != null) {
+                ui.showError("Please enter reminder with or without a number, which is the maximum number "
+                        + "of days from now for a task to be considered as near");
+            }
+            return new InvalidCommand();
+        }
         int dayLimit = -1;
-        if (input.length() > 9 && input.charAt(8) == ' ') {
-            try {
-                dayLimit = Integer.parseInt(input.substring(9));
-            } catch (NumberFormatException e) {
+        try {
+            dayLimit = Integer.parseInt(reminderCommandMatcher.group("dayLimit"));
+        } catch (NumberFormatException e) {
+            if (ui != null) {
                 ui.showError("Reminder day limit in wrong format. Default is used.");
             }
+            return new TaskReminderCommand(taskList);
         }
         if (dayLimit < 0) {
+            if (ui != null) {
+                ui.showError("Reminder day limit cannot be negative. Default is used.");
+            }
             return new TaskReminderCommand(taskList);
         } else {
             return new TaskReminderCommand(taskList, dayLimit);
+        }
+    }
+
+    private static Command parseDoAfterCommand(String input, TaskList taskList, ArrayList<Option> optionList) {
+        Pattern doAfterCommandPattern = Pattern.compile("^do[a|A]fter\\s+(?<index>[\\d]+)\\s*$");
+        Matcher doAfterCommandMatcher = doAfterCommandPattern.matcher(input);
+        if (!doAfterCommandMatcher.matches()) {
+            if (ui != null) {
+                ui.showError("Please enter doAfter command in the correct format with index and description"
+                        + " in -msg option");
+            }
+            return new InvalidCommand();
+        }
+        String description = "";
+        for (Option option : optionList) {
+            if (option.getKey() == "msg") {
+                description = option.getValue();
+                break;
+            }
+        }
+        if (description == "") {
+            if (ui != null) {
+                ui.showError("Please enter a description of doAfter command after \'-msg \' option");
+            }
+            return new InvalidCommand();
+        }
+        try {
+            int index = parseIndex(doAfterCommandMatcher.group("index"));
+            return new TaskDoAfterCommand(taskList, index, description);
+        } catch (NumberFormatException e) {
+            if (ui != null) {
+                ui.showError("Please enter a valid index of task after \'doAfter\'");
+            }
+            return new InvalidCommand();
         }
     }
 

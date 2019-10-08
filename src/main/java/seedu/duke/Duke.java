@@ -83,6 +83,8 @@ public class Duke {
         try {
             Command command = commandParser.parseCommand(input);
             command.execute();
+            TaskStorage.saveTasks(taskList);
+            EmailStorage.saveEmails(emailList);
             return command.toString() + "\n" + command.getResponseMsg();
         } catch (Exception e) {
             return e.getMessage();

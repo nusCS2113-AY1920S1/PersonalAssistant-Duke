@@ -1,5 +1,6 @@
 package seedu.duke.task.command;
 
+import seedu.duke.CommandParser;
 import seedu.duke.Duke;
 import seedu.duke.task.entity.TaskList;
 import seedu.duke.common.command.Command;
@@ -10,19 +11,19 @@ import seedu.duke.common.command.Command;
 public class TaskDoAfterCommand extends Command {
 
     private TaskList taskList;
-    private int itemNumber;
+    private int index;
     private String doAfterDescription;
 
     /**
      * Instantiation of do after command.
      *
      * @param taskList           list of tasks.
-     * @param itemNumber         index of task.
+     * @param index         index of task.
      * @param doAfterDescription of task.
      */
-    public TaskDoAfterCommand(TaskList taskList, int itemNumber, String doAfterDescription) {
+    public TaskDoAfterCommand(TaskList taskList, int index, String doAfterDescription) {
         this.taskList = taskList;
-        this.itemNumber = itemNumber;
+        this.index = index;
         this.doAfterDescription = doAfterDescription;
     }
 
@@ -33,9 +34,13 @@ public class TaskDoAfterCommand extends Command {
      */
     @Override
     public boolean execute() {
-        taskList.get(itemNumber - 1).setDoAfterDescription(doAfterDescription);
-        String msg = "Do after task " + doAfterDescription + " has been added to task " + itemNumber;
-        responseMsg = msg;
+        String msg = "";
+        try {
+            msg = taskList.setDoAfter(index, doAfterDescription);
+        } catch (CommandParser.UserInputException e) {
+            Duke.getUI().showError(e.getMessage());
+            return false;
+        }
         Duke.getUI().showResponse(msg);
         return true;
     }
