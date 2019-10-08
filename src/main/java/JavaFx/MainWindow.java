@@ -15,7 +15,9 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
@@ -40,6 +42,10 @@ public class MainWindow extends BorderPane implements Initializable {
     private Label currentTime;
     @FXML
     private TextField userInput;
+    @FXML
+    private AnchorPane anchorPane;
+    @FXML
+    private HBox progressContainer;
     @FXML
     private ListView sunEventView;
     @FXML
@@ -95,6 +101,9 @@ public class MainWindow extends BorderPane implements Initializable {
             overdueDateColumn.setCellValueFactory(new PropertyValueFactory<>("date"));
             overdueTaskColumn.setCellValueFactory(new PropertyValueFactory<>("task"));
             overdueTable.setItems(setOverdueTable());
+
+            progressContainer.getChildren().add(ProgressController.getProgress("CS2100", "5", "6"));
+            //continue doing here!!! (Mich)
 
             //todo: handling of the list view
         } catch (ParseException | IOException | NullPointerException e) {
