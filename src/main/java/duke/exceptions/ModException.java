@@ -14,6 +14,7 @@ public class ModException extends Exception {
      * so that other sub-classes would have this message.
      * @return Starting portion indicating a DukeException.
      */
+
     @Override
     public String getMessage() {
         return "Error: ";
