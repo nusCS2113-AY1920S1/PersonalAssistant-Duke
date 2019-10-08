@@ -13,8 +13,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-
-<VBox xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.Goal">
+<VBox prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.Goal">
    <children>
       <MenuBar prefHeight="26.0" prefWidth="600.0">
          <menus>
@@ -55,12 +54,12 @@
             </Menu>
          </menus>
       </MenuBar>
-      <AnchorPane prefHeight="400.0" prefWidth="600.0">
+      <AnchorPane prefHeight="629.0" prefWidth="1280.0">
          <children>
-            <Button layoutX="83.0" layoutY="70.0" mnemonicParsing="false" prefHeight="100.0" prefWidth="160.0" text="View all goals of a day" AnchorPane.bottomAnchor="230.0" AnchorPane.leftAnchor="83.0" AnchorPane.rightAnchor="357.0" AnchorPane.topAnchor="70.0" />
-            <Button layoutX="357.0" layoutY="70.0" mnemonicParsing="false" prefHeight="100.0" prefWidth="160.0" text="Add a goal to a day" AnchorPane.bottomAnchor="230.0" AnchorPane.leftAnchor="357.0" AnchorPane.rightAnchor="83.0" AnchorPane.topAnchor="70.0" />
-            <Button layoutX="83.0" layoutY="232.0" mnemonicParsing="false" prefHeight="100.0" prefWidth="160.0" text="Delete a goal from a day" AnchorPane.leftAnchor="83.0" />
-            <Button layoutX="357.0" layoutY="232.0" mnemonicParsing="false" prefHeight="100.0" prefWidth="160.0" text="Delete all goals from a day" />
+            <Button layoutX="320.0" layoutY="131.0" mnemonicParsing="false" prefHeight="100.0" prefWidth="160.0" text="View all goals of a day" AnchorPane.bottomAnchor="399.0" AnchorPane.leftAnchor="320.0" AnchorPane.rightAnchor="800.0" AnchorPane.topAnchor="131.0" />
+            <Button layoutX="800.0" layoutY="131.0" mnemonicParsing="false" prefHeight="100.0" prefWidth="160.0" text="Add a goal to a day" AnchorPane.bottomAnchor="399.0" AnchorPane.leftAnchor="800.0" AnchorPane.rightAnchor="320.0" AnchorPane.topAnchor="131.0" />
+            <Button layoutX="320.0" layoutY="345.0" mnemonicParsing="false" prefHeight="100.0" prefWidth="160.0" text="Delete a goal from a day" AnchorPane.leftAnchor="320.0" />
+            <Button layoutX="800.0" layoutY="345.0" mnemonicParsing="false" prefHeight="100.0" prefWidth="160.0" text="Delete all goals from a day" />
          </children>
       </AnchorPane>
       <SplitPane dividerPositions="0.5" prefHeight="65.0" prefWidth="600.0">
