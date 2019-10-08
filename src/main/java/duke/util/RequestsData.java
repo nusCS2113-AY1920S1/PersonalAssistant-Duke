@@ -11,21 +11,9 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import com.google.gson.Gson;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-
-
 public class RequestsData {
 
-    private Gson gson;
-
-    public RequestsData() {
-        gson = new Gson();
-    }
-
-    //TODO: should the requests for each query be separate?
-    private HttpRequest requestModule(String mod) {
+    public HttpRequest requestModule(String mod) {
         String upperMod = mod.trim().toUpperCase();
         return HttpRequest.newBuilder()
                 .uri(URI.create("https://api.nusmods.com/v2/2019-2020/modules/" + upperMod + ".json"))
@@ -34,7 +22,7 @@ public class RequestsData {
                 .build();
     }
 
-    private HttpRequest requestModuleList(String academicYear) {
+    public HttpRequest requestModuleList(String academicYear) {
         return HttpRequest.newBuilder()
                 .uri(URI.create("https://api.nusmods.com/v2/" + academicYear + "/moduleList/.json"))
                 .timeout(Duration.ofMinutes(1))
@@ -51,14 +39,12 @@ public class RequestsData {
     }
 
     /**
-     * With reference from :https://openjdk.java.net/groups/net/httpclient/intro.html.
+     * HttpRequest with reference from :https://openjdk.java.net/groups/net/httpclient/intro.html.
      * Using the nusMods V2 API : https://api.nusmods.com/v2/
      */
-    public void getModJsonString(String mod, Storage store) {
+    public void storeModData(HttpRequest request, Storage store) {
         // Api calls only work with upper case module code
-        String trimMod = mod.trim();
         HttpClient client = HttpClient.newHttpClient();
-        HttpRequest request = requestModule(trimMod);
         try {
             // Response.body() contains the returned module info as JSON string
             HttpResponse<String> response =
@@ -67,23 +53,12 @@ public class RequestsData {
             if (response.statusCode() != 200) {
                 return;
             }
-            System.out.println(response.body());
             List<String> responseList = getResponseList(response.body());
             store.writeModsData(responseList);
         } catch (IOException e) {
             e.printStackTrace();
         } catch (InterruptedException ie) {
             System.out.println(ie.getMessage());
-        }
-    }
-
-    private void readJson(HttpResponse<String> response) {
-        try {
-            JsonElement element = gson.fromJson(response.body(), JsonElement.class);
-            JsonObject jsonObject = element.getAsJsonObject();
-            System.out.println(jsonObject);
-        } catch (IllegalStateException e) {
-            e.printStackTrace();
         }
     }
 

@@ -1,11 +1,11 @@
 package duke.exceptions;
 
-public class DukeException extends Exception {
-    public DukeException() {
+public class ModException extends Exception {
+    public ModException() {
         super();
     }
 
-    public DukeException(String message) {
+    public ModException(String message) {
         super(message);
     }
 
@@ -16,6 +16,6 @@ public class DukeException extends Exception {
      */
     @Override
     public String getMessage() {
-        return "DukeException: ";
+        return "Error: ";
     }
 }

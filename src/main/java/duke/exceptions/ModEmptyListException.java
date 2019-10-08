@@ -1,6 +1,6 @@
 package duke.exceptions;
 
-public class DukeEmptyListException extends DukeException {
+public class ModEmptyListException extends ModException {
 
     @Override
     public String getMessage() {

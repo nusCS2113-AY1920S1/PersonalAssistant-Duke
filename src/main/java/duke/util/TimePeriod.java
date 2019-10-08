@@ -1,6 +1,6 @@
 package duke.util;
 
-import duke.exceptions.DukeInvalidTimePeriodException;
+import duke.exceptions.ModInvalidTimePeriodException;
 
 import java.time.LocalDateTime;
 
@@ -13,17 +13,17 @@ public class TimePeriod {
      * Constructor for TimePeriod check.
      * @param begin Start date.
      * @param end End date.
-     * @throws DukeInvalidTimePeriodException thrown when date period is invalid.
+     * @throws ModInvalidTimePeriodException thrown when date period is invalid.
      */
-    public TimePeriod(LocalDateTime begin, LocalDateTime end) throws DukeInvalidTimePeriodException {
+    public TimePeriod(LocalDateTime begin, LocalDateTime end) throws ModInvalidTimePeriodException {
         if (end.isBefore(begin)) {
-            throw new DukeInvalidTimePeriodException("End before begin!");
+            throw new ModInvalidTimePeriodException("End before begin!");
         }
         this.begin = begin;
         this.end = end;
     }
 
-    public TimePeriod(LocalDateTime begin) throws DukeInvalidTimePeriodException {
+    public TimePeriod(LocalDateTime begin) throws ModInvalidTimePeriodException {
         this(begin, begin);
     }
 

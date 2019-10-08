@@ -1,8 +1,8 @@
 package duke;
 
 import duke.command.Command;
-import duke.exceptions.DukeException;
-import duke.exceptions.DukeTimeIntervalTooCloseException;
+import duke.exceptions.ModException;
+import duke.exceptions.ModTimeIntervalTooCloseException;
 import duke.util.ParserWrapper;
 import duke.util.RequestsData;
 import duke.util.Storage;
@@ -44,25 +44,26 @@ public class Duke {
         ui.helloMsg();
         boolean isExit = false;
         // Starting reminder threads and pulling data from API
+        // TODO: pending fix from HL for thread bug
         try {
             reminder = new Reminder(tasks.getTasks());
             reminder.run();
             data = new RequestsData();
-        } catch (DukeTimeIntervalTooCloseException e) {
+        } catch (ModTimeIntervalTooCloseException e) {
             System.out.println(e.getMessage());
         }
         while (!isExit) {
             try {
                 String fullCommand = ui.readCommand();
                 if (val > 0) {
-                    data.getModJsonString(fullCommand, store);
+                    data.storeModData(data.requestModuleList("2019-2020"), store);
                 }
                 val++;
                 ui.showLine();
                 Command c = parser.parse(fullCommand);
                 c.execute(tasks, ui, store, reminder);
                 isExit = c.isExit();
-            } catch (DukeException e) {
+            } catch (ModException e) {
                 System.out.println(e.getMessage());
             } finally {
                 ui.showLine();

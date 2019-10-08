@@ -5,7 +5,7 @@ import duke.util.Reminder;
 import duke.util.Storage;
 import duke.util.TaskList;
 import duke.util.Ui;
-import duke.exceptions.DukeEmptyListException;
+import duke.exceptions.ModEmptyListException;
 
 import java.util.List;
 import java.util.Objects;
@@ -30,10 +30,10 @@ public class FindCommand extends Command {
      * @param store Storage object which updates stored data.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage store, Reminder reminder) throws DukeEmptyListException {
+    public void execute(TaskList tasks, Ui ui, Storage store, Reminder reminder) throws ModEmptyListException {
         boolean isEmpty = tasks.getTasks().isEmpty();
         if (isEmpty) {
-            throw new DukeEmptyListException();
+            throw new ModEmptyListException();
         }
         List<Task> temp = tasks.find(keyword);
         ui.findMsg(temp);

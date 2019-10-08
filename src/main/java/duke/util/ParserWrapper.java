@@ -8,9 +8,9 @@ import duke.command.ByeCommand;
 import duke.command.Command;
 import duke.command.ListCommand;
 import duke.command.ScheduleCommand;
-import duke.exceptions.DukeCommandException;
-import duke.exceptions.DukeException;
-import duke.exceptions.DukeInvalidTimeException;
+import duke.exceptions.ModCommandException;
+import duke.exceptions.ModException;
+import duke.exceptions.ModInvalidTimeException;
 import duke.tasks.Deadline;
 import duke.tasks.DoWithin;
 import duke.tasks.Events;
@@ -33,7 +33,7 @@ public class ParserWrapper {
         natty = new NattyWrapper();
     }
 
-    private String formatInputToStringDate(String date) throws DukeInvalidTimeException {
+    private String formatInputToStringDate(String date) throws ModInvalidTimeException {
         return natty.dateToLocalDateTime(date).format(DateTimeFormatter.ofPattern("dd-MM-yyyy [HH:mm]"));
     }
 
@@ -41,9 +41,9 @@ public class ParserWrapper {
      * Parsing date arguments.
      * @param input User input.
      * @return Command class based on user input.
-     * @throws DukeException error based on user input.
+     * @throws ModException error based on user input.
      */
-    public Command parse(String input) throws DukeException {
+    public Command parse(String input) throws ModException {
         // Checks every input for keywords
         input = input.trim();
         if (input.startsWith("todo ")) {
@@ -94,7 +94,7 @@ public class ParserWrapper {
             return new ScheduleCommand(input);
         } else {
             //throws invalid command exception when user inputs non-keywords
-            throw new DukeCommandException();
+            throw new ModCommandException();
         }
     }
 
