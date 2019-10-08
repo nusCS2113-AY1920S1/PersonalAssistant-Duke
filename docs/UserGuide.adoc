@@ -234,7 +234,11 @@ Examples:
 * `deadline homework /by 17/09/2019 1222` +
 Returns `(>_<) OOPS!!! The date/time for deadline clashes with [E][X] concert (at: 17th of September 2019, 12:22 PM)
      Please choose another date/time! Or mark the above task as Done first!`
-     
+
+====  View all available functions or commands: `help`
+View all the functions and commands that the Duke Manager have.
+Format: `help`
+
 === Miscellenous Inputs 
 
 ==== Exiting the program : `exit`
