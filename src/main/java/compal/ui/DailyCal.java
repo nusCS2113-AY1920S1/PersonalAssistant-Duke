@@ -24,8 +24,8 @@ import javafx.scene.shape.Rectangle;
 
 public class DailyCal {
 
-    String dateToDisplay;
-    boolean[][] canStore = new boolean[25][5];
+    private String dateToDisplay;
+    private boolean[][] canStore = new boolean[25][5];
     private Compal compal;
     private ScrollPane sp = new ScrollPane();
     private Group groupRoot = new Group();
@@ -300,11 +300,11 @@ public class DailyCal {
                 double pxPerMin = (pixelBlock / Double.valueOf(hourInMin));
                 double downPX = pxPerMin * startMin;
 
-                while (canStore[currentTime][eventCounter] == false) {
+                while (!canStore[currentTime][eventCounter]) {
                     eventCounter++;
                 }
 
-                if (canStore[currentTime][eventCounter] == true) {
+                if (canStore[currentTime][eventCounter]) {
                     System.out.println("EC " + eventCounter);
                     System.out.println("CT" + currentTime);
                     System.out.println();

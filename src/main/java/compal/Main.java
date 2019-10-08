@@ -31,7 +31,6 @@ public class Main extends Application {
     //Class Properties/Variables
 
     private Compal compal = new Compal();
-    private Ui ui;
 
     /**
      * Initializes and sets up the GUI.
@@ -42,7 +41,7 @@ public class Main extends Application {
      */
     @Override
     public void start(Stage primaryStage) throws Exception {
-        ui = new UiManager(compal);
+        Ui ui = new UiManager(compal);
         ui.start(primaryStage);
     }
 
