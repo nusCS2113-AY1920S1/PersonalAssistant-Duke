@@ -1,39 +1,60 @@
-# Setting up
+# Eggventory Systems Ltd.
+<p align = "center"> <img src="./docs/assets/eggventory_logo.png" alt="Masterpiece"> </p>
 
-**Prerequisites**
+## What is Eggventory?
+For far too long the Faculty of Engineering's (FoE) lab technicians have had to deal with **convoluted and time-consuming** methods of tracking their inventory through **Excel sheets or even sometimes using pen and paper!**
 
-* JDK 11
-* Recommended: IntelliJ IDE
-* Fork this repo to your GitHub account and clone the fork to your computer
+*Worse still*, when it comes to loaning out items to students, items often go missing without any system to remind lab technicians to recollect items or renew loans.
 
-**Importing the project into IntelliJ**
+The time spent on this administrative burden could be better spent on **continually improving lab facilities**, and even opening up the lab to more students to **support an improved culture of innovation** within FoE!
 
-1. Open IntelliJ (if you are not in the welcome screen, click `File` > `Close Project` to close the existing project dialog first).
-1. Set up the correct JDK version.
-   * Click `Configure` > `Structure for new Projects` (in older versions of Intellij:`Configure` > `Project Defaults` > `Project Structure`).
-   * If JDK 11 is listed in the drop down, select it. If it is not, click `New...` and select the directory where you installed JDK 11.
-   * Click `OK`.
-1. Click `Import Project`.
-1. Locate the project directory and click `OK`.
-1. Select `Create project from existing sources` and click `Next`.
-1. Rename the project if you want. Click `Next`.
-1. Ensure that your src folder is checked. Keep clicking `Next`.
-1. Click `Finish`.
+We hope to drive this change by creating an inventory management system that is **specialized and technical enough** to meet the requirements of lab technicians, while being **general enough to be used across multiple Engineering labs**.
 
-# Tutorials 
+## Why the name Eggventory?
+<p align = "center"> <img src="./docs/assets/world_record_egg.png" alt="Majestic" height=50% width=50%> </p>
 
-Duke Increment | Tutorial
----------------|---------------
-`A-Gradle` | [Gradle Tutorial](tutorials/gradleTutorial.md)
-`A-TextUiTesting` | [Text UI Testing Tutorial](tutorials/textUiTestingTutorial.md)
-`Level-10` | JavaFX tutorials:<br>→ [Part 1: Introduction to JavaFX][fx1]<br>→ [Part 2: Creating a GUI for Duke][fx2]<br>→ [Part 3: Interacting with the user][fx3]<br>→ [Part 4: Introduction to FXML][fx4]
+There are two reasons:
+1. Eggventory stands for **Engineering Got General Inventory**. 
+2. Our **philosophy of the Egg** at Team Eggventory.
 
-[fx1]: <tutorials/javaFxTutorialPart1.md>
-[fx2]: <tutorials/javaFxTutorialPart2.md>
-[fx3]: <tutorials/javaFxTutorialPart3.md>
-[fx4]: <tutorials/javaFxTutorialPart4.md>
+*More on our philosophy:* At Eggventory we believe in the **power of the potential to be, and to do something greater**. Just as the unhatched egg cannot comprehend the infinite possibilities in the world outside until it is hatched, humans can be limited in their perspective and can often enclose their thinking within a box conforming to archaic and inefficient ideas of the past. 
 
-# Feedback, Bug Reports
+**The Egg therefore serves as a reminder**, that unless we choose to move past our comfort zones and hatch into something greater, we will be unable to achieve **paradigmatic change**.
 
-* If you have feedback or bug reports, please post in [se-edu/duke issue tracker](https://github.com/se-edu/duke/issues).
-* We welcome pull requests too.
+**It is this change that we at Eggventory strive towards timelessly.**
+
+## Eggventory in action
+<p align="center"> <img src="./docs/images/Ui.png" alt="UI" width=65% height=65%> </p>
+
+**Say goodbye to piles of paper records.** Eggventory allows you to quickly and conveniently view all your stock and loan records. With the colour-based status indicator, **hours spent slicing through inventory data can be cut down into seconds.** As students *we care* - you won't have to stay back after 5pm to account for our lab logistics anymore!
+
+### Seamless switching between CLI and GUI
+<p align = "center"> <img src="./docs/assets/switching_icon.png" alt="CLI/GUI Switching" height=20% width=20%> </p>
+
+Whether you're someone who wants more power at their fingertips, or someone just looking for an intuitive and minimalist interface for their inventory management, Eggventory has the tools for you. Choose between the Augmented CLI or the GUI, and switch seamlessly between them as and when you see fit.
+ 
+### Inventory exporting to CSV
+<p align = "center"> <img src="./docs/assets/csv_icon.png" alt="CSV Exporting" height=20% width=20%> </p>
+
+Need to use your inventory with another software? That's easy! Simply export your entire inventory to a CSV file for use with any databasing software - with just a single click! Eggventory does not try to restrict you to its ecosystem, but rather wants to augment yours. :)
+
+### Frequent updates and bugfixes
+<p align = "center"> <img src="./docs/assets/bugfix_icon.png" alt="Bugfixes" height=20% width=20%> </p>
+
+Eggventory is an in-house solution - made by NUS students, for NUS. This means that any bugs or feature requests can be met on a timely basis with utmost flexibility.
+
+## Learn Eggventory
+<p align = "center"> <img src="./docs/assets/learn_icon.png" alt="Learn Eggventory" height=20% width=20%> </p>
+
+If you would like to learn how to use Eggventory to maximize its capabilities, or if you just need help, please view the [User Guide.](./docs/CS2113T-F09-3-Eggventory-UG.docx)
+
+## Meet Team Eggventory
+<p align = "center"> <img src="./docs/assets/team_icon.png" alt="Meet Us" height=20% width=20%> </p>
+
+Please visit [here](./docs/AboutUs.md) if you would like to learn more about the members of Team Eggventory.
+
+## Contribute to Eggventory
+<p align = "center"> <img src="./docs/assets/contribute_icon.png" alt="Contributing" height=20% width=20%> </p>
+
+We welcome you to join us in contributing to Eggventory and to give back to the community. Please see [guidelines on contributing.](./CONTRIBUTING.md)
+If you would like to get familiar with Eggventory's implementation, please view the [Developer Guide.](./docs/CS2113T-F09-3-Eggventory-DG.docx)
