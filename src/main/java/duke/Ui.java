@@ -1,8 +1,8 @@
 package duke;
 
 import duke.Data.Parser;
-import duke.module.Schedule;
-import duke.sports.ManageStudents;
+import duke.Module.Schedule;
+import duke.Sports.ManageStudents;
 import duke.Task.TaskList;
 import duke.Data.Storage;
 
