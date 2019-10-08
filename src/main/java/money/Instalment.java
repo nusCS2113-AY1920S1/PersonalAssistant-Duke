@@ -10,6 +10,9 @@ public class Instalment extends Expenditure {
     private float AIR;
     private float MIR;
     private DateTimeFormatter dateTimeFormatter;
+    private int  paymentsMade;
+    private float percentage;
+
 
     public Instalment(float price, String description, String category, LocalDate boughtDate, int numOfPayments, float AnnualIR) {
         super(price, description, category, boughtDate);
@@ -24,11 +27,21 @@ public class Instalment extends Expenditure {
         return (float) ((getPrice() * MIR * Math.pow(1 + MIR, numOfPayments)) / (Math.pow(1 + MIR, numOfPayments) - 1));
     }
 
+    public void percentPay(int payments) {
+        this.paymentsMade = payments;
+        this.percentage = (float) paymentsMade / numOfPayments * 100;
+    }
+
+    public float getPercentage() {
+        return percentage;
+    }
+
     public float totalAmount() { return EqualMonthlyInstalment() * numOfPayments; }
 
     public LocalDate setEndTime () { return getDateBoughtDate().plusMonths(numOfPayments); }
 
-    public String toString() { return "[INS]" + "$" + getPrice() + " " + getDescription() + "(on: " + getBoughtDate() + ")"; }
+    public String toString() { return "[INS]" + "$" + getPrice() + " "
+            + getDescription() + "(on: " + getBoughtDate() + ")"; }
 
     public String getCategory() { return super.getCategory(); }
 

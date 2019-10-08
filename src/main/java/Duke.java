@@ -1,5 +1,6 @@
 import controlpanel.*;
 import money.Account;
+import moneycommands.AutoUpdateInstalmentCommand;
 import moneycommands.MoneyCommand;
 
 import java.nio.file.Path;
@@ -41,8 +42,11 @@ public class Duke {
             ui.clearOutputString();
             ui.appendToOutput(ui.showLine());
             boolean isNewUser = account.isToInitialize();
+            MoneyCommand updateCommand = new AutoUpdateInstalmentCommand();
+            updateCommand.execute(account, ui, moneyStorage);
             MoneyCommand c = Parser.moneyParse(input, isNewUser);
             c.execute(account, ui, moneyStorage);
+
 
             if (c.isExit()) {
                 System.exit(0);
