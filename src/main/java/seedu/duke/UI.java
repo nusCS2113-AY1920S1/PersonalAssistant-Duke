@@ -13,6 +13,7 @@ public class UI {
     private static boolean debug = false;
 
     private String emailPath = "";
+    private String responseMsg = "";
 
     /**
      * Instantiates the UI component, which also display the welcoming message.
@@ -47,6 +48,7 @@ public class UI {
      * @param msg the message that is to be shown
      */
     public void showResponse(String msg) {
+        this.responseMsg = msg;
         System.out.println("------------------------------");
         System.out.println(msg);
         System.out.println("------------------------------\n");
@@ -78,5 +80,9 @@ public class UI {
 
     public String getEmailPath() {
         return this.emailPath;
+    }
+
+    public String getResponseMsg() {
+        return responseMsg;
     }
 }

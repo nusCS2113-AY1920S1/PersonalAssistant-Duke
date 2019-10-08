@@ -74,6 +74,7 @@ public class MainWindow extends AnchorPane {
                 DialogBox.getDukeDialog("Welcome!", dukeImage)
         );
 
+        // show email
         webEngine = webView.getEngine();
         webEngine.load("https://www.google.com");
 
@@ -108,14 +109,18 @@ public class MainWindow extends AnchorPane {
     private void handleUserInput() {
         webView.setDisable(false);
         String input = userInput.getText();
-        String response = duke.getResponse(input);
+        String command = duke.getResponse(input);  // for debugging purpose
+        String response = ui.getResponseMsg();
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
-                DialogBox.getDukeDialog(response, dukeImage)
+                DialogBox.getDukeDialog(command + "\n\n" + response, dukeImage)
         );
         setInputPrefix();
         updateTasksList();
         updateEmailsList();
+        if (input.contains("clear")) {
+            dialogContainer.getChildren().clear();
+        }
         if (input.contains("email show")) {
             updateHtml();
         }
@@ -144,7 +149,6 @@ public class MainWindow extends AnchorPane {
         String type = e.getEventType().getName();
         KeyCode keyCode = e.getCode();
         String keyInfo = type + ": Key Code=" + keyCode.getName() + ", Text=" + e.getText() + "\n";
-
         // print key pressed info to terminal for debugging purpose.
         System.out.println(keyInfo);
 

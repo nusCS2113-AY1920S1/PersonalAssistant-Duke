@@ -1,5 +1,6 @@
 package seedu.duke.common.command;
 
+import seedu.duke.Duke;
 import seedu.duke.common.command.Command;
 
 /**
@@ -18,6 +19,7 @@ public class InvalidCommand extends Command {
         //    Duke.getUI().showError("Invalid Command Received");
         //}
         responseMsg = "This is an invalid command. Enter \'help\' for more information.";
+        Duke.getUI().showResponse(responseMsg);
         return false;
     }
 }

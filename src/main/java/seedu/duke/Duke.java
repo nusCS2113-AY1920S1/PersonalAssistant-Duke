@@ -83,7 +83,7 @@ public class Duke {
         try {
             Command command = commandParser.parseCommand(input);
             command.execute();
-            return command.toString() + "\n" + command.getResponseMsg();
+            return command.toString();
         } catch (Exception e) {
             return e.getMessage();
         }
