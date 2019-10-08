@@ -2,6 +2,7 @@ package seedu.hustler.parser;
 
 import java.util.Arrays;
 
+import seedu.hustler.data.CommandLog;
 import seedu.hustler.command.*;
 import seedu.hustler.logic.CommandLineException;
 
@@ -42,12 +43,14 @@ public class CommandParser extends Parser {
         if (userInput[0].equals("find")) {
             return new FindCommand(userInput);
         } else if (userInput[0].equals("delete")) {
+            CommandLog.recordCommand(rawInput);
             return new DeleteCommand(userInput);
         } else if (userInput[0].equals("list")) {
             return new ListCommand();
         } else if (userInput[0].equals("remind")) {
             return new RemindCommand();
         } else if (userInput[0].equals("done")) {
+            CommandLog.recordCommand(rawInput);
             return new DoneCommand(userInput);
         } else if (userInput[0].equals("show")) {
             return new ScheduleCommand(userInput);
@@ -56,11 +59,16 @@ public class CommandParser extends Parser {
         } else if (userInput[0].equals("/avatar")) {
             return new CheckAvatarCommand();
         } else if (Arrays.binarySearch(taskCommands, userInput[0]) >= 0) {
+            CommandLog.recordCommand(rawInput);
             return new AddCommand(userInput);
         } else if (userInput[0].equals("timer")) {
             return new TimerCommand(userInput);
+        } else if (userInput[0].equals("undo")) {
+            return new UndoCommand(userInput);
         } else if (userInput[0].equals("stoptimer")) {
             return new StopTimerCommand();
+        } else if (userInput[0].equals("showtimer")) {
+            return new ShowTimerCommand();
         } else {
             return new InvalidCommand();
         }

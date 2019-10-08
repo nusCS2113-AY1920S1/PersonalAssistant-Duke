@@ -21,11 +21,11 @@ public class timer implements Runnable {
     }
 
     public void run() {
+        System.out.println("Timer mode has commenced! Time set: " + hours + "hr " + minutes + "min " + seconds + "sec");
         try {
             while (hours != 0 || minutes != 0 | seconds != 0) {
                 Thread.sleep(1000);
                 decrementSeconds();
-		printTimeLeft();
             }
         } catch (Exception e) {}
 

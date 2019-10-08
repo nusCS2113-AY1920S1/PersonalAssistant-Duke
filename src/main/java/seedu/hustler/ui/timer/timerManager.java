@@ -2,7 +2,7 @@ package seedu.hustler.ui.timer;
 
 public class timerManager {
 
-    protected timer countdownTimer;
+    protected static timer countdownTimer;
     protected static Thread countdownThread;
 
     public timerManager() {
@@ -18,6 +18,10 @@ public class timerManager {
     public void startTimer() {
         countdownThread = new Thread(countdownTimer);
         countdownThread.start();
+    }
+
+    public void printTimeLeft() {
+        countdownTimer.printTimeLeft();
     }
 
     public static void stopTimer() {
