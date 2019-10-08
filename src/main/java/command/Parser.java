@@ -4,7 +4,6 @@ import common.DukeException;
 import common.TaskList;
 import task.*;
 import task.Deadline;
-import task.Event;
 import task.Task;
 import ui.Ui;
 
@@ -49,9 +48,6 @@ public class Parser {
                 processDeadline(input, tasklist, ui);
                 storage.save(tasklist.returnArrayList());
 
-            } else if (isEvent(input)) {
-                ProcessEvent(input, tasklist, ui);
-                storage.save(tasklist.returnArrayList());
             } else if (IsDoAfter(input)) {
                 ProcessDoAfter(input, tasklist, ui);
                 Storage.save(tasklist.returnArrayList());
@@ -236,23 +232,6 @@ public class Parser {
             ui.exceptionMessage("     \u2639 OOPS!!! Format of time is wrong.");
         }
     }
-    private static void ProcessEvent(String input, TaskList tasklist, Ui ui){
-        try {
-            String[] splitspace = input.split(" ", 2);
-            String[] splitslash = splitspace[1].split("/", 2);
-            String taskDescription = splitslash[0];
-            String[] splittime = splitslash[1].split(" ", 2);
-            String taskTime = splittime[1];
-            Date formattedtime = dataformat.parse(taskTime);
-            Event event = new Event(input, dataformat.format(formattedtime));
-            tasklist.addTask(event);
-            ui.printAddedMessage(event, tasklist);
-        } catch (ArrayIndexOutOfBoundsException e) {
-            ui.exceptionMessage("     ☹ OOPS!!! The description of a event cannot be empty.");
-        } catch (ParseException e) {
-            ui.exceptionMessage("     ☹ OOPS!!! Format of time is wrong.");
-        }
-    }
 
     /**
      * Processes the within command and adds a withinPeriodTask to the user's Tasklist.
@@ -362,7 +341,7 @@ public class Parser {
                 tasklist.get(nreschedule).setAt(newschedule);
                 ui.printRescheduleMessage(tasklist.get(nreschedule));
             } else {
-                ui.exceptionMessage("     ☹ OOPS!!! Please select a deadline or event type task to reschedule.");
+                ui.exceptionMessage("     ☹ OOPS!!! Please select a deadline type task to reschedule.");
             }
 
         } catch (ArrayIndexOutOfBoundsException e) {
@@ -401,10 +380,6 @@ public class Parser {
 
     private static boolean isDeadline(String input) {
         return input.startsWith("deadline");
-    }
-
-    private static boolean isEvent(String input) {
-        return input.startsWith("event");
     }
 
     private static boolean IsDoAfter(String input){
