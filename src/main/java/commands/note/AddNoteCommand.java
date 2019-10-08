@@ -4,6 +4,7 @@ import Storage.Storage;
 import Tasks.Task;
 import UI.Ui;
 import commands.Command;
+import exception.DukeException;
 import notes.Note;
 import notes.NoteList;
 
@@ -13,6 +14,33 @@ import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 
 public class AddNoteCommand extends Command {
+
+    protected LocalDate processCommand(String[] command) throws DukeException{
+        //addNote day/week/month yyyy-MM-dd
+        //<the note they want to add>
+        try {
+            try {
+                if (!(command[1].equals("day") || command[1].equals("week") || command[1].equals("month"))) {
+                    throw new DukeException("The second word in the command has to be \'day\', \'week\' or \'month\'.");
+                }
+                if (command[1].equals("month")) {
+                    command[2] = command[2] + "-01";
+                }
+            } catch (ArrayIndexOutOfBoundsException b) {
+                throw new DukeException("OOPS!!! The description of an addNote cannot be empty.");
+            }
+            return LocalDate.parse(command[2], Note.noteFormatter);
+        } catch (ArrayIndexOutOfBoundsException e) {
+            throw new DukeException("Please input a date.");
+            //return;
+        } catch (DateTimeParseException a) {
+            if (command[1].equals("month")) {
+                throw new DukeException("The date has to been in YYYY-MM format.");
+            } else {
+                throw new DukeException("The date has to been in YYYY-MM-DD format.");
+            }
+        }
+    }
 
     private Note addToList(ArrayList<Note> listOfNotes, LocalDate userDate, String usersNote, String date) {
         boolean hasNote = false;
@@ -42,33 +70,12 @@ public class AddNoteCommand extends Command {
 
     @Override
     public void execute(ArrayList<Task> list, Ui ui, Storage storage) throws IOException {
-        //addNote day/week/month yyyy-MM-dd
-        //<the note they want to add>
         String[] command = ui.FullCommand.split(" ");
         LocalDate userDate;
         try {
-            try {
-                if (!(command[1].equals("day") || command[1].equals("week") || command[1].equals("month"))) {
-                    System.out.println("The second word in the command has to be \'day\', \'week\' or \'month\'.");
-                    return;
-                }
-                if (command[1].equals("month")) {
-                    command[2] = command[2] + "-01";
-                }
-            } catch (ArrayIndexOutOfBoundsException b) {
-                System.out.println("OOPS!!! The description of an addNote cannot be empty.");
-                return;
-            }
-            userDate = LocalDate.parse(command[2], Note.noteFormatter);
-        } catch (ArrayIndexOutOfBoundsException e) {
-            System.out.println("Please input a date.");
-            return;
-        } catch (DateTimeParseException a) {
-            if (command[1].equals("month")) {
-                System.out.println("The date has to been in YYYY-MM format.");
-            } else {
-                System.out.println("The date has to been in YYYY-MM-DD format.");
-            }
+            userDate = processCommand(command);
+        } catch (DukeException e) {
+            ui.showErrorMessage(e);
             return;
         }
         ui.ReadCommand();

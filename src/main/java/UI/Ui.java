@@ -96,7 +96,7 @@ public class Ui {
     }
 
     public void showErrorMessage(Exception e) {
-        System.err.println(e.getMessage());
+        System.out.println(e.getMessage());
     }
 
 }
