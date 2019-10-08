@@ -15,6 +15,7 @@ import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
 import seedu.duke.Duke;
 import seedu.duke.CommandParser;
+import seedu.duke.UI;
 import seedu.duke.task.entity.TaskList;
 import seedu.duke.task.TaskStorage;
 import seedu.duke.email.EmailStorage;
@@ -46,7 +47,10 @@ public class MainWindow extends AnchorPane {
     @FXML
     private WebView webView;
 
+    //private WebEngine webEngine= webView.getEngine();
+
     private Duke duke;
+    private UI ui;
 
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
     private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
@@ -54,8 +58,8 @@ public class MainWindow extends AnchorPane {
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
-        WebEngine webEngine = webView.getEngine();
-        webEngine.load("http://www.google.com");
+        WebEngine webEngine= webView.getEngine();
+        webEngine.load("https://www.google.com");
         webView.setDisable(true);
         userInput.requestFocus();
         dialogContainer.getChildren().addAll(
@@ -68,6 +72,7 @@ public class MainWindow extends AnchorPane {
 
     public void setDuke(Duke d) {
         duke = d;
+        ui = duke.getUI();
     }
 
     /**
@@ -86,6 +91,13 @@ public class MainWindow extends AnchorPane {
         setInputPrefix();
         updateTasksList();
         updateEmailsList();
+
+        if (input.contains("email show")) {
+            String emailPath = ui.getEmailPath();
+            WebEngine webEngine = webView.getEngine();
+            webEngine.load(emailPath);
+            displayEmailHtml();
+        }
         if (response.contains("Bye, hope to see you again.")) {
             TaskStorage.saveTasks(duke.getTaskList());
             EmailStorage.saveEmails(duke.getEmailList());
@@ -106,18 +118,29 @@ public class MainWindow extends AnchorPane {
 
         // Do sth if ESC key is pressed
         if (e.getCode() == KeyCode.ESCAPE) {
-            if(isShowingEmail) {
-                webView.setMaxHeight(0);
-                emailsListView.setMaxHeight(800);
-                isShowingEmail = false;
-            } else {
-                emailsListView.setMaxHeight(0);
-                webView.setMaxHeight(800);
-                isShowingEmail = true;
-            }
+            toggleEmailDisplay();
             e.consume();
-
         }
+    }
+
+    private void toggleEmailDisplay() {
+        if(isShowingEmail) {
+            displayEmailList();
+        } else {
+            displayEmailHtml();
+        }
+    }
+
+    private void displayEmailHtml() {
+        emailsListView.setMaxHeight(0);
+        webView.setMaxHeight(800);
+        isShowingEmail = true;
+    }
+
+    private void displayEmailList() {
+        webView.setMaxHeight(0);
+        emailsListView.setMaxHeight(800);
+        isShowingEmail = false;
     }
 
     /**
