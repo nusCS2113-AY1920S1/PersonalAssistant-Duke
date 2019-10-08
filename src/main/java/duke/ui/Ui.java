@@ -14,6 +14,7 @@ import java.util.Scanner;
  */
 public class Ui {
 
+    protected static final String BACKUP_FILENAME = "duke.txt";
     protected static final String line = "    ____________________________________________________________";
     protected final Scanner in;
     protected final PrintStream out;
@@ -320,5 +321,21 @@ public class Ui {
      */
     public void showDuplicateMsg() {
         out.println("     The same task is already in the list!");
+    }
+
+    /**
+     * Outputs a message to the user to let it know that it is updating
+     */
+    public void showBeforeBackupMsg() {
+        out.println("     Updating duke.txt...");
+    }
+
+    /**
+     * Outputs a message to the user to let it know that it has finished updating,
+     * and the file is shown in a folder.
+     */
+    public void showAfterBackupMsg() {
+        out.println("     Updated " + BACKUP_FILENAME + " with the current items in Duke Manager!");
+        out.println("     Directory of the file opened in explorer!");
     }
 }
