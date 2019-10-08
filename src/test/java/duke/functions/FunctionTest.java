@@ -55,6 +55,10 @@ public class FunctionTest {
         try {
             c = Parser.parse("add burger /calorie 100 /sodium 100 /fats 100", autocorrect);
             c.execute(tasks, ui, storage, user);
+            c = Parser.parse("breakfast burger", autocorrect);
+            c.execute(tasks, ui, storage, user);
+            c = Parser.parse("breakfast burger /calorie 100", autocorrect);
+            c.execute(tasks, ui, storage, user);
         } catch (DukeException e) {
             exceptionThrown1 = true;
         }

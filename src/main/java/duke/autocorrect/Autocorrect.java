@@ -37,14 +37,13 @@ public class Autocorrect {
      * This is a function that will store the user input word into the object.
      * @param word word to be stored.
      */
-
     public void setWord(String word) {
         this.word = word;
         for (int i = 0; i < 26; i += 1) {
             counter[i] = 0;
         }
         for (int i = 0; i < word.length() - 1; i += 1) {
-            if ((int)word.charAt(i) - 97 > 0 && (int)word.charAt(i) - 97 < 26) {
+            if ((int)word.charAt(i) - 97 >= 0 && (int)word.charAt(i) - 97 < 26) {
                 counter[(int) word.charAt(i) - 97] += 1;
             }
         }
