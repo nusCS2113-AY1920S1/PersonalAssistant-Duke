@@ -141,4 +141,11 @@ public class Ui {
         }
         System.out.println(padding + Integer.toString(limit - consumeTotal));
     }
+
+    public void showHelp(ArrayList<String> helpLines) {
+        System.out.println(padding + "Here are the commands you need to know:");
+        helpLines.forEach(line -> {
+            System.out.println(padding + line);
+        });
+    }
 }

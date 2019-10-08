@@ -139,6 +139,8 @@ public class Parser {
                 name = description.split("/", 2)[0];
                 info = "/" + description.split("/", 2)[1];
                 return new EditCommand(new Meal(name, info, autocorrect));
+            case "help":
+                return new HelpCommand();
             default:
                 throw new DukeException("\u2639 OOPS!!! I'm sorry, but I don't know what " + command + " means :-(");
         }
