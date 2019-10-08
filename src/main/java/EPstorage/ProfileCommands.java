@@ -6,73 +6,65 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.TreeMap;
 import java.util.regex.Pattern;
 
 
 /**
- * commands for storage
+ * class that contains all methods that deal with Profile object
  */
-public class Commands {
+public class ProfileCommands {
     private File genreList;
     private UserProfile userProfile;
     private EditProfileJson editProfileJson;
 
-    public Commands(UserProfile userProfile) throws FileNotFoundException {
+    public ProfileCommands(UserProfile userProfile) throws FileNotFoundException {
         genreList = new File("/Users/wenhui/main/EPdata/genreIDlist.txt");
         this.userProfile = userProfile;
         this.editProfileJson = new EditProfileJson();
     }
 
+    /**
+     * change name in profile
+     */
     public void setName(String name) throws IOException {
         userProfile.setUserName(name);
         editProfileJson.updateProfile(userProfile);
     }
 
+    /**
+     * change age in profile
+     */
     public void setAge(String age) throws IOException {
         userProfile.setUserAge(Integer.parseInt(age));
         editProfileJson.updateProfile(userProfile);
     }
 
-    public void setPreference(String preferences) throws IOException {
-        String tokens[] = preferences.split(Pattern.quote("-"));
-        ArrayList<Integer> genrePreferences = new ArrayList<>(50);
-        for (String log : tokens){
-            if (log.length() > 0){
-                if (log.charAt(0) == 'g') {
-                    log = log.substring(2).trim();
-                    genrePreferences.add(findGenreID(log));
-                }
-            }
+    /**
+     * set user preferences
+     */
+    public void setPreference(TreeMap<String, ArrayList<String>> flagMap) throws IOException {
+        ArrayList<Integer> genrePreferences = new ArrayList<>(10);
+        for (String log : flagMap.get("-g")){
+            genrePreferences.add(findGenreID(log));
         }
         userProfile.setGenreId(genrePreferences);
         editProfileJson.updateProfile(userProfile);
     }
 
-    public void addPreference(String preferences) throws IOException {
-        String tokens[] = preferences.split(Pattern.quote("-"));
+    public void addPreference(TreeMap<String, ArrayList<String>> flagMap) throws IOException {
         ArrayList<Integer> genrePreferences = new ArrayList<>(50);
-        for (String log : tokens){
-            if (log.length() > 0){
-                if (log.charAt(0) == 'g') {
-                    log = log.substring(2).trim();
-                    genrePreferences.add(findGenreID(log));
-                }
-            }
+        for (String log : flagMap.get("-g")){
+            genrePreferences.add(findGenreID(log));
         }
         userProfile.addGenreId(genrePreferences);
         editProfileJson.updateProfile(userProfile);
         }
 
-    public void removePreference(String preferences) throws IOException {
-        String tokens[] = preferences.split(Pattern.quote("-"));
+    public void removePreference(TreeMap<String, ArrayList<String>> flagMap) throws IOException {
         ArrayList<Integer> genrePreferences = new ArrayList<>(50);
-        for (String log : tokens){
-            if (log.length() > 0){
-                if (log.charAt(0) == 'g') {
-                    log = log.substring(2).trim();
-                    genrePreferences.add(findGenreID(log));
-                }
-            }
+        for (String log : flagMap.get("-g")){
+            genrePreferences.add(findGenreID(log));
         }
         userProfile.removeGenreId(genrePreferences);
         editProfileJson.updateProfile(userProfile);
@@ -116,4 +108,6 @@ public class Commands {
         }
         return labelText;
     }
+
+
 }

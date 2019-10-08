@@ -1,6 +1,11 @@
 package Commands;
 
+import EPstorage.ProfileCommands;
 import MovieUI.Controller;
+import MovieUI.MovieHandler;
+
+import java.io.FileNotFoundException;
+import java.io.IOException;
 
 public class SetCommand extends CommandSuper{
     public SetCommand(Controller UIController) {
@@ -8,7 +13,7 @@ public class SetCommand extends CommandSuper{
     }
 
     @Override
-    public void executeCommands() {
+    public void executeCommands() throws IOException {
         switch (this.getSubRootCommand()){
             case name:
                 executeSetName();
@@ -24,15 +29,48 @@ public class SetCommand extends CommandSuper{
         }
     }
 
-    private void executeSetName() {
-
+    /**
+     * set user's name
+     * root: set
+     * sub: name
+     * payload: <user's name>
+     * flag: none
+     */
+    private void executeSetName() throws IOException {
+        MovieHandler movieHandler = ((MovieHandler)this.getUIController());
+        ProfileCommands command = new ProfileCommands(movieHandler.getUserProfile());
+        command.setName(this.getPayload());
+        movieHandler.clearSearchTextField();
+        movieHandler.initialize();
     }
 
-    private void executeSetAge() {
-
+    /**
+     * set user's age
+     * root: set
+     * sub: age
+     * payload: <user's age>
+     * flag: none
+     */
+    private void executeSetAge() throws IOException {
+        MovieHandler movieHandler = ((MovieHandler)this.getUIController());
+        ProfileCommands command = new ProfileCommands(movieHandler.getUserProfile());
+        command.setAge(this.getPayload());
+        movieHandler.clearSearchTextField();
+        movieHandler.initialize();
     }
 
-    private void executeSetPreference() {
-
+    /**
+     * set user's preferences
+     * root: set
+     * sub: preference
+     * payload: none
+     * flag: -g (genre name -- not genre ID)
+     */
+    private void executeSetPreference() throws IOException {
+        MovieHandler movieHandler = ((MovieHandler)this.getUIController());
+        ProfileCommands command = new ProfileCommands(movieHandler.getUserProfile());
+        command.setPreference(this.getFlagMap());
+        movieHandler.clearSearchTextField();
+        movieHandler.initialize();
     }
 }

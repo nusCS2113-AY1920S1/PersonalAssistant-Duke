@@ -3,12 +3,13 @@ package Execution;
 import Commands.COMMAND_KEYS;
 import Commands.CommandSuper;
 
+import java.io.IOException;
 import java.util.Stack;
 
 public class CommandStack {
     private static Stack<CommandSuper> MyStack = new Stack<>();
 
-    public static void pushCmd(CommandSuper cmd){
+    public static void pushCmd(CommandSuper cmd) throws IOException {
         if(cmd.getRoot() == COMMAND_KEYS.yes){
             executeLastCommand();
         }else{
@@ -35,7 +36,7 @@ public class CommandStack {
     }
 
 
-    public static void executeLastCommand(){
+    public static void executeLastCommand() throws IOException {
         System.out.println("Execute LAst Command");
         CommandSuper cmd = MyStack.peek();
         if(!cmd.isExecute()){

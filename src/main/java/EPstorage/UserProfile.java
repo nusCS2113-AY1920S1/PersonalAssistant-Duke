@@ -2,6 +2,9 @@ package EPstorage;
 
 import java.util.ArrayList;
 
+/**
+ * structure for UserProfile object
+ */
 public class UserProfile {
     private String userName;
     private int userAge;

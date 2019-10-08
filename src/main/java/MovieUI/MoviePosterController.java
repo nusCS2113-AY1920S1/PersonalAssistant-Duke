@@ -16,6 +16,9 @@ public class MoviePosterController
     @FXML
     private ImageView moviePosterImageView;
 
+    @FXML
+    private Label movieNumberLabel;
+
     public Label getMovieTitleLabel() {
         return movieTitleLabel;
     }
@@ -30,5 +33,9 @@ public class MoviePosterController
 
     public void setPosterImageView(ImageView mPosterImageView) {
         mPosterImageView = mPosterImageView;
+    }
+
+    public Label getMovieNumberLabel() {
+        return movieNumberLabel;
     }
 }

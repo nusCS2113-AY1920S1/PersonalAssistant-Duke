@@ -1,8 +1,12 @@
 package Commands;
 
 
+import EPstorage.ProfileCommands;
 import MovieUI.Controller;
 import MovieUI.MovieHandler;
+
+import java.io.IOException;
+import java.util.ArrayList;
 
 
 public class SearchCommand extends CommandSuper {
@@ -13,7 +17,7 @@ public class SearchCommand extends CommandSuper {
     }
 
     @Override
-    public void executeCommands() {
+    public void executeCommands() throws IOException {
         switch (this.getSubRootCommand()){
             case movies:
                 executeMovieSearch();
@@ -21,14 +25,40 @@ public class SearchCommand extends CommandSuper {
             case tvshows:
                 executeTvShowSearch();
                 break;
+//            case all:
+//                executeTvShowSearch();
+//                break;
             default:
                 break;
         }
 
     }
 
-    private void executeMovieSearch(){
-        ((MovieHandler)this.getUIController()).getAPIRequester().beginSearchRequest(getPayload());
+    /**
+     * search for movie titles using keywords
+     * root: search
+     * sub: movies
+     * payload: <keywords>
+     * flag: -g (genre name -- not genre ID) [-g preferences -> to use user's preferred filters]
+     */
+    private void executeMovieSearch() throws IOException {
+        MovieHandler movieHandler = ((MovieHandler)this.getUIController());
+        if (!this.getFlagMap().containsKey("-g")) {
+            ((MovieHandler) this.getUIController()).getAPIRequester().beginMovieSearchRequest(getPayload());
+            movieHandler.clearSearchTextField();
+        } else {
+            ArrayList<Integer> inputGenre = new ArrayList<>(10);
+            for (String log : this.getFlagMap().get("-g")) {
+                if (log.equalsIgnoreCase("preferences")){
+                    inputGenre.addAll(movieHandler.getUserProfile().getGenreId());
+                } else {
+                    ProfileCommands command = new ProfileCommands(movieHandler.getUserProfile());
+                    inputGenre.add(command.findGenreID(log));
+                }
+            }
+            ((MovieHandler) this.getUIController()).getAPIRequester().beginMovieSearchRequestWithGenre(getPayload(), inputGenre);
+            movieHandler.clearSearchTextField();
+        }
     }
 
     private void executeTvShowSearch(){

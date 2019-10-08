@@ -1,5 +1,8 @@
 package EPstorage;
 
+/**
+ * structure for GenreID object
+ */
 public class GenreId {
     private String genre;
     private int id;

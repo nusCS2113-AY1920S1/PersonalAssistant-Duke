@@ -7,6 +7,9 @@ import java.io.*;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 
+/**
+ * class that deals with editing the UserProfile.json file
+ */
 public class EditProfileJson {
     private ObjectMapper mapper = new ObjectMapper();
     private File file;
@@ -23,6 +26,9 @@ public class EditProfileJson {
         return mapper.readValue(inputStream, typeReference);
     }
 
+    /**
+     * update json file with any changes made to user profile
+     */
     public void updateProfile(UserProfile userProfile) throws IOException {
         File oldFile = file;
         File newFile = new File("EPdata/tempUserProfile.json");

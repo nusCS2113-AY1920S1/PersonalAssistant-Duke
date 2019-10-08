@@ -90,7 +90,7 @@ public class RetrieveRequest implements InfoFetcher, InfoFetcherWithGenre {
     }
 
 
-    public void beginSearchRequest(String movieTitle) {
+    public void beginMovieSearchRequest(String movieTitle) {
         try {
             String url = MAIN_URL + MOVIE_SEARCH_URL + API_KEY + "&query=" + URLEncoder.encode(movieTitle, "UTF-8");
             fetchJSONData(url);
@@ -99,7 +99,7 @@ public class RetrieveRequest implements InfoFetcher, InfoFetcherWithGenre {
         }
     }
 
-    public void beginSearchRequestWithGenre(String movieTitle, ArrayList<Integer> genreID) {
+    public void beginMovieSearchRequestWithGenre(String movieTitle, ArrayList<Integer> genreID) {
         try {
             String url = MAIN_URL + MOVIE_SEARCH_URL + API_KEY + "&query=" + URLEncoder.encode(movieTitle, "UTF-8");
             fetchJSONDataWithGenre(url, genreID);

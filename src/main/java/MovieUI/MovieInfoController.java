@@ -1,9 +1,10 @@
 package MovieUI;
 
-import EPstorage.Commands;
-import EPstorage.UserProfile;
+import EPparser.CommandParser;
+import EPstorage.*;
 
 import javafx.application.Platform;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
@@ -11,10 +12,13 @@ import javafx.geometry.Orientation;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
 import movieRequesterAPI.RequestListener;
 import movieRequesterAPI.RetrieveRequest;
 import object.MovieInfoObject;
@@ -46,10 +50,40 @@ public class MovieInfoController extends Controller implements RequestListener {
 
     private MovieInfoObject mMovie;
 
+    @FXML
+    private Text text;
+
     @FXML Label userNameLabel;
     @FXML Label userAgeLabel;
     @FXML Label genreListLabel;
     private UserProfile userProfile;
+    private ArrayList<Playlist> playlists;
+
+    class KeyboardClick implements EventHandler<KeyEvent> {
+
+        private Controller control;
+
+        KeyboardClick(Controller control){
+            this.control = control;
+        }
+
+        @Override
+        public void handle(KeyEvent event) {
+            if(event.getCode().equals(KeyCode.ENTER)) {
+//                    SearchResultContext.AddKeyWord(mSearchTextField.getText());
+                // do something
+                System.out.println("Hello");
+                try {
+                    CommandParser.parseCommands(mSearchTextField.getText() ,control );
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }else if(event.getCode().equals(KeyCode.TAB)){
+                System.out.println("Tab presjenksjessed");
+                event.consume();
+            }
+        }
+    }
 
     // Set the movie for this controller
     public void setMovie(MovieInfoObject movie) throws IOException {
@@ -58,7 +92,11 @@ public class MovieInfoController extends Controller implements RequestListener {
     }
 
     @FXML public void initialize() throws IOException {
-        Commands command = new Commands(userProfile);
+        EditProfileJson editProfileJson = new EditProfileJson();
+        userProfile = editProfileJson.load();
+        EditPlaylistJson editPlaylistJson = new EditPlaylistJson();
+        playlists = editPlaylistJson.load();
+        ProfileCommands command = new ProfileCommands(userProfile);
         userNameLabel.setText(userProfile.getUserName());
         userAgeLabel.setText(Integer.toString(userProfile.getUserAge()));
         genreListLabel.setText(command.convertToLabel(userProfile.getGenreId()));
@@ -84,6 +122,25 @@ public class MovieInfoController extends Controller implements RequestListener {
         movieMainVBox.prefWidthProperty().bind(movieScrollPane.widthProperty());
         movieBackdropImageView.setPreserveRatio(true);
         movieGridPane.prefWidthProperty().bind(movieScrollPane.widthProperty());
+
+        mSearchTextField.addEventFilter(KeyEvent.KEY_PRESSED, event -> {
+            if (event.getCode() == KeyCode.TAB) {
+                System.out.println("Tab pressed");
+                event.consume();
+            }else if(event.getCode().equals(KeyCode.ENTER)) {
+                System.out.println("Enter pressed");
+//
+            }
+        });
+        //Real time changes to text field
+        mSearchTextField.textProperty().addListener((observable, oldValue, newValue) -> {
+            System.out.println("textfield changed from " + oldValue + " to " + newValue);
+        });
+
+        System.out.println(text.getText());
+
+        //Enter is Pressed
+        mSearchTextField.setOnKeyPressed(new KeyboardClick(this));
     }
 
     // User clicks on the back button to navigate back to the movies scene
@@ -136,68 +193,6 @@ public class MovieInfoController extends Controller implements RequestListener {
     private void clearText(TextField textField){
         textField.setText("");
     }
-
-    @FXML private void searchButtonClicked() throws IOException {
-        String userInput = mSearchTextField.getText();
-        Commands command = new Commands(userProfile);
-        //for setting up profile preferences
-        String[] tokens = userInput.split((" "), 3);
-        if (tokens.length == 3) {
-            if (tokens[0].equals("set") && tokens[1].equals("name")) {
-                command.setName(tokens[2]);
-                clearText(mSearchTextField);
-                initialize();
-            } else if (tokens[0].equals("set") && tokens[1].equals("age")) {
-                command.setAge(tokens[2]);
-                clearText(mSearchTextField);
-                initialize();
-            } else if (tokens[0].equals("add") && tokens[1].equals("preference")) {
-                command.addPreference(tokens[2]);
-                clearText(mSearchTextField);
-                initialize();
-            } else if (tokens[0].equals("remove") && tokens[1].equals("preference")) {
-                command.removePreference(tokens[2]);
-                clearText(mSearchTextField);
-                initialize();
-            } else if (tokens[0].equals("set") && tokens[1].equals("preference")) {
-                command.setPreference(tokens[2]);
-                clearText(mSearchTextField);
-                initialize();
-            }
-        }
-        //for searching movies
-        if (userInput.equals("show current movie")) {
-            mMovieRequest.beginMovieRequest(RetrieveRequest.MoviesRequestType.NOW_SHOWING);
-        } else if (userInput.equals("show upcoming movie")) {
-            mMovieRequest.beginMovieRequest(RetrieveRequest.MoviesRequestType.UPCOMING);
-        } else if (userInput.equals("show popular movie")) {
-            mMovieRequest.beginMovieRequest(RetrieveRequest.MoviesRequestType.POPULAR);
-        } else if (userInput.equals("show current tv")) {
-            mMovieRequest.beginMovieRequest(RetrieveRequest.MoviesRequestType.TV_SHOWS);
-        } else if (!userInput.isEmpty()) {
-            if (userInput.contains(" -g ")) {
-                ArrayList<Integer> inputGenre = new ArrayList<>(10);
-                String[] token = userInput.split(" -");
-                for (int i = 1; i < token.length; i++) {
-                    if (token[i].charAt(0) == 'g') {
-                        token[i] = token[i].substring(2);
-                        if (token[i].equals("my preference")) {
-                            inputGenre.addAll(userProfile.getGenreId());
-                        } else {
-                            inputGenre.add(command.findGenreID(token[i]));
-                        }
-                    }
-                }
-                mMovieRequest.beginSearchRequestWithGenre(token[0], inputGenre);
-                clearText(mSearchTextField);
-            } else {
-                mMovieRequest.beginSearchRequest(userInput);
-                clearText(mSearchTextField);
-            }
-        }
-    }
-
-
 
     // Menu item events
     @FXML public void exitMenuItemClicked()
