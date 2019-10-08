@@ -2,6 +2,8 @@ package duke.command;
 
 // enum for generating hashmap of strings to commands
 
+// TODO: Write different commands for different contexts
+
 /**
  * Maintains the associations between command keywords and commands (e.g. "list" -> ListCommand). For use in parsing
  * user input.

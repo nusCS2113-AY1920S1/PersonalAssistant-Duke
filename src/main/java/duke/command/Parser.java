@@ -8,16 +8,24 @@ import java.util.HashMap;
 public class Parser {
     private final HashMap<String, Cmd> commandMap = new HashMap<String, Cmd>();
 
+    enum ParseState {
+        EMPTY, //not parsing anything currently
+        ARG, //parsing a single-word argument for a switch or the command itself
+        STRING, //parsing a quoted string
+        SWITCH //parsing a switch name
+    }
+
     /**
      *  Inner class to hold variables required for current parse.
      */
     static class currParse {
         //man I miss structs
-        static int spaceIdx, dashIdx, quoteIdx, endQuoteIdx;
+        static ArgCommand command;
+        static StringBuilder elementBuilder;
+        static ParseState state;
         static String currSwitch;
         static HashMap<String, ArgLevel> switches;
         static HashMap<String, String> switchVals;
-        static ArgCommand command;
     }
 
     /**
@@ -55,6 +63,8 @@ public class Parser {
         return command;
     }
 
+    //parsing assumes no line separators (should have been weeded out by CLI)
+
     /**
      * Parses the user's input and loads the parameters for this Command from it.
      *
@@ -67,26 +77,67 @@ public class Parser {
             throw new DukeException(command.getEmptyArgMsg());
         }
 
-        //find initial tokens
+        currParse.state = ParseState.EMPTY;
+        currParse.currSwitch = null;
         currParse.switches = command.getSwitches();
-        initParse(inputStr);
+        currParse.command = command;
+        currParse.elementBuilder = new StringBuilder();
 
-        while (currParse.spaceIdx >= 0) {
-            if (currParse.quoteIdx < currParse.spaceIdx) {
-
+        //FSM :D
+        for (int i = 0; i < inputStr.length(); ++i) {
+            char curr = inputStr.charAt(i);
+            switch(currParse.state) {
+            case EMPTY:
+                handleEmpty(inputStr, i, curr);
+                break;
+            case ARG:
+                handleArg(inputStr, i, curr);
+                break;
+            case STRING:
+                handleString(inputStr, i, curr);
+                break;
+            case SWITCH:
+                handleSwitch(inputStr, i, curr);
+                break;
             }
         }
     }
 
-    private void initParse(String inputStr) throws DukeException {
-        currParse.spaceIdx = inputStr.indexOf(" ");
-        currParse.dashIdx = inputStr.indexOf("-");
-        currParse.quoteIdx = inputStr.indexOf("\"");
-        currParse.endQuoteIdx = inputStr.indexOf("\"", currParse.quoteIdx + 1);
-        currParse.currSwitch = null;
+    private void handleEmpty(String inputStr, int i, char curr) throws DukeHelpException {
+        switch (curr) {
+        case '-':
+            currParse.state = ParseState.SWITCH;
+            break;
+        case '"':
+            currParse.state = ParseState.STRING;
+            break;
+        case ' ': //skip spaces
+            break;
+        default:
+            if (currParse.command.arg != null) {
+                throw new DukeHelpException("Multiple command arguments given!", currParse.command);
+            } else {
+                currParse.state = ParseState.ARG;
+            }
+            break;
+        }
+    }
 
-        if (currParse.spaceIdx == -1 && currParse.switches.size() != 0) {
-            checkMissingSwitches();
+    private void handleArg(String inputStr, int i, char curr) throws DukeHelpException {
+        switch (curr) {
+
+        }
+    }
+
+    private void handleString(String inputStr, int i, char curr) throws DukeHelpException {
+        switch (curr) {
+
+        }
+    }
+
+    private void handleSwitch(String inputStr, int i, char curr) throws DukeHelpException {
+        switch (curr) {
+
         }
     }
 
