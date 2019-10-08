@@ -1,6 +1,6 @@
 package duke.commands;
 
-import duke.commons.DukeException;
+import duke.commons.exceptions.DukeException;
 import duke.data.BusStop;
 import duke.parsers.api.ApiParser;
 import duke.storage.Storage;

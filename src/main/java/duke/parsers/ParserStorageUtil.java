@@ -1,8 +1,8 @@
 package duke.parsers;
 
-import duke.commons.DukeDateTimeParseException;
-import duke.commons.DukeException;
-import duke.commons.MessageUtil;
+import duke.commons.exceptions.DukeDateTimeParseException;
+import duke.commons.exceptions.DukeException;
+import duke.commons.Messages;
 import duke.data.Location;
 import duke.data.tasks.Deadline;
 import duke.data.tasks.DoWithin;
@@ -57,18 +57,25 @@ public class ParserStorageUtil {
         }  else if ("H".equals(type)) {
             LocalDateTime start = ParserTimeUtil.parseStringToDate(taskParts[3].strip());
             LocalDateTime end = ParserTimeUtil.parseStringToDate(taskParts[4].strip());
-            String address = taskParts[5].strip();
-            double longitude = Double.parseDouble(taskParts[6].strip());
-            double latitude = Double.parseDouble(taskParts[7].strip());
-            double distX = Double.parseDouble(taskParts[7].strip());
-            double distY = Double.parseDouble(taskParts[8].strip());
-            Location location = new Location(address,latitude,longitude,distX,distY);
+            Location location = getLocationFromStorage(taskParts);
             task = new Holiday(description, start, end, location);
         } else {
             task = new Todo(description);
         }
         task.setDone("true".equals(status));
         return task;
+    }
+
+    /**
+     * Parses part of a task back to a Location.
+     */
+    private static Location getLocationFromStorage(String[] taskParts) {
+        String address = taskParts[5].strip();
+        double longitude = Double.parseDouble(taskParts[6].strip());
+        double latitude = Double.parseDouble(taskParts[7].strip());
+        double distX = Double.parseDouble(taskParts[7].strip());
+        double distY = Double.parseDouble(taskParts[8].strip());
+        return new Location(address, latitude, longitude, distX, distY);
     }
 
     /**
@@ -94,6 +101,6 @@ public class ParserStorageUtil {
         } else if (task instanceof Fixed) {
             return "F | " + task.isDone() + " | " + task.getDescription() + " | " + ((Fixed) task).getFixed();
         }
-        throw new DukeException(MessageUtil.CORRUPTED_TASK);
+        throw new DukeException(Messages.CORRUPTED_TASK);
     }
 }

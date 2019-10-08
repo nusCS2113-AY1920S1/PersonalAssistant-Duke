@@ -1,6 +1,6 @@
 package duke.parsers;
 
-import duke.commons.DukeException;
+import duke.commons.exceptions.DukeException;
 import duke.data.tasks.Deadline;
 import org.junit.jupiter.api.Test;
 

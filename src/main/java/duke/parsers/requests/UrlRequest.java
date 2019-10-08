@@ -1,7 +1,7 @@
 package duke.parsers.requests;
 
 import com.google.gson.JsonObject;
-import duke.commons.DukeException;
+import duke.commons.exceptions.DukeException;
 
 /**
  * Abstract class representing individual URL requests.

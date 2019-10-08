@@ -1,7 +1,7 @@
 package duke.parsers.requests;
 
 import com.google.gson.JsonElement;
-import duke.commons.DukeException;
+import duke.commons.exceptions.DukeException;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -11,7 +11,7 @@ import java.net.URLConnection;
 
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import duke.commons.MessageUtil;
+import duke.commons.Messages;
 
 /**
  * URL request to OneMap API to get coordinates of location.
@@ -46,7 +46,7 @@ public class LocationSearchUrlRequest extends UrlRequest {
             response = in.readLine();
             in.close();
         } catch (IOException e) {
-            throw new DukeException(MessageUtil.DATA_NOT_FOUND);
+            throw new DukeException(Messages.DATA_NOT_FOUND);
         }
 
         //TODO: if response == null/api call fail, do some handling

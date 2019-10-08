@@ -1,7 +1,7 @@
 package duke.commands;
 
-import duke.commons.DukeException;
-import duke.commons.MessageUtil;
+import duke.commons.exceptions.DukeException;
+import duke.commons.Messages;
 import duke.storage.Storage;
 import duke.data.tasks.Task;
 import duke.data.tasks.TaskWithDates;
@@ -36,11 +36,11 @@ public class RescheduleCommand extends Command {
             if (task instanceof TaskWithDates) {
                 ((TaskWithDates) task).setStartDate(newDate);
             } else {
-                throw new DukeException(MessageUtil.TASK_NOT_FOUND);
+                throw new DukeException(Messages.TASK_NOT_FOUND);
             }
             ui.showUpdateTask(task);
         } catch (IndexOutOfBoundsException e) {
-            throw new DukeException(MessageUtil.OUT_OF_BOUNDS);
+            throw new DukeException(Messages.OUT_OF_BOUNDS);
         }
         storage.write();
     }

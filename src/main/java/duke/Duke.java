@@ -2,7 +2,7 @@ package duke;
 
 import duke.commands.Command;
 import duke.commands.ExitCommand;
-import duke.commons.DukeException;
+import duke.commons.exceptions.DukeException;
 import duke.parsers.Parser;
 import duke.storage.Storage;
 import duke.ui.Ui;
