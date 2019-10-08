@@ -80,7 +80,7 @@ public class SceneController extends Application {
     void setNodePos(Node node, double downShift, double rightShift) {
         node.applyCss();
         final double width = node.getLayoutBounds().getWidth();
-        node.setTranslateX((double) JavaFxConstant.windowWidth /2 - width / 2 + rightShift);
+        node.setTranslateX((double) JavaFxConstant.windowWidth / 2 - width / 2 + rightShift);
         node.setTranslateY(downShift);
     }
 
