@@ -30,7 +30,7 @@ public class Parser {
      *
      * @param io
      */
-    public void parseInput(String io, TaskList tasks, Storage storage, ManageStudents students, Schedule schedule) throws FileNotFoundException, ParseException {
+    public void parseInput(String io, TaskList tasks, Storage storage, ManageStudents students, Schedule schedule, MyPlan plan) throws FileNotFoundException, ParseException {
         int index = 1;
         String input = io;
         String[] word = io.split(" ");
@@ -260,10 +260,9 @@ public class Parser {
              * Delete: training delete-all|training delete [plan number]
              */
             case "training":
-                MyPlan plan = new MyPlan(".\\src\\main\\java\\duke\\Sports\\plan.txt");
                 switch(word[1]) {
                     case "view": {
-                        System.out.println(plan.loadPlan(word[2]));
+                        System.out.println("TBC");
                         System.out.println(plan.viewPlan());
                         break;
                     }
@@ -360,6 +359,20 @@ public class Parser {
                     }
                 break;
 
+            /**
+             * Command is in the form: plan new [intensity level] or plan view [intensity] plan/[plan number]
+             *
+             */
+            case "plan":
+                if (word[1].equals("view")) {
+                    plan.loadPlan(word[2].toLowerCase(),word[3]);
+                    plan.viewPlan();
+                } else if (word[1].equals("new")) {
+                    plan.createPlan(word[3].toLowerCase());
+                } else if (word[1].equals("edit")) {
+                    //not yet created
+                }
+                break;
 
             default:
                 System.out.println("\u2639 OOPS!!! I'm sorry, but I don't know what that means :-(");

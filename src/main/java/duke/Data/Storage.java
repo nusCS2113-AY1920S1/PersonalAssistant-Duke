@@ -2,6 +2,8 @@ package duke.Data;
 
 import duke.Module.TimeSlot;
 import duke.Sports.MyClass;
+import duke.Sports.MyPlan;
+import duke.Sports.MyTraining;
 import duke.Task.*;
 
 import java.io.File;
@@ -271,5 +273,55 @@ public class Storage {
         } catch (IOException io) {
             System.out.println("File not found:" + io.getMessage());
         }
+    }
+
+    public int loadPMap (Map<Integer, ArrayList<MyTraining>> map) throws FileNotFoundException {
+        MyPlan plan = new MyPlan();
+        ArrayList<MyTraining> list = new ArrayList<>();
+        int division = Integer.parseInt(fileInput.nextLine().split(": ")[1]);
+
+        int index = 1;
+        int intensity = 1;
+        int plan_num = 0;
+
+        while (fileInput.hasNextLine()) {
+            String in = fileInput.nextLine();
+            if (in.contains("Intensity") || in.contains("Plan")) {
+                String[] line = in.split(": ");
+                if (line[1].equals("high")) {
+                    MyPlan.Intensity x = MyPlan.Intensity.high;
+                    intensity = x.getValue();
+                } else if (line[1].equals("moderate")) {
+                    MyPlan.Intensity x = MyPlan.Intensity.moderate;
+                    intensity = x.getValue();
+                } else if (line[1].equals("relaxed")) {
+                    MyPlan.Intensity x = MyPlan.Intensity.relaxed;
+                    intensity = x.getValue();
+                } else {
+                    MyPlan.Intensity y = MyPlan.Intensity.valueOf(intensity);
+                    int key = plan.createKey(y.name(), plan_num);
+                    map.put(key,list);
+                    list.clear();
+                    plan_num = Integer.parseInt(line[1]);
+                }
+            } else {
+                if (!in.equals("")) {
+                    String[] line = in.split(" \\| ");
+                    MyTraining ac = new MyTraining(line[0], Integer.parseInt(line[1]), Integer.parseInt(line[2]));
+                    list.add(ac);
+                }
+            }
+            if (!fileInput.hasNextLine()) {
+                MyPlan.Intensity y = MyPlan.Intensity.valueOf(intensity);
+                int key = plan.createKey(y.name(), plan_num);
+                map.put(key,list);
+            }
+            index++;
+        }
+        return division;
+    }
+
+    public void savePMap() {
+        System.out.println("To be confirmed");
     }
 }
