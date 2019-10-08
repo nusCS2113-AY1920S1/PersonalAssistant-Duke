@@ -103,6 +103,7 @@ public class Parser {
                     date = description.split(" /date ")[1];
                     return new MarkDoneCommand(name, date);
                 }
+                throw new DukeException("\u2639 OOPS!!! The done command was not entered correctly");
             case "find":
                 name = description.split(" /date ", 2)[0];
                 if (description.split(" /date ").length > 1) {

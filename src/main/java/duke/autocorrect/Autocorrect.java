@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.ArrayList;
 
 /**
- * This is a class that will help to correct minor typo
+ * This is a class that will help to correct minor typo.
  * @Author Foo Chi Hen
  */
 
@@ -49,7 +49,7 @@ public class Autocorrect {
     }
 
     /**
-     * This is a function that will compare the word in the object against
+     * This is a function that will compare the word in the object against.
      * pre defined correct words and change it to those words
      */
 

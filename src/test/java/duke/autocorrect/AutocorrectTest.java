@@ -1,12 +1,7 @@
-package duke.user;
-
-import duke.autocorrect.Autocorrect;
-
-import java.util.ArrayList;
+package duke.autocorrect;
 
 import duke.exceptions.DukeException;
 import duke.storage.Storage;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -16,7 +11,7 @@ public class AutocorrectTest {
     private Autocorrect autocorrect = new Autocorrect();
 
     @Test
-    void Autocorrect() {
+    void autocorrectTest() {
         try {
             storage.loadWord(autocorrect);
         } catch (DukeException e) {

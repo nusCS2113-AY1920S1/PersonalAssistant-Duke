@@ -15,8 +15,10 @@ import java.util.Date;
  * A ClearCommand object encapsulates the 2 dates between which all meal data will be cleared.
  */
 public class ClearCommand extends Command {
-    Date startDate, endDate;
-    public ClearCommand(String startDateStr, String endDateStr) throws DukeException{
+    Date startDate;
+    Date endDate;
+
+    public ClearCommand(String startDateStr, String endDateStr) throws DukeException {
         try {
             startDate = dateFormat.parse(startDateStr);
             endDate = dateFormat.parse(endDateStr);
@@ -26,7 +28,7 @@ public class ClearCommand extends Command {
     }
 
     @Override
-    public void execute(MealList mealList, Ui ui, Storage storage, User user){
+    public void execute(MealList mealList, Ui ui, Storage storage, User user) {
         Calendar cal = Calendar.getInstance();
         cal.setTime(startDate);
         for (cal.setTime(startDate); !cal.getTime().after(endDate); cal.add(Calendar.DATE, 1)) {

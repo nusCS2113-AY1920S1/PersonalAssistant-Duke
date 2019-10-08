@@ -15,7 +15,7 @@ public class UserTest {
     private User user = new User("Foo Chi Hen", 22, 100, Gender.MALE, 0, true);
 
     @Test
-    void User() {
+    void user() {
         user.setWeight(100);
         assertEquals(user.getWeight(), 100);
         assertEquals(user.getName(), "Foo Chi Hen");

@@ -3,7 +3,6 @@ package duke;
 import duke.commands.Command;
 import duke.exceptions.DukeException;
 import duke.storage.Storage;
-import duke.tasks.Item;
 import duke.tasks.MealList;
 import duke.ui.Ui;
 import duke.parsers.Parser;

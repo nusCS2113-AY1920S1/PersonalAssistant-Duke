@@ -11,7 +11,7 @@ import java.util.Date;
 import java.util.Scanner;
 
 /**
- * This is a class that will store user information to be used for processing
+ * This is a class that will store user information to be used for processing.
  * @Author Foo Chi Hen
  */
 
@@ -122,7 +122,7 @@ public class User {
     }
 
     /**
-     * This is a function to update weight at time of input
+     * This is a function to update weight at time of input.
      * @param weight Weight at time of input
      */
 
@@ -134,7 +134,7 @@ public class User {
     }
 
     /**
-     * This is a function to update weight at input date
+     * This is a function to update weight at input date.
      * @param weight Weight at time of input
      * @param date String of the date in DD/MM/YYYY format
      */
@@ -184,7 +184,7 @@ public class User {
     }
 
     /**
-     * This is a function to obtain all the weight at different date
+     * This is a function to obtain all the weight at different date.
      */
 
     public ArrayList<Tuple> getAllWeight() {
@@ -218,7 +218,7 @@ public class User {
     }
 
     /**
-     * This is a function to check if it's an empty profile
+     * This is a function to check if it's an empty profile.
      */
 
     public boolean getIsSetup() {

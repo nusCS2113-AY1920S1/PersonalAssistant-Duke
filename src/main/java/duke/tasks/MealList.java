@@ -76,9 +76,9 @@ public class MealList {
                     return newMeal;
                 }
             }
-            throw new DukeException("No meal matches description of " + newMeal.getDescription() + " on " + newMeal.getDate());
-        }
-        else {
+            throw new DukeException("No meal matches description of " + newMeal.getDescription() + " on "
+                    + newMeal.getDate());
+        } else {
             throw new DukeException("No meal found on " + newMeal.getDate());
         }
     }

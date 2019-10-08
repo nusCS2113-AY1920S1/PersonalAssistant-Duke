@@ -3,8 +3,6 @@ package duke.tasks;
 
 import duke.autocorrect.Autocorrect;
 
-import java.util.Date;
-
 /**
  * lunch is a public class that inherits form abstract class meal.
  * A lunch object encapsulates the String that expresses the duration of the lunch

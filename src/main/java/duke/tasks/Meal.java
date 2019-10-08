@@ -25,7 +25,7 @@ public class Meal {
      * @param description the description of the task
      */
     public Meal(String description, String details, Autocorrect autocorrect) {
-        this.description = description.stripTrailing().stripLeading();
+        this.description = description.trim();
         //todo: date input can only be accepted at the back of the statement
         if (details.contains("/date")) {
             String[] splitString = details.split("/date", 2);

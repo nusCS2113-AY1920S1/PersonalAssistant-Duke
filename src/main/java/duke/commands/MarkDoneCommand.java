@@ -15,6 +15,7 @@ import duke.user.User;
  */
 public class MarkDoneCommand extends Command {
     private String type;
+
     /**
      * This is a constructor for MarkDoneCommand.
      * @param type the type of meal

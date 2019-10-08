@@ -192,7 +192,7 @@ public class Storage {
     }
 
     /**
-     * This is a function that will store the user information into a file
+     * This is a function that will store the user information into a file.
      * @param user the user class that contains all personal information to be stored.
      * @Author Foo Chi Hen
      */

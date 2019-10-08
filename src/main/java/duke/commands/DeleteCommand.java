@@ -38,7 +38,7 @@ public class DeleteCommand extends Command {
 
     public DeleteCommand(String indexStr) throws DukeException {
         try {
-            this.index = Integer.parseInt(indexStr.strip());
+            this.index = Integer.parseInt(indexStr.trim());
         } catch (NumberFormatException nfe) {
             throw new DukeException("Unable to parse input " + indexStr + " as integer index. " + helpText);
         }
