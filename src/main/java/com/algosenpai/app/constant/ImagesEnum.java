@@ -1,0 +1,25 @@
+package com.algosenpai.app.constant;
+
+public enum  ImagesEnum {
+
+    BRIGHT_CLASSROOM,
+    CLASSROOM,
+    EVENING_CLASSROOM,
+    EXAM_CLASSROOM,
+
+    START_APP_1,
+    START_APP_2,
+
+    LOADING_SCREEN_END_QUIZ,
+    LOADING_SCREEN_START_QUIZ,
+    LOADING_SCREEN_WAITING,
+
+    LOLICON_GIRL,
+    MIKU_GIRL,
+    PARK,
+    SWIMMING_POOL,
+    TOUR,
+    BEDROOM,
+    TOWN,
+
+}

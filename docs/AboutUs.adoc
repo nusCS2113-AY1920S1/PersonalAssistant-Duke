@@ -46,7 +46,7 @@ Responsibilities: Questions on data structures and algorithms
 '''
 
 === Carrie
-image::carrieng0323852.jpg[width="150", align="left"]
+image::carrieng0323852.png[width="150", align="left"]
 {empty}[http://github.com/carrieng0323852[github]] [<<carrieng0323852#, portfolio>>]
 
 Role: Software Developer (Documentation, In charge of UI)
