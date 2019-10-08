@@ -19,6 +19,7 @@ public class Task {
     protected boolean isDone;
     protected char type;
     protected Date date;
+    protected String duration;
 
     /**
      * Constructor for a new basic Task.
@@ -119,5 +120,10 @@ public class Task {
         SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HHmm");
         Date dateValue = formatter.parse(stringDate);
         return dateValue;
+    }
+    
+    public String stringToDuration(String stringTime) throws ParseException {
+        System.out.println(stringTime);
+        return stringTime;
     }
 }

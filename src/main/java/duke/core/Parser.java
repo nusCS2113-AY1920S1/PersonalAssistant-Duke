@@ -84,6 +84,34 @@ public class Parser {
             input = input.replaceFirst("todo ", "");
             c = new TodoCommand(input);
         }
+
+        else if (words[0].equals("fix")) {
+            if (!(words.length > 1)) {
+                throw new DukeException("The description of a fix duration task cannot be empty.");
+            }
+            input = input.replaceFirst("fix ", "");
+
+            int splitIndex = input.indexOf("/need");
+            int hourIndex = input.indexOf("hours");
+            if (splitIndex == -1) {
+                throw new DukeException("Please specify the deadline date/time using the '/need' command.");
+            }
+            else if (splitIndex == 0) {
+                throw new DukeException("The description of a deadline cannot be empty.");
+            }
+            String description = input.substring(0, splitIndex - 1);
+            if (description.isEmpty()) {
+                throw new DukeException("The description of a deadline cannot be empty.");
+            }
+            String duration = input.substring(splitIndex + 1);
+            duration = duration.replaceFirst("need ", "");
+            if (duration.equals("needs")) {
+                throw new DukeException("The deadline cannot be empty.");
+            }
+            checkParsableDate(duration);
+            c = new FixCommand(description, duration);
+        }
+
         else if (words[0].equals("deadline")) {
             if (!(words.length > 1)) {
                 throw new DukeException("The description of a deadline cannot be empty.");
