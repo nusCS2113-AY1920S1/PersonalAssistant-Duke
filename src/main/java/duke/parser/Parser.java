@@ -11,6 +11,7 @@ import duke.command.ListCommand;
 import duke.command.AddMultipleCommand;
 import duke.command.RemindCommand;
 import duke.command.DuplicateFoundCommand;
+import duke.command.BackupCommand;
 import duke.task.TaskList;
 import duke.task.Todo;
 import duke.task.Deadline;
@@ -314,6 +315,8 @@ public class Parser {
                     }
                 }
             }
+        } else if (sentence.equals("backup")) {
+            return new BackupCommand();
         } else if (sentence.equals("bye") || sentence.equals("exit")) {
             return new ExitCommand();
         } else {
