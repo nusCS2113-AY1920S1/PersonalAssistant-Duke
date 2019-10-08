@@ -18,8 +18,6 @@ public class BackupCommand extends Command {
 
     /**
      * Opens the stored data file in the user's computer.
-     *
-     * @throws IOException  If there is an error reading the file.
      */
     public static void openBackupFolder() throws IOException {
         Desktop desktop = Desktop.getDesktop();

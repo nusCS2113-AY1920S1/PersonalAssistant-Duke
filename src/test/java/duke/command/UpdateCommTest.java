@@ -27,10 +27,9 @@ class UpdateCommTest {
 
         String taskDesc = "run";
         String dateDesc = "";
-        String typeDesc = "";
         int typeOfUpdate = 1;
         int tasknum = 0;
-        Command cmd = new UpdateCommand(taskDesc,dateDesc,typeDesc,typeOfUpdate,tasknum);
+        Command cmd = new UpdateCommand(taskDesc,dateDesc,typeOfUpdate,tasknum);
         Ui ui = new Ui();
 
         assertEquals("     Nice! I've updated this task ^^:\n"
@@ -39,30 +38,16 @@ class UpdateCommTest {
         dateDesc = "08/08/2018 1708";
         typeOfUpdate = 2;
         tasknum = 1;
-        cmd = new UpdateCommand(taskDesc,dateDesc,typeDesc,typeOfUpdate,tasknum);
+        cmd = new UpdateCommand(taskDesc,dateDesc,typeOfUpdate,tasknum);
         assertEquals("     Nice! I've updated this task ^^:\n"
                 + "       2.[D][X] homework (by: 8th of August 2018, 5:08 PM)", cmd.executeGui(items,ui));
 
         taskDesc = "trampoline";
         typeOfUpdate = 1;
         tasknum = 2;
-        cmd = new UpdateCommand(taskDesc,dateDesc,typeDesc,typeOfUpdate,tasknum);
+        cmd = new UpdateCommand(taskDesc,dateDesc,typeOfUpdate,tasknum);
         assertEquals("     Nice! I've updated this task ^^:\n"
                 + "       3.[E][X] trampoline (at: 5th of May 2015, 3PM)", cmd.executeGui(items,ui));
-
-        typeDesc = "event";
-        typeOfUpdate = 3;
-        tasknum = 1;
-        cmd = new UpdateCommand(taskDesc,dateDesc,typeDesc,typeOfUpdate,tasknum);
-        assertEquals("     Nice! I've updated this task ^^:\n"
-                + "       2.[E][X] homework (at: 8th of August 2018, 5:08 PM)", cmd.executeGui(items,ui));
-
-        typeDesc = "todo";
-        typeOfUpdate = 3;
-        tasknum = 2;
-        cmd = new UpdateCommand(taskDesc,dateDesc,typeDesc,typeOfUpdate,tasknum);
-        assertEquals("     Nice! I've updated this task ^^:\n"
-                + "       3.[T][X] trampoline", cmd.executeGui(items,ui));
     }
 
     @Test
