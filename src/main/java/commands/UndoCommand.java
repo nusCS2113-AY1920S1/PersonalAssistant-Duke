@@ -43,13 +43,7 @@ public class UndoCommand extends Command {
             new FixDurationCommand().undo(commandStack.peek(),list,storage);
             System.out.println("I've undo your previous command");
             commandStack.pop();
-        }
-//        else if (commandStack.peek().equals("reschedule")) {
-//            return new ReschedulecommandStack();
-//        } else if (commandStack.peek().equals("snooze")) {
-//            return new SnoozecommandStack();
-//        }
-        else if (!commandStack.empty() && commandStack.peek().contains("tentative")) {
+        } else if (!commandStack.empty() && commandStack.peek().contains("tentative")) {
             new TentativeEventCommand().undo(commandStack.peek(),list,storage);
             System.out.println("I've undo your previous command");
             commandStack.pop();

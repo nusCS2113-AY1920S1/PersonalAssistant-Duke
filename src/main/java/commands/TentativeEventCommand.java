@@ -37,7 +37,6 @@ public class TentativeEventCommand extends Command{
                     sb.append(list.get(i).toString() + "\n");
                 }
                 storage.Storages(sb.toString());
-
             }
         }
         catch (DukeException e) {

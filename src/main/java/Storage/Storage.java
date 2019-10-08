@@ -69,10 +69,6 @@ public class Storage {
                 } else if (details[0].equals("E)")) {
                     Event e = new Event(details[2].trim(), details[3].substring(3).trim());
                     if (details[1].equals("D")) {
-<<<<<<< HEAD
-=======
-
->>>>>>> 5d7d0dab82706313eceaddaf30796be95d1e509d
                         e.isDone = true;
                     } else {
                         e.isDone = false;
@@ -80,11 +76,7 @@ public class Storage {
                     tList.add(e);
                 }
                 else if (details[0].equals("P")) {
-<<<<<<< HEAD
                     Timebound tb = new Timebound(details[2].trim(), details[3].substring(8).trim());
-=======
-                    Timebound tb = new Timebound(details[2].trim(), details[3].trim());
->>>>>>> 5d7d0dab82706313eceaddaf30796be95d1e509d
                     if (details[1].equals("D")) {
                         tb.isDone = true;
                     } else {
@@ -106,9 +98,6 @@ public class Storage {
                     } else {
                         DA.isDone = false;
                     }
-<<<<<<< HEAD
-                    TentativeEvent TE = new TentativeEvent(details[2].trim(),timeslots);
-=======
                     tList.add(DA);
                 } else if (details[0].equals("TE")) {
                     ArrayList<String> timeslots = new ArrayList<String>();
@@ -116,7 +105,6 @@ public class Storage {
                        timeslots.add(details[i]);
                    }
                    TentativeEvent TE = new TentativeEvent(details[2].trim(),timeslots);
->>>>>>> 5d7d0dab82706313eceaddaf30796be95d1e509d
                     if (details[1].equals("D")) {
                         TE.isDone = true;
                     } else {
