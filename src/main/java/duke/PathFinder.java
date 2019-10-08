@@ -7,7 +7,6 @@ import duke.data.Location;
 import duke.parsers.api.ApiConstraintParser;
 import duke.parsers.api.ApiParser;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -79,14 +78,14 @@ public class PathFinder {
         }
     }
 
-    private void depthFirstSearch(BusStop cur, BusStop endBusStop, int i) {
+    private void depthFirstSearch(BusStop cur, BusStop endBusStop, int iteration) {
 
-        if (i == 0 || this.visited.contains(cur)) {
+        if (iteration == 0 || this.visited.contains(cur)) {
             return;
         }
 
         this.visited.add(cur);
-        i -= 1;
+        iteration -= 1;
 
         for (String bus : cur.getBuses()) { //loop through all bus in bus stop
             for (String busCode : this.busMap.get(bus).getDirection(1)) { // depth search the bus route
@@ -100,12 +99,11 @@ public class PathFinder {
                         this.found = true;
                         return;
                     } else {
-                        depthFirstSearch(this.busStopMap.get(busCode), endBusStop, i);
+                        depthFirstSearch(this.busStopMap.get(busCode), endBusStop, iteration);
                     }
                 }
             }
         }
-        return;
     }
 
     private boolean haveSameBus(BusStop cur, BusStop endBusStop) {

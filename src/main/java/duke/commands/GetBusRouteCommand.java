@@ -6,11 +6,10 @@ import duke.parsers.api.ApiParser;
 import duke.storage.Storage;
 import duke.ui.Ui;
 
-import java.io.IOException;
 import java.util.HashMap;
 
 public class GetBusRouteCommand extends Command {
-    String bus;
+    private String bus;
 
     public GetBusRouteCommand(String bus) {
         this.bus = bus;

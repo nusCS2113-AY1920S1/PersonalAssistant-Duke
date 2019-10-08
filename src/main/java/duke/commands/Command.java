@@ -4,7 +4,6 @@ import duke.commons.exceptions.DukeException;
 import duke.storage.Storage;
 import duke.ui.Ui;
 
-import java.io.IOException;
 
 /**
  * Abstract class representing individual duke.commands.

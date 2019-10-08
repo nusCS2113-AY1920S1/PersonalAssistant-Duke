@@ -7,7 +7,6 @@ import duke.parsers.Parser;
 import duke.storage.Storage;
 import duke.ui.Ui;
 
-import java.io.IOException;
 
 /**
  * The Duke program is a simple Personal Assistant Chatbot
