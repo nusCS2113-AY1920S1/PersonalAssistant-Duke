@@ -40,7 +40,7 @@ public class EmailList extends ArrayList<Email> {
         }
         Email email = this.get(index);
         email.showEmail();
-        String responseMsg = "Showing this email in browser: " + email.getSubject();
+        String responseMsg = "Showing email in browser: " + email.getSubject();
         return responseMsg;
     }
 

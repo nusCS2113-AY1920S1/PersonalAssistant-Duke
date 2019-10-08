@@ -1,5 +1,7 @@
 package seedu.duke.email.entity;
 
+import javafx.fxml.FXML;
+import javafx.scene.web.WebView;
 import seedu.duke.Duke;
 import seedu.duke.email.EmailParser;
 
@@ -20,6 +22,9 @@ public class Email {
     protected String body;
     protected Boolean hasHtml;
     protected String tag;
+
+    //@FXML
+    //private WebView webView;
 
     public Email(String subject) {
         this.subject = subject;
@@ -71,6 +76,12 @@ public class Email {
     public void showEmail() throws IOException {
         File emailFile = new File(this.filepath);
         Desktop.getDesktop().browse(emailFile.toURI());
+        //System.out.println(emailFile.toURI().toURL().toString());
+        //String html = "<html><h1>Hello</h1><h2>Hello</h2></html>";
+        //webView.getEngine().loadContent(html);
+        //webView.getEngine().load("file:///C:/WSL/CS2113T/main/data/emails"
+               // + "/787d13df2c52f920b0b24c6e1e66a5600c88a433d7ab336f46291c5d34b263cb-2019-10-07-143357
+        // .htm");
     }
 
     /**
