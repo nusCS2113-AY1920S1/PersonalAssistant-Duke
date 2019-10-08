@@ -1,7 +1,7 @@
 package compal.ui;
 
 import compal.commons.Compal;
-import compal.tasks.Task;
+import compal.model.tasks.Task;
 import javafx.scene.Group;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.StackPane;
@@ -10,7 +10,7 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 
 import java.util.ArrayList;
-import java.util.Collection;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 
@@ -24,8 +24,9 @@ import javafx.scene.shape.Rectangle;
 
 public class DailyCal {
 
-    String dateToDisplay;
-    private Compal compal = new Compal();
+    private String dateToDisplay;
+    private boolean[][] canStore = new boolean[25][5];
+    private Compal compal;
     private ScrollPane sp = new ScrollPane();
     private Group groupRoot = new Group();
     private Line[] horizontalLines = new Line[50];
@@ -44,11 +45,12 @@ public class DailyCal {
     private double[][] storedYAxis = new double[25][5];
     private int startTime = 8;
     private int endTime = 19;
-    private ArrayList<Task> tempList = compal.tasklist.arrlist;
+    private ArrayList<Task> tempList;
     private ArrayList<Task> arrList = new ArrayList<>();
 
 
-    public DailyCal() {
+    public DailyCal(Compal compal) {
+        this.compal = compal;
     }
 
     /**
@@ -57,10 +59,22 @@ public class DailyCal {
      * @return scrollPane final object state
      */
     public ScrollPane init(String givenDate) {
+        tempList = compal.tasklist.arrlist;
+        setTrue(canStore);
         dateToDisplay = givenDate;
         createDailyArrayList();
         sp = buildTimeTable();
         return sp;
+    }
+
+
+    /**
+     * Initializer function set canStore array to true state.
+     */
+    private static void setTrue(boolean[][] array) {
+        for (boolean[] row : array) {
+            Arrays.fill(row, true);
+        }
     }
 
     /**
@@ -118,8 +132,6 @@ public class DailyCal {
 
     /**
      * Generate the date to the displayed on top left column.
-     *
-     * @return scrollPane final object state
      */
     private void genDateSLot() {
         Text date = new Text();
@@ -133,8 +145,6 @@ public class DailyCal {
     /**
      * Caller function to generate all horizontal and vertical lines
      * for each time slot for daily View.
-     *
-     * @return scrollPane final object state
      */
     private void genTimeSlot() {
         for (int i = 0; i < clockTime.length; i++) {
@@ -208,21 +218,29 @@ public class DailyCal {
                         continue;
                     }
                     String desc = task.getDescription();
+
                     //Drawing a Rectangle
                     double heightY = 1.7;
                     double heightYMin = heightY * totalMin;
                     double heightYHour = pixelBlock * totalHour;
+
                     Rectangle rectangle = new Rectangle(pixelBlock, heightYHour + heightYMin);
                     rectangle.setFill(colorFill(task));
                     rectangle.setStroke(Color.BLACK);
+
                     final StackPane stack = new StackPane();
                     final Text text = new Text(desc);
                     text.setFont(Font.font("Georgia Italic", 12));
+
                     stack.getChildren().addAll(rectangle, text);
+                    while (storedXAxis[currentTime][eventCounter] == 0) {
+                        eventCounter++;
+                    }
                     stack.setLayoutX(storedXAxis[currentTime][eventCounter]);
                     stack.setLayoutY(storedYAxis[currentTime][eventCounter]);
-                    eventCounter++;
+
                     groupRoot.getChildren().add(stack);
+                    eventCounter++;
                 }
             }
         }
@@ -250,9 +268,6 @@ public class DailyCal {
         return Color.BLUE;
     }
 
-    /**
-     * Set stroke fill of rectangle to the color depending priority ranking.
-     */
 
 
     /**
@@ -260,9 +275,6 @@ public class DailyCal {
      */
     private void storeScheduleAxis(int currentTime) {
         int eventCounter = 0;
-        int moveRight = 100;
-        double prevX = 0;
-        double prevY = 0;
         double pixelBlock = 100.00;
         int hourInMin = 60;
         for (Task task : arrList) {
@@ -287,28 +299,46 @@ public class DailyCal {
                 }
                 double pxPerMin = (pixelBlock / Double.valueOf(hourInMin));
                 double downPX = pxPerMin * startMin;
-                //store a Rectangle location.
-                if (prevX == 0 && prevY == 0) {
-                    storedXAxis[currentTime][eventCounter] += horizontalXLayout + moveRight;
-                    storedYAxis[currentTime][eventCounter] += horizontalYLayout + downPX - 50;
-                    prevX = horizontalXLayout + moveRight;
-                    prevY = horizontalYLayout + downPX;
-                    moveRight += 100;
-                } else {
-                    storedXAxis[currentTime][eventCounter] += prevX + moveRight;
-                    storedYAxis[currentTime][eventCounter] += prevY + downPX - 50;
-                    prevX = horizontalXLayout + moveRight;
-                    prevY = horizontalYLayout + downPX;
-                    moveRight += 100;
+
+                while (!canStore[currentTime][eventCounter]) {
+                    eventCounter++;
                 }
 
-                int futureEndTime = Integer.parseInt(task.getStringEndTime().substring(0, 2));
-                for (int futureTime = currentTime + 1; futureTime < futureEndTime; futureTime++) {
-                    storedXAxis[futureTime][eventCounter] += 100;
+                if (canStore[currentTime][eventCounter]) {
+                    System.out.println("EC " + eventCounter);
+                    System.out.println("CT" + currentTime);
+                    System.out.println();
+                    double layoutX = getEventLayoutX(eventCounter);
+                    storedXAxis[currentTime][eventCounter] = layoutX;
+                    storedYAxis[currentTime][eventCounter] = horizontalYLayout + downPX - 50;
+                    int futureEndTime = Integer.parseInt(task.getStringEndTime().substring(0, 2));
+                    for (int futureTime = currentTime; futureTime < futureEndTime; futureTime++) {
+                        canStore[futureTime][eventCounter] = false;
+                    }
                 }
-
                 eventCounter += 1;
             }
+        }
+    }
+
+    /**
+     * Get coordinates depending on which event it's being slotted into.
+     *
+     * @return integer coordinates of X-axis.
+     */
+    private int getEventLayoutX(int eventCounter) {
+
+        switch (eventCounter) {
+        case 1:
+            return 200;
+        case 2:
+            return 300;
+        case 3:
+            return 400;
+        case 4:
+            return 500;
+        default:
+            return 100;
         }
     }
 
@@ -353,7 +383,6 @@ public class DailyCal {
     /**
      * Draw horizontal Lines.
      */
-
     private void drawHorizontalLines(int i) {
         horizontalLines[i] = new Line();
         horizontalLines[i].setStartX(0);

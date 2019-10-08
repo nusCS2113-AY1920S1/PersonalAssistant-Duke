@@ -1,11 +1,11 @@
 package compal.storage;
 
-import compal.tasks.FixedDurationTask;
-import compal.tasks.Deadline;
-import compal.tasks.DoAfterTasks;
-import compal.tasks.Event;
-import compal.tasks.RecurringTask;
-import compal.tasks.Task;
+import compal.model.tasks.FixedDurationTask;
+import compal.model.tasks.Deadline;
+import compal.model.tasks.DoAfterTasks;
+import compal.model.tasks.Event;
+import compal.model.tasks.RecurringTask;
+import compal.model.tasks.Task;
 
 import java.io.BufferedReader;
 import java.io.File;
