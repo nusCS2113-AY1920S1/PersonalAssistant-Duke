@@ -1,5 +1,6 @@
 package seedu.duke.gui;
 
+import javafx.animation.PauseTransition;
 import javafx.application.Platform;
 import javafx.collections.ObservableList;
 import javafx.collections.FXCollections;
@@ -13,6 +14,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
+import javafx.util.Duration;
 import seedu.duke.Duke;
 import seedu.duke.CommandParser;
 import seedu.duke.UI;
@@ -98,11 +100,17 @@ public class MainWindow extends AnchorPane {
             webEngine.load(emailPath);
             displayEmailHtml();
         }
-        if (response.contains("Bye, hope to see you again.")) {
-            TaskStorage.saveTasks(duke.getTaskList());
-            EmailStorage.saveEmails(duke.getEmailList());
-            Platform.exit();
+        if (input.contains("bye")) {
+            exit();
         }
+    }
+
+    private void exit() {
+        TaskStorage.saveTasks(duke.getTaskList());
+        EmailStorage.saveEmails(duke.getEmailList());
+        PauseTransition delay = new PauseTransition(Duration.seconds(1));
+        delay.setOnFinished( event -> Platform.exit() );
+        delay.play();
     }
 
     boolean isShowingEmail = false;
