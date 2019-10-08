@@ -1,4 +1,3 @@
-
 package duchess.ui;
 
 import duchess.model.Module;
