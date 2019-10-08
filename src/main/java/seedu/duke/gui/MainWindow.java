@@ -4,9 +4,12 @@ import javafx.animation.PauseTransition;
 import javafx.application.Platform;
 import javafx.collections.ObservableList;
 import javafx.collections.FXCollections;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
@@ -14,6 +17,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
+import javafx.stage.Screen;
 import javafx.util.Duration;
 import seedu.duke.Duke;
 import seedu.duke.CommandParser;
@@ -25,13 +29,15 @@ import seedu.duke.task.entity.Deadline;
 import seedu.duke.task.entity.Event;
 import seedu.duke.task.entity.Task;
 
+import java.awt.*;
 import java.util.function.UnaryOperator;
 
 /**
  * Controller for MainWindow. Provides the layout for the other controls.
  */
 public class MainWindow extends AnchorPane {
-    private TaskList tasks;
+    @FXML
+    private AnchorPane rootAnchorPane;
     @FXML
     private VBox taskContainer;
     @FXML
@@ -49,7 +55,8 @@ public class MainWindow extends AnchorPane {
     @FXML
     private WebView webView;
 
-    //private WebEngine webEngine= webView.getEngine();
+    private WebEngine webEngine;
+    private TaskList tasks;
 
     private Duke duke;
     private UI ui;
@@ -59,17 +66,33 @@ public class MainWindow extends AnchorPane {
 
     @FXML
     public void initialize() {
+        resizeToFitScreen();
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
-        WebEngine webEngine= webView.getEngine();
-        webEngine.load("https://www.google.com");
-        webView.setDisable(true);
-        userInput.requestFocus();
+
+        // show welcome message
         dialogContainer.getChildren().addAll(
                 DialogBox.getDukeDialog("Welcome!", dukeImage)
         );
-        setInputPrefix();
+
+        webEngine = webView.getEngine();
+        webEngine.load("https://www.google.com");
+
+        // initialize GUI with database
         updateTasksList();
         updateEmailsList();
+        setInputPrefix();
+
+        // disable webView so that userInput can get focus
+        webView.setDisable(true);
+        userInput.requestFocus();
+    }
+
+    private void resizeToFitScreen() {
+        Rectangle2D screenBounds = Screen.getPrimary().getVisualBounds();
+        double screenHeight = screenBounds.getHeight(); //680
+        double screenWidth = screenBounds.getWidth(); //1280
+        rootAnchorPane.setPrefHeight(screenHeight-30);
+        rootAnchorPane.setPrefWidth(screenWidth);
     }
 
     public void setDuke(Duke d) {
@@ -93,16 +116,18 @@ public class MainWindow extends AnchorPane {
         setInputPrefix();
         updateTasksList();
         updateEmailsList();
-
         if (input.contains("email show")) {
-            String emailPath = ui.getEmailPath();
-            WebEngine webEngine = webView.getEngine();
-            webEngine.load(emailPath);
-            displayEmailHtml();
+            updateHtml();
         }
         if (input.contains("bye")) {
             exit();
         }
+    }
+
+    private void updateHtml() {
+        String emailPath = ui.getEmailPath();
+        webEngine.load(emailPath);
+        showHtml();
     }
 
     private void exit() {
@@ -118,13 +143,12 @@ public class MainWindow extends AnchorPane {
     private void handleKeyEvent(KeyEvent e) {
         String type = e.getEventType().getName();
         KeyCode keyCode = e.getCode();
-
         String keyInfo = type + ": Key Code=" + keyCode.getName() + ", Text=" + e.getText() + "\n";
 
         // print key pressed info to terminal for debugging purpose.
         System.out.println(keyInfo);
 
-        // Do sth if ESC key is pressed
+        // Toggle email or html display if ESC key is pressed
         if (e.getCode() == KeyCode.ESCAPE) {
             toggleEmailDisplay();
             e.consume();
@@ -133,19 +157,19 @@ public class MainWindow extends AnchorPane {
 
     private void toggleEmailDisplay() {
         if(isShowingEmail) {
-            displayEmailList();
+            showEmailList();
         } else {
-            displayEmailHtml();
+            showHtml();
         }
     }
 
-    private void displayEmailHtml() {
+    private void showHtml() {
         emailsListView.setMaxHeight(0);
         webView.setMaxHeight(800);
         isShowingEmail = true;
     }
 
-    private void displayEmailList() {
+    private void showEmailList() {
         webView.setMaxHeight(0);
         emailsListView.setMaxHeight(800);
         isShowingEmail = false;

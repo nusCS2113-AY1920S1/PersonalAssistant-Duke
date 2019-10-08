@@ -12,7 +12,7 @@ public class UI {
     private static final String ANSI_WHITE = "\u001B[37m";
     private static boolean debug = false;
 
-    private String emailPath;
+    private String emailPath = "";
 
     /**
      * Instantiates the UI component, which also display the welcoming message.
@@ -77,6 +77,6 @@ public class UI {
     }
 
     public String getEmailPath() {
-        return emailPath;
+        return this.emailPath;
     }
 }

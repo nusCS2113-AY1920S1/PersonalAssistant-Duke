@@ -12,7 +12,7 @@
 <?import javafx.scene.text.Text?>
 <?import javafx.scene.web.WebView?>
 
-<AnchorPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1024.0" style="-fx-background-color: #ffffff;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seedu.duke.gui.MainWindow">
+<AnchorPane fx:id="rootAnchorPane" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1000.0" style="-fx-background-color: #ffffff;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seedu.duke.gui.MainWindow">
    <children>
       <SplitPane dividerPositions="0.34540117416829746, 0.6614481409001957" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <items>
@@ -104,9 +104,7 @@
                <children>
                   <AnchorPane layoutX="11.0" layoutY="5.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <children>
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0"
-                              text="Emails (press ESC to toggle the display)"
-                              AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Emails (press ESC to toggle the display)" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                            <font>
                               <Font size="18.0" />
                            </font>
@@ -120,13 +118,10 @@
                      <content>
                         <AnchorPane>
                            <children>
-                              <VBox fx:id="emailContainer"  prefHeight="440.0" prefWidth="328.0"
-                                    AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                              <VBox fx:id="emailContainer" prefHeight="440.0" prefWidth="328.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                  <children>
-                                    <ListView fx:id="emailsListView" prefHeight="370.0" prefWidth="337.0"
-                                              VBox.vgrow="ALWAYS" />
-                                    <WebView fx:id="webView" pickOnBounds="true" prefHeight="370"
-                                             prefWidth="337.0" VBox.vgrow="ALWAYS"/>
+                                    <ListView fx:id="emailsListView" prefHeight="370.0" prefWidth="337.0" VBox.vgrow="ALWAYS" />
+                                    <WebView fx:id="webView" pickOnBounds="true" prefHeight="370" prefWidth="337.0" VBox.vgrow="ALWAYS" />
                                  </children></VBox>
                            </children>
                         </AnchorPane>
