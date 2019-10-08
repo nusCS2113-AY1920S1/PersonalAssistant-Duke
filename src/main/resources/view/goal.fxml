@@ -8,6 +8,7 @@
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.SeparatorMenuItem?>
 <?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.TitledPane?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -59,7 +60,10 @@
          <children>
             <TitledPane prefHeight="628.0" prefWidth="640.0" text="Here are all your goals for the day :">
                <content>
-                  <AnchorPane prefHeight="445.0" prefWidth="676.0" />
+                  <AnchorPane prefHeight="445.0" prefWidth="676.0">
+                     <children>
+                        <TextArea editable="false" prefHeight="601.6" prefWidth="638.4" text="Make sure students master new technique by the end of the day" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                     </children></AnchorPane>
                </content></TitledPane>
             <Button layoutX="881.0" layoutY="107.0" mnemonicParsing="false" prefHeight="100.0" prefWidth="160.0" text="Add a goal to a day" />
             <Button layoutX="881.0" layoutY="264.0" mnemonicParsing="false" prefHeight="100.0" prefWidth="160.0" text="Delete a goal from a day" />
