@@ -4,9 +4,11 @@ import oof.exception.OofException;
 import oof.task.Event;
 import oof.task.Task;
 
+import java.io.FileReader;
+import java.io.File;
+import java.io.BufferedReader;
+import java.io.IOException;
 import java.time.DayOfWeek;
-import java.time.LocalDate;
-import java.time.Month;
 import java.time.YearMonth;
 import java.util.ArrayList;
 import java.util.Date;
@@ -22,6 +24,7 @@ public class Ui {
     private static final int DAYS_IN_WEEK = 7;
     private static final int INDEX_SPACE = 0;
     private static final int INDEX_START_OF_ARRAY = 0;
+    private static final String FILEPATH = "src/main/manual.txt";
 
     /**
      * Scans for an integer of user input.
@@ -275,6 +278,25 @@ public class Ui {
             System.out.println("\t" + (i + 1) + ". " + arr.getTask(i));
         }
         printLine();
+    }
+
+    /**
+     * Prints all commands available to user.
+     *
+     */
+    public void printHelpCommands() throws OofException {
+        try {
+            File file = new File(FILEPATH);
+            FileReader fileReader = new FileReader(file);
+            BufferedReader br = new BufferedReader(fileReader);
+            String line;
+            while ((line = br.readLine()) != null) {
+                System.out.println(line);
+            }
+            printLine();
+        } catch (IOException e) {
+            throw new OofException("Manual Unavailable!");
+        }
     }
 
     /**

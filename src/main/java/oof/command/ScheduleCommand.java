@@ -65,9 +65,9 @@ public class ScheduleCommand extends Command {
         if (this.date.isEmpty()) {
             throw new OofException("OOPS! Please enter a date!");
         }
-        TaskList scheduledTasks = scheduleByDate(arr);
+        TaskList scheduledTasks = scheduleByDate(arr); // TODO read date in dd-mm-yyyy
         if (scheduledTasks.getSize() == 0) {
-            throw new OofException("There are no Tasks scheduled on" + this.date + ".");
+            throw new OofException("There are no Tasks scheduled on " + this.date + ".");
         }
         ui.printScheduledTasks(scheduledTasks, this.date);
     }

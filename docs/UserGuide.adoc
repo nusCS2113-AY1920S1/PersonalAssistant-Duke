@@ -60,8 +60,14 @@ There are plentiful examples provided to aid your understanding of the commands'
 ====
 
 === Viewing help : `help`
+Shows a list of commands that can be used.
 
 Format: `help`
+
+Example:
+
+* `help` +
+Provides a list of commands available to the user.
 
 === Adding a task: `deadline`
 Adds a task with a deadline to be completed by. +
@@ -227,6 +233,18 @@ Examples:
 * `colorcode 1 #008000` +
 Color codes the 1st task in the list of tasks to a green color.
 
+=== Viewing a summary of a day's task by date: `schedule`
+Gives a summary of all the tasks and events that is related to a specific date.
+
+Format: `schedule DD-MM-YYYY`
+
+* `Date` have to strictly be in the format as stated above.
+
+Example:
+
+* `schedule 04-10-2019` +
+Provides a summary of all the tasks and events that will occur on `04-10-2019`.
+
 === Viewing a summary of the next day’s task: `summary`
 Gives a summary of all the tasks to be done for the next day.
 
@@ -366,7 +384,10 @@ e.g. `filter todo`
 e.g. `threshold 48`
 
 * *Colorcode*: `colorcode INDEX #RRGGBB` +
-e.g. `colorcode 1 #008000` 
+e.g. `colorcode 1 #008000`
+
+* *Schedule*: `schedule DD-MM-YYYY` +
+e.g. `schedule 04-10-2019`
 
 * *Summary*: `summary` 
 
