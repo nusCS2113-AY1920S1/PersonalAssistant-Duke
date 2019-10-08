@@ -13,9 +13,11 @@ import java.util.ArrayList;
 
 public class EditCommand extends Command {
     /**
-     * @param list    task lists
-     * @param ui      the object that deals with printing things to the user.
-     * @param storage the object that deals with storing data to the Save.txt file.
+     * This method will receive the user's input on which list index to edit and then receive another user's input, checking he/she wants to edit the
+     * task's description or time or both and execute them in the following methods respectively.
+     * @param list task lists
+     * @param ui the object that deals with printing things to the user.
+     * @param storage the object that deals with storing data.
      * @throws IOException
      * @throws NullPointerException if tDate doesn't get updated.
      */
@@ -27,11 +29,11 @@ public class EditCommand extends Command {
         int listno_index = Integer.parseInt(input[1]) - 1;
         ui.ReadCommand();
         if (ui.FullCommand.equals("description")) {
-            new EditDescriptionCommand(list, ui, storage, listno_index);
+            new EditDescriptionCommand(list, ui, listno_index);
         } else if (ui.FullCommand.equals("time")) {
-            new EditTimeCommand(list, ui, storage, listno_index);
+            new EditTimeCommand(list, ui, listno_index);
         } else {
-            new EditBothCommand(list, ui, storage, listno_index);
+            new EditBothCommand(list, ui, listno_index);
         }
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < list.size(); i++) {

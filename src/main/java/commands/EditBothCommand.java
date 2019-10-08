@@ -5,11 +5,17 @@ import Tasks.*;
 import UI.Ui;
 
 import java.io.IOException;
-import java.sql.Time;
 import java.util.ArrayList;
 
 public class EditBothCommand {
-    public EditBothCommand(ArrayList<Task> list, Ui ui, Storage storage, int listno_index) throws IOException {
+    /**
+     * This method will receive the user new description and time and edit the old description and time in the list.
+     * @param list task lists
+     * @param ui the object that deals with printing things to the user.
+     * @param listno_index  the index of the list
+     * @throws IOException
+     */
+    public EditBothCommand(ArrayList<Task> list, Ui ui, int listno_index) throws IOException {
         System.out.print("Type your description & date:\n");
         ui.ReadCommand();
         String[] break_list_words = list.get(listno_index).toString().split("\\|");

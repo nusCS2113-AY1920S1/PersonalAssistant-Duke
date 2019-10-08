@@ -9,7 +9,14 @@ import java.util.ArrayList;
 import java.util.Timer;
 
 public class EditTimeCommand {
-    public EditTimeCommand(ArrayList<Task> list, Ui ui, Storage storage, int listno_index) throws IOException {
+    /**
+     * This method will receive the user new time and edit the old time in the list.
+     * @param list task lists
+     * @param ui the object that deals with printing things to the user.
+     * @param listno_index the index of the list
+     * @throws IOException
+     */
+    public EditTimeCommand(ArrayList<Task> list, Ui ui, int listno_index) throws IOException {
         System.out.print("Type your time:\n");
         ui.ReadCommand();
         String newTime = ui.FullCommand;

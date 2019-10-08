@@ -8,7 +8,14 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 public class EditDescriptionCommand {
-    public EditDescriptionCommand(ArrayList<Task> list, Ui ui, Storage storage, int listno_index) throws IOException {
+    /**
+     * This method will receive the user new description and edit the old description in the list.
+     * @param list task lists
+     * @param ui the object that deals with printing things to the user.
+     * @param listno_index the index of the list
+     * @throws IOException
+     */
+    public EditDescriptionCommand(ArrayList<Task> list, Ui ui, int listno_index) throws IOException {
         System.out.print("Type your description:\n");
         ui.ReadCommand();
         String newDescription = ui.FullCommand;

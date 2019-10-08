@@ -14,9 +14,9 @@ import java.util.ArrayList;
 
 public class FixDurationCommand extends Command {
     /**
-     * @param list    task list
-     * @param ui      the object that deals with printing things to the user.
-     * @param storage the object that deals with storing data to the Save.txt file.
+     * @param list task list
+     * @param ui the object that deals with printing things to the user.
+     * @param storage the object that deals with storing data.
      * @throws IOException
      * @throws NullPointerException if tDate doesn't get updated.
      */

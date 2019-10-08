@@ -18,13 +18,13 @@ public class Parser {
                 return new CategoryListCommand();
             } else if (command.contains("timebound")) {
                 return new CategoryListCommand();
-            }
-//            else if (command.contains("done")) {
-//                return new DoneListCommand();
-//            }
-            else {
+            } else {
                 return new ListCommand();
             }
+        } else if (command.equals("done list")) {
+            return new DoneListCommand();
+        } else if (command.equals("undo list")) {
+            return new UndoneListCommand();
         } else if (splitcommand[0].equals("done")) {
             return new DoneCommand();
         } else if (splitcommand[0].equals("delete")) {
@@ -47,8 +47,12 @@ public class Parser {
             return new FixDurationCommand();
         } else if (splitcommand[0].equals("reschedule")) {
             return new RescheduleCommand();
-        } else if (splitcommand[0].equals("schedule")) {
-            return new ScheduleCommand();
+        } else if (splitcommand[0].equals("scheduleDaily")) {
+            return new ScheduleDailyCommand();
+        } else if (splitcommand[0].equals("scheduleWeekly")) {
+            return new ScheduleWeeklyCommand();
+        } else if (splitcommand[0].equals("scheduleMonthly")) {
+            return new ScheduleMonthlyCommand();
         } else if (splitcommand[0].equals("snooze")) {
             return new SnoozeCommand();
         } else if (splitcommand[0].equals("tentative")) {
@@ -59,8 +63,10 @@ public class Parser {
             return new UndoCommand();
         } else if (splitcommand[0].equals("edit")) {
             return new EditCommand();
-        }   else if ((splitcommand[0] + " " + splitcommand[1]).equals("change password")) {
+        } else if ((splitcommand[0] + " " + splitcommand[1]).equals("change password")) {
             return new ChangePasswordCommand();
+        } else if (command.contains("#")) {
+            return new TagCommand();
         } else {
             throw new DukeException("OOPS!!! I'm sorry, but I don't know what that means :-(");
         }
