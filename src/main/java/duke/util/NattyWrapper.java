@@ -25,6 +25,8 @@ public class NattyWrapper {
      */
     public NattyWrapper() {
         nattyParser = new Parser();
+        //to speed parsing, introducing a dummy initialize case
+        nattyParser.parse("the day after tomorrow");
     }
 
     /**

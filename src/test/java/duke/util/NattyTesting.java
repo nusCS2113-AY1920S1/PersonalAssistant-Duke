@@ -29,9 +29,9 @@ public class NattyTesting {
     @Test
     public void nattyDateTest() {
         try {
-            Date first = natty.runParser("today");
+            Date first = natty.runParser("now");
             Date second = Calendar.getInstance().getTime();
-            assertTrue(first.before(second));
+            assertTrue(second.after(first));
         } catch (DukeInvalidTimeException e) {
             System.out.println(e.getMessage());
         }

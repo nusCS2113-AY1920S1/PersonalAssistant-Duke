@@ -26,21 +26,29 @@ public class RequestsData {
 
     //TODO: should the requests for each query be separate?
     private HttpRequest requestModule(String mod) {
+        String upperMod = mod.trim().toUpperCase();
         return HttpRequest.newBuilder()
-                .uri(URI.create("https://api.nusmods.com/v2/2019-2020/modules/" + mod + ".json"))
+                .uri(URI.create("https://api.nusmods.com/v2/2019-2020/modules/" + upperMod + ".json"))
                 .timeout(Duration.ofMinutes(1))
                 .header("Content-Type", "application/json")
                 .build();
     }
 
-    private HttpRequest requestModuleList() {
+    private HttpRequest requestModuleList(String academicYear) {
         return HttpRequest.newBuilder()
-                .uri(URI.create("https://api.nusmods.com/v2/2019-2020/modulesList/.json"))
+                .uri(URI.create("https://api.nusmods.com/v2/" + academicYear + "/moduleList/.json"))
                 .timeout(Duration.ofMinutes(1))
                 .header("Content-Type", "application/json")
                 .build();
     }
 
+    private HttpRequest requestModuleListDetailed(String academicYear) {
+        return HttpRequest.newBuilder()
+                .uri(URI.create("https://api.nusmods.com/v2/" + academicYear + "/moduleInfo/.json"))
+                .timeout(Duration.ofMinutes(1))
+                .header("Content-Type", "application/json")
+                .build();
+    }
 
     /**
      * With reference from :https://openjdk.java.net/groups/net/httpclient/intro.html.
