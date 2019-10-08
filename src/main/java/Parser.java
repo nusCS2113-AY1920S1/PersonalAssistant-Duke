@@ -3,6 +3,7 @@ import command.*;
 import exception.*;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 
 /**
  * Creates a Command object after extracting information needed.
@@ -18,13 +19,11 @@ public class Parser {
         try {
             String[] taskInfo = input.split(" ", 2);
             if (taskInfo[0].equals("exit")) {
-                //create an ExitCommand
                 return new ExitCommand();
             } else if (taskInfo[0].equals("help")) {
                 // CREATE A HELP COMMAND TO SHOW THE AVAILABLE INSTRUCTION
                 return null;
             } else if (taskInfo[0].equals("add")) {
-                // FIX ADD COMMAND TO ADD TO DICTIONARY
                 if (taskInfo.length == 1) {
                     throw new WrongAddFormatException();
                 }
@@ -43,7 +42,7 @@ public class Parser {
                 }
                 Word word;
                 if (meaningAndTag.length > 1) {
-                    ArrayList<String> tags = new ArrayList<>();
+                    HashSet<String> tags = new HashSet<>();
                     for (int j = 1; j < meaningAndTag.length; ++j) {
                         tags.add(meaningAndTag[j]);
                     }
@@ -58,9 +57,19 @@ public class Parser {
                 if (taskInfo.length == 1 || !taskInfo[1].startsWith("w/")) {
                     throw new WrongDeleteFormatException();
                 }
-                return new DeleteCommand(taskInfo[1].substring(2));
+                String[] wordAndTags = taskInfo[1].split("t/");
+                if (wordAndTags.length == 1) {
+                    return new DeleteCommand(taskInfo[1].substring(2));
+                }
+                else {
+                    String wordDescription = wordAndTags[0].substring(2).trim();
+                    ArrayList<String> tags = new ArrayList<>();
+                    for (int i = 1; i < wordAndTags.length; ++i) {
+                        tags.add(wordAndTags[i].trim());
+                    }
+                    return new DeleteCommand(wordDescription, tags);
+                }
             } else if (taskInfo[0].equals("search")) {
-                // CREATE A SEARCH COMMAND TO SEARCH FOR A WORD
                 if (taskInfo.length == 1 || !taskInfo[1].startsWith("w/")) {
                     throw new WrongSearchFormatException();
                 }
@@ -82,8 +91,19 @@ public class Parser {
                 // CREATE AN EDIT COMMAND TO DEAL WITH EDIT WORD
                 return null;
             } else if (taskInfo[0].equals("tag")) {
-                //CREATE TAG COMMAND TO ADD TAG TO A WORD
-                return null;
+                if (taskInfo.length == 1 || !taskInfo[1].startsWith("w/")) {
+                    throw new WrongAddTagFormatException();
+                }
+                String[] wordAndTags = taskInfo[1].split("t/");
+                if (wordAndTags.length == 1) {
+                    throw new WrongAddTagFormatException();
+                }
+                String wordDescription = wordAndTags[0].substring(2).trim();
+                ArrayList<String> tags = new ArrayList<>();
+                for (int i = 1; i < wordAndTags.length; ++i) {
+                    tags.add(wordAndTags[i].trim());
+                }
+                return new AddTagCommand(wordDescription, tags);
             } else {
                 try {
                     throw new CommandInvalidException(input);

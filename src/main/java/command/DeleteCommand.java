@@ -1,11 +1,11 @@
 package command;
 
-import Dictionary.Word;
 import Dictionary.WordBank;
-import exception.WordUpException;
 import exception.NoWordFoundException;
 import storage.Storage;
 import ui.Ui;
+
+import java.util.ArrayList;
 
 /**
  * Represents a command from user to delete a task.
@@ -14,9 +14,16 @@ import ui.Ui;
 public class DeleteCommand extends Command {
 
     protected String deletedWord;
+    protected ArrayList<String> tags;
 
     public DeleteCommand(String deletedWord) {
         this.deletedWord = deletedWord;
+        this.tags = new ArrayList<>();
+    }
+
+    public DeleteCommand(String deletedWord, ArrayList<String> tags) {
+        this.deletedWord = deletedWord;
+        this.tags = tags;
     }
 
     @Override
@@ -25,9 +32,19 @@ public class DeleteCommand extends Command {
         //ask tasks to store the thing in arraylist
         //ask storage to write to file
         try {
-            word = wordBank.getAndDelete(this.deletedWord);
-            storage.deleteFromFile(word.toString());
-            ui.showDeleted(word);
+            if (tags.size() == 0) {
+                word = wordBank.getAndDelete(deletedWord);
+                storage.deleteFromFile(word.toString());
+                ui.showDeleted(word);
+            }
+            else {
+                word = wordBank.getWordBank().get(deletedWord);
+                ArrayList<String> nullTags = new ArrayList<>();
+                ArrayList<String> deletedTags = new ArrayList<>();
+                wordBank.deleteTags(deletedWord, tags, deletedTags, nullTags);
+                ui.showDeletedTags(deletedWord, deletedTags);
+                ui.showNullTags(deletedWord, nullTags);
+            }
         } catch (NoWordFoundException e) {
             e.showError();
         }
