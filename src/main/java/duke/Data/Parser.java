@@ -141,15 +141,17 @@ public class Parser {
                 break;
 
                 /**
-                 * Command is in the form: plan new [intensity level] or plan view [intensity] [plan number]
+                 * Command is in the form: plan new [intensity level] or plan view [intensity] plan/[plan number]
                  *
                  */
                 case "plan":
                     MyPlan plan = new MyPlan();
                     if (word[1].equals("view")) {
-                        plan.loadPlan(word[2]);
+                        plan.loadPlan(word[2].toLowerCase(),word[3]);
                     } else if (word[1].equals("new")) {
-                        plan.createPlan(word[3]);
+                        plan.createPlan(word[3].toLowerCase());
+                    } else if (word[1].equals("edit")) {
+                        //not yet created
                     }
                     break;
 
