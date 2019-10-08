@@ -1,4 +1,7 @@
 package duke.patient;
+
+import java.util.ArrayList;
+
 /**
  * Represents a Patient.
  */
@@ -7,6 +10,7 @@ public class Patient {
     private String name;
     private String preference;
     private String remark;
+    private ArrayList<String> remarkList = new ArrayList<String>();
     private boolean isHospitalised;
     private String room;
 
@@ -17,15 +21,13 @@ public class Patient {
      * @param name A String that represent the full name of the patient.
      * @param isHospitalised A boolean value that represents the hospitalised data of the patient.
      * @param remark Remark leaves by nurses.
-     * @param preference A string that represents the daily preference of the patient.
      */
-    public Patient(int id, String name, boolean isHospitalised, String room, String remark, String preference) {
+    public Patient(int id, String name, String room, String remark, boolean isHospitalised) {
         this.id = id;
         this.name = name;
         this.isHospitalised = isHospitalised;
         this.remark = remark;
         this.room = room;
-        this.preference = preference;
     }
 
     public String getName() {
@@ -42,10 +44,6 @@ public class Patient {
 
     public String getRemark(){
         return remark;
-    }
-
-    public String getPreference(){
-        return preference;
     }
 
     public String getRoom(){

@@ -1,34 +1,30 @@
 package duke.patient;
-
-import duke.core.DukeException;
-import duke.task.Task;
-
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
 public class PatientList {
 
-//    private HashMap<Integer, Patient> allPatientsMap = new HashMap<Integer, Patient>();
-//    private HashMap<Integer, Patient> activePatientsMap = new HashMap<Integer, Patient>();
-    private List<Patient> patients = new ArrayList<Patient>();
+    private HashMap<Integer, Patient> patientIDMap = new HashMap<Integer, Patient>();
+//    private HashMap<Integer, Patient> patientNameMap = new HashMap<String, Patient>();
 
     /**
      * instantiate a new TaskList with a empty list.
      */
-    public PatientList(List<Patient> patientList) {
-        this.patients = patientList;
+    public PatientList(ArrayList<Patient> patientList) {
+        for (Patient patient : patientList) {
+            patientIDMap.put(patient.getID(), patient);
+        }
     }
 
     public Patient getPatient(int id){
-        return patients.get(id);
+        return patientIDMap.get(id);
     }
 
     public void addPatient(Patient patient) {
-        patients.add(patient);
+        patientIDMap.put(patient.getID(), patient);
     }
 
-    public void updatePatientInfo(int id, Patient patient){
-        patients.set(id, patient);
+    public void updatePatientInfo(Patient patient){
+        patientIDMap.put(patient.getID(), patient);
     }
 }
