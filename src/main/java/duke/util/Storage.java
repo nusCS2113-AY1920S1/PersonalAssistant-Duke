@@ -34,16 +34,19 @@ public class Storage {
     private boolean fileExists;
 
     /**
-     * Constructor for storage class.
+     * Default Constructor for storage class.
      *
      */
     public Storage() {
         path = Paths.get("data/dukeData.text");
-        dataPath = Paths.get("data/modsData.text");
+        dataPath = Paths.get("data/modsData.json");
         setDataPathExists();
         setFileExists();
     }
 
+    /**
+     * Overloaded Constructor for storage class, specifying the data path as String.
+     */
     public Storage(String filePath) {
         dataPath = Paths.get(filePath);
         setDataPathExists();

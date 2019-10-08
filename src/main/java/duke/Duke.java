@@ -46,7 +46,7 @@ public class Duke {
         // Starting reminder threads and pulling data from API
         try {
             reminder = new Reminder(tasks.getTasks());
-            reminder.run();
+            //reminder.run();
             data = new RequestsData();
         } catch (DukeTimeIntervalTooCloseException e) {
             System.out.println(e.getMessage());
@@ -54,14 +54,14 @@ public class Duke {
         while (!isExit) {
             try {
                 String fullCommand = ui.readCommand();
-                if (val > 0) {
-                    data.getModJsonString(fullCommand, store);
+                if (val != 0) {
+                    data.getModJsonString(store, data.modsRequestSummaryBuilder());
                 }
-                val++;
                 ui.showLine();
                 Command c = parser.parse(fullCommand);
                 c.execute(tasks, ui, store, reminder);
                 isExit = c.isExit();
+                val++; // remove after testing
             } catch (DukeException e) {
                 System.out.println(e.getMessage());
             } finally {
