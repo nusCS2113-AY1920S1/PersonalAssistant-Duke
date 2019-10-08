@@ -58,7 +58,7 @@ public class PatientStorage extends Storage<Patient>{
         try{
             BufferedWriter writer = Files.newBufferedWriter(Paths.get(filePath));
             CSVPrinter csvPrinter = new CSVPrinter(writer, CSVFormat.DEFAULT
-                    .withHeader("ID", "Name", "Room", "Remark", "isHospitalised"));
+                    .withHeader("Id", "Name", "Room", "Remark", "isHospitalised"));
 //            ArrayList<Patient> patients = patientList.getPatientList();
             for (Patient patient : patients){
                 int id = patient.getID();
