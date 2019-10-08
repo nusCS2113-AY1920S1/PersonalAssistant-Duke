@@ -61,14 +61,21 @@ public class RequestsData {
             }
             System.out.println(response.body());
             List<String> responseList = getResponseList(response.body());
-            JsonElement element = gson.fromJson(response.body(), JsonElement.class);
-            JsonObject jsonObject = element.getAsJsonObject();
-            System.out.println(jsonObject);
             store.writeModsData(responseList);
         } catch (IOException e) {
             e.printStackTrace();
         } catch (InterruptedException ie) {
             System.out.println(ie.getMessage());
+        }
+    }
+
+    private void readJson(HttpResponse<String> response) {
+        try {
+            JsonElement element = gson.fromJson(response.body(), JsonElement.class);
+            JsonObject jsonObject = element.getAsJsonObject();
+            System.out.println(jsonObject);
+        } catch (IllegalStateException e) {
+            e.printStackTrace();
         }
     }
 
