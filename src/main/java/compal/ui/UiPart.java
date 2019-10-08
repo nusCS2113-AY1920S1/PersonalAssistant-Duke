@@ -352,6 +352,15 @@ public class UiPart {
         VBox vbox = (VBox) mainWindow.getContent();
         vbox.getChildren().clear();
     }
+
+    /**
+     * Clears the secondary display viewport on the GUI.
+     * Parser calls this function when it receives a 'clear' command.
+     */
+    public void clearSecondary() {
+        VBox vbox = (VBox) secondaryWindow.getContent();
+        vbox.getChildren().clear();
+    }
     //----------------------->
 
     //***FIRST-TIME INITIALIZATION FUNCTIONS***-------------------------------------------------------------------------
