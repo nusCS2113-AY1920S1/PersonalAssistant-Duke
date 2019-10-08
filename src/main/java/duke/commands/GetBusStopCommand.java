@@ -6,7 +6,6 @@ import duke.parsers.api.ApiParser;
 import duke.storage.Storage;
 import duke.ui.Ui;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 
 public class GetBusStopCommand extends Command {

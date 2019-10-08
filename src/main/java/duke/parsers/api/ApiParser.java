@@ -10,8 +10,6 @@ import duke.parsers.requests.LocationSearchUrlRequest;
 import duke.commons.exceptions.DukeException;
 import duke.parsers.requests.DataMallHttpRequest;
 
-import java.io.IOException;
-import java.util.ArrayList;
 import java.util.HashMap;
 
 /**

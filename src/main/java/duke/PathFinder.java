@@ -56,13 +56,13 @@ public class PathFinder {
         BusStop endBusStop = ApiConstraintParser.getNearestBusStop(end, this.busStopMap);
 
         BusStop cur = startBusStop;
-        int i = 0;
+        int depthLimit = 0;
 
-        while (!found && i < 3) {
+        while (!found && depthLimit < 3) {
             this.visited.clear();
             this.path.clear();
-            depthFirstSearch(cur, endBusStop, i);
-            i += 1;
+            depthFirstSearch(cur, endBusStop, depthLimit);
+            depthLimit += 1;
         }
         if (!this.found) {
             return new ArrayList<>();
@@ -78,14 +78,14 @@ public class PathFinder {
         }
     }
 
-    private void depthFirstSearch(BusStop cur, BusStop endBusStop, int iteration) {
+    private void depthFirstSearch(BusStop cur, BusStop endBusStop, int depthLimit) {
 
-        if (iteration == 0 || this.visited.contains(cur)) {
+        if (depthLimit == 0 || this.visited.contains(cur)) {
             return;
         }
 
         this.visited.add(cur);
-        iteration -= 1;
+        depthLimit -= 1;
 
         for (String bus : cur.getBuses()) { //loop through all bus in bus stop
             for (String busCode : this.busMap.get(bus).getDirection(1)) { // depth search the bus route
@@ -99,7 +99,7 @@ public class PathFinder {
                         this.found = true;
                         return;
                     } else {
-                        depthFirstSearch(this.busStopMap.get(busCode), endBusStop, iteration);
+                        depthFirstSearch(this.busStopMap.get(busCode), endBusStop, depthLimit);
                     }
                 }
             }
