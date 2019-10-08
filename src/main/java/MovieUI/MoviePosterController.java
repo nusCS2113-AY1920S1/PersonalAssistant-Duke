@@ -16,6 +16,9 @@ public class MoviePosterController
     @FXML
     private ImageView moviePosterImageView;
 
+    @FXML
+    private Label movieIDLabel;
+
     public Label getMovieTitleLabel() {
         return movieTitleLabel;
     }
@@ -30,5 +33,13 @@ public class MoviePosterController
 
     public void setPosterImageView(ImageView mPosterImageView) {
         mPosterImageView = mPosterImageView;
+    }
+
+    public Label getMovieIDLabel() {
+        return movieIDLabel;
+    }
+
+    public void setMovieIDLabel(Label movieIDLabel) {
+        this.movieIDLabel = movieIDLabel;
     }
 }

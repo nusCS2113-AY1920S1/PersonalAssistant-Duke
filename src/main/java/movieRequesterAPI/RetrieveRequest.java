@@ -7,6 +7,7 @@ import object.MovieInfoObject;
 
 import java.io.*;
 import java.net.MalformedURLException;
+import java.net.SocketTimeoutException;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.text.DateFormat;
@@ -21,24 +22,34 @@ import java.util.logging.Logger;
 
 public class RetrieveRequest implements InfoFetcher {
     private RequestListener mListener;
+    static int index = 0;
 
     // API Usage constants
     private static final String MAIN_URL = "http://api.themoviedb.org/3/";
     private static final String API_KEY = "2a888e02edd08043185889ba862cb073";
 
-    // Movie Data Request URL's
-    private static final String NOW_SHOWING_URL = "movie/now_playing?api_key=";
-    private static final String POPULAR_URL = "movie/popular?api_key=";
-    private static final String TOP_RATED_URL = "movie/top_rated?api_key=";
-    private static final String UPCOMING_URL = "movie/upcoming?api_key=";
+    // Movie Data Request URL's for movies
+    private static final String CURRENT_MOVIE_URL = "movie/now_playing?api_key=";
+    private static final String POPULAR_MOVIE_URL = "movie/popular?api_key=";
+    private static final String UPCOMING_MOVIE_URL = "movie/upcoming?api_key=";
     private static final String MOVIE_SEARCH_URL = "search/movie?api_key=";
-    private static final String GENRE_LIST_URL = "genre/movie/list?api_key=";
-    private static final String TV_SHOWS = "tv/popular?api_key=";
-    private static final String LIST = "/lists?api_key=";
+    private static final String TRENDING_MOVIE_URL = "trending/movie/day?api_key=";
+    private static final String GENRE_LIST_MOVIE_URL = "genre/movie/list?api_key=";
+    private static final String MOVIE_CAST = "/credits?api_key=";
+    //=====================================================
+    private static final String TV_SEARCH_URL = "";
+    private static final String CURRENT_TV_URL = "tv/on_the_air?api_key=";
+    private static final String POPULAR_TV_URL = "tv/popular?api_key=";
+    private static final String NEW_TV_URL = "tv/latest?api_key=";
+    private static final String TRENDING_TV_URL = "trending/tv/day?api_key=";
+    private static final String GENRE_LIST_TV_URL = "genre/tv/list?api_key=";
+    //======================================================
+    private static final String POP_CAST_URL = "person/popular?api_key=";
 
 
     // Movie Data Keys
     private static final String kMOVIE_TITLE = "title";
+    private static final String kTV_TITLE = "original_name";
     private static final String kMOVIE_RELEASE_DATE = "release_date";
     private static final String kMOVIE_ID = "id";
     private static final String kMOVIE_GENRES = "genre_ids";
@@ -46,13 +57,20 @@ public class RetrieveRequest implements InfoFetcher {
     private static final String kMOVIE_RATING = "vote_average";
     private static final String kMOVIE_BACKDROP_PATH = "backdrop_path";
     private static final String kMOVIE_POSTER_PATH = "poster_path";
+    private static final String kMOVIE_CAST = "cast_id";
 
 
     public enum MoviesRequestType {
-        NOW_SHOWING,
-        POPULAR,
-        UPCOMING,
-        TV_SHOWS,
+        CURRENT_MOVIES,
+        POPULAR_MOVIES,
+        UPCOMING_MOVIES,
+        CURRENT_TV,
+        POPULAR_TV,
+        UPCOMING_TV,
+        TRENDING_MOVIES,
+        TRENDING_TV,
+        POP_CAST,
+        NEW_TV
     }
 
     public RetrieveRequest(RequestListener listener) {
@@ -65,22 +83,43 @@ public class RetrieveRequest implements InfoFetcher {
     public void beginMovieRequest(RetrieveRequest.MoviesRequestType type) {
         String requestURL = RetrieveRequest.MAIN_URL;
         switch (type) {
-            case NOW_SHOWING:
-                requestURL += RetrieveRequest.NOW_SHOWING_URL + RetrieveRequest.API_KEY;
+            case CURRENT_MOVIES:
+                requestURL += RetrieveRequest.CURRENT_MOVIE_URL + RetrieveRequest.API_KEY +
+                    "&language=en-US&page=1&region=SG";
                 break;
-
-            case POPULAR:
-                requestURL += RetrieveRequest.POPULAR_URL + RetrieveRequest.API_KEY;
+            case POPULAR_MOVIES:
+                requestURL += RetrieveRequest.POPULAR_MOVIE_URL + RetrieveRequest.API_KEY +
+                    "&language=en-US&page=1&region=SG";
                 break;
-
-            case UPCOMING:
-                requestURL += RetrieveRequest.UPCOMING_URL + RetrieveRequest.API_KEY;
+            case UPCOMING_MOVIES:
+                requestURL += RetrieveRequest.UPCOMING_MOVIE_URL + RetrieveRequest.API_KEY +
+                    "&language=en-US&page=1&region=SG";
                 break;
-
-            case TV_SHOWS:
-                requestURL += RetrieveRequest.TV_SHOWS + RetrieveRequest.API_KEY;
+            case TRENDING_MOVIES:
+                requestURL += RetrieveRequest.TRENDING_MOVIE_URL + RetrieveRequest.API_KEY;
                 break;
-
+            case CURRENT_TV:
+                requestURL += RetrieveRequest.CURRENT_TV_URL + RetrieveRequest.API_KEY +
+                    "&language=en-US&page=1";
+                index = 1;
+                break;
+            case POPULAR_TV:
+                requestURL += RetrieveRequest.POPULAR_TV_URL + RetrieveRequest.API_KEY +
+                    "&language=en-US&page=1";
+                index = 1;
+                break;
+            case POP_CAST:
+                requestURL += RetrieveRequest.POP_CAST_URL + RetrieveRequest.API_KEY +
+                    "&language=en-US&page=1";
+                break;
+            case TRENDING_TV:
+                requestURL += RetrieveRequest.TRENDING_TV_URL + RetrieveRequest.API_KEY;
+                index = 1;
+                break;
+            case NEW_TV:
+                requestURL += RetrieveRequest.NEW_TV_URL + RetrieveRequest.API_KEY +
+                    "&language=en-US&page=1";
+                break;
             default:
                 requestURL = null;
         }
@@ -98,46 +137,96 @@ public class RetrieveRequest implements InfoFetcher {
         }
     }
 
-    public void beginSearchGenre (String genre) {
-        try{
-            String url = MAIN_URL + "movie/" + URLEncoder.encode(genre, "UTF-8") + LIST
-                + API_KEY + "&language=en-US&page=1";
-            fetchJSONData(url);
-        } catch (UnsupportedEncodingException ex) {
-            ex.printStackTrace();
-        }
+    /**
+     * public String getCastMovie (long id) {
+     * String url = MAIN_URL + "movie/" + id + API_KEY;
+     * ArrayList<String> castInfo = fetchCastData(url);
+     * String cast = castInfo.get(0);
+     * for (int i = 1; i < castInfo.size(); i += 1) {
+     * cast += "," + castInfo.get(i);
+     * }
+     * return cast;
+     * }
+     * <p>
+     * public ArrayList<String> fetchCastData(String url) {
+     * if (url == null) {
+     * mListener.requestFailed();
+     * //System.out.println("so far not ok");
+     * return null;
+     * }
+     * //System.out.println("so far ok1");
+     * <p>
+     * // Parse received movies
+     * JSONParser parser = new JSONParser();
+     * JSONObject movieData;
+     * try {
+     * String json = URLRetriever.readURLAsString(new URL(url));
+     * movieData = (JSONObject) parser.parse(json);
+     * JSONArray movies = (JSONArray) movieData.get("cast");
+     * ArrayList<String> parsedMovies = new ArrayList(10);
+     * for (int i = 0; i < movies.size(); i++) {
+     * parsedMovies.add(parseCastJSON((JSONObject) movies.get(i)));
+     * }
+     * return parsedMovies;
+     * //System.out.println("so far ok3");
+     * } catch (org.json.simple.parser.ParseException ex) {
+     * Logger.getLogger(RetrieveRequest.class.getName()).log(Level.SEVERE, null, ex);
+     * } catch (SocketTimeoutException e) {
+     * e.printStackTrace();
+     * } catch (MalformedURLException e) {
+     * e.printStackTrace();
+     * }
+     * return null;
+     * }
+     **/
+
+    private String parseCastJSON(JSONObject jsonObject) {
+        String name = jsonObject.get("name").toString();
+        return name;
     }
+
 
     // JSON data was fetched by the fetcher
     @Override
     public void fetchedMoviesJSON(String json) {
         // If null string returned then there was a lack of internet connection
+        //System.out.println("so far ok0");
         if (json == null) {
             mListener.requestFailed();
+            //System.out.println("so far not ok");
             return;
         }
+        //System.out.println("so far ok1");
 
         // Parse received movies
         JSONParser parser = new JSONParser();
         JSONObject movieData;
         try {
             movieData = (JSONObject) parser.parse(json);
-
+            //if (index == 0) {
             JSONArray movies = (JSONArray) movieData.get("results");
-            ArrayList<MovieInfoObject> parsedMovies = new ArrayList(20);
+            ArrayList<MovieInfoObject> parsedMovies = new ArrayList(10);
 
             for (int i = 0; i < movies.size(); i++) {
                 parsedMovies.add(parseMovieJSON((JSONObject) movies.get(i)));
             }
+            //System.out.println("so far ok2");
 
             // Notify Listener
             mListener.requestCompleted(parsedMovies);
+            //} else {
+
+            //}
+            System.out.println("so far ok3");
         } catch (org.json.simple.parser.ParseException ex) {
             Logger.getLogger(RetrieveRequest.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
-    // The fetcher reported a connection time out. Notify the request listener.
+    /**
+     * The function is called when the fetcher reported a connection time out.
+     * Notify the request listener.
+     */
     @Override
     public void connectionTimedOut() {
         mListener.requestTimedOut();
@@ -148,15 +237,24 @@ public class RetrieveRequest implements InfoFetcher {
         try {
             fetchThread = new Thread(new MovieInfoFetcher(new URL(URLString), this));
             fetchThread.start();
+            //System.out.println("bef MovieInfoFetcher");
         } catch (MalformedURLException ex) {
             Logger.getLogger(RetrieveRequest.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
-    // Parses the given JSON string for a movie into a MovieInfo object
+
+    /**
+     * Parses the given JSON string for a movie into a MovieInfo object.
+     */
     private MovieInfoObject parseMovieJSON(JSONObject movieData) {
         long ID = (long) movieData.get(kMOVIE_ID);
-        String title = (String) movieData.get(kMOVIE_TITLE);
+        String title = "";
+        if (index == 0) {
+            title = (String) movieData.get(kMOVIE_TITLE);
+        } else {
+            title = (String) movieData.get(kTV_TITLE);
+        }
         double rating = 0.0;
         try {
             rating = (double) movieData.get(kMOVIE_RATING);
@@ -176,17 +274,21 @@ public class RetrieveRequest implements InfoFetcher {
         }
 
         // Parse date string from json
-        DateFormat formatter = new SimpleDateFormat("YYYY-MM-DD");
+        //SimpleDateFormat formatter = new SimpleDateFormat("YYYY-MM-DD");
         Date releaseDate = null;
 
-        try {
-            String releaseDateString = (String) movieData.get(kMOVIE_RELEASE_DATE);
+        //try {
+        String releaseDateString = (String) movieData.get(kMOVIE_RELEASE_DATE);
+        //System.out.println("date is" + releaseDateString);
 
-            if (releaseDateString != null) {
-                releaseDate = formatter.parse(releaseDateString);
+        if (releaseDateString != null) {
+            try {
+                SimpleDateFormat formatter1 = new SimpleDateFormat("yyyy-MM-dd");
+                releaseDate = formatter1.parse(releaseDateString);
+                //System.out.println(releaseDate);
+            } catch (ParseException e) {
+                releaseDate = null;
             }
-        } catch (ParseException ex) {
-            releaseDate = null;
         }
 
         // Get poster and backdrop paths
@@ -350,8 +452,14 @@ public class RetrieveRequest implements InfoFetcher {
      */
     public static String[] getGenreStrings(MovieInfoObject movie) {
         try {
-            String jsonResult = URLRetriever.readURLAsString(new URL(MAIN_URL + GENRE_LIST_URL + API_KEY));
+            String jsonResult = "";
+            if (index == 0) {
+                jsonResult = URLRetriever.readURLAsString(new URL(MAIN_URL + GENRE_LIST_MOVIE_URL + API_KEY));
+            } else {
+                jsonResult = URLRetriever.readURLAsString(new URL(MAIN_URL + GENRE_LIST_TV_URL + API_KEY));
 
+
+            }
             JSONParser parser = new JSONParser();
             JSONObject jsonData = (JSONObject) parser.parse(jsonResult);
             JSONArray genres = (JSONArray) jsonData.get("genres");
