@@ -1,14 +1,12 @@
 package compal.logic.commands;
 
 import compal.logic.parser.CommandParser;
-import compal.compal.Compal;
-import compal.tasks.Task;
-import compal.tasks.TaskList;
+import compal.commons.Compal;
+import compal.model.tasks.Task;
+import compal.model.tasks.TaskList;
 import javafx.scene.paint.Color;
 
-import java.text.DateFormat;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
@@ -72,20 +70,22 @@ public class ViewReminderCommand extends Command implements CommandParser {
         //display the results
         if (reminder.isEmpty()) {
             compal.ui.printg("You currently have no tasks that have reminders set or are due within a week!",
-                    "verdana",15, Color.DARKGREEN);
+                    "verdana", 15, Color.DARKGREEN);
         } else {
             int counter = 1;
             for (Task t : reminder) {
                 if (t.getPriority().equals(Task.Priority.high)) {
-                    compal.ui.printg(counter + ". " + t.toString(),"verdana",15, Color.RED);
+                    compal.ui.printg(counter + ". " + t.toString(), "verdana", 15, Color.RED);
                 } else if (t.getPriority().equals(Task.Priority.medium)) {
-                    compal.ui.printg(counter + ". " + t.toString(),"verdana",15, Color.ORANGE);
+                    compal.ui.printg(counter + ". " + t.toString(), "verdana", 15, Color.ORANGE);
                 } else {
-                    compal.ui.printg(counter + ". " + t.toString(),"verdana",15, Color.GREEN);
+                    compal.ui.printg(counter + ". " + t.toString(), "verdana", 15, Color.GREEN);
                 }
                 counter++;
 
             }
         }
     }
+
+
 }

@@ -1,13 +1,13 @@
 package compal.logic.commands;
 
-import compal.compal.Compal;
+import compal.commons.Compal;
 import compal.logic.parser.CommandParser;
-import compal.tasks.TaskList;
+import compal.model.tasks.TaskList;
 
 import java.util.Scanner;
 
-import static compal.compal.Messages.MESSAGE_MISSING_COMMAND_ARG;
-import static compal.compal.Messages.MESSAGE_INVALID_TASK_NUMBER;
+import static compal.commons.Messages.MESSAGE_MISSING_COMMAND_ARG;
+import static compal.commons.Messages.MESSAGE_INVALID_TASK_NUMBER;
 
 /**
  * Executes user command "done".

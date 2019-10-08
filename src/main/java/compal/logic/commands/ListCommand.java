@@ -1,9 +1,9 @@
 package compal.logic.commands;
 
 import compal.logic.parser.CommandParser;
-import compal.compal.Compal;
-import compal.tasks.Task;
-import compal.tasks.TaskList;
+import compal.commons.Compal;
+import compal.model.tasks.Task;
+import compal.model.tasks.TaskList;
 import javafx.scene.paint.Color;
 
 import java.util.ArrayList;
@@ -40,7 +40,7 @@ public class ListCommand extends Command implements CommandParser {
         Collections.sort(toList, compareByDateTime);
         int count = 1;
         compal.ui.clearPrimary();
-        compal.ui.printg("Here are the tasks in your list:","verdana",15, Color.BLUEVIOLET);
+        compal.ui.printg("Here are the tasks in your list:", "verdana", 15, Color.BLUEVIOLET);
         for (Task t : toList) {
             compal.ui.printg(count++ + "." + t.toString());
         }

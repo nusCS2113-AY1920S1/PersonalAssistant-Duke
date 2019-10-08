@@ -1,6 +1,6 @@
-package compal.tasks;
+package compal.model.tasks;
 
-import compal.compal.Compal;
+import compal.commons.Compal;
 
 import java.util.ArrayList;
 import java.util.BitSet;
@@ -49,6 +49,9 @@ public class TaskList {
     public int addTask(Task task) {
         arrlist.add(task);
         compal.storage.saveCompal(arrlist);
+        if (compal.ui.dateState.equals(task.getStringDate())) {
+            compal.ui.dateViewRefresh(task.getStringDate());
+        }
         compal.ui.showSize();
         return arrlist.size();
     }

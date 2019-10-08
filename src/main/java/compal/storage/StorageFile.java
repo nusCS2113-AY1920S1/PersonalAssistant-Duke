@@ -1,21 +1,17 @@
 package compal.storage;
 
-import compal.tasks.FixedDurationTask;
-import compal.tasks.Deadline;
-import compal.tasks.DoAfterTasks;
-import compal.tasks.Event;
-import compal.tasks.RecurringTask;
-import compal.tasks.Task;
+import compal.model.tasks.FixedDurationTask;
+import compal.model.tasks.Deadline;
+import compal.model.tasks.DoAfterTasks;
+import compal.model.tasks.Event;
+import compal.model.tasks.RecurringTask;
+import compal.model.tasks.Task;
 
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 
@@ -26,6 +22,15 @@ public class StorageFile implements Storage {
     //***Class Properties/Variables***--------------------------------------------------------------------------------->
     private static final String saveFilePath = "./Compal.txt";
     private static final String userPreferencesFilePath = "./prefs.txt";
+    private static final String SYMBOL_LECT = "LECT";
+    private static final String SYMBOL_TUT = "TUT";
+    private static final String SYMBOL_SECT = "SECT";
+    private static final String SYMBOL_LAB = "LAB";
+    private static final String SYMBOL_RECUR = "RT";
+    private static final String SYMBOL_DEADLINE = "D";
+    private static final String SYMBOL_DOAFTER = "DAT";
+    private static final String SYMBOL_EVENT = "E";
+    private static final String SYMBOL_FIXEDD = "FDT";
 
     /**
      * Prints message of storage initialized.
@@ -51,24 +56,27 @@ public class StorageFile implements Storage {
             while ((st = br.readLine()) != null) {
                 Task t;
                 System.out.println("StorageFile:LOG: Task read:" + st);
-                String[] parts = st.split(" ");
+                String[] parts = st.split("_");
                 String taskType = parts[0];
                 switch (taskType) {
-                case "D":
-                    t = new Deadline(parts[1],stringToPriority(parts[3]),parts[4]);
+                case SYMBOL_DEADLINE:
+                    t = new Deadline(parts[1], stringToPriority(parts[3]), parts[4], parts[5]);
                     break;
-                case "DAT":
-                    t = new DoAfterTasks(parts[1],stringToPriority(parts[3]),parts[4]);
+                case SYMBOL_DOAFTER:
+                    t = new DoAfterTasks(parts[1], stringToPriority(parts[3]), parts[4]);
                     break;
-                case "RT":
-                    t = new RecurringTask(parts[1],stringToPriority(parts[3]),parts[4],parts[5]);
+                case SYMBOL_RECUR:
+                case SYMBOL_LECT:
+                case SYMBOL_TUT:
+                case SYMBOL_SECT:
+                case SYMBOL_LAB:
+                    t = new RecurringTask(parts[1], stringToPriority(parts[3]), parts[4], parts[5], parts[6], taskType);
                     break;
-                case "E":
-                    t = new Event(parts[1],stringToPriority(parts[3]),parts[4],parts[5]);
+                case SYMBOL_EVENT:
+                    t = new Event(parts[1], stringToPriority(parts[3]), parts[4], parts[5], parts[6]);
                     break;
-                case "FDT":
-                    t = new FixedDurationTask(parts[1],stringToPriority(parts[3]),parts[4],parts[5],
-                            Integer.parseInt(parts[6]),Integer.parseInt(parts[7]));
+                case SYMBOL_FIXEDD:
+                    t = new FixedDurationTask(parts[1], stringToPriority(parts[3]), parts[4], parts[5], parts[6]);
                     break;
                 default:
                     System.out.println("Storage:LOG: Could not parse text. Returning what we managed to parse.");
@@ -80,7 +88,7 @@ public class StorageFile implements Storage {
                 if (parts[2].equals("true")) {
                     t.markAsDone();
                 }
-                if (parts[8].equals("true")) {
+                if (parts[7].equals("true")) {
                     t.setHasReminder();
                 }
 
@@ -97,6 +105,7 @@ public class StorageFile implements Storage {
 
     /**
      * Returns Priority from a String describing the priority level.
+     *
      * @param priority task priority string
      * @return Priority enum
      */
@@ -131,11 +140,11 @@ public class StorageFile implements Storage {
     @Override
     public void saveCompal(ArrayList<Task> tasks) {
         StringBuilder sb = new StringBuilder();
-        for (Task t:tasks) {
+        for (Task t : tasks) {
             sb.append(t.getAllDetailsAsString());
             sb.append("\n");
         }
-        saveString(sb.toString(),"duke.txt");
+        saveString(sb.toString(), "duke.txt");
     }
 
     /**

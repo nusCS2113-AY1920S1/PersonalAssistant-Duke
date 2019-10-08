@@ -1,15 +1,15 @@
 package compal.logic.commands;
 
 import compal.logic.parser.CommandParser;
-import compal.compal.Compal;
-import compal.tasks.Task;
-import compal.tasks.TaskList;
+import compal.commons.Compal;
+import compal.model.tasks.Task;
+import compal.model.tasks.TaskList;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Scanner;
 
-import static compal.compal.Messages.MESSAGE_MISSING_COMMAND_ARG;
+import static compal.commons.Messages.MESSAGE_MISSING_COMMAND_ARG;
 
 /**
  * Executes user command "view".
@@ -30,6 +30,7 @@ public class ViewCommand extends Command implements CommandParser {
 
     /**
      * Displays the tasks available on the user input date.
+     * Additionally set view state to set by user.
      *
      * @param userIn User string input.
      */
@@ -58,6 +59,9 @@ public class ViewCommand extends Command implements CommandParser {
 
             if (isEmpty) {
                 compal.ui.printg("No task found on " + dateInput);
+            } else {
+                compal.ui.dateState = dateInput;
+                compal.ui.dateViewRefresh(compal.ui.dateState);
             }
         } else {
             compal.ui.printg(MESSAGE_MISSING_COMMAND_ARG);
