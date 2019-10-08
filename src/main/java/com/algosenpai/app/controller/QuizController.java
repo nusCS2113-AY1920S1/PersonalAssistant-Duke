@@ -3,6 +3,7 @@ package com.algosenpai.app.controller;
 import com.algosenpai.app.Question;
 import com.algosenpai.app.chapters.ChapterSorting;
 import com.algosenpai.app.constant.ImagesConstant;
+import com.algosenpai.app.constant.ImagesEnum;
 import com.algosenpai.app.constant.JavaFxConstant;
 import com.algosenpai.app.constant.ResourcePathConstant;
 import com.algosenpai.app.utility.ResourceRandomUtility;
@@ -56,7 +57,7 @@ public class QuizController extends SceneController implements Initializable {
             @Override
             public void handle() {
                 String imageName = ResourceRandomUtility.randomResources(ImagesConstant.quizImages);
-                changeBackgroundImage(ResourcePathConstant.imagesResourcePath + imageName);
+                changeBackgroundImage(imageName);
             }
         };
         backgroundSceneTimer.start();
@@ -70,21 +71,16 @@ public class QuizController extends SceneController implements Initializable {
     @FXML
     public void handleKeyPressed(KeyEvent keyEvent) throws IOException {
         if (keyEvent.getCode() == KeyCode.H) {
-            MusicController.playMusic("rezero.wav");
-            String imageName = ResourceRandomUtility.randomResources(ImagesConstant.startAppImages);
-
+            MusicController.playMusic("promise.wav");
+            String imageName = ImagesConstant.startAppImages.get(ImagesEnum.START_APP_2);
             changeScene("home.fxml", imageName);
-            //changeScene(ResourcePathConstant.viewResourcePath + "home.fxml");
             backgroundSceneTimer.stop();
         }
         if (keyEvent.getCode() == KeyCode.E) {
             MusicController.playMusic("rezero.wav");
             String imageName = ResourceRandomUtility.randomResources(ImagesConstant.startAppImages);
-
             changeScene("end.fxml", imageName);
-            //changeScene(ResourcePathConstant.viewResourcePath + "end.fxml");
-            //String imageName = ResourceRandomUtility.randomResources(ImagesConstant.startAppImages);
-            //changeBackgroundImage(ResourcePathConstant.imagesResourcePath + imageName);
+            backgroundSceneTimer.stop();
         }
         if (keyEvent.getCode() == KeyCode.ESCAPE) {
             userInput.getParent().requestFocus();

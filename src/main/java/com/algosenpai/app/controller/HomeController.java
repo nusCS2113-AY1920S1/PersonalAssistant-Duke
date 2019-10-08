@@ -34,6 +34,8 @@ public class HomeController extends SceneController implements Initializable {
     @FXML
     private StackPane container ;
 
+    AnimationTimerController backgroundSceneTimer;
+
     private List<Text> texts ;
 
     private List<String> commands ;
@@ -42,7 +44,7 @@ public class HomeController extends SceneController implements Initializable {
         commands = new ArrayList<>();
         commands.add("/play");
         commands.add("/date");
-        commands.add("/set-volume");
+        commands.add("/sound");
         commands.add("/exit");
         handle();
     }
@@ -66,14 +68,14 @@ public class HomeController extends SceneController implements Initializable {
         for (int i = 0; i < commands.size(); i++) {
             Text text = new Text(commands.get(i));
             setTextStyle(text, 255,218,185, true, 20, "arial");
-            setNodePos(text, 300.0 + i * 30, 200.0);
+            setNodePos(text, 300.0 + i * 30, 250.0);
             texts.add(text);
             container.getChildren().add(text);
         }
     }
 
     private void handle() {
-        AnimationTimerController backgroundSceneTimer = new AnimationTimerController(1) {
+        backgroundSceneTimer = new AnimationTimerController(1) {
             @Override
             public void handle() {
                 if (userInputY <= 250) {
@@ -96,23 +98,20 @@ public class HomeController extends SceneController implements Initializable {
         if (keyEvent.getCode() == KeyCode.Q) {
             MusicController.playMusic("saturation.wav");
             String imageName = ResourceRandomUtility.randomResources(ImagesConstant.startAppImages);
-
             changeScene("quiz.fxml", imageName);
-            //changeScene(ResourcePathConstant.viewResourcePath + "quiz.fxml");
+            backgroundSceneTimer.stop();
         }
         if (keyEvent.getCode() == KeyCode.R) {
             MusicController.playMusic("saturation.wav");
             String imageName = ResourceRandomUtility.randomResources(ImagesConstant.startAppImages);
-
             changeScene("review.fxml", imageName);
-            //changeScene(ResourcePathConstant.viewResourcePath + "review.fxml");
+            backgroundSceneTimer.stop();
         }
         if (keyEvent.getCode() == KeyCode.G) {
             MusicController.playMusic("saturation.wav");
             String imageName = ResourceRandomUtility.randomResources(ImagesConstant.startAppImages);
-
             changeScene("girls.fxml", imageName);
-            //changeScene(ResourcePathConstant.viewResourcePath + "girls.fxml");
+            backgroundSceneTimer.stop();
         }
         if (keyEvent.getCode() == KeyCode.ESCAPE) {
             userInput.getParent().requestFocus();
@@ -131,9 +130,5 @@ public class HomeController extends SceneController implements Initializable {
         if (!userInput.equals(mouseEvent.getSource())) {
             userInput.getParent().requestFocus();
         }
-    }
-
-    public String getSceneTitle() {
-        return sceneTitle.getText();
     }
 }

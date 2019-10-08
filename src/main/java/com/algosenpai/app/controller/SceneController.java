@@ -5,7 +5,6 @@ import com.algosenpai.app.constant.ImagesConstant;
 import com.algosenpai.app.constant.ImagesEnum;
 import com.algosenpai.app.constant.JavaFxConstant;
 import com.algosenpai.app.constant.ResourcePathConstant;
-import com.algosenpai.app.utility.ResourceRandomUtility;
 import javafx.application.Application;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -54,12 +53,13 @@ public class SceneController extends Application {
         Scene scene = new Scene(root, JavaFxConstant.windowWidth, JavaFxConstant.windowHeight);
         (SceneController.getStage()).setScene(scene);
         stage.setResizable(false);
+        stage.setTitle("AlgoSenpai Adventures");
         stage.show();
-        changeBackgroundImage(ResourcePathConstant.imagesResourcePath + imageName);
+        changeBackgroundImage(imageName);
     }
 
     void changeBackgroundImage(String imageName) {
-        String fxBackgroundImageStyle = getFxBackgroundImageStyle(imageName);
+        String fxBackgroundImageStyle = getFxBackgroundImageStyle(ResourcePathConstant.imagesResourcePath + imageName);
         root.setStyle(fxBackgroundImageStyle);
     }
 
