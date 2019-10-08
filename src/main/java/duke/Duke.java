@@ -1,6 +1,5 @@
 package duke;
 
-
 import duke.command.Command;
 import duke.core.DukeException;
 import duke.core.CommandManager;
@@ -30,15 +29,15 @@ public class Duke implements Runnable {
     /**
      * A Ui object that deals with interactions with the user.
      */
-    private Ui ui;
+    private Ui ui = Ui.getUi();
     /**
      * Constructs a Duke object with a relative file path.
      * Initialize the user interface and reads tasks from the specific text file.
      * @param filePath A string that represents the path of the local file
      *          used for storing tasks.
      */
+
     public Duke(String filePath) {
-        ui = new Ui();
         taskStorage = new TaskStorage(filePath + "/data.txt");
         patientStorage = new PatientStorage(filePath + "/patients.csv");
 
@@ -73,12 +72,14 @@ public class Duke implements Runnable {
         }
         System.exit(0);
     }
+
     /**
      * Starts the Duke thread and Reminder thread concurrently
      * by passing a filepath to duke and a global ui object&
-     * task list to Reminder
+     * task list to Reminder.
      * @param args The command line arguments.
      */
+
     public static void main(String[] args) {
         new Duke("./data").run();
     }

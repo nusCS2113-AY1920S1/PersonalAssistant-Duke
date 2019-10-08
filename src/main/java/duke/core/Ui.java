@@ -1,15 +1,9 @@
 package duke.core;
 
-import duke.task.Task;
-import duke.task.TaskList;
-
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
-import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
- * Represents the necessary ui elements for user interaction
+ * Represents the necessary ui elements for user interaction.
  */
 public class Ui {
     /**
@@ -18,14 +12,21 @@ public class Ui {
     private Scanner scanner;
 
     /**
-     * Constructs a Ui object and initializes the
-     * Scanner to read user input from the system.
+     * Constructs a singleton Ui design pattern by using lazy initialization.
      */
-    public Ui() {
+
+    private Ui() {
         scanner = new Scanner(System.in);
     }
 
+    private static Ui ui;
 
+    public static Ui getUi() {
+        if (ui == null) {
+            ui = new Ui();
+        }
+        return ui;
+    }
 
     /**
      * Reads user instruction.
@@ -203,7 +204,7 @@ public class Ui {
         System.out.println("Enter 'help' to show a list of commands ");
     }
 
-    public void showHelpCommand () {
+    public void showHelpCommand() {
         System.out.println("Here are the things you can do with Dukepital:\n");
         System.out.println("1. list - to show a list of all the tasks\n");
         System.out.println("2. delete - to delete a task in the list\n");

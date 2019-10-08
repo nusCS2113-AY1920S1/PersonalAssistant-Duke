@@ -21,10 +21,10 @@ public class ExitCommand extends Command {
     }
 
     /**
-     * Indicates whether Duke should exist
+     * Indicates whether Duke should exist.
      *
      * @return A boolean. True if the command tells Duke to exit, false
-     * otherwise.
+     *         otherwise.
      */
     @Override
     public boolean isExit() {
