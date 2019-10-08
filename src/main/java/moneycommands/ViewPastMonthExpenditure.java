@@ -112,5 +112,10 @@ public class ViewPastMonthExpenditure extends MoneyCommand {
         ui.appendToOutput(totalMonthExpenditure + "\n");
 
     }
+
+    @Override
+    public void undo(Account account, Ui ui, MoneyStorage storage) throws DukeException, ParseException {
+        return;
+    }
 }
 
