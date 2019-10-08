@@ -8,6 +8,13 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 public class ChangePasswordCommand extends Command {
+    /**
+     *  This method will verify current password and write the new password to the Password.txt file.
+     * @param list task lists
+     * @param ui the object that deals with printing things to the user.
+     * @param storage the object that deals with storing data.
+     * @throws IOException
+     */
     @Override
     public void execute (ArrayList<Task> list, Ui ui, Storage storage) throws IOException {
         System.out.println("Enter your current password:");

@@ -11,7 +11,7 @@ import java.util.ArrayList;
 
 public class DoneCommand extends Command {
     @Override
-    public void execute(ArrayList<Task> list, Ui ui, Storage storage) throws DukeException, ParseException, IOException, NullPointerException {
+    public void execute(ArrayList<Task> list, Ui ui, Storage storage) throws ParseException, IOException, NullPointerException {
         try {
             if (ui.FullCommand.equals("done")) {
                 throw new DukeException("The task done number cannot be empty.");
@@ -39,7 +39,12 @@ public class DoneCommand extends Command {
              */
 
             RecurringCommand rc = new RecurringCommand();
-            rc.AddRecurring(list, numbercheck,list.get(numbercheck).toString(), storage);
+            rc.AddRecurring(list, numbercheck, list.get(numbercheck).toString(), storage);
+
+            /**
+             * Filter out those task that are done
+             */
+
 
             StringBuilder sb = new StringBuilder();
             for (int i = 0; i < list.size(); i++) {

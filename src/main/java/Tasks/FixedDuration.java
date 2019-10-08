@@ -8,7 +8,7 @@ public class FixedDuration extends Task {
 
     @Override
     public String toString() {
-        return "FD"+ "|" + super.getStatusIcon() + "| " + super.description + "|" + duration;
+        return "FD"+ "|" + super.getStatusIcon() + "|" + super.description + "|" + duration;
     }
     @Override
     public String listFormat(){

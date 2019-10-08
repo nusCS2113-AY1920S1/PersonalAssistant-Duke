@@ -17,6 +17,16 @@ import java.util.Locale;
 
 public class RecurringCommand {
 
+    /**
+     *
+     * @param list              task lists
+     * @param numbercheck       the index of the list
+     * @param list_description  description of the index of the list
+     * @param storage           the object that deals with storing data.
+     * @throws ParseException
+     * @throws IOException
+     */
+
     public void AddRecurring(ArrayList<Task> list,int numbercheck ,String list_description, Storage storage) throws ParseException, IOException {
         String[] splitstring;
         String[] datesplitstring;
