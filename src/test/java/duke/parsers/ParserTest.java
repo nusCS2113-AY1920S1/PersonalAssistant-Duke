@@ -26,6 +26,8 @@ class ParserTest {
             assertTrue(Parser.parse("dinner burger /calories 100", autocorrect) instanceof AddCommand);
             assertTrue(Parser.parse("dinner burger /calories 100 /date 1/1/2019", autocorrect)
                     instanceof AddCommand);
+            assertTrue(Parser.parse("add burger /calorie 100 /sodium 100 /fats 100", autocorrect)
+                    instanceof AddItemCommand);
             assertTrue(Parser.parse("list", autocorrect) instanceof ListCommand);
             assertTrue(Parser.parse("done 1", autocorrect) instanceof MarkDoneCommand);
         } catch (DukeException e) {
