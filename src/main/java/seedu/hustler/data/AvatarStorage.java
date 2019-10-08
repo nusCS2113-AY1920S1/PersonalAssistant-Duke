@@ -1,7 +1,13 @@
 package seedu.hustler.data;
 
-import seedu.hustler.game.avatar.*;
-import java.io.*;
+import seedu.hustler.game.avatar.Avatar;
+import seedu.hustler.game.avatar.Level;
+import seedu.hustler.game.avatar.Stats;
+import java.io.FileNotFoundException;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.File;
+import java.io.IOException;
 import java.util.Formatter;
 import java.util.Scanner;
 
