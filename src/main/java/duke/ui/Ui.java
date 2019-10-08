@@ -54,6 +54,16 @@ public class Ui {
     }
 
     /**
+     * Show the help page
+     *
+     * @return an event requesting to view the help page
+     */
+    public static String helpRequest(TaskList items){
+        String str = "     Here are the commands available in Duke Manager:";
+        return  str;
+    }
+
+    /**
      * Reads the user input, and converts it into string.
      *
      * @return String of the user input.
