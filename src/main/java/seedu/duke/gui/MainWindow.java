@@ -11,6 +11,7 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
 import seedu.duke.Duke;
 import seedu.duke.CommandParser;
@@ -53,34 +54,20 @@ public class MainWindow extends AnchorPane {
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
+        WebEngine webEngine = webView.getEngine();
+        webEngine.load("http://www.google.com");
+        webView.setDisable(true);
+        userInput.requestFocus();
+        dialogContainer.getChildren().addAll(
+                DialogBox.getDukeDialog("Welcome!", dukeImage)
+        );
+        setInputPrefix();
+        updateTasksList();
+        updateEmailsList();
     }
 
     public void setDuke(Duke d) {
         duke = d;
-    }
-
-    @FXML
-    private void getstring() {
-        userInput.setText("123");
-    }
-
-    /**
-     * Constructs a text formatter.
-     *
-     * @return the format constructed
-     */
-    @FXML
-    public TextFormatter<String> getTextFormatter() {
-        String prefix = CommandParser.getInputPrefix();
-        UnaryOperator<TextFormatter.Change> filter = c -> {
-            if (c.getCaretPosition() < prefix.length()) {
-                return null;
-            } else {
-                return c;
-            }
-        };
-        TextFormatter<String> textFormatter = new TextFormatter<>(filter);
-        return textFormatter;
     }
 
     /**
@@ -89,6 +76,7 @@ public class MainWindow extends AnchorPane {
      */
     @FXML
     private void handleUserInput() {
+        webView.setDisable(false);
         String input = userInput.getText();
         String response = duke.getResponse(input);
         dialogContainer.getChildren().addAll(
@@ -105,25 +93,30 @@ public class MainWindow extends AnchorPane {
         }
     }
 
+    boolean isShowingEmail = false;
     @FXML
     private void handleKeyEvent(KeyEvent e) {
-        // Get the Type of the Event
         String type = e.getEventType().getName();
-
-        // Get the KeyCode of the Event
         KeyCode keyCode = e.getCode();
 
-        String keyInfo = type + "Key Code=" + keyCode.getName() +
-                ", Text=" + e.getText()+"\n";
+        String keyInfo = type + ": Key Code=" + keyCode.getName() + ", Text=" + e.getText() + "\n";
 
         // print key pressed info to terminal for debugging purpose.
         System.out.println(keyInfo);
 
         // Do sth if ESC key is pressed
-        if (e.getCode() == KeyCode.ESCAPE)
-        {
-            userInput.appendText(keyInfo);
+        if (e.getCode() == KeyCode.ESCAPE) {
+            if(isShowingEmail) {
+                webView.setMaxHeight(0);
+                emailsListView.setMaxHeight(800);
+                isShowingEmail = false;
+            } else {
+                emailsListView.setMaxHeight(0);
+                webView.setMaxHeight(800);
+                isShowingEmail = true;
+            }
             e.consume();
+
         }
     }
 
