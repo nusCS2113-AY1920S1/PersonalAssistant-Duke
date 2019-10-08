@@ -10,11 +10,10 @@ public class WordUp {
     public Storage storage;
     public WordBank wordBank;
 
-
     public WordUp(String filePath) {
         ui = new Ui();
         storage = new Storage(filePath);
-        wordBank = new WordBank();
+        wordBank = new WordBank(storage);
     }
 
     public void run() {
@@ -37,8 +36,7 @@ public class WordUp {
     }
 
     public static void main(String[] args) {
-        new WordUp("data/duke.txt").run();
-
+        new WordUp("/home/tessa/Documents/CS2113/main/data/wordup.txt").run();
     }
 }
 

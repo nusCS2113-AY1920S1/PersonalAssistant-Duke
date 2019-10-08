@@ -20,6 +20,7 @@ public class AddCommand extends Command {
         //add task to tasks
         //ask storage to write to file
         wordBank.addWord(word);
+        storage.writeFile(word.toString(), true);
         ui.showAdded(word);
     }
 }
