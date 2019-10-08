@@ -383,9 +383,7 @@ public class Ui {
             username = compal.storage.getUserName();
             printg("Hello again "
                     + username
-                    + "! " );
-                    //+ "Here are your tasks that are due within a week: \n","verdana",15,Color.BLACK
-
+                    + "! ");
             //initiate the showing of reminders
             compal.parser.processCmd(MESSAGE_INIT_REMINDER);
         }
