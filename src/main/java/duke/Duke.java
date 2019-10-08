@@ -1,9 +1,13 @@
 package duke;
 
+import java.util.List;
+
 import duke.command.Command;
+import duke.command.ListCommand;
 import duke.exceptions.ModBadRequestStatus;
 import duke.exceptions.ModException;
 import duke.exceptions.ModTimeIntervalTooCloseException;
+import duke.modules.ModuleInfoSummary;
 import duke.util.JsonWrapper;
 import duke.util.ParserWrapper;
 import duke.util.Storage;
@@ -44,10 +48,12 @@ public class Duke {
         ui.helloMsg();
         boolean isExit = false;
         // Starting reminder threads and pulling data from API
-        // TODO: pending fix from HL for thread bug
+        // TODO: pending fix for thread bug
         try {
             reminder = new Reminder(tasks.getTasks());
             //reminder.run();
+
+            // This pulls data once and stores in the data files.
             data.runRequests(store);
         } catch (ModTimeIntervalTooCloseException e) {
             System.out.println(e.getMessage());
@@ -60,6 +66,12 @@ public class Duke {
                 ui.showLine();
                 Command c = parser.parse(fullCommand);
                 c.execute(tasks, ui, store, reminder);
+                // TODO: this line is to demo how to gson parser using the
+                //       list command, remove this when creating additional features
+                if (c instanceof ListCommand) {
+                   List<ModuleInfoSummary> test = data.readJson();
+                   System.out.println(test.get(10));
+                }
                 isExit = c.isExit();
             } catch (ModException e) {
                 System.out.println(e.getMessage());

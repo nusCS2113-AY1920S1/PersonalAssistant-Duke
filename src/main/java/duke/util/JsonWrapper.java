@@ -2,15 +2,19 @@ package duke.util;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
+import com.google.gson.reflect.TypeToken;
 import com.google.gson.stream.JsonReader;
 
 import java.io.FileReader;
 import java.io.IOException;
+import java.lang.reflect.Type;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Arrays;
+import java.util.List;
 
 import duke.exceptions.ModBadRequestStatus;
+import duke.modules.ModuleInfoSummary;
 
 public class JsonWrapper {
 
@@ -74,15 +78,16 @@ public class JsonWrapper {
      * presented in a JSON array, our class object class would need to be wrapped
      * in an array as well.
      */
-    private void readJson() {
+    public List<ModuleInfoSummary> readJson() {
         try {
             JsonReader reader = new JsonReader(new FileReader(listFile));
-            JsonObject jsonObject = gson.fromJson(reader, JsonObject.class);
-
+            Type listType = new TypeToken<List<ModuleInfoSummary>>(){}.getType();
+            return gson.fromJson(reader, listType);
         } catch (IllegalStateException e) {
             e.printStackTrace();
         } catch (IOException ei) {
             System.out.println(Arrays.toString(ei.getStackTrace()));
         }
+        return null;
     }
 }
