@@ -1,7 +1,10 @@
 package owlmoney.logic.parser.saving;
 
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 
+import owlmoney.logic.command.Command;
 import owlmoney.logic.parser.ParseRawData;
 import owlmoney.logic.parser.exception.ParserException;
 
@@ -14,14 +17,22 @@ public abstract class ParseSaving {
     static final String INCOME = "/income";
     static final String NAME = "/name";
     static final String NEW_NAME = "/newname";
+    private static final List<String> SAVINGS_KEYWORD_LISTS = Arrays.asList(SAVINGS_KEYWORD);
 
     ParseSaving(String data) {
         this.rawData = data;
     }
 
-    void checkRedundantParameter(String parameter) throws ParserException {
+    void checkRedundantParameter(String parameter, String command) throws ParserException {
         if (rawData.contains(parameter)) {
-            throw new ParserException("Add savings should not contain " + parameter);
+            throw new ParserException(command + "/savings should not contain " + parameter);
+        }
+    }
+
+    void checkFirstParameter() throws ParserException {
+        String[] rawDateSplit = rawData.split(" ", 2);
+        if(!SAVINGS_KEYWORD_LISTS.contains(rawDateSplit[0])) {
+            throw new ParserException("Incorrect command syntax");
         }
     }
 
@@ -44,5 +55,5 @@ public abstract class ParseSaving {
         }
     }
 
-    abstract void checkParameter() throws ParserException;
+    public abstract void checkParameter() throws ParserException;
 }

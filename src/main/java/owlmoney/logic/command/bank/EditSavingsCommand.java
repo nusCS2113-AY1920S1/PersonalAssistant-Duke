@@ -6,20 +6,21 @@ import owlmoney.model.bank.Saving;
 import owlmoney.model.profile.Profile;
 import owlmoney.ui.Ui;
 
-public class AddSavingsCommand extends Command {
+public class EditSavingsCommand extends Command {
     private final String name;
-    private final double income;
-    private final double amount;
+    private final String income;
+    private final String amount;
+    private final String newName;
 
-    public AddSavingsCommand(String name, double income, double amount) {
+    public EditSavingsCommand(String name, String income, String amount, String newName) {
         this.amount = amount;
         this.income = income;
         this.name = name;
+        this.newName = newName;
     }
 
     @Override
     public void execute(Profile profile, Ui ui) {
-        Bank newSaving = new Saving(this.name, this.amount, this.income);
-        profile.addNewBank(newSaving, ui);
+        profile.editSavingsAccount(name, newName, amount, income, ui);
     }
 }

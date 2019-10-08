@@ -1,30 +1,30 @@
 package owlmoney.logic.command.transaction;
 
 import owlmoney.logic.command.Command;
-import owlmoney.model.transaction.Expenditure;
-import owlmoney.model.transaction.Transaction;
 import owlmoney.model.profile.Profile;
 import owlmoney.ui.Ui;
 
-public class AddExpenditureCommand extends Command {
+public class EditExpenditureCommand extends Command {
 
     private final String accName;
-    private final double amount;
+    private final String amount;
     private final String date;
     private final String description;
     private final String category;
+    private final int index;
 
     //working code but haven't parse date
-    public AddExpenditureCommand(String name, double amount, String date, String description, String category) {
+    public EditExpenditureCommand(String name, String amount, String date, String description, String category
+            , int index) {
         this.accName = name;
         this.amount = amount;
         this.date = date;
         this.description = description;
         this.category = category;
+        this.index = index;
     }
 
     public void execute(Profile profile, Ui ui) {
-        Transaction newExpenditure = new Expenditure(this.description, this.amount, this.date, this.category);
-        profile.addNewExpenditure(accName, newExpenditure, ui);
+        profile.editExpenditure(index, accName, description, amount, date, category, ui);
     }
 }

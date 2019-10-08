@@ -4,16 +4,16 @@ import owlmoney.logic.command.Command;
 import owlmoney.model.profile.Profile;
 import owlmoney.ui.Ui;
 
-public class ListExpenditureCommand extends Command {
+public class ListDepositCommand extends Command {
     private final String accName;
     private final int displayNum;
 
-    public ListExpenditureCommand(String name, int displayNum) {
+    public ListDepositCommand(String name, int displayNum) {
         this.accName = name;
         this.displayNum = displayNum;
     }
 
     public void execute(Profile profile, Ui ui) {
-        profile.listExpenditure(accName, ui, displayNum);
+        profile.listDeposit(accName, ui, displayNum);
     }
 }

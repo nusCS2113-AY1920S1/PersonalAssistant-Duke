@@ -1,10 +1,10 @@
-package owlmoney.model.expenditure;
+package owlmoney.model.transaction;
 
 /**
  * The Expenditure class that stores details of each expenditure.
  */
 
-public class Expenditure {
+public abstract class Transaction {
 
     private String description;
     private double amount;
@@ -19,7 +19,7 @@ public class Expenditure {
      * @param date        The date when this expenditure was made.
      * @param category    The category that this expenditure can be tagged to.
      */
-    public Expenditure(String description, double amount, String date, String category) {
+    public Transaction(String description, double amount, String date, String category) {
         this.description = description;
         this.amount = amount;
         this.date = date;
@@ -40,7 +40,7 @@ public class Expenditure {
      *
      * @return The description of the expenditure.
      */
-    public String getDescription() {
+    private String getDescription() {
         return this.description;
     }
 
@@ -49,7 +49,7 @@ public class Expenditure {
      *
      * @return The date that the expenditure was made.
      */
-    public String getDate() {
+    private String getDate() {
         return this.date;
     }
 
@@ -62,8 +62,32 @@ public class Expenditure {
         return this.category;
     }
 
+    private String checkDebitCredit() {
+        if(this.category.equals("deposit")) {
+            return "[+] ";
+        } else {
+            return "[-] ";
+        }
+    }
+
     String getDetails() {
-        return "Description: " + this.description + "\nAmount: " + this.amount + "\nDate: " + this.date.toString()
-                + "\nCategory: " + category;
+        return "Description: " + getDescription() + "\nAmount: " + checkDebitCredit() + getAmount()
+                + "\nDate: " + getDate().toString() + "\nCategory: " + getCategory();
+    }
+
+    void setDescription(String newDesc) {
+        this.description = newDesc;
+    }
+
+    void setAmount(double newAmount) {
+        this.amount = newAmount;
+    }
+
+    void setDate(String newDate) {
+        this.date = newDate;
+    }
+
+    void setCategory(String newCategory) {
+        this.category = newCategory;
     }
 }

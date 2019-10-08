@@ -40,11 +40,13 @@ abstract class Parser {
         }
     }
 
-    String removeListFirstField(String input, String firstField) {
+    String removeListFirstField(String input, String firstField) throws ParserException {
         if (firstField.equals("/savings")) {
             return "";
-        } else {
+        } else if (firstField.length() + SPACE_LENGTH < input.length()) {
             return input.substring(firstField.length() + SPACE_LENGTH);
+        } else {
+            throw new ParserException("Incomplete command provided");
         }
     }
 }

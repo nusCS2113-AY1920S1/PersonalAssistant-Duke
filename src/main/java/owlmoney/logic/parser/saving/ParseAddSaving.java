@@ -9,9 +9,12 @@ import owlmoney.logic.parser.exception.ParserException;
 
 public class ParseAddSaving extends ParseSaving {
 
+    static final String ADD = "/add";
+
     public ParseAddSaving(String data) throws ParserException {
         super(data);
-        checkRedundantParameter(NEW_NAME);
+        checkRedundantParameter(NEW_NAME, ADD);
+        checkFirstParameter();
     }
 
     public void checkParameter() throws ParserException {
@@ -30,8 +33,6 @@ public class ParseAddSaving extends ParseSaving {
         }
     }
 
-    //current name is just a place holder. This is to create the command and execute it
-    //might need to restructure in future
     public Command getCommand() {
         AddSavingsCommand newAddSavingsCommand = new AddSavingsCommand(savingsParameters.get(NAME),
                 Double.parseDouble(savingsParameters.get(INCOME)),

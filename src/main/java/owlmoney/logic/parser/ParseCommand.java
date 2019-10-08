@@ -70,16 +70,12 @@ public class ParseCommand extends Parser {
     private Command parseCommandMenu(String command, String data) throws ParserException {
         switch (command) {
         case "/add":
-            System.out.println("You added");
-            return parseType.parseData(command, data);
+            // Fallthrough
         case "/delete":
-            System.out.println("You deleted");
-            return parseType.parseData(command, data);
+            // Fallthrough
         case "/edit":
-            System.out.println("You edited");
-            return parseType.parseData(command, data);
+            // Fallthrough
         case "/list":
-            System.out.println("You listed");
             return parseType.parseData(command, data);
         case "/exit":
             System.exit(0);

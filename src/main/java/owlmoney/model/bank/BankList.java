@@ -2,7 +2,7 @@ package owlmoney.model.bank;
 
 import java.util.ArrayList;
 
-import owlmoney.model.expenditure.Expenditure;
+import owlmoney.model.transaction.Transaction;
 import owlmoney.ui.Ui;
 
 /**
@@ -65,6 +65,8 @@ public class BankList {
     public void deleteBank(String bankName, Ui ui) {
         if (bankLists.size() <= 0) {
             ui.printError("There are 0 bank accounts in your profile");
+        } else if(bankLists.size() == 1) {
+            ui.printError("There must be at least 1 bank account");
         } else {
             for (int i = 0; i < bankLists.size(); i++) {
                 if (bankLists.get(i).getAccountName().equals(bankName)) {
@@ -72,6 +74,27 @@ public class BankList {
                     bankLists.remove(i);
                     break;
                 }
+            }
+        }
+    }
+
+    public void editSavings(String bankName, String newName, String amount, String income, Ui ui) {
+        for (int i = 0; i < bankLists.size(); i++) {
+            if (bankLists.get(i).getAccountName().equals(bankName)
+                    && "saving".equals(bankLists.get(i).getType())) {
+                ui.printMessage("Editing " + bankLists.get(i).getAccountName() + "\n");
+                if(!(newName.isEmpty() || newName.isBlank())) {
+                    bankLists.get(i).setAccountName(newName);
+                }
+                if(!(amount.isBlank() || amount.isEmpty())) {
+                    bankLists.get(i).setCurrentAmount(Double.parseDouble(amount));
+                }
+                if(!(income.isEmpty() || income.isBlank())) {
+                    ((Saving)bankLists.get(i)).setIncome(Double.parseDouble(income));
+                }
+                ui.printMessage("New details of the account:\n");
+                ui.printMessage(bankLists.get(i).getDescription() + "\n");
+                break;
             }
         }
     }
@@ -85,7 +108,7 @@ public class BankList {
      * @param ui      Required for printing.
      */
     //need change exception class in the future for this
-    public void addExpenditure(String accName, Expenditure exp, Ui ui) {
+    public void addExpenditure(String accName, Transaction exp, Ui ui) {
         for (int i = 0; i < bankLists.size(); i++) {
             if (bankLists.get(i).getAccountName().equals(accName)) {
                 bankLists.get(i).addInExpenditure(exp, ui);
@@ -115,10 +138,30 @@ public class BankList {
      * @param bankToList The bank account name.
      * @param ui         required for printing.
      */
-    public void listBankExpenditure(String bankToList, Ui ui) {
+    public void listBankTransaction(String bankToList, Ui ui) {
         for (int i = 0; i < bankLists.size(); i++) {
             if (bankToList.equals(bankLists.get(i).getAccountName())) {
-                bankLists.get(i).listAllExpenditure(ui);
+                bankLists.get(i).listAllTransaction(ui);
+                return;
+            }
+        }
+        ui.printError("Cannot find bank with name: " + bankToList);
+    }
+
+    public void listBankExpenditure(String bankToList, Ui ui, int displayNum) {
+        for (int i = 0; i < bankLists.size(); i++) {
+            if (bankToList.equals(bankLists.get(i).getAccountName())) {
+                ((Saving)bankLists.get(i)).listAllExpenditure(ui, displayNum);
+                return;
+            }
+        }
+        ui.printError("Cannot find bank with name: " + bankToList);
+    }
+
+    public void listBankDeposit(String bankToList, Ui ui, int displayNum) {
+        for (int i = 0; i < bankLists.size(); i++) {
+            if (bankToList.equals(bankLists.get(i).getAccountName())) {
+                ((Saving)bankLists.get(i)).listAllDeposit(ui, displayNum);
                 return;
             }
         }
@@ -140,5 +183,46 @@ public class BankList {
             }
         }
         ui.printError("Cannot find bank with name: " + deleteFromBank);
+    }
+
+    public void editExp(int expNum, String editFromBank, String desc, String amount, String date, String category
+            , Ui ui) {
+        for (int i = 0; i < bankLists.size(); i++) {
+            if (bankLists.get(i).getAccountName().equals(editFromBank)) {
+                ((Saving)bankLists.get(i)).editExpenditureDetails(expNum, desc, amount, date, category, ui);
+                return;
+            }
+        }
+        ui.printError("Cannot find bank with name: " + editFromBank);
+    }
+
+    public void editDep(int expNum, String editFromBank, String desc, String amount, String date, Ui ui) {
+        for (int i = 0; i < bankLists.size(); i++) {
+            if (bankLists.get(i).getAccountName().equals(editFromBank)) {
+                ((Saving)bankLists.get(i)).editDepositDetails(expNum, desc, amount, date, ui);
+                return;
+            }
+        }
+        ui.printError("Cannot find bank with name: " + editFromBank);
+    }
+
+    public void addDeposit(String accName, Transaction exp, Ui ui) {
+        for (int i = 0; i < bankLists.size(); i++) {
+            if (bankLists.get(i).getAccountName().equals(accName)) {
+                ((Saving)bankLists.get(i)).addDepositTransaction(exp, ui);
+                return;
+            }
+        }
+        ui.printError("Cannot find bank with name: " + accName);
+    }
+
+    public void deleteDeposit(String accName, int index, Ui ui) {
+        for (int i = 0; i < bankLists.size(); i++) {
+            if (bankLists.get(i).getAccountName().equals(accName)) {
+                ((Saving)bankLists.get(i)).deleteDepositTransaction(index, ui);
+                return;
+            }
+        }
+        ui.printError("Cannot find bank with name: " + accName);
     }
 }

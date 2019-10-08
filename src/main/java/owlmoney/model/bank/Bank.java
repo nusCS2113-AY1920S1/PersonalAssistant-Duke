@@ -1,6 +1,6 @@
 package owlmoney.model.bank;
 
-import owlmoney.model.expenditure.Expenditure;
+import owlmoney.model.transaction.Transaction;
 import owlmoney.ui.Ui;
 
 /**
@@ -8,6 +8,7 @@ import owlmoney.ui.Ui;
  */
 
 public abstract class Bank {
+    String type;
     private String accountName;
     private double currentAmount;
 
@@ -20,6 +21,18 @@ public abstract class Bank {
     Bank(String name, double currentAmount) {
         this.accountName = name;
         this.currentAmount = currentAmount;
+    }
+
+    void setAccountName(String newName) {
+        this.accountName = newName;
+    }
+
+    String getType() {
+        return type;
+    }
+
+    void setCurrentAmount(double newAmount) {
+        this.currentAmount = newAmount;
     }
 
     /**
@@ -49,9 +62,17 @@ public abstract class Bank {
         return "Account name: " + accountName + "\nCurrent Amount: " + currentAmount;
     }
 
-    public abstract void addInExpenditure(Expenditure exp, Ui ui);
+    void deductFromAmount(double amount) {
+        this.currentAmount -= amount;
+    }
 
-    public abstract void listAllExpenditure(Ui ui);
+    void addToAmount(double amount) {
+        this.currentAmount += amount;
+    }
+
+    public abstract void addInExpenditure(Transaction exp, Ui ui);
+
+    public abstract void listAllTransaction(Ui ui);
 
     public abstract void deleteExpenditure(int exNum, Ui ui);
 }

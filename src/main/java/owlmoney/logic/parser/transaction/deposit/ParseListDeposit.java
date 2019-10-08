@@ -1,21 +1,21 @@
-package owlmoney.logic.parser.transaction.expenditure;
+package owlmoney.logic.parser.transaction.deposit;
 
 import java.util.Iterator;
 
 import owlmoney.logic.command.Command;
-import owlmoney.logic.command.transaction.ListExpenditureCommand;
+import owlmoney.logic.command.transaction.ListDepositCommand;
 import owlmoney.logic.parser.exception.ParserException;
 
-public class ParseListExpenditure extends ParseExpenditure {
+public class ParseListDeposit extends ParseDeposit {
     private static final String LIST = "/list";
 
-    public ParseListExpenditure(String data) throws ParserException {
+    public ParseListDeposit(String data) throws ParserException {
         super(data);
-        checkRedundantParameter(TRANSNO,LIST);
-        checkRedundantParameter(AMOUNT,LIST);
-        checkRedundantParameter(DATE,LIST);
-        checkRedundantParameter(DESCRIPTION,LIST);
-        checkRedundantParameter(CATEGORY,LIST);
+        checkRedundantParameter(TO, LIST);
+        checkRedundantParameter(AMOUNT, LIST);
+        checkRedundantParameter(DATE, LIST);
+        checkRedundantParameter(DESCRIPTION, LIST);
+        checkRedundantParameter(TRANSNO, LIST);
     }
 
     public void checkParameter() throws ParserException {
@@ -26,10 +26,10 @@ public class ParseListExpenditure extends ParseExpenditure {
             String key = savingsIterator.next();
             String value = expendituresParameters.get(key);
             if (FROM.equals(key) && (value.isBlank() || value.isEmpty())) {
-                throw new ParserException(key + " cannot be empty when adding a new expenditure");
+                throw new ParserException(key + " cannot be empty when listing deposits from a bank");
             }
-            if (NUM.equals(key) && (value.isBlank() || value.isEmpty())) {
-                expendituresParameters.put(NUM, "30");
+            if(NUM.equals(key) && (value.isBlank() || value.isEmpty())) {
+                expendituresParameters.put(key, "30");
             }
             if (NUM.equals(key)) {
                 checkIfInt(NUM, expendituresParameters.get(NUM));
@@ -41,8 +41,8 @@ public class ParseListExpenditure extends ParseExpenditure {
     }
 
     public Command getCommand() {
-        ListExpenditureCommand newListExpenditureCommand = new ListExpenditureCommand(expendituresParameters.get(FROM)
+        ListDepositCommand newListDepositCommand = new ListDepositCommand(expendituresParameters.get(FROM)
                 , Integer.parseInt(expendituresParameters.get(NUM)));
-        return newListExpenditureCommand;
+        return newListDepositCommand;
     }
 }

@@ -1,14 +1,23 @@
-package owlmoney.logic.parser.expenditure;
+package owlmoney.logic.parser.transaction.expenditure;
 
 import java.util.Iterator;
 
 import owlmoney.logic.command.Command;
-import owlmoney.logic.command.expenditure.DeleteTransactionCommand;
+import owlmoney.logic.command.transaction.DeleteExpenditureCommand;
 import owlmoney.logic.parser.exception.ParserException;
 
 public class ParseDeleteExpenditure extends ParseExpenditure {
-    public ParseDeleteExpenditure(String data) {
+
+    private static final String DELETE = "/delete";
+
+    public ParseDeleteExpenditure(String data) throws ParserException {
         super(data);
+        checkRedundantParameter(AMOUNT, DELETE);
+        checkRedundantParameter(CATEGORY, DELETE);
+        checkRedundantParameter(DESCRIPTION, DELETE);
+        checkRedundantParameter(DATE, DELETE);
+        checkRedundantParameter(NUM, DELETE);
+        checkFirstParameter();
     }
 
     public void checkParameter() throws ParserException {
@@ -18,20 +27,21 @@ public class ParseDeleteExpenditure extends ParseExpenditure {
         while (savingsIterator.hasNext()) {
             String key = savingsIterator.next();
             String value = expendituresParameters.get(key);
-            if (EXPNO.equals(key) && (value.isBlank() || value.isEmpty())) {
+            if (TRANSNO.equals(key) && (value.isBlank() || value.isEmpty())) {
                 throw new ParserException(key + " cannot be empty when adding a new expenditure");
             }
             if (FROM.equals(key) && (value.isBlank() || value.isEmpty())) {
                 throw new ParserException(key + " cannot be empty when adding a new expenditure");
             }
+            if (TRANSNO.equals(key)) {
+                checkIfInt(TRANSNO, value);
+            }
         }
     }
 
-    //current name is just a place holder. This is to create the command and execute it
-    //might need to restructure in future
     public Command getCommand() {
-        DeleteTransactionCommand newDeleteExpenditureCommand =
-                new DeleteTransactionCommand(Integer.parseInt(expendituresParameters.get(EXPNO)),
+        DeleteExpenditureCommand newDeleteExpenditureCommand =
+                new DeleteExpenditureCommand(Integer.parseInt(expendituresParameters.get(TRANSNO)),
                         expendituresParameters.get(FROM));
         return newDeleteExpenditureCommand;
     }

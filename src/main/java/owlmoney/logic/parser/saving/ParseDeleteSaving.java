@@ -9,18 +9,19 @@ import owlmoney.logic.parser.exception.ParserException;
 
 public class ParseDeleteSaving extends ParseSaving {
 
+    static final String DELETE = "/delete";
+
     public ParseDeleteSaving(String data) throws ParserException {
         super(data);
-        checkRedundantParameter(AMOUNT);
-        checkRedundantParameter(INCOME);
-        checkRedundantParameter(NEW_NAME);
+        checkRedundantParameter(AMOUNT, DELETE);
+        checkRedundantParameter(INCOME, DELETE);
+        checkRedundantParameter(NEW_NAME, DELETE);
+        checkFirstParameter();
     }
 
     public void checkParameter() throws ParserException {
         // Getting an iterator
         Iterator<String> savingsIterator = savingsParameters.keySet().iterator();
-        //this is temporary. need to amend
-        //for now just checking the name field
         while (savingsIterator.hasNext()) {
             String key = savingsIterator.next();
             String value = savingsParameters.get(key);

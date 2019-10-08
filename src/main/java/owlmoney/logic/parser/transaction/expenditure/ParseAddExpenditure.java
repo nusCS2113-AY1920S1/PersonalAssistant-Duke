@@ -1,15 +1,20 @@
-package owlmoney.logic.parser.expenditure;
+package owlmoney.logic.parser.transaction.expenditure;
 
 import java.util.Iterator;
 
 import owlmoney.logic.command.Command;
-import owlmoney.logic.command.expenditure.AddExpenditureCommand;
+import owlmoney.logic.command.transaction.AddExpenditureCommand;
 import owlmoney.logic.parser.exception.ParserException;
 
 public class ParseAddExpenditure extends ParseExpenditure {
 
-    public ParseAddExpenditure(String data) {
+    static final String ADD = "/add";
+
+    public ParseAddExpenditure(String data) throws ParserException {
         super(data);
+        checkRedundantParameter(TRANSNO, ADD);
+        checkRedundantParameter(NUM, ADD);
+        checkFirstParameter();
     }
 
     public void checkParameter() throws ParserException {
@@ -19,11 +24,11 @@ public class ParseAddExpenditure extends ParseExpenditure {
         while (savingsIterator.hasNext()) {
             String key = savingsIterator.next();
             String value = expendituresParameters.get(key);
-            if (EXPNO.equals(key) && !value.isBlank() && !value.isEmpty()) {
-                throw new ParserException(key + "cannot be used when adding a new expenditure");
-            } else if (!EXPNO.equals(key) && !CATEGORY.equals(key) &&
-                    (value.isBlank() || value.isEmpty())) {
+            if (!TRANSNO.equals(key) && !NUM.equals(key) && !CATEGORY.equals(key)
+                    && (value.isBlank() || value.isEmpty())) {
                 throw new ParserException(key + " cannot be empty when adding a new expenditure");
+            } else if (CATEGORY.equals(key) && "deposit".equals(value)) {
+                throw new ParserException(key + " cannot be deposit when adding a new expenditure");
             } else if (CATEGORY.equals(key) && (value.isBlank() || value.isEmpty())) {
                 expendituresParameters.put(CATEGORY, "miscellaneous");
             }
@@ -33,8 +38,6 @@ public class ParseAddExpenditure extends ParseExpenditure {
         }
     }
 
-    //current name is just a place holder. This is to create the command and execute it
-    //might need to restructure in future
     public Command getCommand() {
         AddExpenditureCommand newAddExpenditureCommand = new AddExpenditureCommand(expendituresParameters.get(FROM),
                 Double.parseDouble(expendituresParameters.get(AMOUNT)), (expendituresParameters.get(DATE)),

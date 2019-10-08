@@ -2,7 +2,7 @@ package owlmoney.model.profile;
 
 import owlmoney.model.bank.Bank;
 import owlmoney.model.bank.BankList;
-import owlmoney.model.expenditure.Expenditure;
+import owlmoney.model.transaction.Transaction;
 import owlmoney.ui.Ui;
 
 /**
@@ -68,7 +68,7 @@ public class Profile {
      * @param exp     An expenditure object.
      * @param ui      required for printing.
      */
-    public void addNewExpenditure(String accName, Expenditure exp, Ui ui) {
+    public void addNewExpenditure(String accName, Transaction exp, Ui ui) {
         bankList.addExpenditure(accName, exp, ui);
     }
 
@@ -89,7 +89,36 @@ public class Profile {
      * @param listedBank The bank account name.
      * @param ui         required for printing.
      */
-    public void listExpenditure(String listedBank, Ui ui) {
-        bankList.listBankExpenditure(listedBank, ui);
+    public void listTransaction(String listedBank, Ui ui) {
+        bankList.listBankTransaction(listedBank, ui);
+    }
+
+    public void listDeposit(String listedBank, Ui ui, int displayNum) {
+        bankList.listBankDeposit(listedBank, ui, displayNum);
+    }
+
+    public void listExpenditure(String listedBank, Ui ui, int displayNum) {
+        bankList.listBankExpenditure(listedBank, ui, displayNum);
+    }
+
+    public void editExpenditure(int expNum, String editFromBank, String desc, String amount, String date
+            , String category, Ui ui) {
+        bankList.editExp(expNum, editFromBank, desc, amount, date, category, ui);
+    }
+
+    public void editSavingsAccount(String name, String newName, String amount, String income, Ui ui) {
+        bankList.editSavings(name, newName, amount, income, ui);
+    }
+
+    public void deleteDeposit(int depIndex, String bankName, Ui ui) {
+        bankList.deleteDeposit(bankName, depIndex, ui);
+    }
+
+    public void addNewDeposit(String accName, Transaction exp, Ui ui) {
+        bankList.addDeposit(accName, exp, ui);
+    }
+
+    public  void editDeposit(int expNum, String editFromBank, String desc, String amount, String date, Ui ui) {
+        bankList.editDep(expNum, editFromBank, desc, amount, date, ui);
     }
 }

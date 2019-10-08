@@ -1,7 +1,7 @@
 package owlmoney.model.bank;
 
-import owlmoney.model.expenditure.Expenditure;
-import owlmoney.model.expenditure.ExpenditureList;
+import owlmoney.model.transaction.Transaction;
+import owlmoney.model.transaction.TransactionList;
 import owlmoney.ui.Ui;
 
 /**
@@ -10,9 +10,8 @@ import owlmoney.ui.Ui;
 
 public class Saving extends Bank {
 
-    private String type;
     private double income;
-    private ExpenditureList myExpenditure;
+    private TransactionList myTransaction;
     private static final String SAVING = "saving";
 
     /**
@@ -26,7 +25,11 @@ public class Saving extends Bank {
         super(name, currentAmount);
         this.income = income;
         type = SAVING;
-        myExpenditure = new ExpenditureList();
+        myTransaction = new TransactionList();
+    }
+
+    private double getIncome() {
+        return income;
     }
 
     /**
@@ -36,7 +39,7 @@ public class Saving extends Bank {
      */
     @Override
     public String getDescription() {
-        return super.getDescription() + "\nIncome: " + income + "\nType: " + type;
+        return super.getDescription() + "\nIncome: " + getIncome() + "\nType: " + super.getType();
     }
 
     /**
@@ -46,8 +49,13 @@ public class Saving extends Bank {
      * @param ui  required for printing.
      */
     @Override
-    public void addInExpenditure(Expenditure exp, Ui ui) {
-        myExpenditure.addToList(exp, ui);
+    public void addInExpenditure(Transaction exp, Ui ui) {
+        if(exp.getAmount() > this.getCurrentAmount()) {
+            ui.printError("Bank account cannot have a negative amount");
+        } else {
+            myTransaction.addExpenditureToList(exp, ui);
+            deductFromAmount(exp.getAmount());
+        }
     }
 
     /**
@@ -56,8 +64,16 @@ public class Saving extends Bank {
      * @param ui required for printing.
      */
     @Override
-    public void listAllExpenditure(Ui ui) {
-        myExpenditure.listExpenditure(ui);
+    public void listAllTransaction(Ui ui) {
+        myTransaction.listTransaction(ui);
+    }
+
+    void listAllDeposit(Ui ui, int displayNum) {
+        myTransaction.listDeposit(ui, displayNum);
+    }
+
+    void listAllExpenditure(Ui ui, int displayNum) {
+        myTransaction.listExpenditure(ui, displayNum);
     }
 
     /**
@@ -68,6 +84,57 @@ public class Saving extends Bank {
      */
     @Override
     public void deleteExpenditure(int exId, Ui ui) {
-        myExpenditure.deleteFromList(exId, ui);
+        addToAmount(myTransaction.deleteExpenditureFromList(exId, ui));
+    }
+
+    void setIncome(double newIncome) {
+        this.income = newIncome;
+    }
+
+    void editExpenditureDetails(int expNum, String desc, String amount, String date, String category, Ui ui) {
+        if(myTransaction.getExpenditureAmount(expNum, ui) < 0) {
+            return;
+        }
+        if(!(amount.isEmpty() || amount.isBlank()) && this.getCurrentAmount()
+                + myTransaction.getExpenditureAmount(expNum, ui) < Double.parseDouble(amount)) {
+            ui.printError("Bank account cannot have a negative amount");
+            return;
+        }
+        double oldAmount = myTransaction.getExpenditureAmount(expNum, ui);
+        double newAmount = myTransaction.editEx(expNum, desc, amount, date, category, ui);
+        this.addToAmount(oldAmount);
+        this.deductFromAmount(newAmount);
+    }
+
+    void editDepositDetails(int expNum, String desc, String amount, String date, Ui ui) {
+        if(myTransaction.getTransactionValue(expNum, ui) < 0) {
+            return;
+        }
+        if(!(amount.isEmpty() || amount.isBlank()) && this.getCurrentAmount()
+                + Double.parseDouble(amount) < myTransaction.getTransactionValue(expNum, ui)) {
+            ui.printError("Bank account cannot have a negative amount");
+            return;
+        }
+        double oldAmount = myTransaction.getTransactionValue(expNum, ui);
+        double newAmount = myTransaction.editDep(expNum, desc, amount, date, ui);
+        this.addToAmount(newAmount);
+        this.deductFromAmount(oldAmount);
+    }
+
+    void addDepositTransaction(Transaction dep, Ui ui) {
+        myTransaction.addDepositToList(dep, ui);
+        addToAmount(dep.getAmount());
+    }
+
+    void deleteDepositTransaction(int index, Ui ui) {
+        double depositValue = myTransaction.getTransactionValue(index, ui);
+        if (depositValue < 0) {
+            return;
+        }
+        if (this.getCurrentAmount() < depositValue) {
+            ui.printError("Bank account cannot have a negative amount");
+        } else {
+            this.deductFromAmount(myTransaction.deleteDepositFromList(index, ui));
+        }
     }
 }
