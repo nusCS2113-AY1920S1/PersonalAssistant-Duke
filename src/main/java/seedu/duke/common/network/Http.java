@@ -112,6 +112,7 @@ public class Http {
     /**
      * Fetches the Access Token from Outlook.
      */
+    //@@author Navoneel Talukdar & Stunner
     //function adapted from https://stackoverflow
     // .com/questions/40574892/how-to-send-post-request-with-x-www-form-urlencoded-body
     public static void getAccess() {
@@ -131,6 +132,7 @@ public class Http {
             Duke.getUI().showError("Access code response in wrong format...");
         }
     }
+    //@@author
 
     private static void refreshAccess() {
         try {
@@ -157,6 +159,7 @@ public class Http {
      * @param params the parameters regarding the specification of this email api call in JSON form
      * @return the result of email api call in string
      */
+    //@@author baeldung
     //This function is adapted from code on https://www.baeldung.com/java-http-request
     public static String callEmailApi(JSONObject params) {
         String url = "";
@@ -178,6 +181,7 @@ public class Http {
         }
         return "";
     }
+    //@@author
 
     //convert the parameters for email api call in json to a url in string
     private static String getApiUrl(JSONObject params) throws JSONException {
