@@ -14,7 +14,7 @@ public class Duke {
     private static TaskList taskList;
     private static EmailList emailList;
     private static UI ui;
-    private static Parser parser;
+    private static CommandParser commandParser;
 
     ///**
     // * The main function of the cli program, which is the entry point.
@@ -66,7 +66,7 @@ public class Duke {
      */
     public Duke() {
         ui = new UI();
-        parser = new Parser();
+        commandParser = new CommandParser();
         ui.setDebug(true);
         taskList = TaskStorage.readTasks();
         emailList = EmailStorage.readEmails();
@@ -81,7 +81,7 @@ public class Duke {
      */
     public String getResponse(String input) {
         try {
-            Command command = parser.parseCommand(input);
+            Command command = commandParser.parseCommand(input);
             command.execute();
             return command.toString() + "\n" + command.getResponseMsg();
         } catch (Exception e) {

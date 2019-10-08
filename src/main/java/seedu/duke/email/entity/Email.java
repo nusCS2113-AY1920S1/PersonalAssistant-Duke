@@ -29,10 +29,10 @@ public class Email {
     /**
      * Detailed constructor of Email class with more paramaters.
      *
-     * @param subject subject of the email
-     * @param from the sender of the email
+     * @param subject          subject of the email
+     * @param from             the sender of the email
      * @param receivedDateTime the date and time when the email is received
-     * @param body the body of the email
+     * @param body             the body of the email
      */
     public Email(String subject, EmailParser.Sender from, LocalDateTime receivedDateTime, String body) {
         this.subject = subject;

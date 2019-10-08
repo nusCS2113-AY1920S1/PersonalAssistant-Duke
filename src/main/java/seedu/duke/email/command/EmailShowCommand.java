@@ -2,7 +2,7 @@ package seedu.duke.email.command;
 
 import seedu.duke.Duke;
 import seedu.duke.email.entity.EmailList;
-import seedu.duke.Parser;
+import seedu.duke.CommandParser;
 import seedu.duke.common.command.Command;
 
 import java.io.IOException;
@@ -22,7 +22,7 @@ public class EmailShowCommand extends Command {
             responseMsg = emailList.show(index);
             Duke.getUI().showResponse(responseMsg);
             return true;
-        } catch (Parser.UserInputException | IOException e) {
+        } catch (CommandParser.UserInputException | IOException e) {
             if (!silent) {
                 Duke.getUI().showError(e.toString());
             }

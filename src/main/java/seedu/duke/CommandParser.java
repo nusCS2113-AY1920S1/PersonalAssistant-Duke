@@ -1,9 +1,9 @@
 package seedu.duke;
 
-import javafx.util.Pair;
 import seedu.duke.task.entity.TaskList;
 import seedu.duke.task.command.TaskAddCommand;
 import seedu.duke.common.command.Command;
+import seedu.duke.common.command.Command.Option;
 import seedu.duke.task.command.TaskDeleteCommand;
 import seedu.duke.task.command.TaskDoAfterCommand;
 import seedu.duke.task.command.TaskDoneCommand;
@@ -29,7 +29,7 @@ import java.util.regex.Pattern;
  * A class that contains helper functions used to process user inputs. It also contains UserInputException
  * that is used across the project to handle the unexpected user input.
  */
-public class Parser {
+public class CommandParser {
 
     private static UI ui = Duke.getUI();
 
@@ -46,11 +46,11 @@ public class Parser {
     /**
      * Constructor that initializes the input type to TASK.
      */
-    public Parser() {
+    public CommandParser() {
         this.inputType = InputType.TASK;    // default input type when initiating the program.
     }
 
-    public static boolean isCommandFormat (String commandString) {
+    public static boolean isCommandFormat(String commandString) {
         return commandString.matches(
                 "(?:\\s*([\\w]+))(?:\\s+([\\w]+))(?:\\s+(-[\\w]+\\s+[\\w]+))*");
     }
@@ -88,7 +88,7 @@ public class Parser {
         ArrayList<Option> optionList = new ArrayList<>();
         Pattern optionPattern = Pattern.compile(".*(?<key>-[\\w]+)\\s+(?<value>[\\w]+)\\s*");
         Matcher optionMatcher = optionPattern.matcher(input);
-        while(optionMatcher.matches()) {
+        while (optionMatcher.matches()) {
             optionList.add(new Option(optionMatcher.group("key").substring(1),
                     optionMatcher.group("value")));
             input = input.replaceAll("(?<key>-[\\w]+)\\s+(?<value>[\\w]+)\\s*$", "");
@@ -112,11 +112,13 @@ public class Parser {
     public static Command parseCommand(String input) throws UserInputException {
         TaskList taskList = Duke.getTaskList();
         EmailList emailList = Duke.getEmailList();
+        ArrayList<Option> optionList = parseOptions(input);
+        input = stripOptions(input);
         if (inputType == InputType.TASK) {
-            return parseTaskCommand(input, taskList);
+            return parseTaskCommand(input, taskList, optionList);
         } else if (inputType == InputType.EMAIL) {
             try {
-                return parseEmailCommand(emailList, input);
+                return parseEmailCommand(emailList, input, optionList);
             } catch (UserInputException e) {
                 ui.showError(e.getMessage());
                 return new InvalidCommand();
@@ -126,7 +128,8 @@ public class Parser {
         }
     }
 
-    private static Command parseTaskCommand(String rawInput, TaskList taskList) throws UserInputException {
+    private static Command parseTaskCommand(String rawInput, TaskList taskList,
+                                            ArrayList<Option> optionList) throws UserInputException {
         if (rawInput.length() <= 5) {
             return new InvalidCommand();
             //return new HelpTaskCommand();
@@ -140,9 +143,9 @@ public class Parser {
         } else if (input.equals("list")) {
             return new TaskListCommand(taskList);
         } else if (input.startsWith("done")) {
-            return parseDoneCommand(input);
+            return parseDoneCommand(input, optionList);
         } else if (input.startsWith("delete ")) {
-            return parseDeleteCommand(input, taskList);
+            return parseDeleteCommand(input, taskList, optionList);
         } else if (input.startsWith("find ")) {
             return parseFindCommand(input, taskList);
         } else if (input.startsWith("reminder")) {
@@ -165,9 +168,10 @@ public class Parser {
      * @throws UserInputException an exception when the parsing is failed, probably due to the wrong format of
      *                            input
      */
-    public static Command parseEmailCommand(EmailList emailList, String rawInput) throws UserInputException {
+    public static Command parseEmailCommand(EmailList emailList, String rawInput,
+                                            ArrayList<Option> optionList) throws UserInputException {
         if (rawInput.length() <= 6) {
-            throw new Parser.UserInputException("☹ OOPS!!! Enter \'email -help\' to get list of methods for "
+            throw new CommandParser.UserInputException("OOPS!!! Enter \'email -help\' to get list of methods for "
                     + "email.");
             // return new InvalidCommand();
             //return new HelpTaskCommand();
@@ -186,7 +190,7 @@ public class Parser {
         case "fetch":
             return new EmailFetchCommand(emailList);
         default:
-            throw new Parser.UserInputException("☹ OOPS!!! Enter \'email help\' to get list of methods for "
+            throw new CommandParser.UserInputException("OOPS!!! Enter \'email help\' to get list of methods for "
                     + "email.");
         }
     }
@@ -217,8 +221,6 @@ public class Parser {
                 int index = parseIndex(input);
                 return new TaskSnoozeCommand(taskList, index);
             } catch (NumberFormatException e) {
-                ui.showError(e.toString());
-            } catch (UserInputException e) {
                 ui.showError("Please enter correct task index");
             }
         }
@@ -269,43 +271,49 @@ public class Parser {
         return new InvalidCommand();
     }
 
-    private static Command parseDeleteCommand(String input, TaskList taskList) {
-        //Pattern deleteCommandPattern = Pattern.compile("^done\\s+(?<index>\\d+)\\s*$");
-        //Matcher deleteCommandMatcher = deleteCommandPattern.matcher(input);
-        if (input.length() <= 7) {
-            ui.showError("Please enter index of task after \'delete\'");
-            return new InvalidCommand();
-        } else {
-            try {
-                int index = parseIndex(input);
-                return new TaskDeleteCommand(taskList, index);
-            } catch (NumberFormatException e) {
-                ui.showError(e.toString());
-            } catch (UserInputException e) {
-                ui.showError("Please enter correct task index");
-            }
-        }
-        return new InvalidCommand();
-    }
-
-    private static Command parseDoneCommand(String input) {
+    private static Command parseDoneCommand(String input, ArrayList<Option> optionList) {
         Pattern doneCommandPattern = Pattern.compile("^done\\s+(?<index>\\d+)\\s*$");
         Matcher doneCommandMatcher = doneCommandPattern.matcher(input);
         if (!doneCommandMatcher.matches()) {
-            if(ui != null) ui.showError("Please enter index of task after \'done\'");
+            if (ui != null) {
+                ui.showError("Please enter index of task after \'done\'");
+            }
             return new InvalidCommand();
         }
         try {
             int index = parseIndex(doneCommandMatcher.group("index"));
             return new TaskDoneCommand(index);
-        } catch (UserInputException e) {
-            if(ui != null) ui.showError("Please enter correct task index: " + doneCommandMatcher.group(
-                    "index"));
+        } catch (NumberFormatException e) {
+            if (ui != null) {
+                ui.showError("Please enter correct task index: " + doneCommandMatcher.group(
+                        "index"));
+            }
         }
         return new InvalidCommand();
     }
 
-    private static int parseIndex(String input) throws NumberFormatException, UserInputException {
+    private static Command parseDeleteCommand(String input, TaskList taskList, ArrayList<Option> optionList) {
+        Pattern deleteCommandPattern = Pattern.compile("^delete\\s+(?<index>\\d+)\\s*$");
+        Matcher deleteCommandMatcher = deleteCommandPattern.matcher(input);
+        if (!deleteCommandMatcher.matches()) {
+            if (ui != null) {
+                ui.showError("Please enter index of task after \'delete\'");
+            }
+            return new InvalidCommand();
+        } else {
+            try {
+                int index = parseIndex(deleteCommandMatcher.group("index"));
+                return new TaskDeleteCommand(taskList, index);
+            } catch (NumberFormatException e) {
+                if (ui != null) {
+                    ui.showError("Please enter correct task index");
+                }
+            }
+        }
+        return new InvalidCommand();
+    }
+
+    private static int parseIndex(String input) throws NumberFormatException {
         return Integer.parseInt(input) - 1;
     }
 
@@ -329,12 +337,12 @@ public class Parser {
         if (input.startsWith("todo")) {
             taskType = Task.TaskType.ToDo;
             if (input.length() <= 5) {
-                throw new Parser.UserInputException("☹ OOPS!!! The description of a todo cannot be empty.");
+                throw new CommandParser.UserInputException("☹ OOPS!!! The description of a todo cannot be empty.");
             }
             input = input.substring(5);
             while (input.contains("#")) {
                 tags.add(input.split("#", 3)[1]);
-                input = input.split("#",3)[0] + input.split("#", 3)[2];
+                input = input.split("#", 3)[0] + input.split("#", 3)[2];
             }
             if (input.contains(" /doafter ")) {
                 doAfter = input.split(" /doafter ", 2)[1];
@@ -344,18 +352,18 @@ public class Parser {
         } else if (input.startsWith("deadline")) {
             taskType = Task.TaskType.Deadline;
             if (input.length() <= 9) {
-                throw new Parser.UserInputException("☹ OOPS!!! The description of a deadline cannot be "
+                throw new CommandParser.UserInputException("☹ OOPS!!! The description of a deadline cannot be "
                         + "empty.");
             }
             input = input.substring(9);
             if (!input.contains(" /by ")) {
-                throw new Parser.UserInputException("☹ OOPS!!! A deadline must have a time specified.");
+                throw new CommandParser.UserInputException("☹ OOPS!!! A deadline must have a time specified.");
             }
             name = input.split(" /by ", 2)[0];
             String timeString = input.split(" /by ", 2)[1];
             while (input.contains("#")) {
                 tags.add(input.split("#", 3)[1]);
-                input = input.split("#",3)[0] + input.split("#", 3)[2];
+                input = input.split("#", 3)[0] + input.split("#", 3)[2];
             }
             if (input.contains(" /doafter ")) {
                 doAfter = timeString.split(" /doafter ", 2)[1];
@@ -365,17 +373,17 @@ public class Parser {
         } else if (input.startsWith("event")) {
             taskType = Task.TaskType.Event;
             if (input.length() <= 6) {
-                throw new Parser.UserInputException("☹ OOPS!!! The description of a event cannot be empty.");
+                throw new CommandParser.UserInputException("☹ OOPS!!! The description of a event cannot be empty.");
             }
             input = input.substring(6);
             if (!input.contains(" /at ")) {
-                throw new Parser.UserInputException("☹ OOPS!!! A event must have a time specified.");
+                throw new CommandParser.UserInputException("☹ OOPS!!! A event must have a time specified.");
             }
             name = input.split(" /at ", 2)[0];
             String timeString = input.split(" /at ", 2)[1];
             while (input.contains("#")) {
                 tags.add(input.split("#", 3)[1]);
-                input = input.split("#",3)[0] + input.split("#", 3)[2];
+                input = input.split("#", 3)[0] + input.split("#", 3)[2];
             }
             if (input.contains(" /doafter ")) {
                 doAfter = timeString.split(" /doafter ", 2)[1];
@@ -383,21 +391,9 @@ public class Parser {
             }
             time = Task.parseDate(timeString);
         } else {
-            throw new Parser.UserInputException("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
+            throw new CommandParser.UserInputException("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
         }
         return new TaskAddCommand(taskList, taskType, name, time, doAfter, tags);
-    }
-
-    public static class Option extends Pair<String, String> {
-        /**
-         * Creates a new pair as option of the input
-         *
-         * @param key   The key for this pair
-         * @param value The value to use for this pair
-         */
-        public Option(String key, String value) {
-            super(key, value);
-        }
     }
 
     /**

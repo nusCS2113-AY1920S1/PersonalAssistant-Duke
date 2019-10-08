@@ -1,6 +1,6 @@
 package seedu.duke.email.entity;
 
-import seedu.duke.Parser;
+import seedu.duke.CommandParser;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -31,12 +31,12 @@ public class EmailList extends ArrayList<Email> {
      *
      * @param index of the email to be shown in the email list.
      * @return a string to inform the user that the particular email is being shown in browser.
-     * @throws Parser.UserInputException thrown when index parsing failed or out of range
-     * @throws IOException               if fails to load the filepath or open the browser.
+     * @throws CommandParser.UserInputException thrown when index parsing failed or out of range
+     * @throws IOException                      if fails to load the filepath or open the browser.
      */
-    public String show(int index) throws Parser.UserInputException, IOException {
+    public String show(int index) throws CommandParser.UserInputException, IOException {
         if (index < 0 || index >= this.size()) {
-            throw new Parser.UserInputException("Invalid index");
+            throw new CommandParser.UserInputException("Invalid index");
         }
         Email email = this.get(index);
         email.showEmail();

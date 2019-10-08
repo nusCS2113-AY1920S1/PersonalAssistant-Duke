@@ -36,7 +36,7 @@ public class Deadline extends Task {
      * @param name    name of the Deadline
      * @param time    time of the Deadline
      * @param doAfter task to be done after main task
-     * @param tags     tag associated with the task
+     * @param tags    tag associated with the task
      */
     public Deadline(String name, LocalDateTime time, String doAfter, ArrayList<String> tags) {
         super(name);

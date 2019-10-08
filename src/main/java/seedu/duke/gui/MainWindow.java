@@ -10,7 +10,7 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import seedu.duke.Duke;
-import seedu.duke.Parser;
+import seedu.duke.CommandParser;
 import seedu.duke.task.entity.TaskList;
 import seedu.duke.task.TaskStorage;
 import seedu.duke.email.EmailStorage;
@@ -59,7 +59,7 @@ public class MainWindow extends AnchorPane {
      */
     @FXML
     public TextFormatter<String> getTextFormatter() {
-        String prefix = Parser.getInputPrefix();
+        String prefix = CommandParser.getInputPrefix();
         UnaryOperator<TextFormatter.Change> filter = c -> {
             if (c.getCaretPosition() < prefix.length()) {
                 return null;
@@ -104,7 +104,7 @@ public class MainWindow extends AnchorPane {
         userInput.setTextFormatter(new TextFormatter<String>(noFilter));
 
         userInput.clear();
-        String prefix = Parser.getInputPrefix();
+        String prefix = CommandParser.getInputPrefix();
         userInput.setText(prefix);
 
         // To apply a filter to any changes in userInput text field so that the prefix is non-deletable text.

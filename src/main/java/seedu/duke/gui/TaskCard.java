@@ -18,10 +18,12 @@ public class TaskCard extends HBox {
     private static final String FXML = "TaskCard.fxml";
 
     /**
-     * Note: Certain keywords such as "location" and "resources" are reserved keywords in JavaFX.
-     * As a consequence, UI elements' variable names cannot be set to such keywords
-     * or an exception will be thrown by JavaFX during runtime.
-     * @see <a href="https://github.com/se-edu/addressbook-level4/issues/336">The issue on AddressBook level 4</a>
+     * Note: Certain keywords such as "location" and "resources" are reserved keywords in JavaFX. As a
+     * consequence, UI elements' variable names cannot be set to such keywords or an exception will be thrown
+     * by JavaFX during runtime.
+     *
+     * @see <a href="https://github.com/se-edu/addressbook-level4/issues/336">The issue on AddressBook
+     *         level 4</a>
      */
     public final Task task;
 
@@ -56,14 +58,14 @@ public class TaskCard extends HBox {
         String type = task.getTaskType().toString();
         taskType.setText(type);
         switch (type) {
-            case "D":
-                date.setText("Deadline date");
-                break;
-            case "E":
-                date.setText("Event date");
-                break;
-            default:
-                date.setText(null);
+        case "D":
+            date.setText("Deadline date");
+            break;
+        case "E":
+            date.setText("Event date");
+            break;
+        default:
+            date.setText(null);
         }
 //        task.getTags().stream()
 //                .sorted(Comparator.comparing(tag -> tag.tagName))

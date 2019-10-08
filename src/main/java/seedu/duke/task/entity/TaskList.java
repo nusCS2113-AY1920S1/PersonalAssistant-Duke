@@ -1,7 +1,7 @@
 package seedu.duke.task.entity;
 
 import seedu.duke.Duke;
-import seedu.duke.Parser;
+import seedu.duke.CommandParser;
 
 import java.util.ArrayList;
 
@@ -60,11 +60,11 @@ public class TaskList extends ArrayList<Task> {
      *
      * @param index the target index of which the task is to be marked as done
      * @return a message that is ready to be displayed by UI
-     * @throws Parser.UserInputException an exception thrown when index parsing failed or out of range
+     * @throws CommandParser.UserInputException an exception thrown when index parsing failed or out of range
      */
-    public String markDone(int index) throws Parser.UserInputException {
+    public String markDone(int index) throws CommandParser.UserInputException {
         if (index < 0 || index >= this.size()) {
-            throw new Parser.UserInputException("Invalid Index");
+            throw new CommandParser.UserInputException("Invalid Index");
         }
         this.get(index).markDone();
         String msg = "Nice! I've marked this task as done:\n";
@@ -79,11 +79,11 @@ public class TaskList extends ArrayList<Task> {
      *
      * @param index the target index of which the task is to be deleted
      * @return a message that is ready to be displayed by UI
-     * @throws Parser.UserInputException an exception thrown when index parsing failed or out of range
+     * @throws CommandParser.UserInputException an exception thrown when index parsing failed or out of range
      */
-    public String delete(int index) throws Parser.UserInputException {
+    public String delete(int index) throws CommandParser.UserInputException {
         if (index < 0 || index >= this.size()) {
-            throw new Parser.UserInputException("Invalid index");
+            throw new CommandParser.UserInputException("Invalid index");
         }
         Task deleted = this.remove(index);
         String msg = "Noted. I've removed this task: \n";
@@ -114,9 +114,9 @@ public class TaskList extends ArrayList<Task> {
      * @param index of the task in taskList.
      * @return string msg.
      */
-    public String snoozed(int index) throws Parser.UserInputException {
+    public String snoozed(int index) throws CommandParser.UserInputException {
         if (index < 0 || index >= this.size()) {
-            throw new Parser.UserInputException("Invalid index");
+            throw new CommandParser.UserInputException("Invalid index");
         }
         Task task = this.get(index);
         String msg = "";

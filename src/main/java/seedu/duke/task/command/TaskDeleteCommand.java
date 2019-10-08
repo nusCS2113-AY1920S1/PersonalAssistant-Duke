@@ -1,7 +1,7 @@
 package seedu.duke.task.command;
 
 import seedu.duke.Duke;
-import seedu.duke.Parser;
+import seedu.duke.CommandParser;
 import seedu.duke.task.entity.TaskList;
 import seedu.duke.common.command.Command;
 
@@ -38,7 +38,7 @@ public class TaskDeleteCommand extends Command {
                 Duke.getUI().showResponse(msg);
             }
             return true;
-        } catch (Parser.UserInputException e) {
+        } catch (CommandParser.UserInputException e) {
             if (!silent) {
                 Duke.getUI().showError(e.getMessage());
             }

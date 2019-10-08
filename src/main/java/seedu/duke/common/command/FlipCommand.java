@@ -1,25 +1,24 @@
 package seedu.duke.common.command;
 
 import seedu.duke.Duke;
-import seedu.duke.Parser;
-import seedu.duke.common.command.Command;
+import seedu.duke.CommandParser;
 
 public class FlipCommand extends Command {
-    private Parser.InputType inputType;
+    private CommandParser.InputType inputType;
 
 
-    public FlipCommand(Parser.InputType inputType) {
+    public FlipCommand(CommandParser.InputType inputType) {
         this.inputType = inputType;
     }
 
     @Override
     public boolean execute() {
         String msg = "Input type flipped to ";
-        if (inputType == Parser.InputType.TASK) {
-            Parser.setInputType(Parser.InputType.EMAIL);
+        if (inputType == CommandParser.InputType.TASK) {
+            CommandParser.setInputType(CommandParser.InputType.EMAIL);
             msg += "EMAIL.";
         } else {
-            Parser.setInputType(Parser.InputType.TASK);
+            CommandParser.setInputType(CommandParser.InputType.TASK);
             msg += "TASK.";
         }
         responseMsg = msg;
