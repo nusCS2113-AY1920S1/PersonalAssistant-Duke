@@ -2,7 +2,7 @@ package parsers;
 
 
 import commands.*;
-import exception.DukeException;
+import Exception.DukeException;
 
 public class Parser {
     public static Command parse(String command) throws DukeException {
@@ -59,6 +59,8 @@ public class Parser {
             return new TentativeEventCommand();
         } else if (splitcommand[0].equals("confirm")) {
             return new ConfirmTentativeCommand();
+        } else if (splitcommand[0].contains("undone")) {
+            return new UndoneCommand();
         } else if (splitcommand[0].equals("undo")) {
             return new UndoCommand();
         } else if (splitcommand[0].equals("edit")) {

@@ -10,7 +10,7 @@ import java.text.ParseException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-import exception.DukeException;
+import Exception.DukeException;
 
 import java.util.ArrayList;
 
@@ -25,7 +25,11 @@ public class SnoozeCommandTest {
         Ui ui = new Ui();
         Storage storage = new Storage();
         ui.FullCommand = "deadline return book /by 2008-07-07 03:03:03";
-        deadlineCommand.execute(tasks,ui,storage);
+        try {
+            deadlineCommand.execute(tasks,ui,storage, CommandStack, deletedTask);
+        } catch (Exception.DukeException dukeException) {
+            dukeException.printStackTrace();
+        }
         int index = 0;
         int year = 1;
         int day =1;

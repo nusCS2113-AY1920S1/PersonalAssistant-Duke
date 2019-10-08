@@ -9,7 +9,7 @@ public class Task {
         this.isDone = false;
     }
     public String getStatusIcon() {
-        return (isDone ? "D" : "ND");
+        return (isDone ? "D" : "ND"); //return tick or X symbols
     }
 
     public String listFormat() {

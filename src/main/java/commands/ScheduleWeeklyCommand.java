@@ -12,7 +12,7 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import static java.time.temporal.ChronoUnit.DAYS;
 import java.util.ArrayList;
-
+import java.util.Stack;
 
 
 /**
@@ -32,7 +32,7 @@ public class ScheduleWeeklyCommand extends Command {
      * @throws NullPointerException if tDate doesn't get updated.
      */
     @Override
-    public void execute(ArrayList<Task> list, Ui ui, Storage storage) throws NullPointerException {
+    public void execute(ArrayList<Task> list, Ui ui, Storage storage, Stack<String> commandStack, ArrayList<Task> deletedTask) throws NullPointerException {
         DateTimeFormatter fmt = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         try {
             String[] date = ui.FullCommand.trim().split(" ");

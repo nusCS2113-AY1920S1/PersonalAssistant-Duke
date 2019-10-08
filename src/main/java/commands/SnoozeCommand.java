@@ -5,17 +5,19 @@ import Tasks.Event;
 import Tasks.Task;
 import UI.Ui;
 import java.io.IOException;
-import exception.DukeException;
+import Exception.DukeException;
 import java.text.ParseException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.*;
+
 
 public class SnoozeCommand extends Command {
     @Override
-    public void execute(ArrayList<Task> list, Ui ui, Storage storage) throws DukeException, ParseException, IOException, NullPointerException {
+    public void execute(ArrayList<Task> list, Ui ui, Storage storage, Stack<String> commandStack, ArrayList<Task> deletedTask) throws DukeException, ParseException, IOException, NullPointerException {
         try {
         if(ui.FullCommand.length() == 6) {
             throw new DukeException("OOPS!!! The object of a snoozing cannot be null.");

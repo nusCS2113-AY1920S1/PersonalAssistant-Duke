@@ -1,9 +1,12 @@
 import Storage.Storage;
 import Tasks.Deadline;
-import Tasks.Event;
 import Tasks.Task;
 import UI.Ui;
+<<<<<<< HEAD
+import commands.EditCommand;
+=======
 import commands.*;
+>>>>>>> 5d7d0dab82706313eceaddaf30796be95d1e509d
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -40,6 +43,19 @@ public class EditCommandTest {
         ArrayList<Task> tasks = new ArrayList<Task>();
         Deadline testd = new Deadline("tutorial homework", "2019-12-12 10:10:10");
         tasks.add(testd);
+<<<<<<< HEAD
+        ui.FullCommand = "edit 1 monthly assign /by 2019-12-12 10:10:10";
+        try {
+            test.execute(tasks,ui,storage, CommandStack, deletedTask);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        } catch (Exception.DukeException dukeException) {
+            dukeException.printStackTrace();
+        }
+        assertEquals("Ok, we have edited your Deadline description and time. \n" +
+                        "\tFrom: [D][\u2718]tutorial homework(by:12 Dec 2019 10:10:10)\n" +
+                        "\tTo:   [D][\u2718]monthly assign (by:12 Dec 2019 10:10:10)",
+=======
         ui.FullCommand = "edit 1";
         ByteArrayInputStream in = new ByteArrayInputStream("edit 1".getBytes());
         System.setIn(in);
@@ -52,6 +68,7 @@ public class EditCommandTest {
                         "Ok, we have edited your Deadline time." +
                         "\n\tFrom: [D][ND] tutorial homework(by:12 Dec 2019 10:10:10)" +
                         "\n\tTo:   [D][ND] tutorial homework(by:12 Dec 2020 11:11:11)\n",
+>>>>>>> 5d7d0dab82706313eceaddaf30796be95d1e509d
                 output.toString());
     }
 

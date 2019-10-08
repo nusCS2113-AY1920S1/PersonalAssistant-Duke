@@ -7,7 +7,7 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
 import java.util.ArrayList;
-import exception.DukeException;
+import Exception.DukeException;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 

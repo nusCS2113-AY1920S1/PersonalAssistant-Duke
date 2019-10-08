@@ -7,15 +7,16 @@ import Storage.Storage;
 import java.io.IOException;
 
 import Tasks.*;
-import exception.DukeException;
+import Exception.DukeException;
 
 import java.text.ParseException;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
+import java.util.Stack;
 
 public class DeadlineCommand extends Command {
     @Override
-    public void execute(ArrayList<Task> list, Ui ui, Storage storage) throws DukeException, ParseException, IOException, NullPointerException {
+    public void execute(ArrayList<Task> list, Ui ui, Storage storage, Stack<String> commandStack, ArrayList<Task> deletedTask) throws DukeException, ParseException, IOException, NullPointerException {
         String description;
         try {
             if (ui.FullCommand.length() == 8) {
@@ -39,7 +40,19 @@ public class DeadlineCommand extends Command {
             Ui.showDeadlineDateFormatError();
         }
     }
-
+    public void undo(String command, ArrayList<Task> list,Storage storage) throws IOException {
+        for (Task it : list) {
+            if (it.description.contains(command.substring(9).trim())) {
+                list.remove(it);
+                break;
+            }
+        }
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < list.size(); i++) {
+            sb.append(list.get(i).toString() + "\n");
+        }
+        storage.Storages(sb.toString());
+    }
     @Override
     public boolean isExit() {
         return false;

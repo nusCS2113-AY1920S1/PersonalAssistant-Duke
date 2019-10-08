@@ -7,12 +7,13 @@ import Tasks.Task;
 import UI.Ui;
 import java.io.IOException;
 import java.text.ParseException;
-import exception.DukeException;
+import Exception.DukeException;
 import java.util.ArrayList;
+import java.util.Stack;
 
 public class RescheduleCommand extends Command {
     @Override
-    public void execute(ArrayList<Task> list, Ui ui, Storage storage) throws DukeException, ParseException, IOException, NullPointerException {
+    public void execute(ArrayList<Task> list, Ui ui, Storage storage, Stack<String> commandStack, ArrayList<Task> deletedTask) throws DukeException, ParseException, IOException, NullPointerException {
         try {
         if (ui.FullCommand.length() == 10) {
             throw new DukeException("OOPS!!! The object of a rescheduling cannot be null.");

@@ -10,6 +10,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
+import java.util.Stack;
 
 /**
  * Lists out all the tasks that the user has in a specified month.
@@ -27,7 +28,7 @@ public class ScheduleMonthlyCommand extends Command {
      * @throws NullPointerException if tDate doesn't get updated.
      */
     @Override
-    public void execute(ArrayList<Task> list, Ui ui, Storage storage) throws NullPointerException {
+    public void execute(ArrayList<Task> list, Ui ui, Storage storage, Stack<String> commandStack, ArrayList<Task> deletedTask) throws NullPointerException {
         DateTimeFormatter fmt = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         String[] command = ui.FullCommand.trim().split(" ");
         if (command.length > 2) {

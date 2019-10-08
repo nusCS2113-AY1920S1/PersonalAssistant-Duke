@@ -4,14 +4,16 @@ import Tasks.Task;
 import UI.Ui;
 import Storage.Storage;
 
-import exception.DukeException;
+import Exception.DukeException;
+
 import java.io.IOException;
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Stack;
 
 public class DoneListCommand extends Command {
     @Override
-    public void execute(ArrayList<Task> list, Ui ui, Storage storage) throws DukeException, ParseException, IOException, NullPointerException {
+    public void execute(ArrayList<Task> list, Ui ui, Storage storage, Stack<String> commandStack, ArrayList<Task> deletedTask) throws DukeException, ParseException, IOException, NullPointerException {
         ArrayList<Task> DoneList = new ArrayList<>();
         try {
             if (ui.FullCommand.equals("done")) {
