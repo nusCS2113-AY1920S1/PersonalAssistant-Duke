@@ -34,7 +34,7 @@ public class UserStats {
     private ArrayList<ChapterStat> data;
 
     /**
-     *
+     * Constructor.
      * @param size The initial size of the arraylist containing the data. Should be equal to the number of chapters.
      */
     public UserStats(int size) {
