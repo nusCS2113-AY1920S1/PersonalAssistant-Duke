@@ -22,11 +22,6 @@ public class HelpCommand extends Command {
         ui.printHelpCommands();
     }
 
-    /**
-     * Checks if ExitCommand is called for Oof to terminate.
-     *
-     * @return true if ExitCommand is called, false otherwise.
-     */
     @Override
     public boolean isExit() {
         return false;
