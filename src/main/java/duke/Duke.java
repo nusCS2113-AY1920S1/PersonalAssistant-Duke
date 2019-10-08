@@ -13,7 +13,7 @@ import duke.core.Ui;
  * Represents Duke, a Personal Assistant to help
  * users tracking their progress.
  */
-public class Duke implements Runnable {
+public class Duke {
     /**
      * A Storage object that handles reading tasks from a local
      * file and saving them to the same file.
