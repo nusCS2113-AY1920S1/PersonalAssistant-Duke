@@ -17,16 +17,19 @@ import java.util.Date;
  */
 public class FreeCommand extends Command {
 
-    private String stop;
+    private String endTiming;
+    private static final int INDEX_DATE = 1;
+    private static final int INDEX_START_DATE = 0;
+    private static final int INDEX_END_DATE = 1;
 
     /**
      * Constructor for FreeCommand.
      *
-     * @param stop Command inputted by user.
+     * @param endTiming Command inputted by user.
      */
-    public FreeCommand(String stop) {
+    public FreeCommand(String endTiming) {
         super();
-        this.stop = stop;
+        this.endTiming = endTiming;
     }
 
     /**
@@ -46,8 +49,8 @@ public class FreeCommand extends Command {
     public void execute(TaskList taskList, Ui ui, Storage storage) throws OofException {
         Date current = new Date();
         try {
-            if (isEndDateAfterCurrentTime(current, stop)) {
-                findFreeTime(ui, taskList, this.stop, current);
+            if (isEndDateAfterCurrentTime(current, endTiming)) {
+                findFreeTime(ui, taskList, this.endTiming, current);
             } else {
                 throw new OofException("OOPS!!! Please enter a valid date and time!");
             }
@@ -61,37 +64,39 @@ public class FreeCommand extends Command {
      *
      * @param ui Instance of Ui that is responsible for visual feedback.
      * @param taskList Instance of TaskList that stores Task Objects.
-     * @param stop The user specified end date.
+     * @param endTiming The user specified end date.
      * @param current Current time.
      * @throws ParseException Throws an exception if datetime cannot be parsed.
      */
-    private void findFreeTime(Ui ui, TaskList taskList, String stop, Date current) throws ParseException {
+    private void findFreeTime(Ui ui, TaskList taskList, String endTiming, Date current) throws ParseException {
         ui.printFree();
         int count = 1;
-        Date rangeStop = convertStringToDate(stop);
+        Date rangeStop = convertStringToDate(endTiming);
         for (int i = 0; i < taskList.getSize(); i++) {
-            if (isOutOfRange(current, rangeStop)) {
-                ui.printFreeTimings(convertDateToString(current), convertDateToString(rangeStop), count);
-                break;
-            }
             Task task = taskList.getTask(i);
             if (task instanceof Event) {
                 String[] lineSplit = task.toString().split("from: ");
-                String[] dateSplit = lineSplit[1].split("to: ");
-                String start = dateSplit[0].trim();
-                String end = dateSplit[1].substring(0, dateSplit[1].length() - 1); // remove closing bracket
+                String[] dateSplit = lineSplit[INDEX_DATE].split("to: ");
+                String start = dateSplit[INDEX_START_DATE].trim();
+                String end = dateSplit[INDEX_END_DATE].substring(0, dateSplit[INDEX_END_DATE].length() - 1);
                 SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy HH:mm");
                 try {
                     Date startDate = format.parse(start);
                     Date endDate = format.parse(end);
-                    if (!isClash(startDate, endDate, current)) {
+                    if(isOutOfRange(startDate, rangeStop)) {
+                        ui.printFreeTimings(convertDateToString(current), convertDateToString(rangeStop), count);
+                        break;
+                    } else if (!isClash(startDate, endDate, current) && !isEventOver(endDate, current)) {
                         ui.printFreeTimings(convertDateToString(current), convertDateToString(startDate), count);
+                        current = endDate;
                         count++;
                     }
-                    current = endDate;
                 } catch (ParseException | DateTimeException e) {
                     System.out.println("Timestamp given is invalid! Please try again.");
                 }
+            }
+            if(isOutOfRange(current, rangeStop)) {
+                break;
             }
             if (isLastTask(i, taskList)) {
                 ui.printFreeTimings(convertDateToString(current), convertDateToString(rangeStop), count);
@@ -108,8 +113,18 @@ public class FreeCommand extends Command {
      * @return true if there is an overlap of timings.
      */
     private boolean isClash(Date eventStartTime, Date eventEndTime, Date currTime) {
-        return (currTime.compareTo(eventStartTime) >= 0
-                && currTime.compareTo(eventEndTime) < 0);
+        return (currTime.compareTo(eventStartTime) >= 0 && currTime.compareTo(eventEndTime) <= 0);
+    }
+
+    /**
+     * Checks if the event being compared has ended.
+     *
+     * @param eventEndTime End time of event being compared.
+     * @param currTime Current time.
+     * @return true if current time is after event end time.
+     */
+    private boolean isEventOver(Date eventEndTime, Date currTime) {
+        return (currTime.compareTo(eventEndTime) >=0);
     }
 
     /**
@@ -144,28 +159,6 @@ public class FreeCommand extends Command {
     private boolean isEndDateAfterCurrentTime(Date currTime, String end) throws ParseException {
         Date endDate = convertStringToDate(end);
         return endDate.compareTo(currTime) > 0;
-    }
-
-    /**
-     * Converts date to a string.
-     *
-     * @param date The date to be converted.
-     * @return A string in the date format specified.
-     */
-    private String convertDateToString(Date date) {
-        SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy HH:mm");
-        return format.format(date);
-    }
-
-    /**
-     * Converts a string into a date.
-     *
-     * @param date The string to be converted.
-     * @return A date in the date format specified.
-     * @throws ParseException Throws an exception if datetime cannot be parsed.
-     */
-    private Date convertStringToDate(String date) throws ParseException {
-        return new SimpleDateFormat("dd-MM-yyyy HH:mm").parse(date);
     }
 
     /**
