@@ -21,15 +21,15 @@ public class DeleteCommand extends Command {
     }
 
     @Override
-    public void execute(Ui ui, WordBank wordBank, Storage storage) {
+    public String execute(Ui ui, WordBank wordBank, Storage storage) {
         //ask ui to print something
         //ask tasks to store the thing in arraylist
         //ask storage to write to file
         try {
             word = wordBank.getAndDelete(this.deletedWord);
-            ui.showDeleted(word);
+            return ui.showDeleted(word);
         } catch (NoWordFoundException e) {
-            e.showError();
+            return e.showError();
         }
     }
 

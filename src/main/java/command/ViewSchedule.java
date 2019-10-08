@@ -21,10 +21,11 @@ public class ViewSchedule extends Command {
     }
 
     @Override
-    public void execute(Ui ui, WordBank wordBank, Storage storage) {
+    public String execute(Ui ui, WordBank wordBank, Storage storage) {
         //ask ui to print something
         //ask tasks to store the thing in arraylist
         //rrayList<Task> foundItems = tasks.findAllDates(searchPhrase);
         //ui.showFound(foundItems);
+        return "";
     }
 }

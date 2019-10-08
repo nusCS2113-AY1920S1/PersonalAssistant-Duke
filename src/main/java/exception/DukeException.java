@@ -14,7 +14,7 @@ public class DukeException extends Exception {
         super();
     }
 
-    public void showError() {
-        System.out.println(this.getMessage());
+    public String showError() {
+        return this.getMessage();
     }
 }

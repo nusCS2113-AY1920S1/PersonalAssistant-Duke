@@ -17,29 +17,21 @@ public class Ui {
         return in.nextLine();
     }
 
-    public void showLine() {
-        System.out.println("    ____________________________________________________________");
+    public String greet() {
+        return "     Hello! I'm" + "      ____        _        \n"
+                +  "                    |  _ \\ _   _| | _____ \n"
+                + "                    | | | | | | | |/ / _ \\\n"
+                + "                    | |_| | |_| |   <  __/\n"
+                + "                    |____/ \\__,_|_|\\_\\___|\n\n"
+                + "     What can I do for you?";
     }
 
-    public void greet() {
-        showLine();
-        System.out.println(
-                "     Hello! I'm" + "      ____        _        \n"
-                        +  "                    |  _ \\ _   _| | _____ \n"
-                        + "                    | | | | | | | |/ / _ \\\n"
-                        + "                    | |_| | |_| |   <  __/\n"
-                        + "                    |____/ \\__,_|_|\\_\\___|\n\n"
-                        + "     What can I do for you?");
-        showLine();
+    public String goodBye() {
+        return "     Bye. Hope to see you again soon!";
     }
 
-    public void goodBye() {
-        System.out.println("     Bye. Hope to see you again soon!");
-    }
-
-    public void showDeleted(Word w) {
-        System.out.println("     Noted. I've removed this word:");
-        System.out.println("       " + w.toString());
+    public String showDeleted(Word w) {
+        return "     Noted. I've removed this word:\n" + "       " + w.toString();
     }
 
     /*
@@ -57,27 +49,27 @@ public class Ui {
     }
     */
 
-    public void showAdded(Word w) {
-        System.out.println("     Got it. I've added this word:");
-        System.out.println("       " + w.toString());
+    public String showAdded(Word w) {
+        return "     Got it. I've added this word:\n" + "       " + w.toString();
     }
 
-    public void showList(WordBank wordBank, String order) {
-        System.out.println("     Here are your words:");
+    public String showList(WordBank wordBank, String order) {
+        String returnedString = "     Here are your words:";
         if (order.equals("asc") || order.equals("")) {
             for (Map.Entry<String, Word> entry : wordBank.getWordBank().entrySet()) {
-                System.out.println("     " + entry.getValue());
+                returnedString += "     " + entry.getValue();
             }
         }
         else {
             for (String description : wordBank.getWordBank().descendingKeySet()) {
-                System.out.println("     " + wordBank.getWordBank().get(description));
+                returnedString += "     " + wordBank.getWordBank().get(description);
             }
         }
+        return returnedString;
     }
 
-    public void showSearch(String description, String meaning){
-        System.out.println("     Here is the meaning of " + description + ": " + meaning);
+    public String showSearch(String description, String meaning){
+        return "     Here is the meaning of " + description + ": " + meaning;
     }
 }
 

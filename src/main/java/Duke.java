@@ -27,6 +27,17 @@ public class Duke extends Application{
     private Scene scene;
     private Image user = new Image(this.getClass().getResourceAsStream("/images/user.jpg"));
     private Image duke = new Image(this.getClass().getResourceAsStream("/images/duke.jpg"));
+
+    public static void main(String[] args) {
+        launch(args);
+    }
+
+    public Duke() {
+        ui = new Ui();
+        storage = new Storage("main/data/duke.txt");
+        wordBank = new WordBank();
+    }
+
     @Override
     public void start(Stage stage) {
         //Step 1. Setting up required components
@@ -76,7 +87,10 @@ public class Duke extends Application{
 
         AnchorPane.setLeftAnchor(userInput , 1.0);
         AnchorPane.setBottomAnchor(userInput, 1.0);
-
+        Label userText = new Label(ui.greet());
+        dialogContainer.getChildren().addAll(
+                DialogBox.getDukeDialog(userText, new ImageView(duke))
+        );
         // more code to be added here later
         //Step 3. Add functionality to handle user input.
         sendButton.setOnMouseClicked((event) -> {
@@ -121,38 +135,32 @@ public class Duke extends Application{
      * You should have your own function to generate a response to user input.
      * Replace this stub with your completed method.
      */
-    private String getResponse(String input) {
-        return "Duke heard: " + input;
-    }
-    public Duke(/*String filePath*/) {
-        ui = new Ui();
-       // storage = new Storage(filePath);
-        wordBank = new WordBank();
+    private String getResponse(String fullCommand) {
+        Command c = Parser.parse(fullCommand);
+        return c.execute(ui, wordBank, storage);
+        //return "Duke heard: " + fullCommand;
     }
 
-    public void run() {
-        ui.greet();
-        boolean isExit = false;
-        while (!isExit) {
-            try {
-                String fullCommand = ui.readCommand();
-                ui.showLine();
-                if (fullCommand.equals("")) { throw new CommandEmptyException(); }
-                Command c = Parser.parse(fullCommand);
-                c.execute(ui, wordBank, storage);
-                isExit = c.isExit();
-            } catch (CommandEmptyException e) {
-                e.showError();
-            } finally {
-                ui.showLine();
-            }
-        }
-    }
 
-    public static void main(String[] args) {
-        launch(args);
-        //new Duke(/*"main/data/duke.txt"*/).run();
+//    public void run() {
+//        ui.greet();
+//        boolean isExit = false;
+//        while (!isExit) {
+//            try {
+//                String fullCommand = ui.readCommand();
+//                ui.showLine();
+//                if (fullCommand.equals("")) { throw new CommandEmptyException(); }
+//                Command c = Parser.parse(fullCommand);
+//                c.execute(ui, wordBank, storage);
+//                isExit = c.isExit();
+//            } catch (CommandEmptyException e) {
+//                e.showError();
+//            } finally {
+//                ui.showLine();
+//            }
+//        }
+//    }
 
-    }
+
 }
 

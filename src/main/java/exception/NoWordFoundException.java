@@ -9,7 +9,7 @@ public class NoWordFoundException extends DukeException {
     }
 
     @Override
-    public void showError() {
-        System.out.println(this.getMessage() + searchWord);
+    public String showError() {
+        return this.getMessage() + searchWord;
     }
 }
