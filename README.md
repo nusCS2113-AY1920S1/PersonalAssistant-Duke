@@ -3,7 +3,7 @@
 # AlgoSenpai Adventures (ASA)
 A project by AY1920S1-CS2113T-T09-3
 
-![ASA](docs/images/Ui.png)
+![ASA](docs/images/UI.png)
 
 Team Members:
 1) NG WEI JIE, BRANDON
