@@ -30,8 +30,8 @@ public class Storage {
     private Path path;
     private Path dataPath;
 
-    private boolean dataPathExists;
-    private boolean fileExists;
+    private boolean dataPathExists = false;
+    private boolean fileExists = false;
 
     /**
      * Default Constructor for storage class.
@@ -39,7 +39,6 @@ public class Storage {
      */
     public Storage() {
         path = Paths.get("data/dukeData.text");
-        setDataPathExists();
         setFileExists();
     }
 
@@ -51,8 +50,8 @@ public class Storage {
         setDataPathExists();
     }
 
-    public void setDataPath(String filePath) {
-        this.dataPath = Paths.get(filePath);
+    public void setDataPath(Path dataPath) {
+        this.dataPath = dataPath;
         setDataPathExists();
     }
 
@@ -142,7 +141,7 @@ public class Storage {
         return fileExists;
     }
 
-    boolean getDataPathExists() {
+    public boolean getDataPathExists() {
         return dataPathExists;
     }
 
@@ -151,10 +150,6 @@ public class Storage {
     }
 
     private void setDataPathExists() {
-        if (dataPath == null) {
-            dataPathExists = false;
-            return;
-        }
         dataPathExists = Files.isRegularFile(dataPath);
     }
 
@@ -170,16 +165,19 @@ public class Storage {
             stringListTask.add(temp.writingFile());
         }
         try {
-            if (getFileExits()) {
-                Files.write(path, stringListTask, StandardCharsets.UTF_8);
-            } else {
-                Files.createDirectories(path.getParent());
-                Files.createFile(path);
+            if (!fileExists) {
+                makeFile(path);
                 setFileExists();
             }
+            Files.write(path, stringListTask, StandardCharsets.UTF_8);
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    private void makeFile(Path path) throws IOException {
+        Files.createDirectories(path.getParent());
+        Files.createFile(path);
     }
 
     /**
@@ -188,13 +186,11 @@ public class Storage {
      */
     public void writeModsData(List<String> data) {
         try {
-            if (getDataPathExists()) {
-                Files.write(dataPath, data, StandardCharsets.UTF_8);
-            } else {
-                Files.createDirectories(dataPath.getParent());
-                Files.createFile(dataPath);
+            if (!dataPathExists) {
+                makeFile(dataPath);
                 setDataPathExists();
             }
+            Files.write(dataPath, data, StandardCharsets.UTF_8);
         } catch (IOException e) {
             e.printStackTrace();
         }

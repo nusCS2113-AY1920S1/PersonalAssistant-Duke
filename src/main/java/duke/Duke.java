@@ -1,6 +1,7 @@
 package duke;
 
 import duke.command.Command;
+import duke.exceptions.ModBadRequestStatus;
 import duke.exceptions.ModException;
 import duke.exceptions.ModTimeIntervalTooCloseException;
 import duke.util.JsonWrapper;
@@ -31,6 +32,7 @@ public class Duke {
         ui = new Ui();
         tasks = new TaskList(store);
         parser = new ParserWrapper();
+        data = new JsonWrapper();
     }
 
     /**
@@ -46,9 +48,11 @@ public class Duke {
         try {
             reminder = new Reminder(tasks.getTasks());
             //reminder.run();
-            data = new JsonWrapper(store);
+            data.runRequests(store);
         } catch (ModTimeIntervalTooCloseException e) {
             System.out.println(e.getMessage());
+        } catch (ModBadRequestStatus er) {
+            er.printStackTrace();
         }
         while (!isExit) {
             try {

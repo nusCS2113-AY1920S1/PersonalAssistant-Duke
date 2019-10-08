@@ -1,16 +1,16 @@
 package duke.util;
 
 import com.google.gson.Gson;
-import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.stream.JsonReader;
 
 import java.io.FileReader;
 import java.io.IOException;
-import java.net.http.HttpRequest;
-import java.net.http.HttpResponse;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Arrays;
+
+import duke.exceptions.ModBadRequestStatus;
 
 public class JsonWrapper {
 
@@ -26,34 +26,35 @@ public class JsonWrapper {
 
     /**
      * Constructor for JsonWrapper to access module information.
-     * @param store Storage class which handles file writing.
      */
-    public JsonWrapper(Storage store) {
+    public JsonWrapper() {
         gson = new Gson();
         requestsData = new RequestsData();
-        runRequests(store);
     }
 
-    private void runRequests(Storage store) {
+    /**
+     * For each data set, request for nusMods API.
+     */
+    public void runRequests(Storage store) throws ModBadRequestStatus {
         for (Requests req : Requests.values()) {
-            storeJson(store, req);
+            storeJson(req, store);
         }
     }
 
-    private void storeJson(Storage store, Requests type) {
+    private void storeJson(Requests type, Storage store) throws ModBadRequestStatus {
         switch (type) {
             case SUMMARY: {
-                store.setDataPath(listFile);
+                store.setDataPath(Paths.get(listFile));
                 if (store.getDataPathExists()) {
-                    return;
+                    break;
                 }
                 requestsData.storeModData(requestsData.requestModuleList(academicYear), store);
                 break;
             }
             case DETAILED: {
-                store.setDataPath(listDetailedFile);
+                store.setDataPath(Paths.get(listDetailedFile));
                 if (store.getDataPathExists()) {
-                    return;
+                    break;
                 }
                 requestsData.storeModData(requestsData.requestModuleListDetailed(academicYear), store);
                 break;

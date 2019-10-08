@@ -12,6 +12,8 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
+import duke.exceptions.ModBadRequestStatus;
+
 public class RequestsData {
 
     public RequestsData() {
@@ -39,7 +41,7 @@ public class RequestsData {
      */
     public HttpRequest requestModuleList(String academicYear) {
         return HttpRequest.newBuilder()
-                .uri(URI.create("https://api.nusmods.com/v2/" + academicYear + "/moduleList/.json"))
+                .uri(URI.create("https://api.nusmods.com/v2/" + academicYear + "/moduleList.json"))
                 .timeout(Duration.ofMinutes(1))
                 .header("Content-Type", "application/json")
                 .build();
@@ -52,7 +54,7 @@ public class RequestsData {
      */
     public HttpRequest requestModuleListDetailed(String academicYear) {
         return HttpRequest.newBuilder()
-                .uri(URI.create("https://api.nusmods.com/v2/" + academicYear + "/moduleInfo/.json"))
+                .uri(URI.create("https://api.nusmods.com/v2/" + academicYear + "/moduleInfo.json"))
                 .timeout(Duration.ofMinutes(1))
                 .header("Content-Type", "application/json")
                 .build();
@@ -63,7 +65,7 @@ public class RequestsData {
      * Using the nusMods V2 API : https://api.nusmods.com/v2/
      * Stores requests made into *.json files for further processing
      */
-    public void storeModData(HttpRequest request, Storage store) {
+    public void storeModData(HttpRequest request, Storage store) throws ModBadRequestStatus {
         // Api calls only work with upper case module code
         HttpClient client = HttpClient.newHttpClient();
         try {
@@ -72,7 +74,7 @@ public class RequestsData {
                     client.send(request, HttpResponse.BodyHandlers.ofString());
             // If return status is not 200, and error request has been made
             if (response.statusCode() != 200) {
-                return;
+                throw new ModBadRequestStatus();
             }
             List<String> responseList = getResponseList(response.body());
             store.writeModsData(responseList);
