@@ -13,10 +13,6 @@
             fx:controller="com.algosenpai.app.controller.HomeController">
     <ImageView fx:id="characterImage"/>
     <TextField fx:id="userInput"/>
-    <Text fx:id="sceneTitle" text="hello">
-        <font>
-            <Font name="Arial Black" size="40.0"/>
-        </font>
-    </Text>
+    <Text fx:id="sceneTitle" text="home text" />
     <StackPane fx:id="container"/>
 </AnchorPane>
