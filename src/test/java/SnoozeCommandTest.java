@@ -7,10 +7,8 @@ import commands.SnoozeCommand;
 import org.junit.jupiter.api.Test;
 import java.io.IOException;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.*;
 
 import Exception.DukeException;
 
@@ -27,7 +25,11 @@ public class SnoozeCommandTest {
         Ui ui = new Ui();
         Storage storage = new Storage();
         ui.FullCommand = "deadline return book /by 2008-07-07 03:03:03";
-        deadlineCommand.execute(tasks,ui,storage);
+        try {
+            deadlineCommand.execute(tasks,ui,storage, CommandStack, deletedTask);
+        } catch (Exception.DukeException dukeException) {
+            dukeException.printStackTrace();
+        }
         int index = 0;
         int year = 1;
         int day =1;

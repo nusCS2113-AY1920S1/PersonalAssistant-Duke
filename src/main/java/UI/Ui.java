@@ -59,11 +59,13 @@ public class Ui {
         ArrayList<Event> EventList = new ArrayList<Event>();
 
         for (Task task : list) {
-            if (task.getClass().getName().equals("Tasks.Deadline")) {
+            if (task.getClass().getName().equals("Tasks.Deadline") && !task.isDone) {
                 Deadline deadline = new Deadline(task.description, task.toString().split("by:")[1].trim());
+                deadline.isDone = task.isDone;
                 DeadlineList.add(deadline);
-            } else if (task.getClass().getName().equals("Tasks.Event")) {
+            } else if (task.getClass().getName().equals("Tasks.Event") && !task.isDone) {
                 Event event = new Event(task.description, task.toString().split("at:")[1].trim());
+                event.isDone = task.isDone;
                 EventList.add(event);
             }
         }
