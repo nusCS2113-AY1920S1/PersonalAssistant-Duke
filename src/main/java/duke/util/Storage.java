@@ -1,7 +1,7 @@
 package duke.util;
 
-import duke.exceptions.DukeInvalidTimeException;
-import duke.exceptions.DukeInvalidTimePeriodException;
+import duke.exceptions.ModInvalidTimeException;
+import duke.exceptions.ModInvalidTimePeriodException;
 import duke.tasks.Deadline;
 import duke.tasks.DoWithin;
 import duke.tasks.Events;
@@ -52,12 +52,17 @@ public class Storage {
         setDataPathExists();
     }
 
+    public void setDataPath(String filePath) {
+        this.dataPath = Paths.get(filePath);
+        setDataPathExists();
+    }
+
     /**
      * Reads the stored data file, if it exists
      * and returns the previously stored data as a TaskList.
      * @return TaskList of what was saved in the data file.
      */
-    public List<Task> readData() throws DukeInvalidTimeException {
+    public List<Task> readData() throws ModInvalidTimeException {
         List<Task> list = new ArrayList<>();
         List<String> lines = Collections.emptyList();
 
@@ -110,7 +115,7 @@ public class Storage {
                         }
                         list.add(tempTodo);
                         break;
-                    } catch (DukeInvalidTimePeriodException ex) {
+                    } catch (ModInvalidTimePeriodException ex) {
                         break;
                     }
                 }
@@ -122,7 +127,7 @@ public class Storage {
                         }
                         list.add(tempFixedDuration);
                         break;
-                    } catch (DukeInvalidTimeException ex) {
+                    } catch (ModInvalidTimeException ex) {
                         break;
                     }
                 }
@@ -162,7 +167,7 @@ public class Storage {
             stringListTask.add(temp.writingFile());
         }
         try {
-            if (fileExists) {
+            if (getFileExits()) {
                 Files.write(path, stringListTask, StandardCharsets.UTF_8);
             } else {
                 Files.createDirectories(path.getParent());
@@ -180,7 +185,7 @@ public class Storage {
      */
     public void writeModsData(List<String> data) {
         try {
-            if (dataPathExists) {
+            if (getDataPathExists()) {
                 Files.write(dataPath, data, StandardCharsets.UTF_8);
             } else {
                 Files.createDirectories(dataPath.getParent());

@@ -1,13 +1,12 @@
 package duke.tasks;
 
-import duke.exceptions.DukeInvalidTimeException;
+import duke.exceptions.ModInvalidTimeException;
 import duke.util.DateTimeParser;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Date;
 
 public class Events extends Task {
     private LocalDateTime dateTime;
@@ -16,7 +15,7 @@ public class Events extends Task {
      * Constructor for Events class, using String Varargs.
      * @param input Parsed user input containing task name and time.
      */
-    public Events(String... input) throws DukeInvalidTimeException {
+    public Events(String... input) throws ModInvalidTimeException {
         super(input[0]);
         dateTime = DateTimeParser.getStringToDate(input[input.length - 1]);
     }

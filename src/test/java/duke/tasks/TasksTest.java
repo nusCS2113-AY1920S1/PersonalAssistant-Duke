@@ -1,13 +1,9 @@
 package duke.tasks;
 
-import duke.exceptions.DukeCommandException;
-import duke.exceptions.DukeInvalidIndexException;
-import duke.exceptions.DukeMissingArgumentException;
-import jdk.jfr.StackTrace;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import duke.exceptions.DukeInvalidTimeException;
+import duke.exceptions.ModInvalidTimeException;
 
 public class TasksTest {
 
@@ -42,7 +38,7 @@ public class TasksTest {
         try {
             Task test = new Events(taskLabel, dateLabel);
             assertEquals(expectedPrintTodo, test.toString());
-        } catch (DukeInvalidTimeException e) {
+        } catch (ModInvalidTimeException e) {
             System.out.println(e.getMessage());
         }
     }
@@ -55,7 +51,7 @@ public class TasksTest {
         try {
             Task test = new Events(taskLabel, dateLabel);
             assertEquals(expectedWriteTodo, test.writingFile());
-        } catch (DukeInvalidTimeException e) {
+        } catch (ModInvalidTimeException e) {
             System.out.println(e.getMessage());
         }
     }
@@ -68,7 +64,7 @@ public class TasksTest {
         try {
             Task test = new Deadline(taskLabel, dateLabel);
             assertEquals(expectedPrintTodo, test.toString());
-        } catch (DukeInvalidTimeException e) {
+        } catch (ModInvalidTimeException e) {
             System.out.println(e.getMessage());
         }
     }
@@ -81,7 +77,7 @@ public class TasksTest {
         try {
             Task test = new Deadline(taskLabel, dateLabel);
             assertEquals(expectedWriteTodo, test.writingFile());
-        } catch (DukeInvalidTimeException e) {
+        } catch (ModInvalidTimeException e) {
             System.out.println(e.getMessage());
         }
     }

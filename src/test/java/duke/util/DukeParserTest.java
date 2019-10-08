@@ -7,7 +7,7 @@ import duke.command.DeleteCommand;
 import duke.command.DoneCommand;
 import duke.command.FindCommand;
 import duke.command.ListCommand;
-import duke.exceptions.DukeException;
+import duke.exceptions.ModException;
 import duke.tasks.Todo;
 
 import org.junit.jupiter.api.Test;
@@ -19,7 +19,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 public class DukeParserTest {
 
     @Test
-    public void addCommandTest() throws DukeException {
+    public void addCommandTest() throws ModException {
         Todo testTempTodo = new Todo("Do testing now");
         AddCommand add = new AddCommand(testTempTodo);
         Command hold = DukeParser.parse("todo Do testing now");
@@ -32,7 +32,7 @@ public class DukeParserTest {
             DoneCommand done = new DoneCommand(3);
             Command hold = DukeParser.parse("done 3");
             assertEquals(done, hold);
-        } catch (DukeException e) {
+        } catch (ModException e) {
             System.out.println(e.getMessage());
         }
     }
@@ -43,7 +43,7 @@ public class DukeParserTest {
             DeleteCommand delete = new DeleteCommand(2);
             Command hold = DukeParser.parse("delete 2");
             assertEquals(delete, hold);
-        } catch (DukeException e) {
+        } catch (ModException e) {
             System.out.println(e.getMessage());
         }
     }
@@ -54,7 +54,7 @@ public class DukeParserTest {
             FindCommand add = new FindCommand("games test");
             Command hold = DukeParser.parse("find games test");
             assertEquals(add, hold);
-        } catch (DukeException e) {
+        } catch (ModException e) {
             System.out.println(e.getMessage());
         }
     }
@@ -63,7 +63,7 @@ public class DukeParserTest {
     public void listCommandTest() {
         try {
             assertTrue(DukeParser.parse("list") instanceof ListCommand);
-        } catch (DukeException e) {
+        } catch (ModException e) {
             System.out.println(e.getMessage());
         }
     }
@@ -72,21 +72,20 @@ public class DukeParserTest {
     public void byeCommandTest() {
         try {
             assertTrue(DukeParser.parse("bye") instanceof ByeCommand);
-        } catch (DukeException e) {
+        } catch (ModException e) {
             System.out.println(e.getMessage());
         }
     }
 
     @Test
     public void testExceptions() {
-        DukeException thrown =
+        ModException thrown =
             assertThrows(
-            DukeException.class,
+            ModException.class,
             () -> DukeParser.parse(""),
             "Expected to return Command Object but it didn't"
             );
-        assertEquals("DukeException: Must be a valid command!", thrown.getMessage());
+        assertEquals("Error: Must be a valid command!", thrown.getMessage());
     }
-
 
 }

@@ -1,6 +1,6 @@
 package duke.exceptions;
 
-public class DukeTimeIntervalTooCloseException extends DukeException {
+public class ModTimeIntervalTooCloseException extends ModException {
 
     @Override
     public String getMessage() {

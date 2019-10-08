@@ -1,6 +1,6 @@
 package duke.command;
 
-import duke.exceptions.DukeScheduleException;
+import duke.exceptions.ModScheduleException;
 import duke.tasks.Deadline;
 import duke.tasks.DoWithin;
 import duke.tasks.Events;
@@ -39,7 +39,7 @@ public class AddCommand extends Command {
      * @param store Storage object which updates stored data.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage store, Reminder reminder) throws DukeScheduleException {
+    public void execute(TaskList tasks, Ui ui, Storage store, Reminder reminder) throws ModScheduleException {
         if (task instanceof Todo || task instanceof RecurringTask || task instanceof FixedDurationTasks) {
             tasks.add(task);
         } else {
@@ -52,7 +52,7 @@ public class AddCommand extends Command {
         reminder.forceCheckReminder();
     }
 
-    private void checkForScheduleConflicts(TaskList tasks) throws DukeScheduleException {
+    private void checkForScheduleConflicts(TaskList tasks) throws ModScheduleException {
         HashSet<LocalDateTime> dateTimeSet = new HashSet<>();
         HashSet<TimePeriod> timePeriodSet = new HashSet<>();
         for (Task temp : tasks.getTasks()) {
@@ -81,25 +81,25 @@ public class AddCommand extends Command {
         }
         if (taskTimePeriod == null) {
             if (dateTimeSet.contains(taskDateTime)) {
-                throw new DukeScheduleException();
+                throw new ModScheduleException();
             }
             for (TimePeriod timePeriod : timePeriodSet) {
                 if (timePeriod.isClashing(taskDateTime)) {
-                    throw new DukeScheduleException();
+                    throw new ModScheduleException();
                 }
             }
         } else {
             if (timePeriodSet.contains(taskTimePeriod)) {
-                throw new DukeScheduleException();
+                throw new ModScheduleException();
             }
             for (LocalDateTime dateTime : dateTimeSet) {
                 if (taskTimePeriod.isClashing(dateTime)) {
-                    throw new DukeScheduleException();
+                    throw new ModScheduleException();
                 }
             }
             for (TimePeriod timePeriod : timePeriodSet) {
                 if (taskTimePeriod.isClashing(timePeriod)) {
-                    throw new DukeScheduleException();
+                    throw new ModScheduleException();
                 }
             }
         }
