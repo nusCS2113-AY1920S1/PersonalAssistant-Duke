@@ -83,7 +83,7 @@ public class FreeCommand extends Command {
                 try {
                     Date startDate = format.parse(start);
                     Date endDate = format.parse(end);
-                    if(isOutOfRange(startDate, rangeStop)) {
+                    if (isOutOfRange(startDate, rangeStop)) {
                         ui.printFreeTimings(convertDateToString(current), convertDateToString(rangeStop), count);
                         break;
                     } else if (!isClash(startDate, endDate, current) && !isEventOver(endDate, current)) {
@@ -95,7 +95,7 @@ public class FreeCommand extends Command {
                     System.out.println("Timestamp given is invalid! Please try again.");
                 }
             }
-            if(isOutOfRange(current, rangeStop)) {
+            if (isOutOfRange(current, rangeStop)) {
                 break;
             }
             if (isLastTask(i, taskList)) {
@@ -124,7 +124,7 @@ public class FreeCommand extends Command {
      * @return true if current time is after event end time.
      */
     private boolean isEventOver(Date eventEndTime, Date currTime) {
-        return (currTime.compareTo(eventEndTime) >=0);
+        return (currTime.compareTo(eventEndTime) >= 0);
     }
 
     /**
