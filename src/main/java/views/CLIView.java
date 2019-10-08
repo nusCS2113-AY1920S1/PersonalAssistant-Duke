@@ -1,6 +1,6 @@
 package views;
 
-import controllers.temp.ConsoleInputController;
+import controllers.ConsoleInputController;
 import models.temp.commands.RescheduleCommand;
 import models.data.IProject;
 import models.member.Member;
