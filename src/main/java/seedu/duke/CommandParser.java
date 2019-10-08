@@ -52,7 +52,7 @@ public class CommandParser {
 
     public static boolean isCommandFormat(String commandString) {
         return commandString.matches(
-                "(?:\\s*([\\w]+))(?:\\s+([\\w]+))(?:\\s+(-[\\w]+\\s+[\\w]+))*");
+                "(?:\\s*([\\w]+))(?:\\s+([\\w]+[\\s|\\w]*))(?:\\s+(-[\\w]+\\s+[\\w]+))*");
     }
 
     /**
@@ -144,18 +144,20 @@ public class CommandParser {
             return new TaskListCommand(taskList);
         } else if (input.startsWith("done")) {
             return parseDoneCommand(input, optionList);
-        } else if (input.startsWith("delete ")) {
+        } else if (input.startsWith("delete")) {
             return parseDeleteCommand(input, taskList, optionList);
-        } else if (input.startsWith("find ")) {
-            return parseFindCommand(input, taskList);
+        } else if (input.startsWith("find")) {
+            return parseFindCommand(input, taskList, optionList);
         } else if (input.startsWith("reminder")) {
-            return parseReminderCommand(input, taskList);
+            return parseReminderCommand(input, taskList, optionList);
         } else if (input.startsWith("doafter")) {
             return parseDoAfterCommand(input, taskList);
         } else if (input.startsWith("snooze ")) {
             return parseSnoozeCommand(input, taskList);
+        } else if (input.startsWith("todo") | input.startsWith("deadline") | input.startsWith("event")) {
+            return parseAddTaskCommand(taskList, input);
         }
-        return parseAddTaskCommand(taskList, input);
+        return new InvalidCommand();
     }
 
     /**
@@ -245,32 +247,6 @@ public class CommandParser {
         return new InvalidCommand();
     }
 
-    private static Command parseReminderCommand(String input, TaskList taskList) {
-        int dayLimit = -1;
-        if (input.length() > 9 && input.charAt(8) == ' ') {
-            try {
-                dayLimit = Integer.parseInt(input.substring(9));
-            } catch (NumberFormatException e) {
-                ui.showError("Reminder day limit in wrong format. Default is used.");
-            }
-        }
-        if (dayLimit < 0) {
-            return new TaskReminderCommand(taskList);
-        } else {
-            return new TaskReminderCommand(taskList, dayLimit);
-        }
-    }
-
-    private static Command parseFindCommand(String input, TaskList taskList) {
-        if (input.length() <= 5) {
-            ui.showError("Please enter keyword for searching after \'find\'");
-        } else {
-            String keyword = input.split(" ", 2)[1];
-            return new TaskFindCommand(taskList, keyword);
-        }
-        return new InvalidCommand();
-    }
-
     private static Command parseDoneCommand(String input, ArrayList<Option> optionList) {
         Pattern doneCommandPattern = Pattern.compile("^done\\s+(?<index>\\d+)\\s*$");
         Matcher doneCommandMatcher = doneCommandPattern.matcher(input);
@@ -315,6 +291,36 @@ public class CommandParser {
 
     private static int parseIndex(String input) throws NumberFormatException {
         return Integer.parseInt(input) - 1;
+    }
+
+    private static Command parseFindCommand(String input, TaskList taskList, ArrayList<Option> optionList) {
+        Pattern findCommandPattern = Pattern.compile("^find\\s+(?<keyword>[\\w]+[\\s|\\w]*)\\s*$");
+        Matcher findCommandMatcher = findCommandPattern.matcher(input);
+        if (!findCommandMatcher.matches()) {
+            if(ui != null) {
+                ui.showError("Please enter keyword for searching after \'find\'");
+            }
+        } else {
+            String keyword = findCommandMatcher.group("keyword").strip();
+            return new TaskFindCommand(taskList, keyword);
+        }
+        return new InvalidCommand();
+    }
+
+    private static Command parseReminderCommand(String input, TaskList taskList, ArrayList<Option> optionList) {
+        int dayLimit = -1;
+        if (input.length() > 9 && input.charAt(8) == ' ') {
+            try {
+                dayLimit = Integer.parseInt(input.substring(9));
+            } catch (NumberFormatException e) {
+                ui.showError("Reminder day limit in wrong format. Default is used.");
+            }
+        }
+        if (dayLimit < 0) {
+            return new TaskReminderCommand(taskList);
+        } else {
+            return new TaskReminderCommand(taskList, dayLimit);
+        }
     }
 
     /**

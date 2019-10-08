@@ -4,6 +4,7 @@ import org.junit.jupiter.api.Test;
 import seedu.duke.common.command.InvalidCommand;
 import seedu.duke.task.command.TaskDeleteCommand;
 import seedu.duke.task.command.TaskDoneCommand;
+import seedu.duke.task.command.TaskFindCommand;
 import seedu.duke.task.entity.TaskList;
 
 import java.lang.reflect.InvocationTargetException;
@@ -17,13 +18,14 @@ public class CommandParserTest {
     public void isCommandFormatTest() {
         assertTrue(CommandParser.isCommandFormat("deadline 123abc -by asdas"));
         assertTrue(CommandParser.isCommandFormat("deadline 123abc -by asdas -asd nisnds"));
+        assertTrue(CommandParser.isCommandFormat("deadline 123abc 123abc -by asdas -asd nisnds"));
         assertFalse(CommandParser.isCommandFormat("deadline -by asdas -asd nisnds"));
         assertFalse(CommandParser.isCommandFormat("deadline 123abc -by asdas -asd nis nds"));
         assertFalse(CommandParser.isCommandFormat("123abc -by asdas"));
         assertFalse(CommandParser.isCommandFormat("deadline 123abc -by "));
         assertTrue(CommandParser.isCommandFormat("deadline 123abc"));
         assertTrue(CommandParser.isCommandFormat(" deadline 123abc -by asdas"));
-        assertFalse(CommandParser.isCommandFormat("ads deadline 123abc -by asdas"));
+        assertTrue(CommandParser.isCommandFormat("ads deadline 123abc -by asdas"));
         assertTrue(CommandParser.isCommandFormat("done 1"));
     }
 
@@ -72,8 +74,7 @@ public class CommandParserTest {
     public void parseDeleteCommandTest() {
         try {
             Class<?> parser = Class.forName("seedu.duke.CommandParser");
-            Method method =
-                    parser.getDeclaredMethod("parseDeleteCommand", String.class, TaskList.class,
+            Method method = parser.getDeclaredMethod("parseDeleteCommand", String.class, TaskList.class,
                             ArrayList.class);
             method.setAccessible(true);
             assertTrue(method.invoke(null, "delete 1", null, null) instanceof TaskDeleteCommand);
@@ -82,6 +83,27 @@ public class CommandParserTest {
             assertTrue(method.invoke(null, "delete ", null, null) instanceof InvalidCommand);
             assertTrue(method.invoke(null, "delete 1  a", null, null) instanceof InvalidCommand);
             assertTrue(method.invoke(null, "delete 1a", null, null) instanceof InvalidCommand);
+        } catch (ClassNotFoundException e) {
+            fail("No such class");
+        } catch (NoSuchMethodException e) {
+            fail("No such method");
+        } catch (InvocationTargetException e) {
+            fail(e.getMessage());
+        } catch (IllegalAccessException e) {
+            fail("No Access");
+        }
+    }
+
+    @Test
+    public void parseFindCommandTest() {
+        try {
+            Class<?> parser = Class.forName("seedu.duke.CommandParser");
+            Method method = parser.getDeclaredMethod("parseFindCommand", String.class, TaskList.class,
+                    ArrayList.class);
+            method.setAccessible(true);
+            assertTrue(method.invoke(null, "find 1", null, null) instanceof TaskFindCommand);
+            assertTrue(method.invoke(null, "find 1 a", null, null) instanceof TaskFindCommand);
+            assertTrue(method.invoke(null, "find   ", null, null) instanceof InvalidCommand);
         } catch (ClassNotFoundException e) {
             fail("No such class");
         } catch (NoSuchMethodException e) {
