@@ -1,19 +1,19 @@
-package owlmoney.logic.command.expenditure;
+package owlmoney.logic.command.transaction;
 
 import owlmoney.logic.command.Command;
 import owlmoney.model.profile.Profile;
 import owlmoney.ui.Ui;
 
-public class DeleteExpenditureCommand extends Command {
+public class DeleteTransactionCommand extends Command {
     private final int expNumber;
     private final String from;
 
-    public DeleteExpenditureCommand(int number, String bankName) {
+    public DeleteTransactionCommand(int number, String bankName) {
         this.expNumber = number;
         this.from = bankName;
     }
 
     public void execute(Profile profile, Ui ui) {
-        profile.deleteExpenditure(this.expNumber, this.from, ui);
+        profile.deleteTransaction(this.expNumber, this.from, ui);
     }
 }

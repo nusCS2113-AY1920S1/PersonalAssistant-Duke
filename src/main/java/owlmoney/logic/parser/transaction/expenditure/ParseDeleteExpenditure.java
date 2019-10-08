@@ -3,7 +3,7 @@ package owlmoney.logic.parser.expenditure;
 import java.util.Iterator;
 
 import owlmoney.logic.command.Command;
-import owlmoney.logic.command.expenditure.DeleteExpenditureCommand;
+import owlmoney.logic.command.expenditure.DeleteTransactionCommand;
 import owlmoney.logic.parser.exception.ParserException;
 
 public class ParseDeleteExpenditure extends ParseExpenditure {
@@ -30,8 +30,8 @@ public class ParseDeleteExpenditure extends ParseExpenditure {
     //current name is just a place holder. This is to create the command and execute it
     //might need to restructure in future
     public Command getCommand() {
-        DeleteExpenditureCommand newDeleteExpenditureCommand =
-                new DeleteExpenditureCommand(Integer.parseInt(expendituresParameters.get(EXPNO)),
+        DeleteTransactionCommand newDeleteExpenditureCommand =
+                new DeleteTransactionCommand(Integer.parseInt(expendituresParameters.get(EXPNO)),
                         expendituresParameters.get(FROM));
         return newDeleteExpenditureCommand;
     }

@@ -1,7 +1,8 @@
 package owlmoney.logic.command.expenditure;
 
 import owlmoney.logic.command.Command;
-import owlmoney.model.expenditure.Expenditure;
+import owlmoney.model.transaction.Expenditure;
+import owlmoney.model.transaction.Transaction;
 import owlmoney.model.profile.Profile;
 import owlmoney.ui.Ui;
 
@@ -25,7 +26,7 @@ public class AddExpenditureCommand extends Command {
     }
 
     public void execute(Profile profile, Ui ui) {
-        Expenditure newExp = new Expenditure(this.description, this.amount, this.date, this.category);
+        Transaction newExp = new Expenditure(this.description, this.amount, this.date, this.category);
         profile.addNewExpenditure(accName, newExp, ui);
     }
 }
