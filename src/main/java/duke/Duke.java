@@ -7,8 +7,8 @@ import java.text.ParseException;
 import java.util.Scanner;
 
 import duke.Data.Storage;
-import duke.module.Schedule;
-import duke.sports.ManageStudents;
+import duke.Module.Schedule;
+import duke.Sports.ManageStudents;
 import duke.Task.*;
 
 import javafx.application.Application;
