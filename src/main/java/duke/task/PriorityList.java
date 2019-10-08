@@ -86,7 +86,7 @@ public class PriorityList {
             String input = sc.nextLine();
             try {
                 priority = Integer.parseInt(input.trim());
-                if ((1 <= priority) && (priority <=5)) {
+                if ((1 <= priority) && (priority <= 5)) {
                     System.out.printf("     Set the priority to %d\n", priority);
                     break;
                 } else {
@@ -102,7 +102,7 @@ public class PriorityList {
 
 
     /**
-     * Get the length/size of the priority list
+     * Get the length/size of the priority list.
      *
      * @return The size of the priority list.
      */

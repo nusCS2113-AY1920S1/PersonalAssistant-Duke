@@ -1,6 +1,10 @@
 package duke;
 
-import duke.command.*;
+import duke.command.DeleteCommand;
+import duke.command.AddMultipleCommand;
+import duke.command.Command;
+import duke.command.ExitCommand;
+import duke.command.ListPriorityCommand;
 import duke.dukeexception.DukeException;
 import duke.parser.Parser;
 import duke.storage.PriorityStorage;
@@ -10,7 +14,6 @@ import duke.task.TaskList;
 import duke.ui.Ui;
 
 import java.io.IOException;
-import java.util.ArrayList;
 
 /**
  * Represents a duke that controls the program.
@@ -113,11 +116,9 @@ public class Duke {
                     priorityStorage.write(priorityList);
                     cmd.executeStorage(items, ui, storage);
                     break;
-                } else if (cmd instanceof ListPriorityCommand) {
-                    cmd.execute(items, priorityList, ui);
-                } else if (cmd instanceof AddMultipleCommand) {
-                    cmd.execute(items, priorityList, ui);
-                } else if (cmd instanceof DeleteCommand) {
+                } else if (cmd instanceof ListPriorityCommand
+                        || cmd instanceof AddMultipleCommand
+                        || cmd instanceof DeleteCommand) {
                     cmd.execute(items, priorityList, ui);
                 } else {
                     cmd.execute(items,ui);

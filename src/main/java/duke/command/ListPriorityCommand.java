@@ -8,7 +8,7 @@ import duke.task.TaskList;
 /**
  * Representing a command that lists all tasks stored in task list.
  */
-public class ListPriorityCommand extends Command{
+public class ListPriorityCommand extends Command {
 
     /**
      * Executes a command with task list and ui.
@@ -24,8 +24,8 @@ public class ListPriorityCommand extends Command{
      * Executes a command that gathers all tasks from task list and outputs the result.
      *
      * @param items The task list that contains a list of tasks.
-     * @param ui To tell the user the list of tasks stored in task list.
      * @param priorities The list of priorities.
+     * @param ui To tell the user the list of tasks stored in task list.
      */
 
     public void execute(TaskList items, PriorityList priorities, Ui ui) {

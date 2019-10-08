@@ -36,7 +36,7 @@ public class DeleteCommand extends Command {
 
 
     /**
-     * Executes a command that deletes the task from the task list together with its priority
+     * Executes a command that deletes the task from the task list together with its priority.
      *
      * @param items The task list that contains a list of tasks.
      * @param ui To tell the user that it is deleted successfully.

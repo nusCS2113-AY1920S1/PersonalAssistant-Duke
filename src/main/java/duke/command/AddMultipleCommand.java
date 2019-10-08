@@ -37,6 +37,13 @@ public class AddMultipleCommand extends Command {
         ui.showAdd(items);
     }
 
+    /**
+     * Executes a command that adds the tasks into task list and priorities to priority list and outputs the result.
+     *
+     * @param items The task list that contains a list of tasks.
+     * @param priorities The priority list that prioritize the tasks.
+     * @param ui To tell the user that they are added successfully.
+     */
     public void execute(TaskList items, PriorityList priorities, Ui ui) {
         for (Task curTask : tasks) {
             items.add(curTask);

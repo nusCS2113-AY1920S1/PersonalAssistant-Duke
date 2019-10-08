@@ -26,6 +26,7 @@ public abstract class Command {
      * Executes a command with task list and ui.
      *
      * @param items The task list that contains a list of tasks.
+     * @param priorities The list of priorities.
      * @param ui To tell the user that it is executed successfully.
      */
 

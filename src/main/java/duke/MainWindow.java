@@ -120,14 +120,12 @@ public class MainWindow extends AnchorPane {
         );
         try {
             Command cmd = duke.getCommand(input);
-           // if (cmd instanceof ExitCommand) {
-                duke.saveState(cmd);
-                response = Ui.showLineGui() + Ui.showByeGui() + Ui.showLineGui();
-                dialogContainer.getChildren().add(
-                        DialogBox.getDukeDialog(response, dukeImage)
-                );
-                timer.schedule(exitDuke, new Date(System.currentTimeMillis() + 500));
-         //}
+            duke.saveState(cmd);
+            response = Ui.showLineGui() + Ui.showByeGui() + Ui.showLineGui();
+            dialogContainer.getChildren().add(
+                    DialogBox.getDukeDialog(response, dukeImage)
+            );
+            timer.schedule(exitDuke, new Date(System.currentTimeMillis() + 500));
         } catch (DukeException e) {
             response = Ui.showLineGui() + Ui.showErrorMsgGui(e.getMessage()) + Ui.showLineGui();
             dialogContainer.getChildren().add(
