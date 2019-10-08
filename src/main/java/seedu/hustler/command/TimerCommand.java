@@ -26,8 +26,8 @@ public class TimerCommand extends Command {
             return;
         }
 
-        timerManager Jackie = new timerManager();
-        Jackie.setTimer(taskInfo[1]);
-        Jackie.startTimer();
+        timerManager timermanager = new timerManager();
+        timermanager.setTimer(taskInfo[1]);
+        timermanager.startTimer();
     }
 }

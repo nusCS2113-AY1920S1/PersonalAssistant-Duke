@@ -6,6 +6,6 @@ import seedu.hustler.ui.timer.timerManager;
 public class ShowTimerCommand extends Command {
 
     public void execute() {
-        Hustler.Jackie.printTimeLeft();
+        Hustler.timermanager.printTimeLeft();
     }
 }

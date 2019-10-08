@@ -55,12 +55,12 @@ public class Hustler {
     /**
      * TimerManager instance that starts the timer.
      */
-    public static timerManager Jackie = new timerManager();
+    public static timerManager timermanager = new timerManager();
 
     /**
      * MemoryManager instance that starts the timer.
      */
-    public static MemoryManager Jamie = new MemoryManager();
+    public static MemoryManager memorymanager = new MemoryManager();
 
     /**
      * CommandLog instance that records user tasks.
@@ -85,7 +85,7 @@ public class Hustler {
         ui.show_opening_string();
         Folder.checkDirectory();
         loadStorage();
-        Jamie.createBackup();
+        memorymanager.createBackup();
 
         // Display reminders at the start
         Reminders.runAll(list);
