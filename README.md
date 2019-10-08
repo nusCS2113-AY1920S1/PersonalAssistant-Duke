@@ -35,9 +35,9 @@
 1.  Open IntelliJ (if you are not in the welcome screen, click `File` > `Close Project` to close the existing project dialog first).
 
 2.  Set up the correct JDK version.
-   * Click `Configure` > `Structure for new Projects` (in older versions of Intellij:`Configure` > `Project Defaults` > `Project Structure`).
-   * If JDK 11 is listed in the drop down, select it. If it is not, click `New...` and select the directory where you installed JDK 11.
-   * Click `OK`.
+    * Click `Configure` > `Structure for new Projects` (in older versions of Intellij:`Configure` > `Project Defaults` > `Project Structure`).
+    * If JDK 11 is listed in the drop down, select it. If it is not, click `New...` and select the directory where you installed JDK 11.
+    * Click `OK`.
 3.  Click `Import Project`.
 
 4.  Locate the project directory and click `OK`.
