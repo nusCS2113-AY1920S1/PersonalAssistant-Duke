@@ -194,7 +194,7 @@ public class DukeParser {
     }
 
     /**
-     * Main parser for user commands, checking for any invalid input
+     * Main parser for testing commands, checking for any invalid input
      * placed and empty command placed. Returns the specified command
      * class for each valid input.
      * @param input Raw user string read by Ui object.

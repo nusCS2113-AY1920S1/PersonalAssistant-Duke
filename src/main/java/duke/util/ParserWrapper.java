@@ -22,9 +22,7 @@ import duke.tasks.Todo;
 
 public class ParserWrapper {
 
-    // Testing Natty Wrapper
     private NattyWrapper natty;
-    private final String[] dateTasks = {"event", "deadline", "fixedDuration"};
 
     /**
      * Constructor for parser wrapper class.
@@ -33,15 +31,23 @@ public class ParserWrapper {
         natty = new NattyWrapper();
     }
 
+    /**
+     * Formats data parsed by natty into the right format for our use case.
+     * @param date User input for data parameter.
+     * @return LocalDateTime formatted in dd-MM-yyyy [HH:mm].
+     * @throws DukeInvalidTimeException when string date cannot be parsed by natty.
+     */
     private String formatInputToStringDate(String date) throws DukeInvalidTimeException {
         return natty.dateToLocalDateTime(date).format(DateTimeFormatter.ofPattern("dd-MM-yyyy [HH:mm]"));
     }
 
     /**
-     * Parsing date arguments.
+     * Main parser for user commands, checking for any invalid input
+     * placed and empty command placed. Returns the specified command
+     * class for each valid input.
      * @param input User input.
      * @return Command class based on user input.
-     * @throws DukeException error based on user input.
+     * @throws DukeException Error based on user input.
      */
     public Command parse(String input) throws DukeException {
         // Checks every input for keywords
@@ -97,7 +103,5 @@ public class ParserWrapper {
             throw new DukeCommandException();
         }
     }
-
-
 
 }
