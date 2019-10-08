@@ -24,7 +24,7 @@ javafx {
 
 application {
     // Change this to your main class.
-    mainClassName = "seedu.hustler.Hustler"
+    mainClassName = "seedu.hustler.Main"
 }
 
 run {

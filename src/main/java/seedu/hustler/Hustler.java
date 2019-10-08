@@ -2,6 +2,7 @@ package seedu.hustler;
 
 import java.io.IOException;
 
+import javafx.application.Platform;
 import seedu.hustler.game.avatar.Avatar;
 import seedu.hustler.command.Command;
 import java.util.Scanner;
@@ -82,7 +83,7 @@ public class Hustler extends Application {
     public static void run(String rawInput) throws CommandLineException {
         if (rawInput.equals("bye")) {
             ui.show_bye_message();
-            return;
+            Platform.exit();
         }
         Command command = parser.parse(rawInput);
         command.execute();

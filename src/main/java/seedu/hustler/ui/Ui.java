@@ -73,7 +73,7 @@ public class Ui {
      */
     public void wrong_description_error() {
         System.out.println("\t_____________________________________");
-        System.out.println("\tDescription needs a '/' before by/at/after");
+        System.out.println("\tDescription needs a '/' before by/at");
         System.out.println("\t_____________________________________\n\n");
     }
 
