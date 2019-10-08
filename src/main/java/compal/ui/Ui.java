@@ -1,7 +1,9 @@
 package compal.ui;
+
 import javafx.stage.Stage;
+
 /**
- * API of UI component
+ * API of UI components.
  */
 public interface Ui {
 
