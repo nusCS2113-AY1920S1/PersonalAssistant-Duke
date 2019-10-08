@@ -4,13 +4,13 @@
 :imagesDir: images
 :stylesDir: stylesheets
 
-Entertainment Pro was developed by the https://se-edu.github.io/docs/Team.html[CS2113T T09-4] team. +
+Entertainment-Pro was developed by the https://se-edu.github.io/docs/Team.html[CS2113T T09-4] team. +
 We are a team based in the http://www.comp.nus.edu.sg[School of Computing, National University of Singapore].
 
 == Project Team
 
 === Pradeep
-image::Pdotdeep.jpg[width="150", align="left"]
+image::Pdotdeep.png[width="150", align="left"]
 {empty}[http://github.com/Pdotdeep[github]] [<<johndoe#, portfolio>>]
 
 Role: Team Lead +
@@ -19,15 +19,7 @@ Responsibilities: Documentation + Code Quality
 '''
 
 === Marc
-<<<<<<< HEAD
-<<<<<<< HEAD
-image::lejolly.jpg[width="150", align="left"]
-=======
-image::Hotspur1997.jpg[width="150", align="left"]
->>>>>>> upstream/master
-=======
-image::Hotspur1997.jpg[width="150", align="left"]
->>>>>>> upstream/master
+image::hotspur1997.png[width="150", align="left"]
 {empty}[http://github.com/Hotspur1997[github]] [<<johndoe#, portfolio>>]
 
 Role: Developer +
@@ -36,7 +28,7 @@ Responsibilities: Integration + Storage
 '''
 
 === Wen Hui
-image::yijinl.jpg[width="150", align="left"]
+image::nwenhui.png[width="150", align="left"]
 {empty}[http://github.com/nwenhui[github]] [<<johndoe#, portfolio>>]
 
 Role: Developer +
@@ -45,7 +37,7 @@ Responsibilities: Deliverables and deadlines + UI
 '''
 
 === Mohamed Riyas
-image::riyas97.png[width="150", align="left"]
+image::Riyas97.png[width="150", align="left"]
 {empty}[http://github.com/Riyas97[github]] [<<johndoe#, portfolio>>]
 
 Role: Developer +

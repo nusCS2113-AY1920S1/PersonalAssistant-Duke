@@ -26,21 +26,17 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="200.0" prefWidth="120.0" styleClass="posterPane" stylesheets="@Main_Styles.css" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="trial.MoviePosterController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="200.0" prefWidth="120.0" styleClass="posterPane" stylesheets="@Main_Styles.css" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="MovieUI.MoviePosterController">
   <children>
     <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="120.0" spacing="4.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
       <children>
-        <ImageView fx:id="moviePosterImageView" fitHeight="160.0" fitWidth="109.05027932960893" pickOnBounds="true" preserveRatio="true" />
-        <VBox minHeight="17.0" prefHeight="17.0" prefWidth="120.0">
-          <children>
-            <Label fx:id="movieTitleLabel" alignment="CENTER" text="Label" textAlignment="CENTER" wrapText="true" VBox.vgrow="ALWAYS">
-              <VBox.margin>
-                <Insets />
-              </VBox.margin>
-            </Label>
-            <Label fx:id="movieId" text="Label" textAlignment="CENTER" wrapText="true" />
-          </children>
-        </VBox>
+        <ImageView fx:id="moviePosterImageView" fitHeight="160.63323317965688" fitWidth="109.48187255859375" pickOnBounds="true" preserveRatio="true" />
+        <Label fx:id="movieTitleLabel" styleClass="subtitle" text="Label" />
+        <Label fx:id="movieIDLabel" text="Label">
+          <VBox.margin>
+            <Insets />
+          </VBox.margin>
+        </Label>
       </children>
     </VBox>
   </children>

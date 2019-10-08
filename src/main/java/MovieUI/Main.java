@@ -1,4 +1,4 @@
-package trial;
+package MovieUI;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -7,8 +7,6 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import object.MovieInfoObject;
-import trial.MovieHandler;
-import trial.MovieInfoController;
 import ui.Ui;
 
 import java.io.IOException;
@@ -33,9 +31,7 @@ public class Main extends Application {
     private void setUp() {
         try {
             FXMLLoader loader = new FXMLLoader();
-            //loader.setLocation(trial.trial.Main.class.getResource("MainPage.fxml"));
             loader.setLocation(getClass().getClassLoader().getResource("MainPage.fxml"));
-            // loader.getStylesheets().add(this.getClass().getResource("view/MainView.css").toExt‌​ernalForm())
             mainLayout = loader.load();
 
             // setup the controller's window and reference to this main application class
@@ -66,7 +62,6 @@ public class Main extends Application {
             e.printStackTrace();
         }
     }
-
 
     public void transitionBackToMoviesController()
     {
