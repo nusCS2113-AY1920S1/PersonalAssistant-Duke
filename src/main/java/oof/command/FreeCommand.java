@@ -160,12 +160,7 @@ public class FreeCommand extends Command {
         Date endDate = convertStringToDate(end);
         return endDate.compareTo(currTime) > 0;
     }
-
-    /**
-     * Checks if ExitCommand is called for Oof to terminate.
-     *
-     * @return false.
-     */
+    
     @Override
     public boolean isExit() {
         return false;
