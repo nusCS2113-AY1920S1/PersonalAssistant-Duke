@@ -11,13 +11,16 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import seedu.duke.Duke;
-import seedu.duke.Parser;
-import seedu.duke.TaskList;
-import seedu.duke.Storage;
-import seedu.duke.email.EmailStorage;
-import seedu.duke.task.Task;
 
 import java.util.*;
+import seedu.duke.CommandParser;
+import seedu.duke.task.entity.TaskList;
+import seedu.duke.task.TaskStorage;
+import seedu.duke.email.EmailStorage;
+import seedu.duke.task.entity.Deadline;
+import seedu.duke.task.entity.Event;
+import seedu.duke.task.entity.Task;
+
 import java.util.function.UnaryOperator;
 
 /**
@@ -72,7 +75,7 @@ public class MainWindow extends AnchorPane {
      */
     @FXML
     public TextFormatter<String> getTextFormatter() {
-        String prefix = Parser.getInputPrefix();
+        String prefix = CommandParser.getInputPrefix();
         UnaryOperator<TextFormatter.Change> filter = c -> {
             if (c.getCaretPosition() < prefix.length()) {
                 return null;
@@ -100,7 +103,7 @@ public class MainWindow extends AnchorPane {
         updateTasksList();
         updateEmailsList();
         if (response.contains("Bye, hope to see you again.")) {
-            Storage.saveTasks(duke.getTaskList());
+            TaskStorage.saveTasks(duke.getTaskList());
             EmailStorage.saveEmails(duke.getEmailList());
             Platform.exit();
         }
@@ -119,7 +122,7 @@ public class MainWindow extends AnchorPane {
         userInput.setTextFormatter(new TextFormatter<String>(noFilter));
 
         userInput.clear();
-        String prefix = Parser.getInputPrefix();
+        String prefix = CommandParser.getInputPrefix();
         userInput.setText(prefix);
 
         // To apply a filter to any changes in userInput text field so that the prefix is non-deletable text.
