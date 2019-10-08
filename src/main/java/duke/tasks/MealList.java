@@ -1,5 +1,7 @@
 package duke.tasks;
 
+import duke.exceptions.DukeException;
+
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -41,7 +43,7 @@ public class MealList {
         this.mealTracker = mealTracker;
     }
 
-    public void addMeals(Meal data) {
+    public void addMeals(Meal data) throws DukeException {
         ArrayList<Meal> mealList;
         if (mealTracker.containsKey(data.getDate())) {
              mealList = mealTracker.get(data.getDate());
@@ -59,6 +61,11 @@ public class MealList {
                     nutritionValue.put(i, storedNutritionValue.get(i));
                 }
             }
+        }
+        if (data.getNutritionalValue().size() == 0) {
+            throw new DukeException("\u2639 OOPS!!! It appears there are no default values associated with this meal\n"
+                    + "     Please set a default value for this meal using the \"add\" command, or manually\n"
+                    + "     specify nutritional values for this meal");
         }
         mealList.add(data);
     }

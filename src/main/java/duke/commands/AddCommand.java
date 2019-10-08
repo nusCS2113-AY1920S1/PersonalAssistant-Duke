@@ -2,6 +2,7 @@ package duke.commands;
 
 import java.util.ArrayList;
 
+import duke.exceptions.DukeException;
 import duke.tasks.Meal;
 import duke.tasks.MealList;
 import duke.ui.Ui;
@@ -32,7 +33,7 @@ public class AddCommand extends Command {
      * @param storage the storage object that stores the list of tasks
      */
     @Override
-    public void execute(MealList meals, Ui ui, Storage storage, User user) {
+    public void execute(MealList meals, Ui ui, Storage storage, User user) throws DukeException {
         meals.addMeals(this.meal);
         ArrayList<Meal> mealData = meals.getMealTracker().get(this.meal.getDate());
         ui.showAdded(this.meal, mealData, user, this.meal.getDate());
