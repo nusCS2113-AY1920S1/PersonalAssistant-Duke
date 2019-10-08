@@ -25,7 +25,7 @@ public class Meal {
      * @param description the description of the task
      */
     public Meal(String description, String details, Autocorrect autocorrect) {
-        this.description = description;
+        this.description = description.stripTrailing().stripLeading();
         //todo: date input can only be accepted at the back of the statement
         if (details.contains("/date")) {
             String[] splitString = details.split("/date", 2);
@@ -54,7 +54,7 @@ public class Meal {
     }
 
     public Meal(String description, String[] details) {
-        this.description = description;
+        this.description = description.stripLeading().stripTrailing();
         try {
             Date day;
             day = dateparser.parse(details[1]);
@@ -117,6 +117,10 @@ public class Meal {
 
     public HashMap<String, Integer> getNutritionalValue() {
         return this.nutritionValue;
+    }
+
+    public void addNutritionalValue(String keyStr, int value) {
+        this.nutritionValue.put(keyStr, value);
     }
 
     /**

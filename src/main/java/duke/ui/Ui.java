@@ -57,15 +57,30 @@ public class Ui {
         }
     }
 
-    public void showAdded(Meal currentMeal, ArrayList<Meal> meals, User user, String date) {
+    public void showAdded(Meal currentMeal, ArrayList<Meal> meals, User user, String dateStr) {
         System.out.println(padding + "Got it. I've added this meal:");
         System.out.println(padding + currentMeal);
+        showCaloriesLeft(meals, user, dateStr);
+    }
+
+    public void showUpdated(Meal newMeal, ArrayList<Meal> meals, User user, String dateStr) {
+        System.out.println(padding + "Got it. I've updated this old meal with this: " + newMeal);
+        showCaloriesLeft(meals, user, dateStr);
+    }
+
+    /**
+     * Display remaining calories for specified date based on current meals plan.
+     * @param meals List of meals on the date.
+     * @param user User information which we want to query.
+     * @param dateStr Date in which remaining calories are computed.
+     */
+    public void showCaloriesLeft(ArrayList<Meal> meals, User user, String dateStr) {
         int totalConsume = 0;
         for (int i = 0; i < meals.size(); i += 1) {
             totalConsume += meals.get(i).getNutritionalValue().get("calorie");
         }
         System.out.println(padding + "Now you have " + (user.getDailyCalorie()
-                - totalConsume) + " calories left on " + date);
+                - totalConsume) + " calories left on " + dateStr);
     }
 
     public void showDeleted(Meal currentMeal, ArrayList<Meal> meals) {

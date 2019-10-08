@@ -1,5 +1,7 @@
 package duke.tasks;
 
+import duke.exceptions.DukeException;
+
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -55,6 +57,40 @@ public class MealList {
             mealTracker.put(dateStr, new ArrayList<Meal>());
         }
         mealTracker.get(dateStr).add(meal);
+    }
+
+    /**
+     * Update existing meal from mealList based on date and description given.
+     * @param newMeal Meal to be updated.
+     * @return Returns updated meal information.
+     * @throws DukeException Exception thrown if meal description or date not found in current list.
+     */
+    public Meal updateMeal(Meal newMeal) throws DukeException {
+        String dateStr = newMeal.getDate();
+        if (mealTracker.containsKey(dateStr)) {
+            ArrayList<Meal> meals = getMeals(dateStr);
+            for (int idx = 0; idx < meals.size(); idx++) {
+                Meal currMeal = meals.get(idx);
+                if (isSameMeal(currMeal, newMeal)) {
+                    HashMap<String, Integer> newNutrition = newMeal.getNutritionalValue();
+                    for (String keyStr : newNutrition.keySet()) {
+                        currMeal.addNutritionalValue(keyStr, newNutrition.get(keyStr));
+                    }
+                    meals.set(idx, currMeal);
+                    newMeal = currMeal;
+                    mealTracker.replace(dateStr, meals);
+                    return newMeal;
+                }
+            }
+            throw new DukeException("No meal matches description of " + newMeal.getDescription() + " on " + newMeal.getDate());
+        }
+        else {
+            throw new DukeException("No meal found on " + newMeal.getDate());
+        }
+    }
+
+    public boolean isSameMeal(Meal meal1, Meal meal2) {
+        return meal1.getDescription().equals(meal2.getDescription()) && meal1.getDate().equals(meal2.getDate());
     }
 
     public ArrayList<Meal> getMeals(String inputDate) {

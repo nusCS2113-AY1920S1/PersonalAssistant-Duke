@@ -6,6 +6,7 @@ import duke.exceptions.DukeException;
 import duke.tasks.Dinner;
 import duke.tasks.Breakfast;
 import duke.tasks.Lunch;
+import duke.tasks.Meal;
 import java.util.Calendar;
 
 /**
@@ -47,7 +48,8 @@ public class Parser {
             description = splitCommand[1];
         }
         if (command.equals("done") || command.equals("breakfast")
-                || command.equals("lunch") || command.equals("dinner")) {
+                || command.equals("lunch") || command.equals("dinner")
+                || command.equals("edit")) {
             if (description.trim().length() == 0) {
                 throw new DukeException("\u2639 OOPS!!! The description of a " + command + " cannot be empty.");
             }
@@ -114,8 +116,12 @@ public class Parser {
                     }
                 }
                 throw new DukeException("Please enter 2 dates; Start and End dates to clear meals from.");
+            case "edit":
+                name = description.split("/", 2)[0];
+                info = "/" + description.split("/", 2)[1];
+                return new EditCommand(new Meal(name, info, autocorrect));
             default:
-                throw new DukeException("\u2639 OOPS!!! I'm sorry, but I don't know what" + command + " means :-(");
+                throw new DukeException("\u2639 OOPS!!! I'm sorry, but I don't know what " + command + " means :-(");
         }
     }
 }
