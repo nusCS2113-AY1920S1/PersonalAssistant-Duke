@@ -35,7 +35,7 @@ public class MyPlan {
          filePath = ".\\src\\main\\java\\duke\\Sports\\plan.txt";
          File f = new File(filePath);
          fileInput = new Scanner(f);
-         division = new Storage(filePath).loadPMap(getMap());
+         //division = new Storage(filePath).loadPMap(getMap());
      }
 
     public String getName() {
@@ -139,7 +139,7 @@ public class MyPlan {
     }
 
      public String viewPlan() {
-         String message = "";
+         String message = "1";
          for (MyTraining i : getList()) {
              message += i.toString() + "\n";
          }

@@ -355,6 +355,7 @@ public class Parser {
             case "plan":
                 if (word[1].equals("view")) {
                     plan.loadPlan(word[2].toLowerCase(),word[3]);
+                    plan.viewPlan();
                 } else if (word[1].equals("new")) {
                     plan.createPlan(word[3].toLowerCase());
                 } else if (word[1].equals("edit")) {
