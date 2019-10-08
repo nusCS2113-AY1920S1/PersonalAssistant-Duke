@@ -17,8 +17,8 @@ public class ExitCommand extends Command {
         //ask ui to print something
         //ask tasks to store the thing in arraylist
         //ask storage to write to file
-        return ui.goodBye();
-//        isExit();
+        System.exit(0);
+        return null;
     }
 
     /**

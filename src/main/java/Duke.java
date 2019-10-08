@@ -138,28 +138,8 @@ public class Duke extends Application{
     private String getResponse(String fullCommand) {
         Command c = Parser.parse(fullCommand);
         return c.execute(ui, wordBank, storage);
-        //return "Duke heard: " + fullCommand;
     }
 
-
-//    public void run() {
-//        ui.greet();
-//        boolean isExit = false;
-//        while (!isExit) {
-//            try {
-//                String fullCommand = ui.readCommand();
-//                ui.showLine();
-//                if (fullCommand.equals("")) { throw new CommandEmptyException(); }
-//                Command c = Parser.parse(fullCommand);
-//                c.execute(ui, wordBank, storage);
-//                isExit = c.isExit();
-//            } catch (CommandEmptyException e) {
-//                e.showError();
-//            } finally {
-//                ui.showLine();
-//            }
-//        }
-//    }
 
 
 }

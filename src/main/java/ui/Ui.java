@@ -18,7 +18,7 @@ public class Ui {
     }
 
     public String greet() {
-        return "     Hello! I'm" + "      ____        _        \n"
+        return "Hello! I'm" + "      ____        _        \n"
                 +  "                    |  _ \\ _   _| | _____ \n"
                 + "                    | | | | | | | |/ / _ \\\n"
                 + "                    | |_| | |_| |   <  __/\n"
@@ -26,12 +26,9 @@ public class Ui {
                 + "     What can I do for you?";
     }
 
-    public String goodBye() {
-        return "     Bye. Hope to see you again soon!";
-    }
 
     public String showDeleted(Word w) {
-        return "     Noted. I've removed this word:\n" + "       " + w.toString();
+        return "Noted. I've removed this word:\n" + w.toString();
     }
 
     /*
@@ -50,26 +47,26 @@ public class Ui {
     */
 
     public String showAdded(Word w) {
-        return "     Got it. I've added this word:\n" + "       " + w.toString();
+        return "Got it. I've added this word:\n" + w.toString();
     }
 
     public String showList(WordBank wordBank, String order) {
-        String returnedString = "     Here are your words:";
+        String returnedString = "Here are your words:\n";
         if (order.equals("asc") || order.equals("")) {
             for (Map.Entry<String, Word> entry : wordBank.getWordBank().entrySet()) {
-                returnedString += "     " + entry.getValue();
+                returnedString += entry.getValue() + "\n";
             }
         }
         else {
             for (String description : wordBank.getWordBank().descendingKeySet()) {
-                returnedString += "     " + wordBank.getWordBank().get(description);
+                returnedString += wordBank.getWordBank().get(description) + "\n";
             }
         }
         return returnedString;
     }
 
     public String showSearch(String description, String meaning){
-        return "     Here is the meaning of " + description + ": " + meaning;
+        return "Here is the meaning of " + description + ": " + meaning;
     }
 }
 

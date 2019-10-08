@@ -90,13 +90,11 @@ public class Parser {
                 try {
                     throw new CommandInvalidException(input);
                 } catch (CommandInvalidException e){
-                    e.showError();
-                    return new BadCommand();
+                    return new BadCommand(e.showError());
                 }
             }
         } catch (DukeException e) {
-            e.showError();
-            return new BadCommand();
+            return new BadCommand(e.showError());
         }
     }
 }

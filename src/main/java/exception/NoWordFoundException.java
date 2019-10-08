@@ -4,7 +4,7 @@ public class NoWordFoundException extends DukeException {
     private String searchWord;
 
     public NoWordFoundException(String searchWord) {
-        super("     ☹ OOPS: The word you are searching is not in the word bank: ");
+        super("☹ OOPS: The word you are searching is not in the word bank: ");
         this.searchWord = searchWord;
     }
 
