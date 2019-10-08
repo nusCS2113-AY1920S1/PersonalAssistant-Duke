@@ -65,11 +65,17 @@ public class GirlsController extends SceneController implements Initializable {
     public void handleKeyPressed(KeyEvent keyEvent) throws IOException {
         if (keyEvent.getCode() == KeyCode.H) {
             MusicController.playMusic("rezero.wav");
-            changeScene(ResourcePathConstant.viewResourcePath + "home.fxml");
+            String imageName = ResourceRandomUtility.randomResources(ImagesConstant.startAppImages);
+
+            changeScene("home.fxml", imageName);
+            //changeScene(ResourcePathConstant.viewResourcePath + "home.fxml");
         }
         if (keyEvent.getCode() == KeyCode.D) {
             MusicController.playMusic("rezero.wav");
-            changeScene(ResourcePathConstant.viewResourcePath + "date.fxml");
+            String imageName = ResourceRandomUtility.randomResources(ImagesConstant.startAppImages);
+
+            changeScene("date.fxml", imageName);
+            // changeScene(ResourcePathConstant.viewResourcePath + "date.fxml");
         }
         if (keyEvent.getCode() == KeyCode.ESCAPE) {
             userInput.getParent().requestFocus();
