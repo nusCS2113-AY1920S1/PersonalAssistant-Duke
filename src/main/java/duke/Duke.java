@@ -1,18 +1,10 @@
 package duke;
 
-<<<<<<< HEAD
 import duke.command.Command;
 import duke.command.ExitCommand;
 import duke.command.ListPriorityCommand;
 import duke.command.DeleteCommand;
 import duke.command.AddMultipleCommand;
-=======
-import duke.command.DeleteCommand;
-import duke.command.AddMultipleCommand;
-import duke.command.Command;
-import duke.command.ExitCommand;
-import duke.command.ListPriorityCommand;
->>>>>>> branch-GUI
 import duke.dukeexception.DukeException;
 import duke.parser.Parser;
 import duke.storage.PriorityStorage;
