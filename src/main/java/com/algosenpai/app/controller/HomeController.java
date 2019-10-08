@@ -3,7 +3,9 @@ package com.algosenpai.app.controller;
 import com.algosenpai.app.constant.ImagesConstant;
 import com.algosenpai.app.constant.JavaFxConstant;
 import com.algosenpai.app.constant.ResourcePathConstant;
-import com.algosenpai.app.Chapter1;
+
+import com.algosenpai.app.chapters.ChapterSorting;
+import com.algosenpai.app.Question;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
@@ -19,7 +21,6 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class HomeController extends SceneController implements Initializable {
-
 
     @FXML
     private ImageView characterImage;
@@ -84,28 +85,6 @@ public class HomeController extends SceneController implements Initializable {
         }
         if (keyEvent.getCode() == KeyCode.M) {
             toggleVolume();
-        }
-        //handling the user commands entered
-        if (keyEvent.getCode() == KeyCode.ENTER) {
-            switch (userInput.getText()) {
-            case "menu":
-                sceneText.setText("These are the commands available");
-                break;
-            case "start":
-                sceneText.setText("The game is loading....");
-                int questionNumber = 0;
-                while (questionNumber < 10) {
-                    Chapter1.generateQuestions();
-                    questionNumber++;
-                }
-                break;
-            case "exit":
-                sceneText.setText("Aww you're leaving already? See you soon!");
-                break;
-            default:
-                sceneText.setText("I'm sorry, I don't understand what you mean..");
-            }
-            userInput.setText("");
         }
     }
 
