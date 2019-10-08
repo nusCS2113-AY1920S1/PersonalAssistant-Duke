@@ -27,7 +27,7 @@ public class Duke {
             ui.UpcomingTask(list);
             while (!isExit) {
                 ui.ReadCommand();
-                String command = ui.FullCommand;
+                String command = ui.FullCommand.trim();
                 Command c = Parser.parse(command);
                 c.execute(list, ui, store);
                 isExit = c.isExit();

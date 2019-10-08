@@ -12,14 +12,14 @@ import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 
 /**
- * Lists out all the tasks the user has on the specified day.
+ * Lists out all the tasks that the user has in a specified month.
  */
 public class ScheduleMonthlyCommand extends Command {
     //format for the command: scheduleMonthly <yyyy-MM>
     protected LocalDate startMonth;
     protected LocalDate endMonth;
     /**
-     * This is the main body of the ScheduleDaily command.
+     * This is the main body of the ScheduleMonthly command.
      *
      * @param list the tasks list.
      * @param ui the object that deals with printing things to the user.

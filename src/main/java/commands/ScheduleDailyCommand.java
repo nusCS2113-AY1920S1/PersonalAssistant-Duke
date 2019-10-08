@@ -12,7 +12,7 @@ import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 
 /**
- * Lists out all the tasks the user has on the specified day.
+ * Lists out all the tasks that the user has on the specified day.
  */
 public class ScheduleDailyCommand extends Command {
     //format for the command: scheduleDaily <yyyy-MM-dd>
