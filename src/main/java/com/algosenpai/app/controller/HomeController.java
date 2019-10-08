@@ -17,7 +17,7 @@ import java.util.ResourceBundle;
 public class HomeController extends SceneController implements Initializable {
 
     @FXML
-    Text sceneTitle;
+    private Text sceneTitle;
 
     @FXML
     private TextField userInput;

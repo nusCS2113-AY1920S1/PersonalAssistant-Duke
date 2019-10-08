@@ -1,5 +1,7 @@
 package com.algosenpai.app.controller;
 
+import com.algosenpai.app.Question;
+import com.algosenpai.app.chapters.ChapterSorting;
 import com.algosenpai.app.constant.ImagesConstant;
 import com.algosenpai.app.constant.JavaFxConstant;
 import com.algosenpai.app.constant.ResourcePathConstant;
@@ -19,6 +21,8 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class QuizController extends SceneController implements Initializable {
+
+    private Question newQuestion;
 
     @FXML
     private Label sceneTitle;
@@ -87,6 +91,37 @@ public class QuizController extends SceneController implements Initializable {
         }
         if (keyEvent.getCode() == KeyCode.M) {
             toggleVolume();
+        }
+        //handling the user commands entered
+        if (keyEvent.getCode() == KeyCode.ENTER) {
+            switch (userInput.getText()) {
+            case "menu":
+                sceneText.setText("These are the commands available");
+                break;
+            case "start":
+                sceneText.setText("The game is loading....");
+                int questionNumber = 0;
+                while (questionNumber < 10) {
+                    newQuestion = ChapterSorting.generateQuestions();
+                    assert newQuestion != null;
+                    sceneText.setText(newQuestion.getQuestion());
+                    if (keyEvent.getCode() == KeyCode.ENTER) {
+                        if (newQuestion.isAnswerEqual(userInput.getText())) {
+                            sceneText.setText("Correct!");
+                        } else {
+                            sceneText.setText(newQuestion.getAnswer());
+                        }
+                    }
+                    questionNumber++;
+                }
+                break;
+            case "exit":
+                sceneText.setText("Aww you're leaving already? See you soon!");
+                break;
+            default:
+                sceneText.setText("I'm sorry, I don't understand what you mean..");
+            }
+            userInput.setText("");
         }
         backgroundSceneTimer.stop();
     }

@@ -46,5 +46,7 @@
      </ImageView>
       <TextField fx:id="userInput" GridPane.columnIndex="2" GridPane.columnSpan="10" GridPane.rowIndex="11" />
       <Label fx:id="sceneTitle" prefHeight="18.0" prefWidth="104.0" text="Quiz Scene" GridPane.columnIndex="6" GridPane.columnSpan="2" GridPane.rowIndex="5" />
+     <Label fx:id="sceneText" text="Welcome to AlgoSenpai Adventures!" GridPane.columnIndex="5" GridPane.columnSpan="10" GridPane.rowIndex="9">
+       </Label>
    </children>
 </GridPane>

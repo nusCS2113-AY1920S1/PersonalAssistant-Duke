@@ -1,3 +1,5 @@
+package com.algosenpai.app.chapters;
+
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.LinkedList;
@@ -7,6 +9,9 @@ import java.util.Scanner;
 class ChapterLinkedList {
     private static Random random = new Random();
     private static Scanner s = new Scanner(System.in);
+
+    private int totalAnswers;
+    private int correctAnswers;
 
     /**
      * Generates a random question according to a random value.
