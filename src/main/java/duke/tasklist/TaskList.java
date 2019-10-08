@@ -15,7 +15,6 @@ import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
-import java.util.concurrent.SynchronousQueue;
 
 import static duke.common.Messages.DISPLAYED_INDEX_OFFSET;
 import static duke.common.Messages.MESSAGE_ADDED;
@@ -60,8 +59,9 @@ public class TaskList {
     public ArrayList<String> findTask(String description) throws DukeException {
         ArrayList<String> arrFind = new ArrayList<>();
         for (int i = 0; i < getSize(); i++) {
+            final int displayIndex = i + DISPLAYED_INDEX_OFFSET;
             if (taskList.get(i).getDescription().contains(description)) {
-                arrFind.add(taskList.get(i).toString());
+                arrFind.add("     " + displayIndex + ". " + taskList.get(i).toString());
             }
         }
         if (arrFind.isEmpty()) {

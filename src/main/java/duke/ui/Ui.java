@@ -1,10 +1,6 @@
 package duke.ui;
 
-import duke.Duke;
 import duke.MainWindow;
-
-import java.util.ArrayList;
-import java.util.Scanner;
 
 import static duke.common.Messages.MESSAGE_BYE;
 import static duke.common.Messages.DIVIDER;
@@ -26,6 +22,10 @@ public class Ui {
 
     public String showGoodbye() {
         return MESSAGE_BYE;
+    }
+
+    public void showMessage(String message) {
+        mainWindow.showMessage(message);
     }
 
     public String showLine() {

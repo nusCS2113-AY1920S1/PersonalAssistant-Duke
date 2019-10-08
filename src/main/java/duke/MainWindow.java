@@ -1,8 +1,6 @@
 package duke;
 
-import duke.command.Command;
 import duke.exception.DukeException;
-import duke.parser.Parser;
 import duke.storage.Storage;
 import duke.tasklist.TaskList;
 import duke.ui.DialogBox;
@@ -10,7 +8,6 @@ import duke.ui.ExitWindow;
 import duke.ui.HelpWindow;
 import duke.ui.Ui;
 import javafx.animation.FadeTransition;
-import javafx.application.Application;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -28,7 +25,6 @@ import javafx.util.Duration;
 
 import java.io.IOException;
 import java.text.ParseException;
-import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -90,37 +86,63 @@ public class MainWindow extends AnchorPane {
         if (input.isEmpty()) {
             resultDisplay.setText("Pls input a command to proceed");
         } else {
-            if (input.contains("list")) {
-                resultDisplay.clear();
-                listView.getItems().clear();
-                dialogContainer.getChildren().addAll(
-                        DialogBox.getUserDialog(input)
-                );
-                handleListTask();
-                for (int i = 0; i < duke.getSize() / 3; i++) {
-                    listView.getItems().add(duke.getList().get(i));
-                }
-            } else if (input.trim().substring(0, 4).equals(COMMAND_FIND)) {
-                if (input.trim().equals(COMMAND_FIND)) {
-                    resultDisplay.setText(ERROR_MESSAGE_GENERAL + MESSAGE_FOLLOWUP_NUll);
-                } else if (input.trim().charAt(4) == ' ') {
-                    String description = input.split("\\s", 2)[1].trim();
-//                    System.out.println(MESSAGE_FIND);
-                    for (int i = 0; i < duke.findList(description).size() / 3; i++) {
-                        listViewResult.getItems().add("     " + (i + 1) + ". " + duke.findList(description).get(i));
-                    }
-                } else {
-                    resultDisplay.setText(ERROR_MESSAGE_RANDOM);
+            resultDisplay.clear();
+            listView.getItems().clear();
+            dialogContainer.getChildren().addAll(
+                    DialogBox.getUserDialog(input)
+            );
+            if (input.trim().equals(COMMAND_BYE)) {
+                handleExit();
+            } else {
+                for (int i = 0; i < duke.runProgram(input).size() / 3; i++) {
+                    listView.getItems().add(duke.runProgram(input).get(i));
                 }
             }
+//            duke.run(input);
+//            if (input.trim().equals(COMMAND_LIST)) {
+//                handleListTask();
+//                for (int i = 0; i < duke.runProgram(input).size() / 3; i++) {
+//                    listViewResult.getItems().add(duke.runProgram(input).get(i));
+//                }
+//            } else if (input.trim().equals(COMMAND_BYE)) {
+//                handleExit();
+//            } else if (input.contains(COMMAND_FIND)) {
+//                if (input.trim().substring(0, 4).equals(COMMAND_FIND)) {
+//                    handleFindTask(input);
+//                }
+//            } else {
+//                resultDisplay.setText(ERROR_MESSAGE_RANDOM);
+//            }
         }
         userInput.clear();
     }
 
+    public void showMessage(String message) {
+        resultDisplay.setText(message);
+    }
+
     public void handleListTask() {
+        listView.getItems().clear();
         for (int i = 0; i < duke.getList().size() / 3; i++) {
             listView.getItems().add(duke.getList().get(i));
         }
+    }
+
+    public void handleFindTask(String input) throws DukeException {
+        if (input.trim().equals(COMMAND_FIND)) {
+            resultDisplay.setText(ERROR_MESSAGE_GENERAL + MESSAGE_FOLLOWUP_NUll);
+        } else if (input.trim().charAt(4) == ' ') {
+            String description = input.split("\\s", 2)[1].trim();
+            for (int i = 0; i < duke.findList(description).size() / 3; i++) {
+                listViewResult.getItems().add("     " + (i + 1) + ". " + duke.findList(description).get(i));
+            }
+        } else {
+            resultDisplay.setText(ERROR_MESSAGE_RANDOM);
+        }
+    }
+
+    public String getInput() {
+        return userInput.getText();
     }
 
     public void handleLoadingError() {

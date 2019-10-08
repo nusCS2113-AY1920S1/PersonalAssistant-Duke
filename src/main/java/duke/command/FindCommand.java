@@ -4,6 +4,10 @@ import duke.exception.DukeException;
 import duke.storage.Storage;
 import duke.tasklist.TaskList;
 import duke.ui.Ui;
+import org.apache.commons.lang.ObjectUtils;
+
+import java.text.ParseException;
+import java.util.ArrayList;
 
 import static duke.common.Messages.MESSAGE_FIND;
 import static duke.common.Messages.MESSAGE_FOLLOWUP_NUll;
@@ -14,7 +18,7 @@ import static duke.common.Messages.COMMAND_FIND;
 /**
  * Handles the find command and inherits all the fields and methods of Command parent class.
  */
-public class FindCommand extends Command {
+public class FindCommand extends CommandTest {
 
     /**
      * Constructor for class FindCommand.
@@ -31,18 +35,55 @@ public class FindCommand extends Command {
      * @param storage deals with loading tasks from the file and saving tasks in the file
      * @throws DukeException if Duke cannot recognize the user input or there is no matching task found in tbe list
      */
+//    @Override
+//    public void execute(TaskList taskList, Ui ui, Storage storage) throws DukeException {
+//        if (userInputCommand.trim().equals(COMMAND_FIND)) {
+//            throw new DukeException(ERROR_MESSAGE_GENERAL + MESSAGE_FOLLOWUP_NUll);
+//        } else if (userInputCommand.trim().charAt(4) == ' ') {
+//            String description = userInputCommand.split("\\s", 2)[1].trim();
+//            System.out.println(MESSAGE_FIND);
+//            for (int i = 0; i < taskList.findTask(description).size(); i++) {
+//                System.out.println("     " + (i + 1) + ". " + taskList.findTask(description).get(i));
+//            }
+//        } else {
+//            throw new DukeException(ERROR_MESSAGE_RANDOM);
+//        }
+//    }
+
+
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) throws DukeException {
+    public ArrayList<String> exe(TaskList taskList, Ui ui, Storage storage) throws DukeException, ParseException {
         if (userInputCommand.trim().equals(COMMAND_FIND)) {
+//            ui.showMessage(ERROR_MESSAGE_GENERAL + MESSAGE_FOLLOWUP_NUll);
             throw new DukeException(ERROR_MESSAGE_GENERAL + MESSAGE_FOLLOWUP_NUll);
         } else if (userInputCommand.trim().charAt(4) == ' ') {
             String description = userInputCommand.split("\\s", 2)[1].trim();
-            System.out.println(MESSAGE_FIND);
-            for (int i = 0; i < taskList.findTask(description).size(); i++) {
-                System.out.println("     " + (i + 1) + ". " + taskList.findTask(description).get(i));
-            }
+//            ui.showMessage(MESSAGE_FIND);
+            return taskList.findTask(description);
+//            for (int i = 0; i < taskList.findTask(description).size(); i++) {
+//                System.out.println("     " + (i + 1) + ". " + taskList.findTask(description).get(i));
+//            }
         } else {
+//            ui.showMessage(ERROR_MESSAGE_RANDOM);
             throw new DukeException(ERROR_MESSAGE_RANDOM);
+        }
+    }
+
+    @Override
+    public void exec(TaskList taskList, Ui ui, Storage storage) throws DukeException, ParseException {
+        if (userInputCommand.trim().equals(COMMAND_FIND)) {
+            ui.showMessage(ERROR_MESSAGE_GENERAL + MESSAGE_FOLLOWUP_NUll);
+//            throw new DukeException(ERROR_MESSAGE_GENERAL + MESSAGE_FOLLOWUP_NUll);
+        } else if (userInputCommand.trim().charAt(4) == ' ') {
+            String description = userInputCommand.split("\\s", 2)[1].trim();
+            ui.showMessage(MESSAGE_FIND);
+//            return taskList.findTask(description);
+//            for (int i = 0; i < taskList.findTask(description).size(); i++) {
+//                System.out.println("     " + (i + 1) + ". " + taskList.findTask(description).get(i));
+//            }
+        } else {
+            ui.showMessage(ERROR_MESSAGE_RANDOM);
+//            throw new DukeException(ERROR_MESSAGE_RANDOM);
         }
     }
 

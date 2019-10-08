@@ -1,23 +1,7 @@
 package duke.parser;
 
-import duke.command.ByeCommand;
-import duke.command.Command;
-import duke.command.DeadlineCommand;
-import duke.command.DeleteCommand;
-import duke.command.DoneCommand;
-import duke.command.EventCommand;
-import duke.command.FindCommand;
-import duke.command.ListCommand;
-import duke.command.TodoCommand;
-import duke.command.TentativeScheduleCommand;
-import duke.command.ConfirmScheduleCommand;
-import duke.command.DurationCommand;
-import duke.command.PeriodCommand;
-import duke.command.ViewScheduleCommand;
-import duke.command.RemindCommand;
-import duke.command.RecurringCommand;
-import duke.command.SnoozeCommand;
-import duke.command.DetectAnomaliesCommand;
+import duke.MainWindow;
+import duke.command.*;
 
 import duke.exception.DukeException;
 
@@ -45,6 +29,21 @@ import static duke.common.Messages.COMMAND_DETECTCLASHES;
  * Making sense of the user input command.
  */
 public class Parser {
+    private MainWindow mainWindow = new MainWindow();
+
+    public static CommandTest parseTest(String input) throws DukeException {
+        if (input.trim().equals(COMMAND_LIST)) {
+            return new ListCommand(input);
+        } else if (input.contains(COMMAND_FIND)) {
+            if (input.trim().substring(0, 4).equals(COMMAND_FIND)) {
+                return new FindCommand(input);
+            } else {
+                throw new DukeException(ERROR_MESSAGE_RANDOM);
+            }
+        } else {
+            throw new DukeException(ERROR_MESSAGE_RANDOM);
+        }
+    }
 
     /**
      * Processes the different user input command.
@@ -54,9 +53,9 @@ public class Parser {
      */
     public static Command parse(String userInputCommand) throws DukeException {
         if (userInputCommand.trim().equals(COMMAND_LIST)) {
-            return new ListCommand(userInputCommand);
+            return new DoneCommand(userInputCommand);
         } else if (userInputCommand.trim().equals(COMMAND_BYE)) {
-            return new ByeCommand();
+            return new DoneCommand(userInputCommand);
         } else if (userInputCommand.contains(COMMAND_DONE)) {
             return new DoneCommand(userInputCommand);
         } else if (userInputCommand.contains(COMMAND_DEADLINE)) {
@@ -85,7 +84,7 @@ public class Parser {
             }
         } else if (userInputCommand.contains(COMMAND_FIND)) {
             if (userInputCommand.trim().substring(0, 4).equals(COMMAND_FIND)) {
-                return new FindCommand(userInputCommand);
+                return new DoneCommand(userInputCommand);
             } else {
                 throw new DukeException(ERROR_MESSAGE_RANDOM);
             }

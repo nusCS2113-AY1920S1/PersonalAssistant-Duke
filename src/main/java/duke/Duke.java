@@ -1,13 +1,12 @@
 package duke;
 
-import duke.command.Command;
+import duke.command.CommandTest;
 import duke.exception.DukeException;
 import duke.parser.Parser;
 import duke.storage.Storage;
 import duke.tasklist.TaskList;
 import duke.ui.Ui;
 
-import javax.swing.*;
 import java.util.ArrayList;
 import java.text.ParseException;
 
@@ -22,7 +21,7 @@ public class Duke {
     private TaskList taskList;
     private Ui ui;
 
-    //    /**
+//    /**
 //     * Constructor for Duke class to instantiation Ui, Storage, TaskList classes.
 //     * @param filePath String containing the directory in which the tasks are to be stored
 //     */
@@ -41,11 +40,15 @@ public class Duke {
         return ui.showWelcome();
     }
 
-    public void runProgram(String fullCommand) throws DukeException, ParseException {
-        Command c = Parser.parse(fullCommand);
-        c.execute(taskList, ui, storage);
+    public ArrayList<String> runProgram(String fullCommand) throws DukeException, ParseException {
+        CommandTest command = Parser.parseTest(fullCommand);
+        return command.exe(taskList, ui, storage);
     }
 
+    public void run(String fullCommand) throws DukeException, ParseException {
+        CommandTest command = Parser.parseTest(fullCommand);
+        command.exec(taskList, ui, storage);
+    }
     /**
      * Gets response from Duke.
      *

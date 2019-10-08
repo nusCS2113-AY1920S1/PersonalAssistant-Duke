@@ -14,6 +14,7 @@ public abstract class Command {
     protected String userInputCommand;
 
     public abstract void execute(TaskList taskList, Ui ui, Storage storage) throws DukeException, ParseException;
+//    public abstract TaskList exe(Ui ui, Storage storage) throws DukeException, ParseException;
 
     public abstract boolean isExit();
 }
