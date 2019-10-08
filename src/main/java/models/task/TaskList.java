@@ -1,7 +1,5 @@
 package models.task;
 
-import models.member.Member;
-
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.PriorityQueue;
