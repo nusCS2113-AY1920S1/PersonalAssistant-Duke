@@ -15,6 +15,11 @@ public class ManageStudents {
 
     private ArrayList<MyStudent> studentList;
 
+//    public void loadStudentList() {
+//        Storage storage = new Storage (C:\Users\Dell\Desktop\main\src\main\java\duke\Data);
+//        studentList.addAll(storage.loadFile());
+//    }
+
     /**
      * Constructor of Manage Students to initialise ManageStudent class
      */

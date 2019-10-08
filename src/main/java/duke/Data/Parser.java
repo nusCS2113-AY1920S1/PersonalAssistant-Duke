@@ -332,26 +332,31 @@ public class Parser {
              * When cmd student is called
              * Format for adding student is: student add/ Name/ age/ address.
              */
-            case "student":
-                try {
-                    switch (word[1]) {
-                        case "add/":
-                            String[] splitByComma = input.split("/ ");
-                            String name = splitByComma[1];
-                            String age = splitByComma[2];
-                            String address = splitByComma[3];
-                            MyStudent myNewStudent = new MyStudent(name, age, address);
-                            students.addStudent(myNewStudent);
-                            break;
+        case "student":
+                switch (word[1]) {
+                    case "add/":
+                        String[] splitByComma = input.split("/ ");
+                        String name = splitByComma[1];
+                        String age = splitByComma[2];
+                        String address = splitByComma[3];
+                        MyStudent myNewStudent = new MyStudent(name, age, address);
+                        students.addStudent(myNewStudent);
+                        break;
 
-                        case "list":
-                            students.listAllStudents();
-                            break;
+                    case "delete/":
+                        // delete index of student
+
+                    case "details/":
+                        //add student details
+
+                    case "edit":
+                        //
+
+                    case "list":
+                        students.listAllStudents();
+                        break;
 
                     }
-                } catch (Exception e) {
-                    System.out.println("Invalid format");
-                }
                 break;
 
 
