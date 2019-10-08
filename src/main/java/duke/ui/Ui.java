@@ -1,7 +1,9 @@
 package duke.ui;
 
+import duke.Duke;
 import duke.MainWindow;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 import static duke.common.Messages.MESSAGE_BYE;
@@ -11,8 +13,8 @@ public class Ui {
 
     private MainWindow mainWindow;
 
-    public Ui() {
-        this.mainWindow = new MainWindow();
+    public Ui(MainWindow mainWindow) {
+        this.mainWindow = mainWindow;
     }
 
     /**

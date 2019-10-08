@@ -57,7 +57,7 @@
 
        <ScrollPane hbarPolicy="NEVER" hvalue="1.0" layoutX="800.0" layoutY="193.0" prefHeight="456.0" prefWidth="400.0" vvalue="1.0">
           <content>
-             <ListView prefHeight="455.0" prefWidth="400.0" />
+             <ListView fx:id="listViewResult" prefHeight="455.0" prefWidth="400.0" />
           </content>
        </ScrollPane>
     </children>

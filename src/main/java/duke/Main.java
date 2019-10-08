@@ -15,7 +15,8 @@ import static duke.common.Messages.filePath;
  */
 public class Main extends Application {
     public static Boolean isScreenLoaded = false;
-    private Ui ui = new Ui();
+    private MainWindow mainWindow = new MainWindow();
+    private Ui ui = new Ui(mainWindow);
     private Duke duke = new Duke(ui);
 
     @Override

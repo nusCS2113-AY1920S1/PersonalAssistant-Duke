@@ -7,6 +7,7 @@ import duke.storage.Storage;
 import duke.tasklist.TaskList;
 import duke.ui.Ui;
 
+import javax.swing.*;
 import java.util.ArrayList;
 import java.text.ParseException;
 
@@ -21,9 +22,7 @@ public class Duke {
     private TaskList taskList;
     private Ui ui;
 
-//    private MainWindow mainWindow;
-
-//    /**
+    //    /**
 //     * Constructor for Duke class to instantiation Ui, Storage, TaskList classes.
 //     * @param filePath String containing the directory in which the tasks are to be stored
 //     */
@@ -41,6 +40,45 @@ public class Duke {
     public String showWelcome() {
         return ui.showWelcome();
     }
+
+    public void runProgram(String fullCommand) throws DukeException, ParseException {
+        Command c = Parser.parse(fullCommand);
+        c.execute(taskList, ui, storage);
+    }
+
+    /**
+     * Gets response from Duke.
+     *
+     * @param input String input from user
+     * @return String output
+     * @throws DukeException if not able to find any matching items
+     */
+    public String getResponse(String input) throws DukeException {
+        String output = "";
+        if (input.contains("list")) {
+            output = "Duke heard: " + taskList.listTask();
+        } else if (input.contains("find")) {
+            output = "Duke heard: " + taskList.findTask(input.trim().split("\\s", 2)[1]);
+        } else {
+            output = "unknown";
+        }
+        return output;
+    }
+
+    public ArrayList<String> getList() {
+        return taskList.listTask();
+    }
+
+    public ArrayList<String> findList(String description) throws DukeException {
+        return taskList.findTask(description);
+    }
+
+    public int getSize() {
+        return taskList.getSize();
+    }
+}
+
+
 
 //    /**
 //     * Method to start the program.
@@ -68,37 +106,6 @@ public class Duke {
 //     * @param args the command line parameter
 //     */
 //    public static void main(String[] args) {
-//        new Duke(filePath).run();
+//        Ui ui = new Ui();
+//        new Duke(ui).runProgram();
 //    }
-
-    void runProgram(String fullCommand) throws DukeException, ParseException {
-        Command c = Parser.parse(fullCommand);
-        c.execute(taskList, ui, storage);
-    }
-
-    /**
-     * Gets response from Duke.
-     * @param input String input from user
-     * @return String output
-     * @throws DukeException if not able to find any matching items
-     */
-    public String getResponse(String input) throws DukeException {
-        String output = "";
-        if (input.contains("list")) {
-            output =  "Duke heard: " + taskList.listTask();
-        } else if (input.contains("find")) {
-            output = "Duke heard: " + taskList.findTask(input.trim().split("\\s", 2)[1]);
-        } else {
-            output = "unknown";
-        }
-        return output;
-    }
-
-    public ArrayList<String> getList(){
-        return taskList.listTask();
-    }
-
-    public int getSize() {
-        return taskList.getSize();
-    }
-}

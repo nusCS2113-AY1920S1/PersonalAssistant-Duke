@@ -3,8 +3,11 @@ package duke.command;
 import duke.Main;
 import duke.MainWindow;
 import duke.storage.Storage;
+import duke.task.Task;
 import duke.tasklist.TaskList;
 import duke.ui.Ui;
+
+import java.util.ArrayList;
 
 import static duke.common.Messages.MESSAGE_TASKED;
 

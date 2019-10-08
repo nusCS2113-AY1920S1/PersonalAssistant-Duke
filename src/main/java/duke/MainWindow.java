@@ -2,6 +2,8 @@ package duke;
 
 import duke.command.Command;
 import duke.exception.DukeException;
+import duke.parser.Parser;
+import duke.storage.Storage;
 import duke.tasklist.TaskList;
 import duke.ui.DialogBox;
 import duke.ui.ExitWindow;
@@ -26,11 +28,11 @@ import javafx.util.Duration;
 
 import java.io.IOException;
 import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import static duke.common.Messages.ERROR_MESSAGE_LOADING;
-import static duke.common.Messages.filePath;
+import static duke.common.Messages.*;
 
 /**
  * Controller for MainWindow. Provides the layout for the other controls.
@@ -38,6 +40,9 @@ import static duke.common.Messages.filePath;
 public class MainWindow extends AnchorPane {
 
     private Duke duke;
+    private Storage storage;
+    private TaskList taskList;
+    private Ui ui;
 
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
     private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
@@ -56,14 +61,14 @@ public class MainWindow extends AnchorPane {
     private AnchorPane root;
 
     @FXML
-    private ListView<String> listView;
+    private ListView<String> listView, listViewResult;
 
     @FXML
     public void initialize() throws ParseException, DukeException {
         if (!Main.isScreenLoaded) {
             loadStartingScreen();
         }
-        Ui ui = new Ui();
+        Ui ui = new Ui(this);
         duke = new Duke(ui);
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
         dialogContainer.getChildren().addAll(
@@ -82,22 +87,34 @@ public class MainWindow extends AnchorPane {
     @FXML
     private void handleUserInput() throws DukeException, ParseException {
         String input = userInput.getText();
-//        String response = duke.getResponse(input);
-//        listView.getItems().addAll(duke.getList());
         if (input.isEmpty()) {
-            resultDisplay.setText("Pls input command to proceed");
+            resultDisplay.setText("Pls input a command to proceed");
         } else {
-            resultDisplay.clear();
-            listView.getItems().clear();
-            duke.runProgram(input);
-//            for (int i = 0; i < duke.getSize() / 3; i++) {
-//                listView.getItems().add(duke.getList().get(i));
-//            }
-            dialogContainer.getChildren().addAll(
-                    DialogBox.getUserDialog(input)
-            );
-            userInput.clear();
+            if (input.contains("list")) {
+                resultDisplay.clear();
+                listView.getItems().clear();
+                dialogContainer.getChildren().addAll(
+                        DialogBox.getUserDialog(input)
+                );
+                handleListTask();
+                for (int i = 0; i < duke.getSize() / 3; i++) {
+                    listView.getItems().add(duke.getList().get(i));
+                }
+            } else if (input.trim().substring(0, 4).equals(COMMAND_FIND)) {
+                if (input.trim().equals(COMMAND_FIND)) {
+                    resultDisplay.setText(ERROR_MESSAGE_GENERAL + MESSAGE_FOLLOWUP_NUll);
+                } else if (input.trim().charAt(4) == ' ') {
+                    String description = input.split("\\s", 2)[1].trim();
+//                    System.out.println(MESSAGE_FIND);
+                    for (int i = 0; i < duke.findList(description).size() / 3; i++) {
+                        listViewResult.getItems().add("     " + (i + 1) + ". " + duke.findList(description).get(i));
+                    }
+                } else {
+                    resultDisplay.setText(ERROR_MESSAGE_RANDOM);
+                }
+            }
         }
+        userInput.clear();
     }
 
     public void handleListTask() {
