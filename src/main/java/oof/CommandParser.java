@@ -9,13 +9,13 @@ import oof.command.CompleteCommand;
 import oof.command.DeleteCommand;
 import oof.command.ExitCommand;
 import oof.command.FindCommand;
+import oof.command.FreeCommand;
 import oof.command.ListCommand;
 import oof.command.RecurringCommand;
 import oof.command.ScheduleCommand;
 import oof.command.SnoozeCommand;
 import oof.exception.OofException;
 
-import java.text.ParseException;
 import java.util.InputMismatchException;
 
 /**
@@ -109,6 +109,9 @@ public class CommandParser {
             }
         case "calendar":
             return new CalendarCommand(argumentArray);
+        case "free":
+            line = line.replaceFirst("free ", "");
+            return new FreeCommand(line);
         default:
             throw new OofException("OOPS!!! I'm sorry, but I don't know what that means :-(");
         }

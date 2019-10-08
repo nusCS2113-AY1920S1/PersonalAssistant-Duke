@@ -9,6 +9,7 @@ import java.time.LocalDate;
 import java.time.Month;
 import java.time.YearMonth;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Scanner;
 
 /**
@@ -343,5 +344,13 @@ public class Ui {
             System.out.println("|           |           |           |           |           |           |           |");
             System.out.println("-------------------------------------------------------------------------------------");
         }
+    }
+
+    public void printFree() {
+        System.out.println("\t Here are your free time slots: ");
+    }
+
+    public void printFreeTimings(String startDate, String endDate, int count) {
+        System.out.println("\t" + count + ". " + startDate + " to " + endDate);
     }
 }

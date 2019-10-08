@@ -13,6 +13,11 @@ import java.util.Date;
  * Represents a Reminder class to remind user on upcoming deadlines.
  */
 public class Reminder {
+
+    private static final int INDEX_DATE = 1;
+    private static final long UPCOMING_THRESHOLD = 24;
+    private static final long MILLISECOND_TO_HOUR = 60 * 60 * 1000;
+
     /**
      * Checks Task objects dates to determine if it is due soon.
      *
@@ -26,11 +31,11 @@ public class Reminder {
             Task task = taskList.getTask(i);
             if (task instanceof Deadline) {
                 String[] lineSplit = task.toString().split("by:");
-                String result = lineSplit[1].substring(0, lineSplit[1].length() - 1); // remove closing bracket
+                String result = lineSplit[INDEX_DATE].substring(0, lineSplit[INDEX_DATE].length() - 1);
                 result = result.trim();
                 try {
                     Date dueDate = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss").parse(result);
-                    Date now = new Date(); // current date time
+                    Date now = new Date();
                     if (isUpcoming(dueDate, now)) {
                         ui.printUpcomingDeadline(count, taskList.getTask(i));
                         count++;
@@ -53,7 +58,7 @@ public class Reminder {
      */
     private boolean isUpcoming(Date dueDate, Date now) {
         long diff = dueDate.getTime() - now.getTime(); // difference in time in milliseconds
-        long diffHours = diff / (60 * 60 * 1000);
-        return diffHours <= 24;
+        long diffHours = diff / MILLISECOND_TO_HOUR;
+        return diffHours <= UPCOMING_THRESHOLD;
     }
 }
