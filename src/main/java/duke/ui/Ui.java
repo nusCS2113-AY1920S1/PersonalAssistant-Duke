@@ -324,7 +324,7 @@ public class Ui {
     }
 
     /**
-     * Outputs a message to the user to let it know that it is updating
+     * Outputs a message to the user to let it know that it is updating.
      */
     public void showBeforeBackupMsg() {
         out.println("     Updating duke.txt...");
