@@ -1,11 +1,5 @@
 package duke.core;
 
-import duke.task.Task;
-import duke.task.TaskList;
-
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
-import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
@@ -18,14 +12,21 @@ public class Ui {
     private Scanner scanner;
 
     /**
-     * Constructs a Ui object and initializes the
-     * Scanner to read user input from the system.
+     * Constructs a singleton Ui design pattern by using lazy initialization
      */
-    public Ui() {
+    private Ui () {
         scanner = new Scanner(System.in);
     }
 
+    private static Ui ui;
 
+
+    public static Ui getUi () {
+        if (ui == null) {
+            ui = new Ui();
+        }
+        return ui;
+    }
 
     /**
      * Reads user instruction.

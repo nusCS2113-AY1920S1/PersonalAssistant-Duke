@@ -1,6 +1,5 @@
 package duke;
 
-
 import duke.command.Command;
 import duke.core.DukeException;
 import duke.core.CommandManager;
@@ -20,6 +19,7 @@ public class Duke implements Runnable {
      * file and saving them to the same file.
      */
     private Storage storage;
+
     private PatientStorage patientStorage;
     /**
      * A TaskList object that deals with add, delete, mark as done,
@@ -30,7 +30,7 @@ public class Duke implements Runnable {
     /**
      * A Ui object that deals with interactions with the user.
      */
-    private Ui ui;
+    private Ui ui = Ui.getUi();
     /**
      * Constructs a Duke object with a relative file path.
      * Initialize the user interface and reads tasks from the specific text file.
@@ -38,7 +38,7 @@ public class Duke implements Runnable {
      *          used for storing tasks.
      */
     public Duke(String filePath) {
-        ui = new Ui();
+        //ui = Ui.getUi();
         storage = new Storage(filePath + "/data.txt");
         patientStorage = new PatientStorage(filePath + "/patients.csv");
 
