@@ -1,7 +1,0 @@
-1 deadline 131232 /by 29/09/2019 1100
-0 event 123122 /at 30/09/2019 2149
-0 todo run
-0 deadline code /by 23/12/2201 2332
-0 event 123 /at 29/09/2019 1100
-0 deadline 999 /by 29/09/2019 1100
-0 deadline 444 /by 24/09/2019 1130

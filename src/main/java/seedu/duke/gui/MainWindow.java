@@ -13,22 +13,15 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.web.WebView;
 import seedu.duke.Duke;
-import seedu.duke.Parser;
-import seedu.duke.TaskList;
-import seedu.duke.Storage;
-import seedu.duke.email.Email;
+import seedu.duke.CommandParser;
+import seedu.duke.task.entity.TaskList;
+import seedu.duke.task.TaskStorage;
 import seedu.duke.email.EmailStorage;
-import seedu.duke.task.Deadline;
-import seedu.duke.task.Event;
-import seedu.duke.task.Task;
-import seedu.duke.task.ToDo;
-import seedu.duke.gui.TaskCard;
+import seedu.duke.task.entity.Deadline;
+import seedu.duke.task.entity.Event;
+import seedu.duke.task.entity.Task;
 
-import java.util.Collection;
-import java.util.Iterator;
 import java.util.function.UnaryOperator;
-import java.util.Set;
-import java.util.HashSet;
 
 /**
  * Controller for MainWindow. Provides the layout for the other controls.
@@ -78,7 +71,7 @@ public class MainWindow extends AnchorPane {
      */
     @FXML
     public TextFormatter<String> getTextFormatter() {
-        String prefix = Parser.getInputPrefix();
+        String prefix = CommandParser.getInputPrefix();
         UnaryOperator<TextFormatter.Change> filter = c -> {
             if (c.getCaretPosition() < prefix.length()) {
                 return null;
@@ -106,7 +99,7 @@ public class MainWindow extends AnchorPane {
         updateTasksList();
         updateEmailsList();
         if (response.contains("Bye, hope to see you again.")) {
-            Storage.saveTasks(duke.getTaskList());
+            TaskStorage.saveTasks(duke.getTaskList());
             EmailStorage.saveEmails(duke.getEmailList());
             Platform.exit();
         }
@@ -147,7 +140,7 @@ public class MainWindow extends AnchorPane {
         userInput.setTextFormatter(new TextFormatter<String>(noFilter));
 
         userInput.clear();
-        String prefix = Parser.getInputPrefix();
+        String prefix = CommandParser.getInputPrefix();
         userInput.setText(prefix);
 
         // To apply a filter to any changes in userInput text field so that the prefix is non-deletable text.
