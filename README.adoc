@@ -15,7 +15,7 @@ endif::[]
 * *Features*:
 ** A GUI for displaying all available movies and TV shows.
 ** Comes with a favourites' list that can store updates about movies and TV shows. 
-** Users can also set preferences.
+** Users can also set their own preferences.
 
 * *Target user profile*:
 ** This desktop application is intended for users who
@@ -38,5 +38,10 @@ endif::[]
 * <<AboutUs#, About Us>>
 
 == Acknowledgements
+
+* Most parts of this sample application came from https://github.com/j-lum/duke[Duke].
+* Some parts of this sample application were inspired by the excellent http://code.makery.ch/library/javafx-8-tutorial/[Java FX tutorial] by
+_Marco Jakob_.
+* Libraries used: https://github.com/TestFX/TestFX[TestFX],
 
 
