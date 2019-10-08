@@ -25,9 +25,17 @@ public class RequestsData {
     }
 
     //TODO: should the requests for each query be separate?
-    private HttpRequest httpRequestBuilder(String mod) {
+    private HttpRequest requestModule(String mod) {
         return HttpRequest.newBuilder()
-                .uri(URI.create("https://api.nusmods.com/v2/2018-2019/modules/" + mod + ".json"))
+                .uri(URI.create("https://api.nusmods.com/v2/2019-2020/modules/" + mod + ".json"))
+                .timeout(Duration.ofMinutes(1))
+                .header("Content-Type", "application/json")
+                .build();
+    }
+
+    private HttpRequest requestModuleList() {
+        return HttpRequest.newBuilder()
+                .uri(URI.create("https://api.nusmods.com/v2/2019-2020/modulesList/.json"))
                 .timeout(Duration.ofMinutes(1))
                 .header("Content-Type", "application/json")
                 .build();
@@ -42,7 +50,7 @@ public class RequestsData {
         // Api calls only work with upper case module code
         String trimMod = mod.trim();
         HttpClient client = HttpClient.newHttpClient();
-        HttpRequest request = httpRequestBuilder(trimMod);
+        HttpRequest request = requestModule(trimMod);
         try {
             // Response.body() contains the returned module info as JSON string
             HttpResponse<String> response =
