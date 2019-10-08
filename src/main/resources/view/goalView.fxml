@@ -14,7 +14,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.GoalView">
+<VBox prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="duke.GUI.Controller">
    <children>
       <MenuBar prefHeight="26.0" prefWidth="600.0">
          <menus>
@@ -61,9 +61,9 @@
                <content>
                   <AnchorPane prefHeight="445.0" prefWidth="676.0" />
                </content></TitledPane>
-            <Button layoutX="931.0" layoutY="301.0" mnemonicParsing="false" prefHeight="46.0" prefWidth="102.0" text="Delete a goal" />
-            <Button layoutX="931.0" layoutY="132.0" mnemonicParsing="false" prefHeight="46.0" prefWidth="102.0" text="Add a goal" />
-            <Button layoutX="931.0" layoutY="460.0" mnemonicParsing="false" prefHeight="46.0" prefWidth="102.0" text="Delete all goals" />
+            <Button layoutX="881.0" layoutY="85.0" mnemonicParsing="false" prefHeight="100.0" prefWidth="160.0" text="Add a goal to a day" />
+            <Button layoutX="881.0" layoutY="264.0" mnemonicParsing="false" prefHeight="100.0" prefWidth="160.0" text="Delete a goal from a day" />
+            <Button layoutX="881.0" layoutY="438.0" mnemonicParsing="false" prefHeight="100.0" prefWidth="160.0" text="Delete all goals from a day" />
          </children>
       </AnchorPane>
       <SplitPane dividerPositions="0.5" prefHeight="65.0" prefWidth="600.0">
