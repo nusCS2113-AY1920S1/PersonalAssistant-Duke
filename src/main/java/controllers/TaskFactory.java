@@ -10,7 +10,8 @@ public class TaskFactory {
      * @return Task as an object
      */
     public Task createTask(String input) {
-        String [] taskDetails = input.split(" ");
-        return new Task(taskDetails[0], Integer.parseInt(taskDetails[1]));
+        System.out.println(input);
+        String [] taskDetails = input.split("[a-z]\\/");
+        return new Task(taskDetails[1], Integer.parseInt(taskDetails[2]));
     }
 }
