@@ -110,18 +110,16 @@ public class Duke {
 
         while (true) {
             sentence = ui.readCommand();
-
+            ui.showLine(); //Please do not remove!
             try {
                 Command cmd = Parser.parse(sentence, items);
                 if (cmd instanceof ExitCommand) {
                     priorityStorage.write(priorityList);
                     cmd.executeStorage(items, ui, storage);
                     break;
-                } else if (cmd instanceof ListPriorityCommand) {
-                    cmd.execute(items, priorityList, ui);
-                } else if (cmd instanceof AddMultipleCommand) {
-                    cmd.execute(items, priorityList, ui);
-                } else if (cmd instanceof DeleteCommand) {
+                } else if (cmd instanceof ListPriorityCommand
+                        || cmd instanceof AddMultipleCommand
+                        || cmd instanceof DeleteCommand) {
                     cmd.execute(items, priorityList, ui);
                 } else if (cmd instanceof BackupCommand) {
                     cmd.executeStorage(items, ui, storage);
