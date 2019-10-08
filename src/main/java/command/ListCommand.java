@@ -11,7 +11,7 @@ import ui.Ui;
  */
 public class ListCommand extends Command {
 
-    String order;
+    protected String order;
 
     public ListCommand(String order) {
         this.order = order;

@@ -7,7 +7,6 @@ import ui.Ui;
 /**
  * Represents the command from user to exit application.
  * Inherits from Command class.
- * @author Zhang Yue Han
  */
 
 public class ExitCommand extends Command {
@@ -19,14 +18,5 @@ public class ExitCommand extends Command {
         //ask storage to write to file
         System.exit(0);
         return null;
-    }
-
-    /**
-     * Changes the exit boolean to be true.
-     * @return the value of exit as true
-     */
-    @Override
-    public boolean isExit() {
-        return true;
     }
 }

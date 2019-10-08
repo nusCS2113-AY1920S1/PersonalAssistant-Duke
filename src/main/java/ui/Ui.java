@@ -26,7 +26,6 @@ public class Ui {
                 + "     What can I do for you?";
     }
 
-
     public String showDeleted(Word w) {
         return "Noted. I've removed this word:\n" + w.toString();
     }

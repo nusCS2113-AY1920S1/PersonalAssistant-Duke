@@ -4,13 +4,13 @@ package exception;
  * Represents the exception object used to handle errors thrown in the main execution.
  * Inherits from the Exception class.
  */
-public class DukeException extends Exception {
+public class WordUpException extends Exception {
 
-    public DukeException(String message) {
+    public WordUpException(String message) {
         super(message);
     }
 
-    public DukeException() {
+    public WordUpException() {
         super();
     }
 

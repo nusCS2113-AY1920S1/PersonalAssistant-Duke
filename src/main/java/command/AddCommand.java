@@ -8,7 +8,6 @@ import ui.Ui;
 /**
  * Represents a command from user to add a task.
  * Inherits from Command class.
- * @author Zhang Yue Han
  */
 public class AddCommand extends Command {
     public AddCommand(Word w) {
@@ -21,6 +20,7 @@ public class AddCommand extends Command {
         //add task to tasks
         //ask storage to write to file
         wordBank.addWord(word);
+        storage.writeFile(word.toString(), true);
         return ui.showAdded(word);
     }
 }

@@ -34,7 +34,7 @@ repositories {
 
 application {
     // Change this to your main class.
-    mainClassName = "Duke"
+    mainClassName = "WordUp"
 }
 javafx {
     version = "11.0.2"

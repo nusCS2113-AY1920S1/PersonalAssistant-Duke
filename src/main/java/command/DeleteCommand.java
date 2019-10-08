@@ -2,7 +2,7 @@ package command;
 
 import Dictionary.Word;
 import Dictionary.WordBank;
-import exception.DukeException;
+import exception.WordUpException;
 import exception.NoWordFoundException;
 import storage.Storage;
 import ui.Ui;
@@ -10,11 +10,10 @@ import ui.Ui;
 /**
  * Represents a command from user to delete a task.
  * Inherits from Command class.
- * @author Zhang Yue Han
  */
 public class DeleteCommand extends Command {
 
-    String deletedWord;
+    protected String deletedWord;
 
     public DeleteCommand(String deletedWord) {
         this.deletedWord = deletedWord;
@@ -27,10 +26,10 @@ public class DeleteCommand extends Command {
         //ask storage to write to file
         try {
             word = wordBank.getAndDelete(this.deletedWord);
+            storage.deleteFromFile(word.toString());
             return ui.showDeleted(word);
         } catch (NoWordFoundException e) {
             return e.showError();
         }
     }
-
 }

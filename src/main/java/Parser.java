@@ -6,7 +6,6 @@ import java.util.ArrayList;
 
 /**
  * Creates a Command object after extracting information needed.
- * @author Zhang Yue Han
  */
 public class Parser {
 
@@ -85,15 +84,14 @@ public class Parser {
             } else if (taskInfo[0].equals("tag")) {
                 //CREATE TAG COMMAND TO ADD TAG TO A WORD
                 return null;
-            }
-            else {
+            } else {
                 try {
                     throw new CommandInvalidException(input);
                 } catch (CommandInvalidException e){
                     return new BadCommand(e.showError());
                 }
             }
-        } catch (DukeException e) {
+        } catch (WordUpException e) {
             return new BadCommand(e.showError());
         }
     }

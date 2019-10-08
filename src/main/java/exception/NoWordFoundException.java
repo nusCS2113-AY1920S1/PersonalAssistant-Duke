@@ -1,6 +1,6 @@
 package exception;
 
-public class NoWordFoundException extends DukeException {
+public class NoWordFoundException extends WordUpException {
     private String searchWord;
 
     public NoWordFoundException(String searchWord) {

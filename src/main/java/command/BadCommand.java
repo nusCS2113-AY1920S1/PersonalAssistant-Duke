@@ -4,6 +4,10 @@ import Dictionary.WordBank;
 import storage.Storage;
 import ui.Ui;
 
+/**
+ * Represents a command from system to abort task due to bad user command.
+ * Inherits from Command class.
+ */
 public class BadCommand extends Command {
 
     String errorMessage;
@@ -16,7 +20,6 @@ public class BadCommand extends Command {
         //ask ui to print something
         //ask tasks to store the thing in arraylist
         //ask storage to write to file
-        isExit();
         return this.errorMessage;
     }
 

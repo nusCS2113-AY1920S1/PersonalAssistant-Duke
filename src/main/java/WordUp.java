@@ -15,7 +15,9 @@ import javafx.stage.Stage;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-public class Duke extends Application{
+
+
+public class WordUp extends Application{
 
     public Ui ui;
     public Storage storage;
@@ -27,15 +29,14 @@ public class Duke extends Application{
     private Scene scene;
     private Image user = new Image(this.getClass().getResourceAsStream("/images/user.jpg"));
     private Image duke = new Image(this.getClass().getResourceAsStream("/images/duke.jpg"));
-
     public static void main(String[] args) {
         launch(args);
     }
 
-    public Duke() {
+    public WordUp() {
         ui = new Ui();
-        storage = new Storage("main/data/duke.txt");
-        wordBank = new WordBank();
+        storage = new Storage("data/duke.txt");
+        wordBank = new WordBank(storage);
     }
 
     @Override
@@ -59,7 +60,7 @@ public class Duke extends Application{
         stage.show();
 
         //Step 2. Formatting the window to look as expected
-        stage.setTitle("Duke");
+        stage.setTitle("WordUp");
         stage.setResizable(false);
         stage.setMinHeight(600.0);
         stage.setMinWidth(400.0);
@@ -130,6 +131,7 @@ public class Duke extends Application{
         );
         userInput.clear();
     }
+
 
     /**
      * You should have your own function to generate a response to user input.

@@ -1,6 +1,6 @@
 package exception;
 
-public class EmptyWordException extends DukeException {
+public class EmptyWordException extends WordUpException {
     public EmptyWordException() {
         super("☹ OOPS: Your input word is empty");
     }
