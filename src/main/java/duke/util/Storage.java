@@ -2,14 +2,15 @@ package duke.util;
 
 import duke.exceptions.DukeInvalidTimeException;
 import duke.exceptions.DukeInvalidTimePeriodException;
+
 import duke.tasks.Deadline;
 import duke.tasks.DoWithin;
 import duke.tasks.Events;
+import duke.tasks.FixedDurationTasks;
 import duke.tasks.RecurringTask;
 import duke.tasks.FixedDurationTasks;
 import duke.tasks.Task;
 import duke.tasks.Todo;
-
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
@@ -54,7 +55,7 @@ public class Storage {
      * and returns the previously stored data as a TaskList.
      * @return TaskList of what was saved in the data file.
      */
-    public List<Task> readData() throws DukeInvalidTimeException {
+    public List<Task> readData() throws DukeInvalidTimeException, DukeInvalidTimePeriodException {
         List<Task> list = new ArrayList<>();
         List<String> lines = Collections.emptyList();
 
@@ -100,16 +101,12 @@ public class Storage {
                     break;
                 }
                 case "W": {
-                    try {
-                        DoWithin tempTodo = new DoWithin(hold[1], hold[3], hold[4]);
-                        if (hold[2].equals("1")) {
-                            tempTodo.setTaskDone();
-                        }
-                        list.add(tempTodo);
-                        break;
-                    } catch (DukeInvalidTimePeriodException ex) {
-                        break;
+                    DoWithin tempTodo = new DoWithin(hold[1], hold[3], hold[4]);
+                    if (hold[2].equals("1")) {
+                        tempTodo.setTaskDone();
                     }
+                    list.add(tempTodo);
+                    break;
                 }
                 case "F": {
                     try {
