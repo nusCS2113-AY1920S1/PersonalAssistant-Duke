@@ -35,10 +35,10 @@ public abstract class Task {
      * @param description A string that represents the description of certain task.
      */
     public Task(String description, String dateTime) {
-            this.description = description;
-            this.isDone = false;
-            this.thingsToBring = new ArrayList<String>();
-            this.dateTime = dateTime;
+        this.description = description;
+        this.isDone = false;
+        this.thingsToBring = new ArrayList<String>();
+        this.dateTime = dateTime;
     }
 
     public Task(String description) {
@@ -92,25 +92,32 @@ public abstract class Task {
      * Returns the description of the task.
      *
      * @return A string that represents the specific activity associated with
-     * the task.
+     *         the task.
      */
+
     public String getDescription() {
         return description;
     }
 
     /**
-     * update the dateTime String to save the date and time
+     * update the dateTime String to save the date and time.
      * @param newDateTime the time retrieved from user input.
      */
-    public void updateDateTime(String newDateTime) { this.dateTime = newDateTime; }
+
+    public void updateDateTime(String newDateTime) {
+        this.dateTime = newDateTime;
+    }
 
     /**
      * Returns the dateTime String.
-     *
      */
-    public String getDateTime()
-    { return dateTime; }
 
-    public void addThingToBring(String object) { thingsToBring.add(object); }
+    public String getDateTime() {
+        return dateTime;
+    }
+
+    public void addThingToBring(String object) {
+        thingsToBring.add(object);
+    }
 
 }

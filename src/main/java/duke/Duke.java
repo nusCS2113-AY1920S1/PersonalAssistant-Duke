@@ -37,6 +37,7 @@ public class Duke implements Runnable {
      * @param filePath A string that represents the path of the local file
      *          used for storing tasks.
      */
+
     public Duke(String filePath) {
         //ui = Ui.getUi();
         storage = new Storage(filePath + "/data.txt");
@@ -73,12 +74,14 @@ public class Duke implements Runnable {
         }
         System.exit(0);
     }
+
     /**
      * Starts the Duke thread and Reminder thread concurrently
      * by passing a filepath to duke and a global ui object&
-     * task list to Reminder
+     * task list to Reminder.
      * @param args The command line arguments.
      */
+
     public static void main(String[] args) {
         new Duke("./data").run();
     }

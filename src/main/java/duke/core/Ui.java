@@ -3,7 +3,7 @@ package duke.core;
 import java.util.Scanner;
 
 /**
- * Represents the necessary ui elements for user interaction
+ * Represents the necessary ui elements for user interaction.
  */
 public class Ui {
     /**
@@ -12,16 +12,16 @@ public class Ui {
     private Scanner scanner;
 
     /**
-     * Constructs a singleton Ui design pattern by using lazy initialization
+     * Constructs a singleton Ui design pattern by using lazy initialization.
      */
-    private Ui () {
+
+    private Ui() {
         scanner = new Scanner(System.in);
     }
 
     private static Ui ui;
 
-
-    public static Ui getUi () {
+    public static Ui getUi() {
         if (ui == null) {
             ui = new Ui();
         }
@@ -204,7 +204,7 @@ public class Ui {
         System.out.println("Enter 'help' to show a list of commands ");
     }
 
-    public void showHelpCommand () {
+    public void showHelpCommand() {
         System.out.println("Here are the things you can do with Dukepital:\n");
         System.out.println("1. list - to show a list of all the tasks\n");
         System.out.println("2. delete - to delete a task in the list\n");

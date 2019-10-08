@@ -7,7 +7,10 @@ import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVPrinter;
 import org.apache.commons.csv.CSVRecord;
 
-import java.io.*;
+import java.io.BufferedWriter;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.Reader;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -25,6 +28,7 @@ public class PatientStorage {
      * @param path A string that represents the path of the file to read or
      *             write.
      */
+
     public PatientStorage(String path) {
         this.filePath = path;
     }
@@ -34,7 +38,7 @@ public class PatientStorage {
         try {
             Reader in = new FileReader(filePath);
             Iterable<CSVRecord> records = CSVFormat.EXCEL.withFirstRecordAsHeader().parse(in);
-            //        Iterable<CSVRecord> records = CSVFormat.EXCEL.withHeader("Last Name", "First Name").withFirstRecordAsHeader().parse(in).getRecords();
+            //Iterable<CSVRecord> records = CSVFormat.EXCEL.withHeader("Last Name", "First Name").withFirstRecordAsHeader().parse(in).getRecords();
             for (CSVRecord record : records) {
                 boolean isHospitalised = false;
                 int id = Integer.parseInt(record.get("Id"));
@@ -55,12 +59,12 @@ public class PatientStorage {
     }
 
     public void save(PatientList patientList) throws DukeException {
-        try{
+        try {
             BufferedWriter writer = Files.newBufferedWriter(Paths.get(filePath));
             CSVPrinter csvPrinter = new CSVPrinter(writer, CSVFormat.DEFAULT
                     .withHeader("ID", "Name", "Room", "Remark", "isHospitalised"));
             ArrayList<Patient> patients = patientList.getPatientList();
-            for (Patient patient : patients){
+            for (Patient patient : patients) {
                 int id = patient.getID();
                 String room = patient.getRoom();
                 String name = patient.getName();
@@ -69,8 +73,7 @@ public class PatientStorage {
                 csvPrinter.printRecord(id, name, room, remark, isHospitalised);
             }
             csvPrinter.flush();
-        }
-        catch(IOException e){
+        } catch (IOException e) {
             throw new DukeException(e.getMessage());
         }
     }

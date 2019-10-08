@@ -34,19 +34,19 @@ public class Patient {
         return name; //return tick or X symbols
     }
 
-    public int getID(){
+    public int getID() {
         return id;
     }
 
-    public boolean isHospitalised(){
+    public boolean isHospitalised() {
         return isHospitalised;
     }
 
-    public String getRemark(){
+    public String getRemark() {
         return remark;
     }
 
-    public String getRoom(){
+    public String getRoom() {
         return room;
     }
 
