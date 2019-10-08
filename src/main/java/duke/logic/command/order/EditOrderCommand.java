@@ -11,7 +11,12 @@ import duke.model.commons.Product;
 import duke.model.order.Customer;
 import duke.model.order.Order;
 
-import java.util.*;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
+import java.util.Optional;
 
 import static duke.commons.util.CollectionUtil.requireAllNonNull;
 import static java.util.Objects.requireNonNull;
@@ -173,15 +178,19 @@ public class EditOrderCommand extends OrderCommand implements Undoable {
 
         @Override
         public boolean equals(Object o) {
-            if (this == o) return true;
-            if (o == null || getClass() != o.getClass()) return false;
+            if (this == o) {
+                return true;
+            }
+            if (o == null || getClass() != o.getClass()) {
+                return false;
+            }
             EditOrderDescriptor that = (EditOrderDescriptor) o;
-            return Objects.equals(customerName, that.customerName) &&
-                    Objects.equals(customerContact, that.customerContact) &&
-                    Objects.equals(deliveryDate, that.deliveryDate) &&
-                    Objects.equals(items, that.items) &&
-                    Objects.equals(remarks, that.remarks) &&
-                    status == that.status;
+            return Objects.equals(customerName, that.customerName)
+                    && Objects.equals(customerContact, that.customerContact)
+                    && Objects.equals(deliveryDate, that.deliveryDate)
+                    && Objects.equals(items, that.items)
+                    && Objects.equals(remarks, that.remarks)
+                    && status == that.status;
         }
 
         @Override

@@ -6,7 +6,7 @@ import static duke.commons.util.AppUtil.checkEmpty;
 import static java.util.Objects.requireNonNull;
 
 /**
- * Represents a customer of an order
+ * Represents a customer of an order.
  */
 public class Customer {
     private static final String MESSAGE_CONSTRAINTS = "Customer name and contact can take any values, "

@@ -15,11 +15,12 @@ public class OrderCommandParser implements SubCommandParser<OrderCommand> {
         String args = SubCommandParser.getArgs(subCommandAndArgs);
 
         switch (subCommand) {
-            case AddOrderCommand.COMMAND_WORD:
-                return new AddOrderCommandParser().parse(args);
-            case EditOrderCommand.COMMAND_WORD:
-                return new EditOrderCommandParser().parse(args);
+        case AddOrderCommand.COMMAND_WORD:
+            return new AddOrderCommandParser().parse(args);
+        case EditOrderCommand.COMMAND_WORD:
+            return new EditOrderCommandParser().parse(args);
+        default:
+            throw new ParseException(Message.MESSAGE_UNKNOWN_COMMAND);
         }
-        throw new ParseException(Message.MESSAGE_UNKNOWN_COMMAND);
     }
 }
