@@ -7,8 +7,8 @@ import java.util.Calendar;
 import java.util.HashMap;
 
 /**
- * TaskList is a public class that represents the list of tasks under duke.
- * A TaskList object encapsulates the ArrayList of tasks.
+ * TaskList is a public class that represents the list of meals under DIYeats.
+ * A MealList object encapsulates the ArrayList of meals.
  */
 public class MealList {
     private DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
@@ -43,14 +43,18 @@ public class MealList {
         return deletedMeal;
     }
 
-    public void deleteAllMealsOnDate(String date) {
-        if (mealTracker.containsKey(date)) {
-            this.mealTracker.get(date).clear();
+    public void deleteAllMealsOnDate(String dateStr) {
+        if (mealTracker.containsKey(dateStr)) {
+            this.mealTracker.get(dateStr).clear();
         }
     }
 
-    public void setMeals(String inputDate) {
-        mealTracker.put(inputDate, new ArrayList<Meal>());
+    public void addMeal(Meal meal) {
+        String dateStr = meal.getDate();
+        if (!mealTracker.containsKey(dateStr)) {
+            mealTracker.put(dateStr, new ArrayList<Meal>());
+        }
+        mealTracker.get(dateStr).add(meal);
     }
 
     public ArrayList<Meal> getMeals(String inputDate) {
@@ -66,7 +70,7 @@ public class MealList {
         return mealTracker;
     }
 
-    public boolean checkDate(String date) {
+    public boolean hasMealsOnDate(String date) {
         ArrayList<Meal> temp = getMeals(date);
         return temp.size() > 0;
     }
