@@ -6,7 +6,6 @@ import task.*;
 import task.Deadline;
 import task.Event;
 import task.Task;
-import task.Todo;
 import ui.Ui;
 
 import java.text.ParseException;
@@ -50,10 +49,6 @@ public class Parser {
                 processDeadline(input, tasklist, ui);
                 storage.save(tasklist.returnArrayList());
 
-            } else if (isTodo(input)) {
-                processTodo(input, tasklist, ui);
-                storage.save(tasklist.returnArrayList());
-
             } else if (isEvent(input)) {
                 ProcessEvent(input, tasklist, ui);
                 storage.save(tasklist.returnArrayList());
@@ -61,24 +56,6 @@ public class Parser {
                 ProcessDoAfter(input, tasklist, ui);
                 Storage.save(tasklist.returnArrayList());
             } else if (isDelete(input)) {
-                processDelete(input, tasklist, ui);
-                storage.save(tasklist.returnArrayList());
-
-            } else if (isFind(input)) {
-                processFind(input, tasklist, ui);
-            } else if (isDone(input)) {
-                processDone(input, tasklist, ui);
-
-            } else if (isDeadline(input)) {
-                processDeadline(input, tasklist, ui);
-                storage.save(tasklist.returnArrayList());
-
-            } else if (isTodo(input)) {
-                processTodo(input, tasklist, ui);
-                storage.save(tasklist.returnArrayList());
-
-            }
-            else if (isDelete(input)) {
                 processDelete(input, tasklist, ui);
                 storage.save(tasklist.returnArrayList());
 
@@ -93,14 +70,13 @@ public class Parser {
 //            }else if (isPostpone(input)) {
 //                processPostpone(input, tasklist, ui);
 //                storage.save(tasklist.returnArrayList());
-            }else if (isReschedule(input)) {
+            } else if (isReschedule(input)) {
                 processReschedule(input, tasklist, ui);
                 storage.save(tasklist.returnArrayList());
-            }
-            else if (isViewSchedule(input)) {
+            } else if (isViewSchedule(input)) {
                 processViewSchedule(input, tasklist, ui);
                 //storage.save(tasklist.returnArrayList());
-            }else if(isEdit(input)){
+            } else if(isEdit(input)){
                 processEdit(input,tasklist,ui);
             } else {
                 throw new DukeException("     ☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
@@ -225,23 +201,6 @@ public class Parser {
             ui.exceptionMessage("     ☹ OOPS!!! The description of a deadline cannot be empty.");
         } catch (ParseException e) {
             ui.exceptionMessage("     ☹ OOPS!!! Format of time is wrong.");
-        }
-    }
-
-    /**
-     * Processes the todo command and adds a todo to the user's Tasklist.
-     * @param input Input from the user.
-     * @param tasklist Tasklist of the user.
-     * @param ui Ui that interacts with the user.
-     */
-    private static void processTodo(String input, TaskList tasklist, Ui ui) {
-        try {
-            String[] splitspace = input.split(" ", 2);
-            Todo todotoadd = new Todo(splitspace[1]);
-            tasklist.addTask(todotoadd);
-            ui.printAddedMessage(todotoadd, tasklist);
-        } catch (ArrayIndexOutOfBoundsException e) {
-            ui.exceptionMessage("     ☹ OOPS!!! The description of a todo cannot be empty.");
         }
     }
 
@@ -442,10 +401,6 @@ public class Parser {
 
     private static boolean isDeadline(String input) {
         return input.startsWith("deadline");
-    }
-
-    private static boolean isTodo(String input) {
-        return input.startsWith("todo");
     }
 
     private static boolean isEvent(String input) {
