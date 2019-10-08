@@ -29,7 +29,6 @@ public class Storage {
     /**
      * The function will act to load txt file specified by the filepath, parse it and store it in a new task ArrayList
      * to be added in that TaskList.
-     * @return the ArrayList of task loaded from the file
      * @throws DukeException if either the object is unable to open file or it is unable to read the file
      */
 
@@ -96,7 +95,7 @@ public class Storage {
 
     /**
      * This is a function that will update the input/output file from the current arraylist of tasks.
-     * @param meals the task arraylist that will store the tasks from the input file
+     * @param mealData the structure that will store the tasks from the input file
      */
     //TODO: maybe we can put the errors in the ui file
     public void updateFile(MealList mealData) {

@@ -9,7 +9,8 @@ public class Autocorrect {
     private ArrayList<String> words = new ArrayList();
     private int[] counter = new int[26];
 
-    public Autocorrect() {}
+    public Autocorrect() {
+    }
 
     public void load(String word) {
         int[] counting = new int[26];

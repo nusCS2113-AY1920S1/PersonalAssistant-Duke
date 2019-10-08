@@ -46,7 +46,7 @@ public class MealList {
     public void addMeals(Meal data) throws DukeException {
         ArrayList<Meal> mealList;
         if (mealTracker.containsKey(data.getDate())) {
-             mealList = mealTracker.get(data.getDate());
+            mealList = mealTracker.get(data.getDate());
         } else {
             mealTracker.put(data.getDate(), new ArrayList<>());
             mealList = mealTracker.get(data.getDate());
@@ -81,15 +81,15 @@ public class MealList {
 
     /**
      * This function is a getter for the mealtracker HashMap.
-     * @return HashMap<String, ArrayList<Meal>> mealTracker
+     * @return mealTracker the data structure storing the list of all meals
      */
     public HashMap<String, ArrayList<Meal>> getMealTracker() {
         return mealTracker;
     }
 
     /**
-     * This function is used to check if a entry with the corresponding date is stored
-     * @param date
+     * This function is used to check if a entry with the corresponding date is stored.
+     * @param date the date to be checked
      * @return boolean
      */
     public boolean checkDate(String date) {
@@ -98,7 +98,7 @@ public class MealList {
 
     public void addStoredItem(Meal item) {
         String keyword = item.getDescription();
-        HashMap <String, Integer> data = item.getNutritionalValue();
+        HashMap<String, Integer> data = item.getNutritionalValue();
         if (storedItems.get(keyword) == null) {
             storedItems.put(keyword, data);
         } else {

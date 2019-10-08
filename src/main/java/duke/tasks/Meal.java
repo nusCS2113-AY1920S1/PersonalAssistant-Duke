@@ -73,10 +73,11 @@ public class Meal {
     }
 
     /**
-     * This is the no argument constructor for meal task object
+     * This is the no argument constructor for meal task object.
      * used to satisfy requirement for default constructor, not used otherwise
      */
-    public Meal() {}
+    public Meal() {
+    }
 
     /**
      * This function checks whether the particular task object is done and return the string accordingly.
