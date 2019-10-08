@@ -1,6 +1,10 @@
 package javacake.commands;
 
-import javacake.*;
+import javacake.DukeException;
+import javacake.ProgressStack;
+import javacake.Profile;
+import javacake.Ui;
+import javacake.Storage;
 
 public class DeleteCommand extends Command {
     public DeleteCommand(String str) {

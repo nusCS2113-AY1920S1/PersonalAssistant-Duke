@@ -1,6 +1,10 @@
 package javacake.commands;
 
-import javacake.*;
+import javacake.DukeException;
+import javacake.ProgressStack;
+import javacake.Profile;
+import javacake.Ui;
+import javacake.Storage;
 
 public class AddCommand extends Command {
     /**
@@ -14,10 +18,6 @@ public class AddCommand extends Command {
         if (cmdType == CmdType.TODO) {
             if (input.length() == 4) {
                 throw new DukeException("     ☹ OOPS!!! The description of a todo cannot be empty.");
-            }
-        } else if (cmdType == CmdType.EVENT) {
-            if (input.length() == 5) {
-                throw new DukeException("     ☹ OOPS!!! The description of a event cannot be empty.");
             }
         } else if (cmdType == CmdType.DEADLINE) {
             if (input.length() == 8) {

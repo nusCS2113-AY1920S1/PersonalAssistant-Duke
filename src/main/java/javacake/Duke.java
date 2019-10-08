@@ -2,8 +2,6 @@ package javacake;
 
 import javacake.commands.Command;
 
-import java.io.IOException;
-
 public class Duke {
     private static String savedDataPath = "data/saved_data.txt";
     private static Ui ui;
@@ -61,7 +59,7 @@ public class Duke {
                 c.execute(progressStack, ui, storage, profile);
                 isExit = c.isExit();
                 //System.out.println("Current progress is " + progressStack.checkProgress());
-            } catch (DukeException | IOException e) {
+            } catch (DukeException e) {
                 ui.showError(e.getMessage());
             } finally {
                 ui.showLine();

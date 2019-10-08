@@ -9,7 +9,7 @@ public abstract class Task {
     protected TaskType taskType;
 
     public enum TaskType {
-        TODO, DEADLINE, EVENT
+        TODO, DEADLINE
     }
 
     /**

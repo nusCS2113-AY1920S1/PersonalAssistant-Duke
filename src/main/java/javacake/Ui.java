@@ -23,8 +23,9 @@ public class Ui {
      */
     public String showWelcome(boolean isFirstTime, String userName, int progress) {
         StringBuilder welcomePhaseA = new StringBuilder();
-        welcomePhaseA.append("Hello! Welcome to JavaCake!\n");
-        welcomePhaseA.append("~making Java a Piece of Cake\n").append(border);
+        welcomePhaseA.append(border);
+        welcomePhaseA.append("\nWelcome to JavaCake! ");
+        welcomePhaseA.append("where learning Java can be a Piece of Cake!\n");
 
         System.out.println(welcomePhaseA.toString());
 
@@ -42,11 +43,10 @@ public class Ui {
         if (isFirstTime) {
             welcomePhaseB.append(border);
             welcomePhaseB.append("\nWelcome to JavaCake, ").append(userName).append("! ");
-            welcomePhaseB.append("Now let's help you get started with Java! :3\n");
+            welcomePhaseB.append("Now let's help you get started with Java! :3\n").append(helpMessage());
             welcomePhaseB.append(border);
         } else {
-            welcomePhaseB.append(border);
-            welcomePhaseB.append("\nHello ").append(userName).append("! ");
+            welcomePhaseB.append("Hello ").append(userName).append("! ");
             welcomePhaseB.append("Here's your quiz progress so far :D\n");
             progress *= 6;
             for (int i = 0; i < 18; ++i) {
@@ -61,10 +61,10 @@ public class Ui {
                 progress = 100;
             }
             welcomePhaseB.append(" ").append(progress).append("%\n");
-            welcomePhaseB.append("What do you want to do today?\n").append(border);
+            welcomePhaseB.append("What do you want to do today?\n");
+            welcomePhaseB.append(helpMessage()).append(border);
         }
         System.out.println(welcomePhaseB.toString());
-
         return userName;
     }
 
@@ -73,6 +73,14 @@ public class Ui {
      */
     public void showLine() {
         System.out.println(border);
+    }
+
+    /**
+     * Prints help message to assist user.
+     */
+    public String helpMessage() {
+        String message1= "\nType 'list' to view main topics\n" + "Type 'exit' to rage quit\n";
+        return message1;
     }
 
     /**
@@ -107,6 +115,11 @@ public class Ui {
         System.out.println(m);
     }
 
+    /**
+     * Method to display text from file.
+     * @param reader BufferedReader to read in text from file
+     * @throws DukeException Error thrown when unable to close reader
+     */
     public void displayTextFile(BufferedReader reader) throws DukeException {
         String lineBuffer;
         try {
@@ -117,5 +130,36 @@ public class Ui {
         } catch (IOException e) {
             throw new DukeException("File not found!");
         }
+    }
+
+    /**
+     * Displays the quiz question.
+     * @param question the question to be shown to the user.
+     * @param index the current question the user is on.
+     * @param maxQuestions the maximum number of questions in the quiz session.
+     */
+    public void displayQuiz(String question, int index, int maxQuestions) {
+        System.out.println(index + "/" + maxQuestions);
+        System.out.println(question);
+    }
+
+    /**
+     * Displays the results of a quiz.
+     * @param score the user's score in that quiz.
+     * @param maxScore the maximum score possible in that quiz.
+     */
+    public void displayResults(int score, int maxScore) {
+        System.out.println("This is your score:");
+        System.out.println("    " + score + " / " + maxScore);
+
+        if ((double)score / maxScore <= 0.5) {
+            System.out.println("Aw, that's too bad! Try revising the topics and try again. Don't give up!");
+        } else if ((double)score / maxScore != 1.0) {
+            System.out.println("Almost there! Clarify some of your doubts and try again.");
+        } else {
+            System.out.println("Congrats! Full marks, you're amazing!");
+        }
+
+        System.out.println("Type \"back\" to go back to the table of contents.");
     }
 }
