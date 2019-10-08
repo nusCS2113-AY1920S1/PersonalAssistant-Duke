@@ -39,7 +39,6 @@ public class Storage {
      */
     public Storage() {
         path = Paths.get("data/dukeData.text");
-        dataPath = Paths.get("data/modsData.json");
         setDataPathExists();
         setFileExists();
     }
@@ -152,6 +151,10 @@ public class Storage {
     }
 
     private void setDataPathExists() {
+        if (dataPath == null) {
+            dataPathExists = false;
+            return;
+        }
         dataPathExists = Files.isRegularFile(dataPath);
     }
 

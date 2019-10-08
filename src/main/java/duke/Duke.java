@@ -3,8 +3,8 @@ package duke;
 import duke.command.Command;
 import duke.exceptions.ModException;
 import duke.exceptions.ModTimeIntervalTooCloseException;
+import duke.util.JsonWrapper;
 import duke.util.ParserWrapper;
-import duke.util.RequestsData;
 import duke.util.Storage;
 import duke.util.TaskList;
 import duke.util.Ui;
@@ -21,9 +21,7 @@ public class Duke {
     private TaskList tasks;
     private ParserWrapper parser;
     private Reminder reminder;
-    private RequestsData data;
-
-    private static Integer val = 0;
+    private JsonWrapper data;
 
     /**
      * Constructor for Duke class.
@@ -48,16 +46,13 @@ public class Duke {
         try {
             reminder = new Reminder(tasks.getTasks());
             //reminder.run();
-            data = new RequestsData();
+            data = new JsonWrapper(store);
         } catch (ModTimeIntervalTooCloseException e) {
             System.out.println(e.getMessage());
         }
         while (!isExit) {
             try {
                 String fullCommand = ui.readCommand();
-                if (val > 0) {
-                    data.storeModData(data.requestModuleList("2019-2020"), store);
-                }
                 ui.showLine();
                 Command c = parser.parse(fullCommand);
                 c.execute(tasks, ui, store, reminder);
