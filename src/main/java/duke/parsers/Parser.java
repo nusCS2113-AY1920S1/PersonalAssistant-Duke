@@ -21,20 +21,21 @@ public class Parser {
      * @param fullCommand the string the user input in the CLI
      * @return <code>new ExitCommand()</code>
      *         if the user input "bye"
-     *         <code>new AddCommand(new ToDo())</code> if the user input
-     *         "todo" followed by the description of the activity
-     *         <code>new AddCommand(new Event()</code> if the user input
-     *         "event" followed by the time the event is held
+     *         <code>new AddCommand(new Breakfast())</code> if the user input
+     *         "breakfast" followed by the description of the meal
+     *         <code>new AddCommand(new Lunch()</code> if the user input
+     *         "lunch" followed by the description of the meal
+     *         <code>new AddCommand(new Dinner()</code> if the user input
+     *         "dinner" followed by the description of the meal
      *         <code>new ListCommand()</code> if the user input
      *         list
      *         <code>new MarkDoneCommand(index)</code> if the user input
-     *         "done" followed by the index of the task to be marked done
+     *         "done" followed by the index of the meal to be marked completed
      *         <code>new FindCommand(description)</code> if the user input
      *         "find" followed by the string that needs to be added
      *         <code>new DeleteCommand(index) </code> if the sure input
      *         "delete" followed by the index of the task to be deleted
-     * @throws DukeException either there is no description in "done", "todo", "event", and "deadline" command
-     *                       or the command is not recognized
+     * @throws DukeException when the command is not recognized or command syntax is invalid
      */
     public static Command parse(String fullCommand, Autocorrect autocorrect) throws DukeException {
         //TODO: Put error for invalid input and what not

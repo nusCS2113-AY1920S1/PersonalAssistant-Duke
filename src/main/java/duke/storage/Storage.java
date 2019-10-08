@@ -28,7 +28,7 @@ public class Storage {
 
     /**
      * The function will act to load txt file specified by the filepath, parse it and store it in a new task ArrayList
-     * to be added in that TaskList.
+     * to be added in that MealList.
      * @throws DukeException if either the object is unable to open file or it is unable to read the file
      */
 
@@ -57,9 +57,10 @@ public class Storage {
     }
 
     /**
-     * This function acts as a line by line parser from the text file which is used to load a particular type of task.
+     * This function acts as a parser from the text file which is used to store data from the previous session.
      * @param line the line input from the input file
-     * @param mealTracker the task arraylist that will store the tasks from the input file
+     * @param mealTracker the meal arraylist that will store the meals from the input file
+     * @param meals the structure that encapsulates the meal data for this session
      */
     private void loadFile(String line, HashMap<String, ArrayList<Meal>> mealTracker, MealList meals) {
         String[] splitLine = line.split("\\|",4);
@@ -94,7 +95,7 @@ public class Storage {
     }
 
     /**
-     * This is a function that will update the input/output file from the current arraylist of tasks.
+     * This is a function that will update the input/output file from the current arraylist of meals.
      * @param mealData the structure that will store the tasks from the input file
      */
     //TODO: maybe we can put the errors in the ui file

@@ -23,7 +23,6 @@ public class FunctionTest {
     private User user;
     private Autocorrect autocorrect = new Autocorrect();
 
-    @Test
     void setup() {
         ui = new Ui();
         storage = new Storage();

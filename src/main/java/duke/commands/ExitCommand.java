@@ -21,7 +21,7 @@ public class ExitCommand extends Command {
      * This function will execute the exit command.
      * @param tasks the TaskList object
      * @param ui the ui object to display the user interface of an "exit" command
-     * @param storage the storage object that stores the list of tasks
+     * @param storage the storage object that stores the list of meals
      */
     @Override
     public void execute(MealList tasks, Ui ui, Storage storage, User user) {

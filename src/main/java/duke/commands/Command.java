@@ -19,13 +19,13 @@ public abstract class Command {
     protected DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
     protected Calendar calendarDate = Calendar.getInstance();
     protected String currentDate = dateFormat.format(calendarDate.getTime());
+
     /**
-     * this class is an abstract class the will the specific command specified.
+     * this class is an abstract class that will change according to the inheritor.
      * @param tasks the TaskList object in which the task is supposed to be added
      * @param ui the ui object to display the user interface of an "add" command
      * @param storage the storage object that stores the list of tasks
      */
-
     public abstract void execute(MealList tasks, Ui ui, Storage storage, User user) throws DukeException;
 
     public boolean isExit() {

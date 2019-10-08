@@ -20,15 +20,15 @@ public class MealList {
     private HashMap<String, HashMap<String, Integer>> storedItems = new HashMap<>();
 
     /**
-     * This is the constructor of TaskList object if there is no argument.
-     * The TaskList object will initialise a new empty arraylist of task.
+     * This is the constructor of MealList object if there is no argument.
+     * The MealList object will initialise a new empty arraylist of meals.
      */
     public MealList() {
     }
 
 
     /**
-     * This function is used to delete the task of a particular index.
+     * This function is used to delete the meal of a particular index.
      * @param index the index of task to be deleted
      */
     public void delete(int index) {
@@ -96,6 +96,10 @@ public class MealList {
         return mealTracker.containsKey(date);
     }
 
+    /**
+     * This function is used to add or update default values for a specified meal item.
+     * @param item The data to be set as default for a meal item with matching descriptor
+     */
     public void addStoredItem(Meal item) {
         String keyword = item.getDescription();
         HashMap<String, Integer> data = item.getNutritionalValue();
@@ -115,6 +119,10 @@ public class MealList {
         storedItems.remove(keyword);
     }
 
+    /**
+     * This function is a getter for the StoredItems HashMap.
+     * @return storedItems the data structure storing the list of all meals
+     */
     public HashMap<String, HashMap<String, Integer>> getStoredList() {
         return storedItems;
     }

@@ -14,7 +14,7 @@ import java.util.Scanner;
 
 /**
  * Duke is a public class that contains the main function to drive the program.
- * It encapsulates a Storage object, a TaskList object, and an Ui object.
+ * It encapsulates a Storage object, a MealList object, and an Ui object.
  */
 public class Duke {
 

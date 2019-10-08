@@ -10,7 +10,7 @@ import duke.user.User;
 
 /**
  * The FindCommand is a public class that extends from the abstract class Command.
- * It encapsulates the String to find in the current TaskList
+ * It encapsulates the String to find in the current MealList
  */
 public class FindCommand extends Command {
     private String description;
@@ -25,9 +25,9 @@ public class FindCommand extends Command {
 
     /**
      * This function will execute the "find" command.
-     * @param tasks the TaskList object in which the task is supposed to be found
+     * @param tasks the MealList object in which the meal is supposed to be found
      * @param ui the ui object to display the user interface of an "find" command
-     * @param storage the storage object that stores the list of tasks
+     * @param storage the storage object that stores the list of Meals
      */
     @Override
     public void execute(MealList tasks, Ui ui, Storage storage, User user) {

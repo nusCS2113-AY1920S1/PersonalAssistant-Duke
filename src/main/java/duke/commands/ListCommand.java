@@ -34,9 +34,9 @@ public class ListCommand extends Command {
 
     /**
      * The object will execute the "list" command.
-     * @param tasks the TaskList object in which the task(s) is supposed to be listed
+     * @param tasks the MealList object in which the meal(s) is supposed to be listed
      * @param ui the ui object to display the user interface of an "list" command
-     * @param storage the storage object that stores the list of tasks
+     * @param storage the storage object that stores the list of meals
      */
 
     @Override
