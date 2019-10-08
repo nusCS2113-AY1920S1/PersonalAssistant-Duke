@@ -88,7 +88,7 @@ public class HomeController extends SceneController implements Initializable {
         //handling the user commands entered
         if (keyEvent.getCode() == KeyCode.ENTER) {
             switch (userInput.getText()) {
-            case "menu":
+                case "menu":
                 sceneText.setText("These are the commands available");
                 break;
             case "start":
