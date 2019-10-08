@@ -15,21 +15,21 @@ public class HelpCommand extends Command {
     private static final String ADD_MENU = "To add a new show:                            add SHOW_NAME|SCHEDULED_DATE|PRICE|SEATS_BASE_PRICE\n";
 
     private static String DELETE_MENU = "To delete shows with particular name:         delete-all SHOW_NAME_1|SHOW_NAME_2 | ...\n"
-                                        + "To delete shows with specific name and date:  delete SHOW_NAME|SHOW_DATE\n";
+            + "To delete shows with specific name and date:  delete SHOW_NAME|SHOW_DATE\n";
 
     private static String VIEW_MENU = "To view availability of seats for a show:     view SHOW_NAME | SHOW_DATE\n";
 
     private static String SELL_MENU = "To sell seats to the audience:                sell SHOW_NAME | SHOW_DATE | BUYER_NAME\n";
 
     private static String LIST_MENU = "To list all shows for viewing:                list\n"
-                                    + "To list all dates for a specific show:        list SHOW_NAME\n";
+            + "To list all dates for a specific show:        list SHOW_NAME\n";
 
     private static String POSTPONE_MENU = "To postpone a show to a later date:           postpone SHOW_NAME | OLD_DATE | NEW_DATE\n";
 
     private static String EDIT_MENU = "To edit show name:                            edit OLD_SHOW_NAME | SHOW_DATE | NEW_SHOW_NAME\n";
 
     private static String MESSAGE_MENU = "Here are the Commands to use Optix: \n"
-                                + ADD_MENU + DELETE_MENU + LIST_MENU + SELL_MENU + POSTPONE_MENU + VIEW_MENU + EDIT_MENU;
+            + ADD_MENU + DELETE_MENU + LIST_MENU + SELL_MENU + POSTPONE_MENU + VIEW_MENU + EDIT_MENU;
 
     public HelpCommand() {
         command = "";
@@ -60,6 +60,7 @@ public class HelpCommand extends Command {
 
     /**
      * String message to prompt user of correct Command input format.
+     *
      * @param command The command in query.
      * @return String message for Command input format.
      * @throws OptixInvalidCommandException if user command input does not exist in Optix.

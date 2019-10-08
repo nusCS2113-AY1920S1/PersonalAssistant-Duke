@@ -25,8 +25,16 @@ public class AddCommand extends Command {
             + "Please try again. \n";
 
     private static final String MESSAGE_SUCCESSFUL = "Got it. I've added this show:\n"
-                                                  + "%1$s on %2$s\n";
+            + "%1$s on %2$s\n";
 
+    /**
+     * Add a show to the show list.
+     *
+     * @param showName      name of new show.
+     * @param date          date of new show.
+     * @param cost          cost of setting up the new show.
+     * @param seatBasePrice the base price of the seat.
+     */
     public AddCommand(String showName, String date, double cost, double seatBasePrice) {
         // need to check if it is a valid date if not need to throw exception
         this.showName = showName;
@@ -61,7 +69,6 @@ public class AddCommand extends Command {
             ui.setMessage(e.getMessage());
         }
     }
-
 
 
     @Override

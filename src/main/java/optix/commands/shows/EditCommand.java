@@ -23,6 +23,13 @@ public class EditCommand extends Command {
 
     private OptixDateFormatter formatter = new OptixDateFormatter();
 
+    /**
+     * Edit the name of an existing show.
+     *
+     * @param oldShowName current name
+     * @param showDate    date where the show is scheduled
+     * @param newShowName new name
+     */
     public EditCommand(String oldShowName, String showDate, String newShowName) {
         this.oldShowName = oldShowName;
         this.newShowName = newShowName;

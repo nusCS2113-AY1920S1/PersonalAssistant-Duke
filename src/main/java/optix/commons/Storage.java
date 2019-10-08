@@ -20,6 +20,11 @@ public class Storage {
     private File showMapFilePath;
     private LocalDate today;
 
+    /**
+     * Initialise a new storage object.
+     *
+     * @param filePath path to the save file.
+     */
     public Storage(File filePath) {
         today = LocalDate.now();
 
@@ -40,6 +45,9 @@ public class Storage {
         }
     }
 
+    /**
+     * Load the data from the save file into model.
+     */
     public void loadShows(ShowMap shows, ShowHistoryMap showsHistory) {
         try {
             FileReader rd = new FileReader(showMapFilePath);
@@ -78,6 +86,14 @@ public class Storage {
         }
     }
 
+    /**
+     * Load the seats from the save file.
+     *
+     * @param br      buffered reader
+     * @param theatre the theatre to populate
+     * @return the populated theatre
+     * @throws IOException when buffered reader has problems with readLine().
+     */
     private Theatre loadSeat(BufferedReader br, Theatre theatre) throws IOException {
         String message;
         while ((message = br.readLine()) != null && !message.equals("next")) {
@@ -92,6 +108,11 @@ public class Storage {
         return theatre;
     }
 
+    /**
+     * Load information from archive.
+     *
+     * @param showsHistory Map of shows.
+     */
     public void loadArchive(ShowHistoryMap showsHistory) {
         try {
             FileReader rd = new FileReader(archiveFilePath);
@@ -119,6 +140,12 @@ public class Storage {
         }
     }
 
+    /**
+     * write to the save file.
+     * Deletes the old file and writes a new file.
+     *
+     * @param shows ShowMap of shows.
+     */
     public void write(ShowMap shows) {
         try {
             showMapFilePath.delete();
@@ -152,6 +179,11 @@ public class Storage {
         wr.write("next\n");
     }
 
+    /**
+     * Place shows that have passed into an archive.
+     *
+     * @param showsHistory Map of shows.
+     */
     public void writeArchive(ShowHistoryMap showsHistory) {
         try {
             archiveFilePath.delete();

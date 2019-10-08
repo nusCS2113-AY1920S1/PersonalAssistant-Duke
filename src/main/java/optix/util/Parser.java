@@ -16,12 +16,13 @@ import optix.exceptions.OptixException;
 import optix.exceptions.OptixInvalidCommandException;
 
 /**
- * Parse input arguments and create a new Command Object
+ * Parse input arguments and create a new Command Object.
  */
 public class Parser {
 
     /**
      * Parse input argument and create a new Command Object based on the first input word.
+     *
      * @param fullCommand The entire input argument.
      * @return Command Object based on the first input word.
      * @throws OptixException if the Command word is not recognised by Optix.
@@ -30,7 +31,7 @@ public class Parser {
 
         // add exception for null pointer exception. e.g. postpone
         String[] splitStr = fullCommand.trim().split(" ", 2);
-      
+
         if (splitStr.length == 1) {
             switch (splitStr[0].toLowerCase().trim()) {
             case "bye":
@@ -45,7 +46,7 @@ public class Parser {
         } else if (splitStr.length == 2) {
 
             // There will definitely be exceptions thrown here. Need to stress test and then categorise
-            switch (splitStr[0].toLowerCase().trim()){
+            switch (splitStr[0].toLowerCase().trim()) {
             case "edit":
                 return parseEditShow(splitStr[1]);
             case "sell":
@@ -76,6 +77,7 @@ public class Parser {
 
     /**
      * Parse the remaining user input to its respective parameters for PostponeCommand.
+     *
      * @param postponeDetails The details to create new PostponeCommand Object.
      * @return new PostponeCommand Object.
      * @throws OptixInvalidCommandException if the user input does not have the correct number of parameters.
@@ -96,10 +98,11 @@ public class Parser {
 
     /**
      * Parse the remaining user input to its respective parameters for AddCommand.
+     *
      * @param showDetails The details to create a new AddCommand Object.
      * @return new AddCommand Object.
      * @throws OptixInvalidCommandException if the user input does not have the correct number of parameters.
-     * @throws NumberFormatException if user attempt to convert String into double.
+     * @throws NumberFormatException        if user attempt to convert String into double.
      */
     private static Command parseAddShow(String showDetails) throws OptixInvalidCommandException, NumberFormatException {
         String[] splitStr = showDetails.trim().split("\\|", 4);
@@ -118,6 +121,7 @@ public class Parser {
 
     /**
      * Parse the remaining user input to its respective parameters for DeleteOneCommand.
+     *
      * @param showDetails The details to create a new DeleteOneCommand Object.
      * @return new DeleteOneCommand Object.
      * @throws OptixInvalidCommandException if the user input does not have the correct number of parameters.
@@ -137,6 +141,7 @@ public class Parser {
 
     /**
      * Parse the remaining user input to its respective parameters for DeleteAllCommand.
+     *
      * @param deleteDetails The name of all the shows being queried.
      * @return new DeleteAllCommand Object.
      */
@@ -148,6 +153,7 @@ public class Parser {
 
     /**
      * Parse the remaining user input to its respective parameters for ViewSeatsCommand.
+     *
      * @param showDetails The details to create a new ViewSeatsCommand Object.
      * @return new ViewSeatsCommand Object.
      * @throws OptixInvalidCommandException if the user input does not have the correct number of parameters.
@@ -166,7 +172,8 @@ public class Parser {
     }
 
     /**
-     * Parse the remaining user input to its respective parameters for SellSeatsCommand
+     * Parse the remaining user input to its respective parameters for SellSeatsCommand.
+     *
      * @param details The details to create a new SellSeatsCommand Object.
      * @return new SellSeatsCommand Object.
      * @throws OptixInvalidCommandException if the user input does not have the correct number of parameters.
@@ -182,7 +189,7 @@ public class Parser {
         String showDate = splitStr[1].trim();
         String buyerName = splitStr[2].trim();
 
-        if(splitStr.length == 4) {
+        if (splitStr.length == 4) {
             String seats = splitStr[3].trim();
 
             return new SellSeatCommand(showName, showDate, buyerName, seats);

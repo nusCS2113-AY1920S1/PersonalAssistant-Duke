@@ -32,7 +32,7 @@ public class DeleteAllCommand extends Command {
         ArrayList<String> deletedShows = new ArrayList<>();
         ArrayList<String> missingShows = new ArrayList<>();
 
-        for (String show: this.showNames) {
+        for (String show : this.showNames) {
             boolean isFound = false;
             ArrayList<Map.Entry<LocalDate, Theatre>> entryArrayList = new ArrayList<>();
             for (Map.Entry<LocalDate, Theatre> entry : shows.entrySet()) {
@@ -48,19 +48,19 @@ public class DeleteAllCommand extends Command {
                 missingShows.add(show);
             }
             // remove entry from shows.
-            for (Map.Entry<LocalDate, Theatre> entry: entryArrayList) {
+            for (Map.Entry<LocalDate, Theatre> entry : entryArrayList) {
                 shows.remove(entry.getKey(), entry.getValue());
             }
         }
         if (!deletedShows.isEmpty()) {
             message.append(MESSAGE_SUCCESSFUL);
-            for (String infoStrings: deletedShows) {
+            for (String infoStrings : deletedShows) {
                 message.append(infoStrings.trim()).append('\n');
             }
         }
         if (!missingShows.isEmpty()) {
             message.append(MESSAGE_UNSUCCESSFUL);
-            for (String missingShow: missingShows) {
+            for (String missingShow : missingShows) {
                 message.append(missingShow.trim()).append('\n');
             }
         }

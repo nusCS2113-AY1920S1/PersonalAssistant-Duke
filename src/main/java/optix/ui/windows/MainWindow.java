@@ -30,7 +30,7 @@ public class MainWindow extends AnchorPane {
     private void handleUserInput() {
         String inputText = userInput.getText();
         optixResponse.setText(inputText);
-//        display.getChildren().add(ListView.handleUserInput(userInput.getText()));
+        // display.getChildren().add(ListView.handleUserInput(userInput.getText()));
         userInput.clear();
     }
 }

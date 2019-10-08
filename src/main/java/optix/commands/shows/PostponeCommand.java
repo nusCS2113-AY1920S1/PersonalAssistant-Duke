@@ -19,7 +19,7 @@ public class PostponeCommand extends Command {
     private OptixDateFormatter formatter = new OptixDateFormatter();
 
     private static final String MESSAGE_DOES_NOT_MATCH = "☹ OOPS!!! Did you get the wrong date or wrong show. \n"
-                                                        + "Try again!\n";
+            + "Try again!\n";
 
     private static final String MESSAGE_SHOW_NOT_FOUND = "☹ OOPS!!! The show cannot be found.\n";
 
@@ -29,6 +29,13 @@ public class PostponeCommand extends Command {
 
     private static final String MESSAGE_SUCCESSFUL = "%1$s has been postponed from %2$s to %3$s.\n";
 
+    /**
+     * Command to postpone show.
+     *
+     * @param showName show name
+     * @param oldDate  current show date
+     * @param newDate  new show date
+     */
     public PostponeCommand(String showName, String oldDate, String newDate) {
         // need to check if both dates are valid if not throw exception
         // need to check if the event was completed in the past. Past event shouldn't be postponed.
@@ -42,12 +49,12 @@ public class PostponeCommand extends Command {
         ShowMap shows = model.getShows();
         String message = "";
         LocalDate today = storage.getToday();
-        
+
         try {
             if (!formatter.isValidDate(oldDate) || !formatter.isValidDate(newDate)) {
                 throw new OptixInvalidDateException();
             }
-            
+
             LocalDate localOldDate = formatter.toLocalDate(oldDate);
             LocalDate localNewDate = formatter.toLocalDate(newDate);
 

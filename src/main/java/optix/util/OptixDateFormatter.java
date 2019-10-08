@@ -10,6 +10,7 @@ public class OptixDateFormatter {
 
     /**
      * Get correct String format for DateFormatter.
+     *
      * @param date Input date.
      * @return String prefix for DateFormatter.
      */
@@ -17,12 +18,14 @@ public class OptixDateFormatter {
         int padCount = 0;
 
         StringBuilder format = new StringBuilder();
-        String[] timeType = {"d","M","y","H","H","m","m"};
+        String[] timeType = {"d", "M", "y", "H", "H", "m", "m"};
         for (int i = 0; i < date.length(); i += 1) {
             char c = date.charAt(i);
             if (Character.isDigit(c)) {
                 format.append(timeType[padCount]);
-                if (padCount >= 3) { padCount += 1;}
+                if (padCount >= 3) {
+                    padCount += 1;
+                }
             } else {
                 format.append(c);
                 padCount += 1;
@@ -33,20 +36,22 @@ public class OptixDateFormatter {
 
     /**
      * Format date from String to LocalDate.
+     *
      * @param dateString Input date.
      * @return LocalDate for the input date. Format: YYYY-MM-DD
      */
     public LocalDate toLocalDate(String dateString) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern(getFormat(dateString));
         //Convert string to localdate
-        return LocalDate.parse(dateString,formatter);
+        return LocalDate.parse(dateString, formatter);
     }
 
     /**
      * Checks if date given exists in calendar.
+     *
      * @param date String input of the date.
      * @return {@code true} date can be found in the calendar
-     *         {@code false} otherwise
+     * {@code false} otherwise
      */
     public boolean isValidDate(String date) {
         String[] splitStr = date.split("/");
@@ -58,7 +63,7 @@ public class OptixDateFormatter {
             return (isLeap(yr) && dy <= 29) || (!isLeap(yr) && dy <= 28);
         } else if (mth == 4 || mth == 6 || mth == 9 || mth == 11) {
             return dy <= 30;
-        } else if (mth == 1 || mth == 3 || mth == 5 || mth == 7 || mth == 8 || mth == 10 || mth == 12){
+        } else if (mth == 1 || mth == 3 || mth == 5 || mth == 7 || mth == 8 || mth == 10 || mth == 12) {
             return dy <= 31;
         }
         return false;
@@ -66,9 +71,10 @@ public class OptixDateFormatter {
 
     /**
      * Check if it is a leap year.
+     *
      * @param year to check whether its a leap year
      * @return {@code true} if it is a leap year
-     *         {@code false} otherwise
+     * {@code false} otherwise
      */
     private boolean isLeap(int year) {
         return year % 400 == 0 || (year % 4 == 0 && year % 100 != 0);

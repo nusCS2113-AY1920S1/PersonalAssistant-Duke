@@ -7,6 +7,10 @@ public class Model {
     private ShowHistoryMap showsHistory = new ShowHistoryMap();
     private ShowMap shows = new ShowMap();
 
+    /**
+     * The Optix model.
+     * @param storage the object which handles data from the save file.
+     */
     public Model(Storage storage) {
         storage.loadShows(shows, showsHistory);
         storage.loadArchive(showsHistory);

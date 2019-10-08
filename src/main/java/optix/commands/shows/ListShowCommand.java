@@ -43,7 +43,7 @@ public class ListShowCommand extends Command {
                 counter++;
             }
         }
-        
+
         if (!hasShow) {
             message = new StringBuilder(MESSAGE_SHOW_NOT_FOUND);
         }

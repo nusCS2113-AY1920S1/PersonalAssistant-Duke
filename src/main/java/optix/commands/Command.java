@@ -10,8 +10,9 @@ public abstract class Command {
     /**
      * Processes user input to be stored, queried, modified in ShowMap,
      * to show response by program in ui and store existing data in Storage.
-     * @param model The data structure holding all the information.
-     * @param ui The User Interface that reads user input and response to user.
+     *
+     * @param model   The data structure holding all the information.
+     * @param ui      The User Interface that reads user input and response to user.
      * @param storage The filepath of txt file which data are being stored.
      */
     public abstract void execute(Model model, Ui ui, Storage storage);

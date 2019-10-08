@@ -30,6 +30,7 @@ public class Ui {
 
     /**
      * Read in the command by user.
+     *
      * @return String input by user.
      */
     public String readCommand() {
@@ -38,6 +39,7 @@ public class Ui {
 
     /**
      * Set appropriate response by Optix to be shown based on user's input.
+     *
      * @param message String Optix will respond with based on user input.
      */
     public void setMessage(String message) {
@@ -50,6 +52,7 @@ public class Ui {
 
     /**
      * Prints out the Optix's response based on user's input.
+     *
      * @return Response by Optix.
      */
     public String showCommandLine() {

@@ -23,6 +23,15 @@ public class SellSeatCommand extends Command {
 
     private static final String MESSAGE_SHOW_NOT_FOUND = "☹ OOPS!!! The show cannot be found.\n";
 
+    /**
+     * instantiates the command.
+     * This function is called when the customer is
+     * interested in viewing the available seats
+     *
+     * @param showName  name of show
+     * @param showDate  date of show
+     * @param buyerName name of buyer
+     */
     public SellSeatCommand(String showName, String showDate, String buyerName) {
         this.showName = showName;
         this.showDate = showDate;
@@ -30,6 +39,16 @@ public class SellSeatCommand extends Command {
         seats = new String[0];
     }
 
+    /**
+     * Instantiates the command.
+     * This function is called when the customer has already
+     * decided on his seat.
+     *
+     * @param showName  name of show.
+     * @param showDate  date of show.
+     * @param buyerName name of buyer.
+     * @param seats     desired seat.
+     */
     public SellSeatCommand(String showName, String showDate, String buyerName, String seats) {
         this.showName = showName;
         this.showDate = showDate;
