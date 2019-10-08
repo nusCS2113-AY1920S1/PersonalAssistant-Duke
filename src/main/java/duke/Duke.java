@@ -106,7 +106,7 @@ public class Duke {
 
         while (true) {
             sentence = ui.readCommand();
-
+            ui.showLine(); //Please do not remove!
             try {
                 Command cmd = Parser.parse(sentence, items);
                 if (cmd instanceof ExitCommand) {
