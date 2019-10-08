@@ -85,7 +85,6 @@ public class PathFinder {
         }
 
         this.visited.add(cur);
-        depthLimit -= 1;
 
         for (String bus : cur.getBuses()) { //loop through all bus in bus stop
             for (String busCode : this.busMap.get(bus).getDirection(1)) { // depth search the bus route
@@ -99,7 +98,7 @@ public class PathFinder {
                         this.found = true;
                         return;
                     } else {
-                        depthFirstSearch(this.busStopMap.get(busCode), endBusStop, depthLimit);
+                        depthFirstSearch(this.busStopMap.get(busCode), endBusStop, depthLimit - 1);
                     }
                 }
             }
