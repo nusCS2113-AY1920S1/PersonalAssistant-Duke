@@ -4,12 +4,13 @@ import javafx.util.Pair;
 
 import java.util.ArrayList;
 
-public class SearchResultContext{
+public class SearchResultContext {
 
 
     static ArrayList<String> keywords = new ArrayList<>();
-    public static void initialiseContext(String[] listOfKeys){
-        for(String a:listOfKeys){
+
+    public static void initialiseContext(String[] listOfKeys) {
+        for (String a : listOfKeys) {
             keywords.add(a);
         }
     }
@@ -24,9 +25,11 @@ public class SearchResultContext{
         }
         return hints;
     }
+
     public static Pair<String, String> getSpellingCheck(String key) {
         return null;
     }
+
     public static void AddKeyWord(String key) {
         keywords.add(key);
     }

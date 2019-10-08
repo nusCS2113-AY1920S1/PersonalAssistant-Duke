@@ -47,8 +47,6 @@ public class RetrieveRequest implements InfoFetcher {
     private static final String POP_CAST_URL = "person/popular?api_key=";
 
 
-
-
     // Movie Data Keys
     private static final String kMOVIE_TITLE = "title";
     private static final String kTV_TITLE = "original_name";
@@ -139,52 +137,53 @@ public class RetrieveRequest implements InfoFetcher {
         }
     }
 
-    /**public String getCastMovie (long id) {
-            String url = MAIN_URL + "movie/" + id + API_KEY;
-            ArrayList<String> castInfo = fetchCastData(url);
-            String cast = castInfo.get(0);
-            for (int i = 1; i < castInfo.size(); i += 1) {
-                cast += "," + castInfo.get(i);
-            }
-            return cast;
-    }
-
-    public ArrayList<String> fetchCastData(String url) {
-        if (url == null) {
-            mListener.requestFailed();
-            //System.out.println("so far not ok");
-            return null;
-        }
-        //System.out.println("so far ok1");
-
-        // Parse received movies
-        JSONParser parser = new JSONParser();
-        JSONObject movieData;
-        try {
-            String json = URLRetriever.readURLAsString(new URL(url));
-            movieData = (JSONObject) parser.parse(json);
-            JSONArray movies = (JSONArray) movieData.get("cast");
-            ArrayList<String> parsedMovies = new ArrayList(10);
-            for (int i = 0; i < movies.size(); i++) {
-                    parsedMovies.add(parseCastJSON((JSONObject) movies.get(i)));
-                }
-                return parsedMovies;
-            //System.out.println("so far ok3");
-        } catch (org.json.simple.parser.ParseException ex) {
-            Logger.getLogger(RetrieveRequest.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (SocketTimeoutException e) {
-            e.printStackTrace();
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        }
-        return null;
-    }**/
+    /**
+     * public String getCastMovie (long id) {
+     * String url = MAIN_URL + "movie/" + id + API_KEY;
+     * ArrayList<String> castInfo = fetchCastData(url);
+     * String cast = castInfo.get(0);
+     * for (int i = 1; i < castInfo.size(); i += 1) {
+     * cast += "," + castInfo.get(i);
+     * }
+     * return cast;
+     * }
+     * <p>
+     * public ArrayList<String> fetchCastData(String url) {
+     * if (url == null) {
+     * mListener.requestFailed();
+     * //System.out.println("so far not ok");
+     * return null;
+     * }
+     * //System.out.println("so far ok1");
+     * <p>
+     * // Parse received movies
+     * JSONParser parser = new JSONParser();
+     * JSONObject movieData;
+     * try {
+     * String json = URLRetriever.readURLAsString(new URL(url));
+     * movieData = (JSONObject) parser.parse(json);
+     * JSONArray movies = (JSONArray) movieData.get("cast");
+     * ArrayList<String> parsedMovies = new ArrayList(10);
+     * for (int i = 0; i < movies.size(); i++) {
+     * parsedMovies.add(parseCastJSON((JSONObject) movies.get(i)));
+     * }
+     * return parsedMovies;
+     * //System.out.println("so far ok3");
+     * } catch (org.json.simple.parser.ParseException ex) {
+     * Logger.getLogger(RetrieveRequest.class.getName()).log(Level.SEVERE, null, ex);
+     * } catch (SocketTimeoutException e) {
+     * e.printStackTrace();
+     * } catch (MalformedURLException e) {
+     * e.printStackTrace();
+     * }
+     * return null;
+     * }
+     **/
 
     private String parseCastJSON(JSONObject jsonObject) {
         String name = jsonObject.get("name").toString();
         return name;
     }
-
 
 
     // JSON data was fetched by the fetcher
@@ -205,16 +204,16 @@ public class RetrieveRequest implements InfoFetcher {
         try {
             movieData = (JSONObject) parser.parse(json);
             //if (index == 0) {
-                JSONArray movies = (JSONArray) movieData.get("results");
-                ArrayList<MovieInfoObject> parsedMovies = new ArrayList(10);
+            JSONArray movies = (JSONArray) movieData.get("results");
+            ArrayList<MovieInfoObject> parsedMovies = new ArrayList(10);
 
-                for (int i = 0; i < movies.size(); i++) {
-                    parsedMovies.add(parseMovieJSON((JSONObject) movies.get(i)));
-                }
-                //System.out.println("so far ok2");
+            for (int i = 0; i < movies.size(); i++) {
+                parsedMovies.add(parseMovieJSON((JSONObject) movies.get(i)));
+            }
+            //System.out.println("so far ok2");
 
-                // Notify Listener
-                mListener.requestCompleted(parsedMovies);
+            // Notify Listener
+            mListener.requestCompleted(parsedMovies);
             //} else {
 
             //}
@@ -279,18 +278,18 @@ public class RetrieveRequest implements InfoFetcher {
         Date releaseDate = null;
 
         //try {
-            String releaseDateString = (String) movieData.get(kMOVIE_RELEASE_DATE);
-            //System.out.println("date is" + releaseDateString);
+        String releaseDateString = (String) movieData.get(kMOVIE_RELEASE_DATE);
+        //System.out.println("date is" + releaseDateString);
 
-            if (releaseDateString != null) {
-                try {
-                    SimpleDateFormat formatter1 = new SimpleDateFormat("yyyy-MM-dd");
-                    releaseDate = formatter1.parse(releaseDateString);
-                    //System.out.println(releaseDate);
-                } catch (ParseException e) {
-                    releaseDate = null;
-                }
+        if (releaseDateString != null) {
+            try {
+                SimpleDateFormat formatter1 = new SimpleDateFormat("yyyy-MM-dd");
+                releaseDate = formatter1.parse(releaseDateString);
+                //System.out.println(releaseDate);
+            } catch (ParseException e) {
+                releaseDate = null;
             }
+        }
 
         // Get poster and backdrop paths
         String posterPath = (String) movieData.get(kMOVIE_POSTER_PATH);

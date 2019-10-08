@@ -12,13 +12,13 @@ import java.util.TreeMap;
 public class SearchCommand extends CommandSuper {
 
 
-    public SearchCommand(Controller UIController){
-        super(COMMAND_KEYS.search , CommandStructure.cmdStructure.get(COMMAND_KEYS.search) ,UIController);
+    public SearchCommand(Controller UIController) {
+        super(COMMAND_KEYS.search, CommandStructure.cmdStructure.get(COMMAND_KEYS.search), UIController);
     }
 
     @Override
     public void executeCommands() {
-        switch (this.getSubRootCommand()){
+        switch (this.getSubRootCommand()) {
             case movies:
                 executeMovieSearch();
                 break;
@@ -31,11 +31,11 @@ public class SearchCommand extends CommandSuper {
 
     }
 
-    private void executeMovieSearch(){
+    private void executeMovieSearch() {
         TreeMap<String, ArrayList<String>> treeMap = getFlagMap();
         if (treeMap.containsKey("-[c]")) {
             MovieHandler.showCurrentMovies();
-        } else if (treeMap.containsKey("-[u]")){
+        } else if (treeMap.containsKey("-[u]")) {
             MovieHandler.showUpcomingMovies();
         } else if (treeMap.containsKey("-[t]")) {
             MovieHandler.showTrendMovies();
@@ -46,13 +46,12 @@ public class SearchCommand extends CommandSuper {
         }
     }
 
-    private void executeTvShowSearch(){
+    private void executeTvShowSearch() {
         TreeMap<String, ArrayList<String>> treeMap = getFlagMap();
         if (treeMap.containsKey("-[c]")) {
-            System.out.println("yesss");
             MovieHandler.showCurrentTV();
-        } else if (treeMap.containsKey("-[u]")){
-            MovieHandler.showUpcomingTV();
+            //} else if (treeMap.containsKey("-[u]")){
+            //  MovieHandler.showUpcomingTV();
         } else if (treeMap.containsKey("-[t]")) {
             MovieHandler.showTrendTV();
         } else if (treeMap.containsKey("-[p]")) {
