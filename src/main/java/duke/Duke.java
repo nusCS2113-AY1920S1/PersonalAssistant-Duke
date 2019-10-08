@@ -69,8 +69,8 @@ public class Duke {
                 // TODO: this line is to demo how to gson parser using the
                 //       list command, remove this when creating additional features
                 if (c instanceof ListCommand) {
-                   List<ModuleInfoSummary> test = data.readJson();
-                   System.out.println(test.get(10));
+                    List<ModuleInfoSummary> test = data.readJson();
+                    System.out.println(test.get(10));
                 }
                 isExit = c.isExit();
             } catch (ModException e) {
