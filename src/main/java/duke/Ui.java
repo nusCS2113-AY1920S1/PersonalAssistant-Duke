@@ -1,6 +1,8 @@
 package duke;
 
 import duke.Data.Parser;
+import duke.Module.Schedule;
+import duke.Sports.ManageStudents;
 import duke.Task.TaskList;
 import duke.Data.Storage;
 
@@ -59,9 +61,9 @@ public class Ui {
      * into the Parser class
      * @param input This is the string input defined by the user
      */
-    public void readCommand(String input, TaskList tasks, Storage storage) throws FileNotFoundException, ParseException {
+    public void readCommand(String input, TaskList tasks, Storage storage, ManageStudents students, Schedule schedule) throws FileNotFoundException, ParseException {
         Parser parser = new Parser();
-        parser.parseInput(input, tasks, storage);
+        parser.parseInput(input, tasks, storage, students, schedule);
     }
 
 }

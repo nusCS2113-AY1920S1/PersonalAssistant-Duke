@@ -18,6 +18,9 @@ import java.lang.Math;
 
 public class MyPlan {
 
+    private String filePath;
+    private Scanner fileInput;
+
     private ArrayList<MyTraining> list = new ArrayList<>();
     private Map<Integer, ArrayList<MyTraining>> map = new HashMap<>();
 
@@ -59,22 +62,46 @@ public class MyPlan {
 
     public int createKey(String intensity, int num) {
         Intensity i = Intensity.valueOf(intensity);
-        double key = Math.pow(10,i.getValue()) + num;
+        double key = Math.pow(10, i.getValue()) + num;
         return (int) key;
     }
 
-    public void viewPlan() {
-        for (MyTraining i : getList()) {
-            System.out.println(getList().toString());
+    public MyPlan(String filePath) throws FileNotFoundException {
+        this.filePath = filePath;
+        File f = new File(filePath);
+        fileInput = new Scanner(f);
+    }
+
+    public String loadPlan(String plan_num) {
+        String l1 = fileInput.nextLine();
+        while (fileInput.hasNextLine()) {
+            if (l1.equals("plan_num")) {
+                String[] l2 = fileInput.nextLine().split(" ");
+                MyTraining activity = new MyTraining(l2[0],Integer.parseInt(l2[1]),Integer.parseInt(l2[2]));
+                getList().add(activity);
+            }
         }
+        return "You have loaded plan " + plan_num + " into the list";
     }
 
-    public void clearPlan() {
-        getList().clear();
+    public String viewPlan() {
+        String message = "";
+        for (MyTraining i : getList()) {
+            message += i.toString() + "\n";
+        }
+        return message;
     }
 
-    public void addActivity(String newName, int newSets, int newReps, int newActivity_num) {
+    public String clearPlan() {
+        //getList().clear();
+        return "All your training plans are cleared.";
+    }
+
+    public String addActivity(String newName, int newSets, int newReps, int activity_num) {
         //getList().add(name);
+        MyTraining t = new MyTraining(newName,newSets,newReps);
+        //Store t in somewhere
+        return "You have added this activity, " + t.toString();
     }
 
     public void switchPos(int initial, int end) {
@@ -132,7 +159,6 @@ public class MyPlan {
     }
 
     public void savePlan() {
-
     }
 
     public void createPlan(String intensity) {
@@ -152,5 +178,10 @@ public class MyPlan {
         } catch (Exception e) {
             System.out.println("Please enter a valid intensity level (high,moderate,relaxed)");
         }
+    }
+
+    public String deletePlan(String newName, int newSets, int newReps, int newActivity_num) {
+        this.activity_num = newActivity_num;
+        return "You have deleted the training plan: " + newName + " with " + newSets + " sets of " + newReps + "reps.";
     }
 }

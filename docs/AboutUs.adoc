@@ -1,0 +1,46 @@
+= About Us
+:site-section: AboutUs
+:relfileprefix: team/
+:imagesDir: images
+:stylesDir: stylesheets
+
+Sports Manager was developed by the https://github.com/AY1920S1-CS2113T-W13-1/main.git[DukeGeek] team. +
+We are a student team based in the http://www.comp.nus.edu.sg[School of Computing, National University of Singapore].
+
+== Project Team
+
+=== Scott
+image::sfloydzy.png[width="150", align="left"]
+{empty}[https://github.com/AY1920S1-CS2113T-W13-1/main.git[homepage]] [https://github.com/sfloydzy[github]] [<<SfloydzyPortfolio#, Portfolio>>]
+
+Role: Team Lead
+Responsibilities: Checkstyle + Timetable Feature
+
+'''
+
+=== Danish
+image::danisheddie.png[width="150", align="left"]
+{empty}[https://github.com/AY1920S1-CS2113T-W13-1/main.git[homepage]] [https://github.com/danisheddie[github]] [<<danisheddiePortfolio#, Portfolio>>]
+
+Role: Developer
+Responsibilities: UI + Managing Students Feature
+
+'''
+
+=== Jing Sen
+image::eujingsen.png[width="150", align="left"]
+{empty}[http://github.com/eujingsen[github]] [<<eujingsenPortfolio#, portfolio>>]
+
+Role: Developer
+Responsibilities: Training Circuits Feature
+
+'''
+
+=== Edmund
+image::nottherealedmund.png[width="150", align="left"]
+{empty}[http://github.com/nottherealedmund[github]] [<<edmundPortfolio#, portfolio>>]
+
+Role: Developer \n
+Responsibilities: GUI + Sub-schedule Feature
+
+'''
