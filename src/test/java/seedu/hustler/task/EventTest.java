@@ -20,19 +20,19 @@ public class EventTest {
     public void dummyTest() {
 
         LocalDateTime localDateTimeOne = getDateTime("5/5/2019 1800");
-        LocalDateTime localDateTimeTwo = getDateTime("5/5/2019 1200");
 
         Event task1 = new Event("meet Kartike.", localDateTimeOne);
         assertEquals(task1.description, "meet Kartike.");
-//        assertEquals(task1.dateAt, "5th of May 2019, 6:00PM");
+        /* assertEquals(task1.dateAt, "5th of May 2019, 6:00PM"); */
         assertEquals(task1.at, localDateTimeOne);
         assertEquals(task1.getDateTime(), LocalDateTime.of(2019,5,5,18,0));
 
-//        Event task2 = new Event("meet Kartike.", "next week");
-//        assertEquals(task2.description, "meet Kartike.");
-//        assertEquals(task2.dateAt, "next week");
-//        assertEquals(task2.at, "next week");
+        /* Event task2 = new Event("meet Kartike.", "next week"); */
+        /* assertEquals(task2.description, "meet Kartike."); */
+        /* assertEquals(task2.dateAt, "next week"); */
+        /* assertEquals(task2.at, "next week"); */
 
+        LocalDateTime localDateTimeTwo = getDateTime("5/5/2019 1200");
         Event task3 = new Event("meet Kartike.", localDateTimeTwo);
         task3.setDateTime(LocalDateTime.of(2019,5,5,18,0));
         assertEquals(task3.getDateTime(), task1.getDateTime());

@@ -31,7 +31,7 @@ public class StorageTest {
         assertArrayEquals(list.return_list().toArray(),
             (new ArrayList<Task>()).toArray());
         list.add("todo", "Work on CS2113T feature list");
-        list.add("deadline", "Finish Feature list /by tommorrow");
+        list.add("deadline", "Finish Feature list /by 1/1/2019 1800");
         list.add("event", "Student life fair /at 1/1/2019 2400");
 
         try {
