@@ -88,7 +88,7 @@ public class TimePeriod {
      * @throws ModInvalidTimePeriodException thrown when date period is invalid.
      */
     public void setPeriod(LocalDateTime begin, LocalDateTime end) throws ModInvalidTimePeriodException {
-        if (end != null && end.isBefore(begin)) {
+        if (end != null && begin != null && end.isBefore(begin)) {
             throw new ModInvalidTimePeriodException("End before begin!");
         }
         this.begin = begin;

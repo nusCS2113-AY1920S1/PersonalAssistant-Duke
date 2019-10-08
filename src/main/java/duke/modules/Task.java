@@ -1,6 +1,6 @@
 package duke.modules;
 
-import duke.exceptions.DukeInvalidTimePeriodException;
+import duke.exceptions.ModInvalidTimePeriodException;
 import duke.util.TimeInterval;
 import duke.util.TimePeriod;
 import java.time.LocalDate;
@@ -23,7 +23,7 @@ public class Task {
      * Constructor to Task class.
      * @param task User's input of the desired task.
      */
-    public Task(String task) throws DukeInvalidTimePeriodException {
+    public Task(String task) throws ModInvalidTimePeriodException {
         this.task = task.trim();
         this.done = false;
         this.period = new TimePeriod();
@@ -45,11 +45,11 @@ public class Task {
         return this.period;
     }
 
-    public void setPeriod(LocalDateTime begin, LocalDateTime end) throws DukeInvalidTimePeriodException {
+    public void setPeriod(LocalDateTime begin, LocalDateTime end) throws ModInvalidTimePeriodException {
         this.period.setPeriod(begin, end);
     }
 
-    public void setPeriod(LocalDateTime begin, TimeInterval duration) throws DukeInvalidTimePeriodException {
+    public void setPeriod(LocalDateTime begin, TimeInterval duration) throws ModInvalidTimePeriodException {
         this.period.setPeriod(begin, duration);
     }
 
