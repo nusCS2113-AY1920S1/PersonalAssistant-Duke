@@ -1,5 +1,7 @@
 package com.algosenpai.app.chapters;
 
+import com.algosenpai.app.Question;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Random;
@@ -13,11 +15,11 @@ class ChapterSorting {
 
     /**
      * Generates the question by using a random number to determine which of the
-     * subquestions to ask.
+     * sub-questions to ask.
      * 
-     * @return True if a correct answer is given and false if the answer is wrong.
+     * @return A question class that contains the question and expected answer.
      */
-    public Boolean generateQuestions() {
+    public Question generateQuestions() {
         int questionType = random.nextInt(4);
         switch (questionType) {
         case 0:
@@ -29,7 +31,7 @@ class ChapterSorting {
         case 3:
             return selectionSortSwapsQuestion();
         default:
-            return true;
+            return null;
         }
     }
 
@@ -37,87 +39,58 @@ class ChapterSorting {
      * Generates the Selection Sort Algorithm question related to the sequence of
      * integers after a certain number of swaps. It determines a random array size,
      * then runs the algorithm on it for certain number of swaps, after which it
-     * will terminate. An input is taken in from the user as an answer.
+     * will terminate.
      * 
-     * @return True if the input matches the answer, and false if the answer is
-     *         wrong.
+     * @return the question class with the question.
      */
-    private Boolean selectionSortSwapsQuestion() {
+    private Question selectionSortSwapsQuestion() {
         int arraySize = random.nextInt(4) + 5;
         ArrayList<Integer> initialArray = new ArrayList<>(generateArray(arraySize));
         int swaps = random.nextInt(arraySize - 5) + 1;
-        System.out.println("An array of " + arraySize + " elements underwent the following Selection Sort Algorithm : "
-                + initialArray);
-        System.out.println("What would be the new configuration of the elements after " + swaps + " swaps?\n");
-        String code = new String("int i, j, min_idx;\n" + "   for (i = 0; i < n-1; i++) {\n" + "       min_idx = i;\n"
+        String question = "An array of " + arraySize + " elements underwent the following Selection Sort Algorithm : "
+                + initialArray + "\n";
+        question += "What would be the new configuration of the elements after " + swaps + " swaps?\n";
+        question += "int i, j, min_idx;\n" + "   for (i = 0; i < n-1; i++) {\n" + "       min_idx = i;\n"
                 + "       for (j = i+1; j < n; j++) {\n" + "           if (arr[j] < arr[min_idx]) {\n"
                 + "               min_idx = j;\n" + "       }\n" + "       }\n" + "   if (min_idx != i) {"
-                + "       swap(arr[min_idx], arr[i]);\n" + "   }" + "}\n");
-        System.out.println(code);
-        String userInput = s.nextLine();
-        String[] arr = userInput.split(", ");
-        ArrayList<Integer> userAnswer = new ArrayList<>();
-        for (String i : arr) {
-            userAnswer.add(Integer.parseInt(i));
-        }
+                + "       swap(arr[min_idx], arr[i]);\n" + "   }" + "}\n";
         selectionSort(initialArray, swaps);
-        if (userAnswer.equals(initialArray)) {
-            System.out.println("Well Done! You got a correct answer!\n");
-            return true;
-        } else {
-            System.out.println("This is the correct answer : " + initialArray + "\nTry harder!\n");
-            return false;
-        }
+        Question newQuestion = new Question(question, initialArray.toString());
+        return newQuestion;
     }
 
     /**
      * Generates the Insertion Sort Algorithm question regarding the sequence of
      * integers after a certain number of swaps. It determines a random array size,
      * then conducts Insertion Sort on it. A random number of swaps is generated,
-     * after which Insertion Sort stops. An input is taken in from the user as an
-     * answer.
+     * after which Insertion Sort stops.
      * 
-     * @return True if a correct answer is given, and false if the answer does not
-     *         match.
+     * @return the question class with the question.
      */
-    private static Boolean insertionSortSwapsQuestion() {
+    private static Question insertionSortSwapsQuestion() {
         int arraySize = random.nextInt(4) + 5;
         ArrayList<Integer> initialArray = new ArrayList<>(generateArray(arraySize));
         int swaps = random.nextInt(arraySize - 2) + 1;
-        System.out.println("An array of " + arraySize + " elements underwent the following Insertion Sort Algorithm : "
-                + initialArray);
-        System.out.println("What would be the new configuration of the elements after " + swaps + " swaps?\n");
-
-        String code = new String("int i, key, j;\n" + "for (i = 1; i < n; i++) {\n" + "    key = arr[i];\n"
+        String question = "An array of " + arraySize + " elements underwent the following Insertion Sort Algorithm : "
+                + initialArray + "\n";
+        question += "What would be the new configuration of the elements after " + swaps + " swaps?\n\n";
+        question += "int i, key, j;\n" + "for (i = 1; i < n; i++) {\n" + "    key = arr[i];\n"
                 + "    j = i - 1;\n" + "    while (j >= 0 && arr[j] > key) {\n" + "        arr[j + 1] = arr[j];\n"
-                + "        j = j - 1;\n" + "    }\n" + "    arr[j + 1] = key;\n" + "} \n");
-        System.out.println(code);
-        String userInput = s.nextLine();
-        String[] arr = userInput.split(", ");
-        ArrayList<Integer> userAnswer = new ArrayList<>();
-        for (String i : arr) {
-            userAnswer.add(Integer.parseInt(i));
-        }
+                + "        j = j - 1;\n" + "    }\n" + "    arr[j + 1] = key;\n" + "} \n\n";
         insertionSort(initialArray, swaps);
-        if (userAnswer.equals(initialArray)) {
-            System.out.println("Well Done! You got a correct answer!\n");
-            return true;
-        } else {
-            System.out.println("This is the correct answer : " + initialArray + "\nTry harder!\n");
-            return false;
-        }
+        Question newQuestion = new Question(question, initialArray.toString());
+        return newQuestion;
     }
 
     /**
      * Generates the QuickSort Algorithm question regarding number of possible
      * pivots after certain passes of the algorithm. It determines a random array
      * size, then conducts QuickSort on it. A random snapshot of the array is taken
-     * for the question and the answer is pre-determined. An input is taken in from
-     * the user as an answer.
+     * for the question and the answer is pre-determined.
      * 
-     * @return True if the answer is correct, false if the answer is wrong.
+     * @return the question class with the question.
      */
-    private static Boolean quickSortPivotsQuestion() {
+    private static Question quickSortPivotsQuestion() {
         int arraySize = random.nextInt(6) + 6;
         ArrayList<Integer> initialArray = new ArrayList<>(generateArray(arraySize));
         Integer[] arr = initialArray.toArray(new Integer[arraySize]);
@@ -126,11 +99,9 @@ class ChapterSorting {
         int numberOfChoices = allSteps.size() - 1;
         arr = allSteps.get(random.nextInt(numberOfChoices));
         initialArray = new ArrayList<>(Arrays.asList(arr));
-        System.out.println("An array of " + arraySize
-                + " elements underwent some passes of the Quick Sort Algorithm to become : " + initialArray);
-        System.out.println("How many elements could possibly have been the pivot?\n");
-        int userInput = s.nextInt();
-        s.nextLine();
+        String question = "An array of " + arraySize
+                + " elements underwent some passes of the Quick Sort Algorithm to become : " + initialArray + "\n";
+        question += "How many elements could possibly have been the pivot?\n\n";
         int answer = 0;
         for (int i = 0; i < arraySize; i++) {
             Boolean canBePivot = true;
@@ -147,52 +118,31 @@ class ChapterSorting {
                 answer++;
             }
         }
-
-        if (userInput == answer) {
-            System.out.println("Well Done! You got a correct answer!\n");
-            return true;
-        } else {
-            System.out.println("This is the correct answer : " + answer + "\nTry harder!\n");
-            return false;
-        }
-
+        Question newQuestion = new Question(question, Integer.toString(answer));
+        return newQuestion;
     }
 
     /**
      * Generates the BubbleSort Algorithm question regarding the sequence of
      * integers after a certain number of passes. It determines a random array size,
      * then fills the array with unique numbers. A random number of passes is
-     * determined and the BubbleSort Algorithm stops midway. The user then has to
-     * decide what the correct answer is.
+     * determined and the BubbleSort Algorithm stops midway. 
      * 
-     * @return true if the answer matches, and false if the answer is wrong.
+     * @return the question class with the question.
      */
-    private static Boolean bubbleSortPassesQuestion() {
+    private static Question bubbleSortPassesQuestion() {
         int arraySize = random.nextInt(7) + 3;
-
         ArrayList<Integer> initialArray = new ArrayList<>(generateArray(arraySize));
         int passes = random.nextInt(arraySize - 2) + 1;
-        System.out.println("An array of " + arraySize + " elements underwent the following Bubble Sort Algorithm : "
-                + initialArray);
-        System.out.println("What would be the new configuration of the elements after " + passes + " passes?\n");
-        String code = new String("for (int i = 0; i < passes; i++) {\n"
+        String question = "An array of " + arraySize + " elements underwent the following Bubble Sort Algorithm : "
+                + initialArray + "\n";
+        question += "What would be the new configuration of the elements after " + passes + " passes?\n\n";
+        question += "for (int i = 0; i < passes; i++) {\n"
                 + "   for (int j = 0; j < arr.size - 1 - i; j ++) {\n" + "       if (arr[j] > arr[j + 1]) {\n"
-                + "            swap (arr[j], arr[j+1]);\n" + "       }\n" + "   }\n" + "}\n");
-        System.out.println(code);
-        String userInput = s.nextLine();
-        String[] arr = userInput.split(", ");
-        ArrayList<Integer> userAnswer = new ArrayList<>();
-        for (String i : arr) {
-            userAnswer.add(Integer.parseInt(i));
-        }
+                + "            swap (arr[j], arr[j+1]);\n" + "       }\n" + "   }\n" + "}\n\n";
         bubbleSort(initialArray, passes);
-        if (userAnswer.equals(initialArray)) {
-            System.out.println("Well Done! You got a correct answer!\n");
-            return true;
-        } else {
-            System.out.println("This is the correct answer : " + initialArray + "\nTry harder!\n");
-            return false;
-        }
+        Question newQuestion = new Question(question, initialArray.toString());
+        return newQuestion;
     }
 
     /**
