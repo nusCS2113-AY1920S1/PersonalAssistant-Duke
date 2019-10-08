@@ -8,7 +8,7 @@ import dolla.task.TaskList;
 /**
  * The type Add do after task command.
  */
-public class AddDoAfterTaskCommand extends AddCommand {
+public abstract class AddDoAfterTaskCommand extends AddCommand {
     private int position;
     private String event;
 

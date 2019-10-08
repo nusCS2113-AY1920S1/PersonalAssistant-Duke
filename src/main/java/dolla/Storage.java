@@ -9,6 +9,7 @@ import dolla.task.Deadline;
 import dolla.task.Recurring;
 import dolla.task.DoAfter;
 import dolla.task.FixDuration;
+import parser.MainParser;
 
 
 import java.io.BufferedReader;
@@ -89,7 +90,7 @@ public class Storage {
             createFolder();
         } catch (IOException e) { // exception handling
             System.out.println("*** there was an error reading duke.txt ***");
-            Parser.exit(); // TODO: Find out what is supposed to happen here
+            MainParser.exit(); // TODO: Find out what is supposed to happen here
         }
 
         Ui.printMsg(msg);

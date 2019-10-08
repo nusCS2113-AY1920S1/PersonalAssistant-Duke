@@ -9,10 +9,10 @@ import java.util.ArrayList;
 import java.util.Comparator;
 
 
-public class Reminder extends Command {
+public abstract class Reminder extends Command {
     protected LocalDate today;
 
-    @Override
+    //@Override
     public void execute(TaskList tasks) {
         ArrayList<Task> tasksDueSoon = new ArrayList<>();
         today = LocalDate.now();

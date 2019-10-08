@@ -33,4 +33,15 @@ public class Time {
         LocalDate time = LocalDate.parse(timeStr, formatter);
         return time;
     }
+
+    /**
+     * converts the time from LocalDateTime to string.
+     * @param time in LocalDateTime format
+     * @return timeStr in "dd/MM/yyyy HHmm" format
+     */
+    public static String dateTimeToString(LocalDateTime time) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm", Locale.ENGLISH);
+        String timeStr = time.format(formatter);
+        return timeStr;
+    }
 }

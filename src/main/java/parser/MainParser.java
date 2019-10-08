@@ -1,5 +1,6 @@
-package dolla;
+package parser;
 
+import dolla.Ui;
 import dolla.command.Command;
 import dolla.command.CompleteCommand;
 import dolla.command.RemoveCommand;
@@ -20,11 +21,12 @@ import dolla.task.TaskList;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Scanner;
 
 /**
- * Parser checks the user input and creates a command corresponding to the user input.
+ * MainParser checks the user input and creates a command corresponding to the user input.
  */
-public class Parser {
+public class MainParser {
 
     /**
      * Returns a command corresponding to the user input.
@@ -40,10 +42,35 @@ public class Parser {
      *     If a number is not provided in a done or remove command, an error will be printed,
      *     and an ErrorCommand will be returned.
      * </p>
-     * @param inputLine The entire line input from the user.
+     * @param mode The mode Dolla is currently on.
      * @return a command corresponding to the user input.
      */
-    public static Command handleInput(String inputLine, TaskList tasks) {
+    public static Command handleInput(String mode, String inputLine) { // TODO: Rename to something else
+
+//        Scanner input = new Scanner(System.in);
+//        String inputLine = input.nextLine();
+        String[] inputArray = inputLine.split(" ");
+        String command = inputArray[0];
+
+        if (command.equals("bye")) {
+            //return new ExitCommand(); // TODO
+
+        } else if (command.equals("dolla") || command.equals("entries") ||
+        command.equals("limits") || command.equals("debts") ||
+        command.equals("shortcuts")) {
+            //return new SwitchModeCommand(); // TODO
+        }
+
+        switch (mode) {
+        case "dolla":
+            DollaParser dollaParser = new DollaParser(inputLine);
+            //System.out.println("Running DollaParser...");
+            return dollaParser.handleInput(inputLine);
+        default:
+            Ui.printInvalidCommandError();
+            return new ErrorCommand();
+        }
+
         /*
         String[] inputArray = inputLine.split(" ");
         String command = inputArray[0];
@@ -101,7 +128,6 @@ public class Parser {
             return addToList(command, inputLine);
         }
         */
-        return new ErrorCommand();
     }
 
 

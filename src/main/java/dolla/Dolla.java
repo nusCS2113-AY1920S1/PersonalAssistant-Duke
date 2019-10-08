@@ -3,6 +3,7 @@ package dolla;
 import dolla.command.Command;
 import dolla.task.Task;
 import dolla.task.TaskList;
+import parser.MainParser;
 
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -18,6 +19,7 @@ import java.util.Scanner;
 public class Dolla {
 
     private TaskList tasks = new TaskList(new ArrayList<Task>());
+    private String mode = "dolla";
 
     /**
      * Creates an instance of Dolla using a data loaded from /data/dolla.txt
@@ -35,16 +37,16 @@ public class Dolla {
         //reminderObject.execute(tasks);
         boolean isExit = false;
         System.out.println("hi");
-        Scanner input = new Scanner(System.in); // TODO: Add to Ui or Parser instead?
+        Scanner input = new Scanner(System.in); // TODO: Add to Ui or MainParser instead?
         while (isExit == false) {
             if (input.hasNextLine()) {
                 String inputLine = input.nextLine();
                 if (inputLine.equals("bye")) {
                     isExit = true;
-                    Parser.exit();
+                    MainParser.exit();
                 } else {
-                    Command c = Parser.handleInput(inputLine, tasks);
-                    c.execute(tasks);
+                    Command c = MainParser.handleInput(mode, inputLine);
+                    c.execute();
                     //Storage.save(tasks.get());
                 }
             }

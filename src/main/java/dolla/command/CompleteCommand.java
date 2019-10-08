@@ -10,7 +10,7 @@ import java.util.ArrayList;
  * duke.command.CompleteCommand is a type of command used to change the variable 'isDone'
  * in given particular task in the task list to true.
  */
-public class CompleteCommand extends Command {
+public abstract class CompleteCommand extends Command {
     protected String taskNumStr;
 
     /**
@@ -34,7 +34,6 @@ public class CompleteCommand extends Command {
      * @param tasks The task list to be accessed.
      * @throws Exception handle exception
      */
-    @Override
     public void execute(TaskList tasks) throws Exception {
         int taskNumInt = stringToInt(taskNumStr);
         if (taskNumInt == 0) {
