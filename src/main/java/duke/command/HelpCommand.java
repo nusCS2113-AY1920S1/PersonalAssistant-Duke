@@ -2,7 +2,7 @@ package duke.command;
 
 import duke.core.DukeException;
 import duke.core.Storage;
-import duke.core.TaskList;
+import duke.task.TaskList;
 import duke.core.Ui;
 
 public class HelpCommand extends Command {

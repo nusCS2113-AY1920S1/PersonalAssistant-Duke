@@ -1,6 +1,4 @@
-package duke.task1;
-
-import java.util.ArrayList;
+package duke.task;
 
 public class PersonalTask extends Task {
 
