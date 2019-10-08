@@ -57,8 +57,17 @@ public class MainWindow extends AnchorPane {
 
         String welcome = "Hello from\n"
                 + logo + "\n"
-                + "Hello! I'm Duke\n"
-                + "What can I do for you?\n\n";
+                + "Hello! I'm Duke!\n";
+
+        String greeting;
+
+        if (duke.reminder().isEmpty()) {
+            greeting = "What can I do for you?\n\n";
+        } else {
+            greeting = duke.reminder() + "\n\n";
+        }
+
+        welcome += greeting;
 
         dialogContainer.getChildren().addAll(
                 DialogBox.getDukeDialog(welcome, dukeImage)

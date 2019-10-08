@@ -42,7 +42,7 @@ class ExitCommandTest {
 
     @Test
     void testExecute() throws DukeException {
-        testUi.showWelcome();
+//        testUi.showWelcome();
         try {
             testCommand.execute(testTaskList, testUi, testStorage);
         } catch (Exception e) {

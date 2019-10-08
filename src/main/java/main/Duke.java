@@ -53,6 +53,22 @@ public class Duke extends Application {
         }
     }
 
+    public String reminder() {
+        ByteArrayOutputStream output = new ByteArrayOutputStream();
+        PrintStream ps = new PrintStream(output);
+        // IMPORTANT: Save the old System.out!
+        PrintStream old = System.out;
+        // Tell Java to use your special stream
+        System.setOut(ps);
+        myList.printReminders();
+        // Put things back
+        System.out.flush();
+        System.setOut(old);
+        // Show what happened
+        System.out.println(output.toString());
+        return output.toString();
+    }
+
     /**
      * Method to run the JavaFX.Main.Duke program.
      * @return
@@ -85,11 +101,10 @@ public class Duke extends Application {
             System.out.println(output.toString());
             return output.toString();
         }
-
     }
 
     private void run() {
-        ui.showWelcome();
+        ui.showWelcome(this.myList);
         boolean isExit = false;
         while (!isExit) {
             try {

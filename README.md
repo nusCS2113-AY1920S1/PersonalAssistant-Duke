@@ -1,6 +1,6 @@
 # Duke 2.0
 
-A java program for those who prefer to use a desktop app for researching on degrees from NUS' Faculty of Engineering. 
+A java program for prospective applicants who prefer to use a desktop app for researching on degrees from NUS' Faculty of Engineering. 
 
 ## Features
 * Scrapes course information from the NUS database
@@ -11,8 +11,8 @@ A java program for those who prefer to use a desktop app for researching on degr
 
 ## Technologies Used
 Project is created with:
-* Java 11
-* JavaFX 11
+* Java Development Kit 11
+* JavaFX 11 (via Gradle openJFX)
 * Gradle
 * IntelliJ IDEA Community Edition 2019.2.1
 
@@ -30,9 +30,12 @@ For a quick guide to modifying gradle for this project, refer to [this guide](do
 
 Currently, this project only contains a task manager. We are currently in the process of designing a UI that best displays the course information and adding functions to manage the course data.
 
-## UI
+## UI Mock-ups
 
-![UI](docs/images/UI.png)
+![UI](docs/images/Ui.png)
+
+![UI help](docs/images/UIhelp.png)
 
 ## Contributers
 
+[About Us](docs/AboutUs.adoc)
