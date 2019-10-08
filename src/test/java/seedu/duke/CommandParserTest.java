@@ -9,6 +9,7 @@ import seedu.duke.task.command.TaskDoAfterCommand;
 import seedu.duke.task.command.TaskDoneCommand;
 import seedu.duke.task.command.TaskFindCommand;
 import seedu.duke.task.command.TaskReminderCommand;
+import seedu.duke.task.command.TaskSnoozeCommand;
 import seedu.duke.task.entity.TaskList;
 
 import java.lang.reflect.Array;
@@ -167,6 +168,30 @@ public class CommandParserTest {
             assertTrue(method.invoke(null, "doafter 1 23", null, optionListCorrect) instanceof InvalidCommand);
             assertTrue(method.invoke(null, "doafter 1", null, optionListEmpty) instanceof InvalidCommand);
             assertTrue(method.invoke(null, "doafter 1", null, optionListExtra) instanceof TaskDoAfterCommand);
+        } catch (ClassNotFoundException e) {
+            fail("No such class");
+        } catch (NoSuchMethodException e) {
+            fail("No such method");
+        } catch (InvocationTargetException e) {
+            fail(e.getMessage());
+        } catch (IllegalAccessException e) {
+            fail("No Access");
+        }
+    }
+
+    @Test
+    public void parseSnoozeCommandTest() {
+        try {
+            Class<?> parser = Class.forName("seedu.duke.CommandParser");
+            Method method = parser.getDeclaredMethod("parseSnoozeCommand", String.class, TaskList.class,
+                    ArrayList.class);
+            method.setAccessible(true);
+            assertTrue(method.invoke(null, "snooze 1", null, null) instanceof TaskSnoozeCommand);
+            assertTrue(method.invoke(null, "snooze 1", null, null) instanceof TaskSnoozeCommand);
+            assertTrue(method.invoke(null, "snooze 1  ", null, null) instanceof TaskSnoozeCommand);
+            assertTrue(method.invoke(null, "snooze ", null, null) instanceof InvalidCommand);
+            assertTrue(method.invoke(null, "snooze 1  a", null, null) instanceof InvalidCommand);
+            assertTrue(method.invoke(null, "snooze 1a", null, null) instanceof InvalidCommand);
         } catch (ClassNotFoundException e) {
             fail("No such class");
         } catch (NoSuchMethodException e) {

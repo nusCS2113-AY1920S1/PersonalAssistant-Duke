@@ -152,7 +152,7 @@ public class CommandParser {
         } else if (input.startsWith("doafter")) {
             return parseDoAfterCommand(input, taskList, optionList);
         } else if (input.startsWith("snooze")) {
-            return parseSnoozeCommand(input, taskList);
+            return parseSnoozeCommand(input, taskList, optionList);
         } else if (input.startsWith("todo") | input.startsWith("deadline") | input.startsWith("event")) {
             return parseAddTaskCommand(taskList, input);
         }
@@ -210,22 +210,6 @@ public class CommandParser {
         } catch (Exception e) {
             throw new UserInputException(e.toString());
         }
-    }
-
-
-    private static Command parseSnoozeCommand(String input, TaskList taskList) {
-        if (input.length() <= 7) {
-            ui.showError("Please enter a valid index of task after \'snooze\'");
-            return new InvalidCommand();
-        } else {
-            try {
-                int index = parseIndex(input);
-                return new TaskSnoozeCommand(taskList, index);
-            } catch (NumberFormatException e) {
-                ui.showError("Please enter correct task index");
-            }
-        }
-        return new InvalidCommand();
     }
 
     private static Command parseDoneCommand(String input, ArrayList<Option> optionList) {
@@ -339,7 +323,7 @@ public class CommandParser {
                 break;
             }
         }
-        if (description == "") {
+        if (description.equals("")) {
             if (ui != null) {
                 ui.showError("Please enter a description of doAfter command after \'-msg \' option");
             }
@@ -351,6 +335,26 @@ public class CommandParser {
         } catch (NumberFormatException e) {
             if (ui != null) {
                 ui.showError("Please enter a valid index of task after \'doAfter\'");
+            }
+            return new InvalidCommand();
+        }
+    }
+
+    private static Command parseSnoozeCommand(String input, TaskList taskList, ArrayList<Option> optionList) {
+        Pattern snoozeCommandPattern = Pattern.compile("^snooze\\s+(?<index>[\\d]+)\\s*");
+        Matcher snoozeCommandMatcher = snoozeCommandPattern.matcher(input);
+        if (!snoozeCommandMatcher.matches()) {
+            if (ui != null) {
+                ui.showError("Please enter snooze command with an index");
+            }
+            return new InvalidCommand();
+        }
+        try {
+            int index = parseIndex(snoozeCommandMatcher.group("index"));
+            return new TaskSnoozeCommand(taskList, index);
+        } catch (NumberFormatException e) {
+            if (ui != null) {
+                ui.showError("Please enter a valid task index");
             }
             return new InvalidCommand();
         }
