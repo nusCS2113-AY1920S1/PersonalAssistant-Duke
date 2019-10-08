@@ -65,11 +65,20 @@ public class JsonWrapper {
         }
     }
 
-    private void readJson(Path filePath) {
+
+    //TODO: This function would return a string list of
+    //      all modules in NUS in this academic year.
+
+    /**
+     * Reads the Json file for to be parsed into a java object. Since the data is
+     * presented in a JSON array, our class object class would need to be wrapped
+     * in an array as well.
+     */
+    private void readJson() {
         try {
             JsonReader reader = new JsonReader(new FileReader(listFile));
             JsonObject jsonObject = gson.fromJson(reader, JsonObject.class);
-            System.out.println(jsonObject);
+
         } catch (IllegalStateException e) {
             e.printStackTrace();
         } catch (IOException ei) {

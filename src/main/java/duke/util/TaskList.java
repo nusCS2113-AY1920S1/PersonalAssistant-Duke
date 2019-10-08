@@ -1,7 +1,7 @@
 package duke.util;
 
 import duke.exceptions.ModInvalidTimeException;
-import duke.tasks.Task;
+import duke.modules.Task;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -4,6 +4,13 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import duke.exceptions.ModInvalidTimeException;
+import duke.modules.Deadline;
+import duke.modules.DoWithin;
+import duke.modules.Events;
+import duke.modules.FixedDurationTasks;
+import duke.modules.RecurringTask;
+import duke.modules.Task;
+import duke.modules.Todo;
 
 public class TasksTest {
 

@@ -3,10 +3,10 @@ package duke.command;
 import duke.exceptions.ModInvalidTimeException;
 import duke.exceptions.ModInvalidTimePeriodException;
 import duke.exceptions.ModNoTimeException;
-import duke.tasks.Deadline;
-import duke.tasks.DoWithin;
-import duke.tasks.Events;
-import duke.tasks.Task;
+import duke.modules.Deadline;
+import duke.modules.DoWithin;
+import duke.modules.Events;
+import duke.modules.Task;
 import duke.exceptions.ModInvalidIndexException;
 
 import duke.util.DateTimeParser;

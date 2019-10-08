@@ -11,13 +11,13 @@ import duke.command.ScheduleCommand;
 import duke.exceptions.ModCommandException;
 import duke.exceptions.ModException;
 import duke.exceptions.ModInvalidTimeException;
-import duke.tasks.Deadline;
-import duke.tasks.DoWithin;
-import duke.tasks.Events;
-import duke.tasks.FixedDurationTasks;
-import duke.tasks.RecurringTask;
-import duke.tasks.Task;
-import duke.tasks.Todo;
+import duke.modules.Deadline;
+import duke.modules.DoWithin;
+import duke.modules.Events;
+import duke.modules.FixedDurationTasks;
+import duke.modules.RecurringTask;
+import duke.modules.Task;
+import duke.modules.Todo;
 
 
 public class ParserWrapper {

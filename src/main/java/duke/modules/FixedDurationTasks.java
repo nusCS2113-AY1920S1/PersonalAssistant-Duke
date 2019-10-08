@@ -1,21 +1,20 @@
-package duke.tasks;
+package duke.modules;
 
 import duke.exceptions.ModInvalidTimeException;
 import duke.util.DateTimeParser;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 
-public class Events extends Task {
+public class FixedDurationTasks extends Task {
     private LocalDateTime dateTime;
 
     /**
-     * Constructor for Events class, using String Varargs.
-     * @param input Parsed user input containing task name and time.
+     * Constructor for FixedDurationTasks class, using String Varargs.
+     * @param input Parsed user input containing task name and duration.
      */
-    public Events(String... input) throws ModInvalidTimeException {
+
+    public FixedDurationTasks(String... input) throws ModInvalidTimeException {
         super(input[0]);
         dateTime = DateTimeParser.getStringToDate(input[input.length - 1]);
     }
@@ -30,28 +29,20 @@ public class Events extends Task {
 
     @Override
     public String writingFile() {
-        return "E"
+        return "F"
                 + "|"
                 + super.writingFile()
                 + "|"
-                + dateTime.format(DateTimeFormatter.ofPattern("dd-MM-yyyy [HH:mm]"));
+                + dateTime.format(DateTimeFormatter.ofPattern("hh:mm"));
     }
 
     @Override
     public String toString() {
-        return "[E]"
+        return "[F]"
                 + super.toString()
-                + " (at: "
-                + dateTime.format(DateTimeFormatter.ofPattern("dd-MM-yyyy [HH:mm]"))
+                + " (needs: "
+                + dateTime.format(DateTimeFormatter.ofPattern("hh:mm"))
                 + ")";
     }
-
-    public LocalDate getDate() {
-        return dateTime.toLocalDate();
-    }
-
-    public LocalTime getTime() {
-        return dateTime.toLocalTime();
-    }
-
 }
+

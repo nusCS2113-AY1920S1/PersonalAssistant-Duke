@@ -1,13 +1,13 @@
 package duke.command;
 
 import duke.exceptions.ModScheduleException;
-import duke.tasks.Deadline;
-import duke.tasks.DoWithin;
-import duke.tasks.Events;
-import duke.tasks.FixedDurationTasks;
-import duke.tasks.RecurringTask;
-import duke.tasks.Task;
-import duke.tasks.Todo;
+import duke.modules.Deadline;
+import duke.modules.DoWithin;
+import duke.modules.Events;
+import duke.modules.FixedDurationTasks;
+import duke.modules.RecurringTask;
+import duke.modules.Task;
+import duke.modules.Todo;
 import duke.util.TaskList;
 import duke.util.TimePeriod;
 import duke.util.Ui;

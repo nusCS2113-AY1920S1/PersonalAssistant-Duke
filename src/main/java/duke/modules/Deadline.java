@@ -1,4 +1,4 @@
-package duke.tasks;
+package duke.modules;
 
 import duke.exceptions.ModInvalidTimeException;
 import duke.util.DateTimeParser;

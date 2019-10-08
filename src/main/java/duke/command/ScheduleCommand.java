@@ -3,9 +3,9 @@ package duke.command;
 import duke.exceptions.ModEmptyCommandException;
 import duke.exceptions.ModEmptyListException;
 import duke.exceptions.ModInvalidTimeException;
-import duke.tasks.Deadline;
-import duke.tasks.Events;
-import duke.tasks.Task;
+import duke.modules.Deadline;
+import duke.modules.Events;
+import duke.modules.Task;
 
 import duke.util.DateTimeParser;
 import duke.util.Reminder;
