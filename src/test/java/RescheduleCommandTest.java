@@ -7,7 +7,6 @@ import commands.SnoozeCommand;
 import org.junit.jupiter.api.Test;
 import java.io.IOException;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import Exception.DukeException;
 
@@ -22,7 +21,11 @@ public class RescheduleCommandTest {
         Ui ui = new Ui();
         Storage storage = new Storage();
         ui.FullCommand = "deadline return book /by 2008-07-07 03:03:03";
-        deadlineCommand.execute(tasks,ui,storage);
+        try {
+            deadlineCommand.execute(tasks,ui,storage, CommandStack, deletedTask);
+        } catch (Exception.DukeException dukeException) {
+            dukeException.printStackTrace();
+        }
         ui.FullCommand = "reschedule 1";
         int index =0;
         String Decription = tasks.get(index).description;

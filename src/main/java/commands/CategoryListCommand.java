@@ -6,14 +6,11 @@ import Storage.Storage;
 import Exception.DukeException;
 import java.io.IOException;
 import java.text.ParseException;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.Scanner;
+import java.util.*;
 
 public class CategoryListCommand extends Command {
     @Override
-    public void execute(ArrayList<Task> list, Ui ui, Storage storage) throws DukeException, ParseException, IOException, NullPointerException {
+    public void execute(ArrayList<Task> list, Ui ui, Storage storage, Stack<String> commandStack, ArrayList<Task> deletedTask) throws DukeException, ParseException, IOException, NullPointerException {
         ArrayList<Deadline> DeadlineList = new ArrayList<Deadline>();
         ArrayList<Event> EventList = new ArrayList<Event>();
         ArrayList<Todo> TodoList = new ArrayList<>();

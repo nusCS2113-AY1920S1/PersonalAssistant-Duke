@@ -42,7 +42,13 @@ class EventCommandTest {
         ArrayList<Task> tasks = new ArrayList<Task>();
         Event e = new Event("eat", "2019-12-12 03:03:03-04:04:04");
         tasks.add(e);
-        ec.execute(tasks, ui, storage);
+        try {
+            ec.execute(tasks, ui, storage, CommandStack, deletedTask);
+        } catch (java.text.ParseException e1) {
+            e1.printStackTrace();
+        } catch (Exception.DukeException dukeException) {
+            dukeException.printStackTrace();
+        }
         assertEquals("The following event(s) clash with your current event:\r\n" +
                 "1.[E][\u2718]eat(at:12 Dec 2019 03:03:03-04:04:04)\r\n\r\n" +
                 "Got it. I've added this task:\r\n" +
@@ -60,7 +66,13 @@ class EventCommandTest {
         ArrayList<Task> tasks = new ArrayList<Task>();
         Event e = new Event("eat", "2019-12-12 03:03:03-04:04:04");
         tasks.add(e);
-        ec.execute(tasks, ui, storage);
+        try {
+            ec.execute(tasks, ui, storage, CommandStack, deletedTask);
+        } catch (java.text.ParseException e1) {
+            e1.printStackTrace();
+        } catch (Exception.DukeException dukeException) {
+            dukeException.printStackTrace();
+        }
         assertEquals("The following event(s) clash with your current event:\r\n" +
                 "1.[E][\u2718]eat(at:12 Dec 2019 03:03:03-04:04:04)\r\n\r\n" +
                 "Got it. I've added this task:\r\n" +
@@ -78,7 +90,13 @@ class EventCommandTest {
         ArrayList<Task> tasks = new ArrayList<Task>();
         Event e = new Event("eat", "2019-12-12 03:03:03-04:04:04");
         tasks.add(e);
-        ec.execute(tasks, ui, storage);
+        try {
+            ec.execute(tasks, ui, storage, CommandStack, deletedTask);
+        } catch (java.text.ParseException e1) {
+            e1.printStackTrace();
+        } catch (Exception.DukeException dukeException) {
+            dukeException.printStackTrace();
+        }
         assertEquals("The following event(s) clash with your current event:\r\n" +
                 "1.[E][\u2718]eat(at:12 Dec 2019 03:03:03-04:04:04)\r\n\r\n" +
                 "Got it. I've added this task:\r\n" +
@@ -95,7 +113,13 @@ class EventCommandTest {
         ArrayList<Task> tasks = new ArrayList<Task>();
         Event e = new Event("eat", "2019-12-12 03:03:03-04:04:04");
         tasks.add(e);
-        ec.execute(tasks, ui, storage);
+        try {
+            ec.execute(tasks, ui, storage, CommandStack, deletedTask);
+        } catch (java.text.ParseException e1) {
+            e1.printStackTrace();
+        } catch (Exception.DukeException dukeException) {
+            dukeException.printStackTrace();
+        }
         assertEquals("Got it. I've added this task:\r\n" +
                 "[E][\u2718]sleep(at:12 Dec 2019 12:03:03-14:10:04)\r\n" +
                 "Now you have 2 tasks in the list.\r\n", output.toString());

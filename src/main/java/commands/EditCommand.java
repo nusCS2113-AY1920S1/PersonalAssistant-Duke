@@ -6,22 +6,25 @@ import Tasks.Event;
 import Tasks.Task;
 import Tasks.Todo;
 import UI.Ui;
-
+import Exception.DukeException;
 import java.io.IOException;
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Stack;
 
 public class EditCommand extends Command {
     /**
      * @param list    task lists
      * @param ui      the object that deals with printing things to the user.
      * @param storage the object that deals with storing data to the Save.txt file.
+     * @param commandStack
+     * @param deletedTask
      * @throws IOException
      * @throws NullPointerException if tDate doesn't get updated.
      */
 
     @Override
-    public void execute(ArrayList<Task> list, Ui ui, Storage storage) throws IOException, NullPointerException {
+    public void execute(ArrayList<Task> list, Ui ui, Storage storage, Stack<String> commandStack, ArrayList<Task> deletedTask) throws DukeException, ParseException, IOException, NullPointerException {
         String[] break_command_words = ui.FullCommand.split(" ");
         String[] break_list_words;
         String newChangeString = "";

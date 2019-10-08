@@ -56,14 +56,15 @@ public class Parser {
             return new TentativeEventCommand();
         } else if (command.contains("confirm")) {
             return new ConfirmTentativeCommand();
-        } else if (command.contains("undo")) {
-            return new UndoCommand();
+        } else if (command.contains("undone")) {
+            return new UndoneCommand();
         } else if(command.contains("edit")) {
             return new EditCommand();
         } else if(command.contains("change password")) {
             return new ChangePasswordCommand();
-        }
-        else {
+        } else if(command.equals("undo")) {
+            return new UndoCommand();
+        } else {
             throw new DukeException("OOPS!!! I'm sorry, but I don't know what that means :-(");
         }
     }

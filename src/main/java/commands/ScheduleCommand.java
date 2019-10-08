@@ -4,11 +4,14 @@ import Tasks.Deadline;
 import Tasks.Event;
 import Tasks.Task;
 import UI.Ui;
-
+import Exception.DukeException;
+import java.io.IOException;
+import java.text.ParseException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
+import java.util.Stack;
 
 /**
  * Lists out all the tasks the user has on the specified day.
@@ -22,10 +25,12 @@ public class ScheduleCommand extends Command {
      * @param list the tasks list.
      * @param ui the object that deals with printing things to the user.
      * @param storage the object that deals with storing data to the Save.txt file.
+     * @param commandStack
+     * @param deletedTask
      * @throws NullPointerException if tDate doesn't get updated.
      */
     @Override
-    public void execute(ArrayList<Task> list, Ui ui, Storage storage) throws NullPointerException {
+    public void execute(ArrayList<Task> list, Ui ui, Storage storage, Stack<String> commandStack, ArrayList<Task> deletedTask) throws DukeException, ParseException, IOException, NullPointerException {
         DateTimeFormatter fmt = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         try {
             date = LocalDate.parse(ui.FullCommand.trim().split(" ")[1], fmt);
