@@ -423,7 +423,7 @@ public class UiPart {
      * @param dateToStore date to view of daily calender
      */
     public void dateViewRefresh(String dateToStore) {
-        DailyCal dc = new DailyCal();
+        DailyCal dc = new DailyCal(compal);
         compal.ui.tabWindow.getTabs().remove(1);
         Tab dailyTab = new Tab();
         dailyTab.setText(dateToStore);

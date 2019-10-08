@@ -51,7 +51,7 @@ public class UiManager implements Ui {
             tabReference.getTabs().add(0, mainTab);
 
             //Create DailyCal Pane
-            DailyCal dc = new DailyCal();
+            DailyCal dc = new DailyCal(compal);
             String datePattern = "dd/MM/yyyy";
             compal.ui.dateState = new SimpleDateFormat(datePattern).format(new Date());
             ScrollPane dailyPane = dc.init(compal.ui.dateState);
