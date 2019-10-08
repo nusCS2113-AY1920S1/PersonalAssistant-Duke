@@ -1,5 +1,8 @@
 package duke.modules;
 
+import duke.exceptions.DukeInvalidTimePeriodException;
+import duke.util.TimeInterval;
+import duke.util.TimePeriod;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -14,17 +17,16 @@ public class Task {
      */
     private String task;
     private Boolean done;
-    protected LocalDateTime dateTime;
-
+    TimePeriod period;
 
     /**
      * Constructor to Task class.
      * @param task User's input of the desired task.
      */
-    public Task(String task) {
+    public Task(String task) throws DukeInvalidTimePeriodException {
         this.task = task.trim();
-        done = false;
-        this.dateTime = null;
+        this.done = false;
+        this.period = new TimePeriod();
     }
 
     public void setTaskDone() {
@@ -39,16 +41,44 @@ public class Task {
         return done;
     }
 
-    public LocalDateTime getDateTime() {
-        return dateTime;
+    public TimePeriod getPeriod() {
+        return this.period;
     }
 
-    public LocalDate getDate() {
-        return dateTime.toLocalDate();
+    public void setPeriod(LocalDateTime begin, LocalDateTime end) throws DukeInvalidTimePeriodException {
+        this.period.setPeriod(begin, end);
     }
 
-    public LocalTime getTime() {
-        return dateTime.toLocalTime();
+    public void setPeriod(LocalDateTime begin, TimeInterval duration) throws DukeInvalidTimePeriodException {
+        this.period.setPeriod(begin, duration);
+    }
+
+    public LocalDateTime getTime() {
+        return (this.getBegin() != null) ? this.getBegin() : this.getEnd();
+    }
+
+    public LocalDateTime getBegin() {
+        return this.period.getBegin();
+    }
+
+    public LocalDateTime getEnd() {
+        return this.period.getEnd();
+    }
+
+    public LocalDate getBeginDate() {
+        return this.getBegin().toLocalDate();
+    }
+
+    public LocalTime getBeginTime() {
+        return this.getBegin().toLocalTime();
+    }
+
+    public LocalDate getEndDate() {
+        return this.getEnd().toLocalDate();
+    }
+
+    public LocalTime getEndTime() {
+        return this.getEnd().toLocalTime();
     }
 
     /**
@@ -86,5 +116,21 @@ public class Task {
 
     public boolean isDone() {
         return this.done;
+    }
+
+    public boolean isClashing(LocalDateTime localDateTime) {
+        return this.period.isClashing(localDateTime);
+    }
+
+    public boolean isClashing(LocalDateTime begin, LocalDateTime end) {
+        return this.period.isClashing(begin, end);
+    }
+
+    public boolean isClashing(TimePeriod timePeriod) {
+        return this.period.isClashing(timePeriod);
+    }
+
+    public boolean isClashing(DoWithin other) {
+        return this.period.isClashing(other.getPeriod());
     }
 }

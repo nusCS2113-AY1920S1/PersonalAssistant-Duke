@@ -51,12 +51,12 @@ public class ScheduleCommand extends Command {
         for (int i = 0; i < tasks.getSize(); i++) {
             if (tasks.access(i) instanceof Deadline) {
                 Deadline d = (Deadline) tasks.access(i);
-                if (currentDate.equals(d.getDate())) {
+                if (currentDate.equals(d.getEnd().toLocalDate())) {
                     printArray.add(d);
                 }
             } else if (tasks.access(i) instanceof Events) {
                 Events e = (Events) tasks.access(i);
-                if (currentDate.equals(e.getDate())) {
+                if (currentDate.equals(e.getBegin().toLocalDate())) {
                     printArray.add(e);
                 }
             }
@@ -78,8 +78,8 @@ public class ScheduleCommand extends Command {
      * @return true when Task t1 has an earlier time than Task t2
      */
     public int compare(Task t1, Task t2) {
-        LocalTime time1 = t1.getTime();
-        LocalTime time2 = t2.getTime();
+        LocalTime time1 = t1.getTime().toLocalTime();
+        LocalTime time2 = t2.getTime().toLocalTime();
         //ascending order
         return time1.compareTo(time2);
     }

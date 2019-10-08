@@ -60,7 +60,7 @@ public class Storage {
      * and returns the previously stored data as a TaskList.
      * @return TaskList of what was saved in the data file.
      */
-    public List<Task> readData() throws ModInvalidTimeException {
+    public List<Task> readData() throws ModInvalidTimeException, ModInvalidTimePeriodException {
         List<Task> list = new ArrayList<>();
         List<String> lines = Collections.emptyList();
 
@@ -106,16 +106,12 @@ public class Storage {
                     break;
                 }
                 case "W": {
-                    try {
-                        DoWithin tempTodo = new DoWithin(hold[1], hold[3], hold[4]);
-                        if (hold[2].equals("1")) {
-                            tempTodo.setTaskDone();
-                        }
-                        list.add(tempTodo);
-                        break;
-                    } catch (ModInvalidTimePeriodException ex) {
-                        break;
+                    DoWithin tempTodo = new DoWithin(hold[1], hold[3], hold[4]);
+                    if (hold[2].equals("1")) {
+                        tempTodo.setTaskDone();
                     }
+                    list.add(tempTodo);
+                    break;
                 }
                 case "F": {
                     try {

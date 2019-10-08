@@ -1,28 +1,26 @@
 package duke.tasks;
 
+import duke.exceptions.ModCommandException;
+import duke.exceptions.ModInvalidIndexException;
+import duke.exceptions.ModMissingArgumentException;
+import jdk.jfr.StackTrace;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import duke.exceptions.ModInvalidTimeException;
-import duke.modules.Deadline;
-import duke.modules.DoWithin;
-import duke.modules.Events;
-import duke.modules.FixedDurationTasks;
-import duke.modules.RecurringTask;
-import duke.modules.Task;
-import duke.modules.Todo;
+import duke.exceptions.ModInvalidTimePeriodException;
+
 
 public class TasksTest {
 
     @Test
-    public void testTaskPrint()  {
+    public void testTaskPrint() throws ModInvalidTimePeriodException {
         String taskLabel = "Items to be tested";
         Task test = new Task(taskLabel);
         assertEquals(taskLabel, test.getTask());
     }
 
     @Test
-    public void testTodoDisplay() {
+    public void testTodoDisplay() throws ModInvalidTimePeriodException {
         String taskLabel = "TodoTest";
         String expectedPrintTodo = "[T][✗] TodoTest";
         Task test = new Todo(taskLabel);
@@ -30,7 +28,7 @@ public class TasksTest {
     }
 
     @Test
-    public void testTodoFile() {
+    public void testTodoFile() throws ModInvalidTimePeriodException {
         String taskLabel = "TodoTest";
         String expectedWriteTodo = "T|TodoTest|0";
         Task test = new Todo(taskLabel);
@@ -45,7 +43,7 @@ public class TasksTest {
         try {
             Task test = new Events(taskLabel, dateLabel);
             assertEquals(expectedPrintTodo, test.toString());
-        } catch (ModInvalidTimeException e) {
+        } catch (Exception e) {
             System.out.println(e.getMessage());
         }
     }
@@ -58,7 +56,7 @@ public class TasksTest {
         try {
             Task test = new Events(taskLabel, dateLabel);
             assertEquals(expectedWriteTodo, test.writingFile());
-        } catch (ModInvalidTimeException e) {
+        } catch (Exception e) {
             System.out.println(e.getMessage());
         }
     }
@@ -71,7 +69,7 @@ public class TasksTest {
         try {
             Task test = new Deadline(taskLabel, dateLabel);
             assertEquals(expectedPrintTodo, test.toString());
-        } catch (ModInvalidTimeException e) {
+        } catch (Exception e) {
             System.out.println(e.getMessage());
         }
     }
@@ -84,7 +82,7 @@ public class TasksTest {
         try {
             Task test = new Deadline(taskLabel, dateLabel);
             assertEquals(expectedWriteTodo, test.writingFile());
-        } catch (ModInvalidTimeException e) {
+        } catch (Exception e) {
             System.out.println(e.getMessage());
         }
     }

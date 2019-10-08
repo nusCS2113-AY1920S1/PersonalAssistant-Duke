@@ -3,14 +3,12 @@ package duke.modules;
 import duke.exceptions.ModInvalidTimeException;
 import duke.exceptions.ModInvalidTimePeriodException;
 import duke.util.DateTimeParser;
-import duke.util.TimePeriod;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Date;
 
 public class DoWithin extends Task {
-
-    private TimePeriod period;
 
     /**
      * Constructor for do With In tasks.
@@ -26,15 +24,7 @@ public class DoWithin extends Task {
         super(description);
         LocalDateTime begin = DateTimeParser.getStringToDate(beginString);
         LocalDateTime end = DateTimeParser.getStringToDate(endString);
-        period = new TimePeriod(begin, end);
-    }
-
-    public TimePeriod getPeriod() {
-        return period;
-    }
-
-    public void setDateTime(LocalDateTime begin, LocalDateTime end) throws ModInvalidTimePeriodException {
-        this.period = new TimePeriod(begin, end);
+        this.period.setPeriod(begin, end);
     }
 
     @Override
@@ -43,9 +33,9 @@ public class DoWithin extends Task {
                 + "|"
                 + super.writingFile()
                 + "|"
-                + period.getBegin().format(DateTimeFormatter.ofPattern("dd-MM-yyyy [HH:mm]"))
+                + this.getBegin().format(DateTimeFormatter.ofPattern("dd-MM-yyyy [HH:mm]"))
                 + "|"
-                + period.getEnd().format(DateTimeFormatter.ofPattern("dd-MM-yyyy [HH:mm]"));
+                + this.getEnd().format(DateTimeFormatter.ofPattern("dd-MM-yyyy [HH:mm]"));
     }
 
     @Override
@@ -53,21 +43,9 @@ public class DoWithin extends Task {
         return "[W]"
                 + super.toString()
                 + " (begin: "
-                + period.getBegin().format(DateTimeFormatter.ofPattern("dd-MM-yyyy [HH:mm]"))
+                + this.getBegin().format(DateTimeFormatter.ofPattern("dd-MM-yyyy [HH:mm]"))
                 + ", end: "
-                + period.getEnd().format(DateTimeFormatter.ofPattern("dd-MM-yyyy [HH:mm]"))
+                + this.getEnd().format(DateTimeFormatter.ofPattern("dd-MM-yyyy [HH:mm]"))
                 + ")";
-    }
-
-    public boolean isClashing(LocalDateTime localDateTime) {
-        return this.period.isClashing(localDateTime);
-    }
-
-    public boolean isClashing(TimePeriod timePeriod) {
-        return this.period.isClashing(timePeriod);
-    }
-
-    public boolean isClashing(DoWithin other) {
-        return this.period.isClashing(other.getPeriod());
     }
 }
