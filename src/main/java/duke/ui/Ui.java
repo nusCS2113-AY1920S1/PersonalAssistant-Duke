@@ -15,7 +15,7 @@ import java.util.Scanner;
 public class Ui {
 
     protected static final String BACKUP_FILENAME = "duke.txt";
-    protected static final String line = "    ____________________________________________________________";
+    protected static final String LINE = "    ____________________________________________________________";
     protected final Scanner in;
     protected final PrintStream out;
 
@@ -41,7 +41,7 @@ public class Ui {
      * Outputs an horizontal line to the user.
      */
     public void showLine() {
-        out.println(line);
+        out.println(LINE);
     }
 
     /**
@@ -50,7 +50,7 @@ public class Ui {
      * @return String of the horizontal line.
      */
     public static String showLineGui() {
-        return line + "\n";
+        return LINE + "\n";
     }
 
     /**
@@ -76,7 +76,7 @@ public class Ui {
             System.out.println("     " + currentIndex + "." + remaining.toString());
             currentIndex += 1;
         }
-        System.out.println(line);
+        System.out.println(LINE);
     }
 
     /**
@@ -227,7 +227,7 @@ public class Ui {
      * @return String of the welcome message.
      */
     public static String showWelcomeGui() {
-        String str = line + "\n     Hello! I'm Duke\n     What can I do for you?\n" + line;
+        String str = LINE + "\n     Hello! I'm Duke\n     What can I do for you?\n" + LINE;
         return str;
     }
 
