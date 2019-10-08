@@ -5,6 +5,7 @@ import java.time.LocalDateTime;
 import java.util.Calendar;
 import java.util.Date;
 
+import java.util.concurrent.TimeUnit;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -18,11 +19,14 @@ public class NattyTesting {
     @Test
     public void nattyDateTest() {
         try {
-            Date first = natty.runParser("now");
-            Date second = Calendar.getInstance().getTime();
+            Date first = natty.runParser("today");
+            TimeUnit.MILLISECONDS.sleep(1);
+            Date second = new Date(System.currentTimeMillis());
             assertTrue(second.after(first));
         } catch (ModInvalidTimeException e) {
             System.out.println(e.getMessage());
+        } catch (InterruptedException ex) {
+            Thread.currentThread().interrupt();
         }
     }
 
@@ -30,10 +34,13 @@ public class NattyTesting {
     public void nattyLocalDateTimeTest() {
         try {
             LocalDateTime before = natty.dateToLocalDateTime("today");
+            TimeUnit.MILLISECONDS.sleep(1);
             LocalDateTime after = LocalDateTime.now();
             assertTrue(before.isBefore(after));
         } catch (ModInvalidTimeException e) {
             System.out.println(e.getMessage());
+        }  catch (InterruptedException ex) {
+            Thread.currentThread().interrupt();
         }
     }
 

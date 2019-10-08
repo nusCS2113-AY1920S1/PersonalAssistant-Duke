@@ -85,8 +85,7 @@ public class DukeParserTest {
             () -> DukeParser.parse(""),
             "Expected to return Command Object but it didn't"
             );
-        assertEquals("DukeException: Must be a valid command!", thrown.getMessage());
+        assertEquals("Error: Must be a valid command!", thrown.getMessage());
     }
-
 
 }
