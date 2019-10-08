@@ -1,11 +1,10 @@
 package seedu.duke.gui;
 
 import javafx.application.Platform;
+import javafx.collections.ObservableList;
+import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.control.TextField;
-import javafx.scene.control.TextFormatter;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
@@ -14,6 +13,9 @@ import seedu.duke.CommandParser;
 import seedu.duke.task.entity.TaskList;
 import seedu.duke.task.TaskStorage;
 import seedu.duke.email.EmailStorage;
+import seedu.duke.task.entity.Deadline;
+import seedu.duke.task.entity.Event;
+import seedu.duke.task.entity.Task;
 
 import java.util.function.UnaryOperator;
 
@@ -32,6 +34,10 @@ public class MainWindow extends AnchorPane {
     private TextField userInput;
     @FXML
     private Button sendButton;
+    @FXML
+    private ListView<String> tasksListView;
+    @FXML
+    private ListView<String> emailsListView;
 
     private Duke duke;
 
@@ -84,6 +90,8 @@ public class MainWindow extends AnchorPane {
                 DialogBox.getDukeDialog(response, dukeImage)
         );
         setInputPrefix();
+        updateTasksList();
+        updateEmailsList();
         if (response.contains("Bye, hope to see you again.")) {
             TaskStorage.saveTasks(duke.getTaskList());
             EmailStorage.saveEmails(duke.getEmailList());
@@ -117,5 +125,37 @@ public class MainWindow extends AnchorPane {
         };
         userInput.setTextFormatter(new TextFormatter<String>(filter));
         userInput.positionCaret(prefix.length());
+    }
+
+    private void updateTasksList() {
+        ObservableList<String> observableList = FXCollections.observableArrayList();
+        for (int i = 0; i < Duke.getTaskList().size(); i++) {
+            Task task = Duke.getTaskList().get(i);
+            String output = (i+1) + ". " + task.getName() + "\n" +
+                    (task.getDone() ? "\u2713" : "\u2718") + "  " + task.getTaskType();
+            switch (Duke.getTaskList().get(i).getTaskType()) {
+                case Deadline:
+                    Deadline deadline = (Deadline) Duke.getTaskList().get(i);
+                    output += "\nBy: " + deadline.getTime();
+                    break;
+                case Event:
+                    Event event = (Event) Duke.getTaskList().get(i);
+                    output += "\nAt: " + event.getTime();
+                    break;
+            }
+            if (!(task.getDoAfterDescription() == null)) {
+                output += "\nAfter which: " + task.getDoAfterDescription();
+            }
+            observableList.add(output);
+        }
+        tasksListView.setItems(observableList);
+    }
+
+    private void updateEmailsList() {
+        ObservableList<String> observableList = FXCollections.observableArrayList();
+        for (int i = 0; i < Duke.getEmailList().size(); i++) {
+            observableList.add(Duke.getEmailList().get(i).toFileString());
+        }
+        emailsListView.setItems(observableList);
     }
 }

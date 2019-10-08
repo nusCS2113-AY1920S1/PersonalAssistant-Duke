@@ -172,4 +172,8 @@ public class Task {
     public void setTags(ArrayList<String> tags) {
         this.tags = tags;
     }
+
+    public String getDoAfterDescription() {
+        return doAfterDescription;
+    }
 }

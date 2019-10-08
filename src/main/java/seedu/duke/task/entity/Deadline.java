@@ -73,7 +73,7 @@ public class Deadline extends Task {
     @Override
     public String toFileString() {
         String output = "";
-        output = (this.isDone ? "1" : "0") + " deadline " + this.name + " /at "
+        output = (this.isDone ? "1" : "0") + " deadline " + this.name + " /by "
                 + formatDate();
         if (this.doAfterDescription != null) {
             output += " /doafter " + doAfterDescription;
