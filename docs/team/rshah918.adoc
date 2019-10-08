@@ -1,0 +1,72 @@
+= Rahul Shah - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: Leduc-v1.1
+
+---
+
+== Overview
+
+Leduc is a task management application geared to help high school students manage their academic and extracurricular workloads. The user enters commands via the command line, and is able to perform a vast array of operations.
+
+== Summary of contributions
+
+* *Major enhancement*: added *the ability to generate reminders for upcoming tasks*
+** What it does: Sorts the users tasks in chronological order, then displays the earlies 3 tasks to the user.
+** Justification: This feature improves the product significantly because a user can prioritize his/her time and complete tasks with nearer deadlines
+** Highlights: This enhancement does not affect existing commands and commands to be added in future. It is reliant on the type of representaion used for date/timestamps, so backend changes will affect this command.
+
+* *Major enhancement*: added *the ability to customize the welcome message*
+** What it does: User is able to customize the welcome message, which will then be displayed on startup. The welcome message is now sourced from a text file located in the data folder.
+** Justification: This feature improves the product significantly because a user can personalize his/her task management system to their preference.
+** Highlights: This enhancement does not affect existing commands and commands to be added in future. It is reliant on pulling info from the source data folder, changing the folder location will affect this command.
+
+* *Minor enhancement*: Adjusted backend to the welcome message display method, message is no longer hard-coded.
+
+* *Code contributed*: [https://github.com/AY1920S1-CS2113-T16-1/main/blob/master/src/main/java/leduc/command/SetWelcomeCommand.java] [https://github.com/AY1920S1-CS2113-T16-1/main/blob/master/text-ui-test/runtest.sh]
+
+* *Other contributions*:
+
+** Project management:
+*** Helped manage release `v1.1` on GitHub
+** Enhancements to existing features:
+*** Created helper methods to extract unprocessed datetime objects from tasks
+*** Wrote tests for new features added to the application: https://github.com/AY1920S1-CS2113-T16-1/main/blob/master/text-ui-test/runtest.sh
+*** Refactored part of the UI method, certain UI elements are no longer hard coded.
+** Documentation:
+*** Did cosmetic tweaks to existing contents of the User Guide: https://github.com/AY1920S1-CS2113-T16-1/main/blob/master/docs/%5BAY1920S1-CS2113-T16-1%5D-%5BLe%20Duc%5D-UG.adoc
+** Community:
+*** PRs reviewed (with non-trivial review comments): https://github.com/AY1920S1-CS2113-T16-1/main/pull/25, https://github.com/AY1920S1-CS2113-T16-1/main/pull/24
+
+
+_{you can add/remove categories in the list above}_
+
+== Contributions to the User Guide
+
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+include::../UserGuide.adoc[tag=delete]
+
+include::../UserGuide.adoc[tag=dataencryption]
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+include::../DeveloperGuide.adoc[tag=undoredo]
+
+include::../DeveloperGuide.adoc[tag=dataencryption]
+
+
+== PROJECT: PowerPointLabs
+
+---
+
+_{Optionally, you may include other projects in your portfolio.}_

@@ -7,7 +7,6 @@ import leduc.Ui;
 import leduc.task.TaskList;
 import leduc.task.TodoTask;
 
-import java.io.IOException;
 
 /**
  * Represents a Todo Command.

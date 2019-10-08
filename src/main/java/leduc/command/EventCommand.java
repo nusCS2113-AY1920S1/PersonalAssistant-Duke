@@ -5,14 +5,7 @@ import leduc.exception.*;
 import leduc.storage.Storage;
 import leduc.Ui;
 import leduc.task.EventsTask;
-import leduc.task.Task;
 import leduc.task.TaskList;
-
-import java.io.IOException;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.Locale;
 
 /**
  * Represents a event task Command.
@@ -58,21 +51,9 @@ public class EventCommand extends Command {
             else if(dateString[0].isBlank() || dateString[1].isBlank()){
                 throw new EmptyEventDateException();
             }
-            LocalDateTime d1 = null;
-            LocalDateTime d2 = null;
-            try{
-                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm", Locale.ENGLISH);
-                d1 = LocalDateTime.parse(dateString[0].trim(), formatter);
-                d2 = LocalDateTime.parse(dateString[1].trim(), formatter);
-            }catch(Exception e){
-                throw new NonExistentDateException();
-            }
-            Date date1 = new Date(d1);
-            Date date2 = new Date(d2);
-            ArrayList<Task> conflictTasks = tasks.searchConflictDate(date1, date2);
-            if(!conflictTasks.isEmpty()){
-                throw new ConflictDateException(conflictTasks);
-            }
+            Date date1 = new Date(dateString[0]);
+            Date date2 = new Date(dateString[1]);
+            tasks.verifyConflictDate(date1, date2);
             EventsTask newTask = new EventsTask(description, date1 , date2);
             tasks.add(newTask);
             storage.save(tasks.getList());

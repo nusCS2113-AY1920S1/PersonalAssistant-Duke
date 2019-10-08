@@ -1,5 +1,6 @@
 package leduc.command;
 
+import leduc.Date;
 import leduc.Ui;
 import leduc.exception.*;
 import leduc.storage.Storage;
@@ -7,9 +8,6 @@ import leduc.task.DeadlinesTask;
 import leduc.task.Task;
 import leduc.task.TaskList;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.Locale;
 
 /**
  * Represents Postpone command which postpone the deadline of a deadline task.
@@ -59,14 +57,8 @@ public class PostponeCommand extends Command {
                 throw new DeadlineTypeException();
             }
             DeadlinesTask postponeDeadlineTask = (DeadlinesTask) postponeTask;
-            LocalDateTime d1 = null;
-            try{
-                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm", Locale.ENGLISH);
-                d1 = LocalDateTime.parse(postponeString[1].trim(), formatter);
-            }catch(Exception e){
-                throw new NonExistentDateException();
-            }
-            postponeDeadlineTask.postponeDeadline(d1);
+            Date d = new Date(postponeString[1]);
+            postponeDeadlineTask.postponeDeadline(d);
             storage.save(tasks.getList());
             ui.display("\t Noted. I've postponed this task: \n" +
                     "\t\t "+postponeDeadlineTask.getTag() + postponeDeadlineTask.getMark() + " " + postponeDeadlineTask.getTask()+

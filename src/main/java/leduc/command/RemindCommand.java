@@ -1,16 +1,8 @@
 package leduc.command;
-import leduc.Parser;
-import leduc.command.Command;
 import leduc.storage.Storage;
 import leduc.Ui;
 import leduc.task.TaskList;
 import leduc.task.Task;
-import leduc.task.EventsTask;
-import leduc.Date;
-import leduc.task.TodoTask;
-import leduc.task.DeadlinesTask;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 /**
  * Represents a Remind Command.
@@ -32,71 +24,9 @@ public class RemindCommand extends Command {
     public boolean isExit(){
         return false;
     }
-    /**
-     * Extracts all EventsTask/DeadlinesTask into a seperate arraylist. Tasks with/without dates must be seperated prior to sorting
-     *@param Tasklist tasks is the list of tasks
-     */
-    public static ArrayList filterTasks(TaskList tasks){
-        ArrayList<Task> filteredTasklist = new ArrayList<Task>();
-        for (int i = 0; i < tasks.size(); i++){
-            if (!(tasks.get(i) instanceof TodoTask)){
-                filteredTasklist.add(tasks.get(i));
-            }
-        }
-        return filteredTasklist;
-    }
 
-    /**
-     * Extracts all Todo's into a seperate arraylist. Tasks with/without dates must be separated prior to sorting
-     * @param Tasklist tasks is the list of tasks
-     */
-    public static ArrayList extractTodo(TaskList tasks){
-        ArrayList<Task> extractedTodos = new ArrayList<Task>();
-        for (int i = 0; i < tasks.size(); i++){
-            if ((tasks.get(i) instanceof TodoTask)){
-                extractedTodos.add(tasks.get(i));
-            }
-        }
-        return extractedTodos;
-    }
-    /**
-     * Helper method which returns the date from any task Object.
-     * @param Object task Task whos date field will get extracted.
-     */
-    public static LocalDateTime getDate(Object task){
-        if (task instanceof DeadlinesTask) {
-            DeadlinesTask deadline = (DeadlinesTask)task;
-            return (deadline.getDeadlines()).getD();
-        }
-        else if (task instanceof EventsTask){
-            EventsTask event = (EventsTask)task;
 
-            return(event.getDateFirst()).getD();
-        }
-        else{
-            return null;
-        }
-    }
-    /**
-     * Sorts the list of tasks by date.
-     * @param ArrayList<Task>filteredTasklist which filters out all Tasks that do not have a date field..
-     * @param ArrayList<Task>extractedTodos which is a list of all Todo objects, will get appended to the final sorted list.
-     */
-    public static ArrayList sort(ArrayList<Task> filteredTasklist, ArrayList<Task> extractedTodos){
-        ArrayList<Task> sortedTasks = new ArrayList<Task>();
-        for(int i = 0; filteredTasklist.size() > 0; i++){
-            Task initialTask = filteredTasklist.get(0);//set initial task
-            for(int j = 0; j < filteredTasklist.size(); j++){
-                if((getDate(filteredTasklist.get(j)).compareTo(getDate(initialTask))) < 0) {//compare each date to initialdate
-                    initialTask = filteredTasklist.get(j);//update if necessary
-                }
-            }
-            sortedTasks.add(initialTask);
-            filteredTasklist.remove(initialTask);
-        }
-        sortedTasks.addAll(extractedTodos);
-        return sortedTasks;
-    }
+
 
     /**
      * Allow to remind user of upcoming tasks.
@@ -106,10 +36,9 @@ public class RemindCommand extends Command {
      */
 
     public void execute(TaskList tasks, Ui ui , Storage storage){
-
-        ArrayList<Task> filteredTasklist = new ArrayList<Task>(filterTasks(tasks));
-        ArrayList<Task> extractedTodo = new ArrayList<Task>(extractTodo(tasks));
-        TaskList sortedTasks = new TaskList(sort(filteredTasklist, extractedTodo));
+        ArrayList<Task> filteredTasklist = tasks.filterTasks(tasks);
+        ArrayList<Task> extractedTodo = tasks.extractTodo(tasks);
+        TaskList sortedTasks = new TaskList(tasks.sort(filteredTasklist, extractedTodo));
         String result = "";
 
         if (sortedTasks.size() > 0) {

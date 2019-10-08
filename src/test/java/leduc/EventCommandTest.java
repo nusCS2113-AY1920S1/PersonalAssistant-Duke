@@ -22,7 +22,7 @@ public class EventCommandTest {
     @Test
     public void eventCommandExecuteTest(){
         Ui ui = new Ui();
-        Storage storage = new Storage("testFile/EventCommandTest.txt");
+        Storage storage = new Storage(System.getProperty("user.dir")+ "/src/test/testFile/EventCommandTest.txt");
         List<Task> tasksList = new ArrayList<>();
         TaskList tasks = new TaskList( tasksList);
         LocalDateTime d1 = null;

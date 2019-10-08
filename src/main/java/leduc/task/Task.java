@@ -1,5 +1,7 @@
 package leduc.task;
 
+import java.time.LocalDateTime;
+
 /**
  * Abstract class representing a leduc.task.Task
  */
@@ -91,5 +93,23 @@ public abstract class Task {
      */
     public String toString(){
         return getTag() + getMark() + " " + getTask();
+    }
+
+    /**
+     * Help method which returns the date from any task Object.
+     */
+    public LocalDateTime getDate(){
+        if (this.isDeadline()) {
+            DeadlinesTask deadline = (DeadlinesTask)this;
+            return (deadline.getDeadlines()).getD();
+        }
+        else if (this.isEvent()){
+            EventsTask event = (EventsTask)this;
+
+            return(event.getDateFirst()).getD();
+        }
+        else{
+            return null;
+        }
     }
 }

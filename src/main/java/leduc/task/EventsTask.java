@@ -3,7 +3,6 @@ package leduc.task;
 import leduc.Date;
 import leduc.exception.DateComparisonEventException;
 
-import java.time.LocalDateTime;
 
 /**
  * Represents a Event Task.
@@ -39,21 +38,6 @@ public class EventsTask extends Task {
         this.tag = "[E]";
         this.dateFirst = dateFirst;
         this.dateSecond =dateSecond;
-    }
-    /**
-     * Setter of dateFirst.
-     * @param dateFirst the new first date of period of the task.
-     */
-    public void setDateFirst(Date dateFirst){
-        this.dateFirst = dateFirst;
-    }
-
-    /**
-     * Setter of dateSecond.
-     * @param dateSecond the new second date of period of the task.
-     */
-    public void setDateSecond(Date dateSecond){
-        this.dateSecond = dateSecond;
     }
 
     /**
@@ -96,13 +80,13 @@ public class EventsTask extends Task {
      * @param d2 the second date.
      * @throws DateComparisonEventException Exception caught when the second date is before the first one.
      */
-    public void reschedule(LocalDateTime d1, LocalDateTime d2) throws DateComparisonEventException {
-        if (d2.isBefore(d1)){
+    public void reschedule(Date d1, Date d2) throws DateComparisonEventException {
+        if (d2.getD().isBefore(d1.getD())){
             throw new DateComparisonEventException();
         }
         else{
-            this.dateFirst.setD(d1);
-            this.dateSecond.setD(d2);
+            this.dateFirst = d1;
+            this.dateSecond = d2 ;
         }
     }
 }

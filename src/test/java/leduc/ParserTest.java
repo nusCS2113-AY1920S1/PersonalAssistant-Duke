@@ -29,6 +29,14 @@ public class ParserTest {
         assertTrue(parser.parse("deadline d1")instanceof DeadlineCommand);
         assertTrue(parser.parse("event e") instanceof EventCommand);
         assertTrue(parser.parse("bye")instanceof ByeCommand);
+        assertTrue(parser.parse("edit")instanceof EditCommand);
+        assertTrue(parser.parse("setwelcome message")instanceof SetWelcomeCommand);
+        assertTrue(parser.parse("postpone 2 /by 12/12/2000 22:22")instanceof PostponeCommand);
+        assertTrue(parser.parse("reschedule 2 /at 12/12/2000 11:11 - 13/12/2000 12:22")instanceof RescheduleCommand);
+        assertTrue(parser.parse("snooze 2")instanceof SnoozeCommand);
+        assertTrue(parser.parse("help")instanceof HelpCommand);
+        assertTrue(parser.parse("sort date")instanceof SortCommand);
+        assertTrue(parser.parse("sort description")instanceof SortCommand);
         assertFalse(parser.parse("bye " )instanceof ByeCommand);
     }
 

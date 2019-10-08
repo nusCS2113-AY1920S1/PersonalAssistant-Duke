@@ -74,6 +74,7 @@ then
     echo ""
 else
     echo "TEST todo/deadline/event + delete  // Test result: FAILED"
+    exit 1
 
 fi
 
