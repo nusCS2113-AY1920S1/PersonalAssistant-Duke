@@ -2,7 +2,6 @@ package duke.storage;
 
 import duke.core.DukeException;
 import duke.patient.Patient;
-import duke.patient.PatientList;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVPrinter;
 import org.apache.commons.csv.CSVRecord;
@@ -12,7 +11,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 
-public class PatientStorage {
+public class PatientStorage extends Storage<Patient>{
 
     /**
      * A string that represents a relative file path from the project folder.
@@ -22,14 +21,14 @@ public class PatientStorage {
     /**
      * Constructs a Storage object with a specific file path.
      *
-     * @param path A string that represents the path of the file to read or
+     * @param filePath A string that represents the path of the file to read or
      *             write.
      */
-    public PatientStorage(String path) {
-        this.filePath = path;
+    public PatientStorage(String filePath) {
+        this.filePath = filePath;
     }
 
-    public PatientList load() throws DukeException {
+    public ArrayList<Patient> load() throws DukeException {
         ArrayList<Patient> patientList = new ArrayList<Patient>();
         try {
             Reader in = new FileReader(filePath);
@@ -48,18 +47,19 @@ public class PatientStorage {
                 patientList.add(new Patient(id, name, remark, room, isHospitalised));
                 System.out.println(id + " | " + name + " | " + remark + " | " + room + " | " + isHospitalised);
             }
-            return new PatientList(patientList);
+            return patientList;
         } catch (IOException e) {
             throw new DukeException(e.getMessage());
         }
     }
 
-    public void save(PatientList patientList) throws DukeException {
+    @Override
+    public void save(ArrayList<Patient> patients) throws DukeException {
         try{
             BufferedWriter writer = Files.newBufferedWriter(Paths.get(filePath));
             CSVPrinter csvPrinter = new CSVPrinter(writer, CSVFormat.DEFAULT
                     .withHeader("ID", "Name", "Room", "Remark", "isHospitalised"));
-            ArrayList<Patient> patients = patientList.getPatientList();
+//            ArrayList<Patient> patients = patientList.getPatientList();
             for (Patient patient : patients){
                 int id = patient.getID();
                 String room = patient.getRoom();

@@ -1,6 +1,7 @@
 package duke.core;
 
 import duke.command.*;
+import duke.patient.Patient;
 import duke.task.*;
 
 import java.text.DateFormat;
@@ -20,7 +21,22 @@ public class CommandManager {
      * @return The Command received from user.
      */
     public static Command manageCommand(String userInput) throws DukeException {
-        switch (userInput) { //change this depending on how string is parsed
+        userInput = userInput.trim();
+        String[] command = userInput.split(" ", 2);
+        String commandType = command[0];
+        switch (commandType) { //change this depending on how string is parsed
+            case "addPatient":
+                try {
+                    String[] tempCommand = command[1].split(" ", 5);
+                    boolean isHospitalised = false;
+                    if (tempCommand[4].equals("T")){
+                        isHospitalised = true;
+                    }
+                    Patient patient = new Patient(Integer.parseInt(tempCommand[0]),tempCommand[1],tempCommand[2],tempCommand[3], isHospitalised);
+                    return new AddPatientCommand(patient);
+                } catch (Exception e) {
+                    throw new DukeException("Fail to parse addPatient command");
+                }
             case "list":
                 //do thing for 'list'
             case "done":
