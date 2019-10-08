@@ -349,6 +349,14 @@ public class Ui {
         VBox vbox = (VBox) mainWindow.getContent();
         vbox.getChildren().clear();
     }
+
+    /**
+     * Clears the secondary window on the GUI.
+     */
+    public void clearSecondary() {
+        VBox vbox = (VBox) secondaryWindow.getContent();
+        vbox.getChildren().clear();
+    }
     //----------------------->
 
     //***FIRST-TIME INITIALIZATION FUNCTIONS***-------------------------------------------------------------------------
@@ -376,8 +384,8 @@ public class Ui {
             printg("Hello again "
                     + username
                     + "! "
-                    +
-                    "Here are your tasks that are due within a week: \n","verdana",15,Color.BLACK);
+                    //+ "Here are your tasks that are due within a week: \n","verdana",15,Color.BLACK
+                    );
 
             //initiate the showing of reminders
             compal.parser.processCmd(MESSAGE_INIT_REMINDER);
