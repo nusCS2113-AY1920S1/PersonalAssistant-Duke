@@ -12,8 +12,7 @@ import java.util.Date;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class TentativeTest {
-    TaskFactory taskFactory = new TaskFactory();
-    TaskList taskList = new TaskList();
+    private TaskFactory taskFactory = new TaskFactory();
 
     @Test
     public void alwaysTrue() {
@@ -27,7 +26,6 @@ public class TentativeTest {
             String[] dummyTentativeDateStrings = {"23 September 2019 04.00 PM", "19 October 2019 12.00 PM"};
 
             SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy hhmm");
-            Date dummyDate = formatter.parse("23/09/2019 1600");
             Date[] dummyTentativeDateObjects = {formatter.parse("23/09/2019 1600"), formatter.parse("19/10/2019 1200")};
             Tentative dummyTask = new Tentative("do Tutorial", dummyTentativeDateStrings, dummyTentativeDateObjects);
             ITask generatedTask = taskFactory.createTask(input);
