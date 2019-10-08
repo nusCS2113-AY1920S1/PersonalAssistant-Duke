@@ -9,16 +9,19 @@ import javafx.scene.paint.Color;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.Date;
+import java.util.Scanner;
 
-import static compal.compal.Messages.MESSAGE_MISSING_COMMAND_ARG;
 
 /**
  * Executes user command "reminder".
  */
 public class ViewReminderCommand extends Command implements CommandParser {
 
-    private static final String TOKEN_DAY = "/day";
     private TaskList taskList;
 
     /**
@@ -43,7 +46,7 @@ public class ViewReminderCommand extends Command implements CommandParser {
     public void parseCommand(String userIn) throws ParseException {
         int numberOfDays = 7;
         Scanner scanner = new Scanner(userIn);
-        String viewReminder = scanner.next();
+        scanner.next();
         if (scanner.hasNext()) {
             String days = scanner.next();
             numberOfDays = Integer.parseInt(days);
