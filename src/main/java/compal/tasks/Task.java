@@ -326,13 +326,13 @@ public abstract class Task implements Serializable {
         long score = 0;
         switch (priority) {
         case high:
-            score = 70;
+            score = 100000000;
             break;
         case medium:
-            score = 50;
+            score = 80000000;
             break;
         case low:
-            score = 30;
+            score = 50000000;
             break;
         default:
             score = 0;
@@ -340,10 +340,11 @@ public abstract class Task implements Serializable {
 
 
         Date d = new Date();
-        long diff = d.getTime() - this.date.getTime();
-        System.out.println("Task:LOG: Difference is " + diff);
+        long diff = this.date.getTime() - d.getTime();
         score += diff;
         priorityScore = score;
+        System.out.println("Task:LOG: Score set " + priorityScore);
+
 
     }
 }
