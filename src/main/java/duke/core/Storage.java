@@ -1,11 +1,10 @@
 package duke.core;
 
 import duke.task.*;
+import org.apache.commons.csv.CSVFormat;
+import org.apache.commons.csv.CSVRecord;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -37,61 +36,8 @@ public class Storage {
      */
     public ArrayList<Task> load() throws DukeException {
         File newDuke = new File(filePath);
-        ArrayList<Task> tasks = new ArrayList<>();
-        try {
-            Scanner ss = new Scanner(newDuke);
-            while (ss.hasNext()) {
-                String[] newTask = ss.nextLine().split(" \\| ");
-                if (newTask[0].equals("T")) {
-                    Task x = new Todo(newTask[2]);
-                    if (newTask[1].equals("1")) {
-                        x.markAsDone();
-                    }
-                    if ((newTask[3] != null) && !(newTask[3].equals("ONCE"))) {
-                        x.makeTaskRecurring(giveFrequency(newTask[3]));
-                    }
-                    tasks.add(x);
-                }
-                else if (newTask[0].equals("D")) {
-                    Task t = new Deadline(newTask[2], newTask[3]);
-                    if (newTask[1].equals("1")) {
-                        t.markAsDone();
-                    }
-                    if ((newTask[4] != null) && !(newTask[4].equals("ONCE"))) {
-                        t.makeTaskRecurring(giveFrequency(newTask[4]));
-                    }
-                    tasks.add(t);
-                }
-                else if (newTask[0].equals("E")) {
-                    Task t = new Event(newTask[2], newTask[3]);
-                    if (newTask[1].equals("1")) {
-                        t.markAsDone();
-                    }
-                    if ((newTask[4] != null) && !(newTask[4].equals("ONCE"))) {
-                        t.makeTaskRecurring(giveFrequency(newTask[4]));
-                    }
-                    tasks.add(t);
-                }
-
-                else if (newTask[0].equals("P")) {
-                    Task t = new PeriodTask(newTask[2], newTask[3], newTask[4]);
-                    if (newTask[1].equals("1")) {
-                        t.markAsDone();
-                    }
-                    tasks.add(t);
-                }else if (newTask[0].equals("F")) {
-                    Task x = new FixedDurationTask(newTask[2], newTask[3]);
-                    if (newTask[1].equals("1")) {
-                        x.markAsDone();
-                    }
-                    tasks.add(x);
-                }
-
-            }
-            return tasks;
-        } catch (FileNotFoundException e) {
-            throw new DukeException("File is not found!");
-        }
+        System.out.println("Hi.");
+        return new ArrayList<Task>();
     }
 
     /**
@@ -112,17 +58,6 @@ public class Storage {
         }
     }
 
-    private Task.RecurringFrequency giveFrequency(String string) {
-        switch (string) {
-            case "DAILY":
-                return Task.RecurringFrequency.DAILY;
-            case "WEEKLY":
-                return Task.RecurringFrequency.WEEKLY;
-            case "MONTHLY":
-                return Task.RecurringFrequency.MONTHLY;
-            default:
-                return Task.RecurringFrequency.ONCE;
-        }
-    }
+
 
 }

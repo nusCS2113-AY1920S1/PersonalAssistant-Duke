@@ -1,5 +1,4 @@
-ID,Name,Room,Remark,isHospitalised
-1,John,apple,2A,true
-2,Alpha,pear,3C,false
-3,Beta,pear,3C,false
-5,xk,apple,2A,true
+Id,Name,Room,Remark,isHospitalised
+1,John,2A,apple,TRUE
+2,Alpha,3C,pear,FALSE
+3,Beta,3C,pear,FALSE

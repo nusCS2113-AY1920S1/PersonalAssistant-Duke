@@ -3,17 +3,12 @@ package duke;
 
 import duke.command.Command;
 import duke.core.DukeException;
-import duke.core.Parser;
+import duke.core.CommandManager;
 import duke.core.Storage;
-import duke.core.TaskList;
+import duke.patient.PatientList;
+import duke.storage.PatientStorage;
+import duke.task.TaskList;
 import duke.core.Ui;
-import org.apache.commons.csv.CSVFormat;
-import org.apache.commons.csv.CSVRecord;
-
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
-import java.io.Reader;
 
 /**
  * Represents Duke, a Personal Assistant to help
@@ -24,16 +19,18 @@ public class Duke implements Runnable {
      * A Storage object that handles reading tasks from a local
      * file and saving them to the same file.
      */
-    public static Storage globalStorage;
+    private Storage storage;
+    private PatientStorage patientStorage;
     /**
      * A TaskList object that deals with add, delete, mark as done,
      * find functions of a list of tasks.
      */
-    public static TaskList globalTasks;
+    private TaskList tasks;
+    private PatientList patientList;
     /**
      * A Ui object that deals with interactions with the user.
      */
-    public static Ui globalUi;
+    private Ui ui;
     /**
      * Constructs a Duke object with a relative file path.
      * Initialize the user interface and reads tasks from the specific text file.
@@ -41,13 +38,16 @@ public class Duke implements Runnable {
      *          used for storing tasks.
      */
     public Duke(String filePath) {
-        globalUi = new Ui();
-        globalStorage = new Storage(filePath);
+        ui = new Ui();
+        storage = new Storage(filePath + "/data.txt");
+        patientStorage = new PatientStorage(filePath + "/patients.csv");
+
         try {
-            globalTasks = new TaskList(globalStorage.load());
+            tasks = new TaskList(storage.load());
+            patientList = patientStorage.load();
         } catch (DukeException e) {
-            globalUi.showLoadingError();
-            globalTasks = new TaskList();
+            ui.showLoadingError();
+            tasks = new TaskList();
         }
     }
 
@@ -56,24 +56,19 @@ public class Duke implements Runnable {
      * Reads user input until a "bye" message is received.
      */
     public void run() {
-        try {
-            testCSV();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        globalUi.showWelcome();
+        ui.showWelcome();
         boolean isExit = false;
         while (!isExit) {
             try {
-                String fullCommand = globalUi.readCommand();
-                globalUi.showLine();
-                Command c = Parser.parse(fullCommand);
-                c.execute(globalTasks, globalUi, globalStorage);
+                String fullCommand = ui.readCommand();
+                ui.showLine();
+                Command c = CommandManager.manageCommand(fullCommand);
+                c.execute(tasks, ui, storage);
                 isExit = c.isExit();
             } catch (DukeException e) {
-                globalUi.showError(e.getMessage());
+                ui.showError(e.getMessage());
             } finally {
-                globalUi.showLine();
+                ui.showLine();
             }
         }
         System.exit(0);
@@ -85,21 +80,6 @@ public class Duke implements Runnable {
      * @param args The command line arguments.
      */
     public static void main(String[] args) {
-        Duke d = new Duke("./data/duke.txt");
-        Reminder r = new Reminder(globalTasks,globalUi);
-        Thread t1 = new Thread(d);
-        Thread t2 = new Thread(r);
-        t1.start();
-        t2.start();
-    }
-    public void testCSV() throws FileNotFoundException, IOException {
-        Reader in = new FileReader("./data/file.csv");
-        Iterable<CSVRecord> records = CSVFormat.EXCEL.withHeader("Last Name", "First Name").withFirstRecordAsHeader().parse(in);
-//        Iterable<CSVRecord> records = CSVFormat.EXCEL.parse(in);
-        for (CSVRecord record : records) {
-            String lastName = record.get("Last Name");
-            String firstName = record.get("First Name");
-            System.out.println(lastName + " | " + firstName);
-        }
+        new Duke("./data").run();
     }
 }
