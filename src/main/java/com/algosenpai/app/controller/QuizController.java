@@ -50,14 +50,17 @@ public class QuizController extends SceneController implements Initializable {
     private DialogPane dialogPane;
 
     @FXML
-    private StackPane container ;
+    private StackPane container;
 
-    AnimationTimerController backgroundSceneTimer;
+    private AnimationTimerController backgroundSceneTimer;
 
     private List<Text> texts;
 
     private List<String> commands;
 
+    /**
+     * Initialize quiz scene.
+     */
     public QuizController() {
         commands = new ArrayList<>();
         commands.add("/home");

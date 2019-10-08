@@ -71,7 +71,7 @@ public class SceneController extends Application {
 
     void setTextStyle(Node node, int red, int green, int blue, boolean bold, int fontSize, String fontStyle) {
         node.applyCss();
-        node.setStyle("-fx-fill:rgb(" + red + "," + green + "," + blue + "); -fx-font: " + fontSize +
-                " " + fontStyle + ";" + (bold ? "-fx-font-weight:bold;" : ""));
+        node.setStyle("-fx-fill:rgb(" + red + "," + green + "," + blue + "); -fx-font: " + fontSize
+                + " " + fontStyle + ";" + (bold ? "-fx-font-weight:bold;" : ""));
     }
 }

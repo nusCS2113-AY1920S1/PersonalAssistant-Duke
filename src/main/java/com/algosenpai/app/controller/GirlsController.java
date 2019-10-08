@@ -31,7 +31,7 @@ public class GirlsController extends SceneController implements Initializable {
 
     private String characterImageName;
 
-    AnimationTimerController backgroundSceneTimer;
+    private AnimationTimerController backgroundSceneTimer;
 
     public GirlsController() {
         characterImageName = "miku.png";

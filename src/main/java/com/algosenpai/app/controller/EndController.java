@@ -32,7 +32,7 @@ public class EndController extends SceneController implements Initializable {
 
     private String characterImageName;
 
-    AnimationTimerController backgroundSceneTimer;
+    private AnimationTimerController backgroundSceneTimer;
 
     public EndController() {
         characterImageName = "miku.png";

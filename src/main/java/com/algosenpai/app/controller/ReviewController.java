@@ -29,7 +29,7 @@ public class ReviewController extends SceneController implements Initializable {
     @FXML
     private ImageView characterImage;
 
-    AnimationTimerController backgroundSceneTimer;
+    private AnimationTimerController backgroundSceneTimer;
 
     private String characterImageName;
 

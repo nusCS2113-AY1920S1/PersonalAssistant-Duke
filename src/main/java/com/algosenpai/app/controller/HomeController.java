@@ -32,14 +32,17 @@ public class HomeController extends SceneController implements Initializable {
     private ImageView characterImage;
 
     @FXML
-    private StackPane container ;
+    private StackPane container;
 
-    AnimationTimerController backgroundSceneTimer;
+    private AnimationTimerController backgroundSceneTimer;
 
-    private List<Text> texts ;
+    private List<Text> texts;
 
-    private List<String> commands ;
+    private List<String> commands;
 
+    /**
+     * Initialize home scene.
+     */
     public HomeController() {
         commands = new ArrayList<>();
         commands.add("/play");
