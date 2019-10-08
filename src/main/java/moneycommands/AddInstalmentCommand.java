@@ -55,4 +55,16 @@ public class AddInstalmentCommand extends MoneyCommand{
         ui.appendToOutput(" Until " + instalment.getDateEndDate() + "\n");
         ui.appendToOutput(" The total amount you will pay is $" + instalment.totalAmount() + "\n");
     }
+
+    @Override
+    public void undo(Account account, Ui ui, MoneyStorage storage) {
+        int lastIndex = account.getInstalments().size() - 1;
+        Instalment ins = account.getInstalments().get(lastIndex);
+        account.getInstalments().remove(ins);
+        storage.writeToFile(account);
+
+        ui.appendToOutput(" Last command undone: \n");
+        ui.appendToOutput(ins.toString() + "\n");
+        ui.appendToOutput(" Now you have " + account.getInstalments().size() + " income listed\n");
+    }
 }
