@@ -5,7 +5,7 @@ plugins {
     id 'com.github.johnrengelman.shadow' version '5.1.0'
 }
 
-group 'seedu.duke'
+group 'seedu.OwlMoney'
 version '1.0.0'
 
 repositories {
@@ -23,7 +23,7 @@ checkstyle {
 
 shadowJar {
     archiveBaseName = "OwlMoney"
-    archiveVersion = "-v1.1"
+    archiveVersion = "v1.2"
     archiveClassifier = null
     archiveAppendix = null
 }
