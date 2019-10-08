@@ -1,18 +1,6 @@
 package controlpanel;
 
 import moneycommands.*;
-import commands.AddCommand;
-import commands.ChooseEventTime;
-import commands.Command;
-import commands.DeleteCommand;
-import commands.DoneCommand;
-import commands.ExitCommand;
-import commands.FreeTimeCommand;
-import commands.RemindersCommand;
-import commands.RescheduleCommand;
-import commands.SearchCommand;
-import commands.ViewCommand;
-import commands.ViewScheduleCommand;
 
 import moneycommands.AddExpenditureCommand;
 import moneycommands.AddIncomeCommand;
@@ -29,76 +17,20 @@ import moneycommands.ListTotalExpenditureCommand;
 import moneycommands.ListTotalIncomeCommand;
 import moneycommands.startCommand;
 import moneycommands.MoneyCommand;
-import moneycommands.ViewPastMonthIncome;
 
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.TimeZone;
 
 /**
  * This class which takes in the user input from command line and identifies the
  * correct command type. Calls the appropriate MoneyCommand from control panel
  */
 public class Parser {
-    public Parser() throws DukeException, ParseException {
-    }
-
-    /**
-     * The constructor which runs the parser.
-     * @param cmd the original input string (command).
-     * @return return a command object which is initialized based on its type.
-     * @throws DukeException if any exception is caught.
-     */
-    public static Command parse(String cmd) throws DukeException, ParseException {
-        Command command;
-        if (cmd.equals("bye")) {
-            command = new ExitCommand();
-        } else if (cmd.equals("list")) {
-            command = new ViewCommand();
-        } else if (cmd.startsWith("find")) {
-            if (cmd.equals("find")) {
-                throw new DukeException("OOPS!!! The description of a find cannot be empty.");
-            }
-            String keyword = cmd.split(" ")[1];
-            command = new SearchCommand(keyword);
-        } else if (cmd.startsWith("done")) {
-            String temp = cmd.replaceAll("[^0-9]", "");
-            int serialNo = Integer.parseInt(temp);
-            command = new DoneCommand(serialNo);
-        } else if (cmd.startsWith("delete")) {
-            String temp = cmd.replaceAll("[^0-9]", "");
-            int serialNo = Integer.parseInt(temp);
-            command = new DeleteCommand(serialNo);
-        } else if (cmd.startsWith("reminders")) {
-            String keyword = cmd.split(" ")[1];
-            command = new RemindersCommand(keyword);
-        } else if (cmd.startsWith("schedule")) {
-            command  = new ViewScheduleCommand(cmd);
-        } else if (cmd.startsWith("reschedule")) {
-            command = new RescheduleCommand(cmd);
-        } else if (cmd.contains("choose")) {
-            command = new ChooseEventTime(cmd);
-        } else if (cmd.startsWith("free-time")) {
-            String[] words = cmd.split(" ");
-            int duration = Integer.parseInt(words[1]);
-            command = new FreeTimeCommand(words[4] + " " + words[5], duration);
-        } else {
-            String keyword = cmd.split(" ")[0];
-            if (!(keyword.equals("deadline") || keyword.equals("event")
-                    || keyword.equals("todo") || keyword.equals("period")
-                    || keyword.equals("duration") || keyword.equals("multiEvent"))) {
-                throw new DukeException("OOPS!!! I'm sorry, but I don't know what that means");
-            }
-            command = new AddCommand(keyword, cmd);
-        }
-        return command;
-    }
+    public Parser() throws DukeException, ParseException {}
 
     /**
      * Constructor which runs the parser to parse all commands
@@ -151,6 +83,25 @@ public class Parser {
             moneyCommand = new DoneGoalCommand(cmd);
         } else if (cmd.startsWith("graph")) {
             moneyCommand = new GraphCommand();
+<<<<<<< HEAD
+        } else if (cmd.startsWith("undo")) {
+            moneyCommand = new UndoCommand();
+=======
+        } else if (cmd.startsWith("add instalment")) {
+            moneyCommand = new AddInstalmentCommand(cmd);
+        } else if (cmd.startsWith("delete instalment")) {
+            moneyCommand = new DeleteInstalmentCommand(cmd);
+        } else if (cmd.startsWith("list all instalment")) {
+            moneyCommand = new ListInstalmentCommand();
+        } else if (cmd.equals("list month income")) {
+            moneyCommand = new ListMonthIncomeCommand();
+        } else if (cmd.equals("list month expenditure")) {
+            moneyCommand = new ListMonthExpenditureCommand();
+        } else if (cmd.startsWith("check income")) {
+            moneyCommand = new ViewPastMonthIncome(cmd);
+        } else if (cmd.startsWith("check expenditure")) {
+            moneyCommand = new ViewPastMonthExpenditure(cmd);
+>>>>>>> 888708f6a416811139a34973742c4e0af557ca3d
         } else {
             throw new DukeException("OOPS!!! I'm sorry, but I don't know what that means");
         }

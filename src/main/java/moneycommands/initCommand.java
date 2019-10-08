@@ -32,4 +32,8 @@ public class initCommand extends MoneyCommand{
         ui.appendToOutput("Initialised, you're ready to use Financial Ghosts\n");
         //ui.appendToOutput(avgExp + "\n");
     }
+
+    @Override
+    public void undo(Account account, Ui ui, MoneyStorage storage) { return; }
+
 }

@@ -1,7 +1,6 @@
 package moneycommands;
 
 import controlpanel.MoneyStorage;
-import controlpanel.Storage;
 import controlpanel.Ui;
 import money.Account;
 import money.Expenditure;
@@ -41,4 +40,7 @@ public class ListTotalExpenditureCommand extends MoneyCommand {
         ui.appendToOutput("Total expenditure so far: $" + account.getTotalExp() + "\n");
 
     }
+
+    @Override
+    public void undo(Account account, Ui ui, MoneyStorage storage) { return; }
 }

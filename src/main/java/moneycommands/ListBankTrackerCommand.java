@@ -3,7 +3,6 @@ package moneycommands;
 import controlpanel.MoneyStorage;
 import money.Account;
 import money.BankTracker;
-import controlpanel.Storage;
 import controlpanel.Ui;
 
 import java.util.ArrayList;
@@ -43,4 +42,7 @@ public class ListBankTrackerCommand extends MoneyCommand{
             ui.appendToOutput("-------------------------------------------\n");
         }
     }
+
+    @Override
+    public void undo(Account account, Ui ui, MoneyStorage storage) { return; }
 }

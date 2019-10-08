@@ -19,5 +19,6 @@ public class ExitMoneyCommand extends MoneyCommand {
         ui.appendToOutput("     Bye. Hope to see you again soon!\n");
     }
 
-
+    @Override
+    public void undo(Account account, Ui ui, MoneyStorage storage) { return; }
 }
