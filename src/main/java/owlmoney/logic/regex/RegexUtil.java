@@ -106,4 +106,16 @@ public final class RegexUtil {
         }
     }
 
+    /**
+     * Checks if date is in DD/MM/YYYY format from year 1900 to 2099.
+     * It does not check for whether the month has 30 or 31 days or whether february is a leap year.
+     *
+     * @param input The user input that is subject to Regex checking.
+     * @return the result of the check on whether it fulfills the criteria.
+     */
+    public static boolean regexCheckDateFormat(String input) {
+        String dateRegex = "(0?[1-9]|[12][0-9]|3[01])/(0?[1-9]|1[012])/((19|20)\\d\\d)";
+        return input.matches(dateRegex);
+    }
+
 }
