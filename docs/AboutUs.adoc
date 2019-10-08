@@ -44,3 +44,14 @@ Role: Developer +
 Responsibilities: Data + UI
 
 '''
+
+== Supervisor/Lecturer
+
+=== Akshay Narayan
+image::akshay.png[width="150", align="left"]
+{empty}[http://github.com/okkhoy[github]] [<<akshay#, portfolio>>]
+
+Role: NA
+Responsibilities: NA
+
+'''
