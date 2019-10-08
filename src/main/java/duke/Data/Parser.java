@@ -1,18 +1,17 @@
 package duke.Data;
 
 
-import duke.Sports.ManageStudents;
-import duke.Module.Goal;
-import duke.Module.Schedule;
-import duke.Sports.ManageStudents;
-import duke.Sports.MyClass;
-import duke.Sports.MyStudent;
+import duke.sports.ManageStudents;
+import duke.module.Goal;
+import duke.module.Schedule;
+import duke.sports.MyClass;
+import duke.sports.MyStudent;
 import duke.Task.*;
-import duke.Module.Reminder;
+import duke.module.Reminder;
 import duke.Ui;
-import duke.Sports.MyPlan;
+import duke.sports.MyPlan;
+//import duke.exceptions.DukeException;
 
-import javax.swing.plaf.synth.SynthSpinnerUI;
 import java.io.FileNotFoundException;
 import java.text.ParseException;
 import java.util.ArrayList;
@@ -331,21 +330,33 @@ public class Parser {
 
             /**
              * When cmd student is called
-             * Format for adding student is: student add [age] [Name].
+             * Format for adding student is: student add/ Name/ age/ address.
              */
-            case "student":
-                if (word[1].equals("add/")) {
-//                    index = input.indexOf(word[2]);
-                    String[] splitByComma = input.split("/ ");
-                    String name = splitByComma[1];
-                    String age = splitByComma[2];
-                    String address = splitByComma[3];
-                    MyStudent myNewStudent = new MyStudent(name, age, address);
-                    students.addStudent(myNewStudent);
-                }
-                if (word[1].equals("list")) {
-                    students.listAllStudents();
-                }
+        case "student":
+                switch (word[1]) {
+                    case "add/":
+                        String[] splitByComma = input.split("/ ");
+                        String name = splitByComma[1];
+                        String age = splitByComma[2];
+                        String address = splitByComma[3];
+                        MyStudent myNewStudent = new MyStudent(name, age, address);
+                        students.addStudent(myNewStudent);
+                        break;
+
+                    case "delete/":
+                        // delete index of student
+
+                    case "details/":
+                        //add student details
+
+                    case "edit":
+                        //
+
+                    case "list":
+                        students.listAllStudents();
+                        break;
+
+                    }
                 break;
 
             /**

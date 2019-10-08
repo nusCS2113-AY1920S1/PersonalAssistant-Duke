@@ -7,7 +7,6 @@ import java.text.ParseException;
 import java.util.Scanner;
 
 import duke.Data.Storage;
-import duke.GUI.ViewModules;
 import duke.Module.Schedule;
 import duke.Sports.ManageStudents;
 import duke.Sports.MyPlan;
