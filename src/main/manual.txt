@@ -1,4 +1,4 @@
-========== OOF MANUAL ==========
+======================== OOF MANUAL ========================
 
 NAME
     OOF -- Outstanding Organisation Friend

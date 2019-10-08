@@ -43,8 +43,8 @@ public class Oof {
                 Command command = CommandParser.parse(line);
                 command.execute(arr, ui, storage);
                 isExit = command.isExit();
-            } catch (OofException | IOException exception) {
-                ui.printOofException((OofException) exception);
+            } catch (OofException exception) {
+                ui.printOofException(exception);
             }
         }
     }

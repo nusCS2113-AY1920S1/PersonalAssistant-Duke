@@ -3,6 +3,7 @@ package oof.command;
 import oof.Storage;
 import oof.TaskList;
 import oof.Ui;
+import oof.exception.OofException;
 
 import java.io.IOException;
 
@@ -17,7 +18,7 @@ public class HelpCommand extends Command {
      *                objects to hard disk.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws IOException {
+    public void execute(TaskList tasks, Ui ui, Storage storage) throws OofException {
         ui.printHelpCommands();
     }
 

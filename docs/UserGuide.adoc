@@ -260,10 +260,17 @@ Gives a list of all the tasks not done that were brought forward to the next day
 
 Format: `viewUndone`
 
-=== View free time slots: `viewFree`
-Gives a list of free time slots for the next 7 days.
+=== View free time slots: `free`
+Gives a list of free time slots from current time to the date given.
 
-Format: `viewFree`
+Format: `free DD-MM-YYYY HH:MM`
+
+* `Date and time` have to *strictly* be in the format as stated above.
+
+Example:
+
+* `free 10-10-2019 23:59` +
+Searches for free time slots between current time and end date `10-10-2019 23:59`.
 
 === View all tasks in week view: `viewWeek`
 Transforms all current tasks recorded into a week view to plan for the week. 
@@ -407,3 +414,4 @@ e.g. `range study for exam /from 01-10-2019 21:00 /to 05-10-2019 11:00`
 * *ViewDual*: `viewDual [_coming soon in v2.0_]`
 
 * *Export*: `export [_coming soon in v2.0_]`
+

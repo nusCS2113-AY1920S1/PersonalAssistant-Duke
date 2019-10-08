@@ -30,7 +30,7 @@ public abstract class Command {
      *                objects to hard disk.
      * @throws OofException Catches invalid commands given by user.
      */
-    public abstract void execute(TaskList tasks, Ui ui, Storage storage) throws OofException, IOException;
+    public abstract void execute(TaskList tasks, Ui ui, Storage storage) throws OofException;
 
     /**
      * Parses the Timestamp given by the user and returns the parsed
@@ -62,6 +62,28 @@ public abstract class Command {
      */
     protected boolean isDateValid(String date) {
         return !date.equals("failed");
+    }
+
+    /**
+     * Converts a date into a string.
+     *
+     * @param date The date to be converted.
+     * @return A string in the date format specified.
+     */
+    public String convertDateToString(Date date) {
+        SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy HH:mm");
+        return format.format(date);
+    }
+
+    /**
+     * Converts a string into a date.
+     *
+     * @param date The string to be converted.
+     * @return A date in the date format specified.
+     * @throws ParseException Throws an exception if datetime cannot be parsed.
+     */
+    public Date convertStringToDate(String date) throws ParseException {
+        return new SimpleDateFormat("dd-MM-yyyy HH:mm").parse(date);
     }
 
     /**

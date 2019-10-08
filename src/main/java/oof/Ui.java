@@ -11,6 +11,7 @@ import java.io.IOException;
 import java.time.DayOfWeek;
 import java.time.YearMonth;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Scanner;
 
 /**
@@ -282,17 +283,20 @@ public class Ui {
     /**
      * Prints all commands available to user.
      *
-     * @throws IOException if unable to read file from filepath
      */
-    public void printHelpCommands() throws IOException {
-        File file = new File(FILEPATH);
-        FileReader fileReader = new FileReader(file);
-        BufferedReader br = new BufferedReader(fileReader);
-        String line;
-        while ((line = br.readLine()) != null) {
-            System.out.println(line);
+    public void printHelpCommands() throws OofException {
+        try {
+            File file = new File(FILEPATH);
+            FileReader fileReader = new FileReader(file);
+            BufferedReader br = new BufferedReader(fileReader);
+            String line;
+            while ((line = br.readLine()) != null) {
+                System.out.println(line);
+            }
+            printLine();
+        } catch (IOException e) {
+            throw new OofException("Manual Unavailable!");
         }
-        printLine();
     }
 
     /**
@@ -362,5 +366,13 @@ public class Ui {
             System.out.println("|           |           |           |           |           |           |           |");
             System.out.println("-------------------------------------------------------------------------------------");
         }
+    }
+
+    public void printFree() {
+        System.out.println("\t Here are your free time slots: ");
+    }
+
+    public void printFreeTimings(String startDate, String endDate, int count) {
+        System.out.println("\t" + count + ". " + startDate + " to " + endDate);
     }
 }
