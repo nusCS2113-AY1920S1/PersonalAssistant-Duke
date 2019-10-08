@@ -39,16 +39,40 @@ public class UserStats {
     }
 
     public Pair<Integer,Integer> getStats(String chapterName) {
+
+        ChapterStat target = getStatsByName(chapterName);
+        if (target == null) {
+            return null;
+        }
+        return new Pair<>(target.correctAnswers, target.totalAnswered);
+    }
+
+    public void updateStats(int index, boolean wasAnsweredCorrectly) {
+        data.get(index).totalAnswered++;
+        if (wasAnsweredCorrectly) {
+            data.get(index).correctAnswers++;
+        }
+    }
+
+    public void updateStats(String chapterName, boolean wasAnsweredCorrectly) {
+        ChapterStat target = getStatsByName(chapterName);
+        if (target == null) {
+            return;
+        }
+        target.totalAnswered++;
+        if (wasAnsweredCorrectly) {
+            target.correctAnswers++;
+        }
+    }
+
+    private ChapterStat getStatsByName(String chapterName) {
         ChapterStat target = null;
         for (ChapterStat item : data) {
             if (item.chapterName.equals(chapterName)) {
                 target = item;
             }
         }
-
-        if (target == null) return null;
-
-        return new Pair<>(target.correctAnswers, target.totalAnswered);
+        return target;
     }
 
 }
