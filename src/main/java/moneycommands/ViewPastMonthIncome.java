@@ -113,4 +113,7 @@ public class ViewPastMonthIncome extends MoneyCommand {
         ui.appendToOutput(totalMonthIncome + "\n");
 
     }
+
+    @Override
+    public void undo(Account account, Ui ui, MoneyStorage storage) { return; }
 }

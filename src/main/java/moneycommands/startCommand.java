@@ -26,4 +26,7 @@ public class startCommand extends MoneyCommand{
         ui.appendToOutput(message);
 
     }
+
+    @Override
+    public void undo(Account account, Ui ui, MoneyStorage storage) { return; }
 }

@@ -6,12 +6,17 @@ import controlpanel.Ui;
 import controlpanel.DukeException;
 import money.Account;
 import money.Expenditure;
+import moneycommands.MoneyCommand;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+<<<<<<< HEAD
+import java.util.ArrayList;
+=======
 import java.util.Calendar;
+>>>>>>> 888708f6a416811139a34973742c4e0af557ca3d
 
 /**
  * This command adds an expenditure to the Total Expenditure List.
@@ -66,6 +71,18 @@ public class AddExpenditureCommand extends MoneyCommand {
         ui.appendToOutput(" Got it. I've added this to your total spending: \n");
         ui.appendToOutput("     ");
         ui.appendToOutput(account.getExpListTotal().get(account.getExpListTotal().size() - 1).toString() + "\n");
+        ui.appendToOutput(" Now you have " + account.getExpListTotal().size() + " expenses listed\n");
+    }
+
+    @Override
+    public void undo(Account account, Ui ui, MoneyStorage storage) {
+        int lastIndex = account.getExpListTotal().size() - 1;
+        Expenditure exp = account.getExpListTotal().get(lastIndex);
+        account.getExpListTotal().remove(exp);
+        storage.writeToFile(account);
+
+        ui.appendToOutput(" Last command undone: \n");
+        ui.appendToOutput(exp.toString() + "\n");
         ui.appendToOutput(" Now you have " + account.getExpListTotal().size() + " expenses listed\n");
     }
 }

@@ -3,6 +3,7 @@ package moneycommands;
 import controlpanel.*;
 import money.Goal;
 import money.Account;
+import moneycommands.MoneyCommand;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -51,7 +52,7 @@ public class AddShortGoalCommand extends MoneyCommand {
         String priorityLevel = inputString.split("/priority ")[1];
         String category = "GS";
         //System.out.println(priorityLevel);
-        Goal g = new Goal(price, desc, category,byDate, priorityLevel);
+        Goal g = new Goal(price, desc, category, byDate, priorityLevel);
         account.getShortTermGoals().add(g);
         storage.writeToFile(account);
 
@@ -60,5 +61,17 @@ public class AddShortGoalCommand extends MoneyCommand {
                 + "\n");
         ui.appendToOutput(" Now you have " + account.getShortTermGoals().size() + " Goals in the list.\n");
         ui.appendToOutput("Current Goal Savings: $" + account.getGoalSavings() + "\n");
+    }
+
+    @Override
+    public void undo(Account account, Ui ui, MoneyStorage storage) {
+        int lastIndex = account.getShortTermGoals().size() - 1;
+        Goal g = account.getShortTermGoals().get(lastIndex);
+        account.getShortTermGoals().remove(g);
+        storage.writeToFile(account);
+
+        ui.appendToOutput(" Last command undone: \n");
+        ui.appendToOutput(g.toString() + "\n");
+        ui.appendToOutput(" Now you have " + account.getShortTermGoals().size() + " goals listed\n");
     }
 }

@@ -52,4 +52,7 @@ public class ListGoalsCommand extends MoneyCommand{
         ui.appendToOutput("current Goal Savings: $" + account.getGoalSavings() + "\n");
 
     }
+
+    @Override
+    public void undo(Account account, Ui ui, MoneyStorage storage) { return; }
 }

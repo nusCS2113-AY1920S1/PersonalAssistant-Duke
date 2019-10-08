@@ -50,4 +50,8 @@ public class Goal extends Expenditure {
         return goalByDate;
     }
 
+    public String getCategory() {
+        return super.getCategory();
+    }
+
 }

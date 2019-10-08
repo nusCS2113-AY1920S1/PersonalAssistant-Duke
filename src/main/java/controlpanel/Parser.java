@@ -17,25 +17,20 @@ import moneycommands.ListTotalExpenditureCommand;
 import moneycommands.ListTotalIncomeCommand;
 import moneycommands.startCommand;
 import moneycommands.MoneyCommand;
-import moneycommands.ViewPastMonthIncome;
 
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.TimeZone;
 
 /**
  * This class which takes in the user input from command line and identifies the
  * correct command type. Calls the appropriate MoneyCommand from control panel
  */
 public class Parser {
-    public Parser() throws DukeException, ParseException {
-    }
+    public Parser() throws DukeException, ParseException {}
 
     /**
      * Constructor which runs the parser to parse all commands
@@ -88,6 +83,10 @@ public class Parser {
             moneyCommand = new DoneGoalCommand(cmd);
         } else if (cmd.startsWith("graph")) {
             moneyCommand = new GraphCommand();
+<<<<<<< HEAD
+        } else if (cmd.startsWith("undo")) {
+            moneyCommand = new UndoCommand();
+=======
         } else if (cmd.startsWith("add instalment")) {
             moneyCommand = new AddInstalmentCommand(cmd);
         } else if(cmd.startsWith("list all instalment")) {
@@ -100,6 +99,7 @@ public class Parser {
             moneyCommand = new ViewPastMonthIncome(cmd);
         } else if (cmd.startsWith("check expenditure")) {
             moneyCommand = new ViewPastMonthExpenditure(cmd);
+>>>>>>> 888708f6a416811139a34973742c4e0af557ca3d
         } else {
             throw new DukeException("OOPS!!! I'm sorry, but I don't know what that means");
         }
