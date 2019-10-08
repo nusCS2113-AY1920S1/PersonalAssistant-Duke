@@ -25,7 +25,6 @@ public class RescheduleCommand implements ICommand {
     public RescheduleCommand(String input) {
         //correct format:  reschedule <indexOfTask> <new date and time>
         String[] allArgs = input.split(" ", 3);
-        List<String> listArgs = new ArrayList<>(Arrays.asList(allArgs));
         this.indexOfTask = Integer.parseInt(allArgs[1]) - 1;
 
         Date date;

@@ -142,7 +142,7 @@ public class TaskList implements Serializable {
         Date currentDateTime = new Date(System.currentTimeMillis());
 
         //If no limit given by user, by default will remind user of tasks in coming 7 days
-        if (limit.equals("")) {
+        if (("").equals(limit)) {
             Calendar c = Calendar.getInstance();
             c.setTime(currentDateTime);
             c.add(Calendar.DATE, DAYS_FROM_NOW);
