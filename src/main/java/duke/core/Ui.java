@@ -194,12 +194,16 @@ public class Ui {
      * Shows Duke logo and welcome message, and user input instructions.
      */
     public void showWelcome() {
-        String logo = " ____        _        \n"
-                + "|  _ \\ _   _| | _____ \n"
-                + "| | | | | | | |/ / _ \\\n"
-                + "| |_| | |_| |   <  __/\n"
-                + "|____/ \\__,_|_|\\_\\___|\n";
-        System.out.println("Hello from\n" + logo);
+        String logo = " _____        _              _ _        _ \n" +
+                "|  __ \\      | |            (_) |      | |\n" +
+                "| |  | |_   _| | _____ _ __  _| |_ __ _| |\n" +
+                "| |  | | | | | |/ / _ \\ '_ \\| | __/ _` | |\n" +
+                "| |__| | |_| |   <  __/ |_) | | || (_| | |\n" +
+                "|_____/ \\__,_|_|\\_\\___| .__/|_|\\__\\__,_|_|\n" +
+                "                      | |                 \n" +
+                "                      |_|                 \n";
+
+        System.out.println(logo);
         System.out.println("Hello! I'm Duke\nWhat can I do for you?\n\n");
         System.out.println("Enter 'help' to show a list of commands ");
     }
