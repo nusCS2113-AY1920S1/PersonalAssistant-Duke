@@ -69,7 +69,7 @@ public class Duke extends Application {
     @Override
     public void start(Stage stage) {
         try {
-            URL url = Duke.class.getClassLoader().getResource("view/menu.fxml");
+            URL url = Duke.class.getClassLoader().getResource("view/goalView.fxml");
             System.out.println(url);
             Parent root = FXMLLoader.load(url);
             stage.setScene(new Scene(root, 1280,720));
