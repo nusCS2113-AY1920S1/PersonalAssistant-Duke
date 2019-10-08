@@ -1,4 +1,4 @@
-package optix.core;
+package optix.commons.model;
 
 public class Seat {
     private double ticketPrice;

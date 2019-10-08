@@ -1,30 +1,30 @@
 package Optix.commands;
 
 import optix.commands.shows.AddCommand;
-import optix.Ui;
 import optix.commands.shows.DeleteAllCommand;
-import optix.core.Storage;
-import optix.util.ShowMap;
+import optix.commons.Model;
+import optix.commons.Storage;
+import optix.ui.Ui;
 import org.junit.jupiter.api.Test;
 
 import java.io.File;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class DeleteAllCommandTest {
-	private ShowMap shows = new ShowMap();
 	private Ui ui = new Ui();
 	private File currentDir = new File(System.getProperty("user.dir"));
-	private File filePath = new File(currentDir.toString() + "\\src\\main\\data\\testOptix.txt");
+	private File filePath = new File(currentDir.toString() + "\\src\\test\\data\\testOptix.txt");
 	private Storage storage = new Storage(filePath);
+	private Model model = new Model(storage);
 	@Test
 	void execute() {
 		AddCommand addTestShow1 = new AddCommand("Test Show 1","5/5/2020", 2000, 20);
 		AddCommand addTestShow2 = new AddCommand("Test Show 2", "6/5/2020", 2000, 50);
-		addTestShow1.execute(shows, ui, storage);
-		addTestShow2.execute(shows, ui, storage);
+		addTestShow1.execute(model, ui, storage);
+		addTestShow2.execute(model, ui, storage);
 		DeleteAllCommand testCommand = new DeleteAllCommand(new String[]{"Test Show 1", "Test Show 2","Intentionally missing show"});
-		testCommand.execute(shows, ui, storage);
+		testCommand.execute(model, ui, storage);
 		String expected = "__________________________________________________________________________________\n"
 				+ "Noted. These are the deleted entries:\n"
 				+ "2020-05-05 Test Show 1\n"
@@ -33,7 +33,7 @@ class DeleteAllCommandTest {
 				+ "Intentionally missing show\n"
 				+ "__________________________________________________________________________________\n";
 
-		assertEquals(expected, ui.showLine());
+		assertEquals(expected, ui.showCommandLine());
 		filePath.deleteOnExit();
 	}
 }

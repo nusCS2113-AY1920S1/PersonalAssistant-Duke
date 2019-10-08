@@ -1,4 +1,4 @@
-package optix.core;
+package optix.commons.model;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
@@ -60,7 +60,7 @@ public class Theatre {
                     tierThreeSeats++;
                     break;
                 default:
-                    System.out.println("There shouldn't be anything here.");
+                    assert i > seats.length;
                     break;
                 }
             }
@@ -79,18 +79,22 @@ public class Theatre {
         return seats;
     }
 
-    public String writeToFile() {
-        return String.format("%s | %f | %f | %f\n", showName, cost, revenue, seatBasePrice);
-    }
-
-    public boolean hasSameName(String checkName) {
-        return showName.toLowerCase().equals(checkName.toLowerCase());
-    }
-
-    private String getSeatsLeft() {
-        return "\nTier 1 Seats: " + tierOneSeats + "\n"
-                + "Tier 2 Seats: " + tierTwoSeats + "\n"
-                + "Tier 3 Seats: " + tierThreeSeats + "\n";
+    public void setSeat(String buyerName, int row, int col) {
+        seats[row][col].setBooked(true);
+        seats[row][col].setName(buyerName);
+        switch (seats[row][col].getSeatTier()) {
+            case "1":
+                tierOneSeats--;
+                break;
+            case "2":
+                tierTwoSeats--;
+                break;
+            case "3":
+                tierThreeSeats--;
+                break;
+            default:
+                System.out.println("Should have a Seat Tier!");
+        }
     }
 
     public String getSeatingArrangement() {
@@ -107,12 +111,31 @@ public class Theatre {
 
         return seatingArrangement.toString();
     }
-    // need to think of better way to parse seat number
+
+    private String getSeatsLeft() {
+        return "\nTier 1 Seats: " + tierOneSeats + "\n"
+                + "Tier 2 Seats: " + tierTwoSeats + "\n"
+                + "Tier 3 Seats: " + tierThreeSeats + "\n";
+    }
+
+    public String writeToFile() {
+        return String.format("%s | %f | %f | %f\n", showName, cost, revenue, seatBasePrice);
+    }
+
+    public boolean hasSameName(String checkName) {
+        return showName.toLowerCase().equals(checkName.toLowerCase());
+    }
+
     public double sellSeats(String buyerName, String seat) {
         int row = getRow(seat.substring(0, 1));
         int col = getCol(seat.substring(1));
 
         double costOfSeat = 0;
+
+        //This needs to be changed in the event that the theatre dont have fixed seats for each row
+        if (row == -1 || col == -1) {
+            return costOfSeat;
+        }
 
         if (!seats[row][col].isBooked()) {
             Seat soldSeat = seats[row][col];
@@ -217,39 +240,5 @@ public class Theatre {
             default:
                 return -1;
         }
-    }
-
-    public void setSeat(String buyerName, int row, int col) {
-        seats[row][col].setBooked(true);
-        seats[row][col].setName(buyerName);
-        switch (seats[row][col].getSeatTier()) {
-            case "1":
-                tierOneSeats--;
-                break;
-            case "2":
-                tierTwoSeats--;
-                break;
-            case "3":
-                tierThreeSeats--;
-                break;
-            default:
-                System.out.println("Should have a Seat Tier!");
-        }
-    }
-
-    public int getTierOneSeats() {
-        return tierOneSeats;
-    }
-
-    public int getTierTwoSeats() {
-        return tierTwoSeats;
-    }
-
-    public int getTierThreeSeats() {
-        return tierThreeSeats;
-    }
-
-    private int decreaseSeats(int numSeats) {
-        return numSeats--;
     }
 }

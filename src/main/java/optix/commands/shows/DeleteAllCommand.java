@@ -1,10 +1,11 @@
 package optix.commands.shows;
 
-import optix.Ui;
+import optix.commons.Model;
+import optix.ui.Ui;
 import optix.commands.Command;
-import optix.core.Storage;
-import optix.core.Theatre;
-import optix.util.ShowMap;
+import optix.commons.Storage;
+import optix.commons.model.Theatre;
+import optix.commons.model.ShowMap;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -12,6 +13,10 @@ import java.util.Map;
 
 public class DeleteAllCommand extends Command {
     private String[] showNames;
+
+    private static final String MESSAGE_SUCCESSFUL = "Noted. These are the deleted entries:\n";
+
+    private static final String MESSAGE_UNSUCCESSFUL = "Sorry, these shows were not found:\n";
 
     public DeleteAllCommand(String[] showNames) {
         this.showNames = showNames;
@@ -21,7 +26,8 @@ public class DeleteAllCommand extends Command {
     /*
      * Command that deletes all instances of a specific show.
      */
-    public void execute(ShowMap shows, Ui ui, Storage storage) {
+    public void execute(Model model, Ui ui, Storage storage) {
+        ShowMap shows = model.getShows();
         StringBuilder message = new StringBuilder();
         ArrayList<String> deletedShows = new ArrayList<>();
         ArrayList<String> missingShows = new ArrayList<>();
@@ -47,17 +53,19 @@ public class DeleteAllCommand extends Command {
             }
         }
         if (!deletedShows.isEmpty()) {
-            message.append("Noted. These are the deleted entries:\n");
+            message.append(MESSAGE_SUCCESSFUL);
             for (String infoStrings: deletedShows) {
                 message.append(infoStrings.trim()).append('\n');
             }
         }
         if (!missingShows.isEmpty()) {
-            message.append("Sorry, these shows were not found:\n");
+            message.append(MESSAGE_UNSUCCESSFUL);
             for (String missingShow: missingShows) {
                 message.append(missingShow.trim()).append('\n');
             }
         }
+
+        model.setShows(shows);
         ui.setMessage(message.toString());
     }
 }

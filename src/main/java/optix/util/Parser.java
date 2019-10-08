@@ -32,7 +32,7 @@ public class Parser {
         String[] splitStr = fullCommand.trim().split(" ", 2);
       
         if (splitStr.length == 1) {
-            switch (splitStr[0].toLowerCase()) {
+            switch (splitStr[0].toLowerCase().trim()) {
             case "bye":
                 return new ByeCommand();
             case "list":
@@ -45,7 +45,7 @@ public class Parser {
         } else if (splitStr.length == 2) {
 
             // There will definitely be exceptions thrown here. Need to stress test and then categorise
-            switch (splitStr[0].toLowerCase()) {
+            switch (splitStr[0].toLowerCase().trim()){
             case "edit":
                 return parseEditShow(splitStr[1]);
             case "sell":

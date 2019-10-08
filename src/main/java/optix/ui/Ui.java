@@ -1,6 +1,4 @@
-package optix;
-
-import optix.constant.OptixResponse;
+package optix.ui;
 
 import java.util.Scanner;
 
@@ -14,17 +12,21 @@ public class Ui {
      * Stores the appropriate response based on users input command.
      * Once user command is processed, Optix's response is stored using
      * setMessage method to store the appropriate message. Use
-     * by showLine method to print out the response.
+     * by showCommandLine method to print out the response.
      */
     private String message;
 
-    /**
-     * A variable to access DukeResponse Class for all Optix's response related
-     * constants.
-     */
-    private OptixResponse or = new OptixResponse();
-
     private Scanner sc = new Scanner(System.in);
+
+    private static final String SPACES = "__________________________________________________________________________________\n";
+
+    private static final String MESSAGE_GREET = "Hello! I'm Optix\n"
+            + "What can I do for you?\n";
+
+
+    public Ui() {
+        this.message = MESSAGE_GREET;
+    }
 
     /**
      * Read in the command by user.
@@ -39,23 +41,19 @@ public class Ui {
      * @param message String Optix will respond with based on user input.
      */
     public void setMessage(String message) {
-        this.message = or.SPACES + message + or.SPACES;
+        this.message = message;
     }
 
-    /**
-     * Prints out the greeting by Optix program when Optix starts running.
-     * @return Greetings by Optix.
-     */
-    public String showWelcome() {
-        return or.SPACES + or.GREET + or.SPACES;
+    public String getMessage() {
+        return message;
     }
 
     /**
      * Prints out the Optix's response based on user's input.
      * @return Response by Optix.
      */
-    public String showLine() {
-        return this.message;
+    public String showCommandLine() {
+        return SPACES + message + SPACES;
     }
 
     public void exitOptix() {

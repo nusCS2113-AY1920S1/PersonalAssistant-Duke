@@ -1,4 +1,4 @@
-package optix.windows;
+package optix.ui.windows;
 
 import com.jfoenix.controls.JFXTextField;
 import javafx.fxml.FXML;

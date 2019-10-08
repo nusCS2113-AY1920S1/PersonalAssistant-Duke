@@ -1,6 +1,4 @@
-package optix.util;
-
-import optix.core.Theatre;
+package optix.commons.model;
 
 import java.time.LocalDate;
 import java.util.TreeMap;

@@ -1,6 +1,10 @@
-package optix.core;
+package optix.commons;
 
-import optix.util.ShowMap;
+import optix.commons.model.Seat;
+import optix.commons.model.Show;
+import optix.commons.model.ShowHistoryMap;
+import optix.commons.model.ShowMap;
+import optix.commons.model.Theatre;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -12,29 +16,33 @@ import java.time.format.DateTimeFormatter;
 import java.util.Map;
 
 public class Storage {
-    private File filePath;
+    private File archiveFilePath;
+    private File showMapFilePath;
     private LocalDate today;
 
     public Storage(File filePath) {
         today = LocalDate.now();
 
-        this.filePath = filePath;
+        this.showMapFilePath = new File(filePath + "\\optix.txt");
+        this.archiveFilePath = new File(filePath + "\\archive.txt");
         try {
-            if (!filePath.getParentFile().exists()) {
-                filePath.getParentFile().mkdirs();
-            }
             if (!filePath.exists()) {
-                filePath.createNewFile();
+                filePath.mkdirs();
+            }
+            if (!showMapFilePath.exists()) {
+                showMapFilePath.createNewFile();
+            }
+            if (!archiveFilePath.exists()) {
+                archiveFilePath.createNewFile();
             }
         } catch (IOException e) {
             System.out.println("Unable to create file.\n");
         }
     }
 
-    public ShowMap load() {
-        ShowMap shows = new ShowMap();
+    public void loadShows(ShowMap shows, ShowHistoryMap showsHistory) {
         try {
-            FileReader rd = new FileReader(filePath);
+            FileReader rd = new FileReader(showMapFilePath);
             BufferedReader br = new BufferedReader(rd);
 
             String message;
@@ -50,11 +58,13 @@ public class Storage {
                     double seatBasePrice = Double.parseDouble(arrStr[5]);
 
                     if (date.compareTo(today) <= 0) {
+                        Show show = new Show(showName, revenue);
+                        showsHistory.put(date, show);
                         continue;
                     }
 
                     Theatre theatre = new Theatre(showName, cost, revenue, seatBasePrice);
-                    theatre = loadSeat(br, theatre);
+                    loadSeat(br, theatre);
 
                     shows.put(date, theatre);
                 }
@@ -66,7 +76,6 @@ public class Storage {
         } catch (IOException e) {
             System.out.println("Unable to load file.\n");
         }
-        return shows;
     }
 
     private Theatre loadSeat(BufferedReader br, Theatre theatre) throws IOException {
@@ -83,11 +92,38 @@ public class Storage {
         return theatre;
     }
 
+    public void loadArchive(ShowHistoryMap showsHistory) {
+        try {
+            FileReader rd = new FileReader(archiveFilePath);
+            BufferedReader br = new BufferedReader(rd);
+
+            String message;
+
+            while ((message = br.readLine()) != null) {
+                String[] arrStr = message.split(" \\| ");
+
+                LocalDate date = localDate(arrStr[0]);
+                String showName = arrStr[1].trim();
+                double revenue = Double.parseDouble(arrStr[2]);
+
+                Show show = new Show(showName, revenue);
+
+                showsHistory.put(date, show);
+            }
+
+            br.close();
+            rd.close();
+
+        } catch (IOException e) {
+            System.out.println("Unable to load file.\n");
+        }
+    }
+
     public void write(ShowMap shows) {
         try {
-            filePath.delete();
-            filePath.createNewFile();
-            FileWriter wr = new FileWriter(filePath, true);
+            showMapFilePath.delete();
+            showMapFilePath.createNewFile();
+            FileWriter wr = new FileWriter(showMapFilePath, true);
 
             for (Map.Entry<LocalDate, Theatre> entry : shows.entrySet()) {
                 Theatre theatre = entry.getValue();
@@ -116,6 +152,23 @@ public class Storage {
         wr.write("next\n");
     }
 
+    public void writeArchive(ShowHistoryMap showsHistory) {
+        try {
+            archiveFilePath.delete();
+            archiveFilePath.createNewFile();
+            FileWriter wr = new FileWriter(archiveFilePath, true);
+
+            for (Map.Entry<LocalDate, Show> entry : showsHistory.entrySet()) {
+                Show show = entry.getValue();
+                LocalDate date = entry.getKey();
+
+                wr.write(String.format("%s | %s | %s", date, show.getShowName(), show.getProfit()));
+            }
+            wr.close();
+        } catch (IOException e) {
+            System.out.println("Unable to write to file.");
+        }
+    }
 
     private LocalDate localDate(String date) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");

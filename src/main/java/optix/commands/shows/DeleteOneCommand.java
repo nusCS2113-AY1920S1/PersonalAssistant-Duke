@@ -1,12 +1,13 @@
 package optix.commands.shows;
 
-import optix.Ui;
+import optix.commons.Model;
+import optix.ui.Ui;
 import optix.commands.Command;
-import optix.core.Storage;
-import optix.core.Theatre;
+import optix.commons.Storage;
+import optix.commons.model.Theatre;
 import optix.exceptions.OptixInvalidDateException;
 import optix.util.OptixDateFormatter;
-import optix.util.ShowMap;
+import optix.commons.model.ShowMap;
 
 import java.time.LocalDate;
 
@@ -16,6 +17,9 @@ public class DeleteOneCommand extends Command {
 
 	private OptixDateFormatter formatter = new OptixDateFormatter();
 
+	private static final String MESSAGE_SUCCESSFUL = "Noted. The show <%1$s> scheduled on <%2$s> has been removed.\n";
+
+	private static final String MESSAGE_UNSUCCESSFUL = "Unable to find show called <%1$s> scheduled on <%2$s>.\n";
 
 	public DeleteOneCommand(String showName, String showDate) {
 		this.showDate = showDate;
@@ -23,7 +27,8 @@ public class DeleteOneCommand extends Command {
 	}
 
 	@Override
-	public void execute(ShowMap shows, Ui ui, Storage storage) {
+	public void execute(Model model, Ui ui, Storage storage) {
+		ShowMap shows = model.getShows();
 		StringBuilder message = new StringBuilder();
 
 		try {
@@ -36,9 +41,10 @@ public class DeleteOneCommand extends Command {
 
 			if (showToDelete != null && showToDelete.hasSameName(showName)) {
 				shows.remove(showLocalDate, showToDelete);
-				message.append(String.format("Noted. The show <%s> scheduled on <%s> has been removed.\n", showName, showDate));
+				model.setShows(shows);
+				message.append(String.format(MESSAGE_SUCCESSFUL, showName, showDate));
 			} else {
-				message.append(String.format("Unable to find show called <%s> scheduled on <%s>.\n", showName, showDate));
+				message.append(String.format(MESSAGE_UNSUCCESSFUL, showName, showDate));
 			}
 		} catch (OptixInvalidDateException e) {
 			message.append(e.getMessage());
