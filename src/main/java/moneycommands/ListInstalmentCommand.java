@@ -24,7 +24,7 @@ public class ListInstalmentCommand extends MoneyCommand {
         DecimalFormat df = new DecimalFormat("#.##");
         df.setRoundingMode(RoundingMode.CEILING);
         for (Instalment i : account.getInstalments()) {
-            ui.appendToOutput(" " + counter + ". " + i.getDescription() + " ($"
+            ui.appendToOutput(" " + counter + ".[" + df.format(i.getPercentage()) + "%] " + i.getDescription() + " ($"
                     + df.format(i.EqualMonthlyInstalment()) + " per month until " + i.getDateEndDate() + ")\n");
             counter++;
         }

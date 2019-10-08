@@ -2,7 +2,6 @@ package moneycommands;
 
 import controlpanel.DukeException;
 import controlpanel.MoneyStorage;
-import controlpanel.Parser;
 import controlpanel.Ui;
 import money.Account;
 import money.Instalment;
@@ -10,17 +9,14 @@ import money.Instalment;
 import java.math.RoundingMode;
 import java.text.DecimalFormat;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 public class AddInstalmentCommand extends MoneyCommand{
     private String inputString;
-    private SimpleDateFormat simpleDateFormat;
 
     public AddInstalmentCommand(String command) {
         inputString = command.replaceFirst("add instalment ", "");
-        simpleDateFormat = new SimpleDateFormat("d/M/yyyy");
     }
 
     public boolean isExit() {
