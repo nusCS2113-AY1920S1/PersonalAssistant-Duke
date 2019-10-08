@@ -3,7 +3,7 @@ package commands;
 import Storage.Storage;
 import Tasks.Task;
 import UI.Ui;
-import Exception.DukeException;
+import exception.DukeException;
 
 import java.io.IOException;
 import java.text.ParseException;

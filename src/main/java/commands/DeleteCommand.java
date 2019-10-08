@@ -6,7 +6,7 @@ import UI.Ui;
 
 import java.io.IOException;
 
-import Exception.DukeException;
+import exception.DukeException;
 
 import java.text.ParseException;
 import java.util.ArrayList;

@@ -7,9 +7,8 @@ import commands.SnoozeCommand;
 import org.junit.jupiter.api.Test;
 import java.io.IOException;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import Exception.DukeException;
+import exception.DukeException;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 

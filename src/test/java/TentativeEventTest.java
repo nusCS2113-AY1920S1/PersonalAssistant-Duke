@@ -2,15 +2,12 @@ import Tasks.TentativeEvent;
 import org.junit.jupiter.api.Test;
 import java.io.IOException;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
 import java.util.ArrayList;
-import Exception.DukeException;
-
-import java.util.Date;
+import exception.DukeException;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 

@@ -5,17 +5,13 @@ import Tasks.Event;
 import Tasks.Task;
 import UI.Ui;
 import java.io.IOException;
-import Exception.DukeException;
+import exception.DukeException;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Calendar;
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.Locale;
 
 public class SnoozeCommand extends Command {
     @Override

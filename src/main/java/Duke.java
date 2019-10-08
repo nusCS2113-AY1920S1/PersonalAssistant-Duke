@@ -3,7 +3,7 @@ import UI.Ui;
 import Storage.Storage;
 import commands.Command;
 import parsers.*;
-import Exception.DukeException;
+import exception.DukeException;
 
 import java.io.*;
 import java.text.ParseException;

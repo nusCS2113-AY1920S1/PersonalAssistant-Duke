@@ -1,6 +1,4 @@
 import Storage.Storage;
-import Tasks.DoAfter;
-import Tasks.FixedDuration;
 import Tasks.Task;
 import UI.Ui;
 import commands.DeadlineCommand;
@@ -8,12 +6,8 @@ import org.junit.jupiter.api.Test;
 import java.io.IOException;
 import java.text.ParseException;
 import java.util.ArrayList;
-import Exception.DukeException;
-import java.io.IOException;
-import java.lang.reflect.Array;
-import java.text.ParseException;
-import java.util.ArrayList;
-import java.util.List;
+import exception.DukeException;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 public class DukeTest {
     @Test
