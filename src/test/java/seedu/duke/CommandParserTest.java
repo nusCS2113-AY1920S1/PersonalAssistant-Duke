@@ -4,6 +4,7 @@ import javafx.util.Pair;
 import org.junit.jupiter.api.Test;
 import seedu.duke.common.command.Command;
 import seedu.duke.common.command.InvalidCommand;
+import seedu.duke.task.command.TaskAddCommand;
 import seedu.duke.task.command.TaskDeleteCommand;
 import seedu.duke.task.command.TaskDoAfterCommand;
 import seedu.duke.task.command.TaskDoneCommand;
@@ -209,29 +210,30 @@ public class CommandParserTest {
 
     @Test
     public void parseAddToDoCommandTest() {
-        //try {
-        //    Class<?> parser = Class.forName("seedu.duke.CommandParser");
-        //    Method method = parser.getDeclaredMethod("parseAddToDoCommand", TaskList.class, String.class,
-        //            String.class, ArrayList.class);
-        //    method.setAccessible(true);
-        //
-        //    ArrayList<String> tagList = new ArrayList<>(Arrays.asList("123", "234"));
-        //    String doafter = "345";
-        //
-        //    assertTrue(method.invoke(null, null, "todo 123", null, null) instanceof TaskSnoozeCommand);
-        //    assertTrue(method.invoke(null, "snooze 1", null, null) instanceof TaskSnoozeCommand);
-        //    assertTrue(method.invoke(null, "snooze 1  ", null, null) instanceof TaskSnoozeCommand);
-        //    assertTrue(method.invoke(null, "snooze ", null, null) instanceof InvalidCommand);
-        //    assertTrue(method.invoke(null, "snooze 1  a", null, null) instanceof InvalidCommand);
-        //    assertTrue(method.invoke(null, "snooze 1a", null, null) instanceof InvalidCommand);
-        //} catch (ClassNotFoundException e) {
-        //    fail("No such class");
-        //} catch (NoSuchMethodException e) {
-        //    fail("No such method");
-        //} catch (InvocationTargetException e) {
-        //    fail(e.getMessage());
-        //} catch (IllegalAccessException e) {
-        //    fail("No Access");
-        //}
+        try {
+            Class<?> parser = Class.forName("seedu.duke.CommandParser");
+            Method method = parser.getDeclaredMethod("parseAddToDoCommand", TaskList.class, String.class,
+                    String.class, ArrayList.class);
+            method.setAccessible(true);
+
+            ArrayList<String> tagList = new ArrayList<>(Arrays.asList("123", "234"));
+            String doafter = "345";
+
+            assertTrue(method.invoke(null, null, "todo 123", null, null) instanceof TaskAddCommand);
+            assertTrue(method.invoke(null, null, "todo 123", null, tagList) instanceof TaskAddCommand);
+            assertTrue(method.invoke(null, null, "todo 123", doafter, tagList) instanceof TaskAddCommand);
+            assertTrue(method.invoke(null, null, "todo 123 234", null, null) instanceof TaskAddCommand);
+            assertTrue(method.invoke(null, null, "todo abc 123 /", null, null) instanceof InvalidCommand);
+            assertTrue(method.invoke(null, null, "todo ", null, null) instanceof InvalidCommand);
+            assertTrue(method.invoke(null, null, "todo", null, null) instanceof InvalidCommand);
+        } catch (ClassNotFoundException e) {
+            fail("No such class");
+        } catch (NoSuchMethodException e) {
+            fail("No such method");
+        } catch (InvocationTargetException e) {
+            fail(e.getMessage());
+        } catch (IllegalAccessException e) {
+            fail("No Access");
+        }
     }
 }
