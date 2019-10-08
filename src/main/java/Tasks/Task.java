@@ -45,4 +45,6 @@ public class Task {
     public String getDateTime(){
         return "void";
     }
+
+    public abstract String getModCode();
 }
