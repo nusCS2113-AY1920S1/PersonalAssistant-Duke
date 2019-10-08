@@ -81,7 +81,7 @@ public class Storage {
         }
     }
 
-    public void deleteItemFromFile(String oldString) {
+    public void deleteFromFile(String oldString) {
         File file = new File(FILE_PATH);
         FileReader fr = null;
         BufferedReader br = null;

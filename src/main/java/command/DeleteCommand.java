@@ -26,7 +26,7 @@ public class DeleteCommand extends Command {
         //ask storage to write to file
         try {
             word = wordBank.getAndDelete(this.deletedWord);
-            storage.deleteItemFromFile(deletedWord);
+            storage.deleteFromFile(word.toString());
             ui.showDeleted(word);
         } catch (NoWordFoundException e) {
             e.showError();
