@@ -10,6 +10,7 @@ import duke.Data.Storage;
 import duke.GUI.ViewModules;
 import duke.Module.Schedule;
 import duke.Sports.ManageStudents;
+import duke.Sports.MyPlan;
 import duke.Task.*;
 
 import javafx.application.Application;
@@ -25,6 +26,7 @@ public class Duke extends Application {
     private TaskList tasks;
     private ManageStudents students;
     private Schedule schedule;
+    private MyPlan plan;
     public static Stage window;
 
 
@@ -35,7 +37,7 @@ public class Duke extends Application {
         tasks = new TaskList();
         students = new ManageStudents();
         schedule = new Schedule(new Storage(".\\src\\main\\java\\duke\\Data\\timeslots.txt").loadSchedule());
-
+        plan = new MyPlan();
     }
 
     /**
@@ -58,7 +60,7 @@ public class Duke extends Application {
                     System.exit(0);
                 }
 
-                ui.readCommand(input, tasks, storage, students, schedule);
+                ui.readCommand(input, tasks, storage, students, schedule, plan);
             }
         }
     }

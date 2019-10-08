@@ -1,2 +1,76 @@
-dummy activity
-push-up | 10 | 6
+Division: 30
+Intensity: high
+Plan 1:
+push-up | 10 | 5
+sit-up | 10 | 5
+running 400m | 100m | 3
+Plan 2:
+
+
+
+Plan 3:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Intensity: moderate
+Plan 1:
+
+
+
+Plan 2:
+
+
+
+Plan 3:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Intensity: relaxed
+Plan 1:
+
+
+
+Plan 2:
+
+
+
+Plan 3:
+
+
+
+

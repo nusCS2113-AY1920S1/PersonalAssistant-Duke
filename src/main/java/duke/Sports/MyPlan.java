@@ -1,5 +1,7 @@
 package duke.Sports;
 
+import duke.Data.Storage;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 
@@ -27,6 +29,14 @@ public class MyPlan {
     private String name;
     private int sets;
     private int reps;
+    private int division;
+
+     public MyPlan() throws FileNotFoundException {
+         filePath = ".\\src\\main\\java\\duke\\Sports\\plan.txt";
+         File f = new File(filePath);
+         fileInput = new Scanner(f);
+         division = new Storage(filePath).loadPMap(getMap());
+     }
 
     public String getName() {
         return this.name;
@@ -60,36 +70,14 @@ public class MyPlan {
         return this.list;
     }
 
+     public int getDivision() {
+         return this.division;
+     }
+
     public int createKey(String intensity, int num) {
-        Intensity i = Intensity.valueOf(intensity);
-        double key = Math.pow(10, i.getValue()) + num;
-        return (int) key;
-    }
-
-    public MyPlan(String filePath) throws FileNotFoundException {
-        this.filePath = filePath;
-        File f = new File(filePath);
-        fileInput = new Scanner(f);
-    }
-
-    public String loadPlan(String plan_num) {
-        String l1 = fileInput.nextLine();
-        while (fileInput.hasNextLine()) {
-            if (l1.equals("plan_num")) {
-                String[] l2 = fileInput.nextLine().split(" ");
-                MyTraining activity = new MyTraining(l2[0],Integer.parseInt(l2[1]),Integer.parseInt(l2[2]));
-                getList().add(activity);
-            }
-        }
-        return "You have loaded plan " + plan_num + " into the list";
-    }
-
-    public String viewPlan() {
-        String message = "";
-        for (MyTraining i : getList()) {
-            message += i.toString() + "\n";
-        }
-        return message;
+         Intensity i = Intensity.valueOf(intensity);
+         double key = Math.pow(10, i.getValue()) + num;
+         return (int) key;
     }
 
     public String clearPlan() {
@@ -113,48 +101,58 @@ public class MyPlan {
         getList().remove(initial);
     }
 
-    enum Intensity {
-        high(3), moderate(2), relaxed(1);
+     /**
+      * Creates an enum for intensity values to restrict it to the specified values.
+      * A set of these values is created to enable easy checking of whether a word is contained in the enum.
+      *
+      */
+    public enum Intensity {
+        high(1), moderate(2), relaxed(3);
 
-        private final static Set<String> en = new HashSet<String>(Intensity.values().length);
-
-        static {
-            for (Intensity i: Intensity.values()) {
-                en.add(i.name());
-            }
-        }
-
-        public static boolean contains(String value) {
-            return en.contains(value);
-        }
-
-        private int value;
-
-        public int getValue() {
-            return this.value;
-        }
+        private final int value;
 
         Intensity(int value) {
             this.value = value;
         }
+
+        public int getValue() {
+            return value;
+        }
+
+        private final static Set<String> set = new HashSet<String>(Intensity.values().length);
+        private final static Map<Integer, Intensity> map = new HashMap<>();
+
+        static {
+            for (Intensity i: Intensity.values()) {
+                set.add(i.name());
+                map.put(i.value,i);
+            }
+        }
+
+        public static boolean contains(String value) {
+            return set.contains(value);
+        }
+
+        public static Intensity valueOf(int value) {
+            return (Intensity) map.get(value);
+        }
     }
 
-    public void loadPlan(String intensity, String plan_num) throws FileNotFoundException {
+     public String viewPlan() {
+         String message = "";
+         for (MyTraining i : getList()) {
+             message += i.toString() + "\n";
+         }
+         return message;
+     }
+
+    public void loadPlan(String intensity, String plan) throws FileNotFoundException {
         if (!Intensity.contains(intensity)) {
             System.out.println("Please input a proper intensity level: high, moderate, relaxed");
         } else {
-            String[] num = plan_num.split("/");
-            String filepath = ".\\src\\main\\java\\duke\\Sports\\plan.txt";
-            Scanner file = new Scanner(new File(filepath));
-            String line = file.nextLine();
-            while (file.hasNextLine()) {
-                if (line.equals("num[1]")) {
-                    String[] l1 = file.nextLine().split(" ");
-                    MyTraining activity = new MyTraining(l1[0], Integer.parseInt(l1[1]), Integer.parseInt(l1[2]));
-                    getList().add(activity);
-                }
-            }
-            System.out.println("You have loaded plan " + num[1] + " of " + intensity + " intensity " + " into the list");
+            int plan_num = Integer.parseInt(plan.split("/")[1]);
+            createKey(intensity,plan_num);
+            System.out.println("You have loaded plan " + plan_num + " of " + intensity + " intensity " + " into the list");
         }
     }
 
@@ -174,14 +172,19 @@ public class MyPlan {
                 getList().add(a);
                 System.out.println("Successfully added activity: " + a.toString());
             }
-
         } catch (Exception e) {
             System.out.println("Please enter a valid intensity level (high,moderate,relaxed)");
         }
     }
 
-    public String deletePlan(String newName, int newSets, int newReps, int newActivity_num) {
-        this.activity_num = newActivity_num;
-        return "You have deleted the training plan: " + newName + " with " + newSets + " sets of " + newReps + "reps.";
+    public String deletePlan(String i, int plan_num) {
+         int key = createKey(i, plan_num);
+         if (!getMap().containsKey(key)) {
+             System.out.println("Please input the correct intensity and plan number.");
+         } else {
+             getMap().remove(key);
+             System.out.println("Plan successfully removed.");
+         }
+         return "0";
     }
 }
