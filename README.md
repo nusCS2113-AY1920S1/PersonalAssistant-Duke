@@ -35,28 +35,28 @@
 1. Open IntelliJ (if you are not in the welcome screen, click `File` > `Close Project` to close the existing project dialog first).
 
 2. Set up the correct JDK version.
-   * Click `Configure` > `Structure for new Projects` (in older versions of Intellij:`Configure` > `Project Defaults` > `Project Structure`).
-   * If JDK 11 is listed in the drop down, select it. If it is not, click `New...` and select the directory where you installed JDK 11.
-   * Click `OK`.
+   - Click `Configure` > `Structure for new Projects` (in older versions of Intellij:`Configure` > `Project Defaults` > `Project Structure`).
+   - If JDK 11 is listed in the drop down, select it. If it is not, click `New...` and select the directory where you installed JDK 11.
+   - Click `OK`.
 3. Click `Import Project`.
 
 4. Locate the project directory and click `OK`.
 
 5. Select `Create project from existing sources` and click `Next`.
 
-6. Rename the project if you want. Click `Next`.
+ 6. Rename the project if you want. Click `Next`.
 
-7. Ensure that your src folder is checked. Keep clicking `Next`.
+ 7. Ensure that your src folder is checked. Keep clicking `Next`.
 
-8. Click `Finish`.
+ 8. Click `Finish`.
 
 # Tutorials 
 
-Duke Increment    | Tutorial 
----------------   |---------------
-`A-Gradle`        | [Gradle Tutorial](tutorials/gradleTutorial.md)
-`A-TextUiTesting` | [Text UI Testing Tutorial](tutorials/textUiTestingTutorial.md)
-`Level-10`        | JavaFX tutorials:<br>→ [Part 1: Introduction to JavaFX][fx1]<br>→ [Part 2: Creating a GUI for Duke][fx2]<br>→ [Part 3: Interacting with the user][fx3]<br>→ [Part 4: Introduction to FXML][fx4]
+|Duke Increment   |Tutorial 
+|---------------  |---------------
+|`A-Gradle`       |[Gradle Tutorial](tutorials/gradleTutorial.md)
+|`A-TextUiTesting`|[Text UI Testing Tutorial](tutorials/textUiTestingTutorial.md)
+|`Level-10`       |JavaFX tutorials:<br>→ [Part 1: Introduction to JavaFX][fx1]<br>→ [Part 2: Creating a GUI for Duke][fx2]<br>→ [Part 3: Interacting with the user][fx3]<br>→ [Part 4: Introduction to FXML][fx4]
 
 [fx1]: <tutorials/javaFxTutorialPart1.md>
 [fx2]: <tutorials/javaFxTutorialPart2.md>
@@ -71,9 +71,9 @@ For more advanced users and developers, do refer to our Developer Guide:
 * [Developer Guide](./docs/DeveloperGuide.adoc)
 
 ## Acknowledgements 
-  * This application was written as submission for our Team project under the module CS2113 Software Engineering and
+* This application was written as submission for our Team project under the module CS2113 Software Engineering and
  Object-Oriented Programming
-  * Libraries used in this project: Natty?, GSON?, some Text to Speech?, JavaFX?, JUnit5
+* Libraries used in this project: Natty?, GSON?, some Text to Speech?, JavaFX?, JUnit5
 
 ## License
 MIT Licensesd
