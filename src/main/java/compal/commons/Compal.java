@@ -1,10 +1,10 @@
-package compal.compal;
+package compal.commons;
 
-import compal.ui.Ui;
+import compal.ui.UiPart;
 import compal.logic.parser.ParserManager;
 import compal.storage.Storage;
 import compal.storage.StorageFile;
-import compal.tasks.TaskList;
+import compal.model.tasks.TaskList;
 
 import java.util.ArrayList;
 
@@ -17,7 +17,7 @@ public class Compal {
 
     //***Class Properties/Variables***--------------------------------------------------------------------------------->
     //objects supporting COMPal.Compal
-    public Ui ui;
+    public UiPart ui;
     public Storage storage;
     public TaskList tasklist;
     public ParserManager parser;
@@ -50,7 +50,7 @@ public class Compal {
 
         }
 
-        ui = new Ui(this, tasklist.arrlist);
+        ui = new UiPart(this, tasklist.arrlist);
 
         //start parsing commands
         parser = new ParserManager(this, tasklist);

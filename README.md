@@ -41,3 +41,5 @@ Personal Assistant originally created by the [SE-EDU](https://github.com/se-edu)
 we will look into it as soon as we can.
 * Any suggestions? Feel free to post on our [issue tracker](https://github.com/AY1920S1-CS2113T-W17-1/main/issues) or 
 better yet, submit a [pull request](https://github.com/AY1920S1-CS2113T-W17-1/main/pulls)!
+
+## License: [MIT](/LICENSE)

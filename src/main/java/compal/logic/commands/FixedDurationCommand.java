@@ -1,19 +1,20 @@
 package compal.logic.commands;
 
-import compal.compal.Compal;
+import compal.commons.Compal;
 import compal.logic.parser.CommandParser;
-import compal.tasks.FixedDurationTask;
-import compal.tasks.Task;
-import compal.tasks.TaskList;
+import compal.model.tasks.FixedDurationTask;
+import compal.model.tasks.Task;
+import compal.model.tasks.TaskList;
 
 import java.util.Scanner;
 
-import static compal.compal.Messages.MESSAGE_INVALID_MINUTE;
-import static compal.compal.Messages.MESSAGE_MISSING_HOUR;
-import static compal.compal.Messages.MESSAGE_MISSING_MIN;
-import static compal.compal.Messages.MESSAGE_MISSING_COMMAND_ARG;
-import static compal.compal.Messages.MESSAGE_MISSING_HOUR_ARG;
-import static compal.compal.Messages.MESSAGE_MISSING_MIN_ARG;
+import static compal.commons.Messages.MESSAGE_INVALID_MINUTE;
+import static compal.commons.Messages.MESSAGE_INVALID_TIME_RANGE;
+import static compal.commons.Messages.MESSAGE_MISSING_COMMAND_ARG;
+import static compal.commons.Messages.MESSAGE_MISSING_HOUR;
+import static compal.commons.Messages.MESSAGE_MISSING_HOUR_ARG;
+import static compal.commons.Messages.MESSAGE_MISSING_MIN;
+import static compal.commons.Messages.MESSAGE_MISSING_MIN_ARG;
 
 /**
  * Executes user command "fixeddurationtask".
@@ -50,10 +51,15 @@ public class FixedDurationCommand extends Command implements CommandParser {
             String description = getDescription(restOfInput);
             Task.Priority priority = getPriority(restOfInput);
             String date = getDate(restOfInput);
-            String time = getTime(restOfInput);
-            int hour = getHour(restOfInput);
-            int minute = getMinute(restOfInput);
-            taskList.addTask(new FixedDurationTask(description, priority, date, time, hour, minute));
+            String startTime = getStartTime(restOfInput);
+            String endTime = getEndTime(restOfInput);
+
+            if (Integer.parseInt(startTime) > Integer.parseInt(endTime)) {
+                compal.ui.printg(MESSAGE_INVALID_TIME_RANGE);
+                throw new Compal.DukeException(MESSAGE_INVALID_TIME_RANGE);
+            }
+
+            taskList.addTask(new FixedDurationTask(description, priority, date, startTime, endTime));
             int arrSize = taskList.arrlist.size() - 1;
             String descToPrint = taskList.arrlist.get(arrSize).toString();
             compal.ui.printg(descToPrint);

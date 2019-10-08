@@ -1,5 +1,7 @@
-package compal.tasks;
+package compal.model;
 
+import compal.model.tasks.DoAfterTasks;
+import compal.model.tasks.Task;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -7,7 +9,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import static compal.tasks.Task.Priority.high;
+import static compal.model.tasks.Task.Priority.high;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
@@ -57,15 +59,6 @@ public class DoAfterTasksTest {
         assertEquals(date, doAfterTasks.getStringDate());
     }
 
-    @Test
-    void getDurationHour() {
-        assertNull(doAfterTasks.getDurationHour());
-    }
-
-    @Test
-    void getDurationMinute() {
-        assertNull(doAfterTasks.getDurationMinute());
-    }
 
     @Test
     void hasReminder() {
@@ -74,7 +67,7 @@ public class DoAfterTasksTest {
 
     @Test
     void getTime() {
-        assertNull(doAfterTasks.getTime());
+        assertNull(doAfterTasks.getStartTime());
     }
 
     @Test
@@ -86,12 +79,5 @@ public class DoAfterTasksTest {
     void markAsDoneTest() {
         doAfterTasks.markAsDone();
         assertEquals(true, doAfterTasks.isDone);
-    }
-
-    @Test
-    void toStringTest() {
-        assertEquals("[" + doAfterTasks.getSymbol() + "]" + "[" + doAfterTasks.getStatusIcon() + "] "
-                + doAfterTasks.getDescription() + " Date: " + doAfterTasks.getStringDate()
-                + " Priority: " + doAfterTasks.getPriority(), doAfterTasks.toString());
     }
 }

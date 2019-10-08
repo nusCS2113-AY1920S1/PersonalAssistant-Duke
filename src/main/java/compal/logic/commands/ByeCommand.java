@@ -1,7 +1,7 @@
 package compal.logic.commands;
 
 import compal.logic.parser.CommandParser;
-import compal.compal.Compal;
+import compal.commons.Compal;
 
 /**
  * Executes user input "bye".

@@ -1,6 +1,6 @@
 package compal.logic.parser;
 
-import compal.compal.Compal;
+import compal.commons.Compal;
 
 import java.text.ParseException;
 
