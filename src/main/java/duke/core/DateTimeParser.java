@@ -8,11 +8,12 @@ import java.time.format.DateTimeParseException;
 public class DateTimeParser {
 
     /**
-     * update the <code>LocalDateTime</> constructor to save the date and time
+     * update the <code> LocalDateTime </code> constructor to save the date and time
      *
      * @param timeBeforeFormat the time retrieved from user input.
      * @return A LocalDateTime object that contains date and time information.
      */
+
     public static LocalDateTime convertToLocalDateTime(String timeBeforeFormat) throws DukeException {
         DateTimeFormatter parser = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
         LocalDateTime localDateTime;
@@ -37,7 +38,7 @@ public class DateTimeParser {
         DateTimeFormatter rdFormatter = DateTimeFormatter.ofPattern("d'rd of' MMMM yyyy, ha");
         DateTimeFormatter thFormatter = DateTimeFormatter.ofPattern("d'th of' MMMM yyyy, ha");
 
-        try{
+        try {
             LocalDateTime localDateTime;
             localDateTime = convertToLocalDateTime(timeBeforeFormat);
             if ((localDateTime.getDayOfMonth() % 10) == 1) {
@@ -49,7 +50,7 @@ public class DateTimeParser {
             } else {
                 return localDateTime.format(thFormatter);
             }
-        }catch(DukeException e){
+        } catch (DukeException e) {
             throw e;
         }
     }
