@@ -63,7 +63,6 @@ public class CommitGoalCommand extends MoneyCommand {
                     }
                     goalsAfterCommit.remove(j-1);
                     goalSavingsAfterCommit -= price;
-                    System.out.println(j);
                 }
             }
 
