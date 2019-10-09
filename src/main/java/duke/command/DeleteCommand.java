@@ -1,11 +1,12 @@
 package duke.command;
 
+import duke.util.Reminder;
 import duke.util.TaskList;
 import duke.util.Storage;
 import duke.util.Ui;
-import duke.tasks.Task;
-import duke.exceptions.DukeInvalidIndexException;
-import duke.exceptions.DukeEmptyListException;
+import duke.modules.Task;
+import duke.exceptions.ModInvalidIndexException;
+import duke.exceptions.ModEmptyListException;
 
 import java.util.Objects;
 
@@ -32,16 +33,17 @@ public class DeleteCommand extends Command {
      * @param tasks TaskList object containing current active tasks
      * @param ui Ui object containing all the methods to output to user
      * @param store Storage object which updates stored data.
-     * @throws DukeInvalidIndexException when user has input an index that
+     * @throws ModInvalidIndexException when user has input an index that
      *              is not within the current range.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage store) throws DukeInvalidIndexException, DukeEmptyListException {
+    public void execute(TaskList tasks, Ui ui, Storage store, Reminder reminder)
+            throws ModInvalidIndexException, ModEmptyListException {
         boolean isEmpty = tasks.getTasks().isEmpty();
         if (index < 0 || index >= tasks.getTasks().size()) {
-            throw new DukeInvalidIndexException();
+            throw new ModInvalidIndexException();
         } else if (isEmpty) {
-            throw new DukeEmptyListException();
+            throw new ModEmptyListException();
         } else {
             Task temp = tasks.getTasks().get(index);
             tasks.delete(index);

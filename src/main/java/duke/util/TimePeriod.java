@@ -1,6 +1,6 @@
 package duke.util;
 
-import duke.exceptions.DukeInvalidTimePeriodException;
+import duke.exceptions.ModInvalidTimePeriodException;
 
 import java.time.LocalDateTime;
 
@@ -13,14 +13,31 @@ public class TimePeriod {
      * Constructor for TimePeriod check.
      * @param begin Start date.
      * @param end End date.
-     * @throws DukeInvalidTimePeriodException thrown when date period is invalid.
+     * @throws ModInvalidTimePeriodException thrown when date period is invalid.
      */
-    public TimePeriod(LocalDateTime begin, LocalDateTime end) throws DukeInvalidTimePeriodException {
-        if (end.isBefore(begin)) {
-            throw new DukeInvalidTimePeriodException("End before begin!");
+    public TimePeriod(LocalDateTime begin, LocalDateTime end) throws ModInvalidTimePeriodException {
+        this.setPeriod(begin, end);
+    }
+
+    /**
+     * Constructor for TimePeriod check.
+     * @param begin Start date.
+     * @param isInstantEnd Ends immediately or not.
+     * @throws ModInvalidTimePeriodException thrown when date period is invalid.
+     */
+    public TimePeriod(LocalDateTime begin, boolean isInstantEnd) throws ModInvalidTimePeriodException {
+        this(begin, null);
+        if (isInstantEnd) {
+            this.setEnd(this.getBegin());
         }
-        this.begin = begin;
-        this.end = end;
+    }
+
+    public TimePeriod(LocalDateTime begin) throws ModInvalidTimePeriodException {
+        this(begin, true);
+    }
+
+    public TimePeriod() throws ModInvalidTimePeriodException {
+        this(null, null);
     }
 
     /**
@@ -40,6 +57,10 @@ public class TimePeriod {
         return this.isClashing(localDateTime, false, false);
     }
 
+    public boolean isClashing(LocalDateTime begin, LocalDateTime end) {
+        return this.isClashing(begin) || this.isClashing(end);
+    }
+
     public boolean isClashing(TimePeriod other) {
         return other.isClashing(this.begin) || other.isClashing(this.end);
     }
@@ -52,8 +73,47 @@ public class TimePeriod {
         return this.end;
     }
 
+    public void setBegin(LocalDateTime begin) {
+        this.begin = begin;
+    }
+
+    public void setEnd(LocalDateTime end) {
+        this.end = end;
+    }
+
+    /**
+     * Set period for this object.
+     * @param begin Start date.
+     * @param end End date.
+     * @throws ModInvalidTimePeriodException thrown when date period is invalid.
+     */
+    public void setPeriod(LocalDateTime begin, LocalDateTime end) throws ModInvalidTimePeriodException {
+        if (end != null && begin != null && end.isBefore(begin)) {
+            throw new ModInvalidTimePeriodException("End before begin!");
+        }
+        this.begin = begin;
+        this.end = end;
+    }
+
+    public void setPeriod(LocalDateTime begin, TimeInterval duration) throws ModInvalidTimePeriodException {
+        this.setPeriod(begin, begin.plus(duration));
+    }
+
     public boolean isExpired() {
         LocalDateTime now = LocalDateTime.now();
-        return this.end.isBefore(now) || this.end.isEqual(now);
+        return this.end != null && (this.end.isBefore(now) || this.end.isEqual(now));
+    }
+
+    public TimeInterval getInterval() {
+        return TimeInterval.between(this.begin, this.end);
+    }
+
+    /**
+     * Make period expire immediately.
+     */
+    public void endsNow() {
+        if (!this.isExpired()) {
+            this.setEnd(LocalDateTime.now());
+        }
     }
 }

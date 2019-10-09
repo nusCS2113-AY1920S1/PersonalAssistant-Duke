@@ -1,8 +1,8 @@
 package duke.exceptions;
 
-public class DukeMissingArgumentException extends DukeException {
+public class ModMissingArgumentException extends ModException {
 
-    public DukeMissingArgumentException(String message) {
+    public ModMissingArgumentException(String message) {
         super(message);
     }
 

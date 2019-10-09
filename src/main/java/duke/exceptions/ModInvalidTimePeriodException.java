@@ -1,7 +1,7 @@
 package duke.exceptions;
 
-public class DukeInvalidTimePeriodException extends DukeException {
-    public DukeInvalidTimePeriodException(String message) {
+public class ModInvalidTimePeriodException extends ModException {
+    public ModInvalidTimePeriodException(String message) {
         super(message);
     }
 

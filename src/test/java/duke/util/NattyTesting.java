@@ -1,25 +1,15 @@
 package duke.util;
 
-import duke.exceptions.DukeInvalidTimeException;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
+import duke.exceptions.ModInvalidTimeException;
 import java.time.LocalDateTime;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.List;
-import java.util.Map;
 
-import org.antlr.runtime.tree.Tree;
-
-import org.junit.jupiter.api.BeforeAll;
+import java.util.concurrent.TimeUnit;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-
-import com.joestelmach.natty.DateGroup;
-import com.joestelmach.natty.ParseLocation;
-import com.joestelmach.natty.Parser;
 
 
 public class NattyTesting {
@@ -30,10 +20,13 @@ public class NattyTesting {
     public void nattyDateTest() {
         try {
             Date first = natty.runParser("today");
-            Date second = Calendar.getInstance().getTime();
-            assertTrue(first.before(second));
-        } catch (DukeInvalidTimeException e) {
+            TimeUnit.MILLISECONDS.sleep(1);
+            Date second = new Date(System.currentTimeMillis());
+            assertTrue(second.after(first));
+        } catch (ModInvalidTimeException e) {
             System.out.println(e.getMessage());
+        } catch (InterruptedException ex) {
+            Thread.currentThread().interrupt();
         }
     }
 
@@ -41,10 +34,13 @@ public class NattyTesting {
     public void nattyLocalDateTimeTest() {
         try {
             LocalDateTime before = natty.dateToLocalDateTime("today");
+            TimeUnit.MILLISECONDS.sleep(1);
             LocalDateTime after = LocalDateTime.now();
             assertTrue(before.isBefore(after));
-        } catch (DukeInvalidTimeException e) {
+        } catch (ModInvalidTimeException e) {
             System.out.println(e.getMessage());
+        }  catch (InterruptedException ex) {
+            Thread.currentThread().interrupt();
         }
     }
 

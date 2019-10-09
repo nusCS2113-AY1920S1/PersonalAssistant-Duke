@@ -1,6 +1,6 @@
 package duke.util;
 
-import duke.tasks.Task;
+import duke.modules.Task;
 
 import java.util.List;
 import java.util.Scanner;
@@ -71,6 +71,18 @@ public class Ui {
         for (Task temp : taskList) {
             System.out.println(count + ". " + temp);
             count++;
+        }
+    }
+
+    /**
+     * Prints all tasks in upcomingTasksList.
+     * @param upcomingTasksList contains all upcoming tasks.
+     */
+    public void printUpcomingTasks(List<Task> upcomingTasksList) {
+        if (upcomingTasksList.size() > 0) {
+            System.out.println(LINE + "You have " + upcomingTasksList.size() + " upcoming tasks!\nHere's the list:");
+            this.printTaskList(upcomingTasksList);
+            System.out.println(LINE);
         }
     }
 

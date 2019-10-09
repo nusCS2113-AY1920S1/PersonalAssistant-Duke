@@ -1,13 +1,14 @@
 package duke.util;
 
-import duke.exceptions.DukeInvalidTimeException;
-import duke.exceptions.DukeInvalidTimePeriodException;
-import duke.tasks.Deadline;
-import duke.tasks.DoWithin;
-import duke.tasks.Events;
-import duke.tasks.RecurringTask;
-import duke.tasks.Task;
-import duke.tasks.Todo;
+import duke.exceptions.ModInvalidTimeException;
+import duke.exceptions.ModInvalidTimePeriodException;
+import duke.modules.Deadline;
+import duke.modules.DoWithin;
+import duke.modules.Events;
+import duke.modules.RecurringTask;
+import duke.modules.FixedDurationTasks;
+import duke.modules.Task;
+import duke.modules.Todo;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
@@ -27,14 +28,31 @@ public class Storage {
      *
      */
     private Path path;
-    private boolean fileExists;
+    private Path dataPath;
+
+    private boolean dataPathExists = false;
+    private boolean fileExists = false;
 
     /**
-     * Constructor for storage class.
+     * Default Constructor for storage class.
+     *
      */
     public Storage() {
         path = Paths.get("data/dukeData.text");
-        fileExists = Files.isRegularFile(path);
+        setFileExists();
+    }
+
+    /**
+     * Overloaded Constructor for storage class, specifying the data path as String.
+     */
+    public Storage(String filePath) {
+        dataPath = Paths.get(filePath);
+        setDataPathExists();
+    }
+
+    public void setDataPath(Path dataPath) {
+        this.dataPath = dataPath;
+        setDataPathExists();
     }
 
     /**
@@ -42,7 +60,7 @@ public class Storage {
      * and returns the previously stored data as a TaskList.
      * @return TaskList of what was saved in the data file.
      */
-    public List<Task> readData() throws DukeInvalidTimeException {
+    public List<Task> readData() throws ModInvalidTimeException, ModInvalidTimePeriodException {
         List<Task> list = new ArrayList<>();
         List<String> lines = Collections.emptyList();
 
@@ -88,19 +106,27 @@ public class Storage {
                     break;
                 }
                 case "W": {
+                    DoWithin tempTodo = new DoWithin(hold[1], hold[3], hold[4]);
+                    if (hold[2].equals("1")) {
+                        tempTodo.setTaskDone();
+                    }
+                    list.add(tempTodo);
+                    break;
+                }
+                case "F": {
                     try {
-                        DoWithin tempTodo = new DoWithin(hold[1], hold[3], hold[4]);
+                        FixedDurationTasks tempFixedDuration = new FixedDurationTasks(hold[1], hold[3]);
                         if (hold[2].equals("1")) {
-                            tempTodo.setTaskDone();
+                            tempFixedDuration.setTaskDone();
                         }
-                        list.add(tempTodo);
+                        list.add(tempFixedDuration);
                         break;
-                    } catch (DukeInvalidTimePeriodException ex) {
+                    } catch (ModInvalidTimeException ex) {
                         break;
                     }
                 }
                 default: {
-                    continue;
+                    break;
                 }
             }
         }
@@ -111,9 +137,18 @@ public class Storage {
         return fileExists;
     }
 
+    public boolean getDataPathExists() {
+        return dataPathExists;
+    }
+
     private void setFileExists() {
         fileExists = Files.isRegularFile(path);
     }
+
+    private void setDataPathExists() {
+        dataPathExists = Files.isRegularFile(dataPath);
+    }
+
 
     /**
      * Writes current state of the taskList to data file. Creates the desired
@@ -121,19 +156,37 @@ public class Storage {
      * @param taskList The current taskList being saved into text file.
      */
     public void writeData(List<Task> taskList) {
-        List<String> store = new ArrayList<>();
+        List<String> stringListTask = new ArrayList<>();
         for (Task temp : taskList) {
-            store.add(temp.writingFile());
+            stringListTask.add(temp.writingFile());
         }
         try {
-            if (fileExists) {
-                Files.write(path, store, StandardCharsets.UTF_8);
-            } else {
-                Files.createDirectories(path.getParent());
-                Files.createFile(path);
+            if (!fileExists) {
+                makeFile(path);
                 setFileExists();
-
             }
+            Files.write(path, stringListTask, StandardCharsets.UTF_8);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void makeFile(Path path) throws IOException {
+        Files.createDirectories(path.getParent());
+        Files.createFile(path);
+    }
+
+    /**
+     * Helper function to write nusMods data to file.
+     * @param data List of String of data from nusMods.
+     */
+    public void writeModsData(List<String> data) {
+        try {
+            if (!dataPathExists) {
+                makeFile(dataPath);
+                setDataPathExists();
+            }
+            Files.write(dataPath, data, StandardCharsets.UTF_8);
         } catch (IOException e) {
             e.printStackTrace();
         }

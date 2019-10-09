@@ -4,7 +4,7 @@ package duke.util;
 import com.joestelmach.natty.DateGroup;
 import com.joestelmach.natty.Parser;
 
-import duke.exceptions.DukeInvalidTimeException;
+import duke.exceptions.ModInvalidTimeException;
 
 import java.time.LocalDateTime;
 import java.time.ZoneId;
@@ -25,6 +25,8 @@ public class NattyWrapper {
      */
     public NattyWrapper() {
         nattyParser = new Parser();
+        //to speed parsing, introducing a dummy initialize case
+        nattyParser.parse("the day after tomorrow");
     }
 
     /**
@@ -33,14 +35,14 @@ public class NattyWrapper {
      * @param input User date input.
      * @return Date of the user input if valid, null if invalid.
      */
-    public Date runParser(String input) throws DukeInvalidTimeException {
+    public Date runParser(String input) throws ModInvalidTimeException {
         List<DateGroup> groups = nattyParser.parse(input);
         if (groups.isEmpty()) {
-            throw new DukeInvalidTimeException();
+            throw new ModInvalidTimeException();
         }
         List<Date> dates = groups.get(0).getDates();
         if (dates.isEmpty()) {
-            throw new DukeInvalidTimeException();
+            throw new ModInvalidTimeException();
         }
         return dates.get(0);
     }
@@ -49,9 +51,9 @@ public class NattyWrapper {
      * Main entry for LocalDateTime conversion.
      * @param input User input of date/time information.
      * @return Valid time based on user input.
-     * @throws DukeInvalidTimeException if user inputs an invalid date/time.
+     * @throws ModInvalidTimeException if user inputs an invalid date/time.
      */
-    public LocalDateTime dateToLocalDateTime(String input) throws DukeInvalidTimeException {
+    public LocalDateTime dateToLocalDateTime(String input) throws ModInvalidTimeException {
         Date date = runParser(input);
         return date.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime();
     }
