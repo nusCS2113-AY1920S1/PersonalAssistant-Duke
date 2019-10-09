@@ -1,5 +1,6 @@
 package seedu.duke.common.command;
 
+import seedu.duke.Duke;
 import seedu.duke.common.command.Command;
 
 /**
@@ -14,6 +15,7 @@ public class ExitCommand extends Command {
     @Override
     public boolean execute() {
         responseMsg = "Bye, hope to see you again.";
+        Duke.getUI().showResponse(responseMsg);
         return false;
     }
 }
