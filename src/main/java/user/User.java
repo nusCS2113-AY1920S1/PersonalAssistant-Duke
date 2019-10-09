@@ -20,6 +20,9 @@ public class User {
         this.userType = userType;
     }
 
+    public User(String username) {
+    }
+
     public String toWriteFile() {
         return email + " | " + password + " | " + username + " | " + userType;
     }
