@@ -24,7 +24,7 @@ public class Parser {
     private String currSwitch;
     private boolean isEscaped;
     private HashMap<String, ArgLevel> switches;
-    private HashMap<String, String> switchVals = new HashMap<String, String>();
+    private HashMap<String, String> switchVals;
 
     /**
      * Constructs a new Parser, generating a HashMap from Cmd enum values to allow fast lookup of command types.
@@ -88,6 +88,7 @@ public class Parser {
         state = EMPTY;
         currSwitch = null;
         switches = currCommand.getSwitches();
+        switchVals = new HashMap<String, String>();
         elementBuilder = new StringBuilder();
         isEscaped = false;
 
@@ -191,10 +192,16 @@ public class Parser {
     // TODO: requires major rewrite for autocorrect
     private void handleSwitch(char curr) throws DukeHelpException {
         switch (curr) {
-        case '-': //fallthrough
-        case '"': //fallthrough
+        case '"':
+            state = ParseState.STRING;
+            addSwitch();
+            break;
         case '\n': //fallthrough
         case ' ':
+            state = EMPTY;
+            addSwitch();
+            break;
+        case '-':
             addSwitch();
             break;
         default:
@@ -221,13 +228,14 @@ public class Parser {
         if (!switches.containsKey(newSwitch)) {
             throw new DukeHelpException("I don't know what this switch is: " + newSwitch, currCommand);
         } else if (switchVals.containsKey(newSwitch)) {
-            throw new DukeHelpException("Multiple values supplied for " + newSwitch + "switch!", currCommand);
+            throw new DukeHelpException("Multiple values supplied for switch: " + newSwitch, currCommand);
         } else {
             if (switches.get(newSwitch) != ArgLevel.NONE) {
                 currSwitch = newSwitch;
             } else {
                 switchVals.put(newSwitch, null);
             }
+            elementBuilder.setLength(0); //clear elementBuilder
         }
     }
 
@@ -236,14 +244,15 @@ public class Parser {
             if (currCommand.cmdArgLevel == ArgLevel.NONE) {
                 throw new DukeHelpException("This command should not have an argument!", currCommand);
             } else if (currCommand.arg != null) {
-                throw new DukeHelpException("Multiple arguments supplied!", currCommand);
+                throw new DukeHelpException("Multiple arguments supplied! You already gave: " + currCommand.arg,
+                        currCommand);
             }
         }
     }
 
     private void checkCommandValid() throws DukeException {
         if (currCommand.cmdArgLevel == ArgLevel.REQUIRED) {
-            throw new DukeHelpException("You need to give an argument to the command!", currCommand);
+            throw new DukeHelpException("You need to give an argument for the command!", currCommand);
         }
         for (HashMap.Entry<String, ArgLevel> switchEntry : switches.entrySet()) {
             if (switchEntry.getValue() == ArgLevel.REQUIRED
