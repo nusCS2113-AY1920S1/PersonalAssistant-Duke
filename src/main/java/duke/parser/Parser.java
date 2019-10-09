@@ -288,7 +288,7 @@ public class Parser {
                     throw new DukeException("The priority must be an integer");
                 }
 
-                if (!((priority > 0) && (priority <6))) {
+                if (!((priority > 0) && (priority < 6))) {
                     throw new DukeException("     (>_<) OOPS!!! Invalid priority! (1 - High ~ 5 - Low).");
                 }
 
