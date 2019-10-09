@@ -1,4 +1,4 @@
-package commands;
+package commands.Edit;
 
 import Storage.Storage;
 import Tasks.*;
@@ -37,7 +37,8 @@ public class EditBothCommand {
             String description = break_event[0];
             String at = break_event[1];
             Event newEvent = new Event(description, at);
-            System.out.print("Ok, we have edited your Event description and time.\n\tFrom: " + list.get(listno_index).listFormat() +
+            System.out.print("Ok, we have edited your Event description and time." +
+                    "\n\tFrom: " + list.get(listno_index).listFormat() +
                     "\n\tTo:   " + newEvent.listFormat() + "\n");
             list.set(listno_index, newEvent);
         } else if(break_list_words[0].equals("DA")) {
