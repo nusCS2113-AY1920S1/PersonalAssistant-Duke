@@ -1,22 +1,23 @@
-
 import Storage.Storage;
-import Tasks.Deadline;
 import Tasks.Task;
 import UI.Ui;
-import commands.RecurringCommand;
+import commands.DeadlineCommand;
+import commands.UndoCommand;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import Exception.DukeException;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.PrintStream;
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Stack;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class RecurringCommandTest  {
+public class UndoCommandTest {
     private ByteArrayOutputStream output = new ByteArrayOutputStream();
     private PrintStream mine = new PrintStream(output);
     private PrintStream original = System.out;
@@ -31,20 +32,19 @@ public class RecurringCommandTest  {
         System.out.flush();
         System.setOut(original);
     }
-
     @Test
-    void testRecurring() throws ParseException, IOException {
+    public void EmptyCommandStackTest() {
+        UndoCommand undoCommand = new UndoCommand();
+        ArrayList<Task> tasks = new ArrayList<Task>();
         Ui ui = new Ui();
+        Stack<String> CommandStack = new Stack<>();
+        ArrayList<Task> deletedTask = new ArrayList<Task>();
         Storage storage = new Storage();
-        RecurringCommand testR = new RecurringCommand();
-        ArrayList<Task> list = new ArrayList<>();
-        Deadline newd = new Deadline("yearly assignment", "2019-01-01 01:01:01");
-        list.add(newd);
-        ui.FullCommand = "done 1";
-
-        testR.AddRecurring(list, 0,list.get(0).toString(),storage);
-        assertEquals("\nI've automatically added this yearly task again:\n[D][ND] yearly assignment(by:01 Jan 2020 01:01:01)"
-                + "\nNow you have " + list.size() + " tasks in the list.\n",output.toString());
+        try {
+            undoCommand.execute(tasks, ui, storage, CommandStack, deletedTask);
+        } catch (ParseException | IOException | DukeException e) {
+            e.printStackTrace();
+        }
+        assertEquals("The previous command cannot be undo\r\n", output.toString());
     }
 }
-
