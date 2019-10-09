@@ -74,9 +74,11 @@ public interface Model {
      */
     void updateFilteredOrderList(Predicate<Order> predicate);
 
-    //========comProduct operations=========
+    //========Product operations=========
 
-    /** Adds the given product */
+    /**
+     * Adds the given product.
+     */
     void addProduct(Product product);
 
     /**

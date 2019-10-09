@@ -108,11 +108,6 @@ public class MainWindow extends UiPart<Stage> {
         userInput.clear();
     }
 
-    @FXML
-    public void handleInputHistory() {
-
-    }
-
     /**
      * Sets UP key to show previous input, and sets DOWN key to the next input.
      */
