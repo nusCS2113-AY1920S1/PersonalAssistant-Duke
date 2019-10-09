@@ -29,7 +29,5 @@ public class AutoUpdateInstalmentCommand extends MoneyCommand{
     }
 
     @Override
-    public void undo(Account account, Ui ui, MoneyStorage storage) throws DukeException, ParseException {
-        return;
-    }
+    public void undo(Account account, Ui ui, MoneyStorage storage) { return; }
 }

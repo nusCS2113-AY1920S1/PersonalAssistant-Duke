@@ -49,7 +49,6 @@ public class Duke {
             MoneyCommand updateCommand = new AutoUpdateInstalmentCommand();
             updateCommand.execute(account, ui, moneyStorage);
             MoneyCommand c = Parser.moneyParse(input, isNewUser);
-            c.execute(account, ui, moneyStorage);
 
             if (c.isExit()) {
                 System.exit(0);
