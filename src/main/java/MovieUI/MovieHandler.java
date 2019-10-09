@@ -282,6 +282,10 @@ public class MovieHandler extends Controller implements RequestListener{
         return mMovies;
     }
 
+    public void showMovie(MovieInfoObject movie) {
+        moviePosterClicked(movie);
+    }
+
 
     @FXML private void clearSearchButtonClicked()
     {
