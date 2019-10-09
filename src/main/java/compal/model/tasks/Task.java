@@ -1,4 +1,4 @@
-package compal.tasks;
+package compal.model.tasks;
 
 import java.io.Serializable;
 import java.text.ParseException;

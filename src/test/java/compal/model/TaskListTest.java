@@ -1,6 +1,7 @@
-package compal.tasks;
+package compal.model;
 
 import compal.commons.Compal;
+import compal.model.tasks.TaskList;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

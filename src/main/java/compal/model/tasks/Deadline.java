@@ -1,4 +1,4 @@
-package compal.tasks;
+package compal.model.tasks;
 
 /**
  * Represents assignment task type with a due date.

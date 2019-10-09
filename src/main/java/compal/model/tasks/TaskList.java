@@ -1,4 +1,4 @@
-package compal.tasks;
+package compal.model.tasks;
 
 import compal.commons.Compal;
 
