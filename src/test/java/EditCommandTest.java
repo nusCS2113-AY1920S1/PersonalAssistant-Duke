@@ -47,7 +47,7 @@ public class EditCommandTest {
         System.setIn(second);
         ByteArrayInputStream third = new ByteArrayInputStream("2020-12-12 11:11:11".getBytes());
         System.setIn(third);
-        EditTimeCommand test = new EditTimeCommand(tasks, ui, storage, 0);
+        EditTimeCommand test = new EditTimeCommand(tasks, ui, 0);
         assertEquals("Type your time:\n" +
                         "Ok, we have edited your Deadline time." +
                         "\n\tFrom: [D][ND] tutorial homework(by:12 Dec 2019 10:10:10)" +
@@ -69,7 +69,7 @@ public class EditCommandTest {
         System.setIn(second);
         ByteArrayInputStream third = new ByteArrayInputStream("tutorial assignment".getBytes());
         System.setIn(third);
-        EditDescriptionCommand test = new EditDescriptionCommand(tasks, ui, storage, 0);
+        EditDescriptionCommand test = new EditDescriptionCommand(tasks, ui, 0);
         assertEquals("Type your description:\n" +
                         "Ok, we have edited your Deadline description." +
                         "\n\tFrom: [D][ND] tutorial homework(by:12 Dec 2019 10:10:10)" +
@@ -90,7 +90,7 @@ public class EditCommandTest {
         System.setIn(second);
         ByteArrayInputStream third = new ByteArrayInputStream("basketball trg /at 2019-12-12 09:00:00-11:00:00".getBytes());
         System.setIn(third);
-        EditBothCommand test = new EditBothCommand(tasks, ui, storage, 0);
+        EditBothCommand test = new EditBothCommand(tasks, ui, 0);
         assertEquals("Type your description & date:\n" +
                         "Ok, we have edited your Event description and time." +
                         "\n\tFrom: [E][ND] banner rev(at:12 Dec 2019 10:10:10-11:00:00)" +

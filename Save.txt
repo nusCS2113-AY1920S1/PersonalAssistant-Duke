@@ -1,4 +1,4 @@
-D|ND|monthly assignment|by: 2018-10-10 10:10:10
+D|ND|yearly assignment|by: 2018-10-10 10:10:10
 T|ND| eat
 E|ND|trg|at: 2019-12-12 09:09:09-10:10:10
 DA|ND|bathe|training

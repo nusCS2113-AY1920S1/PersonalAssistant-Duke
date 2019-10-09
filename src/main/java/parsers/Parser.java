@@ -41,7 +41,10 @@ public class Parser {
             return new TimeboundCommand();
         } else if (splitcommand[0].equals("find")) {
             return new FindCommand();
-        } else if (splitcommand[0].equals("bye")) {
+        }
+        else if(command.equals("contact")) {
+            return new ContactsCommand();
+        }else if (splitcommand[0].equals("bye")) {
             return new ByeCommand();
         } else if (command.contains("/require")) {
             return new FixDurationCommand();
@@ -67,7 +70,8 @@ public class Parser {
             return new ChangePasswordCommand();
         } else if (command.contains("#")) {
             return new TagCommand();
-        } else {
+        }
+        else {
             throw new DukeException("OOPS!!! I'm sorry, but I don't know what that means :-(");
         }
     }
