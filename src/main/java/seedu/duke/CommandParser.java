@@ -379,11 +379,13 @@ public class CommandParser {
                                               ArrayList<Option> optionList) throws UserInputException {
         Task.TaskType taskType;
         String name;
-        LocalDateTime time = null;
+        LocalDateTime time;
         String doAfter;
 
         try {
             doAfter = extractDoAfter(optionList);
+            String timeString = extractTime(optionList);
+            time = Task.parseDate(timeString);
         } catch (UserInputException e) {
             if (ui != null) {
                 ui.showError(e.getMessage());
@@ -392,53 +394,15 @@ public class CommandParser {
         }
         ArrayList<String> tags = extractTags(optionList);
 
+
         if (input.startsWith("todo")) {
             return parseAddToDoCommand(taskList, input, doAfter, tags);
         } else if (input.startsWith("deadline")) {
-            taskType = Task.TaskType.Deadline;
-            if (input.length() <= 9) {
-                throw new CommandParser.UserInputException("☹ OOPS!!! The description of a deadline cannot be "
-                        + "empty.");
-            }
-            input = input.substring(9);
-            if (!input.contains(" /by ")) {
-                throw new CommandParser.UserInputException("☹ OOPS!!! A deadline must have a time specified.");
-            }
-            name = input.split(" /by ", 2)[0];
-            String timeString = input.split(" /by ", 2)[1];
-            while (input.contains("#")) {
-                tags.add(input.split("#", 3)[1]);
-                input = input.split("#", 3)[0] + input.split("#", 3)[2];
-            }
-            if (input.contains(" /doafter ")) {
-                doAfter = timeString.split(" /doafter ", 2)[1];
-                timeString = timeString.split(" /doafter ", 2)[0];
-            }
-            time = Task.parseDate(timeString);
-            return new TaskAddCommand(taskList, taskType, name, time, doAfter, tags);
+            return parseAddDeadlineCommand(taskList, input, time, doAfter, tags);
         } else if (input.startsWith("event")) {
-            taskType = Task.TaskType.Event;
-            if (input.length() <= 6) {
-                throw new CommandParser.UserInputException("☹ OOPS!!! The description of a event cannot be empty.");
-            }
-            input = input.substring(6);
-            if (!input.contains(" /at ")) {
-                throw new CommandParser.UserInputException("☹ OOPS!!! A event must have a time specified.");
-            }
-            name = input.split(" /at ", 2)[0];
-            String timeString = input.split(" /at ", 2)[1];
-            while (input.contains("#")) {
-                tags.add(input.split("#", 3)[1]);
-                input = input.split("#", 3)[0] + input.split("#", 3)[2];
-            }
-            if (input.contains(" /doafter ")) {
-                doAfter = timeString.split(" /doafter ", 2)[1];
-                timeString = timeString.split(" /doafter ", 2)[0];
-            }
-            time = Task.parseDate(timeString);
-            return new TaskAddCommand(taskList, taskType, name, time, doAfter, tags);
+            return parseEventCommand(taskList, input, time, doAfter, tags);
         } else {
-            throw new CommandParser.UserInputException("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
+            throw new CommandParser.UserInputException("OOPS!!! I'm sorry, but I don't know what that means :-(");
         }
     }
 
@@ -457,6 +421,37 @@ public class CommandParser {
         return new TaskAddCommand(taskList, taskType, name, null, doAfter, tags);
     }
 
+    private static Command parseAddDeadlineCommand(TaskList taskList, String input,
+                                                   LocalDateTime time, String doAfter,
+                                                   ArrayList<String> tags) {
+        Task.TaskType taskType = Task.TaskType.Deadline;
+        Pattern deadlinePattern = Pattern.compile("deadline\\s+(?<name>\\w+[\\s+\\w+]*)\\s*");
+        Matcher deadlineMatcher = deadlinePattern.matcher(input);
+        if (!deadlineMatcher.matches()) {
+            if (ui != null) {
+                ui.showError("Please enter a name after \'deadline\'");
+            }
+            return new InvalidCommand();
+        }
+        String name = deadlineMatcher.group("name");
+        return new TaskAddCommand(taskList, taskType, name, time, doAfter, tags);
+    }
+
+    private static Command parseEventCommand(TaskList taskList, String input, LocalDateTime time,
+                                             String doAfter, ArrayList<String> tags) throws UserInputException {
+        Task.TaskType taskType = Task.TaskType.Event;
+        Pattern eventPattern = Pattern.compile("event\\s+(?<name>\\w+[\\s+\\w+]*)\\s*");
+        Matcher eventMatcher = eventPattern.matcher(input);
+        if (!eventMatcher.matches()) {
+            if (ui != null) {
+                ui.showError("Please enter a name after \'event\'");
+            }
+            return new InvalidCommand();
+        }
+        String name = eventMatcher.group("name");
+        return new TaskAddCommand(taskList, taskType, name, time, doAfter, tags);
+    }
+
     private static ArrayList<String> extractTags(ArrayList<Option> optionList) {
         ArrayList<String> tagList = new ArrayList<>();
         for (Option option : optionList) {
@@ -468,10 +463,10 @@ public class CommandParser {
     }
 
     private static String extractDoAfter(ArrayList<Option> optionList) throws UserInputException {
-        String doafter = "";
+        String doafter = null;
         for (Option option : optionList) {
             if (option.getKey().equals("doafter")) {
-                if (doafter.equals("")) {
+                if (doafter == null) {
                     doafter = option.getValue();
                 } else {
                     throw new UserInputException("Each task can have only one doafter option");
@@ -479,6 +474,20 @@ public class CommandParser {
             }
         }
         return doafter;
+    }
+
+    private static String extractTime(ArrayList<Option> optionList) throws UserInputException{
+        String time = null;
+        for (Option option : optionList) {
+            if (option.getKey().equals("time")) {
+                if (time == null) {
+                    time = option.getValue();
+                } else {
+                    throw new UserInputException("Each task can have only one time option");
+                }
+            }
+        }
+        return time;
     }
 
     /**

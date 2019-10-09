@@ -11,11 +11,13 @@ import seedu.duke.task.command.TaskDoneCommand;
 import seedu.duke.task.command.TaskFindCommand;
 import seedu.duke.task.command.TaskReminderCommand;
 import seedu.duke.task.command.TaskSnoozeCommand;
+import seedu.duke.task.entity.Task;
 import seedu.duke.task.entity.TaskList;
 
 import java.lang.reflect.Array;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -231,6 +233,65 @@ public class CommandParserTest {
         } catch (NoSuchMethodException e) {
             fail("No such method");
         } catch (InvocationTargetException e) {
+            fail(e.getMessage());
+        } catch (IllegalAccessException e) {
+            fail("No Access");
+        }
+    }
+
+    @Test
+    public void parseAddDeadlineCommandTest() {
+        try {
+            Class<?> parser = Class.forName("seedu.duke.CommandParser");
+            Method method = parser.getDeclaredMethod("parseAddDeadlineCommand", TaskList.class, String.class, LocalDateTime.class, String.class, ArrayList.class);
+            method.setAccessible(true);
+
+            ArrayList<String> tagList = new ArrayList<>(Arrays.asList("123", "234"));
+            LocalDateTime time = Task.parseDate("11/12/2019 1220");
+            String doafter = "345";
+
+            assertTrue(method.invoke(null, null, "deadline 123", time, null, null) instanceof TaskAddCommand);
+            assertTrue(method.invoke(null, null, "deadline 123", time, null, tagList) instanceof TaskAddCommand);
+            assertTrue(method.invoke(null, null, "deadline 123", time, doafter, tagList) instanceof TaskAddCommand);
+            assertTrue(method.invoke(null, null, "deadline 123 234", time, null, null) instanceof TaskAddCommand);
+            assertTrue(method.invoke(null, null, "deadline abc 123 /", time, null, null) instanceof InvalidCommand);
+            assertTrue(method.invoke(null, null, "deadline ", time, null, null) instanceof InvalidCommand);
+            assertTrue(method.invoke(null, null, "deadline", time, null, null) instanceof InvalidCommand);
+        } catch (ClassNotFoundException e) {
+            fail("No such class");
+        } catch (NoSuchMethodException e) {
+            fail("No such method");
+        } catch (InvocationTargetException | CommandParser.UserInputException e) {
+            fail(e.getMessage());
+        } catch (IllegalAccessException e) {
+            fail("No Access");
+        }
+    }
+
+
+    @Test
+    public void parseAddEventCommandTest() {
+        try {
+            Class<?> parser = Class.forName("seedu.duke.CommandParser");
+            Method method = parser.getDeclaredMethod("parseEventCommand", TaskList.class, String.class, LocalDateTime.class, String.class, ArrayList.class);
+            method.setAccessible(true);
+
+            ArrayList<String> tagList = new ArrayList<>(Arrays.asList("123", "234"));
+            LocalDateTime time = Task.parseDate("11/12/2019 1220");
+            String doafter = "345";
+
+            assertTrue(method.invoke(null, null, "event 123", time, null, null) instanceof TaskAddCommand);
+            assertTrue(method.invoke(null, null, "event 123", time, null, tagList) instanceof TaskAddCommand);
+            assertTrue(method.invoke(null, null, "event 123", time, doafter, tagList) instanceof TaskAddCommand);
+            assertTrue(method.invoke(null, null, "event 123 234", time, null, null) instanceof TaskAddCommand);
+            assertTrue(method.invoke(null, null, "event abc 123 /", time, null, null) instanceof InvalidCommand);
+            assertTrue(method.invoke(null, null, "event ", time, null, null) instanceof InvalidCommand);
+            assertTrue(method.invoke(null, null, "event", time, null, null) instanceof InvalidCommand);
+        } catch (ClassNotFoundException e) {
+            fail("No such class");
+        } catch (NoSuchMethodException e) {
+            fail("No such method");
+        } catch (InvocationTargetException | CommandParser.UserInputException e) {
             fail(e.getMessage());
         } catch (IllegalAccessException e) {
             fail("No Access");
