@@ -4,6 +4,8 @@ plugins {
     id 'checkstyle'
     id 'com.github.johnrengelman.shadow' version '5.1.0'
     id 'org.openjfx.javafxplugin' version '0.0.7'
+    id 'jacoco'
+    id 'com.github.kt3k.coveralls' version '2.8.4'
 }
 
 group 'duke'
@@ -39,6 +41,17 @@ shadowJar {
     archiveAppendix = null
 }
 
+jacocoTestReport {
+    reports {
+        xml.enabled = true // coveralls plugin depends on xml format report
+        html.enabled = true
+    }
+}
+
+coveralls {
+    jacocoReportPath 'build/reports/jacoco/jacocoTestReport/jacocoTestReport.xml'
+}
+
 test {
     useJUnitPlatform()
 }
@@ -60,4 +73,3 @@ dependencies {
     implementation group: 'org.openjfx', name: 'javafx-graphics', version: javaFxVersion, classifier: 'mac'
     implementation group: 'org.openjfx', name: 'javafx-graphics', version: javaFxVersion, classifier: 'linux'
 }
-
