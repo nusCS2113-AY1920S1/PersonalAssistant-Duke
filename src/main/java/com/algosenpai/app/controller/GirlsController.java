@@ -85,9 +85,9 @@ public class GirlsController extends SceneController implements Initializable {
                     ResourcePathConstant.imagesResourcePath + waifus.get(i)));
             ImageView imageView = new ImageView();
             imageView.setImage(img);
-            imageView.setFitHeight(200.0);
-            imageView.setFitWidth(200.0);
-            setNodePos(imageView, 150.0, -100.0 + i * 30);
+            imageView.setFitHeight(150.0);
+            imageView.setFitWidth(150.0);
+            setNodePos(imageView, 150.0, -80.0 + i * 30);
             options.getChildren().add(imageView);
         }
     }
@@ -125,6 +125,18 @@ public class GirlsController extends SceneController implements Initializable {
         }
         if (keyEvent.getCode() == KeyCode.M) {
             toggleVolume();
+        }
+        if (keyEvent.getCode() == KeyCode.ENTER) {
+            if (userInput.getText().equals("/select 1")) {
+                Image image = new Image(getClass().getResourceAsStream(
+                        ResourcePathConstant.imagesResourcePath + "miku.png"));
+                characterImage.setImage(image);
+            }
+            if (userInput.getText().equals("/select 2")) {
+                Image image = new Image(getClass().getResourceAsStream(
+                        ResourcePathConstant.imagesResourcePath + "lolicon.png"));
+                characterImage.setImage(image);
+            }
         }
     }
 
