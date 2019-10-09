@@ -8,6 +8,8 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 
+import java.math.BigDecimal;
+
 /**
  * Controller for MainWindow.fxml
  */
@@ -65,7 +67,7 @@ public class MainWindow extends BorderPane {
      * Updates the total amount label.
      */
     public void updateTotalSpentLabel() {
-        totalSpentLabel.setText("Total: $" + duke.expenseList.getTotalAmount());
+        totalSpentLabel.setText("Total: " + ((duke.expenseList.getTotalAmount().compareTo(BigDecimal.valueOf(0)) < 0) ? "-$" + duke.expenseList.getTotalAmount().abs() : "$" + duke.expenseList.getTotalAmount()));
     }
 }
 
