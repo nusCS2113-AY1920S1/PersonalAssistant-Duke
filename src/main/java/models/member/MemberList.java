@@ -35,17 +35,17 @@ public class MemberList {
         for (int i = 0; i < memberDetails.length; i++) {
             String s = memberDetails[i];
             switch (s.substring(0,2)) {
-                case "n/":
-                    name = s.substring(2);
-                    break;
-                case "i/":
-                    phone = s.substring(2);
-                    break;
-                case "e/":
-                    email = s.substring(2);
-                    break;
-                default:
-                    break;
+            case "n/":
+                name = s.substring(2);
+                break;
+            case "i/":
+                phone = s.substring(2);
+                break;
+            case "e/":
+                email = s.substring(2);
+                break;
+            default:
+                break;
             }
         }
         for (int i = 0; i < memberList.size(); i++) {
@@ -84,7 +84,11 @@ public class MemberList {
         return memberDetails;
     }
 
-    public int getNumOfMembers () {
+    /**
+     * Returns the size of the current member list.
+     * @return The size of the current member list.
+     */
+    public int getNumOfMembers() {
         return memberList.size();
     }
 

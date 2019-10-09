@@ -53,17 +53,13 @@ public class ProjectInputController {
                 case "edit member":
                     consoleView.consolePrint("Enter member index to be edited");
                     int memberIndexNumber = Integer.parseInt(manageProjectInput.nextLine());
-                    if (projectToManage.getNumOfMembers()>=memberIndexNumber) {
+                    if (projectToManage.getNumOfMembers() >= memberIndexNumber) {
                         consoleView.consolePrint("Enter the updated member details: n/NAME p/PHONE e/EMAIL");
                         String updatedMemberDetails = manageProjectInput.nextLine();
                         consoleView.editMember(projectToManage,memberIndexNumber,updatedMemberDetails);
                     } else {
                         consoleView.consolePrint("The member index entered is invalid.");
                     }
-//                    consoleView.consolePrint("Enter the updated member details: n/NAME p/PHONE e/EMAIL");
-
-//                    System.out.println(projectToManage.getNumOfMembers());
-
                     break;
                 case "view members":
                     consoleView.viewAllMembers(projectToManage);

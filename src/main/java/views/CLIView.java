@@ -319,7 +319,7 @@ public class CLIView {
 
     public void editMember(IProject projectToManage, int memberIndexNumber, String memberDetails) {
         projectToManage.editMember(memberIndexNumber, memberDetails);
-        consolePrint("Updated member details with the index number "+memberIndexNumber);
+        consolePrint("Updated member details with the index number " + memberIndexNumber);
     }
 
     /**
