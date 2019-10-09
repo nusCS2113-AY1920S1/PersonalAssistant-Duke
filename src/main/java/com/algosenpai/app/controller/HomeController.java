@@ -111,8 +111,8 @@ public class HomeController extends SceneController implements Initializable {
             backgroundSceneTimer.stop();
         }
         if (keyEvent.getCode() == KeyCode.G) {
-            MusicController.playMusic("saturation.wav");
-            String imageName = ResourceRandomUtility.randomResources(ImagesConstant.startAppImages);
+            MusicController.playMusic("asayake-no-starmine.wav");
+            String imageName = "kiss.png";
             changeScene("girls.fxml", imageName);
             backgroundSceneTimer.stop();
         }
