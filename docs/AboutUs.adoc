@@ -30,7 +30,7 @@ Responsibilities: Front-end developer
 '''
 
 === Tamelly Lim
-image::Tamelly.png[width="150", align="left"]
+image::termehlee.png[width="150", align="left"]
 {empty}[http://github.com/termehlee[github]] [<<johndoe#, portfolio>>]
 
 Role: Developer +
