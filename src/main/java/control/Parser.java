@@ -1,23 +1,11 @@
 package control;
-
-import command.ByeCommand;
-import command.Command;
-import command.DeadlineCommand;
-import command.DeleteCommand;
-import command.DoAfterCommand;
-import command.DoWithinPeriodCommand;
-import command.DoneCommand;
-import command.EventCommand;
-import command.FindCommand;
-import command.FindFreeTimesCommand;
-import command.FixedDurationCommand;
-import command.ListCommand;
-import command.RecurringCommand;
-import command.SnoozeCommand;
-import command.TodoCommand;
-import command.UpcomingCommand;
-import command.ViewScheduleCommand;
+import command.*;
 import exception.DukeException;
+
+import java.io.IOException;
+import java.text.ParseException;
+import java.util.Spliterator;
+
 
 /**
  * Parse input and execute respective user command.
@@ -30,7 +18,7 @@ public class Parser {
      * @return Command to be executed
      * @throws DukeException if user enters wrong input format
      */
-    public static Command parse(String input) throws DukeException {
+    public static Command parse(String input) throws DukeException, IOException {
         String[] splitStr = input.split(" ");
         switch (splitStr[0]) {
         case "list":
@@ -65,6 +53,11 @@ public class Parser {
             return new DoAfterCommand(input, splitStr);
         case "dowithin":
             return new DoWithinPeriodCommand(input, splitStr);
+        case "login":
+            return new LoginCommand(input, splitStr);
+        case "create":
+            return new CreateAccountCommand(input, splitStr);
+
         default:
             throw new DukeException("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
         }
