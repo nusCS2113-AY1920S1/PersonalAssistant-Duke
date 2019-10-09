@@ -28,8 +28,6 @@ public class LogicManager implements Logic {
     public CommandResult execute(String commandText) throws CommandException, ParseException {
         CommandResult commandResult;
         Command command = bakingHomeParser.parseCommand(commandText);
-        System.out.println(commandText);
-        System.out.println(command instanceof EditOrderCommand);
         commandResult = command.execute(model);
 
 //        try {

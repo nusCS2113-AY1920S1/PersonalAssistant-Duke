@@ -2,13 +2,15 @@ package duke.logic.parser.commons;
 
 import duke.commons.core.Message;
 import duke.logic.command.Command;
-import duke.logic.command.commons.SetShortcutCommand;
+import duke.logic.command.shortcut.SetShortcutCommand;
+import duke.logic.command.shortcut.ExecuteShortcutCommand;
 import duke.logic.command.order.OrderCommand;
 import duke.logic.command.product.ProductCommand;
 import duke.logic.parser.exceptions.ParseException;
 import duke.logic.parser.order.OrderCommandParser;
 import duke.logic.parser.product.ProductCommandParser;
 import duke.logic.parser.shortcut.SetShortcutCommandParser;
+import duke.logic.parser.shortcut.ExecuteShortcutCommandParser;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -26,7 +28,7 @@ public class BakingHomeParser {
     private static final Pattern PRIMARY_COMMAND_FORMAT = Pattern.compile("^(\\w+)\\s*(.+)?");
 
     /**
-     * parses user input into {@code Command}.
+     * Parses user input into {@code Command}.
      *
      * @param userInput full input text from user
      * @return the command based on the user input
@@ -52,6 +54,8 @@ public class BakingHomeParser {
             return new ProductCommandParser().parse(subCommandAndArgs);
         case SetShortcutCommand.COMMAND_WORD:
             return new SetShortcutCommandParser().parse(subCommandAndArgs);
+        case ExecuteShortcutCommand.COMMAND_WORD:
+            return new ExecuteShortcutCommandParser().parse(subCommandAndArgs);
         default:
             throw new ParseException(Message.MESSAGE_UNKNOWN_COMMAND);
         }

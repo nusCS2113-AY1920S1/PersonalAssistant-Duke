@@ -11,7 +11,12 @@ import duke.model.commons.Product;
 import duke.model.order.Customer;
 import duke.model.order.Order;
 
-import java.util.*;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
+import java.util.Optional;
 
 import static duke.commons.util.CollectionUtil.requireAllNonNull;
 import static java.util.Objects.requireNonNull;
@@ -23,7 +28,7 @@ public class EditOrderCommand extends OrderCommand implements Undoable {
 
     public static final String COMMAND_WORD = "edit";
 
-    public static final String MESSAGE_EDIT_PERSON_SUCCESS = "Edited Order: %1$s";
+    public static final String MESSAGE_EDIT_PERSON_SUCCESS = "Edited Order [%1$s]";
 
     private final Index index;
     private final EditOrderDescriptor editOrderDescriptor;
@@ -68,7 +73,7 @@ public class EditOrderCommand extends OrderCommand implements Undoable {
 
         model.setOrder(orderToEdit, editedOrder);
         model.updateFilteredOrderList(Model.PREDICATE_SHOW_ALL_ORDERS);
-        return new CommandResult(String.format(MESSAGE_EDIT_PERSON_SUCCESS, editedOrder),
+        return new CommandResult(String.format(MESSAGE_EDIT_PERSON_SUCCESS, editedOrder.getId()),
                 CommandResult.DisplayedPage.ORDER);
     }
 
@@ -173,15 +178,19 @@ public class EditOrderCommand extends OrderCommand implements Undoable {
 
         @Override
         public boolean equals(Object o) {
-            if (this == o) return true;
-            if (o == null || getClass() != o.getClass()) return false;
+            if (this == o) {
+                return true;
+            }
+            if (o == null || getClass() != o.getClass()) {
+                return false;
+            }
             EditOrderDescriptor that = (EditOrderDescriptor) o;
-            return Objects.equals(customerName, that.customerName) &&
-                    Objects.equals(customerContact, that.customerContact) &&
-                    Objects.equals(deliveryDate, that.deliveryDate) &&
-                    Objects.equals(items, that.items) &&
-                    Objects.equals(remarks, that.remarks) &&
-                    status == that.status;
+            return Objects.equals(customerName, that.customerName)
+                    && Objects.equals(customerContact, that.customerContact)
+                    && Objects.equals(deliveryDate, that.deliveryDate)
+                    && Objects.equals(items, that.items)
+                    && Objects.equals(remarks, that.remarks)
+                    && status == that.status;
         }
 
         @Override
