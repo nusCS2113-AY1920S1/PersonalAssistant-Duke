@@ -49,13 +49,13 @@ public class Parser {
         else if (user.matches(SortCommand.getSortShortcut() + " (.*)")){
             c = new SortCommand(user);
         }
-        else if (user.matches(TodoCommand.getTodoShortcut() + " (.*)")) {
+        else if (user.matches(TodoCommand.getTodoShortcut() + "(.*)")) {
             c = new TodoCommand(user);
         }
-        else if (user.matches(DeadlineCommand.getDeadlineShortcut() + " (.*)")) {
+        else if (user.matches(DeadlineCommand.getDeadlineShortcut() + "(.*)")) {
             c = new DeadlineCommand(user);
         }
-        else if (user.matches(EventCommand.getEventShortcut() + " (.*)")) {
+        else if (user.matches(EventCommand.getEventShortcut() + "(.*)")) {
             c = new EventCommand(user);
         }
         else if (user.matches(RescheduleCommand.getRescheduleShortcut() + " \\d+ (.*)")) {
