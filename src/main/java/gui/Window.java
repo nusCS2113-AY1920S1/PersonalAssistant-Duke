@@ -9,8 +9,8 @@ public class Window {
 
     }
 
-    /*
-     * Creates new instance of a JFrame
+    /**
+     * Creates a new JFrame instance
      */
     public void newForm()   {
         JFrame frame = new JFrame("Duke Pro");
