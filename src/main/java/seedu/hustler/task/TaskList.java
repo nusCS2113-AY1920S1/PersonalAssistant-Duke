@@ -210,12 +210,11 @@ public class TaskList {
      * Snoozes task at index.
      *
      * @param i index at which task is snoozed.
+     * @param userInput full description of the user's input.
      * @throws IndexOutOfBoundsException if an out of bounds index is requested.
      */
     public void snoozeTask(int i, String[] userInput) {
         try {
-            boolean failSnooze = false;
-
             if (userInput[2].contains("/")) {
                 LocalDateTime localDateTime = getDateTime(userInput[2] + " " + userInput[3]);
                 list.get(i).setDateTime(localDateTime);
@@ -241,16 +240,13 @@ public class TaskList {
                     break;
                 default:
                     System.out.println("You have typed in the wrong format. Please re-enter the snooze command.");
-                    failSnooze = true;
+                    return;
                 }
             }
-
-            if (!failSnooze) {
-                System.out.println("\t_____________________________________");
-                System.out.println("\tGot it. You have snoozed the task.");
-                System.out.println("\t" + list.get(i).toString());
-                System.out.println("\t_____________________________________");
-            }
+            System.out.println("\t_____________________________________");
+            System.out.println("\tGot it. You have snoozed the task.");
+            System.out.println("\t" + list.get(i).toString());
+            System.out.println("\t_____________________________________");
         } catch (IndexOutOfBoundsException e) {
             ui.task_doesnt_exist_error();
         }
