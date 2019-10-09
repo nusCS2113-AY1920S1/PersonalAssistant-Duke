@@ -1,8 +1,7 @@
 Id,Name,NRIC,Room,Remark
-3,weifeng,G123456,2A,abc
-4,xk,sfaf,f,
-5,xk,sfaf,,
-6,xk,sfaf,,
-7,xk,,,
-8,weifentg,123122,no,no
-9,weifentg,123122,no,no
+1,xk,G03123456,2A,no
+2,weifeng,G789456,9A,no
+3,qijie,G123456,2c,no
+9,weifeng,G12356,3B,male
+10,kejun,abcd,no mood no modd,8A
+11,Lauren,A123123,5A,test remark with mutiple words

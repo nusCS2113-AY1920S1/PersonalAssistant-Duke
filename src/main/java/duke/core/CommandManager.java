@@ -26,7 +26,8 @@ public class CommandManager {
                     String[] tempCommand = command[1].split("\\s+");
                     if (tempCommand[0].toLowerCase().equals("patient")){
                         try {
-                            Patient patient = new Patient(tempCommand[1], tempCommand[2], tempCommand[3], tempCommand[4]);
+                            String[] commandContent = command[1].split("\\s+", 2)[1].split("\\s+", 4);
+                            Patient patient = new Patient(commandContent[0], commandContent[1], commandContent[2], commandContent[3]);
                             return new AddPatientCommand(patient);
                         }catch(Exception e){
                             throw new Exception("Please follow the format 'add patient <name> <NRIC> <Room> <remark>'. ");
@@ -34,7 +35,7 @@ public class CommandManager {
                     }
                     else if (tempCommand[0].toLowerCase().equals("task")){
                         try {
-                            StandardTask task = new StandardTask(command[1].split("\\s" , 2)[1]);
+                            StandardTask task = new StandardTask(command[1].split("\\s+", 2)[1]);
                             return new AddStandardTaskCommand(task);
                         }catch(Exception e){
                             throw new Exception("Please follow the format 'add task <task description>.' ");
@@ -81,7 +82,21 @@ public class CommandManager {
                     throw new DukeException("Delete command fails. " + e.getMessage());
                 }
             case "find":
-                //do thing for 'find'
+                try{
+                    String[] tempCommand = command[1].split("\\s+", 2);
+                    if (tempCommand[0].toLowerCase().equals("patient")){
+                        try {
+                            return new FindPatientCommand(tempCommand[1]);
+                        }catch(Exception e){
+                            throw new Exception("Please follow the format 'find patient #<id>' or 'find patient <name>'.");
+                        }
+                    }
+                    else {
+                        throw new Exception("Invalid format. ");
+                    }
+                } catch(Exception e){
+                    throw new DukeException("Find command fails. " + e.getMessage());
+                }
             case "reschedule":
                 //do thing for 'reschedule'
             case "view":
