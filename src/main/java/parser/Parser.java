@@ -154,7 +154,7 @@ public class Parser {
         String checkType = "/between";
         String[] taskDetails = taskFeatures.split(checkType, 2);
         if (taskDetails.length == 1) {
-            return new AddCommand(command, taskDetails[0], NULL_DATE, NULL_DATE, NULL_DATE);
+            return new AddCommand(command, taskDetails[0], NULL_DATE, NULL_DATE);
         } else {
             return parseToDoDuration(taskFeatures, taskDetails, checkType, command);
         }
@@ -180,7 +180,7 @@ public class Parser {
         } catch (ParseException e) {
             throw new DukeException(DukeException.wrongDateOrTime());
         }
-        return new AddCommand(command, taskDescription, NULL_DATE, to, from);
+        return new AddCommand(command, taskDescription, from, to);
     }
 
     private static Command parseRemind(String command, String userInput) throws DukeException {
@@ -233,7 +233,7 @@ public class Parser {
             throw new DukeException(DukeException.wrongDateOrTime());
         }
         assert !atDate.equals(NULL_DATE);
-        return new AddCommand(command, taskDescription, atDate, NULL_DATE, NULL_DATE);
+        return new AddCommand(command, taskDescription, atDate, NULL_DATE);
     }
 
     private static Command parseEvent(String command, String userInput) throws DukeException {
@@ -262,6 +262,6 @@ public class Parser {
         }
         assert !toDate.equals(NULL_DATE);
         assert !fromDate.equals(NULL_DATE);
-        return new AddCommand(command, taskDescription, NULL_DATE, toDate, fromDate);
+        return new AddCommand(command, taskDescription, fromDate, toDate);
     }
 }

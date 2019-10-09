@@ -13,28 +13,56 @@ import static parser.DateTimeExtractor.NULL_DATE;
 
 public class ParserTest {
 
-    LocalDateTime fromDate = LocalDateTime.of(2001,1,1,1,0);
-    AddCommand deadlineTest = new AddCommand("deadline", "test", fromDate, NULL_DATE, NULL_DATE);
+    LocalDateTime startDate = LocalDateTime.of(2001,1,1,1,0);
+    LocalDateTime endDate = LocalDateTime.of(2001,1,1,13,0);
 
-    Command toDoTest = new AddCommand("todo", "test", NULL_DATE, NULL_DATE, NULL_DATE);
+    Command event = new AddCommand("event", "test", startDate, endDate);
+    Command deadline = new AddCommand("deadline", "test", startDate, NULL_DATE);
+    Command todo = new AddCommand("todo", "test", NULL_DATE, NULL_DATE);
 
+    private Field[] getAddCommandFields(Command command) throws NoSuchFieldException {
+        Field[] commandFields = new Field[4];
+        commandFields[0] = command.getClass().getDeclaredField("command");
+        commandFields[1] = command.getClass().getDeclaredField("taskFeatures");
+        commandFields[2] = command.getClass().getDeclaredField("formattedStartDate");
+        commandFields[3] = command.getClass().getDeclaredField("formattedEndDate");
+        commandFields[0].setAccessible(true);
+        commandFields[1].setAccessible(true);
+        commandFields[2].setAccessible(true);
+        commandFields[3].setAccessible(true);
+        return commandFields;
+    }
+
+    private void assertEqualsAddCommand(Field[] test, Field[] expected, Command testCommand, Command expectedCommand)
+            throws IllegalAccessException {
+        Assertions.assertEquals(test[0].get(testCommand), expected[0].get(expectedCommand));
+        Assertions.assertEquals(test[1].get(testCommand), expected[1].get(expectedCommand));
+        Assertions.assertEquals(test[2].get(testCommand), expected[2].get(expectedCommand));
+        Assertions.assertEquals(test[3].get(testCommand), expected[3].get(expectedCommand));
+    }
 
     @Test
     public void testToDoParsing() throws DukeException, NoSuchFieldException, IllegalAccessException {
-        Field[] toDoTestFields = new Field[2];
-        toDoTestFields[0] = toDoTest.getClass().getDeclaredField("command");
-        toDoTestFields[1] = toDoTest.getClass().getDeclaredField("taskFeatures");
-        toDoTestFields[0].setAccessible(true);
-        toDoTestFields[1].setAccessible(true);
+        Field[] todoFields = getAddCommandFields(todo);
+        Command todoTest = Parser.parse("todo test");
+        Field[] toDoTestFields = getAddCommandFields(todoTest);
+        assertEqualsAddCommand(toDoTestFields, todoFields, todoTest, todo);
+    }
 
-        Command todo = Parser.parse("todo test");
-        Field[] toDoFields = new Field[2];
-        toDoFields[0] = todo.getClass().getDeclaredField("command");
-        toDoFields[1] = todo.getClass().getDeclaredField("taskFeatures");
-        toDoFields[0].setAccessible(true);
-        toDoFields[1].setAccessible(true);
-        Assertions.assertEquals(toDoFields[0].get(todo), toDoTestFields[0].get(toDoTest));
-        Assertions.assertEquals(toDoFields[1].get(todo), toDoTestFields[1].get(toDoTest));
+    @Test
+    public void testDeadlineParsing() throws DukeException, NoSuchFieldException, IllegalAccessException {
+        Field[] deadlineFields = getAddCommandFields(deadline);
+        Command deadlineTest = Parser.parse("deadline test /by 01/01/2001 0100");
+        Field[] deadlineTestFields = getAddCommandFields(deadlineTest);
+        assertEqualsAddCommand(deadlineTestFields, deadlineFields, deadlineTest, deadline);
+    }
+
+    @Test
+    public void testEventParsing() throws DukeException, NoSuchFieldException, IllegalAccessException {
+        Field[] eventFields = getAddCommandFields(event);
+        Command eventTest = Parser.parse("event test /at 01/01/2001 0100 - 01/01/2001 1300");
+        Field[] eventTestFields = getAddCommandFields(eventTest);
+        assertEqualsAddCommand(eventTestFields, eventFields, eventTest, event);
     }
 
     @Test

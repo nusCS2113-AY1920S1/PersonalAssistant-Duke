@@ -20,13 +20,13 @@ public class Event extends Task implements Serializable, Comparable<Event> {
      * creates a new Event task.
      * 
      * @param description description of task
-     * @param toDate      end time of task
-     * @param atDate      start time of task
+     * @param startDate      end time of task
+     * @param endDate      start time of task
      */
-    public Event(String description, LocalDateTime toDate, LocalDateTime atDate) {
+    public Event(String description, LocalDateTime startDate, LocalDateTime endDate) {
         super(description);
-        this.endDate = toDate;
-        this.startDate = atDate;
+        this.endDate = endDate;
+        this.startDate = startDate;
         this.remindInHowManyDays = 3;
     }
 

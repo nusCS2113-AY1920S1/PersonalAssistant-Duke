@@ -1,12 +1,8 @@
 package command;
 
 import exception.DukeException;
-import task.Task;
+import task.*;
 import storage.Storage;
-import task.Deadline;
-import task.Event;
-import task.TaskList;
-import task.Todo;
 import ui.Ui;
 
 import java.time.LocalDateTime;
@@ -23,9 +19,8 @@ public class AddCommand extends Command {
     private String command;
     private String taskFeatures;
     private final LocalDateTime nullDate = LocalDateTime.of(1, 1, 1, 1, 1, 1, 1);
-    private LocalDateTime formattedToDate = nullDate;
-    private LocalDateTime formattedAtDate = nullDate;
-    private LocalDateTime formattedFromDate = nullDate;
+    private LocalDateTime formattedStartDate = nullDate;
+    private LocalDateTime formattedEndDate = nullDate;
 
     /**
      * This AddCommand function is used to assign the different parameters required
@@ -35,20 +30,16 @@ public class AddCommand extends Command {
      *                     to process the user input.
      * @param taskFeatures this string holds the description of the task provided by
      *                     the user.
-     * @param atDate       string contains the formatted user input that has the
+     * @param startDate       string contains the formatted user input that has the
      *                     desired date time format.
-     * @param toDate       string contains the formatted user input that has the
-     *                     desired date time format.
-     * @param fromDate     string contains the formatted user input that has the
+     * @param endDate       string contains the formatted user input that has the
      *                     desired date time format.
      */
-    public AddCommand(String command, String taskFeatures, LocalDateTime atDate, LocalDateTime toDate,
-            LocalDateTime fromDate) {
+    public AddCommand(String command, String taskFeatures, LocalDateTime startDate, LocalDateTime endDate) {
         this.command = command;
         this.taskFeatures = taskFeatures;
-        this.formattedFromDate = fromDate;
-        this.formattedAtDate = atDate;
-        this.formattedToDate = toDate;
+        this.formattedStartDate = startDate;
+        this.formattedEndDate = endDate;
     }
 
     /**
@@ -66,16 +57,20 @@ public class AddCommand extends Command {
         Task task;
         switch (command) {
         case "todo":
-            task = new Todo(taskFeatures, formattedFromDate, formattedToDate);
+            if (formattedStartDate.equals(nullDate)) {
+                task = new Todo(taskFeatures);
+            } else {
+                task = new TodoWithDuration(taskFeatures, formattedStartDate, formattedEndDate);
+            }
             break;
         case "deadline":
-            task = new Deadline(taskFeatures, formattedAtDate);
+            task = new Deadline(taskFeatures, formattedStartDate);
             if (tasks.isClash(task)) {
                 throw new DukeException(DukeException.taskClash());
             }
             break;
         case "event":
-            task = new Event(taskFeatures, formattedToDate, formattedFromDate);
+            task = new Event(taskFeatures, formattedStartDate, formattedEndDate);
             if (tasks.isClash(task)) {
                 throw new DukeException(DukeException.taskClash());
             }
