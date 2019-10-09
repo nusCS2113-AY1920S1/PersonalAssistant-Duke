@@ -64,7 +64,7 @@ public class ProjectInputController {
                     }
                 } else if (projectCommand.length() == 12 && ("view members").equals(projectCommand)) {
                     consoleView.viewAllMembers(projectToManage);
-                } else if (projectCommand.length() == 8 && projectCommand.equals("add task")) {
+                } else if (projectCommand.length() == 8 && ("add task").equals(projectCommand)) {
                     try {
                         consoleView.consolePrint("Enter your task: t/TaskName p/TaskPriorityValue"
                                                 + " [d/TaskDueDate] c/TaskCredit [s/TaskState]");
@@ -75,14 +75,17 @@ public class ProjectInputController {
                         consoleView.consolePrint("Please enter your task format correctly");
                     }
                 } else if (projectCommand.length() == 10 && ("view tasks").equals(projectCommand)) {
+                    String temp = "";
                     /*
                         Empty method
                     */
                 } else if (projectCommand.length() == 10 && ("edit task ").equals(projectCommand)) {
+                    String temp = "";
                     /*
                         Empty method
                     */
                 } else if (projectCommand.length() == 12 && ("delete task ").equals(projectCommand)) {
+                    String temp = "";
                     /*
                         Empty method
                     */
