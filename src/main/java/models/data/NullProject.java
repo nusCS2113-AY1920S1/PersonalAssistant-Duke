@@ -34,6 +34,13 @@ public class NullProject implements IProject {
     }
 
     @Override
+    public void editMember(int memberIndexNumber, String updatedMemberDetails) {
+        /*
+        Empty method
+         */
+    }
+
+    @Override
     public void addTask(Task newTask) {
         /*
         Empty method

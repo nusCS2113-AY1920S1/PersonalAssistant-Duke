@@ -8,12 +8,14 @@ public class MemberFactoryUtil {
     /**
      * Method to create a new member.
      * @param input Input containing details of member to be added (name, phone, email).
+     * @param memberListSize Integer containing the current size of the member list of the project.
      * @return Member with the relevant details. Index number is set later when adding to list.
      */
-    public boolean memberIsCreated(String input) {
+    public boolean memberIsCreated(String input, int memberListSize) {
         String name = "No name";
         String phone = "No phone number";
         String email = "No email address";
+        int indexNumber = memberListSize + 1;
 
         boolean nameCreatedFlag = false;
         String [] memberDetails = input.split(" ");
@@ -24,7 +26,7 @@ public class MemberFactoryUtil {
                 name = s.substring(2);
                 nameCreatedFlag = true;
                 break;
-            case "p/":
+            case "i/":
                 phone = s.substring(2);
                 break;
             case "e/":
@@ -35,7 +37,7 @@ public class MemberFactoryUtil {
             }
         }
         if (nameCreatedFlag) {
-            this.newMember = new Member(name, phone, email, 0);
+            this.newMember = new Member(name, phone, email, indexNumber);
             return true;
         } else {
             return false;

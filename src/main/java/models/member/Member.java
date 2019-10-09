@@ -31,4 +31,15 @@ public class Member implements IMember {
         this.indexNumber = indexNumber;
     }
 
+    @Override
+    public int getIndexNumber() {
+        return this.indexNumber;
+    }
+
+    @Override
+    public void updateDetails(String name, String phone, String email) {
+        this.name = name;
+        this.phone = phone;
+        this.email = email;
+    }
 }

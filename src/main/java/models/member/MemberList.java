@@ -21,6 +21,41 @@ public class MemberList {
         this.memberList.add(newMember);
     }
 
+    /**
+     * Updates the member details of an existing member using the index number of the member.
+     * @param memberIndexNumber The index number of the member whose details are to be updated.
+     * @param updatedMemberDetails The updated member details.
+     */
+    public void editMember(int memberIndexNumber, String updatedMemberDetails) {
+        String name = "No name";
+        String phone = "No phone number";
+        String email = "No email address";
+
+        String [] memberDetails = updatedMemberDetails.split(" ");
+        for (int i = 0; i < memberDetails.length; i++) {
+            String s = memberDetails[i];
+            switch (s.substring(0,2)) {
+            case "n/":
+                name = s.substring(2);
+                break;
+            case "i/":
+                phone = s.substring(2);
+                break;
+            case "e/":
+                email = s.substring(2);
+                break;
+            default:
+                break;
+            }
+        }
+        for (int i = 0; i < memberList.size(); i++) {
+            Member currentMember = memberList.get(i);
+            if (currentMember.getIndexNumber() == memberIndexNumber) {
+                currentMember.updateDetails(name,phone,email);
+                break;
+            }
+        }
+    }
     //remove member: must remove credits, associated tasks, and recalculate
     //and add credits for other members. Index numbers might also need to change
 
@@ -47,6 +82,14 @@ public class MemberList {
             memberDetails.add(member.getDetails());
         }
         return memberDetails;
+    }
+
+    /**
+     * Returns the size of the current member list.
+     * @return The size of the current member list.
+     */
+    public int getNumOfMembers() {
+        return memberList.size();
     }
 
 }

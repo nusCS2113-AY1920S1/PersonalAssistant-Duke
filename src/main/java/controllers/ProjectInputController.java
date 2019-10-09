@@ -1,10 +1,10 @@
 package controllers;
 
-import java.text.ParseException;
-import java.util.Scanner;
 import models.data.IProject;
 import repositories.ProjectRepository;
 import views.CLIView;
+
+import java.util.Scanner;
 
 public class ProjectInputController {
     private Scanner manageProjectInput;
@@ -43,11 +43,22 @@ public class ProjectInputController {
                     consoleView.consolePrint("Enter member details: n/NAME p/PHONE e/EMAIL");
                     String memberDetails = manageProjectInput.nextLine();
                     MemberFactoryUtil memberFactory = new MemberFactoryUtil();
-                    if (memberFactory.memberIsCreated(memberDetails)) {
+                    if (memberFactory.memberIsCreated(memberDetails, projectToManage.getNumOfMembers())) {
                         consoleView.addMember(projectToManage, memberFactory.getNewMember());
                     } else {
                         consoleView.consolePrint("Failed to add member. Please ensure you have entered "
                             + "at least the name of the new member.");
+                    }
+                    break;
+                case "edit member":
+                    consoleView.consolePrint("Enter member index to be edited");
+                    int memberIndexNumber = Integer.parseInt(manageProjectInput.nextLine());
+                    if (projectToManage.getNumOfMembers() >= memberIndexNumber) {
+                        consoleView.consolePrint("Enter the updated member details: n/NAME p/PHONE e/EMAIL");
+                        String updatedMemberDetails = manageProjectInput.nextLine();
+                        consoleView.editMember(projectToManage,memberIndexNumber,updatedMemberDetails);
+                    } else {
+                        consoleView.consolePrint("The member index entered is invalid.");
                     }
                     break;
                 case "view members":
@@ -55,11 +66,11 @@ public class ProjectInputController {
                     break;
                 case "add task":
                     try {
-                        consoleView.consolePrint("Enter your task: t/TaskName p/TaskPriorityValue [d/TaskDueDate] c/TaskCredit [s/TaskState]");
+                        consoleView.consolePrint("Enter your task: TaskName TaskPriorityValue");
                         String taskDetails = manageProjectInput.nextLine();
                         TaskFactory taskFactory = new TaskFactory();
                         consoleView.addTask(projectToManage, taskFactory.createTask(taskDetails));
-                    } catch (NumberFormatException | ParseException e) {
+                    } catch (NumberFormatException e) {
                         consoleView.consolePrint("Please enter your task format correctly");
                     }
                     break;

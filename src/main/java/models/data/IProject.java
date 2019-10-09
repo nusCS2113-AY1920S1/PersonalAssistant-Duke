@@ -17,6 +17,8 @@ public interface IProject {
 
     void addMember(Member newMember);
 
+    void editMember(int memberIndexNumber, String updatedMemberDetails);
+
     void addTask(Task newTask);
 
 }
