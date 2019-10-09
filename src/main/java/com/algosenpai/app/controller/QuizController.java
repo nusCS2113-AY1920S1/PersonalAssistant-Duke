@@ -124,8 +124,8 @@ public class QuizController extends SceneController implements Initializable {
             backgroundSceneTimer.stop();
         }
         if (keyEvent.getCode() == KeyCode.E) {
-            MusicController.playMusic("rezero.wav");
-            String imageName = ResourceRandomUtility.randomResources(ImagesConstant.startAppImages);
+            MusicController.playMusic("gotobun.wav");
+            String imageName = "evening.jpg";
             changeScene("end.fxml", imageName);
             backgroundSceneTimer.stop();
         }
