@@ -31,6 +31,6 @@ public abstract class ArgCommand extends Command {
     }
 
     void setSwitchVals(HashMap<String, String> switchVals) {
-        this.switchVals = switchVals;
+        this.switchVals.putAll(switchVals);
     }
 }

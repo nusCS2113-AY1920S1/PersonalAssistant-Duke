@@ -23,7 +23,7 @@ public class Parser {
     private String currSwitch;
     private boolean isEscaped;
     private HashMap<String, ArgLevel> switches;
-    private HashMap<String, String> switchVals;
+    private HashMap<String, String> switchVals = new HashMap<String, String>();
 
     /**
      * Constructs a new Parser, generating a HashMap from Cmd enum values to allow fast lookup of command types.
@@ -98,6 +98,9 @@ public class Parser {
                 break;
             }
         }
+
+        checkSwitchesSatisfied();
+        currCommand.setSwitchVals(switchVals);
     }
 
     private void handleEmpty(char curr) throws DukeHelpException {
@@ -161,12 +164,11 @@ public class Parser {
     // TODO: requires major rewrite for autocorrect
     private void handleSwitch(char curr) throws DukeHelpException {
         switch (curr) {
-        case '-':
-            throw new DukeHelpException("Invalid hyphen in argument!", currCommand);
-        case '"':
-            throw new DukeHelpException("Invalid quotation mark in argument!", currCommand);
+        case '-': //fallthrough
+        case '"': //fallthrough
+        case '\n': //fallthrough
         case ' ':
-            writeElement();
+            addSwitch();
             break;
         default:
             elementBuilder.append(curr);
@@ -186,7 +188,8 @@ public class Parser {
     }
 
     // TODO: this function is going to become very big with autocorrect
-    private void addSwitch(String newSwitch) throws DukeHelpException {
+    private void addSwitch() throws DukeHelpException {
+        String newSwitch = elementBuilder.toString();
         if (!switches.containsKey(newSwitch)) {
             throw new DukeHelpException("I don't know what this switch is: " + newSwitch, currCommand);
         } else if (switchVals.containsKey(newSwitch)) {
