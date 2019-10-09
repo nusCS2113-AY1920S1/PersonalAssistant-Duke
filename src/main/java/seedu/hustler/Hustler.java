@@ -3,8 +3,11 @@ package seedu.hustler;
 import java.io.IOException;
 
 import seedu.hustler.data.*;
+import seedu.hustler.game.achievement.ConsecutiveLogin;
 import seedu.hustler.game.avatar.Avatar;
 import seedu.hustler.command.Command;
+
+import java.time.LocalDateTime;
 import java.util.Scanner;
 
 import seedu.hustler.logic.CommandLineException;
@@ -15,6 +18,7 @@ import seedu.hustler.parser.CommandParser;
 import seedu.hustler.game.achievement.AchievementList;
 
 import static seedu.hustler.game.achievement.AchievementList.achievementList;
+import static seedu.hustler.game.achievement.ConsecutiveLogin.*;
 
 /**
  * A personal assitant that takes in user input and gives and performs
@@ -73,7 +77,10 @@ public class Hustler {
         AchievementList.firstStart(AchievementStorage.logon());
         AchievementStorage.loadStatus();
         AchievementStorage.loadAchievements();
-
+        System.out.println(consecutiveCount);
+        ConsecutiveLogin.updateCount();
+        ConsecutiveLogin.updatePoints();
+        AchievementList.updateConsecutiveLogin(updateAchievementLevel());
         // Display reminders at the start
         Reminders.runAll(list);
         Reminders.displayReminders();

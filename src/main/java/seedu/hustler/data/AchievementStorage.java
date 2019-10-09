@@ -1,10 +1,11 @@
 package seedu.hustler.data;
 
-
 import seedu.hustler.game.achievement.*;
+import seedu.hustler.parser.DateTimeParser;
 
 
 import java.io.*;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Formatter;
 import java.util.Scanner;
@@ -12,6 +13,7 @@ import java.util.Scanner;
 import static seedu.hustler.game.achievement.AchievementList.*;
 import static seedu.hustler.game.achievement.Achievements.totalPoints;
 import static seedu.hustler.game.achievement.AddTask.numberOfTasks;
+import static seedu.hustler.game.achievement.ConsecutiveLogin.*;
 import static seedu.hustler.game.achievement.DoneTask.numberOfDone;
 
 public class AchievementStorage {
@@ -70,6 +72,10 @@ public class AchievementStorage {
                     numberOfDone = Integer.parseInt(txt[1]);
                 } else if(txt[0].equals("TotalPoints:")) {
                     totalPoints = Integer.parseInt(txt[1]);
+                } else if(txt[0].equals("LastLogin:")) {
+                    storedDate = DateTimeParser.getDateTime(txt[1] + " " + txt[2]);
+                } else if(txt[0].equals("ConsecutiveCount:")) {
+                    consecutiveCount = Integer.parseInt(txt[1]);
                 }
             }
             return numberOfTasks;
@@ -91,6 +97,16 @@ public class AchievementStorage {
         writer.write("Done: " + numberOfDone);
         writer.write("\n");
         writer.write("TotalPoints: " + totalPoints);
+        if(reset() || checkLogin()) {
+            writer.write("\n");
+            writer.write("LastLogin: " + DateTimeParser.convertDateTime(LocalDateTime.now()));
+            writer.write("\n");
+        } else {
+            writer.write("\n");
+            writer.write("LastLogin: " + DateTimeParser.convertDateTime(storedDate));
+            writer.write("\n");
+        }
+        writer.write("ConsecutiveCount: " + consecutiveCount);
         writer.close();
         return numberOfTasks;
     }
@@ -118,6 +134,15 @@ public class AchievementStorage {
                             doneTask.setLock(false);
                         }
                         achievementList.add(doneTask);
+                    } else if(txt[3].equals("Dedicated to the art")) {
+                        ConsecutiveLogin consecutiveLogin = new ConsecutiveLogin(txt[2]);
+                        consecutiveLogin.setPoints(Integer.parseInt(txt[1]));
+                        if(txt[0].equals("true")) {
+                            consecutiveLogin.setLock(true);
+                        } else if(txt[0].equals("false")) {
+                            consecutiveLogin.setLock(false);
+                        }
+                        achievementList.add(consecutiveLogin);
                     } else if(txt[3].equals("Fresh off the boat")) {
                         FirstLogin firstLogin = new FirstLogin();
                         achievementList.add(firstLogin);

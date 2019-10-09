@@ -32,7 +32,7 @@ public class DoneTask extends Achievements {
         this.information = "Completed 5 tasks, 25 tasks and 125 tasks for Bronze, Silver and Gold consecutively.";
         this.achievementLevel = achievementLevel;
         this.points = 0;
-        locked = true;
+        this.locked = true;
     }
 
     /**

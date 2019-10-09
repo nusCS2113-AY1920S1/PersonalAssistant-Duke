@@ -33,7 +33,7 @@ public class AddTask extends Achievements {
         this.information = "Added 10 tasks, 100 tasks, and 1000 tasks for Bronze, Silver and Gold consecutively.";
         this.achievementLevel = achievementLevel;
         this.points = 0;
-        locked = true;
+        this.locked = true;
     }
 
     /**
@@ -45,7 +45,7 @@ public class AddTask extends Achievements {
         return numberOfTasks;
     }
 
-    public static String updateStatus() {
+    public static String updateAchievementLevel() {
         if(numberOfTasks == 5) {
             addAchievementLevel = "\uD83E\uDD49 Bronze";
         } else if(numberOfTasks == 10) {

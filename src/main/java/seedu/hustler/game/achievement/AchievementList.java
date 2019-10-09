@@ -1,9 +1,13 @@
 package seedu.hustler.game.achievement;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 import static seedu.hustler.game.achievement.AddTask.addPoints;
+import static seedu.hustler.game.achievement.ConsecutiveLogin.loginPoints;
+import static seedu.hustler.game.achievement.ConsecutiveLogin.storedDate;
 import static seedu.hustler.game.achievement.DoneTask.*;
+
 
 public class AchievementList {
 
@@ -27,41 +31,47 @@ public class AchievementList {
             achievementList.add(new AddTask("\uD83E\uDD49 Bronze"));
             achievementList.add(new AddTask("\uD83E\uDD48 Silver"));
             achievementList.add(new AddTask("\uD83E\uDD47 Gold"));
+            achievementList.add(new ConsecutiveLogin("\uD83E\uDD49 Bronze"));
+            achievementList.add(new ConsecutiveLogin("\uD83E\uDD48 Silver"));
+            achievementList.add(new ConsecutiveLogin("\uD83E\uDD47 Gold"));
             achievementList.add(new FirstLogin());
+            System.out.println("You have unlocked this achievement!\n" + new FirstLogin());
+            FirstLogin.updatePoints();
+            storedDate = LocalDateTime.now();
         }
         return achievementList;
     }
 
-    /**
-     * Adds new achievement to the list of achievement unlocked.
-     * @param achievement achievement to be added.
-     * @return unlocked achievement list.
-     */
-    private ArrayList<Achievements> unlockAchievement(Achievements achievement, String status) {
+
+    public static ArrayList<Achievements> updateAddTask (String achievementLevel) {
         for(int i = 0; i < achievementList.size(); i += 1) {
-            if(achievementList.get(i).getDescription().equals(achievement.getDescription()) && achievementList.get(i).getAchievementLevel().equals(status)) {
+            if(achievementList.get(i).getDescription().equals("Busybee") && achievementList.get(i).getAchievementLevel().equals(achievementLevel)) {
                 achievementList.get(i).setLock(false);
                 achievementList.get(i).setPoints(addPoints);
+                System.out.println("You have unlocked this achievement!\n" + achievementList.get(i));
             }
         }
+
         return achievementList;
     }
 
-    public static ArrayList<Achievements> updateAddTask (String status) {
+    public static ArrayList<Achievements> updateDoneTask (String achievementLevel) {
         for(int i = 0; i < achievementList.size(); i += 1) {
-            if(achievementList.get(i).getDescription().equals("Busybee") && achievementList.get(i).getAchievementLevel().equals(status)) {
-                achievementList.get(i).setLock(false);
-                achievementList.get(i).setPoints(addPoints);
-            }
-        }
-        return achievementList;
-    }
-
-    public static ArrayList<Achievements> updateDoneTask (String status) {
-        for(int i = 0; i < achievementList.size(); i += 1) {
-            if(achievementList.get(i).getDescription().equals("Completionist") && achievementList.get(i).getAchievementLevel().equals(status)) {
+            if(achievementList.get(i).getDescription().equals("Completionist") && achievementList.get(i).getAchievementLevel().equals(achievementLevel)) {
                 achievementList.get(i).setLock(false);
                 achievementList.get(i).setPoints(donePoints);
+                System.out.println("You have unlocked this achievement!\n" + achievementList.get(i));
+            }
+        }
+        return achievementList;
+    }
+
+    public static ArrayList<Achievements> updateConsecutiveLogin (String achievementLevel) {
+        for(int i = 0; i < achievementList.size(); i += 1) {
+            if(achievementList.get(i).getDescription().equals("Dedicated to the art") && achievementList.get(i).getAchievementLevel().equals(achievementLevel)) {
+                achievementList.get(i).setLock(false);
+                achievementList.get(i).setPoints(loginPoints);
+                System.out.println("You have unlocked this achievement!\n" + achievementList.get(i));
             }
         }
         return achievementList;

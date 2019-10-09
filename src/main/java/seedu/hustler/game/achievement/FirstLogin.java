@@ -36,6 +36,11 @@ public class FirstLogin extends Achievements{
         locked = false;
     }
 
+    public static int updatePoints() {
+        totalPoints += 15;
+        return totalPoints;
+    }
+
     @Override
     public String getAchievementLevel() {
         return achievementLevel;

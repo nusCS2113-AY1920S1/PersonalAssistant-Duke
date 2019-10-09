@@ -144,7 +144,7 @@ public class TaskList {
         }
         if (!checkAnomaly) {
             AddTask.increment();
-            AddTask.updateStatus();
+            AddTask.updateAchievementLevel();
             AddTask.updatePoints();
             AchievementList.updateAddTask(addAchievementLevel);
             String output = "\t  " + list.get(list.size() - 1).toString();
