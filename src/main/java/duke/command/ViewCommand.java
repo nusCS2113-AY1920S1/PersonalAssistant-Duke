@@ -26,17 +26,6 @@ public class ViewCommand extends ArgCommand {
     }
 
     @Override
-    public void parse(String inputStr) throws DukeException {
-        super.parse(inputStr);
-
-        try {
-            date = LocalDate.parse(arg, PAT_DATE);
-        } catch (DateTimeParseException excp) {
-            throw new DukeException("Date must be given as e.g. " + LocalDateTime.now().format(PAT_DATE) + ".");
-        }
-    }
-
-    @Override
     public void execute(DukeCore core) throws DukeException {
         String scheduleStr = "Here are your tasks for " + arg + ":";
         core.ui.print(scheduleStr + core.taskList.listSchedule(date));
