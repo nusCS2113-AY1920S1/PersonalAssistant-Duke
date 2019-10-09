@@ -71,8 +71,8 @@ public class ParserStorageUtil {
      */
     private static Location getLocationFromStorage(String[] taskParts) {
         String address = taskParts[5].strip();
-        double longitude = Double.parseDouble(taskParts[6].strip());
-        double latitude = Double.parseDouble(taskParts[7].strip());
+        double longitude = Double.parseDouble(taskParts[7].strip());
+        double latitude = Double.parseDouble(taskParts[6].strip());
         double distX = Double.parseDouble(taskParts[7].strip());
         double distY = Double.parseDouble(taskParts[8].strip());
         return new Location(address, latitude, longitude, distX, distY);

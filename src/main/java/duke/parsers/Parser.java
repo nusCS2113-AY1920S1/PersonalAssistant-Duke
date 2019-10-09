@@ -5,9 +5,10 @@ import duke.commands.Command;
 import duke.commands.DeleteCommand;
 import duke.commands.ExitCommand;
 import duke.commands.FindCommand;
-import duke.commands.FreeTimeCommand;
-import duke.commands.GetBusStopCommand;
 import duke.commands.FindPathCommand;
+import duke.commands.FreeTimeCommand;
+import duke.commands.GetBusRouteCommand;
+import duke.commands.GetBusStopCommand;
 import duke.commands.HelpCommand;
 import duke.commands.ListCommand;
 import duke.commands.LocationSearchCommand;
@@ -69,8 +70,10 @@ public class Parser {
             return new HelpCommand();
         case "search":
             return new LocationSearchCommand(getWord(userInput));
-        case "bus":
+        case "busStop":
             return new GetBusStopCommand(getWord(userInput));
+        case "busRoute":
+            return new GetBusRouteCommand(getWord(userInput));
         case "holiday":
             return new AddCommand(ParserUtil.createHoliday(userInput));
         case "findPath":

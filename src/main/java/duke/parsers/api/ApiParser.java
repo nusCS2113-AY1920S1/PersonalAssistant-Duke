@@ -10,8 +10,6 @@ import duke.parsers.requests.LocationSearchUrlRequest;
 import duke.commons.exceptions.DukeException;
 import duke.parsers.requests.DataMallHttpRequest;
 
-import java.io.IOException;
-import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
@@ -59,10 +57,10 @@ public class ApiParser {
      *
      * @return List of Bus Stop
      */
-    public static ArrayList<BusStop> getBusStop() throws DukeException {
+    public static HashMap<String, BusStop> getBusStop() throws DukeException {
         String path = "BusStops";
         int skip = 0;
-        ArrayList<BusStop> allBus = new ArrayList<>();
+        HashMap<String, BusStop> allBus = new HashMap<>();
         while (skip < 5500) {
             DataMallHttpRequest req = new DataMallHttpRequest("BusStops", path, Integer.toString(skip));
             skip += 500;
@@ -75,7 +73,7 @@ public class ApiParser {
                         arr.get(i).getAsJsonObject().get("RoadName").getAsString(),
                         arr.get(i).getAsJsonObject().get("Latitude").getAsDouble(),
                         arr.get(i).getAsJsonObject().get("Longitude").getAsDouble());
-                allBus.add(busstop);
+                allBus.put(arr.get(i).getAsJsonObject().get("BusStopCode").getAsString(), busstop);
             }
         }
 
@@ -87,7 +85,7 @@ public class ApiParser {
      *
      * @return bus route
      */
-    public static HashMap<String, BusService> getBusRoute() throws DukeException, IOException {
+    public static HashMap<String, BusService> getBusRoute() throws DukeException {
         String path = "BusRoutes";
         int skip = 0;
         HashMap<String, BusService> busMap = new HashMap<>();
@@ -99,7 +97,7 @@ public class ApiParser {
             for (int i = 0; i < arr.size(); i++) {
                 String serviceNo = arr.get(i).getAsJsonObject().get("ServiceNo").getAsString();
                 if (!busMap.containsKey(serviceNo)) {
-                    BusService bus = new BusService(serviceNo);
+                    BusService bus = new BusService();
                     busMap.put(serviceNo, bus);
                     bus.addRoute(arr.get(i).getAsJsonObject().get("BusStopCode").getAsString(),
                             arr.get(i).getAsJsonObject().get("Direction").getAsInt());
