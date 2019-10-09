@@ -34,7 +34,8 @@ public class Parser {
     /**
      * Processes the contents of an add command (everything after the word "add").
      * Splits up the input string into an array containing the various attributes of the stock being added.
-     * Strips leading/trailing whitespace from
+     * Ignores leading/trailing whitespace between the first word and subsequent string,
+     * and between all commands' arguments.
      *
      * @param input String containing the attributes of the stock.
      * @return an array consisting of StockType, StockCode, Quantity and Description.
@@ -48,10 +49,7 @@ public class Parser {
             throw new InsufficientInfoException("Please enter stock information after the 'add' command in"
                     + " this format:\nadd <StockType> <StockCode> <Quantity> <Description>");
         } else {
-            addInput[0] = addInput[0].strip();
-            addInput[1] = addInput[1].strip();
-            addInput[2] = addInput[2].strip();
-            addInput[3] = addInput[3].strip();
+
             if (addInput[0].isBlank() | addInput[1].isBlank() | addInput[2].isBlank() | addInput[3].isBlank()) {
                 throw new InsufficientInfoException("Please enter stock information after the 'add' command in"
                         + " this format:\nadd <StockType> <StockCode> <Quantity> <Description>");
