@@ -34,6 +34,7 @@ public class SetPriorityCommand extends Command{
 
     public void execute(TaskList items, PriorityList priorityList, Ui ui) {
         priorityList.setPriority(taskNum, priority);
+        ui.showSetPriority(items, taskNum, priority);
     }
 
     /**

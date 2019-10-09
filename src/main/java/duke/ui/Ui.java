@@ -348,4 +348,9 @@ public class Ui {
         out.println("     Updated " + BACKUP_FILENAME + " with the current items in Duke Manager!");
         out.println("     Directory of the file opened in explorer!");
     }
+
+    public void showSetPriority(TaskList taskList, int taskNum, int priority) {
+        out.println("     Updated the priority of \n\t\t" + taskList.get(taskNum));
+        out.println("     Current priority: " + priority);
+    }
 }
