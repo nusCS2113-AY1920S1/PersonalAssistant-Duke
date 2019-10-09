@@ -58,8 +58,6 @@ public class Parser {
         return command;
     }
 
-    //parsing assumes no line separators (should have been weeded out by CLI)
-
     /**
      * Parses the user's input and loads the parameters for this Command from it.
      *
@@ -118,14 +116,18 @@ public class Parser {
 
     private void handleArg(char curr) throws DukeHelpException {
         switch (curr) {
-        case '-':
-            throw new DukeHelpException("Invalid hyphen in argument!", currCommand);
-        case '"':
-            throw new DukeHelpException("Invalid quotation mark in argument!", currCommand);
+        case '\\':
+            if (!isEscaped) {
+                isEscaped = true;
+                break;
+            } //fallthrough
         case ' ':
-            writeElement();
-            break;
+            if (!isEscaped) {
+                writeElement();
+                break;
+            } //fallthrough
         default:
+            isEscaped = false;
             elementBuilder.append(curr);
             break;
         }
@@ -165,13 +167,29 @@ public class Parser {
         }
     }
 
-    //precondition: if not null currSwitch does not have a switchVal entry
-    //precondition: either currSwitch is not null or command.arg is null
     private void writeElement() throws DukeHelpException {
+        assert(currSwitch != null || currCommand.arg == null);
         if (currSwitch != null) {
             switchVals.put(currSwitch, elementBuilder.toString());
-        } else if (currCommand.arg == null) {
+            currSwitch = null;
+        } else { //currCommand.arg == null
             currCommand.arg = elementBuilder.toString();
+        }
+        state = ParseState.EMPTY;
+    }
+
+    // TODO: this function is going to become very big with autocorrect
+    private void addSwitch(String newSwitch) throws DukeHelpException {
+        if (!switches.containsKey(newSwitch)) {
+            throw new DukeHelpException("I don't know what this switch is: " + newSwitch, currCommand);
+        } else if (switchVals.containsKey(newSwitch)) {
+            throw new DukeHelpException("Multiple values supplied for " + newSwitch + "switch!", currCommand);
+        } else {
+            if (switches.get(newSwitch) != ArgLevel.NONE) {
+                currSwitch = newSwitch;
+            } else {
+                switchVals.put(newSwitch, null);
+            }
         }
     }
 
@@ -181,7 +199,7 @@ public class Parser {
         }
     }
 
-    private void checkMissingSwitches() throws DukeException {
+    private void checkSwitchesSatisfied() throws DukeException {
         for (HashMap.Entry<String, ArgLevel> switchEntry : switches.entrySet()) {
             if (switchEntry.getValue() == ArgLevel.REQUIRED
                     && switchVals.get(switchEntry.getKey()) == null) {
