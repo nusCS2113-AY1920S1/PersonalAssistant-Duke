@@ -143,4 +143,15 @@ public class TaskList {
     public int getSize() {
         return listOfTasks.size();
     }
+
+    /**
+     * Marks a task to be ignored and have reminders to stop showing up for the task.
+     * @param index The index of the task to be marked
+     * @return The marked task
+     */
+    public Task markAsIgnorable(int index) {
+        Task task = listOfTasks.get(index);
+        task.markAsIgnorable();
+        return task;
+    }
 }

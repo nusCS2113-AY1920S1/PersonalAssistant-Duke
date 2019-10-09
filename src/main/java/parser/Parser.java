@@ -11,6 +11,7 @@ import command.PostponeCommand;
 import command.RemindCommand;
 import command.SearchCommand;
 import command.ViewCommand;
+import command.IgnoreCommand;
 import exception.DukeException;
 import ui.Ui;
 
@@ -84,7 +85,7 @@ public class Parser {
             return new DoneCommand(indexOfTask);
 
         case "remind":
-            return parseRemind(userInput, command);
+            return parseRemind(command, userInput);
 
         case "postpone":
             atDate = nullDate;
@@ -135,6 +136,8 @@ public class Parser {
                 throw new DukeException(DukeException.wrongDateOrTime());
             }
             return new SearchCommand(duration);
+        case "ignore":
+            return parseIgnore(command, userInput);
         default:
             // Empty string or unknown command.
             Ui.printUnknownInput();
@@ -209,7 +212,7 @@ public class Parser {
 
     private static int extractReminderValue(String description) {
         String substring = description.split("in", 2)[1].trim();
-        return Integer.parseInt(substring.split(" ", 2)[0].trim());
+        return Integer.parseInt(substring.split("\\s+", 2)[0].trim());
     }
 
     private static Command parseDeadline(String command, String userInput) throws DukeException {
@@ -263,5 +266,10 @@ public class Parser {
         assert !toDate.equals(NULL_DATE);
         assert !fromDate.equals(NULL_DATE);
         return new AddCommand(command, taskDescription, fromDate, toDate);
+    }
+
+    private static Command parseIgnore(String command, String userInput) {
+        int index = Integer.parseInt(userInput.split("\\s+",2)[1].trim()) - 1;
+        return new IgnoreCommand(index);
     }
 }
