@@ -1,6 +1,5 @@
 package duke.commands;
 
-import duke.DukeException;
 import duke.Storage;
 import duke.TaskList;
 import duke.Ui;
@@ -8,7 +7,7 @@ import duke.tasks.Task;
 
 import java.util.ArrayList;
 
-public class RemindCommand extends Command {
+public class RemindCommand extends Command<TaskList> {
 
 
     /**

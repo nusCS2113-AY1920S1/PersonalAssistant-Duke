@@ -1,7 +1,12 @@
 package duke;
 
+import duke.commands.AddBarCommand;
 import duke.commands.Command;
+import duke.commands.HelpCommand;
+import duke.commands.NewCommand;
 import duke.commands.RemindCommand;
+import duke.commands.ViewCommand;
+import duke.components.SongList;
 
 
 import java.nio.file.Paths;
@@ -15,6 +20,7 @@ public class Duke {
      */
     private Storage storage;
     private TaskList tasks;
+    private SongList songs;
     private Ui ui;
 
 
@@ -25,6 +31,7 @@ public class Duke {
     public Duke() {
         ui = new Ui();
         tasks = new TaskList();
+        songs = new SongList();
         System.out.println("/home/rishi/Desktop/cs2113t/team/main/data/todo_list.txt");
         storage = new Storage(Paths.get("/home/rishi/Desktop/cs2113t/team/main/data/todo_list.txt"));
         try {
@@ -63,7 +70,14 @@ public class Duke {
             try {
                 String fullCommand = ui.readCommand();
                 Command c = Parser.parse(fullCommand);
-                String output = c.execute(tasks, ui, storage);
+                //if the command uses the SongList
+                String output;
+                if (c instanceof AddBarCommand || c instanceof ViewCommand
+                        || c instanceof NewCommand || c instanceof HelpCommand) {
+                    output = c.execute(songs, ui, storage);
+                } else {
+                    output = c.execute(tasks, ui, storage);
+                }
                 System.out.println(output);
                 isExit = c.isExit();
             } catch (DukeException e) {

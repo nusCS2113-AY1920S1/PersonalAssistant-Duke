@@ -5,7 +5,7 @@ import duke.Storage;
 import duke.TaskList;
 import duke.Ui;
 
-public class DoneCommand extends Command {
+public class DoneCommand extends Command<TaskList> {
 
     private int index;
 
