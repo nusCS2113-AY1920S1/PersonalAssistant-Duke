@@ -49,7 +49,7 @@ public class AddMultipleCommand extends Command {
             items.add(curTask);
         }
         ui.showAdd(items);
-        priorities.addMultiPriority(tasks.size());
+        priorities.addMultiDefaultPriority(tasks.size());
     }
 
     /**
