@@ -8,10 +8,11 @@ import Exception.DukeException;
 import java.io.IOException;
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Stack;
 
 public class DoneCommand extends Command {
     @Override
-    public void execute(ArrayList<Task> list, Ui ui, Storage storage) throws DukeException, ParseException, IOException, NullPointerException {
+    public void execute(ArrayList<Task> list, Ui ui, Storage storage, Stack<String> commandStack, ArrayList<Task> deletedTask) throws DukeException, ParseException, IOException, NullPointerException {
         try {
             if (ui.FullCommand.equals("done")) {
                 throw new DukeException("The task done number cannot be empty.");
@@ -39,7 +40,12 @@ public class DoneCommand extends Command {
              */
 
             RecurringCommand rc = new RecurringCommand();
-            rc.AddRecurring(list, numbercheck,list.get(numbercheck).toString(), storage);
+            rc.AddRecurring(list, numbercheck, list.get(numbercheck).toString(), storage);
+
+            /**
+             * Filter out those task that are done
+             */
+
 
             StringBuilder sb = new StringBuilder();
             for (int i = 0; i < list.size(); i++) {
@@ -50,10 +56,18 @@ public class DoneCommand extends Command {
             System.out.println(e.getMessage());
         }
     }
-
+    public void undo(String command, ArrayList<Task> list, Storage storage) throws IOException {
+        int numberCheck = Integer.parseInt(command.substring(5)) - 1;
+        list.get(numberCheck).isDone = false;
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < list.size(); i++) {
+            sb.append(list.get(i).toString() + "\n");
+        }
+        storage.Storages(sb.toString());
+        System.out.println("Nice! I've undo this command" + command);
+    }
     @Override
     public boolean isExit() {
         return false;
     }
-
 }

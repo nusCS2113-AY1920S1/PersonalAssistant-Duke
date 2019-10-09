@@ -14,10 +14,10 @@ public class ShowWelcomeTest {
     @Test
     public void test() throws IOException {
         Ui ui = new Ui();
-        String logo = " ___   ___  ___  ___  ___  ___   ___ \n"
-                + "|     |   |   / |    |    |   \\ |   |\n"
-                + "|  __ |__ |  /  |___ |___ |___| |   |\n"
-                + "|___| |   | /__ |___ |___ |___/ |___|";
+        String logo = " ___   ___  ___  ___  ___  ___  ___   ___ \n"
+                + "|     |   |   / |    |    |    |   \\ |   |\n"
+                + "|  __ |__ |  /  |___ |___ |___ |___| |   |\n"
+                + "|___| |   | /__ |___ |___ |___ |___/ |___|";
         ByteArrayInputStream in = new ByteArrayInputStream("jjjjjj".getBytes());
         System.setIn(in);
         ByteArrayInputStream second = new ByteArrayInputStream("jjjry".getBytes());

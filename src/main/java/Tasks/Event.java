@@ -3,7 +3,6 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
-import java.time.format.FormatStyle;
 
 public class Event extends Task {
     public LocalDate date;
@@ -28,9 +27,9 @@ public class Event extends Task {
                 + " " + this.start.format(fmtET) + "-" + this.end.format(fmtET);
     }
     public String listFormat(){
-        String datestring = date.format(DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM));// You can change to this format
+        String dateString = date.format(DateTimeFormatter.ofPattern("dd LLL yyyy"));// You can change to this format
 
-        return "[E]" + "[" + super.getStatusIcon() + "] " + super.description + "(at:" + datestring + " "
+        return "[E]" + "[" + super.getStatusIcon() + "]" + super.description + "(at:" + dateString + " "
                 + this.start.format(fmtET) + "-" + this.end.format(fmtET) + ")";
 
     }

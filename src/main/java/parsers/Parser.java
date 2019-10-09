@@ -6,90 +6,70 @@ import Exception.DukeException;
 
 public class Parser {
     public static Command parse(String command) throws DukeException {
-        if (command.contains("list")) {
+        String[] splitcommand = command.split(" ");
+        if (splitcommand[0].equals("list")) {
             if (command.contains("event")) {
                 return new CategoryListCommand();
-            }
-            else if (command.contains("deadline")) {
+            } else if (command.contains("deadline")) {
                 return new CategoryListCommand();
-            }
-            else if (command.contains("todo")) {
+            } else if (command.contains("todo")) {
                 return new CategoryListCommand();
-            }
-            else if (command.contains("fixed")) {
+            } else if (command.contains("fixed")) {
                 return new CategoryListCommand();
-            }
-            else if (command.contains("timebound")) {
+            } else if (command.contains("timebound")) {
                 return new CategoryListCommand();
-            }
-            else {
+            } else {
                 return new ListCommand();
             }
-        }
-        else if (command.equals("done list")) {
+        } else if (command.equals("done list")) {
             return new DoneListCommand();
-        }
-        else if (command.equals("undo list")) {
+        } else if (command.equals("undo list")) {
             return new UndoneListCommand();
-        }
-        else if (command.contains("done")) {
+        } else if (splitcommand[0].equals("done")) {
             return new DoneCommand();
-        }
-        else if (command.contains("delete")) {
+        } else if (splitcommand[0].equals("delete")) {
             return new DeleteCommand();
-        }
-        else if (command.contains("deadline")) {
+        } else if (splitcommand[0].equals("deadline")) {
             return new DeadlineCommand();
-        }
-        else if (command.contains("/after")) {
+        } else if (command.contains("/after")) {
             return new DoAfterCommand();
-        }
-        else if (command.contains("event")) {
+        } else if (splitcommand[0].equals("event")) {
             return new EventCommand();
-        }
-        else if (command.contains("todo")) {
+        } else if (splitcommand[0].equals("todo")) {
             return new TodoCommand();
-        }
-        else if (command.contains("/between")) {
+        } else if (command.contains("/between")) {
             return new TimeboundCommand();
-        }
-        else if (command.contains("find")) {
+        } else if (splitcommand[0].equals("find")) {
             return new FindCommand();
-        }
-        else if (command.contains("bye")) {
+        } else if (splitcommand[0].equals("bye")) {
             return new ByeCommand();
-        }
-        else if (command.contains("/require")) {
+        } else if (command.contains("/require")) {
             return new FixDurationCommand();
-        }
-        else if (command.contains("reschedule")) {
+        } else if (splitcommand[0].equals("reschedule")) {
             return new RescheduleCommand();
-        }
-        else if (command.contains("schedule")) {
-            return new ScheduleCommand();
-        }
-        else if (command.contains("snooze")) {
+        } else if (splitcommand[0].equals("scheduleDaily")) {
+            return new ScheduleDailyCommand();
+        } else if (splitcommand[0].equals("scheduleWeekly")) {
+            return new ScheduleWeeklyCommand();
+        } else if (splitcommand[0].equals("scheduleMonthly")) {
+            return new ScheduleMonthlyCommand();
+        } else if (splitcommand[0].equals("snooze")) {
             return new SnoozeCommand();
-        }
-        else if (command.contains("tentative")) {
+        } else if (splitcommand[0].equals("tentative")) {
             return new TentativeEventCommand();
-        }
-        else if (command.contains("confirm")) {
+        } else if (splitcommand[0].equals("confirm")) {
             return new ConfirmTentativeCommand();
-        }
-        else if (command.contains("undo")) {
+        } else if (splitcommand[0].contains("undone")) {
+            return new UndoneCommand();
+        } else if (splitcommand[0].equals("undo")) {
             return new UndoCommand();
-        }
-        else if(command.contains("edit")) {
+        } else if (splitcommand[0].equals("edit")) {
             return new EditCommand();
-        }
-        else if(command.contains("change password")) {
+        } else if ((splitcommand[0] + " " + splitcommand[1]).equals("change password")) {
             return new ChangePasswordCommand();
-        }
-        else if(command.contains("#")) {
+        } else if (command.contains("#")) {
             return new TagCommand();
-        }
-        else {
+        } else {
             throw new DukeException("OOPS!!! I'm sorry, but I don't know what that means :-(");
         }
     }

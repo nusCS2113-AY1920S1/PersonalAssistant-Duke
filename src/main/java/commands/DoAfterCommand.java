@@ -4,14 +4,24 @@ import Storage.Storage;
 import Tasks.DoAfter;
 import Tasks.Task;
 import UI.Ui;
-
+import Exception.DukeException;
 import java.io.IOException;
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Stack;
 
 public class DoAfterCommand extends Command {
+    /**
+     *
+     * @param list      task lists
+     * @param ui        the object that deals with printing things to the user.
+     * @param storage   the object that deals with storing data.
+     * @throws ParseException
+     * @throws IOException
+     * @throws NullPointerException if tDate doesn't get updated.
+     */
     @Override
-    public void execute(ArrayList<Task> list, Ui ui, Storage storage) throws ParseException, IOException, NullPointerException {
+    public void execute(ArrayList<Task> list, Ui ui, Storage storage, Stack<String> commandStack, ArrayList<Task> deletedTask) throws DukeException, ParseException, IOException, NullPointerException {
         String before = "";
         String after = "";
         String[] splitstring = ui.FullCommand.split("/after");
@@ -28,7 +38,24 @@ public class DoAfterCommand extends Command {
         }
         storage.Storages(sb.toString());
     }
-
+    public void undo(String command, ArrayList<Task> list, Storage storage) throws IOException {
+        String before = "";
+        String after = "";
+        String[] splitstring = command.split("/after");
+        before = splitstring[1];
+        after = splitstring[0];
+        for (Task it : list) {
+            if (it.listFormat().contains(after + "(/after:" + before + ")")) {
+                list.remove(it);
+                break;
+            }
+        }
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < list.size(); i++) {
+            sb.append(list.get(i).toString() + "\n");
+        }
+        storage.Storages(sb.toString());
+    }
     /**
      * Tells the main Duke class that the system should not exit and continue running
      *
