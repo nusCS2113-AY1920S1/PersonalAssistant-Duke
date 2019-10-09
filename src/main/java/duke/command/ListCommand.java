@@ -18,10 +18,10 @@ public class ListCommand extends CommandTest {
 
     /**
      * Constructor for class ListCommand.
-     * @param userInputCommand String containing input command from user
+     * @param userInput String containing input command from user
      */
-    public ListCommand(String userInputCommand) {
-        this.userInputCommand = userInputCommand;
+    public ListCommand(String userInput) {
+        this.userInput = userInput;
     }
     /**
      * Processes the list command to display all tasks in task list.

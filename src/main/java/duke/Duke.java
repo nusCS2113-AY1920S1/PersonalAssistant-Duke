@@ -1,5 +1,6 @@
 package duke;
 
+import duke.command.CommandIngredients;
 import duke.command.CommandTest;
 import duke.exception.DukeException;
 import duke.ingredientlist.IngredientList;
@@ -56,8 +57,11 @@ public class Duke {
     }
 
     public ArrayList<String> runProgram(String fullCommand) throws DukeException, ParseException {
-        CommandTest command = Parser.parseTest(fullCommand);
-        return command.feedback(taskList, ui, storage);
+        CommandIngredients command = Parser.parseIngredients(fullCommand);
+        return command.feedback(ingredientList, ui, ingredientStorage);
+
+//        CommandTest command = Parser.parseTest(fullCommand);
+//        return command.feedback(taskList, ui, storage);
     }
 }
 

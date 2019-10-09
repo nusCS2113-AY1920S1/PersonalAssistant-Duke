@@ -1,5 +1,7 @@
 package duke.model.recipe;
 
+import duke.task.ingredienttasks.Ingredient;
+
 import java.util.ArrayList;
 import java.util.List;
 

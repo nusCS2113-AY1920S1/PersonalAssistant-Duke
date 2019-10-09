@@ -20,6 +20,18 @@ import static duke.common.Messages.*;
 public class Parser {
     private MainWindow mainWindow = new MainWindow();
 
+    public static CommandIngredients parseIngredients(String input) throws DukeException {
+        if (input.trim().contains(COMMAND_ADD_INGREDIENT)) {
+            if (input.trim().substring(0, 13).equals(COMMAND_ADD_INGREDIENT)) {
+                return new AddIngredientCommand(input);
+            }  else {
+                throw new DukeException(ERROR_MESSAGE_RANDOM);
+            }
+        } else {
+            throw new DukeException(ERROR_MESSAGE_RANDOM);
+        }
+    }
+
     public static CommandTest parseTest(String input) throws DukeException {
         if (input.trim().equals(COMMAND_LIST)) {
             return new ListCommand(input);
@@ -39,14 +51,13 @@ public class Parser {
             return new ByeCommand(userInput);
         } else if (userInput.trim().equals(COMMAND_LIST_INGREDIENTS)) {
             return new ListIngredientsCommand(userInput);
-        } else if (userInput.contains(COMMAND_ADD_INGREDIENT)) {
-            if (userInput.trim().substring(0, 13).equals(COMMAND_ADD_INGREDIENT)) {
-                return new AddIngredientCommand(userInput);
-            } else {
-                throw new DukeException(ERROR_MESSAGE_RANDOM);
-            }
-        }
-        else {
+//        } else if (userInput.contains(COMMAND_ADD_INGREDIENT)) {
+//            if (userInput.trim().substring(0, 13).equals(COMMAND_ADD_INGREDIENT)) {
+//                return new AddIngredientCommand(userInput);
+//            } else {
+//                throw new DukeException(ERROR_MESSAGE_RANDOM);
+//            }
+        } else {
             throw new DukeException(ERROR_MESSAGE_RANDOM);
         }
     }
