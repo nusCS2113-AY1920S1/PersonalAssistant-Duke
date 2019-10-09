@@ -149,16 +149,45 @@ public class TimeInterval implements TemporalAmount, Serializable {
         return new TimeInterval(dateDiff, timeDiff);
     }
 
-    public boolean isNegative() {
+    public boolean isZeroApprox() {
+        return this.toDuration().isZero();
+    }
+
+    public boolean isZeroFrom(LocalDateTime localDateTime) {
+        return localDateTime.plus(this).isEqual(localDateTime);
+    }
+
+    public boolean isZeroFromNow() {
+        return this.isZeroFrom(LocalDateTime.now());
+    }
+
+    public boolean isNegativeApprox() {
         return this.toDuration().isNegative();
     }
 
-    public boolean isPositive() {
-        return !this.isNegative();
+    public boolean isNegativeFrom(LocalDateTime localDateTime) {
+        return localDateTime.plus(this).isBefore(localDateTime);
+    }
+
+    public boolean isNegativeFromNow() {
+        return this.isNegativeFrom(LocalDateTime.now());
+    }
+
+    public boolean isPositiveApprox() {
+        Duration val = this.toDuration();
+        return !(val.isZero() || val.isNegative());
+    }
+
+    public boolean isPositiveFrom(LocalDateTime localDateTime) {
+        return localDateTime.plus(this).isAfter(localDateTime);
+    }
+
+    public boolean isPositiveFromNow() {
+        return this.isPositiveFrom(LocalDateTime.now());
     }
 
     public boolean isLessThan(TimeInterval other) {
-        return this.minus(other).isNegative();
+        return this.minus(other).isNegativeApprox();
     }
 
     public boolean isGreaterThan(TimeInterval other) {

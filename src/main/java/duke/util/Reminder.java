@@ -2,9 +2,12 @@ package duke.util;
 
 import duke.exceptions.ModInvalidTimePeriodException;
 import duke.exceptions.ModTimeIntervalTooCloseException;
-import duke.modules.DoWithin;
-import duke.modules.Task;
 
+import duke.modules.Deadline;
+import duke.modules.DoWithin;
+import duke.modules.Events;
+import duke.modules.Task;
+import duke.modules.Todo;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -33,12 +36,16 @@ public class Reminder {
         this.thread = new Thread(this::remind);
     }
 
+    public Reminder(List<Task> tasks, int minutesBefore, int minutesEvery) throws ModTimeIntervalTooCloseException {
+        this(tasks, TimeInterval.ofMinutes(minutesBefore), TimeInterval.ofMinutes(minutesEvery));
+    }
+
     public Reminder(List<Task> tasks, TimeInterval remindBefore) throws ModTimeIntervalTooCloseException {
         this(tasks, remindBefore, TimeInterval.min(TimeInterval.ofHours(1), remindBefore));
     }
 
-    public Reminder(List<Task> tasks, int minutes) throws ModTimeIntervalTooCloseException {
-        this(tasks, TimeInterval.ofMinutes(minutes));
+    public Reminder(List<Task> tasks, int minutesBefore) throws ModTimeIntervalTooCloseException {
+        this(tasks, minutesBefore, Math.min(60, minutesBefore));
     }
 
     public Reminder(List<Task> tasks) throws ModTimeIntervalTooCloseException {
@@ -76,11 +83,12 @@ public class Reminder {
                 }
                 long sleepSeconds = Math.max(TimeInterval.between(LocalDateTime.now(), targetTime)
                         .toDuration().getSeconds() - 1, 0);
-                try {
-                    Thread.sleep(sleepSeconds * 1000);
-                } catch (InterruptedException ignored) {
-                    targetTime = LocalDateTime.now();
-                    break;
+                if (sleepSeconds > 0) {
+                    try {
+                        Thread.sleep(sleepSeconds * 1000);
+                    } catch (InterruptedException ignored) {
+                        targetTime = LocalDateTime.now();
+                    }
                 }
             }
         }
@@ -93,9 +101,9 @@ public class Reminder {
                 replace the if logic below with:
                     if (!task.isDone() && timePeriod.isClashing(task.getPeriod().getBegin())) {
              */
-            if (task instanceof DoWithin
+            if ((task instanceof DoWithin || task instanceof Events || task instanceof Deadline || task instanceof Todo)
                     && !task.isDone()
-                    && timePeriod.isClashing(((DoWithin) task).getPeriod().getBegin())) {
+                    && timePeriod.isClashing(task.getPeriod().getBegin())) {
                 upcomingTasks.add(task);
             }
         }
