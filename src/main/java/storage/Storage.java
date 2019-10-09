@@ -71,7 +71,7 @@ public class Storage {
             fw = new FileWriter(file, append);
             bw = new BufferedWriter(fw);
             bw.write(s);
-//            bw.newLine();
+            bw.newLine();
         } catch (IOException e) {
             e.printStackTrace();
         } finally {
