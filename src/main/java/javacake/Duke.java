@@ -2,8 +2,8 @@ package javacake;
 
 import javacake.commands.Command;
 
-public class Duke {
-    private static String savedDataPath = "data/saved_data.txt";
+public class Duke  {
+    /*private static String savedDataPath = "data/saved_data.txt";
     private static Ui ui;
     private static Storage storage;
     private static ProgressStack progressStack;
@@ -12,11 +12,15 @@ public class Duke {
     private static String userName = "Glen";
     private static int userProgress = 0;
     private static boolean isAtMainList = false;
-    private static boolean isAtSubList = false;
+    private static boolean isAtSubList = false;*/
+
+
+
 
     /**
      * Constructor for main class to initialise the settings.
      */
+    /*
     public Duke(String filePath) {
         ui = new Ui();
         progressStack = new ProgressStack();
@@ -40,6 +44,7 @@ public class Duke {
     /**
      * Run the rest of the code here.
      */
+    /*
     private void run() {
         userName = ui.showWelcome(isFirstTimeUser, userName, userProgress);
         //TO OVERWRITE "NEW_USER_!@# with new inputted username if needed
@@ -66,12 +71,31 @@ public class Duke {
             }
         }
     }
+    */
 
     /**
      * Program Start.
      */
+    /*
     public static void main(String[] args) {
         new Duke(savedDataPath).run();
+    }
+    */
+
+    /**
+     * You should have your own function to generate a response to user input.
+     * Replace this stub with your completed method.
+     */
+    String getResponse(String input) {
+        return "Duke heard: " + input;
+    }
+
+    public Duke() {
+
+    }
+
+    public static void main(String[] args) {
+
     }
 
 }

@@ -23,10 +23,6 @@ public class GoToCommand extends Command {
         index = buffer[1];
     }
 
-    public String goToIndex() {
-        return index;
-    }
-
     /**
      * Execute jumping to given index.
      * @param progressStack TaskList containing current tasks
