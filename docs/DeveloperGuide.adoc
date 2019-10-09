@@ -31,8 +31,8 @@ Refer to the guide <<SettingUp#, here>>.
 
 
 == Value proposition
- The Duke personal assistant application will enable team leader to efficiently plan schedules, save time, and assign proper amount of tasks to team members, while providing an intuitive GUI for them to visualise and easily keep track of the team progress.
- User can use this app to manage projects faster than a typical mouse/GUI driven app.
+ The Duke personal assistant application will enable team leader to efficiently plan schedules, save time, and assign proper amount of tasks to team members, while providing an intuitive gui for them to visualise and easily keep track of the team progress.
+ User can use this app to manage projects faster than a typical mouse/gui driven app.
 
 
 [appendix]
@@ -49,7 +49,7 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 | |a user with many different types of tasks |Duke Pro to be able to categorise tasks through tags|
 | |a busy user |an effective summary of the tasks that are coming up in the calendar |
 | |a user |Duke to be able to filter tasks based on a variety of factors |
-| |a user with many tasks |Duke Pro to have a calendar GUI for visualisation |
+| |a user with many tasks |Duke Pro to have a calendar gui for visualisation |
 | |a forgetful user |Duke Pro can notify me before the event or deadline |
 | |a new user |to be given suggestions on the types of commands I can use |
 | |a careless typer |Duke to give suggestions of closest matches to the wrong command I typed |
