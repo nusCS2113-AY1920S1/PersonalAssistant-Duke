@@ -1,5 +1,11 @@
 # Setting up
 
+[![Coverage Status](https://coveralls.io/repos/github/AY1920S1-CS2113T-W13-3/main/badge.svg?branch=master)](https://coveralls.io/github/AY1920S1-CS2113T-W13-3/main?branch=master)
+[![Build Status](https://travis-ci.org/AY1920S1-CS2113T-W13-3/main.svg?branch=master)](https://travis-ci.org/AY1920S1-CS2113T-W13-3/main)
+[![Build status](https://ci.appveyor.com/api/projects/status/4mjh6mbu4s7uy36n/branch/master?svg=true)](https://ci.appveyor.com/project/Jefferson111/main/branch/master)
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/d553600e4c394c78989c71999eb35dcc)](https://www.codacy.com/manual/Jefferson111/main?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=AY1920S1-CS2113T-W13-3/main&amp;utm_campaign=Badge_Grade)
+[![Gitter chat](https://badges.gitter.im/se-edu/Lobby.svg)](https://gitter.im/se-edu/Lobby)
+
 **Prerequisites**
 
 * JDK 11
@@ -19,6 +25,10 @@
 1. Rename the project if you want. Click `Next`.
 1. Ensure that your src folder is checked. Keep clicking `Next`.
 1. Click `Finish`.
+
+# Developer Guide
+
+https://docs.google.com/document/d/1jau7lCh6TdFEZnxJQyfkELXFryA56I4-Jf6dzDFwSI0/edit?usp=sharing
 
 # Tutorials 
 

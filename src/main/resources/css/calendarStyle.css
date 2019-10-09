@@ -1,0 +1,108 @@
+.calendar {
+    -fx-background-repeat: stretch;
+    -fx-background-size: 750 600;
+    -fx-background-position: center center;
+}
+
+#JANUARY {
+    -fx-background-image: url("../images/Jan.jpg");
+}
+
+#FEBRUARY {
+    -fx-background-image: url("../images/Feb.jpg");
+}
+
+#MARCH {
+    -fx-background-image: url("../images/Mar.jpg");
+}
+
+#APRIL {
+    -fx-background-image: url("../images/Apr.jpg");
+}
+
+#MAY {
+    -fx-background-image: url("../images/May.jpg");
+}
+
+#JUNE {
+    -fx-background-image: url("../images/Jun.jpg");
+}
+
+#JULY {
+    -fx-background-image: url("../images/Jul.jpg");
+}
+
+#AUGUST {
+    -fx-background-image: url("../images/Aug.jpg");
+}
+
+#SEPTEMBER {
+    -fx-background-image: url("../images/Sep.jpg");
+}
+
+#OCTOBER {
+    -fx-background-image: url("../images/Oct.jpg");
+}
+
+#NOVEMBER {
+    -fx-background-image: url("../images/Nov.png");
+}
+
+#DECEMBER {
+    -fx-background-image: url("../images/Dec.jpg");
+}
+
+.arrow-button {
+    -fx-shape: "M 0 50 L 50 0 L 50 100 z";
+}
+
+.calendarCard {
+    -fx-background-radius: 10;
+    -fx-background-color: rgba(100, 100, 100, 0.5);
+    -fx-border-radius: 10;
+    -fx-border-width: 2;
+    -fx-border-color: grey;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.3), 10, 0.5, 0.0, 0.0);
+}
+
+.calendarCardHover {
+    -fx-background-radius: 10;
+    -fx-background-color: rgba(150, 150, 150, 0.5);
+    -fx-border-radius: 10;
+    -fx-border-width: 2;
+    -fx-border-color: white;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 10, 0.5, 0.0, 0.0);
+}
+
+#day {
+    -fx-font-family: 'Helvetica', Arial, sans-serif;
+    -fx-font-style: italic;
+    -fx-font-weight: bolder;
+    -fx-text-fill: white;
+}
+
+#task {
+    -fx-font-family: 'Helvetica', Arial, sans-serif;
+    -fx-text-fill: white;
+}
+
+#description {
+    -fx-font-family: 'Helvetica', Arial, sans-serif;
+    -fx-text-fill: white;
+}
+
+.dayOfWeek {
+    -fx-font-family: 'Helvetica', Arial, sans-serif;
+    -fx-font-size: 16;
+    -fx-font-weight: bold;
+    -fx-fill: linear-gradient(to bottom right, red, springgreen);
+}
+
+#calendarTitle {
+    -fx-font-family: 'Helvetica', Arial, sans-serif;
+    -fx-font-size: 24;
+    -fx-font-weight: bold;
+    -fx-fill: gold;
+    -fx-stroke: black;
+    -fx-stroke-width: 1;
+}

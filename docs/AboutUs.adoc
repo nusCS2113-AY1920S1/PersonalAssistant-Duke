@@ -1,0 +1,58 @@
+= About Us
+:site-section: AboutUs
+:relfileprefix: team/
+:imagesDir: images
+:stylesDir: stylesheets
+
+Duke was developed by the https://github.com/AY1920S1-CS2113T-W13-3/main[Duke] team. +
+_{The dummy content given below serves as a placeholder to be used by future forks of the project.}_ +
+{empty} +
+We are a team based in the http://www.comp.nus.edu.sg[School of Computing, National University of Singapore].
+
+== Project Team
+
+=== Daniel
+image::inno97.png[width="150", align="left"]
+{empty}[https://github.com/Inno97[github]] [<<daniel#, portfolio>>]
+
+Role: Project Advisor
+
+'''
+
+=== Hong Chuan
+image::hongchuan97.png[width="150", align="left"]
+{empty}[http://github.com/hongchuan97[github]] [<<hongchuan#, portfolio>>]
+
+Role: Team Lead +
+Responsibilities: UI
+
+'''
+
+=== Sukrut
+image::sukrut1881.png[width="150", align="left"]
+{empty}[http://github.com/Sukrut1881[github]] [<<sukrut#, portfolio>>]
+
+Role: Developer +
+Responsibilities: Data
+
+'''
+
+=== Jefferson
+image::jefferson111.png[width="150", align="left"]
+{empty}[http://github.com/Jefferson111[github]] [<<jefferson#, portfolio>>]
+
+Role: Developer +
+Responsibilities: Dev Ops + Threading
+
+'''
+
+== Supervisor/Lecturer
+
+=== Akshay Narayan
+image::akshay.png[width="150", align="left"]
+{empty}[http://github.com/okkhoy[github]] [<<akshay#, portfolio>>]
+
+Role: NA
+Responsibilities: NA
+
+'''

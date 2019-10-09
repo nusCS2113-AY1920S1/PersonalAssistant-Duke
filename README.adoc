@@ -1,0 +1,36 @@
+= Duke
+ifdef::env-github,env-browser[:relfileprefix: docs/]
+
+https://travis-ci.org/AY1920S1-CS2113T-W13-3/main[image:https://travis-ci.org/AY1920S1-CS2113T-W13-3/main.svg?branch=master[Build Status]]
+https://ci.appveyor.com/project/Jefferson111/main/branch/master[image:https://ci.appveyor.com/api/projects/status/4mjh6mbu4s7uy36n/branch/master?svg=true[Build status]]
+https://coveralls.io/github/AY1920S1-CS2113T-W13-3/main?branch=master[image:https://coveralls.io/repos/github/AY1920S1-CS2113T-W13-3/main/badge.svg?branch=master[Coverage Status]]
+https://www.codacy.com/manual/Jefferson111/main?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=AY1920S1-CS2113T-W13-3/main&amp;utm_campaign=Badge_Grade[image:https://api.codacy.com/project/badge/Grade/d553600e4c394c78989c71999eb35dcc[Codacy Badge]]
+https://gitter.im/se-edu/Lobby[image:https://badges.gitter.im/se-edu/Lobby.svg[Gitter chat]]
+
+ifdef::env-github[]
+image::docs/images/Ui.PNG[width="600" height="400"]
+endif::[]
+
+ifndef::env-github[]
+image::images/Ui.PNG[width="600" height="400"]
+endif::[]
+
+* The project aims to build a product named Duke, a Personal Assistant Chatbot that helps a person to keep track of various things.
+* It is a Java sample application intended for students learning Software Engineering while using Java as the main programming language.
+* Project Duke is a **__?small?__** software project designed to take you through the steps of building a small software incrementally, while applying many Java and SE techniques along the way.
+
+== Site Map
+
+* <<UserGuide#, User Guide>>
+* <<DeveloperGuide#, Developer Guide>>
+* <<AboutUs#, About Us>>
+* <<ContactUs#, Contact Us>>
+
+== Acknowledgements
+
+* Most parts of this sample application came from https://github.com/j-lum/duke[Duke] by someone.
+* Some parts of this sample application were inspired by the excellent http://code.makery.ch/library/javafx-8-tutorial/[Java FX tutorial] by
+_Marco Jakob_.
+* Libraries used: https://github.com/TestFX/TestFX[TestFX], https://github.com/FasterXML/jackson[Jackson], https://github.com/junit-team/junit5[JUnit5]
+
+== Licence : link:LICENSE[MIT]
