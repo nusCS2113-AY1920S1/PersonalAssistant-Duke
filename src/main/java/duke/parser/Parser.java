@@ -1,6 +1,20 @@
 package duke.parser;
 
-import duke.command.*;
+import duke.command.SetPriorityCommand;
+import duke.command.AddMultipleCommand;
+import duke.command.DeleteCommand;
+import duke.command.Command;
+import duke.command.ListPriorityCommand;
+import duke.command.ExitCommand;
+import duke.command.BackupCommand;
+import duke.command.ListCommand;
+import duke.command.AddCommand;
+import duke.command.RemindCommand;
+import duke.command.DoneCommand;
+import duke.command.FindCommand;
+import duke.command.UpdateCommand;
+import duke.command.DuplicateFoundCommand;
+
 import duke.task.TaskList;
 import duke.task.Todo;
 import duke.task.Deadline;
@@ -271,7 +285,7 @@ public class Parser {
                 }
 
                 return new SetPriorityCommand(taskNum, priority);
-                }
+            }
 
         } else if (arr.length > 0 && arr[0].equals("remind")) {
             //remind <taskNumber> /in <howManyDays>
