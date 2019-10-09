@@ -17,7 +17,6 @@ import java.util.Stack;
 public class Storage {
     private String fileName;
     private Stack<String> undoStack;
-    private boolean isPreviousUndo;
 
     /**
      * Constructs Storage object.
@@ -27,7 +26,6 @@ public class Storage {
     public Storage(String fileName) {
         this.fileName = fileName;
         undoStack = new Stack<>();
-        isPreviousUndo = false;
     }
 
     // Unchecked type coercion is necessary here.
@@ -114,7 +112,16 @@ public class Storage {
 
         try {
             String jsonVal = getObjectMapper().writeValueAsString(store);
-            undoStack.push(jsonVal);
+            String undoStackTop = new String();
+
+            if (undoStack.size() != 0) {
+                undoStackTop = undoStack.peek();
+            }
+
+            // Only push to undoStack if the topmost stack object is different.
+            if (!undoStackTop.equals(jsonVal)) {
+                undoStack.push(jsonVal);
+            }
         } catch (JsonProcessingException e) {
             e.printStackTrace();
             throw new DuchessException("Undo stack push was unsuccessful.");
@@ -124,17 +131,5 @@ public class Storage {
 
     public Stack<String> getUndoStack() {
         return this.undoStack;
-    }
-
-    public boolean getPreviousUndoStatus() {
-        return this.isPreviousUndo;
-    }
-
-    public void setPreviousUndoFalse() {
-        this.isPreviousUndo = false;
-    }
-
-    public void setPreviousUndoTrue() {
-        this.isPreviousUndo = true;
     }
 }

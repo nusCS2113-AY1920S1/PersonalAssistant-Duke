@@ -13,7 +13,6 @@ public class LogCommand extends Command {
 
     @Override
     public void execute(Store store, Ui ui, Storage storage) throws DuchessException {
-        storage.setPreviousUndoFalse();
         ui.showUserHistory(DuchessLog.getFullLog());
     }
 }

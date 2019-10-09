@@ -67,9 +67,7 @@ public class FindCommand extends Command {
                         >= searchTerm.replaceAll(" ", "").length() - 1)
                         .collect(Collectors.toList());
             }
-            
-            storage.setPreviousUndoFalse();
-          
+
             if (filteredTasks.size() == 0) {
                 throw new DuchessException("There are no matching tasks.");
             } else {

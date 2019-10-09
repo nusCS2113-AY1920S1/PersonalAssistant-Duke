@@ -8,7 +8,6 @@ import duchess.ui.Ui;
 public class ListModulesCommand extends Command {
     @Override
     public void execute(Store store, Ui ui, Storage storage) throws DuchessException {
-        storage.setPreviousUndoFalse();
         ui.showModuleList(store.getModuleList());
     }
 }

@@ -23,7 +23,5 @@ public class AddDeadlineCommand extends Command {
         store.getTaskList().add(task);
         ui.showTaskAdded(store.getTaskList(), task);
         storage.save(store);
-
-        storage.setPreviousUndoFalse();
     }
 }

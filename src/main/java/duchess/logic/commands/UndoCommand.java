@@ -17,7 +17,7 @@ public class UndoCommand extends Command {
      * @throws DuchessException throws exceptions if invalid command
      */
     public UndoCommand(List<String> words) throws DuchessException {
-        if (words.size() != 1 || words.size() != 0) {
+        if (words.size() != 1 && words.size() != 0) {
             throw new DuchessException("Usage: undo [number]");
         } else if (words.size() == 1) {
             undoCounter = Integer.parseInt(words.get(0));
@@ -28,27 +28,21 @@ public class UndoCommand extends Command {
 
     @Override
     public void execute(Store store, Ui ui, Storage storage) throws DuchessException {
-        if (storage.getPreviousUndoStatus() == true) {
-            throw new DuchessException("Last command cannot be undo. Use redo instead.");
-        } else {
-            // Update boolean to prevent next command to be undo.
-            storage.setPreviousUndoTrue();
 
-            // Perform undo function.
-            ui.showUndo(undoCounter);
+        if (undoCounter > 1) {
+            storage.getLastSnapshot();
 
-            if (undoCounter > 1) {
-                storage.getLastSnapshot();
-
-                while (undoCounter > 0 && storage.getUndoStack().size() > 0) {
-                    getPreviousStore(store, storage);
-                    undoCounter--;
-                }
-            } else {
-                storage.getLastSnapshot();
+            while (undoCounter > 0 && storage.getUndoStack().size() > 0) {
                 getPreviousStore(store, storage);
+                undoCounter--;
             }
+        } else {
+            storage.getLastSnapshot();
+            getPreviousStore(store, storage);
         }
+
+        // showUndo should only be placed after execution of undo.
+        ui.showUndo(undoCounter);
     }
 
     private void getPreviousStore(Store store, Storage storage) throws DuchessException {

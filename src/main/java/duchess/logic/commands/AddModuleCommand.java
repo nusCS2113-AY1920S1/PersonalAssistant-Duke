@@ -31,7 +31,5 @@ public class AddModuleCommand extends Command {
         Module module = new Module(moduleCode, moduleName);
         store.getModuleList().add(module);
         ui.showModuleAdded(module, store.getModuleList());
-
-        storage.setPreviousUndoFalse();
     }
 }

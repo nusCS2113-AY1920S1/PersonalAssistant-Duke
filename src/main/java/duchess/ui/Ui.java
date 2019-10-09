@@ -260,7 +260,7 @@ public class Ui {
         if (undoCounter == 1) {
             printIndented("The last command has been undone.");
         } else {
-            printIndented("The last " + undoCounter + " commands have been undone.");
+            printIndented("The last few commands have been undone.");
         }
     }
 
