@@ -69,7 +69,7 @@ public class MainWindow extends UiPart<Stage> {
 
     void fillInnerParts() {
         orderPage = new OrderPage(logic.getFilteredOrderList());
-        productPage = new ProductPage();
+        productPage = new ProductPage(logic.getFilteredProductList());
         salePage = new SalePage();
         inventoryPage = new InventoryPage();
         setAllPageAnchor(orderPage.getRoot(), productPage.getRoot(), salePage.getRoot(), inventoryPage.getRoot());
@@ -100,7 +100,7 @@ public class MainWindow extends UiPart<Stage> {
 
     @FXML
     private void handleShowRecipe() {
-        showRecipePage();
+        showProductPage();
     }
 
     @FXML
@@ -144,8 +144,8 @@ public class MainWindow extends UiPart<Stage> {
         case ORDER:
             showOrderPage();
             break;
-        case RECIPE:
-            showRecipePage();
+        case PRODUCT:
+            showProductPage();
             break;
         case INVENTORY:
             showInventoryPage();
@@ -167,7 +167,7 @@ public class MainWindow extends UiPart<Stage> {
         currentPage.setText("Orders");
     }
 
-    private void showRecipePage() {
+    private void showProductPage() {
         pagePane.getChildren().clear();
         pagePane.getChildren().add(productPage.getRoot());
 

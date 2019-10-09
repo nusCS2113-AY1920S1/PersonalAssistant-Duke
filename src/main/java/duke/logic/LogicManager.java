@@ -9,6 +9,7 @@ import duke.logic.parser.exceptions.ParseException;
 import duke.model.Model;
 import duke.model.ReadOnlyBakingHome;
 import duke.model.order.Order;
+import duke.model.product.Product;
 import duke.storage.Storage;
 import javafx.collections.ObservableList;
 
@@ -46,5 +47,10 @@ public class LogicManager implements Logic {
     @Override
     public ObservableList<Order> getFilteredOrderList() {
         return model.getFilteredOrderList();
+    }
+
+    @Override
+    public ObservableList<Product> getFilteredProductList() {
+        return model.getFilteredProductList();
     }
 }

@@ -1,6 +1,6 @@
 package duke.model.order;
 
-import duke.model.commons.Product;
+import duke.model.commons.comProduct;
 
 import java.util.Collections;
 import java.util.Date;
@@ -19,7 +19,7 @@ public class Order {
     //Data fields
     private final Customer customer;
     private final Date deliveryDate;
-    private final Map<Product, Integer> items;
+    private final Map<comProduct, Integer> items;
     private final String remarks;
     private final Status status;
 
@@ -27,7 +27,7 @@ public class Order {
      * Creates an order.
      * Every field must be present and not null.
      */
-    public Order(Customer customer, Date deliveryDate, Status status, String remarks, Map<Product, Integer> items) {
+    public Order(Customer customer, Date deliveryDate, Status status, String remarks, Map<comProduct, Integer> items) {
         requireAllNonNull(customer, deliveryDate, status, remarks, items);
 
         this.customer = customer;
@@ -56,7 +56,7 @@ public class Order {
         return deliveryDate;
     }
 
-    public Map<Product, Integer> getItems() {
+    public Map<comProduct, Integer> getItems() {
         return Collections.unmodifiableMap(items);
     }
 

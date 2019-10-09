@@ -7,7 +7,7 @@ import duke.logic.command.CommandResult;
 import duke.logic.command.Undoable;
 import duke.logic.command.exceptions.CommandException;
 import duke.model.Model;
-import duke.model.commons.Product;
+import duke.model.commons.comProduct;
 import duke.model.order.Customer;
 import duke.model.order.Order;
 
@@ -86,7 +86,7 @@ public class EditOrderCommand extends OrderCommand implements Undoable {
                 editOrderDescriptor.getCustomerContact().orElse(toEdit.getCustomer().contact)
         );
         Date newDate = editOrderDescriptor.getDeliveryDate().orElse(toEdit.getDeliveryDate());
-        Map<Product, Integer> newItems = editOrderDescriptor.getItems().orElse(toEdit.getItems());
+        Map<comProduct, Integer> newItems = editOrderDescriptor.getItems().orElse(toEdit.getItems());
         String newRemarks = editOrderDescriptor.getRemarks().orElse(toEdit.getRemarks());
         Order.Status newStatus = editOrderDescriptor.getStatus().orElse(toEdit.getStatus());
         return new Order(newCustomer, newDate, newStatus, newRemarks, newItems);
@@ -100,7 +100,7 @@ public class EditOrderCommand extends OrderCommand implements Undoable {
         private String customerName;
         private String customerContact;
         private Date deliveryDate;
-        private Map<Product, Integer> items;
+        private Map<comProduct, Integer> items;
         private String remarks;
         private Order.Status status;
 
@@ -140,7 +140,7 @@ public class EditOrderCommand extends OrderCommand implements Undoable {
             this.deliveryDate = deliveryDate;
         }
 
-        public void setItems(Map<Product, Integer> items) {
+        public void setItems(Map<comProduct, Integer> items) {
             this.items = (items != null) ? new HashMap<>(items) : null;
         }
 
@@ -164,7 +164,7 @@ public class EditOrderCommand extends OrderCommand implements Undoable {
             return Optional.ofNullable(deliveryDate);
         }
 
-        public Optional<Map<Product, Integer>> getItems() {
+        public Optional<Map<comProduct, Integer>> getItems() {
             return Optional.ofNullable(items);
         }
 
