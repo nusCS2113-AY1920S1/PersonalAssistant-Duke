@@ -12,7 +12,9 @@ public class StandardTask extends Task {
     }
 
     @Override
-    public String writeTxt() {
-        return null;
+    public String toString() {
+        return this.getDescription();
     }
+
+
 }
