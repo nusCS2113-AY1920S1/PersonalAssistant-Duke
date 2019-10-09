@@ -67,8 +67,8 @@ public class ProjectInputController {
                     break;
                 case "add task":
                     try {
-                        consoleView.consolePrint("Enter your task: t/TaskName p/TaskPriorityValue" +
-                                                        " [d/TaskDueDate] c/TaskCredit [s/TaskState]");
+                        consoleView.consolePrint("Enter your task: t/TaskName p/TaskPriorityValue"
+                                                + " [d/TaskDueDate] c/TaskCredit [s/TaskState]");
                         String taskDetails = manageProjectInput.nextLine();
                         TaskFactory taskFactory = new TaskFactory();
                         consoleView.addTask(projectToManage, taskFactory.createTask(taskDetails));
