@@ -52,6 +52,8 @@ public class DoneCommand extends Command {
                 sb.append(list.get(i).toString() + "\n");
             }
             storage.Storages(sb.toString());
+
+            ui.showProgessiveBar(list);
         } catch (DukeException e) {
             System.out.println(e.getMessage());
         }

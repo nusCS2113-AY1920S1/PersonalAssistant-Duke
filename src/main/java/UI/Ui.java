@@ -10,6 +10,9 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.FormatStyle;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -46,6 +49,8 @@ public class Ui {
             password_list = store.Password();
             if (FullCommand.equals(password_list.get(0))) {
                 System.out.println(welcomemessage);
+                LocalDate a = LocalDate.now();
+                System.out.println("Today is "+a.format(DateTimeFormatter.ofLocalizedDate(FormatStyle.FULL)));
                 break;
             } else {
                 System.out.println("Incorrect password, please try again:");
@@ -79,6 +84,31 @@ public class Ui {
         for (int i = 0; i < EventList.size(); i++) {
             System.out.println(i + 1 + "." + EventList.get(i).listFormat());
         }
+    }
+
+    public void showProgessiveBar(ArrayList<Task> list) throws IOException {
+        int UndoneNumber = 0;
+        int DoneNumber = 0;
+
+        for(int i=0;i<list.size();i++){
+            if(list.get(i).isDone){
+                DoneNumber++;
+            }else{
+                UndoneNumber++;
+            }
+        }
+//        System.out.println(UndoneNumber+" "+DoneNumber);
+        double ProgressPercentageTemp = (DoneNumber*1.00/(DoneNumber+UndoneNumber)*1.00)*100.000;
+        int ProgressPercentage = (int)ProgressPercentageTemp;
+//        System.out.println(ProgressPercentageTemp+" "+ProgressPercentage);
+        StringBuilder progressivebar = new StringBuilder();
+        for(int i =0;i<ProgressPercentage/2;i++){
+            progressivebar.append("/");
+        }
+        for(int i=0;i<(100-ProgressPercentage)/2;i++){
+            progressivebar.append("_");
+        }
+        System.out.println("Task progressive: "+ progressivebar.toString()+"("+ProgressPercentage+"%)");
     }
 
     public void showDateFormatError() {
