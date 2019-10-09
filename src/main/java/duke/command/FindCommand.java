@@ -1,7 +1,7 @@
 package duke.command;
 
 import duke.dukeobject.ExpenseList;
-import duke.exception.DukeRuntimeException;
+import duke.exception.DukeException;
 import duke.parser.CommandParams;
 import duke.ui.Ui;
 
@@ -26,7 +26,7 @@ public class FindCommand extends Command {
      *
      * @param expensesList The ExpenseList of Duke.
      * @param ui           The ui of Duke.
-     * @throws DukeRuntimeException if a search string was not given.
+     * @throws DukeException if a search string was not given.
      */
     public void execute(CommandParams commandParams, ExpenseList expensesList, Ui ui) {
         /*

@@ -1,7 +1,6 @@
 package duke.parser;
 
 import duke.exception.DukeException;
-import duke.exception.DukeRuntimeException;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -30,7 +29,7 @@ public class LocalDateTimeParser {
         try {
             return LocalDateTime.parse(string, dateTimeFormatter);
         } catch (DateTimeParseException e) {
-            throw new DukeException(String.format(DukeException.MESSAGE_TIME_INVALID, string));
+            throw new DukeException("Invalid date time input"); // todo: update DukeException
         }
     }
 }

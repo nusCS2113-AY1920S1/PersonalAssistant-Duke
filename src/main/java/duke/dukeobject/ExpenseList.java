@@ -1,18 +1,16 @@
 package duke.dukeobject;
 
 import duke.exception.DukeException;
-import duke.exception.DukeRuntimeException;
 
 import java.io.File;
-import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.List;
 
 public class ExpenseList extends DukeList<Expense> {
     private static final String FILE_NAME = "expenses.txt";
 
-    public ExpenseList(File userDirectory) throws DukeException {
-        super(new File(userDirectory, FILE_NAME), "expense");
+    public ExpenseList(File userDirectory) {
+        super(new File(userDirectory, FILE_NAME));
     }
 
     /**

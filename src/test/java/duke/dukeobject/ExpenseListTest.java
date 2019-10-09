@@ -1,6 +1,6 @@
 package duke.dukeobject;
 
-import duke.exception.DukeRuntimeException;
+import duke.exception.DukeException;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
@@ -40,7 +40,7 @@ public class ExpenseListTest {
         try {
             testExpenseList.get(2);
             fail();
-        } catch (DukeRuntimeException e) {
+        } catch (DukeException e) {
             // Success
             // todo: Test that the error message is correct when it's implemented
             e.printStackTrace();
@@ -49,7 +49,7 @@ public class ExpenseListTest {
         try {
             testExpenseList.remove(2);
             fail();
-        } catch (DukeRuntimeException e) {
+        } catch (DukeException e) {
             // Success
             // todo: Test that the error message is correct when it's implemented
             e.printStackTrace();
@@ -71,7 +71,7 @@ public class ExpenseListTest {
         try {
             testExpenseList.undo(1);
             fail();
-        } catch (DukeRuntimeException e) {
+        } catch (DukeException e) {
             // Success
             // todo: Test that the error message is correct when it's implemented
             e.printStackTrace();
@@ -83,7 +83,7 @@ public class ExpenseListTest {
         try {
             testExpenseList.redo(1);
             fail();
-        } catch (DukeRuntimeException e) {
+        } catch (DukeException e) {
             // Success
             // todo: Test that the error message is correct when it's implemented
             e.printStackTrace();
@@ -93,7 +93,7 @@ public class ExpenseListTest {
         try {
             testExpenseList.redo(1);
             fail();
-        } catch (DukeRuntimeException e) {
+        } catch (DukeException e) {
             // Success
             // todo: Test that the error message is correct when it's implemented
             e.printStackTrace();

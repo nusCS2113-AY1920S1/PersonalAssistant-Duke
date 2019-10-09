@@ -1,6 +1,6 @@
 package duke.parser;
 
-import duke.exception.DukeRuntimeException;
+import duke.exception.DukeException;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -41,28 +41,28 @@ public class CommandParamsTest {
         try {
             testParams.getParam("a");
             fail();
-        } catch (DukeRuntimeException e) {
+        } catch (DukeException e) {
             assertEquals("☹ OOPS!!! You need to give me a value for a!", e.getMessage());
         }
 
         try {
             testParams.getParam("b");
             fail();
-        } catch (DukeRuntimeException e) {
+        } catch (DukeException e) {
             assertEquals("☹ OOPS!!! You need to give me a value for b!", e.getMessage());
         }
 
         try {
             testParams.getParam("c");
             fail();
-        } catch (DukeRuntimeException e) {
+        } catch (DukeException e) {
             assertEquals("☹ OOPS!!! You need to give me a value for c!", e.getMessage());
         }
 
         try {
             testParams.getParam("e");
             fail();
-        } catch (DukeRuntimeException e) {
+        } catch (DukeException e) {
             assertEquals("☹ OOPS!!! You need to give me a value for e!", e.getMessage());
         }
     }
@@ -73,7 +73,7 @@ public class CommandParamsTest {
         try {
             testParams.getParam("a");
             fail();
-        } catch (DukeRuntimeException e) {
+        } catch (DukeException e) {
             assertEquals("☹ OOPS!!! You need to give me a value for a!", e.getMessage());
         }
     }
@@ -83,7 +83,7 @@ public class CommandParamsTest {
         try {
             CommandParams testParams = new CommandParams("sameParams /a first /a second");
             fail();
-        } catch (DukeRuntimeException e) {
+        } catch (DukeException e) {
             assertEquals("☹ OOPS!!! You specified a twice!", e.getMessage());
         }
     }

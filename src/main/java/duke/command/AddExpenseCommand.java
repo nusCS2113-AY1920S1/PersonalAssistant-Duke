@@ -3,7 +3,7 @@ package duke.command;
 
 import duke.dukeobject.Expense;
 import duke.dukeobject.ExpenseList;
-import duke.exception.DukeRuntimeException;
+import duke.exception.DukeException;
 import duke.parser.CommandParams;
 import duke.ui.Ui;
 
@@ -48,7 +48,7 @@ public class AddExpenseCommand extends Command {
     public void execute(CommandParams commandParams, ExpenseList expensesList, Ui ui) {
         String expenseString = commandParams.getMainParam();
         if (expenseString == null) {
-            throw new DukeRuntimeException("I need to know how much this costs!");
+            throw new DukeException("I need to know how much this costs!");
         }
         String expenseDescription = commandParams.getParam(SecondaryParam.DESCRIPTION.name);
         Expense expense = new Expense.Builder()

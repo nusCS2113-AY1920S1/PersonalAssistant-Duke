@@ -3,7 +3,7 @@ package duke;
 import duke.dukeobject.ExpenseList;
 import duke.parser.CommandParams;
 import duke.ui.Ui;
-import duke.exception.DukeRuntimeException;
+import duke.exception.DukeException;
 import duke.command.Command;
 import duke.parser.Parser;
 
@@ -45,7 +45,7 @@ public class Duke {
             CommandParams commandParams = new CommandParams(fullCommand);
             Command command = Parser.getCommand(commandParams.getCommandName());
             command.execute(commandParams, expenseList, ui);
-        } catch (DukeRuntimeException e) {
+        } catch (DukeException e) {
             ui.showError(e);
         }
         return ui.getMostRecent();

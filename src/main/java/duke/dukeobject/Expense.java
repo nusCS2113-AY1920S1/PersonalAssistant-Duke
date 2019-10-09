@@ -55,7 +55,7 @@ public class Expense extends DukeItem {
         /**
          * {@inheritDoc}
          */
-        Builder(String storageString) throws DukeException {
+        Builder(String storageString) {
             this(storageStringToMap(storageString));
         }
 
@@ -64,35 +64,16 @@ public class Expense extends DukeItem {
          */
         Builder(Map<String, String> mappedStorageString) throws DukeException {
             super(mappedStorageString);
-            if (mappedStorageString.containsKey("amount")) {
-                amount = new BigDecimal(mappedStorageString.get("amount"));
+            if (!mappedStorageString.containsKey("amount")
+                || !mappedStorageString.containsKey("description")
+                || !mappedStorageString.containsKey("isTentative")
+                || !mappedStorageString.containsKey("time")) {
+                throw new DukeException("Expense missing field in storage string"); // todo: Update DukeException
             }
-            if (mappedStorageString.containsKey("description")) {
-                description = mappedStorageString.get("description");
-            }
-            if (mappedStorageString.containsKey("isTentative")) {
-                isTentative = Boolean.parseBoolean(mappedStorageString.get("isTentative"));
-            }
-            if (mappedStorageString.containsKey("time")) {
-                time = LocalDateTimeParser.fromString(mappedStorageString.get("time"));
-            }
-        }
-
-        /**
-         * Sets the amount of the expense using a string.
-         * @see #setAmount(BigDecimal)
-         *
-         * @param amount the amount of the expense as a string.
-         * @return this builder.
-         * @throws DukeException if the value in amount cannot be converted into a {@code BigDecimal},
-         *                       or if the {@code BigDecimal} does not represent a valid amount.
-         */
-        public Builder setAmount(String amount) throws DukeException {
-            try {
-                return setAmount(new BigDecimal(amount));
-            } catch (NumberFormatException e) {
-                throw new DukeException(String.format(DukeException.MESSAGE_AMOUNT_INVALID, amount));
-            }
+            amount = new BigDecimal(mappedStorageString.get("amount"));
+            description = mappedStorageString.get("description");
+            isTentative = Boolean.parseBoolean(mappedStorageString.get("isTentative"));
+            time = LocalDateTimeParser.fromString(mappedStorageString.get("time"));
         }
 
         /**
@@ -100,18 +81,25 @@ public class Expense extends DukeItem {
          *
          * @param amount the amount of the expense.
          * @return this builder.
-         * @throws DukeException if the {@code BigDecimal} does not represent a valid amount.
          */
-        public Builder setAmount(BigDecimal amount) throws DukeException {
-            verifyAmount(amount);
+        public Builder setAmount(BigDecimal amount) {
             this.amount = amount;
             return this;
         }
 
-        private void verifyAmount(BigDecimal amount) throws DukeException {
-            if (amount.scale() > 2) {
-                throw new DukeException(
-                    String.format(DukeException.MESSAGE_AMOUNT_INVALID, amount.toPlainString()));
+        /**
+         * Sets the amount of the expense using a string. 
+         * @see #setAmount(BigDecimal) 
+         * 
+         * @param amount the amount of the expense as a string.
+         * @return this builder. 
+         * @throws DukeException if the value in amount cannot be converted into a {@code BigDecimal}
+         */
+        public Builder setAmount(String amount) throws DukeException {
+            try {
+                return setAmount(new BigDecimal(amount));
+            } catch (NumberFormatException e) {
+                throw new DukeException("Invalid amount format"); // todo: update DukeException.
             }
         }
 
@@ -138,18 +126,6 @@ public class Expense extends DukeItem {
         }
 
         /**
-         * Sets the time of the expense using a string.
-         * @see #setTime(LocalDateTime)
-         *
-         * @param time the time of the expense as a string.
-         * @return this builder.
-         * @throws DukeException if the time string cannot be parsed into a {@code LocalDateTime} object.
-         */
-        public Builder setTime(String time) throws DukeException {
-            return setTime(LocalDateTimeParser.fromString(time));
-        }
-
-        /**
          * Sets the time of the expense.
          *
          * @param time the time of the expense.
@@ -158,6 +134,18 @@ public class Expense extends DukeItem {
         public Builder setTime(LocalDateTime time) {
             this.time = time;
             return this;
+        }
+
+        /**
+         * Sets the time of the expense using a string.
+         * @see #setTime(LocalDateTime) 
+         *
+         * @param time the time of the expense as a string.
+         * @return this builder.
+         * @throws DukeException if the time string cannot be parsed into a {@code LocalDateTime} object. 
+         */
+        public Builder setTime(String time) throws DukeException {
+            return setTime(LocalDateTimeParser.fromString(time));
         }
 
         /**

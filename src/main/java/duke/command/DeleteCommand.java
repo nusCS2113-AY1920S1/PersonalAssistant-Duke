@@ -1,7 +1,7 @@
 package duke.command;
 
 import duke.dukeobject.ExpenseList;
-import duke.exception.DukeRuntimeException;
+import duke.exception.DukeException;
 import duke.parser.CommandParams;
 import duke.ui.Ui;
 
@@ -27,7 +27,7 @@ public class DeleteCommand extends Command {
      *
      * @param expensesList The ExpenseList of Duke.
      * @param ui           The ui of Duke.
-     * @throws DukeRuntimeException If the index given is out of range, invalid, or does not exist.
+     * @throws DukeException If the index given is out of range, invalid, or does not exist.
      */
     public void execute(CommandParams commandParams, ExpenseList expensesList, Ui ui) {
         /*
