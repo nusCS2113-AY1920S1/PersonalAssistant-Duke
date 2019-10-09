@@ -13,6 +13,11 @@ import leduc.task.TaskList;
  * Allow to add a deadline task to the task list and to the data file.
  */
 public class DeadlineCommand extends Command {
+
+    /**
+     * static variable used for shortcut
+     */
+    private static String deadlineShortcut = "deadline";
     /**
      * Constructor of DeadlineCommand.
      * @param user String which represent the input string of the user.
@@ -57,4 +62,19 @@ public class DeadlineCommand extends Command {
         }
     }
 
+    /**
+     * getter because the shortcut is private
+     * @return the shortcut name
+     */
+    public static String getDeadlineShortcut() {
+        return deadlineShortcut;
+    }
+
+    /**
+     * used when the user want to change the shortcut
+     * @param deadlineShortcut the new shortcut
+     */
+    public static void setDeadlineShortcut(String deadlineShortcut) {
+        DeadlineCommand.deadlineShortcut = deadlineShortcut;
+    }
 }

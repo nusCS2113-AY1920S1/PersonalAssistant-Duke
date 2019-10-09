@@ -12,6 +12,11 @@ import leduc.task.TaskList;
  * Represents Reschedule command which reschedule the period of a event task.
  */
 public class RescheduleCommand extends Command {
+
+    /**
+     * static variable used for shortcut
+     */
+    public static String rescheduleShortcut = "reschedule";
     /**
      * Constructor of RescheduleCommand.
      * @param user String which represent the input string of the user.
@@ -79,11 +84,18 @@ public class RescheduleCommand extends Command {
     }
 
     /**
-     * Returns a boolean false as it is a RescheduleCommand.
-     * @return a boolean false.
+     * getter because the shortcut is private
+     * @return the shortcut name
      */
-    public boolean isExit(){
-        return false;
+    public static String getRescheduleShortcut() {
+        return rescheduleShortcut;
     }
 
+    /**
+     * used when the user want to change the shortcut
+     * @param rescheduleShortcut the new shortcut
+     */
+    public static void setRescheduleShortcut(String rescheduleShortcut) {
+        RescheduleCommand.rescheduleShortcut = rescheduleShortcut;
+    }
 }

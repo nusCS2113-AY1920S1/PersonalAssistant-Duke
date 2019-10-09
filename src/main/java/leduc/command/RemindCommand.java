@@ -10,6 +10,11 @@ import java.util.ArrayList;
  */
 
 public class RemindCommand extends Command {
+
+    /**
+     * static variable used for shortcut
+     */
+    public static String remindShortcut = "remind";
     /**
      * Constructor of FindCommand.
      * @param user String which represent the input string of the user.
@@ -54,5 +59,19 @@ public class RemindCommand extends Command {
         }
 
     }
+    /**
+     * getter because the shortcut is private
+     * @return the shortcut name
+     */
+    public static String getRemindShortcut() {
+        return remindShortcut;
+    }
 
+    /**
+     * used when the user want to change the shortcut
+     * @param remindShortcut the new shortcut
+     */
+    public static void setRemindShortcut(String remindShortcut) {
+        RemindCommand.remindShortcut = remindShortcut;
+    }
 }

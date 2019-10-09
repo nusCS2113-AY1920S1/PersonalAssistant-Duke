@@ -15,6 +15,11 @@ import leduc.task.TaskList;
  * Allow to edit a task.
  */
 public class EditCommand extends Command {
+
+    /**
+     * static variable used for shortcut
+     */
+    public static String editShortcut = "edit";
     /**
      * Constructor of EditCommand.
      * @param user String which represent the input string of the user.
@@ -103,5 +108,19 @@ public class EditCommand extends Command {
         }
         storage.save(tasks.getList());
     }
+    /**
+     * getter because the shortcut is private
+     * @return the shortcut name
+     */
+    public static String getEditShortcut() {
+        return editShortcut;
+    }
 
+    /**
+     * used when the user want to change the shortcut
+     * @param editShortcut the new shortcut
+     */
+    public static void setEditShortcut(String editShortcut) {
+        EditCommand.editShortcut = editShortcut;
+    }
 }

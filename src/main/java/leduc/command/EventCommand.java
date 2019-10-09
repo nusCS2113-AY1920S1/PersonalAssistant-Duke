@@ -12,6 +12,11 @@ import leduc.task.TaskList;
  * Allow to add a event task to the task list and to the data file.
  */
 public class EventCommand extends Command {
+
+    /**
+     * static variable used for shortcut
+     */
+    public static String eventShortcut = "event";
     /**
      * Constructor of EventCommand.
      * @param user String which represent the input string of the user.
@@ -62,4 +67,19 @@ public class EventCommand extends Command {
                     "\n\t Now you have " + tasks.size() + " tasks in the list.");
             }
         }
+    /**
+     * getter because the shortcut is private
+     * @return the shortcut name
+     */
+    public static String getEventShortcut() {
+        return eventShortcut;
+    }
+
+    /**
+     * used when the user want to change the shortcut
+     * @param eventShortcut the new shortcut
+     */
+    public static void setEventShortcut(String eventShortcut) {
+        EventCommand.eventShortcut = eventShortcut;
+    }
 }

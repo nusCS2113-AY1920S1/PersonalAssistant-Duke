@@ -13,6 +13,10 @@ import leduc.task.TaskList;
  */
 public class SnoozeCommand extends Command{
     /**
+     * static variable used for shortcut
+     */
+    public static String snoozeShortcut = "snooze";
+    /**
      * Constructor of SnoozeCommand.
      * @param user user String which represent the input string of the user.
      */
@@ -49,12 +53,18 @@ public class SnoozeCommand extends Command{
     }
 
     /**
-     * Returns a boolean false as it is a SnoozeCommand.
-     * @return a boolean false.
+     * getter because the shortcut is private
+     * @return the shortcut name
      */
-    public boolean isExit(){
-        return false;
+    public static String getSnoozeShortcut() {
+        return snoozeShortcut;
     }
 
-
+    /**
+     * used when the user want to change the shortcut
+     * @param snoozeShortcut the new shortcut
+     */
+    public static void setSnoozeShortcut(String snoozeShortcut) {
+        SnoozeCommand.snoozeShortcut = snoozeShortcut;
+    }
 }

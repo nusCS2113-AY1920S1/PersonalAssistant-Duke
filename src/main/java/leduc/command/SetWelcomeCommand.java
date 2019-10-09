@@ -17,6 +17,11 @@ public class SetWelcomeCommand extends Command{
     }
 
     /**
+     * static variable used for shortcut
+     */
+    public static String setWelcomeShortcut = "setwelcome";
+
+    /**
      * Allow to change the welcome message.
      * @param tasks leduc.task.TaskList which is the list of task.
      * @param ui leduc.Ui which deals with the interactions with the user.
@@ -42,5 +47,20 @@ public class SetWelcomeCommand extends Command{
             e.printStackTrace();
             throw new FileException();
         }
+    }
+    /**
+     * getter because the shortcut is private
+     * @return the shortcut name
+     */
+    public static String getSetWelcomeShortcut() {
+        return setWelcomeShortcut;
+    }
+
+    /**
+     * used when the user want to change the shortcut
+     * @param setWelcomeShortcut the new shortcut
+     */
+    public static void setSetWelcomeShortcut(String setWelcomeShortcut) {
+        SetWelcomeCommand.setWelcomeShortcut = setWelcomeShortcut;
     }
 }
