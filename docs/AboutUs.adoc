@@ -15,7 +15,7 @@ image::AugGust.png[width="150", align="left"]
 {empty}[https://github.com/AugGust[github]]
 
 Role: Team Lead +
-Responsibilities: UI
+Responsibilities: GUI
 
 '''
 
