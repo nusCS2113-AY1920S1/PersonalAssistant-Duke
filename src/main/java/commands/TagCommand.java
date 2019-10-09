@@ -9,10 +9,11 @@ import Exception.DukeException;
 import java.io.IOException;
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Stack;
 
 public class TagCommand extends Command {
     @Override
-    public void execute(ArrayList<Task> list, Ui ui, Storage storage) throws DukeException, ParseException, IOException, NullPointerException {
+    public void execute(ArrayList<Task> list, Ui ui, Storage storage, Stack<String> commandStack, ArrayList<Task> deletedTask) throws DukeException, ParseException, IOException, NullPointerException {
         try {
             if (ui.FullCommand.equals("#") || ui.FullCommand.equals("# ")) {
                 throw new DukeException("The tag description cannot be empty.");

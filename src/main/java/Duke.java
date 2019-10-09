@@ -2,12 +2,15 @@ import Tasks.Task;
 import UI.Ui;
 import Storage.Storage;
 import commands.Command;
+import notes.Note;
+import notes.NoteList;
 import parsers.*;
 import Exception.DukeException;
 
 import java.io.*;
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Stack;
 
 public class Duke {
     /**
@@ -18,6 +21,8 @@ public class Duke {
      */
     public static void main(String[] args) {
         ArrayList<Task> list;
+        Stack<String> CommandStack = new Stack<String>();
+        ArrayList<Task> deletedTask = new ArrayList<Task>();
         Storage store = new Storage();
         boolean isExit = false;
         Ui ui = new Ui();
@@ -27,9 +32,13 @@ public class Duke {
             ui.UpcomingTask(list);
             while (!isExit) {
                 ui.ReadCommand();
-                String command = ui.FullCommand;
+                String command = ui.FullCommand.trim();
                 Command c = Parser.parse(command);
-                c.execute(list, ui, store);
+                c.execute(list, ui, store, CommandStack, deletedTask);
+                if(!command.equals("undo") && !command.equals("list") && !command.contains("confirm")) {
+                    CommandStack.push(command);
+                }
+
                 isExit = c.isExit();
             }
         } catch (DukeException | ParseException | IOException | NullPointerException e) {

@@ -1,37 +1,66 @@
 package commands;
-
+import Exception.DukeException;
 import Storage.Storage;
 import Tasks.Task;
 import UI.Ui;
-import Exception.DukeException;
 
 import java.io.IOException;
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Stack;
 
 public class UndoCommand extends Command {
     @Override
-    public void execute(ArrayList<Task> list, Ui ui, Storage storage) throws DukeException, ParseException, IOException, NullPointerException {
-        try {
-            if (ui.FullCommand.equals("undo")) {
-                throw new DukeException("The undo task number cannot be empty.");
+    public void execute(ArrayList<Task> list, Ui ui, Storage storage, Stack<String> commandStack, ArrayList<Task> deletedTask) throws DukeException, ParseException, IOException, NullPointerException {
+        if (!commandStack.empty() && commandStack.peek().contains("done")) {
+            new DoneCommand().undo(commandStack.peek(),list,storage);
+            System.out.println("I've undo your previous command");
+            commandStack.pop();
+        } else if (!commandStack.empty() && commandStack.peek().contains("delete")) {
+            new DeleteCommand().undo(list,storage,deletedTask);
+            System.out.println("I've undo your previous command");
+            commandStack.pop();
+        } else if (!commandStack.empty() && commandStack.peek().contains("deadline")) {
+            new DeadlineCommand().undo(commandStack.peek(),list,storage);
+            System.out.println("I've undo your previous command");
+            commandStack.pop();
+        } else if (!commandStack.empty() && commandStack.peek().contains("/after")) {
+            new DoAfterCommand().undo(commandStack.peek(),list,storage);
+            System.out.println("I've undo your previous command");
+            commandStack.pop();
+        } else if (!commandStack.empty() && commandStack.peek().contains("event")) {
+            new EventCommand().undo(commandStack.peek(),list,storage);
+            System.out.println("I've undo your previous command");
+            commandStack.pop();
+        } else if (!commandStack.empty() && commandStack.peek().contains("todo")) {
+            new TodoCommand().undo(commandStack.peek(),list,storage);
+            System.out.println("I've undo your previous command");
+            commandStack.pop();
+        } else if (!commandStack.empty() && commandStack.peek().contains("/between")) {
+            new TimeboundCommand().undo(commandStack.peek(),list,storage);
+            System.out.println("I've undo your previous command");
+            commandStack.pop();
+        } else if (!commandStack.empty() && commandStack.peek().contains("/require")) {
+            new FixDurationCommand().undo(commandStack.peek(),list,storage);
+            System.out.println("I've undo your previous command");
+            commandStack.pop();
+        } else if (!commandStack.empty() && commandStack.peek().contains("tentative")) {
+            new TentativeEventCommand().undo(commandStack.peek(),list,storage);
+            System.out.println("I've undo your previous command");
+            commandStack.pop();
+        } else if (!commandStack.empty() && commandStack.peek().contains("confirm")) {
+            new ConfirmTentativeCommand().undo(commandStack.peek(),list,storage);
+            System.out.println("I've undo your previous command");
+            commandStack.pop();
+        } else if (!commandStack.empty() && commandStack.peek().contains("undone")) {
+            new UndoneCommand().undo(commandStack.peek(),list,storage);
+            System.out.println("I've undo your previous command");
+            commandStack.pop();
+        } else {
+            System.out.println("The previous command cannot be undo");
+            for (String command:commandStack) {
+                System.out.println(command);
             }
-            int numberCheck = Integer.parseInt(ui.FullCommand.substring(5)) - 1;
-            if (list.get(numberCheck).isDone == false) {
-                System.out.println("Cannot undo a task that is not done.");
-            } else if (list.get(numberCheck).isDone == true) {
-               list.get(numberCheck).isDone = false;
-               System.out.println("I've marked this task as undone: ");
-               System.out.println(list.get(numberCheck).listFormat());
-           }
-
-            StringBuilder sb = new StringBuilder();
-            for (int i = 0; i < list.size(); i++) {
-                sb.append(list.get(i).toString() + "\n");
-            }
-            storage.Storages(sb.toString());
-        } catch (DukeException e) {
-            System.out.println(e.getMessage());
         }
     }
 

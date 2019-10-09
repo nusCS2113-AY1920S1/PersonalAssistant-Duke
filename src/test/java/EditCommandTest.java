@@ -3,7 +3,10 @@ import Tasks.Deadline;
 import Tasks.Event;
 import Tasks.Task;
 import UI.Ui;
-import commands.*;
+import commands.EditBothCommand;
+import commands.EditCommand;
+import commands.EditDescriptionCommand;
+import commands.EditTimeCommand;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -31,7 +34,6 @@ public class EditCommandTest {
         System.out.flush();
         System.setOut(original);
     }
-
 
     @Test
     void testEditTime() throws IOException {
@@ -93,8 +95,8 @@ public class EditCommandTest {
         EditBothCommand test = new EditBothCommand(tasks, ui, 0);
         assertEquals("Type your description & date:\n" +
                         "Ok, we have edited your Event description and time." +
-                        "\n\tFrom: [E][ND] banner rev(at:12 Dec 2019 10:10:10-11:00:00)" +
-                        "\n\tTo:   [E][ND] basketball trg (at:12 Dec 2019 09:00:00-11:00:00)\n",
+                        "\n\tFrom: [E][ND]banner rev(at:12 Dec 2019 10:10:10-11:00:00)" +
+                        "\n\tTo:   [E][ND]basketball trg (at:12 Dec 2019 09:00:00-11:00:00)\n",
                 output.toString());
     }
 }

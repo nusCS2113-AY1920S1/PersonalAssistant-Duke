@@ -12,11 +12,11 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import static java.time.temporal.ChronoUnit.DAYS;
 import java.util.ArrayList;
-
+import java.util.Stack;
 
 
 /**
- * Lists out all the tasks the user has on the specified day.
+ * Lists out all the tasks that the user has in a specified week.
  */
 public class ScheduleWeeklyCommand extends Command {
     //format for the command: scheduleWeekly <yyyy-MM-dd(Mon) yyyy-MM-dd(Sun)>
@@ -24,7 +24,7 @@ public class ScheduleWeeklyCommand extends Command {
     protected LocalDate sun;
     public static final int ONE_WEEK = 7;
     /**
-     * This is the main body of the schedule command.
+     * This is the main body of the ScheduleWeekly command.
      *
      * @param list the tasks list.
      * @param ui the object that deals with printing things to the user.
@@ -32,7 +32,7 @@ public class ScheduleWeeklyCommand extends Command {
      * @throws NullPointerException if tDate doesn't get updated.
      */
     @Override
-    public void execute(ArrayList<Task> list, Ui ui, Storage storage) throws NullPointerException {
+    public void execute(ArrayList<Task> list, Ui ui, Storage storage, Stack<String> commandStack, ArrayList<Task> deletedTask) throws NullPointerException {
         DateTimeFormatter fmt = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         try {
             String[] date = ui.FullCommand.trim().split(" ");

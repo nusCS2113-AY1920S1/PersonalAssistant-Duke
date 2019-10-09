@@ -6,24 +6,27 @@ import Tasks.Event;
 import Tasks.Task;
 import Tasks.Todo;
 import UI.Ui;
-
+import Exception.DukeException;
 import java.io.IOException;
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Stack;
 
 public class EditCommand extends Command {
     /**
      * This method will receive the user's input on which list index to edit and then receive another user's input, checking he/she wants to edit the
      * task's description or time or both and execute them in the following methods respectively.
-     * @param list task lists
-     * @param ui the object that deals with printing things to the user.
-     * @param storage the object that deals with storing data.
+     * @param list    task lists
+     * @param ui      the object that deals with printing things to the user.
+     * @param storage the object that deals with storing data to the Save.txt file.
+     * @param commandStack
+     * @param deletedTask
      * @throws IOException
      * @throws NullPointerException if tDate doesn't get updated.
      */
 
     @Override
-    public void execute(ArrayList<Task> list, Ui ui, Storage storage) throws IOException, NullPointerException {
+    public void execute(ArrayList<Task> list, Ui ui, Storage storage, Stack<String> commandStack, ArrayList<Task> deletedTask) throws DukeException, ParseException, IOException, NullPointerException {
         String[] input = ui.FullCommand.split(" ");
         System.out.println("Edit description/time/both ?");
         int listno_index = Integer.parseInt(input[1]) - 1;

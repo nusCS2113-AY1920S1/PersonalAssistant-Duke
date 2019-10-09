@@ -7,10 +7,7 @@ import UI.Ui;
 import java.io.IOException;
 import java.lang.reflect.Array;
 import java.text.ParseException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.TreeMap;
+import java.util.*;
 
 public class ContactsCommand extends Command {
     /**
@@ -23,7 +20,7 @@ public class ContactsCommand extends Command {
      * @throws NullPointerException
      */
     @Override
-    public void execute(ArrayList<Task> list, Ui ui, Storage storage) throws ParseException, IOException, NullPointerException {
+    public void execute(ArrayList<Task> list, Ui ui, Storage storage, Stack<String> commandStack,ArrayList<Task> deletedTask) throws ParseException, IOException, NullPointerException {
         System.out.print("CONTACTS PAGE\n\n");
         HashMap<String, String> map = storage.Contact(); //Read the file
         Map<String, String> contact = new TreeMap<String, String>(map);

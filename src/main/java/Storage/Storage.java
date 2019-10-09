@@ -52,7 +52,6 @@ public class Storage {
                 } else if (details[0].equals("E)")) {
                     Event e = new Event(details[2].trim(), details[3].substring(3).trim());
                     if (details[1].equals("D")) {
-
                         e.isDone = true;
                     } else {
                         e.isDone = false;
@@ -60,7 +59,7 @@ public class Storage {
                     tList.add(e);
                 }
                 else if (details[0].equals("P")) {
-                    Timebound tb = new Timebound(details[2].trim(), details[3].trim());
+                    Timebound tb = new Timebound(details[2].trim(), details[3].substring(8).trim());
                     if (details[1].equals("D")) {
                         tb.isDone = true;
                     } else {

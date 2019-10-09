@@ -12,6 +12,7 @@ import java.io.IOException;
 import java.io.PrintStream;
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Stack;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -31,16 +32,18 @@ public class ContactsCommandTest {
         System.setOut(original);
     }
     @Test
-    void test() throws IOException, ParseException {
+    void testwelcome() throws IOException, ParseException {
         Ui ui = new Ui();
         Storage storage = new Storage();
         ArrayList<Task> list = new ArrayList<>();
+        Stack<String> commandStack = new Stack<>();
+        ArrayList<Task> deletedTask = new ArrayList<>();
         ContactsCommand testc = new ContactsCommand();
         ByteArrayInputStream in = new ByteArrayInputStream("contact".getBytes());
         System.setIn(in);
         ByteArrayInputStream second = new ByteArrayInputStream("esc".getBytes());
         System.setIn(second);
-        testc.execute(list,ui,storage);
+        testc.execute(list,ui,storage,commandStack,deletedTask);
         assertEquals("CONTACTS PAGE\n\n" +
                 "Name:                         | Number:\n------------------------------------------\n" +
                 "RenHao                        | 8712 2345\n------------------------------------------\n" +

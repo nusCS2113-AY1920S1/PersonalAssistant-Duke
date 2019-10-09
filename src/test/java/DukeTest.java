@@ -14,16 +14,20 @@ import java.lang.reflect.Array;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Stack;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 public class DukeTest {
     @Test
-   public void test() {
+    public void test() {
         DeadlineCommand deadlineCommand = new DeadlineCommand();
         ArrayList<Task> tasks = new ArrayList<Task>();
         Ui ui = new Ui();
         Storage storage = new Storage();
+        Stack<String> commandStack = new Stack<>();
+        ArrayList<Task> deletedTask = new ArrayList<>();
         try {
-            deadlineCommand.execute(tasks,ui,storage);
+            deadlineCommand.execute(tasks,ui,storage,commandStack,deletedTask);
         } catch(IOException e) {
             assertEquals("An IOException was caught :" +e.getStackTrace()+"The system cannot find the path specified", e.getMessage());
         } catch (ParseException e) {
@@ -33,7 +37,7 @@ public class DukeTest {
         } catch (NullPointerException e){
             assertEquals(e.getMessage(),e.getMessage());
         }
-   }
+    }
     @Test
     public void testUpcomingTasks() {
         ArrayList<Task> tasks = new ArrayList<Task>();
