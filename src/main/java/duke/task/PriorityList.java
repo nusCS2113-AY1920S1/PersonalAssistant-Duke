@@ -43,6 +43,12 @@ public class PriorityList {
         return new PriorityList(priorityList);
     }
 
+    /**
+     * Add a default priority associated with a task into the list when the task is generated;
+     *
+     * @param cmd The command used to generate a new task;
+     * @return The updated Priority List.
+     */
     public PriorityList addDefaultPriority(duke.command.Command cmd) {
         if (cmd instanceof AddCommand) {
             priorityList.add(defultPriority);
@@ -51,23 +57,11 @@ public class PriorityList {
     }
 
     /**
-     * Add a priority associated with a task into the list.
+     * Add multiple default priority associated with a task into the list when these tasks are generated.
      *
      * @param numOfTimes The number of times that one task is repeated.
      * @return The updated Priority List.
      */
-    public PriorityList addMultiPriority(int numOfTimes) {
-        duke.ui.Ui ui = new duke.ui.Ui();
-        ui.showLine();
-
-        int priority = this.getPriority();
-        for (int i = 0; i < numOfTimes; i++) {
-            priorityList.add(priority);
-        }
-
-        return new PriorityList(priorityList);
-    }
-
     public PriorityList addMultiDefaultPriority(int numOfTimes) {
 
         for (int i = 0; i < numOfTimes; i++) {
