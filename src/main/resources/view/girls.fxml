@@ -12,4 +12,5 @@
   <TextField fx:id="userInput" />
   <Text fx:id="sceneTitle" />
   <StackPane fx:id="container"/>
+  <FlowPane fx:id="options"/>
 </AnchorPane>

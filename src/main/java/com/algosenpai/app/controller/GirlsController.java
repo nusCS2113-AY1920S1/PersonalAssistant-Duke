@@ -12,6 +12,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.text.Text;
 
@@ -35,11 +36,16 @@ public class GirlsController extends SceneController implements Initializable {
     @FXML
     private StackPane container;
 
+    @FXML
+    private FlowPane options;
+
     private AnimationTimerController backgroundSceneTimer;
 
     private List<Text> texts;
 
     private List<String> commands;
+
+    private List<String> waifus;
 
     public GirlsController() {
         commands = new ArrayList<>();
@@ -47,6 +53,9 @@ public class GirlsController extends SceneController implements Initializable {
         commands.add("/select");
         commands.add("/fun");
         commands.add("/exit");
+        waifus = new ArrayList<>();
+        waifus.add("miku.png");
+        waifus.add("lolicon.png");
         handle();
     }
 
@@ -67,9 +76,19 @@ public class GirlsController extends SceneController implements Initializable {
         for (int i = 0; i < commands.size(); i++) {
             Text text = new Text(commands.get(i));
             setTextStyle(text, 255,218,185, true, 20, "arial");
-            setNodePos(text, 300.0 + i * 30, 250.0);
+            setNodePos(text, 450.0 + i * 30, 300.0);
             texts.add(text);
             container.getChildren().add(text);
+        }
+        for (int i = 0; i < waifus.size(); i++) {
+            Image img = new Image(getClass().getResourceAsStream(
+                    ResourcePathConstant.imagesResourcePath + waifus.get(i)));
+            ImageView imageView = new ImageView();
+            imageView.setImage(img);
+            imageView.setFitHeight(200.0);
+            imageView.setFitWidth(200.0);
+            setNodePos(imageView, 150.0, -100.0 + i * 30);
+            options.getChildren().add(imageView);
         }
     }
 
