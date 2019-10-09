@@ -8,6 +8,8 @@ import java.util.Scanner;
 
 import seedu.hustler.data.AvatarStorage;
 import seedu.hustler.data.Schedule;
+import seedu.hustler.data.CommandLog;
+import seedu.hustler.data.MemoryManager;
 import seedu.hustler.logic.CommandLineException;
 import seedu.hustler.task.Reminders;
 import seedu.hustler.ui.Ui;
@@ -15,6 +17,7 @@ import seedu.hustler.data.Storage;
 import seedu.hustler.data.Folder;
 import seedu.hustler.task.TaskList;
 import seedu.hustler.parser.CommandParser;
+import seedu.hustler.ui.timer.*;
 
 /**
  * A personal assitant that takes in user input and gives and performs
@@ -50,6 +53,21 @@ public class Hustler {
     public static Avatar avatar;
 
     /**
+     * TimerManager instance that starts the timer.
+     */
+    public static timerManager timermanager = new timerManager();
+
+    /**
+     * MemoryManager instance that starts the timer.
+     */
+    public static MemoryManager memorymanager = new MemoryManager();
+
+    /**
+     * CommandLog instance that records user tasks.
+     */
+    public static CommandLog commandlog = new CommandLog();
+
+    /**
      * Runs Duke which commences the user to machine
      * feedback loop until the user enters "bye".
      * Loads existing tasklist and avatar, and performs operations
@@ -66,14 +84,13 @@ public class Hustler {
     public static void run() throws IOException {
         ui.show_opening_string();
         Folder.checkDirectory();
-        list = new TaskList(storage.load());
+        loadStorage();
+        memorymanager.createBackup();
 
         // Display reminders at the start
         Reminders.runAll(list);
         Reminders.displayReminders();
         System.out.println();
-        avatar = AvatarStorage.load();
-        AvatarStorage.save(avatar);
 
         // Taking the the first raw input
         String rawInput = ui.take_input();
@@ -83,11 +100,8 @@ public class Hustler {
             try {
                 Command command = parser.parse(rawInput);
                 command.execute();
-                try {
-                    storage.save(list.return_list());
-                } catch (IOException e) {
-                    ui.show_save_error();
-                }
+
+		saveStorage();
                 rawInput = ui.take_input();
 
                 System.out.println();
@@ -106,5 +120,24 @@ public class Hustler {
      */
     public static void main(final String[] args) throws IOException {
         Hustler.run();
+    }
+
+    public static void loadStorage() {
+        list = new TaskList(storage.load());
+        avatar = AvatarStorage.load();
+    }
+
+    public static void reloadBackup() {
+        list = new TaskList(storage.reloadBackup());
+        avatar = AvatarStorage.reloadBackup();
+    }
+
+    public static void saveStorage() {
+        try {
+            storage.save(list.return_list());
+            AvatarStorage.save(avatar);
+        } catch (IOException e) {
+            ui.show_save_error();
+        }
     }
 }
