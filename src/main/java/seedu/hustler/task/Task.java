@@ -1,5 +1,8 @@
 package seedu.hustler.task;
 
+import seedu.hustler.task.variables.Difficulty;
+import seedu.hustler.task.variables.Tag;
+
 import java.time.LocalDateTime;
 
 /**
@@ -20,7 +23,12 @@ public abstract class Task {
      * String that states the difficulty of the task.
      * Default difficulty will be M.
      */
-    protected String difficulty;
+    protected Difficulty difficulty;
+
+    /**
+     * The one-word String tagged onto the task.
+     */
+    protected Tag tag;
 
     /**
      * Initializes description, sets isDone as false and difficulty as M.
@@ -28,17 +36,18 @@ public abstract class Task {
     public Task(String description) {
         this.description = description;
         this.isDone = false;
-        this.difficulty = "M";
+        this.difficulty = new Difficulty("M");
     }
 
     /**
      * Initializes description, sets isDone as false and difficulty
      * according to user's input.
      */
-    public Task(String description, String difficulty) {
+    public Task(String description, String difficulty, String tagName) {
         this.description = description;
         this.isDone = false;
-        this.difficulty = difficulty;
+        this.difficulty = new Difficulty(difficulty);
+        this.tag = new Tag(tagName);
     }
 
     /**
@@ -75,8 +84,17 @@ public abstract class Task {
      *
      * @return string difficulty.
      */
-    public String getDifficulty() {
+    public Difficulty getDifficulty() {
         return this.difficulty;
+    }
+
+    /**
+     * Returns the tag of the task.
+     *
+     * @return the task's tag.
+     */
+    public String getTag() {
+        return this.tag.getTagName();
     }
 
     /**
@@ -86,7 +104,9 @@ public abstract class Task {
      * @return the status and description of the task.
      */
     public String toString() {
-        return "[" + this.getStatusIcon() + "] " + this.getDescription();
+        return "[" + this.getStatusIcon() + "]" + this.getDifficulty().toString() +
+                this.tag.toString() + " " +
+            this.getDescription();
     }
 
     /**
@@ -95,7 +115,9 @@ public abstract class Task {
      * @return a pipe separated string of the status, difficulty and description.
      */
     public String toSaveFormat() {
-        return (this.isDone ? 1 : 0) + "|" + this.difficulty + "|" + this.description;
+        return (this.isDone ? 1 : 0) + "|" + this.difficulty.toString() + "|" +
+                this.tag.tagName + "|"+
+                this.description;
     }
 
     /**

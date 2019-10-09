@@ -24,8 +24,8 @@ public class ToDo extends Task {
     /**
      * Initializes description and user input difficulty.
      */
-    public ToDo(String description, String difficulty) {
-        super(description, difficulty);
+    public ToDo(String description, String difficulty, String tag) {
+        super(description, difficulty, tag);
     }
 
     /**

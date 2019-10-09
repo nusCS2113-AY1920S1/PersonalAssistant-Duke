@@ -1,12 +1,9 @@
 package seedu.hustler.parser;
 
-import java.util.Arrays;
-
 import seedu.hustler.command.Command;
 import seedu.hustler.command.avatarCommand.CheckAvatarCommand;
 import seedu.hustler.command.avatarCommand.SetNameCommand;
 import seedu.hustler.command.taskCommand.*;
-import seedu.hustler.command.*;
 import seedu.hustler.data.CommandLog;
 import seedu.hustler.logic.CommandLineException;
 
