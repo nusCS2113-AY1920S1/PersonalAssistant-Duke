@@ -170,5 +170,11 @@ public class ProfileCommands {
         return labelText;
     }
 
-
+    public String getAdultLabel() {
+        if (userProfile.isAdult()) {
+            return "allow";
+        } else {
+            return "restrict";
+        }
+    }
 }

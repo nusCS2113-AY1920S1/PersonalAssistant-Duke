@@ -60,6 +60,7 @@ public class MovieInfoController extends Controller implements RequestListener {
     @FXML Label userNameLabel;
     @FXML Label userAgeLabel;
     @FXML Label genreListLabel;
+    @FXML Label adultLabel;
     private UserProfile userProfile;
     private ArrayList<Playlist> playlists;
 
@@ -104,6 +105,7 @@ public class MovieInfoController extends Controller implements RequestListener {
         userNameLabel.setText(userProfile.getUserName());
         userAgeLabel.setText(Integer.toString(userProfile.getUserAge()));
         genreListLabel.setText(command.convertToLabel(userProfile.getGenreId()));
+        adultLabel.setText(command.getAdultLabel());
 
 
         //mMovieRequest = new RetrieveRequest(this);
