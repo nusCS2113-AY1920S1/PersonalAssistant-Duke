@@ -1,5 +1,7 @@
 package models.member;
 
+import util.constant.SubstringParser;
+
 import java.util.ArrayList;
 
 public class MemberList {
@@ -27,27 +29,11 @@ public class MemberList {
      * @param updatedMemberDetails The updated member details.
      */
     public void editMember(int memberIndexNumber, String updatedMemberDetails) {
-        String name = "No name";
-        String phone = "No phone number";
-        String email = "No email address";
+        String [] memberDetails = SubstringParser.memberCreation(updatedMemberDetails);
+        String name = memberDetails[0];
+        String phone = memberDetails[1];
+        String email = memberDetails[2];
 
-        String [] memberDetails = updatedMemberDetails.split(" ");
-        for (int i = 0; i < memberDetails.length; i++) {
-            String s = memberDetails[i];
-            switch (s.substring(0,2)) {
-            case "n/":
-                name = s.substring(2);
-                break;
-            case "i/":
-                phone = s.substring(2);
-                break;
-            case "e/":
-                email = s.substring(2);
-                break;
-            default:
-                break;
-            }
-        }
         for (int i = 0; i < memberList.size(); i++) {
             Member currentMember = memberList.get(i);
             if (currentMember.getIndexNumber() == memberIndexNumber) {

@@ -1,6 +1,7 @@
 package controllers;
 
 import models.member.Member;
+import util.constant.SubstringParser;
 
 public class MemberFactoryUtil {
     private Member newMember;
@@ -12,30 +13,15 @@ public class MemberFactoryUtil {
      * @return Member with the relevant details. Index number is set later when adding to list.
      */
     public boolean memberIsCreated(String input, int memberListSize) {
-        String name = "No name";
-        String phone = "No phone number";
-        String email = "No email address";
-        int indexNumber = memberListSize + 1;
-
+        String[] memberDetails = SubstringParser.memberCreation(input);
         boolean nameCreatedFlag = false;
-        String [] memberDetails = input.split(" ");
-        for (int i = 0; i < memberDetails.length; i++) {
-            String s = memberDetails[i];
-            switch (s.substring(0,2)) {
-            case "n/":
-                name = s.substring(2);
-                nameCreatedFlag = true;
-                break;
-            case "i/":
-                phone = s.substring(2);
-                break;
-            case "e/":
-                email = s.substring(2);
-                break;
-            default:
-                break;
-            }
+        String name = memberDetails[0];
+        if (!name.equals("No name")) {
+            nameCreatedFlag = true;
         }
+        String phone = memberDetails[1];
+        String email = memberDetails[2];
+        int indexNumber = memberListSize + 1;
         if (nameCreatedFlag) {
             this.newMember = new Member(name, phone, email, indexNumber);
             return true;
