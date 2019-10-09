@@ -97,6 +97,85 @@ Actors: Project Manager
 ** 3a1.Ui displays empty team member list message.
 ** 3a2. Use case ends.
 
+[discrete]
+=== UC02: Manage project milestones/timeline
+Actors: Project Manager
+
+*MSS*
+
+1. User starts the Duke Pro.
+2. User creates a new milestone with date of completion
+3. UI updates milestone progress bar
+4. Duke Pro automatically saves the new milestone in persistent storage
+5. Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. Milestone date is not added
+** 2a1. Ui shows error message to include date
+** 2a2. Use case ends
+
+[discrete]
+=== UC03: Creating Project Meetings
+Actors: Project Manager
+
+*MSS*
+
+1. User starts the Duke Pro.
+2. User creates Project Meeting.
+3. User enters meeting title and date.
+4. Use Case ends.
+
+*Extensions*
+
+[none]
+* 3a. Invalid date input
+** 3a1. User inputs correct date format
+** 3a2. Use case ends
+
+[discrete]
+=== UC04: Assigning a task to team members
+Actors: Project Manager
+
+*MSS*
+
+1. User starts the Duke Pro.
+2. User adds team member to specific task.
+3. Use Case ends.
+
+*Extensions*
+
+[none]
+* 2a. Task does not exist
+** 2a1. Ui shows error message and list of tasks available/ closest match
+** 2a2. Use case ends
+
+[none]
+* 2b. Team member does not exist.
+** 2b1. Ui shows error message and list of team members
+** 2b2. Use case ends
+
+[discrete]
+=== UC05: Updating task progress
+Actors: Project Manager
+
+*MSS*
+
+1. User starts the Duke Pro.
+2. User enters task management.
+3. User marks sub tasks as complete.
+4. User adds remark for task.
+5. Use case ends.
+
+*Extensions*
+
+[none]
+* 3a. Task does not exist
+** 3a1. Ui shows error message, and shows a list of available tasks
+** 3a2. Use case continues from step 2.
+** 3a3. Use case ends.
+
 [appendix]
 == Non Functional Requirements
 
