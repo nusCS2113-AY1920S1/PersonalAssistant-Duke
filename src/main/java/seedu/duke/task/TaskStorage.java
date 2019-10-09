@@ -3,7 +3,6 @@ package seedu.duke.task;
 import seedu.duke.Duke;
 import seedu.duke.CommandParser;
 import seedu.duke.common.command.Command;
-import seedu.duke.task.entity.TaskList;
 import seedu.duke.task.command.TaskReminderCommand;
 import seedu.duke.task.entity.Task;
 
@@ -87,27 +86,24 @@ public class TaskStorage {
                     throw new StorageException("Invalid Save File!");
                 }
                 input = input.split(" ", 2)[1];
-                try {
-                    Command adddCommand = CommandParser.parseAddTaskCommand(taskList, input);
-                    adddCommand.setSilent();
-                    adddCommand.execute();
-                } catch (CommandParser.UserInputException e) {
-                    throw new StorageException("Invalid Save File!");
-                }
+                Command addCommand = CommandParser.parseCommand("task " + input);
+                addCommand.setSilent();
+                addCommand.execute();
             }
+            taskList = Duke.getTaskList();
             for (int i = 0; i < taskList.size(); i++) {
                 if (doneList.get(i)) {
                     taskList.get(i).markDone();
                 }
             }
-            Duke.getUI().showMessage("Saved task file successfully loaded...");
+            Duke.getUI().showMessage("Saved task file successfully loaded... => " + taskList.size());
             in.close();
             new TaskReminderCommand(taskList).execute();
         } catch (FileNotFoundException e) {
             return taskList; //it is acceptable if there is no save file
         } catch (IOException e) {
             Duke.getUI().showError("Read save file IO exception");
-        } catch (StorageException e) {
+        } catch (StorageException | CommandParser.UserInputException e) {
             Duke.getUI().showError(e.getMessage());
             taskList = new TaskList();
         }

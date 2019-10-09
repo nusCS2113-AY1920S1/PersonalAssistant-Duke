@@ -27,14 +27,13 @@ import seedu.duke.Duke;
 import java.util.*;
 import seedu.duke.CommandParser;
 import seedu.duke.UI;
-import seedu.duke.task.entity.TaskList;
+import seedu.duke.task.TaskList;
 import seedu.duke.task.TaskStorage;
 import seedu.duke.email.EmailStorage;
 import seedu.duke.task.entity.Deadline;
 import seedu.duke.task.entity.Event;
 import seedu.duke.task.entity.Task;
 
-import java.awt.*;
 import java.util.function.UnaryOperator;
 
 /**
@@ -162,7 +161,7 @@ public class MainWindow extends AnchorPane {
         KeyCode keyCode = e.getCode();
         String keyInfo = type + ": Key Code=" + keyCode.getName() + ", Text=" + e.getText() + "\n";
         // print key pressed info to terminal for debugging purpose.
-        System.out.println(keyInfo);
+        //System.out.println(keyInfo);
 
         // Toggle email or html display if ESC key is pressed
         if (e.getCode() == KeyCode.ESCAPE) {
@@ -223,21 +222,22 @@ public class MainWindow extends AnchorPane {
         ObservableList<String> observableList = FXCollections.observableArrayList();
         for (int i = 0; i < Duke.getTaskList().size(); i++) {
             Task task = Duke.getTaskList().get(i);
-            String output = (i+1) + ". " + task.getName() + "\n" +
-                    (task.getDone() ? "\u2713" : "\u2718") + "  " + task.getTaskType();
-            switch (Duke.getTaskList().get(i).getTaskType()) {
-                case Deadline:
-                    Deadline deadline = (Deadline) Duke.getTaskList().get(i);
-                    output += "\nBy: " + deadline.getTime();
-                    break;
-                case Event:
-                    Event event = (Event) Duke.getTaskList().get(i);
-                    output += "\nAt: " + event.getTime();
-                    break;
-            }
-            if (!(task.getDoAfterDescription() == null)) {
-                output += "\nAfter which: " + task.getDoAfterDescription();
-            }
+            //String output = (i + 1) + ". " + task.getName() + "\n" +
+            //        (task.getDone() ? "\u2713" : "\u2718") + "  " + task.getTaskType();
+            //switch (Duke.getTaskList().get(i).getTaskType()) {
+            //case Deadline:
+            //    Deadline deadline = (Deadline) Duke.getTaskList().get(i);
+            //    output += "\nBy: " + deadline.getTime();
+            //    break;
+            //case Event:
+            //    Event event = (Event) Duke.getTaskList().get(i);
+            //    output += "\nAt: " + event.getTime();
+            //    break;
+            //}
+            //if (task.getDoAfterDescription() != null && task.getDoAfterDescription() != "") {
+            //    output += "\nAfter which: " + task.getDoAfterDescription();
+            //}
+            String output = task.toString();
             observableList.add(output);
         }
         tasksListView.setItems(observableList);

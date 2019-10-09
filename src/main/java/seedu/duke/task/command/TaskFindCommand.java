@@ -1,7 +1,7 @@
 package seedu.duke.task.command;
 
 import seedu.duke.Duke;
-import seedu.duke.task.entity.TaskList;
+import seedu.duke.task.TaskList;
 import seedu.duke.common.command.Command;
 
 /**

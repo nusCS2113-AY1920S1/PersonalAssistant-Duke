@@ -1,7 +1,8 @@
-package seedu.duke.task.entity;
+package seedu.duke.task;
 
 import seedu.duke.Duke;
 import seedu.duke.CommandParser;
+import seedu.duke.task.entity.Task;
 
 import java.util.ArrayList;
 
@@ -127,6 +128,16 @@ public class TaskList extends ArrayList<Task> {
         } else {
             Duke.getUI().showError("This task cannot be snoozed");
         }
+        return msg;
+    }
+
+    public String setDoAfter(int index, String description) throws CommandParser.UserInputException {
+        if (index < 0 || index >= this.size()) {
+            throw new CommandParser.UserInputException("Invalid index");
+        }
+        Task task = this.get(index);
+        task.setDoAfterDescription(description);
+        String msg = "Do after task " + description + " has been added to task " + index;
         return msg;
     }
 

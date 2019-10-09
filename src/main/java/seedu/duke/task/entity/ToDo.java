@@ -42,11 +42,11 @@ public class ToDo extends Task {
     public String toString() {
         String output = "";
         output = "[T]" + this.getStatus();
-        if (this.doAfterDescription != null) {
+        if (this.doAfterDescription != null && this.doAfterDescription != "") {
             output += "\n\tAfter which: " + doAfterDescription;
         }
         for (String tagName : tags) {
-            output += " #" + tagName + "#";
+            output += " #" + tagName;
         }
         return output;
     }
@@ -60,11 +60,11 @@ public class ToDo extends Task {
     public String toFileString() {
         String output = "";
         output = (this.isDone ? "1" : "0") + " todo " + this.name;
-        if (this.doAfterDescription != null) {
-            output += " /doafter " + doAfterDescription;
+        if (this.doAfterDescription != null && this.doAfterDescription != "") {
+            output += " -doafter " + doAfterDescription;
         }
         for (String tagName : tags) {
-            output += " #" + tagName + "#";
+            output += " -tag " + tagName;
         }
         return output;
     }

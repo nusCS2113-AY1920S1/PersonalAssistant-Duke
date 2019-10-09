@@ -2,7 +2,6 @@ package seedu.duke.email;
 
 import seedu.duke.Duke;
 import seedu.duke.email.entity.Email;
-import seedu.duke.email.entity.EmailList;
 import seedu.duke.task.TaskStorage;
 import seedu.duke.common.network.Http;
 
