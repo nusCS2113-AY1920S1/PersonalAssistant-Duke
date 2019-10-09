@@ -55,6 +55,13 @@ public class ProjectInputController {
                     } else {
                         consoleView.consolePrint("The member index entered is invalid.");
                     }
+                } else if (projectCommand.length() >= 13 && projectCommand.substring(0,14).equals("delete member ")) {
+                    int memberIndexNumber = Integer.parseInt(projectCommand.substring(14).split(" ")[0]);
+                    if (projectToManage.getNumOfMembers() >= memberIndexNumber) {
+                        consoleView.removeMember(projectToManage, memberIndexNumber);
+                    } else {
+                        consoleView.consolePrint("The member index entered is invalid.");
+                    }
                 } else if (projectCommand.length() == 12 && projectCommand.equals("view members")) {
                     consoleView.viewAllMembers(projectToManage);
                 } else if (projectCommand.length() == 8 && projectCommand.equals("add task")) {
