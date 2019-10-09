@@ -36,7 +36,7 @@ Nice! I've marked this duke.duke.task as done:
   ✅ play guitar
 ----------------------------------------------
 ----------------------------------------------
-☹ OOPS!!! This is an unknown duke.duke.command.
+☹ OOPS!!! This is an unknown duke.duke.logic.command.
 ----------------------------------------------
 ----------------------------------------------
 ☹ OOPS!!! Please enter event date
