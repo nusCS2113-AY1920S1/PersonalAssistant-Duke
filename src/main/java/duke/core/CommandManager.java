@@ -38,6 +38,14 @@ public class CommandManager {
                 } catch (Exception e) {
                     throw new DukeException("Fail to parse Add Patient command. " + e.getMessage());
                 }
+            case "addStandardTask":
+                try {
+                    String[] tempCommand = command[1].split(" ", 1);
+                    StandardTask task = new StandardTask(tempCommand[0]);
+                    return new AddStandardTaskCommand(task);
+                } catch (Exception e) {
+                    throw new DukeException("Fail to parse addTask command");
+                }
             case "list":
                 try {
                     String[] tempCommand = command[1].split(" ");
