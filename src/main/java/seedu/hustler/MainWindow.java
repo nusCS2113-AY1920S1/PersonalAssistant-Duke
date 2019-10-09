@@ -8,8 +8,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 
-import seedu.hustler.logic.CommandLineException;
-
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.PrintStream;
@@ -61,7 +59,7 @@ public class MainWindow extends AnchorPane {
     }
 
     @FXML
-    public void handleUserInput() throws CommandLineException {
+    public void handleUserInput() {
         String input = userInput.getText();
         Hustler.run(input);
         userInput.clear();
