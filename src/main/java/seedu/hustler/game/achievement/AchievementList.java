@@ -53,7 +53,7 @@ public class AchievementList {
      */
     public static ArrayList<Achievements> updateAddTask (String achievementLevel) {
         for(int i = 0; i < achievementList.size(); i += 1) {
-            if(achievementList.get(i).getDescription().equals("Busybee") && achievementList.get(i).getAchievementLevel().equals(achievementLevel)) {
+            if(achievementList.get(i).getDescription().equals("Busybee") && achievementList.get(i).getAchievementLevel().equals(achievementLevel) && achievementList.get(i).checkLock()) {
                 achievementList.get(i).setLock(false);
                 achievementList.get(i).setPoints(addPoints);
                 System.out.println("You have unlocked this achievement!\n" + achievementList.get(i));
@@ -71,7 +71,7 @@ public class AchievementList {
      */
     public static ArrayList<Achievements> updateDoneTask (String achievementLevel) {
         for(int i = 0; i < achievementList.size(); i += 1) {
-            if(achievementList.get(i).getDescription().equals("Completionist") && achievementList.get(i).getAchievementLevel().equals(achievementLevel)) {
+            if(achievementList.get(i).getDescription().equals("Completionist") && achievementList.get(i).getAchievementLevel().equals(achievementLevel) && achievementList.get(i).checkLock()) {
                 achievementList.get(i).setLock(false);
                 achievementList.get(i).setPoints(donePoints);
                 System.out.println("You have unlocked this achievement!\n" + achievementList.get(i));

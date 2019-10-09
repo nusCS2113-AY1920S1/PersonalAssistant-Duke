@@ -97,8 +97,7 @@ public class AchievementStorage {
 
     /**
      * Save all current achievement progress.
-     * @throws IOException as this reload happens in the background,
-     * no message is shown.
+     * @throws IOException when writing of file has errors.
      */
     public static void saveStatus() throws IOException {
         BufferedWriter writer = new BufferedWriter(new FileWriter(new File(STATUS_FILEPATH)));
@@ -120,6 +119,12 @@ public class AchievementStorage {
         writer.close();
     }
 
+    /**
+     * Loads achievement from text file and add them into achievement list.
+     * @return list of achievement.
+     * @throws FileNotFoundException when file is not found, will create a
+     * new txtfile to start data storage.
+     */
     public static ArrayList<Achievements> loadAchievements() throws FileNotFoundException {
         try {
             Scanner scanner = new Scanner(new File(ACHIEVEMENT_FILEPATH));
@@ -164,10 +169,10 @@ public class AchievementStorage {
     }
 
     /**
-     *
-     * @param achievementsList
-     * @return
-     * @throws IOException
+     * Updates and saves the current achievements onto the txtfile.
+     * @param achievementsList updated list of achievements to be saved.
+     * @return list of updated achievements.
+     * @throws IOException when writing of file has errors.
      */
     public static ArrayList<Achievements> saveAchievements(ArrayList<Achievements> achievementsList) throws IOException {
         BufferedWriter writer = new BufferedWriter(new FileWriter(new File(ACHIEVEMENT_FILEPATH)));
