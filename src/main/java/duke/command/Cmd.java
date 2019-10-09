@@ -9,6 +9,12 @@ package duke.command;
  * user input.
  */
 public enum Cmd {
+
+    DOCTOR("doctor") {
+        public Command getCommand() {
+            return new DoctorCommand();
+        }
+    },
     LIST("list") {
         public Command getCommand() {
             return new ListCommand();

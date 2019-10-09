@@ -99,7 +99,7 @@ public class Parser {
             }
         }
 
-        checkSwitchesSatisfied();
+        checkCommandValid();
         currCommand.setSwitchVals(switchVals);
     }
 
@@ -176,7 +176,7 @@ public class Parser {
         }
     }
 
-    private void writeElement() throws DukeHelpException {
+    private void writeElement() {
         assert(currSwitch != null || currCommand.arg == null);
         if (currSwitch != null) {
             switchVals.put(currSwitch, elementBuilder.toString());
@@ -204,12 +204,19 @@ public class Parser {
     }
 
     private void checkInputAllowed() throws DukeHelpException {
-        if (currSwitch == null && currCommand.arg != null) {
-            throw new DukeHelpException("Multiple arguments supplied!", currCommand);
+        if (currSwitch == null) {
+            if (currCommand.cmdArgLevel == ArgLevel.NONE) {
+                throw new DukeHelpException("This command should not have an argument!", currCommand);
+            } else if (currCommand.arg != null) {
+                throw new DukeHelpException("Multiple arguments supplied!", currCommand);
+            }
         }
     }
 
-    private void checkSwitchesSatisfied() throws DukeException {
+    private void checkCommandValid() throws DukeException {
+        if (currCommand.cmdArgLevel == ArgLevel.REQUIRED) {
+            throw new DukeHelpException("You need to give an argument to the command!", currCommand);
+        }
         for (HashMap.Entry<String, ArgLevel> switchEntry : switches.entrySet()) {
             if (switchEntry.getValue() == ArgLevel.REQUIRED
                     && switchVals.get(switchEntry.getKey()) == null) {
