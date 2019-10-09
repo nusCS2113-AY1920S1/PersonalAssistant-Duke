@@ -2,9 +2,9 @@ package compal.logic.commands;
 
 import compal.commons.Compal;
 import compal.logic.parser.CommandParser;
-import compal.tasks.Deadline;
-import compal.tasks.TaskList;
-import compal.tasks.Task;
+import compal.model.tasks.Deadline;
+import compal.model.tasks.TaskList;
+import compal.model.tasks.Task;
 
 import java.util.Scanner;
 

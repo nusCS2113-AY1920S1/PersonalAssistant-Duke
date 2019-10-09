@@ -1,4 +1,4 @@
-package compal.tasks;
+package compal.model.tasks;
 
 import java.io.Serializable;
 import java.text.ParseException;
@@ -288,26 +288,26 @@ public abstract class Task implements Serializable {
      * @author jaedonkey
      */
     public void calculateAndSetPriorityScore() {
-        long score = 0;
+        long score;
         switch (priority) {
         case high:
-            score = 70;
+            score = 100;
             break;
         case medium:
             score = 50;
             break;
         case low:
-            score = 30;
+            score = 20;
             break;
         default:
             score = 0;
         }
 
-
         Date d = new Date();
         long diff = d.getTime() - this.date.getTime();
-        System.out.println("Task:LOG: Difference is " + diff);
-        score += diff;
+        long diffHours = diff / (60 * 60 * 1000);
+        System.out.println("Task:LOG: Difference is " + diffHours);
+        score += diffHours;
         priorityScore = score;
 
     }

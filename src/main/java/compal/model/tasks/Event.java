@@ -1,4 +1,4 @@
-package compal.tasks;
+package compal.model.tasks;
 
 /**
  * Represents event task type with a starting date and time.

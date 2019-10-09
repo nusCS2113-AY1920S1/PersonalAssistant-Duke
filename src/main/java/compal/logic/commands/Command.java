@@ -1,7 +1,7 @@
 package compal.logic.commands;
 
 import compal.commons.Compal;
-import compal.tasks.Task;
+import compal.model.tasks.Task;
 
 import java.util.Calendar;
 import java.util.Scanner;

@@ -1,6 +1,6 @@
 package compal.storage;
 
-import compal.tasks.Task;
+import compal.model.tasks.Task;
 
 import java.util.ArrayList;
 
