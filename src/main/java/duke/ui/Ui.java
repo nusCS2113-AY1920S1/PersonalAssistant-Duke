@@ -2,8 +2,7 @@ package duke.ui;
 
 import duke.MainWindow;
 
-import static duke.common.Messages.MESSAGE_BYE;
-import static duke.common.Messages.DIVIDER;
+import static duke.common.Messages.*;
 
 public class Ui {
 
@@ -35,6 +34,17 @@ public class Ui {
     public void showLoadingError() {
         mainWindow.handleLoadingError();
     }
+    public void showIngredientLoadingError() {
+        System.out.println(ERROR_MESSAGE_LOADING + filePathIngredients);
+    }
+    /*
+    public void showBookingLoadingError() {
+        System.out.println(ERROR_MESSAGE_LOADING + filePathBookings);
+    }
+    public void showRecipeLoadingError() {
+        System.out.println(ERROR_MESSAGE_LOADING + filePathRecipes);
+    }
+    */
 
 //    public void showListTask() {
 //        mainWindow.handleListTask();

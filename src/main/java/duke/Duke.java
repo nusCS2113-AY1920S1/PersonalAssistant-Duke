@@ -2,15 +2,17 @@ package duke;
 
 import duke.command.CommandTest;
 import duke.exception.DukeException;
+import duke.ingredientlist.IngredientList;
 import duke.parser.Parser;
+import duke.storage.IngredientStorage;
 import duke.storage.Storage;
 import duke.tasklist.TaskList;
 import duke.ui.Ui;
 
 import java.util.ArrayList;
 import java.text.ParseException;
-import java.util.Map;
 
+import static duke.common.Messages.filePathIngredients;
 import static duke.common.Messages.filePath;
 
 /**
@@ -22,18 +24,30 @@ public class Duke {
     private TaskList taskList;
     private Ui ui;
 
+    private IngredientStorage ingredientStorage;
+    // private BookingStorage bookingStorage;
+    // private RecipeStorage recipeStorage;
+    private IngredientList ingredientList;
+    // private BookingList bookingList;
+    // private RecipeList recipeList;
+
 //    /**
 //     * Constructor for Duke class to instantiation Ui, Storage, TaskList classes.
 //     * @param filePath String containing the directory in which the tasks are to be stored
 //     */
+
     public Duke(Ui ui) {
         this.ui = ui;
         storage = new Storage(filePath);
+        ingredientStorage = new IngredientStorage(filePathIngredients);
         try {
             taskList = new TaskList(storage.load());
+            ingredientList = new IngredientList(ingredientStorage.load());
             System.out.println(taskList.getSize());
         } catch (DukeException e) {
+            ui.showIngredientLoadingError();
             ui.showLoadingError();
+            ingredientList = new IngredientList();
         }
     }
 
@@ -45,6 +59,30 @@ public class Duke {
         CommandTest command = Parser.parseTest(fullCommand);
         return command.feedback(taskList, ui, storage);
     }
+}
+
+//    /**
+//     * Constructor for Duke class to instantiation Ui, Storage, ingredientList classes.
+//     * @param filePathIngredients String containing the directory in which the tasks are to be stored
+//     */
+//    public Duke(String filePathIngredients) { // add filePathBookings and filePathRecipes parameters
+//        ui = new Ui();
+//        ingredientStorage = new IngredientStorage(filePathIngredients);
+//        try {
+//            ingredientList = new IngredientList(ingredientStorage.load());
+//        } catch (DukeException e) {
+//            ui.showIngredientLoadingError();
+//            ingredientList = new IngredientList();
+//        }
+//    }
+
+//    /**
+//     * Starting the program.
+//     * @param args the command line parameter
+//     */
+//    public static void main(String[] args) {
+//        new Duke(filePathIngredients).run();
+//    }
 
 //    public void run(String fullCommand) throws DukeException, ParseException {
 //        CommandTest command = Parser.parseTest(fullCommand);
@@ -80,8 +118,6 @@ public class Duke {
 //    public int getSize() {
 //        return taskList.getSize();
 //    }
-}
-
 
 
 //    /**

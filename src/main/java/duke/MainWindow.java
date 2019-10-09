@@ -149,7 +149,7 @@ public class MainWindow extends AnchorPane {
     }
 
     public void handleLoadingError() {
-        resultDisplay.setText(ERROR_MESSAGE_LOADING + filePath);
+        resultDisplay.setText(ERROR_MESSAGE_LOADING);
     }
 
     @FXML
