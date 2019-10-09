@@ -8,12 +8,13 @@ import duke.DukeCore;
 public class DoctorCommand extends ArgCommand {
 
     public DoctorCommand() {
+        cmdArgLevel = ArgLevel.OPTIONAL;
         emptyArgMsg = "You didn't tell me what to do!";
         switches.put("switch", ArgLevel.OPTIONAL);
     }
 
     @Override
     public void execute(DukeCore core) {
-        core.ui.print("Argument: " + arg + System.lineSeparator() + "Switch: " + switches.get("switch"));
+        core.ui.print("Argument: " + arg + System.lineSeparator() + "Switch: " + switchVals.get("switch"));
     }
 }

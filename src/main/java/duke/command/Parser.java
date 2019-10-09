@@ -5,6 +5,7 @@ import duke.exception.DukeHelpException;
 
 import java.util.HashMap;
 
+import static duke.command.Parser.ParseState.EMPTY;
 import static java.lang.Math.min;
 
 public class Parser {
@@ -66,7 +67,7 @@ public class Parser {
         if (command instanceof ArgCommand) { // stripping not required otherwise
             currCommand = (ArgCommand) command;
             inputStr = inputStr.replaceAll("(\\r\\n|\\n|\\r)", "\n");
-            parseArgument(inputStr.substring(cmdStr.length()).strip());
+            parseArgument(inputStr.substring(cmdStr.length()));
         }
         return command;
     }
@@ -84,7 +85,7 @@ public class Parser {
             throw new DukeException(currCommand.getEmptyArgMsg());
         }
 
-        state = ParseState.EMPTY;
+        state = EMPTY;
         currSwitch = null;
         switches = currCommand.getSwitches();
         elementBuilder = new StringBuilder();
@@ -109,6 +110,21 @@ public class Parser {
             }
         }
 
+        //cleanup and check if states exited correctly
+        switch (state) {
+        case EMPTY:
+            break;
+        case ARG:
+            writeElement();
+            break;
+        case STRING:
+            throw new DukeHelpException("String in argument was not closed: " + elementBuilder.toString(),
+                    currCommand);
+        case SWITCH:
+            addSwitch();
+            break;
+        }
+
         checkCommandValid();
         currCommand.setSwitchVals(switchVals);
     }
@@ -116,12 +132,10 @@ public class Parser {
     private void handleEmpty(char curr) throws DukeHelpException {
         switch (curr) {
         case '-':
-            elementBuilder = new StringBuilder();
             state = ParseState.SWITCH;
             break;
         case '"':
             checkInputAllowed();
-            elementBuilder = new StringBuilder();
             state = ParseState.STRING;
             break;
         case '\n': //fallthrough
@@ -129,7 +143,7 @@ public class Parser {
             break;
         default:
             checkInputAllowed();
-            elementBuilder = new StringBuilder().append(curr);
+            elementBuilder.append(curr);
             state = ParseState.ARG;
             break;
         }
@@ -197,7 +211,8 @@ public class Parser {
         } else { //currCommand.arg == null
             currCommand.arg = elementBuilder.toString();
         }
-        state = ParseState.EMPTY;
+        elementBuilder.setLength(0); //clear elementBuilder
+        state = EMPTY;
     }
 
     // TODO: this function is going to become very big with autocorrect
