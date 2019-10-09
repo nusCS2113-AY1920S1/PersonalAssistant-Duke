@@ -2,7 +2,7 @@
 
 While we have produced a fully functional prototype, there are a few major problems with our application.
 
-1. The process of visually enhancing the GUI is long and painful:
+1. The process of visually enhancing the gui is long and painful:
    * Does the `TextField` need to be 330px or 325px wide? 
    * How much padding is enough padding to look good?
 
@@ -33,7 +33,7 @@ Let's return to Duke and convert it to use FXML instead.
 
 # Rebuilding the Scene using FXML
 
-Scene Builder is a tool developed by Oracle and currently maintained by Gluon. It is a What-You-See-Is-What-You-Get GUI creation tool. [Download](https://gluonhq.com/products/scene-builder/#download) the appropriate version for your OS and install it.
+Scene Builder is a tool developed by Oracle and currently maintained by Gluon. It is a What-You-See-Is-What-You-Get gui creation tool. [Download](https://gluonhq.com/products/scene-builder/#download) the appropriate version for your OS and install it.
 
 Create the following files in `src/main/resources/view`:
 
@@ -182,7 +182,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 /**
- * A GUI for Duke using FXML.
+ * A gui for Duke using FXML.
  */
 public class Main extends Application {
 
