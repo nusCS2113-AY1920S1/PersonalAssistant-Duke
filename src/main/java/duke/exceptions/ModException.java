@@ -1,6 +1,7 @@
 package duke.exceptions;
 
 public class ModException extends Exception {
+
     public ModException() {
         super();
     }

@@ -44,8 +44,9 @@ public class Duke {
         ui.helloMsg();
         boolean isExit = false;
         // Starting reminder threads and pulling data from API
-        // TODO: pending fix from HL for thread bug
+        // TODO: pending fix for thread bug
         try {
+            // Classes to be initialized during runtime
             reminder = new Reminder(tasks.getTasks());
             reminder.run();
             data = new RequestsData();
@@ -55,10 +56,6 @@ public class Duke {
         while (!isExit) {
             try {
                 String fullCommand = ui.readCommand();
-                if (val > 0) {
-                    data.storeModData(data.requestModuleList("2019-2020"), store);
-                }
-                val++;
                 ui.showLine();
                 Command c = parser.parse(fullCommand);
                 c.execute(tasks, ui, store, reminder);
@@ -76,6 +73,7 @@ public class Duke {
      * @param args Additional command line parameters, unused.
      */
     public static void main(String[] args) {
+        //TODO: args flag could be passed into program for optional runs
         Duke duke = new Duke();
         duke.run();
     }

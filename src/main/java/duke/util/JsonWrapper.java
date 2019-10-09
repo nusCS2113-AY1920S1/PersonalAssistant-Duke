@@ -12,7 +12,7 @@ public class JsonWrapper {
     private final String listFile = "data/modsListData.json";
     private final String listDetailedFile = "data/modsDetailedList.json";
 
-    public JsonWrapper() {
+    public JsonWrapper(Storage store) {
         gson = new Gson();
     }
 
@@ -20,9 +20,10 @@ public class JsonWrapper {
         try {
             JsonElement element = gson.fromJson(response.body(), JsonElement.class);
             JsonObject jsonObject = element.getAsJsonObject();
-            System.out.println(jsonObject);
+            System.out.println(element.isJsonObject());
         } catch (IllegalStateException e) {
             e.printStackTrace();
         }
     }
+
 }
