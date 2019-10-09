@@ -317,6 +317,11 @@ public class CLIView {
             + "Member details: " + newMember.getDetails());
     }
 
+    public void editMember(IProject projectToManage, int memberIndexNumber, String memberDetails) {
+        projectToManage.editMember(memberIndexNumber, memberDetails);
+        consolePrint("Updated member details with the index number "+memberIndexNumber);
+    }
+
     /**
      * Adds a member to the project.
      * @param projectToManage The project specified by the user.
