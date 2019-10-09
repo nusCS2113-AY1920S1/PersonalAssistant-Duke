@@ -1,4 +1,6 @@
-package duke.tasks;
+package duke.modules;
+
+import duke.exceptions.ModInvalidTimePeriodException;
 
 public class RecurringTask extends Task {
 
@@ -9,7 +11,7 @@ public class RecurringTask extends Task {
      * Constructor for recurring tasks.
      * @param input User input for task.
      */
-    public RecurringTask(String... input) {
+    public RecurringTask(String... input) throws ModInvalidTimePeriodException {
         super(input[0]);
         setRecurring(input[input.length - 1]);
     }

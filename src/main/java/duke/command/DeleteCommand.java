@@ -4,7 +4,7 @@ import duke.util.Reminder;
 import duke.util.TaskList;
 import duke.util.Storage;
 import duke.util.Ui;
-import duke.tasks.Task;
+import duke.modules.Task;
 import duke.exceptions.ModInvalidIndexException;
 import duke.exceptions.ModEmptyListException;
 

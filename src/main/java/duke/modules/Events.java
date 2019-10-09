@@ -1,31 +1,25 @@
-package duke.tasks;
+package duke.modules;
 
 import duke.exceptions.ModInvalidTimeException;
+import duke.exceptions.ModInvalidTimePeriodException;
 import duke.util.DateTimeParser;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Date;
 
 public class Events extends Task {
-    private LocalDateTime dateTime;
 
     /**
      * Constructor for Events class, using String Varargs.
      * @param input Parsed user input containing task name and time.
      */
-    public Events(String... input) throws ModInvalidTimeException {
+    public Events(String... input) throws ModInvalidTimeException, ModInvalidTimePeriodException {
         super(input[0]);
-        dateTime = DateTimeParser.getStringToDate(input[input.length - 1]);
-    }
-
-    public LocalDateTime getDateTime() {
-        return dateTime;
-    }
-
-    public void setDateTime(LocalDateTime localDateTime) {
-        this.dateTime = localDateTime;
+        LocalDateTime dateTime = DateTimeParser.getStringToDate(input[input.length - 1]);
+        this.period.setPeriod(dateTime, dateTime);
     }
 
     @Override
@@ -34,7 +28,7 @@ public class Events extends Task {
                 + "|"
                 + super.writingFile()
                 + "|"
-                + dateTime.format(DateTimeFormatter.ofPattern("dd-MM-yyyy [HH:mm]"));
+                + this.getBegin().format(DateTimeFormatter.ofPattern("dd-MM-yyyy [HH:mm]"));
     }
 
     @Override
@@ -42,16 +36,7 @@ public class Events extends Task {
         return "[E]"
                 + super.toString()
                 + " (at: "
-                + dateTime.format(DateTimeFormatter.ofPattern("dd-MM-yyyy [HH:mm]"))
+                + this.getBegin().format(DateTimeFormatter.ofPattern("dd-MM-yyyy [HH:mm]"))
                 + ")";
     }
-
-    public LocalDate getDate() {
-        return dateTime.toLocalDate();
-    }
-
-    public LocalTime getTime() {
-        return dateTime.toLocalTime();
-    }
-
 }

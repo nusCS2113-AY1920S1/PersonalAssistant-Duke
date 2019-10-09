@@ -1,10 +1,15 @@
 package duke;
 
+import java.util.List;
+
 import duke.command.Command;
+import duke.command.ListCommand;
+import duke.exceptions.ModBadRequestStatus;
 import duke.exceptions.ModException;
 import duke.exceptions.ModTimeIntervalTooCloseException;
+import duke.modules.ModuleInfoSummary;
+import duke.util.JsonWrapper;
 import duke.util.ParserWrapper;
-import duke.util.RequestsData;
 import duke.util.Storage;
 import duke.util.TaskList;
 import duke.util.Ui;
@@ -21,9 +26,7 @@ public class Duke {
     private TaskList tasks;
     private ParserWrapper parser;
     private Reminder reminder;
-    private RequestsData data;
-
-    private static Integer val = 0;
+    private JsonWrapper data;
 
     /**
      * Constructor for Duke class.
@@ -33,6 +36,7 @@ public class Duke {
         ui = new Ui();
         tasks = new TaskList(store);
         parser = new ParserWrapper();
+        data = new JsonWrapper();
     }
 
     /**
@@ -48,10 +52,14 @@ public class Duke {
         try {
             // Classes to be initialized during runtime
             reminder = new Reminder(tasks.getTasks());
-            reminder.run();
-            data = new RequestsData();
+            //reminder.run();
+
+            // This pulls data once and stores in the data files.
+            data.runRequests(store);
         } catch (ModTimeIntervalTooCloseException e) {
             System.out.println(e.getMessage());
+        } catch (ModBadRequestStatus er) {
+            er.printStackTrace();
         }
         while (!isExit) {
             try {
@@ -59,6 +67,12 @@ public class Duke {
                 ui.showLine();
                 Command c = parser.parse(fullCommand);
                 c.execute(tasks, ui, store, reminder);
+                // TODO: this line is to demo how to gson parser using the
+                //       list command, remove this when creating additional features
+                if (c instanceof ListCommand) {
+                    List<ModuleInfoSummary> test = data.readJson();
+                    System.out.println(test.get(10));
+                }
                 isExit = c.isExit();
             } catch (ModException e) {
                 System.out.println(e.getMessage());

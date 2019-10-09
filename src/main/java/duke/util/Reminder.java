@@ -2,8 +2,8 @@ package duke.util;
 
 import duke.exceptions.ModInvalidTimePeriodException;
 import duke.exceptions.ModTimeIntervalTooCloseException;
-import duke.tasks.DoWithin;
-import duke.tasks.Task;
+import duke.modules.DoWithin;
+import duke.modules.Task;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;

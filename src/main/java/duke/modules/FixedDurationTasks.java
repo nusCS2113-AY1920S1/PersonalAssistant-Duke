@@ -1,6 +1,7 @@
-package duke.tasks;
+package duke.modules;
 
 import duke.exceptions.ModInvalidTimeException;
+import duke.exceptions.ModInvalidTimePeriodException;
 import duke.util.DateTimeParser;
 
 import java.time.LocalDateTime;
@@ -14,12 +15,12 @@ public class FixedDurationTasks extends Task {
      * @param input Parsed user input containing task name and duration.
      */
 
-    public FixedDurationTasks(String... input) throws ModInvalidTimeException {
+    public FixedDurationTasks(String... input) throws ModInvalidTimeException, ModInvalidTimePeriodException {
         super(input[0]);
         dateTime = DateTimeParser.getStringToDate(input[input.length - 1]);
     }
 
-    public LocalDateTime getDateTime() {
+    public LocalDateTime getTimePeriod() {
         return dateTime;
     }
 

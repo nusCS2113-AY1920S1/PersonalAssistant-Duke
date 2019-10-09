@@ -2,13 +2,13 @@ package duke.util;
 
 import duke.exceptions.ModInvalidTimeException;
 import duke.exceptions.ModInvalidTimePeriodException;
-import duke.tasks.Deadline;
-import duke.tasks.DoWithin;
-import duke.tasks.Events;
-import duke.tasks.RecurringTask;
-import duke.tasks.FixedDurationTasks;
-import duke.tasks.Task;
-import duke.tasks.Todo;
+import duke.modules.Deadline;
+import duke.modules.DoWithin;
+import duke.modules.Events;
+import duke.modules.RecurringTask;
+import duke.modules.FixedDurationTasks;
+import duke.modules.Task;
+import duke.modules.Todo;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
@@ -30,27 +30,28 @@ public class Storage {
     private Path path;
     private Path dataPath;
 
-    private boolean dataPathExists;
-    private boolean fileExists;
+    private boolean dataPathExists = false;
+    private boolean fileExists = false;
 
     /**
-     * Constructor for storage class.
+     * Default Constructor for storage class.
      *
      */
     public Storage() {
         path = Paths.get("data/dukeData.text");
-        dataPath = Paths.get("data/modsData.text");
-        setDataPathExists();
         setFileExists();
     }
 
+    /**
+     * Overloaded Constructor for storage class, specifying the data path as String.
+     */
     public Storage(String filePath) {
         dataPath = Paths.get(filePath);
         setDataPathExists();
     }
 
-    public void setDataPath(String filePath) {
-        this.dataPath = Paths.get(filePath);
+    public void setDataPath(Path dataPath) {
+        this.dataPath = dataPath;
         setDataPathExists();
     }
 
@@ -59,7 +60,7 @@ public class Storage {
      * and returns the previously stored data as a TaskList.
      * @return TaskList of what was saved in the data file.
      */
-    public List<Task> readData() throws ModInvalidTimeException {
+    public List<Task> readData() throws ModInvalidTimeException, ModInvalidTimePeriodException {
         List<Task> list = new ArrayList<>();
         List<String> lines = Collections.emptyList();
 
@@ -105,16 +106,12 @@ public class Storage {
                     break;
                 }
                 case "W": {
-                    try {
-                        DoWithin tempTodo = new DoWithin(hold[1], hold[3], hold[4]);
-                        if (hold[2].equals("1")) {
-                            tempTodo.setTaskDone();
-                        }
-                        list.add(tempTodo);
-                        break;
-                    } catch (ModInvalidTimePeriodException ex) {
-                        break;
+                    DoWithin tempTodo = new DoWithin(hold[1], hold[3], hold[4]);
+                    if (hold[2].equals("1")) {
+                        tempTodo.setTaskDone();
                     }
+                    list.add(tempTodo);
+                    break;
                 }
                 case "F": {
                     try {
@@ -140,7 +137,7 @@ public class Storage {
         return fileExists;
     }
 
-    boolean getDataPathExists() {
+    public boolean getDataPathExists() {
         return dataPathExists;
     }
 
@@ -164,16 +161,19 @@ public class Storage {
             stringListTask.add(temp.writingFile());
         }
         try {
-            if (getFileExits()) {
-                Files.write(path, stringListTask, StandardCharsets.UTF_8);
-            } else {
-                Files.createDirectories(path.getParent());
-                Files.createFile(path);
+            if (!fileExists) {
+                makeFile(path);
                 setFileExists();
             }
+            Files.write(path, stringListTask, StandardCharsets.UTF_8);
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    private void makeFile(Path path) throws IOException {
+        Files.createDirectories(path.getParent());
+        Files.createFile(path);
     }
 
     /**
@@ -182,13 +182,11 @@ public class Storage {
      */
     public void writeModsData(List<String> data) {
         try {
-            if (getDataPathExists()) {
-                Files.write(dataPath, data, StandardCharsets.UTF_8);
-            } else {
-                Files.createDirectories(dataPath.getParent());
-                Files.createFile(dataPath);
+            if (!dataPathExists) {
+                makeFile(dataPath);
                 setDataPathExists();
             }
+            Files.write(dataPath, data, StandardCharsets.UTF_8);
         } catch (IOException e) {
             e.printStackTrace();
         }

@@ -8,7 +8,7 @@ import duke.command.DoneCommand;
 import duke.command.FindCommand;
 import duke.command.ListCommand;
 import duke.exceptions.ModException;
-import duke.tasks.Todo;
+import duke.modules.Todo;
 
 import org.junit.jupiter.api.Test;
 

@@ -15,7 +15,7 @@ public class DukeTest extends InputTest {
      * to windows/linus newline differences.
      */
     @Test
- public void testDuke() {
+    public void testDuke() {
         final String test = "bye";
         provideInput(test);
         final String[] hold = { test, "what" };
