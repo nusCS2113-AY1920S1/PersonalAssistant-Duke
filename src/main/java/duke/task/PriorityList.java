@@ -37,7 +37,9 @@ public class PriorityList {
      * @return The updated Priority List.
      */
     public PriorityList setPriority(int taskNum, int priority) {
-        priorityList.set(taskNum, priority);
+
+        priorityList.set(taskNum - 1, priority);
+
         return new PriorityList(priorityList);
     }
 
@@ -138,6 +140,16 @@ public class PriorityList {
      */
     private PriorityList clearList() {
         return new PriorityList(new ArrayList<Integer>());
+    }
+
+    @Override
+    public String toString() {
+        String output = "";
+        for (int i = 0; i < priorityList.size(); i++) {
+            output += priorityList.get(i) + " ";
+        }
+
+        return output;
     }
 
 }

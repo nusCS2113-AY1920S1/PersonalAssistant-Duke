@@ -18,8 +18,8 @@ public class SetPriorityCommand extends Command{
      * @param priority The priority level we want to set.
      */
     public SetPriorityCommand(int taskNum, int priority) {
-        this.taskNum = taskNum;
-        this.priority = priority;
+            this.taskNum = taskNum;
+            this.priority = priority;
     }
 
     /**

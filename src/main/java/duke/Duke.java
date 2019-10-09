@@ -120,6 +120,7 @@ public class Duke {
                     cmd.executeStorage(items, ui, storage);
                 } else if (cmd instanceof SetPriorityCommand) {
                     cmd.execute(items, priorityList, ui);
+                    System.out.println(priorityList.toString());
                 } else {
                     cmd.execute(items,ui);
                     priorityList = priorityList.addDefaultPriority(cmd);
