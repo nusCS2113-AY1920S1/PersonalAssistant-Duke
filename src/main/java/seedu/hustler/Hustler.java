@@ -7,7 +7,6 @@ import seedu.hustler.game.avatar.Avatar;
 import seedu.hustler.command.Command;
 
 import seedu.hustler.data.AvatarStorage;
-import seedu.hustler.data.Schedule;
 import seedu.hustler.data.CommandLog;
 import seedu.hustler.data.MemoryManager;
 import seedu.hustler.logic.CommandLineException;
@@ -24,8 +23,8 @@ import javafx.stage.Stage;
 
 /**
  * A personal assistant that takes in user input and gives and performs
- * an operation that can help the user
- * in his day to day needs. Has a task list with multiple features.
+ * an operation that can help the user in his day to day needs.
+ * Has a task list with multiple features.
  */
 public class Hustler extends Application {
     /**
@@ -39,11 +38,13 @@ public class Hustler extends Application {
      * disk.
      */
     private static Storage storage = new Storage("data/hustler.txt");
+
     /**
      * UI instance that is used to take input from console
      * and display errors and responses. Handles user interaction.
      */
     private static Ui ui = new Ui();
+
     /**
      * Parser instance that makes sense of user input and
      * performs some operation on list.
@@ -71,18 +72,9 @@ public class Hustler extends Application {
     public static CommandLog commandlog = new CommandLog();
 
     /**
-     * Runs Hustler which commences the user to machine
-     * feedback loop until the user enters "bye".
-     * Loads existing task list and avatar, and performs operations
-     * like list, find, delete and add on the task list. Adds
-     * the Tasks in the TreeMap.
-     * Saves the list to disk for next hustler session inside
-     * data/hustler.txt.
-     * @see Storage
-     * @see TaskList
-     * @see CommandParser
-     * @see Ui
-     * @see Schedule
+     * Initializes the essential components needed to run Hustler.
+     * Loads existing task list and avatar.
+     * Displays reminders at the start of Hustler.
      */
     public static void initialize() throws IOException {
         ui.show_opening_string();
@@ -90,7 +82,6 @@ public class Hustler extends Application {
         loadStorage();
         memorymanager.createBackup();
 
-        // Display reminders at the start
         Reminders.runAll(list);
         Reminders.displayReminders();
         System.out.println();
@@ -99,6 +90,13 @@ public class Hustler extends Application {
         AvatarStorage.save(avatar);
     }
 
+    /**
+     * Runs Hustler until the users enters "bye".
+     * Performs operations like list, find, delete and add on the task list.
+     * Saves the list to disk for next Hustler session inside data/hustler.txt.
+     *
+     * @param rawInput full user's input inside text area of GUI.
+     */
     public static void run(String rawInput) {
         if (rawInput.equals("bye")) {
             ui.show_bye_message();
@@ -115,7 +113,8 @@ public class Hustler extends Application {
         }
     }
 
-    public void start(Stage stage) {};
+    public void start(Stage stage) {
+    }
 
     public static void loadStorage() {
         list = new TaskList(storage.load());
@@ -127,6 +126,9 @@ public class Hustler extends Application {
         avatar = AvatarStorage.reloadBackup();
     }
 
+    /**
+     * Saves the task list to storage area.
+     */
     public static void saveStorage() {
         try {
             storage.save(list.return_list());

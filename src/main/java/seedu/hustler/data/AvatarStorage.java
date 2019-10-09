@@ -42,7 +42,7 @@ public class AvatarStorage {
                     level = new Level(Integer.parseInt(txt[1]), Integer.parseInt(txt[2]));
                 } else if (txt[0].equals("Stats")) {
                     stats = new Stats(Integer.parseInt(txt[1]), Integer.parseInt(txt[2]),
-                        Integer.parseInt(txt[3]), Integer.parseInt(txt[4]));
+                            Integer.parseInt(txt[3]), Integer.parseInt(txt[4]));
                 }
             }
             avatarTxt.close();
@@ -52,7 +52,7 @@ public class AvatarStorage {
             System.out.println("\tNo Avatar saved in database, creating a new Avatar now.");
             System.out.println("\t_____________________________________\n\n");
         }
-	return avatar;
+        return avatar;
     }
 
     /**
@@ -60,31 +60,32 @@ public class AvatarStorage {
      * Hustler app.
      * @return the Avatar that is being reloaded.
      * @throws FileNotFoundException as this reload happens in the background,
-     * no message is shown.
+     *     no message is shown.
      */
     public static Avatar reloadBackup() {
-            Avatar avatar = new Avatar();
-            try {
-                Scanner avatarBackupTxt = new Scanner(new File(FILEPATHBACKUP));
-                String name = new String();
-                Level level = new Level();
-                Stats stats = new Stats();
-                while (avatarBackupTxt.hasNextLine()) {
-                    String[] backupTxt = avatarBackupTxt.nextLine().split(" ");
-                    if (backupTxt[0].equals("Name")) {
-                        name = backupTxt[1];
-                    } else if (backupTxt[0].equals("Level")) {
-                        level = new Level(Integer.parseInt(backupTxt[1]), Integer.parseInt(backupTxt[2]));
-                    } else if (backupTxt[0].equals("Stats")) {
-                        stats = new Stats(Integer.parseInt(backupTxt[1]), Integer.parseInt(backupTxt[2]),
-                                          Integer.parseInt(backupTxt[3]), Integer.parseInt(backupTxt[4]));
-                    }
+        Avatar avatar = new Avatar();
+        try {
+            Scanner avatarBackupTxt = new Scanner(new File(FILEPATHBACKUP));
+            String name = new String();
+            Level level = new Level();
+            Stats stats = new Stats();
+            while (avatarBackupTxt.hasNextLine()) {
+                String[] backupTxt = avatarBackupTxt.nextLine().split(" ");
+                if (backupTxt[0].equals("Name")) {
+                    name = backupTxt[1];
+                } else if (backupTxt[0].equals("Level")) {
+                    level = new Level(Integer.parseInt(backupTxt[1]), Integer.parseInt(backupTxt[2]));
+                } else if (backupTxt[0].equals("Stats")) {
+                    stats = new Stats(Integer.parseInt(backupTxt[1]), Integer.parseInt(backupTxt[2]),
+                            Integer.parseInt(backupTxt[3]), Integer.parseInt(backupTxt[4]));
                 }
-                avatarBackupTxt.close();
-                avatar = new Avatar(name, level, stats);
-            } catch (FileNotFoundException e) {
             }
-	    return avatar;
+            avatarBackupTxt.close();
+            avatar = new Avatar(name, level, stats);
+        } catch (FileNotFoundException e) {
+
+        }
+        return avatar;
     }
 
     /**

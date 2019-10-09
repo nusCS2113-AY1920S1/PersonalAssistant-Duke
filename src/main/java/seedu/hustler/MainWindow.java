@@ -29,6 +29,10 @@ public class MainWindow extends AnchorPane {
 
     private Hustler hustler;
 
+    /**
+     * Initializes essential components to run Hustler.
+     * @throws IOException if text area could not be found.
+     */
     @FXML
     public void initialize() throws IOException {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
@@ -42,6 +46,9 @@ public class MainWindow extends AnchorPane {
         hustler = h;
     }
 
+    /**
+     * Changes printing stream to text area in GUI.
+     */
     public class Console extends OutputStream {
         private TextArea console;
 
@@ -58,6 +65,9 @@ public class MainWindow extends AnchorPane {
         }
     }
 
+    /**
+     * Handles operations after each user's input.
+     */
     @FXML
     public void handleUserInput() {
         String input = userInput.getText();

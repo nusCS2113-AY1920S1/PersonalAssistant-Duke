@@ -137,12 +137,12 @@ public class TaskList {
         }
         if (!CommandLog.isRestoring()) {
             if (!checkAnomaly) {
-                    String output = "\t  " + list.get(list.size() - 1).toString();
-                    System.out.println("\t_____________________________________");
-                    System.out.println("\tGot it. I've added this task:");
-                    System.out.println(output);
-                    System.out.println("\tNow you have " + list.size() + " tasks in the list.");
-                    System.out.println("\t_____________________________________\n\n");
+                String output = "\t  " + list.get(list.size() - 1).toString();
+                System.out.println("\t_____________________________________");
+                System.out.println("\tGot it. I've added this task:");
+                System.out.println(output);
+                System.out.println("\tNow you have " + list.size() + " tasks in the list.");
+                System.out.println("\t_____________________________________\n\n");
             } else {
                 System.out.println("Task clashes with another existing task in the list!");
             }
