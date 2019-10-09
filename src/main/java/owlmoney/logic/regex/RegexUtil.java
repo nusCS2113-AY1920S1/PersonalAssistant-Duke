@@ -11,7 +11,12 @@ public final class RegexUtil {
      * @return the result of the check on whether it fulfills the criteria.
      */
     public static boolean regexCheckMoney(String input) {
-        final String moneyRegex = "^\\s*(?=.*[1-9])\\d{1,9}(\\.\\d{2})?$";
+        final String moneyRegex = "^\\s*(?=.*[1-9])\\d{1,9}(\\.\\d{1,2})?$";
+        return input.matches(moneyRegex);
+    }
+
+    public static boolean regexCheckBankAmount(String input) {
+        final String moneyRegex = "^\\s*(?=.*[0-9])\\d{1,9}(\\.\\d{1,2})?$";
         return input.matches(moneyRegex);
     }
 

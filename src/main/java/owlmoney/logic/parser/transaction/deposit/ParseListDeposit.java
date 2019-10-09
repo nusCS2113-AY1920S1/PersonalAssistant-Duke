@@ -32,7 +32,7 @@ public class ParseListDeposit extends ParseDeposit {
                 expendituresParameters.put(key, "30");
             }
             if (NUM.equals(key)) {
-                checkIfInt(NUM, expendituresParameters.get(NUM));
+                checkInt(NUM, expendituresParameters.get(NUM));
                 if(Integer.parseInt(expendituresParameters.get(NUM)) <= 0) {
                     throw new ParserException("/num must be at least 1");
                 }

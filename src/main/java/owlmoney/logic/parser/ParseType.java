@@ -7,8 +7,10 @@ import owlmoney.logic.command.Command;
 import owlmoney.logic.command.PlaceHolderEmptyCommand;
 import owlmoney.logic.command.bank.ListSavingsCommand;
 import owlmoney.logic.parser.exception.ParserException;
+import owlmoney.logic.parser.saving.ParseSaving;
 import owlmoney.logic.parser.transaction.deposit.ParseAddDeposit;
 import owlmoney.logic.parser.transaction.deposit.ParseDeleteDeposit;
+import owlmoney.logic.parser.transaction.deposit.ParseDeposit;
 import owlmoney.logic.parser.transaction.deposit.ParseEditDeposit;
 import owlmoney.logic.parser.transaction.deposit.ParseListDeposit;
 import owlmoney.logic.parser.transaction.expenditure.ParseAddExpenditure;
@@ -92,24 +94,20 @@ class ParseType extends Parser {
         switch (type) {
         case "/profile":
             isDeleteProfile(command);
-            System.out.println("You are at profile");
-            System.out.println(rawData);
             return new PlaceHolderEmptyCommand();
         case "/savings":
-            System.out.println("You are at savings");
-            System.out.println(rawData);
             if ("/add".equals(command)) {
-                ParseAddSaving parseAddSaving = new ParseAddSaving(rawData);
+                ParseSaving parseAddSaving = new ParseAddSaving(rawData);
                 parseAddSaving.fillHashTable();
                 parseAddSaving.checkParameter();
                 return parseAddSaving.getCommand();
             } else if ("/edit".equals(command)) {
-                ParseEditSaving parseEditSaving = new ParseEditSaving(rawData);
+                ParseSaving parseEditSaving = new ParseEditSaving(rawData);
                 parseEditSaving.fillHashTable();
                 parseEditSaving.checkParameter();
                 return parseEditSaving.getCommand();
             } else if ("/delete".equals(command)) {
-                ParseDeleteSaving parseDeleteSaving = new ParseDeleteSaving(rawData);
+                ParseSaving parseDeleteSaving = new ParseDeleteSaving(rawData);
                 parseDeleteSaving.fillHashTable();
                 parseDeleteSaving.checkParameter();
                 return parseDeleteSaving.getCommand();
@@ -118,62 +116,54 @@ class ParseType extends Parser {
             }
             throw new ParserException("You entered an invalid type");
         case "/investment":
-            System.out.println("You are at investment");
-            System.out.println(rawData);
             return new PlaceHolderEmptyCommand();
         case "/expenditure":
-            System.out.println("You are at expenditure");
-            System.out.println(rawData);
             if ("/add".equals(command)) {
-                ParseAddExpenditure addExp = new ParseAddExpenditure(rawData);
+                ParseExpenditure addExp = new ParseAddExpenditure(rawData);
                 addExp.fillHashTable();
                 addExp.checkParameter();
                 return addExp.getCommand();
             } else if ("/list".equals(command)) {
-                ParseListExpenditure listExp = new ParseListExpenditure(rawData);
+                ParseExpenditure listExp = new ParseListExpenditure(rawData);
                 listExp.fillHashTable();
                 listExp.checkParameter();
                 return listExp.getCommand();
             } else if ("/delete".equals(command)) {
-                ParseDeleteExpenditure deleteExp = new ParseDeleteExpenditure(rawData);
+                ParseExpenditure deleteExp = new ParseDeleteExpenditure(rawData);
                 deleteExp.fillHashTable();
                 deleteExp.checkParameter();
                 return deleteExp.getCommand();
             } else if ("/edit".equals(command)) {
-                ParseEditExpenditure editExp = new ParseEditExpenditure(rawData);
+                ParseExpenditure editExp = new ParseEditExpenditure(rawData);
                 editExp.fillHashTable();
                 editExp.checkParameter();
                 return editExp.getCommand();
             }
             throw new ParserException("You entered an invalid type");
         case "/deposit":
-            System.out.println("You are at deposit");
-            System.out.println(rawData);
             if ("/add".equals(command)) {
-                ParseAddDeposit addDep = new ParseAddDeposit(rawData);
+                ParseDeposit addDep = new ParseAddDeposit(rawData);
                 addDep.fillHashTable();
                 addDep.checkParameter();
                 return addDep.getCommand();
             } else if ("/list".equals(command)) {
-                ParseListDeposit listDep = new ParseListDeposit(rawData);
+                ParseDeposit listDep = new ParseListDeposit(rawData);
                 listDep.fillHashTable();
                 listDep.checkParameter();
                 return listDep.getCommand();
             } else if ("/delete".equals(command)) {
-                ParseDeleteDeposit deleteDep = new ParseDeleteDeposit(rawData);
+                ParseDeposit deleteDep = new ParseDeleteDeposit(rawData);
                 deleteDep.fillHashTable();
                 deleteDep.checkParameter();
                 return deleteDep.getCommand();
             } else if ("/edit".equals(command)) {
-                ParseEditDeposit editDep = new ParseEditDeposit(rawData);
+                ParseDeposit editDep = new ParseEditDeposit(rawData);
                 editDep.fillHashTable();
                 editDep.checkParameter();
                 return editDep.getCommand();
             }
             throw new ParserException("You entered an invalid type");
         case "/card":
-            System.out.println("You are at card");
-            System.out.println(rawData);
             return new PlaceHolderEmptyCommand();
         default:
             throw new ParserException("You entered an invalid type");

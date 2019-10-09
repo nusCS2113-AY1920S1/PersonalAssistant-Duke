@@ -34,7 +34,10 @@ public class ParseDeleteExpenditure extends ParseExpenditure {
                 throw new ParserException(key + " cannot be empty when adding a new expenditure");
             }
             if (TRANSNO.equals(key)) {
-                checkIfInt(TRANSNO, value);
+                checkInt(TRANSNO, value);
+            }
+            if (FROM.equals(key)) {
+                checkName(value);
             }
         }
     }

@@ -1,5 +1,10 @@
 package owlmoney.model.transaction;
 
+import java.text.DateFormat;
+import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 /**
  * The Expenditure class that stores details of each expenditure.
  */
@@ -8,7 +13,7 @@ public abstract class Transaction {
 
     private String description;
     private double amount;
-    private String date;
+    private Date date;
     private String category;
 
     /**
@@ -19,7 +24,7 @@ public abstract class Transaction {
      * @param date        The date when this expenditure was made.
      * @param category    The category that this expenditure can be tagged to.
      */
-    public Transaction(String description, double amount, String date, String category) {
+    public Transaction(String description, double amount, Date date, String category) {
         this.description = description;
         this.amount = amount;
         this.date = date;
@@ -50,7 +55,8 @@ public abstract class Transaction {
      * @return The date that the expenditure was made.
      */
     private String getDate() {
-        return this.date;
+        DateFormat temp = new SimpleDateFormat("dd EEEE yyyy");
+        return temp.format(this.date);
     }
 
     /**
@@ -71,8 +77,9 @@ public abstract class Transaction {
     }
 
     String getDetails() {
-        return "Description: " + getDescription() + "\nAmount: " + checkDebitCredit() + getAmount()
-                + "\nDate: " + getDate().toString() + "\nCategory: " + getCategory();
+        return "Description: " + getDescription() + "\nAmount: " + checkDebitCredit()
+                + new DecimalFormat("0.00").format(getAmount()) + "\nDate: " + getDate()
+                + "\nCategory: " + getCategory();
     }
 
     void setDescription(String newDesc) {
@@ -83,7 +90,7 @@ public abstract class Transaction {
         this.amount = newAmount;
     }
 
-    void setDate(String newDate) {
+    void setDate(Date newDate) {
         this.date = newDate;
     }
 

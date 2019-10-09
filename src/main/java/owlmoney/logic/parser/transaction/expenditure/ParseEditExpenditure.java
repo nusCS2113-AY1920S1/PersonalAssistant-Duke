@@ -1,5 +1,6 @@
 package owlmoney.logic.parser.transaction.expenditure;
 
+import java.util.Date;
 import java.util.Iterator;
 
 import owlmoney.logic.command.Command;
@@ -7,8 +8,11 @@ import owlmoney.logic.command.transaction.EditExpenditureCommand;
 import owlmoney.logic.parser.exception.ParserException;
 
 public class ParseEditExpenditure extends ParseExpenditure {
+    private static final String EDIT = "/edit";
+
     public ParseEditExpenditure(String data) throws ParserException {
         super(data);
+        checkRedundantParameter(NUM, EDIT);
         checkFirstParameter();
     }
 
@@ -21,16 +25,27 @@ public class ParseEditExpenditure extends ParseExpenditure {
             String value = expendituresParameters.get(key);
             if ((TRANSNO.equals(key) || FROM.equals(key)) && (value.isBlank() || value.isEmpty())) {
                 throw new ParserException(key + " cannot be empty when editing an expenditure");
-            } else if (CATEGORY.equals(key) && "deposit".equals(value)) {
+            }
+            if (TRANSNO.equals(key)) {
+                checkInt(TRANSNO, value);
+            }
+            if (FROM.equals(key)) {
+                checkName(value);
+            }
+            if (CATEGORY.equals(key) && "deposit".equals(value)) {
                 throw new ParserException(key + " cannot be deposit when editing an expenditure");
-            } else if (!(TRANSNO.equals(key) || FROM.equals(key)) && (!value.isEmpty() || !value.isBlank())) {
+            }
+            if (!(TRANSNO.equals(key) || FROM.equals(key)) && (!value.isEmpty() || !value.isBlank())) {
                 if (AMOUNT.equals(key)) {
-                    checkIfDouble(value);
+                    checkAmount(value);
+                }
+                if (DESCRIPTION.equals(key)) {
+                    checkDescription(value);
+                }
+                if (DATE.equals(key)) {
+                    Date temp = checkDate(value);
                 }
                 changeCounter++;
-            }
-            if(TRANSNO.equals(key)) {
-                checkIfInt(TRANSNO, value);
             }
         }
         if (changeCounter == 0) {

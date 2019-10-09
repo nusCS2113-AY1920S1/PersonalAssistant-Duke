@@ -9,7 +9,7 @@ import owlmoney.logic.parser.exception.ParserException;
 
 public class ParseDeleteSaving extends ParseSaving {
 
-    static final String DELETE = "/delete";
+    private static final String DELETE = "/delete";
 
     public ParseDeleteSaving(String data) throws ParserException {
         super(data);
@@ -27,6 +27,9 @@ public class ParseDeleteSaving extends ParseSaving {
             String value = savingsParameters.get(key);
             if (NAME.equals(key) && (value.isBlank() || value.isEmpty())) {
                 throw new ParserException(key + " cannot be empty when deleting savings account");
+            }
+            if (NAME.equals(key)) {
+                checkName(key,value);
             }
         }
     }

@@ -1,5 +1,7 @@
 package owlmoney.logic.command.transaction;
 
+import java.util.Date;
+
 import owlmoney.logic.command.Command;
 import owlmoney.model.profile.Profile;
 import owlmoney.model.transaction.Deposit;
@@ -10,12 +12,12 @@ public class AddDepositCommand extends Command {
 
     private final String accName;
     private final double amount;
-    private final String date;
+    private final Date date;
     private final String description;
     private final String category = "deposit";
 
     //working code but haven't parse date
-    public AddDepositCommand(String name, double amount, String date, String description) {
+    public AddDepositCommand(String name, double amount, Date date, String description) {
         this.accName = name;
         this.amount = amount;
         this.date = date;

@@ -7,6 +7,7 @@ import java.util.List;
 import owlmoney.logic.command.Command;
 import owlmoney.logic.parser.ParseRawData;
 import owlmoney.logic.parser.exception.ParserException;
+import owlmoney.logic.regex.RegexUtil;
 
 public abstract class ParseSaving {
     HashMap<String, String> savingsParameters = new HashMap<String, String>();
@@ -47,13 +48,25 @@ public abstract class ParseSaving {
                 parseRawData.extractParameter(rawData, NEW_NAME, SAVINGS_KEYWORD));
     }
 
-    void checkIfDouble(String key, String valueString) throws ParserException {
-        try {
-            Double value = Double.parseDouble(valueString);
-        } catch (NumberFormatException e) {
-            throw new ParserException(key + " can only be numbers with at most 2 decimal places");
+    void checkAmount(String valueString) throws ParserException {
+        if(!RegexUtil.regexCheckBankAmount(valueString)) {
+            throw new ParserException("/amount can only be numbers with at most 9 digits and 2 decimal places");
+        }
+    }
+
+    void checkIncome(String valueString) throws ParserException {
+        if(!RegexUtil.regexCheckBankAmount(valueString)) {
+            throw new ParserException("/income can only be numbers with at most 9 digits and 2 decimal places");
+        }
+    }
+
+    void checkName(String key, String nameString) throws ParserException {
+        if(!RegexUtil.regexCheckName(nameString)) {
+            throw new ParserException(key + " can only contain letters and at most 50 characters");
         }
     }
 
     public abstract void checkParameter() throws ParserException;
+
+    public abstract Command getCommand();
 }

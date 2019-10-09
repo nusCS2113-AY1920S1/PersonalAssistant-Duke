@@ -90,7 +90,7 @@ public class BankList {
                     bankLists.get(i).setCurrentAmount(Double.parseDouble(amount));
                 }
                 if(!(income.isEmpty() || income.isBlank())) {
-                    ((Saving)bankLists.get(i)).setIncome(Double.parseDouble(income));
+                    bankLists.get(i).setIncome(Double.parseDouble(income));
                 }
                 ui.printMessage("New details of the account:\n");
                 ui.printMessage(bankLists.get(i).getDescription() + "\n");
@@ -151,7 +151,7 @@ public class BankList {
     public void listBankExpenditure(String bankToList, Ui ui, int displayNum) {
         for (int i = 0; i < bankLists.size(); i++) {
             if (bankToList.equals(bankLists.get(i).getAccountName())) {
-                ((Saving)bankLists.get(i)).listAllExpenditure(ui, displayNum);
+                bankLists.get(i).listAllExpenditure(ui, displayNum);
                 return;
             }
         }
@@ -161,7 +161,7 @@ public class BankList {
     public void listBankDeposit(String bankToList, Ui ui, int displayNum) {
         for (int i = 0; i < bankLists.size(); i++) {
             if (bankToList.equals(bankLists.get(i).getAccountName())) {
-                ((Saving)bankLists.get(i)).listAllDeposit(ui, displayNum);
+                bankLists.get(i).listAllDeposit(ui, displayNum);
                 return;
             }
         }
@@ -189,7 +189,7 @@ public class BankList {
             , Ui ui) {
         for (int i = 0; i < bankLists.size(); i++) {
             if (bankLists.get(i).getAccountName().equals(editFromBank)) {
-                ((Saving)bankLists.get(i)).editExpenditureDetails(expNum, desc, amount, date, category, ui);
+                bankLists.get(i).editExpenditureDetails(expNum, desc, amount, date, category, ui);
                 return;
             }
         }
@@ -199,7 +199,7 @@ public class BankList {
     public void editDep(int expNum, String editFromBank, String desc, String amount, String date, Ui ui) {
         for (int i = 0; i < bankLists.size(); i++) {
             if (bankLists.get(i).getAccountName().equals(editFromBank)) {
-                ((Saving)bankLists.get(i)).editDepositDetails(expNum, desc, amount, date, ui);
+                bankLists.get(i).editDepositDetails(expNum, desc, amount, date, ui);
                 return;
             }
         }

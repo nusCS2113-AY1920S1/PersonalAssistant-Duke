@@ -30,7 +30,10 @@ public class ParseDeleteDeposit extends ParseDeposit {
                 throw new ParserException(key + " cannot be empty when adding a new deposit");
             }
             if (TRANSNO.equals(key)) {
-                checkIfInt(TRANSNO, value);
+                checkInt(TRANSNO, value);
+            }
+            if (FROM.equals(key)) {
+                checkName(value, FROM);
             }
         }
     }

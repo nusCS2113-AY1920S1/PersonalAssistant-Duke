@@ -1,6 +1,9 @@
 package owlmoney.model.bank;
 
+import java.text.DecimalFormat;
+
 import owlmoney.model.transaction.Transaction;
+import owlmoney.model.transaction.TransactionList;
 import owlmoney.ui.Ui;
 
 /**
@@ -11,6 +14,7 @@ public abstract class Bank {
     String type;
     private String accountName;
     private double currentAmount;
+    TransactionList transactions;
 
     /**
      * Constructor that allows the child class to create an instance with name and current amount.
@@ -59,7 +63,8 @@ public abstract class Bank {
      * @return accountName and currentAmount.
      */
     public String getDescription() {
-        return "Account name: " + accountName + "\nCurrent Amount: " + currentAmount;
+        return "Account name: " + accountName + "\nType: " + getType() + "\nCurrent Amount: "
+                + new DecimalFormat("0.00").format(currentAmount);
     }
 
     void deductFromAmount(double amount) {
@@ -75,4 +80,32 @@ public abstract class Bank {
     public abstract void listAllTransaction(Ui ui);
 
     public abstract void deleteExpenditure(int exNum, Ui ui);
+
+    void editExpenditureDetails(int expNum, String desc, String amount, String date, String category, Ui ui) {
+        ui.printError("This account does not support this feature");
+    }
+
+    void editDepositDetails(int expNum, String desc, String amount, String date, Ui ui) {
+        ui.printError("This account does not support this feature");
+    }
+
+    void setIncome(double newIncome) {
+        //for Saving class
+    }
+
+    void listAllExpenditure(Ui ui, int displayNum) {
+        ui.printError("This account does not support this feature");
+    }
+
+    void listAllDeposit(Ui ui, int displayNum) {
+        ui.printError("This account does not support this feature");
+    }
+
+    void addDepositTransaction(Transaction dep, Ui ui) {
+        ui.printError("This account does not support this feature");
+    }
+
+    void deleteDepositTransaction(int index, Ui ui) {
+        ui.printError("This account does not support this feature");
+    }
 }

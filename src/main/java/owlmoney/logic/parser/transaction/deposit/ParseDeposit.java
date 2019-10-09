@@ -1,11 +1,19 @@
 package owlmoney.logic.parser.transaction.deposit;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
+import javax.print.DocFlavor;
+
+import owlmoney.logic.command.Command;
 import owlmoney.logic.parser.ParseRawData;
 import owlmoney.logic.parser.exception.ParserException;
+import owlmoney.logic.regex.RegexUtil;
 
 public abstract class ParseDeposit {
     HashMap<String, String> expendituresParameters = new HashMap<String, String>();
@@ -57,21 +65,50 @@ public abstract class ParseDeposit {
                 parseRawData.extractParameter(rawData, NUM, EXPENDITURE_KEYWORD));
     }
 
-    void checkIfDouble(String valueString) throws ParserException {
-        try {
-            Double value = Double.parseDouble(valueString);
-        } catch (NumberFormatException e) {
-            throw new ParserException("Amount can only be numbers with at most 2 decimal places");
+    void checkAmount(String valueString) throws ParserException {
+        if(!RegexUtil.regexCheckMoney(valueString)) {
+            throw new ParserException("/amount can only be numbers with at most 9 digits and 2 decimal places");
         }
     }
 
-    void checkIfInt(String variable, String valueString) throws ParserException {
-        try {
-            int value = Integer.parseInt(valueString);
-        } catch (NumberFormatException e) {
-            throw new ParserException(variable + " can only be integers");
+    void checkInt(String variable, String valueString) throws ParserException {
+        if(!RegexUtil.regexCheckListNumber(valueString)) {
+            throw new ParserException(variable + " can only be a positive number with at most 9 digits");
         }
+    }
+
+    void checkDescription(String descString) throws ParserException {
+        if(!RegexUtil.regexCheckDescription(descString)) {
+            throw new ParserException("/desc can only contain numbers and letters and at most 50 characters");
+        }
+    }
+
+    void checkName(String nameString, String variable) throws ParserException {
+        if(!RegexUtil.regexCheckName(nameString)) {
+            throw new ParserException(variable + " can only contain letters and at most 30 characters");
+        }
+    }
+
+    Date checkDate(String dateString) throws ParserException {
+        if(RegexUtil.regexCheckDateFormat(dateString)) {
+            DateFormat temp = new SimpleDateFormat("dd/MM/yyyy");
+            temp.setLenient(false);
+            Date date;
+            try {
+                date = temp.parse(dateString);
+                if(date.compareTo(new Date()) > 0) {
+                    throw new ParserException("/date cannot be after today");
+                }
+                return date;
+            } catch (ParseException e) {
+                throw new ParserException("Incorrect date format."
+                        + " Date format is dd/mm/yyyy in year range of 1900-2099");
+            }
+        }
+        throw new ParserException("Incorrect date format." + " Date format is dd/mm/yyyy in year range of 1900-2099");
     }
 
     public abstract void checkParameter() throws ParserException;
+
+    public abstract Command getCommand();
 }

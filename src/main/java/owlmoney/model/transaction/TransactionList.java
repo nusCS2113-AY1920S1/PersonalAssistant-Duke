@@ -1,6 +1,10 @@
 package owlmoney.model.transaction;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Stack;
 
 import owlmoney.ui.Ui;
 
@@ -35,44 +39,51 @@ public class TransactionList {
     }
 
     public void listExpenditure(Ui ui, int displayNum) {
-        boolean containsExpenditure = false;
         if (expLists.size() <= 0) {
             ui.printError("There are no transactions");
         } else {
-            for (int i = 0; i < expLists.size(); i++) {
+            Stack<Transaction> displayStack = new Stack<>();
+            for (int i = expLists.size() - 1; i >= 0 ; i--) {
                 if(!"deposit".equals(expLists.get(i).getCategory())) {
+                    displayStack.push(expLists.get(i));
                     ui.printMessage((i + 1) + ":\n" + expLists.get(i).getDetails() + "\n");
-                    containsExpenditure = true;
                     displayNum--;
                 }
                 if(displayNum <= 0) {
                     break;
                 }
             }
-            if (!containsExpenditure) {
+            if (displayStack.isEmpty()) {
                 ui.printError("No expenditure found");
+            } else {
+                while (!displayStack.isEmpty()) {
+                    displayStack.pop().getDetails();
+                }
             }
         }
     }
 
     public void listDeposit(Ui ui, int displayNum) {
-        boolean containsDeposit = false;
         if (expLists.size() <= 0) {
             ui.printError("There are no transactions");
         } else {
-            for (int i = 0; i < expLists.size(); i++) {
+            Stack<Transaction> displayStack = new Stack<>();
+            for (int i = expLists.size() - 1; i >= 0; i++) {
                 if("deposit".equals(expLists.get(i).getCategory())) {
-                    ui.printMessage((i + 1) + ":\n" + expLists.get(i).getDetails() + "\n");
-                    containsDeposit = true;
+                    displayStack.push(expLists.get(i));
                     displayNum--;
                 }
                 if(displayNum <= 0) {
                     break;
                 }
             }
-        }
-        if (!containsDeposit) {
-            ui.printError("No deposit found");
+            if (displayStack.isEmpty()) {
+                ui.printError("No deposit found");
+            } else {
+                while (!displayStack.isEmpty()) {
+                    displayStack.pop().getDetails();
+                }
+            }
         }
     }
 
@@ -129,7 +140,12 @@ public class TransactionList {
             expLists.get(expNum - 1).setAmount(Double.parseDouble(amount));
         }
         if(!(date.isBlank() || date.isEmpty())) {
-            expLists.get(expNum - 1).setDate(date);
+            DateFormat temp = new SimpleDateFormat("dd/MM/yyyy");
+            try {
+                expLists.get(expNum - 1).setDate(temp.parse(date));
+            } catch(ParseException e) {
+                //check handled in ParseEditExpenditure
+            }
         }
         if(!(category.isBlank() || category.isEmpty())) {
             expLists.get(expNum - 1).setCategory(category);
@@ -147,7 +163,12 @@ public class TransactionList {
             expLists.get(expNum - 1).setAmount(Double.parseDouble(amount));
         }
         if(!(date.isBlank() || date.isEmpty())) {
-            expLists.get(expNum - 1).setDate(date);
+            DateFormat temp = new SimpleDateFormat("dd/MM/yyyy");
+            try {
+                expLists.get(expNum - 1).setDate(temp.parse(date));
+            } catch(ParseException e) {
+                //check handled in ParseEditExpenditure
+            }
         }
         ui.printMessage("Edited details:\n" + expLists.get(expNum - 1).getDetails());
         return expLists.get(expNum - 1).getAmount();

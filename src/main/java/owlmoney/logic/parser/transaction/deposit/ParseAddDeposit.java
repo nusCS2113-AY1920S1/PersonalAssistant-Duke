@@ -1,5 +1,6 @@
 package owlmoney.logic.parser.transaction.deposit;
 
+import java.util.Date;
 import java.util.Iterator;
 
 import owlmoney.logic.command.Command;
@@ -8,6 +9,7 @@ import owlmoney.logic.parser.exception.ParserException;
 
 public class ParseAddDeposit extends ParseDeposit{
     private static final String ADD = "/add";
+    private Date date;
 
     public ParseAddDeposit(String data) throws ParserException {
         super(data);
@@ -28,15 +30,24 @@ public class ParseAddDeposit extends ParseDeposit{
                 throw new ParserException(key + " cannot be empty when adding a new deposit");
             }
             if (AMOUNT.equals(key)) {
-                checkIfDouble(value);
+                checkAmount(value);
+            }
+            if (DATE.equals(key)) {
+                date = checkDate(value);
+            }
+            if (TO.equals(key)) {
+                checkName(value, TO);
+            }
+            if (DESCRIPTION.equals(key)) {
+                checkDescription(value);
             }
         }
     }
 
     public Command getCommand() {
-        AddDepositCommand newAddDepositCommand = new AddDepositCommand(expendituresParameters.get(TO),
-                Double.parseDouble(expendituresParameters.get(AMOUNT)), (expendituresParameters.get(DATE)),
-                (expendituresParameters.get(DESCRIPTION)));
+        AddDepositCommand newAddDepositCommand = new AddDepositCommand(expendituresParameters.get(TO)
+                , Double.parseDouble(expendituresParameters.get(AMOUNT)), date
+                , (expendituresParameters.get(DESCRIPTION)));
         return newAddDepositCommand;
     }
 }

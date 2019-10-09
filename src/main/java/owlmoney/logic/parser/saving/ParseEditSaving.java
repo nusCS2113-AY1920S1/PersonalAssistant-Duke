@@ -20,12 +20,15 @@ public class ParseEditSaving extends ParseSaving {
         while (savingsIterator.hasNext()) {
             String key = savingsIterator.next();
             String value = savingsParameters.get(key);
-            if ("/name".equals(key) && (value.isEmpty() || value.isBlank())) {
+            if (NAME.equals(key) && (value.isEmpty() || value.isBlank())) {
                 throw new ParserException("/name cannot be empty.");
             } else if(!value.isEmpty() && !value.isBlank()){
                 changeCounter++;
                 if (INCOME.equals(key) || AMOUNT.equals(key)) {
-                    checkIfDouble(key, value);
+                    checkIncome(value);
+                }
+                if(NAME.equals(key) || NEW_NAME.equals(key)) {
+                    checkName(key, value);
                 }
             }
         }

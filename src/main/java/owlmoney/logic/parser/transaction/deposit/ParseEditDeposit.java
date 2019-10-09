@@ -1,5 +1,6 @@
 package owlmoney.logic.parser.transaction.deposit;
 
+import java.util.Date;
 import java.util.Iterator;
 
 import owlmoney.logic.command.Command;
@@ -25,15 +26,22 @@ public class ParseEditDeposit extends ParseDeposit {
             String value = expendituresParameters.get(key);
             if ((TRANSNO.equals(key) || FROM.equals(key)) && (value.isBlank() || value.isEmpty())) {
                 throw new ParserException(key + " cannot be empty when editing a deposit");
-            } else if ((DESCRIPTION.equals(key) || AMOUNT.equals(key) || DATE.equals(key))
+            }
+            if ((DESCRIPTION.equals(key) || AMOUNT.equals(key) || DATE.equals(key))
                     && (!value.isEmpty() || !value.isBlank())) {
                 if (AMOUNT.equals(key)) {
-                    checkIfDouble(value);
+                    checkAmount(value);
+                }
+                if (DESCRIPTION.equals(key)) {
+                    checkDescription(value);
+                }
+                if (DATE.equals(key)) {
+                    Date temp = checkDate(value);
                 }
                 changeCounter++;
             }
             if(TRANSNO.equals(key)) {
-                checkIfInt(TRANSNO, value);
+                checkInt(TRANSNO, value);
             }
         }
         if (changeCounter == 0) {

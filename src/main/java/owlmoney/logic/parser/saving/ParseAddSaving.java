@@ -9,7 +9,7 @@ import owlmoney.logic.parser.exception.ParserException;
 
 public class ParseAddSaving extends ParseSaving {
 
-    static final String ADD = "/add";
+    private static final String ADD = "/add";
 
     public ParseAddSaving(String data) throws ParserException {
         super(data);
@@ -27,8 +27,14 @@ public class ParseAddSaving extends ParseSaving {
             if (!NEW_NAME.equals(key) && (value.isBlank() || value.isEmpty())) {
                 throw new ParserException(key + " cannot be empty when adding savings account");
             }
-            if (INCOME.equals(key) || AMOUNT.equals(key)) {
-                checkIfDouble(key, value);
+            if(NAME.equals(key)) {
+                checkName(key, value);
+            }
+            if (INCOME.equals(key)) {
+                checkIncome(value);
+            }
+            if (AMOUNT.equals(key)) {
+                checkAmount(value);
             }
         }
     }
