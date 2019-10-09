@@ -1,7 +1,10 @@
-package controllers.temp;
+package controllers;
 
 import controllers.IViewController;
 import controllers.ProjectInputController;
+import controllers.temp.PeriodTaskFactory;
+import controllers.temp.RecurringFactory;
+import controllers.temp.TaskFactory;
 import exceptions.DukeException;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
