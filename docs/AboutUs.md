@@ -31,7 +31,7 @@ Responsibilities:
 
 ### Jiahan Yu
 
-<img src="./images/VirginiaYu.png" alt="drawing" width="200"/>
+<img src="./images/virginiayu.png" alt="drawing" width="200"/>
 
 [[github](https://github.com/VirginiaYu)] [profolio]
 
@@ -51,7 +51,7 @@ Responsibilities:
 
 ### Lincoln Lim
 
-<img src="./images/CEGLincoln.png" alt="drawing" width="200"/>
+<img src="./images/ceglincoln.png" alt="drawing" width="200"/>
 
 [[github](https://github.com/CEGLincoln)] [profolio]
 
