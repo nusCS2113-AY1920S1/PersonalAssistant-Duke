@@ -2,6 +2,8 @@ package parsers;
 
 import Exception.DukeException;
 import commands.*;
+import commands.Contact.ContactsCommand;
+import commands.Edit.EditCommand;
 import commands.note.AddNoteCommand;
 import commands.note.DeleteNoteCommand;
 import commands.note.EditNoteCommand;

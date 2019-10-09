@@ -1,4 +1,4 @@
-package commands;
+package commands.Edit;
 
 import Storage.Storage;
 import Tasks.*;
