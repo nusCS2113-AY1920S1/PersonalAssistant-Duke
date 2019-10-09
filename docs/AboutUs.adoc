@@ -11,7 +11,7 @@ We are a team based in the http://www.comp.nus.edu.sg[School of Computing, Natio
 == Project Team
 
 === Lim Jia Ying
-image::jiaying.jpeg[width="150", align="left"]
+image::AugGust.png[width="150", align="left"]
 {empty}[https://github.com/AugGust[github]]
 
 Role: Team Lead +
@@ -20,7 +20,7 @@ Responsibilities: UI
 '''
 
 === Chan Wei Qiang Jason
-image::jason.jpeg[width="150", align="left"]
+image::jasonchanwq.png[width="150", align="left"]
 {empty}[https://github.com/jasonchanwq[github]]
 
 Role: Developer +
@@ -29,7 +29,7 @@ Responsibilities: UI
 '''
 
 === Chen Yu Heng
-image::yuheng.png[width="150", align="left"]
+image::chenyuheng.png[width="150", align="left"]
 {empty}[https://github.com/chenyuheng[github]]
 
 Role: Developer +
@@ -47,7 +47,7 @@ Responsibilities: Dev Ops + Threading
 '''
 
 === Lin Yu Yang
-image::yuyang.jpg[width="150", align="left"]
+image::yuyanglin28.png[width="150", align="left"]
 {empty}[https://github.com/yuyanglin28[github]]
 
 Role: Developer +
