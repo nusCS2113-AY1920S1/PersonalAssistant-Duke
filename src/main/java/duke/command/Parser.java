@@ -80,7 +80,7 @@ public class Parser {
      *                       parsed.
      */
     private void parseArgument(String inputStr) throws DukeException {
-        assert(!inputStr.contains("\r"));
+        assert (!inputStr.contains("\r"));
         if (inputStr.length() == 0) {
             throw new DukeException(currCommand.getEmptyArgMsg());
         }
@@ -95,7 +95,7 @@ public class Parser {
         //FSM :D
         for (int i = 0; i < inputStr.length(); ++i) {
             char curr = inputStr.charAt(i);
-            switch(state) {
+            switch (state) {
             case EMPTY:
                 handleEmpty(curr);
                 break;
@@ -108,6 +108,8 @@ public class Parser {
             case SWITCH:
                 handleSwitch(curr);
                 break;
+            default:
+                throw new DukeException("Invalid parser state!");
             }
         }
 
@@ -124,6 +126,8 @@ public class Parser {
         case SWITCH:
             addSwitch();
             break;
+        default:
+            throw new DukeException("Invalid parser state!");
         }
 
         checkCommandValid();
@@ -211,7 +215,7 @@ public class Parser {
     }
 
     private void writeElement() {
-        assert(currSwitch != null || currCommand.arg == null);
+        assert (currSwitch != null || currCommand.arg == null);
         if (currSwitch != null) {
             switchVals.put(currSwitch, elementBuilder.toString());
             currSwitch = null;

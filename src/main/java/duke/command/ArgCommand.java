@@ -24,7 +24,7 @@ public abstract class ArgCommand extends Command {
     }
 
     String getEmptyArgMsg() {
-       return emptyArgMsg;
+        return emptyArgMsg;
     }
 
     HashMap<String, ArgLevel> getSwitches() {

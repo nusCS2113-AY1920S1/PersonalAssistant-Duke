@@ -3,10 +3,13 @@ package duke.command;
 import duke.DukeCore;
 
 /**
- * Test Command for testing new Parser
+ * Test Command for testing new Parser.
  */
 public class DoctorCommand extends ArgCommand {
 
+    /**
+     * Constructor for DoctorCommand command, specifying 1 possible switch.
+     */
     public DoctorCommand() {
         cmdArgLevel = ArgLevel.OPTIONAL;
         emptyArgMsg = "You didn't tell me what to do!";
