@@ -116,10 +116,12 @@ public class Parser {
     private void handleEmpty(char curr) throws DukeHelpException {
         switch (curr) {
         case '-':
+            elementBuilder = new StringBuilder();
             state = ParseState.SWITCH;
             break;
         case '"':
             checkInputAllowed();
+            elementBuilder = new StringBuilder();
             state = ParseState.STRING;
             break;
         case '\n': //fallthrough
@@ -127,6 +129,7 @@ public class Parser {
             break;
         default:
             checkInputAllowed();
+            elementBuilder = new StringBuilder().append(curr);
             state = ParseState.ARG;
             break;
         }
