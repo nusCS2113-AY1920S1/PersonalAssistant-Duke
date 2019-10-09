@@ -31,11 +31,11 @@ public class SetReminderCommand extends Command implements CommandParser {
 
     /**
      * Marks task as has reminder based on user task number input and
-     * * prints confirmation message to user.
+     * prints confirmation message to user.
      *
      * @param userIn Entire user input string.
      * @throws Compal.DukeException If user task number input is invalid or missing.
-     * @throws ParseException       If date is in invalid format.
+     * @throws ParseException If date is in invalid format.
      */
     @Override
     public void parseCommand(String userIn) throws Compal.DukeException, ParseException {
@@ -43,29 +43,26 @@ public class SetReminderCommand extends Command implements CommandParser {
         scanner.next();
         int maxSize = taskList.arrlist.size();
         Date currentDate = java.util.Calendar.getInstance().getTime();
-        if (scanner.hasNextLine()) {
-            String restOfInput = scanner.nextLine();
-            int toMark = Integer.parseInt(restOfInput.trim()) - 1;
-            if (toMark >= 0 && toMark < maxSize) {
-                if (taskList.arrlist.get(toMark).getDate().compareTo(currentDate) < 0) {
-                    compal.ui.printg(MESSAGE_INVALID_TASK);
-                    compal.ui.printg(currentDate);
-                    compal.ui.printg(taskList.arrlist.get(toMark).getDate());
-                    throw new Compal.DukeException(MESSAGE_INVALID_TASK);
-                } else {
-                    taskList.arrlist.get(toMark).setHasReminder();
-                    String desc = taskList.arrlist.get(toMark).toString();
-                    compal.ui.printg("Okay! I've set a reminder for this task: \n"
-                            + desc);
-                    compal.storage.saveCompal(taskList.arrlist);
-                }
-            } else {
-                compal.ui.printg(MESSAGE_INVALID_TASK_NUMBER);
-                throw new Compal.DukeException(MESSAGE_INVALID_TASK_NUMBER);
-            }
-        } else {
+        if (!scanner.hasNextLine()) {
             compal.ui.printg(MESSAGE_MISSING_COMMAND_ARG);
             throw new Compal.DukeException(MESSAGE_MISSING_COMMAND_ARG);
         }
+        String restOfInput = scanner.nextLine();
+        int toMark = Integer.parseInt(restOfInput.trim()) - 1;
+        if (toMark < 0 || toMark >= maxSize) {
+            compal.ui.printg(MESSAGE_INVALID_TASK_NUMBER);
+            throw new Compal.DukeException(MESSAGE_INVALID_TASK_NUMBER);
+        }
+        if (taskList.arrlist.get(toMark).getDate().compareTo(currentDate) < 0) {
+            compal.ui.printg(MESSAGE_INVALID_TASK);
+            compal.ui.printg(currentDate);
+            compal.ui.printg(taskList.arrlist.get(toMark).getDate());
+            throw new Compal.DukeException(MESSAGE_INVALID_TASK);
+        }
+        taskList.arrlist.get(toMark).setHasReminder();
+        String desc = taskList.arrlist.get(toMark).toString();
+        compal.ui.printg("Okay! I've set a reminder for this task: \n"
+                + desc);
+        compal.storage.saveCompal(taskList.arrlist);
     }
 }
