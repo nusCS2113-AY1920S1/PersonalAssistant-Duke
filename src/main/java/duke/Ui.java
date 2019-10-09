@@ -278,4 +278,14 @@ public class Ui {
                 + " in the song.";
         return wrap(result);
     }
+
+    public String formatGroupBar(int start, int end, String name){
+        String result = "Got it. Successfully grouped bars "
+                + start
+                + " to "
+                + end
+                + " as "
+                + name;
+        return result;
+    }
 }

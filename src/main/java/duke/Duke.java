@@ -1,11 +1,6 @@
 package duke;
 
-import duke.commands.AddBarCommand;
-import duke.commands.Command;
-import duke.commands.HelpCommand;
-import duke.commands.NewCommand;
-import duke.commands.RemindCommand;
-import duke.commands.ViewCommand;
+import duke.commands.*;
 import duke.components.SongList;
 
 
@@ -73,7 +68,7 @@ public class Duke {
                 //if the command uses the SongList
                 String output;
                 if (c instanceof AddBarCommand || c instanceof ViewCommand
-                        || c instanceof NewCommand || c instanceof HelpCommand) {
+                        || c instanceof NewCommand || c instanceof HelpCommand || c instanceof GroupCommand) {
                     output = c.execute(songs, ui, storage);
                 } else {
                     output = c.execute(tasks, ui, storage);

@@ -9,7 +9,6 @@ import java.util.ArrayList;
 
 public class RemindCommand extends Command<TaskList> {
 
-
     /**
      * Modifies the task list in use and returns the messages intended to be displayed.
      *
