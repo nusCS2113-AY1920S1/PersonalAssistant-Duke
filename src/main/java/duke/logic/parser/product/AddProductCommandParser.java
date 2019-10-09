@@ -9,6 +9,11 @@ import duke.model.commons.Ingredient;
 import duke.model.product.Product;
 import duke.model.ingredient.IngredientList;
 
+import java.util.Dictionary;
+import java.util.Hashtable;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import static duke.logic.parser.commons.CliSyntax.*;
 
 public class AddProductCommandParser implements Parser<AddProductCommand> {
@@ -35,11 +40,45 @@ public class AddProductCommandParser implements Parser<AddProductCommand> {
                 map.getValue(PREFIX_PRODUCT_PRICE).orElse(String.valueOf(0)),
                 map.getValue(PREFIX_PRODUCT_COST).orElse(String.valueOf(0))
         );
+
+        System.out.println(map.getValue(PREFIX_PRODUCT_INGREDIENT));
+        ingredientListParser(map.getValue(PREFIX_PRODUCT_INGREDIENT).orElse(""));
         return new AddProductCommand(product);
     }
 
     //Todo: IngredientList Parser -ingt [ingredient_name, qty] [ingredient_name2, qty] [ingredient_name3]
-    private IngredientList ingredientListParser() {
-        return new IngredientList() {};
+    private void ingredientListParser(String input) {
+        System.out.println("input" + input);
+        Pattern pattern = Pattern.compile("((\\[)(?<name>[\\w|\\s]*),(?<description>[\\w|\\s]*)(?:\\])"
+                + "\\s*)+");
+        Matcher matcher = pattern.matcher(input.trim());
+
+        if (!matcher.matches()) {
+            System.out.println("no"
+                    + "Match");
+            throw new ParseException("no match");
+        }
+
+
+        Dictionary<String, String> params = new Hashtable<>();
+
+        while (matcher.matches()) {
+            String s = matcher.group().strip();
+            if (s.isEmpty() || s.isBlank()) continue;
+            if (matcher.group("name") != null) {
+                System.out.println(matcher.group("name"));
+                System.out.println(matcher.group("description"));
+                if (matcher.group("description") != null) {
+                    params.put(matcher.group("name"), matcher.group("description"));
+                } else {
+                    params.put(matcher.group("name"), "");
+                }
+            }
+            input = input.replaceAll("\\s*((\\[)(?<name>[\\w|\\s]*),(?<description>[\\w|\\s]*)(?:\\])"
+                    + "\\s*)$", "");
+            matcher = pattern.matcher(input);
+        }
+        System.out.println("params" + params);
+
     }
 }
