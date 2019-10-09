@@ -134,9 +134,17 @@ public class Parser {
     private void handleString(char curr) throws DukeHelpException {
         switch (curr) {
         case '"':
-            writeElement();
-            break;
+            if (!isEscaped) {
+                writeElement();
+                break;
+            } //fallthrough
+        case '\\':
+            if (!isEscaped) {
+                isEscaped = true;
+                break;
+            } //fallthrough
         default:
+            isEscaped = false;
             elementBuilder.append(curr);
             break;
         }
