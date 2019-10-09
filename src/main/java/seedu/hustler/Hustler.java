@@ -39,7 +39,7 @@ public class Hustler extends Application {
      * Storage instance that stores and loads tasks to and from
      * disk.
      */
-    private static Storage storage = new Storage("data/duke.txt");
+    private static Storage storage = new Storage("data/hustler.txt");
     /**
      * UI instance that is used to take input from console
      * and display errors and responses. Handles user interaction.
@@ -72,13 +72,13 @@ public class Hustler extends Application {
     public static CommandLog commandlog = new CommandLog();
 
     /**
-     * Runs Duke which commences the user to machine
+     * Runs Hustler which commences the user to machine
      * feedback loop until the user enters "bye".
      * Loads existing task list and avatar, and performs operations
      * like list, find, delete and add on the task list. Adds
      * the Tasks in the TreeMap.
-     * Saves the list to disk for next duke session inside
-     * data/duke.txt.
+     * Saves the list to disk for next hustler session inside
+     * data/hustler.txt.
      * @see Storage
      * @see TaskList
      * @see CommandParser
