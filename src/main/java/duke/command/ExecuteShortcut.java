@@ -2,7 +2,7 @@ package duke.command;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import duke.commons.DukeException;
-import duke.parser.Parser;
+import duke.parser.decrypted.OldParser;
 import duke.storage.BakingList;
 import duke.storage.Storage;
 import duke.ui.Ui;
@@ -15,7 +15,7 @@ import java.util.ListIterator;
 /**
  * A command to execute a user-defined set of commands.
  */
-public class ExecuteShortcutCommand extends UndoableCommand {
+public class ExecuteShortcut extends Command implements Undoable {
 
     private List<String> lines = new ArrayList<>();
     private List<Command> commands = new ArrayList<>();
@@ -23,15 +23,15 @@ public class ExecuteShortcutCommand extends UndoableCommand {
     /**
      * Class constructor.
      *
-     * @param lines A list containing user inputs.
-     *              Each entry represents a line of user input is to be converted to a <code>Command</code> object.
+     * @param lines A list containing user inputs. Each entry represents a line of user input is to be
+     *              converted to a <code>Command</code> object.
      * @throws DukeException if fails to convert any line into a <code>Command</code> object.
      */
-    public ExecuteShortcutCommand(@JsonProperty("lines") List<String> lines) throws DukeException {
+    public ExecuteShortcut(@JsonProperty("lines") List<String> lines) throws DukeException {
         this.lines = lines;
         for (String line : lines) {
             try {
-                Command command = Parser.getCommand(line.strip(), new HashMap<String, ExecuteShortcutCommand>());
+                Command command = OldParser.getCommand(line.strip(), new HashMap<String, ExecuteShortcut>());
                 commands.add(command);
             } catch (DukeException e) {
                 //TODO: Improve catching
@@ -46,8 +46,8 @@ public class ExecuteShortcutCommand extends UndoableCommand {
         ListIterator<Command> itr = commands.listIterator(commands.size());
         while (itr.hasPrevious()) {
             Command command = itr.previous();
-            if (command instanceof UndoableCommand) {
-                ((UndoableCommand) command).undo(bakingList, storage, ui);
+            if (command instanceof Undoable) {
+                ((Undoable) command).undo(bakingList, storage, ui);
             }
         }
         ui.showMessage("Undo: Execute shortcut");
@@ -69,8 +69,9 @@ public class ExecuteShortcutCommand extends UndoableCommand {
 
     /**
      * Returns a list containing user inputs.
-     * @return A list containing user inputs.
-     *         Each entry represents a line of user input is to be converted to a <code>Command</code> object.
+     *
+     * @return A list containing user inputs. Each entry represents a line of user input is to be converted to
+     * a <code>Command</code> object.
      */
     public List<String> getLines() {
         return lines;
@@ -78,8 +79,9 @@ public class ExecuteShortcutCommand extends UndoableCommand {
 
     /**
      * Sets a set of inputs to be converted to <code>Command</code> objects.
-     * @param lines A list containing user inputs.
-     *        Each entry represents a line of user input is to be converted to a <code>Command</code> object.
+     *
+     * @param lines A list containing user inputs. Each entry represents a line of user input is to be
+     *              converted to a <code>Command</code> object.
      */
     public void setLines(List<String> lines) {
         this.lines = lines;

@@ -1,8 +1,9 @@
-package duke.command;
+package duke.command.order;
 
+import duke.command.Undoable;
 import duke.commons.DukeException;
 import duke.entities.Order;
-import duke.parser.CommandParser;
+import duke.parser.decrypted.CommandParser;
 import duke.storage.BakingList;
 import duke.storage.Storage;
 import duke.ui.Ui;
@@ -13,8 +14,9 @@ import java.util.Map;
 /**
  * A command to edit the properties of an <code>Order</code> object.
  */
-public class EditOrderCommand extends UndoableCommand {
+public class EditOrderCommand extends OrderCommand implements Undoable {
 
+    public static final String COMMAND_WORD = "edit";
     private Map<String, List<String>> params;
     private Order order;
     private Order unmodifiedOrder = new Order();
@@ -30,6 +32,9 @@ public class EditOrderCommand extends UndoableCommand {
         }
 
         this.params = params;
+    }
+
+    public EditOrderCommand() {
     }
 
     @Override

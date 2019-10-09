@@ -1,8 +1,6 @@
 package duke.ui;
 
-import duke.entities.Ingredient;
 import duke.entities.inventory.Inventory;
-import duke.entities.recipe.Recipe;
 import javafx.beans.binding.Bindings;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;

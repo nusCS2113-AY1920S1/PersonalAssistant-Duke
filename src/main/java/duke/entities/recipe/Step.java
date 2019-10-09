@@ -1,18 +1,20 @@
 package duke.entities.recipe;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import duke.entities.Ingredient;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class Step {
     private String description;
-    private List<Ingredient> ingredients;
     private int time; //in minutes
 
-    public Step (String description) {
+    public Step() {
+
+    }
+
+    public Step(@JsonProperty("description") String description) {
         this.description = description;
-        ingredients = parseIngredient(description);
         time = parseTime(description);
     }
 
@@ -25,14 +27,8 @@ public class Step {
         return 1;
     }
 
-    public Step init () {
-        Ingredient ingt1 = new Ingredient("cream");
-        Ingredient ingt2 = new Ingredient("cheese");
-        ArrayList<Ingredient> ingts = new ArrayList<>();
-        ingts.add(ingt1);
-        ingts.add(ingt2);
+    public Step init() {
         description = "add cream to cheese";
-        ingredients = ingts;
         time = 30;
         return this;
     }
@@ -40,12 +36,16 @@ public class Step {
     public String getDescription() {
         return description;
     }
-    public int getTime() {
-        return time;
+
+//    public int getTime() {
+//        return time;
+//    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
-    public List<Ingredient> getIngredients() {
-        return this.ingredients;
-    }
-
+//    public void setTime(int time) {
+//        this.time = time;
+//    }
 }

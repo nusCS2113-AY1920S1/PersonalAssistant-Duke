@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.Accordion?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TitledPane?>
@@ -9,48 +9,40 @@
 
 <fx:root prefHeight="591.0" prefWidth="857.0" type="AnchorPane" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <SplitPane dividerPositions="0.5" orientation="VERTICAL" prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-        <items>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
-               <children>
-                  <TitledPane fx:id="inventoryListPane" animated="false" prefHeight="211.0" prefWidth="600.0" text="Inventory List" textFill="#c51a1a" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                    <content>
-                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                           <children>
-                              <TableView fx:id="inventoryListTable" prefHeight="162.0" prefWidth="594.0" AnchorPane.bottomAnchor="-10.0" AnchorPane.leftAnchor="-10.0" AnchorPane.rightAnchor="-10.0" AnchorPane.topAnchor="-10.0" />
-                           </children>
-                        </AnchorPane>
-                    </content>
-                     <font>
-                        <Font name="System Bold" size="14.0" />
-                     </font>
-                  </TitledPane>
-               </children>
-            </AnchorPane>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
-               <children>
-                  <TitledPane fx:id="shoppingListPane" animated="false" prefWidth="598.0" text="Shopping List" textFill="#c51a1a" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                    <content>
-                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                           <children>
-                              <TableView fx:id="shoppingListTable" prefHeight="165.33333333333334" prefWidth="596.0" AnchorPane.bottomAnchor="-10.0" AnchorPane.leftAnchor="-10.0" AnchorPane.rightAnchor="-10.0" AnchorPane.topAnchor="-10.0">
-                                <columns>
-                                    <TableColumn fx:id="shoppingListNum" prefWidth="75.0" text="S/N" />
-                                  <TableColumn fx:id="shoppingListIngredient" prefWidth="325.0" text="Ingredient" />
-                                  <TableColumn fx:id="shoppingListQuantity" minWidth="0.0" prefWidth="200.0" text="Quantity" />
-                                    <TableColumn fx:id="shoppingListPrice" prefWidth="200.0" text="Price" />
-                                </columns>
-                              </TableView>
-                           </children>
-                        </AnchorPane>
-                    </content>
-                     <font>
-                        <Font name="System Bold" size="14.0" />
-                     </font>
-                  </TitledPane>
-               </children>
-            </AnchorPane>
-        </items>
-      </SplitPane>
+      <Accordion prefHeight="591.0" prefWidth="857.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <panes>
+            <TitledPane fx:id="inventoryListPane" animated="false" prefHeight="211.0" prefWidth="600.0" text="Inventory List" textFill="#c51a1a">
+              <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <TableView fx:id="inventoryListTable" prefHeight="162.0" prefWidth="594.0" AnchorPane.bottomAnchor="-10.0" AnchorPane.leftAnchor="-10.0" AnchorPane.rightAnchor="-10.0" AnchorPane.topAnchor="-10.0" />
+                     </children>
+                  </AnchorPane>
+              </content>
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+            </TitledPane>
+            <TitledPane fx:id="shoppingListPane" animated="false" prefWidth="598.0" text="Shopping List" textFill="#c51a1a">
+              <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <TableView fx:id="shoppingListTable" prefHeight="165.33333333333334" prefWidth="596.0" AnchorPane.bottomAnchor="-10.0" AnchorPane.leftAnchor="-10.0" AnchorPane.rightAnchor="-10.0" AnchorPane.topAnchor="-10.0">
+                          <columns>
+                              <TableColumn fx:id="shoppingListNum" prefWidth="75.0" text="S/N" />
+                            <TableColumn fx:id="shoppingListIngredient" prefWidth="325.0" text="Ingredient" />
+                            <TableColumn fx:id="shoppingListQuantity" minWidth="0.0" prefWidth="200.0" text="Quantity" />
+                              <TableColumn fx:id="shoppingListPrice" prefWidth="200.0" text="Price" />
+                          </columns>
+                        </TableView>
+                     </children>
+                  </AnchorPane>
+              </content>
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+            </TitledPane>
+         </panes>
+      </Accordion>
    </children>
 </fx:root>

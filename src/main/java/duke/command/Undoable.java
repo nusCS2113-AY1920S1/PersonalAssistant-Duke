@@ -8,7 +8,7 @@ import duke.ui.Ui;
 /**
  * UndoableCommand is the abstract base class for all commands that supports redo and undo operations.
  */
-public abstract class UndoableCommand extends Command {
+public interface Undoable {
 
     /**
      * Reverses the action of an earlier action.
@@ -24,9 +24,10 @@ public abstract class UndoableCommand extends Command {
      * Restores any actions that have been previously undone using undo.
      *
      * @param bakingList A BakingList object containing application data.
-     * @param storage A Storage object specifying the location of the data.
-     * @param ui A UI controller object.
+     * @param storage    A Storage object specifying the location of the data.
+     * @param ui         A UI controller object.
      * @throws DukeException If data file is damaged.
      */
     public abstract void redo(BakingList bakingList, Storage storage, Ui ui) throws DukeException;
+
 }

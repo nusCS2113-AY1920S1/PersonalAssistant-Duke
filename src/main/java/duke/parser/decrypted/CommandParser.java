@@ -1,30 +1,36 @@
-package duke.parser;
+package duke.parser.decrypted;
 
-import duke.command.AddOrderCommand;
 import duke.command.Command;
-import duke.command.DeleteOrderCommand;
-import duke.command.EditOrderCommand;
+import duke.command.recipe.AddRecipeCommand;
 import duke.commons.DukeException;
 import duke.entities.Order;
 import duke.command.inventory.AddInventoryCommand;
 import duke.entities.inventory.Inventory;
+import duke.entities.Sale;
+import duke.parser.TimeParser;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
 public class CommandParser {
-    public static Command parseOrderAdd(Map<String, List<String>> params) throws DukeException {
-        return new AddOrderCommand(params);
-    }
 
-    public static Command parseOrderDelete(Map<String, List<String>> params) throws DukeException {
-        return new DeleteOrderCommand(params);
-    }
-
-    public static Command parseOrderEdit(Map<String, List<String>> params) throws DukeException {
-        return new EditOrderCommand(params);
-    }
+//    public static Command parseSaleAdd(Map<String, List<String>> params) throws DukeException {
+//        return new AddSaleCommand(params);
+//    }
+//
+//
+//    public static Command parseSaleDelete(Map<String, List<String>> params) throws DukeException {
+//        return new DeleteSaleCommand(params);
+//    }
+//
+//    public static Command parseOrderEdit(Map<String, List<String>> params) throws DukeException {
+//        return new EditOrderCommand(params);
+//    }
+//
+//    public static Command parseSaleEdit(Map<String, List<String>> params) throws DukeException {
+//        return new EditSaleCommand(params);
+//    }
 
     public static void modifyOrder(Map<String, List<String>> params, Order order) throws DukeException {
         if (params.containsKey("name")) {
@@ -49,6 +55,19 @@ public class CommandParser {
         addItemsToOrder(params, order);
     }
 
+    public static void modifySale(Map<String, List<String>> params, Sale sale) throws DukeException {
+        if (params.containsKey("desc")) {
+            sale.setDescription(params.get("desc").get(0));
+        }
+        if (params.containsKey("value")) {
+            sale.setValue(Double.parseDouble(params.get("value").get(0)));
+        }
+        if (params.containsKey("at")) {
+            sale.setSaleDate(TimeParser.convertStringToDate(params.get("at").get(0)));
+        }
+    }
+
+
     public static void addItemsToOrder(Map<String, List<String>> params, Order order) throws DukeException {
         if (!params.containsKey("item")) {
             return;
@@ -68,6 +87,16 @@ public class CommandParser {
                 throw new DukeException("Quantity should be an integer");
             }
         }
+    }
+
+
+    //////////////////////////////////////////////////////////////////////////////////
+//    public static Command parseRecipeDelete(Map<String, List<String>> params) throws DukeException {
+//        //return new DeleteRecipeCommand(params);
+//    }
+
+    public static Command parseRecipeAdd(Map<String, List<String>> params) {
+        return new AddRecipeCommand(params);
     }
 
     private static void checkParameters(Map<String, List<String>> params) throws DukeException {
@@ -148,39 +177,35 @@ public class CommandParser {
         return result;
     }
 
-    public static Command parseInventoryAdd(Map<String, List<String>> params) throws DukeException {
-        return new AddInventoryCommand(params);
-    }
+    public static Sale getSaleByIndexOrId(List<Sale> sales, Map<String, List<String>> params) throws DukeException {
+        checkParameters(params);
+        if (params.containsKey("secondary") || params.containsKey("i")) {
+            int index = getSaleIndex(sales, params);
+            return sales.get(index);
+        } else if (params.containsKey("id")) {
 
-    public static void modifyInventory(Map<String, List<String>> params, Inventory inventory) {
-        if (params.containsKey("ingredient")) {
-            inventory.setName(params.get("ingredient").get(0));
+        } else {
+            throw new DukeException("Please specify an order");
         }
-        if (params.containsKey("quantity")) {
-            inventory.setQuantity(Integer.parseInt(params.get("quantity").get(0)));
+        return null;
+    }
+
+    public static int getSaleIndex(List<Sale> sales, Map<String, List<String>> params) throws DukeException {
+        String indexParameter;
+        if (params.containsKey("secondary")) {
+            indexParameter = params.get("secondary").get(0);
+        } else {
+            indexParameter = params.get("i").get(0);
         }
-        if (params.containsKey("cost")) {
-            inventory.setCost(Double.parseDouble(params.get("cost").get(0)));
+        int index;
+        try {
+            index = Integer.parseInt(indexParameter) - 1;
+        } catch (NumberFormatException e) {
+            throw new DukeException("Please enter a valid index.");
         }
+        if (index < 0 || index >= sales.size()) {
+            throw new DukeException("Index out of bound");
+        }
+        return index;
     }
-
-    /*
-    public static Command parseInventoryDelete(Map<String, List<String>> params) {
-    }
-
-    public static Command parseInventoryEdit(Map<String, List<String>> params) {
-    }
-
-    public static Command parseShoppingListAdd(Map<String, List<String>> params) {
-    }
-
-    public static Command parseShoppingListDelete(Map<String, List<String>> params) {
-    }
-
-    public static Command parseShoppingListEdit(Map<String, List<String>> params) {
-    }
-
-    public static Command parseShoppingListBuy(Map<String, List<String>> params) {
-    }
-     */
 }

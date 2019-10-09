@@ -6,7 +6,9 @@ import duke.entities.Ingredient;
 public class Inventory extends Ingredient {
     private int quantity;
 
-    public Inventory() {}
+    public Inventory() {
+
+    }
 
     public Inventory(@JsonProperty("ingredientName") String ingredientName,
                  @JsonProperty("ingredientCost") double ingredientCost,

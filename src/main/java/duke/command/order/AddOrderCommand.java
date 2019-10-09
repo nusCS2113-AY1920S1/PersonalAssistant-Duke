@@ -1,41 +1,26 @@
-package duke.command;
+package duke.command.order;
 
+import duke.command.Undoable;
 import duke.commons.DukeException;
-import duke.commons.Utility;
 import duke.entities.Order;
-import duke.parser.CommandParser;
 import duke.storage.BakingList;
 import duke.storage.Storage;
 import duke.ui.Ui;
 
-import java.util.List;
-import java.util.Map;
-
 /**
  * A command to add an <code>Order</code> object to an <code>OrderList</code> object.
  */
-public class AddOrderCommand extends UndoableCommand {
-    private final String[] acceptedParameters = {
-            "item", "name", "contact", "rmk", "by", "status"
-    };
-    private final Map<String, List<String>> params;
-    private Order order;
+public class AddOrderCommand extends OrderCommand implements Undoable {
 
-    /**
-     * Class constructor.
-     *
-     * @param params The parameters specifying details of the order.
-     */
-    public AddOrderCommand(Map<String, List<String>> params) throws DukeException {
-        this.params = params;
-        Utility.checkParameters(params, acceptedParameters, true, false);
+    public static final String COMMAND_WORD = "add";
+    private final Order toAdd;
+
+    public AddOrderCommand(Order toAdd) {
+        this.toAdd = toAdd;
     }
 
-    @Override
     public void execute(BakingList bakingList, Storage storage, Ui ui) throws DukeException {
-        order = new Order();
-        CommandParser.modifyOrder(params, order);
-        addOrder(order, bakingList);
+        addOrder(toAdd, bakingList);
         storage.serialize(bakingList);
         ui.refreshOrderList(bakingList.getOrderList(), bakingList.getOrderList());
         ui.showMessage("Order added");
@@ -43,7 +28,7 @@ public class AddOrderCommand extends UndoableCommand {
 
     @Override
     public void undo(BakingList bakingList, Storage storage, Ui ui) throws DukeException {
-        bakingList.getOrderList().remove(order);
+        bakingList.getOrderList().remove(toAdd);
         storage.serialize(bakingList);
         ui.refreshOrderList(bakingList.getOrderList(), bakingList.getOrderList());
         ui.showMessage("Undo: Add order");

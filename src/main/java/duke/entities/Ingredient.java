@@ -1,7 +1,7 @@
 package duke.entities;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
 import javafx.scene.image.Image;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 
 public class Ingredient {
     private String name;
@@ -9,10 +9,12 @@ public class Ingredient {
     private int expiryPeriod;
     private double cost;
 
-    public Ingredient() {}
-
-    public Ingredient(String name) {
+    public Ingredient(@JsonProperty("name") String name) {
         this.name = name;
+    }
+
+    public Ingredient() {
+
     }
 
     public Ingredient(String name, double cost) {
@@ -27,7 +29,7 @@ public class Ingredient {
         name = "cheese";
         expiryPeriod = 365;
         cost = 22.02;
-        setPicture("cheese");
+        //setPicture("cheese");
     }
 
     public String getName() {
@@ -50,22 +52,24 @@ public class Ingredient {
         return cost;
     }
 
-    public void setCost (double cost) {
+    public void setCost(double cost) {
         this.cost = cost;
     }
 
-    public void setPicture (String name) {
+/*
+    public void setPicture (String pic_name) {
         String currentDir = System.getProperty("user.dir");
         try {
              this.picture =
-                    new Image(new FileInputStream(currentDir + "\\src\\main\\resources\\images\\" + name +
+                    new Image(new FileInputStream(currentDir + "\\src\\main\\resources\\images\\" + pic_name +
                             ".png"));
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
     }
+*/
 
-    public Image getPicture() {
-        return this.picture;
-    }
+//    public Image getPicture() {
+//        return this.picture;
+//    }
 }

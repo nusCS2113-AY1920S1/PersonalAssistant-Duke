@@ -13,12 +13,12 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- * A command to set a new shortcut.
- * A shortcut is a set of user-defined commands that can be executed by entering the shortcut keyword.
+ * A command to set a new shortcut. A shortcut is a set of user-defined commands that can be executed by
+ * entering the shortcut keyword.
  */
-public class SetShortcutCommand extends UndoableCommand {
+public class SetShortcut extends Command implements Undoable {
     private String name;
-    private ExecuteShortcutCommand unmodifiedExecuteShortCutCommand;
+    private ExecuteShortcut unmodifiedExecuteShortCutCommand;
     private List<String> lines = new ArrayList<>();
     private final Set<String> reservedWords = Set.of(
             "undo", "redo", "order", "recipe", "add", "remove", "edit", "done"
@@ -31,7 +31,7 @@ public class SetShortcutCommand extends UndoableCommand {
      * @param line A line of user input.
      * @throws DukeException if shortcut name contains the application's reserved words.
      */
-    public SetShortcutCommand(String line) throws DukeException {
+    public SetShortcut(String line) throws DukeException {
         splitIntoLines(line);
         if (containsReservedWords(name)) {
             throw new DukeException("Cannot contain reserved words");
@@ -58,7 +58,7 @@ public class SetShortcutCommand extends UndoableCommand {
 
     @Override
     public void execute(BakingList bakingList, Storage storage, Ui ui) throws DukeException {
-        ExecuteShortcutCommand executeShortcutCommand = new ExecuteShortcutCommand(lines);
+        ExecuteShortcut executeShortcutCommand = new ExecuteShortcut(lines);
         if (bakingList.getShortcuts().containsKey(name)) {
             unmodifiedExecuteShortCutCommand = bakingList.getShortcuts().get(name);
         }
