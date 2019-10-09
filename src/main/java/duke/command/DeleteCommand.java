@@ -31,6 +31,11 @@ public class DeleteCommand extends Command {
      * @throws DukeException If the index given is out of range, invalid, or does not exist.
      */
     public void execute(CommandParams commandParams, ExpenseList expensesList, Ui ui) throws DukeException {
+        if (!commandParams.containsMainParam()) {
+            throw new DukeException(String.format(DukeException.MESSAGE_COMMAND_PARAM_MISSING, "index"));
+        }
+        expensesList.remove(Integer.parseInt(commandParams.getMainParam()));
+        expensesList.update();
 
     }
 }
