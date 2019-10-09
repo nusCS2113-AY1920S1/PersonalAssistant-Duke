@@ -86,6 +86,31 @@ public class Ui {
         }
     }
 
+    public void showProgessiveBar(ArrayList<Task> list) throws IOException {
+        int UndoneNumber = 0;
+        int DoneNumber = 0;
+
+        for(int i=0;i<list.size();i++){
+            if(list.get(i).isDone){
+                DoneNumber++;
+            }else{
+                UndoneNumber++;
+            }
+        }
+//        System.out.println(UndoneNumber+" "+DoneNumber);
+        double ProgressPercentageTemp = (DoneNumber*1.00/(DoneNumber+UndoneNumber)*1.00)*100.000;
+        int ProgressPercentage = (int)ProgressPercentageTemp;
+//        System.out.println(ProgressPercentageTemp+" "+ProgressPercentage);
+        StringBuilder progressivebar = new StringBuilder();
+        for(int i =0;i<ProgressPercentage/2;i++){
+            progressivebar.append("/");
+        }
+        for(int i=0;i<(100-ProgressPercentage)/2;i++){
+            progressivebar.append("_");
+        }
+        System.out.println("Task progressive: "+ progressivebar.toString()+"("+ProgressPercentage+"%)");
+    }
+
     public void showDateFormatError() {
         System.err.println("Date Time has to be in YYYY-MM-DD HH:mm:ss format");
     }
