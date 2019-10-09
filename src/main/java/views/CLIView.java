@@ -1,12 +1,14 @@
 package views;
 
-import controllers.temp.ConsoleInputController;
+import controllers.ConsoleInputController;
+import models.task.Task;
 import models.temp.commands.RescheduleCommand;
 import models.data.IProject;
 import models.member.Member;
 import models.temp.tasks.ITask;
 import models.temp.tasks.TaskList;
 import models.temp.tasks.Tentative;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -316,6 +318,16 @@ public class CLIView {
     }
 
     /**
+     * Adds a member to the project.
+     * @param projectToManage The project specified by the user.
+     * @param newTask A new task with details specified by the user.
+     */
+    public void addTask(IProject projectToManage, Task newTask) {
+        projectToManage.addTask(newTask);
+        consolePrint("Added new task to the list.");
+    }
+
+    /**
      * Shows the details of all the members in the project.
      * Can be updated later on to include more information (tasks etc).
      * @param projectToManage The project specified by the user.
@@ -323,5 +335,14 @@ public class CLIView {
     public void viewAllMembers(IProject projectToManage) {
         ArrayList<String> allMemberDetails = projectToManage.getMembers().getAllMemberDetails();
         consolePrint(allMemberDetails.toArray(new String[0]));
+    }
+
+    /**
+     * Shows the details of all the task in the project.
+     * @param projectToManage The project specified by the user.
+     */
+    public void viewAllTasks(IProject projectToManage) {
+        ArrayList<String> allTaskDetails = projectToManage.getTasks().getAllTaskDetails();
+        consolePrint(allTaskDetails.toArray(new String[0]));
     }
 }

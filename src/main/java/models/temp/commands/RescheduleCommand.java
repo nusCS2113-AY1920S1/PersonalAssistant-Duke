@@ -5,10 +5,7 @@ import models.temp.tasks.ToDos;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Date;
-import java.util.List;
 
 public class RescheduleCommand implements ICommand {
     /**
@@ -25,7 +22,6 @@ public class RescheduleCommand implements ICommand {
     public RescheduleCommand(String input) {
         //correct format:  reschedule <indexOfTask> <new date and time>
         String[] allArgs = input.split(" ", 3);
-        List<String> listArgs = new ArrayList<>(Arrays.asList(allArgs));
         this.indexOfTask = Integer.parseInt(allArgs[1]) - 1;
 
         Date date;

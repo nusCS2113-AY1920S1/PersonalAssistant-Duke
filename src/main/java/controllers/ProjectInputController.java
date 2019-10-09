@@ -52,6 +52,23 @@ public class ProjectInputController {
                 case "view members":
                     consoleView.viewAllMembers(projectToManage);
                     break;
+                case "add task":
+                    try {
+                        consoleView.consolePrint("Enter your task: TaskName TaskPriorityValue");
+                        String taskDetails = manageProjectInput.nextLine();
+                        TaskFactory taskFactory = new TaskFactory();
+                        consoleView.addTask(projectToManage, taskFactory.createTask(taskDetails));
+                    } catch (NumberFormatException e) {
+                        consoleView.consolePrint("Please enter your task format correctly");
+                    }
+                    break;
+                case "view tasks":
+                    consoleView.viewAllTasks(projectToManage);
+                    break;
+                case "edit task":
+                    break;
+                case "delete task":
+                    break;
                 default:
                     consoleView.consolePrint("Invalid command. Try again!");
                     break;
@@ -60,5 +77,7 @@ public class ProjectInputController {
                 consoleView.consolePrint("Please enter a command.");
             }
         }
+
     }
+
 }
