@@ -215,7 +215,7 @@ public class Expense extends DukeItem {
     @Override
     public String toString() {
         StringJoiner stringJoiner = new StringJoiner(" ");
-        stringJoiner.add("$" + amount);
+        stringJoiner.add((amount.compareTo(BigDecimal.valueOf(0)) < 0 ? "-$" + amount.abs() : "$" + amount));
         stringJoiner.add(description);
         stringJoiner.add(LocalDateTimeParser.toString(time));
         if (isTentative) {
