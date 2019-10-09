@@ -3,6 +3,7 @@ package seedu.hustler.parser;
 import java.util.Arrays;
 
 import seedu.hustler.command.*;
+import seedu.hustler.data.CommandLog;
 import seedu.hustler.logic.CommandLineException;
 
 /**
@@ -57,8 +58,17 @@ public class CommandParser extends Parser {
             return new CheckAvatarCommand();
         } else if (userInput[0].equals("achievement")) {
             return new AchievementCommand();
-        } else if (Arrays.binarySearch(taskCommands, userInput[0]) >= 0) {
+        } else if (userInput[0].equals("/add")) {
+            CommandLog.recordCommand(rawInput);
             return new AddCommand(userInput);
+        } else if (userInput[0].equals("timer")) {
+            return new TimerCommand(userInput);
+        } else if (userInput[0].equals("undo")) {
+            return new UndoCommand(userInput);
+        } else if (userInput[0].equals("stoptimer")) {
+            return new StopTimerCommand();
+        } else if (userInput[0].equals("showtimer")) {
+            return new ShowTimerCommand();
         } else {
             return new InvalidCommand();
         }

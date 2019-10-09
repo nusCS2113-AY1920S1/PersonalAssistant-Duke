@@ -73,7 +73,7 @@ public class AchievementStorage {
                 } else if(txt[0].equals("TotalPoints:")) {
                     totalPoints = Integer.parseInt(txt[1]);
                 } else if(txt[0].equals("LastLogin:")) {
-                    storedDate = DateTimeParser.getDateTime(txt[1] + " " + txt[2]);
+                    storedDateTime = DateTimeParser.getDateTime(txt[1] + " " + txt[2]);
                 } else if(txt[0].equals("ConsecutiveCount:")) {
                     consecutiveCount = Integer.parseInt(txt[1]);
                 }
@@ -103,7 +103,7 @@ public class AchievementStorage {
             writer.write("\n");
         } else {
             writer.write("\n");
-            writer.write("LastLogin: " + DateTimeParser.convertDateTime(storedDate));
+            writer.write("LastLogin: " + DateTimeParser.convertDateTime(storedDateTime));
             writer.write("\n");
         }
         writer.write("ConsecutiveCount: " + consecutiveCount);

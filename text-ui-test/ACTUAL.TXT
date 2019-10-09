@@ -6,9 +6,6 @@ Hello from
 |____/ \__,_|_|\_\___|
 
 	_____________________________________
-	No reminders for one day left
-	_____________________________________
-	_____________________________________
 	No list saved in database. Please create a list now.
 	_____________________________________
 
@@ -30,7 +27,7 @@ Hello from
 
 	_____________________________________
 	Got it. I've added this task:
-	  [E][✘] meet Kartike  (at: 4th of September 2019, 4:06PM)
+	  [E][✘] meet Kartike (at: 4th of September 2019, 4:06PM)
 	Now you have 2 tasks in the list.
 	_____________________________________
 
@@ -38,7 +35,7 @@ Hello from
 
 	_____________________________________
 	Got it. I've added this task:
-	  [D][✘] finish Duke requirements  (by: 4th of September 2019, 11:59PM)
+	  [D][✘] finish Duke requirements (by: 4th of September 2019, 11:59PM)
 	Now you have 3 tasks in the list.
 	_____________________________________
 
@@ -46,32 +43,23 @@ Hello from
 
 	_____________________________________
 	Nice! I've marked this task as done:
-	  2.[E][✓] meet Kartike  (at: 4th of September 2019, 4:06PM)
+	  2.[E][✓] meet Kartike (at: 4th of September 2019, 4:06PM)
 	_____________________________________
 
 
 
 	_____________________________________
 	Noted. I have removed this task:
-	  2.[E][✓] meet Kartike  (at: 4th of September 2019, 4:06PM)
+	  2.[E][✓] meet Kartike (at: 4th of September 2019, 4:06PM)
 	Now there are 2 tasks left.
 	_____________________________________
 
 
 
 	_____________________________________
-	Got it. I've added this task:
-	  [R][✘] prepare for CG2027 exam  (from: 12th of December 2019, 1:00PM, by: 15th of December 2019, 6:00PM)
-	Now you have 3 tasks in the list.
-	_____________________________________
-
-
-
-	_____________________________________
-	Found 3. Here you go.
+	Found 2. Here you go.
 	  1.[T][✘] have some fun making Duke better
-	  2.[D][✘] finish Duke requirements  (by: 4th of September 2019, 11:59PM)
-	  3.[R][✘] prepare for CG2027 exam  (from: 12th of December 2019, 1:00PM, by: 15th of December 2019, 6:00PM)
+	  2.[D][✘] finish Duke requirements (by: 4th of September 2019, 11:59PM)
 	_____________________________________
 
 
@@ -79,8 +67,7 @@ Hello from
 	_____________________________________
 	Here are the tasks in your list:
 	1.[T][✘] have some fun making Duke better
-	2.[D][✘] finish Duke requirements  (by: 4th of September 2019, 11:59PM)
-	3.[R][✘] prepare for CG2027 exam  (from: 12th of December 2019, 1:00PM, by: 15th of December 2019, 6:00PM)
+	2.[D][✘] finish Duke requirements (by: 4th of September 2019, 11:59PM)
 	_____________________________________
 
 

@@ -1,7 +1,13 @@
 package seedu.hustler.data;
 
-import seedu.hustler.game.avatar.*;
-import java.io.*;
+import seedu.hustler.game.avatar.Avatar;
+import seedu.hustler.game.avatar.Level;
+import seedu.hustler.game.avatar.Stats;
+import java.io.FileNotFoundException;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.File;
+import java.io.IOException;
 import java.util.Formatter;
 import java.util.Scanner;
 
@@ -11,6 +17,7 @@ import java.util.Scanner;
 public class AvatarStorage {
 
     public static final String FILEPATH = "data/avatar.txt";
+    public static final String FILEPATHBACKUP = FILEPATH.split("avatar.txt")[0] + "backup/avatarBackup.txt";
     private static Formatter formatter;
 
     /**
@@ -20,7 +27,8 @@ public class AvatarStorage {
      * @throws FileNotFoundException when file is not found, will create a
      *     new txtfile to start data storage.
      */
-    public static Avatar load() throws FileNotFoundException {
+    public static Avatar load() {
+        Avatar avatar = new Avatar();
         try {
             Scanner avatarTxt = new Scanner(new File(FILEPATH));
             String name = new String();
@@ -37,12 +45,46 @@ public class AvatarStorage {
                         Integer.parseInt(txt[3]), Integer.parseInt(txt[4]));
                 }
             }
-            return new Avatar(name, level, stats);
+            avatarTxt.close();
+            avatar = new Avatar(name, level, stats);
         } catch (FileNotFoundException e) {
-            formatter = new Formatter(FILEPATH);
-            Avatar newAvatar = new Avatar();
-            return newAvatar;
+            System.out.println("\t_____________________________________");
+            System.out.println("\tNo Avatar saved in database, creating a new Avatar now.");
+            System.out.println("\t_____________________________________\n\n");
         }
+	return avatar;
+    }
+
+    /**
+     * Reloads the avatar based on a copy of the initial avatar.txt of this
+     * Hustler app.
+     * @return the Avatar that is being reloaded.
+     * @throws FileNotFoundException as this reload happens in the background,
+     * no message is shown.
+     */
+    public static Avatar reloadBackup() {
+            Avatar avatar = new Avatar();
+            try {
+                Scanner avatarBackupTxt = new Scanner(new File(FILEPATHBACKUP));
+                String name = new String();
+                Level level = new Level();
+                Stats stats = new Stats();
+                while (avatarBackupTxt.hasNextLine()) {
+                    String[] backupTxt = avatarBackupTxt.nextLine().split(" ");
+                    if (backupTxt[0].equals("Name")) {
+                        name = backupTxt[1];
+                    } else if (backupTxt[0].equals("Level")) {
+                        level = new Level(Integer.parseInt(backupTxt[1]), Integer.parseInt(backupTxt[2]));
+                    } else if (backupTxt[0].equals("Stats")) {
+                        stats = new Stats(Integer.parseInt(backupTxt[1]), Integer.parseInt(backupTxt[2]),
+                                          Integer.parseInt(backupTxt[3]), Integer.parseInt(backupTxt[4]));
+                    }
+                }
+                avatarBackupTxt.close();
+                avatar = new Avatar(name, level, stats);
+            } catch (FileNotFoundException e) {
+            }
+	    return avatar;
     }
 
     /**
@@ -53,6 +95,19 @@ public class AvatarStorage {
      */
     public static Avatar save(Avatar avatar) throws IOException {
         BufferedWriter writer = new BufferedWriter(new FileWriter(new File(FILEPATH)));
+        writer.write(avatar.toTxt());
+        writer.close();
+        return avatar;
+    }
+
+    /**
+     * Creates and saves the a backup of the current avatar when the user first starts this app..
+     * @param avatar the updated avatar to be saved.
+     * @return the updated avatar.
+     * @throws IOException when writing of file has errors.
+     */
+    public static Avatar createBackup(Avatar avatar) throws IOException {
+        BufferedWriter writer = new BufferedWriter(new FileWriter(new File(FILEPATHBACKUP)));
         writer.write(avatar.toTxt());
         writer.close();
         return avatar;

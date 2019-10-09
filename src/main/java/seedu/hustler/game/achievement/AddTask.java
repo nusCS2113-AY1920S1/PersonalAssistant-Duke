@@ -79,12 +79,6 @@ public class AddTask extends Achievements {
     public String getAchievementLevel() { return this.achievementLevel; }
 
     @Override
-    public String setStatus(String status) {
-        this.achievementLevel = status;
-        return this.achievementLevel;
-    }
-
-    @Override
     public String getDescription() { return description; }
 
     @Override

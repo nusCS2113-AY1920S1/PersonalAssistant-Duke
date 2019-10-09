@@ -51,7 +51,8 @@ public class Stats implements Convertible {
     }
 
     /**
-     * Increases the stats based on the current level
+     * Increases the stats based on the current level.
+     *
      * @param level the current level of the avatar.
      * @return the updated stats after increment.
      */

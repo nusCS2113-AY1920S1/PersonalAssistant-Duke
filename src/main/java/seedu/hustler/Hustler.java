@@ -3,10 +3,10 @@ package seedu.hustler;
 import java.io.IOException;
 
 import seedu.hustler.data.*;
+import seedu.hustler.game.achievement.AchievementList;
 import seedu.hustler.game.achievement.ConsecutiveLogin;
 import seedu.hustler.game.avatar.Avatar;
 import seedu.hustler.command.Command;
-
 import java.util.Scanner;
 
 import seedu.hustler.logic.CommandLineException;
@@ -14,10 +14,10 @@ import seedu.hustler.task.Reminders;
 import seedu.hustler.ui.Ui;
 import seedu.hustler.task.TaskList;
 import seedu.hustler.parser.CommandParser;
-import seedu.hustler.game.achievement.AchievementList;
+import seedu.hustler.ui.timer.*;
 
 import static seedu.hustler.game.achievement.AchievementList.achievementList;
-import static seedu.hustler.game.achievement.ConsecutiveLogin.*;
+import static seedu.hustler.game.achievement.ConsecutiveLogin.updateAchievementLevel;
 
 /**
  * A personal assitant that takes in user input and gives and performs
@@ -53,6 +53,21 @@ public class Hustler {
     public static Avatar avatar;
 
     /**
+     * TimerManager instance that starts the timer.
+     */
+    public static timerManager timermanager = new timerManager();
+
+    /**
+     * MemoryManager instance that starts the timer.
+     */
+    public static MemoryManager memorymanager = new MemoryManager();
+
+    /**
+     * CommandLog instance that records user tasks.
+     */
+    public static CommandLog commandlog = new CommandLog();
+
+    /**
      * Runs Duke which commences the user to machine
      * feedback loop until the user enters "bye".
      * Loads existing tasklist and avatar, and performs operations
@@ -62,35 +77,20 @@ public class Hustler {
      * data/duke.txt.
      * @see Storage
      * @see TaskList
-     * @see CommandParser
+     * @see Parser
      * @see Ui
      * @see Schedule
      */
     public static void run() throws IOException {
         ui.show_opening_string();
         Folder.checkDirectory();
-        list = new TaskList(storage.load());
-
-
-        //Check if it's the first time the user logs in.
-        AchievementList.firstStart(AchievementStorage.logon());
-        //Loads information such as number of tasks done, added, points, etc.
-        AchievementStorage.loadStatus();
-        //Loads achievements into achievement list.
-        AchievementStorage.loadAchievements();
-        //Counts number of consecutive login and updates accordingly.
-        ConsecutiveLogin.updateCount();
-        ConsecutiveLogin.updatePoints();
-        AchievementList.updateConsecutiveLogin(updateAchievementLevel());
+        loadStorage();
+        memorymanager.createBackup();
 
         // Display reminders at the start
         Reminders.runAll(list);
         Reminders.displayReminders();
         System.out.println();
-
-        //Loads avatar.
-        avatar = AvatarStorage.load();
-        AvatarStorage.save(avatar);
 
         // Taking the the first raw input
         String rawInput = ui.take_input();
@@ -100,11 +100,8 @@ public class Hustler {
             try {
                 Command command = parser.parse(rawInput);
                 command.execute();
-                try {
-                    storage.save(list.return_list());
-                } catch (IOException e) {
-                    ui.show_save_error();
-                }
+
+		        saveStorage();
                 rawInput = ui.take_input();
 
                 System.out.println();
@@ -113,8 +110,6 @@ public class Hustler {
                 rawInput = ui.take_input();
             }
         }
-        AchievementStorage.saveAchievements(achievementList);
-        AchievementStorage.saveStatus();
         ui.show_bye_message();
     }
 
@@ -125,5 +120,36 @@ public class Hustler {
      */
     public static void main(final String[] args) throws IOException {
         Hustler.run();
+    }
+
+    public static void loadStorage() throws IOException {
+        list = new TaskList(storage.load());
+        avatar = AvatarStorage.load();
+        //Check if it's the first time the user logs in.
+        AchievementList.firstStart(AchievementStorage.logon());
+        //Loads information such as number of tasks done, added, points, etc.
+        AchievementStorage.loadStatus();
+        //Loads achievements into achievement list.
+        AchievementStorage.loadAchievements();
+        //Counts number of consecutive login and updates accordingly.
+        ConsecutiveLogin.updateCount();
+        ConsecutiveLogin.updatePoints();
+        AchievementList.updateConsecutiveLogin(updateAchievementLevel());
+    }
+
+    public static void reloadBackup() {
+        list = new TaskList(storage.reloadBackup());
+        avatar = AvatarStorage.reloadBackup();
+    }
+
+    public static void saveStorage() {
+        try {
+            storage.save(list.return_list());
+            AvatarStorage.save(avatar);
+            AchievementStorage.saveAchievements(achievementList);
+            AchievementStorage.saveStatus();
+        } catch (IOException e) {
+            ui.show_save_error();
+        }
     }
 }

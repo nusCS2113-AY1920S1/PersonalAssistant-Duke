@@ -40,6 +40,15 @@ public class Ui {
     }
 
     /**
+     * Print with formatting.
+     */
+    public void show_message(String message) {
+        System.out.println("\t_____________________________________");
+        System.out.println("\t" + message);
+        System.out.println("\t_____________________________________\n\n");
+    }
+
+    /**
      * Prints an output message if list history was not saved.
      */
     public void show_save_error() {
