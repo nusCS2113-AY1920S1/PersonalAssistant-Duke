@@ -33,7 +33,6 @@ public class MainWindow extends BorderPane {
         String userInput = inputField.getText();
         String response = duke.getResponse(userInput);
         lastCommandLabel.setText(response);
-        ExpenseList expenseList = duke.expenseList;
         updateExpenseListView();
         inputField.clear();
         updateTotalSpentLabel();
@@ -46,6 +45,7 @@ public class MainWindow extends BorderPane {
      */
     public void setDuke(Duke d) {
         this.duke = d;
+        updateExpenseListView();
         updateTotalSpentLabel();
     }
 

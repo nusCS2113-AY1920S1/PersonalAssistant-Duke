@@ -1,7 +1,7 @@
 package duke.dukeobject;
 
 import duke.exception.DukeException;
-import duke.parser.LocalDateTimeParser;
+import duke.parser.Parser;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -65,16 +65,16 @@ public class Expense extends DukeItem {
         Builder(Map<String, String> mappedStorageString) throws DukeException {
             super(mappedStorageString);
             if (mappedStorageString.containsKey("amount")) {
-                amount = new BigDecimal(mappedStorageString.get("amount"));
+                setAmount(mappedStorageString.get("amount"));
             }
             if (mappedStorageString.containsKey("description")) {
-                description = mappedStorageString.get("description");
+                setDescription(mappedStorageString.get("description"));
             }
             if (mappedStorageString.containsKey("isTentative")) {
-                isTentative = Boolean.parseBoolean(mappedStorageString.get("isTentative"));
+                setTentative(Boolean.parseBoolean(mappedStorageString.get("isTentative")));
             }
             if (mappedStorageString.containsKey("time")) {
-                time = LocalDateTimeParser.fromString(mappedStorageString.get("time"));
+                setTime(Parser.parseTime(mappedStorageString.get("time")));
             }
         }
 
@@ -91,7 +91,7 @@ public class Expense extends DukeItem {
             try {
                 return setAmount(new BigDecimal(amount));
             } catch (NumberFormatException e) {
-                throw new DukeException(String.format(DukeException.MESSAGE_AMOUNT_INVALID, amount));
+                throw new DukeException(String.format(DukeException.MESSAGE_EXPENSE_AMOUNT_INVALID, amount));
             }
         }
 
@@ -103,16 +103,12 @@ public class Expense extends DukeItem {
          * @throws DukeException if the {@code BigDecimal} does not represent a valid amount.
          */
         public Builder setAmount(BigDecimal amount) throws DukeException {
-            verifyAmount(amount);
-            this.amount = amount;
-            return this;
-        }
-
-        private void verifyAmount(BigDecimal amount) throws DukeException {
             if (amount.scale() > 2) {
                 throw new DukeException(
-                    String.format(DukeException.MESSAGE_AMOUNT_INVALID, amount.toPlainString()));
+                    String.format(DukeException.MESSAGE_EXPENSE_AMOUNT_INVALID, amount.toPlainString()));
             }
+            this.amount = amount;
+            return this;
         }
 
         /**
@@ -146,7 +142,7 @@ public class Expense extends DukeItem {
          * @throws DukeException if the time string cannot be parsed into a {@code LocalDateTime} object.
          */
         public Builder setTime(String time) throws DukeException {
-            return setTime(LocalDateTimeParser.fromString(time));
+            return setTime(Parser.parseTime(time));
         }
 
         /**
@@ -229,7 +225,7 @@ public class Expense extends DukeItem {
         StringJoiner stringJoiner = new StringJoiner(" ");
         stringJoiner.add("$" + amount);
         stringJoiner.add(description);
-        stringJoiner.add(LocalDateTimeParser.toString(time));
+        stringJoiner.add(Parser.formatTime(time));
         if (isTentative) {
             stringJoiner.add("(tentative)");
         }
@@ -251,7 +247,7 @@ public class Expense extends DukeItem {
         stringJoiner.add(super.toStorageString());
         stringJoiner.add("amount" + STORAGE_NAME_SEPARATOR + amount);
         stringJoiner.add("description" + STORAGE_NAME_SEPARATOR + description);
-        stringJoiner.add("time" + STORAGE_NAME_SEPARATOR + LocalDateTimeParser.toString(time));
+        stringJoiner.add("time" + STORAGE_NAME_SEPARATOR + Parser.formatTime(time));
         stringJoiner.add("isTentative" + STORAGE_NAME_SEPARATOR + isTentative);
 
         return stringJoiner.toString();

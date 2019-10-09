@@ -28,6 +28,11 @@ abstract class DukeItem implements Serializable {
      * The string that separates tags from each other in the storage string.
      */
     protected static final String STORAGE_TAG_SEPARATOR = " ";
+
+    /**
+     * The string that separates tags from each other in an input string.
+     */
+    protected static final String TAG_SEPARATOR = " ";
     /**
      * The item's tags.
      */
@@ -90,10 +95,8 @@ abstract class DukeItem implements Serializable {
          */
         protected Builder(Map<String, String> mappedStorageString) {
             if (mappedStorageString.containsKey("tags")) {
-                tags = Stream.of(mappedStorageString.get("tags")
-                    .split(STORAGE_TAG_SEPARATOR))
-                    .filter(s -> !s.equals(""))
-                    .collect(Collectors.toSet());
+                invertTags(mappedStorageString.get("tags")
+                    .split(STORAGE_TAG_SEPARATOR));
             }
         }
 
@@ -113,6 +116,17 @@ abstract class DukeItem implements Serializable {
                 }
             }
             return getThis();
+        }
+
+        /**
+         * Inverts the presence of certain tags inside {@code tags}, specified by the parameter {@code tagsToInvert}.
+         * This effectively adds tags not present, and removes tags that were present.
+         *
+         * @param tagsToInvert the tags to invert as a string.
+         * @return this builder.
+         */
+        public T invertTags(String tagsToInvert) {
+            return invertTags(tagsToInvert.split(TAG_SEPARATOR));
         }
 
         /**

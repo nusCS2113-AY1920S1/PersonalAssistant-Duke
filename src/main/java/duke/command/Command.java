@@ -1,6 +1,7 @@
 package duke.command;
 
 import duke.dukeobject.ExpenseList;
+import duke.exception.DukeException;
 import duke.parser.CommandParams;
 import duke.ui.Ui;
 
@@ -53,6 +54,6 @@ public abstract class Command {
      * @param expensesList  The ExpenseList of Duke.
      * @param ui            The ui of Duke.
      */
-    public void execute(CommandParams commandParams, ExpenseList expensesList, Ui ui) {
+    public void execute(CommandParams commandParams, ExpenseList expensesList, Ui ui) throws DukeException {
     }
 }

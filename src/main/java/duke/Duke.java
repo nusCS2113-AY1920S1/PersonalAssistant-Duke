@@ -1,9 +1,10 @@
 package duke;
 
 import duke.dukeobject.ExpenseList;
+import duke.exception.DukeException;
+import duke.exception.DukeRuntimeException;
 import duke.parser.CommandParams;
 import duke.ui.Ui;
-import duke.exception.DukeRuntimeException;
 import duke.command.Command;
 import duke.parser.Parser;
 
@@ -13,9 +14,13 @@ import java.io.File;
  * Represents our Duke and contains the main program of Duke.
  */
 public class Duke {
-    private static final String DEFAULT_USER_DIR = "data" + File.separator + "duke";
+    private static final String BACKUP_EXTENSION = ".backup";
+    private static final File DEFAULT_USER_DIRECTORY = new File("data" + File.separator + "duke");
+    private static final File EXPENSES_FILE = new File(DEFAULT_USER_DIRECTORY, "expenses.txt");
+    private static final File EXPENSES_BACKUP_FILE =
+        new File(DEFAULT_USER_DIRECTORY, "expenses.txt" + BACKUP_EXTENSION);
 
-    final ExpenseList expenseList;
+    ExpenseList expenseList;
     private Ui ui;
 
     /**
@@ -24,15 +29,26 @@ public class Duke {
      *
      * @param userDirectory The user directory to store all the files associated with Duke.
      */
-    public Duke(File userDirectory) {
+    public Duke(File userDirectory) throws DukeRuntimeException {
         userDirectory.mkdirs();
         ui = new Ui();
-        expenseList = new ExpenseList(userDirectory);
+        try {
+            try {
+                expenseList = new ExpenseList(EXPENSES_FILE);
+            } catch (DukeException e) {
+                ui.showError(e);
+                EXPENSES_BACKUP_FILE.delete();
+                EXPENSES_FILE.renameTo(EXPENSES_BACKUP_FILE);
+                expenseList = new ExpenseList(EXPENSES_FILE);
+            }
+        } catch (DukeException e) {
+            throw new DukeRuntimeException("Could not load from file, nor recover using a new file");
+        }
     }
 
     public Duke() {
         // In case we support changing Duke's directory in the future
-        this(new File(DEFAULT_USER_DIR));
+        this(DEFAULT_USER_DIRECTORY);
     }
 
     /**
@@ -43,9 +59,9 @@ public class Duke {
     public String getResponse(String fullCommand) {
         try {
             CommandParams commandParams = new CommandParams(fullCommand);
-            Command command = Parser.getCommand(commandParams.getCommandName());
+            Command command = Parser.parseCommand(commandParams.getCommandName());
             command.execute(commandParams, expenseList, ui);
-        } catch (DukeRuntimeException e) {
+        } catch (DukeException e) {
             ui.showError(e);
         }
         return ui.getMostRecent();

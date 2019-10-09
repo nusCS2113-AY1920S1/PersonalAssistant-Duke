@@ -14,6 +14,7 @@ import java.util.List;
 import java.util.Scanner;
 import java.util.Stack;
 
+import duke.Duke;
 import duke.exception.DukeException;
 import duke.exception.DukeRuntimeException;
 
@@ -84,8 +85,6 @@ abstract class DukeList<T extends DukeItem> {
 
     public abstract List<T> view(List<T> currentList);
 
-
-
     /**
      * Adds an item into {@code internalList}.
      *
@@ -100,9 +99,12 @@ abstract class DukeList<T extends DukeItem> {
      *
      * @param index the index of the item in @{code externalList}.
      * @return the item.
-     * @throws IndexOutOfBoundsException if the index is out of bounds.
+     * @throws DukeException if the index is out of bounds.
      */
-    public T get(int index) throws IndexOutOfBoundsException {
+    public T get(int index) throws DukeException {
+        if (index < 1 || index > externalList.size()) {
+            throw new DukeException(String.format(DukeException.MESSAGE_NO_ITEM_AT_INDEX, itemName, index));
+        }
         return externalList.get(index - 1);
     }
 
@@ -119,9 +121,9 @@ abstract class DukeList<T extends DukeItem> {
      * Removes an item from {@code internalList} using its index in {@code externalList}.
      *
      * @param index the index of the item to in {@code externalList}.
-     * @throws IndexOutOfBoundsException if the index is out of bounds.
+     * @throws DukeException if the index is out of bounds.
      */
-    public void remove(int index) throws IndexOutOfBoundsException {
+    public void remove(int index) throws DukeException {
         internalList.remove(get(index));
     }
 
@@ -130,9 +132,9 @@ abstract class DukeList<T extends DukeItem> {
      * that the file should be updated, and that the state has progressed such that all {@code redoStates}
      * are now invalid and should be discarded.
      *
-     * @throws IOException if saving was unsuccessful.
+     * @throws DukeException if saving was unsuccessful.
      */
-    public void update() throws IOException {
+    public void update() throws DukeException {
         save();
         undoStates.push(currentState);
         currentState = toByteArray(internalList);
@@ -172,7 +174,7 @@ abstract class DukeList<T extends DukeItem> {
                     internalList.add(itemFromStorageString(fileReader.next()));
                 }
             }
-        } catch (IOException e) {
+        } catch (IOException | DukeException e) {
             throw new DukeException(String.format(DukeException.MESSAGE_LOAD_FILE_FAILED, file.getPath()));
         }
     }
@@ -192,7 +194,7 @@ abstract class DukeList<T extends DukeItem> {
      *
      * @param times the number of times to undo.
      * @return the number of times actually undone.
-     * @throws DukeException if {@code internalList} has no earlier state.
+     * @throws DukeException if the changes could not be saved.
      */
     public int undo(int times) throws DukeException {
         int actualTimes = 0;
@@ -212,7 +214,7 @@ abstract class DukeList<T extends DukeItem> {
      *
      * @param times the number of times to redo.
      * @return the number of times actually undone.
-     * @throws DukeRuntimeException if {@code internalList} has no later state.
+     * @throws DukeRuntimeException if the changes could not be saved.
      * @see #undo
      */
     public int redo(int times) throws DukeException {
@@ -240,7 +242,7 @@ abstract class DukeList<T extends DukeItem> {
             out.writeObject(list);
             return bos.toByteArray();
         } catch (IOException e) {
-            throw new DukeRuntimeException("A fatal error has occurred; Failed to create byte array from list.", e);
+            throw new DukeRuntimeException("Failed to create byte array from list.", e);
         }
     }
 
@@ -259,7 +261,7 @@ abstract class DukeList<T extends DukeItem> {
             ObjectInput in = new ObjectInputStream(bis)) {
             return (List<T>) in.readObject();
         } catch (IOException | ClassNotFoundException e) {
-            throw new DukeRuntimeException("A fatal error has occurred; Failed to load list from byte array.", e);
+            throw new DukeRuntimeException("Failed to load list from byte array.", e);
         }
     }
 }

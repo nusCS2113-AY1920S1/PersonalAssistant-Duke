@@ -12,7 +12,6 @@ import java.util.Comparator;
 import java.util.List;
 
 public class ExpenseList extends DukeList<Expense> {
-    private static final String FILE_NAME = "expenses.txt";
 
     private Comparator<Expense> compareCriteria;
 
@@ -46,8 +45,8 @@ public class ExpenseList extends DukeList<Expense> {
         }
     }
 
-    public ExpenseList(File userDirectory) throws DukeException {
-        super(new File(userDirectory, FILE_NAME), "expense");
+    public ExpenseList(File file) throws DukeException {
+        super(file, "expense");
     }
 
     /**
@@ -58,7 +57,7 @@ public class ExpenseList extends DukeList<Expense> {
     @Override
     public List<Expense> getExternalList() {
         List<Expense> filteredSortedList;
-        filteredSortedList = filter( sort( view(internalList) ) );
+        filteredSortedList = filter(sort(view(internalList)));
         externalList = filteredSortedList;
         return externalList;
     }
@@ -97,7 +96,7 @@ public class ExpenseList extends DukeList<Expense> {
                 compareCriteria = new SortByDescription();
                 break;
             default:
-                throw new DukeException("Incorrect format of sort criteria");
+                throw new DukeRuntimeException("Incorrect format of sort criteria");
         }
         List<Expense> sortedList = currentList;
         sortedList.sort(compareCriteria);
@@ -126,36 +125,38 @@ public class ExpenseList extends DukeList<Expense> {
         List<Expense> viewedList = new ArrayList<Expense>();
         LocalDateTime now = LocalDateTime.now();
         switch(viewScope) {
-            case "all":
-                viewedList = currentList;
-                break;
-            case "year":
-                for(Expense e : currentList) {
-                    if(e.getTime().plusYears(1).isAfter(now)) {
-                        viewedList.add(e);
-                    }
+        case "all":
+            viewedList = currentList;
+            break;
+        case "year":
+            for(Expense e : currentList) {
+                if(e.getTime().plusYears(1).isAfter(now)) {
+                    viewedList.add(e);
                 }
-                break;
-            case "month":
-                for(Expense e : currentList) {
-                    if(e.getTime().plusMonths(1).isAfter(now)) {
-                        viewedList.add(e);
-                    }
+            }
+            break;
+        case "month":
+            for(Expense e : currentList) {
+                if(e.getTime().plusMonths(1).isAfter(now)) {
+                    viewedList.add(e);
                 }
-                break;
-            case "week":
-                for(Expense e : currentList) {
-                    if(e.getTime().plusDays(7).isAfter(now)) {
-                        viewedList.add(e);
-                    }
+            }
+            break;
+        case "week":
+            for(Expense e : currentList) {
+                if(e.getTime().plusDays(7).isAfter(now)) {
+                    viewedList.add(e);
                 }
-                break;
-            case "day":
-                for(Expense e : currentList) {
-                    if(e.getTime().plusDays(1).isAfter(now)) {
-                        viewedList.add(e);
-                    }
+            }
+            break;
+        case "day":
+            for(Expense e : currentList) {
+                if(e.getTime().plusDays(1).isAfter(now)) {
+                    viewedList.add(e);
                 }
+            }
+        default:
+            throw new DukeRuntimeException("Incorrect format of view scope");
         }
         return viewedList;
     }

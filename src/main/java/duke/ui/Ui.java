@@ -1,7 +1,9 @@
 package duke.ui;
 
+import duke.Duke;
 import duke.dukeobject.Expense;
 import duke.dukeobject.ExpenseList;
+import duke.exception.DukeException;
 import duke.exception.DukeRuntimeException;
 
 
@@ -59,7 +61,7 @@ public class Ui {
      *
      * @param e the {@code DukeException} whose message will be printed.
      */
-    public void showError(DukeRuntimeException e) {
+    public void showError(DukeException e) {
         System.out.println(e.getMessage());
         mostRecent = e.getMessage();
     }
