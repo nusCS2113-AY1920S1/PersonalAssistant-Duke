@@ -1,6 +1,7 @@
 package eggventory.items;
 
 /**
+ * An abstract class. Children classes are CollectiveStock and UniqueStock.
  * Represents a stock of a particular item in the inventory.
  * A type of stock (eg. 560ohm resistor) may consist of many individual items (multiple resistors),
  * but they are all considered interchangeable and are not individually identified.
@@ -19,6 +20,11 @@ public class Stock {
     /**
      * An stock is first added with its stockType, stockCode, description and quantity.
      * By default the loaned and lost numbers are 0.
+     *
+     * @param stockType The category the stock belongs to.
+     * @param stockCode The unique code that identifies the stock. (eg. 500ohm resistors are called 'R500')
+     * @param quantity The quantity (number of items) of this stock.
+     * @param description The name of the stock. (eg. 500ohm resistor, mini breadboard)
      */
     public Stock(String stockType, String stockCode, int quantity, String description) {
         this.stockType = stockType;
