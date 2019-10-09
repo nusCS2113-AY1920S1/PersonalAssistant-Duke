@@ -239,6 +239,21 @@ Returns `(>_<) OOPS!!! The date/time for deadline clashes with [E][X] concert (a
 View all the functions and commands that the Duke Manager have.
 Format: `help`
 
+====  Set the priority of a task: `setpriority`
+Change the default priority of a task to a user-set priority.
+Format: `setpriority <task number> <priority>`
+
+* Set the priority of the task at the specified `<task number>`.
+* The <task number> refers to the index number shown in the displayed task list.
+* The index *must be in between 1 and the size of tasklist*. e.g. For a tasklist that contains 4 tasks, only numbers 1 to 4 are allowed.
+* The <priority> refers to the priority of the task: 1-HighPriority ~ 5-LowPriority.
+* The priority *must be between 1 and 5 both inclusive*. 
+* Alerts user that the priority has been changed.
+
+====  Browse the list of tasks and their priorities: `priority`
+Display the list of tasks and their priorities beside each task.
+Format: `priority`
+
 === Miscellenous Inputs 
 
 ==== Exiting the program : `exit`
@@ -288,3 +303,5 @@ e.g. `fixedduration build a robot /for 3hrs`
 e.g. `repeat meeting /from 01/04/2019 1100 /for 2 day`
 * *Remind* : `remind [INDEX] /in [DAYSTOREMINDER]`
 e.g. `remind 1 /in 3`
+* *Set Priority* : `setpriority [TASK_NUMBER] [PRIORITY]` +
+e.g. `setpriority 1 5`
