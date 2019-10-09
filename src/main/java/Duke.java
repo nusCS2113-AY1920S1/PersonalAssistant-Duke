@@ -1,3 +1,4 @@
+import GUI.Window;
 import commands.Command;
 import tasks.Task;
 import utils.DukeException;
@@ -41,6 +42,7 @@ public class Duke {
      * main running structure of Duke.
      */
     public void run() {
+        new Window().newForm();
         Ui.welcome();
         Reminder.checkReminders(tasks);
         boolean isExit = false;
