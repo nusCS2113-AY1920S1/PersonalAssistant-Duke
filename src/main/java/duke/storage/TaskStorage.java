@@ -1,17 +1,30 @@
 package duke.storage;
 
 import duke.core.DukeException;
+import duke.task.StandardTask;
 import duke.task.Task;
+import org.apache.commons.csv.CSVFormat;
+import org.apache.commons.csv.CSVPrinter;
+import org.apache.commons.csv.CSVRecord;
 
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 
 public class TaskStorage extends Storage<Task>{
 
+    /**
+     * A string that represents a relative file path from the project folder.
+     */
     private String filePath;
 
+    /**
+     * Constructs a Storage object with a specific file path.
+     *
+     * @param filePath A string that represents the path of the file to read or
+     *             write.
+     */
     public TaskStorage(String filePath) {
         this.filePath = filePath;
     }
@@ -24,9 +37,20 @@ public class TaskStorage extends Storage<Task>{
      * @throws DukeException If file is not found.
      */
     public ArrayList<Task> load() throws DukeException {
-        File newDuke = new File(filePath);
-        System.out.println("Hi.");
-        return new ArrayList<Task>();
+        ArrayList<Task> taskList = new ArrayList<Task>();
+        try {
+            Reader in = new FileReader(filePath);
+            Iterable<CSVRecord> records = CSVFormat.EXCEL.withFirstRecordAsHeader().parse(in);
+            //        Iterable<CSVRecord> records = CSVFormat.EXCEL.withHeader("Last Name", "First Name").withFirstRecordAsHeader().parse(in).getRecords();
+            for (CSVRecord record : records) {
+                String description = record.get("Description");
+                taskList.add(new StandardTask(description));
+                System.out.println(description + " | " + description);
+            }
+            return taskList;
+        } catch (IOException e) {
+            throw new DukeException(e.getMessage());
+        }
     }
 
 
@@ -38,14 +62,19 @@ public class TaskStorage extends Storage<Task>{
      */
     @Override
     public void save(ArrayList<Task> tasks) throws DukeException {
-//        try {
-//            FileWriter fileWriter = new FileWriter("./data/duke.txt");
-//            for (Task t : task) {
-//                fileWriter.write(t.writeTxt() + System.lineSeparator());
-//            }
-//            fileWriter.close();
-//        } catch (IOException e) {
-//            throw new DukeException("File writing process encounters an error " + e.getMessage());
-//        }
+        try{
+            BufferedWriter writer = Files.newBufferedWriter(Paths.get(filePath));
+            CSVPrinter csvPrinter = new CSVPrinter(writer, CSVFormat.DEFAULT
+                    .withHeader("Description"));
+//            ArrayList<Task> tasks = taskList.getTaskList();
+            for (Task task : tasks){
+                String description = task.getDescription();
+                csvPrinter.printRecord(description);
+            }
+            csvPrinter.flush();
+        }
+        catch(IOException e){
+            throw new DukeException(e.getMessage());
+        }
     }
 }

@@ -38,7 +38,7 @@ public class Duke {
      */
 
     public Duke(String filePath) {
-        taskStorage = new TaskStorage(filePath + "/data.txt");
+        taskStorage = new TaskStorage(filePath + "/standardTasks.csv");
         patientStorage = new PatientStorage(filePath + "/patients.csv");
 
         try {
