@@ -1,7 +1,7 @@
 package exception;
 
 /**
- * Duke Exception class for exceptions unique to Duke.
+ * control.Duke Exception class for exceptions unique to control.Duke.
  */
 public class DukeException extends Exception {
     public DukeException(String message) {

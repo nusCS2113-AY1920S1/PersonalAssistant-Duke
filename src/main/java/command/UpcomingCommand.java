@@ -51,9 +51,9 @@ public class UpcomingCommand extends Command {
             }
         }
         if (counter == 0) {
-            System.out.println("You have 0 tasks due in the upcoming week");
+            ui.addToOutput("You have 0 tasks due in the upcoming week");
         } else {
-            System.out.println("You have " + counter + " tasks due in the upcoming week.");
+            ui.addToOutput("You have " + counter + " tasks due in the upcoming week.");
         }
     }
 }

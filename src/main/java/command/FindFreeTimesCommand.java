@@ -84,9 +84,15 @@ public class FindFreeTimesCommand extends Command {
                 freeTime = last.getDateTimeEnd();
             }
         }
-        ui.showString("Next available time slot is: " + freeTime.toString());
+        ui.addToOutput("Next available time slot is: " + freeTime.toString());
     }
 
+    /**
+     * This method adds a specified number of hours to the date.
+     * @param date the current date
+     * @param hours number of hours to be added
+     * @return new date after adding the hours
+     */
     public Date addHoursToDate(Date date, int hours) {
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(date);

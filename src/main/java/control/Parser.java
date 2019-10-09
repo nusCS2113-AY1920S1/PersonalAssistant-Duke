@@ -1,3 +1,4 @@
+package control;
 import command.*;
 import exception.DukeException;
 
@@ -5,13 +6,14 @@ import java.io.IOException;
 import java.text.ParseException;
 import java.util.Spliterator;
 
+
 /**
  * Parse input and execute respective user command.
  */
 public class Parser {
 
     /**
-     * Converts user input into commands for Duke.
+     * Converts user input into commands for control.Duke.
      * @param input from user
      * @return Command to be executed
      * @throws DukeException if user enters wrong input format
@@ -51,14 +53,13 @@ public class Parser {
             return new DoAfterCommand(input, splitStr);
         case "dowithin":
             return new DoWithinPeriodCommand(input, splitStr);
-            case "login":
-                return new LoginCommand(input, splitStr);
-            case "create":
-                return new CreateAccountCommand(input, splitStr);
+        case "login":
+            return new LoginCommand(input, splitStr);
+        case "create":
+            return new CreateAccountCommand(input, splitStr);
 
         default:
             throw new DukeException("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
-
         }
     }
 }

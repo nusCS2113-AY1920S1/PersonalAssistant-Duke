@@ -52,7 +52,7 @@ public class EventCommand extends Command {
         if (canAdd) {
             tasks.add(event);
             storage.saveToFile(tasks);
-            ui.showString("Got it. I've added this task:\n"
+            ui.addToOutput("Got it. I've added this task:\n"
                     + event.toString() + "\n"
                     + "Now you have " + tasks.size() + " task(s) in the list.");
         }
