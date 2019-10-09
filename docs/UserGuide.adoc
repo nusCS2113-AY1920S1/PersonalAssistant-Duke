@@ -27,7 +27,7 @@ AddressBook Level 3 (AB3) is for those who *prefer to use a desktop app for mana
 .  Copy the file to the folder you want to use as the home folder for your `Duke Pro`.
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
 +
-image::Ui.png[width="790"]
+image::UI.png[width="939", align="left"]
 +
 .  Type the command in the command box and press kbd:[Enter] to execute it. +
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
