@@ -142,7 +142,7 @@ public class ConsecutiveLogin extends Achievements {
     }
 
     /**
-     * Update points accordingly. 
+     * Update points accordingly.
      * @return
      */
     public static int updatePoints() {
