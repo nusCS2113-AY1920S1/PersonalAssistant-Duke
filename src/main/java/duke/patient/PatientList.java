@@ -22,8 +22,13 @@ public class PatientList {
         }
     }
 
-    public Patient getPatient(int id) {
-        return patientIdMap.get(id);
+    public Patient getPatient(int id) throws DukeException {
+        if (patientIdMap.containsKey(id)){
+            return patientIdMap.get(id);
+        }
+        else{
+            throw new DukeException("The patient with id "+ id + " does not exist.");
+        }
     }
 
     public ArrayList<Patient> getPatientByName(String name){

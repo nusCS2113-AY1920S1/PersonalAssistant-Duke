@@ -63,6 +63,28 @@ public class Ui {
                 + "\nRemark: " + patient.getRemark());
     }
 
+    public void patientsFoundByName(ArrayList<Patient> patients, String name) {
+        if (patients.size() > 0){
+            System.out.println("Got it. "+ patients.size() +" patients is/are found with name: "+ name);
+            int i = 1;
+            for (Patient patient : patients) {
+                System.out.println("Patient #"+ i);
+                showPatientInfo(patient);
+                showLine();
+                i++;
+            }
+        }
+        else{
+            System.out.println("No patient was found with name: " + name);
+        }
+    }
+
+    public void patientsFoundById(Patient patient) {
+        System.out.println("Got it. The patient is found.");
+        showPatientInfo(patient);
+    }
+
+
     public void patientAdded(Patient patient) {
         System.out.println("Got it. The following patient has been added:  ");
         showPatientInfo(patient);
