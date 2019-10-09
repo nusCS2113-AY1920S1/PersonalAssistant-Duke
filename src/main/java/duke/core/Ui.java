@@ -57,25 +57,25 @@ public class Ui {
 //                + size + " tasks in the list.");
 //    }
 
-    public void patientAdded(Patient patient) {
-        System.out.println("Got it. The following patient has been added:  "
-                + "\nName: " + patient.getName() + "  Id: " + patient.getID()
+    public void showPatientInfo(Patient patient) {
+        System.out.println("Name: " + patient.getName() + "  Id: " + patient.getID()
                 + "\nNRIC: " + patient.getNRIC() + "  Room: " + patient.getRoom()
                 + "\nRemark: " + patient.getRemark());
+    }
+
+    public void patientAdded(Patient patient) {
+        System.out.println("Got it. The following patient has been added:  ");
+        showPatientInfo(patient);
     }
 
     public void patientDeleted(Patient patient) {
-        System.out.println("Got it. The following patient is deleted:  "
-                + "\nName: " + patient.getName() + "  Id: " + patient.getID()
-                + "\nNRIC: " + patient.getNRIC() + "  Room: " + patient.getRoom()
-                + "\nRemark: " + patient.getRemark());
+        System.out.println("Got it. The following patient is deleted:  ");
+        showPatientInfo(patient);
     }
 
-    public void listAllPatients(ArrayList<Patient> patients){
-        for (Patient patient : patients){
-            System.out.println( "Name: " + patient.getName() + "  Id: " + patient.getID()
-                    + "\nNRIC: " + patient.getNRIC() + "  Room: " + patient.getRoom()
-                    + "\nRemark: " + patient.getRemark());
+    public void listAllPatients(ArrayList<Patient> patients) {
+        for (Patient patient : patients) {
+            showPatientInfo(patient);
             showLine();
         }
     }
@@ -83,7 +83,7 @@ public class Ui {
     public void listAllTasks(ArrayList<Task> taskList) {
         int index = 0;
         System.out.println("Here's a list of your tasks: \n");
-        for (Task task: taskList) {
+        for (Task task : taskList) {
             System.out.println(index
                     + ". "
                     + "[" + task.getStatusIcon() + "] "
@@ -101,8 +101,6 @@ public class Ui {
             return " at " + task.getDateTime();
         }
     }
-
-
 
 
     /**
@@ -168,7 +166,6 @@ public class Ui {
 //        showLine();
 //        System.out.println("Do you still want to add your task anyway? Y/N");
 //    }
-
 
 
     /**

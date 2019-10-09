@@ -10,9 +10,9 @@ import duke.task.TaskList;
 
 import java.util.ArrayList;
 
-public class ListPatientCommand extends Command {
+public class ListPatientsCommand extends Command {
 
-    public ListPatientCommand() {
+    public ListPatientsCommand() {
         super();
     }
 
