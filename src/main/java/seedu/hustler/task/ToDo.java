@@ -15,11 +15,17 @@ public class ToDo extends Task {
     protected LocalDateTime localDateTime;
 
     /**
-     * Initializes description.
+     * Initializes description and default difficulty.
      */
     public ToDo(String description) {
         super(description);
-        this.localDateTime = null;
+    }
+
+    /**
+     * Initializes description and user input difficulty.
+     */
+    public ToDo(String description, String difficulty) {
+        super(description, difficulty);
     }
 
     /**
@@ -49,10 +55,7 @@ public class ToDo extends Task {
      * @return true or false to the comparison.
      */
     public boolean equals(ToDo temp) {
-        if (this.description.equals(temp.description)) {
-            return true;
-        }
-        return false;
+        return this.description.equals(temp.description);
     }
 
     @Override
@@ -64,5 +67,4 @@ public class ToDo extends Task {
     public void setDateTime(LocalDateTime localDateTime) {
         this.localDateTime = localDateTime;
     }
-
 }

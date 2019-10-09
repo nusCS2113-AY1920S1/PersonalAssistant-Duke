@@ -15,12 +15,12 @@ public class Avatar implements Convertible {
     private String name;
 
     /**
-     * Level of the avatar
+     * Level of the avatar.
      */
     private Level level;
 
     /**
-     * Stats of the avatar
+     * Stats of the avatar.
      */
     private Stats stats;
 

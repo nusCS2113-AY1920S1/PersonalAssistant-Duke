@@ -25,6 +25,7 @@ public class CommandParser extends Parser {
         String[] userInput = rawInput.split(" ", 2);
         return userInput;
     }
+
     /**
      * Default constructor.
      */
@@ -40,8 +41,8 @@ public class CommandParser extends Parser {
     public Command parse(String rawInput) throws CommandLineException {
         String[] userInput = this.split(rawInput);
 
-        String[] taskCommands = {"todo", "deadline", "event", "range", "doafter", "recur"};
-        Arrays.sort(taskCommands);
+        /* String[] taskCommands = {"todo", "deadline", "event"}; */
+        /* Arrays.sort(taskCommands); */
         if (userInput[0].equals("find")) {
             return new FindCommand(userInput);
         } else if (userInput[0].equals("delete")) {
@@ -61,12 +62,13 @@ public class CommandParser extends Parser {
                 return new CheckAvatarCommand();
             } else if(userInput[1].contains("setname")) {
                 return new SetNameCommand(userInput);
+            } else {
+                return new InvalidCommand();
             }
-        } else if (Arrays.binarySearch(taskCommands, userInput[0]) >= 0) {
+        } else if (userInput[0].equals("/add")) {
             return new AddCommand(userInput);
         } else {
             return new InvalidCommand();
         }
-        return null;
     }
 }

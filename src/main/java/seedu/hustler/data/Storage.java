@@ -4,10 +4,7 @@ import java.text.ParseException;
 import seedu.hustler.task.Task;
 import seedu.hustler.task.ToDo;
 import seedu.hustler.task.Event;
-import seedu.hustler.task.RangedTask;
 import seedu.hustler.task.Deadline;
-import seedu.hustler.task.DoAfter;
-import seedu.hustler.task.RecurringTask;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -55,34 +52,23 @@ public class Storage {
 
                 // instantiate classes
                 if (taskString[0].equals("T")) {
-                    list.add(new ToDo(taskString[2]));
+                    list.add(new ToDo(taskString[3], taskString[2]));
                 } else if (taskString[0].equals("D")) {
-                    LocalDateTime localDateTime = getDateTime(taskString[3]);
-                    list.add(new Deadline(taskString[2], localDateTime));
+                    LocalDateTime by = getDateTime(taskString[4]);
+                    list.add(new Deadline(taskString[3], by, taskString[2]));
                     try {
-                        String dateOnly = taskString[3].split(" ")[0];
+                        String dateOnly = taskString[4].split(" ")[0];
                         Date date = schedule.convertStringToDate(dateOnly);
                         Task lastTask = list.get(list.size() - 1);
                         schedule.addToSchedule(lastTask, date);
                     } catch (ParseException ignored) {
                         return null;
                     }
-                } else if (taskString[0].equals("R")) {
-                    String[] dateTime = taskString[3].split(" and ");
-                    LocalDateTime from = getDateTime(dateTime[0]);
-                    LocalDateTime by = getDateTime(dateTime[1]);
-                    list.add(new RangedTask(taskString[2], from, by));
-                } else if (taskString[0].equals("A")) {
-                    list.add(new DoAfter(taskString[2], taskString[3]));
-                } else if (taskString[0].equals("RC")) {
-                    LocalDateTime on = getDateTime(taskString[3]);
-                    int periodInMin = Integer.parseInt(taskString[5]);
-                    list.add(new RecurringTask(taskString[2], on, taskString[4], periodInMin));
                 } else {
-                    LocalDateTime at = getDateTime(taskString[3]);
-                    list.add(new Event(taskString[2], at));
+                    LocalDateTime at = getDateTime(taskString[4]);
+                    list.add(new Event(taskString[3], at, taskString[2]));
                     try {
-                        String dateOnly = taskString[3].split(" ")[0];
+                        String dateOnly = taskString[4].split(" ")[0];
                         Date date = schedule.convertStringToDate(dateOnly);
                         Task lastTask = list.get(list.size() - 1);
                         schedule.addToSchedule(lastTask, date);

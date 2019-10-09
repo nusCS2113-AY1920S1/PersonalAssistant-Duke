@@ -7,8 +7,14 @@ import java.io.File;
  */
 public class Folder {
 
-    private final static String DIRPATH = "data";
-
+    private static final String DIRPATH = "data";
+    
+    /**
+     * Checks directory to see if file exists. If it
+     * doesn't exist, creates one.
+     *
+     * @return directory
+     */
     public static File checkDirectory() {
         File directory = new File(DIRPATH);
         if (!directory.exists()) {

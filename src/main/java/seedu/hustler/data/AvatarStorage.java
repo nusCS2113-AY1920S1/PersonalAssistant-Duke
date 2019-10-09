@@ -1,7 +1,13 @@
 package seedu.hustler.data;
 
-import seedu.hustler.game.avatar.*;
-import java.io.*;
+import seedu.hustler.game.avatar.Avatar;
+import seedu.hustler.game.avatar.Level;
+import seedu.hustler.game.avatar.Stats;
+import java.io.FileNotFoundException;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.File;
+import java.io.IOException;
 import java.util.Formatter;
 import java.util.Scanner;
 
@@ -18,7 +24,7 @@ public class AvatarStorage {
      * Hustler app.
      * @return the Avatar that is currently loaded.
      * @throws FileNotFoundException when file is not found, will create a
-     * new txtfile to start data storage.
+     *     new txtfile to start data storage.
      */
     public static Avatar load() throws FileNotFoundException {
         try {

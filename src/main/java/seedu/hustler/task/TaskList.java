@@ -30,6 +30,10 @@ public class TaskList {
      * Ui instance that communicates errors with the user.
      */
     private Ui ui = new Ui();
+
+    /**
+     * Schedule instance to plan schedule.
+     */
     private Schedule schedule = new Schedule();
 
 
@@ -78,147 +82,66 @@ public class TaskList {
      */
     public void add(String taskType, String taskDescriptionFull) {
         boolean checkAnomaly = true;
-        // if tasktype is not ToDo
         if (taskType.equals("todo") && !DetectAnomalies.test(new ToDo(taskDescriptionFull), list)) {
-            list.add(new ToDo(taskDescriptionFull));
+            if (taskDescriptionFull.contains("/difficulty")) {
+                String[] tokens = taskDescriptionFull.split(" /difficulty ");
+                list.add(new ToDo(tokens[0], tokens[1]));
+            } else {
+                list.add(new ToDo(taskDescriptionFull));
+            }
             checkAnomaly = false;
-        } else {
-            // Extract task time and task description and initialize as deadline
-            if (taskType.equals("deadline")) {
-                try {
-                    String taskDescription = taskDescriptionFull.split("/", 2)[0];
-                    String taskTime = taskDescriptionFull.split("/", 2)[1].substring(3);
-                    String taskDateOnly = taskTime.split(" ", 2)[0];
-                    LocalDateTime localDateTime = getDateTime(taskTime);
-                    if (!DetectAnomalies.test(new Deadline(taskDescriptionFull,localDateTime), list)) {
-                        list.add(new Deadline(taskDescription,localDateTime));
-                        checkAnomaly = false;
-                        if (Schedule.isValidDate(taskDateOnly)) {
-                            schedule.addToSchedule(list.get(list.size() - 1), schedule.convertStringToDate(taskDateOnly));
-                        }
-                    }
-                } catch (ArrayIndexOutOfBoundsException e) {
-                    ui.wrong_description_error();
-                    return;
-                } catch (ParseException ignore) {
-                    return;
-                }
-            } else if (taskType.equals("doafter")) {
-                try {
-                    String taskDescription = taskDescriptionFull.split("/", 2)[0];
-                    String indexString = taskDescriptionFull.split("/", 2)[1].substring(6);
-                    int indexInt = Integer.parseInt(indexString) - 1;
-                    String after = list.get(indexInt).description;
-                    boolean taskFound = false;
-
-                    for (Task j: list) {
-                        if (j.description.equals(after)) {
-                            if (!DetectAnomalies.test(new DoAfter(taskDescription, after),list)) {
-                                checkAnomaly = false;
-                                list.add(new DoAfter(taskDescription, after));
-                                taskFound = true;
-                                break;
-                            }
-                        }
-                    }
-                    if (!taskFound) {
-                        System.out.println();
-                        System.out.println("        _____________________________________");
-                        System.out.println("        Task: '" + after + "' not found!");
-                        System.out.println("        _____________________________________");
-                        System.out.println();
-                        System.out.println();
-                        return;
-                    }
-                } catch (ArrayIndexOutOfBoundsException e) { // if /after is not included in doafter command
-                    ui.wrong_description_error();
-                    return;
-                }
-            } else if (taskType.equals("event")) {
-                try {
-                    String taskDescription = taskDescriptionFull.split("/", 2)[0];
-                    String taskTime = taskDescriptionFull.split("/", 2)[1].substring(3);
-                    String taskDateOnly = taskTime.split(" ", 2)[0];
-                    LocalDateTime localDateTime = getDateTime(taskTime);
-                    if (!DetectAnomalies.test(new Event(taskDescriptionFull,localDateTime), list)) {
-                        list.add(new Event(taskDescription, localDateTime));
-                        checkAnomaly = false;
-                        if (Schedule.isValidDate(taskDateOnly)) {
-                            schedule.addToSchedule(list.get(list.size() - 1), schedule.convertStringToDate(taskDateOnly));
-                        }
+        } else if (taskType.equals("deadline")) {
+            try {
+                String[] tokens = taskDescriptionFull.split(" /by | /difficulty ");
+                LocalDateTime by = getDateTime(tokens[1]);
+                if (!DetectAnomalies.test(new Deadline(taskDescriptionFull, by), list)) {
+                    if (taskDescriptionFull.contains("/difficulty")) {
+                        list.add(new Deadline(tokens[0], by, tokens[2]));
+                    } else {
+                        list.add(new Deadline(tokens[0], by));
                     }
 
-                } catch (ArrayIndexOutOfBoundsException e) {
-                    ui.wrong_description_error();
-                    return;
-                } catch (ParseException ignore) {
-                    return;
-                }
-            } else if (taskType.equals("range")) {
-                try {
-                    String taskDescription = taskDescriptionFull.split("/", 2)[0];
-                    String taskTime = taskDescriptionFull.split("/", 2)[1].substring(3);
-                    String[] dateTime = taskTime.split(" and ");
-                    LocalDateTime from = getDateTime(dateTime[0]);
-                    LocalDateTime by = getDateTime(dateTime[1]);
-                    if (!DetectAnomalies.test(new RangedTask(taskDescription,from,by),list)) {
-                        list.add(new RangedTask(taskDescription, from, by));
-                        checkAnomaly = false;
+                    String taskDate = tokens[1].split(" ")[0];
+                    if (Schedule.isValidDate(taskDate)) {
+                        schedule.addToSchedule(list.get(list.size() - 1), schedule.convertStringToDate(taskDate));
                     }
-                } catch (ArrayIndexOutOfBoundsException e) {
-                    ui.wrong_description_error();
-                    return;
+                    checkAnomaly = false;
                 }
-            } else if (taskType.equals("recur")) {
-                try {
-                    String taskDescription = taskDescriptionFull.split("/", 2)[0];
-                    String taskTime = taskDescriptionFull.split("/",2)[1].substring(3).split(" every")[0];
-                    LocalDateTime dateTime = getDateTime(taskTime);
-                    String[] inputWords = taskDescriptionFull.split(" ");
-                    int num = Integer.parseInt(inputWords[inputWords.length - 2]);
-                    String frequency = inputWords[inputWords.length - 1];
-                    int periodInMin = 0;
+            } catch (ArrayIndexOutOfBoundsException e) {
+                ui.wrong_description_error();
+                return;
+            } catch (ParseException ignore) {
+                return;
+            }
+        } else if (taskType.equals("event")) {
+            try {
+                String[] tokens = taskDescriptionFull.split(" /at | /difficulty ");
+                LocalDateTime at = getDateTime(tokens[1]);
+                if (!DetectAnomalies.test(new Event(taskDescriptionFull, at), list)) {
+                    if (taskDescriptionFull.contains("/difficulty")) {
+                        list.add(new Event(tokens[0], at, tokens[2]));
+                    } else {
+                        list.add(new Event(tokens[0], at));
+                    }
 
-                    switch (frequency) {
-                    case "minutes":
-                        periodInMin = num;
-                        break;
-                    case "hours":
-                        periodInMin = num * 60;
-                        break;
-                    case "days":
-                        periodInMin = num * 60 * 24;
-                        break;
-                    case "weeks":
-                        periodInMin = num * 60 * 24 * 7;
-                        break;
-                    case "months":
-                        periodInMin = num * 60 * 24 * 7 * 4;
-                        break;
-                    default:
-                        System.out.println("You have typed in the wrong format. Please re-add the recurring task.");
+                    String taskDate = tokens[1].split(" ")[0];
+                    if (Schedule.isValidDate(taskDate)) {
+                        schedule.addToSchedule(list.get(list.size() - 1), schedule.convertStringToDate(taskDate));
                     }
-                    if (!DetectAnomalies.test(new RecurringTask(taskDescription, dateTime, num + " " + frequency, periodInMin),list)) {
-                        list.add(new RecurringTask(taskDescription, dateTime, num + " " + frequency, periodInMin));
-                        checkAnomaly = false;
-                    }
-                } catch (ArrayIndexOutOfBoundsException e) {
-                    ui.wrong_description_error();
-                    return;
+                    checkAnomaly = false;
                 }
+            } catch (ArrayIndexOutOfBoundsException e) {
+                ui.wrong_description_error();
+                return;
+            } catch (ParseException ignore) {
+                return;
             }
         }
         if (!checkAnomaly) {
-            try {
-
-            } catch (IndexOutOfBoundsException e) {
-
-            }
             String output = "\t  " + list.get(list.size() - 1).toString();
             System.out.println("\t_____________________________________");
             System.out.println("\tGot it. I've added this task:");
             System.out.println(output);
-            // Printing number of items in list
             System.out.println("\tNow you have " + list.size() + " tasks in the list.");
             System.out.println("\t_____________________________________\n\n");
         } else {
@@ -387,7 +310,7 @@ public class TaskList {
     }
 
     /**
-     * Checks whether two instaces of TaskList are equal.
+     * Checks whether two instances of TaskList are equal.
      *
      * @param temp TaskList instance to compare against.
      * @return true or false to the comparison.
