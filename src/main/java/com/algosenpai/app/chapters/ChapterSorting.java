@@ -126,7 +126,7 @@ class ChapterSorting {
      * Generates the BubbleSort Algorithm question regarding the sequence of
      * integers after a certain number of passes. It determines a random array size,
      * then fills the array with unique numbers. A random number of passes is
-     * determined and the BubbleSort Algorithm stops midway. 
+     * determined and the BubbleSort Algorithm stops midway.
      * 
      * @return the question class with the question.
      */
