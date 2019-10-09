@@ -36,6 +36,8 @@ public class CommandManager {
                         try {
                             StandardTask task = new StandardTask(tempCommand[1]);
                             return new AddStandardTaskCommand(task);
+                        }catch(Exception e){
+                            throw new Exception("Add task fails! Please follow the format 'add task <task description>.");
                         }
                     }
                     else {
