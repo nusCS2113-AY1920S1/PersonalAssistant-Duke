@@ -35,8 +35,7 @@ public class CommandManager {
                     }
                     else if (tempCommand[0].toLowerCase().equals("task")){
                         try {
-//                            StandardTask task = new StandardTask(tempCommand[1]);
-                            StandardTask task = new StandardTask(command[1].split("\\s", 2)[1]);
+                            StandardTask task = new StandardTask(command[1].split("\\s+", 2)[1]);
                             return new AddStandardTaskCommand(task);
                         }catch(Exception e){
                             throw new Exception("Please follow the format 'add task <task description>.' ");
