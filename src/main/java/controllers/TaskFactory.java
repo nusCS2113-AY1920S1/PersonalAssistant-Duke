@@ -1,7 +1,8 @@
 package controllers;
 
-import models.task.State;
+
 import models.task.Task;
+import models.task.TaskState;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -19,40 +20,40 @@ public class TaskFactory {
         Task newTask = null;
         if (taskDetails.length == 4) {
             newTask = new Task(taskDetails[1].trim(), Integer.parseInt(taskDetails[2].trim()),
-                        null, Integer.parseInt(taskDetails[3].trim()), State.OPEN);
+                        null, Integer.parseInt(taskDetails[3].trim()), TaskState.OPEN);
         } else if (taskDetails.length == 5 && input.contains(" d/")) {
             SimpleDateFormat formatter = new SimpleDateFormat("dd/mm/yyyy");
             Date dueDate = formatter.parse(taskDetails[3]);
             newTask = new Task(taskDetails[1].trim(), Integer.parseInt(taskDetails[2].trim()),
-                                dueDate, Integer.parseInt(taskDetails[4].trim()), State.OPEN);
+                                dueDate, Integer.parseInt(taskDetails[4].trim()), TaskState.OPEN);
         } else if (taskDetails.length == 5 && input.contains(" s/")) {
-            State newState = convertStringToState(taskDetails[4]);
+            TaskState newTaskState = convertStringToTaskState(taskDetails[4]);
             newTask = new Task(taskDetails[1].trim(), Integer.parseInt(taskDetails[2].trim()),
-                        null, Integer.parseInt(taskDetails[3].trim()), newState);
+                        null, Integer.parseInt(taskDetails[3].trim()), newTaskState);
         } else if (taskDetails.length == 6) {
             SimpleDateFormat formatter = new SimpleDateFormat("dd/mm/yyyy");
             Date dueDate = formatter.parse(taskDetails[3]);
-            State newState = convertStringToState(taskDetails[5].trim());
+            TaskState newTaskState = convertStringToTaskState(taskDetails[5].trim());
             newTask = new Task(taskDetails[1].trim(), Integer.parseInt(taskDetails[2].trim()),
-                                dueDate, Integer.parseInt(taskDetails[4].trim()), newState);
+                                dueDate, Integer.parseInt(taskDetails[4].trim()), newTaskState);
         }
         return newTask;
     }
 
     /**
-     * Converts string input for state into enum State object.
+     * Converts string input for state into enum TaskState object.
      * @param inputState String input of state.
-     * @return enum State object.
+     * @return enum TaskState object.
      */
-    public State convertStringToState(String inputState) {
+    public TaskState convertStringToTaskState(String inputState) {
         if (inputState.equals("done")) {
-            return State.DONE;
+            return TaskState.DONE;
         } else if (inputState.equals("todo")) {
-            return State.TODO;
+            return TaskState.TODO;
         } else if (inputState.equals("doing")) {
-            return State.DOING;
+            return TaskState.DOING;
         } else {
-            return State.OPEN;
+            return TaskState.OPEN;
         }
     }
 }

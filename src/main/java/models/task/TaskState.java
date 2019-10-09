@@ -1,5 +1,5 @@
 package models.task;
 
-public enum State {
+public enum TaskState {
     OPEN, TODO, DOING, DONE;
 }
