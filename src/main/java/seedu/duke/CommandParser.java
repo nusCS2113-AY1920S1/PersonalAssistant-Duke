@@ -52,7 +52,8 @@ public class CommandParser {
 
     public static boolean isCommandFormat(String commandString) {
         return commandString.matches(
-                "(?:\\s*([\\w]+))(?:\\s+([\\w]+[\\s|\\w]*))(?:\\s+(-[\\w]+\\s+[\\w]+[\\s|\\w/]*))*");
+                "(?:task|email\\s)(?:\\s*([\\w]+)[\\s|\\w]*)(?:\\s+"
+                        + "(-[\\w]+\\s+[\\w]+[\\s|\\w/]*))*");
     }
 
     /**
@@ -428,6 +429,7 @@ public class CommandParser {
         Matcher deadlineMatcher = deadlinePattern.matcher(input);
         if (!deadlineMatcher.matches()) {
             if (ui != null) {
+                ui.showDebug(input);
                 ui.showError("Please enter a name after \'deadline\'");
             }
             return new InvalidCommand();

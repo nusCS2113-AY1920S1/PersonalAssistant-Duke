@@ -11,8 +11,8 @@ import seedu.duke.task.TaskStorage;
  * The main class of the program, which provides the entry point.
  */
 public class Duke {
-    private static TaskList taskList;
-    private static EmailList emailList;
+    private static TaskList taskList = new TaskList();
+    private static EmailList emailList = new EmailList();
     private static UI ui;
     private static CommandParser commandParser;
 

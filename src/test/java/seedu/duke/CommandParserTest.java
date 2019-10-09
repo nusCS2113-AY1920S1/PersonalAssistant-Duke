@@ -27,18 +27,20 @@ import static org.junit.jupiter.api.Assertions.*;
 public class CommandParserTest {
     @Test
     public void isCommandFormatTest() {
-        assertTrue(CommandParser.isCommandFormat("deadline 123abc -by asdas"));
-        assertTrue(CommandParser.isCommandFormat("deadline 123abc -by asdas -asd nisnds"));
-        assertTrue(CommandParser.isCommandFormat("deadline 123abc 123abc -by asdas -asd nisnds"));
-        assertFalse(CommandParser.isCommandFormat("deadline -by asdas -asd nisnds"));
-        assertTrue(CommandParser.isCommandFormat("deadline 123abc -by asdas -asd nis nds"));
-        assertFalse(CommandParser.isCommandFormat("123abc -by asdas"));
-        assertFalse(CommandParser.isCommandFormat("deadline 123abc -by "));
-        assertTrue(CommandParser.isCommandFormat("deadline 123abc"));
-        assertTrue(CommandParser.isCommandFormat(" deadline 123abc -by asdas"));
-        assertTrue(CommandParser.isCommandFormat("ads deadline 123abc -by asdas"));
-        assertTrue(CommandParser.isCommandFormat("done 1"));
+        assertTrue(CommandParser.isCommandFormat("task deadline 123abc -by asdas"));
+        assertFalse(CommandParser.isCommandFormat("deadline 123abc -by asdas"));
+        assertTrue(CommandParser.isCommandFormat("task deadline 123abc -by asdas -asd nisnds"));
+        assertTrue(CommandParser.isCommandFormat("task deadline 123abc 123abc -by asdas -asd nisnds"));
+        assertTrue(CommandParser.isCommandFormat("task deadline -by asdas -asd nisnds"));
+        assertTrue(CommandParser.isCommandFormat("task deadline 123abc -by asdas -asd nis nds"));
+        assertTrue(CommandParser.isCommandFormat("email 123abc -by asdas"));
+        assertFalse(CommandParser.isCommandFormat("task deadline 123abc -by "));
+        assertTrue(CommandParser.isCommandFormat("task deadline 123abc"));
+        assertTrue(CommandParser.isCommandFormat("task deadline 123abc -by asdas"));
+        assertTrue(CommandParser.isCommandFormat("task ads deadline 123abc -by asdas"));
+        assertTrue(CommandParser.isCommandFormat("task done 1"));
         assertTrue(CommandParser.isCommandFormat("task deadline 123 -time 11/11/1111 1111"));
+        assertTrue(CommandParser.isCommandFormat("task bye"));
     }
 
     @Test

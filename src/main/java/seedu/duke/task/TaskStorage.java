@@ -86,24 +86,24 @@ public class TaskStorage {
                     throw new StorageException("Invalid Save File!");
                 }
                 input = input.split(" ", 2)[1];
-                Command addCommand = CommandParser.parseAddTaskCommand(taskList, input,
-                        new ArrayList<Command.Option>());
+                Command addCommand = CommandParser.parseCommand("task " + input);
                 addCommand.setSilent();
                 addCommand.execute();
             }
+            taskList = Duke.getTaskList();
             for (int i = 0; i < taskList.size(); i++) {
                 if (doneList.get(i)) {
                     taskList.get(i).markDone();
                 }
             }
-            Duke.getUI().showMessage("Saved task file successfully loaded...");
+            Duke.getUI().showMessage("Saved task file successfully loaded... => " + taskList.size());
             in.close();
             new TaskReminderCommand(taskList).execute();
         } catch (FileNotFoundException e) {
             return taskList; //it is acceptable if there is no save file
         } catch (IOException e) {
             Duke.getUI().showError("Read save file IO exception");
-        } catch (StorageException e) {
+        } catch (StorageException | CommandParser.UserInputException e) {
             Duke.getUI().showError(e.getMessage());
             taskList = new TaskList();
         }

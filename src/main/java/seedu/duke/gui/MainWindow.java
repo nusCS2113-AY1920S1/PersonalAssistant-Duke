@@ -214,21 +214,22 @@ public class MainWindow extends AnchorPane {
         ObservableList<String> observableList = FXCollections.observableArrayList();
         for (int i = 0; i < Duke.getTaskList().size(); i++) {
             Task task = Duke.getTaskList().get(i);
-            String output = (i + 1) + ". " + task.getName() + "\n" +
-                    (task.getDone() ? "\u2713" : "\u2718") + "  " + task.getTaskType();
-            switch (Duke.getTaskList().get(i).getTaskType()) {
-            case Deadline:
-                Deadline deadline = (Deadline) Duke.getTaskList().get(i);
-                output += "\nBy: " + deadline.getTime();
-                break;
-            case Event:
-                Event event = (Event) Duke.getTaskList().get(i);
-                output += "\nAt: " + event.getTime();
-                break;
-            }
-            if (!(task.getDoAfterDescription() == null)) {
-                output += "\nAfter which: " + task.getDoAfterDescription();
-            }
+            //String output = (i + 1) + ". " + task.getName() + "\n" +
+            //        (task.getDone() ? "\u2713" : "\u2718") + "  " + task.getTaskType();
+            //switch (Duke.getTaskList().get(i).getTaskType()) {
+            //case Deadline:
+            //    Deadline deadline = (Deadline) Duke.getTaskList().get(i);
+            //    output += "\nBy: " + deadline.getTime();
+            //    break;
+            //case Event:
+            //    Event event = (Event) Duke.getTaskList().get(i);
+            //    output += "\nAt: " + event.getTime();
+            //    break;
+            //}
+            //if (task.getDoAfterDescription() != null && task.getDoAfterDescription() != "") {
+            //    output += "\nAfter which: " + task.getDoAfterDescription();
+            //}
+            String output = task.toString();
             observableList.add(output);
         }
         tasksListView.setItems(observableList);

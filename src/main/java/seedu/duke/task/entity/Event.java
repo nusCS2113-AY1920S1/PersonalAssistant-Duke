@@ -55,7 +55,7 @@ public class Event extends Task {
     public String toString() {
         String output = "";
         output = "[E]" + this.getStatus() + " (by: " + formatDate() + ")";
-        if (this.doAfterDescription != null) {
+        if (this.doAfterDescription != null && this.doAfterDescription != "") {
             output += "\n\tAfter which: " + doAfterDescription;
         }
         for (String tagName : tags) {
@@ -74,7 +74,7 @@ public class Event extends Task {
         String output = "";
         output = (this.isDone ? "1" : "0") + " event " + this.name + " -time "
                 + formatDate();
-        if (this.doAfterDescription != null) {
+        if (this.doAfterDescription != null && this.doAfterDescription != "") {
             output += " -doafter " + doAfterDescription;
         }
         for (String tagName : tags) {
