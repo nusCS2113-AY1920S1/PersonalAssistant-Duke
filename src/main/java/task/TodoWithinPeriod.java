@@ -4,7 +4,7 @@ import parser.DateTimeExtractor;
 
 import java.time.LocalDateTime;
 
-public class TodoWithDuration extends Todo {
+public class TodoWithinPeriod extends Todo {
 
     /**
      * Creates a ToDo task with a specific duration and timing.
@@ -13,7 +13,7 @@ public class TodoWithDuration extends Todo {
      * @param startDate start time of the task
      * @param endDate end time of the task
      */
-    public TodoWithDuration(String description, LocalDateTime startDate, LocalDateTime endDate) {
+    public TodoWithinPeriod(String description, LocalDateTime startDate, LocalDateTime endDate) {
         super(description);
         this.startDate = startDate;
         this.endDate = endDate;

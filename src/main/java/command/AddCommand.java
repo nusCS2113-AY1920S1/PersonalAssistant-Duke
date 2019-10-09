@@ -60,7 +60,7 @@ public class AddCommand extends Command {
             if (formattedStartDate.equals(nullDate)) {
                 task = new Todo(taskFeatures);
             } else {
-                task = new TodoWithDuration(taskFeatures, formattedStartDate, formattedEndDate);
+                task = new TodoWithinPeriod(taskFeatures, formattedStartDate, formattedEndDate);
             }
             break;
         case "deadline":

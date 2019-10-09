@@ -159,12 +159,12 @@ public class Parser {
         if (taskDetails.length == 1) {
             return new AddCommand(command, taskDetails[0], NULL_DATE, NULL_DATE);
         } else {
-            return parseToDoDuration(taskFeatures, taskDetails, checkType, command);
+            return parseToDoPeriod(taskFeatures, taskDetails, checkType, command);
         }
     }
 
-    private static Command parseToDoDuration(String taskFeatures, String[] taskDetails, String checkType,
-                                                String command) throws DukeException {
+    private static Command parseToDoPeriod(String taskFeatures, String[] taskDetails, String checkType,
+                                           String command) throws DukeException {
         String dateTimeFromUser = taskDetails[1];
         String taskDescription = taskFeatures.split(checkType, 2)[0].trim();
         String fromDate;
@@ -271,5 +271,21 @@ public class Parser {
     private static Command parseIgnore(String command, String userInput) {
         int index = Integer.parseInt(userInput.split("\\s+",2)[1].trim()) - 1;
         return new IgnoreCommand(index);
+    }
+
+    private static int parseDuration(String userInput) throws DukeException {
+        int duration;
+
+        if (!userInput.contains("/for")) {
+            return -1;
+        }
+
+        String substring = userInput.split("for", 2)[1].trim();
+        try {
+            duration = Integer.parseInt(substring.split("\\s+", 2)[0].trim());
+        } catch (NumberFormatException e) {
+            throw new DukeException("Invalid duration format");
+        }
+        return duration;
     }
 }
