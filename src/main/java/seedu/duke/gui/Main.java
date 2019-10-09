@@ -23,6 +23,8 @@ public class Main extends Application {
             stage.setScene(scene);
             stage.setTitle("Duke Email Manager");
             stage.getIcons().add(new Image(getClass().getResourceAsStream("/images/icon.png")));
+            stage.setMinWidth(450);
+            stage.setMinHeight(300);
             fxmlLoader.<MainWindow>getController().setDuke(duke);
             stage.show();
         } catch (IOException e) {

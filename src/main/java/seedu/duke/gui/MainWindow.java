@@ -2,24 +2,29 @@ package seedu.duke.gui;
 
 import javafx.animation.PauseTransition;
 import javafx.application.Platform;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.ObservableList;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.control.*;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
 import javafx.stage.Screen;
 import javafx.util.Duration;
 import seedu.duke.Duke;
+import java.util.*;
 import seedu.duke.CommandParser;
 import seedu.duke.UI;
 import seedu.duke.task.entity.TaskList;
@@ -51,7 +56,7 @@ public class MainWindow extends AnchorPane {
     @FXML
     private ListView<String> tasksListView;
     @FXML
-    private ListView<String> emailsListView;
+    private ListView<EmailHBoxCell> emailsListView;
     @FXML
     private WebView webView;
 
@@ -69,9 +74,12 @@ public class MainWindow extends AnchorPane {
         resizeToFitScreen();
 
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
+
+        String welcome = "Hi, I'm Duke!\nHow may I help you?";
+
         // show welcome message
         dialogContainer.getChildren().addAll(
-                DialogBox.getDukeDialog("Welcome!", dukeImage)
+                DialogBox.getDukeDialog(welcome, dukeImage)
         );
 
         // show email
@@ -236,10 +244,30 @@ public class MainWindow extends AnchorPane {
     }
 
     private void updateEmailsList() {
-        ObservableList<String> observableList = FXCollections.observableArrayList();
+//        ObservableList<String> observableList = FXCollections.observableArrayList();
+//        for (int i = 0; i < Duke.getEmailList().size(); i++) {
+//            observableList.add((i+1) + ". " + Duke.getEmailList().get(i).toFileString());
+//        }
+        ArrayList<EmailHBoxCell> list = new ArrayList<>();
         for (int i = 0; i < Duke.getEmailList().size(); i++) {
-            observableList.add(Duke.getEmailList().get(i).toFileString());
+            list.add(new EmailHBoxCell(Duke.getEmailList().get(i).toFileString(), i));
         }
+        ObservableList<EmailHBoxCell> observableList = FXCollections.observableList(list);
         emailsListView.setItems(observableList);
+    }
+
+    public static class EmailHBoxCell extends HBox {
+
+        EmailHBoxCell(String email, int i) {
+            super();
+
+            Label emailName = new Label();
+            emailName.setWrapText(true);
+            emailName.setText((i+1) + ". " + email);
+            emailName.setMaxWidth(USE_COMPUTED_SIZE);
+            HBox.setHgrow(emailName, Priority.ALWAYS);
+
+            this.getChildren().addAll(emailName);
+        }
     }
 }

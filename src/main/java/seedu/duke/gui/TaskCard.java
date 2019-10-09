@@ -15,7 +15,6 @@ import seedu.duke.task.entity.Task;
  */
 public class TaskCard extends HBox {
 
-    private static final String FXML = "TaskCard.fxml";
 
     /**
      * Note: Certain keywords such as "location" and "resources" are reserved keywords in JavaFX. As a
@@ -26,6 +25,7 @@ public class TaskCard extends HBox {
      *         level 4</a>
      */
     public final Task task;
+    public final int index;
 
     @FXML
     private HBox cardPane;
@@ -42,7 +42,7 @@ public class TaskCard extends HBox {
     @FXML
     private FlowPane tags;
 
-    private TaskCard(Task task, int displayedIndex) {
+    public TaskCard(Task task, int displayedIndex) {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(MainWindow.class.getResource("/view/TaskCard.fxml"));
             fxmlLoader.setController(this);
@@ -53,27 +53,25 @@ public class TaskCard extends HBox {
         }
 
         this.task = task;
-        id.setText(displayedIndex + ". ");
+        this.index = displayedIndex;
+
+        id.setText(index + ". ");
         taskName.setText(task.getName());
         String type = task.getTaskType().toString();
         taskType.setText(type);
-        switch (type) {
-        case "D":
-            date.setText("Deadline date");
-            break;
-        case "E":
-            date.setText("Event date");
-            break;
-        default:
-            date.setText(null);
-        }
+//        switch (type) {
+//            case "D":
+//                date.setText("Deadline date");
+//                break;
+//            case "E":
+//                date.setText("Event date");
+//                break;
+//            default:
+//                date.setText(null);
+//        }
 //        task.getTags().stream()
 //                .sorted(Comparator.comparing(tag -> tag.tagName))
 //                .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
-    }
-
-    public static TaskCard getTaskCard(Task task, int displayedIndex) {
-        return new TaskCard(task, displayedIndex);
     }
 
 //    @Override

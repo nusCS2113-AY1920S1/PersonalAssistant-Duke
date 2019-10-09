@@ -16,7 +16,7 @@
    <children>
       <SplitPane dividerPositions="0.34540117416829746, 0.6614481409001957" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <items>
-            <AnchorPane maxHeight="800.0" maxWidth="1024.0" prefHeight="716.0" prefWidth="358.0">
+            <AnchorPane minWidth="100.0" prefHeight="716.0" prefWidth="358.0">
                <children>
                   <AnchorPane layoutY="704.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
                      <children>
@@ -35,18 +35,14 @@
                      <children>
                         <ScrollPane fx:id="scrollPane" fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" hvalue="1.0" prefHeight="678.0" prefWidth="340.0" vvalue="1.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                            <content>
-                              <AnchorPane>
-                                 <children>
-                                    <VBox fx:id="dialogContainer" alignment="TOP_CENTER" prefHeight="669.0" prefWidth="352.0" style="-fx-background-color: #ffffff;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                                       <opaqueInsets>
-                                          <Insets />
-                                       </opaqueInsets>
-                                       <padding>
-                                          <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                                       </padding>
-                                    </VBox>
-                                 </children>
-                              </AnchorPane>
+                              <VBox fx:id="dialogContainer" alignment="TOP_CENTER" style="-fx-background-color: #ffffff;">
+                                 <opaqueInsets>
+                                    <Insets />
+                                 </opaqueInsets>
+                                 <padding>
+                                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                 </padding>
+                              </VBox>
                            </content>
                            <padding>
                               <Insets bottom="3.0" left="3.0" right="3.0" />
@@ -68,7 +64,7 @@
                   </AnchorPane>
                </children>
             </AnchorPane>
-            <AnchorPane prefHeight="720.0" prefWidth="300.0">
+            <AnchorPane minWidth="150.0" prefHeight="720.0" prefWidth="300.0">
                <children>
                   <ScrollPane fitToHeight="true" fitToWidth="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="40.0">
                      <content>
@@ -100,7 +96,7 @@
                   </AnchorPane>
                </children>
             </AnchorPane>
-            <AnchorPane prefHeight="720.0" prefWidth="300.0">
+            <AnchorPane minWidth="150.0" prefHeight="720.0" prefWidth="300.0">
                <children>
                   <AnchorPane layoutX="11.0" layoutY="5.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <children>
@@ -114,7 +110,7 @@
                         <Insets left="10.0" top="10.0" />
                      </padding>
                   </AnchorPane>
-                  <ScrollPane fitToHeight="true" fitToWidth="true" prefHeight="680.0" prefWidth="300.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="40.0">
+                  <ScrollPane fitToHeight="true" fitToWidth="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="40.0">
                      <content>
                         <AnchorPane>
                            <children>
