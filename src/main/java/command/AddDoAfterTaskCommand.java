@@ -1,6 +1,6 @@
-package dolla.command;
+package command;
 
-import dolla.Ui;
+import ui.Ui;
 import dolla.task.DoAfter;
 import dolla.task.Task;
 import dolla.task.TaskList;

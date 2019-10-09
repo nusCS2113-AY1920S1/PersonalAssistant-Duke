@@ -1,9 +1,9 @@
 package parser;
 
-import dolla.Ui;
-import dolla.command.AddEntryCommand;
-import dolla.command.Command;
-import dolla.command.ErrorCommand;
+import ui.Ui;
+import command.AddEntryCommand;
+import command.Command;
+import command.ErrorCommand;
 
 public class DollaParser extends Parser {
 

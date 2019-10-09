@@ -1,6 +1,6 @@
-package dolla.command;
+package command;
 
-import dolla.Ui;
+import ui.Ui;
 
 /**
  * Command is an abstract class which all types of command will inherit from.
