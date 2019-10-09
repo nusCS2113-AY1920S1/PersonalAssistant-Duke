@@ -63,6 +63,13 @@ public class Ui {
                 + "\nRemark: " + patient.getRemark());
     }
 
+    public void patientDeleted(Patient patient) {
+        System.out.println("Got it. The following patient is deleted:  "
+                + "\nName: " + patient.getName() + "  Id: " + patient.getID()
+                + "\nNRIC: " + patient.getNRIC() + "  Room: " + patient.getRoom()
+                + "\nRemark: " + patient.getRemark());
+    }
+
     public void listAllPatients(ArrayList<Patient> patients){
         for (Patient patient : patients){
             System.out.println( "Name: " + patient.getName() + "  Id: " + patient.getID()
@@ -71,6 +78,8 @@ public class Ui {
             showLine();
         }
     }
+
+
 
 
     /**

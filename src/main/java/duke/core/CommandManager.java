@@ -61,8 +61,28 @@ public class CommandManager {
             case "done":
                 //do thing for 'done'
             case "delete":
-                //do thing for 'delete
+                try{
+                    String[] tempCommand = command[1].split(" ", 2);
+                    if (tempCommand[0].toLowerCase().equals("patient")){
+                            return new DeletePatientCommand(Integer.parseInt(tempCommand[1]));
+                    }
+                    else {
+                        throw new Exception("Delete Command with invalid format.");
+                    }
+                } catch(Exception e){
+                    throw new DukeException(e.getMessage());
+                }
             case "find":
+                try{
+                    String[] tempCommand = command[1].split(" ", 2);
+                    if (tempCommand[0].toLowerCase().equals("patient")){
+                        String commandContent = tempCommand[1];
+                        int patientID = Integer.parseInt(commandContent);
+                        return new DeletePatientCommand(patientID);
+                    }
+                } catch(Exception e){
+                    throw new DukeException("Find Command fails." + e.getMessage());
+                }
                 //do thing for 'find'
             case "reschedule":
                 //do thing for 'reschedule'
