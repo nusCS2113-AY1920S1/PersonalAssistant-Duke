@@ -23,7 +23,7 @@ public class CommandManager {
     public static Command manageCommand(String userInput) throws DukeException {
         userInput = userInput.trim();
         String[] command = userInput.split(" ", 2);
-        String commandType = command[0];
+        String commandType = command[0].toLowerCase();
         switch (commandType) { //change this depending on how string is parsed
             case "add":
                 try {
@@ -32,11 +32,24 @@ public class CommandManager {
                         Patient patient = new Patient(tempCommand[1], tempCommand[2], tempCommand[3], tempCommand[4]);
                         return new AddPatientCommand(patient);
                     }
+                    else if (tempCommand[0].toLowerCase().equals("task")){
+                        //if the command is <add task ....>
+                    }
                 } catch (Exception e) {
                     throw new DukeException("Fail to parse Add Patient command. " + e.getMessage());
                 }
             case "list":
-                //do thing for 'list'
+                try {
+                    String[] tempCommand = command[1].split(" ");
+                    if (tempCommand[0].toLowerCase().equals("patient")){
+                        return new ListPatientCommand();
+                    }
+                    else if (tempCommand[0].toLowerCase().equals("task")){
+                        //if the command is <list task ....>
+                    }
+                } catch (Exception e) {
+                    throw new DukeException("Fail to parse Add Patient command. " + e.getMessage());
+                }
             case "done":
                 //do thing for 'done'
             case "delete":
