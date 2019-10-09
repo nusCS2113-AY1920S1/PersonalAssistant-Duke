@@ -44,7 +44,7 @@ public class PriorityList {
     }
 
     /**
-     * Add a default priority associated with a task into the list when the task is generated;
+     * Add a default priority associated with a task into the list when the task is generated.
      *
      * @param cmd The command used to generate a new task;
      * @return The updated Priority List.
