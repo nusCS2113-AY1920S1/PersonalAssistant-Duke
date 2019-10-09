@@ -21,6 +21,9 @@ public class CliSyntax {
     public static final Prefix PREFIX_ORDER_STATUS = new Prefix("-status");
     public static final Prefix PREFIX_ORDER_INDEX = new Prefix("-i");
 
-    public static final Prefix PREFIX_RECIPE_NAME = new Prefix("-name");
+    public static final Prefix PREFIX_PRODUCT_NAME = new Prefix("-name");
+    public static final Prefix PREFIX_PRODUCT_INGREDIENT = new Prefix("-ingt");
+    public static final Prefix PREFIX_PRODUCT_COST = new Prefix("-cost");
+    public static final Prefix PREFIX_PRODUCT_PRICE = new Prefix("-price");
 
 }

@@ -15,3 +15,6 @@ bin/
 
 # Generated Data Files
 /baking.json
+#log file
+/BakingHome.log.0
+/BakingHome.log.0.lck

@@ -24,7 +24,7 @@ public class MainWindow extends UiPart<Stage> {
     private Logic logic;
 
     private OrderPage orderPage;
-    private RecipePage recipePage;
+    private ProductPage productPage;
     private SalePage salePage;
     private InventoryPage inventoryPage;
 
@@ -69,10 +69,10 @@ public class MainWindow extends UiPart<Stage> {
 
     void fillInnerParts() {
         orderPage = new OrderPage(logic.getFilteredOrderList());
-        recipePage = new RecipePage();
+        productPage = new ProductPage();
         salePage = new SalePage();
         inventoryPage = new InventoryPage();
-        setAllPageAnchor(orderPage.getRoot(), recipePage.getRoot(), salePage.getRoot(), inventoryPage.getRoot());
+        setAllPageAnchor(orderPage.getRoot(), productPage.getRoot(), salePage.getRoot(), inventoryPage.getRoot());
     }
 
     void show() {
@@ -169,7 +169,7 @@ public class MainWindow extends UiPart<Stage> {
 
     private void showRecipePage() {
         pagePane.getChildren().clear();
-        pagePane.getChildren().add(recipePage.getRoot());
+        pagePane.getChildren().add(productPage.getRoot());
 
         recipeButton.setButtonType(JFXButton.ButtonType.RAISED);
         orderButton.setButtonType(JFXButton.ButtonType.FLAT);
