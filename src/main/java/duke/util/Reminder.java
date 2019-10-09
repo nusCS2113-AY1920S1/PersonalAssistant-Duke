@@ -36,8 +36,8 @@ public class Reminder {
         this.thread = new Thread(this::remind);
     }
 
-    public Reminder(List<Task> tasks, int minutesBefore, int minuteEvery) throws ModTimeIntervalTooCloseException {
-        this(tasks, TimeInterval.ofMinutes(minutesBefore), TimeInterval.ofMinutes(minuteEvery));
+    public Reminder(List<Task> tasks, int minutesBefore, int minutesEvery) throws ModTimeIntervalTooCloseException {
+        this(tasks, TimeInterval.ofMinutes(minutesBefore), TimeInterval.ofMinutes(minutesEvery));
     }
 
     public Reminder(List<Task> tasks, TimeInterval remindBefore) throws ModTimeIntervalTooCloseException {
