@@ -25,8 +25,8 @@ public class Email {
     protected Boolean hasHtml;
     protected String tag;
 
-    @FXML
-    private WebView webView;
+//  @FXML
+//  private WebView webView;
 
     public Email(String subject) {
         this.subject = subject;
