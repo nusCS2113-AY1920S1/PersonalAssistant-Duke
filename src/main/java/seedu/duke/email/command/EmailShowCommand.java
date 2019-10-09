@@ -20,7 +20,9 @@ public class EmailShowCommand extends Command {
     public boolean execute() {
         try {
             responseMsg = emailList.show(index);
-            Duke.getUI().showResponse(responseMsg);
+            String parsedMsg[] = responseMsg.split(" path: ", 2);
+            Duke.getUI().showResponse(parsedMsg[0]);
+            Duke.getUI().setEmailPath(parsedMsg[1]);
             return true;
         } catch (CommandParser.UserInputException | IOException e) {
             if (!silent) {

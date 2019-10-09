@@ -39,8 +39,8 @@ public class EmailList extends ArrayList<Email> {
             throw new CommandParser.UserInputException("Invalid index");
         }
         Email email = this.get(index);
-        email.showEmail();
-        String responseMsg = "Showing email in browser: " + email.getSubject();
+        String path = email.getShowEmailPath();
+        String responseMsg = "Showing email in browser: " + email.getSubject() + " path: " + path;
         return responseMsg;
     }
 

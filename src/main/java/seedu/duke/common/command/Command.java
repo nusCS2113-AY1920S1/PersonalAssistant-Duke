@@ -31,10 +31,6 @@ public abstract class Command {
         this.silent = true;
     }
 
-    public String getResponseMsg() {
-        return responseMsg;
-    }
-
     public static class Option extends Pair<String, String> {
         /**
          * Creates a new pair as option of the input
