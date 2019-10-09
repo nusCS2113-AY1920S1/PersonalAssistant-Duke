@@ -87,20 +87,17 @@ public class AddNoteCommand extends Command {
         case "day":
             noteSpecified = addToList(NoteList.daily, userDate, usersNote, command[2]);
             break;
-
         case "week":
             noteSpecified = addToList(NoteList.weekly, userDate, usersNote, command[2]);
             break;
-
         case "month":
             noteSpecified = addToList(NoteList.monthly, userDate, usersNote, command[2]);
             break;
-
-        default:
-            noteSpecified = null;
+        default: noteSpecified = null;
+            break;
         }
 
-        assert noteSpecified != null;
+        assert noteSpecified != null : "there is a bug in AddNoteCommand";
         printConfirmationMessage(usersNote, noteSpecified.notes.size(), command[1]);
     }
 

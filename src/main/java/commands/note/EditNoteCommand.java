@@ -25,7 +25,7 @@ public class EditNoteCommand extends AddNoteCommand {
                 }
             }
         }
-        throw new DukeException("OOPS!!! There are no notes on this " + period + " to edit from.");
+        throw new DukeException("OOPS!!! There are no notes for this " + period + " to edit from.");
     }
 
     private void printEditSuccess(String usersNote, String period) {
@@ -45,6 +45,7 @@ public class EditNoteCommand extends AddNoteCommand {
             ui.showErrorMessage(e);
             return;
         }
+
         int noteNum;
         try {
             noteNum = Integer.parseInt(command[3]);
@@ -52,20 +53,16 @@ public class EditNoteCommand extends AddNoteCommand {
             System.out.println("Please specify a note number.");
             return;
         }
+
         ui.ReadCommand();
         String usersNote = ui.FullCommand;
         try {
             switch (command[1]) {
-            case "day":
-                editNoteInList(noteNum, NoteList.daily, userDate, usersNote, command[1]);
+            case "day": editNoteInList(noteNum, NoteList.daily, userDate, usersNote, command[1]);
                 break;
-
-            case "week":
-                editNoteInList(noteNum, NoteList.weekly, userDate, usersNote, command[1]);
+            case "week": editNoteInList(noteNum, NoteList.weekly, userDate, usersNote, command[1]);
                 break;
-
-            case "month":
-                editNoteInList(noteNum, NoteList.monthly, userDate, usersNote, command[1]);
+            case "month": editNoteInList(noteNum, NoteList.monthly, userDate, usersNote, command[1]);
                 break;
             }
             printEditSuccess(usersNote, command[1]);

@@ -4,6 +4,7 @@ package parsers;
 import commands.*;
 import commands.note.AddNoteCommand;
 import Exception.DukeException;
+import commands.note.DeleteNoteCommand;
 import commands.note.EditNoteCommand;
 
 public class Parser {
@@ -69,6 +70,8 @@ public class Parser {
             return new AddNoteCommand();
         } else if (splitCommand[0].equals("editNote")) {
             return new EditNoteCommand();
+        } else if (splitCommand[0].equals("deleteNote")) {
+                return new DeleteNoteCommand();
         } else if ((splitCommand[0] + " " + splitCommand[1]).equals("change password")) {
             return new ChangePasswordCommand();
         } else if (command.contains("#")) {
