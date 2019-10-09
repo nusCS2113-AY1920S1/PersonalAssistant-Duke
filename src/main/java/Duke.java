@@ -2,6 +2,8 @@ import Tasks.Task;
 import UI.Ui;
 import Storage.Storage;
 import commands.Command;
+import notes.Note;
+import notes.NoteList;
 import parsers.*;
 import Exception.DukeException;
 
@@ -30,7 +32,7 @@ public class Duke {
             ui.UpcomingTask(list);
             while (!isExit) {
                 ui.ReadCommand();
-                String command = ui.FullCommand;
+                String command = ui.FullCommand.trim();
                 Command c = Parser.parse(command);
                 c.execute(list, ui, store, CommandStack, deletedTask);
                 if(!command.equals("undo") && !command.equals("list") && !command.contains("confirm")) {

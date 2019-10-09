@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 import java.io.IOException;
 import java.text.ParseException;
 import java.util.ArrayList;
+import Exception.DukeException;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 public class DukeTest {
@@ -23,7 +24,7 @@ public class DukeTest {
             assertEquals("Date Time has to be in YYYY-MM-DD HH:mm:ss format",e.getMessage());
         } catch (NullPointerException e){
             assertEquals(e.getMessage(),e.getMessage());
-        } catch (Exception.DukeException dukeException) {
+        } catch (DukeException dukeException) {
             dukeException.printStackTrace();
         }
     }
