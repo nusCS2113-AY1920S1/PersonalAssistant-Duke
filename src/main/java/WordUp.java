@@ -36,7 +36,7 @@ public class WordUp {
     }
 
     public static void main(String[] args) {
-        new WordUp("/home/tessa/Documents/CS2113/main/data/wordup.txt").run();
+        new WordUp("C:\\Users\\user\\gitclones\\main\\src\\data\\wordup.txt").run();
     }
 }
 

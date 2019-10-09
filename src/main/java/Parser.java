@@ -84,7 +84,10 @@ public class Parser {
             } else if (taskInfo[0].equals("tag")) {
                 //CREATE TAG COMMAND TO ADD TAG TO A WORD
                 return null;
-            } else {
+            } else if (taskInfo[0].equals("quiz")){
+                return new QuizCommand();
+            }
+            else {
                 try {
                     throw new CommandInvalidException(input);
                 } catch (CommandInvalidException e){
