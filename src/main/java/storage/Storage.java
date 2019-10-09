@@ -41,6 +41,9 @@ public class Storage {
             while (line != null) {
                 // get data from storage
                 // parse the line first
+                if (line.equals("")) {
+                    line = br.readLine(); continue;
+                }
                 String[] parsedWordAndMeaning = line.split(":");
                 Word word = new Word(parsedWordAndMeaning[0].trim(), parsedWordAndMeaning[1].trim());
                 wordBank.put(word.getWord(), word);
@@ -68,7 +71,7 @@ public class Storage {
             fw = new FileWriter(file, append);
             bw = new BufferedWriter(fw);
             bw.write(s);
-            bw.newLine();
+//            bw.newLine();
         } catch (IOException e) {
             e.printStackTrace();
         } finally {
@@ -91,12 +94,12 @@ public class Storage {
             String oldContent = "";
             String line = br.readLine();
 
-            while (line != null) {
+            while ((line != null) && (!line.equals("\n"))){
                 oldContent = oldContent + line + System.lineSeparator();
                 line = br.readLine();
             }
             oldContent = oldContent.substring(0, oldContent.length() - 1);
-            String newContent = oldContent.replace(oldString + System.lineSeparator(), "");
+            String newContent = oldContent.replace(oldString, "").trim();
             Storage writer = new Storage();
             writer.writeFile(newContent,false);
         } catch (IOException e) {
