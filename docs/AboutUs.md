@@ -11,7 +11,7 @@ We are a team based in the [School of Computing, National University of Singapor
 
 ### Hafidz Bin Hussain
 
-<img src="./images/Hafidz.png" alt="drawing" width="200"/>
+<img src="./images/9hafidz6.png" alt="drawing" width="200"/>
 
 [[github](https://github.com/9hafidz6)] [profolio]
 
@@ -21,7 +21,7 @@ Responsibilities:
 
 ### Sara Djambazovska
 
-<img src="./images/Sara.png" alt="drawing" width="200"/>
+<img src="./images/saradj.png" alt="drawing" width="200"/>
 
 [[github](https://github.com/saradj/)] [profolio]
 
@@ -31,7 +31,7 @@ Responsibilities:
 
 ### Jiahan Yu
 
-<img src="./images/Jiahan.png" alt="drawing" width="200"/>
+<img src="./images/virginiayu.png" alt="drawing" width="200"/>
 
 [[github](https://github.com/VirginiaYu)] [profolio]
 
@@ -41,7 +41,7 @@ Responsibilities:
 
 ### Goh Zhen Hao Joey
 
-<img src="./images/Joey.png" alt="drawing" width="200"/>
+<img src="./images/x3chillax.png" alt="drawing" width="200"/>
 
 [[github](https://github.com/x3chillax)] [profolio]
 
@@ -51,7 +51,7 @@ Responsibilities:
 
 ### Lincoln Lim
 
-<img src="./images/Lincoln.png" alt="drawing" width="200"/>
+<img src="./images/ceglincoln.png" alt="drawing" width="200"/>
 
 [[github](https://github.com/CEGLincoln)] [profolio]
 
