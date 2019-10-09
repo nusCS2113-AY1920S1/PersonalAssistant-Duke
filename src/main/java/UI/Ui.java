@@ -10,6 +10,9 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.FormatStyle;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -41,6 +44,8 @@ public class Ui {
             password_list = store.Password();
             if (FullCommand.equals(password_list.get(0))) {
                 System.out.println(welcomemessage);
+                LocalDate a = LocalDate.now();
+                System.out.println("Today is "+a.format(DateTimeFormatter.ofLocalizedDate(FormatStyle.FULL)));
                 break;
             } else {
                 System.out.println("Incorrect password, please try again:");
