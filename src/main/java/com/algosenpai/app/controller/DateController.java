@@ -31,6 +31,8 @@ public class DateController extends SceneController implements Initializable {
 
     private String characterImageName;
 
+    AnimationTimerController backgroundSceneTimer;
+
     public DateController() {
         characterImageName = "miku.png";
         handle();
@@ -46,11 +48,11 @@ public class DateController extends SceneController implements Initializable {
     }
 
     private void handle() {
-        AnimationTimerController backgroundSceneTimer = new AnimationTimerController(JavaFxConstant.sceneInterval) {
+        backgroundSceneTimer = new AnimationTimerController(JavaFxConstant.sceneInterval) {
             @Override
             public void handle() {
                 String imageName = ResourceRandomUtility.randomResources(ImagesConstant.quizImages);
-                changeBackgroundImage(ResourcePathConstant.imagesResourcePath + imageName);
+                changeBackgroundImage(imageName);
             }
         };
         backgroundSceneTimer.start();
@@ -65,7 +67,9 @@ public class DateController extends SceneController implements Initializable {
     public void handleKeyPressed(KeyEvent keyEvent) throws IOException {
         if (keyEvent.getCode() == KeyCode.H) {
             MusicController.playMusic("rezero.wav");
-            changeScene(ResourcePathConstant.viewResourcePath + "home.fxml");
+            String imageName = ResourceRandomUtility.randomResources(ImagesConstant.startAppImages);
+            changeScene("home.fxml", imageName);
+            backgroundSceneTimer.stop();
         }
         if (keyEvent.getCode() == KeyCode.ESCAPE) {
             userInput.getParent().requestFocus();

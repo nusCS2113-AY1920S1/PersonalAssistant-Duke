@@ -1,6 +1,7 @@
 package com.algosenpai.app.controller;
 
 import com.algosenpai.app.constant.ImagesConstant;
+import com.algosenpai.app.constant.ImagesEnum;
 import com.algosenpai.app.constant.JavaFxConstant;
 import com.algosenpai.app.constant.ResourcePathConstant;
 import com.algosenpai.app.utility.ResourceRandomUtility;
@@ -31,6 +32,8 @@ public class EndController extends SceneController implements Initializable {
 
     private String characterImageName;
 
+    private AnimationTimerController backgroundSceneTimer;
+
     public EndController() {
         characterImageName = "miku.png";
         handle();
@@ -46,11 +49,11 @@ public class EndController extends SceneController implements Initializable {
     }
 
     private void handle() {
-        AnimationTimerController backgroundSceneTimer = new AnimationTimerController(JavaFxConstant.sceneInterval) {
+        backgroundSceneTimer = new AnimationTimerController(JavaFxConstant.sceneInterval) {
             @Override
             public void handle() {
                 String imageName = ResourceRandomUtility.randomResources(ImagesConstant.quizImages);
-                changeBackgroundImage(ResourcePathConstant.imagesResourcePath + imageName);
+                changeBackgroundImage(imageName);
             }
         };
         backgroundSceneTimer.start();
@@ -64,16 +67,22 @@ public class EndController extends SceneController implements Initializable {
     @FXML
     public void handleKeyPressed(KeyEvent keyEvent) throws IOException {
         if (keyEvent.getCode() == KeyCode.H) {
-            MusicController.playMusic("rezero.wav");
-            changeScene(ResourcePathConstant.viewResourcePath + "home.fxml");
+            MusicController.playMusic("promise.wav");
+            String imageName = ImagesConstant.startAppImages.get(ImagesEnum.START_APP_2);
+            changeScene("home.fxml", imageName);
+            backgroundSceneTimer.stop();
         }
         if (keyEvent.getCode() == KeyCode.R) {
             MusicController.playMusic("rezero.wav");
-            changeScene(ResourcePathConstant.viewResourcePath + "review.fxml");
+            String imageName = ResourceRandomUtility.randomResources(ImagesConstant.startAppImages);
+            changeScene("review.fxml", imageName);
+            backgroundSceneTimer.stop();
         }
         if (keyEvent.getCode() == KeyCode.G) {
             MusicController.playMusic("rezero.wav");
-            changeScene(ResourcePathConstant.viewResourcePath + "girls.fxml");
+            String imageName = ResourceRandomUtility.randomResources(ImagesConstant.startAppImages);
+            changeScene("girls.fxml", imageName);
+            backgroundSceneTimer.stop();
         }
         if (keyEvent.getCode() == KeyCode.ESCAPE) {
             userInput.getParent().requestFocus();
