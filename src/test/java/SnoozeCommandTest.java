@@ -13,22 +13,25 @@ import java.time.format.DateTimeFormatter;
 import Exception.DukeException;
 
 import java.util.ArrayList;
+import java.util.Stack;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class SnoozeCommandTest {
     @Test
-    public void testExecuteSnooze() throws ParseException,IOException,DukeException{
+    public void testExecuteSnooze() {
         DeadlineCommand deadlineCommand = new DeadlineCommand();
         SnoozeCommand snoozeCommand = new SnoozeCommand();
         ArrayList<Task> tasks = new ArrayList<Task>();
         Ui ui = new Ui();
         Storage storage = new Storage();
+        Stack<String> CommandStack = new Stack<>();
+        ArrayList<Task> deletedTask = new ArrayList<Task>();
         ui.FullCommand = "deadline return book /by 2008-07-07 03:03:03";
         try {
             deadlineCommand.execute(tasks,ui,storage, CommandStack, deletedTask);
-        } catch (Exception.DukeException dukeException) {
-            dukeException.printStackTrace();
+        } catch (DukeException | ParseException |IOException e) {
+            e.printStackTrace();
         }
         int index = 0;
         int year = 1;

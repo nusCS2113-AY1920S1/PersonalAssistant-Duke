@@ -6,11 +6,13 @@ import commands.EventCommand;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
+import Exception.DukeException;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.PrintStream;
+import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Stack;
 
 import static org.junit.jupiter.api.Assertions.*;
 class EventCommandTest {
@@ -40,14 +42,15 @@ class EventCommandTest {
         ui.FullCommand = "event sleep/at 2019-12-12 03:03:03-04:04:04";
         EventCommand ec = new EventCommand();
         ArrayList<Task> tasks = new ArrayList<Task>();
+        Stack<String> CommandStack = new Stack<>();
+        ArrayList<Task> deletedTask = new ArrayList<Task>();
+
         Event e = new Event("eat", "2019-12-12 03:03:03-04:04:04");
         tasks.add(e);
         try {
             ec.execute(tasks, ui, storage, CommandStack, deletedTask);
-        } catch (java.text.ParseException e1) {
+        } catch (ParseException | DukeException e1) {
             e1.printStackTrace();
-        } catch (Exception.DukeException dukeException) {
-            dukeException.printStackTrace();
         }
         assertEquals("The following event(s) clash with your current event:\r\n" +
                 "1.[E][ND] eat(at:12 Dec 2019 03:03:03-04:04:04)\r\n\r\n" +
@@ -64,14 +67,14 @@ class EventCommandTest {
         ui.FullCommand = "event sleep/at 2019-12-12 02:03:03-03:10:04";
         EventCommand ec = new EventCommand();
         ArrayList<Task> tasks = new ArrayList<Task>();
+        Stack<String> CommandStack = new Stack<>();
+        ArrayList<Task> deletedTask = new ArrayList<Task>();
         Event e = new Event("eat", "2019-12-12 03:03:03-04:04:04");
         tasks.add(e);
         try {
             ec.execute(tasks, ui, storage, CommandStack, deletedTask);
-        } catch (java.text.ParseException e1) {
+        } catch (ParseException | DukeException e1) {
             e1.printStackTrace();
-        } catch (Exception.DukeException dukeException) {
-            dukeException.printStackTrace();
         }
         assertEquals("The following event(s) clash with your current event:\r\n" +
                 "1.[E][ND] eat(at:12 Dec 2019 03:03:03-04:04:04)\r\n\r\n" +
@@ -88,14 +91,14 @@ class EventCommandTest {
         ui.FullCommand = "event sleep/at 2019-12-12 03:10:03-03:50:04";
         EventCommand ec = new EventCommand();
         ArrayList<Task> tasks = new ArrayList<Task>();
+        Stack<String> CommandStack = new Stack<>();
+        ArrayList<Task> deletedTask = new ArrayList<Task>();
         Event e = new Event("eat", "2019-12-12 03:03:03-04:04:04");
         tasks.add(e);
         try {
             ec.execute(tasks, ui, storage, CommandStack, deletedTask);
-        } catch (java.text.ParseException e1) {
+        } catch (ParseException | DukeException e1) {
             e1.printStackTrace();
-        } catch (Exception.DukeException dukeException) {
-            dukeException.printStackTrace();
         }
         assertEquals("The following event(s) clash with your current event:\r\n" +
                 "1.[E][ND] eat(at:12 Dec 2019 03:03:03-04:04:04)\r\n\r\n" +
@@ -111,14 +114,14 @@ class EventCommandTest {
         ui.FullCommand = "event sleep/at 2019-12-12 12:03:03-14:10:04";
         EventCommand ec = new EventCommand();
         ArrayList<Task> tasks = new ArrayList<Task>();
+        Stack<String> CommandStack = new Stack<>();
+        ArrayList<Task> deletedTask = new ArrayList<Task>();
         Event e = new Event("eat", "2019-12-12 03:03:03-04:04:04");
         tasks.add(e);
         try {
             ec.execute(tasks, ui, storage, CommandStack, deletedTask);
-        } catch (java.text.ParseException e1) {
+        } catch (ParseException | DukeException e1) {
             e1.printStackTrace();
-        } catch (Exception.DukeException dukeException) {
-            dukeException.printStackTrace();
         }
         assertEquals("Got it. I've added this task:\r\n" +
                 "[E][ND] sleep(at:12 Dec 2019 12:03:03-14:10:04)\r\n" +
