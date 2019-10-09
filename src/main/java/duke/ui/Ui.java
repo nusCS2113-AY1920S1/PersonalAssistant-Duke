@@ -54,11 +54,11 @@ public class Ui {
     }
 
     /**
-     * Show the help page
+     * Show the help page.
      *
      * @return an event requesting to view the help page
      */
-    public static String helpRequest(TaskList items){
+    public static String helpRequest(TaskList items) {
         String str = "     Here are the commands available in Duke Manager:";
         return  str;
     }
@@ -349,6 +349,9 @@ public class Ui {
         out.println("     Directory of the file opened in explorer!");
     }
 
+    /**
+     * Outputs a message to the user to let it know that it has changed the priority of a task.
+     */
     public void showSetPriority(TaskList taskList, int taskNum, int priority) {
         out.println("     Updated the priority of \n\t\t" + taskList.get(taskNum));
         out.println("     Current priority: " + priority);
