@@ -9,8 +9,6 @@ import seedu.hustler.data.CommandLog;
 import seedu.hustler.Hustler;
 import seedu.hustler.data.AvatarStorage;
 import seedu.hustler.data.Schedule;
-import java.util.Scanner;
-
 import seedu.hustler.ui.Ui;
 
 import static seedu.hustler.parser.DateTimeParser.getDateTime;
@@ -226,8 +224,9 @@ public class TaskList {
                 System.out.println("\t_____________________________________");
             }
 
-            Scanner scanner = new Scanner(System.in);
-            String rawInput = scanner.nextLine();
+            //Scanner scanner = new Scanner(System.in);
+            //String rawInput = scanner.nextLine();
+            String rawInput = "";
             String[] userInput = rawInput.split(" ");
             boolean failSnooze = false;
 

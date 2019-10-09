@@ -5,7 +5,6 @@ import java.io.IOException;
 import javafx.application.Platform;
 import seedu.hustler.game.avatar.Avatar;
 import seedu.hustler.command.Command;
-import java.util.Scanner;
 
 import seedu.hustler.data.AvatarStorage;
 import seedu.hustler.data.Schedule;
@@ -44,7 +43,7 @@ public class Hustler extends Application {
      * UI instance that is used to take input from console
      * and display errors and responses. Handles user interaction.
      */
-    private static Ui ui = new Ui(new Scanner(System.in));
+    private static Ui ui = new Ui();
     /**
      * Parser instance that makes sense of user input and
      * performs some operation on list.
