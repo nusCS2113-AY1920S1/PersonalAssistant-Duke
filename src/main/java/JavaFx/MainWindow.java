@@ -242,18 +242,11 @@ public class MainWindow extends BorderPane implements Initializable {
         String input = userInput.getText();
         String response = duke.getResponse(input);
         //todo: handling of the response
-        //refresh(input);
+        userInput.clear();
     }
 
     private boolean overdueCheck(Date date) {
-        //Solution below adapted from https://stackoverflow.com/questions/23930216/how-to-check-if-the-date-belongs-to-current-week-or-not/23930578#23930578
         Calendar c = Calendar.getInstance();
-        c.setFirstDayOfWeek(Calendar.SUNDAY);
-        c.set(Calendar.DAY_OF_WEEK, Calendar.SUNDAY);
-        c.set(Calendar.HOUR_OF_DAY, 0);
-        c.set(Calendar.MINUTE, 0);
-        c.set(Calendar.MILLISECOND, 0);
-
         Date startOfWeek = c.getTime();
         if (date.before(startOfWeek)) {
             return true;
