@@ -34,6 +34,7 @@ public class Product {
         this(name, new HashMap<>());
     }
 
+
     @Override
     public String toString() {
         return name;

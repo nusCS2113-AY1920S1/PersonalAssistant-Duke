@@ -4,8 +4,10 @@ import duke.commons.core.Message;
 import duke.logic.command.Command;
 import duke.logic.command.commons.SetShortcutCommand;
 import duke.logic.command.order.OrderCommand;
+import duke.logic.command.product.ProductCommand;
 import duke.logic.parser.exceptions.ParseException;
 import duke.logic.parser.order.OrderCommandParser;
+import duke.logic.parser.product.ProductCommandParser;
 import duke.logic.parser.shortcut.SetShortcutCommandParser;
 
 import java.util.regex.Matcher;
@@ -46,6 +48,8 @@ public class BakingHomeParser {
         switch (primaryCommand) {
         case OrderCommand.COMMAND_WORD:
             return new OrderCommandParser().parse(subCommandAndArgs);
+        case ProductCommand.COMMAND_WORD:
+            return new ProductCommandParser().parse(subCommandAndArgs);
         case SetShortcutCommand.COMMAND_WORD:
             return new SetShortcutCommandParser().parse(subCommandAndArgs);
         default:

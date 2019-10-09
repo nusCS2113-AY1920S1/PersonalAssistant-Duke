@@ -1,6 +1,7 @@
 package duke.model;
 
 import duke.commons.core.index.Index;
+import duke.model.product.Product;
 import duke.model.order.Order;
 import duke.model.shortcut.Shortcut;
 import javafx.collections.ObservableList;
@@ -16,10 +17,12 @@ import static java.util.Objects.requireNonNull;
 public class BakingHome implements ReadOnlyBakingHome {
 
     private final UniqueEntityList<Order> orders;
+    private final UniqueEntityList<Product> products;
     private final UniqueEntityList<Shortcut> shortcuts;
 
     public BakingHome() {
         orders = new UniqueEntityList<>();
+        products = new UniqueEntityList<>();
         shortcuts = new UniqueEntityList<>();
     }
 
@@ -97,6 +100,22 @@ public class BakingHome implements ReadOnlyBakingHome {
     public ObservableList<Order> getOrderList() {
         return orders.asUnmodifiableObservableList();
     }
+
+    //============Product operations==============
+
+    /**
+     * Adds an product to products
+     * The order must not already exist in orders.
+     */
+    public void addProduct(Product p) {
+        products.add(p);
+    }
+
+    @Override
+    public ObservableList<Product> getProductList() {
+        return products.asUnmodifiableObservableList();
+    }
+
 
     //// shortcut-related operations
 

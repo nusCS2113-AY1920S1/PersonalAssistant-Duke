@@ -37,7 +37,7 @@ public class CommandResult {
     }
 
     public enum DisplayedPage {
-        RECIPE,
+        PRODUCT,
         ORDER,
         INVENTORY,
         SALE,
