@@ -115,8 +115,8 @@ public class GirlsController extends SceneController implements Initializable {
             backgroundSceneTimer.stop();
         }
         if (keyEvent.getCode() == KeyCode.D) {
-            MusicController.playMusic("rezero.wav");
-            String imageName = ResourceRandomUtility.randomResources(ImagesConstant.startAppImages);
+            MusicController.playMusic("romeo-and-cinderella.wav");
+            String imageName = "bedroom.jpg";
             changeScene("date.fxml", imageName);
             backgroundSceneTimer.stop();
         }
