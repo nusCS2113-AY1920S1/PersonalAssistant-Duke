@@ -130,3 +130,21 @@ java.lang.NullPointerException
 	at javafx.graphics/com.sun.glass.ui.win.WinApplication.lambda$runLoop$3(WinApplication.java:175)
 	at java.base/java.lang.Thread.run(Thread.java:834)
 
+Oct 09, 2019 10:37:14 AM duke.Launcher init
+INFO: =============================[ Initializing BakingHome ]===========================
+Oct 09, 2019 10:37:14 AM duke.Launcher start
+INFO: Starting BakingHome
+Oct 09, 2019 10:37:14 AM duke.ui.UiManager start
+INFO: Starting UI...
+Oct 09, 2019 10:40:18 AM duke.Launcher init
+INFO: =============================[ Initializing BakingHome ]===========================
+Oct 09, 2019 10:40:19 AM duke.Launcher start
+INFO: Starting BakingHome
+Oct 09, 2019 10:40:19 AM duke.ui.UiManager start
+INFO: Starting UI...
+Oct 09, 2019 10:42:37 AM duke.Launcher init
+INFO: =============================[ Initializing BakingHome ]===========================
+Oct 09, 2019 10:42:38 AM duke.Launcher start
+INFO: Starting BakingHome
+Oct 09, 2019 10:42:38 AM duke.ui.UiManager start
+INFO: Starting UI...

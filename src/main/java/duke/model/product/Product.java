@@ -99,7 +99,7 @@ public String toString() {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        duke.model.commons.Product product = (duke.model.commons.Product) o;
+        duke.model.product.Product product = (duke.model.product.Product) o;
         return name.equals(product.name);
     }
 
