@@ -1,4 +1,4 @@
-import GUI.Window;
+import gui.Window;
 import commands.Command;
 import tasks.Task;
 import utils.DukeException;
