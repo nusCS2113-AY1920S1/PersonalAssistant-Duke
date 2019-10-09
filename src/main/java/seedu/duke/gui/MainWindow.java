@@ -1,6 +1,7 @@
 package seedu.duke.gui;
 
 import javafx.application.Platform;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.ObservableList;
 import javafx.collections.FXCollections;
 import javafx.event.EventHandler;
@@ -15,7 +16,6 @@ import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.scene.web.WebView;
 import seedu.duke.Duke;
-
 import java.util.*;
 import seedu.duke.CommandParser;
 import seedu.duke.task.entity.TaskList;
@@ -46,7 +46,6 @@ public class MainWindow extends AnchorPane {
     private ListView<HBoxCell> tasksListView;
     @FXML
     private ListView<EmailHBoxCell> emailsListView;
-
     @FXML
     private WebView webView;
 
