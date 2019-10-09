@@ -1,0 +1,3 @@
+T|0|store items
+D|0|assignment|08/04/2019 1000
+E|0|party|02/12/2019 1430

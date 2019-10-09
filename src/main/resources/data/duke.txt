@@ -1,0 +1,4 @@
+E|1|watch movies|18/04/2012 0000
+T|1|reading notes
+D|0|do homework|08/08/2016 1700
+T|0|help

@@ -1,0 +1,22 @@
+    ____________________________________________________________
+     Hello! I'm Duke
+     What can I do for you?
+    ____________________________________________________________
+    ____________________________________________________________
+     Here are the tasks in your list:
+     1.[D][✓] buy toy (from: 21st of February 2018, 4PM)
+     2.[E][✓] go school cca (at: 17th of February 2018, 4PM)
+     3.[D][✗] buy pencil (from: 3rd of February 2018, 4PM)
+     4.[E][✓] watch movies (at: 18th of April 2012, 12AM)
+     5.[T][✓] reading notes
+     6.[T][✓] rest
+     7.[D][✗] do homework (from: 8th of August 2016, 5PM)
+     8.[E][✗] eat dinner (at: 9th of July 2019, 7:32 PM)
+    ____________________________________________________________
+    ____________________________________________________________
+     Nice! I've marked this task as done:
+       [E][✓] watch movies (at: 18th of April 2012, 12AM)
+    ____________________________________________________________
+    ____________________________________________________________
+     Bye. Hope to see you again soon!
+    ____________________________________________________________

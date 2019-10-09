@@ -48,7 +48,7 @@ As a developer, you write a _build file_ that describes the project. A build fil
 
 1. After adding support for Gradle, Intellij might automatically ask you (via a pop-up at the bottom right corner of the Window) whether to import the project as a Gradle project. In that case, go ahead and say yes.
 
-1. If the above didn't happen, import the Gradle project by `Help > Find Action > Import Gradle Project`.
+1. If the above didn't happen, import the Gradle project from `Help > Find Action > Import Gradle Project`.
    ![Import Gradle](assets/ImportGradle.png)
 
 1. If the above didn't work either, close Intellij, delete the Intellij project files (i.e., `.idea` folder and `*.iml` files), and set up the project again, but instead of choosing `Create project from existing sources`, choose `Import project from external model` -> `Gradle`.
@@ -61,7 +61,7 @@ You can click on the Gradle icon in the Gradle toolbar and create a new run conf
 
 ## Adding Plugins
 
-Gradle plugins are reusable units of build logic. Most common build tasks are provided as core plugins by Gradle. Given below are instructions on how to use some useful plugins:
+Gradle plugins are reusable units of build logic. Most common build tasks are provided as core plugins from Gradle. Given below are instructions on how to use some useful plugins:
 
 ### CheckStyle
 
@@ -82,7 +82,7 @@ checkstyle {
 // ...
 ```
 
-Checkstyle expects configuration files for checkstyle to be in `./config/checkstyle/` by convention.
+Checkstyle expects configuration files for checkstyle to be in `./config/checkstyle/` from convention.
 A sample checkstyle rule configuration is provided in the branch.
 
 The plugin adds a few _tasks_ to your project. Run `gradlew checkstyleMain checkstyleTest` to verify that you have set up Checkstyle properly (the command will check your main code and test code against the style rules).
@@ -101,7 +101,7 @@ plugins {
 }
 ```
 
-The plugin can be configured by setting some properties. Let's try to produce a jar file with the name in format of `{baseName}-{version}.jar`.
+The plugin can be configured from setting some properties. Let's try to produce a jar file with the name in format of `{baseName}-{version}.jar`.
 
 Add the following block to your build file:
 ```groovy
@@ -113,7 +113,7 @@ shadowJar {
 }
 ```
 
-Now you can run the command `gradlew shadowJar`.It publishes an executable jar to `./build/libs/`. You should be able to able to execute the created jar file by double-clicking it or using the command `java -jar {jarName}`?
+Now you can run the command `gradlew shadowJar`.It publishes an executable jar to `./build/libs/`. You should be able to able to execute the created jar file from double-clicking it or using the command `java -jar {jarName}`?
 
 **Resources**:
 * [Gradle documentation for Shadow plugin](https://plugins.gradle.org/plugin/com.github.johnrengelman.shadow)
@@ -134,7 +134,7 @@ dependencies {
 }
 ```
 
-Then, configure Gradle to use JUnit by adding the following block to your build file:
+Then, configure Gradle to use JUnit from adding the following block to your build file:
 
 ```groovy
 test {
@@ -152,7 +152,7 @@ src
         └─seedu/duke/DukeTest.java
 ```
 
-If you have imported your Gradle project into IntelliJ IDEA, you will notice that IDEA is able to mark the test directory as the _Test root_ (colored in green by default) automatically.
+If you have imported your Gradle project into IntelliJ IDEA, you will notice that IDEA is able to mark the test directory as the _Test root_ (colored in green from default) automatically.
 
 You can now write a test (e.g., `test/java/seedu/duke/DukeTest.java`) and run it with `gradlew test`.
 
