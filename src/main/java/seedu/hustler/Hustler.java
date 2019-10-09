@@ -7,7 +7,6 @@ import seedu.hustler.game.achievement.ConsecutiveLogin;
 import seedu.hustler.game.avatar.Avatar;
 import seedu.hustler.command.Command;
 
-import java.time.LocalDateTime;
 import java.util.Scanner;
 
 import seedu.hustler.logic.CommandLineException;
@@ -73,14 +72,17 @@ public class Hustler {
         list = new TaskList(storage.load());
 
 
-        //Loads achievements and print out achievements.
+        //Check if it's the first time the user logs in.
         AchievementList.firstStart(AchievementStorage.logon());
+        //Loads information such as number of tasks done, added, points, etc.
         AchievementStorage.loadStatus();
+        //Loads achievements into achievement list.
         AchievementStorage.loadAchievements();
-        System.out.println(consecutiveCount);
+        //Counts number of consecutive login and updates accordingly.
         ConsecutiveLogin.updateCount();
         ConsecutiveLogin.updatePoints();
         AchievementList.updateConsecutiveLogin(updateAchievementLevel());
+
         // Display reminders at the start
         Reminders.runAll(list);
         Reminders.displayReminders();

@@ -85,7 +85,7 @@ public class FirstLogin extends Achievements{
 
     @Override
     public String toString() {
-        return super.toString() + " " + points + " " + this.description + " " + achievementLevel + " (" + this.information + ")";
+        return super.toString() + " " + points + " " + this.description + " " + achievementLevel;
     }
 
     @Override
