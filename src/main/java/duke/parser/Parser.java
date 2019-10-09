@@ -4,6 +4,7 @@ import duke.command.AddExpenseCommand;
 import duke.command.Command;
 import duke.command.DeleteCommand;
 import duke.command.ExitCommand;
+import duke.command.GetExternalListCommand;
 import duke.exception.DukeException;
 
 import java.time.LocalDateTime;
@@ -32,6 +33,11 @@ public class Parser {
 
         case "delete":
             return new DeleteCommand();
+
+        case "sort":
+        case "view":
+        case "filter":
+            return new GetExternalListCommand();
 
         case "bye":
             return new ExitCommand();

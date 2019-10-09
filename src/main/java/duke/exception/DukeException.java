@@ -16,6 +16,8 @@ public class DukeException extends Exception {
     public static final String MESSAGE_COMMAND_PARAM_MISSING = "This command needs /%s to be given!";
     public static final String MESSAGE_COMMAND_PARAM_DUPLICATE = "/%s cannot be specified twice!";
     public static final String MESSAGE_COMMAND_NAME_UNKNOWN = "I don't know what %s is!";
+    public static final String MESSAGE_SORT_CRITERIA_INVALID = "%s is not a valid sort criteria!";
+    public static final String MESSAGE_VIEW_SCOPE_INVALID = "%s is not a valid view scope!";
 
     public DukeException(String message) {
         super(message);

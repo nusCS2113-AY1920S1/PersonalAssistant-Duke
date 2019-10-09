@@ -3,6 +3,7 @@ package duke.dukeobject;
 import duke.exception.DukeException;
 import duke.exception.DukeRuntimeException;
 
+import javax.swing.text.View;
 import java.io.File;
 import java.io.IOException;
 import java.math.BigDecimal;
@@ -10,43 +11,30 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class ExpenseList extends DukeList<Expense> {
 
-    private Comparator<Expense> compareCriteria;
-
-    /**
-     * Defines the criteria of sort comparision as amount.
-     * The {@code Expense} with more amount is regarded as the larger.
-     */
-    private static class SortByAmount implements Comparator<Expense> {
-        public int compare(Expense e1, Expense e2) {
-            return e1.getAmount().compareTo(e2.getAmount());
-        }
+    private static enum SortCriteria {
+        AMOUNT, TIME, DESCRIPTION;
     }
 
-    /**
-     * Defines the criteria of sort comparision as Time.
-     * The {@code Expense} with later Time is regarded as the larger.
-     */
-    private static class SortByTime implements Comparator<Expense> {
-        public int compare(Expense e1, Expense e2) {
-            return e1.getTime().compareTo(e2.getTime());
-        }
+    private static enum ViewScope {
+        DAY, WEEK, MONTH, YEAR, ALL;
     }
 
-    /**
-     * Defines the criteria of sort comparision as Description in alphabetical order.
-     * The {@code Expense} with opening letter 'z' is regarded as the largest.
-     */
-    private static class SortByDescription implements Comparator<Expense> {
-        public int compare(Expense e1, Expense e2) {
-            return e1.getDescription().compareTo(e2.getDescription());
-        }
-    }
+    protected SortCriteria sortCriteria;
+    protected ViewScope viewScope;
+    protected String filterCriteria;
+
+    private static final ViewScope DEFAULT_VIEW_SCOPE = ViewScope.ALL;
+    private static final SortCriteria DEFAULT_SORT_CRITERIA = SortCriteria.TIME;
 
     public ExpenseList(File file) throws DukeException {
         super(file, "expense");
+        viewScope = DEFAULT_VIEW_SCOPE;
+        sortCriteria = DEFAULT_SORT_CRITERIA;
+        externalList = getExternalList();
     }
 
     /**
@@ -62,19 +50,41 @@ public class ExpenseList extends DukeList<Expense> {
         return externalList;
     }
 
+    /**
+     * Sets the sort criteria.
+     * Sort criteria include AMOUNT, TIME, DESCRIPTION.
+     *
+     * @param sortCriteria The String indicating the criteria for sorting.
+     * @throws DukeException If the format of sort criteria is incorrect.
+     */
     @Override
-    public void setSortCriteria(String sortCriteria) {
-        this.sortCriteria = sortCriteria;
+    public void setSortCriteria(String sortCriteria) throws DukeException {
+        try {
+            this.sortCriteria = SortCriteria.valueOf(sortCriteria.toUpperCase());
+        } catch (IllegalArgumentException e) {
+            throw new DukeException(String.format(DukeException.MESSAGE_SORT_CRITERIA_INVALID, sortCriteria));
+        }
     }
 
     @Override
-    public void setFilterCriteria(String filterCriteria) {
+    public void setFilterCriteria(String filterCriteria) throws DukeException {
         this.filterCriteria = filterCriteria;
     }
 
+    /**
+     * Sets the view scope.
+     * View scopes incldue DAY, WEEK, MONTH, YEAR, ALL;
+     *
+     * @param viewScope The string indicating the time scope of displayed list.
+     * @throws DukeException If the format of view scope is incorrect.
+     */
     @Override
-    public void setViewScope(String viewScope) {
-        this.viewScope = viewScope;
+    public void setViewScope(String viewScope) throws DukeException {
+        try {
+            this.viewScope = ViewScope.valueOf(viewScope.toUpperCase());
+        } catch (IllegalArgumentException e) {
+            throw new DukeException(String.format(DukeException.MESSAGE_VIEW_SCOPE_INVALID, viewScope));
+        }
     }
 
     /**
@@ -86,21 +96,17 @@ public class ExpenseList extends DukeList<Expense> {
     @Override
     public List<Expense> sort(List<Expense> currentList) {
         switch(sortCriteria) {
-            case "time":
-                compareCriteria = new SortByTime();
+            case TIME:
+                currentList.sort(Comparator.comparing(Expense::getTime));
                 break;
-            case "amount":
-                compareCriteria = new SortByAmount();
+            case AMOUNT:
+                currentList.sort(Comparator.comparing(Expense::getAmount));
                 break;
-            case "description":
-                compareCriteria = new SortByDescription();
+            case DESCRIPTION:
+                currentList.sort(Comparator.comparing(Expense::getDescription));
                 break;
-            default:
-                throw new DukeRuntimeException("Incorrect format of sort criteria");
         }
-        List<Expense> sortedList = currentList;
-        sortedList.sort(compareCriteria);
-        return sortedList;
+        return currentList;
     }
 
     /**
@@ -117,6 +123,7 @@ public class ExpenseList extends DukeList<Expense> {
     /**
      * Tailors the given List so that only {@code Expense} within the given time scope are preserved.
      * Returns the tailored List.
+     *
      * @param currentList The list going to be modified.
      * @return The tailored List.
      */
@@ -124,39 +131,34 @@ public class ExpenseList extends DukeList<Expense> {
     public List<Expense> view(List<Expense> currentList) {
         List<Expense> viewedList = new ArrayList<Expense>();
         LocalDateTime now = LocalDateTime.now();
+
         switch(viewScope) {
-        case "all":
-            viewedList = currentList;
-            break;
-        case "year":
-            for(Expense e : currentList) {
-                if(e.getTime().plusYears(1).isAfter(now)) {
-                    viewedList.add(e);
-                }
-            }
-            break;
-        case "month":
-            for(Expense e : currentList) {
-                if(e.getTime().plusMonths(1).isAfter(now)) {
-                    viewedList.add(e);
-                }
-            }
-            break;
-        case "week":
-            for(Expense e : currentList) {
-                if(e.getTime().plusDays(7).isAfter(now)) {
-                    viewedList.add(e);
-                }
-            }
-            break;
-        case "day":
-            for(Expense e : currentList) {
-                if(e.getTime().plusDays(1).isAfter(now)) {
-                    viewedList.add(e);
-                }
-            }
-        default:
-            throw new DukeRuntimeException("Incorrect format of view scope");
+            case ALL:
+                viewedList = currentList;
+                break;
+
+            case YEAR:
+                viewedList = currentList.stream()
+                        .filter(e -> e.getTime().plusYears(1).isAfter(now))
+                        .collect(Collectors.toList());
+                break;
+
+            case MONTH:
+                viewedList = currentList.stream()
+                        .filter(e -> e.getTime().plusMonths(1).isAfter(now))
+                        .collect(Collectors.toList());
+                break;
+
+            case WEEK:
+                viewedList = currentList.stream()
+                        .filter(e -> e.getTime().plusDays(7).isAfter(now))
+                        .collect(Collectors.toList());
+                break;
+            case DAY:
+                viewedList = currentList.stream()
+                        .filter(e -> e.getTime().plusDays(1).isAfter(now))
+                        .collect(Collectors.toList());
+                break;
         }
         return viewedList;
     }
