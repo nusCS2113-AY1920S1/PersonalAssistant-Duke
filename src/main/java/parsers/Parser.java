@@ -50,6 +50,8 @@ public class Parser {
             return new FixDurationCommand();
         } else if (splitCommand[0].equals("reschedule")) {
             return new RescheduleCommand();
+        } else if(splitCommand[0].equals("sort")){
+            return new SortCommand();
         } else if (splitCommand[0].equals("scheduleDaily")) {
             return new ScheduleDailyCommand();
         } else if (splitCommand[0].equals("scheduleWeekly")) {
