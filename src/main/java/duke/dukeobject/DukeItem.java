@@ -1,6 +1,7 @@
 package duke.dukeobject;
 
 import duke.exception.DukeException;
+import duke.exception.DukeRuntimeException;
 
 import java.io.Serializable;
 import java.util.HashSet;
@@ -86,16 +87,14 @@ abstract class DukeItem implements Serializable {
          * Constructs an item from its mapped storage string. Used internally to load items from storage.
          *
          * @param mappedStorageString a map of the item's storage string.
-         * @throws DukeException if the mapped storage string is missing a required field.
          */
-        protected Builder(Map<String, String> mappedStorageString) throws DukeException {
-            if (!mappedStorageString.containsKey("tags")) {
-                throw new DukeException("DukeItem missing field in storage string"); // todo: Update DukeException
+        protected Builder(Map<String, String> mappedStorageString) {
+            if (mappedStorageString.containsKey("tags")) {
+                tags = Stream.of(mappedStorageString.get("tags")
+                    .split(STORAGE_TAG_SEPARATOR))
+                    .filter(s -> !s.equals(""))
+                    .collect(Collectors.toSet());
             }
-            tags = Stream.of(mappedStorageString.get("tags")
-                .split(STORAGE_TAG_SEPARATOR))
-                .filter(s -> !s.equals(""))
-                .collect(Collectors.toSet());
         }
 
         /**

@@ -3,7 +3,6 @@ package duke.dukeobject;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.ObjectInput;
@@ -16,6 +15,7 @@ import java.util.Scanner;
 import java.util.Stack;
 
 import duke.exception.DukeException;
+import duke.exception.DukeRuntimeException;
 
 /**
  * The generic parent list of all lists in Duke, which are responsible for saving their own information
@@ -26,7 +26,8 @@ import duke.exception.DukeException;
 abstract class DukeList<T extends DukeItem> {
     private static String STORAGE_DELIMITER = "\n\n";
 
-    private File file;
+    private final File file;
+    private final String itemName;
     private Stack<byte[]> undoStates;
     private byte[] currentState;
     private Stack<byte[]> redoStates;
@@ -38,10 +39,12 @@ abstract class DukeList<T extends DukeItem> {
      * Creates a new {@code DukeList}, which saves its data to a file {@code file}.
      *
      * @param file The file to save to.
+     * @param itemName the name of the item that populates the list.
      * @throws DukeException if the file cannot be created or read.
      */
-    public DukeList(File file) throws DukeException {
+    public DukeList(File file, String itemName) throws DukeException {
         this.file = file;
+        this.itemName = itemName;
         internalList = new ArrayList<T>();
         load();
         externalList = getExternalList();
@@ -74,14 +77,10 @@ abstract class DukeList<T extends DukeItem> {
      *
      * @param index the index of the item in @{code externalList}.
      * @return the item.
-     * @throws DukeException if the index is out of bounds.
+     * @throws IndexOutOfBoundsException if the index is out of bounds.
      */
-    public T get(int index) throws DukeException {
-        try {
-            return externalList.get(index - 1);
-        } catch (IndexOutOfBoundsException e) {
-            throw new DukeException("TODO"); // todo: update DukeException
-        }
+    public T get(int index) throws IndexOutOfBoundsException {
+        return externalList.get(index - 1);
     }
 
     /**
@@ -97,9 +96,9 @@ abstract class DukeList<T extends DukeItem> {
      * Removes an item from {@code internalList} using its index in {@code externalList}.
      *
      * @param index the index of the item to in {@code externalList}.
-     * @throws DukeException if the index is out of bounds.
+     * @throws IndexOutOfBoundsException if the index is out of bounds.
      */
-    public void remove(int index) throws DukeException {
+    public void remove(int index) throws IndexOutOfBoundsException {
         internalList.remove(get(index));
     }
 
@@ -108,9 +107,9 @@ abstract class DukeList<T extends DukeItem> {
      * that the file should be updated, and that the state has progressed such that all {@code redoStates}
      * are now invalid and should be discarded.
      *
-     * @throws DukeException if saving was unsuccessful.
+     * @throws IOException if saving was unsuccessful.
      */
-    public void update() throws DukeException {
+    public void update() throws IOException {
         save();
         undoStates.push(currentState);
         currentState = toByteArray(internalList);
@@ -125,17 +124,14 @@ abstract class DukeList<T extends DukeItem> {
     private void save() throws DukeException {
         try {
             file.createNewFile();
-        } catch (IOException e) {
-            throw new DukeException("TODO"); // todo: update DukeException
-        }
-
-        try (FileWriter fileWriter = new FileWriter(file)) {
-            for (T item : internalList) {
-                fileWriter.write(item.toStorageString());
-                fileWriter.write(STORAGE_DELIMITER);
+            try (FileWriter fileWriter = new FileWriter(file)) {
+                for (T item : internalList) {
+                    fileWriter.write(item.toStorageString());
+                    fileWriter.write(STORAGE_DELIMITER);
+                }
             }
         } catch (IOException e) {
-            throw new DukeException("TODO"); // todo: update DukeException
+            throw new DukeException(String.format(DukeException.MESSAGE_SAVE_FILE_FAILED, file.getPath()));
         }
     }
 
@@ -148,16 +144,13 @@ abstract class DukeList<T extends DukeItem> {
     public void load() throws DukeException {
         try {
             file.createNewFile();
-        } catch (IOException e) {
-            throw new DukeException("TODO"); // todo: update DukeException
-        }
-
-        try (Scanner fileReader = new Scanner(file).useDelimiter(STORAGE_DELIMITER)) {
-            while (fileReader.hasNext()) {
-                internalList.add(itemFromStorageString(fileReader.next()));
+            try (Scanner fileReader = new Scanner(file).useDelimiter(STORAGE_DELIMITER)) {
+                while (fileReader.hasNext()) {
+                    internalList.add(itemFromStorageString(fileReader.next()));
+                }
             }
-        } catch (FileNotFoundException e) {
-            throw new DukeException("TODO"); // todo: update DukeException
+        } catch (IOException e) {
+            throw new DukeException(String.format(DukeException.MESSAGE_LOAD_FILE_FAILED, file.getPath()));
         }
     }
 
@@ -175,41 +168,41 @@ abstract class DukeList<T extends DukeItem> {
      * Reverts the state of {@code internalList} some number of times to an earlier state.
      *
      * @param times the number of times to undo.
+     * @return the number of times actually undone.
      * @throws DukeException if {@code internalList} has no earlier state.
      */
-    public void undo(int times) throws DukeException {
-        if (undoStates.isEmpty()) {
-            throw new DukeException("TODO"); // todo: update DukeException
-        }
-
-        for (int i = 0; i < times && !undoStates.isEmpty(); i++) {
+    public int undo(int times) throws DukeException {
+        int actualTimes = 0;
+        for (actualTimes = 0; actualTimes < times && !undoStates.isEmpty(); actualTimes++) {
             redoStates.push(currentState);
             currentState = undoStates.pop();
         }
 
         internalList = fromByteArray(currentState);
         save();
+
+        return actualTimes;
     }
 
     /**
      * Forwards the state of {@code internalList} some number of times to a later state.
      *
      * @param times the number of times to redo.
-     * @throws DukeException if {@code internalList} has no later state.
+     * @return the number of times actually undone.
+     * @throws DukeRuntimeException if {@code internalList} has no later state.
      * @see #undo
      */
-    public void redo(int times) throws DukeException {
-        if (redoStates.isEmpty()) {
-            throw new DukeException("TODO"); // todo: update DukeException
-        }
-
-        for (int i = 0; i < times && !redoStates.isEmpty(); i++) {
+    public int redo(int times) throws DukeException {
+        int actualTimes = 0;
+        for (actualTimes = 0; actualTimes < times && !redoStates.isEmpty(); actualTimes++) {
             undoStates.push(currentState);
             currentState = redoStates.pop();
         }
 
         internalList = fromByteArray(currentState);
         save();
+
+        return actualTimes;
     }
 
     /**
@@ -217,8 +210,6 @@ abstract class DukeList<T extends DukeItem> {
      * Converts the current state of {@code internalList} into a byte array so that it can be restored later.
      *
      * @return the byte array of the current {@code internalList}.
-     * @throws DukeException if an IO error occurs; this should never happen due to
-     *                       the self-contained nature of this function.
      */
     private byte[] toByteArray(List<T> list) {
         try (ByteArrayOutputStream bos = new ByteArrayOutputStream();
@@ -226,7 +217,7 @@ abstract class DukeList<T extends DukeItem> {
             out.writeObject(list);
             return bos.toByteArray();
         } catch (IOException e) {
-            throw new DukeException("TODO"); // todo: update DukeException
+            throw new DukeRuntimeException("A fatal error has occurred; Failed to create byte array from list.", e);
         }
     }
 
@@ -238,8 +229,6 @@ abstract class DukeList<T extends DukeItem> {
      *
      * @param bytes a byte array corresponding to a previous state of {@code internalList}.
      * @return the previous state of {@code internalList}.
-     * @throws DukeException if an {@code IOException} or {@code ClassNotFoundException} occurs;
-     *                       this should never happen due to the self-contained nature of this function.
      */
     @SuppressWarnings("unchecked")
     private List<T> fromByteArray(byte[] bytes) {
@@ -247,7 +236,7 @@ abstract class DukeList<T extends DukeItem> {
             ObjectInput in = new ObjectInputStream(bis)) {
             return (List<T>) in.readObject();
         } catch (IOException | ClassNotFoundException e) {
-            throw new DukeException("TODO"); // todo: update DukeException
+            throw new DukeRuntimeException("A fatal error has occurred; Failed to load list from byte array.", e);
         }
     }
 }

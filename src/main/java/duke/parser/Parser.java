@@ -6,7 +6,7 @@ import duke.command.DeleteCommand;
 import duke.command.ExitCommand;
 import duke.command.FindCommand;
 import duke.command.ListCommand;
-import duke.exception.DukeException;
+import duke.exception.DukeRuntimeException;
 
 /**
  * Parses the command line from user input to tokens and
@@ -19,9 +19,9 @@ public class Parser {
      *
      * @param commandName The name of the command.
      * @return {@code Command} object converted from fullCommand.
-     * @throws DukeException If user input is invalid.
+     * @throws DukeRuntimeException If user input is invalid.
      */
-    public static Command getCommand(String commandName) throws DukeException {
+    public static Command getCommand(String commandName) throws DukeRuntimeException {
         switch (commandName) {
         case "add":
             return new AddExpenseCommand();
@@ -39,7 +39,7 @@ public class Parser {
             return new ExitCommand();
 
         default:
-            throw new DukeException("☹ OOPS!!! I don't know what that means :-(");
+            throw new DukeRuntimeException("☹ OOPS!!! I don't know what that means :-(");
         }
     }
 }
