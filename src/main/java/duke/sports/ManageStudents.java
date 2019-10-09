@@ -1,4 +1,4 @@
-package duke.sports;
+package duke.Sports;
 
 import java.util.ArrayList;
 

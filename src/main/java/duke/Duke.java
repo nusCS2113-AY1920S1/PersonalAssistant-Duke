@@ -1,22 +1,21 @@
 package duke;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.net.URL;
-import java.text.ParseException;
-import java.util.Scanner;
-
 import duke.Data.Storage;
 import duke.Module.Schedule;
 import duke.Sports.ManageStudents;
 import duke.Sports.MyPlan;
-import duke.Task.*;
-
+import duke.Task.TaskList;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.net.URL;
+import java.text.ParseException;
+import java.util.Scanner;
 
 public class Duke extends Application {
 
@@ -70,7 +69,9 @@ public class Duke extends Application {
     @Override
     public void start(Stage stage) {
         try {
-            URL url = Duke.class.getClassLoader().getResource("view/menu.fxml");
+            //URL url = Duke.class.getClassLoader().getResource("view/menu.fxml");
+            URL url = Duke.class.getClassLoader().getResource("view/goal.fxml");
+            //URL url = Duke.class.getClassLoader().getResource("view/schedule.fxml");
             System.out.println(url);
             Parent root = FXMLLoader.load(url);
             stage.setScene(new Scene(root, 1280,720));
