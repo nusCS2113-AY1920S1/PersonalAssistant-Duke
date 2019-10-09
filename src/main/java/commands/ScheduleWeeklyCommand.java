@@ -16,7 +16,7 @@ import java.util.Stack;
 
 
 /**
- * Lists out all the tasks the user has on the specified day.
+ * Lists out all the tasks that the user has in a specified week.
  */
 public class ScheduleWeeklyCommand extends Command {
     //format for the command: scheduleWeekly <yyyy-MM-dd(Mon) yyyy-MM-dd(Sun)>
@@ -24,7 +24,7 @@ public class ScheduleWeeklyCommand extends Command {
     protected LocalDate sun;
     public static final int ONE_WEEK = 7;
     /**
-     * This is the main body of the schedule command.
+     * This is the main body of the ScheduleWeekly command.
      *
      * @param list the tasks list.
      * @param ui the object that deals with printing things to the user.

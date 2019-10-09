@@ -15,7 +15,7 @@ import java.util.ArrayList;
 import java.util.Stack;
 
 /**
- * Lists out all the tasks the user has on the specified day.
+ * Lists out all the tasks that the user has on the specified day.
  */
 public class ScheduleDailyCommand extends Command {
     //format for the command: scheduleDaily <yyyy-MM-dd>
