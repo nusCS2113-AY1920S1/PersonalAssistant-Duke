@@ -48,9 +48,9 @@ public class TimePeriod {
      * @return Boolean result if the set period is a valid period.
      */
     public boolean isClashing(LocalDateTime localDateTime, boolean strictBegin, boolean strictEnd) {
-        return localDateTime.isAfter(this.begin) && localDateTime.isBefore(this.end)
+        return localDateTime != null && (localDateTime.isAfter(this.begin) && localDateTime.isBefore(this.end)
                 || strictBegin && localDateTime.isEqual(this.begin)
-                || strictEnd && localDateTime.isEqual(this.end);
+                || strictEnd && localDateTime.isEqual(this.end));
     }
 
     public boolean isClashing(LocalDateTime localDateTime) {
