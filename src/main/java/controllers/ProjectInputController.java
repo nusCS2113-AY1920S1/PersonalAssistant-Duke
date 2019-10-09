@@ -1,5 +1,6 @@
 package controllers;
 
+import java.text.ParseException;
 import java.util.Scanner;
 import models.data.IProject;
 import repositories.ProjectRepository;
@@ -54,11 +55,11 @@ public class ProjectInputController {
                     break;
                 case "add task":
                     try {
-                        consoleView.consolePrint("Enter your task: TaskName TaskPriorityValue");
+                        consoleView.consolePrint("Enter your task: t/TaskName p/TaskPriorityValue [d/TaskDueDate] c/TaskCredit [s/TaskState]");
                         String taskDetails = manageProjectInput.nextLine();
                         TaskFactory taskFactory = new TaskFactory();
                         consoleView.addTask(projectToManage, taskFactory.createTask(taskDetails));
-                    } catch (NumberFormatException e) {
+                    } catch (NumberFormatException | ParseException e) {
                         consoleView.consolePrint("Please enter your task format correctly");
                     }
                     break;
