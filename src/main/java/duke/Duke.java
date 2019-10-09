@@ -69,8 +69,8 @@ public class Duke extends Application {
     @Override
     public void start(Stage stage) {
         try {
-            URL url = Duke.class.getClassLoader().getResource("view/menu.fxml");
-            //URL url = Duke.class.getClassLoader().getResource("view/schedule.fxml");
+            //URL url = Duke.class.getClassLoader().getResource("view/menu.fxml");
+            URL url = Duke.class.getClassLoader().getResource("view/schedule.fxml");
             //URL url = Duke.class.getClassLoader().getResource("view/daily.fxml");
             //URL url = Duke.class.getClassLoader().getResource("view/goal.fxml");
             System.out.println(url);

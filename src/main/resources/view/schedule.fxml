@@ -59,6 +59,7 @@
             <Button layoutX="239.0" layoutY="265.0" mnemonicParsing="false" prefHeight="100.0" prefWidth="160.0" text="Daily Schedule" />
             <Button layoutX="560.0" layoutY="265.0" mnemonicParsing="false" prefHeight="100.0" prefWidth="160.0" text="Weekly Schedule" />
             <Button layoutX="904.0" layoutY="265.0" mnemonicParsing="false" prefHeight="100.0" prefWidth="160.0" text="Monthly Schedule" />
+            <Button layoutX="1120.0" mnemonicParsing="false" onMousePressed="#returnToMenu" prefHeight="50.0" prefWidth="160.0" text="Back to Menu" />
          </children>
       </AnchorPane>
       <SplitPane dividerPositions="0.5" prefHeight="65.0" prefWidth="600.0">
