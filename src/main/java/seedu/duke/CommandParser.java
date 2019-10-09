@@ -173,9 +173,7 @@ public class CommandParser {
     public static Command parseEmailCommand(EmailList emailList, String rawInput,
                                             ArrayList<Option> optionList) throws UserInputException {
         if (rawInput.length() <= 6) {
-            throw new CommandParser.UserInputException("OOPS!!! Enter \'email -help\' to get list of methods for "
-                    + "email.");
-            // return new InvalidCommand();
+            return new InvalidCommand();
             //return new HelpTaskCommand();
         }
         String input = rawInput.substring(6).strip();
