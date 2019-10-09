@@ -56,11 +56,11 @@ public class Deadline extends Task {
     public String toString() {
         String output = "";
         output = "[D]" + this.getStatus() + " (by: " + formatDate() + ")";
-        if (this.doAfterDescription != null) {
+        if (this.doAfterDescription != null && this.doAfterDescription != "") {
             output += "\n\tAfter which: " + doAfterDescription;
         }
         for (String tagName : tags) {
-            output += " #" + tagName + "#";
+            output += " #" + tagName;
         }
         return output;
     }
@@ -73,13 +73,13 @@ public class Deadline extends Task {
     @Override
     public String toFileString() {
         String output = "";
-        output = (this.isDone ? "1" : "0") + " deadline " + this.name + " /by "
+        output = (this.isDone ? "1" : "0") + " deadline " + this.name + " -time "
                 + formatDate();
-        if (this.doAfterDescription != null) {
-            output += " /doafter " + doAfterDescription;
+        if (this.doAfterDescription != null && this.doAfterDescription != "") {
+            output += " -doafter " + doAfterDescription;
         }
         for (String tagName : tags) {
-            output += " #" + tagName + "#";
+            output += " -tag " + tagName;
         }
         return output;
     }

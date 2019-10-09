@@ -2,17 +2,17 @@ package seedu.duke;
 
 import seedu.duke.common.network.Http;
 import seedu.duke.common.command.Command;
-import seedu.duke.email.entity.EmailList;
+import seedu.duke.email.EmailList;
 import seedu.duke.email.EmailStorage;
-import seedu.duke.task.entity.TaskList;
+import seedu.duke.task.TaskList;
 import seedu.duke.task.TaskStorage;
 
 /**
  * The main class of the program, which provides the entry point.
  */
 public class Duke {
-    private static TaskList taskList;
-    private static EmailList emailList;
+    private static TaskList taskList = new TaskList();
+    private static EmailList emailList = new EmailList();
     private static UI ui;
     private static CommandParser commandParser;
 

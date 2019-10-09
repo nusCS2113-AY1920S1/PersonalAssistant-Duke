@@ -12,8 +12,8 @@ import java.net.InetSocketAddress;
 /**
  * A simple local server designed to receive authorization code from Outlook through redirect.
  */
-//code adapted from https://stackoverflow.com/questions/3732109/simple-http-server-in-java-using-only-java
-// -se-api
+//@@author BalusC
+//code adapted from https://stackoverflow.com/questions/3732109/simple-http-server-in-java-using-only-java-se-api
 public class SimpleServer {
     private static HttpServer server;
 
@@ -65,3 +65,4 @@ public class SimpleServer {
         Http.setAuthCode(code);
     }
 }
+//@@author
