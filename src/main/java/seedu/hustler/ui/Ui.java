@@ -1,6 +1,6 @@
 package seedu.hustler.ui;
 
-import java.util.Scanner;
+import seedu.hustler.data.CommandLog;
 
 /**
  * A class dedicated to performing interactions with the user.
@@ -11,32 +11,9 @@ public class Ui {
     public static final String LINE = "\t_____________________________________";
 
     /**
-     * The scanner object that is used to take input from console.
-     */
-    private Scanner input;
-
-    /**
-     * Initializes the input object.
-     *
-     * @param consoleScanner Scanner object with an input stream
-     */
-    public Ui(Scanner consoleScanner) {
-        this.input = consoleScanner;
-    }
-
-    /**
      * Default constructor.
      */
     public Ui() {
-    }
-
-    /**
-     * Takes a string single line input.
-     * @return user string input
-     */
-    public String take_input() {
-        String userInput = input.nextLine();
-        return userInput;
     }
 
     /**
@@ -70,10 +47,12 @@ public class Ui {
      * Prints an error message if user does not enter a valid command.
      */
     public void correct_command_error() {
-        System.out.println("\t_____________________________________");
-        System.out.println("\tPlease enter a valid command: todo, "
-            + "deadline, event, doafter, list, bye, find, delete.");
-        System.out.println("\t_____________________________________\n\n");
+        if (!CommandLog.isRestoring()) {
+            System.out.println("\t_____________________________________");
+            System.out.println("\tPlease enter a valid command: todo, "
+                + "deadline, event, doafter, list, bye, find, delete.");
+            System.out.println("\t_____________________________________\n\n");
+        }
     }
 
     /**
@@ -82,7 +61,7 @@ public class Ui {
      */
     public void wrong_description_error() {
         System.out.println("\t_____________________________________");
-        System.out.println("\tDescription needs a '/' before by/at/after");
+        System.out.println("\tDescription needs a '/' before by/at");
         System.out.println("\t_____________________________________\n\n");
     }
 
@@ -147,14 +126,16 @@ public class Ui {
     }
 
     /**
-     * A hello message when duke is ran.
+     * A hello message when hustler is ran.
      */
     public void show_opening_string() {
-        String logo = " ____        _        \n"
-            + "|  _ \\ _   _| | _____ \n"
-            + "| | | | | | | |/ / _ \\\n"
-            + "| |_| | |_| |   <  __/\n"
-            + "|____/ \\__,_|_|\\_\\___|\n";
+        String logo = " _   _   _    _     _____  ______   _       ___      ___\n"
+                + "|  | |  | | |  |  |  / ____/ |__   __|  | |     |  __|  / __  \\\n"
+                + "|  |_| | | |  |  |   |  \\___      |  |    | |      | |__  | |__/ /\n"
+                + "|  _  | | |   |  |   \\____ \\     |  |    | |     |  __|  |  _  /\n"
+                + "|  | | | |  \\_/ |    ___/  |     |  |    | |___ |  |__  | / \\ \\\n"
+                + "|_| |_|  \\___/  /_____/      |_|     |____||____| |_|  \\_\\\n";
+
         System.out.println("Hello from\n" + logo);
     }
 

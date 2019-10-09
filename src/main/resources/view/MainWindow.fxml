@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seedu.hustler.MainWindow">
+    <children>
+        <TextField fx:id="userInput" layoutX="177.0" layoutY="560.0" onAction="#handleUserInput" prefHeight="42.0" prefWidth="321.0" AnchorPane.bottomAnchor="1.0" />
+        <Button fx:id="sendButton" layoutX="498.0" layoutY="560.0" mnemonicParsing="false" onAction="#handleUserInput" prefHeight="41.0" prefWidth="76.0" text="Send" />
+        <ScrollPane fx:id="scrollPane" hbarPolicy="NEVER" hvalue="1.0" layoutY="-32.0" prefHeight="590.0" prefWidth="574.0" vvalue="1.0">
+            <content>
+                <VBox fx:id="dialogContainer" />
+            </content>
+        </ScrollPane>
+      <AnchorPane minWidth="100.0" prefHeight="600.0" prefWidth="176.0">
+         <children>
+            <Button layoutY="0" mnemonicParsing="false" prefHeight="70.0" prefWidth="176.0" text="Tasks" />
+            <Button layoutY="70.0" mnemonicParsing="false" prefHeight="70.0" prefWidth="176.0" text="Task Completion Mode" />
+            <Button layoutY="140.0" mnemonicParsing="false" prefHeight="70.0" prefWidth="176.0" text="Achievements" />
+            <Button layoutY="210.0" mnemonicParsing="false" prefHeight="70.0" prefWidth="176.0" text="Statistics" />
+            <Button layoutY="280.0" mnemonicParsing="false" prefHeight="70.0" prefWidth="176.0" text="Avatar" />
+            <Button layoutY="350.0" mnemonicParsing="false" prefHeight="70.0" prefWidth="176.0" text="Shop" />
+            <Button layoutY="420.0" mnemonicParsing="false" prefHeight="70.0" prefWidth="176.0" text="Arena" />
+            <Button layoutY="490.0" mnemonicParsing="false" prefHeight="70.0" prefWidth="176.0" text="Settings" />
+         </children>
+      </AnchorPane>
+      <Pane layoutX="175.0" opacity="0.5" prefHeight="558.0" prefWidth="399.0">
+         <children>
+            <TextArea fx:id="console" layoutY="107.0" prefHeight="451.0" prefWidth="399.0" />
+            <Label alignment="CENTER" prefHeight="107.0" prefWidth="399.0" style="-fx-background-color: #00FF00;" text="HUSTLER">
+               <font>
+                  <Font size="52.0" />
+               </font>
+            </Label>
+         </children></Pane>
+    </children>
+</AnchorPane>

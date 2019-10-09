@@ -23,7 +23,7 @@ import static seedu.hustler.parser.DateTimeParser.getDateTime;
  */
 public class Storage {
     /**
-     * Path to the file where tasks are stored and retreived
+     * Path to the file where tasks are stored and retrieved.
      * from.
      */
     private static String filePath;
@@ -42,7 +42,7 @@ public class Storage {
      */
     public Storage(String filePath) {
         this.filePath = filePath;
-        this.filePathBackup = filePath.split("duke.txt")[0] + "backup/dukeBackup.txt";
+        this.filePathBackup = filePath.split("hustler.txt")[0] + "backup/hustlerBackup.txt";
         this.schedule = new Schedule();
     }
 
@@ -54,10 +54,10 @@ public class Storage {
     public ArrayList<Task> load() {
         ArrayList<Task> list = new ArrayList<Task>();
         try {
-            Scanner dukeTxt = new Scanner(new File(this.filePath));
-            while (dukeTxt.hasNextLine()) {
+            Scanner hustlerTxt = new Scanner(new File(this.filePath));
+            while (hustlerTxt.hasNextLine()) {
                 // splits line input based on |
-                String[] taskString = dukeTxt.nextLine().split("\\|");
+                String[] taskString = hustlerTxt.nextLine().split("\\|");
 
                 // instantiate classes
                 if (taskString[0].equals("T")) {
@@ -90,7 +90,7 @@ public class Storage {
                     list.get(list.size() - 1).markAsDone();
                 }
             }
-            dukeTxt.close();
+            hustlerTxt.close();
         } catch (FileNotFoundException e) {
             System.out.println("\t_____________________________________");
             System.out.println("\tNo list saved in database. Please "
@@ -101,17 +101,17 @@ public class Storage {
     }
 
     /**
-     * Reloads list of tasks from a backup of the original duke.txt file.
+     * Reloads list of tasks from a backup of the original hustler.txt file.
      *
      * @return an array list loaded from the backup disc.
      */
     public ArrayList<Task> reloadBackup() {
         ArrayList<Task> list = new ArrayList<Task>();
         try {
-            Scanner dukeBackupTxt = new Scanner(new File(this.filePathBackup));
-            while (dukeBackupTxt.hasNextLine()) {
+            Scanner hustlerBackupTxt = new Scanner(new File(this.filePathBackup));
+            while (hustlerBackupTxt.hasNextLine()) {
                 // splits line input based on |
-                String[] taskString = dukeBackupTxt.nextLine().split("\\|");
+                String[] taskString = hustlerBackupTxt.nextLine().split("\\|");
 
                 // instantiate classes
                 if (taskString[0].equals("T")) {
@@ -144,7 +144,7 @@ public class Storage {
                     list.get(list.size() - 1).markAsDone();
                 }
             }
-            dukeBackupTxt.close();
+            hustlerBackupTxt.close();
         } catch (FileNotFoundException e) {
         }
         return list;
@@ -181,7 +181,7 @@ public class Storage {
     }
 
     /**
-     * Creates a backup copy of duke.txt each time the user uses this app; used for UndoCommand.
+     * Creates a backup copy of hustler.txt each time the user uses this app; used for UndoCommand.
      *
      * @param inputList the list of tasks to save to disc.
      * @throws IOException if file could not be saved
@@ -193,7 +193,7 @@ public class Storage {
             return;
         }
         //if data folder doesnt exist create it
-        File directory = new File(this.filePathBackup.split("/dukeBackup.txt")[0]);
+        File directory = new File(this.filePathBackup.split("/hustlerBackup.txt")[0]);
         if (!directory.exists()) {
             directory.mkdir();
         }
