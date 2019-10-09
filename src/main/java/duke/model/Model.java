@@ -80,11 +80,18 @@ public interface Model {
     void addProduct(Product product);
 
     /**
+     * Replaces the given product {@code original} in the list with {@code editedProduct}.
+     * {@code originalProduct} must exist in product list
+     */
+    void setProduct(Product originalProduct, Product editedProduct);
+
+    /**
      * Returns an unmodifiable view of the filtered product list.
      */
     ObservableList<Product> getFilteredProductList(); //implement archive
 
     void updateFilteredProductList(Predicate<Product> predicate);
+
 
 
     //========Finance operations=========

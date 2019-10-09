@@ -111,6 +111,11 @@ public class BakingHome implements ReadOnlyBakingHome {
         products.add(p);
     }
 
+    public void setProduct(Product originalProduct, Product editedOrder) {
+        requireNonNull(editedOrder);
+
+        products.set(originalProduct, editedOrder);
+    }
     @Override
     public ObservableList<Product> getProductList() {
         return products.asUnmodifiableObservableList();

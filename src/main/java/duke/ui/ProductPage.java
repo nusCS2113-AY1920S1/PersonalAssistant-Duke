@@ -84,16 +84,16 @@ public class ProductPage extends UiPart<AnchorPane> {
         nameColumn.setResizable(true);
         nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
 
-        TableColumn<Product, Double> costColumn = new TableColumn<>("Cost");
+        TableColumn<Product, Double> priceColumn = new TableColumn<>("Retail Price");
+        priceColumn.setResizable(true);
+        priceColumn.setCellValueFactory(new PropertyValueFactory<>("price"));
+
+        TableColumn<Product, Double> costColumn = new TableColumn<>("Ingredient Cost");
         costColumn.setResizable(true);
         costColumn.setCellValueFactory(new PropertyValueFactory<>("cost"));
 
-        TableColumn<Product, Double> priceColumn = new TableColumn<>("Price");
-        costColumn.setResizable(true);
-        costColumn.setCellValueFactory(new PropertyValueFactory<>("price"));
-
-        productListTable.getColumns().addAll(nameColumn, costColumn,
-                priceColumn);
+        productListTable.getColumns().addAll(nameColumn, priceColumn,
+                costColumn);
     }
 
 

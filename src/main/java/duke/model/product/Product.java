@@ -7,6 +7,7 @@ import duke.model.ingredient.IngredientList;
 
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Objects;
 
@@ -30,8 +31,13 @@ public class Product {
     private double price;
     private Status status;
 
-    public Product(@JsonProperty("name") String name, @JsonProperty("cost") String cost,
-                   @JsonProperty("price") String price) {
+    /** Constructor for Order parser.util*/
+    public Product(String name) {
+
+    }
+
+    public Product(@JsonProperty("name") String name, @JsonProperty("price") String price,
+                   @JsonProperty("cost") String cost) {
         requireAllNonNull(name);
         checkEmpty(name, MESSAGE_CONSTRAINTS);
 
@@ -45,14 +51,20 @@ public class Product {
         }
     }
 
+    /** Constructor for edit Product */
+    public Product(String name, double price, double cost, Status status) {
+        requireAllNonNull(name);
+        checkEmpty(name, MESSAGE_CONSTRAINTS);
 
-
-    public Product init() {
-        name = "Cheese Cake";
-        return this;
+        try {
+            this.name = name;
+            this.cost = cost;
+            this.price = price;
+            this.status = status;
+        } catch (NumberFormatException e) {
+            e.printStackTrace();
+        }
     }
-
-
     public void setName(String name) {
         this.name = name;
     }

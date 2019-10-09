@@ -32,8 +32,8 @@ public class AddProductCommandParser implements Parser<AddProductCommand> {
 
         Product product = new Product(
                 map.getValue(PREFIX_CUSTOMER_NAME).orElse("ProductName"),
-                map.getValue(PREFIX_PRODUCT_COST).orElse(String.valueOf(0)),
-                map.getValue(PREFIX_PRODUCT_PRICE).orElse(String.valueOf(0))
+                map.getValue(PREFIX_PRODUCT_PRICE).orElse(String.valueOf(0)),
+                map.getValue(PREFIX_PRODUCT_COST).orElse(String.valueOf(0))
         );
         return new AddProductCommand(product);
     }

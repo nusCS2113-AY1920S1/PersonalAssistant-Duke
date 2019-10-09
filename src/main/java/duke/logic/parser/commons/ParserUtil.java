@@ -7,6 +7,8 @@ import duke.logic.parser.exceptions.ParseException;
 import duke.model.commons.Product;
 import duke.model.order.Order;
 
+
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -47,7 +49,7 @@ public class ParserUtil {
                 throw new ParseException(Message.MESSAGE_ITEM_MISSING_NAME_OR_QUANTITY);
             }
             try {
-                items.put(new Product(itemAndQty[0].strip()), Integer.parseInt(itemAndQty[1].strip()));
+              //  items.put(new Product(itemAndQty[0].strip()), Integer.parseInt(itemAndQty[1].strip()));
             } catch (NumberFormatException e) {
                 throw new ParseException(Message.MESSAGE_INVALID_NUMBER_FORMAT);
             }
@@ -58,6 +60,14 @@ public class ParserUtil {
     public static Order.Status parseStatus(String statusString) throws ParseException {
         try {
             return Order.Status.valueOf(statusString.trim().toUpperCase());
+        } catch (IllegalArgumentException e) {
+            throw new ParseException(Message.MESSAGE_INVALID_STATUS);
+        }
+    }
+
+    public static Product.Status parseProductStatus(String statusString) throws ParseException {
+        try {
+            return Product.Status.valueOf(statusString.trim().toUpperCase());
         } catch (IllegalArgumentException e) {
             throw new ParseException(Message.MESSAGE_INVALID_STATUS);
         }

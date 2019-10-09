@@ -97,6 +97,21 @@ public class ModelManager implements Model {
     }
 
     /**
+     * Replaces the given product {@code original} in the list with {@code editedProduct}. {@code
+     * originalProduct} must exist in product list
+     *
+     * @param originalProduct
+     * @param editedProduct
+     */
+    @Override
+    public void setProduct(Product originalProduct, Product editedProduct) {
+        requireNonNull(originalProduct);
+        requireNonNull(editedProduct);
+
+        bakingHome.setProduct(originalProduct, editedProduct);
+    }
+
+    /**
      * Returns an unmodifiable view of the filtered product list.
      */
     @Override
