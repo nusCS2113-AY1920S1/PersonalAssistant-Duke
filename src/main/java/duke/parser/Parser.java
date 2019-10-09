@@ -278,10 +278,18 @@ public class Parser {
                     throw new DukeException("The task number must be an integer");
                 }
 
+                if (taskNum <= 0 || taskNum >= items.size()) {
+                    throw new DukeException("     (>_<) OOPS!!! Invalid task number.");
+                }
+
                 try {
                     priority = Integer.parseInt(holder[1].trim());
                 } catch (Exception e) {
                     throw new DukeException("The priority must be an integer");
+                }
+
+                if (!((priority > 0) && (priority <6))) {
+                    throw new DukeException("     (>_<) OOPS!!! Invalid priority! (1 - High ~ 5 - Low).");
                 }
 
                 return new SetPriorityCommand(taskNum, priority);
