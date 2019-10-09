@@ -1,0 +1,48 @@
+= About Us
+:site-section: AboutUs
+:relfileprefix: team/
+:imagesDir: images
+:stylesDir: stylesheets
+
+Duke was developed by the https://github.com/AY1920S1-CS2113T-T12-2[Duke] team. +
+_{The dummy content given below serves as a placeholder to be used by future forks of the project.}_ +
+{empty} +
+We are a team based in the http://www.comp.nus.edu.sg[School of Computing, National University of Singapore].
+
+== Project Team
+
+=== Lucas Foo
+image::lucasfoo.png[width="150", align="left"]
+{empty} [https://github.com/lucasfoo[github]] [<<johndoe#, portfolio>>]
+
+Role: Developer + 
+Responsibilities: Back-end developer 
+
+'''
+
+=== Xavier Loh
+image::xavier.png[width="150", align="left"]
+{empty}[http://github.com/otonashixav[github]] [<<johndoe#, portfolio>>]
+
+Role: Team Lead +
+Responsibilities: Front-end developer 
+
+'''
+
+=== Tamelly Lim
+image::termehlee.png[width="150", align="left"]
+{empty}[http://github.com/termehlee[github]] [<<johndoe#, portfolio>>]
+
+Role: Developer +
+Responsibilities: Back-end developer
+
+'''
+
+=== Liu Chao Jie
+image::chaojieliu666.png[width="150", align="left"]
+{empty}[https://github.com/ChaojieLiu666[github]] [<<jefferson#, portfolio>>]
+
+Role: Developer +
+Responsibilities: Documentation + testing
+
+'''

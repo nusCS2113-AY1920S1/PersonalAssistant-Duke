@@ -1,4 +1,18 @@
+# Duke++
+Duke++ a better version of duke, a task scheduling tool and is built upon Java 11 platfrom.
+For executable Jar files, please visit the [releases](https://github.com/AY1920S1-CS2113T-T12-2/main/releases) section
+
+
+# Developer Guide
+[hackmd](https://hackmd.io/@cCavNghrQpmWYXAaTaB_CQ/rk1rcMluS)
+
+
 # Setting up
+
+
+# User Guide
+
+[hackmd](https://hackmd.io/eDB8uyaARGWpFUN58Aw-eg?both)
 
 **Prerequisites**
 
