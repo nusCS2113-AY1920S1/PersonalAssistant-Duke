@@ -28,57 +28,12 @@ public class SortCommand extends Command {
                         System.out.println(SortedList.get(i).listFormat());
                     }
                 }else if(ui.FullCommand.split(" ")[1].equals("date")){
-                    Collections.sort(SortedList,new CustomeDateComparator());
-                    for(int i =0;i<SortedList.size();i++){
-                        System.out.println(SortedList.get(i).listFormat());
-                    }
+                    throw new DukeException("OOPS!!! Gazeebo currently does not support sort by date.");
                 }else if(ui.FullCommand.split(" ")[1].equals("priority")){
-
+                    throw new DukeException("OOPS!!! Gazeebo currently does not support sort by priority.");
                 }else{
                     throw new DukeException("OOPS!!! Gazeebo currently does not support this sorting method.");
                 }
-//                int index = Integer.parseInt(ui.FullCommand.substring(6).trim()) - 1;
-//                String Description=list.get(index).description;
-//                System.out.println("You are snoozing this task: "+list.get(index).description);
-//                System.out.println("Please indicate how much time you want to snooze");
-//                ui.ReadCommand();
-//                int year = Integer.parseInt(ui.FullCommand.split(" ")[0]);
-//                int day = Integer.parseInt(ui.FullCommand.split(" ")[2]);
-//                int month =Integer.parseInt(ui.FullCommand.split(" ")[1]);
-//                int hour = Integer.parseInt(ui.FullCommand.split(" ")[3]);
-//
-//                if (list.get(index).listFormat().contains("by")) {
-//                    String date = list.get(index).toString().split("\\|")[3].substring(4);
-//                    LocalDateTime newDate  = LocalDateTime.parse(date,DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
-//                    newDate = newDate.plusYears(year).plusMonths(month).plusDays(day).plusHours(hour);
-//                    String newBy= newDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
-//                    Task snoozedDeadline = new Deadline(Description,newBy);
-//                    list.remove(index);
-//                    list.add(snoozedDeadline);
-//                    System.out.println("Okay. I've prolonged this task's deadline: ");
-//                    System.out.println(snoozedDeadline.listFormat());
-//                } else {
-//                    String date = list.get(index).toString().split("\\|")[3].substring(4).split(" ")[0];
-//                    String start = list.get(index).toString().split("\\|")[3].substring(4).split(" ")[1].split("-")[0];
-//                    String end = list.get(index).toString().split("\\|")[3].substring(4).split(" ")[1].split("-")[1];
-//                    LocalDate newDate = LocalDate.parse(date,DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-//                    LocalTime newStart =  LocalTime.parse(start,DateTimeFormatter.ofPattern("HH:mm:ss"));
-//                    LocalTime newEnd = LocalTime.parse(end,DateTimeFormatter.ofPattern("HH:mm:ss"));
-//                    newDate = newDate.plusYears(year).plusMonths(month).plusDays(day);
-//                    newStart = newStart.plusHours(hour);
-//                    newEnd = newEnd.plusHours(hour);
-//                    String newAt = newDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"))+" "+newStart.format(DateTimeFormatter.ofPattern("HH:mm:ss"))+"-"+newEnd.format(DateTimeFormatter.ofPattern("HH:mm:ss"));
-//                    Event snoozedEvent = new Event(Description,newAt);
-//                    list.remove(index);
-//                    list.add(snoozedEvent);
-//                    System.out.println("Okay. I've prolonged this task's time: ");
-//                    System.out.println(snoozedEvent.listFormat());
-//                }
-//                StringBuilder sb = new StringBuilder();
-//                for (int i = 0; i < list.size(); i++) {
-//                    sb.append(list.get(i).toString() + "\n");
-//                }
-//                storage.Storages(sb.toString());
             }
         }
         catch (DukeException e) {
@@ -128,3 +83,7 @@ class CustomeDateComparator implements Comparator<Task>{
     }
 }
 
+//                    Collections.sort(SortedList,new CustomeDateComparator());
+//                            for(int i =0;i<SortedList.size();i++){
+//        System.out.println(SortedList.get(i).listFormat());
+//        }
