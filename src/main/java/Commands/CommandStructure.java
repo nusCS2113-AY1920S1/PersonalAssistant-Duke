@@ -15,7 +15,7 @@ public class CommandStructure {
         });
 
         put(COMMAND_KEYS.add, new COMMAND_KEYS[]{
-            COMMAND_KEYS.blacklist, COMMAND_KEYS.watchlist,
+            COMMAND_KEYS.blacklist, COMMAND_KEYS.watchlist
         });
 
         put(COMMAND_KEYS.help, new COMMAND_KEYS[]{
@@ -30,9 +30,19 @@ public class CommandStructure {
             //EMPTY
         });
 
+        put(COMMAND_KEYS.set, new COMMAND_KEYS[]{
+                COMMAND_KEYS.name , COMMAND_KEYS.age , COMMAND_KEYS.preference
+        });
+
+        put(COMMAND_KEYS.preference, new COMMAND_KEYS[]{
+                COMMAND_KEYS.add , COMMAND_KEYS.remove
+        });
+
+        put(COMMAND_KEYS.playlist, new COMMAND_KEYS[]{
+                COMMAND_KEYS.create , COMMAND_KEYS.delete , COMMAND_KEYS.add , COMMAND_KEYS.remove , COMMAND_KEYS.set
+        });
+
     }};
 
-    public static COMMAND_KEYS[] AllRoots = new COMMAND_KEYS[]{COMMAND_KEYS.search, COMMAND_KEYS.view, COMMAND_KEYS.add, COMMAND_KEYS.help, COMMAND_KEYS.more, COMMAND_KEYS.yes};
-
-
+    public static COMMAND_KEYS[] AllRoots = new COMMAND_KEYS[]{COMMAND_KEYS.search , COMMAND_KEYS.view , COMMAND_KEYS.add ,COMMAND_KEYS.help , COMMAND_KEYS.more , COMMAND_KEYS.yes , COMMAND_KEYS.set ,  COMMAND_KEYS.playlist};
 }

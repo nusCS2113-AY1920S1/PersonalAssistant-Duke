@@ -6,6 +6,7 @@ import movieRequesterAPI.RetrieveRequest;
 import object.MovieInfoObject;
 import wrapper.CommandPair;
 
+import java.io.IOException;
 import java.util.*;
 
 public abstract class CommandSuper {
@@ -162,6 +163,6 @@ public abstract class CommandSuper {
         return payload.trim();
     }
 
-    public abstract void executeCommands();
+    public abstract void executeCommands() throws IOException;
 
 }
