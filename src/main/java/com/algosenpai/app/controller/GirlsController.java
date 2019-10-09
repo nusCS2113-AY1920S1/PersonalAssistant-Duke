@@ -47,6 +47,9 @@ public class GirlsController extends SceneController implements Initializable {
 
     private List<String> waifus;
 
+    /**
+     * Initialize home scene.
+     */
     public GirlsController() {
         commands = new ArrayList<>();
         commands.add("/home");

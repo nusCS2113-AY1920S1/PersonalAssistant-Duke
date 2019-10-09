@@ -46,6 +46,9 @@ public class EndController extends SceneController implements Initializable {
 
     private List<String> commands;
 
+    /**
+     * Initialize home scene.
+     */
     public EndController() {
         commands = new ArrayList<>();
         commands.add("/home");
