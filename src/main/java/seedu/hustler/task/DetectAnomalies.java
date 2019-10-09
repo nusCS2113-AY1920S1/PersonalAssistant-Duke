@@ -26,9 +26,10 @@ public class DetectAnomalies {
                 if (descriptionMatch) {
                     check = true;
                 }
-            } else if (list.get(i).getDateTime() != null && task.getDateTime().isEqual(list.get(i).getDateTime())) {
+            } else if (list.get(i).getDateTime() != null && task.getDateTime().isEqual(list.get(i).getDateTime()) || descriptionMatch) {
                 check = true;
-            } else if (list.get(i).getDateTime() == null && descriptionMatch) {
+            }
+            else if (list.get(i).getDateTime() == null && descriptionMatch) {
                 check = true;
             }
         }

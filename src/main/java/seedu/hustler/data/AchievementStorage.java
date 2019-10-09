@@ -16,6 +16,9 @@ import static seedu.hustler.game.achievement.AddTask.numberOfTasks;
 import static seedu.hustler.game.achievement.ConsecutiveLogin.*;
 import static seedu.hustler.game.achievement.DoneTask.numberOfDone;
 
+/**
+ * A class that stores User's achievements and loads it on request from disc.
+ */
 public class AchievementStorage {
 
     public static final String ACHIEVEMENT_FILEPATH = "data/achievement.txt";
@@ -85,12 +88,19 @@ public class AchievementStorage {
             writer.write("Add: 0\n");
             writer.write("Done: 0\n");
             writer.write("TotalPoints: 0\n");
+            writer.write("LastLogin: 0\n");
+            writer.write("ConsecutiveCount: 0\n");
             writer.close();
             return numberOfTasks;
         }
     }
 
-    public static int saveStatus() throws IOException {
+    /**
+     * Save all current achievement progress.
+     * @throws IOException as this reload happens in the background,
+     * no message is shown.
+     */
+    public static void saveStatus() throws IOException {
         BufferedWriter writer = new BufferedWriter(new FileWriter(new File(STATUS_FILEPATH)));
         writer.write("Add: " + numberOfTasks);
         writer.write("\n");
@@ -108,7 +118,6 @@ public class AchievementStorage {
         }
         writer.write("ConsecutiveCount: " + consecutiveCount);
         writer.close();
-        return numberOfTasks;
     }
 
     public static ArrayList<Achievements> loadAchievements() throws FileNotFoundException {
@@ -154,7 +163,12 @@ public class AchievementStorage {
         }
     }
 
-
+    /**
+     *
+     * @param achievementsList
+     * @return
+     * @throws IOException
+     */
     public static ArrayList<Achievements> saveAchievements(ArrayList<Achievements> achievementsList) throws IOException {
         BufferedWriter writer = new BufferedWriter(new FileWriter(new File(ACHIEVEMENT_FILEPATH)));
         for(int i = 0; i < achievementsList.size(); i += 1) {

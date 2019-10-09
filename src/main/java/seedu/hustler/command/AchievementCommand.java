@@ -1,9 +1,10 @@
 package seedu.hustler.command;
 
-import seedu.hustler.Hustler;
 import seedu.hustler.game.achievement.AchievementList;
-import seedu.hustler.ui.Ui;
 
+/**
+ * Command to see all achievements.
+ */
 public class AchievementCommand extends Command{
 
     /**
