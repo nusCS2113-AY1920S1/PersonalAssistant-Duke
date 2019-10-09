@@ -46,40 +46,40 @@ public class Duke {
         return command.feedback(taskList, ui, storage);
     }
 
-    public void run(String fullCommand) throws DukeException, ParseException {
-        CommandTest command = Parser.parseTest(fullCommand);
-        command.exec(taskList, ui, storage);
-    }
-    /**
-     * Gets response from Duke.
-     *
-     * @param input String input from user
-     * @return String output
-     * @throws DukeException if not able to find any matching items
-     */
-    public String getResponse(String input) throws DukeException {
-        String output = "";
-        if (input.contains("list")) {
-            output = "Duke heard: " + taskList.listTask();
-        } else if (input.contains("find")) {
-            output = "Duke heard: " + taskList.findTask(input.trim().split("\\s", 2)[1]);
-        } else {
-            output = "unknown";
-        }
-        return output;
-    }
-
-    public ArrayList<String> getList() {
-        return taskList.listTask();
-    }
-
-    public ArrayList<String> findList(String description) throws DukeException {
-        return taskList.findTask(description);
-    }
-
-    public int getSize() {
-        return taskList.getSize();
-    }
+//    public void run(String fullCommand) throws DukeException, ParseException {
+//        CommandTest command = Parser.parseTest(fullCommand);
+//        command.exec(taskList, ui, storage);
+//    }
+//    /**
+//     * Gets response from Duke.
+//     *
+//     * @param input String input from user
+//     * @return String output
+//     * @throws DukeException if not able to find any matching items
+//     */
+//    public String getResponse(String input) throws DukeException {
+//        String output = "";
+//        if (input.contains("list")) {
+//            output = "Duke heard: " + taskList.listTask();
+//        } else if (input.contains("find")) {
+//            output = "Duke heard: " + taskList.findTask(input.trim().split("\\s", 2)[1]);
+//        } else {
+//            output = "unknown";
+//        }
+//        return output;
+//    }
+//
+//    public ArrayList<String> getList() {
+//        return taskList.listTask();
+//    }
+//
+//    public ArrayList<String> findList(String description) throws DukeException {
+//        return taskList.findTask(description);
+//    }
+//
+//    public int getSize() {
+//        return taskList.getSize();
+//    }
 }
 
 

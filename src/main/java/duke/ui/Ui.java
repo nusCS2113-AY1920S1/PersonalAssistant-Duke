@@ -36,9 +36,9 @@ public class Ui {
         mainWindow.handleLoadingError();
     }
 
-    public void showListTask() {
-        mainWindow.handleListTask();
-    }
+//    public void showListTask() {
+//        mainWindow.handleListTask();
+//    }
 
 //    public void showError(String errorMessage) {
 //        System.out.println(errorMessage);
