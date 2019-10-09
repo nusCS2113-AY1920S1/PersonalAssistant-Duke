@@ -121,6 +121,7 @@ public class Parser {
             writeElement();
             break;
         case STRING:
+            // TODO: disambiguate/autocorrect?
             throw new DukeHelpException("String in argument was not closed: " + elementBuilder.toString(),
                     currCommand);
         case SWITCH:
@@ -154,8 +155,16 @@ public class Parser {
         }
     }
 
-    private void handleArg(char curr) throws DukeHelpException {
+    private void handleArg(char curr) throws DukeException {
         switch (curr) {
+        case '"':
+            if (!isEscaped) {
+                throw new DukeException("Unescaped double quotes in argument: " + elementBuilder.toString());
+            } //fallthrough
+        case '-':
+            if (!isEscaped) {
+                throw new DukeException("Unescaped hyphen in argument: " + elementBuilder.toString());
+            } //fallthrough
         case '\\':
             if (!isEscaped) {
                 isEscaped = true;
