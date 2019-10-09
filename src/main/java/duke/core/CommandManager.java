@@ -37,6 +37,14 @@ public class CommandManager {
                 } catch (Exception e) {
                     throw new DukeException("Fail to parse addPatient command");
                 }
+            case "addStandardTask":
+                try {
+                    String[] tempCommand = command[1].split(" ", 1);
+                    StandardTask task = new StandardTask(tempCommand[0]);
+                    return new AddStandardTaskCommand(task);
+                } catch (Exception e) {
+                    throw new DukeException("Fail to parse addTask command");
+                }
             case "list":
                 //do thing for 'list'
             case "done":

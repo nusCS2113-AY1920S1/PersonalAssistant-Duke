@@ -74,4 +74,8 @@ public class TaskList {
         return taskList.size();
     }
 
+    public ArrayList<Task> getTaskList() {
+        return new ArrayList<>(taskList);
+    }
+
 }
