@@ -10,6 +10,7 @@ import notes.NoteList;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Stack;
 
 public class DeleteNoteCommand extends EditNoteCommand {
     private String deleteNoteInList(int noteNumber, ArrayList<Note> listToEdit, LocalDate dateToEdit,
@@ -38,7 +39,7 @@ public class DeleteNoteCommand extends EditNoteCommand {
     }
 
     @Override
-    public void execute(ArrayList<Task> list, Ui ui, Storage storage) throws IOException {
+    public void execute(ArrayList<Task> list, Ui ui, Storage storage, Stack<String> commandStack, ArrayList<Task> deletedTask) throws IOException {
         //deleteNote day/week/month yyyy-MM-dd <note_num>
         String[] command = ui.FullCommand.split(" ");
         LocalDate userDate;

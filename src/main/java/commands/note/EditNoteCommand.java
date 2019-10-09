@@ -10,6 +10,7 @@ import notes.NoteList;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Stack;
 
 public class EditNoteCommand extends AddNoteCommand {
     private void editNoteInList(int noteNumber, ArrayList<Note> listToEdit, LocalDate dateToEdit,
@@ -34,7 +35,7 @@ public class EditNoteCommand extends AddNoteCommand {
     }
 
     @Override
-    public void execute(ArrayList<Task> list, Ui ui, Storage storage) throws IOException {
+    public void execute(ArrayList<Task> list, Ui ui, Storage storage, Stack<String> commandStack, ArrayList<Task> deletedTask) throws IOException {
         //editNote day/week/month yyyy-MM-dd <note_num = index+1>
         //<the note they want to edit to become>
         String[] command = ui.FullCommand.split(" ");

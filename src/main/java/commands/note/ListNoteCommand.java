@@ -10,6 +10,7 @@ import notes.NoteList;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Stack;
 
 public class ListNoteCommand extends AddNoteCommand {
     //listNote day/week/month yyyy-MM-dd
@@ -32,7 +33,7 @@ public class ListNoteCommand extends AddNoteCommand {
     }
 
     @Override
-    public void execute(ArrayList<Task> list, Ui ui, Storage storage) throws IOException {
+    public void execute(ArrayList<Task> list, Ui ui, Storage storage, Stack<String> commandStack, ArrayList<Task> deletedTask) throws IOException {
         String[] command = ui.FullCommand.split(" ");
         LocalDate userDate;
         try {
