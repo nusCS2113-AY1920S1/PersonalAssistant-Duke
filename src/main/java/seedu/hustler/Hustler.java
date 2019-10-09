@@ -28,9 +28,9 @@ import javafx.application.Application;
 import javafx.stage.Stage;
 
 /**
- * A personal assistant that takes in user input and gives and performs
- * an operation that can help the user in his day to day needs.
- * Has a task list with multiple features.
+ * A personal assitant that takes in user input and gives and performs
+ * an operation that can help the user
+ * in his day to day needs. Has a tasklist with multiple features.
  */
 public class Hustler extends Application {
     /**
@@ -78,11 +78,6 @@ public class Hustler extends Application {
     public static CommandLog commandlog = new CommandLog();
 
     /**
-     * The settings instance that keeps track of User's preference.
-     */
-    public static Settings settings;
-
-    /**
      * Initializes the essential components needed to run Hustler.
      * Loads existing task list and avatar.
      * Displays reminders at the start of Hustler.
@@ -96,24 +91,6 @@ public class Hustler extends Application {
         Reminders.runAll(list);
         Reminders.displayReminders();
         System.out.println();
-
-        // Taking the the first raw input
-        String rawInput = ui.take_input();
-
-        // Taking input and printing till user input is bye
-        while (!rawInput.equals("bye")) {
-            try {
-                Command command = parser.parse(rawInput);
-                command.execute();
-		        saveStorage();
-		        rawInput = ui.take_input();
-                System.out.println();
-            } catch (CommandLineException e) {
-                e.getErrorMsg();
-                rawInput = ui.take_input();
-            }
-        }
-        ui.show_bye_message();
         avatar = AvatarStorage.load();
         AvatarStorage.save(avatar);
     }
@@ -138,7 +115,7 @@ public class Hustler extends Application {
             System.out.println();
         } catch (CommandLineException e) {
             e.getErrorMsg();
-        } catch (IOException e) {
+        } catch (IOException ignore) {
 
         }
     }

@@ -32,8 +32,7 @@ public class CommandLog {
                 command.execute();
             
                 Hustler.saveStorage();
-            } catch (CommandLineException e) {
-            } catch (IOException ignore) {
+            } catch (CommandLineException | IOException e) {
 
             }
         }
