@@ -6,14 +6,18 @@ import duke.logic.Logic;
 import duke.logic.command.CommandResult;
 import duke.logic.command.exceptions.CommandException;
 import duke.logic.parser.exceptions.ParseException;
-
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Logger;
 
 public class MainWindow extends UiPart<Stage> {
@@ -28,6 +32,9 @@ public class MainWindow extends UiPart<Stage> {
     private ProductPage productPage;
     private SalePage salePage;
     private InventoryPage inventoryPage;
+
+    private List<String> inputHistory = new ArrayList<>();
+    private int historyIndex = inputHistory.size();
 
     //Popup box
     @FXML
@@ -62,6 +69,8 @@ public class MainWindow extends UiPart<Stage> {
         this.primaryStage = primaryStage;
         this.logic = logic;
 
+        setUpKeyEvent();
+
     }
 
     public Stage getPrimaryStage() {
@@ -80,10 +89,15 @@ public class MainWindow extends UiPart<Stage> {
         primaryStage.show();
     }
 
+
     @FXML
     private void handleUserInput() {
         popUp.setVisible(false);
         String input = userInput.getText();
+
+        inputHistory.add(input);
+        historyIndex = inputHistory.size();
+
         try {
             CommandResult commandResult = logic.execute(input);
             showPage(commandResult.getDisplayedPage());
@@ -92,6 +106,32 @@ public class MainWindow extends UiPart<Stage> {
             showErrorPopUp(e.getMessage());
         }
         userInput.clear();
+    }
+
+    /**
+     * Sets UP key to show previous input, and sets DOWN key to the next input.
+     */
+    @FXML
+    private void setUpKeyEvent() {
+        userInput.setOnKeyPressed(new EventHandler<KeyEvent>() {
+            @Override
+            public void handle(KeyEvent event) {
+                if(event.getCode().equals(KeyCode.UP)) {
+                    if (historyIndex > 0) {
+                        historyIndex--;
+                        userInput.setText(inputHistory.get(historyIndex));
+                        userInput.setFocusTraversable(false);
+                    }
+                }
+                if(event.getCode().equals(KeyCode.DOWN)) {
+                    if (historyIndex < (inputHistory.size() - 1)) {
+                        historyIndex++;
+                        userInput.setText(inputHistory.get(historyIndex));
+                        userInput.setFocusTraversable(false);
+                    }
+                }
+            }
+        });
     }
 
     @FXML

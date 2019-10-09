@@ -8,7 +8,7 @@ public class Ingredient {
     private double unitCost;
     private double cost;
 
-    public Ingredient(@JsonProperty("name") String name) {
+    public Ingredient(String name) {
         this.name = name;
     }
 

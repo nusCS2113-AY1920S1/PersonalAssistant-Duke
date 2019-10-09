@@ -22,6 +22,9 @@ public class BakingHome implements ReadOnlyBakingHome {
     private final UniqueEntityList<Ingredient> inventory;
     private final UniqueEntityList<Shortcut> shortcuts;
 
+    /**
+     * Creates a BakingHome.
+     */
     public BakingHome() {
         orders = new UniqueEntityList<>();
         products = new UniqueEntityList<>();
@@ -104,10 +107,10 @@ public class BakingHome implements ReadOnlyBakingHome {
         return orders.asUnmodifiableObservableList();
     }
 
-    //============comProduct operations==============
+    //============Product operations==============
 
     /**
-     * Adds an product to products
+     * Adds an product to products.
      * The order must not already exist in orders.
      */
     public void addProduct(Product p) {
