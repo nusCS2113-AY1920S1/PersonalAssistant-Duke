@@ -51,7 +51,6 @@ public class AddShortGoalCommand extends MoneyCommand {
         LocalDate byDate = Parser.shortcutTime(inputString.split("/by ")[1].split(" /priority ")[0]);
         String priorityLevel = inputString.split("/priority ")[1];
         String category = "GS";
-        //System.out.println(priorityLevel);
         Goal g = new Goal(price, desc, category, byDate, priorityLevel);
         account.getShortTermGoals().add(g);
         storage.writeToFile(account);
