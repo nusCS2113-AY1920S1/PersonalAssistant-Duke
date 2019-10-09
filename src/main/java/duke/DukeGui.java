@@ -12,8 +12,6 @@ import duke.task.Storage;
 public class DukeGui {
     private DukeCore core; //holds the tasklist, ui and storage classes
 
-    private boolean exitFlag;
-
     /**
      * Creates a new Duke object (GUI version), with an associated DukeCore.
      *
