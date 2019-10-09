@@ -1,4 +1,4 @@
-package seedu.duke.task;
+package seedu.duke.task.entity;
 
 import seedu.duke.Duke;
 
@@ -6,23 +6,22 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 /**
- * Deadline is a type of task with a date/time which is the deadline time.
+ * Event class is a typ of task with a date/time when the event is going to happen.
  */
-public class Deadline extends Task {
+public class Event extends Task {
     private LocalDateTime time;
-    private String doAfter;
 
     /**
-     * Instantiates the Deadline with the name and the time. Time must be in during the instantiation as it
+     * Instantiates the Event class with name and time. Time must be passed in during the instantiation as it
      * cannot be changed later.
      *
-     * @param name name of the Deadline
-     * @param time time of the Deadline
+     * @param name name of the Event
+     * @param time time of the Event that is going to happen
      */
-    public Deadline(String name, LocalDateTime time) {
+    public Event(String name, LocalDateTime time) {
         super(name);
         this.time = time;
-        this.taskType = TaskType.Deadline;
+        this.taskType = TaskType.Event;
     }
 
     public LocalDateTime getTime() {
@@ -30,32 +29,32 @@ public class Deadline extends Task {
     }
 
     /**
-     * Instantiates the Deadline with the name and the time. Time must be in during the instantiation as it
-     * cannot be changed later. This method accepts another task to be done after the first task.
+     * Instantiates the Event class with name and time. Time must be passed in during the instantiation as it
+     * cannot be changed later. Supports adding a task to be done after the first main task.
      *
-     * @param name    name of the Deadline
-     * @param time    time of the Deadline
-     * @param doAfter task to be done after main task
-     * @param tags     tag associated with the task
+     * @param name    name of the Event
+     * @param time    time of the Event that is going to happen
+     * @param doAfter task to be done after the main task
+     * @param tags    tag associated with the task
      */
-    public Deadline(String name, LocalDateTime time, String doAfter, ArrayList<String> tags) {
+    public Event(String name, LocalDateTime time, String doAfter, ArrayList<String> tags) {
         super(name);
         this.time = time;
         setDoAfterDescription(doAfter);
-        this.taskType = TaskType.Deadline;
+        this.taskType = TaskType.Event;
         setTags(tags);
     }
 
     /**
-     * Converts the Deadline to a human readable string containing important information about the Deadline,
-     * including the type and time of this Deadline.
+     * Converts the Event to a human readable string containing important information about the Event,
+     * including the type and time of this Event.
      *
      * @return a human readable string containing the important information
      */
     @Override
     public String toString() {
         String output = "";
-        output = "[D]" + this.getStatus() + " (by: " + formatDate() + ")";
+        output = "[E]" + this.getStatus() + " (by: " + formatDate() + ")";
         if (this.doAfterDescription != null) {
             output += "\n\tAfter which: " + doAfterDescription;
         }
@@ -66,14 +65,14 @@ public class Deadline extends Task {
     }
 
     /**
-     * Outputs a string with all the information of this Deadline to be stored in a file for future usage.
+     * Outputs a string with all the information of this Event to be stored in a file for future usage.
      *
-     * @return a string containing all information of this Deadline
+     * @return a string containing all information of this Event
      */
     @Override
     public String toFileString() {
         String output = "";
-        output = (this.isDone ? "1" : "0") + " deadline " + this.name + " /at "
+        output = (this.isDone ? "1" : "0") + " event " + this.name + " /at "
                 + formatDate();
         if (this.doAfterDescription != null) {
             output += " /doafter " + doAfterDescription;
@@ -85,20 +84,20 @@ public class Deadline extends Task {
     }
 
     /**
-     * Outputs a formatted string of the time of this Deadline. The format is the same as input format and is
+     * Outputs a formatted string of the time of this Event. The format is the same as input format and is
      * shared by all tasks.
      *
-     * @return a formatted string of the time of this Deadline
+     * @return a formatted string of the time of this Event
      */
     protected String formatDate() {
         return format.format(this.time);
     }
 
     /**
-     * Calculates whether the time set for the deadline is near enough.
+     * Calculates whether the time set for the event is near enough.
      *
-     * @param dayLimit maximum number of days from now for the deadline to be considered as near
-     * @return the flag whether the deadline is near enough
+     * @param dayLimit maximum number of days from now for the event to be considered as near
+     * @return the flag whether the event is near enough
      */
     @Override
     public boolean isNear(int dayLimit) {

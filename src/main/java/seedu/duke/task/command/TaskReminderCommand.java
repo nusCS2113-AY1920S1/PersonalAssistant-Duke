@@ -1,9 +1,10 @@
-package seedu.duke.command;
+package seedu.duke.task.command;
 
 import seedu.duke.Duke;
-import seedu.duke.TaskList;
+import seedu.duke.task.entity.TaskList;
+import seedu.duke.common.command.Command;
 
-public class ReminderCommand extends Command {
+public class TaskReminderCommand extends Command {
     private int dayLimit = 3; //default limit is 3 days
     private TaskList taskList;
 
@@ -13,7 +14,7 @@ public class ReminderCommand extends Command {
      * @param taskList the TaskList where the near command is looked up
      * @param dayLimit the maximum number of days from now for a task to be considered as near
      */
-    public ReminderCommand(TaskList taskList, int dayLimit) {
+    public TaskReminderCommand(TaskList taskList, int dayLimit) {
         this.taskList = taskList;
         this.dayLimit = dayLimit;
     }
@@ -24,7 +25,7 @@ public class ReminderCommand extends Command {
      *
      * @param taskList the TaskList where the near command is looked up
      */
-    public ReminderCommand(TaskList taskList) {
+    public TaskReminderCommand(TaskList taskList) {
         this.taskList = taskList;
     }
 

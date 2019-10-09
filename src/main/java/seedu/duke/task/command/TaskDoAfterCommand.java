@@ -1,12 +1,13 @@
-package seedu.duke.command;
+package seedu.duke.task.command;
 
 import seedu.duke.Duke;
-import seedu.duke.TaskList;
+import seedu.duke.task.entity.TaskList;
+import seedu.duke.common.command.Command;
 
 /**
  * Add a task which do after another task.
  */
-public class DoAfterCommand extends Command {
+public class TaskDoAfterCommand extends Command {
 
     private TaskList taskList;
     private int itemNumber;
@@ -19,7 +20,7 @@ public class DoAfterCommand extends Command {
      * @param itemNumber         index of task.
      * @param doAfterDescription of task.
      */
-    public DoAfterCommand(TaskList taskList, int itemNumber, String doAfterDescription) {
+    public TaskDoAfterCommand(TaskList taskList, int itemNumber, String doAfterDescription) {
         this.taskList = taskList;
         this.itemNumber = itemNumber;
         this.doAfterDescription = doAfterDescription;

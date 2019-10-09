@@ -1,4 +1,7 @@
-package seedu.duke.command;
+package seedu.duke.common.command;
+
+import seedu.duke.Duke;
+import seedu.duke.common.command.Command;
 
 /**
  * Exit Command is a special kind of command called when the user ends the interaction.
@@ -12,6 +15,7 @@ public class ExitCommand extends Command {
     @Override
     public boolean execute() {
         responseMsg = "Bye, hope to see you again.";
+        Duke.getUI().showResponse(responseMsg);
         return false;
     }
 }

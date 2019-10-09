@@ -1,14 +1,15 @@
-package seedu.duke.command;
+package seedu.duke.task.command;
 
 import seedu.duke.Duke;
-import seedu.duke.Parser;
-import seedu.duke.TaskList;
+import seedu.duke.CommandParser;
+import seedu.duke.task.entity.TaskList;
+import seedu.duke.common.command.Command;
 
-public class SnoozeCommand extends Command {
+public class TaskSnoozeCommand extends Command {
     private TaskList taskList;
     private int index;
 
-    public SnoozeCommand(TaskList taskList, int index) {
+    public TaskSnoozeCommand(TaskList taskList, int index) {
         this.taskList = taskList;
         this.index = index;
     }
@@ -22,9 +23,9 @@ public class SnoozeCommand extends Command {
                 Duke.getUI().showResponse(msg);
             }
             return true;
-        } catch (Parser.UserInputException e) {
+        } catch (CommandParser.UserInputException e) {
             if (!silent) {
-                Duke.getUI().showError(e.toString());
+                Duke.getUI().showError(e.getMessage());
             }
             return false;
         }

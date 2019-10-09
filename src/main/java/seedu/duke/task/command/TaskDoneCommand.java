@@ -1,12 +1,15 @@
-package seedu.duke.command;
+package seedu.duke.task.command;
 
 import seedu.duke.Duke;
-import seedu.duke.Parser;
+import seedu.duke.CommandParser;
+import seedu.duke.common.command.Command;
+
+import java.util.ArrayList;
 
 /**
  * DoneCommand is a specific kind of command used to mark a task as done.
  */
-public class DoneCommand extends Command {
+public class TaskDoneCommand extends Command {
     private int index;
 
     /**
@@ -14,8 +17,13 @@ public class DoneCommand extends Command {
      *
      * @param i the index of the target task to be marked as done
      */
-    public DoneCommand(int i) {
+    public TaskDoneCommand(int i) {
         index = i;
+    }
+
+    public TaskDoneCommand(int i, ArrayList<Option> inputOptionList) {
+        index = i;
+        optionList = inputOptionList;
     }
 
     /**
@@ -33,9 +41,9 @@ public class DoneCommand extends Command {
                 Duke.getUI().showResponse(msg);
             }
             return true;
-        } catch (Parser.UserInputException e) {
+        } catch (CommandParser.UserInputException e) {
             if (!silent) {
-                Duke.getUI().showError(e.toString());
+                Duke.getUI().showError(e.getMessage());
             }
             return false;
         }

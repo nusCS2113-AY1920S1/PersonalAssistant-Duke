@@ -1,6 +1,6 @@
-package seedu.duke.task;
+package seedu.duke.task.entity;
 
-import seedu.duke.Parser;
+import seedu.duke.CommandParser;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -122,14 +122,14 @@ public class Task {
      *
      * @param dateString an input string to be parsed
      * @return parsed result from the input string
-     * @throws Parser.UserInputException an exception when the parsing is failed, most likely due to a wrong
-     *                                format
+     * @throws CommandParser.UserInputException an exception when the parsing is failed, most likely due to a
+     *                                          wrong format
      */
-    public static LocalDateTime parseDate(String dateString) throws Parser.UserInputException {
+    public static LocalDateTime parseDate(String dateString) throws CommandParser.UserInputException {
         try {
             return LocalDateTime.parse(dateString, format);
         } catch (DateTimeParseException e) {
-            throw new Parser.UserInputException("Wrong Date Time format");
+            throw new CommandParser.UserInputException("Wrong Date Time format");
         }
     }
 
@@ -171,5 +171,9 @@ public class Task {
 
     public void setTags(ArrayList<String> tags) {
         this.tags = tags;
+    }
+
+    public String getDoAfterDescription() {
+        return doAfterDescription;
     }
 }

@@ -1,12 +1,13 @@
-package seedu.duke.command;
+package seedu.duke.task.command;
 
 import seedu.duke.Duke;
-import seedu.duke.TaskList;
+import seedu.duke.task.entity.TaskList;
+import seedu.duke.common.command.Command;
 
 /**
  * ListCommand is a specific kind of command used to display all task in a task list.
  */
-public class ListCommand extends Command {
+public class TaskListCommand extends Command {
     private TaskList taskList;
 
     /**
@@ -14,7 +15,7 @@ public class ListCommand extends Command {
      *
      * @param taskList the target task list to be displayed.
      */
-    public ListCommand(TaskList taskList) {
+    public TaskListCommand(TaskList taskList) {
         this.taskList = taskList;
     }
 

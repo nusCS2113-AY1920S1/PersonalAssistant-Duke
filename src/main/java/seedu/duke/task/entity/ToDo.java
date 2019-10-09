@@ -1,4 +1,4 @@
-package seedu.duke.task;
+package seedu.duke.task.entity;
 
 import java.util.ArrayList;
 
@@ -23,7 +23,7 @@ public class ToDo extends Task {
      *
      * @param name    name of the task
      * @param doAfter task to be done after the main task
-     * @param tags     tag associated with the task
+     * @param tags    tag associated with the task
      */
     public ToDo(String name, String doAfter, ArrayList<String> tags) {
         super(name);

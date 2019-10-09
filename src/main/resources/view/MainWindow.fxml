@@ -10,16 +10,17 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
+<?import javafx.scene.web.WebView?>
 
-<AnchorPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1024.0" style="-fx-background-color: #ffffff;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seedu.duke.gui.MainWindow">
+<AnchorPane fx:id="rootAnchorPane" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1000.0" style="-fx-background-color: #ffffff;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seedu.duke.gui.MainWindow">
    <children>
       <SplitPane dividerPositions="0.34540117416829746, 0.6614481409001957" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <items>
-            <AnchorPane maxHeight="800.0" maxWidth="1024.0" prefHeight="716.0" prefWidth="358.0">
+            <AnchorPane minWidth="100.0" prefHeight="716.0" prefWidth="358.0">
                <children>
                   <AnchorPane layoutY="704.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
                      <children>
-                        <TextField fx:id="userInput" onAction="#handleUserInput" prefHeight="42.0" prefWidth="277.0" text="task " AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="63.0">
+                        <TextField fx:id="userInput" onAction="#handleUserInput" onKeyPressed="#handleKeyEvent" prefHeight="42.0" prefWidth="277.0" text="task " AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="63.0">
                            <font>
                               <Font size="14.0" />
                            </font>
@@ -34,18 +35,14 @@
                      <children>
                         <ScrollPane fx:id="scrollPane" fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" hvalue="1.0" prefHeight="678.0" prefWidth="340.0" vvalue="1.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                            <content>
-                              <AnchorPane>
-                                 <children>
-                                    <VBox fx:id="dialogContainer" alignment="TOP_CENTER" prefHeight="669.0" prefWidth="352.0" style="-fx-background-color: #ffffff;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                                       <opaqueInsets>
-                                          <Insets />
-                                       </opaqueInsets>
-                                       <padding>
-                                          <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                                       </padding>
-                                    </VBox>
-                                 </children>
-                              </AnchorPane>
+                              <VBox fx:id="dialogContainer" alignment="TOP_CENTER" style="-fx-background-color: #ffffff;">
+                                 <opaqueInsets>
+                                    <Insets />
+                                 </opaqueInsets>
+                                 <padding>
+                                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                 </padding>
+                              </VBox>
                            </content>
                            <padding>
                               <Insets bottom="3.0" left="3.0" right="3.0" />
@@ -67,15 +64,15 @@
                   </AnchorPane>
                </children>
             </AnchorPane>
-            <AnchorPane prefHeight="720.0" prefWidth="300.0">
+            <AnchorPane minWidth="150.0" prefHeight="720.0" prefWidth="300.0">
                <children>
                   <ScrollPane fitToHeight="true" fitToWidth="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="40.0">
                      <content>
                         <AnchorPane>
                            <children>
-                              <VBox AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                              <VBox fx:id="taskContainer" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                  <children>
-                                    <ListView VBox.vgrow="ALWAYS" />
+                                    <ListView id="webView" fx:id="tasksListView" VBox.vgrow="ALWAYS" />
                                  </children>
                               </VBox>
                            </children>
@@ -99,11 +96,11 @@
                   </AnchorPane>
                </children>
             </AnchorPane>
-            <AnchorPane prefHeight="720.0" prefWidth="300.0">
+            <AnchorPane minWidth="150.0" prefHeight="720.0" prefWidth="300.0">
                <children>
                   <AnchorPane layoutX="11.0" layoutY="5.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <children>
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Emails" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Emails (press ESC to toggle the display)" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                            <font>
                               <Font size="18.0" />
                            </font>
@@ -113,11 +110,15 @@
                         <Insets left="10.0" top="10.0" />
                      </padding>
                   </AnchorPane>
-                  <ScrollPane fitToHeight="true" fitToWidth="true" prefHeight="680.0" prefWidth="300.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="40.0">
+                  <ScrollPane fitToHeight="true" fitToWidth="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="40.0">
                      <content>
                         <AnchorPane>
                            <children>
-                              <VBox prefHeight="440.0" prefWidth="328.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                              <VBox fx:id="emailContainer" prefHeight="440.0" prefWidth="328.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                 <children>
+                                    <ListView fx:id="emailsListView" prefHeight="370.0" prefWidth="337.0" VBox.vgrow="ALWAYS" />
+                                    <WebView fx:id="webView" pickOnBounds="true" prefHeight="370" prefWidth="337.0" VBox.vgrow="ALWAYS" />
+                                 </children></VBox>
                            </children>
                         </AnchorPane>
                      </content>
