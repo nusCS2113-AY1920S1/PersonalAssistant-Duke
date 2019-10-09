@@ -35,11 +35,11 @@ public class CommandStructure {
         });
 
         put(COMMAND_KEYS.preference, new COMMAND_KEYS[]{
-                COMMAND_KEYS.add , COMMAND_KEYS.remove
+                COMMAND_KEYS.add , COMMAND_KEYS.remove , COMMAND_KEYS.clear
         });
 
         put(COMMAND_KEYS.playlist, new COMMAND_KEYS[]{
-                COMMAND_KEYS.create , COMMAND_KEYS.delete , COMMAND_KEYS.add , COMMAND_KEYS.remove , COMMAND_KEYS.set
+                COMMAND_KEYS.create , COMMAND_KEYS.delete , COMMAND_KEYS.add , COMMAND_KEYS.remove , COMMAND_KEYS.set , COMMAND_KEYS.clear
         });
 
     }};

@@ -20,6 +20,9 @@ public class PreferenceCommand extends CommandSuper{
             case remove:
                 executeRemovePreference();
                 break;
+            case clear:
+                executeClearPreference();
+                break;
             default:
                 break;
         }
@@ -51,6 +54,21 @@ public class PreferenceCommand extends CommandSuper{
         MovieHandler movieHandler = ((MovieHandler)this.getUIController());
         ProfileCommands command = new ProfileCommands(movieHandler.getUserProfile());
         command.removePreference(this.getFlagMap());
+        movieHandler.clearSearchTextField();
+        movieHandler.initialize();
+    }
+
+    /**
+     * clear all preference that was set previously
+     * root: preference
+     * sub: clear
+     * payload: none
+     * flag: -g (genre name -- not genre ID) -a (adult -- yes to allow adult content, no to restrict, set to yes by default)
+     */
+    private void executeClearPreference() throws IOException {
+        MovieHandler movieHandler = ((MovieHandler)this.getUIController());
+        ProfileCommands command = new ProfileCommands(movieHandler.getUserProfile());
+        command.clearPreference(this.getFlagMap());
         movieHandler.clearSearchTextField();
         movieHandler.initialize();
     }

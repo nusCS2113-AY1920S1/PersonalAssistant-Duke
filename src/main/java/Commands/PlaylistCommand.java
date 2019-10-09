@@ -31,6 +31,9 @@ public class PlaylistCommand extends CommandSuper{
             case set:
                 executeSetToPlaylist();
                 break;
+            case clear:
+                executeClearPlaylist();
+                break;
             default:
                 break;
         }
@@ -108,6 +111,21 @@ public class PlaylistCommand extends CommandSuper{
         MovieHandler movieHandler = ((MovieHandler)this.getUIController());
         PlaylistCommands command = new PlaylistCommands(movieHandler.getPlaylists());
         command.setToPlaylist(this.getPayload(), this.getFlagMap());
+        movieHandler.clearSearchTextField();
+        movieHandler.initialize();
+    }
+
+    /**
+     * clear out all movies in particular playlise
+     * root: playlist
+     * sub: clear
+     * payload: <playlist name>
+     * flag: none
+     */
+    private void executeClearPlaylist() throws IOException {
+        MovieHandler movieHandler = ((MovieHandler)this.getUIController());
+        PlaylistCommands command = new PlaylistCommands(movieHandler.getPlaylists());
+        command.clearPlaylist(this.getPayload());
         movieHandler.clearSearchTextField();
         movieHandler.initialize();
     }

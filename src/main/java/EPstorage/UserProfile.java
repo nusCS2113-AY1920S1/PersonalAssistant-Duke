@@ -9,6 +9,7 @@ public class UserProfile {
     private String userName;
     private int userAge;
     private ArrayList<Integer> genreId;
+    private boolean adult = true;
 
     public String getUserName(){
         return userName;
@@ -40,5 +41,13 @@ public class UserProfile {
 
     public void removeGenreId(ArrayList<Integer> inputGenre) {
         genreId.removeAll(inputGenre);
+    }
+
+    public boolean isAdult() {
+        return adult;
+    }
+
+    public void setAdult(boolean adult) {
+        this.adult = adult;
     }
 }

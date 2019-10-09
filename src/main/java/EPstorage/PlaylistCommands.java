@@ -47,7 +47,7 @@ public class PlaylistCommands {
             setPlaylistDescription(name, flagMap.get("-d").get(0));
         }
         if (flagMap.containsKey("-d") && flagMap.containsKey("-n")) {
-            setBoth(name, flagMap.get("-n").get(0), flagMap.get("-d").get(0));
+            setAll(name, flagMap.get("-n").get(0), flagMap.get("-d").get(0));
         }
     }
 
@@ -84,7 +84,7 @@ public class PlaylistCommands {
     /**
      * to allow setting of both name and description at the same time
      */
-    public void setBoth(String name, String newName, String description) throws IOException {
+    public void setAll(String name, String newName, String description) throws IOException {
         for (Playlist log : playlists) {
             if (log.getListName().equals(name)) {
                 playlists.remove(log);
@@ -130,6 +130,18 @@ public class PlaylistCommands {
             if (log.getListName().equals(name)) {
                 playlists.remove(log);
                 log.removeMovieId(userMovies);
+                playlists.add(log);
+                editPlaylistJson.editPlaylist(playlists);
+                break;
+            }
+        }
+    }
+
+    public void clearPlaylist(String name) throws IOException {
+        for (Playlist log : playlists) {
+            if (log.getListName().equals(name)) {
+                playlists.remove(log);
+                log.setMoveId(new ArrayList<>());
                 playlists.add(log);
                 editPlaylistJson.editPlaylist(playlists);
                 break;

@@ -64,7 +64,7 @@ public class SetCommand extends CommandSuper{
      * root: set
      * sub: preference
      * payload: none
-     * flag: -g (genre name -- not genre ID)
+     * flag: -g (genre name -- not genre ID) -a (adult -- yes to allow adult content, no to restrict, set to yes by default)
      */
     private void executeSetPreference() throws IOException {
         MovieHandler movieHandler = ((MovieHandler)this.getUIController());

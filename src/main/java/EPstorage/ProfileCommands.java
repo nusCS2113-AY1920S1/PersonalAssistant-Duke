@@ -5,9 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.io.*;
 import java.util.ArrayList;
-import java.util.Scanner;
 import java.util.TreeMap;
-import java.util.regex.Pattern;
 
 
 /**
@@ -44,11 +42,46 @@ public class ProfileCommands {
      * set user preferences
      */
     public void setPreference(TreeMap<String, ArrayList<String>> flagMap) throws IOException {
+        if (flagMap.containsKey("-g")) {
+            setGenrePreference(flagMap);
+        }
+        if (flagMap.containsKey("-a")) {
+            setAdultPreference(flagMap.get("-a").get(0));
+        }
+        if (flagMap.containsKey("-g") && flagMap.containsKey("-a")) {
+            setAll(flagMap, flagMap.get("-a").get(0));
+        }
+    }
+
+    public void setGenrePreference(TreeMap<String, ArrayList<String>> flagMap) throws IOException {
         ArrayList<Integer> genrePreferences = new ArrayList<>(10);
-        for (String log : flagMap.get("-g")){
+        for (String log : flagMap.get("-g")) {
             genrePreferences.add(findGenreID(log));
         }
         userProfile.setGenreId(genrePreferences);
+        editProfileJson.updateProfile(userProfile);
+    }
+
+    public void setAdultPreference(String value) throws IOException {
+        if (value.equals("yes")) {
+            userProfile.setAdult(true);
+        } else if (value.equals("no")) {
+            userProfile.setAdult(false);
+        }
+        editProfileJson.updateProfile(userProfile);
+    }
+
+    public void setAll(TreeMap<String, ArrayList<String>> flagMap, String value) throws IOException {
+        ArrayList<Integer> genrePreferences = new ArrayList<>(10);
+        for (String log : flagMap.get("-g")) {
+            genrePreferences.add(findGenreID(log));
+        }
+        userProfile.setGenreId(genrePreferences);
+        if (value.equals("yes")) {
+            userProfile.setAdult(true);
+        } else if (value.equals("no")) {
+            userProfile.setAdult(false);
+        }
         editProfileJson.updateProfile(userProfile);
     }
 
@@ -67,6 +100,34 @@ public class ProfileCommands {
             genrePreferences.add(findGenreID(log));
         }
         userProfile.removeGenreId(genrePreferences);
+        editProfileJson.updateProfile(userProfile);
+    }
+
+    public void clearPreference(TreeMap<String, ArrayList<String>> flagMap) throws IOException {
+        if (flagMap.containsKey("-g")) {
+            clearGenrePreference();
+        }
+        if (flagMap.containsKey("-a")) {
+            clearAdultPreference();
+        }
+        if (flagMap.containsKey("-g") && flagMap.containsKey("-a")) {
+            clearAll();
+        }
+    }
+
+    public void clearGenrePreference() throws IOException {
+        userProfile.removeGenreId(userProfile.getGenreId());
+        editProfileJson.updateProfile(userProfile);
+    }
+
+    public void clearAdultPreference() throws IOException {
+        userProfile.setAdult(true);
+        editProfileJson.updateProfile(userProfile);
+    }
+
+    public void clearAll() throws IOException {
+        userProfile.removeGenreId(userProfile.getGenreId());
+        userProfile.setAdult(true);
         editProfileJson.updateProfile(userProfile);
     }
 
