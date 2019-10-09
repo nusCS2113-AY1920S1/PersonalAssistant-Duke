@@ -29,7 +29,7 @@ public class CommandManager {
                             Patient patient = new Patient(tempCommand[1], tempCommand[2], tempCommand[3], tempCommand[4]);
                             return new AddPatientCommand(patient);
                         }catch(Exception e){
-                            throw new Exception("Add patient fails! Please follow the format 'add patient <name> <NRIC> <Room> <remark>'.");
+                            throw new Exception("Please follow the format 'add patient <name> <NRIC> <Room> <remark>'. ");
                         }
                     }
                     else if (tempCommand[0].toLowerCase().equals("task")){
@@ -37,18 +37,17 @@ public class CommandManager {
                             StandardTask task = new StandardTask(tempCommand[1]);
                             return new AddStandardTaskCommand(task);
                         }catch(Exception e){
-                            throw new Exception("Add task fails! Please follow the format 'add task <task description>.");
+                            throw new Exception("Please follow the format 'add task <task description>.' ");
                         }
                     }
                     else {
-                        throw new Exception("Invalid 'add' command.");
+                        throw new Exception("Invalid format. ");
                     }
                 } catch (Exception e) {
-                    throw new DukeException(e.getMessage());
+                    throw new DukeException("Add command fails. " + e.getMessage());
                 }
             case "list":
                 try {
-                    String[] tempCommand = command[1].split("\\s+");
                     if (tempCommand[0].toLowerCase().equals("patients")){
                         return new ListPatientsCommand();
                     }
@@ -56,10 +55,10 @@ public class CommandManager {
                         return new ListTasksCommand();
                     }
                     else {
-                        throw new Exception("Invalid 'list' command.");
+                        throw new Exception("Invalid 'list' command. ");
                     }
                 } catch (Exception e) {
-                    throw new DukeException(e.getMessage());
+                    throw new DukeException("List command fails. " + e.getMessage());
                 }
             case "done":
                 //do thing for 'done'
@@ -67,13 +66,18 @@ public class CommandManager {
                 try{
                     String[] tempCommand = command[1].split("\\s+", 2);
                     if (tempCommand[0].toLowerCase().equals("patient")){
-                            return new DeletePatientCommand(Integer.parseInt(tempCommand[1]));
+                        try {
+                            int id = Integer.parseInt(tempCommand[1]);
+                            return new DeletePatientCommand(id);
+                        }catch(Exception e){
+                            throw new Exception("Please follow the format 'delete patient <id>'.");
+                        }
                     }
                     else {
-                        throw new Exception("Invalid 'Delete' command.");
+                        throw new Exception("Invalid format. ");
                     }
                 } catch(Exception e){
-                    throw new DukeException(e.getMessage());
+                    throw new DukeException("Delete command fails. " + e.getMessage());
                 }
             case "find":
                 //do thing for 'find'
