@@ -37,12 +37,17 @@ public class Project implements IProject {
 
     @Override
     public int getNumOfMembers() {
-        return 0;
+        return this.memberList.getNumOfMembers();
     }
 
     @Override
     public void addMember(Member newMember) {
         this.memberList.addMember(newMember);
+    }
+
+    @Override
+    public void editMember(int memberIndexNumber, String updatedMemberDetails) {
+        this.memberList.editMember(memberIndexNumber, updatedMemberDetails);
     }
 
     @Override
