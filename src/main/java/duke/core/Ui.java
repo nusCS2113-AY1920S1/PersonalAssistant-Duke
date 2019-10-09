@@ -1,5 +1,8 @@
 package duke.core;
 
+import duke.patient.Patient;
+
+import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
@@ -41,17 +44,33 @@ public class Ui {
         System.out.println("☹" + e);
     }
 
-    /**
-     * Shows that a Task has been added, and displays the number
-     * of current tasks in the list.
-     *
-     * @param t    The Task that is added to the list.
-     * @param size The number of tasks stored in the TaskList.
-     */
+//    /**
+//     * Shows that a Task has been added, and displays the number
+//     * of current tasks in the list.
+//     *
+//     * @param t    The Task that is added to the list.
+//     * @param size The number of tasks stored in the TaskList.
+//     */
 //    public void taskAdded(Task t, int size) {
 //        System.out.println("Got it. I've added this task: \n  " + t.toString() + "\nNow you have "
 //                + size + " tasks in the list.");
 //    }
+
+    public void patientAdded(Patient patient) {
+        System.out.println("Got it. The following patient has been added:  "
+                + "\nName: " + patient.getName() + "  Id: " + patient.getID()
+                + "\nNRIC: " + patient.getNRIC() + "  Room: " + patient.getRoom()
+                + "\nRemark: " + patient.getRemark());
+    }
+
+    public void listAllPatients(ArrayList<Patient> patients){
+        for (Patient patient : patients){
+            System.out.println( "Name: " + patient.getName() + "  Id: " + patient.getID()
+                    + "\nNRIC: " + patient.getNRIC() + "  Room: " + patient.getRoom()
+                    + "\nRemark: " + patient.getRemark());
+            showLine();
+        }
+    }
 
 
     /**

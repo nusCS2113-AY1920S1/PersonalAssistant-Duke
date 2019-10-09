@@ -8,19 +8,18 @@ import duke.storage.PatientStorage;
 import duke.storage.TaskStorage;
 import duke.task.TaskList;
 
-public class AddPatientCommand extends Command {
+import java.util.ArrayList;
 
-    private Patient newPatient;
-    public AddPatientCommand(Patient newPatient) {
+public class ListPatientCommand extends Command {
+
+    public ListPatientCommand() {
         super();
-        this.newPatient = newPatient;
     }
 
     @Override
     public void execute(TaskList tasks, PatientList patientList, Ui ui, TaskStorage taskStorage, PatientStorage patientStorage) throws DukeException {
-        patientList.addPatient(newPatient);
-        patientStorage.save(patientList.getPatientList());
-        ui.patientAdded(newPatient);
+        ArrayList<Patient> list = patientList.getPatientList();
+        ui.listAllPatients(list);
     }
 
     @Override

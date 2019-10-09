@@ -6,26 +6,29 @@ import java.util.ArrayList;
  * Represents a Patient.
  */
 public class Patient {
-    private int id;
+    private int id = 0;
+    private String nric;
     private String name;
-    private String preference;
     private String remark;
     private ArrayList<String> remarkList = new ArrayList<String>();
-    private boolean isHospitalised;
     private String room;
 
+    public Patient(int id, String name, String nric, String room, String remark) {
+        this.id = id;
+        this.name = name;
+        this.nric = nric;
+        this.remark = remark;
+        this.room = room;
+    }
     /**
      * Initialises the minimum fields required to setup a Patient.
      *
-     * @param id A unique integer represents id of the patient.
-     * @param name A String that represent the full name of the patient.
-     * @param isHospitalised A boolean value that represents the hospitalised data of the patient.
+     * @param name   A String that represent the full name of the patient.
      * @param remark Remark leaves by nurses.
      */
-    public Patient(int id, String name, String room, String remark, boolean isHospitalised) {
-        this.id = id;
+    public Patient(String name, String nric, String room, String remark) {
         this.name = name;
-        this.isHospitalised = isHospitalised;
+        this.nric = nric;
         this.remark = remark;
         this.room = room;
     }
@@ -38,10 +41,6 @@ public class Patient {
         return id;
     }
 
-    public boolean isHospitalised() {
-        return isHospitalised;
-    }
-
     public String getRemark() {
         return remark;
     }
@@ -50,7 +49,12 @@ public class Patient {
         return room;
     }
 
-    public void checkOut() {
-        isHospitalised = false;
+    public String getNRIC() {
+        return nric;
     }
+
+    public void setID(int id){
+        this.id = id;
+    }
+
 }
