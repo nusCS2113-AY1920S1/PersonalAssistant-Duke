@@ -111,7 +111,7 @@ Icon                 | Description
 ## 4. Design
 **4.1. Architecture**
 
-<img src="images/ArchitectureDiagram.png" alt="Overview of architecture" width="800"/>
+<img src="https://github.com/AY1920S1-CS2113T-W17-1/main/blob/master/docs/diagrams/ArchitectureDiagram.png" alt="Overview of architecture" width="800"/>
 Figure 1. Architecture Diagram
 
    
