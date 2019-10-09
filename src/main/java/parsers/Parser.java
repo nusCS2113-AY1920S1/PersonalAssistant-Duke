@@ -6,6 +6,7 @@ import commands.note.AddNoteCommand;
 import Exception.DukeException;
 import commands.note.DeleteNoteCommand;
 import commands.note.EditNoteCommand;
+import commands.note.ListNoteCommand;
 
 public class Parser {
     public static Command parse(String command) throws DukeException {
@@ -71,7 +72,9 @@ public class Parser {
         } else if (splitCommand[0].equals("editNote")) {
             return new EditNoteCommand();
         } else if (splitCommand[0].equals("deleteNote")) {
-                return new DeleteNoteCommand();
+            return new DeleteNoteCommand();
+        } else if (splitCommand[0].equals("listNote")) {
+                return new ListNoteCommand();
         } else if ((splitCommand[0] + " " + splitCommand[1]).equals("change password")) {
             return new ChangePasswordCommand();
         } else if (command.contains("#")) {

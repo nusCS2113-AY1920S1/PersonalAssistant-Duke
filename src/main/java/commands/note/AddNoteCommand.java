@@ -9,6 +9,7 @@ import notes.Note;
 import notes.NoteList;
 
 import java.io.IOException;
+import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
@@ -23,13 +24,17 @@ public class AddNoteCommand extends Command {
                 if (!(command[1].equals("day") || command[1].equals("week") || command[1].equals("month"))) {
                     throw new DukeException("The second word in the command has to be \'day\', \'week\' or \'month\'.");
                 }
-                if (command[1].equals("month")) {
-                    command[2] = command[2] + "-01";
-                }
             } catch (ArrayIndexOutOfBoundsException b) {
-                throw new DukeException("OOPS!!! The description of an " + commandName +" cannot be empty.");
+                throw new DukeException("OOPS!!! The description of a " + commandName +" cannot be empty.");
             }
-            return LocalDate.parse(command[2], Note.noteFormatter);
+            if (command[1].equals("month")) {
+                command[2] = command[2] + "-01";
+            }
+            LocalDate date = LocalDate.parse(command[2], Note.noteFormatter);
+            if (command[1].equals("week") && !date.getDayOfWeek().equals(DayOfWeek.MONDAY)) {
+                throw new DukeException("OOPS!!! The date provided must be a Monday.");
+            }
+            return date;
         } catch (ArrayIndexOutOfBoundsException e) {
             throw new DukeException("Please input a date.");
             //return;

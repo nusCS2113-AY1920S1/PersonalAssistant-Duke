@@ -64,6 +64,8 @@ public class EditNoteCommand extends AddNoteCommand {
                 break;
             case "month": editNoteInList(noteNum, NoteList.monthly, userDate, usersNote, command[1]);
                 break;
+            default: System.out.println("Bug in EditNoteCommand");
+                System.exit(1);
             }
             printEditSuccess(usersNote, command[1]);
         } catch (DukeException d) {
