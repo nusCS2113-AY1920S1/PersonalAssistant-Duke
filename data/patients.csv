@@ -1,6 +1,8 @@
-Id,Name,Room,Remark,isHospitalised
-1,John,apple,2A,false
-2,Alpha,pear,3C,false
-3,newPatient3,room3,review3,false
-5,xk,apple,2A,false
-6,new,apple,bad,false
+Id,Name,NRIC,Room,Remark
+3,weifeng,G123456,2A,abc
+4,xk,sfaf,f,
+5,xk,sfaf,,
+6,xk,sfaf,,
+7,xk,,,
+8,weifentg,123122,no,no
+9,weifentg,123122,no,no

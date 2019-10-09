@@ -1,5 +1,7 @@
 package duke.patient;
 
+import duke.core.DukeException;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -24,6 +26,17 @@ public class PatientList {
         return patientIdMap.get(id);
     }
 
+    public ArrayList<Patient> getPatientByName(String name){
+        name = name.toLowerCase();
+        ArrayList<Patient> patientsWithThisName = new ArrayList<>();
+        for (Patient patient : patientIdMap.values()) {
+            if(patient.getName().toLowerCase().equals(name)){
+                patientsWithThisName.add(patient);
+            }
+        }
+        return patientsWithThisName;
+    }
+
     public void addPatient(Patient patient) {
         if (patient.getID() == 0){
             maxId += 1; //Increment maxId by 1 for the new coming patient
@@ -38,5 +51,15 @@ public class PatientList {
 
     public ArrayList<Patient> getPatientList() {
         return new ArrayList<>(patientIdMap.values());
+    }
+
+    public void deletePatient(int id) throws DukeException {
+        if (patientIdMap.containsKey(id)){
+            patientIdMap.remove(id);
+        }
+        else{
+            throw new DukeException("The patient with id "+ id + " does not exist.");
+        }
+
     }
 }

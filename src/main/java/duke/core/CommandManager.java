@@ -4,10 +4,6 @@ import duke.command.*;
 import duke.patient.Patient;
 import duke.task.*;
 
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-
 /**
  * Represents a Parser that parses user input into a specific
  * type of Command.
@@ -22,39 +18,61 @@ public class CommandManager {
      */
     public static Command manageCommand(String userInput) throws DukeException {
         userInput = userInput.trim();
-        String[] command = userInput.split(" ", 2);
+        String[] command = userInput.split("\\s+", 2);
         String commandType = command[0].toLowerCase();
         switch (commandType) { //change this depending on how string is parsed
             case "add":
                 try {
-                    String[] tempCommand = command[1].split(" ");
+                    String[] tempCommand = command[1].split("\\s+");
                     if (tempCommand[0].toLowerCase().equals("patient")){
-                        Patient patient = new Patient(tempCommand[1], tempCommand[2], tempCommand[3], tempCommand[4]);
-                        return new AddPatientCommand(patient);
+                        try {
+                            Patient patient = new Patient(tempCommand[1], tempCommand[2], tempCommand[3], tempCommand[4]);
+                            return new AddPatientCommand(patient);
+                        }catch(Exception e){
+                            throw new Exception("Add patient fails! Please follow the format 'add patient <name> <NRIC> <Room> <remark>'.");
+                        }
                     }
                     else if (tempCommand[0].toLowerCase().equals("task")){
-                        StandardTask task = new StandardTask(tempCommand[1]);
-                        return new AddStandardTaskCommand(task);
+                        try {
+                            StandardTask task = new StandardTask(tempCommand[1]);
+                            return new AddStandardTaskCommand(task);
+                        }
+                    }
+                    else {
+                        throw new Exception("Invalid 'add' command.");
                     }
                 } catch (Exception e) {
-                    throw new DukeException("Failed to parse 'add' command. " + e.getMessage());
+                    throw new DukeException(e.getMessage());
                 }
             case "list":
                 try {
-                    String[] tempCommand = command[1].split(" ");
-                    if (tempCommand[0].toLowerCase().equals("patient")){
-                        return new ListPatientCommand();
+                    String[] tempCommand = command[1].split("\\s+");
+                    if (tempCommand[0].toLowerCase().equals("patients")){
+                        return new ListPatientsCommand();
                     }
                     else if (tempCommand[0].toLowerCase().equals("tasks")){
                         return new ListTasksCommand();
                     }
+                    else {
+                        throw new Exception("Invalid 'list' command.");
+                    }
                 } catch (Exception e) {
-                    throw new DukeException("Failed to parse 'list' command. " + e.getMessage());
+                    throw new DukeException(e.getMessage());
                 }
             case "done":
                 //do thing for 'done'
             case "delete":
-                //do thing for 'delete
+                try{
+                    String[] tempCommand = command[1].split("\\s+", 2);
+                    if (tempCommand[0].toLowerCase().equals("patient")){
+                            return new DeletePatientCommand(Integer.parseInt(tempCommand[1]));
+                    }
+                    else {
+                        throw new Exception("Invalid 'Delete' command.");
+                    }
+                } catch(Exception e){
+                    throw new DukeException(e.getMessage());
+                }
             case "find":
                 //do thing for 'find'
             case "reschedule":
