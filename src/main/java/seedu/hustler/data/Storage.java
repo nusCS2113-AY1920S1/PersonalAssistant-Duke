@@ -61,12 +61,12 @@ public class Storage {
 
                 // instantiate classes
                 if (taskString[0].equals("T")) {
-                    list.add(new ToDo(taskString[3], taskString[2]));
+                    list.add(new ToDo(taskString[4], taskString[2], taskString[3]));
                 } else if (taskString[0].equals("D")) {
-                    LocalDateTime by = getDateTime(taskString[4]);
-                    list.add(new Deadline(taskString[3], by, taskString[2]));
+                    LocalDateTime by = getDateTime(taskString[5]);
+                    list.add(new Deadline(taskString[4], by, taskString[2], taskString[3]));
                     try {
-                        String dateOnly = taskString[4].split(" ")[0];
+                        String dateOnly = taskString[5].split(" ")[0];
                         Date date = schedule.convertStringToDate(dateOnly);
                         Task lastTask = list.get(list.size() - 1);
                         schedule.addToSchedule(lastTask, date);
@@ -74,10 +74,10 @@ public class Storage {
                         return null;
                     }
                 } else {
-                    LocalDateTime at = getDateTime(taskString[4]);
-                    list.add(new Event(taskString[3], at, taskString[2]));
+                    LocalDateTime at = getDateTime(taskString[5]);
+                    list.add(new Event(taskString[4], at, taskString[2], taskString[3]));
                     try {
-                        String dateOnly = taskString[4].split(" ")[0];
+                        String dateOnly = taskString[5].split(" ")[0];
                         Date date = schedule.convertStringToDate(dateOnly);
                         Task lastTask = list.get(list.size() - 1);
                         schedule.addToSchedule(lastTask, date);
@@ -115,10 +115,10 @@ public class Storage {
 
                 // instantiate classes
                 if (taskString[0].equals("T")) {
-                    list.add(new ToDo(taskString[3], taskString[2]));
+                    list.add(new ToDo(taskString[4], taskString[2], taskString[3]));
                 } else if (taskString[0].equals("D")) {
                     LocalDateTime by = getDateTime(taskString[4]);
-                    list.add(new Deadline(taskString[3], by, taskString[2]));
+                    list.add(new Deadline(taskString[4], by, taskString[2], taskString[3]));
                     try {
                         String dateOnly = taskString[4].split(" ")[0];
                         Date date = schedule.convertStringToDate(dateOnly);
@@ -129,7 +129,7 @@ public class Storage {
                     }
                 } else {
                     LocalDateTime at = getDateTime(taskString[4]);
-                    list.add(new Event(taskString[3], at, taskString[2]));
+                    list.add(new Event(taskString[4], at, taskString[2], taskString[3]));
                     try {
                         String dateOnly = taskString[4].split(" ")[0];
                         Date date = schedule.convertStringToDate(dateOnly);

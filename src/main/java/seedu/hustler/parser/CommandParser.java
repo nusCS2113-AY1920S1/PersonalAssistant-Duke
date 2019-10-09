@@ -1,5 +1,10 @@
 package seedu.hustler.parser;
 
+import seedu.hustler.command.Command;
+import seedu.hustler.command.avatarCommand.CheckAvatarCommand;
+import seedu.hustler.command.avatarCommand.SetNameCommand;
+import seedu.hustler.command.taskCommand.*;
+import seedu.hustler.data.CommandLog;
 import java.util.Arrays;
 
 import seedu.hustler.command.*;
@@ -23,6 +28,7 @@ public class CommandParser extends Parser {
         String[] userInput = rawInput.split(" ", 2);
         return userInput;
     }
+
     /**
      * Default constructor.
      */
@@ -43,19 +49,27 @@ public class CommandParser extends Parser {
         if (userInput[0].equals("find")) {
             return new FindCommand(userInput);
         } else if (userInput[0].equals("delete")) {
+            CommandLog.recordCommand(rawInput);
             return new DeleteCommand(userInput);
         } else if (userInput[0].equals("list")) {
             return new ListCommand();
         } else if (userInput[0].equals("remind")) {
             return new RemindCommand();
         } else if (userInput[0].equals("done")) {
+            CommandLog.recordCommand(rawInput);
             return new DoneCommand(userInput);
         } else if (userInput[0].equals("show")) {
             return new ScheduleCommand(userInput);
         } else if (userInput[0].equals("snooze")) {
             return new SnoozeCommand(rawInput);
         } else if (userInput[0].equals("/avatar")) {
-            return new CheckAvatarCommand();
+            if (userInput[1].equals("stats")) {
+                return new CheckAvatarCommand();
+            } else if(userInput[1].contains("setname")) {
+                return new SetNameCommand(userInput);
+            } else {
+                return new InvalidCommand();
+            }
         } else if (userInput[0].equals("achievement")) {
             return new AchievementCommand();
         } else if (userInput[0].equals("/add")) {

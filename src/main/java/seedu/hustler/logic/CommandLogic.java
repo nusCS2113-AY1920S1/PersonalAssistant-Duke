@@ -40,9 +40,9 @@ public class CommandLogic {
         }
         return true;
     }
-    
+
     /**
-     * Validates event to check for format. 
+     * Validates event to check for format.
      *
      * @param rawInput raw user input
      * @param userInput split user input
@@ -58,7 +58,7 @@ public class CommandLogic {
         }
         return true;
     }
-    
+
     /**
      * Validates todo to check for format.
      *
@@ -131,6 +131,14 @@ public class CommandLogic {
         return true;
     }
 
+    /**
+     * Validates number command to check for format.
+     *
+     * @param rawInput raw user input
+     *
+     * @return true if validated
+     * @throws CommandLineException Exception for format
+     */
     /**
      * Validates number command to check for format.
      *

@@ -4,11 +4,17 @@ import java.io.IOException;
 import java.text.ParseException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import seedu.hustler.data.CommandLog;
 import java.util.Scanner;
 import seedu.hustler.Hustler;
 import seedu.hustler.data.AvatarStorage;
 import seedu.hustler.data.CommandLog;
 import seedu.hustler.data.Schedule;
+
+import java.util.Arrays;
+import java.util.List;
+import java.util.Scanner;
+
 import seedu.hustler.game.achievement.AchievementList;
 import seedu.hustler.game.achievement.AddTask;
 import seedu.hustler.game.achievement.DoneTask;
@@ -83,27 +89,37 @@ public class TaskList {
      * @param taskDescriptionFull the description that follows the task type.
      */
     public void add(String taskType, String taskDescriptionFull) {
+        List<String> splitInput = Arrays.asList(taskDescriptionFull.split(" "));
+        String difficulty = "";
+        String tag = "";
+        if (splitInput.contains("/d")) {
+            int dIndex = splitInput.indexOf("/d") + 1;
+            try {
+                difficulty = splitInput.get(dIndex);
+            } catch (ArrayIndexOutOfBoundsException e) {
+                difficulty = "";
+            }
+        }
+        if (splitInput.contains("-tag")) {
+            int tIndex = splitInput.indexOf("-tag") + 1;
+            try {
+                tag = splitInput.get(tIndex);
+            } catch (ArrayIndexOutOfBoundsException e) {
+                tag = "";
+            }
+        }
+        String onlyDescription = getDescription(splitInput);
         boolean checkAnomaly = true;
         if (taskType.equals("todo") && !DetectAnomalies.test(new ToDo(taskDescriptionFull), list)) {
-            if (taskDescriptionFull.contains("/difficulty")) {
-                String[] tokens = taskDescriptionFull.split(" /difficulty ");
-                list.add(new ToDo(tokens[0], tokens[1]));
-            } else {
-                list.add(new ToDo(taskDescriptionFull));
-            }
+                list.add(new ToDo(onlyDescription, difficulty, tag));
             checkAnomaly = false;
         } else if (taskType.equals("deadline")) {
             try {
-                String[] tokens = taskDescriptionFull.split(" /by | /difficulty ");
-                LocalDateTime by = getDateTime(tokens[1]);
+                String timeStr = getTime(splitInput);
+                LocalDateTime by = getDateTime(timeStr);
                 if (!DetectAnomalies.test(new Deadline(taskDescriptionFull, by), list)) {
-                    if (taskDescriptionFull.contains("/difficulty")) {
-                        list.add(new Deadline(tokens[0], by, tokens[2]));
-                    } else {
-                        list.add(new Deadline(tokens[0], by));
-                    }
-
-                    String taskDate = tokens[1].split(" ")[0];
+                    list.add(new Deadline(onlyDescription, by, difficulty, tag));
+                    String taskDate = getOnlyDate(splitInput);
                     if (Schedule.isValidDate(taskDate)) {
                         schedule.addToSchedule(list.get(list.size() - 1), schedule.convertStringToDate(taskDate));
                     }
@@ -117,16 +133,11 @@ public class TaskList {
             }
         } else if (taskType.equals("event")) {
             try {
-                String[] tokens = taskDescriptionFull.split(" /at | /difficulty ");
-                LocalDateTime at = getDateTime(tokens[1]);
+                String timeStr = getTime(splitInput);
+                LocalDateTime at = getDateTime(timeStr);
                 if (!DetectAnomalies.test(new Event(taskDescriptionFull, at), list)) {
-                    if (taskDescriptionFull.contains("/difficulty")) {
-                        list.add(new Event(tokens[0], at, tokens[2]));
-                    } else {
-                        list.add(new Event(tokens[0], at));
-                    }
-
-                    String taskDate = tokens[1].split(" ")[0];
+                    list.add(new Event(onlyDescription, at, difficulty, tag));
+                    String taskDate = getOnlyDate(splitInput);
                     if (Schedule.isValidDate(taskDate)) {
                         schedule.addToSchedule(list.get(list.size() - 1), schedule.convertStringToDate(taskDate));
                     }
@@ -288,7 +299,8 @@ public class TaskList {
     public void findTask(String taskDescription) {
         ArrayList<Integer> matchingTasks = new ArrayList<Integer>();
         for (int i = 0; i < list.size(); i++) {
-            if (list.get(i).getDescription().contains(taskDescription)) {
+            if (list.get(i).getDescription().contains(taskDescription)
+                || list.get(i).getTag().equalsIgnoreCase(taskDescription)) {
                 matchingTasks.add(Integer.valueOf(i));
             }
         }
@@ -306,6 +318,42 @@ public class TaskList {
 
     public Task getLastTask() {
         return this.list.get(list.size() - 1);
+    }
+
+    private String getDescription(List<String> splitInput) {
+        String description = "";
+        for (String str : splitInput) {
+            if (str.equals("/d") || str.equals("-tag") || str.equals("/by")
+                || str.equals("/at")) {
+                break;
+            }
+            description += str + " ";
+        }
+        return description.trim();
+    }
+
+    private String getTime(List<String> splitInput) {
+        String time = "";
+        for (int i = 0; i < splitInput.size(); i++) {
+            if (splitInput.get(i).contains("/by") || (splitInput.get(i).contains("/at"))) {
+                for (int j = i + 1; j < i + 3; j++) {
+                    time += splitInput.get(j) + " ";
+                }
+                break;
+            }
+        }
+        return time.trim();
+    }
+
+    private String getOnlyDate(List<String> splitInput) {
+        String date = "";
+        for (int i = 0; i < splitInput.size(); i++) {
+            if (splitInput.get(i).contains("/by") || (splitInput.get(i).contains("/at"))) {
+                date += splitInput.get(i + 1);
+                break;
+            }
+        }
+        return date.trim();
     }
 
     /**

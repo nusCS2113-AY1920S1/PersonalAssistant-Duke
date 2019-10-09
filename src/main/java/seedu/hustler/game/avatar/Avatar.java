@@ -1,5 +1,9 @@
 package seedu.hustler.game.avatar;
 
+import seedu.hustler.data.AvatarStorage;
+
+import java.io.IOException;
+
 /**
  * A class for the avatar in Hustler.
  */
@@ -40,6 +44,16 @@ public class Avatar implements Convertible {
         this.name = name;
         this.level = level;
         this.stats = stats;
+    }
+
+    /**
+     * Sets the name for the avatar.
+     * @param preferredName the new name to update to the avatar.
+     * @return the avatar with the updated name.
+     */
+    public Avatar setName(String preferredName) {
+        this.name = preferredName;
+        return this;
     }
 
     /**

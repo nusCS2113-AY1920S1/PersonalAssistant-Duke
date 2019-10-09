@@ -1,5 +1,6 @@
-package seedu.hustler.command;
+package seedu.hustler.command.taskCommand;
 
+import seedu.hustler.command.Command;
 import seedu.hustler.ui.Ui;
 
 /**

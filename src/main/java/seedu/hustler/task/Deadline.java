@@ -27,8 +27,8 @@ public class Deadline extends Task {
     /**
      * Initializes description, user input difficulty and by.
      */
-    public Deadline(String description,  LocalDateTime by, String difficulty) {
-        super(description, difficulty);
+    public Deadline(String description,  LocalDateTime by, String difficulty, String tag) {
+        super(description, difficulty, tag);
         this.by = by;
     }
 

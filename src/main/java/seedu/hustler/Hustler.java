@@ -2,6 +2,7 @@ package seedu.hustler;
 
 import java.io.IOException;
 
+import seedu.hustler.data.*;
 
 import seedu.hustler.data.*;
 import seedu.hustler.game.achievement.AchievementList;
@@ -14,6 +15,7 @@ import seedu.hustler.data.AvatarStorage;
 import seedu.hustler.data.CommandLog;
 import seedu.hustler.data.MemoryManager;
 import seedu.hustler.logic.CommandLineException;
+import seedu.hustler.parser.Parser;
 import seedu.hustler.task.Reminders;
 import seedu.hustler.ui.Ui;
 import seedu.hustler.task.TaskList;
@@ -26,9 +28,9 @@ import javafx.application.Application;
 import javafx.stage.Stage;
 
 /**
- * A personal assistant that takes in user input and gives and performs
- * an operation that can help the user in his day to day needs.
- * Has a task list with multiple features.
+ * A personal assitant that takes in user input and gives and performs
+ * an operation that can help the user
+ * in his day to day needs. Has a tasklist with multiple features.
  */
 public class Hustler extends Application {
     /**
@@ -89,26 +91,6 @@ public class Hustler extends Application {
         Reminders.runAll(list);
         Reminders.displayReminders();
         System.out.println();
-
-        // Taking the the first raw input
-        String rawInput = ui.take_input();
-
-        // Taking input and printing till user input is bye
-        while (!rawInput.equals("bye")) {
-            try {
-                Command command = parser.parse(rawInput);
-                command.execute();
-
-		        saveStorage();
-                rawInput = ui.take_input();
-
-                System.out.println();
-            } catch (CommandLineException e) {
-                e.getErrorMsg();
-                rawInput = ui.take_input();
-            }
-        }
-        ui.show_bye_message();
         avatar = AvatarStorage.load();
         AvatarStorage.save(avatar);
     }
@@ -133,6 +115,8 @@ public class Hustler extends Application {
             System.out.println();
         } catch (CommandLineException e) {
             e.getErrorMsg();
+        } catch (IOException ignore) {
+
         }
     }
 

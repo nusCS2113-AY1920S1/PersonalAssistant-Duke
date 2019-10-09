@@ -26,8 +26,8 @@ public class Event extends Task {
     /**
      * Initializes description, user input difficulty and by.
      */
-    public Event(String description,  LocalDateTime at, String difficulty) {
-        super(description, difficulty);
+    public Event(String description,  LocalDateTime at, String difficulty, String tag) {
+        super(description, difficulty, tag);
         this.at = at;
     }
 

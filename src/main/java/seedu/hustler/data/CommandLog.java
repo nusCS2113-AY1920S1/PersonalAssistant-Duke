@@ -1,5 +1,6 @@
 package seedu.hustler.data;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import seedu.hustler.Hustler;
 import seedu.hustler.command.Command;
@@ -31,7 +32,7 @@ public class CommandLog {
                 command.execute();
             
                 Hustler.saveStorage();
-            } catch (CommandLineException e) {
+            } catch (CommandLineException | IOException e) {
 
             }
         }

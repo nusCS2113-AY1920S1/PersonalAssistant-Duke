@@ -1,6 +1,7 @@
-package seedu.hustler.command;
+package seedu.hustler.command.avatarCommand;
 
 import seedu.hustler.Hustler;
+import seedu.hustler.command.Command;
 
 /**
  * Command that checks the avatar's current status.
