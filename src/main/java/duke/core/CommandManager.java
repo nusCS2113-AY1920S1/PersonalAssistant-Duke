@@ -33,18 +33,11 @@ public class CommandManager {
                         return new AddPatientCommand(patient);
                     }
                     else if (tempCommand[0].toLowerCase().equals("task")){
-                        //if the command is <add task ....>
+                        StandardTask task = new StandardTask(tempCommand[1]);
+                        return new AddStandardTaskCommand(task);
                     }
                 } catch (Exception e) {
-                    throw new DukeException("Fail to parse Add Patient command. " + e.getMessage());
-                }
-            case "addStandardTask":
-                try {
-                    String[] tempCommand = command[1].split(" ", 1);
-                    StandardTask task = new StandardTask(tempCommand[0]);
-                    return new AddStandardTaskCommand(task);
-                } catch (Exception e) {
-                    throw new DukeException("Fail to parse addTask command");
+                    throw new DukeException("Failed to parse 'add' command. " + e.getMessage());
                 }
             case "list":
                 try {
@@ -52,11 +45,11 @@ public class CommandManager {
                     if (tempCommand[0].toLowerCase().equals("patient")){
                         return new ListPatientCommand();
                     }
-                    else if (tempCommand[0].toLowerCase().equals("task")){
+                    else if (tempCommand[0].toLowerCase().equals("tasks")){
                         //if the command is <list task ....>
                     }
                 } catch (Exception e) {
-                    throw new DukeException("Fail to parse Add Patient command. " + e.getMessage());
+                    throw new DukeException("Fail to parse 'list' command. " + e.getMessage());
                 }
             case "done":
                 //do thing for 'done'
