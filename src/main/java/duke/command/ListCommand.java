@@ -10,6 +10,7 @@ import duke.ui.Ui;
 
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Map;
 
 import static duke.common.Messages.MESSAGE_TASKED;
 
@@ -31,17 +32,12 @@ public class ListCommand extends CommandTest {
 //
 //    }
 
-    /**
-     * Processes the list command to display all tasks in task list.
-     * @param taskList contains the task list
-     * @param ui deals with interactions with the user
-     * @param storage deals with loading tasks from the file and saving tasks in the file
-     */
+
     @Override
-    public ArrayList<String> exe(TaskList taskList, Ui ui, Storage storage) {
+    public boolean exe(){
 //        mainWindow.handleListTask();
 //        ui.showListTask();
-        return taskList.listTask();
+        return false;
 //        System.out.println(MESSAGE_TASKED);
 //        for (int i = 0; i < taskList.listTask().size(); i++) {
 //            System.out.println(taskList.listTask().get(i));
@@ -51,6 +47,20 @@ public class ListCommand extends CommandTest {
     @Override
     public void exec(TaskList taskList, Ui ui, Storage storage) throws DukeException, ParseException {
         ui.showListTask();
+    }
+
+    /**
+     * Processes the list command to display all tasks in task list.
+     * @param taskList contains the task list
+     * @param ui deals with interactions with the user
+     * @param storage deals with loading tasks from the file and saving tasks in the file
+     */
+    @Override
+    public ArrayList<String> feedback(TaskList taskList, Ui ui, Storage storage) {
+        ArrayList<String> arrayList = new ArrayList<>();
+        arrayList.add(MESSAGE_TASKED);
+        arrayList.addAll(taskList.listTask());
+        return arrayList;
     }
 
     @Override

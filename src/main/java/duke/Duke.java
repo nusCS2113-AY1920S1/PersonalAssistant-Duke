@@ -9,6 +9,7 @@ import duke.ui.Ui;
 
 import java.util.ArrayList;
 import java.text.ParseException;
+import java.util.Map;
 
 import static duke.common.Messages.filePath;
 
@@ -42,7 +43,7 @@ public class Duke {
 
     public ArrayList<String> runProgram(String fullCommand) throws DukeException, ParseException {
         CommandTest command = Parser.parseTest(fullCommand);
-        return command.exe(taskList, ui, storage);
+        return command.feedback(taskList, ui, storage);
     }
 
     public void run(String fullCommand) throws DukeException, ParseException {

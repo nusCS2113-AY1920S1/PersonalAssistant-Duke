@@ -55,7 +55,7 @@ public class Parser {
         if (userInputCommand.trim().equals(COMMAND_LIST)) {
             return new DoneCommand(userInputCommand);
         } else if (userInputCommand.trim().equals(COMMAND_BYE)) {
-            return new DoneCommand(userInputCommand);
+            return new ByeCommand(userInputCommand);
         } else if (userInputCommand.contains(COMMAND_DONE)) {
             return new DoneCommand(userInputCommand);
         } else if (userInputCommand.contains(COMMAND_DEADLINE)) {

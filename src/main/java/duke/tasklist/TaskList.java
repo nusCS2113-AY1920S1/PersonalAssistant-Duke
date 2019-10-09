@@ -58,7 +58,7 @@ public class TaskList {
      */
     public ArrayList<String> findTask(String description) throws DukeException {
         ArrayList<String> arrFind = new ArrayList<>();
-        for (int i = 0; i < getSize(); i++) {
+        for (int i = 0; i < getSize() / 3; i++) {
             final int displayIndex = i + DISPLAYED_INDEX_OFFSET;
             if (taskList.get(i).getDescription().contains(description)) {
                 arrFind.add("     " + displayIndex + ". " + taskList.get(i).toString());
@@ -77,7 +77,7 @@ public class TaskList {
      */
     public ArrayList<String> listTask() {
         ArrayList<String> arrList = new ArrayList<>();
-        for (int i = 0; i < getSize(); i++) {
+        for (int i = 0; i < getSize() / 3; i++) {
             final int displayIndex = i + DISPLAYED_INDEX_OFFSET;
             arrList.add("     " + displayIndex + ". " + taskList.get(i));
         }

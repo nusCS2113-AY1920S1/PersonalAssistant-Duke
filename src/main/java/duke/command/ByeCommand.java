@@ -11,28 +11,26 @@ import java.util.ArrayList;
 /**
  * Handles the bye command and inherits all the fields and methods of Command parent class.
  */
-public class ByeCommand extends CommandTest {
+public class ByeCommand extends Command {
 
-//    /**
-//     * Display the exit message and the program.
-//     * @param taskList contains the task list
-//     * @param ui deals with interactions with the user
-//     * @param storage deals with loading tasks from the file and saving tasks in the file
-//     */
-//    @Override
-//    public void execute(TaskList taskList, Ui ui, Storage storage) {
-//        ui.showGoodbye();
-//        isExit();
-//    }
-
-    @Override
-    public ArrayList<String> exe(TaskList taskList, Ui ui, Storage storage) throws DukeException, ParseException {
-        return null;
+    /**
+     * Constructor for class ByeCommand.
+     * @param userInputCommand String containing input command from user
+     */
+    public ByeCommand(String userInputCommand) {
+        this.userInputCommand = userInputCommand;
     }
 
+    /**
+     * Display the exit message and the program.
+     * @param taskList contains the task list
+     * @param ui deals with interactions with the user
+     * @param storage deals with loading tasks from the file and saving tasks in the file
+     */
     @Override
-    public void exec(TaskList taskList, Ui ui, Storage storage) throws DukeException, ParseException {
-
+    public void execute(TaskList taskList, Ui ui, Storage storage) {
+        ui.showGoodbye();
+        isExit();
     }
 
     /**

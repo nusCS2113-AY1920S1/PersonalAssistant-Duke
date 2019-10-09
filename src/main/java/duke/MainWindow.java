@@ -94,7 +94,8 @@ public class MainWindow extends AnchorPane {
             if (input.trim().equals(COMMAND_BYE)) {
                 handleExit();
             } else {
-                for (int i = 0; i < duke.runProgram(input).size() / 3; i++) {
+                resultDisplay.setText(duke.runProgram(input).get(0));
+                for (int i = 1; i < duke.runProgram(input).size(); i++) {
                     listView.getItems().add(duke.runProgram(input).get(i));
                 }
             }

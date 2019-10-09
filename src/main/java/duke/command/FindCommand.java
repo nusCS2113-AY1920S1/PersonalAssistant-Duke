@@ -4,10 +4,10 @@ import duke.exception.DukeException;
 import duke.storage.Storage;
 import duke.tasklist.TaskList;
 import duke.ui.Ui;
-import org.apache.commons.lang.ObjectUtils;
 
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Map;
 
 import static duke.common.Messages.MESSAGE_FIND;
 import static duke.common.Messages.MESSAGE_FOLLOWUP_NUll;
@@ -28,13 +28,13 @@ public class FindCommand extends CommandTest {
         this.userInputCommand = userInputCommand;
     }
 
-    /**
-     * Processes the find command to search for tasks in task list.
-     * @param taskList contains the task list
-     * @param ui deals with interactions with the user
-     * @param storage deals with loading tasks from the file and saving tasks in the file
-     * @throws DukeException if Duke cannot recognize the user input or there is no matching task found in tbe list
-     */
+//    /**
+//     * Processes the find command to search for tasks in task list.
+//     * @param taskList contains the task list
+//     * @param ui deals with interactions with the user
+//     * @param storage deals with loading tasks from the file and saving tasks in the file
+//     * @throws DukeException if Duke cannot recognize the user input or there is no matching task found in tbe list
+//     */
 //    @Override
 //    public void execute(TaskList taskList, Ui ui, Storage storage) throws DukeException {
 //        if (userInputCommand.trim().equals(COMMAND_FIND)) {
@@ -50,23 +50,34 @@ public class FindCommand extends CommandTest {
 //        }
 //    }
 
+    @Override
+    public boolean exe() {
+        return false;
+    }
+
 
     @Override
-    public ArrayList<String> exe(TaskList taskList, Ui ui, Storage storage) throws DukeException, ParseException {
+    public ArrayList<String> feedback(TaskList taskList, Ui ui, Storage storage) throws DukeException {
+        ArrayList<String> arrayList = new ArrayList<>();
         if (userInputCommand.trim().equals(COMMAND_FIND)) {
+            arrayList.add(ERROR_MESSAGE_GENERAL + MESSAGE_FOLLOWUP_NUll);
 //            ui.showMessage(ERROR_MESSAGE_GENERAL + MESSAGE_FOLLOWUP_NUll);
-            throw new DukeException(ERROR_MESSAGE_GENERAL + MESSAGE_FOLLOWUP_NUll);
+//            throw new DukeException(ERROR_MESSAGE_GENERAL + MESSAGE_FOLLOWUP_NUll);
         } else if (userInputCommand.trim().charAt(4) == ' ') {
             String description = userInputCommand.split("\\s", 2)[1].trim();
+            arrayList.add(null);
+            arrayList.addAll(taskList.findTask(description));
 //            ui.showMessage(MESSAGE_FIND);
-            return taskList.findTask(description);
+//            return taskList.findTask(description);
 //            for (int i = 0; i < taskList.findTask(description).size(); i++) {
 //                System.out.println("     " + (i + 1) + ". " + taskList.findTask(description).get(i));
 //            }
         } else {
+            arrayList.add(ERROR_MESSAGE_RANDOM);
 //            ui.showMessage(ERROR_MESSAGE_RANDOM);
-            throw new DukeException(ERROR_MESSAGE_RANDOM);
+//            throw new DukeException(ERROR_MESSAGE_RANDOM);
         }
+        return arrayList;
     }
 
     @Override
