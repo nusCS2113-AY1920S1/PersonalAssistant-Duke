@@ -5,6 +5,8 @@ import duke.exception.DukeHelpException;
 
 import java.util.HashMap;
 
+import static java.lang.Math.min;
+
 public class Parser {
 
     enum ParseState {
@@ -34,7 +36,7 @@ public class Parser {
 
     /**
      * Creates a new Command of the type requested by the user, and extracts the necessary data for the command from
-     * the arguments.
+     * the arguments. Literal line separators in the text will be converted to \n for consistency.
      *
      * @param inputStr The input to the command line
      * @return A new instance of the Command object requested
@@ -42,30 +44,32 @@ public class Parser {
      */
     public Command parse(String inputStr) throws DukeException {
         inputStr = inputStr.replace("\t", "    "); //sanitise input
-        int firstSpaceIdx = inputStr.indexOf(" "); //index of first space
+        int firstSpaceIdx = min(inputStr.indexOf(System.lineSeparator()), inputStr.indexOf(" "));
         String cmdStr = (firstSpaceIdx == -1) ? inputStr : inputStr.substring(0, firstSpaceIdx); //extract command name
         Cmd cmd = commandMap.get(cmdStr);
         if (cmd == null) {
             throw new DukeException("I'm sorry, but I don't know what that means!");
         }
         Command command = cmd.getCommand();
-        // TODO: if possible, disambiguate using functions
-        // trim command and first space after it from input if needed
+        // TODO: autocorrect system
+        // trim command and first space after it from input if needed, and standardise newlines
         if (command instanceof ArgCommand) { // stripping not required otherwise
             currCommand = (ArgCommand) command;
+            inputStr = inputStr.replaceAll("(\\r\\n|\\n|\\r)", "\n");
             parseArgument(inputStr.substring(cmdStr.length()).strip());
         }
         return command;
     }
 
     /**
-     * Parses the user's input and loads the parameters for this Command from it.
+     * Parses the user's input after the Command name and loads the parameters for the Command from it.
      *
      * @param inputStr The input provided by the user for this command, without the command keyword and stripped.
      * @throws DukeException If input was in the wrong format, contained invalid values, or was otherwise unable to be
      *                       parsed.
      */
     private void parseArgument(String inputStr) throws DukeException {
+        assert(!inputStr.contains("\r"));
         if (inputStr.length() == 0) {
             throw new DukeException(currCommand.getEmptyArgMsg());
         }
@@ -105,6 +109,7 @@ public class Parser {
             checkInputAllowed();
             state = ParseState.STRING;
             break;
+        case '\n': //fallthrough
         case ' ': //skip spaces
             break;
         default:
@@ -121,6 +126,7 @@ public class Parser {
                 isEscaped = true;
                 break;
             } //fallthrough
+        case '\n': //fallthrough
         case ' ':
             if (!isEscaped) {
                 writeElement();
@@ -152,6 +158,7 @@ public class Parser {
         }
     }
 
+    // TODO: requires major rewrite for autocorrect
     private void handleSwitch(char curr) throws DukeHelpException {
         switch (curr) {
         case '-':
