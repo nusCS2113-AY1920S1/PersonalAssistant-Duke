@@ -46,10 +46,10 @@ public class CommandManager {
                         return new ListPatientCommand();
                     }
                     else if (tempCommand[0].toLowerCase().equals("tasks")){
-                        //if the command is <list task ....>
+                        return new ListTasksCommand();
                     }
                 } catch (Exception e) {
-                    throw new DukeException("Fail to parse 'list' command. " + e.getMessage());
+                    throw new DukeException("Failed to parse 'list' command. " + e.getMessage());
                 }
             case "done":
                 //do thing for 'done'
@@ -66,7 +66,7 @@ public class CommandManager {
             case "bye":
                 return new ExitCommand();
             default:
-                throw new DukeException("Unrecognized user input!");
+                throw new DukeException("Could not understand user input.");
         }
     }
 

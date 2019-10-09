@@ -79,8 +79,7 @@ public class Ui {
         for (Task task: taskList) {
             System.out.println(index
                     + ". "
-                    + task.getStatusIcon()
-                    + " "
+                    + "[" + task.getStatusIcon() + "] "
                     + task.getDescription()
                     + formatTaskDateTime(task)
                     + "\n");

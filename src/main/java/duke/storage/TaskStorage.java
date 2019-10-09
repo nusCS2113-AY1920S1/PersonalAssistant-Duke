@@ -41,7 +41,6 @@ public class TaskStorage extends Storage<Task>{
         try {
             Reader in = new FileReader(filePath);
             Iterable<CSVRecord> records = CSVFormat.EXCEL.withFirstRecordAsHeader().parse(in);
-            //        Iterable<CSVRecord> records = CSVFormat.EXCEL.withHeader("Last Name", "First Name").withFirstRecordAsHeader().parse(in).getRecords();
             for (CSVRecord record : records) {
                 String description = record.get("Description");
                 taskList.add(new StandardTask(description));
