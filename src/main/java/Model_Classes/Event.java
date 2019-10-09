@@ -1,5 +1,7 @@
 package Model_Classes;
 
+import Enums.Priority;
+
 import java.util.Date;
 /**
  * An object class representing types of tasks that are events.
@@ -16,6 +18,19 @@ public class Event extends Task {
      */
     public Event(String description, Date at) {
         super(description);
+        this.at = at;
+    }
+
+    /**
+     * Overload Constructor for Event object
+     * Takes in inputs for description of the event and the time the event occurs
+     * @param description Description of the event
+     * @param at Time the event happens
+     * @param done Whether the task is completed
+     * @param priority Priority of the task.
+     */
+    public Event(String description, Date at, boolean done, Priority priority) {
+        super(description, done, priority);
         this.at = at;
     }
 

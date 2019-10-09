@@ -2,10 +2,13 @@ package Operations;
 
 import CustomExceptions.RoomShareException;
 import Enums.ExceptionType;
+import Enums.Priority;
 import Model_Classes.Task;
 import Model_Classes.ToDo;
 
 import java.util.ArrayList;
+import java.util.Comparator;
+
 import Enums.TimeUnit;
 
 /**
@@ -132,4 +135,51 @@ public class TaskList {
                 break;
         }
     }
+
+    /**
+     * Sets priority of task
+     */
+    public void setPriority(String[] info) throws RoomShareException {
+        try {
+            int index = Integer.parseInt(info[0]) - 1;
+            Priority priority = Priority.valueOf(info[1]);
+            tasks.get(index).setPriority(priority);
+        } catch (IllegalArgumentException a) {
+            throw new RoomShareException(ExceptionType.wrongPriority);
+        } catch (IndexOutOfBoundsException i) {
+            throw new RoomShareException(ExceptionType.outOfBounds);
+        }
+
+    }
+
+    /**
+     * Returns priority of the task in the form of an integer
+     * high = 0, medium = 1, low = 2
+     * @param t task in which we are checking the value of
+     * @return integer value of the task's priority
+     */
+    public int getValue(Task t) {
+        if (t.getPriority().equals(Priority.high)) {
+            return 0;
+        } else if (t.getPriority().equals(Priority.medium)) {
+            return 1;
+        } else {
+            return 2;
+        }
+    }
+
+    /**
+     * Sorts the list based on priority
+     */
+    public void sortPriority() {
+        tasks.sort(new Comparator<>() {
+            @Override
+            public int compare(Task task1, Task task2) {
+                return Integer.compare(getValue(task1), getValue(task2));
+            }
+        });
+
+
+    }
+
 }

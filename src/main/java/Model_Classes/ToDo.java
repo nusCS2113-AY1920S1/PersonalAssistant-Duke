@@ -1,5 +1,7 @@
 package Model_Classes;
 
+import Enums.Priority;
+
 /**
  * An object class that stores the description of tasks that needs to be done with no deadline.
  */
@@ -10,6 +12,16 @@ public class ToDo extends Task {
      */
     public ToDo(String description) {
         super(description);
+    }
+
+    /**
+     * Overload constructor of the class. Takes in the description of the task
+     * @param description Description of the task.
+     * @param done Whether the task is completed.
+     * @param priority Priority of the task.
+     */
+    public ToDo(String description, boolean done, Priority priority) {
+        super(description, done, priority);
     }
 
     /**
