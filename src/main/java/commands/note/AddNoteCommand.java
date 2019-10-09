@@ -4,7 +4,7 @@ import Storage.Storage;
 import Tasks.Task;
 import UI.Ui;
 import commands.Command;
-import exception.DukeException;
+import Exception.DukeException;
 import notes.Note;
 import notes.NoteList;
 
@@ -15,7 +15,7 @@ import java.util.ArrayList;
 
 public class AddNoteCommand extends Command {
 
-    protected LocalDate processCommand(String[] command) throws DukeException{
+    LocalDate processCommand(String[] command, String commandName) throws DukeException{
         //addNote day/week/month yyyy-MM-dd
         //<the note they want to add>
         try {
@@ -27,7 +27,7 @@ public class AddNoteCommand extends Command {
                     command[2] = command[2] + "-01";
                 }
             } catch (ArrayIndexOutOfBoundsException b) {
-                throw new DukeException("OOPS!!! The description of an addNote cannot be empty.");
+                throw new DukeException("OOPS!!! The description of an " + commandName +" cannot be empty.");
             }
             return LocalDate.parse(command[2], Note.noteFormatter);
         } catch (ArrayIndexOutOfBoundsException e) {
@@ -63,9 +63,9 @@ public class AddNoteCommand extends Command {
     }
 
     private void printConfirmationMessage(String usersNote, int size, String period) {
-        System.out.println("Got it. I've added this note for the " + period +  ":");
+        System.out.println("Got it. I've added this note to that " + period +  ":");
         System.out.println(usersNote);
-        System.out.println("Now you have " + size + " note(s) for this " + period + ".");
+        System.out.println("Now you have " + size + " note(s) for that " + period + ".");
     }
 
     @Override
@@ -73,30 +73,35 @@ public class AddNoteCommand extends Command {
         String[] command = ui.FullCommand.split(" ");
         LocalDate userDate;
         try {
-            userDate = processCommand(command);
+            userDate = processCommand(command, "addNote");
         } catch (DukeException e) {
             ui.showErrorMessage(e);
             return;
         }
+
         ui.ReadCommand();
         String usersNote = ui.FullCommand;
         Note noteSpecified;
+
         switch (command[1]) {
         case "day":
             noteSpecified = addToList(NoteList.daily, userDate, usersNote, command[2]);
-            printConfirmationMessage(usersNote, noteSpecified.notes.size(), command[1]);
             break;
 
         case "week":
             noteSpecified = addToList(NoteList.weekly, userDate, usersNote, command[2]);
-            printConfirmationMessage(usersNote, noteSpecified.notes.size(), command[1]);
             break;
 
         case "month":
             noteSpecified = addToList(NoteList.monthly, userDate, usersNote, command[2]);
-            printConfirmationMessage(usersNote, noteSpecified.notes.size(), command[1]);
             break;
+
+        default:
+            noteSpecified = null;
         }
+
+        assert noteSpecified != null;
+        printConfirmationMessage(usersNote, noteSpecified.notes.size(), command[1]);
     }
 
     @Override

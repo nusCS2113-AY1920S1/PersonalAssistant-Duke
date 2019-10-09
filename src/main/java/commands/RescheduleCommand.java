@@ -7,7 +7,7 @@ import Tasks.Task;
 import UI.Ui;
 import java.io.IOException;
 import java.text.ParseException;
-import exception.DukeException;
+import Exception.DukeException;
 import java.util.ArrayList;
 
 public class RescheduleCommand extends Command {

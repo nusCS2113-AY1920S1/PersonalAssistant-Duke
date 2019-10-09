@@ -5,7 +5,7 @@ import commands.Command;
 import notes.Note;
 import notes.NoteList;
 import parsers.*;
-import exception.DukeException;
+import Exception.DukeException;
 
 import java.io.*;
 import java.text.ParseException;
