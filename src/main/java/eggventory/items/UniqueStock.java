@@ -6,15 +6,17 @@ import java.util.ArrayList;
  * A child of the Stock class.
  * A UniqueStock is a group of many items (eg. Arduino Uno) that share the same stockCode, description etc.,
  * but are also tracked individually (eg. Arduino Uno #31).
+ * UniqueStock contains and manages a list (uniqueStockList) of its individual items.
  */
 public class UniqueStock extends Stock {
 
-    private ArrayList<Item> uniqueStockList;
+    private ArrayList<Item> uniqueStockList = new ArrayList<>();
 
     /**
      * A stock is first added with its stockType, stockCode, description and quantity.
      * For Unique stock, the quantity determines the number of Item objects created.
-     * By default the loaned and lost numbers are 0.
+     * By default, the index numbers of each UniqueStock are set as 1-quantity for now.
+     * By default, the loaned and lost numbers are 0.
      *
      * @param stockType   The category the stock belongs to.
      * @param stockCode   The unique code that identifies the stock. (eg. 500ohm resistors are called 'R500')
@@ -40,6 +42,38 @@ public class UniqueStock extends Stock {
         }
 
         super.setQuantity(oldTotal + addQuantity); //Updates the quantity
+    }
+
+    /**
+     * Adds one item of a UniqueStock to the list.
+     * @param index The index number assigned to the item.
+     */
+    public void addUnique(int index) {
+        uniqueStockList.add(new Item(index));
+        super.setQuantity(super.getQuantity() + 1); //Increment quantity.
+    }
+
+    /**
+     * Removes one item of a UniqueStock from the list.
+     * @param index The index number assigned to the item.
+     */
+    public void deleteUnique(int index) {
+        int size = uniqueStockList.size();
+
+        int targetItem = -1;
+        for (int i = 0; i < size; i ++) {
+            if (uniqueStockList.get(i).getIndex() == index) {
+                targetItem = i;
+            }
+        }
+
+        if (targetItem == -1) {
+            System.out.println("Sorry, that is not a valid index."); //Do something better than this. 
+        } else {
+            uniqueStockList.remove(targetItem);
+        }
+
+        super.setQuantity(super.getQuantity() - 1); //Decrement quantity.
     }
 
     /**

@@ -82,7 +82,7 @@ public class Stock {
      * Sets the new total number of this stock. To be used by 'change' or 'qty' commands to modify the number.
      * @param newTotal the new total number of items.
      */
-    public void setQuantity(int newTotal) {
+    protected void setQuantity(int newTotal) {
         this.quantity = newTotal;
     }
 
