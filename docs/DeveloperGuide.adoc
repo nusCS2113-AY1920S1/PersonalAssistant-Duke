@@ -39,7 +39,8 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 |`* * *`|user| be able to mark a task as done | keep track of my progress. 
 |`* * *`|user| be able to delete a task | erase  unnecessary tasks
 |`* * *`|user| have a backup for my handbook| recover it in case I delete this program
-|`* * *`|user | be able to sort the handbook by priority | know which tasks to complete first.
+|`* * *`|user | set the priority of existing tasks | know clearly which task to finish first. 
+|`* * *`|user | set a reminder for a specific task | create a reminder of a task which is due in how many days specified.
 |`* *`|engineering undergraduate | keep track of my budget and expenditure | know when to not overspend.
 |`* *`|engineering undergraduate | receive notifications 3 days before it is due, | know the highest priority or urgent tasks to be completed.
 |`* *`|user | be able to delete multiple tasks | not have to repeat the delete action multiple times.
