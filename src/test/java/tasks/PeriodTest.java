@@ -22,7 +22,7 @@ public class PeriodTest {
             Date tempStart = ft.parse(start);
             Date tempEnd = ft.parse(end);
             Period temp = new Period(description, tempStart, tempEnd);
-            assertEquals(resultDes+" "+resultTime, temp.toString());
+            assertEquals(resultDes + " " + resultTime, temp.toString());
         } catch (ParseException e) {
             throw new DukeException("Invalid date format, the correct format is: dd/MM/yyyy");
         }
