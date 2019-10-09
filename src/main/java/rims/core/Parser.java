@@ -61,6 +61,24 @@ public class Parser {
                 c = new ReturnCommand(room, id);
             }
         }
+        else if (words[0].equals("add")) {
+            if (words[1].equals("/item")) {
+                int itemIndex = input.indexOf("/item") + 6;
+                int qtyIndex = input.indexOf(" /qty");
+                String item = input.substring(itemIndex, qtyIndex);
+                String qtyString = input.replaceFirst("add /item " + item + " /qty ", "");
+                int qty = Integer.parseInt(qtyString);
+                c = new AddCommand(item, qty);
+            }
+            else if (words[1].equals("/room")) {
+                int roomIndex = input.indexOf("/room") + 6;
+                String room = input.substring(roomIndex);
+                c = new AddCommand(room);
+            }
+            else {
+                //throw new RimException
+            }
+        }
         else {
             // throw an exception
             ;

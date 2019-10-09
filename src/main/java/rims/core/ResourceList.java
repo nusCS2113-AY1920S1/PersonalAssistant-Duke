@@ -83,8 +83,6 @@ public class ResourceList {
         // replace with custom exception
     }
 
-
-
     public ArrayList<String> generateBookedList() {
         ArrayList<String> list = new ArrayList<String>();
         list.add("CURRENTLY BOOKED");
@@ -119,6 +117,33 @@ public class ResourceList {
             }
         }
         return list;
+    }
+
+    /**
+     * Gets total quantity of resources in ResourceList regardless of status.
+     *
+     * @return total quantity of resources.
+     */
+    public int getQuantity() {
+        int qty = 0;
+        for (ArrayList<Resource> identicalResources : resources.values()) {
+            qty += identicalResources.size();
+        }
+        return qty;
+    }
+
+    /**
+     * Adds new resource to ResourceList.
+     * @param newResource new resource to add, can be item or room.
+     */
+    public void addResource(Resource newResource) {
+        String resourceName = newResource.getName();
+        if (resources.containsKey(resourceName)) {
+            resources.get(resourceName).add(newResource);
+        } else {
+            resources.put(resourceName, new ArrayList<Resource>());
+            resources.get(resourceName).add(newResource);
+        }
     }
 
 }
