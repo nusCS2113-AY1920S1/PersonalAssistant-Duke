@@ -36,8 +36,7 @@ public class Product {
 
     }
 
-    public Product(@JsonProperty("name") String name, @JsonProperty("price") String price,
-                   @JsonProperty("cost") String cost) {
+    public Product(String name, String price, String cost) {
         requireAllNonNull(name);
         checkEmpty(name, MESSAGE_CONSTRAINTS);
 

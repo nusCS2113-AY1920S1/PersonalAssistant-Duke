@@ -1,6 +1,5 @@
 package duke.logic.command.order;
 
-
 import duke.logic.command.CommandResult;
 import duke.logic.command.Undoable;
 import duke.logic.command.exceptions.CommandException;
