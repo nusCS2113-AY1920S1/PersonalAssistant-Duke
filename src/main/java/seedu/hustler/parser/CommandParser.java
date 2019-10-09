@@ -5,6 +5,10 @@ import seedu.hustler.command.avatarCommand.CheckAvatarCommand;
 import seedu.hustler.command.avatarCommand.SetNameCommand;
 import seedu.hustler.command.taskCommand.*;
 import seedu.hustler.data.CommandLog;
+import java.util.Arrays;
+
+import seedu.hustler.command.*;
+import seedu.hustler.data.CommandLog;
 import seedu.hustler.logic.CommandLineException;
 
 /**
@@ -40,8 +44,8 @@ public class CommandParser extends Parser {
     public Command parse(String rawInput) throws CommandLineException {
         String[] userInput = this.split(rawInput);
 
-        /* String[] taskCommands = {"todo", "deadline", "event"}; */
-        /* Arrays.sort(taskCommands); */
+        String[] taskCommands = {"todo", "deadline", "event"};
+        Arrays.sort(taskCommands);
         if (userInput[0].equals("find")) {
             return new FindCommand(userInput);
         } else if (userInput[0].equals("delete")) {
@@ -57,7 +61,7 @@ public class CommandParser extends Parser {
         } else if (userInput[0].equals("show")) {
             return new ScheduleCommand(userInput);
         } else if (userInput[0].equals("snooze")) {
-            return new SnoozeCommand(userInput);
+            return new SnoozeCommand(rawInput);
         } else if (userInput[0].equals("/avatar")) {
             if (userInput[1].equals("stats")) {
                 return new CheckAvatarCommand();
@@ -66,6 +70,8 @@ public class CommandParser extends Parser {
             } else {
                 return new InvalidCommand();
             }
+        } else if (userInput[0].equals("achievement")) {
+            return new AchievementCommand();
         } else if (userInput[0].equals("/add")) {
             CommandLog.recordCommand(rawInput);
             return new AddCommand(userInput);

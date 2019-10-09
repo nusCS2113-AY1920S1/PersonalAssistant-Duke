@@ -33,8 +33,9 @@ public class CommandLog {
             
                 Hustler.saveStorage();
             } catch (CommandLineException | IOException e) {
+
             }
-	}
+        }
 
         while  (commandlog.size() > restoreDataUntil) {
             commandlog.remove(restoreDataUntil);

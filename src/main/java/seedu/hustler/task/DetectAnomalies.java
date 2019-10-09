@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 /**
  * Detect any clash of date and time between tasks.
- * If task is of type ToDo, it will check the description of the task when comparing.
+ * It also detects if tasks with same description has been added multiple times.
  */
 public class DetectAnomalies {
 
@@ -26,9 +26,10 @@ public class DetectAnomalies {
                 if (descriptionMatch) {
                     check = true;
                 }
-            } else if (list.get(i).getDateTime() != null && task.getDateTime().isEqual(list.get(i).getDateTime())) {
+            } else if (list.get(i).getDateTime() != null && task.getDateTime().isEqual(list.get(i).getDateTime()) || descriptionMatch) {
                 check = true;
-            } else if (list.get(i).getDateTime() == null && descriptionMatch) {
+            }
+            else if (list.get(i).getDateTime() == null && descriptionMatch) {
                 check = true;
             }
         }
