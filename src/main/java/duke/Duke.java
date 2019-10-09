@@ -1,6 +1,12 @@
 package duke;
 
-import duke.command.*;
+import duke.command.SetPriorityCommand;
+import duke.command.AddMultipleCommand;
+import duke.command.DeleteCommand;
+import duke.command.Command;
+import duke.command.ListPriorityCommand;
+import duke.command.ExitCommand;
+import duke.command.BackupCommand;
 import duke.dukeexception.DukeException;
 import duke.parser.Parser;
 import duke.storage.PriorityStorage;
