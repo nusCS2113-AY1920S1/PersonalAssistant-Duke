@@ -22,7 +22,7 @@ public class TaskFactory {
             newTask = new Task(taskDetails[1].trim(), Integer.parseInt(taskDetails[2].trim()),
                         null, Integer.parseInt(taskDetails[3].trim()), TaskState.OPEN);
         } else if (taskDetails.length == 5 && input.contains(" d/")) {
-            SimpleDateFormat formatter = new SimpleDateFormat("dd/mm/yyyy");
+            SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
             Date dueDate = formatter.parse(taskDetails[3]);
             newTask = new Task(taskDetails[1].trim(), Integer.parseInt(taskDetails[2].trim()),
                                 dueDate, Integer.parseInt(taskDetails[4].trim()), TaskState.OPEN);
@@ -31,7 +31,7 @@ public class TaskFactory {
             newTask = new Task(taskDetails[1].trim(), Integer.parseInt(taskDetails[2].trim()),
                         null, Integer.parseInt(taskDetails[3].trim()), newTaskState);
         } else if (taskDetails.length == 6) {
-            SimpleDateFormat formatter = new SimpleDateFormat("dd/mm/yyyy");
+            SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
             Date dueDate = formatter.parse(taskDetails[3]);
             TaskState newTaskState = convertStringToTaskState(taskDetails[5].trim());
             newTask = new Task(taskDetails[1].trim(), Integer.parseInt(taskDetails[2].trim()),
