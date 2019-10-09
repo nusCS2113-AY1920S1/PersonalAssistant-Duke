@@ -19,7 +19,7 @@ public class EditProductCommand extends ProductCommand {
 
     public static final String COMMAND_WORD = "edit";
 
-    public static final String MESSAGE_EDIT_PRODUCT_SUCCESS = "Edited Products";
+    public static final String MESSAGE_EDIT_PRODUCT_SUCCESS = "Edited Products %s";
 
     public final Index index;
     public final EditProductDescriptor editProductDescriptor;
@@ -28,7 +28,7 @@ public class EditProductCommand extends ProductCommand {
 
 
     /**
-     * Creates an EditProductCommand to modify the details of an {@code Product}.
+     * Creates an EditProductCommand to modify the details of an {@code comProduct}.
      *
      * @param index                 of the product in the filtered product list
      * @param editProductDescriptor details to edit the product with
@@ -58,6 +58,7 @@ public class EditProductCommand extends ProductCommand {
         }
 
         toEdit = lastShownList.get(index.getZeroBased());
+
         Product editedProduct = createEditedProduct(toEdit, editProductDescriptor);
 
         model.setProduct(toEdit, editedProduct);
@@ -71,8 +72,12 @@ public class EditProductCommand extends ProductCommand {
         assert toEdit != null;
 
         String newName = editProductDescriptor.getProductName().orElse(toEdit.getName());
-        Double newPrice = editProductDescriptor.getRetailPrice().orElse(toEdit.getPrice());
-        Double newCost = editProductDescriptor.getIngredientCost().orElse(toEdit.getCost());
+        String newPrice = editProductDescriptor.getRetailPrice().orElse(String.valueOf(toEdit.getPrice()));
+        //System.out.println(toEdit.getPrice());
+        //System.out.println(editProductDescriptor.getRetailPrice());
+        //System.out.println(newPrice);
+
+        String newCost = editProductDescriptor.getIngredientCost().orElse(String.valueOf(toEdit.getCost()));
         Product.Status newStatus = editProductDescriptor.getStatus().orElse(toEdit.getStatus());
         return new Product(newName, newPrice, newCost, newStatus);
     }
@@ -83,26 +88,30 @@ public class EditProductCommand extends ProductCommand {
     public static class EditProductDescriptor {
         private String productName;
         //private IngredientList ingredientList;
-        private double ingredientCost;
-        private double retailPrice;
+        private String ingredientCost;
+        private String retailPrice;
         private Product.Status status;
 
         public EditProductDescriptor() {
         }
 
         private EditProductDescriptor(EditProductDescriptor toCopy) {
-
+            setProductName(toCopy.productName);
+            setIngredientCost(toCopy.ingredientCost);
+            setRetailPrice(toCopy.retailPrice);
+            System.out.println(toCopy.retailPrice);
+            setStatus(toCopy.status);
         }
 
         public void setProductName(String newProductName) {
             this.productName = newProductName;
         }
 
-        public void setIngredientCost(Double newIngredientCost) {
+        public void setIngredientCost(String newIngredientCost) {
             this.ingredientCost = newIngredientCost;
         }
 
-        public void setRetailPrice(Double newRetailPrice) {
+        public void setRetailPrice(String newRetailPrice) {
             this.retailPrice = newRetailPrice;
         }
 
@@ -114,11 +123,11 @@ public class EditProductCommand extends ProductCommand {
             return Optional.ofNullable(productName);
         }
 
-        public Optional<Double> getIngredientCost() {
+        public Optional<String> getIngredientCost() {
             return Optional.ofNullable(ingredientCost);
         }
 
-        public Optional<Double> getRetailPrice() {
+        public Optional<String> getRetailPrice() {
             return Optional.ofNullable(retailPrice);
         }
 

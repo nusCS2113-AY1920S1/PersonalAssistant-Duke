@@ -10,12 +10,16 @@ import duke.logic.parser.commons.Parser;
 import duke.logic.parser.commons.ParserUtil;
 import duke.logic.parser.exceptions.ParseException;
 
-import java.util.logging.ConsoleHandler;
-import java.util.logging.Handler;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import static duke.logic.parser.commons.CliSyntax.*;
+import static duke.logic.parser.commons.CliSyntax.PREFIX_PRODUCT_INDEX;
+import static duke.logic.parser.commons.CliSyntax.PREFIX_PRODUCT_NAME;
+import static duke.logic.parser.commons.CliSyntax.PREFIX_PRODUCT_INGREDIENT;
+import static duke.logic.parser.commons.CliSyntax.PREFIX_PRODUCT_PRICE;
+import static duke.logic.parser.commons.CliSyntax.PREFIX_PRODUCT_COST;
+import static duke.logic.parser.commons.CliSyntax.PREFIX_PRODUCT_STATUS;
+
 
 public class EditProductCommandParser implements Parser<EditProductCommand> {
 
@@ -46,11 +50,10 @@ public class EditProductCommandParser implements Parser<EditProductCommand> {
             editProductDescriptor.setProductName(map.getValue(PREFIX_PRODUCT_NAME).get());
         }
         if (map.getValue(PREFIX_PRODUCT_PRICE).isPresent()) {
-            editProductDescriptor.setRetailPrice(Double.parseDouble(map.getValue(PREFIX_PRODUCT_PRICE).get()));
+            editProductDescriptor.setRetailPrice(map.getValue(PREFIX_PRODUCT_PRICE).get());
         }
         if (map.getValue(PREFIX_PRODUCT_COST).isPresent()) {
-            editProductDescriptor.setIngredientCost(Double.parseDouble(
-                    map.getValue(PREFIX_PRODUCT_COST).get()));
+            editProductDescriptor.setIngredientCost(map.getValue(PREFIX_PRODUCT_COST).get());
         }
         if (map.getValue(PREFIX_PRODUCT_STATUS).isPresent()) {
             editProductDescriptor.setStatus(ParserUtil.parseProductStatus(map.getValue(PREFIX_PRODUCT_STATUS).get()));

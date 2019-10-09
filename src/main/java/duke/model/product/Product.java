@@ -21,7 +21,7 @@ public class Product {
         ARCHIVED
     }
 
-    public static final String MESSAGE_CONSTRAINTS = "Product name can take any values, "
+    public static final String MESSAGE_CONSTRAINTS = "comProduct name can take any values, "
             + "and should not be blank";
 
     private String name;
@@ -51,15 +51,15 @@ public class Product {
         }
     }
 
-    /** Constructor for edit Product */
-    public Product(String name, double price, double cost, Status status) {
+    /** Constructor for edit comProduct */
+    public Product(String name, String price, String cost, Status status) {
         requireAllNonNull(name);
         checkEmpty(name, MESSAGE_CONSTRAINTS);
 
         try {
             this.name = name;
-            this.cost = cost;
-            this.price = price;
+            this.cost = Double.parseDouble(cost);
+            this.price = Double.parseDouble(price);
             this.status = status;
         } catch (NumberFormatException e) {
             e.printStackTrace();

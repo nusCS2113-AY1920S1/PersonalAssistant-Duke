@@ -4,7 +4,8 @@ import duke.commons.core.Message;
 import duke.commons.core.index.Index;
 import duke.commons.util.StringUtil;
 import duke.logic.parser.exceptions.ParseException;
-import duke.model.commons.Product;
+import duke.model.commons.comProduct;
+import duke.model.product.Product;
 import duke.model.order.Order;
 
 
@@ -38,8 +39,8 @@ public class ParserUtil {
     }
 
     ///Order-related utilities.
-    public static Map<Product, Integer> parseItems(List<String> itemArg) throws ParseException {
-        Map<Product, Integer> items = new HashMap<>();
+    public static Map<comProduct, Integer> parseItems(List<String> itemArg) throws ParseException {
+        Map<comProduct, Integer> items = new HashMap<>();
         for (String itemString : itemArg) {
             String[] itemAndQty = itemString.split(",");
             if (itemAndQty.length < 2) {
@@ -49,7 +50,7 @@ public class ParserUtil {
                 throw new ParseException(Message.MESSAGE_ITEM_MISSING_NAME_OR_QUANTITY);
             }
             try {
-              //  items.put(new Product(itemAndQty[0].strip()), Integer.parseInt(itemAndQty[1].strip()));
+              //  items.put(new comProduct(itemAndQty[0].strip()), Integer.parseInt(itemAndQty[1].strip()));
             } catch (NumberFormatException e) {
                 throw new ParseException(Message.MESSAGE_INVALID_NUMBER_FORMAT);
             }

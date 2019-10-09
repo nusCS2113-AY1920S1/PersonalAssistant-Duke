@@ -89,7 +89,7 @@ public class ModelManager implements Model {
         requireNonNull(predicate);
         filteredOrders.setPredicate(predicate);
     }
-    //========Product operations==========
+    //========comProduct operations==========
     @Override
     public void addProduct(Product product) {
         bakingHome.addProduct(product);

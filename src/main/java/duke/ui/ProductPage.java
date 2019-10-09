@@ -101,18 +101,18 @@ public class ProductPage extends UiPart<AnchorPane> {
 /*
 
     //RecipeList
-    void refreshRecipeListPage(List<Product> rpl) {
+    void refreshRecipeListPage(List<comProduct> rpl) {
         recipeListPane.setVisible(true);
         recipeShowPane.setVisible(false);
-        ObservableList<Product> productObservableList = FXCollections.observableArrayList();
-        for (Product product : rpl) {
+        ObservableList<comProduct> productObservableList = FXCollections.observableArrayList();
+        for (comProduct product : rpl) {
             productObservableList.add(product);
         }
 
         recipeTable.getColumns().clear();
         if (rpl.size() != 0) {
 
-            TableColumn<Product, Void> indexColumn = new TableColumn<>("S/N");
+            TableColumn<comProduct, Void> indexColumn = new TableColumn<>("S/N");
             indexColumn.setMinWidth(50);
             indexColumn.setPrefWidth(70);
             indexColumn.setResizable(true);
@@ -124,7 +124,7 @@ public class ProductPage extends UiPart<AnchorPane> {
                 indexColumn.setCellFactory(col -> {
 
                     // just a default table cell:
-                    TableCell<Product, Void> cell = new TableCell<>();
+                    TableCell<comProduct, Void> cell = new TableCell<>();
 
                     cell.textProperty().bind(Bindings.createStringBinding(() -> {
                         if (cell.isEmpty()) {
@@ -139,25 +139,25 @@ public class ProductPage extends UiPart<AnchorPane> {
             }
             ////////////////////////////////index column created
 
-            TableColumn<Product, String> nameColumn = new TableColumn<>("Name");
+            TableColumn<comProduct, String> nameColumn = new TableColumn<>("Name");
             nameColumn.setMinWidth(150);
             nameColumn.setPrefWidth(500);
             nameColumn.setResizable(true);
             nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
 
-            TableColumn<Product, Integer> timeColumn = new TableColumn<>("Time");
+            TableColumn<comProduct, Integer> timeColumn = new TableColumn<>("Time");
             timeColumn.setMinWidth(50);
             timeColumn.setPrefWidth(100);
             timeColumn.setResizable(true);
             timeColumn.setCellValueFactory(new PropertyValueFactory<>("time"));
 
-            TableColumn<Product, Double> costColumn = new TableColumn<>("Cost");
+            TableColumn<comProduct, Double> costColumn = new TableColumn<>("Cost");
             costColumn.setMinWidth(50);
             costColumn.setPrefWidth(70);
             costColumn.setResizable(true);
             costColumn.setCellValueFactory(new PropertyValueFactory<>("cost"));
 
-            TableColumn<Product, Integer> difficultyLevelColumn = new TableColumn<>("Difficulty Level");
+            TableColumn<comProduct, Integer> difficultyLevelColumn = new TableColumn<>("Difficulty Level");
             difficultyLevelColumn.setMinWidth(70);
             difficultyLevelColumn.setPrefWidth(300);
             difficultyLevelColumn.setResizable(true);

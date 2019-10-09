@@ -101,7 +101,7 @@ public class BakingHome implements ReadOnlyBakingHome {
         return orders.asUnmodifiableObservableList();
     }
 
-    //============Product operations==============
+    //============comProduct operations==============
 
     /**
      * Adds an product to products
