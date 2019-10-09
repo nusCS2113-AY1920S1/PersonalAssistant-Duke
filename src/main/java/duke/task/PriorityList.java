@@ -10,6 +10,7 @@ import java.util.Scanner;
  */
 public class PriorityList {
     private ArrayList<Integer> priorityList;
+    private int defultPriority = 5;
 
     /**
      * Creates an empty priority list using an array list.
@@ -31,36 +32,44 @@ public class PriorityList {
     /**
      * Add a priority associated with a task into the list.
      *
-     * @param cmd The command used.
+     * @param taskNum The number of the task in the task list.
+     * @param priority The priority we want to set.
      * @return The updated Priority List.
      */
-    public PriorityList addPriority(duke.command.Command cmd) {
+    public PriorityList setPriority(int taskNum, int priority) {
+
+        priorityList.set(taskNum - 1, priority);
+
+        return new PriorityList(priorityList);
+    }
+
+    /**
+     * Add a default priority associated with a task into the list when the task is generated.
+     *
+     * @param cmd The command used to generate a new task;
+     * @return The updated Priority List.
+     */
+    public PriorityList addDefaultPriority(duke.command.Command cmd) {
         if (cmd instanceof AddCommand) {
-            duke.ui.Ui ui = new duke.ui.Ui();
-            ui.showLine();
-            priorityList.add(this.getPriority());
+            priorityList.add(defultPriority);
         }
         return new PriorityList(priorityList);
     }
 
     /**
-     * Add a priority associated with a task into the list.
+     * Add multiple default priority associated with a task into the list when these tasks are generated.
      *
      * @param numOfTimes The number of times that one task is repeated.
      * @return The updated Priority List.
      */
-    public PriorityList addMultiPriority(int numOfTimes) {
-        duke.ui.Ui ui = new duke.ui.Ui();
-        ui.showLine();
+    public PriorityList addMultiDefaultPriority(int numOfTimes) {
 
-        int priority = this.getPriority();
         for (int i = 0; i < numOfTimes; i++) {
-            priorityList.add(priority);
+            priorityList.add(defultPriority);
         }
 
         return new PriorityList(priorityList);
     }
-
 
     /**
      * Remove a priority when the associated task is removed.
@@ -125,6 +134,16 @@ public class PriorityList {
      */
     private PriorityList clearList() {
         return new PriorityList(new ArrayList<Integer>());
+    }
+
+    @Override
+    public String toString() {
+        String output = "";
+        for (int i = 0; i < priorityList.size(); i++) {
+            output += priorityList.get(i) + " ";
+        }
+
+        return output;
     }
 
 }

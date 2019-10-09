@@ -4,12 +4,12 @@ import duke.storage.Storage;
 import duke.task.TaskList;
 import duke.ui.Ui;
 import javafx.event.Event;
-
 import java.io.IOException;
+
 /**
- * Displaying full help instructions that list down all functions and commands available
+ * Displaying full help instructions that list down all functions and commands available.
  */
-public class HelpCommand extends Command{
+public class HelpCommand extends Command {
     public static final String COMMAND_WORD = "help";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Showing all help instructions.\n"
