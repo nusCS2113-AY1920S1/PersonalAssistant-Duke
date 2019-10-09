@@ -9,6 +9,9 @@ import leduc.task.TaskList;
  * Allow to find a specific task from the task list.
  */
 public class FindCommand extends Command {
+    /**
+     * static variable used for shortcut
+     */
     public static String findShortcut = "find";
     /**
      * Constructor of FindCommand.
@@ -38,11 +41,18 @@ public class FindCommand extends Command {
             ui.display("\t Here are the matching tasks in your list: \n" + result );
         }
     }
-
+    /**
+     * getter because the shortcut is private
+     * @return the shortcut name
+     */
     public static String getFindShortcut() {
         return findShortcut;
     }
 
+    /**
+     * used when the user want to change the shortcut
+     * @param findShortcut the new shortcut
+     */
     public static void setFindShortcut(String findShortcut) {
         FindCommand.findShortcut = findShortcut;
     }

@@ -16,6 +16,9 @@ public class SetWelcomeCommand extends Command{
        super(user);
     }
 
+    /**
+     * static variable used for shortcut
+     */
     public static String setWelcomeShortcut = "setwelcome";
 
     /**
@@ -45,11 +48,18 @@ public class SetWelcomeCommand extends Command{
             throw new FileException();
         }
     }
-
+    /**
+     * getter because the shortcut is private
+     * @return the shortcut name
+     */
     public static String getSetWelcomeShortcut() {
         return setWelcomeShortcut;
     }
 
+    /**
+     * used when the user want to change the shortcut
+     * @param setWelcomeShortcut the new shortcut
+     */
     public static void setSetWelcomeShortcut(String setWelcomeShortcut) {
         SetWelcomeCommand.setWelcomeShortcut = setWelcomeShortcut;
     }

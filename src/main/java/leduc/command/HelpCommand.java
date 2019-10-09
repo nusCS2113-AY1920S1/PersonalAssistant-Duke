@@ -9,6 +9,9 @@ import leduc.task.TaskList;
  * Display every command
  */
 public class HelpCommand extends Command{
+    /**
+     * static variable used for shortcut
+     */
     public static String helpShortcut = "help";
 
     /**
@@ -29,11 +32,18 @@ public class HelpCommand extends Command{
     public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
         ui.showHelp();
     }
-
+    /**
+     * getter because the shortcut is private
+     * @return the shortcut name
+     */
     public static String getHelpShortcut() {
         return helpShortcut;
     }
 
+    /**
+     * used when the user want to change the shortcut
+     * @param helpShortcut the new shortcut
+     */
     public static void setHelpShortcut(String helpShortcut) {
         HelpCommand.helpShortcut = helpShortcut;
     }

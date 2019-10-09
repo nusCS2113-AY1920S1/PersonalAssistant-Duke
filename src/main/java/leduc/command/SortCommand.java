@@ -15,7 +15,9 @@ import java.util.Comparator;
  * Allows to sort the task by date or description
  */
 public class SortCommand extends Command {
-
+    /**
+     * static variable used for shortcut
+     */
     public static String sortShortcut = "sort";
     /**
      * Constructor of leduc.command.SortCommand
@@ -55,17 +57,17 @@ public class SortCommand extends Command {
     }
 
     /**
-     * Returns is false for a leduc.command.ByeCommand.
-     * @return False
+     * getter because the shortcut is private
+     * @return the shortcut name
      */
-    public boolean isExit(){
-        return false;
-    }
-
     public static String getSortShortcut() {
         return sortShortcut;
     }
 
+    /**
+     * used when the user want to change the shortcut
+     * @param sortShortcut the new shortcut
+     */
     public static void setSortShortcut(String sortShortcut) {
         SortCommand.sortShortcut = sortShortcut;
     }

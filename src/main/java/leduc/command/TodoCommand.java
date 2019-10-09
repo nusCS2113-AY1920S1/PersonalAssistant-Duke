@@ -14,6 +14,9 @@ import leduc.task.TodoTask;
  */
 public class TodoCommand extends Command {
 
+    /**
+     * static variable used for shortcut
+     */
     public static String todoShortcut = "todo";
     /**
      * Constructor of TodoCommand.
@@ -44,11 +47,18 @@ public class TodoCommand extends Command {
                     "\n\t Now you have " + tasks.size() + " tasks in the list.");
         }
     }
-
+    /**
+     * getter because the shortcut is private
+     * @return the shortcut name
+     */
     public static String getTodoShortcut() {
         return todoShortcut;
     }
 
+    /**
+     * used when the user want to change the shortcut
+     * @param todoShortcut the new shortcut
+     */
     public static void setTodoShortcut(String todoShortcut) {
         TodoCommand.todoShortcut = todoShortcut;
     }

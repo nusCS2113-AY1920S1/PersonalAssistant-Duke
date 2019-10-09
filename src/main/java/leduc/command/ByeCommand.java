@@ -52,7 +52,7 @@ public class ByeCommand extends Command {
     }
 
     /**
-     * getter as the shortcut is private
+     * getter because the shortcut is private
      * @return the shortcut name
      */
     public static String getByeShortcut(){

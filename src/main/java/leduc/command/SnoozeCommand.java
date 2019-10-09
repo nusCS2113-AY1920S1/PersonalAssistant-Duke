@@ -12,7 +12,9 @@ import leduc.task.TaskList;
  * Represents Snooze command which snooze the deadline of a deadline task.
  */
 public class SnoozeCommand extends Command{
-
+    /**
+     * static variable used for shortcut
+     */
     public static String snoozeShortcut = "snooze";
     /**
      * Constructor of SnoozeCommand.
@@ -51,17 +53,17 @@ public class SnoozeCommand extends Command{
     }
 
     /**
-     * Returns a boolean false as it is a SnoozeCommand.
-     * @return a boolean false.
+     * getter because the shortcut is private
+     * @return the shortcut name
      */
-    public boolean isExit(){
-        return false;
-    }
-
     public static String getSnoozeShortcut() {
         return snoozeShortcut;
     }
 
+    /**
+     * used when the user want to change the shortcut
+     * @param snoozeShortcut the new shortcut
+     */
     public static void setSnoozeShortcut(String snoozeShortcut) {
         SnoozeCommand.snoozeShortcut = snoozeShortcut;
     }

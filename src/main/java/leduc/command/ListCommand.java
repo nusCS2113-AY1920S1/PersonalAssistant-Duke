@@ -9,7 +9,9 @@ import leduc.task.TaskList;
  * Allow to display all the tasks contained in the tasks list.
  */
 public class ListCommand extends Command {
-
+    /**
+     * static variable used for shortcut
+     */
     public static String listShortcut = "list";
     /**
      * Constructor of ListCommand.
@@ -33,11 +35,18 @@ public class ListCommand extends Command {
             ui.display("\t There is any task yet ");
         }
     }
-
+    /**
+     * getter because the shortcut is private
+     * @return the shortcut name
+     */
     public static String getListShortcut() {
         return listShortcut;
     }
 
+    /**
+     * used when the user want to change the shortcut
+     * @param listShortcut the new shortcut
+     */
     public static void setListShortcut(String listShortcut) {
         ListCommand.listShortcut = listShortcut;
     }

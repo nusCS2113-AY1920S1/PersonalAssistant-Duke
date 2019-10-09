@@ -11,6 +11,9 @@ import leduc.task.TaskList;
  * Represents a Delete Command.
  */
 public class DeleteCommand extends Command {
+    /**
+     * static variable used for shortcut
+     */
     private static String deleteShortcut = "delete";
     /**
      * Constructor of DeleteCommand.
@@ -41,11 +44,18 @@ public class DeleteCommand extends Command {
                     "\n\t Now you have "+ tasks.size() +" tasks in the list");
         }
     }
-
+    /**
+     * getter because the shortcut is private
+     * @return the shortcut name
+     */
     public static String getDeleteShortcut() {
         return deleteShortcut;
     }
 
+    /**
+     * used when the user want to change the shortcut
+     * @param deleteShortcut the new shortcut
+     */
     public static void setDeleteShortcut(String deleteShortcut) {
         DeleteCommand.deleteShortcut = deleteShortcut;
     }

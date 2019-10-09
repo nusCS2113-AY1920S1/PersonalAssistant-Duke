@@ -14,6 +14,9 @@ import leduc.task.TaskList;
  */
 public class PostponeCommand extends Command {
 
+    /**
+     * static variable used for shortcut
+     */
     public static String postponeShortcut = "postpone";
     /**
      * Constructor of PostponeCommand.
@@ -69,17 +72,17 @@ public class PostponeCommand extends Command {
     }
 
     /**
-     * Returns a boolean false as it is a PostponeCommand.
-     * @return a boolean false.
+     * getter because the shortcut is private
+     * @return the shortcut name
      */
-    public boolean isExit(){
-        return false;
-    }
-
     public static String getPostponeShortcut() {
         return postponeShortcut;
     }
 
+    /**
+     * used when the user want to change the shortcut
+     * @param postponeShortcut the new shortcut
+     */
     public static void setPostponeShortcut(String postponeShortcut) {
         PostponeCommand.postponeShortcut = postponeShortcut;
     }
