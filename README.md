@@ -39,7 +39,9 @@ Your one stop solution to module planning through out your university tenure!
 
 # External References
 
-External libraries used are [Natty](https://github.com/joestelmach/natty) and [Gson](https://github.com/google/gson).
+External libraries used:
+* [Natty](https://github.com/joestelmach/natty) under [MIT](https://opensource.org/licenses/MIT) license
+* [Gson](https://github.com/google/gson) under [Apache-2.0](https://www.apache.org/licenses/LICENSE-2.0) license
 
 
 # License

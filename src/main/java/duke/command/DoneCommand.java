@@ -4,7 +4,7 @@ import duke.util.Reminder;
 import duke.util.TaskList;
 import duke.util.Storage;
 import duke.util.Ui;
-import duke.exceptions.DukeInvalidIndexException;
+import duke.exceptions.ModInvalidIndexException;
 
 import java.util.Objects;
 
@@ -31,13 +31,13 @@ public class DoneCommand extends Command {
      * @param tasks TaskList object containing current active taskList.
      * @param ui Ui object containing all output methods to user.
      * @param store Storage object which updates stored data.
-     * @throws DukeInvalidIndexException when user has input an index that
+     * @throws ModInvalidIndexException when user has input an index that
      *                  is not within the current range.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage store, Reminder reminder) throws DukeInvalidIndexException {
+    public void execute(TaskList tasks, Ui ui, Storage store, Reminder reminder) throws ModInvalidIndexException {
         if (index >= tasks.getTasks().size() || index < 0) {
-            throw new DukeInvalidIndexException();
+            throw new ModInvalidIndexException();
         } else {
             tasks.getTasks().get(index).setTaskDone();
             ui.doneTaskMsg(tasks.getTasks().get(index));

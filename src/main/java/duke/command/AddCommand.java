@@ -1,13 +1,13 @@
 package duke.command;
 
-import duke.exceptions.DukeScheduleException;
-import duke.tasks.Deadline;
-import duke.tasks.DoWithin;
-import duke.tasks.Events;
-import duke.tasks.FixedDurationTasks;
-import duke.tasks.RecurringTask;
-import duke.tasks.Task;
-import duke.tasks.Todo;
+import duke.exceptions.ModScheduleException;
+import duke.modules.Deadline;
+import duke.modules.DoWithin;
+import duke.modules.Events;
+import duke.modules.FixedDurationTasks;
+import duke.modules.RecurringTask;
+import duke.modules.Task;
+import duke.modules.Todo;
 import duke.util.TaskList;
 import duke.util.TimePeriod;
 import duke.util.Ui;
@@ -39,73 +39,67 @@ public class AddCommand extends Command {
      * @param store Storage object which updates stored data.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage store, Reminder reminder) throws DukeScheduleException {
+    public void execute(TaskList tasks, Ui ui, Storage store, Reminder reminder) throws ModScheduleException {
         if (task instanceof Todo || task instanceof RecurringTask || task instanceof FixedDurationTasks) {
             tasks.add(task);
         } else {
-            HashSet<LocalDateTime> dateTimeSet = new HashSet<>();
-            HashSet<TimePeriod> timePeriodSet = new HashSet<>();
-            for (Task temp : tasks.getTasks()) {
-                if (temp instanceof Deadline) {
-                    Deadline hold = (Deadline) temp;
-                    dateTimeSet.add(hold.getDateTime());
-                } else if (temp instanceof Events) {
-                    Events hold = (Events) temp;
-                    dateTimeSet.add(hold.getDateTime());
-                } else if (temp instanceof FixedDurationTasks) {
-                    FixedDurationTasks hold = (FixedDurationTasks) temp;
-                    dateTimeSet.add(hold.getDateTime());
-                } else if (temp instanceof DoWithin) {
-                    DoWithin hold = (DoWithin) temp;
-                    timePeriodSet.add(hold.getPeriod());
-                }
-            }
-            LocalDateTime taskDateTime = null;
-            TimePeriod taskTimePeriod = null;
-            if (task instanceof Deadline) {
-                Deadline hold = (Deadline) task;
-                taskDateTime = hold.getDateTime();
-            } else if (task instanceof Events) {
-                Events hold = (Events) task;
-                taskDateTime = hold.getDateTime();
-            } else if (task instanceof DoWithin) {
-                DoWithin hold = (DoWithin) task;
-                taskTimePeriod = hold.getPeriod();
-            } else if (task instanceof FixedDurationTasks) {
-                FixedDurationTasks hold = (FixedDurationTasks) task;
-                taskDateTime = hold.getDateTime();
-            }
-            if (taskTimePeriod == null) {
-                if (dateTimeSet.contains(taskDateTime)) {
-                    throw new DukeScheduleException();
-                }
-                for (TimePeriod timePeriod : timePeriodSet) {
-                    if (timePeriod.isClashing(taskDateTime)) {
-                        throw new DukeScheduleException();
-                    }
-                }
-            } else {
-                if (timePeriodSet.contains(taskTimePeriod)) {
-                    throw new DukeScheduleException();
-                }
-                for (LocalDateTime dateTime : dateTimeSet) {
-                    if (taskTimePeriod.isClashing(dateTime)) {
-                        throw new DukeScheduleException();
-                    }
-                }
-                for (TimePeriod timePeriod : timePeriodSet) {
-                    if (taskTimePeriod.isClashing(timePeriod)) {
-                        throw new DukeScheduleException();
-                    }
-                }
-            }
-            tasks.add(task);
+            checkForScheduleConflicts(tasks);
         }
         ui.addedTaskMsg();
         ui.printTask(task);
         ui.currentTaskListSizeMsg(tasks.getSize());
         store.writeData(tasks.getTasks());
         reminder.forceCheckReminder();
+    }
+
+    private void checkForScheduleConflicts(TaskList tasks) throws ModScheduleException {
+        HashSet<LocalDateTime> dateTimeSet = new HashSet<>();
+        HashSet<TimePeriod> timePeriodSet = new HashSet<>();
+        for (Task temp : tasks.getTasks()) {
+            if (temp instanceof Deadline
+                    || temp instanceof Events
+                    || temp instanceof  DoWithin) {
+                timePeriodSet.add(temp.getPeriod());
+            } else if (temp instanceof FixedDurationTasks) {
+                FixedDurationTasks hold = (FixedDurationTasks) temp;
+                dateTimeSet.add(hold.getTimePeriod());
+            }
+        }
+        LocalDateTime taskDateTime = null;
+        TimePeriod taskTimePeriod = null;
+        if (task instanceof Deadline
+                || task instanceof Events
+                || task instanceof  DoWithin) {
+            taskTimePeriod = task.getPeriod();
+        } else if (task instanceof FixedDurationTasks) {
+            FixedDurationTasks hold = (FixedDurationTasks) task;
+            taskDateTime = hold.getTimePeriod();
+        }
+        if (taskTimePeriod == null) {
+            if (dateTimeSet.contains(taskDateTime)) {
+                throw new ModScheduleException();
+            }
+            for (TimePeriod timePeriod : timePeriodSet) {
+                if (timePeriod.isClashing(taskDateTime)) {
+                    throw new ModScheduleException();
+                }
+            }
+        } else {
+            if (timePeriodSet.contains(taskTimePeriod)) {
+                throw new ModScheduleException();
+            }
+            for (LocalDateTime dateTime : dateTimeSet) {
+                if (taskTimePeriod.isClashing(dateTime)) {
+                    throw new ModScheduleException();
+                }
+            }
+            for (TimePeriod timePeriod : timePeriodSet) {
+                if (taskTimePeriod.isClashing(timePeriod)) {
+                    throw new ModScheduleException();
+                }
+            }
+        }
+        tasks.add(task);
     }
 
     @Override

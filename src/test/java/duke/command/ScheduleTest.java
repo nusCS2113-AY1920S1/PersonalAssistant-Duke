@@ -1,8 +1,8 @@
 package duke.command;
 
-import duke.tasks.Deadline;
-import duke.tasks.Events;
-import duke.tasks.Task;
+import duke.modules.Deadline;
+import duke.modules.Events;
+import duke.modules.Task;
 
 import org.junit.jupiter.api.Test;
 

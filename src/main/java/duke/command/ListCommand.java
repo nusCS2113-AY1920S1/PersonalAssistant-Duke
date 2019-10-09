@@ -4,7 +4,7 @@ import duke.util.Reminder;
 import duke.util.TaskList;
 import duke.util.Storage;
 import duke.util.Ui;
-import duke.exceptions.DukeEmptyListException;
+import duke.exceptions.ModEmptyListException;
 
 public class ListCommand extends Command {
 
@@ -20,10 +20,10 @@ public class ListCommand extends Command {
      * @param store Storage object which updates stored data.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage store, Reminder reminder) throws DukeEmptyListException {
+    public void execute(TaskList tasks, Ui ui, Storage store, Reminder reminder) throws ModEmptyListException {
         boolean isEmpty = tasks.getTasks().isEmpty();
         if (isEmpty) {
-            throw new DukeEmptyListException();
+            throw new ModEmptyListException();
         } else {
             ui.listMsg();
             ui.printTaskList(tasks.getTasks());

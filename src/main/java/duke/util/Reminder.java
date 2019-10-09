@@ -1,9 +1,9 @@
 package duke.util;
 
-import duke.exceptions.DukeInvalidTimePeriodException;
-import duke.exceptions.DukeTimeIntervalTooCloseException;
-import duke.tasks.DoWithin;
-import duke.tasks.Task;
+import duke.exceptions.ModInvalidTimePeriodException;
+import duke.exceptions.ModTimeIntervalTooCloseException;
+import duke.modules.DoWithin;
+import duke.modules.Task;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -23,9 +23,9 @@ public class Reminder {
      * @param checkEvery TimeInterval object indicating the amount of time to wait between reminds
      */
     public Reminder(List<Task> tasks, TimeInterval remindBefore, TimeInterval checkEvery)
-            throws DukeTimeIntervalTooCloseException {
+            throws ModTimeIntervalTooCloseException {
         if (remindBefore.isLessThan(Reminder.minBefore)) {
-            throw new DukeTimeIntervalTooCloseException();
+            throw new ModTimeIntervalTooCloseException();
         }
         this.tasks = tasks;
         this.remindBefore = remindBefore;
@@ -33,15 +33,15 @@ public class Reminder {
         this.thread = new Thread(this::remind);
     }
 
-    public Reminder(List<Task> tasks, TimeInterval remindBefore) throws DukeTimeIntervalTooCloseException {
+    public Reminder(List<Task> tasks, TimeInterval remindBefore) throws ModTimeIntervalTooCloseException {
         this(tasks, remindBefore, TimeInterval.min(TimeInterval.ofHours(1), remindBefore));
     }
 
-    public Reminder(List<Task> tasks, int minutes) throws DukeTimeIntervalTooCloseException {
+    public Reminder(List<Task> tasks, int minutes) throws ModTimeIntervalTooCloseException {
         this(tasks, TimeInterval.ofMinutes(minutes));
     }
 
-    public Reminder(List<Task> tasks) throws DukeTimeIntervalTooCloseException {
+    public Reminder(List<Task> tasks) throws ModTimeIntervalTooCloseException {
         this(tasks, TimeInterval.ofHours(6), TimeInterval.ofHours(1));
     }
 
@@ -71,7 +71,7 @@ public class Reminder {
                     new Ui().printUpcomingTasks(
                             this.getUpcomingTasks(
                                     new TimePeriod(now, now.plus(this.remindBefore))));
-                } catch (DukeInvalidTimePeriodException e) {
+                } catch (ModInvalidTimePeriodException e) {
                     System.out.println(e.getMessage());
                 }
                 long sleepSeconds = Math.max(TimeInterval.between(LocalDateTime.now(), targetTime)
@@ -80,7 +80,7 @@ public class Reminder {
                     Thread.sleep(sleepSeconds * 1000);
                 } catch (InterruptedException ignored) {
                     targetTime = LocalDateTime.now();
-                    continue;
+                    break;
                 }
             }
         }
