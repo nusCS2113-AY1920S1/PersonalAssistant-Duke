@@ -14,30 +14,30 @@ public class DukeException extends Exception {
 
     /**
      * Handles wrong date or time errors.
-     * 
+     *
      * @return message to be displayed
      */
     public static String wrongDateOrTime() {
         Ui.printManual();
         Ui.printDash();
         return "☹ OOPS!!! The date or time of this add type command is not of the correct format."
-                + "See the manual above!";
+            + "See the manual above!";
     }
 
     /**
      * Handles if a new task clashes with a existing task.
-     * 
+     *
      * @return message to be displayed
      */
     public static String taskClash() {
         Ui.printDash();
         return "☹ OOPS!!! There is already a task scheduled at the same time, use view command to check your schedule "
-                + "for the day";
+            + "for the day";
     }
 
     /**
      * Handles empty task description errors.
-     * 
+     *
      * @return message to be displayed
      */
     public static String emptyUserDescription() {
@@ -48,7 +48,7 @@ public class DukeException extends Exception {
 
     /**
      * Handles when parser does not understand input.
-     * 
+     *
      * @return message to be displayed
      */
     public static String unknownUserCommand() {
@@ -59,7 +59,7 @@ public class DukeException extends Exception {
 
     /**
      * Handles empty date or time errors.
-     * 
+     *
      * @return message to be displayed
      */
     public static String emptyDateOrTime() {
@@ -70,7 +70,7 @@ public class DukeException extends Exception {
 
     /**
      * Handles if task searched does not exist.
-     * 
+     *
      * @return message to be displayed
      */
     public static String taskDoesNotExist() {
@@ -79,7 +79,7 @@ public class DukeException extends Exception {
 
     /**
      * Handles if program is unable to save the tasks list to file.
-     * 
+     *
      * @return message to be displayed
      */
     public static String unableToWriteFile() {
@@ -88,7 +88,7 @@ public class DukeException extends Exception {
 
     /**
      * Handles if program is unable to read an existing file for tasks list.
-     * 
+     *
      * @return message to be displayed
      */
     public static String unableToReadFile() {
@@ -97,17 +97,17 @@ public class DukeException extends Exception {
 
     /**
      * Handles if class does not exists.
-     * 
+     *
      * @return message to be displayed
      */
     public static String classDoesNotExist() {
         return "☹ OOPS!!! Unable to extract certain features of the Duke Project"
-                + "Please ensure the project was imported properly";
+            + "Please ensure the project was imported properly";
     }
 
     /**
      * Handles if file does not exists.
-     * 
+     *
      * @return message to be displayed
      */
     public static String fileDoesNotExist() {

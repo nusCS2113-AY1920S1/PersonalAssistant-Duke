@@ -43,7 +43,7 @@ public class AddCommand extends Command {
      *                     desired date time format.
      */
     public AddCommand(String command, String taskFeatures, LocalDateTime atDate, LocalDateTime toDate,
-            LocalDateTime fromDate) {
+                      LocalDateTime fromDate) {
         this.command = command;
         this.taskFeatures = taskFeatures;
         this.formattedFromDate = fromDate;
@@ -59,7 +59,6 @@ public class AddCommand extends Command {
      *                process the user input.
      * @param storage this parameter provides the execute function the storage to
      *                allow the saving of the file.
-     *
      */
     @Override
     public void execute(TaskList tasks, Storage storage) throws DukeException {
@@ -87,6 +86,7 @@ public class AddCommand extends Command {
         tasks.add(task);
         storage.saveFile(tasks.getTasks());
         Ui.printOutput("Got it! I've added this task:" + "\n  " + task.toString() + "\nNow you have " + tasks.getSize()
-                + " task(s) in the list.");
+            + " task(s) in the list.");
+
     }
 }

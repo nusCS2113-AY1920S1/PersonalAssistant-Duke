@@ -21,7 +21,7 @@ public class PostponeCommand extends Command {
 
     /**
      * creates a postpone task command.
-     * 
+     *
      * @param indexOfTask index of task in loaded tasks list
      * @param atDate      current start time of task
      * @param fromDate    new start time of task
@@ -53,7 +53,7 @@ public class PostponeCommand extends Command {
                 tasks.updateDate(taskToBeChanged, "event", atDate, toDate);
                 storage.saveFile(tasks.getTasks());
                 Ui.printOutput("Got it! I've postponed this event:" + "\n  " + oldTime
-                        + "\nNow the tasks details are:\n  " + taskToBeChanged.toString());
+                    + "\nNow the tasks details are:\n  " + taskToBeChanged.toString());
             }
         } else if (taskToBeChanged.toString().contains("[D]")) {
             Task checkTask = new Deadline(description, atDate);
@@ -63,7 +63,7 @@ public class PostponeCommand extends Command {
                 tasks.updateDate(taskToBeChanged, "deadline", atDate, toDate);
                 storage.saveFile(tasks.getTasks());
                 Ui.printOutput("Got it! I've postponed this deadline:" + "\n  " + oldTime
-                        + "\nNow the tasks details are:\n  " + taskToBeChanged.toString());
+                    + "\nNow the tasks details are:\n  " + taskToBeChanged.toString());
             }
         } else {
             Ui.printOutput("Todo tasks has no schedule");

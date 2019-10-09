@@ -18,7 +18,7 @@ public class Event extends Task implements Serializable, Comparable<Event> {
 
     /**
      * creates a new Event task.
-     * 
+     *
      * @param description description of task
      * @param toDate      end time of task
      * @param atDate      start time of task
@@ -43,14 +43,14 @@ public class Event extends Task implements Serializable, Comparable<Event> {
      * portions of the user input into a single string.
      *
      * @return This function returns a string of the required task in the desired
-     *         output format of string type.
+     * output format of string type.
      */
     @Override
     public String toString() {
 
         return "[E]" + "[" + super.getStatusIcon() + "]" + this.description + "(at: "
-                + this.startDate.format(DateTimeExtractor.DATE_FORMATTER) + "-"
-                + this.endDate.format(DateTimeExtractor.DATE_FORMATTER) + ")";
+            + this.startDate.format(DateTimeExtractor.DATE_FORMATTER) + "-"
+            + this.endDate.format(DateTimeExtractor.DATE_FORMATTER) + ")";
     }
 
     @Override
