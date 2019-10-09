@@ -1,5 +1,9 @@
 package seedu.hustler.game.achievement;
 
+/**
+ * Achievement which can be attained after user first logs in.
+ *
+ */
 public class FirstLogin extends Achievements{
 
     /**
@@ -56,7 +60,6 @@ public class FirstLogin extends Achievements{
         return achievementLevel;
     }
 
-
     /**
      * Retrieve description of achievement.
      * @return description.
@@ -71,18 +74,14 @@ public class FirstLogin extends Achievements{
      * @return information.
      */
     @Override
-    public String getInformation() {
-        return information;
-    }
+    public String getInformation() { return information; }
 
     /**
      * Retrieve current points from achievement.
      * @return points.
      */
     @Override
-    public int getPoints() {
-        return points;
-    }
+    public int getPoints() { return points; }
 
     /**
      * Update points gained from unlocking achievement.
