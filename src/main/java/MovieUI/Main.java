@@ -28,7 +28,6 @@ public class Main extends Application {
         mainWindow.show();
     }
 
-
     private void setUp() {
         try {
             FXMLLoader loader = new FXMLLoader();
