@@ -1,3 +1,13 @@
+package rims.resource;
+
+import rims.command.*;
+import rims.exception.*;
+import rims.core.*;
+
+import java.util.*;
+import java.io.*;
+import java.text.*;
+
 import java.util.Calendar;
 import java.util.Date;
 import java.text.SimpleDateFormat;
