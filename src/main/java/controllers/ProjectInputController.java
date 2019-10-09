@@ -35,10 +35,10 @@ public class ProjectInputController {
         while (continueManaging) {
             if (manageProjectInput.hasNextLine()) {
                 String projectCommand = manageProjectInput.nextLine();
-                if (projectCommand.length() == 4 && projectCommand.substring(0, 4).equals("exit")) {
+                if (projectCommand.length() == 4 && ("exit").equals(projectCommand.substring(0, 4))) {
                     continueManaging = false;
                     consoleView.exitProject(projectToManage.getDescription());
-                } else if (projectCommand.length() >= 11 && projectCommand.substring(0, 11).equals("add member ")) {
+                } else if (projectCommand.length() >= 11 && ("add member ").equals(projectCommand.substring(0, 11))) {
                     String memberDetails = projectCommand.substring(11);
                     MemberFactoryUtil memberFactory = new MemberFactoryUtil();
                     if (memberFactory.memberIsCreated(memberDetails, projectToManage.getNumOfMembers())) {
@@ -47,7 +47,7 @@ public class ProjectInputController {
                         consoleView.consolePrint("Failed to add member. Please ensure you have entered "
                                 + "at least the name of the new member.");
                     }
-                } else if (projectCommand.length() >= 11 && projectCommand.substring(0, 12).equals("edit member ")) {
+                } else if (projectCommand.length() >= 11 && ("edit member ").equals(projectCommand.substring(0, 12))) {
                     int memberIndexNumber = Integer.parseInt(projectCommand.substring(12).split(" ")[0]);
                     if (projectToManage.getNumOfMembers() >= memberIndexNumber) {
                         String updatedMemberDetails = projectCommand.substring(projectCommand.indexOf("n/"));
@@ -55,14 +55,14 @@ public class ProjectInputController {
                     } else {
                         consoleView.consolePrint("The member index entered is invalid.");
                     }
-                } else if (projectCommand.length() >= 13 && projectCommand.substring(0,14).equals("delete member ")) {
+                } else if (projectCommand.length() >= 13 && ("delete member ").equals(projectCommand.substring(0,14))) {
                     int memberIndexNumber = Integer.parseInt(projectCommand.substring(14).split(" ")[0]);
                     if (projectToManage.getNumOfMembers() >= memberIndexNumber) {
                         consoleView.removeMember(projectToManage, memberIndexNumber);
                     } else {
                         consoleView.consolePrint("The member index entered is invalid.");
                     }
-                } else if (projectCommand.length() == 12 && projectCommand.equals("view members")) {
+                } else if (projectCommand.length() == 12 && ("view members").equals(projectCommand)) {
                     consoleView.viewAllMembers(projectToManage);
                 } else if (projectCommand.length() == 8 && projectCommand.equals("add task")) {
                     try {
@@ -74,12 +74,18 @@ public class ProjectInputController {
                     } catch (NumberFormatException | ParseException e) {
                         consoleView.consolePrint("Please enter your task format correctly");
                     }
-                } else if (projectCommand.length() == 10 && projectCommand.equals("view tasks")) {
-                    /**/
-                } else if (projectCommand.length() == 10 && projectCommand.equals("edit task ")) {
-                    /**/
-                } else if (projectCommand.length() == 12 && projectCommand.equals("delete task ")) {
-                    /**/
+                } else if (projectCommand.length() == 10 && ("view tasks").equals(projectCommand)) {
+                    /*
+                        Empty method
+                    */
+                } else if (projectCommand.length() == 10 && ("edit task ").equals(projectCommand)) {
+                    /*
+                        Empty method
+                    */
+                } else if (projectCommand.length() == 12 && ("delete task ").equals(projectCommand)) {
+                    /*
+                        Empty method
+                    */
                 } else {
                     consoleView.consolePrint("Invalid command. Try again!");
                 }

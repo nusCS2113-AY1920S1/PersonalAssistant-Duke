@@ -1,4 +1,4 @@
-package util.constant;
+package util;
 
 public class SubstringParser {
     /**

@@ -1,7 +1,7 @@
 package controllers;
 
 import models.member.Member;
-import util.constant.SubstringParser;
+import util.SubstringParser;
 
 public class MemberFactoryUtil {
     private Member newMember;
@@ -16,7 +16,7 @@ public class MemberFactoryUtil {
         String[] memberDetails = SubstringParser.memberCreation(input);
         boolean nameCreatedFlag = false;
         String name = memberDetails[0];
-        if (!name.equals("No name")) {
+        if (!("No name").equals(name)) {
             nameCreatedFlag = true;
         }
         String phone = memberDetails[1];

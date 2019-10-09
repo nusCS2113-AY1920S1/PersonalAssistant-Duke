@@ -1,6 +1,6 @@
 package models.member;
 
-import util.constant.SubstringParser;
+import util.SubstringParser;
 
 import java.util.ArrayList;
 
