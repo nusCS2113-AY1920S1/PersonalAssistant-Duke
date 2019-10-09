@@ -22,5 +22,4 @@ G @ 10000.0 @ buy Motorbike  @ GS @ 15/1/2050 @ HIGH
 G @ 100000.0 @ buy Lambo  @ GS @ 10/12/2040 @ MEDIUM
 G @ 100000.0 @ buy Boat  @ GS @ 11/12/2050 @ LOW
 G @ 10000.0 @ buy Motorbike  @ GS @ 15/1/2050 @ HIGH
-INS @ 100000.0 @ mortgage  @ instalments @ 12/12/2010 @ 200 @ 0.06
-INS @ 100000.0 @ mortgage  @ instalments @ 12/12/2017 @ 200 @ 0.06
+INS @ 100000.0 @ mortgage  @ instalments @ 9/9/2019 @ 200 @ 0.06
