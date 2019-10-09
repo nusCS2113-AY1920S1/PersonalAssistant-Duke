@@ -14,18 +14,24 @@ public class TaskList {
     private ArrayList<Task> taskList;
 
     /**
-     * instantiate a new TaskList with a empty list.
+     * Constructor used when Duke successfully loads a TaskList from a saved file.
+     * Takes loaded taskList and uses it during Duke's new session.
+     * @param loadedTaskList
      */
-    public TaskList(ArrayList<Task> task) {
-        this.taskList = task;
-    }
-
-    public TaskList() {
-        taskList = new ArrayList<>();
+    public TaskList(ArrayList<Task> loadedTaskList) {
+        this.taskList = loadedTaskList;
     }
 
     /**
-     * Retrieve the entire task list stored inside the ArrayList.
+     * Constructor used when Duke cannot successfully load a TaskList from a saved file.
+     * Instantiates a new TaskList with an empty list.
+     */
+    public TaskList() {
+        this.taskList = new ArrayList<Task>();
+    }
+
+    /**
+     * Retrieves the entire task list stored inside the ArrayList.
      */
     public ArrayList<Task> fullTaskList() {
         return taskList;

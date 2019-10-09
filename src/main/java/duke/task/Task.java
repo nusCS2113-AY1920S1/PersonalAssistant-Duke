@@ -22,7 +22,7 @@ public abstract class Task {
     /**
      * A string to describe the date/time of the task.
      */
-    private String dateTime = null;
+    private String dateTime = "";
 
     /**
      * An arraylist of things the nurse can bring for the task.
