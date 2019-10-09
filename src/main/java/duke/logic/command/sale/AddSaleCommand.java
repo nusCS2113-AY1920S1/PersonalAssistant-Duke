@@ -1,34 +1,34 @@
-package duke.logic.command.order;
+package duke.logic.command.sale;
 
 import duke.logic.command.commons.CommandResult;
 import duke.logic.command.commons.Undoable;
 import duke.logic.command.exceptions.CommandException;
 import duke.model.Model;
-import duke.model.order.Order;
+import duke.model.sale.Sale;
 
 import static java.util.Objects.requireNonNull;
 
 /**
- * A command to add an order to BakingHome.
+ * A command to add a sale to BakingHome.
  */
-public class AddOrderCommand extends OrderCommand implements Undoable {
+public class AddSaleCommand extends SaleCommand implements Undoable {
 
     public static final String COMMAND_WORD = "add";
-    public static final String MESSAGE_SUCCESS = "New order added [Order ID: %s]";
-    private final Order toAdd;
+    public static final String MESSAGE_SUCCESS = "New sale added [Sale ID: %s]";
+    private final Sale toAdd;
 
     /**
-     * Creates an AddOrderCommand to add the specified {@code Order}.
+     * Creates an AddSaleCommand to add the specified {@code Sale}.
      *
-     * @param toAdd the {@code Order} to be added
+     * @param toAdd the {@code Sale} to be added
      */
-    public AddOrderCommand(Order toAdd) {
+    public AddSaleCommand(Sale toAdd) {
         requireNonNull(toAdd);
         this.toAdd = toAdd;
     }
 
     public CommandResult execute(Model model) throws CommandException {
-        model.addOrder(toAdd);
+        model.addSale(toAdd);
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd.getId()), CommandResult.DisplayedPage.ORDER);
     }
 
@@ -38,7 +38,5 @@ public class AddOrderCommand extends OrderCommand implements Undoable {
 
     @Override
     public void redo(Model model) throws CommandException {
-
     }
-
 }

@@ -2,6 +2,8 @@ package duke.model;
 
 import duke.model.order.Order;
 import duke.model.order.OrderList;
+import duke.model.sale.Sale;
+import duke.model.sale.SaleList;
 import javafx.collections.ObservableList;
 
 import java.util.List;
@@ -11,9 +13,11 @@ import static java.util.Objects.requireNonNull;
 public class BakingHome implements ReadOnlyBakingHome {
 
     private final OrderList orders;
+    private final SaleList sales;
 
     public BakingHome() {
         orders = new OrderList();
+        sales = new SaleList();
     }
 
     public BakingHome(ReadOnlyBakingHome toBeCopied) {
@@ -28,6 +32,13 @@ public class BakingHome implements ReadOnlyBakingHome {
      */
     public void setOrders(List<Order> orders) {
         this.orders.setOrders(orders);
+    }
+
+    /**
+     * Replaces the contents of the sale list with {@code orders}.
+     */
+    public void setSales(List<Sale> sales) {
+        this.sales.setSales(sales);
     }
 
     /**
@@ -58,6 +69,14 @@ public class BakingHome implements ReadOnlyBakingHome {
     }
 
     /**
+     * Adds a person to the address book.
+     * The person must not already exist in the address book.
+     */
+    public void addSale(Sale s) {
+        sales.add(s);
+    }
+
+    /**
      * Replaces the given person {@code target} in the list with {@code editedPerson}.
      * {@code target} must exist in the address book.
      * The person identity of {@code editedPerson} must not be the same as another existing person in the address book.
@@ -66,6 +85,17 @@ public class BakingHome implements ReadOnlyBakingHome {
         requireNonNull(editedOrder);
 
         orders.setOrder(target, editedOrder);
+    }
+
+    /**
+     * Replaces the given person {@code target} in the list with {@code editedPerson}.
+     * {@code target} must exist in the address book.
+     * The person identity of {@code editedPerson} must not be the same as another existing person in the address book.
+     */
+    public void setSale(Sale target, Sale editedSale) {
+        requireNonNull(editedSale);
+
+        sales.setSale(target, editedSale);
     }
 
     /**
@@ -86,6 +116,11 @@ public class BakingHome implements ReadOnlyBakingHome {
     @Override
     public ObservableList<Order> getOrderList() {
         return orders.asUnmodifiableObservableList();
+    }
+
+    // @Override
+    public ObservableList<Sale> getSaleList() {
+        return sales.asUnmodifiableObservableList();
     }
 
     @Override

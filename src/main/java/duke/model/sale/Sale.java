@@ -12,8 +12,11 @@ public class Sale {
     private Date saleDate = Calendar.getInstance().getTime();
     private String remarks = "N/A";
 
-    public Sale() {
-
+    public Sale(String description, double value, Date saleDate, String remarks) {
+        this.description = description;
+        this.value = value;
+        this.saleDate = saleDate;
+        this.remarks = remarks;
     }
 
     public Sale(@JsonProperty("description") String description,

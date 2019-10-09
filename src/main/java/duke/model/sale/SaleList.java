@@ -1,6 +1,6 @@
 package duke.model.sale;
 
-import duke.model.exceptions.OrderNotFoundException;
+import duke.model.exceptions.SaleNotFoundException;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -10,7 +10,6 @@ import java.util.List;
 import static java.util.Objects.requireNonNull;
 
 public class SaleList implements Iterable<Sale> {
-
     private final ObservableList<Sale> internalList = FXCollections.observableArrayList();
     private final ObservableList<Sale> internalUnmodifiableList =
             FXCollections.unmodifiableObservableList(internalList);
@@ -29,26 +28,26 @@ public class SaleList implements Iterable<Sale> {
         internalList.add(toAdd);
     }
 
-    public void setOrder(Sale target, Sale editedOrder) {
+    public void setSale(Sale target, Sale editedSale) {
         requireNonNull(target);
-        requireNonNull(editedOrder);
+        requireNonNull(editedSale);
 
         int index = internalList.indexOf(target);
         if (index == -1) {
             throw new SaleNotFoundException();
         }
 
-        internalList.set(index, editedSasle);
+        internalList.set(index, editedSale);
     }
 
-    public void remove(Order toRemove) {
+    public void remove(Sale toRemove) {
         requireNonNull(toRemove);
         if (!internalList.remove(toRemove)) {
-            throw new OrderNotFoundException();
+            throw new SaleNotFoundException();
         }
     }
 
-    public void setOrders(OrderList replacement) {
+    public void setSale(SaleList replacement) {
         requireNonNull(replacement);
         internalList.setAll(replacement.internalList);
     }
@@ -57,34 +56,33 @@ public class SaleList implements Iterable<Sale> {
      * Replaces the contents of this list with {@code persons}.
      * {@code persons} must not contain duplicate persons.
      */
-    public void setOrders(List<Order> orders) {
+    public void setSales(List<Sale> sales) {
         //requireAllNonNull(orders);
 
-        internalList.setAll(orders);
+        internalList.setAll(sales);
     }
 
     /**
      * Returns the backing list as an unmodifiable {@code ObservableList}.
      */
-    public ObservableList<Order> asUnmodifiableObservableList() {
+    public ObservableList<Sale> asUnmodifiableObservableList() {
         return internalUnmodifiableList;
     }
 
     @Override
-    public Iterator<Order> iterator() {
+    public Iterator<Sale> iterator() {
         return internalList.iterator();
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof OrderList // instanceof handles nulls
-                && internalList.equals(((OrderList) other).internalList));
+                || (other instanceof SaleList // instanceof handles nulls
+                && internalList.equals(((SaleList) other).internalList));
     }
 
     @Override
     public int hashCode() {
         return internalList.hashCode();
     }
-
 }

@@ -1,6 +1,7 @@
 package duke.model;
 
 import duke.model.order.Order;
+import duke.model.sale.Sale;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 
@@ -60,6 +61,30 @@ public class ModelManager implements Model {
     @Override
     public ObservableList<Order> getFilteredOrderList() {
         return filteredOrders;
+    }
+
+    @Override
+    public boolean hasSale(Sale sale) {
+        requireNonNull(sale);
+        return bakingHome.getSaleList().contains(sale);
+    }
+
+    @Override
+    public void deleteSale(Sale target) {
+        bakingHome.getSaleList().remove(target);
+    }
+
+    @Override
+    public void addSale(Sale sale) {
+        bakingHome.addSale(sale);
+    }
+
+    @Override
+    public void setSale(Sale target, Sale editedSale) {
+        requireNonNull(target);
+        requireNonNull(editedSale);
+
+        bakingHome.setSale(target, editedSale);
     }
 
     @Override

@@ -1,6 +1,7 @@
 package duke.model;
 
 import duke.model.order.Order;
+import duke.model.sale.Sale;
 import javafx.collections.ObservableList;
 
 /**

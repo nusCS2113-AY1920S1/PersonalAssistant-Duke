@@ -12,14 +12,14 @@ import static duke.logic.parser.commons.CliSyntax.*;
 public class AddOrderCommandParser implements Parser<AddOrderCommand> {
     @Override
     public AddOrderCommand parse(String args) throws ParseException {
-        ArgumentMultimap map = ArgumentTokenizer.tokenize(args,
-                PREFIX_CUSTOMER_NAME,
-                PREFIX_CUSTOMER_CONTACT,
-                PREFIX_ORDER_ITEM,
-                PREFIX_ORDER_DEADLINE,
-                PREFIX_ORDER_STATUS,
-                PREFIX_ORDER_REMARKS
-        );
+            ArgumentMultimap map = ArgumentTokenizer.tokenize(args,
+                    PREFIX_CUSTOMER_NAME,
+                    PREFIX_CUSTOMER_CONTACT,
+                    PREFIX_ORDER_ITEM,
+                    PREFIX_ORDER_DEADLINE,
+                    PREFIX_ORDER_STATUS,
+                    PREFIX_ORDER_REMARKS
+            );
         Customer customer = new Customer(
                 map.getValue(PREFIX_CUSTOMER_NAME).orElse("customer"),
                 map.getValue(PREFIX_CUSTOMER_CONTACT).orElse("N/A"));
