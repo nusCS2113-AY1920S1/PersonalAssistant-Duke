@@ -108,11 +108,6 @@ public class MainWindow extends UiPart<Stage> {
         userInput.clear();
     }
 
-    @FXML
-    public void handleInputHistory() {
-
-    }
-
     /**
      * Sets UP key to show previous input, and sets DOWN key to the next input.
      */
@@ -222,7 +217,7 @@ public class MainWindow extends UiPart<Stage> {
         inventoryButton.setButtonType(JFXButton.ButtonType.FLAT);
         salesButton.setButtonType(JFXButton.ButtonType.FLAT);
 
-        currentPage.setText("Recipes");
+        currentPage.setText("Products");
     }
 
     private void showInventoryPage() {
