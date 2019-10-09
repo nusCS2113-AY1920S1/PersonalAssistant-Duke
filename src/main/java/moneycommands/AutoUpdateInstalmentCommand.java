@@ -27,4 +27,7 @@ public class AutoUpdateInstalmentCommand extends MoneyCommand{
             ins.percentPay(paymentsMade);
         }
     }
+
+    @Override
+    public void undo(Account account, Ui ui, MoneyStorage storage) { return; }
 }

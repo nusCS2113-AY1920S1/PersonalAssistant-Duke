@@ -1,10 +1,13 @@
 package moneycommands;
 
+import controlpanel.DukeException;
 import controlpanel.MoneyStorage;
 import controlpanel.Ui;
 import money.Account;
 import money.Expenditure;
 import money.Income;
+
+import java.text.ParseException;
 
 /**
  * This command lists all expenditures within the Month Expenditure List to the user.
@@ -39,4 +42,7 @@ public class ListMonthExpenditureCommand extends MoneyCommand {
 
         ui.appendToOutput("Total expenditure for the month: $" + account.getCurrMonthExp() + "\n");
     }
+
+    @Override
+    public void undo(Account account, Ui ui, MoneyStorage storage) throws DukeException, ParseException { return; }
 }

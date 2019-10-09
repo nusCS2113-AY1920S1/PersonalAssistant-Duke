@@ -1,9 +1,12 @@
 package moneycommands;
 
+import controlpanel.DukeException;
 import controlpanel.MoneyStorage;
 import controlpanel.Ui;
 import money.Account;
 import money.Income;
+
+import java.text.ParseException;
 
 /**
  * This command lists all income sources within the Month Income List to the user.
@@ -38,4 +41,7 @@ public class ListMonthIncomeCommand extends MoneyCommand {
 
         ui.appendToOutput("Total income for the month: $" + account.getCurrMonthIncome() + "\n");
     }
+
+    @Override
+    public void undo(Account account, Ui ui, MoneyStorage storage) throws DukeException, ParseException { return; }
 }
