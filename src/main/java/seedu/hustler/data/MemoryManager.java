@@ -17,13 +17,14 @@ public class MemoryManager {
 
         try {
             storage.createBackup(Hustler.list.return_list());
-	    AvatarStorage.createBackup(Hustler.avatar);
+            AvatarStorage.createBackup(Hustler.avatar);
         } catch (IOException e) {
+
         }
     }
 
     public void reloadBackup(int numberOfCommandsToUndo) {
         Hustler.reloadBackup();
-	CommandLog.restoreData(numberOfCommandsToUndo);
+        CommandLog.restoreData(numberOfCommandsToUndo);
     }
 }

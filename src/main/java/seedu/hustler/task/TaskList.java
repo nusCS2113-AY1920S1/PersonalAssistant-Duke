@@ -9,8 +9,6 @@ import seedu.hustler.data.CommandLog;
 import seedu.hustler.Hustler;
 import seedu.hustler.data.AvatarStorage;
 import seedu.hustler.data.Schedule;
-import java.util.Scanner;
-
 import seedu.hustler.ui.Ui;
 
 import static seedu.hustler.parser.DateTimeParser.getDateTime;
@@ -139,12 +137,12 @@ public class TaskList {
         }
         if (!CommandLog.isRestoring()) {
             if (!checkAnomaly) {
-                    String output = "\t  " + list.get(list.size() - 1).toString();
-                    System.out.println("\t_____________________________________");
-                    System.out.println("\tGot it. I've added this task:");
-                    System.out.println(output);
-                    System.out.println("\tNow you have " + list.size() + " tasks in the list.");
-                    System.out.println("\t_____________________________________\n\n");
+                String output = "\t  " + list.get(list.size() - 1).toString();
+                System.out.println("\t_____________________________________");
+                System.out.println("\tGot it. I've added this task:");
+                System.out.println(output);
+                System.out.println("\tNow you have " + list.size() + " tasks in the list.");
+                System.out.println("\t_____________________________________\n\n");
             } else {
                 System.out.println("Task clashes with another existing task in the list!");
             }
@@ -212,33 +210,19 @@ public class TaskList {
      * Snoozes task at index.
      *
      * @param i index at which task is snoozed.
+     * @param userInput full description of the user's input.
      * @throws IndexOutOfBoundsException if an out of bounds index is requested.
      */
-    public void snoozeTask(int i) {
+    public void snoozeTask(int i, String[] userInput) {
         try {
-            if (!CommandLog.isRestoring()) {
-                System.out.println("\t_____________________________________");
-                System.out.println("\tYou are requesting to snooze the following task:");
-                System.out.println("\t" + list.get(i).toString() + "\n");
-                System.out.println("\tPlease choose one of the following way to snooze this task.");
-                System.out.println("\t1) Enter a number followed by minutes/hours/days/weeks/months");
-                System.out.println("\t2) Enter the new date and time in the following format (dd/MM/yyyy HHmm)");
-                System.out.println("\t_____________________________________");
-            }
-
-            Scanner scanner = new Scanner(System.in);
-            String rawInput = scanner.nextLine();
-            String[] userInput = rawInput.split(" ");
-            boolean failSnooze = false;
-
-            if (userInput[0].contains("/")) {
-                LocalDateTime localDateTime = getDateTime(rawInput);
+            if (userInput[2].contains("/")) {
+                LocalDateTime localDateTime = getDateTime(userInput[2] + " " + userInput[3]);
                 list.get(i).setDateTime(localDateTime);
             } else {
-                int num = Integer.parseInt(userInput[0]);
+                int num = Integer.parseInt(userInput[2]);
                 LocalDateTime ldt = list.get(i).getDateTime();
 
-                switch (userInput[1]) {
+                switch (userInput[3]) {
                 case "minutes":
                     list.get(i).setDateTime(ldt.plusMinutes(num));
                     break;
@@ -255,21 +239,14 @@ public class TaskList {
                     list.get(i).setDateTime(ldt.plusMonths(num));
                     break;
                 default:
-                    if (!CommandLog.isRestoring()) {
-                        System.out.println("You have typed in the wrong format. Please re-enter the snooze command.");
-                    }
-                    failSnooze = true;
+                    System.out.println("You have typed in the wrong format. Please re-enter the snooze command.");
+                    return;
                 }
             }
-
-            if (!failSnooze) {
-                if (!CommandLog.isRestoring()) {
-                    System.out.println("\t_____________________________________");
-                    System.out.println("\tGot it. You have snoozed the task.");
-                    System.out.println("\t" + list.get(i).toString());
-                    System.out.println("\t_____________________________________");
-                }
-            }
+            System.out.println("\t_____________________________________");
+            System.out.println("\tGot it. You have snoozed the task.");
+            System.out.println("\t" + list.get(i).toString());
+            System.out.println("\t_____________________________________");
         } catch (IndexOutOfBoundsException e) {
             ui.task_doesnt_exist_error();
         }

@@ -67,8 +67,7 @@ public class CommandParser extends Parser {
         } else if (userInput[0].equals("show")) {
             return new ScheduleCommand(userInput);
         } else if (userInput[0].equals("snooze")) {
-            CommandLog.recordCommand(rawInput);
-            return new SnoozeCommand(userInput);
+            return new SnoozeCommand(rawInput);
         } else if (userInput[0].equals("/avatar")) {
             return new CheckAvatarCommand();
         } else if (userInput[0].equals("/add")) {
