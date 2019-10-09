@@ -1,10 +1,14 @@
 package duke.ui;
 
+import duke.data.BusStop;
 import duke.data.UniqueTaskList;
 import duke.data.tasks.Task;
 import duke.ui.calendar.CalendarWindow;
+import duke.ui.map.MapWindow;
 import javafx.scene.image.Image;
 import javafx.scene.layout.VBox;
+
+import java.util.List;
 
 /**
  * Class that handles user input and messages shown to user of this application.
@@ -119,6 +123,13 @@ public class Ui {
      */
     public void showCalendar(UniqueTaskList tasks) {
         new CalendarWindow(tasks).show();
+    }
+
+    /**
+     * Shows a map.
+     */
+    public void showMap(List<BusStop> busStops) {
+        new MapWindow(busStops).show();
     }
 
     /**
