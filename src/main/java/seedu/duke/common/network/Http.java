@@ -4,7 +4,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import seedu.duke.Duke;
 import seedu.duke.email.entity.Email;
-import seedu.duke.email.entity.EmailList;
+import seedu.duke.email.EmailList;
 import seedu.duke.email.EmailParser;
 import seedu.duke.email.EmailStorage;
 

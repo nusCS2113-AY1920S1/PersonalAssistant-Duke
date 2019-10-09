@@ -22,14 +22,13 @@ import javafx.util.Duration;
 import seedu.duke.Duke;
 import seedu.duke.CommandParser;
 import seedu.duke.UI;
-import seedu.duke.task.entity.TaskList;
+import seedu.duke.task.TaskList;
 import seedu.duke.task.TaskStorage;
 import seedu.duke.email.EmailStorage;
 import seedu.duke.task.entity.Deadline;
 import seedu.duke.task.entity.Event;
 import seedu.duke.task.entity.Task;
 
-import java.awt.*;
 import java.util.function.UnaryOperator;
 
 /**
@@ -154,7 +153,7 @@ public class MainWindow extends AnchorPane {
         KeyCode keyCode = e.getCode();
         String keyInfo = type + ": Key Code=" + keyCode.getName() + ", Text=" + e.getText() + "\n";
         // print key pressed info to terminal for debugging purpose.
-        System.out.println(keyInfo);
+        //System.out.println(keyInfo);
 
         // Toggle email or html display if ESC key is pressed
         if (e.getCode() == KeyCode.ESCAPE) {

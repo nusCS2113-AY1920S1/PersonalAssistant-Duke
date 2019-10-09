@@ -4,6 +4,7 @@ import javafx.util.Pair;
 import org.junit.jupiter.api.Test;
 import seedu.duke.common.command.Command;
 import seedu.duke.common.command.InvalidCommand;
+import seedu.duke.task.TaskList;
 import seedu.duke.task.command.TaskAddCommand;
 import seedu.duke.task.command.TaskDeleteCommand;
 import seedu.duke.task.command.TaskDoAfterCommand;
@@ -12,7 +13,7 @@ import seedu.duke.task.command.TaskFindCommand;
 import seedu.duke.task.command.TaskReminderCommand;
 import seedu.duke.task.command.TaskSnoozeCommand;
 import seedu.duke.task.entity.Task;
-import seedu.duke.task.entity.TaskList;
+import seedu.duke.task.TaskList;
 
 import java.lang.reflect.Array;
 import java.lang.reflect.InvocationTargetException;
@@ -37,6 +38,7 @@ public class CommandParserTest {
         assertTrue(CommandParser.isCommandFormat(" deadline 123abc -by asdas"));
         assertTrue(CommandParser.isCommandFormat("ads deadline 123abc -by asdas"));
         assertTrue(CommandParser.isCommandFormat("done 1"));
+        assertTrue(CommandParser.isCommandFormat("task deadline 123 -time 11/11/1111 1111"));
     }
 
     @Test
@@ -50,14 +52,19 @@ public class CommandParserTest {
                 CommandParser.parseOptions("todo 123abc -tag sad -remarks pick one side").get(0).getKey());
         assertEquals("pick one side",
                 CommandParser.parseOptions("todo 123abc -tag sad -remarks pick one side").get(0).getValue());
+        assertEquals("11/11/1111 1111", CommandParser.parseOptions("task deadline 123 -time 11/11/1111 "
+                + "1111").get(0).getValue());
         assertEquals(0, CommandParser.parseOptions("todo 123abc").size());
     }
 
     @Test
     public void stripOptionsTest() {
         assertEquals("todo 123abc", CommandParser.stripOptions("todo 123abc -tag sad -remarks pick"));
+        assertEquals("todo 123abc", CommandParser.stripOptions("todo 123abc -tag sad -remarks pick one"));
         assertEquals("todo 123abc", CommandParser.stripOptions("todo 123abc -tag sad"));
         assertEquals("todo 123abc", CommandParser.stripOptions("todo 123abc"));
+        assertEquals("task deadline 123", CommandParser.stripOptions("task deadline 123 -time 11/11/1111 "
+                + "1111"));
     }
 
     @Test
@@ -257,6 +264,7 @@ public class CommandParserTest {
             assertTrue(method.invoke(null, null, "deadline abc 123 /", time, null, null) instanceof InvalidCommand);
             assertTrue(method.invoke(null, null, "deadline ", time, null, null) instanceof InvalidCommand);
             assertTrue(method.invoke(null, null, "deadline", time, null, null) instanceof InvalidCommand);
+            assertTrue(method.invoke(null, null, "deadline 123", null, null, null) instanceof InvalidCommand);
         } catch (ClassNotFoundException e) {
             fail("No such class");
         } catch (NoSuchMethodException e) {
@@ -287,6 +295,7 @@ public class CommandParserTest {
             assertTrue(method.invoke(null, null, "event abc 123 /", time, null, null) instanceof InvalidCommand);
             assertTrue(method.invoke(null, null, "event ", time, null, null) instanceof InvalidCommand);
             assertTrue(method.invoke(null, null, "event", time, null, null) instanceof InvalidCommand);
+            assertTrue(method.invoke(null, null, "event 123", null, null, null) instanceof InvalidCommand);
         } catch (ClassNotFoundException e) {
             fail("No such class");
         } catch (NoSuchMethodException e) {

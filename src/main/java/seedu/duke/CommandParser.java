@@ -1,6 +1,6 @@
 package seedu.duke;
 
-import seedu.duke.task.entity.TaskList;
+import seedu.duke.task.TaskList;
 import seedu.duke.task.command.TaskAddCommand;
 import seedu.duke.common.command.Command;
 import seedu.duke.common.command.Command.Option;
@@ -14,7 +14,7 @@ import seedu.duke.common.command.InvalidCommand;
 import seedu.duke.task.command.TaskListCommand;
 import seedu.duke.task.command.TaskReminderCommand;
 import seedu.duke.task.command.TaskSnoozeCommand;
-import seedu.duke.email.entity.EmailList;
+import seedu.duke.email.EmailList;
 import seedu.duke.email.command.EmailListCommand;
 import seedu.duke.email.command.EmailShowCommand;
 import seedu.duke.email.command.EmailFetchCommand;
@@ -52,7 +52,7 @@ public class CommandParser {
 
     public static boolean isCommandFormat(String commandString) {
         return commandString.matches(
-                "(?:\\s*([\\w]+))(?:\\s+([\\w]+[\\s|\\w]*))(?:\\s+(-[\\w]+\\s+[\\w]+[\\s|\\w]*))*");
+                "(?:\\s*([\\w]+))(?:\\s+([\\w]+[\\s|\\w]*))(?:\\s+(-[\\w]+\\s+[\\w]+[\\s|\\w/]*))*");
     }
 
     /**
@@ -86,19 +86,19 @@ public class CommandParser {
 
     public static ArrayList<Option> parseOptions(String input) {
         ArrayList<Option> optionList = new ArrayList<>();
-        Pattern optionPattern = Pattern.compile(".*(?<key>-[\\w]+)\\s+(?<value>[\\w]+[\\s|\\w]*)\\s*");
+        Pattern optionPattern = Pattern.compile(".*(?<key>-[\\w]+)\\s+(?<value>[\\w]+[\\s|\\w/]*)\\s*");
         Matcher optionMatcher = optionPattern.matcher(input);
         while (optionMatcher.matches()) {
             optionList.add(new Option(optionMatcher.group("key").substring(1),
                     optionMatcher.group("value")));
-            input = input.replaceAll("\\s*(?<key>-[\\w]+)\\s+(?<value>[\\w]+[\\s|\\w]*)\\s*$", "");
+            input = input.replaceAll("\\s*(?<key>-[\\w]+)\\s+(?<value>[\\w]+[\\s|\\w/]*)\\s*$", "");
             optionMatcher = optionPattern.matcher(input);
         }
         return optionList;
     }
 
     public static String stripOptions(String input) {
-        return input.replaceAll("\\s*(?<key>-[\\w]+)\\s+(?<value>[\\w]+)\\s*", "");
+        return input.replaceAll("\\s*(?<key>-[\\w]+)\\s+(?<value>[\\w]+[\\s|\\w/]*)\\s*", "");
     }
 
     /**
@@ -376,25 +376,24 @@ public class CommandParser {
      *                            input
      */
     public static Command parseAddTaskCommand(TaskList taskList, String input,
-                                              ArrayList<Option> optionList) throws UserInputException {
-        Task.TaskType taskType;
-        String name;
+                                              ArrayList<Option> optionList) {
         LocalDateTime time;
         String doAfter;
-
         try {
             doAfter = extractDoAfter(optionList);
-            String timeString = extractTime(optionList);
-            time = Task.parseDate(timeString);
         } catch (UserInputException e) {
             if (ui != null) {
                 ui.showError(e.getMessage());
             }
             return new InvalidCommand();
         }
+        try {
+            String timeString = extractTime(optionList);
+            time = Task.parseDate(timeString);
+        } catch (UserInputException e) {
+            time = null; //todo can tolerate a null time, but not event and deadline
+        }
         ArrayList<String> tags = extractTags(optionList);
-
-
         if (input.startsWith("todo")) {
             return parseAddToDoCommand(taskList, input, doAfter, tags);
         } else if (input.startsWith("deadline")) {
@@ -402,7 +401,7 @@ public class CommandParser {
         } else if (input.startsWith("event")) {
             return parseEventCommand(taskList, input, time, doAfter, tags);
         } else {
-            throw new CommandParser.UserInputException("OOPS!!! I'm sorry, but I don't know what that means :-(");
+            return new InvalidCommand();
         }
     }
 
@@ -433,18 +432,30 @@ public class CommandParser {
             }
             return new InvalidCommand();
         }
+        if (time == null) {
+            if (ui != null) {
+                ui.showError("Please enter a time of correct format after \'-time\'");
+            }
+            return new InvalidCommand();
+        }
         String name = deadlineMatcher.group("name");
         return new TaskAddCommand(taskList, taskType, name, time, doAfter, tags);
     }
 
     private static Command parseEventCommand(TaskList taskList, String input, LocalDateTime time,
-                                             String doAfter, ArrayList<String> tags) throws UserInputException {
+                                             String doAfter, ArrayList<String> tags) {
         Task.TaskType taskType = Task.TaskType.Event;
         Pattern eventPattern = Pattern.compile("event\\s+(?<name>\\w+[\\s+\\w+]*)\\s*");
         Matcher eventMatcher = eventPattern.matcher(input);
         if (!eventMatcher.matches()) {
             if (ui != null) {
                 ui.showError("Please enter a name after \'event\'");
+            }
+            return new InvalidCommand();
+        }
+        if (time == null) {
+            if (ui != null) {
+                ui.showError("Please enter a time of correct format after \'-time\'");
             }
             return new InvalidCommand();
         }
@@ -463,10 +474,10 @@ public class CommandParser {
     }
 
     private static String extractDoAfter(ArrayList<Option> optionList) throws UserInputException {
-        String doafter = null;
+        String doafter = "";
         for (Option option : optionList) {
             if (option.getKey().equals("doafter")) {
-                if (doafter == null) {
+                if (doafter == "") {
                     doafter = option.getValue();
                 } else {
                     throw new UserInputException("Each task can have only one doafter option");
@@ -477,10 +488,10 @@ public class CommandParser {
     }
 
     private static String extractTime(ArrayList<Option> optionList) throws UserInputException{
-        String time = null;
+        String time = "";
         for (Option option : optionList) {
             if (option.getKey().equals("time")) {
-                if (time == null) {
+                if (time == "") {
                     time = option.getValue();
                 } else {
                     throw new UserInputException("Each task can have only one time option");

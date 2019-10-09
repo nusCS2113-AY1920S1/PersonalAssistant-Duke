@@ -59,7 +59,7 @@ public class Event extends Task {
             output += "\n\tAfter which: " + doAfterDescription;
         }
         for (String tagName : tags) {
-            output += " #" + tagName + "#";
+            output += " #" + tagName;
         }
         return output;
     }
@@ -72,13 +72,13 @@ public class Event extends Task {
     @Override
     public String toFileString() {
         String output = "";
-        output = (this.isDone ? "1" : "0") + " event " + this.name + " /at "
+        output = (this.isDone ? "1" : "0") + " event " + this.name + " -time "
                 + formatDate();
         if (this.doAfterDescription != null) {
-            output += " /doafter " + doAfterDescription;
+            output += " -doafter " + doAfterDescription;
         }
         for (String tagName : tags) {
-            output += " #" + tagName + "#";
+            output += " -tag " + tagName;
         }
         return output;
     }

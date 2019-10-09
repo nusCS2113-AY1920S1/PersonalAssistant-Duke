@@ -2,9 +2,9 @@ package seedu.duke;
 
 import seedu.duke.common.network.Http;
 import seedu.duke.common.command.Command;
-import seedu.duke.email.entity.EmailList;
+import seedu.duke.email.EmailList;
 import seedu.duke.email.EmailStorage;
-import seedu.duke.task.entity.TaskList;
+import seedu.duke.task.TaskList;
 import seedu.duke.task.TaskStorage;
 
 /**

@@ -3,7 +3,6 @@ package seedu.duke.task;
 import seedu.duke.Duke;
 import seedu.duke.CommandParser;
 import seedu.duke.common.command.Command;
-import seedu.duke.task.entity.TaskList;
 import seedu.duke.task.command.TaskReminderCommand;
 import seedu.duke.task.entity.Task;
 
@@ -87,14 +86,10 @@ public class TaskStorage {
                     throw new StorageException("Invalid Save File!");
                 }
                 input = input.split(" ", 2)[1];
-                try {
-                    Command addCommand = CommandParser.parseAddTaskCommand(taskList, input,
-                            new ArrayList<Command.Option>());
-                    addCommand.setSilent();
-                    addCommand.execute();
-                } catch (CommandParser.UserInputException e) {
-                    throw new StorageException("Invalid Save File!");
-                }
+                Command addCommand = CommandParser.parseAddTaskCommand(taskList, input,
+                        new ArrayList<Command.Option>());
+                addCommand.setSilent();
+                addCommand.execute();
             }
             for (int i = 0; i < taskList.size(); i++) {
                 if (doneList.get(i)) {

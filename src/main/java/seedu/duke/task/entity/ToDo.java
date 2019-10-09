@@ -46,7 +46,7 @@ public class ToDo extends Task {
             output += "\n\tAfter which: " + doAfterDescription;
         }
         for (String tagName : tags) {
-            output += " #" + tagName + "#";
+            output += " #" + tagName;
         }
         return output;
     }
@@ -61,10 +61,10 @@ public class ToDo extends Task {
         String output = "";
         output = (this.isDone ? "1" : "0") + " todo " + this.name;
         if (this.doAfterDescription != null) {
-            output += " /doafter " + doAfterDescription;
+            output += " -doafter " + doAfterDescription;
         }
         for (String tagName : tags) {
-            output += " #" + tagName + "#";
+            output += " -tag " + tagName;
         }
         return output;
     }
