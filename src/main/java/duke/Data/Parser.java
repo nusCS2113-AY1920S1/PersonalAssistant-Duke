@@ -1,18 +1,17 @@
 package duke.Data;
 
 
-import duke.Sports.ManageStudents;
-import duke.Module.Goal;
-import duke.Module.Schedule;
-import duke.Sports.ManageStudents;
-import duke.Sports.MyClass;
-import duke.Sports.MyStudent;
+import duke.sports.ManageStudents;
+import duke.module.Goal;
+import duke.module.Schedule;
+import duke.sports.MyClass;
+import duke.sports.MyStudent;
 import duke.Task.*;
-import duke.Module.Reminder;
+import duke.module.Reminder;
 import duke.Ui;
-import duke.Sports.MyPlan;
+import duke.sports.MyPlan;
+//import duke.exceptions.DukeException;
 
-import javax.swing.plaf.synth.SynthSpinnerUI;
 import java.io.FileNotFoundException;
 import java.text.ParseException;
 import java.util.ArrayList;
@@ -31,7 +30,7 @@ public class Parser {
      *
      * @param io
      */
-    public void parseInput(String io, TaskList tasks, Storage storage, ManageStudents students, Schedule schedule) throws FileNotFoundException, ParseException {
+    public void parseInput(String io, TaskList tasks, Storage storage, ManageStudents students, Schedule schedule, MyPlan plan) throws FileNotFoundException, ParseException {
         int index = 1;
         String input = io;
         String[] word = io.split(" ");
@@ -261,10 +260,9 @@ public class Parser {
              * Delete: training delete-all|training delete [plan number]
              */
             case "training":
-                MyPlan plan = new MyPlan(".\\src\\main\\java\\duke\\Sports\\plan.txt");
                 switch(word[1]) {
                     case "view": {
-                        System.out.println(plan.loadPlan(word[2]));
+                        System.out.println("TBC");
                         System.out.println(plan.viewPlan());
                         break;
                     }
@@ -332,23 +330,52 @@ public class Parser {
 
             /**
              * When cmd student is called
-             * Format for adding student is: student add [age] [Name].
+             * Format for adding student is: student add/ Name/ age/ address.
              */
-            case "student":
-                if (word[1].equals("add/")) {
-//                    index = input.indexOf(word[2]);
-                    String[] splitByComma = input.split("/ ");
-                    String name = splitByComma[1];
-                    String age = splitByComma[2];
-                    String address = splitByComma[3];
-                    MyStudent myNewStudent = new MyStudent(name, age, address);
-                    students.addStudent(myNewStudent);
-                }
-                if (word[1].equals("list")) {
-                    students.listAllStudents();
-                }
+        case "student":
+                switch (word[1]) {
+                    case "add/":
+                        String[] splitByComma = input.split("/ ");
+                        String name = splitByComma[1];
+                        String age = splitByComma[2];
+                        String address = splitByComma[3];
+                        MyStudent myNewStudent = new MyStudent(name, age, address);
+                        students.addStudent(myNewStudent);
+                        break;
+
+                        // Format: student delete [index]
+                    case "delete":
+                        index = Integer.parseInt(word[2]); // Convert string into int
+                        students.deleteStudent(index);
+                        break;
+
+                    case "details":
+                        //add student details
+
+                    case "edit":
+                        // editStudentDetails(detail)
+
+                    case "list":
+                        students.listAllStudents();
+                        break;
+
+                    }
                 break;
 
+            /**
+             * Command is in the form: plan new [intensity level] or plan view [intensity] plan/[plan number]
+             *
+             */
+            case "plan":
+                if (word[1].equals("view")) {
+                    plan.loadPlan(word[2].toLowerCase(),word[3]);
+                    plan.viewPlan();
+                } else if (word[1].equals("new")) {
+                    plan.createPlan(word[3].toLowerCase());
+                } else if (word[1].equals("edit")) {
+                    //not yet created
+                }
+                break;
 
             default:
                 System.out.println("\u2639 OOPS!!! I'm sorry, but I don't know what that means :-(");
