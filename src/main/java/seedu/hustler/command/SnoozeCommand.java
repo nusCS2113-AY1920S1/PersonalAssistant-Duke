@@ -15,12 +15,12 @@ public class SnoozeCommand extends Command {
     private String[] userInput;
    
     /**
-    * Initializes userInput.
+    * Initializes rawInput.
     *
-    * @param userInput array that contains task id to delete.
+    * @param rawInput array that contains task id to delete.
     */
-    public SnoozeCommand(String[] userInput) {
-        this.userInput = userInput;
+    public SnoozeCommand(String rawInput) {
+        this.userInput = rawInput.split(" ");
     }
 
     /**
@@ -35,6 +35,6 @@ public class SnoozeCommand extends Command {
         }
         ParserForCommand doneParser = new ParserForCommand("snooze");
         int taskIndex = doneParser.parseIndex(this.userInput[1]).intValue();
-        Hustler.list.snoozeTask(taskIndex);
+        Hustler.list.snoozeTask(taskIndex, userInput);
     }
 }
