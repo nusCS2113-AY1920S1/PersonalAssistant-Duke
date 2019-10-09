@@ -32,13 +32,32 @@ public class RecurringTaskTesting {
     }
 
     @Test
+    void TestSetPriority() {
+        recurringTask.setPriority(priority);
+        assertEquals(priority, recurringTask.getPriority());
+    }
+
+    @Test
     void getStatusIcon() {
+        recurringTask.isDone = true;
+        assertEquals("\u2713",recurringTask.getStatusIcon());
+        recurringTask.isDone = false;
         assertEquals("\u2718", recurringTask.getStatusIcon());
     }
 
     @Test
     void getIsDone() {
+        recurringTask.isDone = true;
+        assertEquals("true",recurringTask.getisDone());
+        recurringTask.isDone = false;
         assertEquals("false", recurringTask.getisDone());
+    }
+
+    @Test
+    void getHasReminder() {
+        assertEquals("false", recurringTask.gethasReminder());
+        recurringTask.setHasReminder();
+        assertEquals("true",recurringTask.gethasReminder());
     }
 
     @Test
@@ -119,7 +138,8 @@ public class RecurringTaskTesting {
     }
 
     @Test
-    void sethasReminder() {
+    void setHasReminder() {
+        assertEquals(false, recurringTask.hasReminder());
         recurringTask.setHasReminder();
         assertEquals(true, recurringTask.hasReminder());
     }

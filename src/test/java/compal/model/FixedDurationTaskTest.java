@@ -31,13 +31,32 @@ public class FixedDurationTaskTest {
     }
 
     @Test
+    void TestSetPriority() {
+        fdt.setPriority(priority);
+        assertEquals(priority, fdt.getPriority());
+    }
+
+    @Test
     void getStatusIcon() {
+        fdt.isDone = true;
+        assertEquals("\u2713",fdt.getStatusIcon());
+        fdt.isDone = false;
         assertEquals("\u2718", fdt.getStatusIcon());
     }
 
     @Test
     void getIsDone() {
+        fdt.isDone = true;
+        assertEquals("true",fdt.getisDone());
+        fdt.isDone = false;
         assertEquals("false", fdt.getisDone());
+    }
+
+    @Test
+    void getHasReminder() {
+        assertEquals("false", fdt.gethasReminder());
+        fdt.setHasReminder();
+        assertEquals("true",fdt.gethasReminder());
     }
 
     @Test
@@ -118,7 +137,8 @@ public class FixedDurationTaskTest {
     }
 
     @Test
-    void sethasReminder() {
+    void setHasReminder() {
+        assertEquals(false, fdt.hasReminder());
         fdt.setHasReminder();
         assertEquals(true, fdt.hasReminder());
     }

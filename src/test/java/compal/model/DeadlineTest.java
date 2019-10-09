@@ -32,13 +32,32 @@ class DeadlineTest {
     }
 
     @Test
+    void TestSetPriority() {
+        deadline.setPriority(priority);
+        assertEquals(priority, deadline.getPriority());
+    }
+
+    @Test
     void getStatusIcon() {
+        deadline.isDone = true;
+        assertEquals("\u2713",deadline.getStatusIcon());
+        deadline.isDone = false;
         assertEquals("\u2718", deadline.getStatusIcon());
     }
 
     @Test
     void getIsDone() {
+        deadline.isDone = true;
+        assertEquals("true",deadline.getisDone());
+        deadline.isDone = false;
         assertEquals("false", deadline.getisDone());
+    }
+
+    @Test
+    void getHasReminder() {
+        assertEquals("false", deadline.gethasReminder());
+        deadline.setHasReminder();
+        assertEquals("true",deadline.gethasReminder());
     }
 
     @Test
@@ -105,7 +124,8 @@ class DeadlineTest {
     }
 
     @Test
-    void sethasReminder() {
+    void setHasReminder() {
+        assertEquals(false, deadline.hasReminder());
         deadline.setHasReminder();
         assertEquals(true, deadline.hasReminder());
     }
