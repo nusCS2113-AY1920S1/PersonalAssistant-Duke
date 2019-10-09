@@ -1,15 +1,8 @@
 package duke.storage;
 
 import duke.exception.DukeException;
-import duke.task.duketasks.TentativeScheduling;
-import duke.task.duketasks.Recurring;
-import duke.task.duketasks.Period;
-import duke.task.duketasks.Deadline;
-import duke.task.duketasks.Duration;
-import duke.task.duketasks.Todo;
-import duke.task.duketasks.Event;
-import duke.task.duketasks.Task;
-import duke.tasklist.TaskList;
+import duke.task.ingredienttasks.Ingredient;
+import duke.ingredientlist.IngredientList;
 
 import java.io.FileReader;
 import java.io.BufferedReader;
@@ -17,37 +10,37 @@ import java.io.BufferedWriter;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.text.ParseException;
 import java.util.ArrayList;
 
 /**
  * Handles the ability to read and write to the storage location.
  */
-public class Storage {
-    private static final ArrayList<Task> arrTaskList = new ArrayList<>();
-    private final String filePath;
+public class IngredientStorage {
+
+    private static final ArrayList<Ingredient> arrIngredientList = new ArrayList<>();
+    private final String filePathIngredients;
 
     /**
      * Constructor for the class Storage.
      *
-     * @param filePath String containing the directory in which the tasks are to be stored
+     * @param filePathIngredients String containing the directory in which the tasks are to be stored
      */
-    public Storage(String filePath) {
-        this.filePath = filePath;
+    public IngredientStorage(String filePathIngredients) {
+        this.filePathIngredients = filePathIngredients;
     }
 
     /**
 
      * Writing to file to save the task to file.
      *
-     * @param taskList contains the task list
+     * @param ingredientList contains the task list
      */
-    public void saveFile(TaskList taskList) {
+    public void saveFile(IngredientList ingredientList) {
         try {
-            FileWriter fileWriter = new FileWriter(filePath);
+            FileWriter fileWriter = new FileWriter(filePathIngredients);
             BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
-            for (Task task : taskList.getTaskList()) {
-                bufferedWriter.write(task.toSaveString() + "\n");
+            for (Ingredient ingredient : ingredientList.getIngredientList()) {
+                bufferedWriter.write(ingredient.toSaveString() + "\n");
             }
             bufferedWriter.close();
         } catch (Exception exc) {
@@ -61,12 +54,20 @@ public class Storage {
      * @return the list of tasks in taskList
      * @throws DukeException if Duke is not able to load the tasks from the file or unable to open the file
      */
-    public ArrayList<Task> load() throws DukeException {
-        try {
-            FileReader fileReader = new FileReader(filePath);
+    public ArrayList<Ingredient> load() throws DukeException {
+            try {
+            FileReader fileReader = new FileReader(filePathIngredients);
             BufferedReader bufferedReader = new BufferedReader(fileReader);
             String content = "";
             while ((content = bufferedReader.readLine()) != null) {
+                String[] split = content.split(" \\| ", 2);
+                if (split.length == 2) {
+                    int quantity = Integer.parseInt(split[1]);
+                    Ingredient ingredient = new Ingredient(split[0], quantity);
+                    arrIngredientList.add(ingredient);
+                }
+
+                /*
                 if (content.charAt(0) == 'T') {
                     if (content.charAt(1) == 'S') {
                         String[] split = content.substring(9).split(" \\| ", 2);
@@ -111,20 +112,23 @@ public class Storage {
                         }
                     }
                 }
+                */
             }
             fileReader.close();
         } catch (FileNotFoundException ex) {
-            System.out.println("Unable to open file '" + filePath + "'");
-        } catch (IOException | ParseException ex) {
-            System.out.println("Error reading file '" + filePath + "'");
+            System.out.println("Unable to open file '" + filePathIngredients + "'");
+        } catch (IOException ex) {
+            System.out.println("Error reading file '" + filePathIngredients + "'");
         }
-        return arrTaskList;
+        return arrIngredientList;
     }
 
+    /*
     private static void assignTaskMarker(String content, Task task) {
         if (content.charAt(4) == '+') {
             task.markAsDone();
         }
         arrTaskList.add(task);
     }
+    */
 }

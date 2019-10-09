@@ -2,7 +2,7 @@ package duke.ui;
 
 import java.util.Scanner;
 
-import static duke.common.Messages.filePath;
+import static duke.common.Messages.filePathIngredients;
 import static duke.common.Messages.MESSAGE_BYE;
 import static duke.common.Messages.ERROR_MESSAGE_LOADING;
 import static duke.common.Messages.DIVIDER;
@@ -42,9 +42,17 @@ public class Ui {
         System.out.print(DIVIDER);
     }
 
-    public void showLoadingError() {
-        System.out.println(ERROR_MESSAGE_LOADING + filePath);
+    public void showIngredientLoadingError() {
+        System.out.println(ERROR_MESSAGE_LOADING + filePathIngredients);
     }
+    /*
+    public void showBookingLoadingError() {
+        System.out.println(ERROR_MESSAGE_LOADING + filePathBookings);
+    }
+    public void showRecipeLoadingError() {
+        System.out.println(ERROR_MESSAGE_LOADING + filePathRecipes);
+    }
+    */
 
     public void showError(String errorMessage) {
         System.out.println(errorMessage);

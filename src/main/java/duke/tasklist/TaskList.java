@@ -1,15 +1,15 @@
 package duke.tasklist;
 
 import duke.exception.DukeException;
-import duke.task.TentativeScheduling;
-import duke.task.Period;
-import duke.task.DoAfter;
-import duke.task.Duration;
-import duke.task.Todo;
-import duke.task.Deadline;
-import duke.task.Event;
-import duke.task.Task;
-import duke.task.Recurring;
+import duke.task.duketasks.TentativeScheduling;
+import duke.task.duketasks.Period;
+import duke.task.duketasks.DoAfter;
+import duke.task.duketasks.Duration;
+import duke.task.duketasks.Todo;
+import duke.task.duketasks.Deadline;
+import duke.task.duketasks.Event;
+import duke.task.duketasks.Task;
+import duke.task.duketasks.Recurring;
 
 import java.text.ParseException;
 import java.util.ArrayList;
@@ -22,7 +22,6 @@ import static duke.common.Messages.MESSAGE_DELETE;
 import static duke.common.Messages.MESSAGE_ITEMS1;
 import static duke.common.Messages.MESSAGE_ITEMS2;
 import static duke.common.Messages.MESSAGE_MARKED;
-import static duke.common.Messages.ERROR_MESSAGE_NOTFOUND;
 import static duke.common.Messages.MESSAGE_TENTATIVE;
 import static duke.common.Messages.MESSAGE_SCHEDULED;
 import static duke.common.Messages.MESSAGE_SNOOZE;
@@ -56,19 +55,7 @@ public class TaskList {
      * @return list of matching tasks
      * @throws DukeException if not able to find any matching task
      */
-    public ArrayList<String> findTask(String description) throws DukeException {
-        ArrayList<String> arrFind = new ArrayList<>();
-        for (int i = 0; i < getSize(); i++) {
-            if (taskList.get(i).getDescription().contains(description)) {
-                arrFind.add(taskList.get(i).toString());
-            }
-        }
-        if (arrFind.isEmpty()) {
-            throw new DukeException(ERROR_MESSAGE_NOTFOUND);
-        } else {
-            return arrFind;
-        }
-    }
+
 
     /**
      * Get all the tasks in the current taskList.
