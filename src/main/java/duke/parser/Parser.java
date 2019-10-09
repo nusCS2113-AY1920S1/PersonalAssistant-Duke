@@ -2,15 +2,16 @@ package duke.parser;
 
 import duke.MainWindow;
 import duke.command.*;
-import duke.command.ByeCommand;
-import duke.command.Command;
 
 import duke.command.inventorycommands.AddIngredientCommand;
-import duke.command.inventorycommands.ListIngredientsCommand;
+import duke.command.recipecommands.AddRecipeCommand;
 import duke.exception.DukeException;
 
 import static duke.common.IngredientMessages.COMMAND_ADD_INGREDIENT;
-import static duke.common.IngredientMessages.COMMAND_LIST_INGREDIENTS;
+
+import static duke.common.RecipeMessages.COMMAND_ADD_RECIPE;
+// import static duke.common.RecipeMessages.COMMAND_LIST_RECIPES;
+
 import static duke.common.Messages.*;
 
 
@@ -24,7 +25,19 @@ public class Parser {
         if (input.trim().contains(COMMAND_ADD_INGREDIENT)) {
             if (input.trim().substring(0, 13).equals(COMMAND_ADD_INGREDIENT)) {
                 return new AddIngredientCommand(input);
-            }  else {
+            } else {
+                throw new DukeException(ERROR_MESSAGE_RANDOM);
+            }
+        } else {
+            throw new DukeException(ERROR_MESSAGE_RANDOM);
+        }
+    }
+
+    public static AddRecipeCommand parseRecipes(String input) throws DukeException {
+        if (input.trim().contains(COMMAND_ADD_RECIPE)) {
+            if (input.trim().substring(0, 9).equals(COMMAND_ADD_RECIPE)) {
+                return new AddRecipeCommand(input);
+            } else {
                 throw new DukeException(ERROR_MESSAGE_RANDOM);
             }
         } else {
@@ -46,21 +59,22 @@ public class Parser {
         }
     }
 
-    public static Command parse(String userInput) throws DukeException {
-        if (userInput.trim().equals(COMMAND_BYE)) {
-            return new ByeCommand(userInput);
-        } else if (userInput.trim().equals(COMMAND_LIST_INGREDIENTS)) {
-            return new ListIngredientsCommand(userInput);
-//        } else if (userInput.contains(COMMAND_ADD_INGREDIENT)) {
+//    public static Command parse(String userInput) throws DukeException {
+//        if (userInput.trim().equals(COMMAND_BYE)) {
+//            return new ByeCommand(userInput);
+//        } else if (userInput.trim().equals(COMMAND_LIST_INGREDIENTS)) {
+//            return new ListIngredientsCommand(userInput);
+//        }
+//        else if (userInput.contains(COMMAND_ADD_INGREDIENT)) {
 //            if (userInput.trim().substring(0, 13).equals(COMMAND_ADD_INGREDIENT)) {
 //                return new AddIngredientCommand(userInput);
 //            } else {
 //                throw new DukeException(ERROR_MESSAGE_RANDOM);
 //            }
-        } else {
-            throw new DukeException(ERROR_MESSAGE_RANDOM);
-        }
-    }
+//        } else {
+//            throw new DukeException(ERROR_MESSAGE_RANDOM);
+//            }
+
     /*
     /**
      * Processes the different user input command.
