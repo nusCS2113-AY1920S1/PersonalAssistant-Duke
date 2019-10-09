@@ -72,12 +72,12 @@ public abstract class Task {
         isDone = true;
     }
 
-    /**
-     * Returns a string with the following format to be stored in a local file.
-     *
-     * @return A string in a specific format to be stored in a local file.
-     */
-    public abstract String writeTxt();
+//    /**
+//     * Returns a string with the following format to be stored in a local file.
+//     *
+//     * @return A string in a specific format to be stored in a local file.
+//     */
+//    public abstract String writeTxt();
 
     /**
      * Returns a string with the status icon and the description of the task.
@@ -116,8 +116,6 @@ public abstract class Task {
         return dateTime;
     }
 
-    public void addThingToBring(String object) {
-        thingsToBring.add(object);
-    }
+    public abstract String toString();
 
 }

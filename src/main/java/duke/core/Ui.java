@@ -1,6 +1,7 @@
 package duke.core;
 
 import duke.patient.Patient;
+import duke.task.StandardTask;
 import duke.task.Task;
 
 import java.util.ArrayList;
@@ -45,17 +46,14 @@ public class Ui {
         System.out.println("☹" + e);
     }
 
-//    /**
-//     * Shows that a Task has been added, and displays the number
-//     * of current tasks in the list.
-//     *
-//     * @param t    The Task that is added to the list.
-//     * @param size The number of tasks stored in the TaskList.
-//     */
-//    public void taskAdded(Task t, int size) {
-//        System.out.println("Got it. I've added this task: \n  " + t.toString() + "\nNow you have "
-//                + size + " tasks in the list.");
-//    }
+    /**
+     * Shows that a Task has been added
+     *
+     * @param t    The Task that is added to the list.
+     */
+    public void taskAdded(StandardTask standardTask) {
+        System.out.println("Got it. I've added this task: \n" + standardTask);
+    }
 
     public void showPatientInfo(Patient patient) {
         System.out.println("Name: " + patient.getName() + "  Id: " + patient.getID()

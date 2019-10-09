@@ -8,8 +8,6 @@ import duke.storage.PatientStorage;
 import duke.storage.TaskStorage;
 import duke.task.TaskList;
 
-import java.util.ArrayList;
-
 public class DeletePatientCommand extends Command {
     private int id;
 
