@@ -11,11 +11,11 @@ public class Observation extends Evidence {
      * the information that led to that particular observation, as well as an integer between 1-4
      * representing the priority or significance of the evidence.
      * Attributes:
-     * @param name: information on the observation / symptom
-     * @param impression: the impression object the evidence is tagged to
-     * @param summary: a summary of what led to the observation
-     * @param isObjective: whether the observation has physical evidence or is a symptom reported by the patient
-     * @param priority: the priority level of the evidence
+     * @param name information on the observation / symptom
+     * @param impression the impression object the evidence is tagged to
+     * @param summary a summary of what led to the observation
+     * @param isObjective whether the observation has physical evidence or is a symptom reported by the patient
+     * @param priority the priority level of the evidence
      */
     public Observation(String name, Impression impression, int priority, String summary, boolean isObjective) {
         super(name, impression, priority);
