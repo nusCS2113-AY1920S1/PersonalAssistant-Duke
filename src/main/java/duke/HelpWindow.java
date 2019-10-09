@@ -14,11 +14,14 @@ import javafx.stage.Stage;
 import static javafx.application.Application.launch;
 
 /**
- * Controller for a help page
+ * Controller for a help page.
  */
 
 public class HelpWindow extends Ui {
-    public static void main(String[] args) { launch(args); }
+    public static void main(String[] args) {
+        launch(args);
+    }
+
     /**
      * Creates a new HelpWindow.
      *
@@ -26,10 +29,13 @@ public class HelpWindow extends Ui {
      */
     public void start(final Stage primaryStage) {
         primaryStage.setTitle("Popup Example");
-        final Popup popup = new Popup(); popup.setX(300); popup.setY(200);
+        final Popup popup = new Popup();
+        popup.setX(300);
+        popup.setY(200);
         popup.getContent().addAll(new Circle(25, 25, 50, Color.AQUAMARINE));
 
         Button show = new Button("Show");
+
         show.setOnAction(new EventHandler<ActionEvent>() {
             @Override public void handle(ActionEvent event) {
                 popup.show(primaryStage);
@@ -37,6 +43,7 @@ public class HelpWindow extends Ui {
         });
 
         Button hide = new Button("Hide");
+
         hide.setOnAction(new EventHandler<ActionEvent>() {
             @Override public void handle(ActionEvent event) {
                 popup.hide();

@@ -1,18 +1,20 @@
 package duke.parser;
 
-import duke.command.ListPriorityCommand;
-import duke.command.UpdateCommand;
-import duke.command.DoneCommand;
-import duke.command.ExitCommand;
-import duke.command.FindCommand;
-import duke.command.AddCommand;
+import duke.command.SetPriorityCommand;
+import duke.command.AddMultipleCommand;
 import duke.command.DeleteCommand;
 import duke.command.Command;
-import duke.command.ListCommand;
-import duke.command.AddMultipleCommand;
-import duke.command.RemindCommand;
-import duke.command.DuplicateFoundCommand;
+import duke.command.ListPriorityCommand;
+import duke.command.ExitCommand;
 import duke.command.BackupCommand;
+import duke.command.ListCommand;
+import duke.command.AddCommand;
+import duke.command.RemindCommand;
+import duke.command.DoneCommand;
+import duke.command.FindCommand;
+import duke.command.UpdateCommand;
+import duke.command.DuplicateFoundCommand;
+
 import duke.task.TaskList;
 import duke.task.Todo;
 import duke.task.Deadline;
@@ -256,6 +258,35 @@ public class Parser {
                     return new AddCommand(fixedDuration);
                 }
             }
+        } else if (arr.length > 0 && (arr[0].equals("setpriority"))) {
+            //fixedduration <taskNum> <priority>
+            String description = "";
+
+            int taskNum;
+            int priority;
+            for (int i = 1; i < arr.length; i++) {
+                description += arr[i] + " ";
+            }
+
+            String[] holder = description.split(" ");
+            if (holder.length < 2) {
+                throw new DukeException("     (>_<) OOPS!!! Format is in: setpriority <taskNum> <Priority>");
+            } else {
+                try {
+                    taskNum = Integer.parseInt(holder[0].trim());
+                } catch (Exception e) {
+                    throw new DukeException("The task number must be an integer");
+                }
+
+                try {
+                    priority = Integer.parseInt(holder[1].trim());
+                } catch (Exception e) {
+                    throw new DukeException("The priority must be an integer");
+                }
+
+                return new SetPriorityCommand(taskNum, priority);
+            }
+
         } else if (arr.length > 0 && arr[0].equals("remind")) {
             //remind <taskNumber> /in <howManyDays>
             String description = "";
