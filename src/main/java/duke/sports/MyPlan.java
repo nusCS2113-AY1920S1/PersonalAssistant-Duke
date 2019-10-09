@@ -1,4 +1,4 @@
-package duke.sports;
+package duke.Sports;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -20,6 +20,10 @@ public class MyPlan {
     private int sets;
     private int reps;
     private int activity_num;
+
+    public MyPlan() {
+
+    }
 
     public String getName() {
         return this.name;
@@ -59,7 +63,7 @@ public class MyPlan {
         fileInput = new Scanner(f);
     }
 
-    public String loadPlan(String plan_num) {
+    public String loadPlan(String planNum, String plan_num) {
         String l1 = fileInput.nextLine();
         while (fileInput.hasNextLine()) {
             if (l1.equals("plan_num")) {

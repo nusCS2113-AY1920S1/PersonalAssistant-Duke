@@ -1,16 +1,15 @@
 package duke.Data;
 
 
-import duke.sports.ManageStudents;
-import duke.module.Goal;
-import duke.module.Schedule;
-import duke.sports.MyClass;
-import duke.sports.MyStudent;
+import duke.Sports.ManageStudents;
+import duke.Module.Goal;
+import duke.Module.Schedule;
+import duke.Sports.MyClass;
+import duke.Sports.MyStudent;
 import duke.Task.*;
-import duke.module.Reminder;
+import duke.Module.Reminder;
 import duke.Ui;
-import duke.sports.MyPlan;
-//import duke.exceptions.DukeException;
+import duke.Sports.MyPlan;
 
 import java.io.FileNotFoundException;
 import java.text.ParseException;
