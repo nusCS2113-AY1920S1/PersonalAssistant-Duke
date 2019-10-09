@@ -157,7 +157,7 @@ public class ParserManager {
                     break;
                 case CMD_VIEW_REMIND:
                     ViewReminderCommand viewReminderCommand = new ViewReminderCommand(compal);
-                    viewReminderCommand.parseCommand(cmd);
+                    viewReminderCommand.parseCommand(userInput);
                     break;
                 case CMD_SET_REMINDER:
                     SetReminderCommand setReminderCommand = new SetReminderCommand(compal);

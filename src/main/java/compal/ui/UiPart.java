@@ -430,7 +430,16 @@ public class UiPart {
         dailyTab.setContent(dc.init(dateToStore));
         compal.ui.tabWindow.getTabs().add(1, dailyTab);
     }
+
+    /**
+     * Clears the secondary window on the GUI.
+     */
+    public void clearSecondary() {
+        VBox vbox = (VBox) secondaryWindow.getContent();
+        vbox.getChildren().clear();
+    }
     //----------------------->
+
 }
 
 
