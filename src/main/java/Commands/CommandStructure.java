@@ -5,6 +5,11 @@ import java.util.TreeMap;
 public class CommandStructure {
 
 
+
+    /**
+     * Defining the Command structure for the program
+     *
+     */
     public static TreeMap<COMMAND_KEYS, COMMAND_KEYS[]> cmdStructure = new TreeMap<COMMAND_KEYS, COMMAND_KEYS[]>() {{
         put(COMMAND_KEYS.search, new COMMAND_KEYS[]{
                 COMMAND_KEYS.movies, COMMAND_KEYS.tvshows ,COMMAND_KEYS.cast ,COMMAND_KEYS.filters

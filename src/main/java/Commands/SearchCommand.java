@@ -1,6 +1,7 @@
 package Commands;
 
 
+import Contexts.SearchResultContext;
 import MovieUI.Controller;
 import MovieUI.MovieHandler;
 
@@ -28,6 +29,7 @@ public class SearchCommand extends CommandSuper {
     }
 
     private void executeMovieSearch(){
+        SearchResultContext.clearResults();
         ((MovieHandler)this.getUIController()).getAPIRequester().beginSearchRequest(getPayload());
     }
 
