@@ -1,5 +1,7 @@
 package duke.core;
 
+import duke.patient.Patient;
+
 import java.util.Scanner;
 
 /**
@@ -52,6 +54,15 @@ public class Ui {
 //        System.out.println("Got it. I've added this task: \n  " + t.toString() + "\nNow you have "
 //                + size + " tasks in the list.");
 //    }
+
+    public void patientAdded(Patient patient) {
+        System.out.println("Got it. The following patient has been added:  "
+                + "\nId: " + patient.getID()
+                + "\nName: " + patient.getName()
+                + "\nNRIC: " + patient.getNRIC()
+                + "\nRoom: " + patient.getRoom()
+                + "\nRemark: " + patient.getRemark());
+    }
 
 
     /**

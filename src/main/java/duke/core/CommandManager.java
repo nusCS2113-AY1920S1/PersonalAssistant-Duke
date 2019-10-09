@@ -25,17 +25,15 @@ public class CommandManager {
         String[] command = userInput.split(" ", 2);
         String commandType = command[0];
         switch (commandType) { //change this depending on how string is parsed
-            case "addPatient":
+            case "add":
                 try {
-                    String[] tempCommand = command[1].split(" ", 5);
-                    boolean isHospitalised = false;
-                    if (tempCommand[4].equals("T")){
-                        isHospitalised = true;
+                    String[] tempCommand = command[1].split(" ");
+                    if (tempCommand[0].toLowerCase().equals("patient")){
+                        Patient patient = new Patient(tempCommand[1], tempCommand[2], tempCommand[3], tempCommand[4]);
+                        return new AddPatientCommand(patient);
                     }
-                    Patient patient = new Patient(Integer.parseInt(tempCommand[0]),tempCommand[1],tempCommand[2],tempCommand[3], isHospitalised);
-                    return new AddPatientCommand(patient);
                 } catch (Exception e) {
-                    throw new DukeException("Fail to parse addPatient command");
+                    throw new DukeException("Fail to parse Add Patient command. " + e.getMessage());
                 }
             case "list":
                 //do thing for 'list'

@@ -20,6 +20,7 @@ public class AddPatientCommand extends Command {
     public void execute(TaskList tasks, PatientList patientList, Ui ui, TaskStorage taskStorage, PatientStorage patientStorage) throws DukeException {
         patientList.addPatient(newPatient);
         patientStorage.save(patientList.getPatientList());
+        ui.patientAdded(newPatient);
     }
 
     @Override

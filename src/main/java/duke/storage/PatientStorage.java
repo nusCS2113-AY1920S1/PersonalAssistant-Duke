@@ -11,7 +11,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 
-public class PatientStorage extends Storage<Patient>{
+public class PatientStorage extends Storage<Patient> {
 
     /**
      * A string that represents a relative file path from the project folder.
@@ -22,7 +22,7 @@ public class PatientStorage extends Storage<Patient>{
      * Constructs a Storage object with a specific file path.
      *
      * @param filePath A string that represents the path of the file to read or
-     *             write.
+     *                 write.
      */
     public PatientStorage(String filePath) {
         this.filePath = filePath;
@@ -33,19 +33,15 @@ public class PatientStorage extends Storage<Patient>{
         try {
             Reader in = new FileReader(filePath);
             Iterable<CSVRecord> records = CSVFormat.EXCEL.withFirstRecordAsHeader().parse(in);
-            //        Iterable<CSVRecord> records = CSVFormat.EXCEL.withHeader("Last Name", "First Name").withFirstRecordAsHeader().parse(in).getRecords();
             for (CSVRecord record : records) {
-                boolean isHospitalised = false;
                 int id = Integer.parseInt(record.get("Id"));
                 String name = record.get("Name");
+                String nric = record.get("NRIC");
                 String remark = record.get("Remark");
                 String room = record.get("Room");
-                String hospitalised = record.get("isHospitalised");
-                if (hospitalised.equals("TRUE")) {
-                    isHospitalised = true;
-                }
-                patientList.add(new Patient(id, name, remark, room, isHospitalised));
-                System.out.println(id + " | " + name + " | " + remark + " | " + room + " | " + isHospitalised);
+                Patient patient = new Patient(id, name, nric, remark, room);
+                patientList.add(new Patient(id, name, nric, remark, room));
+//                System.out.println(id + " | " +  name + " | " + nric + " | " + remark + " | " + room); //List out patietns info for debugging
             }
             return patientList;
         } catch (IOException e) {
@@ -55,22 +51,20 @@ public class PatientStorage extends Storage<Patient>{
 
     @Override
     public void save(ArrayList<Patient> patients) throws DukeException {
-        try{
+        try {
             BufferedWriter writer = Files.newBufferedWriter(Paths.get(filePath));
             CSVPrinter csvPrinter = new CSVPrinter(writer, CSVFormat.DEFAULT
-                    .withHeader("Id", "Name", "Room", "Remark", "isHospitalised"));
-//            ArrayList<Patient> patients = patientList.getPatientList();
-            for (Patient patient : patients){
+                    .withHeader("Id", "Name", "NRIC", "Room", "Remark"));
+            for (Patient patient : patients) {
                 int id = patient.getID();
                 String room = patient.getRoom();
+                String NRIC = patient.getNRIC();
                 String name = patient.getName();
-                boolean isHospitalised = patient.isHospitalised();
                 String remark = patient.getRemark();
-                csvPrinter.printRecord(id, name, room, remark, isHospitalised);
+                csvPrinter.printRecord(id, name, NRIC, room, remark);
             }
             csvPrinter.flush();
-        }
-        catch(IOException e){
+        } catch (IOException e) {
             throw new DukeException(e.getMessage());
         }
     }
