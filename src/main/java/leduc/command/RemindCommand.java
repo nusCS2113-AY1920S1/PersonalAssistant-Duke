@@ -10,6 +10,8 @@ import java.util.ArrayList;
  */
 
 public class RemindCommand extends Command {
+
+    public static String remindShortcut = "remind";
     /**
      * Constructor of FindCommand.
      * @param user String which represent the input string of the user.
@@ -55,4 +57,11 @@ public class RemindCommand extends Command {
 
     }
 
+    public static String getRemindShortcut() {
+        return remindShortcut;
+    }
+
+    public static void setRemindShortcut(String remindShortcut) {
+        RemindCommand.remindShortcut = remindShortcut;
+    }
 }

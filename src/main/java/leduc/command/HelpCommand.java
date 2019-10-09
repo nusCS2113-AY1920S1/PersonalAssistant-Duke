@@ -9,6 +9,7 @@ import leduc.task.TaskList;
  * Display every command
  */
 public class HelpCommand extends Command{
+    public static String helpShortcut = "help";
 
     /**
      * Constructor
@@ -27,5 +28,13 @@ public class HelpCommand extends Command{
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
         ui.showHelp();
+    }
+
+    public static String getHelpShortcut() {
+        return helpShortcut;
+    }
+
+    public static void setHelpShortcut(String helpShortcut) {
+        HelpCommand.helpShortcut = helpShortcut;
     }
 }

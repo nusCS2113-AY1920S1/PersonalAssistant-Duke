@@ -10,6 +10,8 @@ import leduc.task.TaskList;
  * Represents a Delete Command.
  */
 public class DoneCommand extends Command {
+
+    private static String doneShortcut = "done";
     /**
      * Constructor of DoneCommand
      * @param user String which represent the input string of the user.
@@ -39,4 +41,11 @@ public class DoneCommand extends Command {
         }
     }
 
+    public static String getDoneShortcut() {
+        return doneShortcut;
+    }
+
+    public static void setDoneShortcut(String doneShortcut) {
+        DoneCommand.doneShortcut = doneShortcut;
+    }
 }

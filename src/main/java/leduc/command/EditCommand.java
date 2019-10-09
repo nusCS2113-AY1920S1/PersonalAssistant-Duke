@@ -15,6 +15,8 @@ import leduc.task.TaskList;
  * Allow to edit a task.
  */
 public class EditCommand extends Command {
+
+    public static String editShortcut = "edit";
     /**
      * Constructor of EditCommand.
      * @param user String which represent the input string of the user.
@@ -104,4 +106,11 @@ public class EditCommand extends Command {
         storage.save(tasks.getList());
     }
 
+    public static String getEditShortcut() {
+        return editShortcut;
+    }
+
+    public static void setEditShortcut(String editShortcut) {
+        EditCommand.editShortcut = editShortcut;
+    }
 }

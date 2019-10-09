@@ -13,6 +13,8 @@ import leduc.task.TodoTask;
  * Allows to add the todo task in the tasks list and the data file.
  */
 public class TodoCommand extends Command {
+
+    public static String todoShortcut = "todo";
     /**
      * Constructor of TodoCommand.
      * @param user String which represent the input string of the user.
@@ -43,4 +45,11 @@ public class TodoCommand extends Command {
         }
     }
 
+    public static String getTodoShortcut() {
+        return todoShortcut;
+    }
+
+    public static void setTodoShortcut(String todoShortcut) {
+        TodoCommand.todoShortcut = todoShortcut;
+    }
 }

@@ -9,6 +9,7 @@ import leduc.task.TaskList;
  * Allow to find a specific task from the task list.
  */
 public class FindCommand extends Command {
+    public static String findShortcut = "find";
     /**
      * Constructor of FindCommand.
      * @param user String which represent the input string of the user.
@@ -38,4 +39,11 @@ public class FindCommand extends Command {
         }
     }
 
+    public static String getFindShortcut() {
+        return findShortcut;
+    }
+
+    public static void setFindShortcut(String findShortcut) {
+        FindCommand.findShortcut = findShortcut;
+    }
 }

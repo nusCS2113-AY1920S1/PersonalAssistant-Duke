@@ -16,6 +16,8 @@ public class SetWelcomeCommand extends Command{
        super(user);
     }
 
+    public static String setWelcomeShortcut = "setwelcome";
+
     /**
      * Allow to change the welcome message.
      * @param tasks leduc.task.TaskList which is the list of task.
@@ -42,5 +44,13 @@ public class SetWelcomeCommand extends Command{
             e.printStackTrace();
             throw new FileException();
         }
+    }
+
+    public static String getSetWelcomeShortcut() {
+        return setWelcomeShortcut;
+    }
+
+    public static void setSetWelcomeShortcut(String setWelcomeShortcut) {
+        SetWelcomeCommand.setWelcomeShortcut = setWelcomeShortcut;
     }
 }

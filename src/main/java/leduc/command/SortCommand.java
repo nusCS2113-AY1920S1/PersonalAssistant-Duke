@@ -16,6 +16,7 @@ import java.util.Comparator;
  */
 public class SortCommand extends Command {
 
+    public static String sortShortcut = "sort";
     /**
      * Constructor of leduc.command.SortCommand
      * @param user String which represent the input string of the user.
@@ -59,5 +60,13 @@ public class SortCommand extends Command {
      */
     public boolean isExit(){
         return false;
+    }
+
+    public static String getSortShortcut() {
+        return sortShortcut;
+    }
+
+    public static void setSortShortcut(String sortShortcut) {
+        SortCommand.sortShortcut = sortShortcut;
     }
 }

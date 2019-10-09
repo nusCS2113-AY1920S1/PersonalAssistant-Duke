@@ -13,6 +13,8 @@ import leduc.task.TaskList;
  * Represents Postpone command which postpone the deadline of a deadline task.
  */
 public class PostponeCommand extends Command {
+
+    public static String postponeShortcut = "postpone";
     /**
      * Constructor of PostponeCommand.
      * @param user String which represent the input string of the user.
@@ -74,4 +76,11 @@ public class PostponeCommand extends Command {
         return false;
     }
 
+    public static String getPostponeShortcut() {
+        return postponeShortcut;
+    }
+
+    public static void setPostponeShortcut(String postponeShortcut) {
+        PostponeCommand.postponeShortcut = postponeShortcut;
+    }
 }

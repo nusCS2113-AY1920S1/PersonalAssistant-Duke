@@ -11,6 +11,11 @@ import leduc.task.TaskList;
 public class ByeCommand extends Command {
 
     /**
+     * static variable used for shortcut
+     */
+    private static String byeShortcut = "bye";
+
+    /**
      * Constructor of leduc.command.ByeCommand
      * @param user String which represent the input string of the user.
      */
@@ -36,5 +41,21 @@ public class ByeCommand extends Command {
      */
     public boolean isExit(){
         return true;
+    }
+
+    /**
+     * used when the user want to change the shortcut
+     * @param byeShortcut the new shortcut
+     */
+    public static void setByeShortcut(String byeShortcut){
+        ByeCommand.byeShortcut = byeShortcut;
+    }
+
+    /**
+     * getter as the shortcut is private
+     * @return the shortcut name
+     */
+    public static String getByeShortcut(){
+        return ByeCommand.byeShortcut;
     }
 }

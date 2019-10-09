@@ -9,6 +9,8 @@ import leduc.task.TaskList;
  * Allow to display all the tasks contained in the tasks list.
  */
 public class ListCommand extends Command {
+
+    public static String listShortcut = "list";
     /**
      * Constructor of ListCommand.
      * @param user String which represent the input string of the user.
@@ -32,4 +34,11 @@ public class ListCommand extends Command {
         }
     }
 
+    public static String getListShortcut() {
+        return listShortcut;
+    }
+
+    public static void setListShortcut(String listShortcut) {
+        ListCommand.listShortcut = listShortcut;
+    }
 }

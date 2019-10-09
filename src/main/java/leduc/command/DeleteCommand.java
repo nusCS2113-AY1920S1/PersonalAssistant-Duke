@@ -11,6 +11,7 @@ import leduc.task.TaskList;
  * Represents a Delete Command.
  */
 public class DeleteCommand extends Command {
+    private static String deleteShortcut = "delete";
     /**
      * Constructor of DeleteCommand.
      * @param user String which represent the input string of the user.
@@ -41,4 +42,11 @@ public class DeleteCommand extends Command {
         }
     }
 
+    public static String getDeleteShortcut() {
+        return deleteShortcut;
+    }
+
+    public static void setDeleteShortcut(String deleteShortcut) {
+        DeleteCommand.deleteShortcut = deleteShortcut;
+    }
 }

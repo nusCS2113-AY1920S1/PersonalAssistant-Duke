@@ -12,6 +12,8 @@ import leduc.task.TaskList;
  * Represents Snooze command which snooze the deadline of a deadline task.
  */
 public class SnoozeCommand extends Command{
+
+    public static String snoozeShortcut = "snooze";
     /**
      * Constructor of SnoozeCommand.
      * @param user user String which represent the input string of the user.
@@ -56,5 +58,11 @@ public class SnoozeCommand extends Command{
         return false;
     }
 
+    public static String getSnoozeShortcut() {
+        return snoozeShortcut;
+    }
 
+    public static void setSnoozeShortcut(String snoozeShortcut) {
+        SnoozeCommand.snoozeShortcut = snoozeShortcut;
+    }
 }

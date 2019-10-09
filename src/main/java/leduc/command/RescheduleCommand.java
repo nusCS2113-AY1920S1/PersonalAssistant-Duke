@@ -12,6 +12,8 @@ import leduc.task.TaskList;
  * Represents Reschedule command which reschedule the period of a event task.
  */
 public class RescheduleCommand extends Command {
+
+    public static String rescheduleShortcut = "reschedule";
     /**
      * Constructor of RescheduleCommand.
      * @param user String which represent the input string of the user.
@@ -86,4 +88,11 @@ public class RescheduleCommand extends Command {
         return false;
     }
 
+    public static String getRescheduleShortcut() {
+        return rescheduleShortcut;
+    }
+
+    public static void setRescheduleShortcut(String rescheduleShortcut) {
+        RescheduleCommand.rescheduleShortcut = rescheduleShortcut;
+    }
 }
