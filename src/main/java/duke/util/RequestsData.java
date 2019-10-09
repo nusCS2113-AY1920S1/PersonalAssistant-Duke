@@ -8,68 +8,88 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.time.Duration;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-import com.google.gson.Gson;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-
+import duke.exceptions.ModBadRequestStatus;
 
 public class RequestsData {
 
-
-
-    private Gson gson;
-    private static Integer val = 0;
-
-
     public RequestsData() {
-        gson = new Gson();
+
     }
 
-
     /**
-     * With reference from :https://openjdk.java.net/groups/net/httpclient/intro.html.
-     * Using the nusMods V2 API : https://api.nusmods.com/v2/
+     * Request builder for API call summary module data.
+     * @param mod Module of interest to be queried.
+     * @return HttpRequest formatted with the nusMods API call.
      */
-    public void setRequestData(String mod, Storage store) {
-        // Api calls only work with upper case module code
-        mod = mod.toUpperCase();
-        HttpClient client = HttpClient.newHttpClient();
-        HttpRequest request = HttpRequest.newBuilder()
-                .uri(URI.create("https://api.nusmods.com/v2/2018-2019/modules/" + mod + ".json"))
+    public HttpRequest requestModule(String mod) {
+        String upperMod = mod.trim().toUpperCase();
+        return HttpRequest.newBuilder()
+                .uri(URI.create("https://api.nusmods.com/v2/2019-2020/modules/" + upperMod + ".json"))
                 .timeout(Duration.ofMinutes(1))
                 .header("Content-Type", "application/json")
                 .build();
+    }
+
+    /**
+     * Request builder for API call summary module data.
+     * @param academicYear Academic year of interest
+     * @return HttpRequest formatted with the nusMods API call.
+     */
+    public HttpRequest requestModuleList(String academicYear) {
+        return HttpRequest.newBuilder()
+                .uri(URI.create("https://api.nusmods.com/v2/" + academicYear + "/moduleList.json"))
+                .timeout(Duration.ofMinutes(1))
+                .header("Content-Type", "application/json")
+                .build();
+    }
+
+    /**
+     * Request builder for API call detailed module data.
+     * @param academicYear Academic year of interest
+     * @return HttpRequest formatted with the nusMods API call.
+     */
+    public HttpRequest requestModuleListDetailed(String academicYear) {
+        return HttpRequest.newBuilder()
+                .uri(URI.create("https://api.nusmods.com/v2/" + academicYear + "/moduleInfo.json"))
+                .timeout(Duration.ofMinutes(1))
+                .header("Content-Type", "application/json")
+                .build();
+    }
+
+    /**
+     * HttpRequest with reference from :https://openjdk.java.net/groups/net/httpclient/intro.html.
+     * Using the nusMods V2 API : https://api.nusmods.com/v2/
+     * Stores requests made into *.json files for further processing
+     */
+    public void storeModData(HttpRequest request, Storage store) throws ModBadRequestStatus {
+        // Api calls only work with upper case module code
+        HttpClient client = HttpClient.newHttpClient();
         try {
-            // TODO: Remove this after testing
-            if (val == 0) {
-                val++;
-                return;
-            }
             // Response.body() contains the returned module info as JSON string
             HttpResponse<String> response =
                     client.send(request, HttpResponse.BodyHandlers.ofString());
-            System.out.println(response.statusCode());
             // If return status is not 200, and error request has been made
             if (response.statusCode() != 200) {
-                return;
+                throw new ModBadRequestStatus();
             }
-            System.out.println(response.body());
             List<String> responseList = getResponseList(response.body());
-            JsonElement element = gson.fromJson(response.body(), JsonElement.class);
-            JsonObject jsonObject = element.getAsJsonObject();
-            System.out.println(jsonObject);
             store.writeModsData(responseList);
-            val++;
         } catch (IOException e) {
             e.printStackTrace();
         } catch (InterruptedException ie) {
-            System.out.println(ie.getMessage());
+            System.out.println(Arrays.toString(ie.getStackTrace()));
         }
     }
 
+    /**
+     * Formats a string to list of strings based on new line character.
+     * @param responseBody String containing response from HttpRequest.
+     * @return A list of string, separated by new line characters.
+     */
     private List<String> getResponseList(String responseBody) {
         String[] test = responseBody.split("\n");
         List<String> ret = new ArrayList<>(Collections.emptyList());

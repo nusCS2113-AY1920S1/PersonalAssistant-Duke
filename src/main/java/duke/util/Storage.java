@@ -1,16 +1,15 @@
 package duke.util;
 
-import duke.exceptions.DukeInvalidTimeException;
-import duke.exceptions.DukeInvalidTimePeriodException;
+import duke.exceptions.ModInvalidTimeException;
+import duke.exceptions.ModInvalidTimePeriodException;
+import duke.modules.Deadline;
+import duke.modules.DoWithin;
+import duke.modules.Events;
+import duke.modules.RecurringTask;
+import duke.modules.FixedDurationTasks;
+import duke.modules.Task;
+import duke.modules.Todo;
 
-import duke.tasks.Deadline;
-import duke.tasks.DoWithin;
-import duke.tasks.Events;
-import duke.tasks.FixedDurationTasks;
-import duke.tasks.RecurringTask;
-import duke.tasks.FixedDurationTasks;
-import duke.tasks.Task;
-import duke.tasks.Todo;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
@@ -31,18 +30,29 @@ public class Storage {
     private Path path;
     private Path dataPath;
 
-    private boolean dataPathExists;
-    private boolean fileExists;
+    private boolean dataPathExists = false;
+    private boolean fileExists = false;
 
     /**
-     * Constructor for storage class.
+     * Default Constructor for storage class.
      *
      */
     public Storage() {
         path = Paths.get("data/dukeData.text");
-        dataPath = Paths.get("data/modsData.text");
-        setDataPathExists();
         setFileExists();
+    }
+
+    /**
+     * Overloaded Constructor for storage class, specifying the data path as String.
+     */
+    public Storage(String filePath) {
+        dataPath = Paths.get(filePath);
+        setDataPathExists();
+    }
+
+    public void setDataPath(Path dataPath) {
+        this.dataPath = dataPath;
+        setDataPathExists();
     }
 
     /**
@@ -50,7 +60,7 @@ public class Storage {
      * and returns the previously stored data as a TaskList.
      * @return TaskList of what was saved in the data file.
      */
-    public List<Task> readData() throws DukeInvalidTimeException, DukeInvalidTimePeriodException {
+    public List<Task> readData() throws ModInvalidTimeException, ModInvalidTimePeriodException {
         List<Task> list = new ArrayList<>();
         List<String> lines = Collections.emptyList();
 
@@ -111,7 +121,7 @@ public class Storage {
                         }
                         list.add(tempFixedDuration);
                         break;
-                    } catch (DukeInvalidTimeException ex) {
+                    } catch (ModInvalidTimeException ex) {
                         break;
                     }
                 }
@@ -127,7 +137,7 @@ public class Storage {
         return fileExists;
     }
 
-    boolean getDataPathExists() {
+    public boolean getDataPathExists() {
         return dataPathExists;
     }
 
@@ -151,16 +161,19 @@ public class Storage {
             stringListTask.add(temp.writingFile());
         }
         try {
-            if (fileExists) {
-                Files.write(path, stringListTask, StandardCharsets.UTF_8);
-            } else {
-                Files.createDirectories(path.getParent());
-                Files.createFile(path);
+            if (!fileExists) {
+                makeFile(path);
                 setFileExists();
             }
+            Files.write(path, stringListTask, StandardCharsets.UTF_8);
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    private void makeFile(Path path) throws IOException {
+        Files.createDirectories(path.getParent());
+        Files.createFile(path);
     }
 
     /**
@@ -169,13 +182,11 @@ public class Storage {
      */
     public void writeModsData(List<String> data) {
         try {
-            if (dataPathExists) {
-                Files.write(dataPath, data, StandardCharsets.UTF_8);
-            } else {
-                Files.createDirectories(dataPath.getParent());
-                Files.createFile(dataPath);
+            if (!dataPathExists) {
+                makeFile(dataPath);
                 setDataPathExists();
             }
+            Files.write(dataPath, data, StandardCharsets.UTF_8);
         } catch (IOException e) {
             e.printStackTrace();
         }

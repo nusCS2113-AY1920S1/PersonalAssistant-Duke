@@ -1,7 +1,7 @@
-package duke.tasks;
+package duke.modules;
 
-import duke.exceptions.DukeInvalidTimeException;
-import duke.exceptions.DukeInvalidTimePeriodException;
+import duke.exceptions.ModInvalidTimeException;
+import duke.exceptions.ModInvalidTimePeriodException;
 import duke.util.DateTimeParser;
 
 import java.time.LocalDateTime;
@@ -14,7 +14,7 @@ public class Deadline extends Task {
      * @param input Parsed user string input, first input being name,
      *              second input being the date.
      */
-    public Deadline(String... input) throws DukeInvalidTimeException, DukeInvalidTimePeriodException {
+    public Deadline(String... input) throws ModInvalidTimeException, ModInvalidTimePeriodException {
         super(input[0]);
         this.period.setPeriod(null, DateTimeParser.getStringToDate(input[input.length - 1]));
     }

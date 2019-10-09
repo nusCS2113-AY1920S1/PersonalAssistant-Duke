@@ -1,6 +1,6 @@
 package duke.util;
 
-import duke.exceptions.DukeInvalidTimePeriodException;
+import duke.exceptions.ModInvalidTimePeriodException;
 
 import java.time.LocalDateTime;
 
@@ -13,9 +13,9 @@ public class TimePeriod {
      * Constructor for TimePeriod check.
      * @param begin Start date.
      * @param end End date.
-     * @throws DukeInvalidTimePeriodException thrown when date period is invalid.
+     * @throws ModInvalidTimePeriodException thrown when date period is invalid.
      */
-    public TimePeriod(LocalDateTime begin, LocalDateTime end) throws DukeInvalidTimePeriodException {
+    public TimePeriod(LocalDateTime begin, LocalDateTime end) throws ModInvalidTimePeriodException {
         this.setPeriod(begin, end);
     }
 
@@ -23,20 +23,20 @@ public class TimePeriod {
      * Constructor for TimePeriod check.
      * @param begin Start date.
      * @param isInstantEnd Ends immediately or not.
-     * @throws DukeInvalidTimePeriodException thrown when date period is invalid.
+     * @throws ModInvalidTimePeriodException thrown when date period is invalid.
      */
-    public TimePeriod(LocalDateTime begin, boolean isInstantEnd) throws DukeInvalidTimePeriodException {
+    public TimePeriod(LocalDateTime begin, boolean isInstantEnd) throws ModInvalidTimePeriodException {
         this(begin, null);
         if (isInstantEnd) {
             this.setEnd(this.getBegin());
         }
     }
 
-    public TimePeriod(LocalDateTime begin) throws DukeInvalidTimePeriodException {
+    public TimePeriod(LocalDateTime begin) throws ModInvalidTimePeriodException {
         this(begin, true);
     }
 
-    public TimePeriod() throws DukeInvalidTimePeriodException {
+    public TimePeriod() throws ModInvalidTimePeriodException {
         this(null, null);
     }
 
@@ -85,17 +85,17 @@ public class TimePeriod {
      * Set period for this object.
      * @param begin Start date.
      * @param end End date.
-     * @throws DukeInvalidTimePeriodException thrown when date period is invalid.
+     * @throws ModInvalidTimePeriodException thrown when date period is invalid.
      */
-    public void setPeriod(LocalDateTime begin, LocalDateTime end) throws DukeInvalidTimePeriodException {
-        if (end != null && end.isBefore(begin)) {
-            throw new DukeInvalidTimePeriodException("End before begin!");
+    public void setPeriod(LocalDateTime begin, LocalDateTime end) throws ModInvalidTimePeriodException {
+        if (end != null && begin != null && end.isBefore(begin)) {
+            throw new ModInvalidTimePeriodException("End before begin!");
         }
         this.begin = begin;
         this.end = end;
     }
 
-    public void setPeriod(LocalDateTime begin, TimeInterval duration) throws DukeInvalidTimePeriodException {
+    public void setPeriod(LocalDateTime begin, TimeInterval duration) throws ModInvalidTimePeriodException {
         this.setPeriod(begin, begin.plus(duration));
     }
 

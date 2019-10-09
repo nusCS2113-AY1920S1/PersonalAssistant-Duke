@@ -1,13 +1,13 @@
 package duke.command;
 
-import duke.exceptions.DukeInvalidTimeException;
-import duke.exceptions.DukeInvalidTimePeriodException;
-import duke.exceptions.DukeNoTimeException;
-import duke.tasks.Deadline;
-import duke.tasks.DoWithin;
-import duke.tasks.Events;
-import duke.tasks.Task;
-import duke.exceptions.DukeInvalidIndexException;
+import duke.exceptions.ModInvalidTimeException;
+import duke.exceptions.ModInvalidTimePeriodException;
+import duke.exceptions.ModNoTimeException;
+import duke.modules.Deadline;
+import duke.modules.DoWithin;
+import duke.modules.Events;
+import duke.modules.Task;
+import duke.exceptions.ModInvalidIndexException;
 
 import duke.util.DateTimeParser;
 import duke.util.Reminder;
@@ -55,19 +55,19 @@ public class RescheduleCommand extends Command {
      * @param tasks TaskList object containing current active taskList.
      * @param ui Ui object containing all output methods to user.
      * @param store Storage object which updates stored data.
-     * @throws DukeInvalidIndexException If user inputs invalid index.
-     * @throws DukeInvalidTimeException If user inputs invalid date/time.
-     * @throws DukeNoTimeException If user inputs time based tasks without any time.
-     * @throws DukeInvalidTimePeriodException If user inputs an invalid time period.
+     * @throws ModInvalidIndexException If user inputs invalid index.
+     * @throws ModInvalidTimeException If user inputs invalid date/time.
+     * @throws ModNoTimeException If user inputs time based tasks without any time.
+     * @throws ModInvalidTimePeriodException If user inputs an invalid time period.
      */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage store, Reminder reminder) throws
-            DukeInvalidIndexException,
-            DukeInvalidTimeException,
-            DukeNoTimeException,
-            DukeInvalidTimePeriodException {
+            ModInvalidIndexException,
+            ModInvalidTimeException,
+            ModNoTimeException,
+            ModInvalidTimePeriodException {
         if (index >= tasks.getTasks().size() || index < 0) {
-            throw new DukeInvalidIndexException();
+            throw new ModInvalidIndexException();
         } else {
             Task task = tasks.access(index);
             if (task instanceof Deadline) {
@@ -82,7 +82,7 @@ public class RescheduleCommand extends Command {
                         DateTimeParser.getStringToDate(this.end));
                 ui.rescheduleTaskMsg(task, "between " + this.begin + " and " + this.end);
             } else {
-                throw new DukeNoTimeException();
+                throw new ModNoTimeException();
             }
         }
     }
