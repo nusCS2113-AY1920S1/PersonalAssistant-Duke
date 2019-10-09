@@ -1,31 +1,22 @@
 package duke.tasklist;
 
 import duke.exception.DukeException;
-import duke.task.TentativeScheduling;
-import duke.task.Period;
-import duke.task.DoAfter;
-import duke.task.Duration;
-import duke.task.Todo;
-import duke.task.Deadline;
-import duke.task.Event;
-import duke.task.Task;
-import duke.task.Recurring;
+import duke.task.duketasks.TentativeScheduling;
+import duke.task.duketasks.Period;
+import duke.task.duketasks.DoAfter;
+import duke.task.duketasks.Duration;
+import duke.task.duketasks.Todo;
+import duke.task.duketasks.Deadline;
+import duke.task.duketasks.Event;
+import duke.task.duketasks.Task;
+import duke.task.duketasks.Recurring;
 
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
-import static duke.common.Messages.DISPLAYED_INDEX_OFFSET;
-import static duke.common.Messages.MESSAGE_ADDED;
-import static duke.common.Messages.MESSAGE_DELETE;
-import static duke.common.Messages.MESSAGE_ITEMS1;
-import static duke.common.Messages.MESSAGE_ITEMS2;
-import static duke.common.Messages.MESSAGE_MARKED;
-import static duke.common.Messages.ERROR_MESSAGE_NOTFOUND;
-import static duke.common.Messages.MESSAGE_TENTATIVE;
-import static duke.common.Messages.MESSAGE_SCHEDULED;
-import static duke.common.Messages.MESSAGE_SNOOZE;
+import static duke.common.Messages.*;
 
 /**
  * Handles all the operations for the task in the list.
@@ -58,9 +49,10 @@ public class TaskList {
      */
     public ArrayList<String> findTask(String description) throws DukeException {
         ArrayList<String> arrFind = new ArrayList<>();
-        for (int i = 0; i < getSize(); i++) {
+        for (int i = 0; i < getSize() / 3; i++) {
+            final int displayIndex = i + DISPLAYED_INDEX_OFFSET;
             if (taskList.get(i).getDescription().contains(description)) {
-                arrFind.add(taskList.get(i).toString());
+                arrFind.add("     " + displayIndex + ". " + taskList.get(i).toString());
             }
         }
         if (arrFind.isEmpty()) {
@@ -76,10 +68,11 @@ public class TaskList {
      */
     public ArrayList<String> listTask() {
         ArrayList<String> arrList = new ArrayList<>();
-        for (int i = 0; i < getSize(); i++) {
+        for (int i = 0; i < getSize() / 3; i++) {
             final int displayIndex = i + DISPLAYED_INDEX_OFFSET;
             arrList.add("     " + displayIndex + ". " + taskList.get(i));
         }
+        System.out.println("this is the number of items in the list: " + getSize());
         return arrList;
     }
 

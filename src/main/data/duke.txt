@@ -1,4 +1,26 @@
+T | + | text see testing
+R | + | exams | monthly | 21
 T | + | text ui testing
+TS | + | book empty slots | 2/12/2019 1800
+P | - | task | 2/2/2019 | 3/3/2019
+E | - | project meeting  |  Aug 6th 2-4pm
+D | - | return book  | 2/12/2019 1800
+D | - | assignment 3  | 9/9/2019 1200
+T | - | JUnit testing
+T | - | return book  |  the exam is over
+T | - | text ui testing
+D | - | return book  | 2/12/2019 1800
+E | - | party  |  beach
+D | - | submit assignment  | 17/9/2019 2359
+T | - | text ui testing
+D | - | return book  | 2/12/2019 1800
+T | - | text ui testing
+D | - | return book  | 2/12/2019 1800
+T | - | return book between 2/2/2019 /and 3/3/2019
+T | - | return book /between 2/2/2019 /and 3/3/2019
+E | - | project meeting  |  Aug 6th 2-4pm
+E | - | project meeting  |  NUS
+T | - | test gui
 D | - | watch movie | 69/9/2019 1830
 E | - | go run | track
 D | + | buy book | 12/12/2019 1800
@@ -6,7 +28,6 @@ D | - | buy phone | 8/11/2019 2300
 T | - | eating
 F | - | eating | 2 hours
 D | - | submit assignment | 2/2/2019 1800
-TS | + | book empty slots | 2/12/2019 1800
 TS | + | book slots | 3/12/2019 1900
 TS | + | book  slots | 3/3/2019 1900
 T | - | homework
@@ -22,7 +43,6 @@ T | - | eating
 E | - | meeting | school
 F | - | homework | 3 hours
 D | - | code | 2/2/2019 1800
-P | - | task | 2/2/2019 | 3/3/2019
 R | - | task | daily
 R | - | task | weekly | Thursday
 R | - | task | monthly | 2

@@ -110,6 +110,7 @@ Examples:
 
 Edits a recipe in the recipe list +
 Format:
+
 * `editrecipe <recipe_number> OR editrecipe <recipe_name>`
 * `field1 <changes>, field2 <changes>, field3 <changes> field4 <changes>`
 
@@ -159,6 +160,7 @@ Format:
 * `userecipe <recipe_number>`
 
 Examples:
+
 * `userecipe 2`
 * `userecipe garlic prawn`
 
