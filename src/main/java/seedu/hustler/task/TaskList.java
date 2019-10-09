@@ -4,13 +4,17 @@ import java.io.IOException;
 import java.text.ParseException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-
-import seedu.hustler.data.CommandLog;
+import java.util.Scanner;
 import seedu.hustler.Hustler;
 import seedu.hustler.data.AvatarStorage;
+import seedu.hustler.data.CommandLog;
 import seedu.hustler.data.Schedule;
+import seedu.hustler.game.achievement.AchievementList;
+import seedu.hustler.game.achievement.AddTask;
+import seedu.hustler.game.achievement.DoneTask;
 import seedu.hustler.ui.Ui;
-
+import static seedu.hustler.game.achievement.AddTask.addAchievementLevel;
+import static seedu.hustler.game.achievement.DoneTask.doneAchievementLevel;
 import static seedu.hustler.parser.DateTimeParser.getDateTime;
 
 /**
@@ -137,12 +141,16 @@ public class TaskList {
         }
         if (!CommandLog.isRestoring()) {
             if (!checkAnomaly) {
-                String output = "\t  " + list.get(list.size() - 1).toString();
-                System.out.println("\t_____________________________________");
-                System.out.println("\tGot it. I've added this task:");
-                System.out.println(output);
-                System.out.println("\tNow you have " + list.size() + " tasks in the list.");
-                System.out.println("\t_____________________________________\n\n");
+                    AddTask.increment();
+                    AddTask.updateAchievementLevel();
+                    AddTask.updatePoints();
+                    AchievementList.updateAddTask(addAchievementLevel);
+                    String output = "\t  " + list.get(list.size() - 1).toString();
+                    System.out.println("\t_____________________________________");
+                    System.out.println("\tGot it. I've added this task:");
+                    System.out.println(output);
+                    System.out.println("\tNow you have " + list.size() + " tasks in the list.");
+                    System.out.println("\t_____________________________________\n\n");
             } else {
                 System.out.println("Task clashes with another existing task in the list!");
             }
@@ -169,6 +177,10 @@ public class TaskList {
             list.get(i).markAsDone();
             if (list.get(i).isDone) {
                 if (!CommandLog.isRestoring()) {
+                    DoneTask.increment();
+                    DoneTask.updateAchievementLevel();
+                    DoneTask.updatePoints();
+                    AchievementList.updateDoneTask(doneAchievementLevel);
                     System.out.println("\t_____________________________________");
                     System.out.println("\tNice! I've marked this task as done:");
                     System.out.println("\t  " + (i + 1) + "." + list.get(i).toString());
@@ -194,13 +206,11 @@ public class TaskList {
         try {
             final Task lastTask = list.get(i);
             list.remove(i);
-            if (!CommandLog.isRestoring()) {
-                System.out.println("\t_____________________________________");
-                System.out.println("\tNoted. I have removed this task:");
-                System.out.println("\t  " + (i + 1) + "." + lastTask.toString());
-                System.out.println("\tNow there are " + list.size() + " tasks left.");
-                System.out.println("\t_____________________________________\n\n");
-            }
+            System.out.println("\t_____________________________________");
+            System.out.println("\tNoted. I have removed this task:");
+            System.out.println("\t  " + (i + 1) + "." + lastTask.toString());
+            System.out.println("\tNow there are " + list.size() + " tasks left.");
+            System.out.println("\t_____________________________________\n\n");
         } catch (IndexOutOfBoundsException e) {
             ui.task_doesnt_exist_error();
         }

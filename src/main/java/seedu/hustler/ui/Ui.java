@@ -30,7 +30,7 @@ public class Ui {
      */
     public void show_save_error() {
         System.out.println("\t_____________________________________");
-        System.out.println("\tCouldn't save file.");
+        System.out.println("\tCouldn't saveAchievements file.");
         System.out.println("\t_____________________________________\n\n");
     }
 
@@ -102,7 +102,7 @@ public class Ui {
     public void date_time_error() {
         System.out.println("\t_____________________________________");
         System.out.println("\tFormat of time is incorrect either in command "
-            + "or save file. Saving event/deadline as mentioned without date "
+            + "or saveAchievements file. Saving event/deadline as mentioned without date "
             + "time parsing.");
         System.out.println("\t_____________________________________\n\n");
     }
@@ -138,4 +138,8 @@ public class Ui {
 
         System.out.println("Hello from\n" + logo);
     }
+
+
+
+
 }

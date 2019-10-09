@@ -40,7 +40,7 @@ public class ToDo extends Task {
 
     /**
      * Overrides the method to display the task type along
-     * with inherited task string save format.
+     * with inherited task string saveAchievements format.
      *
      * @return inherited string plus task format.
      */

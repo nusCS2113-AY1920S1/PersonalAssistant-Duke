@@ -153,7 +153,7 @@ public class Storage {
     /**
      * Saves the input task list to disc.
      *
-     * @param inputList the list of tasks to save to disc.
+     * @param inputList the list of tasks to saveAchievements to disc.
      * @throws IOException if file could not be saved
      */
     public void save(ArrayList<Task> inputList) throws IOException {
@@ -168,7 +168,7 @@ public class Storage {
             directory.mkdir();
         }
 
-        // save inputs
+        // saveAchievements inputs
         String savedLine = inputList.get(0).toSaveFormat();
         for (int i = 1; i < inputList.size(); i++) {
             savedLine = savedLine + "\n" + inputList.get(i).toSaveFormat();

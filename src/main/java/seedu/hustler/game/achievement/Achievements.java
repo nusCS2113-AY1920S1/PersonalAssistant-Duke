@@ -1,26 +1,65 @@
 package seedu.hustler.game.achievement;
 
-
-import java.util.ArrayList;
-
 /**
  * Achievements that the user can achieve in Hustler.
  */
-public abstract class Achievements {
+public abstract class Achievements implements Write{
 
     /**
-     * List of achievement that the user unlocked.
+     * Total points the user has.
      */
-    private ArrayList<String> achievementUnlocked = new ArrayList<>();
+    public static int totalPoints;
 
     /**
-     * List of achievement that can be unlocked.
+     * Retrieve achievement level of a particular achievement.
+     * @return
      */
-    private ArrayList<String> achievementList = new ArrayList<>();
+    public abstract String getAchievementLevel();
 
     /**
-     * User's current point.
+     * Retrieve description of an achievement.
+     * @return
      */
-    private int points = 0;
+    public abstract String getDescription();
+
+    /**
+     * Retrieve information regarding an achievement.
+     * @return
+     */
+    public abstract String getInformation();
+
+    /**
+     * Retrieve points attainable from an achievement.
+     * @return
+     */
+    public abstract int getPoints();
+
+    /**
+     * Update how much point is gained from unlocking an achievement.
+     * @param points
+     * @return
+     */
+    public abstract int setPoints(int points);
+
+    /**
+     * Check whether achievement is locked.
+     * @return
+     */
+    public abstract Boolean checkLock();
+
+    /**
+     * Unlock an achievement.
+     * @param lock
+     * @return
+     */
+    public abstract Boolean setLock(Boolean lock);
+
+    /**
+     * Format which the achievement will be printed out.
+     * @return
+     */
+    public String toString(){
+        return "Gained:";
+    }
 
 }
