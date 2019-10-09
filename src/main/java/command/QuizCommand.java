@@ -5,6 +5,9 @@ import ui.Ui;
 
 import java.util.*;
 
+/**
+ * Generate a 4-option MCQ. User should answer by index of options, namely 1, 2, 3, 4.
+ */
 public class QuizCommand extends Command  {
     protected String question;
     protected String answer;
