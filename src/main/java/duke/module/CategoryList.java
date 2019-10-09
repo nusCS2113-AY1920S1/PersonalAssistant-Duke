@@ -1,4 +1,4 @@
-package duke.module;
+package duke.Module;
 
 import duke.Task.Item;
 
