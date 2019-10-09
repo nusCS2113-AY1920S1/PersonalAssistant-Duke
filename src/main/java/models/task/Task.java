@@ -41,6 +41,10 @@ public class Task {
         return formatter.format(this.dueDate);
     }
 
+    /**
+     * Gets the details of the task in a String format in the correct layout.
+     * @return String containing all the details of the task.
+     */
     public String getDetails() {
         if (this.dueDate != null) {
             return this.taskName + " | Priority: "
