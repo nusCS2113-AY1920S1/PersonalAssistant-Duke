@@ -4,6 +4,7 @@ import models.data.IProject;
 import repositories.ProjectRepository;
 import views.CLIView;
 
+import java.text.ParseException;
 import java.util.Scanner;
 
 public class ProjectInputController {
@@ -70,7 +71,7 @@ public class ProjectInputController {
                         String taskDetails = manageProjectInput.nextLine();
                         TaskFactory taskFactory = new TaskFactory();
                         consoleView.addTask(projectToManage, taskFactory.createTask(taskDetails));
-                    } catch (NumberFormatException e) {
+                    } catch (NumberFormatException | ParseException e) {
                         consoleView.consolePrint("Please enter your task format correctly");
                     }
                     break;
