@@ -1,10 +1,9 @@
 package eggventory.items;
 
 /**
- * An abstract class. Children classes are CollectiveStock and UniqueStock.
- * Represents a stock of a particular item in the inventory.
- * A type of stock (eg. 560ohm resistor) may consist of many individual items (multiple resistors),
- * but they are all considered interchangeable and are not individually identified.
+ * An abstract class representing a type of item that the lab keeps and is able to loan out.
+ * Children classes are CollectiveStock and UniqueStock.
+ * A stock is first added with its stockType, stockCode, description and quantity.
  * Within a stock, some of the items may be marked as 'on loan', or 'lost'.
  * TODO: Finish up the comments on this class after finalising the glossary.
  */
@@ -16,6 +15,8 @@ public class Stock {
     private String description;
     private int loaned;
     private int lost;
+    //private int min; //Minimum quantity the lab should maintain. To implement in the future.
+    //private int loanLimit; //Maximum quantity an individual can loan. To implement in the future.
 
     /**
      * An stock is first added with its stockType, stockCode, description and quantity.
