@@ -15,10 +15,14 @@ import optix.commands.seats.ViewSeatsCommand;
 import optix.exceptions.OptixException;
 import optix.exceptions.OptixInvalidCommandException;
 
+import java.util.HashMap;
+
 /**
  * Parse input arguments and create a new Command Object.
  */
 public class Parser {
+
+    private static final HashMap<String, String> commandAliasMap = new HashMap<>();
 
     /**
      * Parse input argument and create a new Command Object based on the first input word.
@@ -28,12 +32,27 @@ public class Parser {
      * @throws OptixException if the Command word is not recognised by Optix.
      */
     public static Command parse(String fullCommand) throws OptixException {
+        // populate commandAliasMap
+        commandAliasMap.put("s", "sell");
+        commandAliasMap.put("v", "view");
+        commandAliasMap.put("a", "add");
+        commandAliasMap.put("D", "delete-all");
+        commandAliasMap.put("d", "delete");
+        commandAliasMap.put("e", "edit");
+        commandAliasMap.put("L", "list");
+        commandAliasMap.put("p", "postpone");
+        commandAliasMap.put("b", "bye");
+        commandAliasMap.put("h", "help");
+
 
         // add exception for null pointer exception. e.g. postpone
         String[] splitStr = fullCommand.trim().split(" ", 2);
+        String aliasName = splitStr[0];
+        String commandName = commandAliasMap.getOrDefault(aliasName, aliasName);
+        commandName = commandName.toLowerCase().trim(); // is the lower case and trim necessary ?
 
         if (splitStr.length == 1) {
-            switch (splitStr[0].toLowerCase().trim()) {
+            switch (commandName) {
             case "bye":
                 return new ByeCommand();
             case "list":
@@ -46,7 +65,8 @@ public class Parser {
         } else if (splitStr.length == 2) {
 
             // There will definitely be exceptions thrown here. Need to stress test and then categorise
-            switch (splitStr[0].toLowerCase().trim()) {
+            switch (commandName) {
+
             case "edit":
                 return parseEditShow(splitStr[1]);
             case "sell":
@@ -74,6 +94,7 @@ public class Parser {
             throw new OptixInvalidCommandException();
         }
     }
+
 
     /**
      * Parse the remaining user input to its respective parameters for PostponeCommand.
