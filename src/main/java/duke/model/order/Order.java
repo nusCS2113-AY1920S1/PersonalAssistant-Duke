@@ -1,7 +1,6 @@
 package duke.model.order;
 
-import duke.model.commons.Customer;
-import duke.model.commons.Product;
+import duke.model.commons.comProduct;
 
 import java.util.Collections;
 import java.util.Date;
@@ -10,21 +9,25 @@ import java.util.Objects;
 
 import static duke.commons.util.CollectionUtil.requireAllNonNull;
 
+/**
+ * Represents an order in order list.
+ */
 public class Order {
-    public static enum Status {
-        ACTIVE,
-        COMPLETED,
-        CANCELED
-    }
 
-    private Customer customer;
+    //Identity field
     private final long id;
+    //Data fields
+    private final Customer customer;
     private final Date deliveryDate;
-    private final Map<Product, Integer> items;
+    private final Map<comProduct, Integer> items;
     private final String remarks;
     private final Status status;
 
-    public Order(Customer customer, Date deliveryDate, Status status, String remarks, Map<Product, Integer> items) {
+    /**
+     * Creates an order.
+     * Every field must be present and not null.
+     */
+    public Order(Customer customer, Date deliveryDate, Status status, String remarks, Map<comProduct, Integer> items) {
         requireAllNonNull(customer, deliveryDate, status, remarks, items);
 
         this.customer = customer;
@@ -33,6 +36,12 @@ public class Order {
         this.remarks = remarks;
         this.id = System.currentTimeMillis();
         this.items = items;
+    }
+
+    public enum Status {
+        ACTIVE,
+        COMPLETED,
+        CANCELED
     }
 
     public Customer getCustomer() {
@@ -47,7 +56,7 @@ public class Order {
         return deliveryDate;
     }
 
-    public Map<Product, Integer> getItems() {
+    public Map<comProduct, Integer> getItems() {
         return Collections.unmodifiableMap(items);
     }
 
@@ -67,8 +76,12 @@ public class Order {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         Order order = (Order) o;
         return id == order.id;
     }

@@ -2,6 +2,8 @@ package duke.logic.command.order;
 
 import duke.logic.command.commons.CommandResult;
 import duke.logic.command.commons.Undoable;
+import duke.logic.command.CommandResult;
+import duke.logic.command.Undoable;
 import duke.logic.command.exceptions.CommandException;
 import duke.model.Model;
 import duke.model.order.Order;
@@ -34,11 +36,12 @@ public class AddOrderCommand extends OrderCommand implements Undoable {
 
     @Override
     public void undo(Model model) throws CommandException {
+        model.deleteOrder(toAdd);
     }
 
     @Override
     public void redo(Model model) throws CommandException {
-
+        model.addOrder(toAdd);
     }
 
 }

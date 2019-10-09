@@ -3,15 +3,20 @@ package duke.logic.command.order;
 import duke.commons.core.Message;
 import duke.commons.core.index.Index;
 import duke.commons.util.CollectionUtil;
-import duke.logic.command.commons.CommandResult;
-import duke.logic.command.commons.Undoable;
+import duke.logic.command.CommandResult;
+import duke.logic.command.Undoable;
 import duke.logic.command.exceptions.CommandException;
 import duke.model.Model;
-import duke.model.commons.Customer;
-import duke.model.commons.Product;
+import duke.model.commons.comProduct;
+import duke.model.order.Customer;
 import duke.model.order.Order;
 
-import java.util.*;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
+import java.util.Optional;
 
 import static duke.commons.util.CollectionUtil.requireAllNonNull;
 import static java.util.Objects.requireNonNull;
@@ -23,10 +28,11 @@ public class EditOrderCommand extends OrderCommand implements Undoable {
 
     public static final String COMMAND_WORD = "edit";
 
-    public static final String MESSAGE_EDIT_PERSON_SUCCESS = "Edited Order: %1$s";
+    public static final String MESSAGE_EDIT_PERSON_SUCCESS = "Edited Order [%1$s]";
 
     private final Index index;
     private final EditOrderDescriptor editOrderDescriptor;
+    private Order orderToEdit;
 
     /**
      * Creates an EditOrderCommand to modify the details of an {@code Order}.
@@ -43,10 +49,14 @@ public class EditOrderCommand extends OrderCommand implements Undoable {
 
     @Override
     public void undo(Model model) throws CommandException {
+        requireNonNull(model);
+
+        model.setOrder(index, orderToEdit);
     }
 
     @Override
     public void redo(Model model) throws CommandException {
+        execute(model);
     }
 
     @Override
@@ -58,12 +68,12 @@ public class EditOrderCommand extends OrderCommand implements Undoable {
             throw new CommandException(Message.MESSAGE_INVALID_INDEX);
         }
 
-        Order orderToEdit = lastShownList.get(index.getZeroBased());
+        orderToEdit = lastShownList.get(index.getZeroBased());
         Order editedOrder = createEditedOrder(orderToEdit, editOrderDescriptor);
 
         model.setOrder(orderToEdit, editedOrder);
-        model.updateFilteredPersonList(Model.PREDICATE_SHOW_ALL_ORDERS);
-        return new CommandResult(String.format(MESSAGE_EDIT_PERSON_SUCCESS, editedOrder),
+        model.updateFilteredOrderList(Model.PREDICATE_SHOW_ALL_ORDERS);
+        return new CommandResult(String.format(MESSAGE_EDIT_PERSON_SUCCESS, editedOrder.getId()),
                 CommandResult.DisplayedPage.ORDER);
     }
 
@@ -76,7 +86,7 @@ public class EditOrderCommand extends OrderCommand implements Undoable {
                 editOrderDescriptor.getCustomerContact().orElse(toEdit.getCustomer().contact)
         );
         Date newDate = editOrderDescriptor.getDeliveryDate().orElse(toEdit.getDeliveryDate());
-        Map<Product, Integer> newItems = editOrderDescriptor.getItems().orElse(toEdit.getItems());
+        Map<comProduct, Integer> newItems = editOrderDescriptor.getItems().orElse(toEdit.getItems());
         String newRemarks = editOrderDescriptor.getRemarks().orElse(toEdit.getRemarks());
         Order.Status newStatus = editOrderDescriptor.getStatus().orElse(toEdit.getStatus());
         return new Order(newCustomer, newDate, newStatus, newRemarks, newItems);
@@ -90,7 +100,7 @@ public class EditOrderCommand extends OrderCommand implements Undoable {
         private String customerName;
         private String customerContact;
         private Date deliveryDate;
-        private Map<Product, Integer> items;
+        private Map<comProduct, Integer> items;
         private String remarks;
         private Order.Status status;
 
@@ -130,7 +140,7 @@ public class EditOrderCommand extends OrderCommand implements Undoable {
             this.deliveryDate = deliveryDate;
         }
 
-        public void setItems(Map<Product, Integer> items) {
+        public void setItems(Map<comProduct, Integer> items) {
             this.items = (items != null) ? new HashMap<>(items) : null;
         }
 
@@ -154,7 +164,7 @@ public class EditOrderCommand extends OrderCommand implements Undoable {
             return Optional.ofNullable(deliveryDate);
         }
 
-        public Optional<Map<Product, Integer>> getItems() {
+        public Optional<Map<comProduct, Integer>> getItems() {
             return Optional.ofNullable(items);
         }
 
@@ -168,15 +178,19 @@ public class EditOrderCommand extends OrderCommand implements Undoable {
 
         @Override
         public boolean equals(Object o) {
-            if (this == o) return true;
-            if (o == null || getClass() != o.getClass()) return false;
+            if (this == o) {
+                return true;
+            }
+            if (o == null || getClass() != o.getClass()) {
+                return false;
+            }
             EditOrderDescriptor that = (EditOrderDescriptor) o;
-            return Objects.equals(customerName, that.customerName) &&
-                    Objects.equals(customerContact, that.customerContact) &&
-                    Objects.equals(deliveryDate, that.deliveryDate) &&
-                    Objects.equals(items, that.items) &&
-                    Objects.equals(remarks, that.remarks) &&
-                    status == that.status;
+            return Objects.equals(customerName, that.customerName)
+                    && Objects.equals(customerContact, that.customerContact)
+                    && Objects.equals(deliveryDate, that.deliveryDate)
+                    && Objects.equals(items, that.items)
+                    && Objects.equals(remarks, that.remarks)
+                    && status == that.status;
         }
 
         @Override

@@ -1,6 +1,6 @@
 package duke.logic.command.order;
 
-import duke.logic.command.commons.Command;
+import duke.logic.command.Command;
 
 /**
  * A abstract base class for commands that manages orders.

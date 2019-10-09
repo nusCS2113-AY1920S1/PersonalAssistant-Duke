@@ -1,6 +1,6 @@
 //package duke.logic.command.decrypted;
 //
-//import duke.logic.command.commons.Undoable;
+//import duke.logic.command.Undoable;
 //import duke.commons.DukeException;
 //import duke.entities.Sale;
 //import duke.logic.parser.commons.TimeParser;

@@ -1,8 +1,8 @@
 //package duke.logic;
 //
 //import duke.commons.DukeException;
-//import duke.logic.command.commons.Command;
-//import duke.logic.command.commons.Undoable;
+//import duke.logic.command.Command;
+//import duke.logic.command.Undoable;
 ////import duke.logic.command.decrypted.RedoCommand;
 ////import duke.logic.command.decrypted.UndoCommand;
 //import duke.storage.BakingList;
@@ -11,7 +11,7 @@
 //
 //import java.util.ArrayList;
 //import java.util.List;
-//
+
 ///**
 // * Manager class of commands. An undo stack and redo stack is managed by CommandManager.
 // */
