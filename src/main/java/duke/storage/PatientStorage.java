@@ -39,8 +39,7 @@ public class PatientStorage extends Storage<Patient> {
                 String nric = record.get("NRIC");
                 String remark = record.get("Remark");
                 String room = record.get("Room");
-                Patient patient = new Patient(id, name, nric, remark, room);
-                patientList.add(new Patient(id, name, nric, remark, room));
+                patientList.add(new Patient(id, name, nric, room, remark));
 //                System.out.println(id + " | " +  name + " | " + nric + " | " + remark + " | " + room); //List out patietns info for debugging
             }
             return patientList;
