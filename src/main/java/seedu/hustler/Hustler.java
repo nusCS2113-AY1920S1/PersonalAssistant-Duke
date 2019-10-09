@@ -3,12 +3,15 @@ package seedu.hustler;
 import java.io.IOException;
 
 import seedu.hustler.data.*;
+
+import seedu.hustler.data.*;
+import seedu.hustler.game.achievement.AchievementList;
+import seedu.hustler.game.achievement.ConsecutiveLogin;
+import javafx.application.Platform;
 import seedu.hustler.game.avatar.Avatar;
 import seedu.hustler.command.Command;
-import java.util.Scanner;
 
 import seedu.hustler.data.AvatarStorage;
-import seedu.hustler.data.Schedule;
 import seedu.hustler.data.CommandLog;
 import seedu.hustler.data.MemoryManager;
 import seedu.hustler.logic.CommandLineException;
@@ -19,12 +22,17 @@ import seedu.hustler.task.TaskList;
 import seedu.hustler.parser.CommandParser;
 import seedu.hustler.ui.timer.*;
 
+import static seedu.hustler.game.achievement.AchievementList.achievementList;
+import static seedu.hustler.game.achievement.ConsecutiveLogin.updateAchievementLevel;
+import javafx.application.Application;
+import javafx.stage.Stage;
+
 /**
- * A personal assitant that takes in user input and gives and performs
- * an operation that can help the user
- * in his day to day needs. Has a tasklist with multiple features.
+ * A personal assistant that takes in user input and gives and performs
+ * an operation that can help the user in his day to day needs.
+ * Has a task list with multiple features.
  */
-public class Hustler {
+public class Hustler extends Application {
     /**
      * TaskList instance that  stores all the tasks added by the
      * user and from storage.
@@ -35,12 +43,14 @@ public class Hustler {
      * Storage instance that stores and loads tasks to and from
      * disk.
      */
-    private static Storage storage = new Storage("data/duke.txt");
+    private static Storage storage = new Storage("data/hustler.txt");
+
     /**
      * UI instance that is used to take input from console
      * and display errors and responses. Handles user interaction.
      */
-    private static Ui ui = new Ui(new Scanner(System.in));
+    private static Ui ui = new Ui();
+
     /**
      * Parser instance that makes sense of user input and
      * performs some operation on list.
@@ -73,26 +83,16 @@ public class Hustler {
     public static Settings settings;
 
     /**
-     * Runs Duke which commences the user to machine
-     * feedback loop until the user enters "bye".
-     * Loads existing tasklist and avatar, and performs operations
-     * like list, find, delete and add on the tasklist. Adds
-     * the Tasks in the TreeMap.
-     * Saves the list to disk for next duke session inside
-     * data/duke.txt.
-     * @see Storage
-     * @see TaskList
-     * @see Parser
-     * @see Ui
-     * @see Schedule
+     * Initializes the essential components needed to run Hustler.
+     * Loads existing task list and avatar.
+     * Displays reminders at the start of Hustler.
      */
-    public static void run() throws IOException {
+    public static void initialize() throws IOException {
         ui.show_opening_string();
         Folder.checkDirectory();
         loadStorage();
         memorymanager.createBackup();
 
-        // Display reminders at the start
         Reminders.runAll(list);
         Reminders.displayReminders();
         System.out.println();
@@ -106,7 +106,7 @@ public class Hustler {
                 Command command = parser.parse(rawInput);
                 command.execute();
 		        saveStorage();
-                rawInput = ui.take_input();
+		        rawInput = ui.take_input();
                 System.out.println();
             } catch (CommandLineException e) {
                 e.getErrorMsg();
@@ -114,20 +114,51 @@ public class Hustler {
             }
         }
         ui.show_bye_message();
+        avatar = AvatarStorage.load();
+        AvatarStorage.save(avatar);
     }
 
     /**
-     * Main function run by java.
+     * Runs Hustler until the users enters "bye".
+     * Performs operations like list, find, delete and add on the task list.
+     * Saves the list to disk for next Hustler session inside data/hustler.txt.
      *
-     * @param args the command line parameters
+     * @param rawInput full user's input inside text area of GUI.
      */
-    public static void main(final String[] args) throws IOException {
-        Hustler.run();
+    public static void run(String rawInput) {
+        if (rawInput.equals("bye")) {
+            ui.show_bye_message();
+            Platform.exit();
+        }
+
+        try {
+            Command command = parser.parse(rawInput);
+            command.execute();
+            saveStorage();
+            System.out.println();
+        } catch (CommandLineException e) {
+            e.getErrorMsg();
+        } catch (IOException e) {
+
+        }
     }
 
-    public static void loadStorage() {
+    public void start(Stage stage) {
+    }
+
+    public static void loadStorage() throws IOException {
         list = new TaskList(storage.load());
         avatar = AvatarStorage.load();
+        //Check if it's the first time the user logs in.
+        AchievementList.firstStart(AchievementStorage.logon());
+        //Loads information such as number of tasks done, added, points, etc.
+        AchievementStorage.loadStatus();
+        //Loads achievements into achievement list.
+        AchievementStorage.loadAchievements();
+        //Counts number of consecutive login and updates accordingly.
+        ConsecutiveLogin.updateCount();
+        ConsecutiveLogin.updatePoints();
+        AchievementList.updateConsecutiveLogin(updateAchievementLevel());
     }
 
     public static void reloadBackup() {
@@ -135,10 +166,15 @@ public class Hustler {
         avatar = AvatarStorage.reloadBackup();
     }
 
+    /**
+     * Saves the task list to storage area.
+     */
     public static void saveStorage() {
         try {
             storage.save(list.return_list());
             AvatarStorage.save(avatar);
+            AchievementStorage.saveAchievements(achievementList);
+            AchievementStorage.saveStatus();
         } catch (IOException e) {
             ui.show_save_error();
         }
