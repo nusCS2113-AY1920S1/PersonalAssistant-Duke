@@ -15,7 +15,7 @@ public class SnoozeCommand extends Command {
     private String[] userInput;
    
     /**
-    * Initializes rawInput.
+    * Initializes userInput.
     *
     * @param rawInput array that contains task id to delete.
     */
