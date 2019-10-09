@@ -9,12 +9,10 @@ import money.Expenditure;
 import moneycommands.MoneyCommand;
 
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Calendar;
-
 
 /**
  * This command adds an expenditure to the Total Expenditure List.
