@@ -3,11 +3,13 @@ package parser;
 import Commands.*;
 import Execution.CommandStack;
 import MovieUI.Controller;
+import task.Tasks;
 import wrapper.CommandPair;
 import Commands.COMMAND_KEYS;
 
-public class CommandParser {
+import java.util.ArrayList;
 
+public class CommandParser {
     /**
      * Entry point to command parser Class
      *
@@ -55,6 +57,11 @@ public class CommandParser {
                 yc.initCommand(CommandArr, command.getSubRootCommand());
                 CommandStack.pushCmd(yc);
                 break;
+            case add:
+                System.out.println("Yes");
+                WatchlistCommand wc = new WatchlistCommand(UIController);
+                wc.initCommand(CommandArr, command.getSubRootCommand());
+                break;
             default:
                 CommandPair pair = Command_Debugger.commandSpellChecker(CommandArr , COMMAND_KEYS.none , UIController);
 
@@ -99,12 +106,16 @@ public class CommandParser {
                 yc.initCommand(CommandArr);
                 CommandStack.pushCmd(yc);
                 break;
+            case "add":
+                System.out.println("Add");
+                WatchlistCommand wc = new WatchlistCommand(UIController);
+                wc.initCommand(CommandArr);
+                CommandStack.pushCmd(wc);
+                break;
             default:
                 CommandPair pair = Command_Debugger.commandSpellChecker(CommandArr , COMMAND_KEYS.none, UIController);
                 processCommand(pair , CommandArr , UIController);
-
         }
-
     }
 
 }

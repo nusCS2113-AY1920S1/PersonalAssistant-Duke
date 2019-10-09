@@ -20,10 +20,10 @@ public class HelpCommand extends CommandSuper{
         ((MovieHandler)this.getUIController()).setFeedbackText(getHelp());
     }
 
-    private String getHelp(){
+    private String getHelp() {
         String printer = "";
         for(Map.Entry<COMMAND_KEYS, COMMAND_KEYS[]> entry : CommandStructure.cmdStructure.entrySet()){
-            if(entry.getKey() == this.getSubRootCommand()){
+            if(entry.getKey() == this.getSubRootCommand()) {
                 for(COMMAND_KEYS c: entry.getValue() ){
                     printer += ("\n\t" + c.toString() + " : Do for fun lol");
                 }

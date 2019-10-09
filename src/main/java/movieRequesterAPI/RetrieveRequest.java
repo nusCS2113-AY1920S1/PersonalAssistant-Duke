@@ -7,6 +7,7 @@ import object.MovieInfoObject;
 
 import java.io.*;
 import java.net.MalformedURLException;
+import java.net.SocketTimeoutException;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.text.DateFormat;
@@ -21,6 +22,7 @@ import java.util.logging.Logger;
 
 public class RetrieveRequest implements InfoFetcher {
     private RequestListener mListener;
+    private ArrayList<MovieInfoObject> p_Movies;
 
     // API Usage constants
     private static final String MAIN_URL = "http://api.themoviedb.org/3/";
@@ -62,6 +64,10 @@ public class RetrieveRequest implements InfoFetcher {
         checkIfConfigNeeded();
     }
 
+    public ArrayList<MovieInfoObject> getParsedMovies() {
+        return p_Movies;
+    }
+
     public void beginMovieRequest(RetrieveRequest.MoviesRequestType type) {
         String requestURL = RetrieveRequest.MAIN_URL;
         switch (type) {
@@ -98,6 +104,19 @@ public class RetrieveRequest implements InfoFetcher {
         }
     }
 
+    public String beginAddRequest(String movieTitle) {
+        try {
+            String url = MAIN_URL + MOVIE_SEARCH_URL + API_KEY + "&query=" + URLEncoder.encode(movieTitle, "UTF-8");
+            URLRetriever retrieve = new URLRetriever();
+            String json = retrieve.readURLAsString(new URL(url));
+            fetchedMoviesJSON(json);
+            return p_Movies.get(0).getTitle();
+        } catch(UnsupportedEncodingException | MalformedURLException | SocketTimeoutException ex) {
+            ex.printStackTrace();
+        }
+        return "";
+    }
+
     public void beginSearchGenre (String genre) {
         try{
             String url = MAIN_URL + "movie/" + URLEncoder.encode(genre, "UTF-8") + LIST
@@ -132,6 +151,7 @@ public class RetrieveRequest implements InfoFetcher {
 
             // Notify Listener
             mListener.requestCompleted(parsedMovies);
+            p_Movies = parsedMovies;
         } catch (org.json.simple.parser.ParseException ex) {
             Logger.getLogger(RetrieveRequest.class.getName()).log(Level.SEVERE, null, ex);
         }
