@@ -1,5 +1,6 @@
 package seedu.hustler.ui;
 
+import seedu.hustler.data.CommandLog;
 import java.util.Scanner;
 
 /**
@@ -70,10 +71,12 @@ public class Ui {
      * Prints an error message if user does not enter a valid command.
      */
     public void correct_command_error() {
-        System.out.println("\t_____________________________________");
-        System.out.println("\tPlease enter a valid command: todo, "
-            + "deadline, event, doafter, list, bye, find, delete.");
-        System.out.println("\t_____________________________________\n\n");
+        if (!CommandLog.isRestoring()) {
+            System.out.println("\t_____________________________________");
+            System.out.println("\tPlease enter a valid command: todo, "
+                + "deadline, event, doafter, list, bye, find, delete.");
+            System.out.println("\t_____________________________________\n\n");
+        }
     }
 
     /**
