@@ -15,17 +15,18 @@ public class Stock {
     private String description;
     private int loaned;
     private int lost;
-    //private int min; //Minimum quantity the lab should maintain. To implement in the future.
+    private int minimum; //Minimum quantity the lab should maintain.
     //private int loanLimit; //Maximum quantity an individual can loan. To implement in the future.
 
     /**
      * An stock is first added with its stockType, stockCode, description and quantity.
-     * By default the loaned and lost numbers are 0.
+     * By default the loaned and lost numbers are 0. They can be updated later.
+     * By default the minimum quantity is 0. This can be updated later.
      *
      * @param stockType The category the stock belongs to.
      * @param stockCode The unique code that identifies the stock. (eg. 500ohm resistors are called 'R500')
      * @param quantity The quantity (number of items) of this stock.
-     * @param description The name of the stock. (eg. 500ohm resistor, mini breadboard)
+     * @param description The name of the stock. (eg. 500ohm resistor, mini breadboard.
      */
     public Stock(String stockType, String stockCode, int quantity, String description) {
         this.stockType = stockType;
@@ -34,6 +35,23 @@ public class Stock {
         this.description = description;
         this.loaned = 0;
         this.lost = 0;
+        this.minimum = 0;
+    }
+
+    public String getStockType() {
+        return stockType;
+    }
+
+    public void setStockType(String stockType) {
+        this.stockType = stockType;
+    }
+
+    public String getStockCode() {
+        return stockCode;
+    }
+
+    public void setStockCode(String stockCode) {
+        this.stockCode = stockCode;
     }
 
     /**
@@ -101,6 +119,22 @@ public class Stock {
     }
 
     /**
+     * Gets the minimum quantity of stock that the lab wishes to maintain.
+     * @return The minimum quantity.
+     */
+    public int getMinimum() {
+        return minimum;
+    }
+
+    /**
+     * Updates the minimum quantity of stock that the lab wishes to maintain. To be implemented in the future.
+     * @param minimum The minimum quantity.
+     */
+    public void setMinimum(int minimum) {
+        this.minimum = minimum;
+    }
+
+    /**
      * Calculates and returns the number of this stock available to the lab (not lost, not on loan).
      * @return the number of available items.
      */
@@ -110,15 +144,19 @@ public class Stock {
 
     /**
      * Formats all stock details appropriately for Ui output.
-     * @return the stock details.
+     * @return the stock details string.
      */
     @Override
     public String toString() {
         return stockType + " | " + stockCode + " | " + quantity + " | " + description;
     }
 
+    /**
+     * Formats all stock details appropriately to be saved to file.
+     * @return the string to save.
+     */
     public String saveDetailsString() {
-        return stockType + "/" + stockCode + "/" + quantity + "/" + description;
+        return stockType + "/" + stockCode + "/" + quantity + "/" + description + "/" + minimum;
     }
 
     //TODO: Fix methods below for new UI.print() implementation.

@@ -1,10 +1,12 @@
 package eggventory.items;
 
+/**
+ Child of the Stock class.
+ * A CollectiveStock (eg. 330ohm resistor) may consist of many individual items (multiple resistors),
+ * but they are all considered interchangeable and are not individually identified.
+ */
 public class CollectiveStock extends Stock {
     /**
-     * Child of the Stock class.
-     * A CollectiveStock (eg. 330ohm resistor) may consist of many individual items (multiple resistors),
-     * but they are all considered interchangeable and are not individually identified.
      * A stock is first added with its stockType, stockCode, description and quantity.
      * By default the loaned and lost numbers are 0.
      *
