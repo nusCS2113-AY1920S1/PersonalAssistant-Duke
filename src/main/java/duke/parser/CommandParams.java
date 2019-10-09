@@ -1,6 +1,6 @@
 package duke.parser;
 
-import duke.exception.DukeException;
+import duke.exception.DukeRuntimeException;
 
 import java.util.regex.Pattern;
 import java.util.HashMap;
@@ -36,9 +36,9 @@ public class CommandParams {
      * will throw a {@code DukeException} if the user tries to specify two parameters of the same name.
      *
      * @param fullCommand the full command input by the user, which will be parsed into parameters.
-     * @throws DukeException if the user specified a parameter twice.
+     * @throws DukeRuntimeException if the user specified a parameter twice.
      */
-    public CommandParams(String fullCommand) throws DukeException {
+    public CommandParams(String fullCommand) throws DukeRuntimeException {
         secondaryParams = new HashMap<String, String>();
 
         // Split the input into an array of Strings, containing concatenated parameter names and values
@@ -57,7 +57,7 @@ public class CommandParams {
         for (int i = 1; i < nameValueStrings.length; i++) {
             String[] nameValuePair = SPACE_REGEX.split(nameValueStrings[i], 2);
             if (secondaryParams.containsKey(nameValuePair[0])) { // can't contain the same key twice
-                throw new DukeException(String.format("☹ OOPS!!! You specified %1$s twice!", nameValuePair[0]));
+                throw new DukeRuntimeException(String.format("☹ OOPS!!! You specified %1$s twice!", nameValuePair[0]));
             }
 
             if (nameValuePair.length == 2) {
@@ -92,12 +92,12 @@ public class CommandParams {
      *
      * @param paramName the name of the parameter whose value to return.
      * @return the value of the requested parameter.
-     * @throws DukeException if the parameter does not exist, or is null.
+     * @throws DukeRuntimeException if the parameter does not exist, or is null.
      */
-    public String getParam(String paramName) throws DukeException {
+    public String getParam(String paramName) throws DukeRuntimeException {
         String paramValue = secondaryParams.get(paramName);
         if (paramValue == null) {
-            throw new DukeException(String.format("☹ OOPS!!! You need to give me a value for %1$s!", paramName));
+            throw new DukeRuntimeException(String.format("☹ OOPS!!! You need to give me a value for %1$s!", paramName));
         } else {
             return paramValue;
         }

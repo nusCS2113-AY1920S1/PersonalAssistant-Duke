@@ -1,8 +1,10 @@
 package duke.dukeobject;
 
 import duke.exception.DukeException;
+import duke.exception.DukeRuntimeException;
 
 import java.io.File;
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -44,8 +46,8 @@ public class ExpenseList extends DukeList<Expense> {
         }
     }
 
-    public ExpenseList(File userDirectory) {
-        super(new File(userDirectory, FILE_NAME));
+    public ExpenseList(File userDirectory) throws DukeException {
+        super(new File(userDirectory, FILE_NAME), "expense");
     }
 
     /**

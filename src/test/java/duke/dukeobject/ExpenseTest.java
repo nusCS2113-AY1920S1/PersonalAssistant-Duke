@@ -1,6 +1,6 @@
 package duke.dukeobject;
 
-import duke.exception.DukeException;
+import duke.exception.DukeRuntimeException;
 import org.junit.jupiter.api.Test;
 import duke.parser.LocalDateTimeParser;
 
@@ -138,7 +138,7 @@ public class ExpenseTest {
         try {
             new Expense.Builder(INVALID_STORAGE_STRING);
             fail();
-        } catch (DukeException e) {
+        } catch (DukeRuntimeException e) {
             // Success
             // todo: I would check the message here if the message was constant
             e.printStackTrace();
