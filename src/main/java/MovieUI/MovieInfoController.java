@@ -1,6 +1,10 @@
 package MovieUI;
 
+import EPparser.CommandParser;
+import EPstorage.*;
+
 import javafx.application.Platform;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
@@ -8,17 +12,24 @@ import javafx.geometry.Orientation;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
 import movieRequesterAPI.RequestListener;
 import movieRequesterAPI.RetrieveRequest;
 import object.MovieInfoObject;
+import parser.TimeParser;
 import ui.Ui;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 
 public class MovieInfoController extends Controller implements RequestListener {
 
@@ -30,7 +41,7 @@ public class MovieInfoController extends Controller implements RequestListener {
     @FXML private ImageView movieBackdropImageView;
     @FXML private ScrollPane movieScrollPane;
     @FXML private VBox movieMainVBox;
-    @FXML private GridPane movieGridPane;
+   // @FXML private GridPane movieGridPane;
     @FXML private TextField mSearchTextField;
     @FXML private Label mStatusLabel;
     @FXML private ProgressBar mProgressBar;
@@ -43,24 +54,74 @@ public class MovieInfoController extends Controller implements RequestListener {
 
     private MovieInfoObject mMovie;
 
+    @FXML
+    private Text text;
+
+    @FXML Label userNameLabel;
+    @FXML Label userAgeLabel;
+    @FXML Label genreListLabel;
+    private UserProfile userProfile;
+    private ArrayList<Playlist> playlists;
+
+    class KeyboardClick implements EventHandler<KeyEvent> {
+
+        private Controller control;
+
+        KeyboardClick(Controller control){
+            this.control = control;
+        }
+
+        @Override
+        public void handle(KeyEvent event) {
+            if(event.getCode().equals(KeyCode.ENTER)) {
+//                    SearchResultContext.AddKeyWord(mSearchTextField.getText());
+                // do something
+                System.out.println("Hello");
+                try {
+                    CommandParser.parseCommands(mSearchTextField.getText() ,control );
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }else if(event.getCode().equals(KeyCode.TAB)){
+                System.out.println("Tab presjenksjessed");
+                event.consume();
+            }
+        }
+    }
+
     // Set the movie for this controller
-    public void setMovie(MovieInfoObject movie)
-    {
+    public void setMovie(MovieInfoObject movie) throws IOException {
         mMovie = movie;
         initialize();
     }
 
-    @FXML public void initialize() {
+    @FXML public void initialize() throws IOException {
+        EditProfileJson editProfileJson = new EditProfileJson();
+        userProfile = editProfileJson.load();
+        EditPlaylistJson editPlaylistJson = new EditPlaylistJson();
+        playlists = editPlaylistJson.load();
+        ProfileCommands command = new ProfileCommands(userProfile);
+        userNameLabel.setText(userProfile.getUserName());
+        userAgeLabel.setText(Integer.toString(userProfile.getUserAge()));
+        genreListLabel.setText(command.convertToLabel(userProfile.getGenreId()));
 
 
         //mMovieRequest = new RetrieveRequest(this);
         // Load the movie info if movie has been set
         if (mMovie != null) {
             movieTitleLabel.setText(mMovie.getTitle());
+            //movieCastLabel.setText(mMovie.getmCast());
             movieRatingLabel.setText(String.format("%.2f", mMovie.getRating()));
 
             if (mMovie.getReleaseDate() != null) {
+                Date date = mMovie.getReleaseDate();
+                //System.out.println("date is" + date);
+                //String printDate = TimeParser.convertDateToLine(date);
+                Calendar calendar = Calendar.getInstance();
+                calendar.setTime(date);
+                String printDate = new SimpleDateFormat("dd-MM-yyyy").format(date);
                 movieReleaseDateLabel.setText(String.format("%s", mMovie.getReleaseDate().toString()));
+                movieReleaseDateLabel.setText(printDate);
             } else{
                 movieReleaseDateLabel.setText("N/A");
             }
@@ -72,7 +133,28 @@ public class MovieInfoController extends Controller implements RequestListener {
 
         movieMainVBox.prefWidthProperty().bind(movieScrollPane.widthProperty());
         movieBackdropImageView.setPreserveRatio(true);
-        movieGridPane.prefWidthProperty().bind(movieScrollPane.widthProperty());
+//        movieGridPane.prefWidthProperty().bind(movieScrollPane.widthProperty());
+
+        mSearchTextField.addEventFilter(KeyEvent.KEY_PRESSED, event -> {
+            if (event.getCode() == KeyCode.TAB) {
+                System.out.println("Tab pressed");
+                event.consume();
+            }else if(event.getCode().equals(KeyCode.ENTER)) {
+                System.out.println("Enter pressed");
+//
+            }
+        });
+        //Real time changes to text field
+        mSearchTextField.textProperty().addListener((observable, oldValue, newValue) -> {
+            System.out.println("textfield changed from " + oldValue + " to " + newValue);
+        });
+
+        System.out.println(text.getText());
+
+        //Enter is Pressed
+        mSearchTextField.setOnKeyPressed(new KeyboardClick(this));
+
+        //movieGridPane.prefWidthProperty().bind(movieScrollPane.widthProperty());
     }
 
     // User clicks on the back button to navigate back to the movies scene
@@ -103,8 +185,11 @@ public class MovieInfoController extends Controller implements RequestListener {
 
                 for (String genre : genres){
                     builder.append(genre);
-
+                    System.out.println(genre);
                     // if not last string in array, append a ,
+                    if (genres.length == 0) {
+                        System.out.println("no genres");
+                    }
                     if (!genres[genres.length - 1].equals(genre)){
                         builder.append(", ");
                     }
@@ -122,18 +207,8 @@ public class MovieInfoController extends Controller implements RequestListener {
         t.start();
     }
 
-    @FXML private void searchButtonClicked() {
-//        if (mSearchTextField.getText().equals("show current movie")) {
-//            mMovieRequest.beginMovieRequest(RetrieveRequest.MoviesRequestType.NOW_SHOWING);
-//        } else if (mSearchTextField.getText().equals("show upcoming movie")) {
-//            mMovieRequest.beginMovieRequest(RetrieveRequest.MoviesRequestType.UPCOMING);
-//        } else if (mSearchTextField.getText().equals("show popular movie")) {
-//            mMovieRequest.beginMovieRequest(RetrieveRequest.MoviesRequestType.POPULAR);
-//        } else if (mSearchTextField.getText().equals("show current tv")) {
-//            mMovieRequest.beginMovieRequest(RetrieveRequest.MoviesRequestType.TV_SHOWS);
-//        } else if (!mSearchTextField.getText().isEmpty()) {
-//            mMovieRequest.beginSearchRequest(mSearchTextField.getText());
-//        }
+    private void clearText(TextField textField){
+        textField.setText("");
     }
 
     // Menu item events

@@ -8,16 +8,16 @@ import java.util.Date;
 import java.util.Map;
 import java.util.TreeMap;
 
-public class HelpCommand extends CommandSuper{
+public class HelpCommand extends CommandSuper {
     public HelpCommand(Controller UIController) {
-        super(COMMAND_KEYS.help, CommandStructure.cmdStructure.get(COMMAND_KEYS.help) ,  UIController);
+        super(COMMAND_KEYS.help, CommandStructure.cmdStructure.get(COMMAND_KEYS.help), UIController);
     }
 
     @Override
     public void executeCommands() {
         //TODO Display help options
         System.out.println("Send Help please");
-        ((MovieHandler)this.getUIController()).setFeedbackText(getHelp());
+        ((MovieHandler) this.getUIController()).setFeedbackText(getHelp());
     }
 
     private String getHelp() {
@@ -32,8 +32,6 @@ public class HelpCommand extends CommandSuper{
 
         return this.getSubRootCommand().toString() + printer;
     }
-
-
 
 
 }
