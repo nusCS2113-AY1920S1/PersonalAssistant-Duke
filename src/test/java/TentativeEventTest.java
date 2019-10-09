@@ -13,7 +13,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class TentativeEventTest {
     @Test
-    public void testListFormat() throws ParseException,IOException,DukeException{
+    public void testListFormat() {
         String description = "return book";
         ArrayList<String> tentativetimes = new ArrayList<String>();
         tentativetimes.add("2008-06-07 05:05:05-08:08:08");

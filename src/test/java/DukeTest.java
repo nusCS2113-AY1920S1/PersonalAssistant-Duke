@@ -6,6 +6,8 @@ import org.junit.jupiter.api.Test;
 import java.io.IOException;
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Stack;
+
 import Exception.DukeException;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -15,6 +17,8 @@ public class DukeTest {
         DeadlineCommand deadlineCommand = new DeadlineCommand();
         ArrayList<Task> tasks = new ArrayList<Task>();
         Ui ui = new Ui();
+        Stack<String> CommandStack = new Stack<>();
+        ArrayList<Task> deletedTask = new ArrayList<Task>();
         Storage storage = new Storage();
         try {
             deadlineCommand.execute(tasks,ui,storage, CommandStack, deletedTask);
