@@ -21,9 +21,13 @@ By: `Team AY1920S1-CS2113-T14-4`      Since: `Sept 2019`
 Refer to the guide <<SettingUp#, here>>.
 
 
+== Problem
+
+The role of a project manager is to initiate, plan, design, execute and monitor the project to achieve its intended outcomes. This means the project manager must be able to efficiently organise and record down many details of the project to fulfill their responsibilities. However recording project details on pen and paper or word documents is too time consuming and lack many features that can aid in project management, such as deadline reminders.
+
 == Target user profile
 
-* has a need to manage multiple projects
+* has a need to manage complex projects
 * leader of the team
 * project manager
 * prefer desktop apps over other types and prefer typing over mouse input
@@ -31,7 +35,7 @@ Refer to the guide <<SettingUp#, here>>.
 
 
 == Value proposition
- The Duke personal assistant application will enable team leader to efficiently plan schedules, save time, and assign proper amount of tasks to team members, while providing an intuitive gui for them to visualise and easily keep track of the team progress.
+ The Duke personal assistant application will enable project manager to efficiently plan tasks, save time, and assign proper amount of tasks to team members, while providing an intuitive gui for them to visualise and easily keep track of the team progress.
  User can use this app to manage projects faster than a typical mouse/gui driven app.
 
 
@@ -44,27 +48,24 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 [width="95%",cols="10%,<23%,<37%,<30%",options="header",]
 |=======================================================================
 |Priority |As  ... |I want to ... |So that I can...
-| |an advanced user |use typed commands to interact with Duke Pro |
-| |an advanced user |Duke Pro’s saved data to be easily modifiable |
-| |a user with many different types of tasks |Duke Pro to be able to categorise tasks through tags|
-| |a busy user |an effective summary of the tasks that are coming up in the calendar |
-| |a user |Duke to be able to filter tasks based on a variety of factors |
-| |a user with many tasks |Duke Pro to have a calendar gui for visualisation |
-| |a forgetful user |Duke Pro can notify me before the event or deadline |
-| |a new user |to be given suggestions on the types of commands I can use |
-| |a careless typer |Duke to give suggestions of closest matches to the wrong command I typed |
-| |a user |Duke to be able to accomodate recurring events |
-| |a non-computer savvy user |type natural language to manage my task list |
-| |a fast typer |Duke Pro can auto correct my typo-errors |
-| |a fast typer |Duke to be able to auto complete my commands |
-| |a user |Duke to incorporate different colour schemes, e.g dark mode |
-| |a power user |Duke to have a log of my previous commands(press up to see previous commands) |
-| |a user |Duke support shorter command. (e.g. list→ls) |
-| |a user |input the date conveniently |
-| |a user |use Duke to export my calendar to different formats, such as text, pdf, image, so that I can share it with my friends |
-| |a busy project manager |Duke can handle multiple projects at the same time |
-| |a fair manager |Duke to show every team members’ workload |won’t assign too much task to one person
-| |a manager |Duke can help me track the progress of the project |
+|High|Project Manager |Be able to set project milestones on a timeline | Track overall progress of project
+|High|Project Manager |Create a project and add team members | Track who are working on the project
+|High|Project Manager |Create team member profiles| Better manage team members using their profiles
+|Medium|Project Manager |Performance appraisal | track performance of team member
+|High|Project Manager |Create tasks | Log the exact details of the tasks(e.g requirements, Deadlines)
+|High|Project Manager |Have a task progress bar | Track progress of task
+|High|Project Manager |Assign task to multiple team members | split intensive tasks to more than one member
+|High|Project Manager |Add subtask checklist | understand parts of the task that are completed
+|High|Project Manager |Add tags to task | categorise tasks for better organization
+|High|Project Manager |Add priority for tasks | define importance of tasks
+|High|Project Manager |Add reviews/comments for tasks | provide my own feedback for the task
+|High|Project Manager |Create Reminders | remind myself of issues pertaining to the project
+|High|Project Manager |Create Deadlines | Keep track of issues that have a deadline
+|High|Project Manager |Create project meetings | plan project meetings
+|High|Project Manager |Record minutes of meeting in point format| review what was discussed
+|High|Project Manager |Record points raised by each team members | refer to seek clarification from team members
+|High|Project Manager |View all information on a calendar | Keep track of information visually, know what is coming up
+|High |Project Manager |Filter items being shown on calendar | narrow my view of items based on my needs
 |=======================================================================
 
 _{More to be added}_
@@ -72,10 +73,29 @@ _{More to be added}_
 [appendix]
 == Use Cases
 
-* User enters Duke → searches for task by description/id → adds tag to class(e.g important).
-* User enters todo into command line → adds in remind me flag → enters command.
-* User enters Duke → types calendar command → Duke displays the calendar for an overview → User then types list → Duke displays tasks at a more detailed level.
+[discrete]
+=== UC01: Managing team members
+Actors: Project Manager
 
+*MSS*
+
+1. User starts the Duke Pro.
+2. User requests to display the team members list.
+3. UI displays the members list.
+4. User chooses one member.
+5. UI displays the details of the member.
+6. User modifies the member’s profile.
+7. UI shows modified success.
+8. User adds a new member.
+9. UI shows added success.
+10. Use case ends.
+
+*Extensions*
+
+[none]
+* 3a. Team member list is empty
+** 3a1.Ui displays empty team member list message.
+** 3a2. Use case ends.
 
 [appendix]
 == Non Functional Requirements
