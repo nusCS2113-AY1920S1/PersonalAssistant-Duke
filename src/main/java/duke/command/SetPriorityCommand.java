@@ -6,7 +6,7 @@ import duke.task.Task;
 import duke.task.TaskList;
 import duke.ui.Ui;
 
-public class SetPriorityCommand extends Command{
+public class SetPriorityCommand extends Command {
     protected int taskNum;
     protected int priority;
 
@@ -18,8 +18,8 @@ public class SetPriorityCommand extends Command{
      * @param priority The priority level we want to set.
      */
     public SetPriorityCommand(int taskNum, int priority) {
-            this.taskNum = taskNum;
-            this.priority = priority;
+        this.taskNum = taskNum;
+        this.priority = priority;
     }
 
     /**
