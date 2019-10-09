@@ -63,6 +63,8 @@ public class MainWindow extends AnchorPane {
     private WebEngine webEngine;
     private TaskList tasks;
 
+    private ArrayList<String> inputList = new ArrayList<>();
+
     private Duke duke;
     private UI ui;
 
@@ -139,6 +141,7 @@ public class MainWindow extends AnchorPane {
         if (input.contains("bye")) {
             exit();
         }
+        getInput(input);
     }
 
     private void updateHtml() {
@@ -155,7 +158,18 @@ public class MainWindow extends AnchorPane {
         delay.play();
     }
 
+    int i;
+    /**
+     * Gets the input without prefixes
+     */
+    private void getInput(String input) {
+        input = input.split(" ", 2)[1];
+        inputList.add(input);
+        i = inputList.size();
+    }
+
     boolean isShowingEmail = false;
+    boolean isUpKey;
     @FXML
     private void handleKeyEvent(KeyEvent e) {
         String type = e.getEventType().getName();
@@ -169,6 +183,69 @@ public class MainWindow extends AnchorPane {
             toggleEmailDisplay();
             e.consume();
         }
+        // Gets previous input if Up Arrow key is pressed
+        else if (e.getCode() == KeyCode.UP) {
+            isUpKey = true;
+            getPrevInput();
+            e.consume();
+        }
+        // Gets previous input if Down Arrow key is pressed
+        else if (e.getCode() == KeyCode.DOWN) {
+            isUpKey = false;
+            getPrevInput();
+            e.consume();
+        }
+    }
+
+    /**
+     * Shows the previous inputs with the prefix. The prefix is non-deletable while the previous
+     * input shown can be edited
+     */
+    private void getPrevInput() {
+        UnaryOperator<TextFormatter.Change> noFilter = c -> {
+            return c;
+        };
+        userInput.setTextFormatter(new TextFormatter<String>(noFilter));
+
+        userInput.clear();
+
+        String prefix = CommandParser.getInputPrefix();
+        String prevInput = navigateInputList();
+
+        userInput.setText(prefix + prevInput);
+
+        UnaryOperator<TextFormatter.Change> filter = c -> {
+            if (c.getCaretPosition() < prefix.length()) {
+                return null;
+            } else {
+                return c;
+            }
+        };
+        userInput.setTextFormatter(new TextFormatter<String>(filter));
+        userInput.positionCaret(prefix.length() + prevInput.length());
+    }
+
+    /**
+     * Navigates the inputList and gets the previous input depending on which arrow key is pressed
+     * @return prevInput to be shown in the textfield
+     */
+    private String navigateInputList() {
+        String prevInput = "";
+        if (isUpKey == true) {
+            if (i < 1) {
+                i = inputList.size();
+            }
+            i--;
+            prevInput = inputList.get(i);
+        }
+        else {
+            if (i > inputList.size() - 2) {
+                i = -1;
+            }
+            i++;
+            prevInput = inputList.get(i);
+        }
+        return prevInput;
     }
 
     private void toggleEmailDisplay() {
