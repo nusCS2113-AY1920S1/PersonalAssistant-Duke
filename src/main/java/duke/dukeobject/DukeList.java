@@ -119,6 +119,13 @@ abstract class DukeList<T extends DukeItem> {
     }
 
     /**
+     * Removes all items from {@code internalList}.
+     */
+    public void clear() {
+        internalList.clear();
+    }
+
+    /**
      * Calling this method indicates that {@code internalList} or one of its members has changed,
      * that the file should be updated, and that the state has progressed such that all {@code redoStates}
      * are now invalid and should be discarded.
