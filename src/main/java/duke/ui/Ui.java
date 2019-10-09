@@ -1,8 +1,10 @@
 package duke.ui;
 
+import duke.Duke;
 import duke.dukeobject.Expense;
 import duke.dukeobject.ExpenseList;
 import duke.exception.DukeException;
+import duke.exception.DukeRuntimeException;
 
 
 import java.util.Scanner;

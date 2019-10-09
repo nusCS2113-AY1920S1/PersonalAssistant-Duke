@@ -21,7 +21,9 @@ public class AddExpenseCommand extends Command {
     private static final String usage = "add $cost";
 
     private enum SecondaryParam {
-        DESCRIPTION("d", "a short description or name for the expense");
+        DESCRIPTION("d", "a short description or name for the expense"),
+        TAG("tag", "tags that should be added to the expense"),
+        TIME("time", "the time of the expense");
 
         private String name;
         private String description;
@@ -45,17 +47,27 @@ public class AddExpenseCommand extends Command {
     }
 
     @Override
-    public void execute(CommandParams commandParams, ExpenseList expensesList, Ui ui) {
-        String expenseString = commandParams.getMainParam();
-        if (expenseString == null) {
-            throw new DukeException("I need to know how much this costs!");
+    public void execute(CommandParams commandParams, ExpenseList expensesList, Ui ui) throws DukeException {
+        Expense.Builder expenseBuilder = new Expense.Builder();
+
+        if (!commandParams.containsMainParam()) {
+            throw new DukeException(String.format(DukeException.MESSAGE_COMMAND_PARAM_MISSING, "amount"));
         }
-        String expenseDescription = commandParams.getParam(SecondaryParam.DESCRIPTION.name);
-        Expense expense = new Expense.Builder()
-            .setAmount(expenseString)
-            .setDescription(expenseDescription)
-            .build();
-        expensesList.add(expense);
+        expenseBuilder.setAmount(commandParams.getMainParam());
+
+        if (commandParams.containsParams(SecondaryParam.DESCRIPTION.name)) {
+            expenseBuilder.setDescription(commandParams.getParam(SecondaryParam.DESCRIPTION.name));
+        }
+
+        if (commandParams.containsParams(SecondaryParam.TAG.name)) {
+            expenseBuilder.invertTags(commandParams.getParam(SecondaryParam.TAG.name));
+        }
+
+        if (commandParams.containsParams(SecondaryParam.TIME.name)) {
+            expenseBuilder.setDescription(commandParams.getParam(SecondaryParam.TIME.name));
+        }
+
+        expensesList.add(expenseBuilder.build());
         expensesList.update();
     }
 

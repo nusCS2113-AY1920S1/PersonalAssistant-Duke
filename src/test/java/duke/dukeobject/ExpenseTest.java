@@ -1,8 +1,8 @@
 package duke.dukeobject;
 
-import duke.exception.DukeException;
+import duke.exception.DukeRuntimeException;
+import duke.parser.Parser;
 import org.junit.jupiter.api.Test;
-import duke.parser.LocalDateTimeParser;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -16,7 +16,7 @@ public class ExpenseTest {
     private static final BigDecimal DEFAULT_AMOUNT = BigDecimal.ZERO;
     private static final String DEFAULT_DESCRIPTION = "";
     private static final boolean DEFAULT_TENTATIVE = false;
-    private static final String DEFAULT_TIME = LocalDateTimeParser.toString(LocalDateTime.now());
+    private static final String DEFAULT_TIME = Parser.formatTime(LocalDateTime.now());
 
     private static final BigDecimal TEST_AMOUNT = new BigDecimal("1.23");
     private static final String TEST_DESCRIPTION = "test description";
@@ -48,7 +48,7 @@ public class ExpenseTest {
         assertEquals(testExpense.getAmount(), DEFAULT_AMOUNT);
         assertEquals(testExpense.getDescription(), DEFAULT_DESCRIPTION);
         assertEquals(testExpense.isTentative(), DEFAULT_TENTATIVE);
-        assertEquals(LocalDateTimeParser.toString(testExpense.getTime()), DEFAULT_TIME);
+        assertEquals(Parser.formatTime(testExpense.getTime()), DEFAULT_TIME);
         assertTrue(testExpense.getTags().isEmpty());
     }
 
@@ -90,7 +90,7 @@ public class ExpenseTest {
     @Test
     public void testTime() {
         Expense testExpense = new Expense.Builder().setTime(TEST_TIME).build();
-        assertEquals(LocalDateTimeParser.toString(testExpense.getTime()), TEST_TIME);
+        assertEquals(Parser.formatTime(testExpense.getTime()), TEST_TIME);
     }
 
     @Test
@@ -129,7 +129,7 @@ public class ExpenseTest {
         assertEquals(testExpense.getAmount(), TEST_AMOUNT);
         assertEquals(testExpense.getDescription(), TEST_DESCRIPTION);
         assertEquals(testExpense.isTentative(), TEST_TENTATIVE);
-        assertEquals(LocalDateTimeParser.toString(testExpense.getTime()), TEST_TIME);
+        assertEquals(Parser.formatTime(testExpense.getTime()), TEST_TIME);
         assertEquals(testExpense.getTags(), Set.of(TEST_TAGS));
     }
 
@@ -138,7 +138,7 @@ public class ExpenseTest {
         try {
             new Expense.Builder(INVALID_STORAGE_STRING);
             fail();
-        } catch (DukeException e) {
+        } catch (DukeRuntimeException e) {
             // Success
             // todo: I would check the message here if the message was constant
             e.printStackTrace();

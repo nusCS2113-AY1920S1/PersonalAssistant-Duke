@@ -1,7 +1,7 @@
 package duke.dukeobject;
 
 import duke.exception.DukeException;
-import duke.parser.LocalDateTimeParser;
+import duke.parser.Parser;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -55,7 +55,7 @@ public class Expense extends DukeItem {
         /**
          * {@inheritDoc}
          */
-        Builder(String storageString) {
+        Builder(String storageString) throws DukeException {
             this(storageStringToMap(storageString));
         }
 
@@ -64,16 +64,35 @@ public class Expense extends DukeItem {
          */
         Builder(Map<String, String> mappedStorageString) throws DukeException {
             super(mappedStorageString);
-            if (!mappedStorageString.containsKey("amount")
-                || !mappedStorageString.containsKey("description")
-                || !mappedStorageString.containsKey("isTentative")
-                || !mappedStorageString.containsKey("time")) {
-                throw new DukeException("Expense missing field in storage string"); // todo: Update DukeException
+            if (mappedStorageString.containsKey("amount")) {
+                setAmount(mappedStorageString.get("amount"));
             }
-            amount = new BigDecimal(mappedStorageString.get("amount"));
-            description = mappedStorageString.get("description");
-            isTentative = Boolean.parseBoolean(mappedStorageString.get("isTentative"));
-            time = LocalDateTimeParser.fromString(mappedStorageString.get("time"));
+            if (mappedStorageString.containsKey("description")) {
+                setDescription(mappedStorageString.get("description"));
+            }
+            if (mappedStorageString.containsKey("isTentative")) {
+                setTentative(Boolean.parseBoolean(mappedStorageString.get("isTentative")));
+            }
+            if (mappedStorageString.containsKey("time")) {
+                setTime(Parser.parseTime(mappedStorageString.get("time")));
+            }
+        }
+
+        /**
+         * Sets the amount of the expense using a string.
+         * @see #setAmount(BigDecimal)
+         *
+         * @param amount the amount of the expense as a string.
+         * @return this builder.
+         * @throws DukeException if the value in amount cannot be converted into a {@code BigDecimal},
+         *                       or if the {@code BigDecimal} does not represent a valid amount.
+         */
+        public Builder setAmount(String amount) throws DukeException {
+            try {
+                return setAmount(new BigDecimal(amount));
+            } catch (NumberFormatException e) {
+                throw new DukeException(String.format(DukeException.MESSAGE_EXPENSE_AMOUNT_INVALID, amount));
+            }
         }
 
         /**
@@ -81,26 +100,15 @@ public class Expense extends DukeItem {
          *
          * @param amount the amount of the expense.
          * @return this builder.
+         * @throws DukeException if the {@code BigDecimal} does not represent a valid amount.
          */
-        public Builder setAmount(BigDecimal amount) {
+        public Builder setAmount(BigDecimal amount) throws DukeException {
+            if (amount.scale() > 2) {
+                throw new DukeException(
+                    String.format(DukeException.MESSAGE_EXPENSE_AMOUNT_INVALID, amount.toPlainString()));
+            }
             this.amount = amount;
             return this;
-        }
-
-        /**
-         * Sets the amount of the expense using a string. 
-         * @see #setAmount(BigDecimal) 
-         * 
-         * @param amount the amount of the expense as a string.
-         * @return this builder. 
-         * @throws DukeException if the value in amount cannot be converted into a {@code BigDecimal}
-         */
-        public Builder setAmount(String amount) throws DukeException {
-            try {
-                return setAmount(new BigDecimal(amount));
-            } catch (NumberFormatException e) {
-                throw new DukeException("Invalid amount format"); // todo: update DukeException.
-            }
         }
 
         /**
@@ -126,6 +134,22 @@ public class Expense extends DukeItem {
         }
 
         /**
+         * Sets the time of the expense using a string.
+         * @see #setTime(LocalDateTime)
+         *
+         * @param time the time of the expense as a string.
+         * @return this builder.
+         * @throws DukeException if the time string cannot be parsed into a {@code LocalDateTime} object.
+         */
+        public Builder setTime(String time) throws DukeException {
+            try {
+                return setTime(Parser.parseTime(time));
+            } catch (DukeException e) {
+                throw new DukeException(String.format(DukeException.MESSAGE_EXPENSE_TIME_INVALID, time));
+            }
+        }
+
+        /**
          * Sets the time of the expense.
          *
          * @param time the time of the expense.
@@ -134,18 +158,6 @@ public class Expense extends DukeItem {
         public Builder setTime(LocalDateTime time) {
             this.time = time;
             return this;
-        }
-
-        /**
-         * Sets the time of the expense using a string.
-         * @see #setTime(LocalDateTime) 
-         *
-         * @param time the time of the expense as a string.
-         * @return this builder.
-         * @throws DukeException if the time string cannot be parsed into a {@code LocalDateTime} object. 
-         */
-        public Builder setTime(String time) throws DukeException {
-            return setTime(LocalDateTimeParser.fromString(time));
         }
 
         /**
@@ -217,7 +229,7 @@ public class Expense extends DukeItem {
         StringJoiner stringJoiner = new StringJoiner(" ");
         stringJoiner.add((amount.compareTo(BigDecimal.valueOf(0)) < 0 ? "-$" + amount.abs() : "$" + amount));
         stringJoiner.add(description);
-        stringJoiner.add(LocalDateTimeParser.toString(time));
+        stringJoiner.add(Parser.formatTime(time));
         if (isTentative) {
             stringJoiner.add("(tentative)");
         }
@@ -239,7 +251,7 @@ public class Expense extends DukeItem {
         stringJoiner.add(super.toStorageString());
         stringJoiner.add("amount" + STORAGE_NAME_SEPARATOR + amount);
         stringJoiner.add("description" + STORAGE_NAME_SEPARATOR + description);
-        stringJoiner.add("time" + STORAGE_NAME_SEPARATOR + LocalDateTimeParser.toString(time));
+        stringJoiner.add("time" + STORAGE_NAME_SEPARATOR + Parser.formatTime(time));
         stringJoiner.add("isTentative" + STORAGE_NAME_SEPARATOR + isTentative);
 
         return stringJoiner.toString();

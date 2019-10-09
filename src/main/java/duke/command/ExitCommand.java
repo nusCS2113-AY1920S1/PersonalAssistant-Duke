@@ -3,6 +3,7 @@ package duke.command;
 import duke.dukeobject.ExpenseList;
 import duke.parser.CommandParams;
 import duke.ui.Ui;
+import javafx.application.Platform;
 
 /**
  * Represents a specified command as ExitCommand by extending the {@code Command} class.
@@ -24,7 +25,6 @@ public class ExitCommand extends Command {
      */
     public void execute(CommandParams commandParams, ExpenseList expensesList, Ui ui) {
         ui.println("Bye. Hope to see you again soon!");
-        System.exit(0);
+        Platform.exit();
     }
-
 }

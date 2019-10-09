@@ -1,6 +1,7 @@
 package duke.dukeobject;
 
 import duke.exception.DukeException;
+import duke.exception.DukeRuntimeException;
 
 import java.io.Serializable;
 import java.util.HashSet;
@@ -27,6 +28,11 @@ abstract class DukeItem implements Serializable {
      * The string that separates tags from each other in the storage string.
      */
     protected static final String STORAGE_TAG_SEPARATOR = " ";
+
+    /**
+     * The string that separates tags from each other in an input string.
+     */
+    protected static final String TAG_SEPARATOR = " ";
     /**
      * The item's tags.
      */
@@ -86,16 +92,12 @@ abstract class DukeItem implements Serializable {
          * Constructs an item from its mapped storage string. Used internally to load items from storage.
          *
          * @param mappedStorageString a map of the item's storage string.
-         * @throws DukeException if the mapped storage string is missing a required field.
          */
-        protected Builder(Map<String, String> mappedStorageString) throws DukeException {
-            if (!mappedStorageString.containsKey("tags")) {
-                throw new DukeException("DukeItem missing field in storage string"); // todo: Update DukeException
+        protected Builder(Map<String, String> mappedStorageString) {
+            if (mappedStorageString.containsKey("tags")) {
+                invertTags(mappedStorageString.get("tags")
+                    .split(STORAGE_TAG_SEPARATOR));
             }
-            tags = Stream.of(mappedStorageString.get("tags")
-                .split(STORAGE_TAG_SEPARATOR))
-                .filter(s -> !s.equals(""))
-                .collect(Collectors.toSet());
         }
 
         /**
@@ -114,6 +116,17 @@ abstract class DukeItem implements Serializable {
                 }
             }
             return getThis();
+        }
+
+        /**
+         * Inverts the presence of certain tags inside {@code tags}, specified by the parameter {@code tagsToInvert}.
+         * This effectively adds tags not present, and removes tags that were present.
+         *
+         * @param tagsToInvert the tags to invert as a string.
+         * @return this builder.
+         */
+        public T invertTags(String tagsToInvert) {
+            return invertTags(tagsToInvert.split(TAG_SEPARATOR));
         }
 
         /**

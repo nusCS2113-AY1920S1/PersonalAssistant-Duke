@@ -2,6 +2,7 @@ package duke.command;
 
 import duke.dukeobject.ExpenseList;
 import duke.exception.DukeException;
+import duke.exception.DukeRuntimeException;
 import duke.parser.CommandParams;
 import duke.ui.Ui;
 
@@ -29,26 +30,7 @@ public class DeleteCommand extends Command {
      * @param ui           The ui of Duke.
      * @throws DukeException If the index given is out of range, invalid, or does not exist.
      */
-    public void execute(CommandParams commandParams, ExpenseList expensesList, Ui ui) {
-        /*
-        if (commandParams.getMainParam() == null) {
-            throw new DukeException("☹ OOPS!!! I don't know which task to delete!");
-        }
-        String expenseDescription;
-        try {
-            int index = Integer.parseInt(commandParams.getMainParam()) - 1; // 0-based
-            expenseDescription = expensesList.getExpense(index).toString();
-            expensesList.delete(index);
-        } catch (IndexOutOfBoundsException e) {
-            throw new DukeException("☹ OOPS!!! The index should be in range.");
-        } catch (NumberFormatException e) {
-            throw new DukeException("☹ OOPS!!! The index be a number.");
-        }
-        storage.update(expensesList.toStorageStrings());
-        ui.println("Noted. I've removed this task:");
-        ui.println(taskInfo);
-        ui.println("Now you have " + expensesList.getSize() + " expensesList in the list.");
+    public void execute(CommandParams commandParams, ExpenseList expensesList, Ui ui) throws DukeException {
 
-         */
     }
 }

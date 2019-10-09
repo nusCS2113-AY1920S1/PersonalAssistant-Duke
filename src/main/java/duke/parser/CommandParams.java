@@ -1,6 +1,7 @@
 package duke.parser;
 
 import duke.exception.DukeException;
+import duke.exception.DukeRuntimeException;
 
 import java.util.regex.Pattern;
 import java.util.HashMap;
@@ -57,7 +58,7 @@ public class CommandParams {
         for (int i = 1; i < nameValueStrings.length; i++) {
             String[] nameValuePair = SPACE_REGEX.split(nameValueStrings[i], 2);
             if (secondaryParams.containsKey(nameValuePair[0])) { // can't contain the same key twice
-                throw new DukeException(String.format("☹ OOPS!!! You specified %1$s twice!", nameValuePair[0]));
+                throw new DukeException(String.format(DukeException.MESSAGE_COMMAND_PARAM_DUPLICATE, nameValuePair[0]));
             }
 
             if (nameValuePair.length == 2) {
@@ -87,31 +88,30 @@ public class CommandParams {
     }
 
     /**
-     * Returns the value of a requested parameter. This function should be used to request mandatory parameters,
-     * and will throw a {@code DukeException} if the parameter does not exist, or is null.
+     * Returns whether the command has a {@code mainParam}.
+     *
+     * @return the existence of {@code mainParam}, that is, whether it is null or not.
+     */
+    public boolean containsMainParam() {
+        return mainParam != null;
+    }
+
+    /**
+     * Returns the value of a requested parameter. The parameter's existence should be checked prior if
+     * the parameter is optional, as this method throws {@code DukeException} if the parameter does not
+     * exist, or is null.
      *
      * @param paramName the name of the parameter whose value to return.
      * @return the value of the requested parameter.
-     * @throws DukeException if the parameter does not exist, or is null.
+     * @throws DukeRuntimeException if the parameter does not exist, or is null.
      */
     public String getParam(String paramName) throws DukeException {
         String paramValue = secondaryParams.get(paramName);
         if (paramValue == null) {
-            throw new DukeException(String.format("☹ OOPS!!! You need to give me a value for %1$s!", paramName));
+            throw new DukeException(String.format(DukeException.MESSAGE_COMMAND_PARAM_MISSING_VALUE, paramName));
         } else {
             return paramValue;
         }
-    }
-
-    /**
-     * Returns the value of a requested parameter. This function should be used to request optional parameters,
-     * and returns {@code null} if the parameter does not exist, or contains no value.
-     *
-     * @param paramName the name of the parameter whose value to return.
-     * @return the value of the requested parameter. May be null.
-     */
-    public String getOptionalParam(String paramName) {
-        return secondaryParams.get(paramName);
     }
 
     /**
@@ -129,7 +129,6 @@ public class CommandParams {
                 return false;
             }
         }
-
         return true;
     }
 }
