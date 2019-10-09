@@ -10,8 +10,8 @@ import static duke.commons.util.CollectionUtil.requireAllNonNull;
 /**
  * Represents a product in product list.
  */
-public class Product {
-    public static final String MESSAGE_CONSTRAINTS = "Product name can take any values, "
+public class comProduct {
+    public static final String MESSAGE_CONSTRAINTS = "comProduct name can take any values, "
             + "and should not be blank";
 
     //Identity field
@@ -22,7 +22,7 @@ public class Product {
     /**
      * All fields should not be null.
      */
-    public Product(String name, Map<Ingredient, Double> ingredients) {
+    public comProduct(String name, Map<Ingredient, Double> ingredients) {
         requireAllNonNull(name, ingredients);
         checkEmpty(name, MESSAGE_CONSTRAINTS);
 
@@ -30,9 +30,10 @@ public class Product {
         this.ingredients = ingredients;
     }
 
-    public Product(String name) {
+    public comProduct(String name) {
         this(name, new HashMap<>());
     }
+
 
     @Override
     public String toString() {
@@ -47,7 +48,7 @@ public class Product {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        Product product = (Product) o;
+        comProduct product = (comProduct) o;
         return name.equals(product.name);
     }
 

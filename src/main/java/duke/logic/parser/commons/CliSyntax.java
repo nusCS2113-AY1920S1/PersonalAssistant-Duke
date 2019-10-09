@@ -3,6 +3,7 @@ package duke.logic.parser.commons;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.function.Predicate;
 
 /**
  * Contains Command Line Interface (CLI) syntax definitions common to multiple commands.
@@ -25,5 +26,11 @@ public class CliSyntax {
     public static final Prefix PREFIX_PRODUCT_INGREDIENT = new Prefix("-ingt");
     public static final Prefix PREFIX_PRODUCT_COST = new Prefix("-cost");
     public static final Prefix PREFIX_PRODUCT_PRICE = new Prefix("-price");
+    public static final Prefix PREFIX_PRODUCT_INDEX = new Prefix("-i");
+    public static final Prefix PREFIX_PRODUCT_STATUS = new Prefix("-status");
 
+    public static final Prefix PREFIX_INVENTORY_NAME = new Prefix("-ingt");
+    public static final Prefix PREFIX_INVENTORY_QUANTITY = new Prefix("-qty");
+    public static final Prefix PREFIX_INVENTORY_UNIT = new Prefix("-unit");
+    public static final Prefix PREFIX_INVENTORY_INDEX = new Prefix("-i");
 }

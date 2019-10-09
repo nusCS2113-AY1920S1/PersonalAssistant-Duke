@@ -1,6 +1,8 @@
 package duke.model;
 
 import duke.commons.core.index.Index;
+import duke.model.commons.Ingredient;
+import duke.model.product.Product;
 import duke.model.order.Order;
 import duke.model.shortcut.Shortcut;
 import javafx.collections.ObservableList;
@@ -16,10 +18,14 @@ import static java.util.Objects.requireNonNull;
 public class BakingHome implements ReadOnlyBakingHome {
 
     private final UniqueEntityList<Order> orders;
+    private final UniqueEntityList<Product> products;
+    private final UniqueEntityList<Ingredient> inventory;
     private final UniqueEntityList<Shortcut> shortcuts;
 
     public BakingHome() {
         orders = new UniqueEntityList<>();
+        products = new UniqueEntityList<>();
+        inventory = new UniqueEntityList<>();
         shortcuts = new UniqueEntityList<>();
     }
 
@@ -96,6 +102,36 @@ public class BakingHome implements ReadOnlyBakingHome {
     @Override
     public ObservableList<Order> getOrderList() {
         return orders.asUnmodifiableObservableList();
+    }
+
+    //============comProduct operations==============
+
+    /**
+     * Adds an product to products
+     * The order must not already exist in orders.
+     */
+    public void addProduct(Product p) {
+        products.add(p);
+    }
+
+    public void setProduct(Product originalProduct, Product editedOrder) {
+        requireNonNull(editedOrder);
+
+        products.set(originalProduct, editedOrder);
+    }
+    @Override
+    public ObservableList<Product> getProductList() {
+        return products.asUnmodifiableObservableList();
+    }
+
+    //============Inventory operations==============
+    public void addInventory(Ingredient i) {
+        inventory.add(i);
+    }
+
+    @Override
+    public ObservableList<Ingredient> getInventoryList() {
+        return inventory.asUnmodifiableObservableList();
     }
 
     //// shortcut-related operations

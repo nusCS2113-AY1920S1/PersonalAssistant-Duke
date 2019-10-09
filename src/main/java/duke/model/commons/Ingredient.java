@@ -12,7 +12,7 @@ import static duke.commons.util.CollectionUtil.requireAllNonNull;
 public class Ingredient {
     private static final String VALIDATION_FLOAT_NUMBER_REGEX = "^[-+]?[0-9]*\\.?[0-9]+([eE][-+]?[0-9]+)?$";
 
-    private static final String MESSAGE_CONSTRAINTS_NAME = "Product name can take any values, "
+    private static final String MESSAGE_CONSTRAINTS_NAME = "comProduct name can take any values, "
             + "and should not be blank";
     private static final String MESSAGE_CONSTRAINTS_UNIT = "Unit can take any values, "
             + "and should not be blank";
@@ -76,4 +76,14 @@ public class Ingredient {
                 + ", unit='" + unit + '\''
                 + '}';
     }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getUnit() {
+        return unit;
+    }
+
+
 }

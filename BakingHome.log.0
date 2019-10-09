@@ -1,420 +1,85 @@
-Oct 07, 2019 2:28:54 PM duke.Launcher init
+
+Oct 09, 2019 5:36:04 PM duke.Launcher init
 INFO: =============================[ Initializing BakingHome ]===========================
-Oct 07, 2019 2:28:54 PM duke.Launcher start
+Oct 09, 2019 5:36:04 PM duke.Launcher start
 INFO: Starting BakingHome
-Oct 07, 2019 2:28:54 PM duke.ui.UiManager start
+Oct 09, 2019 5:36:05 PM duke.ui.UiManager start
 INFO: Starting UI...
-Oct 07, 2019 9:05:56 PM duke.Launcher init
+Oct 09, 2019 8:25:57 PM duke.Launcher init
 INFO: =============================[ Initializing BakingHome ]===========================
-Oct 07, 2019 9:05:56 PM duke.Launcher start
+Oct 09, 2019 8:25:57 PM duke.Launcher start
 INFO: Starting BakingHome
-Oct 07, 2019 9:05:56 PM duke.ui.UiManager start
+Oct 09, 2019 8:25:57 PM duke.ui.UiManager start
 INFO: Starting UI...
-Oct 09, 2019 12:18:43 AM duke.Launcher init
+Oct 09, 2019 8:30:27 PM duke.Launcher init
 INFO: =============================[ Initializing BakingHome ]===========================
-Oct 09, 2019 12:18:43 AM duke.Launcher start
+Oct 09, 2019 8:30:27 PM duke.Launcher start
 INFO: Starting BakingHome
-Oct 09, 2019 12:18:43 AM duke.ui.UiManager start
+Oct 09, 2019 8:30:27 PM duke.ui.UiManager start
 INFO: Starting UI...
-Oct 09, 2019 12:18:44 AM duke.ui.UiManager start
-SEVERE: javafx.fxml.LoadException: Error resolving onAction='#handleShowRecipe', either the event handler is not in the Namespace or there is an error in the script.
-/C:/Users/lenovo/Desktop/2113T/main/build/resources/main/view/MainWindow.fxml:87
-
-java.lang.AssertionError: javafx.fxml.LoadException: Error resolving onAction='#handleShowRecipe', either the event handler is not in the Namespace or there is an error in the script.
-/C:/Users/lenovo/Desktop/2113T/main/build/resources/main/view/MainWindow.fxml:87
-
-	at duke.ui.UiPart.loadFxmlFile(UiPart.java:79)
-	at duke.ui.UiPart.<init>(UiPart.java:46)
-	at duke.ui.UiPart.<init>(UiPart.java:55)
-	at duke.ui.MainWindow.<init>(MainWindow.java:58)
-	at duke.ui.UiManager.start(UiManager.java:41)
-	at duke.Launcher.start(Launcher.java:67)
-	at javafx.graphics/com.sun.javafx.application.LauncherImpl.lambda$launchApplication1$9(LauncherImpl.java:919)
-	at javafx.graphics/com.sun.javafx.application.PlatformImpl.lambda$runAndWait$11(PlatformImpl.java:449)
-	at javafx.graphics/com.sun.javafx.application.PlatformImpl.lambda$runLater$9(PlatformImpl.java:418)
-	at java.base/java.security.AccessController.doPrivileged(Native Method)
-	at javafx.graphics/com.sun.javafx.application.PlatformImpl.lambda$runLater$10(PlatformImpl.java:417)
-	at javafx.graphics/com.sun.glass.ui.InvokeLaterDispatcher$Future.run(InvokeLaterDispatcher.java:96)
-	at javafx.graphics/com.sun.glass.ui.win.WinApplication._runLoop(Native Method)
-	at javafx.graphics/com.sun.glass.ui.win.WinApplication.lambda$runLoop$3(WinApplication.java:175)
-	at java.base/java.lang.Thread.run(Thread.java:834)
-Caused by: javafx.fxml.LoadException: Error resolving onAction='#handleShowRecipe', either the event handler is not in the Namespace or there is an error in the script.
-/C:/Users/lenovo/Desktop/2113T/main/build/resources/main/view/MainWindow.fxml:87
-
-	at javafx.fxml/javafx.fxml.FXMLLoader.constructLoadException(FXMLLoader.java:2621)
-	at javafx.fxml/javafx.fxml.FXMLLoader.access$100(FXMLLoader.java:105)
-	at javafx.fxml/javafx.fxml.FXMLLoader$Element.processEventHandlerAttributes(FXMLLoader.java:618)
-	at javafx.fxml/javafx.fxml.FXMLLoader$ValueElement.processEndElement(FXMLLoader.java:778)
-	at javafx.fxml/javafx.fxml.FXMLLoader.processEndElement(FXMLLoader.java:2838)
-	at javafx.fxml/javafx.fxml.FXMLLoader.loadImpl(FXMLLoader.java:2557)
-	at javafx.fxml/javafx.fxml.FXMLLoader.loadImpl(FXMLLoader.java:2466)
-	at javafx.fxml/javafx.fxml.FXMLLoader.load(FXMLLoader.java:2435)
-	at duke.ui.UiPart.loadFxmlFile(UiPart.java:77)
-	... 14 more
-
-Oct 09, 2019 12:18:44 AM duke.ui.UiManager showFatalErrorDialogAndShutdown
-SEVERE: Fatal error during initializing javafx.fxml.LoadException: Error resolving onAction='#handleShowRecipe', either the event handler is not in the Namespace or there is an error in the script.
-/C:/Users/lenovo/Desktop/2113T/main/build/resources/main/view/MainWindow.fxml:87
-javafx.fxml.LoadException: Error resolving onAction='#handleShowRecipe', either the event handler is not in the Namespace or there is an error in the script.
-/C:/Users/lenovo/Desktop/2113T/main/build/resources/main/view/MainWindow.fxml:87
-
-java.lang.AssertionError: javafx.fxml.LoadException: Error resolving onAction='#handleShowRecipe', either the event handler is not in the Namespace or there is an error in the script.
-/C:/Users/lenovo/Desktop/2113T/main/build/resources/main/view/MainWindow.fxml:87
-
-	at duke.ui.UiPart.loadFxmlFile(UiPart.java:79)
-	at duke.ui.UiPart.<init>(UiPart.java:46)
-	at duke.ui.UiPart.<init>(UiPart.java:55)
-	at duke.ui.MainWindow.<init>(MainWindow.java:58)
-	at duke.ui.UiManager.start(UiManager.java:41)
-	at duke.Launcher.start(Launcher.java:67)
-	at javafx.graphics/com.sun.javafx.application.LauncherImpl.lambda$launchApplication1$9(LauncherImpl.java:919)
-	at javafx.graphics/com.sun.javafx.application.PlatformImpl.lambda$runAndWait$11(PlatformImpl.java:449)
-	at javafx.graphics/com.sun.javafx.application.PlatformImpl.lambda$runLater$9(PlatformImpl.java:418)
-	at java.base/java.security.AccessController.doPrivileged(Native Method)
-	at javafx.graphics/com.sun.javafx.application.PlatformImpl.lambda$runLater$10(PlatformImpl.java:417)
-	at javafx.graphics/com.sun.glass.ui.InvokeLaterDispatcher$Future.run(InvokeLaterDispatcher.java:96)
-	at javafx.graphics/com.sun.glass.ui.win.WinApplication._runLoop(Native Method)
-	at javafx.graphics/com.sun.glass.ui.win.WinApplication.lambda$runLoop$3(WinApplication.java:175)
-	at java.base/java.lang.Thread.run(Thread.java:834)
-Caused by: javafx.fxml.LoadException: Error resolving onAction='#handleShowRecipe', either the event handler is not in the Namespace or there is an error in the script.
-/C:/Users/lenovo/Desktop/2113T/main/build/resources/main/view/MainWindow.fxml:87
-
-	at javafx.fxml/javafx.fxml.FXMLLoader.constructLoadException(FXMLLoader.java:2621)
-	at javafx.fxml/javafx.fxml.FXMLLoader.access$100(FXMLLoader.java:105)
-	at javafx.fxml/javafx.fxml.FXMLLoader$Element.processEventHandlerAttributes(FXMLLoader.java:618)
-	at javafx.fxml/javafx.fxml.FXMLLoader$ValueElement.processEndElement(FXMLLoader.java:778)
-	at javafx.fxml/javafx.fxml.FXMLLoader.processEndElement(FXMLLoader.java:2838)
-	at javafx.fxml/javafx.fxml.FXMLLoader.loadImpl(FXMLLoader.java:2557)
-	at javafx.fxml/javafx.fxml.FXMLLoader.loadImpl(FXMLLoader.java:2466)
-	at javafx.fxml/javafx.fxml.FXMLLoader.load(FXMLLoader.java:2435)
-	at duke.ui.UiPart.loadFxmlFile(UiPart.java:77)
-	... 14 more
-
-Oct 09, 2019 12:19:20 AM duke.Launcher init
+Oct 09, 2019 8:52:48 PM duke.Launcher init
 INFO: =============================[ Initializing BakingHome ]===========================
-Oct 09, 2019 12:19:20 AM duke.Launcher start
+Oct 09, 2019 8:52:48 PM duke.Launcher start
 INFO: Starting BakingHome
-Oct 09, 2019 12:19:20 AM duke.ui.UiManager start
+Oct 09, 2019 8:52:48 PM duke.ui.UiManager start
 INFO: Starting UI...
-Oct 09, 2019 12:19:22 AM duke.ui.UiManager start
-SEVERE: null
-java.lang.NullPointerException
-	at duke.ui.ProductPage.<init>(ProductPage.java:37)
-	at duke.ui.MainWindow.fillInnerParts(MainWindow.java:72)
-	at duke.ui.UiManager.start(UiManager.java:43)
-	at duke.Launcher.start(Launcher.java:67)
-	at javafx.graphics/com.sun.javafx.application.LauncherImpl.lambda$launchApplication1$9(LauncherImpl.java:919)
-	at javafx.graphics/com.sun.javafx.application.PlatformImpl.lambda$runAndWait$11(PlatformImpl.java:449)
-	at javafx.graphics/com.sun.javafx.application.PlatformImpl.lambda$runLater$9(PlatformImpl.java:418)
-	at java.base/java.security.AccessController.doPrivileged(Native Method)
-	at javafx.graphics/com.sun.javafx.application.PlatformImpl.lambda$runLater$10(PlatformImpl.java:417)
-	at javafx.graphics/com.sun.glass.ui.InvokeLaterDispatcher$Future.run(InvokeLaterDispatcher.java:96)
-	at javafx.graphics/com.sun.glass.ui.win.WinApplication._runLoop(Native Method)
-	at javafx.graphics/com.sun.glass.ui.win.WinApplication.lambda$runLoop$3(WinApplication.java:175)
-	at java.base/java.lang.Thread.run(Thread.java:834)
-
-Oct 09, 2019 12:19:22 AM duke.ui.UiManager showFatalErrorDialogAndShutdown
-SEVERE: Fatal error during initializing nullnull
-java.lang.NullPointerException
-	at duke.ui.ProductPage.<init>(ProductPage.java:37)
-	at duke.ui.MainWindow.fillInnerParts(MainWindow.java:72)
-	at duke.ui.UiManager.start(UiManager.java:43)
-	at duke.Launcher.start(Launcher.java:67)
-	at javafx.graphics/com.sun.javafx.application.LauncherImpl.lambda$launchApplication1$9(LauncherImpl.java:919)
-	at javafx.graphics/com.sun.javafx.application.PlatformImpl.lambda$runAndWait$11(PlatformImpl.java:449)
-	at javafx.graphics/com.sun.javafx.application.PlatformImpl.lambda$runLater$9(PlatformImpl.java:418)
-	at java.base/java.security.AccessController.doPrivileged(Native Method)
-	at javafx.graphics/com.sun.javafx.application.PlatformImpl.lambda$runLater$10(PlatformImpl.java:417)
-	at javafx.graphics/com.sun.glass.ui.InvokeLaterDispatcher$Future.run(InvokeLaterDispatcher.java:96)
-	at javafx.graphics/com.sun.glass.ui.win.WinApplication._runLoop(Native Method)
-	at javafx.graphics/com.sun.glass.ui.win.WinApplication.lambda$runLoop$3(WinApplication.java:175)
-	at java.base/java.lang.Thread.run(Thread.java:834)
-
-Oct 09, 2019 10:37:14 AM duke.Launcher init
+Oct 09, 2019 8:57:27 PM duke.Launcher init
 INFO: =============================[ Initializing BakingHome ]===========================
-Oct 09, 2019 10:37:14 AM duke.Launcher start
+Oct 09, 2019 8:57:27 PM duke.Launcher start
 INFO: Starting BakingHome
-Oct 09, 2019 10:37:14 AM duke.ui.UiManager start
+Oct 09, 2019 8:57:27 PM duke.ui.UiManager start
 INFO: Starting UI...
-Oct 09, 2019 10:40:18 AM duke.Launcher init
+Oct 09, 2019 9:17:56 PM duke.Launcher init
 INFO: =============================[ Initializing BakingHome ]===========================
-Oct 09, 2019 10:40:19 AM duke.Launcher start
+Oct 09, 2019 9:17:56 PM duke.Launcher start
 INFO: Starting BakingHome
-Oct 09, 2019 10:40:19 AM duke.ui.UiManager start
+Oct 09, 2019 9:17:57 PM duke.ui.UiManager start
 INFO: Starting UI...
-Oct 09, 2019 10:42:37 AM duke.Launcher init
+Oct 09, 2019 9:18:18 PM duke.Launcher init
 INFO: =============================[ Initializing BakingHome ]===========================
-Oct 09, 2019 10:42:38 AM duke.Launcher start
+Oct 09, 2019 9:18:18 PM duke.Launcher start
 INFO: Starting BakingHome
-Oct 09, 2019 10:42:38 AM duke.ui.UiManager start
+Oct 09, 2019 9:18:18 PM duke.ui.UiManager start
 INFO: Starting UI...
-Oct 09, 2019 10:49:48 AM duke.Launcher init
+Oct 09, 2019 11:00:13 PM duke.Launcher init
 INFO: =============================[ Initializing BakingHome ]===========================
-Oct 09, 2019 10:49:48 AM duke.Launcher start
+Oct 09, 2019 11:00:13 PM duke.Launcher start
 INFO: Starting BakingHome
-Oct 09, 2019 10:49:48 AM duke.ui.UiManager start
+Oct 09, 2019 11:00:13 PM duke.ui.UiManager start
 INFO: Starting UI...
-Oct 09, 2019 4:38:04 PM duke.Launcher init
+Oct 09, 2019 11:01:38 PM duke.Launcher init
 INFO: =============================[ Initializing BakingHome ]===========================
-Oct 09, 2019 4:38:04 PM duke.Launcher start
+Oct 09, 2019 11:01:38 PM duke.Launcher start
 INFO: Starting BakingHome
-Oct 09, 2019 4:38:05 PM duke.ui.UiManager start
+Oct 09, 2019 11:01:38 PM duke.ui.UiManager start
 INFO: Starting UI...
-Oct 09, 2019 4:38:06 PM duke.ui.UiManager start
-SEVERE: javafx.fxml.LoadException: 
-/C:/Users/skyvo/Documents/NUS%20Y2S1/CS2113T/main/build/resources/main/view/InventoryPage.fxml
-
-java.lang.AssertionError: javafx.fxml.LoadException: 
-/C:/Users/skyvo/Documents/NUS%20Y2S1/CS2113T/main/build/resources/main/view/InventoryPage.fxml
-
-	at duke.ui.UiPart.loadFxmlFile(UiPart.java:79)
-	at duke.ui.UiPart.<init>(UiPart.java:29)
-	at duke.ui.UiPart.<init>(UiPart.java:38)
-	at duke.ui.InventoryPage.<init>(InventoryPage.java:9)
-	at duke.ui.MainWindow.fillInnerParts(MainWindow.java:75)
-	at duke.ui.UiManager.start(UiManager.java:43)
-	at duke.Launcher.start(Launcher.java:67)
-	at javafx.graphics/com.sun.javafx.application.LauncherImpl.lambda$launchApplication1$9(LauncherImpl.java:919)
-	at javafx.graphics/com.sun.javafx.application.PlatformImpl.lambda$runAndWait$11(PlatformImpl.java:449)
-	at javafx.graphics/com.sun.javafx.application.PlatformImpl.lambda$runLater$9(PlatformImpl.java:418)
-	at java.base/java.security.AccessController.doPrivileged(Native Method)
-	at javafx.graphics/com.sun.javafx.application.PlatformImpl.lambda$runLater$10(PlatformImpl.java:417)
-	at javafx.graphics/com.sun.glass.ui.InvokeLaterDispatcher$Future.run(InvokeLaterDispatcher.java:96)
-	at javafx.graphics/com.sun.glass.ui.win.WinApplication._runLoop(Native Method)
-	at javafx.graphics/com.sun.glass.ui.win.WinApplication.lambda$runLoop$3(WinApplication.java:175)
-	at java.base/java.lang.Thread.run(Thread.java:834)
-Caused by: javafx.fxml.LoadException: 
-/C:/Users/skyvo/Documents/NUS%20Y2S1/CS2113T/main/build/resources/main/view/InventoryPage.fxml
-
-	at javafx.fxml/javafx.fxml.FXMLLoader.constructLoadException(FXMLLoader.java:2625)
-	at javafx.fxml/javafx.fxml.FXMLLoader.loadImpl(FXMLLoader.java:2568)
-	at javafx.fxml/javafx.fxml.FXMLLoader.loadImpl(FXMLLoader.java:2466)
-	at javafx.fxml/javafx.fxml.FXMLLoader.load(FXMLLoader.java:2435)
-	at duke.ui.UiPart.loadFxmlFile(UiPart.java:77)
-	... 15 more
-Caused by: javax.xml.stream.XMLStreamException: ParseError at [row,col]:[3,2]
-Message: The markup in the document preceding the root element must be well-formed.
-	at java.xml/com.sun.org.apache.xerces.internal.impl.XMLStreamReaderImpl.next(XMLStreamReaderImpl.java:652)
-	at java.xml/javax.xml.stream.util.StreamReaderDelegate.next(StreamReaderDelegate.java:84)
-	at javafx.fxml/javafx.fxml.FXMLLoader.loadImpl(FXMLLoader.java:2538)
-	... 18 more
-
-Oct 09, 2019 4:38:06 PM duke.ui.UiManager showFatalErrorDialogAndShutdown
-SEVERE: Fatal error during initializing javafx.fxml.LoadException: 
-/C:/Users/skyvo/Documents/NUS%20Y2S1/CS2113T/main/build/resources/main/view/InventoryPage.fxml
-javafx.fxml.LoadException: 
-/C:/Users/skyvo/Documents/NUS%20Y2S1/CS2113T/main/build/resources/main/view/InventoryPage.fxml
-
-java.lang.AssertionError: javafx.fxml.LoadException: 
-/C:/Users/skyvo/Documents/NUS%20Y2S1/CS2113T/main/build/resources/main/view/InventoryPage.fxml
-
-	at duke.ui.UiPart.loadFxmlFile(UiPart.java:79)
-	at duke.ui.UiPart.<init>(UiPart.java:29)
-	at duke.ui.UiPart.<init>(UiPart.java:38)
-	at duke.ui.InventoryPage.<init>(InventoryPage.java:9)
-	at duke.ui.MainWindow.fillInnerParts(MainWindow.java:75)
-	at duke.ui.UiManager.start(UiManager.java:43)
-	at duke.Launcher.start(Launcher.java:67)
-	at javafx.graphics/com.sun.javafx.application.LauncherImpl.lambda$launchApplication1$9(LauncherImpl.java:919)
-	at javafx.graphics/com.sun.javafx.application.PlatformImpl.lambda$runAndWait$11(PlatformImpl.java:449)
-	at javafx.graphics/com.sun.javafx.application.PlatformImpl.lambda$runLater$9(PlatformImpl.java:418)
-	at java.base/java.security.AccessController.doPrivileged(Native Method)
-	at javafx.graphics/com.sun.javafx.application.PlatformImpl.lambda$runLater$10(PlatformImpl.java:417)
-	at javafx.graphics/com.sun.glass.ui.InvokeLaterDispatcher$Future.run(InvokeLaterDispatcher.java:96)
-	at javafx.graphics/com.sun.glass.ui.win.WinApplication._runLoop(Native Method)
-	at javafx.graphics/com.sun.glass.ui.win.WinApplication.lambda$runLoop$3(WinApplication.java:175)
-	at java.base/java.lang.Thread.run(Thread.java:834)
-Caused by: javafx.fxml.LoadException: 
-/C:/Users/skyvo/Documents/NUS%20Y2S1/CS2113T/main/build/resources/main/view/InventoryPage.fxml
-
-	at javafx.fxml/javafx.fxml.FXMLLoader.constructLoadException(FXMLLoader.java:2625)
-	at javafx.fxml/javafx.fxml.FXMLLoader.loadImpl(FXMLLoader.java:2568)
-	at javafx.fxml/javafx.fxml.FXMLLoader.loadImpl(FXMLLoader.java:2466)
-	at javafx.fxml/javafx.fxml.FXMLLoader.load(FXMLLoader.java:2435)
-	at duke.ui.UiPart.loadFxmlFile(UiPart.java:77)
-	... 15 more
-Caused by: javax.xml.stream.XMLStreamException: ParseError at [row,col]:[3,2]
-Message: The markup in the document preceding the root element must be well-formed.
-	at java.xml/com.sun.org.apache.xerces.internal.impl.XMLStreamReaderImpl.next(XMLStreamReaderImpl.java:652)
-	at java.xml/javax.xml.stream.util.StreamReaderDelegate.next(StreamReaderDelegate.java:84)
-	at javafx.fxml/javafx.fxml.FXMLLoader.loadImpl(FXMLLoader.java:2538)
-	... 18 more
-
-Oct 09, 2019 4:38:12 PM duke.Launcher init
+Oct 09, 2019 11:07:06 PM duke.Launcher init
 INFO: =============================[ Initializing BakingHome ]===========================
-Oct 09, 2019 4:38:12 PM duke.Launcher start
+Oct 09, 2019 11:07:06 PM duke.Launcher start
 INFO: Starting BakingHome
-Oct 09, 2019 4:38:12 PM duke.ui.UiManager start
+Oct 09, 2019 11:07:06 PM duke.ui.UiManager start
 INFO: Starting UI...
-Oct 09, 2019 4:38:14 PM duke.ui.UiManager start
-SEVERE: javafx.fxml.LoadException: 
-/C:/Users/skyvo/Documents/NUS%20Y2S1/CS2113T/main/build/resources/main/view/InventoryPage.fxml
-
-java.lang.AssertionError: javafx.fxml.LoadException: 
-/C:/Users/skyvo/Documents/NUS%20Y2S1/CS2113T/main/build/resources/main/view/InventoryPage.fxml
-
-	at duke.ui.UiPart.loadFxmlFile(UiPart.java:79)
-	at duke.ui.UiPart.<init>(UiPart.java:29)
-	at duke.ui.UiPart.<init>(UiPart.java:38)
-	at duke.ui.InventoryPage.<init>(InventoryPage.java:9)
-	at duke.ui.MainWindow.fillInnerParts(MainWindow.java:75)
-	at duke.ui.UiManager.start(UiManager.java:43)
-	at duke.Launcher.start(Launcher.java:67)
-	at javafx.graphics/com.sun.javafx.application.LauncherImpl.lambda$launchApplication1$9(LauncherImpl.java:919)
-	at javafx.graphics/com.sun.javafx.application.PlatformImpl.lambda$runAndWait$11(PlatformImpl.java:449)
-	at javafx.graphics/com.sun.javafx.application.PlatformImpl.lambda$runLater$9(PlatformImpl.java:418)
-	at java.base/java.security.AccessController.doPrivileged(Native Method)
-	at javafx.graphics/com.sun.javafx.application.PlatformImpl.lambda$runLater$10(PlatformImpl.java:417)
-	at javafx.graphics/com.sun.glass.ui.InvokeLaterDispatcher$Future.run(InvokeLaterDispatcher.java:96)
-	at javafx.graphics/com.sun.glass.ui.win.WinApplication._runLoop(Native Method)
-	at javafx.graphics/com.sun.glass.ui.win.WinApplication.lambda$runLoop$3(WinApplication.java:175)
-	at java.base/java.lang.Thread.run(Thread.java:834)
-Caused by: javafx.fxml.LoadException: 
-/C:/Users/skyvo/Documents/NUS%20Y2S1/CS2113T/main/build/resources/main/view/InventoryPage.fxml
-
-	at javafx.fxml/javafx.fxml.FXMLLoader.constructLoadException(FXMLLoader.java:2625)
-	at javafx.fxml/javafx.fxml.FXMLLoader.loadImpl(FXMLLoader.java:2568)
-	at javafx.fxml/javafx.fxml.FXMLLoader.loadImpl(FXMLLoader.java:2466)
-	at javafx.fxml/javafx.fxml.FXMLLoader.load(FXMLLoader.java:2435)
-	at duke.ui.UiPart.loadFxmlFile(UiPart.java:77)
-	... 15 more
-Caused by: javax.xml.stream.XMLStreamException: ParseError at [row,col]:[3,2]
-Message: The markup in the document preceding the root element must be well-formed.
-	at java.xml/com.sun.org.apache.xerces.internal.impl.XMLStreamReaderImpl.next(XMLStreamReaderImpl.java:652)
-	at java.xml/javax.xml.stream.util.StreamReaderDelegate.next(StreamReaderDelegate.java:84)
-	at javafx.fxml/javafx.fxml.FXMLLoader.loadImpl(FXMLLoader.java:2538)
-	... 18 more
-
-Oct 09, 2019 4:38:14 PM duke.ui.UiManager showFatalErrorDialogAndShutdown
-SEVERE: Fatal error during initializing javafx.fxml.LoadException: 
-/C:/Users/skyvo/Documents/NUS%20Y2S1/CS2113T/main/build/resources/main/view/InventoryPage.fxml
-javafx.fxml.LoadException: 
-/C:/Users/skyvo/Documents/NUS%20Y2S1/CS2113T/main/build/resources/main/view/InventoryPage.fxml
-
-java.lang.AssertionError: javafx.fxml.LoadException: 
-/C:/Users/skyvo/Documents/NUS%20Y2S1/CS2113T/main/build/resources/main/view/InventoryPage.fxml
-
-	at duke.ui.UiPart.loadFxmlFile(UiPart.java:79)
-	at duke.ui.UiPart.<init>(UiPart.java:29)
-	at duke.ui.UiPart.<init>(UiPart.java:38)
-	at duke.ui.InventoryPage.<init>(InventoryPage.java:9)
-	at duke.ui.MainWindow.fillInnerParts(MainWindow.java:75)
-	at duke.ui.UiManager.start(UiManager.java:43)
-	at duke.Launcher.start(Launcher.java:67)
-	at javafx.graphics/com.sun.javafx.application.LauncherImpl.lambda$launchApplication1$9(LauncherImpl.java:919)
-	at javafx.graphics/com.sun.javafx.application.PlatformImpl.lambda$runAndWait$11(PlatformImpl.java:449)
-	at javafx.graphics/com.sun.javafx.application.PlatformImpl.lambda$runLater$9(PlatformImpl.java:418)
-	at java.base/java.security.AccessController.doPrivileged(Native Method)
-	at javafx.graphics/com.sun.javafx.application.PlatformImpl.lambda$runLater$10(PlatformImpl.java:417)
-	at javafx.graphics/com.sun.glass.ui.InvokeLaterDispatcher$Future.run(InvokeLaterDispatcher.java:96)
-	at javafx.graphics/com.sun.glass.ui.win.WinApplication._runLoop(Native Method)
-	at javafx.graphics/com.sun.glass.ui.win.WinApplication.lambda$runLoop$3(WinApplication.java:175)
-	at java.base/java.lang.Thread.run(Thread.java:834)
-Caused by: javafx.fxml.LoadException: 
-/C:/Users/skyvo/Documents/NUS%20Y2S1/CS2113T/main/build/resources/main/view/InventoryPage.fxml
-
-	at javafx.fxml/javafx.fxml.FXMLLoader.constructLoadException(FXMLLoader.java:2625)
-	at javafx.fxml/javafx.fxml.FXMLLoader.loadImpl(FXMLLoader.java:2568)
-	at javafx.fxml/javafx.fxml.FXMLLoader.loadImpl(FXMLLoader.java:2466)
-	at javafx.fxml/javafx.fxml.FXMLLoader.load(FXMLLoader.java:2435)
-	at duke.ui.UiPart.loadFxmlFile(UiPart.java:77)
-	... 15 more
-Caused by: javax.xml.stream.XMLStreamException: ParseError at [row,col]:[3,2]
-Message: The markup in the document preceding the root element must be well-formed.
-	at java.xml/com.sun.org.apache.xerces.internal.impl.XMLStreamReaderImpl.next(XMLStreamReaderImpl.java:652)
-	at java.xml/javax.xml.stream.util.StreamReaderDelegate.next(StreamReaderDelegate.java:84)
-	at javafx.fxml/javafx.fxml.FXMLLoader.loadImpl(FXMLLoader.java:2538)
-	... 18 more
-
-Oct 09, 2019 4:38:30 PM duke.Launcher init
+Oct 09, 2019 11:07:40 PM duke.Launcher init
 INFO: =============================[ Initializing BakingHome ]===========================
-Oct 09, 2019 4:38:30 PM duke.Launcher start
+Oct 09, 2019 11:07:40 PM duke.Launcher start
 INFO: Starting BakingHome
-Oct 09, 2019 4:38:30 PM duke.ui.UiManager start
+Oct 09, 2019 11:07:40 PM duke.ui.UiManager start
 INFO: Starting UI...
-Oct 09, 2019 4:38:32 PM duke.ui.UiManager start
-SEVERE: javafx.fxml.LoadException: 
-/C:/Users/skyvo/Documents/NUS%20Y2S1/CS2113T/main/build/resources/main/view/InventoryPage.fxml
-
-java.lang.AssertionError: javafx.fxml.LoadException: 
-/C:/Users/skyvo/Documents/NUS%20Y2S1/CS2113T/main/build/resources/main/view/InventoryPage.fxml
-
-	at duke.ui.UiPart.loadFxmlFile(UiPart.java:79)
-	at duke.ui.UiPart.<init>(UiPart.java:29)
-	at duke.ui.UiPart.<init>(UiPart.java:38)
-	at duke.ui.InventoryPage.<init>(InventoryPage.java:9)
-	at duke.ui.MainWindow.fillInnerParts(MainWindow.java:75)
-	at duke.ui.UiManager.start(UiManager.java:43)
-	at duke.Launcher.start(Launcher.java:67)
-	at javafx.graphics/com.sun.javafx.application.LauncherImpl.lambda$launchApplication1$9(LauncherImpl.java:919)
-	at javafx.graphics/com.sun.javafx.application.PlatformImpl.lambda$runAndWait$11(PlatformImpl.java:449)
-	at javafx.graphics/com.sun.javafx.application.PlatformImpl.lambda$runLater$9(PlatformImpl.java:418)
-	at java.base/java.security.AccessController.doPrivileged(Native Method)
-	at javafx.graphics/com.sun.javafx.application.PlatformImpl.lambda$runLater$10(PlatformImpl.java:417)
-	at javafx.graphics/com.sun.glass.ui.InvokeLaterDispatcher$Future.run(InvokeLaterDispatcher.java:96)
-	at javafx.graphics/com.sun.glass.ui.win.WinApplication._runLoop(Native Method)
-	at javafx.graphics/com.sun.glass.ui.win.WinApplication.lambda$runLoop$3(WinApplication.java:175)
-	at java.base/java.lang.Thread.run(Thread.java:834)
-Caused by: javafx.fxml.LoadException: 
-/C:/Users/skyvo/Documents/NUS%20Y2S1/CS2113T/main/build/resources/main/view/InventoryPage.fxml
-
-	at javafx.fxml/javafx.fxml.FXMLLoader.constructLoadException(FXMLLoader.java:2625)
-	at javafx.fxml/javafx.fxml.FXMLLoader.loadImpl(FXMLLoader.java:2568)
-	at javafx.fxml/javafx.fxml.FXMLLoader.loadImpl(FXMLLoader.java:2466)
-	at javafx.fxml/javafx.fxml.FXMLLoader.load(FXMLLoader.java:2435)
-	at duke.ui.UiPart.loadFxmlFile(UiPart.java:77)
-	... 15 more
-Caused by: javax.xml.stream.XMLStreamException: ParseError at [row,col]:[3,2]
-Message: The markup in the document preceding the root element must be well-formed.
-	at java.xml/com.sun.org.apache.xerces.internal.impl.XMLStreamReaderImpl.next(XMLStreamReaderImpl.java:652)
-	at java.xml/javax.xml.stream.util.StreamReaderDelegate.next(StreamReaderDelegate.java:84)
-	at javafx.fxml/javafx.fxml.FXMLLoader.loadImpl(FXMLLoader.java:2538)
-	... 18 more
-
-Oct 09, 2019 4:38:32 PM duke.ui.UiManager showFatalErrorDialogAndShutdown
-SEVERE: Fatal error during initializing javafx.fxml.LoadException: 
-/C:/Users/skyvo/Documents/NUS%20Y2S1/CS2113T/main/build/resources/main/view/InventoryPage.fxml
-javafx.fxml.LoadException: 
-/C:/Users/skyvo/Documents/NUS%20Y2S1/CS2113T/main/build/resources/main/view/InventoryPage.fxml
-
-java.lang.AssertionError: javafx.fxml.LoadException: 
-/C:/Users/skyvo/Documents/NUS%20Y2S1/CS2113T/main/build/resources/main/view/InventoryPage.fxml
-
-	at duke.ui.UiPart.loadFxmlFile(UiPart.java:79)
-	at duke.ui.UiPart.<init>(UiPart.java:29)
-	at duke.ui.UiPart.<init>(UiPart.java:38)
-	at duke.ui.InventoryPage.<init>(InventoryPage.java:9)
-	at duke.ui.MainWindow.fillInnerParts(MainWindow.java:75)
-	at duke.ui.UiManager.start(UiManager.java:43)
-	at duke.Launcher.start(Launcher.java:67)
-	at javafx.graphics/com.sun.javafx.application.LauncherImpl.lambda$launchApplication1$9(LauncherImpl.java:919)
-	at javafx.graphics/com.sun.javafx.application.PlatformImpl.lambda$runAndWait$11(PlatformImpl.java:449)
-	at javafx.graphics/com.sun.javafx.application.PlatformImpl.lambda$runLater$9(PlatformImpl.java:418)
-	at java.base/java.security.AccessController.doPrivileged(Native Method)
-	at javafx.graphics/com.sun.javafx.application.PlatformImpl.lambda$runLater$10(PlatformImpl.java:417)
-	at javafx.graphics/com.sun.glass.ui.InvokeLaterDispatcher$Future.run(InvokeLaterDispatcher.java:96)
-	at javafx.graphics/com.sun.glass.ui.win.WinApplication._runLoop(Native Method)
-	at javafx.graphics/com.sun.glass.ui.win.WinApplication.lambda$runLoop$3(WinApplication.java:175)
-	at java.base/java.lang.Thread.run(Thread.java:834)
-Caused by: javafx.fxml.LoadException: 
-/C:/Users/skyvo/Documents/NUS%20Y2S1/CS2113T/main/build/resources/main/view/InventoryPage.fxml
-
-	at javafx.fxml/javafx.fxml.FXMLLoader.constructLoadException(FXMLLoader.java:2625)
-	at javafx.fxml/javafx.fxml.FXMLLoader.loadImpl(FXMLLoader.java:2568)
-	at javafx.fxml/javafx.fxml.FXMLLoader.loadImpl(FXMLLoader.java:2466)
-	at javafx.fxml/javafx.fxml.FXMLLoader.load(FXMLLoader.java:2435)
-	at duke.ui.UiPart.loadFxmlFile(UiPart.java:77)
-	... 15 more
-Caused by: javax.xml.stream.XMLStreamException: ParseError at [row,col]:[3,2]
-Message: The markup in the document preceding the root element must be well-formed.
-	at java.xml/com.sun.org.apache.xerces.internal.impl.XMLStreamReaderImpl.next(XMLStreamReaderImpl.java:652)
-	at java.xml/javax.xml.stream.util.StreamReaderDelegate.next(StreamReaderDelegate.java:84)
-	at javafx.fxml/javafx.fxml.FXMLLoader.loadImpl(FXMLLoader.java:2538)
-	... 18 more
-
-Oct 09, 2019 4:39:10 PM duke.Launcher init
+Oct 09, 2019 11:09:34 PM duke.Launcher init
 INFO: =============================[ Initializing BakingHome ]===========================
-Oct 09, 2019 4:39:10 PM duke.Launcher start
+Oct 09, 2019 11:09:34 PM duke.Launcher start
 INFO: Starting BakingHome
-Oct 09, 2019 4:39:10 PM duke.ui.UiManager start
+Oct 09, 2019 11:09:34 PM duke.ui.UiManager start
+INFO: Starting UI...
+Oct 09, 2019 11:10:44 PM duke.Launcher init
+INFO: =============================[ Initializing BakingHome ]===========================
+Oct 09, 2019 11:10:44 PM duke.Launcher start
+INFO: Starting BakingHome
+Oct 09, 2019 11:10:44 PM duke.ui.UiManager start
+INFO: Starting UI...
+Oct 09, 2019 11:11:36 PM duke.Launcher init
+INFO: =============================[ Initializing BakingHome ]===========================
+Oct 09, 2019 11:11:36 PM duke.Launcher start
+INFO: Starting BakingHome
+Oct 09, 2019 11:11:36 PM duke.ui.UiManager start
 INFO: Starting UI...

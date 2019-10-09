@@ -1,7 +1,9 @@
 package duke.model;
 
 import duke.commons.core.index.Index;
+import duke.model.commons.Ingredient;
 import duke.model.order.Order;
+import duke.model.product.Product;
 import duke.model.shortcut.Shortcut;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -18,6 +20,8 @@ import static java.util.Objects.requireNonNull;
 public class ModelManager implements Model {
     private final BakingHome bakingHome;
     private final FilteredList<Order> filteredOrders;
+    private final FilteredList<Product> filteredProducts;
+    private final FilteredList<Ingredient> filteredInventory;
 
     /**
      * Initializes a ModelManager with the given BakingHome.
@@ -26,6 +30,8 @@ public class ModelManager implements Model {
         super();
         this.bakingHome = new BakingHome(bakingHome);
         this.filteredOrders = new FilteredList<>(this.bakingHome.getOrderList());
+        this.filteredProducts = new FilteredList<>(this.bakingHome.getProductList());
+        this.filteredInventory = new FilteredList<>(this.bakingHome.getInventoryList());
     }
 
     public ModelManager() {
@@ -85,6 +91,58 @@ public class ModelManager implements Model {
     public void updateFilteredOrderList(Predicate<Order> predicate) {
         requireNonNull(predicate);
         filteredOrders.setPredicate(predicate);
+    }
+    //========comProduct operations==========
+    @Override
+    public void addProduct(Product product) {
+        bakingHome.addProduct(product);
+        updateFilteredProductList(PREDICATE_SHOW_ACTIVE_PRODUCTS);
+    }
+
+    /**
+     * Replaces the given product {@code original} in the list with {@code editedProduct}. {@code
+     * originalProduct} must exist in product list
+     *
+     * @param originalProduct
+     * @param editedProduct
+     */
+    @Override
+    public void setProduct(Product originalProduct, Product editedProduct) {
+        requireNonNull(originalProduct);
+        requireNonNull(editedProduct);
+
+        bakingHome.setProduct(originalProduct, editedProduct);
+    }
+
+    /**
+     * Returns an unmodifiable view of the filtered product list.
+     */
+    @Override
+    public ObservableList<Product> getFilteredProductList() {
+        return filteredProducts;
+    }
+
+    @Override
+    public void updateFilteredProductList(Predicate<Product> predicate) {
+        requireNonNull(predicate);
+        filteredProducts.setPredicate(predicate);
+    }
+
+    //========Inventory operations==========
+    @Override
+    public void addInventory(Ingredient ingredient) {
+        bakingHome.addInventory(ingredient);
+        updateFilteredInventoryList(PREDICATE_SHOW_ALL_INVENTORY);
+    }
+
+    public void updateFilteredInventoryList(Predicate<Ingredient> predicate) {
+        requireNonNull(predicate);
+        filteredInventory.setPredicate(predicate);
+    }
+
+    @Override
+    public ObservableList<Ingredient> getFilteredInventoryList() {
+        return filteredInventory;
     }
 
     //========Shortcut operations=========
