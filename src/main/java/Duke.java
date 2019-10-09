@@ -2,6 +2,8 @@ import Tasks.Task;
 import UI.Ui;
 import Storage.Storage;
 import commands.Command;
+import notes.Note;
+import notes.NoteList;
 import parsers.*;
 import Exception.DukeException;
 

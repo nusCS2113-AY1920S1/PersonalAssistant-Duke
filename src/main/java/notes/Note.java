@@ -10,12 +10,13 @@ public class Note {
      *  If the note is for a particular week, it will store the date of that week's Monday.
      *  If the note is for a particular month, it will store the first date of that month.
      *  */
-    protected LocalDate noteDate; //yyyy-MM-dd
-    protected ArrayList<String> notes;
+    public LocalDate noteDate; //yyyy-MM-dd
+    public ArrayList<String> notes;
     public static DateTimeFormatter noteFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
-    public Note(String dateOfNote) {
+    public Note(String dateOfNote, String firstNote) {
         noteDate = LocalDate.parse(dateOfNote, noteFormatter);
         notes = new ArrayList<String>();
+        notes.add(firstNote);
     }
 }
