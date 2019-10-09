@@ -23,10 +23,6 @@ public class GoToCommand extends Command {
         index = buffer[1];
     }
 
-    public String goToIndex() {
-        return index;
-    }
-
     /**
      * Execute jumping to given index.
      * @param progressStack TaskList containing current tasks
@@ -39,83 +35,64 @@ public class GoToCommand extends Command {
         try {
             if (progressStack.checkProgress() == 1 && index.equals("1")) {
                 progressStack.mainListToListIndex1();
-                ListIndex1 listIndex1 = new ListIndex1();
-                listIndex1.printList();
+                new ListIndex1().printList();
             } else if (progressStack.checkProgress() == 1 && index.equals("2")) {
                 progressStack.mainListToListIndex2();
-                ListIndex2 listIndex2 = new ListIndex2();
-                listIndex2.printList();
+                new ListIndex2().printList();
             } else if (progressStack.checkProgress() == 1 && index.equals("3")) {
                 progressStack.mainListToListIndex3();
-                ListIndex3 listIndex3 = new ListIndex3();
-                listIndex3.printList();
+                new ListIndex3().printList();
             } else if (progressStack.checkProgress() == 1 && index.equals("4")) {
                 new QuizCommand().execute(progressStack, ui, storage, profile);
-
             } else if (progressStack.checkProgress() == 2 && index.equals("1.1")) {
                 progressStack.listIndexToSubList();
-                BufferedReader reader = new BufferedReader(
-                        new FileReader("content/MainList/ListIndex1/javabasics/1.txt"));
-                ui.displayTextFile(reader);
+                ui.displayTextFile(new BufferedReader(
+                        new FileReader("content/MainList/ListIndex1/javabasics/1.txt")));
             } else if (progressStack.checkProgress() == 2 && index.equals("1.2")) {
                 progressStack.listIndexToSubList();
-                BufferedReader reader = new BufferedReader(
-                        new FileReader("content/MainList/ListIndex1/javabasics/2.txt"));
-                ui.displayTextFile(reader);
-
+                ui.displayTextFile(new BufferedReader(
+                        new FileReader("content/MainList/ListIndex1/javabasics/2.txt")));
             } else if (progressStack.checkProgress() == 2 && index.equals("1.3")) {
                 progressStack.listIndexToSubList();
-                BufferedReader reader = new BufferedReader(
-                        new FileReader("content/MainList/ListIndex1/javabasics/3.txt"));
-                ui.displayTextFile(reader);
-
+                ui.displayTextFile(new BufferedReader(
+                        new FileReader("content/MainList/ListIndex1/javabasics/3.txt")));
             } else if (progressStack.checkProgress() == 2 && index.equals("1.4")) {
                 new QuizCommand(Question.QuestionType.BASIC).execute(progressStack, ui, storage, profile);
-
             } else if (progressStack.checkProgress() == 2 && index.equals("2.1")) {
                 progressStack.listIndexToSubList();
-                BufferedReader reader = new BufferedReader(
-                        new FileReader("content/MainList/ListIndex2/oop/1.txt"));
-                ui.displayTextFile(reader);
-
+                ui.displayTextFile(new BufferedReader(
+                        new FileReader("content/MainList/ListIndex2/oop/1.txt")));
             } else if (progressStack.checkProgress() == 2 && index.equals("2.2")) {
                 progressStack.listIndexToSubList();
-                BufferedReader reader = new BufferedReader(
-                        new FileReader("content/MainList/ListIndex2/oop/2.txt"));
-                ui.displayTextFile(reader);
-
+                ui.displayTextFile(new BufferedReader(
+                        new FileReader("content/MainList/ListIndex2/oop/2.txt")));
             } else if (progressStack.checkProgress() == 2 && index.equals("2.3")) {
                 progressStack.listIndexToSubList();
-                BufferedReader reader = new BufferedReader(
-                        new FileReader("content/MainList/ListIndex2/oop/3.txt"));
-                ui.displayTextFile(reader);
-
+                ui.displayTextFile(new BufferedReader(
+                        new FileReader("content/MainList/ListIndex2/oop/3.txt")));
             } else if (progressStack.checkProgress() == 2 && index.equals("2.4")) {
                 progressStack.listIndexToSubList();
-                BufferedReader reader = new BufferedReader(
-                        new FileReader("content/MainList/ListIndex2/content/oop/4.txt"));
-                ui.displayTextFile(reader);
-
+                ui.displayTextFile(new BufferedReader(
+                        new FileReader("content/MainList/ListIndex2/content/oop/4.txt")));
             } else if (progressStack.checkProgress() == 2 && index.equals("2.5")) {
                 new QuizCommand(Question.QuestionType.OOP).execute(progressStack, ui, storage, profile);
 
             } else if (progressStack.checkProgress() == 2 && index.equals("3.1")) {
                 progressStack.listIndexToSubList();
-                BufferedReader reader = new BufferedReader(
-                        new FileReader("content/MainList/ListIndex3/Enumerations/Enumerations.txt"));
-                ui.displayTextFile(reader);
+                ui.displayTextFile(new BufferedReader(
+                        new FileReader("content/MainList/ListIndex3/Enumerations/Enumerations.txt")));
             } else if (progressStack.checkProgress() == 2 && index.equals("3.2")) {
                 progressStack.listIndexToSubList();
-                BufferedReader reader = new BufferedReader(
-                        new FileReader("content/MainList/ListIndex3/Varargs/Varargs.txt"));
-                ui.displayTextFile(reader);
+                ui.displayTextFile(new BufferedReader(
+                        new FileReader("content/MainList/ListIndex3/Varargs/Varargs.txt")));
             } else if (progressStack.checkProgress() == 2 && index.equals("3.3")) {
                 progressStack.listIndexToSubList();
-                BufferedReader reader = new BufferedReader(
-                        new FileReader("content/MainList/ListIndex3/Exceptions/Exceptions.txt"));
-                ui.displayTextFile(reader);
+                ui.displayTextFile(new BufferedReader(
+                        new FileReader("content/MainList/ListIndex3/Exceptions/Exceptions.txt")));
             } else if (progressStack.checkProgress() == 2 && index.equals("3.4")) {
                 new QuizCommand(Question.QuestionType.EXTENSIONS).execute(progressStack, ui, storage, profile);
+            } else {
+                throw new DukeException("Please enter a valid index!");
             }
         } catch (IOException e) {
             throw new DukeException("File does not exists");
