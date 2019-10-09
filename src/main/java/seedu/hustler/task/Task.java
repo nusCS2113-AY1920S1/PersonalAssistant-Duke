@@ -1,8 +1,6 @@
 package seedu.hustler.task;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.Map;
 
 /**
  * An abstract class that acts as a template for ToDo, Deadline and Event.
@@ -25,41 +23,22 @@ public abstract class Task {
     protected String difficulty;
 
     /**
-     * ArrayList of String that User tags Tasks of.
-     */
-    protected ArrayList<String> tags;
-
-    /**
-     * Initializes description, sets isDone as false, difficulty as M,
-     * and sets a new tags arraylist.
+     * Initializes description, sets isDone as false and difficulty as M.
      */
     public Task(String description) {
         this.description = description;
         this.isDone = false;
         this.difficulty = "M";
-        this.tags = new ArrayList<>();
     }
 
     /**
-     * Initializes description, sets isDone as false, difficulty
-     * according to user's input and new tags arraylist.
+     * Initializes description, sets isDone as false and difficulty
+     * according to user's input.
      */
     public Task(String description, String difficulty) {
         this.description = description;
         this.isDone = false;
         this.difficulty = difficulty;
-        this.tags = new ArrayList<>();
-    }
-
-    /**
-     * Initializes description, sets isDone as false, difficulty
-     * and tags according to user's input.
-     */
-    public Task(String description, String difficulty, ArrayList<String> tags) {
-        this.description = description;
-        this.isDone = false;
-        this.difficulty = difficulty;
-        this.tags = tags;
     }
 
     /**
