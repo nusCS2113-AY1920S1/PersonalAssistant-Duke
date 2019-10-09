@@ -13,6 +13,7 @@ import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
+import java.util.Stack;
 
 public class AddNoteCommand extends Command {
 
@@ -74,7 +75,7 @@ public class AddNoteCommand extends Command {
     }
 
     @Override
-    public void execute(ArrayList<Task> list, Ui ui, Storage storage) throws IOException {
+    public void execute(ArrayList<Task> list, Ui ui, Storage storage, Stack<String> commandStack, ArrayList<Task> deletedTask) throws IOException {
         String[] command = ui.FullCommand.split(" ");
         LocalDate userDate;
         try {
