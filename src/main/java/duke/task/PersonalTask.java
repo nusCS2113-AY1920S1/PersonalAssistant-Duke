@@ -10,7 +10,8 @@ public class PersonalTask extends Task {
     }
 
     @Override
-    public String writeTxt() {
+    public String toString() {
         return null;
     }
+
 }

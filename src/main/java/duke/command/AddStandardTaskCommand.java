@@ -21,6 +21,7 @@ public class AddStandardTaskCommand extends Command{
     public void execute(TaskList taskList, PatientList patientList, Ui ui, TaskStorage taskStorage, PatientStorage patientStorage) throws DukeException {
         taskList.addTask(newStandardTask);
         taskStorage.save(taskList.getTaskList());
+        ui.taskAdded(newStandardTask);
     }
 
     @Override
