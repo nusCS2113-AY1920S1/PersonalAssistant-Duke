@@ -142,7 +142,11 @@ public class Expense extends DukeItem {
          * @throws DukeException if the time string cannot be parsed into a {@code LocalDateTime} object.
          */
         public Builder setTime(String time) throws DukeException {
-            return setTime(Parser.parseTime(time));
+            try {
+                return setTime(Parser.parseTime(time));
+            } catch (DukeException e) {
+                throw new DukeException(String.format(DukeException.MESSAGE_EXPENSE_TIME_INVALID, time));
+            }
         }
 
         /**

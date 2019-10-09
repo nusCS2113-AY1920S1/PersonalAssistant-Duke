@@ -62,7 +62,7 @@ public class Parser {
         try {
             return LocalDateTime.parse(string, dateTimeFormatter);
         } catch (DateTimeParseException e) {
-            throw new DukeException(String.format(DukeException.MESSAGE_EXPENSE_TIME_INVALID, string));
+            throw new DukeException(String.format(DukeException.MESSAGE_PARSER_TIME_INVALID, string));
         }
     }
 }

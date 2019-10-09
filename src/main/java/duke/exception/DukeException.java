@@ -9,6 +9,7 @@ public class DukeException extends Exception {
     public static final String MESSAGE_SAVE_FILE_FAILED = "The file at %s could not be saved to."
         + "Close other programs that may be accessing it.";
     public static final String MESSAGE_NO_ITEM_AT_INDEX = "There is no %s numbered %d!";
+    public static final String MESSAGE_PARSER_TIME_INVALID = "%s is not a valid time!";
     public static final String MESSAGE_EXPENSE_AMOUNT_INVALID = "%s is not a valid amount!";
     public static final String MESSAGE_EXPENSE_TIME_INVALID = "%s is not a valid time!";
     public static final String MESSAGE_COMMAND_PARAM_MISSING_VALUE = "/%s needs a value!";
