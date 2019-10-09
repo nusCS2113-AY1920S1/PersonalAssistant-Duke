@@ -25,24 +25,18 @@ public class ParseEditExpenditure extends ParseExpenditure {
             String value = expendituresParameters.get(key);
             if ((TRANSNO.equals(key) || FROM.equals(key)) && (value.isBlank() || value.isEmpty())) {
                 throw new ParserException(key + " cannot be empty when editing an expenditure");
-            }
-            if (TRANSNO.equals(key)) {
+            } else if (TRANSNO.equals(key)) {
                 checkInt(TRANSNO, value);
-            }
-            if (FROM.equals(key)) {
+            } else if (FROM.equals(key)) {
                 checkName(value);
-            }
-            if (CATEGORY.equals(key) && "deposit".equals(value)) {
+            } else if (CATEGORY.equals(key) && "deposit".equals(value)) {
                 throw new ParserException(key + " cannot be deposit when editing an expenditure");
-            }
-            if (!(TRANSNO.equals(key) || FROM.equals(key)) && (!value.isEmpty() || !value.isBlank())) {
+            } else if ((!value.isEmpty() || !value.isBlank())) {
                 if (AMOUNT.equals(key)) {
                     checkAmount(value);
-                }
-                if (DESCRIPTION.equals(key)) {
+                } else if (DESCRIPTION.equals(key)) {
                     checkDescription(value);
-                }
-                if (DATE.equals(key)) {
+                } else if (DATE.equals(key)) {
                     Date temp = checkDate(value);
                 }
                 changeCounter++;
@@ -54,12 +48,10 @@ public class ParseEditExpenditure extends ParseExpenditure {
     }
 
     public Command getCommand() {
-        EditExpenditureCommand newEditExpenditureCommand = new EditExpenditureCommand(expendituresParameters.get(FROM)
-                , expendituresParameters.get(AMOUNT)
-                , expendituresParameters.get(DATE)
-                , expendituresParameters.get(DESCRIPTION)
-                , expendituresParameters.get(CATEGORY)
-                , Integer.parseInt(expendituresParameters.get(TRANSNO)));
+        EditExpenditureCommand newEditExpenditureCommand = new EditExpenditureCommand(expendituresParameters.get(FROM),
+                expendituresParameters.get(AMOUNT), expendituresParameters.get(DATE),
+                expendituresParameters.get(DESCRIPTION), expendituresParameters.get(CATEGORY),
+                Integer.parseInt(expendituresParameters.get(TRANSNO)));
         return newEditExpenditureCommand;
     }
 }

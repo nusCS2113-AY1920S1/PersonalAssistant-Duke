@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Scanner;
 
 import owlmoney.logic.command.Command;
+import owlmoney.logic.command.ExitCommand;
 import owlmoney.logic.parser.exception.ParserException;
 
 /**
@@ -78,7 +79,7 @@ public class ParseCommand extends Parser {
         case "/list":
             return parseType.parseData(command, data);
         case "/exit":
-            System.exit(0);
+            return new ExitCommand();
         default:
             throw new ParserException("You entered an invalid command");
         }

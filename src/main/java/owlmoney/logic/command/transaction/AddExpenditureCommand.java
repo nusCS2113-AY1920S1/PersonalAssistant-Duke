@@ -25,8 +25,9 @@ public class AddExpenditureCommand extends Command {
         this.category = category;
     }
 
-    public void execute(Profile profile, Ui ui) {
+    public boolean execute(Profile profile, Ui ui) {
         Transaction newExpenditure = new Expenditure(this.description, this.amount, this.date, this.category);
         profile.addNewExpenditure(accName, newExpenditure, ui);
+        return this.isExit;
     }
 }

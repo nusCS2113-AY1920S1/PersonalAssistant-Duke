@@ -20,7 +20,8 @@ public class EditDepositCommand extends Command {
         this.index = index;
     }
 
-    public void execute(Profile profile, Ui ui) {
+    public boolean execute(Profile profile, Ui ui) {
         profile.editDeposit(index, accName, description, amount, date, ui);
+        return this.isExit;
     }
 }

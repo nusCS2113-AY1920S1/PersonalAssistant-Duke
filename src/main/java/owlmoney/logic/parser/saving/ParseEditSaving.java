@@ -22,12 +22,11 @@ public class ParseEditSaving extends ParseSaving {
             String value = savingsParameters.get(key);
             if (NAME.equals(key) && (value.isEmpty() || value.isBlank())) {
                 throw new ParserException("/name cannot be empty.");
-            } else if(!value.isEmpty() && !value.isBlank()){
+            } else if (!value.isEmpty() && !value.isBlank()){
                 changeCounter++;
                 if (INCOME.equals(key) || AMOUNT.equals(key)) {
                     checkIncome(value);
-                }
-                if(NAME.equals(key) || NEW_NAME.equals(key)) {
+                } else if (NAME.equals(key) || NEW_NAME.equals(key)) {
                     checkName(key, value);
                 }
             }
@@ -38,8 +37,8 @@ public class ParseEditSaving extends ParseSaving {
     }
 
     public Command getCommand() {
-        EditSavingsCommand newEditSavingsCommand = new EditSavingsCommand(savingsParameters.get(NAME)
-        , savingsParameters.get(INCOME), savingsParameters.get(AMOUNT), savingsParameters.get(NEW_NAME));
+        EditSavingsCommand newEditSavingsCommand = new EditSavingsCommand(savingsParameters.get(NAME),
+                savingsParameters.get(INCOME), savingsParameters.get(AMOUNT), savingsParameters.get(NEW_NAME));
         return newEditSavingsCommand;
     }
 

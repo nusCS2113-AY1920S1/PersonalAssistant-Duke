@@ -1,8 +1,6 @@
 package owlmoney.logic.command.bank;
 
 import owlmoney.logic.command.Command;
-import owlmoney.model.bank.Bank;
-import owlmoney.model.bank.Saving;
 import owlmoney.model.profile.Profile;
 import owlmoney.ui.Ui;
 
@@ -20,7 +18,8 @@ public class EditSavingsCommand extends Command {
     }
 
     @Override
-    public void execute(Profile profile, Ui ui) {
+    public boolean execute(Profile profile, Ui ui) {
         profile.editSavingsAccount(name, newName, amount, income, ui);
+        return this.isExit;
     }
 }

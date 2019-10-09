@@ -26,14 +26,11 @@ public class ParseAddSaving extends ParseSaving {
             String value = savingsParameters.get(key);
             if (!NEW_NAME.equals(key) && (value.isBlank() || value.isEmpty())) {
                 throw new ParserException(key + " cannot be empty when adding savings account");
-            }
-            if(NAME.equals(key)) {
+            } else if (NAME.equals(key)) {
                 checkName(key, value);
-            }
-            if (INCOME.equals(key)) {
+            } else if (INCOME.equals(key)) {
                 checkIncome(value);
-            }
-            if (AMOUNT.equals(key)) {
+            } else if (AMOUNT.equals(key)) {
                 checkAmount(value);
             }
         }

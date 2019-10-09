@@ -12,7 +12,8 @@ public class DeleteSavingsCommand extends Command {
     }
 
     @Override
-    public void execute(Profile profile, Ui ui) {
+    public boolean execute(Profile profile, Ui ui) {
         profile.deleteBank(this.bankName, ui);
+        return this.isExit;
     }
 }

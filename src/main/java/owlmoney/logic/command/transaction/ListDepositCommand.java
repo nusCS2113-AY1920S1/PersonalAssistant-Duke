@@ -13,7 +13,8 @@ public class ListDepositCommand extends Command {
         this.displayNum = displayNum;
     }
 
-    public void execute(Profile profile, Ui ui) {
+    public boolean execute(Profile profile, Ui ui) {
         profile.listDeposit(accName, ui, displayNum);
+        return this.isExit;
     }
 }

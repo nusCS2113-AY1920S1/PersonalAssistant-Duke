@@ -61,7 +61,7 @@ class ParseType extends Parser {
             throw new ParserException(type + " is an invalid type");
         }
         String rawData;
-        if (command.equals("/list")) {
+        if ("/list".equals(command)) {
             rawData = removeListFirstField(data, type);
         } else {
             rawData = removeFirstField(data, type);
@@ -76,7 +76,7 @@ class ParseType extends Parser {
      * @throws ParserException if the user wants to delete his profile.
      */
     private void isDeleteProfile(String command) throws ParserException {
-        if (command.equals("/delete")) {
+        if ("/delete".equals(command)) {
             throw new ParserException("Profile cannot be deleted");
         }
     }

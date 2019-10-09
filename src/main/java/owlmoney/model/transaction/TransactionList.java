@@ -22,12 +22,12 @@ public class TransactionList {
     public TransactionList() {
         expLists = new ArrayList<Transaction>();
     }
-
+/*
     /**
      * Lists the expenditure in the expenditureList.
      *
      * @param ui required for printing.
-     */
+     *//*
     public void listTransaction(Ui ui) {
         if (expLists.size() <= 0) {
             ui.printError("There are no transactions");
@@ -36,20 +36,21 @@ public class TransactionList {
                 ui.printMessage((i + 1) + ":\n" + expLists.get(i).getDetails() + "\n");
             }
         }
-    }
+    }*/
 
     public void listExpenditure(Ui ui, int displayNum) {
         if (expLists.size() <= 0) {
             ui.printError("There are no transactions");
         } else {
+            int counter = displayNum;
             Stack<Transaction> displayStack = new Stack<>();
-            for (int i = expLists.size() - 1; i >= 0 ; i--) {
-                if(!"deposit".equals(expLists.get(i).getCategory())) {
+            for (int i = expLists.size() - 1; i >= 0; i--) {
+                if (!"deposit".equals(expLists.get(i).getCategory())) {
                     displayStack.push(expLists.get(i));
                     ui.printMessage((i + 1) + ":\n" + expLists.get(i).getDetails() + "\n");
-                    displayNum--;
+                    counter--;
                 }
-                if(displayNum <= 0) {
+                if(counter <= 0) {
                     break;
                 }
             }
@@ -67,13 +68,14 @@ public class TransactionList {
         if (expLists.size() <= 0) {
             ui.printError("There are no transactions");
         } else {
+            int counter = displayNum;
             Stack<Transaction> displayStack = new Stack<>();
             for (int i = expLists.size() - 1; i >= 0; i++) {
-                if("deposit".equals(expLists.get(i).getCategory())) {
+                if ("deposit".equals(expLists.get(i).getCategory())) {
                     displayStack.push(expLists.get(i));
-                    displayNum--;
+                    counter--;
                 }
-                if(displayNum <= 0) {
+                if (counter <= 0) {
                     break;
                 }
             }
@@ -116,7 +118,7 @@ public class TransactionList {
             return 0;
         }
         if ((index - 1) >= 0 && (index - 1) < expLists.size()) {
-            if(expLists.get(index - 1).getCategory().equals("deposit")) {
+            if (expLists.get(index - 1).getCategory().equals("deposit")) {
                 ui.printError("The transaction is a deposit");
                 return 0;
             } else {
@@ -133,13 +135,13 @@ public class TransactionList {
 
     public double editEx(int expNum, String desc, String amount, String date, String category, Ui ui) {
         ui.printMessage("Editing transaction...\n");
-        if(!(desc.isBlank() || desc.isEmpty())) {
+        if (!(desc.isBlank() || desc.isEmpty())) {
             expLists.get(expNum - 1).setDescription(desc);
         }
-        if(!(amount.isBlank() || amount.isEmpty())) {
+        if (!(amount.isBlank() || amount.isEmpty())) {
             expLists.get(expNum - 1).setAmount(Double.parseDouble(amount));
         }
-        if(!(date.isBlank() || date.isEmpty())) {
+        if (!(date.isBlank() || date.isEmpty())) {
             DateFormat temp = new SimpleDateFormat("dd/MM/yyyy");
             try {
                 expLists.get(expNum - 1).setDate(temp.parse(date));
@@ -147,7 +149,7 @@ public class TransactionList {
                 //check handled in ParseEditExpenditure
             }
         }
-        if(!(category.isBlank() || category.isEmpty())) {
+        if (!(category.isBlank() || category.isEmpty())) {
             expLists.get(expNum - 1).setCategory(category);
         }
         ui.printMessage("Edited details:\n" + expLists.get(expNum - 1).getDetails());
@@ -156,17 +158,17 @@ public class TransactionList {
 
     public double editDep(int expNum, String desc, String amount, String date, Ui ui) {
         ui.printMessage("Editing transaction...\n");
-        if(!(desc.isBlank() || desc.isEmpty())) {
+        if (!(desc.isBlank() || desc.isEmpty())) {
             expLists.get(expNum - 1).setDescription(desc);
         }
-        if(!(amount.isBlank() || amount.isEmpty())) {
+        if (!(amount.isBlank() || amount.isEmpty())) {
             expLists.get(expNum - 1).setAmount(Double.parseDouble(amount));
         }
-        if(!(date.isBlank() || date.isEmpty())) {
+        if (!(date.isBlank() || date.isEmpty())) {
             DateFormat temp = new SimpleDateFormat("dd/MM/yyyy");
             try {
                 expLists.get(expNum - 1).setDate(temp.parse(date));
-            } catch(ParseException e) {
+            } catch (ParseException e) {
                 //check handled in ParseEditExpenditure
             }
         }

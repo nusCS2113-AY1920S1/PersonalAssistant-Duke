@@ -13,7 +13,8 @@ public class DeleteDepositCommand extends Command {
         this.from = bankName;
     }
 
-    public void execute(Profile profile, Ui ui) {
+    public boolean execute(Profile profile, Ui ui) {
         profile.deleteDeposit(this.expNumber, this.from, ui);
+        return this.isExit;
     }
 }

@@ -7,7 +7,7 @@ import owlmoney.logic.command.Command;
 import owlmoney.logic.command.transaction.AddDepositCommand;
 import owlmoney.logic.parser.exception.ParserException;
 
-public class ParseAddDeposit extends ParseDeposit{
+public class ParseAddDeposit extends ParseDeposit {
     private static final String ADD = "/add";
     private Date date;
 
@@ -28,26 +28,22 @@ public class ParseAddDeposit extends ParseDeposit{
             String value = expendituresParameters.get(key);
             if (!(TRANSNO.equals(key) || NUM.equals(key) || FROM.equals(key)) && (value.isBlank() || value.isEmpty())) {
                 throw new ParserException(key + " cannot be empty when adding a new deposit");
-            }
-            if (AMOUNT.equals(key)) {
+            } else if (AMOUNT.equals(key)) {
                 checkAmount(value);
-            }
-            if (DATE.equals(key)) {
+            } else if (DATE.equals(key)) {
                 date = checkDate(value);
-            }
-            if (TO.equals(key)) {
+            } else if (TO.equals(key)) {
                 checkName(value, TO);
-            }
-            if (DESCRIPTION.equals(key)) {
+            } else if (DESCRIPTION.equals(key)) {
                 checkDescription(value);
             }
         }
     }
 
     public Command getCommand() {
-        AddDepositCommand newAddDepositCommand = new AddDepositCommand(expendituresParameters.get(TO)
-                , Double.parseDouble(expendituresParameters.get(AMOUNT)), date
-                , (expendituresParameters.get(DESCRIPTION)));
+        AddDepositCommand newAddDepositCommand = new AddDepositCommand(expendituresParameters.get(TO),
+                Double.parseDouble(expendituresParameters.get(AMOUNT)), date,
+                (expendituresParameters.get(DESCRIPTION)));
         return newAddDepositCommand;
     }
 }

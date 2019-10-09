@@ -24,8 +24,9 @@ public class AddDepositCommand extends Command {
         this.description = description;
     }
 
-    public void execute(Profile profile, Ui ui) {
+    public boolean execute(Profile profile, Ui ui) {
         Transaction newDeposit = new Deposit(this.description, this.amount, this.date, this.category);
         profile.addNewDeposit(accName, newDeposit, ui);
+        return this.isExit;
     }
 }

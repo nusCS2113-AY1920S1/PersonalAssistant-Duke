@@ -41,7 +41,7 @@ public abstract class ParseExpenditure {
 
     void checkFirstParameter() throws ParserException {
         String[] rawDateSplit = rawData.split(" ", 2);
-        if(!EXPENDITURE_KEYWORD_LISTS.contains(rawDateSplit[0])) {
+        if (!EXPENDITURE_KEYWORD_LISTS.contains(rawDateSplit[0])) {
             throw new ParserException("Incorrect command syntax");
         }
     }
@@ -64,37 +64,37 @@ public abstract class ParseExpenditure {
     }
 
     void checkAmount(String valueString) throws ParserException {
-        if(!RegexUtil.regexCheckMoney(valueString)) {
+        if (!RegexUtil.regexCheckMoney(valueString)) {
             throw new ParserException("/amount can only be numbers with at most 9 digits and 2 decimal places");
         }
     }
 
     void checkInt(String variable, String valueString) throws ParserException {
-        if(!RegexUtil.regexCheckListNumber(valueString)) {
+        if (!RegexUtil.regexCheckListNumber(valueString)) {
             throw new ParserException(variable + " can only be a positive number with at most 9 digits");
         }
     }
 
     void checkDescription(String descString) throws ParserException {
-        if(!RegexUtil.regexCheckDescription(descString)) {
+        if (!RegexUtil.regexCheckDescription(descString)) {
             throw new ParserException("/desc can only contain numbers and letters and at most 50 characters");
         }
     }
 
     void checkName(String nameString) throws ParserException {
-        if(!RegexUtil.regexCheckName(nameString)) {
+        if (!RegexUtil.regexCheckName(nameString)) {
             throw new ParserException("/from can only contain letters and at most 30 characters");
         }
     }
 
     Date checkDate(String dateString) throws ParserException {
-        if(RegexUtil.regexCheckDateFormat(dateString)) {
+        if (RegexUtil.regexCheckDateFormat(dateString)) {
             DateFormat temp = new SimpleDateFormat("dd/MM/yyyy");
             temp.setLenient(false);
             Date date;
             try {
                 date = temp.parse(dateString);
-                if(date.compareTo(new Date()) > 0) {
+                if (date.compareTo(new Date()) > 0) {
                     throw new ParserException("/date cannot be after today");
                 }
                 return date;

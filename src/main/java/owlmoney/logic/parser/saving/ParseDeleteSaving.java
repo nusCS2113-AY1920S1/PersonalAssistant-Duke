@@ -27,8 +27,7 @@ public class ParseDeleteSaving extends ParseSaving {
             String value = savingsParameters.get(key);
             if (NAME.equals(key) && (value.isBlank() || value.isEmpty())) {
                 throw new ParserException(key + " cannot be empty when deleting savings account");
-            }
-            if (NAME.equals(key)) {
+            } else if (NAME.equals(key)) {
                 checkName(key,value);
             }
         }

@@ -31,16 +31,14 @@ public class ParseEditDeposit extends ParseDeposit {
                     && (!value.isEmpty() || !value.isBlank())) {
                 if (AMOUNT.equals(key)) {
                     checkAmount(value);
-                }
-                if (DESCRIPTION.equals(key)) {
+                } else if (DESCRIPTION.equals(key)) {
                     checkDescription(value);
-                }
-                if (DATE.equals(key)) {
+                } else {
                     Date temp = checkDate(value);
                 }
                 changeCounter++;
             }
-            if(TRANSNO.equals(key)) {
+            if (TRANSNO.equals(key)) {
                 checkInt(TRANSNO, value);
             }
         }
@@ -50,11 +48,9 @@ public class ParseEditDeposit extends ParseDeposit {
     }
 
     public Command getCommand() {
-        EditDepositCommand newEditDepositCommand = new EditDepositCommand(expendituresParameters.get(FROM)
-                , expendituresParameters.get(AMOUNT)
-                , expendituresParameters.get(DATE)
-                , expendituresParameters.get(DESCRIPTION)
-                , Integer.parseInt(expendituresParameters.get(TRANSNO)));
+        EditDepositCommand newEditDepositCommand = new EditDepositCommand(expendituresParameters.get(FROM),
+                expendituresParameters.get(AMOUNT), expendituresParameters.get(DATE),
+                expendituresParameters.get(DESCRIPTION), Integer.parseInt(expendituresParameters.get(TRANSNO)));
         return newEditDepositCommand;
     }
 }

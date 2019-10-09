@@ -29,10 +29,10 @@ public class BankList {
     public String getBankName(int bankListIndex) {
         return bankLists.get(bankListIndex).getAccountName();
     }
-
+/*
     /**
      * Returns the list of all bank accounts in the BankList.
-     */
+     *//*
     public void listBanks() {
         if (bankLists.size() <= 0) {
             System.out.println("No bank account");
@@ -41,7 +41,7 @@ public class BankList {
                 bankLists.get(i).getDescription();
             }
         }
-    }
+    }*/
 
     /**
      * Adds an instance of a bank account into the BankList.
@@ -65,7 +65,7 @@ public class BankList {
     public void deleteBank(String bankName, Ui ui) {
         if (bankLists.size() <= 0) {
             ui.printError("There are 0 bank accounts in your profile");
-        } else if(bankLists.size() == 1) {
+        } else if (bankLists.size() == 1) {
             ui.printError("There must be at least 1 bank account");
         } else {
             for (int i = 0; i < bankLists.size(); i++) {
@@ -83,13 +83,13 @@ public class BankList {
             if (bankLists.get(i).getAccountName().equals(bankName)
                     && "saving".equals(bankLists.get(i).getType())) {
                 ui.printMessage("Editing " + bankLists.get(i).getAccountName() + "\n");
-                if(!(newName.isEmpty() || newName.isBlank())) {
+                if (!(newName.isEmpty() || newName.isBlank())) {
                     bankLists.get(i).setAccountName(newName);
                 }
-                if(!(amount.isBlank() || amount.isEmpty())) {
+                if (!(amount.isBlank() || amount.isEmpty())) {
                     bankLists.get(i).setCurrentAmount(Double.parseDouble(amount));
                 }
-                if(!(income.isEmpty() || income.isBlank())) {
+                if (!(income.isEmpty() || income.isBlank())) {
                     bankLists.get(i).setIncome(Double.parseDouble(income));
                 }
                 ui.printMessage("New details of the account:\n");
@@ -131,13 +131,13 @@ public class BankList {
             ui.printMessage((i + 1) + ".\n" + bankLists.get(i).getDescription());
         }
     }
-
+/*
     /**
      * Lists all expenditure tied to a bank account.
      *
      * @param bankToList The bank account name.
      * @param ui         required for printing.
-     */
+     *//*
     public void listBankTransaction(String bankToList, Ui ui) {
         for (int i = 0; i < bankLists.size(); i++) {
             if (bankToList.equals(bankLists.get(i).getAccountName())) {
@@ -146,7 +146,7 @@ public class BankList {
             }
         }
         ui.printError("Cannot find bank with name: " + bankToList);
-    }
+    }*/
 
     public void listBankExpenditure(String bankToList, Ui ui, int displayNum) {
         for (int i = 0; i < bankLists.size(); i++) {
@@ -185,8 +185,8 @@ public class BankList {
         ui.printError("Cannot find bank with name: " + deleteFromBank);
     }
 
-    public void editExp(int expNum, String editFromBank, String desc, String amount, String date, String category
-            , Ui ui) {
+    public void editExp(int expNum, String editFromBank, String desc, String amount, String date, String category,
+            Ui ui) {
         for (int i = 0; i < bankLists.size(); i++) {
             if (bankLists.get(i).getAccountName().equals(editFromBank)) {
                 bankLists.get(i).editExpenditureDetails(expNum, desc, amount, date, category, ui);

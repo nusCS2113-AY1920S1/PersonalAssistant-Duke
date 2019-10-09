@@ -29,14 +29,11 @@ public class ParseDeleteExpenditure extends ParseExpenditure {
             String value = expendituresParameters.get(key);
             if (TRANSNO.equals(key) && (value.isBlank() || value.isEmpty())) {
                 throw new ParserException(key + " cannot be empty when adding a new expenditure");
-            }
-            if (FROM.equals(key) && (value.isBlank() || value.isEmpty())) {
+            } else if (FROM.equals(key) && (value.isBlank() || value.isEmpty())) {
                 throw new ParserException(key + " cannot be empty when adding a new expenditure");
-            }
-            if (TRANSNO.equals(key)) {
+            } else if (TRANSNO.equals(key)) {
                 checkInt(TRANSNO, value);
-            }
-            if (FROM.equals(key)) {
+            } else if (FROM.equals(key)) {
                 checkName(value);
             }
         }

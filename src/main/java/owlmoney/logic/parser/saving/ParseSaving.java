@@ -32,7 +32,7 @@ public abstract class ParseSaving {
 
     void checkFirstParameter() throws ParserException {
         String[] rawDateSplit = rawData.split(" ", 2);
-        if(!SAVINGS_KEYWORD_LISTS.contains(rawDateSplit[0])) {
+        if (!SAVINGS_KEYWORD_LISTS.contains(rawDateSplit[0])) {
             throw new ParserException("Incorrect command syntax");
         }
     }
@@ -49,19 +49,19 @@ public abstract class ParseSaving {
     }
 
     void checkAmount(String valueString) throws ParserException {
-        if(!RegexUtil.regexCheckBankAmount(valueString)) {
+        if (!RegexUtil.regexCheckBankAmount(valueString)) {
             throw new ParserException("/amount can only be numbers with at most 9 digits and 2 decimal places");
         }
     }
 
     void checkIncome(String valueString) throws ParserException {
-        if(!RegexUtil.regexCheckBankAmount(valueString)) {
+        if (!RegexUtil.regexCheckBankAmount(valueString)) {
             throw new ParserException("/income can only be numbers with at most 9 digits and 2 decimal places");
         }
     }
 
     void checkName(String key, String nameString) throws ParserException {
-        if(!RegexUtil.regexCheckName(nameString)) {
+        if (!RegexUtil.regexCheckName(nameString)) {
             throw new ParserException(key + " can only contain letters and at most 50 characters");
         }
     }

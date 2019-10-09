@@ -69,7 +69,7 @@ public abstract class Transaction {
     }
 
     private String checkDebitCredit() {
-        if(this.category.equals("deposit")) {
+        if (this.category.equals("deposit")) {
             return "[+] ";
         } else {
             return "[-] ";

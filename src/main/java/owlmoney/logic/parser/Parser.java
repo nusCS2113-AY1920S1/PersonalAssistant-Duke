@@ -31,7 +31,7 @@ abstract class Parser {
      */
     //added /test to list all banks for testing
     String removeFirstField(String input, String firstField) throws ParserException {
-        if (firstField.equals("/exit")) {
+        if ("/exit".equals(firstField)) {
             return input.substring(firstField.length());
         } else if (firstField.length() + SPACE_LENGTH < input.length()) {
             return input.substring(firstField.length() + SPACE_LENGTH);
@@ -41,7 +41,7 @@ abstract class Parser {
     }
 
     String removeListFirstField(String input, String firstField) throws ParserException {
-        if (firstField.equals("/savings")) {
+        if ("/savings".equals(firstField)) {
             return "";
         } else if (firstField.length() + SPACE_LENGTH < input.length()) {
             return input.substring(firstField.length() + SPACE_LENGTH);

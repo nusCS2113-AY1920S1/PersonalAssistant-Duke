@@ -53,7 +53,7 @@ public abstract class Bank {
      *
      * @return The currentAmount of money in the bank account.
      */
-    public double getCurrentAmount() {
+    double getCurrentAmount() {
         return this.currentAmount;
     }
 
@@ -76,9 +76,9 @@ public abstract class Bank {
     }
 
     public abstract void addInExpenditure(Transaction exp, Ui ui);
-
+/*
     public abstract void listAllTransaction(Ui ui);
-
+*/
     public abstract void deleteExpenditure(int exNum, Ui ui);
 
     void editExpenditureDetails(int expNum, String desc, String amount, String date, String category, Ui ui) {

@@ -28,11 +28,9 @@ public class ParseDeleteDeposit extends ParseDeposit {
             String value = expendituresParameters.get(key);
             if ((TRANSNO.equals(key) || FROM.equals(key)) && (value.isBlank() || value.isEmpty())) {
                 throw new ParserException(key + " cannot be empty when adding a new deposit");
-            }
-            if (TRANSNO.equals(key)) {
+            } else if (TRANSNO.equals(key)) {
                 checkInt(TRANSNO, value);
-            }
-            if (FROM.equals(key)) {
+            } else if (FROM.equals(key)) {
                 checkName(value, FROM);
             }
         }

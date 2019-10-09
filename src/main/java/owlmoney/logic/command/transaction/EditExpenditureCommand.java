@@ -24,7 +24,8 @@ public class EditExpenditureCommand extends Command {
         this.index = index;
     }
 
-    public void execute(Profile profile, Ui ui) {
+    public boolean execute(Profile profile, Ui ui) {
         profile.editExpenditure(index, accName, description, amount, date, category, ui);
+        return this.isExit;
     }
 }

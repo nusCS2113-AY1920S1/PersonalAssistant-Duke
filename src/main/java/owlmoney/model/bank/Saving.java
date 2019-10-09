@@ -51,24 +51,24 @@ public class Saving extends Bank {
      */
     @Override
     public void addInExpenditure(Transaction exp, Ui ui) {
-        if(exp.getAmount() > this.getCurrentAmount()) {
+        if (exp.getAmount() > this.getCurrentAmount()) {
             ui.printError("Bank account cannot have a negative amount");
         } else {
             transactions.addExpenditureToList(exp, ui);
             deductFromAmount(exp.getAmount());
         }
     }
-
+/*
     /**
      * Lists all expenditure tied to this bank account.
      *
      * @param ui required for printing.
-     */
+     *//*
     @Override
     public void listAllTransaction(Ui ui) {
         transactions.listTransaction(ui);
     }
-
+*/
     @Override
     void listAllDeposit(Ui ui, int displayNum) {
         transactions.listDeposit(ui, displayNum);
@@ -97,10 +97,10 @@ public class Saving extends Bank {
 
     @Override
     void editExpenditureDetails(int expNum, String desc, String amount, String date, String category, Ui ui) {
-        if(transactions.getExpenditureAmount(expNum, ui) < 0) {
+        if (transactions.getExpenditureAmount(expNum, ui) < 0) {
             return;
         }
-        if(!(amount.isEmpty() || amount.isBlank()) && this.getCurrentAmount()
+        if (!(amount.isEmpty() || amount.isBlank()) && this.getCurrentAmount()
                 + transactions.getExpenditureAmount(expNum, ui) < Double.parseDouble(amount)) {
             ui.printError("Bank account cannot have a negative amount");
             return;
@@ -113,10 +113,10 @@ public class Saving extends Bank {
 
     @Override
     void editDepositDetails(int expNum, String desc, String amount, String date, Ui ui) {
-        if(transactions.getTransactionValue(expNum, ui) < 0) {
+        if (transactions.getTransactionValue(expNum, ui) < 0) {
             return;
         }
-        if(!(amount.isEmpty() || amount.isBlank()) && this.getCurrentAmount()
+        if (!(amount.isEmpty() || amount.isBlank()) && this.getCurrentAmount()
                 + Double.parseDouble(amount) < transactions.getTransactionValue(expNum, ui)) {
             ui.printError("Bank account cannot have a negative amount");
             return;

@@ -29,23 +29,17 @@ public class ParseAddExpenditure extends ParseExpenditure {
             if (!TRANSNO.equals(key) && !NUM.equals(key) && !CATEGORY.equals(key)
                     && (value.isBlank() || value.isEmpty())) {
                 throw new ParserException(key + " cannot be empty when adding a new expenditure");
-            }
-            if (CATEGORY.equals(key) && "deposit".equals(value)) {
+            } else if (CATEGORY.equals(key) && "deposit".equals(value)) {
                 throw new ParserException(key + " cannot be deposit when adding a new expenditure");
-            }
-            if (CATEGORY.equals(key) && (value.isBlank() || value.isEmpty())) {
+            } else if (CATEGORY.equals(key) && (value.isBlank() || value.isEmpty())) {
                 expendituresParameters.put(CATEGORY, "miscellaneous");
-            }
-            if (AMOUNT.equals(key)) {
+            } else if (AMOUNT.equals(key)) {
                 checkAmount(value);
-            }
-            if (DESCRIPTION.equals(key)) {
+            } else if (DESCRIPTION.equals(key)) {
                 checkDescription(value);
-            }
-            if (DATE.equals(key)) {
+            } else if (DATE.equals(key)) {
                 date = checkDate(value);
-            }
-            if (FROM.equals(key)) {
+            } else if (FROM.equals(key)) {
                 checkName(value);
             }
         }

@@ -1,4 +1,4 @@
 package owlmoney.logic.command.exception;
 
-public class commandException {
+public class CommandException {
 }

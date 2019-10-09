@@ -27,13 +27,11 @@ public class ParseListExpenditure extends ParseExpenditure {
             String value = expendituresParameters.get(key);
             if (FROM.equals(key) && (value.isBlank() || value.isEmpty())) {
                 throw new ParserException(key + " cannot be empty when adding a new expenditure");
-            }
-            if (NUM.equals(key) && (value.isBlank() || value.isEmpty())) {
+            } else if (NUM.equals(key) && (value.isBlank() || value.isEmpty())) {
                 expendituresParameters.put(NUM, "30");
-            }
-            if (NUM.equals(key)) {
+            } else if (NUM.equals(key)) {
                 checkInt(NUM, expendituresParameters.get(NUM));
-                if(Integer.parseInt(expendituresParameters.get(NUM)) <= 0) {
+                if (Integer.parseInt(expendituresParameters.get(NUM)) <= 0) {
                     throw new ParserException("/num must be at least 1");
                 }
             }
@@ -41,8 +39,8 @@ public class ParseListExpenditure extends ParseExpenditure {
     }
 
     public Command getCommand() {
-        ListExpenditureCommand newListExpenditureCommand = new ListExpenditureCommand(expendituresParameters.get(FROM)
-                , Integer.parseInt(expendituresParameters.get(NUM)));
+        ListExpenditureCommand newListExpenditureCommand = new ListExpenditureCommand(expendituresParameters.get(FROM),
+                Integer.parseInt(expendituresParameters.get(NUM)));
         return newListExpenditureCommand;
     }
 }

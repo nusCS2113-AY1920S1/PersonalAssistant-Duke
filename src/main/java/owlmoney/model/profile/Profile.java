@@ -82,16 +82,16 @@ public class Profile {
     public void deleteExpenditure(int expIndex, String bankName, Ui ui) {
         bankList.deleteExp(expIndex, bankName, ui);
     }
-
+/*
     /**
      * Lists all expenditure tied to a bank account.
      *
      * @param listedBank The bank account name.
      * @param ui         required for printing.
-     */
+     *//*
     public void listTransaction(String listedBank, Ui ui) {
         bankList.listBankTransaction(listedBank, ui);
-    }
+    }*/
 
     public void listDeposit(String listedBank, Ui ui, int displayNum) {
         bankList.listBankDeposit(listedBank, ui, displayNum);
@@ -101,8 +101,8 @@ public class Profile {
         bankList.listBankExpenditure(listedBank, ui, displayNum);
     }
 
-    public void editExpenditure(int expNum, String editFromBank, String desc, String amount, String date
-            , String category, Ui ui) {
+    public void editExpenditure(int expNum, String editFromBank, String desc, String amount, String date,
+            String category, Ui ui) {
         bankList.editExp(expNum, editFromBank, desc, amount, date, category, ui);
     }
 

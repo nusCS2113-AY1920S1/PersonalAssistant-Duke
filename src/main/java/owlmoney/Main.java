@@ -49,7 +49,10 @@ class Main {
         while (parser.hasNextLine()) {
             try {
                 Command command = parser.parseLine();
-                command.execute(profile, ui);
+                hasExited = command.execute(profile, ui);
+                if(hasExited) {
+                    break;
+                }
             } catch (ParserException exceptionMessage) {
                 ui.printError(exceptionMessage.toString());
             }

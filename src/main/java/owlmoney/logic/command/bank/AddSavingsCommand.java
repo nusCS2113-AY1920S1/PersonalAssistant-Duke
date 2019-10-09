@@ -18,8 +18,9 @@ public class AddSavingsCommand extends Command {
     }
 
     @Override
-    public void execute(Profile profile, Ui ui) {
+    public boolean execute(Profile profile, Ui ui) {
         Bank newSaving = new Saving(this.name, this.amount, this.income);
         profile.addNewBank(newSaving, ui);
+        return this.isExit;
     }
 }

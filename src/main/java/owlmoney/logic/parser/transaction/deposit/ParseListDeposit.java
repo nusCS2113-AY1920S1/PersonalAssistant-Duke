@@ -27,13 +27,11 @@ public class ParseListDeposit extends ParseDeposit {
             String value = expendituresParameters.get(key);
             if (FROM.equals(key) && (value.isBlank() || value.isEmpty())) {
                 throw new ParserException(key + " cannot be empty when listing deposits from a bank");
-            }
-            if(NUM.equals(key) && (value.isBlank() || value.isEmpty())) {
+            } else if (NUM.equals(key) && (value.isBlank() || value.isEmpty())) {
                 expendituresParameters.put(key, "30");
-            }
-            if (NUM.equals(key)) {
+            } else if (NUM.equals(key)) {
                 checkInt(NUM, expendituresParameters.get(NUM));
-                if(Integer.parseInt(expendituresParameters.get(NUM)) <= 0) {
+                if (Integer.parseInt(expendituresParameters.get(NUM)) <= 0) {
                     throw new ParserException("/num must be at least 1");
                 }
             }
@@ -41,8 +39,8 @@ public class ParseListDeposit extends ParseDeposit {
     }
 
     public Command getCommand() {
-        ListDepositCommand newListDepositCommand = new ListDepositCommand(expendituresParameters.get(FROM)
-                , Integer.parseInt(expendituresParameters.get(NUM)));
+        ListDepositCommand newListDepositCommand = new ListDepositCommand(expendituresParameters.get(FROM),
+                Integer.parseInt(expendituresParameters.get(NUM)));
         return newListDepositCommand;
     }
 }

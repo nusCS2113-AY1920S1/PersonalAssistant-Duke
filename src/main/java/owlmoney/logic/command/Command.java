@@ -4,5 +4,6 @@ import owlmoney.model.profile.Profile;
 import owlmoney.ui.Ui;
 
 public abstract class Command {
-    public abstract void execute(Profile profile, Ui ui);
+    protected boolean isExit = false;
+    public abstract boolean execute(Profile profile, Ui ui);
 }
