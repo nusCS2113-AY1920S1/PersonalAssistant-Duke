@@ -6,6 +6,14 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import java.time.DayOfWeek;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.DateTimeException;
+import java.time.temporal.ChronoUnit;
+import java.time.temporal.TemporalAdjusters;
+
 public class DateTimeRecognition {
     private String date;
 
@@ -14,16 +22,17 @@ public class DateTimeRecognition {
     }
 
     /**
-     * This function enables Duke to read dates in a "dd/MM/yyyy HHmm format".
+     * This function enables Duke to read dates in a "dd-MM-yyyy HH:mm format".
      * @throws DukeException when the date format is incorrect.
      */
     public void dateTime() throws DukeException {
         try {
-            SimpleDateFormat identifyFormat = new SimpleDateFormat("dd/MM/yyyy HHmm");
-            Date dateAndTime = identifyFormat.parse(date);
-        } catch (ParseException e) {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
+            LocalDateTime dateTime = LocalDateTime.parse(date, formatter);
+
+        } catch (DateTimeException e) {
             throw new DukeException(" The format for including date and time for an event/"
-                    + "deadline is <dd/mm/yyyy HHmm>");
+                    + "deadline is <ddMM-yyyy HH:mm>");
         }
     }
 }

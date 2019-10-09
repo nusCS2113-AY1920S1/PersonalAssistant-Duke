@@ -4,6 +4,9 @@ import duke.exceptions.DukeException;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.DateTimeException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 
 public class DateDoWithin {
@@ -19,11 +22,11 @@ public class DateDoWithin {
      */
     public void dateTime() throws DukeException {
         try {
-            SimpleDateFormat identifyFormat = new SimpleDateFormat("dd/MM/yyyy");
-            Date dateAndTime = identifyFormat.parse(date);
-        } catch (ParseException e) {
-            throw new DukeException(" The format for including date and time for an DoWithin/"
-                    + "deadline is <dd/mm/yyyy>");
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
+            LocalDateTime dateTime = LocalDateTime.parse(date, formatter);
+
+        } catch (DateTimeException e) {
+            throw new DukeException(" The format for including date and time for a do within is <dd-MM-yyyy HH:mm>");
         }
     }
 }

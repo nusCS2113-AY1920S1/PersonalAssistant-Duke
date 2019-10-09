@@ -13,9 +13,7 @@ import duke.command.DoneCommand;
 import duke.command.FindCommand;
 import duke.command.ListCommand;
 import duke.command.RemindCommand;
-
 import duke.command.SnoozeCommand;
-
 import duke.exceptions.DukeException;
 
 import java.util.ArrayList;
