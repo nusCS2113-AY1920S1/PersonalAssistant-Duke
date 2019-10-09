@@ -34,6 +34,13 @@ abstract class DukeList<T extends DukeItem> {
     protected List<T> internalList;
     protected List<T> externalList;
 
+    protected String sortCriteria;
+    protected String viewScope;
+    protected String filterCriteria;
+
+    private final String DEFAULT_VIEW_SCOPE = "all";
+    private final String DEFAULT_SORT_CRITERIA = "time";
+
     /**
      * Creates a new {@code DukeList}, which saves its data to a file {@code file}.
      *
@@ -44,6 +51,8 @@ abstract class DukeList<T extends DukeItem> {
         this.file = file;
         internalList = new ArrayList<T>();
         load();
+        viewScope = DEFAULT_VIEW_SCOPE;
+        sortCriteria = DEFAULT_SORT_CRITERIA;
         externalList = getExternalList();
 
         undoStates = new Stack<byte[]>();
@@ -59,6 +68,20 @@ abstract class DukeList<T extends DukeItem> {
      * @return the up-to-date externalList.
      */
     public abstract List<T> getExternalList();
+
+    public abstract void setSortCriteria(String sortCriteria);
+
+    public abstract void setFilterCriteria(String filterCriteria);
+
+    public abstract void setViewScope(String viewScope);
+
+    public abstract List<T> sort(List<T> currentList);
+
+    public abstract List<T> filter(List<T> currentList);
+
+    public abstract List<T> view(List<T> currentList);
+
+
 
     /**
      * Adds an item into {@code internalList}.
