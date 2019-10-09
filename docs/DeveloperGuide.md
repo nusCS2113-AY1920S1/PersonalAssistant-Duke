@@ -1,4 +1,5 @@
 
+
 # COMPal - Developer Guide
 
 Welcome to the **COMPal** Developer Guide! This Developer Guide is still being worked on for now!
@@ -113,7 +114,9 @@ Icon                 | Description
 <img src="images/ArchitectureDiagram.png" alt="Overview of architecture" width="800"/>
 Figure 1. Architecture Diagram
 
-:bulb:               |  The `.pptx` files used to create diagrams in this document can be found in the [diagrams](https://github.com/AY1920S1-CS2113T-W17-1/main/docs/diagrams/) folder. To update a diagram, modify the diagram in the pptx file, select the objects of the diagram, and choose `Save as picture`.
+   
+| :bulb: | *The `.pptx` files used to create diagrams in this document can be found in the [diagrams](https://github.com/AY1920S1-CS2113T-W17-1/main/docs/diagrams/) folder. To update a diagram, modify the diagram in the pptx file, select the objects of the diagram, and choose `Save as picture`.* |
+|--|--|       
 
 The  **_Architecture Diagram_**  given above explains the high-level design of the App. Given below is a quick overview of each component.
 
