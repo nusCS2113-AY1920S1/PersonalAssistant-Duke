@@ -98,6 +98,9 @@ public class Ui {
         }
         return;
     }
-
+    public void quizWordsNotEnough(){
+        System.out.println("    Words not enough. Need at least 4 words to make a quiz!");
+        return;
+    }
 }
 

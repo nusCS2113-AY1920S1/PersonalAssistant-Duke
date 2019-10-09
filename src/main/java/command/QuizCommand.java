@@ -1,5 +1,4 @@
 package command;
-import Dictionary.Word;
 import Dictionary.WordBank;
 import storage.Storage;
 import ui.Ui;
@@ -22,6 +21,10 @@ public class QuizCommand extends Command  {
     @Override
     public void execute(Ui ui, WordBank wordBank, Storage storage){
         int sizeOfWordBank = wordBank.getWordBank().size();
+        if(sizeOfWordBank<4){
+            ui.quizWordsNotEnough();
+            return;
+        }
         Object[] wordBankWord = wordBank.getWordBank().keySet().toArray();
 
         while(randomNumbers.size()<4){
