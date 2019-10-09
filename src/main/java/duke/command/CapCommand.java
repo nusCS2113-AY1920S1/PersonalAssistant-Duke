@@ -1,6 +1,6 @@
 package duke.command;
 
-import duke.exceptions.ModException;
+import duke.exceptions.*;
 import duke.util.Reminder;
 import duke.util.Storage;
 import duke.util.TaskList;
@@ -26,6 +26,11 @@ public class CapCommand extends Command {
     print expected cap @ graduation
 
     */
+
+    public CapCommand(String input) throws ModEmptyCommandException, ModMissingArgumentException, ModCommandException {
+        // parse string input into multiple methods as above
+    }
+
     @Override
     public void execute(TaskList tasks, Ui ui, Storage store, Reminder reminder) throws ModException {
 
