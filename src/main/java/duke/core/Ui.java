@@ -1,6 +1,7 @@
 package duke.core;
 
 import duke.patient.Patient;
+import duke.task.Task;
 
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -76,6 +77,28 @@ public class Ui {
                     + "\nNRIC: " + patient.getNRIC() + "  Room: " + patient.getRoom()
                     + "\nRemark: " + patient.getRemark());
             showLine();
+        }
+    }
+
+    public void listAllTasks(ArrayList<Task> taskList) {
+        int index = 0;
+        System.out.println("Here's a list of your tasks: \n");
+        for (Task task: taskList) {
+            System.out.println(index
+                    + ". "
+                    + "[" + task.getStatusIcon() + "] "
+                    + task.getDescription()
+                    + formatTaskDateTime(task)
+                    + "\n");
+            index++;
+        }
+    }
+
+    public String formatTaskDateTime(Task task) {
+        if (task.getDateTime().equals("")) {
+            return "";
+        } else {
+            return " at " + task.getDateTime();
         }
     }
 
