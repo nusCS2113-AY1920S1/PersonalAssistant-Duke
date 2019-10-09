@@ -27,8 +27,15 @@ public class CapCommand extends Command {
 
     */
 
+    /**
+     * Constructor for the CapCommand class where user can enquire information about their CAP such as overall CAP and what-if reports about predicted CAP
+     * @param input
+     * @throws ModEmptyCommandException
+     * @throws ModMissingArgumentException
+     * @throws ModCommandException
+     */
     public CapCommand(String input) throws ModEmptyCommandException, ModMissingArgumentException, ModCommandException {
-        // parse string input into multiple methods as above
+        // parse string input into multiple methods as above according to spaces
     }
 
     @Override
