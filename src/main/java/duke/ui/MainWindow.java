@@ -81,7 +81,7 @@ public class MainWindow extends UiPart<Stage> {
         orderPage = new OrderPage(logic.getFilteredOrderList());
         productPage = new ProductPage(logic.getFilteredProductList());
         salePage = new SalePage();
-        inventoryPage = new InventoryPage();
+        inventoryPage = new InventoryPage(logic.getFilteredInventoryList());
         setAllPageAnchor(orderPage.getRoot(), productPage.getRoot(), salePage.getRoot(), inventoryPage.getRoot());
     }
 
@@ -197,6 +197,7 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     private void showOrderPage() {
+
         pagePane.getChildren().clear();
         pagePane.getChildren().add(orderPage.getRoot());
 

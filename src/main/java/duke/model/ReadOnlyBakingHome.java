@@ -1,5 +1,6 @@
 package duke.model;
 
+import duke.model.commons.Ingredient;
 import duke.model.order.Order;
 import duke.model.product.Product;
 import duke.model.shortcut.Shortcut;
@@ -18,6 +19,8 @@ public interface ReadOnlyBakingHome {
     ObservableList<Order> getOrderList();
 
     ObservableList<Product> getProductList();
+
+    ObservableList<Ingredient> getInventoryList();
 
     List<Shortcut> getShortcutList();
 }

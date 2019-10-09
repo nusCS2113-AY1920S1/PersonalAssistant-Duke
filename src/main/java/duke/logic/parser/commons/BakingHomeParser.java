@@ -2,11 +2,13 @@ package duke.logic.parser.commons;
 
 import duke.commons.core.Message;
 import duke.logic.command.Command;
+import duke.logic.command.inventory.InventoryCommand;
 import duke.logic.command.shortcut.SetShortcutCommand;
 import duke.logic.command.shortcut.ExecuteShortcutCommand;
 import duke.logic.command.order.OrderCommand;
 import duke.logic.command.product.ProductCommand;
 import duke.logic.parser.exceptions.ParseException;
+import duke.logic.parser.inventory.InventoryCommandParser;
 import duke.logic.parser.order.OrderCommandParser;
 import duke.logic.parser.product.ProductCommandParser;
 import duke.logic.parser.shortcut.SetShortcutCommandParser;
@@ -52,6 +54,8 @@ public class BakingHomeParser {
             return new OrderCommandParser().parse(subCommandAndArgs);
         case ProductCommand.COMMAND_WORD:
             return new ProductCommandParser().parse(subCommandAndArgs);
+            case InventoryCommand.COMMAND_WORD:
+            return new InventoryCommandParser().parse(subCommandAndArgs);
         case SetShortcutCommand.COMMAND_WORD:
             return new SetShortcutCommandParser().parse(subCommandAndArgs);
         case ExecuteShortcutCommand.COMMAND_WORD:

@@ -41,4 +41,5 @@ public class BakingList {
 //    public void setShortcuts(Map<String, ExecuteShortcut> shortcuts) {
 //        this.shortcuts = shortcuts;
 //    }
+
 }

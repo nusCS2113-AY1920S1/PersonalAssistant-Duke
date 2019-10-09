@@ -1,6 +1,7 @@
 package duke.model;
 
 import duke.commons.core.index.Index;
+import duke.model.commons.Ingredient;
 import duke.model.order.Order;
 import duke.model.product.Product;
 import duke.model.shortcut.Shortcut;
@@ -19,6 +20,8 @@ public interface Model {
     Predicate<Product> PREDICATE_SHOW_ACTIVE_PRODUCTS = product -> {
         return product.getStatus() == Product.Status.ACTIVE;
     };
+
+    Predicate<Ingredient> PREDICATE_SHOW_ALL_INVENTORY = unused -> true;
 
     /**
      * Returns the BakingHome.
@@ -94,11 +97,15 @@ public interface Model {
 
     void updateFilteredProductList(Predicate<Product> predicate);
 
-
-
     //========Finance operations=========
 
     //========Ingredient operations======
+
+    ObservableList<Ingredient> getFilteredInventoryList();
+
+    void updateFilteredInventoryList(Predicate<Ingredient> predicate);
+
+    void addInventory(Ingredient ingredient);
 
     //======Shopping list operations=====
 
@@ -125,6 +132,4 @@ public interface Model {
      * Returns an unmodifiable view of the shortcut list.
      */
     List<Shortcut> getShortcutList();
-
-
 }

@@ -1,6 +1,7 @@
 package duke.model;
 
 import duke.commons.core.index.Index;
+import duke.model.commons.Ingredient;
 import duke.model.product.Product;
 import duke.model.order.Order;
 import duke.model.shortcut.Shortcut;
@@ -18,6 +19,7 @@ public class BakingHome implements ReadOnlyBakingHome {
 
     private final UniqueEntityList<Order> orders;
     private final UniqueEntityList<Product> products;
+    private final UniqueEntityList<Ingredient> inventory;
     private final UniqueEntityList<Shortcut> shortcuts;
 
     /**
@@ -26,6 +28,7 @@ public class BakingHome implements ReadOnlyBakingHome {
     public BakingHome() {
         orders = new UniqueEntityList<>();
         products = new UniqueEntityList<>();
+        inventory = new UniqueEntityList<>();
         shortcuts = new UniqueEntityList<>();
     }
 
@@ -124,6 +127,15 @@ public class BakingHome implements ReadOnlyBakingHome {
         return products.asUnmodifiableObservableList();
     }
 
+    //============Inventory operations==============
+    public void addInventory(Ingredient i) {
+        inventory.add(i);
+    }
+
+    @Override
+    public ObservableList<Ingredient> getInventoryList() {
+        return inventory.asUnmodifiableObservableList();
+    }
 
     //// shortcut-related operations
 

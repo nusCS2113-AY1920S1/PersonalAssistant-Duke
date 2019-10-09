@@ -16,21 +16,10 @@ public class Ingredient {
 
     }
 
-    public Ingredient(String name, double cost) {
-        this.name = name;
-        this.cost = cost;
-    }
-
     public Ingredient createNewIngredient(String name) {
         this.name = name;
         this.cost = cost;
         return this;
-    }
-
-    public void init() {
-        name = "cheese";
-        cost = 22.02;
-        //setPicture("cheese");
     }
 
     public String getName() {
@@ -41,11 +30,11 @@ public class Ingredient {
         this.name = name;
     }
 
-//    public double getCost() {
-//        return cost;
-//    }
-//
-//    public void setCost(double cost) {
-//        this.cost = cost;
-//    }
+    public double getCost() {
+        return cost;
+    }
+
+    public void setCost(double cost) {
+        this.cost = cost;
+    }
 }
