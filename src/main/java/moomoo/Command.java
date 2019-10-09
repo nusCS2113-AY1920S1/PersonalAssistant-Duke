@@ -1,5 +1,7 @@
 package moomoo;
 
+import java.util.ArrayList;
+
 public class Command {
 
     public boolean isExit;
@@ -8,7 +10,7 @@ public class Command {
         isExit = false;
     }
 
-    public void execute(Ui ui) {
+    public void execute(Ui ui, CategoryList categories) {
 
     }
 }

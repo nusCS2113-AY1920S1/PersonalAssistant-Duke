@@ -14,11 +14,12 @@ public class Ui {
      * Shows welcome message.
      */
     public void showWelcome() {
-        print("   ^____^\n"
-                + "   ( oo )\\_______\n"
-                + "   (____)\\       )\\/\\\n"
-                + "         ||----w |\n"
-                + "         ||     ||\n"
+        print("   \n"
+                + "   ^____^________\n"
+                + "   ( oo )\\ *  *  )\\/\\\n"
+                + "   (____)||----w |  o \n"
+                + "         ||     ||   00\n"
+                + "   wmwwmWMWMwmWMmwMWWMWMwm\n"
                 + "MOOOOOOOO\n"
                 + "Welcome to MooMooMoney! Your one-stop budgeting and expenses tracker!\n"
                 + "What can MooMoo do for you today?");
@@ -45,5 +46,17 @@ public class Ui {
 
     public void showErrorMessage(String message) {
         print(message);
+    }
+
+    void showNewCategoryMessage(String categoryName) {
+        print("Ok, I've added a new category named " + categoryName);
+    }
+
+    void showAddCategoryMessage() {
+        print("Please enter a name for your new category");
+    }
+
+    public void showCategoryList(String categories) {
+        print(categories);
     }
 }
