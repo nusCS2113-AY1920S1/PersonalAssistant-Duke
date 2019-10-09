@@ -44,11 +44,21 @@ public class Parser {
      */
     public Command parse(String inputStr) throws DukeException {
         inputStr = inputStr.replace("\t", "    "); //sanitise input
-        int firstSpaceIdx = min(inputStr.indexOf(System.lineSeparator()), inputStr.indexOf(" "));
-        String cmdStr = (firstSpaceIdx == -1) ? inputStr : inputStr.substring(0, firstSpaceIdx); //extract command name
+        int spaceIdx = inputStr.indexOf(" ");
+        int sepIdx = inputStr.indexOf(System.lineSeparator());
+        String cmdStr = inputStr;
+        if (!(spaceIdx == -1 && sepIdx == -1)) {
+            if (spaceIdx == -1) {
+                cmdStr = inputStr.substring(0, sepIdx);
+            } else if (sepIdx == -1) {
+                cmdStr = inputStr.substring(0, spaceIdx);
+            } else {
+                cmdStr = inputStr.substring(0, min(sepIdx, spaceIdx));
+            }
+        }
         Cmd cmd = commandMap.get(cmdStr);
         if (cmd == null) {
-            throw new DukeException("I'm sorry, but I don't know what that means!");
+            throw new DukeException("I'm sorry, but I don't recognise this command: " + cmdStr);
         }
         Command command = cmd.getCommand();
         // TODO: autocorrect system
