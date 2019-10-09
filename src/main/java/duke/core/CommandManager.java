@@ -48,6 +48,7 @@ public class CommandManager {
                 }
             case "list":
                 try {
+                    String[] tempCommand = command[1].split("\\s+");
                     if (tempCommand[0].toLowerCase().equals("patients")){
                         return new ListPatientsCommand();
                     }
