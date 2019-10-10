@@ -4,6 +4,8 @@ import controlpanel.DukeException;
 import controlpanel.MoneyStorage;
 import controlpanel.Ui;
 import money.Account;
+import money.Income;
+import moneycommands.MoneyCommand;
 
 /**
  * This command deletes an income source from the Total Income List according to index.
@@ -43,12 +45,26 @@ public class DeleteIncomeCommand extends MoneyCommand {
         if (serialNo > account.getIncomeListTotal().size()) {
             throw new DukeException("The serial number of the income is Out Of Bounds!");
         }
-
+        Income deletedI = account.getIncomeListTotal().get(serialNo - 1);
         ui.appendToOutput(" Noted. I've removed this income source:\n");
-        ui.appendToOutput("  " + account.getIncomeListTotal().get(serialNo - 1).toString() + "\n");
+        ui.appendToOutput("  " + deletedI.toString() + "\n");
         ui.appendToOutput(" Now you have " + (account.getIncomeListTotal().size() - 1));
         ui.appendToOutput(" income sources in the list.\n");
         account.getIncomeListTotal().remove(serialNo - 1);
         storage.writeToFile(account);
+    }
+
+    @Override
+    public void undo(Account account, Ui ui, MoneyStorage storage) throws DukeException {
+        return;
+        /*
+        if (serialNo > account.getIncomeListTotal().size() + 1) {
+            throw new DukeException("The serial number of the income is Out of Bounds!");
+        }
+
+        ui.appendToOutput(" Last command undone: \n");
+        ui.appendToOutput(" ");
+        ui.appendToOutput(" Now you have " + account.getIncomeListTotal().size() + " expenses listed\n");
+         */
     }
 }

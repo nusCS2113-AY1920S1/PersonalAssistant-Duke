@@ -2,7 +2,6 @@ package moneycommands;
 
 import controlpanel.DukeException;
 import controlpanel.MoneyStorage;
-import controlpanel.Parser;
 import controlpanel.Ui;
 import money.Account;
 import money.Instalment;
@@ -10,17 +9,14 @@ import money.Instalment;
 import java.math.RoundingMode;
 import java.text.DecimalFormat;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 public class AddInstalmentCommand extends MoneyCommand{
     private String inputString;
-    private SimpleDateFormat simpleDateFormat;
 
     public AddInstalmentCommand(String command) {
         inputString = command.replaceFirst("add instalment ", "");
-        simpleDateFormat = new SimpleDateFormat("d/M/yyyy");
     }
 
     public boolean isExit() {
@@ -58,5 +54,17 @@ public class AddInstalmentCommand extends MoneyCommand{
         ui.appendToOutput(" For " + instalment.getNumOfPayments() + " months\n");
         ui.appendToOutput(" Until " + instalment.getDateEndDate() + "\n");
         ui.appendToOutput(" The total amount you will pay is $" + instalment.totalAmount() + "\n");
+    }
+
+    @Override
+    public void undo(Account account, Ui ui, MoneyStorage storage) {
+        int lastIndex = account.getInstalments().size() - 1;
+        Instalment ins = account.getInstalments().get(lastIndex);
+        account.getInstalments().remove(ins);
+        storage.writeToFile(account);
+
+        ui.appendToOutput(" Last command undone: \n");
+        ui.appendToOutput(ins.toString() + "\n");
+        ui.appendToOutput(" Now you have " + account.getInstalments().size() + " instalments listed\n");
     }
 }

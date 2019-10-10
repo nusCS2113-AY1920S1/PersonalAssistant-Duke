@@ -17,25 +17,20 @@ import moneycommands.ListTotalExpenditureCommand;
 import moneycommands.ListTotalIncomeCommand;
 import moneycommands.startCommand;
 import moneycommands.MoneyCommand;
-import moneycommands.ViewPastMonthIncome;
 
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.TimeZone;
 
 /**
  * This class which takes in the user input from command line and identifies the
  * correct command type. Calls the appropriate MoneyCommand from control panel
  */
 public class Parser {
-    public Parser() throws DukeException, ParseException {
-    }
+    public Parser() throws DukeException, ParseException {}
 
     /**
      * Constructor which runs the parser to parse all commands
@@ -88,9 +83,13 @@ public class Parser {
             moneyCommand = new DoneGoalCommand(cmd);
         } else if (cmd.startsWith("graph")) {
             moneyCommand = new GraphCommand();
+        } else if (cmd.startsWith("undo")) {
+            moneyCommand = new UndoCommand();
         } else if (cmd.startsWith("add instalment")) {
             moneyCommand = new AddInstalmentCommand(cmd);
-        } else if(cmd.startsWith("list all instalment")) {
+        } else if (cmd.startsWith("delete instalment")) {
+            moneyCommand = new DeleteInstalmentCommand(cmd);
+        } else if (cmd.startsWith("list all instalment")) {
             moneyCommand = new ListInstalmentCommand();
         } else if (cmd.equals("list month income")) {
             moneyCommand = new ListMonthIncomeCommand();

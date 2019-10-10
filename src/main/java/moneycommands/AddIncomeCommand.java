@@ -6,6 +6,7 @@ import controlpanel.Ui;
 import controlpanel.DukeException;
 import money.Account;
 import money.Income;
+import moneycommands.MoneyCommand;
 
 import java.text.ParseException;
 import java.time.LocalDate;
@@ -66,5 +67,17 @@ public class AddIncomeCommand extends MoneyCommand {
         ui.appendToOutput(account.getIncomeListTotal().get(account.getIncomeListTotal().size() - 1).toString()
                 + "\n");
         ui.appendToOutput(" Now you have " + account.getIncomeListTotal().size() + " income sources listed\n");
+    }
+
+    @Override
+    public void undo(Account account, Ui ui, MoneyStorage storage) {
+        int lastIndex = account.getIncomeListTotal().size() - 1;
+        Income i = account.getIncomeListTotal().get(lastIndex);
+        account.getIncomeListTotal().remove(i);
+        storage.writeToFile(account);
+
+        ui.appendToOutput(" Last command undone: \n");
+        ui.appendToOutput(i.toString() + "\n");
+        ui.appendToOutput(" Now you have " + account.getIncomeListTotal().size() + " income listed\n");
     }
 }

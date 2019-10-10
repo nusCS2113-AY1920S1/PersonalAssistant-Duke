@@ -59,4 +59,7 @@ public class InternalTransferCommand extends MoneyCommand {
         ui.appendToOutput("  Got it. Here is the current information about this account:\n    "
                 + bankTracker.getBankAccountInfo() + "\n");
     }
+
+    @Override
+    public void undo(Account account, Ui ui, MoneyStorage storage) throws DukeException, ParseException { return; }
 }

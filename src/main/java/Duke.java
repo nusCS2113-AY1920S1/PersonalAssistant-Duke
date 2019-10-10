@@ -1,6 +1,9 @@
 import controlpanel.*;
 import money.Account;
+import moneycommands.AutoUpdateInstalmentCommand;
 import moneycommands.MoneyCommand;
+import moneycommands.UndoCommand;
+
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -14,6 +17,7 @@ public class Duke {
     private Ui ui;
     private MoneyStorage moneyStorage;
     private Account account;
+    private UndoCommand undoCommand;
 
     /**
      * Duke class acts as a constructor to initialize and setup
@@ -24,6 +28,7 @@ public class Duke {
         String moneyFilePath = moneyDir.toAbsolutePath().toString();
         ui = new Ui();
         moneyStorage = new MoneyStorage(moneyFilePath);
+        undoCommand = new UndoCommand();
         try {
             account = new Account(moneyStorage.load());//need to load from storage on program init
         } catch (Exception e) {
@@ -41,13 +46,18 @@ public class Duke {
             ui.clearOutputString();
             ui.appendToOutput(ui.showLine());
             boolean isNewUser = account.isToInitialize();
+            MoneyCommand updateCommand = new AutoUpdateInstalmentCommand();
+            updateCommand.execute(account, ui, moneyStorage);
             MoneyCommand c = Parser.moneyParse(input, isNewUser);
-            c.execute(account, ui, moneyStorage);
 
             if (c.isExit()) {
                 System.exit(0);
+            } else if (!c.getClass().equals(UndoCommand.class)) {
+                c.execute(account, ui, moneyStorage);
+            } else {
+                undoCommand.execute(account, ui, moneyStorage);
             }
-
+            undoCommand.setLastIssuedCommand(c);
         } catch (ParseException | DukeException e) {
             ui.clearOutputString();
             ui.appendToOutput(ui.showError(e.getMessage()));

@@ -1,5 +1,6 @@
 package controlpanel;
 
+import java.io.File;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.FileReader;
@@ -61,7 +62,8 @@ public class MoneyStorage {
                         break;
                     case "INS":
                         Instalment ins = new Instalment(Float.parseFloat(info[1]), info[2], info[3],
-                                LocalDate.parse(info[4], dateTimeFormatter), Integer.parseInt(info[5]), Float.parseFloat(info[6]) * 100);
+                                LocalDate.parse(info[4], dateTimeFormatter), Integer.parseInt(info[5]),
+                                Float.parseFloat(info[6]) * 100);
                         account.getInstalments().add(ins);
                         break;
                     default:
@@ -106,8 +108,41 @@ public class MoneyStorage {
             }
 
             bufferedWriter.close();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
-        catch (IOException e) {
+    }
+
+    public void markDeletedEntry(String type, String stringRead, String stringWrite,
+                                 int index) throws DukeException {
+        try {
+            File tempFile = File.createTempFile("moneyAccountTemp", ".txt",
+                    new File("data/"));
+            File file = new File(fileName);
+            String fileNameTemp = tempFile.getAbsolutePath();
+            FileReader fileReader = new FileReader(fileName);
+            BufferedReader bufferedReader = new BufferedReader(fileReader);
+            FileWriter fileWriter = new FileWriter(fileNameTemp);
+            BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
+            String line;
+            int i = index;
+            while ((line = bufferedReader.readLine()) != null) {
+                if (line.startsWith(type)) {
+                    i--;
+                    if (i == 0) {
+                        line.replaceAll(stringRead, stringWrite);
+                    }
+                }
+                bufferedWriter.write(line + '\n');
+            }
+            bufferedReader.close();
+            bufferedWriter.close();
+            if (!file.delete()) {
+                throw new DukeException(" OOPS! File cannot be deleted!");
+            } else if (!tempFile.renameTo(file)) {
+                throw new DukeException(" OOPS! File cannot be updated!");
+            }
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
