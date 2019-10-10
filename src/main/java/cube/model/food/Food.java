@@ -11,6 +11,15 @@ public class Food implements Serializable {
 	protected int stock;
 	protected Date expiryDate;
 
+
+    /**
+     * Default constructor.
+     * Calls another constructor with (null) as argument.
+     */
+	public Food() {
+	    this(null);
+    }
+
 	/**
 	 * Constructor with one argument.
 	 *
