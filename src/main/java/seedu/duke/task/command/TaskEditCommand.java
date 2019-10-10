@@ -6,7 +6,7 @@ import seedu.duke.common.command.Command;
 import seedu.duke.task.TaskList;
 
 /**
- * Edit command to change (or add) certain attributes of a task
+ * Edit command to change (or add) certain attributes of a task.
  */
 public class TaskEditCommand extends Command {
     private TaskList taskList;
