@@ -2,8 +2,8 @@ package duke.commands;
 
 import duke.exceptions.DukeException;
 import duke.Storage;
-import duke.TaskList;
 import duke.Ui;
+import duke.lists.TaskList;
 
 public abstract class Command {
     private boolean isExit;

@@ -2,6 +2,7 @@ package duke;
 
 import duke.commands.Command;
 import duke.exceptions.DukeException;
+import duke.lists.TaskList;
 
 public class Duke {
     private TaskList tasks;

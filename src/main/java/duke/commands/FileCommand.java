@@ -3,7 +3,7 @@ package duke.commands;
 import duke.exceptions.DukeException;
 import duke.exceptions.InputException;
 import duke.Storage;
-import duke.TaskList;
+import duke.lists.TaskList;
 import duke.items.tasks.Task;
 import duke.items.tasks.FileTask;
 import duke.Ui;
@@ -66,14 +66,14 @@ public class FileCommand extends Command {
 
         switch (action) {
         case "add":
-            Task added = fileTaskList.addTask(new FileTask(fileName));
+            Task added = fileTaskList.add(new FileTask(fileName));
             formattedOutput.add("Got it. I've added this file:");
             formattedOutput.add(added.toString());
             break;
         case "done":
             try {
-                Task downloaded = fileTaskList.markDone(index);
-                fileStorage.setData(fileTaskList.getTasks());
+                Task downloaded = fileTaskList.mark(index);
+                fileStorage.setData(fileTaskList.getList());
                 formattedOutput.add("Nice! I've marked this file as downloaded:");
                 formattedOutput.add(downloaded.toString());
             } catch (IndexOutOfBoundsException e) {
@@ -82,9 +82,9 @@ public class FileCommand extends Command {
             break;
         case "delete":
             try {
-                Task removed = fileTaskList.removeTask(index);
-                files = fileTaskList.getTasks();
-                fileStorage.setData(fileTaskList.getTasks());
+                Task removed = fileTaskList.remove(index);
+                files = fileTaskList.getList();
+                fileStorage.setData(fileTaskList.getList());
                 formattedOutput.add("Noted. I've removed this file:\n" + removed.toString());
                 formattedOutput.add("You currently have " + files.size()
                         + ((files.size() == 1) ? " task in the list." : " tasks in the list."));
@@ -93,14 +93,14 @@ public class FileCommand extends Command {
             }
             break;
         default:
-            files = fileTaskList.getTasks();
+            files = fileTaskList.getList();
             formattedOutput.add("Here are the files in your list:");
-            for (int i = 0; i < fileTaskList.getTasks().size(); i++) {
+            for (int i = 0; i < fileTaskList.getList().size(); i++) {
                 formattedOutput.add(Integer.toString(i + 1) + ". " + files.get(i).toString());
             }
         }
 
-        fileStorage.setData(fileTaskList.getTasks());
+        fileStorage.setData(fileTaskList.getList());
         return ui.showFormatted(formattedOutput);
     }
 

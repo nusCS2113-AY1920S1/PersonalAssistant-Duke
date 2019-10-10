@@ -3,9 +3,9 @@ package duke.commands;
 import duke.exceptions.DukeException;
 import duke.exceptions.InputException;
 import duke.Storage;
-import duke.TaskList;
 import duke.items.tasks.Task;
 import duke.Ui;
+import duke.lists.TaskList;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -57,7 +57,7 @@ public class MultipleCommand extends Command {
             Collections.sort(finalIndexes, Collections.reverseOrder());
             if (commandType.equals("delete-multiple")) {
                 for (int i = 0; i < finalIndexes.size(); i++) {
-                    Task removed = taskList.removeTask(finalIndexes.get(i));
+                    Task removed = taskList.remove(finalIndexes.get(i));
                     if (i == 0) {
                         formattedOutput.add("Noted. I've removed these tasks:\n" + removed.toString());
                     } else {
@@ -66,8 +66,8 @@ public class MultipleCommand extends Command {
                 }
             } else {
                 for (int i = 0; i < finalIndexes.size(); i++) {
-                    Task completed = taskList.markDone(finalIndexes.get(i));
-                    taskList.removeTask(finalIndexes.get(i));
+                    Task completed = taskList.mark(finalIndexes.get(i));
+                    taskList.remove(finalIndexes.get(i));
                     if (i == 0) {
                         formattedOutput.add("Nice! I've marked these tasks as done:\n" + completed.toString());
                     } else {
@@ -78,7 +78,7 @@ public class MultipleCommand extends Command {
                     }
                 }
             }
-            List<Task> tasks = taskList.getTasks();
+            List<Task> tasks = taskList.getList();
             storage.setData(tasks);
             formattedOutput.add("You currently have " + tasks.size()
                     + ((tasks.size() == 1) ? " task in the list." : " tasks in the list."));

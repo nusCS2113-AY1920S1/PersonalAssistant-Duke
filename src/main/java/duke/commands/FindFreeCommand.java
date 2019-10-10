@@ -2,7 +2,7 @@ package duke.commands;
 
 import duke.DateTime;
 import duke.Storage;
-import duke.TaskList;
+import duke.lists.TaskList;
 import duke.Ui;
 import duke.items.tasks.Event;
 import duke.items.tasks.Task;
@@ -35,7 +35,7 @@ public class FindFreeCommand extends Command {
      */
     @Override
     public String execute(TaskList taskList, Storage storage, Ui ui) {
-        List<Task> tasks = taskList.getTasks();
+        List<Task> tasks = taskList.getList();
         freeTime = new ArrayList<>();
         freeTime.add(new Pair<>(startDate, endDate));
         for (Task task : tasks) {

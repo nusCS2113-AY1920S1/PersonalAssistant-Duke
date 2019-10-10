@@ -1,7 +1,7 @@
 package duke.commands;
 
 import duke.Storage;
-import duke.TaskList;
+import duke.lists.TaskList;
 import duke.Ui;
 import duke.items.tasks.Task;
 
@@ -17,7 +17,7 @@ public class ReminderCommand extends Command {
 
     @Override
     public String execute(TaskList taskList, Storage storage, Ui ui) {
-        List<Task> tasks = taskList.getTasks();
+        List<Task> tasks = taskList.getList();
         TreeMap<String, List<Task>> byDate = new TreeMap<>();
 
         List<String> formattedOutput = new ArrayList<>();

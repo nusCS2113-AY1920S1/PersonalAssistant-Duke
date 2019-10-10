@@ -3,7 +3,7 @@ package duke.commands;
 import duke.DateTime;
 import duke.exceptions.InputException;
 import duke.Storage;
-import duke.TaskList;
+import duke.lists.TaskList;
 import duke.items.tasks.Task;
 import duke.Ui;
 
@@ -47,7 +47,8 @@ public class ViewScheduleCommand extends Command {
         int resultCount = 0;
         ArrayList<String> formattedOutput = new ArrayList<>();
         formattedOutput.add("Here are the tasks on the date given:");
-        List<Task> tasks = taskList.getTasks();
+        taskList.sort();
+        List<Task> tasks = taskList.getList();
 
         for (Task task : tasks) {
             if (task.compareEquals(new DateTime(inputDate))) {

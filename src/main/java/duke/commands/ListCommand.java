@@ -1,7 +1,8 @@
 package duke.commands;
 
 import duke.Storage;
-import duke.TaskList;
+import duke.lists.SpinBoxList;
+import duke.lists.TaskList;
 import duke.items.tasks.Task;
 import duke.Ui;
 
@@ -18,10 +19,11 @@ public class ListCommand extends Command {
      */
     @Override
     public String execute(TaskList taskList, Storage storage, Ui ui) {
-        List<Task> tasks = taskList.getTasks();
+        taskList.sort();
+        List<Task> tasks = taskList.getList();
         List<String> formattedOutput = new ArrayList<>();
         formattedOutput.add("Here are the tasks in your list:");
-        for (int i = 0; i < taskList.getTasks().size(); i++) {
+        for (int i = 0; i < taskList.getList().size(); i++) {
             formattedOutput.add((Integer.toString(i + 1) + ". " + tasks.get(i).toString()));
         }
         return ui.showFormatted(formattedOutput);

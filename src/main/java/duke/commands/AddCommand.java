@@ -3,7 +3,6 @@ package duke.commands;
 import duke.exceptions.DukeException;
 import duke.exceptions.InputException;
 import duke.Storage;
-import duke.TaskList;
 import duke.Ui;
 import duke.items.tasks.After;
 import duke.items.tasks.Recurring;
@@ -14,6 +13,7 @@ import duke.items.tasks.Task;
 import duke.items.tasks.Tentative;
 import duke.items.tasks.Event;
 import duke.items.tasks.Within;
+import duke.lists.TaskList;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -71,7 +71,7 @@ public class AddCommand extends Command {
         try {
             switch (this.type) {
             case "todo":
-                added = taskList.addTask(new Todo(fullCommand.replaceFirst("todo ", "")));
+                added = taskList.add(new Todo(fullCommand.replaceFirst("todo ", "")));
                 formattedOutput.add("Got it. I've added this todo:");
                 formattedOutput.add(added.toString());
                 break;
@@ -80,7 +80,7 @@ public class AddCommand extends Command {
                 parser = new com.joestelmach.natty.Parser();
                 dates = parser.parse(fullCommand.split("/by ")[1]).get(0).getDates();
                 Date by = (Date) dates.get(0);
-                added = taskList.addTask(new Deadline(fullCommand.substring(0, fullCommand.lastIndexOf(" /by"))
+                added = taskList.add(new Deadline(fullCommand.substring(0, fullCommand.lastIndexOf(" /by"))
                         .replaceFirst("deadline ", ""),
                         by));
                 formattedOutput.add("Got it. I've added this deadline:");
@@ -89,7 +89,7 @@ public class AddCommand extends Command {
 
             case "fixed":
                 fixedDuration = fullCommand.split("/needs ")[1];
-                added = taskList.addTask(new Fixed(fullCommand.substring(0, fullCommand.lastIndexOf(" /needs"))
+                added = taskList.add(new Fixed(fullCommand.substring(0, fullCommand.lastIndexOf(" /needs"))
                         .replaceFirst("fixed ", ""),
                         fixedDuration));
                 formattedOutput.add("Got it. I've added this fixed duration task:");
@@ -98,7 +98,7 @@ public class AddCommand extends Command {
 
             case "do-after":
                 doAfter = fullCommand.split("/after ")[1];
-                added = taskList.addTask(new After(fullCommand.substring(0, fullCommand.lastIndexOf(" /after"))
+                added = taskList.add(new After(fullCommand.substring(0, fullCommand.lastIndexOf(" /after"))
                         .replaceFirst("do-after ", ""),
                         doAfter));
                 formattedOutput.add("Got it. I've added this do-after task:");
@@ -110,7 +110,7 @@ public class AddCommand extends Command {
                 dates = parser.parse(fullCommand.split("/between ")[1]).get(0).getDates();
                 start = (Date) dates.get(0);
                 end = (Date) dates.get(1);
-                added = taskList.addTask(new Within(fullCommand.substring(0, fullCommand.lastIndexOf(" /between"))
+                added = taskList.add(new Within(fullCommand.substring(0, fullCommand.lastIndexOf(" /between"))
                         .replaceFirst("do-within ", ""),
                         start, end));
                 formattedOutput.add("Got it. I've added this do-within task:");
@@ -122,7 +122,7 @@ public class AddCommand extends Command {
                 dates = parser.parse(fullCommand.split("/around ")[1]).get(0).getDates();
                 start = (Date) dates.get(0);
                 end = (Date) dates.get(1);
-                added = taskList.addTask(new Tentative(fullCommand.substring(0, fullCommand.lastIndexOf(" /around"))
+                added = taskList.add(new Tentative(fullCommand.substring(0, fullCommand.lastIndexOf(" /around"))
                         .replaceFirst("tentative ", ""),
                         start, end));
                 formattedOutput.add("Got it. I've added this tentative event:");
@@ -142,7 +142,7 @@ public class AddCommand extends Command {
                         + (Long.parseLong(frequencies[1]) * 60)
                         + Long.parseLong(frequencies[2]);
 
-                added = taskList.addTask(new Recurring(fullCommand.substring(0, fullCommand.lastIndexOf(" /at"))
+                added = taskList.add(new Recurring(fullCommand.substring(0, fullCommand.lastIndexOf(" /at"))
                         .replaceFirst("recurring ", ""),
                         start, end, minutes));
 
@@ -157,7 +157,7 @@ public class AddCommand extends Command {
                 start = (Date) dates.get(0);
                 end = (Date) dates.get(1);
 
-                List<Task> tasks = taskList.getTasks();
+                List<Task> tasks = taskList.getList();
                 for (int i = 0; i < tasks.size(); i++) {
                     Task currentTask = tasks.get(i);
                     if (currentTask.isOverlapping(start, end)) {
@@ -166,7 +166,7 @@ public class AddCommand extends Command {
                                 + "Please choose another time interval.");
                     }
                 }
-                added = taskList.addTask(new Event(fullCommand.substring(0, fullCommand.lastIndexOf(" /at"))
+                added = taskList.add(new Event(fullCommand.substring(0, fullCommand.lastIndexOf(" /at"))
                         .replaceFirst("event ", ""),
                         start, end));
                 formattedOutput.add("Got it. I've added this event:");
@@ -187,9 +187,10 @@ public class AddCommand extends Command {
                     + "to <end as MM/DD/YYYY HH:MM> /every DD:HH:MM"
             );
         }
-        formattedOutput.add("You currently have " + taskList.getTasks().size()
-                + ((taskList.getTasks().size() == 1) ? " task in the list." : " tasks in the list."));
-        storage.setData(taskList.getTasks());
+        formattedOutput.add("You currently have " + taskList.getList().size()
+                + ((taskList.getList().size() == 1) ? " task in the list." : " tasks in the list."));
+        storage.setData(taskList.getList());
+        taskList.sort();
         return ui.showFormatted(formattedOutput);
     }
 }

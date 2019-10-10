@@ -2,7 +2,7 @@ package duke.commands;
 
 import duke.exceptions.InputException;
 import duke.Storage;
-import duke.TaskList;
+import duke.lists.TaskList;
 import duke.items.tasks.Task;
 import duke.Ui;
 
@@ -37,7 +37,7 @@ public class FindCommand extends Command {
         int resultCount = 0;
         ArrayList<String> formattedOutput = new ArrayList<>();
         formattedOutput.add("Here are the matching tasks in your list:");
-        List<Task> tasks = taskList.getTasks();
+        List<Task> tasks = taskList.getList();
 
         for (Task task : tasks) {
             if (task.getName().contains(keyword)) {

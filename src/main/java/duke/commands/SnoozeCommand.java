@@ -2,7 +2,7 @@ package duke.commands;
 
 import duke.DateTime;
 import duke.Storage;
-import duke.TaskList;
+import duke.lists.TaskList;
 import duke.Ui;
 import duke.exceptions.DukeException;
 import duke.exceptions.InputException;
@@ -59,7 +59,7 @@ public class SnoozeCommand extends Command {
     @Override
     public String execute(TaskList taskList, Storage storage, Ui ui) throws DukeException {
         try {
-            List<Task> tasks = taskList.getTasks();
+            List<Task> tasks = taskList.getList();
             Task indexedTask = tasks.get(index);
             Boolean isEvent = indexedTask instanceof Event;
             Boolean isDeadline = indexedTask instanceof Deadline;

@@ -1,7 +1,7 @@
 package duke.commands;
 
 import duke.Storage;
-import duke.TaskList;
+import duke.lists.TaskList;
 import duke.Ui;
 import duke.exceptions.DukeException;
 import duke.exceptions.InputException;
@@ -56,7 +56,7 @@ public class SetCommand extends Command {
         Task tentativeTask;
 
         try {
-            tentativeTask = taskList.getTasks().get(index);
+            tentativeTask = taskList.getList().get(index);
         } catch (IndexOutOfBoundsException e) {
             throw new InputException("Invalid index entered. Type 'list' to see your list.");
         }
@@ -77,7 +77,8 @@ public class SetCommand extends Command {
         formattedOutput.add(tentativeTask.toString());
         formattedOutput.add("With event:");
         formattedOutput.add(addTask.toString());
-        storage.setData(taskList.getTasks());
+        storage.setData(taskList.getList());
+        taskList.sort();
 
         return ui.showFormatted(formattedOutput);
     }

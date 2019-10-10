@@ -3,7 +3,7 @@ package duke.commands;
 import duke.exceptions.DukeException;
 import duke.exceptions.InputException;
 import duke.Storage;
-import duke.TaskList;
+import duke.lists.TaskList;
 import duke.items.tasks.Task;
 import duke.Ui;
 
@@ -28,13 +28,13 @@ public class DoneCommand extends Command {
     public String execute(TaskList taskList, Storage storage, Ui ui) throws DukeException {
         try {
             List<String> formattedOutput = new ArrayList<>();
-            Task completed = taskList.markDone(index);
-            taskList.removeTask(index);
+            Task completed = taskList.mark(index);
+            taskList.remove(index);
             formattedOutput.add("Nice! I've marked this task as done:");
             formattedOutput.add(completed.toString());
             formattedOutput.add("This task has been removed from the list.");
-            storage.setData(taskList.getTasks());
-            List<Task> tasks = taskList.getTasks();
+            storage.setData(taskList.getList());
+            List<Task> tasks = taskList.getList();
             formattedOutput.add("You currently have " + tasks.size()
                     + ((tasks.size() == 1) ? " task in the list." : " tasks in the list."));
             return ui.showFormatted(formattedOutput);
