@@ -2,6 +2,8 @@ package parsers;
 
 import Exception.DukeException;
 import commands.*;
+import commands.expense.DiningCommand;
+import commands.expense.ExpenseListCommand;
 import commands.note.AddNoteCommand;
 import commands.note.DeleteNoteCommand;
 import commands.note.EditNoteCommand;
@@ -82,7 +84,12 @@ public class Parser {
             return new ChangePasswordCommand();
         } else if (command.contains("#")) {
             return new TagCommand();
-        } else {
+        } else if(command.equals("expense list")) {
+            return new ExpenseListCommand();
+        } else if(command.contains("@")) {
+            return new DiningCommand();
+        }
+        else {
             throw new DukeException("OOPS!!! I'm sorry, but I don't know what that means :-(");
         }
     }
