@@ -16,7 +16,7 @@ public class AddEntryCommand extends Command {
     private LocalDateTime date;
 
     /**
-     * Creates an instance of AddEntryCommand
+     * Creates an instance of AddEntryCommand.
      * @param type Income or Expense.
      * @param amount Amount of money that is earned/spent.
      * @param description Details pertaining to the entry.

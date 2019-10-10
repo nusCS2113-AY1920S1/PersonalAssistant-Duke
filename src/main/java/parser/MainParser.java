@@ -37,8 +37,8 @@ public class MainParser {
      */
     public static Command handleInput(String mode, String inputLine) { // TODO: Rename to something else
 
-//        Scanner input = new Scanner(System.in);
-//        String inputLine = input.nextLine();
+        //Scanner input = new Scanner(System.in);
+        //String inputLine = input.nextLine();
         String[] inputArray = inputLine.split(" ");
         String command = inputArray[0];
 
@@ -46,8 +46,8 @@ public class MainParser {
             //return new ExitCommand(); // TODO
 
         } else if (command.equals("dolla") || command.equals("entries")
-        || command.equals("limits") || command.equals("debts")
-        || command.equals("shortcuts")) {
+            || command.equals("limits") || command.equals("debts")
+            || command.equals("shortcuts")) {
             //return new SwitchModeCommand(); // TODO
         }
 
