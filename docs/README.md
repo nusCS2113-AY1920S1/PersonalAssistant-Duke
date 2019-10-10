@@ -1,20 +1,26 @@
-# User Guide
+## App Name Placeholder
 
-## Features 
+*Need a room all to yourself to study in hall?
 
-### Feature 1 
-Description of feature.
+*Want to chope a sports court for some sports with friends?
 
-## Usage
+*Sleep in an aircon room?
 
-### `Keyword` - Describe action
+*Look no further!  With this app of ours, you can get a room or facility in hall at any time (not too close to actual start time of usage)
 
-Describe action and its outcome.
+*Book any of your hall's facilities (Eg. Study rooms, tennis courts, etc)
 
-Example of usage: 
+*As a hall resident, you can check availability for rooms to use! If you can't find any, you can __________
 
-`keyword (optional arguments)`
+## Site Map
 
-Expected outcome:
+User Guide
 
-`outcome`
+[Developer Guide](https://github.com/AY1920S1-CS2113T-W12-3/main/blob/master/docs/DeveloperGuide.adoc)
+
+[About Us](https://github.com/AY1920S1-CS2113T-W12-3/main/blob/master/docs/AboutUs.adoc)
+
+Contact Us
+
+
+## Acknowledgements
