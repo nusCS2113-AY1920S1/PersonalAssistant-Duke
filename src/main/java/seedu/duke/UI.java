@@ -120,6 +120,10 @@ public class UI {
         isGuiSet = true;
     }
 
+    /**
+     * Show input command and output response in GUI.
+     * @param msg input
+     */
     public void showGui(String msg) {
         if (!isGuiSet) {
             return;

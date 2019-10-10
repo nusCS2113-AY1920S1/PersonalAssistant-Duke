@@ -170,8 +170,7 @@ public class MainWindow extends AnchorPane {
         input = input.split(" ", 2)[1];
         if (inputList.contains(input)) {
             i = inputList.indexOf(input);
-        }
-        else {
+        } else {
             inputList.add(input);
             i = inputList.size();
         }

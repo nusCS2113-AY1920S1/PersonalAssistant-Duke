@@ -8,7 +8,7 @@ import seedu.duke.email.EmailParser;
 import seedu.duke.email.EmailStorage;
 import seedu.duke.email.entity.Email;
 
-import java.awt.*;
+import java.awt.Desktop;
 import java.io.*;
 import java.net.*;
 import java.nio.charset.StandardCharsets;

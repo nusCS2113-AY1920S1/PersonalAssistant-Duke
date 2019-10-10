@@ -33,7 +33,7 @@ public abstract class Command {
 
     public static class Option extends Pair<String, String> {
         /**
-         * Creates a new pair as option of the input
+         * Creates a new pair as option of the input.
          *
          * @param key   The key for this pair
          * @param value The value to use for this pair
