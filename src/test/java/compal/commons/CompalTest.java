@@ -7,7 +7,7 @@ import compal.commons.Compal.DukeException;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class CompalTest {
-    DukeException exception;
+    private DukeException exception;
 
     @Test
     public void dukeExceptionTest() {

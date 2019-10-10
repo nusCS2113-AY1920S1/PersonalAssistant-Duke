@@ -1,13 +1,10 @@
 package compal.model;
 
 import compal.commons.Compal;
-import compal.model.tasks.Deadline;
-import compal.model.tasks.Task;
 import compal.model.tasks.TaskList;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static compal.model.tasks.Task.Priority.high;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class TaskListTest {
