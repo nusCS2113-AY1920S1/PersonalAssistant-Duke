@@ -1,6 +1,9 @@
 package task;
 
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 
 /**
  * The parent Task class containing the description of the task and its done status.
@@ -13,6 +16,9 @@ public class Task implements Serializable {
     protected String at;
     protected String after;
     protected String period;
+    protected Boolean inVoice;
+
+    private static SimpleDateFormat dataformat = new SimpleDateFormat("dd/MM/yyyy HHmm");
 
     /**
      * Creates a Task instance and initialises the required attributes.
@@ -49,8 +55,15 @@ public class Task implements Serializable {
     /**
      * Sets a new value to the by attribute.
      */
-    public void setBy(String by) {
-        this.by = by;
+    public void setBy(boolean inVoice) {
+        if(inVoice==true){
+            Date date = new Date(System.currentTimeMillis());
+            java.util.Calendar calendar = java.util.Calendar.getInstance();
+            calendar.setTime(date);
+            calendar.add(Calendar.DAY_OF_MONTH,30);
+            Date newDate = calendar.getTime();
+            this.by = dataformat.format(newDate);
+        }
     }
 
     /**
@@ -92,4 +105,12 @@ public class Task implements Serializable {
      * @return Task at.
      */
     public String getAt(){ return this.at; }
+
+    /**
+     * Gets the invoice status of the Task.
+     * @return a boolean value invoice.
+     */
+    public boolean getInVoice(){
+        return this.inVoice;
+    }
 }
