@@ -1,6 +1,7 @@
 package duke.core;
 
 import duke.patient.Patient;
+import duke.patient.PatientList;
 import duke.task.StandardTask;
 import duke.task.Task;
 
@@ -329,6 +330,10 @@ public class Ui {
         System.out.println("12. recurring - to make a task recurring\n");
         System.out.println("13. bye - to exit Dukepital\n");
         System.out.println("If you have any further enquiries, please contact us directly.\n");
+    }
+
+    public void showUpdateStatus(Patient patient , String targetInfo) {
+        System.out.println("I have successfully updated the " + targetInfo + " of " + patient.getName() + " ID:" + patient.getID()  );
     }
 
     /**

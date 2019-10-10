@@ -98,6 +98,19 @@ public class CommandManager {
                 }
             case "reschedule":
                 //do thing for 'reschedule'
+            case "update":
+                try {
+                    String[] descriptions = command[1].split("\\s+");
+                    int targetId = Integer.parseInt(descriptions[1]);
+                    String targetInfo = descriptions[2];
+                    String updateValue = descriptions[3];
+
+                    return new UpdatePatientCommand(targetId, targetInfo, updateValue);
+
+
+                } catch (Exception e) {
+                    throw new DukeException("update command fails. " + e.getMessage());
+                }
             case "view":
                 //do thing for 'view'
             case "help":
