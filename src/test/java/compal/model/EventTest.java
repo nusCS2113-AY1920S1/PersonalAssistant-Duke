@@ -21,7 +21,7 @@ public class EventTest {
     private Event event;
 
     @BeforeEach
-    public void setup() {
+    public void setUp() {
         event = new Event(description, priority, date, startTime, endTime);
     }
 
@@ -31,13 +31,32 @@ public class EventTest {
     }
 
     @Test
+    void setPriorityTest() {
+        event.setPriority(priority);
+        assertEquals(priority, event.getPriority());
+    }
+
+    @Test
     void getStatusIcon() {
+        event.isDone = true;
+        assertEquals("\u2713",event.getStatusIcon());
+        event.isDone = false;
         assertEquals("\u2718", event.getStatusIcon());
     }
 
     @Test
     void getIsDone() {
+        event.isDone = true;
+        assertEquals("true",event.getisDone());
+        event.isDone = false;
         assertEquals("false", event.getisDone());
+    }
+
+    @Test
+    void getHasReminder() {
+        assertEquals("false", event.gethasReminder());
+        event.setHasReminder();
+        assertEquals("true",event.gethasReminder());
     }
 
     @Test
@@ -118,7 +137,8 @@ public class EventTest {
     }
 
     @Test
-    void sethasReminder() {
+    void setHasReminder() {
+        assertEquals(false, event.hasReminder());
         event.setHasReminder();
         assertEquals(true, event.hasReminder());
     }

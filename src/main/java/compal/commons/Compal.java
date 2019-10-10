@@ -47,7 +47,6 @@ public class Compal {
             tasklist.arrlist = new ArrayList<>();
         } else {
             tasklist.arrlist = storage.loadCompal();
-
         }
 
         ui = new UiPart(this, tasklist.arrlist);

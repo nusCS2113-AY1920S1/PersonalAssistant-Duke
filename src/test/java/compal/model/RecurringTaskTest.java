@@ -12,7 +12,7 @@ import java.util.Date;
 import static compal.model.tasks.Task.Priority.high;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class RecurringTaskTesting {
+public class RecurringTaskTest {
     private String description = "Test content";
     private String date = "01/10/2019";
     private String startTime = "1130";
@@ -22,7 +22,7 @@ public class RecurringTaskTesting {
     private RecurringTask recurringTask;
 
     @BeforeEach
-    public void setup() {
+    public void setUp() {
         recurringTask = new RecurringTask(description, priority, date, startTime, endTime, symbol);
     }
 
@@ -32,13 +32,32 @@ public class RecurringTaskTesting {
     }
 
     @Test
+    void setPriorityTest() {
+        recurringTask.setPriority(priority);
+        assertEquals(priority, recurringTask.getPriority());
+    }
+
+    @Test
     void getStatusIcon() {
+        recurringTask.isDone = true;
+        assertEquals("\u2713",recurringTask.getStatusIcon());
+        recurringTask.isDone = false;
         assertEquals("\u2718", recurringTask.getStatusIcon());
     }
 
     @Test
     void getIsDone() {
+        recurringTask.isDone = true;
+        assertEquals("true",recurringTask.getisDone());
+        recurringTask.isDone = false;
         assertEquals("false", recurringTask.getisDone());
+    }
+
+    @Test
+    void getHasReminder() {
+        assertEquals("false", recurringTask.gethasReminder());
+        recurringTask.setHasReminder();
+        assertEquals("true",recurringTask.gethasReminder());
     }
 
     @Test
@@ -119,7 +138,8 @@ public class RecurringTaskTesting {
     }
 
     @Test
-    void sethasReminder() {
+    void setHasReminder() {
+        assertEquals(false, recurringTask.hasReminder());
         recurringTask.setHasReminder();
         assertEquals(true, recurringTask.hasReminder());
     }
