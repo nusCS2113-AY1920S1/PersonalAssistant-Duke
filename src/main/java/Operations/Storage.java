@@ -46,7 +46,12 @@ public class Storage {
             for (String list : tempList) {
                 String[] temp = list.split("#");
                 SaveType type;
-                Priority priority = Priority.valueOf(temp[2]);
+                Priority priority = null;
+                try {
+                    priority = Priority.valueOf(temp[2]);
+                } catch (IllegalArgumentException e) {
+                    priority = Priority.low;
+                }
                 boolean done = temp[1].equals("y");
                 try {
                     type = SaveType.valueOf(temp[0]);

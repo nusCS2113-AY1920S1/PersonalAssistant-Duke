@@ -7,6 +7,7 @@ import Model_Classes.Task;
 import Model_Classes.ToDo;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Comparator;
 
 import Enums.TimeUnit;
@@ -44,7 +45,7 @@ public class TaskList {
         if (index < 0 || index > tasks.size()) {
             throw new RoomShareException(ExceptionType.outOfBounds);
         }
-        tasks.remove(index - 1);
+        tasks.remove(index);
     }
 
     /**
@@ -73,7 +74,7 @@ public class TaskList {
         if (index < 0 || index > tasks.size()) {
             throw new RoomShareException(ExceptionType.outOfBounds);
         }
-        tasks.get(index - 1).setDone();
+        tasks.get(index).setDone();
     }
 
     /**
@@ -113,25 +114,25 @@ public class TaskList {
      * @param timeUnit unit for snooze time: year, month, day, hour, minute
      */
     public void snooze (int index, int amount, TimeUnit timeUnit){
-        if (tasks.get(index - 1) instanceof ToDo){
+        if (tasks.get(index) instanceof ToDo){
             System.out.println("Todo cannot be snoozed");
             return;
         }
         switch (timeUnit) {
             case year:
-                tasks.get(index - 1).snoozeYear(amount);
+                tasks.get(index).snoozeYear(amount);
                 break;
             case month:
-                tasks.get(index - 1).snoozeMonth(amount);
+                tasks.get(index).snoozeMonth(amount);
                 break;
             case day:
-                tasks.get(index - 1).snoozeDay(amount);
+                tasks.get(index).snoozeDay(amount);
                 break;
             case hours:
-                tasks.get(index - 1).snoozeHour(amount);
+                tasks.get(index).snoozeHour(amount);
                 break;
             case minutes:
-                tasks.get(index - 1).snoozeMinute(amount);
+                tasks.get(index).snoozeMinute(amount);
                 break;
         }
     }
@@ -178,8 +179,10 @@ public class TaskList {
                 return Integer.compare(getValue(task1), getValue(task2));
             }
         });
+    }
 
-
+    public void reorder(int first, int second) {
+        Collections.swap(tasks, first, second);
     }
 
 }

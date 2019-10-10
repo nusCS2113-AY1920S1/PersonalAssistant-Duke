@@ -50,6 +50,7 @@ public class Ui {
      * @param index Index of task to be deleted.
      */
     public void showDeleted (int index) {
+        index += 1;
         System.out.println("Deleted task number " + index + "!");
     }
 
@@ -231,4 +232,11 @@ public class Ui {
      */
     public void prioritySet() { System.out.println("Your task's priority has been set"); }
 
+    public void promptSecondIndex() {
+        System.out.println("Please enter the index to swap to");
+    }
+
+    public void showReordering() {
+        System.out.println("Reordering the task list...");
+    }
 }

@@ -39,7 +39,7 @@ public class Parser {
      */
     public Integer getIndex() {
         String temp = scanner.nextLine().trim();
-        int index = Integer.parseInt(temp);
+        int index = Integer.parseInt(temp) - 1;
         return index;
     }
 
