@@ -92,7 +92,11 @@ public class JsonWrapper {
         return null;
     }
 
-
+    /**
+     * Main helper function to obtained HashMap of summary info from modsListData.json.
+     * @return HashMap with module code as the key and ModuleInfoSummary object as the value.
+     * @throws ModFailedJsonException If the previous call to getModuleListObject() returns null.
+     */
     public HashMap<String, ModuleInfoSummary> getModuleSummaryMap() throws ModFailedJsonException {
         List<ModuleInfoSummary> modsList = getModuleListObject();
         if (modsList == null) {

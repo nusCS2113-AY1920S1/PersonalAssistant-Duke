@@ -1,5 +1,6 @@
 package duke;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
@@ -49,16 +50,9 @@ public class Duke {
         ui.helloMsg();
         boolean isExit = false;
         // Starting reminder threads and pulling data from API
-        // TODO: pending fix for thread bug
+        // TODO: removed reminder, pending fix for thread bug during exit command
         try {
-            // Classes to be initialized during runtime
-            reminder = new Reminder(tasks.getTasks());
-            reminder.run();
-
-            // This pulls data once and stores in the data files.
             data.runRequests(store);
-        } catch (ModTimeIntervalTooCloseException e) {
-            System.out.println(e.getMessage());
         } catch (ModBadRequestStatus er) {
             er.printStackTrace();
         }
@@ -68,14 +62,14 @@ public class Duke {
                 ui.showLine();
                 Command c = parser.parse(fullCommand);
                 c.execute(tasks, ui, store, reminder);
-                // TODO: this if branch is to demo how to JSON parser using the
+                // TODO: this if branch is to demo how to use the JSON parser using the
                 //       list command, remove this when creating additional features
                 if (c instanceof ListCommand) {
                     HashMap<String, ModuleInfoSummary> test = data.getModuleSummaryMap();
                     // Demo test of commands
                     System.out.println(test.get("CS2101"));
-                    System.out.println(test.get("CS2113T"));
-                    System.out.println(test.get("CG2028"));
+                    System.out.println(Arrays.toString(test.get("CS2113T").getSemesters()));
+                    System.out.println(test.get("CG2028").getTitle());
                     System.out.println(test.get("CS1010"));
                 }
                 isExit = c.isExit();
