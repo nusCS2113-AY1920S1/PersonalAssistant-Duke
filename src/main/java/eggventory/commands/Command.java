@@ -36,9 +36,6 @@ public class Command {
      * Might need to separate into bye and list commands.
      */
     public void execute(StockList list, Ui ui, Storage storage) throws BadInputException {
-        //if (type == CommandType.REMINDER) {
-        //    list.printReminders();
-
         if (type == CommandType.BYE) {
             storage.save(list);
             ui.printExitMessage();
