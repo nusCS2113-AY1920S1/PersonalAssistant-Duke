@@ -1,6 +1,7 @@
 package Places;
 
 import Simulate.PlantSeedSimulation;
+import org.json.simple.JSONObject;
 
 public class WheatFarm extends Farm {
     private int seeds;
@@ -22,6 +23,12 @@ public class WheatFarm extends Farm {
         ripeWheat = 0;
     }
 
+    public WheatFarm(JSONObject obj){
+        this.seeds = (Integer) obj.get("seeds");
+        this.greenWheat = (Integer) obj.get("wheat_green");
+        this.ripeWheat = (Integer) obj.get("wheat_ripe");
+    }
+
     public void plantSeeds() {
         greenWheat += seeds;
         seeds = 0;
@@ -35,5 +42,14 @@ public class WheatFarm extends Farm {
         int earned = ripeWheat * 10;
         ripeWheat = 0;
         return earned;
+    }
+
+    @Override
+    public JSONObject toJSON() {
+        JSONObject obj = new JSONObject();
+        obj.put("seeds", seeds);
+        obj.put("wheat_green", greenWheat);
+        obj.put("wheat_ripe", ripeWheat);
+        return obj;
     }
 }
