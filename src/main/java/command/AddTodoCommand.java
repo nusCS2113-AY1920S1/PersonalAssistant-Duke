@@ -1,4 +1,4 @@
-package dolla.command;
+package command;
 
 /**
  * AddToDoCommand is a command used to add a todo task into the duke.task.TaskList.
