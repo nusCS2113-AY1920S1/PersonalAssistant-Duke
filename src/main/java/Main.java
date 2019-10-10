@@ -9,7 +9,7 @@ import javafx.stage.Stage;
  */
 public class Main extends Application {
 
-    private Moomoo moomoo = new Moomoo();
+    private MooMoo moomoo = new MooMoo();
 
     /**
      * Starts the GUI to be shown to the user, reads in precreated FXML file created in Java SceneBuilder.

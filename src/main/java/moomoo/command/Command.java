@@ -1,9 +1,11 @@
 package moomoo.command;
 
-import moomoo.task.TaskList;
+import moomoo.task.Budget;
+import moomoo.task.CategoryList;
 import moomoo.task.MooMooException;
-import moomoo.task.Ui;
 import moomoo.task.Storage;
+import moomoo.task.TransactionList;
+import moomoo.task.Ui;
 
 
 /**
@@ -23,15 +25,18 @@ public class Command {
         this.input = input;
     }
 
+
     /**
-     * Main method to be executed for each subclass that will complete its necessary tasks
-     * such as adding a deadline or deleting a task.
-     * @param taskList Task List containing the initialized lists of the task on run
-     * @param ui Ui for which any input and output will be given to
-     * @param storage Storage for storing and writing of the data to disk
-     * @throws MooMooException thrown when any error occurs such as invalid input
+     * Executes necessary functions for each different command.
+     * @param budget Budget object containing the budget.
+     * @param catList CategoryList object containing the categories
+     * @param transList TransactionList object containing transactions within each category.
+     * @param ui Ui object for interaction with user interface.
+     * @param storage Storage object for interaction with filesystem.
+     * @throws MooMooException Thrown when error such as invalid input occurs
      */
-    public void execute(TaskList taskList, Ui ui, Storage storage) throws MooMooException {
+    public void execute(Budget budget, CategoryList catList, TransactionList transList, Ui ui, Storage storage)
+            throws MooMooException {
 
     }
 }

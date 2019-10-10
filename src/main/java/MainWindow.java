@@ -19,7 +19,7 @@ public class MainWindow extends AnchorPane {
     @FXML
     private Button sendButton;
 
-    private Moomoo moomoo;
+    private MooMoo moomoo;
 
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
     private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
@@ -29,7 +29,7 @@ public class MainWindow extends AnchorPane {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
     }
 
-    public void setMoomoo(Moomoo d) {
+    public void setMoomoo(MooMoo d) {
         moomoo = d;
     }
 

@@ -14,7 +14,7 @@ public class Launcher {
                 Application.launch(Main.class, args);
             }
         } else {
-            Moomoo.main(args);
+            MooMoo.main(args);
         }
     }
 }

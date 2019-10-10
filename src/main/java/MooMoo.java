@@ -1,29 +1,40 @@
 import moomoo.command.Command;
-import moomoo.task.Storage;
-import moomoo.task.TaskList;
-import moomoo.task.Ui;
+import moomoo.task.Budget;
+import moomoo.task.CategoryList;
 import moomoo.task.MooMooException;
 import moomoo.task.Parser;
+import moomoo.task.Storage;
+import moomoo.task.TransactionList;
+import moomoo.task.Ui;
 
 /**
- * Runs Duke.
+ * Runs MooMoo.
  */
-public class Moomoo {
+public class MooMoo {
     private Storage storage;
-    private TaskList tasks;
+    private TransactionList transList;
+    private CategoryList catList;
+    private Budget budget;
     private Ui ui;
 
     /**
      * Initializes Storage, Ui and TaskList.
      */
-    public Moomoo() {
+    public MooMoo() {
         ui = new Ui();
-        storage = new Storage("data/tasks.txt");
+        storage = new Storage("data/moomoo.txt");
         try {
-            tasks = new TaskList(storage.load());
+            catList = new CategoryList(storage.loadCategories());
         } catch (MooMooException e) {
             ui.showLoadingError();
-            tasks = new TaskList();
+            catList = new CategoryList();
+        }
+
+        try {
+            transList = new TransactionList(storage.loadTransactions());
+        } catch (MooMooException e) {
+            ui.showLoadingError();
+            transList = new TransactionList();
         }
     }
 
@@ -37,11 +48,12 @@ public class Moomoo {
             try {
                 String fullCommand = ui.readCommand();
                 Command c = Parser.parse(fullCommand);
-                c.execute(tasks, ui, storage);
+                c.execute(budget, catList, transList, ui, storage);
                 ui.showResponse();
                 isExit = c.isExit;
             } catch (MooMooException e) {
                 ui.printException(e);
+                ui.showResponse();
             }
         }
     }
@@ -56,10 +68,10 @@ public class Moomoo {
         boolean isExit = false;
         try {
             Command c = Parser.parse(input);
-            c.execute(tasks, ui, storage);
+            c.execute(budget, catList, transList, ui, storage);
             isExit = c.isExit;
             if (isExit) {
-                return ui.showGoodByeMessage();
+                return ui.showGoodbye();
             }
             return ui.printToGui();
         } catch (MooMooException e) {
@@ -68,11 +80,11 @@ public class Moomoo {
     }
 
     /**
-     * Runs Duke.
+     * Runs MooMoo.
      * @param args Argument values given when running the program
      */
     public static void main(String[] args) {
-        new Moomoo().run();
+        new MooMoo().run();
     }
 
 }
