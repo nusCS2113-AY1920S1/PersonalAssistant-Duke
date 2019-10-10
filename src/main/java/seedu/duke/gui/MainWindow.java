@@ -168,8 +168,13 @@ public class MainWindow extends AnchorPane {
      */
     private void getInput(String input) {
         input = input.split(" ", 2)[1];
-        inputList.add(input);
-        i = inputList.size();
+        if (inputList.contains(input)) {
+            i = inputList.indexOf(input);
+        }
+        else {
+            inputList.add(input);
+            i = inputList.size();
+        }
     }
 
     boolean isShowingEmail = false;
