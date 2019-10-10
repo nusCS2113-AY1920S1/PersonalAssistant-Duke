@@ -7,11 +7,12 @@ import javafx.collections.ObservableList;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.geometry.Rectangle2D;
-import javafx.scene.control.*;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
+import javafx.scene.control.ListView;
+import javafx.scene.control.TextFormatter;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
@@ -24,7 +25,6 @@ import javafx.scene.web.WebView;
 import javafx.stage.Screen;
 import javafx.util.Duration;
 import seedu.duke.Duke;
-import java.util.*;
 import seedu.duke.CommandParser;
 import seedu.duke.UI;
 import seedu.duke.task.TaskList;
@@ -169,7 +169,7 @@ public class MainWindow extends AnchorPane {
         delay.play();
     }
 
-    int i;
+    int index;
 
     /**
      * Gets the input without prefixes.
@@ -177,10 +177,10 @@ public class MainWindow extends AnchorPane {
     private void getInput(String input) {
         input = input.split(" ", 2)[1];
         if (inputList.contains(input)) {
-            i = inputList.indexOf(input);
+            index = inputList.indexOf(input);
         } else {
             inputList.add(input);
-            i = inputList.size();
+            index = inputList.size();
         }
     }
 
@@ -245,17 +245,17 @@ public class MainWindow extends AnchorPane {
     private String navigateInputList() {
         String prevInput = "";
         if (isUpKey == true) {
-            if (i < 1) {
-                i = inputList.size();
+            if (index < 1) {
+                index = inputList.size();
             }
-            i--;
-            prevInput = inputList.get(i);
+            index--;
+            prevInput = inputList.get(index);
         } else {
-            if (i > inputList.size() - 2) {
-                i = -1;
+            if (index > inputList.size() - 2) {
+                index = -1;
             }
-            i++;
-            prevInput = inputList.get(i);
+            index++;
+            prevInput = inputList.get(index);
         }
         return prevInput;
     }
