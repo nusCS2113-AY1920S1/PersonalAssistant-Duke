@@ -1,11 +1,10 @@
-import duke.tasks.Recurring;
-import duke.tasks.Task;
+import duke.items.tasks.Recurring;
+import duke.items.tasks.Task;
 import org.junit.jupiter.api.Test;
 
 import java.util.Date;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 public class RecurringTest {
 

@@ -4,8 +4,8 @@ import duke.DateTime;
 import duke.Storage;
 import duke.TaskList;
 import duke.Ui;
-import duke.tasks.Event;
-import duke.tasks.Task;
+import duke.items.tasks.Event;
+import duke.items.tasks.Task;
 import javafx.util.Pair;
 
 import java.util.ArrayList;

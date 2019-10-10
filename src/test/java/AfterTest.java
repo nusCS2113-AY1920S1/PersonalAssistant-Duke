@@ -1,5 +1,5 @@
-import duke.tasks.After;
-import duke.tasks.Task;
+import duke.items.tasks.After;
+import duke.items.tasks.Task;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;

@@ -3,7 +3,7 @@ package duke.commands;
 import duke.exceptions.InputException;
 import duke.Storage;
 import duke.TaskList;
-import duke.tasks.Task;
+import duke.items.tasks.Task;
 import duke.Ui;
 
 import java.util.ArrayList;
@@ -40,7 +40,7 @@ public class FindCommand extends Command {
         List<Task> tasks = taskList.getTasks();
 
         for (Task task : tasks) {
-            if (task.getTaskName().contains(keyword)) {
+            if (task.getName().contains(keyword)) {
                 formattedOutput.add((resultCount++ + 1) + ". " + task.toString());
             }
         }

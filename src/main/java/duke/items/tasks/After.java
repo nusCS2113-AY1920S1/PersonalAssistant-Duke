@@ -1,4 +1,4 @@
-package duke.tasks;
+package duke.items.tasks;
 
 public class After extends Task {
     private String doAfter;
@@ -21,7 +21,7 @@ public class After extends Task {
      */
     public After(int done, String taskName, String doAfter) {
         super(taskName);
-        this.isDone = (done == 1);
+        this.setDone(done == 1);
         this.doAfter = doAfter;
     }
 

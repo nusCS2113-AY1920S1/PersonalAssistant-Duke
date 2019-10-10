@@ -1,4 +1,4 @@
-package duke.tasks;
+package duke.items.tasks;
 
 public class Fixed extends Task {
     private String fixedDuration;
@@ -21,7 +21,7 @@ public class Fixed extends Task {
      */
     public Fixed(int done, String taskName, String fixedDuration) {
         super(taskName);
-        this.isDone = (done == 1);
+        this.setDone(done == 1);
         this.fixedDuration = fixedDuration;
     }
 

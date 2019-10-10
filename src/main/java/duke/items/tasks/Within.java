@@ -1,8 +1,7 @@
-package duke.tasks;
+package duke.items.tasks;
 
 import duke.DateTime;
 
-import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class Within extends Task {
@@ -27,7 +26,7 @@ public class Within extends Task {
      */
     public Within(int done, String description, Date startDate, Date endDate) {
         super(description);
-        this.isDone = (done == 1);
+        this.setDone(done == 1);
         this.startDate = new DateTime(startDate);
         this.endDate = new DateTime(endDate);
     }

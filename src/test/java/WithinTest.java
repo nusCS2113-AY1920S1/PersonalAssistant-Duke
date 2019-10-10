@@ -1,5 +1,5 @@
-import duke.tasks.Within;
-import duke.tasks.Task;
+import duke.items.tasks.Within;
+import duke.items.tasks.Task;
 
 import java.util.Date;
 

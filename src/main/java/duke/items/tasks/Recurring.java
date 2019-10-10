@@ -1,4 +1,4 @@
-package duke.tasks;
+package duke.items.tasks;
 
 import duke.DateTime;
 import java.util.Date;

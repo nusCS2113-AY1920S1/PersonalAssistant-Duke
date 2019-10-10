@@ -2,7 +2,7 @@ package duke.commands;
 
 import duke.Storage;
 import duke.TaskList;
-import duke.tasks.Task;
+import duke.items.tasks.Task;
 import duke.Ui;
 
 import java.util.ArrayList;

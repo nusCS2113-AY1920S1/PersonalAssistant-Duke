@@ -1,11 +1,11 @@
-package duke.tasks;
+package duke.items.tasks;
 
 import duke.DateTime;
+import duke.items.Item;
+
 import java.util.Date;
 
-public abstract class Task {
-    private String taskName;
-    Boolean isDone;
+public abstract class Task extends Item {
     DateTime startDate;
     DateTime endDate;
 
@@ -13,26 +13,14 @@ public abstract class Task {
      * Constructor to initialize default values of any instances of children of Task.
      */
     public Task(String taskName) {
-        this.taskName = taskName;
-        this.isDone = false;
+        super(taskName);
         this.startDate = null;
         this.endDate = null;
     }
 
-    protected String getStatusIcon() {
-        return (isDone ? "✓" : "✗");
-    }
-
-    public String toString() {
-        return "[" + this.getStatusIcon() + "] " + this.getTaskName();
-    }
-
+    @Override
     public String storeString() {
-        return Integer.toString((isDone ? 1 : 0)) + " | " + this.getTaskName();
-    }
-
-    public String getTaskName() {
-        return this.taskName;
+        return super.storeString();
     }
 
     public DateTime getStartDate() {
@@ -49,14 +37,6 @@ public abstract class Task {
 
     public void setStartDate(DateTime startDate) {
         this.startDate = startDate;
-    }
-
-    public void markDone() {
-        this.isDone = true;
-    }
-
-    public Boolean getDone() {
-        return isDone;
     }
 
     abstract String getStartDateString();

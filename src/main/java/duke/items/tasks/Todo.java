@@ -1,4 +1,4 @@
-package duke.tasks;
+package duke.items.tasks;
 
 public class Todo extends Task {
     public Todo(String taskName) {
@@ -7,7 +7,7 @@ public class Todo extends Task {
 
     public Todo(int done, String taskName) {
         super(taskName);
-        this.isDone = (done == 1);
+        this.setDone(done == 1);
     }
 
     @Override

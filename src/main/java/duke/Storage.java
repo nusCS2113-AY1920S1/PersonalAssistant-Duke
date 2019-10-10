@@ -2,16 +2,16 @@ package duke;
 
 import duke.exceptions.DukeException;
 import duke.exceptions.StorageException;
-import duke.tasks.After;
-import duke.tasks.Deadline;
-import duke.tasks.Event;
-import duke.tasks.FileTask;
-import duke.tasks.Fixed;
-import duke.tasks.Recurring;
-import duke.tasks.Task;
-import duke.tasks.Tentative;
-import duke.tasks.Todo;
-import duke.tasks.Within;
+import duke.items.tasks.After;
+import duke.items.tasks.Deadline;
+import duke.items.tasks.Event;
+import duke.items.tasks.FileTask;
+import duke.items.tasks.Fixed;
+import duke.items.tasks.Recurring;
+import duke.items.tasks.Task;
+import duke.items.tasks.Tentative;
+import duke.items.tasks.Todo;
+import duke.items.tasks.Within;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
