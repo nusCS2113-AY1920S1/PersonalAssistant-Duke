@@ -11,15 +11,24 @@ public class Ui {
     }
 
     /**
-     * Shows the startup logo for Duke
+     * Shows the startup logo for RoomShare
      */
     public void startUp() {
-        String logo = " ____        _        \n"
-                + "|  _ \\ _   _| | _____ \n"
-                + "| | | | | | | |/ / _ \\\n"
-                + "| |_| | |_| |   <  __/\n"
-                + "|____/ \\__,_|_|\\_\\___|\n";
-        System.out.println("Hello from\n" + logo);
+        String logo = " __________         _\n"
+                + "|          \\       / \\\n"
+                + "|    ___    \\     /   \\\n"
+                + "|   |___|    |   |  |  | \n"
+                + "|          _/    |  |  | \n"
+                + "|    ___    \\    \\  \\  /\n"
+                + "|   |   \\    \\    \\  \\/\n"
+                + "|   |    \\    \\   /\\  \\\n"
+                + "|___|     \\____\\ /  \\  \\\n"
+                + "                 |  |  |\n"
+                + "                 |  |  |\n"
+                + "                 \\     /\n"
+                + "                  \\   /\n"
+                + "                   \\_/";
+        System.out.println("Hello from RoomShare!\n" + logo);
         System.out.println("How may I serve you?");
         System.out.println("Enter 'help' if you require assistance");
     }
@@ -40,17 +49,12 @@ public class Ui {
      * Prints a message telling the user that the task at the index has been deleted.
      * @param index Index of task to be deleted.
      */
+
     public void showDeleted (int[] index) {
         if (index.length == 1)
             System.out.println("Deleted task number " + index[0] + "!");
         else
             System.out.println("Deleted task number " + index[0] + " to " + index[1] + " !");
-    }
-    public void showDeletedRecur (int[] index) {
-        if (index.length == 1)
-            System.out.println("Deleted recurring task number " + index[0] + "!");
-        else
-            System.out.println("Deleted recurring task number " + index[0] + " to " + index[1] + " !");
     }
     /**
      * Tells the user that the search operation is executing
@@ -58,9 +62,7 @@ public class Ui {
     public void showFind () {
         System.out.println("Searching for item in task list...");
     }
-    public void showFindRecur () {
-        System.out.println("Searching for item in recurring task list...");
-    }
+
     /**
      * Tells the user that the task of index has been done and the list has been updated.
      */
@@ -88,7 +90,7 @@ public class Ui {
         System.out.println("You have exited recurring list mode");
     }
     /**
-     * tells the user that Duke is listing the tasks
+     * tells the user that RoomShare is listing the tasks
      */
     public void showList() {
         System.out.println("Listing tasks in your task list...");
@@ -111,7 +113,7 @@ public class Ui {
     }
 
     /**
-     * Tells the user that an invalid command has been input into Duke.
+     * Tells the user that an invalid command has been input into RoomShare.
      */
     public void showCommandError() {
         System.out.println("Sorry, I don't understand this command...");
@@ -211,8 +213,6 @@ public class Ui {
         System.out.println("Does this task have a duration? (yes/no)");
     }
 
-
-    // tells the user to input valid amount of time
     public void promptForTime() {
         System.out.println("Enter the amount of time");
     }
@@ -222,6 +222,26 @@ public class Ui {
      */
     public void showTimeError(){
         System.out.println("Please indicate a valid amount of time");
+    }
+    /**
+     * Provides user with instructions to prioritise task
+     */
+    public void priority() {
+        System.out.println("Enter task index followed by priority (high, medium, low)");
+        System.out.println("\te.g. 1 high");
+    }
+
+    /**
+     * Notifies the user that their task's priority has been set
+     */
+    public void prioritySet() { System.out.println("Your task's priority has been set"); }
+
+    public void promptSecondIndex() {
+        System.out.println("Please enter the index to swap to");
+    }
+
+    public void showReordering() {
+        System.out.println("Reordering the task list...");
     }
 
 }

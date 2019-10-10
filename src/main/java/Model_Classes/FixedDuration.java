@@ -1,5 +1,7 @@
 package Model_Classes;
 
+import Enums.Priority;
+
 import java.util.Date;
 
 public class FixedDuration extends Event {
@@ -14,6 +16,19 @@ public class FixedDuration extends Event {
      */
     public FixedDuration(String description, Date at, int duration) {
         super(description, at);
+        this.duration = duration;
+    }
+
+    /**
+     * Overload constructor for fixed duration
+     * @param description Description of event
+     * @param at Date of event
+     * @param duration duration of event
+     * @param done Whether the task is completed.
+     * @param priority Priority of the task.
+     */
+    public FixedDuration(String description, Date at, int duration, boolean done, Priority priority) {
+        super(description, at, done, priority);
         this.duration = duration;
     }
 

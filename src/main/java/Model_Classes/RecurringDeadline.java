@@ -1,5 +1,7 @@
 package Model_Classes;
 
+import Enums.Priority;
+
 import java.util.Date;
 
 public class RecurringDeadline extends Deadline {
@@ -7,12 +9,26 @@ public class RecurringDeadline extends Deadline {
     /**
      * Constructor for the RecurringDeadline object.
      * Takes in inputs for description and date/time the tasks should be done by.
-     *
+     * @param recurrence Frequency task is repeated
      * @param description Description of the task
      * @param by          The time the tasks should be done by.
      */
     public RecurringDeadline(String description, Date by, String recurrence) {
         super(description, by);
+        this.recurrence = recurrence;
+    }
+
+    /**
+     * Overload constructor for the RecurringDeadline object.
+     * Takes in inputs for description and date/time the tasks should be done by.
+     * @param recurrence Frequency task is repeated
+     * @param description Description of the task
+     * @param by          The time the tasks should be done by.
+     * @param done Whether the task is completed.
+     * @param priority Priority of the task.
+     */
+    public RecurringDeadline(String description, Date by, String recurrence, Boolean done, Priority priority) {
+        super(description, by, done, priority);
         this.recurrence = recurrence;
     }
 

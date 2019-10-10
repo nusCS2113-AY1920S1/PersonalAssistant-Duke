@@ -1,11 +1,15 @@
 package Operations;
 
-import CustomExceptions.DukeException;
+import CustomExceptions.RoomShareException;
 import Enums.ExceptionType;
+import Enums.Priority;
 import Model_Classes.Task;
 import Model_Classes.ToDo;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+
 import Enums.TimeUnit;
 
 /**
@@ -35,21 +39,29 @@ public class TaskList {
      * Deletes a task from the list. Task to be deleted is specified by the index that is input into this method
      * Will not perform any operations if the index does not exist in the list.
      * @param index Index of task in the list to be deleted
-     * @throws DukeException If the index cannot be found in the list of tasks.
+     * @throws RoomShareException If the index cannot be found in the list of tasks.
      */
-    public void delete(int[] index) throws DukeException {
+    public void delete(int[] index) throws RoomShareException {
         int[] idx = index.clone();
-        if (idx.length == 1)
-            tasks.remove(idx[0] - 1);
+        if (idx.length == 1) {
+            if (idx[0] < 0 || idx[0] >= tasks.size()) {
+                throw new RoomShareException(ExceptionType.outOfBounds);
+            }
+        tasks.remove(idx[0]);
+        }
         else {
-            for (int i = idx[0]; idx[1] >= idx[0]; idx[1]--)
-                tasks.remove(i-1);
+            for (int i = idx[0]; idx[1] >= idx[0]; idx[1]--) {
+                if (i < 0 || i >= tasks.size()) {
+                    throw new RoomShareException(ExceptionType.outOfBounds);
+                }
+                tasks.remove(i);
+            }
         }
     }
     /**
      * Lists out all tasks in the current list in the order they were added into the list.
      */
-    public void list() throws DukeException {
+    public void list() throws RoomShareException {
         if( tasks.size() != 0 ){
             int listCount = 1;
             for (Task output : tasks) {
@@ -57,7 +69,7 @@ public class TaskList {
                 listCount += 1;
             }
         } else {
-            throw new DukeException(ExceptionType.emptylist);
+            throw new RoomShareException(ExceptionType.emptylist);
         }
 
     }
@@ -66,13 +78,20 @@ public class TaskList {
      * Sets a task in the list as 'done' to mark that the user has completed the task.
      * Will not perform any operations if the index does not exist in the list.
      * @param index Index of the task to be marked as done.
-     * @throws DukeException If the index cannot be found in the list of tasks.
+     * @throws RoomShareException If the index cannot be found in the list of tasks.
      */
-    public void done(int[] index) throws DukeException {
-        if (index.length == 1)
-            tasks.get(index[0] - 1).setDone();
+    public void done(int[] index) throws RoomShareException {
+        if (index.length == 1) {
+            if (index[0] < 0 || index[0] >= tasks.size()) {
+                throw new RoomShareException(ExceptionType.outOfBounds);
+            }
+            tasks.get(index[0]).setDone();
+        }
         else {
             for (int i = index[0]; i <= index[1]; i++){
+                if (i < 0 || i >= tasks.size()) {
+                    throw new RoomShareException(ExceptionType.outOfBounds);
+                }
                 tasks.get(i - 1).setDone();
             }
         }
@@ -86,7 +105,7 @@ public class TaskList {
     public void find (String key) {
         int queryCount = 1;
         for (Task query : tasks) {
-            if (query.toString().toLowerCase().contains(key)) {
+            if (query.toString().toLowerCase().contains(key.trim())) {
                 System.out.println("    " + queryCount + ". " + query.toString());
             }
             queryCount += 1;
@@ -115,26 +134,75 @@ public class TaskList {
      * @param timeUnit unit for snooze time: year, month, day, hour, minute
      */
     public void snooze (int index, int amount, TimeUnit timeUnit){
-        if (tasks.get(index - 1) instanceof ToDo){
-            System.out.println("Todo cannot be snoozed\n");
+        if (tasks.get(index) instanceof ToDo){
+            System.out.println("Todo cannot be snoozed");
             return;
         }
         switch (timeUnit) {
             case year:
-                tasks.get(index - 1).snoozeYear(amount);
+                tasks.get(index).snoozeYear(amount);
                 break;
             case month:
-                tasks.get(index - 1).snoozeMonth(amount);
+                tasks.get(index).snoozeMonth(amount);
                 break;
             case day:
-                tasks.get(index - 1).snoozeDay(amount);
+                tasks.get(index).snoozeDay(amount);
                 break;
             case hours:
-                tasks.get(index - 1).snoozeHour(amount);
+                tasks.get(index).snoozeHour(amount);
                 break;
             case minutes:
-                tasks.get(index - 1).snoozeMinute(amount);
+                tasks.get(index).snoozeMinute(amount);
                 break;
         }
     }
+
+    /**
+     * Sets priority of task
+     */
+    public void setPriority(String[] info) throws RoomShareException {
+        try {
+            int index = Integer.parseInt(info[0]) - 1;
+            Priority priority = Priority.valueOf(info[1]);
+            tasks.get(index).setPriority(priority);
+        } catch (IllegalArgumentException a) {
+            throw new RoomShareException(ExceptionType.wrongPriority);
+        } catch (IndexOutOfBoundsException i) {
+            throw new RoomShareException(ExceptionType.outOfBounds);
+        }
+
+    }
+
+    /**
+     * Returns priority of the task in the form of an integer
+     * high = 0, medium = 1, low = 2
+     * @param t task in which we are checking the value of
+     * @return integer value of the task's priority
+     */
+    public int getValue(Task t) {
+        if (t.getPriority().equals(Priority.high)) {
+            return 0;
+        } else if (t.getPriority().equals(Priority.medium)) {
+            return 1;
+        } else {
+            return 2;
+        }
+    }
+
+    /**
+     * Sorts the list based on priority
+     */
+    public void sortPriority() {
+        tasks.sort(new Comparator<>() {
+            @Override
+            public int compare(Task task1, Task task2) {
+                return Integer.compare(getValue(task1), getValue(task2));
+            }
+        });
+    }
+
+    public void reorder(int first, int second) {
+        Collections.swap(tasks, first, second);
+    }
+
 }

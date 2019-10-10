@@ -1,5 +1,5 @@
 package Enums;
 
 public enum ExceptionType {
-    timeClash, emptylist, wrongFormat
+    timeClash, emptylist, wrongFormat, empty, outOfBounds, wrongPriority
 }

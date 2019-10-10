@@ -1,9 +1,6 @@
 package Model_Classes;
 
-import CustomExceptions.DukeException;
-import Enums.ExceptionType;
-import Operations.CheckAnomaly;
-import Operations.TaskList;
+import Enums.Priority;
 
 import java.util.Date;
 /**
@@ -25,11 +22,16 @@ public class Event extends Task {
     }
 
     /**
-     * Constructor for Event object
-     * @param description name and date of Event
+     * Overload Constructor for Event object
+     * Takes in inputs for description of the event and the time the event occurs
+     * @param description Description of the event
+     * @param at Time the event happens
+     * @param done Whether the task is completed
+     * @param priority Priority of the task.
      */
-    public Event(String description) {
-        super(description);
+    public Event(String description, Date at, boolean done, Priority priority) {
+        super(description, done, priority);
+        this.at = at;
     }
 
     /**
