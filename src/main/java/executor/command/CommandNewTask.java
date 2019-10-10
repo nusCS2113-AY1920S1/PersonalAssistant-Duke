@@ -1,11 +1,11 @@
-package duke.command;
+package executor.command;
 
 import duke.exception.DukeException;
-import duke.task.Task;
-import duke.task.TaskList;
-import duke.task.TaskType;
-import duke.worker.Parser;
-import duke.worker.Ui;
+import executor.task.Task;
+import executor.task.TaskList;
+import executor.task.TaskType;
+import interpreter.Parser;
+import ui.Ui;
 
 public class CommandNewTask extends Command {
     protected String userInput;

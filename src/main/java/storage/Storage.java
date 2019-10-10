@@ -1,12 +1,11 @@
-package duke.worker;
+package storage;
 
-import duke.task.Task;
-import duke.task.TaskList;
-import duke.task.TaskType;
+import executor.task.Task;
+import executor.task.TaskList;
+import interpreter.Parser;
 
 import java.io.File;
 import java.io.FileWriter;
-import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Storage {

@@ -1,8 +1,8 @@
-package duke.command;
+package executor.command;
 
-import duke.task.TaskList;
-import duke.worker.Parser;
-import duke.worker.Ui;
+import executor.task.TaskList;
+import interpreter.Parser;
+import ui.Ui;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;

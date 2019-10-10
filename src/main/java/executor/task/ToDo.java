@@ -1,7 +1,6 @@
-package duke.task;
+package executor.task;
 
 import duke.exception.DukeException;
-import duke.worker.Ui;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;

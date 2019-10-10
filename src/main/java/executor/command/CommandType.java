@@ -1,12 +1,12 @@
-package duke.task;
+package executor.command;
 
-public enum TaskType {
-    BLANK, PARENT, DEADLINE, TODO, EVENT, FDURATION;
+public enum CommandType {
+    TASK, BYE, LIST, BLANK, FIND, DELETE, DONE, QUEUE, VIEWSCHEDULE, REMINDER;
 
     /**
-     * Constructor for 'TaskType' enum.
+     * Constructor for 'CommandType' enum.
      */
-    private TaskType() {
+    private CommandType() {
     }
 
     /**
@@ -15,7 +15,7 @@ public enum TaskType {
      * @return A String Array that contains all the types of this enum
      */
     public static String[] getNames() {
-        TaskType[] holder = TaskType.values();
+        CommandType[] holder = CommandType.values();
         String[] returnArray = new String[holder.length];
         for (int index = 0; index < holder.length; ++index) {
             returnArray[index] = String.valueOf(holder[index]);

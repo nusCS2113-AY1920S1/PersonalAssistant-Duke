@@ -1,18 +1,22 @@
-package duke.worker;
+package ui;
 
-import duke.command.Command;
-import duke.command.CommandType;
-import duke.task.TaskList;
+import interpreter.Interpreter;
+import interpreter.Parser;
+import executor.command.Command;
+import executor.command.CommandType;
+import executor.task.TaskList;
+import storage.Storage;
 
-import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
 public class Ui {
-    protected Scanner scanner;
-    protected Boolean exitRequest;
-    protected List<String> userInputHistory;
+    private Storage storage;
+    private TaskList taskList;
+    private Scanner scanner;
+    private Boolean exitRequest;
+    private List<String> userInputHistory;
     public static final String LOGO =
             " ____        _        \n"
                     + "|  _ \\ _   _| | _____ \n"
@@ -25,7 +29,9 @@ public class Ui {
     /**
      * Constructor for the 'Ui' Class.
      */
-    public Ui() {
+    public Ui(String dataPath) {
+        this.storage = new Storage(dataPath);
+        this.taskList = storage.loadData();
         this.scanner = new Scanner(System.in);
         this.exitRequest = false;
         this.userInputHistory = new ArrayList<String>();
@@ -34,10 +40,10 @@ public class Ui {
     /**
      * Method to start the Ui.
      */
-    public void initialise(TaskList taskList) {
+    public void initialise() {
         printWelcomeMsg();
         while (!this.exitRequest) {
-            this.interact(taskList);
+            this.interact(this.taskList);
         }
         this.exitUi();
     }
@@ -46,15 +52,8 @@ public class Ui {
      * Obtains user input and executes commands.
      */
     public void interact(TaskList taskList)  {
-        // Declarations
-        String userInput;
-        CommandType commandType;
-        Command command;
-        // Function Calls
-        userInput = this.scanInput();
-        command = Parser.parse(userInput);
-        command.execute(taskList);
-        this.exitRequest = command.getExitRequest();
+        String userInput = this.scanInput();
+        this.exitRequest = Interpreter.interpret(taskList, userInput);
     }
 
     /**
@@ -73,8 +72,9 @@ public class Ui {
     /**
      * Exits the Ui.
      */
-    public void exitUi() {
+    private void exitUi() {
         this.scanner.close();
+        this.storage.saveData(this.taskList);
         this.exitRequest = true;
     }
 
@@ -84,17 +84,6 @@ public class Ui {
     public static void printGoodbyeMsg() {
         dukeSays("Bye. Hope to see you again soon!");
         printSeparator();
-    }
-
-    /**
-     * Decide which Command to do.
-     */
-    public static void executeCommand(CommandType commandType, String userInput) {
-    }
-
-    // Level 1 - Prints userInput as though Duke is responding
-    public static void echoUser(String userInput) {
-        dukeSays(userInput);
     }
 
     /**
@@ -116,7 +105,7 @@ public class Ui {
     /**
      * Prints Welcome Message.
      */
-    public static void printWelcomeMsg() {
+    private static void printWelcomeMsg() {
         printSeparator();
         System.out.println(LOGO); // Logo
         dukeSays("Hello! I'm Duke.\nDuke: What can I do for you?");
