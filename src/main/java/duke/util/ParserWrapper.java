@@ -8,23 +8,21 @@ import duke.command.ByeCommand;
 import duke.command.Command;
 import duke.command.ListCommand;
 import duke.command.ScheduleCommand;
-import duke.exceptions.DukeCommandException;
-import duke.exceptions.DukeException;
-import duke.exceptions.DukeInvalidTimeException;
-import duke.tasks.Deadline;
-import duke.tasks.DoWithin;
-import duke.tasks.Events;
-import duke.tasks.FixedDurationTasks;
-import duke.tasks.RecurringTask;
-import duke.tasks.Task;
-import duke.tasks.Todo;
+import duke.exceptions.ModCommandException;
+import duke.exceptions.ModException;
+import duke.exceptions.ModInvalidTimeException;
+import duke.modules.Deadline;
+import duke.modules.DoWithin;
+import duke.modules.Events;
+import duke.modules.FixedDurationTasks;
+import duke.modules.RecurringTask;
+import duke.modules.Task;
+import duke.modules.Todo;
 
 
 public class ParserWrapper {
 
-    // Testing Natty Wrapper
     private NattyWrapper natty;
-    private final String[] dateTasks = {"event", "deadline", "fixedDuration"};
 
     /**
      * Constructor for parser wrapper class.
@@ -33,17 +31,25 @@ public class ParserWrapper {
         natty = new NattyWrapper();
     }
 
-    private String formatInputToStringDate(String date) throws DukeInvalidTimeException {
+    /**
+     * Formats data parsed by natty into the right format for our use case.
+     * @param date User input for data parameter.
+     * @return LocalDateTime formatted in dd-MM-yyyy [HH:mm].
+     * @throws ModInvalidTimeException when string date cannot be parsed by natty.
+     */
+    private String formatInputToStringDate(String date) throws ModInvalidTimeException {
         return natty.dateToLocalDateTime(date).format(DateTimeFormatter.ofPattern("dd-MM-yyyy [HH:mm]"));
     }
 
     /**
-     * Parsing date arguments.
+     * Main parser for user commands, checking for any invalid input
+     * placed and empty command placed. Returns the specified command
+     * class for each valid input.
      * @param input User input.
      * @return Command class based on user input.
-     * @throws DukeException error based on user input.
+     * @throws ModException error based on user input.
      */
-    public Command parse(String input) throws DukeException {
+    public Command parse(String input) throws ModException {
         // Checks every input for keywords
         input = input.trim();
         if (input.startsWith("todo ")) {
@@ -94,7 +100,7 @@ public class ParserWrapper {
             return new ScheduleCommand(input);
         } else {
             //throws invalid command exception when user inputs non-keywords
-            throw new DukeCommandException();
+            throw new ModCommandException();
         }
     }
 

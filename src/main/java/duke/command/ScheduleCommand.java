@@ -1,12 +1,12 @@
 package duke.command;
 
-import duke.exceptions.DukeEmptyCommandException;
-import duke.exceptions.DukeEmptyListException;
-import duke.exceptions.DukeInvalidTimeException;
+import duke.exceptions.ModEmptyCommandException;
+import duke.exceptions.ModEmptyListException;
+import duke.exceptions.ModInvalidTimeException;
+import duke.modules.Deadline;
+import duke.modules.Events;
+import duke.modules.Task;
 
-import duke.tasks.Deadline;
-import duke.tasks.Events;
-import duke.tasks.Task;
 import duke.util.DateTimeParser;
 import duke.util.Reminder;
 import duke.util.Storage;
@@ -24,13 +24,13 @@ public class ScheduleCommand extends Command {
     /**
      * Constructor for the ScheduleCommand class that takes in the user input.
      * @param input User's input in the command line.
-     * @throws DukeEmptyCommandException If the user inputs and empty command.
-     * @throws DukeInvalidTimeException If the user does not input a date/command after "schedule ".
+     * @throws ModEmptyCommandException If the user inputs and empty command.
+     * @throws ModInvalidTimeException If the user does not input a date/command after "schedule ".
      */
-    public ScheduleCommand(String input) throws DukeInvalidTimeException, DukeEmptyCommandException {
+    public ScheduleCommand(String input) throws ModInvalidTimeException, ModEmptyCommandException {
         this.input = input;
         if (input.length() <= 9) {
-            throw new DukeEmptyCommandException();
+            throw new ModEmptyCommandException();
         }
         currentDate = DateTimeParser.getStringToDate(input.substring(9)).toLocalDate();
 
@@ -43,10 +43,10 @@ public class ScheduleCommand extends Command {
      * @param tasks TaskList object containing current active taskList.
      * @param ui Ui object containing all output methods to user.
      * @param storage Storage object for storing the taskList.
-     * @throws DukeEmptyListException When no tasks are found to match that date.
+     * @throws ModEmptyListException When no tasks are found to match that date.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage, Reminder reminder) throws DukeEmptyListException {
+    public void execute(TaskList tasks, Ui ui, Storage storage, Reminder reminder) throws ModEmptyListException {
         ArrayList<Task> printArray = new ArrayList<>();
         for (int i = 0; i < tasks.getSize(); i++) {
             if (tasks.access(i) instanceof Deadline) {
@@ -64,7 +64,7 @@ public class ScheduleCommand extends Command {
         printArray.sort(this::compare);
         boolean isEmpty = printArray.isEmpty();
         if (isEmpty) {
-            throw new DukeEmptyListException();
+            throw new ModEmptyListException();
         } else {
             System.out.println("Here is your schedule for today:");
             ui.printTaskList(printArray);

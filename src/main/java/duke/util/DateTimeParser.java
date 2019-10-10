@@ -1,6 +1,6 @@
 package duke.util;
 
-import duke.exceptions.DukeInvalidTimeException;
+import duke.exceptions.ModInvalidTimeException;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -18,13 +18,13 @@ public class DateTimeParser {
      * Parser for date with or without time inputs for deadline and event tasks.
      * @param dateAndTime Date and time portion of the user input string.
      * @return LocalDateTime parsed based on the user input format.
-     * @throws DukeInvalidTimeException if user inputs a date format that is not supported by Duke.
+     * @throws ModInvalidTimeException if user inputs a date format that is not supported by Duke.
      */
-    public static LocalDateTime getStringToDate(String dateAndTime) throws DukeInvalidTimeException {
+    public static LocalDateTime getStringToDate(String dateAndTime) throws ModInvalidTimeException {
         boolean am = dateAndTime.contains("am");
         boolean pm = dateAndTime.contains("pm");
         if (am && pm) {
-            throw new DukeInvalidTimeException();
+            throw new ModInvalidTimeException();
         }
         dateAndTime = dateAndTime.trim()
                 .replaceAll(" */ *", "/")
@@ -42,11 +42,11 @@ public class DateTimeParser {
             localDateTime = getLocalDateTimeHourOnly(hourFormatStrings, dateAndTime);
         }
         if (localDateTime == null) {
-            throw new DukeInvalidTimeException();
+            throw new ModInvalidTimeException();
         }
         if (am || pm) {
             if (localDateTime.getHour() > 12) {
-                throw new DukeInvalidTimeException();
+                throw new ModInvalidTimeException();
             }
             if (pm) {
                 localDateTime = localDateTime.plusHours(12);

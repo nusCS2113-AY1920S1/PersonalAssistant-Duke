@@ -1,11 +1,12 @@
-package duke.tasks;
+package duke.modules;
 
-import duke.exceptions.DukeInvalidTimeException;
-import duke.exceptions.DukeInvalidTimePeriodException;
+import duke.exceptions.ModInvalidTimeException;
+import duke.exceptions.ModInvalidTimePeriodException;
 import duke.util.DateTimeParser;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Date;
 
 public class DoWithin extends Task {
 
@@ -14,11 +15,12 @@ public class DoWithin extends Task {
      * @param description Task name.
      * @param beginString Starting time.
      * @param endString Ending time.
-     * @throws DukeInvalidTimeException when the time input cannot be parsed.
-     * @throws DukeInvalidTimePeriodException when the period input is invalid.
+     * @throws ModInvalidTimeException when the time input cannot be parsed.
+     * @throws ModInvalidTimePeriodException when the period input is invalid.
      */
     public DoWithin(String description, String beginString, String endString)
-            throws DukeInvalidTimeException, DukeInvalidTimePeriodException {
+            throws ModInvalidTimeException,
+            ModInvalidTimePeriodException {
         super(description);
         LocalDateTime begin = DateTimeParser.getStringToDate(beginString);
         LocalDateTime end = DateTimeParser.getStringToDate(endString);

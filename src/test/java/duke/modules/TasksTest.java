@@ -1,25 +1,22 @@
-package duke.tasks;
+package duke.modules;
 
-import duke.exceptions.DukeCommandException;
-import duke.exceptions.DukeInvalidIndexException;
-import duke.exceptions.DukeMissingArgumentException;
-import jdk.jfr.StackTrace;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import duke.exceptions.DukeInvalidTimePeriodException;
+import duke.exceptions.ModInvalidTimePeriodException;
+
 
 public class TasksTest {
 
     @Test
-    public void testTaskPrint() throws DukeInvalidTimePeriodException {
+    public void testTaskPrint() throws ModInvalidTimePeriodException {
         String taskLabel = "Items to be tested";
         Task test = new Task(taskLabel);
         assertEquals(taskLabel, test.getTask());
     }
 
     @Test
-    public void testTodoDisplay() throws DukeInvalidTimePeriodException {
+    public void testTodoDisplay() throws ModInvalidTimePeriodException {
         String taskLabel = "TodoTest";
         String expectedPrintTodo = "[T][✗] TodoTest";
         Task test = new Todo(taskLabel);
@@ -27,7 +24,7 @@ public class TasksTest {
     }
 
     @Test
-    public void testTodoFile() throws DukeInvalidTimePeriodException {
+    public void testTodoFile() throws ModInvalidTimePeriodException {
         String taskLabel = "TodoTest";
         String expectedWriteTodo = "T|TodoTest|0";
         Task test = new Todo(taskLabel);
