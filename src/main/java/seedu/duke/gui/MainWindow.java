@@ -169,7 +169,7 @@ public class MainWindow extends AnchorPane {
         delay.play();
     }
 
-    int index;
+    int i;
 
     /**
      * Gets the input without prefixes.
@@ -177,10 +177,10 @@ public class MainWindow extends AnchorPane {
     private void getInput(String input) {
         input = input.split(" ", 2)[1];
         if (inputList.contains(input)) {
-            index = inputList.indexOf(input);
+            i = inputList.indexOf(input);
         } else {
             inputList.add(input);
-            index = inputList.size();
+            i = inputList.size();
         }
     }
 
@@ -245,17 +245,17 @@ public class MainWindow extends AnchorPane {
     private String navigateInputList() {
         String prevInput = "";
         if (isUpKey == true) {
-            if (index < 1) {
-                index = inputList.size();
+            if (i < 1) {
+                i = inputList.size();
             }
-            index--;
-            prevInput = inputList.get(index);
+            i--;
+            prevInput = inputList.get(i);
         } else {
-            if (index > inputList.size() - 2) {
-                index = -1;
+            if (i > inputList.size() - 2) {
+                i = -1;
             }
-            index++;
-            prevInput = inputList.get(index);
+            i++;
+            prevInput = inputList.get(i);
         }
         return prevInput;
     }
