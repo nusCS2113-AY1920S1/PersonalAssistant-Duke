@@ -51,7 +51,7 @@ public class Storage {
         return art.toString();
     }
 
-    public String getLevel(int level) throws IOException {
+   // public String getLevel(int level) throws IOException {
         //runs level
-    }
+   // }
 }
