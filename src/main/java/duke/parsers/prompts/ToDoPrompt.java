@@ -13,21 +13,24 @@ public class ToDoPrompt extends Prompt {
 
     @Override
     public void execute(String input, Ui ui) {
-        switch(state) {
-            case 0:
-                ui.show(PromptMessages.TODO_PROMPT_STARTER);
-                state++;
-                break;
-            case 1:
-                ui.show(PromptMessages.TODO_PROMPT_SUCCESS);
-                description = input;
-
-                buildResult();
-                isDone = true;
-                break;
+        System.out.println("executing todo");
+        switch (state) {
+        case 0:
+            message = PromptMessages.TODO_PROMPT_STARTER;
+            state++;
+            break;
+        case 1:
+            description = input;
+            message = PromptMessages.TODO_PROMPT_SUCCESS;
+            state++;
+            buildResult();
+            isDone = true;
+            break;
+        default:
+            message = PromptMessages.PROMPT_ERROR;
+            break;
         }
         if (attempts > 4) {
-            ui.show(PromptMessages.PROMPT_TOO_MANY_ATTEMPTS);
             isDone = true;
             isCancelled = true;
         }

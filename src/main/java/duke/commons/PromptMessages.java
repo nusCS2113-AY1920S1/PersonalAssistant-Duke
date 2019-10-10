@@ -6,6 +6,7 @@ package duke.commons;
 public class PromptMessages {
 
     public static final String PROMPT_UNKNOWN = "Sorry, but I do not understand that.";
+    public static final String PROMPT_ERROR = "Sorry, but something went wrong...";
     public static final String PROMPT_TOO_MANY_ATTEMPTS = "Sorry, but you have exceeded 5 attempts...";
     public static final String PROMPT_SPACES = "Please do not include spaces in your search!";
     public static final String PROMPT_NOT_INT = "Please use a number!";

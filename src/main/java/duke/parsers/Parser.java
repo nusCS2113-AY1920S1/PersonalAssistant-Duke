@@ -31,9 +31,14 @@ public class Parser {
     private String result = null;
 
     public Parser() {
-
     }
 
+    /**
+     * Tries to parse input and start or continue a conversation with Duke.
+     * @param input The user input
+     * @param ui The ui object
+     * @return Command The command made by parser, if applicable
+     */
     public Command parse(String input, Ui ui) {
         if (input != null) {
             try {
@@ -46,7 +51,9 @@ public class Parser {
                     result = conversation.getResult();
                     if (result != null) {
                         return createCommand(result);
-                    } else return null;
+                    } else {
+                        return null;
+                    }
                 } else {
                     return null;
                 }
@@ -73,62 +80,62 @@ public class Parser {
         System.out.println(userInput);
         System.out.println(commandWord);
         switch (commandWord) {
-            case "todo":
-                return new AddCommand(ParserUtil.createTodo(userInput));
-            case "deadline":
-                return new AddCommand(ParserUtil.createDeadline(userInput));
-            case "event":
-                return new AddCommand(ParserUtil.createEvent(userInput));
-            case "done":
-                return new MarkDoneCommand(ParserUtil.getIndex(userInput));
-            case "delete":
-                return new DeleteCommand(ParserUtil.getIndex(userInput));
-            case "find":
-                return new FindCommand(getWord(userInput));
-            case "reminder":
-                return new ReminderCommand();
-            case "findtime":
-                return new FreeTimeCommand(ParserUtil.getIndex(userInput));
-            case "fetch":
-                return new ViewScheduleCommand(ParserTimeUtil.parseStringToDate(getWord(userInput)));
-            case "within":
-                return new AddCommand(ParserUtil.createWithin(userInput));
-            case "reschedule":
-                return new RescheduleCommand(ParserUtil.getSafeIndex(userInput), ParserUtil.getScheduleDate(userInput));
-            case "repeat":
-                return new AddCommand(ParserUtil.createRecurringTask(userInput));
-            case "fixed":
-                return new AddCommand(ParserUtil.createFixed(userInput));
-            case "search":
-                return new LocationSearchCommand(getWord(userInput));
-            case "busStop":
-                return new GetBusStopCommand(getWord(userInput));
-            case "busRoute":
-                return new GetBusRouteCommand(getWord(userInput));
-            case "holiday":
-                return new AddCommand(ParserUtil.createHoliday(userInput));
-            case "findPath":
-                return new FindPathCommand(getWord(userInput),  getHolidayIndexInList(1, userInput),
-                        getHolidayIndexInList(2, userInput));
-            default:
-                throw new DukeException(Messages.UNKNOWN_COMMAND);
+        case "todo":
+            return new AddCommand(ParserUtil.createTodo(userInput));
+        case "deadline":
+            return new AddCommand(ParserUtil.createDeadline(userInput));
+        case "event":
+            return new AddCommand(ParserUtil.createEvent(userInput));
+        case "done":
+            return new MarkDoneCommand(ParserUtil.getIndex(userInput));
+        case "delete":
+            return new DeleteCommand(ParserUtil.getIndex(userInput));
+        case "find":
+            return new FindCommand(getWord(userInput));
+        case "reminder":
+            return new ReminderCommand();
+        case "findtime":
+            return new FreeTimeCommand(ParserUtil.getIndex(userInput));
+        case "fetch":
+            return new ViewScheduleCommand(ParserTimeUtil.parseStringToDate(getWord(userInput)));
+        case "within":
+            return new AddCommand(ParserUtil.createWithin(userInput));
+        case "reschedule":
+            return new RescheduleCommand(ParserUtil.getSafeIndex(userInput), ParserUtil.getScheduleDate(userInput));
+        case "repeat":
+            return new AddCommand(ParserUtil.createRecurringTask(userInput));
+        case "fixed":
+            return new AddCommand(ParserUtil.createFixed(userInput));
+        case "search":
+            return new LocationSearchCommand(getWord(userInput));
+        case "busStop":
+            return new GetBusStopCommand(getWord(userInput));
+        case "busRoute":
+            return new GetBusRouteCommand(getWord(userInput));
+        case "holiday":
+            return new AddCommand(ParserUtil.createHoliday(userInput));
+        case "findPath":
+            return new FindPathCommand(getWord(userInput),  getHolidayIndexInList(1, userInput),
+                    getHolidayIndexInList(2, userInput));
+        default:
+            throw new DukeException(Messages.UNKNOWN_COMMAND);
         }
     }
 
     private Command parseSingleCommmand(String userInput) {
-        switch(userInput) {
-            case "bye":
-                return new ExitCommand();
-            case "list":
-                return new ListCommand();
-            case "reminder":
-                return new ReminderCommand();
-            case "help":
-                return new HelpCommand();
-            case "map":
-                return new MapCommand();
-            default:
-                return null;
+        switch (userInput) {
+        case "bye":
+            return new ExitCommand();
+        case "list":
+            return new ListCommand();
+        case "reminder":
+            return new ReminderCommand();
+        case "help":
+            return new HelpCommand();
+        case "map":
+            return new MapCommand();
+        default:
+            return null;
         }
     }
 
@@ -164,5 +171,9 @@ public class Parser {
         } else {
             return userInput.strip().split(" & ", 4)[3];
         }
+    }
+
+    public String getReply() {
+        return conversation.getReply();
     }
 }

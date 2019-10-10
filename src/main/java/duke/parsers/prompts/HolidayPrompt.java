@@ -15,31 +15,34 @@ public class HolidayPrompt extends Prompt {
 
     @Override
     public void execute(String input, Ui ui) {
-        switch(state) {
-            case 0:
-                ui.show(PromptMessages.HOLIDAY_PROMPT_STARTER);
-                state++;
-                break;
-            case 1:
-                ui.show(PromptMessages.HOLIDAY_PROMPT_STARTDATE);
-                location = input;
-                state++;
-                break;
-            case 2:
-                ui.show(PromptMessages.HOLIDAY_PROMPT_ENDDATE);
-                startDate = input;
-                state++;
-                break;
-            case 3:
-                ui.show(PromptMessages.HOLIDAY_PROMPT_SUCCESS   );
-                endDate = input;
+        switch (state) {
+        case 0:
+            message = PromptMessages.HOLIDAY_PROMPT_STARTER;
+            state++;
+            break;
+        case 1:
+            message = PromptMessages.HOLIDAY_PROMPT_STARTDATE;
+            location = input;
+            state++;
+            break;
+        case 2:
+            message = PromptMessages.HOLIDAY_PROMPT_ENDDATE;
+            startDate = input;
+            state++;
+            break;
+        case 3:
+            message = PromptMessages.HOLIDAY_PROMPT_SUCCESS;
+            endDate = input;
 
-                buildResult();
-                isDone = true;
-                break;
+            buildResult();
+            isDone = true;
+            break;
+        default:
+            message = PromptMessages.PROMPT_ERROR;
+            break;
         }
         if (attempts > 4) {
-            ui.show(PromptMessages.PROMPT_TOO_MANY_ATTEMPTS);
+            message = PromptMessages.PROMPT_TOO_MANY_ATTEMPTS;
             isDone = true;
             isCancelled = true;
         }

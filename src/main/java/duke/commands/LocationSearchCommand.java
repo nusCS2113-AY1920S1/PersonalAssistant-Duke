@@ -11,9 +11,11 @@ import duke.ui.Ui;
  */
 public class LocationSearchCommand extends Command {
     private String param;
+    private Location result;
 
-    public LocationSearchCommand(String param) {
+    public LocationSearchCommand(String param) throws DukeException {
         this.param = param;
+        result = ApiParser.getLocationSearch(param);
     }
 
     /**
@@ -21,7 +23,6 @@ public class LocationSearchCommand extends Command {
      */
     @Override
     public void execute(Ui ui, Storage storage) throws DukeException {
-        Location result = ApiParser.getLocationSearch(param);
         ui.show("These are the coordinates of your search:\n"
                 + result.getAddress() + "\n" + result.getLatitude() + " "
                 + result.getLongitude());
