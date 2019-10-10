@@ -3,7 +3,7 @@ package duke.logic.parser.sale;
 import duke.logic.command.sale.AddSaleCommand;
 import duke.logic.parser.commons.*;
 import duke.logic.parser.exceptions.ParseException;
-import duke.model.commons.Customer;
+import duke.model.order.Customer;
 import duke.model.sale.Sale;
 
 import static duke.logic.parser.commons.CliSyntax.*;

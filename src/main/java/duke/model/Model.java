@@ -80,8 +80,6 @@ public interface Model {
 
     void setSale(Sale target, Sale editedSale);
 
-    void updateFilteredPersonList(Predicate<Order> predicate);
-
     /**
      * Updates the filter of the filtered order list to filter by the given {@code predicate}.
      *

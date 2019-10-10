@@ -89,6 +89,12 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public void updateFilteredOrderList(Predicate<Order> predicate) {
+        requireNonNull(predicate);
+        filteredOrders.setPredicate(predicate);
+    }
+
+    @Override
     public boolean hasSale(Sale sale) {
         requireNonNull(sale);
         return bakingHome.getSaleList().contains(sale);
@@ -112,11 +118,6 @@ public class ModelManager implements Model {
         bakingHome.setSale(target, editedSale);
     }
 
-    @Override
-    public void updateFilteredOrderList(Predicate<Order> predicate) {
-        requireNonNull(predicate);
-        filteredOrders.setPredicate(predicate);
-    }
     //========comProduct operations==========
     @Override
     public void addProduct(Product product) {

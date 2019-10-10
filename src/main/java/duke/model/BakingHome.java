@@ -4,7 +4,6 @@ import duke.commons.core.index.Index;
 import duke.model.commons.Ingredient;
 import duke.model.product.Product;
 import duke.model.order.Order;
-import duke.model.order.OrderList;
 import duke.model.sale.Sale;
 import duke.model.sale.SaleList;
 import duke.model.shortcut.Shortcut;
@@ -20,7 +19,6 @@ import static java.util.Objects.requireNonNull;
  */
 public class BakingHome implements ReadOnlyBakingHome {
 
-    private final OrderList orders;
     private final SaleList sales;
     private final UniqueEntityList<Order> orders;
     private final UniqueEntityList<Product> products;
@@ -31,7 +29,6 @@ public class BakingHome implements ReadOnlyBakingHome {
      * Creates a BakingHome.
      */
     public BakingHome() {
-        orders = new OrderList();
         sales = new SaleList();
         orders = new UniqueEntityList<>();
         products = new UniqueEntityList<>();
