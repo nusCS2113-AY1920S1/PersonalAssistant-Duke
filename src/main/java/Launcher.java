@@ -14,7 +14,7 @@ public class Launcher {
                 Application.launch(Main.class, args);
             }
         } else {
-            Duke.main(args);
+            MooMoo.main(args);
         }
     }
 }
