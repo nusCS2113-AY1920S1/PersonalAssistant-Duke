@@ -18,6 +18,7 @@ public class ByeCommand extends Command {
     public void execute(TaskList task, Ui ui, Storage store, Reminder reminder) {
         store.writeData(task.getTasks());
         ui.goodbyeMsg();
+        reminder.stop();
     }
 
     @Override

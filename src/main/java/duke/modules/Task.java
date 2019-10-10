@@ -1,14 +1,9 @@
 package duke.modules;
 
-import duke.exceptions.ModInvalidTimePeriodException;
-import duke.util.TimeInterval;
-import duke.util.TimePeriod;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.util.Objects;
 
-public class Task {
+public abstract class Task {
 
     /**
      * task is the string value of the task name.
@@ -17,16 +12,14 @@ public class Task {
      */
     private String task;
     private Boolean done;
-    TimePeriod period;
 
     /**
      * Constructor to Task class.
      * @param task User's input of the desired task.
      */
-    public Task(String task) throws ModInvalidTimePeriodException {
+    public Task(String task) {
         this.task = task.trim();
         this.done = false;
-        this.period = new TimePeriod();
     }
 
     public void setTaskDone() {
@@ -37,50 +30,6 @@ public class Task {
         return task;
     }
 
-    private boolean getDone() {
-        return done;
-    }
-
-    public TimePeriod getPeriod() {
-        return this.period;
-    }
-
-    public void setPeriod(LocalDateTime begin, LocalDateTime end) throws ModInvalidTimePeriodException {
-        this.period.setPeriod(begin, end);
-    }
-
-    public void setPeriod(LocalDateTime begin, TimeInterval duration) throws ModInvalidTimePeriodException {
-        this.period.setPeriod(begin, duration);
-    }
-
-    public LocalDateTime getTime() {
-        return (this.getBegin() != null) ? this.getBegin() : this.getEnd();
-    }
-
-    public LocalDateTime getBegin() {
-        return this.period.getBegin();
-    }
-
-    public LocalDateTime getEnd() {
-        return this.period.getEnd();
-    }
-
-    public LocalDate getBeginDate() {
-        return this.getBegin().toLocalDate();
-    }
-
-    public LocalTime getBeginTime() {
-        return this.getBegin().toLocalTime();
-    }
-
-    public LocalDate getEndDate() {
-        return this.getEnd().toLocalDate();
-    }
-
-    public LocalTime getEndTime() {
-        return this.getEnd().toLocalTime();
-    }
-
     /**
      * Function to be used to when writing to the file.
      * @return Returns a string containing task name and done status.
@@ -88,7 +37,7 @@ public class Task {
     public String writingFile() {
         return task
                 + "|"
-                + (getDone() ? "1" : "0");
+                + (isDone() ? "1" : "0");
     }
 
     @Override
@@ -118,19 +67,5 @@ public class Task {
         return this.done;
     }
 
-    public boolean isClashing(LocalDateTime localDateTime) {
-        return this.period.isClashing(localDateTime);
-    }
-
-    public boolean isClashing(LocalDateTime begin, LocalDateTime end) {
-        return this.period.isClashing(begin, end);
-    }
-
-    public boolean isClashing(TimePeriod timePeriod) {
-        return this.period.isClashing(timePeriod);
-    }
-
-    public boolean isClashing(DoWithin other) {
-        return this.period.isClashing(other.getPeriod());
-    }
+    public abstract LocalDateTime getTime();
 }

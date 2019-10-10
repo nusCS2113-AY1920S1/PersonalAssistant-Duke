@@ -2,7 +2,7 @@ package duke.modules;
 
 import duke.exceptions.ModInvalidTimePeriodException;
 
-public class RecurringTask extends Task {
+public class RecurringTask extends TaskWithInterval {
 
     // Each period is 1 day.
     private Integer period;
