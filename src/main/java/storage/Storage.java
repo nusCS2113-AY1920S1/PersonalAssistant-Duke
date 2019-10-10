@@ -1,7 +1,7 @@
-package dolla;
+package storage;
 
-
-
+import dolla.Time;
+import ui.Ui;
 import dolla.task.Task;
 import dolla.task.ToDo;
 import dolla.task.Event;
@@ -9,6 +9,7 @@ import dolla.task.Deadline;
 import dolla.task.Recurring;
 import dolla.task.DoAfter;
 import dolla.task.FixDuration;
+import parser.MainParser;
 
 
 import java.io.BufferedReader;
@@ -49,7 +50,7 @@ public class Storage {
 
         Ui.showWelcome();
         ArrayList<String> msg = new ArrayList<String>(Arrays.asList(
-                "Hello! I'm duke.Dolla! I help keep track of your tasks!",
+                "Hello! I'm duke.Main! I help keep track of your tasks!",
                 "What can I do for you?"
         ));
 
@@ -89,7 +90,7 @@ public class Storage {
             createFolder();
         } catch (IOException e) { // exception handling
             System.out.println("*** there was an error reading duke.txt ***");
-            Parser.exit(); // TODO: Find out what is supposed to happen here
+            MainParser.exit(); // TODO: Find out what is supposed to happen here
         }
 
         Ui.printMsg(msg);

@@ -1,11 +1,11 @@
-package dolla.command;
+package command;
 
-import dolla.Ui;
+import ui.Ui;
 import dolla.task.FixDuration;
 import dolla.task.Task;
 import dolla.task.TaskList;
 
-public class AddFixDurationCommand extends AddCommand {
+public abstract class AddFixDurationCommand extends AddCommand {
 
     private String duration;
     private int position;
@@ -19,7 +19,6 @@ public class AddFixDurationCommand extends AddCommand {
      * @param tasks duke.task.TaskList containing all the tasks stored.
      * @throws Exception e when user input is invalid
      */
-    @Override
     public void execute(TaskList tasks) {
         try {
             position = taskDescription.indexOf("/");

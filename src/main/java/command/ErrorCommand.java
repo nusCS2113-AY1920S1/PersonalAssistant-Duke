@@ -1,6 +1,4 @@
-package dolla.command;
-
-import dolla.task.TaskList;
+package command;
 
 /**
  * duke.command.ErrorCommand is a type of command that is generated if a proper command
@@ -9,7 +7,7 @@ import dolla.task.TaskList;
 public class ErrorCommand extends Command {
 
     @Override
-    public void execute(TaskList tasks) {
+    public void execute() {
         return; // Don't do anything
     }
 }

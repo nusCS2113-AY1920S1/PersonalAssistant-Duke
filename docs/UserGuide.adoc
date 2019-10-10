@@ -16,8 +16,8 @@ image::Ui.png[width="800", align="center"]
 
 {nbsp} +
 Dolla is a *finance management app* that is specially designed for students who stay in the campus of NUS. It uses chat box style interface to provide a
-more interactive and interesting user experience. Dolla will help the user to keep track of their spendings and incomes, set reminders, give suggestions
-or many more other cool features. Users can interact with Dolla with the various keywords such as `expense`, `income`, `reminder` and many more. Proceed to
+more interactive and interesting user experience. Dolla will help the user to keep track of their spending and income, set reminders, give suggestions
+and many other cool features. Users can interact with Dolla with the various keywords such as `expense`, `income`, `reminder` and many more. Proceed to
 <<Quick Start>> to get started!
 
 == Quick Start
@@ -406,18 +406,13 @@ e.g. sort /tag descending
 e.g. sort /amount ascending
 * *add recurring expense:* `add recurring expense [AMOUNT] [DESCRIPTION] /every [DURATION] {/starting [STARTDATE]} {/tag [TAG]}` +
 e.g. `add recurring expense $59 phone bill /every month /starting 01/01/2019 /tag bill`
+* *add recurring income:* `add recurring income [AMOUNT] [DESCRIPTION] /every [DURATION] {/starting [STARTDATE]} {/tag [TAG]}` +
+e.g. `add recurring income $800 pocket money /every month /starting 01/01/2019 /tag allowances`
 * *set budget* `set budget [AMOUNT] /every [DURATION]` +
 * *set budget* `set budget /tag [TAG] [AMOUNT]` +
 e.g. `set budget /tag bubble tea $20`
 e.g. `set budget $50 every week`
 * *set saving* `set saving [AMOUNT] /for [DURATION]` +
-* *add recurring income:* `add recurring income [AMOUNT] [DESCRIPTION] /every [DURATION] {/starting [STARTDATE]} {/tag [TAG]}` +
-e.g. `add recurring income $800 pocket money /every month /starting 01/01/2019 /tag allowances`
-* *set limit:* `set limit [AMOUNT] /every [DURATION]` +
-e.g. `set limit $50 every week`
-* *set limit /tag:* `set limit /tag [TAG] [AMOUNT]` +
-e.g. `set limit /tag bubble tea $20`
-* *set saving:* `set saving [AMOUNT] /for [DURATION]` +
 e.g. `set saving $300 /for every month`
 * *reminder:* `reminder`
 * *owe:* `owe [FRIEND] [AMOUNT] [DESCRIPTION]` +

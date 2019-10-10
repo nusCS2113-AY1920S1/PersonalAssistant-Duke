@@ -30,10 +30,10 @@ As a developer, you write a _build file_ that describes the project. A build fil
    git checkout master
    git merge gradle
    ```
-1. Open the `build.gradle` file in an editor. Update the following code block to point to the main class (i.e., the one containing the `main` method) of your application. The code below assumes your main class is `seedu.dolla.Dolla`
+1. Open the `build.gradle` file in an editor. Update the following code block to point to the main class (i.e., the one containing the `main` method) of your application. The code below assumes your main class is `seedu.dolla.Main`
    ```groovy
    application {
-       mainClassName = "seedu.dolla.Dolla"
+       mainClassName = "seedu.dolla.Main"
    }
    ```
 1. To check if Gradle has been added to the project correctly, open a terminal window, navigate to the root directory of your project and run the command `gradlew run`. This should result in Gradle running the main method of your project.
@@ -149,12 +149,12 @@ src
 │     └─seedu/dolla/Duke.java
 └─test
     └─java
-        └─seedu/dolla/DollaTest.java
+        └─seedu/dolla/MainTest.java
 ```
 
 If you have imported your Gradle project into IntelliJ IDEA, you will notice that IDEA is able to mark the test directory as the _Test root_ (colored in green by default) automatically.
 
-You can now write a test (e.g., `test/java/seedu/dolla/DollaTest.java`) and run it with `gradlew test`.
+You can now write a test (e.g., `test/java/seedu/dolla/MainTest.java`) and run it with `gradlew test`.
 
 **Resources**:
 * [Gradle documentation for JUnit](https://docs.gradle.org/current/userguide/java_testing.html#using_junit5)

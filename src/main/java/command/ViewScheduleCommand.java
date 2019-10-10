@@ -1,6 +1,6 @@
-package dolla.command;
+package command;
 
-import dolla.Ui;
+import ui.Ui;
 import dolla.task.Task;
 import dolla.task.TaskList;
 import java.time.LocalDate;
@@ -12,7 +12,7 @@ import dolla.Time;
 /**
  * The type View schedule command.
  */
-public class ViewScheduleCommand extends Command {
+public abstract class ViewScheduleCommand extends Command {
 
     protected LocalDate viewDate;
     protected String dateStr;
@@ -31,7 +31,7 @@ public class ViewScheduleCommand extends Command {
         this.dateStr = dateStr;
     }
 
-    @Override
+    //@Override
     public void execute(TaskList tasks) {
         ArrayList<String> msg = new ArrayList<String>();
         ArrayList<Task> tasksOnGivenDate = new ArrayList<>();

@@ -1,6 +1,6 @@
-package dolla.command;
+package command;
 
-import dolla.Ui;
+import ui.Ui;
 import dolla.task.TaskList;
 
 import java.util.ArrayList;
@@ -8,7 +8,7 @@ import java.util.ArrayList;
 /**
  * RemoveCommand is a Command used to remove a Task from the TaskList.
  */
-public class RemoveCommand extends Command {
+public abstract class RemoveCommand extends Command {
     protected String taskNumStr;
 
     public RemoveCommand(String taskNumStr) {
@@ -31,7 +31,7 @@ public class RemoveCommand extends Command {
      * </p>
      * @param tasks The TaskList where the task corresponding to taskNum is to removed.
      */
-    @Override
+    //@Override
     public void execute(TaskList tasks) {
         int taskNumInt = stringToInt(taskNumStr);
         if (taskNumInt == 0) {

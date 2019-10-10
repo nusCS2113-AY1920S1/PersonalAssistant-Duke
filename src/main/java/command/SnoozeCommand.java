@@ -1,7 +1,7 @@
-package dolla.command;
+package command;
 
 import dolla.Time;
-import dolla.Ui;
+import ui.Ui;
 import dolla.task.Deadline;
 import dolla.task.Event;
 import dolla.task.Task;
@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
 /**
  * A command to snooze tasks.
  */
-public class SnoozeCommand extends Command {
+public abstract class SnoozeCommand extends Command {
     protected String taskNumStr;
     protected String newDateStr;
 
@@ -27,7 +27,7 @@ public class SnoozeCommand extends Command {
         this.newDateStr = newDateStr;
     }
 
-    @Override
+    //@Override
     public void execute(TaskList tasks) throws Exception {
         int taskNumInt = stringToInt(taskNumStr);
         LocalDateTime date = Time.readDateTime(newDateStr); // Default date

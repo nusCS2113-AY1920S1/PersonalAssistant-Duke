@@ -1,12 +1,12 @@
-package dolla.command;
+package command;
 
 import dolla.Time;
-import dolla.Ui;
+import ui.Ui;
 import dolla.task.Recurring;
 import dolla.task.Task;
 import dolla.task.TaskList;
 
-public class AddRecurringTaskCommand extends AddCommand {
+public abstract class AddRecurringTaskCommand extends AddCommand {
 
     private String dayOfWeek;
     private int position;
@@ -21,7 +21,6 @@ public class AddRecurringTaskCommand extends AddCommand {
      * @param tasks duke.task.TaskList containing all the tasks stored.
      * @throws Exception e when user input is invalid.
      */
-    @Override
     public void execute(TaskList tasks) {
         try {
             position = taskDescription.indexOf("/");

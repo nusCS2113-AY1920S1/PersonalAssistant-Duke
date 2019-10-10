@@ -1,18 +1,19 @@
 package dolla;
 
-import dolla.command.Command;
+import command.Command;
 import dolla.task.Task;
 import dolla.task.TaskList;
+import ui.Ui;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Comparator;
 
 
-public class Reminder extends Command {
+public abstract class Reminder extends Command {
     protected LocalDate today;
 
-    @Override
+    //@Override
     public void execute(TaskList tasks) {
         ArrayList<Task> tasksDueSoon = new ArrayList<>();
         today = LocalDate.now();

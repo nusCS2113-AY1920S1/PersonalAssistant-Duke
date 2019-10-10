@@ -1,6 +1,6 @@
-package dolla.command;
+package command;
 
-import dolla.Ui;
+import ui.Ui;
 import dolla.task.Task;
 import dolla.task.TaskList;
 
@@ -9,7 +9,7 @@ import java.util.ArrayList;
 /**
  * FindStringCommand is a Command used to find tasks corresponding to the user input.
  */
-public class FindStringCommand extends Command {
+public abstract class FindStringCommand extends Command {
 
     protected String inputLine;
     protected String commandName;
@@ -34,7 +34,7 @@ public class FindStringCommand extends Command {
      * </p>
      * @param tasks The TaskList containing the tasks to be searched.
      */
-    @Override
+    //@Override
     public void execute(TaskList tasks) {
 
         String searchStr = "";

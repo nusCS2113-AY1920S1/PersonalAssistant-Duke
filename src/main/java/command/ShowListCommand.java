@@ -1,6 +1,6 @@
-package dolla.command;
+package command;
 
-import dolla.Ui;
+import ui.Ui;
 import dolla.task.Task;
 import dolla.task.TaskList;
 
@@ -9,13 +9,13 @@ import java.util.ArrayList;
 /**
  * duke.command.ShowListCommand is a command used to display all the tasks stored in the duke.task.TaskList.
  */
-public class ShowListCommand extends Command {
+public abstract class ShowListCommand extends Command {
 
     /**
      * Creates and prints out the tasks from the specified duke.task.TaskList in a readable format.
      * @param tasks duke.task.TaskList to have its tasks printed.
      */
-    @Override
+    //@Override
     public void execute(TaskList tasks) {
         ArrayList<String> msg = new ArrayList<String>();
         msg.add("Here are the tasks in your list:");
