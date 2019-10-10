@@ -16,7 +16,7 @@ public class DeadlineTest {
         LocalDateTime date = deadline.startDate;
         Assertions.assertEquals(title, "testing deadline");
         Assertions.assertEquals(date, fromDate);
-        Assertions.assertEquals(deadline.toString(), "[D][✘] testing deadline(by: 01/01/2001 0100)");
+        Assertions.assertEquals(deadline.toString(), "[\u2605\u2605][D][\u2718] testing deadline(by: 01/01/2001 0100)");
     }
 
     @Test

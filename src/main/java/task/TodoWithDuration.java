@@ -14,7 +14,6 @@ public class TodoWithDuration extends Todo {
     public String toString() {
         String message =  super.getPriorityIcon() + "[T]" + "[" + super.getStatusIcon() + "] " + this.description + " ";
         String timeDetails = "(for " + duration + " hours)";
-        message.concat(timeDetails);
-        return message;
+        return message.concat(timeDetails);
     }
 }

@@ -21,8 +21,9 @@ public class TodoWithinPeriod extends Todo {
 
     @Override
     public String toString() {
-        return super.getPriorityIcon() + "[T]" + "[" + super.getStatusIcon() + "] " + this.description + " (from: "
-            + this.startDate.format(DateTimeExtractor.DATE_FORMATTER) + ")" + " (to: "
+        String message = super.getPriorityIcon() + "[T]" + "[" + super.getStatusIcon() + "] " + this.description;
+        String dateString = " (from: " + this.startDate.format(DateTimeExtractor.DATE_FORMATTER) + ")" + " (to: "
             + this.endDate.format(DateTimeExtractor.DATE_FORMATTER) + ")";
+        return message.concat(dateString);
     }
 }
