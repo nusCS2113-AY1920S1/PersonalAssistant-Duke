@@ -6,3 +6,8 @@ $ git tag -d v1.4 // Deletes a tag
 $ git push origin --tags //Pushes all local tags to remote repo
 
 //Tags case sensitive, important implements outside of levels also need to be tagged
+
+To handle Binary files differing, use:
+git checkout --theirs -- ~/path/to/binary_file
+or 
+git checkout --ours -- ~/path/to/binary_file
