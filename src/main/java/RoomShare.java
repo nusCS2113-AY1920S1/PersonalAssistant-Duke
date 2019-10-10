@@ -254,6 +254,14 @@ public class RoomShare {
                     }
                     break;
 
+                case reorder:
+                    int firstIndex = parser.getIndex();
+                    ui.promptSecondIndex();
+                    int secondIndex = parser.getIndex();
+                    ui.showReordering();
+                    taskList.reorder(firstIndex, secondIndex);
+                    break;
+
                     default:
                     ui.showCommandError();
                     break;
