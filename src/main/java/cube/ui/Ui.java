@@ -24,8 +24,9 @@ public class Ui {
 		return in.nextLine();
 	}
 
+	//@@author LL-Pengfei
 	/**
-	 * Prints the welcome screen of Duke.
+	 * Prints the welcome screen of Cube.
 	 */
 	public void showWelcome(){
 	    String logo = " ________  ___  ___  ________  _______      \n" +
@@ -47,7 +48,7 @@ public class Ui {
 	}
 
 	/**
-	 * Prints the exit message of Duke.
+	 * Prints the exit message of Cube.
 	 */
 	public void showExit() {
 		System.out.println("Bye. Hope to see you again soon!");
@@ -56,7 +57,7 @@ public class Ui {
 	/**
 	 * Prints the information of the task added.
 	 *
-	 * @param list the list of tasks stored in Duke.
+	 * @param list the list of tasks stored in Cube.
 	 */
 	public void showAdd(TaskList list) {
 		System.out.println("Got it. I've added this task:");
@@ -68,7 +69,7 @@ public class Ui {
 	/**
 	 * Prints each task in the task list.
 	 *
-	 * @param list the list of tasks stored in Duke.
+	 * @param list the list of tasks stored in Cube.
 	 */
 	public void showList(TaskList list) {
 		System.out.println("Here are the tasks in your list: ");
@@ -80,7 +81,7 @@ public class Ui {
 	/**
 	 * Prints the list of task with specified keyword.
 	 *
-	 * @param list the list of task stored in Duke.
+	 * @param list the list of task stored in Cube.
 	 */
 	public void showFind(TaskList list) {
 		System.out.println("Here are the matching tasks in your list:");
