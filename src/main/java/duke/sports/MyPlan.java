@@ -1,5 +1,4 @@
 package duke.Sports;
-
 import duke.Data.Storage;
 
 import java.io.File;
@@ -38,6 +37,10 @@ public class MyPlan {
          //division = new Storage(filePath).loadPMap(getMap());
      }
 
+    public MyPlan() {
+
+    }
+
     public String getName() {
         return this.name;
     }
@@ -73,6 +76,23 @@ public class MyPlan {
      public int getDivision() {
          return this.division;
      }
+    public MyPlan(String filePath) throws FileNotFoundException {
+        this.filePath = filePath;
+        File f = new File(filePath);
+        fileInput = new Scanner(f);
+    }
+
+    public String loadPlan(String planNum, String plan_num) {
+        String l1 = fileInput.nextLine();
+        while (fileInput.hasNextLine()) {
+            if (l1.equals("plan_num")) {
+                String[] l2 = fileInput.nextLine().split(" ");
+                MyTraining activity = new MyTraining(l2[0],Integer.parseInt(l2[1]),Integer.parseInt(l2[2]));
+                getList().add(activity);
+            }
+        }
+        return "You have loaded plan " + plan_num + " into the list";
+    }
 
     public int createKey(String intensity, int num) {
          Intensity i = Intensity.valueOf(intensity);

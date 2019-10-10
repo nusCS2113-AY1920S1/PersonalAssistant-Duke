@@ -2,13 +2,15 @@ package duke.Data;
 
 import duke.Module.TimeSlot;
 import duke.Sports.MyClass;
-import duke.Sports.MyPlan;
-import duke.Sports.MyTraining;
-import duke.Task.*;
+import duke.Task.After;
+import duke.Task.Deadline;
+import duke.Task.Event;
+import duke.Task.Item;
+import duke.Task.ToDo;
 
 import java.io.File;
-import java.io.FileWriter;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -274,7 +276,7 @@ public class Storage {
             System.out.println("File not found:" + io.getMessage());
         }
     }
-
+/**
     public int loadPMap (Map<Integer, ArrayList<MyTraining>> map) throws FileNotFoundException {
         MyPlan plan = new MyPlan();
         ArrayList<MyTraining> list = new ArrayList<>();
@@ -323,5 +325,5 @@ public class Storage {
 
     public void savePMap() {
         System.out.println("To be confirmed");
-    }
+    }*/
 }
