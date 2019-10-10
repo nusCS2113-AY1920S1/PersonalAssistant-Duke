@@ -1,7 +1,7 @@
 package duke.Data;
 
 import duke.Module.TimeSlot;
-import duke.Sports.MyClass;
+import duke.sports.MyClass;
 import duke.Task.After;
 import duke.Task.Deadline;
 import duke.Task.Event;

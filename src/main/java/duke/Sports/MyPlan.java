@@ -1,4 +1,4 @@
-package duke.Sports;
+package duke.sports;
 import duke.Data.Storage;
 
 import java.io.File;

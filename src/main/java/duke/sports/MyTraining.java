@@ -1,4 +1,4 @@
-package duke.Sports;
+package duke.sports;
 
 /**
  * Represents a training programme.

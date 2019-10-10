@@ -3,4 +3,4 @@
  * the class, plan, student, and training.
  */
 
-package duke.Sports;
+package duke.sports;
