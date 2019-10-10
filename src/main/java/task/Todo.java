@@ -2,6 +2,7 @@ package task;
 
 import java.time.LocalDateTime;
 import java.io.Serializable;
+
 import parser.DateTimeExtractor;
 
 import static parser.DateTimeExtractor.NULL_DATE;
@@ -20,11 +21,24 @@ public class Todo extends Task implements Serializable {
     }
 
     /**
+     * Creates a ToDo task with a specific duration and timing.
+     *
+     * @param description description of task
+     * @param at          start time of the task
+     * @param to          end time of the task
+     */
+    public Todo(String description, LocalDateTime at, LocalDateTime to) {
+        super(description);
+        this.startDate = at;
+        this.endDate = to;
+        this.createdDate = LocalDateTime.now();
+    }
+
+    /**
      * This override of the toString function of the task class etches the different
      * portions of the user input into a single string.
      *
-     * @return This function returns a string of the required task in the desired
-     *         output format of string type.
+     * @return This function returns a string of the required task in the desired output format of string type.
      */
     @Override
     public String toString() {

@@ -37,7 +37,9 @@ public class AddCommand extends Command {
      * @param endDate       string contains the formatted user input that has the
      *                     desired date time format.
      */
+
     public AddCommand(String command, String taskFeatures, LocalDateTime startDate, LocalDateTime endDate) {
+
         this.command = command;
         this.taskFeatures = taskFeatures;
         this.formattedStartDate = startDate;
@@ -66,7 +68,6 @@ public class AddCommand extends Command {
      *                process the user input.
      * @param storage this parameter provides the execute function the storage to
      *                allow the saving of the file.
-     *
      */
     @Override
     public void execute(TaskList tasks, Storage storage) throws DukeException {
@@ -100,6 +101,7 @@ public class AddCommand extends Command {
         tasks.add(task);
         storage.saveFile(tasks.getTasks());
         Ui.printOutput("Got it! I've added this task:" + "\n  " + task.toString() + "\nNow you have " + tasks.getSize()
-                + " task(s) in the list.");
+            + " task(s) in the list.");
+
     }
 }

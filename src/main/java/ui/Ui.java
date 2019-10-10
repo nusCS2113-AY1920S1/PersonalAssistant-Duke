@@ -16,16 +16,17 @@ import java.util.Scanner;
 public class Ui {
 
     // All the different definitions including the string definitions are here.
+    public static String userOutputForUI;
 
-    private static String userOutputDash = "_______________________________";
+    private static String userOutputDash = "_______________________________\n";
 
     private static String userInput;
 
     private static String goodbye = "_______________________________\n" + "Bye. Hope to see you again soon!\n"
-            + "_______________________________\n";
+        + "_______________________________\n";
 
     private static String greeting = "_______________________________\n" + "Hello! I'm Duke\n"
-            + "What can I do for you?\n" + "_______________________________\n";
+        + "What can I do for you?\n" + "_______________________________\n";
 
     private static Scanner scanner = new Scanner(System.in);
 
@@ -34,26 +35,26 @@ public class Ui {
      */
     public static void printLogo() {
         String logo = " ____        _        \n" + "|  _ \\ _   _| | _____ \n" + "| | | | | | | |/ / _ \\\n"
-                + "| |_| | |_| |   <  __/\n" + "|____/ \\__,_|_|\\_\\___|\n";
+            + "| |_| | |_| |   <  __/\n" + "|____/ \\__,_|_|\\_\\___|\n";
         System.out.println(logo);
     }
 
     /**
-     * prints a 'dashed' line.
+     * Prints a 'dashed' line.
      */
     public static void printDash() {
         System.out.println(userOutputDash);
     }
 
     /**
-     * prints greeting.
+     * Prints greeting.
      */
     public static void printGreeting() {
         System.out.println(greeting);
     }
 
     /**
-     * prints the reminders triggered.
+     * Prints the reminders triggered.
      */
     public static void printReminder(TaskList tasks) {
         ArrayList<Task> taskList = tasks.getTasks();
@@ -71,13 +72,14 @@ public class Ui {
 
     /**
      * This printOutput function is used to print the output in the current Ui
-     * format.
+     * format. Moreover it also handles the refresh of the userOutputForUT.
      *
      * @param userOutput This string will be used to print the message between to
      *                   data.
-     *
      */
+
     public static void printOutput(String userOutput) {
+        Ui.userOutputForUI = userOutput + "\n";
         System.out.println(userOutputDash);
         System.out.println(userOutput);
         System.out.println(userOutputDash);
@@ -89,7 +91,6 @@ public class Ui {
      * then the program terminates.
      *
      * @return This function will return a String which contains the user input.
-     *
      */
     public static String readInput() {
         if (scanner.hasNextLine()) {
@@ -121,9 +122,9 @@ public class Ui {
         System.out.println("I am able to let you add tasks of three types! todo, event and deadline");
         System.out.println("1. To add a todo task, key in todo<space>your task description eg. todo borrow books");
         System.out.println("2. To add a deadline, key in deadline<space>your deadline description<space>/by<space>the "
-                + "date eg. return books/by dd/MM/yyyy HHmm");
+            + "date eg. return books/by dd/MM/yyyy HHmm");
         System.out.println("3. To add a event, key in event<space>your event description<space>/at<space>the day or "
-                + "date and the time eg. Project meeting /at dd/MM/yyyy HHmm-HHmm");
+            + "date and the time eg. Project meeting /at dd/MM/yyyy HHmm-HHmm");
         System.out.println("4. To list out all your tasks simply enter list");
         System.out.println("5. To mark a task as complete just enter done<space>the index of the task as listed");
         System.out.println("6. To find a task from the task list enter find<space>any word in the task");
@@ -133,6 +134,6 @@ public class Ui {
 
     public static void printUnknownInput() {
         System.out.println(" ☹ OOPS!!! I'm sorry, but I don't know what that means. If you would like to know how to "
-                + "use Duke, Enter duke-manual");
+            + "use Duke, Enter duke-manual");
     }
 }

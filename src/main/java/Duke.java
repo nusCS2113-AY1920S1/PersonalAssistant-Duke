@@ -24,10 +24,6 @@ public class Duke {
     private File file = new File(filePath);
     private boolean isExit = false;
 
-    public static void main(String[] args) {
-        new Duke().run();
-    }
-
     /**
      * This constructor creates a new instance of vital classes and also loads tasks
      * if any from persistent storage.

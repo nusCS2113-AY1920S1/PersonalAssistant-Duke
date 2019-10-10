@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.HBox?>
+
+<fx:root maxHeight="458.0" maxWidth="200.0" prefWidth="200.0" type="javafx.scene.layout.HBox" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Label fx:id="tasksForTheDay" prefWidth="200.0" text="Label" wrapText="true" style="-fx-border-color: #00296d; -fx-text-fill: white" />
+   </children>
+   <padding>
+      <!--<Insets>-->
+   </padding>
+</fx:root>

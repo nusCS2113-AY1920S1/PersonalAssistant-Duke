@@ -36,8 +36,7 @@ public class Parser {
      *
      * @param userInput This string is provided by the user to ask 'Duke' to perform
      *                  a particular action
-     * @return Command After processing the user's input it returns the correct
-     *         command for further processing
+     * @return Command After processing the user's input it returns the correct command for further processing
      * @throws DukeException The DukeException class has all the respective methods
      *                       and messages!
      */
@@ -150,6 +149,7 @@ public class Parser {
         default:
             // Empty string or unknown command.
             Ui.printUnknownInput();
+            Ui.userOutputForUI = "Wrong Command";
             throw new DukeException(DukeException.unknownUserCommand());
         }
     }
@@ -195,6 +195,7 @@ public class Parser {
             from = DateTimeExtractor.extractDateTime(fromDate, command);
         } catch (ParseException e) {
             throw new DukeException(DukeException.wrongDateOrTime());
+
         }
         return new AddCommand(command, taskDescription, from, to);
     }
