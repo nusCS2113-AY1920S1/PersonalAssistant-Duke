@@ -40,13 +40,13 @@ public class ParseListExpenditure extends ParseExpenditure {
             String value = expendituresParameters.get(key);
             if (FROM.equals(key) && (value.isBlank() || value.isEmpty())) {
                 throw new ParserException(key + " cannot be empty when adding a new expenditure");
-            } else if (NUM.equals(key) && (value.isBlank() || value.isEmpty())) {
+            } else if (FROM.equals(key)) {
+                checkName(value);
+            }
+            if (NUM.equals(key) && (value.isBlank() || value.isEmpty())) {
                 expendituresParameters.put(NUM, "30");
             } else if (NUM.equals(key)) {
-                checkInt(NUM, expendituresParameters.get(NUM));
-                if (Integer.parseInt(expendituresParameters.get(NUM)) <= 0) {
-                    throw new ParserException("/num must be at least 1");
-                }
+                checkInt(NUM, value);
             }
         }
     }

@@ -63,7 +63,7 @@ public abstract class ParseExpenditure {
     void checkFirstParameter() throws ParserException {
         String[] rawDateSplit = rawData.split(" ", 2);
         if (!EXPENDITURE_KEYWORD_LISTS.contains(rawDateSplit[0])) {
-            throw new ParserException("Incorrect command syntax");
+            throw new ParserException("Incorrect parameter " + rawDateSplit[0]);
         }
     }
 
@@ -97,7 +97,8 @@ public abstract class ParseExpenditure {
      */
     void checkAmount(String valueString) throws ParserException {
         if (!RegexUtil.regexCheckMoney(valueString)) {
-            throw new ParserException("/amount can only be numbers with at most 9 digits and 2 decimal places");
+            throw new ParserException("/amount can only be positive numbers"
+                    + " with at most 9 digits and 2 decimal places");
         }
     }
 

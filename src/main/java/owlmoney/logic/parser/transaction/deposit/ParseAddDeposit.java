@@ -34,20 +34,24 @@ public class ParseAddDeposit extends ParseDeposit {
      * @throws ParserException If there are missing or invalid parameters.
      */
     public void checkParameter() throws ParserException {
-        Iterator<String> savingsIterator = expendituresParameters.keySet().iterator();
+        Iterator<String> savingsIterator = depositParameters.keySet().iterator();
 
         while (savingsIterator.hasNext()) {
             String key = savingsIterator.next();
-            String value = expendituresParameters.get(key);
+            String value = depositParameters.get(key);
             if (!(TRANSNO.equals(key) || NUM.equals(key) || FROM.equals(key)) && (value.isBlank() || value.isEmpty())) {
                 throw new ParserException(key + " cannot be empty when adding a new deposit");
-            } else if (AMOUNT.equals(key)) {
+            }
+            if (AMOUNT.equals(key)) {
                 checkAmount(value);
-            } else if (DATE.equals(key)) {
+            }
+            if (DATE.equals(key)) {
                 date = checkDate(value);
-            } else if (TO.equals(key)) {
+            }
+            if (TO.equals(key)) {
                 checkName(value, TO);
-            } else if (DESCRIPTION.equals(key)) {
+            }
+            if (DESCRIPTION.equals(key)) {
                 checkDescription(value);
             }
         }
@@ -59,9 +63,9 @@ public class ParseAddDeposit extends ParseDeposit {
      * @return Returns AddDepositCommand to be executed.
      */
     public Command getCommand() {
-        AddDepositCommand newAddDepositCommand = new AddDepositCommand(expendituresParameters.get(TO),
-                Double.parseDouble(expendituresParameters.get(AMOUNT)), date,
-                (expendituresParameters.get(DESCRIPTION)));
+        AddDepositCommand newAddDepositCommand = new AddDepositCommand(depositParameters.get(TO),
+                Double.parseDouble(depositParameters.get(AMOUNT)), date,
+                (depositParameters.get(DESCRIPTION)));
         return newAddDepositCommand;
     }
 }

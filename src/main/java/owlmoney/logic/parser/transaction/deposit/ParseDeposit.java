@@ -17,7 +17,7 @@ import owlmoney.logic.regex.RegexUtil;
  * ParseDeposit class which is abstract where various deposit parser objects inherit from given that it is abstract.
  */
 public abstract class ParseDeposit {
-    HashMap<String, String> expendituresParameters = new HashMap<String, String>();
+    HashMap<String, String> depositParameters = new HashMap<String, String>();
     private ParseRawData parseRawData = new ParseRawData();
     private String rawData;
     private static final String[] EXPENDITURE_KEYWORD = new String[] {
@@ -62,7 +62,7 @@ public abstract class ParseDeposit {
     void checkFirstParameter() throws ParserException {
         String[] rawDateSplit = rawData.split(" ", 2);
         if (!EXPENDITURE_KEYWORD_LISTS.contains(rawDateSplit[0])) {
-            throw new ParserException("Incorrect command syntax");
+            throw new ParserException("Incorrect parameter " + rawDateSplit[0]);
         }
     }
 
@@ -72,19 +72,19 @@ public abstract class ParseDeposit {
      * @throws ParserException If duplicate parameters are detected.
      */
     public void fillHashTable() throws ParserException {
-        expendituresParameters.put(AMOUNT,
+        depositParameters.put(AMOUNT,
                 parseRawData.extractParameter(rawData, AMOUNT, EXPENDITURE_KEYWORD));
-        expendituresParameters.put(DATE,
+        depositParameters.put(DATE,
                 parseRawData.extractParameter(rawData, DATE, EXPENDITURE_KEYWORD));
-        expendituresParameters.put(DESCRIPTION,
+        depositParameters.put(DESCRIPTION,
                 parseRawData.extractParameter(rawData, DESCRIPTION, EXPENDITURE_KEYWORD));
-        expendituresParameters.put(TO,
+        depositParameters.put(TO,
                 parseRawData.extractParameter(rawData, TO, EXPENDITURE_KEYWORD));
-        expendituresParameters.put(TRANSNO,
+        depositParameters.put(TRANSNO,
                 parseRawData.extractParameter(rawData, TRANSNO, EXPENDITURE_KEYWORD));
-        expendituresParameters.put(FROM,
+        depositParameters.put(FROM,
                 parseRawData.extractParameter(rawData, FROM, EXPENDITURE_KEYWORD));
-        expendituresParameters.put(NUM,
+        depositParameters.put(NUM,
                 parseRawData.extractParameter(rawData, NUM, EXPENDITURE_KEYWORD));
     }
 
@@ -96,7 +96,8 @@ public abstract class ParseDeposit {
      */
     void checkAmount(String valueString) throws ParserException {
         if (!RegexUtil.regexCheckMoney(valueString)) {
-            throw new ParserException("/amount can only be numbers with at most 9 digits and 2 decimal places");
+            throw new ParserException("/amount can only be positive numbers"
+                    + " with at most 9 digits and 2 decimal places");
         }
     }
 

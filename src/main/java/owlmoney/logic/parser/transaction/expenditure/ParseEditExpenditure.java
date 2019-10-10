@@ -36,22 +36,29 @@ public class ParseEditExpenditure extends ParseExpenditure {
         while (savingsIterator.hasNext()) {
             String key = savingsIterator.next();
             String value = expendituresParameters.get(key);
-            if ((TRANSNO.equals(key) || FROM.equals(key)) && (value.isBlank() || value.isEmpty())) {
+            if (TRANSNO.equals(key) && (value.isBlank() || value.isEmpty())) {
                 throw new ParserException(key + " cannot be empty when editing an expenditure");
             } else if (TRANSNO.equals(key)) {
                 checkInt(TRANSNO, value);
+            }
+            if (FROM.equals(key) && (value.isBlank() || value.isEmpty())) {
+                throw new ParserException(key + " cannot be empty when editing an expenditure");
             } else if (FROM.equals(key)) {
                 checkName(value);
-            } else if (CATEGORY.equals(key) && "deposit".equals(value)) {
-                throw new ParserException(key + " cannot be deposit when editing an expenditure");
-            } else if ((!value.isEmpty() || !value.isBlank())) {
-                if (AMOUNT.equals(key)) {
-                    checkAmount(value);
-                } else if (DESCRIPTION.equals(key)) {
-                    checkDescription(value);
-                } else if (DATE.equals(key)) {
-                    Date temp = checkDate(value);
-                }
+            }
+            if (CATEGORY.equals(key) && !(value.isBlank() || value.isEmpty())) {
+                changeCounter++;
+            }
+            if (AMOUNT.equals(key) && !(value.isBlank() || value.isEmpty())) {
+                checkAmount(value);
+                changeCounter++;
+            }
+            if (DESCRIPTION.equals(key) && !(value.isBlank() || value.isEmpty())) {
+                checkDescription(value);
+                changeCounter++;
+            }
+            if (DATE.equals(key) && !(value.isBlank() || value.isEmpty())) {
+                checkDate(value);
                 changeCounter++;
             }
         }

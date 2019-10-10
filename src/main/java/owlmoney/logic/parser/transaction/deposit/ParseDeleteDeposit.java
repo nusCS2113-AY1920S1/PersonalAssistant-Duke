@@ -34,16 +34,18 @@ public class ParseDeleteDeposit extends ParseDeposit {
      * @throws ParserException If parameter is missing or invalid.
      */
     public void checkParameter() throws ParserException {
-        Iterator<String> savingsIterator = expendituresParameters.keySet().iterator();
+        Iterator<String> savingsIterator = depositParameters.keySet().iterator();
 
         while (savingsIterator.hasNext()) {
             String key = savingsIterator.next();
-            String value = expendituresParameters.get(key);
-            if ((TRANSNO.equals(key) || FROM.equals(key)) && (value.isBlank() || value.isEmpty())) {
+            String value = depositParameters.get(key);
+            if ((TRANSNO.equals(key) || FROM.equals(key)) && (value.isEmpty() || value.isBlank())) {
                 throw new ParserException(key + " cannot be empty when adding a new deposit");
-            } else if (TRANSNO.equals(key)) {
+            }
+            if (TRANSNO.equals(key)) {
                 checkInt(TRANSNO, value);
-            } else if (FROM.equals(key)) {
+            }
+            if (FROM.equals(key)) {
                 checkName(value, FROM);
             }
         }
@@ -55,8 +57,8 @@ public class ParseDeleteDeposit extends ParseDeposit {
      * @return Returns DeletionDepositCommand to be executed.
      */
     public Command getCommand() {
-        DeleteDepositCommand newDeleteDepositCommand = new DeleteDepositCommand((expendituresParameters.get(FROM)),
-                Integer.parseInt(expendituresParameters.get(TRANSNO)));
+        DeleteDepositCommand newDeleteDepositCommand = new DeleteDepositCommand((depositParameters.get(FROM)),
+                Integer.parseInt(depositParameters.get(TRANSNO)));
         return newDeleteDepositCommand;
     }
 }

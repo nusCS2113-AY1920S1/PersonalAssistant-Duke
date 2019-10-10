@@ -82,7 +82,7 @@ public abstract class ParseSaving {
     void checkAmount(String valueString) throws ParserException {
         if (!RegexUtil.regexCheckBankAmount(valueString)) {
             throw new ParserException("/amount can only be numbers with at most 9 digits, 2 decimal places"
-                    + " and at least 0");
+                    + " and a value of at least 0");
         }
     }
 
@@ -95,7 +95,7 @@ public abstract class ParseSaving {
     void checkIncome(String valueString) throws ParserException {
         if (!RegexUtil.regexCheckBankAmount(valueString)) {
             throw new ParserException("/income can only be numbers with at most 9 digits and 2 decimal places"
-                    + " and at least 0");
+                    + " and a value of at least 0");
         }
     }
 

@@ -1,6 +1,5 @@
 package owlmoney.logic.parser.transaction.deposit;
 
-import java.util.Date;
 import java.util.Iterator;
 
 import owlmoney.logic.command.Command;
@@ -32,27 +31,32 @@ public class ParseEditDeposit extends ParseDeposit {
      * @throws ParserException If user input is invalid.
      */
     public void checkParameter() throws ParserException {
-        Iterator<String> savingsIterator = expendituresParameters.keySet().iterator();
+        Iterator<String> savingsIterator = depositParameters.keySet().iterator();
         int changeCounter = 0;
         while (savingsIterator.hasNext()) {
             String key = savingsIterator.next();
-            String value = expendituresParameters.get(key);
-            if ((TRANSNO.equals(key) || FROM.equals(key)) && (value.isBlank() || value.isEmpty())) {
+            String value = depositParameters.get(key);
+            if (TRANSNO.equals(key) && (value.isBlank() || value.isEmpty())) {
                 throw new ParserException(key + " cannot be empty when editing a deposit");
+            } else if (TRANSNO.equals(key)) {
+                checkInt(TRANSNO, value);
             }
-            if ((DESCRIPTION.equals(key) || AMOUNT.equals(key) || DATE.equals(key))
-                    && (!value.isEmpty() || !value.isBlank())) {
-                if (AMOUNT.equals(key)) {
-                    checkAmount(value);
-                } else if (DESCRIPTION.equals(key)) {
-                    checkDescription(value);
-                } else {
-                    Date temp = checkDate(value);
-                }
+            if (FROM.equals(key) && (value.isBlank() || value.isEmpty())) {
+                throw new ParserException(key + " cannot be empty when editing a deposit");
+            } else if (FROM.equals(key)) {
+                checkName(value, FROM);
+            }
+            if (DESCRIPTION.equals(key) && !(value.isBlank() || value.isEmpty())) {
+                checkDescription(value);
                 changeCounter++;
             }
-            if (TRANSNO.equals(key)) {
-                checkInt(TRANSNO, value);
+            if (AMOUNT.equals(key) && !(value.isBlank() || value.isEmpty())) {
+                checkAmount(value);
+                changeCounter++;
+            }
+            if(DATE.equals(key) && !(value.isBlank() || value.isEmpty())) {
+                checkDate(value);
+                changeCounter++;
             }
         }
         if (changeCounter == 0) {
@@ -66,9 +70,9 @@ public class ParseEditDeposit extends ParseDeposit {
      * @return EditDepositCommand to be executed.
      */
     public Command getCommand() {
-        EditDepositCommand newEditDepositCommand = new EditDepositCommand(expendituresParameters.get(FROM),
-                expendituresParameters.get(AMOUNT), expendituresParameters.get(DATE),
-                expendituresParameters.get(DESCRIPTION), Integer.parseInt(expendituresParameters.get(TRANSNO)));
+        EditDepositCommand newEditDepositCommand = new EditDepositCommand(depositParameters.get(FROM),
+                depositParameters.get(AMOUNT), depositParameters.get(DATE),
+                depositParameters.get(DESCRIPTION), Integer.parseInt(depositParameters.get(TRANSNO)));
         return newEditDepositCommand;
     }
 }

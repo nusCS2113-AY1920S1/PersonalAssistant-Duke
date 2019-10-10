@@ -33,20 +33,20 @@ public class ParseListDeposit extends ParseDeposit {
      * @throws ParserException If the user input is invalid.
      */
     public void checkParameter() throws ParserException {
-        Iterator<String> savingsIterator = expendituresParameters.keySet().iterator();
+        Iterator<String> savingsIterator = depositParameters.keySet().iterator();
 
         while (savingsIterator.hasNext()) {
             String key = savingsIterator.next();
-            String value = expendituresParameters.get(key);
+            String value = depositParameters.get(key);
             if (FROM.equals(key) && (value.isBlank() || value.isEmpty())) {
                 throw new ParserException(key + " cannot be empty when listing deposits from a bank");
-            } else if (NUM.equals(key) && (value.isBlank() || value.isEmpty())) {
-                expendituresParameters.put(key, "30");
+            } else if (FROM.equals(key)) {
+                checkName(value, FROM);
+            }
+            if (NUM.equals(key) && (value.isBlank() || value.isEmpty())) {
+                depositParameters.put(key, "30");
             } else if (NUM.equals(key)) {
-                checkInt(NUM, expendituresParameters.get(NUM));
-                if (Integer.parseInt(expendituresParameters.get(NUM)) <= 0) {
-                    throw new ParserException("/num must be at least 1");
-                }
+                checkInt(NUM, value);
             }
         }
     }
@@ -57,8 +57,8 @@ public class ParseListDeposit extends ParseDeposit {
      * @return ListDepositCommand to be executed.
      */
     public Command getCommand() {
-        ListDepositCommand newListDepositCommand = new ListDepositCommand(expendituresParameters.get(FROM),
-                Integer.parseInt(expendituresParameters.get(NUM)));
+        ListDepositCommand newListDepositCommand = new ListDepositCommand(depositParameters.get(FROM),
+                Integer.parseInt(depositParameters.get(NUM)));
         return newListDepositCommand;
     }
 }
