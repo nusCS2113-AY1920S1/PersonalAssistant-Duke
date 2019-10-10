@@ -12,10 +12,10 @@ public class Tentative extends Task {
      * @param startDate Date object for start DateTime.
      * @param endDate Date object for end DateTime.
      */
-    public Tentative(String description, Date startDate, Date endDate) {
+    public Tentative(String description, DateTime startDate, DateTime endDate) {
         super(description);
-        this.startDate = new DateTime(startDate);
-        this.endDate = new DateTime(endDate);
+        this.startDate = startDate;
+        this.endDate = endDate;
     }
 
 
@@ -26,11 +26,11 @@ public class Tentative extends Task {
      * @param startDate Date object for start DateTime.
      * @param endDate Date object for end DateTime.
      */
-    public Tentative(int done, String description, Date startDate, Date endDate) {
+    public Tentative(int done, String description, DateTime startDate, DateTime endDate) {
         super(description);
         this.setDone(done == 1);
-        this.startDate = new DateTime(startDate);
-        this.endDate = new DateTime(endDate);
+        this.startDate = startDate;
+        this.endDate = endDate;
     }
 
     @Override

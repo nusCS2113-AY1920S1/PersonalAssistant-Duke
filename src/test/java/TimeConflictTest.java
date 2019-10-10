@@ -18,7 +18,6 @@ public class TimeConflictTest {
         Ui ui = new Ui();
         Storage storage = new Storage("data/dukeTest.txt");
 
-        com.joestelmach.natty.Parser parser = new com.joestelmach.natty.Parser();
         Command addEventOne = new Parser().parse("event eventOne /at 09/19/2019 14:00 to 09/19/2019 17:00");
         addEventOne.execute(tasks, storage, ui);
         Command addEventTwo = new Parser().parse("event eventTwo /at 09/19/2019 15:00 to 09/19/2019 17:00");
@@ -39,7 +38,6 @@ public class TimeConflictTest {
         Ui ui = new Ui();
         Storage storage = new Storage("data/dukeTest.txt");
 
-        com.joestelmach.natty.Parser parser = new com.joestelmach.natty.Parser();
         Command addEventOne = new Parser().parse("event eventOne /at 09/19/2019 14:00 to 09/19/2019 17:00");
         addEventOne.execute(tasks, storage, ui);
         Command addEventTwo = new Parser().parse("event eventTwo /at 09/19/2019 13:00 to 09/19/2019 18:00");
@@ -60,7 +58,6 @@ public class TimeConflictTest {
         Ui ui = new Ui();
         Storage storage = new Storage("data/dukeTest.txt");
 
-        com.joestelmach.natty.Parser parser = new com.joestelmach.natty.Parser();
         Command addEventOne = new Parser().parse("event eventOne /at 09/19/2019 14:00 to 09/19/2019 17:00");
         addEventOne.execute(tasks, storage, ui);
         Command addEventTwo = new Parser().parse("event eventTwo /at 09/19/2019 14:00 to 09/19/2019 15:00");
@@ -81,7 +78,6 @@ public class TimeConflictTest {
         Ui ui = new Ui();
         Storage storage = new Storage("data/dukeTest.txt");
 
-        com.joestelmach.natty.Parser parser = new com.joestelmach.natty.Parser();
         Command addEventOne = new Parser().parse("event eventOne /at 09/19/2019 14:00 to 09/19/2019 17:00");
         addEventOne.execute(tasks, storage, ui);
         Command addEventTwo = new Parser().parse("event eventTwo /at 09/19/2019 18:00 to 09/19/2019 19:00");

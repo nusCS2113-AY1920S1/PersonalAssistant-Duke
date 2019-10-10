@@ -1,5 +1,6 @@
 package duke.commands;
 
+import duke.DateTime;
 import duke.Storage;
 import duke.lists.TaskList;
 import duke.Ui;
@@ -15,8 +16,8 @@ import java.util.List;
 
 public class SetCommand extends Command {
     private int index;
-    private Date startDate;
-    private Date endDate;
+    private DateTime startDate;
+    private DateTime endDate;
 
     /**
      * Takes the input and extract index, startDate, and endDate.
@@ -28,11 +29,8 @@ public class SetCommand extends Command {
         try {
             this.index = Integer.parseInt(components[1]) - 1;
 
-            com.joestelmach.natty.Parser parser;
-            parser = new com.joestelmach.natty.Parser();
-            List dates = parser.parse(fullCommand.split("/set ")[1]).get(0).getDates();
-            startDate = (Date) dates.get(0);
-            endDate = (Date) dates.get(1);
+            startDate = new DateTime(fullCommand.split("/set ")[1], 0);
+            endDate = new DateTime(fullCommand.split("/set ")[1], 1);
         } catch (IndexOutOfBoundsException e) {
             throw new InputException("Please ensure that you enter the full command.\n"
                     + "set-tentative <index> /set <start as MM/DD/YYYY HH:MM>\n"

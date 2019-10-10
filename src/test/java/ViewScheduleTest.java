@@ -12,24 +12,24 @@ public class ViewScheduleTest {
 
     @org.junit.jupiter.api.Test
     void testDateCheckDeadline() {
-        Date inputDate = new Date(2019, 9,20);
+        DateTime inputDate = new DateTime(new Date(2019, 9,20));
         Task task = new Deadline("Test", inputDate);
-        assertTrue(task.compareEquals(new DateTime(inputDate)));
-        Date inputDateTwo = new Date(2019, 9,21);
-        assertFalse(task.compareEquals(new DateTime(inputDateTwo)));
+        assertTrue(task.compareEquals(inputDate));
+        DateTime inputDateTwo = new DateTime(new Date(2019, 9,21));
+        assertFalse(task.compareEquals(inputDateTwo));
     }
 
     @org.junit.jupiter.api.Test
     void testDateCheckEvent() {
-        Date inputDate = new Date(2019, 9,20);
-        Date startDate = new Date(2019, 9,19);
-        Date endDate = new Date(2019, 9,21);
+        DateTime inputDate = new DateTime(new Date(2019, 9,20));
+        DateTime startDate = new DateTime(new Date(2019, 9,19));
+        DateTime endDate = new DateTime(new Date(2019, 9,21));
 
         Task task = new Event("Test", startDate, endDate);
-        assertTrue(task.compareEquals(new DateTime(inputDate)));
-        assertTrue(task.compareEquals(new DateTime(startDate)));
-        assertTrue(task.compareEquals(new DateTime(endDate)));
-        Date inputDateTwo = new Date(2019, 9,23);
-        assertFalse(task.compareEquals(new DateTime(inputDateTwo)));
+        assertTrue(task.compareEquals(inputDate));
+        assertTrue(task.compareEquals(startDate));
+        assertTrue(task.compareEquals(endDate));
+        DateTime inputDateTwo = new DateTime(new Date(2019, 9,23));
+        assertFalse(task.compareEquals(inputDateTwo));
     }
 }

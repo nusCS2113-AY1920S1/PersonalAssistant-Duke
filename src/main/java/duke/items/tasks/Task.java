@@ -59,7 +59,7 @@ public abstract class Task extends Item {
      * @param endTime the end of the interval
      * @return default to return false, only implemented in event task.
      */
-    public Boolean isOverlapping(Date startTime, Date endTime) {
+    public Boolean isOverlapping(DateTime startTime, DateTime endTime) {
         return false;
     }
 }

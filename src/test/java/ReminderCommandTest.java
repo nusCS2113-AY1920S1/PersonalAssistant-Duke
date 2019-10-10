@@ -1,3 +1,4 @@
+import duke.DateTime;
 import duke.Storage;
 import duke.lists.TaskList;
 import duke.Ui;
@@ -16,7 +17,7 @@ public class ReminderCommandTest {
         TaskList testTaskList = new TaskList();
         long overdueDate = 656740800000L;
 
-        testTaskList.add(new Deadline("overdue", new Date(overdueDate)));
+        testTaskList.add(new Deadline("overdue", new DateTime(new Date(overdueDate))));
 
         Ui testUi = new Ui();
         Storage testStorage = new Storage("data/dukeTest.txt");
@@ -29,7 +30,7 @@ public class ReminderCommandTest {
         TaskList testTaskList = new TaskList();
         long overdueDate = 656740800000L;
 
-        testTaskList.add(new Deadline("overdue", new Date(overdueDate)));
+        testTaskList.add(new Deadline("overdue", new DateTime(new Date(overdueDate))));
         testTaskList.mark(0);
 
         Ui testUi = new Ui();
@@ -44,7 +45,7 @@ public class ReminderCommandTest {
         TaskList testTaskList = new TaskList();
         long distantFutureDate = 1893427200000L;
 
-        testTaskList.add(new Deadline("future", new Date(distantFutureDate)));
+        testTaskList.add(new Deadline("future", new DateTime(new Date(distantFutureDate))));
 
         Ui testUi = new Ui();
         Storage testStorage = new Storage("data/dukeTest.txt");

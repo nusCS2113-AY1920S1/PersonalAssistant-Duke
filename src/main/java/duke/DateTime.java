@@ -1,5 +1,7 @@
 package duke;
 
+import com.joestelmach.natty.Parser;
+
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -13,6 +15,16 @@ public class DateTime implements Comparable<DateTime> {
      */
     public DateTime(Date dateTime) {
         this.dateTime = dateTime;
+    }
+
+    public DateTime(String dateTime) {
+        Parser parser = new Parser();
+        this.dateTime = parser.parse(dateTime).get(0).getDates().get(0);
+    }
+
+    public DateTime(String dateTime, int index) {
+        Parser parser = new Parser();
+        this.dateTime = parser.parse(dateTime).get(0).getDates().get(index);
     }
 
     public Date getDateTime() {
@@ -30,8 +42,22 @@ public class DateTime implements Comparable<DateTime> {
         return dateString;
     }
 
+    public boolean before(DateTime dateTime) {
+        return this.dateTime.before(dateTime.getDateTime());
+    }
+
+    public boolean equals(DateTime dateTime) {
+        return this.dateTime.equals(dateTime.getDateTime());
+    }
+
+    public boolean after(DateTime dateTime) {
+        return this.dateTime.after(dateTime.getDateTime());
+    }
+
     @Override
     public int compareTo(DateTime dateTimeTwo) {
         return this.getDateTime().compareTo(dateTimeTwo.getDateTime());
     }
+
+
 }

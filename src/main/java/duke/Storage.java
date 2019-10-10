@@ -47,10 +47,9 @@ public class Storage {
      */
     public List<Task> loadData() throws DukeException {
         Vector<Task> tasks = new Vector<>();
-        com.joestelmach.natty.Parser parser = new com.joestelmach.natty.Parser();
         try {
-            Date start;
-            Date end;
+            DateTime start;
+            DateTime end;
 
             BufferedReader inputStream = new BufferedReader(new FileReader(dukeFile));
             while (true) {
@@ -64,8 +63,8 @@ public class Storage {
                         tasks.addElement(new Todo(Integer.parseInt(arguments[1]), arguments[2]));
                         break;
                     case "D":
-                        Date by = parser.parse(arguments[3]).get(0).getDates().get(0);
-                        tasks.addElement(new Deadline(Integer.parseInt(arguments[1]), arguments[2], by));
+                        start = new DateTime(arguments[3]);
+                        tasks.addElement(new Deadline(Integer.parseInt(arguments[1]), arguments[2], start));
                         break;
                     case "F":
                         tasks.addElement(new Fixed(Integer.parseInt(arguments[1]), arguments[2], arguments[3]));
@@ -74,18 +73,18 @@ public class Storage {
                         tasks.addElement(new After(Integer.parseInt(arguments[1]), arguments[2], arguments[3]));
                         break;
                     case "W":
-                        start = parser.parse(arguments[3]).get(0).getDates().get(0);
-                        end = parser.parse(arguments[4]).get(0).getDates().get(0);
+                        start = new DateTime(arguments[3]);
+                        end = new DateTime(arguments[4]);
                         tasks.addElement(new Within(Integer.parseInt(arguments[1]), arguments[2], start, end));
                         break;
                     case "TE":
-                        start = parser.parse(arguments[3]).get(0).getDates().get(0);
-                        end = parser.parse(arguments[4]).get(0).getDates().get(0);
+                        start = new DateTime(arguments[3]);
+                        end = new DateTime(arguments[4]);
                         tasks.addElement(new Tentative(Integer.parseInt(arguments[1]), arguments[2], start, end));
                         break;
                     case "R":
-                        start = parser.parse(arguments[3]).get(0).getDates().get(0);
-                        end = parser.parse(arguments[4]).get(0).getDates().get(0);
+                        start = new DateTime(arguments[3]);
+                        end = new DateTime(arguments[4]);
                         tasks.addElement(new Recurring(arguments[2], start, end, Long.parseLong(arguments[5]),
                                 Long.parseLong(arguments[6])));
                         break;
@@ -93,8 +92,8 @@ public class Storage {
                         tasks.addElement(new FileTask(Integer.parseInt(arguments[1]), arguments[2]));
                         break;
                     default:
-                        start = parser.parse(arguments[3]).get(0).getDates().get(0);
-                        end = parser.parse(arguments[4]).get(0).getDates().get(0);
+                        start = new DateTime(arguments[3]);
+                        end = new DateTime(arguments[4]);
                         tasks.addElement(new Event(Integer.parseInt(arguments[1]), arguments[2], start, end));
                     }
                 }

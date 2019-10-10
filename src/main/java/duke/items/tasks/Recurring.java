@@ -14,11 +14,11 @@ public class Recurring extends Task {
      * @param endDate Date object for end DateTime.
      * @param intervalMinutes Number of minutes to advance by for next instance.
      */
-    public Recurring(String description, Date startDate, Date endDate,
+    public Recurring(String description, DateTime startDate, DateTime endDate,
                      long intervalMinutes) {
         super(description);
-        this.startDate = new DateTime(startDate);
-        this.endDate = new DateTime(endDate);
+        this.startDate = startDate;
+        this.endDate = endDate;
         this.intervalMinutes = intervalMinutes;
         this.instanceCount = 1;
     }
@@ -31,11 +31,11 @@ public class Recurring extends Task {
      * @param intervalMinutes Number of minutes to advance by for next instance.
      * @param instanceCount the number of instances completed.
      */
-    public Recurring(String description, Date startDate, Date endDate,
+    public Recurring(String description, DateTime startDate, DateTime endDate,
                      long intervalMinutes, long instanceCount) {
         super(description);
-        this.startDate = new DateTime(startDate);
-        this.endDate = new DateTime(endDate);
+        this.startDate = startDate;
+        this.endDate = endDate;
         this.intervalMinutes = intervalMinutes;
         this.instanceCount = instanceCount;
     }

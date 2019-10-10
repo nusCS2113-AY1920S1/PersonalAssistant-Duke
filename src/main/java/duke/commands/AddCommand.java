@@ -1,5 +1,6 @@
 package duke.commands;
 
+import duke.DateTime;
 import duke.exceptions.DukeException;
 import duke.exceptions.InputException;
 import duke.Storage;
@@ -61,12 +62,11 @@ public class AddCommand extends Command {
     public String execute(TaskList taskList, Storage storage, Ui ui) throws DukeException {
         List<String> formattedOutput = new ArrayList<>();
         Task added;
-        com.joestelmach.natty.Parser parser;
         List dates;
         String fixedDuration;
         String doAfter;
-        Date start;
-        Date end;
+        DateTime start;
+        DateTime end;
 
         try {
             switch (this.type) {
@@ -77,12 +77,10 @@ public class AddCommand extends Command {
                 break;
 
             case "deadline":
-                parser = new com.joestelmach.natty.Parser();
-                dates = parser.parse(fullCommand.split("/by ")[1]).get(0).getDates();
-                Date by = (Date) dates.get(0);
+                start = new DateTime(fullCommand.split("/by ")[1]);
                 added = taskList.add(new Deadline(fullCommand.substring(0, fullCommand.lastIndexOf(" /by"))
                         .replaceFirst("deadline ", ""),
-                        by));
+                        start));
                 formattedOutput.add("Got it. I've added this deadline:");
                 formattedOutput.add(added.toString());
                 break;
@@ -106,10 +104,9 @@ public class AddCommand extends Command {
                 break;
 
             case "do-within":
-                parser = new com.joestelmach.natty.Parser();
-                dates = parser.parse(fullCommand.split("/between ")[1]).get(0).getDates();
-                start = (Date) dates.get(0);
-                end = (Date) dates.get(1);
+
+                start = new DateTime(fullCommand.split("/between ")[1], 0);
+                end = new DateTime(fullCommand.split("/between ")[1], 1);
                 added = taskList.add(new Within(fullCommand.substring(0, fullCommand.lastIndexOf(" /between"))
                         .replaceFirst("do-within ", ""),
                         start, end));
@@ -118,10 +115,8 @@ public class AddCommand extends Command {
                 break;
 
             case "tentative":
-                parser = new com.joestelmach.natty.Parser();
-                dates = parser.parse(fullCommand.split("/around ")[1]).get(0).getDates();
-                start = (Date) dates.get(0);
-                end = (Date) dates.get(1);
+                start = new DateTime(fullCommand.split("/around ")[1], 0);
+                end = new DateTime(fullCommand.split("/around ")[1], 1);
                 added = taskList.add(new Tentative(fullCommand.substring(0, fullCommand.lastIndexOf(" /around"))
                         .replaceFirst("tentative ", ""),
                         start, end));
@@ -130,12 +125,9 @@ public class AddCommand extends Command {
                 break;
 
             case "recurring":
-                parser = new com.joestelmach.natty.Parser();
                 String[] partials = fullCommand.split("/every ");
-
-                dates = parser.parse(partials[0].split("/at ")[1]).get(0).getDates();
-                start = (Date) dates.get(0);
-                end = (Date) dates.get(1);
+                start = new DateTime(partials[0].split("/at ")[1], 0);
+                end = new DateTime(partials[0].split("/at ")[1], 1);
 
                 String[] frequencies = partials[1].split(":");
                 long minutes = (Long.parseLong(frequencies[0]) * 60 * 24)
@@ -152,10 +144,8 @@ public class AddCommand extends Command {
                 break;
 
             default:
-                parser = new com.joestelmach.natty.Parser();
-                dates = parser.parse(fullCommand.split("/at ")[1]).get(0).getDates();
-                start = (Date) dates.get(0);
-                end = (Date) dates.get(1);
+                start = new DateTime(fullCommand.split("/at ")[1], 0);
+                end = new DateTime(fullCommand.split("/at ")[1], 1);
 
                 List<Task> tasks = taskList.getList();
                 for (int i = 0; i < tasks.size(); i++) {

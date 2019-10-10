@@ -1,8 +1,7 @@
 import duke.items.tasks.Recurring;
 import duke.items.tasks.Task;
+import duke.DateTime;
 import org.junit.jupiter.api.Test;
-
-import java.util.Date;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -10,10 +9,8 @@ public class RecurringTest {
 
     @Test
     public void recurringTask_createNewWithValidInput_successfullyCreatedWithInstanceCountOne() {
-        com.joestelmach.natty.Parser parser = new com.joestelmach.natty.Parser();
-
-        Date startDate = parser.parse("09/19/2019 12:00").get(0).getDates().get(0);
-        Date endDate = parser.parse("09/20/2019 12:00").get(0).getDates().get(0);
+        DateTime startDate = new DateTime("09/19/2019 12:00");
+        DateTime endDate = new DateTime("09/20/2019 12:00");
 
         Task task = new Recurring("meet with team daily", startDate, endDate, 1440);
 
@@ -23,10 +20,8 @@ public class RecurringTest {
 
     @Test
     public void recurringTask_incrementInstanceUsingDone_instanceCountIncrementedByOne() {
-        com.joestelmach.natty.Parser parser = new com.joestelmach.natty.Parser();
-
-        Date startDate = parser.parse("10/1/2019 05:00").get(0).getDates().get(0);
-        Date endDate = parser.parse("10/1/2019 06:00").get(0).getDates().get(0);
+        DateTime startDate = new DateTime("10/1/2019 05:00");
+        DateTime endDate = new DateTime("10/1/2019 06:00");
 
         Task task = new Recurring("don't talk about the fight club", startDate, endDate, 10080,
                 3);

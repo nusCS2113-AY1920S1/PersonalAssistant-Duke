@@ -12,7 +12,7 @@ import java.util.Date;
 import java.util.List;
 
 public class ViewScheduleCommand extends Command {
-    private Date inputDate;
+    private DateTime inputDate;
 
     /**
      * Constructor for viewing schedule for a day.
@@ -26,10 +26,7 @@ public class ViewScheduleCommand extends Command {
         }
 
         try {
-            com.joestelmach.natty.Parser parser = new com.joestelmach.natty.Parser();
-            List dates;
-            dates = parser.parse(fullCommand.substring(fullCommand.indexOf(" ") + 1)).get(0).getDates();
-            inputDate = (Date) dates.get(0);
+            inputDate = new DateTime(fullCommand.substring(fullCommand.indexOf(" ") + 1));
         } catch (IndexOutOfBoundsException e) {
             throw new InputException("Please ensure that you enter the full command.\n"
                     + "view-schedule <MM/DD/YYYY HH:MM>");
@@ -51,7 +48,7 @@ public class ViewScheduleCommand extends Command {
         List<Task> tasks = taskList.getList();
 
         for (Task task : tasks) {
-            if (task.compareEquals(new DateTime(inputDate))) {
+            if (task.compareEquals(inputDate)) {
                 formattedOutput.add((resultCount++ + 1) + ". " + task.toString());
             }
         }

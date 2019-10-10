@@ -11,10 +11,10 @@ public class Within extends Task {
      * @param startDate Date object for start DateTime.
      * @param endDate Date object for end DateTime.
      */
-    public Within(String description, Date startDate, Date endDate) {
+    public Within(String description, DateTime startDate, DateTime endDate) {
         super(description);
-        this.startDate = new DateTime(startDate);
-        this.endDate = new DateTime(endDate);
+        this.startDate = startDate;
+        this.endDate = endDate;
     }
 
     /**
@@ -24,11 +24,11 @@ public class Within extends Task {
      * @param startDate Date object for start DateTime.
      * @param endDate Date object for end DateTime.
      */
-    public Within(int done, String description, Date startDate, Date endDate) {
+    public Within(int done, String description, DateTime startDate, DateTime endDate) {
         super(description);
         this.setDone(done == 1);
-        this.startDate = new DateTime(startDate);
-        this.endDate = new DateTime(endDate);
+        this.startDate = startDate;
+        this.endDate = endDate;
     }
 
     @Override

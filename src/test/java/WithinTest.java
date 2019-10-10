@@ -1,3 +1,4 @@
+import duke.DateTime;
 import duke.items.tasks.Within;
 import duke.items.tasks.Task;
 
@@ -10,9 +11,8 @@ public class WithinTest {
 
     @org.junit.jupiter.api.Test
     void testToString_createAndMarkDoneNewTask() {
-        com.joestelmach.natty.Parser parser = new com.joestelmach.natty.Parser();
-        Date startDate = parser.parse("09/19/2019 12:00").get(0).getDates().get(0);
-        Date endDate = parser.parse("09/20/2019 12:00").get(0).getDates().get(0);
+        DateTime startDate = new DateTime("09/19/2019 12:00");
+        DateTime endDate = new DateTime("09/20/2019 12:00");
         Task task = new Within("Watch movie", startDate, endDate);
         assertEquals("[W][✗] Watch movie (between: 09/19/2019 12:00 and 09/20/2019 12:00)", task.toString());
         assertNotEquals("[W][✓] Watch movie (between: 09/19/2019 12:00 and 09/20/2019 12:00)", task.toString());
@@ -23,9 +23,8 @@ public class WithinTest {
 
     @org.junit.jupiter.api.Test
     void testStoreString_createAndMarkDoneNewTask() {
-        com.joestelmach.natty.Parser parser = new com.joestelmach.natty.Parser();
-        Date startDate = parser.parse("09/19/2019 12:00").get(0).getDates().get(0);
-        Date endDate = parser.parse("09/20/2019 12:00").get(0).getDates().get(0);
+        DateTime startDate = new DateTime("09/19/2019 12:00");
+        DateTime endDate = new DateTime("09/20/2019 12:00");
         Task task = new Within("Watch movie", startDate, endDate);
         assertEquals("W | 0 | Watch movie | 09/19/2019 12:00 | 09/20/2019 12:00", task.storeString());
         assertNotEquals("W | 1 | Watch movie | 09/19/2019 12:00 | 09/20/2019 12:00", task.storeString());

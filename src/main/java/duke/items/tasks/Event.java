@@ -11,10 +11,10 @@ public class Event extends Task {
      * @param startDate Date object for start DateTime.
      * @param endDate Date object for end DateTime.
      */
-    public Event(String description, Date startDate, Date endDate) {
+    public Event(String description, DateTime startDate, DateTime endDate) {
         super(description);
-        this.startDate = new DateTime(startDate);
-        this.endDate = new DateTime(endDate);
+        this.startDate = startDate;
+        this.endDate = endDate;
     }
 
     /**
@@ -24,11 +24,11 @@ public class Event extends Task {
      * @param startDate Date object for start DateTime.
      * @param endDate Date object for end DateTime.
      */
-    public Event(int done, String description, Date startDate, Date endDate) {
+    public Event(int done, String description, DateTime startDate, DateTime endDate) {
         super(description);
         this.setDone(done == 1);
-        this.startDate = new DateTime(startDate);
-        this.endDate = new DateTime(endDate);
+        this.startDate = startDate;
+        this.endDate = endDate;
     }
 
     @Override
@@ -65,7 +65,7 @@ public class Event extends Task {
     }
 
     @Override
-    public Boolean isOverlapping(Date startTime, Date endTime) {
-        return startTime.before(endDate.getDateTime()) && startDate.getDateTime().before(endTime);
+    public Boolean isOverlapping(DateTime startTime, DateTime endTime) {
+        return startTime.before(endDate) && startDate.before(endTime);
     }
 }

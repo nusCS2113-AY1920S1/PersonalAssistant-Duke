@@ -13,18 +13,17 @@ import java.util.Date;
 import java.util.List;
 
 public class FindFreeCommand extends Command {
-    private Date startDate;
-    private Date endDate;
-    private List<Pair<Date, Date>> freeTime;
+    private DateTime startDate;
+    private DateTime endDate;
+    private List<Pair<DateTime, DateTime>> freeTime;
 
     /**
      * Constructor for FindFree Command.
      * @param date In the format of MM/dd/yyyy
      */
     public FindFreeCommand(String date) {
-        com.joestelmach.natty.Parser parser = new com.joestelmach.natty.Parser();
-        this.startDate = parser.parse(date + " 00:00").get(0).getDates().get(0);
-        this.endDate = parser.parse(date + " 23:59").get(0).getDates().get(0);;
+        this.startDate = new DateTime(date + " 00:00");
+        this.endDate = new DateTime(date + " 23:59");;
     }
 
     /**
@@ -41,27 +40,27 @@ public class FindFreeCommand extends Command {
         for (Task task : tasks) {
             if (task.isOverlapping(startDate,endDate)) {
                 Event event = (Event) task;
-                Date taskStart = event.getStartDate().getDateTime();
-                Date taskEnd = event.getEndDate().getDateTime();
+                DateTime taskStart = event.getStartDate();
+                DateTime taskEnd = event.getEndDate();
                 freeTime = newFreeTime(taskStart, taskEnd);
             }
         }
         List<String> formattedOutput = new ArrayList<String>();
         formattedOutput.add("Free Times are:");
-        for (Pair<Date, Date> timeInterval : freeTime) {
-            DateTime start = new DateTime(timeInterval.getKey());
-            DateTime end = new DateTime(timeInterval.getValue());
+        for (Pair<DateTime, DateTime> timeInterval : freeTime) {
+            DateTime start = timeInterval.getKey();
+            DateTime end = timeInterval.getValue();
             formattedOutput.add("From:" + start.toString() + " To:" + end.toString());
         }
         return ui.showFormatted(formattedOutput);
     }
 
-    private List<Pair<Date, Date>> newFreeTime(Date taskStart, Date taskEnd) {
-        List<Pair<Date, Date>> newFreeTime = new ArrayList<>();
+    private List<Pair<DateTime, DateTime>> newFreeTime(DateTime taskStart, DateTime taskEnd) {
+        List<Pair<DateTime, DateTime>> newFreeTime = new ArrayList<>();
         for (int i = 0; i < freeTime.size(); i++) {
-            Date startTime = freeTime.get(i).getKey();
-            Date endTime = freeTime.get(i).getValue();
-            if ((taskStart.before(startTime) || taskStart.equals(startTime))
+            DateTime startTime = freeTime.get(i).getKey();
+            DateTime endTime = freeTime.get(i).getValue();
+            if ((taskStart.getDateTime().before(startTime.getDateTime()) || taskStart.equals(startTime))
                     && taskEnd.after(startTime)
                     && taskEnd.before(endTime)) {
                 newFreeTime.add(new Pair<>(taskEnd, endTime));

@@ -1,3 +1,4 @@
+import duke.DateTime;
 import duke.Storage;
 import duke.exceptions.DukeException;
 import duke.items.tasks.Task;
@@ -55,8 +56,8 @@ public class StorageTest {
             String randomStringForTask = randomString(random.nextInt(20));
             long randomStartDateInMillis = System.currentTimeMillis() + random.nextInt();
             long randomEndDateInMillis = randomStartDateInMillis + random.nextInt() + 60000;
-            Date randomStartDate = new Date(randomStartDateInMillis);
-            Date randomEndDate = new Date(randomEndDateInMillis);
+            DateTime randomStartDate = new DateTime(new Date(randomStartDateInMillis));
+            DateTime randomEndDate = new DateTime(new Date(randomEndDateInMillis));
             switch (taskType) {
             case 0:
                 testTasks.add(new Todo(randomDone, randomTaskName));

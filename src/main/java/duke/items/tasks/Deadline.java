@@ -5,9 +5,9 @@ import duke.DateTime;
 import java.util.Date;
 
 public class Deadline extends Task {
-    public Deadline(String description, Date startDate) {
+    public Deadline(String description, DateTime startDate) {
         super(description);
-        this.startDate = new DateTime(startDate);
+        this.startDate = startDate;
     }
 
     /**
@@ -16,10 +16,10 @@ public class Deadline extends Task {
      * @param description the name or description of the deadline.
      * @param startDate the due date/time of the deadline.
      */
-    public Deadline(int done, String description, Date startDate) {
+    public Deadline(int done, String description, DateTime startDate) {
         super(description);
         this.setDone(done == 1);
-        this.startDate = new DateTime(startDate);
+        this.startDate = startDate;
     }
 
     @Override
