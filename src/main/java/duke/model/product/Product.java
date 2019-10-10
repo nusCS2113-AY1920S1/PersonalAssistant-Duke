@@ -33,7 +33,7 @@ public class Product {
 
     /** Constructor for Order parser.util*/
     public Product(String name) {
-
+        this.name = name;
     }
 
     public Product(String name, String price, String cost) {
