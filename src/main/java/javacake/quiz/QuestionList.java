@@ -8,7 +8,7 @@ import java.util.Random;
 public class QuestionList {
     private ArrayList<Question> chosenQuestions;
     /** The maximum number of questions in one session of a quiz. */
-    public static final int MAX_QUESTIONS = 1;
+    public static final int MAX_QUESTIONS = 3;
 
     public QuestionList() {
         chosenQuestions = new ArrayList<>(MAX_QUESTIONS);

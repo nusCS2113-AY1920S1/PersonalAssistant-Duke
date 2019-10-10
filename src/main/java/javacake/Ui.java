@@ -66,24 +66,13 @@ public class Ui {
         if (isFirstTime) {
             welcomePhaseB.append(border);
             welcomePhaseB.append("\nWelcome to JavaCake, ").append(userName).append("! ");
-            welcomePhaseB.append("Now let's help you get started with Java! :3\n").append(helpMessage());
-            welcomePhaseB.append(border);
+            welcomePhaseB.append("Now let's help you get started with Java! :3\n");
+            welcomePhaseB.append(helpMessage()).append(border);
         } else {
             welcomePhaseB.append("Hello ").append(userName).append("! ");
-            welcomePhaseB.append("Here's your quiz progress so far :D\n");
-            progress *= 6;
-            for (int i = 0; i < 18; ++i) {
-                if (i < progress) {
-                    welcomePhaseB.append("#");
-                } else {
-                    welcomePhaseB.append("-");
-                }
-            }
-            progress = progress * 33 / 6;
-            if (progress == 99) {
-                progress = 100;
-            }
-            welcomePhaseB.append(" ").append(progress).append("%\n");
+
+            welcomePhaseB.append(getQuizResults(progress));
+
             welcomePhaseB.append("What do you want to do today?\n");
             welcomePhaseB.append(helpMessage()).append(border);
         }
@@ -184,5 +173,28 @@ public class Ui {
         }
 
         System.out.println("Type \"back\" to go back to the table of contents.");
+    }
+
+    /**
+     * Method to get quiz score
+     * @param progress the user's overall quiz score
+     * @return String with quiz score message
+     */
+    public String getQuizResults(int progress) {
+        StringBuilder str = new StringBuilder();
+        str.append("Here's your quiz progress so far :D\n");
+        for (int i = 0; i < 12; ++i) {
+            if (i < progress) {
+                str.append("#");
+            } else {
+                str.append("-");
+            }
+        }
+        progress = progress * 100 / 12;
+        if (progress == 99) {
+            progress = 100;
+        }
+        str.append(" ").append(progress).append("%\n");
+        return  str.toString();
     }
 }
