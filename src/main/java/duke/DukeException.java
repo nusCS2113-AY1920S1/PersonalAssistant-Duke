@@ -118,8 +118,12 @@ public class DukeException extends Exception {
                 message += "/at <time> is optional.";
                 break;
             }
-            case "group":{
+            case "group": {
                 message = "OOPS!!! These groups cannot be grouped due to invalid input.";
+                break;
+            }
+            case "copy": {
+                message = "OOPS!!! Invalid input for copy command.";
                 break;
             }
             default: {

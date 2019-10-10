@@ -1,6 +1,19 @@
 package duke;
 
-import duke.commands.*;
+import duke.commands.Command;
+import duke.commands.ViewCommand;
+import duke.commands.GroupCommand;
+import duke.commands.NewCommand;
+import duke.commands.HelpCommand;
+import duke.commands.CopyCommand;
+import duke.commands.ByeCommand;
+import duke.commands.ListCommand;
+import duke.commands.DeleteCommand;
+import duke.commands.FindCommand;
+import duke.commands.DoneCommand;
+import duke.commands.AddBarCommand;
+import duke.commands.AddCommand;
+
 
 /**
  * A class used to interpret the incoming messages and translate them into the appropriate duke.Commands.
@@ -35,8 +48,10 @@ class Parser {
             return new ViewCommand(message);
         } else if (message.length() >= 8 && message.substring(0, 6).equals("addbar")) {
             return new AddBarCommand(message);
-        } else if (message.length() >= 7 && message.substring(0, 5).equals("group")){
+        } else if (message.length() >= 7 && message.substring(0, 5).equals("group")) {
             return new GroupCommand(message);
+        } else if (message.length() >= 6 && message.substring(0,4).equals("copy")) {
+            return new CopyCommand(message);
         } else {
             return new AddCommand(message);
         }
