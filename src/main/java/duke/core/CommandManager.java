@@ -69,10 +69,9 @@ public class CommandManager {
                     String[] tempCommand = command[1].split("\\s+", 2);
                     if (tempCommand[0].toLowerCase().equals("patient")){
                         try {
-                            int id = Integer.parseInt(tempCommand[1]);
-                            return new DeletePatientCommand(id);
+                            return new DeletePatientCommand(tempCommand[1]);
                         }catch(Exception e){
-                            throw new Exception("Please follow the format 'delete patient <id>'.");
+                            throw new Exception("Please follow the format 'delete patient #<id>'.");
                         }
                     }
                     else {

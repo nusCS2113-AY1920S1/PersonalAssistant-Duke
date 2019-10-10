@@ -21,7 +21,12 @@ public class FindPatientCommand extends Command {
     public void execute(TaskList tasks, PatientList patientList, Ui ui, TaskStorage taskStorage, PatientStorage patientStorage) throws DukeException {
         char firstChar = command.charAt(0);
         if (firstChar == '#'){
-            int id = Integer.parseInt(command.substring(1, command.length()));
+            int id;
+            try {
+                id = Integer.parseInt(command.substring(1, command.length()));
+            }catch(Exception e) {
+                throw new DukeException("Please follow the format 'find patient #<id>' or 'find patient <name>'.");
+            }
             Patient patient = patientList.getPatient(id);
             ui.patientsFoundById(patient);
         }
