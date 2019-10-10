@@ -14,6 +14,8 @@ import javafx.scene.layout.VBox;
  */
 public class MainWindow extends AnchorPane {
     @FXML
+    private AnchorPane calendarView;
+    @FXML
     private ScrollPane scrollPane;
     @FXML
     private VBox dialogContainer;
@@ -21,7 +23,7 @@ public class MainWindow extends AnchorPane {
     private TextField userInput;
     @FXML
     private Button sendButton;
-    Ui ui;
+    private Ui ui;
 
     private Duke duke;
 
