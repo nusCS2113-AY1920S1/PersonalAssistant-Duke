@@ -1,0 +1,48 @@
+= About Us
+:site-section: AboutUs
+:relfileprefix: team/
+:imagesDir: images
+:stylesDir: stylesheets
+
+RIMS was developed by the CS2113T-W12-1 team. +
+We are a team based in the http://www.comp.nus.edu.sg[School of Computing, National University of Singapore].
+
+== Project Team
+
+=== Sean Chan Hin
+image::hin1.png[width="150", align="left"]
+{empty}[https://github.com/hin1[github]]
+
+Role: Team Lead, Testing +
+Responsibilities: In charge of `command`
+
+
+=== Daniel Chan 
+image::danielcyc.png[width="150", align="left"]
+{empty}[http://github.com/danielcyc[github]]  
+
+Role: Intellij expert, Documentation +
+Responsibilities: In charge of `task`
+
+
+=== Cai Rong
+image::isbobby.png[width="150", align="left"]
+{empty}[http://github.com/isbobby[github]]  
+
+Role: Git Expert +
+Responsibilities: In charge of `exception`
+
+
+=== Aarushi Singh
+image::aarushisingh1.png[width="150", align="left"]
+{empty}[http://github.com/aarushisingh1[github]] 
+
+Role: Scheduling and tracking +
+Responsibilities: In charge of `task`
+
+=== Abhijit Ravichandran
+image::rabhijit.png[width="150", align="left"]
+{empty}[http://github.com/rabhijit[github]] 
+
+Role: Deliverables and Deadlines, Code quality +
+Responsibilities: In charge of `core`
