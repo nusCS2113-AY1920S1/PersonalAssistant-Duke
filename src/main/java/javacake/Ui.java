@@ -23,8 +23,9 @@ public class Ui {
      */
     public String showWelcome(boolean isFirstTime, String userName, int progress) {
         StringBuilder welcomePhaseA = new StringBuilder();
-        welcomePhaseA.append("Hello! Welcome to JavaCake!\n");
-        welcomePhaseA.append("~making Java a Piece of Cake\n").append(border);
+        welcomePhaseA.append(border);
+        welcomePhaseA.append("\nWelcome to JavaCake! ");
+        welcomePhaseA.append("where learning Java can be a Piece of Cake!\n");
 
         System.out.println(welcomePhaseA.toString());
 
@@ -42,11 +43,10 @@ public class Ui {
         if (isFirstTime) {
             welcomePhaseB.append(border);
             welcomePhaseB.append("\nWelcome to JavaCake, ").append(userName).append("! ");
-            welcomePhaseB.append("Now let's help you get started with Java! :3\n");
+            welcomePhaseB.append("Now let's help you get started with Java! :3\n").append(helpMessage());
             welcomePhaseB.append(border);
         } else {
-            welcomePhaseB.append(border);
-            welcomePhaseB.append("\nHello ").append(userName).append("! ");
+            welcomePhaseB.append("Hello ").append(userName).append("! ");
             welcomePhaseB.append("Here's your quiz progress so far :D\n");
             progress *= 6;
             for (int i = 0; i < 18; ++i) {
@@ -61,10 +61,10 @@ public class Ui {
                 progress = 100;
             }
             welcomePhaseB.append(" ").append(progress).append("%\n");
-            welcomePhaseB.append("What do you want to do today?\n").append(border);
+            welcomePhaseB.append("What do you want to do today?\n");
+            welcomePhaseB.append(helpMessage()).append(border);
         }
         System.out.println(welcomePhaseB.toString());
-
         return userName;
     }
 
@@ -73,6 +73,14 @@ public class Ui {
      */
     public void showLine() {
         System.out.println(border);
+    }
+
+    /**
+     * Prints help message to assist user.
+     */
+    public String helpMessage() {
+        String message1= "\nType 'list' to view main topics\n" + "Type 'exit' to rage quit\n";
+        return message1;
     }
 
     /**
