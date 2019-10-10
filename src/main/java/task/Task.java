@@ -22,6 +22,7 @@ public abstract class Task implements Serializable {
     public LocalDateTime createdDate;
     public Period eventPeriod;
     public int remindInHowManyDays = 0;
+    protected boolean isIgnored;
 
     /**
      * This task constructor is used to obtain the parameters required by the task
@@ -32,6 +33,7 @@ public abstract class Task implements Serializable {
     public Task(String description) { // constructor
         this.description = description;
         this.isDone = false;
+        this.isIgnored = false;
         this.createdDate = LocalDateTime.now();
     }
 
@@ -74,6 +76,9 @@ public abstract class Task implements Serializable {
      * @return if triggered
      */
     public boolean checkReminderTrigger() {
+        if (isIgnored) {
+            return false;
+        }
         if (!startDate.isEqual(NULL_DATE)) {
             LocalDateTime reminderDate = startDate.minusDays(remindInHowManyDays);
             return LocalDateTime.now().isAfter(reminderDate);
@@ -82,4 +87,8 @@ public abstract class Task implements Serializable {
     }
 
     abstract boolean checkForClash(Task taskToCheck);
+
+    public void markAsIgnorable() {
+        this.isIgnored = true;
+    }
 }

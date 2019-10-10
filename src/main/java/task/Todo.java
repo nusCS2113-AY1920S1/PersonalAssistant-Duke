@@ -20,20 +20,6 @@ public class Todo extends Task implements Serializable {
     }
 
     /**
-     * Creates a ToDo task with a specific duration and timing.
-     * 
-     * @param description description of task
-     * @param at start time of the task
-     * @param to end time of the task
-     */
-    public Todo(String description, LocalDateTime at, LocalDateTime to) {
-        super(description);
-        this.startDate = at;
-        this.endDate = to;
-        this.createdDate = LocalDateTime.now();
-    }
-
-    /**
      * This override of the toString function of the task class etches the different
      * portions of the user input into a single string.
      *
@@ -42,13 +28,7 @@ public class Todo extends Task implements Serializable {
      */
     @Override
     public String toString() {
-        if (!this.startDate.isEqual(NULL_DATE) && !this.endDate.isEqual(NULL_DATE)) {
-            return "[T]" + "[" + super.getStatusIcon() + "] " + this.description + " " + " (from: "
-                    + this.startDate.format(DateTimeExtractor.DATE_FORMATTER) + ")" + " (to: "
-                    + this.endDate.format(DateTimeExtractor.DATE_FORMATTER) + ")";
-        } else {
-            return "[T]" + "[" + super.getStatusIcon() + "] " + this.description;
-        }
+        return "[T]" + "[" + super.getStatusIcon() + "] " + this.description;
     }
 
     @Override
