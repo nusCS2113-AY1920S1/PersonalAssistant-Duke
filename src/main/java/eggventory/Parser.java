@@ -50,8 +50,6 @@ public class Parser {
                     + " this format:\nadd <StockType> <StockCode> <Quantity> <Description>");
         } else {
 
-            addInput[3] = addInput[3].strip(); //Remove trailing spaces.
-
             if (addInput[0].isBlank() | addInput[1].isBlank() | addInput[2].isBlank() | addInput[3].isBlank()) {
                 throw new InsufficientInfoException("Please enter stock information after the 'add' command in"
                         + " this format:\nadd <StockType> <StockCode> <Quantity> <Description>");
@@ -78,6 +76,8 @@ public class Parser {
         /*TODO: Update parser to handle Stock requests separately to process optional commands
           TODO: also split parser up into multiple parser modules depending on the first command.
         */
+
+        listInput = listInput.strip(); //Remove leading/trailing whitespace.
 
         int afterIndex;
         afterIndex = -1;
