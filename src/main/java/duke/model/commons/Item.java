@@ -1,20 +1,20 @@
-package duke.model.order;
+package duke.model.commons;
 
-import duke.model.product.Product;
+import duke.model.order.Quantity;
 
 import java.util.Objects;
 
-public class OrderItem {
-    private final Product product;
+public class Item<T> {
+    private final T item;
     private final Quantity quantity;
 
-    public OrderItem(Product product, Quantity quantity) {
-        this.product = product;
+    public Item(T item, Quantity quantity) {
+        this.item = item;
         this.quantity = quantity;
     }
 
-    public Product getProduct() {
-        return product;
+    public T getItem() {
+        return item;
     }
 
     public Quantity getQuantity() {
@@ -29,12 +29,12 @@ public class OrderItem {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        OrderItem orderItem = (OrderItem) o;
-        return Objects.equals(product, orderItem.product);
+        Item<?> item1 = (Item<?>) o;
+        return Objects.equals(item, item1.item);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(product);
+        return Objects.hash(item);
     }
 }

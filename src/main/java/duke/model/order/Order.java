@@ -1,5 +1,8 @@
 package duke.model.order;
 
+import duke.model.commons.Item;
+import duke.model.product.Product;
+
 import java.util.Collections;
 import java.util.Date;
 import java.util.Objects;
@@ -18,7 +21,7 @@ public class Order {
     //Data fields
     private final Customer customer;
     private final Date deliveryDate;
-    private final Set<OrderItem> items;
+    private final Set<Item<Product>> items;
     private final String remarks;
     private final Status status;
 
@@ -26,7 +29,7 @@ public class Order {
      * Creates an order.
      * Every field must be present and not null.
      */
-    public Order(Customer customer, Date deliveryDate, Status status, String remarks, Set<OrderItem> items) {
+    public Order(Customer customer, Date deliveryDate, Status status, String remarks, Set<Item<Product>> items) {
         requireAllNonNull(customer, deliveryDate, status, remarks, items);
 
         this.customer = customer;
@@ -55,7 +58,7 @@ public class Order {
         return deliveryDate;
     }
 
-    public Set<OrderItem> getItems() {
+    public Set<Item<Product>> getItems() {
         return Collections.unmodifiableSet(items);
     }
 

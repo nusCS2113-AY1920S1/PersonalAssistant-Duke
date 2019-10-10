@@ -2,7 +2,8 @@ package duke.ui;
 
 import duke.logic.parser.commons.TimeParser;
 import duke.model.order.Order;
-import duke.model.order.OrderItem;
+import duke.model.commons.Item;
+import duke.model.product.Product;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
@@ -45,8 +46,8 @@ public class OrderCard extends UiPart<AnchorPane> {
         status.setText(order.getStatus().toString().toLowerCase());
         status.getStyleClass().clear();
         status.getStyleClass().addAll("status-" + order.getStatus().toString().toLowerCase());
-        for (OrderItem item : order.getItems()) {
-            itemFlow.getChildren().add(new OrderItemBox(item.getProduct().getName(), item.getQuantity().getNumber()));
+        for (Item<Product> item : order.getItems()) {
+            itemFlow.getChildren().add(new OrderItemBox(item.getItem().getName(), item.getQuantity().getNumber()));
         }
 
     }
