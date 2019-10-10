@@ -12,6 +12,8 @@ import java.util.TimerTask;
  * main class of the Duke program
  */
 public class Duke {
+    public static final int HOURS = 1000 * 60 * 60;
+    public static final int MINUTES = 1000 * 60;
     private Ui ui;
     private Storage storage;
     private TaskList taskList;
@@ -144,7 +146,6 @@ public class Duke {
                             case yes:
                                 ui.promptForDuration();
                                 TimeUnit timeUnit = parser.getTimeUnit();
-                                ui.promptForTime();
                                 int duration = parser.getAmount();
                                 FixedDuration fixedDuration = new FixedDuration(ar[0], at, duration);
 
@@ -165,10 +166,10 @@ public class Duke {
                                 RemindTask rt = new RemindTask();
                                 switch (timeUnit) {
                                     case hours:
-                                        timer.schedule(rt, duration * 1000 * 60 * 60);
+                                        timer.schedule(rt, duration * HOURS);
                                         break;
                                     case minutes:
-                                        timer.schedule(rt, duration * 1000 * 60);
+                                        timer.schedule(rt, duration * MINUTES);
                                         break;
                                 }
                                 ui.showAdd();
