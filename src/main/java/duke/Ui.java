@@ -278,7 +278,22 @@ public class Ui {
                 + " in the song.";
         return wrap(result);
     }
+    /**
+     * Returns a String formatted for display that indicates that
+     * a duke.components.AddOverlay object has been created
+     * by the group command.
+     * @param list array of song list
+     * @param index this is the index of the bar being copied
+     * @param song the song that is being copied to
+     * @return the formatted String to be displayed
+     */
 
+    public String formatAddOverlay(ArrayList<Song> list, int index,Song song) {
+        String result = "Got it. I've added this overlay:\n  "
+                + "bar" + new Integer(index).toString() + "\nto "
+                + song.getName();
+        return wrap(result);
+    }
     /**
      * Returns a String formatted for display that indicates that
      * a duke.components.Group object has been created
@@ -288,6 +303,7 @@ public class Ui {
      * @param name name of the verse
      * @return the formatted String to be displayed
      */
+
     public String formatGroupBar(int start, int end, String name) {
         String result = "Got it. Successfully grouped bars "
                 + start

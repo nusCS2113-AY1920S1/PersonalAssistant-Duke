@@ -93,6 +93,10 @@ public class DukeException extends Exception {
                 message = "OOPS!!! An IO exception has occurred.";
                 break;
             }
+            case "no_index": {
+                message = "The index does not exist!";
+                break;
+            }
             case "empty": {
                 message = "List is empty! Please enter a valid command.";
                 break;
