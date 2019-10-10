@@ -9,9 +9,12 @@ import java.io.IOException;
 import java.lang.reflect.Type;
 import java.nio.file.Paths;
 import java.util.Arrays;
+import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
 
 import duke.exceptions.ModBadRequestStatus;
+import duke.exceptions.ModFailedJsonException;
 import duke.modules.ModuleInfoSummary;
 
 public class JsonWrapper {
@@ -76,7 +79,7 @@ public class JsonWrapper {
      * presented in a JSON array, our class object class would need to be wrapped
      * in an array as well.
      */
-    public List<ModuleInfoSummary> readJson() {
+    private List<ModuleInfoSummary> getModuleListObject() {
         try {
             JsonReader reader = new JsonReader(new FileReader(listFile));
             Type listType = new TypeToken<List<ModuleInfoSummary>>(){}.getType();
@@ -87,5 +90,19 @@ public class JsonWrapper {
             System.out.println(Arrays.toString(ei.getStackTrace()));
         }
         return null;
+    }
+
+
+    public HashMap<String, ModuleInfoSummary> getModuleSummaryMap() throws ModFailedJsonException {
+        List<ModuleInfoSummary> modsList = getModuleListObject();
+        if (modsList == null) {
+            throw new ModFailedJsonException();
+        }
+        HashMap<String, ModuleInfoSummary> ret = new HashMap<>();
+        for (ModuleInfoSummary temp : modsList) {
+            String modCode = temp.getModuleCode();
+            ret.put(modCode, temp);
+        }
+        return ret;
     }
 }

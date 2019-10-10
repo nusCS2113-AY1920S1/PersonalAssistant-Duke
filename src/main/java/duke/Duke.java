@@ -1,5 +1,6 @@
 package duke;
 
+import java.util.HashMap;
 import java.util.List;
 
 import duke.command.Command;
@@ -52,7 +53,7 @@ public class Duke {
         try {
             // Classes to be initialized during runtime
             reminder = new Reminder(tasks.getTasks());
-            //reminder.run();
+            reminder.run();
 
             // This pulls data once and stores in the data files.
             data.runRequests(store);
@@ -67,11 +68,15 @@ public class Duke {
                 ui.showLine();
                 Command c = parser.parse(fullCommand);
                 c.execute(tasks, ui, store, reminder);
-                // TODO: this line is to demo how to gson parser using the
+                // TODO: this if branch is to demo how to JSON parser using the
                 //       list command, remove this when creating additional features
                 if (c instanceof ListCommand) {
-                    List<ModuleInfoSummary> test = data.readJson();
-                    System.out.println(test.get(10));
+                    HashMap<String, ModuleInfoSummary> test = data.getModuleSummaryMap();
+                    // Demo test of commands
+                    System.out.println(test.get("CS2101"));
+                    System.out.println(test.get("CS2113T"));
+                    System.out.println(test.get("CG2028"));
+                    System.out.println(test.get("CS1010"));
                 }
                 isExit = c.isExit();
             } catch (ModException e) {
