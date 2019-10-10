@@ -6,7 +6,7 @@ import java.util.Scanner;
  * Represents the User Interface to be shown to the user.
  */
 public class Ui {
-    public String output;
+    private String output;
     private Scanner inputScanner;
 
     /**
@@ -14,7 +14,7 @@ public class Ui {
      * @return String to be printed on the GUI
      */
     public String printToGui() {
-        return output;
+        return this.output;
     }
 
     /**
@@ -36,25 +36,17 @@ public class Ui {
      * @return String representing the input given by the User
      */
     public String readCommand() {
-        inputScanner = new Scanner(System.in);
+        this.inputScanner = new Scanner(System.in);
 
-        return inputScanner.nextLine();
+        return this.inputScanner.nextLine();
     }
 
     /**
-     * Returns good bye message to be shown to the User.
-     * @return String representing a good bye message when "bye" command is given
+     * Sets good bye message to be shown to the User.
      */
-    public String showGoodbye() {
-        return ("Hope you had a great time using MooMooMoney!\n"
-                + "See you next time :)");
-    }
-
-    /**
-     * Prints out the loading error when no file could be found.
-     */
-    public void showLoadingError() {
-        System.out.println("OOPS!!! File not found or is empty. Creating a new task list!");
+    public void showGoodbye() {
+        this.output = "Hope you had a great time using MooMooMoney!\n"
+                + "See you next time :)";
     }
 
     /**
@@ -63,8 +55,8 @@ public class Ui {
      * @return Message of the MooMooException
      */
     public String printException(MooMooException e) {
-        output = e.getMessage();
-        return output;
+        this.output = e.getMessage();
+        return this.output;
     }
 
     /**
@@ -72,8 +64,25 @@ public class Ui {
      */
     public void showResponse() {
         System.out.println(this.output);
-        output = "";
+        this.output = "";
     }
 
+    /**
+     * Prompts the user for confirmation.
+     * @return value given by user
+     */
+    public String confirmPrompt() {
+        System.out.println("Are you sure you would like to make the change? (Y/N)");
+        inputScanner = new Scanner(System.in);
 
+        return inputScanner.nextLine();
+    }
+
+    /**
+     * Sets the output to be printed.
+     * @param output Input value to be printed.
+     */
+    public void setOutput(String output) {
+        this.output = output;
+    }
 }

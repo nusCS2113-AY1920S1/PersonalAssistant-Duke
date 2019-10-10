@@ -1,5 +1,6 @@
 package moomoo.task;
 
+import moomoo.command.BudgetCommand;
 import moomoo.command.Command;
 import moomoo.command.ExitCommand;
 
@@ -16,6 +17,8 @@ public class Parser {
     public static Command parse(String input) throws MooMooException {
         if (input.equals("bye")) {
             return new ExitCommand(true, "");
+        } else if (input.startsWith("budget")) {
+            return new BudgetCommand(false, input);
         } else {
             throw new MooMooException("OOPS!!! I'm sorry, but I don't know what that means :-(");
         }
