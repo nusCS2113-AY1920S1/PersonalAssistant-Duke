@@ -36,10 +36,7 @@ public class ShowListCommand extends Command {
         default:
             break; // TODO: What to do here?
         }
-
-        System.out.println(logList.size());
-        System.out.println(dollaData.entryList.size());
-        System.out.println(mode);
+        
         boolean isListEmpty = (logList.size() == 0);
 
         if (isListEmpty) { // TODO: Place this in proper place
