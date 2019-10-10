@@ -20,13 +20,13 @@ By: `Team F10-2`      Since: `August 2019`      Licence: `MIT`
 == Introduction
 === Purpose
 
-This document illustrates on the architecture designs and the software decisions implemented for the desktop application D2. Duke 2.0 (D2) is a desktop application which enables the prospective applicants of NUS Faculty of Engineering to better plan out their university life. It is an extended task manager, which not only allows for prospective applicants to manage their deadlines and events pertaining to the freshman orientations and document submission, but also provides a coherent and concise platform to compare two engineering degrees of their choice and explore many other details related to the degree. Students can also create lists of engineering degrees of their choice and update it as per their choice. The developer guide will provide you with information such as an overall view of the system hierarchy, logical view of the system’s components, and a process view of the system’s communications that will enable you to help contribute to it too. 
+This document illustrates on the architecture designs and the software decisions implemented for the desktop application D2. Duke 2.0 (D2), or Duke Jr.? is a desktop application which enables the prospective applicants of NUS Faculty of Engineering to better plan out their university life. It is an extended task manager, which not only allows for prospective applicants to manage their deadlines and events pertaining to the freshman orientations and document submission, but also provides a coherent and concise platform to compare two engineering degrees of their choice and explore many other details related to the degree. Students can also create lists of engineering degrees of their choice and update it as per their choice. The developer guide will provide you with information such as an overall view of the system hierarchy, logical view of the system’s components, and a process view of the system’s communications that will enable you to help contribute to it too. 
 
 === Scope
 
 This document describes the software architecture and various other software decisions undertaken for the implementation of D2. The intended audience of this document are developers, designers, software testers of D2 and for those who wish to modify the source files to fit for their own purposes. You may also have a look at it if you wish to understand how this application works. 
 
-
+<<<
 == Setting Up
 === Prerequisites
 While Duke 2.0 may work using diffferent versions of Java and with other IDEs, the following are recommended because they have been used for testing:
@@ -67,7 +67,7 @@ While Duke 2.0 may work using diffferent versions of Java and with other IDEs, t
 . Ensure that Gradle has been imported by running `src/java/javafx/Launcher.java`
 . Test out basic Duke 2.0 commands by referring to the User Guide 
 
-
+<<<
 == Design
 
 
@@ -77,7 +77,7 @@ While Duke 2.0 may work using diffferent versions of Java and with other IDEs, t
 
 == Documentation
 
-
+<<<
 == Appendix A: User Stories
 
 |===
@@ -184,20 +184,81 @@ While Duke 2.0 may work using diffferent versions of Java and with other IDEs, t
 
 
 
-
+<<<
 == Appendix B: Use Cases
+
+[cols="4*"] 
 |===
-|System|Actor|Use Case|Process
-|Duke2.0|A-Level Graduate|User types keyword “electrical” with search command|
+|System
+|Actor
+|Use Case
+|Steps
 
-DukeJr. returns all the degrees with keyword “electrical”
+|Duke 2.0 (D2)
+|Prospective Applicant to NUS Faculty of Engineering
+|View the whole list of possible commands for D2
+|User requires help with command syntax +
+ +
+User types in the command in the following manner: `help` +
+ +
+D2 returns all the possible commands that it will accept +
+ +
+User reads the information
 
-User types the index of the degree he wishes to view from the list of returned searches
+|Duke 2.0 (D2)
+|Prospective Applicant to NUS Faculty of Engineering
+|Check core modules for Bachelor of Engineering (Electrical Engineering)
+|User identifies a degree that he/she wishes to research +
+ +
+User types in the command in the following manner: `details EE` +
+ +
+D2 displays the degree requirements, including the core modules +
+ +
+User reads the information
 
-DukeJr. displays the Curriculum Structure, Specialisations and Minor, and Recommended Schedule for the degree
+|Duke 2.0 (D2)
+|Prospective Applicant to NUS Faculty of Engineering
+|Compare core modules for EE and CEG
+|User identifies two degrees she wishes to compare +
+ +
+User types in the command in the following manner: `compare EE CEG` +
+ +
+D2 displays similar and different modules from the two degrees +
+ +
+User reads the information
 
-User reads the data
+|Duke 2.0 (D2)
+|Prospective Applicant to NUS Faculty of Engineering
+|Add CEG into degree list and view degree list
+|User identifies the degree he/she wishes to add to his/her list of possible degrees +
+ +
+User types in the command in the following manner: `add EE` +
+ +
+D2 adds Electrical Engineering to the user’s degree list +
+ +
+User types in the command in the following manner: `degreelist` +
+ +
+D2 returns the user’s degree list with Electrical Engineering added
+
+|Duke 2.0 (D2)
+|Prospective Applicant to NUS Faculty of Engineering
+|Swap CEG with EE in degree list
+|User identifies two degrees that he/she wishes to switch in the degree list +
+ +
+User types in the command in the following manner: `swap CEG EE` +
+ +
+D2 returns the user’s degree list with CEG and EE having switched indexes 
 |===
 
-
+<<<
 == Appendix C: Non-Functional Requirements
+
+. D2 is a fast application.
+. D2 can be used on any platform (any PC), and is hence light-weight.
+. The information provided is accurate as of the latest semester.
+. The application has simple functions, with more options provided for advanced users.
+. The application is fairly easy and understandable to navigate through.
+. Multi-step commands are available for beginners, as compared to one step for advanced users.
+. The application provided tabular formatting of information for better analysis.
+. It is inviting to the eye with a well-designed graphical user interface. 
+
