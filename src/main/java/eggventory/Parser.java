@@ -50,6 +50,8 @@ public class Parser {
                     + " this format:\nadd <StockType> <StockCode> <Quantity> <Description>");
         } else {
 
+            addInput[3] = addInput[3].strip(); //Remove trailing spaces.
+
             if (addInput[0].isBlank() | addInput[1].isBlank() | addInput[2].isBlank() | addInput[3].isBlank()) {
                 throw new InsufficientInfoException("Please enter stock information after the 'add' command in"
                         + " this format:\nadd <StockType> <StockCode> <Quantity> <Description>");
