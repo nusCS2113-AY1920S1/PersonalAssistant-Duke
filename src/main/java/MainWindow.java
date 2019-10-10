@@ -56,18 +56,16 @@ public class MainWindow extends AnchorPane {
         holdTodayTasks = tasks.schedule(dtf.format(now));
     }
 
+    @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
+        todayTaskContainer.getChildren().add(TodayTaskBox.getUserTaskForToday(holdTodayTasks));
     }
     Integer i = 0;
+
     @FXML
     private void handleUserInput() {
 
-        if (i == 0)
-        {
-            todayTaskContainer.getChildren().add(TodayTaskBox.getUserTaskForToday(holdTodayTasks));
-            i++;
-        }
         String input = userInput.getText();
 
         try {

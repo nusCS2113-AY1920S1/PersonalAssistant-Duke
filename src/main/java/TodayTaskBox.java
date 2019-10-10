@@ -19,8 +19,6 @@ import java.util.Collections;
  */
 public class TodayTaskBox extends HBox {
     @FXML
-    private Label taskHeader;
-    @FXML
     private Label tasksForTheDay;
 
     private TodayTaskBox(ArrayList<Task> tasksForToday) {
@@ -32,8 +30,9 @@ public class TodayTaskBox extends HBox {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        taskHeader.setText("Today's tasks" + "(" + tasksForToday.size() + "):");
-        String holdTodayTasks = "";
+
+        String holdTodayTasks = "Today's tasks " + "(" + tasksForToday.size() + ") :\n";
+        holdTodayTasks += "------------------------\n";
         if(tasksForToday.size() != 0)
         {
             for (Task task : tasksForToday) {

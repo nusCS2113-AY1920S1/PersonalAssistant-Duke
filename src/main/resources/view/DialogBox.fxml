@@ -9,7 +9,7 @@
    <children>
       <Label fx:id="dialog" text="Label" wrapText="true" style="-fx-text-fill: white;" />
       <!-- fitHeight is the height of the dialogBox -->
-      <ImageView fx:id="displayPicture" fitHeight="200.0" fitWidth="99.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="displayPicture" fitHeight="200.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true" />
    </children>
    <padding>
       <Insets bottom="15.0" left="300.0" right="300.0" top="15.0" />
