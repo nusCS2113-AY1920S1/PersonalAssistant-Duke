@@ -42,6 +42,6 @@ public class AddDeadlineCommand extends Command {
         tasks.addTask(new Deadline(split1.trim(), split2.trim()));
         String taskA = tasks.getTask(tasks.numTasks() - 1).toString();
         ui.printAddTask(tasks.getAllTasks(),taskA);
-        storage.saveData(tasks.getAllTasks());
+        storage.saveData(tasks);
     }
 }

@@ -9,6 +9,7 @@ import duke.tasks.Task;
 import duke.tasks.TaskList;
 import duke.tasks.Todo;
 
+import java.util.List;
 import java.util.ArrayList;
 
 public class TaskListTest {
@@ -51,7 +52,7 @@ public class TaskListTest {
         TaskList obj = new TaskList();
         obj.addTask(new Todo("return book"));
         obj.addTask(new Todo("study for CS2113"));
-        ArrayList<Task> storeTest = new ArrayList<>();
+        List<Task> storeTest = new ArrayList<>();
         storeTest = obj.getAllTasks();
         assertTrue(storeTest.size() == 2);
         Task taskA = new Todo("return book");

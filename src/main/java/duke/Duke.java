@@ -20,7 +20,7 @@ public class Duke {
         try {
             ui = new Ui();
             storage = new FileHandling(filename);
-            tasks = new TaskList(storage.retrieveData());
+            tasks = storage.retrieveData();
         } catch (DukeException e) {
             ui.showLoadingError(e.getMessage());
             tasks = new TaskList();
@@ -52,6 +52,6 @@ public class Duke {
      * @param args contains the supplied command-line arguments as an array of String objects.
      */
     public static void main(String[] args) {
-        new Duke("storeData.txt").run();
+        new Duke("storeData.json").run();
     }
 }

@@ -19,7 +19,7 @@ public class AddToDoCommand extends Command {
             tasks.addTask(new Todo(fullCommand.substring(5)));
             String taskA = tasks.getTask(tasks.numTasks() - 1).toString();
             ui.printAddTask(tasks.getAllTasks(),taskA);
-            storage.saveData(tasks.getAllTasks());
+            storage.saveData(tasks);
         } catch (StringIndexOutOfBoundsException e) {
             throw new DukeException(" OOPS! The description of a todo list cannot be empty");
         }

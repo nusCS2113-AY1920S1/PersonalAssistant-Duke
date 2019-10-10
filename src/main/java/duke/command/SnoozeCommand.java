@@ -31,7 +31,7 @@ public class SnoozeCommand extends Command {
                 DateTimeRecognition to = new DateTimeRecognition(splitDate.get(1));
                 tasks.deleteTask(num - 1);
                 tasks.changeTask(new Event(task.description, split1.trim()),num - 1);
-                storage.saveData(tasks.getAllTasks());
+                storage.saveData(tasks);
                 ui.printSnoozeTask(tasks.getTask(tasks.numTasks() - 1).toString(), "E", inputTask);
             } catch (ArrayIndexOutOfBoundsException e) {
                 throw new DukeException(" Format for an event is: <event> /at"
@@ -41,7 +41,7 @@ public class SnoozeCommand extends Command {
             DateTimeRecognition convertDate = new DateTimeRecognition(split1.trim());
             tasks.deleteTask(num - 1);
             tasks.changeTask(new Deadline(task.description, split1.trim()),num - 1);
-            storage.saveData(tasks.getAllTasks());
+            storage.saveData(tasks);
             ui.printSnoozeTask(tasks.getTask(tasks.numTasks() - 1).toString(), "D", inputTask);
         } else {
             throw new DukeException(" You can only snooze/postpone/reschedule an event or a deadline task!");

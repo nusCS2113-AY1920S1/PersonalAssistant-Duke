@@ -1,5 +1,8 @@
 package duke.tasks;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import duke.exceptions.DukeException;
 import duke.parser.DateDoWithin;
 
@@ -8,8 +11,6 @@ import java.util.List;
 
 public class DoWithin extends Task {
     protected String between;
-    private DateDoWithin to;
-    private DateDoWithin from;
 
     /**
      * This constructor instantiates the object for the DoWithin class.
@@ -21,14 +22,19 @@ public class DoWithin extends Task {
         super(description);
         this.between = between;
         try {
-            List<String> splitDate = Arrays.asList(between.split(" to "));
-            from = new DateDoWithin(splitDate.get(0));
-            to = new DateDoWithin(splitDate.get(1));
+            List<String> splitDate = Arrays.asList(this.between.split(" to "));
+            DateDoWithin from = new DateDoWithin(splitDate.get(0));
+            from.dateTimer();
+            DateDoWithin to = new DateDoWithin(splitDate.get(1));
+            to.dateTimer();
         } catch (ArrayIndexOutOfBoundsException e) {
-            throw new DukeException(" Format for an DoWithin is: <DoWithin> /between <date> to <date>");
+            throw new DukeException(" Format for a DoWithin is: <DoWithin> /between <date> to <date>");
         }
-        from.dateTime();
-        to.dateTime();
+    }
+
+    @JsonCreator
+    public DoWithin(@JsonProperty("do-within") String between) {
+        this.between = between;
     }
 
     @Override
@@ -41,4 +47,13 @@ public class DoWithin extends Task {
     public String fileOutFormat() {
         return ("W" + super.fileOutFormat() + "|" + between);
     }
+
+    @JsonGetter("do-within")
+    public String getDoWithin() {
+        return between;
+    }
+
+
+
 }
+

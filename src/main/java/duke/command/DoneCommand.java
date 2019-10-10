@@ -20,6 +20,7 @@ public class DoneCommand extends Command {
             int temp = Integer.parseInt(splitInput.get(1)) - 1;
             tasks.getTask(temp).markAsDone();
             ui.printMarkAsDone(tasks.getTask(temp).toString());
+            storage.saveData(tasks);
         } catch (NumberFormatException obj) {
             throw new DukeException(" OOPS! Enter a positive integer after \"done\"");
         } catch (IndexOutOfBoundsException obj) {

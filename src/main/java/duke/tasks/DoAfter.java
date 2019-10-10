@@ -1,10 +1,19 @@
 package duke.tasks;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public class DoAfter extends Task {
     protected String after;
 
     public DoAfter(String description, String after) {
         super(description);
+        this.after = after;
+    }
+
+    @JsonCreator
+    public DoAfter(@JsonProperty("do-after") String after) {
         this.after = after;
     }
 
@@ -18,4 +27,9 @@ public class DoAfter extends Task {
         return ("A" + super.fileOutFormat() + "|" + this.after);
     }
 
+
+    @JsonGetter("do-after")
+    public String getDoAfter() {
+        return after;
+    }
 }

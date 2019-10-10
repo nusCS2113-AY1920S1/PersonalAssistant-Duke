@@ -5,6 +5,7 @@ import duke.command.AddDoAfterCommand;
 import duke.command.AddDoWithinCommand;
 import duke.command.AddEventCommand;
 import duke.command.AddFixedDurationCommand;
+import duke.command.AddRecurringCommand;
 import duke.command.AddToDoCommand;
 import duke.command.ByeCommand;
 import duke.command.Command;
@@ -52,6 +53,8 @@ public class Parser {
             return new AddDoAfterCommand(splitInput);
         } else if (inputTask.equals("fixed")) {
             return new AddFixedDurationCommand(splitInput);
+        } else if (inputTask.equals("recurring")) {
+            return new AddRecurringCommand(splitInput);
         } else if (inputTask.equals("snooze") || inputTask.equals("postpone") || inputTask.equals("reschedule")) {
             return new SnoozeCommand(splitInput, inputTask);
         } else if (inputTask.equals("delete")) {

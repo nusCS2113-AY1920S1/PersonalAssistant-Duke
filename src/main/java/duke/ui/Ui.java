@@ -3,7 +3,7 @@ package duke.ui;
 import duke.tasks.Task;
 
 import java.util.Scanner;
-import java.util.ArrayList;
+import java.util.List;
 
 public class Ui {
     private Scanner sc = new Scanner(System.in);
@@ -47,7 +47,7 @@ public class Ui {
      * This function prints the tasks stored in the list.
      * @param printData stores the list of tasks to be printed.
      */
-    public void printList(ArrayList<Task> printData) {
+    public void printList(List<Task> printData) {
         printSpaces(" Here are the tasks in your list:");
         showList(printData);
     }
@@ -67,7 +67,7 @@ public class Ui {
      * @param listOfTasks used for printing the number of tasks in the list.
      * @param taskA stores the task that is to be added to the list.
      */
-    public void printAddTask(ArrayList<Task> listOfTasks, String taskA) {
+    public void printAddTask(List<Task> listOfTasks, String taskA) {
         printSpaces(" Got it. I have added this task:");
         printSpaces("  " + taskA);
         showNumTasks(listOfTasks);
@@ -97,14 +97,14 @@ public class Ui {
 
     }
 
-    private void showNumTasks(ArrayList<Task> listOfTasks) {
+    private void showNumTasks(List<Task> listOfTasks) {
         printSpaces(" Now you have " + listOfTasks.size()
                 + ((listOfTasks.size() == 1) ? " task in the list." : " tasks in "
                 + "the list"));
         printDash();
     }
 
-    private void showList(ArrayList<Task> listOfTasks) {
+    private void showList(List<Task> listOfTasks) {
         for (int i = 0; i < listOfTasks.size(); i++) {
             printSpaces(" " + (i + 1) + ". " + listOfTasks.get(i).toString());
         }
@@ -133,7 +133,7 @@ public class Ui {
      * @param taskList used for showing the number of tasks left in the list.
      * @param taskA stores the task that is deleted.
      */
-    public void deleteMessage(ArrayList<Task> taskList, String taskA) {
+    public void deleteMessage(List<Task> taskList, String taskA) {
         printSpaces(" Noted. I have removed this task:");
         printSpaces("  " + taskA);
         showNumTasks(taskList);
@@ -143,12 +143,12 @@ public class Ui {
      * This function prints the tasks that match a given keyword.
      * @param taskList stores the tasks that match a given keyword.
      */
-    public void keywordPrint(ArrayList<Task> taskList) {
+    public void keywordPrint(List<Task> taskList) {
         printSpaces(" Here are the matching tasks in your list:");
         showList(taskList);
     }
 
-    public void getRemindersList(ArrayList<Task> taskList) {
+    public void getRemindersList(List<Task> taskList) {
         printSpaces(" Here are your deadlines:");
         showList(taskList);
     }

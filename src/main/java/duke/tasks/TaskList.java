@@ -1,15 +1,19 @@
 package duke.tasks;
 
+import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonSetter;
+
 import java.util.ArrayList;
+import java.util.List;
 
 public class TaskList {
-    private ArrayList<Task> storeList;
+    private List<Task> storeList;
 
     public TaskList() {
         storeList = new ArrayList<>();
     }
 
-    public TaskList(ArrayList<Task> storeList) {
+    public TaskList(List<Task> storeList) {
         this.storeList = storeList;
     }
 
@@ -29,7 +33,7 @@ public class TaskList {
         return this.storeList.get(index);
     }
 
-    public ArrayList<Task> getAllTasks() {
+    public List<Task> getAllTasks() {
         return storeList;
     }
 
@@ -37,4 +41,13 @@ public class TaskList {
         return storeList.size();
     }
 
+    @JsonGetter("tasks")
+    public List<Task> getStoreList() {
+        return storeList;
+    }
+
+    @JsonSetter("tasks")
+    public void setStoreList(List<Task> storeList) {
+        this.storeList = storeList;
+    }
 }

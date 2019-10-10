@@ -1,5 +1,7 @@
 package duke.storage;
 
+import com.fasterxml.jackson.databind.MapperFeature;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import duke.exceptions.DukeException;
 import duke.tasks.Deadline;
 import duke.tasks.DoAfter;
@@ -8,16 +10,14 @@ import duke.tasks.Event;
 import duke.tasks.FixedDuration;
 import duke.tasks.Recurring;
 import duke.tasks.Task;
+import duke.tasks.TaskList;
 import duke.tasks.Todo;
 
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class FileHandling {
@@ -27,91 +27,55 @@ public class FileHandling {
         this.file = file;
     }
 
-    private void loadTask(List<String> columns,String input,
-                          ArrayList<Task> initialData) throws DukeException {
-        int k = 0;
-        switch (columns.get(0)) {
-        case "T":
-            initialData.add(new Todo(columns.get(2)));
-            break;
-        case "E":
-            initialData.add(new Event(columns.get(2), columns.get(3)));
-            break;
-        case "W":
-            initialData.add(new DoWithin(columns.get(2), columns.get(3)));
-            break;
-        case "D":
-            initialData.add(new Deadline(columns.get(2), columns.get(3)));
-            break;
-        case "A":
-            initialData.add(new DoAfter(columns.get(2), columns.get(3)));
-            break;
-        case "F":
-            initialData.add(new FixedDuration(columns.get(2),columns.get(3)));
-            break;
-        case "R":
-            initialData.add(new Recurring(columns.get(2),columns.get(3)));
-            break;
-        default:
-            System.out.println("\n     There is an invalid entry in the file. This entry will "
-                    + "not be copied to the list:");
-            System.out.println("     " + input);
-            k = 1;
-        }
-        if (k == 0) {
-            if (columns.get(1).equals("1")) {
-                initialData.get(initialData.size() - 1).markAsDone();
-            }
-        }
-    }
-
     /**
      * This function handles loading data from the file.
+     *
      * @return a list that stores the tasks loaded from the file.
      * @throws DukeException when there are errors while handling the file.
      */
-    public ArrayList<Task> retrieveData() throws DukeException {
+    public TaskList retrieveData() throws DukeException {
 
         try {
-            FileReader readFile = new FileReader(this.file);
-            BufferedReader read = new BufferedReader(readFile);
-            ArrayList<Task> initialData = new ArrayList<>();
-            String input;
-            while ((input = read.readLine()) != null) {
-                List<String> columns = Arrays.asList(input.split("\\|"));
-                loadTask(columns,input,initialData);
-            }
-            return initialData;
-        } catch (FileNotFoundException obj) {
-            throw new DukeException(" Invalid file name/file path. File not found."
-                    + "Will make a new file ...");
-        } catch (IOException obj) {
-            throw new DukeException(" Error while reading data from the file. Will continue "
-                   + "with empty list");
-        } catch (ArrayIndexOutOfBoundsException obj) {
-            throw new DukeException(" Index out of bounds. Probably due to invalid format of storing"
-                    + "the tasks");
+            FileInputStream readFile = new FileInputStream(this.file);
+            TaskList tasks = getObjectMapper().readValue(readFile, TaskList.class);
+            return tasks;
+
+        } catch (FileNotFoundException e) {
+            throw new DukeException(" Could not find the file. Invalid file name/file path... "
+                    + "Will continue with an empty list");
+        } catch (IOException e) {
+            throw new DukeException(" Error while reading data from the file. "
+                    + "Will continue with an empty list");
         }
     }
 
     /**
      * This function is responsible for saving data from the list into the file.
+     *
      * @param storeDataInFile list of tasks that are to be stored in the file.
      * @throws DukeException when there are errors while loading data into the file.
      */
-    public void saveData(ArrayList<Task> storeDataInFile) throws DukeException {
+    public void saveData(TaskList storeDataInFile) throws DukeException {
 
         try {
-            FileWriter writin = new FileWriter(this.file);
-            BufferedWriter outData = new BufferedWriter(writin);
-            for (int i = 0; i < storeDataInFile.size(); i++) {
-                outData.write(storeDataInFile.get(i).fileOutFormat());
-                outData.newLine();
-            }
-            outData.close();
-        } catch (IOException obj) {
-            throw new DukeException(" Error occurred while writing data to the file " + obj);
+            FileOutputStream write = new FileOutputStream(this.file);
+            getObjectMapper().writeValue(write, storeDataInFile);
+            write.close();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+            throw new DukeException(" Error occurred while writing data to the file");
         }
     }
+
+    private ObjectMapper getObjectMapper() {
+        return new ObjectMapper()
+                .enableDefaultTyping(ObjectMapper.DefaultTyping.NON_FINAL)
+                .disable(MapperFeature.AUTO_DETECT_CREATORS,
+                        MapperFeature.AUTO_DETECT_FIELDS,
+                        MapperFeature.AUTO_DETECT_GETTERS,
+                        MapperFeature.AUTO_DETECT_IS_GETTERS);
+    }
 }
+
 

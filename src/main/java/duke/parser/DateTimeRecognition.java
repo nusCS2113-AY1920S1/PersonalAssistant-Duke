@@ -2,17 +2,10 @@ package duke.parser;
 
 import duke.exceptions.DukeException;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
-import java.time.DayOfWeek;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.DateTimeException;
-import java.time.temporal.ChronoUnit;
-import java.time.temporal.TemporalAdjusters;
 
 public class DateTimeRecognition {
     private String date;
@@ -27,12 +20,11 @@ public class DateTimeRecognition {
      */
     public void dateTime() throws DukeException {
         try {
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
             LocalDateTime dateTime = LocalDateTime.parse(date, formatter);
-
         } catch (DateTimeException e) {
             throw new DukeException(" The format for including date and time for an event/"
-                    + "deadline is <ddMM-yyyy HH:mm>");
+                    + "deadline is <dd/MM/yyyy HH:mm>");
         }
     }
 }

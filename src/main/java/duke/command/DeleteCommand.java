@@ -21,7 +21,7 @@ public class DeleteCommand extends Command {
             String taskA = tasks.getTask(temp).toString();
             tasks.deleteTask(temp);
             ui.deleteMessage(tasks.getAllTasks(), taskA);
-            storage.saveData(tasks.getAllTasks());
+            storage.saveData(tasks);
         } catch (NumberFormatException obj) {
             throw new DukeException(" OOPS! Enter a positive integer after \"delete\"");
         } catch (IndexOutOfBoundsException obj) {
