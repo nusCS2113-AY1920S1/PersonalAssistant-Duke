@@ -47,7 +47,7 @@ public class JsonStorage {
             FileWriter patientFileWr = new FileWriter(patientFile);
 
             // clear jsonFile
-            // clear json
+            // clear json 
             // iterate patientMap and add every patient to json using in every iteration:
                   //  gson.toJson(patientName, patient)
             // transfer content of json to JsonFile using;     jsonFile.write(json.toJSONString());
