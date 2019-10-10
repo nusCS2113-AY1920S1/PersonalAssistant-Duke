@@ -1,0 +1,71 @@
+= About Us
+:imagesDir: images
+:site-section: AboutUs
+
+Duchess was developed by the T09-2 Team. +
+We are a Chess team based in the http://www.comp.nus.edu.sg[School of Computing, National University of Singapore].
+
+'''
+
+== Project Team
+
+=== *Ng Jing Kiat*
+image::muserr.png[width="150", align="left"]
+https://github.com/muserr[Pawn Muserr]
+//[<<muserr#, portfolio>>]
+
+Role:
+
+* Team Lead
+
+Responsibilities:
+
+* Overall project coordination
+
+
+'''
+
+=== *Lim Si Ying*
+image::limsiying.png[width="150", align="left"]
+https://github.com/limsiying[Queen Si Ying]
+//[<<limsiying#, portfolio>>]
+
+Role:
+
+* Testing
+
+Responsibilities:
+
+* Ensures the testing of the project is done properly and on time
+
+'''
+
+=== *Mohideen Imran Khan*
+image::mohideenik.png[width="150", align="left"]
+https://github.com/mohideenik[Knight Mohideen]
+//[<<mohideenik#, portfolio>>]
+
+Role:
+
+* Code Quality
+
+Responsibilities:
+
+* Ensures adherence to coding standards
+
+'''
+
+=== *Nishanth Elango*
+image::nishanthelango.png[width="150", align="left"]
+https://github.com/nishanthelango[Knight Nishanth]
+//[<<nishanthelango#, portfolio>>]
+
+Role:
+
+* Scheduling and Tracking
+* Delivarables and Deadlines
+
+Responsibilities:
+
+* In charge of defining, assigning, and tracking project tasks
+* Ensure project deliverables are done on time and in the right format
