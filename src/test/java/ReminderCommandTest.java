@@ -3,7 +3,7 @@ import duke.TaskList;
 import duke.Ui;
 import duke.commands.ReminderCommand;
 import duke.exceptions.DukeException;
-import duke.tasks.Deadline;
+import duke.items.tasks.Deadline;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;

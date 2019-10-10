@@ -1,4 +1,4 @@
-package duke.tasks;
+package duke.items.tasks;
 
 public class FileTask extends Task {
     public FileTask(String fileName) {
@@ -12,7 +12,7 @@ public class FileTask extends Task {
      */
     public FileTask(int done, String fileName) {
         super(fileName);
-        this.isDone = (done == 1);
+        this.setDone(done == 1);
     }
 
     @Override

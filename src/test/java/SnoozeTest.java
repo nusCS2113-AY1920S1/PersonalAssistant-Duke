@@ -4,10 +4,9 @@ import duke.TaskList;
 import duke.Ui;
 import duke.commands.Command;
 import duke.exceptions.DukeException;
-import duke.tasks.Event;
+import duke.items.tasks.Event;
 import org.junit.jupiter.api.Test;
 
-import java.util.Date;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 

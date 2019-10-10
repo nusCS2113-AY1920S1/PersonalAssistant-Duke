@@ -3,7 +3,7 @@ package duke.commands;
 import duke.Storage;
 import duke.TaskList;
 import duke.Ui;
-import duke.tasks.Task;
+import duke.items.tasks.Task;
 
 import java.time.LocalDateTime;
 import java.time.ZoneId;

@@ -4,9 +4,7 @@ import duke.DateTime;
 import duke.exceptions.InputException;
 import duke.Storage;
 import duke.TaskList;
-import duke.tasks.Deadline;
-import duke.tasks.Event;
-import duke.tasks.Task;
+import duke.items.tasks.Task;
 import duke.Ui;
 
 import java.util.ArrayList;

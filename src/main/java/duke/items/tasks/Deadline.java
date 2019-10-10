@@ -1,7 +1,6 @@
-package duke.tasks;
+package duke.items.tasks;
 
 import duke.DateTime;
-import duke.exceptions.DukeException;
 
 import java.util.Date;
 
@@ -19,7 +18,7 @@ public class Deadline extends Task {
      */
     public Deadline(int done, String description, Date startDate) {
         super(description);
-        this.isDone = (done == 1);
+        this.setDone(done == 1);
         this.startDate = new DateTime(startDate);
     }
 

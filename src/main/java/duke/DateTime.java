@@ -20,7 +20,7 @@ public class DateTime implements Comparable<DateTime> {
     }
 
     /**
-     * Converts the Date object back to the string version in the format of dd/MM/yyyy HHmm
+     * Converts the Date object back to the string version in the format of MM/dd/yyyy HH:mm
      * This can be reused to create an identical dateTime object.
      * @return String equivalent of Date object.
      */
