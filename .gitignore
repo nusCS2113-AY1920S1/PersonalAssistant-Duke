@@ -12,3 +12,8 @@ src/main/resources/docs/
 .DS_Store
 *.iml
 bin/
+
+#My additions
+/data/*.txt
+!placeholder.txt
+/text-ui-test/*.txt
