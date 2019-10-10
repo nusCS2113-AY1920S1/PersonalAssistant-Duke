@@ -1,11 +1,9 @@
-import FarmioExceptions.FarmioException;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
 import java.io.*;
-import java.net.URL;
 
 public class Storage {
 
@@ -42,9 +40,9 @@ public class Storage {
         file.write(farmer.toJSON().toJSONString());
     }
 
-    public String getAsciiArt(String name) throws IOException, FarmioException {
+    public String getAsciiArt(String name) throws IOException {
         StringBuilder art = new StringBuilder();
-        FileReader fileReader = new FileReader(getResourceFile(name));
+        FileReader fileReader = new FileReader("./src/main/resources/asciiArt/" + name + ".txt");
         BufferedReader bufferedReader = new BufferedReader(fileReader);
         String line;
         while ((line = bufferedReader.readLine()) != null) {
@@ -53,20 +51,7 @@ public class Storage {
         return art.toString();
     }
 
-<<<<<<< HEAD
-    private File getResourceFile(String name) throws FarmioException {
-        ClassLoader classLoader = getClass().getClassLoader();
-        URL resource = classLoader.getResource(name + ".txt");
-        if(resource == null){
-            throw new FarmioException("Game is corrupted!");
-        }
-        return new File(resource.getFile());
-=======
-
-
-    public String getLevel(int level) throws IOException{
-            //runs level
-
->>>>>>> upstream/FarmLogic
+    public String getLevel(int level) throws IOException {
+        //runs level
     }
 }
