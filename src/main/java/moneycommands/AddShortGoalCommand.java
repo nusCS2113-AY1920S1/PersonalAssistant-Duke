@@ -46,12 +46,11 @@ public class AddShortGoalCommand extends MoneyCommand {
     @Override
     public void execute(Account account, Ui ui, MoneyStorage storage) throws ParseException, DukeException {
 
-        String desc = inputString.split("/amt ")[0].replaceFirst("goal-short ", "");
+        String desc = inputString.split("/amt ")[0].replaceFirst("goal ", "");
         float price = Float.parseFloat(inputString.split("/amt ")[1].split("/by ")[0]);
         LocalDate byDate = Parser.shortcutTime(inputString.split("/by ")[1].split(" /priority ")[0]);
         String priorityLevel = inputString.split("/priority ")[1];
         String category = "GS";
-        //System.out.println(priorityLevel);
         Goal g = new Goal(price, desc, category, byDate, priorityLevel);
         account.getShortTermGoals().add(g);
         storage.writeToFile(account);
