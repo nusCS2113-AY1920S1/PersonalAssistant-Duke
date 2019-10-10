@@ -34,7 +34,8 @@ public class Entry extends Log {
      * to the user.
      * @return String with information of entry.
      */
-    public String getEntryText() {
+    @Override
+    public String getLogText() {
         return "[" + type + "] "
                 + "[" + amountToMoney() + "] "
                 + "[" + description + "] "

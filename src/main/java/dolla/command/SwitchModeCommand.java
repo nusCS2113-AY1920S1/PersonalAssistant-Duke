@@ -6,7 +6,7 @@ import dolla.Ui;
 public class SwitchModeCommand extends Command {
     private String newMode;
 
-    public SwitchModeCommand(String mode) {
+    public SwitchModeCommand(String newMode) {
         this.newMode = newMode;
     }
 

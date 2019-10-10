@@ -12,9 +12,7 @@ public class DollaParser extends Parser {
     }
 
     @Override
-    public Command handleInput(String inputLine) {
-        String[] inputArray = inputLine.split(" ");
-        String commandToRun = inputArray[0];
+    public Command handleInput(String mode, String inputLine) {
 
         if (commandToRun.equals("add")) {
             String entryType = null;
@@ -43,8 +41,7 @@ public class DollaParser extends Parser {
             */
 
         } else {
-            Ui.printInvalidCommandError();
-            return new ErrorCommand();
+            return invalidCommand();
         }
     }
 

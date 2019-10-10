@@ -42,10 +42,10 @@ public class MainParser {
         case "dolla":
             DollaParser dollaParser = new DollaParser(inputLine);
             //System.out.println("Running DollaParser...");
-            return dollaParser.handleInput(inputLine);
+            return dollaParser.handleInput(mode, inputLine);
         case "entries":
-//            EntryParser entryParser = new EntryParser();
-//            return entryParser.handleInput(inputLine);
+            EntryParser entryParser = new EntryParser(inputLine);
+            return entryParser.handleInput(mode, inputLine);
         default:
             Ui.printInvalidCommandError();
             return new ErrorCommand();

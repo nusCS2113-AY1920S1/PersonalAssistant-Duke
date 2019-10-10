@@ -3,7 +3,7 @@ package dolla.command;
 /**
  * AddToDoCommand is a command used to add a todo task into the duke.task.TaskList.
  */
-public class AddTodoCommand extends AddCommand {
+public abstract class AddTodoCommand extends AddCommand {
 
     public AddTodoCommand(String taskDescription) {
         super(taskDescription);
@@ -15,7 +15,7 @@ public class AddTodoCommand extends AddCommand {
      *     If the task description is missing, return without doing anything.
      * </p>
      */
-    @Override
+    //@Override
     public void execute() {
         /*
         if (taskDescription.length() == 0) { // TODO: Exception handling?

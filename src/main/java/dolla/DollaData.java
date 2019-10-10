@@ -7,7 +7,7 @@ import java.util.ArrayList;
 public class DollaData {
 
     private String mode = "dolla";
-    private EntryList entryList;
+    public EntryList entryList; // TODO: Find out alternatives to using a public variable
 
     public DollaData() {
         this.entryList = new EntryList(new ArrayList<Log>());

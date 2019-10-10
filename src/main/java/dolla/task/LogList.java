@@ -4,7 +4,7 @@ import dolla.Log;
 
 import java.util.ArrayList;
 
-public abstract class LogList {
+public class LogList {
     protected ArrayList<Log> list;
 
     public LogList(ArrayList<Log> importEntryList) {

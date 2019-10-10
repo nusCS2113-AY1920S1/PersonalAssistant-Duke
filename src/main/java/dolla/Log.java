@@ -6,4 +6,5 @@ package dolla;
  */
 public abstract class Log {
 
+    public abstract String getLogText();
 }

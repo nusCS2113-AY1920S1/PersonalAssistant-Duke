@@ -1,5 +1,6 @@
 package dolla.command;
 
+import dolla.DollaData;
 import dolla.Ui;
 import dolla.task.TaskList;
 
@@ -10,7 +11,7 @@ import dolla.task.TaskList;
 public class ErrorCommand extends Command {
 
     @Override
-    public void execute() {
+    public void execute(DollaData dollaData) {
         return; // Don't do anything
     }
 }

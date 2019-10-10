@@ -1,28 +1,54 @@
 package dolla.command;
 
+import dolla.DollaData;
+import dolla.Log;
 import dolla.Ui;
+import dolla.task.EntryList;
+import dolla.task.LogList;
 import dolla.task.Task;
 import dolla.task.TaskList;
 
 import java.util.ArrayList;
 
 /**
- * duke.command.ShowListCommand is a command used to display all the tasks stored in the duke.task.TaskList.
+ * Display all the tasks stored in the relevant LogList depending on mode.
  */
-public abstract class ShowListCommand extends Command {
+public class ShowListCommand extends Command {
+
+    private String mode;
+
+    public ShowListCommand(String mode) {
+        this.mode = mode;
+    }
 
     /**
-     * Creates and prints out the tasks from the specified duke.task.TaskList in a readable format.
-     * @param tasks duke.task.TaskList to have its tasks printed.
+     * Prints out the logs from the specified LogList in dollaData.
+     * @param dollaData
      */
-    //@Override
-    public void execute(TaskList tasks) {
-        ArrayList<String> msg = new ArrayList<String>();
-        msg.add("Here are the tasks in your list:");
-        for (int i = 0; i < tasks.size(); i++) {
-            Task currTask = tasks.getFromList(i);
-            msg.add((i + 1) + "."  + currTask.getTask());
+    @Override
+    public void execute(DollaData dollaData) {
+        LogList logList = new LogList(new ArrayList<Log>());
+
+        switch (mode) {
+        case "entries":
+            logList = dollaData.entryList;
+            break;
+        default:
+            break; // TODO: What to do here?
         }
-        Ui.printMsg(msg);
+
+        System.out.println(logList.size());
+        System.out.println(dollaData.entryList.size());
+        System.out.println(mode);
+        boolean isListEmpty = (logList.size() == 0);
+
+        if (isListEmpty) { // TODO: Place this in proper place
+            Ui.printEmptyListError(mode);
+            return;
+        } else if (mode.equals("entries")) {
+            Ui.printList(mode, dollaData.getEntryList());
+            return;
+        }
+
     }
 }
