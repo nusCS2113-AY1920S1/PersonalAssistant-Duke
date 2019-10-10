@@ -42,7 +42,11 @@ public class Duke {
      * Run the rest of the code here.
      */
     private void run() {
-        userName = ui.showWelcome(isFirstTimeUser, userName, userProgress);
+        try {
+            userName = ui.showWelcome(isFirstTimeUser, userName, userProgress);
+        } catch (DukeException e) {
+            ui.showError(e.getMessage());
+        }
         //TO OVERWRITE "NEW_USER_!@# with new inputted username if needed
         if (isFirstTimeUser) {
             try {

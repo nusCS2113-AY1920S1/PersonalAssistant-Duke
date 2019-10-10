@@ -1,34 +1,12 @@
 package javacake;
 
 import java.io.BufferedReader;
+import java.io.FileReader;
 import java.io.IOException;
 import java.util.Scanner;
 
 public class Ui {
-    private static String cake =
-            "              (        (\n" +
-                    "             ( )      ( )          (\n" +
-                    "      (       Y        Y          ( )\n" +
-                    "     ( )     |\"|      |\"|          Y\n" +
-                    "      Y      | |      | |         |\"|\n" +
-                    "     |\"|     | |.-----| |---.___  | |\n" +
-                    "     | |  .--| |,~~~~~| |~~~,,,,'-| |\n" +
-                    "     | |-,,~~'-'      '-'       ~~| |._\n" +
-                    "    .| |~                         '-',,'.\n" +
-                    "   /,'-'    ___                        ~,\\\n" +
-                    "  / ;       // __           ____________;_)\n" +
-                    "  | ;    <_// //|| ||  // __'-._          |\n" +
-                    "  | ;        //-|| || // //||   '-._      |\n" +
-                    "  |\\ ~,,,          ||// //-||  ,,,,,'-.   |\n" +
-                    "  | '-._ ~~,,,            ,,,~~ __.-'~ |  |\n" +
-                    "  |     '-.__ ~~~~~~~~~~~~ __.-'       |__|\n" +
-                    "  |\\         `'----------'`           _|\n" +
-                    "  | '=._                         __.=' |\n" +
-                    "  :     '=.__               __.='      |\n" +
-                    "   \\         `'==========='`          .'\n" +
-                    "    '-._                         __.-'\n" +
-                    "        '-.__               __.-'\n" +
-                    "             `'-----------'`";
+    private static String cake = "cake";
     private static String border = "____________________________________________________________";
 
     /**
@@ -45,10 +23,17 @@ public class Ui {
      * @param progress The progress of the user in viewing the whole content
      * @return String containing username
      */
-    public String showWelcome(boolean isFirstTime, String userName, int progress) {
+    public String showWelcome(boolean isFirstTime, String userName, int progress) throws DukeException {
         StringBuilder welcomePhaseA = new StringBuilder();
         welcomePhaseA.append(border).append("\nWelcome to JavaCake! ");
-        welcomePhaseA.append("where learning Java can be a Piece of Cake!\n").append(cake);
+        welcomePhaseA.append("where learning Java can be a Piece of Cake!\n");
+        try {
+            welcomePhaseA.append(getTextFile(new BufferedReader(
+                    new FileReader("content/cake.txt"))));
+        } catch (IOException e) {
+            throw new DukeException("Unable to Load Cake");
+        }
+
 
         System.out.println(welcomePhaseA.toString());
 
@@ -91,8 +76,7 @@ public class Ui {
      * Prints help message to assist user.
      */
     public String helpMessage() {
-        String message1= "\nType 'list' to view main topics\n" + "Type 'exit' to rage quit\n";
-        return message1;
+        return "\nType 'list' to view main topics\n" + "Type 'exit' to rage quit\n";
     }
 
     /**
@@ -145,6 +129,26 @@ public class Ui {
     }
 
     /**
+     * Method to get text from file.
+     * @param reader BufferedReader to read in text from file
+     * @throws DukeException Error thrown when unable to close reader
+     */
+    public String getTextFile(BufferedReader reader) throws DukeException {
+        String lineBuffer;
+        String output = "";
+        try {
+            while ((lineBuffer = reader.readLine()) != null) {
+                output += lineBuffer;
+                output += "\n";
+            }
+            reader.close();
+        } catch (IOException e) {
+            throw new DukeException("File not found!");
+        }
+        return output;
+    }
+
+    /**
      * Displays the quiz question.
      * @param question the question to be shown to the user.
      * @param index the current question the user is on.
@@ -176,7 +180,7 @@ public class Ui {
     }
 
     /**
-     * Method to get quiz score
+     * Method to get quiz score.
      * @param progress the user's overall quiz score
      * @return String with quiz score message
      */

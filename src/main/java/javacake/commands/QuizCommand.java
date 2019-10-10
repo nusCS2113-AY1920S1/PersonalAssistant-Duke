@@ -67,20 +67,20 @@ public class QuizCommand extends Command {
 
         int topicIdx;
         switch (qnType) {
-            case OOP:
-                topicIdx = 0;
-                break;
-            case BASIC:
-                topicIdx = 1;
-                break;
-            case EXTENSIONS:
-                topicIdx = 2;
-                break;
-            case ALL:
-                topicIdx = 3;
-                break;
-            default:
-                throw new DukeException("Topic Idx out of bounds!");
+        case OOP:
+            topicIdx = 0;
+            break;
+        case BASIC:
+            topicIdx = 1;
+            break;
+        case EXTENSIONS:
+            topicIdx = 2;
+            break;
+        case ALL:
+            topicIdx = 3;
+            break;
+        default:
+            throw new DukeException("Topic Idx out of bounds!");
         }
 
         if (score > profile.getContentMarks(topicIdx)) {
