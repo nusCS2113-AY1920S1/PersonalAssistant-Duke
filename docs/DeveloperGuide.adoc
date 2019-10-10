@@ -43,7 +43,7 @@ This will generate all resources required by the application and tests.
 
 === Verifying the setup
 
-. Run `oof.Oof` and try a few commands
+. Run `Oof` and try a few commands
 . Run tests to ensure they all pass. _(coming soon)_
 
 == Design
