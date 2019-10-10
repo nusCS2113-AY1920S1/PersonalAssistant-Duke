@@ -128,7 +128,7 @@ public class Farmio {
     private void displayWelcome() {
         displayArt("welcome");
         ui.show("Press ENTER to continue.");
-        ui.getInput();
+        ui.getEnter();
     }
 
     private void displayMenu(){
@@ -139,9 +139,9 @@ public class Farmio {
             switch(ui.getInput().toLowerCase()){
                 case "load save":
                     try {
-                        this.farmer = storage.loadFarmer();
+                        this.farmer = new Farmer(ui, storage.loadFarmer());
                         return;
-                    } catch (ParseException e) {
+                    } catch (FarmioException | ParseException e) {
                         ui.showWarning("Game save is corrupted!");
                         ui.showInfo("Farmio starting a new game.");
                     } catch (IOException e) {
