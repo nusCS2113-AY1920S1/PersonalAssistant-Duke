@@ -1,6 +1,6 @@
 # Project Cube
 
-Cube is a simple Bookkeeping and Inventory Management System targeted for sellers looking to set-up a small online marketplace.
+Cube is a simple Book-keeping and Inventory Management System targeted for sellers looking to set-up a small online marketplace.
 
 ![Cube](docs/images/Ui.png)
 
