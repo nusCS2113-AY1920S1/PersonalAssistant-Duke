@@ -1,0 +1,56 @@
+= About Us
+CS2113-T14-1 <cs2113.t14.t1@gmail.com>
+v1.1, 2019-09-23
+:site-section: AboutUs
+:relfileprefix: team/
+:imagesDir: images
+:stylesDir: stylesheets
+
+Dr. Duke is a Software Engineering project developed by the https://github.com/AY1920S1-CS2113-T14-1/[AY1920S1-CS2113-T14-1] team.
+We are a team based in the http://www.comp.nus.edu.sg[School of Computing, National University of Singapore].
+
+== Project Team
+
+=== Akshay Narayan
+image::https://avatars1.githubusercontent.com/u/1023494?s=400&v=4[width="150", align="left"]
+{empty}[https://github.com/okkhoy[github]] [<<portfolio#, portfolio>>]
+
+Role: Lecturer / Project Supervisor
+
+'''
+
+=== Pang Jia Jun Vernon
+image::gowgos5.png[width="150", align="left"]
+{empty}[https://github.com/gowgos5[github]] [<<portfolio#, portfolio>>]
+
+Role: Team Lead +
+Responsibilities: Scheduling and tracking, Deliverables and deadlines, In charge of UI
+
+'''
+
+=== John Khoo
+image::aquohn.png[width="150", align="left"]
+{empty}[http://github.com/aquohn[github]] [<<portfolio#, portfolio>>]
+
+Role: Integration Lead +
+Responsibilities: Documentation, Integration, In charge of Logic
+
+'''
+
+=== Jacob Toresson
+image::jacobtoresson.png[width="150", align="left"]
+{empty}[http://github.com/JacobToresson[github]] [<<portfolio#, portfolio>>]
+
+Role: Devops Lead +
+Responsibilities: Code quality, Devops, In charge of Storage
+
+'''
+
+=== Jeremy Kwok
+image::jeremykwok.png[width="150", align="left"]
+{empty}[http://github.com/JeremyKwok[github]] [<<portfolio#, portfolio>>]
+
+Role: Test Lead +
+Responsibilities: Testing, In charge of Model
+
+'''

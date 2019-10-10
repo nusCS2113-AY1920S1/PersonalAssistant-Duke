@@ -1,0 +1,256 @@
+digraph main {
+
+  /*graph [
+    splines = ortho
+  ]*/
+
+  node [
+    shape = "record"
+  ]
+
+  //Duke itself needs a search function for Patients
+
+  //ancestor for all objects
+  //toString() for data format
+  //toDataString() for display format (GUI)
+  //toReportString() for hospital report format
+  DukeObj [
+    label = "{\{abstract\} DukeObj
+    |- name : String\l
+    |+ toString() : String \{abstract\}\l
+    + toDisplayString() : String \{abstract\}\l
+    + toReportString() : String \{abstract\}\l
+    }"
+  ]
+
+  subgraph top {
+
+      //data indexed by integers for quick, unambiguous access
+      //provide the ability to find Impressions by field content
+      //discharge() to archive
+      Patient [
+        label = "{Patient
+        |- name : String\l
+        - bedNo : int\l
+        - height : int\l
+        - weight : int\l
+        - age : int\l
+        - number : int\l
+        - address : String\l
+        - history : String\l
+        - priDiagnosis : Impression\l
+        - allergies : String\l
+        - impressions : ArrayList\<Impression\>\l
+        |+ discharge() : void\l
+        + addNewImpression(newImpression: Impression)\l
+        + deleteImpression(idx: int)\l
+        + getImpression(idx: int)\l
+        + setPriDiagnosis(idx: int)\l
+        + find(searchTerm: String) : ArrayList\<DukeObj\>\l
+        + toString() : String\l
+        + toDisplayString() : String\l
+        + report() : void\l
+        + \<getters and setters for non-ArrayList members\>\l
+        }"
+      ]
+
+      //treatments and evidence should all be associated with an Impression, even if
+      //the Impression is not definite yet, or just consists of a symptom
+      Impression [
+        label = "{Impression
+        |- name : String\l
+        - description : String\l
+        - evidence : ArrayList\<Evidence\>\l
+        - treatments : ArrayList\<Treatment\>\l
+        - patient : Patient\l
+        |+ toString() : String\l
+        + toDisplayString() : String\l
+        + toReportString() : String\l
+        + find(searchTerm: String) : ArrayList\<DukeObj\>\l
+        + addNewEvidence(newEvidence: Evidence)\l
+        + deleteEvidence(idx: int)\l
+        + getEvidence(idx: int)\l
+        + addNewTreatment(newTreatment: Treatment)\l
+        + deleteTreatment(idx: int)\l
+        + getTreatment(idx: int)\l
+        + \<getters and setters for non-ArrayList members\>\l
+        }"
+      ]
+
+      //abstract class for evidence and treatments
+      DukeData [
+        label = "{\{abstract\} DukeData
+        |- name : String\l
+        - impression : Impression\l
+        - priority : int\l
+        |+ toString() : String \{abstract\}\l
+        + toDisplayString() : String \{abstract\}\l
+        + toReportString() : String \{abstract\}\l
+        + updatePriority() : void \{abstract\}\l
+        }"
+      ]
+  }
+
+  //evidence: observations, results - support this impression
+  Evidence [
+    label = "{\{abstract\} Evidence
+    |- name : String\l
+    - impression : Impression\l
+    - priority : int\l
+    |+ toString() : String \{abstract\}\l
+    + toDisplayString() : String \{abstract\}\l
+    + toReportString() : String \{abstract\}\l
+    + updatePriority(priorityVal: int) : void\l
+    + \<getters and setters\>\l
+    }"
+  ]
+
+  //treatment: plans, medicines, investigations - responses to the impression
+  //statusArr - array of strings representing the status to display for the
+  //various status codes
+  //treatments should be sortable by their status of completion
+  Treatment [
+   label = "{\{abstract\} Treatment
+    |- name : String\l
+    - impression : Impression\l
+    - status : int\l
+    - statusArr : String[]\l
+    - priority : int\l
+    |+ toString() : String \{abstract\}\l
+    + toDisplayString() : String \{abstract\}\l
+    + toReportString() : String \{abstract\}\l
+    + updatePriority(priorityVal: int) : void\l
+    + updateStatus(statusIdx: int) : void\l
+    + \<getters and setters\>\l
+    }"
+  ]
+
+  Result [
+    label = "{Result
+    |- name : String\l
+    - impression : Impression\l
+    - summary : String\l
+    - priority : int\l
+    |+ toString() : String\l
+    + toDisplayString() : String\l
+    + toReportString() : String\l
+    + updatePriority(priorityVal: int) : void\l
+    + updateStatus(statusIdx: int) : void\l
+    + \<getters and setters\>\l
+    }"
+  ]
+
+  //should observations have dates attached?
+  //observations may need further investigation, can be tagged based on 
+  //priority to address the most worrying ones
+  Observation [
+    label = "{Observation
+    |- name : String\l
+    - impression : Impression\l
+    - summary : String\l
+    - isObjective : bool\l
+    - priority : int\l
+    |+ toString() : String\l
+    + toDisplayString() : String\l
+    + toReportString() : String\l
+    + updatePriority(priorityVal: int) : void\l
+    + updateStatus(statusIdx: int) : void\l
+    + \<getters and setters\>\l
+    }"
+  ]
+
+  //when an investigation is completed, it becomes a result
+  Investigation [
+    label = "{Investigation
+    |- name : String\l
+    - impression : Impression\l
+    - status : int\l
+    - statusArr : String[]\l
+    - summary : String\l
+    - priority : int\l
+    |+ toString() : String\l
+    + toDisplayString() : String\l
+    + toReportString() : String\l
+    + updatePriority(priorityVal: int) : void\l
+    + updateStatus(statusIdx: int) : void\l
+    + toResult() : Result\l
+    + \<getters and setters\>\l
+    }"
+  ]
+  
+  //Can format these properly if we have the time, if not just hold raw strings
+  //Sort by completion status
+  Medicine [
+    label = "{Medicine
+    |- name : String\l
+    - impression : Impression\l
+    - status : int\l
+    - statusArr : String[]\l
+    - dose : String\l
+    - startDate : String\l
+    - duration : String\l
+    - priority : int\l
+    |+ toString() : String\l
+    + toDisplayString() : String\l
+    + toReportString() : String\l
+    + updatePriority(priorityVal: int) : void\l
+    + updateStatus(statusIdx: int) : void\l
+    + \<getters and setters\>\l
+    }"
+  ]
+
+  //Sort by priority and completion status
+  Plan [
+    label = "{Plan
+    |- name : String\l
+    - impression : Impression\l
+    - status : int\l
+    - statusArr : String[]\l
+    - summary : String\l
+    - priority : int\l
+    |+ toString() : String\l
+    + toDisplayString() : String\l
+    + toReportString() : String\l
+    + updatePriority(priorityVal: int) : void\l
+    + updateStatus(statusIdx: int) : void\l
+    + \<getters and setters\>\l
+    }"
+  ]
+
+  //navigability 
+  
+  edge [
+    arrowhead = "vee"
+  ]
+
+  //two-way navigability
+
+  edge [
+    arrowtail = "vee"
+    dir = "both"
+  ]
+
+  Patient -> Impression
+  Impression -> Evidence [label = "supports"]
+  Impression -> Treatment [label = "treats"]
+
+  //subclass relations
+
+  edge [
+    arrowtail = "empty"
+    dir = "back"
+  ]
+
+  DukeObj -> Patient
+  DukeObj -> Impression
+  DukeObj -> DukeData
+
+  DukeData -> Treatment
+  DukeData -> Evidence
+
+  Treatment -> Investigation 
+  Treatment -> Plan
+  Treatment -> Medicine
+  Evidence -> Observation
+  Evidence -> Result
+}

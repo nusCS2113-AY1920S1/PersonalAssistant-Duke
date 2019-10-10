@@ -1,0 +1,9 @@
+= Contact Us
+CS2113-T14-1 <cs2113.t14.t1@gmail.com>
+v1.0, 2019-09-23
+:site-section: ContactUs
+:stylesDir: stylesheets
+
+* *Bug reports, Suggestions* : Post in our https://github.com/AY1920S1-CS2113-T14-1/main/issues[issue tracker] if you noticed bugs or have suggestions on how to improve.
+* *Contributing* : We welcome pull requests. Follow the process described https://github.com/oss-generic/process[here]
+* *Email us* : You can also reach us at `cs2113.t14.t1 [at] gmail.com`
