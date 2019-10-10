@@ -7,6 +7,8 @@ import ui.Ui;
 
 import java.time.LocalDateTime;
 
+import static parser.DateTimeExtractor.NULL_DATE;
+
 /**
  * The AddCommand class is used when the user has input a command which requires
  * a task to be added to the TaskList.
@@ -18,9 +20,9 @@ public class AddCommand extends Command {
 
     private String command;
     private String taskFeatures;
-    private final LocalDateTime nullDate = LocalDateTime.of(1, 1, 1, 1, 1, 1, 1);
-    private LocalDateTime formattedStartDate = nullDate;
-    private LocalDateTime formattedEndDate = nullDate;
+    private LocalDateTime formattedStartDate = NULL_DATE;
+    private LocalDateTime formattedEndDate = NULL_DATE;
+    private int duration = 0;
 
     /**
      * This AddCommand function is used to assign the different parameters required
@@ -43,6 +45,20 @@ public class AddCommand extends Command {
     }
 
     /**
+     * Creates an AddCommand based on duration of the task.
+     * @param command       holds command type determinant to decide how
+     *                      to process the user input.
+     * @param taskFeatures  holds the description of the task provided by
+     *                      the user.
+     * @param duration      holds the duration period of how long the task should last
+     */
+    public AddCommand(String command, String taskFeatures, int duration) {
+        this.command = command;
+        this.taskFeatures = taskFeatures;
+        this.duration = duration;
+    }
+
+    /**
      * This execute function is used to add the respective tasks to the TaskList and
      * save to persistent storage.
      *
@@ -57,10 +73,12 @@ public class AddCommand extends Command {
         Task task;
         switch (command) {
         case "todo":
-            if (formattedStartDate.equals(nullDate)) {
-                task = new Todo(taskFeatures);
-            } else {
+            if (!formattedStartDate.equals(NULL_DATE)) {
                 task = new TodoWithinPeriod(taskFeatures, formattedStartDate, formattedEndDate);
+            } else if (duration != 0) {
+                task = new TodoWithDuration(taskFeatures, duration);
+            } else {
+                task = new Todo(taskFeatures);
             }
             break;
         case "deadline":

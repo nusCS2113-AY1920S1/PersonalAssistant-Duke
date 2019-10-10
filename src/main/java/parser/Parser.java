@@ -156,11 +156,15 @@ public class Parser {
 
         String checkType = "/between";
         String[] taskDetails = taskFeatures.split(checkType, 2);
-        if (taskDetails.length == 1) {
-            return new AddCommand(command, taskDetails[0], NULL_DATE, NULL_DATE);
-        } else {
+        if (taskDetails.length != 1) {
             return parseToDoPeriod(taskFeatures, taskDetails, checkType, command);
         }
+        checkType = "/for";
+        taskDetails = taskFeatures.split(checkType, 2);
+        if (taskDetails.length != 1) {
+            return parseDuration(taskFeatures, taskDetails, checkType, command);
+        }
+        return new AddCommand(command, taskDetails[0], NULL_DATE, NULL_DATE);
     }
 
     private static Command parseToDoPeriod(String taskFeatures, String[] taskDetails, String checkType,
@@ -273,19 +277,16 @@ public class Parser {
         return new IgnoreCommand(index);
     }
 
-    private static int parseDuration(String userInput) throws DukeException {
+    private static Command parseDuration(String userInput, String[] taskDetails, String checktype, String command)
+            throws DukeException {
         int duration;
 
-        if (!userInput.contains("/for")) {
-            return -1;
-        }
-
-        String substring = userInput.split("for", 2)[1].trim();
+        String substring = userInput.split(checktype, 2)[1].trim();
         try {
             duration = Integer.parseInt(substring.split("\\s+", 2)[0].trim());
         } catch (NumberFormatException e) {
-            throw new DukeException("Invalid duration format");
+            throw new DukeException("Invalid duration format. Duration must be a number");
         }
-        return duration;
+        return new AddCommand(command, taskDetails[0].trim(), duration);
     }
 }
