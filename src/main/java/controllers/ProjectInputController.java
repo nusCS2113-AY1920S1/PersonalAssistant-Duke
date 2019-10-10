@@ -75,17 +75,20 @@ public class ProjectInputController {
                         consoleView.consolePrint("Please enter your task format correctly");
                     }
                 } else if (projectCommand.length() == 10 && ("view tasks").equals(projectCommand)) {
-                    String temp = "";
+                    String temp1 = "";
+                    System.out.println(temp1);
                     /*
                         Empty method
                     */
                 } else if (projectCommand.length() == 10 && ("edit task ").equals(projectCommand)) {
-                    String temp = "";
+                    String temp2 = "";
+                    System.out.println(temp2);
                     /*
                         Empty method
                     */
                 } else if (projectCommand.length() == 12 && ("delete task ").equals(projectCommand)) {
-                    String temp = "";
+                    String temp3 = "";
+                    System.out.println(temp3);
                     /*
                         Empty method
                     */
