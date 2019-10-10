@@ -1,5 +1,7 @@
 package duke;
 
+import duke.components.Song;
+import duke.components.SongList;
 import duke.tasks.ToDo;
 
 import duke.tasks.Deadline;
@@ -9,16 +11,12 @@ import duke.tasks.BetweenTask;
 import duke.tasks.RecurringTask;
 import duke.tasks.Task;
 
-
-
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
-import java.util.Arrays;
 
 /**
  * A class to implement persistent storage of the task list using a .txt file.
@@ -35,6 +33,67 @@ public class Storage {
     Storage(Path file) {
         this.file = file;
     }
+
+    // Ducats implementation starts here.
+
+
+    // Storage structure for Ducats is as follows:
+    //
+    // List of Songs, with each Song being represented in the following format:
+    // s/NAME s/BAR1 s/BAR2 ...
+    //
+    // BAR is formatted as a two-dimensional array of Notes, with each nested array representing a Chord.
+    //
+    // E.g.
+    // "Hello World! [[UAs;UBs],[UA;UB],[UAs;UB],[UA;UB],[UBs;R],[UB;R],[LFs;R],[LF;R]] [...] ..."
+    //
+    // TODO: implement in toString() function of song
+
+
+    private ArrayList<String> formatListToString(ArrayList<Song> list) {
+        ArrayList<String> result = new ArrayList<>();
+        for (Song song: list) {
+            result.add(song.toString());
+        }
+        return result;
+    }
+
+    private void writeStringsToFile(ArrayList<String> songs) throws DukeException {
+        try {
+            Files.write(file, songs, StandardCharsets.UTF_8);
+        } catch (IOException e) {
+            throw new DukeException("","io");
+        }
+    }
+
+    private ArrayList<String> readStringsFromFile() throws DukeException {
+        // reads file and returns an ArrayList of lines
+        ArrayList<String> result = new ArrayList<>();
+        try (BufferedReader br = Files.newBufferedReader(file)) {
+            String line;
+            while ((line = br.readLine()) != null) {
+                result.add(line);
+            }
+        } catch (Exception e) {
+            throw new DukeException("", "io");
+        }
+        return result;
+    }
+
+    private void loadToList(SongList songList) throws DukeException {
+        // loads data into list
+        ArrayList<String> data = readFile();
+        for (String line: data) {
+            //System.out.println(line);
+            convertFromString(songList, line);
+        }
+    }
+
+    private void convertFromString(SongList songList, String s) {
+        //TODO
+    }
+
+    // Ducats implementation ends here. (TODO: delete below when appropriate)
 
     /**
      * Returns an ArrayList of the String representations of all the duke.tasks.Task objects in the task list.
