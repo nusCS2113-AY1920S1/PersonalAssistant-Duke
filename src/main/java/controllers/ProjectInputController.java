@@ -35,37 +35,36 @@ public class ProjectInputController {
         while (continueManaging) {
             if (manageProjectInput.hasNextLine()) {
                 String projectCommand = manageProjectInput.nextLine();
-                switch (projectCommand) {
-                case "exit":
+                if (projectCommand.length() == 4 && ("exit").equals(projectCommand.substring(0, 4))) {
                     continueManaging = false;
                     consoleView.exitProject(projectToManage.getDescription());
-                    break;
-                case "add member":
-                    consoleView.consolePrint("Enter member details: n/NAME p/PHONE e/EMAIL");
-                    String memberDetails = manageProjectInput.nextLine();
+                } else if (projectCommand.length() >= 11 && ("add member ").equals(projectCommand.substring(0, 11))) {
+                    String memberDetails = projectCommand.substring(11);
                     MemberFactoryUtil memberFactory = new MemberFactoryUtil();
                     if (memberFactory.memberIsCreated(memberDetails, projectToManage.getNumOfMembers())) {
                         consoleView.addMember(projectToManage, memberFactory.getNewMember());
                     } else {
                         consoleView.consolePrint("Failed to add member. Please ensure you have entered "
-                            + "at least the name of the new member.");
+                                + "at least the name of the new member.");
                     }
-                    break;
-                case "edit member":
-                    consoleView.consolePrint("Enter member index to be edited");
-                    int memberIndexNumber = Integer.parseInt(manageProjectInput.nextLine());
+                } else if (projectCommand.length() >= 11 && ("edit member ").equals(projectCommand.substring(0, 12))) {
+                    int memberIndexNumber = Integer.parseInt(projectCommand.substring(12).split(" ")[0]);
                     if (projectToManage.getNumOfMembers() >= memberIndexNumber) {
-                        consoleView.consolePrint("Enter the updated member details: n/NAME p/PHONE e/EMAIL");
-                        String updatedMemberDetails = manageProjectInput.nextLine();
-                        consoleView.editMember(projectToManage,memberIndexNumber,updatedMemberDetails);
+                        String updatedMemberDetails = projectCommand.substring(projectCommand.indexOf("n/"));
+                        consoleView.editMember(projectToManage, memberIndexNumber, updatedMemberDetails);
                     } else {
                         consoleView.consolePrint("The member index entered is invalid.");
                     }
-                    break;
-                case "view members":
+                } else if (projectCommand.length() >= 13 && ("delete member ").equals(projectCommand.substring(0,14))) {
+                    int memberIndexNumber = Integer.parseInt(projectCommand.substring(14).split(" ")[0]);
+                    if (projectToManage.getNumOfMembers() >= memberIndexNumber) {
+                        consoleView.removeMember(projectToManage, memberIndexNumber);
+                    } else {
+                        consoleView.consolePrint("The member index entered is invalid.");
+                    }
+                } else if (projectCommand.length() == 12 && ("view members").equals(projectCommand)) {
                     consoleView.viewAllMembers(projectToManage);
-                    break;
-                case "add task":
+                } else if (projectCommand.length() == 8 && ("add task").equals(projectCommand)) {
                     try {
                         consoleView.consolePrint("Enter your task: t/TaskName p/TaskPriorityValue"
                                                 + " [d/TaskDueDate] c/TaskCredit [s/TaskState]");
@@ -75,17 +74,26 @@ public class ProjectInputController {
                     } catch (NumberFormatException | ParseException e) {
                         consoleView.consolePrint("Please enter your task format correctly");
                     }
-                    break;
-                case "view tasks":
-                    consoleView.viewAllTasks(projectToManage);
-                    break;
-                case "edit task":
-                    break;
-                case "delete task":
-                    break;
-                default:
+                } else if (projectCommand.length() == 10 && ("view tasks").equals(projectCommand)) {
+                    String temp1 = "";
+                    System.out.println(temp1);
+                    /*
+                        Empty method
+                    */
+                } else if (projectCommand.length() == 10 && ("edit task ").equals(projectCommand)) {
+                    String temp2 = "";
+                    System.out.println(temp2);
+                    /*
+                        Empty method
+                    */
+                } else if (projectCommand.length() == 12 && ("delete task ").equals(projectCommand)) {
+                    String temp3 = "";
+                    System.out.println(temp3);
+                    /*
+                        Empty method
+                    */
+                } else {
                     consoleView.consolePrint("Invalid command. Try again!");
-                    break;
                 }
             } else {
                 consoleView.consolePrint("Please enter a command.");

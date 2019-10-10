@@ -322,6 +322,11 @@ public class CLIView {
         consolePrint("Updated member details with the index number " + memberIndexNumber);
     }
 
+    public void removeMember(IProject projectToManage, int memberIndexNumber) {
+        projectToManage.removeMember(memberIndexNumber);
+        consolePrint("Removed member with the index number " + memberIndexNumber);
+    }
+
     /**
      * Adds a member to the project.
      * @param projectToManage The project specified by the user.

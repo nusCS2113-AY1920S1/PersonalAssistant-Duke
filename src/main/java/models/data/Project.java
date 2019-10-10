@@ -51,6 +51,11 @@ public class Project implements IProject {
     }
 
     @Override
+    public void removeMember(int memberIndexNumber) {
+        this.memberList.removeMember(memberIndexNumber);
+    }
+
+    @Override
     public void addTask(Task newTask) {
         this.taskList.addTask(newTask);
     }
