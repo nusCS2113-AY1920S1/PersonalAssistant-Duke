@@ -17,7 +17,7 @@ public class IngredientListParser {
 
     //todo: add logic
     public void addIngredients(String ingredientName) {
-        if (!IngredientList.contain(ingredientName)) {
+        if (!IngredientList.contains(ingredientName)) {
             //add ingredient;
         }
     }

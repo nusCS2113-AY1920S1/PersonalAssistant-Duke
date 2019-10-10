@@ -54,7 +54,7 @@ public class BakingHomeParser {
             return new OrderCommandParser().parse(subCommandAndArgs);
         case ProductCommand.COMMAND_WORD:
             return new ProductCommandParser().parse(subCommandAndArgs);
-            case InventoryCommand.COMMAND_WORD:
+        case InventoryCommand.COMMAND_WORD:
             return new InventoryCommandParser().parse(subCommandAndArgs);
         case SetShortcutCommand.COMMAND_WORD:
             return new SetShortcutCommandParser().parse(subCommandAndArgs);
