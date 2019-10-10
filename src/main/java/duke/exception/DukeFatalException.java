@@ -1,6 +1,6 @@
 package duke.exception;
 
-import duke.command.Ui;
+import duke.gui.Gui;
 
 /**
  * Exceptions which result from conditions external to Duke rendering it incapable of normal operations (e.g.
@@ -17,8 +17,8 @@ public class DukeFatalException extends DukeException {
         super(msg + " Exiting Duke now...");
     }
 
-    public void killProgram(Ui ui) {
+    public void killProgram(Gui ui) {
         ui.print(getMessage());
-        System.exit(0);
+        //System.exit(0);
     }
 }

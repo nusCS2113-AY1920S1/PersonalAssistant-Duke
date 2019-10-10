@@ -8,6 +8,6 @@ public class ByeCommand extends Command {
     public void execute(DukeCore core) throws DukeFatalException {
         core.storage.writeTaskFile(core.taskList.getFileStr());
         core.ui.closeUi();
-        System.exit(0);
+        //System.exit(0);
     }
 }

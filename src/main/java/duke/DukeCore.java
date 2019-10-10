@@ -1,14 +1,14 @@
 package duke;
 
-import duke.command.Ui;
 import duke.exception.DukeFatalException;
 import duke.exception.DukeResetException;
+import duke.gui.Gui;
 import duke.task.Storage;
 import duke.task.TaskList;
 
 public class DukeCore {
     public final Storage storage;
-    public final Ui ui;
+    public final Gui ui;
     public TaskList taskList;
 
     /**
@@ -17,11 +17,11 @@ public class DukeCore {
      * @param storage Storage object to use in this context.
      * @param ui      Ui object to use in this context.
      * @throws DukeFatalException If unable to setup data file.
-     * @see Ui
+     * @see Gui
      * @see TaskList
      * @see Storage
      */
-    public DukeCore(Storage storage, Ui ui) throws DukeFatalException {
+    public DukeCore(Storage storage, Gui ui) throws DukeFatalException {
         this.storage = storage;
         this.ui = ui;
 
@@ -32,7 +32,10 @@ public class DukeCore {
             ui.printError(excp);
 
             while (true) { //wait for user to respond
-                resetStr = ui.readLine();
+                // TODO: Read user input
+                // resetStr = ui.readLine();
+
+                resetStr = "Y";
                 if (resetStr.length() > 0) {
                     resetStr = resetStr.substring(0, 1); //extract first char
                     if (resetStr.equalsIgnoreCase("y")) {
@@ -42,7 +45,7 @@ public class DukeCore {
                         break;
                     } else if (resetStr.equalsIgnoreCase("n")) {
                         ui.closeUi();
-                        System.exit(0);
+                        //System.exit(0);
                     }
                 }
             }
