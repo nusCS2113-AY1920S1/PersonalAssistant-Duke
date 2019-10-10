@@ -1,12 +1,6 @@
 package parser;
 
-import command.Command;
-import command.AddCommand;
-import command.BadCommand;
-import command.ExitCommand;
-import command.ModCommand;
-import command.PrintCommand;
-import command.SearchCommand;
+import command.*;
 import exception.DukeException;
 
 import java.util.Scanner;
@@ -55,6 +49,20 @@ public class Parser {
                     return new ExitCommand();
                 }
             }
+        } else if (command.matches("help")) {
+            if (!temp.hasNextLine()) { //if the user wants to display all commands
+                return new HelpCommand(command);
+            } else { //if the user wants to display help for only one command
+                String input = temp.nextLine();
+                input = input.strip();
+                if (input.matches("help|detail|compare|add|degreelist|swap|replace|delete|clear|custom|bye")) {
+                    return new HelpCommand(command, input);
+                } else {
+                    throw new DukeException("I do not understand that command. "
+                            + "Type \"help\" for a full list of available commands");
+                }
+            }
+
         } else if (command.matches("todo|deadline|event|done|delete|find|select|recurring|after|within|fixed"
                 + "|snooze|schedule")) {
             if (!temp.hasNextLine()) {

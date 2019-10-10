@@ -40,7 +40,5 @@ public class AddCommand extends Command {
         } else {
             tasks.add(this.command, this.arguments);
         }
-
     }
-
 }
