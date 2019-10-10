@@ -4,6 +4,7 @@ import duke.commons.core.index.Index;
 import duke.model.commons.Ingredient;
 import duke.model.product.Product;
 import duke.model.order.Order;
+import duke.model.sale.Sale;
 import duke.model.shortcut.Shortcut;
 import javafx.collections.ObservableList;
 
@@ -17,6 +18,7 @@ import static java.util.Objects.requireNonNull;
  */
 public class BakingHome implements ReadOnlyBakingHome {
 
+    private final UniqueEntityList<Sale> sales;
     private final UniqueEntityList<Order> orders;
     private final UniqueEntityList<Product> products;
     private final UniqueEntityList<Ingredient> inventory;
@@ -26,6 +28,7 @@ public class BakingHome implements ReadOnlyBakingHome {
      * Creates a BakingHome.
      */
     public BakingHome() {
+        sales = new UniqueEntityList<>();
         orders = new UniqueEntityList<>();
         products = new UniqueEntityList<>();
         inventory = new UniqueEntityList<>();
@@ -37,7 +40,8 @@ public class BakingHome implements ReadOnlyBakingHome {
         resetData(toBeCopied);
     }
 
-    /**
+
+    /*
      * Resets the existing data of this {@code BakingHome} with {@code newData}.
      */
     public void resetData(ReadOnlyBakingHome newData) {
@@ -74,8 +78,17 @@ public class BakingHome implements ReadOnlyBakingHome {
     }
 
     /**
-     * Replaces the given order {@code target} in the list with {@code editedOrder}.
-     * {@code target} must exist in orders
+     * Adds a person to the address book.
+     * The person must not already exist in the address book.
+     */
+    public void addSale(Sale s) {
+        sales.add(s);
+    }
+
+    /**
+     * Replaces the given person {@code target} in the list with {@code editedPerson}.
+     * {@code target} must exist in the address book.
+     * The person identity of {@code editedPerson} must not be the same as another existing person in the address book.
      */
     public void setOrder(Order target, Order editedOrder) {
         requireNonNull(editedOrder);
@@ -95,8 +108,8 @@ public class BakingHome implements ReadOnlyBakingHome {
     }
 
     /**
-     * Removes {@code key} from {@code orders}.
-     * {@code key} must exist in {@code orders}.
+     * Removes {@code key} from this {@code AddressBook}.
+     * {@code key} must exist in the address book.
      */
     public void removeOrder(Order key) {
         orders.remove(key);
@@ -188,6 +201,11 @@ public class BakingHome implements ReadOnlyBakingHome {
     @Override
     public String toString() {
         return orders.asUnmodifiableObservableList().size() + " orders";
+    }
+
+    // @Override
+    public ObservableList<Sale> getSaleList() {
+        return sales.asUnmodifiableObservableList();
     }
 
     @Override

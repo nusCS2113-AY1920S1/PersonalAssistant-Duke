@@ -28,7 +28,7 @@
                                         <Insets left="10.0" />
                                     </HBox.margin>
                                 </Label>
-                                <Label fx:id="deadline" alignment="CENTER" style="-fx-background-color: white; -fx-background-radius: 5; -fx-padding: 4;" text="March 18" textAlignment="CENTER" textFill="#5086ec">
+                                <Label fx:id="saledate" alignment="CENTER" style="-fx-background-color: white; -fx-background-radius: 5; -fx-padding: 4;" text="March 18" textAlignment="CENTER" textFill="#5086ec">
                                     <font>
                                         <Font name="Arial" size="18.0" />
                                     </font>
@@ -38,7 +38,7 @@
                                     <graphic>
                                         <ImageView fitHeight="17.0" fitWidth="17.0" pickOnBounds="true" preserveRatio="true">
                                             <image>
-                                                <Image url="@../images/alarm-clock.png" />
+                                                <Image url="@../images/calendar.png" />
                                             </image>
                                         </ImageView>
                                     </graphic>
