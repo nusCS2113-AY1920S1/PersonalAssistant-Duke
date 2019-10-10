@@ -1,4 +1,4 @@
-package eggventory;
+package eggventory.parsers;
 
 import eggventory.commands.Command;
 import eggventory.commands.AddCommand;
