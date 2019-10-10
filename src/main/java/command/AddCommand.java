@@ -32,7 +32,6 @@ public class AddCommand extends Command {
      * @param tasks TasksList has tasks.
      * @param ui UI prints messages.
      * @param storage Storage loads and saves files.
-     * @param lists DegreeList has the array for the user to maintain a list of their degree choices.
      * @throws DukeException DukeException throws exception.
      */
     public void execute(TaskList tasks, UI ui, Storage storage, DegreeList lists) throws DukeException {
