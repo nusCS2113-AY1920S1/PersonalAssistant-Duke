@@ -31,7 +31,7 @@ details and thus hinder management. Our solution, is an approach to integrate th
 . You can download the latest https://github.com/AY1920S1-CS2113T-F11-1/main/releases[SpongeBob.jar] here.
 . Copy the file to the folder you want to use as your home folder for SpongeBob.
 . Double click the file to start the app. The GUI should appear in a few seconds. +
-image:https://github.com/AY1920S1-CS2113T-F11-1/main/blob/master/docs/images/UI.png[width="700"] +
+image:https://github.com/AY1920S1-CS2113T-F11-1/main/blob/master/docs/images/Ui.png[width="700"] +
 . To start with, you can type  **'help'** to check all the commands and press Enter
 .  Refer to <<Features>> for details of each command.
 
@@ -151,13 +151,13 @@ Format: `addmember n/NAME y/YEAR_OF_Study m/MAJOR e/EMAIL  [t/TAG]`
 
 [TIP]
 A person can have either one or no tags. Also there are restrictions imposed on the types of tags that one can add for the members. As of now, you can only the following tags (all the tags are case insensitive `president` is same as `President`: +
-President,+
-Vice-President,+
-Head of Marketing,+
-Head of Finance,+
-Head of Human Resources,+
-Head of Student Life,+
-<List to be updated later>+
+President, +
+Vice-President, +
+Head of Marketing, +
+Head of Finance, +
+Head of Human Resources, +
+Head of Student Life, +
+<List to be updated later> +
 
 Examples:
 
@@ -224,7 +224,7 @@ Returns member(s) whose major is `Computer Engineering`
 * `findmajor Engineering` +
 Returns member(s) whose major contains the keyword `Engineering`
 
-==== Filtering members with tags: `findtag`
+==== Filtering members with tags: `findmembertag`
 
 Finds members whose description containt a tag. +
 Format: `findmembertag`
