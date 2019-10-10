@@ -9,10 +9,10 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
 
-public class CCAUtils {
+public class CcaUtils {
 
     /**
-     * Get free time slots for a specific date
+     * Get free time slots for a specific date.
      * @param localDate input date
      * @return a list of free time slots
      */

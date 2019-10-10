@@ -272,6 +272,10 @@ public class TimeInterval implements TemporalAmount, Serializable {
         return this.toDuration().toString();
     }
 
+    /**
+     * Convert to readable string instead of default string.
+     * @return human-readable string representation
+     */
     public String toReadableString() {
         return this.toString().substring(2)
                 .replace("D", "Days")

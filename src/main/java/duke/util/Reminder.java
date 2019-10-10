@@ -52,7 +52,7 @@ public class Reminder {
     }
 
     /**
-     * Start the reminder if it's not running
+     * Start the reminder if it's not running.
      */
     public void run() {
         this.kill = false;
@@ -60,7 +60,7 @@ public class Reminder {
     }
 
     /**
-     * Kill the reminder if it's running
+     * Kill the reminder if it's running.
      */
     public void stop() {
         if (this.thread.isAlive()) {
@@ -88,7 +88,7 @@ public class Reminder {
     }
 
     /**
-     * Core logic for reminder to run
+     * Core logic for reminder to run.
      */
     private void remind() {
         LocalDateTime targetTime = LocalDateTime.now();
@@ -119,7 +119,7 @@ public class Reminder {
     }
 
     /**
-     * Get upcoming tasks
+     * Get upcoming tasks.
      * @param timePeriod How long before the task begin to remind
      * @return the upcoming tasks
      */

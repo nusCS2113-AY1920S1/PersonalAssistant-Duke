@@ -16,7 +16,8 @@ public class TaskWithPeriod extends Task {
         this.period = new TimePeriod(begin, end);
     }
 
-    public TaskWithPeriod(String task, LocalDateTime begin, TimeInterval duration) throws ModInvalidTimePeriodException {
+    public TaskWithPeriod(String task, LocalDateTime begin, TimeInterval duration)
+            throws ModInvalidTimePeriodException {
         super(task);
         this.period = new TimePeriod(begin, duration);
     }

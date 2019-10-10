@@ -2,19 +2,19 @@ package duke.modules;
 
 import duke.util.TimeInterval;
 
-public class FixedDurationTaskWithInterval_NotBeingUsed extends TaskWithInterval {
+public class RecurringTaskWithIntervalNotBeingUsed extends TaskWithInterval {
 
-    public FixedDurationTaskWithInterval_NotBeingUsed(String task, TimeInterval interval) {
+    public RecurringTaskWithIntervalNotBeingUsed(String task, TimeInterval interval) {
         super(task, interval);
     }
 
-    public FixedDurationTaskWithInterval_NotBeingUsed(String task) {
+    public RecurringTaskWithIntervalNotBeingUsed(String task) {
         super(task);
     }
 
     @Override
     public String writingFile() {
-        return "F"
+        return "R"
                 + "|"
                 + super.writingFile()
                 + "|"
@@ -23,9 +23,9 @@ public class FixedDurationTaskWithInterval_NotBeingUsed extends TaskWithInterval
 
     @Override
     public String toString() {
-        return "[F]"
+        return "[R]"
                 + super.toString()
-                + " (needs: "
+                + " (every: "
                 + this.getInterval().toReadableString()
                 + ")";
     }

@@ -57,7 +57,7 @@ public class ScheduleCommand extends Command {
     }
 
     /**
-     * Get all tasks in a specified date
+     * Get all tasks in a specified date.
      * @param localDate input date
      * @param tasks task list to look up for
      * @param isSorted should the results be sorted
@@ -68,7 +68,7 @@ public class ScheduleCommand extends Command {
         for (int i = 0; i < tasks.getSize(); i++) {
             if (tasks.access(i) instanceof TaskWithPeriod) {
                 TaskWithPeriod t = (TaskWithPeriod) tasks.access(i);
-                if (localDate.equals(t.getTime().toLocalDate())){
+                if (localDate.equals(t.getTime().toLocalDate())) {
                     ret.add(t);
                 }
             }
