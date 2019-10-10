@@ -1,0 +1,57 @@
+= About Us
+:site-section: AboutUs
+:relfileprefix: team/
+:imagesDir: images
+:stylesDir: stylesheets
+
+Entertainment-Pro was developed by the https://se-edu.github.io/docs/Team.html[CS2113T T09-4] team. +
+We are a team based in the http://www.comp.nus.edu.sg[School of Computing, National University of Singapore].
+
+== Project Team
+
+=== Pradeep
+image::Pdotdeep.png[width="150", align="left"]
+{empty}[http://github.com/Pdotdeep[github]] [<<johndoe#, portfolio>>]
+
+Role: Team Lead +
+Responsibilities: Documentation + Code Quality
+
+'''
+
+=== Marc
+image::hotspur1997.png[width="150", align="left"]
+{empty}[http://github.com/Hotspur1997[github]] [<<johndoe#, portfolio>>]
+
+Role: Developer +
+Responsibilities: Integration + Storage
+
+'''
+
+=== Wen Hui
+image::nwenhui.png[width="150", align="left"]
+{empty}[http://github.com/nwenhui[github]] [<<johndoe#, portfolio>>]
+
+Role: Developer +
+Responsibilities: Deliverables and deadlines + UI
+
+'''
+
+=== Mohamed Riyas
+image::Riyas97.png[width="150", align="left"]
+{empty}[http://github.com/Riyas97[github]] [<<johndoe#, portfolio>>]
+
+Role: Developer +
+Responsibilities: Data + UI
+
+'''
+
+== Supervisor/Lecturer
+
+=== Akshay Narayan
+image::akshay.png[width="150", align="left"]
+{empty}[http://github.com/okkhoy[github]] [<<akshay#, portfolio>>]
+
+Role: NA
+Responsibilities: NA
+
+'''

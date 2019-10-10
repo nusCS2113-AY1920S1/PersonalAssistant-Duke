@@ -1,3 +1,38 @@
+# Entertainment Pro
+
+
+![Ui.png](docs/images/Ui.png)
+
+
+* This is a desktop application for movie and TV show lovers in Singapore. It has a GUI but most of the user interactions happen through a CLI (Command Line Interface).
+* It is a Java application intended for displaying movies and TV shows related stuff such as reviews and ratings for movies.
+* It is *written in OOP fashion*. It provides a *reasonably well-written* code that is based on https://github.com/se-edu/addressbook-level4[Address Book (level 4)].
+
+**Features:**
+* A GUI for displaying all available movies and TV shows.
+* Comes with a todo list that can store updates about movies and TV shows. 
+
+**Target user profile**:
+1. This desktop application is intended for users in Singapore who
+
+* want to search about new and upcoming movies and TV shows
+* want to obtain other information reated to movies and TV shows such as ratings for a movie 
+* prefers typing over mouse input
+* are reasonably comfortable using CLI apps
+
+**Value proposition:**
+* Users will be able to save time and effort doing movies and/or TV show related stuff compared to a typical mouse/GUI driven app.
+* Furthermore, our app intends to provide various entertainment related functionalities all under one roof so that users will not have the need to install different entertainment related apps for different purposes.
+
+
+**Site Map**
+
+**Acknowledgements**
+* Most parts of this sample application came from https://github.com/j-lum/duke[Duke] by someone.
+* Some parts of this sample application were inspired by the excellent http://code.makery.ch/library/javafx-8-tutorial/[Java FX tutorial] by
+_Marco Jakob_.
+* Libraries used: https://github.com/TestFX/TestFX[TestFX],
+
 # Setting up
 
 **Prerequisites**
@@ -20,20 +55,3 @@
 1. Ensure that your src folder is checked. Keep clicking `Next`.
 1. Click `Finish`.
 
-# Tutorials 
-
-Duke Increment | Tutorial
----------------|---------------
-`A-Gradle` | [Gradle Tutorial](tutorials/gradleTutorial.md)
-`A-TextUiTesting` | [Text UI Testing Tutorial](tutorials/textUiTestingTutorial.md)
-`Level-10` | JavaFX tutorials:<br>→ [Part 1: Introduction to JavaFX][fx1]<br>→ [Part 2: Creating a GUI for Duke][fx2]<br>→ [Part 3: Interacting with the user][fx3]<br>→ [Part 4: Introduction to FXML][fx4]
-
-[fx1]: <tutorials/javaFxTutorialPart1.md>
-[fx2]: <tutorials/javaFxTutorialPart2.md>
-[fx3]: <tutorials/javaFxTutorialPart3.md>
-[fx4]: <tutorials/javaFxTutorialPart4.md>
-
-# Feedback, Bug Reports
-
-* If you have feedback or bug reports, please post in [se-edu/duke issue tracker](https://github.com/se-edu/duke/issues).
-* We welcome pull requests too.

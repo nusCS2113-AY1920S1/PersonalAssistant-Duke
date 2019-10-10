@@ -1,0 +1,6 @@
+delete 1
+find
+done
+done 0
+event
+bye

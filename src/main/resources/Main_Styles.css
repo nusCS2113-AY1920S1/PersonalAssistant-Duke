@@ -1,0 +1,142 @@
+BorderPane, ScrollPane, VBox, HBox, FlowPane, AnchorPane{
+    -fx-background-color: #1d1d1d;
+    -fx-background: #1d1d1d;
+    -fx-border-width: 0px;
+}
+
+
+ProgressBar .track{
+    -fx-background-radius: 2em;
+    -fx-border-radius: 2em;
+    -fx-border-color: white;
+    -fx-background-color: #403F3F;
+}
+
+ProgressBar .bar{
+    -fx-background-color: white;
+    -fx-background-radius: 2em;
+    -fx-border-radius: 2em;
+}
+
+ScrollPane .scroll-bar:vertical{
+    -fx-background-color: #292727;
+}
+
+ScrollPane .increment-button, ScrollPane .decrement-button{
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+    -fx-background-radius: 2em;
+}
+
+ScrollPane .increment-button:hover, ScrollPane .decrement-button:hover{
+    -fx-background-color: white;
+    -fx-border-color: transparent;
+}
+
+ScrollPane .scroll-bar:vertical .thumb {
+    -fx-background-color: #1d1d1d;
+    -fx-background-radius: 2em;
+}
+
+ScrollPane .scroll-bar:vertical .track{
+    -fx-background-radius: 2em;
+    -fx-border-radius: 2em;
+}
+
+ScrollPane .scroll-bar:vertical .thumb:hover{
+    -fx-background-color: white;
+}
+
+Label{
+    -fx-text-fill: white;
+}
+
+.titleLabel{
+    -fx-font-size: 11pt;
+    -fx-font-family: Verdana;
+}
+
+#movieIDLabel {
+ -fx-font-size: 8pt;
+ -fx-font-family: Verdana;
+}
+
+.subtitle{
+    -fx-font-size: 8pt;
+    -fx-font-family: Tahoma;
+}
+
+#ageText{
+    -fx-text-fill: white;
+}
+
+#langText{
+-fx-font-color:white;
+}
+
+#genreText{
+-fx-text-fill:white;
+}
+
+ToolBar{
+    -fx-background-color: #1d1d1d;
+    -fx-background-radius: 2em;
+    -fx-border-color: transparent transparent #403F3F transparent;
+}
+
+MenuBar{
+    -fx-background-color: #1d1d1d;
+    -fx-background: #1d1d1d;
+    -fx-border-color: transparent transparent #403F3F transparent;
+    -fx-text-fill: white;
+}
+
+MenuBar .label{
+    -fx-text-fill: white;
+}
+
+MenuBar .label{
+    -fx-text-fill: white;
+}
+
+MenuBar .menu-item, MenuBar .context-menu{
+     -fx-background-color: #1d1d1d;
+}
+
+MenuBar .menu-item:hover, MenuBar .context-menu:hover, MenuBar .menu:hover{
+    -fx-background-color: #403F3F;
+}
+
+MenuBar .context-menu{
+    -fx-border-color: #403F3F;
+}
+
+MenuBar .context-menu{
+    -fx-padding: 0 0 0 0;
+}
+
+
+#text{
+-fx-padding: 6, 6, 6, 6;
+}
+
+TextField{
+    -fx-background-color: #403F3F;
+    -fx-background-radius: 2em;
+    -fx-border-radius: 2em;
+    -fx-text-fill: white;
+}
+
+TextField:focused, TextField:hover{
+    -fx-border-color: white;
+}
+
+.posterPane:hover{
+    -fx-scale-x: 1.2;
+    -fx-scale-y: 1.2;
+}
+
+Label.colHeader{
+    -fx-text-fill: #696464;
+    -fx-font-family: Verdana;
+}

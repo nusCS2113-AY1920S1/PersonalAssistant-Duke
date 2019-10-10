@@ -9,7 +9,7 @@ While we have produced a fully functional prototype, there are a few major probl
    Every small change requires us to rebuild and run the application.  
 
 1. Components are heavily dependent on each other:
-   Why does `Main` need to know that `DialogBox` needs a `Label`? 
+   Why does `MovieUI.Main` need to know that `DialogBox` needs a `Label`? 
    What happens if we change the `Label` to a custom `ColoredLabel` in the future?  
     
     We need to minimize the amount of information each control needs to know about another.
@@ -18,7 +18,7 @@ While we have produced a fully functional prototype, there are a few major probl
 1. The code is untidy and long:
    Why is all the code in one place?
 
-   The `Main` class attempts to do it all. 
+   The `MovieUI.Main` class attempts to do it all. 
    Code for visual tweaks, listeners and even utility methods are all in one file.
    This makes it difficult to find and make changes to existing code.
 
@@ -92,7 +92,7 @@ Create the following files in `src/main/resources/view`:
 1. On the left accordion, you can see that we have set the controller class to `MainWindow`. 
 We will get to that later.
  
-   ![Controller for MainWindow](assets/MainWindowController.png)
+   ![MovieUI.Controller for MainWindow](assets/MainWindowController.png)
 
 1. Let’s repeat the process for `DialogBox`.
    The main difference here is that DialogBox checks `Use fx:root construct` and _does not define a controller class_. 
@@ -116,7 +116,7 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 /**
- * Controller for MainWindow. Provides the layout for the other controls.
+ * MovieUI.Controller for MainWindow. Provides the layout for the other controls.
  */
 public class MainWindow extends AnchorPane {
     @FXML
@@ -168,9 +168,9 @@ Similarly, methods like private methods like `handleUserInput` can be used in FX
 
 ## Using FXML in our application
 
-Let's create a new `Main` class as the bridge between the existing logic in `Duke` and the UI in `MainWindow`.
+Let's create a new `MovieUI.Main` class as the bridge between the existing logic in `Duke` and the UI in `MainWindow`.
 
-**Main.java**
+**MovieUI.Main.java**
 ```java
 @Override
 import java.io.IOException;
@@ -184,14 +184,14 @@ import javafx.stage.Stage;
 /**
  * A GUI for Duke using FXML.
  */
-public class Main extends Application {
+public class MovieUI.Main extends Application {
 
     private Duke duke = new Duke();
 
     @Override
     public void start(Stage stage) {
         try {
-            FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/view/MainWindow.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(MovieUI.Main.class.getResource("/view/MainWindow.fxml"));
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
             stage.setScene(scene);
@@ -278,7 +278,7 @@ The last change that we have to make is to point our `Launcher` class in the rig
 In `Launcher.java`
 ```java
 //...    
-Application.launch(Main.class, args);
+Application.launch(MovieUI.Main.class, args);
 //...
 ```
 [todo]: # (Discussion on the fx:root pattern.)
