@@ -9,6 +9,7 @@ import duke.command.ListCommand;
 import duke.exceptions.ModBadRequestStatus;
 import duke.exceptions.ModException;
 import duke.exceptions.ModTimeIntervalTooCloseException;
+import duke.modules.ModuleInfoDetailed;
 import duke.modules.ModuleInfoSummary;
 import duke.util.JsonWrapper;
 import duke.util.ParserWrapper;
@@ -52,7 +53,14 @@ public class Duke {
         // Starting reminder threads and pulling data from API
         // TODO: removed reminder, pending fix for thread bug during exit command
         try {
+            // Classes to be initialized during runtime
+            reminder = new Reminder(tasks.getTasks());
+            reminder.run();
+
+            // This pulls data once and stores in the data files.
             data.runRequests(store);
+        } catch (ModTimeIntervalTooCloseException e) {
+            System.out.println(e.getMessage());
         } catch (ModBadRequestStatus er) {
             er.printStackTrace();
         }
@@ -66,8 +74,11 @@ public class Duke {
                 //       list command, remove this when creating additional features
                 if (c instanceof ListCommand) {
                     HashMap<String, ModuleInfoSummary> test = data.getModuleSummaryMap();
+                    HashMap<String, ModuleInfoDetailed> testDetailed = data.getModuleDetailedMap();
                     // Demo test of commands
                     System.out.println(test.get("CS2101"));
+                    System.out.println(testDetailed.get("CS2101"));
+                    System.out.println(testDetailed.get("CS2101").getAttributes().isSu());
                     System.out.println(Arrays.toString(test.get("CS2113T").getSemesters()));
                     System.out.println(test.get("CG2028").getTitle());
                     System.out.println(test.get("CS1010"));

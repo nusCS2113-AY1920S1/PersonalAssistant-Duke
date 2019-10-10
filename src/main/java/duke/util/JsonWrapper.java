@@ -15,6 +15,7 @@ import java.util.List;
 
 import duke.exceptions.ModBadRequestStatus;
 import duke.exceptions.ModFailedJsonException;
+import duke.modules.ModuleInfoDetailed;
 import duke.modules.ModuleInfoSummary;
 
 public class JsonWrapper {
@@ -104,6 +105,37 @@ public class JsonWrapper {
         }
         HashMap<String, ModuleInfoSummary> ret = new HashMap<>();
         for (ModuleInfoSummary temp : modsList) {
+            String modCode = temp.getModuleCode();
+            ret.put(modCode, temp);
+        }
+        return ret;
+    }
+
+    private List<ModuleInfoDetailed> getModuleListDetailedObject() {
+        try {
+            JsonReader reader = new JsonReader(new FileReader(listDetailedFile));
+            Type listType = new TypeToken<List<ModuleInfoDetailed>>(){}.getType();
+            return gson.fromJson(reader, listType);
+        } catch (IllegalStateException e) {
+            e.printStackTrace();
+        } catch (IOException ei) {
+            System.out.println(Arrays.toString(ei.getStackTrace()));
+        }
+        return null;
+    }
+
+    /**
+     * Main helper function to obtained HashMap of detailed info from modsDetailedListData.json.
+     * @return HashMap with module code as the key and ModuleInfoSummary object as the value.
+     * @throws ModFailedJsonException If the previous call to getModuleListObject() returns null.
+     */
+    public HashMap<String, ModuleInfoDetailed> getModuleDetailedMap() throws ModFailedJsonException {
+        List<ModuleInfoDetailed> modsList = getModuleListDetailedObject();
+        if (modsList == null) {
+            throw new ModFailedJsonException();
+        }
+        HashMap<String, ModuleInfoDetailed> ret = new HashMap<>();
+        for (ModuleInfoDetailed temp : modsList) {
             String modCode = temp.getModuleCode();
             ret.put(modCode, temp);
         }
