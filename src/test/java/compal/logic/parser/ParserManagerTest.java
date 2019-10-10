@@ -7,22 +7,22 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class ParserManagerTest {
-    private Compal d;
+    private Compal compal;
     private ParserManager pm;
 
     @BeforeEach
     public void setup() {
-        d = new Compal();
-        pm = new ParserManager(d, d.tasklist);
+        compal = new Compal();
+        pm = new ParserManager(compal, compal.tasklist);
     }
 
     @Test
     public void iniTest() {
-        assertEquals(d, pm.compal);
+        assertEquals(compal, pm.compal);
     }
 
     @Test
-    public void SetStatusTest() {
+    public void setStatusTest() {
         String status = "test";
         pm.setStatus(status);
         assertEquals(status, pm.status);

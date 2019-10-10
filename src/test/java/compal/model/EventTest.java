@@ -31,7 +31,7 @@ public class EventTest {
     }
 
     @Test
-    void TestSetPriority() {
+    void setPriorityTest() {
         event.setPriority(priority);
         assertEquals(priority, event.getPriority());
     }

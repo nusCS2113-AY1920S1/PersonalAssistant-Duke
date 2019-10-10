@@ -12,7 +12,7 @@ import java.util.Date;
 import static compal.model.tasks.Task.Priority.high;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class RecurringTaskTesting {
+public class RecurringTaskTest {
     private String description = "Test content";
     private String date = "01/10/2019";
     private String startTime = "1130";
@@ -32,7 +32,7 @@ public class RecurringTaskTesting {
     }
 
     @Test
-    void TestSetPriority() {
+    void setPriorityTest() {
         recurringTask.setPriority(priority);
         assertEquals(priority, recurringTask.getPriority());
     }

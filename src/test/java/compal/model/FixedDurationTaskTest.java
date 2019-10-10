@@ -31,7 +31,7 @@ public class FixedDurationTaskTest {
     }
 
     @Test
-    void TestSetPriority() {
+    void setPriorityTest() {
         fdt.setPriority(priority);
         assertEquals(priority, fdt.getPriority());
     }

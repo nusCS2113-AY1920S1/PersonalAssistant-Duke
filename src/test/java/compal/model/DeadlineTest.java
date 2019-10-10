@@ -32,7 +32,7 @@ class DeadlineTest {
     }
 
     @Test
-    void TestSetPriority() {
+    void setPriorityTest() {
         deadline.setPriority(priority);
         assertEquals(priority, deadline.getPriority());
     }
