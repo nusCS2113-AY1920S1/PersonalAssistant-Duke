@@ -19,6 +19,7 @@ public class ChapterSorting {
      * 
      * @return A question class that contains the question and expected answer.
      */
+
     public static Question generateQuestions() {
         int questionType = random.nextInt(4);
         switch (questionType) {
@@ -126,7 +127,11 @@ public class ChapterSorting {
      * Generates the BubbleSort Algorithm question regarding the sequence of
      * integers after a certain number of passes. It determines a random array size,
      * then fills the array with unique numbers. A random number of passes is
+<<<<<<< HEAD
+     * determined and the BubbleSort Algorithm stops midway.
+=======
      * determined and the BubbleSort Algorithm stops midway. 
+>>>>>>> 3a91b061e1d79be0ad2889e7c2188d68fc05e9d5
      * 
      * @return the question class with the question.
      */
