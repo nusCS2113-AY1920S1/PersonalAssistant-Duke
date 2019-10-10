@@ -21,7 +21,7 @@ public class EventTest {
     private Event event;
 
     @BeforeEach
-    public void setup() {
+    public void setUp() {
         event = new Event(description, priority, date, startTime, endTime);
     }
 

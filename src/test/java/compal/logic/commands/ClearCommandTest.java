@@ -11,7 +11,7 @@ public class ClearCommandTest {
     private Compal compal;
 
     @BeforeEach
-    public void setup() {
+    public void setUp() {
         compal = new Compal();
         clearCommand = new ClearCommand(compal);
     }

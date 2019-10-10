@@ -9,7 +9,7 @@ public class MessagesTest {
     private Messages messages;
 
     @BeforeEach
-    public void setup() {
+    public void setUp() {
         messages = new Messages();
     }
 

@@ -11,7 +11,7 @@ public class EventCommandTest {
     private Compal compal;
 
     @BeforeEach
-    public void setup() {
+    public void setUp() {
         compal = new Compal();
         eventCommand = new EventCommand(compal);
     }
@@ -20,15 +20,5 @@ public class EventCommandTest {
     public void iniTest() {
         assertEquals(compal, eventCommand.compal);
         assertEquals(compal.tasklist, eventCommand.compal.tasklist);
-    }
-
-    @Test
-    public void parseCommandTest() {
-        String command = "deadline /date 09/10/2019 /end 1230";
-        try {
-            eventCommand.parseCommand(command);
-        } catch (Exception t) {
-            //ignore the null pointer exception because ui is not welly declared in this test
-        }
     }
 }

@@ -42,7 +42,7 @@ public class StorageManagerTest {
      * @author peize
      */
     @BeforeEach
-    public void setup() {
+    public void setUp() {
         sm = new StorageManager();
         deadline = new Deadline(description, priority, date, endTime);
         doAfterTasks = new DoAfterTasks(description, priority, date);

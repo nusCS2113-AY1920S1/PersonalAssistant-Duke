@@ -11,7 +11,7 @@ public class FixedDurationCommandTest {
     private Compal compal;
 
     @BeforeEach
-    public void setup() {
+    public void setUp() {
         compal = new Compal();
         fixedDurationCommand = new FixedDurationCommand(compal);
     }
@@ -20,15 +20,5 @@ public class FixedDurationCommandTest {
     public void iniTest() {
         assertEquals(compal, fixedDurationCommand.compal);
         assertEquals(compal.tasklist,fixedDurationCommand.compal.tasklist);
-    }
-
-    @Test
-    public void parseCommandTest() {
-        String command = "deadline /date 09/10/2019 /end 1230";
-        try {
-            fixedDurationCommand.parseCommand(command);
-        } catch (Exception t) {
-            //ignore the null pointer exception because ui is not welly declared in this test
-        }
     }
 }

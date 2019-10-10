@@ -22,7 +22,7 @@ class DeadlineTest {
 
 
     @BeforeEach
-    public void setup() {
+    public void setUp() {
         deadline = new Deadline(description, priority, date, endTime);
     }
 

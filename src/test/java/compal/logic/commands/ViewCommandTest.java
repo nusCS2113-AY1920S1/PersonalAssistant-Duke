@@ -11,7 +11,7 @@ public class ViewCommandTest {
     private Compal compal;
 
     @BeforeEach
-    public void setup() {
+    public void setUp() {
         compal = new Compal();
         viewCommand = new ViewCommand(compal);
     }
@@ -20,15 +20,5 @@ public class ViewCommandTest {
     public void iniTest() {
         assertEquals(compal, viewCommand.compal);
         assertEquals(compal.tasklist,viewCommand.compal.tasklist);
-    }
-
-    @Test
-    public void parseCommandTest() {
-        String command = "deadline /date 09/10/2019 /end 1230";
-        try {
-            viewCommand.parseCommand(command);
-        } catch (Exception t) {
-            //ignore the null pointer exception because ui is not welly declared in this test
-        }
     }
 }

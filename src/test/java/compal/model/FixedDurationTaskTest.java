@@ -21,7 +21,7 @@ public class FixedDurationTaskTest {
     private FixedDurationTask fdt;
 
     @BeforeEach
-    public void setup() {
+    public void setUp() {
         fdt = new FixedDurationTask(description, priority, date, startTime, endTime);
     }
 

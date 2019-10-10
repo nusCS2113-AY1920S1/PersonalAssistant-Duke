@@ -11,7 +11,7 @@ public class DeleteCommandTest {
     private Compal compal;
 
     @BeforeEach
-    public void setup() {
+    public void setUp() {
         compal = new Compal();
         deleteCommand = new DeleteCommand(compal);
     }

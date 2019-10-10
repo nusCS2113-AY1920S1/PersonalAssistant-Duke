@@ -11,7 +11,7 @@ public class ParserManagerTest {
     private ParserManager pm;
 
     @BeforeEach
-    public void setup() {
+    public void setUp() {
         compal = new Compal();
         pm = new ParserManager(compal, compal.tasklist);
     }

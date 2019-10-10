@@ -11,7 +11,7 @@ public class DoAfterCommandTest {
     private Compal compal;
 
     @BeforeEach
-    public void setup() {
+    public void setUp() {
         compal = new Compal();
         doAfterCommand = new DoAfterCommand(compal);
     }

@@ -32,7 +32,7 @@ public class ByeCommandTest {
     private Compal compal;
 
     @BeforeEach
-    public void setup() {
+    public void setUp() {
         compal = new Compal();
         byeCommand = new ByeCommand(compal);
     }
@@ -53,7 +53,7 @@ public class ByeCommandTest {
         } catch (NullPointerException t) {
             //ignore the null pointer exception because ui is not welly declared in this test
         } catch (Exception t) {
-            assertEquals(t, new compal.commons.Compal.DukeException(MESSAGE_MISSING_COMMAND_ARG));
+            assertEquals(t, MESSAGE_MISSING_COMMAND_ARG);
         }
         try {
             String command2 = "/slash first test";
@@ -61,7 +61,7 @@ public class ByeCommandTest {
         } catch (NullPointerException t) {
             //ignore the null pointer exception because ui is not welly declared in this test
         } catch (Exception t) {
-            assertEquals(t, new compal.commons.Compal.DukeException(MESSAGE_MISSING_DESC));
+            assertEquals(t, MESSAGE_MISSING_DESC);
         }
     }
 
@@ -75,7 +75,7 @@ public class ByeCommandTest {
         } catch (NullPointerException t) {
             //ignore the null pointer exception because ui is not welly declared in this test
         } catch (Exception t) {
-            assertEquals(t, new compal.commons.Compal.DukeException(MESSAGE_MISSING_DESC));
+            assertEquals(t, MESSAGE_MISSING_DESC);
         }
         try {
             String date = "/date";
@@ -83,7 +83,7 @@ public class ByeCommandTest {
         } catch (NullPointerException t) {
             //ignore the null pointer exception because ui is not welly declared in this test
         } catch (Exception t) {
-            assertEquals(t, new compal.commons.Compal.DukeException(MESSAGE_MISSING_DATE));
+            assertEquals(t, MESSAGE_MISSING_DATE);
         }
         try {
             String date = "/date 111";
@@ -91,7 +91,7 @@ public class ByeCommandTest {
         } catch (NullPointerException t) {
             //ignore the null pointer exception because ui is not welly declared in this test
         } catch (Exception t) {
-            assertEquals(t, new compal.commons.Compal.DukeException(MESSAGE_INVALID_DATE_FORMATTING));
+            assertEquals(t, MESSAGE_INVALID_DATE_FORMATTING);
         }
         try {
             String date = "/date 10/10/2018";
@@ -99,7 +99,7 @@ public class ByeCommandTest {
         } catch (NullPointerException t) {
             //ignore the null pointer exception because ui is not welly declared in this test
         } catch (Exception t) {
-            assertEquals(t, new compal.commons.Compal.DukeException(MESSAGE_INVALID_YEAR));
+            assertEquals(t, MESSAGE_INVALID_YEAR);
         }
     }
 
@@ -113,7 +113,7 @@ public class ByeCommandTest {
         } catch (NullPointerException t) {
             //ignore the null pointer exception because ui is not welly declared in this test
         } catch (Exception t) {
-            assertEquals(t, new compal.commons.Compal.DukeException(MESSAGE_MISSING_START_TIME_ARG));
+            assertEquals(t, MESSAGE_MISSING_START_TIME_ARG);
         }
         try {
             String time = "/start";
@@ -121,7 +121,7 @@ public class ByeCommandTest {
         } catch (NullPointerException t) {
             //ignore the null pointer exception because ui is not welly declared in this test
         } catch (Exception t) {
-            assertEquals(t, new compal.commons.Compal.DukeException(MESSAGE_MISSING_TIME));
+            assertEquals(t, MESSAGE_MISSING_TIME);
         }
     }
 
@@ -135,7 +135,7 @@ public class ByeCommandTest {
         } catch (NullPointerException t) {
             //ignore the null pointer exception because ui is not welly declared in this test
         } catch (Exception t) {
-            assertEquals(t, new compal.commons.Compal.DukeException(MESSAGE_MISSING_END_TIME_ARG));
+            assertEquals(t, MESSAGE_MISSING_END_TIME_ARG);
         }
         try {
             String time = "/end";
@@ -143,7 +143,7 @@ public class ByeCommandTest {
         } catch (NullPointerException t) {
             //ignore the null pointer exception because ui is not welly declared in this test
         } catch (Exception t) {
-            assertEquals(t, new compal.commons.Compal.DukeException(MESSAGE_MISSING_TIME));
+            assertEquals(t, MESSAGE_MISSING_TIME);
         }
     }
 
@@ -163,7 +163,7 @@ public class ByeCommandTest {
         } catch (NullPointerException t) {
             //ignore the null pointer exception because ui is not welly declared in this test
         } catch (Exception t) {
-            assertEquals(t, new compal.commons.Compal.DukeException(MESSAGE_MISSING_PRIORITY));
+            assertEquals(t, MESSAGE_MISSING_PRIORITY);
         }
     }
 }

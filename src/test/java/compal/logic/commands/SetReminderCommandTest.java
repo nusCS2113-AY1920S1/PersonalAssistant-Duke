@@ -11,7 +11,7 @@ public class SetReminderCommandTest {
     private Compal compal;
 
     @BeforeEach
-    public void setup() {
+    public void setUp() {
         compal = new Compal();
         setReminderCommand = new SetReminderCommand(compal);
     }
@@ -20,15 +20,5 @@ public class SetReminderCommandTest {
     public void iniTest() {
         assertEquals(compal, setReminderCommand.compal);
         assertEquals(compal.tasklist,setReminderCommand.compal.tasklist);
-    }
-
-    @Test
-    public void parseCommandTest() {
-        String command = "deadline /date 09/10/2019 /end 1230";
-        try {
-            setReminderCommand.parseCommand(command);
-        } catch (Exception t) {
-            //ignore the null pointer exception because ui is not welly declared in this test
-        }
     }
 }
