@@ -1,6 +1,6 @@
 goal-short buy Lambo /amt 100000 /by 10/12/2040 /priority MEDIUM
 goal-short buy Boat /amt 100000 /by 11/12/2050 /priority LOW
-goal-short buy Motorbike /amt 10000 /by 15/1/2050 /priority HIGH
+goal buy Motorbike /amt 10000 /by 15/1/2050 /priority HIGH
 list goals
 delete goal 2
 done goal 2

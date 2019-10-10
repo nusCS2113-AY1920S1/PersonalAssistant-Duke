@@ -97,11 +97,17 @@ public class MainWindow extends AnchorPane {
             );
             userInput.clear();
             if (input.startsWith("graph")) {
-                graphContainer.getChildren().removeAll();
+                graphContainer.getChildren().clear();
                 float[] data = duke.getMonthlyData();
                 graphContainer.getChildren().addAll(
                         Histogram.getHistogram("The Month Report", data[0], data[1])
                 );
+            }else if (input.startsWith("list")) {
+                graphContainer.getChildren().clear();
+                dialogContainer.getChildren().remove(dialogContainer.getChildren().size()-1);
+                dialogContainer.getChildren().add(
+                        DialogBox.getDukeDialog("Got it, graph will be printed in the other pane!\n", dukeImage));
+                graphContainer.getChildren().addAll(DialogBox.getDukeDialog(response, dukeImage));
             }
         }
         userInput.clear();
