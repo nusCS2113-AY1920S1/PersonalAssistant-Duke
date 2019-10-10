@@ -15,21 +15,6 @@ import eggventory.enums.CommandType;
  */
 public class Parser {
 
-    private int processDoAfter(String input) throws BadInputException {
-        String shortStr;
-        String[] splitStr;
-        int taskIndex;
-
-        shortStr = input.substring(input.indexOf("/after"));
-
-        try {
-            splitStr = shortStr.split(" ", 3); //splits into "/after" "x" and other stuff, where "x" is an int
-            taskIndex = Integer.parseInt(splitStr[1]); //check if this is an int
-        } catch (ArrayIndexOutOfBoundsException | NumberFormatException e) {
-            throw new BadInputException("Please input the index number of the task that has to be done first.");
-        }
-        return taskIndex;
-    }
 
     /**
      * Processes the contents of an add command (everything after the word "add").
@@ -78,13 +63,6 @@ public class Parser {
         */
 
         listInput = listInput.strip(); //Remove leading/trailing whitespace.
-
-        int afterIndex;
-        afterIndex = -1;
-        if (listInput.contains("/after")) {
-            afterIndex = processDoAfter(listInput);
-            listInput = listInput.replace(" /after " + Integer.toString(afterIndex), "");
-        }
 
         //Extract the first word.
         //inputArr[0] is the main command word.
