@@ -13,6 +13,10 @@ import owlmoney.logic.parser.ParseRawData;
 import owlmoney.logic.parser.exception.ParserException;
 import owlmoney.logic.regex.RegexUtil;
 
+/**
+ * ParseExpenditure class which is abstract where various expenditure parser objects inherit from
+ * given that it is abstract.
+ */
 public abstract class ParseExpenditure {
     HashMap<String, String> expendituresParameters = new HashMap<String, String>();
     private ParseRawData parseRawData = new ParseRawData();
@@ -29,16 +33,33 @@ public abstract class ParseExpenditure {
     static final String TRANSNO = "/transno";
     static final String NUM = "/num";
 
+    /**
+     * Constructor which creates an instance of any ParseSaving type object.
+     *
+     * @param data Raw user input date.
+     */
     ParseExpenditure(String data) {
         this.rawData = data;
     }
 
+    /**
+     * Checks the user input for any redundant parameters.
+     *
+     * @param parameter Redundant parameter to check for,
+     * @param command Command the user performed.
+     * @throws ParserException If a redundant parameter is detected.
+     */
     void checkRedundantParameter(String parameter, String command) throws ParserException {
         if (rawData.contains(parameter)) {
             throw new ParserException(command + " /expenditure should not contain " + parameter);
         }
     }
 
+    /**
+     * Checks if the first parameter is a valid parameter.
+     *
+     * @throws ParserException If the first parameter is invalid.
+     */
     void checkFirstParameter() throws ParserException {
         String[] rawDateSplit = rawData.split(" ", 2);
         if (!EXPENDITURE_KEYWORD_LISTS.contains(rawDateSplit[0])) {
@@ -46,6 +67,11 @@ public abstract class ParseExpenditure {
         }
     }
 
+    /**
+     * Fills a hash table mapping each user input to each parameter.
+     *
+     * @throws ParserException If duplicate parameters are detected.
+     */
     public void fillHashTable() throws ParserException {
         expendituresParameters.put(AMOUNT,
                 parseRawData.extractParameter(rawData, AMOUNT, EXPENDITURE_KEYWORD));
@@ -63,30 +89,61 @@ public abstract class ParseExpenditure {
                 parseRawData.extractParameter(rawData, NUM, EXPENDITURE_KEYWORD));
     }
 
+    /**
+     * Checks if the amount entered by the user is a double and only contains numbers.
+     *
+     * @param valueString String to be converted to double as the user's amount.
+     * @throws ParserException If the string is not a double value.
+     */
     void checkAmount(String valueString) throws ParserException {
         if (!RegexUtil.regexCheckMoney(valueString)) {
             throw new ParserException("/amount can only be numbers with at most 9 digits and 2 decimal places");
         }
     }
 
+    /**
+     * Checks if the transaction number or display number entered by the user is an integer.
+     *
+     * @param valueString String to be converted to integer.
+     * @throws ParserException If the string is not an integer.
+     */
     void checkInt(String variable, String valueString) throws ParserException {
         if (!RegexUtil.regexCheckListNumber(valueString)) {
             throw new ParserException(variable + " can only be a positive number with at most 9 digits");
         }
     }
 
+    /**
+     * Checks if the description entered by the user does not have special characters and is not too long.
+     *
+     * @param descString Deposit description.
+     * @throws ParserException If the string has special characters or is too long.
+     */
     void checkDescription(String descString) throws ParserException {
         if (!RegexUtil.regexCheckDescription(descString)) {
             throw new ParserException("/desc can only contain numbers and letters and at most 50 characters");
         }
     }
 
+    /**
+     * Checks if the bank name entered by the user does not contain special character and not too long.
+     *
+     * @param nameString Name of bank
+     * @throws ParserException If the name is too long or contain special characters.
+     */
     void checkName(String nameString) throws ParserException {
         if (!RegexUtil.regexCheckName(nameString)) {
             throw new ParserException("/from can only contain letters and at most 30 characters");
         }
     }
 
+    /**
+     * Checks if the deposit date is of valid format and not after now.
+     *
+     * @param dateString Date to be checked.
+     * @return Date if checks pass.
+     * @throws ParserException If date format is invalid.
+     */
     Date checkDate(String dateString) throws ParserException {
         if (RegexUtil.regexCheckDateFormat(dateString)) {
             DateFormat temp = new SimpleDateFormat("dd/MM/yyyy");
@@ -106,7 +163,17 @@ public abstract class ParseExpenditure {
         throw new ParserException("Incorrect date format." + " Date format is dd/mm/yyyy in year range of 1900-2099");
     }
 
+    /**
+     * Abstract method where each saving parser performs different checks on the parameters.
+     *
+     * @throws ParserException If any parameters fail the check.
+     */
     public abstract void checkParameter() throws ParserException;
 
+    /**
+     * Abstract method where each saving parser creates different commands.
+     *
+     * @return Command to be executed.
+     */
     public abstract Command getCommand();
 }

@@ -7,18 +7,31 @@ import owlmoney.logic.command.Command;
 import owlmoney.logic.command.bank.AddSavingsCommand;
 import owlmoney.logic.parser.exception.ParserException;
 
+/**
+ * Represents the parsing of inputs for adding a new saving.
+ */
 public class ParseAddSaving extends ParseSaving {
 
     private static final String ADD = "/add";
 
+    /**
+     * Constructor which creates an instance of ParseAddSaving.
+     *
+     * @param data Raw data of user input to be parsed.
+     * @throws ParserException If there is a redundant parameter or first parameter is not a valid type.
+     */
     public ParseAddSaving(String data) throws ParserException {
         super(data);
         checkRedundantParameter(NEW_NAME, ADD);
         checkFirstParameter();
     }
 
+    /**
+     * Checks each user input for each parameter.
+     *
+     * @throws ParserException If there are any invalid or missing input.
+     */
     public void checkParameter() throws ParserException {
-        // Getting an iterator
         Iterator<String> savingsIterator = savingsParameters.keySet().iterator();
 
         while (savingsIterator.hasNext()) {
@@ -36,6 +49,11 @@ public class ParseAddSaving extends ParseSaving {
         }
     }
 
+    /**
+     * Returns the command to execute the adding of a new saving.
+     *
+     * @return AddSavingsCommand to be executed.
+     */
     public Command getCommand() {
         AddSavingsCommand newAddSavingsCommand = new AddSavingsCommand(savingsParameters.get(NAME),
                 Double.parseDouble(savingsParameters.get(INCOME)),

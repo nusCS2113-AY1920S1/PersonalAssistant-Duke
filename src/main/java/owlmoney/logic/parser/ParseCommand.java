@@ -62,12 +62,12 @@ public class ParseCommand extends Parser {
 
     /**
      * The command menu determines what type of command to execute and pass to parseType.
+     *
      * @param command The command extracted with parseFirstField.
      * @param data The data that has command removed from the first field.
      * @return The Command object that is required to be executed.
      * @throws ParserException When an invalid command is detected.
      */
-    //for now is pass profile all the way in. Double check if is correct structure
     private Command parseCommandMenu(String command, String data) throws ParserException {
         switch (command) {
         case "/add":

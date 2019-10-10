@@ -50,7 +50,7 @@ class Main {
             try {
                 Command command = parser.parseLine();
                 hasExited = command.execute(profile, ui);
-                if(hasExited) {
+                if (hasExited) {
                     break;
                 }
             } catch (ParserException exceptionMessage) {

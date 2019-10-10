@@ -22,7 +22,7 @@ public class TransactionList {
     public TransactionList() {
         expLists = new ArrayList<Transaction>();
     }
-/*
+    /*
     /**
      * Lists the expenditure in the expenditureList.
      *
@@ -38,6 +38,12 @@ public class TransactionList {
         }
     }*/
 
+    /**
+     * Lists the expenditures in the current bank account.
+     *
+     * @param ui required for printing.
+     * @param displayNum Number of expenditures to list.
+     */
     public void listExpenditure(Ui ui, int displayNum) {
         if (expLists.size() <= 0) {
             ui.printError("There are no transactions");
@@ -50,7 +56,7 @@ public class TransactionList {
                     ui.printMessage((i + 1) + ":\n" + expLists.get(i).getDetails() + "\n");
                     counter--;
                 }
-                if(counter <= 0) {
+                if (counter <= 0) {
                     break;
                 }
             }
@@ -64,6 +70,12 @@ public class TransactionList {
         }
     }
 
+    /**
+     * Lists the deposits in the current bank account.
+     *
+     * @param ui required for printing.
+     * @param displayNum Number of deposits to list.
+     */
     public void listDeposit(Ui ui, int displayNum) {
         if (expLists.size() <= 0) {
             ui.printError("There are no transactions");
@@ -90,7 +102,7 @@ public class TransactionList {
     }
 
     /**
-     * Adds an expenditure to the expenditureList.
+     * Adds an expenditure to the transactionList.
      *
      * @param exp an instance of an expenditure.
      * @param ui  required for printing.
@@ -100,6 +112,12 @@ public class TransactionList {
         ui.printMessage("Added expenditure:\n" + exp.getDetails());
     }
 
+    /**
+     * Adds an deposit to the transactionList.
+     *
+     * @param dep an instance of an deposit.
+     * @param ui  required for printing.
+     */
     public void addDepositToList(Transaction dep, Ui ui) {
         expLists.add(dep);
         ui.printMessage("Added deposit:\n" + dep.getDetails());
@@ -133,6 +151,17 @@ public class TransactionList {
         }
     }
 
+    /**
+     * Edits the specific expenditure in the list.
+     *
+     * @param expNum Transaction number of the expenditure.
+     * @param desc New description of the expenditure.
+     * @param amount New amount of the expenditure.
+     * @param date New date of the expenditure.
+     * @param category New category of the expenditure.
+     * @param ui required for printing.
+     * @return New amount of the expenditure.
+     */
     public double editEx(int expNum, String desc, String amount, String date, String category, Ui ui) {
         ui.printMessage("Editing transaction...\n");
         if (!(desc.isBlank() || desc.isEmpty())) {
@@ -145,7 +174,7 @@ public class TransactionList {
             DateFormat temp = new SimpleDateFormat("dd/MM/yyyy");
             try {
                 expLists.get(expNum - 1).setDate(temp.parse(date));
-            } catch(ParseException e) {
+            } catch (ParseException e) {
                 //check handled in ParseEditExpenditure
             }
         }
@@ -156,6 +185,16 @@ public class TransactionList {
         return expLists.get(expNum - 1).getAmount();
     }
 
+    /**
+     * Edits the specific deposit in the list.
+     *
+     * @param expNum Transaction number of the deposit.
+     * @param desc New description of the deposit.
+     * @param amount New amount of the deposit.
+     * @param date New date of the deposit.
+     * @param ui required for printing.
+     * @return New amount of the deposit.
+     */
     public double editDep(int expNum, String desc, String amount, String date, Ui ui) {
         ui.printMessage("Editing transaction...\n");
         if (!(desc.isBlank() || desc.isEmpty())) {
@@ -176,6 +215,13 @@ public class TransactionList {
         return expLists.get(expNum - 1).getAmount();
     }
 
+    /**
+     * Gets the specific expenditure amount.
+     *
+     * @param index Transaction number of the expenditure.
+     * @param ui required for printing.
+     * @return Amount of the expenditure.
+     */
     public double getExpenditureAmount(int index, Ui ui) {
         if ((index - 1) >= 0 && (index - 1) < expLists.size()) {
             if ("deposit".equals(expLists.get(index - 1).getCategory())) {
@@ -190,6 +236,13 @@ public class TransactionList {
         }
     }
 
+    /**
+     * Deletes the specific deposit from the current bank account.
+     *
+     * @param index Transaction number of the deposit.
+     * @param ui required for printing.
+     * @return Amount of the deleted deposit.
+     */
     public double deleteDepositFromList(int index, Ui ui) {
         Transaction temp = expLists.get(index - 1);
         expLists.remove(index - 1);
@@ -197,6 +250,13 @@ public class TransactionList {
         return temp.getAmount();
     }
 
+    /**
+     * Gets the amount of the deposit specified.
+     *
+     * @param index Transaction number of the deposit.
+     * @param ui required for printing.
+     * @return Amount of the deposit
+     */
     public double getTransactionValue(int index, Ui ui) {
         if (expLists.size() <= 0) {
             ui.printError("There are no transactions in this bank");

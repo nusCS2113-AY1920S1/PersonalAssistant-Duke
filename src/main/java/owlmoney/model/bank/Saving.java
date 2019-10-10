@@ -58,7 +58,7 @@ public class Saving extends Bank {
             deductFromAmount(exp.getAmount());
         }
     }
-/*
+    /*
     /**
      * Lists all expenditure tied to this bank account.
      *
@@ -68,12 +68,25 @@ public class Saving extends Bank {
     public void listAllTransaction(Ui ui) {
         transactions.listTransaction(ui);
     }
-*/
+    */
+
+    /**
+     * Lists the deposits in the current bank account.
+     *
+     * @param ui Ui of OwlMoney.
+     * @param displayNum Number of deposits to list.
+     */
     @Override
     void listAllDeposit(Ui ui, int displayNum) {
         transactions.listDeposit(ui, displayNum);
     }
 
+    /**
+     * Lists the expenditures in the current bank account.
+     *
+     * @param ui Ui of OwlMoney.
+     * @param displayNum Number of expenditure to list.
+     */
     @Override
     void listAllExpenditure(Ui ui, int displayNum) {
         transactions.listExpenditure(ui, displayNum);
@@ -90,11 +103,26 @@ public class Saving extends Bank {
         addToAmount(transactions.deleteExpenditureFromList(exId, ui));
     }
 
+    /**
+     * Sets a new income of the current bank account.
+     *
+     * @param newIncome Income to set.
+     */
     @Override
     void setIncome(double newIncome) {
         this.income = newIncome;
     }
 
+    /**
+     * Edits the expenditure details from the current bank account.
+     *
+     * @param expNum Transaction number.
+     * @param desc New description.
+     * @param amount New amount.
+     * @param date New date.
+     * @param category New category.
+     * @param ui Ui of OwlMoney.
+     */
     @Override
     void editExpenditureDetails(int expNum, String desc, String amount, String date, String category, Ui ui) {
         if (transactions.getExpenditureAmount(expNum, ui) < 0) {
@@ -111,6 +139,15 @@ public class Saving extends Bank {
         this.deductFromAmount(newAmount);
     }
 
+    /**
+     * Edits the deposit details from the current bank account.
+     *
+     * @param expNum Transaction number.
+     * @param desc New description.
+     * @param amount New amount.
+     * @param date New date.
+     * @param ui Ui of OwlMoney.
+     */
     @Override
     void editDepositDetails(int expNum, String desc, String amount, String date, Ui ui) {
         if (transactions.getTransactionValue(expNum, ui) < 0) {
@@ -127,12 +164,24 @@ public class Saving extends Bank {
         this.deductFromAmount(oldAmount);
     }
 
+    /**
+     * Adds a new deposit to the current bank account.
+     *
+     * @param dep Deposit to add.
+     * @param ui Ui of OwlMoney.
+     */
     @Override
     void addDepositTransaction(Transaction dep, Ui ui) {
         transactions.addDepositToList(dep, ui);
         addToAmount(dep.getAmount());
     }
 
+    /**
+     * Deletes a deposit from the current bank account.
+     *
+     * @param index Transaction number.
+     * @param ui Ui of OwlMoney.
+     */
     @Override
     void deleteDepositTransaction(int index, Ui ui) {
         double depositValue = transactions.getTransactionValue(index, ui);

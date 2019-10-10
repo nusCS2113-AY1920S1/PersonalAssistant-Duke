@@ -4,6 +4,9 @@ import owlmoney.logic.command.Command;
 import owlmoney.model.profile.Profile;
 import owlmoney.ui.Ui;
 
+/**
+ * EditDepositCommand class which contains the execution function to edit a deposit transaction.
+ */
 public class EditDepositCommand extends Command {
     private final String accName;
     private final String amount;
@@ -11,7 +14,15 @@ public class EditDepositCommand extends Command {
     private final String description;
     private final int index;
 
-    //working code but haven't parse date
+    /**
+     * Constructor to create an instance of EditDepositCommand.
+     *
+     * @param name Bank account name.
+     * @param amount New deposit amount if any.
+     * @param date New date of deposit if any.
+     * @param description New description of deposit if any.
+     * @param index Transaction number.
+     */
     public EditDepositCommand(String name, String amount, String date, String description, int index) {
         this.accName = name;
         this.amount = amount;
@@ -20,6 +31,13 @@ public class EditDepositCommand extends Command {
         this.index = index;
     }
 
+    /**
+     * Executes the function to delete a deposit transaction.
+     *
+     * @param profile Profile of the user.
+     * @param ui Ui of OwlMoney.
+     * @return false so OwlMoney will not terminate yet.
+     */
     public boolean execute(Profile profile, Ui ui) {
         profile.editDeposit(index, accName, description, amount, date, ui);
         return this.isExit;

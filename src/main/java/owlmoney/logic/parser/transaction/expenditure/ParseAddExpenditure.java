@@ -7,11 +7,20 @@ import owlmoney.logic.command.Command;
 import owlmoney.logic.command.transaction.AddExpenditureCommand;
 import owlmoney.logic.parser.exception.ParserException;
 
+/**
+ * Represents the parsing of inputs for adding a expenditure.
+ */
 public class ParseAddExpenditure extends ParseExpenditure {
 
     static final String ADD = "/add";
     private Date date;
 
+    /**
+     * Constructor which creates an instance of ParseAddExpenditure.
+     *
+     * @param data Raw user input date.
+     * @throws ParserException If there are redundant parameters or first parameter is invalid.
+     */
     public ParseAddExpenditure(String data) throws ParserException {
         super(data);
         checkRedundantParameter(TRANSNO, ADD);
@@ -19,8 +28,12 @@ public class ParseAddExpenditure extends ParseExpenditure {
         checkFirstParameter();
     }
 
+    /**
+     * Checks each user input for each parameter.
+     *
+     * @throws ParserException If there are missing or invalid parameters.
+     */
     public void checkParameter() throws ParserException {
-        // Getting an iterator
         Iterator<String> savingsIterator = expendituresParameters.keySet().iterator();
 
         while (savingsIterator.hasNext()) {
@@ -45,6 +58,11 @@ public class ParseAddExpenditure extends ParseExpenditure {
         }
     }
 
+    /**
+     * Returns the command to add a new expenditure.
+     *
+     * @return Returns AddExpenditureCommand to be executed.
+     */
     public Command getCommand() {
         AddExpenditureCommand newAddExpenditureCommand = new AddExpenditureCommand(expendituresParameters.get(FROM),
                 Double.parseDouble(expendituresParameters.get(AMOUNT)), date,

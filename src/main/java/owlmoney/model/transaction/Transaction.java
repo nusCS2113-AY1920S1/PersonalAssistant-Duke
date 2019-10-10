@@ -6,7 +6,8 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
- * The Expenditure class that stores details of each expenditure.
+ * The Transaction class which is abstract where various transaction types will inherit from given that
+ * it is abstract.
  */
 
 public abstract class Transaction {
@@ -17,7 +18,7 @@ public abstract class Transaction {
     private String category;
 
     /**
-     * Creates an instance of a expenditure object.
+     * Creates an instance of a transaction object.
      *
      * @param description The description that describes this expenditure.
      * @param amount      The amount of money spent in this instance of expenditure.
@@ -76,24 +77,48 @@ public abstract class Transaction {
         }
     }
 
+    /**
+     * Displays the description, amount added/spent, date and category of transaction.
+     *
+     * @return description, amount added/spent, date and category of transaction in String format.
+     */
     String getDetails() {
         return "Description: " + getDescription() + "\nAmount: " + checkDebitCredit()
                 + new DecimalFormat("0.00").format(getAmount()) + "\nDate: " + getDate()
                 + "\nCategory: " + getCategory();
     }
 
+    /**
+     * Sets the new description of the transaction.
+     *
+     * @param newDesc New description of transaction.
+     */
     void setDescription(String newDesc) {
         this.description = newDesc;
     }
 
+    /**
+     * Sets the new amount for the transaction.
+     *
+     * @param newAmount New amount for the transaction.
+     */
     void setAmount(double newAmount) {
         this.amount = newAmount;
     }
 
+    /**
+     * Sets the new date of the transaction.
+     *
+     * @param newDate New date of the transaction.
+     */
     void setDate(Date newDate) {
         this.date = newDate;
     }
 
+    /**
+     * Sets the new category of the transaction.
+     * @param newCategory New category of the transaction.
+     */
     void setCategory(String newCategory) {
         this.category = newCategory;
     }

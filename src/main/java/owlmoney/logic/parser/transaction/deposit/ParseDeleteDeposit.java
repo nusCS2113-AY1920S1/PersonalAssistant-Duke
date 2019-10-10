@@ -6,9 +6,18 @@ import owlmoney.logic.command.Command;
 import owlmoney.logic.command.transaction.DeleteDepositCommand;
 import owlmoney.logic.parser.exception.ParserException;
 
+/**
+ * Represents the parsing of inputs for deleting a deposit.
+ */
 public class ParseDeleteDeposit extends ParseDeposit {
     private static final String DELETE = "/delete";
 
+    /**
+     * Constructor which creates an instance of ParseDeleteDeposit.
+     *
+     * @param data Raw user input date.
+     * @throws ParserException If there are redundant parameters or if first parameter is invalid.
+     */
     public ParseDeleteDeposit(String data) throws ParserException {
         super(data);
         checkRedundantParameter(TO, DELETE);
@@ -19,8 +28,12 @@ public class ParseDeleteDeposit extends ParseDeposit {
         checkFirstParameter();
     }
 
+    /**
+     * Checks each user input for each parameter.
+     *
+     * @throws ParserException If parameter is missing or invalid.
+     */
     public void checkParameter() throws ParserException {
-        // Getting an iterator
         Iterator<String> savingsIterator = expendituresParameters.keySet().iterator();
 
         while (savingsIterator.hasNext()) {
@@ -36,6 +49,11 @@ public class ParseDeleteDeposit extends ParseDeposit {
         }
     }
 
+    /**
+     * Returns the command to execute the deletion of a deposit.
+     *
+     * @return Returns DeletionDepositCommand to be executed.
+     */
     public Command getCommand() {
         DeleteDepositCommand newDeleteDepositCommand = new DeleteDepositCommand((expendituresParameters.get(FROM)),
                 Integer.parseInt(expendituresParameters.get(TRANSNO)));

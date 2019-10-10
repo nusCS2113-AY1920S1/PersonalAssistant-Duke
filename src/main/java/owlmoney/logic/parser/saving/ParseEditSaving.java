@@ -6,15 +6,28 @@ import owlmoney.logic.command.Command;
 import owlmoney.logic.command.bank.EditSavingsCommand;
 import owlmoney.logic.parser.exception.ParserException;
 
+/**
+ * Represents the parsing of inputs for editing a saving.
+ */
 public class ParseEditSaving extends ParseSaving {
 
+    /**
+     * Constructor which creates an instance of ParseEditSaving.
+     *
+     * @param data Raw user input date.
+     * @throws ParserException If the first parameter is invalid.
+     */
     public ParseEditSaving(String data) throws ParserException {
         super(data);
         checkFirstParameter();
     }
 
+    /**
+     * Checks each user input for each parameter.
+     *
+     * @throws ParserException If there are any invalid or missing inputs.
+     */
     public void checkParameter() throws ParserException {
-        // Getting an iterator
         Iterator<String> savingsIterator = savingsParameters.keySet().iterator();
         int changeCounter = 0;
         while (savingsIterator.hasNext()) {
@@ -22,7 +35,7 @@ public class ParseEditSaving extends ParseSaving {
             String value = savingsParameters.get(key);
             if (NAME.equals(key) && (value.isEmpty() || value.isBlank())) {
                 throw new ParserException("/name cannot be empty.");
-            } else if (!value.isEmpty() && !value.isBlank()){
+            } else if (!value.isEmpty() && !value.isBlank()) {
                 changeCounter++;
                 if (INCOME.equals(key) || AMOUNT.equals(key)) {
                     checkIncome(value);
@@ -36,6 +49,11 @@ public class ParseEditSaving extends ParseSaving {
         }
     }
 
+    /**
+     * Returns the command to execute the editing of a saving.
+     *
+     * @return Returns EditSavingsCommand to be executed.
+     */
     public Command getCommand() {
         EditSavingsCommand newEditSavingsCommand = new EditSavingsCommand(savingsParameters.get(NAME),
                 savingsParameters.get(INCOME), savingsParameters.get(AMOUNT), savingsParameters.get(NEW_NAME));

@@ -6,9 +6,18 @@ import owlmoney.logic.command.Command;
 import owlmoney.logic.command.transaction.ListExpenditureCommand;
 import owlmoney.logic.parser.exception.ParserException;
 
+/**
+ * Represents the parsing of inputs for listing expenditures.
+ */
 public class ParseListExpenditure extends ParseExpenditure {
     private static final String LIST = "/list";
 
+    /**
+     * Constructor which creates an instance of ParseListExpenditure.
+     *
+     * @param data Raw user input data.
+     * @throws ParserException If there are redundant parameters.
+     */
     public ParseListExpenditure(String data) throws ParserException {
         super(data);
         checkRedundantParameter(TRANSNO,LIST);
@@ -18,8 +27,12 @@ public class ParseListExpenditure extends ParseExpenditure {
         checkRedundantParameter(CATEGORY,LIST);
     }
 
+    /**
+     * Checks each user input for each parameter.
+     *
+     * @throws ParserException If the user input is invalid.
+     */
     public void checkParameter() throws ParserException {
-        // Getting an iterator
         Iterator<String> savingsIterator = expendituresParameters.keySet().iterator();
 
         while (savingsIterator.hasNext()) {
@@ -38,6 +51,11 @@ public class ParseListExpenditure extends ParseExpenditure {
         }
     }
 
+    /**
+     * Returns the command to execute the listing of expenditures.
+     *
+     * @return ListExpendituresCommand to be executed.
+     */
     public Command getCommand() {
         ListExpenditureCommand newListExpenditureCommand = new ListExpenditureCommand(expendituresParameters.get(FROM),
                 Integer.parseInt(expendituresParameters.get(NUM)));
