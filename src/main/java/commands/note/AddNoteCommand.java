@@ -15,8 +15,18 @@ import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Stack;
 
+/**
+ * Adds a new note to a particular day, week or month.
+ */
 public class AddNoteCommand extends Command {
-
+    /**
+     * Decodes the user's input and handles incorrect input formats.
+     *
+     * @param command the command the user inputs
+     * @param commandName the name of the command ie. addNote, editNote, deleteNote or listNote
+     * @return the date specified by the user as a LocalDate object
+     * @throws DukeException when the users input format is wrong
+     */
     LocalDate processCommand(String[] command, String commandName) throws DukeException{
         //addNote day/week/month yyyy-MM-dd
         //<the note they want to add>
@@ -48,6 +58,16 @@ public class AddNoteCommand extends Command {
         }
     }
 
+    /**
+     * Adds a new note to the specified day, week or month if there are existing notes.
+     * Else creates a new note object with the new note as the first note.
+     *
+     * @param listOfNotes the list of Notes to add the new note to depending on if its a day, week or month
+     * @param userDate the date specified by the user as a LocalDate object
+     * @param usersNote the new note that the user wants to add
+     * @param date the date specified by the user as a String object
+     * @return the new note added
+     */
     private Note addToList(ArrayList<Note> listOfNotes, LocalDate userDate, String usersNote, String date) {
         boolean hasNote = false;
         Note noteInQuestion = null;
@@ -68,12 +88,20 @@ public class AddNoteCommand extends Command {
         return noteInQuestion;
     }
 
+    /**
+     * Tells the user that the new note had been added successfully.
+     *
+     * @param usersNote the note that the user wants to add
+     * @param size the number of notes the user has for the specified period after the new note has been added
+     * @param period is either day, week or month
+     */
     private void printConfirmationMessage(String usersNote, int size, String period) {
         System.out.println("Got it. I've added this note to that " + period +  ":");
         System.out.println(usersNote);
         System.out.println("Now you have " + size + " note(s) for that " + period + ".");
     }
 
+    /** The main method that executes all the sub methods. */
     @Override
     public void execute(ArrayList<Task> list, Ui ui, Storage storage, Stack<String> commandStack, ArrayList<Task> deletedTask) throws IOException {
         String[] command = ui.FullCommand.split(" ");
