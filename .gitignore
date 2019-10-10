@@ -13,8 +13,9 @@ src/main/resources/docs/
 *.iml
 bin/
 
-# Generated Data Files
+# Generated Data File
 /baking.json
-#log file
-/BakingHome.log.0
-/BakingHome.log.0.lck
+
+# Log file
+BakingHome.log.0
+BakingHome.log.0.lck
