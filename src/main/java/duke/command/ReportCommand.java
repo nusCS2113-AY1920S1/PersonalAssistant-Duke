@@ -10,7 +10,7 @@ import duke.exceptions.ModEmptyListException;
 import java.util.List;
 import java.util.Objects;
 
-public class ReportCommand extends Command{
+public class ReportCommand extends Command {
 
     public ReportCommand() {
 
@@ -27,13 +27,15 @@ public class ReportCommand extends Command{
     public void execute(TaskList tasks, Ui ui, Storage store, Reminder reminder) throws ModEmptyListException {
         boolean isEmpty = tasks.getTasks().isEmpty();
         if (isEmpty) {
-        throw new ModEmptyListException();
-        } else{
-        ui.reportMsg();
-        ui.printReportList(tasks.getTasks());
+            throw new ModEmptyListException();
+        } else {
+            ui.reportMsg();
+            ui.printReportList(tasks.getTasks());
         }
     }
 
     @Override
-    public boolean isExit() {return false;}
+    public boolean isExit() {
+        return false;
+    }
 }
