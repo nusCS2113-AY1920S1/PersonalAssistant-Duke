@@ -1,6 +1,6 @@
 package models.member;
 
-import util.SubstringParser;
+import util.ParserUtil;
 
 import java.util.ArrayList;
 
@@ -29,7 +29,7 @@ public class MemberList {
      * @param updatedMemberDetails The updated member details.
      */
     public void editMember(int memberIndexNumber, String updatedMemberDetails) {
-        String [] memberDetails = SubstringParser.memberCreation(updatedMemberDetails);
+        String [] memberDetails = ParserUtil.memberCreation(updatedMemberDetails);
         String name = memberDetails[0];
         String phone = memberDetails[1];
         String email = memberDetails[2];

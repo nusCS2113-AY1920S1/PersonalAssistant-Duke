@@ -1,7 +1,7 @@
 package controllers;
 
 import models.member.Member;
-import util.SubstringParser;
+import util.ParserUtil;
 
 public class MemberFactoryUtil {
     private Member newMember;
@@ -13,7 +13,7 @@ public class MemberFactoryUtil {
      * @return Member with the relevant details. Index number is set later when adding to list.
      */
     public boolean memberIsCreated(String input, int memberListSize) {
-        String[] memberDetails = SubstringParser.memberCreation(input);
+        String[] memberDetails = ParserUtil.memberCreation(input);
         boolean nameCreatedFlag = false;
         String name = memberDetails[0];
         if (!("No name").equals(name)) {

@@ -1,6 +1,6 @@
 package util;
 
-public class SubstringParser {
+public class ParserUtil {
     /**
      *  Parses the string input to extract the name, phone number and email.
      * @param input Contains the name, phone number and email.
