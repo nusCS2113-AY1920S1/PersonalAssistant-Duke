@@ -1,11 +1,13 @@
 package duke;
 
 import duke.commands.Command;
-import duke.commands.ExitCommand;
 import duke.commons.exceptions.DukeException;
 import duke.parsers.Parser;
-import duke.storage.Storage;
 import duke.ui.Ui;
+
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
 
 
 /**
@@ -18,7 +20,8 @@ public class Duke {
     private static  final String FILE_PATH = "data/tasks.txt";
     private Main main;
     private Ui ui;
-    private Storage storage;
+    private Parser parser = new Parser();
+    private ExecutorService executor = Executors.newFixedThreadPool(1);
 
     /**
      * Creates Duke instance.
@@ -27,7 +30,6 @@ public class Duke {
         this.ui = ui;
         this.main = main;
         ui.showWelcome();
-        storage = new Storage(FILE_PATH, ui);
     }
 
     /**
@@ -35,23 +37,34 @@ public class Duke {
      *
      * @param userInput The input string from user.
      */
-    public void getResponse(String userInput) {
+    public Future<Command> getResponse(String userInput) {
         try {
-            Command c = Parser.parse(userInput);
-            c.execute(ui, storage);
-            if (c instanceof ExitCommand) {
-                tryExitApp();
-            }
-        } catch (DukeException e) {
-            ui.showError(e.getMessage());
+            Future<Command> future = executor.submit(() -> {
+                Command c = parser.parse(userInput, ui);
+                return c;
+            });
+            return future;
+
+        } catch (Exception e) {
+            ui.showError(e.toString());
+            return null;
         }
+
+
     }
 
-    private void tryExitApp() {
+    /**
+     * Try to exit program.
+     */
+    public void tryExitApp() {
         try {
             main.stop();
         } catch (Exception e) {
             ui.showError("Exit app failed" + e.getMessage());
         }
+    }
+
+    public String getPrompt() {
+        return parser.getPrompt();
     }
 }
