@@ -4,6 +4,7 @@ import ui.UI;
 import task.TaskList;
 import storage.Storage;
 import exception.DukeException;
+import list.DegreeList;
 
 /**
  * SearchCommand Class extends the abstract Command class.
@@ -28,9 +29,10 @@ public class SearchCommand extends Command {
      * @param tasks   TasksList has tasks
      * @param ui      UI prints messages
      * @param storage Storage loads and saves files
+     * @param lists DegreeList has the array for the user to maintain a list of their degree choices.
      * @throws DukeException DukeException throws exception
      */
-    public void execute(TaskList tasks, UI ui, Storage storage) throws DukeException {
+    public void execute(TaskList tasks, UI ui, Storage storage, DegreeList lists) throws DukeException {
         if (this.command.matches("find")) {
             tasks.find(this.arguments);
         }
@@ -38,4 +40,5 @@ public class SearchCommand extends Command {
             tasks.view_schedule(this.arguments);
         }
     }
+
 }

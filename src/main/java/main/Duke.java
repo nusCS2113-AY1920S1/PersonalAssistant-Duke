@@ -8,7 +8,7 @@ import parser.Parser;
 import storage.Storage;
 import task.TaskList;
 import ui.UI;
-
+import list.DegreeList;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 
@@ -29,6 +29,7 @@ public class Duke extends Application {
     private Storage storage;
     private UI ui;
     private Parser parse;
+    private DegreeList lists;
 
 
     /**
@@ -51,6 +52,7 @@ public class Duke extends Application {
             ui.showLoadingError();
             myList = new TaskList();
         }
+        this.lists = new DegreeList();
     }
 
     public String reminder() {
@@ -89,7 +91,7 @@ public class Duke extends Application {
             ui.showLine();
             Command c = Parser.parse(line);
             isExit = c.isExit();
-            c.execute(this.myList, this.ui, this.storage);
+            c.execute(this.myList, this.ui, this.storage, this.lists);
         } catch (DukeException | NullPointerException e) {
             ui.showError(e.getLocalizedMessage());
         } finally {
@@ -112,7 +114,7 @@ public class Duke extends Application {
                 ui.showLine();
                 Command c = Parser.parse(line);
                 isExit = c.isExit();
-                c.execute(this.myList, this.ui, this.storage);
+                c.execute(this.myList, this.ui, this.storage, this.lists);
             } catch (DukeException | NullPointerException e) {
                 ui.showError(e.getLocalizedMessage());
             } finally {
