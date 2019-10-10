@@ -4,7 +4,7 @@ import duke.commons.core.Message;
 import duke.commons.core.index.Index;
 import duke.commons.util.StringUtil;
 import duke.logic.parser.exceptions.ParseException;
-import duke.model.order.OrderItem;
+import duke.model.commons.Item;
 import duke.model.order.Quantity;
 import duke.model.product.Product;
 import duke.model.order.Order;
@@ -38,8 +38,9 @@ public class ParserUtil {
     }
 
     //=======Order utilities========
-    public static Set<OrderItem> parseItems(List<String> itemArg) throws ParseException {
-        Set<OrderItem> items = new HashSet<>();
+
+    public static Set<Item<Product>> parseItems(List<String> itemArg) throws ParseException {
+        Set<Item<Product>> items = new HashSet<>();
         for (String itemString : itemArg) {
             String[] itemAndQty = itemString.split(",");
             if (itemAndQty.length < 2) {
@@ -50,7 +51,7 @@ public class ParserUtil {
             }
 
             try {
-                OrderItem item = new OrderItem(new Product(itemAndQty[0].strip()),
+                Item<Product> item = new Item<>(new Product(itemAndQty[0].strip()),
                         new Quantity(Integer.parseInt(itemAndQty[1].strip())));
                 items.add(item);
             } catch (NumberFormatException e) {

@@ -9,7 +9,8 @@ import duke.logic.command.exceptions.CommandException;
 import duke.model.Model;
 import duke.model.order.Customer;
 import duke.model.order.Order;
-import duke.model.order.OrderItem;
+import duke.model.commons.Item;
+import duke.model.product.Product;
 
 import java.util.Date;
 import java.util.HashSet;
@@ -86,7 +87,7 @@ public class EditOrderCommand extends OrderCommand implements Undoable {
                 editOrderDescriptor.getCustomerContact().orElse(toEdit.getCustomer().contact)
         );
         Date newDate = editOrderDescriptor.getDeliveryDate().orElse(toEdit.getDeliveryDate());
-        Set<OrderItem> newItems = editOrderDescriptor.getItems().orElse(toEdit.getItems());
+        Set<Item<Product>> newItems = editOrderDescriptor.getItems().orElse(toEdit.getItems());
         String newRemarks = editOrderDescriptor.getRemarks().orElse(toEdit.getRemarks());
         Order.Status newStatus = editOrderDescriptor.getStatus().orElse(toEdit.getStatus());
         return new Order(newCustomer, newDate, newStatus, newRemarks, newItems);
@@ -100,7 +101,7 @@ public class EditOrderCommand extends OrderCommand implements Undoable {
         private String customerName;
         private String customerContact;
         private Date deliveryDate;
-        private Set<OrderItem> items;
+        private Set<Item<Product>> items;
         private String remarks;
         private Order.Status status;
 
@@ -140,7 +141,7 @@ public class EditOrderCommand extends OrderCommand implements Undoable {
             this.deliveryDate = deliveryDate;
         }
 
-        public void setItems(Set<OrderItem> items) {
+        public void setItems(Set<Item<Product>> items) {
             this.items = (items != null) ? new HashSet<>(items) : null;
         }
 
@@ -164,7 +165,7 @@ public class EditOrderCommand extends OrderCommand implements Undoable {
             return Optional.ofNullable(deliveryDate);
         }
 
-        public Optional<Set<OrderItem>> getItems() {
+        public Optional<Set<Item<Product>>> getItems() {
             return Optional.ofNullable(items);
         }
 

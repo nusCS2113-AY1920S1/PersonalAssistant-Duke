@@ -1,7 +1,7 @@
 package duke.model.order;
 
 public class Quantity {
-    private final String defaultUnit = "piece";
+    private static final String defaultUnit = "piece";
 
     private final Integer number;
     private final String unit;
@@ -12,7 +12,7 @@ public class Quantity {
     }
 
     public Quantity(Integer number) {
-        this(number, "piece");
+        this(number, defaultUnit);
     }
 
     public Integer getNumber() {
