@@ -153,24 +153,27 @@ public class TaskList extends ArrayList<Task> {
         Task task = this.get(index);
         String msg = null;
         switch (attributes) {
-            case name:
-                task.setName(description);
-                msg = "Task " + (index + 1) + " has been changed to " + description;
-                break;
-            case doAfter:
-                task.setDoAfterDescription(description);
-                msg = "Do after task " + description + " has been added to task " + (index + 1);
-                break;
-            case time:
-                if (task.getTaskType() == Task.TaskType.Deadline) {
-                    Deadline deadline = (Deadline) task;
-                    deadline.setTime(Task.parseDate(description));
-                } else {
-                    Event event = (Event) task;
-                    event.setTime(Task.parseDate(description));
-                }
-                msg = "Time for task " + (index + 1) + " has been changed to " + description;
-                break;
+        case name:
+            task.setName(description);
+            msg = "Task " + (index + 1) + " has been changed to " + description;
+            break;
+        case doAfter:
+            task.setDoAfterDescription(description);
+            msg = "Do after task " + description + " has been added to task " + (index + 1);
+            break;
+        case time:
+            if (task.getTaskType() == Task.TaskType.Deadline) {
+                Deadline deadline = (Deadline) task;
+                deadline.setTime(Task.parseDate(description));
+            } else {
+                Event event = (Event) task;
+                event.setTime(Task.parseDate(description));
+            }
+            msg = "Time for task " + (index + 1) + " has been changed to " + description;
+            break;
+        default:
+            msg = "Wrong attribute specified.";
+            break;
         }
         return msg;
     }
