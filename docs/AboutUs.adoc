@@ -1,0 +1,56 @@
+= About Us
+:site-section: AboutUs
+:relfileprefix: team/
+:imagesDir: images
+:stylesDir: stylesheets
+
+Duke Pro was developed by the https://github.com/AY1920S1-CS2113-T14-4 team. +
+
+We are a team based in the http://www.comp.nus.edu.sg[School of Computing, National University of Singapore].
+
+== Project Team
+
+=== Lim Jia Ying
+image::AugGust.png[width="150", align="left"]
+{empty}[https://github.com/AugGust[github]]
+
+Role: Team Lead +
+Responsibilities: gui
+
+'''
+
+=== Chan Wei Qiang Jason
+image::jasonchanwq.png[width="150", align="left"]
+{empty}[https://github.com/jasonchanwq[github]]
+
+Role: Developer +
+Responsibilities: UI
+
+'''
+
+=== Chen Yu Heng
+image::chenyuheng.png[width="150", align="left"]
+{empty}[https://github.com/chenyuheng[github]]
+
+Role: Developer +
+Responsibilities: Data
+
+'''
+
+=== Justin Chia
+image::justinchia1997.png[width="150", align="left"]
+{empty}[https://github.com/JustinChia1997[github]]
+
+Role: Developer +
+Responsibilities: Dev Ops + Threading
+
+'''
+
+=== Lin Yu Yang
+image::yuyanglin28.png[width="150", align="left"]
+{empty}[https://github.com/yuyanglin28[github]]
+
+Role: Developer +
+Responsibilities: UI
+
+'''
