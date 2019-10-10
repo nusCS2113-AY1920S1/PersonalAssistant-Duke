@@ -1,7 +1,7 @@
 package eggventory.commands;
 
-import eggventory.StockType;
 import eggventory.Ui;
+import eggventory.StockList;
 import eggventory.Storage;
 import eggventory.exceptions.BadInputException;
 import eggventory.enums.CommandType;
@@ -37,7 +37,7 @@ public class Command {
      */
     public void execute(StockType list, Ui ui, Storage storage) throws BadInputException {
         if (type == CommandType.BYE) {
-            storage.save(list.getStockList());
+            storage.save(list);
             ui.printExitMessage();
         }
     }

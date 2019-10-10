@@ -1,6 +1,7 @@
 package eggventory.commands;
 
-import eggventory.StockType;
+import eggventory.StockList;
+import eggventory.items.StockType;
 import eggventory.Storage;
 import eggventory.Ui;
 
@@ -11,7 +12,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 class FindCommandTest {
     Ui ui = new Ui();
     Storage storage = new Storage("");
-    StockType stockType = new StockType();
+    StockList stockList = new StockList();
 
     /*
     @Test

@@ -1,6 +1,7 @@
 package eggventory.commands;
 
-import eggventory.StockType;
+import eggventory.StockList;
+import eggventory.items.StockType;
 import eggventory.Storage;
 import eggventory.Ui;
 import eggventory.enums.CommandType;
@@ -9,7 +10,7 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class CommandTest {
-    StockType newList = new StockType();
+    StockList newList = new StockList();
     Ui ui = new Ui();
     Storage storage = new Storage("");
 
