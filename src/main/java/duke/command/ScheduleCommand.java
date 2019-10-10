@@ -3,17 +3,16 @@ package duke.command;
 import duke.exceptions.ModEmptyCommandException;
 import duke.exceptions.ModEmptyListException;
 import duke.exceptions.ModInvalidTimeException;
-import duke.modules.Deadline;
-import duke.modules.Events;
-import duke.modules.Task;
 
+import duke.modules.Task;
+import duke.modules.TaskWithPeriod;
 import duke.util.DateTimeParser;
 import duke.util.Reminder;
 import duke.util.Storage;
 import duke.util.TaskList;
 import duke.util.Ui;
 import java.time.LocalDate;
-import java.time.LocalTime;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 public class ScheduleCommand extends Command {
@@ -47,21 +46,7 @@ public class ScheduleCommand extends Command {
      */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage, Reminder reminder) throws ModEmptyListException {
-        ArrayList<Task> printArray = new ArrayList<>();
-        for (int i = 0; i < tasks.getSize(); i++) {
-            if (tasks.access(i) instanceof Deadline) {
-                Deadline d = (Deadline) tasks.access(i);
-                if (currentDate.equals(d.getEnd().toLocalDate())) {
-                    printArray.add(d);
-                }
-            } else if (tasks.access(i) instanceof Events) {
-                Events e = (Events) tasks.access(i);
-                if (currentDate.equals(e.getBegin().toLocalDate())) {
-                    printArray.add(e);
-                }
-            }
-        }
-        printArray.sort(this::compare);
+        ArrayList<Task> printArray = ScheduleCommand.getTasksIn(this.currentDate, tasks, true);
         boolean isEmpty = printArray.isEmpty();
         if (isEmpty) {
             throw new ModEmptyListException();
@@ -72,20 +57,42 @@ public class ScheduleCommand extends Command {
     }
 
     /**
+     * Get all tasks in a specified date
+     * @param localDate input date
+     * @param tasks task list to look up for
+     * @param isSorted should the results be sorted
+     * @return an array list containing all tasks in the input date
+     */
+    public static ArrayList<Task> getTasksIn(LocalDate localDate, TaskList tasks, boolean isSorted) {
+        ArrayList<Task> ret = new ArrayList<>();
+        for (int i = 0; i < tasks.getSize(); i++) {
+            if (tasks.access(i) instanceof TaskWithPeriod) {
+                TaskWithPeriod t = (TaskWithPeriod) tasks.access(i);
+                if (localDate.equals(t.getTime().toLocalDate())){
+                    ret.add(t);
+                }
+            }
+        }
+        if (isSorted) {
+            ret.sort(ScheduleCommand::compareTime);
+        }
+        return ret;
+    }
+
+    /**
      * Custom comparator function for sorting the schedule according to time.
      * @param t1 Task 1 to be compared
      * @param t2 Task 2 to be compared
      * @return true when Task t1 has an earlier time than Task t2
      */
-    public int compare(Task t1, Task t2) {
-        LocalTime time1 = t1.getTime().toLocalTime();
-        LocalTime time2 = t2.getTime().toLocalTime();
+    public static int compareTime(Task t1, Task t2) {
+        LocalDateTime time1 = t1.getTime();
+        LocalDateTime time2 = t2.getTime();
         //ascending order
-        return time1.compareTo(time2);
+        return (time1 == null) ? (time2 == null ? 0 : -1) : (time2 == null ? 1 : time1.compareTo(time2));
     }
 
     public boolean isExit() {
         return false;
     }
 }
-
