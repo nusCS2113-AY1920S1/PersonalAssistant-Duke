@@ -33,7 +33,7 @@ import seedu.duke.email.EmailStorage;
 import seedu.duke.task.entity.Deadline;
 import seedu.duke.task.entity.Event;
 import seedu.duke.task.entity.Task;
-
+import javafx.scene.Scene;
 import java.util.function.UnaryOperator;
 
 /**
@@ -109,8 +109,38 @@ public class MainWindow extends AnchorPane {
         duke = d;
         ui = duke.getUI();
         ui.setupGui(dialogContainer, userImage, dukeImage);
+
     }
 
+    public void setKeyBinding(Scene scene) {
+        new KeyBinding(scene, userInput, sendButton, this);
+    }
+
+    boolean isShowingEmail = false;
+    boolean isUpKey;
+    public void handleUserInputKeyEvent(KeyCode keyCode) {
+        switch (keyCode) {
+        case ENTER:
+            sendButton.fire();
+            break;
+        case UP:
+            isUpKey = true;
+            getPrevInput();
+            break;
+        case DOWN:
+            isUpKey = false;
+            getPrevInput();
+            break;
+        }
+    }
+
+    public void handleSceneKeyEvent(KeyCode keyCode) {
+        switch(keyCode) {
+        case ESCAPE:
+            toggleEmailDisplay();
+            break;
+        }
+    }
     /**
      * Creates two dialog boxes, one echoing user input and the other containing Duke's reply and then appends
      * them to the dialog container. Clears the user input after processing.
@@ -165,35 +195,6 @@ public class MainWindow extends AnchorPane {
         input = input.split(" ", 2)[1];
         inputList.add(input);
         i = inputList.size();
-    }
-
-    boolean isShowingEmail = false;
-    boolean isUpKey;
-    @FXML
-    private void handleKeyEvent(KeyEvent e) {
-        String type = e.getEventType().getName();
-        KeyCode keyCode = e.getCode();
-        String keyInfo = type + ": Key Code=" + keyCode.getName() + ", Text=" + e.getText() + "\n";
-        // print key pressed info to terminal for debugging purpose.
-        //System.out.println(keyInfo);
-
-        // Toggle email or html display if ESC key is pressed
-        if (e.getCode() == KeyCode.ESCAPE) {
-            toggleEmailDisplay();
-            e.consume();
-        }
-        // Gets previous input if Up Arrow key is pressed
-        else if (e.getCode() == KeyCode.UP) {
-            isUpKey = true;
-            getPrevInput();
-            e.consume();
-        }
-        // Gets previous input if Down Arrow key is pressed
-        else if (e.getCode() == KeyCode.DOWN) {
-            isUpKey = false;
-            getPrevInput();
-            e.consume();
-        }
     }
 
     /**
