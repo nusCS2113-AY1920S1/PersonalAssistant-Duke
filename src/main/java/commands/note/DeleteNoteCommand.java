@@ -12,7 +12,20 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Stack;
 
+/**
+ * Deletes a note for a particular day, week or month.
+ */
 public class DeleteNoteCommand extends EditNoteCommand {
+    /**
+     * Deletes the note specified if the note exists. Else it throws an exception.
+     *
+     * @param noteNumber the index of the note to delete
+     * @param listToEdit the list of Notes that contains the note to delete depending on if its a day, week or month
+     * @param dateToEdit the start date of the period of the note to delete
+     * @param period is either day, week or month
+     * @return the note that was deleted
+     * @throws DukeException if the note to delete does not exist
+     */
     private String deleteNoteInList(int noteNumber, ArrayList<Note> listToEdit, LocalDate dateToEdit,
                                 String period) throws DukeException{
         for (Note n: listToEdit) {
@@ -33,11 +46,18 @@ public class DeleteNoteCommand extends EditNoteCommand {
         throw new DukeException("OOPS!!! There are no notes for this " + period + " to delete.");
     }
 
+    /**
+     * Tells the user that the note has been successfully deleted.
+     *
+     * @param usersNote the note that was deleted
+     * @param period is either day, week or month
+     */
     private void printDeleteSuccess(String usersNote, String period) {
         System.out.println("Got it. I've deleted this note for that " + period +  ":");
         System.out.println(usersNote);
     }
 
+    /** The main method that executes all the sub methods. */
     @Override
     public void execute(ArrayList<Task> list, Ui ui, Storage storage, Stack<String> commandStack, ArrayList<Task> deletedTask) throws IOException {
         //deleteNote day/week/month yyyy-MM-dd <note_num>

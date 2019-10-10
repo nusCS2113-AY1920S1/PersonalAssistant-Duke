@@ -12,7 +12,20 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Stack;
 
+/**
+ * Edits an existing note for a particular day, week or month.
+ */
 public class EditNoteCommand extends AddNoteCommand {
+    /**
+     * Edits the specified note if it exists. Else it throws an exception.
+     *
+     * @param noteNumber the index of the note that the user wants to edit
+     * @param listToEdit the list of Notes that contains the note to edit depending on if its a day, week or month
+     * @param dateToEdit the start date of the period of the note to edit
+     * @param editedNote the edited version of the note
+     * @param period is either day, week or month
+     * @throws DukeException if the note to edit does not exist
+     */
     private void editNoteInList(int noteNumber, ArrayList<Note> listToEdit, LocalDate dateToEdit,
                                 String editedNote, String period) throws DukeException{
         for (Note n: listToEdit) {
@@ -29,11 +42,18 @@ public class EditNoteCommand extends AddNoteCommand {
         throw new DukeException("OOPS!!! There are no notes for this " + period + " to edit from.");
     }
 
+    /**
+     * Tells the user that the note has been successfully edited.
+     *
+     * @param usersNote the edited version of the note
+     * @param period is either day, week or month
+     */
     private void printEditSuccess(String usersNote, String period) {
         System.out.println("Got it. I've edited this note for that " + period +  ":");
         System.out.println(usersNote);
     }
 
+    /** The main method that executes all the sub methods. */
     @Override
     public void execute(ArrayList<Task> list, Ui ui, Storage storage, Stack<String> commandStack, ArrayList<Task> deletedTask) throws IOException {
         //editNote day/week/month yyyy-MM-dd <note_num = index+1>
