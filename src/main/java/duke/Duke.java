@@ -19,6 +19,7 @@ public class Duke {
     private Main main;
     private Ui ui;
     private Storage storage;
+    private Parser parser = new Parser();
 
     /**
      * Creates Duke instance.
@@ -37,14 +38,24 @@ public class Duke {
      */
     public void getResponse(String userInput) {
         try {
-            Command c = Parser.parse(userInput);
-            c.execute(ui, storage);
-            if (c instanceof ExitCommand) {
-                tryExitApp();
+            System.out.println("sending to parser");
+            //parser.parse(userInput);
+            Command c = parser.parse(userInput, ui);
+
+            if (c != null) {
+                c.execute(ui, storage);
+                if (c instanceof ExitCommand) {
+                    tryExitApp();
+                }
             }
-        } catch (DukeException e) {
-            ui.showError(e.getMessage());
+
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            //ui.showError(e.getMessage());
         }
+
+
     }
 
     private void tryExitApp() {

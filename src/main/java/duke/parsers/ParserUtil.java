@@ -25,7 +25,7 @@ public class ParserUtil {
      * @return The new to-do object.
      */
     protected static Todo createTodo(String userInput) throws DukeException {
-        String description = userInput.substring("todo".length()).strip();
+        String description = userInput.substring("todo & ".length()).strip();
         if (description.isEmpty()) {
             throw new DukeException(Messages.EMPTY_DESCRIPTION);
         }
@@ -39,7 +39,7 @@ public class ParserUtil {
      * @return The new deadline object.
      */
     protected static Deadline createDeadline(String userInput) throws DukeException {
-        String[] deadlineDetails = userInput.substring("deadline".length()).strip().split("by");
+        String[] deadlineDetails = userInput.substring("deadline & ".length()).strip().split(" & ");
         if (deadlineDetails.length != 2 || deadlineDetails[1] == null) {
             throw new DukeException(Messages.INVALID_FORMAT);
         }
@@ -61,7 +61,7 @@ public class ParserUtil {
      * @return The new event object.
      */
     protected static Event createEvent(String userInput) throws DukeException {
-        String[] eventDetails = userInput.substring("event".length()).strip().split("at");
+        String[] eventDetails = userInput.substring("event & ".length()).strip().split(" & ");
         if (eventDetails.length != 2 || eventDetails[1] == null) {
             throw new DukeException(Messages.INVALID_FORMAT);
         }
@@ -82,7 +82,7 @@ public class ParserUtil {
      * @return The new DoWithin object.
      */
     protected static DoWithin createWithin(String userInput) throws DukeException {
-        String[] withinDetails = userInput.substring("within".length()).strip().split("between|and");
+        String[] withinDetails = userInput.substring("within & ".length()).strip().split(" & ");
         if (withinDetails.length != 3 || withinDetails[1] == null || withinDetails[2] == null) {
             throw new DukeException(Messages.INVALID_FORMAT);
         }
@@ -101,9 +101,9 @@ public class ParserUtil {
      * @return The new recurring task.
      */
     protected static Task createRecurringTask(String userInput) throws DukeException {
-        String[] taskDetails = userInput.substring("repeat".length()).strip().split("at");
+        String[] taskDetails = userInput.substring("repeat & ".length()).strip().split(" & ", 2);
         try {
-            String[] dateDetails = taskDetails[1].split("every");
+            String[] dateDetails = taskDetails[1].split(" & ");
             if (dateDetails.length != 2 || dateDetails[1] == null) {
                 throw new DukeException(Messages.INVALID_FORMAT);
             }
@@ -124,7 +124,7 @@ public class ParserUtil {
      * @return The new Fixed object.
      */
     protected static Fixed createFixed(String userInput) throws  DukeException {
-        String[] fixedDetails = userInput.substring("fixed".length()).strip().split("needs");
+        String[] fixedDetails = userInput.substring("fixed & ".length()).strip().split(" & ");
         if (fixedDetails.length != 2 || fixedDetails[1] == null) {
             throw new DukeException(Messages.INVALID_FORMAT);
         }
@@ -135,13 +135,13 @@ public class ParserUtil {
             int hour = 0;
             int min = 0;
 
-            String[] timeDetails = fixedDetails[1].strip().split("hours");
+            String[] timeDetails = fixedDetails[1].strip().split(" & ", 2);
 
             if (timeDetails.length == 2) {
                 hour = Integer.parseInt(timeDetails[0].strip());
-                min = Integer.parseInt(timeDetails[1].replaceAll("mins","").strip());
+                min = Integer.parseInt(timeDetails[1].replaceAll(" & ","").strip());
             } else if (timeDetails[0].contains("mins")) {
-                min = Integer.parseInt(timeDetails[0].replaceAll("mins","").strip());
+                min = Integer.parseInt(timeDetails[0].replaceAll(" & ","").strip());
             } else {
                 hour = Integer.parseInt(timeDetails[0].strip());
             }
@@ -159,7 +159,7 @@ public class ParserUtil {
      * @return The new Holiday object
      */
     public static Holiday createHoliday(String userInput) throws DukeException {
-        String[] withinDetails = userInput.substring("holiday".length()).strip().split("between|and");
+        String[] withinDetails = userInput.substring("holiday & ".length()).strip().split(" & ");
         if (withinDetails.length != 3 || withinDetails[1] == null || withinDetails[2] == null) {
             throw new DukeException(Messages.INVALID_FORMAT);
         }
@@ -212,7 +212,7 @@ public class ParserUtil {
     protected static LocalDateTime getScheduleDate(String userInput) throws DukeException {
         try {
             return ParserTimeUtil.parseStringToDate(
-                    userInput.substring("reschedule".length()).strip().split("to")[1].strip());
+                    userInput.substring("reschedule & ".length()).strip().split(" & ")[1].strip());
         } catch (DukeDateTimeParseException e) {
             throw new DukeException(Messages.INVALID_FORMAT);
         } catch (ArrayIndexOutOfBoundsException e) {
