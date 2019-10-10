@@ -1,6 +1,5 @@
 package duke.commands;
 
-import com.sun.source.tree.CatchTree;
 import duke.DukeException;
 import duke.Storage;
 import duke.Ui;
