@@ -43,25 +43,17 @@ public class Ui {
         );
     }
 
-    public void showDukeOutput(String string) {
-        dialogContainer.getChildren().addAll(
-                DialogBox.getDukeDialog(string, dukeImage)
-        );
-    }
-
     /**
      * Show Welcome message on programme start.
      */
-    public void showWelcome() {
+    public String showWelcome() {
         String logo = " ____        _        \n"
                 + "|  _ \\ _   _| | _____ \n"
                 + "| | | | | | | |/ / _ \\\n"
                 + "| |_| | |_| |   <  __/\n"
                 + "|____/ \\__,_|_|\\_\\___|\n";
-
-        //System.out.println("Hello from\n" + logo);
-        setOutput("Hello! I'm Duke\n"
-                + "What can I do for you?");
+        return "Hello! I'm Duke\n"
+                + "What can I do for you?";
     }
 
     public void showLine() {

@@ -14,6 +14,8 @@ import javafx.scene.layout.VBox;
  */
 public class MainWindow extends AnchorPane {
     @FXML
+    private AnchorPane calendarView;
+    @FXML
     private ScrollPane scrollPane;
     @FXML
     private VBox dialogContainer;
@@ -21,15 +23,20 @@ public class MainWindow extends AnchorPane {
     private TextField userInput;
     @FXML
     private Button sendButton;
+    private Ui ui;
 
     private Duke duke;
 
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
-    private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
+    private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/DukeCat.png"));
 
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
+        ui = new Ui();
+        dialogContainer.getChildren().addAll(
+                DialogBox.getDukeDialog(ui.showWelcome(), dukeImage)
+        );
     }
 
     public void setDuke(Duke d) {
