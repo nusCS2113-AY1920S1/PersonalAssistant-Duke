@@ -17,6 +17,56 @@ public class Farmio {
     }
 
     private void run() {
+
+        /*Print Random Shit
+         */
+        for(int x = 0; x != 10 ; x++){
+            System.out.println();
+        }
+
+        System.out.println("STARTING NEW GAME : LEVEL 1 - Wheat Farm");
+        for(int x = 0; x != 1 ; x++){
+            System.out.println();
+        }
+
+        System.out.println("|------------|");
+        System.out.println("|            |");
+        System.out.println("|   Insert   |");
+        System.out.println("|   Farmer   |");
+        System.out.println("|   Pic      |");
+        System.out.println("|            |");
+        System.out.println("|------------|");
+
+        System.out.println("|---------------------------------------------------------------------------------------|");
+        System.out.println("|  Welcome to Farmio Farmer John!                                                       |");
+        System.out.println("|      In this game we you will be tasked to complete a series of  challenging tasks    |");
+        System.out.println("|      This game intends expose you to the world of Computational thinking              |");
+        System.out.println("|                                                                                       |");
+        System.out.println("|   PRESS ENTER TO CONTINUE                                                    .   .  . |");
+        System.out.println("|---------------------------------------------------------------------------------------|");
+
+        for(int x = 0; x != 10 ; x++){
+            System.out.println();
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    /*
         displayWelcome();
         displayMenu();
         this.parser = new Parser(ui, farmer.tasks, farmer.wheatFarm, farmer.chickenFarm, farmer.cowFarm);
@@ -38,7 +88,12 @@ public class Farmio {
                 ui.showInfo("No gave save was done.");
             }
             checkObjectives(farmer);
+
+
+
+
         }
+*/
     }
 
     public static void main(String[] args) {    //TODO - configure both OS
@@ -65,7 +120,7 @@ public class Farmio {
     private void displayArt(String name) {
         try{
             ui.show(storage.getAsciiArt(name));
-        } catch (IOException e) {
+        } catch (IOException | FarmioException e) {
             ui.showWarning(name.substring(0, 1).toUpperCase() + name.substring(1) + " ascii art missing!");
         }
     }
@@ -73,7 +128,7 @@ public class Farmio {
     private void displayWelcome() {
         displayArt("welcome");
         ui.show("Press ENTER to continue.");
-        ui.getInput();
+        ui.getEnter();
     }
 
     private void displayMenu(){
@@ -84,9 +139,9 @@ public class Farmio {
             switch(ui.getInput().toLowerCase()){
                 case "load save":
                     try {
-                        this.farmer = storage.loadFarmer();
+                        this.farmer = new Farmer(ui, storage.loadFarmer());
                         return;
-                    } catch (ParseException e) {
+                    } catch (FarmioException | ParseException e) {
                         ui.showWarning("Game save is corrupted!");
                         ui.showInfo("Farmio starting a new game.");
                     } catch (IOException e) {
