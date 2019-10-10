@@ -1,6 +1,6 @@
 import duke.DukeCore;
-import duke.command.Ui;
 import duke.exception.DukeFatalException;
+import duke.gui.Gui;
 import duke.task.Storage;
 import duke.task.TaskList;
 import org.junit.jupiter.api.AfterAll;
@@ -29,7 +29,7 @@ public abstract class CommandTest {
             fail("Could not create data directory!");
         }
 
-        Ui ui = new Ui(System.in, testPrint);
+        Gui ui = new Gui();
         try {
             core = new DukeCore(new Storage("data" + File.separator + "test.tsv"), ui);
             core.storage.writeTaskFile("");

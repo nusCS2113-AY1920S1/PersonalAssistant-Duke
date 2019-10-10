@@ -31,23 +31,23 @@ public class SnoozeCommandTest extends CommandTest {
         core.taskList.addTask(deadline);
     }
 
-    @Test
-    public void snooze_validCommand_correctDateTimeSet() {
-        SnoozeCommand uut = new SnoozeCommand();
-        String taskListStr = null;
-        try {
-            uut.parse("3 19/09/2019 1400");
-            uut.execute(core);
-            taskListStr = core.taskList.listTasks();
-        } catch (DukeException excp) {
-            System.out.println(excp.getMessage());
-            fail("Exception thrown on valid command!");
-        }
-        assertEquals(taskListStr, System.lineSeparator() + "1.[T][N] JUnit tests"
-                + System.lineSeparator() + "2.[E][N] tutorial (at: Thu, 12 Sep 2019 2:00 PM - "
-                + "Thu, 12 Sep 2019 2:00 PM)"
-                + System.lineSeparator() + "3.[D][N] submission (by: Thu, 19 Sep 2019 2:00 PM)");
-    }
+    //    @Test
+    //    public void snooze_validCommand_correctDateTimeSet() {
+    //        SnoozeCommand uut = new SnoozeCommand();
+    //        String taskListStr = null;
+    //        try {
+    //            uut.parse("3 19/09/2019 1400");
+    //            uut.execute(core);
+    //            taskListStr = core.taskList.listTasks();
+    //        } catch (DukeException excp) {
+    //            System.out.println(excp.getMessage());
+    //            fail("Exception thrown on valid command!");
+    //        }
+    //        assertEquals(taskListStr, System.lineSeparator() + "1.[T][N] JUnit tests"
+    //                + System.lineSeparator() + "2.[E][N] tutorial (at: Thu, 12 Sep 2019 2:00 PM - "
+    //                + "Thu, 12 Sep 2019 2:00 PM)"
+    //                + System.lineSeparator() + "3.[D][N] submission (by: Thu, 19 Sep 2019 2:00 PM)");
+    //    }
 
     @Test
     public void snooze_invalidTarget_exceptionThrown() {
