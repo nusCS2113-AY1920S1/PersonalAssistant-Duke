@@ -135,6 +135,12 @@ public class Ui {
         System.out.print(line);
     }
 
+    public void printEditMessage(Task task) {
+        System.out.print(line + "     Got it. I've edited this task:  \n");
+        System.out.print("       " + task.giveTask() + "\n");
+        System.out.print(line);
+    }
+
     /**
      * Prints the message for the exception thrown.
      * @param message Exception message.
