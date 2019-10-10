@@ -1,10 +1,10 @@
 package parser;
 
 import dolla.Time;
-import ui.Ui;
-import command.AddDeadlineCommand;
-import command.AddEventCommand;
-import command.Command;
+import dolla.Ui;
+import dolla.command.AddDeadlineCommand;
+import dolla.command.AddEventCommand;
+import dolla.command.Command;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;

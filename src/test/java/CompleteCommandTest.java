@@ -1,4 +1,4 @@
-import command.CompleteCommand;
+import dolla.command.CompleteCommand;
 import dolla.task.Task;
 import dolla.task.TaskList;
 import dolla.task.ToDo;

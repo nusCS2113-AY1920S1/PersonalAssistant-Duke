@@ -1,7 +1,7 @@
-package storage;
+package dolla;
 
-import dolla.Time;
-import ui.Ui;
+
+
 import dolla.task.Task;
 import dolla.task.ToDo;
 import dolla.task.Event;
@@ -50,7 +50,7 @@ public class Storage {
 
         Ui.showWelcome();
         ArrayList<String> msg = new ArrayList<String>(Arrays.asList(
-                "Hello! I'm duke.Main! I help keep track of your tasks!",
+                "Hello! I'm duke.Dolla! I help keep track of your tasks!",
                 "What can I do for you?"
         ));
 

@@ -1,11 +1,27 @@
 package parser;
 
-import ui.Ui;
-import command.Command;
-import command.ErrorCommand;
+import dolla.Ui;
+import dolla.command.Command;
+import dolla.command.CompleteCommand;
+import dolla.command.RemoveCommand;
+import dolla.command.ShowListCommand;
+import dolla.command.FindStringCommand;
+import dolla.command.ViewScheduleCommand;
+import dolla.command.SnoozeCommand;
+import dolla.command.ErrorCommand;
+import dolla.command.AddTodoCommand;
+import dolla.command.AddDeadlineCommand;
+import dolla.command.AddEventCommand;
+import dolla.command.AddDoAfterTaskCommand;
+import dolla.command.AddFixDurationCommand;
+import dolla.command.AddRecurringTaskCommand;
 
+import dolla.task.TaskList;
+
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Scanner;
 
 /**
  * MainParser checks the user input and creates a command corresponding to the user input.
@@ -26,7 +42,7 @@ public class MainParser {
      *     If a number is not provided in a done or remove command, an error will be printed,
      *     and an ErrorCommand will be returned.
      * </p>
-     * @param mode The mode Main is currently on.
+     * @param mode The mode Dolla is currently on.
      * @return a command corresponding to the user input.
      */
     public static Command handleInput(String mode, String inputLine) { // TODO: Rename to something else
