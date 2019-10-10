@@ -18,7 +18,7 @@ public class Deadline extends Task implements Serializable {
 
     /**
      * contructs a deadline task.
-     * 
+     *
      * @param description description of task
      * @param atDate      time of the task
      */
@@ -33,7 +33,7 @@ public class Deadline extends Task implements Serializable {
      * portions of the user input into a single string.
      *
      * @return This function returns a string of the required task in the desired
-     *         output format of string type.
+     * output format of string type.
      */
     @Override
     public String toString() {

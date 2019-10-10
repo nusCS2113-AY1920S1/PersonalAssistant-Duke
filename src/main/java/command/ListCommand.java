@@ -27,10 +27,12 @@ public class ListCommand extends Command {
             Ui.printOutput("You have currently no tasks in your list.");
         } else {
             Ui.printDash();
-            Ui.printMessage("Here are the task(s) in your list:");
-            int i = 1;
+            Ui.printOutput("Here are the task(s) in your list:");
+            Integer i = 1;
+            Integer j = 1;
             for (Task task : tasks.getTasks()) {
                 Ui.printMessage(i++ + "." + task.toString());
+                Ui.userOutputForUI += j++ + "." + task.toString() + "\n";
             }
             Ui.printDash();
         }

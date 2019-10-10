@@ -36,7 +36,6 @@ public class DoneCommand extends Command {
         Task task = tasks.markAsDone(indexOfTask);
         storage.saveFile(tasks.getTasks());
 
-        Ui.printMessage("Nice! I've marked this task as done:");
-        Ui.printMessage("  " + task.toString());
+        Ui.printOutput("Nice! I've marked this task as done: " + task.toString());
     }
 }

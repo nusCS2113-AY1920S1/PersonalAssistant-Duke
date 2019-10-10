@@ -13,10 +13,9 @@ import java.util.Collections;
 
 /**
  * Used to find the next free timeslot of a duration of user's choosing.
- * 
+ *
  * @author Hans kurnia
  * @version 1.0
- * 
  */
 public class SearchCommand extends Command {
     private long durationToFind;
@@ -27,7 +26,7 @@ public class SearchCommand extends Command {
 
     /**
      * get the duration to find for.
-     * 
+     *
      * @return the durationToFind
      */
     public long getDurationToFind() {
@@ -36,7 +35,7 @@ public class SearchCommand extends Command {
 
     /**
      * executes the search command.
-     * 
+     *
      * @param tasks   the current loaded task list
      * @param storage the current loaded storage configuration
      */
@@ -68,8 +67,8 @@ public class SearchCommand extends Command {
                 if (durationToFind <= duration) {
                     if (i != 0) {
                         Ui.printOutput(
-                                "Next free time slot of duration " + Long.toString(durationToFind) + "hrs is between \n"
-                                        + dateList.get(i - 1).toString() + " and " + dateList.get(i).toString());
+                            "Next free time slot of duration " + Long.toString(durationToFind) + "hrs is between \n"
+                                + dateList.get(i - 1).toString() + " and " + dateList.get(i).toString());
                     } else {
                         Ui.printOutput("You can schedule something from now till " + dateList.get(i).toString());
                     }

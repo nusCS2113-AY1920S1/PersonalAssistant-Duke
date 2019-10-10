@@ -18,7 +18,7 @@ public class Event extends Task implements Serializable, Comparable<Event> {
 
     /**
      * creates a new Event task.
-     * 
+     *
      * @param description description of task
      * @param startDate      end time of task
      * @param endDate      start time of task
@@ -43,7 +43,7 @@ public class Event extends Task implements Serializable, Comparable<Event> {
      * portions of the user input into a single string.
      *
      * @return This function returns a string of the required task in the desired
-     *         output format of string type.
+     * output format of string type.
      */
     @Override
     public String toString() {

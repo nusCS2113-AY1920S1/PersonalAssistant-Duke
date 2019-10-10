@@ -16,17 +16,13 @@ import java.util.ArrayList;
  * @version v3.0
  */
 
-public class Duke {
+public class Duke{
 
     private String filePath = System.getProperty("user.dir") + "/src/DukeDatabase/ArrayList";
     private Storage storage;
     private TaskList tasks;
     private File file = new File(filePath);
     private boolean isExit = false;
-
-    public static void main(String[] args) {
-        new Duke().run();
-    }
 
     /**
      * This constructor creates a new instance of vital classes and also loads tasks

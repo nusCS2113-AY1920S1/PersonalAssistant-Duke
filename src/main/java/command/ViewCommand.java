@@ -4,6 +4,7 @@ import storage.Storage;
 import task.Task;
 import task.TaskList;
 import ui.Ui;
+
 import java.util.ArrayList;
 
 /**
@@ -35,12 +36,13 @@ public class ViewCommand extends Command {
             Ui.printMessage("There are no tasks scheduled on that date.");
         } else {
             Ui.printMessage("Here is your schedule for that day:");
+            int i = 1;
+            Ui.printDash();
+            for (Task task : sortedRequiredSchedule) {
+                Ui.printMessage(i++ + "." + task.toString());
+            }
+            Ui.printDash();
+            Ui.userOutputForUI = tasks.toString();
         }
-        int i = 1;
-        Ui.printDash();
-        for (Task task : sortedRequiredSchedule) {
-            Ui.printMessage(i++ + "." + task.toString());
-        }
-        Ui.printDash();
     }
 }

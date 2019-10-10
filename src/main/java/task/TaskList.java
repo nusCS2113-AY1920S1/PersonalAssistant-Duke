@@ -44,7 +44,7 @@ public class TaskList {
 
     /**
      * This function allows the use to delete a particular task.
-     * 
+     *
      * @param indexOfTask this is the index of the task which needs to be deleted.
      */
     public Task delete(int indexOfTask) {
@@ -99,7 +99,7 @@ public class TaskList {
 
     /**
      * updates the timing of a particular task.
-     * 
+     *
      * @param taskToBeChanged task to be updated
      * @param command         task type to be updated
      * @param atDate          new start time of task
@@ -122,13 +122,13 @@ public class TaskList {
      * @param dayToFind is of String type which contains the desired date of
      *                  schedule.
      * @return sortDateList the sorted schedule of all the tasks on a particular
-     *         date.
+     * date.
      */
     public ArrayList<Task> schedule(String dayToFind) {
         ArrayList<Task> sortedDateList = new ArrayList<Task>();
         for (int i = 0; i < listOfTasks.size(); i++) {
             if (!(listOfTasks.get(i).getClass() == task.Todo.class)
-                    && listOfTasks.get(i).toString().contains(dayToFind)) {
+                && listOfTasks.get(i).toString().contains(dayToFind)) {
                 sortedDateList.add(listOfTasks.get(i));
             }
         }

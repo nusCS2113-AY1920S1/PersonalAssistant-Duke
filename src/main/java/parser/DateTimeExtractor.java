@@ -29,10 +29,9 @@ public class DateTimeExtractor {
      * @param dateTimeFromUser A string containing only the date segment of the user
      *                         input.
      * @return String A string containing the end time of an event will also
-     *         returned.
+     * returned.
      * @throws ParseException The ParseException is called if the date or time
      *                        format provided by the user is incorrect!
-     *
      */
     public static LocalDateTime extractDateTime(String dateTimeFromUser, String command) throws ParseException {
         if (command.equals("event")) {
