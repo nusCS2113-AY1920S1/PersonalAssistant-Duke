@@ -1,0 +1,57 @@
+# About Us
+
+FarmLogic was developed by team F-14-2, with the aim of teaching children programming methodology in a fun and interactive method
+
+We are a team based in the http://www.comp.nus.edu.sg[School of Computing, National University of Singapore].
+
+## Project Team
+### Tan Yeh Han John
+image::https://github.com/AY1920S1-CS2113T-F14-2/main/blob/master/docs/images/johntyh.png[width="150", align="left"]
+
+{empty}[http://github.com/TYH[github]] [http://github.com/TYH[portfolio]]
+
+Role: Developer
+
+Responsibilites: -
+
+'''
+
+### Tan Zheng Wen
+image::https://github.com/AY1920S1-CS2113T-F14-2/main/blob/master/docs/images/tzw0.png[width="150", align="left"]
+{empty}[http://github.com/tzw0[github]] [http://github.com/tzw0[portfolio]]
+
+Role: Developer
+
+Responsibilities: -
+
+'''
+
+### Tay Jing Xuan
+image::https://github.com/AY1920S1-CS2113T-F14-2/main/blob/master/docs/images/jing-xuan.png[width="150", align="left"]
+{empty}[http://github.com/jing-xuan[github]] [http://github.com/jing-xuan[portfolio]]
+
+Role: Developer
+
+Responsibilites: -
+
+'''
+
+### Umar Moiz
+image::https://github.com/AY1920S1-CS2113T-F14-2/main/blob/master/docs/images/notahotdog.png[width="150", align="left"]
+{empty}[http://github.com/notahotdog[github]] [http://github.com/notahotdog[portfolio]]
+
+Role: Developer
+
+Responsibilites: -
+
+'''
+
+### Yew Jing Hui
+image::https://github.com/AY1920S1-CS2113T-F14-2/main/blob/master/docs/images/exprescode.png[width="150", align="left"]
+{empty}[http://github.com/Expresscode[github]] [http://github.com/Expressscode[portfolio]]
+
+Role: Developer
+
+Responsibilites: -
+
+'''
