@@ -30,6 +30,7 @@ public abstract class Task implements Serializable {
 
     /**
      * Constructor for task.
+     *
      * @param description The description of the task
      */
     public Task(String description) {
@@ -100,6 +101,11 @@ public abstract class Task implements Serializable {
     public void markAsIgnorable() {
         this.isIgnored = true;
         this.isPrioritizable = false;
+    }
+
+    public void markAsUnignorable() {
+        this.isIgnored = false;
+        this.isPrioritizable = true;
     }
 
     public void markAsDone() {
