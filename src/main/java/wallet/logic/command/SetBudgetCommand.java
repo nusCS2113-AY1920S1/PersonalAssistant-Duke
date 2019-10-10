@@ -3,10 +3,7 @@ package wallet.logic.command;
 import wallet.model.Wallet;
 import wallet.model.record.Budget;
 import wallet.model.record.BudgetList;
-import wallet.storage.StorageManager;
-
 import java.text.DateFormatSymbols;
-import java.util.ArrayList;
 
 /**
  * The SetCommand Class deals with the 'set' command.
@@ -31,7 +28,7 @@ public class SetBudgetCommand extends Command {
     }
 
     @Override
-    public boolean execute(Wallet wallet, StorageManager storageManager) {
+    public boolean execute(Wallet wallet) {
         try {
             if (budget.getAmount() < 0) {
                 System.out.println(MESSAGE_NO_NEGATIVE_BUDGET);
@@ -47,7 +44,7 @@ public class SetBudgetCommand extends Command {
                     int index = checkDuplicates(wallet.getBudgetList());
                     if (index != -1) {
                         wallet.getBudgetList().getBudgetList().remove(index);
-                        updateSaveFile(wallet, storageManager);
+                        updateSaveFile(wallet);
                         System.out.println(MESSAGE_REMOVE_BUDGET
                                 + new DateFormatSymbols().getMonths()[budget.getMonth() - 1]
                                 + budget.getYear());
@@ -64,7 +61,7 @@ public class SetBudgetCommand extends Command {
                     }
                     System.out.println(budget.getAmount() + MESSAGE_SET_BUDGET
                             + new DateFormatSymbols().getMonths()[budget.getMonth() - 1] + " " + budget.getYear());
-                    updateSaveFile(wallet, storageManager);
+                    updateSaveFile(wallet);
                     if (index != -1) {
                         System.out.println(MESSAGE_EDIT_BUDGET
                                 + new DateFormatSymbols().getMonths()[budget.getMonth() - 1] + " " + budget.getYear());
@@ -74,7 +71,7 @@ public class SetBudgetCommand extends Command {
                 wallet.getBudgetList().addBudget(budget);
                 System.out.println(budget.getAmount() + MESSAGE_SET_BUDGET
                         + new DateFormatSymbols().getMonths()[budget.getMonth() - 1] + " " + budget.getYear());
-                updateSaveFile(wallet, storageManager);
+                updateSaveFile(wallet);
                 System.out.println(MESSAGE_NOTE);
             }
         } catch (Exception e) {
@@ -93,9 +90,8 @@ public class SetBudgetCommand extends Command {
         return -1;
     }
 
-    private void updateSaveFile(Wallet wallet, StorageManager storageManager) {
+    private void updateSaveFile(Wallet wallet) {
         wallet.getBudgetList().setModified(true);
-        storageManager.save(wallet);
     }
 }
 

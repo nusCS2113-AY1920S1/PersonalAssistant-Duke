@@ -12,12 +12,10 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class ExpenseParserTest {
     private static Wallet testWallet;
-    private static StorageManager storageManager;
 
     @BeforeAll
     public static void setUp() {
         testWallet = new Wallet();
-        storageManager = new StorageManager();
     }
 
     @Test
@@ -39,7 +37,7 @@ public class ExpenseParserTest {
 
     @Test
     public void updateRecurringRecords_dailyRecurring_success() {
-        ExpenseParser.updateRecurringRecords(testWallet, storageManager);
+        ExpenseParser.updateRecurringRecords(testWallet);
         LocalDate currentDate = LocalDate.now();
         LocalDate expenseDate = currentDate.minusDays(5);
         ExpenseList expenseList = testWallet.getExpenseList();

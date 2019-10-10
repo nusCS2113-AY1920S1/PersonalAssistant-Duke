@@ -1,6 +1,7 @@
 package wallet.logic.parser;
 
 import wallet.logic.command.EditCommand;
+import wallet.model.record.Expense;
 
 /**
  * The EditCommandParser class helps to
@@ -10,6 +11,64 @@ public class EditCommandParser implements Parser<EditCommand> {
 
     @Override
     public EditCommand parse(String input) {
+        String[] arguments = input.split(" ", 2);
+        switch (arguments[0]) {
+        case "expense":
+            Expense expense = parseExpense(arguments[1]);
+            if (expense != null) {
+                return new EditCommand(expense);
+            } else {
+                break;
+            }
+
+        default:
+            System.out.println(EditCommand.MESSAGE_USAGE);
+            return null;
+        }
         return null;
+    }
+
+    /**
+     * Parses the parameters of expense to be edited.
+     */
+    public Expense parseExpense(String input) throws NumberFormatException, ArrayIndexOutOfBoundsException {
+        Expense expense = new Expense();
+
+        String[] arguments = input.split(" ", 2);
+        int id = Integer.parseInt(arguments[0].trim());
+        expense.setId(id);
+        String parameters = arguments[1].trim();
+        if (parameters.contains("/r")) {
+            String[] getRecurring = parameters.split("/r");
+            if (getRecurring[1].trim().equalsIgnoreCase("DAILY")
+                    || getRecurring[1].trim().equalsIgnoreCase("WEEKLY")
+                    || getRecurring[1].trim().equalsIgnoreCase("MONTHLY")) {
+                expense.setRecurring(true);
+                expense.setRecFrequency(getRecurring[1].trim().toUpperCase());
+            } else if (getRecurring[1].trim().equals("no")) {
+                expense.setRecurring(false);
+                expense.setRecFrequency(null);
+            }
+            parameters = getRecurring[0].trim();
+        }
+
+        if (parameters.contains("/c")) {
+            String[] getCategory = parameters.split("/c");
+            expense.setCategory(getCategory[1].trim());
+            parameters = getCategory[0].trim();
+        }
+
+        if (parameters.contains("/a")) {
+            String[] getAmount = parameters.split("/a");
+            expense.setAmount(Double.parseDouble(getAmount[1].trim()));
+            parameters = getAmount[0].trim();
+        }
+
+        if (parameters.contains("/d")) {
+            String[] getDescription = parameters.split("/d");
+            expense.setDescription(getDescription[1].trim());
+        }
+
+        return expense;
     }
 }

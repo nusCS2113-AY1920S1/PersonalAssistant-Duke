@@ -3,7 +3,6 @@ package wallet.logic.command;
 import wallet.model.Wallet;
 import wallet.model.contact.Contact;
 import wallet.model.task.Task;
-import wallet.storage.StorageManager;
 
 /**
  * The ListCommand Class handles all list commands.
@@ -38,11 +37,10 @@ public class ListCommand extends Command {
      * Lists the Record objects in any list and returns false.
      *
      * @param wallet The Wallet object.
-     * @param storageManager The StorageManager object.
      * @return False.
      */
     @Override
-    public boolean execute(Wallet wallet, StorageManager storageManager) {
+    public boolean execute(Wallet wallet) {
         boolean isListAll = false;
         int counter;
         switch (record) {

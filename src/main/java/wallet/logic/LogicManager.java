@@ -44,8 +44,8 @@ public class LogicManager {
         boolean isExit = false;
         try {
             Command command = parserManager.parseCommand(fullCommand);
-            isExit = command.execute(wallet, storageManager);
-            ExpenseParser.updateRecurringRecords(wallet, storageManager);
+            isExit = command.execute(wallet);
+            ExpenseParser.updateRecurringRecords(wallet);
             storageManager.save(wallet);
         } catch (Exception e) {
             e.printStackTrace();
