@@ -26,7 +26,7 @@ manpower, logistics, finance, events and lockers. It is a Java application writt
 //* Some parts of this sample application were inspired by the excellent http://code.makery.ch/library/javafx-8-tutorial/[Java FX tutorial] by
 //_Marco Jakob_.
 
-* Libraries used:
+* Libraries used: https://github.com/FasterXML/jackson[Jackson]
 
 //== Licence
 //* https://github.com/AY1920S1-CS2113T-F11-1/main/blob/master/docs/CONTACT_US.adoc[MIT]
