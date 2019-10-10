@@ -1,14 +1,18 @@
 package duke.command;
 
 import duke.exceptions.*;
+import duke.modules.ModuleInfoSummary;
+import duke.modules.Task;
 import duke.util.Reminder;
 import duke.util.Storage;
 import duke.util.TaskList;
 import duke.util.Ui;
 
+import java.util.ArrayList;
+
 public class CapCommand extends Command {
 
-    /*
+    /* TODO
     Cap report overall METHOD
     get list of done modules from tasklist, store as tuple? new class? (mcs, letter grade, s/u) in a new arraylist
     calculate mc weightage and cap, request for additional cap info if necessary eg. letter grade missing, s/u options
@@ -27,6 +31,10 @@ public class CapCommand extends Command {
 
     */
 
+    public String[] command;
+    public ArrayList<ModuleInfoSummary> completedModuleList = new ArrayList<>();
+    public ArrayList<ModuleInfoSummary> specificModuleCap = new ArrayList<>();
+
     /**
      * Constructor for the CapCommand class where user can enquire information about their CAP such as overall CAP and what-if reports about predicted CAP
      * @param input
@@ -36,6 +44,8 @@ public class CapCommand extends Command {
      */
     public CapCommand(String input) throws ModEmptyCommandException, ModMissingArgumentException, ModCommandException {
         // parse string input into multiple methods as above according to spaces
+        this.command = input.split(" ");
+
     }
 
     @Override
