@@ -2,6 +2,6 @@ package duke.task;
 
 import com.google.gson.Gson;
 
-public class ReadGSONFile {
+public class WriteGsonFile {
     Gson gson = new Gson();
 }
