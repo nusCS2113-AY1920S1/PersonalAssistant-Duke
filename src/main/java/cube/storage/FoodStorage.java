@@ -3,28 +3,29 @@ package cube.storage;
 import cube.model.food.Food;
 import cube.model.food.FoodList;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class FoodStorage {
-	private ArrayList<Food> foodArrayList;
+public class FoodStorage implements Serializable {
+	private FoodList foodList;
 
 	public FoodStorage() {
-		this.foodArrayList = new ArrayList<>();
+		this.foodList = new FoodList();
 	}
 
-	public FoodStorage(ArrayList<Food> foodArrayList) {
-		this.foodArrayList = foodArrayList;
+	public FoodStorage(FoodList foodList) {
+		this.foodList = foodList;
 	}
 
-	public ArrayList<Food> loadFood() {
-		return foodArrayList;
+	public FoodList loadFood() {
+		return foodList;
 	}
 
 	public void appendFood(Food food) {
-		foodArrayList.add(food);
+		foodList.add(food);
 	}
 
 	public void storeFoodList(FoodList foodlist) {
-		
+		this.foodList = foodlist;
 	}
 }
