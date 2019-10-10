@@ -4,16 +4,15 @@ import duke.commons.core.Message;
 import duke.commons.core.index.Index;
 import duke.commons.util.StringUtil;
 import duke.logic.parser.exceptions.ParseException;
-import duke.model.commons.comProduct;
+import duke.model.order.OrderItem;
+import duke.model.order.Quantity;
 import duke.model.product.Product;
 import duke.model.order.Order;
 
-
-
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
-import java.util.Map;
+import java.util.Set;
 
 /**
  * Contains utility methods used for parsing strings in the various *Parser classes.
@@ -38,9 +37,9 @@ public class ParserUtil {
         return Index.fromOneBased(Integer.parseInt(trimmedIndex));
     }
 
-    ///Order-related utilities.
-    public static Map<comProduct, Integer> parseItems(List<String> itemArg) throws ParseException {
-        Map<comProduct, Integer> items = new HashMap<>();
+    //=======Order utilities========
+    public static Set<OrderItem> parseItems(List<String> itemArg) throws ParseException {
+        Set<OrderItem> items = new HashSet<>();
         for (String itemString : itemArg) {
             String[] itemAndQty = itemString.split(",");
             if (itemAndQty.length < 2) {
@@ -49,8 +48,11 @@ public class ParserUtil {
             if (itemAndQty[0].strip().equals("") || itemAndQty[1].strip().equals("")) {
                 throw new ParseException(Message.MESSAGE_ITEM_MISSING_NAME_OR_QUANTITY);
             }
+
             try {
-              //  items.put(new comProduct(itemAndQty[0].strip()), Integer.parseInt(itemAndQty[1].strip()));
+                OrderItem item = new OrderItem(new Product(itemAndQty[0].strip()),
+                        new Quantity(Integer.parseInt(itemAndQty[1].strip())));
+                items.add(item);
             } catch (NumberFormatException e) {
                 throw new ParseException(Message.MESSAGE_INVALID_NUMBER_FORMAT);
             }

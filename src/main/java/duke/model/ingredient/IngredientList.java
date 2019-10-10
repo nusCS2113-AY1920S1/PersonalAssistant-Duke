@@ -2,7 +2,7 @@ package duke.model.ingredient;
 
 public interface IngredientList {
 
-    static boolean contain(String name) {
+    static boolean contains(String name) {
         return false;
     }
 
