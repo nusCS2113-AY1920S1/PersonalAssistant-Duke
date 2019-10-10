@@ -5,7 +5,7 @@ public class Question {
     private String answer;
 
     public enum QuestionType {
-        BASIC, OOP, EXTENSIONS
+        BASIC, OOP, EXTENSIONS, ALL
     }
 
     public Question(String question, String answer) {

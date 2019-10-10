@@ -7,7 +7,6 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
-import java.util.StringTokenizer;
 
 public class Profile {
     private String filepath;
@@ -57,13 +56,10 @@ public class Profile {
 
     private void initialiseUser() throws DukeException {
         username = "NEW_USER_!@#";
-        for (int i = 0; i < 3; ++i) {
-            topicsDone.add(0);
-        }
         try {
             PrintWriter out = new PrintWriter(filepath);
             out.println(username);
-            for (int i = 0; i < 3; ++i) {
+            for (int i = 0; i < 4; ++i) {
                 out.println("0");
             }
             out.close();
@@ -100,13 +96,22 @@ public class Profile {
     }
 
     /**
-     * Method to set topic as Done.
+     * Method to set topic score.
      * @param contentIdx idx of content
      * @throws DukeException when unable to write progress
      */
-    public void setAsDone(int contentIdx) throws DukeException {
-        topicsDone.set(contentIdx, 1);
+    public void setMarks(int contentIdx, int marks) throws DukeException {
+        topicsDone.set(contentIdx, marks);
         writeProgress();
+    }
+
+    /**
+     * Method to get topic score.
+     * @param contentIdx idx of content
+     * @return score of the specified topic
+     */
+    public int getContentMarks(int contentIdx) {
+        return topicsDone.get(contentIdx);
     }
 
     /**
@@ -116,9 +121,7 @@ public class Profile {
     public int getTotalProgress() {
         int count = 0;
         for (int i : topicsDone) {
-            if (i == 1) {
-                ++count;
-            }
+            count += i;
         }
         return count;
     }

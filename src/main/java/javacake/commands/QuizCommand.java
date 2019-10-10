@@ -13,6 +13,7 @@ import java.util.ArrayList;
 public class QuizCommand extends Command {
     private QuestionList questionList;
     private ArrayList<Question> chosenQuestions;
+    private Question.QuestionType qnType;
 
     /**
      * QuizCommand constructor for overall quiz.
@@ -21,6 +22,7 @@ public class QuizCommand extends Command {
         type = CmdType.QUIZ;
         questionList = new QuestionList();
         chosenQuestions = new ArrayList<>();
+        qnType = Question.QuestionType.ALL;
 
         chosenQuestions = questionList.pickQuestions();
     }
@@ -33,6 +35,7 @@ public class QuizCommand extends Command {
         type = CmdType.QUIZ;
         questionList = new QuestionList();
         chosenQuestions = new ArrayList<>();
+        qnType = questionType;
 
         chosenQuestions = questionList.pickQuestions(questionType);
     }
@@ -61,6 +64,35 @@ public class QuizCommand extends Command {
             throw new DukeException("Something went wrong when calculating the score:\n"
                     + "Calculated score is greater than maximum possible score.");
         }
+
+        int topicIdx;
+        switch (qnType) {
+        case OOP:
+            topicIdx = 0;
+            break;
+        case BASIC:
+            topicIdx = 1;
+            break;
+        case EXTENSIONS:
+            topicIdx = 2;
+            break;
+        case ALL:
+            topicIdx = 3;
+            break;
+        default:
+            throw new DukeException("Topic Idx out of bounds!");
+        }
+
+        if (score > profile.getContentMarks(topicIdx)) {
+            if (score < 0.5 * QuestionList.MAX_QUESTIONS) {
+                profile.setMarks(topicIdx, 1);
+            } else if (score >= 0.5 && score < QuestionList.MAX_QUESTIONS) {
+                profile.setMarks(topicIdx, 2);
+            } else {
+                profile.setMarks(topicIdx, 3);
+            }
+        }
+
         ui.displayResults(score, QuestionList.MAX_QUESTIONS);
     }
 }

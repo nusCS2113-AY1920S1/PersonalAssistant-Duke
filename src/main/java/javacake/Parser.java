@@ -5,6 +5,7 @@ import javacake.commands.ExitCommand;
 import javacake.commands.ListCommand;
 import javacake.commands.BackCommand;
 import javacake.commands.GoToCommand;
+import javacake.commands.ScoreCommand;
 import javacake.tasks.Task;
 import javacake.tasks.ToDo;
 import javacake.tasks.Deadline;
@@ -36,6 +37,8 @@ public class Parser {
             return new ListCommand();
         } else if (input.equals("back")) {
             return new BackCommand();
+        } else if (input.equals("score")) {
+            return new ScoreCommand();
         } else if (input.length() > 4 && input.substring(0,4).equals("goto")) {
             return new GoToCommand(input);
         } else {

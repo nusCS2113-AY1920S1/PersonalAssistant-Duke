@@ -1,10 +1,12 @@
 package javacake;
 
 import java.io.BufferedReader;
+import java.io.FileReader;
 import java.io.IOException;
 import java.util.Scanner;
 
 public class Ui {
+    private static String cake = "cake";
     private static String border = "____________________________________________________________";
 
     /**
@@ -21,11 +23,17 @@ public class Ui {
      * @param progress The progress of the user in viewing the whole content
      * @return String containing username
      */
-    public String showWelcome(boolean isFirstTime, String userName, int progress) {
+    public String showWelcome(boolean isFirstTime, String userName, int progress) throws DukeException {
         StringBuilder welcomePhaseA = new StringBuilder();
-        welcomePhaseA.append(border);
-        welcomePhaseA.append("\nWelcome to JavaCake! ");
+        welcomePhaseA.append(border).append("\nWelcome to JavaCake! ");
         welcomePhaseA.append("where learning Java can be a Piece of Cake!\n");
+        try {
+            welcomePhaseA.append(getTextFile(new BufferedReader(
+                    new FileReader("content/cake.txt"))));
+        } catch (IOException e) {
+            throw new DukeException("Unable to Load Cake");
+        }
+
 
         System.out.println(welcomePhaseA.toString());
 
@@ -43,24 +51,13 @@ public class Ui {
         if (isFirstTime) {
             welcomePhaseB.append(border);
             welcomePhaseB.append("\nWelcome to JavaCake, ").append(userName).append("! ");
-            welcomePhaseB.append("Now let's help you get started with Java! :3\n").append(helpMessage());
-            welcomePhaseB.append(border);
+            welcomePhaseB.append("Now let's help you get started with Java! :3\n");
+            welcomePhaseB.append(helpMessage()).append(border);
         } else {
             welcomePhaseB.append("Hello ").append(userName).append("! ");
-            welcomePhaseB.append("Here's your quiz progress so far :D\n");
-            progress *= 6;
-            for (int i = 0; i < 18; ++i) {
-                if (i < progress) {
-                    welcomePhaseB.append("#");
-                } else {
-                    welcomePhaseB.append("-");
-                }
-            }
-            progress = progress * 33 / 6;
-            if (progress == 99) {
-                progress = 100;
-            }
-            welcomePhaseB.append(" ").append(progress).append("%\n");
+
+            welcomePhaseB.append(getQuizResults(progress));
+
             welcomePhaseB.append("What do you want to do today?\n");
             welcomePhaseB.append(helpMessage()).append(border);
         }
@@ -79,8 +76,7 @@ public class Ui {
      * Prints help message to assist user.
      */
     public String helpMessage() {
-        String message1= "\nType 'list' to view main topics\n" + "Type 'exit' to rage quit\n";
-        return message1;
+        return "\nType 'list' to view main topics\n" + "Type 'exit' to rage quit\n";
     }
 
     /**
@@ -133,6 +129,26 @@ public class Ui {
     }
 
     /**
+     * Method to get text from file.
+     * @param reader BufferedReader to read in text from file
+     * @throws DukeException Error thrown when unable to close reader
+     */
+    public String getTextFile(BufferedReader reader) throws DukeException {
+        String lineBuffer;
+        String output = "";
+        try {
+            while ((lineBuffer = reader.readLine()) != null) {
+                output += lineBuffer;
+                output += "\n";
+            }
+            reader.close();
+        } catch (IOException e) {
+            throw new DukeException("File not found!");
+        }
+        return output;
+    }
+
+    /**
      * Displays the quiz question.
      * @param question the question to be shown to the user.
      * @param index the current question the user is on.
@@ -161,5 +177,28 @@ public class Ui {
         }
 
         System.out.println("Type \"back\" to go back to the table of contents.");
+    }
+
+    /**
+     * Method to get quiz score.
+     * @param progress the user's overall quiz score
+     * @return String with quiz score message
+     */
+    public String getQuizResults(int progress) {
+        StringBuilder str = new StringBuilder();
+        str.append("Here's your quiz progress so far :D\n");
+        for (int i = 0; i < 12; ++i) {
+            if (i < progress) {
+                str.append("#");
+            } else {
+                str.append("-");
+            }
+        }
+        progress = progress * 100 / 12;
+        if (progress == 99) {
+            progress = 100;
+        }
+        str.append(" ").append(progress).append("%\n");
+        return  str.toString();
     }
 }

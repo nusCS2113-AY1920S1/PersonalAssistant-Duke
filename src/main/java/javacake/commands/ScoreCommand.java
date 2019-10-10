@@ -1,17 +1,19 @@
 package javacake.commands;
 
-import javacake.ProgressStack;
+import javacake.DukeException;
 import javacake.Profile;
-import javacake.Ui;
+import javacake.ProgressStack;
 import javacake.Storage;
+import javacake.Ui;
 
-public class ExitCommand extends Command {
-    public ExitCommand() {
-        type = CmdType.EXIT;
+public class ScoreCommand extends Command {
+
+    public ScoreCommand() {
+
     }
 
     /**
-     * Executes exiting the program.
+     * Executes showing quiz score.
      * @param progressStack TaskList containing current tasks
      * @param ui the Ui responsible for outputting messages
      * @param storage Storage needed to write the updated data
@@ -19,6 +21,6 @@ public class ExitCommand extends Command {
      */
     @Override
     public void execute(ProgressStack progressStack, Ui ui, Storage storage, Profile profile) {
-        ui.showMessage("\nBye. Hope to see you again soon!\n");
+        ui.showMessage(ui.getQuizResults(profile.getTotalProgress()).trim());
     }
 }
