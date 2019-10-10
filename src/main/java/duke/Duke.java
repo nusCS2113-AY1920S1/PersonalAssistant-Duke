@@ -2,7 +2,6 @@ package duke;
 
 import java.util.Arrays;
 import java.util.HashMap;
-import java.util.List;
 
 import duke.command.Command;
 import duke.command.ListCommand;
@@ -30,6 +29,8 @@ public class Duke {
     private ParserWrapper parser;
     private Reminder reminder;
     private JsonWrapper data;
+    private HashMap<String, ModuleInfoSummary> modSummaryMap;
+    private HashMap<String, ModuleInfoDetailed> modDetailedMap;
 
     /**
      * Constructor for Duke class.
@@ -41,6 +42,13 @@ public class Duke {
         parser = new ParserWrapper();
         data = new JsonWrapper();
     }
+
+
+    private void setup() {
+
+    }
+
+
 
     /**
      * The main run loop for Duke, requesting for user input
