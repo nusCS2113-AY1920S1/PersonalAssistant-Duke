@@ -14,18 +14,20 @@ public class ParserUtil {
         String[] tempInput = input.split(" ");
         for (int i = 0; i < tempInput.length; i++) {
             String s = tempInput[i];
-            switch (s.substring(0, 2)) {
-            case "n/":
-                memberDetails[0] = s.substring(2);
-                break;
-            case "i/":
-                memberDetails[1] = s.substring(2);
-                break;
-            case "e/":
-                memberDetails[2] = s.substring(2);
-                break;
-            default:
-                break;
+            if (s.length() >= 2) {
+                switch (s.substring(0, 2)) {
+                case "n/":
+                    memberDetails[0] = s.substring(2);
+                    break;
+                case "i/":
+                    memberDetails[1] = s.substring(2);
+                    break;
+                case "e/":
+                    memberDetails[2] = s.substring(2);
+                    break;
+                default:
+                    break;
+                }
             }
         }
         return memberDetails;
