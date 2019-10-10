@@ -8,13 +8,13 @@ import duke.storage.PatientStorage;
 import duke.storage.TaskStorage;
 import duke.task.TaskList;
 
-public class UpdateCommand extends Command {
+public class UpdatePatientCommand extends Command {
 
     private int Id;
     private String targetInfo;
     private String updatedValue;
 
-    public UpdateCommand(int Id , String targetInfo , String updatedValue) {
+    public UpdatePatientCommand(int Id , String targetInfo , String updatedValue) {
         super();
         this.Id = Id;
         this.targetInfo = targetInfo;

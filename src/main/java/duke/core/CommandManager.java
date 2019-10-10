@@ -105,7 +105,7 @@ public class CommandManager {
                     String targetInfo = descriptions[2];
                     String updateValue = descriptions[3];
 
-                    return new UpdateCommand(targetId, targetInfo, updateValue);
+                    return new UpdatePatientCommand(targetId, targetInfo, updateValue);
 
 
                 } catch (Exception e) {
