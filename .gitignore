@@ -7,8 +7,12 @@
 /.gradle/
 /build/
 src/main/resources/docs/
+/lib/
 
 # MacOS custom attributes files created by Finder
 .DS_Store
 *.iml
 bin/
+
+# Project data files
+/data/

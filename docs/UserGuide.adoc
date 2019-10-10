@@ -1,0 +1,299 @@
+= ModPlan v1.1 - User Guide
+:site-section: UserGuide
+:toc:
+:toc-title:
+:toc-placement: preamble
+:sectnums:
+:imagesDir: screenshots
+:stylesDir: stylesheets
+:xrefstyle: full
+:experimental:
+ifdef::env-github[]
+:tip-caption: :bulb:
+:note-caption: :information_source:
+endif::[]
+:repoURL: https://github.com/AY1920S1-CS2113T-F10-1/main
+
+By: `Team AY1920S1-CS2113T-F10-1`      Since: `Aug 2019`      License: `NUS School of Computing`
+
+== Introduction
+
+**ModPlan**
+
+Your one stop solution to module planning through out your university tenure! + 
+ModPlan is a module planning system that expands on NUSMODS to help NUS Computer Engineering students to plan their modules for all four years of their bachelor's degree.
+
+== Quick Start
+
+.  Ensure you have Java `11` or above installed in your Computer.
+.  Download the latest `ModPlan.jar` link:{repoURL}/releases[here]. (change this)
+.  Copy the file to the folder you want to use as the home folder for your ModPlan application.
+//.  Double-click the file to start the app. The GUI should appear in a few seconds.
++
+.  Type the command in the command box and press kbd:[Enter] to execute it. +
+.  Some example commands you can try:
+
+* *`list`* : lists all tasks
+* **`add`**`todo finish homework` : adds a Todo task with the description `finish homework` to the task list.
+* **`delete`**`3` : deletes the 3rd task shown in the current list
+* *`bye`* : exits the app
+
+.  Refer to <<Features>> for details of each command.
+
+[[Features]]
+== Features
+
+====
+*Command Format*
+
+* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add TASK_TYPE`, `TASK_TYPE` is a parameter which can be used as `add todo` or `add deadline`.
+* Items in square brackets are optional e.g `KEYWORD [MORE_KEYWORDS]` can be used as `find book` or as `find book read`.
+//* Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
+//* Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
+====
+
+=== Adding a task: `add`
+
+Adds a specific type of task to the task list.
+The parameters to be filled in by the user differs according to the task type.
+
+==== Adding a Todo task: `todo`
+
+****
+* Adds a task which can be completed at any timing without restrictions. +
+* Format: `todo TASK_NAME`
+****
+
+==== Adding a Deadline task: `deadline`
+
+Adds a task which has a specific date and time to be completed by. +
+Format: `deadline TASK_NAME /by DATE TIME`
+
+****
+* The date must be in the dd-mm-yyyy format so that the program understands it.
+* The time must be in the hh:mm format so that the program understands it.
+****
+
+==== Adding a DoWithin task: `doWithin`
+
+Adds a task which has to be done within a specific time period. +
+Format: `doWithin TASK_NAME /begin DATE TIME /end DATE TIME`
+
+****
+* The first date and time is the starting date.
+* The second date and time is the ending date.
+* The date must be in the dd-mm-yyyy format so that the program understands it.
+* The time must be in the hh:mm format so that the program understands it.
+****
+
+Examples:
+
+* `doWithin write essay /begin 12-08-2019 12:00 /end 13-08-2019 12:00` +
+Adds a task, `write eassay` which has to be completed from 12/08/2019 12pm to 13/08/2019 12pm.
+
+==== Adding an Event task: `event`
+
+Adds a task which is occuring at a specific date and time. +
+Format: `event TASK_NAME /at DATE TIME`
+
+****
+* The date must be in the dd-mm-yyyy format so that the program understands it.
+* The time must be in the hh:mm format so that the program understands it.
+****
+
+==== Adding a FixedDuration task: `fixedDuration` 
+
+Adds a task which requires a fixed amount of time to be completed in, but does not have a fixed starting or end time.
+Format: `fixedDuration TASK_NAME /needs TIME`
+
+****
+* The time must be in the hh:mm format so that the program understands it.
+****
+
+==== Adding a Recurring task: `recurring`
+
+Adds a task which occurs periodically. +
+Format: `recurring TASK_NAME /every DAYS_NUMBER`
+
+Examples:
+
+* `recurring update diary /every 3`
+Adds a task, `update diary`, which occurs every 3 days.
+
+
+
+// tag::delete[]
+=== Deleting a task : `delete`
+
+Deletes the specified task from the task list. +
+Format: `delete INDEX`
+
+****
+* Deletes the task at the specified `INDEX`.
+* The index refers to the index number shown in the displayed task list list.
+* The index *must be a positive integer* 1, 2, 3, ...
+****
+
+Examples:
+
+* `list` +
+`delete 2` +
+Deletes the 2nd task in the task list.
+
+// end::delete[]
+
+
+=== Listing all tasks : `list`
+
+Shows a list of all tasks in the task list. +
+Format: `list`
+
+=== Locating tasks in the list by name: `find`
+
+Finds tasks from the task list whose description or date/time contain any of the given keywords. +
+Format: `find KEYWORD`
+
+****
+* The search is case insensitive. e.g `event` will match `Event`
+* Part of the description will also be searched. e.g 'as' will match 'has', 'class' etc.
+* Searching for the full date/time must be done in the *dd-mm-yyyy hh:mm* format to match the task list.
+****
+
+Examples:
+
+* `find event` +
+Returns `event` and `this event`
+
+=== Marking a task as done: `done`
+
+Marks a certain task, which is completed, as done.
+Format: `done INDEX`
+
+****
+* Changes the status of completion of the task from [✗] to [✓].
+* The index of the task must be valid (i.e the task’s index must be in the task list).
+****
+
+=== Rescheduling tasks: `reschedule`
+
+Reschedules a certain task to a different date and time. + 
+Format: `reschedule INDEX DATE TIME`
+
+****
+* The index of the task must be valid (i.e the task's index must be in the task list).
+* A valid date and time must be inputted in the format that the program understands.
+* The date and time inputted must be an open timing, if there are clashes the program will warn the user about the clashing timing.
+****
+
+=== Schedule of the day: `schedule`
+
+Lists the schedule one has for a specific date. +
+Format: `schedule DATE`
+
+****
+* A valid date must be inputted in the format that the program understands.
+* The list will be sorted from earliest to latest.
+****
+
+=== Reminders: `reminder`
+
+Reminds the user upon startup of the program of any upcoming tasks.
+
+****
+* Notifies for any task due within the next 6 hours.
+* Rechecks every hour for new upcoming tasks.
+****
+
+=== Exiting the program : `bye`
+
+****
+* Typing `bye` into the command line shows a goodbye message, saves the task list, and closes the program.
+****
+
+Exits the program. +
+Format: `bye`
+
+=== Saving the data
+
+Task list data are saved in the hard disk automatically after any command that changes the data. +
+There is no need to save manually.
+
+[[Errors]]
+== Errors
+*Error Handling*
+* When the user inputs commands or parameters in a way that the program does not understand, errors will be thrown, which let the user know what is wrong.
+
+[TIP]
+If you follow what the errors tell you to fix in your command, you can get the program to work as intended!
+
+=== `DukeInvalidIndexException`
+This error appears when the user inputs a number that is out of bounds of the task list.
+
+image::DukeException.PNG[width="250"]
+
+****
+* Example:  `delete -1`
+****
+
+=== `DukeInvalidTimeException`
+This error appears when the user inputs a date or time that is not of an acceptable format. +
+(add screenshot here)
+
+****
+* Example: `deadline assignment /by 30/9/2019 12 o'clock` + Here 12 o'clock is not an acceptable format, instead use 1200.
+****
+=== `DukeInvalidTimePeriodException`
+This error appears when the use inputs a time period that is not of an acceptable range. +
+(add screenshot here)
+
+****
+* Currently only available for DoWithin tasks
+****
+
+=== `DukeMissingArgumentException`
+This error appears when the user does not input valid parameters into the command line. +
+(add screenshot here)
+****
+* Example: `deadline /by 30/9/2019 1245` + 
+Here the description is missing for the Deadline task, and the error message is shown.
+****
+
+=== `DukeCommandException` 
+This error appears when the user does not input a valid command name into the command line. +
+
+****
+* Example: `activity finish writing book` +
+Since there is no such command for activity, the program will be unable to process the unknown command.
+****
+
+=== `DukeEmptyCommandException` 
+This error appears when the user does not input anything after writing a valid command into the command line.+
+
+**** 
+* Example: `delete`  +
+Since there is no index specified after `delete`, the program is unable to process which task to delete.
+
+=== `DukeEmptyListException` 
+This error appears when the user does not input any tasks into the list or has deleted all the current tasks in the list. 
+
+****
+* This is only valid for the `list` command
+****
+
+=== `DukeMultipleValuesForSameArgumentException`
+This error.
+
+== FAQ
+
+*Q*: How do I transfer my data to another Computer? +
+*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Address Book folder.
+
+== Command Summary
+
+* *Add* `add TASK_TYPE TASK_DESCRIPTION [TASK_DATETIME]` +
+e.g. `add deadline finish project milestone /by 10/10/2019 12:00`
+* *Delete* : `delete INDEX` +
+e.g. `delete 3`
+* *Find* : `find KEYWORD [MORE_KEYWORDS]` +
+e.g. `find homework`
+* *List* : `list`
