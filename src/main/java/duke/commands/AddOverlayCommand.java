@@ -1,4 +1,5 @@
 package duke.commands;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -52,7 +53,7 @@ public class AddOverlayCommand extends Command<SongList> {
             System.out.println(barIndexToAdd);
             //System.out.println(Arrays.toString(sections));
             //System.out.println(songIndex);
-            if(songList.getSize()> songIndex) {
+            if (songList.getSize() > songIndex) {
                 Song song = songList.getSongIndex(songIndex);
                 ArrayList<Bar> barList = song.getBars();
 
@@ -61,7 +62,7 @@ public class AddOverlayCommand extends Command<SongList> {
                 ArrayList<Chord> chordsToAdd = overlayingBar.getChords();
                 System.out.print("sections length ");
                 System.out.println(sections.length);
-                if(sections.length > 2 && sections[2].equals("repeat")) {
+                if (sections.length > 2 && sections[2].equals("repeat")) {
                     for (Bar temp : barList) {
                         ArrayList<Chord> tempChordList = temp.getChords();
                         for (int i = 0; i < tempChordList.size(); i++) {
@@ -71,8 +72,7 @@ public class AddOverlayCommand extends Command<SongList> {
                             }
                         }
                     }
-                }
-                else {
+                } else {
                     System.out.println("no repeat found");
                     Bar temp = barList.get(0);
 
@@ -85,8 +85,7 @@ public class AddOverlayCommand extends Command<SongList> {
                     }
                 }
                 return ui.formatAddOverlay(songList.getSongList(), barIndexToAdd,song);
-            }
-            else {
+            } else {
                 System.out.println("no such index");
                 //System.out.println(songList.getSize());
                 throw new DukeException(message, "no_index");

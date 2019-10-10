@@ -89,7 +89,7 @@ public class Note {
     }
 
     /**
-     * Returns the relative duration of the note in the form of a float. Asterisks (*) increase the relative duration
+     * Returns the relative eduration of the note in the form of a float. Asterisks (*) increase the relative duration
      * by 50%, just like the dotted notes in sheet music (notes that are followed by a ·)
      *
      * @return the relative duration of the note in the form of a float.
