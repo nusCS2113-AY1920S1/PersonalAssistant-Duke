@@ -72,7 +72,7 @@ class StockTest {
 
     @Test
     void saveDetailsString() {
-        assertEquals("Test/R0000/100/Test Stock", testStock.saveDetailsString());
+        assertEquals("Test/R0000/100/Test Stock/0", testStock.saveDetailsString());
     }
 
     @Test

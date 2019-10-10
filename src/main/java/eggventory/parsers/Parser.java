@@ -77,6 +77,8 @@ public class Parser {
           TODO: also split parser up into multiple parser modules depending on the first command.
         */
 
+        listInput = listInput.strip(); //Remove leading/trailing whitespace.
+
         int afterIndex;
         afterIndex = -1;
         if (listInput.contains("/after")) {
