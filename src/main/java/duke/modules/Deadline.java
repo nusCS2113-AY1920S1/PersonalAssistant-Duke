@@ -7,7 +7,7 @@ import duke.util.DateTimeParser;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-public class Deadline extends Task {
+public class Deadline extends TaskWithPeriod {
 
     /**
      * Constructor for Deadline class, using String Varargs.

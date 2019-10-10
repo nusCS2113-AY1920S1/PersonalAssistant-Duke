@@ -7,7 +7,7 @@ import duke.util.DateTimeParser;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-public class FixedDurationTasks extends Task {
+public class FixedDurationTasks extends TaskWithInterval {
     private LocalDateTime dateTime;
 
     /**

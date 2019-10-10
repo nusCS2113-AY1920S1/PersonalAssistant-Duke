@@ -48,13 +48,14 @@ public class Ui {
 
     /**
      * Prints the current number of items in the task list.
+     *
      * @param size Number of items in the task list.
      */
     public void currentTaskListSizeMsg(int size) {
         System.out.println(
                 "Now you have "
-                + size
-                + " tasks in the list."
+                        + size
+                        + " tasks in the list."
         );
     }
 
@@ -64,6 +65,7 @@ public class Ui {
 
     /**
      * Prints every item supplied in the taskList parameter.
+     *
      * @param taskList to be printed to user.
      */
     public void printTaskList(List<Task> taskList) {
@@ -76,6 +78,7 @@ public class Ui {
 
     /**
      * Prints all tasks in upcomingTasksList.
+     *
      * @param upcomingTasksList contains all upcoming tasks.
      */
     public void printUpcomingTasks(List<Task> upcomingTasksList) {
@@ -93,6 +96,7 @@ public class Ui {
     /**
      * Prints every item supplied in the taskList parameter.
      * taskList has been filtered to contain the keyword in the task name.
+     *
      * @param taskList to be printed to user.
      */
     public void findMsg(List<Task> taskList) {
@@ -119,6 +123,37 @@ public class Ui {
 
     public void rescheduleTaskMsg(Task task, String time) {
         System.out.println("Got it! I've rescheduled this task to " + time + " :\n" + task);
+    }
+
+    public void timetableMsg() {
+        System.out.println("Here is your timetable:");
+    }
+
+    /**
+     * Prints the timetable by days.
+     * @param timetable to be printed to the users.
+     */
+    public void printTimetable(List<String> timetable) {
+        int count = 1;
+        for (String temp : timetable) {
+            System.out.println(count + ". " + temp); //need to change count into weekdays
+            count++;
+        }
+    }
+
+    public void reportMsg() {
+        System.out.println("Number of required tasks to complete:\n" + "30");
+    }
+
+    /**
+     * Prints the number of tasks left to be completed.
+     * Prints the number of each tasks that is completed.
+     * @param taskList to be printed to user.
+     */
+    public void printReportList(List<Task> taskList) {
+        int requiredTasks = 30;
+        int tasksLeft = requiredTasks - taskList.size();
+        System.out.println("Number of tasks still needed to complete:\n" + tasksLeft);
     }
 
 }

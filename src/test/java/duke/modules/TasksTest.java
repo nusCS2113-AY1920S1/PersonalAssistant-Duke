@@ -11,7 +11,7 @@ public class TasksTest {
     @Test
     public void testTaskPrint() throws ModInvalidTimePeriodException {
         String taskLabel = "Items to be tested";
-        Task test = new Task(taskLabel);
+        Task test = new TaskWithoutTime(taskLabel);
         assertEquals(taskLabel, test.getTask());
     }
 

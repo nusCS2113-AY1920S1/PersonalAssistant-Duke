@@ -3,11 +3,8 @@ package duke.util;
 import duke.exceptions.ModInvalidTimePeriodException;
 import duke.exceptions.ModTimeIntervalTooCloseException;
 
-import duke.modules.Deadline;
-import duke.modules.DoWithin;
-import duke.modules.Events;
 import duke.modules.Task;
-import duke.modules.Todo;
+import duke.modules.TaskWithPeriod;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -18,6 +15,7 @@ public class Reminder {
     private List<Task> tasks;
     private Thread thread;
     private static final TimeInterval minBefore = TimeInterval.ofMinutes(1);
+    private volatile boolean kill;
 
     /**
      * Constructor for Reminder.
@@ -33,11 +31,12 @@ public class Reminder {
         this.tasks = tasks;
         this.remindBefore = remindBefore;
         this.checkEvery = checkEvery;
+        this.kill = true;
         this.thread = new Thread(this::remind);
     }
 
-    public Reminder(List<Task> tasks, int minutesBefore, int minuteEvery) throws ModTimeIntervalTooCloseException {
-        this(tasks, TimeInterval.ofMinutes(minutesBefore), TimeInterval.ofMinutes(minuteEvery));
+    public Reminder(List<Task> tasks, int minutesBefore, int minutesEvery) throws ModTimeIntervalTooCloseException {
+        this(tasks, TimeInterval.ofMinutes(minutesBefore), TimeInterval.ofMinutes(minutesEvery));
     }
 
     public Reminder(List<Task> tasks, TimeInterval remindBefore) throws ModTimeIntervalTooCloseException {
@@ -52,14 +51,35 @@ public class Reminder {
         this(tasks, TimeInterval.ofHours(6), TimeInterval.ofHours(1));
     }
 
+    /**
+     * Start the reminder if it's not running.
+     */
     public void run() {
+        this.kill = false;
         this.thread.start();
+    }
+
+    /**
+     * Kill the reminder if it's running.
+     */
+    public void stop() {
+        if (this.thread.isAlive()) {
+            this.kill = true;
+            if (this.thread.getState().equals(Thread.State.TIMED_WAITING)) {
+                this.thread.interrupt();
+            }
+        }
+    }
+
+    public boolean isStopped() {
+        return !this.thread.isAlive();
     }
 
     /**
      * Force reminder to check upcoming tasks and remind immediately.
      */
     public void forceCheckReminder() {
+        this.kill = false;
         if (!this.thread.isAlive()) {
             this.thread.start();
         } else if (this.thread.getState().equals(Thread.State.TIMED_WAITING)) {
@@ -67,10 +87,14 @@ public class Reminder {
         }
     }
 
+    /**
+     * Core logic for reminder to run.
+     */
     private void remind() {
         LocalDateTime targetTime = LocalDateTime.now();
         LocalDateTime now;
-        while (true) {
+        long sleepSeconds;
+        while (!this.kill) {
             now = LocalDateTime.now();
             if (now.isAfter(targetTime)) {
                 targetTime = now.plus(this.checkEvery);
@@ -81,29 +105,30 @@ public class Reminder {
                 } catch (ModInvalidTimePeriodException e) {
                     System.out.println(e.getMessage());
                 }
-                long sleepSeconds = Math.max(TimeInterval.between(LocalDateTime.now(), targetTime)
-                        .toDuration().getSeconds() - 1, 0);
-                if (sleepSeconds > 0) {
-                    try {
-                        Thread.sleep(sleepSeconds * 1000);
-                    } catch (InterruptedException ignored) {
-                        targetTime = LocalDateTime.now();
-                    }
+            }
+            sleepSeconds = Math.max(TimeInterval.between(LocalDateTime.now(), targetTime)
+                    .toDuration().getSeconds() - 1, 0);
+            if (sleepSeconds > 0) {
+                try {
+                    Thread.sleep(sleepSeconds * 1000);
+                } catch (InterruptedException ignored) {
+                    targetTime = LocalDateTime.now();
                 }
             }
         }
     }
-    
+
+    /**
+     * Get upcoming tasks.
+     * @param timePeriod How long before the task begin to remind
+     * @return the upcoming tasks
+     */
     private List<Task> getUpcomingTasks(TimePeriod timePeriod) {
         List<Task> upcomingTasks = new ArrayList<>();
         for (Task task: this.tasks) {
-            /* TODO: Upon finishing implementing TimePeriod and getPeriod() for all task types,
-                replace the if logic below with:
-                    if (!task.isDone() && timePeriod.isClashing(task.getPeriod().getBegin())) {
-             */
-            if ((task instanceof DoWithin || task instanceof Events || task instanceof Deadline || task instanceof Todo)
+            if (task instanceof TaskWithPeriod
                     && !task.isDone()
-                    && timePeriod.isClashing(task.getPeriod().getBegin())) {
+                    && timePeriod.isClashing(((TaskWithPeriod)task).getPeriod().getBegin())) {
                 upcomingTasks.add(task);
             }
         }
