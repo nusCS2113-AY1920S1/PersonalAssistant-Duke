@@ -1,5 +1,4 @@
 import FarmioExceptions.FarmioException;
-import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
@@ -53,7 +52,6 @@ public class Storage {
         return art.toString();
     }
 
-<<<<<<< HEAD
     private File getResourceFile(String name) throws FarmioException {
         ClassLoader classLoader = getClass().getClassLoader();
         URL resource = classLoader.getResource(name + ".txt");
@@ -61,12 +59,5 @@ public class Storage {
             throw new FarmioException("Game is corrupted!");
         }
         return new File(resource.getFile());
-=======
-
-
-    public String getLevel(int level) throws IOException{
-            //runs level
-
->>>>>>> upstream/FarmLogic
     }
 }
