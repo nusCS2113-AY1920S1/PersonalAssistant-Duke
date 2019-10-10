@@ -38,15 +38,14 @@ public class Storage {
 
     /**
      * Storage structure for Ducats is as follows:
+     *
      * List of Songs, with each Song being represented in the following format:
-     * <ul>
-     *     <li>Name</li>
-     *     <li>Bars that form the song</li>
-     * </ul>
+     * s/NAME s/BAR1 s/BAR2 ...
+     *
+     * BAR is formatted as a two-dimensional array of Notes, with each nested array representing a Chord.
      *
      * E.g.
-     *
-     * "Hello World! 1:|UAs,UA,UAs,UA,UBs,UB,LFs,LF|UBs,UB,UB,UB,R,R,R,R| 2:|...|
+     * "Hello World! [[UAs;UBs],[UA;UB],[UAs;UB],[UA;UB],[UBs;R],[UB;R],[LFs;R],[LF;R]] [...] ..."
      *
      * TODO: implement in toString() function of song
      */
