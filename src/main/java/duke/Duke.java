@@ -7,6 +7,7 @@ import duke.command.Command;
 import duke.command.ListCommand;
 import duke.exceptions.ModBadRequestStatus;
 import duke.exceptions.ModException;
+import duke.exceptions.ModFailedJsonException;
 import duke.exceptions.ModTimeIntervalTooCloseException;
 import duke.modules.ModuleInfoDetailed;
 import duke.modules.ModuleInfoSummary;
@@ -43,12 +44,43 @@ public class Duke {
         data = new JsonWrapper();
     }
 
-
-    private void setup() {
-
+    //TODO: function to be removed after implementing feature
+    /**
+     * Testing function for json parsing for both summary and detailed json files.
+     */
+    private void testJson(Command c) {
+        if (c instanceof ListCommand) {
+            // Demo test of commands
+            System.out.println(modSummaryMap.get("CS2101"));
+            System.out.println(modDetailedMap.get("CS2101"));
+            System.out.println(modDetailedMap.get("CS2101").getAttributes().isSu());
+            System.out.println(Arrays.toString(modSummaryMap.get("CS2113T").getSemesters()));
+            System.out.println(modSummaryMap.get("CG2028").getTitle());
+            System.out.println(modSummaryMap.get("CS1010"));
+        }
     }
 
 
+    /**
+     * Main setup function to start threads in reminder and fill module data on startup.
+     */
+    private void setup() {
+        try {
+            // Starting reminder threads and pulling data from API
+            reminder = new Reminder(tasks.getTasks());
+            reminder.run();
+            // This pulls data once and stores in the data files.
+            data.runRequests(store);
+            modSummaryMap = data.getModuleSummaryMap();
+            modDetailedMap = data.getModuleDetailedMap();
+        } catch (ModTimeIntervalTooCloseException e) {
+            System.out.println(e.getMessage());
+        } catch (ModBadRequestStatus er) {
+            er.printStackTrace();
+        } catch (ModFailedJsonException ej) {
+            System.out.println(ej.getLocalizedMessage());
+        }
+    }
 
     /**
      * The main run loop for Duke, requesting for user input
@@ -57,40 +89,15 @@ public class Duke {
      */
     private void run() {
         ui.helloMsg();
+        setup();
         boolean isExit = false;
-        // Starting reminder threads and pulling data from API
-        // TODO: removed reminder, pending fix for thread bug during exit command
-        try {
-            // Classes to be initialized during runtime
-            reminder = new Reminder(tasks.getTasks());
-            reminder.run();
-
-            // This pulls data once and stores in the data files.
-            data.runRequests(store);
-        } catch (ModTimeIntervalTooCloseException e) {
-            System.out.println(e.getMessage());
-        } catch (ModBadRequestStatus er) {
-            er.printStackTrace();
-        }
         while (!isExit) {
             try {
                 String fullCommand = ui.readCommand();
                 ui.showLine();
                 Command c = parser.parse(fullCommand);
                 c.execute(tasks, ui, store, reminder);
-                // TODO: this if branch is to demo how to use the JSON parser using the
-                //       list command, remove this when creating additional features
-                if (c instanceof ListCommand) {
-                    HashMap<String, ModuleInfoSummary> test = data.getModuleSummaryMap();
-                    HashMap<String, ModuleInfoDetailed> testDetailed = data.getModuleDetailedMap();
-                    // Demo test of commands
-                    System.out.println(test.get("CS2101"));
-                    System.out.println(testDetailed.get("CS2101"));
-                    System.out.println(testDetailed.get("CS2101").getAttributes().isSu());
-                    System.out.println(Arrays.toString(test.get("CS2113T").getSemesters()));
-                    System.out.println(test.get("CG2028").getTitle());
-                    System.out.println(test.get("CS1010"));
-                }
+                testJson(c);
                 isExit = c.isExit();
             } catch (ModException e) {
                 System.out.println(e.getMessage());
