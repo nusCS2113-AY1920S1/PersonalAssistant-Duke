@@ -5,6 +5,7 @@ import duke.command.CommandTest;
 import duke.exception.DukeException;
 import duke.ingredientlist.IngredientList;
 import duke.parser.Parser;
+import duke.recipelist.RecipeList;
 import duke.storage.IngredientStorage;
 import duke.storage.Storage;
 import duke.tasklist.TaskList;
@@ -30,7 +31,7 @@ public class Duke {
     // private RecipeStorage recipeStorage;
     private IngredientList ingredientList;
     // private BookingList bookingList;
-    // private RecipeList recipeList;
+    private RecipeList recipeList;
 
 //    /**
 //     * Constructor for Duke class to instantiation Ui, Storage, TaskList classes.
