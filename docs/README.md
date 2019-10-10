@@ -3,7 +3,7 @@
 
 
 ## Features 
-Command Format: 
+Commands.Command Format: 
 - text
 ### Feature 1.1. Resume previous version of choice: `load`
 
