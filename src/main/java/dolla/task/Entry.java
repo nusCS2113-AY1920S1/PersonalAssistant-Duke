@@ -1,5 +1,5 @@
 package dolla.task;
-
+import dolla.Log;
 import dolla.Time;
 
 import java.time.LocalDateTime;
@@ -7,7 +7,7 @@ import java.time.LocalDateTime;
 /**
  * Entry is a Class that stores an instance of the user's expense or income.
  */
-public class Entry {
+public class Entry extends Log {
     protected char sign; // '+' for income, '-' for expense
     protected String type;
     protected double amount;
