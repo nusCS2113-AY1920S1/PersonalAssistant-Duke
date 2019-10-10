@@ -1,7 +1,1 @@
-0 todo read /doafter reflect
-0 todo clean
-1 todo write
-0 todo buy milk
-0 deadline report /by 20/10/2019 2359 /doafter presentation
-0 event lecture /at 05/10/2019 1300
-0 event tutorial /at 08/10/2019 1000 /doafter homework
+0 todo 1

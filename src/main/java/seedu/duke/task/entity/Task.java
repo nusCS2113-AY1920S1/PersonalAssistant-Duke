@@ -159,7 +159,8 @@ public class Task {
         this.doAfterDescription = description;
     }
 
-    public void snooze() {}
+    public void snooze() {
+    }
 
     public boolean isClash(Task task) {
         return false;

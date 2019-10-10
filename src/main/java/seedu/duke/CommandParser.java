@@ -1,23 +1,23 @@
 package seedu.duke;
 
-import seedu.duke.task.TaskList;
-import seedu.duke.task.command.TaskAddCommand;
 import seedu.duke.common.command.Command;
 import seedu.duke.common.command.Command.Option;
-import seedu.duke.task.command.TaskDeleteCommand;
-import seedu.duke.task.command.TaskDoAfterCommand;
-import seedu.duke.task.command.TaskDoneCommand;
 import seedu.duke.common.command.ExitCommand;
-import seedu.duke.task.command.TaskFindCommand;
 import seedu.duke.common.command.FlipCommand;
 import seedu.duke.common.command.InvalidCommand;
+import seedu.duke.email.EmailList;
+import seedu.duke.email.command.EmailFetchCommand;
+import seedu.duke.email.command.EmailListCommand;
+import seedu.duke.email.command.EmailShowCommand;
+import seedu.duke.task.TaskList;
+import seedu.duke.task.command.TaskDoAfterCommand;
+import seedu.duke.task.command.TaskAddCommand;
+import seedu.duke.task.command.TaskDeleteCommand;
+import seedu.duke.task.command.TaskDoneCommand;
+import seedu.duke.task.command.TaskFindCommand;
 import seedu.duke.task.command.TaskListCommand;
 import seedu.duke.task.command.TaskReminderCommand;
 import seedu.duke.task.command.TaskSnoozeCommand;
-import seedu.duke.email.EmailList;
-import seedu.duke.email.command.EmailListCommand;
-import seedu.duke.email.command.EmailShowCommand;
-import seedu.duke.email.command.EmailFetchCommand;
 import seedu.duke.task.entity.Task;
 
 import java.time.LocalDateTime;
@@ -50,6 +50,12 @@ public class CommandParser {
         this.inputType = InputType.TASK;    // default input type when initiating the program.
     }
 
+    /**
+     * Checks if input command is in the correct format.
+     *
+     * @param commandString input command
+     * @return true if matches pattern, false otherwise
+     */
     public static boolean isCommandFormat(String commandString) {
         return commandString.matches(
                 "(?:task|email\\s)(?:\\s*([\\w]+)[\\s|\\w]*)(?:\\s+"
@@ -85,6 +91,12 @@ public class CommandParser {
         inputType = newInputType;
     }
 
+    /**
+     * Parses input to retrieve options from command string.
+     *
+     * @param input command string
+     * @return list of all options specified in the command
+     */
     public static ArrayList<Option> parseOptions(String input) {
         ArrayList<Option> optionList = new ArrayList<>();
         Pattern optionPattern = Pattern.compile(".*(?<key>-[\\w]+)\\s+(?<value>[\\w]+[\\s|\\w/]*)\\s*");
@@ -371,7 +383,7 @@ public class CommandParser {
      *
      * @param taskList   target task list to which the new task is to be added to
      * @param input      user/file input ready to be parsed
-     * @param optionList
+     * @param optionList contains all options specified in input command
      * @return an AddCommand of the task parsed from the input
      * @throws UserInputException an exception when the parsing is failed, probably due to the wrong format of
      *                            input
@@ -489,7 +501,7 @@ public class CommandParser {
         return doafter;
     }
 
-    private static String extractTime(ArrayList<Option> optionList) throws UserInputException{
+    private static String extractTime(ArrayList<Option> optionList) throws UserInputException {
         String time = "";
         for (Option option : optionList) {
             if (option.getKey().equals("time")) {
