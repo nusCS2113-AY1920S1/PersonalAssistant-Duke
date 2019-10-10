@@ -43,4 +43,13 @@ public class LookupTable {
         String out = map.get(week_day.toLowerCase().trim());//week_day in the format of (week x day x)
         return out;
     }
+
+    public String getDates(String week){
+        return map.get(week);
+    }
+
+    public String getWeek(String date){
+        String out = map.get(date);
+        return out;
+    }
 }
