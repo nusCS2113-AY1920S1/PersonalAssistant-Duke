@@ -1,6 +1,5 @@
 package owlmoney.logic.parser.transaction.expenditure;
 
-import java.util.Date;
 import java.util.Iterator;
 
 import owlmoney.logic.command.Command;

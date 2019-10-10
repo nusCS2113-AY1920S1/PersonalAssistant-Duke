@@ -54,7 +54,7 @@ public class ParseEditDeposit extends ParseDeposit {
                 checkAmount(value);
                 changeCounter++;
             }
-            if(DATE.equals(key) && !(value.isBlank() || value.isEmpty())) {
+            if (DATE.equals(key) && !(value.isBlank() || value.isEmpty())) {
                 checkDate(value);
                 changeCounter++;
             }
