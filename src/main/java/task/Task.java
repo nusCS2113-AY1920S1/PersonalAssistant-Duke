@@ -64,14 +64,14 @@ public abstract class Task implements Serializable {
      */
     public String getPriorityIcon() {
         if (!isPrioritizable) {
-            return "[\u26A0]";
+            return "[\u26A0]"; //Return warning sign symbol
         }
         if (priority == Priority.HIGH) {
-            return "[\u2605\u2605\u2605]";
+            return "[\u2605\u2605\u2605]"; //Return triple star symbols
         } else if (priority == Priority.MEDIUM) {
-            return "[\u2605\u2605]";
+            return "[\u2605\u2605]";//Return double star symbol
         } else {
-            return "[\u2605]";
+            return "[\u2605]";//Return single star symbol
         }
     }
 
@@ -82,7 +82,7 @@ public abstract class Task implements Serializable {
      * @return This function returns either a tick or a cross.
      */
     public String getStatusIcon() {
-        return (isDone ? "\u2713" : "\u2718");
+        return (isDone ? "\u2713" : "\u2718"); // Return tick or cross symbol
     }
 
     public String getDescription() {
