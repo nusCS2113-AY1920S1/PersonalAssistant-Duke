@@ -1,5 +1,6 @@
 package cube.logic.parser;
 
+import cube.exception.CubeException;
 import cube.logic.command.Command;
 
 /**
@@ -11,5 +12,5 @@ public interface ParserPrototype<T extends Command> {
      * Parses {@code userInput} into a command and returns it.
      * @throws ParseException if {@code userInput} does not conform the expected format
      */
-    T parse(String userInput) ;
+    T parse(String[] userInput) throws CubeException;
 }
