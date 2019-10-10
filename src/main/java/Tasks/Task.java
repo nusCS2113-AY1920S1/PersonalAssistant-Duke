@@ -2,10 +2,10 @@ package Tasks;
 /**
  * Represents a task in the Duke program.
  */
-public class Task {
-    private String description;
+public abstract class Task {
+    private final String description;
     private boolean isDone;
-    private String type;
+    private final String type;
 
     /**
      * Creates Task object.
@@ -25,7 +25,7 @@ public class Task {
      * Checks whether the task is completed.
      * @return This returns a tick or cross depending on the boolean value of isDone
      */
-    public String getStatusIcon() {
+    private String getStatusIcon() {
         return (isDone ? "\u2713" : "\u2718");
     }
 
@@ -45,4 +45,6 @@ public class Task {
     public String getDateTime(){
         return "void";
     }
+
+    public abstract String getModCode();
 }

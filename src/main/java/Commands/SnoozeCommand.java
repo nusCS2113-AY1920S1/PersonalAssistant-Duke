@@ -9,20 +9,23 @@ import java.util.ArrayList;
  * Represents the command to snooze a Task object to a TaskList object.
  */
 public class SnoozeCommand extends Command{
-    private int index;
-    private String dateString;
-    private String start;
-    private String end;
+
+    private final int index;
+    private final String dateString;
+    private final String start;
+    private final String end;
+    private String modCode;
 
     /**
      * Creates an SnoozeCommand object.
      * @param index The index representing the task number in the TaskList object
      */
-    public SnoozeCommand(int index, String dateString, String start, String end){
+    public SnoozeCommand(int index, String dateString, String start, String end, String modCode){
         this.index = index;
         this.dateString = dateString;
         this.start = start;
         this.end = end;
+        this.modCode = modCode;
     }
 
     /**
@@ -50,11 +53,12 @@ public class SnoozeCommand extends Command{
                 list.addTask(task);
         }
         if (end == dateString) {
-            list.snoozeTask(deadlinesList, index, dateString, dateString, dateString);
+            list.snoozeTask(deadlinesList, index, dateString, dateString, dateString, modCode);
+
             storage.updateDeadlineList(deadlines);
             return ui.showSnooze(index, deadlinesList.size(), deadlinesList);
         } else {
-            list.snoozeTask(eventsList, index, dateString, start, end);
+            list.snoozeTask(eventsList, index, dateString, start, end, modCode);
             storage.updateEventList(events);
             return ui.showSnooze(index, eventsList.size(), eventsList);
         }
