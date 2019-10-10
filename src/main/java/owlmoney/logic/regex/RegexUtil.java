@@ -11,7 +11,18 @@ public final class RegexUtil {
      * @return the result of the check on whether it fulfills the criteria.
      */
     public static boolean regexCheckMoney(String input) {
-        final String moneyRegex = "^\\s*(?=.*[1-9])\\d{1,9}(\\.\\d{2})?$";
+        final String moneyRegex = "^\\s*(?=.*[1-9])\\d{1,9}(\\.\\d{1,2})?$";
+        return input.matches(moneyRegex);
+    }
+
+    /**
+     * Checks whether bank values input by user is within the 9 digit constraints with a max of 2 decimal places.
+     *
+     * @param input The user input that is subject to Regex checking.
+     * @return the result of the check on whether it fulfills the criteria.
+     */
+    public static boolean regexCheckBankAmount(String input) {
+        final String moneyRegex = "^\\s*(?=.*[0-9])\\d{1,9}(\\.\\d{1,2})?$";
         return input.matches(moneyRegex);
     }
 

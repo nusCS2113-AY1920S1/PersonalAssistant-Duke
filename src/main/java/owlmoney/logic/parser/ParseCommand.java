@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Scanner;
 
 import owlmoney.logic.command.Command;
+import owlmoney.logic.command.ExitCommand;
 import owlmoney.logic.parser.exception.ParserException;
 
 /**
@@ -15,8 +16,8 @@ import owlmoney.logic.parser.exception.ParserException;
 public class ParseCommand extends Parser {
     private ParseType parseType = new ParseType();
     private final Scanner scanner = new Scanner(System.in);
-    private static final String[] COMMAND_KEYWORDS = new String[]
-            {"/help", "/undo", "/add", "/edit", "/delete", "/list", "/find", "/transfer", "/exit"};
+    private static final String[] COMMAND_KEYWORDS = new String[] {
+        "/help", "/undo", "/add", "/edit", "/delete", "/list", "/find", "/transfer", "/exit"};
     private static final List<String> COMMAND_KEYWORD_LISTS = Arrays.asList(COMMAND_KEYWORDS);
 
     /**
@@ -61,28 +62,24 @@ public class ParseCommand extends Parser {
 
     /**
      * The command menu determines what type of command to execute and pass to parseType.
+     *
      * @param command The command extracted with parseFirstField.
      * @param data The data that has command removed from the first field.
      * @return The Command object that is required to be executed.
      * @throws ParserException When an invalid command is detected.
      */
-    //for now is pass profile all the way in. Double check if is correct structure
     private Command parseCommandMenu(String command, String data) throws ParserException {
         switch (command) {
         case "/add":
-            System.out.println("You added");
-            return parseType.parseData(command, data);
+            // Fallthrough
         case "/delete":
-            System.out.println("You deleted");
-            return parseType.parseData(command, data);
+            // Fallthrough
         case "/edit":
-            System.out.println("You edited");
-            return parseType.parseData(command, data);
+            // Fallthrough
         case "/list":
-            System.out.println("You listed");
             return parseType.parseData(command, data);
         case "/exit":
-            System.exit(0);
+            return new ExitCommand();
         default:
             throw new ParserException("You entered an invalid command");
         }
