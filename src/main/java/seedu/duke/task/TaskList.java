@@ -131,6 +131,13 @@ public class TaskList extends ArrayList<Task> {
         return msg;
     }
 
+    /**
+     * Adds or modifies task to include a 'do after' task.
+     * @param index Position of task in list
+     * @param description Name of task
+     * @return confirmation message that do after task has been added
+     * @throws CommandParser.UserInputException when input is in wrong format
+     */
     public String setDoAfter(int index, String description) throws CommandParser.UserInputException {
         if (index < 0 || index >= this.size()) {
             throw new CommandParser.UserInputException("Invalid index");

@@ -42,6 +42,11 @@ public class TaskCard extends HBox {
     @FXML
     private FlowPane tags;
 
+    /**
+     * Constructor for TaskCard.
+     * @param task Task object
+     * @param displayedIndex Index as displayed in Task List Pane
+     */
     public TaskCard(Task task, int displayedIndex) {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(MainWindow.class.getResource("/view/TaskCard.fxml"));
@@ -59,35 +64,20 @@ public class TaskCard extends HBox {
         taskName.setText(task.getName());
         String type = task.getTaskType().toString();
         taskType.setText(type);
-//        switch (type) {
-//            case "D":
-//                date.setText("Deadline date");
-//                break;
-//            case "E":
-//                date.setText("Event date");
-//                break;
-//            default:
-//                date.setText(null);
-//        }
-//        task.getTags().stream()
-//                .sorted(Comparator.comparing(tag -> tag.tagName))
-//                .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
+        /*
+        switch (type) {
+            case "D":
+                date.setText("Deadline date");
+                break;
+            case "E":
+                date.setText("Event date");
+                break;
+            default:
+                date.setText(null);
+        }
+        task.getTags().stream()
+                .sorted(Comparator.comparing(tag -> tag.tagName))
+                .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
+         */
     }
-
-//    @Override
-//    public boolean equals(Object other) {
-//        // short circuit if same object
-//        if (other == this) {
-//            return true;
-//        }
-//        // instanceof handles nulls
-//        if (!(other instanceof TaskCard)) {
-//            return false;
-//        }
-//
-//        // state check
-//        TaskCard card = (TaskCard) other;
-//        return id.getText().equals(card.id.getText())
-//                && task.equals(card.task);
-//    }
 }

@@ -7,11 +7,12 @@ import javafx.collections.ObservableList;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.geometry.Rectangle2D;
-import javafx.scene.control.*;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
+import javafx.scene.control.ListView;
+import javafx.scene.control.TextFormatter;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
@@ -24,7 +25,6 @@ import javafx.scene.web.WebView;
 import javafx.stage.Screen;
 import javafx.util.Duration;
 import seedu.duke.Duke;
-import java.util.*;
 import seedu.duke.CommandParser;
 import seedu.duke.UI;
 import seedu.duke.task.TaskList;
@@ -34,6 +34,7 @@ import seedu.duke.task.entity.Deadline;
 import seedu.duke.task.entity.Event;
 import seedu.duke.task.entity.Task;
 
+import java.util.ArrayList;
 import java.util.function.UnaryOperator;
 
 /**
@@ -70,6 +71,9 @@ public class MainWindow extends AnchorPane {
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
     private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
 
+    /**
+     * Starts up GUI screen by loading welcome message, task list and email list.
+     */
     @FXML
     public void initialize() {
         resizeToFitScreen();
@@ -97,14 +101,22 @@ public class MainWindow extends AnchorPane {
         userInput.requestFocus();
     }
 
+    /**
+     * Resizes AnchorPane to fit window dimensions.
+     */
     private void resizeToFitScreen() {
         Rectangle2D screenBounds = Screen.getPrimary().getVisualBounds();
         double screenHeight = screenBounds.getHeight(); //680
         double screenWidth = screenBounds.getWidth(); //1280
-        rootAnchorPane.setPrefHeight(screenHeight-30);
+        rootAnchorPane.setPrefHeight(screenHeight - 30);
         rootAnchorPane.setPrefWidth(screenWidth);
     }
 
+    /**
+     * Sets up Duke to allow interactions between it and GUI.
+     *
+     * @param d Duke object
+     */
     public void setDuke(Duke d) {
         duke = d;
         ui = duke.getUI();
@@ -153,27 +165,28 @@ public class MainWindow extends AnchorPane {
         TaskStorage.saveTasks(duke.getTaskList());
         EmailStorage.saveEmails(duke.getEmailList());
         PauseTransition delay = new PauseTransition(Duration.seconds(1));
-        delay.setOnFinished( event -> Platform.exit() );
+        delay.setOnFinished(event -> Platform.exit());
         delay.play();
     }
 
-    int i;
+    int index;
+
     /**
-     * Gets the input without prefixes
+     * Gets the input without prefixes.
      */
     private void getInput(String input) {
         input = input.split(" ", 2)[1];
         if (inputList.contains(input)) {
-            i = inputList.indexOf(input);
-        }
-        else {
+            index = inputList.indexOf(input);
+        } else {
             inputList.add(input);
-            i = inputList.size();
+            index = inputList.size();
         }
     }
 
     boolean isShowingEmail = false;
     boolean isUpKey;
+
     @FXML
     private void handleKeyEvent(KeyEvent e) {
         String type = e.getEventType().getName();
@@ -186,15 +199,11 @@ public class MainWindow extends AnchorPane {
         if (e.getCode() == KeyCode.ESCAPE) {
             toggleEmailDisplay();
             e.consume();
-        }
-        // Gets previous input if Up Arrow key is pressed
-        else if (e.getCode() == KeyCode.UP) {
+        } else if (e.getCode() == KeyCode.UP) { // Gets previous input if Up Arrow key is pressed
             isUpKey = true;
             getPrevInput();
             e.consume();
-        }
-        // Gets previous input if Down Arrow key is pressed
-        else if (e.getCode() == KeyCode.DOWN) {
+        } else if (e.getCode() == KeyCode.DOWN) { // Gets previous input if Down Arrow key is pressed
             isUpKey = false;
             getPrevInput();
             e.consume();
@@ -203,7 +212,7 @@ public class MainWindow extends AnchorPane {
 
     /**
      * Shows the previous inputs with the prefix. The prefix is non-deletable while the previous
-     * input shown can be edited
+     * input shown can be edited.
      */
     private void getPrevInput() {
         UnaryOperator<TextFormatter.Change> noFilter = c -> {
@@ -230,30 +239,29 @@ public class MainWindow extends AnchorPane {
     }
 
     /**
-     * Navigates the inputList and gets the previous input depending on which arrow key is pressed
+     * Navigates the inputList and gets the previous input depending on which arrow key is pressed.
      * @return prevInput to be shown in the textfield
      */
     private String navigateInputList() {
         String prevInput = "";
         if (isUpKey == true) {
-            if (i < 1) {
-                i = inputList.size();
+            if (index < 1) {
+                index = inputList.size();
             }
-            i--;
-            prevInput = inputList.get(i);
-        }
-        else {
-            if (i > inputList.size() - 2) {
-                i = -1;
+            index--;
+            prevInput = inputList.get(index);
+        } else {
+            if (index > inputList.size() - 2) {
+                index = -1;
             }
-            i++;
-            prevInput = inputList.get(i);
+            index++;
+            prevInput = inputList.get(index);
         }
         return prevInput;
     }
 
     private void toggleEmailDisplay() {
-        if(isShowingEmail) {
+        if (isShowingEmail) {
             showEmailList();
         } else {
             showHtml();
@@ -326,10 +334,10 @@ public class MainWindow extends AnchorPane {
     }
 
     private void updateEmailsList() {
-//        ObservableList<String> observableList = FXCollections.observableArrayList();
-//        for (int i = 0; i < Duke.getEmailList().size(); i++) {
-//            observableList.add((i+1) + ". " + Duke.getEmailList().get(i).toFileString());
-//        }
+        //ObservableList<String> observableList = FXCollections.observableArrayList();
+        //for (int i = 0; i < Duke.getEmailList().size(); i++) {
+        //    observableList.add((i+1) + ". " + Duke.getEmailList().get(i).toFileString());
+        //}
         ArrayList<EmailHBoxCell> list = new ArrayList<>();
         for (int i = 0; i < Duke.getEmailList().size(); i++) {
             list.add(new EmailHBoxCell(Duke.getEmailList().get(i).toFileString(), i));
@@ -339,13 +347,12 @@ public class MainWindow extends AnchorPane {
     }
 
     public static class EmailHBoxCell extends HBox {
-
         EmailHBoxCell(String email, int i) {
             super();
 
             Label emailName = new Label();
             emailName.setWrapText(true);
-            emailName.setText((i+1) + ". " + email);
+            emailName.setText((i + 1) + ". " + email);
             emailName.setMaxWidth(USE_COMPUTED_SIZE);
             HBox.setHgrow(emailName, Priority.ALWAYS);
 

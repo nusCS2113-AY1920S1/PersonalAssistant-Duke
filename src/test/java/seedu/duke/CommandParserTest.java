@@ -22,7 +22,10 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.fail;
 
 public class CommandParserTest {
     @Test
@@ -166,14 +169,12 @@ public class CommandParserTest {
     public void parseDoAfterCommandTest() {
         try {
             Class<?> parser = Class.forName("seedu.duke.CommandParser");
-            Method method = parser.getDeclaredMethod("parseDoAfterCommand", String.class, TaskList.class, ArrayList.class);
+            Method method = parser.getDeclaredMethod("parseDoAfterCommand", String.class,
+                    TaskList.class, ArrayList.class);
             method.setAccessible(true);
 
-            ArrayList<Command.Option> optionListEmpty = new ArrayList<>();
             ArrayList<Command.Option> optionListCorrect = new ArrayList<>(Arrays.asList(new Command.Option(
                     "msg", "do after description")));
-            ArrayList<Command.Option> optionListExtra = new ArrayList<>(Arrays.asList(new Command.Option(
-                    "msg", "do after description"), new Command.Option("tag", "123")));
             method.invoke(null, "doAfter 1", null, optionListCorrect);
 
             assertTrue(method.invoke(null, "doAfter 1", null, optionListCorrect) instanceof TaskDoAfterCommand);
@@ -182,7 +183,12 @@ public class CommandParserTest {
             assertTrue(method.invoke(null, "doafter", null, optionListCorrect) instanceof InvalidCommand);
             assertTrue(method.invoke(null, "doafter 123abc", null, optionListCorrect) instanceof InvalidCommand);
             assertTrue(method.invoke(null, "doafter 1 23", null, optionListCorrect) instanceof InvalidCommand);
+
+            ArrayList<Command.Option> optionListEmpty = new ArrayList<>();
             assertTrue(method.invoke(null, "doafter 1", null, optionListEmpty) instanceof InvalidCommand);
+
+            ArrayList<Command.Option> optionListExtra = new ArrayList<>(Arrays.asList(new Command.Option(
+                    "msg", "do after description"), new Command.Option("tag", "123")));
             assertTrue(method.invoke(null, "doafter 1", null, optionListExtra) instanceof TaskDoAfterCommand);
         } catch (ClassNotFoundException e) {
             fail("No such class");
@@ -252,7 +258,8 @@ public class CommandParserTest {
     public void parseAddDeadlineCommandTest() {
         try {
             Class<?> parser = Class.forName("seedu.duke.CommandParser");
-            Method method = parser.getDeclaredMethod("parseAddDeadlineCommand", TaskList.class, String.class, LocalDateTime.class, String.class, ArrayList.class);
+            Method method = parser.getDeclaredMethod("parseAddDeadlineCommand", TaskList.class,
+                    String.class, LocalDateTime.class, String.class, ArrayList.class);
             method.setAccessible(true);
 
             ArrayList<String> tagList = new ArrayList<>(Arrays.asList("123", "234"));
@@ -283,7 +290,8 @@ public class CommandParserTest {
     public void parseAddEventCommandTest() {
         try {
             Class<?> parser = Class.forName("seedu.duke.CommandParser");
-            Method method = parser.getDeclaredMethod("parseEventCommand", TaskList.class, String.class, LocalDateTime.class, String.class, ArrayList.class);
+            Method method = parser.getDeclaredMethod("parseEventCommand", TaskList.class,
+                    String.class, LocalDateTime.class, String.class, ArrayList.class);
             method.setAccessible(true);
 
             ArrayList<String> tagList = new ArrayList<>(Arrays.asList("123", "234"));
