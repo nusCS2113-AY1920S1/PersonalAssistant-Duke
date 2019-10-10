@@ -37,17 +37,17 @@ public class Storage {
     // Ducats implementation starts here.
 
 
-//      Storage structure for Ducats is as follows:
-//
-//      List of Songs, with each Song being represented in the following format:
-//      s/NAME s/BAR1 s/BAR2 ...
-//
-//      BAR is formatted as a two-dimensional array of Notes, with each nested array representing a Chord.
-//
-//      E.g.
-//      "Hello World! [[UAs;UBs],[UA;UB],[UAs;UB],[UA;UB],[UBs;R],[UB;R],[LFs;R],[LF;R]] [...] ..."
-//
-//      TODO: implement in toString() function of song
+    // Storage structure for Ducats is as follows:
+    //
+    // List of Songs, with each Song being represented in the following format:
+    // s/NAME s/BAR1 s/BAR2 ...
+    //
+    // BAR is formatted as a two-dimensional array of Notes, with each nested array representing a Chord.
+    //
+    // E.g.
+    // "Hello World! [[UAs;UBs],[UA;UB],[UAs;UB],[UA;UB],[UBs;R],[UB;R],[LFs;R],[LF;R]] [...] ..."
+    //
+    // TODO: implement in toString() function of song
 
 
     private ArrayList<String> formatListToString(ArrayList<Song> list) {
