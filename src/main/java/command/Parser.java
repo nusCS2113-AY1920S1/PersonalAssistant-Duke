@@ -279,7 +279,7 @@ public class Parser {
                 calendar.setTime(formattedtime);
                 calendar.add(Calendar.HOUR_OF_DAY,1);
                 Date newDate = calendar.getTime();
-                tasklist.get(nsnooze).setBy(dataformat.format(newDate));
+                tasklist.get(nsnooze).setBy(tasklist.get(nsnooze).getInVoice());
                 ui.printSnoozeMessage(tasklist.get(nsnooze));
             } else {
                 ui.exceptionMessage("     ☹ OOPS!!! Please select a deadline type task to snooze.");
@@ -311,7 +311,7 @@ public class Parser {
                 calendar.setTime(formattedtime);
                 calendar.add(Calendar.HOUR_OF_DAY,delaytime);
                 Date newDate = calendar.getTime();
-                tasklist.get(npostpone).setBy(dataformat.format(newDate));
+                tasklist.get(npostpone).setBy(tasklist.get(npostpone).getInVoice());
                 ui.printPostponeMessage(tasklist.get(npostpone));
             } else {
                 ui.exceptionMessage("     ☹ OOPS!!! Please select a deadline type task to postpone.");
@@ -333,7 +333,7 @@ public class Parser {
             if(tasklist.get(nreschedule).getType().equals("D")){
                 Date formattedtime = dataformat.parse(delay);
                 String newschedule = dataformat.format(formattedtime);
-                tasklist.get(nreschedule).setBy(newschedule);
+                tasklist.get(nreschedule).setBy(tasklist.get(nreschedule).getInVoice());
                 ui.printRescheduleMessage(tasklist.get(nreschedule));
             } else if(tasklist.get(nreschedule).getType().equals("E")){
                 Date formattedtime = dataformat.parse(delay);
