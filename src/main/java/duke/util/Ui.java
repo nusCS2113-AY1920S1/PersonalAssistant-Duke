@@ -121,4 +121,19 @@ public class Ui {
         System.out.println("Got it! I've rescheduled this task to " + time + " :\n" + task);
     }
 
+    public void reportMsg() {
+        System.out.println("Number of required tasks to complete:\n" + "30");
+    }
+
+    /**
+     * Prints the number of tasks left to be completed.
+     * Prints the number of each tasks that is completed.
+     * @param taskList to be printed to user.
+     */
+    public void printReportList(List<Task> taskList) {
+        int requiredTasks = 30;
+        int tasksLeft = requiredTasks - taskList.size();
+        System.out.println("Number of tasks still needed to complete:\n" + tasksLeft);
+    }
+
 }
