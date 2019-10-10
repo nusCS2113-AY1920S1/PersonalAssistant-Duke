@@ -1,0 +1,56 @@
+= About Us
+:site-section: AboutUs
+:relfileprefix: team/
+:imagesDir: images
+:stylesDir: stylesheets
+
+Duke 2.0 was developed by the https://github.com/AY1920S1-CS2113T-F10-2[AY1920S1-CS2113T-F10-2] team. +
+
+Our program is the evolution of Duke. +
+
+The purpose of the project is to provide assistance and aid to future students of NUS, who wish to take up an Engineering Degree.
+With our program, they will be able to compare and contrast between core modules, read up module descriptions, and even show the difference between degrees in Engineering. +
+{empty} +
+We are a team based in the http://www.comp.nus.edu.sg[School of Computing, National University of Singapore].
+
+== Project Team
+
+=== Lee Zhen Yu
+image::zyleet.png[width="150", align="left"]
+{empty}[https://github.com/zyleet[github]] [<<zyleet#, portfolio>>]
+
+Role: Team Lead +
+Responsibilities: GUI +
+About: He enjoys breathing and sleeping in his free time. +
+
+'''
+
+=== Talagadadivi Durga Rukmini Manaswini
+image::manaswini05.png[width="150", align="left"]
+{empty}[https://github.com/manaswini05[github]] [<<manaswini05#, portfolio>>]
+
+Role: Developer +
+Responsibilities: UI +
+About: Finds it a hassle to shade their full name in exams. +
+
+'''
+
+=== Lee Raiyan Bin Zulkifli
+image::woblek.png[width="150", align="left"]
+{empty}[https://github.com/woblek[github]] [<<woblek#, portfolio>>]
+
+Role: Developer +
+Responsibilities: Data +
+About: Likes Hedgehogs. +
+
+'''
+
+=== Quah You Jing Kane
+image::KaneQuah.png[width="150", align="left"]
+{empty}[https://github.com/KaneQuah/[github]] [<<KaneQuah#, portfolio>>]
+
+Role: Admin Staff +
+Responsibilities: Dev Ops +
+About: Also known as Quiz Slayer in certain circles. +
+
+'''
