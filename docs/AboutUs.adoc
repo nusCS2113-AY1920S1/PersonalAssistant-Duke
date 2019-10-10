@@ -1,0 +1,62 @@
+= About Us
+:site-section: AboutUs
+:relfileprefix: team/
+:imagesDir: images
+:stylesDir: stylesheets
+
+# Module planner for NUS CEG Students
+
+**ModPlan**
+
+Your one stop solution to module planning through out your university tenure!
+
+ModPlan was developed by the https://github.com/orgs/AY1920S1-CS2113T-F10-1/teams/developers[github] team. +
+
+We are a team based in the http://www.comp.nus.edu.sg[School of Computing, National University of Singapore].
+
+== Project Team
+
+=== EVELYN YI-WEN CHEN
+image::e0313687.png[width="150", align="left"]
+{empty} [https://github.com/e0313687[github]]
+
+Role: Developer +
+Responsibilities: 
+
+'''
+
+=== KHAIRUL IMAN NASRI B AZHARIE
+image::namiwa.png[width="150", align="left"]
+{empty}[http://github.com/namiwa[github]] 
+
+Role: Developer +
+Responsibilities:
+
+'''
+
+=== KYAWT KYAWT SAN
+image::kyawtkyawtsan.jpg[width="150", align="left"]
+{empty}[http://github.com/kyawtsan99[github]] 
+
+Role: Developer +
+Responsibilities: 
+
+'''
+
+=== LE HONG LONG
+image::longlece.png[width="150", align="left"]
+{empty}[http://github.com/LongLeCE[github]]
+
+Role: Developer +
+Responsibilities: 
+
+'''
+
+=== LEOW YONG KANG ANDREW
+image::andrewleow97.png[width="150", align="left"]
+{empty}[http://github.com/andrewleow97[github]] 
+
+Role: Developer +
+Responsibilities:
+
+'''
