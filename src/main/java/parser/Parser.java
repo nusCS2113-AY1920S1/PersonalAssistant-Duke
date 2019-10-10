@@ -8,12 +8,14 @@ import command.ExitCommand;
 import command.FindCommand;
 import command.ListCommand;
 import command.PostponeCommand;
+import command.PriorityCommand;
 import command.RemindCommand;
 import command.SearchCommand;
 import command.ViewCommand;
 import command.EditCommand;
 import command.IgnoreCommand;
 import exception.DukeException;
+import task.Priority;
 import ui.Ui;
 
 import java.time.LocalDateTime;
@@ -68,9 +70,12 @@ public class Parser {
             return new FindCommand(findKeyWord);
 
         case "edit":
-            String[] commandPortion = userInput.split(" ", 3);
-            indexOfTask = Integer.parseInt(commandPortion[1]) - 1;
-            description = commandPortion[2];
+            String[] editCommandParts = userInput.split(" ", 3);
+            indexOfTask = Integer.parseInt(editCommandParts[1]) - 1;
+            description = editCommandParts[2];
+            if (description.isEmpty()) {
+                throw new DukeException(DukeException.emptyUserDescription());
+            }
             return new EditCommand(indexOfTask, description);
 
         case "delete":
@@ -81,6 +86,14 @@ public class Parser {
             indexOfTask = Integer.parseInt(description) - 1;
             return new DeleteCommand(indexOfTask);
 
+        case "priority":
+            String[] priorityCommandParts = userInput.split(" ", 3);
+            String priorityLevel = priorityCommandParts[2];
+            indexOfTask = Integer.parseInt(priorityCommandParts[1]) - 1;
+            if (priorityLevel.isEmpty()) {
+                throw new DukeException(DukeException.emptyPriorityLevel());
+            }
+            return new PriorityCommand(indexOfTask, priorityLevel);
 
         case "done":
             description = userInput.split(command, 2)[1].trim();
@@ -283,12 +296,12 @@ public class Parser {
     }
 
     private static Command parseIgnore(String command, String userInput) {
-        int index = Integer.parseInt(userInput.split("\\s+",2)[1].trim()) - 1;
+        int index = Integer.parseInt(userInput.split("\\s+", 2)[1].trim()) - 1;
         return new IgnoreCommand(index);
     }
 
     private static Command parseDuration(String userInput, String[] taskDetails, String checktype, String command)
-            throws DukeException {
+        throws DukeException {
         int duration;
 
         String substring = userInput.split(checktype, 2)[1].trim();

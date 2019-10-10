@@ -20,8 +20,8 @@ public class Event extends Task implements Serializable, Comparable<Event> {
      * creates a new Event task.
      *
      * @param description description of task
-     * @param startDate      end time of task
-     * @param endDate      start time of task
+     * @param startDate   end time of task
+     * @param endDate     start time of task
      */
     public Event(String description, LocalDateTime startDate, LocalDateTime endDate) {
         super(description);
@@ -31,25 +31,20 @@ public class Event extends Task implements Serializable, Comparable<Event> {
     }
 
     /**
-     * custom comparator for sorting.
+     * Custom comparator for sorting.
      */
     @Override
     public int compareTo(Event o) {
         return this.startDate.compareTo(o.startDate);
     }
 
-    /**
-     * This override of the toString function of the task class etches the different
-     * portions of the user input into a single string.
-     *
-     * @return This function returns a string of the required task in the desired output format of string type.
-     */
     @Override
     public String toString() {
-
-        return "[E]" + "[" + super.getStatusIcon() + "] " + this.description + "(at: "
-                + this.startDate.format(DateTimeExtractor.DATE_FORMATTER) + "-"
-                + this.endDate.format(DateTimeExtractor.DATE_FORMATTER) + ")";
+        String message = super.getPriorityIcon() + "[E]" + "[" + super.getStatusIcon() + "] " + this.description;
+        String dateString = "(at: " + this.startDate.format(DateTimeExtractor.DATE_FORMATTER) + "-"
+            + this.endDate.format(DateTimeExtractor.DATE_FORMATTER) + ")";
+        message.concat(dateString);
+        return message;
     }
 
     @Override

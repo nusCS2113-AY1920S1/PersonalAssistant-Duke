@@ -15,14 +15,9 @@ public class IgnoreCommand extends Command {
 
     @Override
     public void execute(TaskList tasks, Storage storage) throws DukeException {
-        if (indexOfTask < 0 || indexOfTask > (tasks.getSize() - 1)) {
-            throw new DukeException(DukeException.taskDoesNotExist());
-        }
 
         Task task = tasks.markAsIgnorable(indexOfTask);
         storage.saveFile(tasks.getTasks());
-
-        Ui.printMessage("Noted. This task has been marked as ignored:");
-        Ui.printMessage("  " + task.toString());
+        Ui.printOutput("Noted. This task has been marked as ignored:\n" + task.toString());
     }
 }

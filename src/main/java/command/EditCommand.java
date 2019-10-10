@@ -16,7 +16,7 @@ public class EditCommand extends Command {
     private int indexOfTask;
     private String newDescription;
 
-    public EditCommand(int indexOfTask,String newDescription) {
+    public EditCommand(int indexOfTask, String newDescription) {
         this.indexOfTask = indexOfTask;
         this.newDescription = newDescription;
     }
@@ -24,7 +24,7 @@ public class EditCommand extends Command {
     @Override
     public void execute(TaskList tasks, Storage storage) throws DukeException {
         if (indexOfTask >= 0 && indexOfTask <= (tasks.getSize() - 1)) {
-            Task taskToEdit = tasks.editTaskDescription(indexOfTask,newDescription);
+            Task taskToEdit = tasks.editTaskDescription(indexOfTask, newDescription);
             storage.saveFile(tasks.getTasks());
             Ui.printOutput("Noted. Your new task description is:" + "\n " + taskToEdit.description);
         } else {

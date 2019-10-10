@@ -17,10 +17,10 @@ import static parser.DateTimeExtractor.NULL_DATE;
 public class Deadline extends Task implements Serializable {
 
     /**
-     * contructs a deadline task.
+     * Constructor for deadline task.
      *
-     * @param description description of task
-     * @param atDate      time of the task
+     * @param description Description of the deadline
+     * @param atDate      Due date for deadline
      */
     public Deadline(String description, LocalDateTime atDate) {
         super(description);
@@ -28,16 +28,12 @@ public class Deadline extends Task implements Serializable {
         this.remindInHowManyDays = 3;
     }
 
-    /**
-     * This override of the toString function of the task class etches the different
-     * portions of the user input into a single string.
-     *
-     * @return This function returns a string of the required task in the desired output format of string type.
-     */
     @Override
     public String toString() {
-        return "[D]" + "[" + super.getStatusIcon() + "] " + this.description + "(by: "
-                + this.startDate.format(DateTimeExtractor.DATE_FORMATTER) + ")";
+        String message = super.getPriorityIcon() + "[D]" + "[" + super.getStatusIcon() + "] " + this.description;
+        String dateString = "(by: " + this.startDate.format(DateTimeExtractor.DATE_FORMATTER) + ")";
+        message.concat(dateString);
+        return message;
     }
 
     @Override
