@@ -124,7 +124,7 @@ public class Ui {
     public void rescheduleTaskMsg(Task task, String time) {
         System.out.println("Got it! I've rescheduled this task to " + time + " :\n" + task);
     }
-
+  
     public void timetableMsg() {
         System.out.println("Here is your timetable:");
     }
@@ -154,6 +154,13 @@ public class Ui {
         int requiredTasks = 30;
         int tasksLeft = requiredTasks - taskList.size();
         System.out.println("Number of tasks still needed to complete:\n" + tasksLeft);
+
+    public void overallCapMsg() {
+        System.out.println("Here is your overall CAP: ");
+    }
+
+    public void specificCapMsg(String module) {
+        System.out.println("Here is your CAP for the module:" + module);
     }
 
 }

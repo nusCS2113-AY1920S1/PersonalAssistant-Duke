@@ -1,5 +1,4 @@
 package duke.util;
-
 import duke.command.AddCommand;
 import duke.command.ByeCommand;
 import duke.command.Command;
@@ -251,6 +250,8 @@ public class DukeParser {
             return checkValidRescheduleIndex(input);
         } else if (input.startsWith("schedule ")) {
             return new ScheduleCommand(input);
+        } else if (input.startsWith("cap")) {
+            return new CapCommand(input);
         } else {
             //throws invalid command exception when user inputs non-keywords
             throw new ModCommandException();
