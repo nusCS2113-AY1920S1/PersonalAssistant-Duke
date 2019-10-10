@@ -11,5 +11,5 @@ public class TaskList extends ArrayList<Task>{
 
     public void addTask(Task task) {
         this.add(task);
-    }
+    }                
 }
