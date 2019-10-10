@@ -72,14 +72,6 @@ public interface Model {
      */
     ObservableList<Order> getFilteredOrderList();
 
-    boolean hasSale(Sale sale);
-
-    void deleteSale(Sale target);
-
-    void addSale(Sale sale);
-
-    void setSale(Sale target, Sale editedSale);
-
     /**
      * Updates the filter of the filtered order list to filter by the given {@code predicate}.
      *

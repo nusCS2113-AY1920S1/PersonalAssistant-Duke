@@ -28,7 +28,6 @@ public class AddSaleCommand extends SaleCommand implements Undoable {
     }
 
     public CommandResult execute(Model model) throws CommandException {
-        model.addSale(toAdd);
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd.getId()), CommandResult.DisplayedPage.ORDER);
     }
 

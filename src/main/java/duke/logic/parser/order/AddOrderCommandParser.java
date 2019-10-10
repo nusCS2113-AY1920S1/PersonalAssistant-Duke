@@ -28,19 +28,20 @@ public class AddOrderCommandParser implements Parser<AddOrderCommand> {
                     PREFIX_ORDER_STATUS,
                     PREFIX_ORDER_REMARKS
             );
-        Customer customer = new Customer(
+
+            Customer customer = new Customer(
                 map.getValue(PREFIX_CUSTOMER_NAME).orElse("customer"),
                 map.getValue(PREFIX_CUSTOMER_CONTACT).orElse("N/A"));
 
-        Order order = new Order(
+            Order order = new Order(
                 customer,
                 TimeParser.convertStringToDate(map.getValue(PREFIX_ORDER_DEADLINE).orElse("now")),
                 ParserUtil.parseStatus(map.getValue(PREFIX_ORDER_STATUS).orElse("ACTIVE")),
                 map.getValue(PREFIX_ORDER_REMARKS).orElse("N/A"),
                 ParserUtil.parseItems(map.getAllValues(PREFIX_ORDER_ITEM))
-        );
+            );
 
-        return new AddOrderCommand(order);
+            return new AddOrderCommand(order);
     }
 
 

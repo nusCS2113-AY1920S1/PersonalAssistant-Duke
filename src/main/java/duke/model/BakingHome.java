@@ -5,7 +5,6 @@ import duke.model.commons.Ingredient;
 import duke.model.product.Product;
 import duke.model.order.Order;
 import duke.model.sale.Sale;
-import duke.model.sale.SaleList;
 import duke.model.shortcut.Shortcut;
 import javafx.collections.ObservableList;
 
@@ -19,7 +18,7 @@ import static java.util.Objects.requireNonNull;
  */
 public class BakingHome implements ReadOnlyBakingHome {
 
-    private final SaleList sales;
+    private final UniqueEntityList<Sale> sales;
     private final UniqueEntityList<Order> orders;
     private final UniqueEntityList<Product> products;
     private final UniqueEntityList<Ingredient> inventory;
@@ -29,7 +28,7 @@ public class BakingHome implements ReadOnlyBakingHome {
      * Creates a BakingHome.
      */
     public BakingHome() {
-        sales = new SaleList();
+        sales = new UniqueEntityList<>();
         orders = new UniqueEntityList<>();
         products = new UniqueEntityList<>();
         inventory = new UniqueEntityList<>();
@@ -41,12 +40,6 @@ public class BakingHome implements ReadOnlyBakingHome {
         resetData(toBeCopied);
     }
 
-    /**
-     * Replaces the contents of the sale list with {@code orders}.
-     */
-    public void setSales(List<Sale> sales) {
-        this.sales.setSales(sales);
-    }
 
     /*
      * Resets the existing data of this {@code BakingHome} with {@code newData}.
@@ -112,17 +105,6 @@ public class BakingHome implements ReadOnlyBakingHome {
         requireAllNonNull(index, order);
 
         orders.set(index, order);
-    }
-
-    /**
-     * Replaces the given person {@code target} in the list with {@code editedPerson}.
-     * {@code target} must exist in the address book.
-     * The person identity of {@code editedPerson} must not be the same as another existing person in the address book.
-     */
-    public void setSale(Sale target, Sale editedSale) {
-        requireNonNull(editedSale);
-
-        sales.setSale(target, editedSale);
     }
 
     /**
