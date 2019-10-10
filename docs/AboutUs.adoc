@@ -1,0 +1,47 @@
+= About Us
+:site-section: AboutUs
+:relfileprefix: team/
+:imagesDir: images
+:stylesDir: stylesheets
+
+ChefDuke was developed by the https://github.com/AY1920S1-CS2113T-T12-4/main[T12-4] team.
+{empty} +
+We are a team based in the http://www.comp.nus.edu.sg[School of Computing, National University of Singapore].
+
+== Project Team
+
+=== Ling Wen Jian
+image::wjlingg.png[width="150", align="left"]
+{empty}[https://github.com/wjlingg[github]]
+
+Role: Team Lead +
+Responsibilities: Integration
+
+'''
+
+=== Li Zihan
+image::lizihan95.png[width="150", align="left"]
+{empty}[https://github.com/lizihan95[github]]
+
+Role: Developer +
+Responsibilities: Code quality
+
+'''
+
+=== Liu Jingxuan
+image::LJX0006.png[width="150", align="left"]
+{empty}[https://github.com/LJX0006[github]]
+
+Role: Developer +
+Responsibilities: Testing
+
+'''
+
+=== Lim Jia Wei
+image::jiaweijwjw.png[width="150", align="left"]
+{empty}[https://github.com/jiaweijwjw[github]]
+
+Role: Developer +
+Responsibilities: Documentation
+
+'''

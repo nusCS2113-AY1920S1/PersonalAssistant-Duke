@@ -1,0 +1,51 @@
+plugins {
+    id 'java'
+    id 'application'
+    id 'checkstyle'
+    id 'com.github.johnrengelman.shadow' version '5.1.0'
+    id 'org.openjfx.javafxplugin' version '0.0.7'
+}
+
+checkstyle {
+    toolVersion = '8.23'
+}
+
+shadowJar {
+    archiveBaseName = "duke"
+    archiveVersion = "mid-v1.1"
+    archiveClassifier = null
+    archiveAppendix = null
+}
+
+group 'duke'
+version '0.1.0'
+
+repositories {
+    mavenCentral()
+}
+
+
+javafx {
+    version = "11.0.2"
+    modules = [ 'javafx.controls', 'javafx.fxml' ]
+}
+
+
+dependencies {
+    // https://mvnrepository.com/artifact/com.joestelmach/natty
+    compile group: 'com.joestelmach', name: 'natty', version: '0.13'
+    testImplementation 'org.junit.jupiter:junit-jupiter:5.5.0'
+}
+
+application {
+    // Change this to your main class.
+    mainClassName = "duke.src.main.java.duke.Duke"
+}
+
+test {
+    useJUnitPlatform()
+}
+
+run {
+    standardInput = System.in
+}
