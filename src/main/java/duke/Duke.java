@@ -52,7 +52,7 @@ public class Duke {
         try {
             // Classes to be initialized during runtime
             reminder = new Reminder(tasks.getTasks());
-            //reminder.run();
+            reminder.run();
 
             // This pulls data once and stores in the data files.
             data.runRequests(store);
