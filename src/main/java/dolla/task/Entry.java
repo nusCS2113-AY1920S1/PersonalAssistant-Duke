@@ -4,6 +4,9 @@ import dolla.Time;
 
 import java.time.LocalDateTime;
 
+/**
+ * Entry is a Class that stores an instance of the user's expense or income.
+ */
 public class Entry {
     protected char sign; // '+' for income, '-' for expense
     protected String type;
@@ -19,11 +22,16 @@ public class Entry {
         this.date = date;
     }
 
+    /**
+     * Returns a string to with information about the entry to be displayed
+     * to the user.
+     * @return String with information of entry.
+     */
     public String getEntryText() {
-        return "[" + type + "] " +
-                "[" + amountToMoney() + "] " +
-                "[" + description + "] " +
-                "[/on " + Time.dateTimeToString(date) + "]";
+        return "[" + type + "] "
+                + "[" + amountToMoney() + "] "
+                + "[" + description + "] "
+                + "[/on " + Time.dateTimeToString(date) + "]";
     }
 
     public String amountToMoney() {

@@ -32,13 +32,15 @@ public class DollaParser extends Parser {
 
             return new AddEntryCommand(entryType, amount, description, date);
 
-//            switch(commandToRun) {
-//                case "income":
-//                case "expense":
-//                    return new AddExpenseCommand();
-//                default:
-//                    return new ErrorCommand();
-//            }
+            /*
+            switch(commandToRun) {
+                case "income":
+                case "expense":
+                    return new AddExpenseCommand();
+                default:
+                    return new ErrorCommand();
+            }
+            */
 
         } else {
             Ui.printInvalidCommandError();

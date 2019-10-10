@@ -55,9 +55,9 @@ public class MainParser {
         if (command.equals("bye")) {
             //return new ExitCommand(); // TODO
 
-        } else if (command.equals("dolla") || command.equals("entries") ||
-        command.equals("limits") || command.equals("debts") ||
-        command.equals("shortcuts")) {
+        } else if (command.equals("dolla") || command.equals("entries")
+        || command.equals("limits") || command.equals("debts")
+        || command.equals("shortcuts")) {
             //return new SwitchModeCommand(); // TODO
         }
 

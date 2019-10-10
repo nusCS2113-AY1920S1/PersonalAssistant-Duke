@@ -5,6 +5,9 @@ import dolla.task.Entry;
 
 import java.time.LocalDateTime;
 
+/**
+ * AddEntryCommand is used to create a new Entry entity.
+ */
 public class AddEntryCommand extends Command {
 
     private String type;
