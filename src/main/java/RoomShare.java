@@ -82,8 +82,8 @@ public class RoomShare {
 
                 case done:
                     try {
+                        taskList.done(parser.getIndexRange());
                         ui.showDone();
-                        taskList.done(parser.getIndex());
                     } catch (RoomShareException e) {
                         ui.showIndexError();
                     }
@@ -91,7 +91,7 @@ public class RoomShare {
 
                 case delete:
                     try {
-                        int index = parser.getIndex();
+                        int index[] = parser.getIndexRange();
                         taskList.delete(index);
                         ui.showDeleted(index);
                     } catch (RoomShareException e) {
