@@ -3,6 +3,7 @@ package UserCode.Tasks;
 import UserCode.Actions.Action;
 import UserCode.Actions.plantSeedAction;
 import FarmioExceptions.FarmioException;
+import UserCode.Condition;
 import UserInterfaces.Ui;
 import org.json.simple.JSONObject;
 
