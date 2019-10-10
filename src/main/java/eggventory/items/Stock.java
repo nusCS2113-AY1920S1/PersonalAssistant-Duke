@@ -56,7 +56,7 @@ public class Stock {
     }
 
     /**
-     * Changes the stock code (if there was an error in entry)
+     * Changes the stock code (if there was an error in entry).
      * @param stockCode the new stock code
      */
     public void setStockCode(String stockCode) {

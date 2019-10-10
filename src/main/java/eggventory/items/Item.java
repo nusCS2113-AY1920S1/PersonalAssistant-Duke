@@ -9,6 +9,10 @@ public class Item {
     private boolean loaned;
     private boolean lost;
 
+    /**
+     * Item constructor. By default the item is neither on loan nor lost.
+     * @param index The unique index of the item.
+     */
     public Item(int index) {
         this.index = index;
         loaned = false;

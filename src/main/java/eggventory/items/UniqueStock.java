@@ -26,7 +26,7 @@ public class UniqueStock extends Stock {
     public UniqueStock(String stockType, String stockCode, int quantity, String description) {
         super(stockType, stockCode, quantity, description);
         for (int i = 0; i < quantity; i++) {
-            uniqueStockList.add(new Item(i+1));
+            uniqueStockList.add(new Item(i + 1));
         }
     }
 
@@ -61,7 +61,7 @@ public class UniqueStock extends Stock {
         int size = uniqueStockList.size();
 
         int targetItem = -1;
-        for (int i = 0; i < size; i ++) {
+        for (int i = 0; i < size; i++) {
             if (uniqueStockList.get(i).getIndex() == index) {
                 targetItem = i;
             }
@@ -80,14 +80,16 @@ public class UniqueStock extends Stock {
 
     //TODO: Provide a 'detailed' version of the print string to show individual items.
     public void printUniqueStocks() {
-//       A header with all the usual info, maybe using toString.
-//       return getStockType() + "/" + getStockCode() + "/" + getQuantity() +
-//                "/" + getDescription() + "/" + getMinimum();
+       /*
+           A header with all the usual info, maybe using toString.
+           return getStockType() + "/" + getStockCode() + "/" + getQuantity() +
+                    "/" + getDescription() + "/" + getMinimum();
 
-//       A list of all the items and their statuses. Using a for loop.
-//        for (int i = 0; i < uniqueStockList.size(); i++) {
-//            System.out.println(uniqueStockList.get(i).toString());
-//        }
+           A list of all the items and their statuses. Using a for loop.
+           for (int i = 0; i < uniqueStockList.size(); i++) {
+               System.out.println(uniqueStockList.get(i).toString());
+           }
+        */
     }
 
     //TODO: Update both print and save method in Item class, and iterate through all of them here.
@@ -98,19 +100,21 @@ public class UniqueStock extends Stock {
      */
     @Override
     public String saveDetailsString() {
-        return getStockType() + "/" + getStockCode() + "/" + getQuantity() +
-                "/" + getDescription() + "/" + getMinimum();
+        return getStockType() + "/" + getStockCode() + "/" + getQuantity()
+                + "/" + getDescription() + "/" + getMinimum();
     }
 
-    //way to access individual stock
-    //get/set id
-    //add stock
-        //update total quantity ++
-    //update loan/lost status
-        //update total loan/lost by +/-
-    //delete stock
-        //update total quantity --
-        //check if min, give warning.
+    /*
+        way to access individual stock
+        get/set id
+        add stock
+            update total quantity ++
+        update loan/lost status
+            update total loan/lost by +/-
+        delete stock
+            update total quantity --
+            check if min, give warning.
+     */
 
 
 }
