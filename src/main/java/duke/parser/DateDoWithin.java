@@ -2,11 +2,9 @@ package duke.parser;
 
 import duke.exceptions.DukeException;
 
-
 import java.time.DateTimeException;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.LocalDate;
 
 public class DateDoWithin {
     private String date;
@@ -26,6 +24,7 @@ public class DateDoWithin {
 
         } catch (DateTimeException e) {
             throw new DukeException(" The format for including date and time for a do within is <dd/MM/yyyy>");
+
         }
     }
 }
