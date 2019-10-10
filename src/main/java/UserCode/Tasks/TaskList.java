@@ -1,12 +1,10 @@
-package Task;
+package UserCode.Tasks;
 
 import FarmioExceptions.FarmioException;
-import Task.Task;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 
 public class TaskList extends ArrayList<Task>{
 

@@ -1,10 +1,9 @@
-package Actions;
+package UserCode.Actions;
 
 import Places.ChickenFarm;
 import Places.CowFarm;
 import Places.WheatFarm;
 import Simulate.PlantSeedSimulation;
-import Simulate.Simulation;
 import UserInterfaces.Ui;
 import org.json.simple.JSONObject;
 

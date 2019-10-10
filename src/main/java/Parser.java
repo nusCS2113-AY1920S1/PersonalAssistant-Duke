@@ -5,8 +5,7 @@ import Commands.TestCommand;
 import Places.ChickenFarm;
 import Places.CowFarm;
 import Places.WheatFarm;
-import Task.Task;
-import Task.TaskList;
+import UserCode.Tasks.TaskList;
 import UserInterfaces.Ui;
 
 public class Parser {

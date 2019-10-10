@@ -1,4 +1,4 @@
-package Task;
+package UserCode;
 
 public enum Condition {
     hasSeeds
