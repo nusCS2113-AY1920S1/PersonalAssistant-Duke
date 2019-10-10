@@ -73,9 +73,6 @@ public class EditProductCommand extends ProductCommand {
 
         String newName = editProductDescriptor.getProductName().orElse(toEdit.getName());
         String newPrice = editProductDescriptor.getRetailPrice().orElse(String.valueOf(toEdit.getPrice()));
-        //System.out.println(toEdit.getPrice());
-        //System.out.println(editProductDescriptor.getRetailPrice());
-        //System.out.println(newPrice);
 
         String newCost = editProductDescriptor.getIngredientCost().orElse(String.valueOf(toEdit.getCost()));
         Product.Status newStatus = editProductDescriptor.getStatus().orElse(toEdit.getStatus());

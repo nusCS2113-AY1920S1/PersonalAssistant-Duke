@@ -14,7 +14,12 @@ import java.util.Hashtable;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import static duke.logic.parser.commons.CliSyntax.*;
+import static duke.logic.parser.commons.CliSyntax.PREFIX_CUSTOMER_NAME;
+import static duke.logic.parser.commons.CliSyntax.PREFIX_PRODUCT_COST;
+import static duke.logic.parser.commons.CliSyntax.PREFIX_PRODUCT_INGREDIENT;
+import static duke.logic.parser.commons.CliSyntax.PREFIX_PRODUCT_NAME;
+import static duke.logic.parser.commons.CliSyntax.PREFIX_PRODUCT_PRICE;
+
 
 public class AddProductCommandParser implements Parser<AddProductCommand> {
     /**

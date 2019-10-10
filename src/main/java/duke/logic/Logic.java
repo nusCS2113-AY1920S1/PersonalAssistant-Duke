@@ -4,6 +4,7 @@ import duke.logic.command.CommandResult;
 import duke.logic.command.exceptions.CommandException;
 import duke.logic.parser.exceptions.ParseException;
 import duke.model.ReadOnlyBakingHome;
+import duke.model.commons.Ingredient;
 import duke.model.order.Order;
 import duke.model.product.Product;
 import javafx.collections.ObservableList;
@@ -28,4 +29,5 @@ public interface Logic {
 
     ObservableList<Product> getFilteredProductList();
 
+    ObservableList<Ingredient> getFilteredInventoryList();
 }

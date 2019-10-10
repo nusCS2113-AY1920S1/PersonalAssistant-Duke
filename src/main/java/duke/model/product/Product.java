@@ -33,11 +33,10 @@ public class Product {
 
     /** Constructor for Order parser.util*/
     public Product(String name) {
-
+        this.name = name;
     }
 
-    public Product(@JsonProperty("name") String name, @JsonProperty("price") String price,
-                   @JsonProperty("cost") String cost) {
+    public Product(String name, String price, String cost) {
         requireAllNonNull(name);
         checkEmpty(name, MESSAGE_CONSTRAINTS);
 

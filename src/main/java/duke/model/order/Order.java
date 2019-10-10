@@ -1,11 +1,12 @@
 package duke.model.order;
 
-import duke.model.commons.comProduct;
+import duke.model.commons.Item;
+import duke.model.product.Product;
 
 import java.util.Collections;
 import java.util.Date;
-import java.util.Map;
 import java.util.Objects;
+import java.util.Set;
 
 import static duke.commons.util.CollectionUtil.requireAllNonNull;
 
@@ -16,10 +17,11 @@ public class Order {
 
     //Identity field
     private final long id;
+
     //Data fields
     private final Customer customer;
     private final Date deliveryDate;
-    private final Map<comProduct, Integer> items;
+    private final Set<Item<Product>> items;
     private final String remarks;
     private final Status status;
 
@@ -27,7 +29,7 @@ public class Order {
      * Creates an order.
      * Every field must be present and not null.
      */
-    public Order(Customer customer, Date deliveryDate, Status status, String remarks, Map<comProduct, Integer> items) {
+    public Order(Customer customer, Date deliveryDate, Status status, String remarks, Set<Item<Product>> items) {
         requireAllNonNull(customer, deliveryDate, status, remarks, items);
 
         this.customer = customer;
@@ -56,8 +58,8 @@ public class Order {
         return deliveryDate;
     }
 
-    public Map<comProduct, Integer> getItems() {
-        return Collections.unmodifiableMap(items);
+    public Set<Item<Product>> getItems() {
+        return Collections.unmodifiableSet(items);
     }
 
     public String getRemarks() {

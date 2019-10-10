@@ -1,4 +1,4 @@
-package duke.entities_decrypted;
+package duke.model.sale;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -12,8 +12,11 @@ public class Sale {
     private Date saleDate = Calendar.getInstance().getTime();
     private String remarks = "N/A";
 
-    public Sale() {
-
+    public Sale(String description, double value, Date saleDate, String remarks) {
+        this.description = description;
+        this.value = value;
+        this.saleDate = saleDate;
+        this.remarks = remarks;
     }
 
     public Sale(@JsonProperty("description") String description,
@@ -28,40 +31,39 @@ public class Sale {
         return id;
     }
 
-    public void setId(long id) {
-        this.id = id;
-    }
-
     public String getDescription() {
         return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
     }
 
     public double getValue() {
         return value;
     }
 
-    public void setValue(double value) {
-        this.value = value;
-    }
-
     public Date getSaleDate() {
         return saleDate;
-    }
-
-    public void setSaleDate(Date saleDate) {
-        this.saleDate = saleDate;
     }
 
     public String getRemarks() {
         return remarks;
     }
 
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public void setValue(double value) {
+        this.value = value;
+    }
+
+    public void setSaleDate(Date saleDate) {
+        this.saleDate = saleDate;
+    }
+
     public void setRemarks(String remarks) {
         this.remarks = remarks;
     }
-
 }

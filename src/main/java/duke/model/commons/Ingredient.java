@@ -76,4 +76,14 @@ public class Ingredient {
                 + ", unit='" + unit + '\''
                 + '}';
     }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getUnit() {
+        return unit;
+    }
+
+
 }

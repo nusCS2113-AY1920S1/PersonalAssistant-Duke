@@ -7,16 +7,17 @@ import duke.logic.command.CommandResult;
 import duke.logic.command.Undoable;
 import duke.logic.command.exceptions.CommandException;
 import duke.model.Model;
-import duke.model.commons.comProduct;
 import duke.model.order.Customer;
 import duke.model.order.Order;
+import duke.model.commons.Item;
+import duke.model.product.Product;
 
 import java.util.Date;
-import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
-import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.Set;
 
 import static duke.commons.util.CollectionUtil.requireAllNonNull;
 import static java.util.Objects.requireNonNull;
@@ -86,7 +87,7 @@ public class EditOrderCommand extends OrderCommand implements Undoable {
                 editOrderDescriptor.getCustomerContact().orElse(toEdit.getCustomer().contact)
         );
         Date newDate = editOrderDescriptor.getDeliveryDate().orElse(toEdit.getDeliveryDate());
-        Map<comProduct, Integer> newItems = editOrderDescriptor.getItems().orElse(toEdit.getItems());
+        Set<Item<Product>> newItems = editOrderDescriptor.getItems().orElse(toEdit.getItems());
         String newRemarks = editOrderDescriptor.getRemarks().orElse(toEdit.getRemarks());
         Order.Status newStatus = editOrderDescriptor.getStatus().orElse(toEdit.getStatus());
         return new Order(newCustomer, newDate, newStatus, newRemarks, newItems);
@@ -100,7 +101,7 @@ public class EditOrderCommand extends OrderCommand implements Undoable {
         private String customerName;
         private String customerContact;
         private Date deliveryDate;
-        private Map<comProduct, Integer> items;
+        private Set<Item<Product>> items;
         private String remarks;
         private Order.Status status;
 
@@ -140,8 +141,8 @@ public class EditOrderCommand extends OrderCommand implements Undoable {
             this.deliveryDate = deliveryDate;
         }
 
-        public void setItems(Map<comProduct, Integer> items) {
-            this.items = (items != null) ? new HashMap<>(items) : null;
+        public void setItems(Set<Item<Product>> items) {
+            this.items = (items != null) ? new HashSet<>(items) : null;
         }
 
         public void setRemarks(String remarks) {
@@ -164,7 +165,7 @@ public class EditOrderCommand extends OrderCommand implements Undoable {
             return Optional.ofNullable(deliveryDate);
         }
 
-        public Optional<Map<comProduct, Integer>> getItems() {
+        public Optional<Set<Item<Product>>> getItems() {
             return Optional.ofNullable(items);
         }
 
