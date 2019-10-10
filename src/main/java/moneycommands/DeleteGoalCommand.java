@@ -47,10 +47,16 @@ public class DeleteGoalCommand extends MoneyCommand {
         ui.appendToOutput("  " + account.getShortTermGoals().get(serialNo-1).toString() + "\n");
         ui.appendToOutput(" Now you have " + (account.getShortTermGoals().size()-1) + " goals in the list.\n");
 
-        account.getShortTermGoals().remove(serialNo-1);
-        storage.writeToFile(account);
+        storage.markDeletedEntry("G", "@", "#", serialNo);
+        account.getShortTermGoals().remove(serialNo - 1);
     }
 
     @Override
-    public void undo(Account account, Ui ui, MoneyStorage moneyStorage) { return; }
+    public void undo(Account account, Ui ui, MoneyStorage storage) throws DukeException {
+        storage.undoDeletedEntry(account, "G", serialNo);
+        storage.writeToFile(account);
+        ui.appendToOutput(" Last command undone: \n");
+        ui.appendToOutput(account.getShortTermGoals().get(serialNo - 1).toString() + "\n");
+        ui.appendToOutput(" Now you have " + account.getShortTermGoals().size() + " goals listed\n");
+    }
 }

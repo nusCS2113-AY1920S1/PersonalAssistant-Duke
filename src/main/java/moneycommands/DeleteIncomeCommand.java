@@ -50,21 +50,17 @@ public class DeleteIncomeCommand extends MoneyCommand {
         ui.appendToOutput("  " + deletedI.toString() + "\n");
         ui.appendToOutput(" Now you have " + (account.getIncomeListTotal().size() - 1));
         ui.appendToOutput(" income sources in the list.\n");
+
+        storage.markDeletedEntry("INC", "@", "#", serialNo);
         account.getIncomeListTotal().remove(serialNo - 1);
-        storage.writeToFile(account);
     }
 
     @Override
     public void undo(Account account, Ui ui, MoneyStorage storage) throws DukeException {
-        return;
-        /*
-        if (serialNo > account.getIncomeListTotal().size() + 1) {
-            throw new DukeException("The serial number of the income is Out of Bounds!");
-        }
-
+        storage.undoDeletedEntry(account, "INC", serialNo);
+        storage.writeToFile(account);
         ui.appendToOutput(" Last command undone: \n");
-        ui.appendToOutput(" ");
-        ui.appendToOutput(" Now you have " + account.getIncomeListTotal().size() + " expenses listed\n");
-         */
+        ui.appendToOutput(account.getIncomeListTotal().get(serialNo - 1).toString() + "\n");
+        ui.appendToOutput(" Now you have " + account.getIncomeListTotal().size() + " income listed\n");
     }
 }
