@@ -1,4 +1,9 @@
-package command;
+package dolla.command;
+
+import dolla.Ui;
+import dolla.task.Deadline;
+import dolla.task.Task;
+import dolla.task.TaskList;
 
 /**
  * duke.command.AddDeadlineCommand is a command used to add a deadline task into the duke.task.TaskList.

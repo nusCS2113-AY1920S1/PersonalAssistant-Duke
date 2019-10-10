@@ -1,6 +1,6 @@
-package command;
+package dolla.command;
 
-import ui.Ui;
+import dolla.Ui;
 import dolla.task.TaskList;
 
 import java.util.ArrayList;
