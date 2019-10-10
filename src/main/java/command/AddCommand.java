@@ -1,15 +1,13 @@
 package command;
 
 import exception.DukeException;
-import task.Task;
+import task.*;
 import storage.Storage;
-import task.Deadline;
-import task.Event;
-import task.TaskList;
-import task.Todo;
 import ui.Ui;
 
 import java.time.LocalDateTime;
+
+import static parser.DateTimeExtractor.NULL_DATE;
 
 /**
  * The AddCommand class is used when the user has input a command which requires
@@ -22,10 +20,9 @@ public class AddCommand extends Command {
 
     private String command;
     private String taskFeatures;
-    private final LocalDateTime nullDate = LocalDateTime.of(1, 1, 1, 1, 1, 1, 1);
-    private LocalDateTime formattedToDate = nullDate;
-    private LocalDateTime formattedAtDate = nullDate;
-    private LocalDateTime formattedFromDate = nullDate;
+    private LocalDateTime formattedStartDate = NULL_DATE;
+    private LocalDateTime formattedEndDate = NULL_DATE;
+    private int duration = 0;
 
     /**
      * This AddCommand function is used to assign the different parameters required
@@ -35,20 +32,30 @@ public class AddCommand extends Command {
      *                     to process the user input.
      * @param taskFeatures this string holds the description of the task provided by
      *                     the user.
-     * @param atDate       string contains the formatted user input that has the
+     * @param startDate       string contains the formatted user input that has the
      *                     desired date time format.
-     * @param toDate       string contains the formatted user input that has the
-     *                     desired date time format.
-     * @param fromDate     string contains the formatted user input that has the
+     * @param endDate       string contains the formatted user input that has the
      *                     desired date time format.
      */
-    public AddCommand(String command, String taskFeatures, LocalDateTime atDate, LocalDateTime toDate,
-            LocalDateTime fromDate) {
+    public AddCommand(String command, String taskFeatures, LocalDateTime startDate, LocalDateTime endDate) {
         this.command = command;
         this.taskFeatures = taskFeatures;
-        this.formattedFromDate = fromDate;
-        this.formattedAtDate = atDate;
-        this.formattedToDate = toDate;
+        this.formattedStartDate = startDate;
+        this.formattedEndDate = endDate;
+    }
+
+    /**
+     * Creates an AddCommand based on duration of the task.
+     * @param command       holds command type determinant to decide how
+     *                      to process the user input.
+     * @param taskFeatures  holds the description of the task provided by
+     *                      the user.
+     * @param duration      holds the duration period of how long the task should last
+     */
+    public AddCommand(String command, String taskFeatures, int duration) {
+        this.command = command;
+        this.taskFeatures = taskFeatures;
+        this.duration = duration;
     }
 
     /**
@@ -66,16 +73,22 @@ public class AddCommand extends Command {
         Task task;
         switch (command) {
         case "todo":
-            task = new Todo(taskFeatures, formattedFromDate, formattedToDate);
+            if (!formattedStartDate.equals(NULL_DATE)) {
+                task = new TodoWithinPeriod(taskFeatures, formattedStartDate, formattedEndDate);
+            } else if (duration != 0) {
+                task = new TodoWithDuration(taskFeatures, duration);
+            } else {
+                task = new Todo(taskFeatures);
+            }
             break;
         case "deadline":
-            task = new Deadline(taskFeatures, formattedAtDate);
+            task = new Deadline(taskFeatures, formattedStartDate);
             if (tasks.isClash(task)) {
                 throw new DukeException(DukeException.taskClash());
             }
             break;
         case "event":
-            task = new Event(taskFeatures, formattedToDate, formattedFromDate);
+            task = new Event(taskFeatures, formattedStartDate, formattedEndDate);
             if (tasks.isClash(task)) {
                 throw new DukeException(DukeException.taskClash());
             }

@@ -22,16 +22,11 @@ public class RemindCommandTest {
     Command reminder = new RemindCommand(0, 5);
 
     @Test
-    public void testReminder() {
+    public void testReminder() throws DukeException {
         Task testTask = new Deadline("test", LocalDateTime.of(2019, 8, 1, 12, 0));
         list.add(testTask);
         TaskList tasks = new TaskList(list);
-
-        try {
-            reminder.execute(tasks, storage);
-        } catch (DukeException e) {
-            e.printStackTrace();
-        }
+        reminder.execute(tasks, storage);
         Assertions.assertEquals(testTask.remindInHowManyDays, 5);
         Assertions.assertTrue(testTask.checkReminderTrigger());
     }
