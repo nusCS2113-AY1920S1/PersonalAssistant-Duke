@@ -14,6 +14,13 @@ public class Entry {
     protected String description;
     protected LocalDateTime date;
 
+    /**
+     * Creates an instance of Entry.
+     * @param type Income or Expense.
+     * @param amount Amount of money that is earned/spent.
+     * @param description Details pertaining to the entry.
+     * @param date Date of income/expense.
+     */
     public Entry(String type, double amount, String description, LocalDateTime date) {
         this.sign = (type.equals("income") ? '+' : '-');
         this.type = type;

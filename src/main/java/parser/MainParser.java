@@ -24,24 +24,14 @@ import java.util.Arrays;
 import java.util.Scanner;
 
 /**
- * MainParser checks the user input and creates a command corresponding to the user input.
+ * MainParser checks the current mode and user input
+ * to create the relevant command.
  */
 public class MainParser {
 
     /**
-     * Returns a command corresponding to the user input.
-     * <p>
-     *     This method checks the first word of the 'inputLine' and returns the case
-     *     accordingly.
-     * </p>
-     * <p>
-     *     If the first word is not 'list', 'done', 'remove' or 'find', addToList() will
-     *     run instead.
-     * </p>
-     * <p>
-     *     If a number is not provided in a done or remove command, an error will be printed,
-     *     and an ErrorCommand will be returned.
-     * </p>
+     * Returns a command corresponding to the user input by directing
+     * the input to the relevant parser.
      * @param mode The mode Dolla is currently on.
      * @return a command corresponding to the user input.
      */

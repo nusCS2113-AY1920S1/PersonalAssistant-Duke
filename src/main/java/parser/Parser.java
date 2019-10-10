@@ -30,7 +30,6 @@ public abstract class Parser {
      *     If the incorrect format is given in the input, the corresponding alert will be printed, and
      *     the method will then return false.
      * </p>
-     * @return true if method runs successfully.
      * @see AddDeadlineCommand
      * @see AddEventCommand
      */

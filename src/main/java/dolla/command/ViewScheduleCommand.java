@@ -32,7 +32,7 @@ public abstract class ViewScheduleCommand extends Command {
     }
 
     /**
-     * TODO: [placeholder]
+     * TODO: [placeholder].
      * @param tasks TODO: [placeholder]
      */
     //@Override

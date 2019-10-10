@@ -15,7 +15,7 @@ public abstract class Reminder extends Command {
     //@Override
 
     /**
-     * TODO: [placeholder]
+     * TODO: [placeholder].
      * @param tasks TODO: [placeholder]
      */
     public void execute(TaskList tasks) {
