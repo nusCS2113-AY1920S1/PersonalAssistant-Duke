@@ -41,19 +41,21 @@ public class TaskList {
      * @param index Index of task in the list to be deleted
      * @throws RoomShareException If the index cannot be found in the list of tasks.
      */
-    public void delete(int[] index) throws RoomShareException {
+    public void delete(int[] index, TaskList deletedList) throws RoomShareException {
         int[] idx = index.clone();
         if (idx.length == 1) {
             if (idx[0] < 0 || idx[0] >= tasks.size()) {
                 throw new RoomShareException(ExceptionType.outOfBounds);
             }
-        tasks.remove(idx[0]);
+            deletedList.add(tasks.get(idx[0]));
+            tasks.remove(idx[0]);
         }
         else {
             for (int i = idx[0]; idx[1] >= idx[0]; idx[1]--) {
                 if (i < 0 || i >= tasks.size()) {
                     throw new RoomShareException(ExceptionType.outOfBounds);
                 }
+                deletedList.add(tasks.get(i));
                 tasks.remove(i);
             }
         }

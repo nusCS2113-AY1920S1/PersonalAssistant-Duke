@@ -15,6 +15,7 @@ public class RoomShare {
     private Ui ui;
     private Storage storage;
     private TaskList taskList;
+    private TaskList deletedList = new TaskList(new ArrayList<>());
     private Parser parser;
     private RecurHandler recurHandler;
 
@@ -92,7 +93,7 @@ public class RoomShare {
                 case delete:
                     try {
                         int index[] = parser.getIndexRange();
-                        taskList.delete(index);
+                        taskList.delete(index, deletedList);
                         ui.showDeleted(index);
                     } catch (RoomShareException e) {
                         ui.showIndexError();
