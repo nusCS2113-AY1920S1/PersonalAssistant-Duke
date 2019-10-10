@@ -1,48 +1,44 @@
-package duke.parsers.prompts;
+package duke.parsers.conversations;
 
-import duke.commons.PromptMessages;
+import duke.commons.MessagesPrompt;
 import duke.ui.Ui;
 
-public class HolidayPrompt extends Prompt {
+public class HolidayConversation extends Conversation {
     private String command = "add";
     private String location;
     private String startDate;
     private String endDate;
 
-    public HolidayPrompt(Ui ui) {
-        super();
-    }
-
     @Override
     public void execute(String input, Ui ui) {
         switch (state) {
         case 0:
-            message = PromptMessages.HOLIDAY_PROMPT_STARTER;
+            prompt = MessagesPrompt.HOLIDAY_PROMPT_STARTER;
             state++;
             break;
         case 1:
-            message = PromptMessages.HOLIDAY_PROMPT_STARTDATE;
+            prompt = MessagesPrompt.HOLIDAY_PROMPT_STARTDATE;
             location = input;
             state++;
             break;
         case 2:
-            message = PromptMessages.HOLIDAY_PROMPT_ENDDATE;
+            prompt = MessagesPrompt.HOLIDAY_PROMPT_ENDDATE;
             startDate = input;
             state++;
             break;
         case 3:
-            message = PromptMessages.HOLIDAY_PROMPT_SUCCESS;
+            prompt = MessagesPrompt.HOLIDAY_PROMPT_SUCCESS;
             endDate = input;
 
             buildResult();
             isDone = true;
             break;
         default:
-            message = PromptMessages.PROMPT_ERROR;
+            prompt = MessagesPrompt.PROMPT_ERROR;
             break;
         }
         if (attempts > 4) {
-            message = PromptMessages.PROMPT_TOO_MANY_ATTEMPTS;
+            prompt = MessagesPrompt.PROMPT_TOO_MANY_ATTEMPTS;
             isDone = true;
             isCancelled = true;
         }

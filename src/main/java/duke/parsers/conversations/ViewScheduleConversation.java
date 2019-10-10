@@ -1,29 +1,25 @@
-package duke.parsers.prompts;
+package duke.parsers.conversations;
 
-import duke.commons.PromptMessages;
+import duke.commons.MessagesPrompt;
 import duke.ui.Ui;
 
-public class ViewSchedulePrompt extends Prompt {
+public class ViewScheduleConversation extends Conversation {
     private String command = "fetch";
     private String date;
-
-    public ViewSchedulePrompt(Ui ui) {
-        super();
-    }
 
     @Override
     public void execute(String input, Ui ui) {
         switch (state) {
         case 0:
-            message = PromptMessages.VIEWSCHEDULE_PROMPT_STARTER;
+            prompt = MessagesPrompt.VIEWSCHEDULE_PROMPT_STARTER;
             state++;
             break;
         case 1:
             if (input.contains(" ")) {
-                message = PromptMessages.PROMPT_SPACES;
+                prompt = MessagesPrompt.PROMPT_SPACES;
                 badAttempt();
             } else {
-                message = PromptMessages.VIEWSCHEDULE_PROMPT_SUCCESS;
+                prompt = MessagesPrompt.VIEWSCHEDULE_PROMPT_SUCCESS;
                 date = input;
 
                 buildResult();
@@ -31,11 +27,11 @@ public class ViewSchedulePrompt extends Prompt {
             }
             break;
         default:
-            message = PromptMessages.PROMPT_ERROR;
+            prompt = MessagesPrompt.PROMPT_ERROR;
             break;
         }
         if (attempts > 4) {
-            message = PromptMessages.PROMPT_TOO_MANY_ATTEMPTS;
+            prompt = MessagesPrompt.PROMPT_TOO_MANY_ATTEMPTS;
             isDone = true;
             isCancelled = true;
         }

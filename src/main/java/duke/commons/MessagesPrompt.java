@@ -3,7 +3,7 @@ package duke.commons;
 /**
  * Messages sent via Prompt by Duke.
  */
-public class PromptMessages {
+public class MessagesPrompt {
 
     public static final String PROMPT_UNKNOWN = "Sorry, but I do not understand that.";
     public static final String PROMPT_ERROR = "Sorry, but something went wrong...";

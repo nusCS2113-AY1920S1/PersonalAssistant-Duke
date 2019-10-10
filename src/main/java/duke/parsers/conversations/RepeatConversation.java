@@ -1,48 +1,44 @@
-package duke.parsers.prompts;
+package duke.parsers.conversations;
 
-import duke.commons.PromptMessages;
+import duke.commons.MessagesPrompt;
 import duke.ui.Ui;
 
-public class RepeatPrompt extends Prompt {
+public class RepeatConversation extends Conversation {
     private String command = "repeat";
     private String description;
     private String date;
     private String repeatDays;
 
-    public RepeatPrompt(Ui ui) {
-        super();
-    }
-
     @Override
     public void execute(String input, Ui ui) {
         switch (state) {
         case 0:
-            message = PromptMessages.REPEAT_PROMPT_STARTER;
+            prompt = MessagesPrompt.REPEAT_PROMPT_STARTER;
             state++;
             break;
         case 1:
-            message = PromptMessages.REPEAT_PROMPT_DATE;
+            prompt = MessagesPrompt.REPEAT_PROMPT_DATE;
             description = input;
             state++;
             break;
         case 2:
-            message = PromptMessages.REPEAT_PROMPT_REPEAT;
+            prompt = MessagesPrompt.REPEAT_PROMPT_REPEAT;
             date = input;
             state++;
             break;
         case 3:
-            message = PromptMessages.REPEAT_PROMPT_SUCCESS;
+            prompt = MessagesPrompt.REPEAT_PROMPT_SUCCESS;
             repeatDays = input;
 
             buildResult();
             isDone = true;
             break;
         default:
-            message = PromptMessages.PROMPT_ERROR;
+            prompt = MessagesPrompt.PROMPT_ERROR;
             break;
         }
         if (attempts > 4) {
-            message = PromptMessages.PROMPT_TOO_MANY_ATTEMPTS;
+            prompt = MessagesPrompt.PROMPT_TOO_MANY_ATTEMPTS;
             isDone = true;
             isCancelled = true;
         }

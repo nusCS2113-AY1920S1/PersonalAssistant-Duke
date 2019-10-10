@@ -1,13 +1,13 @@
-package duke.parsers.prompts;
+package duke.parsers.conversations;
 
 import duke.ui.Ui;
 
 /**
  * Abstract class representing individual Prompt.
  */
-public abstract class Prompt {
+public abstract class Conversation {
     protected String result;
-    protected String message;
+    protected String prompt;
     protected int state;
     protected boolean isDone;
     protected boolean isCancelled;
@@ -16,7 +16,7 @@ public abstract class Prompt {
     /**
      * Initialises the Prompt object.
      */
-    public Prompt() {
+    public Conversation() {
         state = 0;
         isDone = false;
         isCancelled = false;
@@ -28,8 +28,8 @@ public abstract class Prompt {
      */
     public abstract void execute(String input, Ui ui);
 
-    public String getReply() {
-        return message;
+    public String getPrompt() {
+        return prompt;
     }
 
     public void badAttempt() {

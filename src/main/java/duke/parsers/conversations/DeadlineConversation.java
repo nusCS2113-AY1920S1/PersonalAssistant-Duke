@@ -1,42 +1,38 @@
-package duke.parsers.prompts;
+package duke.parsers.conversations;
 
-import duke.commons.PromptMessages;
+import duke.commons.MessagesPrompt;
 import duke.ui.Ui;
 
-public class DeadlinePrompt extends Prompt {
+public class DeadlineConversation extends Conversation {
     private String command = "deadline";
     private String description;
     private String date;
-
-    public DeadlinePrompt(Ui ui) {
-        super();
-    }
 
     @Override
     public void execute(String input, Ui ui) {
         switch (state) {
         case 0:
-            message = PromptMessages.DEADLINE_PROMPT_STARTER;
+            prompt = MessagesPrompt.DEADLINE_PROMPT_STARTER;
             state++;
             break;
         case 1:
-            message = PromptMessages.DEADLINE_PROMPT_DATE;
+            prompt = MessagesPrompt.DEADLINE_PROMPT_DATE;
             description = input;
             state++;
             break;
         case 2:
-            message = PromptMessages.DEADLINE_PROMPT_SUCCESS;
+            prompt = MessagesPrompt.DEADLINE_PROMPT_SUCCESS;
             date = input;
 
             buildResult();
             isDone = true;
             break;
         default:
-            message = PromptMessages.PROMPT_ERROR;
+            prompt = MessagesPrompt.PROMPT_ERROR;
             break;
         }
         if (attempts > 4) {
-            message = PromptMessages.PROMPT_TOO_MANY_ATTEMPTS;
+            prompt = MessagesPrompt.PROMPT_TOO_MANY_ATTEMPTS;
             isDone = true;
             isCancelled = true;
         }

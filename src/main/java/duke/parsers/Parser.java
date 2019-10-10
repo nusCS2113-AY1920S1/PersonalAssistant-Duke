@@ -27,11 +27,8 @@ import duke.ui.Ui;
  * returns Command objects.
  */
 public class Parser {
-    private Conversation conversation = new Conversation();
+    private ConversationManager conversationManager = new ConversationManager();
     private String result = null;
-
-    public Parser() {
-    }
 
     /**
      * Tries to parse input and start or continue a conversation with Duke.
@@ -39,27 +36,21 @@ public class Parser {
      * @param ui The ui object
      * @return Command The command made by parser, if applicable
      */
-    public Command parse(String input, Ui ui) {
+    public Command parse(String input, Ui ui) throws DukeException {
         if (input != null) {
-            try {
-                if (parseSingleCommmand(input) != null) {
-                    return parseSingleCommmand(input);
-                }
+            if (parseSingleCommmand(input) != null) {
+                return parseSingleCommmand(input);
+            }
 
-                conversation.converse(input, ui);
-                if (conversation.isFinished()) {
-                    result = conversation.getResult();
-                    if (result != null) {
-                        return createCommand(result);
-                    } else {
-                        return null;
-                    }
+            conversationManager.converse(input, ui);
+            if (conversationManager.isFinished()) {
+                result = conversationManager.getResult();
+                if (result != null) {
+                    return createCommand(result);
                 } else {
                     return null;
                 }
-
-            } catch (DukeException e) {
-                ui.showError(e.getMessage());
+            } else {
                 return null;
             }
 
@@ -77,8 +68,6 @@ public class Parser {
      */
     public static Command createCommand(String userInput) throws DukeException {
         String commandWord = getCommandWord(userInput);
-        System.out.println(userInput);
-        System.out.println(commandWord);
         switch (commandWord) {
         case "todo":
             return new AddCommand(ParserUtil.createTodo(userInput));
@@ -157,8 +146,6 @@ public class Parser {
      */
     private static String getWord(String userInput) throws DukeException {
         try {
-            System.out.println(userInput.strip().split(" & ", 2)[0]);
-            System.out.println(userInput.strip().split(" & ", 2)[1]);
             return userInput.strip().split(" & ", 2)[1];
         } catch (ArrayIndexOutOfBoundsException e) {
             throw new DukeException(Messages.INVALID_FORMAT);
@@ -173,7 +160,7 @@ public class Parser {
         }
     }
 
-    public String getReply() {
-        return conversation.getReply();
+    public String getPrompt() {
+        return conversationManager.getPrompt();
     }
 }

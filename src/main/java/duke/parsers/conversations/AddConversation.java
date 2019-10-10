@@ -1,36 +1,32 @@
-package duke.parsers.prompts;
+package duke.parsers.conversations;
 
-import duke.commons.PromptMessages;
+import duke.commons.MessagesPrompt;
 import duke.ui.Ui;
 
-public class ToDoPrompt extends Prompt {
-    private String command = "todo";
+public class AddConversation extends Conversation {
+    private String command = "add";
     private String description;
-
-    public ToDoPrompt(Ui ui) {
-        super();
-    }
 
     @Override
     public void execute(String input, Ui ui) {
-        System.out.println("executing todo");
         switch (state) {
         case 0:
-            message = PromptMessages.TODO_PROMPT_STARTER;
+            prompt = MessagesPrompt.ADD_PROMPT_STARTER;
             state++;
             break;
         case 1:
+            prompt = MessagesPrompt.ADD_PROMPT_SUCCESS;
             description = input;
-            message = PromptMessages.TODO_PROMPT_SUCCESS;
-            state++;
+
             buildResult();
             isDone = true;
             break;
         default:
-            message = PromptMessages.PROMPT_ERROR;
+            prompt = MessagesPrompt.PROMPT_ERROR;
             break;
         }
         if (attempts > 4) {
+            prompt = MessagesPrompt.PROMPT_TOO_MANY_ATTEMPTS;
             isDone = true;
             isCancelled = true;
         }

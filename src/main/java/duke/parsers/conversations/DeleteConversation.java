@@ -1,32 +1,28 @@
-package duke.parsers.prompts;
+package duke.parsers.conversations;
 
-import duke.commons.PromptMessages;
+import duke.commons.MessagesPrompt;
 import duke.ui.Ui;
 
-public class MarkDonePrompt extends Prompt {
-    private String command = "done";
+public class DeleteConversation extends Conversation {
+    private String command = "delete";
     private String index;
-
-    public MarkDonePrompt(Ui ui) {
-        super();
-    }
 
     @Override
     public void execute(String input, Ui ui) {
         switch (state) {
         case 0:
-            message = PromptMessages.MARKDONE_PROMPT_STARTER;
+            prompt = MessagesPrompt.DELETE_PROMPT_STARTER;
             state++;
             break;
         case 1:
-            if (input.contains(" ")) {
-                message = PromptMessages.PROMPT_SPACES;
+            if (!input.matches("-?\\d+")) {
+                prompt = MessagesPrompt.PROMPT_NOT_INT;
                 badAttempt();
-            } else if (!input.matches("-?\\d+")) {
-                message = PromptMessages.PROMPT_NOT_INT;
+            } else if (input.contains(" ")) {
+                prompt = MessagesPrompt.PROMPT_SPACES;
                 badAttempt();
             } else {
-                message = PromptMessages.MARKDONE_PROMPT_SUCCESS;
+                prompt = MessagesPrompt.DELETE_PROMPT_SUCCESS;
                 index = input;
 
                 buildResult();
@@ -34,11 +30,11 @@ public class MarkDonePrompt extends Prompt {
             }
             break;
         default:
-            message = PromptMessages.PROMPT_ERROR;
+            prompt = MessagesPrompt.PROMPT_ERROR;
             break;
         }
         if (attempts > 4) {
-            message = PromptMessages.PROMPT_TOO_MANY_ATTEMPTS;
+            prompt = MessagesPrompt.PROMPT_TOO_MANY_ATTEMPTS;
             isDone = true;
             isCancelled = true;
         }

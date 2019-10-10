@@ -7,7 +7,6 @@ import duke.commands.ExitCommand;
 import duke.commons.exceptions.DukeException;
 import duke.commons.Messages;
 import duke.storage.Storage;
-import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -17,7 +16,6 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 import java.util.concurrent.ExecutionException;
-import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
@@ -87,10 +85,9 @@ public class MainWindow extends UiPart<Stage> {
         Future<Command> future = duke.getResponse(input);
         if (future != null) {
             try {
-                System.out.println("going to get command");
                 future.get(COMMAND_TIMEOUT_PERIOD, TimeUnit.MILLISECONDS);
                 if (future.get() == null) {
-                    ui.show(duke.getReply());
+                    ui.show(duke.getPrompt());
                 } else if (!(future.get() instanceof ExitCommand)) {
                     future.get().execute(ui, storage);
                 } else if (future.get() instanceof ExitCommand) {
