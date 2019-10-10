@@ -41,9 +41,9 @@ public class Storage {
         file.write(farmer.toJSON().toJSONString());
     }
 
-    public String getAsciiArt(String name) throws IOException, FarmioException {
+    public String getAsciiArt(String name) throws IOException {
         StringBuilder art = new StringBuilder();
-        FileReader fileReader = new FileReader(getResourceFile(name));
+        FileReader fileReader = new FileReader("./src/main/resources/asciiArt/" + name + ".txt");
         BufferedReader bufferedReader = new BufferedReader(fileReader);
         String line;
         while ((line = bufferedReader.readLine()) != null) {
@@ -51,7 +51,6 @@ public class Storage {
         }
         return art.toString();
     }
-
     private File getResourceFile(String name) throws FarmioException {
         ClassLoader classLoader = getClass().getClassLoader();
         URL resource = classLoader.getResource(name + ".txt");
