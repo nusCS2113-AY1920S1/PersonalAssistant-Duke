@@ -79,6 +79,24 @@ public class Parser {
                 //throw new RimException
             }
         }
+        else if (words[0].equals("delete")) {
+            if (words[1].equals("/item")) {
+                int itemIndex = input.indexOf("/item") + 6;
+                int qtyIndex = input.indexOf(" /qty");
+                String item = input.substring(itemIndex, qtyIndex);
+                String qtyString = input.replaceFirst("delete /item " + item + " /qty ", "");
+                int qty = Integer.parseInt(qtyString);
+                c = new DeleteCommand(item, qty);
+            }
+            else if (words[1].equals("/room")) {
+                int roomIndex = input.indexOf("/room") + 6;
+                String room = input.substring(roomIndex);
+                c = new DeleteCommand(room);
+            }
+            else {
+                //throw new RimException
+            }
+        }
         else {
             // throw an exception
             ;
