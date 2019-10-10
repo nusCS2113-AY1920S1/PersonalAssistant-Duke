@@ -1,25 +1,22 @@
 package eggventory.commands;
 
-import eggventory.StockType;
+import eggventory.StockList;
+import eggventory.items.StockType;
 import eggventory.Storage;
 import eggventory.Ui;
 import eggventory.enums.CommandType;
-import eggventory.exceptions.BadInputException;
 import org.junit.jupiter.api.Test;
 
 import java.io.ByteArrayOutputStream;
-import java.io.File;
 import java.io.OutputStream;
 import java.io.PrintStream;
-import java.nio.file.Paths;
-import java.text.SimpleDateFormat;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class AddCommandTest {
     private OutputStream os = new ByteArrayOutputStream();
     private PrintStream ps = new PrintStream(os);
-    private StockType testStockType = new StockType();
+    private StockType testStockType = new StockType("testStockType");
     private Ui testUi = new Ui();
     private Storage testStorage = new Storage("");
     private String indent = "        ";
@@ -37,10 +34,10 @@ public class AddCommandTest {
 
     @Test
     void testExecute() {
-        StockType testList = new StockType();
+        StockList testList = new StockList();
         new AddCommand(CommandType.ADD, "testStockType", "t0000", 100,
                 "testDescription").execute(testList);
-        assertEquals("testDescription",testList.getStock(0).getDescription());
+        assertEquals("testDescription",testList.getList().get(0).getStock(0).getDescription());
     }
 
     /*
