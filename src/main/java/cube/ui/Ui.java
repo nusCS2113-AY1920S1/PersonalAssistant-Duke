@@ -115,7 +115,7 @@ public class Ui {
 	/**
 	 * Prints the list of tasks due in 10 days.
 	 *
-	 * @param list the list of task stored in Duke.
+	 * @param list the list of task stored in Cube.
 	 */
 	public void showReminder(TaskList list) {
 		System.out.println("Here are the deadline/event within 10 days:");
@@ -129,7 +129,7 @@ public class Ui {
 	 * Prints the message of a task being removed.
 	 *
 	 * @param removed the task being removed.
-	 * @param list the list of task stored in Duke.
+	 * @param list the list of task stored in Cube.
 	 */
 	public void showRemove(Task removed, TaskList list) {
 		System.out.println("Nice! I've removed this task:");
@@ -141,7 +141,7 @@ public class Ui {
 	 * Prints the message of a task being removed.
 	 *
 	 * @param removed the task being removed.
-	 * @param list the list of task stored in Duke.
+	 * @param list the list of task stored in Cube.
 	 */
 	public void showFreeDay(Date date) {
 		System.out.println("Your next free day is: " + Parser.parseDateToString(date));
