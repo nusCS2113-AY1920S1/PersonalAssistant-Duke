@@ -12,3 +12,9 @@ src/main/resources/docs/
 .DS_Store
 *.iml
 bin/
+
+#data files from program
+/data.txt/
+data.txt
+/recurringData.txt/
+recurringData.txt
