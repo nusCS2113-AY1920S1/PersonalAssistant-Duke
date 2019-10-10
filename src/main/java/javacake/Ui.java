@@ -5,6 +5,30 @@ import java.io.IOException;
 import java.util.Scanner;
 
 public class Ui {
+    private static String cake =
+            "              (        (\n" +
+                    "             ( )      ( )          (\n" +
+                    "      (       Y        Y          ( )\n" +
+                    "     ( )     |\"|      |\"|          Y\n" +
+                    "      Y      | |      | |         |\"|\n" +
+                    "     |\"|     | |.-----| |---.___  | |\n" +
+                    "     | |  .--| |,~~~~~| |~~~,,,,'-| |\n" +
+                    "     | |-,,~~'-'      '-'       ~~| |._\n" +
+                    "    .| |~                         '-',,'.\n" +
+                    "   /,'-'    ___                        ~,\\\n" +
+                    "  / ;       // __           ____________;_)\n" +
+                    "  | ;    <_// //|| ||  // __'-._          |\n" +
+                    "  | ;        //-|| || // //||   '-._      |\n" +
+                    "  |\\ ~,,,          ||// //-||  ,,,,,'-.   |\n" +
+                    "  | '-._ ~~,,,            ,,,~~ __.-'~ |  |\n" +
+                    "  |     '-.__ ~~~~~~~~~~~~ __.-'       |__|\n" +
+                    "  |\\         `'----------'`           _|\n" +
+                    "  | '=._                         __.=' |\n" +
+                    "  :     '=.__               __.='      |\n" +
+                    "   \\         `'==========='`          .'\n" +
+                    "    '-._                         __.-'\n" +
+                    "        '-.__               __.-'\n" +
+                    "             `'-----------'`";
     private static String border = "____________________________________________________________";
 
     /**
@@ -24,7 +48,7 @@ public class Ui {
     public String showWelcome(boolean isFirstTime, String userName, int progress) {
         StringBuilder welcomePhaseA = new StringBuilder();
         welcomePhaseA.append("Hello! Welcome to JavaCake!\n");
-        welcomePhaseA.append("~making Java a Piece of Cake\n").append(border);
+        welcomePhaseA.append("~making Java a Piece of Cake\n").append(cake);
 
         System.out.println(welcomePhaseA.toString());
 

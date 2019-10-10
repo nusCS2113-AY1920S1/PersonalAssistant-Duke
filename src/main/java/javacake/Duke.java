@@ -9,7 +9,7 @@ public class Duke {
     private static ProgressStack progressStack;
     private static Profile profile;
     private static boolean isFirstTimeUser;
-    private static String userName = "Glen";
+    private static String userName;
     private static int userProgress = 0;
     private static boolean isAtMainList = false;
     private static boolean isAtSubList = false;
@@ -26,6 +26,7 @@ public class Duke {
             profile = new Profile("data/save/savefile.txt", ui);
             userProgress = profile.getTotalProgress();
             userName = profile.getUsername();
+            // Default username when creating new profile
             if (userName.equals("NEW_USER_!@#")) {
                 isFirstTimeUser = true;
             } else {
@@ -46,6 +47,9 @@ public class Duke {
         if (isFirstTimeUser) {
             try {
                 profile.overwriteName(userName);
+                Command c = Parser.parse("list");
+                c.execute(progressStack, ui, storage, profile);
+                ui.showLine();
             } catch (DukeException e) {
                 ui.showError(e.getMessage());
             }

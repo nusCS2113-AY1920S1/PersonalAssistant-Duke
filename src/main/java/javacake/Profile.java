@@ -57,9 +57,6 @@ public class Profile {
 
     private void initialiseUser() throws DukeException {
         username = "NEW_USER_!@#";
-        for (int i = 0; i < 3; ++i) {
-            topicsDone.add(0);
-        }
         try {
             PrintWriter out = new PrintWriter(filepath);
             out.println(username);
