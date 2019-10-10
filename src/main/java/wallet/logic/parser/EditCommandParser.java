@@ -40,9 +40,9 @@ public class EditCommandParser implements Parser<EditCommand> {
         String parameters = arguments[1].trim();
         if (parameters.contains("/r")) {
             String[] getRecurring = parameters.split("/r");
-            if (getRecurring[1].trim().toUpperCase().equals("DAILY")
-                    || getRecurring[1].trim().toUpperCase().equals("WEEKLY")
-                    || getRecurring[1].trim().toUpperCase().equals("MONTHLY")) {
+            if (getRecurring[1].trim().equalsIgnoreCase("DAILY")
+                    || getRecurring[1].trim().equalsIgnoreCase("WEEKLY")
+                    || getRecurring[1].trim().equalsIgnoreCase("MONTHLY")) {
                 expense.setRecurring(true);
                 expense.setRecFrequency(getRecurring[1].trim().toUpperCase());
             } else if (getRecurring[1].trim().equals("no")) {
