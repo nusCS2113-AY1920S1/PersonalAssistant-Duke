@@ -16,6 +16,11 @@ public class UserInputHandler {
         this.sendButton = sendButton;
     }
 
+    /**
+     * Set text in userInput.
+     *
+     * @param text to set in userInput.
+     */
     public void setUserInputText(String text) {
         // To apply a noFilter to userInput to remove the effect of the previous filter so that clear()
         // can work properly.
@@ -44,6 +49,9 @@ public class UserInputHandler {
         }
     }
 
+    /**
+     * Update text in userInput when DELETE is pressed.
+     */
     public void setTextDelete() {
         int pos = userInput.getCaretPosition();
         String text = userInput.getText();
@@ -55,6 +63,10 @@ public class UserInputHandler {
         userInput.positionCaret(pos);
     }
 
+
+    /**
+     * Update text in userInput when BACKSPACE is pressed.
+     */
     public void setTextBackSpace() {
         String prefix = CommandParser.getInputPrefix();
         int pos = userInput.getCaretPosition();
