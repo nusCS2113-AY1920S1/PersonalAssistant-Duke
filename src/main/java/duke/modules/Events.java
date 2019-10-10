@@ -10,7 +10,7 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
 
-public class Events extends Task {
+public class Events extends TaskWithPeriod {
 
     /**
      * Constructor for Events class, using String Varargs.
