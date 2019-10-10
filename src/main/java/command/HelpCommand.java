@@ -4,6 +4,7 @@ import storage.Storage;
 import ui.UI;
 import task.TaskList;
 import exception.DukeException;
+import list.DegreeList;
 
 /**
  * AddCommand Class extends the abstract Command class.
@@ -42,7 +43,7 @@ public class HelpCommand extends Command {
      * @param storage Storage loads and saves files.
      * @throws DukeException DukeException throws exception.
      */
-    public void execute(TaskList tasks, UI ui, Storage storage) throws DukeException {
+    public void execute(TaskList tasks, UI ui, Storage storage, DegreeList lists) throws DukeException {
         if (this.arguments.matches("")) {
             System.out.println("help: Displays a full list of possible commands.\n"
                             + "detail DEGREE|MODULE: View detailed information about a degree or module\n"

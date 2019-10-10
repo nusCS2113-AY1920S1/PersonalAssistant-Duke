@@ -4,6 +4,7 @@ import storage.Storage;
 import ui.UI;
 import task.TaskList;
 import exception.DukeException;
+import list.DegreeList;
 
 /**
  * AddCommand Class extends the abstract Command class.
@@ -33,12 +34,18 @@ public class AddCommand extends Command {
      * @param storage Storage loads and saves files.
      * @throws DukeException DukeException throws exception.
      */
-    public void execute(TaskList tasks, UI ui, Storage storage) throws DukeException {
+    public void execute(TaskList tasks, UI ui, Storage storage, DegreeList lists) throws DukeException {
         if (this.command.matches("event")) {
             tasks.add(this.command, this.arguments);
             tasks.conflict_check();
-        } else {
+        }
+        else if (this.command.matches("add")) {
+            lists.add_custom(this.arguments);
+        }
+        else {
             tasks.add(this.command, this.arguments);
         }
+
     }
+
 }
