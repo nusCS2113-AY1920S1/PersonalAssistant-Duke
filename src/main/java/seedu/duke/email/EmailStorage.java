@@ -1,15 +1,11 @@
 package seedu.duke.email;
 
 import seedu.duke.Duke;
+import seedu.duke.common.network.Http;
 import seedu.duke.email.entity.Email;
 import seedu.duke.task.TaskStorage;
-import seedu.duke.common.network.Http;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -258,6 +254,11 @@ public class EmailStorage {
         return syncedEmailList;
     }
 
+    /**
+     * Saves authorisation token for user account.
+     *
+     * @param token Authorisation token
+     */
     public static void saveRefreshToken(String token) {
         try {
             prepareFolder();
@@ -270,6 +271,11 @@ public class EmailStorage {
         }
     }
 
+    /**
+     * Read token from info file.
+     *
+     * @return refresh token
+     */
     public static String readRefreshToken() {
         String token = "";
         try {

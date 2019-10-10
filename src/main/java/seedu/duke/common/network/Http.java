@@ -3,23 +3,14 @@ package seedu.duke.common.network;
 import org.json.JSONException;
 import org.json.JSONObject;
 import seedu.duke.Duke;
-import seedu.duke.email.entity.Email;
 import seedu.duke.email.EmailList;
 import seedu.duke.email.EmailParser;
 import seedu.duke.email.EmailStorage;
+import seedu.duke.email.entity.Email;
 
-import java.awt.Desktop;
-import java.io.BufferedReader;
-import java.io.DataOutputStream;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.Reader;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.ProtocolException;
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.net.URL;
+import java.awt.*;
+import java.io.*;
+import java.net.*;
 import java.nio.charset.StandardCharsets;
 import java.util.Iterator;
 
@@ -35,6 +26,9 @@ public class Http {
     private static String redirect = "http://localhost:3000";
     private static String scope = "openid+Mail.Read+offline_access";
 
+    /**
+     * Starts process to obtain authorisation token from user account.
+     */
     public static void startAuthProcess() {
         refreshToken = EmailStorage.readRefreshToken();
         if (refreshToken == "") {

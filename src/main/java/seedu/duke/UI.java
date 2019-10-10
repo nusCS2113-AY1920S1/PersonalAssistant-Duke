@@ -54,7 +54,7 @@ public class UI {
      */
     public void showMessage(String msg) {
         System.out.println(msg);
-        showGUI(msg);
+        showGui(msg);
     }
 
     /**
@@ -67,7 +67,7 @@ public class UI {
         System.out.println("------------------------------");
         System.out.println(msg);
         System.out.println("------------------------------\n");
-        showGUI(msg);
+        showGui(msg);
     }
 
     /**
@@ -78,7 +78,7 @@ public class UI {
     public void showError(String msg) {
         String errorMsg = ANSI_RED + msg + ANSI_RESET;
         System.out.println(errorMsg);
-        showGUI(errorMsg);
+        showGui(errorMsg);
     }
 
     /**
@@ -91,7 +91,7 @@ public class UI {
         if (debug) {
             System.out.println(debugMsg);
         }
-        showGUI(debugMsg);
+        showGui(debugMsg);
     }
 
     public void setEmailPath(String emailPath) {
@@ -106,6 +106,13 @@ public class UI {
         return responseMsg;
     }
 
+    /**
+     * Setup GUI elements.
+     *
+     * @param dialogContainer VBox that contains all chats
+     * @param userImage       User avatar
+     * @param dukeImage       Duke avatar
+     */
     public void setupGui(VBox dialogContainer, Image userImage, Image dukeImage) {
         this.dialogContainer = dialogContainer;
         this.userImage = userImage;
@@ -113,10 +120,10 @@ public class UI {
         isGuiSet = true;
     }
 
-    public void showGUI(String msg) {
+    public void showGui(String msg) {
         if (!isGuiSet) {
             return;
-        };
+        }
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
                 DialogBox.getDukeDialog(command + "\n\n" + msg, dukeImage)
