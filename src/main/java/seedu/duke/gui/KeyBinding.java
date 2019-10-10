@@ -9,8 +9,14 @@ import javafx.scene.control.Button;
 
 public class KeyBinding {
 
-
-
+    /**
+     * Set key binding to read from scene.
+     *
+     * @param scene whole scene of application.
+     * @param userInput textfield for user input.
+     * @param sendButton send button.
+     * @param mainWindow fxml controller.
+     */
     public KeyBinding(Scene scene, TextField userInput, Button sendButton, MainWindow mainWindow) {
         scene.addEventFilter(KeyEvent.KEY_PRESSED, (KeyEvent e) -> {
             String type = e.getEventType().getName();

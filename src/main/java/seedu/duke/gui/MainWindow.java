@@ -130,6 +130,12 @@ public class MainWindow extends AnchorPane {
 
     boolean isShowingEmail = false;
     boolean isUpKey;
+
+    /**
+     * Handle userInput key event.
+     *
+     * @param keyCode key code of the key pressed when focus is in the userInput.
+     */
     public void handleUserInputKeyEvent(KeyCode keyCode) {
         switch (keyCode) {
         case ENTER:
@@ -143,16 +149,26 @@ public class MainWindow extends AnchorPane {
             isUpKey = false;
             getPrevInput();
             break;
+        default:
+            return;
         }
     }
 
+    /**
+     * Handle scene key event.
+     *
+     * @param keyCode key code of the key pressed when focus is in any nodes in the scene.
+     */
     public void handleSceneKeyEvent(KeyCode keyCode) {
-        switch(keyCode) {
+        switch (keyCode) {
         case ESCAPE:
             toggleEmailDisplay();
             break;
+        default:
+            return;
         }
     }
+
     /**
      * Creates two dialog boxes, one echoing user input and the other containing Duke's reply and then appends
      * them to the dialog container. Clears the user input after processing.
