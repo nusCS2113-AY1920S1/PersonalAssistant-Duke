@@ -2,7 +2,6 @@ package seedu.duke.gui;
 
 import javafx.animation.PauseTransition;
 import javafx.application.Platform;
-import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.ObservableList;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
@@ -12,10 +11,8 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ListView;
-import javafx.scene.control.TextFormatter;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
@@ -30,12 +27,10 @@ import seedu.duke.UI;
 import seedu.duke.task.TaskList;
 import seedu.duke.task.TaskStorage;
 import seedu.duke.email.EmailStorage;
-import seedu.duke.task.entity.Deadline;
 import seedu.duke.task.entity.Event;
 import seedu.duke.task.entity.Task;
 import javafx.scene.Scene;
 import java.util.ArrayList;
-import java.util.function.UnaryOperator;
 
 /**
  * Controller for MainWindow. Provides the layout for the other controls.
@@ -63,10 +58,14 @@ public class MainWindow extends AnchorPane {
     private WebEngine webEngine;
     private TaskList tasks;
 
-    private ArrayList<String> inputList = new ArrayList<>();
-
     private Duke duke;
     private UI ui;
+    private UserInputHandler userInputHandler;
+
+    boolean isShowingEmail = false;
+    boolean isUpKey;
+    int inputListIndex;
+    private ArrayList<String> inputList = new ArrayList<>();
 
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
     private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
@@ -94,6 +93,8 @@ public class MainWindow extends AnchorPane {
         // initialize GUI with database
         updateTasksList();
         updateEmailsList();
+
+        userInputHandler = new UserInputHandler(userInput, sendButton);
         setInputPrefix();
 
         // disable webView so that userInput can get focus
@@ -121,15 +122,11 @@ public class MainWindow extends AnchorPane {
         duke = d;
         ui = duke.getUI();
         ui.setupGui(dialogContainer, userImage, dukeImage);
-
     }
 
     public void setKeyBinding(Scene scene) {
         new KeyBinding(scene, userInput, sendButton, this);
     }
-
-    boolean isShowingEmail = false;
-    boolean isUpKey;
 
     /**
      * Handle userInput key event.
@@ -148,6 +145,18 @@ public class MainWindow extends AnchorPane {
         case DOWN:
             isUpKey = false;
             getPrevInput();
+            break;
+        case LEFT:
+            userInputHandler.moveCaretLeft();
+            break;
+        case RIGHT:
+            userInputHandler.moveCaretRight();
+            break;
+        case BACK_SPACE:
+            userInputHandler.setTextBackSpace();
+            break;
+        case DELETE:
+            userInputHandler.setTextDelete();
             break;
         default:
             return;
@@ -175,17 +184,14 @@ public class MainWindow extends AnchorPane {
      */
     @FXML
     private void handleUserInput() {
-
         webView.setDisable(false);
         String input = userInput.getText();
         duke.respond(input);
-
         //String response = ui.getResponseMsg();
         //dialogContainer.getChildren().addAll(
         //        DialogBox.getUserDialog(input, userImage),
         //        DialogBox.getDukeDialog(command + "\n\n" + response, dukeImage)
         //);
-
         setInputPrefix();
         updateTasksList();
         updateEmailsList();
@@ -198,7 +204,7 @@ public class MainWindow extends AnchorPane {
         if (input.contains("bye")) {
             exit();
         }
-        getInput(input);
+        updateInputList(input);
     }
 
     private void updateHtml() {
@@ -215,18 +221,16 @@ public class MainWindow extends AnchorPane {
         delay.play();
     }
 
-    int index;
-
     /**
      * Gets the input without prefixes.
      */
-    private void getInput(String input) {
+    private void updateInputList(String input) {
         input = input.split(" ", 2)[1];
         if (inputList.contains(input)) {
-            index = inputList.indexOf(input);
+            inputListIndex = inputList.indexOf(input);
         } else {
             inputList.add(input);
-            index = inputList.size();
+            inputListIndex = inputList.size();
         }
     }
 
@@ -235,27 +239,9 @@ public class MainWindow extends AnchorPane {
      * input shown can be edited.
      */
     private void getPrevInput() {
-        UnaryOperator<TextFormatter.Change> noFilter = c -> {
-            return c;
-        };
-        userInput.setTextFormatter(new TextFormatter<String>(noFilter));
-
-        userInput.clear();
-
         String prefix = CommandParser.getInputPrefix();
         String prevInput = navigateInputList();
-
-        userInput.setText(prefix + prevInput);
-
-        UnaryOperator<TextFormatter.Change> filter = c -> {
-            if (c.getCaretPosition() < prefix.length()) {
-                return null;
-            } else {
-                return c;
-            }
-        };
-        userInput.setTextFormatter(new TextFormatter<String>(filter));
-        userInput.positionCaret(prefix.length() + prevInput.length());
+        userInputHandler.setUserInputText(prefix + prevInput);
     }
 
     /**
@@ -265,17 +251,17 @@ public class MainWindow extends AnchorPane {
     private String navigateInputList() {
         String prevInput = "";
         if (isUpKey == true) {
-            if (index < 1) {
-                index = inputList.size();
+            if (inputListIndex < 1) {
+                inputListIndex = inputList.size();
             }
-            index--;
-            prevInput = inputList.get(index);
+            inputListIndex--;
+            prevInput = inputList.get(inputListIndex);
         } else {
-            if (index > inputList.size() - 2) {
-                index = -1;
+            if (inputListIndex > inputList.size() - 2) {
+                inputListIndex = -1;
             }
-            index++;
-            prevInput = inputList.get(index);
+            inputListIndex++;
+            prevInput = inputList.get(inputListIndex);
         }
         return prevInput;
     }
@@ -305,27 +291,8 @@ public class MainWindow extends AnchorPane {
      * non-deletable, enter "flip" to toggle between them.
      */
     private void setInputPrefix() {
-        // To apply a noFilter to userInput to remove the effect of the previous filter so that clear()
-        // can work properly.
-        UnaryOperator<TextFormatter.Change> noFilter = c -> {
-            return c;
-        };
-        userInput.setTextFormatter(new TextFormatter<String>(noFilter));
-
-        userInput.clear();
         String prefix = CommandParser.getInputPrefix();
-        userInput.setText(prefix);
-
-        // To apply a filter to any changes in userInput text field so that the prefix is non-deletable text.
-        UnaryOperator<TextFormatter.Change> filter = c -> {
-            if (c.getCaretPosition() < prefix.length()) {
-                return null;
-            } else {
-                return c;
-            }
-        };
-        userInput.setTextFormatter(new TextFormatter<String>(filter));
-        userInput.positionCaret(prefix.length());
+        userInputHandler.setUserInputText(prefix);
     }
 
     private void updateTasksList() {
