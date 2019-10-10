@@ -24,6 +24,6 @@ public class ExitCommand extends Command {
     @Override
     public void execute(Budget budget, CategoryList catList, TransactionList transList, Ui ui, Storage storage)
             throws MooMooException {
-        ui.output = ui.showGoodbye();
+        ui.showGoodbye();
     }
 }

@@ -5,16 +5,19 @@ import java.io.IOException;
 import java.nio.file.FileAlreadyExistsException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.text.DecimalFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Handles storage and retrieval of the tasks.
  */
 public class Storage {
     private String filePath;
+    private DecimalFormat df;
 
     /**
      * Takes in the filePath for future I/O.
@@ -22,6 +25,7 @@ public class Storage {
      */
     public Storage(String filePath) {
         this.filePath = filePath;
+        df = new DecimalFormat("#.00");
     }
 
     /**
@@ -46,6 +50,29 @@ public class Storage {
         return transactionArrayList;
     }
 
+    /**
+     * Loads in budget from an existing file into a created ArrayList object.
+     * @return ArrayList object consisting of the budget read from the file.
+     * @throws MooMooException Thrown when the file does not exist
+     */
+    public double loadBudget() throws MooMooException {
+        try {
+            if (Files.isRegularFile(Paths.get(this.filePath))) {
+                List<String> input = Files.readAllLines(Paths.get(this.filePath));
+                for (String value : input) {
+                    if (value.charAt(0) == 'B') {
+                        String[] splitInput = value.split(" \\| ");
+                        return Double.parseDouble(splitInput[1]);
+                    }
+                }
+                throw new MooMooException("Unable to load budget from file. Please reset your budget.");
+            } else {
+                throw new MooMooException("File not found. New file will be created");
+            }
+        } catch (IOException e) {
+            throw new MooMooException("Unable to write to file. Please retry again.");
+        }
+    }
 
     /**
      * Creates the directory and file as given by the file path initialized in the constructor.
@@ -82,8 +109,16 @@ public class Storage {
     }
 
     /**
-     * Creates the file as necessary, reads the TaskList and converts each value into a string and writes it to file.
+     * Creates the file as necessary, reads Budget and converts each value into a string and writes it to file.
      */
-    public void saveToFile() {
+    public void saveBudgetToFile(Budget budget) throws MooMooException {
+        createFileAndDirectory();
+
+        String toSave = "B" + " | " + df.format(budget.getBudget()) + "\n";
+        try {
+            Files.writeString(Paths.get(this.filePath), toSave);
+        } catch (Exception e) {
+            throw new MooMooException("Unable to write to file. Please retry again.");
+        }
     }
 }

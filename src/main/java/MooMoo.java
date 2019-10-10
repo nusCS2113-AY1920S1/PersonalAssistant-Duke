@@ -18,7 +18,7 @@ public class MooMoo {
     private Ui ui;
 
     /**
-     * Initializes Storage, Ui and TaskList.
+     * Initializes different Category, Transaction Lists, Budget, Storage and Ui.
      */
     public MooMoo() {
         ui = new Ui();
@@ -26,16 +26,24 @@ public class MooMoo {
         try {
             catList = new CategoryList(storage.loadCategories());
         } catch (MooMooException e) {
-            ui.showLoadingError();
+            ui.printException(e);
             catList = new CategoryList();
         }
 
         try {
             transList = new TransactionList(storage.loadTransactions());
         } catch (MooMooException e) {
-            ui.showLoadingError();
+            ui.printException(e);
             transList = new TransactionList();
         }
+
+        try {
+            budget = new Budget(storage.loadBudget());
+        } catch (MooMooException e) {
+            ui.printException(e);
+            budget = new Budget();
+        }
+
     }
 
     /**
@@ -71,7 +79,8 @@ public class MooMoo {
             c.execute(budget, catList, transList, ui, storage);
             isExit = c.isExit;
             if (isExit) {
-                return ui.showGoodbye();
+                ui.showGoodbye();
+                return ui.printToGui();
             }
             return ui.printToGui();
         } catch (MooMooException e) {
