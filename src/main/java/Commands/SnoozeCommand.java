@@ -9,10 +9,11 @@ import java.util.ArrayList;
  * Represents the command to snooze a Task object to a TaskList object.
  */
 public class SnoozeCommand extends Command{
-    private int index;
-    private String dateString;
-    private String start;
-    private String end;
+
+    private final int index;
+    private final String dateString;
+    private final String start;
+    private final String end;
     private String modCode;
 
     /**
@@ -53,6 +54,7 @@ public class SnoozeCommand extends Command{
         }
         if (end == dateString) {
             list.snoozeTask(deadlinesList, index, dateString, dateString, dateString, modCode);
+
             storage.updateDeadlineList(deadlines);
             return ui.showSnooze(index, deadlinesList.size(), deadlinesList);
         } else {

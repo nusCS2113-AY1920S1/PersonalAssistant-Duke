@@ -9,8 +9,8 @@ import java.io.FileNotFoundException;
  */
 public class DeleteCommand extends Command {
 
-    private int index;
-    private String list;
+    private final int index;
+    private final String list;
     private TaskList listToChange;
 
     /**
