@@ -1,14 +1,16 @@
 package eggventory.parsers;
+
 import eggventory.commands.Command;
 import eggventory.commands.AddCommand;
 import eggventory.enums.CommandType;
+import eggventory.exceptions.BadInputException;
 import eggventory.exceptions.InsufficientInfoException;
 
 
 public class ParseAdd {
 
     /**
-     * Processes the contents of an add command (everything after the word "add").
+     * Processes the contents of an add stock command (everything after the words "add" and "stock").
      * Splits up the input string into an array containing the various attributes of the stock being added.
      * Ignores leading/trailing whitespace between the first word and subsequent string,
      * and between all commands' arguments.
@@ -38,21 +40,51 @@ public class ParseAdd {
 
 
     /**
+     * Processes the contents of an add stocktype command (everything after the words "add" and "stocktype").
+     * Splits up the input string into an array containing the various attributes of the stocktype being added.
+     *
+     * @param input the user input describing the stockType to be added.
+     * @return the command to execute.
+     * @throws InsufficientInfoException if there are insufficient details provided.
+     */
+    /*
+    private Command processAddStockType(String input) throws InsufficientInfoException {
+
+        return new AddCommand();
+    }
+     */
+
+
+
+    /**
+     * Processes a user command that began with the word "add".
+     * Used to differentiate between the different elements the user is able to add (stock, stocktype, loan),
+     * and create a command object to execute the adding of the element.
      *
      * @param inputString The input that was given after the word add.
      *                    Describes what the user wants to add, and any other details.
      * @return a Command object which will execute the desired command. 
      * @throws InsufficientInfoException if not all compulsory attributes were specified.
      */
-    public Command parse(String inputString) throws InsufficientInfoException {
+    public Command parse(String inputString) throws InsufficientInfoException, BadInputException {
 
         String[] addInput = inputString.split(" +", 2); //Obtains the first word of the input.
 
+        Command addCommand;
 
+        switch (addInput[0]) {
 
-        //In the future this should be a switch statement to process what kind of add it is.
-        //For now we only have adding stocks.
-        Command addCommand = processAddStock(inputString);
+        case "stock":
+            addCommand = processAddStock(addInput[1]);
+            break;
+        /*
+        case "stocktype":
+            addCommand = processAddStockType(inputString);
+            break;
+         */
+        default:
+            throw new BadInputException("Unexpected value: " + addInput[0]);
+        }
 
         return addCommand;
 

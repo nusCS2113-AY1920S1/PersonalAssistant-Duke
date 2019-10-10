@@ -19,6 +19,9 @@ public class Parser {
     private ParseDelete deleteParser;
     private ParseEdit editParser;
 
+    /**
+     * Parser object contains submodules for parsing commands with many different options.
+     */
     public Parser() {
         addParser = new ParseAdd();
         deleteParser = new ParseDelete();
@@ -67,12 +70,12 @@ public class Parser {
 
         //Commands which require string input.
         case "add": {
-            if (inputArr.length == 1) {
+            if (inputArr.length == 1) { //User command only said "add" and nothing else.
+                //Instead of BadInputException, we should be returning a helpCommand.
                 throw new BadInputException("'" + inputArr[0] + "' requires 1 or more arguments.");
+            } else {
+                command = addParser.parse(inputArr[1]);
             }
-
-            command = addParser.parse(inputArr[1]);
-
             break;
         }
         case "find": {
