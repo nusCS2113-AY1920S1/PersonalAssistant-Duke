@@ -18,6 +18,7 @@ import seedu.duke.task.command.TaskFindCommand;
 import seedu.duke.task.command.TaskListCommand;
 import seedu.duke.task.command.TaskReminderCommand;
 import seedu.duke.task.command.TaskSnoozeCommand;
+import seedu.duke.task.command.TaskEditCommand;
 import seedu.duke.task.entity.Task;
 
 import java.time.LocalDateTime;
