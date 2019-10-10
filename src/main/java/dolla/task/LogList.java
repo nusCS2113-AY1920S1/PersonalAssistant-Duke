@@ -8,8 +8,8 @@ public abstract class LogList {
     protected ArrayList<Log> list;
 
     public LogList(ArrayList<Log> importEntryList) {
-        //this.list = importEntryList;
-        this.list = new ArrayList<Log>(); // TODO: UPDATE!
+        this.list = importEntryList;
+        //this.list = new ArrayList<Log>(); // TODO: UPDATE!
     }
 
     public ArrayList<Log> get() {

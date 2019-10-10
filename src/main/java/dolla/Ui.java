@@ -237,4 +237,14 @@ public class Ui {
                 + "");
         System.out.println(line);
     }
+
+    /**
+     * Prints Dolla's new mode after being updated.
+     * @param newMode The new mode to be switched.
+     */
+    public static void printModeUpdated(String newMode) {
+        System.out.println(line);
+        System.out.println("\tMode changed to " + newMode + "!");
+        System.out.println(line);
+    }
 }

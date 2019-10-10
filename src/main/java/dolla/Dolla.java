@@ -19,7 +19,7 @@ import java.util.Scanner;
 public class Dolla {
 
     private TaskList tasks = new TaskList(new ArrayList<Task>());
-    private String mode = "dolla";
+    private DollaData dollaData = new DollaData();
 
     /**
      * Creates an instance of Dolla using a data loaded from /data/dolla.txt
@@ -45,8 +45,8 @@ public class Dolla {
                     isExit = true;
                     MainParser.exit();
                 } else {
-                    Command c = MainParser.handleInput(mode, inputLine);
-                    c.execute();
+                    Command c = MainParser.handleInput(dollaData.getMode(), inputLine);
+                    c.execute(dollaData);
                     //Storage.save(tasks.get());
                 }
             }
