@@ -1,14 +1,14 @@
 package com.algosenpai.app.controller;
 
+import com.algosenpai.app.constant.ViewConstant;
 import com.algosenpai.app.constant.ImagesConstant;
+import com.algosenpai.app.constant.SoundConstant;
 import com.algosenpai.app.constant.JavaFxConstant;
-import com.algosenpai.app.constant.ResourcePathConstant;
 import com.algosenpai.app.utility.ResourceRandomUtility;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
@@ -31,20 +31,13 @@ public class ReviewController extends SceneController implements Initializable {
 
     private AnimationTimerController backgroundSceneTimer;
 
-    private String characterImageName;
-
     public ReviewController() {
-        characterImageName = "miku.png";
         handle();
     }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        Image image = new Image(getClass().getResourceAsStream(
-                ResourcePathConstant.imagesResourcePath + characterImageName));
-        characterImage.setFitHeight(ImagesConstant.imageHeight);
-        characterImage.setFitWidth(ImagesConstant.imageWidth);
-        characterImage.setImage(image);
+        displayCharacterImage(characterImage, "miku.png", 400, 400);
     }
 
     private void handle() {
@@ -66,15 +59,11 @@ public class ReviewController extends SceneController implements Initializable {
     @FXML
     public void handleKeyPressed(KeyEvent keyEvent) throws IOException {
         if (keyEvent.getCode() == KeyCode.H) {
-            MusicController.playMusic("rezero.wav");
-            String imageName = ResourceRandomUtility.randomResources(ImagesConstant.startAppImages);
-            changeScene("home.fxml", imageName);
+            changeSceneOnKeyPressed(ViewConstant.homeView, ImagesConstant.homeImages, SoundConstant.homeSound);
             backgroundSceneTimer.stop();
         }
         if (keyEvent.getCode() == KeyCode.G) {
-            MusicController.playMusic("rezero.wav");
-            String imageName = ResourceRandomUtility.randomResources(ImagesConstant.startAppImages);
-            changeScene("girls.fxml", imageName);
+            changeSceneOnKeyPressed(ViewConstant.girlsView, ImagesConstant.girlsImages, SoundConstant.girlsSound);
             backgroundSceneTimer.stop();
         }
         if (keyEvent.getCode() == KeyCode.ESCAPE) {

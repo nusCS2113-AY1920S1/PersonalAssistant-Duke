@@ -1,9 +1,11 @@
 package com.algosenpai.app.controller;
 
-import com.algosenpai.app.constant.ImagesConstant;
+import com.algosenpai.app.constant.CommandsConstant;
 import com.algosenpai.app.constant.JavaFxConstant;
+import com.algosenpai.app.constant.ImagesConstant;
+import com.algosenpai.app.constant.ViewConstant;
+import com.algosenpai.app.constant.SoundConstant;
 import com.algosenpai.app.constant.ResourcePathConstant;
-import com.algosenpai.app.utility.ResourceRandomUtility;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TextField;
@@ -41,24 +43,10 @@ public class GirlsController extends SceneController implements Initializable {
 
     private AnimationTimerController backgroundSceneTimer;
 
-    private List<Text> texts;
-
-    private List<String> commands;
-
-    private List<String> waifus;
-
     /**
      * Initialize home scene.
      */
     public GirlsController() {
-        commands = new ArrayList<>();
-        commands.add("/home");
-        commands.add("/select");
-        commands.add("/fun");
-        commands.add("/exit");
-        waifus = new ArrayList<>();
-        waifus.add("miku.png");
-        waifus.add("lolicon.png");
         handle();
     }
 
@@ -67,29 +55,21 @@ public class GirlsController extends SceneController implements Initializable {
         sceneTitle.setText("Select Your Waifu!");
         setNodePos(sceneTitle, 100, -150);
         setTextStyle(sceneTitle, 199,21,133, true, 40, "arial");
+
         userInput.setPrefWidth(500.0);
         setNodePos(userInput, 500.0, -250);
-        Image image = new Image(getClass().getResourceAsStream(
-                ResourcePathConstant.imagesResourcePath + "miku.png"));
-        characterImage.setImage(image);
-        characterImage.setFitHeight(300);
-        characterImage.setFitWidth(300);
+
+        displayCharacterImage(characterImage, "miku.png", 300, 300);
+
         setNodePos(characterImage, 350.0, 0);
-        texts = new ArrayList<>();
-        for (int i = 0; i < commands.size(); i++) {
-            Text text = new Text(commands.get(i));
-            setTextStyle(text, 255,218,185, true, 20, "arial");
-            setNodePos(text, 450.0 + i * 30, 300.0);
-            texts.add(text);
-            container.getChildren().add(text);
-        }
-        for (int i = 0; i < waifus.size(); i++) {
-            Image img = new Image(getClass().getResourceAsStream(
-                    ResourcePathConstant.imagesResourcePath + waifus.get(i)));
+
+        displayCommandList(container, CommandsConstant.girlsCommand,
+                255, 218, 185, true, 20, "arial",
+                450.0, 300.0, 30);
+
+        for (int i = 0; i < ImagesConstant.characterImagesList.size(); i++) {
             ImageView imageView = new ImageView();
-            imageView.setImage(img);
-            imageView.setFitHeight(150.0);
-            imageView.setFitWidth(150.0);
+            displayCharacterImage(imageView, ImagesConstant.characterImagesList.get(i), 150, 150);
             setNodePos(imageView, 150.0, -80.0 + i * 30);
             options.getChildren().add(imageView);
         }
@@ -112,15 +92,11 @@ public class GirlsController extends SceneController implements Initializable {
     @FXML
     public void handleKeyPressed(KeyEvent keyEvent) throws IOException {
         if (keyEvent.getCode() == KeyCode.H) {
-            MusicController.playMusic("rezero.wav");
-            String imageName = ResourceRandomUtility.randomResources(ImagesConstant.startAppImages);
-            changeScene("home.fxml", imageName);
+            changeSceneOnKeyPressed(ViewConstant.homeView, ImagesConstant.homeImages, SoundConstant.homeSound);
             backgroundSceneTimer.stop();
         }
         if (keyEvent.getCode() == KeyCode.D) {
-            MusicController.playMusic("romeo-and-cinderella.wav");
-            String imageName = "bedroom.jpg";
-            changeScene("date.fxml", imageName);
+            changeSceneOnKeyPressed(ViewConstant.dateView, ImagesConstant.dateImages, SoundConstant.dateSound);
             backgroundSceneTimer.stop();
         }
         if (keyEvent.getCode() == KeyCode.ESCAPE) {

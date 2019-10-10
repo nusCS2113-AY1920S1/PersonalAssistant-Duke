@@ -10,13 +10,14 @@ import java.util.Random;
 public class ResourceRandomUtility {
 
     /**
-     * Returns a string for the images map.
-     * @param map container of the images.
-     * @return file name of the image.
+     * Returns a string from generic map for views, images, and sound.
+     * @param map container of the for views, images, and sound.
+     * @return file name of the for views, images, and sound.
      */
-    public static String randomResources(Map<ImagesEnum, String> map) {
-        List<ImagesEnum> keysAsArray = new ArrayList<ImagesEnum>(map.keySet());
+    public static <T> String randomResources(Map<T, String> map) {
+        List<T> keysAsArray = new ArrayList<T>(map.keySet());
         Random r = new Random();
         return map.get(keysAsArray.get(r.nextInt(keysAsArray.size())));
     }
+
 }
