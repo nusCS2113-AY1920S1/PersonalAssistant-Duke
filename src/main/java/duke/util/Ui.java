@@ -121,4 +121,12 @@ public class Ui {
         System.out.println("Got it! I've rescheduled this task to " + time + " :\n" + task);
     }
 
+    public void overallCapMsg() {
+        System.out.println("Here is your overall CAP: ");
+    }
+
+    public void specificCapMsg(String module) {
+        System.out.println("Here is your CAP for the module:" + module);
+    }
+
 }
