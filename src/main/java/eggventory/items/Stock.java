@@ -11,7 +11,7 @@ public class Stock {
 
     private String stockType;
     private String stockCode;
-    private int quantity;
+    protected int quantity;
     private String description;
     private int loaned;
     private int lost;
@@ -38,18 +38,27 @@ public class Stock {
         this.minimum = 0;
     }
 
+    /**
+     * Gets the stock type (category) of the stock.
+     * @return the stock type.
+     */
     public String getStockType() {
         return stockType;
     }
 
-    public void setStockType(String stockType) {
-        this.stockType = stockType;
-    }
+    //Should not allow updating of stockType for now (so no setter)
 
+    /** Gets the stock code.
+     * @return the stock code.
+     */
     public String getStockCode() {
         return stockCode;
     }
 
+    /**
+     * Changes the stock code (if there was an error in entry)
+     * @param stockCode the new stock code
+     */
     public void setStockCode(String stockCode) {
         this.stockCode = stockCode;
     }
@@ -70,9 +79,11 @@ public class Stock {
         this.description = description;
     }
 
+    //Note: The access to the quantity attribute might have to be changed in the future.
+
     /**
      * Gets the total number of this stock. Includes items lost and on loan.
-     * @return total the name of the stock.
+     * @return total the total quantity of that stock.
      */
     public int getQuantity() {
         return quantity;

@@ -9,7 +9,6 @@ public class Item {
     private boolean loaned;
     private boolean lost;
 
-
     public Item(int index) {
         this.index = index;
         loaned = false;
@@ -54,6 +53,71 @@ public class Item {
      */
     public void setLost(boolean lost) {
         this.lost = lost;
+    }
+
+    /**
+     * Returns the status of the item if on loan.
+     * @return a string (for printing) indicating if it is on loan.
+     */
+    private String loanedString() {
+        if (isLoaned()) {
+            return "on loan";
+        } else {
+            return "-";
+        }
+    }
+
+    /**
+     * Returns the status of the item if lost.
+     * @return a string (for printing) indicating if it is lost.
+     */
+    private String lostString() {
+        if (isLost()) {
+            return "lost";
+        } else {
+            return "-";
+        }
+    }
+
+    /**
+     * Returns the status of the item if on loan.
+     * @return a string (for printing) indicating if it is on loan.
+     */
+    private String loanedSaveString() {
+        if (isLoaned()) {
+            return "1";
+        } else {
+            return "0";
+        }
+    }
+
+    /**
+     * Returns the status of the item if lost.
+     * @return a string (for printing) indicating if it is lost.
+     */
+    private String lostSaveString() {
+        if (isLost()) {
+            return "1";
+        } else {
+            return "0";
+        }
+    }
+
+    /**
+     * Formats item details appropriately for Ui output. (Only for output of a single UniqueStock.)
+     * @return the item details string.
+     */
+    @Override
+    public String toString() {
+        return index + " | " + loanedString() + " | " + lostString();
+    }
+
+    /**
+     * Formats all item details appropriately to be saved to file. Less detailed than the printing string.
+     * @return the string to save.
+     */
+    public String saveDetailsString() {
+        return index + " | " + loanedSaveString() + " | " + lostSaveString();
     }
 }
 

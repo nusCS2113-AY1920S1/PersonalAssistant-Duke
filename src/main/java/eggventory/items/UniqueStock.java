@@ -76,20 +76,22 @@ public class UniqueStock extends Stock {
         super.setQuantity(super.getQuantity() - 1); //Decrement quantity.
     }
 
-    /**
-     * Formats all stock details appropriately for Ui output.
-     * @return the stock details string.
-     */
-    @Override
-    public String toString() {
-        return getStockType() + " | " + getStockCode() + " | " + getQuantity() + " | " + getDescription();
-    }
+    //Note: toString works as per normal, treating UniqueStock as a CollectiveStock.
 
     //TODO: Provide a 'detailed' version of the print string to show individual items.
+    public void printUniqueStocks() {
+//       A header with all the usual info, maybe using toString.
+//       return getStockType() + "/" + getStockCode() + "/" + getQuantity() +
+//                "/" + getDescription() + "/" + getMinimum();
 
+//       A list of all the items and their statuses. Using a for loop.
+//        for (int i = 0; i < uniqueStockList.size(); i++) {
+//            System.out.println(uniqueStockList.get(i).toString());
+//        }
+    }
 
     //TODO: Update both print and save method in Item class, and iterate through all of them here.
-    //Should be similar to StockType printing methods.
+    //  Should be similar to StockType printing methods.
     /**
      * Formats all stock details appropriately to be saved to file.
      * @return the string to save.
