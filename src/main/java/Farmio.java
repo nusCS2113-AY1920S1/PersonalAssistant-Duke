@@ -120,7 +120,7 @@ public class Farmio {
     private void displayArt(String name) {
         try{
             ui.show(storage.getAsciiArt(name));
-        } catch (IOException e) {
+        } catch (IOException | FarmioException e) {
             ui.showWarning(name.substring(0, 1).toUpperCase() + name.substring(1) + " ascii art missing!");
         }
     }
