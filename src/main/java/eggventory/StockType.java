@@ -64,25 +64,4 @@ public class StockType {
     public void deleteStock(int i) {
         stockList.remove(i);
     }
-
-    /**
-     * Looks for undone deadlines within the next 5 Days and prints the task.
-     */
-    /*
-    private void printReminders() {
-        Calendar calendar = Calendar.getInstance();
-        Date now = calendar.getTime();
-        long millisInFiveDays = 5 * 24 * 60 * 60 * 1000;
-
-        for (Stock stock : stockList) {
-            if (stock instanceof Deadline && !stock.getIsDone()) {
-                Deadline deadline = (Deadline) stock;
-                long timeDifference = deadline.getDate().getTime().getTime() - now.getTime();
-                if (timeDifference <= millisInFiveDays && timeDifference > 0) {
-                    stock.printTaskDetails();
-                }
-            }
-        }
-    }
-    */
 }
