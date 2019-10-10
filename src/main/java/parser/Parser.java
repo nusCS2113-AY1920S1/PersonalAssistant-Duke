@@ -36,8 +36,7 @@ public class Parser {
      *
      * @param userInput This string is provided by the user to ask 'Duke' to perform
      *                  a particular action
-     * @return Command After processing the user's input it returns the correct
-     * command for further processing
+     * @return Command After processing the user's input it returns the correct command for further processing
      * @throws DukeException The DukeException class has all the respective methods
      *                       and messages!
      */

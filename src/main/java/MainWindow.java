@@ -33,6 +33,9 @@ public class MainWindow extends AnchorPane {
     @FXML
     private Button sendButton;
 
+    /**
+     * Allocation of the images for the chat bot.
+     */
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
     private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
 
@@ -43,7 +46,11 @@ public class MainWindow extends AnchorPane {
     private static File file = new File(filePath);
     private static ArrayList<Task> holdTodayTasks;
 
-    public void initializeDukeElements() {
+    /**
+     * This method is utilised to initialize the required aspects of Duke such as the storage and the rendering of
+     * the TaskList.
+     */
+    public static void initializeDukeElements() {
         try {
             storage = new Storage(file);
             tasks = new TaskList(storage.loadFile(file));
@@ -56,25 +63,28 @@ public class MainWindow extends AnchorPane {
         holdTodayTasks = tasks.schedule(dtf.format(now));
     }
 
+    /**
+     * This @FXML initialize() is a special function where static members of the GUI can be initialised.
+     */
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
         todayTaskContainer.getChildren().add(TodayTaskBox.getUserTaskForToday(holdTodayTasks));
     }
-    Integer i = 0;
 
+    /**
+     * This @FXML handleUserInput() is provides the logic for the text field, whenever the user provides an input
+     * this function handles it by passing it to the Duke logic.
+     */
     @FXML
     private void handleUserInput() {
-
         String input = userInput.getText();
-
         try {
             Command command = Parser.parse(input);
             command.execute(tasks, storage);
         } catch (DukeException e) {
             Ui.printMessage(e.getMessage());
         }
-
         dialogContainer.getChildren().addAll(
             DialogBox.getUserDialog(input, userImage),
             DialogBox.getDukeDialog(Ui.userOutputForUI, dukeImage)

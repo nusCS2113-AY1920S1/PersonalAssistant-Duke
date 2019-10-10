@@ -23,7 +23,14 @@ public class DialogBox extends HBox {
     @FXML
     private ImageView displayPicture;
 
-    private DialogBox(String text, Image img) {
+    /**
+     * The DialogBox essentially acts as the constructor for the dialog boxes which make up the chat bot section of
+     * the GUI.
+     *
+     * @param text the text portion of the label is passed in through this parameter.
+     * @param image the image portion of the label is passed in through this parameter.
+     */
+    private DialogBox(String text, Image image) {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(MainWindow.class.getResource("/view/DialogBox.fxml"));
             fxmlLoader.setController(this);
@@ -34,7 +41,7 @@ public class DialogBox extends HBox {
         }
 
         dialog.setText(text);
-        displayPicture.setImage(img);
+        displayPicture.setImage(image);
     }
 
     /**
@@ -47,13 +54,28 @@ public class DialogBox extends HBox {
         setAlignment(Pos.TOP_LEFT);
     }
 
-    public static DialogBox getUserDialog(String text, Image img) {
-        return new DialogBox(text, img);
+    /**
+     * The getUserDialog distinction is needed to enable the flipping of the labels to create the chat bot like
+     * structure.
+     *
+     * @param text the text portion of the label designated for the user is passed in through this parameter.
+     * @param image the image portion of the label designated for the user is passed in through this parameter.
+     */
+    public static DialogBox getUserDialog(String text, Image image) {
+        return new DialogBox(text, image);
     }
 
-    public static DialogBox getDukeDialog(String text, Image img) {
-        var db = new DialogBox(text, img);
-        db.flip();
-        return db;
+    /**
+     * The getDukeDialog is used to flip the labels that are created for Duke to create the chat bot like
+     * structure.
+     *
+     * @param text the text portion of the label for Duke is passed in through this parameter.
+     * @param image the image portion of the label for Duke is passed in through this parameter.
+     */
+
+    public static DialogBox getDukeDialog(String text, Image image) {
+        var dialogBox = new DialogBox(text, image);
+        dialogBox.flip();
+        return dialogBox;
     }
 }

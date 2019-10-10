@@ -44,10 +44,8 @@ public abstract class Task implements Serializable {
      * @return This function returns either a tick or a cross.
      */
     public String getStatusIcon() { // return tick or X symbols
-        return (isDone ? "\u2713" : "\u2718");
-
+        return (isDone ? "\u2713" : "\u2718"); // return (isDone ? "✓" : "✘");
         // The GUI requires the above version which essentially returns as below!
-        // return (isDone ? "✓" : "✘");
     }
 
     /**
@@ -61,8 +59,7 @@ public abstract class Task implements Serializable {
      * This toString function of the task class etches the different portions of the
      * user input into a single string.
      *
-     * @return This function returns a string of the required task in the desired
-     * output format of string type.
+     * @return This function returns a string of the required task in the desired output format of string type.
      */
     public String toString() {
         return "[" + getStatusIcon() + "] " + description;

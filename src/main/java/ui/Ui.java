@@ -16,6 +16,7 @@ import java.util.Scanner;
 public class Ui {
 
     // All the different definitions including the string definitions are here.
+    public static String userOutputForUI;
 
     private static String userOutputDash = "_______________________________\n";
 
@@ -71,12 +72,11 @@ public class Ui {
 
     /**
      * This printOutput function is used to print the output in the current Ui
-     * format.
+     * format. Moreover it also handles the refresh of the userOutputForUT.
      *
      * @param userOutput This string will be used to print the message between to
      *                   data.
      */
-    public static String userOutputForUI;
 
     public static void printOutput(String userOutput) {
         Ui.userOutputForUI = userOutput + "\n";

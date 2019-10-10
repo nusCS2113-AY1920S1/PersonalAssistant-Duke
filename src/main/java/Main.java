@@ -9,15 +9,17 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 /**
- * A GUI for Duke using FXML.
+ * Acts as the bridge between Duke's logic and the Graphical User Interface based on FXML.
  */
 public class Main extends Application {
-
+    /**
+     * The start class method needs to be created in all JavaFX application and the Anchor pane is created,
+     * along with the and finally the stage is shown.
+     */
     @Override
     public void start(Stage stage) throws DukeException {
         try {
-            MainWindow GUIrender = new MainWindow();
-            GUIrender.initializeDukeElements();
+            MainWindow.initializeDukeElements();
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/view/MainWindow.fxml"));
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);

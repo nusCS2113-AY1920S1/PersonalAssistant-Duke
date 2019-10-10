@@ -16,7 +16,7 @@ import java.util.ArrayList;
  * @version v3.0
  */
 
-public class Duke{
+public class Duke {
 
     private String filePath = System.getProperty("user.dir") + "/src/DukeDatabase/ArrayList";
     private Storage storage;

@@ -121,8 +121,7 @@ public class TaskList {
      *
      * @param dayToFind is of String type which contains the desired date of
      *                  schedule.
-     * @return sortDateList the sorted schedule of all the tasks on a particular
-     * date.
+     * @return sortDateList the sorted schedule of all the tasks on a particular date.
      */
     public ArrayList<Task> schedule(String dayToFind) {
         ArrayList<Task> sortedDateList = new ArrayList<Task>();

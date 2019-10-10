@@ -35,7 +35,7 @@ public class RemindCommand extends Command {
         task.setReminder(days);
         storage.saveFile(tasks.getTasks());
 
-        Ui.printOutput(String.format("Okay! You'll get a reminder for this task %d days beforehand:", days) +
-            "  " + task.toString());
+        Ui.printOutput(String.format("Okay! You'll get a reminder for this task %d days beforehand:", days)
+            + "  " + task.toString());
     }
 }

@@ -1,16 +1,11 @@
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.geometry.Pos;
-import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import task.Task;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Collections;
 
 /**
  * An example of a custom control using FXML.
@@ -18,9 +13,16 @@ import java.util.Collections;
  * containing text from the speaker.
  */
 public class TodayTaskBox extends HBox {
+
     @FXML
     private Label tasksForTheDay;
 
+    /**
+     * This TodayTaskBox function acts as the constructor for the TaskBox and will hold the user's tasks
+     * for the day and it is automatically generated upon setup.
+     *
+     * @param tasksForToday this ArrayList of Tasks contains all the tasks that the user has on the current day.
+     */
     private TodayTaskBox(ArrayList<Task> tasksForToday) {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(MainWindow.class.getResource("/view/TodayTaskBox.fxml"));
@@ -33,8 +35,7 @@ public class TodayTaskBox extends HBox {
 
         String holdTodayTasks = "Today's tasks " + "(" + tasksForToday.size() + ") :\n";
         holdTodayTasks += "------------------------\n";
-        if(tasksForToday.size() != 0)
-        {
+        if (tasksForToday.size() != 0) {
             for (Task task : tasksForToday) {
                 holdTodayTasks += task.toString() + "\n";
             }
@@ -43,15 +44,10 @@ public class TodayTaskBox extends HBox {
     }
 
     /**
-     * Flips the dialog box such that the ImageView is on the left and text on the right.
+     * This getUserTaskForToday function is utilised to generate the tasksForToday.
+     *
+     * @param tasksForToday this ArrayList of Tasks contains all the tasks that the user has on the current day.
      */
-    private void shift() {
-        ObservableList<Node> tmp = FXCollections.observableArrayList(this.getChildren());
-        Collections.reverse(tmp);
-        getChildren().setAll(tmp);
-        setAlignment(Pos.CENTER_LEFT);
-    }
-
     public static TodayTaskBox getUserTaskForToday(ArrayList<Task> tasksForToday) {
         return new TodayTaskBox(tasksForToday);
     }
