@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import cube.model.food.Food;
 
 // for testing only
-public class FoodList implements Serializable {
+public class FoodList {
 	public enum SortType {
 		
 	}

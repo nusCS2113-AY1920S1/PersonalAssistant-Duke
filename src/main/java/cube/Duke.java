@@ -9,7 +9,7 @@ import cube.model.food.FoodList;
 import cube.model.food.Food;
 import cube.ui.Ui;
 import cube.logic.parser.Parser;
-import cube.util.FileUtil;
+import cube.util.FileUtilJson;
 import cube.logic.command.Command;
 import cube.storage.*;
 import cube.exception.CubeException;
@@ -20,7 +20,7 @@ import cube.exception.CubeException;
 public class Duke {
 
     private StorageManager storageManager;
-    private FileUtil storage;
+    private FileUtilJson storage;
     private FoodList foodList;
     private Ui ui;
 
@@ -31,7 +31,7 @@ public class Duke {
      */
     public Duke(String filePath) {
         ui = new Ui();
-        storage = new FileUtil(filePath);
+        storage = new FileUtilJson(filePath);
 
         try {
             storageManager = storage.load();
@@ -58,6 +58,12 @@ public class Duke {
                 Command c = Parser.parse(fullCommand);
                 isExit = c.isExit();
                 c.execute(foodList, ui, storageManager);
+
+                storageManager = new StorageManager();
+                Food test = new Food("haha");
+                storageManager.appendFood(test);
+                storageManager.storeRevenue(99.84327);
+
                 storage.save(storageManager);
             } catch (CubeException e) {
                 ui.showError(e.getMessage());

@@ -3,10 +3,7 @@ package cube.storage;
 import cube.model.food.Food;
 import cube.model.food.FoodList;
 
-import java.io.Serializable;
-import java.util.ArrayList;
-
-public class FoodStorage implements Serializable {
+public class FoodStorage {
 	private FoodList foodList;
 
 	public FoodStorage() {
