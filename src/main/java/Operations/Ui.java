@@ -49,11 +49,13 @@ public class Ui {
      * Prints a message telling the user that the task at the index has been deleted.
      * @param index Index of task to be deleted.
      */
-    public void showDeleted (int index) {
-        index += 1;
-        System.out.println("Deleted task number " + index + "!");
-    }
 
+    public void showDeleted (int[] index) {
+        if (index.length == 1)
+            System.out.println("Deleted task number " + index[0] + "!");
+        else
+            System.out.println("Deleted task number " + index[0] + " to " + index[1] + " !");
+    }
     /**
      * Tells the user that the search operation is executing
      */
@@ -215,10 +217,12 @@ public class Ui {
         System.out.println("Enter the amount of time");
     }
 
+    /**
+     * Tells the user to input valid amount of time
+     */
     public void showTimeError(){
         System.out.println("Please indicate a valid amount of time");
     }
-
     /**
      * Provides user with instructions to prioritise task
      */
@@ -239,4 +243,5 @@ public class Ui {
     public void showReordering() {
         System.out.println("Reordering the task list...");
     }
+
 }
