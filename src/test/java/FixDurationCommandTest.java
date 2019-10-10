@@ -8,7 +8,7 @@ public class FixDurationCommandTest {
     FixedDuration testFD = new FixedDuration("playing basketball", "4 hours");
     @Test
     void testtoString() {
-        assertEquals("FD|ND| playing basketball|4 hours", testFD.toString());
+        assertEquals("FD|ND|playing basketball|4 hours", testFD.toString());
     }
 
     @Test

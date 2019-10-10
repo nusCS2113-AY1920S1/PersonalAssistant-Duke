@@ -8,7 +8,9 @@ import commands.FixDurationCommand;
 
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Scanner;
 
 
@@ -16,31 +18,14 @@ public class Storage {
 
     private String absolutePath = "Save.txt";
     private String absolutePath_password = "Password.txt";
+    private String absolutePath_Contact = "Contact.txt";
+    private String absolutePath_Expenses = "Expenses.txt";
 
     public void Storages(String fileContent) throws IOException {
         FileWriter fileWriter = new FileWriter(absolutePath);
         fileWriter.write(fileContent);
         fileWriter.flush();
         fileWriter.close();
-    }
-
-    public void Storages_password(String fileContent) throws IOException {
-        FileWriter fileWriter = new FileWriter(absolutePath_password);
-        fileWriter.write(fileContent);
-        fileWriter.flush();
-        fileWriter.close();
-    }
-
-    public ArrayList<String> Password() throws IOException {
-        ArrayList<String> passwordList = new ArrayList<>();
-        if (new File(absolutePath_password).exists()) {
-            File file = new File(absolutePath_password);
-            Scanner sc = new Scanner(file);
-            while (sc.hasNext()) {
-                passwordList.add(sc.nextLine());
-            }
-        }
-        return passwordList;
     }
 
     public ArrayList<Task> ReadFile() throws IOException {
@@ -141,5 +126,61 @@ public class Storage {
             }
         }
         return tList;
+    }
+
+    public void Storages_password(String fileContent) throws IOException {
+        FileWriter fileWriter = new FileWriter(absolutePath_password);
+        fileWriter.write(fileContent);
+        fileWriter.flush();
+        fileWriter.close();
+    }
+
+    public ArrayList<String> Password() throws IOException {
+        ArrayList<String> passwordList = new ArrayList<>();
+        if (new File(absolutePath_password).exists()) {
+            File file = new File(absolutePath_password);
+            Scanner sc = new Scanner(file);
+            while (sc.hasNext()) {
+                passwordList.add(sc.nextLine());
+            }
+        }
+        return passwordList;
+    }
+
+    public void Storages_Contact(String fileContent) throws IOException {
+        FileWriter fileWriter = new FileWriter(absolutePath_Contact);
+        fileWriter.write(fileContent);
+        fileWriter.flush();
+        fileWriter.close();
+    }
+    public HashMap<String,String> Contact() throws IOException {
+        HashMap<String,String> contactList = new HashMap<String,String>();
+        if (new File(absolutePath_Contact).exists()) {
+            File file = new File(absolutePath_Contact);
+            Scanner sc = new Scanner(file);
+            while (sc.hasNext()) {
+                String[] split = sc.nextLine().split("\\|");
+                contactList.put(split[0],split[1]);
+            }
+        }
+        return contactList;
+    }
+
+    public void Storages_Expenses(String fileContent) throws IOException {
+        FileWriter fileWriter = new FileWriter(absolutePath_Expenses);
+        fileWriter.write(fileContent);
+        fileWriter.flush();
+        fileWriter.close();
+    }
+    public ArrayList<String> Dining() throws IOException {
+        ArrayList<String> Dining = new ArrayList<String>();
+        if (new File(absolutePath_Expenses).exists()) {
+            File file = new File(absolutePath_Expenses);
+            Scanner sc = new Scanner(file);
+            while (sc.hasNext()) {
+                Dining.add(sc.nextLine());
+            }
+        }
+        return Dining;
     }
 }

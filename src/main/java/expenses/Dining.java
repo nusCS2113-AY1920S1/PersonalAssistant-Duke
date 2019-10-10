@@ -2,19 +2,16 @@ package expenses;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 
-public class Dining extends Expense {
-    public LocalDate on ;
-    public static DateTimeFormatter fmtD = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");//24h clock
+public class Dining {
+    public LocalDate dateOfPurchase; //yyyy-MM-dd
+    public ArrayList<String> diningList;
+    public static DateTimeFormatter fmt = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
-    public Dining(String purchaseDescription, String on) {
-        super(purchaseDescription);
-        this.on = LocalDate.parse(on, fmtD);
+    public Dining(String date, String purchaseDesccription) {
+        dateOfPurchase = LocalDate.parse(date, fmt);
+        diningList = new ArrayList<String>();
+        diningList.add(purchaseDesccription);
     }
-
-    @Override
-    public String toString() {
-        return super.purchaseDescription + "bought on" + on.format(fmtD);
-    }
-
 }

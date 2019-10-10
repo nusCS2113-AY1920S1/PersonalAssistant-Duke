@@ -1,8 +1,9 @@
 package expenses;
 
-import notes.Note;
+        import commands.expense.DiningCommand;
+        import notes.Note;
 
-import java.util.ArrayList;
+        import java.util.ArrayList;
 
 public class ExpenseList {
     public static ArrayList<Dining> diningList = new ArrayList<>();

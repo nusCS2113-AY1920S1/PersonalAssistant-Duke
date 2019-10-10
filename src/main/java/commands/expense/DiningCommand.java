@@ -10,7 +10,6 @@ import expenses.Dining;
 import java.io.IOException;
 import java.text.NumberFormat;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.*;
@@ -35,10 +34,11 @@ public class DiningCommand extends Command {
             }
 
             Dining dn = new Dining(purchaseDescription, on);
+
             LocalDate dateOfPurchase = LocalDate.parse(on, fmt);
             ArrayList<String> expenses = new ArrayList<String>(); //total list of overall expenses
             ArrayList<String> diningList = new ArrayList<>(); //total list of dining expenses
-
+            expenses.add(on);
                 HashMap<LocalDate, ArrayList<String>> expensesMap = new HashMap<>(); //hashmap to store date as key and expenses list as values
 
                 String itemAndPrice = ui.FullCommand.split("@")[0].trim();
@@ -53,10 +53,10 @@ public class DiningCommand extends Command {
                         expensesMap.put(dateOfPurchase, expenses);
                     }
                 }
-
-                System.out.println("Got it. I've added this task:");
-                System.out.println(dn.toString());
-                System.out.println("Now you have " + diningList.size() + " tasks in the list.");
+            ui.ReadCommand();
+            System.out.println("Got it. I've added this task:");
+            System.out.println(dn.toString());
+            System.out.println("Now you have " + diningList.size() + " tasks in the list.");
 
         } catch (DukeException e) {
             System.out.println(e.getMessage());
@@ -64,9 +64,8 @@ public class DiningCommand extends Command {
 
         }
     }
-            @Override
-        public boolean isExit () {
-            return false;
-        }
+    @Override
+    public boolean isExit () {
+        return false;
+    }
 }
-

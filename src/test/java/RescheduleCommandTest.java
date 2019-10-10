@@ -8,6 +8,8 @@ import org.junit.jupiter.api.Test;
 import java.io.IOException;
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Stack;
+
 import Exception.DukeException;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -20,10 +22,12 @@ public class RescheduleCommandTest {
         ArrayList<Task> tasks = new ArrayList<Task>();
         Ui ui = new Ui();
         Storage storage = new Storage();
+        Stack<String> CommandStack = new Stack<>();
+        ArrayList<Task> deletedTask = new ArrayList<Task>();
         ui.FullCommand = "deadline return book /by 2008-07-07 03:03:03";
         try {
             deadlineCommand.execute(tasks,ui,storage, CommandStack, deletedTask);
-        } catch (Exception.DukeException dukeException) {
+        } catch (DukeException dukeException) {
             dukeException.printStackTrace();
         }
         ui.FullCommand = "reschedule 1";
