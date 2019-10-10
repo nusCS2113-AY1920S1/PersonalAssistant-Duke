@@ -1,0 +1,4 @@
+find deadline
+find todo
+find 1
+bye

@@ -1,0 +1,15 @@
+eoazke
+ azdo
+dd
+deadline
+line
+deadline d1 /by 23:32:32 33:33
+event e1 /at 23:"é:é3 22:éé
+deadline  /by 22/11/1222 22:22
+deadline aeze
+event eaze
+event /at 22/12/2222 12:22 - 22/12/2223 12:33
+todo
+done 333
+delete 333
+bye

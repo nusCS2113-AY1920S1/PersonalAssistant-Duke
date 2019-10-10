@@ -1,0 +1,7 @@
+todo test4
+deadline deadline4 /by 12/12/2012 22:22
+event event4 /at 12/12/1000 22:22 - 22/12/1001 22:22
+delete 5
+delete 5
+delete 5
+bye
