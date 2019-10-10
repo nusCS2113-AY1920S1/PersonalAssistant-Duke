@@ -57,4 +57,18 @@ public class Patient {
         this.id = id;
     }
 
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setNric(String nric) {
+        this.nric = nric;
+    }
+
+    public void setRoom(String room) {
+        this.room = room;
+    }
+
+
+
 }

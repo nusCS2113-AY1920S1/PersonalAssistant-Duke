@@ -50,10 +50,6 @@ public class PatientList {
         patientIdMap.put(patient.getID(), patient);
     }
 
-    public void updatePatientInfo(Patient patient) {
-        patientIdMap.put(patient.getID(), patient);
-    }
-
     public ArrayList<Patient> getPatientList() {
         return new ArrayList<>(patientIdMap.values());
     }
