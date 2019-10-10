@@ -3,6 +3,7 @@ package eggventory;
 import java.util.ArrayList;
 import eggventory.exceptions.BadInputException;
 import eggventory.items.Stock;
+import eggventory.items.CollectiveStock;
 
 /**
  * Manages the list of (different types of classes),
@@ -42,7 +43,7 @@ public class StockType {
      * @return True if item was added successfully.
      */
     public boolean addStock(String stockType, String stockCode, int quantity, String description) {
-        stockList.add(new Stock(stockType, stockCode, quantity, description));
+        stockList.add(new CollectiveStock(stockType, stockCode, quantity, description));
         return true;
     }
 

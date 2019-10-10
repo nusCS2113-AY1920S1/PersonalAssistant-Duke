@@ -2,6 +2,7 @@ package eggventory;
 
 import eggventory.commands.Command;
 import eggventory.enums.CommandType;
+import eggventory.parsers.Parser;
 
 /**
  * Eggventory is a task list that supports 3 types of classes - Todos, deadlines and events.
