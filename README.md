@@ -1,5 +1,4 @@
-[![Build Status](https://travis-ci.org/AY1920S1-CS2113T-F14-1/main.svg?branch=master)](https://travis-ci.org/AY1920S1-CS2113T-F14-1/main)  [![Build status](https://ci.appveyor.com/api/projects/status/smfjdes9c0yy98vi?svg=true)](https://ci.appveyor.com/project/Greatnest/main-7vh7t)
-
+[![Build Status](https://travis-ci.org/AY1920S1-CS2113T-F14-1/main.svg?branch=master)](https://travis-ci.org/AY1920S1-CS2113T-F14-1/main)  [![Build status](https://ci.appveyor.com/api/projects/status/smfjdes9c0yy98vi?svg=true)](https://ci.appveyor.com/project/Greatnest/main-7vh7t) [![Build Status](https://dev.azure.com/lindonng0501/MooMooMoney/_apis/build/status/AY1920S1-CS2113T-F14-1.main?branchName=master)](https://dev.azure.com/lindonng0501/MooMooMoney/_build/latest?definitionId=3&branchName=master)
 # MooMooMoney
 MooMooMoney is a money management application written in Java and JavaFx 11.
 
