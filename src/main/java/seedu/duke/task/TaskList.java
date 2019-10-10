@@ -2,6 +2,8 @@ package seedu.duke.task;
 
 import seedu.duke.Duke;
 import seedu.duke.CommandParser;
+import seedu.duke.task.entity.Deadline;
+import seedu.duke.task.entity.Event;
 import seedu.duke.task.entity.Task;
 
 import java.util.ArrayList;
@@ -11,11 +13,12 @@ import java.util.ArrayList;
  * manipulate the tasks in this list.
  */
 public class TaskList extends ArrayList<Task> {
+
     /**
      * Converts the task list to a string of the pre-determined format that is ready to be displayed by the
      * UI.
      *
-     * @return
+     * @return message that lists all tasks in the list
      */
     @Override
     public String toString() {
@@ -131,6 +134,10 @@ public class TaskList extends ArrayList<Task> {
         return msg;
     }
 
+    public enum Attributes {
+        time, doAfter, name, isDone;
+    }
+
     /**
      * Adds or modifies task to include a 'do after' task.
      * @param index Position of task in list
@@ -138,13 +145,33 @@ public class TaskList extends ArrayList<Task> {
      * @return confirmation message that do after task has been added
      * @throws CommandParser.UserInputException when input is in wrong format
      */
-    public String setDoAfter(int index, String description) throws CommandParser.UserInputException {
+    public String setAttributes(int index, String description, Attributes attributes)
+            throws CommandParser.UserInputException {
         if (index < 0 || index >= this.size()) {
             throw new CommandParser.UserInputException("Invalid index");
         }
         Task task = this.get(index);
-        task.setDoAfterDescription(description);
-        String msg = "Do after task " + description + " has been added to task " + index;
+        String msg = null;
+        switch (attributes) {
+            case name:
+                task.setName(description);
+                msg = "Task " + (index + 1) + " has been changed to " + description;
+                break;
+            case doAfter:
+                task.setDoAfterDescription(description);
+                msg = "Do after task " + description + " has been added to task " + (index + 1);
+                break;
+            case time:
+                if (task.getTaskType() == Task.TaskType.Deadline) {
+                    Deadline deadline = (Deadline) task;
+                    deadline.setTime(Task.parseDate(description));
+                } else {
+                    Event event = (Event) task;
+                    event.setTime(Task.parseDate(description));
+                }
+                msg = "Time for task " + (index + 1) + " has been changed to " + description;
+                break;
+        }
         return msg;
     }
 

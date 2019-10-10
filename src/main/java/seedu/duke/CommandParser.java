@@ -10,14 +10,7 @@ import seedu.duke.email.command.EmailFetchCommand;
 import seedu.duke.email.command.EmailListCommand;
 import seedu.duke.email.command.EmailShowCommand;
 import seedu.duke.task.TaskList;
-import seedu.duke.task.command.TaskDoAfterCommand;
-import seedu.duke.task.command.TaskAddCommand;
-import seedu.duke.task.command.TaskDeleteCommand;
-import seedu.duke.task.command.TaskDoneCommand;
-import seedu.duke.task.command.TaskFindCommand;
-import seedu.duke.task.command.TaskListCommand;
-import seedu.duke.task.command.TaskReminderCommand;
-import seedu.duke.task.command.TaskSnoozeCommand;
+import seedu.duke.task.command.*;
 import seedu.duke.task.entity.Task;
 
 import java.time.LocalDateTime;
@@ -174,6 +167,8 @@ public class CommandParser {
             return parseSnoozeCommand(input, taskList, optionList);
         } else if (input.startsWith("todo") | input.startsWith("deadline") | input.startsWith("event")) {
             return parseAddTaskCommand(taskList, input, optionList);
+        } else if (input.startsWith("edit")) {
+            return parseEditCommand(taskList, input, optionList);
         }
         return new InvalidCommand();
     }
@@ -475,6 +470,43 @@ public class CommandParser {
         }
         String name = eventMatcher.group("name");
         return new TaskAddCommand(taskList, taskType, name, time, doAfter, tags);
+    }
+
+    private static Command parseEditCommand(TaskList taskList, String input, ArrayList<Option> optionList) {
+        TaskList.Attributes attribute = null;
+        String description = null;
+        int index;
+        Pattern editPattern = Pattern.compile("^edit\\s+(?<index>\\d+)\\s*$");
+        Matcher editMatcher = editPattern.matcher(input);
+        if (!editMatcher.matches()) {
+            if (ui != null) {
+                ui.showError("Please enter an index after \'edit\'");
+            }
+            return new InvalidCommand();
+        } else {
+            try {
+                index = parseIndex(editMatcher.group("index"));
+            } catch (NumberFormatException e) {
+                if (ui != null) {
+                    ui.showError("Please enter correct task index: " + editMatcher.group(
+                            "index"));
+                }
+                return new InvalidCommand();
+            }
+        }
+
+        try {
+            if (!extractDoAfter(optionList).equals("")) {
+                description = extractDoAfter(optionList);
+                attribute = TaskList.Attributes.doAfter;
+            } else if (!extractTime(optionList).equals("")) {
+                description = extractTime(optionList);
+                attribute = TaskList.Attributes.time;
+            }
+        } catch (UserInputException e) {
+            return new InvalidCommand();
+        }
+        return new TaskEditCommand(taskList, index, description, attribute);
     }
 
     private static ArrayList<String> extractTags(ArrayList<Option> optionList) {

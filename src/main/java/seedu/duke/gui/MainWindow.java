@@ -327,7 +327,7 @@ public class MainWindow extends AnchorPane {
             //if (task.getDoAfterDescription() != null && task.getDoAfterDescription() != "") {
             //    output += "\nAfter which: " + task.getDoAfterDescription();
             //}
-            String output = task.toString();
+            String output = (i + 1) + ". " + task.toString();
             observableList.add(output);
         }
         tasksListView.setItems(observableList);
@@ -340,7 +340,7 @@ public class MainWindow extends AnchorPane {
         //}
         ArrayList<EmailHBoxCell> list = new ArrayList<>();
         for (int i = 0; i < Duke.getEmailList().size(); i++) {
-            list.add(new EmailHBoxCell(Duke.getEmailList().get(i).toFileString(), i));
+            list.add(new EmailHBoxCell(Duke.getEmailList().get(i).getSubject(), i));
         }
         ObservableList<EmailHBoxCell> observableList = FXCollections.observableList(list);
         emailsListView.setItems(observableList);

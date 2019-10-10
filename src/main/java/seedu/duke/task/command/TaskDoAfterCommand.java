@@ -36,7 +36,7 @@ public class TaskDoAfterCommand extends Command {
     public boolean execute() {
         String msg = "";
         try {
-            msg = taskList.setDoAfter(index, doAfterDescription);
+            msg = taskList.setAttributes(index, doAfterDescription, TaskList.Attributes.doAfter);
         } catch (CommandParser.UserInputException e) {
             Duke.getUI().showError(e.getMessage());
             return false;

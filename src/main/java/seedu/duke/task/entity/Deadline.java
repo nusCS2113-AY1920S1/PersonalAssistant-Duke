@@ -143,4 +143,8 @@ public class Deadline extends Task {
         }
         return false;
     }
+
+    public void setTime(LocalDateTime time) {
+        this.time = time;
+    }
 }
