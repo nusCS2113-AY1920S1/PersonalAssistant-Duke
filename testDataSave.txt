@@ -1,0 +1,5 @@
+TODO yoda things/ tmrw at last####false
+EVENT something/by somewhen####true
+DEADLINE this/by 19/09/2019 1015####false
+TODO queuedTasks Test/by here####true-->>EVENT here we go/ did it work?####false
+

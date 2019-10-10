@@ -1,0 +1,65 @@
+= About Us
+:site-section: AboutUs
+:relfileprefix: team/
+:imagesDir: images
+:stylesDir: stylesheets
+
+DUKE$$$ - A financial tracker for exchange students. +
+{empty} +
+We are a team based in the http://www.comp.nus.edu.sg[School of Computing, National University of Singapore].
+
+== Project Team
+
+=== John Doe
+image::damithc.jpg[width="150", align="left"]
+{empty}[http://www.comp.nus.edu.sg/~damithch[homepage]] [https://github.com/damithc[github]] [<<ProjectPortfolioTemplate#, portfolio>>]
+
+Role: Project Advisor
+
+'''
+
+=== Park So Hyun
+image::sallysohyun.png[width="150", align="left"]
+{empty}[http://github.com/sallysohyun[github]] [<<ProjectPortfolioTemplate#, portfolio>>]
+
+Role: Team Lead +
+Responsibilities: UI
+
+'''
+
+=== Rajamohan B Priyan
+image::priyan-coder.png[width="150", align="left"]
+{empty}[http://github.com/priyan-coder[github]] [<<ProjectPortfolioTemplate#, portfolio>>]
+
+Role: Team Lead +
+Responsibilities: UI
+
+'''
+
+=== Raveendran Ajey Ashok
+image::ajeyashok.png[width="150", align="left"]
+{empty}[http://github.com/AjeyAshok[github]] [<<ProjectPortfolioTemplate#, portfolio>>]
+
+Role: Developer +
+Responsibilities: Data
+
+'''
+
+=== Senthil Araavind
+image::araavinds.png[width="150", align="left"]
+{empty}[http://github.com/Araavinds[github]] [<<ProjectPortfolioTemplate#, portfolio>>]
+
+Role: Developer +
+Responsibilities: Dev Ops + Threading
+
+'''
+
+=== Ahmad Mudaafi'
+image::mudaafi.png[width="150", align="left"]
+{empty}[http://github.com/Mudaafi[github]] [<<ProjectPortfolioTemplate#, portfolio>>]
+
+Role: Developer +
+Responsibilities: UI
+
+'''
+
