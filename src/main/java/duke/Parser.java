@@ -11,6 +11,7 @@ import duke.commands.HelpCommand;
 import duke.commands.ListCommand;
 import duke.commands.NewCommand;
 import duke.commands.ViewCommand;
+import duke.commands.AddOverlayCommand;
 
 /**
  * A class used to interpret the incoming messages and translate them into the appropriate duke.Commands.
@@ -45,6 +46,10 @@ class Parser {
             return new ViewCommand(message);
         } else if (message.length() >= 8 && message.substring(0, 6).equals("addbar")) {
             return new AddBarCommand(message);
+        } else if(message.length() >= 8 && message.substring(0, 7).equals("overlay")) {
+            //overlay command
+            //System.out.println("je");
+            return new AddOverlayCommand(message);
         } else {
             return new AddCommand(message);
         }

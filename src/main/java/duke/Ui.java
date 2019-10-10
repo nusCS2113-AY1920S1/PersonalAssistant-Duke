@@ -278,4 +278,10 @@ public class Ui {
                 + " in the song.";
         return wrap(result);
     }
+    public String formatAddOverlay(ArrayList<Song> list, int index,Song song){
+        String result = "Got it. I've added this overlay:\n  "+
+                "bar" + new Integer(index).toString() + "\nto "
+                + song.getName();
+        return wrap(result);
+    }
 }

@@ -5,8 +5,10 @@ import duke.commands.Command;
 import duke.commands.HelpCommand;
 import duke.commands.NewCommand;
 import duke.commands.RemindCommand;
+import duke.commands.AddOverlayCommand;
 import duke.commands.ViewCommand;
 import duke.components.SongList;
+
 
 
 import java.nio.file.Paths;
@@ -73,7 +75,7 @@ public class Duke {
                 //if the command uses the SongList
                 String output;
                 if (c instanceof AddBarCommand || c instanceof ViewCommand
-                        || c instanceof NewCommand || c instanceof HelpCommand) {
+                        || c instanceof NewCommand || c instanceof HelpCommand || c instanceof AddOverlayCommand) {
                     output = c.execute(songs, ui, storage);
                 } else {
                     output = c.execute(tasks, ui, storage);
