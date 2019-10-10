@@ -42,7 +42,7 @@ public class Todo extends Task implements Serializable {
      */
     @Override
     public String toString() {
-        return "[T]" + "[" + super.getStatusIcon() + "] " + this.description;
+        return super.getPriorityIcon() + "[T]" + "[" + super.getStatusIcon() + "] " + this.description;
     }
 
     @Override

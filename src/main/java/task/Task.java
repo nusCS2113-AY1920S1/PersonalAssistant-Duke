@@ -15,62 +15,33 @@ import static parser.DateTimeExtractor.NULL_DATE;
  */
 public abstract class Task implements Serializable {
 
-    public String description; // basically similar to describing features of the class
+    public String description;
+    public Priority priority;
+    public int remindInHowManyDays = 0;
+
+    protected boolean isIgnored;
     protected boolean isDone;
+    public boolean isPrioritizable = true;
+
     public LocalDateTime endDate = NULL_DATE;
     public LocalDateTime startDate = NULL_DATE;
     public LocalDateTime createdDate;
     public Period eventPeriod;
-    public int remindInHowManyDays = 0;
-    protected boolean isIgnored;
 
     /**
-     * This task constructor is used to obtain the parameters required by the task
-     * class.
-     *
-     * @param description This string holds the description provided by the user.
+     * Constructor for task.
+     * @param description The description of the task
      */
-    public Task(String description) { // constructor
+    public Task(String description) {
         this.description = description;
         this.isDone = false;
         this.isIgnored = false;
+        this.priority = Priority.MEDIUM;
         this.createdDate = LocalDateTime.now();
     }
 
     /**
-     * This getStatusIcon function returns the tick or cross symbols to be printed
-     * as output.
-     *
-     * @return This function returns either a tick or a cross.
-     */
-    public String getStatusIcon() { // return tick or X symbols
-        return (isDone ? "\u2713" : "\u2718"); // return (isDone ? "✓" : "✘");
-        // The GUI requires the above version which essentially returns as below!
-    }
-
-    /**
-     * This markAsDone function allows the user to mark a task as done.
-     */
-    public void markAsDone() {
-        this.isDone = true;
-    }
-
-    /**
-     * This toString function of the task class etches the different portions of the
-     * user input into a single string.
-     *
-     * @return This function returns a string of the required task in the desired output format of string type.
-     */
-    public String toString() {
-        return "[" + getStatusIcon() + "] " + description;
-    }
-
-    public void setReminder(int days) {
-        this.remindInHowManyDays = days;
-    }
-
-    /**
-     * check if any task reminders are triggered.
+     * Check if any task reminders are triggered.
      *
      * @return if triggered
      */
@@ -85,9 +56,59 @@ public abstract class Task implements Serializable {
         return false;
     }
 
-    abstract boolean checkForClash(Task taskToCheck);
+    /**
+     * Returns a priority symbol to be printed
+     * as output.
+     *
+     * @return Unicode that represent priority level.
+     */
+    public String getPriorityIcon() {
+        if (!isPrioritizable) {
+            return "[\u26A0]"; //Return warning sign symbol
+        }
+        if (priority == Priority.HIGH) {
+            return "[\u2605\u2605\u2605]"; //Return triple star symbols
+        } else if (priority == Priority.MEDIUM) {
+            return "[\u2605\u2605]";//Return double star symbol
+        } else {
+            return "[\u2605]";//Return single star symbol
+        }
+    }
+
+    /**
+     * This getStatusIcon function returns the tick or cross symbols to be printed
+     * as output.
+     *
+     * @return This function returns either a tick or a cross.
+     */
+    public String getStatusIcon() {
+        return (isDone ? "\u2713" : "\u2718"); // Return tick or cross symbol
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setReminder(int days) {
+        this.remindInHowManyDays = days;
+    }
+
+    public void setPriority(Priority priority) {
+        this.priority = priority;
+    }
 
     public void markAsIgnorable() {
         this.isIgnored = true;
+        this.isPrioritizable = false;
     }
+
+    public void markAsDone() {
+        this.isDone = true;
+    }
+
+    public String toString() {
+        return "[" + getPriorityIcon() + "]" + "[" + getStatusIcon() + "] " + description;
+    }
+
+    abstract boolean checkForClash(Task taskToCheck);
 }

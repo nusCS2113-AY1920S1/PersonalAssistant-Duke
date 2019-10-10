@@ -98,6 +98,18 @@ public class TaskList {
     }
 
     /**
+     * Marks a task to be ignored and have reminders to stop showing up for the task.
+     *
+     * @param index The index of the task to be marked
+     * @return The marked task
+     */
+    public Task markAsIgnorable(int index) {
+        Task task = listOfTasks.get(index);
+        task.markAsIgnorable();
+        return task;
+    }
+
+    /**
      * updates the timing of a particular task.
      *
      * @param taskToBeChanged task to be updated
@@ -106,7 +118,6 @@ public class TaskList {
      * @param toDate          new end time of task
      */
     public void updateDate(Task taskToBeChanged, String command, LocalDateTime atDate, LocalDateTime toDate) {
-
         if ("event".equals(command)) {
             taskToBeChanged.startDate = atDate;
             taskToBeChanged.endDate = toDate;
@@ -138,16 +149,16 @@ public class TaskList {
     /**
      * This function allows the user to edit the task description.
      *
-     * @param indexOfTask Location of task in the list
+     * @param indexOfTask    Location of task in the list
      * @param newDescription The new task description to be updated
-     *
      * @return taskToBeEdited The task that had its description edited
      */
-    public Task editTaskDescription(int indexOfTask,String newDescription) {
+    public Task editTaskDescription(int indexOfTask, String newDescription) {
         Task taskToBeEdited = listOfTasks.get(indexOfTask);
         taskToBeEdited.description = newDescription;
         return taskToBeEdited;
     }
+
 
     public ArrayList<Task> getTasks() {
         return listOfTasks;
@@ -157,14 +168,4 @@ public class TaskList {
         return listOfTasks.size();
     }
 
-    /**
-     * Marks a task to be ignored and have reminders to stop showing up for the task.
-     * @param index The index of the task to be marked
-     * @return The marked task
-     */
-    public Task markAsIgnorable(int index) {
-        Task task = listOfTasks.get(index);
-        task.markAsIgnorable();
-        return task;
-    }
 }

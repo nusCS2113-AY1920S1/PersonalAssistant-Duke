@@ -7,16 +7,16 @@ import task.Deadline;
 import java.time.LocalDateTime;
 
 public class DeadlineTest {
-    LocalDateTime fromDate = LocalDateTime.of(2001,1,1,1,0);
-    Deadline deadline = new Deadline("testing deadline", fromDate);
+    LocalDateTime fromDate = LocalDateTime.of(2001, 1, 1, 1, 0);
+    Deadline deadline = new Deadline("test", fromDate);
 
     @Test
     public void testDeadlineCreation() {
         String title = deadline.description;
         LocalDateTime date = deadline.startDate;
-        Assertions.assertEquals(title, "testing deadline");
+        Assertions.assertEquals(title, "test");
         Assertions.assertEquals(date, fromDate);
-        Assertions.assertEquals(deadline.toString(), "[D][✘] testing deadline(by: 01/01/2001 0100)");
+        Assertions.assertEquals(deadline.toString(), "[\u2605\u2605][D][\u2718] test(by: 01/01/2001 0100)");//Test
     }
 
     @Test
