@@ -23,17 +23,18 @@ public class QuestionList {
 
     private ArrayList<BasicQuestion> initBasicList() throws DukeException {
         ArrayList<BasicQuestion> basicQuestionList = new ArrayList<>();
-        for( int i = 1 ; i <= TOTALNUMOFBASICQNS ; i ++ ) {
+        for (int i = 1; i <= TOTALNUMOFBASICQNS; i++) {
             try {
-                String FilePath = "content/MainList/ListIndex1/javabasics/Quiz/Qn"+i+".txt";
-                BufferedReader Reader = new BufferedReader(new FileReader(FilePath));
-                String Currentline, Qns = new String();
-                while ((Currentline = Reader.readLine()) != null) {
-                    Qns = Qns + Currentline + "\n";
+                String filePath = "content/MainList/ListIndex1/javabasics/Quiz/Qn" + i + ".txt";
+                BufferedReader bufferedReader = new BufferedReader(new FileReader(filePath));
+                String currentLine;
+                String qns = new String();
+                while ((currentLine = bufferedReader.readLine()) != null) {
+                    qns = qns + currentLine + "\n";
                 }
-                Qns = Qns.substring(0,Qns.length() -1 ); // to remove the last appended new line character
-                String[] Questions = Qns.split("\\|\\s*");
-                basicQuestionList.add(new BasicQuestion(Questions[0], Questions[1]));
+                qns = qns.substring(0,qns.length() - 1); // to remove the last appended new line character
+                String[] questions = qns.split("\\|\\s*");
+                basicQuestionList.add(new BasicQuestion(questions[0], questions[1]));
             } catch (IOException e) {
                 throw new DukeException("File not found!");
             }
@@ -43,19 +44,20 @@ public class QuestionList {
 
     private ArrayList<OopQuestion> initOopList() throws DukeException {
         ArrayList<OopQuestion> oopQuestionList = new ArrayList<>();
-        for( int i = 1 ; i <= TOTALNUMOFOOPQNS ; i ++ ) {
+        for (int i = 1; i <= TOTALNUMOFOOPQNS; i++) {
 
             try {
-                String FilePath = "content/MainList/ListIndex2/oop/Quiz/Qn"+i+".txt";
-                BufferedReader Reader = new BufferedReader(new FileReader(FilePath));
-                String Currentline, Qns = new String();
+                String filePath = "content/MainList/ListIndex2/oop/Quiz/Qn" + i + ".txt";
+                BufferedReader bufferedReader = new BufferedReader(new FileReader(filePath));
+                String currentline;
+                String qns = new String();
 
-                while ((Currentline = Reader.readLine()) != null) {
-                    Qns = Qns + Currentline + "\n";
+                while ((currentline = bufferedReader.readLine()) != null) {
+                    qns = qns + currentline + "\n";
                 }
-                Qns = Qns.substring(0,Qns.length() -1 ); // to remove the last appended new line character
-                String[] Questions = Qns.split("\\|\\s*");
-                oopQuestionList.add(new OopQuestion(Questions[0], Questions[1]));
+                qns = qns.substring(0,qns.length() - 1); // to remove the last appended new line character
+                String[] questions = qns.split("\\|\\s*");
+                oopQuestionList.add(new OopQuestion(questions[0], questions[1]));
 
             } catch (IOException e) {
                 throw new DukeException("File not found!");
@@ -66,19 +68,20 @@ public class QuestionList {
 
     private ArrayList<ExtensionQuestion> initExtensionList() throws DukeException {
         ArrayList<ExtensionQuestion> extensionQuestionList = new ArrayList<>();
-        for( int i = 1 ; i <= TOTALNUMOFUSEFULEXTENSIONQNS ; i ++ ) {
+        for (int i = 1; i <= TOTALNUMOFUSEFULEXTENSIONQNS; i++) {
 
             try {
-                String FilePath = "content/MainList/ListIndex2/oop/Quiz/Qn"+i+".txt";
-                BufferedReader Reader = new BufferedReader(new FileReader(FilePath));
-                String Currentline, Qns = new String();
+                String filePath = "content/MainList/ListIndex2/oop/Quiz/Qn" + i + ".txt";
+                BufferedReader bufferedReader = new BufferedReader(new FileReader(filePath));
+                String currentLine; 
+                String qns = new String();
 
-                while ((Currentline = Reader.readLine()) != null) {
-                    Qns = Qns + Currentline + "\n";
+                while ((currentLine = bufferedReader.readLine()) != null) {
+                    qns = qns + currentLine + "\n";
                 }
-                Qns = Qns.substring(0,Qns.length() -1 ); // to remove the last appended new line character
-                String[] Questions = Qns.split("\\|\\s*");
-                extensionQuestionList.add(new ExtensionQuestion(Questions[0], Questions[1]));
+                qns = qns.substring(0,qns.length() - 1); // to remove the last appended new line character
+                String[] questions = qns.split("\\|\\s*");
+                extensionQuestionList.add(new ExtensionQuestion(questions[0], questions[1]));
 
             } catch (IOException e) {
                 throw new DukeException("File not found!");
