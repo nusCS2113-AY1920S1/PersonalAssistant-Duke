@@ -1,7 +1,10 @@
 package eggventory;
 
+import eggventory.StockList;
 import eggventory.commands.Command;
 import eggventory.enums.CommandType;
+import eggventory.items.StockType;
+import eggventory.parsers.Parser;
 
 /**
  * Eggventory is a task list that supports 3 types of classes - Todos, deadlines and events.
@@ -12,7 +15,7 @@ import eggventory.enums.CommandType;
 public class Eggventory {
     private static Storage storage;
     private static Parser parser;
-    private static StockType stockType;
+    private static StockList stockList;
     private static Ui ui;
 
     /**
@@ -22,7 +25,7 @@ public class Eggventory {
     public Eggventory(String filePath) {
         ui = new Ui();
         storage = new Storage(filePath);
-        stockType = storage.load(); //Will always return the right object even if empty.
+        stockList = storage.load(); //Will always return the right object even if empty.
         parser = new Parser();
     }
 
@@ -35,7 +38,7 @@ public class Eggventory {
 
             try {
                 Command command = parser.parse(userInput);
-                command.execute(stockType, ui, storage);
+                command.execute(stockList, ui, storage);
 
                 if (command.getType() == CommandType.BYE) {
                     break;

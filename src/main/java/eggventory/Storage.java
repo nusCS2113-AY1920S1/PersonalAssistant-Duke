@@ -7,10 +7,11 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import eggventory.exceptions.BadInputException;
+import eggventory.StockList;
 import eggventory.commands.AddCommand;
 import eggventory.enums.CommandType;
 import eggventory.items.Stock;
+import eggventory.items.StockType;
 
 /**
  * Handles reading and writing the stockList to file.
@@ -24,11 +25,11 @@ public class Storage {
     }
 
     /**
-     * Converts save file details into Stocks.
+     * Converts save file details into a StockList object.
      */
-    public StockType load() {
+    public StockList load() {
 
-        StockType savedList = new StockType();
+        StockList savedList = new StockList();
         File f = new File(filePath); //Create a File for the given file path
 
         try {
@@ -62,11 +63,11 @@ public class Storage {
     /**
      * Saves existing StockType to a text file.
      */
-    public void save(ArrayList<Stock> stockList) {
+    public void save(StockList stockList) {
         StringBuilder tasksToSave = new StringBuilder();
-        int max = stockList.size();
+        int max = stockList.getQuantity();
         for (int i = 0; i < max; i++) { //index starts from 0.
-            tasksToSave.append(stockList.get(i).saveDetailsString()).append(System.lineSeparator());
+            tasksToSave.append(stockList.saveDetailsString()).append(System.lineSeparator());
         }
 
         String taskListToSave = tasksToSave.toString();

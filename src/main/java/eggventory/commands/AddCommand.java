@@ -1,10 +1,10 @@
 package eggventory.commands;
 
-import eggventory.StockType;
+import eggventory.StockList;
+import eggventory.items.StockType;
 import eggventory.Ui;
 import eggventory.Storage;
 import eggventory.items.DateTime;
-import eggventory.exceptions.BadInputException;
 import eggventory.enums.CommandType;
 
 /**
@@ -42,12 +42,9 @@ public class AddCommand extends Command {
      * @param storage Storage object to handle saving and loading of any data.
      */
     @Override
-    public void execute(StockType list, Ui ui, Storage storage) {
+    public void execute(StockList list, Ui ui, Storage storage) {
         list.addStock(stockType, stockCode, quantity, description);
-        ui.print("I have added the following stock to your list:\n"
-                + list.getStock(list.getSize() - 1).toString());
-
-        storage.save(list.getStockList());
+        storage.save(list);
     }
 
     /**
@@ -55,7 +52,7 @@ public class AddCommand extends Command {
      * Only to be used by Storage.load() - handles the adding without showing UI output.
      * @param list StockType to add the item to.
      */
-    public void execute(StockType list) {
+    public void execute(StockList list) {
         list.addStock(stockType, stockCode, quantity, description);
     }
 }
