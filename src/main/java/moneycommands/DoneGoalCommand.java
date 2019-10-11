@@ -61,7 +61,10 @@ public class DoneGoalCommand extends MoneyCommand {
         ui.appendToOutput(" Nice! This Goal is Completed:\n");
         ui.appendToOutput("  " + doneGoal.toString() + "\n");
         ui.appendToOutput(" Now you have " + (account.getShortTermGoals().size()) + " goals in the list.\n");
-        ui.appendToOutput("current Goal Savings: $" + account.getGoalSavings() + "\n");
+        //ui.appendToOutput("current Goal Savings: $" + account.getGoalSavings() + "\n");
+
+        MoneyCommand list = new ListGoalsCommand();
+        list.execute(account,ui,storage);
     }
 
     @Override

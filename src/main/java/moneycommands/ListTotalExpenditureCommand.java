@@ -34,11 +34,12 @@ public class ListTotalExpenditureCommand extends MoneyCommand {
         int counter = 1;
         for (Expenditure i : account.getExpListTotal()) {
             //System.out.println(" " + counter + "." + i.toString() + "\n");
-            ui.appendToOutput(" " + counter + "." + i.toString() + "\n");
+            ui.appendToGraphContainer(" " + counter + "." + i.toString() + "\n");
             counter++;
         }
         //System.out.println("Total income so far: $" + account.getTotalExp());
-        ui.appendToOutput("Total expenditure so far: $" + account.getTotalExp() + "\n");
+        ui.appendToGraphContainer("Total expenditure so far: $" + account.getTotalExp() + "\n");
+        ui.appendToOutput("Got it, list will be printed in the other pane!\n");
 
     }
 

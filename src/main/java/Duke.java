@@ -41,10 +41,12 @@ public class Duke {
      * This method prints a line that Duke will print out in the program.
      * @return a line that the program will print out in response to a user's commands
      */
-    public String getResponse(String input) {
+    public String[] getResponse(String input) {
         try {
             ui.clearOutputString();
             ui.appendToOutput(ui.showLine());
+            ui.clearGraphContainerString();
+
             boolean isNewUser = account.isToInitialize();
             MoneyCommand updateCommand = new AutoUpdateInstalmentCommand();
             updateCommand.execute(account, ui, moneyStorage);
@@ -61,11 +63,14 @@ public class Duke {
         } catch (ParseException | DukeException e) {
             ui.clearOutputString();
             ui.appendToOutput(ui.showError(e.getMessage()));
-            return ui.getOutputString();
+            ui.clearGraphContainerString();
+            ui.appendToGraphContainer(ui.showError(e.getMessage()));
+            return new String[]{ui.getOutputString(), ui.getGraphContainerString()};
         } finally {
             ui.appendToOutput(ui.showLine());
+
         }
-        return ui.getOutputString();
+        return new String[]{ui.getOutputString(), ui.getGraphContainerString()};
     }
 
     public float[] getMonthlyData() {
