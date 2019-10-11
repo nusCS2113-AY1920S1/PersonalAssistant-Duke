@@ -13,11 +13,12 @@ public class Split extends Expenditure {
     private float outstandingAmount;
 
     /**
-     * Constructor of the Expenditure Object to record expenditure.
+     * Constructor of the Split Object to record split expenditure.
      * @param price Price of the item spent on
      * @param description info on the item
      * @param category Category the item is grouped under
      * @param boughtDate Date which the item is bought
+     * @param parties ArrayList containing information on people the split expenditure is split with
      */
     public Split(float price, String description, String category, LocalDate boughtDate, ArrayList<Pair<String, Boolean>> parties) {
         super(price, description, category, boughtDate);
@@ -39,6 +40,11 @@ public class Split extends Expenditure {
         return "[SE]" + super.toString() +  " [" + status + getOutstandingAmount() + "]\n Split with " + people;
     }
 
+    /**
+     * This method determines if the debt for the split expenditure has been paid or not.
+     * Returns the an empty string if the debt is paid, else returns the outstanding debt.
+     * @return String displaying the current state of the debt
+     */
     public String getOutstandingAmount() {
         if (outstandingAmount == 0) {
             return "";
@@ -51,6 +57,10 @@ public class Split extends Expenditure {
         return this.parties;
     }
 
+    /**
+     * This method sets the debt of a person in the split expenditure to settled.
+     * @param settleNo
+     */
     public void hasSettledSplit(int settleNo) {
         String nameOfPerson = getNameOfPerson(settleNo);
         Pair<String, Boolean> temp = new Pair<>(nameOfPerson, true);
@@ -73,6 +83,11 @@ public class Split extends Expenditure {
         return eachOwe;
     }
 
+    /**
+     * This method returns a String containing the info of all people the expenditure is split
+     * with and the status of their debt.
+     * @return String containing info on the people
+     */
     public String getNamesOfPeople() {
         StringBuilder everyone = new StringBuilder();
         for (Pair<String, Boolean> p : parties) {
