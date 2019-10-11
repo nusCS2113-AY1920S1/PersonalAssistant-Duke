@@ -21,7 +21,7 @@ public class DoAfterTasksTest {
 
 
     @BeforeEach
-    public void setup() {
+    public void setUp() {
         doAfterTasks = new DoAfterTasks(description, priority, date);
     }
 

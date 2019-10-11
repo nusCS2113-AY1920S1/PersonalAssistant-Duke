@@ -348,6 +348,6 @@ public abstract class Task implements Serializable {
     }
 
     public enum Priority {
-        high, medium, low
+        high, medium, low;
     }
 }
