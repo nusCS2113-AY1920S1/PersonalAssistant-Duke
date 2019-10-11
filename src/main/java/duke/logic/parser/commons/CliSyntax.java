@@ -1,5 +1,7 @@
 package duke.logic.parser.commons;
 
+import java.lang.reflect.Field;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
@@ -27,8 +29,6 @@ public class CliSyntax {
     public static final Prefix PREFIX_SALE_DATE = new Prefix("-at");
     public static final Prefix PREFIX_SALE_REMARKS = new Prefix("-rmk");
 
-    public static final Prefix PREFIX_RECIPE_NAME = new Prefix("-name");
-  
     public static final Prefix PREFIX_PRODUCT_NAME = new Prefix("-name");
     public static final Prefix PREFIX_PRODUCT_INGREDIENT = new Prefix("-ingt");
     public static final Prefix PREFIX_PRODUCT_COST = new Prefix("-cost");
@@ -40,4 +40,19 @@ public class CliSyntax {
     public static final Prefix PREFIX_INVENTORY_QUANTITY = new Prefix("-qty");
     public static final Prefix PREFIX_INVENTORY_UNIT = new Prefix("-unit");
     public static final Prefix PREFIX_INVENTORY_INDEX = new Prefix("-i");
+
+    public static ArrayList<String> getAllCliSyntax() {
+        ArrayList<String> allSyntax = new ArrayList<>();
+        allSyntax.add("product");
+        allSyntax.add("order");
+        allSyntax.add("sale");
+        allSyntax.add("ingredient");
+        allSyntax.add("-name");
+        allSyntax.add("-ingt");
+        allSyntax.add("-price");
+        allSyntax.add("-cost");
+        allSyntax.add("add");
+        allSyntax.add("edit");
+        return allSyntax;
+    }
 }

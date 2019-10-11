@@ -1,13 +1,19 @@
 package duke.ui;
 
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXTextField;
 import duke.commons.core.LogsCenter;
 import duke.logic.Logic;
 import duke.logic.command.CommandResult;
 import duke.logic.command.exceptions.CommandException;
 import duke.logic.parser.exceptions.ParseException;
+import duke.storage.InputSuggestion;
+import impl.org.controlsfx.autocompletion.AutoCompletionTextFieldBinding;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.geometry.Side;
+import javafx.scene.control.ContextMenu;
+import javafx.scene.control.CustomMenuItem;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
@@ -17,8 +23,19 @@ import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.SortedSet;
+import java.util.TreeSet;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
+
+import javafx.util.Callback;
+import org.controlsfx.control.textfield.*;
+//import com.gluonhq.charm.glisten.control.*;
+
 
 public class MainWindow extends UiPart<Stage> {
 
@@ -44,7 +61,12 @@ public class MainWindow extends UiPart<Stage> {
     @FXML
     JFXButton popUpButton;
     @FXML
-    private TextField userInput;
+    private JFXTextField userInput;
+
+    private AutoCompleteTextField userinput = new AutoCompleteTextField();
+
+    @FXML
+    private AnchorPane test;
 
     //Main page
     @FXML
@@ -69,9 +91,25 @@ public class MainWindow extends UiPart<Stage> {
         this.primaryStage = primaryStage;
         this.logic = logic;
 
-        setUpKeyEvent();
+        this.test.getChildren().add(userinput);
 
+        setUpKeyEvent();
+        setUpAutoComplete();
     }
+
+
+
+
+
+
+		//autoCompletionTextFieldBinding.
+
+    public void setUpAutoComplete() {
+        ArrayList<String> suggestions = InputSuggestion.getInputSuggestion();
+        userinput.getEntries().add("product");
+        userinput.getEntries().add("profit");
+    }
+
 
     public Stage getPrimaryStage() {
         return primaryStage;

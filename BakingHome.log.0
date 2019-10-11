@@ -220,3 +220,769 @@ Oct 10, 2019 5:48:54 PM duke.Launcher start
 INFO: Starting BakingHome
 Oct 10, 2019 5:48:54 PM duke.ui.UiManager start
 INFO: Starting UI...
+Oct 10, 2019 6:30:39 PM duke.Launcher init
+INFO: =============================[ Initializing BakingHome ]===========================
+Oct 10, 2019 6:30:39 PM duke.Launcher start
+INFO: Starting BakingHome
+Oct 10, 2019 6:30:39 PM duke.ui.UiManager start
+INFO: Starting UI...
+Oct 10, 2019 6:31:20 PM duke.Launcher init
+INFO: =============================[ Initializing BakingHome ]===========================
+Oct 10, 2019 6:31:20 PM duke.Launcher start
+INFO: Starting BakingHome
+Oct 10, 2019 6:31:20 PM duke.ui.UiManager start
+INFO: Starting UI...
+Oct 10, 2019 8:27:07 PM duke.Launcher init
+INFO: =============================[ Initializing BakingHome ]===========================
+Oct 10, 2019 8:27:07 PM duke.Launcher start
+INFO: Starting BakingHome
+Oct 10, 2019 8:27:07 PM duke.ui.UiManager start
+INFO: Starting UI...
+Oct 10, 2019 9:15:12 PM duke.Launcher init
+INFO: =============================[ Initializing BakingHome ]===========================
+Oct 10, 2019 9:15:12 PM duke.Launcher start
+INFO: Starting BakingHome
+Oct 10, 2019 9:15:12 PM duke.ui.UiManager start
+INFO: Starting UI...
+Oct 10, 2019 9:25:14 PM duke.Launcher init
+INFO: =============================[ Initializing BakingHome ]===========================
+Oct 10, 2019 9:25:15 PM duke.Launcher start
+INFO: Starting BakingHome
+Oct 10, 2019 9:25:15 PM duke.ui.UiManager start
+INFO: Starting UI...
+Oct 10, 2019 9:31:49 PM duke.Launcher init
+INFO: =============================[ Initializing BakingHome ]===========================
+Oct 10, 2019 9:31:49 PM duke.Launcher start
+INFO: Starting BakingHome
+Oct 10, 2019 9:31:49 PM duke.ui.UiManager start
+INFO: Starting UI...
+Oct 11, 2019 12:09:22 AM duke.Launcher init
+INFO: =============================[ Initializing BakingHome ]===========================
+Oct 11, 2019 12:09:22 AM duke.Launcher start
+INFO: Starting BakingHome
+Oct 11, 2019 12:09:22 AM duke.ui.UiManager start
+INFO: Starting UI...
+Oct 11, 2019 12:09:23 AM duke.ui.UiManager start
+SEVERE: javafx.fxml.LoadException: 
+/C:/Users/lenovo/Desktop/2113T/main/build/resources/main/view/MainWindow.fxml
+
+java.lang.AssertionError: javafx.fxml.LoadException: 
+/C:/Users/lenovo/Desktop/2113T/main/build/resources/main/view/MainWindow.fxml
+
+	at duke.ui.UiPart.loadFxmlFile(UiPart.java:79)
+	at duke.ui.UiPart.<init>(UiPart.java:46)
+	at duke.ui.UiPart.<init>(UiPart.java:55)
+	at duke.ui.MainWindow.<init>(MainWindow.java:72)
+	at duke.ui.UiManager.start(UiManager.java:41)
+	at duke.Launcher.start(Launcher.java:67)
+	at javafx.graphics/com.sun.javafx.application.LauncherImpl.lambda$launchApplication1$9(LauncherImpl.java:919)
+	at javafx.graphics/com.sun.javafx.application.PlatformImpl.lambda$runAndWait$11(PlatformImpl.java:449)
+	at javafx.graphics/com.sun.javafx.application.PlatformImpl.lambda$runLater$9(PlatformImpl.java:418)
+	at java.base/java.security.AccessController.doPrivileged(Native Method)
+	at javafx.graphics/com.sun.javafx.application.PlatformImpl.lambda$runLater$10(PlatformImpl.java:417)
+	at javafx.graphics/com.sun.glass.ui.InvokeLaterDispatcher$Future.run(InvokeLaterDispatcher.java:96)
+	at javafx.graphics/com.sun.glass.ui.win.WinApplication._runLoop(Native Method)
+	at javafx.graphics/com.sun.glass.ui.win.WinApplication.lambda$runLoop$3(WinApplication.java:175)
+	at java.base/java.lang.Thread.run(Thread.java:834)
+Caused by: javafx.fxml.LoadException: 
+/C:/Users/lenovo/Desktop/2113T/main/build/resources/main/view/MainWindow.fxml
+
+	at javafx.fxml/javafx.fxml.FXMLLoader.constructLoadException(FXMLLoader.java:2625)
+	at javafx.fxml/javafx.fxml.FXMLLoader.importClass(FXMLLoader.java:2863)
+	at javafx.fxml/javafx.fxml.FXMLLoader.processImport(FXMLLoader.java:2707)
+	at javafx.fxml/javafx.fxml.FXMLLoader.processProcessingInstruction(FXMLLoader.java:2676)
+	at javafx.fxml/javafx.fxml.FXMLLoader.loadImpl(FXMLLoader.java:2542)
+	at javafx.fxml/javafx.fxml.FXMLLoader.loadImpl(FXMLLoader.java:2466)
+	at javafx.fxml/javafx.fxml.FXMLLoader.load(FXMLLoader.java:2435)
+	at duke.ui.UiPart.loadFxmlFile(UiPart.java:77)
+	... 14 more
+Caused by: java.lang.ClassNotFoundException: com.gluonhq.charm.glisten.control.AutoCompleteTextField
+	at java.base/jdk.internal.loader.BuiltinClassLoader.loadClass(BuiltinClassLoader.java:583)
+	at java.base/jdk.internal.loader.ClassLoaders$AppClassLoader.loadClass(ClassLoaders.java:178)
+	at java.base/java.lang.ClassLoader.loadClass(ClassLoader.java:521)
+	at javafx.fxml/javafx.fxml.FXMLLoader.loadTypeForPackage(FXMLLoader.java:2931)
+	at javafx.fxml/javafx.fxml.FXMLLoader.loadType(FXMLLoader.java:2920)
+	at javafx.fxml/javafx.fxml.FXMLLoader.importClass(FXMLLoader.java:2861)
+	... 20 more
+
+Oct 11, 2019 12:09:23 AM duke.ui.UiManager showFatalErrorDialogAndShutdown
+SEVERE: Fatal error during initializing javafx.fxml.LoadException: 
+/C:/Users/lenovo/Desktop/2113T/main/build/resources/main/view/MainWindow.fxml
+javafx.fxml.LoadException: 
+/C:/Users/lenovo/Desktop/2113T/main/build/resources/main/view/MainWindow.fxml
+
+java.lang.AssertionError: javafx.fxml.LoadException: 
+/C:/Users/lenovo/Desktop/2113T/main/build/resources/main/view/MainWindow.fxml
+
+	at duke.ui.UiPart.loadFxmlFile(UiPart.java:79)
+	at duke.ui.UiPart.<init>(UiPart.java:46)
+	at duke.ui.UiPart.<init>(UiPart.java:55)
+	at duke.ui.MainWindow.<init>(MainWindow.java:72)
+	at duke.ui.UiManager.start(UiManager.java:41)
+	at duke.Launcher.start(Launcher.java:67)
+	at javafx.graphics/com.sun.javafx.application.LauncherImpl.lambda$launchApplication1$9(LauncherImpl.java:919)
+	at javafx.graphics/com.sun.javafx.application.PlatformImpl.lambda$runAndWait$11(PlatformImpl.java:449)
+	at javafx.graphics/com.sun.javafx.application.PlatformImpl.lambda$runLater$9(PlatformImpl.java:418)
+	at java.base/java.security.AccessController.doPrivileged(Native Method)
+	at javafx.graphics/com.sun.javafx.application.PlatformImpl.lambda$runLater$10(PlatformImpl.java:417)
+	at javafx.graphics/com.sun.glass.ui.InvokeLaterDispatcher$Future.run(InvokeLaterDispatcher.java:96)
+	at javafx.graphics/com.sun.glass.ui.win.WinApplication._runLoop(Native Method)
+	at javafx.graphics/com.sun.glass.ui.win.WinApplication.lambda$runLoop$3(WinApplication.java:175)
+	at java.base/java.lang.Thread.run(Thread.java:834)
+Caused by: javafx.fxml.LoadException: 
+/C:/Users/lenovo/Desktop/2113T/main/build/resources/main/view/MainWindow.fxml
+
+	at javafx.fxml/javafx.fxml.FXMLLoader.constructLoadException(FXMLLoader.java:2625)
+	at javafx.fxml/javafx.fxml.FXMLLoader.importClass(FXMLLoader.java:2863)
+	at javafx.fxml/javafx.fxml.FXMLLoader.processImport(FXMLLoader.java:2707)
+	at javafx.fxml/javafx.fxml.FXMLLoader.processProcessingInstruction(FXMLLoader.java:2676)
+	at javafx.fxml/javafx.fxml.FXMLLoader.loadImpl(FXMLLoader.java:2542)
+	at javafx.fxml/javafx.fxml.FXMLLoader.loadImpl(FXMLLoader.java:2466)
+	at javafx.fxml/javafx.fxml.FXMLLoader.load(FXMLLoader.java:2435)
+	at duke.ui.UiPart.loadFxmlFile(UiPart.java:77)
+	... 14 more
+Caused by: java.lang.ClassNotFoundException: com.gluonhq.charm.glisten.control.AutoCompleteTextField
+	at java.base/jdk.internal.loader.BuiltinClassLoader.loadClass(BuiltinClassLoader.java:583)
+	at java.base/jdk.internal.loader.ClassLoaders$AppClassLoader.loadClass(ClassLoaders.java:178)
+	at java.base/java.lang.ClassLoader.loadClass(ClassLoader.java:521)
+	at javafx.fxml/javafx.fxml.FXMLLoader.loadTypeForPackage(FXMLLoader.java:2931)
+	at javafx.fxml/javafx.fxml.FXMLLoader.loadType(FXMLLoader.java:2920)
+	at javafx.fxml/javafx.fxml.FXMLLoader.importClass(FXMLLoader.java:2861)
+	... 20 more
+
+Oct 11, 2019 12:15:01 AM duke.Launcher init
+INFO: =============================[ Initializing BakingHome ]===========================
+Oct 11, 2019 12:15:01 AM duke.Launcher start
+INFO: Starting BakingHome
+Oct 11, 2019 12:15:01 AM duke.ui.UiManager start
+INFO: Starting UI...
+Oct 11, 2019 12:15:01 AM duke.ui.UiManager start
+SEVERE: javafx.fxml.LoadException: 
+/C:/Users/lenovo/Desktop/2113T/main/build/resources/main/view/MainWindow.fxml
+
+java.lang.AssertionError: javafx.fxml.LoadException: 
+/C:/Users/lenovo/Desktop/2113T/main/build/resources/main/view/MainWindow.fxml
+
+	at duke.ui.UiPart.loadFxmlFile(UiPart.java:79)
+	at duke.ui.UiPart.<init>(UiPart.java:46)
+	at duke.ui.UiPart.<init>(UiPart.java:55)
+	at duke.ui.MainWindow.<init>(MainWindow.java:72)
+	at duke.ui.UiManager.start(UiManager.java:41)
+	at duke.Launcher.start(Launcher.java:67)
+	at javafx.graphics/com.sun.javafx.application.LauncherImpl.lambda$launchApplication1$9(LauncherImpl.java:919)
+	at javafx.graphics/com.sun.javafx.application.PlatformImpl.lambda$runAndWait$11(PlatformImpl.java:449)
+	at javafx.graphics/com.sun.javafx.application.PlatformImpl.lambda$runLater$9(PlatformImpl.java:418)
+	at java.base/java.security.AccessController.doPrivileged(Native Method)
+	at javafx.graphics/com.sun.javafx.application.PlatformImpl.lambda$runLater$10(PlatformImpl.java:417)
+	at javafx.graphics/com.sun.glass.ui.InvokeLaterDispatcher$Future.run(InvokeLaterDispatcher.java:96)
+	at javafx.graphics/com.sun.glass.ui.win.WinApplication._runLoop(Native Method)
+	at javafx.graphics/com.sun.glass.ui.win.WinApplication.lambda$runLoop$3(WinApplication.java:175)
+	at java.base/java.lang.Thread.run(Thread.java:834)
+Caused by: javafx.fxml.LoadException: 
+/C:/Users/lenovo/Desktop/2113T/main/build/resources/main/view/MainWindow.fxml
+
+	at javafx.fxml/javafx.fxml.FXMLLoader.constructLoadException(FXMLLoader.java:2625)
+	at javafx.fxml/javafx.fxml.FXMLLoader.importClass(FXMLLoader.java:2863)
+	at javafx.fxml/javafx.fxml.FXMLLoader.processImport(FXMLLoader.java:2707)
+	at javafx.fxml/javafx.fxml.FXMLLoader.processProcessingInstruction(FXMLLoader.java:2676)
+	at javafx.fxml/javafx.fxml.FXMLLoader.loadImpl(FXMLLoader.java:2542)
+	at javafx.fxml/javafx.fxml.FXMLLoader.loadImpl(FXMLLoader.java:2466)
+	at javafx.fxml/javafx.fxml.FXMLLoader.load(FXMLLoader.java:2435)
+	at duke.ui.UiPart.loadFxmlFile(UiPart.java:77)
+	... 14 more
+Caused by: java.lang.ClassNotFoundException: com.gluonhq.charm.glisten.control.AutoCompleteTextField
+	at java.base/jdk.internal.loader.BuiltinClassLoader.loadClass(BuiltinClassLoader.java:583)
+	at java.base/jdk.internal.loader.ClassLoaders$AppClassLoader.loadClass(ClassLoaders.java:178)
+	at java.base/java.lang.ClassLoader.loadClass(ClassLoader.java:521)
+	at javafx.fxml/javafx.fxml.FXMLLoader.loadTypeForPackage(FXMLLoader.java:2931)
+	at javafx.fxml/javafx.fxml.FXMLLoader.loadType(FXMLLoader.java:2920)
+	at javafx.fxml/javafx.fxml.FXMLLoader.importClass(FXMLLoader.java:2861)
+	... 20 more
+
+Oct 11, 2019 12:15:01 AM duke.ui.UiManager showFatalErrorDialogAndShutdown
+SEVERE: Fatal error during initializing javafx.fxml.LoadException: 
+/C:/Users/lenovo/Desktop/2113T/main/build/resources/main/view/MainWindow.fxml
+javafx.fxml.LoadException: 
+/C:/Users/lenovo/Desktop/2113T/main/build/resources/main/view/MainWindow.fxml
+
+java.lang.AssertionError: javafx.fxml.LoadException: 
+/C:/Users/lenovo/Desktop/2113T/main/build/resources/main/view/MainWindow.fxml
+
+	at duke.ui.UiPart.loadFxmlFile(UiPart.java:79)
+	at duke.ui.UiPart.<init>(UiPart.java:46)
+	at duke.ui.UiPart.<init>(UiPart.java:55)
+	at duke.ui.MainWindow.<init>(MainWindow.java:72)
+	at duke.ui.UiManager.start(UiManager.java:41)
+	at duke.Launcher.start(Launcher.java:67)
+	at javafx.graphics/com.sun.javafx.application.LauncherImpl.lambda$launchApplication1$9(LauncherImpl.java:919)
+	at javafx.graphics/com.sun.javafx.application.PlatformImpl.lambda$runAndWait$11(PlatformImpl.java:449)
+	at javafx.graphics/com.sun.javafx.application.PlatformImpl.lambda$runLater$9(PlatformImpl.java:418)
+	at java.base/java.security.AccessController.doPrivileged(Native Method)
+	at javafx.graphics/com.sun.javafx.application.PlatformImpl.lambda$runLater$10(PlatformImpl.java:417)
+	at javafx.graphics/com.sun.glass.ui.InvokeLaterDispatcher$Future.run(InvokeLaterDispatcher.java:96)
+	at javafx.graphics/com.sun.glass.ui.win.WinApplication._runLoop(Native Method)
+	at javafx.graphics/com.sun.glass.ui.win.WinApplication.lambda$runLoop$3(WinApplication.java:175)
+	at java.base/java.lang.Thread.run(Thread.java:834)
+Caused by: javafx.fxml.LoadException: 
+/C:/Users/lenovo/Desktop/2113T/main/build/resources/main/view/MainWindow.fxml
+
+	at javafx.fxml/javafx.fxml.FXMLLoader.constructLoadException(FXMLLoader.java:2625)
+	at javafx.fxml/javafx.fxml.FXMLLoader.importClass(FXMLLoader.java:2863)
+	at javafx.fxml/javafx.fxml.FXMLLoader.processImport(FXMLLoader.java:2707)
+	at javafx.fxml/javafx.fxml.FXMLLoader.processProcessingInstruction(FXMLLoader.java:2676)
+	at javafx.fxml/javafx.fxml.FXMLLoader.loadImpl(FXMLLoader.java:2542)
+	at javafx.fxml/javafx.fxml.FXMLLoader.loadImpl(FXMLLoader.java:2466)
+	at javafx.fxml/javafx.fxml.FXMLLoader.load(FXMLLoader.java:2435)
+	at duke.ui.UiPart.loadFxmlFile(UiPart.java:77)
+	... 14 more
+Caused by: java.lang.ClassNotFoundException: com.gluonhq.charm.glisten.control.AutoCompleteTextField
+	at java.base/jdk.internal.loader.BuiltinClassLoader.loadClass(BuiltinClassLoader.java:583)
+	at java.base/jdk.internal.loader.ClassLoaders$AppClassLoader.loadClass(ClassLoaders.java:178)
+	at java.base/java.lang.ClassLoader.loadClass(ClassLoader.java:521)
+	at javafx.fxml/javafx.fxml.FXMLLoader.loadTypeForPackage(FXMLLoader.java:2931)
+	at javafx.fxml/javafx.fxml.FXMLLoader.loadType(FXMLLoader.java:2920)
+	at javafx.fxml/javafx.fxml.FXMLLoader.importClass(FXMLLoader.java:2861)
+	... 20 more
+
+Oct 11, 2019 10:29:31 AM duke.Launcher init
+INFO: =============================[ Initializing BakingHome ]===========================
+Oct 11, 2019 10:29:31 AM duke.Launcher start
+INFO: Starting BakingHome
+Oct 11, 2019 10:29:31 AM duke.ui.UiManager start
+INFO: Starting UI...
+Oct 11, 2019 10:29:31 AM duke.ui.UiManager start
+SEVERE: javafx.fxml.LoadException: 
+/C:/Users/lenovo/Desktop/2113T/main/build/resources/main/view/MainWindow.fxml
+
+java.lang.AssertionError: javafx.fxml.LoadException: 
+/C:/Users/lenovo/Desktop/2113T/main/build/resources/main/view/MainWindow.fxml
+
+	at duke.ui.UiPart.loadFxmlFile(UiPart.java:79)
+	at duke.ui.UiPart.<init>(UiPart.java:46)
+	at duke.ui.UiPart.<init>(UiPart.java:55)
+	at duke.ui.MainWindow.<init>(MainWindow.java:77)
+	at duke.ui.UiManager.start(UiManager.java:41)
+	at duke.Launcher.start(Launcher.java:67)
+	at javafx.graphics/com.sun.javafx.application.LauncherImpl.lambda$launchApplication1$9(LauncherImpl.java:919)
+	at javafx.graphics/com.sun.javafx.application.PlatformImpl.lambda$runAndWait$11(PlatformImpl.java:449)
+	at javafx.graphics/com.sun.javafx.application.PlatformImpl.lambda$runLater$9(PlatformImpl.java:418)
+	at java.base/java.security.AccessController.doPrivileged(Native Method)
+	at javafx.graphics/com.sun.javafx.application.PlatformImpl.lambda$runLater$10(PlatformImpl.java:417)
+	at javafx.graphics/com.sun.glass.ui.InvokeLaterDispatcher$Future.run(InvokeLaterDispatcher.java:96)
+	at javafx.graphics/com.sun.glass.ui.win.WinApplication._runLoop(Native Method)
+	at javafx.graphics/com.sun.glass.ui.win.WinApplication.lambda$runLoop$3(WinApplication.java:175)
+	at java.base/java.lang.Thread.run(Thread.java:834)
+Caused by: javafx.fxml.LoadException: 
+/C:/Users/lenovo/Desktop/2113T/main/build/resources/main/view/MainWindow.fxml
+
+	at javafx.fxml/javafx.fxml.FXMLLoader.constructLoadException(FXMLLoader.java:2625)
+	at javafx.fxml/javafx.fxml.FXMLLoader.importClass(FXMLLoader.java:2863)
+	at javafx.fxml/javafx.fxml.FXMLLoader.processImport(FXMLLoader.java:2707)
+	at javafx.fxml/javafx.fxml.FXMLLoader.processProcessingInstruction(FXMLLoader.java:2676)
+	at javafx.fxml/javafx.fxml.FXMLLoader.loadImpl(FXMLLoader.java:2542)
+	at javafx.fxml/javafx.fxml.FXMLLoader.loadImpl(FXMLLoader.java:2466)
+	at javafx.fxml/javafx.fxml.FXMLLoader.load(FXMLLoader.java:2435)
+	at duke.ui.UiPart.loadFxmlFile(UiPart.java:77)
+	... 14 more
+Caused by: java.lang.ClassNotFoundException: com.gluonhq.charm.glisten.control.AutoCompleteTextField
+	at java.base/jdk.internal.loader.BuiltinClassLoader.loadClass(BuiltinClassLoader.java:583)
+	at java.base/jdk.internal.loader.ClassLoaders$AppClassLoader.loadClass(ClassLoaders.java:178)
+	at java.base/java.lang.ClassLoader.loadClass(ClassLoader.java:521)
+	at javafx.fxml/javafx.fxml.FXMLLoader.loadTypeForPackage(FXMLLoader.java:2931)
+	at javafx.fxml/javafx.fxml.FXMLLoader.loadType(FXMLLoader.java:2920)
+	at javafx.fxml/javafx.fxml.FXMLLoader.importClass(FXMLLoader.java:2861)
+	... 20 more
+
+Oct 11, 2019 10:29:31 AM duke.ui.UiManager showFatalErrorDialogAndShutdown
+SEVERE: Fatal error during initializing javafx.fxml.LoadException: 
+/C:/Users/lenovo/Desktop/2113T/main/build/resources/main/view/MainWindow.fxml
+javafx.fxml.LoadException: 
+/C:/Users/lenovo/Desktop/2113T/main/build/resources/main/view/MainWindow.fxml
+
+java.lang.AssertionError: javafx.fxml.LoadException: 
+/C:/Users/lenovo/Desktop/2113T/main/build/resources/main/view/MainWindow.fxml
+
+	at duke.ui.UiPart.loadFxmlFile(UiPart.java:79)
+	at duke.ui.UiPart.<init>(UiPart.java:46)
+	at duke.ui.UiPart.<init>(UiPart.java:55)
+	at duke.ui.MainWindow.<init>(MainWindow.java:77)
+	at duke.ui.UiManager.start(UiManager.java:41)
+	at duke.Launcher.start(Launcher.java:67)
+	at javafx.graphics/com.sun.javafx.application.LauncherImpl.lambda$launchApplication1$9(LauncherImpl.java:919)
+	at javafx.graphics/com.sun.javafx.application.PlatformImpl.lambda$runAndWait$11(PlatformImpl.java:449)
+	at javafx.graphics/com.sun.javafx.application.PlatformImpl.lambda$runLater$9(PlatformImpl.java:418)
+	at java.base/java.security.AccessController.doPrivileged(Native Method)
+	at javafx.graphics/com.sun.javafx.application.PlatformImpl.lambda$runLater$10(PlatformImpl.java:417)
+	at javafx.graphics/com.sun.glass.ui.InvokeLaterDispatcher$Future.run(InvokeLaterDispatcher.java:96)
+	at javafx.graphics/com.sun.glass.ui.win.WinApplication._runLoop(Native Method)
+	at javafx.graphics/com.sun.glass.ui.win.WinApplication.lambda$runLoop$3(WinApplication.java:175)
+	at java.base/java.lang.Thread.run(Thread.java:834)
+Caused by: javafx.fxml.LoadException: 
+/C:/Users/lenovo/Desktop/2113T/main/build/resources/main/view/MainWindow.fxml
+
+	at javafx.fxml/javafx.fxml.FXMLLoader.constructLoadException(FXMLLoader.java:2625)
+	at javafx.fxml/javafx.fxml.FXMLLoader.importClass(FXMLLoader.java:2863)
+	at javafx.fxml/javafx.fxml.FXMLLoader.processImport(FXMLLoader.java:2707)
+	at javafx.fxml/javafx.fxml.FXMLLoader.processProcessingInstruction(FXMLLoader.java:2676)
+	at javafx.fxml/javafx.fxml.FXMLLoader.loadImpl(FXMLLoader.java:2542)
+	at javafx.fxml/javafx.fxml.FXMLLoader.loadImpl(FXMLLoader.java:2466)
+	at javafx.fxml/javafx.fxml.FXMLLoader.load(FXMLLoader.java:2435)
+	at duke.ui.UiPart.loadFxmlFile(UiPart.java:77)
+	... 14 more
+Caused by: java.lang.ClassNotFoundException: com.gluonhq.charm.glisten.control.AutoCompleteTextField
+	at java.base/jdk.internal.loader.BuiltinClassLoader.loadClass(BuiltinClassLoader.java:583)
+	at java.base/jdk.internal.loader.ClassLoaders$AppClassLoader.loadClass(ClassLoaders.java:178)
+	at java.base/java.lang.ClassLoader.loadClass(ClassLoader.java:521)
+	at javafx.fxml/javafx.fxml.FXMLLoader.loadTypeForPackage(FXMLLoader.java:2931)
+	at javafx.fxml/javafx.fxml.FXMLLoader.loadType(FXMLLoader.java:2920)
+	at javafx.fxml/javafx.fxml.FXMLLoader.importClass(FXMLLoader.java:2861)
+	... 20 more
+
+Oct 11, 2019 10:30:02 AM duke.Launcher init
+INFO: =============================[ Initializing BakingHome ]===========================
+Oct 11, 2019 10:30:02 AM duke.Launcher start
+INFO: Starting BakingHome
+Oct 11, 2019 10:30:02 AM duke.ui.UiManager start
+INFO: Starting UI...
+Oct 11, 2019 10:30:02 AM duke.ui.UiManager start
+SEVERE: javafx.fxml.LoadException: 
+/C:/Users/lenovo/Desktop/2113T/main/build/resources/main/view/MainWindow.fxml
+
+java.lang.AssertionError: javafx.fxml.LoadException: 
+/C:/Users/lenovo/Desktop/2113T/main/build/resources/main/view/MainWindow.fxml
+
+	at duke.ui.UiPart.loadFxmlFile(UiPart.java:79)
+	at duke.ui.UiPart.<init>(UiPart.java:46)
+	at duke.ui.UiPart.<init>(UiPart.java:55)
+	at duke.ui.MainWindow.<init>(MainWindow.java:77)
+	at duke.ui.UiManager.start(UiManager.java:41)
+	at duke.Launcher.start(Launcher.java:67)
+	at javafx.graphics/com.sun.javafx.application.LauncherImpl.lambda$launchApplication1$9(LauncherImpl.java:919)
+	at javafx.graphics/com.sun.javafx.application.PlatformImpl.lambda$runAndWait$11(PlatformImpl.java:449)
+	at javafx.graphics/com.sun.javafx.application.PlatformImpl.lambda$runLater$9(PlatformImpl.java:418)
+	at java.base/java.security.AccessController.doPrivileged(Native Method)
+	at javafx.graphics/com.sun.javafx.application.PlatformImpl.lambda$runLater$10(PlatformImpl.java:417)
+	at javafx.graphics/com.sun.glass.ui.InvokeLaterDispatcher$Future.run(InvokeLaterDispatcher.java:96)
+	at javafx.graphics/com.sun.glass.ui.win.WinApplication._runLoop(Native Method)
+	at javafx.graphics/com.sun.glass.ui.win.WinApplication.lambda$runLoop$3(WinApplication.java:175)
+	at java.base/java.lang.Thread.run(Thread.java:834)
+Caused by: javafx.fxml.LoadException: 
+/C:/Users/lenovo/Desktop/2113T/main/build/resources/main/view/MainWindow.fxml
+
+	at javafx.fxml/javafx.fxml.FXMLLoader.constructLoadException(FXMLLoader.java:2625)
+	at javafx.fxml/javafx.fxml.FXMLLoader.importClass(FXMLLoader.java:2863)
+	at javafx.fxml/javafx.fxml.FXMLLoader.processImport(FXMLLoader.java:2707)
+	at javafx.fxml/javafx.fxml.FXMLLoader.processProcessingInstruction(FXMLLoader.java:2676)
+	at javafx.fxml/javafx.fxml.FXMLLoader.loadImpl(FXMLLoader.java:2542)
+	at javafx.fxml/javafx.fxml.FXMLLoader.loadImpl(FXMLLoader.java:2466)
+	at javafx.fxml/javafx.fxml.FXMLLoader.load(FXMLLoader.java:2435)
+	at duke.ui.UiPart.loadFxmlFile(UiPart.java:77)
+	... 14 more
+Caused by: java.lang.ClassNotFoundException: com.gluonhq.charm.glisten.control.AutoCompleteTextField
+	at java.base/jdk.internal.loader.BuiltinClassLoader.loadClass(BuiltinClassLoader.java:583)
+	at java.base/jdk.internal.loader.ClassLoaders$AppClassLoader.loadClass(ClassLoaders.java:178)
+	at java.base/java.lang.ClassLoader.loadClass(ClassLoader.java:521)
+	at javafx.fxml/javafx.fxml.FXMLLoader.loadTypeForPackage(FXMLLoader.java:2931)
+	at javafx.fxml/javafx.fxml.FXMLLoader.loadType(FXMLLoader.java:2920)
+	at javafx.fxml/javafx.fxml.FXMLLoader.importClass(FXMLLoader.java:2861)
+	... 20 more
+
+Oct 11, 2019 10:30:02 AM duke.ui.UiManager showFatalErrorDialogAndShutdown
+SEVERE: Fatal error during initializing javafx.fxml.LoadException: 
+/C:/Users/lenovo/Desktop/2113T/main/build/resources/main/view/MainWindow.fxml
+javafx.fxml.LoadException: 
+/C:/Users/lenovo/Desktop/2113T/main/build/resources/main/view/MainWindow.fxml
+
+java.lang.AssertionError: javafx.fxml.LoadException: 
+/C:/Users/lenovo/Desktop/2113T/main/build/resources/main/view/MainWindow.fxml
+
+	at duke.ui.UiPart.loadFxmlFile(UiPart.java:79)
+	at duke.ui.UiPart.<init>(UiPart.java:46)
+	at duke.ui.UiPart.<init>(UiPart.java:55)
+	at duke.ui.MainWindow.<init>(MainWindow.java:77)
+	at duke.ui.UiManager.start(UiManager.java:41)
+	at duke.Launcher.start(Launcher.java:67)
+	at javafx.graphics/com.sun.javafx.application.LauncherImpl.lambda$launchApplication1$9(LauncherImpl.java:919)
+	at javafx.graphics/com.sun.javafx.application.PlatformImpl.lambda$runAndWait$11(PlatformImpl.java:449)
+	at javafx.graphics/com.sun.javafx.application.PlatformImpl.lambda$runLater$9(PlatformImpl.java:418)
+	at java.base/java.security.AccessController.doPrivileged(Native Method)
+	at javafx.graphics/com.sun.javafx.application.PlatformImpl.lambda$runLater$10(PlatformImpl.java:417)
+	at javafx.graphics/com.sun.glass.ui.InvokeLaterDispatcher$Future.run(InvokeLaterDispatcher.java:96)
+	at javafx.graphics/com.sun.glass.ui.win.WinApplication._runLoop(Native Method)
+	at javafx.graphics/com.sun.glass.ui.win.WinApplication.lambda$runLoop$3(WinApplication.java:175)
+	at java.base/java.lang.Thread.run(Thread.java:834)
+Caused by: javafx.fxml.LoadException: 
+/C:/Users/lenovo/Desktop/2113T/main/build/resources/main/view/MainWindow.fxml
+
+	at javafx.fxml/javafx.fxml.FXMLLoader.constructLoadException(FXMLLoader.java:2625)
+	at javafx.fxml/javafx.fxml.FXMLLoader.importClass(FXMLLoader.java:2863)
+	at javafx.fxml/javafx.fxml.FXMLLoader.processImport(FXMLLoader.java:2707)
+	at javafx.fxml/javafx.fxml.FXMLLoader.processProcessingInstruction(FXMLLoader.java:2676)
+	at javafx.fxml/javafx.fxml.FXMLLoader.loadImpl(FXMLLoader.java:2542)
+	at javafx.fxml/javafx.fxml.FXMLLoader.loadImpl(FXMLLoader.java:2466)
+	at javafx.fxml/javafx.fxml.FXMLLoader.load(FXMLLoader.java:2435)
+	at duke.ui.UiPart.loadFxmlFile(UiPart.java:77)
+	... 14 more
+Caused by: java.lang.ClassNotFoundException: com.gluonhq.charm.glisten.control.AutoCompleteTextField
+	at java.base/jdk.internal.loader.BuiltinClassLoader.loadClass(BuiltinClassLoader.java:583)
+	at java.base/jdk.internal.loader.ClassLoaders$AppClassLoader.loadClass(ClassLoaders.java:178)
+	at java.base/java.lang.ClassLoader.loadClass(ClassLoader.java:521)
+	at javafx.fxml/javafx.fxml.FXMLLoader.loadTypeForPackage(FXMLLoader.java:2931)
+	at javafx.fxml/javafx.fxml.FXMLLoader.loadType(FXMLLoader.java:2920)
+	at javafx.fxml/javafx.fxml.FXMLLoader.importClass(FXMLLoader.java:2861)
+	... 20 more
+
+Oct 11, 2019 10:32:33 AM duke.Launcher init
+INFO: =============================[ Initializing BakingHome ]===========================
+Oct 11, 2019 10:32:33 AM duke.Launcher start
+INFO: Starting BakingHome
+Oct 11, 2019 10:32:33 AM duke.ui.UiManager start
+INFO: Starting UI...
+Oct 11, 2019 10:32:33 AM duke.ui.UiManager start
+SEVERE: javafx.fxml.LoadException: 
+/C:/Users/lenovo/Desktop/2113T/main/build/resources/main/view/MainWindow.fxml
+
+java.lang.AssertionError: javafx.fxml.LoadException: 
+/C:/Users/lenovo/Desktop/2113T/main/build/resources/main/view/MainWindow.fxml
+
+	at duke.ui.UiPart.loadFxmlFile(UiPart.java:79)
+	at duke.ui.UiPart.<init>(UiPart.java:46)
+	at duke.ui.UiPart.<init>(UiPart.java:55)
+	at duke.ui.MainWindow.<init>(MainWindow.java:77)
+	at duke.ui.UiManager.start(UiManager.java:41)
+	at duke.Launcher.start(Launcher.java:67)
+	at javafx.graphics/com.sun.javafx.application.LauncherImpl.lambda$launchApplication1$9(LauncherImpl.java:919)
+	at javafx.graphics/com.sun.javafx.application.PlatformImpl.lambda$runAndWait$11(PlatformImpl.java:449)
+	at javafx.graphics/com.sun.javafx.application.PlatformImpl.lambda$runLater$9(PlatformImpl.java:418)
+	at java.base/java.security.AccessController.doPrivileged(Native Method)
+	at javafx.graphics/com.sun.javafx.application.PlatformImpl.lambda$runLater$10(PlatformImpl.java:417)
+	at javafx.graphics/com.sun.glass.ui.InvokeLaterDispatcher$Future.run(InvokeLaterDispatcher.java:96)
+	at javafx.graphics/com.sun.glass.ui.win.WinApplication._runLoop(Native Method)
+	at javafx.graphics/com.sun.glass.ui.win.WinApplication.lambda$runLoop$3(WinApplication.java:175)
+	at java.base/java.lang.Thread.run(Thread.java:834)
+Caused by: javafx.fxml.LoadException: 
+/C:/Users/lenovo/Desktop/2113T/main/build/resources/main/view/MainWindow.fxml
+
+	at javafx.fxml/javafx.fxml.FXMLLoader.constructLoadException(FXMLLoader.java:2625)
+	at javafx.fxml/javafx.fxml.FXMLLoader.importClass(FXMLLoader.java:2863)
+	at javafx.fxml/javafx.fxml.FXMLLoader.processImport(FXMLLoader.java:2707)
+	at javafx.fxml/javafx.fxml.FXMLLoader.processProcessingInstruction(FXMLLoader.java:2676)
+	at javafx.fxml/javafx.fxml.FXMLLoader.loadImpl(FXMLLoader.java:2542)
+	at javafx.fxml/javafx.fxml.FXMLLoader.loadImpl(FXMLLoader.java:2466)
+	at javafx.fxml/javafx.fxml.FXMLLoader.load(FXMLLoader.java:2435)
+	at duke.ui.UiPart.loadFxmlFile(UiPart.java:77)
+	... 14 more
+Caused by: java.lang.ClassNotFoundException: com.gluonhq.charm.glisten.control.AutoCompleteTextField
+	at java.base/jdk.internal.loader.BuiltinClassLoader.loadClass(BuiltinClassLoader.java:583)
+	at java.base/jdk.internal.loader.ClassLoaders$AppClassLoader.loadClass(ClassLoaders.java:178)
+	at java.base/java.lang.ClassLoader.loadClass(ClassLoader.java:521)
+	at javafx.fxml/javafx.fxml.FXMLLoader.loadTypeForPackage(FXMLLoader.java:2931)
+	at javafx.fxml/javafx.fxml.FXMLLoader.loadType(FXMLLoader.java:2920)
+	at javafx.fxml/javafx.fxml.FXMLLoader.importClass(FXMLLoader.java:2861)
+	... 20 more
+
+Oct 11, 2019 10:32:33 AM duke.ui.UiManager showFatalErrorDialogAndShutdown
+SEVERE: Fatal error during initializing javafx.fxml.LoadException: 
+/C:/Users/lenovo/Desktop/2113T/main/build/resources/main/view/MainWindow.fxml
+javafx.fxml.LoadException: 
+/C:/Users/lenovo/Desktop/2113T/main/build/resources/main/view/MainWindow.fxml
+
+java.lang.AssertionError: javafx.fxml.LoadException: 
+/C:/Users/lenovo/Desktop/2113T/main/build/resources/main/view/MainWindow.fxml
+
+	at duke.ui.UiPart.loadFxmlFile(UiPart.java:79)
+	at duke.ui.UiPart.<init>(UiPart.java:46)
+	at duke.ui.UiPart.<init>(UiPart.java:55)
+	at duke.ui.MainWindow.<init>(MainWindow.java:77)
+	at duke.ui.UiManager.start(UiManager.java:41)
+	at duke.Launcher.start(Launcher.java:67)
+	at javafx.graphics/com.sun.javafx.application.LauncherImpl.lambda$launchApplication1$9(LauncherImpl.java:919)
+	at javafx.graphics/com.sun.javafx.application.PlatformImpl.lambda$runAndWait$11(PlatformImpl.java:449)
+	at javafx.graphics/com.sun.javafx.application.PlatformImpl.lambda$runLater$9(PlatformImpl.java:418)
+	at java.base/java.security.AccessController.doPrivileged(Native Method)
+	at javafx.graphics/com.sun.javafx.application.PlatformImpl.lambda$runLater$10(PlatformImpl.java:417)
+	at javafx.graphics/com.sun.glass.ui.InvokeLaterDispatcher$Future.run(InvokeLaterDispatcher.java:96)
+	at javafx.graphics/com.sun.glass.ui.win.WinApplication._runLoop(Native Method)
+	at javafx.graphics/com.sun.glass.ui.win.WinApplication.lambda$runLoop$3(WinApplication.java:175)
+	at java.base/java.lang.Thread.run(Thread.java:834)
+Caused by: javafx.fxml.LoadException: 
+/C:/Users/lenovo/Desktop/2113T/main/build/resources/main/view/MainWindow.fxml
+
+	at javafx.fxml/javafx.fxml.FXMLLoader.constructLoadException(FXMLLoader.java:2625)
+	at javafx.fxml/javafx.fxml.FXMLLoader.importClass(FXMLLoader.java:2863)
+	at javafx.fxml/javafx.fxml.FXMLLoader.processImport(FXMLLoader.java:2707)
+	at javafx.fxml/javafx.fxml.FXMLLoader.processProcessingInstruction(FXMLLoader.java:2676)
+	at javafx.fxml/javafx.fxml.FXMLLoader.loadImpl(FXMLLoader.java:2542)
+	at javafx.fxml/javafx.fxml.FXMLLoader.loadImpl(FXMLLoader.java:2466)
+	at javafx.fxml/javafx.fxml.FXMLLoader.load(FXMLLoader.java:2435)
+	at duke.ui.UiPart.loadFxmlFile(UiPart.java:77)
+	... 14 more
+Caused by: java.lang.ClassNotFoundException: com.gluonhq.charm.glisten.control.AutoCompleteTextField
+	at java.base/jdk.internal.loader.BuiltinClassLoader.loadClass(BuiltinClassLoader.java:583)
+	at java.base/jdk.internal.loader.ClassLoaders$AppClassLoader.loadClass(ClassLoaders.java:178)
+	at java.base/java.lang.ClassLoader.loadClass(ClassLoader.java:521)
+	at javafx.fxml/javafx.fxml.FXMLLoader.loadTypeForPackage(FXMLLoader.java:2931)
+	at javafx.fxml/javafx.fxml.FXMLLoader.loadType(FXMLLoader.java:2920)
+	at javafx.fxml/javafx.fxml.FXMLLoader.importClass(FXMLLoader.java:2861)
+	... 20 more
+
+Oct 11, 2019 10:33:19 AM duke.Launcher init
+INFO: =============================[ Initializing BakingHome ]===========================
+Oct 11, 2019 10:33:19 AM duke.Launcher start
+INFO: Starting BakingHome
+Oct 11, 2019 10:33:19 AM duke.ui.UiManager start
+INFO: Starting UI...
+Oct 11, 2019 10:42:19 AM duke.Launcher init
+INFO: =============================[ Initializing BakingHome ]===========================
+Oct 11, 2019 10:42:19 AM duke.Launcher start
+INFO: Starting BakingHome
+Oct 11, 2019 10:42:19 AM duke.ui.UiManager start
+INFO: Starting UI...
+Oct 11, 2019 10:42:20 AM duke.ui.UiManager start
+SEVERE: javafx.fxml.LoadException: 
+/C:/Users/lenovo/Desktop/2113T/main/build/resources/main/view/MainWindow.fxml:26
+
+java.lang.AssertionError: javafx.fxml.LoadException: 
+/C:/Users/lenovo/Desktop/2113T/main/build/resources/main/view/MainWindow.fxml:26
+
+	at duke.ui.UiPart.loadFxmlFile(UiPart.java:79)
+	at duke.ui.UiPart.<init>(UiPart.java:46)
+	at duke.ui.UiPart.<init>(UiPart.java:55)
+	at duke.ui.MainWindow.<init>(MainWindow.java:83)
+	at duke.ui.UiManager.start(UiManager.java:41)
+	at duke.Launcher.start(Launcher.java:67)
+	at javafx.graphics/com.sun.javafx.application.LauncherImpl.lambda$launchApplication1$9(LauncherImpl.java:919)
+	at javafx.graphics/com.sun.javafx.application.PlatformImpl.lambda$runAndWait$11(PlatformImpl.java:449)
+	at javafx.graphics/com.sun.javafx.application.PlatformImpl.lambda$runLater$9(PlatformImpl.java:418)
+	at java.base/java.security.AccessController.doPrivileged(Native Method)
+	at javafx.graphics/com.sun.javafx.application.PlatformImpl.lambda$runLater$10(PlatformImpl.java:417)
+	at javafx.graphics/com.sun.glass.ui.InvokeLaterDispatcher$Future.run(InvokeLaterDispatcher.java:96)
+	at javafx.graphics/com.sun.glass.ui.win.WinApplication._runLoop(Native Method)
+	at javafx.graphics/com.sun.glass.ui.win.WinApplication.lambda$runLoop$3(WinApplication.java:175)
+	at java.base/java.lang.Thread.run(Thread.java:834)
+Caused by: javafx.fxml.LoadException: 
+/C:/Users/lenovo/Desktop/2113T/main/build/resources/main/view/MainWindow.fxml:26
+
+	at javafx.fxml/javafx.fxml.FXMLLoader.constructLoadException(FXMLLoader.java:2625)
+	at javafx.fxml/javafx.fxml.FXMLLoader.loadImpl(FXMLLoader.java:2603)
+	at javafx.fxml/javafx.fxml.FXMLLoader.loadImpl(FXMLLoader.java:2466)
+	at javafx.fxml/javafx.fxml.FXMLLoader.load(FXMLLoader.java:2435)
+	at duke.ui.UiPart.loadFxmlFile(UiPart.java:77)
+	... 14 more
+Caused by: java.lang.IllegalArgumentException: Can not set duke.ui.MainWindow$AutocompletionlTextField field duke.ui.MainWindow.userInput to com.jfoenix.controls.JFXTextField
+	at java.base/jdk.internal.reflect.UnsafeFieldAccessorImpl.throwSetIllegalArgumentException(UnsafeFieldAccessorImpl.java:167)
+	at java.base/jdk.internal.reflect.UnsafeFieldAccessorImpl.throwSetIllegalArgumentException(UnsafeFieldAccessorImpl.java:171)
+	at java.base/jdk.internal.reflect.UnsafeObjectFieldAccessorImpl.set(UnsafeObjectFieldAccessorImpl.java:81)
+	at java.base/java.lang.reflect.Field.set(Field.java:780)
+	at javafx.fxml/javafx.fxml.FXMLLoader.injectFields(FXMLLoader.java:1174)
+	at javafx.fxml/javafx.fxml.FXMLLoader.access$1600(FXMLLoader.java:105)
+	at javafx.fxml/javafx.fxml.FXMLLoader$ValueElement.processValue(FXMLLoader.java:865)
+	at javafx.fxml/javafx.fxml.FXMLLoader$ValueElement.processStartElement(FXMLLoader.java:759)
+	at javafx.fxml/javafx.fxml.FXMLLoader.processStartElement(FXMLLoader.java:2722)
+	at javafx.fxml/javafx.fxml.FXMLLoader.loadImpl(FXMLLoader.java:2552)
+	... 17 more
+
+Oct 11, 2019 10:42:20 AM duke.ui.UiManager showFatalErrorDialogAndShutdown
+SEVERE: Fatal error during initializing javafx.fxml.LoadException: 
+/C:/Users/lenovo/Desktop/2113T/main/build/resources/main/view/MainWindow.fxml:26
+javafx.fxml.LoadException: 
+/C:/Users/lenovo/Desktop/2113T/main/build/resources/main/view/MainWindow.fxml:26
+
+java.lang.AssertionError: javafx.fxml.LoadException: 
+/C:/Users/lenovo/Desktop/2113T/main/build/resources/main/view/MainWindow.fxml:26
+
+	at duke.ui.UiPart.loadFxmlFile(UiPart.java:79)
+	at duke.ui.UiPart.<init>(UiPart.java:46)
+	at duke.ui.UiPart.<init>(UiPart.java:55)
+	at duke.ui.MainWindow.<init>(MainWindow.java:83)
+	at duke.ui.UiManager.start(UiManager.java:41)
+	at duke.Launcher.start(Launcher.java:67)
+	at javafx.graphics/com.sun.javafx.application.LauncherImpl.lambda$launchApplication1$9(LauncherImpl.java:919)
+	at javafx.graphics/com.sun.javafx.application.PlatformImpl.lambda$runAndWait$11(PlatformImpl.java:449)
+	at javafx.graphics/com.sun.javafx.application.PlatformImpl.lambda$runLater$9(PlatformImpl.java:418)
+	at java.base/java.security.AccessController.doPrivileged(Native Method)
+	at javafx.graphics/com.sun.javafx.application.PlatformImpl.lambda$runLater$10(PlatformImpl.java:417)
+	at javafx.graphics/com.sun.glass.ui.InvokeLaterDispatcher$Future.run(InvokeLaterDispatcher.java:96)
+	at javafx.graphics/com.sun.glass.ui.win.WinApplication._runLoop(Native Method)
+	at javafx.graphics/com.sun.glass.ui.win.WinApplication.lambda$runLoop$3(WinApplication.java:175)
+	at java.base/java.lang.Thread.run(Thread.java:834)
+Caused by: javafx.fxml.LoadException: 
+/C:/Users/lenovo/Desktop/2113T/main/build/resources/main/view/MainWindow.fxml:26
+
+	at javafx.fxml/javafx.fxml.FXMLLoader.constructLoadException(FXMLLoader.java:2625)
+	at javafx.fxml/javafx.fxml.FXMLLoader.loadImpl(FXMLLoader.java:2603)
+	at javafx.fxml/javafx.fxml.FXMLLoader.loadImpl(FXMLLoader.java:2466)
+	at javafx.fxml/javafx.fxml.FXMLLoader.load(FXMLLoader.java:2435)
+	at duke.ui.UiPart.loadFxmlFile(UiPart.java:77)
+	... 14 more
+Caused by: java.lang.IllegalArgumentException: Can not set duke.ui.MainWindow$AutocompletionlTextField field duke.ui.MainWindow.userInput to com.jfoenix.controls.JFXTextField
+	at java.base/jdk.internal.reflect.UnsafeFieldAccessorImpl.throwSetIllegalArgumentException(UnsafeFieldAccessorImpl.java:167)
+	at java.base/jdk.internal.reflect.UnsafeFieldAccessorImpl.throwSetIllegalArgumentException(UnsafeFieldAccessorImpl.java:171)
+	at java.base/jdk.internal.reflect.UnsafeObjectFieldAccessorImpl.set(UnsafeObjectFieldAccessorImpl.java:81)
+	at java.base/java.lang.reflect.Field.set(Field.java:780)
+	at javafx.fxml/javafx.fxml.FXMLLoader.injectFields(FXMLLoader.java:1174)
+	at javafx.fxml/javafx.fxml.FXMLLoader.access$1600(FXMLLoader.java:105)
+	at javafx.fxml/javafx.fxml.FXMLLoader$ValueElement.processValue(FXMLLoader.java:865)
+	at javafx.fxml/javafx.fxml.FXMLLoader$ValueElement.processStartElement(FXMLLoader.java:759)
+	at javafx.fxml/javafx.fxml.FXMLLoader.processStartElement(FXMLLoader.java:2722)
+	at javafx.fxml/javafx.fxml.FXMLLoader.loadImpl(FXMLLoader.java:2552)
+	... 17 more
+
+Oct 11, 2019 10:45:29 AM duke.Launcher init
+INFO: =============================[ Initializing BakingHome ]===========================
+Oct 11, 2019 10:45:29 AM duke.Launcher start
+INFO: Starting BakingHome
+Oct 11, 2019 10:45:29 AM duke.ui.UiManager start
+INFO: Starting UI...
+Oct 11, 2019 10:48:39 AM duke.Launcher init
+INFO: =============================[ Initializing BakingHome ]===========================
+Oct 11, 2019 10:48:39 AM duke.Launcher start
+INFO: Starting BakingHome
+Oct 11, 2019 10:48:39 AM duke.ui.UiManager start
+INFO: Starting UI...
+Oct 11, 2019 10:48:40 AM duke.ui.UiManager start
+SEVERE: null
+java.lang.NullPointerException
+	at duke.ui.MainWindow.setUpAutoComplete(MainWindow.java:106)
+	at duke.ui.MainWindow.<init>(MainWindow.java:93)
+	at duke.ui.UiManager.start(UiManager.java:41)
+	at duke.Launcher.start(Launcher.java:67)
+	at javafx.graphics/com.sun.javafx.application.LauncherImpl.lambda$launchApplication1$9(LauncherImpl.java:919)
+	at javafx.graphics/com.sun.javafx.application.PlatformImpl.lambda$runAndWait$11(PlatformImpl.java:449)
+	at javafx.graphics/com.sun.javafx.application.PlatformImpl.lambda$runLater$9(PlatformImpl.java:418)
+	at java.base/java.security.AccessController.doPrivileged(Native Method)
+	at javafx.graphics/com.sun.javafx.application.PlatformImpl.lambda$runLater$10(PlatformImpl.java:417)
+	at javafx.graphics/com.sun.glass.ui.InvokeLaterDispatcher$Future.run(InvokeLaterDispatcher.java:96)
+	at javafx.graphics/com.sun.glass.ui.win.WinApplication._runLoop(Native Method)
+	at javafx.graphics/com.sun.glass.ui.win.WinApplication.lambda$runLoop$3(WinApplication.java:175)
+	at java.base/java.lang.Thread.run(Thread.java:834)
+
+Oct 11, 2019 10:48:40 AM duke.ui.UiManager showFatalErrorDialogAndShutdown
+SEVERE: Fatal error during initializing nullnull
+java.lang.NullPointerException
+	at duke.ui.MainWindow.setUpAutoComplete(MainWindow.java:106)
+	at duke.ui.MainWindow.<init>(MainWindow.java:93)
+	at duke.ui.UiManager.start(UiManager.java:41)
+	at duke.Launcher.start(Launcher.java:67)
+	at javafx.graphics/com.sun.javafx.application.LauncherImpl.lambda$launchApplication1$9(LauncherImpl.java:919)
+	at javafx.graphics/com.sun.javafx.application.PlatformImpl.lambda$runAndWait$11(PlatformImpl.java:449)
+	at javafx.graphics/com.sun.javafx.application.PlatformImpl.lambda$runLater$9(PlatformImpl.java:418)
+	at java.base/java.security.AccessController.doPrivileged(Native Method)
+	at javafx.graphics/com.sun.javafx.application.PlatformImpl.lambda$runLater$10(PlatformImpl.java:417)
+	at javafx.graphics/com.sun.glass.ui.InvokeLaterDispatcher$Future.run(InvokeLaterDispatcher.java:96)
+	at javafx.graphics/com.sun.glass.ui.win.WinApplication._runLoop(Native Method)
+	at javafx.graphics/com.sun.glass.ui.win.WinApplication.lambda$runLoop$3(WinApplication.java:175)
+	at java.base/java.lang.Thread.run(Thread.java:834)
+
+Oct 11, 2019 10:50:56 AM duke.Launcher init
+INFO: =============================[ Initializing BakingHome ]===========================
+Oct 11, 2019 10:50:56 AM duke.Launcher start
+INFO: Starting BakingHome
+Oct 11, 2019 10:50:56 AM duke.ui.UiManager start
+INFO: Starting UI...
+Oct 11, 2019 10:50:57 AM duke.ui.UiManager start
+SEVERE: null
+java.lang.NullPointerException
+	at duke.ui.MainWindow.setUpAutoComplete(MainWindow.java:109)
+	at duke.ui.MainWindow.<init>(MainWindow.java:93)
+	at duke.ui.UiManager.start(UiManager.java:41)
+	at duke.Launcher.start(Launcher.java:67)
+	at javafx.graphics/com.sun.javafx.application.LauncherImpl.lambda$launchApplication1$9(LauncherImpl.java:919)
+	at javafx.graphics/com.sun.javafx.application.PlatformImpl.lambda$runAndWait$11(PlatformImpl.java:449)
+	at javafx.graphics/com.sun.javafx.application.PlatformImpl.lambda$runLater$9(PlatformImpl.java:418)
+	at java.base/java.security.AccessController.doPrivileged(Native Method)
+	at javafx.graphics/com.sun.javafx.application.PlatformImpl.lambda$runLater$10(PlatformImpl.java:417)
+	at javafx.graphics/com.sun.glass.ui.InvokeLaterDispatcher$Future.run(InvokeLaterDispatcher.java:96)
+	at javafx.graphics/com.sun.glass.ui.win.WinApplication._runLoop(Native Method)
+	at javafx.graphics/com.sun.glass.ui.win.WinApplication.lambda$runLoop$3(WinApplication.java:175)
+	at java.base/java.lang.Thread.run(Thread.java:834)
+
+Oct 11, 2019 10:50:57 AM duke.ui.UiManager showFatalErrorDialogAndShutdown
+SEVERE: Fatal error during initializing nullnull
+java.lang.NullPointerException
+	at duke.ui.MainWindow.setUpAutoComplete(MainWindow.java:109)
+	at duke.ui.MainWindow.<init>(MainWindow.java:93)
+	at duke.ui.UiManager.start(UiManager.java:41)
+	at duke.Launcher.start(Launcher.java:67)
+	at javafx.graphics/com.sun.javafx.application.LauncherImpl.lambda$launchApplication1$9(LauncherImpl.java:919)
+	at javafx.graphics/com.sun.javafx.application.PlatformImpl.lambda$runAndWait$11(PlatformImpl.java:449)
+	at javafx.graphics/com.sun.javafx.application.PlatformImpl.lambda$runLater$9(PlatformImpl.java:418)
+	at java.base/java.security.AccessController.doPrivileged(Native Method)
+	at javafx.graphics/com.sun.javafx.application.PlatformImpl.lambda$runLater$10(PlatformImpl.java:417)
+	at javafx.graphics/com.sun.glass.ui.InvokeLaterDispatcher$Future.run(InvokeLaterDispatcher.java:96)
+	at javafx.graphics/com.sun.glass.ui.win.WinApplication._runLoop(Native Method)
+	at javafx.graphics/com.sun.glass.ui.win.WinApplication.lambda$runLoop$3(WinApplication.java:175)
+	at java.base/java.lang.Thread.run(Thread.java:834)
+
+Oct 11, 2019 10:54:36 AM duke.Launcher init
+INFO: =============================[ Initializing BakingHome ]===========================
+Oct 11, 2019 10:54:36 AM duke.Launcher start
+INFO: Starting BakingHome
+Oct 11, 2019 10:54:36 AM duke.ui.UiManager start
+INFO: Starting UI...
+Oct 11, 2019 10:55:34 AM duke.Launcher init
+INFO: =============================[ Initializing BakingHome ]===========================
+Oct 11, 2019 10:55:35 AM duke.Launcher start
+INFO: Starting BakingHome
+Oct 11, 2019 10:55:35 AM duke.ui.UiManager start
+INFO: Starting UI...
+Oct 11, 2019 10:58:21 AM duke.Launcher init
+INFO: =============================[ Initializing BakingHome ]===========================
+Oct 11, 2019 10:58:21 AM duke.Launcher start
+INFO: Starting BakingHome
+Oct 11, 2019 10:58:21 AM duke.ui.UiManager start
+INFO: Starting UI...
+Oct 11, 2019 10:59:02 AM duke.Launcher init
+INFO: =============================[ Initializing BakingHome ]===========================
+Oct 11, 2019 10:59:02 AM duke.Launcher start
+INFO: Starting BakingHome
+Oct 11, 2019 10:59:02 AM duke.ui.UiManager start
+INFO: Starting UI...
+Oct 11, 2019 11:19:23 AM duke.Launcher init
+INFO: =============================[ Initializing BakingHome ]===========================
+Oct 11, 2019 11:19:24 AM duke.Launcher start
+INFO: Starting BakingHome
+Oct 11, 2019 11:19:24 AM duke.ui.UiManager start
+INFO: Starting UI...
+Oct 11, 2019 11:24:09 AM duke.Launcher init
+INFO: =============================[ Initializing BakingHome ]===========================
+Oct 11, 2019 11:24:09 AM duke.Launcher start
+INFO: Starting BakingHome
+Oct 11, 2019 11:24:09 AM duke.ui.UiManager start
+INFO: Starting UI...
+Oct 11, 2019 11:24:28 AM duke.Launcher init
+INFO: =============================[ Initializing BakingHome ]===========================
+Oct 11, 2019 11:24:28 AM duke.Launcher start
+INFO: Starting BakingHome
+Oct 11, 2019 11:24:28 AM duke.ui.UiManager start
+INFO: Starting UI...
+Oct 11, 2019 11:24:48 AM duke.Launcher init
+INFO: =============================[ Initializing BakingHome ]===========================
+Oct 11, 2019 11:24:48 AM duke.Launcher start
+INFO: Starting BakingHome
+Oct 11, 2019 11:24:48 AM duke.ui.UiManager start
+INFO: Starting UI...
+Oct 11, 2019 11:25:27 AM duke.Launcher init
+INFO: =============================[ Initializing BakingHome ]===========================
+Oct 11, 2019 11:25:27 AM duke.Launcher start
+INFO: Starting BakingHome
+Oct 11, 2019 11:25:27 AM duke.ui.UiManager start
+INFO: Starting UI...
+Oct 11, 2019 11:26:25 AM duke.Launcher init
+INFO: =============================[ Initializing BakingHome ]===========================
+Oct 11, 2019 11:26:25 AM duke.Launcher start
+INFO: Starting BakingHome
+Oct 11, 2019 11:26:25 AM duke.ui.UiManager start
+INFO: Starting UI...
+Oct 11, 2019 11:26:52 AM duke.Launcher init
+INFO: =============================[ Initializing BakingHome ]===========================
+Oct 11, 2019 11:26:52 AM duke.Launcher start
+INFO: Starting BakingHome
+Oct 11, 2019 11:26:52 AM duke.ui.UiManager start
+INFO: Starting UI...
+Oct 11, 2019 11:35:28 AM duke.Launcher init
+INFO: =============================[ Initializing BakingHome ]===========================
+Oct 11, 2019 11:35:28 AM duke.Launcher start
+INFO: Starting BakingHome
+Oct 11, 2019 11:35:28 AM duke.ui.UiManager start
+INFO: Starting UI...
