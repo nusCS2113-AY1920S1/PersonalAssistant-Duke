@@ -66,7 +66,7 @@ public class FixedDurationTasksCommand extends Command {
             String date = dateFormat.format(dateTimeFormat.parse(dates[0]));
             String timeStart = timeFormat.format(dateTimeFormat.parse(dates[0]));
             String timeEnd = timeFormat.format(dateTimeFormat.parse(dates[1]));
-            events.addTask(new Event(taskDescription, date, timeStart, timeEnd, null));
+            events.addTask(new Event(taskDescription, date, timeStart, timeEnd));
         }
     }
 
