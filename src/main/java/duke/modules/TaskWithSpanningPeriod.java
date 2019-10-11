@@ -45,33 +45,33 @@ public class TaskWithSpanningPeriod extends TaskWithPeriod {
     }
 
     public void setBegin(LocalDateTime begin) throws ModInvalidTimePeriodException {
-        this.setPeriod(begin, this.getEnd().get());
+        this.setPeriod(begin, this.getEnd().eval());
     }
 
     public void setEnd(LocalDateTime end) throws ModInvalidTimePeriodException {
-        this.setPeriod(this.getBegin().get(), end);
+        this.setPeriod(this.getBegin().eval(), end);
     }
 
     public LocalDateTime getTime() {
-        return (this.getBegin() != null) ? this.getBegin().get() : this.getEnd().get();
+        return (this.getBegin() != null) ? this.getBegin().eval() : this.getEnd().eval();
     }
 
     public LocalDate getBeginDate() {
-        return this.getBegin().get().toLocalDate();
+        return this.getBegin().eval().toLocalDate();
     }
 
     @Override
     public LocalTime getBeginTime() {
-        return this.getBegin().get().toLocalTime();
+        return this.getBegin().eval().toLocalTime();
     }
 
     public LocalDate getEndDate() {
-        return this.getEnd().get().toLocalDate();
+        return this.getEnd().eval().toLocalDate();
     }
 
     @Override
     public LocalTime getEndTime() {
-        return this.getEnd().get().toLocalTime();
+        return this.getEnd().eval().toLocalTime();
     }
 
     @Override

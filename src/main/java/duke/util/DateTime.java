@@ -11,7 +11,7 @@ public class DateTime<E extends TemporalAccessor> {
         this.temporalAccessor = temporalAccessor;
     }
 
-    public E get() {
+    public E eval() {
         return this.temporalAccessor;
     }
 

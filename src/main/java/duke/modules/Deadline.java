@@ -24,7 +24,7 @@ public class Deadline extends TaskWithSpanningPeriod {
             + "|"
             + super.writingFile()
             + "|"
-            + this.getEnd().get().format(DateTimeFormatter.ofPattern("dd-MM-yyyy [HH:mm]"));
+            + this.getEnd().eval().format(DateTimeFormatter.ofPattern("dd-MM-yyyy [HH:mm]"));
     }
 
     @Override
@@ -32,7 +32,7 @@ public class Deadline extends TaskWithSpanningPeriod {
         return "[D]"
             + super.toString()
             + " (by: "
-            + this.getEnd().get().format(DateTimeFormatter.ofPattern("dd-MM-yyyy [HH:mm]"))
+            + this.getEnd().eval().format(DateTimeFormatter.ofPattern("dd-MM-yyyy [HH:mm]"))
             + ")";
     }
 }

@@ -25,7 +25,7 @@ public class Events extends TaskWithSpanningPeriod {
                 + "|"
                 + super.writingFile()
                 + "|"
-                + this.getBegin().get().format(DateTimeFormatter.ofPattern("dd-MM-yyyy [HH:mm]"));
+                + this.getBegin().eval().format(DateTimeFormatter.ofPattern("dd-MM-yyyy [HH:mm]"));
     }
 
     @Override
@@ -33,7 +33,7 @@ public class Events extends TaskWithSpanningPeriod {
         return "[E]"
                 + super.toString()
                 + " (at: "
-                + this.getBegin().get().format(DateTimeFormatter.ofPattern("dd-MM-yyyy [HH:mm]"))
+                + this.getBegin().eval().format(DateTimeFormatter.ofPattern("dd-MM-yyyy [HH:mm]"))
                 + ")";
     }
 }
