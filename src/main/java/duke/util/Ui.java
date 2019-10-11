@@ -68,7 +68,7 @@ public class Ui {
      *
      * @param taskList to be printed to user.
      */
-    public void printTaskList(List<Task> taskList) {
+    public <E extends Task> void printTaskList(List<E> taskList) {
         int count = 1;
         for (Task temp : taskList) {
             System.out.println(count + ". " + temp);
