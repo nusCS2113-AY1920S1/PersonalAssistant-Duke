@@ -6,7 +6,6 @@ plugins {
     id 'org.openjfx.javafxplugin' version '0.0.7'
 }
 
-
 checkstyle {
     toolVersion ='8.23'
 }
@@ -33,14 +32,13 @@ test {
     useJUnitPlatform()
 }
 
-
 repositories {
     mavenCentral()
 }
 
 application {
     // Change this to your main class.
-    mainClassName = "eggventory.Eggventory"
+    mainClassName = "eggventory.Start"
 }
 
 run {
