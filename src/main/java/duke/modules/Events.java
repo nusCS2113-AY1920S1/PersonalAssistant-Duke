@@ -4,13 +4,10 @@ import duke.exceptions.ModInvalidTimeException;
 import duke.exceptions.ModInvalidTimePeriodException;
 import duke.util.DateTimeParser;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Date;
 
-public class Events extends TaskWithPeriod {
+public class Events extends TaskWithSpanningPeriod {
 
     /**
      * Constructor for Events class, using String Varargs.
@@ -28,7 +25,7 @@ public class Events extends TaskWithPeriod {
                 + "|"
                 + super.writingFile()
                 + "|"
-                + this.getBegin().format(DateTimeFormatter.ofPattern("dd-MM-yyyy [HH:mm]"));
+                + this.getBegin().get().format(DateTimeFormatter.ofPattern("dd-MM-yyyy [HH:mm]"));
     }
 
     @Override
@@ -36,7 +33,7 @@ public class Events extends TaskWithPeriod {
         return "[E]"
                 + super.toString()
                 + " (at: "
-                + this.getBegin().format(DateTimeFormatter.ofPattern("dd-MM-yyyy [HH:mm]"))
+                + this.getBegin().get().format(DateTimeFormatter.ofPattern("dd-MM-yyyy [HH:mm]"))
                 + ")";
     }
 }
