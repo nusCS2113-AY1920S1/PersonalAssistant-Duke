@@ -54,29 +54,29 @@ class GsonStorageTest {
      * false.
      * TODO: compare impressions as well
      */
-    boolean identical(Patient p1, Patient p2) {
-        if (p1.getBedNo() != p2.getBedNo()) {
+    boolean identical(Patient pat1, Patient pat2) {
+        if (pat1.getBedNo() != pat2.getBedNo()) {
             return false;
         }
-        if (!(p1.getAllergies() == null ? p2.getAllergies() == null : p1.getAllergies().equals(p2.getAllergies()))) {
+        if (!(pat1.getAllergies().equals(pat2.getAllergies()))) {
             return false;
         }
-        if (p1.getHeight() != p2.getHeight()) {
+        if (pat1.getHeight() != pat2.getHeight()) {
             return false;
         }
-        if (p1.getWeight() != p2.getWeight()) {
+        if (pat1.getWeight() != pat2.getWeight()) {
             return false;
         }
-        if (p1.getAge() != p2.getAge()) {
+        if (pat1.getAge() != pat2.getAge()) {
             return false;
         }
-        if (p1.getNumber() != p2.getNumber()) {
+        if (pat1.getNumber() != pat2.getNumber()) {
             return false;
         }
-        if (!(p1.getAddress() == null ? p2.getAddress() == null : p1.getAddress().equals(p2.getAddress()))) {
+        if (!(pat1.getAddress() == null ? pat2.getAddress() == null : pat1.getAddress().equals(pat2.getAddress()))) {
             return false;
         }
-        if (!(p1.getHistory() == null ? p2.getHistory() == null : p1.getHistory().equals(p2.getHistory()))) {
+        if (!(pat1.getHistory() == null ? pat2.getHistory() == null : pat1.getHistory().equals(pat2.getHistory()))) {
             return false;
         }
         return true;
