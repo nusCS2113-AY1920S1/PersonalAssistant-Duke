@@ -121,7 +121,7 @@ class GsonStorageTest {
         gsonStorage.writeJsonFile();
         gsonStorage.loadPatientHashMap();
         Patient complexPatientRecreated = gsonStorage.getPatient("Complexia");
-        boolean equals = identical(complexPatient, complexPatientRecreated);
+        Boolean equals = identical(complexPatient, complexPatientRecreated);
         assertTrue(equals);
     }
 
