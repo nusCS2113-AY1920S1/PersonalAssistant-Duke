@@ -1,8 +1,6 @@
 package duchess.model.task;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonSetter;
 import duchess.exceptions.DuchessException;
 import duchess.model.Module;
@@ -12,8 +10,8 @@ import java.util.Optional;
 
 public abstract class Task implements Comparable<Task> {
     private boolean isDone;
-    protected String description;
     private Optional<Module> module;
+    protected String description;
 
     public Task() {
         this.isDone = false;
@@ -26,7 +24,9 @@ public abstract class Task implements Comparable<Task> {
 
     @Override
     public String toString() {
-        return "[" + (this.isDone ? "✓" : "✘") + "]";
+        return
+                "[" + (this.isDone ? "✓" : "✘") + "]"
+                        + module.map(m -> "[" + m.getCode() + "]").orElse("");
     }
 
     @Override
@@ -38,12 +38,14 @@ public abstract class Task implements Comparable<Task> {
         return this.getTimeFrame().clashesWith(that.getTimeFrame());
     }
 
-    @JsonCreator
-    public Task(
-            @JsonProperty("module") Module module,
-            @JsonProperty("description") String description) {
-        this.module = Optional.ofNullable(module);
+    @JsonSetter("description")
+    public void setDescription(String description) {
         this.description = description;
+    }
+
+    @JsonSetter("module")
+    public void setModule(Module module) {
+        this.module = Optional.ofNullable(module);
     }
 
     @JsonGetter("module")

@@ -28,6 +28,10 @@ public class Module {
         return code;
     }
 
+    public boolean isOfCode(String code) {
+        return this.code.toLowerCase().equals(code.toLowerCase());
+    }
+
     public boolean equals(Module that) {
         return this.code.equals(that.code);
     }

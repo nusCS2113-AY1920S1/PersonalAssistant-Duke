@@ -7,6 +7,7 @@ import duchess.model.task.Task;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class Store {
     private List<Task> taskList;
@@ -20,6 +21,10 @@ public class Store {
     public boolean isClashing(Task newTask) {
         return this.taskList.stream()
                 .anyMatch(task -> task.clashesWith(newTask));
+    }
+
+    public Optional<Module> findModuleByCode(String code) {
+        return moduleList.stream().filter(module -> module.isOfCode(code)).findFirst();
     }
 
     @JsonGetter("taskList")

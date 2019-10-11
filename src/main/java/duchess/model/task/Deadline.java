@@ -1,8 +1,7 @@
 package duchess.model.task;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonSetter;
 import duchess.exceptions.DuchessException;
 import duchess.model.TimeFrame;
 
@@ -48,13 +47,6 @@ public class Deadline extends Task {
         return Optional.of(this);
     }
 
-    @JsonCreator
-    public Deadline(
-            @JsonProperty("deadline") String deadline
-    ) {
-        this.deadline = LocalDateTime.parse(deadline);
-    }
-
     @Override
     public TimeFrame getTimeFrame() {
         return TimeFrame.ofInstantaneousTask(this.deadline);
@@ -64,7 +56,17 @@ public class Deadline extends Task {
     public String toString() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/uuuu HHmm")
                 .withResolverStyle(ResolverStyle.STRICT);
-        return String.format("[D]%s %s (by: %s)", super.toString(), this.description, formatter.format(this.deadline));
+        return String.format(
+                "[D]%s %s (by: %s)",
+                super.toString(),
+                this.description,
+                formatter.format(this.deadline)
+        );
+    }
+
+    @JsonSetter("deadline")
+    public void setDeadline(String deadline) {
+        this.deadline = LocalDateTime.parse(deadline);
     }
 
     @JsonGetter("deadline")
