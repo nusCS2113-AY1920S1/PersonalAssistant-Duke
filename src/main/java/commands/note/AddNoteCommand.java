@@ -1,6 +1,7 @@
 package commands.note;
 
 import Storage.Storage;
+import Storage.NoteStorage;
 import Tasks.Task;
 import UI.Ui;
 import commands.Command;
@@ -68,7 +69,7 @@ public class AddNoteCommand extends Command {
      * @param date the date specified by the user as a String object
      * @return the new note added
      */
-    private Note addToList(ArrayList<Note> listOfNotes, LocalDate userDate, String usersNote, String date) {
+    private Note addToList(ArrayList<Note> listOfNotes, LocalDate userDate, String usersNote, String date, String fileName) throws IOException {
         boolean hasNote = false;
         Note noteInQuestion = null;
         for (Note n: listOfNotes) {
@@ -85,6 +86,7 @@ public class AddNoteCommand extends Command {
             noteInQuestion = newNote;
         }
         //WRITE TO DAILY.TXT!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+        NoteStorage.writeToFile(fileName, listOfNotes);
         return noteInQuestion;
     }
 
@@ -119,13 +121,13 @@ public class AddNoteCommand extends Command {
 
         switch (command[1]) {
         case "day":
-            noteSpecified = addToList(NoteList.daily, userDate, usersNote, command[2]);
+            noteSpecified = addToList(NoteList.daily, userDate, usersNote, command[2], "NoteDaily.txt");
             break;
         case "week":
-            noteSpecified = addToList(NoteList.weekly, userDate, usersNote, command[2]);
+            noteSpecified = addToList(NoteList.weekly, userDate, usersNote, command[2], "NoteWeekly.txt");
             break;
         case "month":
-            noteSpecified = addToList(NoteList.monthly, userDate, usersNote, command[2]);
+            noteSpecified = addToList(NoteList.monthly, userDate, usersNote, command[2], "NoteMonthly.txt");
             break;
         default: noteSpecified = null;
             break;

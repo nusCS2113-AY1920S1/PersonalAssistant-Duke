@@ -12,8 +12,16 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Stack;
 
+/**
+ * Lists out the notes for a particular day, week or month.
+ */
 public class ListNoteCommand extends AddNoteCommand {
     //listNote day/week/month yyyy-MM-dd
+
+    /***
+     *
+     * @param listOFNotes
+     */
     private void printOutNoteList(ArrayList<String> listOFNotes) {
         assert !listOFNotes.isEmpty() : "there is an empty note section of a date (bug in DeleteNoteCommand)";
         for (int i = 0; i < listOFNotes.size(); i++) {
