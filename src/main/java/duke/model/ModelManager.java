@@ -58,7 +58,7 @@ public class ModelManager implements Model {
 
     @Override
     public void deleteOrder(Order target) {
-        bakingHome.getOrderList().remove(target);
+        bakingHome.removeOrder(target);
     }
 
     @Override

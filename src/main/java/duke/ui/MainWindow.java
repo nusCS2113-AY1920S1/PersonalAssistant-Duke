@@ -20,6 +20,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
 
+/**
+ * The Main Window.
+ * Provides the basic application layout containing a popup bar, a text field, a side bar,
+ * and space where different pages can be displayed.
+ */
 public class MainWindow extends UiPart<Stage> {
 
     private static final String FXML = "MainWindow.fxml";
@@ -62,10 +67,15 @@ public class MainWindow extends UiPart<Stage> {
     @FXML
     private JFXButton salesButton;
 
+    /**
+     * Creates the Main Window.
+     *
+     * @param primaryStage The stage to display MainWindow on.
+     * @param logic        Logic component
+     */
     public MainWindow(Stage primaryStage, Logic logic) {
         super(FXML, primaryStage);
 
-        // Set dependencies
         this.primaryStage = primaryStage;
         this.logic = logic;
 
@@ -73,10 +83,16 @@ public class MainWindow extends UiPart<Stage> {
 
     }
 
-    public Stage getPrimaryStage() {
+    /**
+     * Returns the stage that MainWindow is displayed on.
+     */
+    Stage getPrimaryStage() {
         return primaryStage;
     }
 
+    /**
+     * Creates Order, Product and Sales pages that fill up the placeholder window.
+     */
     void fillInnerParts() {
         orderPage = new OrderPage(logic.getFilteredOrderList());
         productPage = new ProductPage(logic.getFilteredProductList());
@@ -134,10 +150,14 @@ public class MainWindow extends UiPart<Stage> {
         });
     }
 
+    /**
+     * Hides the pop up bar.
+     */
     @FXML
     private void handleOk() {
         popUp.setVisible(false);
     }
+
 
     @FXML
     private void handleShowRecipe() {
@@ -159,6 +179,9 @@ public class MainWindow extends UiPart<Stage> {
         showSalesPage();
     }
 
+    /**
+     * Shows the pop up bar displaying a {@code message}.
+     */
     private void showMessagePopUp(String message) {
         popUpLabel.setText(message);
         popUpButton.getStyleClass().clear();
@@ -168,8 +191,11 @@ public class MainWindow extends UiPart<Stage> {
         popUp.setVisible(true);
     }
 
-    private void showErrorPopUp(String message) {
-        popUpLabel.setText(message);
+    /**
+     * Shows the pop up bar displaying a {@code errorMessage} signifying an error.
+     */
+    private void showErrorPopUp(String errorMessage) {
+        popUpLabel.setText(errorMessage);
         popUpButton.getStyleClass().clear();
         popUpButton.getStyleClass().add("error-popup");
         popUp.getStyleClass().clear();
@@ -179,20 +205,20 @@ public class MainWindow extends UiPart<Stage> {
 
     private void showPage(CommandResult.DisplayedPage toDisplay) {
         switch (toDisplay) {
-        case SALE:
-            showSalesPage();
-            break;
-        case ORDER:
-            showOrderPage();
-            break;
-        case PRODUCT:
-            showProductPage();
-            break;
-        case INVENTORY:
-            showInventoryPage();
-            break;
-        default:
-            break;
+            case SALE:
+                showSalesPage();
+                break;
+            case ORDER:
+                showOrderPage();
+                break;
+            case PRODUCT:
+                showProductPage();
+                break;
+            case INVENTORY:
+                showInventoryPage();
+                break;
+            default:
+                break;
         }
     }
 

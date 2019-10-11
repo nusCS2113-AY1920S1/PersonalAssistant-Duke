@@ -16,7 +16,6 @@ import java.util.List;
 import java.util.Set;
 
 import static duke.commons.util.CollectionUtil.requireAllNonNull;
-import static duke.logic.command.order.OrderCommandUtil.checkProductExistence;
 import static duke.logic.command.order.OrderCommandUtil.getProducts;
 import static java.util.Objects.requireNonNull;
 
@@ -92,8 +91,6 @@ public class EditOrderCommand extends OrderCommand implements Undoable {
 
         orderToEdit = lastShownList.get(index.getZeroBased());
         Order editedOrder = createEditedOrder(orderToEdit, orderDescriptor, model.getFilteredProductList());
-
-        checkProductExistence(model.getFilteredProductList(), editedOrder);
 
         model.setOrder(orderToEdit, editedOrder);
         model.updateFilteredOrderList(Model.PREDICATE_SHOW_ALL_ORDERS);
