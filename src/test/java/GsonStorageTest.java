@@ -81,7 +81,7 @@ public class GsonStorageTest {
      * Tests if patients are transformed from the json file to the hashmap properly.
      */
     @Test
-    private void loadPatientHashMapTest() throws DukeFatalException, IOException {
+    public void loadPatientHashMapTest() throws DukeFatalException, IOException {
         gsonStorage.resetAllData();
         FileWriter fileWriter = new FileWriter(new File(gsonStorage.getFilePath()));
         fileWriter.write(expected);
@@ -98,7 +98,7 @@ public class GsonStorageTest {
      * When the recreation is done it checks if the first patients are identical to the new ones.
      */
     @Test
-    private void identicalDummyPatient() throws IOException, DukeException, DukeFatalException {
+    public void identicalDummyPatient() throws IOException, DukeException, DukeFatalException {
         gsonStorage.resetAllData();
         gsonStorage.addPatientToMap(dummy1);
         gsonStorage.writeJsonFile();
@@ -114,7 +114,7 @@ public class GsonStorageTest {
      * When the recreation is done it checks if the first patients are identical to the new ones.
      */
     @Test
-    private void identicalComplexPatient() throws IOException, DukeException, DukeFatalException {
+    public void identicalComplexPatient() throws IOException, DukeException, DukeFatalException {
         gsonStorage.resetAllData();
         Patient complexPatient = createComplexPatient();
         gsonStorage.addPatientToMap(complexPatient);
@@ -129,7 +129,7 @@ public class GsonStorageTest {
      * Tests if patients are transformed from the hashmap to the json file properly.
      */
     @Test
-    private void writeJsonFileTest() throws DukeFatalException, IOException, DukeFatalException {
+    public void writeJsonFileTest() throws DukeFatalException, IOException, DukeFatalException {
         gsonStorage.resetAllData();
         gsonStorage.addPatientToMap(dummy1);
         gsonStorage.addPatientToMap(dummy2);
