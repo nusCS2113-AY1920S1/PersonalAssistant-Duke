@@ -5,6 +5,7 @@ import duke.util.TimeInterval;
 import duke.util.TimePeriod;
 import java.time.DayOfWeek;
 import java.time.LocalTime;
+import java.time.temporal.TemporalAccessor;
 import java.util.List;
 
 public abstract class TaskWithPeriod extends Task {
@@ -19,9 +20,9 @@ public abstract class TaskWithPeriod extends Task {
 
     public abstract LocalTime getEndTime();
 
-    public abstract DateTime getBegin();
+    public abstract TemporalAccessor getBegin();
 
-    public abstract DateTime getEnd();
+    public abstract TemporalAccessor getEnd();
 
     public abstract TimePeriod getPeriod();
 

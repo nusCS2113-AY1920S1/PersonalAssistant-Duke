@@ -40,11 +40,11 @@ public class TaskWithWeeklyPeriod extends TaskWithPeriod {
     }
 
     public void setBegin(LocalTime begin) {
-        this.setPeriod(begin, this.getEnd().value());
+        this.setPeriod(begin, this.getEnd());
     }
 
     public void setEnd(LocalTime end) {
-        this.setPeriod(this.getBegin().value(), end);
+        this.setPeriod(this.getBegin(), end);
     }
 
     public void setDayOfWeek(DayOfWeek dayOfWeek) {
@@ -52,7 +52,7 @@ public class TaskWithWeeklyPeriod extends TaskWithPeriod {
     }
 
     public LocalTime getTime() {
-        return (this.getBegin() != null) ? this.getBegin().value() : this.getEnd().value();
+        return (this.getBegin() != null) ? this.getBegin() : this.getEnd();
     }
 
     public DayOfWeek getDayOfWeek() {
@@ -66,21 +66,21 @@ public class TaskWithWeeklyPeriod extends TaskWithPeriod {
 
     @Override
     public LocalTime getBeginTime() {
-        return this.period.getBegin().value();
-    }
-
-    @Override
-    public LocalTime getEndTime() {
-        return this.period.getEnd().value();
-    }
-
-    @Override
-    public DateTime<LocalTime> getBegin() {
         return this.period.getBegin();
     }
 
     @Override
-    public DateTime<LocalTime> getEnd() {
+    public LocalTime getEndTime() {
+        return this.period.getEnd();
+    }
+
+    @Override
+    public LocalTime getBegin() {
+        return this.period.getBegin();
+    }
+
+    @Override
+    public LocalTime getEnd() {
         return this.period.getEnd();
     }
 

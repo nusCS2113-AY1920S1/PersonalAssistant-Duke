@@ -2,6 +2,7 @@ package duke.util;
 
 import java.time.DayOfWeek;
 import java.time.LocalTime;
+import java.time.temporal.TemporalAccessor;
 import java.util.List;
 
 public interface TimePeriod {
@@ -12,9 +13,9 @@ public interface TimePeriod {
 
     LocalTime getEndTime();
 
-    DateTime getBegin();
+    TemporalAccessor getBegin();
 
-    DateTime getEnd();
+    TemporalAccessor getEnd();
 
     boolean isClashing(TimePeriod other);
 

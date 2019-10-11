@@ -229,13 +229,13 @@ public class TimePeriodSpanning implements TimePeriod {
     }
 
     @Override
-    public DateTime<LocalDateTime> getBegin() {
-        return new DateTime<>(this.begin);
+    public LocalDateTime getBegin() {
+        return this.begin;
     }
 
     @Override
-    public DateTime<LocalDateTime> getEnd() {
-        return new DateTime<>(this.end);
+    public LocalDateTime getEnd() {
+        return this.end;
     }
 
     @Override

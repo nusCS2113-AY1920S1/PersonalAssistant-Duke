@@ -32,9 +32,9 @@ public class DoWithin extends TaskWithSpanningPeriod {
                 + "|"
                 + super.writingFile()
                 + "|"
-                + this.getBegin().value().format(DateTimeFormatter.ofPattern("dd-MM-yyyy [HH:mm]"))
+                + this.getBegin().format(DateTimeFormatter.ofPattern("dd-MM-yyyy [HH:mm]"))
                 + "|"
-                + this.getEnd().value().format(DateTimeFormatter.ofPattern("dd-MM-yyyy [HH:mm]"));
+                + this.getEnd().format(DateTimeFormatter.ofPattern("dd-MM-yyyy [HH:mm]"));
     }
 
     @Override
@@ -42,9 +42,9 @@ public class DoWithin extends TaskWithSpanningPeriod {
         return "[W]"
                 + super.toString()
                 + " (begin: "
-                + this.getBegin().value().format(DateTimeFormatter.ofPattern("dd-MM-yyyy [HH:mm]"))
+                + this.getBegin().format(DateTimeFormatter.ofPattern("dd-MM-yyyy [HH:mm]"))
                 + ", end: "
-                + this.getEnd().value().format(DateTimeFormatter.ofPattern("dd-MM-yyyy [HH:mm]"))
+                + this.getEnd().format(DateTimeFormatter.ofPattern("dd-MM-yyyy [HH:mm]"))
                 + ")";
     }
 }
