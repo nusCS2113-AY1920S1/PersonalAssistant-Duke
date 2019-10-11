@@ -20,6 +20,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
+import javafx.util.Callback;
 import javafx.util.Duration;
 
 import java.io.IOException;
@@ -30,10 +31,7 @@ import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.ResourceBundle;
+import java.util.*;
 
 /**
  * Controller for MainWindow. Provides the layout for the other controls.
@@ -46,8 +44,6 @@ public class MainWindow extends BorderPane implements Initializable {
     private Label currentWeek;
     @FXML
     private TextField userInput;
-    @FXML
-    private AnchorPane anchorPane;
     @FXML
     private HBox progressContainer;
     @FXML
@@ -84,6 +80,15 @@ public class MainWindow extends BorderPane implements Initializable {
     private ArrayList<Task> overdue;
     private TaskList eventsList;
     private TaskList deadlinesList;
+    private static LookupTable LT;
+    static {
+        try {
+            LT = new LookupTable();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    //private Map<String, String> lookupTable = LookupTable.getLookupTable();
 
     /**
      * This method initializes the display in the window of the GUI.
@@ -95,7 +100,9 @@ public class MainWindow extends BorderPane implements Initializable {
             todos = new ArrayList<>();
             deadlines = new ArrayList<>();
             setClock();
-            setWeek(NO_FIELD);
+
+
+            setWeek(true, NO_FIELD);
             retrieveList();
             openReminderBox();
 
@@ -107,8 +114,10 @@ public class MainWindow extends BorderPane implements Initializable {
             overdueTaskColumn.setCellValueFactory(new PropertyValueFactory<>("task"));
             overdueTable.setItems(setOverdueTable());
 
-            progressContainer.getChildren().add(ProgressController.getProgress("CS2100", "5", "6"));
-            //continue doing here!!! (Mich)
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/view/ProgressIndicator.fxml"));
+            Parent loader = fxmlLoader.load();
+            fxmlLoader.<ProgressController>getController().getData("CS2100", "5", "6");
+            progressContainer.getChildren().add(loader);
 
             setListItem();
 
@@ -241,6 +250,12 @@ public class MainWindow extends BorderPane implements Initializable {
     private void handleUserInput() throws ParseException {
         String input = userInput.getText();
         String response = duke.getResponse(input);
+        if (input.startsWith("Week")) {
+            setWeek(false, input);
+            setListItem();
+        }
+        else if (input.startsWith("add")) refresh(input);
+
         //todo: handling of the response
         userInput.clear();
     }
@@ -259,8 +274,8 @@ public class MainWindow extends BorderPane implements Initializable {
     }
 
     //Temp file as Add command and storage not yet implemented. By right go to file find week -> find day
-    private String[] tempList = {"Week 8 Mon FBC", "Week 8 Mon A", "Week 8 Tue EFG", "Week 8 Wed EFG", "Week 8 Thu EFG", "Week 8 Fri EFG", "Week 8 Sat EFG", "Week 8 Sun EFG"};
-    private String week = "Week 8";
+    private String[] tempList = {"Week 8 Mon FBC", "Week 8 Mon A", "Week 8 Tue EFG", "Week 8 Wed EFG", "Week 8 Thu EFG", "Week 8 Fri EFG", "Week 8 Sat EFG", "Week 8 Sun EFG", "Week 9 Sun HAHAH"};
+    private String week = NO_FIELD;
 
     private final ObservableList<String> monList = FXCollections.observableArrayList();
     private final ObservableList<String> tueList = FXCollections.observableArrayList();
@@ -271,15 +286,28 @@ public class MainWindow extends BorderPane implements Initializable {
     private final ObservableList<String> sunList = FXCollections.observableArrayList();
 
     /**
+     * This method clears the data in GridPane ListViews.
+     */
+    private void clearData(){
+        monList.clear();
+        tueList.clear();
+        wedList.clear();
+        thuList.clear();
+        friList.clear();
+        satList.clear();
+        sunList.clear();
+    }
+
+    /**
      * This method generates data in day GridPane ListViews based on the week selected
      */
     private void setListItem(){
+        clearData();
         for(String item: tempList){ //update (tempList) when actually list is implemented
             if(item.startsWith(week)){
                 item = item.replaceFirst(week, "");
                 item = item.trim();
                 String[] splitItem = item.split(" ", 2);
-                System.out.println(splitItem[1]);
                 switch (splitItem[0]){
                     case "Mon":
                         monList.add(splitItem[1]);
@@ -315,23 +343,23 @@ public class MainWindow extends BorderPane implements Initializable {
     }
 
     /**
-     * This method updates currentWeek Label
-     * @param selectedWeek The week selected.
+     * This method updates currentWeek Label.
+     * @param onStart The flag which indicates program startup
+     * @param selectedWeek The week selected
      */
-    private void setWeek(String selectedWeek){
+    private void setWeek(Boolean onStart,String selectedWeek){
         //if start up selectedWeek will be NO_FIELD, else if user search for week, week equals selected week
-        if(selectedWeek == NO_FIELD){
+        if(onStart){
             Date dateTime = new Date();
             SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
             String date = dateFormat.format(dateTime);
-            //Search look up table for week of current date
-            selectedWeek = "current week"; //todo after look up table is up and set selected week = week + date to date
-            currentWeek.setText(selectedWeek + " ( " + " date to date" + " )");
-            //week = selectedWeek;
+            selectedWeek = LT.getWeek(date);
+            currentWeek.setText(selectedWeek + " ( " + LT.getDates(selectedWeek.toLowerCase()) + " )");
+            week = selectedWeek;
         }
         else{
-            //search look up table for week selected
-            currentWeek.setText(selectedWeek + " ( " + " date to date" + " )"); //todo after look up table is up and set selectedweek = week + date to date
+            currentWeek.setText(selectedWeek + " ( " + LT.getDates(selectedWeek.toLowerCase()) + " )");
+            week = selectedWeek;
         }
     }
 
@@ -341,11 +369,12 @@ public class MainWindow extends BorderPane implements Initializable {
      * @throws ParseException
      */
     private void refresh(String input) throws ParseException { // boolean onAdd,boolean onWeek. if onAdd = 1 it's a add command, if onWeek = 1 it's a week command
-        //Assume input to be implement:
+        //Assume input to be implement: (Format to be changed)
         // Week label format: Week 8 ( 07/10/2019 - 11/10/2019 )
         //deadline format - add-d modulecode description date time
-        //event format - add-e modulecode description date(07/10/2019) from time to time )
-        DateFormat dateFormat = new SimpleDateFormat("E dd/MM/yyyy");
+        //event format - add-e modulecode description date(eg. 07/10/2019) from time to time )
+        DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        DateFormat dateDayFormat = new SimpleDateFormat("E dd/MM/yyyy");
         String[] spiltWeekLabel = (currentWeek.getText()).split(" ");
         String[] splitInput = input.split(" ");
         int indices = splitInput.length;
@@ -355,7 +384,8 @@ public class MainWindow extends BorderPane implements Initializable {
             Date endDate = dateFormat.parse(spiltWeekLabel[5]);
 
             if(inputDate.after(startDate) && inputDate.before(endDate)){
-                String day = (splitInput[(indices-1)-4]).substring(0,2);
+                String day = (dateDayFormat.format(inputDate)).substring(0,3);
+
                 switch (day){
                     case "Mon":
                         monList.add((splitInput[2] + " " + splitInput[3]));

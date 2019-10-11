@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ProgressIndicator?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="131.0" prefWidth="250.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="JavaFx.ProgressController">
+   <children>
+      <ProgressIndicator fx:id="progressIndicator" layoutX="152.0" layoutY="26.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="90.0" prefWidth="80.0" progress="0.0" />
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutY="51.0" prefHeight="30.0" prefWidth="80.0" text="Completed" />
+      <Label fx:id="completedValueLabel" alignment="CENTER" contentDisplay="BOTTOM" layoutY="81.0" prefHeight="30.0" prefWidth="80.0" text="Label" />
+      <Label alignment="CENTER" layoutX="80.0" layoutY="51.0" prefHeight="30.0" prefWidth="80.0" text="Overdue" />
+      <Label fx:id="overdueValueLabel" alignment="CENTER" layoutX="80.0" layoutY="81.0" prefHeight="30.0" prefWidth="80.0" text="Label" />
+      <Label fx:id="moduleCodeLabel" alignment="CENTER" layoutY="1.0" prefHeight="50.0" prefWidth="180.0" text="Module Code" />
+   </children>
+</AnchorPane>
