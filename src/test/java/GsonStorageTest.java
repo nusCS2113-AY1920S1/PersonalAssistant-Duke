@@ -17,7 +17,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
  * JUnit class testing the class GsonStorage.
- *
  */
 class GsonStorageTest {
     private String filePath = "data/patients.json";
@@ -25,6 +24,10 @@ class GsonStorageTest {
     private Patient dummy1 = new Patient("dummy1", 100, "nuts");
     private Patient dummy2 = new Patient("dummy2", 200, null);
     private Patient dummy3 = new Patient("dummy3", 300, "cats");
+    private String expected = "[{\"bedNo\":100,\"allergies\":\"nuts\",\"impressions\":[],\"height\":0,\"we"
+            + "ight\":0,\"age\":0,\"number\":0,\"name\":\"dummy1\"},{\"bedNo\":200,\"impressions\":[],\"heig"
+            + "ht\":0,\"weight\":0,\"age\":0,\"number\":0,\"name\":\"dummy2\"},{\"bedNo\":300,\"allergies\":\"ca"
+            + "ts\",\"impressions\":[],\"height\":0,\"weight\":0,\"age\":0,\"number\":0,\"name\":\"dummy3\"}]";
 
     GsonStorageTest() throws DukeFatalException {
     }
@@ -33,49 +36,50 @@ class GsonStorageTest {
      * Creates a patient object and assign values to all of its attributes - used to test if the nesting works.
      */
     private Patient createComplexPatient() throws DukeException {
-        Patient ComplexPatient1 = new Patient("Complexia", 100, "cookies");
-        ComplexPatient1.addNewImpression(new Impression("Afraid", "Patient bit me in the finger 7 times", ComplexPatient1.getName()));
-        ComplexPatient1.setPriDiagnosis(0);
-        ComplexPatient1.setAllergies("dogs");
-        ComplexPatient1.setHeight(124);
-        ComplexPatient1.setWeight(250);
-        ComplexPatient1.setAge(84);
-        ComplexPatient1.setNumber(6582447);
-        ComplexPatient1.setAddress("Broadway 12a");
-        ComplexPatient1.setHistory("Operated the left arm in 2014 and have been feeling weak ever since");
-        return ComplexPatient1;
+        Patient complexPatient = new Patient("Complexia", 100, "cookies");
+        complexPatient.addNewImpression(new Impression("Afraid", "bit me", complexPatient.getName()));
+        complexPatient.setPriDiagnosis(0);
+        complexPatient.setAllergies("dogs");
+        complexPatient.setHeight(124);
+        complexPatient.setWeight(250);
+        complexPatient.setAge(84);
+        complexPatient.setNumber(6582447);
+        complexPatient.setAddress("Broadway 12a");
+        complexPatient.setHistory("Operated the left arm in 2014 and have been feeling weak ever since");
+        return complexPatient;
     }
 
     /**
-     * Compares all the attributes of two patients and returns true if they all are the same, otherwise it returns false
+     * Compares all the attributes of two patients and returns true if they all are the same, otherwise it returns
+     * false.
      * TODO: compare impressions as well
      */
-    boolean identical(Patient patient1, Patient patient2) {
-        if (patient1.getBedNo() != patient2.getBedNo()) {
+    boolean identical(Patient p1, Patient p2) {
+        if (p1.getBedNo() != p2.getBedNo()) {
             return false;
         }
-        if (!(patient1.getAllergies() == null ? patient2.getAllergies() == null : patient1.getAllergies().equals(patient2.getAllergies()))) {
+        if (!(p1.getAllergies() == null ? p2.getAllergies() == null : p1.getAllergies().equals(p2.getAllergies()))) {
             return false;
         }
-        if (patient1.getHeight() != patient2.getHeight()) {
+        if (p1.getHeight() != p2.getHeight()) {
             return false;
         }
-        if (patient1.getWeight() != patient2.getWeight()) {
+        if (p1.getWeight() != p2.getWeight()) {
             return false;
         }
-        if (patient1.getAge() != patient2.getAge()) {
+        if (p1.getAge() != p2.getAge()) {
             return false;
         }
-        if (patient1.getNumber() != patient2.getNumber()) {
+        if (p1.getNumber() != p2.getNumber()) {
             return false;
         }
-        if (!(patient1.getAddress() == null ? patient2.getAddress() == null : patient1.getAddress().equals(patient2.getAddress()))) {
+        if (!(p1.getAddress() == null ? p2.getAddress() == null : p1.getAddress().equals(p2.getAddress()))) {
             return false;
         }
-        if (!(patient1.getImpressions().toString() == null ? patient2.getImpressions().toString() == null : patient1.getImpressions().toString().equals(patient2.getImpressions().toString()))) {
+        if (!(p1.getHistory() == null ? p2.getHistory() == null : p1.getHistory().equals(p2.getHistory()))) {
             return false;
         }
-        return patient1.getHistory() == null ? patient2.getHistory() == null : patient1.getHistory().equals(patient2.getHistory());
+        return true;
     }
 
 
@@ -86,8 +90,7 @@ class GsonStorageTest {
     void loadPatientHashMapTest() throws DukeFatalException, IOException {
         gsonStorage.resetAllData();
         FileWriter fileWriter = new FileWriter(new File(gsonStorage.getFilePath()));
-        String jsonRepresentations = "[{\"bedNo\":100,\"allergies\":\"nuts\",\"impressions\":[],\"height\":0,\"weight\":0,\"age\":0,\"number\":0,\"name\":\"dummy1\"},{\"bedNo\":200,\"impressions\":[],\"height\":0,\"weight\":0,\"age\":0,\"number\":0,\"name\":\"dummy2\"},{\"bedNo\":300,\"allergies\":\"cats\",\"impressions\":[],\"height\":0,\"weight\":0,\"age\":0,\"number\":0,\"name\":\"dummy3\"}]";
-        fileWriter.write(jsonRepresentations);
+        fileWriter.write(expected);
         fileWriter.close();
         gsonStorage.loadPatientHashMap();
         assertTrue(identical(gsonStorage.getPatient("dummy1"), dummy1));
@@ -138,7 +141,6 @@ class GsonStorageTest {
         gsonStorage.addPatientToMap(dummy2);
         gsonStorage.addPatientToMap(dummy3);
         gsonStorage.writeJsonFile();
-        String expected = "[{\"bedNo\":100,\"allergies\":\"nuts\",\"impressions\":[],\"height\":0,\"weight\":0,\"age\":0,\"number\":0,\"name\":\"dummy1\"},{\"bedNo\":200,\"impressions\":[],\"height\":0,\"weight\":0,\"age\":0,\"number\":0,\"name\":\"dummy2\"},{\"bedNo\":300,\"allergies\":\"cats\",\"impressions\":[],\"height\":0,\"weight\":0,\"age\":0,\"number\":0,\"name\":\"dummy3\"}]";
         String json = Files.readString(Paths.get(filePath), StandardCharsets.US_ASCII);
         assertEquals(expected, json);
     }

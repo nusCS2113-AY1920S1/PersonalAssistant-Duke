@@ -73,7 +73,7 @@ public class GsonStorage {
     }
 
     /**
-     * Adds a patient object to the hash map with all the patients - used when testing
+     * Adds a patient object to the hash map with all the patients - used when testing.
      */
     public void addPatientToMap(Patient patient) {
         patientMap.put(patient.getName(), patient);
@@ -83,10 +83,12 @@ public class GsonStorage {
         return patientMap.get(name);
     }
 
-    public String getFilePath(){ return filePath;}
+    public String getFilePath() {
+        return filePath;
+    }
 
     /**
-     * Clears the json file and the paitent hash map - used when testing
+     * Clears the json file and the paitent hash map - used when testing.
      */
     public void resetAllData() throws IOException {
         FileWriter fileWriter = new FileWriter(jsonFile);
