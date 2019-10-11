@@ -51,10 +51,10 @@ public class Parser {
         String temp[] = scanner.nextLine().trim().split("-",2);
         int[] index;
         if (temp.length == 1) {
-            index = new int[]{Integer.parseInt(temp[0]) - 1};
+            index = new int[]{Integer.parseInt(temp[0].trim()) - 1};
         }
         else
-            index = new int[]{Integer.parseInt(temp[0]) - 1, Integer.parseInt(temp[1]) - 1};
+            index = new int[]{Integer.parseInt(temp[0].trim()) - 1, Integer.parseInt(temp[1].trim()) - 1};
         return index;
     }
 

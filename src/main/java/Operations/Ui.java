@@ -52,9 +52,9 @@ public class Ui {
 
     public void showDeleted (int[] index) {
         if (index.length == 1)
-            System.out.println("Deleted task number " + index[0] + "!");
+            System.out.println("Deleted task number " + (index[0] + 1) + "!");
         else
-            System.out.println("Deleted task number " + index[0] + " to " + index[1] + " !");
+            System.out.println("Deleted task number " + (index[0] + 1) + " to " + (index[1] + 1) + " !");
     }
     /**
      * Tells the user that the search operation is executing
