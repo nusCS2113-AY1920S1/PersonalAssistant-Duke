@@ -59,29 +59,21 @@ class GsonStorageTest {
     boolean identical(Patient patient1, Patient patient2) {
         if (patient1.getBedNo() != patient2.getBedNo()) {
             return false;
-        }
-        if (!(java.util.Objects.equals(patient1.getAllergies(), patient2.getAllergies()))) {
+        } else if (!(java.util.Objects.equals(patient1.getAllergies(), patient2.getAllergies()))) {
             return false;
-        }
-        if (patient1.getHeight() != patient2.getHeight()) {
+        } else if (patient1.getHeight() != patient2.getHeight()) {
             return false;
-        }
-        if (patient1.getWeight() != patient2.getWeight()) {
+        } else if (patient1.getWeight() != patient2.getWeight()) {
             return false;
-        }
-        if (patient1.getAge() != patient2.getAge()) {
+        } else if (patient1.getAge() != patient2.getAge()) {
             return false;
-        }
-        if (patient1.getNumber() != patient2.getNumber()) {
+        } else if (patient1.getNumber() != patient2.getNumber()) {
             return false;
-        }
-        if (!(java.util.Objects.equals(patient1.getAddress(), patient2.getAddress()))) {
+        } else if (!(java.util.Objects.equals(patient1.getAddress(), patient2.getAddress()))) {
             return false;
+        } else {
+            return java.util.Objects.equals(patient1.getHistory(), patient2.getHistory());
         }
-        if (!(java.util.Objects.equals(patient1.getHistory(), patient2.getHistory()))) {
-            return false;
-        }
-        return true;
     }
 
 
