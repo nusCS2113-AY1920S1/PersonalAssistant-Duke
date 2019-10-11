@@ -40,7 +40,6 @@ public class PatientStorage extends Storage<Patient> {
                 String remark = record.get("Remark");
                 String room = record.get("Room");
                 patientList.add(new Patient(id, name, nric, room, remark));
-//                System.out.println(id + " | " +  name + " | " + nric + " | " + remark + " | " + room); //List out patietns info for debugging
             }
             return patientList;
         } catch (IOException e) {

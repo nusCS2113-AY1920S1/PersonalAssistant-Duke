@@ -62,8 +62,6 @@ public class CommandManager {
                 } catch (Exception e) {
                     throw new DukeException("List command fails. " + e.getMessage());
                 }
-            case "done":
-                //do thing for 'done'
             case "delete":
                 try{
                     String[] tempCommand = command[1].split("\\s+", 2);
@@ -96,8 +94,6 @@ public class CommandManager {
                 } catch(Exception e){
                     throw new DukeException("Find command fails. " + e.getMessage());
                 }
-            case "reschedule":
-                //do thing for 'reschedule'
             case "update":
                 try {
                     String[] descriptions = command[1].split("\\s+");
@@ -111,10 +107,6 @@ public class CommandManager {
                 } catch (Exception e) {
                     throw new DukeException("update command fails. " + e.getMessage());
                 }
-            case "view":
-                //do thing for 'view'
-            case "help":
-                //do thing for 'help'
             case "bye":
                 return new ExitCommand();
             default:

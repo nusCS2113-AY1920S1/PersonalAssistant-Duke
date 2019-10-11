@@ -2,13 +2,11 @@ package duke.command;
 
 import duke.core.DukeException;
 import duke.core.Ui;
-import duke.patient.Patient;
-import duke.patient.PatientList;
+import duke.patient.PatientManager;
 import duke.storage.PatientStorage;
 import duke.storage.TaskStorage;
-import duke.task.Task;
 import duke.task.StandardTask;
-import duke.task.TaskList;
+import duke.task.TaskManager;
 
 public class AddStandardTaskCommand extends Command{
     private StandardTask newStandardTask;
@@ -18,9 +16,9 @@ public class AddStandardTaskCommand extends Command{
     }
 
     @Override
-    public void execute(TaskList taskList, PatientList patientList, Ui ui, TaskStorage taskStorage, PatientStorage patientStorage) throws DukeException {
-        taskList.addTask(newStandardTask);
-        taskStorage.save(taskList.getTaskList());
+    public void execute(TaskManager taskManager, PatientManager patientManager, Ui ui, TaskStorage taskStorage, PatientStorage patientStorage) throws DukeException {
+        taskManager.addTask(newStandardTask);
+        taskStorage.save(taskManager.getTaskList());
         ui.taskAdded(newStandardTask);
     }
 
