@@ -163,5 +163,4 @@ public class Ui {
     public void specificCapMsg(String module) {
         System.out.println("Here is your CAP for the module:" + module);
     }
-
 }
