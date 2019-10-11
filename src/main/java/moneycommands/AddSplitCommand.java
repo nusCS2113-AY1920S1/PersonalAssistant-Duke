@@ -18,15 +18,15 @@ import java.util.ArrayList;
 import java.util.Calendar;
 
 /**
- * This command adds an income source to the Total Income List.
+ * This command adds a split expenditure to the Total Expenditure List.
  */
 public class AddSplitCommand extends MoneyCommand {
 
     private String inputString;
 
     /**
-     * Constructor of the command which initialises the add income command
-     * with the income source data within the user input.
+     * Constructor of the command which initialises the add split expenditure command
+     * with the split expenditure data within the user input.
      * @param command add command inputted from user
      */
     public AddSplitCommand(String command) {
@@ -39,8 +39,8 @@ public class AddSplitCommand extends MoneyCommand {
     }
 
     /**
-     * This method executes the add income command. Takes the input data from user and
-     * adds an income source to the Total Income List.
+     * This method executes the add split expenditure command. Takes the input data from user and
+     * adds an split expenditure to the Total Expenditure List.
      * @param account Account object containing all financial info of user saved on the programme
      * @param ui Handles interaction with the user
      * @param storage Saves and loads data into/from the local disk

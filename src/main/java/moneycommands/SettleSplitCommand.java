@@ -9,18 +9,40 @@ import money.Account;
 import money.Expenditure;
 import money.Income;
 import money.Split;
-import moneycommands.MoneyCommand;
 
 import java.text.ParseException;
 import java.time.LocalDate;
 
-
+/**
+ * This command settles a debt within a split expenditure in the Total Expenditure List.
+ */
 public class SettleSplitCommand extends MoneyCommand {
 
     private String inputString;
 
+    /**
+     * Constructor of the command which initialises the settle split expenditure command
+     * with the data for the index of the split expenditure in the Total Expenditure List
+     * and the person who has settled the debt
+     * @param command Settle split expenditure command inputted from user
+     */
     public SettleSplitCommand(String command) {
         inputString = command.replaceFirst("settle ", "");
+    }
+
+    /**
+     * This method determines if the String inputted is a number or the name
+     * of a person.
+     * @param checkStr Name/Number of person
+     * @return Boolean true if the String is a number, false if it is a name
+     */
+    private boolean isNumeric(String checkStr) {
+        try {
+            int i = Integer.parseInt(checkStr);
+        } catch (NullPointerException | NumberFormatException e) {
+            return false;
+        }
+        return true;
     }
 
     @Override
@@ -28,6 +50,19 @@ public class SettleSplitCommand extends MoneyCommand {
         return false;
     }
 
+    /**
+     * This method executes the settle split expenditure command. Takes the input from the user
+     * and checks the Total Expenditure List for the split expenditure entry.
+     * Searches for the person specified by the user input in the list of people the expenditure
+     * is split with, according to name or index depending on user input, and sets his/her debt
+     * as settled.
+     * Enters the debt paid into Total Income List.
+     * @param account Account object containing all financial info of user saved on the programme
+     * @param ui Handles interaction with the user
+     * @param storage Saves and loads data into/from the local disk
+     * @throws ParseException If invalid date is parsed
+     * @throws DukeException When the command is invalid
+     */
     @Override
     public void execute(Account account, Ui ui, MoneyStorage storage) throws DukeException, ParseException {
         String[] splitStr = inputString.split(" ");
@@ -77,14 +112,6 @@ public class SettleSplitCommand extends MoneyCommand {
         ui.appendToOutput(statusStr + "\n");
     }
 
-    private boolean isNumeric(String checkStr) {
-        try {
-            int i = Integer.parseInt(checkStr);
-        } catch (NullPointerException | NumberFormatException e) {
-            return false;
-        }
-        return true;
-    }
 
     @Override
     public void undo(Account account, Ui ui, MoneyStorage storage) throws DukeException, ParseException {
