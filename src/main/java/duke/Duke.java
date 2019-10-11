@@ -1,5 +1,7 @@
 package duke;
 
+import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 
 import duke.command.Command;
@@ -7,6 +9,7 @@ import duke.command.ListCommand;
 import duke.exceptions.ModBadRequestStatus;
 import duke.exceptions.ModException;
 import duke.exceptions.ModTimeIntervalTooCloseException;
+import duke.modules.ModuleInfoDetailed;
 import duke.modules.ModuleInfoSummary;
 import duke.util.JsonWrapper;
 import duke.util.ParserWrapper;
@@ -48,11 +51,11 @@ public class Duke {
         ui.helloMsg();
         boolean isExit = false;
         // Starting reminder threads and pulling data from API
-        // TODO: pending fix for thread bug
+        // TODO: removed reminder, pending fix for thread bug during exit command
         try {
             // Classes to be initialized during runtime
             reminder = new Reminder(tasks.getTasks());
-            //reminder.run();
+            reminder.run();
 
             // This pulls data once and stores in the data files.
             data.runRequests(store);
@@ -67,11 +70,18 @@ public class Duke {
                 ui.showLine();
                 Command c = parser.parse(fullCommand);
                 c.execute(tasks, ui, store, reminder);
-                // TODO: this line is to demo how to gson parser using the
+                // TODO: this if branch is to demo how to use the JSON parser using the
                 //       list command, remove this when creating additional features
                 if (c instanceof ListCommand) {
-                    List<ModuleInfoSummary> test = data.readJson();
-                    System.out.println(test.get(10));
+                    HashMap<String, ModuleInfoSummary> test = data.getModuleSummaryMap();
+                    HashMap<String, ModuleInfoDetailed> testDetailed = data.getModuleDetailedMap();
+                    // Demo test of commands
+                    System.out.println(test.get("CS2101"));
+                    System.out.println(testDetailed.get("CS2101"));
+                    System.out.println(testDetailed.get("CS2101").getAttributes().isSu());
+                    System.out.println(Arrays.toString(test.get("CS2113T").getSemesters()));
+                    System.out.println(test.get("CG2028").getTitle());
+                    System.out.println(test.get("CS1010"));
                 }
                 isExit = c.isExit();
             } catch (ModException e) {
