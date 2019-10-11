@@ -20,7 +20,6 @@ import java.util.Date;
 public class Storage {
     private File filePath;
     private String filePathEvent;
-    private String filePathTodo;
     private String filePathDeadline;
     private static String filePathTentativeDates;
     /**
@@ -30,25 +29,8 @@ public class Storage {
         filePath = new File(System.getProperty("user.dir") + "\\data");
         filePath.mkdir();
         filePathEvent = System.getProperty("user.dir") + "\\data\\event.txt";
-        filePathTodo = System.getProperty("user.dir") + "\\data\\todo.txt";
         filePathDeadline = System.getProperty("user.dir") + "\\data\\deadline.txt";
         filePathTentativeDates = System.getProperty("user.dir") + "\\data\\TentativeDates.txt";
-    }
-
-    public void updateTodoList(TaskList list) throws FileNotFoundException {
-        PrintWriter outputStream = new PrintWriter(filePathTodo);
-        ArrayList<Task> temp = list.getList();
-        for (Task task : temp) {
-            outputStream.println(task.toString());
-        }
-        outputStream.close();
-    }
-
-    public void readTodoList(TaskList list) throws IOException, ParseException {
-        ArrayList<String> temp = new ArrayList<>(Files.readAllLines(Paths.get(filePathTodo)));
-        for (String string : temp) {
-            list.addTask(stringToTask(string));
-        }
     }
 
     public void updateEventList(TaskList list) throws FileNotFoundException {
@@ -63,7 +45,9 @@ public class Storage {
     public void readEventList(TaskList list) throws IOException, ParseException {
         ArrayList<String> temp = new ArrayList<>(Files.readAllLines(Paths.get(filePathEvent)));
         for (String string : temp) {
-            list.addTask(stringToTask(string));
+            if(!string.trim().isEmpty()) {
+                list.addTask(stringToTask(string));
+            }
         }
     }
 
@@ -79,7 +63,9 @@ public class Storage {
     public void readDeadlineList(TaskList list) throws IOException, ParseException {
         ArrayList<String> temp = new ArrayList<>(Files.readAllLines(Paths.get(filePathDeadline)));
         for (String string : temp) {
-            list.addTask(stringToTask(string));
+            if(!string.trim().isEmpty()) {
+                list.addTask(stringToTask(string));
+            }
         }
     }
     public static void updateTentativeDates(TaskList list) throws FileNotFoundException {
@@ -103,13 +89,11 @@ public class Storage {
             System.exit(5);
         }
         Task line;
-        if (string.contains("[T]")) {
-            line = new Todo(string.substring(7));
-        } else if (string.contains("[D]")) {
+        if (string.contains("[D]")) {
             DateFormat format = new SimpleDateFormat("E dd/MM/yyyy hh:mm a");
             Date date = format.parse(string.substring(string.indexOf("by:") + 4, string.indexOf(')')).trim());
             String dateString = format.format(date);
-            line = new Deadline(string.substring(7, string.indexOf("by:") - 2), dateString);
+            line = new Deadline(string.substring(0, string.indexOf("[D]") - 1) + " " + string.substring(string.indexOf("[D]") + 7, string.indexOf("by:") - 2), dateString);
         } else {
             DateFormat format = new SimpleDateFormat("E dd/MM/yyyy");
             SimpleDateFormat timeFormat = new SimpleDateFormat("hh:mm a");
@@ -119,7 +103,7 @@ public class Storage {
             String startTimeString = timeFormat.format(startTime);
             Date endTime = timeFormat.parse(string.substring(string.indexOf("to") + 3, string.indexOf(')')).trim());
             String endTimeString = timeFormat.format(endTime);
-            line = new Event(string.substring(7, string.indexOf("at:")-2), dateString, startTimeString, endTimeString, null);
+            line = new Event(string.substring(0, string.indexOf("[E]") - 1) + " " + string.substring(string.indexOf("[E]") + 7, string.indexOf("at:")-2), dateString, startTimeString, endTimeString);
         } if(string.contains("\u2713")) {
             line.setDone(true);
         }

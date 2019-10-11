@@ -61,10 +61,6 @@ public class  AddCommand extends Command {
                 AB.display("Warning", "Clash in events", out, Alert.AlertType.WARNING);
 
             }
-        } else if (task.getType().equals("[T]")) {
-            todos.addTask(this.task);
-            out = ui.showAdd(this.task, todos.taskListSize());
-            storage.updateTodoList(todos);
         } else if (task.getType().equals("[D]")) {
             int size = deadlines.taskListSize();
             boolean[] conflict = new boolean[size];

@@ -8,8 +8,6 @@ public class Event extends Task {
     private final String by;
     private final String start;
     private final String end;
-    private String modCode;
-
 
     /**
      * Creates an Event object.
@@ -18,12 +16,11 @@ public class Event extends Task {
      * @param start Start time
      * @param end End time
      */
-    public Event(String description, String by, String start, String end, String modCode) {
+    public Event(String description, String by, String start, String end) {
         super(description);
         this.by = by;
         this.start = start;
         this.end = end;
-        this.modCode = modCode;
     }
 
     @Override
@@ -33,7 +30,7 @@ public class Event extends Task {
 
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (at: " + by + " time: " + start + " to " + end + ")";
+        return super.getModCode() + " " + "[E]" + super.toString() + "(at: " + by + " time: " + start + " to " + end + ")";
     }
 
     @Override
@@ -41,8 +38,4 @@ public class Event extends Task {
         return by + " " + start + " to " + end;
     }
 
-    @Override
-    public String getModCode() {
-        return modCode;
-    }
 }

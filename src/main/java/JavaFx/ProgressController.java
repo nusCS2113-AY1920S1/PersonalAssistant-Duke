@@ -1,46 +1,43 @@
 package JavaFx;
 
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Label;
-import javafx.scene.layout.AnchorPane;
+import javafx.scene.control.ProgressIndicator;
 import javafx.scene.layout.HBox;
-import javafx.stage.Stage;
 
-import java.io.IOException;
-
-public class ProgressController extends AnchorPane {
-
+/**
+ * Controller for progress indicator. This control represents the progress indicator for a module.
+ */
+public class ProgressController extends HBox {
     @FXML
-    private Label moduleCode;
+    private Label moduleCodeLabel;
     @FXML
-    private Label valueCompleted;
+    private Label completedValueLabel;
     @FXML
-    private Label valueOverdue;
+    private Label overdueValueLabel;
+    @FXML
+    private ProgressIndicator progressIndicator;
 
-    private ProgressController(String moduleCode1, String valueCompleted1, String valueOverdue1) {
+    String moduleCode;
+    String completedValue;
+    String overdueValue;
+    Double progressValue;
 
-        System.out.println("EFG");
-        try {
-            FXMLLoader fxmlLoader = new FXMLLoader(MainWindow.class.getResource("/view/progressCircle.fxml"));
-            fxmlLoader.setController(this);
-            fxmlLoader.setRoot(this);
-            fxmlLoader.load();
+    /**
+     * This function gets data from the user.
+     * @param mc The module code input by user
+     * @param cv The number of completed tasks for the module
+     * @param ov The number of overdue tasks for the module
+     */
+    public void getData(String mc, String cv, String ov) { //initialize the string in the controller
+        moduleCode = mc;
+        completedValue = cv;
+        overdueValue = ov;
+        progressValue = Double.parseDouble(completedValue)/Double.parseDouble(overdueValue);
 
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        moduleCode.setText(moduleCode1);
-        valueCompleted.setText(valueCompleted1);
-        valueOverdue.setText(valueOverdue1);
-
-    }
-
-    public static ProgressController getProgress(String moduleCode1, String valueCompleted1, String valueOverdue1){
-        var pc = new ProgressController(moduleCode1, valueCompleted1, valueOverdue1);
-        return pc;
+        moduleCodeLabel.setText(moduleCode);
+        completedValueLabel.setText(completedValue);
+        overdueValueLabel.setText(overdueValue);
+        progressIndicator.setProgress(progressValue);
     }
 }
