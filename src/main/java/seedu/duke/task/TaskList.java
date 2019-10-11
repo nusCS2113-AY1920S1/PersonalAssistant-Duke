@@ -144,7 +144,19 @@ public class TaskList extends ArrayList<Task> {
         }
         Task task = this.get(index);
         task.setDoAfterDescription(description);
-        String msg = "Do after task " + description + " has been added to task " + index;
+        int size = index + 1;
+        String msg = "Do after task " + description + " has been added to task " + size;
+        return msg;
+    }
+
+    public String setPriority(int index, String priority) throws CommandParser.UserInputException {
+        if (index < 0 || index >= this.size()) {
+            throw new CommandParser.UserInputException("Invalid index");
+        }
+        Task task = this.get(index);
+        task.setPriorityTo(priority);
+        int size = index + 1;
+        String msg = "Priority of task " + size + " is set to " + priority;
         return msg;
     }
 

@@ -37,12 +37,13 @@ public class Event extends Task {
      * @param doAfter task to be done after the main task
      * @param tags    tag associated with the task
      */
-    public Event(String name, LocalDateTime time, String doAfter, ArrayList<String> tags) {
+    public Event(String name, LocalDateTime time, String doAfter, ArrayList<String> tags, String priority) {
         super(name);
         this.time = time;
         setDoAfterDescription(doAfter);
         this.taskType = TaskType.Event;
         setTags(tags);
+        setPriorityTo(priority);
     }
 
     /**
@@ -60,6 +61,9 @@ public class Event extends Task {
         }
         for (String tagName : tags) {
             output += " #" + tagName;
+        }
+        if (this.priority != null && this.priority != "") {
+            output += " Priority: " + priority;
         }
         return output;
     }
@@ -79,6 +83,9 @@ public class Event extends Task {
         }
         for (String tagName : tags) {
             output += " -tag " + tagName;
+        }
+        if (this.priority != null && this.priority != "") {
+            output += " -priority " + priority;
         }
         return output;
     }
