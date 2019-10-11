@@ -31,7 +31,7 @@ public class AddInstalmentCommand extends MoneyCommand{
         String[] furSplit = splitStr[1].split("/within ", 2);
         float cost = Float.parseFloat(furSplit[0]);
         String[] morSplit = furSplit[1].split(" months /from ", 2);
-        int numOfPayments = Integer.parseInt(morSplit[0]);
+        int numOfPaymentsReq = Integer.parseInt(morSplit[0]);
         String[] evenMorSplit = morSplit[1].split(" @");
         LocalDate boughtDate = LocalDate.parse(evenMorSplit[0], dateTimeFormatter);
         String[] lastSplit = evenMorSplit[1].split("%");
@@ -39,7 +39,7 @@ public class AddInstalmentCommand extends MoneyCommand{
 
         String category = "instalments";
 
-        Instalment instalment = new Instalment(cost, description, category, boughtDate, numOfPayments, AIR);
+        Instalment instalment = new Instalment(cost, description, category, boughtDate, numOfPaymentsReq, AIR);
         account.getInstalments().add(instalment);
         storage.writeToFile(account);
 
