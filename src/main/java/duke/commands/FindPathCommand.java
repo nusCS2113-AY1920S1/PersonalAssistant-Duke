@@ -70,10 +70,7 @@ public class FindPathCommand extends Command {
         }
 
         /* CustomAlgorithm.calculateShortestPath(endPoint.getLocation(), startPoint.getLocation()); */
-
-        //show a map to ui
-
-        ui.show("some map");
+        ui.showMap(route);
     }
 
 }

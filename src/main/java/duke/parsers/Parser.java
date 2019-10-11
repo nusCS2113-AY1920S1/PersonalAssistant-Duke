@@ -12,7 +12,6 @@ import duke.commands.GetBusStopCommand;
 import duke.commands.HelpCommand;
 import duke.commands.ListCommand;
 import duke.commands.LocationSearchCommand;
-import duke.commands.MapCommand;
 import duke.commands.MarkDoneCommand;
 import duke.commands.ReminderCommand;
 import duke.commands.RescheduleCommand;
@@ -106,6 +105,7 @@ public class Parser {
         case "findPath":
             return new FindPathCommand(getWord(userInput),  getHolidayIndexInList(1, userInput),
                     getHolidayIndexInList(2, userInput));
+
         default:
             throw new DukeException(Messages.UNKNOWN_COMMAND);
         }
@@ -121,8 +121,6 @@ public class Parser {
             return new ReminderCommand();
         case "help":
             return new HelpCommand();
-        case "map":
-            return new MapCommand();
         default:
             return null;
         }
