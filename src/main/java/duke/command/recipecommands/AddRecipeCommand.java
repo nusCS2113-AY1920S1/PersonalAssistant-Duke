@@ -5,10 +5,16 @@ import duke.exception.DukeException;
 import duke.list.recipelist.RecipeList;
 import duke.model.recipe.Recipe;
 import duke.storage.RecipeStorage;
+import duke.task.recipetasks.Feedback;
+import duke.task.recipetasks.Rating;
+import duke.task.recipetasks.RecipeIngredient;
 import duke.ui.Ui;
+import org.javatuples.Triplet;
 
+import java.text.ParseException;
 import java.util.ArrayList;
 
+import static duke.common.IngredientMessages.ERROR_MESSAGE_INCOMPLETE;
 import static duke.common.IngredientMessages.ERROR_MESSAGE_INVALID_FORMAT;
 import static duke.common.Messages.*;
 import static duke.common.RecipeMessages.COMMAND_ADD_RECIPE;
@@ -20,24 +26,18 @@ public class AddRecipeCommand extends CommandRecipe {
     }
 
     @Override
-    public ArrayList<String> feedback(RecipeList recipeList, Ui ui, RecipeStorage recipeStorage) throws DukeException {
+    public ArrayList<String> feedback(RecipeList recipeList, RecipeIngredient recipeIngredient,
+                                      Rating rating, Feedback feedback, Ui ui, RecipeStorage recipeStorage) throws DukeException, ParseException {
         ArrayList<String> arrayList = new ArrayList<>();
+        Triplet<RecipeIngredient, Rating, Feedback> recipe = new Triplet<>(recipeIngredient, rating, feedback);
         if (userInput.trim().equals(COMMAND_ADD_RECIPE)) {
             arrayList.add(ERROR_MESSAGE_GENERAL + MESSAGE_FOLLOWUP_NUll);
             System.out.println("stuck here1");
         } else if (userInput.trim().charAt(9) == ' ') {
-            String description = userInput.split("\\s", 2)[1].trim();
-            if (description.contains("/")) {
-                String[] parts = description.split("/", 4);
-                String recipeTitle = parts[1];
-                recipe.addRecipe(recipeTitle, "hvnt implement", "hvnt implement", "hvnt implement");
-                recipeIngredientStorage.saveFile(recipeIngredientList);
-                int index = recipeIngredientList.getSize();
-                System.out.println(index);
-                arrayList.add(MESSAGE_ADDED + "       " + recipeIngredientList.listRecipeIngredients().get(index - 1) + "\n" + MESSAGE_ITEMS1 + index + " tasks in the list");
-            } else {
-                arrayList.add(ERROR_MESSAGE_INVALID_FORMAT);
-            }
+            String[] temp = userInput.split("n/",5);
+            String recipeTitle = userInput.split("n/",2)[1].trim();
+            recipeList.addRecipe(recipeTitle, recipe);
+            recipeStorage.saveFile(recipeList);
         } else {
             arrayList.add(ERROR_MESSAGE_RANDOM);
         }

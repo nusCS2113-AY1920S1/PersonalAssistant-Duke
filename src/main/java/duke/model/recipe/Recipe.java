@@ -5,6 +5,7 @@ import duke.task.recipetasks.Feedback;
 import duke.task.recipetasks.PrepStep;
 import duke.task.recipetasks.Rating;
 import duke.task.recipetasks.RecipeIngredient;
+import org.javatuples.Triplet;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,20 +17,18 @@ public class Recipe {
 //    private PrepStepList prepStep;
     private Rating rating;
     private Feedback feedback;
+    private Triplet<RecipeIngredient, Rating, Feedback> recipe;
 
-    public Recipe(String recipeTitle, RecipeIngredient recipeIngredient, Rating rating, Feedback feedback) {
-        this.recipeTitle = recipeTitle;
-        this.recipeIngredient = recipeIngredient;
-        this.rating = rating;
-        this.feedback = feedback;
+    public Recipe(Triplet<RecipeIngredient, Rating, Feedback> recipe) {
+        this.recipe = recipe;
     }
 
-    public String toSaveString() {
-        return "recipe" + " | " + recipeTitle + " | " + recipeIngredient + " | " + rating + " | " + feedback;
+    public Triplet<RecipeIngredient, Rating, Feedback> toSaveString() {
+        return recipe;
     }
 
     public String toString() {
-        return "[Recipe Title: " + recipeTitle + "] " + "[Recipe Ingredient: " + recipeIngredient + "] "
+        return "[Recipe Ingredient: " + recipeIngredient + "] "
                 + "[Rating: " + rating + "] " + "[Feedback: " + feedback + "] ";    }
 
 //    public String getRecipeTitle() {

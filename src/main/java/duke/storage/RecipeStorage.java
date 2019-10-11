@@ -15,13 +15,15 @@ import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Handles the ability to read and write to the storage location.
  */
 public class RecipeStorage {
 
-    private static final ArrayList<Recipe> arrRecipeList = new ArrayList<>();
+    private final Map<String, Recipe> arrRecipeList = new HashMap<>();
     private final String filePathRecipe;
 
     /**
@@ -43,7 +45,7 @@ public class RecipeStorage {
         try {
             FileWriter fileWriter = new FileWriter(filePathRecipe);
             BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
-            for (Recipe recipe : recipeList.getRecipeList()) {
+            for (Recipe recipe : recipeList.getValue()) {
                 bufferedWriter.write(recipe.toSaveString() + "\n");
             }
             bufferedWriter.close();

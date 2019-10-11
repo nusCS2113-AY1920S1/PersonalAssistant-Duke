@@ -10,6 +10,7 @@ public class Messages {
     public static final String filePath = "C:\\Users\\Wen Jian\\Desktop\\main\\src\\main\\data\\duke.txt";
     public static final String filePathIngredients = "C:\\Users\\Wen Jian\\Desktop\\main\\src\\main\\data\\ingredients.txt";
     public static final String filePathRecipeIngredients = "C:\\Users\\Wen Jian\\Desktop\\main\\src\\main\\data\\recipeIngredients.txt";
+    public static final String filePathRecipe = "C:\\Users\\Wen Jian\\Desktop\\main\\src\\main\\data\\recipe.txt";
     public static final String filePathBookings = "";
     public static final String filePathRecipes = "";
 
