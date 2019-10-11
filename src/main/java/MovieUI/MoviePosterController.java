@@ -1,15 +1,13 @@
 package MovieUI; /**
  * File: MovieUI.MoviePosterController.java
  * Description: Simple controller for setting and getting the controls in the Movie Poster View
- * Author: Asad Ahmed
  */
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 
-public class MoviePosterController
-{
+public class MoviePosterController {
     @FXML
     private Label movieTitleLabel;
 

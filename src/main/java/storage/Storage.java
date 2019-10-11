@@ -114,14 +114,14 @@ public class Storage {
                         + task.getDescription() + " | " + ((Recurring) task).getRecur();
                 } else if (taskType == "A") {
                     line = "A | " + task.getStatusIcon() + " | "
-                            + task.getDescription() + " | " + ((DoAfter) task).getAfter();
-                } else if (taskType == "F"){
+                        + task.getDescription() + " | " + ((DoAfter) task).getAfter();
+                } else if (taskType == "F") {
                     line = "F | " + task.getStatusIcon() + " | "
-                            + task.getDescription() + " | " + ((FixedDuration) task).getDuration();
+                        + task.getDescription() + " | " + ((FixedDuration) task).getDuration();
                 } else {
                     line = "P | " + task.getStatusIcon() + " | "
-                            + task.getDescription() + " | " + ((Period) task).getDate().getStartDateStr() + " | "
-                            + ((Period)task).getDate().getEndDateStr();
+                        + task.getDescription() + " | " + ((Period) task).getDate().getStartDateStr() + " | "
+                        + ((Period)task).getDate().getEndDateStr();
                 }
                 fileWriter.write(line + "\n");
             }
@@ -132,4 +132,3 @@ public class Storage {
     }
 
 }
-

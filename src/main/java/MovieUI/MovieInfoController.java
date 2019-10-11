@@ -4,7 +4,6 @@ import EPparser.CommandParser;
 import EPstorage.*;
 
 import javafx.application.Platform;
-import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -40,18 +39,16 @@ public class MovieInfoController extends Controller {
     @FXML private Label movieRatingLabel;
     @FXML private Label movieSummaryLabel;
     @FXML private ImageView movieBackdropImageView;
-    @FXML private ScrollPane movieScrollPane;
+    @FXML private ScrollPane mMoviesScrollPane;
+    @FXML private AnchorPane anchorPane;
     @FXML private VBox movieMainVBox;
     @FXML private GridPane movieGridPane;
-    @FXML private AnchorPane anchorPane;
     @FXML private TextField mSearchTextField;
-    @FXML private Label movieCastLabel;
-    @FXML private Label movieCertLabel;
     @FXML private Label mStatusLabel;
     @FXML private ProgressBar mProgressBar;
     private FlowPane mMoviesFlowPane;
 
-    //private RetrieveRequest mMovieRequest = new RetrieveRequest(this);
+   // private RetrieveRequest mMovieRequest = new RetrieveRequest(this);
     private MovieHandler movieHandler = new MovieHandler();
     private ArrayList<MovieInfoObject> mMovies;
     private double[] mImagesLoadingProgress;
@@ -67,8 +64,6 @@ public class MovieInfoController extends Controller {
     private UserProfile userProfile;
     private ArrayList<Playlist> playlists;
 
-
-
     class KeyboardClick implements EventHandler<KeyEvent> {
 
         private Controller control;
@@ -82,11 +77,15 @@ public class MovieInfoController extends Controller {
             if(event.getCode().equals(KeyCode.ENTER)) {
                 System.out.println("Hello");
                 try {
-                    CommandParser.parseCommands(mSearchTextField.getText() ,control);
+                    if (mSearchTextField.getText().equals("go back")) {
+                        backToMoviesButtonClick();
+                    } else {
+                        CommandParser.parseCommands(mSearchTextField.getText(), control);
+                    }
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-            } else if (event.getCode().equals(KeyCode.TAB)){
+            }else if(event.getCode().equals(KeyCode.TAB)){
                 System.out.println("Tab presjenksjessed");
                 event.consume();
             }
@@ -109,47 +108,45 @@ public class MovieInfoController extends Controller {
         userAgeLabel.setText(Integer.toString(userProfile.getUserAge()));
         genreListLabel.setText(command.convertToLabel(userProfile.getGenreId()));
 
+
+        //mMovieRequest = new RetrieveRequest(this);
         // Load the movie info if movie has been set
         if (mMovie != null) {
             movieTitleLabel.setText(mMovie.getTitle());
+            //movieCastLabel.setText(mMovie.getmCast());
             movieRatingLabel.setText(String.format("%.2f", mMovie.getRating()));
 
             if (mMovie.getReleaseDate() != null) {
                 Date date = mMovie.getReleaseDate();
+                //System.out.println("date is" + date);
+                //String printDate = TimeParser.convertDateToLine(date);
                 Calendar calendar = Calendar.getInstance();
                 calendar.setTime(date);
                 String printDate = new SimpleDateFormat("dd-MM-yyyy").format(date);
                 movieReleaseDateLabel.setText(String.format("%s", mMovie.getReleaseDate().toString()));
                 movieReleaseDateLabel.setText(printDate);
-            } else {
+            } else{
                 movieReleaseDateLabel.setText("N/A");
             }
 
-            String text = (mMovie.getSummary());
-           /** for (int i = 1; i < text.length(); i += 1) {
-                if (i % 80 == 0) {
-                   String text1 = text.substring(0, i);
-                   String text2 = text.substring(i + 1, text.length());
-                   String text3 = text1 + "\n" + text2;
-                   text = text3;
-                }
-            }
-
-            //text.append("\n");
-            **/
-            movieSummaryLabel.setText(mMovie.getSummary());
-            //movieSummaryLabel.setText(text.toString());
+            movieSummaryLabel.setText(mMovie.getSummary() +
+                mMovie.getSummary() + mMovie.getSummary() + mMovie.getSummary());
             loadMovieBackdrop();
             loadGenres();
-            loadCast();
-            loadCert();
         }
+        mMoviesFlowPane = new FlowPane(Orientation.HORIZONTAL);
+        mMoviesFlowPane.setHgap(4);
+        mMoviesFlowPane.setVgap(10);
+        mMoviesFlowPane.setPadding(new Insets(10, 8, 4, 8));
+        mMoviesFlowPane.prefWrapLengthProperty().bind(mMoviesScrollPane.widthProperty());   // bind to scroll pane width
+        mMoviesFlowPane.getChildren().addAll(movieMainVBox, movieBackdropImageView, movieTitleLabel,
+            movieGenresLabel, movieSummaryLabel);
+        movieMainVBox.prefWidthProperty().bind(mMoviesScrollPane.widthProperty());
+        movieBackdropImageView.setPreserveRatio(true);
+        movieGridPane.prefWidthProperty().bind(mMoviesScrollPane.widthProperty());
+        mMoviesScrollPane.setContent(mMoviesFlowPane);
+        mMoviesScrollPane.setVvalue(0);
 
-        //movieScrollPane.setContent(movieMainVBox);
-        //movieScrollPane.vvalueProperty().bind(movieMainVBox.heightProperty());
-        //movieMainVBox.prefWidthProperty().bind(movieScrollPane.widthProperty());
-        //movieBackdropImageView.setPreserveRatio(true);
-        //movieGridPane.prefWidthProperty().bind(movieScrollPane.widthProperty());
 
 
         mSearchTextField.addEventFilter(KeyEvent.KEY_PRESSED, event -> {
@@ -171,52 +168,16 @@ public class MovieInfoController extends Controller {
         //Enter is Pressed
         mSearchTextField.setOnKeyPressed(new KeyboardClick(this));
 
-        mMoviesFlowPane = new FlowPane(Orientation.HORIZONTAL);
-        mMoviesFlowPane.setHgap(4);
-        mMoviesFlowPane.setVgap(10);
-        mMoviesFlowPane.setPadding(new Insets(10, 8, 4, 8));
-        mMoviesFlowPane.prefWrapLengthProperty().bind(movieScrollPane.widthProperty());
-
-        mMoviesFlowPane.getChildren().add(movieMainVBox);
-
-        movieScrollPane.setContent(mMoviesFlowPane);
-
         //movieGridPane.prefWidthProperty().bind(movieScrollPane.widthProperty());
     }
 
-    private void loadCert() {
-        movieCastLabel.setText("");
-        Thread t = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                String casts = RetrieveRequest.getCertStrings(mMovie);
-                Platform.runLater(new Runnable() {
-                    @Override
-                    public void run() {
-                        movieCertLabel.setText(casts);
-                    }
-                });
-            }
-        });
-        t.start();
+    private void loadCasts() {
     }
 
-
-    private void loadCast() {
-        movieCastLabel.setText("");
-        Thread t = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                String casts = RetrieveRequest.getCastStrings(mMovie);
-                Platform.runLater(new Runnable() {
-                    @Override
-                    public void run() {
-                        movieCastLabel.setText(casts);
-                    }
-                });
-            }
-        });
-        t.start();
+    // User clicks on the back button to navigate back to the movies scene
+    public void backToMoviesButtonClick()
+    {
+        mMainApplication.transitionBackToMoviesController();
     }
 
 
@@ -229,8 +190,7 @@ public class MovieInfoController extends Controller {
         }
     }
 
-    private void loadGenres()
-    {
+    private void loadGenres() {
         movieGenresLabel.setText("");
 
         Thread t = new Thread(new Runnable() {
@@ -263,6 +223,9 @@ public class MovieInfoController extends Controller {
         t.start();
     }
 
+    private void clearText(TextField textField){
+        textField.setText("");
+    }
 
     // Menu item events
     @FXML public void exitMenuItemClicked()
@@ -273,5 +236,8 @@ public class MovieInfoController extends Controller {
     @FXML public void aboutMenuItemClicked()
     {
     }
+
+
+
 
 }

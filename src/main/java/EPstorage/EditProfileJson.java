@@ -18,7 +18,7 @@ public class EditProfileJson {
 
 
     public EditProfileJson() throws FileNotFoundException {
-        file = new File("EPdata/UserProfile.json");
+        file = new File("EPdata/userProfile.json");
         this.inputStream = new FileInputStream(file);
     }
 

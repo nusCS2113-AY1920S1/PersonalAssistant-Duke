@@ -3,13 +3,15 @@ package EPparser;
 import Commands.*;
 import Execution.CommandStack;
 import MovieUI.Controller;
+import task.Tasks;
 import wrapper.CommandPair;
 import Commands.COMMAND_KEYS;
+import java.util.ArrayList;
+import java.io.IOException;
 
 import java.io.IOException;
 
 public class CommandParser {
-
     /**
      * Entry point to command parser Class
      *
@@ -56,6 +58,11 @@ public class CommandParser {
                 YesCommand yc = new YesCommand(UIController);
                 yc.initCommand(CommandArr, command.getSubRootCommand());
                 CommandStack.pushCmd(yc);
+                break;
+            case add:
+                System.out.println("Yes");
+                WatchlistCommand wc = new WatchlistCommand(UIController);
+                wc.initCommand(CommandArr, command.getSubRootCommand());
                 break;
             case set:
                 System.out.println("Set");
@@ -116,6 +123,12 @@ public class CommandParser {
                 yc.initCommand(CommandArr);
                 CommandStack.pushCmd(yc);
                 break;
+            case "add":
+                System.out.println("Add");
+                WatchlistCommand wc = new WatchlistCommand(UIController);
+                wc.initCommand(CommandArr);
+                CommandStack.pushCmd(wc);
+                break;
             case "set":
                 System.out.println("Set");
                 SetCommand stc = new SetCommand(UIController);
@@ -137,6 +150,7 @@ public class CommandParser {
             default:
                 CommandPair pair = Command_Debugger.commandSpellChecker(CommandArr , COMMAND_KEYS.none, UIController);
                 processCommand(pair , CommandArr , UIController);
+                break;
         }
     }
 }

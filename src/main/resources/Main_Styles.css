@@ -13,7 +13,7 @@ ProgressBar .track{
 }
 
 ProgressBar .bar{
-    -fx-background-color: white;
+    -fx-background-color: #403F3F;
     -fx-background-radius: 2em;
     -fx-border-radius: 2em;
 }
@@ -34,7 +34,7 @@ ScrollPane .increment-button:hover, ScrollPane .decrement-button:hover{
 }
 
 ScrollPane .scroll-bar:vertical .thumb {
-    -fx-background-color: #1d1d1d;
+    -fx-background-color: #7d7d7d;
     -fx-background-radius: 2em;
 }
 

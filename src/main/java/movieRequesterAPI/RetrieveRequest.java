@@ -21,6 +21,7 @@ import java.util.logging.Logger;
 
 public class RetrieveRequest implements InfoFetcher, InfoFetcherWithGenre {
     private RequestListener mListener;
+    private ArrayList<MovieInfoObject> p_Movies;
     static int index = 0;
 
     // API Usage constants
@@ -169,6 +170,10 @@ public class RetrieveRequest implements InfoFetcher, InfoFetcherWithGenre {
         checkIfConfigNeeded();
     }
 
+    public ArrayList<MovieInfoObject> getParsedMovies() {
+        return p_Movies;
+    }
+
     public void beginMovieRequest(RetrieveRequest.MoviesRequestType type) {
         String requestURL = RetrieveRequest.MAIN_URL;
         switch (type) {
@@ -226,7 +231,21 @@ public class RetrieveRequest implements InfoFetcher, InfoFetcherWithGenre {
         }
     }
 
-    public void beginMovieSearchRequestWithGenre(String movieTitle, ArrayList<Integer> genreID) {
+    public String beginAddRequest(String movieTitle) {
+        try {
+            String url = MAIN_URL + MOVIE_SEARCH_URL + API_KEY + "&query=" + URLEncoder.encode(movieTitle, "UTF-8");
+            URLRetriever retrieve = new URLRetriever();
+            String json = retrieve.readURLAsString(new URL(url));
+            fetchedMoviesJSON(json);
+            return p_Movies.get(0).getTitle();
+        } catch (UnsupportedEncodingException | MalformedURLException | SocketTimeoutException ex) {
+            ex.printStackTrace();
+        }
+        return "";
+    }
+
+
+    public void beginMovieSearchRequestWithGenre (String movieTitle, ArrayList<Integer> genreID) {
         try {
             String url = MAIN_URL + MOVIE_SEARCH_URL + API_KEY + "&query=" + URLEncoder.encode(movieTitle, "UTF-8");
             fetchJSONDataWithGenre(url, genreID);
@@ -323,6 +342,7 @@ public class RetrieveRequest implements InfoFetcher, InfoFetcherWithGenre {
 
             // Notify Listener
             mListener.requestCompleted(parsedMovies);
+            p_Movies = parsedMovies;
             //} else {
 
             //}
