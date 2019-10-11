@@ -4,6 +4,7 @@ import controlpanel.DukeException;
 import controlpanel.MoneyStorage;
 import controlpanel.Ui;
 import money.Account;
+import money.Expenditure;
 import money.Instalment;
 
 import java.text.ParseException;
@@ -22,14 +23,16 @@ public class AutoUpdateInstalmentCommand extends MoneyCommand{
     public void execute(Account account, Ui ui, MoneyStorage storage) throws DukeException, ParseException {
         for(Instalment ins : account.getInstalments()) {
             Period diff = Period.between(ins.getDateBoughtDate(), currDate);
-            int paymentsMade = diff.getMonths() + diff.getYears() * 12; //rough algorithm
+            int paymentsMade = diff.getMonths() + diff.getYears() * 12 + 1;
             ins.percentPay(paymentsMade);
             if(diff.getDays() != 0) {
                 ins.isNotPayTheMonth();;
             }
             if(diff.getDays() == 0 && !ins.getPayForTheMonth()) {
-                account.getExpListCurrMonth().add(ins);
-                account.getExpListTotal().add(ins);
+                Expenditure e = new Expenditure(ins.EqualMonthlyInstalment(), ins.getDescription(),
+                        ins.getCategory(), currDate);
+                account.getExpListCurrMonth().add(e);
+                account.getExpListTotal().add(e);
                 ins.isPayTheMonth();
             }
         }
