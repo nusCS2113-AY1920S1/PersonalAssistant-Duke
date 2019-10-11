@@ -91,7 +91,7 @@ public class AcadCommand extends Command implements CommandParser {
     }
 
     /**
-     * Increases date by week, to assign lesson slots for each week
+     * Increases date by week, to assign lesson slots for each week.
      *
      * @param initialDate The date to increment.
      * @return Final date one week later than initialDate.
@@ -143,19 +143,26 @@ public class AcadCommand extends Command implements CommandParser {
      */
     public String getSymbol(String userCmd) {
         switch (userCmd) {
-            case CMD_LECT:
-                return SYMBOL_LECT;
-            case CMD_TUT:
-                return SYMBOL_TUT;
-            case CMD_SECT:
-                return SYMBOL_SECT;
-            case CMD_LAB:
-                return SYMBOL_LAB;
-            default:
-                return SYMBOL_ACAD;
+        case CMD_LECT:
+            return SYMBOL_LECT;
+        case CMD_TUT:
+            return SYMBOL_TUT;
+        case CMD_SECT:
+            return SYMBOL_SECT;
+        case CMD_LAB:
+            return SYMBOL_LAB;
+        default:
+            return SYMBOL_ACAD;
         }
     }
 
+    /**
+     * Adds multiple AcadTask into taskList and prints confirmation message to user.
+     *
+     * @param userIn Entire user string input.
+     * @throws Compal.DukeException If user input after command word is empty.
+     */
+    @Override
     public void parseCommand(String userIn) throws Compal.DukeException {
         Scanner scanner = new Scanner(userIn);
         String userCmd = scanner.next();
@@ -191,4 +198,4 @@ public class AcadCommand extends Command implements CommandParser {
             throw new Compal.DukeException(MESSAGE_MISSING_COMMAND_ARG);
         }
     }
-    }
+}
