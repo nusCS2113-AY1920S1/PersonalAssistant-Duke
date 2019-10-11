@@ -1,5 +1,6 @@
 package duke.util;
 
+import duke.modules.*;
 import java.time.format.DateTimeFormatter;
 import java.util.LinkedHashMap;
 
@@ -12,13 +13,6 @@ import duke.command.ReportCommand;
 import duke.exceptions.ModCommandException;
 import duke.exceptions.ModException;
 import duke.exceptions.ModInvalidTimeException;
-import duke.modules.Deadline;
-import duke.modules.DoWithin;
-import duke.modules.Events;
-import duke.modules.FixedDurationTasks;
-import duke.modules.RecurringTask;
-import duke.modules.Task;
-import duke.modules.Todo;
 
 
 public class ParserWrapper {
@@ -84,6 +78,15 @@ public class ParserWrapper {
             args.put("/begin", nattyBegin);
             args.put("/end", nattyEnd);
             Task hold = new DoWithin(args.get("description"), args.get("/begin"), args.get("/end"));
+            return new AddCommand(hold);
+        } else if (input.startsWith("cca ")) {
+            LinkedHashMap<String, String> args = DukeParser.parse(input, true, true);
+            DukeParser.checkContainRequiredArguments(args, "/begin", "/end", "/day");
+            String nattyBegin = formatInputToStringDate(args.get("/begin"));
+            String nattyEnd = formatInputToStringDate(args.get("/end"));
+            args.put("/begin", nattyBegin);
+            args.put("/end", nattyEnd);
+            Task hold = new Cca(args.get("description"), args.get("/begin"), args.get("/end"), args.get("/day"));
             return new AddCommand(hold);
         } else if (input.equals("bye")) {
             return new ByeCommand();
