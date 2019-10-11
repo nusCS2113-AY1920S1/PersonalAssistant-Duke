@@ -58,7 +58,7 @@ public class Ui {
      * Prints the EggVentory exit message.
      */
     public void printExitMessage() {
-        print("Bye! Your stocks are safe with me!");
+        print("Bye! Your stonks are safe with me!");
         System.exit(0);
     }
 
