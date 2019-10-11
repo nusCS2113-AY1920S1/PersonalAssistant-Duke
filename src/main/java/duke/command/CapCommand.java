@@ -33,7 +33,7 @@ public class CapCommand extends Command {
 
     public String[] command;
     //public ArrayList<ModuleInfoSummary> completedModuleList = new ArrayList<>();
-    public ModuleList specificModuleCap;
+    //public ModuleList specificModuleCap;
     private float currentCap;
     private float projectedModuleCap;
     private int MCCount;
@@ -45,7 +45,7 @@ public class CapCommand extends Command {
      * @throws ModCommandException
      */
     public CapCommand(String input) throws ModEmptyCommandException, ModMissingArgumentException, ModCommandException {
-        specificModuleCap.clear();
+       /* specificModuleCap.clear();
         currentCap = 0;
         projectedModuleCap = 0;
         try {
@@ -61,6 +61,9 @@ public class CapCommand extends Command {
         }
 
             // init moduleCap if isDone
+
+
+        */
     }
 
     /**
@@ -68,7 +71,9 @@ public class CapCommand extends Command {
      * @param specificModule
      */
     public void addPrerequisiteCap(String specificModule) {
+        /*
         try {
+
             for (ModuleInfoSummary module : moduleList){
                 if (module.getDone() && ModulePrerequisiteHashMap.get(specificModule).find(module.moduleCode)) { // if module is completed, and is within the prerequisite tree
                     specificModuleCap.add(module);
@@ -78,15 +83,18 @@ public class CapCommand extends Command {
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
+        */
     }
 
     /**
      * Method to calculate the total CAP based on the modules completed in the moduleList
-     * @param moduleList
+     * @param //moduleList
      * @return
      * @throws ModEmptyListException
      */
+    /*
     public float addTotalCap(ModuleList moduleList) throws ModEmptyListException {
+
         if (moduleList.isEmpty()) {
             throw new ModEmptyListException();
         }
@@ -100,10 +108,15 @@ public class CapCommand extends Command {
         }
         return tempCap/MCCount;
     }
+    */
+
 
     // for printing cap, use System.out.printf("%.2f", this.currentCap or this.projectedModuleCap);
+
+
     @Override
     public void execute(TaskList moduleList, Ui ui, Storage store, Reminder reminder) throws ModException {
+       /*
         if (specificModuleCap.isEmpty()) {
             ui.showLine();
             ui.overallCapMsg();
@@ -115,7 +128,10 @@ public class CapCommand extends Command {
             System.out.printf("%.2f\n", this.projectedModuleCap);
             ui.showLine();
         }
+        */
     }
+
+
 
     @Override
     public boolean isExit() {
