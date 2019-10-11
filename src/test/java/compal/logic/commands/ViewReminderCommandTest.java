@@ -1,25 +1,24 @@
-package compal.model;
+package compal.logic.commands;
 
 import compal.commons.Compal;
-import compal.model.tasks.TaskList;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-class TaskListTest {
+public class ViewReminderCommandTest {
+    private ViewReminderCommand viewReminderCommand;
     private Compal compal;
-    private TaskList taskList;
 
     @BeforeEach
     public void setUp() {
-        //model.parser.processCommands("deadline return book /by 2/12/2019 1800");
         compal = new Compal();
-        taskList = new TaskList(compal);
+        viewReminderCommand = new ViewReminderCommand(compal);
     }
 
     @Test
     public void iniTest() {
-        assertEquals(compal, taskList.compal);
+        assertEquals(compal, viewReminderCommand.compal);
+        assertEquals(compal.tasklist,viewReminderCommand.compal.tasklist);
     }
 }

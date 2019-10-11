@@ -104,43 +104,70 @@ public class ParserManager {
                 compal.ui.firstTimeInit(cmd, stage++);
             } else {
                 switch (cmd) {
-                    case CMD_EXIT:
-                        ByeCommand bye = new ByeCommand(compal);
-                        bye.parseCommand(cmd);
-                        break;
-                    case CMD_LIST:
-                        ListCommand list = new ListCommand(compal);
-                        list.parseCommand(cmd);
-                        break;
-                    case CMD_CLEAR:
-                        ClearCommand clear = new ClearCommand(compal);
-                        clear.parseCommand(cmd);
-                        break;
-                    case CMD_DONE:
-                        DoneCommand done = new DoneCommand(compal);
-                        done.parseCommand(userInput);
-                        break;
-                    case CMD_DELETE:
-                        DeleteCommand delete = new DeleteCommand(compal);
-                        delete.parseCommand(userInput);
-                        break;
-                    case CMD_EVENT:
-                        EventCommand event = new EventCommand(compal);
-                        event.parseCommand(userInput);
-                        break;
-                    case CMD_DEADLINE:
-                        DeadlineCommand deadline = new DeadlineCommand(compal);
-                        deadline.parseCommand(userInput);
-                        break;
-                    case CMD_DO_AFTER_TASK:
-                        DoAfterCommand doafter = new DoAfterCommand(compal);
-                        doafter.parseCommand(userInput);
-                        break;
-                    case CMD_FIXED_DURATION_TASK:
-                        FixedDurationCommand fixedduration = new FixedDurationCommand(compal);
-                        fixedduration.parseCommand(userInput);
-                        break;
-                    case CMD_RECUR_TASK:
+                case CMD_EXIT:
+                    ByeCommand bye = new ByeCommand(compal);
+                    bye.parseCommand(cmd);
+                    break;
+                case CMD_LIST:
+                    ListCommand list = new ListCommand(compal);
+                    list.parseCommand(cmd);
+                    break;
+                case CMD_CLEAR:
+                    ClearCommand clear = new ClearCommand(compal);
+                    clear.parseCommand(cmd);
+                    break;
+                case CMD_DONE:
+                    DoneCommand done = new DoneCommand(compal);
+                    done.parseCommand(userInput);
+                    break;
+                case CMD_DELETE:
+                    DeleteCommand delete = new DeleteCommand(compal);
+                    delete.parseCommand(userInput);
+                    break;
+                case CMD_EVENT:
+                    EventCommand event = new EventCommand(compal);
+                    event.parseCommand(userInput);
+                    break;
+                case CMD_DEADLINE:
+                    DeadlineCommand deadline = new DeadlineCommand(compal);
+                    deadline.parseCommand(userInput);
+                    break;
+                case CMD_DO_AFTER_TASK:
+                    DoAfterCommand doafter = new DoAfterCommand(compal);
+                    doafter.parseCommand(userInput);
+                    break;
+                case CMD_FIXED_DURATION_TASK:
+                    FixedDurationCommand fixedduration = new FixedDurationCommand(compal);
+                    fixedduration.parseCommand(userInput);
+                    break;
+                case CMD_RECUR_TASK:
+                case CMD_LECT:
+                case CMD_TUT:
+                case CMD_SECT:
+                case CMD_LAB:
+                    RecurTaskCommand recurTask = new RecurTaskCommand(compal);
+                    recurTask.parseCommand(userInput);
+                    break;
+                case CMD_FIND:
+                    FindCommand findCommand = new FindCommand(compal);
+                    findCommand.parseCommand(userInput);
+                    break;
+                case CMD_VIEW:
+                    ViewCommand viewCommand = new ViewCommand(compal);
+                    viewCommand.parseCommand(userInput);
+                    break;
+                case CMD_VIEW_REMIND:
+                    ViewReminderCommand viewReminderCommand = new ViewReminderCommand(compal);
+                    viewReminderCommand.parseCommand(userInput);
+                    break;
+                case CMD_SET_REMINDER:
+                    SetReminderCommand setReminderCommand = new SetReminderCommand(compal);
+                    setReminderCommand.parseCommand(userInput);
+                    break;
+                default:
+                    compal.ui.printg(MESSAGE_INVALID_COMMAND);
+                    throw new Compal.DukeException(MESSAGE_INVALID_COMMAND);
+
                     case CMD_LECT:
                     case CMD_TUT:
                     case CMD_SECT:

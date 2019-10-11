@@ -1,9 +1,9 @@
 package compal.commons;
 
+import compal.storage.StorageManager;
 import compal.ui.UiPart;
 import compal.logic.parser.ParserManager;
 import compal.storage.Storage;
-import compal.storage.StorageFile;
 import compal.model.tasks.TaskList;
 
 import java.util.ArrayList;
@@ -37,7 +37,7 @@ public class Compal {
         //Instantiate objects
         tasklist = new TaskList(this);
 
-        storage = new StorageFile();
+        storage = new StorageManager();
 
         /*
          * Checks if storage is empty. If empty, create new ArrayList for storing Task objects. Else, load the current
@@ -47,7 +47,6 @@ public class Compal {
             tasklist.arrlist = new ArrayList<>();
         } else {
             tasklist.arrlist = storage.loadCompal();
-
         }
 
         ui = new UiPart(this, tasklist.arrlist);

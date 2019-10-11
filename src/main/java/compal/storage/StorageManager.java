@@ -18,7 +18,7 @@ import java.util.ArrayList;
 /**
  * Represents file used to store COMPal.
  */
-public class StorageFile implements Storage {
+public class StorageManager implements Storage {
     //***Class Properties/Variables***--------------------------------------------------------------------------------->
     private static final String saveFilePath = "./Compal.txt";
     private static final String userPreferencesFilePath = "./prefs.txt";
@@ -35,7 +35,7 @@ public class StorageFile implements Storage {
     /**
      * Prints message of storage initialized.
      */
-    public StorageFile() {
+    public StorageManager() {
         System.out.println("Storage:LOG: Storage Initialized!");
     }
 
@@ -55,12 +55,12 @@ public class StorageFile implements Storage {
             String st;
             while ((st = br.readLine()) != null) {
                 Task t;
-                System.out.println("StorageFile:LOG: Task read:" + st);
+                System.out.println("StorageManager:LOG: Task read:" + st);
                 String[] parts = st.split("_");
                 String taskType = parts[0];
                 switch (taskType) {
                 case SYMBOL_DEADLINE:
-                    t = new Deadline(parts[1], stringToPriority(parts[3]), parts[4], parts[5]);
+                    t = new Deadline(parts[1], stringToPriority(parts[3]), parts[4], parts[6]);
                     break;
                 case SYMBOL_DOAFTER:
                     t = new DoAfterTasks(parts[1], stringToPriority(parts[3]), parts[4]);

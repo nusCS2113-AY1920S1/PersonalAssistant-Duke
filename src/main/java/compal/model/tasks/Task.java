@@ -290,17 +290,19 @@ public abstract class Task implements Serializable {
     public void calculateAndSetPriorityScore() {
         long score;
         switch (priority) {
-            case high:
-                score = 100;
-                break;
-            case medium:
-                score = 50;
-                break;
-            case low:
-                score = 20;
-                break;
-            default:
-                score = 0;
+
+        case high:
+            score = 100;
+            break;
+        case medium:
+            score = 50;
+            break;
+        case low:
+            score = 20;
+            break;
+        default:
+            score = 0;
+
         }
 
         Date d = new Date();
@@ -348,6 +350,6 @@ public abstract class Task implements Serializable {
     }
 
     public enum Priority {
-        high, medium, low
+        high, medium, low;
     }
 }
