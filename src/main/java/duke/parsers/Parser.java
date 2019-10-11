@@ -121,8 +121,6 @@ public class Parser {
             return new ReminderCommand();
         case "help":
             return new HelpCommand();
-        case "map":
-            return new MapCommand();
         default:
             return null;
         }
