@@ -13,6 +13,7 @@ import org.testfx.api.FxAssert;
 import org.testfx.api.FxToolkit;
 import org.testfx.framework.junit5.ApplicationTest;
 import org.testfx.matcher.control.LabeledMatchers;
+import org.testfx.matcher.control.TextMatchers;
 
 public class SceneControllerTest extends ApplicationTest {
 
@@ -37,7 +38,7 @@ public class SceneControllerTest extends ApplicationTest {
     @Test
     void testInterfaceRendering() {
         clickOn("#sceneTitle");
-        FxAssert.verifyThat("#sceneTitle", LabeledMatchers.hasText("Home Scene"));
+        FxAssert.verifyThat("#sceneTitle", TextMatchers.hasText("Welcome to AlgoSenpai Adventures!"));
     }
 
 }
