@@ -132,25 +132,25 @@ public class TimePeriodWeekly implements TimePeriod {
         if (duration.isNegative()) {
             return this.isClashing(
                     new TimePeriodWeekly(
-                            other.getBegin().eval().toLocalTime(),
-                            other.getEnd().eval().toLocalTime(),
-                            other.getBegin().eval().getDayOfWeek()));
+                            other.getBegin().value().toLocalTime(),
+                            other.getEnd().value().toLocalTime(),
+                            other.getBegin().value().getDayOfWeek()));
         }
         if (duration.isZero()) {
             return this.isClashing(
                     new TimePeriodWeekly(
-                            other.getBegin().eval().toLocalTime(),
-                            other.getEnd().eval().toLocalTime().minusNanos(1),
-                            other.getBegin().eval().getDayOfWeek()));
+                            other.getBegin().value().toLocalTime(),
+                            other.getEnd().value().toLocalTime().minusNanos(1),
+                            other.getBegin().value().getDayOfWeek()));
         }
-        LocalDateTime otherBeginEndOfDay = LocalDateTime.of(other.getBegin().eval().toLocalDate(), LocalTime.MAX);
-        LocalDateTime otherEndBeginOfDay = LocalDateTime.of(other.getBegin().eval().toLocalDate(), LocalTime.MIN);
-        if (this.isClashing(other.getBegin().eval(), otherBeginEndOfDay)
-                || this.isClashing(otherEndBeginOfDay, other.getEnd().eval())) {
+        LocalDateTime otherBeginEndOfDay = LocalDateTime.of(other.getBegin().value().toLocalDate(), LocalTime.MAX);
+        LocalDateTime otherEndBeginOfDay = LocalDateTime.of(other.getBegin().value().toLocalDate(), LocalTime.MIN);
+        if (this.isClashing(other.getBegin().value(), otherBeginEndOfDay)
+                || this.isClashing(otherEndBeginOfDay, other.getEnd().value())) {
             return true;
         }
-        LocalDate begin = other.getBegin().eval().toLocalDate().plusDays(1);
-        LocalDate end = other.getEnd().eval().toLocalDate();
+        LocalDate begin = other.getBegin().value().toLocalDate().plusDays(1);
+        LocalDate end = other.getEnd().value().toLocalDate();
         for (; begin != end; begin = begin.plusDays(1)) {
             if (this.isClashing(begin)) {
                 return true;
