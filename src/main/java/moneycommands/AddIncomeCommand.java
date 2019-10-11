@@ -9,11 +9,9 @@ import money.Income;
 import moneycommands.MoneyCommand;
 
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
-import java.util.Date;
 
 /**
  * This command adds an income source to the Total Income List.

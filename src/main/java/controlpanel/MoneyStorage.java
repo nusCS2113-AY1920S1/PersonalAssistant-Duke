@@ -9,12 +9,14 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.util.ArrayList;
 
 import money.Account;
 import money.Expenditure;
 import money.Goal;
 import money.Income;
 import money.Instalment;
+import javafx.util.Pair;
 
 public class MoneyStorage {
 
@@ -34,7 +36,7 @@ public class MoneyStorage {
             String line;
             while ((line = bufferedReader.readLine()) != null) {
                 String[] info = line.split(" @ ");
-                if (!(info[0].equals("BS") || info[0].equals("INC") || info[0].equals("EXP") ||
+                if (!(info[0].equals("BS") || info[0].equals("INC") || info[0].equals("EXP") || info[0].equals("SEX") ||
                         info[0].equals("G") || info[0].equals("INS") || info[0].equals("INIT"))) {
                     throw new DukeException("OOPS!! Your file has been corrupted/ input file is invalid!");
                 }
@@ -55,6 +57,23 @@ public class MoneyStorage {
                                 LocalDate.parse(info[4], dateTimeFormatter));
                         account.getExpListTotal().add(exp);
                         break;
+                    case "SEX":
+                        String[] names = info[5].split(" ! ");
+                        ArrayList<Pair<String, Boolean>> parties = new ArrayList<>();
+                        for (String name : names) {
+                            name = name.replaceAll(" ", "");
+                            String[] splitStr = name.split("#", 2);
+                            boolean status = false;
+                            if (splitStr[1].equals("1")) {
+                                status = true;
+                            }
+
+                            Pair<String, Boolean> temp = new Pair<>(splitStr[0], status);
+                            parties.add(temp);
+                        }
+                        Split spltExp = new Split(Float.parseFloat(info[1]), info[2], info[3],
+                                LocalDate.parse(info[4], dateTimeFormatter), parties);
+                        account.getExpListTotal().add(spltExp);
                     case "G":
                         Goal g = new Goal(Float.parseFloat(info[1]), info[2], info[3],
                                 LocalDate.parse(info[4], dateTimeFormatter), info[5]);
@@ -92,8 +111,14 @@ public class MoneyStorage {
             }
 
             for (Expenditure exp : account.getExpListTotal()) {
-                bufferedWriter.write("EXP @ " + exp.getPrice() + " @ " + exp.getDescription() + " @ " +
-                        exp.getCategory() + " @ " + exp.getBoughtDate() + "\n");
+                if (exp instanceof Split) {
+                    bufferedWriter.write("SEX @ " + exp.getPrice() + " @ " + exp.getDescription() + " @ " +
+                            exp.getCategory() + " @ " + exp.getBoughtDate() + " @ " +
+                            ((Split) exp).getNamesOfPeople() + "\n");
+                } else {
+                    bufferedWriter.write("EXP @ " + exp.getPrice() + " @ " + exp.getDescription() + " @ " +
+                            exp.getCategory() + " @ " + exp.getBoughtDate() + "\n");
+                }
             }
 
             for (Goal g : account.getShortTermGoals()) {
