@@ -1,12 +1,16 @@
 package Commands;
 
 
+import EPstorage.ProfileCommands;
 import MovieUI.Controller;
 import MovieUI.MovieHandler;
 import movieRequesterAPI.RetrieveRequest;
 
 import java.util.ArrayList;
 import java.util.TreeMap;
+
+import java.io.IOException;
+import java.util.ArrayList;
 
 
 public class SearchCommand extends CommandSuper {
@@ -17,21 +21,31 @@ public class SearchCommand extends CommandSuper {
     }
 
     @Override
-    public void executeCommands() {
-        switch (this.getSubRootCommand()) {
+    public void executeCommands() throws IOException {
+        switch (this.getSubRootCommand()){
             case movies:
                 executeMovieSearch();
                 break;
             case tvshows:
                 executeTvShowSearch();
                 break;
+//            case all:
+//                executeTvShowSearch();
+//                break;
             default:
                 break;
         }
 
     }
 
-    private void executeMovieSearch() {
+    /**
+     * search for movie titles using keywords
+     * root: search
+     * sub: movies
+     * payload: <keywords>
+     * flag: -g (genre name -- not genre ID) [-g preferences -> to use user's preferred filters]
+     */
+    private void executeMovieSearch() throws IOException {
         TreeMap<String, ArrayList<String>> treeMap = getFlagMap();
         if (treeMap.containsKey("-[c]")) {
             MovieHandler.showCurrentMovies();
@@ -42,7 +56,23 @@ public class SearchCommand extends CommandSuper {
         } else if (treeMap.containsKey("-[p]")) {
             MovieHandler.showPopMovies();
         } else {
-            ((MovieHandler) this.getUIController()).getAPIRequester().beginSearchRequest(getPayload());
+            MovieHandler movieHandler = ((MovieHandler) this.getUIController());
+            if (!this.getFlagMap().containsKey("-g")) {
+                ((MovieHandler) this.getUIController()).getAPIRequester().beginMovieSearchRequest(getPayload());
+                movieHandler.clearSearchTextField();
+            } else {
+                ArrayList<Integer> inputGenre = new ArrayList<>(10);
+                for (String log : this.getFlagMap().get("-g")) {
+                    if (log.equalsIgnoreCase("preferences")) {
+                        inputGenre.addAll(movieHandler.getUserProfile().getGenreId());
+                    } else {
+                        ProfileCommands command = new ProfileCommands(movieHandler.getUserProfile());
+                        inputGenre.add(command.findGenreID(log));
+                    }
+                }
+                ((MovieHandler) this.getUIController()).getAPIRequester().beginMovieSearchRequestWithGenre(getPayload(), inputGenre);
+                movieHandler.clearSearchTextField();
+            }
         }
     }
 
@@ -59,6 +89,5 @@ public class SearchCommand extends CommandSuper {
         }
 
     }
-
-
 }
+

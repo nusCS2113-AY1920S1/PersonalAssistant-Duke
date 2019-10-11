@@ -1,6 +1,7 @@
 package MovieUI;
 
-import Contexts.SearchResultContext;
+import EPstorage.*;
+
 import javafx.application.Platform;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -18,15 +19,16 @@ import javafx.scene.text.Text;
 import movieRequesterAPI.RequestListener;
 import movieRequesterAPI.RetrieveRequest;
 import object.MovieInfoObject;
-import parser.CommandParser;
+import EPparser.CommandParser;
 import ui.Ui;
 
-import javax.xml.stream.EventFilter;
-import javax.xml.stream.events.XMLEvent;
 import java.io.IOException;
 import java.util.ArrayList;
 
-public class MovieHandler extends Controller implements RequestListener {
+/**
+ * this is main page of gui
+ */
+public class MovieHandler extends Controller implements RequestListener{
     @FXML
     private ScrollPane mMoviesScrollPane;
 
@@ -47,6 +49,12 @@ public class MovieHandler extends Controller implements RequestListener {
 
     @FXML
     private Text text;
+
+    @FXML Label userNameLabel;
+    @FXML Label userAgeLabel;
+    @FXML Label genreListLabel;
+    private UserProfile userProfile;
+    private ArrayList<Playlist> playlists;
 
     private FlowPane mMoviesFlowPane;
 
@@ -79,18 +87,43 @@ public class MovieHandler extends Controller implements RequestListener {
 //                    SearchResultContext.AddKeyWord(mSearchTextField.getText());
                 // do something
                 System.out.println("Hello");
-                CommandParser.parseCommands(mSearchTextField.getText(), control);
-            } else if (event.getCode().equals(KeyCode.TAB)) {
+                try {
+                    CommandParser.parseCommands(mSearchTextField.getText() ,control );
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }else if(event.getCode().equals(KeyCode.TAB)){
                 System.out.println("Tab presjenksjessed");
                 event.consume();
             }
         }
     }
 
+    @FXML public void initialize() throws IOException {
+        EditProfileJson editProfileJson = new EditProfileJson();
+        userProfile = editProfileJson.load();
+        EditPlaylistJson editPlaylistJson = new EditPlaylistJson();
+        playlists = editPlaylistJson.load();
+        ProfileCommands command = new ProfileCommands(userProfile);
+        userNameLabel.setText(userProfile.getUserName());
+        userAgeLabel.setText(Integer.toString(userProfile.getUserAge()));
+        genreListLabel.setText(command.convertToLabel(userProfile.getGenreId()));
 
-    @FXML
-    public void initialize() {
+
         mMovieRequest = new RetrieveRequest(this);
+
+//
+//
+//        //mMovieTypeVBox.setStyle("-fx-border-color: white;");
+//
+//
+//
+//
+//
+//        //mMovieTypeListView.getItems().addAll("Now Showing", "Popular", "TV Shows", "Upcoming Movies");
+//        //mMovieTypeListView.getSelectionModel().select(0);
+//
+//
         mSearchTextField.addEventFilter(KeyEvent.KEY_PRESSED, event -> {
             if (event.getCode() == KeyCode.TAB) {
                 System.out.println("Tab pressed");
@@ -104,6 +137,7 @@ public class MovieHandler extends Controller implements RequestListener {
         mMovieRequest.beginMovieRequest(RetrieveRequest.MoviesRequestType.CURRENT_MOVIES);
 
         //mMovieRequest.beginMovieRequest(RetrieveRequest.MoviesRequestType.CURRENT_MOVIES);
+
         //Real time changes to text field
         mSearchTextField.textProperty().addListener((observable, oldValue, newValue) -> {
             System.out.println("textfield changed from " + oldValue + " to " + newValue);
@@ -160,8 +194,9 @@ public class MovieHandler extends Controller implements RequestListener {
         mMoviesFlowPane.setPadding(new Insets(10, 8, 4, 8));
         mMoviesFlowPane.prefWrapLengthProperty().bind(mMoviesScrollPane.widthProperty());   // bind to scroll pane width
 
-        for (MovieInfoObject movie : movies) {
-            AnchorPane posterPane = buildMoviePosterPane(movie);
+        for (int i = 0; i < movies.size(); i++)
+        {
+            AnchorPane posterPane = buildMoviePosterPane(movies.get(i), i + 1);
             mMoviesFlowPane.getChildren().add(posterPane);
         }
 
@@ -169,7 +204,7 @@ public class MovieHandler extends Controller implements RequestListener {
     }
 
 
-    private AnchorPane buildMoviePosterPane(MovieInfoObject movie) {
+    private AnchorPane buildMoviePosterPane(MovieInfoObject movie, int index) {
         try {
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(getClass().getClassLoader().getResource("MoviePoster.fxml"));
@@ -184,9 +219,7 @@ public class MovieHandler extends Controller implements RequestListener {
 
             controller.getMovieTitleLabel().setText(movie.getTitle());
             controller.getPosterImageView().setImage(posterImage);
-            controller.getMovieIDLabel().setText("[#" + movie.getID() + "]");
-
-
+            controller.getMovieNumberLabel().setText(Integer.toString(index));
             return posterView;
         } catch (IOException ex) {
             Ui.printLine();
@@ -223,6 +256,9 @@ public class MovieHandler extends Controller implements RequestListener {
         mMainApplication.transitToMovieInfoController(movie);
     }
 
+    public void clearSearchTextField(){
+        mSearchTextField.setText("");
+    }
 
     public void setFeedbackText(String txt) {
         text.setText(txt);
@@ -232,8 +268,21 @@ public class MovieHandler extends Controller implements RequestListener {
         return mMovieRequest;
     }
 
-    @FXML
-    private void clearSearchButtonClicked() {
+    public UserProfile getUserProfile() {
+        return userProfile;
+    }
+
+    public ArrayList<Playlist> getPlaylists() {
+        return playlists;
+    }
+
+    public ArrayList<MovieInfoObject> getmMovies() {
+        return mMovies;
+    }
+
+
+    @FXML private void clearSearchButtonClicked()
+    {
         mSearchTextField.clear();
     }
 
