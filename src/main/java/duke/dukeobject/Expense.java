@@ -80,12 +80,12 @@ public class Expense extends DukeItem {
 
         /**
          * Sets the amount of the expense using a string.
-         * @see #setAmount(BigDecimal)
          *
          * @param amount the amount of the expense as a string.
          * @return this builder.
          * @throws DukeException if the value in amount cannot be converted into a {@code BigDecimal},
          *                       or if the {@code BigDecimal} does not represent a valid amount.
+         * @see #setAmount(BigDecimal)
          */
         public Builder setAmount(String amount) throws DukeException {
             try {
@@ -105,7 +105,7 @@ public class Expense extends DukeItem {
         public Builder setAmount(BigDecimal amount) throws DukeException {
             if (amount.scale() > 2) {
                 throw new DukeException(
-                    String.format(DukeException.MESSAGE_EXPENSE_AMOUNT_INVALID, amount.toPlainString()));
+                        String.format(DukeException.MESSAGE_EXPENSE_AMOUNT_INVALID, amount.toPlainString()));
             }
             this.amount = amount;
             return this;
@@ -135,11 +135,11 @@ public class Expense extends DukeItem {
 
         /**
          * Sets the time of the expense using a string.
-         * @see #setTime(LocalDateTime)
          *
          * @param time the time of the expense as a string.
          * @return this builder.
          * @throws DukeException if the time string cannot be parsed into a {@code LocalDateTime} object.
+         * @see #setTime(LocalDateTime)
          */
         public Builder setTime(String time) throws DukeException {
             try {

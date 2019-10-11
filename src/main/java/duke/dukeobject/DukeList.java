@@ -40,7 +40,9 @@ abstract class DukeList<T extends DukeItem> {
     protected String viewScope;
     protected String filterCriteria;
 
+    @SuppressWarnings("checkstyle:MemberName")
     private final String DEFAULT_VIEW_SCOPE = "all";
+    @SuppressWarnings("checkstyle:MemberName")
     private final String DEFAULT_SORT_CRITERIA = "time";
 
     /**

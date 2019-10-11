@@ -1,11 +1,10 @@
 package duke.command;
 
 
+import duke.Duke;
 import duke.dukeobject.Expense;
-import duke.dukeobject.ExpenseList;
 import duke.exception.DukeException;
 import duke.parser.CommandParams;
-import duke.ui.Ui;
 
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -39,15 +38,15 @@ public class AddExpenseCommand extends Command {
      */
     public AddExpenseCommand() {
         super(name,
-            description,
-            usage,
-            Stream.of(SecondaryParam.values())
-                .collect(Collectors.toMap(s -> s.name, s -> s.description))
+                description,
+                usage,
+                Stream.of(SecondaryParam.values())
+                        .collect(Collectors.toMap(s -> s.name, s -> s.description))
         );
     }
 
     @Override
-    public void execute(CommandParams commandParams, ExpenseList expensesList, Ui ui) throws DukeException {
+    public void execute(CommandParams commandParams, Duke duke) throws DukeException {
         Expense.Builder expenseBuilder = new Expense.Builder();
 
         if (!commandParams.containsMainParam()) {
@@ -67,8 +66,8 @@ public class AddExpenseCommand extends Command {
             expenseBuilder.setDescription(commandParams.getParam(SecondaryParam.TIME.name));
         }
 
-        expensesList.add(expenseBuilder.build());
-        expensesList.update();
+        duke.expenseList.add(expenseBuilder.build());
+        duke.expenseList.update();
     }
 
 }
