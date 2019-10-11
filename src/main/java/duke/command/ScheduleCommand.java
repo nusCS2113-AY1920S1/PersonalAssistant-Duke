@@ -3,15 +3,17 @@ package duke.command;
 import duke.exceptions.ModEmptyCommandException;
 import duke.exceptions.ModEmptyListException;
 import duke.exceptions.ModInvalidTimeException;
-
+import duke.exceptions.ModInvalidTimePeriodException;
 import duke.modules.TaskWithPeriod;
 import duke.util.DateTimeParser;
 import duke.util.Reminder;
 import duke.util.Storage;
 import duke.util.TaskList;
+import duke.util.TimePeriodSpanning;
 import duke.util.Ui;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 public class ScheduleCommand extends Command {
@@ -50,7 +52,9 @@ public class ScheduleCommand extends Command {
         if (isEmpty) {
             throw new ModEmptyListException();
         } else {
-            System.out.println("Here is your schedule for today:");
+            System.out.println("Here is your schedule for "
+                    + DateTimeFormatter.ofPattern("dd-MM-yyyy").format(this.currentDate)
+                    + ":");
             ui.printTaskList(printArray);
         }
     }
@@ -64,10 +68,16 @@ public class ScheduleCommand extends Command {
      */
     public static ArrayList<TaskWithPeriod> getTasksIn(LocalDate localDate, TaskList tasks, boolean isSorted) {
         ArrayList<TaskWithPeriod> ret = new ArrayList<>();
+        TimePeriodSpanning timePeriodSpanning = null;
+        try {
+            timePeriodSpanning = new TimePeriodSpanning(localDate, localDate.plusDays(1));
+        } catch (ModInvalidTimePeriodException ex) {
+            ex.printStackTrace();
+        }
         for (int i = 0; i < tasks.getSize(); i++) {
             if (tasks.access(i) instanceof TaskWithPeriod) {
                 TaskWithPeriod t = (TaskWithPeriod) tasks.access(i);
-                if (t.getDaysOfWeek().contains(localDate.getDayOfWeek())) {
+                if (t.isClashing(timePeriodSpanning)) {
                     ret.add(t);
                 }
             }
