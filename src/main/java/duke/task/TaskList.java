@@ -58,6 +58,15 @@ public class TaskList {
         taskList.remove(i - 1);
     }
 
+    public boolean isExist(Integer i) {
+        if (getSize() >= i) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+
     /**
      * Returns the Task in the list with the given index.
      *

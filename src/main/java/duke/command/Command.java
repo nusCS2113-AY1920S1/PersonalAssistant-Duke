@@ -3,8 +3,9 @@ package duke.command;
 import duke.core.DukeException;
 import duke.patient.PatientList;
 import duke.storage.PatientStorage;
-import duke.storage.Storage;
+import duke.storage.PatientTaskStorage;
 import duke.storage.TaskStorage;
+import duke.relation.PatientTaskList;
 import duke.task.TaskList;
 import duke.core.Ui;
 
@@ -15,16 +16,9 @@ import duke.core.Ui;
  */
 public abstract class Command {
 
-    /**
-     * run the command with the respect TaskList, UI, and storage.
-     *
-     * @param tasks   The task list where tasks are saved.
-     * @param ui      The user interface.
-     * @param storage object that handles local text file update
-     * @throws DukeException throw exception during execution of the
-     *                       command.
-     */
-    public abstract void execute(TaskList tasks, PatientList patientList, Ui ui, TaskStorage taskStorage, PatientStorage patientStorage) throws DukeException;
+
+
+    public abstract void execute(PatientTaskList patientTask, TaskList tasks, PatientList patientList, Ui ui, PatientTaskStorage patientTaskStorage, TaskStorage taskStorage, PatientStorage patientStorage) throws DukeException;
 
     /**
      * Decide whether duke should exist.

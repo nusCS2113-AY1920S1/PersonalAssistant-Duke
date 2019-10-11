@@ -22,6 +22,15 @@ public class PatientList {
         }
     }
 
+    public boolean isExist(int id) {
+        if (patientIdMap.containsKey(id)){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+
     public Patient getPatient(int id) throws DukeException {
         if (patientIdMap.containsKey(id)){
             return patientIdMap.get(id);

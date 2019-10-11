@@ -5,7 +5,9 @@ import duke.core.DukeException;
 import duke.core.CommandManager;
 import duke.patient.PatientList;
 import duke.storage.PatientStorage;
+import duke.storage.PatientTaskStorage;
 import duke.storage.TaskStorage;
+import duke.relation.PatientTaskList;
 import duke.task.TaskList;
 import duke.core.Ui;
 
@@ -20,12 +22,14 @@ public class Duke {
      */
     private TaskStorage taskStorage;
     private PatientStorage patientStorage;
+    private PatientTaskStorage patientTaskStorage;
     /**
      * A TaskList object that deals with add, delete, mark as done,
      * find functions of a list of tasks.
      */
     private TaskList taskList;
     private PatientList patientList;
+    private PatientTaskList patientTaskList;
     /**
      * A Ui object that deals with interactions with the user.
      */
@@ -40,12 +44,15 @@ public class Duke {
     public Duke(String filePath) {
         taskStorage = new TaskStorage(filePath + "/standardTasks.csv");
         patientStorage = new PatientStorage(filePath + "/patients.csv");
+        patientTaskStorage = new PatientTaskStorage(filePath + "/patientsTasks.csv");
 
         try {
             taskList = new TaskList(taskStorage.load());
             patientList = new PatientList(patientStorage.load());
+            patientTaskList = new PatientTaskList(patientTaskStorage.load());
         } catch (DukeException e) {
             ui.showLoadingError();
+            System.out.println(e.getMessage());
             taskList = new TaskList();
         }
     }
@@ -62,7 +69,7 @@ public class Duke {
                 String fullCommand = ui.readCommand();
                 ui.showLine();
                 Command c = CommandManager.manageCommand(fullCommand);
-                c.execute(taskList,patientList, ui, taskStorage, patientStorage);
+                c.execute(patientTaskList,taskList,patientList, ui, patientTaskStorage, taskStorage, patientStorage);
                 isExit = c.isExit();
             } catch (DukeException e) {
                 ui.showError(e.getMessage());

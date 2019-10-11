@@ -54,4 +54,21 @@ public class DateTimeParser {
             throw e;
         }
     }
+
+    public static String convertToEnglishDateTimeBeforeParse(LocalDateTime localDateTime)  {
+        DateTimeFormatter stFormatter = DateTimeFormatter.ofPattern("d'st of' MMMM yyyy, ha");
+        DateTimeFormatter ndFormatter = DateTimeFormatter.ofPattern("d'nd of' MMMM yyyy, ha");
+        DateTimeFormatter rdFormatter = DateTimeFormatter.ofPattern("d'rd of' MMMM yyyy, ha");
+        DateTimeFormatter thFormatter = DateTimeFormatter.ofPattern("d'th of' MMMM yyyy, ha");
+
+        if ((localDateTime.getDayOfMonth() % 10) == 1) {
+            return localDateTime.format(stFormatter);
+        } else if ((localDateTime.getDayOfMonth() % 10) == 2) {
+            return localDateTime.format(ndFormatter);
+        } else if ((localDateTime.getDayOfMonth() % 10) == 3) {
+            return localDateTime.format(rdFormatter);
+        } else {
+            return localDateTime.format(thFormatter);
+        }
+    }
 }
