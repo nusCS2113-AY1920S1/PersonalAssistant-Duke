@@ -31,7 +31,7 @@ public class TentativeSchedulingCommand extends Command{
         this.startTimeString = startTimeString;
         this.endTimeString = endTimeString;
         for (int i = 0; i < dateString.size();i++){
-            Event event = new Event(description, dateString.get(i),startTimeString.get(i),endTimeString.get(i), null);
+            Event event = new Event(description, dateString.get(i),startTimeString.get(i),endTimeString.get(i));
             this.tentativeDates.addTask(event);
         }
         Storage.updateTentativeDates(tentativeDates);
