@@ -9,16 +9,14 @@ import java.lang.reflect.Field;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
 
-import static parser.DateTimeExtractor.NULL_DATE;
-
 public class ParserTest {
 
     LocalDateTime startDate = LocalDateTime.of(2001,1,1,1,0);
     LocalDateTime endDate = LocalDateTime.of(2001,1,1,13,0);
 
     Command event = new AddCommand("event", "test", startDate, endDate);
-    Command deadline = new AddCommand("deadline", "test", startDate, NULL_DATE);
-    Command todo = new AddCommand("todo", "test", NULL_DATE, NULL_DATE);
+    Command deadline = new AddCommand("deadline", "test", startDate, null);
+    Command todo = new AddCommand("todo", "test", null, null);
 
     private Field[] getAddCommandFields(Command command) throws NoSuchFieldException {
         Field[] commandFields = new Field[4];

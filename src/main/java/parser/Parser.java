@@ -21,8 +21,6 @@ import ui.Ui;
 import java.time.LocalDateTime;
 import java.text.ParseException;
 
-import static parser.DateTimeExtractor.NULL_DATE;
-
 /**
  * The parser class is used to parse and make sense of the different queries the
  * user inputs into the program and tag them for further processing.
@@ -188,7 +186,7 @@ public class Parser {
         if (taskDetails.length != 1) {
             return parseDuration(taskFeatures, taskDetails, checkType, command);
         }
-        return new AddCommand(command, taskDetails[0], NULL_DATE, NULL_DATE);
+        return new AddCommand(command, taskDetails[0], null, null);
     }
 
     private static Command parseToDoPeriod(String taskFeatures, String[] taskDetails, String checkType,
@@ -255,7 +253,7 @@ public class Parser {
         }
 
         String dateTimeFromUser;
-        LocalDateTime atDate = NULL_DATE;
+        LocalDateTime atDate;
         try {
             dateTimeFromUser = taskFeatures.split(checkType, 2)[1].trim();
             atDate = DateTimeExtractor.extractDateTime(dateTimeFromUser, command);
@@ -264,8 +262,8 @@ public class Parser {
         } catch (ParseException e) {
             throw new DukeException(DukeException.wrongDateOrTime());
         }
-        assert !atDate.equals(NULL_DATE);
-        return new AddCommand(command, taskDescription, atDate, NULL_DATE);
+        assert atDate != null;
+        return new AddCommand(command, taskDescription, atDate, null);
     }
 
     private static Command parseEvent(String command, String userInput) throws DukeException {
@@ -279,8 +277,8 @@ public class Parser {
         }
 
         String dateTimeFromUser;
-        LocalDateTime fromDate = NULL_DATE;
-        LocalDateTime toDate = NULL_DATE;
+        LocalDateTime fromDate;
+        LocalDateTime toDate;
         try {
             dateTimeFromUser = taskFeatures.split(checkType, 2)[1].trim();
             String obtainStartDate = dateTimeFromUser.split("-", 2)[0].trim();
@@ -292,8 +290,8 @@ public class Parser {
         } catch (ParseException e) {
             throw new DukeException(DukeException.wrongDateOrTime());
         }
-        assert !toDate.equals(NULL_DATE);
-        assert !fromDate.equals(NULL_DATE);
+        assert toDate != null;
+        assert fromDate != null;
         return new AddCommand(command, taskDescription, fromDate, toDate);
     }
 
