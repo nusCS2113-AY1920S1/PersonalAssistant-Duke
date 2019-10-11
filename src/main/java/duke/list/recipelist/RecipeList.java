@@ -1,4 +1,4 @@
-package duke.recipelist;
+package duke.list.recipelist;
 
 import duke.model.recipe.Recipe;
 import duke.task.recipetasks.PrepStep;
@@ -33,17 +33,8 @@ public class RecipeList {
         this.rating = rating;
     }
 
-//    public ArrayList<String> listRecipe() {
-//        ArrayList<String> arrList = new ArrayList<>();
-//        for (int i = 0; i < getSize(); i++) {
-//            final int displayedIndex = i + DISPLAYED_INDEX_OFFSET;
-//            arrList.add("     " + displayedIndex + ". " + RecipeList.get(i));
-//        }
-//        return arrList;
-//    }
-
-    public void addRecipe(ArrayList<RecipeIngredient> recipeIngredient, ArrayList<PrepStep> prepStep, String feedback, String rating) throws ParseException {
-        recipeList.add(new Recipe(recipeIngredient, prepStep, feedback, rating));
+    public void addRecipeIngredient(ArrayList<RecipeIngredient> recipeIngredient) throws ParseException {
+        recipeList.add(new Recipe(recipeIngredient));
         int index = recipeList.size();
         if (index == 1) {
             msg = " recipe in the list.";
@@ -53,17 +44,6 @@ public class RecipeList {
         System.out.println(MESSAGE_ADDED + "       " + recipeList.get(index - 1) + "\n" + MESSAGE_ITEMS1 + index + msg);
     }
 
-    // delete recipe by index on list
-//    public void deleteIngredient(int i) {
-//        if (ingredientList.size() - 1 <= 1) {
-//            msg = " task in the list.";
-//        } else {
-//            msg = MESSAGE_ITEMS2;
-//        }
-//        System.out.println(MESSAGE_DELETE + "       " + ingredientList.get(i)
-//                + "\n" + MESSAGE_ITEMS1 + (ingredientList.size() - 1) + msg);
-//        ingredientList.remove(ingredientList.get(i));
-//    }
 
     public int getSize() {
         return recipeList.size();

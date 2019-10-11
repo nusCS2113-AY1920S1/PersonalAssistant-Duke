@@ -6,7 +6,7 @@ import duke.exception.DukeException;
 import duke.command.Command;
 >>>>>>> jiawei/chefduke:src/main/oldduke/dukecommands/ListCommand.java
 import duke.storage.Storage;
-import duke.tasklist.TaskList;
+import duke.list.tasklist.TaskList;
 import duke.ui.Ui;
 
 import java.text.ParseException;

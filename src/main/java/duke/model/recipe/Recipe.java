@@ -20,7 +20,7 @@ public class Recipe {
         this.recipeTitle = recipeTitle;
     }
 
-    public Recipe(ArrayList<RecipeIngredient> ingredient, ArrayList<PrepStep> prepStep, String feedback, String rating) {
+    public Recipe(ArrayList<RecipeIngredient> ingredient) {
     }
 
     public void addIngredient(RecipeIngredient ingredient) {

@@ -1,9 +1,15 @@
-package duke.command.inventorycommands;
+package duke.command.recipecommands;
 
 import duke.command.CommandIngredients;
+import duke.command.CommandRecipe;
+import duke.list.recipelist.RecipeIngredientList;
+import duke.list.recipelist.RecipeList;
 import duke.list.ingredientlist.IngredientList;
+import duke.list.recipelist.RecipeList;
 import duke.storage.IngredientStorage;
 
+import duke.storage.RecipeIngredientStorage;
+import duke.task.recipetasks.RecipeIngredient;
 import duke.ui.Ui;
 
 import java.text.ParseException;
@@ -11,21 +17,22 @@ import java.util.ArrayList;
 
 import static duke.common.IngredientMessages.*;
 import static duke.common.Messages.*;
+import static duke.common.RecipeMessages.COMMAND_ADD_RECIPE;
+import static duke.common.RecipeMessages.COMMAND_ADD_RECIPE_INGREDIENTS;
 
-public class AddIngredientCommand extends CommandIngredients {
+public class AddRecipeIngredientCommand extends CommandRecipe {
 
-    public AddIngredientCommand(String userInput) {
+    public AddRecipeIngredientCommand(String userInput) {
         this.userInput = userInput;
-        this.commandType = CommandType.INGREDIENT;
     }
 
     @Override
-    public ArrayList<String> feedback(IngredientList ingredientList, Ui ui, IngredientStorage ingredientStorage) throws ParseException {
+    public ArrayList<String> feedback(RecipeIngredientList recipeIngredientList, Ui ui, RecipeIngredientStorage recipeIngredientStorage) throws ParseException {
         ArrayList<String> arrayList = new ArrayList<>();
-        if (userInput.trim().equals(COMMAND_ADD_INGREDIENT)) {
+        if (userInput.trim().equals(COMMAND_ADD_RECIPE_INGREDIENTS)) {
             arrayList.add(ERROR_MESSAGE_GENERAL + MESSAGE_FOLLOWUP_NUll);
             System.out.println("stuck here1");
-        } else if (userInput.trim().charAt(13) == ' ') {
+        } else if (userInput.trim().charAt(20) == ' ') {
             String description = userInput.split("\\s",2)[1].trim();
             if (description.contains("q/")) {
                 String ingredientName = description.split("q/", 2)[0].trim();
@@ -35,11 +42,11 @@ public class AddIngredientCommand extends CommandIngredients {
                     arrayList.add(ERROR_MESSAGE_INCOMPLETE);
                 } else {
                     if (isParsable(quantity)) {
-                        ingredientList.addIngredient(ingredientName, Integer.parseInt(quantity));
-                        ingredientStorage.saveFile(ingredientList);
-                        int index = ingredientList.getSize();
+                        recipeIngredientList.addRecipeIngredient(ingredientName, Integer.parseInt(quantity));
+                        recipeIngredientStorage.saveFile(recipeIngredientList);
+                        int index = recipeIngredientList.getSize();
                         System.out.println(index);
-                        arrayList.add(MESSAGE_ADDED + "       " + ingredientList.listIngredients().get(index - 1) + "\n" + MESSAGE_ITEMS1 + index + " tasks in the list");
+                        arrayList.add(MESSAGE_ADDED + "       " + recipeIngredientList.listRecipeIngredients().get(index - 1) + "\n" + MESSAGE_ITEMS1 + index + " tasks in the list");
                     } else {
                         arrayList.add(ERROR_MESSAGE_INVALID_QUANTITY);
                     }

@@ -1,7 +1,7 @@
 package duke.command.inventorycommands;
 
 import duke.command.Command;
-import duke.ingredientlist.IngredientList;
+import duke.list.ingredientlist.IngredientList;
 import duke.storage.IngredientStorage;
 import duke.ui.Ui;
 

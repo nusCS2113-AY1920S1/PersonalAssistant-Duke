@@ -1,12 +1,9 @@
 package duke.command;
 
-import duke.exception.DukeException;
-import duke.command.Command;
 import duke.storage.Storage;
-import duke.tasklist.TaskList;
+import duke.list.tasklist.TaskList;
 import duke.ui.Ui;
 
-import java.text.ParseException;
 import java.util.ArrayList;
 
 import static duke.common.Messages.MESSAGE_TASKED;

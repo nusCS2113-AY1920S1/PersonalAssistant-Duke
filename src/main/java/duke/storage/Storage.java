@@ -8,8 +8,8 @@ import duke.task.duketasks.Deadline;
 import duke.task.duketasks.Duration;
 import duke.task.duketasks.Todo;
 import duke.task.duketasks.Event;
-import duke.task.duketasks.Task;
-import duke.tasklist.TaskList;
+import duke.task.Task;
+import duke.list.tasklist.TaskList;
 
 import java.io.FileReader;
 import java.io.BufferedReader;

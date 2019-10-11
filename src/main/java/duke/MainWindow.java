@@ -2,7 +2,7 @@ package duke;
 
 import duke.exception.DukeException;
 import duke.storage.Storage;
-import duke.tasklist.TaskList;
+import duke.list.tasklist.TaskList;
 import duke.ui.DialogBox;
 import duke.ui.ExitWindow;
 import duke.ui.HelpWindow;
