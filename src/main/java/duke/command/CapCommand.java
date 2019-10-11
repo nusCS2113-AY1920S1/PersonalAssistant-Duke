@@ -37,6 +37,7 @@ public class CapCommand extends Command {
     private float currentCap;
     private float projectedModuleCap;
     private int MCCount;
+
     /**
      * Constructor for the CapCommand class where user can enquire information about their CAP such as overall CAP and what-if reports about predicted CAP
      * @param input
@@ -44,8 +45,8 @@ public class CapCommand extends Command {
      * @throws ModMissingArgumentException
      * @throws ModCommandException
      */
-    public CapCommand(String input) throws ModEmptyCommandException, ModMissingArgumentException, ModCommandException {
-       /* specificModuleCap.clear();
+    /*public CapCommand(String input) throws ModEmptyCommandException, ModMissingArgumentException, ModCommandException {
+        specificModuleCap.clear();
         currentCap = 0;
         projectedModuleCap = 0;
         try {
@@ -64,7 +65,7 @@ public class CapCommand extends Command {
 
 
         */
-    }
+    //}
 
     /**
      * Method for predicting CAP for a specific module

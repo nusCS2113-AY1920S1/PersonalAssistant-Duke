@@ -241,9 +241,9 @@ public class DukeParser {
             return checkValidRescheduleIndex(input);
         } else if (input.startsWith("schedule ")) {
             return new ScheduleCommand(input);
-        } else if (input.startsWith("cap")) {
+        } /*else if (input.startsWith("cap")) {
             return new CapCommand(input);
-        } else {
+        }*/ else {
             //throws invalid command exception when user inputs non-keywords
             throw new ModCommandException();
         }
