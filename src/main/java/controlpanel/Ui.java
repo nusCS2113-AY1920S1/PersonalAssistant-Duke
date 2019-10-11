@@ -6,10 +6,12 @@ public class Ui {
 
     private Scanner scanner;
     private static String outputString = "";
+    private static String graphContainerString = "";
 
     public Ui() {
         scanner = new Scanner(System. in);
         outputString = "";
+        graphContainerString = "";
     }
 
     /**
@@ -58,5 +60,17 @@ public class Ui {
 
     public void clearOutputString() {
         outputString = "";
+    }
+
+    public String getGraphContainerString() {
+        return graphContainerString;
+    }
+
+    public void clearGraphContainerString() {
+        graphContainerString = "";
+    }
+
+    public void appendToGraphContainer(String msg) {
+        graphContainerString += msg;
     }
 }

@@ -54,5 +54,11 @@ public class DeleteExpenditureCommand extends MoneyCommand {
     }
 
     @Override
-    public void undo(Account account, Ui ui, MoneyStorage storage) { return; }
+    public void undo(Account account, Ui ui, MoneyStorage storage) throws DukeException {
+        storage.undoDeletedEntry(account, "EXP", serialNo);
+        storage.writeToFile(account);
+        ui.appendToOutput(" Last command undone: \n");
+        ui.appendToOutput(account.getExpListTotal().get(serialNo - 1).toString() + "\n");
+        ui.appendToOutput(" Now you have " + account.getExpListTotal().size() + " expenses listed\n");
+    }
 }

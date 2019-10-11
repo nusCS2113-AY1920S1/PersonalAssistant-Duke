@@ -24,12 +24,15 @@ public class ListInstalmentCommand extends MoneyCommand {
         DecimalFormat df = new DecimalFormat("#.##");
         df.setRoundingMode(RoundingMode.CEILING);
         for (Instalment i : account.getInstalments()) {
-            ui.appendToOutput(" " + counter + ".[" + df.format(i.getPercentage()) + "%] " + i.getDescription() + " ($"
+            ui.appendToGraphContainer(" " + counter + ".[" + df.format(i.getPercentage()) + "%] " + i.getDescription() + " ($"
                     + df.format(i.EqualMonthlyInstalment()) + " per month until " + i.getDateEndDate() + ")\n");
             counter++;
         }
+        ui.appendToOutput("Got it, list will be printed in the other pane!\n");
     }
 
     @Override
-    public void undo(Account account, Ui ui, MoneyStorage storage) throws DukeException, ParseException { return; }
+    public void undo(Account account, Ui ui, MoneyStorage storage) throws DukeException {
+        throw new DukeException("Command can't be undone!\n");
+    }
 }

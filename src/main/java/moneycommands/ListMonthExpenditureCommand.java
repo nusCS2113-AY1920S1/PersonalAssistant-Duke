@@ -36,15 +36,16 @@ public class ListMonthExpenditureCommand extends MoneyCommand {
     public void execute(Account account, Ui ui, MoneyStorage storage) {
         int counter = 1;
         for (Expenditure i : account.getExpListCurrMonth()) {
-            ui.appendToOutput(" " + counter + "." + i.toString() + "\n");
+            ui.appendToGraphContainer(" " + counter + "." + i.toString() + "\n");
             counter++;
         }
 
-        ui.appendToOutput("Total expenditure for the month: $" + account.getCurrMonthExp() + "\n");
+        ui.appendToGraphContainer("Total expenditure for the month: $" + account.getCurrMonthExp() + "\n");
+        ui.appendToOutput("Got it, list will be printed in the other pane!\n");
     }
 
     @Override
-    public void undo(Account account, Ui ui, MoneyStorage storage) throws DukeException, ParseException {
-        return;
+    public void undo(Account account, Ui ui, MoneyStorage storage) throws DukeException {
+        throw new DukeException("Command can't be undone!\n");
     }
 }
