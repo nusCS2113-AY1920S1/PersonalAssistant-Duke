@@ -20,7 +20,7 @@ By: `Team AY1920S1-CS2113T-F10-1`      Since: `Aug 2019`      License: `NUS Scho
 
 **ModPlan**
 
-Your one stop solution to module planning through out your university tenure! + 
+Your one stop solution to module planning through out your university tenure! +
 ModPlan is a module planning system that expands on NUSMODS to help NUS Computer Engineering students to plan their modules for all four years of their bachelor's degree.
 
 == Quick Start
@@ -101,7 +101,7 @@ Format: `event TASK_NAME /at DATE TIME`
 * The time must be in the hh:mm format that the program understands it.
 ****
 
-==== Adding a FixedDuration task: `fixedDuration` 
+==== Adding a FixedDuration task: `fixedDuration`
 
 Adds a task which requires a fixed amount of time to be completed in, but does not have a fixed starting or end time.
 Format: `fixedDuration TASK_NAME /needs TIME`
@@ -119,8 +119,6 @@ Examples:
 
 * `recurring update diary /every 3`
 Adds a task, `update diary`, which occurs every 3 days.
-
-
 
 // tag::delete[]
 === Deleting a task : `delete`
@@ -141,7 +139,6 @@ Examples:
 Deletes the 2nd task in the task list.
 
 // end::delete[]
-
 
 === Listing all tasks : `list`
 
@@ -176,7 +173,7 @@ Format: `done INDEX`
 
 === Rescheduling tasks: `reschedule`
 
-Reschedules a certain task to a different date and time. + 
+Reschedules a certain task to a different date and time. +
 Format: `reschedule INDEX DATE TIME`
 
 ****
@@ -229,7 +226,7 @@ If you follow what the errors tell you to fix in your command, you can get the p
 === `DukeInvalidIndexException`
 This error appears when the user inputs a number that is out of bounds of the task list.
 
-image::DukeException.PNG[width="250"]
+image::DukeException.png[width="250"]
 
 ****
 * Example:  `delete -1`
@@ -238,10 +235,10 @@ image::DukeException.PNG[width="250"]
 === `DukeInvalidTimeException`
 This error appears when the user inputs a date or time that is not of an acceptable format.
 
-image::DukeInvalidTimeException.PNG[width="300"]
+image::DukeInvalidTimeException.png[width="300"]
 
 ****
-* Example: `deadline assignment /by 30/9/2019 12 o'clock` + 
+* Example: `deadline assignment /by 30/9/2019 12 o'clock` +
 Here 12 o'clock is not an acceptable format, instead use 1200.
 ****
 === `DukeInvalidTimePeriodException`
@@ -254,37 +251,37 @@ Here the end date is earlier than the start date.
 ****
 
 === `DukeMissingArgumentException`
-This error appears when the user does not input valid parameters into the command line. 
+This error appears when the user does not input valid parameters into the command line.
 
 ****
-* Example: `deadline /by 30-9-2019 12:45` + 
+* Example: `deadline /by 30-9-2019 12:45` +
 Here the description is missing for the Deadline task, and the error message is shown.
 ****
 
-=== `DukeCommandException` 
-This error appears when the user does not input a valid command name into the command line. 
+=== `DukeCommandException`
+This error appears when the user does not input a valid command name into the command line.
 
-image::DukeCommandException.PNG[width="300"]
+image::DukeCommandException.png[width="300"]
 
 ****
 * Example: `activity finish writing book` +
 Since there is no such command for activity, the program will be unable to process the unknown command.
 ****
 
-=== `DukeEmptyCommandException` 
+=== `DukeEmptyCommandException`
 This error appears when the user does not input anything after writing a valid command into the command line.
 
-image::DukeCommandException.PNG[width="300"]
+image::DukeCommandException.png[width="300"]
 
-**** 
+****
 * Example: `delete`  +
 Since there is no index specified after `delete`, the program is unable to process which task to delete.
 ****
 
-=== `DukeEmptyListException` 
-This error appears when the user does not input any tasks into the list or has deleted all the current tasks in the list. 
+=== `DukeEmptyListException`
+This error appears when the user does not input any tasks into the list or has deleted all the current tasks in the list.
 
-image::DukeEmptyListException.PNG[width="300"]
+image::DukeEmptyListException.png[width="300"]
 
 ****
 * This is only valid for the `list` command.
@@ -293,7 +290,7 @@ image::DukeEmptyListException.PNG[width="300"]
 === `DukeMultipleValuesForSameArgumentException`
 This error appears when the user inputs duplicated commands into the command line.
 
-image::DukeMultipleValuesForSameArgumentException.PNG[width="400"]
+image::DukeMultipleValuesForSameArgumentException.png[width="400"]
 
 ****
 * Example: `doWithin test /begin 10am /begin 2pm /end 3pm` +
@@ -303,13 +300,13 @@ Here the `/begin` is repeated twice so the program is unable to determine which 
 === `DukeScheduleException`
 This error appears when the user inputs a task that already exists in the task list.
 
-image::DukeScheduleException.PNG[width="400"]
+image::DukeScheduleException.png[width="400"]
 
-=== `DukeNoTimeException` 
+=== `DukeNoTimeException`
 This error appears when the user reschedule a non-time-based task.
 
 ****
-* This is only valid for rescheduling a todo task. 
+* This is only valid for rescheduling a todo task.
 ****
 
 == FAQ
