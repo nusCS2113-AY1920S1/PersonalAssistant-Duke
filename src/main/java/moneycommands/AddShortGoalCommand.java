@@ -35,7 +35,7 @@ public class AddShortGoalCommand extends MoneyCommand {
     }
 
     /**
-     * This method executes the add short-term goal command. Takes input from user
+     * This method executes the add goal command. Takes input from user
      * and adds a short-term goal to the Short-Term Goals List
      * @param account Account object containing all financial info of user saved on the programme
      * @param ui Handles interaction with the user
@@ -53,6 +53,7 @@ public class AddShortGoalCommand extends MoneyCommand {
         String category = "GS";
         Goal g = new Goal(price, desc, category, byDate, priorityLevel);
         account.getShortTermGoals().add(g);
+        account.sortShortTermGoals(account.getShortTermGoals());
         storage.writeToFile(account);
 
         ui.appendToOutput(" Got it. I've added this Goal: \n");

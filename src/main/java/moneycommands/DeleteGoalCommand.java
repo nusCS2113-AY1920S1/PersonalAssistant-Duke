@@ -39,9 +39,6 @@ public class DeleteGoalCommand extends MoneyCommand {
         if (serialNo > account.getShortTermGoals().size()){
             throw new DukeException("The serial number of the task is Out Of Bounds!");
         }
-//        System.out.println(" Noted. I've removed this task:\n");
-//        System.out.println("  " + account.getShortTermGoals().get(serialNo-1).toString() + "\n");
-//        System.out.println(" Now you have " + (account.getShortTermGoals().size()-1) + " tasks in the list.");
 
         ui.appendToOutput(" Noted. I've removed this Goal:\n");
         ui.appendToOutput("  " + account.getShortTermGoals().get(serialNo-1).toString() + "\n");
@@ -49,6 +46,7 @@ public class DeleteGoalCommand extends MoneyCommand {
 
         storage.markDeletedEntry("G", "@", "#", serialNo);
         account.getShortTermGoals().remove(serialNo - 1);
+        account.sortShortTermGoals(account.getShortTermGoals());
     }
 
     @Override

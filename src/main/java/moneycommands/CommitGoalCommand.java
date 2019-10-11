@@ -66,6 +66,7 @@ public class CommitGoalCommand extends MoneyCommand {
                 }
             }
 
+            account.sortShortTermGoals(goalsAfterCommit);
             for (int i = 1; i <= goalsAfterCommit.size();i++) {
                 Goal currGoal = goalsAfterCommit.get(i-1);
                 float currGoalPrice = currGoal.getPrice();
