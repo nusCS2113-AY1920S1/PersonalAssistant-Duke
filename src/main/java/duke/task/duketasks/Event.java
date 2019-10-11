@@ -1,22 +1,22 @@
-package duke.task;
+package duke.task.duketasks;
 
 import java.util.Date;
 
 /**
- * Represent a fixed duration task and inherits all the fields and methods of Task parent class.
+ * Represent an event task and inherits all the fields and methods of Task parent class.
  */
-public class Duration extends Task {
+public class Event extends Task {
 
-    protected String need; // private instance variables
+    protected String at;
 
     /**
-     * Constructor for class Duration.
+     * Constructor for class Event.
      * @param description String containing the description of the task
-     * @param need        String containing time needed for the task
+     * @param at String containing the venue of the event
      */
-    public Duration(String description, String need) {
+    public Event(String description, String at) {
         super(description);
-        this.need = need;
+        this.at = at;
     }
 
     /**
@@ -25,7 +25,7 @@ public class Duration extends Task {
      */
     @Override
     public String toSaveString() {
-        return "F" + super.toSaveString() + " | " + need;
+        return "E" + super.toSaveString() + " | " + at;
     }
 
     /**
@@ -34,7 +34,7 @@ public class Duration extends Task {
      */
     @Override
     public String toString() {
-        return "[F]" + super.toString() + " (need: " + need + ")";
+        return "[E]" + super.toString() + " (at: " + at + ")";
     }
 
     public Date getDateTime() {

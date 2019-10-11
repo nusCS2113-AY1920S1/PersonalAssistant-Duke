@@ -1,18 +1,22 @@
-package duke.task;
+package duke.task.duketasks;
 
 import java.util.Date;
 
-/**
- * Represent a todo task and inherits all the fields and methods of Task parent class.
- */
-public class Todo extends Task {
+public class Period extends Task {
+
+    protected String startDate;
+    protected String endDate;
 
     /**
-     * Constructor for class Event.
+     * Constructor for class Period.
      * @param description String containing the description of the task
+     * @param startDate String containing the initial date that a task should be done.
+     * @param endDate String containing the last date that a task should be done.
      */
-    public Todo(String description) {
+    public Period(String description, String startDate, String endDate) {
         super(description);//super class constructor call to the Task(description) constructor
+        this.startDate = startDate;
+        this.endDate = endDate;
     }
 
     /**
@@ -21,7 +25,7 @@ public class Todo extends Task {
      */
     @Override
     public String toSaveString() {
-        return "T" + super.toSaveString();
+        return "P" + super.toSaveString() + " | " + startDate + " | " + endDate;
     }
 
     /**
@@ -30,7 +34,7 @@ public class Todo extends Task {
      */
     @Override
     public String toString() {
-        return "[T]" + super.toString();
+        return "[P]" + super.toString() + " (between: " + startDate + " and " + endDate + ")";
     }
 
     public Date getDateTime() {

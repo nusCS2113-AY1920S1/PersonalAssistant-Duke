@@ -5,7 +5,7 @@ import duke.exception.DukeException;
 import duke.storage.Storage;
 import duke.tasklist.TaskList;
 import duke.ui.Ui;
-import duke.task.Task;
+import duke.task.duketasks.Task;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;

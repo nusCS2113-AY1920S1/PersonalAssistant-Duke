@@ -1,37 +1,48 @@
 package duke;
 
+import duke.bookinglist.BookingList;
 import duke.command.Command;
 import duke.exception.DukeException;
+
 import duke.parser.Parser;
-import duke.storage.Storage;
-import duke.tasklist.TaskList;
+import duke.storage.BookingStorage;
+
 import duke.ui.Ui;
 
 import java.text.ParseException;
 
-import static duke.common.Messages.filePath;
+import static duke.common.GeneralMessages.filePathIngredients;
+import static duke.common.GeneralMessages.filePathBookings;
+import static duke.common.GeneralMessages.filePathRecipes;
 
 /**
  * Duke processes different commands.
  */
 public class Duke {
 
-    private Storage storage;
-    private TaskList tasks;
+    //private IngredientStorage ingredientStorage;
+     private BookingStorage bookingStorage;
+    // private RecipeStorage recipeStorage;
+
+    // private IngredientList ingredientList;
+     private BookingList bookingList;
+    // private RecipeList recipeList;
     private Ui ui;
 
     /**
-     * Constructor for Duke class to instantiation Ui, Storage, TaskList classes.
-     * @param filePath String containing the directory in which the tasks are to be stored
+     * Constructor for Duke class to instantiation Ui, Storage, ingredientList classes.
+     * @param filePathBookings String containing the directory in which the tasks are to be stored
      */
-    public Duke(String filePath) {
+    public Duke(String filePathBookings) { // add filePathBookings and filePathRecipes parameters
         ui = new Ui();
-        storage = new Storage(filePath);
+        bookingStorage = new BookingStorage(filePathBookings);
         try {
-            tasks = new TaskList(storage.load());
+            bookingList = new BookingList(bookingStorage.load());
+            // bookingList = new BookingList(bookingStorage.load());
+            // recipeList = new RecipeList(recipeStorage.load());
         } catch (DukeException e) {
-            ui.showLoadingError();
-            tasks = new TaskList();
+            ui.showBookingLoadingError();
+            bookingList = new BookingList();
         }
     }
 
@@ -46,7 +57,7 @@ public class Duke {
                 String fullCommand = ui.readCommand();
                 ui.showLine();
                 Command c = Parser.parse(fullCommand);
-                c.execute(tasks, ui, storage);
+                c.execute(bookingList, ui, bookingStorage);
                 isExit = c.isExit();
             } catch (DukeException | ParseException e) {
                 ui.showError(e.getMessage());
@@ -61,10 +72,7 @@ public class Duke {
      * @param args the command line parameter
      */
     public static void main(String[] args) {
-        new Duke(filePath).run();
+        new Duke(filePathBookings).run();
     }
 
-    public String getResponse(String input) {
-        return "Duke heard: " + input;
-    }
 }

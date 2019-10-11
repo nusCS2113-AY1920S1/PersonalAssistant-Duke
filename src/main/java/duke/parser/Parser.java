@@ -1,12 +1,13 @@
 package duke.parser;
 
 import duke.command.*;
+import duke.command.bookingcommands.AddBookingCommand;
+import duke.command.bookingcommands.AllBookingsCommand;
+import duke.command.bookingcommands.DeleteBookingCommand;
 import duke.exception.DukeException;
 
-import static duke.common.Messages.ERROR_MESSAGE_RANDOM;
-import static duke.common.Messages.COMMAND_BYE;
-import static duke.common.Messages.COMMAND_VIEWSCHEDULE;
-import static duke.common.Messages.COMMAND_FIND;
+import static duke.common.GeneralMessages.ERROR_MESSAGE_RANDOM;
+import static duke.common.GeneralMessages.COMMAND_BYE;
 
 /**
  * Making sense of the user input command.

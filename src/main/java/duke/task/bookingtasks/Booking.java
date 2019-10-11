@@ -1,10 +1,10 @@
-package duke.task;
+package duke.task.bookingtasks;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class Booking extends Task{
+public class Booking {
     protected String customerName;
     protected String customerContact;
     protected String numberOfPax;
@@ -14,7 +14,6 @@ public class Booking extends Task{
     protected String orderName;
 
     public Booking(String customerName, String customerContact, String numberOfPax, String bookingDate, String orderName) throws ParseException {
-        //super(description);
         this.customerName = customerName;
         this.customerContact = customerContact;
         this.numberOfPax = numberOfPax;
@@ -25,19 +24,19 @@ public class Booking extends Task{
 
     }
 
-    @Override
+
     public String toSaveString() {
         return "booking" + " | " + customerName + " | " + customerContact + " | " + numberOfPax + " | " + bookingDate + " | " +  orderName;
     }
 
-    @Override
+
     public String toString() {
         return "[Customer name: " + customerName + "] " + "[Contact No.: " + customerContact + "] "
                 + "[No. of pax: " + numberOfPax+ "] " + "[Booking on: " + dateFormatter.format(date) + "] "
                 + "[Orders: " + orderName + "]";
     }
 
-    @Override
+
     public Date getDateTime() {
         return date;
     }

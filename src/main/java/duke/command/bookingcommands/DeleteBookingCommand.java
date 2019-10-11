@@ -1,15 +1,18 @@
-package duke.command;
+package duke.command.bookingcommands;
 
+import duke.bookinglist.BookingList;
+import duke.command.Command;
 import duke.exception.DukeException;
+import duke.storage.BookingStorage;
 import duke.storage.Storage;
 import duke.tasklist.TaskList;
 import duke.ui.Ui;
 
-import static duke.common.Messages.MESSAGE_FOLLOWUP_EMPTY_INDEX;
-import static duke.common.Messages.ERROR_MESSAGE_EMPTY_INDEX;
-import static duke.common.Messages.ERROR_MESSAGE_INVALID_INDEX;
-import static duke.common.Messages.ERROR_MESSAGE_UNKNOWN_INDEX;
-import static duke.common.Messages.ERROR_MESSAGE_RANDOM;
+import static duke.common.GeneralMessages.MESSAGE_FOLLOWUP_EMPTY_INDEX;
+import static duke.common.GeneralMessages.ERROR_MESSAGE_EMPTY_INDEX;
+import static duke.common.GeneralMessages.ERROR_MESSAGE_INVALID_INDEX;
+import static duke.common.GeneralMessages.ERROR_MESSAGE_UNKNOWN_INDEX;
+import static duke.common.GeneralMessages.ERROR_MESSAGE_RANDOM;
 
 
 /**
@@ -41,14 +44,14 @@ public class DeleteBookingCommand extends Command {
 
     /**
      * Processes the delete command to delete booking in the task list.
-     * @param taskList contains the booking list
+     * @param bookingList contains the booking list
      * @param ui deals with interactions with the user
-     * @param storage deals with loading tasks from the file and saving tasks in the file
+     * @param bookingStorage deals with loading tasks from the file and saving tasks in the file
      * @throws DukeException if Duke cannot recognize the user input
      *                      or user inputs an invalid index or the list of tasks is empty
      */
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) throws DukeException {
+    public void execute(BookingList bookingList, Ui ui, BookingStorage bookingStorage) throws DukeException {
         if (userInputCommand.trim().equals("deletebooking")) {
             throw new DukeException(ERROR_MESSAGE_EMPTY_INDEX + MESSAGE_FOLLOWUP_EMPTY_INDEX);
         } else if (userInputCommand.trim().charAt(13) == ' ') {
@@ -56,15 +59,15 @@ public class DeleteBookingCommand extends Command {
             if (isParsable(input)) {
                 //converting string to integer
                 int index = Integer.parseInt(input);
-                if (index > taskList.getSize() || index <= 0) {
-                    if (taskList.getSize() == 0) {
+                if (index > bookingList.getSize() || index <= 0) {
+                    if (bookingList.getSize() == 0) {
                         throw new DukeException("Booking list is empty.");
                     } else {
-                        throw new DukeException(ERROR_MESSAGE_INVALID_INDEX + taskList.getSize() + ".");
+                        throw new DukeException(ERROR_MESSAGE_INVALID_INDEX + bookingList.getSize() + ".");
                     }
                 } else {
-                    taskList.deleteTask(index - 1);
-                    storage.saveFile(taskList);
+                    bookingList.deleteBooking(index - 1);
+                    bookingStorage.saveFile(bookingList);
                 }
             } else {
                 throw new DukeException(ERROR_MESSAGE_UNKNOWN_INDEX);

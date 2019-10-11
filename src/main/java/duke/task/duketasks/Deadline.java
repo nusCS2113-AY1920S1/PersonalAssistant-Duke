@@ -1,4 +1,4 @@
-package duke.task;
+package duke.task.duketasks;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;

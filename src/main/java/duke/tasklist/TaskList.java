@@ -1,17 +1,17 @@
 package duke.tasklist;
 
 import duke.exception.DukeException;
-import duke.task.Task;
-import duke.task.Booking;
+import duke.task.duketasks.Task;
+import duke.task.bookingtasks.Booking;
 
 import java.text.ParseException;
 import java.util.ArrayList;
 
-import static duke.common.Messages.DISPLAYED_INDEX_OFFSET;
-import static duke.common.Messages.MESSAGE_DELETE;
-import static duke.common.Messages.MESSAGE_ITEMS1;
-import static duke.common.Messages.MESSAGE_ITEMS2;
-import static duke.common.Messages.ERROR_MESSAGE_NOTFOUND;
+import static duke.common.GeneralMessages.DISPLAYED_INDEX_OFFSET;
+import static duke.common.GeneralMessages.MESSAGE_DELETE;
+import static duke.common.GeneralMessages.MESSAGE_ITEMS1;
+import static duke.common.GeneralMessages.MESSAGE_ITEMS2;
+import static duke.common.GeneralMessages.ERROR_MESSAGE_NOTFOUND;
 
 /**
  * Handles all the operations for the task in the list.
@@ -37,16 +37,6 @@ public class TaskList {
         this.taskList = taskList;
     }
 
-    public void addBooking(String customerName, String customerContact, String numberOfPax, String bookingDate, String orderName) throws ParseException {
-        taskList.add(new Booking(customerName, customerContact, numberOfPax, bookingDate, orderName));
-        int index = taskList.size();
-        if (index == 1) {
-            msg = " booking in the list.";
-        } else {
-            msg = " bookings in the list.";
-        }
-        System.out.println("New booking added:\n" + "       " + taskList.get(index - 1) + "\n" + "     Now you have " + index + msg);
-    }
 
     /**
      * Get all the tasks in the current taskList.

@@ -1,19 +1,22 @@
-package duke.task;
+package duke.task.duketasks;
 
 import java.util.Date;
 
-public class DoAfter extends Task {
+/**
+ * Represent a fixed duration task and inherits all the fields and methods of Task parent class.
+ */
+public class Duration extends Task {
 
-    protected String after;
+    protected String need; // private instance variables
 
     /**
-     * Constructor for class DoAfter.
+     * Constructor for class Duration.
      * @param description String containing the description of the task
-     * @param after String containing the time or tasks to be met or done
+     * @param need        String containing time needed for the task
      */
-    public DoAfter(String description, String after) {
-        super(description);//super class constructor call to the Task(description) constructor
-        this.after = after;
+    public Duration(String description, String need) {
+        super(description);
+        this.need = need;
     }
 
     /**
@@ -22,7 +25,7 @@ public class DoAfter extends Task {
      */
     @Override
     public String toSaveString() {
-        return "T" + super.toSaveString() + " | " + after;
+        return "F" + super.toSaveString() + " | " + need;
     }
 
     /**
@@ -31,7 +34,7 @@ public class DoAfter extends Task {
      */
     @Override
     public String toString() {
-        return "[T]" + super.toString() + " (after: " + after + ")";
+        return "[F]" + super.toString() + " (need: " + need + ")";
     }
 
     public Date getDateTime() {

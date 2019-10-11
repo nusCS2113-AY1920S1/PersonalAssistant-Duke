@@ -1,5 +1,7 @@
 package duke.command;
 
+import duke.bookinglist.BookingList;
+import duke.storage.BookingStorage;
 import duke.storage.Storage;
 import duke.tasklist.TaskList;
 import duke.ui.Ui;
@@ -11,12 +13,12 @@ public class ByeCommand extends Command {
 
     /**
      * Display the exit message and the program.
-     * @param taskList contains the task list
+     * @param bookingList contains the task list
      * @param ui deals with interactions with the user
-     * @param storage deals with loading tasks from the file and saving tasks in the file
+     * @param bookingStorage deals with loading tasks from the file and saving tasks in the file
      */
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) {
+    public void execute(BookingList bookingList, Ui ui, BookingStorage bookingStorage)  {
         ui.showGoodbye();
         isExit();
     }
