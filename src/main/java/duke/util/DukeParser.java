@@ -1,11 +1,25 @@
 package duke.util;
-import duke.command.*;
+
+import duke.command.AddCommand;
+import duke.command.CapCommand;
+import duke.command.ByeCommand;
+import duke.command.ScheduleCommand;
+import duke.command.DeleteCommand;
+import duke.command.DoneCommand;
+import duke.command.FindCommand;
+import duke.command.ListCommand;
+import duke.command.PrintTimetable;
+import duke.command.ReportCommand;
+import duke.command.RescheduleCommand;
+import duke.command.Command;
+
 import duke.exceptions.ModCommandException;
 import duke.exceptions.ModEmptyCommandException;
 import duke.exceptions.ModInvalidTimeException;
 import duke.exceptions.ModInvalidTimePeriodException;
 import duke.exceptions.ModMissingArgumentException;
 import duke.exceptions.ModMultipleValuesForSameArgumentException;
+
 import duke.modules.Deadline;
 import duke.modules.DoWithin;
 import duke.modules.Events;
@@ -260,9 +274,9 @@ public class DukeParser {
     public static LinkedHashMap<String, String> parse(String command,
                                                       boolean includeCommand,
                                                       boolean includeArgs)
-            throws ModMultipleValuesForSameArgumentException {
-        return parse(command, includeCommand, includeArgs, "/", true);
-    }
+        throws ModMultipleValuesForSameArgumentException {
+            return parse(command, includeCommand, includeArgs, "/", true);
+        }
 
     /**
      * Overloaded function which returns a hash map.

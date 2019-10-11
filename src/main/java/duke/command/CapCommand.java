@@ -1,6 +1,7 @@
 package duke.command;
 
-import duke.exceptions.*;
+import duke.exceptions.ModException;
+import duke.exceptions.ModEmptyListException;
 import duke.modules.ModuleInfoSummary;
 import duke.modules.Task;
 import duke.util.Reminder;
@@ -36,16 +37,19 @@ public class CapCommand extends Command {
     //public ModuleList specificModuleCap;
     private float currentCap;
     private float projectedModuleCap;
-    private int MCCount;
+    private int mcCount;
 
     /**
-     * Constructor for the CapCommand class where user can enquire information about their CAP such as overall CAP and what-if reports about predicted CAP
+     * Constructor for the CapCommand class where user can enquire information about their CAP.
+     * Such as overall CAP and what-if reports about predicted CAP.
      * @param input
      * @throws ModEmptyCommandException
      * @throws ModMissingArgumentException
      * @throws ModCommandException
      */
-    /*public CapCommand(String input) throws ModEmptyCommandException, ModMissingArgumentException, ModCommandException {
+    /*public CapCommand(String input) throws ModEmptyCommandException
+                                            , ModMissingArgumentException
+                                                , ModCommandException {
         specificModuleCap.clear();
         currentCap = 0;
         projectedModuleCap = 0;
@@ -68,7 +72,7 @@ public class CapCommand extends Command {
     //}
 
     /**
-     * Method for predicting CAP for a specific module
+     * Method for predicting CAP for a specific module.
      * @param specificModule
      */
     public void addPrerequisiteCap(String specificModule) {
@@ -76,7 +80,9 @@ public class CapCommand extends Command {
         try {
 
             for (ModuleInfoSummary module : moduleList){
-                if (module.getDone() && ModulePrerequisiteHashMap.get(specificModule).find(module.moduleCode)) { // if module is completed, and is within the prerequisite tree
+                if (module.getDone() &&
+                ModulePrerequisiteHashMap.get(specificModule).find(module.moduleCode))
+                { // if module is completed, and is within the prerequisite tree
                     specificModuleCap.add(module);
                 }
             }
@@ -87,27 +93,27 @@ public class CapCommand extends Command {
         */
     }
 
+
     /**
      * Method to calculate the total CAP based on the modules completed in the moduleList
-     * @param //moduleList
-     * @return
+     * @param moduleList blah
+     * @return something
      * @throws ModEmptyListException
      */
-    /*
-    public float addTotalCap(ModuleList moduleList) throws ModEmptyListException {
+    /*public float addTotalCap(ModuleList moduleList) throws ModEmptyListException {
 
         if (moduleList.isEmpty()) {
             throw new ModEmptyListException();
         }
         float tempCap = 0;
-        int MCCount = 0;
+        int mcCount = 0;
         for (ModuleInfoSummary module : moduleList) {
             if (module.getDone()) {
                 tempCap += module.getWeightage();
-                MCCount += module.MC;
+                mcCount += module.MC;
             }
         }
-        return tempCap/MCCount;
+        return tempCap/mcCount;
     }
     */
 
