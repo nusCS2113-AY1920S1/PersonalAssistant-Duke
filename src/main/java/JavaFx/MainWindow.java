@@ -45,8 +45,6 @@ public class MainWindow extends BorderPane implements Initializable {
     @FXML
     private TextField userInput;
     @FXML
-    private AnchorPane anchorPane;
-    @FXML
     private HBox progressContainer;
     @FXML
     private ListView sunEventView;
@@ -116,8 +114,10 @@ public class MainWindow extends BorderPane implements Initializable {
             overdueTaskColumn.setCellValueFactory(new PropertyValueFactory<>("task"));
             overdueTable.setItems(setOverdueTable());
 
-            //progressContainer.getChildren().add(ProgressController.getProgress("CS2100", "5", "6"));
-            //continue doing here!!! (Mich)
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/view/ProgressIndicator.fxml"));
+            Parent loader = fxmlLoader.load();
+            fxmlLoader.<ProgressController>getController().getData("CS2100", "5", "6");
+            progressContainer.getChildren().add(loader);
 
             setListItem();
 
