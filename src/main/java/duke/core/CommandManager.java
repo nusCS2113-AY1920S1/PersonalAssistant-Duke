@@ -52,10 +52,8 @@ public class CommandManager {
             case "assign":
                 try {
                     String[] tempCommand = command[1].split("\\s+", 5);
-
                     if (tempCommand[0].toLowerCase().equals("byid")) {
                         if (tempCommand[1].equals("S")) {
-
                             String type = tempCommand[1];
                             int patientId = Integer.parseInt(tempCommand[2]);
                             int taskId = Integer.parseInt(tempCommand[3]);

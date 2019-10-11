@@ -36,8 +36,8 @@ public class PatientTaskStorage {
             Reader in = new FileReader(filePath);
             Iterable<CSVRecord> records = CSVFormat.EXCEL.withFirstRecordAsHeader().parse(in);
             for (CSVRecord record : records) {
-                int pid = Integer.parseInt(record.get("PID"));
-                int tid = Integer.parseInt(record.get("TID"));
+                Integer pid = Integer.parseInt(record.get("PID"));
+                Integer tid = Integer.parseInt(record.get("TID"));
                 boolean isDone = Boolean.parseBoolean(record.get("DONE"));
                 boolean isRecursive = Boolean.parseBoolean(record.get("RECURRENCE"));
                 String deadline = record.get("DEADLINE");
