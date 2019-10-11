@@ -7,6 +7,7 @@ import object.MovieInfoObject;
 
 import java.io.*;
 import java.net.MalformedURLException;
+import java.net.SocketTimeoutException;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.text.DateFormat;
@@ -21,6 +22,7 @@ import java.util.logging.Logger;
 
 public class RetrieveRequest implements InfoFetcher, InfoFetcherWithPreference {
     private RequestListener mListener;
+    private ArrayList<MovieInfoObject> p_Movies;
     static int index = 0;
 
     // API Usage constants
@@ -80,6 +82,10 @@ public class RetrieveRequest implements InfoFetcher, InfoFetcherWithPreference {
 
         // Check if config is needed
         checkIfConfigNeeded();
+    }
+
+    public ArrayList<MovieInfoObject> getParsedMovies() {
+        return p_Movies;
     }
 
     public void beginMovieRequest(RetrieveRequest.MoviesRequestType type, boolean adult) {
@@ -150,6 +156,20 @@ public class RetrieveRequest implements InfoFetcher, InfoFetcherWithPreference {
             ex.printStackTrace();
         }
     }
+
+    public String beginAddRequest(String movieTitle) {
+        try {
+            String url = MAIN_URL + MOVIE_SEARCH_URL + API_KEY + "&query=" + URLEncoder.encode(movieTitle, "UTF-8");
+            URLRetriever retrieve = new URLRetriever();
+            String json = retrieve.readURLAsString(new URL(url));
+            fetchedMoviesJSON(json);
+            return p_Movies.get(0).getTitle();
+        } catch (UnsupportedEncodingException | MalformedURLException | SocketTimeoutException ex) {
+            ex.printStackTrace();
+        }
+        return "";
+    }
+
 
     public void beginMovieSearchRequestWithPreference(String movieTitle, ArrayList<Integer> genrePreference, ArrayList<Integer> genreRestriction, boolean adult) {
         try {
@@ -250,6 +270,7 @@ public class RetrieveRequest implements InfoFetcher, InfoFetcherWithPreference {
 
             // Notify Listener
             mListener.requestCompleted(parsedMovies);
+            p_Movies = parsedMovies;
             //} else {
 
             //}

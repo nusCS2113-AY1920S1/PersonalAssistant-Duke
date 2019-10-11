@@ -115,7 +115,7 @@ public class Storage {
                 } else if (taskType == "A") {
                     line = "A | " + task.getStatusIcon() + " | "
                             + task.getDescription() + " | " + ((DoAfter) task).getAfter();
-                } else if (taskType == "F"){
+                } else if (taskType == "F") {
                     line = "F | " + task.getStatusIcon() + " | "
                             + task.getDescription() + " | " + ((FixedDuration) task).getDuration();
                 } else {

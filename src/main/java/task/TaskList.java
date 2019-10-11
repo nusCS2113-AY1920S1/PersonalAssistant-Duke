@@ -42,6 +42,10 @@ public class TaskList {
         tasks = new ArrayList<>();
     }
 
+    public static int getSize() {
+        return tasks.size();
+    }
+
     /**
      * This function returns time interval of free time.
      */

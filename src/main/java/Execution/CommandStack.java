@@ -36,7 +36,7 @@ public class CommandStack {
     }
 
     public static void executeLastCommand() throws IOException {
-        System.out.println("Execute LAst Command");
+        System.out.println("Execute Last Command");
         CommandSuper cmd = MyStack.peek();
         if (!cmd.isExecute()) {
             cmd.executeCommands();
