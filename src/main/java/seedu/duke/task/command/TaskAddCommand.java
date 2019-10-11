@@ -21,6 +21,7 @@ public class TaskAddCommand extends Command {
     private LocalDateTime time;
     private String doAfter;
     private ArrayList<String> tags;
+    private String priority;
 
     /**
      * Instantiation of add command with all the necessary variables. it needs to execute.
@@ -32,13 +33,14 @@ public class TaskAddCommand extends Command {
      *                 time attribute, so any Date can be passed in and will be ignored.
      */
     public TaskAddCommand(TaskList taskList, Task.TaskType taskType, String name, LocalDateTime time,
-                          String doAfter, ArrayList<String> tags) {
+                          String doAfter, ArrayList<String> tags, String priority) {
         this.taskList = taskList;
         this.taskType = taskType;
         this.name = name;
         this.time = time;
         this.doAfter = doAfter;
         this.tags = tags;
+        this.priority = priority;
     }
 
     /**
@@ -52,13 +54,13 @@ public class TaskAddCommand extends Command {
         Task task;
         switch (taskType) {
         case ToDo:
-            task = new ToDo(name, doAfter, tags);
+            task = new ToDo(name, doAfter, tags, priority);
             break;
         case Deadline:
-            task = new Deadline(name, time, doAfter, tags);
+            task = new Deadline(name, time, doAfter, tags, priority);
             break;
         case Event:
-            task = new Event(name, time, doAfter, tags);
+            task = new Event(name, time, doAfter, tags, priority);
             break;
         default:
             return false;

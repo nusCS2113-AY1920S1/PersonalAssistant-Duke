@@ -1,5 +1,14 @@
+<<<<<<< HEAD
 0 todo rr
 0 todo ds
 0 todo run
 0 todo run
 0 todo rr
+=======
+0 todo dd -doafter aff -tag er -priority med
+0 todo dd -doafter aff -tag we -tag er -priority low
+0 todo dd -doafter aff -tag we -tag er -priority low
+0 todo run -doafter run -priority high
+0 todo kkk -priority low
+0 deadline rr -time 21/12/1212 1221 -doafter asdf
+>>>>>>> branch-setPriority

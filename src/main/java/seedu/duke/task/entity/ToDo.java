@@ -25,11 +25,12 @@ public class ToDo extends Task {
      * @param doAfter task to be done after the main task
      * @param tags    tag associated with the task
      */
-    public ToDo(String name, String doAfter, ArrayList<String> tags) {
+    public ToDo(String name, String doAfter, ArrayList<String> tags, String priority) {
         super(name);
         setDoAfterDescription(doAfter);
         this.taskType = TaskType.ToDo;
         setTags(tags);
+        setPriorityTo(priority);
     }
 
     /**
@@ -48,6 +49,9 @@ public class ToDo extends Task {
         for (String tagName : tags) {
             output += " #" + tagName;
         }
+        if (this.priority != null && this.priority != "") {
+            output += " Priority: " + priority;
+        }
         return output;
     }
 
@@ -65,6 +69,9 @@ public class ToDo extends Task {
         }
         for (String tagName : tags) {
             output += " -tag " + tagName;
+        }
+        if (this.priority != null && this.priority != "") {
+            output += " -priority " + priority;
         }
         return output;
     }
