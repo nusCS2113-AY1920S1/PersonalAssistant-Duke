@@ -1,7 +1,7 @@
 package duke;
 
-import duke.command.CommandIngredients;
 import duke.command.CommandRecipe;
+import duke.command.CommandRecipeIngredient;
 import duke.exception.DukeException;
 import duke.list.ingredientlist.IngredientList;
 import duke.list.recipelist.RecipeIngredientList;
@@ -9,6 +9,7 @@ import duke.parser.Parser;
 import duke.list.recipelist.RecipeList;
 import duke.storage.IngredientStorage;
 import duke.storage.RecipeIngredientStorage;
+import duke.storage.RecipeStorage;
 import duke.storage.Storage;
 import duke.list.tasklist.TaskList;
 import duke.ui.Ui;
@@ -30,7 +31,7 @@ public class Duke {
     private IngredientStorage ingredientStorage;
     private RecipeIngredientStorage recipeIngredientStorage;
     // private BookingStorage bookingStorage;
-    // private RecipeStorage recipeStorage;
+    private RecipeStorage recipeStorage;
     private IngredientList ingredientList;
     private RecipeIngredientList recipeIngredientList;
     // private BookingList bookingList;
@@ -50,6 +51,7 @@ public class Duke {
             taskList = new TaskList(storage.load());
             ingredientList = new IngredientList(ingredientStorage.load());
             recipeIngredientList = new RecipeIngredientList(recipeIngredientStorage.load());
+            recipeList = new RecipeList(recipeStorage.load());
             System.out.println(taskList.getSize());
         } catch (DukeException e) {
             ui.showIngredientLoadingError();
@@ -63,8 +65,8 @@ public class Duke {
     }
 
     public ArrayList<String> runProgram(String fullCommand) throws DukeException, ParseException {
-        CommandRecipe command = Parser.parseRecipeIngredients(fullCommand);
-        return command.feedback(recipeIngredientList, ui, recipeIngredientStorage);
+        CommandRecipe command = Parser.parseRecipe(fullCommand);
+        return command.feedback(recipeList, ui, recipeStorage);
 
 //        CommandTest command = Parser.parseTest(fullCommand);
 //        return command.feedback(taskList, ui, storage);
