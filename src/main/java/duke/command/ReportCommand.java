@@ -31,6 +31,19 @@ public class ReportCommand extends Command {
         } else {
             ui.reportMsg();
             ui.printReportList(tasks.getTasks());
+
+            List<Task> ETemp = tasks.find("[E]");
+            ui.printReportTask(ETemp, "event");
+            List<Task> DTemp = tasks.find("[D]");
+            ui.printReportTask(DTemp, "deadline");
+            List<Task> RTemp = tasks.find("[R]");
+            ui.printReportTask(RTemp, "recurring");
+            List<Task> TTemp = tasks.find("[T]");
+            ui.printReportTask(TTemp, "todo");
+            List<Task> WTemp = tasks.find("[W]");
+            ui.printReportTask(WTemp, "do within");
+            List<Task> FTemp = tasks.find("[F]");
+            ui.printReportTask(FTemp, "fixed duration");
         }
     }
 

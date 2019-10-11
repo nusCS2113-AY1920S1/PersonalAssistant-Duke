@@ -147,13 +147,23 @@ public class Ui {
 
     /**
      * Prints the number of tasks left to be completed.
-     * Prints the number of each tasks that is completed.
+     *
      * @param taskList to be printed to user.
      */
     public void printReportList(List<Task> taskList) {
         int requiredTasks = 30;
         int tasksLeft = requiredTasks - taskList.size();
-        System.out.println("Number of tasks still needed to complete:\n" + tasksLeft);
+        System.out.println("Number of tasks still needed to be completed:\n" + tasksLeft);
+    }
+
+    /**
+     * Prints the number of each tasks that is completed.
+     *
+     * @param taskList to be printed to user.
+     */
+    public void printReportTask(List<Task> taskList, String taskName) {
+        int numOfTasks = taskList.size();
+        System.out.println("Total number of " + taskName + " tasks completed:\n" + numOfTasks);
     }
 
 }
