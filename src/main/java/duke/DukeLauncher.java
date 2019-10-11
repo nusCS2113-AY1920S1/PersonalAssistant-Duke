@@ -21,6 +21,7 @@ public class DukeLauncher {
     public static void main(String[] args) {
         // TODO: mkdir in Storage class instead?
         File dataDir = new File("data");
+
         if (!dataDir.exists()) {
             dataDir.mkdir();
         }

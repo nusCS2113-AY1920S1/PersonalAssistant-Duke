@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 
-public class GsonStorage {
+class GsonStorage {
 
     private final File jsonFile;
     private final String filePath;
@@ -25,7 +25,7 @@ public class GsonStorage {
      * @throws DukeFatalException If data file cannot be setup.
      */
 
-    public GsonStorage(String path) throws DukeFatalException {
+    GsonStorage(String path) throws DukeFatalException {
 
         filePath = path;
         jsonFile = new File(filePath);
@@ -39,9 +39,9 @@ public class GsonStorage {
             }
         }
         // remove these later
-        loadPatientHashMap();
-        //loadHashMapWithDummyPatients();
-        //writeJsonFile();
+        //loadPatientHashMap();
+        loadHashMapWithDummyPatients();
+        writeJsonFile();
     }
 
     /**
@@ -76,7 +76,6 @@ public class GsonStorage {
         }
     }
 
-
     /**
      * Creates a list with the patients in the patient hash map and add the lists json representation
      * to the json file (Serialization).
@@ -84,8 +83,7 @@ public class GsonStorage {
      * @throws DukeFatalException If the file writer cannot be setup.
      */
     private void writeJsonFile() throws DukeFatalException {
-        ArrayList<Patient> patientArrList = new ArrayList<Patient>();
-        patientArrList.addAll(patientMap.values());
+        ArrayList<Patient> patientArrList = new ArrayList<Patient>(patientMap.values());
         try {
             FileWriter fileWriter = new FileWriter(jsonFile);
             fileWriter.write(new Gson().toJson(patientArrList));
