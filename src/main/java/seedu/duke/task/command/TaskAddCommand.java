@@ -31,6 +31,9 @@ public class TaskAddCommand extends Command {
      * @param name     he name of the task, which is needed to instantiate the task.
      * @param time     the time of the task, which is needed to instantiate the task. ToDo tasks does not have
      *                 time attribute, so any Date can be passed in and will be ignored.
+     * @param doAfter  task to be done after main task
+     * @param tags     tag associated with the task
+     * @param priority priority level of the task
      */
     public TaskAddCommand(TaskList taskList, Task.TaskType taskType, String name, LocalDateTime time,
                           String doAfter, ArrayList<String> tags, String priority) {
