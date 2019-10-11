@@ -272,7 +272,7 @@ public class DukeParser {
     public static LinkedHashMap<String, String> parse(String command,
                                                       boolean includeCommand,
                                                       boolean includeArgs)
-    throws ModMultipleValuesForSameArgumentException {
+        throws ModMultipleValuesForSameArgumentException {
         return parse(command, includeCommand, includeArgs, "/", true);
     }
 
