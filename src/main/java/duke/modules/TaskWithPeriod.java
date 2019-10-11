@@ -26,4 +26,12 @@ public abstract class TaskWithPeriod extends Task {
     public abstract TimePeriod getPeriod();
 
     public abstract List<DayOfWeek> getDaysOfWeek();
+
+    public boolean isClashing(TaskWithPeriod other) {
+        return this.isClashing(other.getPeriod());
+    }
+
+    public boolean isClashing(TimePeriod other) {
+        return this.getPeriod().isClashing(other);
+    }
 }

@@ -1,6 +1,7 @@
 package duke.util;
 
 import java.time.DayOfWeek;
+import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -72,7 +73,9 @@ public class TimePeriodWeekly implements TimePeriod {
         boolean afterBegin = localTime.isAfter(this.begin);
         boolean beforeEnd = localTime.isBefore(this.end);
         boolean afterEnd = localTime.isAfter(this.end);
-        return !this.isUntilNextDay && afterBegin && beforeEnd
+        return !this.isUntilNextDay
+                    && (dayOfWeek == null || this.dayOfWeek.equals(dayOfWeek))
+                    && afterBegin && beforeEnd
                 || this.isUntilNextDay
                     && ((dayOfWeek == null || this.dayOfWeek.equals(dayOfWeek)) && afterBegin && afterEnd
                         || (dayOfWeek == null || this.dayOfWeek.plus(1).equals(dayOfWeek)) && beforeBegin && beforeEnd)
@@ -117,15 +120,22 @@ public class TimePeriodWeekly implements TimePeriod {
         if (other == null) {
             return false;
         }
-        long days = other.getInterval().toDuration().toDays();
-        if (days > 6) {
+        Duration duration = other.getInterval().toDuration().minusDays(1);
+        if (duration.toDays() > 5) {
             return true;
         }
-        else if (days == 0) {
+        if (duration.isNegative()) {
             return this.isClashing(
                     new TimePeriodWeekly(
                             other.getBegin().get().toLocalTime(),
                             other.getEnd().get().toLocalTime(),
+                            other.getBegin().get().getDayOfWeek()));
+        }
+        if (duration.isZero()) {
+            return this.isClashing(
+                    new TimePeriodWeekly(
+                            other.getBegin().get().toLocalTime(),
+                            other.getEnd().get().toLocalTime().minusNanos(1),
                             other.getBegin().get().getDayOfWeek()));
         }
         LocalDateTime otherBeginEndOfDay = LocalDateTime.of(other.getBegin().get().toLocalDate(), LocalTime.MAX);
