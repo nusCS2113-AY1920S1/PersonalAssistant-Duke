@@ -222,6 +222,8 @@ public class Parser {
         indexOfTask = extractIndexOfTask(description);
         days = extractReminderValue(description);
 
+        assert indexOfTask >= 0;
+        assert days > 0;
         return new RemindCommand(indexOfTask, days);
     }
 
@@ -233,8 +235,14 @@ public class Parser {
         }
     }
 
-    private static int extractIndexOfTask(String description) {
-        return Integer.parseInt(description.split("in", 2)[0].trim()) - 1;
+    private static int extractIndexOfTask(String description) throws DukeException {
+        int index;
+        index = Integer.parseInt(description.split("in", 2)[0].trim()) - 1;
+        if (index <= 0) {
+            throw new DukeException("Non-positive number for index detected." +
+                    " Please input a positive number for task index.");
+        }
+        return index;
     }
 
     private static int extractReminderValue(String description) {

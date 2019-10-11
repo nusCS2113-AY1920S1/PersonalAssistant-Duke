@@ -15,7 +15,7 @@ public abstract class Task implements Serializable {
 
     public String description;
     public Priority priority;
-    public int remindInHowManyDays = 0;
+    public Reminder reminder;
 
     protected boolean isIgnored;
     protected boolean isDone;
@@ -48,9 +48,8 @@ public abstract class Task implements Serializable {
         if (isIgnored) {
             return false;
         }
-        if (startDate != null) {
-            LocalDateTime reminderDate = startDate.minusDays(remindInHowManyDays);
-            return LocalDateTime.now().isAfter(reminderDate);
+        if (reminder != null) {
+            return reminder.checkReminderTrigger();
         }
         return false;
     }
@@ -89,7 +88,7 @@ public abstract class Task implements Serializable {
     }
 
     public void setReminder(int days) {
-        this.remindInHowManyDays = days;
+        reminder = new Reminder(days, startDate);
     }
 
     public void setPriority(Priority priority) {

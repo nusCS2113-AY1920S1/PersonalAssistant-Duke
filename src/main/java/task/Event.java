@@ -25,7 +25,7 @@ public class Event extends Task implements Serializable, Comparable<Event> {
         super(description);
         this.endDate = endDate;
         this.startDate = startDate;
-        this.remindInHowManyDays = 3;
+        setReminder(3);
     }
 
     /**
