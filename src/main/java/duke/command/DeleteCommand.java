@@ -1,10 +1,8 @@
 package duke.command;
 
-import duke.dukeobject.ExpenseList;
+import duke.Duke;
 import duke.exception.DukeException;
-import duke.exception.DukeRuntimeException;
 import duke.parser.CommandParams;
-import duke.ui.Ui;
 
 /**
  * Represents a specified command as DeleteCommand by extending the {@code Command} class.
@@ -26,28 +24,27 @@ public class DeleteCommand extends Command {
      * updates content of storage file according to new ExpenseList.
      * Responses the result to user by using ui of Duke.
      *
-     * @param expensesList The ExpenseList of Duke.
-     * @param ui           The ui of Duke.
+     * @param duke The Duke object.
      * @throws DukeException If the index given is out of range, invalid, or does not exist.
      */
-    public void execute(CommandParams commandParams, ExpenseList expensesList, Ui ui) throws DukeException {
+    @Override
+    public void execute(CommandParams commandParams, Duke duke) throws DukeException {
         if (!commandParams.containsMainParam()) {
             throw new DukeException(String.format(DukeException.MESSAGE_COMMAND_PARAM_MISSING, "index"));
         }
 
         if (commandParams.getMainParam().equals("all")) {
-            expensesList.clear();
+            duke.expenseList.clear();
         } else if (commandParams.getMainParam().contains("-")) {
             String[] index = commandParams.getMainParam().split("-");
-            int difference = Integer.parseInt(index[1])-Integer.parseInt(index[0]);
+            int difference = Integer.parseInt(index[1]) - Integer.parseInt(index[0]);
             int counter = 0;
-                for (int i = Integer.parseInt(index[0]); counter <= difference; counter++) {
-                    expensesList.remove(i);
-                }
+            for (int i = Integer.parseInt(index[0]); counter <= difference; counter++) {
+                duke.expenseList.remove(i);
             }
-        else {
-            expensesList.remove(Integer.parseInt(commandParams.getMainParam()));
+        } else {
+            duke.expenseList.remove(Integer.parseInt(commandParams.getMainParam()));
         }
-        expensesList.update();
+        duke.expenseList.update();
     }
 }

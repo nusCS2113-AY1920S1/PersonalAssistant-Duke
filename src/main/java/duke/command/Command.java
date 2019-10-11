@@ -1,9 +1,8 @@
 package duke.command;
 
-import duke.dukeobject.ExpenseList;
+import duke.Duke;
 import duke.exception.DukeException;
 import duke.parser.CommandParams;
-import duke.ui.Ui;
 
 import java.util.Map;
 
@@ -50,10 +49,10 @@ public abstract class Command {
 
     /**
      * Executes the command with parameters given by the user.
-     *  @param commandParams the parameters given by the user, parsed into a {@code CommandParams} object.
-     * @param expensesList  The ExpenseList of Duke.
-     * @param ui            The ui of Duke.
+     *
+     * @param commandParams the parameters given by the user, parsed into a {@code CommandParams} object.
+     * @param duke          The Duke object.
      */
-    public void execute(CommandParams commandParams, ExpenseList expensesList, Ui ui) throws DukeException {
+    public void execute(CommandParams commandParams, Duke duke) throws DukeException {
     }
 }

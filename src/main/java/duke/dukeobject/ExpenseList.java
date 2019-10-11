@@ -4,7 +4,6 @@ import duke.exception.DukeException;
 import duke.exception.DukeRuntimeException;
 
 import java.io.File;
-import java.io.IOException;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -85,18 +84,18 @@ public class ExpenseList extends DukeList<Expense> {
      */
     @Override
     public List<Expense> sort(List<Expense> currentList) {
-        switch(sortCriteria) {
-            case "time":
-                compareCriteria = new SortByTime();
-                break;
-            case "amount":
-                compareCriteria = new SortByAmount();
-                break;
-            case "description":
-                compareCriteria = new SortByDescription();
-                break;
-            default:
-                throw new DukeRuntimeException("Incorrect format of sort criteria");
+        switch (sortCriteria) {
+        case "time":
+            compareCriteria = new SortByTime();
+            break;
+        case "amount":
+            compareCriteria = new SortByAmount();
+            break;
+        case "description":
+            compareCriteria = new SortByDescription();
+            break;
+        default:
+            throw new DukeRuntimeException("Incorrect format of sort criteria");
         }
         List<Expense> sortedList = currentList;
         sortedList.sort(compareCriteria);
@@ -117,6 +116,7 @@ public class ExpenseList extends DukeList<Expense> {
     /**
      * Tailors the given List so that only {@code Expense} within the given time scope are preserved.
      * Returns the tailored List.
+     *
      * @param currentList The list going to be modified.
      * @return The tailored List.
      */
@@ -124,37 +124,38 @@ public class ExpenseList extends DukeList<Expense> {
     public List<Expense> view(List<Expense> currentList) {
         List<Expense> viewedList = new ArrayList<Expense>();
         LocalDateTime now = LocalDateTime.now();
-        switch(viewScope) {
+        switch (viewScope) {
         case "all":
             viewedList = currentList;
             break;
         case "year":
-            for(Expense e : currentList) {
-                if(e.getTime().plusYears(1).isAfter(now)) {
+            for (Expense e : currentList) {
+                if (e.getTime().plusYears(1).isAfter(now)) {
                     viewedList.add(e);
                 }
             }
             break;
         case "month":
-            for(Expense e : currentList) {
-                if(e.getTime().plusMonths(1).isAfter(now)) {
+            for (Expense e : currentList) {
+                if (e.getTime().plusMonths(1).isAfter(now)) {
                     viewedList.add(e);
                 }
             }
             break;
         case "week":
-            for(Expense e : currentList) {
-                if(e.getTime().plusDays(7).isAfter(now)) {
+            for (Expense e : currentList) {
+                if (e.getTime().plusDays(7).isAfter(now)) {
                     viewedList.add(e);
                 }
             }
             break;
         case "day":
-            for(Expense e : currentList) {
-                if(e.getTime().plusDays(1).isAfter(now)) {
+            for (Expense e : currentList) {
+                if (e.getTime().plusDays(1).isAfter(now)) {
                     viewedList.add(e);
                 }
             }
+            break;
         default:
             throw new DukeRuntimeException("Incorrect format of view scope");
         }
@@ -176,7 +177,7 @@ public class ExpenseList extends DukeList<Expense> {
      */
     public BigDecimal getTotalAmount() {
         return internalList.stream()
-            .map(Expense::getAmount)
-            .reduce(BigDecimal.ZERO, BigDecimal::add);
+                .map(Expense::getAmount)
+                .reduce(BigDecimal.ZERO, BigDecimal::add);
     }
 }

@@ -1,5 +1,6 @@
 package duke.dukeobject;
 
+import duke.exception.DukeException;
 import duke.exception.DukeRuntimeException;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
@@ -19,7 +20,7 @@ public class ExpenseListTest {
 
 
     @Test
-    public void testBasicOperations() throws FileNotFoundException {
+    public void testBasicOperations() throws FileNotFoundException, DukeException {
         ExpenseList testExpenseList = new ExpenseList(userDirectory);
         Expense testExpense = new Expense.Builder().build();
         testExpenseList.add(testExpense);
@@ -32,7 +33,7 @@ public class ExpenseListTest {
     }
 
     @Test
-    public void testInvalidBasicOperations() {
+    public void testInvalidBasicOperations() throws DukeException {
         ExpenseList testExpenseList = new ExpenseList(userDirectory);
         Expense testExpense = new Expense.Builder().build();
         testExpenseList.add(testExpense);
@@ -57,7 +58,7 @@ public class ExpenseListTest {
     }
 
     @Test
-    public void testUndoRedo() {
+    public void testUndoRedo() throws DukeException {
         ExpenseList testExpenseList = new ExpenseList(userDirectory);
         Expense testExpense = new Expense.Builder().build();
         testExpenseList.add(testExpense);
@@ -101,7 +102,7 @@ public class ExpenseListTest {
     }
 
     @Test
-    public void testGetTotalAmount() {
+    public void testGetTotalAmount() throws DukeException {
         ExpenseList testExpenseList = new ExpenseList(userDirectory);
         Expense testExpenseOne = new Expense.Builder().build();
         Expense testExpenseTwo = new Expense.Builder().setAmount("12").build();

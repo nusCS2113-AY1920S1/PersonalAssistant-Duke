@@ -1,6 +1,7 @@
 package duke.parser;
 
 import duke.command.AddExpenseCommand;
+import duke.command.BudgetCommand;
 import duke.command.Command;
 import duke.command.DeleteCommand;
 import duke.command.ExitCommand;
@@ -33,7 +34,11 @@ public class Parser {
         case "delete":
             return new DeleteCommand();
 
+        case "budget":
+            return new BudgetCommand();
+
         case "bye":
+
             return new ExitCommand();
 
         default:

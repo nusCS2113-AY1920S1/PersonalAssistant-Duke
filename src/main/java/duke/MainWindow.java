@@ -1,7 +1,6 @@
 package duke;
 
 import duke.dukeobject.Expense;
-import duke.dukeobject.ExpenseList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
@@ -24,6 +23,10 @@ public class MainWindow extends BorderPane {
     public TextField inputField;
     @FXML
     public Label lastCommandLabel;
+    @FXML
+    public Label monthlyBudgetLabel;
+    @FXML
+    Label remainingBudgetLabel;
 
     private Duke duke;
 
@@ -38,6 +41,8 @@ public class MainWindow extends BorderPane {
         updateExpenseListView();
         inputField.clear();
         updateTotalSpentLabel();
+        updateMonthlyBudget();
+        updateRemainingBudget();
     }
 
     /**
@@ -49,6 +54,8 @@ public class MainWindow extends BorderPane {
         this.duke = d;
         updateExpenseListView();
         updateTotalSpentLabel();
+        updateMonthlyBudget();
+        updateRemainingBudget();
     }
 
     /**
@@ -67,7 +74,28 @@ public class MainWindow extends BorderPane {
      * Updates the total amount label.
      */
     public void updateTotalSpentLabel() {
-        totalSpentLabel.setText("Total: " + ((duke.expenseList.getTotalAmount().compareTo(BigDecimal.valueOf(0)) < 0) ? "-$" + duke.expenseList.getTotalAmount().abs() : "$" + duke.expenseList.getTotalAmount()));
+        totalSpentLabel.setText("Total: "
+                + ((duke.expenseList.getTotalAmount().compareTo(BigDecimal.valueOf(0)) < 0)
+                ? "-$" + duke.expenseList.getTotalAmount().abs() : "$"
+                + duke.expenseList.getTotalAmount()));
     }
+
+    /**
+     * Updates the monthly budget label.
+     */
+    public void updateMonthlyBudget() {
+        monthlyBudgetLabel.setText("Budget: " + duke.budget.getMonthlyBudgetString());
+    }
+
+    /**
+     * Updates the remaining budget label.
+     */
+    public void updateRemainingBudget() {
+        remainingBudgetLabel.setText("Remaining: "
+                + ((duke.budget.getRemaining(duke.expenseList.getTotalAmount()).compareTo(BigDecimal.valueOf(0)) < 0)
+                        ? "-$" + duke.budget.getRemaining(duke.expenseList.getTotalAmount()).abs()
+                        : "$" + duke.budget.getRemaining(duke.expenseList.getTotalAmount())));
+    }
+
 }
 

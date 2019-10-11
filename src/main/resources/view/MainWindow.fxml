@@ -1,12 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-
-<?import javafx.scene.text.Text?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.VBox?>
 <BorderPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
             fx:controller="duke.MainWindow"
@@ -14,8 +12,10 @@
             fx:id="main">
     <top>
         <VBox alignment="CENTER">
-            <Label fx:id="totalSpentLabel" text="Total: $0.00"  />
-            <ListView fx:id="expenseListView" >
+            <Label fx:id="totalSpentLabel" text="Total: $0.00"/>
+            <Label fx:id="monthlyBudgetLabel" text="Budget:inf"/>
+            <Label fx:id="remainingBudgetLabel" text="Remaining:inf"/>
+            <ListView fx:id="expenseListView">
             </ListView>
         </VBox>
     </top>

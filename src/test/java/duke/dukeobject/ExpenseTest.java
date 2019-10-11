@@ -1,5 +1,6 @@
 package duke.dukeobject;
 
+import duke.exception.DukeException;
 import duke.exception.DukeRuntimeException;
 import duke.parser.Parser;
 import org.junit.jupiter.api.Test;
@@ -53,7 +54,7 @@ public class ExpenseTest {
     }
 
     @Test
-    public void testBuilderFromExpense() {
+    public void testBuilderFromExpense() throws DukeException {
         Expense testExpense = new Expense.Builder()
                 .setAmount(TEST_AMOUNT)
                 .setDescription(TEST_DESCRIPTION)
@@ -70,7 +71,7 @@ public class ExpenseTest {
     }
 
     @Test
-    public void testAmount() {
+    public void testAmount() throws DukeException {
         Expense testExpense = new Expense.Builder().setAmount(TEST_AMOUNT).build();
         assertEquals(testExpense.getAmount(), TEST_AMOUNT);
     }
@@ -88,7 +89,7 @@ public class ExpenseTest {
     }
 
     @Test
-    public void testTime() {
+    public void testTime() throws DukeException {
         Expense testExpense = new Expense.Builder().setTime(TEST_TIME).build();
         assertEquals(Parser.formatTime(testExpense.getTime()), TEST_TIME);
     }
@@ -102,7 +103,7 @@ public class ExpenseTest {
     }
 
     @Test
-    public void testToString() {
+    public void testToString() throws DukeException {
         assertEquals(new Expense.Builder()
                         .setAmount(TEST_AMOUNT)
                         .setDescription(TEST_DESCRIPTION)
@@ -115,7 +116,7 @@ public class ExpenseTest {
     }
 
     @Test
-    public void testToStorageString() {
+    public void testToStorageString() throws DukeException {
         String storageString = new Expense.Builder()
                         .setAmount(TEST_AMOUNT)
                         .setDescription(TEST_DESCRIPTION)
@@ -138,7 +139,7 @@ public class ExpenseTest {
         try {
             new Expense.Builder(INVALID_STORAGE_STRING);
             fail();
-        } catch (DukeRuntimeException e) {
+        } catch (DukeRuntimeException | DukeException e) {
             // Success
             // todo: I would check the message here if the message was constant
             e.printStackTrace();
