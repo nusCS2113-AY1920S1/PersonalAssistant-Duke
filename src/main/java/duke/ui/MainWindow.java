@@ -1,6 +1,7 @@
 package duke.ui;
 
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXChipView;
 import com.jfoenix.controls.JFXTextField;
 import duke.commons.core.LogsCenter;
 import duke.logic.Logic;
@@ -11,6 +12,7 @@ import duke.storage.InputSuggestion;
 import impl.org.controlsfx.autocompletion.AutoCompletionTextFieldBinding;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.geometry.Insets;
 import javafx.geometry.Side;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.CustomMenuItem;
@@ -20,6 +22,7 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
 import java.util.ArrayList;
@@ -61,12 +64,7 @@ public class MainWindow extends UiPart<Stage> {
     @FXML
     JFXButton popUpButton;
     @FXML
-    private JFXTextField userInput;
-
-    private AutoCompleteTextField userinput = new AutoCompleteTextField();
-
-    @FXML
-    private AnchorPane test;
+    private AutoCompleteTextField userInput;
 
     //Main page
     @FXML
@@ -76,7 +74,7 @@ public class MainWindow extends UiPart<Stage> {
 
     //Sidebar
     @FXML
-    private JFXButton recipeButton;
+    private JFXButton productButton;
     @FXML
     private JFXButton orderButton;
     @FXML
@@ -91,23 +89,20 @@ public class MainWindow extends UiPart<Stage> {
         this.primaryStage = primaryStage;
         this.logic = logic;
 
-        this.test.getChildren().add(userinput);
+        //this.test.getChildren().add(userInput);
 
         setUpKeyEvent();
         setUpAutoComplete();
     }
 
 
-
-
-
-
 		//autoCompletionTextFieldBinding.
 
     public void setUpAutoComplete() {
         ArrayList<String> suggestions = InputSuggestion.getInputSuggestion();
-        userinput.getEntries().add("product");
-        userinput.getEntries().add("profit");
+        userInput.getEntries().add("product");
+        userInput.getEntries().add("profit");
+        userInput.setAnchor(pagePane);
     }
 
 
@@ -239,7 +234,7 @@ public class MainWindow extends UiPart<Stage> {
         pagePane.getChildren().clear();
         pagePane.getChildren().add(orderPage.getRoot());
 
-        recipeButton.setButtonType(JFXButton.ButtonType.FLAT);
+        productButton.setButtonType(JFXButton.ButtonType.FLAT);
         orderButton.setButtonType(JFXButton.ButtonType.RAISED);
         inventoryButton.setButtonType(JFXButton.ButtonType.FLAT);
         salesButton.setButtonType(JFXButton.ButtonType.FLAT);
@@ -251,7 +246,7 @@ public class MainWindow extends UiPart<Stage> {
         pagePane.getChildren().clear();
         pagePane.getChildren().add(productPage.getRoot());
 
-        recipeButton.setButtonType(JFXButton.ButtonType.RAISED);
+        productButton.setButtonType(JFXButton.ButtonType.RAISED);
         orderButton.setButtonType(JFXButton.ButtonType.FLAT);
         inventoryButton.setButtonType(JFXButton.ButtonType.FLAT);
         salesButton.setButtonType(JFXButton.ButtonType.FLAT);
@@ -263,7 +258,7 @@ public class MainWindow extends UiPart<Stage> {
         pagePane.getChildren().clear();
         pagePane.getChildren().add(inventoryPage.getRoot());
 
-        recipeButton.setButtonType(JFXButton.ButtonType.FLAT);
+        productButton.setButtonType(JFXButton.ButtonType.FLAT);
         orderButton.setButtonType(JFXButton.ButtonType.FLAT);
         inventoryButton.setButtonType(JFXButton.ButtonType.RAISED);
         salesButton.setButtonType(JFXButton.ButtonType.FLAT);
@@ -275,7 +270,7 @@ public class MainWindow extends UiPart<Stage> {
         pagePane.getChildren().clear();
         pagePane.getChildren().add(salePage.getRoot());
 
-        recipeButton.setButtonType(JFXButton.ButtonType.FLAT);
+        productButton.setButtonType(JFXButton.ButtonType.FLAT);
         orderButton.setButtonType(JFXButton.ButtonType.FLAT);
         inventoryButton.setButtonType(JFXButton.ButtonType.FLAT);
         salesButton.setButtonType(JFXButton.ButtonType.RAISED);

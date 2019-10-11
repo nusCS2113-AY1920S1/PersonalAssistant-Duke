@@ -47,10 +47,10 @@ public class CliSyntax {
         allSyntax.add("order");
         allSyntax.add("sale");
         allSyntax.add("ingredient");
-        allSyntax.add("-name");
-        allSyntax.add("-ingt");
-        allSyntax.add("-price");
-        allSyntax.add("-cost");
+        allSyntax.add("name");
+        allSyntax.add("ingt");
+        allSyntax.add("price");
+        allSyntax.add("cost");
         allSyntax.add("add");
         allSyntax.add("edit");
         return allSyntax;
