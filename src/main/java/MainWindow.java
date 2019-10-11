@@ -34,6 +34,7 @@ public class MainWindow extends AnchorPane {
     private Button sendButton;
 
     private Duke duke;
+    private Ui mainWindowUi = new Ui();
 
     private static Image userImage;
     private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
@@ -45,7 +46,7 @@ public class MainWindow extends AnchorPane {
     public void initialize() throws IOException {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
         scrollPane2.vvalueProperty().bind(graphContainer.heightProperty());
-        Ui mainWindowUi = new Ui();
+
         String welcomeDuke = mainWindowUi.showWelcome();
         dialogContainer.getChildren().addAll(
                 DialogBox.getDukeDialog("enter start to begin", dukeImage));
@@ -90,11 +91,17 @@ public class MainWindow extends AnchorPane {
             bufferedWriter.close();
             userInput.clear();
         } else {
-            String response = duke.getResponse(input);
+            String[] response = duke.getResponse(input);
             dialogContainer.getChildren().addAll(
                     DialogBox.getUserDialog(input, userImage),
-                    DialogBox.getDukeDialog(response, dukeImage)
+                    DialogBox.getDukeDialog(response[0], dukeImage)
             );
+            if(!response[1].equals("")){
+                graphContainer.getChildren().clear();
+                graphContainer.getChildren().addAll(
+                        DialogBox.getDukeDialog(response[1], dukeImage));
+            }
+
             userInput.clear();
             if (input.startsWith("graph")) {
                 graphContainer.getChildren().clear();
@@ -102,12 +109,6 @@ public class MainWindow extends AnchorPane {
                 graphContainer.getChildren().addAll(
                         Histogram.getHistogram("The Month Report", data[0], data[1])
                 );
-            }else if (input.startsWith("list")) {
-                graphContainer.getChildren().clear();
-                dialogContainer.getChildren().remove(dialogContainer.getChildren().size()-1);
-                dialogContainer.getChildren().add(
-                        DialogBox.getDukeDialog("Got it, graph will be printed in the other pane!\n", dukeImage));
-                graphContainer.getChildren().addAll(DialogBox.getDukeDialog(response, dukeImage));
             }
         }
         userInput.clear();

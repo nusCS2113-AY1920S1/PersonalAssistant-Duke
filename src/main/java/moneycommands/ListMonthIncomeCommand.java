@@ -35,11 +35,12 @@ public class ListMonthIncomeCommand extends MoneyCommand {
     public void execute(Account account, Ui ui, MoneyStorage storage) {
         int counter = 1;
         for (Income i : account.getIncomeListCurrMonth()) {
-            ui.appendToOutput(" " + counter + "." + i.toString() + "\n");
+            ui.appendToGraphContainer(" " + counter + "." + i.toString() + "\n");
             counter++;
         }
 
-        ui.appendToOutput("Total income for the month: $" + account.getCurrMonthIncome() + "\n");
+        ui.appendToGraphContainer("Total income for the month: $" + account.getCurrMonthIncome() + "\n");
+        ui.appendToOutput("Got it, list will be printed in the other pane!\n");
     }
 
     @Override

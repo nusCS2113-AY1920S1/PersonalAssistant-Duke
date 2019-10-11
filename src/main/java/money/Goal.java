@@ -5,10 +5,10 @@ import java.util.Date;
 
 public class Goal extends Expenditure {
 
-    private enum Priority {
-        LOW,
+    public enum Priority {
+        HIGH,
         MEDIUM,
-        HIGH
+        LOW
     }
 
     private Priority priority;
@@ -37,11 +37,15 @@ public class Goal extends Expenditure {
     @Override
     public String toString() {
         return "[GS]" + " " + super.getDescription() + "(target: $" + super.getPrice() + ")\n (to achieve by: "
-                + getGoalBy() + ") " + getPriority();
+                + getGoalBy() + ") " + getPriorityString();
     }
 
-    public String getPriority() {
+    public String getPriorityString() {
         return priority.toString();
+    }
+
+    public Priority getPriority(){
+        return priority;
     }
 
     public String getGoalBy() {
