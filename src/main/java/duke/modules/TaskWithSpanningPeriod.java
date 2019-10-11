@@ -14,7 +14,8 @@ public class TaskWithSpanningPeriod extends TaskWithPeriod {
 
     TimePeriodSpanning period;
 
-    public TaskWithSpanningPeriod(String task, LocalDateTime begin, LocalDateTime end) throws ModInvalidTimePeriodException {
+    public TaskWithSpanningPeriod(String task, LocalDateTime begin, LocalDateTime end)
+            throws ModInvalidTimePeriodException {
         super(task);
         this.period = new TimePeriodSpanning(begin, end);
     }

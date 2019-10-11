@@ -140,6 +140,11 @@ public class TimePeriodSpanning implements TimePeriod {
         return this.isClashing(new TimePeriodSpanning(begin, end));
     }
 
+    /**
+     * Check whether time period clashes with another.
+     * @param other the other time period
+     * @return true if clashes, false otherwise
+     */
     public boolean isClashing(TimePeriodSpanning other) {
         return other != null
                 && (other.isClashing(this.begin)
@@ -193,13 +198,13 @@ public class TimePeriodSpanning implements TimePeriod {
     }
 
     @Override
-    public TimeInterval getInterval() {
-        return TimeInterval.between(this.begin, this.end);
+    public String toString() {
+        return this.begin + " - " + this.end;
     }
 
     @Override
-    public String toString() {
-        return this.begin + " - " + this.end;
+    public TimeInterval getInterval() {
+        return TimeInterval.between(this.begin, this.end);
     }
 
     @Override
@@ -212,10 +217,12 @@ public class TimePeriodSpanning implements TimePeriod {
         return this.end.toLocalTime();
     }
 
+    @Override
     public DateTime<LocalDateTime> getBegin() {
         return new DateTime<>(this.begin);
     }
 
+    @Override
     public DateTime<LocalDateTime> getEnd() {
         return new DateTime<>(this.end);
     }
@@ -241,8 +248,7 @@ public class TimePeriodSpanning implements TimePeriod {
     public boolean isClashing(TimePeriod other) {
         if (other instanceof TimePeriodSpanning) {
             return this.isClashing((TimePeriodSpanning) other);
-        }
-        else if (other instanceof  TimePeriodWeekly) {
+        } else if (other instanceof  TimePeriodWeekly) {
             return this.isClashing((TimePeriodWeekly) other);
         }
         return false;

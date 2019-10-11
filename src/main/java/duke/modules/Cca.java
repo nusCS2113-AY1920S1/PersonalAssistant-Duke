@@ -8,6 +8,14 @@ import java.time.format.DateTimeFormatter;
 
 public class Cca extends TaskWithWeeklyPeriod {
 
+    /**
+     * Constructor for Cca module.
+     * @param task description
+     * @param beginString begin time
+     * @param endString end time
+     * @param dayOfWeek day of week when the cca takes place
+     * @throws ModInvalidTimeException when input time is invalid
+     */
     public Cca(String task, String beginString, String endString, String dayOfWeek) throws ModInvalidTimeException {
         super(task, DayOfWeek.valueOf(dayOfWeek));
         LocalTime begin = DateTimeParser.getStringToDate(beginString).toLocalTime();

@@ -242,10 +242,6 @@ public class DukeParser {
         } else if (input.startsWith("cca ")) {
             LinkedHashMap<String, String> args = parse(input, true, true);
             checkContainRequiredArguments(args, "/begin", "/end", "/day");
-            System.out.println("All good");
-            try {
-                Thread.sleep(3000);
-            } catch (Exception ex) {}
             Task hold = new Cca(args.get("description"), args.get("/begin"), args.get("/end"), args.get("/day"));
             return new AddCommand(hold);
         } else if (input.startsWith("print ")) {

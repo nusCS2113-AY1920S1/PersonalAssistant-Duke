@@ -37,7 +37,7 @@ public class TimePeriodWeekly implements TimePeriod {
     }
 
     /**
-     * Constructor for TimePeriodWeekly
+     * Constructor for TimePeriodWeekly.
      * @param begin Start time.
      * @param isInstantEnd Ends immediately or not.
      * @param dayOfWeek Day of week where this period applies.
@@ -116,6 +116,11 @@ public class TimePeriodWeekly implements TimePeriod {
         return this.isClashing(begin) || this.isClashing(end);
     }
 
+    /**
+     * Check whether time period clashes with another.
+     * @param other the other time period
+     * @return true if clashes, false otherwise
+     */
     public boolean isClashing(TimePeriodSpanning other) {
         if (other == null) {
             return false;
@@ -154,6 +159,11 @@ public class TimePeriodWeekly implements TimePeriod {
         return false;
     }
 
+    /**
+     * Check whether time period clashes with another.
+     * @param other the other time period
+     * @return true if clashes, false otherwise
+     */
     public boolean isClashing(TimePeriodWeekly other) {
         return other != null
                 && (this.isClashing(other.begin, other.dayOfWeek)
@@ -186,8 +196,7 @@ public class TimePeriodWeekly implements TimePeriod {
     public void setPeriod(LocalTime begin, LocalTime end) {
         if (begin != null && end != null && end.isBefore(begin)) {
             this.isUntilNextDay = true;
-        }
-        else {
+        } else {
             this.isUntilNextDay = false;
         }
         this.begin = begin;
@@ -215,13 +224,13 @@ public class TimePeriodWeekly implements TimePeriod {
     }
 
     @Override
-    public TimeInterval getInterval() {
-        return TimeInterval.between(this.begin, this.end);
+    public String toString() {
+        return this.begin + " - " + this.end + " on " + this.dayOfWeek;
     }
 
     @Override
-    public String toString() {
-        return this.begin + " - " + this.end + " on " + this.dayOfWeek;
+    public TimeInterval getInterval() {
+        return TimeInterval.between(this.begin, this.end);
     }
 
     @Override
@@ -254,8 +263,7 @@ public class TimePeriodWeekly implements TimePeriod {
     public boolean isClashing(TimePeriod other) {
         if (other instanceof TimePeriodSpanning) {
             return this.isClashing((TimePeriodSpanning) other);
-        }
-        else if (other instanceof  TimePeriodWeekly) {
+        } else if (other instanceof  TimePeriodWeekly) {
             return this.isClashing((TimePeriodWeekly) other);
         }
         return false;
