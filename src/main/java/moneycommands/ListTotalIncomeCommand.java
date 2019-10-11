@@ -1,5 +1,6 @@
 package moneycommands;
 
+import controlpanel.DukeException;
 import controlpanel.MoneyStorage;
 import controlpanel.Ui;
 import money.Account;
@@ -40,5 +41,7 @@ public class ListTotalIncomeCommand extends MoneyCommand {
     }
 
     @Override
-    public void undo(Account account, Ui ui, MoneyStorage storage) { return; }
+    public void undo(Account account, Ui ui, MoneyStorage storage) throws DukeException {
+        throw new DukeException("Command can't be undone!\n");
+    }
 }
