@@ -26,7 +26,10 @@ public class UndoCommand extends  MoneyCommand {
 
     @Override
     public void undo(Account account, Ui ui, MoneyStorage storage) throws DukeException {
-        throw new DukeException(" Cannot undo further actions!\n");
+        if (lastIssuedCommand == null) {
+            throw new DukeException("No command to undo!\n");
+        } else {
+            throw new DukeException("Command can't be undone!\n");
+        }
     }
-    //Cmds left: Delete (Exp/Goals/Income) DoneGoal Internal Transfer
 }

@@ -1,5 +1,6 @@
 package moneycommands;
 
+import controlpanel.DukeException;
 import controlpanel.MoneyStorage;
 import controlpanel.Ui;
 import money.Account;
@@ -32,13 +33,16 @@ public class ListTotalIncomeCommand extends MoneyCommand {
     public void execute(Account account, Ui ui, MoneyStorage storage) {
         int counter = 1;
         for (Income i : account.getIncomeListTotal()) {
-            ui.appendToOutput(" " + counter + "." + i.toString() + "\n");
+            ui.appendToGraphContainer(" " + counter + "." + i.toString() + "\n");
             counter++;
         }
 
-        ui.appendToOutput("Total income so far: $" + account.getTotalIncome() + "\n");
+        ui.appendToGraphContainer("Total income so far: $" + account.getTotalIncome() + "\n");
+        ui.appendToOutput("Got it, list will be printed in the other pane!\n");
     }
 
     @Override
-    public void undo(Account account, Ui ui, MoneyStorage storage) { return; }
+    public void undo(Account account, Ui ui, MoneyStorage storage) throws DukeException {
+        throw new DukeException("Command can't be undone!\n");
+    }
 }

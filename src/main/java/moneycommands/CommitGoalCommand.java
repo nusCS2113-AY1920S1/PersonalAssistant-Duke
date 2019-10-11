@@ -12,6 +12,7 @@ import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -66,9 +67,14 @@ public class CommitGoalCommand extends MoneyCommand {
                 }
             }
 
+            //account.sortShortTermGoals(goalsAfterCommit);
+            float savingsReqPerMonth = 0;
             for (int i = 1; i <= goalsAfterCommit.size();i++) {
                 Goal currGoal = goalsAfterCommit.get(i-1);
                 float currGoalPrice = currGoal.getPrice();
+                LocalDate goalDate = currGoal.getDateBoughtDate();
+                float monthsBetween = ChronoUnit.MONTHS.between(LocalDate.now(), goalDate);
+
                 String goalProgress = "";
 
                 if(goalSavingsAfterCommit >= currGoalPrice){
@@ -78,16 +84,21 @@ public class CommitGoalCommand extends MoneyCommand {
                     DecimalFormat df = new DecimalFormat("#.##");
                     df.setRoundingMode(RoundingMode.CEILING);
                     goalProgress = "[" + df.format(percentageProgress) + "%]";
+                    savingsReqPerMonth += (currGoalPrice - goalSavingsAfterCommit)/monthsBetween;
                 }
 
                 ui.appendToOutput(" " + i + "." + goalProgress + goalsAfterCommit.get(i-1).toString() + "\n");
             }
             ui.appendToOutput("Goal Savings after commit: $" + goalSavingsAfterCommit + "\n");
+            ui.appendToOutput("Target Savings for the Month: $" + savingsReqPerMonth + "\n");
+
+            MoneyCommand list = new ListGoalsCommand();
+            list.execute(account,ui,storage);
         }
     }
 
-    public void undo(Account account, Ui ui, MoneyStorage storage) {
-        return;
+    public void undo(Account account, Ui ui, MoneyStorage storage) throws DukeException {
+        throw new DukeException("Command can't be undone!\n");
     }
 }
 

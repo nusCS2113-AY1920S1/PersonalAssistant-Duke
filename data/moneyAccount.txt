@@ -1,26 +1,25 @@
 INIT @ false
 BS @ 1200.0
-I @ 30000.0 @ InitialSavings @ 5/10/2019
-I @ 560.0 @ TA  @ 10/12/2040
-I @ 5.0 @ cashback  @ 9/12/2020
-I @ 560.0 @ TA  @ 12/10/2019
-I @ 500.0 @ shit  @ 7/10/2019
-I @ 560.0 @ TA  @ 10/12/2040
-I @ 560.0 @ TA  @ 10/12/2040
+INC @ 30000.0 @ InitialSavings @ 5/10/2019
+INC @ 5.0 @ cashback  @ 9/12/2020
+INC @ 560.0 @ TA  @ 12/10/2019
+INC @ 500.0 @ shit  @ 7/10/2019
+INC @ 560.0 @ TA  @ 10/12/2040
+INC @ 560.0 @ TA  @ 10/12/2040
 EXP @ 3.0 @ ice-cream  @ food  @ 10/12/2040
-EXP @ 10000.0 @ buy Motorbike  @ GS @ 5/10/2019
-EXP @ 10000.0 @ buy expensive watch  @ GS @ 5/10/2019
 EXP @ 3.0 @ ice-cream  @ food  @ 10/12/2040
 EXP @ 3.0 @ ice-cream  @ food  @ 5/10/2019
 EXP @ 3.0 @ ice-cream  @ food  @ 5/10/2020
 EXP @ 3.0 @ ice-cream  @ food  @ 4/10/2019
 EXP @ 3.0 @ pencil  @ stationary  @ 6/10/2019
 EXP @ 20.0 @ godzilla  @ animal  @ 7/10/2020
-EXP @ 100000.0 @ mortgage  @ instalments @ 10/10/2010
-G @ 100000.0 @ buy Lambo  @ GS @ 10/12/2040 @ MEDIUM
+EXP @ 20.0 @ hookers  @ hookers  @ 10/10/2020
+EXP @ 10000.0 @ buy Motorbike  @ GS @ 11/10/2019
+G @ 100000.0 @ buy HDB  @ GS @ 15/1/2050 @ HIGH
 G @ 100.0 @ buy ultraboost  @ GS @ 15/1/2050 @ HIGH
-G @ 10000.0 @ buy Motorbike  @ GS @ 5/10/2019 @ HIGH
-G @ 100000.0 @ buy Boat  @ GS @ 11/12/2050 @ LOW
 G @ 100.0 @ buy watch @ GS @ 15/1/2050 @ HIGH
-INS @ 100000.0 @ mortgage  @ instalments @ 12/12/2017 @ 200 @ 0.06
-INS @ 100000.0 @ mortgage  @ instalments @ 10/10/2010 @ 200 @ 0.06
+G @ 10000.0 @ buy BKK air ticket  @ GS @ 11/10/2020 @ MEDIUM
+G @ 100000.0 @ buy Lambo  @ GS @ 10/12/2040 @ MEDIUM
+G @ 10000.0 @ buy expensive watch  @ GS @ 5/10/2029 @ MEDIUM
+G @ 200.0 @ goal-short buy table  @ GS @ 1/12/2019 @ MEDIUM
+INS @ 100000.0 @ mortgage  @ instalments @ 12/12/2010 @ 200 @ 0.06
