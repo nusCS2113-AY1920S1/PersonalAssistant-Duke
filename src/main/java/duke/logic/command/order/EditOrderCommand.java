@@ -6,17 +6,11 @@ import duke.logic.command.CommandResult;
 import duke.logic.command.Undoable;
 import duke.logic.command.exceptions.CommandException;
 import duke.model.Model;
-import duke.model.commons.Item;
-import duke.model.order.Customer;
 import duke.model.order.Order;
-import duke.model.product.Product;
 
-import java.util.Date;
 import java.util.List;
-import java.util.Set;
 
 import static duke.commons.util.CollectionUtil.requireAllNonNull;
-import static duke.logic.command.order.OrderCommandUtil.getProducts;
 import static java.util.Objects.requireNonNull;
 
 /**
@@ -26,7 +20,7 @@ public class EditOrderCommand extends OrderCommand implements Undoable {
 
     public static final String COMMAND_WORD = "edit";
 
-    public static final String MESSAGE_EDIT_PERSON_SUCCESS = "Edited Order [%1$s]";
+    private static final String MESSAGE_EDIT_PERSON_SUCCESS = "Edited Order [%1$s]";
 
     private final Index index;
     private final OrderDescriptor orderDescriptor;
@@ -46,7 +40,7 @@ public class EditOrderCommand extends OrderCommand implements Undoable {
     }
 
     @Override
-    public void undo(Model model) throws CommandException {
+    public void undo(Model model) {
         requireNonNull(model);
 
         model.setOrder(index, orderToEdit);
@@ -55,29 +49,6 @@ public class EditOrderCommand extends OrderCommand implements Undoable {
     @Override
     public void redo(Model model) throws CommandException {
         execute(model);
-    }
-
-    private static Order createEditedOrder(Order toEdit, OrderDescriptor orderDescriptor, List<Product> allProducts)
-            throws CommandException {
-        assert toEdit != null;
-
-        Customer newCustomer = new Customer(
-                orderDescriptor.getCustomerName().orElse(toEdit.getCustomer().name),
-                orderDescriptor.getCustomerContact().orElse(toEdit.getCustomer().contact)
-        );
-
-        Date newDate = orderDescriptor.getDeliveryDate().orElse(toEdit.getDeliveryDate());
-
-        Set<Item<Product>> newItems;
-        if (orderDescriptor.getItems().isPresent()) {
-            newItems = getProducts(allProducts, orderDescriptor.getItems().get());
-        } else {
-            newItems = toEdit.getItems();
-        }
-
-        String newRemarks = orderDescriptor.getRemarks().orElse(toEdit.getRemarks());
-        Order.Status newStatus = orderDescriptor.getStatus().orElse(toEdit.getStatus());
-        return new Order(newCustomer, newDate, newStatus, newRemarks, newItems);
     }
 
     @Override
@@ -90,7 +61,8 @@ public class EditOrderCommand extends OrderCommand implements Undoable {
         }
 
         orderToEdit = lastShownList.get(index.getZeroBased());
-        Order editedOrder = createEditedOrder(orderToEdit, orderDescriptor, model.getFilteredProductList());
+        Order editedOrder = OrderCommandUtil.createNewOrder(orderToEdit, orderDescriptor,
+                model.getFilteredProductList());
 
         model.setOrder(orderToEdit, editedOrder);
         model.updateFilteredOrderList(Model.PREDICATE_SHOW_ALL_ORDERS);
