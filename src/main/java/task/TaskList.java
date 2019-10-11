@@ -110,6 +110,18 @@ public class TaskList {
     }
 
     /**
+     * Marks a task to no longer be ignored and have reminders to show up again.
+     *
+     * @param index The index of the task to be marked
+     * @return The marked task
+     */
+    public Task markAsUnignorable(int index) {
+        Task task = listOfTasks.get(index);
+        task.markAsUnignorable();
+        return task;
+    }
+
+    /**
      * updates the timing of a particular task.
      *
      * @param taskToBeChanged task to be updated

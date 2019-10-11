@@ -158,7 +158,9 @@ public class Parser {
             }
             return new SearchCommand(duration);
         case "ignore":
-            return parseIgnore(command, userInput);
+            return parseIgnore(userInput, true);
+        case "unignore":
+            return parseIgnore(userInput, false);
         default:
             // Empty string or unknown command.
             Ui.printUnknownInput();
@@ -295,9 +297,9 @@ public class Parser {
         return new AddCommand(command, taskDescription, fromDate, toDate);
     }
 
-    private static Command parseIgnore(String command, String userInput) {
+    private static Command parseIgnore(String userInput, Boolean isIgnore) {
         int index = Integer.parseInt(userInput.split("\\s+", 2)[1].trim()) - 1;
-        return new IgnoreCommand(index);
+        return new IgnoreCommand(index, isIgnore);
     }
 
     private static Command parseDuration(String userInput, String[] taskDetails, String checktype, String command)
