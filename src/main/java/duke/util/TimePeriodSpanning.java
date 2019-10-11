@@ -153,6 +153,17 @@ public class TimePeriodSpanning implements TimePeriod {
                     || this.isClashing(other.end));
     }
 
+    // TODO: Combine the isClashing of TimePeriods
+    @Override
+    public boolean isClashing(TimePeriod other) {
+        if (other instanceof TimePeriodSpanning) {
+            return this.isClashing((TimePeriodSpanning) other);
+        } else if (other instanceof  TimePeriodWeekly) {
+            return this.isClashing((TimePeriodWeekly) other);
+        }
+        return false;
+    }
+
     public boolean isClashing(TimePeriodWeekly other) {
         return other != null && other.isClashing(this);
     }
@@ -241,16 +252,5 @@ public class TimePeriodSpanning implements TimePeriod {
         }
         ret.add(end.getDayOfWeek());
         return ret;
-    }
-
-    // TODO: Combine the isClashing of TimePeriods
-    @Override
-    public boolean isClashing(TimePeriod other) {
-        if (other instanceof TimePeriodSpanning) {
-            return this.isClashing((TimePeriodSpanning) other);
-        } else if (other instanceof  TimePeriodWeekly) {
-            return this.isClashing((TimePeriodWeekly) other);
-        }
-        return false;
     }
 }
