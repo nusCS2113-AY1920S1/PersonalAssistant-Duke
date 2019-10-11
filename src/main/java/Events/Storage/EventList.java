@@ -7,7 +7,7 @@ import Events.EventTypes.EventSubclasses.Concert;
 import Events.EventTypes.EventSubclasses.RecurringEventSubclasses.Lesson;
 import Events.EventTypes.EventSubclasses.RecurringEventSubclasses.Practice;
 import Events.EventTypes.EventSubclasses.ToDo;
-import Events.Formatting.DateObj;
+import Events.Formatting.EventDate;
 import Events.Formatting.Predicate;
 import UserElements.Parser;
 import UserElements.UI;
@@ -103,21 +103,18 @@ public class EventList {
      * @return boolean signifying whether or not the event was added successfully. True if succeeded
      * and false if not
      */
-    public boolean addEvent(Event event, UI ui) {
-        if (event.getType() == 'T') {
+    public boolean addEvent(Event event, UI ui) throws ClashException{
+        Event clashEvent = clashEvent(event); //check the list for a schedule clash
+        if (clashEvent == null) { //null means no clash was found
             this.eventArrayList.add(event);
-            return true;
+            return true; //succeeded
+        } else { //if clash is found, notify user via terminal.
+            throw new ClashException(clashEvent);
         }
-        else {
-            Event clashEvent = clashEvent(event); //check the list for a schedule clash
-            if (clashEvent == null) { //null means no clash was found
-                this.eventArrayList.add(event);
-                return true; //succeeded
-            } else { //if clash is found, notify user via terminal.
-                ui.scheduleClash(clashEvent);
-                return false; //failed
-            }
-        }
+    }
+
+    public void addNewTodo(Event event, UI ui) {
+        this.eventArrayList.add(event);
     }
 
     /**
@@ -126,21 +123,38 @@ public class EventList {
      * @param event Event to be added as recursion.
      * @param period Period of the recursion.
      */
-    public boolean addRecurringEvent(Event event, int period) {
+    public boolean addRecurringEvent(Event event, int period) throws ClashException {
         Calendar calendarStartDate = Calendar.getInstance();
         Calendar calendarEndDate = Calendar.getInstance();
         calendarStartDate.setTime(event.getStartDate().getEventJavaDate());
         calendarEndDate.setTime(event.getEndDate().getEventJavaDate());
+
+        ArrayList<Event> tempEventList = new ArrayList<Event>();
+
+        Event newEvent = null;
         for (int addEventCount = 0; addEventCount*period <= ONE_SEMESTER_DAYS; addEventCount++) {
-            DateObj toFormatCalendarStartDate = new DateObj(calendarStartDate.getTime());
-            DateObj toFormatCalendarEndDate = new DateObj(calendarEndDate.getTime());
+            EventDate toFormatCalendarStartDate = new EventDate(calendarStartDate.getTime());
+            EventDate toFormatCalendarEndDate = new EventDate(calendarEndDate.getTime());
             if (event.getType() == 'L') {
-                this.eventArrayList.add(new Lesson(event.getDescription(), toFormatCalendarStartDate.getUserInputDateString(), toFormatCalendarEndDate.getUserInputDateString()));
+                newEvent = new Lesson(event.getDescription(), toFormatCalendarStartDate.getUserInputDateString(),
+                        toFormatCalendarEndDate.getUserInputDateString());
             } else if (event.getType() == 'P') {
-                this.eventArrayList.add(new Practice(event.getDescription(), toFormatCalendarStartDate.getUserInputDateString(), toFormatCalendarEndDate.getUserInputDateString()));
+                newEvent = new Practice(event.getDescription(), toFormatCalendarStartDate.getUserInputDateString(),
+                        toFormatCalendarEndDate.getUserInputDateString());
+                tempEventList.add(newEvent);
+            }
+
+            if (clashEvent(newEvent) == null) {
+                tempEventList.add(newEvent);
+            } else {
+                throw new ClashException(newEvent);
             }
             calendarStartDate.add(Calendar.DATE, period);
             calendarEndDate.add(Calendar.DATE, period);
+        }
+
+        for (Event tempEvent : tempEventList) {
+            this.eventArrayList.add(tempEvent);
         }
         return true;
     }
@@ -158,16 +172,20 @@ public class EventList {
         */
 
         //split new event date string into date and time.
-        String[] newEventSplitDateTime = checkingEvent.getStartDate().getUserInputDateString().split(" ");
-        String newEventDate = newEventSplitDateTime[0]; //assign date
-        int newEventStartTime = Integer.parseInt(newEventSplitDateTime[1]); //assign time
-        int newEventEndTime = Integer.parseInt(checkingEvent.getEndDate().getUserInputDateString().substring(10));
+        String[] newEventStartDateTime = checkingEvent.getStartDate().getUserInputDateString().split(" ");
+        String[] newEventEndDateTime = checkingEvent.getEndDate().getUserInputDateString().split(" ");
+        String newEventDate = newEventStartDateTime[0]; //assign date
+        int newEventStartTime = Integer.parseInt(newEventStartDateTime[1]); //assign time
+        int newEventEndTime = Integer.parseInt(newEventEndDateTime[1]);
 
         for (Event currEvent : eventArrayList) { //scan list for clashes
-            String[] currEventSplitDateTime = currEvent.getStartDate().getUserInputDateString().split(" ");
-            if (newEventDate.equals(currEventSplitDateTime[0])) { //if date is same on two accounts
-                int currEventStartTime = Integer.parseInt(currEventSplitDateTime[1]); //assign time
-                int currEventEndTime = Integer.parseInt(currEvent.getEndDate().getUserInputDateString().substring(10));
+            if (currEvent.getType() == 'T') continue; //skip scan if todo class
+
+            String[] currEventStartDateTime = currEvent.getStartDate().getUserInputDateString().split(" ");
+            String[] currEventEndDateTime = currEvent.getEndDate().getUserInputDateString().split(" ");
+            if (newEventDate.equals(currEventStartDateTime[0])) { //if date is same for event to be added and event in list.
+                int currEventStartTime = Integer.parseInt(currEventStartDateTime[1]); //assign time
+                int currEventEndTime = Integer.parseInt(currEventEndDateTime[1]);
 
                 if (newEventStartTime > currEventStartTime) { //new event starts after current event
                     if (currEventEndTime > newEventStartTime) {
@@ -266,3 +284,4 @@ public class EventList {
         return filteredEvents;
     }
 }
+
