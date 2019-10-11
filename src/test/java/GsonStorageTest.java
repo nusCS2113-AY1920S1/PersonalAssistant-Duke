@@ -19,6 +19,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
  * JUnit class testing the class GsonStorage.
  */
 class GsonStorageTest {
+
     private String filePath = "data/patients.json";
     private GsonStorage gsonStorage = new GsonStorage(filePath);
     private Patient dummy1 = new Patient("dummy1", 100, "nuts");
@@ -29,7 +30,8 @@ class GsonStorageTest {
             + "ht\":0,\"weight\":0,\"age\":0,\"number\":0,\"name\":\"dummy2\"},{\"bedNo\":300,\"allergies\":\"ca"
             + "ts\",\"impressions\":[],\"height\":0,\"weight\":0,\"age\":0,\"number\":0,\"name\":\"dummy3\"}]";
 
-    GsonStorageTest() throws DukeFatalException {
+    GsonStorageTest() throws DukeFatalException, IOException {
+        gsonStorage.resetAllData();
     }
 
     /**
