@@ -2,11 +2,12 @@ package eggventory;
 
 import javafx.application.Application;
 
-/**
- * Main function that sets the save path and runs Eggventory.
- * Starts the CLI and GUI in separate threads so they can run simultaneously.
- */
+
 public class Start {
+    /**
+     * Main function that sets the save path and runs Eggventory.
+     * Starts the CLI and GUI in separate threads so they can run simultaneously.
+     */
     public static void main(String[] args) {
         String currentDir = System.getProperty("user.dir");
         String filePath = currentDir + "/data/saved_tasks.txt";
