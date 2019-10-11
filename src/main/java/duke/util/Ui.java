@@ -154,6 +154,7 @@ public class Ui {
         int requiredTasks = 30;
         int tasksLeft = requiredTasks - taskList.size();
         System.out.println("Number of tasks still needed to complete:\n" + tasksLeft);
+    }
 
     }
 /*
