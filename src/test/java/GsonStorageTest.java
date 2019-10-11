@@ -56,7 +56,7 @@ public class GsonStorageTest {
      * false.
      * TODO: compare impressions as well
      */
-    Boolean identical(Patient patient1, Patient patient2) {
+    private boolean identical(Patient patient1, Patient patient2) {
         if (patient1.getBedNo() != patient2.getBedNo()) {
             return false;
         } else if (!(java.util.Objects.equals(patient1.getAllergies(), patient2.getAllergies()))) {
