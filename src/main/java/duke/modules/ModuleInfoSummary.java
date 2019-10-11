@@ -11,7 +11,7 @@ public class ModuleInfoSummary {
     private boolean suOption;
 
     /**
-     * TODO JavaDocs
+     * TODO JavaDocs.
      */
     public void moduleInfoSummary(String moduleCode, String title, int[] semesters, boolean suOption) {
         this.moduleCode = moduleCode;

@@ -255,9 +255,7 @@ public class DukeParser {
             return checkValidRescheduleIndex(input);
         } else if (input.startsWith("schedule ")) {
             return new ScheduleCommand(input);
-        } /*else if (input.startsWith("cap")) {
-            return new CapCommand(input);
-        }*/ else {
+        } else {
             //throws invalid command exception when user inputs non-keywords
             throw new ModCommandException();
         }
@@ -274,9 +272,9 @@ public class DukeParser {
     public static LinkedHashMap<String, String> parse(String command,
                                                       boolean includeCommand,
                                                       boolean includeArgs)
-        throws ModMultipleValuesForSameArgumentException {
+    throws ModMultipleValuesForSameArgumentException {
             return parse(command, includeCommand, includeArgs, "/", true);
-        }
+    }
 
     /**
      * Overloaded function which returns a hash map.

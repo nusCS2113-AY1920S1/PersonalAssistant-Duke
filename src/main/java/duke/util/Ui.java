@@ -155,6 +155,7 @@ public class Ui {
         int tasksLeft = requiredTasks - taskList.size();
         System.out.println("Number of tasks still needed to complete:\n" + tasksLeft);
     }
+
     public void overallCapMsg() {
         System.out.println("Here is your overall CAP: ");
     }

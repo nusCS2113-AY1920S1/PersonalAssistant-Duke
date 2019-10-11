@@ -73,7 +73,7 @@ public class CapCommand extends Command {
 
     /**
      * Method for predicting CAP for a specific module.
-     * @param specificModule
+     * @param specificModule something
      */
     public void addPrerequisiteCap(String specificModule) {
         /*
@@ -95,10 +95,10 @@ public class CapCommand extends Command {
 
 
     /**
-     * Method to calculate the total CAP based on the modules completed in the moduleList
+     * Method to calculate the total CAP based on the modules completed in the moduleList.
      * @param moduleList blah
      * @return something
-     * @throws ModEmptyListException
+     * @throws ModEmptyListException something exception
      */
     /*public float addTotalCap(ModuleList moduleList) throws ModEmptyListException {
 
