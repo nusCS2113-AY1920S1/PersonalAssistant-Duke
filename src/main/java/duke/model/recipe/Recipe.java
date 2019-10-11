@@ -7,8 +7,11 @@ import duke.task.recipetasks.Rating;
 import duke.task.recipetasks.RecipeIngredient;
 import org.javatuples.Triplet;
 
+import javax.print.DocFlavor;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class Recipe {
 
@@ -23,8 +26,9 @@ public class Recipe {
         this.recipe = recipe;
     }
 
-    public Triplet<RecipeIngredient, Rating, Feedback> toSaveString() {
-        return recipe;
+    public Map<String, Recipe> toSaveString() {
+        Map<String, Recipe> recipeMap = new Map<String, Recipe>(recipeTitle, recipe);
+        return recipeMap;
     }
 
     public String toString() {

@@ -23,7 +23,7 @@ import java.util.Map;
  */
 public class RecipeStorage {
 
-    private final Map<String, Recipe> arrRecipeList = new HashMap<>();
+    private final Map<String, Recipe> arrRecipeMap = new HashMap<>();
     private final String filePathRecipe;
 
     /**
@@ -41,12 +41,12 @@ public class RecipeStorage {
      *
      * @param recipeList contains the task list
      */
-    public void saveFile(RecipeList recipeList) {
+    public void saveFile(RecipeList recipeList, String recipeTitle) {
         try {
             FileWriter fileWriter = new FileWriter(filePathRecipe);
             BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
-            for (Recipe recipe : recipeList.getValue()) {
-                bufferedWriter.write(recipe.toSaveString() + "\n");
+            for (Object recipe : recipeList.getValue()) {
+                bufferedWriter.write(recipeTitle + recipe + "\n");
             }
             bufferedWriter.close();
         } catch (Exception exc) {
@@ -60,7 +60,7 @@ public class RecipeStorage {
      * @return the list of tasks in taskList
      * @throws DukeException if Duke is not able to load the tasks from the file or unable to open the file
      */
-    public ArrayList<Recipe> load() throws DukeException {
+    public Map<String, Recipe> load() throws DukeException {
         try {
             FileReader fileReader = new FileReader(filePathRecipe);
             BufferedReader bufferedReader = new BufferedReader(fileReader);
@@ -70,7 +70,7 @@ public class RecipeStorage {
                 if (split.length == 2) {
                     int quantity = Integer.parseInt(split[1]);
                     Recipe recipe = new Recipe(split[0], quantity);
-                    arrRecipeList.add(recipe);
+                    arrRecipeMap.put(recipe);
                 }
             }
             fileReader.close();

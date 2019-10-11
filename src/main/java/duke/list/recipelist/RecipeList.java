@@ -10,10 +10,7 @@ import org.javatuples.Quintet;
 import org.javatuples.Triplet;
 
 import java.text.ParseException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.TreeMap;
+import java.util.*;
 
 import static duke.common.Messages.*;
 
@@ -21,6 +18,10 @@ public class RecipeList {
 
     private Map<String, Recipe> recipeList;
     private static String msg = "";
+
+    public RecipeList() {
+        this.recipeList = new HashMap<>();
+    }
 
     public RecipeList(Map<String, Recipe> recipeList) {
         this.recipeList = recipeList;
@@ -65,7 +66,7 @@ public class RecipeList {
         return recipeList;
     }
 
-    public Recipe getValue() {
-        return (Recipe) recipeList.values();
+    public Collection getValue() {
+        return recipeList.values();
     }
 }
