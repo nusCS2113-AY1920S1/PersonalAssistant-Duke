@@ -2,7 +2,7 @@ package Tasks;
 /**
  * Represents a task in the Duke program.
  */
-public abstract class Task {
+public class Task {
     private final String description;
     private boolean isDone;
     private final String type;
@@ -34,7 +34,14 @@ public abstract class Task {
     }
 
     public String getDescription() {
-        return description;
+        String[] split = description.split(" ");
+        String taskDescription = "";
+        for (int i = 0; i < split.length; i++) {
+            if (!split[i].equals(getModCode())) {
+                taskDescription += split[i] + " ";
+            }
+        }
+        return taskDescription;
     }
 
     public String toString() {
@@ -46,5 +53,8 @@ public abstract class Task {
         return "void";
     }
 
-    public abstract String getModCode();
+    public String getModCode() {
+        String[] split = description.split(" ");
+        return split[0];
+    }
 }

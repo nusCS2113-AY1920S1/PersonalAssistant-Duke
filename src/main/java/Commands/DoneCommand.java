@@ -33,7 +33,6 @@ public class DoneCommand extends Command {
     public String execute(TaskList todos, TaskList events, TaskList deadlines, Ui ui, Storage storage) throws DukeException, FileNotFoundException {
         if(index >= 0 && index < todos.taskListSize()) {
             todos.markAsDone(index);
-            storage.updateTodoList(todos);
             return ui.showDone(todos.getTask(index));
         } else {
             throw new DukeException("\u2639" + " OOPS!!! I'm sorry, but we cannot find the input task number :-(");

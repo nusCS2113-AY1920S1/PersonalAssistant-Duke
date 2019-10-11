@@ -45,9 +45,7 @@ public class DeleteCommand extends Command {
         if (index >= 0 && index < listToChange.taskListSize()) {
             Task task = listToChange.getTask(index);
             listToChange.removeTask(this.index);
-            if (listToChange.equals("todo")) {
-                storage.updateTodoList(listToChange);
-            } else if (listToChange.equals("event")) {
+            if (listToChange.equals("event")) {
                 storage.updateEventList(listToChange);
             } else if (listToChange.equals("deadline")) {
                 storage.updateDeadlineList(listToChange);

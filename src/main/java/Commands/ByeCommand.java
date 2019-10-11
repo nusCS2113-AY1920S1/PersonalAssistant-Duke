@@ -20,7 +20,6 @@ public class ByeCommand extends Command {
      */
     @Override
     public String execute(TaskList todos, TaskList events, TaskList deadlines, Ui ui, Storage storage) throws Exception {
-        storage.updateTodoList(todos);
         storage.updateEventList(events);
         storage.updateDeadlineList(deadlines);
         return ui.showBye();
