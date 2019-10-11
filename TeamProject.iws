@@ -29,7 +29,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Application.RoomShare">
     <configuration name="Duke" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="Duke" />
       <module name="main" />
@@ -37,8 +37,16 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="RoomShare" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="RoomShare" />
+      <module name="main" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.RoomShare" />
         <item itemvalue="Application.Duke" />
       </list>
     </recent_temporary>
