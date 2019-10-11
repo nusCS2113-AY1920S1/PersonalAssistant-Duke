@@ -81,7 +81,7 @@ public class GsonStorageTest {
      * Tests if patients are transformed from the json file to the hashmap properly.
      */
     @Test
-    void loadPatientHashMapTest() throws DukeFatalException, IOException {
+    private void loadPatientHashMapTest() throws DukeFatalException, IOException {
         gsonStorage.resetAllData();
         FileWriter fileWriter = new FileWriter(new File(gsonStorage.getFilePath()));
         fileWriter.write(expected);
