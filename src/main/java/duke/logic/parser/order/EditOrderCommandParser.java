@@ -9,7 +9,13 @@ import duke.logic.parser.commons.Parser;
 import duke.logic.parser.commons.ParserUtil;
 import duke.logic.parser.exceptions.ParseException;
 
-import static duke.logic.parser.commons.CliSyntax.*;
+import static duke.logic.parser.commons.CliSyntax.PREFIX_CUSTOMER_CONTACT;
+import static duke.logic.parser.commons.CliSyntax.PREFIX_CUSTOMER_NAME;
+import static duke.logic.parser.commons.CliSyntax.PREFIX_ORDER_DEADLINE;
+import static duke.logic.parser.commons.CliSyntax.PREFIX_ORDER_INDEX;
+import static duke.logic.parser.commons.CliSyntax.PREFIX_ORDER_ITEM;
+import static duke.logic.parser.commons.CliSyntax.PREFIX_ORDER_REMARKS;
+import static duke.logic.parser.commons.CliSyntax.PREFIX_ORDER_STATUS;
 import static duke.logic.parser.order.OrderParserUtil.createDescriptor;
 
 

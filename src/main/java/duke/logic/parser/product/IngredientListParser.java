@@ -1,6 +1,5 @@
 package duke.logic.parser.product;
 
-import duke.model.ingredient.Ingredient;
 import duke.model.ingredient.IngredientList;
 
 public class IngredientListParser {

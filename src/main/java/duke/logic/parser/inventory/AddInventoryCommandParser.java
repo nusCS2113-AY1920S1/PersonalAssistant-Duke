@@ -7,7 +7,10 @@ import duke.logic.parser.commons.Parser;
 import duke.logic.parser.exceptions.ParseException;
 import duke.model.commons.Ingredient;
 
-import static duke.logic.parser.commons.CliSyntax.*;
+import static duke.logic.parser.commons.CliSyntax.PREFIX_INVENTORY_INDEX;
+import static duke.logic.parser.commons.CliSyntax.PREFIX_INVENTORY_NAME;
+import static duke.logic.parser.commons.CliSyntax.PREFIX_INVENTORY_QUANTITY;
+import static duke.logic.parser.commons.CliSyntax.PREFIX_INVENTORY_UNIT;
 
 public class AddInventoryCommandParser implements Parser<AddInventoryCommand> {
 

@@ -6,7 +6,13 @@ import duke.logic.parser.commons.ArgumentTokenizer;
 import duke.logic.parser.commons.Parser;
 import duke.logic.parser.exceptions.ParseException;
 
-import static duke.logic.parser.commons.CliSyntax.*;
+import static duke.logic.parser.commons.CliSyntax.PREFIX_CUSTOMER_CONTACT;
+import static duke.logic.parser.commons.CliSyntax.PREFIX_CUSTOMER_NAME;
+import static duke.logic.parser.commons.CliSyntax.PREFIX_ORDER_DEADLINE;
+import static duke.logic.parser.commons.CliSyntax.PREFIX_ORDER_ITEM;
+import static duke.logic.parser.commons.CliSyntax.PREFIX_ORDER_REMARKS;
+import static duke.logic.parser.commons.CliSyntax.PREFIX_ORDER_STATUS;
+import static duke.logic.parser.commons.CliSyntax.PREFIX_ORDER_TOTAL;
 import static duke.logic.parser.order.OrderParserUtil.createDescriptor;
 
 public class AddOrderCommandParser implements Parser<AddOrderCommand> {

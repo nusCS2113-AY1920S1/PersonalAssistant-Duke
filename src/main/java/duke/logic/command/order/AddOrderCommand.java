@@ -9,7 +9,11 @@ import duke.model.order.Customer;
 import duke.model.order.Order;
 import duke.model.product.Product;
 
-import java.util.*;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 import static java.util.Objects.requireNonNull;
 
@@ -85,13 +89,6 @@ public class AddOrderCommand extends OrderCommand implements Undoable {
 
         /**
          * Creates an {@code AddOrderDescriptor}.
-         *
-         * @param customerName
-         * @param customerContact
-         * @param deliveryDate
-         * @param items
-         * @param remarks
-         * @param status
          */
         public AddOrderDescriptor(String customerName, String customerContact, Date deliveryDate,
                                   Set<Item<String>> items, String remarks, Order.Status status) {

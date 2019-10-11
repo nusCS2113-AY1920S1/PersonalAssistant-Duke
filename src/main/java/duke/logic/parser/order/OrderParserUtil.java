@@ -13,7 +13,12 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import static duke.logic.parser.commons.CliSyntax.*;
+import static duke.logic.parser.commons.CliSyntax.PREFIX_CUSTOMER_CONTACT;
+import static duke.logic.parser.commons.CliSyntax.PREFIX_CUSTOMER_NAME;
+import static duke.logic.parser.commons.CliSyntax.PREFIX_ORDER_DEADLINE;
+import static duke.logic.parser.commons.CliSyntax.PREFIX_ORDER_ITEM;
+import static duke.logic.parser.commons.CliSyntax.PREFIX_ORDER_REMARKS;
+import static duke.logic.parser.commons.CliSyntax.PREFIX_ORDER_STATUS;
 
 class OrderParserUtil {
 
