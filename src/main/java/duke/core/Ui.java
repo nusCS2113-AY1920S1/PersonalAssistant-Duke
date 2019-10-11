@@ -138,7 +138,7 @@ public class Ui {
     }
 
     public void listAllTasks(ArrayList<Task> taskList) {
-        int index = 0;
+        int index = 1;
         System.out.println("Here's a list of your tasks: \n");
         for (Task task : taskList) {
             System.out.println(index
