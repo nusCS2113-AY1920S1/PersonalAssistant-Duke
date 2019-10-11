@@ -54,29 +54,29 @@ class GsonStorageTest {
      * false.
      * TODO: compare impressions as well
      */
-    boolean identical(Patient pat1, Patient pat2) {
-        if (pat1.getBedNo() != pat2.getBedNo()) {
+    boolean identical(Patient patient1, Patient patient2) {
+        if (patient1.getBedNo() != patient2.getBedNo()) {
             return false;
         }
-        if (!(pat1.getAllergies().equals(pat2.getAllergies()))) {
+        if (!(java.util.Objects.equals(patient1.getAllergies(), patient2.getAllergies()))){
             return false;
         }
-        if (pat1.getHeight() != pat2.getHeight()) {
+        if (patient1.getHeight() != patient2.getHeight()) {
             return false;
         }
-        if (pat1.getWeight() != pat2.getWeight()) {
+        if (patient1.getWeight() != patient2.getWeight()) {
             return false;
         }
-        if (pat1.getAge() != pat2.getAge()) {
+        if (patient1.getAge() != patient2.getAge()) {
             return false;
         }
-        if (pat1.getNumber() != pat2.getNumber()) {
+        if (patient1.getNumber() != patient2.getNumber()) {
             return false;
         }
-        if (!(pat1.getAddress() == null ? pat2.getAddress() == null : pat1.getAddress().equals(pat2.getAddress()))) {
+        if (!(java.util.Objects.equals(patient1.getAddress(), patient2.getAddress()))) {
             return false;
         }
-        if (!(pat1.getHistory() == null ? pat2.getHistory() == null : pat1.getHistory().equals(pat2.getHistory()))) {
+        if (!(java.util.Objects.equals(patient1.getHistory(), patient2.getHistory()))) {
             return false;
         }
         return true;
