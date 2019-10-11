@@ -4,6 +4,7 @@ import duke.commons.core.index.Index;
 import duke.model.commons.Ingredient;
 import duke.model.order.Order;
 import duke.model.product.Product;
+import duke.model.sale.Sale;
 import duke.model.shortcut.Shortcut;
 import javafx.collections.ObservableList;
 
@@ -15,6 +16,7 @@ import java.util.function.Predicate;
  */
 public interface Model {
     Predicate<Order> PREDICATE_SHOW_ALL_ORDERS = unused -> true;
+    Predicate<Sale> PREDICATE_SHOW_ALL_SALES = unused -> true;
 
     Predicate<Product> PREDICATE_SHOW_ALL_PRODUCTS = unused -> true;
     Predicate<Product> PREDICATE_SHOW_ACTIVE_PRODUCTS = product -> {

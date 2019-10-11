@@ -4,15 +4,10 @@ import duke.commons.core.Message;
 import duke.commons.core.index.Index;
 import duke.commons.util.StringUtil;
 import duke.logic.parser.exceptions.ParseException;
-import duke.model.commons.Item;
-import duke.model.order.Quantity;
 import duke.model.product.Product;
-import duke.model.order.Order;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 /**
  * Contains utility methods used for parsing strings in the various *Parser classes.
@@ -35,38 +30,6 @@ public class ParserUtil {
             throw new ParseException(MESSAGE_INVALID_INDEX);
         }
         return Index.fromOneBased(Integer.parseInt(trimmedIndex));
-    }
-
-    //=======Order utilities========
-
-    public static Set<Item<Product>> parseItems(List<String> itemArg) throws ParseException {
-        Set<Item<Product>> items = new HashSet<>();
-        for (String itemString : itemArg) {
-            String[] itemAndQty = itemString.split(",");
-            if (itemAndQty.length < 2) {
-                throw new ParseException(Message.MESSAGE_ITEM_MISSING_NAME_OR_QUANTITY);
-            }
-            if (itemAndQty[0].strip().equals("") || itemAndQty[1].strip().equals("")) {
-                throw new ParseException(Message.MESSAGE_ITEM_MISSING_NAME_OR_QUANTITY);
-            }
-
-            try {
-                Item<Product> item = new Item<>(new Product(itemAndQty[0].strip()),
-                        new Quantity(Integer.parseInt(itemAndQty[1].strip())));
-                items.add(item);
-            } catch (NumberFormatException e) {
-                throw new ParseException(Message.MESSAGE_INVALID_NUMBER_FORMAT);
-            }
-        }
-        return items;
-    }
-
-    public static Order.Status parseStatus(String statusString) throws ParseException {
-        try {
-            return Order.Status.valueOf(statusString.trim().toUpperCase());
-        } catch (IllegalArgumentException e) {
-            throw new ParseException(Message.MESSAGE_INVALID_STATUS);
-        }
     }
 
     public static Product.Status parseProductStatus(String statusString) throws ParseException {

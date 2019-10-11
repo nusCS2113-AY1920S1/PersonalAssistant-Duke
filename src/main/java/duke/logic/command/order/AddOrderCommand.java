@@ -4,7 +4,12 @@ import duke.logic.command.CommandResult;
 import duke.logic.command.Undoable;
 import duke.logic.command.exceptions.CommandException;
 import duke.model.Model;
+import duke.model.commons.Item;
+import duke.model.order.Customer;
 import duke.model.order.Order;
+import duke.model.product.Product;
+
+import java.util.*;
 
 import static java.util.Objects.requireNonNull;
 
@@ -14,22 +19,33 @@ import static java.util.Objects.requireNonNull;
 public class AddOrderCommand extends OrderCommand implements Undoable {
 
     public static final String COMMAND_WORD = "add";
+
     public static final String MESSAGE_SUCCESS = "New order added [Order ID: %s]";
-    private final Order toAdd;
+
+    private static final String DEFAULT_CUSTOMER_NAME = "customer";
+    private static final String DEFAULT_CUSTOMER_CONTACT = "N/A";
+    private static final String DEFAULT_DELIVERY_DATE = "now";
+    private static final String DEFAULT_REMARKS = "N/A";
+    private static final String DEFAULT_STATUS = "ACTIVE";
+    private final OrderDescriptor addOrderDescriptor;
+    private Order toAdd;
 
     /**
      * Creates an AddOrderCommand to add the specified {@code Order}.
      *
-     * @param toAdd the {@code Order} to be added
+     * @param addOrderDescriptor details of the order to add
      */
-    public AddOrderCommand(Order toAdd) {
-        requireNonNull(toAdd);
-        this.toAdd = toAdd;
+    public AddOrderCommand(OrderDescriptor addOrderDescriptor) {
+        requireNonNull(addOrderDescriptor);
+        this.addOrderDescriptor = addOrderDescriptor;
     }
 
+
     public CommandResult execute(Model model) throws CommandException {
-        //TODO: Check if product is in product list.
+
+        Order toAdd = createOrder(addOrderDescriptor, model.getFilteredProductList());
         model.addOrder(toAdd);
+
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd.getId()), CommandResult.DisplayedPage.ORDER);
     }
 
@@ -43,4 +59,48 @@ public class AddOrderCommand extends OrderCommand implements Undoable {
         model.addOrder(toAdd);
     }
 
+    private Order createOrder(OrderDescriptor descriptor, List<Product> allProducts) throws CommandException {
+        Order order = new Order(new Customer(descriptor.getCustomerName().orElse(DEFAULT_CUSTOMER_NAME),
+                descriptor.getCustomerContact().orElse(DEFAULT_CUSTOMER_CONTACT)),
+                descriptor.getDeliveryDate().orElse(Calendar.getInstance().getTime()),
+                descriptor.getStatus().orElse(Order.Status.ACTIVE),
+                descriptor.getRemarks().orElse(DEFAULT_REMARKS),
+                OrderCommandUtil.getProducts(
+                        allProducts, descriptor.getItems()
+                                .orElse(new HashSet<Item<String>>()))
+        );
+        return order;
+    }
+
+    /**
+     * Stores the details of the order to add.
+     */
+    public static class AddOrderDescriptor {
+        public final String customerName;
+        public final String customerContact;
+        public final Date deliveryDate;
+        public final Set<Item<String>> items;
+        public final String remarks;
+        public final Order.Status status;
+
+        /**
+         * Creates an {@code AddOrderDescriptor}.
+         *
+         * @param customerName
+         * @param customerContact
+         * @param deliveryDate
+         * @param items
+         * @param remarks
+         * @param status
+         */
+        public AddOrderDescriptor(String customerName, String customerContact, Date deliveryDate,
+                                  Set<Item<String>> items, String remarks, Order.Status status) {
+            this.customerName = customerName;
+            this.customerContact = customerContact;
+            this.deliveryDate = deliveryDate;
+            this.items = items;
+            this.remarks = remarks;
+            this.status = status;
+        }
+    }
 }

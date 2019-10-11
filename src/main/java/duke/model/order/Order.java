@@ -24,6 +24,7 @@ public class Order {
     private final Set<Item<Product>> items;
     private final String remarks;
     private final Status status;
+    private final double total;
 
     /**
      * Creates an order.
@@ -38,6 +39,7 @@ public class Order {
         this.remarks = remarks;
         this.id = System.currentTimeMillis();
         this.items = items;
+        this.total = 1.0;
     }
 
     public enum Status {
