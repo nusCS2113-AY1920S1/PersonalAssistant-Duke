@@ -2,6 +2,10 @@ package javacake.quiz;
 
 import javacake.DukeException;
 
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -9,64 +13,80 @@ public class QuestionList {
     private ArrayList<Question> chosenQuestions;
     /** The maximum number of questions in one session of a quiz. */
     public static final int MAX_QUESTIONS = 3;
+    private static final int TOTALNUMOFBASICQNS = 15;
+    private static final int TOTALNUMOFOOPQNS = 3;
+    private static final int TOTALNUMOFUSEFULEXTENSIONQNS = 3;
 
     public QuestionList() {
         chosenQuestions = new ArrayList<>(MAX_QUESTIONS);
     }
 
-    private ArrayList<BasicQuestion> initBasicList() {
+    private ArrayList<BasicQuestion> initBasicList() throws DukeException {
         ArrayList<BasicQuestion> basicQuestionList = new ArrayList<>();
-
-        String q1 = "How many members are in this team? Answer in int.";
-        String a1 = "4";
-        String q2 = "wake me up\n a. before you go go\n b. when september ends\n c. WAKE ME UP INSIDE";
-        String a2 = "c";
-        String q3 = "The Scanner class allows a program to read from file. T/F?";
-        String a3 = "t"; // Scanner s = new Scanner(file);
-
-        basicQuestionList.add(new BasicQuestion(q1, a1));
-        basicQuestionList.add(new BasicQuestion(q2, a2));
-        basicQuestionList.add(new BasicQuestion(q3, a3));
-
+        for (int i = 1; i <= TOTALNUMOFBASICQNS; i++) {
+            try {
+                String filePath = "content/MainList/ListIndex1/javabasics/Quiz/Qn" + i + ".txt";
+                BufferedReader bufferedReader = new BufferedReader(new FileReader(filePath));
+                String currentLine;
+                String qns = new String();
+                while ((currentLine = bufferedReader.readLine()) != null) {
+                    qns = qns + currentLine + "\n";
+                }
+                qns = qns.substring(0,qns.length() - 1); // to remove the last appended new line character
+                String[] questions = qns.split("\\|\\s*");
+                basicQuestionList.add(new BasicQuestion(questions[0], questions[1]));
+            } catch (IOException e) {
+                throw new DukeException("File not found!");
+            }
+        }
         return basicQuestionList;
     }
 
-    private ArrayList<OopQuestion> initOopList() {
+    private ArrayList<OopQuestion> initOopList() throws DukeException {
         ArrayList<OopQuestion> oopQuestionList = new ArrayList<>();
+        for (int i = 1; i <= TOTALNUMOFOOPQNS; i++) {
 
-        String q1 = "What does OOP stand for in software engineering context?\n"
-                + " a. Out Of Print\n b. Object-Oriented Programming\n c. Ogre Onion Paradigm";
-        String a1 = "b";
-        String q2 = "Name a class that does not inherit from any other class.";
-        String a2 = "object";
-        String q3 = "An interface implements methods that can be inherited by its subclasses. T/F?";
-        String a3 = "f";
+            try {
+                String filePath = "content/MainList/ListIndex2/oop/Quiz/Qn" + i + ".txt";
+                BufferedReader bufferedReader = new BufferedReader(new FileReader(filePath));
+                String currentline;
+                String qns = new String();
 
-        oopQuestionList.add(new OopQuestion(q1, a1));
-        oopQuestionList.add(new OopQuestion(q2, a2));
-        oopQuestionList.add(new OopQuestion(q3, a3));
+                while ((currentline = bufferedReader.readLine()) != null) {
+                    qns = qns + currentline + "\n";
+                }
+                qns = qns.substring(0,qns.length() - 1); // to remove the last appended new line character
+                String[] questions = qns.split("\\|\\s*");
+                oopQuestionList.add(new OopQuestion(questions[0], questions[1]));
 
+            } catch (IOException e) {
+                throw new DukeException("File not found!");
+            }
+        }
         return oopQuestionList;
     }
 
-    private ArrayList<ExtensionQuestion> initExtensionList() {
+    private ArrayList<ExtensionQuestion> initExtensionList() throws DukeException {
         ArrayList<ExtensionQuestion> extensionQuestionList = new ArrayList<>();
+        for (int i = 1; i <= TOTALNUMOFUSEFULEXTENSIONQNS; i++) {
 
-        String q1 = "What should you NOT do to handle an exception in main?\n"
-                + " a. Rethrow the exception\n b. Print error message \n c. Call backup method";
-        String a1 = "a";
-        String q2 = "What does the [finally] block do? Choose the best answer.\n"
-                + " a. specify code that is guaranteed to execute with or without exception.\n"
-                + " b. specify code that is guaranteed to execute at the end of a program.\n"
-                + " c. specify code that is guaranteed to execute after an assertion returns false.";
-        String a2 = "a";
-        String q3 = "What's the actual best programming language?";
-        String a3 = "assembly";
+            try {
+                String filePath = "content/MainList/ListIndex2/oop/Quiz/Qn" + i + ".txt";
+                BufferedReader bufferedReader = new BufferedReader(new FileReader(filePath));
+                String currentLine; 
+                String qns = new String();
 
-        extensionQuestionList.add(new ExtensionQuestion(q1, a1));
-        extensionQuestionList.add(new ExtensionQuestion(q2, a2));
-        extensionQuestionList.add(new ExtensionQuestion(q3, a3));
+                while ((currentLine = bufferedReader.readLine()) != null) {
+                    qns = qns + currentLine + "\n";
+                }
+                qns = qns.substring(0,qns.length() - 1); // to remove the last appended new line character
+                String[] questions = qns.split("\\|\\s*");
+                extensionQuestionList.add(new ExtensionQuestion(questions[0], questions[1]));
 
+            } catch (IOException e) {
+                throw new DukeException("File not found!");
+            }
+        }
         return extensionQuestionList;
     }
 

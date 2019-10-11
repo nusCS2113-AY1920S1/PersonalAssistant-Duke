@@ -1,0 +1,5 @@
+Which one of the following statements are false?
+
+(1)  Java and C++ are OO languages
+(2) Java language follows the Logic  Programming paradigm
+(3)  Java can be used to write procedural code | 2
