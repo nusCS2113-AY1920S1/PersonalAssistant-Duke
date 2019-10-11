@@ -18,6 +18,8 @@ public class Messages {
             + "a valid task number!";
     public static final String MESSAGE_INVALID_TASK = "TaskError: You can only input a task with a future due date!";
     public static final String MESSAGE_INVALID_TIME_RANGE = "TimeRangeError: End time is before start time!";
+    public static final String MESSAGE_INVALID_REP_RANGE = "RepRangeError: The number of repetitions of a Recurring Task "
+            + "has to be greater than 1. Please use event command if your Task does not recur more than once.";
 
     public static final String MESSAGE_MISSING_DESC = "DescError: Description field cannot be empty."
             + " Please enter a description";
@@ -30,7 +32,7 @@ public class Messages {
     public static final String MESSAGE_MISSING_PRIORITY = "MissingPriorityError: Priority "
             + "field cannot be empty.";
     public static final String MESSAGE_MISSING_REP = "MissingRepError: Rep field cannot be empty."
-            + "Please enter a valid number of repetitions.";
+            + "Please enter a valid number of repetitions greater than 1.";
 
     public static final String MESSAGE_MISSING_REP_ARG = "ArgumentError: Missing /rep";
     public static final String MESSAGE_MISSING_DATE_ARG = "ArgumentError: Missing /date";

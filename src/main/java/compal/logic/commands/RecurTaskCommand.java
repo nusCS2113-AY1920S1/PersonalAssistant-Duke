@@ -12,10 +12,11 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Scanner;
 
+import static compal.commons.Messages.MESSAGE_MISSING_REP;
+import static compal.commons.Messages.MESSAGE_INVALID_REP_RANGE;
+import static compal.commons.Messages.MESSAGE_MISSING_REP_ARG;
 import static compal.commons.Messages.MESSAGE_INVALID_TIME_RANGE;
 import static compal.commons.Messages.MESSAGE_MISSING_COMMAND_ARG;
-import static compal.commons.Messages.MESSAGE_MISSING_REP;
-import static compal.commons.Messages.MESSAGE_MISSING_REP_ARG;
 
 /**
  * Executes user command for recurring tasks, lectures, tutorials,
@@ -25,6 +26,7 @@ public class RecurTaskCommand extends Command implements CommandParser {
     private static final String TOKEN_REP = "/rep";
     private static final String TOKEN_FREQ = "/freq";
     private static final int DEFAULT_FREQ_NUM = 7;
+    private static final int MIN_REP_NUM = 2;
     private static final String CMD_LECT = "lect";
     private static final String CMD_TUT = "tut";
     private static final String CMD_SECT = "sect";
@@ -65,6 +67,10 @@ public class RecurTaskCommand extends Command implements CommandParser {
                 throw new Compal.DukeException(MESSAGE_MISSING_REP);
             }
             int repNum = scanner.nextInt();
+            if (repNum < MIN_REP_NUM) {
+                compal.ui.printg(MESSAGE_INVALID_REP_RANGE);
+                throw new Compal.DukeException(MESSAGE_INVALID_REP_RANGE);
+            }
             return repNum;
         } else {
             compal.ui.printg(MESSAGE_MISSING_REP_ARG);
