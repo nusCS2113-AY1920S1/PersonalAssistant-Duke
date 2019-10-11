@@ -17,7 +17,7 @@ public class GsonStorage {
 
     private final File jsonFile;
     private final String filePath;
-    private static HashMap<String, Patient> patientMap = new HashMap<String, Patient>();
+    private HashMap<String, Patient> patientMap = new HashMap<String, Patient>();
 
     /**
      * Looks if a Json file exists at the specified filepath and creates one if it does not exist.
@@ -48,8 +48,7 @@ public class GsonStorage {
             String json = Files.readString(Paths.get(filePath), StandardCharsets.US_ASCII);
             Patient[] patientList = new Gson().fromJson(json, Patient[].class);
             for (Patient patient : patientList) {
-                patientMap.put(patient.getName(), patient);
-                System.out.println(patient);
+                addPatientToMap(patient);
             }
         } catch (IOException excp) {
             throw new DukeFatalException("Unable to load data file, try checking your permissions?");
@@ -68,7 +67,7 @@ public class GsonStorage {
             FileWriter fileWriter = new FileWriter(jsonFile);
             fileWriter.write(new Gson().toJson(patientArrList));
             fileWriter.close();
-        } catch (IOException excp) {
+        } catch (IOException e) {
             throw new DukeFatalException("Unable to write data! Some data may have been lost,");
         }
     }
@@ -76,9 +75,15 @@ public class GsonStorage {
     /**
      * Adds a patient object to the hash map with all the patients - used when testing
      */
-    public static void addPatientToMap(Patient patient) {
+    public void addPatientToMap(Patient patient) {
         patientMap.put(patient.getName(), patient);
     }
+
+    public Patient getPatient(String name) {
+        return patientMap.get(name);
+    }
+
+    public String getFilePath(){ return filePath;}
 
     /**
      * Clears the json file and the paitent hash map - used when testing
@@ -86,6 +91,6 @@ public class GsonStorage {
     public void resetAllData() throws IOException {
         FileWriter fileWriter = new FileWriter(jsonFile);
         fileWriter.close();
-        patientMap = new HashMap<String, Patient>();
+        patientMap.clear();
     }
 }
