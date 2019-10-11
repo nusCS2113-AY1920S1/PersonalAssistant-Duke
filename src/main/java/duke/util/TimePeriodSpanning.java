@@ -232,6 +232,7 @@ public class TimePeriodSpanning implements TimePeriod {
         for (; begin != end; begin = begin.plusDays(1)) {
             ret.add(begin.getDayOfWeek());
         }
+        ret.add(end.getDayOfWeek());
         return ret;
     }
 
