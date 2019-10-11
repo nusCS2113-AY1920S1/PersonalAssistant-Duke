@@ -14,6 +14,6 @@ src/main/resources/docs/
 bin/
 
 # ignore save file
-/src/main/data/duke.txt
+/src/main/data/archive.txt
 /src/main/data/optix.txt
 

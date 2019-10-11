@@ -194,7 +194,7 @@ public class Storage {
                 Show show = entry.getValue();
                 LocalDate date = entry.getKey();
 
-                wr.write(String.format("%s | %s | %s", date, show.getShowName(), show.getProfit()));
+                wr.write(String.format("%s | %s | %s\n", date, show.getShowName(), show.getProfit()));
             }
             wr.close();
         } catch (IOException e) {
