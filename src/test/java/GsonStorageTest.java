@@ -58,7 +58,7 @@ class GsonStorageTest {
         if (patient1.getBedNo() != patient2.getBedNo()) {
             return false;
         }
-        if (!(java.util.Objects.equals(patient1.getAllergies(), patient2.getAllergies()))){
+        if (!(java.util.Objects.equals(patient1.getAllergies(), patient2.getAllergies()))) {
             return false;
         }
         if (patient1.getHeight() != patient2.getHeight()) {
