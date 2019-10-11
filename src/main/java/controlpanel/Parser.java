@@ -99,6 +99,10 @@ public class Parser {
             moneyCommand = new ViewPastMonthIncome(cmd);
         } else if (cmd.startsWith("check expenditure")) {
             moneyCommand = new ViewPastMonthExpenditure(cmd);
+        } else if (cmd.startsWith("split")) {
+            moneyCommand = new AddSplitCommand(cmd);
+        } else if (cmd.startsWith("settle")) {
+            moneyCommand = new SettleSplitCommand(cmd);
         } else {
             throw new DukeException("OOPS!!! I'm sorry, but I don't know what that means");
         }

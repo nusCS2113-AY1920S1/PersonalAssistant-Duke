@@ -165,6 +165,8 @@ public class Account {
      * Month Expenditure List.
      */
     public void populateCurrentMonthLists() {
+        getIncomeListCurrMonth().clear();
+        getExpListCurrMonth().clear();
         Calendar dateNow = Calendar.getInstance();
         int currMonth = dateNow.get(Calendar.MONTH) + 1;
         int currYear  = dateNow.get(Calendar.YEAR);
