@@ -1,6 +1,5 @@
 package duke.modules;
 
-import duke.exceptions.ModInvalidTimePeriodException;
 import duke.util.TimeInterval;
 import java.time.Duration;
 import java.time.LocalDateTime;
@@ -40,11 +39,6 @@ public class TaskWithInterval extends Task {
         this.interval = new TimeInterval();
     }
 
-    @Override
-    public LocalDateTime getTime() {
-        return null;
-    }
-
     public TimeInterval getInterval() {
         return this.interval;
     }
@@ -57,7 +51,7 @@ public class TaskWithInterval extends Task {
         this.interval.setInterval(period, duration);
     }
 
-    public void setInterval(TimeInterval interval) throws ModInvalidTimePeriodException {
+    public void setInterval(TimeInterval interval) {
         this.interval.setInterval(interval);
     }
 }
