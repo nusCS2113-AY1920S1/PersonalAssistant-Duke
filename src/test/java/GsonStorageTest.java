@@ -18,7 +18,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 /**
  * JUnit class testing the class GsonStorage.
  */
-class GsonStorageTest {
+public class GsonStorageTest {
 
     private String filePath = "data/patients.json";
     private GsonStorage gsonStorage = new GsonStorage(filePath);
@@ -56,7 +56,7 @@ class GsonStorageTest {
      * false.
      * TODO: compare impressions as well
      */
-    boolean identical(Patient patient1, Patient patient2) {
+    Boolean identical(Patient patient1, Patient patient2) {
         if (patient1.getBedNo() != patient2.getBedNo()) {
             return false;
         } else if (!(java.util.Objects.equals(patient1.getAllergies(), patient2.getAllergies()))) {
