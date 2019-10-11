@@ -15,7 +15,6 @@ EXP @ 3.0 @ pencil  @ stationary  @ 6/10/2019
 EXP @ 20.0 @ godzilla  @ animal  @ 7/10/2020
 EXP @ 20.0 @ hookers  @ hookers  @ 10/10/2020
 EXP @ 10000.0 @ buy Motorbike  @ GS @ 11/10/2019
-G @ 100000.0 @ buy Ferrari  @ GS @ 10/12/2040 @ HIGH
 G @ 100000.0 @ buy HDB  @ GS @ 15/1/2050 @ HIGH
 G @ 100.0 @ buy ultraboost  @ GS @ 15/1/2050 @ HIGH
 G @ 100.0 @ buy watch @ GS @ 15/1/2050 @ HIGH

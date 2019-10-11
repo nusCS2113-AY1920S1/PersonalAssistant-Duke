@@ -53,6 +53,7 @@ public class Duke {
             MoneyCommand c = Parser.moneyParse(input, isNewUser);
 
             if (c.isExit()) {
+                c.execute(account, ui, moneyStorage);
                 System.exit(0);
             } else if (!c.getClass().equals(UndoCommand.class)) {
                 c.execute(account, ui, moneyStorage);
