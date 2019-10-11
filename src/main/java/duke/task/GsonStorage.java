@@ -25,6 +25,10 @@ public class GsonStorage {
      * @throws DukeFatalException If data file cannot be setup.
      */
     public GsonStorage(String path) throws DukeFatalException {
+        File dataDir = new File("data");
+        if (!dataDir.exists()) {
+            dataDir.mkdir();
+        }
         filePath = path;
         jsonFile = new File(filePath);
         if (!jsonFile.exists()) {
