@@ -98,13 +98,13 @@ class GsonStorageTest {
      * When the recreation is done it checks if the first patients are identical to the new ones.
      */
     @Test
-    void identicalDummyPatient() throws IOException, DukeException {
+    void identicalDummyPatient() throws IOException, DukeException, DukeFatalException {
         gsonStorage.resetAllData();
         gsonStorage.addPatientToMap(dummy1);
         gsonStorage.writeJsonFile();
         gsonStorage.loadPatientHashMap();
         Patient dummyPatientRecreated = gsonStorage.getPatient(dummy1.getName());
-        Boolean equals = identical(dummy1, dummyPatientRecreated);
+        boolean equals = identical(dummy1, dummyPatientRecreated);
         assertTrue(equals);
     }
 
@@ -114,7 +114,7 @@ class GsonStorageTest {
      * When the recreation is done it checks if the first patients are identical to the new ones.
      */
     @Test
-    void identicalComplexPatient() throws IOException, DukeException {
+    void identicalComplexPatient() throws IOException, DukeException, DukeFatalException {
         gsonStorage.resetAllData();
         Patient complexPatient = createComplexPatient();
         gsonStorage.addPatientToMap(complexPatient);
@@ -129,7 +129,7 @@ class GsonStorageTest {
      * Tests if patients are transformed from the hashmap to the json file properly.
      */
     @Test
-    void writeJsonFileTest() throws DukeFatalException, IOException {
+    void writeJsonFileTest() throws DukeFatalException, IOException, DukeFatalException {
         gsonStorage.resetAllData();
         gsonStorage.addPatientToMap(dummy1);
         gsonStorage.addPatientToMap(dummy2);
