@@ -1,5 +1,4 @@
 
-
 # COMPal - Developer Guide
 
 Welcome to the **COMPal** Developer Guide! This Developer Guide is still being worked on for now!
@@ -16,6 +15,7 @@ Welcome to the **COMPal** Developer Guide! This Developer Guide is still being w
 + [3.4 Configurations to do before Writing Code](/docs/DeveloperGuide.md#34-configurations-to-do-before-writing-code)
 
 [**4. Design**](/docs/DeveloperGuide.md#4-design)
+
 
 [**5. Implementation**](/docs/DeveloperGuide.md#5-implementation)
 
@@ -109,44 +109,13 @@ Icon                 | Description
 ### 3.4. Configurations to do before Writing Code
 
 ## 4. Design
-**4.1. Architecture**
+### 4.5 Storage Component
+API: StorageManager.java
 
-<img src="https://github.com/AY1920S1-CS2113T-W17-1/main/blob/master/docs/diagrams/ArchitectureDiagram.png" alt="Overview of architecture" width="800"/>
-Figure 1. Architecture Diagram
+We use very simple and user-editable text files to store user data. Data is stored separated by underscores. Data is parsed as a string and then processed by our storage API into application-useful datatypes such as Task Objects. 
 
-   
-| :bulb: | *The `.pptx` files used to create diagrams in this document can be found in the [diagrams](https://github.com/AY1920S1-CS2113T-W17-1/main/docs/diagrams/) folder. To update a diagram, modify the diagram in the pptx file, select the objects of the diagram, and choose `Save as picture`.* |
-|--|--|       
+The advantage of this approach is that it is a no-frills implementation and comprehensible by the average developer. 
 
-The  **_Architecture Diagram_**  given above explains the high-level design of the App. Given below is a quick overview of each component.
-
-`Main`  has only one class called  [`Main`](https://github.com/AY1920S1-CS2113T-W17-1/main/blob/master/src/main/java/compal/Main.java). It is responsible for,
-
--   At app launch: Initializes the components in the correct sequence, and connects them up with each other.
-    
-    
-
-[**`Commons`**](https://github.com/AY1920S1-CS2113T-W17-1/main/tree/master/src/main/java/compal/commons)  represents a collection of classes used by multiple other components. Two of those classes play important roles at the architecture level.
-
--   `Messages`  : This class contain all types of messages that are to be called from depending  on the type of execution. E.g. Invalid syntax commands messages
-
--   `COMPal`  : Used by many classes to call the needed functionality such as user interface, storage or parser.
-    
-The rest of the App consists of four components.
-
--   [**`UI`**](https://github.com/AY1920S1-CS2113T-W17-1/main/tree/master/src/main/java/compal/ui): The UI of the App.
-    
--   [**`Logic`**](https://github.com/AY1920S1-CS2113T-W17-1/main/tree/master/src/main/java/compal/logic): The command executor.
-    
--   [**`Model`**](https://github.com/AY1920S1-CS2113T-W17-1/main/tree/master/src/main/java/compal/model): Holds the data of the App in-memory.
-    
--   [**`Storage`**](https://github.com/AY1920S1-CS2113T-W17-1/main/tree/master/src/main/java/compal/storage): Reads data from, and writes data to, the hard disk.
-    
-Each of the four components
-
--   Defines its  _API_  in an  `interface`  with the same name as the Component.
-    
--   Exposes its functionality using a  `{Component Name}Manager`  class.
 
 
 ## 5. Implementation
@@ -242,7 +211,6 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
     
 2.  COMPal prompts for the task type.
     
-
 1.  Assignment(DEADLINE)
     
 2.  Meeting (Event)
@@ -259,7 +227,6 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
     
 9.  If the task is of low priority, COMPal prompts user whether to allow task to increase in priority.
     
-
   
 
 **Use Case 3: Edit Task**
