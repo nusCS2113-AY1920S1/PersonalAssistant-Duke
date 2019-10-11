@@ -12,7 +12,7 @@ public class Instalment extends Expenditure {
     private DateTimeFormatter dateTimeFormatter;
     private int  paymentsMade;
     private float percentage;
-
+    private boolean payForTheMonth;
 
     public Instalment(float price, String description, String category, LocalDate boughtDate, int numOfPayments, float AnnualIR) {
         super(price, description, category, boughtDate);
@@ -21,6 +21,19 @@ public class Instalment extends Expenditure {
         this.MIR = AIR / 12;
         this.endDate = setEndTime();
         dateTimeFormatter = DateTimeFormatter.ofPattern("d/M/yyyy");
+        this.payForTheMonth = false;
+    }
+
+    public void isPayTheMonth() {
+        payForTheMonth = true;
+    }
+
+    public void isNotPayTheMonth() {
+        payForTheMonth = false;
+    }
+
+    public boolean getPayForTheMonth() {
+        return payForTheMonth;
     }
 
     public float EqualMonthlyInstalment() {

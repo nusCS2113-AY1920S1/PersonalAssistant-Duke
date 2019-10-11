@@ -12,11 +12,8 @@ import java.time.Period;
 
 public class AutoUpdateInstalmentCommand extends MoneyCommand{
     private LocalDate currDate = LocalDate.now();
-    private boolean payForTheMonth;
 
-    public AutoUpdateInstalmentCommand() {
-        this.payForTheMonth = false;
-    }
+    public AutoUpdateInstalmentCommand() {}
 
     @Override
     public boolean isExit() { return false; }
@@ -28,12 +25,12 @@ public class AutoUpdateInstalmentCommand extends MoneyCommand{
             int paymentsMade = diff.getMonths() + diff.getYears() * 12; //rough algorithm
             ins.percentPay(paymentsMade);
             if(diff.getDays() != 0) {
-                payForTheMonth = false;
+                ins.isNotPayTheMonth();;
             }
-            if(diff.getDays() == 0 &&  !payForTheMonth) {
-                //account.getExpListCurrMonth().add(ins);
-                //account.getExpListTotal().add(ins);
-                payForTheMonth = true;
+            if(diff.getDays() == 0 && !ins.getPayForTheMonth()) {
+                account.getExpListCurrMonth().add(ins);
+                account.getExpListTotal().add(ins);
+                ins.isPayTheMonth();
             }
         }
     }
