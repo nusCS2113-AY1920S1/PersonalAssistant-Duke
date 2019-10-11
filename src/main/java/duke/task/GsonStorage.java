@@ -12,8 +12,7 @@ import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.Map;
 
-// change name of this class to just Storage later when the Storage
-// class have been removed
+// change name of this class to just Storage later when the Storage class have been removed
 
 public class GsonStorage {
 
@@ -22,13 +21,13 @@ public class GsonStorage {
     private HashMap<String, Patient> patientMap = new HashMap<String, Patient>();
 
     /**
-     * Constructs a new GsonStorage object, with the json file at the specified
-     * path, and create HashMap for quick patient lookup.
+     * Looks if a Json file exists at the specified filepath and creates one if it does not exist.
      *
      * @throws DukeFatalException If data file cannot be setup.
      */
 
     public GsonStorage(String path) throws DukeFatalException {
+
         filePath = path;
         jsonFile = new File(filePath);
         if (!jsonFile.exists()) {
@@ -40,39 +39,34 @@ public class GsonStorage {
                 throw new DukeFatalException("Unable to setup data file, try checking your permissions?");
             }
         }
-        if(jsonFile.length()!=0){
-            loadJsonFile();
-        }
+        // remove these later
+        //loadPatientHashMap();
+        loadHashMapWithDummyPatients();
+        writeJsonFile();
     }
 
-    private void loadJsonFile() throws DukeFatalException {
+    /**
+     * Loads all the patients in the Jsonfilen to the patient hashmap for quick patient lookup (Deserialization)
+     *
+     * @throws DukeFatalException If data file cannot be setup.
+     */
+    private void loadPatientHashMap() throws DukeFatalException {
         try {
+            System.out.println("HALLÅ");
             String content = Files.readString(Paths.get(filePath), StandardCharsets.US_ASCII);
-            System.out.println(content);
-            Patient[] patientList = new Gson().fromJson(content, Patient[].class);                  //this line causes error - null pointer
-////          first parameter is the Json representations of the patients and the second states that the object we want to create has the class patient
-  //           System.out.println(patientList);
-//            //for (Patient thePatient : patientList) {
-//              //  patientMap.put(thePatient.getName(), thePatient);
-//                //System.out.println("test");
+            Patient patient = new Gson().fromJson(content, Patient.class);                            // this can only handle one patient - need to fix so it can handle many
+            //Patient[] patientList = new Gson().fromJson(content, Patient[].class);                  //this line causes error - null pointer
         } catch (IOException excp) {
             throw new DukeFatalException("Unable to load data file, try checking your permissions?");
         } catch (com.google.gson.JsonSyntaxException e) {
             throw new DukeFatalException("Data file has been corrupted!");
-        }
+        } catch (Exception e) {
+            throw new DukeFatalException("Data file has been corrupted!");
+        } //remove general exception later 
     }
-   
-//
-        // so if you get here there is a json file and then all json representations of the patient
-        // objects that are in the json file must be transformed into patients objects that should
-        // be added to the hashmap  https://www.youtube.com/watch?v=ou2yFJ-NWr8&t=284s
-        // https://www.youtube.com/watch?v=ZZddxpxGQPE
-        // should be able to handle null values - test it
-
 
     /**
-     * Creates the Json representation of every patient in the patient
-     * hash map and then stores these representations in the Json file.
+     * Converts all the patients in the patient hashmap to their Json representation and loads to the json file (Serialization)
      *
      * @throws DukeFatalException If the file writer cannot be setup.
      */
@@ -86,7 +80,19 @@ public class GsonStorage {
             fileWriter.close();
         } catch (IOException excp) {
             throw new DukeFatalException("Unable to write data! Some data may have been lost,");
-        } // test if creating the fileWriter deletes everything in the json file or not
+        }
+    }
+
+    // remove later just to se if it works (or change to a testfile)
+    private void loadHashMapWithDummyPatients() {
+        Patient dummy1 = new Patient("dummy1", 100, "nuts");
+        Patient dummy2 = new Patient("dummy2", 200, "no allergies");
+        Patient dummy3 = new Patient("dummy3", 300, "cats");
+        Patient dummy4 = new Patient("dummy4", 400, "nuts");
+        patientMap.put(dummy1.getName(), dummy1);
+        patientMap.put(dummy2.getName(), dummy2);
+        patientMap.put(dummy3.getName(), dummy3);
+        patientMap.put(dummy4.getName(), dummy4);
     }
 }
 
