@@ -28,12 +28,6 @@ public class Storage {
     public Storage(String filePath) throws DukeFatalException {
         taskFile = new File(filePath);
 
-        // to be removed and put in DukeLauncher later
-        //--------------------------
-        String gsonfilePath = "data/patients.json";
-        GsonStorage test = new GsonStorage(gsonfilePath);
-        //--------------------------
-
         if (!taskFile.exists()) {
             try {
                 if (!taskFile.createNewFile()) {
