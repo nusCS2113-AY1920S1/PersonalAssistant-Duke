@@ -1,14 +1,5 @@
 package duke.util;
-import duke.command.AddCommand;
-import duke.command.ByeCommand;
-import duke.command.Command;
-import duke.command.DeleteCommand;
-import duke.command.DoneCommand;
-import duke.command.FindCommand;
-import duke.command.ListCommand;
-import duke.command.PrintTimetable;
-import duke.command.RescheduleCommand;
-import duke.command.ScheduleCommand;
+import duke.command.*;
 import duke.exceptions.ModCommandException;
 import duke.exceptions.ModEmptyCommandException;
 import duke.exceptions.ModInvalidTimeException;
