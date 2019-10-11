@@ -2,7 +2,7 @@ package compal.logic.commands;
 
 import compal.commons.Compal;
 import compal.logic.parser.CommandParser;
-import compal.model.tasks.RecurringTask;
+import compal.model.tasks.AcadTask;
 import compal.model.tasks.Task;
 import compal.model.tasks.TaskList;
 
@@ -178,9 +178,9 @@ public class AcadCommand extends Command implements CommandParser {
             Date endDate = stringToDate(endDateStr);
             while (initialDate.before(endDate)) {
                 String initialDateStr = dateToString(initialDate);
-                RecurringTask newRecurTask = new RecurringTask(description, priority, initialDateStr,
+                AcadTask newAcadTask = new AcadTask(description, priority, initialDateStr,
                         startTime, endTime, symbol); // for testing tut command only
-                taskList.addTask(newRecurTask);
+                taskList.addTask(newAcadTask);
                 int arrSize = taskList.arrlist.size() - 1;
                 String descToPrint = taskList.arrlist.get(arrSize).toString();
                 compal.ui.printg(descToPrint);

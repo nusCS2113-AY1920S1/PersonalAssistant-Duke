@@ -97,6 +97,15 @@ public abstract class Task implements Serializable {
     }
 
     /**
+     * Sets symbol of task to be symbolInput.
+     *
+     * @param symbolInput The symbol for the task.
+     */
+    public void setSymbol(String symbolInput) {
+        symbol = symbolInput;
+    }
+
+    /**
      * Gets date of task in date format.
      *
      * @return Date of task.

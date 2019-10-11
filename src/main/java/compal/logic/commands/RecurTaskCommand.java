@@ -125,30 +125,6 @@ public class RecurTaskCommand extends Command implements CommandParser {
     }
 
     /**
-     * Determines the type of recurring task - normal recurring task,
-     * lecture, tutorial, sectional or lab, based on the first command
-     * keyword entered by the user. Returns the type of symbol used for
-     * that type of task.
-     *
-     * @param userCmd The first command keyword entered by the user.
-     * @return The symbol for that type of task.
-     */
-    public String getSymbol(String userCmd) {
-        switch (userCmd) {
-        case CMD_LECT:
-            return SYMBOL_LECT;
-        case CMD_TUT:
-            return SYMBOL_TUT;
-        case CMD_SECT:
-            return SYMBOL_SECT;
-        case CMD_LAB:
-            return SYMBOL_LAB;
-        default:
-            return SYMBOL_DEFAULT;
-        }
-    }
-
-    /**
      * Adds multiple RecurringTask into taskList and prints confirmation message to user.
      *
      * @param userIn Entire user string input.
@@ -158,7 +134,6 @@ public class RecurTaskCommand extends Command implements CommandParser {
     public void parseCommand(String userIn) throws Compal.DukeException {
         Scanner scanner = new Scanner(userIn);
         String userCmd = scanner.next();
-        String symbol = getSymbol(userCmd);
         if (scanner.hasNext()) {
             String restOfInput = scanner.nextLine();
             String description = getDescription(restOfInput);
@@ -177,7 +152,7 @@ public class RecurTaskCommand extends Command implements CommandParser {
             String dateStr = date;
             for (int count = 0; count < rep; count++) {
                 RecurringTask newRecurTask = new RecurringTask(description, priority, dateStr,
-                        startTime, endTime, symbol);
+                        startTime, endTime);
                 taskList.addTask(newRecurTask);
                 int arrSize = taskList.arrlist.size() - 1;
                 String descToPrint = taskList.arrlist.get(arrSize).toString();

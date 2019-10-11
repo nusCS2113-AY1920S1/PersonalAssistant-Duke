@@ -1,11 +1,6 @@
 package compal.storage;
 
-import compal.model.tasks.FixedDurationTask;
-import compal.model.tasks.Deadline;
-import compal.model.tasks.DoAfterTasks;
-import compal.model.tasks.Event;
-import compal.model.tasks.RecurringTask;
-import compal.model.tasks.Task;
+import compal.model.tasks.*;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -26,6 +21,7 @@ public class StorageManager implements Storage {
     private static final String SYMBOL_TUT = "TUT";
     private static final String SYMBOL_SECT = "SECT";
     private static final String SYMBOL_LAB = "LAB";
+    private static final String SYMBOL_ACAD = "ACAD";
     private static final String SYMBOL_RECUR = "RT";
     private static final String SYMBOL_DEADLINE = "D";
     private static final String SYMBOL_DOAFTER = "DAT";
@@ -65,12 +61,15 @@ public class StorageManager implements Storage {
                 case SYMBOL_DOAFTER:
                     t = new DoAfterTasks(parts[1], stringToPriority(parts[3]), parts[4]);
                     break;
-                case SYMBOL_RECUR:
                 case SYMBOL_LECT:
                 case SYMBOL_TUT:
                 case SYMBOL_SECT:
                 case SYMBOL_LAB:
-                    t = new RecurringTask(parts[1], stringToPriority(parts[3]), parts[4], parts[5], parts[6], taskType);
+                case SYMBOL_ACAD:
+                    t = new AcadTask(parts[1], stringToPriority(parts[3]), parts[4], parts[5], parts[6], taskType);
+                    break;
+                case SYMBOL_RECUR:
+                    t = new RecurringTask(parts[1], stringToPriority(parts[3]), parts[4], parts[5], parts[6]);
                     break;
                 case SYMBOL_EVENT:
                     t = new Event(parts[1], stringToPriority(parts[3]), parts[4], parts[5], parts[6]);
