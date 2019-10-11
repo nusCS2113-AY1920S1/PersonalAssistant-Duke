@@ -15,13 +15,16 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Paint;
 import javafx.scene.text.Text;
+import javafx.scene.text.TextFlow;
 import movieRequesterAPI.RequestListener;
 import movieRequesterAPI.RetrieveRequest;
 import object.MovieInfoObject;
 import EPparser.CommandParser;
 import ui.Ui;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -52,8 +55,8 @@ public class MovieHandler extends Controller implements RequestListener{
 
     @FXML Label userNameLabel;
     @FXML Label userAgeLabel;
-    @FXML Label genreListLabel;
     @FXML Label adultLabel;
+    @FXML TextFlow genreListText;
     private UserProfile userProfile;
     private ArrayList<Playlist> playlists;
 
@@ -100,7 +103,7 @@ public class MovieHandler extends Controller implements RequestListener{
         }
     }
 
-    @FXML public void initialize() throws IOException {
+    @FXML public void setLabels() throws IOException {
         EditProfileJson editProfileJson = new EditProfileJson();
         userProfile = editProfileJson.load();
         EditPlaylistJson editPlaylistJson = new EditPlaylistJson();
@@ -108,10 +111,25 @@ public class MovieHandler extends Controller implements RequestListener{
         ProfileCommands command = new ProfileCommands(userProfile);
         userNameLabel.setText(userProfile.getUserName());
         userAgeLabel.setText(Integer.toString(userProfile.getUserAge()));
-        genreListLabel.setText(command.convertToLabel(userProfile.getGenreId()));
+        //setting adult label
+        if (command.getAdultLabel().equals("allow")) {
+            adultLabel.setStyle("-fx-text-fill: \"#48C9B0\";");
+        }
+        if (command.getAdultLabel().equals("restrict")) {
+            adultLabel.setStyle("-fx-text-fill: \"#EC7063\";");
+        }
         adultLabel.setText(command.getAdultLabel());
+        //setting text for preference & restrictions
+        Text preferences = new Text(command.convertToLabel(userProfile.getGenreIdPreference()));
+        preferences.setFill(Paint.valueOf("#48C9B0"));
+        Text restrictions = new Text(command.convertToLabel(userProfile.getGenreIdRestriction()));
+        restrictions.setFill(Paint.valueOf("#EC7063"));
+        genreListText.getChildren().clear();
+        genreListText.getChildren().addAll(preferences, restrictions);
+    }
 
-
+    @FXML public void initialize() throws IOException {
+        setLabels();
         mMovieRequest = new RetrieveRequest(this);
 
 //
@@ -136,7 +154,7 @@ public class MovieHandler extends Controller implements RequestListener{
             }
         });
 
-        mMovieRequest.beginMovieRequest(RetrieveRequest.MoviesRequestType.CURRENT_MOVIES);
+        mMovieRequest.beginMovieRequest(RetrieveRequest.MoviesRequestType.CURRENT_MOVIES, userProfile.isAdult());
 
         //mMovieRequest.beginMovieRequest(RetrieveRequest.MoviesRequestType.CURRENT_MOVIES);
 
@@ -286,7 +304,6 @@ public class MovieHandler extends Controller implements RequestListener{
         moviePosterClicked(movie);
     }
 
-
     @FXML private void clearSearchButtonClicked()
     {
         mSearchTextField.clear();
@@ -305,57 +322,57 @@ public class MovieHandler extends Controller implements RequestListener{
     /**
      * Displays list of current movies showing on cinemas.
      */
-    public static void showCurrentMovies() {
-        mMovieRequest.beginMovieRequest(RetrieveRequest.MoviesRequestType.CURRENT_MOVIES);
+    public void showCurrentMovies() {
+        mMovieRequest.beginMovieRequest(RetrieveRequest.MoviesRequestType.CURRENT_MOVIES, userProfile.isAdult());
     }
 
     /**
      * Displays list of current tv shows showing.
      */
-    public static void showCurrentTV() {
-        mMovieRequest.beginMovieRequest(RetrieveRequest.MoviesRequestType.CURRENT_TV);
+    public void showCurrentTV() {
+        mMovieRequest.beginMovieRequest(RetrieveRequest.MoviesRequestType.CURRENT_TV, userProfile.isAdult());
     }
 
     /**
      * Displays list of upcoming movies.
      */
-    public static void showUpcomingMovies() {
-        mMovieRequest.beginMovieRequest(RetrieveRequest.MoviesRequestType.UPCOMING_MOVIES);
+    public void showUpcomingMovies() {
+        mMovieRequest.beginMovieRequest(RetrieveRequest.MoviesRequestType.UPCOMING_MOVIES, userProfile.isAdult());
     }
 
     /**
      * Displays list of upcoming tv shows.
      */
-    public static void showUpcomingTV() {
-        mMovieRequest.beginMovieRequest(RetrieveRequest.MoviesRequestType.NEW_TV);
+    public void showUpcomingTV() {
+        mMovieRequest.beginMovieRequest(RetrieveRequest.MoviesRequestType.NEW_TV, userProfile.isAdult());
     }
 
     /**
      * Displays list of popular movies.
      */
-    public static void showPopMovies() {
-        mMovieRequest.beginMovieRequest(RetrieveRequest.MoviesRequestType.POPULAR_MOVIES);
+    public void showPopMovies() {
+        mMovieRequest.beginMovieRequest(RetrieveRequest.MoviesRequestType.POPULAR_MOVIES, userProfile.isAdult());
     }
 
     /**
      * Displays list of popular tv shows.
      */
-    public static void showPopTV() {
-        mMovieRequest.beginMovieRequest(RetrieveRequest.MoviesRequestType.POPULAR_TV);
+    public void showPopTV() {
+        mMovieRequest.beginMovieRequest(RetrieveRequest.MoviesRequestType.POPULAR_TV, userProfile.isAdult());
     }
 
     /**
      * Displays list of trending movies.
      */
-    public static void showTrendMovies() {
-        mMovieRequest.beginMovieRequest(RetrieveRequest.MoviesRequestType.TRENDING_MOVIES);
+    public void showTrendMovies() {
+        mMovieRequest.beginMovieRequest(RetrieveRequest.MoviesRequestType.TRENDING_MOVIES, userProfile.isAdult());
     }
 
     /**
      * Displays list of trending tv shows.
      */
-    public static void showTrendTV() {
-        mMovieRequest.beginMovieRequest(RetrieveRequest.MoviesRequestType.TRENDING_TV);
+    public void showTrendTV() {
+        mMovieRequest.beginMovieRequest(RetrieveRequest.MoviesRequestType.TRENDING_TV, userProfile.isAdult());
     }
 
 }

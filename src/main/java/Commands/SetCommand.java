@@ -24,6 +24,9 @@ public class SetCommand extends CommandSuper{
             case preference:
                 executeSetPreference();
                 break;
+            case restriction:
+                executeSetRestriction();
+                break;
             default:
                 break;
         }
@@ -41,7 +44,7 @@ public class SetCommand extends CommandSuper{
         ProfileCommands command = new ProfileCommands(movieHandler.getUserProfile());
         command.setName(this.getPayload());
         movieHandler.clearSearchTextField();
-        movieHandler.initialize();
+        movieHandler.setLabels();
     }
 
     /**
@@ -56,7 +59,7 @@ public class SetCommand extends CommandSuper{
         ProfileCommands command = new ProfileCommands(movieHandler.getUserProfile());
         command.setAge(this.getPayload());
         movieHandler.clearSearchTextField();
-        movieHandler.initialize();
+        movieHandler.setLabels();
     }
 
     /**
@@ -71,6 +74,21 @@ public class SetCommand extends CommandSuper{
         ProfileCommands command = new ProfileCommands(movieHandler.getUserProfile());
         command.setPreference(this.getFlagMap());
         movieHandler.clearSearchTextField();
-        movieHandler.initialize();
+        movieHandler.setLabels();
+    }
+
+    /**
+     * set user's restrictions
+     * root: set
+     * sub: restriction
+     * payload: none
+     * flag: -g (genre name -- not genre ID)
+     */
+    private void executeSetRestriction() throws IOException {
+        MovieHandler movieHandler = ((MovieHandler)this.getUIController());
+        ProfileCommands command = new ProfileCommands(movieHandler.getUserProfile());
+        command.setRestriction(this.getFlagMap());
+        movieHandler.clearSearchTextField();
+        movieHandler.setLabels();
     }
 }

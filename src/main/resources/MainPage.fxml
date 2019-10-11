@@ -13,6 +13,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Text?>
+<?import javafx.scene.text.TextFlow?>
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="485.0" prefWidth="676.0" stylesheets="@Main_Styles.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="MovieUI.MovieHandler">
     <bottom>
@@ -41,7 +42,7 @@
     <left>
         <VBox fx:id="mMovieTypeVBox" alignment="TOP_CENTER" prefHeight="343.0" prefWidth="145.0" spacing="8.0" BorderPane.alignment="CENTER">
             <children>
-                <VBox fx:id="vBox1" minHeight="95.0" prefHeight="99.0" prefWidth="125.0">
+                <VBox fx:id="vBox1" minHeight="95.0" prefHeight="132.0" prefWidth="125.0">
                     <children>
                         <Label fx:id="titleLabel" styleClass="titleLabel" text="My Preferences" />
                         <HBox prefHeight="8.0" prefWidth="125.0">
@@ -63,16 +64,7 @@
                      </children>
                   </HBox>
                         <Text fx:id="genreText" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Genre: " />
-                        <ScrollPane prefHeight="200.0" prefWidth="200.0">
-                            <content>
-                                <Label fx:id="genreListLabel" text="Label" />
-                            </content>
-                        </ScrollPane>
-                    </children>
-                </VBox>
-                <VBox fx:id="vBox2" prefHeight="200.0" prefWidth="100.0">
-                    <children>
-                        <Label id="titleLabel" fx:id="titleLabel2" styleClass="titleLabel" text="Upcoming Tasks" />
+                  <TextFlow fx:id="genreListText" prefHeight="200.0" prefWidth="200.0" />
                     </children>
                 </VBox>
             </children>

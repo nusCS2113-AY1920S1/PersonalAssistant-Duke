@@ -6,9 +6,7 @@ import org.json.simple.parser.JSONParser;
 import object.MovieInfoObject;
 
 import java.io.*;
-import java.lang.reflect.Array;
 import java.net.MalformedURLException;
-import java.net.SocketTimeoutException;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.text.DateFormat;
@@ -21,7 +19,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 
-public class RetrieveRequest implements InfoFetcher, InfoFetcherWithGenre {
+public class RetrieveRequest implements InfoFetcher, InfoFetcherWithPreference {
     private RequestListener mListener;
     static int index = 0;
 
@@ -61,6 +59,7 @@ public class RetrieveRequest implements InfoFetcher, InfoFetcherWithGenre {
     private static final String kMOVIE_BACKDROP_PATH = "backdrop_path";
     private static final String kMOVIE_POSTER_PATH = "poster_path";
     private static final String kMOVIE_CAST = "cast_id";
+    private static final String kADULT = "adult";
 
 
     public enum MoviesRequestType {
@@ -83,45 +82,56 @@ public class RetrieveRequest implements InfoFetcher, InfoFetcherWithGenre {
         checkIfConfigNeeded();
     }
 
-    public void beginMovieRequest(RetrieveRequest.MoviesRequestType type) {
+    public void beginMovieRequest(RetrieveRequest.MoviesRequestType type, boolean adult) {
         String requestURL = RetrieveRequest.MAIN_URL;
         switch (type) {
             case CURRENT_MOVIES:
                 requestURL += RetrieveRequest.CURRENT_MOVIE_URL + RetrieveRequest.API_KEY +
-                    "&language=en-US&page=1&region=SG";
+                    "&language=en-US&page=1&region=SG&include_adult=";
+                requestURL += adult;
                 break;
             case POPULAR_MOVIES:
                 requestURL += RetrieveRequest.POPULAR_MOVIE_URL + RetrieveRequest.API_KEY +
-                    "&language=en-US&page=1&region=SG";
+                    "&language=en-US&page=1&region=SG&include_adult=";
+                requestURL += adult;
                 break;
             case UPCOMING_MOVIES:
                 requestURL += RetrieveRequest.UPCOMING_MOVIE_URL + RetrieveRequest.API_KEY +
-                    "&language=en-US&page=1&region=SG";
+                    "&language=en-US&page=1&region=SG&include_adult=";
+                requestURL += adult;
                 break;
             case TRENDING_MOVIES:
-                requestURL += RetrieveRequest.TRENDING_MOVIE_URL + RetrieveRequest.API_KEY;
+                requestURL += RetrieveRequest.TRENDING_MOVIE_URL + RetrieveRequest.API_KEY +
+                    "&language=en-US&page=1&region=SG&include_adult=";
+                requestURL += adult;
                 break;
             case CURRENT_TV:
                 requestURL += RetrieveRequest.CURRENT_TV_URL + RetrieveRequest.API_KEY +
-                    "&language=en-US&page=1";
+                    "&language=en-US&page=1&include_adult=";
+                requestURL += adult;
                 index = 1;
                 break;
             case POPULAR_TV:
                 requestURL += RetrieveRequest.POPULAR_TV_URL + RetrieveRequest.API_KEY +
-                    "&language=en-US&page=1";
+                    "&language=en-US&page=1&include_adult=";
+                requestURL += adult;
                 index = 1;
                 break;
             case POP_CAST:
                 requestURL += RetrieveRequest.POP_CAST_URL + RetrieveRequest.API_KEY +
-                    "&language=en-US&page=1";
+                    "&language=en-US&page=1&include_adult=";
+                requestURL += adult;
                 break;
             case TRENDING_TV:
-                requestURL += RetrieveRequest.TRENDING_TV_URL + RetrieveRequest.API_KEY;
+                requestURL += RetrieveRequest.TRENDING_TV_URL + RetrieveRequest.API_KEY +
+                    "&language=en-US&page=1&include_adult=";
+                requestURL += adult;
                 index = 1;
                 break;
             case NEW_TV:
                 requestURL += RetrieveRequest.NEW_TV_URL + RetrieveRequest.API_KEY +
-                    "&language=en-US&page=1";
+                    "&language=en-US&page=1&include_adult=";
+                requestURL += adult;
                 break;
             default:
                 requestURL = null;
@@ -131,29 +141,32 @@ public class RetrieveRequest implements InfoFetcher, InfoFetcherWithGenre {
     }
 
 
-    public void beginMovieSearchRequest(String movieTitle) {
+    public void beginMovieSearchRequest(String movieTitle, boolean adult) {
         try {
-            String url = MAIN_URL + MOVIE_SEARCH_URL + API_KEY + "&query=" + URLEncoder.encode(movieTitle, "UTF-8");
+            String url = MAIN_URL + MOVIE_SEARCH_URL + API_KEY + "&query=" + URLEncoder.encode(movieTitle, "UTF-8") + "&include_adult=";
+            url += adult;
             fetchJSONData(url);
         } catch (UnsupportedEncodingException ex) {
             ex.printStackTrace();
         }
     }
 
-    public void beginMovieSearchRequestWithGenre(String movieTitle, ArrayList<Integer> genreID) {
+    public void beginMovieSearchRequestWithPreference(String movieTitle, ArrayList<Integer> genrePreference, ArrayList<Integer> genreRestriction, boolean adult) {
         try {
-            String url = MAIN_URL + MOVIE_SEARCH_URL + API_KEY + "&query=" + URLEncoder.encode(movieTitle, "UTF-8");
-            fetchJSONDataWithGenre(url, genreID);
+            String url = MAIN_URL + MOVIE_SEARCH_URL + API_KEY + "&query=" + URLEncoder.encode(movieTitle, "UTF-8") + "&include_adult=";
+            url += adult;
+            fetchJSONDataWithPreference(url, genrePreference, genreRestriction);
 
         } catch (UnsupportedEncodingException ex) {
             ex.printStackTrace();
         }
     }
 
-    public void beginSearchGenre (String genre) {
+    public void beginSearchGenre (String genre, boolean adult) {
         try {
             String url = MAIN_URL + "movie/" + URLEncoder.encode(genre, "UTF-8") + LIST
-                    + API_KEY + "&language=en-US&page=1";
+                    + API_KEY + "&language=en-US&page=1" + "&include_adult=";
+            url += adult;
             fetchJSONData(url);
         } catch (UnsupportedEncodingException ex) {
             ex.printStackTrace();
@@ -247,7 +260,7 @@ public class RetrieveRequest implements InfoFetcher, InfoFetcherWithGenre {
     }
 
     @Override
-    public void fetchedMoviesJSONWithGenre(String json, ArrayList<Integer> genreID) {
+    public void fetchedMoviesJSONWithPreference(String json, ArrayList<Integer> genrePreference,  ArrayList<Integer> genreRestriction) {
         // If null string returned then there was a lack of internet connection
         if (json == null) {
             mListener.requestFailed();
@@ -263,16 +276,29 @@ public class RetrieveRequest implements InfoFetcher, InfoFetcherWithGenre {
             JSONArray movies = (JSONArray) movieData.get("results");
             ArrayList<MovieInfoObject> parsedMovies = new ArrayList(20);
 
+            int count = 0;
+
+            MovieResultFilter filter = new MovieResultFilter(genrePreference, genreRestriction);
             for (int i = 0; i < movies.size(); i++) {
                 MovieInfoObject newMovie = parseMovieJSON((JSONObject) movies.get(i));
-                long[] movieGenre = newMovie.getGenreIDs();
-                for (Integer id : genreID){
-                    for (long movieGenreID : movieGenre){
-                        if (movieGenreID == id){
-                            parsedMovies.add(newMovie);
-                            break;
-                        }
+                if (!genrePreference.isEmpty() && genreRestriction.isEmpty()) {
+                    //pref not empty, restriction empty"
+                    if (filter.isFitGenrePreference(newMovie)) {
+                        parsedMovies.add(newMovie);
                     }
+                } else if (!genrePreference.isEmpty()) {
+                    //pref not empty, restriction not empty
+                    if (filter.isFitGenrePreference(newMovie) && filter.isFitGenreRestriction(newMovie)) {
+                        parsedMovies.add(newMovie);
+                    }
+                } else if (!genreRestriction.isEmpty()) {
+                    //pref empty, restriction not empty"
+                    if (filter.isFitGenreRestriction(newMovie)) {
+                        parsedMovies.add(newMovie);
+                    }
+                } else {
+                    //pref empty, restriction empty"
+                    parsedMovies.add(newMovie);
                 }
             }
 
@@ -304,10 +330,10 @@ public class RetrieveRequest implements InfoFetcher, InfoFetcherWithGenre {
         }
     }
 
-    private void fetchJSONDataWithGenre(String URLString, ArrayList<Integer> genreID) {
+    private void fetchJSONDataWithPreference(String URLString, ArrayList<Integer> genrePreference, ArrayList<Integer> genreRestriction) {
         Thread fetchThread = null;
         try {
-            fetchThread = new Thread(new MovieInfoFetcherWithGenre(new URL(URLString), this, genreID));
+            fetchThread = new Thread(new MovieInfoFetcherWithPreference(new URL(URLString), this, genrePreference, genreRestriction));
             fetchThread.start();
         } catch (MalformedURLException ex) {
             Logger.getLogger(RetrieveRequest.class.getName()).log(Level.SEVERE, null, ex);
@@ -320,6 +346,7 @@ public class RetrieveRequest implements InfoFetcher, InfoFetcherWithGenre {
      */
     private MovieInfoObject parseMovieJSON(JSONObject movieData) {
         long ID = (long) movieData.get(kMOVIE_ID);
+        boolean adult = (boolean) movieData.get(kADULT);
         String title = "";
         if (index == 0) {
             title = (String) movieData.get(kMOVIE_TITLE);
@@ -366,7 +393,7 @@ public class RetrieveRequest implements InfoFetcher, InfoFetcherWithGenre {
         String posterPath = (String) movieData.get(kMOVIE_POSTER_PATH);
         String backdropPath = (String) movieData.get(kMOVIE_BACKDROP_PATH);
 
-        MovieInfoObject movieInfo = new MovieInfoObject(ID, title, releaseDate, summary, rating, genreIDs, posterPath, backdropPath);
+        MovieInfoObject movieInfo = new MovieInfoObject(ID, title, releaseDate, summary, rating, genreIDs, posterPath, backdropPath, adult);
 
         // If the base url was fetched and loaded, set the root path and poster size
         if (mImageBaseURL != null) {

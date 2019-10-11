@@ -16,13 +16,13 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.FlowPane;
-import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Paint;
 import javafx.scene.text.Text;
+import javafx.scene.text.TextFlow;
 import movieRequesterAPI.RequestListener;
 import movieRequesterAPI.RetrieveRequest;
 import object.MovieInfoObject;
-import parser.TimeParser;
 import ui.Ui;
 
 import java.io.IOException;
@@ -59,8 +59,8 @@ public class MovieInfoController extends Controller implements RequestListener {
 
     @FXML Label userNameLabel;
     @FXML Label userAgeLabel;
-    @FXML Label genreListLabel;
     @FXML Label adultLabel;
+    @FXML TextFlow genreListText;
     private UserProfile userProfile;
     private ArrayList<Playlist> playlists;
 
@@ -96,7 +96,7 @@ public class MovieInfoController extends Controller implements RequestListener {
         initialize();
     }
 
-    @FXML public void initialize() throws IOException {
+    @FXML public void setLabels() throws IOException {
         EditProfileJson editProfileJson = new EditProfileJson();
         userProfile = editProfileJson.load();
         EditPlaylistJson editPlaylistJson = new EditPlaylistJson();
@@ -104,9 +104,25 @@ public class MovieInfoController extends Controller implements RequestListener {
         ProfileCommands command = new ProfileCommands(userProfile);
         userNameLabel.setText(userProfile.getUserName());
         userAgeLabel.setText(Integer.toString(userProfile.getUserAge()));
-        genreListLabel.setText(command.convertToLabel(userProfile.getGenreId()));
+        //setting adult label
+        if (command.getAdultLabel().equals("allow")) {
+            adultLabel.setStyle("-fx-text-fill: \"#48C9B0\";");
+        }
+        if (command.getAdultLabel().equals("restrict")) {
+            adultLabel.setStyle("-fx-text-fill: \"#EC7063\";");
+        }
         adultLabel.setText(command.getAdultLabel());
+        //setting text for preference & restrictions
+        Text preferences = new Text(command.convertToLabel(userProfile.getGenreIdPreference()));
+        preferences.setFill(Paint.valueOf("#48C9B0"));
+        Text restrictions = new Text(command.convertToLabel(userProfile.getGenreIdRestriction()));
+        restrictions.setFill(Paint.valueOf("#EC7063"));
+        genreListText.getChildren().clear();
+        genreListText.getChildren().addAll(preferences, restrictions);
+    }
 
+    @FXML public void initialize() throws IOException {
+        setLabels();
 
         //mMovieRequest = new RetrieveRequest(this);
         // Load the movie info if movie has been set

@@ -51,7 +51,6 @@ public class PlaylistCommand extends CommandSuper{
         PlaylistCommands command = new PlaylistCommands(movieHandler.getPlaylists());
         command.newPlaylist(this.getPayload());
         movieHandler.clearSearchTextField();
-        movieHandler.initialize();
     }
 
     /**
@@ -66,7 +65,6 @@ public class PlaylistCommand extends CommandSuper{
         PlaylistCommands command = new PlaylistCommands(movieHandler.getPlaylists());
         command.deletePlaylist(this.getPayload());
         movieHandler.clearSearchTextField();
-        movieHandler.initialize();
     }
 
     /**
@@ -81,7 +79,6 @@ public class PlaylistCommand extends CommandSuper{
         PlaylistCommands command = new PlaylistCommands(movieHandler.getPlaylists());
         command.addToPlaylist(this.getPayload(), this.getFlagMap(), movieHandler.getmMovies());
         movieHandler.clearSearchTextField();
-        movieHandler.initialize();
     }
 
     /**
@@ -96,7 +93,6 @@ public class PlaylistCommand extends CommandSuper{
         PlaylistCommands command = new PlaylistCommands(movieHandler.getPlaylists());
         command.removeFromPlaylist(this.getPayload(), this.getFlagMap(), movieHandler.getmMovies());
         movieHandler.clearSearchTextField();
-        movieHandler.initialize();
     }
 
     /**
@@ -112,7 +108,6 @@ public class PlaylistCommand extends CommandSuper{
         PlaylistCommands command = new PlaylistCommands(movieHandler.getPlaylists());
         command.setToPlaylist(this.getPayload(), this.getFlagMap());
         movieHandler.clearSearchTextField();
-        movieHandler.initialize();
     }
 
     /**
@@ -127,6 +122,5 @@ public class PlaylistCommand extends CommandSuper{
         PlaylistCommands command = new PlaylistCommands(movieHandler.getPlaylists());
         command.clearPlaylist(this.getPayload());
         movieHandler.clearSearchTextField();
-        movieHandler.initialize();
     }
 }

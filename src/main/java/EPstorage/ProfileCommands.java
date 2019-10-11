@@ -53,15 +53,23 @@ public class ProfileCommands {
         }
     }
 
+    /**
+     * set user preferences -- for genre
+     */
     public void setGenrePreference(TreeMap<String, ArrayList<String>> flagMap) throws IOException {
         ArrayList<Integer> genrePreferences = new ArrayList<>(10);
         for (String log : flagMap.get("-g")) {
             genrePreferences.add(findGenreID(log));
         }
-        userProfile.setGenreId(genrePreferences);
+        userProfile.setGenreIdPreference(genrePreferences);
         editProfileJson.updateProfile(userProfile);
     }
 
+    /**
+     * set user preferences -- for adult content restriction
+     * yes = allow adult content
+     * no = restrict adult content
+     */
     public void setAdultPreference(String value) throws IOException {
         if (value.equals("yes")) {
             userProfile.setAdult(true);
@@ -71,12 +79,15 @@ public class ProfileCommands {
         editProfileJson.updateProfile(userProfile);
     }
 
+    /**
+     * to allow setting of both genre and adult content restriction preferences at the same time
+     */
     public void setAll(TreeMap<String, ArrayList<String>> flagMap, String value) throws IOException {
         ArrayList<Integer> genrePreferences = new ArrayList<>(10);
         for (String log : flagMap.get("-g")) {
             genrePreferences.add(findGenreID(log));
         }
-        userProfile.setGenreId(genrePreferences);
+        userProfile.setGenreIdPreference(genrePreferences);
         if (value.equals("yes")) {
             userProfile.setAdult(true);
         } else if (value.equals("no")) {
@@ -85,12 +96,47 @@ public class ProfileCommands {
         editProfileJson.updateProfile(userProfile);
     }
 
+    /**
+     * set user restrictions
+     */
+    public void setRestriction(TreeMap<String, ArrayList<String>> flagMap) throws IOException {
+        ArrayList<Integer> genreRestrictions = new ArrayList<>(10);
+        for (String log : flagMap.get("-g")) {
+            genreRestrictions.add(findGenreID(log));
+        }
+        userProfile.setGenreIdRestriction(genreRestrictions);
+        editProfileJson.updateProfile(userProfile);
+    }
+
+    public void addRestriction(TreeMap<String, ArrayList<String>> flagMap) throws IOException {
+        ArrayList<Integer> genreRestrictions = new ArrayList<>(50);
+        for (String log : flagMap.get("-g")){
+            genreRestrictions.add(findGenreID(log));
+        }
+        userProfile.addGenreIdRestriction(genreRestrictions);
+        editProfileJson.updateProfile(userProfile);
+    }
+
+    public void removeRestriction(TreeMap<String, ArrayList<String>> flagMap) throws IOException {
+        ArrayList<Integer> genreRestrictions = new ArrayList<>(50);
+        for (String log : flagMap.get("-g")){
+            genreRestrictions.add(findGenreID(log));
+        }
+        userProfile.removeGenreIdRestriction(genreRestrictions);
+        editProfileJson.updateProfile(userProfile);
+    }
+
+    public void clearRestriction(TreeMap<String, ArrayList<String>> flagMap) throws IOException {
+        userProfile.removeGenreIdRestriction(userProfile.getGenreIdRestriction());
+        editProfileJson.updateProfile(userProfile);
+    }
+
     public void addPreference(TreeMap<String, ArrayList<String>> flagMap) throws IOException {
         ArrayList<Integer> genrePreferences = new ArrayList<>(50);
         for (String log : flagMap.get("-g")){
             genrePreferences.add(findGenreID(log));
         }
-        userProfile.addGenreId(genrePreferences);
+        userProfile.addGenreIdPreference(genrePreferences);
         editProfileJson.updateProfile(userProfile);
         }
 
@@ -99,7 +145,7 @@ public class ProfileCommands {
         for (String log : flagMap.get("-g")){
             genrePreferences.add(findGenreID(log));
         }
-        userProfile.removeGenreId(genrePreferences);
+        userProfile.removeGenreIdPreference(genrePreferences);
         editProfileJson.updateProfile(userProfile);
     }
 
@@ -116,7 +162,7 @@ public class ProfileCommands {
     }
 
     public void clearGenrePreference() throws IOException {
-        userProfile.removeGenreId(userProfile.getGenreId());
+        userProfile.removeGenreIdPreference(userProfile.getGenreIdPreference());
         editProfileJson.updateProfile(userProfile);
     }
 
@@ -126,7 +172,7 @@ public class ProfileCommands {
     }
 
     public void clearAll() throws IOException {
-        userProfile.removeGenreId(userProfile.getGenreId());
+        userProfile.removeGenreIdPreference(userProfile.getGenreIdPreference());
         userProfile.setAdult(true);
         editProfileJson.updateProfile(userProfile);
     }
