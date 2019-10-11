@@ -6,8 +6,6 @@ import duke.logic.command.exceptions.CommandException;
 import duke.model.Model;
 import duke.model.commons.Ingredient;
 
-import static java.util.Objects.requireNonNull;
-
 public class AddInventoryCommand extends Command {
 
     public static final String COMMAND_WORD = "add";

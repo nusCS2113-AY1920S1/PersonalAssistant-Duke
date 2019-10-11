@@ -1,14 +1,7 @@
 package duke.model.product;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-import duke.logic.parser.exceptions.ParseException;
-import duke.model.ingredient.Ingredient;
 import duke.model.ingredient.IngredientList;
 
-import java.awt.*;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
 import java.util.Objects;
 
 import static duke.commons.util.AppUtil.checkEmpty;

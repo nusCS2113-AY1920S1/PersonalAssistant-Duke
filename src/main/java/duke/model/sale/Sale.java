@@ -31,36 +31,36 @@ public class Sale {
         return id;
     }
 
-    public String getDescription() {
-        return description;
-    }
-
-    public double getValue() {
-        return value;
-    }
-
-    public Date getSaleDate() {
-        return saleDate;
-    }
-
-    public String getRemarks() {
-        return remarks;
-    }
-
     public void setId(long id) {
         this.id = id;
+    }
+
+    public String getDescription() {
+        return description;
     }
 
     public void setDescription(String description) {
         this.description = description;
     }
 
+    public double getValue() {
+        return value;
+    }
+
     public void setValue(double value) {
         this.value = value;
     }
 
+    public Date getSaleDate() {
+        return saleDate;
+    }
+
     public void setSaleDate(Date saleDate) {
         this.saleDate = saleDate;
+    }
+
+    public String getRemarks() {
+        return remarks;
     }
 
     public void setRemarks(String remarks) {

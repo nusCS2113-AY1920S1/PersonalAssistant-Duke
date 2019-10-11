@@ -11,6 +11,11 @@ public class Quantity {
         this.unit = unit;
     }
 
+    public Quantity(Quantity toCopy) {
+        this.number = toCopy.number;
+        this.unit = toCopy.unit;
+    }
+
     public Quantity(Integer number) {
         this(number, defaultUnit);
     }

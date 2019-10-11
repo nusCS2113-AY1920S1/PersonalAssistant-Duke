@@ -3,7 +3,6 @@ package duke.logic.parser.commons;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
-import java.util.function.Predicate;
 
 /**
  * Contains Command Line Interface (CLI) syntax definitions common to multiple commands.
@@ -21,6 +20,7 @@ public class CliSyntax {
     public static final Prefix PREFIX_ORDER_DEADLINE = new Prefix("-by");
     public static final Prefix PREFIX_ORDER_STATUS = new Prefix("-status");
     public static final Prefix PREFIX_ORDER_INDEX = new Prefix("-i");
+    public static final Prefix PREFIX_ORDER_TOTAL = new Prefix("-total");
 
     public static final Prefix PREFIX_SALE_DESCRIPTION = new Prefix("-desc");
     public static final Prefix PREFIX_SALE_VALUE = new Prefix("-val");

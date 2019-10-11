@@ -18,7 +18,7 @@ public class Item<T> {
     }
 
     public Quantity getQuantity() {
-        return quantity;
+        return new Quantity(quantity);
     }
 
     @Override

@@ -1,12 +1,9 @@
 package duke.logic.command.product;
 
-import duke.logic.command.Command;
 import duke.logic.command.CommandResult;
 import duke.logic.command.exceptions.CommandException;
 import duke.model.Model;
 import duke.model.product.Product;
-
-import static java.util.Objects.requireNonNull;
 
 public class AddProductCommand extends ProductCommand {
 

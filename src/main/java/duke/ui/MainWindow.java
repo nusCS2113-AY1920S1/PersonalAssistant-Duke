@@ -42,7 +42,7 @@ public class MainWindow extends UiPart<Stage> {
     @FXML
     private Label popUpLabel;
     @FXML
-    JFXButton popUpButton;
+    private JFXButton popUpButton;
     @FXML
     private TextField userInput;
 
@@ -102,7 +102,7 @@ public class MainWindow extends UiPart<Stage> {
             CommandResult commandResult = logic.execute(input);
             showPage(commandResult.getDisplayedPage());
             showMessagePopUp(commandResult.getFeedbackToUser());
-        } catch (CommandException | ParseException e) {
+        } catch (CommandException | ParseException | IllegalArgumentException e) {
             showErrorPopUp(e.getMessage());
         }
         userInput.clear();
@@ -218,7 +218,7 @@ public class MainWindow extends UiPart<Stage> {
         inventoryButton.setButtonType(JFXButton.ButtonType.FLAT);
         salesButton.setButtonType(JFXButton.ButtonType.FLAT);
 
-        currentPage.setText("Recipes");
+        currentPage.setText("Products");
     }
 
     private void showInventoryPage() {

@@ -2,8 +2,8 @@ package duke.model;
 
 import duke.commons.core.index.Index;
 import duke.model.commons.Ingredient;
-import duke.model.product.Product;
 import duke.model.order.Order;
+import duke.model.product.Product;
 import duke.model.sale.Sale;
 import duke.model.shortcut.Shortcut;
 import javafx.collections.ObservableList;
