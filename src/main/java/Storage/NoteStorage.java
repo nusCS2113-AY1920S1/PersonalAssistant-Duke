@@ -41,6 +41,7 @@ public class NoteStorage {
             for (int i = 0; i < sizeOfNotes-1; i++) { //sizeOfNotes-1 as the first note had already been added
                 newNote.notes.add(txtFile.nextLine());
             }
+            listToReadTo.add(newNote);
         }
     }
 }

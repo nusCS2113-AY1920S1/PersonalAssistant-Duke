@@ -1,6 +1,7 @@
 package commands.note;
 
 import Storage.Storage;
+import Storage.NoteStorage;
 import Tasks.Task;
 import UI.Ui;
 import notes.Note;
@@ -17,7 +18,7 @@ import java.util.Stack;
  */
 public class EditNoteCommand extends AddNoteCommand {
     /**
-     * Edits the specified note if it exists. Else it throws an exception.
+     * Edits the specified note if it exists and writes to the text file. Else throws an exception.
      *
      * @param noteNumber the index of the note that the user wants to edit
      * @param listToEdit the list of Notes that contains the note to edit depending on if its a day, week or month
@@ -27,15 +28,18 @@ public class EditNoteCommand extends AddNoteCommand {
      * @throws DukeException if the note to edit does not exist
      */
     private void editNoteInList(int noteNumber, ArrayList<Note> listToEdit, LocalDate dateToEdit,
-                                String editedNote, String period) throws DukeException{
+                                String editedNote, String period, String fileName) throws DukeException{
         for (Note n: listToEdit) {
             if (n.noteDate.equals(dateToEdit)) {
                 try {
                     n.notes.set(noteNumber-1, editedNote);
                     //WRITE TO FILE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+                    NoteStorage.writeToFile(fileName, listToEdit);
                     return;
                 } catch (IndexOutOfBoundsException e) {
                     throw new DukeException("OOPS!!! That note number does not exist.");
+                } catch (IOException f) {
+                    throw new DukeException("The " + fileName + " file cannot be opened.");
                 }
             }
         }
@@ -79,11 +83,11 @@ public class EditNoteCommand extends AddNoteCommand {
         String usersNote = ui.FullCommand;
         try {
             switch (command[1]) {
-            case "day": editNoteInList(noteNum, NoteList.daily, userDate, usersNote, command[1]);
+            case "day": editNoteInList(noteNum, NoteList.daily, userDate, usersNote, command[1], "NoteDaily.txt");
                 break;
-            case "week": editNoteInList(noteNum, NoteList.weekly, userDate, usersNote, command[1]);
+            case "week": editNoteInList(noteNum, NoteList.weekly, userDate, usersNote, command[1], "NoteWeekly.txt");
                 break;
-            case "month": editNoteInList(noteNum, NoteList.monthly, userDate, usersNote, command[1]);
+            case "month": editNoteInList(noteNum, NoteList.monthly, userDate, usersNote, command[1], "NoteMonthly.txt");
                 break;
             default: System.out.println("Bug in EditNoteCommand");
                 System.exit(1);

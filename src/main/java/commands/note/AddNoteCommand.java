@@ -62,6 +62,7 @@ public class AddNoteCommand extends Command {
     /**
      * Adds a new note to the specified day, week or month if there are existing notes.
      * Else creates a new note object with the new note as the first note.
+     * After that, writes to the text file.
      *
      * @param listOfNotes the list of Notes to add the new note to depending on if its a day, week or month
      * @param userDate the date specified by the user as a LocalDate object
@@ -69,7 +70,8 @@ public class AddNoteCommand extends Command {
      * @param date the date specified by the user as a String object
      * @return the new note added
      */
-    private Note addToList(ArrayList<Note> listOfNotes, LocalDate userDate, String usersNote, String date, String fileName) throws IOException {
+    private Note addToList(ArrayList<Note> listOfNotes, LocalDate userDate, String usersNote, String date,
+                           String fileName) throws IOException {
         boolean hasNote = false;
         Note noteInQuestion = null;
         for (Note n: listOfNotes) {
@@ -118,23 +120,27 @@ public class AddNoteCommand extends Command {
         ui.ReadCommand();
         String usersNote = ui.FullCommand;
         Note noteSpecified;
+        try {
+            switch (command[1]) {
+            case "day":
+                noteSpecified = addToList(NoteList.daily, userDate, usersNote, command[2], "NoteDaily.txt");
+                break;
+            case "week":
+                noteSpecified = addToList(NoteList.weekly, userDate, usersNote, command[2], "NoteWeekly.txt");
+                break;
+            case "month":
+                noteSpecified = addToList(NoteList.monthly, userDate, usersNote, command[2], "NoteMonthly.txt");
+                break;
+            default:
+                noteSpecified = null;
+                break;
+            }
 
-        switch (command[1]) {
-        case "day":
-            noteSpecified = addToList(NoteList.daily, userDate, usersNote, command[2], "NoteDaily.txt");
-            break;
-        case "week":
-            noteSpecified = addToList(NoteList.weekly, userDate, usersNote, command[2], "NoteWeekly.txt");
-            break;
-        case "month":
-            noteSpecified = addToList(NoteList.monthly, userDate, usersNote, command[2], "NoteMonthly.txt");
-            break;
-        default: noteSpecified = null;
-            break;
+            assert noteSpecified != null : "there is a bug in AddNoteCommand";
+            printConfirmationMessage(usersNote, noteSpecified.notes.size(), command[1]);
+        } catch (IOException e) {
+            System.out.println("The " + command[1] + " file cannot be opened.");
         }
-
-        assert noteSpecified != null : "there is a bug in AddNoteCommand";
-        printConfirmationMessage(usersNote, noteSpecified.notes.size(), command[1]);
     }
 
     @Override

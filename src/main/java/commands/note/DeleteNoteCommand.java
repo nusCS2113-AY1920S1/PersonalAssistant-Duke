@@ -1,6 +1,7 @@
 package commands.note;
 
 import Storage.Storage;
+import Storage.NoteStorage;
 import Tasks.Task;
 import UI.Ui;
 import Exception.DukeException;
@@ -27,7 +28,7 @@ public class DeleteNoteCommand extends EditNoteCommand {
      * @throws DukeException if the note to delete does not exist
      */
     private String deleteNoteInList(int noteNumber, ArrayList<Note> listToEdit, LocalDate dateToEdit,
-                                String period) throws DukeException{
+                                String period, String fileName) throws DukeException{
         for (Note n: listToEdit) {
             if (n.noteDate.equals(dateToEdit)) {
                 try {
@@ -37,9 +38,12 @@ public class DeleteNoteCommand extends EditNoteCommand {
                         listToEdit.remove(n);
                     }
                     //WRITE TO FILE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+                    NoteStorage.writeToFile(fileName, listToEdit);
                     return deletedNote;
                 } catch (IndexOutOfBoundsException e) {
                     throw new DukeException("OOPS!!! That note number does not exist.");
+                } catch (IOException f) {
+                    throw new DukeException("The " + fileName + " file cannot be opened.");
                 }
             }
         }
@@ -82,13 +86,13 @@ public class DeleteNoteCommand extends EditNoteCommand {
         try {
             switch (command[1]) {
             case "day":
-                noteToBeDeleted = deleteNoteInList(noteNum, NoteList.daily, userDate, command[1]);
+                noteToBeDeleted = deleteNoteInList(noteNum, NoteList.daily, userDate, command[1], "NoteDaily.txt");
                 break;
             case "week" :
-                noteToBeDeleted = deleteNoteInList(noteNum, NoteList.weekly, userDate, command[1]);
+                noteToBeDeleted = deleteNoteInList(noteNum, NoteList.weekly, userDate, command[1], "NoteWeekly.txt");
                 break;
             case "month":
-                noteToBeDeleted = deleteNoteInList(noteNum, NoteList.monthly, userDate, command[1]);
+                noteToBeDeleted = deleteNoteInList(noteNum, NoteList.monthly, userDate, command[1], "NoteMonthly.txt");
                 break;
             default: noteToBeDeleted = null;
                 break;
