@@ -53,7 +53,7 @@ public class AddShortGoalCommand extends MoneyCommand {
         String category = "GS";
         Goal g = new Goal(price, desc, category, byDate, priorityLevel);
         account.getShortTermGoals().add(g);
-        account.sortShortTermGoals(account.getShortTermGoals());
+        //account.sortShortTermGoals(account.getShortTermGoals());
         storage.writeToFile(account);
 
         ui.appendToOutput(" Got it. I've added this Goal: \n");

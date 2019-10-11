@@ -37,7 +37,7 @@ public class ListGoalsCommand extends MoneyCommand{
      */
     @Override
     public void execute(Account account, Ui ui, MoneyStorage storage) {
-        account.sortShortTermGoals(account.getShortTermGoals());
+        //account.sortShortTermGoals(account.getShortTermGoals());
         float savingsReqPerMonth = 0;
         for (int i = 1; i <= account.getShortTermGoals().size();i++) {
             Goal currGoal = account.getShortTermGoals().get(i-1);

@@ -55,7 +55,7 @@ public class DoneGoalCommand extends MoneyCommand {
         Expenditure e = new Expenditure(price, desc, category, doneDate);
         account.getExpListTotal().add(e);
         account.getShortTermGoals().remove(indexNo-1);
-        account.sortShortTermGoals(account.getShortTermGoals());
+        //account.sortShortTermGoals(account.getShortTermGoals());
         storage.writeToFile(account);
 
         ui.appendToOutput(" Nice! This Goal is Completed:\n");

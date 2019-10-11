@@ -48,7 +48,7 @@ public class DeleteGoalCommand extends MoneyCommand {
 
         storage.markDeletedEntry("G", "@", "#", serialNo);
         account.getShortTermGoals().remove(serialNo - 1);
-        account.sortShortTermGoals(account.getShortTermGoals());
+        //account.sortShortTermGoals(account.getShortTermGoals());
 
         MoneyCommand list = new ListGoalsCommand();
         list.execute(account,ui,storage);
