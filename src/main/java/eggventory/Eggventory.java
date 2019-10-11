@@ -1,10 +1,9 @@
 package eggventory;
 
-import eggventory.StockList;
 import eggventory.commands.Command;
 import eggventory.enums.CommandType;
-import eggventory.items.StockType;
 import eggventory.parsers.Parser;
+import javafx.application.Application;
 
 /**
  * Eggventory is a task list that supports 3 types of classes - Todos, deadlines and events.
@@ -53,6 +52,7 @@ public class Eggventory {
      * Main function that sets the save path and runs eggventory.
      */
     public static void main(String[] args) {
+        Application.launch(GuiLauncher.class, args);
         String currentDir = System.getProperty("user.dir");
         String filePath = currentDir + "/data/saved_tasks.txt";
         new Eggventory(filePath).run();
