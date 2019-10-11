@@ -47,8 +47,6 @@ public class MainWindow extends BorderPane implements Initializable {
     @FXML
     private TextField userInput;
     @FXML
-    private AnchorPane anchorPane;
-    @FXML
     private HBox progressContainer;
     @FXML
     private ListView sunEventView;
@@ -104,7 +102,8 @@ public class MainWindow extends BorderPane implements Initializable {
             todos = new ArrayList<>();
             deadlines = new ArrayList<>();
             setClock();
-            //setWeek(NO_FIELD);
+           setWeek(true, NO_FIELD);
+
             retrieveList();
             openReminderBox();
 
@@ -116,8 +115,10 @@ public class MainWindow extends BorderPane implements Initializable {
             overdueTaskColumn.setCellValueFactory(new PropertyValueFactory<>("task"));
             overdueTable.setItems(setOverdueTable());
 
-            //progressContainer.getChildren().add(ProgressController.getProgress("CS2100", "5", "6"));
-            //continue doing here!!! (Mich)
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/view/ProgressIndicator.fxml"));
+            Parent loader = fxmlLoader.load();
+            fxmlLoader.<ProgressController>getController().getData("CS2100", "5", "6");
+            progressContainer.getChildren().add(loader);
 
             setListItem();
 
@@ -233,7 +234,7 @@ public class MainWindow extends BorderPane implements Initializable {
         String input = userInput.getText();
         String response = duke.getResponse(input);
         if (input.startsWith("Week")) {
-            setWeek(input);
+            setWeek(false, input);
             setListItem();
         } else if (input.startsWith("add")) {
             refresh(input);
@@ -328,12 +329,13 @@ public class MainWindow extends BorderPane implements Initializable {
     }
 
     /**
-     * This method updates currentWeek Label
-     * @param selectedWeek The week selected.
+     * This method updates currentWeek Label.
+     * @param onStart The flag which indicates program startup
+     * @param selectedWeek The week selected
      */
-    private void setWeek(String selectedWeek){
+    private void setWeek(Boolean onStart,String selectedWeek){
         //if start up selectedWeek will be NO_FIELD, else if user search for week, week equals selected week
-        if(selectedWeek == NO_FIELD){
+        if(onStart){
             Date dateTime = new Date();
             SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
             String date = dateFormat.format(dateTime);
