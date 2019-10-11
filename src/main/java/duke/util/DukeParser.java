@@ -16,15 +16,15 @@ import duke.exceptions.ModInvalidTimeException;
 import duke.exceptions.ModInvalidTimePeriodException;
 import duke.exceptions.ModMissingArgumentException;
 import duke.exceptions.ModMultipleValuesForSameArgumentException;
+
+import duke.modules.Cca;
 import duke.modules.Deadline;
 import duke.modules.DoWithin;
 import duke.modules.Events;
 import duke.modules.FixedDurationTasks;
 import duke.modules.RecurringTask;
 import duke.modules.Task;
-import duke.modules.Timetable;
 import duke.modules.Todo;
-
 import java.util.Arrays;
 import java.util.LinkedHashMap;
 import java.util.regex.Matcher;
@@ -234,6 +234,15 @@ public class DukeParser {
             LinkedHashMap<String, String> args = parse(input, true, true);
             checkContainRequiredArguments(args, "/begin", "/end");
             Task hold = new DoWithin(args.get("description"), args.get("/begin"), args.get("/end"));
+            return new AddCommand(hold);
+        } else if (input.startsWith("cca ")) {
+            LinkedHashMap<String, String> args = parse(input, true, true);
+            checkContainRequiredArguments(args, "/begin", "/end", "/day");
+            System.out.println("All good");
+            try {
+                Thread.sleep(3000);
+            } catch (Exception ex) {}
+            Task hold = new Cca(args.get("description"), args.get("/begin"), args.get("/end"), args.get("/day"));
             return new AddCommand(hold);
         } else if (input.startsWith("print ")) {
             return new PrintTimetable();
