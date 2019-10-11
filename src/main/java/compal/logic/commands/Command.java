@@ -30,6 +30,7 @@ public abstract class Command {
     public static final String TOKEN_END_TIME = "/end";
     public static final String TOKEN_DATE = "/date";
     private static final String TOKEN_PRIORITY = "/priority";
+    private static final String EMPTY_INPUT_STRING = "";
     public Compal compal;
 
     /**
@@ -55,7 +56,7 @@ public abstract class Command {
         }
         int splitPoint = restOfInput.indexOf(TOKEN_SLASH);
         String desc = restOfInput.substring(0, splitPoint).trim();
-        if (desc.matches("")) {
+        if (desc.matches(EMPTY_INPUT_STRING)) {
             compal.ui.printg(MESSAGE_MISSING_DESC);
             throw new Compal.DukeException(MESSAGE_MISSING_DESC);
         }
