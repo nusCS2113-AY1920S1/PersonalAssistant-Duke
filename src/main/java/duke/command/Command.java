@@ -1,11 +1,10 @@
 package duke.command;
 
 import duke.core.DukeException;
-import duke.patient.PatientList;
+import duke.patient.PatientManager;
 import duke.storage.PatientStorage;
-import duke.storage.Storage;
 import duke.storage.TaskStorage;
-import duke.task.TaskList;
+import duke.task.TaskManager;
 import duke.core.Ui;
 
 /**
@@ -24,7 +23,7 @@ public abstract class Command {
      * @throws DukeException throw exception during execution of the
      *                       command.
      */
-    public abstract void execute(TaskList tasks, PatientList patientList, Ui ui, TaskStorage taskStorage, PatientStorage patientStorage) throws DukeException;
+    public abstract void execute(TaskManager tasks, PatientManager patientManager, Ui ui, TaskStorage taskStorage, PatientStorage patientStorage) throws DukeException;
 
     /**
      * Decide whether duke should exist.

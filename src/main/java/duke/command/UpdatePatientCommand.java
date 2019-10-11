@@ -3,10 +3,10 @@ package duke.command;
 import duke.core.DukeException;
 import duke.core.Ui;
 import duke.patient.Patient;
-import duke.patient.PatientList;
+import duke.patient.PatientManager;
 import duke.storage.PatientStorage;
 import duke.storage.TaskStorage;
-import duke.task.TaskList;
+import duke.task.TaskManager;
 
 public class UpdatePatientCommand extends Command {
 
@@ -22,8 +22,8 @@ public class UpdatePatientCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasks, PatientList patientList, Ui ui, TaskStorage taskStorage, PatientStorage patientStorage) throws DukeException {
-        Patient targetPatient = patientList.getPatient(Id);
+    public void execute(TaskManager tasks, PatientManager patientManager, Ui ui, TaskStorage taskStorage, PatientStorage patientStorage) throws DukeException {
+        Patient targetPatient = patientManager.getPatient(Id);
             if (targetInfo.equals("name")) {
                 targetPatient.setName(updatedValue);
             } else if (targetInfo.equals("nric")) {
@@ -33,7 +33,7 @@ public class UpdatePatientCommand extends Command {
             } else {
                 throw new DukeException("No such Patient information existed. Please Enter a valid Patient information");
             }
-            patientStorage.save(patientList.getPatientList());
+            patientStorage.save(patientManager.getPatientList());
             ui.showUpdateStatus(targetPatient , targetInfo);
 
     }

@@ -5,15 +5,14 @@ import duke.core.DukeException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class PatientList {
+public class PatientManager {
 
     private HashMap<Integer, Patient> patientIdMap = new HashMap<Integer, Patient>();
-    //private HashMap<Integer, Patient> patientNameMap = new HashMap<String, Patient>();
     private int maxId = 0;
     /**
      * instantiate a new TaskList with a empty list.
      */
-    public PatientList(ArrayList<Patient> patientList) {
+    public PatientManager(ArrayList<Patient> patientList) {
         for (Patient patient : patientList) {
             patientIdMap.put(patient.getID(), patient);
         }

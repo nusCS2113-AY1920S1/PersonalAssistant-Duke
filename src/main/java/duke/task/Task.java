@@ -1,8 +1,5 @@
 package duke.task;
 
-import java.util.ArrayList;
-
-
 /**
  * Represents a task.  Task is an abstract class that can not be
  * instantiated
@@ -20,16 +17,6 @@ public abstract class Task {
     private boolean isDone;
 
     /**
-     * A string to describe the date/time of the task.
-     */
-    private String dateTime = "";
-
-    /**
-     * An arraylist of things the nurse can bring for the task.
-     */
-    private ArrayList<String> thingsToBring;
-
-    /**
      * Initialises the minimum fields required to setup a Task.
      *
      * @param description A string that represents the description of certain task.
@@ -37,13 +24,10 @@ public abstract class Task {
     public Task(String description, String dateTime) {
         this.description = description;
         this.isDone = false;
-        this.thingsToBring = new ArrayList<String>();
-        this.dateTime = dateTime;
     }
 
     public Task(String description) {
         this.description = description;
-        this.thingsToBring = new ArrayList<String>();
         this.isDone = false;
     }
 
@@ -72,22 +56,6 @@ public abstract class Task {
         isDone = true;
     }
 
-//    /**
-//     * Returns a string with the following format to be stored in a local file.
-//     *
-//     * @return A string in a specific format to be stored in a local file.
-//     */
-//    public abstract String writeTxt();
-
-    /**
-     * Returns a string with the status icon and the description of the task.
-     *
-     * @return A string in a specific format with the status and description of the task.
-     */
-    public String printStatus() {
-        return "[" + this.getStatusIcon() + "] " + description;
-    }
-
     /**
      * Returns the description of the task.
      *
@@ -97,23 +65,6 @@ public abstract class Task {
 
     public String getDescription() {
         return description;
-    }
-
-    /**
-     * update the dateTime String to save the date and time.
-     * @param newDateTime the time retrieved from user input.
-     */
-
-    public void updateDateTime(String newDateTime) {
-        this.dateTime = newDateTime;
-    }
-
-    /**
-     * Returns the dateTime String.
-     */
-
-    public String getDateTime() {
-        return dateTime;
     }
 
     public abstract String toString();

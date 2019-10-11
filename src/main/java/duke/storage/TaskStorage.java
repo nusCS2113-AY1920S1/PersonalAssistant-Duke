@@ -65,7 +65,6 @@ public class TaskStorage extends Storage<Task>{
             BufferedWriter writer = Files.newBufferedWriter(Paths.get(filePath));
             CSVPrinter csvPrinter = new CSVPrinter(writer, CSVFormat.DEFAULT
                     .withHeader("Description"));
-//            ArrayList<Task> tasks = taskList.getTaskList();
             for (Task task : tasks){
                 String description = task.getDescription();
                 csvPrinter.printRecord(description);
