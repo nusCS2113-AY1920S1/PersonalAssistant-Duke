@@ -34,11 +34,11 @@ public class Duke extends Application {
         tentativeDates = new TaskList();
         try {
             storage.readTentativeDates(tentativeDates);
-            storage.readTodoList(todos);
             storage.readDeadlineList(deadlines);
             storage.readEventList(events);
-        } catch (IOException | ParseException e) {
+        } catch (IOException | ParseException | StringIndexOutOfBoundsException e) {
             ui.showLoadingError(e);
+            e.printStackTrace();
         }
     }
     /**
