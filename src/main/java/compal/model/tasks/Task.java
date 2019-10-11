@@ -144,6 +144,8 @@ public abstract class Task implements Serializable {
      */
 
 
+
+
     /**
      * Gets hasReminder of task.
      *
@@ -238,15 +240,15 @@ public abstract class Task implements Serializable {
         }
 
         switch (strCase) {
-        case 1:
-            return "\n" + "[" + getSymbol() + "]" + "[" + getStatusIcon() + "] " + getDescription()
-                    + " \nDate: " + getStringDate() + " \nEnd Time: " + getStringEndTime()
-                    + " \nPriority: " + getPriority() + "\n***************";
-        default:
-            return "\n" + "[" + getSymbol() + "]" + "[" + getStatusIcon() + "] " + getDescription()
-                    + " \nDate: " + getStringDate() + " \nStart Time: " + getStringStartTime()
-                    + " \nEnd Time: " + getStringEndTime() + " \nPriority: " + getPriority()
-                    + "\n***************";
+            case 1:
+                return "\n" + "[" + getSymbol() + "]" + "[" + getStatusIcon() + "] " + getDescription()
+                        + " \nDate: " + getStringDate() + " \nEnd Time: " + getStringEndTime()
+                        +" \nPriority: " + getPriority() + "\n***************";
+            default:
+                return "\n" + "[" + getSymbol() + "]" + "[" + getStatusIcon() + "] " + getDescription()
+                        + " \nDate: " + getStringDate() + " \nStart Time: " + getStringStartTime()
+                        + " \nEnd Time: " + getStringEndTime() +" \nPriority: " + getPriority()
+                        + "\n***************";
         }
 
 
@@ -271,10 +273,8 @@ public abstract class Task implements Serializable {
         list.append("_");
         list.append(getStringDate());
         list.append("_");
-        if (!getStringStartTime().equals("")) {
-            list.append(getStringStartTime());
-            list.append("_");
-        }
+        list.append(getStringStartTime());
+        list.append("_");
         list.append(getStringEndTime());
         list.append("_");
         list.append(gethasReminder());
@@ -290,6 +290,7 @@ public abstract class Task implements Serializable {
     public void calculateAndSetPriorityScore() {
         long score;
         switch (priority) {
+
         case high:
             score = 100;
             break;
@@ -301,6 +302,7 @@ public abstract class Task implements Serializable {
             break;
         default:
             score = 0;
+
         }
 
         Date d = new Date();
