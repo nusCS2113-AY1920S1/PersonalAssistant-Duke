@@ -20,7 +20,7 @@ public class AddRecipeCommand extends CommandRecipe {
     }
 
     @Override
-    public ArrayList<String> feedback(Recipe recipe, Ui ui, RecipeStorage recipeStorage) throws DukeException {
+    public ArrayList<String> feedback(RecipeList recipeList, Ui ui, RecipeStorage recipeStorage) throws DukeException {
         ArrayList<String> arrayList = new ArrayList<>();
         if (userInput.trim().equals(COMMAND_ADD_RECIPE)) {
             arrayList.add(ERROR_MESSAGE_GENERAL + MESSAGE_FOLLOWUP_NUll);
