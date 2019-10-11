@@ -33,6 +33,11 @@ public class Parser {
         return command;
     }
 
+    public String getCommandLine() {
+        String command = scanner.nextLine().toLowerCase().trim();
+        return command;
+    }
+
     /**
      * Returns the index number requested by the user for commands like 'snooze'
      * @return index Index the user wishes to perform operations on.
