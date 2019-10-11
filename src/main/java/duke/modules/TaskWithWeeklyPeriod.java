@@ -1,6 +1,8 @@
 package duke.modules;
 
-import duke.util.*;
+import duke.util.DateTime;
+import duke.util.TimeInterval;
+import duke.util.TimePeriodWeekly;
 import java.time.DayOfWeek;
 import java.time.LocalTime;
 import java.util.List;
