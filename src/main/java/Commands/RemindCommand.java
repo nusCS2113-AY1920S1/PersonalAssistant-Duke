@@ -44,19 +44,15 @@ public class RemindCommand extends Command {
      * @throws ParseException On date parsing error
      */
     @Override
-    public String execute(TaskList todos, TaskList events, TaskList deadlines, Ui ui, Storage storage) throws ParseException {
+    public String execute(TaskList events, TaskList deadlines, Ui ui, Storage storage) throws ParseException {
         TaskList reminder = new TaskList();
-        ArrayList<Task> todosList = todos.getList();
         ArrayList<Task> eventsList = events.getList();
         ArrayList<Task> deadlinesList = deadlines.getList();
         ArrayList<Task> temp = new ArrayList<>();
-        temp.addAll(todosList);
         temp.addAll(eventsList);
         temp.addAll(deadlinesList);
         for (Task task : temp) {
-            if (task.toString().contains("[T]") && task.toString().contains("\u2718")) {
-                reminder.addTask(task);
-            } else if (task.toString().contains("[D]") && task.toString().contains("\u2718")) {
+            if (task.toString().contains("[D]") && task.toString().contains("\u2718")) {
                 DateFormat format = new SimpleDateFormat("E dd/MM/yyyy hh:mm a");
                 Date currentDate = format.parse(task.toString().substring(task.toString().indexOf("by:") + 4, task.toString().indexOf(')')).trim());
                 if (withinWeek(currentDate)) {

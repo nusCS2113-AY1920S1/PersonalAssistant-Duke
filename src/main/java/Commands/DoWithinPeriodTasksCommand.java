@@ -34,7 +34,6 @@ public class DoWithinPeriodTasksCommand extends Command {
     /**
      * Executes the adding of Do Within Period Tasks object into TaskList object and displays.
      * AlertBox to show reminder.
-     * @param todos The todos TaskList object that adds new todo tasks with period
      * @param events The events TaskList object that contain event tasks
      * @param deadlines The deadlines TaskList object that contain deadline tasks
      * @param ui The Ui object to display the add task message
@@ -42,11 +41,11 @@ public class DoWithinPeriodTasksCommand extends Command {
      * @return This returns the method in the Ui object which returns the string to display reminder message
      */
     @Override
-    public String execute(TaskList todos, TaskList events, TaskList deadlines, Ui ui, Storage storage) {
+    public String execute(TaskList events, TaskList deadlines, Ui ui, Storage storage) {
         if (isValid) {
             AlertBox.display("Reminder Alert", "You have a task to do within a period.",
                     taskDescription + " (from " + startDate + " to " + endDate + ")", Alert.AlertType.INFORMATION);
-            todos.addTask(new Todo(taskDescription + "(from " + startDate + " to " + endDate + ")"));
+            //todos.addTask(new Todo(taskDescription + "(from " + startDate + " to " + endDate + ")")); remove this after done
         }
 
         return ui.showReminder(taskDescription, startDate, endDate, isValid);

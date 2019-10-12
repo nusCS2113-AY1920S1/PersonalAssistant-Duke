@@ -19,7 +19,6 @@ public class Duke extends Application {
     private final TaskList todos;
     private final TaskList deadlines;
     private final Ui ui;
-    private static TaskList tentativeDates;
 
     /**
      * Creates Duke object.
@@ -31,21 +30,13 @@ public class Duke extends Application {
         todos = new TaskList();
         events = new TaskList();
         deadlines = new TaskList();
-        tentativeDates = new TaskList();
         try {
-            storage.readTentativeDates(tentativeDates);
             storage.readDeadlineList(deadlines);
             storage.readEventList(events);
         } catch (IOException | ParseException | StringIndexOutOfBoundsException e) {
             ui.showLoadingError(e);
             e.printStackTrace();
         }
-    }
-    /**
-     * This method returns the loaded Tentative Dates.
-     */
-    public static TaskList getTentativeDates() {
-        return tentativeDates;
     }
 
     @Override
