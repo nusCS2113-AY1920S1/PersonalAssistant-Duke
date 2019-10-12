@@ -2,7 +2,7 @@ package duke.logic;
 
 import duke.logic.command.CommandResult;
 import duke.logic.command.exceptions.CommandException;
-import duke.logic.parser.commons.Autocompleter;
+import duke.logic.parser.commons.AutoCompleter;
 import duke.logic.parser.exceptions.ParseException;
 import duke.model.ReadOnlyBakingHome;
 import duke.model.commons.Ingredient;
@@ -24,7 +24,7 @@ public interface Logic {
      */
     CommandResult execute(String commandText) throws CommandException, ParseException;
 
-    Autocompleter.CompletedUserInput getAutoCompletion(String commandText, int caretPosition);
+    AutoCompleter.UserInputState getAutoCompletion(String commandText, int caretPosition);
 
     ReadOnlyBakingHome getBakingHome();
 

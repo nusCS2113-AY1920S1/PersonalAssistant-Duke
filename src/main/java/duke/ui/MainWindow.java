@@ -5,7 +5,7 @@ import duke.commons.core.LogsCenter;
 import duke.logic.Logic;
 import duke.logic.command.CommandResult;
 import duke.logic.command.exceptions.CommandException;
-import duke.logic.parser.commons.Autocompleter;
+import duke.logic.parser.commons.AutoCompleter;
 import duke.logic.parser.exceptions.ParseException;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -157,7 +157,7 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     private void autocomplete() {
-        Autocompleter.CompletedUserInput completedUserInput = logic.getAutoCompletion(userInput.getText(),
+        AutoCompleter.UserInputState completedUserInput = logic.getAutoCompletion(userInput.getText(),
                 userInput.getCaretPosition());
         this.userInput.setText(completedUserInput.userInputString);
         this.userInput.positionCaret(completedUserInput.caretPosition);

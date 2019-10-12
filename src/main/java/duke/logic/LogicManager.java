@@ -8,7 +8,9 @@ import duke.logic.command.order.CompleteOrderCommand;
 import duke.logic.command.order.DeleteOrderCommand;
 import duke.logic.command.order.EditOrderCommand;
 import duke.logic.command.order.OrderCommand;
-import duke.logic.parser.commons.Autocompleter;
+import duke.logic.command.product.EditProductCommand;
+import duke.logic.command.product.ProductCommand;
+import duke.logic.parser.commons.AutoCompleter;
 import duke.logic.parser.commons.BakingHomeParser;
 import duke.logic.parser.commons.CliSyntax;
 import duke.logic.parser.exceptions.ParseException;
@@ -24,13 +26,13 @@ public class LogicManager implements Logic {
     private final Model model;
     private final Storage storage;
     private final BakingHomeParser bakingHomeParser;
-    private final Autocompleter autocompleter;
+    private final AutoCompleter autocompleter;
 
     public LogicManager(Model model, Storage storage) {
         this.model = model;
         this.storage = storage;
         this.bakingHomeParser = new BakingHomeParser();
-        this.autocompleter = new Autocompleter();
+        this.autocompleter = new AutoCompleter();
         addFieldsToAutoComplete();
     }
 
@@ -50,8 +52,8 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public Autocompleter.CompletedUserInput getAutoCompletion(String commandText, int caretPosition) {
-        return autocompleter.getAutoCompletion(commandText, caretPosition);
+    public AutoCompleter.UserInputState getAutoCompletion(String commandText, int caretPosition) {
+        return autocompleter.getAutoCompletion(new AutoCompleter.UserInputState(commandText, caretPosition));
     }
 
     @Override
@@ -82,6 +84,9 @@ public class LogicManager implements Logic {
         autocompleter.addCommand(DeleteOrderCommand.class);
         autocompleter.addCommand(EditOrderCommand.class);
         autocompleter.addCommand(CompleteOrderCommand.class);
+        autocompleter.addCommand(ProductCommand.class);
+        autocompleter.addCommand(AddOrderCommand.class);
+        autocompleter.addCommand(EditProductCommand.class);
 
         autocompleter.addPrefix(CliSyntax.PREFIX_CUSTOMER_CONTACT);
         autocompleter.addPrefix(CliSyntax.PREFIX_CUSTOMER_NAME);
@@ -91,5 +96,11 @@ public class LogicManager implements Logic {
         autocompleter.addPrefix(CliSyntax.PREFIX_ORDER_STATUS);
         autocompleter.addPrefix(CliSyntax.PREFIX_ORDER_REMARKS);
         autocompleter.addPrefix(CliSyntax.PREFIX_ORDER_TOTAL);
+        autocompleter.addPrefix(CliSyntax.PREFIX_PRODUCT_COST);
+        autocompleter.addPrefix(CliSyntax.PREFIX_PRODUCT_INDEX);
+        autocompleter.addPrefix(CliSyntax.PREFIX_PRODUCT_INGREDIENT);
+        autocompleter.addPrefix(CliSyntax.PREFIX_PRODUCT_NAME);
+        autocompleter.addPrefix(CliSyntax.PREFIX_PRODUCT_PRICE);
+        autocompleter.addPrefix(CliSyntax.PREFIX_PRODUCT_STATUS);
     }
 }
