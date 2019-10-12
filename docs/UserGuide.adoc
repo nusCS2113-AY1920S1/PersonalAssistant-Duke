@@ -30,7 +30,7 @@ Jump to <<Quick Start>> to get started! Enjoy!
 .  Ensure you have Java 11 or above installed on your computer.
 .  Download the latest `oof.jar` and `save file`  link:{repoURL}/releases[here].
 .  Copy the files to the folder you want to use as the home folder for your Outstanding Organization Friend.
-.  Run the oof.command “java -jar oof.jar”. The application should load within a few seconds.
+.  Run the command “java -jar oof.jar”. The application should load within a few seconds.
 +
 image::Mockup.png[width="390"]
 +
@@ -42,11 +42,11 @@ e.g. typing *`help`* and pressing kbd:[Enter] will list the commands present.
 * *`viewCalendar`* : displays all saved tasks in a calendar view.
 * *`Bye`* : exits the application.
 
-.  Refer to <<Features>> for details of each oof.command.
+.  Refer to <<Features>> for details of each command.
 
 [[Features]]
 == Features
-In this section, the expected oof.command format will be introduced, and you can expect to learn the various commands you can use.
+In this section, the expected command format will be introduced, and you can expect to learn the various commands you can use.
 ====
 *Command Format*
 

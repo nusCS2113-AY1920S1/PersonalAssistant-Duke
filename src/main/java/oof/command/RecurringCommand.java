@@ -15,7 +15,7 @@ import java.util.Calendar;
 import java.util.InputMismatchException;
 
 /**
- * Represents a oof.command to select and recur a task.
+ * Represents a command to select and recur a task.
  */
 public class RecurringCommand extends Command {
 

@@ -40,7 +40,7 @@ module Slim::Helpers
     }
   }.to_json
 
-  VOID_ELEMENTS = %w(area base br col oof.command embed hr img input keygen link meta param source track wbr)
+  VOID_ELEMENTS = %w(area base br col command embed hr img input keygen link meta param source track wbr)
 
 
   ##

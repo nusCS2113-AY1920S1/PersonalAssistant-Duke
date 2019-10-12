@@ -38,7 +38,7 @@ Do not disable them. If you have disabled them, go to `File` > `Settings` > `Plu
 . Locate the `build.gradle` file and select it. Click `OK`
 . Click `Open as Project`
 . Click `OK` to accept the default settings
-. Open a console and run the oof.command `gradlew processResources` (Mac/Linux: `./gradlew processResources`). It should finish with the `BUILD SUCCESSFUL` message. +
+. Open a console and run the command `gradlew processResources` (Mac/Linux: `./gradlew processResources`). It should finish with the `BUILD SUCCESSFUL` message. +
 This will generate all resources required by the application and tests.
 
 === Verifying the setup
@@ -207,7 +207,7 @@ Use case ends.
 
 . User wants to view a summary of the next day’s tasks. 
 . OOF requests for user input. 
-. User enters the summary oof.command.
+. User enters the summary command.
 . OOF displays the summary of the next day’s tasks.
 
 Use case ends.   
