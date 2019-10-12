@@ -2,7 +2,6 @@ package duke.logic.command.shortcut;
 
 import duke.logic.command.Command;
 import duke.logic.command.CommandResult;
-import duke.logic.command.Undoable;
 import duke.logic.command.exceptions.CommandException;
 import duke.logic.parser.commons.BakingHomeParser;
 import duke.logic.parser.exceptions.ParseException;
@@ -12,9 +11,9 @@ import duke.model.shortcut.Shortcut;
 import static java.util.Objects.requireNonNull;
 
 /**
- * A command to execute a series of user-defined commands.
+ * A command to execute a series of pre-specified commands.
  */
-public class ExecuteShortcutCommand extends Command implements Undoable {
+public class ExecuteShortcutCommand extends Command {
     public static final String COMMAND_WORD = "do";
 
     private static final String MESSAGE_SHORTCUT_NOT_FOUND = "Shortcut not found";
@@ -39,6 +38,8 @@ public class ExecuteShortcutCommand extends Command implements Undoable {
     public CommandResult execute(Model model) throws CommandException {
         getShortcut(model);
 
+        model.setVersionControl(false);
+
         BakingHomeParser parser = new BakingHomeParser();
         for (String line : toExecute.getUserInputs()) {
             try {
@@ -48,17 +49,12 @@ public class ExecuteShortcutCommand extends Command implements Undoable {
                 throw new CommandException(String.format(MESSAGE_EXECUTION_FAILED, line, e.getMessage()));
             }
         }
+
+        model.setVersionControl(true);
+
+        model.commit();
+
         return new CommandResult(MESSAGE_SUCCESS);
-    }
-
-    @Override
-    public void undo(Model model) {
-        //TBD
-    }
-
-    @Override
-    public void redo(Model model) {
-        //TBD
     }
 
     private void getShortcut(Model model) throws CommandException {

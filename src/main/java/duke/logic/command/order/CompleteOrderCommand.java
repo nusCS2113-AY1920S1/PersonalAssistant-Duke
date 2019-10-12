@@ -44,6 +44,8 @@ public class CompleteOrderCommand extends OrderCommand {
             );
         }
 
+        model.commit();
+
         return new CommandResult(String.format(MESSAGE_COMPLETE_SUCCESS, indices.size()),
                 CommandResult.DisplayedPage.ORDER);
 

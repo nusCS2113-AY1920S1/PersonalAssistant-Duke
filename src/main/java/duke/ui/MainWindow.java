@@ -205,20 +205,20 @@ public class MainWindow extends UiPart<Stage> {
 
     private void showPage(CommandResult.DisplayedPage toDisplay) {
         switch (toDisplay) {
-            case SALE:
-                showSalesPage();
-                break;
-            case ORDER:
-                showOrderPage();
-                break;
-            case PRODUCT:
-                showProductPage();
-                break;
-            case INVENTORY:
-                showInventoryPage();
-                break;
-            default:
-                break;
+        case SALE:
+            showSalesPage();
+            break;
+        case ORDER:
+            showOrderPage();
+            break;
+        case PRODUCT:
+            showProductPage();
+            break;
+        case INVENTORY:
+            showInventoryPage();
+            break;
+        default:
+            break;
         }
     }
 

@@ -2,12 +2,11 @@ package duke.logic.command.shortcut;
 
 import duke.logic.command.Command;
 import duke.logic.command.CommandResult;
-import duke.logic.command.Undoable;
 import duke.logic.command.exceptions.CommandException;
 import duke.model.Model;
 import duke.model.shortcut.Shortcut;
 
-public class SetShortcutCommand extends Command implements Undoable {
+public class SetShortcutCommand extends Command {
     public static final String COMMAND_WORD = "short";
 
     private static final String MESSAGE_SET_SUCCESS = "Shortcut [%s] is set.";
@@ -33,18 +32,11 @@ public class SetShortcutCommand extends Command implements Undoable {
             checkShortcut();
 
             model.setShortcut(shortcut);
+
+            model.commit();
+
             return new CommandResult(String.format(MESSAGE_SET_SUCCESS, shortcut.getName()));
         }
-    }
-
-    @Override
-    public void undo(Model model) throws CommandException {
-        //TBD
-    }
-
-    @Override
-    public void redo(Model model) throws CommandException {
-        //TBD
     }
 
     private void checkShortcut() throws CommandException {

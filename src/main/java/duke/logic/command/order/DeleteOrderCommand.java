@@ -4,7 +4,10 @@ import duke.commons.core.index.Index;
 import duke.logic.command.CommandResult;
 import duke.logic.command.exceptions.CommandException;
 import duke.model.Model;
+import duke.model.order.Order;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 import static java.util.Objects.requireNonNull;
@@ -18,6 +21,11 @@ public class DeleteOrderCommand extends OrderCommand {
     private static final String MESSAGE_INDEX_OUT_OF_BOUND = "Index [%d] is out of bound.";
     private final Set<Index> indices;
 
+    /**
+     * Creates a {@code DeleteOrderCommand}.
+     *
+     * @param indices of the orders to delete
+     */
     public DeleteOrderCommand(Set<Index> indices) {
         requireNonNull(indices);
 
@@ -26,13 +34,18 @@ public class DeleteOrderCommand extends OrderCommand {
 
 
     public CommandResult execute(Model model) throws CommandException {
+        List<Order> toDelete = new ArrayList<>();
         for (Index index : indices) {
-            if (index.getZeroBased() > model.getFilteredOrderList().size()) {
+            if (index.getZeroBased() >= model.getFilteredOrderList().size()) {
                 throw new CommandException(String.format(MESSAGE_INDEX_OUT_OF_BOUND, index.getOneBased()));
             }
-
-            model.deleteOrder(model.getFilteredOrderList().get(index.getZeroBased()));
+            toDelete.add(model.getFilteredOrderList().get(index.getZeroBased()));
         }
+        for (Order order : toDelete) {
+            model.deleteOrder(order);
+        }
+
+        model.commit();
 
         return new CommandResult(String.format(MESSAGE_DELETE_SUCCESS, indices.size()),
                 CommandResult.DisplayedPage.ORDER);

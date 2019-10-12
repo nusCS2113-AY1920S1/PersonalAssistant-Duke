@@ -1,7 +1,6 @@
 package duke.logic.command.order;
 
 import duke.logic.command.CommandResult;
-import duke.logic.command.Undoable;
 import duke.logic.command.exceptions.CommandException;
 import duke.model.Model;
 import duke.model.commons.Item;
@@ -19,7 +18,7 @@ import static java.util.Objects.requireNonNull;
 /**
  * A command to add an order to BakingHome.
  */
-public class AddOrderCommand extends OrderCommand implements Undoable {
+public class AddOrderCommand extends OrderCommand {
 
     public static final String COMMAND_WORD = "add";
 
@@ -47,16 +46,9 @@ public class AddOrderCommand extends OrderCommand implements Undoable {
 
         Order toAdd = createOrder(addOrderDescriptor, model.getFilteredProductList());
         model.addOrder(toAdd);
+        model.commit();
 
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd.getId()), CommandResult.DisplayedPage.ORDER);
-    }
-
-    @Override
-    public void undo(Model model) throws CommandException {
-    }
-
-    @Override
-    public void redo(Model model) throws CommandException {
     }
 
     private Order createOrder(OrderDescriptor descriptor, List<Product> allProducts) throws CommandException {
