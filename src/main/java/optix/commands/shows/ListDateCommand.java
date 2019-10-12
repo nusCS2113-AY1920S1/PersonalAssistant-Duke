@@ -17,7 +17,7 @@ public class ListDateCommand extends Command {
 
     private static final String MESSAGE_FOUND_SHOW = "These shows are showing on %1$s: \n";
 
-    private static final String MESSAGE_NO_SHOWS_FOUND = "☹ OOPS!!! There are not shows on %1$s.\n";
+    private static final String MESSAGE_NO_SHOWS_FOUND = "☹ OOPS!!! There are no shows on %1$s.\n";
 
     private static final String MESSAGE_ENTRY = "%1$d. %2$s on %3$s\n";
 
@@ -85,32 +85,32 @@ public class ListDateCommand extends Command {
 
     private int getMonth(String month) {
         switch (month) {
-            case "january":
-                return 1;
-            case "february":
-                return 2;
-            case "march":
-                return 3;
-            case "april":
-                return 4;
-            case "may":
-                return 5;
-            case "june":
-                return 6;
-            case "july":
-                return 7;
-            case "august":
-                return 8;
-            case "september":
-                return 9;
-            case "october":
-                return 10;
-            case "november":
-                return 11;
-            case "december":
-                return 12;
-            default:
-                return 0;
+        case "january":
+            return 1;
+        case "february":
+            return 2;
+        case "march":
+            return 3;
+        case "april":
+            return 4;
+        case "may":
+            return 5;
+        case "june":
+            return 6;
+        case "july":
+            return 7;
+        case "august":
+            return 8;
+        case "september":
+            return 9;
+        case "october":
+            return 10;
+        case "november":
+            return 11;
+        case "december":
+            return 12;
+        default:
+            return 0;
         }
     }
 }

@@ -1,6 +1,5 @@
 package optix.commands;
 
-import optix.commands.ByeCommand;
 import optix.commons.Model;
 import optix.commons.Storage;
 import optix.ui.Ui;

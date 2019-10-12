@@ -1,4 +1,4 @@
-package Optix.commands;
+package optix.commands;
 
 import optix.commands.shows.AddCommand;
 import optix.commands.shows.ListDateCommand;
@@ -25,7 +25,7 @@ class ListDateCommandTest {
         ListDateCommand testCommand1 = new ListDateCommand("december 2020");
         testCommand1.execute(model, ui, storage);
         String expected1 = "__________________________________________________________________________________\n"
-                + "☹ OOPS!!! The show cannot be found.\n"
+                + "☹ OOPS!!! There are no shows on december 2020.\n"
                 + "__________________________________________________________________________________\n";
         assertEquals(expected1, ui.showCommandLine());
 

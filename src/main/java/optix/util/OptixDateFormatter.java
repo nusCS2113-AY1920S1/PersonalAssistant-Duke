@@ -80,15 +80,25 @@ public class OptixDateFormatter {
         return year % 400 == 0 || (year % 4 == 0 && year % 100 != 0);
     }
 
+    /**
+     * Get the first day of the month in query.
+     *
+     * @param year The year in query.
+     * @param month The month in query.
+     * @return The first day of the month in LocalDate.
+     */
     public LocalDate getStartOfMonth(int year, int month) {
         return LocalDate.of(year, month, 1);
     }
 
+    /**
+     * Get the first day of the following month for the month in query.
+     *
+     * @param year The year in query.
+     * @param month The month in query.
+     * @return The first day of the following month for the month in query in LocalDate.
+     */
     public LocalDate getEndOfMonth(int year, int month) {
-        if (month == 12) {
-            return LocalDate.of(year, 1, 1).plusYears(1);
-        }
-
-        return LocalDate.of(year, month+1, 1);
+        return LocalDate.of(year, month, 1).plusMonths(1);
     }
 }
