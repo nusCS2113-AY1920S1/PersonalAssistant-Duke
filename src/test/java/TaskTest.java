@@ -6,7 +6,6 @@ import models.task.TaskState;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class TaskTest {
@@ -18,7 +17,7 @@ public class TaskTest {
     }
 
     @Test
-    public void testAddTask() throws ParseException {
+    public void testAddTask() {
         try {
             SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
             Date dueDate = formatter.parse("19/10/2019");
