@@ -13,7 +13,7 @@ public class HelpCommand extends Command {
 
     /**
      * Constructor for individual Help Command.
-     * @param keyword   to indicate keyword that help is needed for.
+     * @param keyword           to indicate keyword that help is needed for.
      */
     public HelpCommand(String keyword) {
         super();
