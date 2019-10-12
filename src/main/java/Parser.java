@@ -34,6 +34,7 @@ public class Parser {
         if (fullCommand.equals("test")) {
             return new TestCommand(ui, tasks, wheatFarm, chickenFarm, cowFarm);
         }
+
         return new ExitCommand();
     }
 }

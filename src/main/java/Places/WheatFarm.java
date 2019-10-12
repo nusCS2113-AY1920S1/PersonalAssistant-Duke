@@ -1,6 +1,5 @@
 package Places;
 
-import Simulate.PlantSeedSimulation;
 import org.json.simple.JSONObject;
 
 public class WheatFarm extends Farm {

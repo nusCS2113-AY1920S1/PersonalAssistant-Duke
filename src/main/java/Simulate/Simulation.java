@@ -6,14 +6,16 @@ import UserInterfaces.Ui;
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
-public abstract class Simulation {
+public class Simulation {
     //need run in terminal not console for clear screen to work
     protected String basepath;
     protected int numberOfFrames;
     private final int framePerSecond = 3;
     protected Ui ui;
-    public Simulation(Ui userInterface) {
+    public Simulation(Ui userInterface, String basepath, int numberOfFrames) {
         ui = userInterface;
+        this.basepath = basepath;
+        this.numberOfFrames = numberOfFrames;
     }
     protected void nextFrame(String statusBar,String filePath) {
         try {

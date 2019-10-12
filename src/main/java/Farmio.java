@@ -17,6 +17,56 @@ public class Farmio {
     }
 
     private void run() {
+
+        /*Print Random Shit
+         */
+        for(int x = 0; x != 10 ; x++){
+            System.out.println();
+        }
+
+        System.out.println("STARTING NEW GAME : LEVEL 1 - Wheat Farm");
+        for(int x = 0; x != 1 ; x++){
+            System.out.println();
+        }
+
+        System.out.println("|------------|");
+        System.out.println("|            |");
+        System.out.println("|   Insert   |");
+        System.out.println("|   Farmer   |");
+        System.out.println("|   Pic      |");
+        System.out.println("|            |");
+        System.out.println("|------------|");
+
+        System.out.println("|---------------------------------------------------------------------------------------|");
+        System.out.println("|  Welcome to Farmio Farmer John!                                                       |");
+        System.out.println("|      In this game we you will be tasked to complete a series of  challenging tasks    |");
+        System.out.println("|      This game intends expose you to the world of Computational thinking              |");
+        System.out.println("|                                                                                       |");
+        System.out.println("|   PRESS ENTER TO CONTINUE                                                    .   .  . |");
+        System.out.println("|---------------------------------------------------------------------------------------|");
+
+        for(int x = 0; x != 10 ; x++){
+            System.out.println();
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    /*
         displayWelcome();
         displayMenu();
         this.parser = new Parser(ui, farmer.tasks, farmer.wheatFarm, farmer.chickenFarm, farmer.cowFarm);
@@ -38,7 +88,12 @@ public class Farmio {
                 ui.showInfo("No gave save was done.");
             }
             checkObjectives(farmer);
+
+
+
+
         }
+*/
     }
 
     public static void main(String[] args) {    //TODO - configure both OS

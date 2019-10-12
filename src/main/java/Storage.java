@@ -1,9 +1,10 @@
-import org.json.simple.JSONArray;
+import FarmioExceptions.FarmioException;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
 import java.io.*;
+import java.net.URL;
 
 public class Storage {
 
@@ -49,5 +50,13 @@ public class Storage {
             art.append(line).append("\n");
         }
         return art.toString();
+    }
+    private File getResourceFile(String name) throws FarmioException {
+        ClassLoader classLoader = getClass().getClassLoader();
+        URL resource = classLoader.getResource(name + ".txt");
+        if(resource == null){
+            throw new FarmioException("Game is corrupted!");
+        }
+        return new File(resource.getFile());
     }
 }
