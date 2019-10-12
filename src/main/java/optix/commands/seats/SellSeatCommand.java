@@ -68,7 +68,7 @@ public class SellSeatCommand extends Command {
 
             LocalDate showLocalDate = formatter.toLocalDate(showDate);
 
-            if (!shows.isEmpty() && shows.containsKey(showLocalDate) && shows.get(showLocalDate).hasSameName(showName)) {
+            if (shows.containsKey(showLocalDate) && shows.get(showLocalDate).hasSameName(showName)) {
                 Theatre show = shows.get(showLocalDate);
 
                 if (seats.length == 0) {

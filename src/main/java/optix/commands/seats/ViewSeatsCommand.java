@@ -34,7 +34,7 @@ public class ViewSeatsCommand extends Command {
             LocalDate showLocalDate = formatter.toLocalDate(showDate);
             message.append(String.format("Here is the layout of the theatre for %s on %s:\n", showName, showDate));
 
-            if (!shows.isEmpty() && shows.containsKey(showLocalDate) && shows.get(showLocalDate).hasSameName(showName)) {
+            if (shows.containsKey(showLocalDate) && shows.get(showLocalDate).hasSameName(showName)) {
                 Theatre theatre = shows.get(showLocalDate);
                 message.append(theatre.getSeatingArrangement());
             } else {

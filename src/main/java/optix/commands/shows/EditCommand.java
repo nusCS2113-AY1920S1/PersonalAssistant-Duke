@@ -46,7 +46,7 @@ public class EditCommand extends Command {
             }
             LocalDate localShowDate = formatter.toLocalDate(showDate);
 
-            if (!shows.isEmpty() && shows.containsKey(localShowDate) && shows.get(localShowDate).hasSameName(oldShowName)) {
+            if (shows.containsKey(localShowDate) && shows.get(localShowDate).hasSameName(oldShowName)) {
                 Theatre show = shows.get(localShowDate);
                 show.setShowName(newShowName);
 

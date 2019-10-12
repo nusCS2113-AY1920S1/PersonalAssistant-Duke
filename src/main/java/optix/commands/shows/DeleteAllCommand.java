@@ -52,12 +52,14 @@ public class DeleteAllCommand extends Command {
                 shows.remove(entry.getKey(), entry.getValue());
             }
         }
+
         if (!deletedShows.isEmpty()) {
             message.append(MESSAGE_SUCCESSFUL);
             for (String infoStrings : deletedShows) {
                 message.append(infoStrings.trim()).append('\n');
             }
         }
+
         if (!missingShows.isEmpty()) {
             message.append(MESSAGE_UNSUCCESSFUL);
             for (String missingShow : missingShows) {

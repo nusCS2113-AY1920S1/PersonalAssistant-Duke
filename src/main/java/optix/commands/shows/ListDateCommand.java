@@ -17,7 +17,7 @@ public class ListDateCommand extends Command {
 
     private static final String MESSAGE_FOUND_SHOW = "These shows are showing on %1$s: \n";
 
-    private static final String MESSAGE_SHOW_NOT_FOUND = "☹ OOPS!!! The show cannot be found.\n";
+    private static final String MESSAGE_NO_SHOWS_FOUND = "☹ OOPS!!! There are not shows on %1$s.\n";
 
     private static final String MESSAGE_ENTRY = "%1$d. %2$s on %3$s\n";
 
@@ -60,7 +60,7 @@ public class ListDateCommand extends Command {
             }
 
             if (!hasShow) {
-                message = new StringBuilder(MESSAGE_SHOW_NOT_FOUND);
+                message = new StringBuilder(String.format(MESSAGE_NO_SHOWS_FOUND, monthOfYear));
             }
 
         } catch (OptixInvalidDateException e) {
