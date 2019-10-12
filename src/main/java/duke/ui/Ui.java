@@ -375,10 +375,10 @@ public class Ui {
      */
     public void showAddedContact(ContactList contactList) {
         out.println("     Got it. Contact added:");
-        if(contactList.size() == 0){
+        if (contactList.size() == 0) {
             out.println("     You have no contacts!");
-        } else{
-            out.println(contactList.get(contactList.size()-1));
+        } else {
+            out.println(contactList.get(contactList.size() - 1));
             out.println("     Now you have " + contactList.size() + " contacts.");
         }
     }

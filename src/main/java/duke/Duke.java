@@ -138,10 +138,10 @@ public class Duke {
                     cmd.execute(items, priorityList, ui);
                 } else if (cmd instanceof BackupCommand) {
                     cmd.executeStorage(items, ui, storage);
-                } else if(cmd instanceof AddContactsCommand) {
+                } else if (cmd instanceof AddContactsCommand) {
                     cmd.execute(items, contactList, ui);
                     cmd.executeStorage(items, ui, contactStorage,contactList);
-                } else if(cmd instanceof ListContactsCommand) {
+                } else if (cmd instanceof ListContactsCommand) {
                     cmd.execute(items, contactList, ui);
                 } else {
                     cmd.execute(items,ui);

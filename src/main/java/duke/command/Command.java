@@ -2,7 +2,6 @@ package duke.command;
 
 
 import duke.storage.ContactStorage;
-import duke.storage.PriorityStorage;
 import duke.storage.Storage;
 import duke.task.ContactList;
 import duke.task.PriorityList;
@@ -10,7 +9,6 @@ import duke.task.TaskList;
 import duke.ui.Ui;
 
 import java.io.IOException;
-import java.util.ArrayList;
 
 /**
  * An abstract class that represents various kinds of commands.
@@ -67,13 +65,15 @@ public abstract class Command {
 
     /**
      * Executes a command that overwrites existing storage with the updated contact list.
+     *
      * @param items The task list that contains a list of tasks.
      * @param ui To tell the user that it is executed successfully.
-     * @param cStorage Contacts stored in storage.
+     * @param contactStorage Contacts stored in storage.
      * @param contactList The list of contacts.
      * @throws IOException If there is an error reading the file.
      */
-    public void executeStorage(TaskList items, Ui ui, ContactStorage cStorage, ContactList contactList) throws IOException {
+    public void executeStorage(TaskList items, Ui ui, ContactStorage contactStorage,
+                                ContactList contactList) throws IOException {
     }
 }
 

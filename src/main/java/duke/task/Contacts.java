@@ -17,7 +17,7 @@ public class Contacts {
      * @param email Electronic mail of contact.
      * @param office Office of contact.
      */
-    public Contacts(String name, String contact, String email, String office){
+    public Contacts(String name, String contact, String email, String office) {
         this.name = name.trim();
         this.contact = contact.trim();
         this.email = email.trim();
@@ -40,10 +40,10 @@ public class Contacts {
      */
     @Override
     public String toString() {
-        return "Name: " + name +
-                "\nNumber: " + contact +
-                "\nEmail: " + email +
-                "\nOffice: " + office;
+        return "Name: " + name
+                + "\nNumber: " + contact
+                + "\nEmail: " + email
+                + "\nOffice: " + office;
     }
 
     /**

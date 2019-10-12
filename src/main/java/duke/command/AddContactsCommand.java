@@ -52,7 +52,8 @@ public class AddContactsCommand extends Command {
     public void executeStorage(TaskList items, Ui ui, Storage storage) throws IOException {
     }
 
-    public void executeStorage(TaskList items, Ui ui, ContactStorage contactStorage, ContactList contactList) throws IOException {
+    public void executeStorage(TaskList items, Ui ui, ContactStorage contactStorage,
+                               ContactList contactList) throws IOException {
         contactStorage.write(contactList);
     }
 }

@@ -1,4 +1,1 @@
 Prof Tan,91234567,tancc@nus.edu.sg,E1-08-11
-Prof Yoo,91234567,,E1-08-11
-Prof Tan,91234567,tancc@nus.edu.sg,E1-08-11
-Prof Moy Shin Lee,87654321,msl@nus.edu.sg,E1-08-10

@@ -48,7 +48,7 @@ public class ContactList {
      *
      * @return String that contains the whole list of contacts.
      */
-    public String getContactList(){
+    public String getContactList() {
         String fullContactList = "";
         for (int i = 0; i < contactList.size(); i++) {
             fullContactList += (i + 1) + ". " + contactList.get(i).toStringGui() + "\n";

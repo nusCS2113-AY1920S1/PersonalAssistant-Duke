@@ -70,7 +70,8 @@ public class Parser {
                                 throw new DukeException("     (>_<) OOPS!! Task requirements has yet to be completed!"
                                         + " please complete task [" + tempString + "] before marking this as done!");
                             }
-                        } return new DoneCommand(tasknum);
+                        }
+                        return new DoneCommand(tasknum);
                     } else { //delete
                         return new DeleteCommand(tasknum);
                     }
@@ -308,11 +309,12 @@ public class Parser {
             if (description.isEmpty()) {
                 throw new DukeException("     (>_<) OOPS!!! The description of a " + arr[0] + " cannot be empty.");
             }
+
             duration = Integer.parseInt(description.split("/in", 2)[0].trim()) - 1;
             String in = description.split(" /in ", 2)[1].trim();
             int howManyDays = Integer.parseInt(in.split(" ", 2)[0].trim());
             return new RemindCommand(duration, howManyDays);
-            } else if (arr.length > 0 && (arr[0].equals("update"))) {
+        } else if (arr.length > 0 && (arr[0].equals("update"))) {
             if (arr.length == 1) {
                 throw new DukeException("     (>_<) OOPS!!! The task number cannot be empty.");
             } else {
@@ -370,14 +372,15 @@ public class Parser {
                 }
             }
         } else if (arr.length > 0 && arr[0].equals("addcontact")) {
-        String[] userInput = sentence.split(" ",2);
-        String[] contactDetails = userInput[1].split(",");
-        try{
-            Contacts contactObj = new Contacts(contactDetails[0], contactDetails[1], contactDetails[2], contactDetails[3]);
-            return new AddContactsCommand(contactObj);
-        } catch (Exception e) {
-            throw new DukeException("Format is in: addcontact <name>, <contact>, <email>, <office>");
-        }
+            String[] userInput = sentence.split(" ",2);
+            String[] contactDetails = userInput[1].split(",");
+            try {
+                Contacts contactObj = new Contacts(contactDetails[0], contactDetails[1],
+                                          contactDetails[2], contactDetails[3]);
+                return new AddContactsCommand(contactObj);
+            } catch (Exception e) {
+                throw new DukeException("Format is in: addcontact <name>, <contact>, <email>, <office>");
+            }
         } else if (sentence.equals("listcontacts")) {
             return new ListContactsCommand();
         } else if (sentence.equals("backup")) {
