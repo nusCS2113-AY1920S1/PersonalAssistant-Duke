@@ -1,6 +1,8 @@
 package com.algosenpai.app.controller;
 
 import com.algosenpai.app.constant.ResourcePathConstant;
+import com.algosenpai.app.constant.SoundConstant;
+import com.algosenpai.app.constant.SoundEnum;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 
@@ -15,7 +17,7 @@ class MusicController {
     private static boolean isMuted = false;
 
     MusicController() {
-        playMusic("promise.wav");
+        playMusic(SoundConstant.homeSound.get(SoundEnum.PROMISE));
     }
 
     /**

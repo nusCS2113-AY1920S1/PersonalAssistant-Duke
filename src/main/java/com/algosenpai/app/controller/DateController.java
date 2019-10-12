@@ -1,18 +1,20 @@
 package com.algosenpai.app.controller;
 
-import com.algosenpai.app.constant.ImagesConstant;
+import com.algosenpai.app.constant.CommandsConstant;
 import com.algosenpai.app.constant.JavaFxConstant;
-import com.algosenpai.app.constant.ResourcePathConstant;
-import com.algosenpai.app.utility.ResourceRandomUtility;
+import com.algosenpai.app.constant.ImagesConstant;
+import com.algosenpai.app.constant.ViewConstant;
+import com.algosenpai.app.constant.SoundConstant;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Label;
+import javafx.scene.control.DialogPane;
 import javafx.scene.control.TextField;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.StackPane;
+import javafx.scene.text.Text;
 
 import java.io.IOException;
 import java.net.URL;
@@ -21,7 +23,10 @@ import java.util.ResourceBundle;
 public class DateController extends SceneController implements Initializable {
 
     @FXML
-    private Label sceneTitle;
+    private Text sceneTitle;
+
+    @FXML
+    private Text sceneText;
 
     @FXML
     private TextField userInput;
@@ -29,30 +34,45 @@ public class DateController extends SceneController implements Initializable {
     @FXML
     private ImageView characterImage;
 
-    private String characterImageName;
+    @FXML
+    private DialogPane dialogPane;
 
-    AnimationTimerController backgroundSceneTimer;
+    @FXML
+    private StackPane container;
 
+    private AnimationTimerController backgroundSceneTimer;
+
+    /**
+     * Initialize quiz scene.
+     */
     public DateController() {
-        characterImageName = "miku.png";
         handle();
     }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        Image image = new Image(getClass().getResourceAsStream(
-                ResourcePathConstant.imagesResourcePath + characterImageName));
-        characterImage.setFitHeight(ImagesConstant.imageHeight);
-        characterImage.setFitWidth(ImagesConstant.imageWidth);
-        characterImage.setImage(image);
+        sceneTitle.setText("Date");
+        setNodePos(sceneTitle, 50, 400);
+        setTextStyle(sceneTitle, 199,21,133, true, 30, "arial");
+
+        displayCharacterImage(characterImage, "miku.png", 400, 400);
+        setNodePos(characterImage, 250.0, -350);
+
+        userInput.setPrefWidth(500.0);
+        setNodePos(userInput, 500.0, -250);
+
+        displayDialogPane(dialogPane, 0.8, 2, 5, 255, 105, 180, 5);
+        setNodePos(dialogPane, 450, -200);
+
+        displayCommandList(container, CommandsConstant.dateCommand,
+                255, 218, 185, true, 20, "arial",
+                350.0, 250.0, 30);
     }
 
     private void handle() {
         backgroundSceneTimer = new AnimationTimerController(JavaFxConstant.sceneInterval) {
             @Override
             public void handle() {
-                String imageName = ResourceRandomUtility.randomResources(ImagesConstant.quizImages);
-                changeBackgroundImage(imageName);
             }
         };
         backgroundSceneTimer.start();
@@ -66,9 +86,7 @@ public class DateController extends SceneController implements Initializable {
     @FXML
     public void handleKeyPressed(KeyEvent keyEvent) throws IOException {
         if (keyEvent.getCode() == KeyCode.H) {
-            MusicController.playMusic("rezero.wav");
-            String imageName = ResourceRandomUtility.randomResources(ImagesConstant.startAppImages);
-            changeScene("home.fxml", imageName);
+            changeSceneOnKeyPressed(ViewConstant.homeView, ImagesConstant.homeImages, SoundConstant.homeSound);
             backgroundSceneTimer.stop();
         }
         if (keyEvent.getCode() == KeyCode.ESCAPE) {

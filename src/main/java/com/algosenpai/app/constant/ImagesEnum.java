@@ -2,24 +2,32 @@ package com.algosenpai.app.constant;
 
 public enum  ImagesEnum {
 
-    BRIGHT_CLASSROOM,
-    CLASSROOM,
+    // background images for home scene
+    CUTE_ANIME,
+
+    // background images for quiz scene
+    AFTERNOON_CLASSROOM,
+    EMPTY_CLASSROOM,
     EVENING_CLASSROOM,
-    EXAM_CLASSROOM,
+    MORNING_CLASSROOM,
 
-    START_APP_1,
-    START_APP_2,
+    // background images for end scene
+    EVENING,
 
-    LOADING_SCREEN_END_QUIZ,
-    LOADING_SCREEN_START_QUIZ,
-    LOADING_SCREEN_WAITING,
+    // background images for girl scene
+    KISS,
 
-    LOLICON_GIRL,
-    MIKU_GIRL,
+    // background images for date scene
+    BEDROOM,
     PARK,
     SWIMMING_POOL,
     TOUR,
-    BEDROOM,
     TOWN,
 
+    // background images for review scene
+    SAO,
+
+    // images of character
+    LOLICON,
+    MIKU;
 }
