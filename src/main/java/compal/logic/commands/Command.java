@@ -5,8 +5,6 @@ import compal.model.tasks.Task;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Scanner;
@@ -102,7 +100,7 @@ public abstract class Command {
      * @param inputTime the time of input
      * @return True or false depending if the date and time is after or before.
      */
-    boolean isValidDateAndTime(String inputDate, String inputTime) throws ParseException {
+    public boolean isValidDateAndTime(String inputDate, String inputTime) throws ParseException {
 
         Calendar c = Calendar.getInstance();
         Date inputDateFormat = new SimpleDateFormat("dd/MM/yyyy").parse(inputDate);
@@ -111,14 +109,13 @@ public abstract class Command {
         c.set(Calendar.HOUR_OF_DAY, Integer.parseInt(inputTime.substring(0, 2)));
         Date inputDateAndTime = c.getTime();
 
-        Date currentDate = java.util.Calendar.getInstance().getTime();
+        Date currentDate = Calendar.getInstance().getTime();
         c.setTime(currentDate);
         Date currDateAndTime = c.getTime();
         if (inputDateAndTime.after(currDateAndTime)) {
             return true;
-        } else {
-            return false;
         }
+        return false;
     }
 
     /**

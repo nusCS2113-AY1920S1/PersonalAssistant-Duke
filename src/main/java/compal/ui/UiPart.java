@@ -447,7 +447,7 @@ public class UiPart {
      * @param currDate current date of task input
      */
     public void secondaryScreenRefresh(Date currDate) throws ParseException, Compal.DukeException {
-        Date currentDate = java.util.Calendar.getInstance().getTime();
+        Date currentDate = Calendar.getInstance().getTime();
         Calendar c = Calendar.getInstance();
 
         c.setTime(currentDate);

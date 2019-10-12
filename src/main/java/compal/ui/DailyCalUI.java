@@ -67,7 +67,7 @@ class DailyCalUI {
      *
      * @return scrollPane final object state
      */
-    ScrollPane init(String givenDate) {
+    public ScrollPane init(String givenDate) {
         tempList = compal.tasklist.arrlist;
         setTrue(canStore);
         dateToDisplay = givenDate;

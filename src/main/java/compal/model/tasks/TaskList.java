@@ -6,7 +6,6 @@ import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.BitSet;
 
-import static compal.commons.Messages.MESSAGE_INIT_REMINDER;
 
 public class TaskList {
 
