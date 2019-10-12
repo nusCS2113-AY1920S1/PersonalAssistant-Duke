@@ -48,8 +48,8 @@ public class Profile {
      * @param bankName name of the Bank account.
      * @param ui       required for printing.
      */
-    public void deleteBank(String bankName, Ui ui) {
-        bankList.deleteBank(bankName, ui);
+    public void deleteBank(String bankName, String bankType, Ui ui) {
+        bankList.deleteBank(bankName, bankType, ui);
     }
 
     /**
