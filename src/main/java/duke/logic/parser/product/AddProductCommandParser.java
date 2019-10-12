@@ -5,9 +5,8 @@ import duke.logic.parser.commons.ArgumentMultimap;
 import duke.logic.parser.commons.ArgumentTokenizer;
 import duke.logic.parser.commons.Parser;
 import duke.logic.parser.exceptions.ParseException;
-import duke.model.commons.Ingredient;
-import duke.model.product.Product;
 import duke.model.ingredient.IngredientList;
+import duke.model.product.Product;
 
 import java.util.Dictionary;
 import java.util.Hashtable;

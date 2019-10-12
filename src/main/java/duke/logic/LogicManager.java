@@ -3,7 +3,6 @@ package duke.logic;
 import duke.logic.command.Command;
 import duke.logic.command.CommandResult;
 import duke.logic.command.exceptions.CommandException;
-import duke.logic.command.order.EditOrderCommand;
 import duke.logic.parser.commons.BakingHomeParser;
 import duke.logic.parser.exceptions.ParseException;
 import duke.model.Model;

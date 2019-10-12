@@ -43,7 +43,7 @@ public class MainWindow extends UiPart<Stage> {
     @FXML
     private Label popUpLabel;
     @FXML
-    JFXButton popUpButton;
+    private JFXButton popUpButton;
     @FXML
     private AutoCompleteTextField userInput;
 
@@ -101,7 +101,7 @@ public class MainWindow extends UiPart<Stage> {
             CommandResult commandResult = logic.execute(input);
             showPage(commandResult.getDisplayedPage());
             showMessagePopUp(commandResult.getFeedbackToUser());
-        } catch (CommandException | ParseException e) {
+        } catch (CommandException | ParseException | IllegalArgumentException e) {
             showErrorPopUp(e.getMessage());
         }
         userInput.clear();

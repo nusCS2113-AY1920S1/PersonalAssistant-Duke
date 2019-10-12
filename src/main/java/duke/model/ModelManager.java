@@ -3,7 +3,6 @@ package duke.model;
 import duke.commons.core.index.Index;
 import duke.model.commons.Ingredient;
 import duke.model.order.Order;
-import duke.model.sale.Sale;
 import duke.model.product.Product;
 import duke.model.shortcut.Shortcut;
 import javafx.collections.ObservableList;
@@ -102,11 +101,8 @@ public class ModelManager implements Model {
     }
 
     /**
-     * Replaces the given product {@code original} in the list with {@code editedProduct}. {@code
+     * Replaces the given product {@code originalProduct} in the list with {@code editedProduct}. {@code
      * originalProduct} must exist in product list
-     *
-     * @param originalProduct
-     * @param editedProduct
      */
     @Override
     public void setProduct(Product originalProduct, Product editedProduct) {

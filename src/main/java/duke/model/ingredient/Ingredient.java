@@ -1,7 +1,5 @@
 package duke.model.ingredient;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
 public class Ingredient {
     private String name;
     private String baseUnit;
