@@ -2,7 +2,11 @@ package javacake;
 
 import javacake.commands.Command;
 
-public class Duke {
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
+
+public class Duke  {
+
     private static String savedDataPath = "data/saved_data.txt";
     private static Ui ui;
     private static Storage storage;
@@ -11,12 +15,12 @@ public class Duke {
     private static boolean isFirstTimeUser;
     private static String userName;
     private static int userProgress = 0;
-    private static boolean isAtMainList = false;
-    private static boolean isAtSubList = false;
+
 
     /**
      * Constructor for main class to initialise the settings.
      */
+
     public Duke(String filePath) {
         ui = new Ui();
         progressStack = new ProgressStack();
@@ -75,11 +79,43 @@ public class Duke {
         }
     }
 
+
     /**
      * Program Start.
      */
     public static void main(String[] args) {
         new Duke(savedDataPath).run();
     }
+
+
+
+    /**
+     * You should have your own function to generate a response to user input.
+     * Replace this stub with your completed method.
+     */
+    String getResponse(String input) throws DukeException {
+        try {
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            PrintStream ps = new PrintStream(baos);
+            // IMPORTANT: Save the old System.out!
+            PrintStream old = System.out;
+            // Tell Java to use your special stream
+            System.setOut(ps);
+            Command c = Parser.parse(input);
+            c.execute(progressStack, ui, storage, profile);
+            // Put things back
+            System.out.flush();
+            System.setOut(old);
+            return baos.toString();
+        } catch (DukeException e) {
+            return "Invalid Command";
+        }
+    }
+
+
+
+
+
+
 
 }
