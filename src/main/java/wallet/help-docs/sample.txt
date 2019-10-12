@@ -1,0 +1,18 @@
+WalletCLI - Help
+
+Note the following when reading help sections:
+<> indicates required parameters for command
+ []  indicates optional parameters for command
+
+The following help sections are available:
+1. General 
+2. Expense 
+3. Loans
+4. Contacts
+5. Command History
+
+
+Begin access a section by keying in its number:
+
+
+
