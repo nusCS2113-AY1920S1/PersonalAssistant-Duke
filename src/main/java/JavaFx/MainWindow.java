@@ -102,7 +102,7 @@ public class MainWindow extends BorderPane implements Initializable {
             todos = new ArrayList<>();
             deadlines = new ArrayList<>();
             setClock();
-           setWeek(true, NO_FIELD);
+            setWeek(true, NO_FIELD);
 
             retrieveList();
             openReminderBox();
@@ -119,11 +119,7 @@ public class MainWindow extends BorderPane implements Initializable {
             Parent loader = fxmlLoader.load();
             fxmlLoader.<ProgressController>getController().getData("CS2100", "5", "6");
             progressContainer.getChildren().add(loader);
-
             setListItem();
-
-
-            //todo: handling of the list view
         } catch (ParseException | IOException | NullPointerException e) {
             e.printStackTrace();
         }

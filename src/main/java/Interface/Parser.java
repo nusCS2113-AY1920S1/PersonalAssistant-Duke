@@ -29,9 +29,6 @@ public class Parser {
         }
     }
 
-    public Parser() throws IOException, ParseException {
-    }
-
     /**
      * This method breaks apart the user's input and tries to make sense with it.
      * @param fullCommand The user's input
@@ -96,8 +93,6 @@ public class Parser {
                     if (arr[0].trim().isEmpty()) {
                         throw new DukeException("\u2639" + " OOPS!!! The description of a event cannot be empty.");
                     }
-//                    arr3 = arr[0].split(" ");
-//                    String modCode = arr3[0];
                     arr1 = arr[1].split("from"); //arr1[0] is "date", arr1[1] is "time to time"
                     SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy"); //format date
                     Date date = formatter.parse(arr1[0].trim());
@@ -143,9 +138,6 @@ public class Parser {
                     if (arr[0].trim().isEmpty()) {
                         throw new DukeException("\u2639" + " OOPS!!! The description of a deadline cannot be empty.");
                     }
-                    arr3 = arr[0].split(" ");
-                    String modCode = arr3[0];
-                    String des = arr[0].substring(6).trim();
                     String weekdate = arr[1].substring(0,arr[1].length()- 4); // week x day y
                     String time = arr[1].substring(arr[1].length()- 4); // time E.g 0300
                     weekdate = LT.getDate(weekdate) + " " + time;
@@ -153,7 +145,7 @@ public class Parser {
                     Date date = formatter.parse(weekdate);
                     SimpleDateFormat dateFormat = new SimpleDateFormat("E dd/MM/yyyy hh:mm a");
                     String dateString = dateFormat.format(date);
-                    return new AddCommand(new Deadline(des, dateString,modCode));
+                    return new AddCommand(new Deadline(arr[0], dateString));
                 } catch (ParseException | ArrayIndexOutOfBoundsException e) {
                     throw new DukeException(" OOPS!!! Please enter deadline as follows:\n" +
                             "deadline name_of_activity /by dd/MM/yyyy HHmm\n" +
