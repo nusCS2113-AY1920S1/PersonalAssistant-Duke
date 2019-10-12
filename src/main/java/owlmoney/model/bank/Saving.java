@@ -1,7 +1,9 @@
 package owlmoney.model.bank;
 
-import owlmoney.model.expenditure.Expenditure;
-import owlmoney.model.expenditure.ExpenditureList;
+import java.text.DecimalFormat;
+
+import owlmoney.model.transaction.Transaction;
+import owlmoney.model.transaction.TransactionList;
 import owlmoney.ui.Ui;
 
 /**
@@ -10,9 +12,7 @@ import owlmoney.ui.Ui;
 
 public class Saving extends Bank {
 
-    private String type;
     private double income;
-    private ExpenditureList myExpenditure;
     private static final String SAVING = "saving";
 
     /**
@@ -26,7 +26,11 @@ public class Saving extends Bank {
         super(name, currentAmount);
         this.income = income;
         type = SAVING;
-        myExpenditure = new ExpenditureList();
+        transactions = new TransactionList();
+    }
+
+    private double getIncome() {
+        return income;
     }
 
     /**
@@ -36,7 +40,7 @@ public class Saving extends Bank {
      */
     @Override
     public String getDescription() {
-        return super.getDescription() + "\nIncome: " + income + "\nType: " + type;
+        return super.getDescription() + "\nIncome: " + new DecimalFormat("0.00").format(getIncome());
     }
 
     /**
@@ -46,18 +50,46 @@ public class Saving extends Bank {
      * @param ui  required for printing.
      */
     @Override
-    public void addInExpenditure(Expenditure exp, Ui ui) {
-        myExpenditure.addToList(exp, ui);
+    public void addInExpenditure(Transaction exp, Ui ui) {
+        if (exp.getAmount() > this.getCurrentAmount()) {
+            ui.printError("Bank account cannot have a negative amount");
+        } else {
+            transactions.addExpenditureToList(exp, ui);
+            deductFromAmount(exp.getAmount());
+        }
     }
-
+    /*
     /**
      * Lists all expenditure tied to this bank account.
      *
      * @param ui required for printing.
+     *//*
+    @Override
+    public void listAllTransaction(Ui ui) {
+        transactions.listTransaction(ui);
+    }
+    */
+
+    /**
+     * Lists the deposits in the current bank account.
+     *
+     * @param ui Ui of OwlMoney.
+     * @param displayNum Number of deposits to list.
      */
     @Override
-    public void listAllExpenditure(Ui ui) {
-        myExpenditure.listExpenditure(ui);
+    void listAllDeposit(Ui ui, int displayNum) {
+        transactions.listDeposit(ui, displayNum);
+    }
+
+    /**
+     * Lists the expenditures in the current bank account.
+     *
+     * @param ui Ui of OwlMoney.
+     * @param displayNum Number of expenditure to list.
+     */
+    @Override
+    void listAllExpenditure(Ui ui, int displayNum) {
+        transactions.listExpenditure(ui, displayNum);
     }
 
     /**
@@ -68,6 +100,98 @@ public class Saving extends Bank {
      */
     @Override
     public void deleteExpenditure(int exId, Ui ui) {
-        myExpenditure.deleteFromList(exId, ui);
+        addToAmount(transactions.deleteExpenditureFromList(exId, ui));
+    }
+
+    /**
+     * Sets a new income of the current bank account.
+     *
+     * @param newIncome Income to set.
+     */
+    @Override
+    void setIncome(double newIncome) {
+        this.income = newIncome;
+    }
+
+    /**
+     * Edits the expenditure details from the current bank account.
+     *
+     * @param expNum Transaction number.
+     * @param desc New description.
+     * @param amount New amount.
+     * @param date New date.
+     * @param category New category.
+     * @param ui Ui of OwlMoney.
+     */
+    @Override
+    void editExpenditureDetails(int expNum, String desc, String amount, String date, String category, Ui ui) {
+        if (transactions.getExpenditureAmount(expNum, ui) < 0) {
+            return;
+        }
+        if (!(amount.isEmpty() || amount.isBlank()) && this.getCurrentAmount()
+                + transactions.getExpenditureAmount(expNum, ui) < Double.parseDouble(amount)) {
+            ui.printError("Bank account cannot have a negative amount");
+            return;
+        }
+        double oldAmount = transactions.getExpenditureAmount(expNum, ui);
+        double newAmount = transactions.editEx(expNum, desc, amount, date, category, ui);
+        this.addToAmount(oldAmount);
+        this.deductFromAmount(newAmount);
+    }
+
+    /**
+     * Edits the deposit details from the current bank account.
+     *
+     * @param expNum Transaction number.
+     * @param desc New description.
+     * @param amount New amount.
+     * @param date New date.
+     * @param ui Ui of OwlMoney.
+     */
+    @Override
+    void editDepositDetails(int expNum, String desc, String amount, String date, Ui ui) {
+        if (transactions.getTransactionValue(expNum, ui) < 0) {
+            return;
+        }
+        if (!(amount.isEmpty() || amount.isBlank()) && this.getCurrentAmount()
+                + Double.parseDouble(amount) < transactions.getTransactionValue(expNum, ui)) {
+            ui.printError("Bank account cannot have a negative amount");
+            return;
+        }
+        double oldAmount = transactions.getTransactionValue(expNum, ui);
+        double newAmount = transactions.editDep(expNum, desc, amount, date, ui);
+        this.addToAmount(newAmount);
+        this.deductFromAmount(oldAmount);
+    }
+
+    /**
+     * Adds a new deposit to the current bank account.
+     *
+     * @param dep Deposit to add.
+     * @param ui Ui of OwlMoney.
+     */
+    @Override
+    void addDepositTransaction(Transaction dep, Ui ui) {
+        transactions.addDepositToList(dep, ui);
+        addToAmount(dep.getAmount());
+    }
+
+    /**
+     * Deletes a deposit from the current bank account.
+     *
+     * @param index Transaction number.
+     * @param ui Ui of OwlMoney.
+     */
+    @Override
+    void deleteDepositTransaction(int index, Ui ui) {
+        double depositValue = transactions.getTransactionValue(index, ui);
+        if (depositValue < 0) {
+            return;
+        }
+        if (this.getCurrentAmount() < depositValue) {
+            ui.printError("Bank account cannot have a negative amount");
+        } else {
+            this.deductFromAmount(transactions.deleteDepositFromList(index, ui));
+        }
     }
 }

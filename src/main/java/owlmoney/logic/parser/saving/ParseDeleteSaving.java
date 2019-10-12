@@ -7,29 +7,50 @@ import owlmoney.logic.command.bank.DeleteSavingsCommand;
 
 import owlmoney.logic.parser.exception.ParserException;
 
+/**
+ * Represents the parsing of inputs for deleting a saving.
+ */
 public class ParseDeleteSaving extends ParseSaving {
 
+    private static final String DELETE = "/delete";
+
+    /**
+     * Constructor which creates an instance of ParseDeleteSaving.
+     *
+     * @param data Raw user input data.
+     * @throws ParserException If there are redundant parameters or if the first parameter is not valid.
+     */
     public ParseDeleteSaving(String data) throws ParserException {
         super(data);
-        checkRedundantParameter(AMOUNT);
-        checkRedundantParameter(INCOME);
-        checkRedundantParameter(NEW_NAME);
+        checkRedundantParameter(AMOUNT, DELETE);
+        checkRedundantParameter(INCOME, DELETE);
+        checkRedundantParameter(NEW_NAME, DELETE);
+        checkFirstParameter();
     }
 
+    /**
+     * Checks each user input for each parameter.
+     *
+     * @throws ParserException If there are any invalid user input.
+     */
     public void checkParameter() throws ParserException {
-        // Getting an iterator
         Iterator<String> savingsIterator = savingsParameters.keySet().iterator();
-        //this is temporary. need to amend
-        //for now just checking the name field
         while (savingsIterator.hasNext()) {
             String key = savingsIterator.next();
             String value = savingsParameters.get(key);
             if (NAME.equals(key) && (value.isBlank() || value.isEmpty())) {
                 throw new ParserException(key + " cannot be empty when deleting savings account");
+            } else if (NAME.equals(key)) {
+                checkName(NAME,value);
             }
         }
     }
 
+    /**
+     * Returns the command to execute the deleting of a saving.
+     *
+     * @return DeleteSavingsCommand to be executed.
+     */
     public Command getCommand() {
         DeleteSavingsCommand newDeleteSavingsCommand = new DeleteSavingsCommand(savingsParameters.get(NAME));
         return newDeleteSavingsCommand;

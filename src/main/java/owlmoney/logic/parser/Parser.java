@@ -29,9 +29,8 @@ abstract class Parser {
      * @return The string after removing firstField.
      * @throws ParserException if the command is not entered to specific requirements.
      */
-    //added /test to list all banks for testing
     String removeFirstField(String input, String firstField) throws ParserException {
-        if (firstField.equals("/exit")) {
+        if ("/exit".equals(firstField)) {
             return input.substring(firstField.length());
         } else if (firstField.length() + SPACE_LENGTH < input.length()) {
             return input.substring(firstField.length() + SPACE_LENGTH);
@@ -40,11 +39,22 @@ abstract class Parser {
         }
     }
 
-    String removeListFirstField(String input, String firstField) {
-        if (firstField.equals("/savings")) {
+    /**
+     * Modified method which removes the first field from the input string after extracting it
+     * with parseFirstField if the command is List.
+     *
+     * @param input      The input entered by the user.
+     * @param firstField The firstField extracted by parseFirstField.
+     * @return The string after removing firstField.
+     * @throws ParserException if the command is not entered to specific requirements.
+     */
+    String removeListFirstField(String input, String firstField) throws ParserException {
+        if ("/savings".equals(firstField)) {
             return "";
-        } else {
+        } else if (firstField.length() + SPACE_LENGTH < input.length()) {
             return input.substring(firstField.length() + SPACE_LENGTH);
+        } else {
+            throw new ParserException("Incomplete command provided");
         }
     }
 }
