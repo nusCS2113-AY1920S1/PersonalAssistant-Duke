@@ -19,7 +19,12 @@ public class GoToCommand extends Command {
 
     private String index;
 
+    /**
+     * Method to go to next index.
+     * @param inputCommand String inputted by user
+     */
     public GoToCommand(String inputCommand) {
+        type = CmdType.GOTO;
         String[] buffer = inputCommand.split("\\s+");
         index = buffer[1];
     }
