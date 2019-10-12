@@ -21,15 +21,14 @@ public class FindCommand extends Command {
 
     /**
      * Executes the finding a task inside the TaskList object with the given keyword
-     * @param todos The TaskList object for todos
      * @param events The TaskList object for events
      * @param deadlines The TaskList object for deadlines
      * @param storage The Storage object to access file to load or save the tasks
      * @return This returns the method in the Ui object which returns the string to display find message
      */
     @Override
-    public String execute(TaskList todos, TaskList events, TaskList deadlines, Ui ui, Storage storage) {
-        TaskList list = new TaskList();
+    public String execute(TaskList events, TaskList deadlines, Ui ui, Storage storage) {
+        /*TaskList list = new TaskList();
         ArrayList<Task> todosList = todos.getList();
         ArrayList<Task> eventsList = events.getList();
         ArrayList<Task> deadlinesList = deadlines.getList();
@@ -48,6 +47,7 @@ public class FindCommand extends Command {
                 list.addTask(task);
             }
         }
-        return ui.showFind(list);
+        return ui.showFind(list);*/
+        return null; //to be removed
     }
 }
