@@ -75,7 +75,7 @@ public class AddContactsCommand extends Command {
      * @param ui To tell the user that it is executed successfully.
      * @param contactStorage Contacts stored in storage.
      * @param contactList The list of contacts.
-     * @throws IOException
+     * @throws IOException If there is an error reading the file.
      */
     public void executeStorage(TaskList items, Ui ui, ContactStorage contactStorage,
                                ContactList contactList) throws IOException {
