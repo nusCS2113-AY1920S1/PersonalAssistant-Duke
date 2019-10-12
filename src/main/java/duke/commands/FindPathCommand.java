@@ -1,7 +1,7 @@
 package duke.commands;
 
 import duke.PathFinder;
-import duke.commons.Enumerations.Constraint;
+import duke.commons.enumerations.Constraint;
 import duke.data.BusStop;
 import duke.data.Location;
 import duke.commons.Messages;
@@ -33,18 +33,18 @@ public class FindPathCommand extends Command {
 
     public FindPathCommand(String constraint, String startPointIndex, String endPointIndex) {
         switch (constraint) {
-            case "onlyMRT":
-                this.constraint = Constraint.MRT;
-                break;
-            case "onlyBus":
-                this.constraint = Constraint.BUS;
-                break;
-            case "Hybrid":
-                this.constraint = Constraint.MIXED;
-                break;
-            default:
-                this.constraint = Constraint.CAR;
-                break;
+        case "onlyMRT":
+            this.constraint = Constraint.MRT;
+            break;
+        case "onlyBus":
+            this.constraint = Constraint.BUS;
+            break;
+        case "Hybrid":
+            this.constraint = Constraint.MIXED;
+            break;
+        default:
+            this.constraint = Constraint.CAR;
+            break;
         }
         this.endPointIndex = endPointIndex;
         this.startPointIndex = startPointIndex;

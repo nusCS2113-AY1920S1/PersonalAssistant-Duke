@@ -32,5 +32,7 @@ public class RecommendationsConversation extends Conversation {
     }
 
     @Override
-    void buildResult() { result = command + " & " + days ; }
+    void buildResult() {
+        result = command + " & " + days;
+    }
 }

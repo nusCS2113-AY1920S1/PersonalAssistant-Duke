@@ -1,6 +1,6 @@
 package duke.parsers.api;
 
-import duke.commons.Enumerations.Constraint;
+import duke.commons.enumerations.Constraint;
 import duke.data.BusStop;
 import duke.data.Location;
 import duke.commons.exceptions.DukeException;

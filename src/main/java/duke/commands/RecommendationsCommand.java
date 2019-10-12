@@ -14,8 +14,7 @@ import java.util.List;
 public class RecommendationsCommand extends Command {
     public String days;
 
-    public RecommendationsCommand(String days)
-    {
+    public RecommendationsCommand(String days) {
         this.days = days;
     }
 

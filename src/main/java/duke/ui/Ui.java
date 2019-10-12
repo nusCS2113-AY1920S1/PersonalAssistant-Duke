@@ -87,25 +87,26 @@ public class Ui {
     }
 
     /**
-     * Prints the list of Recommended Locations
+     * Prints the list of Recommended Locations.
      */
     public void showRecommendations(List<Venue> recommendations, String days) {
         StringBuilder result = new StringBuilder("Here are the list of Recommended Locations in "
                 + days + " days:\n");
         int i = 1;
         int j = Integer.parseInt(days);
-        if(j <= 1) j = 1;
-        else if (j <= 3) {
+        if (j <= 1) {
+            j = 1;
+        } else if (j <= 3) {
             j = 3;
-        } else if (j <= 5){
+        } else if (j <= 5) {
             j = 5;
-        } else{
+        } else {
             j = recommendations.size();
         }
         for (Venue t : recommendations) {
             result.append(i).append(". ").append(t.getAddress()).append("\n");
             i += 1;
-            if(i>=j){
+            if (i >= j) {
                 break;
             }
         }
