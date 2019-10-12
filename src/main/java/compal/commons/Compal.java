@@ -39,15 +39,8 @@ public class Compal {
 
         storage = new StorageManager();
 
-        /*
-         * Checks if storage is empty. If empty, create new ArrayList for storing Task objects. Else, load the current
-         * arraylist stored in the binary file into tasklist.arrlist.
-         */
-        if (storage.loadCompal() == null) {
-            tasklist.arrlist = new ArrayList<>();
-        } else {
-            tasklist.arrlist = storage.loadCompal();
-        }
+        tasklist.arrlist = new ArrayList<>();
+        tasklist.arrlist = storage.loadCompal();
 
         ui = new UiPart(this, tasklist.arrlist);
 
