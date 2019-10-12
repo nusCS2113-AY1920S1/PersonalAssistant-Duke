@@ -9,7 +9,8 @@ import java.util.Stack;
 import owlmoney.ui.Ui;
 
 /**
- * The ExpenditureList class that provides a layer of abstraction for the ArrayList that stores expenditures.
+ * The ExpenditureList class that provides a layer of abstraction for the ArrayList.
+ * The ArrayList will store both expenditures and deposits
  */
 
 public class TransactionList {
@@ -17,7 +18,7 @@ public class TransactionList {
     private ArrayList<Transaction> expLists;
 
     /**
-     * Constructor that creates an arrayList of expenditures.
+     * Creates an instance of Transaction list that contains an ArrayList of expenditures.
      */
     public TransactionList() {
         expLists = new ArrayList<Transaction>();
@@ -41,7 +42,7 @@ public class TransactionList {
     /**
      * Lists the expenditures in the current bank account.
      *
-     * @param ui required for printing.
+     * @param ui         required for printing.
      * @param displayNum Number of expenditures to list.
      */
     public void listExpenditure(Ui ui, int displayNum) {
@@ -73,7 +74,7 @@ public class TransactionList {
     /**
      * Lists the deposits in the current bank account.
      *
-     * @param ui required for printing.
+     * @param ui         required for printing.
      * @param displayNum Number of deposits to list.
      */
     public void listDeposit(Ui ui, int displayNum) {
@@ -154,12 +155,12 @@ public class TransactionList {
     /**
      * Edits the specific expenditure in the list.
      *
-     * @param expNum Transaction number of the expenditure.
-     * @param desc New description of the expenditure.
-     * @param amount New amount of the expenditure.
-     * @param date New date of the expenditure.
+     * @param expNum   Transaction number of the expenditure.
+     * @param desc     New description of the expenditure.
+     * @param amount   New amount of the expenditure.
+     * @param date     New date of the expenditure.
      * @param category New category of the expenditure.
-     * @param ui required for printing.
+     * @param ui       required for printing.
      * @return New amount of the expenditure.
      */
     public double editEx(int expNum, String desc, String amount, String date, String category, Ui ui) {
@@ -189,10 +190,10 @@ public class TransactionList {
      * Edits the specific deposit in the list.
      *
      * @param expNum Transaction number of the deposit.
-     * @param desc New description of the deposit.
+     * @param desc   New description of the deposit.
      * @param amount New amount of the deposit.
-     * @param date New date of the deposit.
-     * @param ui required for printing.
+     * @param date   New date of the deposit.
+     * @param ui     required for printing.
      * @return New amount of the deposit.
      */
     public double editDep(int expNum, String desc, String amount, String date, Ui ui) {
@@ -219,7 +220,7 @@ public class TransactionList {
      * Gets the specific expenditure amount.
      *
      * @param index Transaction number of the expenditure.
-     * @param ui required for printing.
+     * @param ui    required for printing.
      * @return Amount of the expenditure.
      */
     public double getExpenditureAmount(int index, Ui ui) {
@@ -240,7 +241,7 @@ public class TransactionList {
      * Deletes the specific deposit from the current bank account.
      *
      * @param index Transaction number of the deposit.
-     * @param ui required for printing.
+     * @param ui    required for printing.
      * @return Amount of the deleted deposit.
      */
     public double deleteDepositFromList(int index, Ui ui) {
@@ -254,7 +255,7 @@ public class TransactionList {
      * Gets the amount of the deposit specified.
      *
      * @param index Transaction number of the deposit.
-     * @param ui required for printing.
+     * @param ui    required for printing.
      * @return Amount of the deposit
      */
     public double getTransactionValue(int index, Ui ui) {

@@ -8,7 +8,7 @@ import owlmoney.logic.parser.exception.ParserException;
 
 public class ParseEditInvestment extends ParseInvestment {
     /**
-     * Constructor which creates an instance of ParseEditSaving.
+     * Creates an instance of ParseEditInvestment.
      *
      * @param data Raw user input date.
      * @throws ParserException If the first parameter is invalid.

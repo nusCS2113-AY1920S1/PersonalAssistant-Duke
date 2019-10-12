@@ -37,8 +37,8 @@ class ParseType extends Parser {
      * List of whitelisted keywords that the user can use.
      */
     private static final String[] TYPE_KEYWORDS = new String[] {
-        "/savings", "/investment", "/expenditure", "/goals", "/card",
-        "/recurexpenditure", "/bonds", "/profile", "/deposit"
+            "/savings", "/investment", "/expenditure", "/goals", "/card",
+            "/recurexpenditure", "/bonds", "/profile", "/deposit"
     };
     private static final List<String> TYPE_KEYWORD_LISTS = Arrays.asList(TYPE_KEYWORDS);
 
@@ -118,12 +118,12 @@ class ParseType extends Parser {
                 parseAddInvestment.fillHashTable();
                 parseAddInvestment.checkParameter();
                 return parseAddInvestment.getCommand();
-            }   else if ("/edit".equals(command)) {
+            } else if ("/edit".equals(command)) {
                 ParseInvestment parseEditInvestment = new ParseEditInvestment(rawData);
                 parseEditInvestment.fillHashTable();
                 parseEditInvestment.checkParameter();
                 return parseEditInvestment.getCommand();
-            }    else if ("/delete".equals(command)) {
+            } else if ("/delete".equals(command)) {
                 ParseInvestment parseDeleteInvestment = new ParseDeleteInvestment(rawData);
                 parseDeleteInvestment.fillHashTable();
                 parseDeleteInvestment.checkParameter();

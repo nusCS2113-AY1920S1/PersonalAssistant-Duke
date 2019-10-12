@@ -18,8 +18,8 @@ public class BondList {
         if (bondLists.size() <= 0) {
             ui.printError("There are no bonds");
         } else {
-            for(int i = bondLists.size() - 1; i >= 0; i--) {
-                ui.printMessage((i+1) + bondLists.get(i).getName()+"\n");
+            for (int i = bondLists.size() - 1; i >= 0; i--) {
+                ui.printMessage((i + 1) + bondLists.get(i).getName() + "\n");
             }
         }
     }

@@ -20,7 +20,12 @@ public class Investment extends Bank {
         this.transactions = new TransactionList();
     }
 
-
+    /**
+     * Adds an expenditure tied to this instance of the bank account.
+     *
+     * @param exp an instance of expenditure.
+     * @param ui  required for printing.
+     */
     @Override
     public void addInExpenditure(Transaction exp, Ui ui) {
         if (exp.getAmount() > this.getCurrentAmount()) {
@@ -31,6 +36,12 @@ public class Investment extends Bank {
         }
     }
 
+    /**
+     * Deletes an expenditure tied to this bank account.
+     *
+     * @param exId The id of the expenditure in ExpenditureList.
+     * @param ui   required for printing.
+     */
     @Override
     public void deleteExpenditure(int exId, Ui ui) {
         addToAmount(transactions.deleteExpenditureFromList(exId, ui));

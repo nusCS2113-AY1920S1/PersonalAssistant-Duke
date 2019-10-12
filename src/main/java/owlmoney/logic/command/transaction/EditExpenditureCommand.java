@@ -19,12 +19,12 @@ public class EditExpenditureCommand extends Command {
     /**
      * Construction to create an instance of EditExpenditureCommand.
      *
-     * @param name Bank account name.
-     * @param amount New amount of expenditure if any.
-     * @param date New date of expenditure if any.
+     * @param name        Bank account name.
+     * @param amount      New amount of expenditure if any.
+     * @param date        New date of expenditure if any.
      * @param description New description of expenditure if any.
-     * @param category New category of expenditure if any.
-     * @param index Transaction number
+     * @param category    New category of expenditure if any.
+     * @param index       Transaction number
      */
     public EditExpenditureCommand(String name, String amount, String date, String description, String category,
             int index) {
@@ -40,7 +40,7 @@ public class EditExpenditureCommand extends Command {
      * Executes the function to delete a deposit transaction.
      *
      * @param profile Profile of the user.
-     * @param ui Ui of OwlMoney.
+     * @param ui      Ui of OwlMoney.
      * @return false so OwlMoney will not terminate yet.
      */
     public boolean execute(Profile profile, Ui ui) {

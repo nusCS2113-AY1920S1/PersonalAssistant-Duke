@@ -8,7 +8,7 @@ public class DeleteInvestmentCommand extends Command {
     private final String bankName;
 
     /**
-     * Creates an instance the DeleteInvestmentCommand.
+     * Creates an instance of DeleteInvestmentCommand.
      *
      * @param bankName Bank name to be deleted.
      */
@@ -20,7 +20,7 @@ public class DeleteInvestmentCommand extends Command {
      * Executes the function to delete an investment account from the profile.
      *
      * @param profile Profile of the user.
-     * @param ui Ui of OwlMoney.
+     * @param ui      Ui of OwlMoney.
      * @return false so OwlMoney will not terminate yet.
      */
     @Override

@@ -10,10 +10,10 @@ public class EditInvestmentCommand extends Command {
     private final String newName;
 
     /**
-     * Constructor that creates an instance the EditInvestmentCommand.
+     * Creates an instance of EditInvestmentCommand.
      *
-     * @param name Name of bank account.
-     * @param amount New amount of bank account if any.
+     * @param name    Name of bank account.
+     * @param amount  New amount of bank account if any.
      * @param newName New name of bank account if any.
      */
     public EditInvestmentCommand(String name, String amount, String newName) {
@@ -23,10 +23,10 @@ public class EditInvestmentCommand extends Command {
     }
 
     /**
-     * Executes the function to edit a saving in the profile.
+     * Executes the function to edit the details of an investment account in the profile.
      *
      * @param profile Profile of the user.
-     * @param ui Ui of OwlMoney.
+     * @param ui      Ui of OwlMoney.
      * @return false so OwlMoney will not terminate yet.
      */
     @Override

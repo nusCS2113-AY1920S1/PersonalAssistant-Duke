@@ -10,7 +10,7 @@ public class ParseDeleteInvestment extends ParseInvestment {
     private static final String DELETE = "/delete";
 
     /**
-     * Constructor which creates an instance of ParseDeleteSaving.
+     * Creates an instance of ParseDeleteInvestment.
      *
      * @param data Raw user input data.
      * @throws ParserException If there are redundant parameters or if the first parameter is not valid.
@@ -33,9 +33,9 @@ public class ParseDeleteInvestment extends ParseInvestment {
             String key = investmentIterator.next();
             String value = investmentParameters.get(key);
             if (NAME.equals(key) && (value.isBlank() || value.isEmpty())) {
-                throw new ParserException(key + " cannot be empty when deleting savings account");
+                throw new ParserException(key + " cannot be empty when deleting an investment account");
             } else if (NAME.equals(key)) {
-                checkName(NAME,value);
+                checkName(NAME, value);
             }
         }
     }
@@ -43,10 +43,11 @@ public class ParseDeleteInvestment extends ParseInvestment {
     /**
      * Returns the command to execute the deletion of investment account.
      *
-     * @return DeleteSavingsCommand to be executed.
+     * @return DeleteInvestmentCommand to be executed.
      */
     public Command getCommand() {
-        DeleteInvestmentCommand newDeleteInvestmentCommand = new DeleteInvestmentCommand(investmentParameters.get(NAME));
+        DeleteInvestmentCommand newDeleteInvestmentCommand =
+                new DeleteInvestmentCommand(investmentParameters.get(NAME));
         return newDeleteInvestmentCommand;
     }
 }

@@ -32,12 +32,12 @@ public abstract class ParseInvestment {
      * Checks the user input for any redundant parameters.
      *
      * @param parameter Redundant parameter to check for,
-     * @param command Command the user performed.
+     * @param command   Command the user performed.
      * @throws ParserException If a redundant parameter is detected.
      */
     void checkRedundantParameter(String parameter, String command) throws ParserException {
         if (rawData.contains(parameter)) {
-            throw new ParserException(command + "/savings should not contain " + parameter);
+            throw new ParserException(command + "/investment should not contain " + parameter);
         }
     }
 
@@ -81,21 +81,9 @@ public abstract class ParseInvestment {
     }
 
     /**
-     * Checks if the income entered by the user is a double and only contains numbers.
-     *
-     * @param valueString String to be converted to double as the user's income.
-     * @throws ParserException If the string is not a double value.
-     */
-    void checkIncome(String valueString) throws ParserException {
-        if (!RegexUtil.regexCheckBankAmount(valueString)) {
-            throw new ParserException("/income can only be numbers with at most 9 digits and 2 decimal places"
-                    + " and a value of at least 0");
-        }
-    }
-
-    /**
      * Checks if the bank name entered by the user does not contain special character and not too long.
-     * @param key /name or /newname
+     *
+     * @param key        /name or /newname
      * @param nameString Name of bank
      * @throws ParserException If the name is too long or contain special characters.
      */
@@ -106,14 +94,14 @@ public abstract class ParseInvestment {
     }
 
     /**
-     * Abstract method where each saving parser performs different checks on the parameters.
+     * Abstract method where each investment parser performs different checks on the parameters.
      *
      * @throws ParserException If any parameters fail the check.
      */
     public abstract void checkParameter() throws ParserException;
 
     /**
-     * Abstract method where each saving parser creates different commands.
+     * Abstract method where each investment parser creates different commands.
      *
      * @return Command to be executed.
      */

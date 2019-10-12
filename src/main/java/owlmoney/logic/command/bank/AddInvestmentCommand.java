@@ -11,10 +11,10 @@ public class AddInvestmentCommand extends Command {
     private final double amount;
 
     /**
-     * Constructor that creates an instance the AddInvestmentCommand.
+     * Creates an instance of AddInvestmentCommand.
      *
-     * @param name Name of new investment object.
-     * @param amount Initial amount of new investment object.
+     * @param name   Name of new investment object.
+     * @param amount Initial amount of money in the new investment object.
      */
     public AddInvestmentCommand(String name, double amount) {
         this.amount = amount;
@@ -25,7 +25,7 @@ public class AddInvestmentCommand extends Command {
      * Executes the function to create a new investment account in the profile.
      *
      * @param profile Profile of the user.
-     * @param ui Ui of OwlMoney.
+     * @param ui      Ui of OwlMoney.
      * @return false so OwlMoney will not terminate yet.
      */
     @Override

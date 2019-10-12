@@ -24,7 +24,7 @@ public abstract class ParseSaving {
     private static final List<String> SAVINGS_KEYWORD_LISTS = Arrays.asList(SAVINGS_KEYWORD);
 
     /**
-     * Constructor which creates an instance of any ParseSaving type object.
+     * Creates an instance of any ParseSaving type object.
      *
      * @param data Raw user input date.
      */
@@ -36,7 +36,7 @@ public abstract class ParseSaving {
      * Checks the user input for any redundant parameters.
      *
      * @param parameter Redundant parameter to check for,
-     * @param command Command the user performed.
+     * @param command   Command the user performed.
      * @throws ParserException If a redundant parameter is detected.
      */
     void checkRedundantParameter(String parameter, String command) throws ParserException {
@@ -101,7 +101,8 @@ public abstract class ParseSaving {
 
     /**
      * Checks if the bank name entered by the user does not contain special character and not too long.
-     * @param key /name or /newname
+     *
+     * @param key        /name or /newname
      * @param nameString Name of bank
      * @throws ParserException If the name is too long or contain special characters.
      */

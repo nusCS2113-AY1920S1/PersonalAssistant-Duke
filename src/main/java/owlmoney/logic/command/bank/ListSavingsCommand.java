@@ -13,7 +13,7 @@ public class ListSavingsCommand extends Command {
      * Executes the function to list savings in the profile.
      *
      * @param profile Profile of the user.
-     * @param ui Ui of OwlMoney.
+     * @param ui      Ui of OwlMoney.
      * @return false so OwlMoney will not terminate yet.
      */
     @Override

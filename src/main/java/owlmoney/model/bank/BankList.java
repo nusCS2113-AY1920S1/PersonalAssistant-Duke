@@ -13,7 +13,7 @@ public class BankList {
     private ArrayList<Bank> bankLists;
 
     /**
-     * Constructor that creates an arrayList of Banks.
+     * Creates a instance of BankList that contains an arrayList of Banks.
      */
     public BankList() {
         bankLists = new ArrayList<Bank>();
@@ -82,10 +82,10 @@ public class BankList {
      * Edits the saving details.
      *
      * @param bankName Bank account to be edited.
-     * @param newName New name of bank account.
-     * @param amount New amount of bank account.
-     * @param income New income of bank account.
-     * @param ui required for printing.
+     * @param newName  New name of bank account.
+     * @param amount   New amount of bank account.
+     * @param income   New income of bank account.
+     * @param ui       required for printing.
      */
     public void editSavings(String bankName, String newName, String amount, String income, Ui ui) {
         for (int i = 0; i < bankLists.size(); i++) {
@@ -112,9 +112,9 @@ public class BankList {
      * Edits the investment account details.
      *
      * @param bankName Bank account to be edited.
-     * @param newName New name of bank account.
-     * @param amount New amount of bank account.
-     * @param ui required for printing.
+     * @param newName  New name of bank account.
+     * @param amount   New amount of bank account.
+     * @param ui       required for printing.
      */
     public void editInvestment(String bankName, String newName, String amount, Ui ui) {
         for (int i = 0; i < bankLists.size(); i++) {
@@ -187,7 +187,7 @@ public class BankList {
      * Lists expenditures in the bank account.
      *
      * @param bankToList The name of the bank account.
-     * @param ui required for printing.
+     * @param ui         required for printing.
      * @param displayNum Number of expenditures to list.
      */
     public void listBankExpenditure(String bankToList, Ui ui, int displayNum) {
@@ -204,7 +204,7 @@ public class BankList {
      * Lists deposits in the bank account.
      *
      * @param bankToList The name of the bank account.
-     * @param ui required for printing.
+     * @param ui         required for printing.
      * @param displayNum Number of deposits to list.
      */
     public void listBankDeposit(String bankToList, Ui ui, int displayNum) {
@@ -237,13 +237,13 @@ public class BankList {
     /**
      * Edits an expenditure from the transactionList in the bank account.
      *
-     * @param expNum The transaction number.
+     * @param expNum       The transaction number.
      * @param editFromBank The name of the bank account.
-     * @param desc The description of the expenditure.
-     * @param amount The amount of the expenditure.
-     * @param date The date of the expenditure.
-     * @param category The category of the expenditure.
-     * @param ui required for printing.
+     * @param desc         The description of the expenditure.
+     * @param amount       The amount of the expenditure.
+     * @param date         The date of the expenditure.
+     * @param category     The category of the expenditure.
+     * @param ui           required for printing.
      */
     public void editExp(int expNum, String editFromBank, String desc, String amount, String date, String category,
             Ui ui) {
@@ -259,12 +259,12 @@ public class BankList {
     /**
      * Edits a deposit from the transactionList in the bank account.
      *
-     * @param expNum The transaction number.
+     * @param expNum       The transaction number.
      * @param editFromBank The name of the bank account.
-     * @param desc The description of the deposit.
-     * @param amount The amount of the deposit.
-     * @param date The date of the deposit.
-     * @param ui required for printing.
+     * @param desc         The description of the deposit.
+     * @param amount       The amount of the deposit.
+     * @param date         The date of the deposit.
+     * @param ui           required for printing.
      */
     public void editDep(int expNum, String editFromBank, String desc, String amount, String date, Ui ui) {
         for (int i = 0; i < bankLists.size(); i++) {
@@ -297,9 +297,9 @@ public class BankList {
     /**
      * Deletes a deposit from the transactionList in the bank account.
      *
-     * @param accName        The name of the bank account.
-     * @param index          The transaction number.
-     * @param ui             required for printing.
+     * @param accName The name of the bank account.
+     * @param index   The transaction number.
+     * @param ui      required for printing.
      */
     public void deleteDeposit(String accName, int index, Ui ui) {
         for (int i = 0; i < bankLists.size(); i++) {

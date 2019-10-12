@@ -11,7 +11,7 @@ public class DeleteSavingsCommand extends Command {
     private final String bankName;
 
     /**
-     * Constructor that creates an instance the DeleteSavingCommand.
+     * Creates an instance of DeleteSavingCommand.
      *
      * @param bankName Bank name to be deleted.
      */
@@ -20,10 +20,10 @@ public class DeleteSavingsCommand extends Command {
     }
 
     /**
-     * Executes the function to delete a saving from the profile.
+     * Executes the function to delete a savings account from the profile.
      *
      * @param profile Profile of the user.
-     * @param ui Ui of OwlMoney.
+     * @param ui      Ui of OwlMoney.
      * @return false so OwlMoney will not terminate yet.
      */
     @Override

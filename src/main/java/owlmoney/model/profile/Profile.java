@@ -97,7 +97,7 @@ public class Profile {
      * Lists deposits from a specific bank account.
      *
      * @param listedBank Bank account to list from.
-     * @param ui required for printing.
+     * @param ui         required for printing.
      * @param displayNum Number of deposits to list.
      */
     public void listDeposit(String listedBank, Ui ui, int displayNum) {
@@ -108,7 +108,7 @@ public class Profile {
      * Lists expenditure from a specific bank account.
      *
      * @param listedBank Bank account to list from.
-     * @param ui required for printing.
+     * @param ui         required for printing.
      * @param displayNum Number of expenditure to list.
      */
     public void listExpenditure(String listedBank, Ui ui, int displayNum) {
@@ -118,13 +118,13 @@ public class Profile {
     /**
      * Edits a specific expenditure from a specific bank account.
      *
-     * @param expNum Transaction number of the expenditure.
+     * @param expNum       Transaction number of the expenditure.
      * @param editFromBank Bank account of expenditure.
-     * @param desc New description of expenditure.
-     * @param amount New amount of expenditure.
-     * @param date New date of expenditure.
-     * @param category New category of expenditure.
-     * @param ui required for printing.
+     * @param desc         New description of expenditure.
+     * @param amount       New amount of expenditure.
+     * @param date         New date of expenditure.
+     * @param category     New category of expenditure.
+     * @param ui           required for printing.
      */
     public void editExpenditure(int expNum, String editFromBank, String desc, String amount, String date,
             String category, Ui ui) {
@@ -134,11 +134,11 @@ public class Profile {
     /**
      * Edits a specific savings account.
      *
-     * @param name Name of savings account to be edited.
+     * @param name    Name of savings account to be edited.
      * @param newName New name of the savings account.
-     * @param amount New amount of the savings account.
-     * @param income New income of the saving account.
-     * @param ui required for printing.
+     * @param amount  New amount of the savings account.
+     * @param income  New income of the saving account.
+     * @param ui      required for printing.
      */
     public void editSavingsAccount(String name, String newName, String amount, String income, Ui ui) {
         bankList.editSavings(name, newName, amount, income, ui);
@@ -147,10 +147,10 @@ public class Profile {
     /**
      * Edits a specific investment account.
      *
-     * @param name Name of savings account to be edited.
-     * @param newName New name of the savings account.
-     * @param amount New amount of the savings account.
-     * @param ui required for printing.
+     * @param name    Name of investment account to be edited.
+     * @param newName New name of the investment account.
+     * @param amount  New amount of the investment account.
+     * @param ui      required for printing.
      */
     public void editInvestmentAccount(String name, String newName, String amount, Ui ui) {
         bankList.editInvestment(name, newName, amount, ui);
@@ -161,7 +161,7 @@ public class Profile {
      *
      * @param depIndex Transaction number of the deposit.
      * @param bankName Bank name of the deposit.
-     * @param ui required for printing.
+     * @param ui       required for printing.
      */
     public void deleteDeposit(int depIndex, String bankName, Ui ui) {
         bankList.deleteDeposit(bankName, depIndex, ui);
@@ -171,8 +171,8 @@ public class Profile {
      * Adds a new deposit to a specific bank account.
      *
      * @param accName Bank account name.
-     * @param dep Deposit to be added.
-     * @param ui required for printing.
+     * @param dep     Deposit to be added.
+     * @param ui      required for printing.
      */
     public void addNewDeposit(String accName, Transaction dep, Ui ui) {
         bankList.addDeposit(accName, dep, ui);
@@ -181,14 +181,14 @@ public class Profile {
     /**
      * Edits a specific deposit from a specific bank account.
      *
-     * @param expNum Transaction number of the deposit.
+     * @param expNum       Transaction number of the deposit.
      * @param editFromBank Bank account of deposit.
-     * @param desc New description of deposit.
-     * @param amount New amount of deposit.
-     * @param date New date of deposit.
-     * @param ui required for deposit.
+     * @param desc         New description of deposit.
+     * @param amount       New amount of deposit.
+     * @param date         New date of deposit.
+     * @param ui           required for deposit.
      */
-    public  void editDeposit(int expNum, String editFromBank, String desc, String amount, String date, Ui ui) {
+    public void editDeposit(int expNum, String editFromBank, String desc, String amount, String date, Ui ui) {
         bankList.editDep(expNum, editFromBank, desc, amount, date, ui);
     }
 

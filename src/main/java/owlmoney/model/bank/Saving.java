@@ -62,7 +62,7 @@ public class Saving extends Bank {
     /**
      * Lists the deposits in the current bank account.
      *
-     * @param ui Ui of OwlMoney.
+     * @param ui         Ui of OwlMoney.
      * @param displayNum Number of deposits to list.
      */
     @Override
@@ -73,7 +73,7 @@ public class Saving extends Bank {
     /**
      * Lists the expenditures in the current bank account.
      *
-     * @param ui Ui of OwlMoney.
+     * @param ui         Ui of OwlMoney.
      * @param displayNum Number of expenditure to list.
      */
     @Override
@@ -105,12 +105,12 @@ public class Saving extends Bank {
     /**
      * Edits the expenditure details from the current bank account.
      *
-     * @param expNum Transaction number.
-     * @param desc New description.
-     * @param amount New amount.
-     * @param date New date.
+     * @param expNum   Transaction number.
+     * @param desc     New description.
+     * @param amount   New amount.
+     * @param date     New date.
      * @param category New category.
-     * @param ui Ui of OwlMoney.
+     * @param ui       Ui of OwlMoney.
      */
     @Override
     void editExpenditureDetails(int expNum, String desc, String amount, String date, String category, Ui ui) {
@@ -132,10 +132,10 @@ public class Saving extends Bank {
      * Edits the deposit details from the current bank account.
      *
      * @param expNum Transaction number.
-     * @param desc New description.
+     * @param desc   New description.
      * @param amount New amount.
-     * @param date New date.
-     * @param ui Ui of OwlMoney.
+     * @param date   New date.
+     * @param ui     Ui of OwlMoney.
      */
     @Override
     void editDepositDetails(int expNum, String desc, String amount, String date, Ui ui) {
@@ -157,7 +157,7 @@ public class Saving extends Bank {
      * Adds a new deposit to the current bank account.
      *
      * @param dep Deposit to add.
-     * @param ui Ui of OwlMoney.
+     * @param ui  Ui of OwlMoney.
      */
     @Override
     void addDepositTransaction(Transaction dep, Ui ui) {
@@ -169,7 +169,7 @@ public class Saving extends Bank {
      * Deletes a deposit from the current bank account.
      *
      * @param index Transaction number.
-     * @param ui Ui of OwlMoney.
+     * @param ui    Ui of OwlMoney.
      */
     @Override
     void deleteDepositTransaction(int index, Ui ui) {
