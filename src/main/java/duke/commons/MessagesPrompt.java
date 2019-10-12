@@ -75,4 +75,7 @@ public class MessagesPrompt {
     public static final String VIEWSCHEDULE_PROMPT_STARTER = "Which date would you like to find?";
     public static final String VIEWSCHEDULE_PROMPT_SUCCESS = "Here are the events happening in this day:";
 
+    public static final String RECOMMEND_PROMPT_STARTER = "How many days will you be visiting SG?";
+    public static final String RECOMMEND_PROMPT_SUCCESS = "Recommended Attractions:";
+
 }

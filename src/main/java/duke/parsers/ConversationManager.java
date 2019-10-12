@@ -15,6 +15,7 @@ import duke.parsers.conversations.GetBusStopConversation;
 import duke.parsers.conversations.HolidayConversation;
 import duke.parsers.conversations.MarkDoneConversation;
 import duke.parsers.conversations.Conversation;
+import duke.parsers.conversations.RecommendationsConversation;
 import duke.parsers.conversations.RepeatConversation;
 import duke.parsers.conversations.RescheduleConversation;
 import duke.parsers.conversations.SearchConversation;
@@ -123,6 +124,9 @@ public class ConversationManager {
             break;
         case "holiday":
             conversation = new HolidayConversation();
+            break;
+        case "recommend":
+            conversation = new RecommendationsConversation();
             break;
         default:
             throw new DukeException(MessagesPrompt.PROMPT_UNKNOWN);

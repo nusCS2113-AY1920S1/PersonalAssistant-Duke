@@ -1,5 +1,6 @@
 package duke.ui;
 
+import java.awt.*;
 import java.util.Collections;
 
 import javafx.collections.FXCollections;

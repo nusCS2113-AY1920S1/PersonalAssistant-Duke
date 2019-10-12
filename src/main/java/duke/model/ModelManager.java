@@ -9,8 +9,7 @@ import java.util.List;
 
 public class ModelManager implements Model {
     UniqueTaskList tasks;
-    List<Venue> recommendations;
-    List<BusStop> allBusStops;
+    ArrayList<BusStop> allBusStops;
     //List<TrainStation> allTrainStations;
 
     @Override
@@ -59,6 +58,16 @@ public class ModelManager implements Model {
 
     @Override
     public List<Venue> getRecommendations() {
+        List<Venue> recommendations = new ArrayList<>();
+        recommendations.add(new Venue("Sentosa", 1.2454983, 103.8437327, 0, 0));
+        recommendations.add(new Venue("Mandai", 1.421336, 103.802622, 0, 0));
+        recommendations.add(new Venue("lck", 1.431321, 103.718253, 0, 0));
+        recommendations.add(new Venue("Jurong island", 1.254945,
+                103.678820, 0, 0));
+        recommendations.add(new Venue("Changi Airport", 1.346703,
+                103.986755, 0, 0));
+        recommendations.add(new Venue("Bukit Timah", 1.327360,
+                103.794509, 0, 0));
         return recommendations;
     }
 
