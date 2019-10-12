@@ -6,6 +6,7 @@ import duchess.storage.Storage;
 import duchess.storage.Store;
 import duchess.ui.Ui;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -42,13 +43,14 @@ public class FindCommand extends Command {
         if (words.size() == 0) {
             throw new DuchessException("Please enter at least a keyword to search.");
         } else {
-            String searchTerm = String.join(" ", words.subList(0, words.size()));
+            String searchTerm = String.join(" ", words.subList(0, words.size())).toLowerCase();
             List<Task> filteredTasks;
             /*
             If search term is enclosed by double quotation marks,
             search for exact matches.
              */
-            if (searchTerm.charAt(0) == '"' && searchTerm.charAt(searchTerm.length() - 1) == '"') {
+            if (!"\"".equals(searchTerm) && searchTerm.charAt(0) == '"'
+                && searchTerm.charAt(searchTerm.length() - 1) == '"') {
                 filteredTasks = store
                         .getTaskList()
                         .stream()
@@ -57,15 +59,31 @@ public class FindCommand extends Command {
                         .collect(Collectors.toList());
             /*
             Search for task descriptions with longest common subsequence of length
-            equal to at least 1 less than the length of the search term.
+            equal to at least 2 less than the length of the search term.
              */
             } else {
+                String trimmedSearchTerm = searchTerm.replaceAll(" ", "");
                 filteredTasks = store
                         .getTaskList().stream()
-                        .filter(task -> longestCommonSubsequence(task.getDescription()
-                        .replaceAll(" ", ""), searchTerm.replaceAll(" ", ""))
-                        >= searchTerm.replaceAll(" ", "").length() - 1)
+                        .filter(task -> longestCommonSubsequence(task.getDescription().toLowerCase()
+                        .replaceAll(" ", ""), trimmedSearchTerm)
+                        >= trimmedSearchTerm.length() - 2)
                         .collect(Collectors.toList());
+
+                /*
+                Checks if the task description contains the exact search term,
+                if the search term is too short (less than 3 chars).
+                 */
+                if (trimmedSearchTerm.length() <= 2) {
+                    filteredTasks = filteredTasks.stream().filter(task -> task.getDescription().toLowerCase()
+                            .contains(trimmedSearchTerm)).collect(Collectors.toList());
+                }
+                /*
+                Sort the filtered tasks based on similarity to searchTerm.
+                 */
+                filteredTasks.sort(Comparator
+                        .comparingInt(task -> -longestCommonSubsequence(task.getDescription().toLowerCase()
+                        .replaceAll(" ", ""), trimmedSearchTerm)));
             }
 
             if (filteredTasks.size() == 0) {
