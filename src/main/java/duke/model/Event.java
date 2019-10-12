@@ -1,6 +1,5 @@
 package duke.model;
 
-import duke.data.tasks.DoWithin;
 import duke.parsers.api.ApiParser;
 import duke.commons.exceptions.DukeException;
 import duke.data.Location;
@@ -43,8 +42,9 @@ public class Event extends DoWithin {
 
     /**
      * Get coordinates of the destination.
+     * @return
      */
-    public Location getLocation() throws DukeException {
+    public duke.model.Location getLocation() throws DukeException {
         if (this.location == null) {
             this.location = ApiParser.getLocationSearch(getDescription());
         }

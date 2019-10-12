@@ -1,7 +1,5 @@
 package duke.model;
 
-import duke.data.tasks.TaskWithDates;
-
 import java.time.LocalDateTime;
 
 public class DoWithin extends TaskWithDates {

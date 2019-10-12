@@ -1,10 +1,5 @@
 package duke.model;
 
-import duke.data.BusService;
-import duke.data.BusStop;
-import duke.data.Location;
-import duke.data.UniqueTaskList;
-import duke.data.tasks.Task;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
 
@@ -32,9 +27,9 @@ public interface Model {
     List<Location> getLocationList();
 
     /**
-     * Returns the list of tasks that is a Holiday.
+     * Returns the list of tasks that is an Event.
      */
-    FilteredList<Task> getHolidayList();
+    FilteredList<Task> getEventList();
 
     /**
      * Returns the list of all bus stops.
