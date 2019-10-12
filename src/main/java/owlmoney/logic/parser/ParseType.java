@@ -112,7 +112,7 @@ class ParseType extends Parser {
             } else if ("/list".equals(command)) {
                 return new ListSavingsCommand();
             }
-            throw new ParserException("You entered an invalid type");
+            throw new ParserException("You entered an invalid type for savings");
         case "/investment":
             if ("/add".equals(command)) {
                 ParseInvestment parseAddInvestment = new ParseAddInvestment(rawData);
@@ -132,6 +132,7 @@ class ParseType extends Parser {
             } else if ("/list".equals(command)) {
                 return new ListInvestmentCommand();
             }
+            throw new ParserException("You entered an invalid type for investment");
         case "/expenditure":
             if ("/add".equals(command)) {
                 ParseExpenditure addExp = new ParseAddExpenditure(rawData);
@@ -154,7 +155,7 @@ class ParseType extends Parser {
                 editExp.checkParameter();
                 return editExp.getCommand();
             }
-            throw new ParserException("You entered an invalid type");
+            throw new ParserException("You entered an invalid type for expenditure");
         case "/deposit":
             if ("/add".equals(command)) {
                 ParseDeposit addDep = new ParseAddDeposit(rawData);
@@ -177,7 +178,7 @@ class ParseType extends Parser {
                 editDep.checkParameter();
                 return editDep.getCommand();
             }
-            throw new ParserException("You entered an invalid type");
+            throw new ParserException("You entered an invalid type for deposit");
         case "/card":
             return new PlaceHolderEmptyCommand();
         default:

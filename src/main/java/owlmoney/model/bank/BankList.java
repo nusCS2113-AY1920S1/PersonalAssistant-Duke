@@ -100,8 +100,8 @@ public class BankList {
      */
     private boolean hasCorrectBankNameAndType(String bankName, String bankType) {
         for (int i = 0; i < getBankListSize(); i++) {
-            if (bankName.equals(bankLists.get(i).getAccountName()) &&
-                    bankType.equals(bankLists.get(i).getType())) {
+            if ((bankName.equals(bankLists.get(i).getAccountName())) &&
+                    (bankType.equals(bankLists.get(i).getType()))) {
                 return true;
             }
         }
@@ -110,9 +110,10 @@ public class BankList {
 
     /**
      * Checks if the user passes all requirements to delete a bank account.
+     *
      * @param bankName name of bank account.
      * @param bankType type of bank account.
-     * @param ui required for printing.
+     * @param ui       required for printing.
      * @return the result bankName is of bankType.
      */
     private boolean canPassDeleteBankRequirements(String bankName, String bankType, Ui ui) {
@@ -142,7 +143,7 @@ public class BankList {
      * @param bankType type of bank account.
      * @param ui       required for printing.
      */
-    public void deleteBank (String bankName, String bankType, Ui ui) {
+    public void deleteBank(String bankName, String bankType, Ui ui) {
         if (canPassDeleteBankRequirements(bankName, bankType, ui)) {
             for (int i = 0; i < getBankListSize(); i++) {
                 if (bankName.equals(bankLists.get(i).getAccountName())) {
@@ -163,7 +164,7 @@ public class BankList {
      * @param income   New income of bank account.
      * @param ui       required for printing.
      */
-    public void editSavings (String bankName, String newName, String amount, String income, Ui ui){
+    public void editSavings(String bankName, String newName, String amount, String income, Ui ui) {
         for (int i = 0; i < bankLists.size(); i++) {
             if (bankLists.get(i).getAccountName().equals(bankName)
                     && "saving".equals(bankLists.get(i).getType())) {
@@ -192,7 +193,7 @@ public class BankList {
      * @param amount   New amount of bank account.
      * @param ui       required for printing.
      */
-    public void editInvestment (String bankName, String newName, String amount, Ui ui){
+    public void editInvestment(String bankName, String newName, String amount, Ui ui) {
         for (int i = 0; i < bankLists.size(); i++) {
             if (bankLists.get(i).getAccountName().equals(bankName)
                     && "investment".equals(bankLists.get(i).getType())) {
@@ -219,7 +220,7 @@ public class BankList {
      * @param ui      Required for printing.
      */
     //need change exception class in the future for this
-    public void addExpenditure (String accName, Transaction exp, Ui ui){
+    public void addExpenditure(String accName, Transaction exp, Ui ui) {
         for (int i = 0; i < bankLists.size(); i++) {
             if (bankLists.get(i).getAccountName().equals(accName)) {
                 bankLists.get(i).addInExpenditure(exp, ui);
@@ -234,12 +235,12 @@ public class BankList {
      *
      * @param ui required for printing.
      */
-    public void listBankAccount (String bankType, Ui ui){
+    public void listBankAccount(String bankType, Ui ui) {
         if (getBankListSize() <= 0) {
             ui.printError("There are 0 bank accounts.");
         }
         for (int i = 0; i < getBankListSize(); i++) {
-            if(bankType.equals(bankLists.get(i).getType())) {
+            if (bankType.equals(bankLists.get(i).getType())) {
                 ui.printMessage((i + 1) + ".\n" + bankLists.get(i).getDescription());
             }
         }
@@ -268,7 +269,7 @@ public class BankList {
      * @param ui         required for printing.
      * @param displayNum Number of expenditures to list.
      */
-    public void listBankExpenditure (String bankToList, Ui ui,int displayNum){
+    public void listBankExpenditure(String bankToList, Ui ui, int displayNum) {
         for (int i = 0; i < bankLists.size(); i++) {
             if (bankToList.equals(bankLists.get(i).getAccountName())) {
                 bankLists.get(i).listAllExpenditure(ui, displayNum);
@@ -285,7 +286,7 @@ public class BankList {
      * @param ui         required for printing.
      * @param displayNum Number of deposits to list.
      */
-    public void listBankDeposit (String bankToList, Ui ui,int displayNum){
+    public void listBankDeposit(String bankToList, Ui ui, int displayNum) {
         for (int i = 0; i < bankLists.size(); i++) {
             if (bankToList.equals(bankLists.get(i).getAccountName())) {
                 bankLists.get(i).listAllDeposit(ui, displayNum);
@@ -302,7 +303,7 @@ public class BankList {
      * @param deleteFromBank The name of the bank account.
      * @param ui             required for printing.
      */
-    public void deleteExp ( int expNum, String deleteFromBank, Ui ui){
+    public void deleteExp(int expNum, String deleteFromBank, Ui ui) {
         for (int i = 0; i < bankLists.size(); i++) {
             if (deleteFromBank.equals(bankLists.get(i).getAccountName())) {
                 bankLists.get(i).deleteExpenditure(expNum, ui);
@@ -323,8 +324,8 @@ public class BankList {
      * @param category     The category of the expenditure.
      * @param ui           required for printing.
      */
-    public void editExp ( int expNum, String editFromBank, String desc, String amount, String date, String category,
-            Ui ui){
+    public void editExp(int expNum, String editFromBank, String desc, String amount, String date, String category,
+            Ui ui) {
         for (int i = 0; i < bankLists.size(); i++) {
             if (bankLists.get(i).getAccountName().equals(editFromBank)) {
                 bankLists.get(i).editExpenditureDetails(expNum, desc, amount, date, category, ui);
@@ -344,7 +345,7 @@ public class BankList {
      * @param date         The date of the deposit.
      * @param ui           required for printing.
      */
-    public void editDep ( int expNum, String editFromBank, String desc, String amount, String date, Ui ui){
+    public void editDep(int expNum, String editFromBank, String desc, String amount, String date, Ui ui) {
         for (int i = 0; i < bankLists.size(); i++) {
             if (bankLists.get(i).getAccountName().equals(editFromBank)) {
                 bankLists.get(i).editDepositDetails(expNum, desc, amount, date, ui);
@@ -362,7 +363,7 @@ public class BankList {
      * @param dep     The instance of the deposit.
      * @param ui      Required for printing.
      */
-    public void addDeposit (String accName, Transaction dep, Ui ui){
+    public void addDeposit(String accName, Transaction dep, Ui ui) {
         for (int i = 0; i < bankLists.size(); i++) {
             if (bankLists.get(i).getAccountName().equals(accName)) {
                 bankLists.get(i).addDepositTransaction(dep, ui);
@@ -379,7 +380,7 @@ public class BankList {
      * @param index   The transaction number.
      * @param ui      required for printing.
      */
-    public void deleteDeposit (String accName,int index, Ui ui){
+    public void deleteDeposit(String accName, int index, Ui ui) {
         for (int i = 0; i < bankLists.size(); i++) {
             if (bankLists.get(i).getAccountName().equals(accName)) {
                 bankLists.get(i).deleteDepositTransaction(index, ui);
