@@ -7,11 +7,11 @@ import java.io.*;
  */
 public class HelpStorage {
 
-    public static final String DEFAULT_HELP_FILEPATH_EXPENSE = "./help-docs/expense.txt";
-    public static final String DEFAULT_HELP_FILEPATH_GENERAL = "./help-docs/general.txt";
-    public static final String DEFAULT_HELP_FILEPATH_LOAN = "./help-docs/loan.txt";
-    public static final String DEFAULT_HELP_FILEPATH_CONTACT = "./help-docs/contact.txt";
-    public static final String DEFAULT_HELP_FILEPATH_COMMAND_HISTORY = "./help-docs/cmdhistory.txt";
+    public static final String DEFAULT_HELP_FILENAME_EXPENSE = "/expense.txt";
+    public static final String DEFAULT_HELP_FILENAME_GENERAL = "/general.txt";
+    public static final String DEFAULT_HELP_FILENAME_LOAN = "/loan.txt";
+    public static final String DEFAULT_HELP_FILENAME_CONTACT = "/contact.txt";
+    public static final String DEFAULT_HELP_FILENAME_COMMAND_HISTORY = "/cmdhistory.txt";
     public static final String MESSAGE_ERROR_ACCESS_SECTION = "Error in accessing help section. Contact admin for help.";
 
     /**
@@ -19,65 +19,71 @@ public class HelpStorage {
      */
     public void sectionData(int input) {
 
-        String path = null;
+        String chosenPath = null;
 
         switch (input) {
 
             case 1:
-                path = DEFAULT_HELP_FILEPATH_GENERAL;
+                chosenPath = DEFAULT_HELP_FILENAME_GENERAL;
                 break;
 
             case 2:
-                path = DEFAULT_HELP_FILEPATH_EXPENSE;
+                chosenPath = DEFAULT_HELP_FILENAME_EXPENSE;
                 break;
 
             case 3:
-                path = DEFAULT_HELP_FILEPATH_LOAN;
+                chosenPath = DEFAULT_HELP_FILENAME_LOAN;
                 break;
 
             case 4:
-                path = DEFAULT_HELP_FILEPATH_CONTACT;
+                chosenPath = DEFAULT_HELP_FILENAME_CONTACT;
                 break;
 
             case 5:
-                path = DEFAULT_HELP_FILEPATH_COMMAND_HISTORY;
+                chosenPath = DEFAULT_HELP_FILENAME_COMMAND_HISTORY;
                 break;
 
             default:
-                path = null;
+                chosenPath = null;
 
         }
 
-        if (path != null) {
 
-            try {
 
-                RandomAccessFile raf = new RandomAccessFile(path, "r");
-                String str;
-                while (raf.getFilePointer() != raf.length()) {
-                    str = raf.readLine();
-                    String[] data = str.split(",");
-                    if (data.length == 2) {
-                        String row = String.format("%-20s %s", data[0], data[1]);
-                        System.out.println(row);
-                    } else {
-                        System.out.println();
-                        System.out.println(data[0]);
-                    }
+
+        try {
+
+            //RandomAccessFile raf = new RandomAccessFile(path, "r");
+            InputStream is = getClass().getResourceAsStream(chosenPath);
+            InputStreamReader isr = new InputStreamReader(is);
+            BufferedReader br = new BufferedReader(isr);
+            String str;
+            while ( (str = br.readLine()) != null) {
+               ;
+                String[] data = str.split(",");
+                if (data.length == 2) {
+                    String row = String.format("%-20s %s", data[0], data[1]);
+                    System.out.println(row);
+                } else {
+                    System.out.println();
+                    System.out.println(data[0]);
                 }
-                raf.close();
-
-
-            } catch (FileNotFoundException e) {
-
-                System.out.println(MESSAGE_ERROR_ACCESS_SECTION);
-
-            } catch (IOException e) {
-
-                System.out.println(MESSAGE_ERROR_ACCESS_SECTION);
-
             }
+            br.close();
+            isr.close();
+            is.close();
+
+
+        } catch (FileNotFoundException e) {
+
+            System.out.println(MESSAGE_ERROR_ACCESS_SECTION);
+
+        } catch (IOException e) {
+
+            System.out.println(MESSAGE_ERROR_ACCESS_SECTION);
 
         }
+
+
     }
 }

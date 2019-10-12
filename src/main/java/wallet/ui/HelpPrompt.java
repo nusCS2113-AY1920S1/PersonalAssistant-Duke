@@ -10,7 +10,7 @@ public class HelpPrompt {
     public static final String MESSAGE_NOTE = "Note the following when reading help sections:";
     public static final String MESSAGE_INDICATOR_REQUIRED = "<> indicates required parameters for command";
     public static final String MESSAGE_INDICATOR_OPTIONAL = "[]  indicates optional parameters for command";
-    public static final String MESSAGE_AVAILABLE_SECTIONS = "The following help sections are available:";
+    public static final String MESSAGE_AVAILABLE_SECTIONS = "Need help? The following help sections are available:";
     public static final String MESSAGE_ACCESS_SECTION = "Begin access a section by keying in its number (enter 0 to exit):";
     public static final String MESSAGE_ERROR_ACCESS_SECTION = "Error! Input not a valid help section index";
     public static final String[] HELP_SECTIONS = {"General", "Expense", "Loans", "Contacts", "Command History"};
@@ -47,6 +47,7 @@ public class HelpPrompt {
         } catch (NumberFormatException e) {
 
             System.out.println(MESSAGE_ERROR_ACCESS_SECTION);
+            selection = -1;
             return selection;
 
         }
@@ -54,6 +55,7 @@ public class HelpPrompt {
         if (selection > HELP_SECTIONS.length || selection < 0) {
 
             System.out.println(MESSAGE_ERROR_ACCESS_SECTION);
+            selection = -1;
 
         }
 
