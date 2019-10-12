@@ -1,8 +1,6 @@
 package duke.model;
 
-import duke.model.ApiParser;
 import duke.commons.exceptions.DukeException;
-import duke.model.Venue;
 
 import java.time.LocalDateTime;
 
@@ -19,7 +17,7 @@ public class Event extends DoWithin {
     public Event(String locationDescription, LocalDateTime startDate, LocalDateTime endDate) throws DukeException {
         super(locationDescription, startDate, endDate);
         // This can be removed once we implement the map ?
-        this.venue = ApiParser.getLocationSearch(locationDescription);
+        this.venue = ApiParserUtil.getLocationSearch(locationDescription);
     }
 
     /**
@@ -44,9 +42,9 @@ public class Event extends DoWithin {
      * Get coordinates of the destination.
      * @return
      */
-    public duke.model.Venue getLocation() throws DukeException {
+    public Venue getLocation() throws DukeException {
         if (this.venue == null) {
-            this.venue = ApiParser.getLocationSearch(getDescription());
+            this.venue = ApiParserUtil.getLocationSearch(getDescription());
         }
         return this.venue;
     }

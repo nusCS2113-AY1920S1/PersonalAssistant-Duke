@@ -5,7 +5,6 @@ import duke.model.Venue;
 import duke.storage.Storage;
 import duke.ui.Ui;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**

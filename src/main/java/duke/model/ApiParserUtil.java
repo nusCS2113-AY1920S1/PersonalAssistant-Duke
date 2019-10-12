@@ -12,7 +12,7 @@ import java.util.HashMap;
 /**
  * Class to handle all API requests.
  */
-public class ApiParser {
+public class ApiParserUtil {
 
     /**
      * Return names and coordinates of location search.

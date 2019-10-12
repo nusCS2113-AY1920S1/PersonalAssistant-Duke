@@ -17,9 +17,8 @@ import duke.commands.RecommendationsCommand;
 import duke.commands.ReminderCommand;
 import duke.commands.RescheduleCommand;
 import duke.commands.ViewScheduleCommand;
-import duke.commons.exceptions.DukeException;
 import duke.commons.Messages;
-import duke.model.ModelManager;
+import duke.commons.exceptions.DukeException;
 import duke.ui.Ui;
 
 

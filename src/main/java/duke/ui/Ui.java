@@ -1,6 +1,5 @@
 package duke.ui;
 
-import duke.commands.RecommendationsCommand;
 import duke.data.BusStop;
 import duke.data.UniqueTaskList;
 import duke.data.tasks.Task;
@@ -10,8 +9,6 @@ import duke.ui.map.MapWindow;
 import javafx.scene.image.Image;
 import javafx.scene.layout.VBox;
 
-import java.lang.reflect.Array;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
