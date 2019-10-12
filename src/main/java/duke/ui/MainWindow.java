@@ -9,7 +9,6 @@ import duke.logic.parser.exceptions.ParseException;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
@@ -19,6 +18,8 @@ import javafx.stage.Stage;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
+
+
 
 public class MainWindow extends UiPart<Stage> {
 
@@ -44,7 +45,7 @@ public class MainWindow extends UiPart<Stage> {
     @FXML
     JFXButton popUpButton;
     @FXML
-    private TextField userInput;
+    private AutoCompleteTextField userInput;
 
     //Main page
     @FXML
@@ -54,7 +55,7 @@ public class MainWindow extends UiPart<Stage> {
 
     //Sidebar
     @FXML
-    private JFXButton recipeButton;
+    private JFXButton productButton;
     @FXML
     private JFXButton orderButton;
     @FXML
@@ -68,9 +69,7 @@ public class MainWindow extends UiPart<Stage> {
         // Set dependencies
         this.primaryStage = primaryStage;
         this.logic = logic;
-
         setUpKeyEvent();
-
     }
 
     public Stage getPrimaryStage() {
@@ -116,18 +115,29 @@ public class MainWindow extends UiPart<Stage> {
         userInput.setOnKeyPressed(new EventHandler<KeyEvent>() {
             @Override
             public void handle(KeyEvent event) {
-                if(event.getCode().equals(KeyCode.UP)) {
+                if(event.getCode().equals(KeyCode.PAGE_UP)) {
                     if (historyIndex > 0) {
                         historyIndex--;
                         userInput.setText(inputHistory.get(historyIndex));
                         userInput.setFocusTraversable(false);
                     }
                 }
-                if(event.getCode().equals(KeyCode.DOWN)) {
+                if(event.getCode().equals(KeyCode.PAGE_DOWN)) {
                     if (historyIndex < (inputHistory.size() - 1)) {
                         historyIndex++;
                         userInput.setText(inputHistory.get(historyIndex));
                         userInput.setFocusTraversable(false);
+                    }
+                }
+            }
+        });
+        userInput.addEventFilter(KeyEvent.KEY_PRESSED, new EventHandler<KeyEvent>() {
+            public void handle(KeyEvent event) {
+                if (event.getCode() == KeyCode.TAB) {
+                    event.consume(); // to cancel character-removing keys
+                    if (userInput.hasSuggestion()) {
+                        userInput.setText(userInput.getFirstSuggestion());
+                        userInput.positionCaret(userInput.getText().length());
                     }
                 }
             }
@@ -201,7 +211,7 @@ public class MainWindow extends UiPart<Stage> {
         pagePane.getChildren().clear();
         pagePane.getChildren().add(orderPage.getRoot());
 
-        recipeButton.setButtonType(JFXButton.ButtonType.FLAT);
+        productButton.setButtonType(JFXButton.ButtonType.FLAT);
         orderButton.setButtonType(JFXButton.ButtonType.RAISED);
         inventoryButton.setButtonType(JFXButton.ButtonType.FLAT);
         salesButton.setButtonType(JFXButton.ButtonType.FLAT);
@@ -213,7 +223,7 @@ public class MainWindow extends UiPart<Stage> {
         pagePane.getChildren().clear();
         pagePane.getChildren().add(productPage.getRoot());
 
-        recipeButton.setButtonType(JFXButton.ButtonType.RAISED);
+        productButton.setButtonType(JFXButton.ButtonType.RAISED);
         orderButton.setButtonType(JFXButton.ButtonType.FLAT);
         inventoryButton.setButtonType(JFXButton.ButtonType.FLAT);
         salesButton.setButtonType(JFXButton.ButtonType.FLAT);
@@ -225,7 +235,7 @@ public class MainWindow extends UiPart<Stage> {
         pagePane.getChildren().clear();
         pagePane.getChildren().add(inventoryPage.getRoot());
 
-        recipeButton.setButtonType(JFXButton.ButtonType.FLAT);
+        productButton.setButtonType(JFXButton.ButtonType.FLAT);
         orderButton.setButtonType(JFXButton.ButtonType.FLAT);
         inventoryButton.setButtonType(JFXButton.ButtonType.RAISED);
         salesButton.setButtonType(JFXButton.ButtonType.FLAT);
@@ -237,7 +247,7 @@ public class MainWindow extends UiPart<Stage> {
         pagePane.getChildren().clear();
         pagePane.getChildren().add(salePage.getRoot());
 
-        recipeButton.setButtonType(JFXButton.ButtonType.FLAT);
+        productButton.setButtonType(JFXButton.ButtonType.FLAT);
         orderButton.setButtonType(JFXButton.ButtonType.FLAT);
         inventoryButton.setButtonType(JFXButton.ButtonType.FLAT);
         salesButton.setButtonType(JFXButton.ButtonType.RAISED);

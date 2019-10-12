@@ -11,6 +11,7 @@ version '0.1.0'
 
 repositories {
     mavenCentral()
+    mavenLocal()
 }
 
 application {
@@ -28,8 +29,11 @@ dependencies {
             [group: 'com.fasterxml.jackson.core', name: 'jackson-annotations', version: '2.4.1'],
             [group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.4.1'],
             [group: 'org.ocpsoft.prettytime', name: 'prettytime', version: '4.0.1.Final'],
-            [group: 'org.ocpsoft.prettytime', name: 'prettytime-nlp', version: '4.0.2.Final']
+            [group: 'org.ocpsoft.prettytime', name: 'prettytime-nlp', version: '4.0.2.Final'],
+            [group: 'org.controlsfx', name: 'controlsfx', version: '8.40.11']
     )
+    //compile files("./libs/charm-glisten-4.4.1-javadoc.jar")
+    //compile fileTree(dir: 'libs', include: '*.jar')
     testImplementation 'org.junit.jupiter:junit-jupiter:5.5.0'
 }
 
