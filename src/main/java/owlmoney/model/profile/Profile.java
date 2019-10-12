@@ -57,8 +57,8 @@ public class Profile {
      *
      * @param ui required for printing.
      */
-    public void listBanks(Ui ui) {
-        bankList.listBankAccount(ui);
+    public void listBanks(String bankType, Ui ui) {
+        bankList.listBankAccount(bankType, ui);
     }
 
     /**

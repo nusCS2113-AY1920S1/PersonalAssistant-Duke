@@ -5,6 +5,7 @@ import java.util.List;
 
 import owlmoney.logic.command.Command;
 import owlmoney.logic.command.PlaceHolderEmptyCommand;
+import owlmoney.logic.command.bank.ListInvestmentCommand;
 import owlmoney.logic.command.bank.ListSavingsCommand;
 import owlmoney.logic.parser.exception.ParserException;
 import owlmoney.logic.parser.investment.ParseAddInvestment;
@@ -128,9 +129,9 @@ class ParseType extends Parser {
                 parseDeleteInvestment.fillHashTable();
                 parseDeleteInvestment.checkParameter();
                 return parseDeleteInvestment.getCommand();
-            } /*else if ("/list".equals(command)) {
-                return new ListInvestmentsCommmand();
-            }*/
+            } else if ("/list".equals(command)) {
+                return new ListInvestmentCommand();
+            }
         case "/expenditure":
             if ("/add".equals(command)) {
                 ParseExpenditure addExp = new ParseAddExpenditure(rawData);
