@@ -50,7 +50,7 @@ In charge of: Notifications
 image::guanyewtan.png[width="150", align="left"]
 {empty}[http://github.com/guanyewtan[github]] [<<guanyewtan#, portfolio>>]
 
-Role: Developer . 
+Role: Developer<br />
 In charge of: Graphs 
 
 '''
