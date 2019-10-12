@@ -109,6 +109,32 @@ public class BankList {
     }
 
     /**
+     * Edits the investment account details.
+     *
+     * @param bankName Bank account to be edited.
+     * @param newName New name of bank account.
+     * @param amount New amount of bank account.
+     * @param ui required for printing.
+     */
+    public void editInvestment(String bankName, String newName, String amount, Ui ui) {
+        for (int i = 0; i < bankLists.size(); i++) {
+            if (bankLists.get(i).getAccountName().equals(bankName)
+                    && "investment".equals(bankLists.get(i).getType())) {
+                ui.printMessage("Editing " + bankLists.get(i).getAccountName() + "\n");
+                if (!(newName.isEmpty() || newName.isBlank())) {
+                    bankLists.get(i).setAccountName(newName);
+                }
+                if (!(amount.isBlank() || amount.isEmpty())) {
+                    bankLists.get(i).setCurrentAmount(Double.parseDouble(amount));
+                }
+                ui.printMessage("New details of the account:\n");
+                ui.printMessage(bankLists.get(i).getDescription() + "\n");
+                break;
+            }
+        }
+    }
+
+    /**
      * Adds an expenditure tied to a bank account.
      * This will store the expenditure in the ExpenditureList in the bank account.
      *

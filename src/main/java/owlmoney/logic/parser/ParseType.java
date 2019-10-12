@@ -9,6 +9,7 @@ import owlmoney.logic.command.bank.ListSavingsCommand;
 import owlmoney.logic.parser.exception.ParserException;
 import owlmoney.logic.parser.investment.ParseAddInvestment;
 import owlmoney.logic.parser.investment.ParseDeleteInvestment;
+import owlmoney.logic.parser.investment.ParseEditInvestment;
 import owlmoney.logic.parser.investment.ParseInvestment;
 import owlmoney.logic.parser.saving.ParseAddSaving;
 import owlmoney.logic.parser.saving.ParseDeleteSaving;
@@ -117,12 +118,12 @@ class ParseType extends Parser {
                 parseAddInvestment.fillHashTable();
                 parseAddInvestment.checkParameter();
                 return parseAddInvestment.getCommand();
-            } /*else if ("/edit".equals(command)) {
+            }   else if ("/edit".equals(command)) {
                 ParseInvestment parseEditInvestment = new ParseEditInvestment(rawData);
-                parseEditSaving.fillHashTable();
-                parseEditSaving.checkParameter();
-                return parseEditSaving.getCommand();
-            }*/ else if ("/delete".equals(command)) {
+                parseEditInvestment.fillHashTable();
+                parseEditInvestment.checkParameter();
+                return parseEditInvestment.getCommand();
+            }    else if ("/delete".equals(command)) {
                 ParseInvestment parseDeleteInvestment = new ParseDeleteInvestment(rawData);
                 parseDeleteInvestment.fillHashTable();
                 parseDeleteInvestment.checkParameter();

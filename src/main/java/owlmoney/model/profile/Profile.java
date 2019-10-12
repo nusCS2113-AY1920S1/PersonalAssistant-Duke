@@ -145,6 +145,18 @@ public class Profile {
     }
 
     /**
+     * Edits a specific investment account.
+     *
+     * @param name Name of savings account to be edited.
+     * @param newName New name of the savings account.
+     * @param amount New amount of the savings account.
+     * @param ui required for printing.
+     */
+    public void editInvestmentAccount(String name, String newName, String amount, Ui ui) {
+        bankList.editInvestment(name, newName, amount, ui);
+    }
+
+    /**
      * Deletes a specific deposit from a specific bank account.
      *
      * @param depIndex Transaction number of the deposit.
@@ -179,4 +191,6 @@ public class Profile {
     public  void editDeposit(int expNum, String editFromBank, String desc, String amount, String date, Ui ui) {
         bankList.editDep(expNum, editFromBank, desc, amount, date, ui);
     }
+
+
 }
