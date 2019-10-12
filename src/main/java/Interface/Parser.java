@@ -138,14 +138,22 @@ public class Parser {
                     if (arr[0].trim().isEmpty()) {
                         throw new DukeException("\u2639" + " OOPS!!! The description of a deadline cannot be empty.");
                     }
-                    String weekdate = arr[1].substring(0,arr[1].length()- 4); // week x day y
-                    String time = arr[1].substring(arr[1].length()- 4); // time E.g 0300
-                    weekdate = LT.getDate(weekdate) + " " + time;
+                    String weekdate ="";
+                    arr2 = arr[1].trim().split(" ");
+                    weekdate = arr2[0];
+                    if(weekdate.equalsIgnoreCase("reading") || weekdate.equalsIgnoreCase("exam")
+                        ||weekdate.equalsIgnoreCase("week")|| weekdate.equalsIgnoreCase("recess")){
+                        weekdate = arr[1].substring(0,arr[1].length()- 4); // week x day y
+                        String time = arr[1].substring(arr[1].length()- 4); // time E.g 0300
+                        weekdate = LT.getDate(weekdate) + " " + time;
+                    }else{
+                        weekdate = arr[1];
+                    }
                     SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HHmm");
                     Date date = formatter.parse(weekdate);
                     SimpleDateFormat dateFormat = new SimpleDateFormat("E dd/MM/yyyy hh:mm a");
                     String dateString = dateFormat.format(date);
-                    return new AddCommand(new Deadline(arr[0], dateString));
+                    return new AddCommand(new Deadline(arr[0].substring(6).trim(), dateString));
                 } catch (ParseException | ArrayIndexOutOfBoundsException e) {
                     throw new DukeException(" OOPS!!! Please enter deadline as follows:\n" +
                             "deadline name_of_activity /by dd/MM/yyyy HHmm\n" +

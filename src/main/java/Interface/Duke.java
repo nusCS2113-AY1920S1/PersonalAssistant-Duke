@@ -67,7 +67,7 @@ public class Duke extends Application {
         } catch (Exception e) {
             return e.getMessage();
         }
-   }
+    }
 
     public String getResponse(String input) {
         return run(input);
