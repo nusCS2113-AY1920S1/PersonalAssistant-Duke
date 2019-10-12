@@ -12,6 +12,9 @@ import duke.storage.RecipeIngredientStorage;
 import duke.storage.RecipeStorage;
 import duke.storage.Storage;
 import duke.list.tasklist.TaskList;
+import duke.task.recipetasks.Feedback;
+import duke.task.recipetasks.Rating;
+import duke.task.recipetasks.RecipeIngredient;
 import duke.ui.Ui;
 
 import java.util.ArrayList;
@@ -36,6 +39,9 @@ public class Duke {
     private RecipeIngredientList recipeIngredientList;
     // private BookingList bookingList;
     private RecipeList recipeList;
+    private RecipeIngredient recipeIngredient;
+    private Rating rating;
+    private Feedback feedback;
 
 //    /**
 //     * Constructor for Duke class to instantiation Ui, Storage, TaskList classes.
@@ -51,7 +57,7 @@ public class Duke {
             taskList = new TaskList(storage.load());
             ingredientList = new IngredientList(ingredientStorage.load());
             recipeIngredientList = new RecipeIngredientList(recipeIngredientStorage.load());
-            recipeList = new RecipeList(recipeStorage.load());
+//            recipeList = new RecipeList(recipeStorage.load());
             System.out.println(taskList.getSize());
         } catch (DukeException e) {
             ui.showIngredientLoadingError();
@@ -66,7 +72,8 @@ public class Duke {
 
     public ArrayList<String> runProgram(String fullCommand) throws DukeException, ParseException {
         CommandRecipe command = Parser.parseRecipe(fullCommand);
-        return command.feedback(recipeList, ui, recipeStorage);
+        return command.feedback(recipeList, recipeIngredient,
+                rating, feedback, ui, recipeStorage);
 
 //        CommandTest command = Parser.parseTest(fullCommand);
 //        return command.feedback(taskList, ui, storage);

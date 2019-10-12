@@ -34,10 +34,15 @@ public class AddRecipeCommand extends CommandRecipe {
             arrayList.add(ERROR_MESSAGE_GENERAL + MESSAGE_FOLLOWUP_NUll);
             System.out.println("stuck here1");
         } else if (userInput.trim().charAt(9) == ' ') {
-            String[] temp = userInput.split("n/",5);
-            String recipeTitle = userInput.split("n/",2)[1].trim();
-            recipeList.addRecipe(recipeTitle, recipe);
-            recipeStorage.saveFile(recipeList);
+//            String[] temp = userInput.split("n/",5);
+            if (userInput.trim().contains("n/")) {
+                String recipeTitle = userInput.split("n/", 2)[1].trim();
+                arrayList.add(recipeTitle);
+//                recipeList.addRecipe(recipeTitle, recipe);
+//                recipeStorage.saveFile(recipeTitle, recipeList);
+            } else {
+                arrayList.add(ERROR_MESSAGE_RANDOM);
+            }
         } else {
             arrayList.add(ERROR_MESSAGE_RANDOM);
         }

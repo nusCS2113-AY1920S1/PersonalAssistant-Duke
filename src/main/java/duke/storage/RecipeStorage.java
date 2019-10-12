@@ -8,12 +8,7 @@ import duke.task.ingredienttasks.Ingredient;
 import duke.list.ingredientlist.IngredientList;
 import duke.task.recipetasks.RecipeIngredient;
 
-import java.io.FileReader;
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.FileNotFoundException;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -41,14 +36,20 @@ public class RecipeStorage {
      *
      * @param recipeList contains the task list
      */
-    public void saveFile(RecipeList recipeList, String recipeTitle) {
+    public void saveFile(String recipeTitle, RecipeList recipeList) {
         try {
-            FileWriter fileWriter = new FileWriter(filePathRecipe);
-            BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
-            for (Object recipe : recipeList.getValue()) {
-                bufferedWriter.write(recipeTitle + recipe + "\n");
-            }
-            bufferedWriter.close();
+            FileOutputStream fileOutputStream = new FileOutputStream(filePathRecipe);
+            ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);
+            objectOutputStream.writeObject(recipeList);
+            fileOutputStream.close();
+            objectOutputStream.close();
+//            FileWriter fileWriter = new FileWriter(filePathRecipe);
+//            BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
+//            bufferedWriter.
+//            for (Object recipe : recipeList.getValue()) {
+//                bufferedWriter.write(recipeTitle + recipe + "\n");
+//            }
+//            bufferedWriter.close();
         } catch (Exception exc) {
             exc.printStackTrace(); // If there was an error, print the info.
         }
@@ -61,24 +62,30 @@ public class RecipeStorage {
      * @throws DukeException if Duke is not able to load the tasks from the file or unable to open the file
      */
     public Map<String, Recipe> load() throws DukeException {
+        Map<String, Recipe> temp = new HashMap<>();
         try {
-            FileReader fileReader = new FileReader(filePathRecipe);
-            BufferedReader bufferedReader = new BufferedReader(fileReader);
-            String content = "";
-            while ((content = bufferedReader.readLine()) != null) {
-                String[] split = content.split(" \\| ", 2);
-                if (split.length == 2) {
-                    int quantity = Integer.parseInt(split[1]);
-                    Recipe recipe = new Recipe(split[0], quantity);
-                    arrRecipeMap.put(recipe);
-                }
-            }
-            fileReader.close();
+            FileInputStream fileInputStream = new FileInputStream(new File(filePathRecipe));
+            ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream);
+            temp = (Map<String, Recipe>) objectInputStream.readObject();
+//            FileReader fileReader = new FileReader(filePathRecipe);
+//            BufferedReader bufferedReader = new BufferedReader(fileReader);
+//            String content = "";
+//            while ((content = bufferedReader.readLine()) != null) {
+//                String[] split = content.split(" \\| ", 2);
+//                if (split.length == 2) {
+//                    int quantity = Integer.parseInt(split[1]);
+//                    Recipe recipe = new Recipe(split[0], quantity);
+//                    arrRecipeMap.put(recipe);
+//                }
+//            }
+//            fileReader.close();
         } catch (FileNotFoundException ex) {
             System.out.println("Unable to open file '" + filePathRecipe + "'");
         } catch (IOException ex) {
             System.out.println("Error reading file '" + filePathRecipe + "'");
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
         }
-        return arrRecipeList;
+        return temp;
     }
 }

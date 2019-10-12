@@ -27,7 +27,7 @@ public class Recipe {
     }
 
     public Map<String, Recipe> toSaveString() {
-        Map<String, Recipe> recipeMap = new Map<String, Recipe>(recipeTitle, recipe);
+        Map<String, Recipe> recipeMap = new HashMap<String, Recipe>();
         return recipeMap;
     }
 
