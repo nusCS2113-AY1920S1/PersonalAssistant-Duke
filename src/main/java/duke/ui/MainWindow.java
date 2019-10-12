@@ -5,8 +5,8 @@ import duke.commons.core.LogsCenter;
 import duke.logic.Logic;
 import duke.logic.command.CommandResult;
 import duke.logic.command.exceptions.CommandException;
+import duke.logic.parser.commons.Autocompleter;
 import duke.logic.parser.exceptions.ParseException;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -79,8 +79,12 @@ public class MainWindow extends UiPart<Stage> {
         this.primaryStage = primaryStage;
         this.logic = logic;
 
-        setUpKeyEvent();
-
+        this.userInput.addEventFilter(KeyEvent.KEY_PRESSED, event -> {
+            if (event.getCode() == KeyCode.TAB) {
+                autocomplete();
+                event.consume();
+            }
+        });
     }
 
     /**
@@ -124,30 +128,39 @@ public class MainWindow extends UiPart<Stage> {
         userInput.clear();
     }
 
-    /**
-     * Sets UP key to show previous input, and sets DOWN key to the next input.
-     */
     @FXML
-    private void setUpKeyEvent() {
-        userInput.setOnKeyPressed(new EventHandler<KeyEvent>() {
-            @Override
-            public void handle(KeyEvent event) {
-                if(event.getCode().equals(KeyCode.UP)) {
-                    if (historyIndex > 0) {
-                        historyIndex--;
-                        userInput.setText(inputHistory.get(historyIndex));
-                        userInput.setFocusTraversable(false);
-                    }
-                }
-                if(event.getCode().equals(KeyCode.DOWN)) {
-                    if (historyIndex < (inputHistory.size() - 1)) {
-                        historyIndex++;
-                        userInput.setText(inputHistory.get(historyIndex));
-                        userInput.setFocusTraversable(false);
-                    }
-                }
+    private void handleKeyPress(KeyEvent keyEvent) {
+        switch (keyEvent.getCode()) {
+        case UP:
+            keyEvent.consume();
+            if (historyIndex > 0) {
+                historyIndex--;
+                userInput.setText(inputHistory.get(historyIndex));
+                userInput.setFocusTraversable(false);
             }
-        });
+            break;
+        case DOWN:
+            keyEvent.consume();
+            if (historyIndex < (inputHistory.size() - 1)) {
+                historyIndex++;
+                userInput.setText(inputHistory.get(historyIndex));
+                userInput.setFocusTraversable(false);
+            }
+            break;
+        case TAB:
+            keyEvent.consume();
+            autocomplete();
+            break;
+        default:
+            // let JavaFx handle the keypress
+        }
+    }
+
+    private void autocomplete() {
+        Autocompleter.CompletedUserInput completedUserInput = logic.getAutoCompletion(userInput.getText(),
+                userInput.getCaretPosition());
+        this.userInput.setText(completedUserInput.userInputString);
+        this.userInput.positionCaret(completedUserInput.caretPosition);
     }
 
     /**

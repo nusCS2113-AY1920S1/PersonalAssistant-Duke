@@ -30,7 +30,6 @@ public class DeleteOrderCommand extends OrderCommand {
 
     public CommandResult execute(Model model) throws CommandException {
         return new CommandResult("");
-
     }
 
 }
