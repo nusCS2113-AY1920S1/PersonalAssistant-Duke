@@ -2,25 +2,15 @@ package models.task;
 
 import java.util.ArrayList;
 import java.util.Comparator;
-import java.util.PriorityQueue;
 
 public class TaskList {
-    private PriorityQueue<Task> taskList;
+    private ArrayList<Task> taskList;
 
     /**
-     * Class representing a list with all task sort from the highest priority to the lowest.
+     * Class representing a list with all task sort in the project.
      */
     public TaskList() {
-        Comparator<Task> taskPriority = (task1, task2) -> {
-            if (task1.getTaskPriority() < task2.getTaskPriority()) {
-                return 1;
-            } else if (task1.getTaskPriority() > task2.getTaskPriority()) {
-                return -1;
-            }
-            return 0;
-        };
-
-        this.taskList = new PriorityQueue<>(taskPriority);
+        this.taskList = new ArrayList<>();
     }
 
     /**
@@ -37,9 +27,20 @@ public class TaskList {
      */
     public ArrayList<String> getAllTaskDetails() {
         ArrayList<String> taskDetails = new ArrayList<>();
-        for (Task task : taskList) {
+        ArrayList<Task> sortedTaskList = taskList;
+        sortedTaskList.sort(sortTasksByPriority);
+        for (Task task : sortedTaskList) {
             taskDetails.add(task.getDetails());
         }
         return taskDetails;
     }
+    /*
+    * This method compares the two tasks and sort list in descending order.
+     */
+    private Comparator<Task> sortTasksByPriority = new Comparator<Task>() {
+        @Override
+        public int compare(Task task1, Task task2) {
+            return task2.getTaskPriority() - task1.getTaskPriority();
+        }
+    };
 }
