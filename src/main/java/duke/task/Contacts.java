@@ -4,15 +4,18 @@ package duke.task;
  * Represents a contact that stores information of a person.
  */
 public class Contacts {
-    protected String name = "";
-    protected String contact = "";
-    protected String email = "";
-    protected String office = "";
+    protected String name;
+    protected String contact;
+    protected String email;
+    protected String office;
 
     /**
-     * Creates a contact with name.
+     * Creates a contact with the relevant details.
      *
-     * @param name The name of the contact.
+     * @param name Name of contact.
+     * @param contact Number of contact.
+     * @param email Electronic mail of contact.
+     * @param office Office of contact.
      */
     public Contacts(String name, String contact, String email, String office){
         this.name = name.trim();
@@ -21,14 +24,19 @@ public class Contacts {
         this.office = office.trim();
     }
 
+    /**
+     * Extracting a contact content into string that is suitable for text file.
+     *
+     * @return String that contains the details of the contact.
+     */
     public String toFile() {
         return  name + "," + contact + "," + email + "," + office;
     }
 
     /**
-     * Extracting a task content into readable string.
+     * Extracting a contact content into readable string.
      *
-     * @return String that contains the status and the description of the task.
+     * @return String that contains the details of the contact.
      */
     @Override
     public String toString() {
@@ -39,9 +47,9 @@ public class Contacts {
     }
 
     /**
-     * Extracting a contacts content into readable string (GUI).
+     * Extracting a contact content into readable string (GUI).
      *
-     * @return String that contains all details of a contact.
+     * @return String that contains the details of the contact.
      */
     public String toStringGui() {
         return "Name: " + name + ", " + contact + ", " + email + ", " + office;

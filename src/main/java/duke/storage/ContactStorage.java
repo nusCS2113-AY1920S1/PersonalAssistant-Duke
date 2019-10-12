@@ -17,7 +17,7 @@ public class ContactStorage {
     /**
      * Creates a storage with a specified filePathForContacts.
      *
-     * @param filePathForContacts The location of the text file.
+     * @param filePathForContacts The location of the contacts text file.
      */
     public ContactStorage(String filePathForContacts) {
         this.filePathForContacts += filePathForContacts;
@@ -25,9 +25,9 @@ public class ContactStorage {
 
 
     /**
-     * Updates the task list from reading the contents of the text file.
+     * Updates the contact list from reading the contents of the contacts text file.
      *
-     * @return ArrayList to update the priorityList.
+     * @return ArrayList to update the contactList.
      * @throws IOException  If there is an error reading the text file.
      */
     public ArrayList<Contacts> read() throws IOException {
@@ -55,9 +55,9 @@ public class ContactStorage {
     }
 
     /**
-     * Updates the text file from interpreting the priorities of the priorityList.
+     * Updates the text file from interpreting the contacts in contactList.
      *
-     * @param contacts The list of contacts.
+     * @param contacts The contact list that contains a list of contacts.
      * @throws IOException If there is an error writing the text file.
      */
     public void write(ContactList contacts) throws IOException {
