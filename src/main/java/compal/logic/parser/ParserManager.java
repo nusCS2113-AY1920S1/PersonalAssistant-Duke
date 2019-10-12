@@ -1,6 +1,7 @@
 package compal.logic.parser;
 
 import compal.commons.Compal;
+import compal.logic.commands.AcadCommand;
 import compal.logic.commands.ByeCommand;
 import compal.logic.commands.ClearCommand;
 import compal.logic.commands.DeadlineCommand;
@@ -16,6 +17,7 @@ import compal.logic.commands.SetReminderCommand;
 import compal.logic.commands.SetReminderCommand;
 import compal.logic.commands.ViewCommand;
 import compal.logic.commands.ViewReminderCommand;
+
 import compal.model.tasks.TaskList;
 
 import static compal.commons.Messages.MESSAGE_INVALID_COMMAND;
@@ -140,11 +142,14 @@ public class ParserManager {
                     FixedDurationCommand fixedduration = new FixedDurationCommand(compal);
                     fixedduration.parseCommand(userInput);
                     break;
-                case CMD_RECUR_TASK:
                 case CMD_LECT:
                 case CMD_TUT:
                 case CMD_SECT:
                 case CMD_LAB:
+                    AcadCommand acad = new AcadCommand(compal);
+                    acad.parseCommand(userInput);
+                    break;
+                case CMD_RECUR_TASK:
                     RecurTaskCommand recurTask = new RecurTaskCommand(compal);
                     recurTask.parseCommand(userInput);
                     break;
@@ -167,33 +172,6 @@ public class ParserManager {
                 default:
                     compal.ui.printg(MESSAGE_INVALID_COMMAND);
                     throw new Compal.DukeException(MESSAGE_INVALID_COMMAND);
-
-                    case CMD_LECT:
-                    case CMD_TUT:
-                    case CMD_SECT:
-                    case CMD_LAB:
-                        RecurTaskCommand recurTask = new RecurTaskCommand(compal);
-                        recurTask.parseCommand(userInput);
-                        break;
-                    case CMD_FIND:
-                        FindCommand findCommand = new FindCommand(compal);
-                        findCommand.parseCommand(userInput);
-                        break;
-                    case CMD_VIEW:
-                        ViewCommand viewCommand = new ViewCommand(compal);
-                        viewCommand.parseCommand(userInput);
-                        break;
-                    case CMD_VIEW_REMIND:
-                        ViewReminderCommand viewReminderCommand = new ViewReminderCommand(compal);
-                        viewReminderCommand.parseCommand(userInput);
-                        break;
-                    case CMD_SET_REMINDER:
-                        SetReminderCommand setReminderCommand = new SetReminderCommand(compal);
-                        setReminderCommand.parseCommand(userInput);
-                        break;
-                    default:
-                        compal.ui.printg(MESSAGE_INVALID_COMMAND);
-                        throw new Compal.DukeException(MESSAGE_INVALID_COMMAND);
                 }
             }
         } else {

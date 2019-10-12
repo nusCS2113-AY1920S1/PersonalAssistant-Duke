@@ -18,6 +18,8 @@ public class Messages {
             + "a valid task number!";
     public static final String MESSAGE_INVALID_TASK = "TaskError: You can only input a task with a future due date!";
     public static final String MESSAGE_INVALID_TIME_RANGE = "TimeRangeError: End time is before start time!";
+    public static final String MESSAGE_INVALID_REP_RANGE = "RepRangeError: The number of reps of a Recurring Task"
+            + " has to be greater than 1. Please use event command if your Task does not recur more than once.";
 
     public static final String MESSAGE_MISSING_DESC = "DescError: Description field cannot be empty."
             + " Please enter a description";
@@ -30,9 +32,11 @@ public class Messages {
     public static final String MESSAGE_MISSING_PRIORITY = "MissingPriorityError: Priority "
             + "field cannot be empty.";
     public static final String MESSAGE_MISSING_REP = "MissingRepError: Rep field cannot be empty."
-            + "Please enter a valid number of repetitions.";
+            + "Please enter a valid number of repetitions greater than 1.";
+    public static final String MESSAGE_MISSING_EDATE = "MissingEndDateError: End date cannot be empty. "
+            + "Please enter a valid end date for your semester.";
 
-    public static final String MESSAGE_MISSING_REP_ARG = "ArgumentError: Missing /rep";
+    public static final String MESSAGE_MISSING_REP_EDATE_ARG = "ArgumentError: Missing /rep and /edate";
     public static final String MESSAGE_MISSING_DATE_ARG = "ArgumentError: Missing /date";
     public static final String MESSAGE_MISSING_START_TIME_ARG = "ArgumentError: Missing /start";
     public static final String MESSAGE_MISSING_END_TIME_ARG = "ArgumentError: Missing /end";
@@ -40,6 +44,7 @@ public class Messages {
     public static final String MESSAGE_MISSING_MIN_ARG = "ArgumentError: Missing /min";
     public static final String MESSAGE_MISSING_PRIORITY_ARG = "ArgumentError: Missing /priority";
     public static final String MESSAGE_MISSING_COMMAND_ARG = "ArgumentError: Missing argument detected!";
+    public static final String MESSAGE_MISSING_EDATE_ARG = "ArgumentError: Missing /edate";
 
     public static final String MESSAGE_INIT_REMINDER = "view-reminder";
 }
