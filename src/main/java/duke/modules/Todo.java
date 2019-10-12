@@ -4,7 +4,7 @@ import duke.exceptions.ModInvalidTimePeriodException;
 
 import java.time.LocalDateTime;
 
-public class Todo extends Task {
+public class Todo extends TaskWithoutTime {
 
     /**
      * constructor for the Task class.

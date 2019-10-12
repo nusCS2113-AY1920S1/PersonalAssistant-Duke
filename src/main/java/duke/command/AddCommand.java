@@ -1,12 +1,10 @@
 package duke.command;
 
 import duke.exceptions.ModScheduleException;
-import duke.modules.Deadline;
-import duke.modules.DoWithin;
-import duke.modules.Events;
 import duke.modules.FixedDurationTasks;
 import duke.modules.RecurringTask;
 import duke.modules.Task;
+import duke.modules.TaskWithPeriod;
 import duke.modules.Todo;
 import duke.util.TaskList;
 import duke.util.TimePeriod;
@@ -56,10 +54,8 @@ public class AddCommand extends Command {
         HashSet<LocalDateTime> dateTimeSet = new HashSet<>();
         HashSet<TimePeriod> timePeriodSet = new HashSet<>();
         for (Task temp : tasks.getTasks()) {
-            if (temp instanceof Deadline
-                    || temp instanceof Events
-                    || temp instanceof  DoWithin) {
-                timePeriodSet.add(temp.getPeriod());
+            if (temp instanceof TaskWithPeriod) {
+                timePeriodSet.add(((TaskWithPeriod)temp).getPeriod());
             } else if (temp instanceof FixedDurationTasks) {
                 FixedDurationTasks hold = (FixedDurationTasks) temp;
                 dateTimeSet.add(hold.getTimePeriod());
@@ -67,10 +63,8 @@ public class AddCommand extends Command {
         }
         LocalDateTime taskDateTime = null;
         TimePeriod taskTimePeriod = null;
-        if (task instanceof Deadline
-                || task instanceof Events
-                || task instanceof  DoWithin) {
-            taskTimePeriod = task.getPeriod();
+        if (task instanceof TaskWithPeriod) {
+            taskTimePeriod = ((TaskWithPeriod)task).getPeriod();
         } else if (task instanceof FixedDurationTasks) {
             FixedDurationTasks hold = (FixedDurationTasks) task;
             taskDateTime = hold.getTimePeriod();

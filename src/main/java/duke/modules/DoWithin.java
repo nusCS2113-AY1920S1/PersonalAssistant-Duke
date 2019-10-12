@@ -8,7 +8,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
 
-public class DoWithin extends Task {
+public class DoWithin extends TaskWithPeriod {
 
     /**
      * Constructor for do With In tasks.

@@ -6,9 +6,9 @@ import duke.modules.Deadline;
 import duke.modules.DoWithin;
 import duke.modules.Events;
 import duke.modules.RecurringTask;
-import duke.modules.FixedDurationTasks;
 import duke.modules.Task;
 import duke.modules.Todo;
+import duke.modules.FixedDurationTasks;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
@@ -114,16 +114,12 @@ public class Storage {
                     break;
                 }
                 case "F": {
-                    try {
-                        FixedDurationTasks tempFixedDuration = new FixedDurationTasks(hold[1], hold[3]);
-                        if (hold[2].equals("1")) {
-                            tempFixedDuration.setTaskDone();
-                        }
-                        list.add(tempFixedDuration);
-                        break;
-                    } catch (ModInvalidTimeException ex) {
-                        break;
+                    FixedDurationTasks tempFixedDuration = new FixedDurationTasks(hold[1], hold[3]);
+                    if (hold[2].equals("1")) {
+                        tempFixedDuration.setTaskDone();
                     }
+                    list.add(tempFixedDuration);
+                    break;
                 }
                 default: {
                     break;

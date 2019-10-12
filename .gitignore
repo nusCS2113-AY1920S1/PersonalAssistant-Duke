@@ -16,3 +16,8 @@ bin/
 
 # Project data files
 /data/
+
+# Visual Studio files to be ignored
+.classpath
+.project
+.settings/org.eclipse.buildship.core.prefs

@@ -1,26 +1,32 @@
 package duke.util;
 
 import duke.command.AddCommand;
+import duke.command.CapCommand;
 import duke.command.ByeCommand;
-import duke.command.Command;
+import duke.command.ScheduleCommand;
 import duke.command.DeleteCommand;
 import duke.command.DoneCommand;
 import duke.command.FindCommand;
 import duke.command.ListCommand;
+import duke.command.PrintTimetable;
+import duke.command.ReportCommand;
 import duke.command.RescheduleCommand;
-import duke.command.ScheduleCommand;
+import duke.command.Command;
+
 import duke.exceptions.ModCommandException;
 import duke.exceptions.ModEmptyCommandException;
 import duke.exceptions.ModInvalidTimeException;
 import duke.exceptions.ModInvalidTimePeriodException;
 import duke.exceptions.ModMissingArgumentException;
 import duke.exceptions.ModMultipleValuesForSameArgumentException;
+
 import duke.modules.Deadline;
 import duke.modules.DoWithin;
 import duke.modules.Events;
 import duke.modules.FixedDurationTasks;
 import duke.modules.RecurringTask;
 import duke.modules.Task;
+import duke.modules.Timetable;
 import duke.modules.Todo;
 
 import java.util.Arrays;
@@ -233,6 +239,8 @@ public class DukeParser {
             checkContainRequiredArguments(args, "/begin", "/end");
             Task hold = new DoWithin(args.get("description"), args.get("/begin"), args.get("/end"));
             return new AddCommand(hold);
+        } else if (input.startsWith("print ")) {
+            return new PrintTimetable();
         } else if (input.equals("bye")) {
             return new ByeCommand();
         } else if (input.startsWith("done ")) {
@@ -264,7 +272,7 @@ public class DukeParser {
     public static LinkedHashMap<String, String> parse(String command,
                                                       boolean includeCommand,
                                                       boolean includeArgs)
-            throws ModMultipleValuesForSameArgumentException {
+        throws ModMultipleValuesForSameArgumentException {
         return parse(command, includeCommand, includeArgs, "/", true);
     }
 
