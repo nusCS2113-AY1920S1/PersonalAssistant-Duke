@@ -1,10 +1,12 @@
-= Duchess
+image:https://travis-ci.com/AY1920S1-CS2113T-T09-2/main.svg?branch=master["Build Status", link="https://travis-ci.com/AY1920S1-CS2113T-T09-2/main"]
+image:https://coveralls.io/repos/github/AY1920S1-CS2113T-T09-2/main/badge.svg?branch=master["Coverage Status", link="https://coveralls.io/github/AY1920S1-CS2113T-T09-2/main?branch=master"]
+image:https://api.codacy.com/project/badge/Grade/f21ca33389cd46cc93f3430aed20d529["Codacy code quality", link="https://www.codacy.com/manual/mohideenik/main?utm_source=github.com&utm_medium=referral&utm_content=AY1920S1-CS2113T-T09-2/main&utm_campaign=Badge_Grade"]
 
-image::https://travis-ci.org/AY1920S1-CS2113T-T09-2/main.svg?branch=master[]
+= Duchess
 
 image::docs/images/Ui.png[]
 
-* Duchess is a calendar application tailor-made for NUS students. 
+* Duchess is a calendar application tailor-made for NUS students.
 * It provides an interface for students to manage both their school and extra-curriculum commitments while providing academic contextual information.
 * User interactions happen using a Command Line Interface.
 

@@ -3,3 +3,6 @@
 language: java
 jdk:
   - openjdk11
+
+after_success:
+  - ./gradlew coverage coveralls
