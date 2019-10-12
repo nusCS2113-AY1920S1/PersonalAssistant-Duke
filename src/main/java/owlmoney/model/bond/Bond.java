@@ -7,7 +7,7 @@ public class Bond {
     private String category;
 
     /**
-     * Creates a Bond with the minimal details of name, amount.
+     * Creates a Bond with details of name, amount, rate.
      *
      * @param name   The name of the bond issue.
      * @param amount The amount of money the bond costs.

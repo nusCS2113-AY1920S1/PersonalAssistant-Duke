@@ -16,7 +16,7 @@ public class Saving extends Bank {
     private static final String SAVING = "saving";
 
     /**
-     * Constructor that creates an instance of a savings account.
+     * Creates an instance of a savings account.
      *
      * @param name          The name of the bank account.
      * @param currentAmount The current amount of money in  the bank account.
@@ -25,8 +25,8 @@ public class Saving extends Bank {
     public Saving(String name, double currentAmount, double income) {
         super(name, currentAmount);
         this.income = income;
-        type = SAVING;
-        transactions = new TransactionList();
+        this.type = SAVING;
+        this.transactions = new TransactionList();
     }
 
     private double getIncome() {
@@ -58,17 +58,6 @@ public class Saving extends Bank {
             deductFromAmount(exp.getAmount());
         }
     }
-    /*
-    /**
-     * Lists all expenditure tied to this bank account.
-     *
-     * @param ui required for printing.
-     *//*
-    @Override
-    public void listAllTransaction(Ui ui) {
-        transactions.listTransaction(ui);
-    }
-    */
 
     /**
      * Lists the deposits in the current bank account.

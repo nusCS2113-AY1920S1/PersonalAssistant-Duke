@@ -1,19 +1,11 @@
 package owlmoney.model.bank;
 
-import owlmoney.model.bond.BondList;
-import owlmoney.model.expenditure.Expenditure;
-import owlmoney.model.expenditure.ExpenditureList;
+import owlmoney.model.transaction.Transaction;
+import owlmoney.model.transaction.TransactionList;
 import owlmoney.ui.Ui;
-
-/**
- * An investment account class that extends a normal bank account.
- */
 
 public class Investment extends Bank {
 
-    private String type;
-    private ExpenditureList expenditures;
-    private BondList bonds;
     private static final String INVESTMENT = "investment";
 
     /**
@@ -24,57 +16,23 @@ public class Investment extends Bank {
      */
     public Investment(String name, double currentAmount) {
         super(name, currentAmount);
-        type = INVESTMENT;
-        expenditures = new ExpenditureList();
-        bonds = new BondList();
+        this.type = INVESTMENT;
+        this.transactions = new TransactionList();
     }
 
-    /**
-     * Gets the type of the bank account.
-     *
-     * @return the type of the bank account.
-     */
-    public String getType() {
-        return this.type;
-    }
 
-    /**
-     * Adds an expenditure tied to this instance of the bank account.
-     *
-     * @param exp an instance of expenditure.
-     * @param ui  required for printing.
-     */
     @Override
-    public void addInExpenditure(Expenditure exp, Ui ui) {
-        expenditures.addToList(exp, ui);
+    public void addInExpenditure(Transaction exp, Ui ui) {
+        if (exp.getAmount() > this.getCurrentAmount()) {
+            ui.printError("Bank account cannot have a negative amount");
+        } else {
+            transactions.addExpenditureToList(exp, ui);
+            deductFromAmount(exp.getAmount());
+        }
     }
 
-    /**
-     * Lists all expenditure tied to this bank account.
-     *
-     * @param ui required for printing.
-     */
-    @Override
-    public void listAllExpenditure(Ui ui) {
-        expenditures.listExpenditure(ui);
-    }
-
-    /**
-     * Deletes an expenditure tied to this bank account.
-     *
-     * @param exId The id of the expenditure in ExpenditureList.
-     * @param ui   required for printing.
-     */
     @Override
     public void deleteExpenditure(int exId, Ui ui) {
-        expenditures.deleteFromList(exId, ui);
-    }
-
-    public void addBond() {
-
-    }
-
-    public void deleteBond() {
-
+        addToAmount(transactions.deleteExpenditureFromList(exId, ui));
     }
 }

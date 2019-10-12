@@ -7,6 +7,11 @@ import owlmoney.logic.command.Command;
 import owlmoney.logic.command.PlaceHolderEmptyCommand;
 import owlmoney.logic.command.bank.ListSavingsCommand;
 import owlmoney.logic.parser.exception.ParserException;
+import owlmoney.logic.parser.investment.ParseAddInvestment;
+import owlmoney.logic.parser.investment.ParseInvestment;
+import owlmoney.logic.parser.saving.ParseAddSaving;
+import owlmoney.logic.parser.saving.ParseDeleteSaving;
+import owlmoney.logic.parser.saving.ParseEditSaving;
 import owlmoney.logic.parser.saving.ParseSaving;
 import owlmoney.logic.parser.transaction.deposit.ParseAddDeposit;
 import owlmoney.logic.parser.transaction.deposit.ParseDeleteDeposit;
@@ -18,9 +23,6 @@ import owlmoney.logic.parser.transaction.expenditure.ParseDeleteExpenditure;
 import owlmoney.logic.parser.transaction.expenditure.ParseEditExpenditure;
 import owlmoney.logic.parser.transaction.expenditure.ParseExpenditure;
 import owlmoney.logic.parser.transaction.expenditure.ParseListExpenditure;
-import owlmoney.logic.parser.saving.ParseAddSaving;
-import owlmoney.logic.parser.saving.ParseDeleteSaving;
-import owlmoney.logic.parser.saving.ParseEditSaving;
 
 /**
  * Represents the second layer of parsing for secondary category of command.
@@ -109,7 +111,24 @@ class ParseType extends Parser {
             }
             throw new ParserException("You entered an invalid type");
         case "/investment":
-            return new PlaceHolderEmptyCommand();
+            if ("/add".equals(command)) {
+                ParseInvestment parseAddInvestment = new ParseAddInvestment(rawData);
+                parseAddInvestment.fillHashTable();
+                parseAddInvestment.checkParameter();
+                return parseAddInvestment.getCommand();
+            } /*else if ("/edit".equals(command)) {
+                ParseInvestment parseEditInvestment = new ParseEditInvestment(rawData);
+                parseEditSaving.fillHashTable();
+                parseEditSaving.checkParameter();
+                return parseEditSaving.getCommand();
+            } else if ("/delete".equals(command)) {
+                ParseInvestment parseDeleteInvestment = new ParseDeleteInvestment(rawData);
+                parseDeleteSaving.fillHashTable();
+                parseDeleteSaving.checkParameter();
+                return parseDeleteSaving.getCommand();
+            } else if ("/list".equals(command)) {
+                return new ListInvestmentsCommmand();
+            }*/
         case "/expenditure":
             if ("/add".equals(command)) {
                 ParseExpenditure addExp = new ParseAddExpenditure(rawData);
