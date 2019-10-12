@@ -34,6 +34,7 @@ public class TaskList {
         }
         return taskDetails;
     }
+
     /*
     * This method compares the two tasks and sort list in descending order.
      */

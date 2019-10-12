@@ -17,13 +17,14 @@ public class TaskTest {
         assertEquals(2, 2);
     }
 
+    @Test
     public void testAddTask() throws ParseException {
         try {
             SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
             Date dueDate = formatter.parse("19/10/2019");
             Task dummyTask = new Task("task1",1,dueDate,10,TaskState.TODO);
             Task task = consoleInputFactory.createTask("t/task1 p/1 d/19/10/2019 c/10 s/todo");
-            assertEquals(dummyTask,task);
+            assertEquals(dummyTask.getDetails(),task.getDetails());
         } catch (ParseException e) {
             e.printStackTrace();
         }
