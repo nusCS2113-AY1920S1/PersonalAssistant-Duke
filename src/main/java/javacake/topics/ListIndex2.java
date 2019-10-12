@@ -20,14 +20,16 @@ public class ListIndex2 extends ListFormat {
     /**
      * Method to print the contents of the list.
      */
-    public void printList() {
+    public String printList() {
+        StringBuilder stringBuilder = new StringBuilder();
         int indexCount = 1;
-        System.out.println("Here are the " + listIndex2SubList.size() + " subtopics available.");
+        stringBuilder.append("Here are the ").append(listIndex2SubList.size()).append(" subtopics available.\n");
         for (String topicsInMainList : listIndex2SubList) {
-            System.out.print("2." + indexCount + " ");
-            System.out.println(topicsInMainList);
+            stringBuilder.append("2.").append(indexCount).append(". ");
+            stringBuilder.append(topicsInMainList).append("\n");
             indexCount++;
         }
-        System.out.println("Key in the index to learn more about the topic!");
+        stringBuilder.append("Key in the index to learn more about the topic!\n");
+        return stringBuilder.toString();
     }
 }

@@ -20,9 +20,11 @@ public class ListCommand extends Command {
      * @param profile Profile of the user
      */
     @Override
-    public void execute(ProgressStack progressStack, Ui ui, Storage storage, Profile profile) {
+    public String execute(ProgressStack progressStack, Ui ui, Storage storage, Profile profile) {
+        String output = "";
         MainList ml = new MainList();
-        ml.printList();
+        output = ml.printList();
         progressStack.forceToMainList();
+        return output;
     }
 }

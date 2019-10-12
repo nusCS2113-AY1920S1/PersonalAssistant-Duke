@@ -18,7 +18,7 @@ public class ExitCommand extends Command {
      * @param profile Profile of the user
      */
     @Override
-    public void execute(ProgressStack progressStack, Ui ui, Storage storage, Profile profile) {
-        ui.showMessage("\nBye. Hope to see you again soon!\n");
+    public String execute(ProgressStack progressStack, Ui ui, Storage storage, Profile profile) {
+        return "\nBye. Hope to see you again soon!\n";
     }
 }

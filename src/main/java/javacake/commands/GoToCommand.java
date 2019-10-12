@@ -1,5 +1,6 @@
 package javacake.commands;
 
+import javacake.Duke;
 import javacake.DukeException;
 import javacake.ProgressStack;
 import javacake.Profile;
@@ -31,71 +32,111 @@ public class GoToCommand extends Command {
      * @param profile Profile of the user
      * @throws DukeException Error thrown when unable to close reader
      */
-    public void execute(ProgressStack progressStack, Ui ui, Storage storage, Profile profile) throws DukeException {
+    public String execute(ProgressStack progressStack, Ui ui, Storage storage, Profile profile) throws DukeException {
         try {
             if (progressStack.checkProgress() == 1 && index.equals("1")) {
                 progressStack.mainListToListIndex1();
-                new ListIndex1().printList();
+                return new ListIndex1().printList();
             } else if (progressStack.checkProgress() == 1 && index.equals("2")) {
                 progressStack.mainListToListIndex2();
-                new ListIndex2().printList();
+                return new ListIndex2().printList();
             } else if (progressStack.checkProgress() == 1 && index.equals("3")) {
                 progressStack.mainListToListIndex3();
-                new ListIndex3().printList();
+                return new ListIndex3().printList();
             } else if (progressStack.checkProgress() == 1 && index.equals("4")) {
-                new QuizCommand().execute(progressStack, ui, storage, profile);
+                if (Duke.isCliMode()) {
+                    return new QuizCommand(Question.QuestionType.ALL).execute(progressStack, ui, storage, profile);
+                } else {
+                    QuizCommand.setProfile(profile);
+                    return "!@#_QUIZ_4";
+                }
             } else if (progressStack.checkProgress() == 2 && index.equals("1.1")) {
                 progressStack.listIndexToSubList();
-                ui.displayTextFile(new BufferedReader(
-                        new FileReader("content/MainList/ListIndex1/javabasics/1.txt")));
+                return getTextFile(new BufferedReader(
+                        new FileReader("content/MainList/ListIndex1/javabasics/Print.txt")));
             } else if (progressStack.checkProgress() == 2 && index.equals("1.2")) {
                 progressStack.listIndexToSubList();
-                ui.displayTextFile(new BufferedReader(
-                        new FileReader("content/MainList/ListIndex1/javabasics/2.txt")));
+                return getTextFile(new BufferedReader(
+                        new FileReader("content/MainList/ListIndex1/javabasics/Read.txt")));
             } else if (progressStack.checkProgress() == 2 && index.equals("1.3")) {
                 progressStack.listIndexToSubList();
-                ui.displayTextFile(new BufferedReader(
-                        new FileReader("content/MainList/ListIndex1/javabasics/3.txt")));
+                return getTextFile(new BufferedReader(
+                        new FileReader("content/MainList/ListIndex1/javabasics/ClassesandObjects.txt")));
             } else if (progressStack.checkProgress() == 2 && index.equals("1.4")) {
-                new QuizCommand(Question.QuestionType.BASIC).execute(progressStack, ui, storage, profile);
+                if (Duke.isCliMode()) {
+                    return new QuizCommand(Question.QuestionType.BASIC).execute(progressStack, ui, storage, profile);
+                } else {
+                    QuizCommand.setProfile(profile);
+                    return "!@#_QUIZ_1";
+                }
             } else if (progressStack.checkProgress() == 2 && index.equals("2.1")) {
                 progressStack.listIndexToSubList();
-                ui.displayTextFile(new BufferedReader(
-                        new FileReader("content/MainList/ListIndex2/oop/1.txt")));
+                return getTextFile(new BufferedReader(
+                        new FileReader("content/MainList/ListIndex2/oop/Abstraction.txt")));
             } else if (progressStack.checkProgress() == 2 && index.equals("2.2")) {
                 progressStack.listIndexToSubList();
-                ui.displayTextFile(new BufferedReader(
-                        new FileReader("content/MainList/ListIndex2/oop/2.txt")));
+                return getTextFile(new BufferedReader(
+                        new FileReader("content/MainList/ListIndex2/oop/Encapsulation.txt")));
             } else if (progressStack.checkProgress() == 2 && index.equals("2.3")) {
                 progressStack.listIndexToSubList();
-                ui.displayTextFile(new BufferedReader(
-                        new FileReader("content/MainList/ListIndex2/oop/3.txt")));
+                return getTextFile(new BufferedReader(
+                        new FileReader("content/MainList/ListIndex2/oop/Inheritance.txt")));
             } else if (progressStack.checkProgress() == 2 && index.equals("2.4")) {
                 progressStack.listIndexToSubList();
-                ui.displayTextFile(new BufferedReader(
-                        new FileReader("content/MainList/ListIndex2/content/oop/4.txt")));
+                return getTextFile(new BufferedReader(
+                        new FileReader("content/MainList/ListIndex2/content/oop/Polymorphism.txt")));
             } else if (progressStack.checkProgress() == 2 && index.equals("2.5")) {
-                new QuizCommand(Question.QuestionType.OOP).execute(progressStack, ui, storage, profile);
-
+                if (Duke.isCliMode()) {
+                    return new QuizCommand(Question.QuestionType.OOP).execute(progressStack, ui, storage, profile);
+                } else {
+                    QuizCommand.setProfile(profile);
+                    return "!@#_QUIZ_2";
+                }
             } else if (progressStack.checkProgress() == 2 && index.equals("3.1")) {
                 progressStack.listIndexToSubList();
-                ui.displayTextFile(new BufferedReader(
+                return getTextFile(new BufferedReader(
                         new FileReader("content/MainList/ListIndex3/Enumerations/Enumerations.txt")));
             } else if (progressStack.checkProgress() == 2 && index.equals("3.2")) {
                 progressStack.listIndexToSubList();
-                ui.displayTextFile(new BufferedReader(
+                return getTextFile(new BufferedReader(
                         new FileReader("content/MainList/ListIndex3/Varargs/Varargs.txt")));
             } else if (progressStack.checkProgress() == 2 && index.equals("3.3")) {
                 progressStack.listIndexToSubList();
-                ui.displayTextFile(new BufferedReader(
+                return getTextFile(new BufferedReader(
                         new FileReader("content/MainList/ListIndex3/Exceptions/Exceptions.txt")));
             } else if (progressStack.checkProgress() == 2 && index.equals("3.4")) {
-                new QuizCommand(Question.QuestionType.EXTENSIONS).execute(progressStack, ui, storage, profile);
+                if (Duke.isCliMode()) {
+                    return new QuizCommand(Question.QuestionType.EXTENSIONS)
+                            .execute(progressStack, ui, storage, profile);
+                } else {
+                    QuizCommand.setProfile(profile);
+                    return "!@#_QUIZ_3";
+                }
             } else {
                 throw new DukeException("Please enter a valid index!");
             }
         } catch (IOException e) {
             throw new DukeException("File does not exists");
         }
+    }
+
+    /**
+     * Method to get text from file.
+     * @param reader BufferedReader to read in text from file
+     * @throws DukeException Error thrown when unable to close reader
+     */
+    private String getTextFile(BufferedReader reader) throws DukeException {
+        String lineBuffer;
+        String output = "";
+        try {
+            while ((lineBuffer = reader.readLine()) != null) {
+                output += lineBuffer;
+                output += "\n";
+            }
+            reader.close();
+        } catch (IOException e) {
+            throw new DukeException("File not found!");
+        }
+        return output;
     }
 }

@@ -20,7 +20,7 @@ public abstract class Command {
         EDIT, BACK, GOTO, QUIZ
     }
 
-    public abstract void execute(ProgressStack progressStack, Ui ui, Storage storage, Profile profile)
+    public abstract String execute(ProgressStack progressStack, Ui ui, Storage storage, Profile profile)
             throws DukeException;
 
     /**

@@ -1,20 +1,22 @@
 package javacake;
 
 import javacake.commands.Command;
+import javacake.commands.QuizCommand;
+import javacake.quiz.Question;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 
 public class Duke  {
-
+    private static boolean isCliMode = true;
     private static String savedDataPath = "data/saved_data.txt";
     private static Ui ui;
     private static Storage storage;
     private static ProgressStack progressStack;
-    private static Profile profile;
-    private static boolean isFirstTimeUser;
-    private static String userName;
-    private static int userProgress = 0;
+    public static Profile profile;
+    public static boolean isFirstTimeUser;
+    public static String userName;
+    public static int userProgress = 0;
 
 
     /**
@@ -43,7 +45,7 @@ public class Duke  {
 
 
     /**
-     * Run the rest of the code here.
+     * Run the rest of the code here. CLI MODE.
      */
     private void run() {
         try {
@@ -51,12 +53,10 @@ public class Duke  {
         } catch (DukeException e) {
             ui.showError(e.getMessage());
         }
-        //TO OVERWRITE "NEW_USER_!@# with new inputted username if needed
+        //To overwrite "NEW_USER_!@# with new inputted username if needed
         if (isFirstTimeUser) {
             try {
                 profile.overwriteName(userName);
-                Command c = Parser.parse("list");
-                c.execute(progressStack, ui, storage, profile);
                 ui.showLine();
             } catch (DukeException e) {
                 ui.showError(e.getMessage());
@@ -68,7 +68,7 @@ public class Duke  {
                 String fullCommand = ui.readCommand();
                 ui.showLine();
                 Command c = Parser.parse(fullCommand);
-                c.execute(progressStack, ui, storage, profile);
+                ui.showMessage(c.execute(progressStack, ui, storage, profile));
                 isExit = c.isExit();
                 //System.out.println("Current progress is " + progressStack.checkProgress());
             } catch (DukeException e) {
@@ -79,7 +79,6 @@ public class Duke  {
         }
     }
 
-
     /**
      * Program Start.
      */
@@ -87,35 +86,23 @@ public class Duke  {
         new Duke(savedDataPath).run();
     }
 
-
-
     /**
      * You should have your own function to generate a response to user input.
-     * Replace this stub with your completed method.
+     * GUI MODE.
      */
-    String getResponse(String input) throws DukeException {
+    public String getResponse(String input) {
+        if (isCliMode) {
+            isCliMode = false;
+        }
         try {
-            ByteArrayOutputStream baos = new ByteArrayOutputStream();
-            PrintStream ps = new PrintStream(baos);
-            // IMPORTANT: Save the old System.out!
-            PrintStream old = System.out;
-            // Tell Java to use your special stream
-            System.setOut(ps);
             Command c = Parser.parse(input);
-            c.execute(progressStack, ui, storage, profile);
-            // Put things back
-            System.out.flush();
-            System.setOut(old);
-            return baos.toString();
+            return c.execute(progressStack, ui, storage, profile);
         } catch (DukeException e) {
             return "Invalid Command";
         }
     }
 
-
-
-
-
-
-
+    public static boolean isCliMode() {
+        return isCliMode;
+    }
 }
