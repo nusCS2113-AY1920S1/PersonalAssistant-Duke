@@ -11,9 +11,7 @@ import javafx.util.Pair;
 public class TaskList {
     private static final String NO_FIELD = "void";
 
-
     private ArrayList<Task> list;
-    private ArrayList<String> todoArrList = new ArrayList<>();
     private ArrayList<String> deadlineArrList = new ArrayList<>();
     private ArrayList<String> eventArrList = new ArrayList<>();
 
@@ -30,7 +28,6 @@ public class TaskList {
 
     public void addTask(Task task){
         this.list.add(task);
-        //System.out.println("HERE IS THE LIST PRINTED" + this.list);
     }
 
     public void removeTask(int index){
@@ -179,9 +176,7 @@ public class TaskList {
     private void sortList() {
         for (int i = 0; i < list.size(); i++) {
             String description = list.get(i).toString();
-            if (list.get(i).getType().equals("[T]")) {
-                this.todoArrList.add(description);
-            } else if (list.get(i).getType().equals("[D]")) {
+            if (list.get(i).getType().equals("[D]")) {
                 this.deadlineArrList.add(description);
             } else if (list.get(i).getType().equals("[E]")){
                 this.eventArrList.add(description);
@@ -197,7 +192,6 @@ public class TaskList {
         sortList();
         int sizeOfDeadlineArr = getDeadlineArrList().size();
         int sizeOfEventArr = getEventArrList().size();
-        int sizeOfTodoArr = getTodoArrList().size();
         String finalSchedule = "Here is your schedule!\n";
         if (sizeOfDeadlineArr != 0) {
             finalSchedule += "DEADLINE Task\n";
@@ -217,23 +211,9 @@ public class TaskList {
                 num++;
             }
         }
-        if (sizeOfTodoArr != 0) {
-            finalSchedule += "TODO Task\n";
-            int num = 1;
-
-            for (int i = 0; i < sizeOfTodoArr; i++) {
-                finalSchedule = finalSchedule + num + "." + getTodoArrList().get(i) + "\n";
-                num++;
-            }
-        }
-        todoArrList.clear();
         deadlineArrList.clear();
         eventArrList.clear();
         return finalSchedule;
-    }
-  
-    private ArrayList<String> getTodoArrList() {
-        return this.todoArrList;
     }
 
     private ArrayList<String> getDeadlineArrList() {
