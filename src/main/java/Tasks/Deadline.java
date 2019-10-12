@@ -6,15 +6,17 @@ package Tasks;
 public class Deadline extends Task {
 
     private String by;
+    private String modCode;
 
     /**
      * Creates a Deadline object.
      * @param description Description of a task
      * @param by Date of when a task should be done
      */
-    public Deadline(String description, String by) {
+    public Deadline(String description, String by,String modCode) {
         super(description);
         this.by = by;
+        this.modCode = modCode;
     }
 
     @Override
@@ -34,6 +36,6 @@ public class Deadline extends Task {
 
     @Override
     public String getModCode() {
-        return null;
+        return modCode;
     }
 }
