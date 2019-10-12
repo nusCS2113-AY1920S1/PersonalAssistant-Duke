@@ -1,11 +1,12 @@
 import controllers.TaskFactory;
 import models.task.Task;
-import org.junit.jupiter.api.Test;
 import models.task.TaskState;
+import org.junit.jupiter.api.Test;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class TaskTest {
