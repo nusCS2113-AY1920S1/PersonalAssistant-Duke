@@ -5,6 +5,9 @@ import duke.logic.command.Command;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * A logic component that auto-completes user inputs based on pre-defined command words and prefixes
+ */
 public class Autocompleter {
     private List<Class<? extends Command>> commandClasses;
     private List<Prefix> prefixes;
