@@ -30,6 +30,7 @@ import java.util.ArrayList;
  * This is main page of GUI.
  */
 public class MovieHandler extends Controller implements RequestListener {
+
     @FXML
     private ScrollPane mMoviesScrollPane;
 
@@ -60,6 +61,7 @@ public class MovieHandler extends Controller implements RequestListener {
     Label userAgeLabel;
     @FXML
     Label genreListLabel;
+
     private UserProfile userProfile;
     private ArrayList<Playlist> playlists;
 
@@ -82,6 +84,8 @@ public class MovieHandler extends Controller implements RequestListener {
     private double[] mImagesLoadingProgress;
 
     private static RetrieveRequest mMovieRequest;
+    private int num = 0;
+
 
     class KeyboardClick implements EventHandler<KeyEvent> {
 
@@ -120,6 +124,7 @@ public class MovieHandler extends Controller implements RequestListener {
                 mMoviesScrollPane.requestFocus();
             }
         }
+
     }
 
     /**
@@ -137,7 +142,6 @@ public class MovieHandler extends Controller implements RequestListener {
         userAgeLabel.setText(Integer.toString(userProfile.getUserAge()));
         genreListLabel.setText(command.convertToLabel(userProfile.getGenreId()));
 
-
         mMovieRequest = new RetrieveRequest(this);
         mSearchTextField.addEventFilter(KeyEvent.KEY_PRESSED, event -> {
             if (event.getCode() == KeyCode.TAB) {
@@ -150,6 +154,7 @@ public class MovieHandler extends Controller implements RequestListener {
 
         mMovieRequest.beginMovieRequest(RetrieveRequest.MoviesRequestType.CURRENT_MOVIES);
         text.setText("Welcome to Entertainment Pro. Displaying currently showing movies...");
+
         //Real time changes to text field
         mSearchTextField.textProperty().addListener((observable, oldValue, newValue) -> {
             System.out.println("textfield changed from " + oldValue + " to " + newValue);
@@ -168,6 +173,13 @@ public class MovieHandler extends Controller implements RequestListener {
                     if (num == 0) {
                         mSearchTextField.requestFocus();
                     }
+                } else if (event.getCode().equals(KeyCode.RIGHT)) {
+                    System.out.println("yesssx");
+                    mMoviesFlowPane.getChildren().get(num).requestFocus();
+                    num += 1;
+                    //mMoviesFlowPane.getChildren().get(num).();
+                } else if (event.getCode().equals(KeyCode.ENTER)) {
+                    moviePosterClicked(mMovies.get(num));
                 }
             }
         });
@@ -203,7 +215,6 @@ public class MovieHandler extends Controller implements RequestListener {
     /**
      * This funcion is called to print a message when the data for movies/tv shows is unavailable due to
      * no internet connection.
-     *
      * @param headerText consists of the string to be printed.
      */
     private void showDownloadFailureAlert(String headerText) {
@@ -216,7 +227,6 @@ public class MovieHandler extends Controller implements RequestListener {
 
     /**
      * This function initalises the progress bar and extracts movie posters fro every movie.
-     *
      * @param movies is a array containing details about every movie/tv show that is being displayed.
      */
     private void buildMoviesFlowPane(ArrayList<MovieInfoObject> movies) {
@@ -245,8 +255,9 @@ public class MovieHandler extends Controller implements RequestListener {
     /**
      * @param movie a object that contains information about a movie
      * @param index a unique number assigned to every movie/tv show that is being displayed.
-     * @return anchorpane consisting of the movie poster and the unique id.
+     * @return anchorpane consisting of the movie poster, name and the unique id.
      */
+
     private AnchorPane buildMoviePosterPane(MovieInfoObject movie, int index) {
         try {
             FXMLLoader loader = new FXMLLoader();
@@ -273,8 +284,7 @@ public class MovieHandler extends Controller implements RequestListener {
 
     /**
      * This funcion updates the progress bar as the movie poster is being displayed.
-     *
-     * @param movie    a object that contains all the information about a particular movie.
+     * @param movie Object that contains all the information about a particular movie.
      * @param progress contains the progress value.
      */
     private void updateProgressBar(MovieInfoObject movie, double progress) {
@@ -336,6 +346,12 @@ public class MovieHandler extends Controller implements RequestListener {
 
     public ArrayList<Playlist> getPlaylists() {
         return playlists;
+    }
+
+
+    @FXML private void clearSearchButtonClicked()
+    {
+        mSearchTextField.clear();
     }
 
     public ArrayList<MovieInfoObject> getmMovies() {

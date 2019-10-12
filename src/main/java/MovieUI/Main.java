@@ -14,6 +14,7 @@ import object.MovieInfoObject;
 import ui.Ui;
 
 import java.io.IOException;
+import java.net.URISyntaxException;
 
 public class Main extends Application {
     private Stage mainWindow;
@@ -57,7 +58,7 @@ public class Main extends Application {
     public void transitToMovieInfoController(MovieInfoObject movie) {
         try {
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(getClass().getClassLoader().getResource("InsideMovie.fxml"));
+            loader.setLocation(getClass().getClassLoader().getResource("MoreInfo.fxml"));
             Pane layout = loader.load();
 
             // setup controller

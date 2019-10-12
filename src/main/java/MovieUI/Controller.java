@@ -2,8 +2,10 @@ package MovieUI;
 
 import javafx.stage.Stage;
 
-public abstract class Controller
-{
+/**
+ * Abstract class that contains the basic parameters for controllers which is the window and application.
+ */
+public abstract class Controller {
     protected Stage mWindow;
     protected Main mMainApplication;
 
