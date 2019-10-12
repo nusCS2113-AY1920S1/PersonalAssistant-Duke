@@ -9,6 +9,7 @@ import compal.model.tasks.Task;
 import java.text.ParseException;
 import java.util.Scanner;
 
+import static compal.commons.Messages.MESSAGE_INVALID_DATE_TIME_INPUT;
 import static compal.commons.Messages.MESSAGE_MISSING_COMMAND_ARG;
 
 /**
@@ -44,6 +45,10 @@ public class DeadlineCommand extends Command implements CommandParser {
             Task.Priority priority = getPriority(restOfInput);
             String date = getDate(restOfInput);
             String endTime = getEndTime(restOfInput);
+            if (!isValidDateAndTime(date, endTime)) {
+                compal.ui.printg(MESSAGE_INVALID_DATE_TIME_INPUT);
+                throw new Compal.DukeException(MESSAGE_INVALID_DATE_TIME_INPUT);
+            }
             taskList.addTask(new Deadline(description, priority, date, endTime));
             int arrSize = taskList.arrlist.size() - 1;
             String descToPrint = taskList.arrlist.get(arrSize).toString();

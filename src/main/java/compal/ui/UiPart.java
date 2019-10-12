@@ -388,10 +388,8 @@ public class UiPart {
         } else {
             username = compal.storage.getUserName();
             printg("Hello again "
-                    + username
-                    + "! "
-                    +
-                    "Here are your tasks that are due within a week: \n", "verdana", 15, Color.BLACK);
+                            + username
+                            + "! ", "verdana", 15, Color.BLACK);
 
             //initiate the showing of reminders
             compal.parser.processCmd(MESSAGE_INIT_REMINDER);
@@ -434,7 +432,7 @@ public class UiPart {
      * @param dateToStore date to view of daily calender
      */
     public void dateViewRefresh(String dateToStore) {
-        DailyCal dc = new DailyCal(compal);
+        DailyCalUI dc = new DailyCalUI(compal);
         compal.ui.tabWindow.getTabs().remove(1);
         Tab dailyTab = new Tab();
         dailyTab.setText(dateToStore);
@@ -454,10 +452,8 @@ public class UiPart {
 
         c.setTime(currentDate);
         c.add(Calendar.DATE, 7);
-        Date AWeekLater = c.getTime();
-        System.out.println("The date of input is" +currDate);
-        System.out.println("The date of week later is" +AWeekLater);
-        if(currDate.before(AWeekLater)){
+        Date weekLater = c.getTime();
+        if (currDate.before(weekLater)) {
             compal.parser.processCmd(MESSAGE_INIT_REMINDER);
         }
     }

@@ -8,7 +8,8 @@ import java.text.ParseException;
 import java.util.Date;
 import java.util.Scanner;
 
-import static compal.commons.Messages.*;
+import static compal.commons.Messages.MESSAGE_INVALID_RANGE;
+import static compal.commons.Messages.MESSAGE_MISSING_COMMAND_ARG;
 
 /**
  * Executes user command "delete".
@@ -50,13 +51,14 @@ public class DeleteCommand extends Command implements CommandParser {
             }
 
             String removeDesc = taskList.arrlist.get(toRemove).toString();
-            Date removeDate= taskList.arrlist.get(toRemove).getDate();
-            taskList.arrlist.remove(toRemove);
 
+            taskList.arrlist.remove(toRemove);
             compal.ui.printg("Noted. I've removed this task:");
             compal.ui.printg(removeDesc);
             compal.storage.saveCompal(taskList.arrlist);
             compal.ui.showSize();
+
+            Date removeDate = taskList.arrlist.get(toRemove).getDate();
             compal.ui.secondaryScreenRefresh(removeDate);
             //Compal.tasklist.deleteTask(userIn);
         } else {

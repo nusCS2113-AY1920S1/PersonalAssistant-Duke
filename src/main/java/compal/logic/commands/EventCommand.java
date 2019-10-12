@@ -11,6 +11,7 @@ import java.util.Scanner;
 
 import static compal.commons.Messages.MESSAGE_INVALID_TIME_RANGE;
 import static compal.commons.Messages.MESSAGE_MISSING_COMMAND_ARG;
+import static compal.commons.Messages.MESSAGE_INVALID_DATE_TIME_INPUT;
 
 /**
  * Executes user command "event".
@@ -53,6 +54,11 @@ public class EventCommand extends Command implements CommandParser {
             String date = getDate(restOfInput);
             String startTime = getStartTime(restOfInput);
             String endTime = getEndTime(restOfInput);
+
+            if (!isValidDateAndTime(date, startTime)) {
+                compal.ui.printg(MESSAGE_INVALID_DATE_TIME_INPUT);
+                throw new Compal.DukeException(MESSAGE_INVALID_DATE_TIME_INPUT);
+            }
 
             if (Integer.parseInt(startTime) > Integer.parseInt(endTime)) {
                 compal.ui.printg(MESSAGE_INVALID_TIME_RANGE);

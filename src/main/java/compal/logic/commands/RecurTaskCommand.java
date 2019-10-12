@@ -11,11 +11,12 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Scanner;
 
-import static compal.commons.Messages.MESSAGE_MISSING_REP;
+import static compal.commons.Messages.MESSAGE_INVALID_DATE_TIME_INPUT;
 import static compal.commons.Messages.MESSAGE_INVALID_REP_RANGE;
 import static compal.commons.Messages.MESSAGE_INVALID_TIME_RANGE;
 import static compal.commons.Messages.MESSAGE_MISSING_COMMAND_ARG;
 import static compal.commons.Messages.MESSAGE_MISSING_EDATE;
+import static compal.commons.Messages.MESSAGE_MISSING_REP;
 import static compal.commons.Messages.MESSAGE_MISSING_REP_EDATE_ARG;
 
 /**
@@ -132,7 +133,7 @@ public class RecurTaskCommand extends Command implements CommandParser {
      * confirms the addition of that task.
      *
      * @param description Description of recurring task.
-     * @param dateStr Starting date of recurring task.
+     * @param dateStr     Starting date of recurring task.
      * @param startTime   Starting time of recurring task.
      * @param priority    priority level of task type
      * @param endTime     End time of deadline
@@ -165,6 +166,11 @@ public class RecurTaskCommand extends Command implements CommandParser {
             String startTime = getStartTime(restOfInput);
             String endTime = getEndTime(restOfInput);
             int freq = getFreq(restOfInput);
+
+            if (!isValidDateAndTime(date, startTime)) {
+                compal.ui.printg(MESSAGE_INVALID_DATE_TIME_INPUT);
+                throw new Compal.DukeException(MESSAGE_INVALID_DATE_TIME_INPUT);
+            }
 
             if (Integer.parseInt(startTime) > Integer.parseInt(endTime)) {
                 compal.ui.printg(MESSAGE_INVALID_TIME_RANGE);

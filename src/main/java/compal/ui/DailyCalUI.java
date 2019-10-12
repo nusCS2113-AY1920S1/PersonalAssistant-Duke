@@ -15,13 +15,14 @@ import java.util.Comparator;
 
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.text.TextAlignment;
 
 
 /**
  * Create a timetable drawing onto DailyView scroll-pane within tab-pane.
  */
 
-class DailyCal {
+class DailyCalUI {
 
     private String dateToDisplay;
     private boolean[][] canStore = new boolean[25][5];
@@ -48,8 +49,17 @@ class DailyCal {
     private ArrayList<Task> arrList = new ArrayList<>();
 
 
-    DailyCal(Compal compal) {
+    DailyCalUI(Compal compal) {
         this.compal = compal;
+    }
+
+    /**
+     * Initializer function set canStore array to true state.
+     */
+    private static void setTrue(boolean[][] array) {
+        for (boolean[] row : array) {
+            Arrays.fill(row, true);
+        }
     }
 
     /**
@@ -64,16 +74,6 @@ class DailyCal {
         createDailyArrayList();
         sp = buildTimeTable();
         return sp;
-    }
-
-
-    /**
-     * Initializer function set canStore array to true state.
-     */
-    private static void setTrue(boolean[][] array) {
-        for (boolean[] row : array) {
-            Arrays.fill(row, true);
-        }
     }
 
     /**
@@ -162,6 +162,7 @@ class DailyCal {
     private void makeASlot(int i) {
         int temp = horizontalLineCounter;
         if (clockTime[i] < startTime || clockTime[i] > endTime) {
+            return;
         } else if (clockTime[i] < 12) {
             makeTimeAM(i);
             for (int x = temp; x < temp + 2; x++) {
@@ -185,26 +186,36 @@ class DailyCal {
 
 
     /**
-     * Create title for schedule depending on type of task Type
+     * Create title for schedule depending on type of task Type.
      *
      * @return Final title to be display for each block on GUI
      */
-    private String createTitle(Task task){
-        String blockTitle="";
+    private String createTitle(Task task) {
+        String blockTitle = "";
 
         if (task.getSymbol().equals("LECT")) {
-            blockTitle = "[Lecture]\n"+task.getDescription();
+            blockTitle = "[Lecture]\n";
         } else if (task.getSymbol().equals("TUT")) {
-            blockTitle = "[Tutorial]\n"+task.getDescription();
+            blockTitle = "[Tutorial]\n";
         } else if (task.getSymbol().equals("SECT")) {
-            blockTitle = "[Sectional]\n"+task.getDescription();
+            blockTitle = "[Sectional]\n";
         } else if (task.getSymbol().equals("LAB")) {
-            blockTitle = "[Lab]\n"+task.getDescription();
+            blockTitle = "[Lab]\n";
         } else if (task.getSymbol().equals("RT")) {
-            blockTitle = "[Event]\n"+task.getDescription();
+            blockTitle = "[Event]\n";
         } else if (task.getSymbol().equals("E")) {
-            blockTitle = "[Event]\n"+task.getDescription();
+            blockTitle = "[Event]\n";
         }
+
+        if (task.getPriority().equals(Task.Priority.high)) {
+            blockTitle += "[Priority: High]\n";
+        } else if (task.getPriority().equals(Task.Priority.medium)) {
+            blockTitle += "[Priority: Medium]\n";
+        } else {
+            blockTitle += "[Priority: Low]\n";
+        }
+
+        blockTitle += task.getDescription();
         return blockTitle;
     }
 
@@ -251,6 +262,7 @@ class DailyCal {
                     final StackPane stack = new StackPane();
                     final Text text = new Text(createTitle(task));
                     text.setFont(Font.font("Georgia Italic", 12));
+                    text.setTextAlignment(TextAlignment.CENTER);
 
                     stack.getChildren().addAll(rectangle, text);
                     while (storedXAxis[currentTime][eventCounter] == 0) {
@@ -287,7 +299,6 @@ class DailyCal {
         }
         return Color.BLUE;
     }
-
 
 
     /**

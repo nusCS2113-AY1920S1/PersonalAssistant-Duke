@@ -2,10 +2,9 @@ package compal.model.tasks;
 
 import compal.commons.Compal;
 
-import java.text.DateFormat;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.BitSet;
 
 import static compal.commons.Messages.MESSAGE_INIT_REMINDER;
 
@@ -100,24 +99,24 @@ public class TaskList {
 
     public void addTaskTest(int currentStage, String value) {
 
-        Scanner sc1 = new Scanner(value);
-        String s = sc1.next(); //get the command string
-        String taskType = sc1.next(); //get the taskType
-        String dateString = sc1.next(); //get the date
-        String timeString = sc1.next(); //get the time
-        String name = sc1.next(); //get the name
-        String description = sc1.nextLine(); //get the description
-        int taskID = -1;
-        for (int i = 0; i < 1000000; i++) { //search for an unused task ID
-            if (!idBitSet.get(i)) {
-                taskID = i;
-                System.out.println("Task assigned id of " + taskID);
-                //writeIdBitSet();
-                break;
-            }
-        }
+    Scanner sc1 = new Scanner(value);
+    String s = sc1.next(); //get the command string
+    String taskType = sc1.next(); //get the taskType
+    String dateString = sc1.next(); //get the date
+    String timeString = sc1.next(); //get the time
+    String name = sc1.next(); //get the name
+    String description = sc1.nextLine(); //get the description
+    int taskID = -1;
+    for (int i = 0; i < 1000000; i++) { //search for an unused task ID
+    if (!idBitSet.get(i)) {
+    taskID = i;
+    System.out.println("Task assigned id of " + taskID);
+    //writeIdBitSet();
+    break;
+    }
+    }
 
     }
-    */
+     */
     //----------------------->
 }

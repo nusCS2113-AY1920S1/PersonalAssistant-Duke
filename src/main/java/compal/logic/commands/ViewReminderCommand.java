@@ -62,13 +62,16 @@ public class ViewReminderCommand extends Command implements CommandParser {
         Date dateAfter = c.getTime();
 
         c.setTime(currentDate);
+        c.add(Calendar.DATE, -1);
+        c.set(Calendar.HOUR_OF_DAY, 23);
+        c.set(Calendar.MINUTE, 59);
+        c.set(Calendar.SECOND, 59);
         Date dateToday = c.getTime();
 
         for (Task t : taskList.arrlist) {
             Date deadline = t.getDate();
             if (deadline != null && !t.isDone && deadline.after(dateToday)
                     && (deadline.before(dateAfter) || t.hasReminder())) {
-                System.out.println(deadline);
                 t.calculateAndSetPriorityScore();
                 reminder.add(t);
             }
@@ -87,19 +90,19 @@ public class ViewReminderCommand extends Command implements CommandParser {
         if (reminder.isEmpty()) {
             compal.ui.printg("You currently have no tasks that have reminders set or are due within "
                             + numberOfDays + " days!",
-                    "verdana",15, Color.DARKGREEN);
+                    "verdana", 15, Color.DARKGREEN);
         } else {
             int counter = 1;
             for (Task t : reminder) {
                 if (t.getPriority().equals(Task.Priority.high)) {
                     //compal.ui.printg(counter + ". " + t.toString(),"verdana",15, Color.RED);
-                    compal.ui.printSecondaryg(counter + ". " + t.toString(),"verdana",15, Color.RED);
+                    compal.ui.printSecondaryg(counter + ". " + t.toString(), "verdana", 15, Color.RED);
                 } else if (t.getPriority().equals(Task.Priority.medium)) {
                     //compal.ui.printg(counter + ". " + t.toString(),"verdana",15, Color.ORANGE);
-                    compal.ui.printSecondaryg(counter + ". " + t.toString(),"verdana",15, Color.ORANGE);
+                    compal.ui.printSecondaryg(counter + ". " + t.toString(), "verdana", 15, Color.ORANGE);
                 } else {
                     //compal.ui.printg(counter + ". " + t.toString(),"verdana",15, Color.GREEN);
-                    compal.ui.printSecondaryg(counter + ". " + t.toString(),"verdana",15, Color.GREEN);
+                    compal.ui.printSecondaryg(counter + ". " + t.toString(), "verdana", 15, Color.GREEN);
                 }
                 counter++;
             }
