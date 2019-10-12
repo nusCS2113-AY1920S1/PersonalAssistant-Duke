@@ -9,7 +9,7 @@ import duke.model.Model;
 public class RedoCommand extends Command {
     public static final String COMMAND_WORD = "redo";
 
-    private static final String MESSAGE_REDO_SUCCESS = "Redo success.";
+    private static final String MESSAGE_REDO_SUCCESS = "Redo: %s";
     private static final String MESSAGE_REDO_STACK_EMPTY = "No more tasks to be redone.";
 
     @Override
@@ -18,7 +18,6 @@ public class RedoCommand extends Command {
             throw new CommandException(MESSAGE_REDO_STACK_EMPTY);
         }
 
-        model.redo();
-        return new CommandResult(MESSAGE_REDO_SUCCESS);
+        return new CommandResult(String.format(MESSAGE_REDO_SUCCESS, model.redo()));
     }
 }

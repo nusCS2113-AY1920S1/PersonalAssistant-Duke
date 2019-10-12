@@ -8,7 +8,7 @@ import java.util.List;
  */
 public class VersionedBakingHome extends BakingHome {
 
-    private final List<ReadOnlyBakingHome> bakingHomeStateList;
+    private final List<BakingHomeCommit> bakingHomeStateList;
     private int currentStatePointer;
     private boolean isTrackingEnabled = true;
 
@@ -19,50 +19,58 @@ public class VersionedBakingHome extends BakingHome {
         super(initialState);
 
         bakingHomeStateList = new ArrayList<>();
-        bakingHomeStateList.add(new BakingHome(initialState));
+        bakingHomeStateList.add(new BakingHomeCommit(new BakingHome(initialState), "initial commit"));
         currentStatePointer = 0;
     }
 
     /**
      * Saves a copy of the current {@code BakingHome} state at the end of the state list if version tracking is enabled.
      * If tracking is not enabled, does nothing.
+     *
+     * @param commitMessage the message describing the details of the commit
      */
-    public void commit() {
+    public void commit(String commitMessage) {
         if (isTrackingEnabled) {
             removeStatesAfterCurrentPointer();
-            bakingHomeStateList.add(new BakingHome(this));
+            bakingHomeStateList.add(new BakingHomeCommit(new BakingHome(this), commitMessage));
             currentStatePointer++;
         }
-    }
-
-    private void removeStatesAfterCurrentPointer() {
-        bakingHomeStateList.subList(currentStatePointer + 1, bakingHomeStateList.size()).clear();
     }
 
     public void setVersionControl(boolean isEnabled) {
         this.isTrackingEnabled = isEnabled;
     }
 
+    private void removeStatesAfterCurrentPointer() {
+        bakingHomeStateList.subList(currentStatePointer + 1, bakingHomeStateList.size()).clear();
+    }
+
     /**
      * Restores BakingHome to its previous state.
+     * @return the commit message of the current state.
      */
-    public void undo() {
+    public String undo() {
         if (!canUndo()) {
             throw new NoUndoableStateException();
         }
         currentStatePointer--;
-        resetData(bakingHomeStateList.get(currentStatePointer));
+        resetData(bakingHomeStateList.get(currentStatePointer).bakingHome);
+
+        return bakingHomeStateList.get(currentStatePointer + 1).commitMessage;
     }
 
     /**
      * Restores the address book to its previously undone state.
+     * @return the commit message of the previous state.
      */
-    public void redo() {
+    public String redo() {
         if (!canRedo()) {
             throw new NoRedoableStateException();
         }
         currentStatePointer++;
-        resetData(bakingHomeStateList.get(currentStatePointer));
+        resetData(bakingHomeStateList.get(currentStatePointer).bakingHome);
+
+        return bakingHomeStateList.get(currentStatePointer).commitMessage;
     }
 
     /**

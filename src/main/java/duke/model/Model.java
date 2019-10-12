@@ -36,19 +36,23 @@ public interface Model {
     boolean canRedo();
 
     /**
-     * Restores the model's baking home to its previous state.
+     * Restores BakingHome to its previous state.
+     * @return the commit message of the current state.
      */
-    void undo();
+    String undo();
 
     /**
-     * Restores the model's baking home to its previously undone state.
+     * Restores the address book to its previously undone state.
+     * @return the commit message of the previous state.
      */
-    void redo();
+    String redo();
 
     /**
      * Saves the current baking home state for undo/redo.
+     *
+     * @param commitMessage the message describing the details of the commit
      */
-    void commit();
+    void commit(String commitMessage);
 
     /**
      * TODO: add details.

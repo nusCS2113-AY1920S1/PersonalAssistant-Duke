@@ -16,6 +16,7 @@ import static java.util.Objects.requireNonNull;
 public class ExecuteShortcutCommand extends Command {
     public static final String COMMAND_WORD = "do";
 
+    private static final String MESSAGE_COMMIT = "Execute shortcut";
     private static final String MESSAGE_SHORTCUT_NOT_FOUND = "Shortcut not found";
     private static final String MESSAGE_SUCCESS = "Shortcut executed successfully";
     private static final String MESSAGE_EXECUTION_FAILED = "Execute [%s] failed: %s";
@@ -52,7 +53,7 @@ public class ExecuteShortcutCommand extends Command {
 
         model.setVersionControl(true);
 
-        model.commit();
+        model.commit(MESSAGE_COMMIT);
 
         return new CommandResult(MESSAGE_SUCCESS);
     }

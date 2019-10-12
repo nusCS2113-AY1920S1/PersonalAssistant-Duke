@@ -59,18 +59,18 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void undo() {
-        bakingHome.undo();
+    public String undo() {
+        return bakingHome.undo();
     }
 
     @Override
-    public void redo() {
-        bakingHome.redo();
+    public String redo() {
+        return bakingHome.redo();
     }
 
     @Override
-    public void commit() {
-        bakingHome.commit();
+    public void commit(String commitMessage) {
+        bakingHome.commit(commitMessage);
     }
 
     @Override

@@ -19,6 +19,7 @@ public class EditOrderCommand extends OrderCommand {
 
     public static final String COMMAND_WORD = "edit";
 
+    private static final String MESSAGE_COMMIT = "Edit order";
     private static final String MESSAGE_EDIT_PERSON_SUCCESS = "Edited Order [%1$s]";
 
     private final Index index;
@@ -53,7 +54,7 @@ public class EditOrderCommand extends OrderCommand {
         model.setOrder(orderToEdit, editedOrder);
         model.updateFilteredOrderList(Model.PREDICATE_SHOW_ALL_ORDERS);
 
-        model.commit();
+        model.commit(MESSAGE_COMMIT);
 
         return new CommandResult(String.format(MESSAGE_EDIT_PERSON_SUCCESS, editedOrder.getId()),
                 CommandResult.DisplayedPage.ORDER);

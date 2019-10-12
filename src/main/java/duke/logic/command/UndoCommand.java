@@ -9,7 +9,7 @@ import duke.model.Model;
 public class UndoCommand extends Command {
     public static final String COMMAND_WORD = "undo";
 
-    private static final String MESSAGE_UNDO_SUCCESS = "Undo success.";
+    private static final String MESSAGE_UNDO_SUCCESS = "Undo: %s";
     private static final String MESSAGE_UNDO_STACK_EMPTY = "No more tasks to be undone.";
 
     @Override
@@ -18,7 +18,6 @@ public class UndoCommand extends Command {
             throw new CommandException(MESSAGE_UNDO_STACK_EMPTY);
         }
 
-        model.undo();
-        return new CommandResult(MESSAGE_UNDO_SUCCESS);
+        return new CommandResult(String.format(MESSAGE_UNDO_SUCCESS, model.undo()));
     }
 }

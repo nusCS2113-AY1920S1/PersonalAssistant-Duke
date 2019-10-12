@@ -17,6 +17,8 @@ import static java.util.Objects.requireNonNull;
  */
 public class DeleteOrderCommand extends OrderCommand {
     public static final String COMMAND_WORD = "remove";
+
+    public static final String MESSAGE_COMMIT = "Delete order";
     private static final String MESSAGE_DELETE_SUCCESS = "%s order(s) removed.";
     private static final String MESSAGE_INDEX_OUT_OF_BOUND = "Index [%d] is out of bound.";
     private final Set<Index> indices;
@@ -45,7 +47,7 @@ public class DeleteOrderCommand extends OrderCommand {
             model.deleteOrder(order);
         }
 
-        model.commit();
+        model.commit(MESSAGE_COMMIT);
 
         return new CommandResult(String.format(MESSAGE_DELETE_SUCCESS, indices.size()),
                 CommandResult.DisplayedPage.ORDER);

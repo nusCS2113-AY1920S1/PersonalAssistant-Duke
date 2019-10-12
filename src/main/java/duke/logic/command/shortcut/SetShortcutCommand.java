@@ -9,6 +9,7 @@ import duke.model.shortcut.Shortcut;
 public class SetShortcutCommand extends Command {
     public static final String COMMAND_WORD = "short";
 
+    public static final String MESSAGE_COMMIT = "Set shortcut";
     private static final String MESSAGE_SET_SUCCESS = "Shortcut [%s] is set.";
     private static final String MESSAGE_REMOVE_SUCCESS = "Shortcut [%s] is removed.";
     private static final String MESSAGE_EMPTY_SHORTCUT = "Shortcut cannot be empty.";
@@ -33,7 +34,7 @@ public class SetShortcutCommand extends Command {
 
             model.setShortcut(shortcut);
 
-            model.commit();
+            model.commit(MESSAGE_COMMIT);
 
             return new CommandResult(String.format(MESSAGE_SET_SUCCESS, shortcut.getName()));
         }
