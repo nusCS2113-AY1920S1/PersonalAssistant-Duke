@@ -15,13 +15,14 @@ import java.util.Set;
  */
 public class ParserUtil {
 
-    public static final String MESSAGE_INVALID_INDEX = "Index is not a non-zero unsigned integer.";
+    private static final String MESSAGE_INVALID_INDEX = "Index is not a non-zero unsigned integer.";
+    private static final String SEPARATOR_INDEX_INTERVAL = "~";
+    private static final String SEPARATOR_INDEX_MULTIPLE = ",";
 
     ///Common utilities.
     /**
      * Parses {@code oneBasedIndex} into an {@code Index} and returns it. Leading and trailing whitespaces will be
      * trimmed.
-     *
      * @throws ParseException if the specified index is invalid (not non-zero unsigned integer).
      */
     public static Index parseIndex(String oneBasedIndex) throws ParseException {
@@ -51,7 +52,7 @@ public class ParserUtil {
     }
 
     private static Set<Index> getIndicesInInterval(String interval) throws ParseException {
-        String[] startAndEndIndices = interval.split("~");
+        String[] startAndEndIndices = interval.split(SEPARATOR_INDEX_INTERVAL);
         int start;
         int end;
         try {
@@ -71,7 +72,7 @@ public class ParserUtil {
     }
 
     private static Set<Index> getIndicesFromString(String string) throws ParseException {
-        String[] indexStrings = string.split(",");
+        String[] indexStrings = string.split(SEPARATOR_INDEX_MULTIPLE);
         Set<Index> result = new HashSet<>();
         for (String indexString : indexStrings) {
             try {

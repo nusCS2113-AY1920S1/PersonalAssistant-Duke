@@ -11,7 +11,7 @@ import java.util.Set;
 import static java.util.Objects.requireNonNull;
 
 /**
- * A command to add an order to BakingHome.
+ * A command to set {@code Status} of order(s) to {@code COMPLETED} BakingHome.
  */
 public class CompleteOrderCommand extends OrderCommand {
     public static final String COMMAND_WORD = "done";

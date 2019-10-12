@@ -1,73 +1,42 @@
-//package duke.logic.command.order;
-//
-//import duke.commons.DukeException;
-//import duke.commons.core.Message;
-//import duke.logic.command.Undoable;
-//import duke.logic.command.exceptions.CommandException;
-//import duke.model.Model;
-//import duke.model.order.Order;
-//
-//import java.util.ArrayList;
-//import java.util.List;
-//
-///**
-// * A command to remove an <code>Order</code> object from an <code>OrderList</code> object.
-// */
-//public class DeleteOrderCommand extends OrderCommand implements Undoable {
-//    public static final String COMMAND_WORD = "remove";
-//
-//    private List<Order> toDelete = new ArrayList<>();
-//    private List<Integer> toDeleteIndexes;
-//
-//    public DeleteOrderCommand(int... index) {
-//        for (int i = 0; i < index.length; i++) {
-//            toDeleteIndexes.add(index[i]);
-//        }
-//    }
-//
-//    public DeleteOrderCommand(int start, int end) {
-//        for (int i = start; i <= end; i++) {
-//            toDeleteIndexes.add(i);
-//        }
-//    }
-//
-//    public DeleteOrderCommand(List<Integer> toDeleteIndexes) {
-//        this.toDeleteIndexes = toDeleteIndexes;
-//    }
-//
-//    @Override
-//    public void undo(Model model) throws CommandException {
-//        for (int i = 0; i < toDeleteIndexes.size(); i++) {
-//            model.getOrderList().add(toDeleteIndexes.get(i), toDelete.get(i));
-//        }
-//        storage.serialize(model);
-//        ui.refreshOrderList(model.getOrderList(), model.getOrderList());
-//        ui.showMessage("Undo: Remove order");
-//    }
-//
-//    @Override
-//    public void redo(Model model) throws CommandException {
-//        try {
-//            execute(bakingList);
-//        } catch (CommandException e) {
-//            e.printStackTrace();
-//        }
-//        ui.showMessage("Redo: Remove order");
-//    }
-//
-//    @Override
-//    public void execute(Model model) throws CommandException {
-//        for (int i : toDeleteIndexes) {
-//            if (i >= model.getOrderList().size() || i < 0) {
-//                throw new DukeException(Message.MESSAGE_INVALID_RANGE);
-//            }
-//            toDelete.add(model.getOrderList().get(i));
-//        }
-//        model.getOrderList().removeAll(toDelete);
-//        storage.serialize(model);
-//        ui.refreshOrderList(model.getOrderList(), model.getOrderList());
-//        ui.showMessage("Order removed");
-//    }
-//
-//
-//}
+package duke.logic.command.order;
+
+import duke.commons.core.index.Index;
+import duke.logic.command.CommandResult;
+import duke.logic.command.exceptions.CommandException;
+import duke.model.Model;
+
+import java.util.Set;
+
+import static java.util.Objects.requireNonNull;
+
+/**
+ * A command to delete orders from Order List.
+ */
+public class DeleteOrderCommand extends OrderCommand {
+    public static final String COMMAND_WORD = "remove";
+    private static final String MESSAGE_DELETE_SUCCESS = "%s order(s) removed.";
+    private static final String MESSAGE_INDEX_OUT_OF_BOUND = "Index [%d] is out of bound.";
+    private final Set<Index> indices;
+
+    public DeleteOrderCommand(Set<Index> indices) {
+        requireNonNull(indices);
+
+        this.indices = indices;
+    }
+
+
+    public CommandResult execute(Model model) throws CommandException {
+        for (Index index : indices) {
+            if (index.getZeroBased() > model.getFilteredOrderList().size()) {
+                throw new CommandException(String.format(MESSAGE_INDEX_OUT_OF_BOUND, index.getOneBased()));
+            }
+
+            model.deleteOrder(model.getFilteredOrderList().get(index.getZeroBased()));
+        }
+
+        return new CommandResult(String.format(MESSAGE_DELETE_SUCCESS, indices.size()),
+                CommandResult.DisplayedPage.ORDER);
+
+    }
+
+}
