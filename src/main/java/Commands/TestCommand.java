@@ -1,15 +1,14 @@
 package Commands;
 
-import Task.TaskList;
-import Actions.Action;
-import Actions.plantSeedAction;
+import UserCode.Tasks.TaskList;
+import UserCode.Actions.Action;
+import UserCode.Actions.plantSeedAction;
 import FarmioExceptions.FarmioException;
 import Places.ChickenFarm;
 import Places.CowFarm;
 import Places.WheatFarm;
-import Simulate.PlantSeedSimulation;
-import Task.Condition;
-import Task.Task;
+import UserCode.Condition;
+import UserCode.Tasks.Task;
 import UserInterfaces.Ui;
 
 public class TestCommand extends Command {

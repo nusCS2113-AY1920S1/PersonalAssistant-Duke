@@ -1,4 +1,4 @@
-package Actions;
+package UserCode.Actions;
 
 import Places.ChickenFarm;
 import Places.CowFarm;

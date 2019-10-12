@@ -1,9 +1,8 @@
-package Actions;
+package UserCode.Actions;
 
 import Places.ChickenFarm;
 import Places.CowFarm;
 import Places.WheatFarm;
-import Simulate.PlantSeedSimulation;
 import Simulate.Simulation;
 import UserInterfaces.Ui;
 import org.json.simple.JSONObject;
@@ -25,7 +24,7 @@ public class plantSeedAction extends Action {
     public int execute(Ui ui) {
         try {
             wheatFarm.plantSeeds();
-            new PlantSeedSimulation(ui).simulate();
+            new Simulation(ui, "./src/main/resources/asciiArt/PlantSeedSimulation/frame", 10).simulate();
         } catch (Exception e){
             e.getMessage();
         }

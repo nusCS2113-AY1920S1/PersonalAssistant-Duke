@@ -1,9 +1,9 @@
-package Task;
+package UserCode.Tasks;
 
-import Actions.Action;
-import Actions.plantSeedAction;
+import UserCode.Actions.Action;
+import UserCode.Actions.plantSeedAction;
 import FarmioExceptions.FarmioException;
-import Places.Farm;
+import UserCode.Condition;
 import UserInterfaces.Ui;
 import org.json.simple.JSONObject;
 
