@@ -9,7 +9,7 @@ import java.util.List;
 
 public class ModelManager implements Model {
     UniqueTaskList tasks;
-    List<Location> recommendations;
+    List<Venue> recommendations;
     List<BusStop> allBusStops;
     //List<TrainStation> allTrainStations;
 
@@ -29,9 +29,9 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public List<Location> getLocationList() {
+    public List<Venue> getLocationList() {
         //move this to UniqueTaskList
-        List<Location> locations = new ArrayList<>();
+        List<Venue> locations = new ArrayList<>();
         for (Task t : tasks.getEventList()) {
             try {
                 locations.add(((Event) t).getLocation());
@@ -58,7 +58,7 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public List<Location> getRecommendations() {
+    public List<Venue> getRecommendations() {
         return recommendations;
     }
 

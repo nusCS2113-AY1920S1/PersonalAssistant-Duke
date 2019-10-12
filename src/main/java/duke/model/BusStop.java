@@ -3,7 +3,7 @@ package duke.model;
 import java.util.HashSet;
 import java.util.Set;
 
-public class BusStop extends Location {
+public class BusStop extends Venue {
     private String busCode;
     private String description;
     private Set<String> buses;

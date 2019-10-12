@@ -24,7 +24,7 @@ public interface Model {
     /**
      * Returns all the list of locations.
      */
-    List<Location> getLocationList();
+    List<Venue> getLocationList();
 
     /**
      * Returns the list of tasks that is an Event.
@@ -44,7 +44,7 @@ public interface Model {
     /**
      * Returns the list of all attractions.
      */
-    List<Location> getRecommendations();
+    List<Venue> getRecommendations();
 
     /**
      * Saves the Model data in storage.
