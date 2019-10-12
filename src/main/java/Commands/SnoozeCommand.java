@@ -20,12 +20,11 @@ public class SnoozeCommand extends Command{
      * Creates an SnoozeCommand object.
      * @param index The index representing the task number in the TaskList object
      */
-    public SnoozeCommand(int index, String dateString, String start, String end, String modCode){
+    public SnoozeCommand(int index, String dateString, String start, String end){
         this.index = index;
         this.dateString = dateString;
         this.start = start;
         this.end = end;
-        this.modCode = modCode;
     }
 
     /**
@@ -53,12 +52,12 @@ public class SnoozeCommand extends Command{
                 list.addTask(task);
         }
         if (end == dateString) {
-            list.snoozeTask(deadlinesList, index, dateString, dateString, dateString, modCode);
+            list.snoozeTask(deadlinesList, index, dateString, dateString, dateString);
 
             storage.updateDeadlineList(deadlines);
             return ui.showSnooze(index, deadlinesList.size(), deadlinesList);
         } else {
-            list.snoozeTask(eventsList, index, dateString, start, end, modCode);
+            list.snoozeTask(eventsList, index, dateString, start, end);
             storage.updateEventList(events);
             return ui.showSnooze(index, eventsList.size(), eventsList);
         }

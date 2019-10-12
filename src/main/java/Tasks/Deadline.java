@@ -21,7 +21,7 @@ public class Deadline extends Task {
 
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + by + ")";
+        return super.getModCode() + " " + "[D]" + super.toString() + "(by: " + by + ")";
     }
 
     @Override
@@ -38,4 +38,5 @@ public class Deadline extends Task {
     public String getModCode() {
         return modCode;
     }
+
 }

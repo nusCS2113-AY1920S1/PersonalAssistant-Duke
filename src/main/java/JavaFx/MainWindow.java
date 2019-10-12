@@ -5,7 +5,9 @@ import Tasks.Task;
 import Tasks.TaskList;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
+import javafx.animation.PauseTransition;
 import javafx.animation.Timeline;
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.SortedList;
@@ -100,9 +102,8 @@ public class MainWindow extends BorderPane implements Initializable {
             todos = new ArrayList<>();
             deadlines = new ArrayList<>();
             setClock();
+           setWeek(true, NO_FIELD);
 
-
-            setWeek(true, NO_FIELD);
             retrieveList();
             openReminderBox();
 
@@ -162,24 +163,6 @@ public class MainWindow extends BorderPane implements Initializable {
         storage.readDeadlineList(deadlinesList);
         events = eventsList.getList();
         deadlines = deadlinesList.getList();
-    }
-
-    private ObservableList<TimetableView> setEventTable() throws ParseException {
-        String to;
-        String from;
-        String description;
-        ObservableList<TimetableView> timetables = FXCollections.observableArrayList();
-        for (Task task : events) {
-            DateFormat dateFormat = new SimpleDateFormat("E dd/MM/yyyy hh:mm a");
-            DateFormat endTimeFormat = new SimpleDateFormat("hh:mm a");
-            DateFormat timeFormat= new SimpleDateFormat("HH:mm");
-            String[] arr = task.getDateTime().split("to");
-            to = timeFormat.format(endTimeFormat.parse(arr[1].trim()));
-            from = timeFormat.format(dateFormat.parse(arr[0].trim()));
-            description = task.getDescription();
-            timetables.add(new TimetableView(to, from, description));
-        }
-        return timetables;
     }
 
     private ObservableList<DeadlineView> setDeadlineTable() throws ParseException {
@@ -253,10 +236,13 @@ public class MainWindow extends BorderPane implements Initializable {
         if (input.startsWith("Week")) {
             setWeek(false, input);
             setListItem();
+        } else if (input.startsWith("add")) {
+            refresh(input);
+        } else if (userInput.getText().equals("bye")) {
+            PauseTransition delay = new PauseTransition(Duration.seconds(1));
+            delay.setOnFinished( event -> Platform.exit() );
+            delay.play();
         }
-        else if (input.startsWith("add")) refresh(input);
-
-        //todo: handling of the response
         userInput.clear();
     }
 
@@ -275,7 +261,7 @@ public class MainWindow extends BorderPane implements Initializable {
 
     //Temp file as Add command and storage not yet implemented. By right go to file find week -> find day
     private String[] tempList = {"Week 8 Mon FBC", "Week 8 Mon A", "Week 8 Tue EFG", "Week 8 Wed EFG", "Week 8 Thu EFG", "Week 8 Fri EFG", "Week 8 Sat EFG", "Week 8 Sun EFG", "Week 9 Sun HAHAH"};
-    private String week = NO_FIELD;
+    private String week = "Week 9";
 
     private final ObservableList<String> monList = FXCollections.observableArrayList();
     private final ObservableList<String> tueList = FXCollections.observableArrayList();
@@ -378,7 +364,7 @@ public class MainWindow extends BorderPane implements Initializable {
         String[] spiltWeekLabel = (currentWeek.getText()).split(" ");
         String[] splitInput = input.split(" ");
         int indices = splitInput.length;
-        if(input.startsWith("add-e")) {
+        if(input.startsWith("add/e")) {
             Date inputDate = dateFormat.parse(splitInput[(indices-1)-4]);
             Date startDate = dateFormat.parse(spiltWeekLabel[3]);
             Date endDate = dateFormat.parse(spiltWeekLabel[5]);
@@ -417,7 +403,7 @@ public class MainWindow extends BorderPane implements Initializable {
                         break;
                 }
             }
-        } else if(input.startsWith("add-d")){
+        } else if(input.startsWith("add/d")){
             deadlineTable.setItems(setDeadlineTable());
         }
     }
