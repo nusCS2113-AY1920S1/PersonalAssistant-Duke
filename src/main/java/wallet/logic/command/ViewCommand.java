@@ -20,7 +20,7 @@ public class ViewCommand extends Command {
     public static final String MESSAGE_EMPTY_LOANS = "There are no loans";
     public static final String MESSAGE_EMPTY_EXPENSES = "There are no expenses";
     public static final String MESSAGE_EMPTY_BUDGET = "There is no budget set for ";
-    public static final String MESSAGE_VIEW_BUDGET = "This is the budget for ";
+    public static final String MESSAGE_VIEW_BUDGET = "This is the budget left for ";
     public static final String MESSAGE_USAGE = "Error in format for command."
             + "\nExample: " + COMMAND_WORD + " all"
             + "\nExample: " + COMMAND_WORD + " 01/01/2019"
