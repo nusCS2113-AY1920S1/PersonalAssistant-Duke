@@ -47,6 +47,11 @@ public interface Model {
     List<BusService> getBusService();
 
     /**
+     * Returns the list of all attractions.
+     */
+    List<Location> getRecommendations();
+
+    /**
      * Saves the Model data in storage.
      */
     void save();
