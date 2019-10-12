@@ -52,7 +52,7 @@ public class AddLoanCommand extends MoneyCommand {
      */
     @Override
     public void execute(Account account, Ui ui, MoneyStorage storage) throws ParseException, DukeException {
-        String[] splitStr = inputString.split("/amt ", 2);
+        String[] splitStr = inputString.split(" /amt ", 2);
         String description = splitStr[0];
         String[] furSplit = splitStr[1].split("/on ", 2);
         float amount = Float.parseFloat(furSplit[0]);

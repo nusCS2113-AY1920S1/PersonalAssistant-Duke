@@ -8,11 +8,11 @@ import money.Loan;
 
 import java.text.ParseException;
 
-public class ListOutgoingLoansCommand extends MoneyCommand {
+public class ListLoansCommand extends MoneyCommand {
 
     private String inputString;
 
-    public ListOutgoingLoansCommand(String command) {
+    public ListLoansCommand(String command) {
         command = command.replaceFirst("list ", "");
         command = command.replace( "loans", "");
         inputString = command.replaceAll(" ", "");

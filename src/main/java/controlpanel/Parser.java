@@ -105,14 +105,12 @@ public class Parser {
             moneyCommand = new AddSplitCommand(cmd);
         } else if (cmd.startsWith("settle")) {
             moneyCommand = new SettleSplitCommand(cmd);
-        } else if (cmd.startsWith("lent")) {
-            moneyCommand = new AddLoanCommand(cmd);
-        } else if (cmd.startsWith("borrowed")) {
+        } else if (cmd.startsWith("lent") || cmd.startsWith("borrowed")) {
             moneyCommand = new AddLoanCommand(cmd);
         } else if (cmd.startsWith("list") && cmd.contains("loans")) {
-            moneyCommand = new ListOutgoingLoansCommand(cmd);
+            moneyCommand = new ListLoansCommand(cmd);
         } else if ((cmd.startsWith("paid")) || (cmd.startsWith("received"))) {
-            moneyCommand = new SettleDebtCommand(cmd);
+            moneyCommand = new SettleLoanCommand(cmd);
         } else {
             throw new DukeException("OOPS!!! I'm sorry, but I don't know what that means");
         }

@@ -43,8 +43,30 @@ public class Loan extends Item {
         return startDate;
     }
 
-    public void setEndDate(String endDate) throws ParseException {
-        this.endDate = Parser.shortcutTime(endDate);
+    private void setEndDate() throws ParseException {
+        this.endDate = Parser.shortcutTime("now");
+    }
+
+    public boolean getStatus() {
+        return isSettled;
+    }
+
+    public float getOutstandingLoan() {
+        return outstandingLoan;
+    }
+
+    public void settleLoanDebt(float amount) throws ParseException {
+        if (amount == -2) {
+            outstandingLoan = 0;
+            isSettled = true;
+            setEndDate();
+        } else {
+            outstandingLoan -= amount;
+            if (outstandingLoan == 0) {
+                isSettled = true;
+                setEndDate();
+            }
+        }
     }
 
     @Override
@@ -72,7 +94,7 @@ public class Loan extends Item {
 
     private String getEndDateString() {
         if (endDate == null) {
-            return "";
+            return " Outstanding Amount: $" + outstandingLoan;
         } else {
             return " (Paid Back On: " + getEndDateTime() + ")";
 
