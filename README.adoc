@@ -13,6 +13,7 @@ image::docs/images/Ui.png[]
 == Site Map
 * https://github.com/AY1920S1-CS2113T-T09-2/main/blob/master/docs/UserGuide.adoc[User Guide^]
 * https://github.com/AY1920S1-CS2113T-T09-2/main/blob/master/docs/DeveloperGuide.adoc[Developer Guide^]
+* https://ay1920s1-cs2113t-t09-2.github.io/duchess/[Code Documentation]
 * https://github.com/AY1920S1-CS2113T-T09-2/main/blob/master/docs/AboutUs.adoc[About Us^]
 * https://github.com/AY1920S1-CS2113T-T09-2/main/blob/master/docs/ContactUs.adoc[Contact Us^]
 

@@ -6,3 +6,12 @@ jdk:
 
 after_success:
   - ./gradlew coverage coveralls
+  - ./gradlew javadoc &&
+    cd build/docs/javadoc &&
+    git config --global user.email "mohideenimran@outlook.com" &&
+    git config --global user.name "mohideenik" &&
+    git init &&
+    git remote add origin https://mohideenik:$GITHUB_TOKEN@github.com/AY1920S1-CS2113T-T09-2/duchess.git &&
+    git add . &&
+    git commit -m "Auto-generated documentation" &&
+    git push origin master --force

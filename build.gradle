@@ -55,6 +55,10 @@ coveralls {
     jacocoReportPath = "${buildDir}/reports/jacoco/coverage/coverage.xml"
 }
 
+javadoc {
+    options.encoding = 'UTF-8'
+}
+
 tasks.coveralls {
     dependsOn coverage
 }
