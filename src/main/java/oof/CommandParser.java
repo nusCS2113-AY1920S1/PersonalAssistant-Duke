@@ -17,7 +17,6 @@ import oof.command.ScheduleCommand;
 import oof.command.SnoozeCommand;
 
 import oof.exception.OofException;
-
 import java.util.InputMismatchException;
 
 /**
@@ -48,7 +47,12 @@ public class CommandParser {
         case "list":
             return new ListCommand();
         case "help":
-            return new HelpCommand();
+            if (line.equals("help")) {
+                line = line.replaceFirst("help", "");
+            } else {
+                line = line.replaceFirst("help ", "");
+            }
+            return new HelpCommand(line);
         case "done":
             if (argumentArray.length == LENGTH_COMMAND_ONLY) {
                 throw new OofException("OOPS!!! Please enter a number!");

@@ -1,51 +1,51 @@
 ======================== OOF MANUAL ========================
 
 NAME
-    OOF -- Outstanding Organisation Friend
+	OOF -- Outstanding Organisation Friend
 
 DESCRIPTION
-    The following options are available:
+	The following options are available:
 
-    Deadline            deadline DESCRIPTION /by DD-MM-YYYY HH:MM
+Deadline            deadline DESCRIPTION /by DD-MM-YYYY HH:MM
 
-    Event               event DESCRIPTION /from DD-MM-YYYY HH:MM /to DD-MM-YYYY HH:MM
+Event               event DESCRIPTION /from DD-MM-YYYY HH:MM /to DD-MM-YYYY HH:MM
 
-    Todo                todo DESCRIPTION
+Todo                todo DESCRIPTION
 
-    Do-after            do-after INDEX DESCRIPTION
+Do-after            do-after INDEX DESCRIPTION
 
-    Recurring           recurring DESCRIPTION
+Recurring           recurring DESCRIPTION
 
-    Tentative           tentative DESCRIPTION
+Tentative           tentative DESCRIPTION
 
-    List                list
+List                list
 
-    Done                done INDEX
+Done                done INDEX
 
-    Delete              delete INDEX
+Delete              delete INDEX
 
-    Find                find DESCRIPTION
+Find                find DESCRIPTION
 
-    Filter              filter CATEGORY
+Filter              filter CATEGORY
 
-    Threshold           threshold HH
+Threshold           threshold HH
 
-    Color Code          colorcode INDEX #RRGGBB
+Color Code          colorcode INDEX #RRGGBB
 
-    Schedule            schedule DD-MM-YYYY
+Schedule            schedule DD-MM-YYYY
 
-    Summary             summary
+Summary             summary
 
-    Sort                sort
+Sort                sort
 
-    View Undone         viewUndone
+View Undone         viewUndone
 
-    View Free           viewFree
+View Free           viewFree
 
-    View Week           viewWeek
+View Week           viewWeek
 
-    View Calendar       viewCalendar
+View Calendar       viewCalendar
 
-    Reminder            reminder
+Reminder            reminder
 
-    Exit                bye
+Exit                bye
