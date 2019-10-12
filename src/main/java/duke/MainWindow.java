@@ -94,8 +94,6 @@ public class MainWindow extends AnchorPane {
             );
             if (input.trim().equals(COMMAND_BYE)) {
                 handleExit();
-//            } else if (input.trim().equals(COMMAND_ADD_RECIPE)) {
-//                handleAddRecipe(input.trim());
             } else {
                 showMessage(duke.runProgram(input).get(0));
 //                resultDisplay.setText(duke.runProgram(input).get(0));
@@ -103,21 +101,6 @@ public class MainWindow extends AnchorPane {
                     listView.getItems().add(duke.runProgram(input).get(i));
                 }
             }
-//            duke.run(input);
-//            if (input.trim().equals(COMMAND_LIST)) {
-//                handleListTask();
-//                for (int i = 0; i < duke.runProgram(input).size() / 3; i++) {
-//                    listViewResult.getItems().add(duke.runProgram(input).get(i));
-//                }
-//            } else if (input.trim().equals(COMMAND_BYE)) {
-//                handleExit();
-//            } else if (input.contains(COMMAND_FIND)) {
-//                if (input.trim().substring(0, 4).equals(COMMAND_FIND)) {
-//                    handleFindTask(input);
-//                }
-//            } else {
-//                resultDisplay.setText(ERROR_MESSAGE_RANDOM);
-//            }
         }
         userInput.clear();
     }

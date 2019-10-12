@@ -36,7 +36,7 @@ public class Parser {
         }
     }
 
-    public static CommandRecipe parseRecipe(String input) throws DukeException {
+    public static CommandRecipeTitle parseRecipeTitle(String input) throws DukeException {
         if (input.trim().contains(COMMAND_ADD_RECIPE)) {
             if (input.trim().substring(0, 9).equals(COMMAND_ADD_RECIPE)) {
                 return new AddRecipeCommand(input);

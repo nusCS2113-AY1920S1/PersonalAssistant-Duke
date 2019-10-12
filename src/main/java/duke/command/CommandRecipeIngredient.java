@@ -1,10 +1,7 @@
 package duke.command;
 
 import duke.exception.DukeException;
-import duke.list.ingredientlist.IngredientList;
 import duke.list.recipelist.RecipeIngredientList;
-import duke.list.recipelist.RecipeList;
-import duke.storage.IngredientStorage;
 import duke.storage.RecipeIngredientStorage;
 import duke.ui.Ui;
 
