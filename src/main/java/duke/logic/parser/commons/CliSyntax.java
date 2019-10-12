@@ -46,6 +46,7 @@ public class CliSyntax {
         allSyntax.add("product");
         allSyntax.add("order");
         allSyntax.add("sale");
+        allSyntax.add("inventory");
         allSyntax.add("ingredient");
         allSyntax.add("name");
         allSyntax.add("ingt");
@@ -53,6 +54,7 @@ public class CliSyntax {
         allSyntax.add("cost");
         allSyntax.add("add");
         allSyntax.add("edit");
+        allSyntax.add("rmk");
         return allSyntax;
     }
 }

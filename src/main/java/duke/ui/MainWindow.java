@@ -1,43 +1,24 @@
 package duke.ui;
 
 import com.jfoenix.controls.JFXButton;
-import com.jfoenix.controls.JFXChipView;
-import com.jfoenix.controls.JFXTextField;
 import duke.commons.core.LogsCenter;
 import duke.logic.Logic;
 import duke.logic.command.CommandResult;
 import duke.logic.command.exceptions.CommandException;
 import duke.logic.parser.exceptions.ParseException;
-import duke.storage.InputSuggestion;
-import impl.org.controlsfx.autocompletion.AutoCompletionTextFieldBinding;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.geometry.Insets;
-import javafx.geometry.Side;
-import javafx.scene.control.ContextMenu;
-import javafx.scene.control.CustomMenuItem;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.LinkedList;
 import java.util.List;
-import java.util.SortedSet;
-import java.util.TreeSet;
 import java.util.logging.Logger;
-import java.util.stream.Collectors;
 
-import javafx.util.Callback;
-import org.controlsfx.control.textfield.*;
-//import com.gluonhq.charm.glisten.control.*;
 
 
 public class MainWindow extends UiPart<Stage> {
@@ -88,23 +69,8 @@ public class MainWindow extends UiPart<Stage> {
         // Set dependencies
         this.primaryStage = primaryStage;
         this.logic = logic;
-
-        //this.test.getChildren().add(userInput);
-
         setUpKeyEvent();
-        setUpAutoComplete();
     }
-
-
-		//autoCompletionTextFieldBinding.
-
-    public void setUpAutoComplete() {
-        ArrayList<String> suggestions = InputSuggestion.getInputSuggestion();
-        userInput.getEntries().add("product");
-        userInput.getEntries().add("profit");
-        userInput.setAnchor(pagePane);
-    }
-
 
     public Stage getPrimaryStage() {
         return primaryStage;
@@ -149,18 +115,29 @@ public class MainWindow extends UiPart<Stage> {
         userInput.setOnKeyPressed(new EventHandler<KeyEvent>() {
             @Override
             public void handle(KeyEvent event) {
-                if(event.getCode().equals(KeyCode.UP)) {
+                if(event.getCode().equals(KeyCode.PAGE_UP)) {
                     if (historyIndex > 0) {
                         historyIndex--;
                         userInput.setText(inputHistory.get(historyIndex));
                         userInput.setFocusTraversable(false);
                     }
                 }
-                if(event.getCode().equals(KeyCode.DOWN)) {
+                if(event.getCode().equals(KeyCode.PAGE_DOWN)) {
                     if (historyIndex < (inputHistory.size() - 1)) {
                         historyIndex++;
                         userInput.setText(inputHistory.get(historyIndex));
                         userInput.setFocusTraversable(false);
+                    }
+                }
+            }
+        });
+        userInput.addEventFilter(KeyEvent.KEY_PRESSED, new EventHandler<KeyEvent>() {
+            public void handle(KeyEvent event) {
+                if (event.getCode() == KeyCode.TAB) {
+                    event.consume(); // to cancel character-removing keys
+                    if (userInput.hasSuggestion()) {
+                        userInput.setText(userInput.getFirstSuggestion());
+                        userInput.positionCaret(userInput.getText().length());
                     }
                 }
             }

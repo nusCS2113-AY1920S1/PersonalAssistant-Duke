@@ -6,13 +6,16 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.geometry.Pos;
 import javafx.geometry.Side;
 import javafx.scene.Node;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.CustomMenuItem;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
 
+import java.awt.event.KeyEvent;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.SortedSet;
@@ -30,9 +33,15 @@ public class AutoCompleteTextField extends JFXTextField
     private final SortedSet<String> entries;
     /** The popup used to select an entry. */
     private ContextMenu entriesPopup;
-    private Node anchorNode = AutoCompleteTextField.this;
 
-    private final Integer VERTICAL_OFF_SET = -70;
+    private Node anchorNode = AutoCompleteTextField.this;
+    List<CustomMenuItem> menuItems = new LinkedList<>();
+    LinkedList<String> searchResult = new LinkedList<>();
+
+
+
+    private final int VERTICAL_OFF_SET = -30;
+    private final int VERTICAL_INITIAL = -50;
     /** Construct a new AutoCompleteTextField. */
     public AutoCompleteTextField() {
         super();
@@ -49,14 +58,14 @@ public class AutoCompleteTextField extends JFXTextField
                     entriesPopup.hide();
                 } else
                 {
-                    LinkedList<String> searchResult = new LinkedList<>();
+                    searchResult.clear();
                     searchResult.addAll(entries.subSet(getCurrWord(), getCurrWord() + Character.MAX_VALUE));
                     if (entries.size() > 0)
                     {
                         populatePopup(searchResult);
-                        if (!entriesPopup.isShowing())
+                        double dy = searchResult.size() * VERTICAL_OFF_SET + VERTICAL_INITIAL;
                         {
-                            entriesPopup.show(anchorNode, Side.BOTTOM, 0, 0);
+                            entriesPopup.show(anchorNode, Side.BOTTOM, 0, dy);
                         }
                     } else
                     {
@@ -72,12 +81,11 @@ public class AutoCompleteTextField extends JFXTextField
                 entriesPopup.hide();
             }
         });
-
     }
 
-    public void setAnchor(Node node) {
-        anchorNode = node;
-    }
+    //public void setAnchor(Node node) {
+    //    anchorNode = node;
+    //}
 /*    private String getCurrWord() {
        // String command = getText(); .*[\\s|]*\\w+;
         getFrontWords();
@@ -123,21 +131,18 @@ public class AutoCompleteTextField extends JFXTextField
      * @param searchResult The set of matching strings.
      */
     private void populatePopup(List<String> searchResult) {
-        List<CustomMenuItem> menuItems = new LinkedList<>();
+        menuItems.clear();
         // If you'd like more entries, modify this line.
         int maxEntries = 5;
         int count = Math.min(searchResult.size(), maxEntries);
-        for (int i = 0; i < count; i++)
+        for (int i = count - 1; i >= 0; i--)
         {
-            //final String result = searchResult.get(i);
             final String result = searchResult.get(i);
             Label entryLabel;
-            //if (getFrontWords() != null) {
-            //    entryLabel =new Label(result);
-            //} else {
-                entryLabel =new Label(getFrontWords() + result);
+                entryLabel = new Label(getFrontWords() + result);
+                entryLabel.setAlignment(Pos.CENTER_RIGHT);
+                firstSuggestion = entryLabel.getText();
            // }
-            entryLabel.setWrapText(true);
             CustomMenuItem item = new CustomMenuItem(entryLabel, true);
             item.setOnAction(new EventHandler<ActionEvent>()
             {
@@ -153,7 +158,25 @@ public class AutoCompleteTextField extends JFXTextField
         }
         entriesPopup.getItems().clear();
         entriesPopup.getItems().addAll(menuItems);
+    }
 
+    public String firstSuggestion = "";
+
+    public String getFirstSuggestion() {
+        //if(menuItems.size() != 0) {
+        //    return menuItems.get(0).getText();
+        //}
+        //return "";
+        return firstSuggestion;
+    }
+
+    public boolean hasSuggestion() {
+        Pattern pattern = Pattern.compile(".*(?<ignore>\\W+)");
+        Matcher matcher = pattern.matcher(getText());
+        if (matcher.matches() && matcher.group("ignore") != null) {
+            return false;
+        }
+        return searchResult.size() != 0;
     }
 }
 
