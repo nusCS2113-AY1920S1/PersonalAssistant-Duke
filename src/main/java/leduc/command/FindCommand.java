@@ -27,7 +27,7 @@ public class FindCommand extends Command {
      * @param storage leduc.storage.Storage which deals with loading tasks from the file and saving tasks in the file.
      */
     public void execute(TaskList tasks, Ui ui, Storage storage){
-        String find = user.substring(5);
+        String find = user.substring(FindCommand.findShortcut.length());
         String result = "";
         for ( int i = 0 ; i< tasks.size() ; i++){
             if ( tasks.get(i).getTask().contains(find)){

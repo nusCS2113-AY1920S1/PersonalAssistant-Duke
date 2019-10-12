@@ -1,5 +1,6 @@
 package leduc.command;
 
+import jdk.jfr.Event;
 import leduc.Date;
 import leduc.exception.*;
 import leduc.storage.Storage;
@@ -38,7 +39,7 @@ public class EventCommand extends Command {
      */
     public void execute(TaskList tasks, Ui ui, Storage storage)
             throws EmptyEventDateException, EmptyEventException, NonExistentDateException, FileException, ConflictDateException {
-        String[] taskDescription = user.substring(5).split("/at");
+        String[] taskDescription = user.substring(EventCommand.eventShortcut.length()).split("/at");
         if (taskDescription[0].isBlank()) {
             throw new EmptyEventException();
         }

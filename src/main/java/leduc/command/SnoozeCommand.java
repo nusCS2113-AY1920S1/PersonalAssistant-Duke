@@ -34,7 +34,7 @@ public class SnoozeCommand extends Command{
      * @throws FileException Exception caught when the file doesn't exist or cannot be created or cannot be opened.
      */
     public void execute(TaskList tasks, Ui ui , Storage storage) throws NonExistentTaskException, DeadlineTypeException, FileException {
-        int index = Integer.parseInt(user.substring(7)) - 1;
+        int index = Integer.parseInt(user.substring(SnoozeCommand.snoozeShortcut.length() + 1)) - 1;
         if (index > tasks.size() - 1 || index < 0) {
             throw new NonExistentTaskException();
         }

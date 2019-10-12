@@ -42,7 +42,7 @@ public class PostponeCommand extends Command {
     public void execute(TaskList tasks, Ui ui , Storage storage) throws NonExistentTaskException,
             DeadlineTypeException, FileException, EmptyDeadlineDateException, NonExistentDateException,
             PostponeDeadlineException {
-        String[] postponeString = user.substring(9).split("/by");
+        String[] postponeString = user.substring(PostponeCommand.postponeShortcut.length() + 1).split("/by");
         if (postponeString.length == 1) { // no /by in input
             throw new EmptyDeadlineDateException();
         }

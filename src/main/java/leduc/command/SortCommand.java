@@ -36,7 +36,7 @@ public class SortCommand extends Command {
      * @throws MeaninglessException  Exception caught when the input string could not be interpreted.
      */
     public void execute(TaskList tasks, Ui ui, Storage storage) throws FileException, MeaninglessException {
-        String sort = user.substring(5).trim();
+        String sort = user.substring(SortCommand.sortShortcut.length()).trim();
         if (sort.equals("date")){
             ArrayList<Task> filteredTasklist = tasks.filterTasks(tasks);
             ArrayList<Task> extractedTodo = tasks.extractTodo(tasks);

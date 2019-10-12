@@ -55,7 +55,7 @@ public class Parser {
         else if (user.matches(DeadlineCommand.getDeadlineShortcut() + "(.*)")) {
             c = new DeadlineCommand(user);
         }
-        else if (user.matches(EventCommand.getEventShortcut() + "(.*)")) {
+        else if (user.matches(EventCommand.getEventShortcut() + " (.*)")) {
             c = new EventCommand(user);
         }
         else if (user.matches(RescheduleCommand.getRescheduleShortcut() + " \\d+ (.*)")) {
