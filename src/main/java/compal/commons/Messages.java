@@ -36,7 +36,7 @@ public class Messages {
     public static final String MESSAGE_MISSING_EDATE = "MissingEndDateError: End date cannot be empty. "
             + "Please enter a valid end date for your semester.";
 
-    public static final String MESSAGE_MISSING_REP_ARG = "ArgumentError: Missing /rep";
+    public static final String MESSAGE_MISSING_REP_EDATE_ARG = "ArgumentError: Missing /rep and /edate";
     public static final String MESSAGE_MISSING_DATE_ARG = "ArgumentError: Missing /date";
     public static final String MESSAGE_MISSING_START_TIME_ARG = "ArgumentError: Missing /start";
     public static final String MESSAGE_MISSING_END_TIME_ARG = "ArgumentError: Missing /end";

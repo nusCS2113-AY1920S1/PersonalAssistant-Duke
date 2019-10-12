@@ -12,12 +12,8 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Scanner;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import static compal.commons.Messages.MESSAGE_MISSING_DATE;
-import static compal.commons.Messages.MESSAGE_INVALID_DATE_FORMATTING;
-import static compal.commons.Messages.MESSAGE_INVALID_YEAR;
 import static compal.commons.Messages.MESSAGE_MISSING_EDATE;
 import static compal.commons.Messages.MESSAGE_MISSING_EDATE_ARG;
 import static compal.commons.Messages.MESSAGE_INVALID_TIME_RANGE;
@@ -87,34 +83,6 @@ public class AcadCommand extends Command implements CommandParser {
     }
 
     /**
-     * Parses through each date string input by the user and makes sure it is of the correct format.
-     * @param inputDateStr The date string input by the user, which may not be of correct format.
-     * @return A date string with its format validated.
-     * @throws Compal.DukeException If date format is invalid (not dd/MM/yyyy), year is before current year.
-     */
-    public String inputDateValidation(String inputDateStr) throws Compal.DukeException {
-        String regex = "^(3[01]|[12][0-9]|0[1-9])/(1[0-2]|0[1-9])/[0-9]{4}$";
-        Pattern pattern = Pattern.compile(regex);
-        Matcher matcher = pattern.matcher(inputDateStr);
-
-        if (matcher.matches() == false) {
-            compal.ui.printg(MESSAGE_INVALID_DATE_FORMATTING);
-            throw new Compal.DukeException(MESSAGE_INVALID_DATE_FORMATTING);
-        }
-        int inputSize = inputDateStr.length();
-
-        String year = inputDateStr.substring(inputSize - 4, inputSize);
-        int inputYear = Integer.parseInt(year);
-        int currYear = Calendar.getInstance().get(Calendar.YEAR);
-
-        if (inputYear < currYear) {
-            compal.ui.printg(MESSAGE_INVALID_YEAR);
-            throw new Compal.DukeException(MESSAGE_INVALID_YEAR);
-        }
-        return inputDateStr;
-    }
-
-    /**
      * Returns an end date string if specified in the task.
      *
      * @param restOfInput Input description after initial command word.
@@ -153,34 +121,6 @@ public class AcadCommand extends Command implements CommandParser {
         calendar.add(Calendar.DATE, DEFAULT_WEEK_INTERVAL);
         Date finalDate = calendar.getTime();
         return finalDate;
-    }
-
-    /**
-     * Converts a date string to a Date object.
-     *
-     * @param dateStr The date string to be converted.
-     * @return The date string in the form of a Date object.
-     */
-    public Date stringToDate(String dateStr) {
-        SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
-        Date date = null;
-        try {
-            date = format.parse(dateStr);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        return date;
-    }
-
-    /**
-     * Converts a Date object to a date string. Correct type for creating a Task object.
-     *
-     * @param date The date in the form of a Date object.
-     * @return The date in the form of a String object.
-     */
-    public String dateToString(Date date) {
-        SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
-        return format.format(date);
     }
 
     /**
