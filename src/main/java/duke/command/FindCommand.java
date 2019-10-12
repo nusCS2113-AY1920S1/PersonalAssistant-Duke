@@ -32,9 +32,10 @@ public class FindCommand extends Command {
 
     /**
      * Executes a command that locates matching tasks in task list and outputs the result (GUI).
-     *  @param items The task list that contains a list of tasks.
+     *
+     * @param items The task list that contains a list of tasks.
      * @param ui To tell the user the matching tasks based on the keyword.
-     * @return
+     * @return List of tasks.
      */
     @Override
     public String executeGui(TaskList items, Ui ui) {

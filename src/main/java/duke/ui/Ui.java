@@ -88,7 +88,7 @@ public class Ui {
     /**
      * Outputs all the contacts of the contact list to the user.
      *
-     * @param contactList The task list that contains a list of tasks.
+     * @param contactList The list of contacts.
      */
     public void showContactList(ContactList contactList) {
         out.println("     Here are all your contacts:");
@@ -290,6 +290,11 @@ public class Ui {
         out.println("     The same task is already in the list!");
     }
 
+    /**
+     * Outputs the contact details that are most recently added.
+     *
+     * @param contactList The list of contacts.
+     */
     public void showAddedContact(ContactList contactList){
         out.println("     Got it. Contact added:");
         if(contactList.size() == 0){

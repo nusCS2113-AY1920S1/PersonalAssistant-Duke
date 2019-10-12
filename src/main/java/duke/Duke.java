@@ -27,6 +27,7 @@ public class Duke {
      * Creates a duke to initialize storage, task list, and ui.
      *
      * @param filePath The location of the text file.
+     * @param filePathForContacts The location of the contact text file.
      */
     public Duke(String filePath, String filePathForContacts) {
         ui = new Ui();
