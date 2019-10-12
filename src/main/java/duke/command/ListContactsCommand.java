@@ -1,14 +1,14 @@
 package duke.command;
 
 import duke.storage.Storage;
+import duke.task.ContactList;
 import duke.task.TaskList;
 import duke.ui.Ui;
 
 /**
- * Representing a command that lists all tasks stored in task list.
+ * Representing a command that lists all contacts stored.
  */
-public class ListCommand extends Command {
-
+public class ListContactsCommand extends Command {
     /**
      * Executes a command that gathers all tasks from task list and outputs the result.
      *
@@ -17,7 +17,18 @@ public class ListCommand extends Command {
      */
     @Override
     public void execute(TaskList items, Ui ui) {
-        ui.showTaskList(items);
+    }
+
+    /**
+     * Executes a command that gathers all contacts from contact list and outputs the result.
+     *
+     * @param items The task list that contains a list of tasks.
+     * @param contactList The list of contacts.
+     * @param ui To tell the user the list of tasks stored in task list.
+     */
+
+    public void execute(TaskList items, ContactList contactList, Ui ui) {
+        ui.showContactList(contactList);
     }
 
     /**
@@ -28,7 +39,7 @@ public class ListCommand extends Command {
      */
     @Override
     public String executeGui(TaskList items, Ui ui) {
-        String str = ui.showTaskListGui(items);
+        String str = Ui.showTaskListGui(items);
         return str;
     }
 

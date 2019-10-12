@@ -1,10 +1,14 @@
 package duke;
 
+import duke.command.AddContactsCommand;
 import duke.command.Command;
 import duke.command.ExitCommand;
+import duke.command.ListContactsCommand;
 import duke.dukeexception.DukeException;
 import duke.parser.Parser;
+import duke.storage.ContactStorage;
 import duke.storage.Storage;
+import duke.task.ContactList;
 import duke.task.TaskList;
 import duke.ui.Ui;
 
@@ -17,7 +21,8 @@ public class Duke {
     private Storage storage;
     private TaskList items;
     private Ui ui;
-
+    private ContactStorage contactStorage;
+    private ContactList contactList;
     /**
      * Creates a duke to initialize storage, task list, and ui.
      *
@@ -25,12 +30,19 @@ public class Duke {
      */
     public Duke(String filePath, String filePathForContacts) {
         ui = new Ui();
-        storage = new Storage(filePath, filePathForContacts);
+        storage = new Storage(filePath);
+        contactStorage = new ContactStorage(filePathForContacts);
         try {
             items = new TaskList(storage.read());
         } catch (IOException e) {
             ui.showLoadingError();
             items = new TaskList();
+        }
+        try {
+            contactList = new ContactList(contactStorage.read());
+        } catch (IOException e) {
+            ui.showLoadingError();
+            contactList = new ContactList();
         }
     }
 
@@ -94,6 +106,11 @@ public class Duke {
                 if (cmd instanceof ExitCommand) {
                     cmd.executeStorage(items,ui,storage);
                     break;
+                } else if(cmd instanceof AddContactsCommand){
+                    cmd.execute(items, contactList, ui);
+                    cmd.executeStorage(items, ui, contactStorage,contactList);
+                } else if(cmd instanceof ListContactsCommand){
+                    cmd.execute(items, contactList, ui);
                 } else {
                     cmd.execute(items,ui);
                 }

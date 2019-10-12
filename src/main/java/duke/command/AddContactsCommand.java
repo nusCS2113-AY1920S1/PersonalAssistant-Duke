@@ -1,5 +1,6 @@
 package duke.command;
 
+import duke.storage.ContactStorage;
 import duke.storage.Storage;
 import duke.task.ContactList;
 import duke.task.Contacts;
@@ -9,31 +10,37 @@ import duke.ui.Ui;
 import java.io.IOException;
 
 public class AddContactsCommand extends Command {
-    protected Contacts contacts;
+    protected Contacts contactObj;
 
     /**
      * Creates a command with the specified contact.
      *
-     * @param contacts The contacts to be added.
+     * @param contactObj The contacts to be added.
      */
-    public AddContactsCommand(Contacts contacts) {
-        this.contacts = contacts;
+    public AddContactsCommand(Contacts contactObj) {
+        this.contactObj = contactObj;
     }
 
     /**
-     * Executes a command that adds the task into task list and outputs the result.
+     * Executes a command with task list and ui.
      *
-     * @param contactList The contact list that contains a list of contacts.
-     * @param ui To tell the user that it is added successfully.
+     * @param items The task list that contains a list of tasks.
+     * @param ui To tell the user that it is executed successfully.
      */
-    public void execute(ContactList contactList, Ui ui) {
-        contactList.add(contacts);
-        ui.showAddedContact(contactList);
-    }
-
     @Override
     public void execute(TaskList items, Ui ui) {
-        
+    }
+
+    /**
+     * Executes a command with task list and ui.
+     *
+     * @param items The task list that contains a list of tasks.
+     * @param contactList The contact list that contains a list of contacts.
+     * @param ui To tell the user that it is executed successfully.
+     */
+    public void execute(TaskList items, ContactList contactList, Ui ui) {
+        contactList.add(contactObj);
+        ui.showAddedContact(contactList);
     }
 
     @Override
@@ -43,6 +50,9 @@ public class AddContactsCommand extends Command {
 
     @Override
     public void executeStorage(TaskList items, Ui ui, Storage storage) throws IOException {
+    }
 
+    public void executeStorage(TaskList items, Ui ui, ContactStorage contactStorage, ContactList contactList) throws IOException {
+        contactStorage.write(contactList);
     }
 }

@@ -247,19 +247,16 @@ public class Parser {
             int howManyDays = Integer.parseInt(in.split(" ", 2)[0].trim());
             return new RemindCommand(duration, howManyDays);
         } else if (arr.length > 0 && arr[0].equals("addcontact")) {
-            String[] details = sentence.split(",");
-            String contactName = details[0].trim();
-            String contactPhone = details[1].trim();
-            String contactEmail = details[2].trim();
-            String contactOffice = details[3].trim();
-            String contactNotes = details[4].trim();
-
-            if (contactName.isEmpty()) {
-                throw new DukeException("     (>_<) OOPS!!! At least the name must be filled up.");
-            } else {
-                Contacts contactObj = new Contacts(contactName, contactPhone, contactEmail, contactOffice, contactNotes);
+            String[] userInput = sentence.split(" ",2);
+            String[] contactDetails = userInput[1].split(",");
+            try{
+                Contacts contactObj = new Contacts(contactDetails[0], contactDetails[1], contactDetails[2], contactDetails[3]);
                 return new AddContactsCommand(contactObj);
+            } catch (Exception e) {
+                throw new DukeException("Format is in: addcontact <name>, <contact>, <email>, <office>");
             }
+        } else if (sentence.equals("listcontacts")) {
+            return new ListContactsCommand();
         } else if (sentence.equals("bye")) {
             return new ExitCommand();
         } else {

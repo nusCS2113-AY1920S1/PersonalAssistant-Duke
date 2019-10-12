@@ -12,17 +12,14 @@ import java.util.ArrayList;
  */
 public class Storage {
     protected String filePath = "./";
-    protected String filePathForContacts = "./";
 
     /**
      * Creates a storage with a specified filePath.
      *
      * @param filePath The location of the text file for tasks.
-     * @param filePathForContacts The location of the text file for contacts.
      */
-    public Storage(String filePath, String filePathForContacts) {
+    public Storage(String filePath) {
         this.filePath += filePath;
-        this.filePathForContacts += filePathForContacts;
     }
 
     /**
@@ -81,7 +78,6 @@ public class Storage {
                         items.add(t);
                     }
                 } else if (commandList[0].equals("D")) {
-
                     if (taskDesc.trim().isEmpty() || dateDesc.trim().isEmpty()) {
                         throw new DukeException("Error reading description or date/time, skipping to next line");
                     } else {

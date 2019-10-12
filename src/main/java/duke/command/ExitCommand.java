@@ -1,8 +1,9 @@
 package duke.command;
 
 import duke.storage.Storage;
-import duke.ui.Ui;
 import duke.task.TaskList;
+import duke.ui.Ui;
+
 import java.io.IOException;
 
 /**
@@ -24,13 +25,12 @@ public class ExitCommand extends Command {
     /**
      * Executes a command using task list and outputs the result (GUI).
      * (Not in use)
-     *
-     * @param items The task list that contains a list of tasks.
+     *  @param items The task list that contains a list of tasks.
      * @param ui To tell the user that it is executed successfully.
-     * @return String to be outputted to the user.
+     * @return
      */
     @Override
-    public  String executeGui(TaskList items, Ui ui) {
+    public String executeGui(TaskList items, Ui ui) {
         return "";
     }
 

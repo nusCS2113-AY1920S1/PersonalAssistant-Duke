@@ -34,10 +34,9 @@ public class AddCommand extends Command {
 
     /**
      * Executes a command that adds the task into task list and outputs the result (GUI).
-     *
-     * @param items The task list that contains a list of tasks.
+     *  @param items The task list that contains a list of tasks.
      * @param ui To tell the user that it is added successfully.
-     * @return String to be outputted to the user.
+     * @return
      */
     @Override
     public String executeGui(TaskList items, Ui ui) {

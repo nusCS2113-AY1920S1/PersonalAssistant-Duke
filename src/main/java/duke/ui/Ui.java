@@ -86,6 +86,16 @@ public class Ui {
     }
 
     /**
+     * Outputs all the contacts of the contact list to the user.
+     *
+     * @param contactList The task list that contains a list of tasks.
+     */
+    public void showContactList(ContactList contactList) {
+        out.println("     Here are all your contacts:");
+        out.print(contactList.getContactList());
+    }
+
+    /**
      * Outputs all the tasks of the task list to the user (GUI).
      *
      * @param items The task list that contains a list of tasks.
@@ -281,8 +291,12 @@ public class Ui {
     }
 
     public void showAddedContact(ContactList contactList){
-        out.println("     Got it. Contact add:");
-        out.println("       " + contactList.get(contactList.size() - 1).toString());
-        out.println("     Now you have " + contactList.size() + " contacts.");
+        out.println("     Got it. Contact added:");
+        if(contactList.size() == 0){
+            out.println("     You have no contacts!");
+        } else{
+            out.println(contactList.get(contactList.size()-1));
+            out.println("     Now you have " + contactList.size() + " contacts.");
+        }
     }
 }
