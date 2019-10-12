@@ -3,6 +3,7 @@ package duke.model;
 import duke.commons.core.index.Index;
 import duke.model.commons.Ingredient;
 import duke.model.order.Order;
+import duke.model.sale.Sale;
 import duke.model.product.Product;
 import duke.model.shortcut.Shortcut;
 import javafx.collections.ObservableList;
@@ -20,6 +21,7 @@ import static java.util.Objects.requireNonNull;
 public class ModelManager implements Model {
     private final BakingHome bakingHome;
     private final FilteredList<Order> filteredOrders;
+    private final FilteredList<Sale> filteredSales;
     private final FilteredList<Product> filteredProducts;
     private final FilteredList<Ingredient> filteredInventory;
 
@@ -30,6 +32,7 @@ public class ModelManager implements Model {
         super();
         this.bakingHome = new BakingHome(bakingHome);
         this.filteredOrders = new FilteredList<>(this.bakingHome.getOrderList());
+        this.filteredSales = new FilteredList<>(this.bakingHome.getSaleList());
         this.filteredProducts = new FilteredList<>(this.bakingHome.getProductList());
         this.filteredInventory = new FilteredList<>(this.bakingHome.getInventoryList());
     }
@@ -91,6 +94,51 @@ public class ModelManager implements Model {
     public void updateFilteredOrderList(Predicate<Order> predicate) {
         requireNonNull(predicate);
         filteredOrders.setPredicate(predicate);
+    }
+
+    //================Sale operations=================
+
+    @Override
+    public void addSale(Sale sale) {
+        bakingHome.addSale(sale);
+        updateFilteredSaleList(PREDICATE_SHOW_ALL_SALES);
+    }
+
+    @Override
+    public boolean hasSale(Sale sale) {
+        requireNonNull(sale);
+        return bakingHome.getSaleList().contains(sale);
+    }
+
+    @Override
+    public void deleteSale(Sale target) {
+        bakingHome.getOrderList().remove(target);
+    }
+
+    @Override
+    public void setSale(Sale target, Sale editedSale) {
+        requireNonNull(target);
+        requireNonNull(editedSale);
+
+        bakingHome.setSale(target, editedSale);
+    }
+
+    @Override
+    public void setSale(Index index, Sale sale) {
+        requireAllNonNull(index, sale);
+
+        bakingHome.setSale(index, sale);
+    }
+
+    @Override
+    public ObservableList<Sale> getFilteredSaleList() {
+        return filteredSales;
+    }
+
+    @Override
+    public void updateFilteredSaleList(Predicate<Sale> predicate) {
+        requireNonNull(predicate);
+        filteredSales.setPredicate(predicate);
     }
 
     //========comProduct operations==========

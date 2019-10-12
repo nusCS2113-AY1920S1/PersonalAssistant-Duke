@@ -40,7 +40,6 @@ public class BakingHome implements ReadOnlyBakingHome {
         resetData(toBeCopied);
     }
 
-
     /*
      * Resets the existing data of this {@code BakingHome} with {@code newData}.
      */
@@ -78,14 +77,6 @@ public class BakingHome implements ReadOnlyBakingHome {
     }
 
     /**
-     * Adds a person to the address book.
-     * The person must not already exist in the address book.
-     */
-    public void addSale(Sale s) {
-        sales.add(s);
-    }
-
-    /**
      * Replaces the given person {@code target} in the list with {@code editedPerson}.
      * {@code target} must exist in the address book.
      * The person identity of {@code editedPerson} must not be the same as another existing person in the address book.
@@ -119,6 +110,67 @@ public class BakingHome implements ReadOnlyBakingHome {
     public ObservableList<Order> getOrderList() {
         return orders.asUnmodifiableObservableList();
     }
+
+    //================Sale operations================
+
+    /**
+     * Adds a sale to sales
+     * The sale must not already exist in sales.
+     */
+    public void addSale(Sale s) {
+        sales.add(s);
+    }
+
+    /**
+     * Removes {@code key} from this {@code AddressBook}.
+     * {@code key} must exist in the address book.
+     */
+    public void removeSale(Sale key) {
+        sales.remove(key);
+    }
+
+    /**
+     * Replaces the contents of the sale list with {@code sales}.
+     */
+    public void setSales(List<Sale> sales) {
+        this.sales.setAll(sales);
+    }
+
+    /**
+     * Returns true if a sale with the same identity as {@code sale} exists in {@code sales}.
+     */
+    public boolean hasSale(Sale sale) {
+        requireNonNull(sale);
+        return sales.contains(sale);
+    }
+
+    /**
+     * Replaces the given person {@code target} in the list with {@code editedPerson}.
+     * {@code target} must exist in the address book.
+     * The person identity of {@code editedPerson} must not be the same as another existing person in the address book.
+     */
+    public void setSale(Sale target, Sale editedSale) {
+        requireNonNull(editedSale);
+
+        sales.set(target, editedSale);
+    }
+
+    /**
+     * Replaces the sale at {@code Index} in the list with {@code editedSale}.
+     * {@code Index} must be a valid index
+     * {@code target} must exist in sales
+     */
+    public void setSale(Index index, Sale sale) {
+        requireAllNonNull(index, sale);
+
+        sales.set(index, sale);
+    }
+
+    @Override
+    public ObservableList<Sale> getSaleList() {
+        return sales.asUnmodifiableObservableList();
+    }
+
 
     //============Product operations==============
 
@@ -201,11 +253,6 @@ public class BakingHome implements ReadOnlyBakingHome {
     @Override
     public String toString() {
         return orders.asUnmodifiableObservableList().size() + " orders";
-    }
-
-    // @Override
-    public ObservableList<Sale> getSaleList() {
-        return sales.asUnmodifiableObservableList();
     }
 
     @Override

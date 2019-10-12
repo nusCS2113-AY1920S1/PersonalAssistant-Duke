@@ -6,6 +6,7 @@ import duke.logic.parser.exceptions.ParseException;
 import duke.model.ReadOnlyBakingHome;
 import duke.model.commons.Ingredient;
 import duke.model.order.Order;
+import duke.model.sale.Sale;
 import duke.model.product.Product;
 import javafx.collections.ObservableList;
 
@@ -26,6 +27,8 @@ public interface Logic {
     ReadOnlyBakingHome getReadingHome();
 
     ObservableList<Order> getFilteredOrderList();
+
+    ObservableList<Sale> getFilteredSaleList();
 
     ObservableList<Product> getFilteredProductList();
 
