@@ -249,15 +249,15 @@ public abstract class Task implements Serializable {
         }
 
         switch (strCase) {
-            case 1:
-                return "\n" + "[" + getSymbol() + "]" + "[" + getStatusIcon() + "] " + getDescription()
-                        + " \nDate: " + getStringDate() + " \nEnd Time: " + getStringEndTime()
-                        +" \nPriority: " + getPriority() + "\n***************";
-            default:
-                return "\n" + "[" + getSymbol() + "]" + "[" + getStatusIcon() + "] " + getDescription()
-                        + " \nDate: " + getStringDate() + " \nStart Time: " + getStringStartTime()
-                        + " \nEnd Time: " + getStringEndTime() +" \nPriority: " + getPriority()
-                        + "\n***************";
+        case 1:
+            return "\n" + "[" + getSymbol() + "]" + "[" + getStatusIcon() + "] " + getDescription()
+                    + " \nDate: " + getStringDate() + " \nEnd Time: " + getStringEndTime()
+                    + " \nPriority: " + getPriority() + "\n***************";
+        default:
+            return "\n" + "[" + getSymbol() + "]" + "[" + getStatusIcon() + "] " + getDescription()
+                    + " \nDate: " + getStringDate() + " \nStart Time: " + getStringStartTime()
+                    + " \nEnd Time: " + getStringEndTime() + " \nPriority: " + getPriority()
+                    + "\n***************";
         }
 
 

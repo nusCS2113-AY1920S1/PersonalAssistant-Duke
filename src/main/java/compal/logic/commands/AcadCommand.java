@@ -15,7 +15,13 @@ import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import static compal.commons.Messages.*;
+import static compal.commons.Messages.MESSAGE_MISSING_DATE;
+import static compal.commons.Messages.MESSAGE_INVALID_DATE_FORMATTING;
+import static compal.commons.Messages.MESSAGE_INVALID_YEAR;
+import static compal.commons.Messages.MESSAGE_MISSING_EDATE;
+import static compal.commons.Messages.MESSAGE_MISSING_EDATE_ARG;
+import static compal.commons.Messages.MESSAGE_INVALID_TIME_RANGE;
+import static compal.commons.Messages.MESSAGE_MISSING_COMMAND_ARG;
 import static compal.commons.Messages.MESSAGE_MISSING_DATE_ARG;
 
 public class AcadCommand extends Command implements CommandParser {
@@ -44,10 +50,11 @@ public class AcadCommand extends Command implements CommandParser {
     }
 
     /**
-     * Returns a date string if specified in the task.
+     * Accepts a number of start dates for Academic Tasks that may have several sessions in one week.
+     * Returns a list of the start dates for the sessions in the first week.
      *
      * @param restOfInput Input description after initial command word.
-     * @return Date in the form of a string.
+     * @return An ArrayList of date strings.
      * @throws Compal.DukeException If date field is empty, date or date format is invalid,
      *                              date token (/date) is missing.
      */
@@ -80,10 +87,10 @@ public class AcadCommand extends Command implements CommandParser {
     }
 
     /**
-     * Parses through each date string input by the user, and converts it to a
-     * @param inputDateStr
-     * @return
-     * @throws Compal.DukeException
+     * Parses through each date string input by the user and makes sure it is of the correct format.
+     * @param inputDateStr The date string input by the user, which may not be of correct format.
+     * @return A date string with its format validated.
+     * @throws Compal.DukeException If date format is invalid (not dd/MM/yyyy), year is before current year.
      */
     public String inputDateValidation(String inputDateStr) throws Compal.DukeException {
         String regex = "^(3[01]|[12][0-9]|0[1-9])/(1[0-2]|0[1-9])/[0-9]{4}$";
@@ -108,7 +115,7 @@ public class AcadCommand extends Command implements CommandParser {
     }
 
     /**
-     * Returns a date string if specified in the task.
+     * Returns an end date string if specified in the task.
      *
      * @param restOfInput Input description after initial command word.
      * @return Date in the form of a string.
