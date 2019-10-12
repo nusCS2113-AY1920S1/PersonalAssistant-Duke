@@ -112,10 +112,8 @@ public abstract class Command {
         Date currentDate = Calendar.getInstance().getTime();
         c.setTime(currentDate);
         Date currDateAndTime = c.getTime();
-        if (inputDateAndTime.after(currDateAndTime)) {
-            return true;
-        }
-        return false;
+
+        return inputDateAndTime.after(currDateAndTime);
     }
 
     /**
