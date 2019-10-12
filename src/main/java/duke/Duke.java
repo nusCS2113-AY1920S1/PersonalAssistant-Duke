@@ -3,15 +3,21 @@ package duke;
 import duke.command.SetPriorityCommand;
 import duke.command.AddMultipleCommand;
 import duke.command.DeleteCommand;
+import duke.command.AddContactsCommand;
 import duke.command.Command;
 import duke.command.ListPriorityCommand;
 import duke.command.ExitCommand;
 import duke.command.BackupCommand;
+
 import duke.dukeexception.DukeException;
 import duke.parser.Parser;
 import duke.storage.PriorityStorage;
 import duke.storage.Storage;
+import duke.storage.ContactStorage;
 import duke.task.PriorityList;
+import duke.task.ContactList;
+import duke.command.ListContactsCommand;
+
 import duke.task.TaskList;
 import duke.ui.Ui;
 
@@ -21,10 +27,11 @@ import java.io.IOException;
  * Represents a duke that controls the program.
  */
 public class Duke {
-
     private Storage storage;
     private TaskList items;
     private Ui ui;
+    private ContactStorage contactStorage;
+    private ContactList contactList;
 
     private PriorityStorage priorityStorage;
     private PriorityList priorityList;
@@ -35,19 +42,19 @@ public class Duke {
      *
      * @param filePath1 The location of the text file.
      * @param filePath2 The location of the priority text file.
+     * @param filePathForContacts The location of the contact text file.
      */
-    public Duke(String filePath1, String filePath2) {
+    public Duke(String filePath1, String filePath2, String filePathForContacts) {
         ui = new Ui();
         storage = new Storage(filePath1);
         priorityStorage = new PriorityStorage(filePath2);
-
+        contactStorage = new ContactStorage(filePathForContacts);
         try {
             items = new TaskList(storage.read());
         } catch (IOException e) {
             ui.showLoadingError();
             items = new TaskList();
         }
-
         try {
             priorityList = new PriorityList(priorityStorage.read());
         } catch (IOException e) {
@@ -55,6 +62,12 @@ public class Duke {
             priorityList = new PriorityList();
         }
 
+        try {
+            contactList = new ContactList(contactStorage.read());
+        } catch (IOException e) {
+            ui.showLoadingError();
+            contactList = new ContactList();
+        }
     }
 
     /**
@@ -120,12 +133,16 @@ public class Duke {
                     break;
                 } else if (cmd instanceof ListPriorityCommand
                         || cmd instanceof AddMultipleCommand
-                        || cmd instanceof DeleteCommand) {
+                        || cmd instanceof DeleteCommand
+                        || cmd instanceof SetPriorityCommand) {
                     cmd.execute(items, priorityList, ui);
                 } else if (cmd instanceof BackupCommand) {
                     cmd.executeStorage(items, ui, storage);
-                } else if (cmd instanceof SetPriorityCommand) {
-                    cmd.execute(items, priorityList, ui);
+                } else if(cmd instanceof AddContactsCommand) {
+                    cmd.execute(items, contactList, ui);
+                    cmd.executeStorage(items, ui, contactStorage,contactList);
+                } else if(cmd instanceof ListContactsCommand) {
+                    cmd.execute(items, contactList, ui);
                 } else {
                     cmd.execute(items,ui);
                     priorityList = priorityList.addDefaultPriority(cmd);
@@ -143,6 +160,6 @@ public class Duke {
     }
 
     public static void main(String[] args) {
-        new Duke("data/duke.txt", "data/priority.txt").run();
+        new Duke("data/duke.txt", "data/priority.txt","data/contacts.txt").run();
     }
 }

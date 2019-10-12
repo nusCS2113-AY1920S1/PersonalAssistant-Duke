@@ -1,24 +1,10 @@
 package duke.storage;
 
-import duke.task.TaskList;
-import duke.task.Todo;
-import duke.task.Deadline;
-import duke.task.Event;
-import duke.task.Task;
-import duke.task.Repeat;
-import duke.task.DoAfter;
-import duke.task.FixedDuration;
-import duke.ui.Ui;
 import duke.dukeexception.DukeException;
+import duke.task.*;
+import duke.ui.Ui;
 
-//import java.io.FileOutputStream;
-//import java.io.ObjectOutputStream;
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 
 /**
@@ -27,11 +13,10 @@ import java.util.ArrayList;
 public class Storage {
     protected String filePath = "./";
 
-
     /**
      * Creates a storage with a specified filePath.
      *
-     * @param filePath The location of the text file.
+     * @param filePath The location of the text file for tasks.
      */
     public Storage(String filePath) {
         this.filePath += filePath;
@@ -93,7 +78,6 @@ public class Storage {
                         items.add(t);
                     }
                 } else if (commandList[0].equals("D")) {
-
                     if (taskDesc.trim().isEmpty() || dateDesc.trim().isEmpty()) {
                         throw new DukeException("Error reading description or date/time, skipping to next line");
                     } else {
@@ -150,6 +134,7 @@ public class Storage {
         return items;
     }
 
+
     /**
      * Updates the text file from interpreting the tasks of the task list.
      *
@@ -165,17 +150,4 @@ public class Storage {
         writer.write(fileContent);
         writer.close();
     }
-
-    //    public void saveFile(ArrayList<Task> listOfTasks){
-    //        try {
-    //            FileOutputStream fw = new FileOutputStream(filePath);
-    //            ObjectOutputStream objectOutputStream = new ObjectOutputStream(fw);
-    //            objectOutputStream.writeObject(listOfTasks);
-    //            objectOutputStream.close(); //always close
-    //            fw.flush();
-    //            fw.close();
-    //        } catch (IOException IOE) {
-    //            System.out.println("Something went wrong " + IOE.getMessage());
-    //        }
-    //    }
 }
