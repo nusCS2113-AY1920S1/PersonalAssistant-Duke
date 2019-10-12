@@ -20,7 +20,7 @@ public class DeleteCommand extends Command {
      * @throws DukeException Shows error when deletion is not possible
      */
     @Override
-    public void execute(ProgressStack progressStack, Ui ui, Storage storage, Profile profile) throws DukeException {
+    public String execute(ProgressStack progressStack, Ui ui, Storage storage, Profile profile) throws DukeException {
         input = input.substring(7);
         /*try {
             int num = Integer.parseInt(input);
@@ -44,5 +44,6 @@ public class DeleteCommand extends Command {
         } catch (NumberFormatException e) {
             throw new DukeException("Task number is invalid! [Delete]");
         }*/
+        return "";
     }
 }

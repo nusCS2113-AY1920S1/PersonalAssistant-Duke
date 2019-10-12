@@ -14,7 +14,7 @@ public class ReminderCommand extends Command {
     }
 
     @Override
-    public void execute(ProgressStack progressStack, Ui ui, Storage storage, Profile profile) {
+    public String execute(ProgressStack progressStack, Ui ui, Storage storage, Profile profile) {
         ArrayList<Task> deadlineList = new ArrayList<>();
         /*for (Task task : progressStack.getData()) {
             if (task.getTaskType() == Task.TaskType.DEADLINE) {
@@ -34,5 +34,6 @@ public class ReminderCommand extends Command {
         } else {
             ui.showError("Empty List!");
         }
+        return "";
     }
 }

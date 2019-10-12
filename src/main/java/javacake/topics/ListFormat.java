@@ -9,6 +9,6 @@ public abstract class ListFormat {
     /**
      * Prints all the strings in the ArrayList al.
      */
-    public abstract void printList();
+    public abstract String printList();
 
 }

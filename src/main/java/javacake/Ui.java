@@ -34,7 +34,6 @@ public class Ui {
             throw new DukeException("Unable to Load Cake");
         }
 
-
         System.out.println(welcomePhaseA.toString());
 
         if (isFirstTime) {
@@ -54,15 +53,42 @@ public class Ui {
             welcomePhaseB.append("Now let's help you get started with Java! :3\n");
             welcomePhaseB.append(helpMessage()).append(border);
         } else {
-            welcomePhaseB.append("Hello ").append(userName).append("! ");
+            welcomePhaseB.append("Hello ").append(userName).append("!\n");
 
             welcomePhaseB.append(getQuizResults(progress));
 
-            welcomePhaseB.append("What do you want to do today?\n");
+            welcomePhaseB.append("\nWhat do you want to do today?\n");
             welcomePhaseB.append(helpMessage()).append(border);
         }
         System.out.println(welcomePhaseB.toString());
         return userName;
+    }
+
+    public static String showWelcomeMsgA(boolean isFirstTime) {
+        StringBuilder strA = new StringBuilder();
+        strA.append("\nWelcome to JavaCake! ");
+        strA.append("where learning Java can be a Piece of Cake!\n");
+
+        if (isFirstTime) {
+            strA.append("\nI see this is your first time here! ");
+            strA.append("What name would you like to be called?\n\n");
+        }
+        return strA.toString();
+    }
+
+    public static String showWelcomeMsgB(boolean isFirstTime, String userName, int progress) {
+        StringBuilder strA = new StringBuilder();
+        if (isFirstTime) {
+            strA.append("\nWelcome to JavaCake, ").append(userName).append("! ");
+            strA.append("Now let's help you get started with Java! :3\n");
+            strA.append(helpMessage());
+        } else {
+            strA.append("Hello ").append(userName).append("!\n");
+            strA.append(getQuizResults(progress));
+            strA.append("\nWhat do you want to do today?\n");
+            strA.append(helpMessage());
+        }
+        return strA.toString();
     }
 
     /**
@@ -75,7 +101,7 @@ public class Ui {
     /**
      * Prints help message to assist user.
      */
-    public String helpMessage() {
+    public static String helpMessage() {
         return "\nType 'list' to view main topics\n" + "Type 'exit' to rage quit\n";
     }
 
@@ -108,7 +134,7 @@ public class Ui {
      * @param m String containing the message
      */
     public void showMessage(String m) {
-        System.out.println(m);
+        System.out.print(m);
     }
 
     /**
@@ -184,7 +210,7 @@ public class Ui {
      * @param progress the user's overall quiz score
      * @return String with quiz score message
      */
-    public String getQuizResults(int progress) {
+    public static String getQuizResults(int progress) {
         StringBuilder str = new StringBuilder();
         str.append("Here's your quiz progress so far :D\n");
         for (int i = 0; i < 12; ++i) {

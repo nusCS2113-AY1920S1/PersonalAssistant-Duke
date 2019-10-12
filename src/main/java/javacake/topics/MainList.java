@@ -19,14 +19,16 @@ public class MainList extends ListFormat {
     /**
      * Prints the available content in the main list.
      */
-    public void printList() {
+    public String printList() {
+        StringBuilder stringBuilder = new StringBuilder();
         int indexCount = 1;
-        System.out.println("Here are the " + mainContentList.size() + " topics available.");
+        stringBuilder.append("Here are the ").append(mainContentList.size()).append(" topics available.\n");
         for (String topicsInMainList : mainContentList) {
-            System.out.print(indexCount + ".");
-            System.out.println(topicsInMainList);
+            stringBuilder.append(indexCount).append(". ");
+            stringBuilder.append(topicsInMainList).append("\n");
             indexCount++;
         }
-        System.out.println("Key in the index to learn more about the topic!");
+        stringBuilder.append("Key in the index to learn more about the topic!\n");
+        return stringBuilder.toString();
     }
 }

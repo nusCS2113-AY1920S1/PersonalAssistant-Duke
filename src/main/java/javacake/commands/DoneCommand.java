@@ -20,7 +20,7 @@ public class DoneCommand extends Command {
      * @throws DukeException Shows error when task number is invalid
      */
     @Override
-    public void execute(ProgressStack progressStack, Ui ui, Storage storage, Profile profile) throws DukeException {
+    public String execute(ProgressStack progressStack, Ui ui, Storage storage, Profile profile) throws DukeException {
         input = input.substring(5);
         try {
             int num = Integer.parseInt(input);
@@ -47,5 +47,6 @@ public class DoneCommand extends Command {
         } catch (NumberFormatException e) {
             throw new DukeException("Not a valid Task Number!");
         }
+        return "";
     }
 }

@@ -23,7 +23,7 @@ public class ViewScheduleCommand extends Command {
     }
 
     @Override
-    public void execute(ProgressStack progressStack, Ui ui, Storage storage, Profile profile) throws DukeException {
+    public String execute(ProgressStack progressStack, Ui ui, Storage storage, Profile profile) throws DukeException {
         if (input.length() == 12) {
             throw new DukeException("     ☹ OOPS!!! The description of a viewschedule cannot be empty.");
         }
@@ -59,6 +59,7 @@ public class ViewScheduleCommand extends Command {
                 ui.showMessage(output);
             }
         }
+        return "";
     }
 
     static void sortTasksByDate(ArrayList<Task> scheduleList) {
