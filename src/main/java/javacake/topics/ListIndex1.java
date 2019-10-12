@@ -1,8 +1,9 @@
 package javacake.topics;
 
+import java.io.File;
 import java.util.ArrayList;
 
-public class ListIndex1 extends ListFormat {
+public class ListIndex1  {
 
     public ArrayList<String> listIndex1SubList = new ArrayList<String>();
 
@@ -15,6 +16,7 @@ public class ListIndex1 extends ListFormat {
         listIndex1SubList.add("Classes and Objects");
         listIndex1SubList.add("Quiz");
     }
+    
 
     /**
      * Method to print the contents of the list.

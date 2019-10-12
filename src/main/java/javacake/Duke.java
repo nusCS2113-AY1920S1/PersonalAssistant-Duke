@@ -108,7 +108,7 @@ public class Duke  {
             System.setOut(old);
             return baos.toString();
         } catch (DukeException e) {
-            return "Invalid Command";
+            throw new DukeException("Invalid command" + e.getMessage());
         }
     }
 

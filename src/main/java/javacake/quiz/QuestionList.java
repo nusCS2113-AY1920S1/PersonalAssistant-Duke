@@ -61,7 +61,7 @@ public class QuestionList {
                 + " c. specify code that is guaranteed to execute after an assertion returns false.";
         String a2 = "a";
         String q3 = "What's the actual best programming language?";
-        String a3 = "assembly";
+        String a3 = "java";
 
         extensionQuestionList.add(new ExtensionQuestion(q1, a1));
         extensionQuestionList.add(new ExtensionQuestion(q2, a2));
