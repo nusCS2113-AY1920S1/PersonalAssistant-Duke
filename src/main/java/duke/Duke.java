@@ -23,6 +23,7 @@ public class Duke {
     private Ui ui;
     private ContactStorage contactStorage;
     private ContactList contactList;
+
     /**
      * Creates a duke to initialize storage, task list, and ui.
      *
@@ -107,10 +108,10 @@ public class Duke {
                 if (cmd instanceof ExitCommand) {
                     cmd.executeStorage(items,ui,storage);
                     break;
-                } else if(cmd instanceof AddContactsCommand){
+                } else if(cmd instanceof AddContactsCommand) {
                     cmd.execute(items, contactList, ui);
                     cmd.executeStorage(items, ui, contactStorage,contactList);
-                } else if(cmd instanceof ListContactsCommand){
+                } else if(cmd instanceof ListContactsCommand) {
                     cmd.execute(items, contactList, ui);
                 } else {
                     cmd.execute(items,ui);

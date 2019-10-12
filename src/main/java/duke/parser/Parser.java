@@ -1,8 +1,29 @@
 package duke.parser;
 
-import duke.command.*;
+import duke.command.AddMultipleCommand;
+import duke.command.DeleteCommand;
+import duke.command.Command;
+import duke.command.ExitCommand;
+import duke.command.ListCommand;
+import duke.command.AddCommand;
+import duke.command.RemindCommand;
+import duke.command.DoneCommand;
+import duke.command.FindCommand;
+import duke.command.DuplicateFoundCommand;
+import duke.command.AddContactsCommand;
+import duke.command.ListContactsCommand;
 import duke.dukeexception.DukeException;
-import duke.task.*;
+
+import duke.task.TaskList;
+import duke.task.Todo;
+import duke.task.Deadline;
+import duke.task.Event;
+import duke.task.Task;
+import duke.task.Repeat;
+import duke.task.DoAfter;
+import duke.task.FixedDuration;
+import duke.task.DetectDuplicate;
+import duke.task.Contacts;
 
 import java.util.ArrayList;
 
@@ -43,8 +64,7 @@ public class Parser {
                                 throw new DukeException("     (>_<) OOPS!! Task requirements has yet to be completed!"
                                         + " please complete task [" + tempString + "] before marking this as done!");
                             }
-                        }
-                        return new DoneCommand(tasknum);
+                        } return new DoneCommand(tasknum);
                     } else { //delete
                         return new DeleteCommand(tasknum);
                     }
