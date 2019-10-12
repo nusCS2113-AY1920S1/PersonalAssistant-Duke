@@ -157,7 +157,7 @@ public class AcadCommand extends Command implements CommandParser {
      * @param endTime     End time of deadline
      */
     public void addAcadTask(String description, Task.Priority priority, String dateStr,
-                                 String startTime, String endTime, String symbol) {
+                                 String startTime, String endTime, String symbol) throws ParseException, Compal.DukeException {
         AcadTask newAcadTask = new AcadTask(description, priority, dateStr,
                 startTime, endTime, symbol);
         taskList.addTask(newAcadTask);
@@ -173,7 +173,7 @@ public class AcadCommand extends Command implements CommandParser {
      * @throws Compal.DukeException If user input after command word is empty.
      */
     @Override
-    public void parseCommand(String userIn) throws Compal.DukeException {
+    public void parseCommand(String userIn) throws Compal.DukeException, ParseException {
         Scanner scanner = new Scanner(userIn);
         String userCmd = scanner.next();
         if (scanner.hasNext()) {

@@ -8,6 +8,8 @@ import static compal.commons.Messages.MESSAGE_INIT_REMINDER;
 import java.io.File;
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
@@ -438,6 +440,26 @@ public class UiPart {
         dailyTab.setText(dateToStore);
         dailyTab.setContent(dc.init(dateToStore));
         compal.ui.tabWindow.getTabs().add(1, dailyTab);
+
+    }
+
+    /**
+     * Refresh secondary screen only if task added in within a week of current date.
+     *
+     * @param currDate current date of task input
+     */
+    public void secondaryScreenRefresh(Date currDate) throws ParseException, Compal.DukeException {
+        Date currentDate = java.util.Calendar.getInstance().getTime();
+        Calendar c = Calendar.getInstance();
+
+        c.setTime(currentDate);
+        c.add(Calendar.DATE, 7);
+        Date AWeekLater = c.getTime();
+        System.out.println("The date of input is" +currDate);
+        System.out.println("The date of week later is" +AWeekLater);
+        if(currDate.before(AWeekLater)){
+            compal.parser.processCmd(MESSAGE_INIT_REMINDER);
+        }
     }
 
 

@@ -6,6 +6,7 @@ import compal.model.tasks.RecurringTask;
 import compal.model.tasks.Task;
 import compal.model.tasks.TaskList;
 
+import java.text.ParseException;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Scanner;
@@ -137,7 +138,7 @@ public class RecurTaskCommand extends Command implements CommandParser {
      * @param endTime     End time of deadline
      */
     public void addRecurringTask(String description, Task.Priority priority, String dateStr,
-                                 String startTime, String endTime) {
+                                 String startTime, String endTime) throws ParseException, Compal.DukeException {
         RecurringTask recurringTask = new RecurringTask(description, priority, dateStr,
                 startTime, endTime);
         taskList.addTask(recurringTask);
@@ -153,7 +154,7 @@ public class RecurTaskCommand extends Command implements CommandParser {
      * @throws Compal.DukeException If user input after "recurtask" is empty.
      */
     @Override
-    public void parseCommand(String userIn) throws Compal.DukeException {
+    public void parseCommand(String userIn) throws Compal.DukeException, ParseException {
         Scanner scanner = new Scanner(userIn);
         String recurTaskCmd = scanner.next();
         if (scanner.hasNext()) {

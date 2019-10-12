@@ -2,9 +2,12 @@ package compal.model.tasks;
 
 import compal.commons.Compal;
 
-import java.util.ArrayList;
-import java.util.BitSet;
-import java.util.Scanner;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.*;
+
+import static compal.commons.Messages.MESSAGE_INIT_REMINDER;
 
 public class TaskList {
 
@@ -46,12 +49,14 @@ public class TaskList {
      * @param task Task to be added to the list of tasks.
      * @return Size of arrayList.
      */
-    public int addTask(Task task) {
+    public int addTask(Task task) throws ParseException, Compal.DukeException {
         arrlist.add(task);
         compal.storage.saveCompal(arrlist);
         if (compal.ui.dateState.equals(task.getStringDate())) {
             compal.ui.dateViewRefresh(task.getStringDate());
         }
+        compal.ui.secondaryScreenRefresh(task.getDate());
+
         compal.ui.showSize();
         return arrlist.size();
     }

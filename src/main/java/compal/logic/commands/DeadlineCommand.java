@@ -6,6 +6,7 @@ import compal.model.tasks.Deadline;
 import compal.model.tasks.TaskList;
 import compal.model.tasks.Task;
 
+import java.text.ParseException;
 import java.util.Scanner;
 
 import static compal.commons.Messages.MESSAGE_MISSING_COMMAND_ARG;
@@ -34,7 +35,7 @@ public class DeadlineCommand extends Command implements CommandParser {
      * @throws Compal.DukeException If user input after "deadline" is empty.
      */
     @Override
-    public void parseCommand(String userIn) throws Compal.DukeException {
+    public void parseCommand(String userIn) throws Compal.DukeException, ParseException {
         Scanner scanner = new Scanner(userIn);
         if (scanner.hasNext()) {
             String event = scanner.next();

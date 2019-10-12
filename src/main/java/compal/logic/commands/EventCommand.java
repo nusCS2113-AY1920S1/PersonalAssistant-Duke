@@ -6,6 +6,7 @@ import compal.model.tasks.Event;
 import compal.model.tasks.Task;
 import compal.model.tasks.TaskList;
 
+import java.text.ParseException;
 import java.util.Scanner;
 
 import static compal.commons.Messages.MESSAGE_INVALID_TIME_RANGE;
@@ -42,7 +43,7 @@ public class EventCommand extends Command implements CommandParser {
      * @throws Compal.DukeException If user input after "event" is empty.
      */
     @Override
-    public void parseCommand(String userIn) throws Compal.DukeException {
+    public void parseCommand(String userIn) throws Compal.DukeException, ParseException {
         Scanner scanner = new Scanner(userIn);
         String event = scanner.next();
         if (scanner.hasNext()) {
