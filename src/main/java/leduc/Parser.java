@@ -28,41 +28,41 @@ public class Parser {
         if (user.equals(ListCommand.getListShortcut())) {
             c = new ListCommand(user);
         }
-        else if (user.matches(FindCommand.getFindShortcut()+" (.*)")) {
+        else if (user.matches(FindCommand.getFindShortcut()+" (.*)") | user.matches(FindCommand.getFindShortcut()) | user.matches("find (.*)") | user.matches("find")) {
             c = new FindCommand(user);
         }
-        else if (user.matches(DoneCommand.getDoneShortcut() + " \\d+")) {// if it is done and a number of task
+        else if (user.matches(DoneCommand.getDoneShortcut() + " \\d+") | user.matches("done \\d+")) {// if it is done and a number of task
             c = new DoneCommand(user);
         }
-        else if (user.matches(SnoozeCommand.getSnoozeShortcut() + " \\d+")){ // if it is snooze and a number of task
+        else if (user.matches(SnoozeCommand.getSnoozeShortcut() + " \\d+") | user.matches("snooze \\d+")){ // if it is snooze and a number of task
             c = new SnoozeCommand(user);
         }
-        else if (user.matches(PostponeCommand.getPostponeShortcut() + " \\d+ (.*)")){ //example: postpone 1 /by 12/12/2012 22:22
+        else if (user.matches(PostponeCommand.getPostponeShortcut() + " \\d+ (.*)") | user.matches("postpone \\d+ (.*)")){ //example: postpone 1 /by 12/12/2012 22:22
             c = new PostponeCommand(user);
         }
         else if (user.trim().matches(EditCommand.getEditShortcut())){
             c = new EditCommand(user);
         }
-        else if (user.matches(DeleteCommand.getDeleteShortcut() + " \\d+")) {// if it is done and a number of task
+        else if (user.matches(DeleteCommand.getDeleteShortcut() + " \\d+") | user.matches("delete \\d+")) {// if it is done and a number of task
             c = new DeleteCommand(user);
         }
-        else if (user.matches(SortCommand.getSortShortcut() + " (.*)")){
+        else if (user.matches(SortCommand.getSortShortcut() + " (.*)") | user.matches(SortCommand.getSortShortcut()) | user.matches("sort (.*)") | user.matches("sort")){
             c = new SortCommand(user);
         }
-        else if (user.matches(TodoCommand.getTodoShortcut() + "(.*)")) {
+        else if (user.matches(TodoCommand.getTodoShortcut() + " (.*)") | user.matches(TodoCommand.getTodoShortcut()) | user.matches("todo (.*)") | user.matches("todo")) {
             c = new TodoCommand(user);
         }
-        else if (user.matches(DeadlineCommand.getDeadlineShortcut() + "(.*)")) {
+        else if (user.matches(DeadlineCommand.getDeadlineShortcut() + "(.*)") | user.matches(DeadlineCommand.getDeadlineShortcut()) | user.matches(" deadline (.*)") | user.matches(" deadline")) {
             c = new DeadlineCommand(user);
         }
-        else if (user.matches(EventCommand.getEventShortcut() + " (.*)")) {
+        else if (user.matches(EventCommand.getEventShortcut() + " (.*)") | user.matches(EventCommand.getEventShortcut()) | user.matches("event (.*)") | user.matches("event")) {
             c = new EventCommand(user);
         }
-        else if (user.matches(RescheduleCommand.getRescheduleShortcut() + " \\d+ (.*)")) {
+        else if (user.matches(RescheduleCommand.getRescheduleShortcut() + " \\d+ (.*)") | user.matches(RescheduleCommand.getRescheduleShortcut()) | user.matches("reschedule \\d+ (.*)") | user.matches("reschedule")) {
             c = new RescheduleCommand(user);
         }
 
-        else if (user.matches(SetWelcomeCommand.getSetWelcomeShortcut() + " (.*)")) {
+        else if (user.matches(SetWelcomeCommand.getSetWelcomeShortcut() + " (.*)") | user.matches(SetWelcomeCommand.getSetWelcomeShortcut()) | user.matches("setwelcome (.*)") | user.matches("setwelcome")) {
             c = new SetWelcomeCommand(user);
         }
         else if (user.matches(RemindCommand.getRemindShortcut())) {
