@@ -9,7 +9,6 @@ import java.util.TreeMap;
 public class ShowMap extends TreeMap<LocalDate, Theatre> {
     /**
      * Remove a show from the show map.
-     *
      * @param key the show to be removed.
      * @return the show that is removed.
      */
@@ -18,5 +17,14 @@ public class ShowMap extends TreeMap<LocalDate, Theatre> {
         this.remove(key);
 
         return show;
+    }
+
+    /**
+     * Get show name.
+     * @param key the show being queried.
+     * @return the name of the show.
+     */
+    public String getShowName(Object key) {
+        return this.get(key).getShowName();
     }
 }

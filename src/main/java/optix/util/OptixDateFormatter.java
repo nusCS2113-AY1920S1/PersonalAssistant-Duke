@@ -79,4 +79,16 @@ public class OptixDateFormatter {
     private boolean isLeap(int year) {
         return year % 400 == 0 || (year % 4 == 0 && year % 100 != 0);
     }
+
+    public LocalDate getStartOfMonth(int year, int month) {
+        return LocalDate.of(year, month, 1);
+    }
+
+    public LocalDate getEndOfMonth(int year, int month) {
+        if (month == 12) {
+            return LocalDate.of(year, 1, 1).plusYears(1);
+        }
+
+        return LocalDate.of(year, month+1, 1);
+    }
 }

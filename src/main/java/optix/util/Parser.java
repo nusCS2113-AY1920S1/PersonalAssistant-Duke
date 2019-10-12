@@ -8,6 +8,7 @@ import optix.commands.shows.DeleteOneCommand;
 import optix.commands.HelpCommand;
 import optix.commands.shows.EditCommand;
 import optix.commands.shows.ListCommand;
+import optix.commands.shows.ListDateCommand;
 import optix.commands.shows.ListShowCommand;
 import optix.commands.shows.PostponeCommand;
 import optix.commands.seats.SellSeatCommand;
@@ -76,7 +77,7 @@ public class Parser {
             case "postpone":
                 return parsePostpone(splitStr[1]);
             case "list":
-                return new ListShowCommand(splitStr[1]);
+                return parseList(splitStr[1]);
             case "bye":
                 return new ByeCommand();
             case "add": // add poto|5/10/2020|2000|20
@@ -220,12 +221,45 @@ public class Parser {
 
     }
 
-    private static Command parseEditShow(String details) {
+    /**
+     * Parse the remaining user input to its respective parameters for EditCommand.
+     *
+     * @param details The details to create a new EditCommand Object.
+     * @return new EditCommand Object.
+     * @throws OptixInvalidCommandException if the user input does not have the correct number of parameters.
+     */
+    private static Command parseEditShow(String details) throws OptixInvalidCommandException {
         String[] splitStr = details.split("\\|");
+
+        if (splitStr.length != 3) {
+            throw new OptixInvalidCommandException();
+        }
+
         String oldShowName = splitStr[0].trim();
         String showDate = splitStr[1].trim();
         String newShowName = splitStr[2].trim();
 
         return new EditCommand(oldShowName, showDate, newShowName);
+    }
+
+    /**
+     * Parse the remaining user input to its respective parameters for ListDateCommand or ListShowCommand.
+     *
+     * @param details The details to create a new ListDateCommand or ListShowCommand Object.
+     * @return new ListDateCommand or ListShowCommand Object.
+     */
+    private static Command parseList(String details) {
+        String[] splitStr = details.split(" ");
+
+        if (splitStr.length == 2) {
+            try {
+                Integer.parseInt(splitStr[1]);
+                return new ListDateCommand(details);
+            } catch (NumberFormatException e) {
+                return new ListShowCommand(details);
+            }
+        }
+
+        return new ListShowCommand(details);
     }
 }
