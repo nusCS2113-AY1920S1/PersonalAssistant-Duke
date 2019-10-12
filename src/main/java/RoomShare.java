@@ -18,6 +18,7 @@ public class RoomShare {
     private Parser parser;
     private RecurHandler recurHandler;
 
+
     /**
      * Constructor of a Duke class. Creates all necessary objects and collections for Duke to run
      * Also loads the ArrayList of tasks from the data.txt file
@@ -34,11 +35,15 @@ public class RoomShare {
             ArrayList<Task> emptyList = new ArrayList<>();
             taskList = new TaskList(emptyList);
         }
+
+
+
         recurHandler = new RecurHandler(taskList);
         if (recurHandler.checkRecurrence()) {
             ui.showChangeInTaskList();
             taskList.list();
         }
+
 
     }
 
@@ -48,6 +53,7 @@ public class RoomShare {
     public void run() {
         boolean isExit = false;
         boolean isExitRecur = false;
+        boolean isExitAssign = false;
         while (!isExit) {
             String command = parser.getCommand();
             TaskType type;
@@ -69,6 +75,7 @@ public class RoomShare {
                         ui.showWriteError();
                     }
                     break;
+
 
                 case bye:
                     isExit = true;
@@ -123,21 +130,40 @@ public class RoomShare {
 
                 case todo:
                     try {
-                        ui.showAdd();
-                        ToDo temp = new ToDo(parser.getDescription());
-                        taskList.add(temp);
-                    } catch (RoomShareException e) {
+                        String description = parser.getDescription();
+                        ui.promptForAssigning();
+                        String response = parser.getResponse();
+                        if (response.equals("no")) {
+                            ToDo temp = new ToDo(description);
+                            taskList.add(temp);
+                            ui.showAdd();
+                        }
+                        else {
+                            ToDo temp = new ToDo(description, response);
+                            taskList.add(temp);
+                            ui.showAdd();
+                            }
+                        } catch (RoomShareException e) {
                         ui.showEmptyDescriptionError();
                     }
                     break;
 
                 case deadline:
                     try {
-                        ui.showAdd();
                         String[] deadlineArray = parser.getDescriptionWithDate();
                         Date by = parser.formatDate(deadlineArray[1]);
-                        Deadline temp = new Deadline(deadlineArray[0], by);
-                        taskList.add(temp);
+                        ui.promptForAssigning();
+                        String response = parser.getResponse();
+                        if (response.equals("no")) {
+                            Deadline temp = new Deadline(deadlineArray[0], by);
+                            taskList.add(temp);
+                            ui.showAdd();
+                        }
+                        else {
+                            Deadline temp = new Deadline(deadlineArray[0], by, response);
+                            taskList.add(temp);
+                            ui.showAdd();
+                        }
                     } catch (RoomShareException e) {
                         ui.showDateError();
                     }
@@ -147,7 +173,6 @@ public class RoomShare {
                     try {
                         String[] eventArray = parser.getDescriptionWithDate();
                         Date at = parser.formatDate(eventArray[1]);
-
                         ui.promptForReply();
                         ReplyType replyType;
                         try {
@@ -161,13 +186,24 @@ public class RoomShare {
                                 TimeUnit timeUnit = parser.getTimeUnit();
                                 ui.promptForTime();
                                 int duration = parser.getAmount();
-                                FixedDuration fixedDuration = new FixedDuration(eventArray[0], at, duration);
-
-                                //checks for clashes
-                                if( CheckAnomaly.checkTime(fixedDuration) ) {
-                                    taskList.add(fixedDuration);
+                                ui.promptForAssigning();
+                                String response = parser.getResponse();
+                                if (response.equals("no")) {
+                                    FixedDuration fixedDuration = new FixedDuration(eventArray[0], at, duration);
+                                    //checks for clashes
+                                    if (CheckAnomaly.checkTime(fixedDuration)) {
+                                        taskList.add(fixedDuration);
+                                    } else {
+                                        throw new RoomShareException(ExceptionType.timeClash);
+                                    }
                                 } else {
-                                    throw new RoomShareException(ExceptionType.timeClash);
+                                    FixedDuration fixedDuration = new FixedDuration(eventArray[0], at, duration, response);
+                                    //checks for clashes
+                                    if (CheckAnomaly.checkTime(fixedDuration)) {
+                                        taskList.add(fixedDuration);
+                                    } else {
+                                        throw new RoomShareException(ExceptionType.timeClash);
+                                    }
                                 }
 
                                 Timer timer = new Timer();
@@ -188,10 +224,19 @@ public class RoomShare {
                                 }
                                 ui.showAdd();
                             break;
+
                             case no:
-                                Event event = new Event(eventArray[0], at);
-                                taskList.add(event);
-                                ui.showAdd();
+                                ui.promptForAssigning();
+                                String res = parser.getResponse();
+                                if (res.equals("no")) {
+                                    Event event = new Event(eventArray[0], at);
+                                    taskList.add(event);
+                                    ui.showAdd();
+                                } else {
+                                    Event event = new Event(eventArray[0], at, res);
+                                    taskList.add(event);
+                                    ui.showAdd();
+                                }
                             break;
                             default:
                                 ui.showCommandError();
@@ -262,9 +307,9 @@ public class RoomShare {
                     taskList.reorder(firstIndex, secondIndex);
                     break;
 
-                    default:
-                    ui.showCommandError();
-                    break;
+                default:
+                ui.showCommandError();
+                break;
             }
         }
     }

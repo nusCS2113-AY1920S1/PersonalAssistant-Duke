@@ -239,4 +239,8 @@ public class Ui {
     public void showReordering() {
         System.out.println("Reordering the task list...");
     }
+
+    public void promptForAssigning() {
+        System.out.println("Do you want to assign this task? (if yes enter the assignee's name");
+    }
 }

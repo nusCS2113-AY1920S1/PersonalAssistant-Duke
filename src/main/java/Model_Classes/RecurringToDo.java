@@ -15,6 +15,17 @@ public class RecurringToDo extends ToDo {
     }
 
     /**
+     *
+     * @param description
+     * @param recurrence
+     * @param user
+     */
+    public RecurringToDo(String description, String recurrence, String user) {
+        super(description, user);
+        this.recurrence = recurrence;
+    }
+
+    /**
      * Overload constructor of the RecurringTodo class. Takes in the description of the task
      * @param recurrence Frequency task is repeated
      * @param description Description of the task.

@@ -20,6 +20,18 @@ public class FixedDuration extends Event {
     }
 
     /**
+     *
+     * @param description
+     * @param at
+     * @param duration
+     * @param user
+     */
+    public FixedDuration(String description, Date at, int duration, String user) {
+        super(description, at, user);
+        this.duration = duration;
+    }
+
+    /**
      * Overload constructor for fixed duration
      * @param description Description of event
      * @param at Date of event

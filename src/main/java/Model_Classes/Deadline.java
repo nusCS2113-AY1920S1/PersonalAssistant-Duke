@@ -23,6 +23,17 @@ public class Deadline extends Task {
     }
 
     /**
+     *
+     * @param description
+     * @param by
+     * @param user
+     */
+    public Deadline (String description, Date by, String user) {
+        super(description, user);
+        this.by = by;
+    }
+
+    /**
      * Overload Constructor for the Deadline object.
      * Takes in inputs for description and date/time the tasks should be done by.
      * @param description Description of the task.

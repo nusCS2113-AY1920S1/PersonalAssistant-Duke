@@ -19,6 +19,17 @@ public class RecurringEvent extends Event {
     }
 
     /**
+     *
+     * @param description
+     * @param at
+     * @param recurrence
+     */
+    public RecurringEvent(String description, Date at, String recurrence, String user) {
+        super(description, at, user);
+        this.recurrence = recurrence;
+    }
+
+    /**
      * Overload constructor for RecurringEvent object
      * Takes in inputs for description of the event and the time the event occurs
      * @param recurrence Frequency task is repeated

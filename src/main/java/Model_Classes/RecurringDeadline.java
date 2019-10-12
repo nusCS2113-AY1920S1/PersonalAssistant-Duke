@@ -19,6 +19,17 @@ public class RecurringDeadline extends Deadline {
     }
 
     /**
+     *
+     * @param description
+     * @param by
+     * @param recurrence
+     */
+    public RecurringDeadline(String description, Date by, String recurrence, String user) {
+        super(description, by, user);
+        this.recurrence = recurrence;
+    }
+
+    /**
      * Overload constructor for the RecurringDeadline object.
      * Takes in inputs for description and date/time the tasks should be done by.
      * @param recurrence Frequency task is repeated

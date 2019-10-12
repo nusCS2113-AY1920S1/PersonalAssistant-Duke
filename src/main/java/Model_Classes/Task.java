@@ -14,6 +14,7 @@ public class Task{
     private boolean isDone;
     private String created;
     private Priority priority;
+    private String user;
 
     /**
      * Constructor for the task object. takes in the description of the task
@@ -27,6 +28,17 @@ public class Task{
         this.created = now.format(dateTimeFormatterNow);
         this.priority = Priority.low;
     }
+
+    public Task(String description, String user) {
+        this.description = description;
+        this.isDone = false;
+        DateTimeFormatter dateTimeFormatterNow = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
+        LocalDateTime now = LocalDateTime.now();
+        this.created = now.format(dateTimeFormatterNow);
+        this.priority = Priority.low;
+        this.user = user;
+    }
+
 
     /**
      * Overload constructor for the task object. takes in the description of the task
@@ -43,6 +55,13 @@ public class Task{
         this.priority = priority;
     }
 
+    /**
+     * Returns String of the user that was specified
+     * @return name of the user
+     */
+    public String getUser() {
+        return this.user;
+    }
     /**
      * Returns String of the time Task was created
      * @return time the task was created
@@ -107,7 +126,7 @@ public class Task{
      * @return
      */
     public String toString() {
-        return getStatusIcon() + getDescription();
+        return getStatusIcon() + getDescription() + " " + "(" + getUser() + ")";
     }
 
     /**
