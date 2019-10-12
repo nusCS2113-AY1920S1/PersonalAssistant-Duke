@@ -12,7 +12,7 @@ public class RevenueStorage {
         this.revenue = revenue;
 	}
 
-    public double loadRevenue() {
+    public double getRevenue() {
         return revenue;
     }
 

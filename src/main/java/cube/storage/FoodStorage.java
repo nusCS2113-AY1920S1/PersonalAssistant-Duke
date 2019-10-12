@@ -14,7 +14,7 @@ public class FoodStorage {
 		this.foodList = foodList;
 	}
 
-	public FoodList loadFood() {
+	public FoodList getFoodList() {
 		return foodList;
 	}
 

@@ -20,8 +20,8 @@ public class StorageManager {
 		this.revenueStorage = revenueStorage;
 	}
 
-	public FoodList loadFood() {
-		return foodStorage.loadFood();
+	public FoodList getFoodList() {
+		return foodStorage.getFoodList();
 	}
 
 	public void appendFood(Food food) {
@@ -32,8 +32,8 @@ public class StorageManager {
 		foodStorage.storeFoodList(foodlist);
 	}
 
-	public double loadRevenue() {
-		return revenueStorage.loadRevenue();
+	public double getRevenue() {
+		return revenueStorage.getRevenue();
 	}
 
 	public void storeRevenue(double revenue) {

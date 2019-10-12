@@ -35,8 +35,8 @@ public class Duke {
 
         try {
             storageManager = storage.load();
-            foodList = storageManager.loadFood();
-            Food.updateRevenue(storageManager.loadRevenue());
+            foodList = storageManager.getFoodList();
+            Food.updateRevenue(storageManager.getRevenue());
         } catch (CubeException e) {
             ui.showLoadingError(filePath);
             foodList = new FoodList();
@@ -58,12 +58,6 @@ public class Duke {
                 Command c = Parser.parse(fullCommand);
                 isExit = c.isExit();
                 c.execute(foodList, ui, storageManager);
-
-                storageManager = new StorageManager();
-                Food test = new Food("haha");
-                storageManager.appendFood(test);
-                storageManager.storeRevenue(99.84327);
-
                 storage.save(storageManager);
             } catch (CubeException e) {
                 ui.showError(e.getMessage());
