@@ -24,7 +24,7 @@ checkstyle {
 
 shadowJar {
     archiveBaseName = "mid"
-    archiveVersion = "v1.1"
+    archiveVersion = "v1.2"
     archiveClassifier = null
     archiveAppendix = null
 }

@@ -19,7 +19,7 @@ public class CalendarCommand extends Command {
     /**
      * Constructor for CalendarCommand.
      *
-     * @param argumentArray Array of command arguments input by user.
+     * @param argumentArray Array of oof.command arguments input by user.
      */
     public CalendarCommand(String[] argumentArray) {
         Calendar calendar = Calendar.getInstance();
