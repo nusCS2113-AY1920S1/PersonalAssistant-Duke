@@ -43,17 +43,13 @@ public class FixedDurationTasksCommand extends Command {
 
     /**
      * This function breaks down the instruction given then add the task to list by its task type.
-     * @param todos The TaskList object used to storage all todo tasks
      * @param events The TaskList object used to storage all event tasks
      * @param deadlines The TaskList object used to storage deadline tasks
      * @throws ParseException The error when the data being passed contains an error
      */
-    private void addByType(TaskList todos, TaskList events, TaskList deadlines) throws ParseException {
+    private void addByType(TaskList events, TaskList deadlines) throws ParseException {
         String taskType = taskDetails.substring(0,3);
-        if(taskType.equals("[T]")){
-            String[] spiltDetails = taskDetails.split(" ", 2);
-            todos.addTask(new Todo(spiltDetails[1]));
-        } else if (taskType.equals("[D]")){
+        if (taskType.equals("[D]")){
             String[] spiltDetails = taskDetails.split("by: ", 2);
             String[] dates = spiltDetails[1].split(" until ");
             deadlines.addTask(new Deadline(taskDescription, dates[0]));
@@ -72,7 +68,6 @@ public class FixedDurationTasksCommand extends Command {
 
     /**
      * Executes the finding of multiple available block period inside the TaskList object with the given duration.
-     * @param todos The todo TaskList object used to find free times with the given duration
      * @param events The event TaskList object used to find free times with the given duration
      * @param deadlines The deadline TaskList object used to find frees time with the given duration
      * @param ui The Ui object to display the chosen free time message
@@ -81,7 +76,7 @@ public class FixedDurationTasksCommand extends Command {
      * @throws Exception Throws ParseException is findFreeTimes contains error
      */
     @Override
-    public String execute(TaskList todos, TaskList events, TaskList deadlines, Ui ui, Storage storage) throws Exception {
+    public String execute(TaskList events, TaskList deadlines, Ui ui, Storage storage) throws Exception {
         try {
             ArrayList<Pair<Date, Date>>  data = events.findFreeTimes(duration, MAX_NO_OF_SLOTS, type);
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/view/FixedDurationTask.fxml"));
@@ -93,7 +88,7 @@ public class FixedDurationTasksCommand extends Command {
             stage.showAndWait();
             FixedDurationTask controller = fxmlLoader.getController();
             taskDetails = controller.returnData();
-            addByType(todos, events, deadlines);
+//            addByType(todos, events, deadlines);
         } catch (IOException e){
             e.printStackTrace();
         }

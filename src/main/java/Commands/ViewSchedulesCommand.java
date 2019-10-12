@@ -15,7 +15,6 @@ public class ViewSchedulesCommand extends Command{
     /**
      * Executes the display of all the task as a schedule,
      * differentiated by type.
-     * @param todos The todos TaskList object that contains todo tasks
      * @param events The events TaskList object that contain event tasks
      * @param deadlines The deadlines TaskList object that contain deadline tasks
      * @param ui The Ui object to display the user schedule
@@ -23,14 +22,11 @@ public class ViewSchedulesCommand extends Command{
      * @return This returns the method in the Ui object which returns the string to display user's schedule
      */
     @Override
-    public String execute(TaskList todos, TaskList events, TaskList deadlines, Ui ui, Storage storage){
+    public String execute(TaskList events, TaskList deadlines, Ui ui, Storage storage){
         TaskList list = new TaskList();
-        ArrayList<Task> todosList = todos.getList();
         ArrayList<Task> eventsList = events.getList();
         ArrayList<Task> deadlinesList = deadlines.getList();
-        for (Task task : todosList) {
-            list.addTask(task);
-        }
+
         for (Task task : eventsList) {
             list.addTask(task);
         }
