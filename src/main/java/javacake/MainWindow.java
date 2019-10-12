@@ -33,6 +33,9 @@ public class MainWindow extends AnchorPane {
     private QuizCommand quizCommand;
     private boolean isStarting = true;
 
+    /**
+     * Initialise the Main Window launched.
+     */
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());

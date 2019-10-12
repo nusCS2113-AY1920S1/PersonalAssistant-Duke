@@ -64,6 +64,11 @@ public class Ui {
         return userName;
     }
 
+    /**
+     * Method to obtain Welcome Message Part 1.
+     * @param isFirstTime boolean to check if first time
+     * @return String containing first part of welcome message for GUI
+     */
     public static String showWelcomeMsgA(boolean isFirstTime) {
         StringBuilder strA = new StringBuilder();
         strA.append("\nWelcome to JavaCake! ");
@@ -76,6 +81,13 @@ public class Ui {
         return strA.toString();
     }
 
+    /**
+     * Method to obtain Welcome Message Part 2.
+     * @param isFirstTime boolean to check if first time
+     * @param userName username
+     * @param progress progress of user
+     * @return String containing first part of welcome message for GUI
+     */
     public static String showWelcomeMsgB(boolean isFirstTime, String userName, int progress) {
         StringBuilder strA = new StringBuilder();
         if (isFirstTime) {

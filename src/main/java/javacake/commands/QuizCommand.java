@@ -77,23 +77,30 @@ public class QuizCommand extends Command {
         return "";
     }
 
+    /**
+     * Method to overwrite the old score of user,
+     * if it's less than the current score.
+     * @param score new score of user
+     * @param profile profile object of user
+     * @throws DukeException error if question type is undefined
+     */
     public void overwriteOldScore(int score, Profile profile) throws DukeException {
         int topicIdx;
         switch (qnType) {
-            case OOP:
-                topicIdx = 0;
-                break;
-            case BASIC:
-                topicIdx = 1;
-                break;
-            case EXTENSIONS:
-                topicIdx = 2;
-                break;
-            case ALL:
-                topicIdx = 3;
-                break;
-            default:
-                throw new DukeException("Topic Idx out of bounds!");
+        case OOP:
+            topicIdx = 0;
+            break;
+        case BASIC:
+            topicIdx = 1;
+            break;
+        case EXTENSIONS:
+            topicIdx = 2;
+            break;
+        case ALL:
+            topicIdx = 3;
+            break;
+        default:
+            throw new DukeException("Topic Idx out of bounds!");
         }
         if (score > profile.getContentMarks(topicIdx)) {
             if (score < 0.5 * QuestionList.MAX_QUESTIONS) {
@@ -106,18 +113,32 @@ public class QuizCommand extends Command {
         }
     }
 
+    /**
+     * Method to get the next Question.
+     * @return the string containing the next question
+     */
     public String getQuestion() {
         prevQuestion = chosenQuestions.get(chosenQuestions.size() - 1);
         chosenQuestions.remove(chosenQuestions.size() - 1);
         return prevQuestion.getQuestion();
     }
 
+    /**
+     * Method to check if answer is correct.
+     * If it is, then update the score.
+     * @param input the answer inputted by the user
+     */
     public void checkAnswer(String input) {
         if (prevQuestion.isAnswerCorrect(input)) {
             currScore++;
         }
     }
 
+    /**
+     * Method to get the score of the quiz.
+     * @return String containing what Cake said about the quiz.
+     * @throws DukeException error thrown if failed to overwrite score.
+     */
     public String getQuizScore() throws DukeException {
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append("This is your score:");

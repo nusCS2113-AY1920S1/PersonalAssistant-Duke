@@ -106,7 +106,8 @@ public class GoToCommand extends Command {
                         new FileReader("content/MainList/ListIndex3/Exceptions/Exceptions.txt")));
             } else if (progressStack.checkProgress() == 2 && index.equals("3.4")) {
                 if (Duke.isCliMode()) {
-                    return new QuizCommand(Question.QuestionType.EXTENSIONS).execute(progressStack, ui, storage, profile);
+                    return new QuizCommand(Question.QuestionType.EXTENSIONS)
+                            .execute(progressStack, ui, storage, profile);
                 } else {
                     QuizCommand.setProfile(profile);
                     return "!@#_QUIZ_3";
