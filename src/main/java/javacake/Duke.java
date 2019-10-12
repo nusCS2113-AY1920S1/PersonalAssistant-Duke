@@ -98,7 +98,7 @@ public class Duke  {
             Command c = Parser.parse(input);
             return c.execute(progressStack, ui, storage, profile);
         } catch (DukeException e) {
-            return "Invalid Command";
+            return e.getMessage();
         }
     }
 

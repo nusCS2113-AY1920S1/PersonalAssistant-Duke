@@ -63,45 +63,50 @@ public class MainWindow extends AnchorPane {
      * the dialog container. Clears the user input after processing.
      */
     @FXML
-    private void handleUserInput() throws DukeException {
-        if (isStarting) {
-            if (duke.isFirstTimeUser) {
+    private void handleUserInput() {
+        try {
+            if (isStarting) {
+                if (duke.isFirstTimeUser) {
+                    String input = userInput.getText();
+                    dialogContainer.getChildren().addAll(
+                            DialogBox.getUserDialog(input, userImage),
+                            DialogBox.getDukeDialog(Ui.showWelcomeMsgB(
+                                    duke.isFirstTimeUser, duke.userName, duke.userProgress), dukeImage)
+                    );
+                    duke.userName = input;
+                    duke.profile.overwriteName(duke.userName);
+                    userInput.clear();
+                }
+                isStarting = false;
+            } else {
                 String input = userInput.getText();
+                System.out.println(input);
+                String response = "";
+                if (!isQuiz) {
+                    response = duke.getResponse(input);
+                } else {
+                    quizCommand.checkAnswer(input);
+                    if (quizCommand.chosenQuestions.size() > 0) {
+                        response = quizCommand.getQuestion();
+                    } else {
+                        isQuiz = false;
+                        response = quizCommand.getQuizScore();
+                    }
+                }
+                if (response.contains("!@#_QUIZ")) {
+                    isQuiz = true;
+                    response = getFirstQn(response);
+                }
                 dialogContainer.getChildren().addAll(
                         DialogBox.getUserDialog(input, userImage),
-                        DialogBox.getDukeDialog(Ui.showWelcomeMsgB(
-                                duke.isFirstTimeUser, duke.userName, duke.userProgress), dukeImage)
+                        DialogBox.getDukeDialog(response, dukeImage)
                 );
-                duke.userName = input;
-                duke.profile.overwriteName(duke.userName);
                 userInput.clear();
             }
-            isStarting = false;
-        } else {
-            String input = userInput.getText();
-            System.out.println(input);
-            String response = "";
-            if (!isQuiz) {
-                response = duke.getResponse(input);
-            } else {
-                quizCommand.checkAnswer(input);
-                if (quizCommand.chosenQuestions.size() > 0) {
-                    response = quizCommand.getQuestion();
-                } else {
-                    isQuiz = false;
-                    response = quizCommand.getQuizScore();
-                }
-            }
-            if (response.contains("!@#_QUIZ")) {
-                isQuiz = true;
-                response = getFirstQn(response);
-            }
+        } catch (DukeException e) {
             dialogContainer.getChildren().addAll(
-                    DialogBox.getUserDialog(input, userImage),
-                    DialogBox.getDukeDialog(response, dukeImage)
+                    DialogBox.getDukeDialog(e.getMessage(), dukeImage)
             );
-
-            userInput.clear();
         }
     }
 
