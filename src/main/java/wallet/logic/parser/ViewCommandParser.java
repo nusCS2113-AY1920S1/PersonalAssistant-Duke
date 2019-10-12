@@ -7,7 +7,8 @@ public class ViewCommandParser implements Parser<ViewCommand> {
     @Override
     public ViewCommand parse(String input) {
         if (input != "") {
-            return new ViewCommand(input);
+            String[] arguments = input.split(" ");
+            return new ViewCommand(arguments);
         }
         return null;
     }
