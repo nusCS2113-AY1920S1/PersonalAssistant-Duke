@@ -15,6 +15,10 @@ public class Main extends Application {
 
     private Compal compal = new Compal();
 
+    public static void main(String[] args) {
+        launch(args);
+    }
+
     /**
      * Initializes and sets up the GUI.
      * Pulls layout from file MainWindow.fxml.
@@ -26,9 +30,5 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws Exception {
         Ui ui = new UiManager(compal);
         ui.start(primaryStage);
-    }
-
-    public static void main(String[] args) {
-        launch(args);
     }
 }

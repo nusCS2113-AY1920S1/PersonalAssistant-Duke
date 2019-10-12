@@ -153,8 +153,6 @@ public abstract class Task implements Serializable {
      */
 
 
-
-
     /**
      * Gets hasReminder of task.
      *

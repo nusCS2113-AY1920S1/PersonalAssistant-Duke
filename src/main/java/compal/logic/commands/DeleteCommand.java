@@ -4,10 +4,12 @@ import compal.commons.Compal;
 import compal.logic.parser.CommandParser;
 import compal.model.tasks.TaskList;
 
+import java.text.ParseException;
+import java.util.Date;
 import java.util.Scanner;
 
-import static compal.commons.Messages.MESSAGE_MISSING_COMMAND_ARG;
 import static compal.commons.Messages.MESSAGE_INVALID_RANGE;
+import static compal.commons.Messages.MESSAGE_MISSING_COMMAND_ARG;
 
 /**
  * Executes user command "delete".
@@ -33,7 +35,7 @@ public class DeleteCommand extends Command implements CommandParser {
      * @throws Compal.DukeException If user task number input is invalid.
      */
     @Override
-    public void parseCommand(String userIn) throws Compal.DukeException {
+    public void parseCommand(String userIn) throws Compal.DukeException, ParseException {
         //Compal.ui.printg(userIn);
         Scanner scanner = new Scanner(userIn);
         String delete = scanner.next();
@@ -49,11 +51,15 @@ public class DeleteCommand extends Command implements CommandParser {
             }
 
             String removeDesc = taskList.arrlist.get(toRemove).toString();
+
             taskList.arrlist.remove(toRemove);
             compal.ui.printg("Noted. I've removed this task:");
             compal.ui.printg(removeDesc);
             compal.storage.saveCompal(taskList.arrlist);
             compal.ui.showSize();
+
+            Date removeDate = taskList.arrlist.get(toRemove).getDate();
+            compal.ui.secondaryScreenRefresh(removeDate);
             //Compal.tasklist.deleteTask(userIn);
         } else {
             compal.ui.printg(MESSAGE_MISSING_COMMAND_ARG);

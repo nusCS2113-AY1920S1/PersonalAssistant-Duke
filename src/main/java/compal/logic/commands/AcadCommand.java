@@ -7,18 +7,18 @@ import compal.model.tasks.Task;
 import compal.model.tasks.TaskList;
 
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Scanner;
 
-import static compal.commons.Messages.MESSAGE_MISSING_DATE;
-import static compal.commons.Messages.MESSAGE_MISSING_EDATE;
-import static compal.commons.Messages.MESSAGE_MISSING_EDATE_ARG;
+import static compal.commons.Messages.MESSAGE_INVALID_DATE_TIME_INPUT;
 import static compal.commons.Messages.MESSAGE_INVALID_TIME_RANGE;
 import static compal.commons.Messages.MESSAGE_MISSING_COMMAND_ARG;
+import static compal.commons.Messages.MESSAGE_MISSING_DATE;
 import static compal.commons.Messages.MESSAGE_MISSING_DATE_ARG;
+import static compal.commons.Messages.MESSAGE_MISSING_EDATE;
+import static compal.commons.Messages.MESSAGE_MISSING_EDATE_ARG;
 
 public class AcadCommand extends Command implements CommandParser {
     private static final String CMD_LECT = "lect";
@@ -151,13 +151,14 @@ public class AcadCommand extends Command implements CommandParser {
      * confirms the addition of that task.
      *
      * @param description Description of recurring task.
-     * @param dateStr Starting date of recurring task.
+     * @param dateStr     Starting date of recurring task.
      * @param startTime   Starting time of recurring task.
      * @param priority    priority level of task type
      * @param endTime     End time of deadline
      */
     public void addAcadTask(String description, Task.Priority priority, String dateStr,
-                                 String startTime, String endTime, String symbol) {
+                            String startTime, String endTime, String symbol)
+            throws ParseException, Compal.DukeException {
         AcadTask newAcadTask = new AcadTask(description, priority, dateStr,
                 startTime, endTime, symbol);
         taskList.addTask(newAcadTask);
@@ -173,7 +174,7 @@ public class AcadCommand extends Command implements CommandParser {
      * @throws Compal.DukeException If user input after command word is empty.
      */
     @Override
-    public void parseCommand(String userIn) throws Compal.DukeException {
+    public void parseCommand(String userIn) throws Compal.DukeException, ParseException {
         Scanner scanner = new Scanner(userIn);
         String userCmd = scanner.next();
         if (scanner.hasNext()) {
@@ -185,6 +186,11 @@ public class AcadCommand extends Command implements CommandParser {
             String endTime = getEndTime(restOfInput);
             String endDateStr = getEndDate(restOfInput);
             String symbol = getSymbol(userCmd);
+
+            if (!isValidDateAndTime(startDateList.get(0), startTime)) {
+                compal.ui.printg(MESSAGE_INVALID_DATE_TIME_INPUT);
+                throw new Compal.DukeException(MESSAGE_INVALID_DATE_TIME_INPUT);
+            }
 
             if (Integer.parseInt(startTime) > Integer.parseInt(endTime)) {
                 compal.ui.printg(MESSAGE_INVALID_TIME_RANGE);

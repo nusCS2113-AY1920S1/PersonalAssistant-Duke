@@ -15,7 +15,7 @@ public class AcadTask extends Task {
      * @param endTime     End time of deadline
      */
     public AcadTask(String description, Priority priority, String date,
-                         String startTime, String endTime, String symbol) {
+                    String startTime, String endTime, String symbol) {
         super(description, priority);
         super.setDate(date);
         super.setStartTime(startTime);
