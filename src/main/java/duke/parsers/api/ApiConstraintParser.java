@@ -1,5 +1,6 @@
 package duke.parsers.api;
 
+import duke.commons.Enumerations.Constraint;
 import duke.data.BusStop;
 import duke.data.Location;
 import duke.commons.exceptions.DukeException;
@@ -20,13 +21,13 @@ public class ApiConstraintParser {
      * @param constraint The constraint to be applied
      * @return The updated Holiday object with constraint
      */
-    public static Holiday getConstraintLocation(Holiday holiday, String constraint) throws DukeException {
+    public static Holiday getConstraintLocation(Holiday holiday, Constraint constraint) throws DukeException {
         switch (constraint) {
-        case "onlyBus":
+        case BUS:
             return getBus(holiday);
-        case "onlyMRT":
+        case MRT:
             return getMrt(holiday);
-        case "Hybrid":
+        case MIXED:
             return getHybrid(holiday);
         default:
             return holiday;

@@ -1,6 +1,7 @@
 package duke.commands;
 
 import duke.PathFinder;
+import duke.commons.Enumerations.Constraint;
 import duke.data.BusStop;
 import duke.data.Location;
 import duke.commons.Messages;
@@ -18,7 +19,7 @@ import java.util.ArrayList;
  * Class representing a command to send the test URL connection.
  */
 public class FindPathCommand extends Command {
-    private String constraint;
+    private Constraint constraint;
     private String startPointIndex;
     private String endPointIndex;
 
@@ -31,7 +32,20 @@ public class FindPathCommand extends Command {
      */
 
     public FindPathCommand(String constraint, String startPointIndex, String endPointIndex) {
-        this.constraint = constraint;
+        switch (constraint) {
+            case "onlyMRT":
+                this.constraint = Constraint.MRT;
+                break;
+            case "onlyBus":
+                this.constraint = Constraint.BUS;
+                break;
+            case "Hybrid":
+                this.constraint = Constraint.MIXED;
+                break;
+            default:
+                this.constraint = Constraint.CAR;
+                break;
+        }
         this.endPointIndex = endPointIndex;
         this.startPointIndex = startPointIndex;
     }
@@ -61,6 +75,7 @@ public class FindPathCommand extends Command {
         endPoint = ApiConstraintParser.getConstraintLocation(endPoint, this.constraint);
 
         // calculate the shortest path using algorithm with 2 locations as parameters
+
         PathFinder pathFinder = new PathFinder();
         ArrayList<BusStop> route = pathFinder.execute(startLocation, endLocation);
 
@@ -69,7 +84,6 @@ public class FindPathCommand extends Command {
             ui.show(busStop.getBusCode());
         }
 
-        /* CustomAlgorithm.calculateShortestPath(endPoint.getLocation(), startPoint.getLocation()); */
         ui.showMap(route);
     }
 
