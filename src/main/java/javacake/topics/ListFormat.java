@@ -7,14 +7,11 @@ public abstract class ListFormat {
 
     private String folderPath;
     private File folder;
-    private File[] listOfFiles;
+    private static File[] listOfFiles;
+    private static ArrayList<Topic> listOfTopics;
 
-    public ListFormat(String inputFolderPath) {
-        this.folderPath = inputFolderPath;
-    }
-    public abstract String getFolderPath();
-    public abstract File findTopicsWithinFolder(String folderPath);
 
+    public abstract void loadTopics();
 
     /**
      * Prints all the strings in the ArrayList al.

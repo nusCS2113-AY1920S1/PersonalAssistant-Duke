@@ -1,12 +1,46 @@
 package javacake;
 
+import javacake.topics.SubListTopic;
+
+import java.io.File;
+import java.util.ArrayList;
 import java.util.Stack;
 
 public class ProgressStack {
+    private String defaultFilePath = "content/MainList";
+    private static String currentFilePath = "content/MainList";
     private Stack<Integer> currentProgress = new Stack<Integer>();
-
+    private static ArrayList<String> filePathQueries = new ArrayList<String>();
+    private File folder;
+    private static File[] listOfFiles;
     public ProgressStack() {
 
+    }
+
+    public void loadFiles(String filePath) {
+        folder = new File(filePath);
+        listOfFiles = folder.listFiles();
+    }
+
+    public void setDefaultFilePath() {
+        currentFilePath = defaultFilePath;
+    }
+
+    public void insertQueries(String currentFilePath) {
+        clearQueries();
+        loadFiles(currentFilePath);
+        for (File listOfFile : listOfFiles) {
+            if (listOfFile.isFile()) {
+                filePathQueries.add(listOfFile.getName());
+            } else if (listOfFile.isDirectory()) {
+                filePathQueries.add(listOfFile.getName());
+            }
+        }
+
+    }
+
+    public void clearQueries() {
+        filePathQueries.clear();
     }
 
     /**

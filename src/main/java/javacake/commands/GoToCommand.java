@@ -33,7 +33,8 @@ public class GoToCommand extends Command {
      */
     public void execute(ProgressStack progressStack, Ui ui, Storage storage, Profile profile) throws DukeException {
         try {
-            if (progressStack.checkProgress() == 1 && index.equals("1")) {
+
+            /*if (progressStack.checkProgress() == 1 && index.equals("1")) {
                 progressStack.mainListToListIndex1();
                 new ListIndex1().printList();
             } else if (progressStack.checkProgress() == 1 && index.equals("2")) {
@@ -47,15 +48,15 @@ public class GoToCommand extends Command {
             } else if (progressStack.checkProgress() == 2 && index.equals("1.1")) {
                 progressStack.listIndexToSubList();
                 ui.displayTextFile(new BufferedReader(
-                        new FileReader("content/MainList/ListIndex1/javabasics/1.txt")));
+                        new FileReader("content/MainList/ListIndex1/JavaBasics/1.txt")));
             } else if (progressStack.checkProgress() == 2 && index.equals("1.2")) {
                 progressStack.listIndexToSubList();
                 ui.displayTextFile(new BufferedReader(
-                        new FileReader("content/MainList/ListIndex1/javabasics/2.txt")));
+                        new FileReader("content/MainList/ListIndex1/JavaBasics/2.txt")));
             } else if (progressStack.checkProgress() == 2 && index.equals("1.3")) {
                 progressStack.listIndexToSubList();
                 ui.displayTextFile(new BufferedReader(
-                        new FileReader("content/MainList/ListIndex1/javabasics/3.txt")));
+                        new FileReader("content/MainList/ListIndex1/JavaBasics/3.txt")));
             } else if (progressStack.checkProgress() == 2 && index.equals("1.4")) {
                 new QuizCommand(Question.QuestionType.BASIC).execute(progressStack, ui, storage, profile);
             } else if (progressStack.checkProgress() == 2 && index.equals("2.1")) {
@@ -93,7 +94,7 @@ public class GoToCommand extends Command {
                 new QuizCommand(Question.QuestionType.EXTENSIONS).execute(progressStack, ui, storage, profile);
             } else {
                 throw new DukeException("Please enter a valid index!");
-            }
+            }*/
         } catch (IOException e) {
             throw new DukeException("File does not exists");
         }

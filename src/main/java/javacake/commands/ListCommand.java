@@ -22,7 +22,8 @@ public class ListCommand extends Command {
     @Override
     public void execute(ProgressStack progressStack, Ui ui, Storage storage, Profile profile) {
         MainList ml = new MainList();
+        ml.loadTopics();
         ml.printList();
-        progressStack.forceToMainList();
+        progressStack.insertQueries();
     }
 }

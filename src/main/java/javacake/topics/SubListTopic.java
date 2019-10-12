@@ -1,16 +1,15 @@
 package javacake.topics;
 
-public class MainListTopic extends Topic {
+public class SubListTopic extends Topic {
 
     private String name;
 
-    MainListTopic(String nameOfTopic) {
+    SubListTopic(String nameOfTopic) {
         name = nameOfTopic;
     }
 
     @Override
-    public  String getName() {
+    public String getName() {
         return name;
     }
-
 }
