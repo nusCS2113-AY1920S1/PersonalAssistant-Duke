@@ -18,7 +18,7 @@ public class WheatFarm extends Farm {
     }
 
     public WheatFarm() {
-        seeds = 1;
+        seeds = 0;
         greenWheat = 0;
         ripeWheat = 0;
     }
@@ -27,6 +27,10 @@ public class WheatFarm extends Farm {
         this.seeds = (Integer) obj.get("seeds");
         this.greenWheat = (Integer) obj.get("wheat_green");
         this.ripeWheat = (Integer) obj.get("wheat_ripe");
+    }
+
+    public void buySeeds() {
+        seeds += 100;
     }
 
     public void plantSeeds() {
