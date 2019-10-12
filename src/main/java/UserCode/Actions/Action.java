@@ -2,6 +2,7 @@ package UserCode.Actions;
 
 import Places.ChickenFarm;
 import Places.CowFarm;
+import Places.Farm;
 import Places.WheatFarm;
 import UserInterfaces.Ui;
 import org.json.simple.JSONObject;
@@ -24,6 +25,16 @@ public abstract class Action {
         this.wheatFarm = wheatFarm;
         this.chickenFarm = chickenFarm;
         this.cowFarm = cowFarm;
+    }
+
+    public WheatFarm extractWheatFarm() {
+        return this.wheatFarm;
+    }
+    public ChickenFarm extractChickenFarm() {
+        return this.chickenFarm;
+    }
+    public CowFarm extractCowFarm() {
+        return this.cowFarm;
     }
 
     public abstract int execute(Ui ui);

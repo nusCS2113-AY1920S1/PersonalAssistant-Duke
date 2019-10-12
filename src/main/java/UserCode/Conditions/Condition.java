@@ -1,4 +1,4 @@
-package UserCode;
+package UserCode.Conditions;
 
 public enum Condition {
     hasSeeds

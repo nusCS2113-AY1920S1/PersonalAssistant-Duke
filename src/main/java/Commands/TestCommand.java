@@ -7,7 +7,7 @@ import FarmioExceptions.FarmioException;
 import Places.ChickenFarm;
 import Places.CowFarm;
 import Places.WheatFarm;
-import UserCode.Condition;
+import UserCode.Conditions.Condition;
 import UserCode.Tasks.Task;
 import UserInterfaces.Ui;
 

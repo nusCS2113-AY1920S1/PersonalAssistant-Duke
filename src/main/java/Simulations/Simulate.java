@@ -1,21 +1,22 @@
-package Simulate;
+package Simulations;
 
-import FarmioExceptions.FarmioException;
 import UserInterfaces.Ui;
 
-import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
-public class Simulation {
+public class Simulate {
     //need run in terminal not console for clear screen to work
     protected String basepath;
     protected int numberOfFrames;
     private final int framePerSecond = 3;
     protected Ui ui;
-    public Simulation(Ui userInterface, String basepath, int numberOfFrames) {
+
+    public Simulate(Ui userInterface, Simulation simulate) {
         ui = userInterface;
-        this.basepath = basepath;
-        this.numberOfFrames = numberOfFrames;
+        if (simulate == Simulation.PLANTSEED) {
+            basepath = "./src/main/resources/asciiArt/PlantSeedSimulation/frame";
+            numberOfFrames = 10;
+        }
     }
     protected void nextFrame(String statusBar,String filePath) {
         try {
