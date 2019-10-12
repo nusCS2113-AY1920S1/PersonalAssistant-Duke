@@ -259,15 +259,6 @@ public class Parser {
                     throw new DukeException(" OOPS!!! Please enter Do Within Period Task as follows:\n" +
                             " 'Task Description' '(from DD/MM/yyyy to DD/MM/yyyy)'");
                 }
-            }else if(fullCommand.trim().substring(0,4).equals("week")){
-                String out = "";
-                 out +=LT.getDate(fullCommand);
-               // String out = "test";
-                AlertBox.display("Warning message", "Invalid date", out ,
-                        Alert.AlertType.WARNING);
-
-                return new ConfirmCommand();
-
             } else if (fullCommand.trim().substring(0, 18).equalsIgnoreCase("Tentative Schedule")) {
                 try {
                     String activity = fullCommand.trim().substring(18);
