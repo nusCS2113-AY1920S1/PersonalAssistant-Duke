@@ -106,6 +106,7 @@ public class Farmio {
     private void loadLevel(Farmer farmer) {
         switch (farmer.level) {
             case 1:
+                //in the future, will be simulating instead of just showing static message
                 displayArt("level1");
                 break;
             /*

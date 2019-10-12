@@ -7,4 +7,5 @@ public class Market {
     private final int PRICE_OF_EGG = 10;
     private final int PRICE_OF_COW = 500;
     private final int PRICE_OF_MILK = 15;
+
 }
