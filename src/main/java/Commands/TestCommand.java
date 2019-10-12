@@ -1,5 +1,6 @@
 package Commands;
 
+import UserCode.Actions.buyWheatAction;
 import UserCode.Tasks.TaskList;
 import UserCode.Actions.Action;
 import UserCode.Actions.plantSeedAction;
@@ -25,8 +26,8 @@ public class TestCommand extends Command {
         try {
             Ui ui = new Ui();
             Condition c = Condition.hasSeeds;
-            Action plantSeedAction = new plantSeedAction(wheatFarm, chickenFarm, cowFarm);
-            Task task = new Task(c, plantSeedAction);
+            Action buyWheatAction = new buyWheatAction(wheatFarm, chickenFarm, cowFarm);
+            Task task = new Task(c, buyWheatAction);
             tasks.addTask(task);
         } catch (Exception e) {
             e.getMessage();

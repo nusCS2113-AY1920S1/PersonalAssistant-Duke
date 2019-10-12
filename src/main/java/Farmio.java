@@ -93,7 +93,7 @@ public class Farmio {
                         ui.showInfo("Farmio starting a new game.");
                     }
                 case "new game":
-                    this.farmer = new Farmer();
+                    this.farmer = new Farmer(ui);
                     return;
                 case "quit":
                     System.exit(0);
