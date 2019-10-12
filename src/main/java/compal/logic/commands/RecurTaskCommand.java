@@ -27,15 +27,6 @@ public class RecurTaskCommand extends Command implements CommandParser {
     private static final String TOKEN_FREQ = "/freq";
     private static final int DEFAULT_FREQ_NUM = 7;
     private static final int MIN_REP_NUM = 2;
-    private static final String CMD_LECT = "lect";
-    private static final String CMD_TUT = "tut";
-    private static final String CMD_SECT = "sect";
-    private static final String CMD_LAB = "lab";
-    private static final String SYMBOL_LECT = "LECT";
-    private static final String SYMBOL_TUT = "TUT";
-    private static final String SYMBOL_SECT = "SECT";
-    private static final String SYMBOL_LAB = "LAB";
-    private static final String SYMBOL_DEFAULT = "RT";
     private TaskList taskList;
 
     /**

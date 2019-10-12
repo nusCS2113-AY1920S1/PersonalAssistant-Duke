@@ -8,18 +8,15 @@ import compal.model.tasks.TaskList;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import static compal.commons.Messages.MESSAGE_MISSING_EDATE;
-import static compal.commons.Messages.MESSAGE_MISSING_EDATE_ARG;
-import static compal.commons.Messages.MESSAGE_INVALID_DATE_FORMATTING;
-import static compal.commons.Messages.MESSAGE_INVALID_YEAR;
-import static compal.commons.Messages.MESSAGE_MISSING_COMMAND_ARG;
-import static compal.commons.Messages.MESSAGE_INVALID_TIME_RANGE;
+import static compal.commons.Messages.*;
+import static compal.commons.Messages.MESSAGE_MISSING_DATE_ARG;
 
 public class AcadCommand extends Command implements CommandParser {
     private static final String CMD_LECT = "lect";
@@ -32,6 +29,7 @@ public class AcadCommand extends Command implements CommandParser {
     private static final String SYMBOL_LAB = "LAB";
     private static final String SYMBOL_ACAD = "ACAD";
     private static final String TOKEN_END_DATE = "/edate";
+    private static final char TOKEN_SLASH_CHAR = '/';
     private static final int DEFAULT_WEEK_INTERVAL = 7;
     private TaskList taskList;
 
@@ -43,6 +41,70 @@ public class AcadCommand extends Command implements CommandParser {
     public AcadCommand(Compal d) {
         super(d);
         this.taskList = d.tasklist;
+    }
+
+    /**
+     * Returns a date string if specified in the task.
+     *
+     * @param restOfInput Input description after initial command word.
+     * @return Date in the form of a string.
+     * @throws Compal.DukeException If date field is empty, date or date format is invalid,
+     *                              date token (/date) is missing.
+     */
+    public ArrayList<String> getStartDateList(String restOfInput) throws Compal.DukeException {
+        if (restOfInput.contains(TOKEN_DATE)) {
+            int startPoint = restOfInput.indexOf(TOKEN_DATE);
+            String dateStartInput = restOfInput.substring(startPoint);
+            Scanner scanner = new Scanner(dateStartInput);
+            scanner.next();
+            if (!scanner.hasNext()) {
+                compal.ui.printg(MESSAGE_MISSING_DATE);
+                throw new Compal.DukeException(MESSAGE_MISSING_DATE);
+            }
+            int dateCount = 0;
+            ArrayList<String> startDateList = new ArrayList<String>();
+            while (scanner.hasNext() && dateCount < DEFAULT_WEEK_INTERVAL) {
+                String eachDateInput = scanner.next();
+                if (eachDateInput.charAt(0) == TOKEN_SLASH_CHAR) {
+                    break;
+                }
+                String validatedDate = inputDateValidation(eachDateInput);
+                startDateList.add(validatedDate);
+                dateCount++;
+            }
+            return startDateList;
+        } else {
+            compal.ui.printg(MESSAGE_MISSING_DATE_ARG);
+            throw new Compal.DukeException(MESSAGE_MISSING_DATE_ARG);
+        }
+    }
+
+    /**
+     * Parses through each date string input by the user, and converts it to a
+     * @param inputDateStr
+     * @return
+     * @throws Compal.DukeException
+     */
+    public String inputDateValidation(String inputDateStr) throws Compal.DukeException {
+        String regex = "^(3[01]|[12][0-9]|0[1-9])/(1[0-2]|0[1-9])/[0-9]{4}$";
+        Pattern pattern = Pattern.compile(regex);
+        Matcher matcher = pattern.matcher(inputDateStr);
+
+        if (matcher.matches() == false) {
+            compal.ui.printg(MESSAGE_INVALID_DATE_FORMATTING);
+            throw new Compal.DukeException(MESSAGE_INVALID_DATE_FORMATTING);
+        }
+        int inputSize = inputDateStr.length();
+
+        String year = inputDateStr.substring(inputSize - 4, inputSize);
+        int inputYear = Integer.parseInt(year);
+        int currYear = Calendar.getInstance().get(Calendar.YEAR);
+
+        if (inputYear < currYear) {
+            compal.ui.printg(MESSAGE_INVALID_YEAR);
+            throw new Compal.DukeException(MESSAGE_INVALID_YEAR);
+        }
+        return inputDateStr;
     }
 
     /**
@@ -64,26 +126,8 @@ public class AcadCommand extends Command implements CommandParser {
                 throw new Compal.DukeException(MESSAGE_MISSING_EDATE);
             }
             String dateInput = scanner.next();
-
-            String regex = "^(3[01]|[12][0-9]|0[1-9])/(1[0-2]|0[1-9])/[0-9]{4}$";
-            Pattern pattern = Pattern.compile(regex);
-            Matcher matcher = pattern.matcher(dateInput);
-
-            if (matcher.matches() == false) {
-                compal.ui.printg(MESSAGE_INVALID_DATE_FORMATTING);
-                throw new Compal.DukeException(MESSAGE_INVALID_DATE_FORMATTING);
-            }
-            int inputSize = dateInput.length();
-
-            String year = dateInput.substring(inputSize - 4, inputSize);
-            int inputYear = Integer.parseInt(year);
-            int currYear = Calendar.getInstance().get(Calendar.YEAR);
-
-            if (inputYear < currYear) {
-                compal.ui.printg(MESSAGE_INVALID_YEAR);
-                throw new Compal.DukeException(MESSAGE_INVALID_YEAR);
-            }
-            return dateInput;
+            String validatedDate = inputDateValidation(dateInput);
+            return validatedDate;
         } else {
             compal.ui.printg(MESSAGE_MISSING_EDATE_ARG);
             throw new Compal.DukeException(MESSAGE_MISSING_EDATE_ARG);
@@ -133,10 +177,9 @@ public class AcadCommand extends Command implements CommandParser {
     }
 
     /**
-     * Determines the type of recurring task - normal recurring task,
-     * lecture, tutorial, sectional or lab, based on the first command
-     * keyword entered by the user. Returns the type of symbol used for
-     * that type of task.
+     * Determines the type of academic task - lecture, tutorial, sectional or lab,
+     * based on the first command keyword entered by the user.
+     * Returns the type of symbol used for that type of task.
      *
      * @param userCmd The first command keyword entered by the user.
      * @return The symbol for that type of task.
@@ -170,7 +213,7 @@ public class AcadCommand extends Command implements CommandParser {
             String restOfInput = scanner.nextLine();
             String description = getDescription(restOfInput);
             Task.Priority priority = getPriority(restOfInput);
-            String startDateStr = getDate(restOfInput);
+            ArrayList<String> startDateList = getStartDateList(restOfInput);
             String startTime = getStartTime(restOfInput);
             String endTime = getEndTime(restOfInput);
             String endDateStr = getEndDate(restOfInput);
@@ -181,17 +224,19 @@ public class AcadCommand extends Command implements CommandParser {
                 throw new Compal.DukeException(MESSAGE_INVALID_TIME_RANGE);
             }
 
-            Date initialDate = stringToDate(startDateStr);
-            Date endDate = stringToDate(endDateStr);
-            while (initialDate.before(endDate)) {
-                String initialDateStr = dateToString(initialDate);
-                AcadTask newAcadTask = new AcadTask(description, priority, initialDateStr,
-                        startTime, endTime, symbol); // for testing tut command only
-                taskList.addTask(newAcadTask);
-                int arrSize = taskList.arrlist.size() - 1;
-                String descToPrint = taskList.arrlist.get(arrSize).toString();
-                compal.ui.printg(descToPrint);
-                initialDate = incrementDateByWeek(initialDate);
+            for (String initialDateStr : startDateList) {
+                Date dateForEachTask = stringToDate(initialDateStr);
+                Date endDate = stringToDate(endDateStr);
+                while (dateForEachTask.before(endDate)) {
+                    String dateStrForEachTask = dateToString(dateForEachTask);
+                    AcadTask newAcadTask = new AcadTask(description, priority, dateStrForEachTask,
+                            startTime, endTime, symbol);
+                    taskList.addTask(newAcadTask);
+                    int arrSize = taskList.arrlist.size() - 1;
+                    String descToPrint = taskList.arrlist.get(arrSize).toString();
+                    compal.ui.printg(descToPrint);
+                    dateForEachTask = incrementDateByWeek(dateForEachTask);
+                }
             }
         } else {
             compal.ui.printg(MESSAGE_MISSING_COMMAND_ARG);

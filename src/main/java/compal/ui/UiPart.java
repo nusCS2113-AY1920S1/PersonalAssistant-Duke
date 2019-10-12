@@ -440,13 +440,14 @@ public class UiPart {
         compal.ui.tabWindow.getTabs().add(1, dailyTab);
     }
 
+
     /**
      * Clears the secondary window on the GUI.
      */
-    public void clearSecondary() {
+    /* public void clearSecondary() {
         VBox vbox = (VBox) secondaryWindow.getContent();
         vbox.getChildren().clear();
-    }
+    } */
     //----------------------->
 
 }
