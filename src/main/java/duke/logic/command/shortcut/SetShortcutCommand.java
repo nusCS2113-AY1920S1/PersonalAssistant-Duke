@@ -2,14 +2,14 @@ package duke.logic.command.shortcut;
 
 import duke.logic.command.Command;
 import duke.logic.command.CommandResult;
-import duke.logic.command.Undoable;
 import duke.logic.command.exceptions.CommandException;
 import duke.model.Model;
 import duke.model.shortcut.Shortcut;
 
-public class SetShortcutCommand extends Command implements Undoable {
+public class SetShortcutCommand extends Command {
     public static final String COMMAND_WORD = "short";
 
+    public static final String MESSAGE_COMMIT = "Set shortcut";
     private static final String MESSAGE_SET_SUCCESS = "Shortcut [%s] is set.";
     private static final String MESSAGE_REMOVE_SUCCESS = "Shortcut [%s] is removed.";
     private static final String MESSAGE_EMPTY_SHORTCUT = "Shortcut cannot be empty.";
@@ -33,18 +33,11 @@ public class SetShortcutCommand extends Command implements Undoable {
             checkShortcut();
 
             model.setShortcut(shortcut);
+
+            model.commit(MESSAGE_COMMIT);
+
             return new CommandResult(String.format(MESSAGE_SET_SUCCESS, shortcut.getName()));
         }
-    }
-
-    @Override
-    public void undo(Model model) throws CommandException {
-        //TBD
-    }
-
-    @Override
-    public void redo(Model model) throws CommandException {
-        //TBD
     }
 
     private void checkShortcut() throws CommandException {

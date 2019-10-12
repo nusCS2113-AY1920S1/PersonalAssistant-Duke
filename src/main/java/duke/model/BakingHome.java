@@ -78,14 +78,6 @@ public class BakingHome implements ReadOnlyBakingHome {
     }
 
     /**
-     * Adds a person to the address book.
-     * The person must not already exist in the address book.
-     */
-    public void addSale(Sale s) {
-        sales.add(s);
-    }
-
-    /**
      * Replaces the given person {@code target} in the list with {@code editedPerson}.
      * {@code target} must exist in the address book.
      * The person identity of {@code editedPerson} must not be the same as another existing person in the address book.
@@ -164,6 +156,10 @@ public class BakingHome implements ReadOnlyBakingHome {
         } else {
             shortcuts.add(shortcut);
         }
+    }
+
+    public void addSale(Sale s) {
+        sales.add(s);
     }
 
     /**

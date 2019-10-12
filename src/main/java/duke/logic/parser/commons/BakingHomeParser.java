@@ -2,6 +2,8 @@ package duke.logic.parser.commons;
 
 import duke.commons.core.Message;
 import duke.logic.command.Command;
+import duke.logic.command.RedoCommand;
+import duke.logic.command.UndoCommand;
 import duke.logic.command.inventory.InventoryCommand;
 import duke.logic.command.order.OrderCommand;
 import duke.logic.command.product.ProductCommand;
@@ -60,6 +62,10 @@ public class BakingHomeParser {
             return new SetShortcutCommandParser().parse(subCommandAndArgs);
         case ExecuteShortcutCommand.COMMAND_WORD:
             return new ExecuteShortcutCommandParser().parse(subCommandAndArgs);
+        case UndoCommand.COMMAND_WORD:
+            return new UndoCommand();
+        case RedoCommand.COMMAND_WORD:
+            return new RedoCommand();
         default:
             throw new ParseException(Message.MESSAGE_UNKNOWN_COMMAND);
         }

@@ -26,6 +26,42 @@ public interface Model {
     Predicate<Ingredient> PREDICATE_SHOW_ALL_INVENTORY = unused -> true;
 
     /**
+     * Returns true if the model has previous baking home states to restore.
+     */
+    boolean canUndo();
+
+    /**
+     * Returns true if the model has undone baking home states to restore.
+     */
+    boolean canRedo();
+
+    /**
+     * Restores BakingHome to its previous state.
+     * @return the commit message of the current state.
+     */
+    String undo();
+
+    /**
+     * Restores the address book to its previously undone state.
+     * @return the commit message of the previous state.
+     */
+    String redo();
+
+    /**
+     * Saves the current baking home state for undo/redo.
+     *
+     * @param commitMessage the message describing the details of the commit
+     */
+    void commit(String commitMessage);
+
+    /**
+     * TODO: add details.
+     *
+     * @param isEnabled should be set to true to enable version control.
+     */
+    void setVersionControl(Boolean isEnabled);
+
+    /**
      * Returns the BakingHome.
      */
     ReadOnlyBakingHome getBakingHome();

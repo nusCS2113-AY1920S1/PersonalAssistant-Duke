@@ -18,7 +18,7 @@ import static java.util.Objects.requireNonNull;
  * Represents the in-memory model of baking home data.
  */
 public class ModelManager implements Model {
-    private final BakingHome bakingHome;
+    private final VersionedBakingHome bakingHome;
     private final FilteredList<Order> filteredOrders;
     private final FilteredList<Product> filteredProducts;
     private final FilteredList<Ingredient> filteredInventory;
@@ -28,7 +28,7 @@ public class ModelManager implements Model {
      */
     public ModelManager(ReadOnlyBakingHome bakingHome) {
         super();
-        this.bakingHome = new BakingHome(bakingHome);
+        this.bakingHome = new VersionedBakingHome(bakingHome);
         this.filteredOrders = new FilteredList<>(this.bakingHome.getOrderList());
         this.filteredProducts = new FilteredList<>(this.bakingHome.getProductList());
         this.filteredInventory = new FilteredList<>(this.bakingHome.getInventoryList());
@@ -48,6 +48,36 @@ public class ModelManager implements Model {
         return this.bakingHome;
     }
 
+    @Override
+    public boolean canUndo() {
+        return bakingHome.canUndo();
+    }
+
+    @Override
+    public boolean canRedo() {
+        return bakingHome.canRedo();
+    }
+
+    @Override
+    public String undo() {
+        return bakingHome.undo();
+    }
+
+    @Override
+    public String redo() {
+        return bakingHome.redo();
+    }
+
+    @Override
+    public void commit(String commitMessage) {
+        bakingHome.commit(commitMessage);
+    }
+
+    @Override
+    public void setVersionControl(Boolean isEnabled) {
+        bakingHome.setVersionControl(isEnabled);
+    }
+
     //================Order operations=================
 
     @Override
@@ -58,7 +88,7 @@ public class ModelManager implements Model {
 
     @Override
     public void deleteOrder(Order target) {
-        bakingHome.getOrderList().remove(target);
+        bakingHome.removeOrder(target);
     }
 
     @Override
@@ -93,7 +123,7 @@ public class ModelManager implements Model {
         filteredOrders.setPredicate(predicate);
     }
 
-    //========comProduct operations==========
+    //========Product operations==========
     @Override
     public void addProduct(Product product) {
         bakingHome.addProduct(product);
