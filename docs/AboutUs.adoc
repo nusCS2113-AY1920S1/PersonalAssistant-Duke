@@ -42,7 +42,7 @@ Responsibilities: Data
 
 === Claire Chan
 
-image::clairesmilesoil.png[width="150", align="left"]
+image::claysmilesoil.png[width="150", align="left"]
 {empty}[http://github.com/rusdihaizim[github]]
 
 Role: Developer +
