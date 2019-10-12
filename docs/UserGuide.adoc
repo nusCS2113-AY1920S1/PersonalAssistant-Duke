@@ -336,7 +336,7 @@ Format: `export`
 == FAQ
 
 *Q*: How do I view my tasks on the Calendar? +
-*A*: Use the `viewCalendar` oof.command.
+*A*: Use the `viewCalendar` command.
 
 *Q*: How do I transfer my data to another Computer? +
 *A*: Copy the `output.txt` into the same directory as `oof.jar`.
