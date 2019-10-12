@@ -6,6 +6,7 @@ public class Task {
     private final String description;
     private boolean isDone;
     private final String type;
+    private String modCode;
 
     /**
      * Creates Task object.
@@ -15,6 +16,7 @@ public class Task {
         this.description = description;
         this.isDone = false;
         this.type = "";
+        this.modCode ="";
     }
 
     public String getType() {
