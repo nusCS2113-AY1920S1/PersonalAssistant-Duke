@@ -11,7 +11,6 @@ import javafx.scene.text.Text;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.Comparator;
 
 import javafx.scene.paint.Color;
@@ -22,7 +21,7 @@ import javafx.scene.shape.Rectangle;
  * Create a timetable drawing onto DailyView scroll-pane within tab-pane.
  */
 
-public class DailyCal {
+class DailyCal {
 
     private String dateToDisplay;
     private boolean[][] canStore = new boolean[25][5];
@@ -49,7 +48,7 @@ public class DailyCal {
     private ArrayList<Task> arrList = new ArrayList<>();
 
 
-    public DailyCal(Compal compal) {
+    DailyCal(Compal compal) {
         this.compal = compal;
     }
 
@@ -58,7 +57,7 @@ public class DailyCal {
      *
      * @return scrollPane final object state
      */
-    public ScrollPane init(String givenDate) {
+    ScrollPane init(String givenDate) {
         tempList = compal.tasklist.arrlist;
         setTrue(canStore);
         dateToDisplay = givenDate;
@@ -88,7 +87,7 @@ public class DailyCal {
                 arrList.add(t);
             }
         }
-        Collections.sort(arrList, compareByStartTime);
+        arrList.sort(compareByStartTime);
     }
 
     /**
@@ -110,8 +109,6 @@ public class DailyCal {
     /**
      * Check through the daily taskList to check if there's any event that starts before 8am or ends after 7pm
      * If there is, set startTime or EndTime to the detected time.
-     *
-     * @return scrollPane final object state
      */
     private void setTime() {
         for (Task task : arrList) {
@@ -165,7 +162,6 @@ public class DailyCal {
     private void makeASlot(int i) {
         int temp = horizontalLineCounter;
         if (clockTime[i] < startTime || clockTime[i] > endTime) {
-            return;
         } else if (clockTime[i] < 12) {
             makeTimeAM(i);
             for (int x = temp; x < temp + 2; x++) {
@@ -187,6 +183,30 @@ public class DailyCal {
         }
     }
 
+
+    /**
+     * Create title for schedule depending on type of task Type
+     *
+     * @return Final title to be display for each block on GUI
+     */
+    private String createTitle(Task task){
+        String blockTitle="";
+
+        if (task.getSymbol().equals("LECT")) {
+            blockTitle = "[Lecture]\n"+task.getDescription();
+        } else if (task.getSymbol().equals("TUT")) {
+            blockTitle = "[Tutorial]\n"+task.getDescription();
+        } else if (task.getSymbol().equals("SECT")) {
+            blockTitle = "[Sectional]\n"+task.getDescription();
+        } else if (task.getSymbol().equals("LAB")) {
+            blockTitle = "[Lab]\n"+task.getDescription();
+        } else if (task.getSymbol().equals("RT")) {
+            blockTitle = "[Event]\n"+task.getDescription();
+        } else if (task.getSymbol().equals("E")) {
+            blockTitle = "[Event]\n"+task.getDescription();
+        }
+        return blockTitle;
+    }
 
     /**
      * Create a square block of schedule depending on the duration of the event.
@@ -229,7 +249,7 @@ public class DailyCal {
                     rectangle.setStroke(Color.BLACK);
 
                     final StackPane stack = new StackPane();
-                    final Text text = new Text(desc);
+                    final Text text = new Text(createTitle(task));
                     text.setFont(Font.font("Georgia Italic", 12));
 
                     stack.getChildren().addAll(rectangle, text);
@@ -297,7 +317,7 @@ public class DailyCal {
                 if (totalHour == 0 && totalMin == 0) {
                     continue;
                 }
-                double pxPerMin = (pixelBlock / Double.valueOf(hourInMin));
+                double pxPerMin = (pixelBlock / (double) hourInMin);
                 double downPX = pxPerMin * startMin;
 
                 while (!canStore[currentTime][eventCounter]) {
@@ -305,9 +325,6 @@ public class DailyCal {
                 }
 
                 if (canStore[currentTime][eventCounter]) {
-                    System.out.println("EC " + eventCounter);
-                    System.out.println("CT" + currentTime);
-                    System.out.println();
                     double layoutX = getEventLayoutX(eventCounter);
                     storedXAxis[currentTime][eventCounter] = layoutX;
                     storedYAxis[currentTime][eventCounter] = horizontalYLayout + downPX - 50;
