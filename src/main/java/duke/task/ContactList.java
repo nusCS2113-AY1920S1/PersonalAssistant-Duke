@@ -8,6 +8,9 @@ import java.util.ArrayList;
 public class ContactList {
     protected ArrayList<Contacts> contactList;
 
+    /**
+     * Creates an empty contact list using an array list.
+     */
     public ContactList() {
         contactList = new ArrayList<>();
     }
@@ -15,7 +18,7 @@ public class ContactList {
     /**
      * Creates an updated contact list with the specified array list.
      *
-     * @param
+     * @param contactList The updated array list.
      */
     public ContactList(ArrayList<Contacts> contactList) {
         this.contactList = contactList;
@@ -40,6 +43,11 @@ public class ContactList {
         return contactList.get(index);
     }
 
+    /**
+     * Retrieves all contacts from the contact list.
+     *
+     * @return String that contains the whole list of contacts.
+     */
     public String getContactList(){
         String fullContactList = "";
         for (int i = 0; i < contactList.size(); i++) {
@@ -47,12 +55,12 @@ public class ContactList {
         }
         return fullContactList;
     }
+
     /**
      * The size of the contact list.
      *
      * @return int that represents the contact list size.
      */
-
     public int size() {
         return contactList.size();
     }
