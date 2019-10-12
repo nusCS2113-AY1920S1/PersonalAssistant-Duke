@@ -1,8 +1,11 @@
 package user;
 
+import java.time.Instant;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.io.*;
+import java.time.temporal.ChronoField;
 
 public class Booking extends User {
 
@@ -22,8 +25,8 @@ public class Booking extends User {
      * @param dateTimeEnd   when your booked period ends
      * @param description   what you are going to use the room for
      */
-    public Booking(String roomcode, String username, String description, String dateTimeStart, String dateTimeEnd) {
-        super(username);
+    public Booking(String username, String userType, String roomcode, String description, String dateTimeStart, String dateTimeEnd) {
+        super(username, userType);
         this.venue = roomcode;
         //this.pax = people;
         DateTimeFormatter formatterStart = DateTimeFormatter.ofPattern("dd/mm/yyyy HH:mm");
@@ -35,6 +38,28 @@ public class Booking extends User {
 
     }
 
+    public Booking (String roomcode, String username, String description, long atStart, long atEnd) {
+        super(username);
+        this.venue =  roomcode;
+        this.description = description;
+        Instant instantStart = Instant.ofEpochMilli(atStart);
+        Instant instantEnd = Instant.ofEpochMilli(atEnd);
+        this.dateTimeStart = instantStart.atZone(ZoneId.systemDefault()).toLocalDateTime();
+        this.dateTimeEnd = instantEnd.atZone(ZoneId.systemDefault()).toLocalDateTime();
+
+    }
+
+    public Booking (String roomcode, String username, String description, String atStart, String atEnd) {
+        super(username);
+        this.venue = roomcode;
+        this.description = description;
+        Instant instantStart = Instant.ofEpochMilli(Long.parseLong(atStart));
+        Instant instantEnd = Instant.ofEpochMilli(Long.parseLong(atEnd));
+        this.dateTimeStart = instantStart.atZone(ZoneId.systemDefault()).toLocalDateTime();
+        this.dateTimeEnd = instantEnd.atZone(ZoneId.systemDefault()).toLocalDateTime();
+    }
+
+
 
 
     @Override
@@ -45,14 +70,11 @@ public class Booking extends User {
     }
 
 
-
+    @Override
     public String toWriteFile() {
         //int boolToInt = isDone ? 1 : 0;
-        DateTimeFormatter formatter = DateTimeFormatter.ISO_DATE_TIME;
-        String formattedDateTimeStart = dateTimeStart.format(formatter);
-        String formattedDateTimeEnd = dateTimeEnd.format(formatter);
-        return this.venue + " | " + "user" + " | " + this.description + "\n" + formattedDateTimeStart + " | "
-                + formattedDateTimeEnd + "\n";
+        return this.username + " | " + this.venue + " | " + this.description + " | " + "\n" + this.dateTimeStart.getLong(ChronoField.EPOCH_DAY) + " | "
+                + this.dateTimeEnd.getLong(ChronoField.HOUR_OF_DAY) + "\n";
     }
 
     public LocalDateTime getDateTimeStart() {return this.dateTimeStart;}

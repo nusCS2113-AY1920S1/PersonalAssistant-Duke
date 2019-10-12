@@ -20,7 +20,12 @@ public class User {
         this.userType = userType;
     }
 
-    public User(String username) {
+    public User(String username, String userType) {
+
+    }
+
+    public User (String username) {
+
     }
 
     public String toWriteFile() {

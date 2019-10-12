@@ -40,7 +40,7 @@ public class CreateAccountCommand extends Command {
         bw.write(newUser.toWriteFile());
         bw.newLine();
         bw.close();
-        System.out.println("Your account has been successfully created!");
+        ui.addToOutput("Your account has been successfully created!");
     }
 }
 
