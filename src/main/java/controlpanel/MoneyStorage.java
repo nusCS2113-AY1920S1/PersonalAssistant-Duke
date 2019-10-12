@@ -11,11 +11,7 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 
-import money.Account;
-import money.Expenditure;
-import money.Goal;
-import money.Income;
-import money.Instalment;
+import money.*;
 import javafx.util.Pair;
 
 public class MoneyStorage {
@@ -131,6 +127,8 @@ public class MoneyStorage {
                         ins.getCategory() + " @ " + ins.getBoughtDate() + " @ " + ins.getNumOfPayments() + " @ " +
                         ins.getAIR() + "\n");
             }
+
+
 
             bufferedWriter.close();
         } catch (IOException e) {

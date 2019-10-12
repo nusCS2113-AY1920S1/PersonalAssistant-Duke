@@ -31,3 +31,10 @@ list all instalments
 split Mala /amt 48 /cat food /on lstwk /with Max and Nic and Daniel
 settle 10 1
 settle 10 Nic
+lent mah bros /amt 500 /on ytd
+borrowed mah parents /amt 700 /on lstwk
+list outgoing loans
+list all loans
+list incoming loans
+received 3
+paid 3

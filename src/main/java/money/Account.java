@@ -16,6 +16,7 @@ public class Account {
     private ArrayList<Goal> shortTermGoals;
     private ArrayList<Instalment> instalments;
     private ArrayList<BankTracker> bankTrackerList;
+    private ArrayList<Loan> loans;
     private float totalSavings;
     private float currMonthSavings;
     private float baseSavings;
@@ -30,6 +31,8 @@ public class Account {
         shortTermGoals = new ArrayList<>();
         instalments = new ArrayList<>();
         bankTrackerList = new ArrayList<>();
+        loans = new ArrayList<>();
+        loans = new ArrayList<>();
         toInitialize = true;
     }
 
@@ -41,6 +44,8 @@ public class Account {
         shortTermGoals = account.getShortTermGoals();
         instalments = account.getInstalments();
         bankTrackerList = account.getBankTrackerList();
+        loans = account.getOutgoingLoans();
+        loans = account.getIncomingLoans();
         toInitialize = account.isToInitialize();
         baseSavings = account.getBaseSavings();
         updateSavings();
@@ -87,6 +92,30 @@ public class Account {
         return shortTermGoals;
     }
 
+    public ArrayList<Loan> getLoans() {
+        return loans;
+    }
+
+    public ArrayList<Loan> getOutgoingLoans() {
+        ArrayList<Loan> outgoingLoans = new ArrayList<>();
+        for (Loan l : loans) {
+            if (l.type == Loan.Type.OUTGOING) {
+                outgoingLoans.add(l);
+            }
+        }
+        return outgoingLoans;
+    }
+
+    public ArrayList<Loan> getIncomingLoans() {
+        ArrayList<Loan> incomingLoans = new ArrayList<>();
+        for (Loan l : loans) {
+            if (l.type == Loan.Type.INCOMING) {
+                incomingLoans.add(l);
+            }
+        }
+        return incomingLoans;
+    }
+
     public void sortShortTermGoals(ArrayList<Goal> shortTermGoals){
         Collections.sort(shortTermGoals, new Comparator<Goal>() {
             @Override
@@ -120,6 +149,14 @@ public class Account {
         float total = 0;
         for (Expenditure i : expListTotal) {
             total += i.getPrice();
+        }
+        return total;
+    }
+
+    public float getLoansTotal() {
+        float total = 0;
+        for (Loan l : loans) {
+            total += l.getPrice();
         }
         return total;
     }
