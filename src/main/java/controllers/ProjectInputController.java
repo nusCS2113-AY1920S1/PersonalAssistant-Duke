@@ -75,11 +75,7 @@ public class ProjectInputController {
                         consoleView.consolePrint("Please enter your task format correctly");
                     }
                 } else if (projectCommand.length() == 10 && ("view tasks").equals(projectCommand)) {
-                    String temp1 = "";
-                    System.out.println(temp1);
-                    /*
-                        Empty method
-                    */
+                    consoleView.viewAllTasks(projectToManage);
                 } else if (projectCommand.length() == 10 && ("edit task ").equals(projectCommand)) {
                     String temp2 = "";
                     System.out.println(temp2);
