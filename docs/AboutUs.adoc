@@ -14,7 +14,7 @@ We are a team based in the http://www.comp.nus.edu.sg[School of Computing, Natio
 image::shannonlee98.png[width="150", align="left"]
 {empty}[https://github.com/shannonlee98[github]] [<<shannonlee98#, portfolio>>]
 
-Role: Developer\ 
+Role: Developer . 
 In charge of: Catagories
 
 '''
@@ -23,7 +23,7 @@ In charge of: Catagories
 image::greatnest.png[width="150", align="left"]
 {empty}[http://github.com/Greatnest[github]] [<<greatnest#, portfolio>>]
 
-Role: Developer\ 
+Role: Developer . 
 In charge of: Budget
 
 '''
@@ -32,7 +32,7 @@ In charge of: Budget
 image::joshtam.png[width="150", align="left"]
 {empty}[http://github.com/JOSHTAM[github]] [<<joshtam#, portfolio>>]
 
-Role: Developer\
+Role: Developer . 
 In charge of: Expenditure
 
 '''
@@ -41,7 +41,7 @@ In charge of: Expenditure
 image::jinwentay.png[width="150", align="left"]
 {empty}[http://github.com/jinwentay[github]] [<<jinwentay#, portfolio>>]
 
-Role: Developer\  
+Role: Developer . 
 In charge of: Notifications
 
 '''
@@ -50,7 +50,7 @@ In charge of: Notifications
 image::guanyewtan.png[width="150", align="left"]
 {empty}[http://github.com/guanyewtan[github]] [<<guanyewtan#, portfolio>>]
 
-Role: Developer\
+Role: Developer . 
 In charge of: Graphs 
 
 '''
