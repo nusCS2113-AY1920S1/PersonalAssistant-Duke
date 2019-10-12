@@ -3,7 +3,8 @@ package UserCode.Tasks;
 import UserCode.Actions.Action;
 import UserCode.Actions.plantSeedAction;
 import FarmioExceptions.FarmioException;
-import UserCode.Condition;
+import UserCode.Conditions.ConditionChecker;
+import UserCode.Conditions.Condition;
 import UserInterfaces.Ui;
 import org.json.simple.JSONObject;
 
@@ -21,8 +22,8 @@ public class Task {
         this.action = parseJsonAction((JSONObject) obj.get("action"));
     }
 
-    boolean checkCondition() {
-        return false;
+    public boolean checkCondition() {
+        return ConditionChecker.check(condition, action.extractWheatFarm(), action.extractChickenFarm(), action.extractCowFarm());
     }
 
     public int execute(Ui ui) {

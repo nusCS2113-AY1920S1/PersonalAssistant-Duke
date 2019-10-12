@@ -3,7 +3,8 @@ package UserCode.Actions;
 import Places.ChickenFarm;
 import Places.CowFarm;
 import Places.WheatFarm;
-import Simulate.Simulation;
+import Simulations.Simulation;
+import Simulations.Simulate;
 import UserInterfaces.Ui;
 import org.json.simple.JSONObject;
 
@@ -24,7 +25,7 @@ public class plantSeedAction extends Action {
     public int execute(Ui ui) {
         try {
             wheatFarm.plantSeeds();
-            new Simulation(ui, "./src/main/resources/asciiArt/PlantSeedSimulation/frame", 10).simulate();
+            new Simulate(ui, Simulation.PLANTSEED).simulate();
         } catch (Exception e){
             e.getMessage();
         }

@@ -1,8 +1,7 @@
 package UserCode.Tasks;
 
 import UserCode.Actions.Action;
-import UserCode.Condition;
-import UserCode.Tasks.Task;
+import UserCode.Conditions.Condition;
 
 public class IfTask extends Task {
 
