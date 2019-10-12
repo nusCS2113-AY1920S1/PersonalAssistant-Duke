@@ -16,7 +16,7 @@ public class ListIndex1  {
         listIndex1SubList.add("Classes and Objects");
         listIndex1SubList.add("Quiz");
     }
-    
+
 
     /**
      * Method to print the contents of the list.

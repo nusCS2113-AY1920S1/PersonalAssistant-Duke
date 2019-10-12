@@ -1,0 +1,4 @@
+When using the Scanner function library in Java, you need to explictedly input the type of data you wish to scan as input.
+
+(1) True
+(2) False | 1

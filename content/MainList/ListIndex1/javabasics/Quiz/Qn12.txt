@@ -1,0 +1,4 @@
+OO is a higher level mechanism than the procedural paradigm.
+
+(1) True
+(2) False | 1

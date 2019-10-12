@@ -22,11 +22,11 @@ public class Question {
     }
 
     /**
-     * Checks if user's answer to the question is correct. User input is always converted to lowercase before checking.
+     * Checks if user's answer to the question is correct.
      * @param input user's inputted answer
      * @return true if input matches answer, false otherwise.
      */
     public boolean isAnswerCorrect(String input) {
-        return (input.trim().toLowerCase().equals(answer));
+        return (input.trim().equals(answer));
     }
 }

@@ -2,7 +2,7 @@ package javacake.topics;
 
 import java.util.ArrayList;
 
-public class ListIndex2 extends ListFormat {
+public class ListIndex2 {
 
     public ArrayList<String> listIndex2SubList = new ArrayList<String>();
 

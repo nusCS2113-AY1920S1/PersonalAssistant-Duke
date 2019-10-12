@@ -2,7 +2,7 @@ package javacake.topics;
 
 import java.util.ArrayList;
 
-public class MainList extends ListFormat {
+public class MainList {
 
     public ArrayList<String> mainContentList = new ArrayList<String>();
 
