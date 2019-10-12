@@ -29,6 +29,11 @@ public class Task{
         this.priority = Priority.low;
     }
 
+    /**
+     * Overload constructor for the task object. Takes in the user assigned to the task
+     * @param description Description of the task
+     * @param user User whom the tasks is assigned to
+     */
     public Task(String description, String user) {
         this.description = description;
         this.isDone = false;

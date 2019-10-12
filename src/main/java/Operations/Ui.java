@@ -241,6 +241,6 @@ public class Ui {
     }
 
     public void promptForAssigning() {
-        System.out.println("Do you want to assign this task? (if yes enter the assignee's name");
+        System.out.println("Do you want to assign this task? (if yes enter the assignee's name)");
     }
 }

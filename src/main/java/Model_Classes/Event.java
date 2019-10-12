@@ -22,10 +22,11 @@ public class Event extends Task {
     }
 
     /**
-     *
-     * @param description
-     * @param at
-     * @param user
+     * Overload Constructor for the Event object
+     * Takes in an input for the user assigned to the event object
+     * @param description Description of the event
+     * @param at Time the event happens
+     * @param user User whom the task is assigned to
      */
     public Event(String description, Date at, String user) {
         super(description, user);

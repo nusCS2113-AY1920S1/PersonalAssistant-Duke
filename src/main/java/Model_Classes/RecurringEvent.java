@@ -18,16 +18,6 @@ public class RecurringEvent extends Event {
         this.recurrence = recurrence;
     }
 
-    /**
-     *
-     * @param description
-     * @param at
-     * @param recurrence
-     */
-    public RecurringEvent(String description, Date at, String recurrence, String user) {
-        super(description, at, user);
-        this.recurrence = recurrence;
-    }
 
     /**
      * Overload constructor for RecurringEvent object
