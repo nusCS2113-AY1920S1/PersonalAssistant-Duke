@@ -148,6 +148,18 @@ Each of the four components
     
 -   Exposes its functionality using a  `{Component Name}Manager`  class.
 
+**4.6. Model Component**
+
+<img src="https://github.com/AY1920S1-CS2113T-W17-1/main/blob/master/docs/diagrams/DG_ArchitectureDiagram_Task.png" width="800" alt="Overall structure of the Model Component"/>
+Figure 2. Overall structure of the Model Component
+
+**API**: [`Model`](https://github.com/AY1920S1-CS2113T-W17-1/main/tree/master/src/main/java/compal/model)
+ 
+ The `Model` component
+ - stores a `TaskList` object that represents the list of user's tasks
+ - stores the Schedule data.
+ - does not depend on any of the other four components.
+
 
 ## 5. Implementation
 
