@@ -1,3 +1,5 @@
+package logic.commands;
+
 import duchess.exceptions.DuchessException;
 import duchess.logic.commands.ViewScheduleCommand;
 import org.junit.jupiter.api.Test;

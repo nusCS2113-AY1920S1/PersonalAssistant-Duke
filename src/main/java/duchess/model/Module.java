@@ -18,6 +18,14 @@ public class Module {
         return this.code + " " + this.name;
     }
 
+    public boolean isOfCode(String code) {
+        return this.code.equalsIgnoreCase(code);
+    }
+
+    public boolean equals(Module that) {
+        return this.code.equalsIgnoreCase(that.code);
+    }
+
     @JsonGetter("name")
     public String getName() {
         return name;
@@ -26,13 +34,5 @@ public class Module {
     @JsonGetter("code")
     public String getCode() {
         return code;
-    }
-
-    public boolean isOfCode(String code) {
-        return this.code.toLowerCase().equals(code.toLowerCase());
-    }
-
-    public boolean equals(Module that) {
-        return this.code.equals(that.code);
     }
 }

@@ -7,7 +7,8 @@ import duchess.logic.commands.AddModuleCommand;
 import duchess.logic.commands.AddTodoCommand;
 import duchess.logic.commands.ByeCommand;
 import duchess.logic.commands.Command;
-import duchess.logic.commands.DeleteCommand;
+import duchess.logic.commands.DeleteModuleCommand;
+import duchess.logic.commands.DeleteTaskCommand;
 import duchess.logic.commands.DoneCommand;
 import duchess.logic.commands.FindCommand;
 import duchess.logic.commands.ListModulesCommand;
@@ -66,7 +67,19 @@ public class Parser {
         case "find":
             return new FindCommand(arguments);
         case "delete":
-            return new DeleteCommand(arguments);
+            try {
+                String secondKeyword = words.get(1);
+                switch (secondKeyword) {
+                case "task":
+                    return new DeleteTaskCommand(arguments);
+                case "module":
+                    return new DeleteModuleCommand(arguments);
+                default:
+                    throw new IllegalArgumentException();
+                }
+            } catch (IndexOutOfBoundsException | IllegalArgumentException e) {
+                throw new DuchessException("Usage: delete (module|task) <number>");
+            }
         case "done":
             return new DoneCommand(arguments);
         case "todo":

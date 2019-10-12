@@ -265,6 +265,29 @@ public class Ui {
     }
 
     /**
+     * Displays an error message indicating why the module can't be deleted.
+     *
+     * <p>The function also prints the tasks that are associated with the module
+     * being deleted.</p>
+     *
+     * @param tasks list of tasks belonging to the module being deleted
+     */
+    public void showUnableToDeleteModuleMsg(List<Task> tasks) {
+        printIndented("You can't delete the module without deleting all of the associated tasks.");
+        printIndented("The following tasks are associated with the module.");
+        showTasks(tasks);
+    }
+
+    /**
+     * Displays a confirmation message stating that the module has been deleted.
+     *
+     * @param module the module that was just deleted
+     */
+    public void showDeletedModule(Module module) {
+        printIndented("You've deleted " + module + ".");
+    }
+
+    /**
      * Prints a straight line.
      */
     private void printHR() {

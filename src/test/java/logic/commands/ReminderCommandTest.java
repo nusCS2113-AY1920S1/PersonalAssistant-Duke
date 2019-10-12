@@ -1,3 +1,5 @@
+package logic.commands;
+
 import duchess.exceptions.DuchessException;
 import duchess.logic.commands.AddDeadlineCommand;
 import duchess.logic.commands.ReminderCommand;

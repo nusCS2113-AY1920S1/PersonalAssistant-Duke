@@ -18,8 +18,12 @@ public abstract class Task implements Comparable<Task> {
         this.module = Optional.empty();
     }
 
-    public void markAsDone() {
-        this.isDone = true;
+    public boolean clashesWith(Task that) {
+        return this.getTimeFrame().clashesWith(that.getTimeFrame());
+    }
+
+    public Optional<Module> getModule() {
+        return this.module;
     }
 
     @Override
@@ -34,10 +38,6 @@ public abstract class Task implements Comparable<Task> {
         return this.getTimeFrame().compareTo(that.getTimeFrame());
     }
 
-    public final boolean clashesWith(Task that) {
-        return this.getTimeFrame().clashesWith(that.getTimeFrame());
-    }
-
     @JsonSetter("description")
     public void setDescription(String description) {
         this.description = description;
@@ -49,7 +49,7 @@ public abstract class Task implements Comparable<Task> {
     }
 
     @JsonGetter("module")
-    public Module getModule() {
+    public Module getRawtModule() {
         return this.module.orElse(null);
     }
 
@@ -66,10 +66,6 @@ public abstract class Task implements Comparable<Task> {
     @JsonSetter("done")
     public void setDone(boolean done) {
         isDone = done;
-    }
-
-    public boolean containsKeyword(String keyword) {
-        return this.description.contains(keyword);
     }
 
     public abstract TimeFrame getTimeFrame();

@@ -20,7 +20,7 @@ public class DoneCommand extends Command {
         try {
             int taskNo = Integer.parseInt(words.get(0)) - 1;
             Task task = store.getTaskList().get(taskNo);
-            task.markAsDone();
+            task.setDone(true);
             ui.showDoneTask(task);
             storage.save(store);
         } catch (NumberFormatException e) {

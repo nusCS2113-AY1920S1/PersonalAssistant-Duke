@@ -8,10 +8,10 @@ import duchess.ui.Ui;
 
 import java.util.List;
 
-public class DeleteCommand extends Command {
+public class DeleteTaskCommand extends Command {
     private List<String> words;
 
-    public DeleteCommand(List<String> words) {
+    public DeleteTaskCommand(List<String> words) {
         this.words = words;
     }
 
@@ -26,7 +26,7 @@ public class DeleteCommand extends Command {
     @Override
     public void execute(Store store, Ui ui, Storage storage) throws DuchessException {
         try {
-            int taskNo = Integer.parseInt(words.get(0)) - 1;
+            int taskNo = Integer.parseInt(words.get(1)) - 1;
             Task toRemove = store.getTaskList().get(taskNo);
             store.getTaskList().remove(taskNo);
             ui.showDeletedTask(store.getTaskList(), toRemove);
