@@ -54,6 +54,16 @@ public class Ui {
     }
 
     /**
+     * Show the help page.
+     *
+     * @return an event requesting to view the help page
+     */
+    public static String helpRequest(TaskList items) {
+        String str = "     Here are the commands available in Duke Manager:";
+        return  str;
+    }
+
+    /**
      * Reads the user input, and converts it into string.
      *
      * @return String of the user input.
@@ -337,5 +347,13 @@ public class Ui {
     public void showAfterBackupMsg() {
         out.println("     Updated " + BACKUP_FILENAME + " with the current items in Duke Manager!");
         out.println("     Directory of the file opened in explorer!");
+    }
+
+    /**
+     * Outputs a message to the user to let it know that it has changed the priority of a task.
+     */
+    public void showSetPriority(TaskList taskList, int taskNum, int priority) {
+        out.println("     Updated the priority of \n\t\t" + taskList.get(taskNum));
+        out.println("     Current priority: " + priority);
     }
 }
