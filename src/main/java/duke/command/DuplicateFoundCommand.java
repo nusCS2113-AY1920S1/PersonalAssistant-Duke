@@ -24,9 +24,10 @@ public class DuplicateFoundCommand extends Command {
     /**
      * Executes a command that marks the task as done in the task list and outputs the result (GUI).
      * (Not in use)
-     *  @param items The task list that contains a list of tasks.
+     *
+     * @param items The task list that contains a list of tasks.
      * @param ui To tell the user that it is marked as done successfully.
-     * @return
+     * @return String to be outputted to the user.
      */
     @Override
     public String executeGui(TaskList items, Ui ui) {

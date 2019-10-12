@@ -1,6 +1,5 @@
 package duke.command;
 
-
 import duke.storage.ContactStorage;
 import duke.storage.Storage;
 import duke.task.ContactList;
@@ -29,11 +28,8 @@ public abstract class Command {
      * @param priorities The list of priorities.
      * @param ui To tell the user that it is executed successfully.
      */
-
     public void execute(TaskList items, PriorityList priorities, Ui ui) {
-
     }
-
 
     /**
      * Executes a command with task list, contactList and ui.
@@ -47,9 +43,10 @@ public abstract class Command {
 
     /**
      * Executes a command with task list and ui (GUI).
-     *  @param items The task list that contains a list of tasks.
+     *
+     * @param items The task list that contains a list of tasks.
      * @param ui To tell the user that it is executed successfully.
-     * @return
+     * @return String to be outputted to the user.
      */
     public abstract String executeGui(TaskList items, Ui ui);
 

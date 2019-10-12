@@ -54,9 +54,10 @@ public class AddMultipleCommand extends Command {
 
     /**
      * Executes a command that adds the tasks into task list and outputs the result (GUI).
-     *  @param items The task list that contains a list of tasks.
+     *
+     * @param items The task list that contains a list of tasks.
      * @param ui To tell the user that they are added successfully.
-     * @return
+     * @return String to be outputted to the user.
      */
     @Override
     public String executeGui(TaskList items, Ui ui) {

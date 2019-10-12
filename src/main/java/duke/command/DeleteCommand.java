@@ -49,13 +49,12 @@ public class DeleteCommand extends Command {
         ui.showDelete(items, deletedStr);
     }
 
-
-
     /**
      * Executes a command that deletes the task from the task list and outputs the result (GUI).
-     *  @param items The task list that contains a list of tasks.
+     *
+     * @param items The task list that contains a list of tasks.
      * @param ui To tell the user that it is deleted successfully.
-     * @return
+     * @return String to be outputted to the user.
      */
     @Override
     public String executeGui(TaskList items, Ui ui) {

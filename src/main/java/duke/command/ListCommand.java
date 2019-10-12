@@ -22,9 +22,10 @@ public class ListCommand extends Command {
 
     /**
      * Executes a command that gathers all tasks from task list and outputs the result (GUI).
-     *  @param items The task list that contains a list of tasks.
+     *
+     * @param items The task list that contains a list of tasks.
      * @param ui To tell the user the list of tasks stored in task list.
-     * @return
+     * @return String to be outputted to the user.
      */
     @Override
     public String executeGui(TaskList items, Ui ui) {

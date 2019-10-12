@@ -28,6 +28,14 @@ public class RemindCommand extends Command {
         ui.showErrorMsg(" " + task.toString());
     }
 
+    /**
+     * Executes a command that gathers all tasks from task list and outputs the result (GUI).
+     * (Not in use)
+     *
+     * @param items The task list that contains a list of tasks.
+     * @param ui To tell the user the list of tasks stored in task list.
+     * @return List of tasks.
+     */
     @Override
     public String executeGui(TaskList items, Ui ui) {
         return null;
@@ -43,6 +51,5 @@ public class RemindCommand extends Command {
      */
     @Override
     public void executeStorage(TaskList items, Ui ui, Storage storage) {
-
     }
 }

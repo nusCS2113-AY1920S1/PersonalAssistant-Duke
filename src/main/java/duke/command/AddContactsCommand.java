@@ -43,15 +43,40 @@ public class AddContactsCommand extends Command {
         ui.showAddedContact(contactList);
     }
 
+    /**
+     * Executes a command that adds the task into task list and outputs the result (GUI).
+     * (Not in use)
+     *
+     * @param items The task list that contains a list of tasks.
+     * @param ui To tell the user that it is added successfully.
+     * @return String to be outputted to the user.
+     */
     @Override
     public String executeGui(TaskList items, Ui ui) {
         return null;
     }
 
+    /**
+     * Executes a command that overwrites existing storage with the updated task list.
+     * (Not in use)
+     *
+     * @param items The task list that contains a list of tasks.
+     * @param ui To tell the user that it is executed successfully.
+     * @param storage The storage to be overwritten.
+     */
     @Override
     public void executeStorage(TaskList items, Ui ui, Storage storage) throws IOException {
     }
 
+    /**
+     * Executes a command that overwrites existing storage with the updated contact list.
+     *
+     * @param items The task list that contains a list of tasks.
+     * @param ui To tell the user that it is executed successfully.
+     * @param contactStorage Contacts stored in storage.
+     * @param contactList The list of contacts.
+     * @throws IOException
+     */
     public void executeStorage(TaskList items, Ui ui, ContactStorage contactStorage,
                                ContactList contactList) throws IOException {
         contactStorage.write(contactList);
