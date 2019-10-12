@@ -147,6 +147,26 @@ public class AcadCommand extends Command implements CommandParser {
     }
 
     /**
+     * Add a single Academic Task to the tasklist and prints out the output that
+     * confirms the addition of that task.
+     *
+     * @param description Description of recurring task.
+     * @param dateStr Starting date of recurring task.
+     * @param startTime   Starting time of recurring task.
+     * @param priority    priority level of task type
+     * @param endTime     End time of deadline
+     */
+    public void addAcadTask(String description, Task.Priority priority, String dateStr,
+                                 String startTime, String endTime, String symbol) {
+        AcadTask newAcadTask = new AcadTask(description, priority, dateStr,
+                startTime, endTime, symbol);
+        taskList.addTask(newAcadTask);
+        int arrSize = taskList.arrlist.size() - 1;
+        String descToPrint = taskList.arrlist.get(arrSize).toString();
+        compal.ui.printg(descToPrint);
+    }
+
+    /**
      * Adds multiple AcadTask into taskList and prints confirmation message to user.
      *
      * @param userIn Entire user string input.
@@ -176,12 +196,7 @@ public class AcadCommand extends Command implements CommandParser {
                 Date endDate = stringToDate(endDateStr);
                 while (dateForEachTask.before(endDate)) {
                     String dateStrForEachTask = dateToString(dateForEachTask);
-                    AcadTask newAcadTask = new AcadTask(description, priority, dateStrForEachTask,
-                            startTime, endTime, symbol);
-                    taskList.addTask(newAcadTask);
-                    int arrSize = taskList.arrlist.size() - 1;
-                    String descToPrint = taskList.arrlist.get(arrSize).toString();
-                    compal.ui.printg(descToPrint);
+                    addAcadTask(description, priority, dateStrForEachTask, startTime, endTime, symbol);
                     dateForEachTask = incrementDateByWeek(dateForEachTask);
                 }
             }

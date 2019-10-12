@@ -131,14 +131,14 @@ public class RecurTaskCommand extends Command implements CommandParser {
      * confirms the addition of that task.
      *
      * @param description Description of recurring task.
-     * @param dateStrForIncrement Starting date of recurring task.
+     * @param dateStr Starting date of recurring task.
      * @param startTime   Starting time of recurring task.
      * @param priority    priority level of task type
      * @param endTime     End time of deadline
      */
-    public void addRecurringTask(String description, Task.Priority priority, String dateStrForIncrement,
+    public void addRecurringTask(String description, Task.Priority priority, String dateStr,
                                  String startTime, String endTime) {
-        RecurringTask recurringTask = new RecurringTask(description, priority, dateStrForIncrement,
+        RecurringTask recurringTask = new RecurringTask(description, priority, dateStr,
                 startTime, endTime);
         taskList.addTask(recurringTask);
         int arrSize = taskList.arrlist.size() - 1;
