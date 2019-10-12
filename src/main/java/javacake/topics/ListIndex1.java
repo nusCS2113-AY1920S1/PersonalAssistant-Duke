@@ -3,9 +3,12 @@ package javacake.topics;
 import java.io.File;
 import java.util.ArrayList;
 
-public class ListIndex1  {
+public class ListIndex1 extends ListFormat {
 
-    public ArrayList<String> listIndex1SubList = new ArrayList<String>();
+    private String folderPath;
+    private File folder;
+    private File[] listOfFiles;
+    public ArrayList<Topic> listIndex1SubList = new ArrayList<Topic>();
 
     /**
      * List at index 1.
@@ -17,6 +20,16 @@ public class ListIndex1  {
         listIndex1SubList.add("Quiz");
     }
 
+
+    @Override
+    public String getFolderPath() {
+        return null;
+    }
+
+    @Override
+    public File findTopicsWithinFolder(String folderPath) {
+        return null;
+    }
 
     /**
      * Method to print the contents of the list.
