@@ -25,7 +25,6 @@ public class  AddCommand extends Command {
     /**
      * Executes the adding of a Task object to a TaskList object
      * and displaying the add task response.
-     * @param todos The TaskList object for todos
      * @param events The TaskList object for events
      * @param deadlines The TaskList object for deadlines
      * @param ui The Ui object to display the add task message
@@ -33,7 +32,7 @@ public class  AddCommand extends Command {
      * @return This returns the method in the Ui object which returns the string to display add task message
      */
     @Override
-    public String execute(TaskList todos, TaskList events, TaskList deadlines, Ui ui, Storage storage) throws FileNotFoundException {
+    public String execute(TaskList events, TaskList deadlines, Ui ui, Storage storage) throws FileNotFoundException {
         String out = "";
         int con = 0;
         boolean isOK = true;

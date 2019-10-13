@@ -39,7 +39,6 @@ public class FindEarliestFreeTimesCommand extends Command {
 
     /**
      * Executes the finding of earliest available block period inside the given TaskList objects with the given duration.
-     * @param todos The todo TaskList object used to find free time with the given duration
      * @param events The event TaskList object used to find free time with the given duration
      * @param deadlines The deadline TaskList object used to find free time with the given duration
      * @param ui The Ui object to display the earliest free time message
@@ -48,7 +47,7 @@ public class FindEarliestFreeTimesCommand extends Command {
      * @throws Exception Throws ParseException is findEarliestFreeTime contains error
      */
     @Override
-    public String execute(TaskList todos, TaskList events, TaskList deadlines, Ui ui, Storage storage) throws Exception {
+    public String execute(TaskList events, TaskList deadlines, Ui ui, Storage storage) throws Exception {
         SimpleDateFormat dateFormat = new SimpleDateFormat("E dd/MM/yyyy hh:mm aa");
         SimpleDateFormat timeFormat = new SimpleDateFormat("hh:mm aa");
         Pair<Date, Date> freeTime = events.findEarliestFreeTime(duration, type);

@@ -13,6 +13,8 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Set;
 
 /**
  * Deals with loading or saving tasks to and from a file.
@@ -22,6 +24,8 @@ public class Storage {
     private String filePathEvent;
     private String filePathDeadline;
     private static String filePathTentativeDates;
+    private HashMap<String, HashMap<String, ArrayList<Task>>> map;
+
     /**
      * Creates Storage object.
      */
@@ -35,9 +39,16 @@ public class Storage {
 
     public void updateEventList(TaskList list) throws FileNotFoundException {
         PrintWriter outputStream = new PrintWriter(filePathEvent);
-        ArrayList<Task> temp = list.getList();
-        for (Task task : temp) {
-            outputStream.println(task.toString());
+        map = list.getMap();
+        Set<String> allMods = map.keySet();
+        for (String mod : allMods) {
+            Set<String> allDates = map.get(mod).keySet();
+            for (String date : allDates) {
+                ArrayList<Task> temp = map.get(mod).get(date);
+                for(Task task : temp) {
+                    outputStream.println(task.toString());
+                }
+            }
         }
         outputStream.close();
     }
@@ -45,17 +56,23 @@ public class Storage {
     public void readEventList(TaskList list) throws IOException, ParseException {
         ArrayList<String> temp = new ArrayList<>(Files.readAllLines(Paths.get(filePathEvent)));
         for (String string : temp) {
-            if(!string.trim().isEmpty()) {
-                list.addTask(stringToTask(string));
-            }
+            Task task = stringToTask(string);
+            list.addTask(task);
         }
     }
 
     public void updateDeadlineList(TaskList list) throws FileNotFoundException {
         PrintWriter outputStream = new PrintWriter(filePathDeadline);
-        ArrayList<Task> temp = list.getList();
-        for(Task task : temp){
-            outputStream.println(task.toString());
+        map = list.getMap();
+        Set<String> allMods = map.keySet();
+        for (String mod : allMods) {
+            Set<String> allDates = map.get(mod).keySet();
+            for (String date : allDates) {
+                ArrayList<Task> temp = map.get(mod).get(date);
+                for(Task task : temp) {
+                    outputStream.println(task.toString());
+                }
+            }
         }
         outputStream.close();
     }
@@ -63,23 +80,8 @@ public class Storage {
     public void readDeadlineList(TaskList list) throws IOException, ParseException {
         ArrayList<String> temp = new ArrayList<>(Files.readAllLines(Paths.get(filePathDeadline)));
         for (String string : temp) {
-            if(!string.trim().isEmpty()) {
-                list.addTask(stringToTask(string));
-            }
-        }
-    }
-    public static void updateTentativeDates(TaskList list) throws FileNotFoundException {
-        PrintWriter outputStream = new PrintWriter(filePathTentativeDates);
-        ArrayList<Task> temp = list.getList();
-        for(Task task : temp){
-            outputStream.println(task.toString());
-        }
-        outputStream.close();
-    }
-    public void readTentativeDates(TaskList list) throws IOException, ParseException {
-        ArrayList<String> temp = new ArrayList<>(Files.readAllLines(Paths.get(filePathTentativeDates)));
-        for(String string : temp){
-            list.addTask(stringToTask(string));
+            Task task = stringToTask(string);
+            list.addTask(task);
         }
     }
 

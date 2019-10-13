@@ -21,7 +21,6 @@ public class DoneCommand extends Command {
 
     /**
      * Executes the marking a check on a task inside the TaskList object with the given index.
-     * @param todos The TaskList object for todos
      * @param events The TaskList object for events
      * @param deadlines The TaskList object for deadlines
      * @param ui The Ui object to display the done task message
@@ -30,12 +29,13 @@ public class DoneCommand extends Command {
      * @throws DukeException On ArrayList out of bound error
      */
     @Override
-    public String execute(TaskList todos, TaskList events, TaskList deadlines, Ui ui, Storage storage) throws DukeException, FileNotFoundException {
-        if(index >= 0 && index < todos.taskListSize()) {
+    public String execute(TaskList events, TaskList deadlines, Ui ui, Storage storage) throws DukeException, FileNotFoundException {
+        /*if(index >= 0 && index < todos.taskListSize()) {
             todos.markAsDone(index);
             return ui.showDone(todos.getTask(index));
         } else {
             throw new DukeException("\u2639" + " OOPS!!! I'm sorry, but we cannot find the input task number :-(");
-        }
+        }*/
+        return null; //remove this after fixing
     }
 }

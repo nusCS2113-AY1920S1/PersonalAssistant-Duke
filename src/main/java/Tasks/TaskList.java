@@ -12,6 +12,9 @@ public class TaskList {
     private static final String NO_FIELD = "void";
 
     private ArrayList<Task> list;
+    private HashMap<String, HashMap<String, ArrayList<Task>>> map;
+    private HashMap<String, HashMap<String, ArrayList<String>>> deadlineList = new HashMap<>();
+    private HashMap<String, HashMap<String, ArrayList<String>>> eventList = new HashMap<>();
     private ArrayList<String> deadlineArrList = new ArrayList<>();
     private ArrayList<String> eventArrList = new ArrayList<>();
 
@@ -20,32 +23,64 @@ public class TaskList {
      */
     public TaskList(){
         this.list = new ArrayList<>();
+        this.map = new HashMap<>();
     }
 
     public ArrayList<Task> getList() {
         return list;
     }
 
-    public void addTask(Task task){
-        this.list.add(task);
+    public HashMap<String, HashMap<String, ArrayList<Task>>> getMap(){
+        return this.map;
     }
 
+    public ArrayList<Task> getListFromDate(Task task) {
+        return this.map.get(task.getModCode()).get(task.getDateTime());
+    }
+
+    public HashMap<String, ArrayList<Task>> getMapFromModCode(Task task) {
+        return this.map.get(task.getModCode());
+    }
+
+    public void addTask(Task task){
+        this.list.add(task);
+        if (this.map.containsKey(task.getModCode())) {
+            if (!this.map.get(task.getModCode()).containsKey(task.getDateTime())) {
+                map.get(task.getModCode()).put(task.getDateTime(), new ArrayList<>());
+            }
+        } else {
+            this.map.put(task.getModCode(), new HashMap<>());
+            this.map.get(task.getModCode()).put(task.getDateTime(), new ArrayList<>());
+        }
+        this.map.get(task.getModCode()).get(task.getDateTime()).add(task);
+    }
+    //Do not use this
     public void removeTask(int index){
         this.list.remove(index);
     }
 
+    public void removeTask(Task task) {
+        ArrayList<Task> taskList = this.map.get(task.getModCode()).get(task.getDateTime());
+        for(Task taskInList : taskList) {
+            if(taskInList.getDescription().equals(task.getDescription())) {
+                taskList.remove(taskInList);
+                break;
+            }
+        }
+    }
+    //Do not use this: User will input the task in the CLI
     public Task getTask(int index){
         return this.list.get(index);
     }
-
+    //Do not use this: Use toString method in Task
     public String taskToString(int index){
         return list.get(index).toString();
     }
-
+    //Do not use this: Use setDone method in Task
     public void markAsDone(int index){
         this.list.get(index).setDone(true);
     }
-
+    //Use the getArrayList method then arrayList.size()
     public int taskListSize(){
         return list.size();
     }
