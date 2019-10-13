@@ -22,7 +22,7 @@ public class MooMoo {
      */
     public MooMoo() {
         ui = new Ui();
-        storage = new Storage("data/moomoo.txt");
+        storage = new Storage("data/budget.txt","data/transactions.txt","data/category.txt");
         try {
             catList = new CategoryList(storage.loadCategories());
         } catch (MooMooException e) {

@@ -5,7 +5,6 @@ import java.io.IOException;
 import java.nio.file.FileAlreadyExistsException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.nio.file.StandardOpenOption;
 import java.text.DecimalFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -20,15 +19,21 @@ import java.util.Map;
  * Handles storage and retrieval of the tasks.
  */
 public class Storage {
-    private String filePath;
     private DecimalFormat df;
+    private String budgetFilePath;
+    private String transactionFilePath;
+    private String categoryFilePath;
 
     /**
-     * Takes in the filePath for future I/O.
-     * @param filePath String representing the path of the file to be written and read from.
+     * Initializes storage and the filepath for each file.
+     * @param budgetFilePath File path to store the budget into.
+     * @param transactionFilePath File path to store all transactions
+     * @param categoryFilePath File path to store all categories
      */
-    public Storage(String filePath) {
-        this.filePath = filePath;
+    public Storage(String budgetFilePath, String transactionFilePath, String categoryFilePath) {
+        this.budgetFilePath = budgetFilePath;
+        this.transactionFilePath = transactionFilePath;
+        this.categoryFilePath = categoryFilePath;
         df = new DecimalFormat("#.00");
     }
 
@@ -55,16 +60,16 @@ public class Storage {
     }
 
     /**
-     * Loads in budget from an existing file into a created ArrayList object.
-     * @return ArrayList object consisting of the budget read from the file.
+     * Loads in budget from an existing file into a created HashMap object.
+     * @return HashMap object consisting of the categories and corresponding budget read from file.
      * @throws MooMooException Thrown when the file does not exist
      */
     public HashMap<String, Double> loadBudget() throws MooMooException {
         try {
-            if (Files.isRegularFile(Paths.get(this.filePath))) {
+            if (Files.isRegularFile(Paths.get(this.budgetFilePath))) {
                 HashMap<String, Double> loadedBudgets = new HashMap<String, Double>();
+                List<String> input = Files.readAllLines(Paths.get(this.budgetFilePath));
 
-                List<String> input = Files.readAllLines(Paths.get(this.filePath));
                 for (String value : input) {
                     if (value.charAt(0) == 'B') {
                         String[] splitInput = value.split(" \\| ");
@@ -97,11 +102,11 @@ public class Storage {
     /**
      * Creates the directory and file as given by the file path initialized in the constructor.
      */
-    private void createFileAndDirectory() throws MooMooException {
+    private void createFileAndDirectory(String filePath) throws MooMooException {
         try {
-            File myNewFile = new File(this.filePath);
+            File myNewFile = new File(filePath);
             Files.createDirectory(Paths.get(myNewFile.getParent()));
-            Files.createFile(Paths.get(this.filePath));
+            Files.createFile(Paths.get(filePath));
         } catch (FileAlreadyExistsException e) {
             return;
         } catch (IOException e) {
@@ -129,10 +134,12 @@ public class Storage {
     }
 
     /**
-     * Creates the file as necessary, reads Budget and converts each value into a string and writes it to file.
+     * Creates a file if necessary and stores each category and its budget into the file.
+     * @param budget Budget object that stores the budget for each category
+     * @throws MooMooException thrown if file cannot be written to.
      */
     public void saveBudgetToFile(Budget budget) throws MooMooException {
-        createFileAndDirectory();
+        createFileAndDirectory(this.budgetFilePath);
         String toSave = "B";
         Iterator budgetIterator = budget.getBudget().entrySet().iterator();
         while (budgetIterator.hasNext()) {
@@ -140,7 +147,7 @@ public class Storage {
             toSave += " | " + mapElement.getKey() + " | " + mapElement.getValue();
         }
         try {
-            Files.writeString(Paths.get(this.filePath), toSave, StandardOpenOption.APPEND);
+            Files.writeString(Paths.get(this.budgetFilePath), toSave);
         } catch (Exception e) {
             throw new MooMooException("Unable to write to file. Please retry again.");
         }

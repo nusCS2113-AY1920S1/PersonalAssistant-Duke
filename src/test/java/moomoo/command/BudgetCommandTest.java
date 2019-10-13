@@ -16,14 +16,14 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class BudgetCommandTest {
     @Test
     public void testBudgetSubCommands() throws MooMooException, IOException {
-        File tempFile = File.createTempFile("moomoo", ".txt");
-        tempFile.deleteOnExit();
+        File budgetFile = File.createTempFile("budget", ".txt");
+        budgetFile.deleteOnExit();
 
         TransactionList newTransList = new TransactionList();
         CategoryList newCatList = new CategoryList();
         Budget newBudget = new Budget();
         Ui newUi = new Ui();
-        Storage newStorage = new Storage(tempFile.getPath());
+        Storage newStorage = new Storage(budgetFile.getPath(),"transactions.txt","category.txt");
 
         BudgetCommand budgetCommand = new BudgetCommand(false, "budget set c/shoes b/1000.79 c/food b/500");
         budgetCommand.execute(newBudget, newCatList, newTransList, newUi, newStorage);
