@@ -11,10 +11,11 @@ import parser.Parser;
 import object.MovieInfoObject;
 import java.util.ArrayList;
 
-public class WatchlistCommand extends CommandSuper {
-    public WatchlistCommand(Controller UIController) {
+public class AddCommand extends CommandSuper {
+    public AddCommand(Controller UIController) {
         super(COMMAND_KEYS.add, CommandStructure.cmdStructure.get(COMMAND_KEYS.add), UIController);
     }
+
 
     @Override
     public void executeCommands() {

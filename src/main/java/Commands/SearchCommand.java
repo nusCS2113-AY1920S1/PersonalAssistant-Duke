@@ -39,6 +39,7 @@ public class SearchCommand extends CommandSuper {
 
     }
 
+
     /**
      * search for movie titles using keywords
      * root: search
