@@ -57,7 +57,7 @@ public class Bond {
     }
 
     /**
-     * Gets the category of the bond purchased
+     * Gets the category of the bond purchased.
      *
      * @return the category of this bond purchased.
      */

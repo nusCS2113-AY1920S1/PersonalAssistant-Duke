@@ -14,6 +14,11 @@ public class BondList {
         bondLists = new ArrayList<Bond>();
     }
 
+    /**
+     * Lists the bonds in the bondList.
+     * @param ui required for display.
+     * @param displayNum bond number.
+     */
     public void listBond(Ui ui, int displayNum) {
         if (bondLists.size() <= 0) {
             ui.printError("There are no bonds");
@@ -24,17 +29,22 @@ public class BondList {
         }
     }
 
+    /**
+     * Add bond to list.
+     * @param bond bond object.
+     * @param ui required for printing.
+     */
     public void addBondToList(Bond bond, Ui ui) {
         bondLists.add(bond);
         ui.printMessage("Added bond:\n" + bond.getName());
     }
 
-    public void editBond() {
+    /*public void editBond() {
 
     }
 
     public void deleteBondFromList() {
 
-    }
+    }*/
 
 }

@@ -38,8 +38,8 @@ class ParseType extends Parser {
      * List of whitelisted keywords that the user can use.
      */
     private static final String[] TYPE_KEYWORDS = new String[] {
-            "/savings", "/investment", "/expenditure", "/goals", "/card",
-            "/recurexpenditure", "/bonds", "/profile", "/deposit"
+        "/savings", "/investment", "/expenditure", "/goals", "/card",
+        "/recurexpenditure", "/bonds", "/profile", "/deposit"
     };
     private static final List<String> TYPE_KEYWORD_LISTS = Arrays.asList(TYPE_KEYWORDS);
 
@@ -140,7 +140,7 @@ class ParseType extends Parser {
                 parseAddInvestment.checkParameter();
                 return parseAddInvestment.getCommand();
             }
-                throw new ParserException("You entered an invalid type for bond");
+            throw new ParserException("You entered an invalid type for bond");
         case "/expenditure":
             if ("/add".equals(command)) {
                 ParseExpenditure addExp = new ParseAddExpenditure(rawData);
