@@ -36,9 +36,6 @@ public class Duke {
     private HashMap<String, ModuleInfoSummary> modSummaryMap;
     private HashMap<String, ModuleInfoDetailed> modDetailedMap;
 
-    private boolean mode = true;
-
-
     /**
      * Constructor for Duke class.
      */
@@ -49,11 +46,6 @@ public class Duke {
         tasks = new TaskList(store);
         parser = new ParserWrapper();
         data = new JsonWrapper();
-    }
-
-    public Duke(boolean mode) {
-        this();
-        this.mode = mode;
     }
 
     //TODO: function to be removed after implementing feature
@@ -110,7 +102,7 @@ public class Duke {
         }
     }
 
-    private void modRun(boolean mode) {
+    private void modRun() {
         modUi.helloMsg();
         modSetup();
         boolean isExit = false;
@@ -118,7 +110,7 @@ public class Duke {
             try {
                 String fullCommand = modUi.readCommand();
                 modUi.showLine();
-                ModuleCommand c = parser.parse(fullCommand, mode);
+                ModuleCommand c = parser.parse(fullCommand, false);
                 c.execute(modSummaryMap, modDetailedMap, modUi, store);
                 testJson();
                 isExit = c.isExit();
@@ -148,7 +140,7 @@ public class Duke {
                 testJson(c);
                 isExit = c.isExit();
             } catch (ModException e) {
-                System.out.println(e.getMessage());
+                e.printStackTrace();
             } finally {
                 ui.showLine();
             }
@@ -163,5 +155,6 @@ public class Duke {
         //TODO: args flag could be passed into program for optional runs
         Duke duke = new Duke();
         duke.run();
+        duke.modRun();
     }
 }
