@@ -22,20 +22,15 @@
    <children>
       <MenuBar layoutX="7.0" layoutY="2.0" prefHeight="25.0" prefWidth="364.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="516.0" AnchorPane.topAnchor="0.0">
         <menus>
-            <Menu mnemonicParsing="false" text="Add new">
-              <items>
-                <MenuItem mnemonicParsing="false" text="Action 1" />
-              </items>
-            </Menu>
+            <Menu mnemonicParsing="false" text="Add new" />
           <Menu mnemonicParsing="false" text="Exit?">
             <items>
-                  <MenuItem disable="true" mnemonicParsing="false" text="Sup" />
               <MenuItem fx:id="exit" mnemonicParsing="false" onAction="#exitProgram" text="Close" />
             </items>
           </Menu>
           <Menu mnemonicParsing="false" text="View">
             <items>
-              <MenuItem mnemonicParsing="false" text="Delete" />
+              <MenuItem mnemonicParsing="false" text="Blank" />
             </items>
           </Menu>
           <Menu mnemonicParsing="false" text="Help">
@@ -80,7 +75,7 @@
                     <content>
                       <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="339.0" prefWidth="437.0">
                            <children>
-                              <ListView fx:id="listT" prefHeight="340.0" prefWidth="438.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                              <ListView fx:id="listT" onMouseClicked="#onMouseClick_ListView" prefHeight="340.0" prefWidth="438.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                            </children>
                         </AnchorPane>
                     </content>
@@ -90,22 +85,22 @@
                <children>
                   <BorderPane prefHeight="186.0" prefWidth="438.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <top>
-                        <Label text="Selected Task: Read Chapter 1 - 5" BorderPane.alignment="CENTER" />
+                        <Label fx:id="labelSelectedTask" text="Selected Task:" BorderPane.alignment="CENTER" />
                      </top>
                      <center>
                         <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                            <children>
-                              <Button mnemonicParsing="false" text="Done">
+                              <Button fx:id="btnDone" mnemonicParsing="false" onMouseClicked="#onMouseClickDone" text="Done">
                                  <font>
                                     <Font size="24.0" />
                                  </font>
                               </Button>
-                              <Button layoutX="125.0" layoutY="69.0" mnemonicParsing="false" text="Delete">
+                              <Button fx:id="btnDelete" layoutX="125.0" layoutY="69.0" mnemonicParsing="false" onMouseClicked="#onMouseClickDelete" text="Delete">
                                  <font>
                                     <Font size="24.0" />
                                  </font>
                               </Button>
-                              <Button layoutX="73.0" layoutY="69.0" mnemonicParsing="false" text="Edit">
+                              <Button fx:id="btnEdit" layoutX="73.0" layoutY="69.0" mnemonicParsing="false" text="Edit">
                                  <font>
                                     <Font size="24.0" />
                                  </font>
