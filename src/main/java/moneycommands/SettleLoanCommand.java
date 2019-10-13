@@ -101,6 +101,7 @@ public class SettleLoanCommand extends MoneyCommand {
         } else {
             throw new DukeException("Whoa! The amount entered is more than debt! Type 'all' to settle the entire debt");
         }
+        storage.writeToFile(account);
 
         String payDirection = (type == Loan.Type.INCOMING) ? " to " :
                 type == Loan.Type.OUTGOING ? " from " : "";

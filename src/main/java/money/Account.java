@@ -32,7 +32,6 @@ public class Account {
         instalments = new ArrayList<>();
         bankTrackerList = new ArrayList<>();
         loans = new ArrayList<>();
-        loans = new ArrayList<>();
         toInitialize = true;
     }
 
@@ -44,8 +43,7 @@ public class Account {
         shortTermGoals = account.getShortTermGoals();
         instalments = account.getInstalments();
         bankTrackerList = account.getBankTrackerList();
-        loans = account.getOutgoingLoans();
-        loans = account.getIncomingLoans();
+        loans = account.getLoans();
         toInitialize = account.isToInitialize();
         baseSavings = account.getBaseSavings();
         updateSavings();
@@ -209,7 +207,7 @@ public class Account {
     public boolean isInitialised() {
         return getIncomeListTotal().isEmpty() || getExpListTotal().isEmpty() ||
                 getShortTermGoals().isEmpty() || getInstalments().isEmpty() ||
-                getBankTrackerList().isEmpty();
+                getBankTrackerList().isEmpty() || getLoans().isEmpty();
     }
 
     /**

@@ -59,7 +59,7 @@ public class AddLoanCommand extends MoneyCommand {
         LocalDate startDate = Parser.shortcutTime(furSplit[1]);
         Loan l = new Loan(amount, description, startDate, type);
         account.getLoans().add(l);
-        //storage.writeToFile(account); figure this out later
+        storage.writeToFile(account);
 
         int loanTypeSize = l.getType() == Loan.Type.INCOMING ? account.getIncomingLoans().size() :
                 l.getType() == Loan.Type.OUTGOING ? account.getOutgoingLoans().size() : -1;

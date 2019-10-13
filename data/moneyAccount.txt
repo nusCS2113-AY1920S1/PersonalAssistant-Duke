@@ -6,6 +6,7 @@ INC @ 560.0 @ TA  @ 12/10/2019
 INC @ 500.0 @ shit  @ 7/10/2019
 INC @ 560.0 @ TA  @ 10/12/2040
 INC @ 560.0 @ TA  @ 10/12/2040
+INC @ 12.0 @ Repayment for Mala  @ 13/10/2019
 EXP @ 3.0 @ ice-cream  @ food  @ 10/12/2040
 EXP @ 3.0 @ ice-cream  @ food  @ 10/12/2040
 EXP @ 3.0 @ ice-cream  @ food  @ 5/10/2019
@@ -17,18 +18,8 @@ SEX @ 48.0 @ Mala  @ food  @ 4/10/2019 @ Max#0 ! Nic#1 ! Daniel#0
 EXP @ 20.0 @ hookers  @ hookers  @ 10/10/2020
 EXP @ 10000.0 @ buy Motorbike  @ GS @ 11/10/2019
 EXP @ 792.1389 @ mortgage  @ instalments @ 11/10/2019
-SEX @ 48.0 @ Mala  @ food  @ 5/10/2019 @ Max#0 ! Nic#0 ! Daniel#0
-G @ 48.0 @ Mala  @ food  @ 4/10/2019 @ null
-G @ 48.0 @ Mala  @ food  @ 5/10/2019 @ null
-G @ 48.0 @ Mala  @ food  @ 4/10/2019 @ null
-G @ 48.0 @ Mala  @ food  @ 5/10/2019 @ null
-G @ 48.0 @ Mala  @ food  @ 4/10/2019 @ null
-G @ 48.0 @ Mala  @ food  @ 5/10/2019 @ null
-G @ 48.0 @ Mala  @ food  @ 4/10/2019 @ null
-G @ 48.0 @ Mala  @ food  @ 5/10/2019 @ null
-G @ 48.0 @ Mala  @ food  @ 4/10/2019 @ null
-G @ 48.0 @ Mala  @ food  @ 5/10/2019 @ null
-G @ 48.0 @ Mala  @ food  @ 4/10/2019 @ null
+SEX @ 48.0 @ Mala  @ food  @ 5/10/2019 @ Max#0 ! Nic#0 ! Daniel#1
+EXP @ 3.0 @ ice-cream  @ food  @ 10/12/2040
 G @ 100000.0 @ buy Lambo  @ GS @ 10/12/2040 @ MEDIUM
 G @ 100000.0 @ buy Boat  @ GS @ 11/12/2050 @ LOW
 G @ 100000.0 @ buy HDB  @ GS @ 15/1/2050 @ HIGH
@@ -40,3 +31,5 @@ G @ 10000.0 @ buy expensive watch  @ GS @ 5/10/2029 @ MEDIUM
 G @ 200.0 @ goal-short buy table  @ GS @ 1/12/2019 @ MEDIUM
 INS @ 100000.0 @ mortgage  @ instalments @ 11/10/2019 @ 200 @ 0.06
 INS @ 100000.0 @ mortgage  @ instalments @ 9/10/2019 @ 200 @ 0.06
+LOA @ 700.0 @ mah parents @ 6/10/2019 @ INCOMING @  @ 0 @ 300.0
+LOA @ 500.0 @ mah bitches @ 12/10/2019 @ OUTGOING @  @ 0 @ 500.0

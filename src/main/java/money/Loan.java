@@ -39,8 +39,45 @@ public class Loan extends Item {
         dateTimeFormatter  = DateTimeFormatter.ofPattern("d/M/yyyy");
     }
 
-    public LocalDate getStartDate() {
+    public Loan(float amount, String description, LocalDate startDate, String type, String endDate,
+                String status, float outstandingLoan) throws ParseException {
+        super(amount, description);
+        this.startDate = startDate;
+
+        if (type.equals("OUTGOING")) {
+            this.type = Type.OUTGOING;
+        } else if (type.equals("INCOMING")) {
+            this.type = Type.INCOMING;
+        } else {
+            this.type = null;
+        }
+
+//        LocalDate compareDate = Parser.shortcutTime("9/10/1997");
+//        if (endDate == compareDate) {
+//            this.endDate = null;
+//        } else {
+//            this.endDate = endDate;
+//        }
+        if (endDate.equals("")) {
+            this.endDate = null;
+        } else {
+            this.endDate = LocalDate.parse(endDate, dateTimeFormatter);
+        }
+
+        if (status.equals("1")) {
+            this.isSettled = true;
+        } else {
+            this.isSettled = false;
+        }
+        this.outstandingLoan = outstandingLoan;
+    }
+
+    public LocalDate getDateStartDate() {
         return startDate;
+    }
+
+    public LocalDate getDateEndDate() {
+        return endDate;
     }
 
     private void setEndDate() throws ParseException {
@@ -49,6 +86,14 @@ public class Loan extends Item {
 
     public boolean getStatus() {
         return isSettled;
+    }
+
+    public int getStatusInt() {
+        if (isSettled) {
+            return 1;
+        } else {
+            return 0;
+        }
     }
 
     public float getOutstandingLoan() {
@@ -81,14 +126,17 @@ public class Loan extends Item {
         }
         String status = isSettled ? "[Settled]" : "[Outstanding]";
         return status + typeStr + " " + super.getDescription() + "(loan: $" + super.getPrice() + ") (Lent On: "
-                + getStartDateTime() + ")" + getEndDateString();
+                + getStartDate() + ")" + getEndDateString();
     }
 
-    public String getStartDateTime() {
+    public String getStartDate() {
         return startDate.format(dateTimeFormatter);
     }
 
-    public String getEndDateTime() {
+    public String getEndDate() {
+        if (endDate == null) {
+            return "";
+        }
         return endDate.format(dateTimeFormatter);
     }
 
@@ -96,9 +144,29 @@ public class Loan extends Item {
         if (endDate == null) {
             return " Outstanding Amount: $" + outstandingLoan;
         } else {
-            return " (Paid Back On: " + getEndDateTime() + ")";
+            return " (Paid Back On: " + getEndDate() + ")";
 
         }
+    }
+
+    public void updateExistingLoan(String typeStr, String endDate, int status, float outstandingLoan) {
+        if (typeStr.equals("INCOMING")) {
+            this.type = Type.INCOMING;
+        } else if (typeStr.equals("OUTGOING")) {
+            this.type = Type.OUTGOING;
+        }
+
+        if (endDate.equals("")) {
+            this.endDate = null;
+        }
+
+        if (status == 1) {
+            this.isSettled = true;
+        } else {
+            this.isSettled = false;
+        }
+
+        this.outstandingLoan = outstandingLoan;
     }
 
     public Type getType() {
