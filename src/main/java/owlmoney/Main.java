@@ -6,7 +6,10 @@ import owlmoney.logic.command.Command;
 import owlmoney.logic.parser.ParseCommand;
 import owlmoney.logic.parser.exception.CardException;
 import owlmoney.logic.parser.exception.ParserException;
+import owlmoney.model.bank.exception.BankException;
+import owlmoney.model.bond.exception.BondException;
 import owlmoney.model.profile.Profile;
+import owlmoney.model.transaction.exception.TransactionException;
 import owlmoney.ui.Ui;
 
 /**
@@ -54,7 +57,9 @@ class Main {
                 if (hasExited) {
                     break;
                 }
-            } catch (ParserException | CardException exceptionMessage) {
+
+            } catch (ParserException | BankException | TransactionException | BondException
+                    | CardException exceptionMessage) {
                 ui.printError(exceptionMessage.toString());
             }
         }

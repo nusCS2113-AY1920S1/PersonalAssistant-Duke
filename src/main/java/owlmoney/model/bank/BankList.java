@@ -2,7 +2,11 @@ package owlmoney.model.bank;
 
 import java.util.ArrayList;
 
+import owlmoney.model.bank.exception.BankException;
+import owlmoney.model.bond.Bond;
+import owlmoney.model.bond.exception.BondException;
 import owlmoney.model.transaction.Transaction;
+import owlmoney.model.transaction.exception.TransactionException;
 import owlmoney.ui.Ui;
 
 /**
@@ -27,23 +31,10 @@ public class BankList {
      * @param bankListIndex The index of the bank account in the arrayList.
      * @return The name of the bank account.
      */
-    //for testing in case
     public String getBankName(int bankListIndex) {
         return bankLists.get(bankListIndex).getAccountName();
     }
-    /*
-    /**
-     * Returns the list of all bank accounts in the BankList.
-     *//*
-    public void listBanks() {
-        if (bankLists.size() <= 0) {
-            System.out.println("No bank account");
-        } else {
-            for (int i = 0; i < bankLists.size(); i++) {
-                bankLists.get(i).getDescription();
-            }
-        }
-    }*/
+
 
     /**
      * Adds an instance of a bank account into the BankList.
@@ -51,10 +42,9 @@ public class BankList {
      * @param newBank a new bank object.
      * @param ui      required for printing.
      */
-    public void addBank(Bank newBank, Ui ui) {
+    public void addBank(Bank newBank, Ui ui) throws BankException {
         if (bankAccountExists(newBank.getAccountName())) {
-            ui.printError("There is already a bank account with the name " + newBank.getAccountName());
-            return;
+            throw new BankException("There is already a bank account with the name " + newBank.getAccountName());
         }
         bankLists.add(newBank);
         ui.printMessage("Added new bank: ");
@@ -132,27 +122,23 @@ public class BankList {
      *
      * @param bankName name of bank account.
      * @param bankType type of bank account.
-     * @param ui       required for printing.
      * @return the result bankName is of bankType.
      */
-    private boolean canPassDeleteBankRequirements(String bankName, String bankType, Ui ui) {
+    private boolean canPassDeleteBankRequirements(String bankName, String bankType) throws BankException {
         if (isEmpty()) {
-            ui.printError("There are 0 bank accounts in your profile");
-            return false;
+            throw new BankException("There are 0 bank accounts in your profile");
         }
         if (bankType.equals(SAVING) && getNumberOfAccountType(SAVING) == 1) {
-            ui.printError("There must be at least 1 savings account");
-            return false;
+            throw new BankException("There must be at least 1 savings account");
         }
         if (!bankAccountExists(bankName)) {
-            ui.printError("There are no bank accounts with name " + bankName);
-            return false;
+            throw new BankException("There are no bank accounts with name " + bankName);
         }
         if (hasCorrectBankNameAndType(bankName, bankType)) {
             return true;
+        } else {
+            throw new BankException(bankName + " is not not of type: " + bankType);
         }
-        ui.printError("The bank account is not of correct type");
-        return false;
     }
 
     /**
@@ -162,8 +148,8 @@ public class BankList {
      * @param bankType type of bank account.
      * @param ui       required for printing.
      */
-    public void deleteBank(String bankName, String bankType, Ui ui) {
-        if (canPassDeleteBankRequirements(bankName, bankType, ui)) {
+    public void deleteBank(String bankName, String bankType, Ui ui) throws BankException {
+        if (canPassDeleteBankRequirements(bankName, bankType)) {
             for (int i = 0; i < getBankListSize(); i++) {
                 if (bankName.equals(bankLists.get(i).getAccountName())) {
                     ui.printMessage("Removing " + bankLists.get(i).getAccountName());
@@ -239,14 +225,14 @@ public class BankList {
      * @param ui      Required for printing.
      */
     //need change exception class in the future for this
-    public void addExpenditure(String accName, Transaction exp, Ui ui) {
+    public void addExpenditure(String accName, Transaction exp, Ui ui) throws BankException {
         for (int i = 0; i < bankLists.size(); i++) {
             if (bankLists.get(i).getAccountName().equals(accName)) {
                 bankLists.get(i).addInExpenditure(exp, ui);
                 return;
             }
         }
-        ui.printError("There are no account named :" + accName);
+        throw new BankException("There is no account with the name: " + accName);
     }
 
     /**
@@ -254,9 +240,9 @@ public class BankList {
      *
      * @param ui required for printing.
      */
-    public void listBankAccount(String bankType, Ui ui) {
+    public void listBankAccount(String bankType, Ui ui) throws BankException {
         if (getBankListSize() <= 0) {
-            ui.printError("There are 0 bank accounts.");
+            throw new BankException("There are 0 bank accounts");
         }
         for (int i = 0; i < getBankListSize(); i++) {
             if (bankType.equals(bankLists.get(i).getType())) {
@@ -264,22 +250,6 @@ public class BankList {
             }
         }
     }
-    /*
-    /**
-     * Lists all expenditure tied to a bank account.
-     *
-     * @param bankToList The bank account name.
-     * @param ui         required for printing.
-     *//*
-    public void listBankTransaction(String bankToList, Ui ui) {
-        for (int i = 0; i < bankLists.size(); i++) {
-            if (bankToList.equals(bankLists.get(i).getAccountName())) {
-                bankLists.get(i).listAllTransaction(ui);
-                return;
-            }
-        }
-        ui.printError("Cannot find bank with name: " + bankToList);
-    }*/
 
     /**
      * Lists expenditures in the bank account.
@@ -288,14 +258,15 @@ public class BankList {
      * @param ui         required for printing.
      * @param displayNum Number of expenditures to list.
      */
-    public void listBankExpenditure(String bankToList, Ui ui, int displayNum) {
+    public void listBankExpenditure(String bankToList, Ui ui, int displayNum) throws TransactionException,
+            BankException {
         for (int i = 0; i < bankLists.size(); i++) {
             if (bankToList.equals(bankLists.get(i).getAccountName())) {
                 bankLists.get(i).listAllExpenditure(ui, displayNum);
                 return;
             }
         }
-        ui.printError("Cannot find bank with name: " + bankToList);
+        throw new BankException("Cannot find bank with name: " + bankToList);
     }
 
     /**
@@ -305,14 +276,15 @@ public class BankList {
      * @param ui         required for printing.
      * @param displayNum Number of deposits to list.
      */
-    public void listBankDeposit(String bankToList, Ui ui, int displayNum) {
+    public void listBankDeposit(String bankToList, Ui ui, int displayNum) throws TransactionException,
+            BankException {
         for (int i = 0; i < bankLists.size(); i++) {
             if (bankToList.equals(bankLists.get(i).getAccountName())) {
                 bankLists.get(i).listAllDeposit(ui, displayNum);
                 return;
             }
         }
-        ui.printError("Cannot find bank with name: " + bankToList);
+        throw new BankException("Cannot find bank with name: " + bankToList);
     }
 
     /**
@@ -322,14 +294,15 @@ public class BankList {
      * @param deleteFromBank The name of the bank account.
      * @param ui             required for printing.
      */
-    public void deleteExp(int expNum, String deleteFromBank, Ui ui) {
+    public void deleteExp(int expNum, String deleteFromBank, Ui ui) throws TransactionException,
+            BankException {
         for (int i = 0; i < bankLists.size(); i++) {
             if (deleteFromBank.equals(bankLists.get(i).getAccountName())) {
                 bankLists.get(i).deleteExpenditure(expNum, ui);
                 return;
             }
         }
-        ui.printError("Cannot find bank with name: " + deleteFromBank);
+        throw new BankException("Cannot find bank with name: " + deleteFromBank);
     }
 
     /**
@@ -344,14 +317,14 @@ public class BankList {
      * @param ui           required for printing.
      */
     public void editExp(int expNum, String editFromBank, String desc, String amount, String date, String category,
-            Ui ui) {
+            Ui ui) throws BankException, TransactionException {
         for (int i = 0; i < bankLists.size(); i++) {
             if (bankLists.get(i).getAccountName().equals(editFromBank)) {
                 bankLists.get(i).editExpenditureDetails(expNum, desc, amount, date, category, ui);
                 return;
             }
         }
-        ui.printError("Cannot find bank with name: " + editFromBank);
+        throw new BankException("Cannot find bank with name: " + editFromBank);
     }
 
     /**
@@ -364,14 +337,15 @@ public class BankList {
      * @param date         The date of the deposit.
      * @param ui           required for printing.
      */
-    public void editDep(int expNum, String editFromBank, String desc, String amount, String date, Ui ui) {
+    public void editDep(int expNum, String editFromBank, String desc, String amount, String date, Ui ui)
+            throws BankException, TransactionException {
         for (int i = 0; i < bankLists.size(); i++) {
             if (bankLists.get(i).getAccountName().equals(editFromBank)) {
                 bankLists.get(i).editDepositDetails(expNum, desc, amount, date, ui);
                 return;
             }
         }
-        ui.printError("Cannot find bank with name: " + editFromBank);
+        throw new BankException("Cannot find bank with name: " + editFromBank);
     }
 
     /**
@@ -382,14 +356,15 @@ public class BankList {
      * @param dep     The instance of the deposit.
      * @param ui      Required for printing.
      */
-    public void addDeposit(String accName, Transaction dep, Ui ui) {
+    public void addDeposit(String accName, Transaction dep, Ui ui) throws BankException {
         for (int i = 0; i < bankLists.size(); i++) {
             if (bankLists.get(i).getAccountName().equals(accName)) {
                 bankLists.get(i).addDepositTransaction(dep, ui);
                 return;
             }
         }
-        ui.printError("Cannot find bank with name: " + accName);
+        throw new BankException("Cannot find bank with name: " + accName);
+
     }
 
     /**
@@ -399,13 +374,46 @@ public class BankList {
      * @param index   The transaction number.
      * @param ui      required for printing.
      */
-    public void deleteDeposit(String accName, int index, Ui ui) {
+    public void deleteDeposit(String accName, int index, Ui ui) throws BankException, TransactionException {
         for (int i = 0; i < bankLists.size(); i++) {
             if (bankLists.get(i).getAccountName().equals(accName)) {
                 bankLists.get(i).deleteDepositTransaction(index, ui);
                 return;
             }
         }
-        ui.printError("Cannot find bank with name: " + accName);
+        throw new BankException("Cannot find bank with name: " + accName);
+    }
+
+    /**
+     * Adds a bond to a bank account in the bankList.
+     *
+     * @param accName name of bank account.
+     * @param bond    bond object.
+     * @param ui      required for printing.
+     */
+    public void addBond(String accName, Bond bond, Ui ui) throws BankException {
+        for (int i = 0; i < bankLists.size(); i++) {
+            if (accName.equals(bankLists.get(i).getAccountName())) {
+                bankLists.get(i).addBondToInvestmentAccount(bond, ui);
+                return;
+            }
+        }
+        throw new BankException("Cannot find bank with name: " + accName);
+    }
+
+    /**
+     * Checks if the bond exists before adding.
+     *
+     * @param accName the bank account name.
+     * @param bond the bond object.
+     */
+    public void isBondExist(String accName, Bond bond) throws BankException, BondException {
+        for (int i = 0; i < bankLists.size(); i++) {
+            if (accName.equals(bankLists.get(i).getAccountName())) {
+                bankLists.get(i).checkBondExist(bond);
+                return;
+            }
+        }
+        throw new BankException("Cannot find bank with name: " + accName);
     }
 }

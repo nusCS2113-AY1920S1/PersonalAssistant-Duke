@@ -1,8 +1,12 @@
 package owlmoney.model.bank;
 
+import owlmoney.model.bank.exception.BankException;
+import owlmoney.model.bond.Bond;
 import owlmoney.model.bond.BondList;
+import owlmoney.model.bond.exception.BondException;
 import owlmoney.model.transaction.Transaction;
 import owlmoney.model.transaction.TransactionList;
+import owlmoney.model.transaction.exception.TransactionException;
 import owlmoney.ui.Ui;
 
 public class Investment extends Bank {
@@ -30,9 +34,9 @@ public class Investment extends Bank {
      * @param ui  required for printing.
      */
     @Override
-    public void addInExpenditure(Transaction exp, Ui ui) {
+    public void addInExpenditure(Transaction exp, Ui ui) throws BankException {
         if (exp.getAmount() > this.getCurrentAmount()) {
-            ui.printError("Bank account cannot have a negative amount");
+            throw new BankException("Bank account cannot have a negative amount");
         } else {
             transactions.addExpenditureToList(exp, ui);
             deductFromAmount(exp.getAmount());
@@ -46,7 +50,28 @@ public class Investment extends Bank {
      * @param ui   required for printing.
      */
     @Override
-    public void deleteExpenditure(int exId, Ui ui) {
+    public void deleteExpenditure(int exId, Ui ui) throws TransactionException {
         addToAmount(transactions.deleteExpenditureFromList(exId, ui));
+    }
+
+    /**
+     * Adds a bond to this investment account.
+     *
+     * @param bond the bond object.
+     * @param ui   required for printing.
+     */
+    @Override
+    void addBondToInvestmentAccount(Bond bond, Ui ui) {
+        bonds.addBondToList(bond, ui);
+    }
+
+    /**
+     * Checks if bond exists in the bondList.
+     *
+     * @param bond the bond object.
+     */
+    @Override
+    public void checkBondExist(Bond bond) throws BondException {
+        bonds.bondExist(bond);
     }
 }

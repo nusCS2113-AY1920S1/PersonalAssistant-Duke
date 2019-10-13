@@ -1,7 +1,10 @@
 package owlmoney.logic.command;
 
+import owlmoney.model.bank.exception.BankException;
+import owlmoney.model.bond.exception.BondException;
 import owlmoney.logic.parser.exception.CardException;
 import owlmoney.model.profile.Profile;
+import owlmoney.model.transaction.exception.TransactionException;
 import owlmoney.ui.Ui;
 
 /**
@@ -17,5 +20,6 @@ public abstract class Command {
      * @param ui      Ui of OwlMoney.
      * @return True if OwlMoney should terminate after execution.
      */
-    public abstract boolean execute(Profile profile, Ui ui) throws CardException;
+    public abstract boolean execute(Profile profile, Ui ui) throws BankException,
+        TransactionException, BondException, CardException;
 }
