@@ -1,5 +1,6 @@
 package duke;
 
+import duke.util.PlannerUi;
 import java.util.Arrays;
 import java.util.HashMap;
 
@@ -30,8 +31,12 @@ public class Duke {
     private ParserWrapper parser;
     private Reminder reminder;
     private JsonWrapper data;
+    private PlannerUi modUi;
     private HashMap<String, ModuleInfoSummary> modSummaryMap;
     private HashMap<String, ModuleInfoDetailed> modDetailedMap;
+
+    private boolean mode = true;
+
 
     /**
      * Constructor for Duke class.
@@ -39,9 +44,15 @@ public class Duke {
     public Duke() {
         store = new Storage();
         ui = new Ui();
+        modUi = new PlannerUi();
         tasks = new TaskList(store);
         parser = new ParserWrapper();
         data = new JsonWrapper();
+    }
+
+    public Duke(boolean mode) {
+        this();
+        this.mode = mode;
     }
 
     //TODO: function to be removed after implementing feature
@@ -79,6 +90,26 @@ public class Duke {
             er.printStackTrace();
         } catch (ModFailedJsonException ej) {
             System.out.println(ej.getLocalizedMessage());
+        }
+    }
+
+    private void run(boolean mode) {
+        ui.helloMsg();
+        setup();
+        boolean isExit = false;
+        while (!isExit) {
+            try {
+                String fullCommand = ui.readCommand();
+                ui.showLine();
+                Command c = parser.parse(fullCommand);
+                c.execute(tasks, ui, store, reminder);
+                testJson(c);
+                isExit = c.isExit();
+            } catch (ModException e) {
+                System.out.println(e.getMessage());
+            } finally {
+                ui.showLine();
+            }
         }
     }
 

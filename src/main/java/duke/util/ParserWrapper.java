@@ -1,5 +1,6 @@
 package duke.util;
 
+
 import java.time.format.DateTimeFormatter;
 import java.util.LinkedHashMap;
 
@@ -43,8 +44,6 @@ public class ParserWrapper {
     }
 
     private Command modParser(String input) throws ModException {
-
-
         return null;
     }
 
@@ -122,6 +121,8 @@ public class ParserWrapper {
             return new ScheduleCommand(input);
         } else if (input.startsWith("report")) {
             return new ReportCommand();
+        } else if (input.startsWith("change")) {
+            return null;
         } else {
             //throws invalid command exception when user inputs non-keywords
             throw new ModCommandException();
