@@ -83,5 +83,6 @@ public class ViewScheduleCommand extends Command {
         Collections.sort(tasksForToday);
         ui.showScheduleResult(tasksForToday, date, academicContext.getAcademicContext()
         );
+
     }
 }

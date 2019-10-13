@@ -259,8 +259,24 @@ public class Ui {
     public void showUndo(int undoCounter) {
         if (undoCounter == 1) {
             printIndented("The last command has been undone.");
+        } else if (undoCounter == 0) {
+            printIndented("There's nothing to undo.");
         } else {
             printIndented("The last few commands have been undone.");
+        }
+    }
+
+    /**
+<<<<<<< HEAD
+     * Displays number of undone actions to user.
+     *
+     * @param redoCounter number of undo operations
+     */
+    public void showRedo(int redoCounter) {
+        if (redoCounter == 1) {
+            printIndented("I redid the last command.");
+        } else {
+            printIndented("I redid the last few commands.");
         }
     }
 

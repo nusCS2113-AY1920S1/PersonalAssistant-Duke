@@ -14,6 +14,7 @@ import duchess.logic.commands.FindCommand;
 import duchess.logic.commands.ListModulesCommand;
 import duchess.logic.commands.ListTasksCommand;
 import duchess.logic.commands.LogCommand;
+import duchess.logic.commands.RedoCommand;
 import duchess.logic.commands.ReminderCommand;
 import duchess.logic.commands.SnoozeCommand;
 import duchess.logic.commands.UndoCommand;
@@ -111,6 +112,8 @@ public class Parser {
             return new LogCommand();
         case "undo":
             return new UndoCommand(arguments);
+        case "redo":
+            return new RedoCommand(arguments);
         default:
             throw new DuchessException("Please enter a valid command.");
         }

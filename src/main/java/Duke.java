@@ -11,7 +11,6 @@ public class Duke {
     private Storage storage;
     private Store store;
     private Ui ui;
-    private DuchessLog duchessLog;
 
     /**
      * Creates an instant of Duke to be executed.
@@ -24,6 +23,10 @@ public class Duke {
 
         try {
             store = storage.load();
+
+            // Adds the very first copy of store into undoStack
+            storage.addToUndoStackPush(store);
+
         } catch (DuchessException e) {
             ui.showError(e.getMessage());
             store = new Store();
@@ -35,7 +38,8 @@ public class Duke {
      */
     private void run() {
         ui.showWelcome();
-        duchessLog = new DuchessLog();
+        DuchessLog duchessLog = new DuchessLog();
+
 
         boolean isExit = false;
         while (!isExit) {
@@ -46,10 +50,11 @@ public class Duke {
                 Command c = Parser.parse(fullCommand);
                 DuchessLog.addValidCommands(c);
 
+                c.execute(store, ui, storage);
+
                 // Take snapshot here, you save copies of Store store here
                 storage.addToUndoStackPush(store);
 
-                c.execute(store, ui, storage);
                 isExit = c.isExit();
             } catch (DuchessException e) {
                 ui.showError(e.getMessage());

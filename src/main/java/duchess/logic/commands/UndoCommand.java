@@ -28,32 +28,32 @@ public class UndoCommand extends Command {
 
     @Override
     public void execute(Store store, Ui ui, Storage storage) throws DuchessException {
-
         if (undoCounter > 1) {
-            storage.getLastSnapshot();
-
-            while (undoCounter > 0 && storage.getUndoStack().size() > 0) {
-                getPreviousStore(store, storage);
+            while (undoCounter > 0 && storage.getUndoStack().size() > 1) {
+                setToPreviousStore(store, storage);
                 undoCounter--;
             }
-        } else {
-            storage.getLastSnapshot();
-            getPreviousStore(store, storage);
+        } else if (undoCounter == 1) {
+
+            if (storage.getUndoStack().size() == 2) {
+                setToPreviousStore(store, storage);
+
+            } else if (storage.getUndoStack().size() > 1) {
+                setToPreviousStore(store, storage);
+            }
         }
 
         // showUndo should only be placed after execution of undo.
         ui.showUndo(undoCounter);
     }
 
-    private void getPreviousStore(Store store, Storage storage) throws DuchessException {
-        // Obtain Store data from storage Stack
-        Store prevStore = storage.getLastSnapshot();
-
-        // Write to JSON file
-        storage.save(prevStore);
+    private void setToPreviousStore(Store store, Storage storage) throws DuchessException {
+        storage.getLastSnapshot();
+        storage.save(storage.peekUndoStackAsStore());
 
         // Obtaining store from stack
         Store newStore = storage.load();
+        assert (store.equals(newStore));
         store.setTaskList(newStore.getTaskList());
         store.setModuleList(newStore.getModuleList());
     }
