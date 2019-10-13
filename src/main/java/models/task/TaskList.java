@@ -54,6 +54,6 @@ public class TaskList {
     };
 
     public Task getTask(int taskIndex) {
-        return this.taskList.get(taskIndex);
+        return this.taskList.get(taskIndex - 1);
     }
 }

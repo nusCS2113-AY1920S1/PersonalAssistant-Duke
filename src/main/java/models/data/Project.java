@@ -72,7 +72,7 @@ public class Project implements IProject {
 
     @Override
     public Task getTask(int taskIndex) {
-        return this.taskList.getTask(taskIndex-1);
+        return this.taskList.getTask(taskIndex);
     }
 
 }

@@ -81,7 +81,7 @@ public class ProjectMemberList implements IMemberList{
 
     @Override
     public Member getMember(int i) {
-        return this.memberList.get(i);
+        return this.memberList.get(i - 1);
     }
 
     /**

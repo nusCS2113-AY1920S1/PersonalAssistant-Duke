@@ -1,19 +1,18 @@
 package views;
 
 import controllers.ConsoleInputController;
-import models.task.Task;
-import models.temp.commands.RescheduleCommand;
-import models.data.IProject;
-import models.member.Member;
-import models.temp.tasks.ITask;
-import models.temp.tasks.TaskList;
-import models.temp.tasks.Tentative;
-
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Scanner;
+import models.data.IProject;
+import models.member.Member;
+import models.task.Task;
+import models.temp.commands.RescheduleCommand;
+import models.temp.tasks.ITask;
+import models.temp.tasks.TaskList;
+import models.temp.tasks.Tentative;
 
 public class CLIView {
     private static final String horiLine = "\t____________________________________________________________";
@@ -362,6 +361,10 @@ public class CLIView {
             for (Integer i : assign) {
                 Member toAssign = projectToManage.getMembers().getMember(i);
                 task.assignMember(toAssign);
+                //For now only tasks will have list of members assigned.
+                //Will refactor and implement a way such that when a task is assigned,
+                //both the task and the member will be updated.
+                consolePrint("Assigned: " + toAssign.getName());
             }
         }
     }

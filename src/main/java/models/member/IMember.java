@@ -9,4 +9,5 @@ public interface IMember {
 
     int getIndexNumber();
 
+    String getName();
 }

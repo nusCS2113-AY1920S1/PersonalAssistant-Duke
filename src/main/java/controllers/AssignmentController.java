@@ -9,26 +9,27 @@ import views.CLIView;
 public class AssignmentController {
 
     /**
-     * Parses the input by the user to allow members to be assigned or removed.
-     * Checks if task exists, and if member index numbers are correct.
+     * Parses the input by the user to allow members to be assigned or removed. Checks if task
+     * exists, and if member index numbers are correct.
+     *
      * @param projectToManage
-     * @param details Array of strings containing details of task assignment.
+     * @param details         Array of strings containing details of task assignment.
      * @param consoleView
      */
-    public static void parse(IProject projectToManage, String[] details, CLIView consoleView) {
-        int taskNumber = Integer.parseInt(details[0]);
+    public static void manageAssignment(IProject projectToManage, String[] details,
+        CLIView consoleView) {
+        int taskNumber = Integer.parseInt(details[0].substring(2).trim());
         Task task = null;
-        HashSet<Integer> assignedIndexes = task.getAssignedIndexes(); //existing assignments
         if (taskNumber > projectToManage.getNumOfTasks() || taskNumber <= 0) {
             consoleView.consolePrint("The task you wish to assign does not exist!",
                 "Please check the index number of the task and try again.");
         } else {
             task = projectToManage.getTask(taskNumber);
+            HashSet<Integer> assignedIndexes = task.getAssignedIndexes(); //existing assignments
             ArrayList<Integer> assign = new ArrayList<>(); //List of members to be assigned task
             ArrayList<Integer> unassign = new ArrayList<>();//List of members to be unassigned task
             boolean add = false;
             boolean remove = false;
-            int indexNumber = 0;
             for (String s : details) {
                 if (s.equals("to/")) {
                     add = true;
@@ -36,8 +37,8 @@ public class AssignmentController {
                 } else if (s.equals("rm/")) {
                     add = false;
                     remove = true;
-                } else {
-                    indexNumber = Integer.parseInt(s);
+                } else if (!s.contains("i/")){
+                    int indexNumber = Integer.parseInt(s);
                     if (projectToManage.memberIndexExists(indexNumber)) {
                         if (add) {
                             if (assignedIndexes.contains(indexNumber)) {
@@ -62,8 +63,10 @@ public class AssignmentController {
                     }
                 }
             }
+            for (Integer i : assign){
+                System.out.println("To assign:" + i);
+            }
             consoleView.assignOrUnassignTask(assign, unassign, task, projectToManage);
         }
     }
-
 }
