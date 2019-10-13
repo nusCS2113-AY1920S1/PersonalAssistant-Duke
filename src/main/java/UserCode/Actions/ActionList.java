@@ -3,7 +3,7 @@ package UserCode.Actions;
 import java.util.Set;
 
 public class ActionList {
-    protected static final Set<String> level1 = Set.of("buySeeds", "plantSeeds");
+    protected static final Set<String> level1 = Set.of("buySeeds", "plantSeeds", "harvestWheat", "sellWheat");
 
     public static boolean validateAction(int level, String userInput) {
         boolean valid = false;
