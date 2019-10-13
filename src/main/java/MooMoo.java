@@ -80,9 +80,9 @@ public class MooMoo {
             isExit = c.isExit;
             if (isExit) {
                 ui.showGoodbye();
-                return ui.printToGui();
+                return ui.printResponse();
             }
-            return ui.printToGui();
+            return ui.printResponse();
         } catch (MooMooException e) {
             return ui.printException(e);
         }
