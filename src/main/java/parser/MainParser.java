@@ -24,40 +24,30 @@ import java.util.Arrays;
 import java.util.Scanner;
 
 /**
- * MainParser checks the user input and creates a command corresponding to the user input.
+ * MainParser checks the current mode and user input
+ * to create the relevant command.
  */
 public class MainParser {
 
     /**
-     * Returns a command corresponding to the user input.
-     * <p>
-     *     This method checks the first word of the 'inputLine' and returns the case
-     *     accordingly.
-     * </p>
-     * <p>
-     *     If the first word is not 'list', 'done', 'remove' or 'find', addToList() will
-     *     run instead.
-     * </p>
-     * <p>
-     *     If a number is not provided in a done or remove command, an error will be printed,
-     *     and an ErrorCommand will be returned.
-     * </p>
+     * Returns a command corresponding to the user input by directing
+     * the input to the relevant parser.
      * @param mode The mode Dolla is currently on.
      * @return a command corresponding to the user input.
      */
     public static Command handleInput(String mode, String inputLine) { // TODO: Rename to something else
 
-//        Scanner input = new Scanner(System.in);
-//        String inputLine = input.nextLine();
+        //Scanner input = new Scanner(System.in);
+        //String inputLine = input.nextLine();
         String[] inputArray = inputLine.split(" ");
         String command = inputArray[0];
 
         if (command.equals("bye")) {
             //return new ExitCommand(); // TODO
 
-        } else if (command.equals("dolla") || command.equals("entries") ||
-        command.equals("limits") || command.equals("debts") ||
-        command.equals("shortcuts")) {
+        } else if (command.equals("dolla") || command.equals("entries")
+            || command.equals("limits") || command.equals("debts")
+            || command.equals("shortcuts")) {
             //return new SwitchModeCommand(); // TODO
         }
 

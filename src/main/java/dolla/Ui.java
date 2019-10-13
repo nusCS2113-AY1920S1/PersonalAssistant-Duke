@@ -84,7 +84,7 @@ public class Ui {
     public static void echoAddEntry(Entry currEntry) {
         System.out.println(line);
         System.out.println("\tGot it. I've added this entry: ");
-        System.out.println("\t"+currEntry.getEntryText());
+        System.out.println("\t" + currEntry.getEntryText());
         System.out.println(line);
     }
 
@@ -227,11 +227,14 @@ public class Ui {
         System.out.println("\tPlease specify the type of entry you want to add: income or expense.");
     }
 
+    /**
+     * Prints error message when user tries to add income/expense, but inputs the wrong format.
+     */
     public static void printInvalidEntryFormatError() {
         System.out.println(line);
-        System.out.println("\tplease follow the format " +
-                "'add income(/expense) [AMOUNT] [DESCRIPTION] /on [DATE] {/tag [TAG]}'" +
-                "");
+        System.out.println("\tplease follow the format "
+                + "'add income(/expense) [AMOUNT] [DESCRIPTION] /on [DATE] {/tag [TAG]}'"
+                + "");
         System.out.println(line);
     }
 }

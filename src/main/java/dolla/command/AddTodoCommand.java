@@ -17,14 +17,16 @@ public class AddTodoCommand extends AddCommand {
      */
     @Override
     public void execute() {
+        /*
+        if (taskDescription.length() == 0) { // TODO: Exception handling?
+            Ui.printMsg(missingDescriptionString);
+            return;
+        }
 
-//        if (taskDescription.length() == 0) { // TODO: Exception handling?
-//            Ui.printMsg(missingDescriptionString);
-//            return;
-//        }
-//
-//        Task newTask = new ToDo(taskDescription);
-//        tasks.add(newTask);
-//        Ui.echoAdd(newTask, tasks.size());
+        Task newTask = new ToDo(taskDescription);
+        tasks.add(newTask);
+        Ui.echoAdd(newTask, tasks.size());
+
+         */
     }
 }
