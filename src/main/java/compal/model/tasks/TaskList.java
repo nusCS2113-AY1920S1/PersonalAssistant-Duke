@@ -50,7 +50,10 @@ public class TaskList {
     public int addTask(Task task) throws ParseException, Compal.DukeException {
         arrlist.add(task);
         compal.storage.saveCompal(arrlist);
-        if (compal.ui.dateState.equals(task.getStringDate())) {
+        /*if (compal.ui.dateState.equals(task.getStringDate())) {
+            compal.ui.dateViewRefresh(task.getStringDate());
+        }*/
+        if(!task.getSymbol().equals("D")){
             compal.ui.dateViewRefresh(task.getStringDate());
         }
         compal.ui.secondaryScreenRefresh(task.getDate());
