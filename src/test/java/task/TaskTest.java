@@ -1,6 +1,6 @@
 package task;
 
-import controllers.TaskFactory;
+import util.factories.TaskFactory;
 import models.task.Task;
 import models.task.TaskState;
 import org.junit.jupiter.api.Test;
