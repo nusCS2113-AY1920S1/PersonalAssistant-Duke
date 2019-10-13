@@ -2,12 +2,11 @@ package duke.commands;
 
 import duke.exceptions.DukeException;
 import duke.storage.Storage;
-import duke.tasks.Meal;
 import duke.tasks.MealList;
 import duke.ui.Ui;
 import duke.user.User;
 
-import java.util.ArrayList;
+import java.util.Scanner;
 
 public class UpdateWeightCommand extends Command {
     private String description;
@@ -17,7 +16,7 @@ public class UpdateWeightCommand extends Command {
     }
 
     @Override
-    public void execute(MealList meals, Ui ui, Storage storage, User user) throws DukeException {
+    public void execute(MealList meals, Ui ui, Storage storage, User user, Scanner in) throws DukeException {
         String[] temp = description.split("/date");
         if (temp.length > 1) {
             try {

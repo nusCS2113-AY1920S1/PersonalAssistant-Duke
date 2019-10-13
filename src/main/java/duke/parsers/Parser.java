@@ -3,11 +3,8 @@ package duke.parsers;
 import duke.autocorrect.Autocorrect;
 import duke.commands.*;
 import duke.exceptions.DukeException;
-import duke.tasks.Dinner;
-import duke.tasks.Breakfast;
-import duke.tasks.Item;
-import duke.tasks.Lunch;
-import duke.tasks.Meal;
+import duke.tasks.*;
+
 import java.util.Calendar;
 
 /**
@@ -122,7 +119,6 @@ public class Parser {
                         return new DeleteCommand(description);
                     }
                 }
-
                 throw new DukeException("Please enter index of meal to delete on today's list or "
                         + "date and index of meal to delete");
             case "update":
@@ -139,6 +135,14 @@ public class Parser {
                 name = description.split("/", 2)[0];
                 info = "/" + description.split("/", 2)[1];
                 return new EditCommand(new Meal(name, info, autocorrect));
+            case "setgoal":
+                if (description.contains("/")) {
+                    name = description.split("/", 2)[0].trim();
+                    info = "/" + description.split("/", 2)[1];
+                    return new AddGoalCommand(new Goal(name, info, autocorrect));
+                } else {
+                    return new AddGoalCommand(new Goal(description, "", autocorrect));
+                }
             case "help":
                 return new HelpCommand();
             default:

@@ -8,8 +8,8 @@ import duke.storage.Storage;
 import duke.user.User;
 
 import java.text.ParseException;
-import java.util.ArrayList;
 import java.util.Date;
+import java.util.Scanner;
 
 /**
  * DeleteCommand is a public class that inherits from abstract class Command.
@@ -50,9 +50,10 @@ public class DeleteCommand extends Command {
      * @param ui the ui object to display the user interface of a "delete" command
      * @param storage the storage object that stores the list of meals
      * @param user the storage object for user info
+     * @param in the scanner object to handle secondary command IO
      */
     @Override
-    public void execute(MealList mealList, Ui ui, Storage storage, User user) throws DukeException {
+    public void execute(MealList mealList, Ui ui, Storage storage, User user, Scanner in) throws DukeException {
         if (index <= 0 || index > mealList.getMealsList(currentDate).size()) {
             throw new DukeException("Index provided out of bounds for list of meals on " + currentDate);
         }

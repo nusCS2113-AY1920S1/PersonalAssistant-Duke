@@ -1,6 +1,6 @@
 package duke.commands;
 
-import java.util.ArrayList;
+import java.util.Scanner;
 
 import duke.tasks.Meal;
 import duke.tasks.MealList;
@@ -11,7 +11,6 @@ import duke.user.User;
 /**
  * AddItemCommand is a public class that inherits from abstract class Command.
  * An AddItemCommand object encapsulates the current meal that is to be added.
- * @author Ivan Andika Lie
  */
 public class AddItemCommand extends Command {
     private Meal meal;
@@ -30,12 +29,12 @@ public class AddItemCommand extends Command {
      * @param meals the MealList object in which the meal is supposed to be added
      * @param ui the ui object to display the user interface of an "add" command
      * @param storage the storage object that stores the list of meals
+     * @param in the scanner object to handle secondary command IO
      */
-
     @Override
-    public void execute(MealList meals, Ui ui, Storage storage, User user) {
+    public void execute(MealList meals, Ui ui, Storage storage, User user, Scanner in) {
         meals.addStoredItem(this.meal);
         ui.showAddedItem(this.meal);
-        storage.updateFile(meals);
+        storage.updateDefaults(meals);
     }
 }

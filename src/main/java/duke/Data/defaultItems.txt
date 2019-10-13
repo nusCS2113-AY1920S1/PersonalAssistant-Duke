@@ -1,0 +1,2 @@
+S|0|burger|calorie|100
+S|0|fries|calorie|200
