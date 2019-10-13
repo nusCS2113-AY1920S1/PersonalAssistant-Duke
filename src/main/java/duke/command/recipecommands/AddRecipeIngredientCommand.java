@@ -40,7 +40,7 @@ public class AddRecipeIngredientCommand extends CommandRecipeIngredient {
                         recipeIngredientStorage.saveFile(recipeIngredientList);
                         int index = recipeIngredientList.getSize();
                         System.out.println(index);
-                        arrayList.add(MESSAGE_ADDED + "       " + recipeIngredientList.listRecipeIngredients().get(index - 1) + "\n" + MESSAGE_ITEMS1 + index + " tasks in the list");
+                        arrayList.add(MESSAGE_ADDED + "       " + recipeIngredientList.listRecipeIngredients().get(index - 1) + "\n" + MESSAGE_ITEMS1 + index + " ingredients in the list");
                     } else {
                         arrayList.add(ERROR_MESSAGE_INVALID_RECIPE_QUANTITY);
                     }
