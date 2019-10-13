@@ -52,7 +52,7 @@ public class Duke extends Application {
     private String run(String input) {
         try {
             Command c = Parser.parse(input);
-            return c.execute(todos, events, deadlines, ui, storage);
+            return c.execute(events, deadlines, ui, storage);
         } catch (DukeException e) {
             return ui.showError(e);
         } catch (Exception e) {

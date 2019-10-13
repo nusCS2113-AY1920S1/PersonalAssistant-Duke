@@ -94,8 +94,17 @@ public class Parser {
                         throw new DukeException("\u2639" + " OOPS!!! The description of a event cannot be empty.");
                     }
                     arr1 = arr[1].split("from"); //arr1[0] is "date", arr1[1] is "time to time"
+                    String weekdate ="";
+                    arr2 = arr1[0].trim().split(" ");
+                    weekdate = arr2[0];
+                    if(weekdate.equalsIgnoreCase("reading") || weekdate.equalsIgnoreCase("exam")
+                            ||weekdate.equalsIgnoreCase("week")|| weekdate.equalsIgnoreCase("recess")){
+                        weekdate = LT.getDate(arr1[0].trim());
+                    }else{
+                        weekdate = arr1[0].trim();
+                    }
                     SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy"); //format date
-                    Date date = formatter.parse(arr1[0].trim());
+                    Date date = formatter.parse(weekdate.trim());
                     arr2 = arr1[1].split("to"); //arr2[0] is (start) "time", arr2[1] is (end) "time"
                     SimpleDateFormat formatter1 = new SimpleDateFormat("HHmm"); //format time
                     Date startTime = formatter1.parse(arr2[0].trim());
