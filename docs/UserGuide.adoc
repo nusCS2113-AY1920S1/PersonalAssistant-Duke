@@ -44,8 +44,6 @@ image::Ui.png[]
 
 = Specifying Commands
 
-_Work in progress:_ If possible, we want to eliminate the requirement for having spaces to separate switch arguments from switches.
-
 Commands consist of a command name, an argument, and some number of swtiches: settings for a command that modify its behavior. Switches can also have arguments.
 
 For example, `discharge "John Doe" -sum "John Doe was discharged on 9 October 2019 at 3:54 pm."` represents the command `discharge` with the argument `"John Doe"`, modified by the switch `-sum` (meaning "summary"), which has the switch argument `"John Doe was discharged on 9 October 2019 at 3:54 pm."`. 
@@ -55,7 +53,7 @@ Only a few characters have a special meaning when you are giving Dr. Duke comman
 * `"` -> Indicates the start and end of a string: text input that is longer than a single word.
 * `\` -> Escape character: the special character after a backslash loses its special meaning. To type a literal backslash, you need to escape the backslash: `Hello\\World` becomes `Hello\World`.
 * `-` -> Indicates the start of a switch. Must immediately be followed by an argument, if the switch requries one. 
-* `<Space>` -> Words in a command are separated by spaces. Spaces can be omitted except for the space after the command name and the space between a switch and its option.
+* `<Space>` -> Words in a command are separated by spaces.
 * `<Enter>` -> This sends a command to Dr. Duke. `<Shift-Enter>` would insert a new line.
 
 The documentation below uses the following notation to describe the structure of the commands recognised:

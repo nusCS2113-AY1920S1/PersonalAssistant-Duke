@@ -18,8 +18,8 @@ import static org.junit.jupiter.api.Assertions.fail;
 
 public class ParserTest {
 
-    // TODO test failure modes
-    // this is going to take a lot of typing
+    // TODO check whether every task can be detected
+    // TODO check if exception are thrown for incorrect input formats
 
     private Parser uut = new Parser();
 
