@@ -1,5 +1,6 @@
 package duke.command;
 
+import duke.Duke;
 import duke.dukeobject.ExpenseList;
 import duke.parser.CommandParams;
 import duke.ui.Ui;
@@ -20,11 +21,10 @@ public class ExitCommand extends Command {
 
     /**
      * Shows bye to user.
-     *  @param expensesList The ExpenseList of Duke.
-     * @param ui           The ui of Duke.
+     * // to add param
      */
-    public void execute(CommandParams commandParams, ExpenseList expensesList, Ui ui) {
-        ui.println("Bye. Hope to see you again soon!");
+    public void execute(CommandParams commandParams, Duke duke) {
+        duke.ui.println("Bye. Hope to see you again soon!");
         Platform.exit();
     }
 }

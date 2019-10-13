@@ -1,9 +1,8 @@
 package duke.command;
 
-import duke.dukeobject.ExpenseList;
+import duke.Duke;
 import duke.exception.DukeException;
 import duke.parser.CommandParams;
-import duke.ui.Ui;
 
 public class ViewCommand extends Command {
 
@@ -12,10 +11,10 @@ public class ViewCommand extends Command {
     }
 
     @Override
-    public void execute(CommandParams commandParams, ExpenseList expensesList, Ui ui) throws DukeException {
+    public void execute(CommandParams commandParams, Duke duke) throws DukeException {
         String mainParam = commandParams.getMainParam();
         if(!commandParams.containsParams("p")) {
-            expensesList.setViewScope(mainParam, 0);
+            duke.expenseList.setViewScope(mainParam, 0);
             return;
         }
 
@@ -27,7 +26,7 @@ public class ViewCommand extends Command {
                     DukeException.MESSAGE_EXPENSE_VIEW_SCOPE_NUMBER_INVALID,
                     commandParams.getParam("p")));
         }
-        expensesList.setViewScope(mainParam, previous);
+        duke.expenseList.setViewScope(mainParam, previous);
     }
 
 }

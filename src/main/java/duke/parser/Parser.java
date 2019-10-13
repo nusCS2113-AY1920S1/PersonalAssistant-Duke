@@ -51,7 +51,6 @@ public class Parser {
             return new BudgetCommand();
 
         case "bye":
-
             return new ExitCommand();
 
         default:
