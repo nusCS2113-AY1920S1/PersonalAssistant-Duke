@@ -1,16 +1,17 @@
 package duke.task;
 
-import duke.parser.Parser;
-
+import duke.parser.Convert;
 import java.util.Date;
 
-//import static duke.task.Task.getDate;
-
+/**
+ * One of the B-Extensions.
+ * @author x3chillax
+ */
 public class ViewSchedules extends TaskList {
     private Date when;
 
-    public ViewSchedules(String when) {
-        this.when = Parser.stringToDate(when);
+    public ViewSchedules(String w) {
+        when = Convert.stringToDate(w);
     }
 
     public Date getCurrentDate() {

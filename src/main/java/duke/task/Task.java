@@ -13,7 +13,6 @@ public abstract class Task {
 
     /**
      * The constructor method for Task.
-     *
      * @param description of the task
      */
     public Task(String description) {
@@ -29,7 +28,6 @@ public abstract class Task {
 
     /**
      * Returns a String representation of the status icon, indicating whether the {@link Task} was done.
-     *
      * @return a tick or a cross
      */
     public String getStatusIcon() {
@@ -38,7 +36,6 @@ public abstract class Task {
 
     /**
      * Returns the String description of the {@link Task}.
-     *
      * @return String description of the Task
      */
     public String getDescription() {
@@ -58,7 +55,6 @@ public abstract class Task {
 
     /**
      * Returns a boolean indicating whether the {@link Task} was completed.
-     *
      * @return boolean true if the task was marked as done, false otherwise
      */
     public boolean isDone() {

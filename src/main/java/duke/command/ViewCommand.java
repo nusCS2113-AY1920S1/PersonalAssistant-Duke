@@ -8,10 +8,11 @@ import java.util.Date;
 
 /**
  * Represents a specific {@link Command} used to find a String occurring in the {@link TaskList}.
+ * One of the B-Extensions.
+ * @author x3chillax
  */
 public class ViewCommand extends Command {
 
-    //private final Date Date = new Date();
     private Date toView;
 
     public ViewCommand(Date toView) {

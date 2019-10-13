@@ -2,13 +2,11 @@ package duke.storage;
 
 import duke.exception.DukeException;
 import duke.task.Deadline;
-import duke.task.DoAfter;
 import duke.task.DoWithinPeriodTasks;
 import duke.task.Event;
 import duke.task.Task;
 import duke.task.TaskList;
 import duke.task.Todo;
-import duke.task.ViewSchedules;
 
 import java.io.File;
 import java.io.IOException;
@@ -31,7 +29,6 @@ public class Storage {
 
     /**
      * The constructor method for Storage.
-     *
      * @param fp used to specify the location of the file in the hard disc.
      */
     public Storage(String fp) {
@@ -41,7 +38,8 @@ public class Storage {
     }
 
     /**
-     * Returns an {@link ArrayList} of {@link Task}s read from the text file indicated by the {@link Path}.
+     * Load tasks from file.
+     * @return an {@link ArrayList} of {@link Task}s read from the text file indicated by the {@link Path}.
      */
     public List<Task> load() throws DukeException {
         try {
@@ -102,7 +100,6 @@ public class Storage {
 
     /**
      * Returns the {@link Path} that holds the directory used for I/O.
-     *
      * @return Path specifies the directory of the text {@link File} used for writing or reading
      */
     public Path getPath() {
@@ -115,7 +112,6 @@ public class Storage {
 
     /**
      * Updates the content in the text file, by changing the specific {@link Task} indicated by the taskNb.
-     *
      * @param taskNb Positive integer indicating the number of the {@link Task} in the {@link TaskList} to be updated
      * @throws DukeException if the taskNb is invalid or there was an I/O Exception
      */
@@ -134,7 +130,6 @@ public class Storage {
 
     /**
      * Used to add a {@link Task} by writing to {@link File}.
-     *
      * @param task {@link Task} to be written
      * @throws IOException whatever that is
      */

@@ -1,6 +1,7 @@
 package duke.task;
 
-import duke.parser.Parser;
+import duke.parser.Convert;
+
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.ZoneId;
@@ -8,6 +9,8 @@ import java.util.Date;
 
 /**
  * Represents a special task that {@link Task } specified by the due {@link Date}.
+ * One of the B-Extensions
+ * @author VirginiaYu
  */
 public class DoAfter extends Task {
 
@@ -34,7 +37,7 @@ public class DoAfter extends Task {
     public DoAfter(String description, String after) {
         super(description);
         this.after = after;
-        this.date = Parser.stringToDate(after);
+        this.date = Convert.stringToDate(after);
     }
 
     @Override
@@ -69,9 +72,9 @@ public class DoAfter extends Task {
         LocalDate localDate = date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
         String pattern;
         if (after.length() > 11) {
-            pattern = "d'" + Parser.getDaySuffix(localDate.getDayOfMonth()) + "' 'of' MMMM yyyy, ha ";
+            pattern = "d'" + Convert.getDaySuffix(localDate.getDayOfMonth()) + "' 'of' MMMM yyyy, ha ";
         } else {
-            pattern = "d'" + Parser.getDaySuffix(localDate.getDayOfMonth()) + "' 'of' MMMM yyyy";
+            pattern = "d'" + Convert.getDaySuffix(localDate.getDayOfMonth()) + "' 'of' MMMM yyyy";
         }
         SimpleDateFormat formatter = new SimpleDateFormat(pattern);
         return formatter.format(date);
@@ -79,6 +82,7 @@ public class DoAfter extends Task {
 
     /**
      * Returns the String of the {@link Deadline} in format compatible in a text file.
+     *
      * @return String used to print the {@link Task } in the text file
      */
     public String printInFile() {

@@ -20,13 +20,15 @@ public class Ui {
 
     /**
      * Returns the input entered by the user.
-     *
      * @return String the input entered by the user
      */
     public String readCommand() {
         return scanner.nextLine();
     }
 
+    /**
+     * Show a line.
+     */
     public void showLine() {
         System.out.println("\t " + line);
     }
@@ -49,7 +51,7 @@ public class Ui {
     }
 
     /**
-     * javadoc.
+     * Show the error to user.
      * @param e an error
      */
     public void showError(String e) {
@@ -57,7 +59,7 @@ public class Ui {
     }
 
     /**
-     * show the task.
+     * Show the task to user.
      * @param task string
      */
     public void showTask(String task) {
@@ -65,8 +67,8 @@ public class Ui {
     }
 
     /**
-     * what is this.
-     * @param doneTask yes
+     * Show that this task is marked.
+     * @param doneTask The task that is marked as done
      */
     public void showMarkDone(String doneTask) {
         System.out.println("\t Nice! I've marked this task as done:");
@@ -74,7 +76,7 @@ public class Ui {
     }
 
     /**
-     * spam.
+     * Show the task that has been snoozed.
      * @param date the date
      * @param changedTask the task that has been changed
      */
@@ -98,7 +100,7 @@ public class Ui {
     }
 
     /**
-     * comment.
+     * Shows that a task has been added.
      * @param command ay
      * @param size ya
      */
@@ -109,7 +111,7 @@ public class Ui {
     }
 
     /**
-     * say the task that has been removed.
+     * Show the task that has been removed.
      * @param removed the task
      * @param size size of list
      */
