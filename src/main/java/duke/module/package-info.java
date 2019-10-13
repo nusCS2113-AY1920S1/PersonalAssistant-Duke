@@ -8,4 +8,4 @@
  * 4. Training Programs
  */
 
-package duke.Module;
+package duke.module;

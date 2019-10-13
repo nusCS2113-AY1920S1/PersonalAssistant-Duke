@@ -19,7 +19,8 @@ public class FindDateTest {
 
         String[] temp = date.split("/");
 
-        String dd = TaskList.numOrdinal(Integer.parseInt(temp[0]));
+        TaskList tl = new TaskList();
+        String dd = tl.numOrdinal(Integer.parseInt(temp[0]));
         assertEquals("23rd",dd);
 
         Month mm = Month.of(Integer.parseInt(temp[1]));

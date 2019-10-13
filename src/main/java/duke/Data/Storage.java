@@ -1,6 +1,6 @@
 package duke.Data;
 
-import duke.Module.TimeSlot;
+import duke.module.TimeSlot;
 import duke.sports.MyClass;
 import duke.Task.After;
 import duke.Task.Deadline;
@@ -337,8 +337,8 @@ public class Storage {
         }
     }
 
-/**
-    public int loadPMap (Map<Integer, ArrayList<MyTraining>> map) throws FileNotFoundException {
+/*
+    public int loadPlans (Map<Integer, ArrayList<MyTraining>> map) throws FileNotFoundException {
         MyPlan plan = new MyPlan();
         ArrayList<MyTraining> list = new ArrayList<>();
         int division = Integer.parseInt(fileInput.nextLine().split(": ")[1]);
@@ -384,7 +384,7 @@ public class Storage {
         return division;
     }
 
-    public void savePMap() {
+    public void updatePlans() {
         System.out.println("To be confirmed");
     }*/
 }

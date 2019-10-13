@@ -20,10 +20,11 @@ public class AfterTest {
         /**
          * First test is for after a specific task
          */
+        TaskList list = new TaskList();
         String info = "return book";
         String endDate = "16/08/2019 1600";
         Date date = new SimpleDateFormat("dd/MM/yyyy HHmm").parse(endDate);
-        String expectedDate = TaskList.dateToStringFormat(date);
+        String expectedDate = list.dateToStringFormat(date);
         After after = new After(info, false, endDate);
         assertEquals("[A][" + cross + "] return book (after: " + expectedDate + ")", after.toString());
 

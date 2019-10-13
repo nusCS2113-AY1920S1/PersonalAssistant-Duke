@@ -34,12 +34,8 @@ public class MyPlan {
          filePath = ".\\src\\main\\java\\duke\\Sports\\plan.txt";
          File f = new File(filePath);
          fileInput = new Scanner(f);
-         //division = new Storage(filePath).loadPMap(getMap());
+         //division = new Storage(filePath).loadPlans(getMap());
      }
-
-    public MyPlan() {
-
-    }
 
     public String getName() {
         return this.name;
@@ -73,26 +69,9 @@ public class MyPlan {
         return this.list;
     }
 
-     public int getDivision() {
+    public int getDivision() {
          return this.division;
      }
-    public MyPlan(String filePath) throws FileNotFoundException {
-        this.filePath = filePath;
-        File f = new File(filePath);
-        fileInput = new Scanner(f);
-    }
-
-    public String loadPlan(String planNum, String plan_num) {
-        String l1 = fileInput.nextLine();
-        while (fileInput.hasNextLine()) {
-            if (l1.equals("plan_num")) {
-                String[] l2 = fileInput.nextLine().split(" ");
-                MyTraining activity = new MyTraining(l2[0],Integer.parseInt(l2[1]),Integer.parseInt(l2[2]));
-                getList().add(activity);
-            }
-        }
-        return "You have loaded plan " + plan_num + " into the list";
-    }
 
     public int createKey(String intensity, int num) {
          Intensity i = Intensity.valueOf(intensity);
@@ -158,13 +137,15 @@ public class MyPlan {
         }
     }
 
-     public String viewPlan() {
-         String message = "1";
-         for (MyTraining i : getList()) {
-             message += i.toString() + "\n";
-         }
-         return message;
-     }
+    public String viewPlan() {
+        String message = "";
+        int x = 1;
+        for (MyTraining i : getList()) {
+            message += "Activity " + x + ": " + i.toString() + "\n";
+            x++;
+        }
+        return message;
+    }
 
     public void loadPlan(String intensity, String plan) throws FileNotFoundException {
         if (!Intensity.contains(intensity)) {
@@ -180,20 +161,35 @@ public class MyPlan {
     }
 
     public void createPlan(String intensity) {
-        try {
-            Scanner sc = new Scanner(System.in);
-            String input = sc.nextLine();
-            while (!input.equals("finalize")) {
-                if (!input.equals("show")) {
-                    viewPlan();
+        if (Intensity.contains(intensity)) {
+            System.out.println("Creating plan of " + intensity + " intensity.");
+            System.out.println("Please input activity to add in format of [activity] [number of sets] [number of reps].");
+            while (true) {
+                Scanner sc = new Scanner(System.in);
+                if (sc.hasNextLine()) {
+                    String input = sc.nextLine();
+                    if (input.equals("finalize")) {
+                        System.out.println("Plan created.");
+                        break;
+                    } else if (input.equals("show")) {
+                        if (getList().isEmpty()) {
+                            System.out.println("No activity has been added.");
+                        } else {
+                            int x = 1;
+                            System.out.println(viewPlan());
+                            System.out.println("Continue adding activities, or finalize the plan.");
+                        }
+                    } else {
+                        String[] details = input.split(" ");
+                        MyTraining a = new MyTraining(details[0], Integer.parseInt(details[1]), Integer.parseInt(details[2]));
+                        getList().add(a);
+                        System.out.println("Successfully added activity: " + getList().get(getList().size() - 1).toString());
+                        System.out.println("Please input new activity, finalize the plan or look at current list.");
+                    }
                 }
-                String[] details = input.split(" ");
-                MyTraining a = new MyTraining(details[0], Integer.parseInt(details[1]), Integer.parseInt(details[2]));
-                getList().add(a);
-                System.out.println("Successfully added activity: " + a.toString());
             }
-        } catch (Exception e) {
-            System.out.println("Please enter a valid intensity level (high,moderate,relaxed)");
+        } else {
+            System.out.println("Please enter the correct intensity level: high, moderate or relaxed.");
         }
     }
 
