@@ -2,9 +2,10 @@ package compal.model.tasks;
 
 import compal.commons.Compal;
 
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.BitSet;
-import java.util.Scanner;
+
 
 public class TaskList {
 
@@ -46,12 +47,17 @@ public class TaskList {
      * @param task Task to be added to the list of tasks.
      * @return Size of arrayList.
      */
-    public int addTask(Task task) {
+    public int addTask(Task task) throws ParseException, Compal.DukeException {
         arrlist.add(task);
         compal.storage.saveCompal(arrlist);
-        if (compal.ui.dateState.equals(task.getStringDate())) {
+        /*if (compal.ui.dateState.equals(task.getStringDate())) {
+            compal.ui.dateViewRefresh(task.getStringDate());
+        }*/
+        if(!task.getSymbol().equals("D")) {
             compal.ui.dateViewRefresh(task.getStringDate());
         }
+        compal.ui.secondaryScreenRefresh(task.getDate());
+
         compal.ui.showSize();
         return arrlist.size();
     }
@@ -95,24 +101,24 @@ public class TaskList {
 
     public void addTaskTest(int currentStage, String value) {
 
-        Scanner sc1 = new Scanner(value);
-        String s = sc1.next(); //get the command string
-        String taskType = sc1.next(); //get the taskType
-        String dateString = sc1.next(); //get the date
-        String timeString = sc1.next(); //get the time
-        String name = sc1.next(); //get the name
-        String description = sc1.nextLine(); //get the description
-        int taskID = -1;
-        for (int i = 0; i < 1000000; i++) { //search for an unused task ID
-            if (!idBitSet.get(i)) {
-                taskID = i;
-                System.out.println("Task assigned id of " + taskID);
-                //writeIdBitSet();
-                break;
-            }
-        }
+    Scanner sc1 = new Scanner(value);
+    String s = sc1.next(); //get the command string
+    String taskType = sc1.next(); //get the taskType
+    String dateString = sc1.next(); //get the date
+    String timeString = sc1.next(); //get the time
+    String name = sc1.next(); //get the name
+    String description = sc1.nextLine(); //get the description
+    int taskID = -1;
+    for (int i = 0; i < 1000000; i++) { //search for an unused task ID
+    if (!idBitSet.get(i)) {
+    taskID = i;
+    System.out.println("Task assigned id of " + taskID);
+    //writeIdBitSet();
+    break;
+    }
+    }
 
     }
-    */
+     */
     //----------------------->
 }

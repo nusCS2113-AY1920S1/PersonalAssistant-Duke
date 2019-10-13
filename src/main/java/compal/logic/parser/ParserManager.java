@@ -6,14 +6,11 @@ import compal.logic.commands.ByeCommand;
 import compal.logic.commands.ClearCommand;
 import compal.logic.commands.DeadlineCommand;
 import compal.logic.commands.DeleteCommand;
-import compal.logic.commands.DoAfterCommand;
 import compal.logic.commands.DoneCommand;
 import compal.logic.commands.EventCommand;
 import compal.logic.commands.FindCommand;
-import compal.logic.commands.FixedDurationCommand;
 import compal.logic.commands.ListCommand;
 import compal.logic.commands.RecurTaskCommand;
-import compal.logic.commands.SetReminderCommand;
 import compal.logic.commands.SetReminderCommand;
 import compal.logic.commands.ViewCommand;
 import compal.logic.commands.ViewReminderCommand;
@@ -133,14 +130,6 @@ public class ParserManager {
                 case CMD_DEADLINE:
                     DeadlineCommand deadline = new DeadlineCommand(compal);
                     deadline.parseCommand(userInput);
-                    break;
-                case CMD_DO_AFTER_TASK:
-                    DoAfterCommand doafter = new DoAfterCommand(compal);
-                    doafter.parseCommand(userInput);
-                    break;
-                case CMD_FIXED_DURATION_TASK:
-                    FixedDurationCommand fixedduration = new FixedDurationCommand(compal);
-                    fixedduration.parseCommand(userInput);
                     break;
                 case CMD_LECT:
                 case CMD_TUT:

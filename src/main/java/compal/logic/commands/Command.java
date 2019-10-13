@@ -85,16 +85,40 @@ public abstract class Command {
                 throw new Compal.DukeException(MESSAGE_MISSING_DATE);
             }
             String dateInput = scanner.next();
-            String validatedDate = inputDateValidation(dateInput);
-            return validatedDate;
+            return inputDateValidation(dateInput);
         } else {
             compal.ui.printg(MESSAGE_MISSING_DATE_ARG);
             throw new Compal.DukeException(MESSAGE_MISSING_DATE_ARG);
         }
     }
 
+
+    /**
+     * Checks if input date and time is after current date time.
+     *
+     * @param inputDate The date of input
+     * @param inputTime the time of input
+     * @return True or false depending if the date and time is after or before.
+     */
+    public boolean isValidDateAndTime(String inputDate, String inputTime) throws ParseException {
+
+        Calendar c = Calendar.getInstance();
+        Date inputDateFormat = new SimpleDateFormat("dd/MM/yyyy").parse(inputDate);
+        c.setTime(inputDateFormat);
+        c.set(Calendar.HOUR_OF_DAY, Integer.parseInt(inputTime.substring(0, 2)));
+        c.set(Calendar.HOUR_OF_DAY, Integer.parseInt(inputTime.substring(0, 2)));
+        Date inputDateAndTime = c.getTime();
+
+        Date currentDate = Calendar.getInstance().getTime();
+        c.setTime(currentDate);
+        Date currDateAndTime = c.getTime();
+
+        return inputDateAndTime.after(currDateAndTime);
+    }
+
     /**
      * Parses through each date string input by the user and makes sure it is of the correct format.
+     *
      * @param inputDateStr The date string input by the user, which may not be of correct format.
      * @return A date string with its format validated.
      * @throws Compal.DukeException If date format is invalid (not dd/MM/yyyy), year is before current year.
@@ -104,7 +128,7 @@ public abstract class Command {
         Pattern pattern = Pattern.compile(regex);
         Matcher matcher = pattern.matcher(inputDateStr);
 
-        if (matcher.matches() == false) {
+        if (!matcher.matches()) {
             compal.ui.printg(MESSAGE_INVALID_DATE_FORMATTING);
             throw new Compal.DukeException(MESSAGE_INVALID_DATE_FORMATTING);
         }

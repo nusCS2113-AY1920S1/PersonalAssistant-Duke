@@ -6,15 +6,17 @@ import compal.model.tasks.RecurringTask;
 import compal.model.tasks.Task;
 import compal.model.tasks.TaskList;
 
+import java.text.ParseException;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Scanner;
 
-import static compal.commons.Messages.MESSAGE_MISSING_REP;
+import static compal.commons.Messages.MESSAGE_INVALID_DATE_TIME_INPUT;
 import static compal.commons.Messages.MESSAGE_INVALID_REP_RANGE;
 import static compal.commons.Messages.MESSAGE_INVALID_TIME_RANGE;
 import static compal.commons.Messages.MESSAGE_MISSING_COMMAND_ARG;
 import static compal.commons.Messages.MESSAGE_MISSING_EDATE;
+import static compal.commons.Messages.MESSAGE_MISSING_REP;
 import static compal.commons.Messages.MESSAGE_MISSING_REP_EDATE_ARG;
 
 /**
@@ -131,13 +133,13 @@ public class RecurTaskCommand extends Command implements CommandParser {
      * confirms the addition of that task.
      *
      * @param description Description of recurring task.
-     * @param dateStr Starting date of recurring task.
+     * @param dateStr     Starting date of recurring task.
      * @param startTime   Starting time of recurring task.
      * @param priority    priority level of task type
      * @param endTime     End time of deadline
      */
     public void addRecurringTask(String description, Task.Priority priority, String dateStr,
-                                 String startTime, String endTime) {
+                                 String startTime, String endTime) throws ParseException, Compal.DukeException {
         RecurringTask recurringTask = new RecurringTask(description, priority, dateStr,
                 startTime, endTime);
         taskList.addTask(recurringTask);
@@ -153,7 +155,7 @@ public class RecurTaskCommand extends Command implements CommandParser {
      * @throws Compal.DukeException If user input after "recurtask" is empty.
      */
     @Override
-    public void parseCommand(String userIn) throws Compal.DukeException {
+    public void parseCommand(String userIn) throws Compal.DukeException, ParseException {
         Scanner scanner = new Scanner(userIn);
         String recurTaskCmd = scanner.next();
         if (scanner.hasNext()) {
@@ -164,6 +166,11 @@ public class RecurTaskCommand extends Command implements CommandParser {
             String startTime = getStartTime(restOfInput);
             String endTime = getEndTime(restOfInput);
             int freq = getFreq(restOfInput);
+
+            if (!isValidDateAndTime(date, startTime)) {
+                compal.ui.printg(MESSAGE_INVALID_DATE_TIME_INPUT);
+                throw new Compal.DukeException(MESSAGE_INVALID_DATE_TIME_INPUT);
+            }
 
             if (Integer.parseInt(startTime) > Integer.parseInt(endTime)) {
                 compal.ui.printg(MESSAGE_INVALID_TIME_RANGE);

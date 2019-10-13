@@ -6,10 +6,12 @@ import compal.model.tasks.Event;
 import compal.model.tasks.Task;
 import compal.model.tasks.TaskList;
 
+import java.text.ParseException;
 import java.util.Scanner;
 
 import static compal.commons.Messages.MESSAGE_INVALID_TIME_RANGE;
 import static compal.commons.Messages.MESSAGE_MISSING_COMMAND_ARG;
+import static compal.commons.Messages.MESSAGE_INVALID_DATE_TIME_INPUT;
 
 /**
  * Executes user command "event".
@@ -42,7 +44,7 @@ public class EventCommand extends Command implements CommandParser {
      * @throws Compal.DukeException If user input after "event" is empty.
      */
     @Override
-    public void parseCommand(String userIn) throws Compal.DukeException {
+    public void parseCommand(String userIn) throws Compal.DukeException, ParseException {
         Scanner scanner = new Scanner(userIn);
         String event = scanner.next();
         if (scanner.hasNext()) {
@@ -52,6 +54,11 @@ public class EventCommand extends Command implements CommandParser {
             String date = getDate(restOfInput);
             String startTime = getStartTime(restOfInput);
             String endTime = getEndTime(restOfInput);
+
+            if (!isValidDateAndTime(date, startTime)) {
+                compal.ui.printg(MESSAGE_INVALID_DATE_TIME_INPUT);
+                throw new Compal.DukeException(MESSAGE_INVALID_DATE_TIME_INPUT);
+            }
 
             if (Integer.parseInt(startTime) > Integer.parseInt(endTime)) {
                 compal.ui.printg(MESSAGE_INVALID_TIME_RANGE);
