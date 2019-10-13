@@ -33,6 +33,8 @@ public class Goal {
                     nutritionValue.put(nutrient, value);
                 }
             }
+        } else {
+            throw new DukeException("It appears that there are fields missing in the setgoals command");
         }
     }
 
@@ -47,6 +49,32 @@ public class Goal {
         for (int i = 0; i < details.length; i += 2) {
             nutritionValue.put(details[i], Integer.valueOf(details[i + 1]));
         }
+    }
+
+    /**
+     * This is a getter for date.
+     * @return description of the task
+     */
+    public String getDate() {
+        return this.date;
+    }
+
+    public HashMap<String, Integer> getNutritionalValue() {
+        return this.nutritionValue;
+    }
+
+    /**
+     * This function overrides the toString() function in the object class.
+     * @return the status icon and the description of the goal
+     */
+    @Override
+    public String toString() {
+        String temp = "";
+        for (String i : nutritionValue.keySet()) {
+            temp += i + ":" + nutritionValue.get(i) + " ";
+        }
+        return "[NO]" + " " + this.date + " | " + temp;
+        //TODO: refactor this by using type also
     }
 
 }

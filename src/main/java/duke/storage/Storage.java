@@ -46,7 +46,7 @@ public class Storage {
         try { //read data file
             bufferedReader = new BufferedReader(new FileReader(file));
         } catch (Exception e) {
-            throw new DukeException("Unable to access file");
+            throw new DukeException("Unable to access file1");
         }
         try {
             while ((line = bufferedReader.readLine()) != null) {
@@ -55,14 +55,15 @@ public class Storage {
             }
             bufferedReader.close();
         } catch (FileNotFoundException e) {
-            throw new DukeException("Unable to open file");
+            throw new DukeException("Unable to open file1");
         } catch (IOException e) {
-            throw new DukeException("Error reading file");
+            throw new DukeException("Error reading file1");
         }
+        /*
         try { //read default values file
             bufferedReader = new BufferedReader(new FileReader(defaultFile));
         } catch (Exception e) {
-            throw new DukeException("Unable to access file");
+            throw new DukeException("Unable to access file2");
         }
         try {
             while ((line = bufferedReader.readLine()) != null) {
@@ -71,14 +72,14 @@ public class Storage {
             }
             bufferedReader.close();
         } catch (FileNotFoundException e) {
-            throw new DukeException("Unable to open file");
+            throw new DukeException("Unable to open file2");
         } catch (IOException e) {
-            throw new DukeException("Error reading file");
+            throw new DukeException("Error reading file2");
         }
         try { //read goal file
             bufferedReader = new BufferedReader(new FileReader(goalFile));
         } catch (Exception e) {
-            throw new DukeException("Unable to access file");
+            throw new DukeException("Unable to access file3");
         }
         try {
             while ((line = bufferedReader.readLine()) != null) {
@@ -87,11 +88,12 @@ public class Storage {
             }
             bufferedReader.close();
         } catch (FileNotFoundException e) {
-            throw new DukeException("Unable to open file");
+            throw new DukeException("Unable to open file3");
         } catch (IOException e) {
-            throw new DukeException("Error reading file");
+            throw new DukeException("Error reading file3");
         }
         meals.setMealTracker(mealTracker);
+        */
     }
 
     /**
@@ -215,9 +217,9 @@ public class Storage {
             e.printStackTrace();
         }
         try {
-            String toWrite = "";
-            toWrite += "G|0|";
-            HashMap<String, Integer> nutritionData = storedItems.get(i);
+            Goal goal = mealData.getGoal();
+            String toWrite = "G|0|" + goal.getDate();
+            HashMap <String, Integer> nutritionData = goal.getNutritionalValue();
             if (nutritionData.size() != 0) {
                 toWrite += "|";
                 for (String k : nutritionData.keySet()) {

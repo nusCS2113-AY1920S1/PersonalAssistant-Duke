@@ -185,6 +185,14 @@ public class MealList {
     }
 
     /**
+     * This function is a getter for Goal.
+     * @return goal the data structure storing the goal
+     */
+    public Goal getGoal() {
+        return goal;
+    }
+
+    /**
      * This function is a getter for the StoredItems HashMap.
      * @return storedItems the data structure storing the list of all meals
      */
