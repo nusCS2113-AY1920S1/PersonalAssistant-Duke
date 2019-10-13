@@ -205,7 +205,7 @@ class ParseType extends Parser {
             } else if ("/list".equals(command)) {
                 return new ListCardCommand();
             }
-
+            throw new ParserException("You entered an invalid type for card");
         default:
             throw new ParserException("You entered an invalid type");
         }
