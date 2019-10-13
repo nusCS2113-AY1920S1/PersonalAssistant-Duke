@@ -14,6 +14,7 @@ public class RecurringToDo extends ToDo {
         this.recurrence = recurrence;
     }
 
+
     /**
      * Overload constructor of the RecurringTodo class. Takes in the description of the task
      * @param recurrence Frequency task is repeated

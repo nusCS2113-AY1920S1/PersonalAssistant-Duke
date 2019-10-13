@@ -15,6 +15,16 @@ public class ToDo extends Task {
     }
 
     /**
+     * Overload constructor of the class
+     * Takes in the user at which the task is assigned to
+     * @param description Description of the task
+     * @param user User whom the task is assigned to
+     */
+    public ToDo(String description, String user) {
+        super(description, user);
+    }
+
+    /**
      * Overload constructor of the class. Takes in the description of the task
      * @param description Description of the task.
      * @param done Whether the task is completed.

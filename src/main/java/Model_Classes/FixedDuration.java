@@ -12,7 +12,7 @@ public class FixedDuration extends Event {
      * Constructor for fixed duration
      * @param description Description of event
      * @param at Date of event
-     * @param duration duration of event
+     * @param duration Duration of event
      */
     public FixedDuration(String description, Date at, int duration) {
         super(description, at);
@@ -23,7 +23,19 @@ public class FixedDuration extends Event {
      * Overload constructor for fixed duration
      * @param description Description of event
      * @param at Date of event
-     * @param duration duration of event
+     * @param duration Duration of event
+     * @param user User whom the task is assigned to
+     */
+    public FixedDuration(String description, Date at, int duration, String user) {
+        super(description, at, user);
+        this.duration = duration;
+    }
+
+    /**
+     * Overload constructor for fixed duration
+     * @param description Description of event
+     * @param at Date of event
+     * @param duration Duration of event
      * @param done Whether the task is completed.
      * @param priority Priority of the task.
      */
