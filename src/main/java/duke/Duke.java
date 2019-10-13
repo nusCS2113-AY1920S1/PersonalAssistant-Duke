@@ -100,7 +100,7 @@ public class Duke {
                 testJson(c);
                 isExit = c.isExit();
             } catch (ModException e) {
-                System.out.println(e.getMessage());
+                e.printStackTrace();
             } finally {
                 ui.showLine();
             }
