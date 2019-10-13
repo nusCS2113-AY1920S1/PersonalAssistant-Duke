@@ -20,7 +20,8 @@ public class EditCommandParser implements Parser<EditCommand> {
             } else {
                 break;
             }
-
+        case "loan":
+            break;
         default:
             System.out.println(EditCommand.MESSAGE_USAGE);
             return null;
