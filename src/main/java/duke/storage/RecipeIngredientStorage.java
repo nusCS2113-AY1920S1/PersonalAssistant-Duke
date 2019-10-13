@@ -64,7 +64,7 @@ public class RecipeIngredientStorage {
             while ((content = bufferedReader.readLine()) != null) {
                 String[] split = content.split(" \\| ", 3);
                 if (split.length == 3) {
-                    int quantity = Integer.parseInt(split[1]);
+                    double quantity = Double.parseDouble(split[1]);
                     RecipeIngredient recipeIngredient = new RecipeIngredient(split[0], quantity, split[2]);
                     arrRecipeIngredientList.add(recipeIngredient);
                 }
