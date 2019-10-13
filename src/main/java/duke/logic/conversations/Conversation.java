@@ -53,7 +53,7 @@ public abstract class Conversation {
      * @param userInput The userInput from UI object.
      */
     protected void tryCancelConversation(String userInput) {
-        if (attempts > ATTEMPTS_LIMIT || userInput.equals("cancel")) {
+        if (attempts > ATTEMPTS_LIMIT || "cancel".equals(userInput)) {
             result = MessagesPrompt.CANCEL_PROMPT;
             isFinished = true;
         }

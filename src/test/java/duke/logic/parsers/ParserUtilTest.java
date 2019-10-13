@@ -8,7 +8,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class ParserUtilTest {
 
-
     @Test
     void createTodo() throws Exception {
         assertTrue(ParserUtil.createTodo("Homework") instanceof Todo);

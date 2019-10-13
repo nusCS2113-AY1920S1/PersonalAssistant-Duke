@@ -8,8 +8,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ModelManager implements Model {
-    UniqueTaskList tasks;
-    ArrayList<BusStop> allBusStops;
+    private UniqueTaskList tasks;
+    private ArrayList<BusStop> allBusStops;
     //List<TrainStation> allTrainStations;
 
     @Override

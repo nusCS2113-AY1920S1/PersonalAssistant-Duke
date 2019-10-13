@@ -15,7 +15,7 @@ class MarkDoneCommandTest {
 
     @Test
     void execute() throws DukeException {
-        Storage storage = new StorageStub();;
+        Storage storage = new StorageStub();
         Task task = new Todo("homework1");
         AddCommand addCommand = new AddCommand(task);
         addCommand.execute(storage);
