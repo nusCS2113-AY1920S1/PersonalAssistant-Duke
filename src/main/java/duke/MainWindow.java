@@ -1,11 +1,23 @@
 package duke;
 
 import duke.dukeobject.Expense;
+import javafx.beans.Observable;
+import javafx.beans.binding.Bindings;
+import javafx.beans.property.ReadOnlyIntegerWrapper;
+import javafx.beans.property.ReadOnlyStringWrapper;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.geometry.VPos;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
+import javafx.scene.control.TableCell;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.BorderPane;
+import javafx.util.Callback;
 
 import java.math.BigDecimal;
 
@@ -13,10 +25,9 @@ import java.math.BigDecimal;
  * Controller for MainWindow.fxml
  */
 public class MainWindow extends BorderPane {
+
     @FXML
     public Label totalSpentLabel;
-    @FXML
-    public ListView<String> expenseListView;
     @FXML
     public BorderPane main;
     @FXML
@@ -27,8 +38,11 @@ public class MainWindow extends BorderPane {
     public Label monthlyBudgetLabel;
     @FXML
     Label remainingBudgetLabel;
+    @FXML
+    TableView expenseTableView;
 
     private Duke duke;
+    private ObservableList<Expense> expenseObservableList;
 
     /**
      * Detects enter key and passes command entered in the TextField into Duke, and update the GUI accordingly.
@@ -38,7 +52,6 @@ public class MainWindow extends BorderPane {
         String userInput = inputField.getText();
         String response = duke.getResponse(userInput);
         lastCommandLabel.setText(response);
-        updateExpenseListView();
         inputField.clear();
         updateTotalSpentLabel();
         updateMonthlyBudget();
@@ -52,23 +65,47 @@ public class MainWindow extends BorderPane {
      */
     public void setDuke(Duke d) {
         this.duke = d;
-        updateExpenseListView();
         updateTotalSpentLabel();
         updateMonthlyBudget();
         updateRemainingBudget();
+        updateTableListView();
     }
 
     /**
      * Populate the ListView with a list of expenses.
      */
-    private void updateExpenseListView() {
-        expenseListView.getItems().clear();
-        int count = 1;
-        for (Expense expense : duke.expenseList.getExternalList()) {
-            expenseListView.getItems().add(count + ". " + expense.toString());
-            count++;
+
+    private void updateTableListView(){
+        expenseTableView.getItems().clear();
+        expenseTableView.setPlaceholder(new Label("No expenses to display!"));
+        TableColumn<Expense, Void> indexColumn = new TableColumn<>("No.");
+        indexColumn.setCellFactory(col -> {
+            TableCell<Expense, Void> cell = new TableCell<>();
+            cell.textProperty().bind(Bindings.createStringBinding(() -> {
+                if (cell.isEmpty()) {
+                    return null ;
+                } else {
+                    return Integer.toString(cell.getIndex() + 1);
+                }
+            }, cell.emptyProperty(), cell.indexProperty()));
+            return cell ;
+        });
+        TableColumn<String,Expense> timeColumn = new TableColumn<>("Time");
+        timeColumn.setCellValueFactory(new PropertyValueFactory<>("time"));
+        TableColumn<String,Expense> amountColumn = new TableColumn<>("Amount");
+        amountColumn.setCellValueFactory(new PropertyValueFactory<>("amount"));
+        TableColumn<Expense,String> descriptionColumn = new TableColumn<>("Description");
+        descriptionColumn.setCellValueFactory(new PropertyValueFactory<>("description"));
+        TableColumn<Expense,String> tagColumn = new TableColumn<>("Tags");
+        tagColumn.setCellValueFactory(new PropertyValueFactory<>("tagsString"));
+        TableColumn<Expense,Boolean> isTentativeColumn = new TableColumn<>("Tentative");
+        isTentativeColumn.setCellValueFactory(new PropertyValueFactory<>("tentative"));
+        expenseTableView.getColumns().setAll(indexColumn,timeColumn, amountColumn,descriptionColumn,tagColumn,isTentativeColumn);
+        for(Expense expense : duke.expenseList.getExternalList()) {
+            expenseTableView.getItems().add(expense);
         }
     }
+
 
     /**
      * Updates the total amount label.
