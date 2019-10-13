@@ -5,6 +5,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.Scanner;
+import java.util.concurrent.TimeUnit;
 
 public class Ui {
     Scanner scanner = new Scanner(System.in);
@@ -83,5 +84,21 @@ public class Ui {
         //Task list and current task if any
         String currentTask = "if akshay then anarayan";
         System.out.println("current task");
+    }
+    public void typeWriter(String text) { //use terminal to see full effects, in console only seem to beline by line..
+        int i;
+        try{
+            Thread.sleep(1500);//0.5s pause between characters
+        }catch(InterruptedException ex){
+            Thread.currentThread().interrupt();
+        }
+        for(i = 0; i < text.length(); i++) {
+            System.out.printf("%c", text.charAt(i));
+            try{
+                Thread.sleep(150);//0.5s pause between characters
+            }catch(InterruptedException ex){
+                Thread.currentThread().interrupt();
+            }
+        }
     }
 }

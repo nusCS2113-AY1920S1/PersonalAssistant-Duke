@@ -70,6 +70,7 @@ public class Farmio {
     }
 
     private void displayWelcome() {
+        ui.clearScreen();
         displayArt("welcome");
         ui.show("Press ENTER to continue.");
         ui.getEnter();

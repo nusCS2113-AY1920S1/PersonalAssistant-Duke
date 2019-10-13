@@ -33,7 +33,7 @@ public class Farmer {
         this.wheatFarm = new WheatFarm((JSONObject) jsonObject.get("farm_wheat"));
         this.chickenFarm = new ChickenFarm((JSONObject) jsonObject.get("farm_chicken"));
         this.cowFarm = new CowFarm((JSONObject) jsonObject.get("farm_cow"));
-        this.tasks = new TaskList((JSONArray) jsonObject.get("task_list"));
+//        this.tasks = new TaskList((JSONArray) jsonObject.get("task_list")); sorry jinghui i changed task to abstract
     }
 
     public void startDay() {
