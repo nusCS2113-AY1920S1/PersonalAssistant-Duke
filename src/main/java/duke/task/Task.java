@@ -1,4 +1,7 @@
 package duke.task;
+import duke.exception.DukeException;
+import duke.extensions.Priority;
+
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 
@@ -14,6 +17,7 @@ public class Task {
     protected String type;
     protected LocalDate dateCreated;
     protected RecurrencePeriod recurrencePeriod;
+    protected Priority priority;
 
     /**
      * Constructor function for duke.task.Task
@@ -28,6 +32,7 @@ public class Task {
         this.isDone = false;
         this.type = "";
         this.dateCreated = LocalDate.now();
+        this.priority = Priority.LOW;
         switch (recurrencePeriod) {
             case "none":
                 this.recurrencePeriod = RecurrencePeriod.NONE;
@@ -82,6 +87,22 @@ public class Task {
                 break;
             default:
                 break;
+        }
+    }
+
+    public void setPriority(int i) throws DukeException {
+        switch(i) {
+            case 0:
+                priority = Priority.LOW;
+                break;
+            case 1:
+                priority = Priority.MEDIUM;
+                break;
+            case 2:
+                priority = Priority.HIGH;
+                break;
+            default:
+                throw new DukeException("No such priority exists.");
         }
     }
 
