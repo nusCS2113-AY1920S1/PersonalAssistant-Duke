@@ -15,13 +15,16 @@ import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.DialogPane;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.CornerRadii;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
@@ -54,6 +57,25 @@ public class SceneController extends Application {
 
     public static void setRoot(Pane root) {
         SceneController.root = root;
+    }
+
+    void displayBubble(StackPane stackPane, String str, int radius, Color color) {
+        Circle circle = new Circle();
+        circle.setRadius(radius);
+        circle.setFill(color);
+        Text text = new Text(str);
+        stackPane.getChildren().addAll(circle, text);
+    }
+
+    void displayScrollPane(ScrollPane scrollPane, int top, int right, int bottom, int left, int width, int height,
+                           int bgcRed, int bgcGreen, int bgcBlue, double bgcOpacity,
+                           int bgRed, int bgGreen, int bgBlue, double bgOpacity) {
+        scrollPane.setPadding(new Insets(top, right, bottom, left));
+        scrollPane.setPrefViewportWidth(width);
+        scrollPane.setPrefViewportHeight(height);
+        scrollPane.setStyle(
+                "-fx-background-color: rgb(" + bgcRed + ", " + bgcGreen + ", " + bgcBlue + ", " + bgcOpacity + "); "
+                        + "-fx-background: rgb(" + bgRed + ", " + bgGreen + ", " + bgBlue + ", " + bgOpacity + ");");
     }
 
     void displayDialogPane(DialogPane dialogPane, double opacity, int scaleX, int scaleY,
