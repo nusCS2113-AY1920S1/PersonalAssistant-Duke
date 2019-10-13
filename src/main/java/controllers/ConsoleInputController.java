@@ -52,7 +52,8 @@ public class ConsoleInputController implements IViewController {
             consoleView.end();
             break;
         case "list":
-            consoleView.printAllTasks(taskList);
+            ArrayList<IProject> allProjects = projectRepository.getAll();
+            consoleView.viewAllProjects(allProjects);
             break;
         case "done":
         case "delete":
@@ -73,35 +74,7 @@ public class ConsoleInputController implements IViewController {
             }
             break;
         case "find":
-            try {
-                consoleView.findTask(taskList, input);
-            } catch (ArrayIndexOutOfBoundsException newException) {
-                consoleView.invalidCommandMessage(newException);
-            }
-            break;
-        case "confirm":
-            try {
-                consoleView.confirmTentativeTask(taskList, input);
-            } catch (ClassCastException e) {
-                System.out.println("This task is already confirmed!");
-            } catch (ArrayIndexOutOfBoundsException e) {
-                System.out.println("Please input an available index!");
-            }
-            break;
-        case "event":
-        case "todo":
-        case "deadline":
-        case "doafter":
-        case "tentative":
-            try {
-                ITask newTask = taskFactory.createTask(input);
-                boolean anomaly = taskList.addToList(newTask);
-                consoleView.addMessage(newTask, taskList, anomaly);
-                saveData();
-            } catch (DukeException newException) {
-                consoleView.invalidCommandMessage(newException);
-            }
-            break;
+            // Can consider implementation in the future
         case "create":
             // Creation of a new project with a given name and a number of numbers
             boolean isProjectCreated = projectRepository.addToRepo(input);
@@ -118,10 +91,9 @@ public class ConsoleInputController implements IViewController {
                 consoleView.consolePrint("Please enter a project number!");
             }
             break;
-        case "view":
-            ArrayList<IProject> allProjects = projectRepository.getAll();
-            consoleView.viewAllProjects(allProjects);
-            break;
+        case "help":
+            // TODO help page displaying all commands available
+            // Not implemented
         default:
             consoleView.consolePrint("Invalid inputs. Please refer to User Guide or type help!");
         }

@@ -1,17 +1,13 @@
 package views;
 
 import controllers.ConsoleInputController;
-import models.task.Task;
 import models.data.IProject;
 import models.member.Member;
+import models.task.Task;
 import models.temp.tasks.ITask;
 import models.temp.tasks.TaskList;
-import models.temp.tasks.Tentative;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.Scanner;
 
 public class CLIView {
@@ -57,36 +53,6 @@ public class CLIView {
     public void end() {
         consolePrint("Bye. Hope to see you again soon!");
         System.exit(0);
-    }
-
-    /**
-     * Method to be called when user wishes to add a new Task.
-     * @param newTask : A new task that is added by the user. Task is created by Factory.
-     * @param taskList : List of tasks holding all the tasks.
-     * @param anomaly : Boolean value which gives status of anomaly detection.
-     */
-    public void addMessage(ITask newTask, TaskList taskList, boolean anomaly) {
-        if (anomaly) {
-            consolePrint("Anomalies with the schedule detected.");
-            return;
-        }
-        String grammarTasks = taskList.getNumOfTasks() == 1 ? "task" : "tasks";
-        consolePrint("Got it. I've added this task:", newTask.getFullDescription(),
-            "Now you have " + taskList.getNumOfTasks() + " " + grammarTasks + " in your list.");
-    }
-
-    /**
-     * Method to be called when user calls "list".
-     * Prints to View all the current tasks added.
-     * @param taskList : List of tasks.
-     */
-    public void printAllTasks(TaskList taskList) {
-        ArrayList<String> toPrint = new ArrayList<>();
-        toPrint.add("Here are the tasks in your list:");
-        for (int i = 0; i < taskList.getAllTasks().size(); i++) {
-            toPrint.add("" + (i + 1) + "." + taskList.getAllTasks().get(i).getFullDescription());
-        }
-        consolePrint(toPrint.toArray(new String[0]));
     }
 
     /**
@@ -168,42 +134,6 @@ public class CLIView {
                 + allProjects.get(i).getMembers());
         }
         consolePrint(toPrint.toArray(new String[0]));
-    }
-
-    /**
-     * Method called to confirm the date and time of a tentative task.
-     * @param taskList list of all tasks
-     * @param input index of tentative task in taskList
-     * @throws ClassCastException Exception thrown if input is not of correct class (Tentative class)
-     * @throws ArrayIndexOutOfBoundsException Exception thrown if index given is not within what is available
-     */
-    public void confirmTentativeTask(TaskList taskList, String input) throws ClassCastException,
-            ArrayIndexOutOfBoundsException {
-        Scanner sc = new Scanner(input);
-        String dummy = sc.next();
-        int taskIndex = Integer.parseInt(sc.next()) - 1;
-        Tentative taskToBeConfirmed = (Tentative) taskList.getTask(taskIndex);
-        String[] tentativeDateTimeStrings = taskToBeConfirmed.getTentativeDateTimeStrings();
-        System.out.println(horiLine);
-        System.out.println("\tWhich timing do you want to confirm?");
-        for (int i = 0; i < tentativeDateTimeStrings.length; i++) {
-            System.out.println((i + 1) + ". " + tentativeDateTimeStrings[i]);
-        }
-        System.out.println(horiLine);
-
-        Scanner sc1 = new Scanner(System.in);
-        String inputForChosenTiming = sc1.nextLine();
-        String description = taskToBeConfirmed.getDescriptionOnly();
-
-        int indexOfChosenTiming = Integer.parseInt(inputForChosenTiming) - 1;
-        Date[] tentativeDateTimeObjects = taskToBeConfirmed.getTentativeDateTimeObjects();
-        Date chosenDateTimeObject = tentativeDateTimeObjects[indexOfChosenTiming];
-        taskList.deleteFromList(taskToBeConfirmed);
-
-        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HHmm");
-        String formattedInputDate = formatter.format(chosenDateTimeObject);
-        String newEventInput = "event " + description + " /at " + formattedInputDate;
-        consoleInputController.onCommandReceived(newEventInput);
     }
 
     /**
