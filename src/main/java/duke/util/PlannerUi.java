@@ -31,4 +31,14 @@ public class PlannerUi extends Ui {
         );
         showLine();
     }
+
+    @Override
+    public void goodbyeMsg() {
+        showLine();
+        System.out.println(
+                "Thanks for using ModPlanner!\n"
+                 + "Your data will be stored in file shortly!\n"
+        );
+        showLine();
+    }
 }

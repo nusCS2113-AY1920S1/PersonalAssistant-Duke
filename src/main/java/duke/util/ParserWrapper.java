@@ -46,9 +46,7 @@ public class ParserWrapper {
                 .format(DateTimeFormatter.ofPattern("dd-MM-yyyy [HH:mm]"));
     }
 
-    private Command modParser(String input) {
-        return null;
-    }
+
 
     /**
      * Switching parser to module parser from duke.

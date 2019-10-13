@@ -60,6 +60,12 @@ public class Duke {
     /**
      * Testing function for json parsing for both summary and detailed json files.
      */
+    private void testJson(Command c) {
+        if (c instanceof ListCommand) {
+            this.testJson();
+        }
+    }
+
     private void testJson() {
         // Demo test of commands
         System.out.println(modSummaryMap.get("CS2101"));
@@ -139,6 +145,7 @@ public class Duke {
                 ui.showLine();
                 Command c = parser.parse(fullCommand);
                 c.execute(tasks, ui, store, reminder);
+                testJson(c);
                 isExit = c.isExit();
             } catch (ModException e) {
                 System.out.println(e.getMessage());
@@ -154,7 +161,7 @@ public class Duke {
      */
     public static void main(String[] args) {
         //TODO: args flag could be passed into program for optional runs
-        //Duke duke = new Duke();
-        //duke.run();
+        Duke duke = new Duke();
+        duke.run();
     }
 }
