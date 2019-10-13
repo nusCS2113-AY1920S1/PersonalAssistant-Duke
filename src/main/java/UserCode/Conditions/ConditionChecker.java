@@ -29,7 +29,22 @@ public class ConditionChecker {
         return false;
     }
 
-    public boolean check(boolean isGreater, int val) {
-        return (isGreater) ? (market.getMoney() >= val) : (market.getMoney() <= val);
+    public boolean check(Comparator comparator, int val) {
+        boolean valid = false;
+        switch (comparator) {
+            case lessThan:
+                valid = market.getMoney() < val;
+                break;
+            case lessThanOrEquals:
+                valid = market.getMoney() <= val;
+                break;
+            case greaterThan:
+                valid = market.getMoney() > val;
+                break;
+            case greaterThanOrEquals:
+                valid = market.getMoney() >= val;
+        }
+        return valid;
     }
+
 }

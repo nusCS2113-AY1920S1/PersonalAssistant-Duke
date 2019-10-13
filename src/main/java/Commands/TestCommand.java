@@ -1,10 +1,7 @@
 package Commands;
 
 import Places.Market;
-import UserCode.Conditions.BooleanCondition;
-import UserCode.Conditions.BooleanConditionType;
-import UserCode.Conditions.Condition;
-import UserCode.Conditions.ConditionChecker;
+import UserCode.Conditions.*;
 import UserCode.Actions.BuySeedAction;
 import UserCode.Tasks.TaskList;
 import UserCode.Actions.Action;
@@ -35,12 +32,10 @@ public class TestCommand extends Command {
             Action plantSeedAction = new PlantSeedAction(wheatFarm, chickenFarm, cowFarm, market);
             IfTask task1 = new IfTask(c, plantSeedAction);
             tasks.addTask(task1);
-          /**
-            Condition c2 = Condition.hasMoney;
-            Action buySeedAction = new BuySeedAction(wheatFarm, chickenFarm, cowFarm);
+            Condition c2 = new MoneyCondition(Comparator.greaterThanOrEquals, 100, conditionChecker);
+            Action buySeedAction = new BuySeedAction(wheatFarm, chickenFarm, cowFarm, market);
             IfTask task2 = new IfTask(c2, buySeedAction);
             tasks.addTask(task2);
-            **/
         } catch (Exception e) {
             e.getMessage();
         }

@@ -10,10 +10,7 @@ import UserInterfaces.Ui;
 public class BuySeedAction extends Action {
 
     public BuySeedAction(WheatFarm wheatFarm, ChickenFarm chickenFarm, CowFarm cowFarm, Market market) {
-        this.wheatFarm = wheatFarm;
-        this.chickenFarm = chickenFarm;
-        this.cowFarm = cowFarm;
-        this.market = market;
+        super(wheatFarm, chickenFarm, cowFarm, market);
     }
 
     @Override

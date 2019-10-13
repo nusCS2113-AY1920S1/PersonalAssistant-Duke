@@ -4,17 +4,17 @@ import Places.Market;
 
 public class MoneyCondition extends Condition{
     int value;
-    boolean isGreater;
+    Comparator comparator;
     ConditionChecker conditionChecker;
 
-    public MoneyCondition(boolean greater, int val, ConditionChecker conditionChecker) {
-        this.isGreater = greater;
+    public MoneyCondition(Comparator comparator, int val, ConditionChecker conditionChecker) {
+        this.comparator = comparator;
         this.value = val;
         this.conditionChecker = conditionChecker;
     }
 
     @Override
     public boolean check() {
-        return conditionChecker.check(isGreater, value);
+        return conditionChecker.check(comparator, value);
     }
 }
