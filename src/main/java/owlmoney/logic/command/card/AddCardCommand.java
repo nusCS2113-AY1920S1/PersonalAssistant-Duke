@@ -1,7 +1,5 @@
 package owlmoney.logic.command.card;
 
-import java.util.Date;
-
 import owlmoney.logic.command.Command;
 import owlmoney.model.card.Card;
 import owlmoney.model.profile.Profile;

@@ -1,8 +1,5 @@
 package owlmoney.model.card;
 
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 import owlmoney.logic.parser.exception.CardException;
@@ -47,7 +44,7 @@ public class CardList {
                 break;
             }
         }
-        if(!isDeleted) {
+        if (!isDeleted) {
             throw new CardException("No such card exist.");
         }
     }
@@ -81,6 +78,7 @@ public class CardList {
     }
     */
 
+    /*
     public void editCard(String name, String newName, String limit, String rebate, String dueDate, Ui ui) {
         for (int i = 0; i < cardLists.size(); i++) {
             if (!(newName.isEmpty() || newName.isBlank())) {
@@ -94,6 +92,7 @@ public class CardList {
             }
         }
     }
+    */
 
     /**
      * Lists all cards in the bank account.
@@ -101,9 +100,9 @@ public class CardList {
      * @param ui required for printing.
      */
     public void listCards(Ui ui) throws CardException {
-            checkCardListEmpty(ui);
-            for (int i = 0; i < cardLists.size(); i++) {
-                ui.printMessage(cardLists.get(i).getDetails());
-            }
+        checkCardListEmpty(ui);
+        for (int i = 0; i < cardLists.size(); i++) {
+            ui.printMessage(cardLists.get(i).getDetails());
+        }
     }
 }

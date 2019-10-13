@@ -223,9 +223,11 @@ public class Profile {
      * @param name name of the credit card.
      * @param ui required for printing.
      */
+    /*
     public void editCard(String name, String newName, String limit, String rebate, String dueDate, Ui ui) {
         cardList.editCard(name, newName, limit, rebate, dueDate, ui);
     }
+    */
 
     /**
      * Lists all the cards in the CardList.

@@ -1,10 +1,7 @@
 package owlmoney.logic.parser.card;
 
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
+
 import java.util.Arrays;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -21,8 +18,7 @@ public abstract class ParseCard {
     private ParseRawData parseRawData = new ParseRawData();
     private String rawData;
     private static final String[] CARD_KEYWORD = new String[] {
-            "/name", "/limit", "/rebate"
-    };
+        "/name", "/limit", "/rebate" };
     private static final List<String> EXPENDITURE_KEYWORD_LISTS = Arrays.asList(CARD_KEYWORD);
     static final String NAME = "/name";
     static final String LIMIT = "/limit";
