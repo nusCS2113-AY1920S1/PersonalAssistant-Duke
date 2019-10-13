@@ -5,6 +5,7 @@ import storage.Storage;
 import task.TaskList;
 import ui.Ui;
 import user.Booking;
+import user.BookingList;
 import user.Login;
 
 import java.io.BufferedWriter;
@@ -18,11 +19,21 @@ public class AddBookingCommand extends Command {
     private String[] splitC;
     private String[] datetime;
     private String timeStart;
+    private Storage storage;
     private ArrayList<Booking> bookingList;
 
+    /**
+     * Create new booking request
+     * @param input from user
+     * @param splitStr tokenized input
+     * @throws DukeException if format not followed
+     * @throws IOException when entry is incorrect
+     */
     public  AddBookingCommand(String input, String[] splitStr) throws DukeException, IOException {
         File bookingFile = new File("data\\bookingslist.txt");
         bookingFile.createNewFile();
+        storage = new Storage("data\\bookingslist.txt");
+        bookingList = new BookingList(storage.load());
         if (splitStr.length == 1)
             throw new DukeException("☹ OOPS!!! Please create your booking with the following format: username, account type, roomcode, description, date and time");
         this.splitC = input.split(" ", 5);
@@ -30,11 +41,10 @@ public class AddBookingCommand extends Command {
         this.timeStart = datetime[0] + datetime[1];
         if(!Login.checkUsername(splitC[0],"data\\members.txt"))
             throw new DukeException("☹ OOPS!!! Please input a valid username!");
-        /*if (!splitC[0].contains("@u.nus.edu"))
-            throw new DukeException("☹ OOPS!!! Please input a valid user account");*/
-        if (splitC[1].matches("[0-9]+") || splitC[2].matches("[a-z]+") || splitC[2].matches("[A-Z]+"))//when we get a room list
-            throw new DukeException("☹ OOPS!!! This room does not exist.  Please input a valid roomcode.");
-        if (!splitC[3].contains("A") && !splitC[4].contains("R") && !splitC[4].contains("C"))
+        /*if (splitC[1].matches("[0-9]+") || splitC[2].matches("[a-z]+") || splitC[2].matches("[A-Z]+"))//when we get a room list
+            throw new DukeException("☹ OOPS!!! This room does not exist.  Please input a valid roomcode.");*/
+        boolean clash = BookingList.checkBooking((BookingList) bookingList, splitC[2], timeStart, datetime[2]);
+        if (clash)
             throw new DukeException("☹ OOPS!!! This slot is already filled, please choose another vacant one");
 
     }
