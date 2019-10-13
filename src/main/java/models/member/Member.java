@@ -1,10 +1,13 @@
 package models.member;
 
+import models.task.Task;
+
 public class Member implements IMember {
     private String name;
     private String phone;
     private String email;
     private int indexNumber;
+    private MemberTaskList memberTaskList;
 
     /**
      * Class representing a member in a project team.
@@ -41,5 +44,9 @@ public class Member implements IMember {
         this.name = name;
         this.phone = phone;
         this.email = email;
+    }
+
+    public void assignTask(Task task) {
+        this.memberTaskList.addAssignedTask(task);
     }
 }

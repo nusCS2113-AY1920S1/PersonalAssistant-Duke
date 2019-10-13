@@ -88,6 +88,16 @@ public class ProjectInputController {
                     /*
                         Empty method
                     */
+                } else if (projectCommand.length() >= 12 && ("assign task ").equals(projectCommand.substring(0,12))) {
+                    String assignTaskDetails = projectCommand.substring(13);
+                    String[] details =  assignTaskDetails.split(" ");
+                    int taskNumber = Integer.parseInt(details[0]);
+                    if (taskNumber > projectToManage.getNumOfTasks() || taskNumber <= 0) {
+                        consoleView.consolePrint("The task you wish to assign does not exist!",
+                            "Please check the index number of the task and try again.");
+                    } else {
+                        consoleView.assignTask(projectToManage, assignTaskDetails);
+                    }
                 } else {
                     consoleView.consolePrint("Invalid command. Try again!");
                 }

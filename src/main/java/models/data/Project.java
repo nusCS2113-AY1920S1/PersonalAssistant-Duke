@@ -41,6 +41,11 @@ public class Project implements IProject {
     }
 
     @Override
+    public int getNumOfTasks() {
+        return this.taskList.getTaskList().size();
+    }
+
+    @Override
     public void addMember(Member newMember) {
         this.memberList.addMember(newMember);
     }
@@ -59,4 +64,5 @@ public class Project implements IProject {
     public void addTask(Task newTask) {
         this.taskList.addTask(newTask);
     }
+
 }
