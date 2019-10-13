@@ -8,7 +8,6 @@ import UserInterfaces.Ui;
 import org.json.simple.JSONObject;
 
 public class SellWheatAction extends Action {
-    int moneyChange = 10;
 
     public SellWheatAction(WheatFarm wheatFarm, ChickenFarm chickenFarm, CowFarm cowFarm) {
         this.wheatFarm = wheatFarm;
@@ -17,11 +16,10 @@ public class SellWheatAction extends Action {
     }
 
     @Override
-    public int execute(Ui ui) {
+    public void execute(Ui ui) {
         wheatFarm.buySeeds();
         new Simulate(ui, "SellWheat", 10).simulate();
         ui.show("Selling wheat!");
-        return moneyChange;
     }
     public JSONObject toJSON() {
         JSONObject obj = super.toJSON();

@@ -23,6 +23,9 @@ public class ConditionChecker {
         if (condition == BooleanConditionType.hasSeeds) {
             return wheatFarm.hasSeeds();
         }
+        if (condition == BooleanConditionType.TRUE) {
+            return true;
+        }
         return false;
     }
 

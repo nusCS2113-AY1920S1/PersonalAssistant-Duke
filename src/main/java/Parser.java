@@ -40,7 +40,7 @@ public class Parser {
             return new StartCommand();
         }
         if (fullCommand.equals("test")) {
-            return new TestCommand(ui, tasks, wheatFarm, chickenFarm, cowFarm, conditionChecker);
+            return new TestCommand(ui, tasks, wheatFarm, chickenFarm, cowFarm, market, conditionChecker);
         }
         return new ExitCommand();
     }

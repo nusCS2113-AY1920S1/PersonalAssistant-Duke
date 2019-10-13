@@ -12,12 +12,12 @@ public class IfTask extends Task {
     }
 
     @Override
-    public int execute(Ui ui) {
+    public void execute(Ui ui) {
         {
-            if (checkCondition()) {
-                return action.execute(ui);
+            if (condition.check()) {
+                action.execute(ui);
             } else {
-                return 0;
+                ui.show("Condition not fulfilled, not executing task!");
             }
         }
     }

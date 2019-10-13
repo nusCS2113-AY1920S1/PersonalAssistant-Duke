@@ -28,7 +28,7 @@ public abstract class Task {
 
     }
 
-    public abstract int execute(Ui ui);
+    public abstract void execute(Ui ui);
 
     private Action parseJsonAction(JSONObject obj) throws FarmioException {
         Action action;

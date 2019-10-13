@@ -1,5 +1,9 @@
 package UserCode.Conditions;
 
 public enum BooleanConditionType {
-    hasSeeds
+    hasSeeds,
+    hasMoney,
+    wheatRipened,
+    wheatHarvested,
+    TRUE
 }
