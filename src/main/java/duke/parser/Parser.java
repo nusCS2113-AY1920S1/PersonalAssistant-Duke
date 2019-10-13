@@ -4,10 +4,7 @@ import duke.command.*;
 
 import duke.command.inventorycommands.AddIngredientCommand;
 import duke.command.CommandIngredients;
-import duke.command.recipecommands.DeleteRecipeIngredientCommand;
-import duke.command.recipecommands.AddRecipeTitleCommand;
-import duke.command.recipecommands.AddRecipeIngredientCommand;
-import duke.command.recipecommands.ListAllRecipeCommand;
+import duke.command.recipecommands.*;
 import duke.exception.DukeException;
 
 import static duke.common.Messages.*;
@@ -34,6 +31,8 @@ public class Parser {
     public static CommandRecipeIngredient parseRecipeIngredient(String input) throws DukeException {
         if (input.trim().contains(COMMAND_ADD_RECIPE_INGREDIENT)) {
             return new AddRecipeIngredientCommand(input);
+        } else if (input.trim().contains(COMMAND_LIST_RECIPE_INGREDIENT)) {
+            return new ListRecipeIngredientCommand(input);
         } else {
             return new DeleteRecipeIngredientCommand(input);
         }

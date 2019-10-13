@@ -24,15 +24,11 @@ public class AddRecipeTitleCommand extends CommandRecipeTitle {
             arrayList.add(ERROR_MESSAGE_GENERAL + MESSAGE_FOLLOWUP_NUll);
             System.out.println("stuck here 7");
         } else if (userInput.trim().charAt(14) == ' ') {
-            if (userInput.trim().contains("n/")) {
-                String recipeTitle = userInput.split("n/", 2)[1].trim();
-                recipeTitleList.addRecipeTitle(recipeTitle);
-                System.out.println("added tasks");
-                recipeTitleStorage.saveFile(recipeTitleList);
-                arrayList.add(MESSAGE_ADDED + "       " + recipeTitleList.getRecipeTitleList().get(recipeTitleList.getSize() - 1) + "\n" + "Now you have " + recipeTitleList.getSize() + " tasks in the list.");
-            } else {
-                arrayList.add(ERROR_MESSAGE_RANDOM);
-            }
+            String recipeTitle = userInput.split("\\s", 2)[1].trim();
+            recipeTitleList.addRecipeTitle(recipeTitle);
+            System.out.println("added tasks");
+            recipeTitleStorage.saveFile(recipeTitleList);
+            arrayList.add(MESSAGE_ADDED + "       " + recipeTitleList.getRecipeTitleList().get(recipeTitleList.getSize() - 1) + "\n" + "Now you have " + recipeTitleList.getSize() + " tasks in the list.");
         } else {
             arrayList.add(ERROR_MESSAGE_RANDOM);
         }
