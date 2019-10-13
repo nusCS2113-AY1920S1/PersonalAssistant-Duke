@@ -18,9 +18,10 @@ import java.util.Stack;
 public class ListNoteCommand extends AddNoteCommand {
     //listNote day/week/month yyyy-MM-dd
 
-    /***
+    /**
+     * Prints out the notes with indexes from a given list of notes.
      *
-     * @param listOFNotes
+     * @param listOFNotes the list of notes for the specified period
      */
     private void printOutNoteList(ArrayList<String> listOFNotes) {
         assert !listOFNotes.isEmpty() : "there is an empty note section of a date (bug in DeleteNoteCommand)";
@@ -29,6 +30,14 @@ public class ListNoteCommand extends AddNoteCommand {
         }
     }
 
+    /**
+     * Finds the list of notes for the specified period and prints them out.
+     *
+     * @param periodList the list of Notes for the specified period depending on if its a day, week or month
+     * @param dateToList the date specified by the user
+     * @param period is either day, week or month
+     * @throws DukeException if there are no notes for the specified period
+     */
     private void printNoteList(ArrayList<Note> periodList, LocalDate dateToList, String period) throws DukeException {
         for (Note n: periodList) {
             if (n.noteDate.equals(dateToList)) {
@@ -51,7 +60,6 @@ public class ListNoteCommand extends AddNoteCommand {
             ui.showErrorMessage(e);
             return;
         }
-
         try {
             switch (command[1]) {
             case "day": printNoteList(NoteList.daily, userDate, command[1]);

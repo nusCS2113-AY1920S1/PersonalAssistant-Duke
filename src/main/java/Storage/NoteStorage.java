@@ -3,13 +3,14 @@ package Storage;
 import notes.Note;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ *
+ */
 public class NoteStorage {
     public static void writeToFile(String fileName, ArrayList<Note>listToWrite) throws IOException {
         //SETTLE THE IOException !!!!!!!!!!!!!!!!!!
@@ -17,7 +18,7 @@ public class NoteStorage {
         FileWriter file = new FileWriter("data/note/" + fileName);
         for (Note n : listToWrite) {
             file.write(Note.noteFormatter.format(n.noteDate) + "\n"); //date
-            file.write(n.notes.size() + "\n"); //size of indiv notelist
+            file.write(n.notes.size() + "\n"); //size of individual note list
             for (String s: n.notes) {
                 file.write(s + "\n");
             }
