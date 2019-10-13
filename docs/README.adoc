@@ -7,10 +7,6 @@ ifdef::env-github[]
 image::docs/images/Ui.png[width="600"]
 endif::[]
 
-ifndef::env-github[]
-image::images/Ui.png[width="600"]
-endif::[]
-
 * ChefDuke is an administrative booking management system suitable for private home chef who are familiar with and prefer using the command line for managing the administrative tasks of their business.
 * Most of the user interactions happen using a CLI (Command Line Interface).
 * It is a Java sample application intended for students learning Software Engineering while using Java as the main programming language.

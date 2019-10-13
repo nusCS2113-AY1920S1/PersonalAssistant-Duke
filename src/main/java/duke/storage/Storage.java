@@ -1,15 +1,15 @@
 package duke.storage;
 
 import duke.exception.DukeException;
-import duke.task.TentativeScheduling;
-import duke.task.Recurring;
-import duke.task.Period;
-import duke.task.Deadline;
-import duke.task.Duration;
-import duke.task.Todo;
-import duke.task.Event;
+import duke.task.duketasks.TentativeScheduling;
+import duke.task.duketasks.Recurring;
+import duke.task.duketasks.Period;
+import duke.task.duketasks.Deadline;
+import duke.task.duketasks.Duration;
+import duke.task.duketasks.Todo;
+import duke.task.duketasks.Event;
 import duke.task.Task;
-import duke.tasklist.TaskList;
+import duke.list.tasklist.TaskList;
 
 import java.io.FileReader;
 import java.io.BufferedReader;

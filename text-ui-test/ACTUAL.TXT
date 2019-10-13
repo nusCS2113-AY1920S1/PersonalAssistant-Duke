@@ -16,12 +16,21 @@
    ____________________________________________________________
      Got it. I've added this task:
        [T][-] text ui testing
+<<<<<<< HEAD
+     Now you have 13 tasks in the list.
+   ____________________________________________________________
+   ____________________________________________________________
+     Got it. I've added this task:
+       [D][-] return book (by: 2nd of December 2019, 6.00pm)
+     Now you have 14 tasks in the list.
+=======
      Now you have 1 task in the list.
    ____________________________________________________________
    ____________________________________________________________
      Got it. I've added this task:
        [D][-] return book (by: 2 December 2019, 06:00 PM)
      Now you have 2 tasks in the list.
+>>>>>>> master
    ____________________________________________________________
    ____________________________________________________________
      Nice! I've marked this task as done:
