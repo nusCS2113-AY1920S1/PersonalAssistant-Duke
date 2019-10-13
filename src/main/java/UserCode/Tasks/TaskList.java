@@ -11,11 +11,13 @@ public class TaskList extends ArrayList<Task>{
     public TaskList() {
     }
 
-//    public TaskList(JSONArray array) throws FarmioException {
-//        for (JSONObject jsonObject : (Iterable<JSONObject>) array) {
-//            this.add(new Task(jsonObject));
-//        }
-//    } sorry jinghui, i changing task to abstract
+    /**
+    public TaskList(JSONArray array) throws FarmioException {
+        for (JSONObject jsonObject : (Iterable<JSONObject>) array) {
+            this.add(new Task(jsonObject));
+        }
+    }**/
+
 
     public void addTask(Task task) {
         this.add(task);
