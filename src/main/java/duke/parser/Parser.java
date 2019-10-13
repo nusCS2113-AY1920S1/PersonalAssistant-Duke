@@ -1,10 +1,12 @@
 package duke.parser;
 
-import duke.command.AddExpenseCommand;
 import duke.command.Command;
+import duke.command.AddExpenseCommand;
 import duke.command.DeleteCommand;
 import duke.command.ExitCommand;
-import duke.command.GetExternalListCommand;
+import duke.command.FilterCommand;
+import duke.command.SortCommand;
+import duke.command.ViewCommand;
 import duke.exception.DukeException;
 
 import java.time.LocalDateTime;
@@ -35,9 +37,13 @@ public class Parser {
             return new DeleteCommand();
 
         case "sort":
+            return new SortCommand();
+
         case "view":
+            return new ViewCommand();
+
         case "filter":
-            return new GetExternalListCommand();
+            return new FilterCommand();
 
         case "bye":
             return new ExitCommand();

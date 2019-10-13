@@ -68,7 +68,7 @@ abstract class DukeList<T extends DukeItem> {
 
     public abstract void setFilterCriteria(String filterCriteria) throws DukeException;
 
-    public abstract void setViewScope(String viewScope) throws DukeException;
+    public abstract void setViewScope(String viewScope, int previous) throws DukeException;
 
     public abstract List<T> sort(List<T> currentList);
 
