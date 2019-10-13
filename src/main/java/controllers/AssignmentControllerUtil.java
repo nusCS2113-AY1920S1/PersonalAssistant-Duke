@@ -6,7 +6,7 @@ import models.data.IProject;
 import models.task.Task;
 import views.CLIView;
 
-public class AssignmentController {
+public class AssignmentControllerUtil {
 
     /**
      * Parses the input by the user to allow members to be assigned or removed. Checks if task
@@ -31,10 +31,10 @@ public class AssignmentController {
             boolean add = false;
             boolean remove = false;
             for (String s : details) {
-                if (s.equals("to/")) {
+                if ("to/".equals(s)) {
                     add = true;
                     remove = false;
-                } else if (s.equals("rm/")) {
+                } else if ("rm/".equals(s)) {
                     add = false;
                     remove = true;
                 } else if (!s.contains("i/")) {
