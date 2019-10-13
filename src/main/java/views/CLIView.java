@@ -1,7 +1,6 @@
 package views;
 
 import controllers.ConsoleInputController;
-
 import models.data.IProject;
 import models.member.Member;
 import models.task.Task;
