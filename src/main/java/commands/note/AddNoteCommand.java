@@ -28,7 +28,7 @@ public class AddNoteCommand extends Command {
      * @return the date specified by the user as a LocalDate object
      * @throws DukeException when the users input format is wrong
      */
-    LocalDate processCommand(String[] command, String commandName) throws DukeException{
+    public LocalDate processCommand(String[] command, String commandName) throws DukeException{
         //addNote day/week/month yyyy-MM-dd
         //<the note they want to add>
         try {
@@ -37,7 +37,7 @@ public class AddNoteCommand extends Command {
                     throw new DukeException("The second word in the command has to be \'day\', \'week\' or \'month\'.");
                 }
             } catch (ArrayIndexOutOfBoundsException b) {
-                throw new DukeException("OOPS!!! The description of a " + commandName +" cannot be empty.");
+                throw new DukeException("OOPS!!! The description of a(n) " + commandName +" cannot be empty.");
             }
             if (command[1].equals("month")) {
                 command[2] = command[2] + "-01";
@@ -70,8 +70,8 @@ public class AddNoteCommand extends Command {
      * @param date the date specified by the user as a String object
      * @return the new note added
      */
-    private Note addToList(ArrayList<Note> listOfNotes, LocalDate userDate, String usersNote, String date,
-                           String fileName) throws IOException {
+    public Note addToList(ArrayList<Note> listOfNotes, LocalDate userDate, String usersNote, String date,
+                          String fileName) throws IOException {
         boolean hasNote = false;
         Note noteInQuestion = null;
         for (Note n: listOfNotes) {
@@ -99,7 +99,7 @@ public class AddNoteCommand extends Command {
      * @param size the number of notes the user has for the specified period after the new note has been added
      * @param period is either day, week or month
      */
-    private void printConfirmationMessage(String usersNote, int size, String period) {
+    public void printConfirmationMessage(String usersNote, int size, String period) {
         System.out.println("Got it. I've added this note to that " + period +  ":");
         System.out.println(usersNote);
         System.out.println("Now you have " + size + " note(s) for that " + period + ".");
