@@ -122,10 +122,9 @@ public class BankList {
      *
      * @param bankName name of bank account.
      * @param bankType type of bank account.
-     * @param ui       required for printing.
      * @return the result bankName is of bankType.
      */
-    private boolean canPassDeleteBankRequirements(String bankName, String bankType, Ui ui) throws BankException {
+    private boolean canPassDeleteBankRequirements(String bankName, String bankType) throws BankException {
         if (isEmpty()) {
             throw new BankException("There are 0 bank accounts in your profile");
         }
@@ -150,7 +149,7 @@ public class BankList {
      * @param ui       required for printing.
      */
     public void deleteBank(String bankName, String bankType, Ui ui) throws BankException {
-        if (canPassDeleteBankRequirements(bankName, bankType, ui)) {
+        if (canPassDeleteBankRequirements(bankName, bankType)) {
             for (int i = 0; i < getBankListSize(); i++) {
                 if (bankName.equals(bankLists.get(i).getAccountName())) {
                     ui.printMessage("Removing " + bankLists.get(i).getAccountName());
