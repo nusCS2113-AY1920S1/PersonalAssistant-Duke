@@ -118,6 +118,9 @@ public class AutoCompleter {
             }
         }
 
+        if (autoCompletionResults.isEmpty()) {
+            autoCompletionResults.add(toComplete);
+        }
     }
 
     private String replaceWord(String[] words, int toReplaceIndex, String newWord) {
