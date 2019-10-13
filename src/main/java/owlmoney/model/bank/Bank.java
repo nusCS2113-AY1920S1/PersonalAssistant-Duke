@@ -63,7 +63,7 @@ public abstract class Bank {
      * @return accountName and currentAmount.
      */
     public String getDescription() {
-        return "Account name: " + accountName + "\nType: " + getType() + "\nCurrent Amount: "
+        return "Account name: " + accountName + "\nType: " + getType() + "\nCurrent Amount: $"
                 + new DecimalFormat("0.00").format(currentAmount);
     }
 
