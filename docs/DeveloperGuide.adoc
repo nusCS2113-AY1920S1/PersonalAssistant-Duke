@@ -197,7 +197,21 @@ The following activity diagram summarises what will happen when a user executes 
 image::HelpCommandActivityDiagram.png[]
 
 ==== Design Considerations
+* Created `manual.txt` to store available commands and their instructions
+** Rationale: +
+With scalability in mind, the use of persistent storage will grant developers a common location to update the list of `Command` and their instructions.
 
+** Alternatives Considered: +
+Numerous String variables can be added to an ArrayList through the `HelpCommand` class. This would not require the use of `File`, `FileReader` or `BufferedReader` abstractions.
+However, this would bring developers inconvenience during project extension as more functions will be added and this may eventually lead to unorganised code, especially in the `HelpCommand` class.
+
+* Implement ArrayList to display `Help` for an individual command and its instructions
+** Rationale: +
+The use of ArrayList offers flexibility due to its unconfined size. This allows increased convenience and scalability due to the large list of `Command` and their instructions available to our users.
+
+** Alternatives Considered: +
+The use of an Array will allow increased efficiency given the smaller number of `Command` we had in our earlier versions, such as `v1.1`.
+However, this is not a beneficial solution in the long run as we create extensions and expand upon `OOF`.
 
 === Logging
 
