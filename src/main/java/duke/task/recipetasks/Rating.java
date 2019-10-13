@@ -4,7 +4,7 @@ public class Rating {
 
     private String rating;
 
-    public Rating(String rating) {
+    public Rating(int i, String rating) {
         this.rating = rating;
     }
 

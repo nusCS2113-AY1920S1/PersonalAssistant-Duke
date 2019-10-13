@@ -5,6 +5,8 @@ public class RecipeMessages {
     public static final String COMMAND_ADD_RECIPE_INGREDIENT = "addrecipeingredient";
     public static final String COMMAND_LIST_RECIPES = "listallrecipes";
     public static final String COMMAND_DELETE_RECIPE_INGREDIENT = "del";
+    public static final String COMMAND_ADD_FEEDBACK = "addfeedback";
+    public static final String COMMAND_ADD_RATING = "addrating";
 
     public static final String MESSAGE_DELETE_RECIPE = "     Noted. I've removed this ingredient:\n";
 
