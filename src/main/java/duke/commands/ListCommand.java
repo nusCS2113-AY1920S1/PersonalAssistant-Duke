@@ -38,9 +38,8 @@ public class ListCommand extends Command {
      * @param tasks the MealList object in which the meal(s) is supposed to be listed
      * @param ui the ui object to display the user interface of an "list" command
      * @param storage the storage object that stores the list of meals
-     * @param in
+     * @param in the scanner object to handle secondary command IO
      */
-
     @Override
     public void execute(MealList tasks, Ui ui, Storage storage, User user, Scanner in) throws DukeException {
         ui.showCalorie(user);

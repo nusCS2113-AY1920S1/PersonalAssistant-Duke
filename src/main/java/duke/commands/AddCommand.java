@@ -32,7 +32,7 @@ public class AddCommand extends Command {
      * @param meals the MealList object in which the meal is supposed to be added
      * @param ui the ui object to display the user interface of an "add" command
      * @param storage the storage object that stores the list of meals
-     * @param in
+     * @param in the scanner object to handle secondary command IO
      */
     @Override
     public void execute(MealList meals, Ui ui, Storage storage, User user, Scanner in) throws DukeException {

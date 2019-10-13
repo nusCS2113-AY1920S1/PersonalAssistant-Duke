@@ -229,7 +229,7 @@ public class Storage {
         try {
             Goal goal = mealData.getGoal();
             String toWrite = "G|0|" + goal.getDate();
-            HashMap <String, Integer> nutritionData = goal.getNutritionalValue();
+            HashMap<String, Integer> nutritionData = goal.getNutritionalValue();
             if (nutritionData.size() != 0) {
                 toWrite += "|";
                 for (String k : nutritionData.keySet()) {

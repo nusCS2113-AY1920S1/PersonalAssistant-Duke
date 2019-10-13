@@ -177,8 +177,8 @@ public class MealList {
 
     public void addGoal(Goal goal, boolean override) throws DukeException {
         if (this.goal != null && override == false) {
-            throw new DukeException("You currently have a previously set goal active\n" +
-                    "     Would you like to override the existing goal? (Y/N)");
+            throw new DukeException("You currently have a previously set goal active\n"
+                    + "     Would you like to override the existing goal? (Y/N)");
         } else {
             this.goal = goal;
         }

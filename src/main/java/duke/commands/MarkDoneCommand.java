@@ -33,7 +33,7 @@ public class MarkDoneCommand extends Command {
      * @param tasks the MealList object to be marked done
      * @param ui the ui object to display the user interface of an "mark done" command
      * @param storage the storage object that stores the list of meals
-     * @param in
+     * @param in the scanner object to handle secondary command IO
      */
     @Override
     public void execute(MealList tasks, Ui ui, Storage storage, User user, Scanner in) {
