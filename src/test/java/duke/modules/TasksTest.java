@@ -88,7 +88,7 @@ public class TasksTest {
         String taskLabel = "RecurringTaskTest";
         String dateLabel = "/days 1";
         String expectedPrintTodo = "[R][✗] RecurringTaskTest (every: 24Hours)";
-        String expectedWriteTodo = "R|RecurringTaskTest|0|24Hours";
+        String expectedWriteTodo = "R|RecurringTaskTest|0|PT24H";
         try {
             Task test = new RecurringTask(taskLabel, dateLabel);
             assertEquals(expectedPrintTodo, test.toString());
@@ -119,7 +119,7 @@ public class TasksTest {
         String taskLabel = "FixedDurationTaskTest";
         String timeNeededLabel = "/hours 3";
         String expectedPrint = "[F][✗] FixedDurationTaskTest (needs: 3Hours)";
-        String expectedWrite = "F|FixedDurationTaskTest|0|3Hours";
+        String expectedWrite = "F|FixedDurationTaskTest|0|PT3H";
         try {
             Task test = new FixedDurationTask(taskLabel, timeNeededLabel);
             assertEquals(expectedPrint, test.toString());
