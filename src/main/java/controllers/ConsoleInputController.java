@@ -79,27 +79,6 @@ public class ConsoleInputController implements IViewController {
                 consoleView.invalidCommandMessage(newException);
             }
             break;
-        case "remind":
-            try {
-                consoleView.remindTask(taskList, input);
-            } catch (ParseException newException) {
-                consoleView.invalidCommandMessage(newException);
-            }
-            break;
-        case "schedule":
-            try {
-                consoleView.listSchedule(taskList, input);
-            } catch (ParseException e) {
-                System.out.println("Error in scheduling");
-            }
-            break;
-        case "free":
-            try {
-                consoleView.findFreeSlots(taskList, input);
-            } catch (ParseException e) {
-                System.out.print("Wrong date time input format");
-            }
-            break;
         case "confirm":
             try {
                 consoleView.confirmTentativeTask(taskList, input);
