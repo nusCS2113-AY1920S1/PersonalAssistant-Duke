@@ -378,7 +378,8 @@ public class CLIView {
         if (unassign.size() > 0) {
             for (Integer i : unassign) {
                 task.removeMember(i);
-                consolePrint("Unassigned task to: ");
+                consolePrint("Unassigned task to: "
+                    + projectToManage.getMembers().getMember(i).getName());
                 //recalculate credits for other members assigned to task if necessary
             }
         }

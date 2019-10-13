@@ -63,9 +63,6 @@ public class AssignmentController {
                     }
                 }
             }
-            for (Integer i : assign) {
-                System.out.println("To assign:" + i);
-            }
             consoleView.assignOrUnassignTask(assign, unassign, task, projectToManage);
         }
     }
