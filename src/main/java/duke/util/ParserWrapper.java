@@ -8,6 +8,7 @@ import duke.command.ByeCommand;
 import duke.command.Command;
 import duke.command.ListCommand;
 import duke.command.ScheduleCommand;
+import duke.command.ReportCommand;
 import duke.exceptions.ModCommandException;
 import duke.exceptions.ModException;
 import duke.exceptions.ModInvalidTimeException;
@@ -98,6 +99,8 @@ public class ParserWrapper {
             return DukeParser.checkValidRescheduleIndex(input);
         } else if (input.startsWith("schedule ")) {
             return new ScheduleCommand(input);
+        } else if (input.startsWith("report")) {
+            return new ReportCommand();
         } else {
             //throws invalid command exception when user inputs non-keywords
             throw new ModCommandException();

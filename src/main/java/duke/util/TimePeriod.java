@@ -22,11 +22,21 @@ public class TimePeriod {
     /**
      * Constructor for TimePeriod check.
      * @param begin Start date.
+     * @param duration Duration of the period.
+     * @throws ModInvalidTimePeriodException thrown when date period is invalid.
+     */
+    public TimePeriod(LocalDateTime begin, TimeInterval duration) throws ModInvalidTimePeriodException {
+        this.setPeriod(begin, duration);
+    }
+
+    /**
+     * Constructor for TimePeriod check.
+     * @param begin Start date.
      * @param isInstantEnd Ends immediately or not.
      * @throws ModInvalidTimePeriodException thrown when date period is invalid.
      */
     public TimePeriod(LocalDateTime begin, boolean isInstantEnd) throws ModInvalidTimePeriodException {
-        this(begin, null);
+        this(begin, (LocalDateTime) null);
         if (isInstantEnd) {
             this.setEnd(this.getBegin());
         }
@@ -37,7 +47,7 @@ public class TimePeriod {
     }
 
     public TimePeriod() throws ModInvalidTimePeriodException {
-        this(null, null);
+        this(null, (LocalDateTime) null);
     }
 
     /**
@@ -48,9 +58,9 @@ public class TimePeriod {
      * @return Boolean result if the set period is a valid period.
      */
     public boolean isClashing(LocalDateTime localDateTime, boolean strictBegin, boolean strictEnd) {
-        return localDateTime.isAfter(this.begin) && localDateTime.isBefore(this.end)
+        return localDateTime != null && (localDateTime.isAfter(this.begin) && localDateTime.isBefore(this.end)
                 || strictBegin && localDateTime.isEqual(this.begin)
-                || strictEnd && localDateTime.isEqual(this.end);
+                || strictEnd && localDateTime.isEqual(this.end));
     }
 
     public boolean isClashing(LocalDateTime localDateTime) {
@@ -115,5 +125,9 @@ public class TimePeriod {
         if (!this.isExpired()) {
             this.setEnd(LocalDateTime.now());
         }
+    }
+
+    public String toString() {
+        return this.begin + " - " + this.end;
     }
 }

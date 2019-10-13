@@ -18,7 +18,7 @@ public class TimeInterval implements TemporalAmount, Serializable {
     public static final TimeInterval ZERO = new TimeInterval();
 
     public TimeInterval(Period dateDuration, Duration timeDuration) {
-        this.setDuration(dateDuration, timeDuration);
+        this.setInterval(dateDuration, timeDuration);
     }
 
     public TimeInterval(LocalDateTime begin, LocalDateTime end) {
@@ -80,7 +80,7 @@ public class TimeInterval implements TemporalAmount, Serializable {
         this.setInterval(TimeInterval.between(begin, end));
     }
 
-    public void setDuration(Period dateDuration, Duration timeDuration) {
+    public void setInterval(Period dateDuration, Duration timeDuration) {
         this.dateDuration = dateDuration;
         this.timeDuration = timeDuration;
     }
@@ -149,16 +149,45 @@ public class TimeInterval implements TemporalAmount, Serializable {
         return new TimeInterval(dateDiff, timeDiff);
     }
 
-    public boolean isNegative() {
+    public boolean isZeroApprox() {
+        return this.toDuration().isZero();
+    }
+
+    public boolean isZeroFrom(LocalDateTime localDateTime) {
+        return localDateTime.plus(this).isEqual(localDateTime);
+    }
+
+    public boolean isZeroFromNow() {
+        return this.isZeroFrom(LocalDateTime.now());
+    }
+
+    public boolean isNegativeApprox() {
         return this.toDuration().isNegative();
     }
 
-    public boolean isPositive() {
-        return !this.isNegative();
+    public boolean isNegativeFrom(LocalDateTime localDateTime) {
+        return localDateTime.plus(this).isBefore(localDateTime);
+    }
+
+    public boolean isNegativeFromNow() {
+        return this.isNegativeFrom(LocalDateTime.now());
+    }
+
+    public boolean isPositiveApprox() {
+        Duration val = this.toDuration();
+        return !(val.isZero() || val.isNegative());
+    }
+
+    public boolean isPositiveFrom(LocalDateTime localDateTime) {
+        return localDateTime.plus(this).isAfter(localDateTime);
+    }
+
+    public boolean isPositiveFromNow() {
+        return this.isPositiveFrom(LocalDateTime.now());
     }
 
     public boolean isLessThan(TimeInterval other) {
-        return this.minus(other).isNegative();
+        return this.minus(other).isNegativeApprox();
     }
 
     public boolean isGreaterThan(TimeInterval other) {
@@ -241,5 +270,17 @@ public class TimeInterval implements TemporalAmount, Serializable {
 
     public String toString() {
         return this.toDuration().toString();
+    }
+
+    /**
+     * Convert to readable string instead of default string.
+     * @return human-readable string representation
+     */
+    public String toReadableString() {
+        return this.toString().substring(2)
+                .replace("D", "Days")
+                .replace("H", "Hours")
+                .replace("M", "Minutes")
+                .replace("S", "Seconds");
     }
 }

@@ -33,9 +33,9 @@ public class Ui {
     public void helloMsg() {
         System.out.println(
                 LINE
-                        + "Hello! I'm Duke\n"
-                        + "What can I do for you?\n"
-                        + LINE);
+                + "Hello! I'm Duke\n"
+                + "What can I do for you?\n"
+                + LINE);
     }
 
     public void showLine() {
@@ -124,7 +124,7 @@ public class Ui {
     public void rescheduleTaskMsg(Task task, String time) {
         System.out.println("Got it! I've rescheduled this task to " + time + " :\n" + task);
     }
-
+  
     public void timetableMsg() {
         System.out.println("Here is your timetable:");
     }
@@ -139,5 +139,28 @@ public class Ui {
             System.out.println(count + ". " + temp); //need to change count into weekdays
             count++;
         }
+    }
+
+    public void reportMsg() {
+        System.out.println("Number of required tasks to complete:\n" + "30");
+    }
+
+    /**
+     * Prints the number of tasks left to be completed.
+     * Prints the number of each tasks that is completed.
+     * @param taskList to be printed to user.
+     */
+    public void printReportList(List<Task> taskList) {
+        int requiredTasks = 30;
+        int tasksLeft = requiredTasks - taskList.size();
+        System.out.println("Number of tasks still needed to complete:\n" + tasksLeft);
+    }
+
+    public void overallCapMsg() {
+        System.out.println("Here is your overall CAP: ");
+    }
+
+    public void specificCapMsg(String module) {
+        System.out.println("Here is your CAP for the module:" + module);
     }
 }
