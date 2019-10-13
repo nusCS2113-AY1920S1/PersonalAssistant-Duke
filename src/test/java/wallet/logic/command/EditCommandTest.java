@@ -10,7 +10,7 @@ import java.time.LocalDate;
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class DeleteCommandTest {
+public class EditCommandTest {
     private static Wallet testWallet = new Wallet();
 
     @BeforeAll
@@ -21,18 +21,20 @@ public class DeleteCommandTest {
 
     @Test
     public void execute_validId_success() {
-        DeleteCommand command = new DeleteCommand("expense", 1);
+        Expense expense = testWallet.getExpenseList().findExpenseWithId(1);
+        expense.setDescription("Supper");
+        expense.setAmount(8);
+        EditCommand command = new EditCommand(expense);
         command.execute(testWallet);
         Expense e = testWallet.getExpenseList().findExpenseWithId(1);
-        assertEquals(null, e);
-
-        assertEquals(1, testWallet.getExpenseList().getSize());
-    }
-
-    @Test
-    public void execute_invalidId_error() {
-        DeleteCommand command = new DeleteCommand("expense", 4);
-        command.execute(testWallet);
-        assertEquals(2, testWallet.getExpenseList().getSize());
+        assertAll("Expense should be updated with new values",
+                () -> assertEquals(1, e.getId()),
+                () -> assertEquals("Supper", e.getDescription()),
+                () -> assertEquals(LocalDate.now(), e.getDate()),
+                () -> assertEquals(8.0, e.getAmount()),
+                () -> assertEquals("Food", e.getCategory()),
+                () -> assertEquals(false, e.isRecurring()),
+                () -> assertEquals(null, e.getRecFrequency())
+        );
     }
 }
