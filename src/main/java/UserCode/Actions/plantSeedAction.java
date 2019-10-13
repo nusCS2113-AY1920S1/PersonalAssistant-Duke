@@ -25,7 +25,7 @@ public class plantSeedAction extends Action {
     public int execute(Ui ui) {
         try {
             wheatFarm.plantSeeds();
-            new Simulate(ui, Simulation.PLANTSEED).simulate();
+            new Simulate(ui, "PlantSeedSimulation", 10).simulate();
         } catch (Exception e){
             e.getMessage();
         }

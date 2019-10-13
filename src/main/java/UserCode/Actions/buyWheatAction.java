@@ -1,12 +1,13 @@
-package Actions;
+package UserCode.Actions;
 
 import Places.ChickenFarm;
 import Places.CowFarm;
 import Places.WheatFarm;
+import Simulations.Simulate;
 import UserInterfaces.Ui;
 
 public class buyWheatAction extends Action {
-    int moneyChange = -100;
+    private int moneyChange = -100;
 
     public buyWheatAction(WheatFarm wheatFarm, ChickenFarm chickenFarm, CowFarm cowFarm) {
         this.wheatFarm = wheatFarm;
@@ -16,9 +17,12 @@ public class buyWheatAction extends Action {
 
     @Override
     public int execute(Ui ui) {
-        wheatFarm.buySeeds();
-        //I'll write the simulation stuff after the simulation class is fixed
-        ui.show("Buying seeds!");
+        try {
+            wheatFarm.buySeeds();
+            new Simulate(ui, "BuySeedSimulation", 4).simulate();
+        } catch (Exception e) {
+            e.getMessage();
+        }
         return moneyChange;
     }
 }

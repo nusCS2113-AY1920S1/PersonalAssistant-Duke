@@ -11,18 +11,16 @@ public class Simulate {
     private final int framePerSecond = 3;
     protected Ui ui;
 
-    public Simulate(Ui userInterface, Simulation simulate) {
+    public Simulate(Ui userInterface, String path, int numFrames) {
         ui = userInterface;
-        if (simulate == Simulation.PLANTSEED) {
-            basepath = "./src/main/resources/asciiArt/PlantSeedSimulation/frame";
-            numberOfFrames = 10;
-        }
+        basepath = "./src/main/resources/asciiArt/" + path + "/frame";
+        numberOfFrames = numFrames;
     }
-    protected void nextFrame(String statusBar,String filePath) {
+    protected void nextFrame(String statusBar, String filePath) {
         try {
             TimeUnit.MILLISECONDS.sleep((int) (1000 / framePerSecond) );
         } catch (InterruptedException e) {
-            //we'll handle this later
+            e.getMessage();
         }
         ui.clearScreen();
         ui.showStatusbar();

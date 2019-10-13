@@ -16,9 +16,10 @@ public class Farmer {
     protected TaskList tasks;
     protected Ui ui;
 
-    public Farmer() {
+    public Farmer(Ui ui) {
         this.money = 100;
         this.level = 1;
+        this.ui = ui;
         this.wheatFarm = new WheatFarm(); //TODO: create wheatFarm subclass
         this.chickenFarm = new ChickenFarm(); //TODO: create chickenFarm subclass
         this.cowFarm = new CowFarm(); //TODO: create cowFarm subclass
@@ -33,15 +34,6 @@ public class Farmer {
         this.chickenFarm = new ChickenFarm((JSONObject) jsonObject.get("farm_chicken"));
         this.cowFarm = new CowFarm((JSONObject) jsonObject.get("farm_cow"));
         this.tasks = new TaskList((JSONArray) jsonObject.get("task_list"));
-    }
-
-    public Farmer(int level, int money, WheatFarm wheatFarm, ChickenFarm chickenFarm, CowFarm cowFarm, TaskList tasks) {
-        this.level = level;
-        this.money = money;
-        this.wheatFarm = wheatFarm;
-        this.chickenFarm = chickenFarm;
-        this.cowFarm = cowFarm;
-        this.tasks = tasks;
     }
 
     public void startDay() {
