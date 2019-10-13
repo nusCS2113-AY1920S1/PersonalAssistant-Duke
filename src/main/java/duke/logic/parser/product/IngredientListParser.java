@@ -3,7 +3,6 @@ package duke.logic.parser.product;
 import duke.logic.parser.exceptions.ParseException;
 import duke.model.ingredient.IngredientList;
 
-import java.util.ArrayList;
 import java.util.Dictionary;
 import java.util.Hashtable;
 import java.util.regex.Matcher;
