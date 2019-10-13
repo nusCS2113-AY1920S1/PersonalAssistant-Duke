@@ -1,7 +1,7 @@
 package UserCode.Tasks;
 
 import UserCode.Actions.Action;
-import UserCode.Actions.plantSeedAction;
+import UserCode.Actions.PlantSeedAction;
 import FarmioExceptions.FarmioException;
 import UserCode.Conditions.BooleanConditionType;
 import UserCode.Conditions.ConditionChecker;
@@ -9,7 +9,7 @@ import UserCode.Conditions.Condition;
 import UserInterfaces.Ui;
 import org.json.simple.JSONObject;
 
-public class Task {
+public abstract class Task {
     protected Condition condition;
     protected Action action;
 
@@ -25,17 +25,16 @@ public class Task {
 
     public boolean checkCondition() {
         return condition.check();
+
     }
 
-    public int execute(Ui ui) {
-        return action.execute(ui);
-    }
+    public abstract int execute(Ui ui);
 
     private Action parseJsonAction(JSONObject obj) throws FarmioException {
         Action action;
         switch ((String) obj.get("action")){
             case "plant_seed":
-                action = new plantSeedAction(obj);
+                action = new PlantSeedAction(obj);
                 break;
             default:
                 throw new FarmioException("Invalid task action.");

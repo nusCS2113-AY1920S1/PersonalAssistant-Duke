@@ -78,8 +78,10 @@ public class Farmio {
     }
 
     private void displayWelcome() {
+        ui.clearScreen();
         displayArt("welcome");
         ui.show("Press ENTER to continue.");
+//        ui.typeWriter("Typewriter test message here"); //does not work in console, only terminal, uncomment to test
         ui.getEnter();
     }
 

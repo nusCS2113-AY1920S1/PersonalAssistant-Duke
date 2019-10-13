@@ -7,24 +7,24 @@ import Simulations.Simulate;
 import UserInterfaces.Ui;
 import org.json.simple.JSONObject;
 
-public class PlantSeedAction extends Action {
+public class HarvestWheatAction extends Action {
     int moneyChange = 0; //0 for all actions except sell
 
-    public PlantSeedAction(WheatFarm wheatFarm, ChickenFarm chickenFarm, CowFarm cowFarm) {
+    public HarvestWheatAction(WheatFarm wheatFarm, ChickenFarm chickenFarm, CowFarm cowFarm) {
         this.wheatFarm = wheatFarm;
         this.chickenFarm = chickenFarm;
         this.cowFarm = cowFarm;
     }
 
-    public PlantSeedAction(JSONObject obj){
+    public HarvestWheatAction(JSONObject obj){
         super(obj);
     }
 
     @Override
     public int execute(Ui ui) {
         try {
-            wheatFarm.plantSeeds();
-            new Simulate(ui, "PlantSeedSimulation", 10).simulate();
+            wheatFarm.harvestWheat();
+            new Simulate(ui, "PlantSeed", 10).simulate();
         } catch (Exception e){
             e.getMessage();
         }
@@ -33,7 +33,7 @@ public class PlantSeedAction extends Action {
 
     public JSONObject toJSON() {
         JSONObject obj = super.toJSON();
-        obj.put("action", "plant_seed");
+        obj.put("action", "harvest_wheat");
         return obj;
     }
 }
