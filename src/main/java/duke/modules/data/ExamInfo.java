@@ -2,9 +2,9 @@ package duke.modules.data;
 
 public class ExamInfo {
 
-    private int semester;
-    private String examDate;
-    private int examDuration;
+    private int semester = 0;
+    private String examDate = "";
+    private int examDuration = 0;
 
     public int getSemester() {
         return semester;

@@ -112,7 +112,7 @@ public class Duke {
                 modUi.showLine();
                 ModuleCommand c = parser.parse(fullCommand, false);
                 c.execute(modSummaryMap, modDetailedMap, modUi, store);
-                testJson();
+                //testJson();
                 isExit = c.isExit();
             } catch (ModException e) {
                 System.out.println(e.getMessage());
@@ -154,7 +154,7 @@ public class Duke {
     public static void main(String[] args) {
         //TODO: args flag could be passed into program for optional runs
         Duke duke = new Duke();
-        duke.run();
+        //duke.run();
         duke.modRun();
     }
 }

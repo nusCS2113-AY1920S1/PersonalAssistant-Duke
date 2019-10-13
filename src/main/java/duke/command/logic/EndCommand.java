@@ -9,6 +9,13 @@ import java.util.HashMap;
 
 public class EndCommand extends ModuleCommand {
 
+    /**
+     * Constructor for EndCommand.
+     */
+    public EndCommand() {
+
+    }
+
     @Override
     public void execute(
             HashMap<String, ModuleInfoSummary> summaryMap,

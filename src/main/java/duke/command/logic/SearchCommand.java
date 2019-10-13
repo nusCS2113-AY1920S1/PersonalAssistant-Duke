@@ -13,13 +13,14 @@ public class SearchCommand extends ModuleCommand {
     private String moduleCode;
 
     public SearchCommand(String moduleCode) {
-        this.moduleCode = moduleCode;
+        this.moduleCode = moduleCode.toUpperCase();
     }
 
     @Override
     public void execute(HashMap<String, ModuleInfoSummary> summaryMap,
                         HashMap<String, ModuleInfoDetailed> detailedMap,
                         PlannerUi plannerUi, Storage store) throws ModException {
+
         if (summaryMap.containsKey(moduleCode)) {
             ModuleInfoSummary temp = summaryMap.get(moduleCode);
             plannerUi.showObject(temp);
@@ -27,8 +28,9 @@ public class SearchCommand extends ModuleCommand {
         if (detailedMap.containsKey(moduleCode)) {
             ModuleInfoDetailed temp = detailedMap.get(moduleCode);
             plannerUi.showObject(temp);
+        } else {
+            throw new ModNotFoundException();
         }
-        throw new ModNotFoundException();
     }
 
     @Override

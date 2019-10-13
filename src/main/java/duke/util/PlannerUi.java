@@ -5,18 +5,28 @@ import java.util.Scanner;
 /**
  * Mod Planner inherits functionality from Original Duke Ui.
  */
-public class PlannerUi extends Ui {
+public class PlannerUi {
+
+    private Scanner scan;
+    private static final String LINE = "_______________________________";
 
     /**
      * Default constructor for Ui.
      */
     public PlannerUi() {
-        super();
+        scan = new Scanner(System.in);
     }
 
-    @Override
+    public void showLine() {
+        System.out.println(LINE);
+    }
+
+    private void closeScanner() {
+        scan.close();
+    }
+
     public String readCommand() {
-        return super.readCommand().strip();
+        return scan.nextLine().strip();
     }
 
     /**
@@ -30,7 +40,6 @@ public class PlannerUi extends Ui {
     /**
      * Start up message upon running mod planner.
      */
-    @Override
     public void helloMsg() {
         showLine();
         System.out.println(
@@ -40,7 +49,9 @@ public class PlannerUi extends Ui {
         showLine();
     }
 
-    @Override
+    /**
+     * Ending message upon termination.
+     */
     public void goodbyeMsg() {
         showLine();
         System.out.println(
@@ -48,5 +59,6 @@ public class PlannerUi extends Ui {
                  + "Your data will be stored in file shortly!\n"
         );
         showLine();
+        closeScanner();
     }
 }
