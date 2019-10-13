@@ -6,10 +6,10 @@ import Places.WheatFarm;
 import Simulations.Simulate;
 import UserInterfaces.Ui;
 
-public class buyWheatAction extends Action {
+public class buySeedAction extends Action {
     private int moneyChange = -100;
 
-    public buyWheatAction(WheatFarm wheatFarm, ChickenFarm chickenFarm, CowFarm cowFarm) {
+    public buySeedAction(WheatFarm wheatFarm, ChickenFarm chickenFarm, CowFarm cowFarm) {
         this.wheatFarm = wheatFarm;
         this.chickenFarm = chickenFarm;
         this.cowFarm = cowFarm;

@@ -1,9 +1,8 @@
 package Commands;
 
-import UserCode.Actions.buyWheatAction;
+import UserCode.Actions.buySeedAction;
 import UserCode.Tasks.TaskList;
 import UserCode.Actions.Action;
-import UserCode.Actions.plantSeedAction;
 import FarmioExceptions.FarmioException;
 import Places.ChickenFarm;
 import Places.CowFarm;
@@ -26,8 +25,8 @@ public class TestCommand extends Command {
         try {
             Ui ui = new Ui();
             Condition c = Condition.hasSeeds;
-            Action buyWheatAction = new buyWheatAction(wheatFarm, chickenFarm, cowFarm);
-            Task task = new Task(c, buyWheatAction);
+            Action buySeedAction = new buySeedAction(wheatFarm, chickenFarm, cowFarm);
+            Task task = new Task(c, buySeedAction);
             tasks.addTask(task);
         } catch (Exception e) {
             e.getMessage();
