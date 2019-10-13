@@ -12,8 +12,8 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
-import duke.exceptions.ModBadRequestStatus;
-import duke.exceptions.ModFailedJsonException;
+import duke.exceptions.planner.ModBadRequestStatus;
+import duke.exceptions.planner.ModFailedJsonException;
 import duke.modules.data.ModuleInfoDetailed;
 import duke.modules.data.ModuleInfoSummary;
 

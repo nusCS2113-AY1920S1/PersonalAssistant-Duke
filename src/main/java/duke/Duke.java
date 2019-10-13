@@ -7,9 +7,9 @@ import java.util.HashMap;
 
 import duke.command.Command;
 import duke.command.ListCommand;
-import duke.exceptions.ModBadRequestStatus;
+import duke.exceptions.planner.ModBadRequestStatus;
 import duke.exceptions.ModException;
-import duke.exceptions.ModFailedJsonException;
+import duke.exceptions.planner.ModFailedJsonException;
 import duke.exceptions.ModTimeIntervalTooCloseException;
 import duke.modules.data.ModuleInfoDetailed;
 import duke.modules.data.ModuleInfoSummary;

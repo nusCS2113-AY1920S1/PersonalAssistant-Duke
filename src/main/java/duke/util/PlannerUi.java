@@ -20,6 +20,14 @@ public class PlannerUi extends Ui {
     }
 
     /**
+     * Helper function to print any object.
+     * @param object to be printed.
+     */
+    public void showObject(Object object) {
+        System.out.println(object);
+    }
+
+    /**
      * Start up message upon running mod planner.
      */
     @Override

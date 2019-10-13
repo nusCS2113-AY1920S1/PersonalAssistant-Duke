@@ -1,6 +1,7 @@
 package duke.command.logic;
 
 import duke.exceptions.ModException;
+import duke.exceptions.planner.ModNotFoundException;
 import duke.modules.data.ModuleInfoDetailed;
 import duke.modules.data.ModuleInfoSummary;
 import duke.util.PlannerUi;
@@ -19,7 +20,15 @@ public class SearchCommand extends ModuleCommand {
     public void execute(HashMap<String, ModuleInfoSummary> summaryMap,
                         HashMap<String, ModuleInfoDetailed> detailedMap,
                         PlannerUi plannerUi, Storage store) throws ModException {
-
+        if (summaryMap.containsKey(moduleCode)) {
+            ModuleInfoSummary temp = summaryMap.get(moduleCode);
+            plannerUi.showObject(temp);
+        }
+        if (detailedMap.containsKey(moduleCode)) {
+            ModuleInfoDetailed temp = detailedMap.get(moduleCode);
+            plannerUi.showObject(temp);
+        }
+        throw new ModNotFoundException();
     }
 
     @Override

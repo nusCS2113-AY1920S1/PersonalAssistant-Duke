@@ -52,6 +52,11 @@ public class ModuleInfoDetailed {
 
     @Override
     public String toString() {
-        return "ModuleCode:" + getModuleCode() + ", " + getPreclusion();
+        return "ModuleCode:"
+                + getModuleCode()
+                + ", "
+                + getPreclusion()
+                + ", SU:"
+                + getAttributes().isSu();
     }
 }
