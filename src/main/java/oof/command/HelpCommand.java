@@ -23,9 +23,10 @@ public class HelpCommand extends Command {
     /**
      * Get instruction for individual Help Command.
      * @param keyword           keyword where individual instruction is needed.
-     * @return description      use of individual instruction
+     * @return description      use of individual instruction.
+     * @throws OofException     if keyword is invalid.
      */
-    private String individualQuery(String keyword, ArrayList<String> commands) {
+    private String individualQuery(String keyword, ArrayList<String> commands) throws OofException {
         String description = null;
         for (int i = COMMANDS_BEGIN; i < commands.size(); i++) {
             int keywordEnd = commands.get(i).indexOf("  ");
@@ -38,7 +39,10 @@ public class HelpCommand extends Command {
                 }
             }
         }
-        return description; // return individual instruction
+        if (description == null) {
+            throw new OofException("Invalid keyword!");
+        }
+        return description;
     }
 
     /**
@@ -54,8 +58,8 @@ public class HelpCommand extends Command {
         if (keyword.isEmpty()) {
             ui.printHelpCommands();
         } else {
-            String instruction = individualQuery(keyword, commands);
-            ui.printHelpCommand(instruction);
+            String description = individualQuery(keyword, commands);
+            ui.printHelpCommand(description);
         }
     }
 

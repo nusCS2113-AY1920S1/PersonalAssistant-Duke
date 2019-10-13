@@ -143,6 +143,62 @@ It requires significantly less effort to choose from a default list of four opti
 ** Alternatives considered: +
 Users can enter a customised `Frequency` for the `recurring Task`. It may be a viable option to allow users to set such parameters. However, since the `OOF` program is solely a Command Line Interface program, it may not be user friendly for users to enter so many details just to set a customised `Frequency` for the `recurring Task`.
 
+=== Help feature
+==== Implementation
+The `HelpCommand` class extends `Command` class by providing functions to display a manual with the list of `Command` available and how they may be used in the main program `OOF`.
+
+[NOTE]
+The list of `Command` and their instructions are stored externally in persistent storage in `manual.txt`.
+
+In addition, it contains the following feature:
+* User may request for `Help` with a specific command.
+
+All `Help` features are implemented in the `parse` method of `CommandParser` class that parses user input.
+
+Provided below is an example scenario of use and how `HelpCommand` class behaves and interact with other relevant classes.
+
+*Step 1:* +
+The user enters `help Deadline`. The `parse` method in `CommandParser` class is called to parse the user input to obtain the String `Deadline` as the `keyword` that the user requires `Help` for.
+
+[WARNING]
+`OofException` will be thrown is the user enters an invalid command.
+
+*Step 2:* +
+The `execute` method of `HelpCommand` class will read the list of `Command` and their instructions from persistent storage in `manual.txt` and store them into a `commands` ArrayList by calling the `readManual` method from `Storage` class.
+
+* *Step 2a:* +
+The `readManual` method of `Storage` class will retrieve and read `manual.txt` from persistent storage by using `FileReader` abstraction on `File` abstraction.
+* *Step 2b:* +
+The `BufferedReader` abstraction will then be performed upon `FileReader` abstraction to allow `manual.txt` to be read line-by-line, adding each line as an element of the `commands` ArrayList. The `commands` ArrayList is then returned to the `execute` method of `HelpCommand` class.
+
+[WARNING]
+`OofException` will be thrown if `manual.txt` is unavailable, resulting in `IOException` getting caught.
+
+*Step 3:* +
+If the `keyword` is empty, the `printHelpCommands` method of `Ui` class will be called. The elements of `commands` ArrayList will then be printed in ascending order through the use of a for loop. +
+
+If the `keyword` is specified, the `individualQuery` method of `HelpCommand` class will be called with the `keyword` and `commands` ArrayList as parameters.
+
+* *Step 3a:* +
+The first segment of each element in the `commands` ArrayList will be retrieved by adding a String `command` delimited by two whitespaces.
+
+* *Step 3b:* +
+Once a check is completed to ensure that `command` is not empty, both `keyword` and `command` String will be formatted through the use of `toUpperCase` function and String comparison will be performed through the use of `equals`.
+If they match, that particular element of `commands` ArrayList will be stored into a String called `description` and the for loop will break before returning `description` to the `execute` method of `HelpCommand`.
+
+[WARNING]
+`OofException` will be thrown is no successful match between `keyword` and `command` String is found.
+
+*Step 4:* +
+The `execute` method of `HelpCommand` calls `printHelpCommand` in `Ui` class with `description` String as the parameter. This is where the individual `Command` and its instruction will be printed.
+
+The following activity diagram summarises what will happen when a user executes a `Help` command:
+
+image::HelpCommandActivityDiagram.png[]
+
+==== Design Considerations
+
+
 === Logging
 
 === Configuration
