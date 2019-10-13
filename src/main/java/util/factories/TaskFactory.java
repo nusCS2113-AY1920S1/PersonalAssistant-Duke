@@ -1,4 +1,4 @@
-package controllers;
+package util.factories;
 
 
 import models.task.Task;
@@ -46,14 +46,15 @@ public class TaskFactory {
      * @return enum TaskState object.
      */
     public TaskState convertStringToTaskState(String inputState) {
-        if (inputState.equals("done")) {
-            return TaskState.DONE;
-        } else if (inputState.equals("todo")) {
-            return TaskState.TODO;
-        } else if (inputState.equals("doing")) {
-            return TaskState.DOING;
-        } else {
-            return TaskState.OPEN;
+        switch (inputState) {
+            case "done":
+                return TaskState.DONE;
+            case "todo":
+                return TaskState.TODO;
+            case "doing":
+                return TaskState.DOING;
+            default:
+                return TaskState.OPEN;
         }
     }
 }

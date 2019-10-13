@@ -1,4 +1,4 @@
-package controllers;
+package util.factories;
 
 import models.member.Member;
 import util.ParserUtil;
