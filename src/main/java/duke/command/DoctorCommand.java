@@ -2,8 +2,10 @@ package duke.command;
 
 import duke.DukeCore;
 
+import java.io.PrintStream;
+
 /**
- * Test Command for testing new Parser.
+ * Stub Command for testing new Parser.
  */
 public class DoctorCommand extends ArgCommand {
 
@@ -14,6 +16,14 @@ public class DoctorCommand extends ArgCommand {
         cmdArgLevel = ArgLevel.OPTIONAL;
         emptyArgMsg = "You didn't tell me what to do!";
         switches.put("switch", ArgLevel.OPTIONAL);
+    }
+
+    public void printArg(PrintStream testPrint) {
+        testPrint.println("Argument: " + arg);
+    }
+
+    public void printSwitches(PrintStream testPrint) {
+        testPrint.println("Switch: " + switchVals.get("switch"));
     }
 
     @Override
