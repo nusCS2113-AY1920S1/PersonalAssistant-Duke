@@ -4,7 +4,6 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import wallet.logic.parser.ExpenseParser;
 import wallet.model.Wallet;
-import wallet.storage.StorageManager;
 
 import java.time.LocalDate;
 

@@ -178,7 +178,7 @@ public class ExpenseList {
      * @return
      */
     public Expense deleteExpense(int id) {
-        int index = findExpenseWithId(id);
+        int index = findIndexWithId(id);
         if (index >= 0) {
             Expense expense = getExpense(index);
             expenseList.remove(index);
@@ -192,7 +192,7 @@ public class ExpenseList {
      * @param id The id of the expense to find.
      * @return
      */
-    public int findExpenseWithId(int id) {
+    public int findIndexWithId(int id) {
         int index = 0;
         for (Expense e : this.expenseList) {
             if (e.getId() == id) {
@@ -201,5 +201,19 @@ public class ExpenseList {
             index++;
         }
         return -1;
+    }
+
+    /**
+     * Finds and returns the Expense object using its id.
+     * @param id The id of the expense object.
+     * @return The expense object.
+     */
+    public Expense findExpenseWithId(int id) {
+        for (Expense e : this.expenseList) {
+            if (e.getId() == id) {
+                return e;
+            }
+        }
+        return null;
     }
 }
