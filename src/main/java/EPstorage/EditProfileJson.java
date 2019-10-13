@@ -14,11 +14,12 @@ public class EditProfileJson {
     private ObjectMapper mapper = new ObjectMapper();
     private File file;
     private InputStream inputStream;
-    private TypeReference<UserProfile> typeReference = new TypeReference<UserProfile>() {};
+    private TypeReference<UserProfile> typeReference = new TypeReference<UserProfile>() {
+    };
 
 
     public EditProfileJson() throws FileNotFoundException {
-        file = new File("EPdata/UserProfile.json");
+        file = new File("EPdata/userProfile.json");
         this.inputStream = new FileInputStream(file);
     }
 

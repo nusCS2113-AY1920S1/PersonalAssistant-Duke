@@ -89,21 +89,13 @@ public abstract class CommandSuper {
 
     }
 
-    public static boolean isNotRightWord(String word) {
-        if ((word.equals("-[c]")) || (word.equals("-[u]")) || (word.equals("-[t]")) ||
-            (word.equals("-[p]"))) {
-            return false;
-        } else {
-            return true;
-        }
-    }
 
     public void processFlags(String commandArr[]) {
 
         String f = "";
         boolean found = false;
         for (String s : commandArr) {
-            if (found && !s.matches("-[a-z]") && isNotRightWord(s)) {
+            if (found && !s.matches("-[a-z]")) {
                 ArrayList<String> listOfString = flagMap.get(f);
                 if (listOfString == null) {
                     listOfString = new ArrayList<String>();
@@ -115,9 +107,9 @@ public abstract class CommandSuper {
                 }
 
             }
-            if ((s.matches("-[a-z]")) || (!isNotRightWord(s))) {
+            if ((s.matches("-[a-z]"))) {
                 f = s;
-                System.out.println(f);
+                System.out.println("this is" + f);
                 //flagMap.put(f, new ArrayList<String>());
                 found = true;
                 ArrayList<String> listOfString = new ArrayList<String>();
@@ -150,8 +142,7 @@ public abstract class CommandSuper {
 
     public static String getThePayload(int start, String[] CommandArr) {
         int i = 0;
-        while (i < CommandArr.length && !CommandArr[i].matches("-[a-z]") &&
-            isNotRightWord(CommandArr[i])) {
+        while (i < CommandArr.length && !CommandArr[i].matches("-[a-z]")){
             System.out.println(i + "." + CommandArr[i]);
             i++;
         }
