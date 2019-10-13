@@ -1,4 +1,4 @@
-package duke.modules;
+package duke.modules.data;
 
 import java.util.Arrays;
 

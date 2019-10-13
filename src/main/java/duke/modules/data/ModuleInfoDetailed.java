@@ -1,6 +1,4 @@
-package duke.modules;
-
-import java.util.List;
+package duke.modules.data;
 
 public class ModuleInfoDetailed {
 

@@ -43,6 +43,8 @@ public class ParserWrapper {
     }
 
     private Command modParser(String input) throws ModException {
+
+
         return null;
     }
 
@@ -55,9 +57,9 @@ public class ParserWrapper {
      */
     public Command parse(String input, boolean isDuke) throws ModException {
         if (isDuke) {
-            return modParser(input);
-        } else {
             return this.parse(input);
+        } else {
+            return modParser(input);
         }
     }
 

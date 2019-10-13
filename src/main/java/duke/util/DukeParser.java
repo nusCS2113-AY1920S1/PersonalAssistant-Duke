@@ -1,7 +1,6 @@
 package duke.util;
 
 import duke.command.AddCommand;
-import duke.command.CapCommand;
 import duke.command.ByeCommand;
 import duke.command.ScheduleCommand;
 import duke.command.DeleteCommand;
@@ -9,7 +8,6 @@ import duke.command.DoneCommand;
 import duke.command.FindCommand;
 import duke.command.ListCommand;
 import duke.command.PrintTimetable;
-import duke.command.ReportCommand;
 import duke.command.RescheduleCommand;
 import duke.command.Command;
 
@@ -26,7 +24,6 @@ import duke.modules.Events;
 import duke.modules.FixedDurationTasks;
 import duke.modules.RecurringTask;
 import duke.modules.Task;
-import duke.modules.Timetable;
 import duke.modules.Todo;
 
 import java.util.Arrays;

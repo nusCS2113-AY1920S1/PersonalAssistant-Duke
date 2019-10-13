@@ -1,4 +1,4 @@
-package duke.modules;
+package duke.modules.data;
 
 public class ExamInfo {
 

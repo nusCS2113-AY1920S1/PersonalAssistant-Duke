@@ -9,14 +9,13 @@ import java.io.IOException;
 import java.lang.reflect.Type;
 import java.nio.file.Paths;
 import java.util.Arrays;
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 
 import duke.exceptions.ModBadRequestStatus;
 import duke.exceptions.ModFailedJsonException;
-import duke.modules.ModuleInfoDetailed;
-import duke.modules.ModuleInfoSummary;
+import duke.modules.data.ModuleInfoDetailed;
+import duke.modules.data.ModuleInfoSummary;
 
 public class JsonWrapper {
 
