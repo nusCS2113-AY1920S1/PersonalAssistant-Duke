@@ -18,9 +18,12 @@ public interface Model {
     Predicate<Order> PREDICATE_SHOW_ALL_ORDERS = unused -> true;
     Predicate<Sale> PREDICATE_SHOW_ALL_SALES = unused -> true;
 
-    Predicate<Product> PREDICATE_SHOW_ALL_PRODUCTS = unused -> true;
+    Predicate<Product> PREDICATE_SHOW_ALL_PRODUCTS = product -> true;
     Predicate<Product> PREDICATE_SHOW_ACTIVE_PRODUCTS = product -> {
         return product.getStatus() == Product.Status.ACTIVE;
+    };
+    Predicate<Product> PREDICATE_SHOW_ARCHIVE_PRODUCTS = product -> {
+        return product.getStatus() == Product.Status.ARCHIVE;
     };
 
     Predicate<Ingredient> PREDICATE_SHOW_ALL_INVENTORY = unused -> true;

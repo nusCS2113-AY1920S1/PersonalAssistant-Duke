@@ -127,6 +127,8 @@ public class BakingHome implements ReadOnlyBakingHome {
 
         products.set(originalProduct, editedOrder);
     }
+
+
     @Override
     public ObservableList<Product> getProductList() {
         return products.asUnmodifiableObservableList();

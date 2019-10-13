@@ -1,6 +1,7 @@
 package duke.ui;
 
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXTextField;
 import duke.commons.core.LogsCenter;
 import duke.logic.Logic;
 import duke.logic.command.CommandResult;
@@ -9,7 +10,6 @@ import duke.logic.parser.commons.AutoCompleter;
 import duke.logic.parser.exceptions.ParseException;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
@@ -49,7 +49,7 @@ public class MainWindow extends UiPart<Stage> {
     @FXML
     private JFXButton popUpButton;
     @FXML
-    private TextField userInput;
+    private JFXTextField userInput;
 
     //Main page
     @FXML
@@ -59,7 +59,7 @@ public class MainWindow extends UiPart<Stage> {
 
     //Sidebar
     @FXML
-    private JFXButton recipeButton;
+    private JFXButton productButton;
     @FXML
     private JFXButton orderButton;
     @FXML
@@ -240,7 +240,7 @@ public class MainWindow extends UiPart<Stage> {
         pagePane.getChildren().clear();
         pagePane.getChildren().add(orderPage.getRoot());
 
-        recipeButton.setButtonType(JFXButton.ButtonType.FLAT);
+        productButton.setButtonType(JFXButton.ButtonType.FLAT);
         orderButton.setButtonType(JFXButton.ButtonType.RAISED);
         inventoryButton.setButtonType(JFXButton.ButtonType.FLAT);
         salesButton.setButtonType(JFXButton.ButtonType.FLAT);
@@ -252,7 +252,7 @@ public class MainWindow extends UiPart<Stage> {
         pagePane.getChildren().clear();
         pagePane.getChildren().add(productPage.getRoot());
 
-        recipeButton.setButtonType(JFXButton.ButtonType.RAISED);
+        productButton.setButtonType(JFXButton.ButtonType.RAISED);
         orderButton.setButtonType(JFXButton.ButtonType.FLAT);
         inventoryButton.setButtonType(JFXButton.ButtonType.FLAT);
         salesButton.setButtonType(JFXButton.ButtonType.FLAT);
@@ -264,7 +264,7 @@ public class MainWindow extends UiPart<Stage> {
         pagePane.getChildren().clear();
         pagePane.getChildren().add(inventoryPage.getRoot());
 
-        recipeButton.setButtonType(JFXButton.ButtonType.FLAT);
+        productButton.setButtonType(JFXButton.ButtonType.FLAT);
         orderButton.setButtonType(JFXButton.ButtonType.FLAT);
         inventoryButton.setButtonType(JFXButton.ButtonType.RAISED);
         salesButton.setButtonType(JFXButton.ButtonType.FLAT);
@@ -276,7 +276,7 @@ public class MainWindow extends UiPart<Stage> {
         pagePane.getChildren().clear();
         pagePane.getChildren().add(salePage.getRoot());
 
-        recipeButton.setButtonType(JFXButton.ButtonType.FLAT);
+        productButton.setButtonType(JFXButton.ButtonType.FLAT);
         orderButton.setButtonType(JFXButton.ButtonType.FLAT);
         inventoryButton.setButtonType(JFXButton.ButtonType.FLAT);
         salesButton.setButtonType(JFXButton.ButtonType.RAISED);

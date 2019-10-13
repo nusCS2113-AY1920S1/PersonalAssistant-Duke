@@ -13,12 +13,13 @@ import duke.logic.parser.exceptions.ParseException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import static duke.logic.parser.commons.CliSyntax.PREFIX_PRODUCT_COST;
 import static duke.logic.parser.commons.CliSyntax.PREFIX_PRODUCT_INDEX;
-import static duke.logic.parser.commons.CliSyntax.PREFIX_PRODUCT_INGREDIENT;
 import static duke.logic.parser.commons.CliSyntax.PREFIX_PRODUCT_NAME;
-import static duke.logic.parser.commons.CliSyntax.PREFIX_PRODUCT_PRICE;
+import static duke.logic.parser.commons.CliSyntax.PREFIX_PRODUCT_INGREDIENT;
+import static duke.logic.parser.commons.CliSyntax.PREFIX_PRODUCT_RETAIL_PRICE;
+import static duke.logic.parser.commons.CliSyntax.PREFIX_PRODUCT_INGREDIENT_COST;
 import static duke.logic.parser.commons.CliSyntax.PREFIX_PRODUCT_STATUS;
+import static duke.logic.parser.product.ProductParserUtil.createProductDescriptor;
 
 
 public class EditProductCommandParser implements Parser<EditProductCommand> {
@@ -31,8 +32,9 @@ public class EditProductCommandParser implements Parser<EditProductCommand> {
                 PREFIX_PRODUCT_INDEX,
                 PREFIX_PRODUCT_NAME,
                 PREFIX_PRODUCT_INGREDIENT,
-                PREFIX_PRODUCT_PRICE,
-                PREFIX_PRODUCT_COST
+                PREFIX_PRODUCT_RETAIL_PRICE,
+                PREFIX_PRODUCT_INGREDIENT_COST,
+                PREFIX_PRODUCT_STATUS
         );
 
         Index index;
@@ -44,20 +46,6 @@ public class EditProductCommandParser implements Parser<EditProductCommand> {
             throw new ParseException(Message.MESSAGE_INVALID_COMMAND_FORMAT);
         }
 
-        EditProductCommand.EditProductDescriptor editProductDescriptor =
-                new EditProductCommand.EditProductDescriptor();
-        if (map.getValue(PREFIX_PRODUCT_NAME).isPresent()) {
-            editProductDescriptor.setProductName(map.getValue(PREFIX_PRODUCT_NAME).get());
-        }
-        if (map.getValue(PREFIX_PRODUCT_PRICE).isPresent()) {
-            editProductDescriptor.setRetailPrice(map.getValue(PREFIX_PRODUCT_PRICE).get());
-        }
-        if (map.getValue(PREFIX_PRODUCT_COST).isPresent()) {
-            editProductDescriptor.setIngredientCost(map.getValue(PREFIX_PRODUCT_COST).get());
-        }
-        if (map.getValue(PREFIX_PRODUCT_STATUS).isPresent()) {
-            editProductDescriptor.setStatus(ParserUtil.parseProductStatus(map.getValue(PREFIX_PRODUCT_STATUS).get()));
-        }
-        return new EditProductCommand(index, editProductDescriptor);
+        return new EditProductCommand(index, createProductDescriptor(map));
     }
 }
