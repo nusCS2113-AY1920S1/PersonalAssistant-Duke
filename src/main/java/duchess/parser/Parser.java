@@ -1,4 +1,4 @@
-package duchess.logic.parser;
+package duchess.parser;
 
 import duchess.exceptions.DuchessException;
 import duchess.logic.commands.AddDeadlineCommand;

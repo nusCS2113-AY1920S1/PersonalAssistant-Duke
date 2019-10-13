@@ -4,15 +4,14 @@ import duchess.exceptions.DuchessException;
 import duchess.model.AcademicContext;
 import duchess.model.TimeFrame;
 import duchess.model.task.Task;
+import duchess.parser.Util;
 import duchess.storage.Storage;
 import duchess.storage.Store;
 import duchess.ui.Ui;
 
 import java.time.DayOfWeek;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
-import java.time.format.ResolverStyle;
 import java.time.temporal.TemporalAdjusters;
 import java.util.Collections;
 import java.util.List;
@@ -56,9 +55,7 @@ public class ViewScheduleCommand extends Command {
             boolean isStartOfWeek = isWeek && isStartOfDay;
             boolean isEndOfWeek = isWeek && !isStartOfDay;
 
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/uuuu HHmm")
-                    .withResolverStyle(ResolverStyle.STRICT);
-            LocalDateTime localDateTime = LocalDateTime.parse(date + time, formatter);
+            LocalDateTime localDateTime = Util.parseDateTime(date + time);
             if (isStartOfWeek) {
                 localDateTime = localDateTime.with(TemporalAdjusters.previousOrSame(DayOfWeek.MONDAY));
             } else if (isEndOfWeek) {

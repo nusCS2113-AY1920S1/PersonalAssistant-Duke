@@ -5,11 +5,9 @@ import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import duchess.exceptions.DuchessException;
 import duchess.model.TimeFrame;
+import duchess.parser.Util;
 
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
-import java.time.format.ResolverStyle;
 import java.util.List;
 import java.util.Optional;
 
@@ -25,26 +23,17 @@ public class Event extends Task {
      */
     public Event(List<String> input) throws DuchessException {
         int separatorIndex = input.indexOf("/at");
-        if (input.size() == 0 || separatorIndex <= 0) {
-            throw new DuchessException("Format for event: event <event> /at <start datetime> to <end datetime>");
+        int toSeparatorIndex = input.indexOf("/to");
+        if (input.size() == 0 || separatorIndex <= 0 || toSeparatorIndex < separatorIndex) {
+            throw new DuchessException("Format for event: event <event> /at <start datetime> /to <end datetime>");
         }
 
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/uuuu HHmm")
-                .withResolverStyle(ResolverStyle.STRICT);
+        this.description = String.join(" ", input.subList(0, separatorIndex));
+        this.start = Util.parseDateTime(input, separatorIndex + 1);
+        this.end = Util.parseDateTime(input, toSeparatorIndex + 1);
 
-        try {
-            this.description = String.join(" ", input.subList(0, separatorIndex));
-            String strStart = String.join(" ", input.subList(separatorIndex + 1, separatorIndex + 3));
-            String strEnd = String.join(" ", input.subList(separatorIndex + 4, separatorIndex + 6));
-            this.start = LocalDateTime.parse(strStart, formatter);
-            this.end = LocalDateTime.parse(strEnd, formatter);
-            if (end.isBefore(start)) {
-                throw new DuchessException("Start datetime cannot be after end datetime.");
-            }
-        } catch (IndexOutOfBoundsException e) {
-            throw new DuchessException("Format for event: event <event> /at <start datetime> to <end datetime>");
-        } catch (DateTimeParseException e) {
-            throw new DuchessException("Invalid datetime. Correct format: dd/mm/yyyy hhmm");
+        if (end.isBefore(start)) {
+            throw new DuchessException("Start datetime cannot be after end datetime.");
         }
     }
 
@@ -81,10 +70,8 @@ public class Event extends Task {
 
     @Override
     public String toString() {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/uuuu HHmm")
-                .withResolverStyle(ResolverStyle.STRICT);
         return String.format("[E]%s %s (at: %s to %s)", super.toString(), this.description,
-                formatter.format(this.start), formatter.format(this.end));
+                Util.formatDateTime(this.start), Util.formatDateTime(this.end));
     }
 
     @JsonGetter("description")
