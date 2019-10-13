@@ -32,11 +32,13 @@ public class DeleteCommand extends Command {
         //ask tasks to store the thing in arraylist
         //ask storage to write to file
         try {
+            // delete word
             if (tags.size() == 0) {
-                word = wordBank.getAndDelete(deletedWord);
-                storage.deleteFromFile(word.toString());
+                word = wordBank.getAndDelete(this.deletedWord);
+                storage.deleteFromFile(word.toString() + "\r");
                 ui.showDeleted(word);
             }
+            //delete tag
             else {
                 word = wordBank.getWordBank().get(deletedWord);
                 ArrayList<String> nullTags = new ArrayList<>();
