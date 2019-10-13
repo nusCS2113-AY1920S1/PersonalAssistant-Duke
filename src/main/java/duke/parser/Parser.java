@@ -41,6 +41,25 @@ public class Parser {
                     throw new DukeException("☹ OOPS!!! The description of done cannot be empty.");
                 }
                 return new DoneCommand(fcArray[1]);
+            case "set":
+                if (fcArray.length == 1) {
+                    throw new DukeException("☹ OOPS!!! The description of set cannot be empty.");
+                }
+                String[] editArray = fcArray[1].split(" ", 2);
+                if (editArray.length == 1) {
+                    throw new DukeException("☹ OOPS!!! You are missing the description of the edit.");
+                }
+                String editCommand = editArray[0];
+                switch (editCommand) {
+                    case "priority":
+                        String[] pArray = editArray[1].split(" ");
+                        if (pArray.length != 2) {
+                            throw new DukeException("☹ OOPS!!! You are missing either the index of the priority level");
+                        }
+                        return new EditCommand(editCommand, pArray[0], pArray[1]);
+                    default:
+                        throw new DukeException("Sorry I don't know what you want me to do :-(");
+                }
             case "todo":
             case "deadline":
             case "event":
