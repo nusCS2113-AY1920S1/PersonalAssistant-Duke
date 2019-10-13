@@ -4,7 +4,6 @@ import Places.ChickenFarm;
 import Places.CowFarm;
 import Places.WheatFarm;
 import Simulations.Simulate;
-import Simulations.Simulation;
 import UserInterfaces.Ui;
 import org.json.simple.JSONObject;
 
@@ -25,7 +24,7 @@ public class HarvestWheatAction extends Action {
     public int execute(Ui ui) {
         try {
             wheatFarm.harvestWheat();
-            new Simulate(ui, Simulation.HARVESTWHEAT).simulate();
+            new Simulate(ui, "PlantSeed", 10).simulate();
         } catch (Exception e){
             e.getMessage();
         }
