@@ -3,7 +3,7 @@ package models.member;
 import java.util.ArrayList;
 import util.ParserUtil;
 
-public class ProjectMemberList implements IMemberList{
+public class ProjectMemberList implements IMemberList {
     private ArrayList<Member> memberList;
 
     /**

@@ -6,7 +6,7 @@ import java.util.HashSet;
 public class TaskMemberList implements IMemberList {
     private ArrayList<Member> memberList;
 
-    public TaskMemberList(){
+    public TaskMemberList() {
         this.memberList = new ArrayList<>();
     }
 
@@ -30,10 +30,15 @@ public class TaskMemberList implements IMemberList {
     }
 
     @Override
-    public Member getMember(int i) {
-        return this.memberList.get(i-1);
+    public Member getMember(int index) {
+        return this.memberList.get(index - 1);
     }
 
+    /**
+     * Returns a set of integers representing the index numbers of members who were assigned
+     * the task.
+     * @return a set of index numbers of members who were assigned the task.
+     */
     public HashSet<Integer> getAssignedMembersIndexNumbers() {
         HashSet<Integer> assignedMemberIndexes = new HashSet<>();
         for (Member member : this.memberList) {

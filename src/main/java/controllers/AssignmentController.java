@@ -12,9 +12,9 @@ public class AssignmentController {
      * Parses the input by the user to allow members to be assigned or removed. Checks if task
      * exists, and if member index numbers are correct.
      *
-     * @param projectToManage
-     * @param details         Array of strings containing details of task assignment.
-     * @param consoleView
+     * @param projectToManage Project which user is managing.
+     * @param details Array of strings containing details of task assignment or unassignment.
+     * @param consoleView The main user interface.
      */
     public static void manageAssignment(IProject projectToManage, String[] details,
         CLIView consoleView) {
@@ -37,7 +37,7 @@ public class AssignmentController {
                 } else if (s.equals("rm/")) {
                     add = false;
                     remove = true;
-                } else if (!s.contains("i/")){
+                } else if (!s.contains("i/")) {
                     int indexNumber = Integer.parseInt(s);
                     if (projectToManage.memberIndexExists(indexNumber)) {
                         if (add) {
@@ -63,7 +63,7 @@ public class AssignmentController {
                     }
                 }
             }
-            for (Integer i : assign){
+            for (Integer i : assign) {
                 System.out.println("To assign:" + i);
             }
             consoleView.assignOrUnassignTask(assign, unassign, task, projectToManage);

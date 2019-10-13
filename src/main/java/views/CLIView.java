@@ -355,6 +355,13 @@ public class CLIView {
         consolePrint(allTaskDetails.toArray(new String[0]));
     }
 
+    /**
+     * Assigns or unassigns a particular task to members in a project.
+     * @param assign ArrayList containing index number of members to be assigned task.
+     * @param unassign ArrayList containing index number of members to be unassigned task.
+     * @param task Task to assign or unassign to members.
+     * @param projectToManage The project in which the aforementioned task belongs to.
+     */
     public void assignOrUnassignTask(ArrayList<Integer> assign, ArrayList<Integer> unassign,
         Task task, IProject projectToManage) {
         if (assign.size() > 0) {
@@ -363,7 +370,8 @@ public class CLIView {
                 task.assignMember(toAssign);
                 //For now only tasks will have list of members assigned.
                 //Will refactor and implement a way such that when a task is assigned,
-                //both the task and the member will be updated.
+                //both the tasklist (for the member) and the memberlist (for the task)
+                // will be updated.
                 consolePrint("Assigned task to: " + toAssign.getName());
             }
         }
