@@ -11,7 +11,6 @@ import wallet.model.task.DoWithinPeriod;
 import wallet.model.task.Event;
 import wallet.model.task.Task;
 import wallet.model.task.Todo;
-import wallet.logic.parser.ContactParserHelper;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -151,24 +150,15 @@ public class AddCommandParser implements Parser<AddCommand> {
 
     /**
      * Returns a Contact object.
-     * Special Cases Considered:
-     * david tang /d friend /p => cannot, fields taken as empty\
-     * david /d /p=> cannot, fields taken as empty
-     * /d /d friend => cannot, /d read as command option
-     * david tag /d friend/p 8092=> cannot, string split by space
-     * DAVID /d /d friend /p 8092 => can, second /d taken as part of details
-     * /david tang /d friend => can /david tang taken as name
-     * david /p 8209 9056 /d sis => no fixed order, spacing allowed in phone number
      *
      * @param input The string after "contact".
      * @return The Contact object.
      * @throws ArrayIndexOutOfBoundsException Out of index.
      */
     private Contact parseContact(String input) throws ArrayIndexOutOfBoundsException {
-        Contact contact;
         String[] info = input.split(" ");
         ContactParserHelper contactHelper = new ContactParserHelper();
-        contact = contactHelper.processInput(info);
+        Contact contact = contactHelper.newInput(info);
         if (contact == null) {
             return null;
         } else {

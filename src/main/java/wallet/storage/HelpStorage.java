@@ -16,6 +16,8 @@ public class HelpStorage {
 
     /**
      * Prints file content based on the help section user selected.
+     *
+     * @param input User selected help section index.
      */
     public void sectionData(int input) {
 
