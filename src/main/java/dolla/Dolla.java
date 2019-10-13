@@ -37,6 +37,7 @@ public class Dolla {
         //reminderObject.execute(tasks);
         boolean isExit = false;
         System.out.println("hi");
+        Storage.load(); //testtttttttttttttttttttttttttttttttttttttttttttttttttttt
         Scanner input = new Scanner(System.in); // TODO: Add to Ui or MainParser instead?
         while (isExit == false) {
             if (input.hasNextLine()) {
