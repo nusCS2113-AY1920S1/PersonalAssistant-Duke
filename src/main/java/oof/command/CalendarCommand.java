@@ -73,7 +73,6 @@ public class CalendarCommand extends Command {
                 if (verifyTask(dateSplit)) {
                     String description = deadline.getLine();
                     String time = dateTimeSplit[INDEX_TIME];
-                    System.out.println(time);
                     int day = Integer.parseInt(dateSplit[INDEX_DAY]);
                     addEntry(time, description, day);
                 }
@@ -84,7 +83,6 @@ public class CalendarCommand extends Command {
                 if (verifyTask(dateSplit)) {
                     String description = event.getLine();
                     String time = dateTimeSplit[INDEX_TIME];
-                    System.out.println(time);
                     int day = Integer.parseInt(dateSplit[INDEX_DAY]);
                     addEntry(time, description, day);
                 }
