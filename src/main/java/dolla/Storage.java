@@ -51,7 +51,7 @@ public class Storage {
      * </p>
      * @return duke.task.TaskList containing data (if any) from ./data/duke.txt.
      */
-    public static void load() {
+/*    public static void load() {
 //        ArrayList<Task> list = new ArrayList<Task>();
 
         Ui.showWelcome();
@@ -137,7 +137,7 @@ public class Storage {
                     shortcuts.add(newTask);
                 }
 
-              /*if (type.equals("T")) {
+              //if (type.equals("T")) {
                     newTask = new ToDo(inArray[2]);
                 } else if (type.equals("E")) {
                     newTask = new Event(inArray[2], Time.readDateTime(inArray[3])); //TODO: Update readTime
@@ -154,7 +154,7 @@ public class Storage {
                 if (inArray[1].equals("1")) {
                     newTask.markAsDone();
                 }
-                list.add(newTask);*/
+                //list.add(newTask);
 
             }
 
@@ -184,7 +184,7 @@ public class Storage {
 
     public ArrayList<Task> getShortcuts() {
         return shortcuts;
-    }
+    } */
 
     /**
      * This method takes and writes the information of the tasks
