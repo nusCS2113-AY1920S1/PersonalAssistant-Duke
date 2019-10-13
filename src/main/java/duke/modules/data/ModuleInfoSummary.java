@@ -46,11 +46,11 @@ public class ModuleInfoSummary {
         this.semesters = semesters;
     }
 
-    public void setsuOption(boolean suOption) {
+    public void setSuOption(boolean suOption) {
         this.suOption = suOption;
     }
 
-    public boolean getsuOption() {
+    public boolean getSuOption() {
         return this.suOption;
     }
 
