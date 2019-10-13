@@ -11,7 +11,6 @@ version '0.1.0'
 
 repositories {
     mavenCentral()
-    mavenLocal()
 }
 
 application {
@@ -32,8 +31,6 @@ dependencies {
             [group: 'org.ocpsoft.prettytime', name: 'prettytime-nlp', version: '4.0.2.Final'],
             [group: 'org.controlsfx', name: 'controlsfx', version: '8.40.11']
     )
-    //compile files("./libs/charm-glisten-4.4.1-javadoc.jar")
-    //compile fileTree(dir: 'libs', include: '*.jar')
     testImplementation 'org.junit.jupiter:junit-jupiter:5.5.0'
 }
 
