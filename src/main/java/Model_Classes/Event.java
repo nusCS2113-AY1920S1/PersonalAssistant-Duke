@@ -22,6 +22,18 @@ public class Event extends Task {
     }
 
     /**
+     * Overload Constructor for the Event object
+     * Takes in an input for the user assigned to the event object
+     * @param description Description of the event
+     * @param at Time the event happens
+     * @param user User whom the task is assigned to
+     */
+    public Event(String description, Date at, String user) {
+        super(description, user);
+        this.at = at;
+    }
+
+    /**
      * Overload Constructor for Event object
      * Takes in inputs for description of the event and the time the event occurs
      * @param description Description of the event

@@ -151,4 +151,9 @@ public class Parser {
         return scanner.nextLine().trim().split(" ", 2);
     }
 
+    public String getResponse() {
+        String response = scanner.next();
+        return response;
+    }
+
 }

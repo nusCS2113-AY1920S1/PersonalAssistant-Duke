@@ -246,6 +246,11 @@ public class Ui {
         System.out.println("Reordering the task list...");
     }
 
+
+    public void promptForAssigning() {
+        System.out.println("Do you want to assign this task? (if yes enter the assignee's name)");
+    }
+
     public void explainBye() {
         System.out.println("Entering 'bye' will exit RoomShare and save all your data");
         System.out.println("\te.g : bye");
