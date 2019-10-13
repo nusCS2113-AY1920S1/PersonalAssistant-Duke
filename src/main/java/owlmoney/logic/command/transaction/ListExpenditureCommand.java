@@ -14,7 +14,7 @@ public class ListExpenditureCommand extends Command {
     /**
      * Constructor to create an instance of ListExpenditureCommand.
      *
-     * @param name Bank account name.
+     * @param name       Bank account name.
      * @param displayNum Number of expenditures to display.
      */
     public ListExpenditureCommand(String name, int displayNum) {
@@ -26,7 +26,7 @@ public class ListExpenditureCommand extends Command {
      * Executes the function to delete a deposit transaction.
      *
      * @param profile Profile of the user.
-     * @param ui Ui of OwlMoney.
+     * @param ui      Ui of OwlMoney.
      * @return false so OwlMoney will not terminate yet.
      */
     public boolean execute(Profile profile, Ui ui) {

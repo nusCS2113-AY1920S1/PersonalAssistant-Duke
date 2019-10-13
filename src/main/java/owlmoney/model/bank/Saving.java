@@ -16,7 +16,7 @@ public class Saving extends Bank {
     private static final String SAVING = "saving";
 
     /**
-     * Constructor that creates an instance of a savings account.
+     * Creates an instance of a savings account.
      *
      * @param name          The name of the bank account.
      * @param currentAmount The current amount of money in  the bank account.
@@ -25,8 +25,8 @@ public class Saving extends Bank {
     public Saving(String name, double currentAmount, double income) {
         super(name, currentAmount);
         this.income = income;
-        type = SAVING;
-        transactions = new TransactionList();
+        this.type = SAVING;
+        this.transactions = new TransactionList();
     }
 
     private double getIncome() {
@@ -58,22 +58,11 @@ public class Saving extends Bank {
             deductFromAmount(exp.getAmount());
         }
     }
-    /*
-    /**
-     * Lists all expenditure tied to this bank account.
-     *
-     * @param ui required for printing.
-     *//*
-    @Override
-    public void listAllTransaction(Ui ui) {
-        transactions.listTransaction(ui);
-    }
-    */
 
     /**
      * Lists the deposits in the current bank account.
      *
-     * @param ui Ui of OwlMoney.
+     * @param ui         Ui of OwlMoney.
      * @param displayNum Number of deposits to list.
      */
     @Override
@@ -84,7 +73,7 @@ public class Saving extends Bank {
     /**
      * Lists the expenditures in the current bank account.
      *
-     * @param ui Ui of OwlMoney.
+     * @param ui         Ui of OwlMoney.
      * @param displayNum Number of expenditure to list.
      */
     @Override
@@ -116,12 +105,12 @@ public class Saving extends Bank {
     /**
      * Edits the expenditure details from the current bank account.
      *
-     * @param expNum Transaction number.
-     * @param desc New description.
-     * @param amount New amount.
-     * @param date New date.
+     * @param expNum   Transaction number.
+     * @param desc     New description.
+     * @param amount   New amount.
+     * @param date     New date.
      * @param category New category.
-     * @param ui Ui of OwlMoney.
+     * @param ui       Ui of OwlMoney.
      */
     @Override
     void editExpenditureDetails(int expNum, String desc, String amount, String date, String category, Ui ui) {
@@ -143,10 +132,10 @@ public class Saving extends Bank {
      * Edits the deposit details from the current bank account.
      *
      * @param expNum Transaction number.
-     * @param desc New description.
+     * @param desc   New description.
      * @param amount New amount.
-     * @param date New date.
-     * @param ui Ui of OwlMoney.
+     * @param date   New date.
+     * @param ui     Ui of OwlMoney.
      */
     @Override
     void editDepositDetails(int expNum, String desc, String amount, String date, Ui ui) {
@@ -168,7 +157,7 @@ public class Saving extends Bank {
      * Adds a new deposit to the current bank account.
      *
      * @param dep Deposit to add.
-     * @param ui Ui of OwlMoney.
+     * @param ui  Ui of OwlMoney.
      */
     @Override
     void addDepositTransaction(Transaction dep, Ui ui) {
@@ -180,7 +169,7 @@ public class Saving extends Bank {
      * Deletes a deposit from the current bank account.
      *
      * @param index Transaction number.
-     * @param ui Ui of OwlMoney.
+     * @param ui    Ui of OwlMoney.
      */
     @Override
     void deleteDepositTransaction(int index, Ui ui) {

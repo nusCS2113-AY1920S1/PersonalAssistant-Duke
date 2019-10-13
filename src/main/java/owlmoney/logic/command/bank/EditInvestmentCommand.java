@@ -4,32 +4,26 @@ import owlmoney.logic.command.Command;
 import owlmoney.model.profile.Profile;
 import owlmoney.ui.Ui;
 
-/**
- * EditSavingsCommand class which contains the execution function to edit a saving object.
- */
-public class EditSavingsCommand extends Command {
+public class EditInvestmentCommand extends Command {
     private final String name;
-    private final String income;
     private final String amount;
     private final String newName;
 
     /**
-     * Creates an instance of EditSavingCommand.
+     * Creates an instance of EditInvestmentCommand.
      *
      * @param name    Name of bank account.
-     * @param income  New income of bank account if any.
      * @param amount  New amount of bank account if any.
      * @param newName New name of bank account if any.
      */
-    public EditSavingsCommand(String name, String income, String amount, String newName) {
+    public EditInvestmentCommand(String name, String amount, String newName) {
         this.amount = amount;
-        this.income = income;
         this.name = name;
         this.newName = newName;
     }
 
     /**
-     * Executes the function to edit the details of a savings account in the profile.
+     * Executes the function to edit the details of an investment account in the profile.
      *
      * @param profile Profile of the user.
      * @param ui      Ui of OwlMoney.
@@ -37,7 +31,7 @@ public class EditSavingsCommand extends Command {
      */
     @Override
     public boolean execute(Profile profile, Ui ui) {
-        profile.editSavingsAccount(name, newName, amount, income, ui);
+        profile.editInvestmentAccount(name, newName, amount, ui);
         return this.isExit;
     }
 }

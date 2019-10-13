@@ -5,8 +5,16 @@ import java.util.List;
 
 import owlmoney.logic.command.Command;
 import owlmoney.logic.command.PlaceHolderEmptyCommand;
+import owlmoney.logic.command.bank.ListInvestmentCommand;
 import owlmoney.logic.command.bank.ListSavingsCommand;
 import owlmoney.logic.parser.exception.ParserException;
+import owlmoney.logic.parser.investment.ParseAddInvestment;
+import owlmoney.logic.parser.investment.ParseDeleteInvestment;
+import owlmoney.logic.parser.investment.ParseEditInvestment;
+import owlmoney.logic.parser.investment.ParseInvestment;
+import owlmoney.logic.parser.saving.ParseAddSaving;
+import owlmoney.logic.parser.saving.ParseDeleteSaving;
+import owlmoney.logic.parser.saving.ParseEditSaving;
 import owlmoney.logic.parser.saving.ParseSaving;
 import owlmoney.logic.parser.transaction.deposit.ParseAddDeposit;
 import owlmoney.logic.parser.transaction.deposit.ParseDeleteDeposit;
@@ -18,9 +26,6 @@ import owlmoney.logic.parser.transaction.expenditure.ParseDeleteExpenditure;
 import owlmoney.logic.parser.transaction.expenditure.ParseEditExpenditure;
 import owlmoney.logic.parser.transaction.expenditure.ParseExpenditure;
 import owlmoney.logic.parser.transaction.expenditure.ParseListExpenditure;
-import owlmoney.logic.parser.saving.ParseAddSaving;
-import owlmoney.logic.parser.saving.ParseDeleteSaving;
-import owlmoney.logic.parser.saving.ParseEditSaving;
 
 /**
  * Represents the second layer of parsing for secondary category of command.
@@ -107,9 +112,35 @@ class ParseType extends Parser {
             } else if ("/list".equals(command)) {
                 return new ListSavingsCommand();
             }
-            throw new ParserException("You entered an invalid type");
+            throw new ParserException("You entered an invalid type for savings");
         case "/investment":
-            return new PlaceHolderEmptyCommand();
+            if ("/add".equals(command)) {
+                ParseInvestment parseAddInvestment = new ParseAddInvestment(rawData);
+                parseAddInvestment.fillHashTable();
+                parseAddInvestment.checkParameter();
+                return parseAddInvestment.getCommand();
+            } else if ("/edit".equals(command)) {
+                ParseInvestment parseEditInvestment = new ParseEditInvestment(rawData);
+                parseEditInvestment.fillHashTable();
+                parseEditInvestment.checkParameter();
+                return parseEditInvestment.getCommand();
+            } else if ("/delete".equals(command)) {
+                ParseInvestment parseDeleteInvestment = new ParseDeleteInvestment(rawData);
+                parseDeleteInvestment.fillHashTable();
+                parseDeleteInvestment.checkParameter();
+                return parseDeleteInvestment.getCommand();
+            } else if ("/list".equals(command)) {
+                return new ListInvestmentCommand();
+            }
+            throw new ParserException("You entered an invalid type for investment");
+        case "/bond":
+            if ("/add".equals(command)) {
+                ParseInvestment parseAddInvestment = new ParseAddInvestment(rawData);
+                parseAddInvestment.fillHashTable();
+                parseAddInvestment.checkParameter();
+                return parseAddInvestment.getCommand();
+            }
+            throw new ParserException("You entered an invalid type for bond");
         case "/expenditure":
             if ("/add".equals(command)) {
                 ParseExpenditure addExp = new ParseAddExpenditure(rawData);
@@ -132,7 +163,7 @@ class ParseType extends Parser {
                 editExp.checkParameter();
                 return editExp.getCommand();
             }
-            throw new ParserException("You entered an invalid type");
+            throw new ParserException("You entered an invalid type for expenditure");
         case "/deposit":
             if ("/add".equals(command)) {
                 ParseDeposit addDep = new ParseAddDeposit(rawData);
@@ -155,7 +186,7 @@ class ParseType extends Parser {
                 editDep.checkParameter();
                 return editDep.getCommand();
             }
-            throw new ParserException("You entered an invalid type");
+            throw new ParserException("You entered an invalid type for deposit");
         case "/card":
             return new PlaceHolderEmptyCommand();
         default:

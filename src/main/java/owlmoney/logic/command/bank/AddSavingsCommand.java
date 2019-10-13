@@ -15,9 +15,9 @@ public class AddSavingsCommand extends Command {
     private final double amount;
 
     /**
-     * Constructor that creates an instance the AddSavingCommand.
+     * Creates an instance of AddSavingCommand.
      *
-     * @param name Name of new saving object.
+     * @param name   Name of new saving object.
      * @param income Income of new saving object.
      * @param amount Initial amount of new saving object.
      */
@@ -28,10 +28,10 @@ public class AddSavingsCommand extends Command {
     }
 
     /**
-     * Executes the function to create a new saving in the profile.
+     * Executes the function to create a new savings account in the profile.
      *
      * @param profile Profile of the user.
-     * @param ui Ui of OwlMoney.
+     * @param ui      Ui of OwlMoney.
      * @return false so OwlMoney will not terminate yet.
      */
     @Override
