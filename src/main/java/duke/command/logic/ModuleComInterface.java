@@ -1,4 +1,4 @@
-package duke.command;
+package duke.command.logic;
 
 import duke.exceptions.ModException;
 import duke.modules.data.ModuleInfoDetailed;
@@ -8,7 +8,7 @@ import java.util.HashMap;
 
 public interface ModuleComInterface {
 
-    void searchModuleInfo(
+    void execute(
             HashMap<String, ModuleInfoSummary> summaryHashMap,
             HashMap<String, ModuleInfoDetailed> detailedHashMap,
             PlannerUi plannerUi) throws ModException;

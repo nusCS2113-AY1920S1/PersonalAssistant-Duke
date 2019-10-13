@@ -1,6 +1,7 @@
 package duke.util;
 
 
+import duke.command.logic.ModuleCommand;
 import java.time.format.DateTimeFormatter;
 import java.util.LinkedHashMap;
 
@@ -56,12 +57,8 @@ public class ParserWrapper {
      * @return Command class based on user input
      * @throws ModException If user inputs strings which are invalid.
      */
-    public Command parse(String input, boolean isDuke) throws ModException {
-        if (isDuke) {
-            return this.parse(input);
-        } else {
-            return modParser(input);
-        }
+    public ModuleCommand parse(String input, boolean isDuke) throws ModException {
+        return null;
     }
 
     /**
