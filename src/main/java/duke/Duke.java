@@ -1,18 +1,21 @@
 package duke;
 
+import duke.command.CommandBooking;
 import duke.command.CommandIngredients;
 import duke.command.CommandRecipeIngredient;
 import duke.command.CommandRecipeTitle;
 import duke.exception.DukeException;
+import duke.list.bookinglist.BookingList;
 import duke.list.ingredientlist.IngredientList;
 import duke.list.recipelist.RecipeIngredientList;
 import duke.parser.Parser;
 import duke.list.recipelist.RecipeTitleList;
+import duke.storage.BookingStorage;
 import duke.storage.IngredientStorage;
 import duke.storage.RecipeIngredientStorage;
 import duke.storage.RecipeTitleStorage;
-import duke.storage.Storage;
-import duke.list.tasklist.TaskList;
+//import duke.storage.Storage;
+//import duke.list.tasklist.TaskList;
 import duke.task.recipetasks.Feedback;
 import duke.task.recipetasks.Rating;
 import duke.task.recipetasks.RecipeIngredient;
@@ -30,17 +33,17 @@ import static duke.common.RecipeMessages.*;
  */
 public class Duke {
 
-    private Storage storage;
-    private TaskList taskList;
+//    private Storage storage;
+//    private TaskList taskList;
     private Ui ui;
 
     private IngredientStorage ingredientStorage;
     private RecipeIngredientStorage recipeIngredientStorage;
-    // private BookingStorage bookingStorage;
+    private BookingStorage bookingStorage;
     private RecipeTitleStorage recipeTitleStorage;
     private IngredientList ingredientList;
     private RecipeIngredientList recipeIngredientList;
-    // private BookingList bookingList;
+    private BookingList bookingList;
     private RecipeTitleList recipeTitleList;
     private RecipeIngredient recipeIngredient;
     private Rating rating;
@@ -53,17 +56,19 @@ public class Duke {
 
     public Duke(Ui ui) {
         this.ui = ui;
-        storage = new Storage(filePath);
+ //       storage = new Storage(filePath);
         ingredientStorage = new IngredientStorage(filePathIngredients);
         recipeIngredientStorage = new RecipeIngredientStorage(filePathRecipeIngredients);
         recipeTitleStorage = new RecipeTitleStorage(filePathRecipeTitle);
+        bookingStorage = new BookingStorage(filePathBookings);
 
         try {
-            taskList = new TaskList(storage.load());
+//            taskList = new TaskList(storage.load());
             ingredientList = new IngredientList(ingredientStorage.load());
             recipeIngredientList = new RecipeIngredientList(recipeIngredientStorage.load());
             recipeTitleList = new RecipeTitleList(recipeTitleStorage.load());
-            System.out.println(taskList.getSize());
+            bookingList = new BookingList(bookingStorage.load());
+//            System.out.println(taskList.getSize());
         } catch (DukeException e) {
             ui.showIngredientLoadingError();
             ui.showLoadingError();
@@ -129,7 +134,48 @@ public class Duke {
                 arrayList.add(ERROR_MESSAGE_RANDOM);
                 return arrayList;
             }
-        } else {
+        } else if (userInput.trim().equals("allbookings")) {
+            CommandBooking command = Parser.parseBooking(userInput);
+            return command.execute(bookingList, ui, bookingStorage);
+        }
+        else if (userInput.contains("addbooking")) {
+            if (userInput.trim().substring(0, 10).equals("addbooking")) {
+                CommandBooking command = Parser.parseBooking(userInput);
+                return command.execute(bookingList, ui, bookingStorage);
+            } else {
+                arrayList.add(ERROR_MESSAGE_RANDOM);
+                return arrayList;
+            }
+        }
+        else if (userInput.contains("deletebooking")) {
+            if (userInput.trim().substring(0, 13).equals("deletebooking")) {
+                CommandBooking command = Parser.parseBooking(userInput);
+                return command.execute(bookingList, ui, bookingStorage);
+            } else {
+                arrayList.add(ERROR_MESSAGE_RANDOM);
+                return arrayList;
+            }
+        }
+        else if (userInput.contains("viewbookingschedule")) {
+            if (userInput.trim().substring(0, 19).equals("viewbookingschedule")) {
+                CommandBooking command = Parser.parseBooking(userInput);
+                return command.execute(bookingList, ui, bookingStorage);
+            } else {
+                arrayList.add(ERROR_MESSAGE_RANDOM);
+                return arrayList;
+            }
+        }
+        else if (userInput.contains("findbooking")) {
+            if (userInput.trim().substring(0, 11).equals("findbooking")) {
+                CommandBooking command = Parser.parseBooking(userInput);
+                return command.execute(bookingList, ui, bookingStorage);
+            } else {
+                arrayList.add(ERROR_MESSAGE_RANDOM);
+                return arrayList;
+            }
+        }
+
+        else {
             arrayList.add(ERROR_MESSAGE_RANDOM);
             System.out.println("stuck here3");
             return arrayList;

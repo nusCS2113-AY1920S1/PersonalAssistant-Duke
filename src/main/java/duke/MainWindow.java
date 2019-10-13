@@ -66,7 +66,7 @@ public class MainWindow extends AnchorPane {
         duke = new Duke(ui);
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
         dialogContainer.getChildren().addAll(
-            DialogBox.getWelcome(duke.showWelcome())
+                DialogBox.getWelcome(duke.showWelcome())
         );
     }
 
