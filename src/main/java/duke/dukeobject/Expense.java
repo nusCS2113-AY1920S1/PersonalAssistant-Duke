@@ -219,16 +219,6 @@ public class Expense extends DukeItem {
         return time;
     }
 
-    public String getTagsString() {
-        StringJoiner stringJoiner = new StringJoiner(" ");
-        if(tags.isEmpty()) {
-            return "";
-        }else{
-            stringJoiner.add("Tags: " + String.join(" ", tags));
-        }
-        return stringJoiner.toString();
-    }
-
     /**
      * Converts the expense into a string.
      *

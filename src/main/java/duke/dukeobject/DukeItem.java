@@ -169,4 +169,19 @@ abstract class DukeItem implements Serializable {
     public Set<String> getTags() {
         return tags;
     }
+
+    /**
+     * Returns a single string containing all of the tags
+     * @returna single String of all the tags
+     */
+    public String getTagsString() {
+        StringJoiner stringJoiner = new StringJoiner(" ");
+        if(tags.isEmpty()) {
+            return "";
+        }else{
+            stringJoiner.add("Tags: " + String.join(" ", tags));
+        }
+        return stringJoiner.toString();
+    }
+
 }
