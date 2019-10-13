@@ -57,7 +57,7 @@ public class ReminderCommand extends Command {
                 LogicManager.getReminder().autoRemindStop();
                 LogicManager.getReminder().setTimeInSeconds(timeInSeconds);
                 System.out.println(MESSAGE_SUCCESS_REMINDER_SET + timeInSeconds + " seconds");
-                if(LogicManager.getReminder().getAutoRemind()) {
+                if (LogicManager.getReminder().getAutoRemind()) {
                     LogicManager.getReminder().autoRemindStart();
                 }
             }

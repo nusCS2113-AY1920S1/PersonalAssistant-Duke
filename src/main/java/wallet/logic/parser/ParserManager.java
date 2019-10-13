@@ -49,14 +49,10 @@ public class ParserManager {
             return new ExitCommand();
 
         case ReminderCommand.COMMAND_WORD:
-            try {
-                return new ReminderCommandParser().parse(arguments[1]);
-            } catch (ArrayIndexOutOfBoundsException e) {
-                System.out.println(ReminderCommand.MESSAGE_USAGE);
-            }
+            return new ReminderCommandParser().parse(arguments[1]);
+
         case HelpCommand.COMMAND_WORD:
             //fallthrough
-
         default:
             return new HelpCommand();
         }

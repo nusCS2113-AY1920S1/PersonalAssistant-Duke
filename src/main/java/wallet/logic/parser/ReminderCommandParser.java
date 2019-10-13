@@ -3,8 +3,8 @@ package wallet.logic.parser;
 import wallet.logic.command.ReminderCommand;
 
 /**
- * The ListCommandParser class helps to
- * change user input String into appropriate parameters.
+ * The RemindCommand class
+ * changes user input String into appropriate parameters.
  */
 public class ReminderCommandParser implements Parser<ReminderCommand> {
 
