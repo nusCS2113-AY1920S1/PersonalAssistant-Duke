@@ -1,7 +1,7 @@
-import Storage.Storage;
-import Tasks.Task;
-import UI.Ui;
-import commands.Contact.ContactsCommand;
+import gazeeebo.Storage.Storage;
+import gazeeebo.Tasks.Task;
+import gazeeebo.UI.Ui;
+import gazeeebo.commands.Contact.ContactsCommand;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
