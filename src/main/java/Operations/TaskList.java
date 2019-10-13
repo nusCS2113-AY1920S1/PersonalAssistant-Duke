@@ -41,13 +41,25 @@ public class TaskList {
      * @param index Index of task in the list to be deleted
      * @throws RoomShareException If the index cannot be found in the list of tasks.
      */
-    public void delete(int index) throws RoomShareException {
-        if (index < 0 || index > tasks.size()) {
-            throw new RoomShareException(ExceptionType.outOfBounds);
+    public void delete(int[] index, TaskList deletedList) throws RoomShareException {
+        int[] idx = index.clone();
+        if (idx.length == 1) {
+            if (idx[0] < 0 || idx[0] >= tasks.size()) {
+                throw new RoomShareException(ExceptionType.outOfBounds);
+            }
+            deletedList.add(tasks.get(idx[0]));
+            tasks.remove(idx[0]);
         }
-        tasks.remove(index);
+        else {
+            for (int i = idx[0]; idx[1] >= idx[0]; idx[1]--) {
+                if (i < 0 || i >= tasks.size()) {
+                    throw new RoomShareException(ExceptionType.outOfBounds);
+                }
+                deletedList.add(tasks.get(i));
+                tasks.remove(i);
+            }
+        }
     }
-
     /**
      * Lists out all tasks in the current list in the order they were added into the list.
      */
@@ -71,11 +83,21 @@ public class TaskList {
      * @param index Index of the task to be marked as done.
      * @throws RoomShareException If the index cannot be found in the list of tasks.
      */
-    public void done(int index) throws RoomShareException {
-        if (index < 0 || index > tasks.size()) {
-            throw new RoomShareException(ExceptionType.outOfBounds);
+    public void done(int[] index) throws RoomShareException {
+        if (index.length == 1) {
+            if (index[0] < 0 || index[0] >= tasks.size()) {
+                throw new RoomShareException(ExceptionType.outOfBounds);
+            }
+            tasks.get(index[0]).setDone();
         }
-        tasks.get(index).setDone();
+        else {
+            for (int i = index[0]; i <= index[1]; i++){
+                if (i < 0 || i >= tasks.size()) {
+                    throw new RoomShareException(ExceptionType.outOfBounds);
+                }
+                tasks.get(i - 1).setDone();
+            }
+        }
     }
 
     /**

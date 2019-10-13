@@ -1,6 +1,8 @@
 import CustomExceptions.RoomShareException;
 import Enums.*;
 import Model_Classes.*;
+import Modes.HelpMode;
+import Modes.RecurringMode;
 import Operations.*;
 
 import java.util.ArrayList;
@@ -15,6 +17,7 @@ public class RoomShare {
     private Ui ui;
     private Storage storage;
     private TaskList taskList;
+    private TaskList deletedList = new TaskList(new ArrayList<>());
     private Parser parser;
     private RecurHandler recurHandler;
 
@@ -64,7 +67,8 @@ public class RoomShare {
             }
             switch (type) {
                 case help:
-                    ui.help();
+                    HelpMode helpMode = new HelpMode();
+                    helpMode.run();
                     break;
 
                 case list:
@@ -89,8 +93,8 @@ public class RoomShare {
 
                 case done:
                     try {
+                        taskList.done(parser.getIndexRange());
                         ui.showDone();
-                        taskList.done(parser.getIndex());
                     } catch (RoomShareException e) {
                         ui.showIndexError();
                     }
@@ -98,8 +102,8 @@ public class RoomShare {
 
                 case delete:
                     try {
-                        int index = parser.getIndex();
-                        taskList.delete(index);
+                        int index[] = parser.getIndexRange();
+                        taskList.delete(index, deletedList);
                         ui.showDeleted(index);
                     } catch (RoomShareException e) {
                         ui.showIndexError();
@@ -249,35 +253,8 @@ public class RoomShare {
                     break;
 
                 case recur:
-                    ui.promptRecurringActions();
-                    while (!isExitRecur) {
-                        String temp = parser.getCommand();
-                        RecurTaskType recurType;
-                        try {
-                            recurType = RecurTaskType.valueOf(temp);
-                        } catch (IllegalArgumentException e) {
-                            recurType = RecurTaskType.others;
-                        }
-                        switch (recurType) {
-                            case list:
-                                recurHandler.listRecurring();
-                                break;
-                            case find:
-                                recurHandler.findRecurring(parser.getKey());
-                                break;
-                            case exit:
-                                isExitRecur = true;
-                                ui.showExit();
-                                break;
-                            case add:
-                                recurHandler.addBasedOnOperation();
-                                break;
-                            default:
-                                ui.showCommandError();
-                                break;
-                        }
-                    }
-                    isExitRecur = false;
+                    RecurringMode recurringMode = new RecurringMode(taskList);
+                    recurringMode.run();
                     break;
 
 

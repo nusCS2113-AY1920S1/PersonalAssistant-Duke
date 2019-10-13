@@ -34,6 +34,8 @@ public class Ui {
     }
 
     public void help() {
+        System.out.println("Enter any of the commands below to see the detailed information on how to use them");
+        System.out.println("Input 'exit' to leave help mode");
         System.out.println("List of Commands:\n" +
                 "todo\n" + "deadline\n" + "event\n" + "recur\n" + "snooze\n" + "list\n" + "done\n" + "find\n" + "bye" );
     }
@@ -49,11 +51,13 @@ public class Ui {
      * Prints a message telling the user that the task at the index has been deleted.
      * @param index Index of task to be deleted.
      */
-    public void showDeleted (int index) {
-        index += 1;
-        System.out.println("Deleted task number " + index + "!");
-    }
 
+    public void showDeleted (int[] index) {
+        if (index.length == 1)
+            System.out.println("Deleted task number " + (index[0] + 1) + "!");
+        else
+            System.out.println("Deleted task number " + (index[0] + 1) + " to " + (index[1] + 1) + " !");
+    }
     /**
      * Tells the user that the search operation is executing
      */
@@ -166,12 +170,12 @@ public class Ui {
      */
     public void promptForTask() {
         System.out.println("now enter your desired task as usual!");
-        System.out.println("\tE.g : todo buy groceries#monday");
-        System.out.println("\tE.g : todo buy groceries#month");
-        System.out.println("\tE.g : deadline homework 22/12/2019 18:00#monday");
-        System.out.println("\tE.g : deadline homework 22/12/2019 18:00#month");
-        System.out.println("\tE.g : event meeting 22/12/2019 18:00#monday");
-        System.out.println("\tE.g : event meeting 22/12/2019 18:00#month\n");
+        System.out.println("\tE.g : todo buy groceries");
+        System.out.println("\tE.g : todo buy groceries");
+        System.out.println("\tE.g : deadline homework 22/12/2019 18:00");
+        System.out.println("\tE.g : deadline homework 22/12/2019 18:00");
+        System.out.println("\tE.g : event meeting 22/12/2019 18:00");
+        System.out.println("\tE.g : event meeting 22/12/2019 18:00");
     }
 
     /**
@@ -215,10 +219,12 @@ public class Ui {
         System.out.println("Enter the amount of time");
     }
 
+    /**
+     * Tells the user to input valid amount of time
+     */
     public void showTimeError(){
         System.out.println("Please indicate a valid amount of time");
     }
-
     /**
      * Provides user with instructions to prioritise task
      */
@@ -240,7 +246,79 @@ public class Ui {
         System.out.println("Reordering the task list...");
     }
 
+
     public void promptForAssigning() {
         System.out.println("Do you want to assign this task? (if yes enter the assignee's name)");
+    }
+
+    public void explainBye() {
+        System.out.println("Entering 'bye' will exit RoomShare and save all your data");
+        System.out.println("\te.g : bye");
+    }
+    public void explainList() {
+        System.out.println("Entering list will cause RoomShare to list out all the existing tasks in the task list");
+        System.out.println("\te.g : list");
+    }
+
+    public void explainDelete() {
+        System.out.println("Deletes the tasks in the specific indices from the task list");
+        System.out.println("\te.g : delete 1");
+        System.out.println("\te.g : 'delete 1 - 2'");
+    }
+
+    public void explainFind() {
+        System.out.println("Searches the current task list for any tasks that contain the input keyword");
+        System.out.println("\te.g : find homework");
+        System.out.println("\te.g : find math quiz");
+    }
+
+    public void explainDone() {
+        System.out.println("Sets the tasks in the specific indices as done");
+        System.out.println("\te.g : done 1");
+        System.out.println("\te.g : 'done 1 - 2'");
+    }
+
+    public void explainToDo() {
+        System.out.println("Adds a ToDo task into RoomShare");
+        System.out.println("Requires you to have a task description");
+        System.out.println("\te.g : todo homework");
+    }
+
+    public void explainDeadline() {
+        System.out.println("Adds a Deadline task into RoomShare");
+        System.out.println("Requires you to have a task description and deadline");
+        System.out.println("The description must be separated from the deadline by a '/'");
+        System.out.println("The time format must be of dd/MM/yyyy HH:mm");
+        System.out.println("\te.g : deadline math assignment/22/12/2019 18:00");
+    }
+
+    public void explainEvent() {
+        System.out.println("Adds an Event task into RoomShare");
+        System.out.println("Requires you to have a task description and happening time");
+        System.out.println("The description must be separated from the time by a '/'");
+        System.out.println("The time format must be of dd/MM/yyyy HH:mm");
+        System.out.println("\te.g : event market sale/22/12/2019 18:00");
+        System.out.println("Will also ask if event has fixed duration to start creation of fixed duration tasks");
+    }
+
+    public void explainRecur() {
+        System.out.println("brings RoomShare into the Recurring tasks mode where you can add recurring tasks");
+        System.out.println("\te.g : recur");
+    }
+
+    public void explainSnooze() {
+        System.out.println("Snoozes the task specified for a set amount of time");
+        System.out.println("\te.g : snooze 1");
+    }
+
+    public void explainPriority() {
+        System.out.println("Allows you to set the priority of the task");
+        System.out.println("Input 'priority' to start the process of setting priority");
+    }
+
+    public void explainReorder() {
+        System.out.println("Swaps the tasks with a specified index");
+        System.out.println("\te.g : reorder 1");
+        System.out.println("RoomShare will prompt you to input a new index to swap the task to");
     }
 }
