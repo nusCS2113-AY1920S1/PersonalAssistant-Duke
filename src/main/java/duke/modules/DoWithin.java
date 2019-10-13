@@ -6,9 +6,8 @@ import duke.util.DateTimeParser;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Date;
 
-public class DoWithin extends TaskWithPeriod {
+public class DoWithin extends TaskWithSpanningPeriod {
 
     /**
      * Constructor for do With In tasks.
@@ -24,7 +23,7 @@ public class DoWithin extends TaskWithPeriod {
         super(description);
         LocalDateTime begin = DateTimeParser.getStringToDate(beginString);
         LocalDateTime end = DateTimeParser.getStringToDate(endString);
-        this.period.setPeriod(begin, end);
+        this.setPeriod(begin, end);
     }
 
     @Override
