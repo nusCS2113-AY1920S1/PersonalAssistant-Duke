@@ -25,7 +25,6 @@ public class DeleteCommand extends Command {
 
     /**
      * Executes the deletion of a task inside the TaskList object with the given index.
-     * @param todos The TaskList object for todos
      * @param events The TaskList object for events
      * @param deadlines The TaskList object for deadlines
      * @param ui The Ui object to display the delete task message
@@ -34,10 +33,8 @@ public class DeleteCommand extends Command {
      * @throws DukeException On ArrayList out of bound error
      */
     @Override
-    public String execute(TaskList todos, TaskList events, TaskList deadlines, Ui ui, Storage storage) throws DukeException, FileNotFoundException {
-        if (list.equals("todo")) {
-            listToChange = todos;
-        } else if (list.equals("event")) {
+    public String execute(TaskList events, TaskList deadlines, Ui ui, Storage storage) throws DukeException, FileNotFoundException {
+        if (list.equals("event")) {
             listToChange = events;
         } else if (list.equals("deadline")) {
             listToChange = deadlines;
