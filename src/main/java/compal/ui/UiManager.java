@@ -20,8 +20,6 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import static compal.commons.Messages.MESSAGE_INIT_REMINDER;
-
 public class UiManager implements Ui {
 
     private Compal compal;
