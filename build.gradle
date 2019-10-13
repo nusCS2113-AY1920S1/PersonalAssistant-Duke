@@ -24,16 +24,16 @@ repositories {
     mavenCentral()
 }
 
-
 javafx {
     version = "11.0.2"
     modules = [ 'javafx.controls', 'javafx.fxml' ]
 }
 
-
 dependencies {
     // https://mvnrepository.com/artifact/com.joestelmach/natty
     compile group: 'com.joestelmach', name: 'natty', version: '0.13'
+    // https://mvnrepository.com/artifact/org.javatuples/javatuples
+    compile group: 'org.javatuples', name: 'javatuples', version: '1.2'
     testImplementation 'org.junit.jupiter:junit-jupiter:5.5.0'
 }
 
