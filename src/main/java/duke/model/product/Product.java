@@ -11,32 +11,35 @@ public class Product {
 
     public enum Status {
         ACTIVE,
-        ARCHIVED
+        ARCHIVE
     }
 
     public static final String MESSAGE_CONSTRAINTS = "comProduct name can take any values, "
             + "and should not be blank";
 
-    private String name;
+    private String productName;
     //private List<Ingredient> ingredients = new ArrayList<>();
     private IngredientList ingredients = new IngredientList() {};
-    private double cost;
-    private double price;
+    private double ingredientCost;
+    private double retailPrice;
     private Status status;
 
     /** Constructor for Order parser.util*/
-    public Product(String name) {
-        this.name = name;
+    public Product(String productName) {
+        this.productName = productName;
     }
 
-    public Product(String name, String price, String cost) {
-        requireAllNonNull(name);
-        checkEmpty(name, MESSAGE_CONSTRAINTS);
+    /**
+     * Creates a Product.
+     */
+    public Product(String productName, String retailPrice, String ingredientCost) {
+        requireAllNonNull(productName);
+        checkEmpty(productName, MESSAGE_CONSTRAINTS);
 
         try {
-            this.name = name;
-            this.cost = Double.parseDouble(cost);
-            this.price = Double.parseDouble(price);
+            this.productName = productName;
+            this.ingredientCost = Double.parseDouble(ingredientCost);
+            this.retailPrice = Double.parseDouble(retailPrice);
             this.status = Status.ACTIVE;
         } catch (NumberFormatException e) {
             e.printStackTrace();
@@ -44,41 +47,42 @@ public class Product {
     }
 
     /** Constructor for edit comProduct */
-    public Product(String name, String price, String cost, Status status) {
-        requireAllNonNull(name);
-        checkEmpty(name, MESSAGE_CONSTRAINTS);
+    public Product(String productName, double retailPrice, double ingredientCost, Product.Status status) {
+        requireAllNonNull(productName);
+        checkEmpty(productName, MESSAGE_CONSTRAINTS);
 
         try {
-            this.name = name;
-            this.cost = Double.parseDouble(cost);
-            this.price = Double.parseDouble(price);
+            this.productName = productName;
+            this.ingredientCost = ingredientCost;
+            this.retailPrice = retailPrice;
             this.status = status;
         } catch (NumberFormatException e) {
             e.printStackTrace();
         }
     }
-    public void setName(String name) {
-        this.name = name;
+
+    public void setProductName(String productName) {
+        this.productName = productName;
     }
 
-    public String getName() {
-        return name;
+    public String getProductName() {
+        return productName;
     }
 
-    public double getCost() {
-        return cost;
+    public double getIngredientCost() {
+        return ingredientCost;
     }
 
-    public void setCost(double cost) {
-        this.cost = cost;
+    public void setIngredientCost(double ingredientCost) {
+        this.ingredientCost = ingredientCost;
     }
 
-    public double getPrice() {
-        return price;
+    public double getRetailPrice() {
+        return retailPrice;
     }
 
-    public void setPrice(double price) {
-        this.price = price;
+    public void setRetailPrice(double retailPrice) {
+        this.retailPrice = retailPrice;
     }
 
     public Status getStatus() {
@@ -94,22 +98,22 @@ public class Product {
         this.ingredients = ingredients;
     }
 */
-@Override
-public String toString() {
-    return name + ": " + price + "$";
-}
+    @Override
+    public String toString() {
+        return productName + ": " + retailPrice + "$";
+    }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         duke.model.product.Product product = (duke.model.product.Product) o;
-        return name.equals(product.name);
+        return productName.equals(product.productName);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(name);
+        return Objects.hash(productName);
     }
 
 }
