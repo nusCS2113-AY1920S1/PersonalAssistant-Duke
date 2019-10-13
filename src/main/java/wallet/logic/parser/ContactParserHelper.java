@@ -103,9 +103,9 @@ public class ContactParserHelper {
      */
     public Contact updateInput(String[] info) {
         int section = -1;
-        int details_index;
-        int phone_index;
-        int name_index;
+        int detailsIndex;
+        int phoneIndex;
+        int nameIndex;
 
         String name = null;
         String details = null;
@@ -115,19 +115,19 @@ public class ContactParserHelper {
         ArrayList<String> detailsList = new ArrayList<>();
         ArrayList<String> phoneList = new ArrayList<>();
 
-        details_index = findIndexOf(info, "/d");
-        phone_index = findIndexOf(info, "/p");
-        name_index = findIndexOf(info, "/n");
+        detailsIndex = findIndexOf(info, "/d");
+        phoneIndex = findIndexOf(info, "/p");
+        nameIndex = findIndexOf(info, "/n");
 
 
 
         //Process input into three arraylist
         for (int i = 0; i < info.length; i += 1) {
-            if (i == details_index) {
+            if (i == detailsIndex) {
                 section = 1;
-            } else if (i == phone_index) {
+            } else if (i == phoneIndex) {
                 section = 2;
-            } else if (i == name_index) {
+            } else if (i == nameIndex) {
                 section = 0;
             } else if (section == 1) {
                 detailsList.add(info[i]);
@@ -144,13 +144,13 @@ public class ContactParserHelper {
 
         if (!detailsList.isEmpty()) {
             details = concatList(detailsList);
-        } else if (details_index != -1) {
+        } else if (detailsIndex != -1) {
             details = "[no details]";
         }
 
         if (!phoneList.isEmpty()) {
             phone = concatList(phoneList);
-        } else if (phone_index != -1) {
+        } else if (phoneIndex != -1) {
             phone = "[no phone]";
         }
 

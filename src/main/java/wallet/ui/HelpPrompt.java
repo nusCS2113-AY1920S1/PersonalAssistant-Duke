@@ -11,7 +11,7 @@ public class HelpPrompt {
     public static final String MESSAGE_INDICATOR_REQUIRED = "<> indicates required parameters for command";
     public static final String MESSAGE_INDICATOR_OPTIONAL = "[]  indicates optional parameters for command";
     public static final String MESSAGE_AVAILABLE_SECTIONS = "Need help? The following help sections are available:";
-    public static final String MESSAGE_ACCESS_SECTION = "Begin access a section by keying in its number (enter 0 to exit):";
+    public static final String MESSAGE_ACCESS_SECTION = "Key in help section number (enter 0 to exit):";
     public static final String MESSAGE_ERROR_ACCESS_SECTION = "Error! Input not a valid help section index";
     public static final String[] HELP_SECTIONS = {"General", "Expense", "Loans", "Contacts", "Command History"};
 
