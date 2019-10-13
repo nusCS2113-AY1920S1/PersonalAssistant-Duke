@@ -47,6 +47,12 @@ public class ScheduleCommand extends Command {
                 if (compareDate(this.date, date)) {
                     scheduledTasks.addTask(d);
                 }
+            } else if (arr.getTask(i) instanceof Event) {
+                Event e = (Event) arr.getTask(i);
+                String date = e.getStartTiming().substring(0, 10);
+                if (compareDate(this.date, date)) {
+                    scheduledTasks.addTask(e);
+                }
             }
         }
         return scheduledTasks;
@@ -65,7 +71,7 @@ public class ScheduleCommand extends Command {
         if (this.date.isEmpty()) {
             throw new OofException("OOPS! Please enter a date!");
         }
-        TaskList scheduledTasks = scheduleByDate(arr); // TODO read date in dd-mm-yyyy
+        TaskList scheduledTasks = scheduleByDate(arr);
         if (scheduledTasks.getSize() == 0) {
             throw new OofException("There are no Tasks scheduled on " + this.date + ".");
         }
