@@ -9,7 +9,7 @@ import Places.ChickenFarm;
 import Places.CowFarm;
 import Places.WheatFarm;
 import UserCode.Conditions.Condition;
-import UserCode.Tasks.Task;
+import UserCode.Tasks.IfTask;
 import UserInterfaces.Ui;
 
 public class TestCommand extends Command {
@@ -27,11 +27,11 @@ public class TestCommand extends Command {
             Ui ui = new Ui();
             Condition c1 = Condition.hasSeeds;
             Action plantSeedAction = new PlantSeedAction(wheatFarm, chickenFarm, cowFarm);
-            Task task1 = new Task(c1, plantSeedAction);
+            IfTask task1 = new IfTask(c1, plantSeedAction);
             tasks.addTask(task1);
             Condition c2 = Condition.hasMoney;
             Action buySeedAction = new BuySeedAction(wheatFarm, chickenFarm, cowFarm);
-            Task task2 = new Task(c2, buySeedAction);
+            IfTask task2 = new IfTask(c2, buySeedAction);
             tasks.addTask(task2);
         } catch (Exception e) {
             e.getMessage();
