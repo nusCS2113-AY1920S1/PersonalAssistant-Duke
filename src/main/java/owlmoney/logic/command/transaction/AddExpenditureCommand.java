@@ -18,6 +18,8 @@ public class AddExpenditureCommand extends Command {
     private final Date date;
     private final String description;
     private final String category;
+    private final String type;
+
 
     /**
      * Constructor to create an instance of AddExpenditureCommand.
@@ -27,13 +29,15 @@ public class AddExpenditureCommand extends Command {
      * @param date        Date of the expenditure.
      * @param description Description of the expenditure.
      * @param category    Category of the expenditure.
+     * @param type Represents type of expenditure to be added.
      */
-    public AddExpenditureCommand(String name, double amount, Date date, String description, String category) {
+    public AddExpenditureCommand(String name, double amount, Date date, String description, String category, String type) {
         this.accName = name;
         this.amount = amount;
         this.date = date;
         this.description = description;
         this.category = category;
+        this.type = type;
     }
 
     /**
@@ -45,7 +49,7 @@ public class AddExpenditureCommand extends Command {
      */
     public boolean execute(Profile profile, Ui ui) {
         Transaction newExpenditure = new Expenditure(this.description, this.amount, this.date, this.category);
-        profile.addNewExpenditure(accName, newExpenditure, ui);
+        profile.addNewExpenditure(accName, newExpenditure, ui, this.type);
         return this.isExit;
     }
 }

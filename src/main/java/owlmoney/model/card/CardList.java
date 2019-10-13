@@ -2,7 +2,9 @@ package owlmoney.model.card;
 
 import java.util.ArrayList;
 
+import owlmoney.logic.command.exception.CommandException;
 import owlmoney.logic.parser.exception.CardException;
+import owlmoney.model.transaction.Transaction;
 import owlmoney.ui.Ui;
 
 public class CardList {
@@ -78,24 +80,42 @@ public class CardList {
     }
     */
 
-    /*
-    public void editCard(String name, String newName, String limit, String rebate, String dueDate, Ui ui) {
+    /**
+     * Edits the credit card details.
+     *
+     * @param name     Credit Card to be edited.
+     * @param newName  New name of credit card.
+     * @param limit    New limit of credit card.
+     * @param rebate   New rebate of credit card.
+     * @param ui       Required for printing.
+     */
+    public void editCard(String name, String newName, String limit, String rebate, Ui ui) throws CardException {
+        boolean isEdit = false;
         for (int i = 0; i < cardLists.size(); i++) {
-            if (!(newName.isEmpty() || newName.isBlank())) {
-                cardLists.get(i).setName(newName);
-            }
-            if (!(limit.isEmpty() || limit.isBlank())) {
-                cardLists.get(i).setLimit(Double.parseDouble(limit));
-            }
-            if (!(rebate.isEmpty() || rebate.isBlank())) {
-                cardLists.get(i).setRebate(Double.parseDouble(rebate));
+            if (cardLists.get(i).getName().equals(name)) {
+                isEdit = true;
+                if (!(newName.isEmpty() || newName.isBlank())) {
+                    cardLists.get(i).setName(newName);
+                }
+                if (!(limit.isEmpty() || limit.isBlank())) {
+                    System.out.println("1");
+                    cardLists.get(i).setLimit(Double.parseDouble(limit));
+                }
+                if (!(rebate.isEmpty() || rebate.isBlank())) {
+                    cardLists.get(i).setRebate(Double.parseDouble(rebate));
+                }
+                ui.printMessage("New details of the cards:\n");
+                ui.printMessage(cardLists.get(i).getDetails() + "\n");
+                break;
             }
         }
+        if (isEdit == false) {
+            throw new CardException("Card could not be found ");
+        }
     }
-    */
 
     /**
-     * Lists all cards in the bank account.
+     * Lists all credi cards details.
      *
      * @param ui required for printing.
      */
@@ -104,5 +124,41 @@ public class CardList {
         for (int i = 0; i < cardLists.size(); i++) {
             ui.printMessage(cardLists.get(i).getDetails());
         }
+    }
+
+    /**
+     * Adds an expenditure tied to a credit card.
+     * This will store the expenditure in the ExpenditureList in the credit card.
+     *
+     * @param cardName The credit card name.
+     * @param exp      The instance of the expenditure.
+     * @param ui       Required for printing.
+     */
+    //need change exception class in the future for this
+    public void addExpenditure(String cardName, Transaction exp, Ui ui) {
+        for (int i = 0; i < cardLists.size(); i++) {
+            if (cardLists.get(i).getName().equals(cardName)) {
+                cardLists.get(i).addInExpenditure(exp, ui);
+                return;
+            }
+        }
+        ui.printError("There are no credit card named :" + cardName);
+    }
+
+    /**
+     * Lists expenditures in the credit card.
+     *
+     * @param bankToList The name of the bank account.
+     * @param ui         required for printing.
+     * @param displayNum Number of expenditures to list.
+     */
+    public void listCardExpenditure(String bankToList, Ui ui, int displayNum) {
+        for (int i = 0; i < cardLists.size(); i++) {
+            if (bankToList.equals(cardLists.get(i).getName())) {
+                cardLists.get(i).listAllExpenditure(ui, displayNum);
+                return;
+            }
+        }
+        ui.printError("Cannot find bank with name: " + bankToList);
     }
 }

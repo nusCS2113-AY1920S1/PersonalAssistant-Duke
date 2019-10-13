@@ -18,8 +18,8 @@ public class ParseEditExpenditure extends ParseExpenditure {
      * @param data Raw user input date.
      * @throws ParserException If there are redundant parameters or first parameter is invalid.
      */
-    public ParseEditExpenditure(String data) throws ParserException {
-        super(data);
+    public ParseEditExpenditure(String data, String type) throws ParserException {
+        super(data, type);
         checkRedundantParameter(NUM, EDIT);
         checkFirstParameter();
     }

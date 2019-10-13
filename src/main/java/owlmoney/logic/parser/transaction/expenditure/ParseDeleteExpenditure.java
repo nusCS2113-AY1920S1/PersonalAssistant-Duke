@@ -19,8 +19,8 @@ public class ParseDeleteExpenditure extends ParseExpenditure {
      * @param data Raw user input date.
      * @throws ParserException If there are redundant parameters or if first parameter is invalid.
      */
-    public ParseDeleteExpenditure(String data) throws ParserException {
-        super(data);
+    public ParseDeleteExpenditure(String data, String type) throws ParserException {
+        super(data, type);
         checkRedundantParameter(AMOUNT, DELETE);
         checkRedundantParameter(CATEGORY, DELETE);
         checkRedundantParameter(DESCRIPTION, DELETE);

@@ -72,9 +72,14 @@ public class Profile {
      * @param accName The name of the bank account.
      * @param exp     An expenditure object.
      * @param ui      required for printing.
+     * @param type    Represents type of expenditure to be added.
      */
-    public void addNewExpenditure(String accName, Transaction exp, Ui ui) {
-        bankList.addExpenditure(accName, exp, ui);
+    public void addNewExpenditure(String accName, Transaction exp, Ui ui, String type) {
+        if ("card".equals(type)) {
+            cardList.addExpenditure(accName, exp, ui);
+        } else {
+            bankList.addExpenditure(accName, exp, ui);
+        }
     }
 
     /**
@@ -116,8 +121,12 @@ public class Profile {
      * @param ui         required for printing.
      * @param displayNum Number of expenditure to list.
      */
-    public void listExpenditure(String listedBank, Ui ui, int displayNum) {
-        bankList.listBankExpenditure(listedBank, ui, displayNum);
+    public void listExpenditure(String listedBank, Ui ui, int displayNum, String type) {
+        if ("card".equals(type)) {
+            cardList.listCardExpenditure(listedBank, ui, displayNum);
+        } else {
+            bankList.listBankExpenditure(listedBank, ui, displayNum);
+        }
     }
 
     /**
@@ -205,6 +214,10 @@ public class Profile {
      */
     public void addNewCard(Card newCard, Ui ui) {
         cardList.addCard(newCard, ui);
+    }
+
+    public void editCardDetails(String name, String newName, String limit, String rebate, Ui ui) throws CardException {
+        cardList.editCard(name, newName, limit, rebate, ui);
     }
 
     /**

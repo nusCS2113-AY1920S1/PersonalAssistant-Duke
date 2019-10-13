@@ -10,16 +10,19 @@ import owlmoney.ui.Ui;
 public class ListExpenditureCommand extends Command {
     private final String accName;
     private final int displayNum;
+    private final String type;
 
     /**
      * Constructor to create an instance of ListExpenditureCommand.
      *
      * @param name       Bank account name.
      * @param displayNum Number of expenditures to display.
+     * @param type Represents type of expenditure to be added.
      */
-    public ListExpenditureCommand(String name, int displayNum) {
+    public ListExpenditureCommand(String name, int displayNum, String type) {
         this.accName = name;
         this.displayNum = displayNum;
+        this.type = type;
     }
 
     /**
@@ -30,7 +33,7 @@ public class ListExpenditureCommand extends Command {
      * @return false so OwlMoney will not terminate yet.
      */
     public boolean execute(Profile profile, Ui ui) {
-        profile.listExpenditure(accName, ui, displayNum);
+        profile.listExpenditure(accName, ui, displayNum, this.type);
         return this.isExit;
     }
 }

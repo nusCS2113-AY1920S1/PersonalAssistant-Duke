@@ -2,7 +2,9 @@ package owlmoney.model.card;
 
 import java.text.DecimalFormat;
 
+import owlmoney.model.transaction.Transaction;
 import owlmoney.model.transaction.TransactionList;
+import owlmoney.ui.Ui;
 
 /**
  * Card class for initialisation of credit card object.
@@ -11,7 +13,8 @@ public class Card {
     private String name;
     private double limit;
     private double rebate;
-    TransactionList expenditures;
+    TransactionList paid;
+    TransactionList unpaid;
 
     /**
      * Constructor that allows the child class to create an instance with credit card name.
@@ -24,6 +27,8 @@ public class Card {
         this.name = name;
         this.limit = limit;
         this.rebate = rebate;
+        this.paid = new TransactionList();
+        this.unpaid = new TransactionList();
     }
 
     /**
@@ -83,12 +88,34 @@ public class Card {
     /**
      * Gets the credit card details.
      *
-     * @return credit card details.  #######??????
+     * @return String of credit card details.
      */
     public String getDetails() {
         return "\nCard Name: " + getName()
                 + "\nLimit: " + new DecimalFormat("0.00").format(getLimit())
                 + "\nRebate: " + new DecimalFormat("0.00").format(getRebate());
+    }
+
+    /**
+     * Adds expenditure to the credit card.
+     *
+     */
+    public void addInExpenditure(Transaction exp, Ui ui) {
+        if (exp.getAmount() > this.getLimit()) {
+            ui.printError("Bank account cannot have a negative amount");
+        } else {
+            unpaid.addExpenditureToList(exp, ui);
+        }
+    }
+
+    /**
+     * Lists the expenditures in the current credit card.
+     *
+     * @param ui         Ui of OwlMoney.
+     * @param displayNum Number of expenditure to list.
+     */
+    void listAllExpenditure(Ui ui, int displayNum) {
+        unpaid.listExpenditure(ui, displayNum);
     }
 
 }
