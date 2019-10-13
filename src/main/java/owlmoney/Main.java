@@ -58,8 +58,8 @@ class Main {
                     break;
                 }
 
-            } catch (ParserException | BankException | TransactionException | BondException |
-                    CardException exceptionMessage) {
+            } catch (ParserException | BankException | TransactionException | BondException
+                    | CardException exceptionMessage) {
                 ui.printError(exceptionMessage.toString());
             }
         }

@@ -17,6 +17,7 @@ public class TransactionList {
 
     private ArrayList<Transaction> expLists;
     private static final int ONE_INDEX = 1;
+
     /**
      * Creates an instance of Transaction list that contains an ArrayList of expenditures.
      */

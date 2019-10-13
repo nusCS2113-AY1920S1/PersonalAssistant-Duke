@@ -19,7 +19,7 @@ public class Bond {
      * @param date   The date the bond was purchased.
      * @param year   The year the bond will last.
      */
-    public Bond(String name, double amount, double rate , Date date, int year) {
+    public Bond(String name, double amount, double rate, Date date, int year) {
         this.name = name;
         this.amount = amount;
         this.rate = rate;

@@ -197,7 +197,6 @@ public abstract class Bank {
      * Checks if the bond exists before adding.
      *
      * @param bond the bond object.
-     * @return result of whether the bond exists.
      */
     public void checkBondExist(Bond bond) throws BankException, BondException {
         throw new BankException("This account does not support this feature");

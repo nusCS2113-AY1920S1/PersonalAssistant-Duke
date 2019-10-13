@@ -393,7 +393,7 @@ public class BankList {
      * @param ui      required for printing.
      */
     public void addBond(String accName, Bond bond, Ui ui) throws BankException {
-        for(int i = 0; i < bankLists.size(); i++) {
+        for (int i = 0; i < bankLists.size(); i++) {
             if (accName.equals(bankLists.get(i).getAccountName())) {
                 bankLists.get(i).addBondToInvestmentAccount(bond, ui);
                 return;
@@ -407,10 +407,9 @@ public class BankList {
      *
      * @param accName the bank account name.
      * @param bond the bond object.
-     * @return result of whether the bond exists.
      */
     public void isBondExist(String accName, Bond bond) throws BankException, BondException {
-        for(int i = 0; i < bankLists.size(); i++) {
+        for (int i = 0; i < bankLists.size(); i++) {
             if (accName.equals(bankLists.get(i).getAccountName())) {
                 bankLists.get(i).checkBondExist(bond);
                 return;

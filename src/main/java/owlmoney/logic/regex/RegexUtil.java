@@ -81,7 +81,7 @@ public final class RegexUtil {
      */
     public static boolean regexCheckBondYear(String input) {
         final String yearRegex = "^[1-9]\\d{0,1}$";
-        if(input.matches(yearRegex)) {
+        if (input.matches(yearRegex)) {
             int parsedInput = Integer.parseInt(input);
             return (parsedInput <= 10);
         } else {

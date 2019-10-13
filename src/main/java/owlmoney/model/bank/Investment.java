@@ -69,7 +69,6 @@ public class Investment extends Bank {
      * Checks if bond exists in the bondList.
      *
      * @param bond the bond object.
-     * @return result of whether the bond exists.
      */
     @Override
     public void checkBondExist(Bond bond) throws BondException {
