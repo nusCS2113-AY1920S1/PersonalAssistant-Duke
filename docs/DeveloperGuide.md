@@ -1,5 +1,6 @@
 
 
+
 # COMPal - Developer Guide
 
 Welcome to the **COMPal** Developer Guide! This Developer Guide is still being worked on for now!
@@ -16,6 +17,7 @@ Welcome to the **COMPal** Developer Guide! This Developer Guide is still being w
 + [3.4 Configurations to do before Writing Code](/docs/DeveloperGuide.md#34-configurations-to-do-before-writing-code)
 
 [**4. Design**](/docs/DeveloperGuide.md#4-design)
+ + [4.1 Architecture]
 
 [**5. Implementation**](/docs/DeveloperGuide.md#5-implementation)
 
@@ -109,7 +111,8 @@ Icon                 | Description
 ### 3.4. Configurations to do before Writing Code
 
 ## 4. Design
-**4.1. Architecture**
+
+#### 4.1. Architecture
 
 <img src="https://github.com/AY1920S1-CS2113T-W17-1/main/blob/master/docs/diagrams/ArchitectureDiagram.png" alt="Overview of architecture" width="800"/>
 Figure 1. Architecture Diagram
@@ -148,7 +151,7 @@ Each of the four components
     
 -   Exposes its functionality using a  `{Component Name}Manager`  class.
 
-**4.6. Model Component**
+### 4.6. Model Component
 
 <img src="https://github.com/AY1920S1-CS2113T-W17-1/main/blob/master/docs/diagrams/DG_ArchitectureDiagram_Task.png" width="800" alt="Overall structure of the Model Component"/>
 Figure 2. Overall structure of the Model Component
