@@ -1,53 +1,52 @@
 package duke.task;
 
-import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.ZoneId;
+import duke.parser.Convert;
+
 import java.util.Date;
 
 /**
- * Represents an Event, a {@link Task} which is happening at a specific Date and time
+ * Represents an Event, a {@link Task} which is happening at a specific Date and time.
  */
 public class Event extends Task {
+
     private String at;
     private Date date;
 
-    public Event(String description, String at) {
+    /**
+     * The constructor method for Event.
+     */
+    public Event(String description, String str) {
         super(description);
-        this.at = at;
-        this.date = super.getDate(at);
+        this.setNewDate(str);
+    }
+
+    @Override
+    public void setNewDate(String date) {
+        this.at = date;
+        this.date = Convert.stringToDate(at);
+    }
+
+    @Override
+    public Date getCurrentDate() {
+        return date;
     }
 
     @Override
     public String toString() {
-        return "[E]" + super.toString() + "(at: " + getDateString(date) + ")";
-    }
-     /**
-     * Returns the String representation of the {@link Event} in format compatible to be easily read and written in a text file on the hard disc
-     * @return String used to print the {@link Task } in the text file
-     */
-    public String printInFile() {
-        return this.isDone() ? "E|1|" + getDescription() + "|" + this.getDateString(date) : "E|0|" + this.getDescription() + "|" + getDateString(date);
+        return "[E]" + super.toString() + "(at: " + at + ")";
     }
 
     /**
-     * Returns the {@link Date } instance as a String to be printed in the file
-     * @param date the {@link Date} at which the event is happening
-     * @return String the date for the event
+     * Formats {@link Event} into a String.
+     *
+     * @return String used to print the {@link Task } in the text file
      */
-    private String getDateString(Date date) {
-        if (date == null)
-            return at;
-        LocalDate localDate = date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-        //String pattern = at.length() > 11 ? "d'" + getDaySuffix(localDate.getDayOfMonth()) + "' 'of' MMMM yyyy, ha " : "d'" + getDaySuffix(localDate.getDayOfMonth()) + "' 'of' MMMM yyyy";
-        String pattern;
-        if(at.length() > 11){
-            pattern = "d'" + getDaySuffix(localDate.getDayOfMonth()) + "' 'of' MMMM yyyy, ha ";
+    @Override
+    public String printInFile() {
+        if (this.isDone()) {
+            return "E|1|" + this.getDescription() + "|" + at;
+        } else {
+            return "E|0|" + this.getDescription() + "|" + at;
         }
-        else{
-            pattern = "d'" + getDaySuffix(localDate.getDayOfMonth()) + "' 'of' MMMM yyyy";
-        }
-        SimpleDateFormat formatter = new SimpleDateFormat(pattern);
-        return formatter.format(date);
     }
 }

@@ -1,7 +1,7 @@
 package duke.exception;
 
 /**
- * Represents an {@link Exception} class used to throw exceptions from the Duke class
+ * Represents an {@link Exception} class used to throw exceptions from the Duke class.
  */
 public class DukeException extends Exception {
 

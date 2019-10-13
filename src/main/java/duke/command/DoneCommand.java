@@ -7,7 +7,7 @@ import duke.task.TaskList;
 import duke.ui.Ui;
 
 /**
- * Represents a specific {@link Command} used to mark a {@link Task} as done
+ * Represents a specific {@link Command} used to mark a {@link Task} as done.
  */
 public class DoneCommand extends Command {
     private int taskNb;
@@ -22,7 +22,8 @@ public class DoneCommand extends Command {
             taskList.markTaskDone(taskNb);
             ui.showMarkDone(taskList.getTask(taskNb).toString());
             storage.changeContent(taskNb);
-        } else
+        } else {
             throw new DukeException("Enter a valid task number after done, between 1 and " + taskList.size());
+        }
     }
 }

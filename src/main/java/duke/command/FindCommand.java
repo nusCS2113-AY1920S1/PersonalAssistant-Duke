@@ -6,7 +6,7 @@ import duke.task.TaskList;
 import duke.ui.Ui;
 
 /**
- * Represents a specific {@link Command} used to find a String occurring in the {@link TaskList}
+ * Represents a specific {@link Command} used to find a String occurring in the {@link TaskList}.
  */
 public class FindCommand extends Command {
 
@@ -28,8 +28,9 @@ public class FindCommand extends Command {
         }
         if (sb.length() == 0) {
             System.out.println("No matching tasks found! ");
-        } else
+        } else {
             System.out.println("\t Here are the matching tasks in your list:");
+        }
         sb.setLength(sb.length() - 1);// to remove the last new line
         System.out.println(sb.toString());
     }
