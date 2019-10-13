@@ -122,7 +122,6 @@ public class Parser {
                         return new DeleteCommand(description);
                     }
                 }
-
                 throw new DukeException("Please enter index of meal to delete on today's list or "
                         + "date and index of meal to delete");
             case "update":
@@ -139,6 +138,8 @@ public class Parser {
                 name = description.split("/", 2)[0];
                 info = "/" + description.split("/", 2)[1];
                 return new EditCommand(new Meal(name, info, autocorrect));
+            case "setgoal":
+
             case "help":
                 return new HelpCommand();
             default:

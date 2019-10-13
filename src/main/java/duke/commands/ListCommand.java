@@ -10,6 +10,7 @@ import duke.user.User;
 import java.text.ParseException;
 import java.util.Date;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 /**
  * ListCommand is a public class that inherits from abstract class Command.
@@ -37,10 +38,11 @@ public class ListCommand extends Command {
      * @param tasks the MealList object in which the meal(s) is supposed to be listed
      * @param ui the ui object to display the user interface of an "list" command
      * @param storage the storage object that stores the list of meals
+     * @param in
      */
 
     @Override
-    public void execute(MealList tasks, Ui ui, Storage storage, User user) throws DukeException {
+    public void execute(MealList tasks, Ui ui, Storage storage, User user, Scanner in) throws DukeException {
         ui.showCalorie(user);
         ArrayList<Meal> currentMeals = tasks.getMealsList(currentDate);
         if (!tasks.checkDate(currentDate)) {

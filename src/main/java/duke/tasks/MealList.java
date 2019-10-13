@@ -1,5 +1,6 @@
 package duke.tasks;
 
+import duke.Duke;
 import duke.exceptions.DukeException;
 
 import java.text.DateFormat;
@@ -18,6 +19,7 @@ public class MealList {
     private String currentDate = dateFormat.format(calendarDate.getTime());
     private HashMap<String, ArrayList<Meal>> mealTracker = new HashMap<>();
     private HashMap<String, HashMap<String, Integer>> storedItems = new HashMap<>();
+    private Goal goal;
 
     /**
      * This is the constructor of MealList object if there is no argument.
@@ -171,6 +173,15 @@ public class MealList {
 
     public void removeStoredItem(String keyword) {
         storedItems.remove(keyword);
+    }
+
+    public void addGoal(Goal goal, boolean override) throws DukeException {
+        if (this.goal != null && override == false) {
+            throw new DukeException("You currently have a previously set goal active\n" +
+                    "     Would you like to override the existing goal? (Y/N)");
+        } else {
+            this.goal = goal;
+        }
     }
 
     /**

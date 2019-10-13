@@ -6,6 +6,8 @@ import duke.ui.Ui;
 import duke.storage.Storage;
 
 import java.util.ArrayList;
+import java.util.Scanner;
+
 import duke.user.User;
 
 /**
@@ -31,9 +33,10 @@ public class MarkDoneCommand extends Command {
      * @param tasks the MealList object to be marked done
      * @param ui the ui object to display the user interface of an "mark done" command
      * @param storage the storage object that stores the list of meals
+     * @param in
      */
     @Override
-    public void execute(MealList tasks, Ui ui, Storage storage, User user) {
+    public void execute(MealList tasks, Ui ui, Storage storage, User user, Scanner in) {
         ArrayList<Meal> matchingMeals = new ArrayList<>();
         ArrayList<Meal> currentMeals = tasks.getMealsList(currentDate);
         for (Meal element: currentMeals) {

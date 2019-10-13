@@ -9,6 +9,7 @@ import duke.user.User;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Scanner;
 
 /**
  * Command is the abstract base class for all the command objects
@@ -25,8 +26,9 @@ public abstract class Command {
      * @param tasks the TaskList object in which the task is supposed to be added
      * @param ui the ui object to display the user interface of an "add" command
      * @param storage the storage object that stores the list of tasks
+     * @param in
      */
-    public abstract void execute(MealList tasks, Ui ui, Storage storage, User user) throws DukeException;
+    public abstract void execute(MealList tasks, Ui ui, Storage storage, User user, Scanner in) throws DukeException;
 
     public boolean isExit() {
         return false;

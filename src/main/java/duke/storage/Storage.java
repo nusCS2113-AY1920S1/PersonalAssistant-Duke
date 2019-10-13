@@ -25,6 +25,8 @@ public class Storage {
     private DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
     private File nameFile = null;
     private File wordFile = null;
+    private File defaultFile = null;
+    private File goalFile = null;
 
     /**
      * The function will act to load txt file specified by the filepath, parse it and store it in a new task ArrayList
@@ -37,8 +39,44 @@ public class Storage {
         String sep = System.getProperty("file.separator");
         file = new File("src" + sep + "main" + sep + "java" + sep + "duke"
                             + sep + "Data" + sep + "duke.txt");
-        try {
+        defaultFile = new File("src" + sep + "main" + sep + "java" + sep + "duke"
+                + sep + "Data" + sep + "defaultItems.txt");
+        goalFile = new File("src" + sep + "main" + sep + "java" + sep + "duke"
+                + sep + "Data" + sep + "goal.txt");
+        try { //read data file
             bufferedReader = new BufferedReader(new FileReader(file));
+        } catch (Exception e) {
+            throw new DukeException("Unable to access file");
+        }
+        try {
+            while ((line = bufferedReader.readLine()) != null) {
+                //TODO: Parse the line
+                loadFile(line, mealTracker, meals);
+            }
+            bufferedReader.close();
+        } catch (FileNotFoundException e) {
+            throw new DukeException("Unable to open file");
+        } catch (IOException e) {
+            throw new DukeException("Error reading file");
+        }
+        try { //read default values file
+            bufferedReader = new BufferedReader(new FileReader(defaultFile));
+        } catch (Exception e) {
+            throw new DukeException("Unable to access file");
+        }
+        try {
+            while ((line = bufferedReader.readLine()) != null) {
+                //TODO: Parse the line
+                loadFile(line, mealTracker, meals);
+            }
+            bufferedReader.close();
+        } catch (FileNotFoundException e) {
+            throw new DukeException("Unable to open file");
+        } catch (IOException e) {
+            throw new DukeException("Error reading file");
+        }
+        try { //read goal file
+            bufferedReader = new BufferedReader(new FileReader(goalFile));
         } catch (Exception e) {
             throw new DukeException("Unable to access file");
         }
@@ -62,7 +100,8 @@ public class Storage {
      * @param mealTracker the meal arraylist that will store the meals from the input file
      * @param meals the structure that encapsulates the meal data for this session
      */
-    private void loadFile(String line, HashMap<String, ArrayList<Meal>> mealTracker, MealList meals) {
+    private void loadFile(String line, HashMap<String, ArrayList<Meal>> mealTracker, MealList meals)
+            throws DukeException {
         String[] splitLine = line.split("\\|",4);
         String taskType = splitLine[0];
         boolean isDone = splitLine[1].equals("1");
@@ -92,6 +131,9 @@ public class Storage {
         } else {
             meals.addStoredItem(newMeal);
         }
+        if (taskType.equals("G")) {
+            meals.addGoal(new Goal(description, nutritionalValue), true);
+        }
     }
 
     /**
@@ -101,7 +143,6 @@ public class Storage {
     //TODO: maybe we can put the errors in the ui file
     public void updateFile(MealList mealData) {
         HashMap<String, ArrayList<Meal>> meals = mealData.getMealTracker();
-        HashMap<String, HashMap<String, Integer>> storedItems = mealData.getStoredList();
         try {
             bufferedWriter = new BufferedWriter(new FileWriter(file));
         } catch (Exception e) {
@@ -130,6 +171,22 @@ public class Storage {
                     bufferedWriter.write(toWrite);
                 }
             }
+            bufferedWriter.close();
+        } catch (IOException e) {
+            System.out.println("Error writing to file");
+            e.printStackTrace();
+        }
+    }
+
+    public void updateDefaults(MealList mealData) {
+        HashMap<String, HashMap<String, Integer>> storedItems = mealData.getStoredList();
+        try {
+            bufferedWriter = new BufferedWriter(new FileWriter(defaultFile));
+        } catch (Exception e) {
+            System.out.println("Error writing to file");
+            e.printStackTrace();
+        }
+        try {
             for (String i : storedItems.keySet()) { //write process for stored default food values
                 String toWrite = "";
                 toWrite += "S|0|" + i;
@@ -143,6 +200,32 @@ public class Storage {
                 }
                 bufferedWriter.write(toWrite);
             }
+            bufferedWriter.close();
+        } catch (IOException e) {
+            System.out.println("Error writing to file");
+            e.printStackTrace();
+        }
+    }
+
+    public void updateGoal(MealList mealData) {
+        try {
+            bufferedWriter = new BufferedWriter(new FileWriter(goalFile));
+        } catch (Exception e) {
+            System.out.println("Error writing to file");
+            e.printStackTrace();
+        }
+        try {
+            String toWrite = "";
+            toWrite += "G|0|";
+            HashMap<String, Integer> nutritionData = storedItems.get(i);
+            if (nutritionData.size() != 0) {
+                toWrite += "|";
+                for (String k : nutritionData.keySet()) {
+                    toWrite += k + "|" + nutritionData.get(k) + "|";
+                }
+                toWrite = toWrite.substring(0, toWrite.length() - 1) + "\n";
+            }
+            bufferedWriter.write(toWrite);
             bufferedWriter.close();
         } catch (IOException e) {
             System.out.println("Error writing to file");

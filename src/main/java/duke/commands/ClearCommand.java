@@ -9,6 +9,7 @@ import duke.user.User;
 import java.text.ParseException;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Scanner;
 
 /**
  * ClearCommand is a public class that inherits from abstract class Command.
@@ -28,7 +29,7 @@ public class ClearCommand extends Command {
     }
 
     @Override
-    public void execute(MealList mealList, Ui ui, Storage storage, User user) {
+    public void execute(MealList mealList, Ui ui, Storage storage, User user, Scanner in) {
         Calendar cal = Calendar.getInstance();
         cal.setTime(startDate);
         for (cal.setTime(startDate); !cal.getTime().after(endDate); cal.add(Calendar.DATE, 1)) {
