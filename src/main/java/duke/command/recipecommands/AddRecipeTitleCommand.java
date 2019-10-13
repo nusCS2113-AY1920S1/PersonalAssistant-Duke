@@ -9,21 +9,21 @@ import java.text.ParseException;
 import java.util.ArrayList;
 
 import static duke.common.Messages.*;
-import static duke.common.RecipeMessages.COMMAND_ADD_RECIPE;
+import static duke.common.RecipeMessages.COMMAND_ADD_RECIPE_TITLE;
 
-public class AddRecipeCommand extends CommandRecipeTitle {
+public class AddRecipeTitleCommand extends CommandRecipeTitle {
 
-    public AddRecipeCommand(String userInput) {
+    public AddRecipeTitleCommand(String userInput) {
         this.userInput = userInput;
     }
 
     @Override
     public ArrayList<String> execute(RecipeTitleList recipeTitleList, Ui ui, RecipeTitleStorage recipeTitleStorage) throws ParseException {
         ArrayList<String> arrayList = new ArrayList<>();
-        if (userInput.trim().equals(COMMAND_ADD_RECIPE)) {
+        if (userInput.trim().equals(COMMAND_ADD_RECIPE_TITLE)) {
             arrayList.add(ERROR_MESSAGE_GENERAL + MESSAGE_FOLLOWUP_NUll);
             System.out.println("stuck here 7");
-        } else if (userInput.trim().charAt(9) == ' ') {
+        } else if (userInput.trim().charAt(14) == ' ') {
             if (userInput.trim().contains("n/")) {
                 String recipeTitle = userInput.split("n/", 2)[1].trim();
                 recipeTitleList.addRecipeTitle(recipeTitle);

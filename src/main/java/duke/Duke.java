@@ -77,8 +77,8 @@ public class Duke {
     public ArrayList<String> runProgram(String userInput) throws DukeException, ParseException {
         System.out.println("stuck here4");
         ArrayList<String> arrayList = new ArrayList<>();
-        if (userInput.contains(COMMAND_ADD_RECIPE)) {
-            if (userInput.trim().substring(0, 9).equals(COMMAND_ADD_RECIPE)) {
+        if (userInput.contains(COMMAND_ADD_RECIPE_TITLE)) {
+            if (userInput.trim().substring(0, 14).equals(COMMAND_ADD_RECIPE_TITLE)) {
                 CommandRecipeTitle command = Parser.parseRecipeTitle(userInput);
                 return command.execute(recipeTitleList, ui, recipeTitleStorage);
             } else {
@@ -96,11 +96,11 @@ public class Duke {
             }
         } else if (userInput.contains(COMMAND_ADD_RECIPE_INGREDIENT)) {
             if (userInput.trim().substring(0, 19).equals(COMMAND_ADD_RECIPE_INGREDIENT)) {
-                System.out.println("stuck here2");
                 CommandRecipeIngredient command = Parser.parseRecipeIngredient(userInput);
                 return command.execute(recipeIngredientList, ui, recipeIngredientStorage);
             } else {
                 arrayList.add(ERROR_MESSAGE_RANDOM);
+                System.out.println("stuck here10");
                 return arrayList;
             }
         } else if (userInput.contains(COMMAND_ADD_INGREDIENT)) {

@@ -28,9 +28,9 @@ public class AddRecipeIngredientCommand extends CommandRecipeIngredient {
             arrayList.add(ERROR_MESSAGE_GENERAL + MESSAGE_FOLLOWUP_NUll);
             System.out.println("stuck here1");
         } else if (userInput.trim().charAt(19) == ' ') {
-            recipeIngredientName = userInput.split("\\s",3)[0].trim();
-            recipeIngredientQuantity = userInput.split("\\s",3)[1].trim();
-            recipeIngredientWeight = userInput.split("\\s",3)[2].trim();
+            recipeIngredientName = userInput.split("\\s",4)[1].trim();
+            recipeIngredientQuantity = userInput.split("\\s",4)[2].trim();
+            recipeIngredientWeight = userInput.split("\\s",4)[3].trim();
             System.out.println(recipeIngredientName + "......" + recipeIngredientQuantity + "....." + recipeIngredientWeight);
             if (recipeIngredientName.isEmpty() || recipeIngredientQuantity.isEmpty() || recipeIngredientWeight.isEmpty()) {
                 arrayList.add(ERROR_MESSAGE_INVALID_RECIPE_FORMAT);

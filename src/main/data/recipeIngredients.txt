@@ -1,2 +1,1 @@
-apple | 10
-apple | 10
+garlic | 100 | g
