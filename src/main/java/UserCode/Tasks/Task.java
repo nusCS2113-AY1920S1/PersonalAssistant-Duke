@@ -8,7 +8,7 @@ import UserCode.Conditions.Condition;
 import UserInterfaces.Ui;
 import org.json.simple.JSONObject;
 
-public class Task {
+public abstract class Task {
     protected Condition condition;
     protected Action action;
 
@@ -22,17 +22,11 @@ public class Task {
         this.action = parseJsonAction((JSONObject) obj.get("action"));
     }
 
-    private boolean checkCondition() {
+    protected boolean checkCondition() {
         return ConditionChecker.check(condition, action.extractWheatFarm(), action.extractChickenFarm(), action.extractCowFarm());
     }
 
-    public int execute(Ui ui) {
-        if (checkCondition()) {
-            return action.execute(ui);
-        } else {
-            return 0;
-        }
-    }
+    public abstract int execute(Ui ui);
 
     private Action parseJsonAction(JSONObject obj) throws FarmioException {
         Action action;
