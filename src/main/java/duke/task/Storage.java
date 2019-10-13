@@ -27,7 +27,6 @@ public class Storage {
      */
     public Storage(String filePath) throws DukeFatalException {
         taskFile = new File(filePath);
-
         if (!taskFile.exists()) {
             try {
                 if (!taskFile.createNewFile()) {
