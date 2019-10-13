@@ -356,7 +356,8 @@ public class CLIView {
         consolePrint(allTaskDetails.toArray(new String[0]));
     }
 
-    public void assignTask(IProject projectToManage, String assignTaskDetails) {
-        String[] details =  assignTaskDetails.split(" ");
+    public void assignTask(IProject projectToManage, int assignTaskDetails,
+        String[] details) {
+
     }
 }

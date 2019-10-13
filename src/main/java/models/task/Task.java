@@ -2,6 +2,8 @@ package models.task;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 public class Task {
     private String taskName;
@@ -9,7 +11,7 @@ public class Task {
     private Date dueDate;
     private int taskCredit;
     private TaskState taskState;
-
+    private Set<Integer> assignedMembersIndexes;
 
     /**
      * Class representing a task in a project.
@@ -26,6 +28,7 @@ public class Task {
         this.dueDate = dueDate;
         this.taskCredit = taskCredit;
         this.taskState = taskState;
+        this.assignedMembersIndexes = new HashSet<>();
     }
 
     public String getTaskName() {

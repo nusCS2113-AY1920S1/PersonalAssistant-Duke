@@ -1,16 +1,15 @@
 package models.member;
 
+import java.util.ArrayList;
 import util.ParserUtil;
 
-import java.util.ArrayList;
-
-public class MemberList {
+public class ProjectMemberList implements IMemberList{
     private ArrayList<Member> memberList;
 
     /**
      * Class representing a list with all members and their details.
      */
-    public MemberList() {
+    public ProjectMemberList() {
         this.memberList = new ArrayList<Member>();
     }
 
@@ -18,6 +17,7 @@ public class MemberList {
      * Adds a new member to the member list of this project.
      * @param newMember A new member to be added to the project.
      */
+    @Override
     public void addMember(Member newMember) {
         newMember.setIndexNumber(this.memberList.size() + 1);
         this.memberList.add(newMember);
@@ -49,6 +49,7 @@ public class MemberList {
      * Removes a member from the list.
      * @param memberIndex THe index number of the member to be removed.
      */
+    @Override
     public void removeMember(int memberIndex) {
         this.memberList.remove(memberIndex - 1);
         if (memberIndex < memberList.size()) { //if need to reassign index numbers after removal
@@ -62,6 +63,7 @@ public class MemberList {
      * Returns an ArrayList with String descriptions of members details.
      * @return An ArrayList with String descriptions of members details.
      */
+    @Override
     public ArrayList<String> getAllMemberDetails() {
         ArrayList<String> memberDetails = new ArrayList<>();
         for (Member member : this.memberList) {
