@@ -25,28 +25,28 @@ public class HelpStorage {
 
         switch (input) {
 
-            case 1:
-                chosenPath = DEFAULT_HELP_FILENAME_GENERAL;
-                break;
+        case 1:
+            chosenPath = DEFAULT_HELP_FILENAME_GENERAL;
+            break;
 
-            case 2:
-                chosenPath = DEFAULT_HELP_FILENAME_EXPENSE;
-                break;
+        case 2:
+            chosenPath = DEFAULT_HELP_FILENAME_EXPENSE;
+            break;
 
-            case 3:
-                chosenPath = DEFAULT_HELP_FILENAME_LOAN;
-                break;
+        case 3:
+            chosenPath = DEFAULT_HELP_FILENAME_LOAN;
+            break;
 
-            case 4:
-                chosenPath = DEFAULT_HELP_FILENAME_CONTACT;
-                break;
+        case 4:
+            chosenPath = DEFAULT_HELP_FILENAME_CONTACT;
+            break;
 
-            case 5:
-                chosenPath = DEFAULT_HELP_FILENAME_COMMAND_HISTORY;
-                break;
+        case 5:
+            chosenPath = DEFAULT_HELP_FILENAME_COMMAND_HISTORY;
+            break;
 
-            default:
-                chosenPath = null;
+        default:
+            chosenPath = null;
 
         }
 

@@ -31,41 +31,41 @@ public class AddCommandParser implements Parser<AddCommand> {
     public AddCommand parse(String input) throws ParseException {
         String[] arguments = input.split(" ", 2);
         switch (arguments[0]) {
-            case "todo":
-            case "event":
-            case "deadline":
-            case "dowithin":
-                Task task = parseTask(arguments[0], arguments[1]);
-                if (task != null) {
-                    return new AddCommand(task);
-                } else {
-                    break;
-                }
-            case "expense":
-                Expense expense = parseExpense(arguments[1]);
-                if (expense != null) {
-                    return new AddCommand(expense);
-                } else {
-                    break;
-                }
+        case "todo":
+        case "event":
+        case "deadline":
+        case "dowithin":
+            Task task = parseTask(arguments[0], arguments[1]);
+            if (task != null) {
+                return new AddCommand(task);
+            } else {
+                break;
+            }
+        case "expense":
+            Expense expense = parseExpense(arguments[1]);
+            if (expense != null) {
+                return new AddCommand(expense);
+            } else {
+                break;
+            }
 
-            case "contact":
-                Contact contact = parseContact(arguments[1]);
-                if (contact != null) {
-                    return new AddCommand(contact);
-                } else {
-                    break;
-                }
-            case "loan":
-                Loan loan = parseLoan(arguments[1]);
-                if (loan != null) {
-                    return new AddCommand(loan);
-                } else {
-                    break;
-                }
-            default:
-                System.out.println(AddCommand.MESSAGE_USAGE);
-                return null;
+        case "contact":
+            Contact contact = parseContact(arguments[1]);
+            if (contact != null) {
+                return new AddCommand(contact);
+            } else {
+                break;
+            }
+        case "loan":
+            Loan loan = parseLoan(arguments[1]);
+            if (loan != null) {
+                return new AddCommand(loan);
+            } else {
+                break;
+            }
+        default:
+            System.out.println(AddCommand.MESSAGE_USAGE);
+            return null;
         }
         return null;
     }
