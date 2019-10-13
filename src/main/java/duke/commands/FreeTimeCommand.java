@@ -5,7 +5,7 @@ import duke.commons.Messages;
 import duke.storage.Storage;
 import duke.data.tasks.Task;
 import duke.data.tasks.TaskWithDates;
-import duke.ui.Ui;
+
 import javafx.collections.transformation.SortedList;
 
 import java.time.LocalDateTime;
@@ -25,11 +25,10 @@ public class FreeTimeCommand extends Command {
     /**
      * Executes this command on the given task list and user interface.
      *
-     * @param ui The user interface displaying events on the task list.
-     * @param storage The duke.storage object containing task list.
+     * @param storage The storage object containing task list.
      */
     @Override
-    public void execute(Ui ui, Storage storage) throws DukeException {
+    public CommandResult execute(Storage storage) throws DukeException {
         TaskWithDates primalTask = new TaskWithDates("earliest", LocalDateTime.now().plusMinutes(1));
         TaskWithDates worldEndTask = new TaskWithDates("latest", LocalDateTime.MAX);
         storage.getTasks().add(primalTask);
@@ -39,13 +38,12 @@ public class FreeTimeCommand extends Command {
             LocalDateTime prev = ((TaskWithDates) tasks.get(i - 1)).getStartDate();
             LocalDateTime now = ((TaskWithDates) tasks.get(i)).getStartDate();
             if (LocalDateTime.now().compareTo(prev) < 0 && prev.plusHours(duration).compareTo(now) <= 0) {
-                ui.show(prev.toString());
                 storage.getTasks().remove(primalTask);
                 storage.getTasks().remove(worldEndTask);
-                return;
+                return new CommandResult(prev.toString());
             }
         }
         //change to time not found later, but this line of code should nvr be executed
-        ui.showError(Messages.FILE_NOT_FOUND);
+        throw new DukeException(Messages.FILE_NOT_FOUND);
     }
 }

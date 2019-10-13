@@ -1,12 +1,12 @@
 package duke.ui;
 
-import duke.Duke;
 import duke.Main;
-import duke.commands.Command;
-import duke.commands.ExitCommand;
+import duke.commands.CommandResult;
 import duke.commons.exceptions.DukeException;
-import duke.commons.Messages;
-import duke.storage.Storage;
+import duke.logic.LogicManager;
+
+import duke.ui.calendar.CalendarWindow;
+import duke.ui.map.MapWindow;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -14,11 +14,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.Future;
-import java.util.concurrent.TimeUnit;
-import java.util.concurrent.TimeoutException;
 
 /**
  * Controller for MainWindow. Provides the layout for the other controls.
@@ -33,15 +28,13 @@ public class MainWindow extends UiPart<Stage> {
     @FXML
     private Button sendButton;
 
-    private Duke duke;
+    private LogicManager logic;
     private static final String FXML = "MainWindow.fxml";
     private Stage primaryStage;
+    private Main main;
 
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/user.png"));
-    private static final int COMMAND_TIMEOUT_PERIOD = 1000;
-    private Storage storage;
-    private static final String FILE_PATH = "data/tasks.txt";
-    private Ui ui = new Ui(dialogContainer);
+    private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/duke.png"));
 
     /**
      * Initialises the MainWindow.
@@ -51,7 +44,7 @@ public class MainWindow extends UiPart<Stage> {
         this.primaryStage = primaryStage;
         primaryStage.getScene().getStylesheets().addAll(
                 this.getClass().getResource("/css/mainStyle.css").toExternalForm());
-        storage = new Storage(FILE_PATH, ui);
+        scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
     }
 
     /**
@@ -65,9 +58,13 @@ public class MainWindow extends UiPart<Stage> {
      * Initialises the logic and Ui component of Duke.
      */
     public void initialise(Main main) {
-        Ui ui = new Ui(dialogContainer);
-        duke = new Duke(main, ui);
-        scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
+        this.main = main;
+        try {
+            logic = new LogicManager();
+        } catch (DukeException e) {
+            dukeShow(e.getMessage());
+        }
+        dukeShow("Hi");
     }
 
     /**
@@ -75,36 +72,63 @@ public class MainWindow extends UiPart<Stage> {
      */
     @FXML
     private void handleUserInput() {
-        String input = userInput.getText();
-        userInput.clear();
-        //Echo user input
+        String input = getUserInput();
+        if (isEmpty(input)) {
+            return;
+        }
+        echoUserInput(input);
+        dukeResponse(input);
+    }
+
+    private void dukeResponse(String input) {
+        try {
+            CommandResult result = logic.execute(input);
+            dukeShow(result);
+            if (result.isExit()) {
+                tryExitApp();
+            } else if (result.isCalendar()) {
+                new CalendarWindow(result).show();
+            } else if (result.isMap()) {
+                new MapWindow(result).show();
+            }
+        } catch (DukeException e) {
+            dukeShow(e.getMessage());
+        }
+    }
+
+    private void echoUserInput(String input) {
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage)
         );
+    }
 
-        Future<Command> future = duke.getResponse(input);
-        if (future != null) {
-            try {
-                future.get(COMMAND_TIMEOUT_PERIOD, TimeUnit.MILLISECONDS);
-                if (future.get() == null) {
-                    ui.show(duke.getPrompt());
-                } else if (!(future.get() instanceof ExitCommand)) {
-                    future.get().execute(ui, storage);
-                } else if (future.get() instanceof ExitCommand) {
-                    duke.tryExitApp();
-                }
+    private boolean isEmpty(String input) {
+        return "".equals(input);
+    }
 
-            } catch (DukeException | InterruptedException | ExecutionException e) {
-                if (e.getMessage().contains(Messages.UNKNOWN_COMMAND)) {
-                    ui.showError(Messages.UNKNOWN_COMMAND);
-                } else {
-                    ui.showError(e.getMessage());
-                }
-            } catch (TimeoutException e) {
-                ui.showError(Messages.REQUEST_TIMEOUT);
-            }
+    private String getUserInput() {
+        String input = userInput.getText().strip();
+        userInput.clear();
+        return input;
+    }
+
+    /** Shows message(s) to the user.
+     */
+    private void dukeShow(String msg) {
+        dialogContainer.getChildren().addAll(
+                DialogBox.getDukeDialog(msg, dukeImage)
+        );
+    }
+
+    private void dukeShow(CommandResult commandResult) {
+        dukeShow(commandResult.toString());
+    }
+
+    private void tryExitApp() {
+        try {
+            main.stop();
+        } catch (Exception e) {
+            dukeShow("Exit app failed" + e.getMessage());
         }
-
-
     }
 }

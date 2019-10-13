@@ -1,5 +1,6 @@
 package duke.ui.calendar;
 
+import duke.commands.CommandResult;
 import duke.commons.exceptions.DukeException;
 import duke.data.tasks.DoWithin;
 import duke.data.tasks.RecurringTask;
@@ -173,8 +174,8 @@ public class CalendarWindow extends UiPart<Stage> {
     /**
      * Creates a new CalendarWindow.
      */
-    public CalendarWindow(UniqueTaskList tasks) {
-        this(new Stage(), tasks);
+    public CalendarWindow(CommandResult commandResult) {
+        this(new Stage(), commandResult.getTasks());
     }
 
     /**

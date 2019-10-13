@@ -4,8 +4,8 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import duke.commons.Messages;
 import duke.commons.exceptions.DukeException;
-import duke.parsers.requests.DataMallHttpRequest;
-import duke.parsers.requests.LocationSearchUrlRequest;
+import duke.logic.api.requests.DataMallHttpRequest;
+import duke.logic.api.requests.LocationSearchUrlRequest;
 
 import java.util.HashMap;
 

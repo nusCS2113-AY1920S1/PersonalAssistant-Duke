@@ -9,9 +9,8 @@ import duke.commons.exceptions.DukeException;
 import duke.data.UniqueTaskList;
 import duke.data.tasks.Holiday;
 import duke.data.tasks.Task;
-import duke.parsers.api.ApiConstraintParser;
+import duke.logic.api.ApiConstraintParser;
 import duke.storage.Storage;
-import duke.ui.Ui;
 
 import java.util.ArrayList;
 
@@ -22,6 +21,7 @@ public class FindPathCommand extends Command {
     private Constraint constraint;
     private String startPointIndex;
     private String endPointIndex;
+    private static final String MESSAGE_FIND_PATH = "Path is found, map is opening...";
 
     /**
      * Constructor to initialise FindPathCommand.
@@ -61,11 +61,10 @@ public class FindPathCommand extends Command {
     /**
      * Executes this command on the given task list and user interface.
      *
-     * @param ui The user interface displaying events on the task list.
-     * @param storage The duke.storage object containing task list.
+     * @param storage The storage object containing task list.
      */
     @Override
-    public void execute(Ui ui, Storage storage) throws DukeException {
+    public CommandResult execute(Storage storage) throws DukeException {
 
         Holiday startPoint = getHoliday(this.startPointIndex, storage.getTasks());
         Location startLocation = startPoint.getLocation();
@@ -79,12 +78,10 @@ public class FindPathCommand extends Command {
         PathFinder pathFinder = new PathFinder();
         ArrayList<BusStop> route = pathFinder.execute(startLocation, endLocation);
 
-        ui.show("Found Path:");
-        for (BusStop busStop : route) {
-            ui.show(busStop.getBusCode());
-        }
-
-        ui.showMap(route);
+        CommandResult commandResult = new CommandResult(MESSAGE_FIND_PATH);
+        commandResult.setMap(true);
+        commandResult.setRoute(route);
+        return commandResult;
     }
 
 }

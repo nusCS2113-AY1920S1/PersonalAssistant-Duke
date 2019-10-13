@@ -1,6 +1,6 @@
 package duke.data.tasks;
 
-import duke.parsers.api.ApiParser;
+import duke.logic.api.ApiParser;
 import duke.commons.exceptions.DukeException;
 import duke.data.Location;
 

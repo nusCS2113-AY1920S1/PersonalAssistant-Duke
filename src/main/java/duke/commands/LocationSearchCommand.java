@@ -2,9 +2,8 @@ package duke.commands;
 
 import duke.commons.exceptions.DukeException;
 import duke.data.Location;
-import duke.parsers.api.ApiParser;
+import duke.logic.api.ApiParser;
 import duke.storage.Storage;
-import duke.ui.Ui;
 
 /**
  * Class representing a command to send the test URL connection.
@@ -22,8 +21,8 @@ public class LocationSearchCommand extends Command {
      * Executes this command with given param.
      */
     @Override
-    public void execute(Ui ui, Storage storage) throws DukeException {
-        ui.show("These are the coordinates of your search:\n"
+    public CommandResult execute(Storage storage) throws DukeException {
+        return new CommandResult("These are the coordinates of your search:\n"
                 + result.getAddress() + "\n" + result.getLatitude() + " "
                 + result.getLongitude());
     }

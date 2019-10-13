@@ -1,6 +1,6 @@
 package duke.ui;
 
-import duke.Duke;
+import duke.Main;
 import javafx.fxml.FXMLLoader;
 
 import java.io.IOException;
@@ -81,7 +81,7 @@ public abstract class UiPart<T> {
     private static URL getFxmlFileUrl(String fxmlFileName) {
         requireNonNull(fxmlFileName);
         String fxmlFileNameWithFolder = FXML_FILE_FOLDER + fxmlFileName;
-        URL fxmlFileUrl = Duke.class.getResource(fxmlFileNameWithFolder);
+        URL fxmlFileUrl = Main.class.getResource(fxmlFileNameWithFolder);
         return requireNonNull(fxmlFileUrl);
     }
 }

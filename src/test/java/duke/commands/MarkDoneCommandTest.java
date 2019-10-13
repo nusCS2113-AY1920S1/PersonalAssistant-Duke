@@ -1,5 +1,6 @@
 package duke.commands;
 
+import duke.StorageStub;
 import duke.UiStub;
 import duke.commons.exceptions.DukeException;
 import duke.storage.Storage;
@@ -14,15 +15,14 @@ class MarkDoneCommandTest {
 
     @Test
     void execute() throws DukeException {
-        UiStub ui = new UiStub(new VBox());
-        Storage storage = new Storage("tasks.txt", ui);
+        Storage storage = new StorageStub();;
         Task task = new Todo("homework1");
         AddCommand addCommand = new AddCommand(task);
-        addCommand.execute(ui, storage);
+        addCommand.execute(storage);
         MarkDoneCommand markDoneCommand = new MarkDoneCommand(0);
-        markDoneCommand.execute(ui, storage);
+        markDoneCommand.execute(storage);
         assertTrue(storage.getTasks().get(0).isDone());
         DeleteCommand deleteCommand = new DeleteCommand(0);
-        deleteCommand.execute(ui, storage);
+        deleteCommand.execute(storage);
     }
 }

@@ -5,7 +5,7 @@ import duke.storage.Storage;
 import duke.data.tasks.Task;
 import duke.data.tasks.TaskWithDates;
 import duke.data.UniqueTaskList;
-import duke.ui.Ui;
+
 import javafx.collections.transformation.SortedList;
 
 import java.time.LocalDate;
@@ -25,11 +25,10 @@ public class ReminderCommand extends Command {
     /**
      * Executes this command on the given task list and user interface.
      *
-     * @param ui The user interface displaying events on the task list.
-     * @param storage The duke.storage object containing task list.
+     * @param storage The storage object containing task list.
      */
     @Override
-    public void execute(Ui ui, Storage storage) throws DukeException {
+    public CommandResult execute(Storage storage) throws DukeException {
         SortedList<Task> tasks = storage.getTasks().getChronoList();
         for (Task t : tasks) {
             if (t.isDone()) {
@@ -43,7 +42,14 @@ public class ReminderCommand extends Command {
                 upcomingTask.add(t);
             }
         }
-        ui.showList(expiredTask);
-        ui.showList(upcomingTask);
+        StringBuilder result = new StringBuilder("Here are the tasks that are expired:\n");
+        for (Task t : expiredTask) {
+            result.append(t.toString());
+        }
+        result.append("here are the tasks that are upcoming:\n");
+        for (Task t : upcomingTask) {
+            result.append(t.toString());
+        }
+        return new CommandResult(result.toString());
     }
 }
