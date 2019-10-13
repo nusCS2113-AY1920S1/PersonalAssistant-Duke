@@ -1,8 +1,7 @@
 package controllers.temp;
 
 import exceptions.DukeException;
-import exceptions.temp.InvalidDateTimeException;
-import exceptions.temp.NoTaskDetailsException;
+
 import java.util.NoSuchElementException;
 import java.util.Scanner;
 
@@ -45,7 +44,7 @@ public class TaskFactory {
         try {
             taskDetails = scanner.nextLine();
         } catch (NoSuchElementException e) {
-            throw new NoTaskDetailsException(taskType);
+            throw new DukeException("☹ OOPS!!! The description of a " + taskType + " cannot be empty.");
         }
 
         switch (taskType) {
@@ -62,9 +61,7 @@ public class TaskFactory {
                 Date dateTimeObject = getTaskDateTime(this.inputDateTime);
                 String dateTimeString = getTaskDateTimeString(dateTimeObject);
                 return new Deadline(this.taskName, dateTimeString, dateTimeObject);
-            } catch (ParseException e) {
-                throw new InvalidDateTimeException();
-            } catch (ImagingOpException e) {
+            } catch (ImagingOpException | ParseException e) {
                 throw new DukeException("OOPS! Please remember your /by flag!");
             }
         case "event":
@@ -73,9 +70,7 @@ public class TaskFactory {
                 Date dateTimeObject = getTaskDateTime(this.inputDateTime);
                 String dateTimeString = getTaskDateTimeString(dateTimeObject);
                 return new Event(this.taskName, dateTimeString, dateTimeObject);
-            } catch (ParseException e) {
-                throw new InvalidDateTimeException();
-            } catch (ImagingOpException e) {
+            } catch (ImagingOpException | ParseException e) {
                 throw new DukeException("OOPS! Please remember your /at flag!");
             }
         case "doafter":
@@ -101,7 +96,7 @@ public class TaskFactory {
                 }
                 return new Tentative(this.taskName, tentativeDateTimeStrings, tentativeDateTimeObjects);
             } catch (ParseException e) {
-                throw new InvalidDateTimeException();
+                throw new DukeException("Please ensure that date and time are in the format dd/MMMM/yyyy HHmm");
             }
         default:
             throw new DukeException("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");

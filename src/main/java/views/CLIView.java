@@ -1,18 +1,14 @@
 package views;
 
 import controllers.ConsoleInputController;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.Scanner;
+
 import models.data.IProject;
 import models.member.Member;
 import models.task.Task;
-import models.temp.commands.RescheduleCommand;
 import models.temp.tasks.ITask;
 import models.temp.tasks.TaskList;
-import models.temp.tasks.Tentative;
+import java.util.ArrayList;
+import java.util.Scanner;
 
 public class CLIView {
     private static final String horiLine = "\t____________________________________________________________";
@@ -57,36 +53,6 @@ public class CLIView {
     public void end() {
         consolePrint("Bye. Hope to see you again soon!");
         System.exit(0);
-    }
-
-    /**
-     * Method to be called when user wishes to add a new Task.
-     * @param newTask : A new task that is added by the user. Task is created by Factory.
-     * @param taskList : List of tasks holding all the tasks.
-     * @param anomaly : Boolean value which gives status of anomaly detection.
-     */
-    public void addMessage(ITask newTask, TaskList taskList, boolean anomaly) {
-        if (anomaly) {
-            consolePrint("Anomalies with the schedule detected.");
-            return;
-        }
-        String grammarTasks = taskList.getNumOfTasks() == 1 ? "task" : "tasks";
-        consolePrint("Got it. I've added this task:", newTask.getFullDescription(),
-            "Now you have " + taskList.getNumOfTasks() + " " + grammarTasks + " in your list.");
-    }
-
-    /**
-     * Method to be called when user calls "list".
-     * Prints to View all the current tasks added.
-     * @param taskList : List of tasks.
-     */
-    public void printAllTasks(TaskList taskList) {
-        ArrayList<String> toPrint = new ArrayList<>();
-        toPrint.add("Here are the tasks in your list:");
-        for (int i = 0; i < taskList.getAllTasks().size(); i++) {
-            toPrint.add("" + (i + 1) + "." + taskList.getAllTasks().get(i).getFullDescription());
-        }
-        consolePrint(toPrint.toArray(new String[0]));
     }
 
     /**
@@ -157,97 +123,6 @@ public class CLIView {
     }
 
     /**
-     * Method that is called when user wants to find upcoming tasks within a time limit of their choice.
-     * @param taskList Current list of tasks.
-     * @param input User command including time limit before which to find upcoming tasks.
-     *              If left blank, it will be seven days from current date by default.
-     * @throws ParseException : Parsing error (If the date and time is not entered in dd/MM/yyyy HHmm)
-     */
-    public void remindTask(TaskList taskList, String input) throws ParseException {
-        String limit;
-        Scanner sc = new Scanner(input);
-        sc.next();
-        if (sc.hasNext()) {
-            limit = sc.nextLine();
-        } else {
-            limit = "";
-        }
-
-        ArrayList<String> toPrint = new ArrayList<>();
-        toPrint.add("Here are the upcoming tasks in your list:");
-        ArrayList<ITask> results = taskList.getUpcomingTasks(limit);
-        for (int i = 0; i < results.size(); i++) {
-            toPrint.add("" + (i + 1) + "." + results.get(i).getFullDescription());
-        }
-        consolePrint(toPrint.toArray(new String[0]));
-    }
-
-    /**
-     * Prints out the schedule for the date input by the user.
-     * Format - schedule DD/MM/YYYY
-     * @param taskList : Current list of tasks.
-     * @param input : The date of the schedule
-     * @throws ParseException : Parsing error
-     */
-    public void listSchedule(TaskList taskList, String input) throws ParseException {
-        // Correct format as 2 December 2019 6 PM
-        Scanner sc = new Scanner(input);
-        sc.next();
-        String tempDate = sc.nextLine();
-        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
-        Date date = formatter.parse(tempDate);
-        String formattedDate = new SimpleDateFormat("d MMMM yyyy").format(date);
-        ArrayList<ITask> results = taskList.getSchedule(formattedDate);
-
-        ArrayList<String> toPrint = new ArrayList<>();
-        if (results.isEmpty()) {
-            toPrint.add("Your schedule for " + formattedDate + " is empty.");
-        } else {
-            toPrint.add("Here is the schedule for the specified date:");
-            for (int i = 0; i < results.size(); i++) {
-                toPrint.add("" + (i + 1) + "." + results.get(i).getFullDescription());
-            }
-        }
-        consolePrint(toPrint.toArray(new String[0]));
-    }
-
-    /**
-     * Prints tasks sorted by deadline/event time with free time slots in between.
-     * @param taskList Current list of tasks.
-     * @param input The full command by the user.
-     * @throws ParseException parsing error if date and time are not in correct format.
-     */
-    public void findFreeSlots(TaskList taskList, String input) throws ParseException {
-        Scanner sc = new Scanner(input);
-        String tempDate;
-        if (sc.hasNext()) {
-            tempDate = sc.nextLine();
-        } else {
-            tempDate = "";
-        }
-
-        ArrayList<String> toPrint = new ArrayList<>();
-        ArrayList<String> freeTimeSlots = taskList.findFreeSlots(tempDate);
-        toPrint.add("Here are the free time slots you have between your tasks:");
-        toPrint.addAll(freeTimeSlots);
-        consolePrint(toPrint.toArray(new String[0]));
-    }
-
-    /**
-     * Method that is called when user wishes to reschedule a task.
-     * This method is responsible for handling printing of horizontal lines.
-     * However, certain printing has been abstracted to RescheduleCommand
-     * @param taskList : Current list of tasks.
-     * @param rescheduleCommand : Command that holds the logic for rescheduling tasks and
-*                                 printing certain reschedule messages.
-     */
-    public void rescheduleTask(TaskList taskList, RescheduleCommand rescheduleCommand) {
-        System.out.println(horiLine);
-        rescheduleCommand.execute(taskList);
-        System.out.println(horiLine);
-    }
-
-    /**
      * Method called when users wishes to view all Projects that are currently created or stored.
      * @param allProjects List of Projects returned to View model by the Controller from the Repository
      */
@@ -259,42 +134,6 @@ public class CLIView {
                 + allProjects.get(i).getMembers());
         }
         consolePrint(toPrint.toArray(new String[0]));
-    }
-
-    /**
-     * Method called to confirm the date and time of a tentative task.
-     * @param taskList list of all tasks
-     * @param input index of tentative task in taskList
-     * @throws ClassCastException Exception thrown if input is not of correct class (Tentative class)
-     * @throws ArrayIndexOutOfBoundsException Exception thrown if index given is not within what is available
-     */
-    public void confirmTentativeTask(TaskList taskList, String input) throws ClassCastException,
-            ArrayIndexOutOfBoundsException {
-        Scanner sc = new Scanner(input);
-        String dummy = sc.next();
-        int taskIndex = Integer.parseInt(sc.next()) - 1;
-        Tentative taskToBeConfirmed = (Tentative) taskList.getTask(taskIndex);
-        String[] tentativeDateTimeStrings = taskToBeConfirmed.getTentativeDateTimeStrings();
-        System.out.println(horiLine);
-        System.out.println("\tWhich timing do you want to confirm?");
-        for (int i = 0; i < tentativeDateTimeStrings.length; i++) {
-            System.out.println((i + 1) + ". " + tentativeDateTimeStrings[i]);
-        }
-        System.out.println(horiLine);
-
-        Scanner sc1 = new Scanner(System.in);
-        String inputForChosenTiming = sc1.nextLine();
-        String description = taskToBeConfirmed.getDescriptionOnly();
-
-        int indexOfChosenTiming = Integer.parseInt(inputForChosenTiming) - 1;
-        Date[] tentativeDateTimeObjects = taskToBeConfirmed.getTentativeDateTimeObjects();
-        Date chosenDateTimeObject = tentativeDateTimeObjects[indexOfChosenTiming];
-        taskList.deleteFromList(taskToBeConfirmed);
-
-        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HHmm");
-        String formattedInputDate = formatter.format(chosenDateTimeObject);
-        String newEventInput = "event " + description + " /at " + formattedInputDate;
-        consoleInputController.onCommandReceived(newEventInput);
     }
 
     /**

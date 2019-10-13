@@ -1,9 +1,5 @@
 package controllers;
 
-import controllers.IViewController;
-import controllers.ProjectInputController;
-import controllers.temp.PeriodTaskFactory;
-import controllers.temp.RecurringFactory;
 import controllers.temp.TaskFactory;
 import exceptions.DukeException;
 import java.io.FileInputStream;
@@ -12,18 +8,11 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
-import java.time.ZoneId;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.Scanner;
-import models.temp.commands.RescheduleCommand;
+
 import models.data.IProject;
-import models.temp.tasks.IRecurring;
 import models.temp.tasks.ITask;
-import models.temp.tasks.PeriodTask;
-import models.temp.tasks.Recurring;
 import models.temp.tasks.TaskList;
 import repositories.ProjectRepository;
 import views.CLIView;
@@ -32,8 +21,6 @@ public class ConsoleInputController implements IViewController {
 
     private CLIView consoleView;
     private TaskFactory taskFactory;
-    private RecurringFactory recurringFactory;
-    private PeriodTaskFactory periodTaskFactory;
     private TaskList taskList;
     private String filePath = "src/main/saves/savefile.txt";
     private ProjectRepository projectRepository;
@@ -47,60 +34,8 @@ public class ConsoleInputController implements IViewController {
         this.consoleView = view;
         this.taskFactory = new TaskFactory();
         this.taskList = new TaskList();
-        this.recurringFactory = new RecurringFactory();
-        this.periodTaskFactory = new PeriodTaskFactory();
         this.projectRepository = new ProjectRepository();
         this.projectInputController = new ProjectInputController(this.consoleView, this.projectRepository);
-    }
-
-    private void checkRecurring() {
-        SimpleDateFormat formatter = new SimpleDateFormat("d MMMMM yyyy");
-        Date date = new Date();
-        ArrayList<IRecurring> allRecurringTasks = this.taskList.getAllRecurringTasks();
-        for (IRecurring recurringTask : allRecurringTasks) {
-            long diff = date.getTime() - recurringTask.getStartDate().getTime();
-            if (diff == 0) {
-                LocalDateTime localDateTime = date.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime();
-                localDateTime = localDateTime.plusDays(7);
-                Date newDate = Date.from(localDateTime.atZone(ZoneId.systemDefault()).toInstant());
-                String dueDate = formatter.format(newDate);
-                String description = recurringTask.getRecurringDescription();
-                Recurring newRecurring = new Recurring(description, dueDate, newDate);
-
-                this.taskList.deleteFromRecurring(recurringTask);
-                ArrayList<ITask> searchedTasks = this.taskList.getSearchedTasks("search "
-                                                    + recurringTask.getRecurringDescription());
-                for (ITask searchedTask : searchedTasks) {
-                    if (searchedTask.getInitials().equals("R")) {
-                        this.taskList.deleteFromList(searchedTask);
-                    }
-                }
-                this.taskList.addToRecurringList(newRecurring, newRecurring);
-                this.taskList.addToList(newRecurring);
-            } else if (diff > 0) {
-                Date newDate = new Date();
-                while (diff > 0) {
-                    Date oldDate = recurringTask.getStartDate();
-                    LocalDateTime localDateTime = oldDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime();
-                    localDateTime = localDateTime.plusDays(7);
-                    newDate = Date.from(localDateTime.atZone(ZoneId.systemDefault()).toInstant());
-                    diff = date.getTime() - newDate.getTime();
-                }
-                String dueDate = formatter.format(newDate);
-                String description = recurringTask.getRecurringDescription();
-                Recurring newRecurring = new Recurring(description, dueDate, newDate);
-                this.taskList.deleteFromRecurring(recurringTask);
-                ArrayList<ITask> searchedTasks = this.taskList.getSearchedTasks("search "
-                                                + recurringTask.getRecurringDescription());
-                for (ITask searchedTask : searchedTasks) {
-                    if (searchedTask.getInitials().equals("R")) {
-                        this.taskList.deleteFromList(searchedTask);
-                    }
-                }
-                this.taskList.addToRecurringList(newRecurring, newRecurring);
-                this.taskList.addToList(newRecurring);
-            }
-        }
     }
 
     /**
@@ -109,7 +44,6 @@ public class ConsoleInputController implements IViewController {
      */
     @Override
     public void onCommandReceived(String input) {
-        checkRecurring();
         Scanner inputReader = new Scanner(input);
         String command = inputReader.next();
 
@@ -118,7 +52,8 @@ public class ConsoleInputController implements IViewController {
             consoleView.end();
             break;
         case "list":
-            consoleView.printAllTasks(taskList);
+            ArrayList<IProject> allProjects = projectRepository.getAll();
+            consoleView.viewAllProjects(allProjects);
             break;
         case "done":
         case "delete":
@@ -139,85 +74,7 @@ public class ConsoleInputController implements IViewController {
             }
             break;
         case "find":
-            try {
-                consoleView.findTask(taskList, input);
-            } catch (ArrayIndexOutOfBoundsException newException) {
-                consoleView.invalidCommandMessage(newException);
-            }
-            break;
-        case "remind":
-            try {
-                consoleView.remindTask(taskList, input);
-            } catch (ParseException newException) {
-                consoleView.invalidCommandMessage(newException);
-            }
-            break;
-        case "schedule":
-            try {
-                consoleView.listSchedule(taskList, input);
-            } catch (ParseException e) {
-                System.out.println("Error in scheduling");
-            }
-            break;
-        case "free":
-            try {
-                consoleView.findFreeSlots(taskList, input);
-            } catch (ParseException e) {
-                System.out.print("Wrong date time input format");
-            }
-            break;
-        case "reschedule":
-            try {
-                RescheduleCommand rescheduleCommand = new RescheduleCommand(input);
-                consoleView.rescheduleTask(taskList, rescheduleCommand);
-                saveData();
-            } catch (ArrayIndexOutOfBoundsException newException) {
-                consoleView.invalidCommandMessage(newException);
-            }
-            break;
-        case "recurring":
-            try {
-                Recurring newRecurringTask = recurringFactory.createTask(input);
-                boolean anomaly = taskList.addToRecurringList(newRecurringTask, newRecurringTask);
-                consoleView.addMessage(newRecurringTask, taskList, anomaly);
-                saveData();
-            } catch (DukeException newException) {
-                consoleView.invalidCommandMessage(newException);
-            }
-            break;
-        case "confirm":
-            try {
-                consoleView.confirmTentativeTask(taskList, input);
-            } catch (ClassCastException e) {
-                System.out.println("This task is already confirmed!");
-            } catch (ArrayIndexOutOfBoundsException e) {
-                System.out.println("Please input an available index!");
-            }
-            break;
-        case "period":
-            try {
-                PeriodTask newPeriodTask = periodTaskFactory.createTask(input);
-                boolean anomaly = taskList.addToList(newPeriodTask);
-                consoleView.addMessage(newPeriodTask, taskList, anomaly);
-                saveData();
-            } catch (DukeException newException) {
-                consoleView.invalidCommandMessage(newException);
-            }
-            break;
-        case "event":
-        case "todo":
-        case "deadline":
-        case "doafter":
-        case "tentative":
-            try {
-                ITask newTask = taskFactory.createTask(input);
-                boolean anomaly = taskList.addToList(newTask);
-                consoleView.addMessage(newTask, taskList, anomaly);
-                saveData();
-            } catch (DukeException newException) {
-                consoleView.invalidCommandMessage(newException);
-            }
-            break;
+            // Can consider implementation in the future
         case "create":
             // Creation of a new project with a given name and a number of numbers
             boolean isProjectCreated = projectRepository.addToRepo(input);
@@ -234,10 +91,9 @@ public class ConsoleInputController implements IViewController {
                 consoleView.consolePrint("Please enter a project number!");
             }
             break;
-        case "view":
-            ArrayList<IProject> allProjects = projectRepository.getAll();
-            consoleView.viewAllProjects(allProjects);
-            break;
+        case "help":
+            // TODO help page displaying all commands available
+            // Not implemented
         default:
             consoleView.consolePrint("Invalid inputs. Please refer to User Guide or type help!");
         }
