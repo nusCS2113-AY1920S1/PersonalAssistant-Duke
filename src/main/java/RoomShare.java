@@ -1,6 +1,8 @@
 import CustomExceptions.RoomShareException;
 import Enums.*;
 import Model_Classes.*;
+import Modes.HelpMode;
+import Modes.RecurringMode;
 import Operations.*;
 
 import java.util.ArrayList;
@@ -48,7 +50,6 @@ public class RoomShare {
      */
     public void run() {
         boolean isExit = false;
-        boolean isExitRecur = false;
         while (!isExit) {
             String command = parser.getCommand();
             TaskType type;
@@ -59,7 +60,8 @@ public class RoomShare {
             }
             switch (type) {
                 case help:
-                    ui.help();
+                    HelpMode helpMode = new HelpMode();
+                    helpMode.run();
                     break;
 
                 case list:
@@ -205,35 +207,8 @@ public class RoomShare {
                     break;
 
                 case recur:
-                    ui.promptRecurringActions();
-                    while (!isExitRecur) {
-                        String temp = parser.getCommand();
-                        RecurTaskType recurType;
-                        try {
-                            recurType = RecurTaskType.valueOf(temp);
-                        } catch (IllegalArgumentException e) {
-                            recurType = RecurTaskType.others;
-                        }
-                        switch (recurType) {
-                            case list:
-                                recurHandler.listRecurring();
-                                break;
-                            case find:
-                                recurHandler.findRecurring(parser.getKey());
-                                break;
-                            case exit:
-                                isExitRecur = true;
-                                ui.showExit();
-                                break;
-                            case add:
-                                recurHandler.addBasedOnOperation();
-                                break;
-                            default:
-                                ui.showCommandError();
-                                break;
-                        }
-                    }
-                    isExitRecur = false;
+                    RecurringMode recurringMode = new RecurringMode(taskList);
+                    recurringMode.run();
                     break;
 
 
