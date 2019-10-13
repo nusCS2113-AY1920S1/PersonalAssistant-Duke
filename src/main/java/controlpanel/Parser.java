@@ -59,7 +59,7 @@ public class Parser {
             moneyCommand = new CheckFutureBalanceCommand(cmd);
         } else if (cmd.startsWith("withdraw ") || cmd.startsWith("deposit")) {
             moneyCommand = new InternalTransferCommand(cmd);
-        } else if (cmd.startsWith("goal-short")) {
+        } else if (cmd.startsWith("goal")) {
             moneyCommand = new AddShortGoalCommand(cmd);
         } else if (cmd.equals("list goals")) {
             moneyCommand = new ListGoalsCommand();
@@ -67,6 +67,8 @@ public class Parser {
             String temp = cmd.replaceAll("[^0-9]", "");
             int serialNo = Integer.parseInt(temp);
             moneyCommand = new DeleteGoalCommand(serialNo);
+        } else if (cmd.startsWith("commit goal")) {
+            moneyCommand = new CommitGoalCommand(cmd);
         } else if (cmd.startsWith("add income")) {
             moneyCommand = new AddIncomeCommand(cmd);
         } else if (cmd.startsWith("spent")) {
@@ -99,6 +101,10 @@ public class Parser {
             moneyCommand = new ViewPastMonthIncome(cmd);
         } else if (cmd.startsWith("check expenditure")) {
             moneyCommand = new ViewPastMonthExpenditure(cmd);
+        } else if (cmd.startsWith("split")) {
+            moneyCommand = new AddSplitCommand(cmd);
+        } else if (cmd.startsWith("settle")) {
+            moneyCommand = new SettleSplitCommand(cmd);
         } else {
             throw new DukeException("OOPS!!! I'm sorry, but I don't know what that means");
         }

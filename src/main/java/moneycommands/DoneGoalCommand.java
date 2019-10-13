@@ -55,16 +55,20 @@ public class DoneGoalCommand extends MoneyCommand {
         Expenditure e = new Expenditure(price, desc, category, doneDate);
         account.getExpListTotal().add(e);
         account.getShortTermGoals().remove(indexNo-1);
+        //account.sortShortTermGoals(account.getShortTermGoals());
         storage.writeToFile(account);
 
         ui.appendToOutput(" Nice! This Goal is Completed:\n");
         ui.appendToOutput("  " + doneGoal.toString() + "\n");
         ui.appendToOutput(" Now you have " + (account.getShortTermGoals().size()) + " goals in the list.\n");
-        ui.appendToOutput("current Goal Savings: $" + account.getGoalSavings() + "\n");
-        //ui.appendToOutput(doneGoal);
+        //ui.appendToOutput("current Goal Savings: $" + account.getGoalSavings() + "\n");
 
+        MoneyCommand list = new ListGoalsCommand();
+        list.execute(account,ui,storage);
     }
 
     @Override
-    public void undo(Account account, Ui ui, MoneyStorage storage) throws DukeException, ParseException {return;}
+    public void undo(Account account, Ui ui, MoneyStorage storage) throws DukeException {
+        throw new DukeException("Command can't be undone!\n");
+    }
 }

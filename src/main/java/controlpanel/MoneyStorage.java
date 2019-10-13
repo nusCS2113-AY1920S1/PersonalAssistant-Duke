@@ -1,5 +1,6 @@
 package controlpanel;
 
+import java.io.File;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.FileReader;
@@ -8,12 +9,10 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.util.ArrayList;
 
-import money.Account;
-import money.Expenditure;
-import money.Goal;
-import money.Income;
-import money.Instalment;
+import money.*;
+import javafx.util.Pair;
 
 public class MoneyStorage {
 
@@ -33,7 +32,7 @@ public class MoneyStorage {
             String line;
             while ((line = bufferedReader.readLine()) != null) {
                 String[] info = line.split(" @ ");
-                if (!(info[0].equals("BS") || info[0].equals("I") || info[0].equals("EXP") ||
+                if (!(info[0].equals("BS") || info[0].equals("INC") || info[0].equals("EXP") || info[0].equals("SEX") ||
                         info[0].equals("G") || info[0].equals("INS") || info[0].equals("INIT"))) {
                     throw new DukeException("OOPS!! Your file has been corrupted/ input file is invalid!");
                 }
@@ -44,7 +43,7 @@ public class MoneyStorage {
                     case "BS":
                         account.setBaseSavings(Float.parseFloat((info[1])));
                         break;
-                    case "I":
+                    case "INC":
                         Income i = new Income(Float.parseFloat(info[1]), info[2],
                                 LocalDate.parse(info[3], dateTimeFormatter));
                         account.getIncomeListTotal().add(i);
@@ -54,6 +53,23 @@ public class MoneyStorage {
                                 LocalDate.parse(info[4], dateTimeFormatter));
                         account.getExpListTotal().add(exp);
                         break;
+                    case "SEX":
+                        String[] names = info[5].split(" ! ");
+                        ArrayList<Pair<String, Boolean>> parties = new ArrayList<>();
+                        for (String name : names) {
+                            name = name.replaceAll(" ", "");
+                            String[] splitStr = name.split("#", 2);
+                            boolean status = false;
+                            if (splitStr[1].equals("1")) {
+                                status = true;
+                            }
+
+                            Pair<String, Boolean> temp = new Pair<>(splitStr[0], status);
+                            parties.add(temp);
+                        }
+                        Split spltExp = new Split(Float.parseFloat(info[1]), info[2], info[3],
+                                LocalDate.parse(info[4], dateTimeFormatter), parties);
+                        account.getExpListTotal().add(spltExp);
                     case "G":
                         Goal g = new Goal(Float.parseFloat(info[1]), info[2], info[3],
                                 LocalDate.parse(info[4], dateTimeFormatter), info[5]);
@@ -61,7 +77,8 @@ public class MoneyStorage {
                         break;
                     case "INS":
                         Instalment ins = new Instalment(Float.parseFloat(info[1]), info[2], info[3],
-                                LocalDate.parse(info[4], dateTimeFormatter), Integer.parseInt(info[5]), Float.parseFloat(info[6]) * 100);
+                                LocalDate.parse(info[4], dateTimeFormatter), Integer.parseInt(info[5]),
+                                Float.parseFloat(info[6]) * 100);
                         account.getInstalments().add(ins);
                         break;
                     default:
@@ -85,13 +102,19 @@ public class MoneyStorage {
             bufferedWriter.write("BS @ " + account.getBaseSavings() + "\n");
 
             for (Income i : account.getIncomeListTotal()) {
-                bufferedWriter.write("I @ " + i.getPrice() + " @ " + i.getDescription() +
+                bufferedWriter.write("INC @ " + i.getPrice() + " @ " + i.getDescription() +
                         " @ " + i.getPaidTime() + "\n");
             }
 
             for (Expenditure exp : account.getExpListTotal()) {
-                bufferedWriter.write("EXP @ " + exp.getPrice() + " @ " + exp.getDescription() + " @ " +
-                        exp.getCategory() + " @ " + exp.getBoughtDate() + "\n");
+                if (exp instanceof Split) {
+                    bufferedWriter.write("SEX @ " + exp.getPrice() + " @ " + exp.getDescription() + " @ " +
+                            exp.getCategory() + " @ " + exp.getBoughtDate() + " @ " +
+                            ((Split) exp).getNamesOfPeople() + "\n");
+                } else {
+                    bufferedWriter.write("EXP @ " + exp.getPrice() + " @ " + exp.getDescription() + " @ " +
+                            exp.getCategory() + " @ " + exp.getBoughtDate() + "\n");
+                }
             }
 
             for (Goal g : account.getShortTermGoals()) {
@@ -106,8 +129,102 @@ public class MoneyStorage {
             }
 
             bufferedWriter.close();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
-        catch (IOException e) {
+    }
+
+    public void markDeletedEntry(String type, String stringRead, String stringWrite,
+                                 int index) throws DukeException {
+        try {
+            File tempFile = File.createTempFile("moneyAccountTemp", ".txt",
+                    new File("data/"));
+            File file = new File(fileName);
+            String fileNameTemp = tempFile.getAbsolutePath();
+            FileReader fileReader = new FileReader(fileName);
+            BufferedReader bufferedReader = new BufferedReader(fileReader);
+            FileWriter fileWriter = new FileWriter(fileNameTemp);
+            BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
+            String line;
+            int i = index;
+            while ((line = bufferedReader.readLine()) != null) {
+                if (line.startsWith(type) && !line.contains("#")) {
+                    i--;
+                } else if (i != 0 && line.contains("#")) {
+                    continue;
+                }
+                if (line.startsWith(type) && i == 0) {
+                    line = line.replaceAll(stringRead, stringWrite);
+                }
+                bufferedWriter.write(line + '\n');
+            }
+            bufferedReader.close();
+            bufferedWriter.close();
+            if (!file.delete()) {
+                throw new DukeException(" OOPS! File cannot be deleted!");
+            } else if (!tempFile.renameTo(file)) {
+                throw new DukeException(" OOPS! File cannot be updated!");
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void undoDeletedEntry(Account account, String dataType, int index) throws DukeException {
+        try {
+            FileReader fileReader = new FileReader(fileName);
+            BufferedReader bufferedReader = new BufferedReader(fileReader);
+            String line;
+            boolean isLineRead = false;
+            while (!isLineRead && (line = bufferedReader.readLine()) != null) {
+                if (line.startsWith(dataType) && line.contains("#")) {
+                    String[] info = line.split(" # ");
+                    switch(dataType) {
+                        case "EXP":
+                            Expenditure exp = new Expenditure(Float.parseFloat(info[1]), info[2], info[3],
+                                    LocalDate.parse(info[4], dateTimeFormatter));
+                            if (index > account.getExpListTotal().size()) {
+                                account.getExpListTotal().add(exp);
+                            } else {
+                                account.getExpListTotal().add(index - 1, exp);
+                            }
+                            break;
+                        case "INC":
+                            Income i = new Income(Float.parseFloat(info[1]), info[2],
+                                    LocalDate.parse(info[3], dateTimeFormatter));
+                            if (index > account.getIncomeListTotal().size()) {
+                                account.getIncomeListTotal().add(i);
+                            } else {
+                                account.getIncomeListTotal().add(index - 1, i);
+                            }
+                            break;
+                        case "G":
+                            Goal g = new Goal(Float.parseFloat(info[1]), info[2], info[3],
+                                    LocalDate.parse(info[4], dateTimeFormatter), info[5]);
+                            if (index > account.getShortTermGoals().size()) {
+                                account.getShortTermGoals().add(g);
+                            } else {
+                                account.getShortTermGoals().add(index - 1, g);
+                            }
+                            break;
+                        case "INS":
+                            Instalment ins = new Instalment(Float.parseFloat(info[1]), info[2], info[3],
+                                    LocalDate.parse(info[4], dateTimeFormatter), Integer.parseInt(info[5]),
+                                    Float.parseFloat(info[6]) * 100);
+                            if (index > account.getInstalments().size()) {
+                                account.getInstalments().add(ins);
+                            } else {
+                                account.getInstalments().add(index - 1, ins);
+                            }
+                            break;
+                        default:
+                            break;
+                    }
+                    isLineRead = true;
+                }
+            }
+            bufferedReader.close();
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }

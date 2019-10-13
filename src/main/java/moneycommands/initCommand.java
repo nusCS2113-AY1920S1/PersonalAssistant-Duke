@@ -22,18 +22,18 @@ public class initCommand extends MoneyCommand{
 
     @Override
     public void execute(Account account, Ui ui, MoneyStorage storage) {
-        //String userSavings = inputString.split(" ")[1];
-        //String avgExp = inputString.split(" ")[2];
+
         float userSavings = Float.parseFloat(inputString.split(" ")[1]);
         float avgExp = Float.parseFloat(inputString.split(" ")[2]);
         account.initialize(userSavings,avgExp);
         storage.writeToFile(account);
 
         ui.appendToOutput("Initialised, you're ready to use Financial Ghosts\n");
-        //ui.appendToOutput(avgExp + "\n");
     }
 
     @Override
-    public void undo(Account account, Ui ui, MoneyStorage storage) { return; }
+    public void undo(Account account, Ui ui, MoneyStorage storage) throws DukeException {
+        throw new DukeException("Command can't be undone!\n");
+    }
 
 }

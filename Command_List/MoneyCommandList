@@ -1,6 +1,7 @@
 goal-short buy Lambo /amt 100000 /by 10/12/2040 /priority MEDIUM
 goal-short buy Boat /amt 100000 /by 11/12/2050 /priority LOW
-goal-short buy Motorbike /amt 10000 /by 15/1/2050 /priority HIGH
+goal buy Motorbike /amt 10000 /by 15/1/2050 /priority HIGH
+goal-short buy chair /amt 200 /by 1/12/2019 /priority LOW
 list goals
 delete goal 2
 done goal 2
@@ -23,7 +24,10 @@ deposit 200 OCBC /at 3/3/2018
 withdraw 10 DBS /at 5/5/2020
 list bank trackers
 Shortcuts for all add commands: now, tmr, ytd, lstwk, nxtwk, lstmth, nxtmth, lstyr, nxtyr
-change icon
+change icon (don't use until CT fixes it)
 graph
 add instalment mortgage /amt 100000 /within 200 months /from 12/12/2010 @6%
 list all instalments
+split Mala /amt 48 /cat food /on lstwk /with Max and Nic and Daniel
+settle 10 1
+settle 10 Nic

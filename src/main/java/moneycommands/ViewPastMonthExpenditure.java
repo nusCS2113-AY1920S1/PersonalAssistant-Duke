@@ -3,7 +3,7 @@ package moneycommands;
 import controlpanel.MoneyStorage;
 import money.Account;
 import controlpanel.DukeException;
-;import controlpanel.Ui;
+import controlpanel.Ui;
 import money.Expenditure;
 
 import java.text.ParseException;
@@ -114,8 +114,8 @@ public class ViewPastMonthExpenditure extends MoneyCommand {
     }
 
     @Override
-    public void undo(Account account, Ui ui, MoneyStorage storage) throws DukeException, ParseException {
-        return;
+    public void undo(Account account, Ui ui, MoneyStorage storage) throws DukeException {
+        throw new DukeException("Command can't be undone!\n");
     }
 }
 

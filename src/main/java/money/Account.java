@@ -5,6 +5,8 @@ import controlpanel.DukeException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
+import java.util.Comparator;
 
 public class Account {
     private ArrayList<Income> incomeListTotal;
@@ -83,6 +85,19 @@ public class Account {
 
     public ArrayList<Goal> getShortTermGoals() {
         return shortTermGoals;
+    }
+
+    public void sortShortTermGoals(ArrayList<Goal> shortTermGoals){
+        Collections.sort(shortTermGoals, new Comparator<Goal>() {
+            @Override
+            public int compare(Goal g1, Goal g2) {
+                if(g1.getPriority() == g2.getPriority()){
+                    return g1.getDescription().compareTo(g2.getDescription());
+                }else{
+                    return g1.getPriority().compareTo(g2.getPriority());
+                }
+            }
+        });
     }
 
     public ArrayList<Instalment> getInstalments() {
@@ -165,6 +180,8 @@ public class Account {
      * Month Expenditure List.
      */
     public void populateCurrentMonthLists() {
+        getIncomeListCurrMonth().clear();
+        getExpListCurrMonth().clear();
         Calendar dateNow = Calendar.getInstance();
         int currMonth = dateNow.get(Calendar.MONTH) + 1;
         int currYear  = dateNow.get(Calendar.YEAR);

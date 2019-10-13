@@ -30,12 +30,17 @@ public class DeleteInstalmentCommand extends MoneyCommand{
         ui.appendToOutput("  " + account.getInstalments().get(serialNo - 1).toString() + "\n");
         ui.appendToOutput(" Now you have " + (account.getInstalments().size() - 1) + " instalments in the list.\n");
 
+        storage.markDeletedEntry("INS", "@", "#", serialNo);
         account.getInstalments().remove(serialNo - 1);
-        storage.writeToFile(account);
     }
 
     @Override
-    public void undo(Account account, Ui ui, MoneyStorage storage) throws DukeException, ParseException {
-        return;
+    public void undo(Account account, Ui ui, MoneyStorage storage) throws DukeException {
+        storage.undoDeletedEntry(account, "INS", serialNo);
+        storage.writeToFile(account);
+
+        ui.appendToOutput(" Last command undone: \n");
+        ui.appendToOutput(account.getInstalments().get(serialNo - 1).toString() + "\n");
+        ui.appendToOutput(" Now you have " + account.getInstalments().size() + " instalments listed\n");
     }
 }

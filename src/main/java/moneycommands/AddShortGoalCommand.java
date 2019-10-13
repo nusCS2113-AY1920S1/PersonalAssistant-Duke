@@ -35,7 +35,7 @@ public class AddShortGoalCommand extends MoneyCommand {
     }
 
     /**
-     * This method executes the add short-term goal command. Takes input from user
+     * This method executes the add goal command. Takes input from user
      * and adds a short-term goal to the Short-Term Goals List
      * @param account Account object containing all financial info of user saved on the programme
      * @param ui Handles interaction with the user
@@ -46,25 +46,28 @@ public class AddShortGoalCommand extends MoneyCommand {
     @Override
     public void execute(Account account, Ui ui, MoneyStorage storage) throws ParseException, DukeException {
 
-        String desc = inputString.split("/amt ")[0].replaceFirst("goal-short ", "");
+        String desc = inputString.split("/amt ")[0].replaceFirst("goal ", "");
         float price = Float.parseFloat(inputString.split("/amt ")[1].split("/by ")[0]);
         LocalDate byDate = Parser.shortcutTime(inputString.split("/by ")[1].split(" /priority ")[0]);
         String priorityLevel = inputString.split("/priority ")[1];
         String category = "GS";
-        //System.out.println(priorityLevel);
         Goal g = new Goal(price, desc, category, byDate, priorityLevel);
         account.getShortTermGoals().add(g);
+        //account.sortShortTermGoals(account.getShortTermGoals());
         storage.writeToFile(account);
 
         ui.appendToOutput(" Got it. I've added this Goal: \n");
         ui.appendToOutput("     " + account.getShortTermGoals().get(account.getShortTermGoals().size() - 1).toString()
                 + "\n");
         ui.appendToOutput(" Now you have " + account.getShortTermGoals().size() + " Goals in the list.\n");
-        ui.appendToOutput("Current Goal Savings: $" + account.getGoalSavings() + "\n");
+        //ui.appendToOutput("Current Goal Savings: $" + account.getGoalSavings() + "\n");
+
+        MoneyCommand list = new ListGoalsCommand();
+        list.execute(account,ui,storage);
     }
 
     @Override
-    public void undo(Account account, Ui ui, MoneyStorage storage) {
+    public void undo(Account account, Ui ui, MoneyStorage storage) throws ParseException, DukeException {
         int lastIndex = account.getShortTermGoals().size() - 1;
         Goal g = account.getShortTermGoals().get(lastIndex);
         account.getShortTermGoals().remove(g);
@@ -73,5 +76,8 @@ public class AddShortGoalCommand extends MoneyCommand {
         ui.appendToOutput(" Last command undone: \n");
         ui.appendToOutput(g.toString() + "\n");
         ui.appendToOutput(" Now you have " + account.getShortTermGoals().size() + " goals listed\n");
+
+        MoneyCommand list = new ListGoalsCommand();
+        list.execute(account,ui,storage);
     }
 }
