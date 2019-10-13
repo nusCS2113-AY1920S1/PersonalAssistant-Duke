@@ -7,7 +7,7 @@ import wallet.model.contact.Contact;
 public class ContactParserHelper {
 
     /**
-     * Concat an array of strings
+     * Concat an array of strings.
      *
      * @param toJoin Array of strings needed to join together.
      * @return A string with words joined together.
@@ -48,46 +48,46 @@ public class ContactParserHelper {
      */
     public Contact newInput(String[] info) {
         int section = 0;
-        int details_index;
-        int phone_index;
+        int detailsIndex;
+        int phoneIndex;
         String name;
         String details = "[no details]";
         String phone = "[no phone]";
 
-        ArrayList<String> name_list = new ArrayList<>();
-        ArrayList<String> details_list = new ArrayList<>();
-        ArrayList<String> phone_list = new ArrayList<>();
+        ArrayList<String> nameList = new ArrayList<>();
+        ArrayList<String> detailsList = new ArrayList<>();
+        ArrayList<String> phoneList= new ArrayList<>();
 
-        details_index = findIndexOf(info, "/d");
-        phone_index = findIndexOf(info, "/p");
+        detailsIndex = findIndexOf(info, "/d");
+        phoneIndex = findIndexOf(info, "/p");
 
         //Process input into three array list
         for (int i = 0; i < info.length; i += 1) {
-            if (i == details_index) {
+            if (i == detailsIndex) {
                 section = 1;
-            } else if (i == phone_index) {
+            } else if (i == phoneIndex) {
                 section = 2;
             } else if (section == 1) {
-                details_list.add(info[i]);
+                detailsList.add(info[i]);
             } else if (section == 2) {
-                phone_list.add(info[i]);
+                phoneList.add(info[i]);
             } else {
-                name_list.add(info[i]);
+                nameList.add(info[i]);
             }
         }
 
-        if (name_list.isEmpty()) {
+        if (nameList.isEmpty()) {
             return null;
         } else {
-            name = concatList(name_list);
+            name = concatList(nameList);
         }
 
-        if (!details_list.isEmpty()) {
-            details = concatList(details_list);
+        if (!detailsList.isEmpty()) {
+            details = concatList(detailsList);
         }
 
-        if (!phone_list.isEmpty()) {
-            phone = concatList(phone_list);
+        if (!phoneList.isEmpty()) {
+            phone = concatList(phoneList);
         }
 
         Contact processed = new Contact(name, details, phone);
@@ -111,9 +111,9 @@ public class ContactParserHelper {
         String details = null;
         String phone = null;
 
-        ArrayList<String> name_list = new ArrayList<>();
-        ArrayList<String> details_list = new ArrayList<>();
-        ArrayList<String> phone_list = new ArrayList<>();
+        ArrayList<String> nameList = new ArrayList<>();
+        ArrayList<String> detailsList = new ArrayList<>();
+        ArrayList<String> phoneList = new ArrayList<>();
 
         details_index = findIndexOf(info, "/d");
         phone_index = findIndexOf(info, "/p");
@@ -130,26 +130,26 @@ public class ContactParserHelper {
             } else if (i == name_index) {
                 section = 0;
             } else if (section == 1) {
-                details_list.add(info[i]);
+                detailsList.add(info[i]);
             } else if (section == 2) {
-                phone_list.add(info[i]);
+                phoneList.add(info[i]);
             } else if (section == 0) {
-                name_list.add(info[i]);
+                nameList.add(info[i]);
             }
         }
 
-        if (!name_list.isEmpty()) {
-            name = concatList(name_list);
+        if (!nameList.isEmpty()) {
+            name = concatList(nameList);
         }
 
-        if (!details_list.isEmpty()) {
-            details = concatList(details_list);
+        if (!detailsList.isEmpty()) {
+            details = concatList(detailsList);
         } else if (details_index != -1) {
             details = "[no details]";
         }
 
-        if (!phone_list.isEmpty()) {
-            phone = concatList(phone_list);
+        if (!phoneList.isEmpty()) {
+            phone = concatList(phoneList);
         } else if (phone_index != -1) {
             phone = "[no phone]";
         }

@@ -12,7 +12,7 @@ public class HelpStorage {
     public static final String DEFAULT_HELP_FILENAME_LOAN = "/loan.txt";
     public static final String DEFAULT_HELP_FILENAME_CONTACT = "/contact.txt";
     public static final String DEFAULT_HELP_FILENAME_COMMAND_HISTORY = "/cmdhistory.txt";
-    public static final String MESSAGE_ERROR_ACCESS_SECTION = "Error in accessing help section. Contact admin for help.";
+    public static final String MESSAGE_ERROR_ACCESS_SECTION = "Error! Contact admin for help.";
 
     /**
      * Prints file content based on the help section user selected.

@@ -14,25 +14,25 @@ public class EditCommandParser implements Parser<EditCommand> {
     public EditCommand parse(String input) {
         String[] arguments = input.split(" ", 2);
         switch (arguments[0]) {
-        case "expense":
-            Expense expense = parseExpense(arguments[1]);
-            if (expense != null) {
-                return new EditCommand(expense);
-            } else {
-                break;
-            }
+            case "expense":
+                Expense expense = parseExpense(arguments[1]);
+                if (expense != null) {
+                    return new EditCommand(expense);
+                } else {
+                    break;
+                }
 
-        case "contact":
-            Contact contact = parseContact(arguments[1]);
-            if(contact != null){
-                return new EditCommand(contact);
-            } else {
-                break;
-            }
+            case "contact":
+                Contact contact = parseContact(arguments[1]);
+                if (contact != null) {
+                    return new EditCommand(contact);
+                } else {
+                    break;
+                }
 
-        default:
-            System.out.println(EditCommand.MESSAGE_USAGE);
-            return null;
+            default:
+                System.out.println(EditCommand.MESSAGE_USAGE);
+                return null;
         }
         return null;
     }
@@ -45,7 +45,7 @@ public class EditCommandParser implements Parser<EditCommand> {
     private Contact parseContact(String input) throws NumberFormatException, ArrayIndexOutOfBoundsException {
 
         String[] arguments = input.split(" ", 2);
-        if(arguments.length == 2){
+        if (arguments.length == 2) {
 
             String[] parameters = arguments[1].split(" ");
             int id = Integer.parseInt(arguments[0].trim());

@@ -47,7 +47,7 @@ public class LogicManager {
         boolean isExit = false;
         try {
             Command command = parserManager.parseCommand(fullCommand);
-            if(command != null){
+            if (command != null) {
                 isExit = command.execute(wallet);
                 ExpenseParser.updateRecurringRecords(wallet);
                 storageManager.save(wallet);
