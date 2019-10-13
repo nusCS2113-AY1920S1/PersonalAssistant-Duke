@@ -10,6 +10,6 @@ public class NoWordFoundException extends WordUpException {
 
     @Override
     public void showError() {
-        System.out.println(this.getMessage() + searchWord);
+        System.out.println(this.getMessage() + "\"" + searchWord + "\"");
     }
 }

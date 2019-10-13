@@ -1,12 +1,12 @@
 package Dictionary;
 
-import java.util.Locale;
-import exception.WordUpException;
+import java.util.ArrayList;
 
 import exception.NoWordFoundException;
 import command.OxfordCall;
 import storage.Storage;
 
+import java.util.HashSet;
 import java.util.Map;
 import java.util.TreeMap;
 
@@ -25,7 +25,10 @@ public class WordBank {
         return wordBank;
     }
 
-    public Word getWordAndMeaning(String word) {
+    public Word getWordAndMeaning(String word) throws NoWordFoundException {
+        if (!wordBank.containsKey(word)) {
+            throw new NoWordFoundException(word);
+        }
         return wordBank.get(word);
     }
 
@@ -77,16 +80,19 @@ public class WordBank {
     /**
      * Adds a tag to a specific word in word bank
      * @param wordToBeAddedTag word that the tag is set for
-     * @param tag new tag input by user
+     * @param tags new tags input by user
+     * @return tag lists of that word
      * @throws NoWordFoundException if the word doesn't exist in the word bank
      */
-    public void addTag(String wordToBeAddedTag, String tag) throws NoWordFoundException {
-        if (wordBank.containsKey(wordToBeAddedTag)) {
-            wordBank.get(wordToBeAddedTag).addTag(tag);
-        }
-        else {
+    public HashSet<String> addTag(String wordToBeAddedTag, ArrayList<String> tags) throws NoWordFoundException {
+        if (!wordBank.containsKey(wordToBeAddedTag)) {
             throw new NoWordFoundException(wordToBeAddedTag);
         }
+        Word word = wordBank.get(wordToBeAddedTag);
+        for (String tag : tags) {
+            word.addTag(tag);
+        }
+        return word.getTags();
     }
 
     public String getBankData() {
@@ -95,5 +101,18 @@ public class WordBank {
             data.append(entry.getValue() + "\n");
         }
         return data.toString();
+    }
+
+    public void deleteTags(String word, ArrayList<String> tagList, ArrayList<String> deletedTags, ArrayList<String> nonExistTags) {
+        HashSet<String> tags = wordBank.get(word).getTags();
+        for (String tag : tagList) {
+            if (tags.contains(tag)) {
+                tags.remove(tag);
+                deletedTags.add(tag);
+            }
+            else {
+                nonExistTags.add(tag);
+            }
+        }
     }
 }

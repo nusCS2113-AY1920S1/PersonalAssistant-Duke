@@ -2,8 +2,9 @@ package ui;
 
 import Dictionary.Word;
 import Dictionary.WordBank;
-import exception.NoWordFoundException;
 
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Map;
 import java.util.Scanner;
 
@@ -60,6 +61,14 @@ public class Ui {
         System.out.println("       " + w.toString());
     }
 
+    public void showAddTag(String word, ArrayList<String> tags, HashSet<String> tagList) {
+        System.out.println("     I have added " + (tags.size() == 1 ? "this tag \"" + tags.get(0) + "\"" : "these tags") + " to word \"" + word + "\"");
+        System.out.println("     Here " + (tagList.size() == 1 ? "is the tag " : "are the tags ") + "of word \"" + word + "\"");
+        for (String tag : tagList) {
+            System.out.println("      " + tag);
+        }
+    }
+
     public void showList(WordBank wordBank, String order) {
         System.out.println("     Here are your words:");
         if (order.equals("asc") || order.equals("")) {
@@ -75,7 +84,27 @@ public class Ui {
     }
 
     public void showSearch(String description, String meaning){
-        System.out.println("     Here is the meaning of " + description + ": " + meaning);
+        System.out.println("     Here is the meaning of \"" + description + "\": \"" + meaning + "\"");
+    }
+
+    public void showDeletedTags(String word, ArrayList<String> deletedTags) {
+        if (deletedTags.size() > 0) {
+            System.out.println("     I have removed " + (deletedTags.size() == 1 ? "this tag " : "these tags ") +
+                    "from the word \"" + word + "\"");
+            for (String tag : deletedTags) {
+                System.out.println("      " + tag);
+            }
+        }
+    }
+
+    public void showNullTags(String word, ArrayList<String> nullTags) {
+        if (nullTags.size() > 0) {
+            System.out.println("     " + (nullTags.size() == 1 ? "This tag " : "These tags ") +
+                    "doesn't exist in the word \"" + word + "\"");
+            for (String tag : nullTags) {
+                System.out.println("      " + tag);
+            }
+        }
     }
 }
 

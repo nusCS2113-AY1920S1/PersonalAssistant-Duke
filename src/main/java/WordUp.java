@@ -36,7 +36,7 @@ public class WordUp {
     }
 
     public static void main(String[] args) {
-        new WordUp("C:\\Users\\zyueh\\Documents\\Y2S2_CS2113\\main\\data\\localList.txt").run();
+        new WordUp("data/wordup.txt").run();
     }
 }
 
