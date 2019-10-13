@@ -1,6 +1,7 @@
 package controllers;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import models.data.IProject;
 import models.task.Task;
 import views.CLIView;
@@ -8,17 +9,21 @@ import views.CLIView;
 public class AssignmentController {
 
     /**
-     * Parses the input by the user to allow members to be assigned or removed
+     * Parses the input by the user to allow members to be assigned or removed.
+     * Checks if task exists, and if member index numbers are correct.
      * @param projectToManage
      * @param details Array of strings containing details of task assignment.
      * @param consoleView
      */
-    public void assignOrRemove(IProject projectToManage, String[] details, CLIView consoleView) {
+    public static void parse(IProject projectToManage, String[] details, CLIView consoleView) {
         int taskNumber = Integer.parseInt(details[0]);
+        Task task = null;
+        HashSet<Integer> assignedIndexes = task.getAssignedIndexes(); //existing assignments
         if (taskNumber > projectToManage.getNumOfTasks() || taskNumber <= 0) {
             consoleView.consolePrint("The task you wish to assign does not exist!",
                 "Please check the index number of the task and try again.");
         } else {
+            task = projectToManage.getTask(taskNumber);
             ArrayList<Integer> assign = new ArrayList<>(); //List of members to be assigned task
             ArrayList<Integer> unassign = new ArrayList<>();//List of members to be unassigned task
             boolean add = false;
@@ -35,25 +40,30 @@ public class AssignmentController {
                     indexNumber = Integer.parseInt(s);
                     if (projectToManage.memberIndexExists(indexNumber)) {
                         if (add) {
-                            assign.add(indexNumber);
+                            if (assignedIndexes.contains(indexNumber)) {
+                                consoleView.consolePrint("Member with index "
+                                    + indexNumber
+                                    + " has already been assigned this task!");
+                            } else {
+                                assign.add(indexNumber);
+                            }
                         }
                         if (remove) {
-                            unassign.add(indexNumber);
+                            if (!assignedIndexes.contains(indexNumber)) {
+                                consoleView.consolePrint("Cannot unassign member with index "
+                                    + indexNumber
+                                    + " because they are not assigned the task yet!");
+                            } else {
+                                unassign.add(indexNumber);
+                            }
                         }
                     } else {
                         consoleView.consolePrint("Member with index number " + indexNumber + " does not exist!");
                     }
                 }
             }
+            consoleView.assignOrUnassignTask(assign, unassign, task, projectToManage);
         }
     }
 
-    public void assign(ArrayList<Integer> assign, Task task) {
-        for (int i : assign) {
-            //check if already assigned
-
-        }
-
-
-    }
 }

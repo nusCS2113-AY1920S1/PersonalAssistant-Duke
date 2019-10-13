@@ -9,4 +9,5 @@ public interface IMemberList {
 
     public ArrayList<String> getAllMemberDetails();
 
+    public Member getMember(int i);
 }

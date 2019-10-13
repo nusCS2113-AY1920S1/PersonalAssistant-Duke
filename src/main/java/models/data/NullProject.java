@@ -27,6 +27,11 @@ public class NullProject implements IProject {
     }
 
     @Override
+    public int getNumOfTasks() {
+        return 0;
+    }
+
+    @Override
     public void addMember(Member newMember) {
         /*
         Empty method
@@ -52,5 +57,15 @@ public class NullProject implements IProject {
         /*
         Empty method
          */
+    }
+
+    @Override
+    public boolean memberIndexExists(int indexNumber) {
+        return false;
+    }
+
+    @Override
+    public Task getTask(int taskIndex) {
+        return null;
     }
 }

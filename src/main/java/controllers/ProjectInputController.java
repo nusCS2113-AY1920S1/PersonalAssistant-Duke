@@ -88,7 +88,7 @@ public class ProjectInputController {
                         Empty method
                     */
                 } else if (projectCommand.length() >= 12 && ("assign task ").equals(projectCommand.substring(0,12))) {
-
+                    AssignmentController.parse(projectToManage, projectCommand.substring(13).split(" "), consoleView);
                 } else {
                     consoleView.consolePrint("Invalid command. Try again!");
                 }

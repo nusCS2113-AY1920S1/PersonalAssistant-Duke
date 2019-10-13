@@ -42,15 +42,22 @@ public class ProjectMemberList implements IMemberList{
             }
         }
     }
-    //remove member: must remove credits, associated tasks, and recalculate
-    //and add credits for other members. Index numbers might also need to change
 
     /**
      * Removes a member from the list.
+     * Shifts the index numbers of all members up if required.
      * @param memberIndex THe index number of the member to be removed.
      */
     @Override
     public void removeMember(int memberIndex) {
+        /*
+            Implement methods to ensure that task assignments are updated,
+            credits are redistributed, etc.
+            1) Scroll through all tasks of this member. Remove them from the TaskMemberList.
+            2) Recalculate the credits for other members in the task.
+            3) Change task state if necessary (if only 1 member was DOING, now it is OPEN)
+            4) Update index number of other members if necessary.
+         */
         this.memberList.remove(memberIndex - 1);
         if (memberIndex < memberList.size()) { //if need to reassign index numbers after removal
             for (int i = 1; i <= memberList.size(); i++) {
@@ -70,6 +77,11 @@ public class ProjectMemberList implements IMemberList{
             memberDetails.add(member.getDetails());
         }
         return memberDetails;
+    }
+
+    @Override
+    public Member getMember(int i) {
+        return this.memberList.get(i);
     }
 
     /**

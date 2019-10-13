@@ -70,4 +70,9 @@ public class Project implements IProject {
         return (indexNumber > 0 && indexNumber <= this.getNumOfMembers());
     }
 
+    @Override
+    public Task getTask(int taskIndex) {
+        return this.taskList.getTask(taskIndex-1);
+    }
+
 }

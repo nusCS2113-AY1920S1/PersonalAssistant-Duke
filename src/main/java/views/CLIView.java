@@ -356,8 +356,13 @@ public class CLIView {
         consolePrint(allTaskDetails.toArray(new String[0]));
     }
 
-    public void assignTask(IProject projectToManage, int assignTaskDetails,
-        String[] details) {
-
+    public void assignOrUnassignTask(ArrayList<Integer> assign, ArrayList<Integer> unassign,
+        Task task, IProject projectToManage) {
+        if (assign.size() > 0) {
+            for (Integer i : assign) {
+                Member toAssign = projectToManage.getMembers().getMember(i);
+                task.assignMember(toAssign);
+            }
+        }
     }
 }

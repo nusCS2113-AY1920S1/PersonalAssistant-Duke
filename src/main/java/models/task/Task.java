@@ -3,7 +3,8 @@ package models.task;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashSet;
-import java.util.Set;
+import models.member.Member;
+import models.member.TaskMemberList;
 
 public class Task {
     private String taskName;
@@ -11,7 +12,7 @@ public class Task {
     private Date dueDate;
     private int taskCredit;
     private TaskState taskState;
-    private Set<Integer> assignedMembersIndexes;
+    private TaskMemberList taskMemberList;
 
     /**
      * Class representing a task in a project.
@@ -28,7 +29,7 @@ public class Task {
         this.dueDate = dueDate;
         this.taskCredit = taskCredit;
         this.taskState = taskState;
-        this.assignedMembersIndexes = new HashSet<>();
+        this.taskMemberList = new TaskMemberList();
     }
 
     public String getTaskName() {
@@ -66,5 +67,13 @@ public class Task {
 
     public int getTaskCredit() {
         return this.taskCredit;
+    }
+
+    public void assignMember(Member member) {
+        this.taskMemberList.addMember(member);
+    }
+
+    public HashSet<Integer> getAssignedIndexes() {
+        return this.taskMemberList.getAssignedMembersIndexNumbers();
     }
 }

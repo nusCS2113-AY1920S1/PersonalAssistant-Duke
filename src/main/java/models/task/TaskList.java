@@ -52,4 +52,8 @@ public class TaskList {
             return task2.getTaskPriority() - task1.getTaskPriority();
         }
     };
+
+    public Task getTask(int taskIndex) {
+        return this.taskList.get(taskIndex);
+    }
 }
