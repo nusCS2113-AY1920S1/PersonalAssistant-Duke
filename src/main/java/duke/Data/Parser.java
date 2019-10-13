@@ -1,10 +1,10 @@
 package duke.Data;
 
 
-import duke.Module.Goal;
-import duke.Module.Lesson;
-import duke.Module.Reminder;
-import duke.Module.Schedule;
+import duke.module.Goal;
+import duke.module.Lesson;
+import duke.module.Reminder;
+import duke.module.Schedule;
 import duke.Task.After;
 import duke.Task.Deadline;
 import duke.Task.Event;
@@ -418,14 +418,13 @@ public class Parser {
 
             /**
              * Command is in the form: plan new [intensity level] or plan view [intensity] plan/[plan number]
-             *
              */
             case "plan":
                 if (word[1].equals("view")) {
-                    plan.loadPlan(word[2].toLowerCase(),word[3]);
+                    plan.loadPlan(word[2].toLowerCase(), word[3]);
                     plan.viewPlan();
                 } else if (word[1].equals("new")) {
-                    plan.createPlan(word[3].toLowerCase());
+                    plan.createPlan(word[2].toLowerCase());
                 } else if (word[1].equals("edit")) {
                     //not yet created
                 }
