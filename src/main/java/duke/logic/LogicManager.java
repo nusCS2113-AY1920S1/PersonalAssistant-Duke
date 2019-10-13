@@ -70,6 +70,7 @@ public class LogicManager implements Logic {
 
     @Override
     public ObservableList<Product> getFilteredProductList() {
+        model.updateFilteredProductList(Model.PREDICATE_SHOW_ACTIVE_PRODUCTS);
         return model.getFilteredProductList();
     }
 
@@ -96,11 +97,11 @@ public class LogicManager implements Logic {
         autocompleter.addPrefix(CliSyntax.PREFIX_ORDER_STATUS);
         autocompleter.addPrefix(CliSyntax.PREFIX_ORDER_REMARKS);
         autocompleter.addPrefix(CliSyntax.PREFIX_ORDER_TOTAL);
-        autocompleter.addPrefix(CliSyntax.PREFIX_PRODUCT_COST);
+        autocompleter.addPrefix(CliSyntax.PREFIX_PRODUCT_INGREDIENT_COST);
         autocompleter.addPrefix(CliSyntax.PREFIX_PRODUCT_INDEX);
         autocompleter.addPrefix(CliSyntax.PREFIX_PRODUCT_INGREDIENT);
         autocompleter.addPrefix(CliSyntax.PREFIX_PRODUCT_NAME);
-        autocompleter.addPrefix(CliSyntax.PREFIX_PRODUCT_PRICE);
+        autocompleter.addPrefix(CliSyntax.PREFIX_PRODUCT_RETAIL_PRICE);
         autocompleter.addPrefix(CliSyntax.PREFIX_PRODUCT_STATUS);
     }
 }

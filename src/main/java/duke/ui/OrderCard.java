@@ -47,7 +47,7 @@ public class OrderCard extends UiPart<AnchorPane> {
         status.getStyleClass().clear();
         status.getStyleClass().addAll("status-" + order.getStatus().toString().toLowerCase());
         for (Item<Product> item : order.getItems()) {
-            itemFlow.getChildren().add(new OrderItemBox(item.getItem().getName(), item.getQuantity().getNumber()));
+            itemFlow.getChildren().add(new OrderItemBox(item.getItem().getProductName(), item.getQuantity().getNumber()));
         }
 
     }

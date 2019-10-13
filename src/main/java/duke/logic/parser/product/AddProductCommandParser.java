@@ -14,10 +14,10 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import static duke.logic.parser.commons.CliSyntax.PREFIX_CUSTOMER_NAME;
-import static duke.logic.parser.commons.CliSyntax.PREFIX_PRODUCT_COST;
+import static duke.logic.parser.commons.CliSyntax.PREFIX_PRODUCT_INGREDIENT_COST;
 import static duke.logic.parser.commons.CliSyntax.PREFIX_PRODUCT_INGREDIENT;
 import static duke.logic.parser.commons.CliSyntax.PREFIX_PRODUCT_NAME;
-import static duke.logic.parser.commons.CliSyntax.PREFIX_PRODUCT_PRICE;
+import static duke.logic.parser.commons.CliSyntax.PREFIX_PRODUCT_RETAIL_PRICE;
 
 
 public class AddProductCommandParser implements Parser<AddProductCommand> {
@@ -32,8 +32,8 @@ public class AddProductCommandParser implements Parser<AddProductCommand> {
         ArgumentMultimap map = ArgumentTokenizer.tokenize(args,
                 PREFIX_PRODUCT_NAME,
                 PREFIX_PRODUCT_INGREDIENT,
-                PREFIX_PRODUCT_COST,
-                PREFIX_PRODUCT_PRICE
+                PREFIX_PRODUCT_INGREDIENT_COST,
+                PREFIX_PRODUCT_RETAIL_PRICE
         );
 
         IngredientList ingredients = new IngredientList(){};
@@ -41,8 +41,8 @@ public class AddProductCommandParser implements Parser<AddProductCommand> {
 
         Product product = new Product(
                 map.getValue(PREFIX_CUSTOMER_NAME).orElse("ProductName"),
-                map.getValue(PREFIX_PRODUCT_PRICE).orElse(String.valueOf(0)),
-                map.getValue(PREFIX_PRODUCT_COST).orElse(String.valueOf(0))
+                map.getValue(PREFIX_PRODUCT_RETAIL_PRICE).orElse(String.valueOf(0)),
+                map.getValue(PREFIX_PRODUCT_INGREDIENT_COST).orElse(String.valueOf(0))
         );
 
         System.out.println(map.getValue(PREFIX_PRODUCT_INGREDIENT));
@@ -60,7 +60,7 @@ public class AddProductCommandParser implements Parser<AddProductCommand> {
         if (!matcher.matches()) {
             System.out.println("no"
                     + "Match");
-            throw new ParseException("no match");
+         //   throw new ParseException("no match");
         }
 
 
@@ -82,7 +82,7 @@ public class AddProductCommandParser implements Parser<AddProductCommand> {
                     + "\\s*)$", "");
             matcher = pattern.matcher(input);
         }
-        System.out.println("params" + params);
+      //  System.out.println("params" + params);
 
     }
 }

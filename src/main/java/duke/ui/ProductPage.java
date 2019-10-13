@@ -43,8 +43,6 @@ public class ProductPage extends UiPart<AnchorPane> {
 
     void setIndexColumn() {
         TableColumn<Product, Void> indexColumn = new TableColumn<>("S/N");
-        indexColumn.setMinWidth(50);
-        indexColumn.setPrefWidth(70);
         indexColumn.setResizable(true);
 
         //Solution below adapted from: https://stackoverflow.com/questions/31212400/adding-index-of-records-in-a-javafx-tableview-column
@@ -67,23 +65,33 @@ public class ProductPage extends UiPart<AnchorPane> {
         }
         ////////////////////////////////index column created
         productListTable.getColumns().add(indexColumn);
+        indexColumn.setMinWidth(80);
+        indexColumn.setMaxWidth(80);
+     //   indexColumn.
+        //productListTable.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
+      //  productListTable.setStyle("columnResizePolicy = SmartResize.POLICY");
+
     }
 
     void setProductInfoColumns() {
         TableColumn<Product, String> nameColumn = new TableColumn<>("Name");
         nameColumn.setResizable(true);
-        nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
+        nameColumn.setCellValueFactory(new PropertyValueFactory<>("productName"));
 
         TableColumn<Product, Double> priceColumn = new TableColumn<>("Retail Price");
         priceColumn.setResizable(true);
-        priceColumn.setCellValueFactory(new PropertyValueFactory<>("price"));
+        priceColumn.setCellValueFactory(new PropertyValueFactory<>("retailPrice"));
 
         TableColumn<Product, Double> costColumn = new TableColumn<>("Ingredient Cost");
         costColumn.setResizable(true);
-        costColumn.setCellValueFactory(new PropertyValueFactory<>("cost"));
+        costColumn.setCellValueFactory(new PropertyValueFactory<>("ingredientCost"));
+
+        TableColumn<Product, Double> statusColumn = new TableColumn<>("status");
+        statusColumn.setResizable(true);
+        statusColumn.setCellValueFactory(new PropertyValueFactory<>("status"));
 
         productListTable.getColumns().addAll(nameColumn, priceColumn,
-                costColumn);
+                costColumn, statusColumn);
     }
 
 }
