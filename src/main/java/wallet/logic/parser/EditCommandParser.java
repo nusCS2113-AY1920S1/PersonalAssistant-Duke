@@ -48,11 +48,15 @@ public class EditCommandParser implements Parser<EditCommand> {
         if (arguments.length == 2) {
 
             String[] parameters = arguments[1].split(" ");
-            int id = Integer.parseInt(arguments[0].trim());
-            ContactParserHelper contactHelper = new ContactParserHelper();
-            Contact contact = contactHelper.updateInput(parameters);
-            contact.setId(id);
-            return contact;
+            try {
+                int id = Integer.parseInt(arguments[0].trim());
+                ContactParserHelper contactHelper = new ContactParserHelper();
+                Contact contact = contactHelper.updateInput(parameters);
+                contact.setId(id);
+                return contact;
+            } catch (NumberFormatException e) {
+                return null;
+            }
 
         }
         return null;

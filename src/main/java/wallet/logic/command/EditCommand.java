@@ -68,9 +68,13 @@ public class EditCommand extends Command {
                 Contact currentContact = wallet.getContactList().getContact(index);
                 if (contact.getName() != null) {
                     currentContact.setName(contact.getName());
-                } else if (contact.getDetail() != null) {
+                }
+
+                if (contact.getDetail() != null) {
                     currentContact.setDetail(contact.getDetail());
-                } else if (contact.getPhoneNum() != null) {
+                }
+
+                if (contact.getPhoneNum() != null) {
                     currentContact.setPhoneNum(contact.getPhoneNum());
                 }
 
