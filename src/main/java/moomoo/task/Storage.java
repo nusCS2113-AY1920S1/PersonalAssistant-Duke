@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.nio.file.FileAlreadyExistsException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
 import java.text.DecimalFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -70,7 +71,7 @@ public class Storage {
                         String category = "";
                         double budget = 0;
                         for (int i = 1; i < splitInput.length; ++i) {
-                            if (i % 2 == 0) { //budget
+                            if (i % 2 == 0) {
                                 budget = Double.parseDouble(splitInput[i]);
                                 loadedBudgets.put(category, budget);
                             } else {
@@ -96,7 +97,7 @@ public class Storage {
     /**
      * Creates the directory and file as given by the file path initialized in the constructor.
      */
-    private void createFileAndDirectory() {
+    private void createFileAndDirectory() throws MooMooException {
         try {
             File myNewFile = new File(this.filePath);
             Files.createDirectory(Paths.get(myNewFile.getParent()));
@@ -104,7 +105,7 @@ public class Storage {
         } catch (FileAlreadyExistsException e) {
             return;
         } catch (IOException e) {
-            createFileAndDirectory();
+            throw new MooMooException("Unable to create file. Please restart the program");
         }
     }
 
@@ -139,7 +140,7 @@ public class Storage {
             toSave += " | " + mapElement.getKey() + " | " + mapElement.getValue();
         }
         try {
-            Files.writeString(Paths.get(this.filePath), toSave);
+            Files.writeString(Paths.get(this.filePath), toSave, StandardOpenOption.APPEND);
         } catch (Exception e) {
             throw new MooMooException("Unable to write to file. Please retry again.");
         }
