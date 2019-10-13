@@ -1,10 +1,7 @@
 package duke.task;
 
 import duke.Duke;
-
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -30,7 +27,6 @@ public class TaskList {
 
     /**
      * Adds a task to the {@link TaskList}.
-     *
      * @param task {@link Task} to be added to the list
      */
     public void addTask(Task task) {
@@ -39,7 +35,6 @@ public class TaskList {
 
     /**
      * Returns the number of {@link Task}s in the {@link TaskList} so far.
-     *
      * @return an integer indicating the size of the list of {@link Task}s stored
      */
     public int size() {
@@ -48,7 +43,6 @@ public class TaskList {
 
     /**
      * Marks a task as completed if the user finished it.
-     *
      * @param taskNb the number of the {@link Task} in the {@link TaskList} that was completed
      */
     public void markTaskDone(int taskNb) {
@@ -57,7 +51,6 @@ public class TaskList {
 
     /**
      * Returns the {@link Task} at the position indicated by the taskNb.
-     *
      * @param taskNb the position of the {@link Task} requested in the {@link TaskList}
      * @return the requested {@link Task}
      */
@@ -66,9 +59,8 @@ public class TaskList {
     }
 
     /**
-     * Returns an immutable list of all the {@link Task}s in the {@link TaskList} so far.
-     *
-     * @return unmodifiable {@link ArrayList} of {@link Task} listed so far
+     * Returns a list of all the {@link Task}s in the {@link TaskList}.
+     * @return  {@link ArrayList} of {@link Task}
      */
     public List<Task> getAllTasks() {
         return taskList;
@@ -76,7 +68,6 @@ public class TaskList {
 
     /**
      * Returns the removed {@link Task} from position taskNb in the {@link TaskList}.
-     *
      * @param taskNb the position of the {@link Task} to be removed from the {@link TaskList}
      * @return Task the task that was removed
      */

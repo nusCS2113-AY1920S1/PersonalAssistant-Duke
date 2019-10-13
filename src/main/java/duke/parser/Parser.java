@@ -17,11 +17,6 @@ import duke.task.DoWithinPeriodTasks;
 import duke.task.Event;
 import duke.task.Todo;
 
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.ZoneId;
 import java.util.Date;
 
 /**
@@ -30,12 +25,7 @@ import java.util.Date;
  */
 public class Parser {
 
-    /**
-     * The constructor method for Parser.
-     */
-    public Parser(int x){
-        //do nothing, everything here is static
-    }
+    //There is no constructor method for all others are static.
 
     /**
      * Returns a {@link Command} that can be understood by {@link Duke} and executed after.
@@ -84,7 +74,7 @@ public class Parser {
                 return new Snooze(checkNumber(getUntil[0], size), getUntil[1]);
             case "view":
                 checkLength(splitted);
-                Date splittedDate = stringToDate(splitted[1]);
+                Date splittedDate = Convert.stringToDate(splitted[1]);
                 return new ViewCommand(splittedDate);
             case "period":
                 checkLength(splitted);
@@ -98,6 +88,7 @@ public class Parser {
 
     /**
      * Checks the length of a String array is of size 2.
+     * @throws DukeException when array is not of size 2.
      */
     public static void checkLength(String[] str) throws DukeException {
         if (str.length != 2) {
@@ -106,7 +97,7 @@ public class Parser {
     }
 
     /**
-     * JAVADOC COMMENT.
+     * Split a string and check its length.
      */
     public static String[] splitAndCheck(String str, String regex) throws DukeException {
         String[] part = str.split(regex, 2);
@@ -116,8 +107,8 @@ public class Parser {
 
     /**
      * Converts a string into a number, and checks if it is out of bounds.
-     *
      * @return Returns a valid integer
+     * @throws DukeException when it is invalid
      */
     public static int checkNumber(String str, int size) throws DukeException {
         int x;
@@ -133,68 +124,5 @@ public class Parser {
             throw new DukeException("FUCK YOU JOEY!");
         }
         return x;
-    }
-
-    /**
-     * Returns the suffix to be used after the days in the Date, useful for printing the Date in the desired format.
-     *
-     * @param n indication the Day of the month
-     * @return the suffix accordingly to the day of the month needed
-     */
-    public static String getDaySuffix(int n) {
-        if (n >= 11 && n <= 13) {
-            return "th";
-        }
-        switch (n % 10) {
-            case 1:
-                return "st";
-            case 2:
-                return "nd";
-            case 3:
-                return "rd";
-            default:
-                return "th";
-        }
-    }
-
-    /**
-     * Returns a {@link Date} representation of a String in the format "dd/MM/yyyy hhmm" or "dd/MM/yyyy".
-     *
-     * @param date String in the format "dd/MM/yyyy hhmm" or "dd/MM/yyyy", used to extract a {@link Date} instance from
-     * @return the {@link Date} instance created from the argument string
-     */
-    public static Date stringToDate(String date) {
-        DateFormat formatter;
-        if (date.length() > 11) {
-            formatter = new SimpleDateFormat("dd/MM/yyyy hhmm");
-        } else {
-            formatter = new SimpleDateFormat("dd/MM/yyyy");
-        }
-        try {
-            return formatter.parse(date);
-        } catch (ParseException e) {
-            return null;
-        }
-    }
-
-    /**
-     * Returns the {@link Date } instance as a String to be printed in the file.
-     *
-     * @param date deadline {@link Date} for finishing the task
-     * @return String the date for the deadline
-     */
-    public static String getDateString(Date date, String dateString) {
-        if (date == null) {
-            return dateString;
-        }
-        LocalDate localDate = date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-        String pattern;
-        if (dateString.length() > 11) {
-            pattern = "d'" + Parser.getDaySuffix(localDate.getDayOfMonth()) + "' 'of' MMMM yyyy, ha ";
-        } else {
-            pattern = "d'" + Parser.getDaySuffix(localDate.getDayOfMonth()) + "' 'of' MMMM yyyy";
-        }
-        SimpleDateFormat formatter = new SimpleDateFormat(pattern);
-        return formatter.format(date);
     }
 }
