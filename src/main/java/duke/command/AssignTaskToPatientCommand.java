@@ -2,13 +2,13 @@ package duke.command;
 
 import duke.core.DukeException;
 import duke.core.Ui;
-import duke.patient.PatientList;
+import duke.patient.PatientManager;
 import duke.storage.PatientStorage;
 import duke.storage.PatientTaskStorage;
 import duke.storage.TaskStorage;
 import duke.relation.PatientTask;
 import duke.relation.PatientTaskList;
-import duke.task.TaskList;
+import duke.task.TaskManager;
 
 public class AssignTaskToPatientCommand extends Command {
 
@@ -20,7 +20,7 @@ public class AssignTaskToPatientCommand extends Command {
     }
 
     @Override
-    public void execute(PatientTaskList patientTaskList, TaskList tasksList, PatientList patientList, Ui ui, PatientTaskStorage patientTaskStorage, TaskStorage taskStorage, PatientStorage patientStorage) throws DukeException {
+    public void execute(PatientTaskList patientTaskList, TaskManager tasksList, PatientManager patientList, Ui ui, PatientTaskStorage patientTaskStorage, TaskStorage taskStorage, PatientStorage patientStorage) throws DukeException {
         if (patientList.isExist(newPatientTask.getPatientId()) && tasksList.isExist(newPatientTask.getTaskID()))
         {
             patientTaskList.addPatientTask(newPatientTask);

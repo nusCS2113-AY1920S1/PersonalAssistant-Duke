@@ -3,12 +3,12 @@ package duke;
 import duke.command.Command;
 import duke.core.DukeException;
 import duke.core.CommandManager;
-import duke.patient.PatientList;
+import duke.patient.PatientManager;
 import duke.storage.PatientStorage;
 import duke.storage.PatientTaskStorage;
 import duke.storage.TaskStorage;
 import duke.relation.PatientTaskList;
-import duke.task.TaskList;
+import duke.task.TaskManager;
 import duke.core.Ui;
 
 /**
@@ -27,9 +27,10 @@ public class Duke {
      * A TaskList object that deals with add, delete, mark as done,
      * find functions of a list of tasks.
      */
-    private TaskList taskList;
-    private PatientList patientList;
     private PatientTaskList patientTaskList;
+    private TaskManager taskManager;
+    private PatientManager patientManager;
+
     /**
      * A Ui object that deals with interactions with the user.
      */
@@ -47,13 +48,14 @@ public class Duke {
         patientTaskStorage = new PatientTaskStorage(filePath + "/patientsTasks.csv");
 
         try {
-            taskList = new TaskList(taskStorage.load());
-            patientList = new PatientList(patientStorage.load());
             patientTaskList = new PatientTaskList(patientTaskStorage.load());
+            taskManager = new TaskManager(taskStorage.load());
+            patientManager = new PatientManager(patientStorage.load());
         } catch (DukeException e) {
             ui.showLoadingError();
             System.out.println(e.getMessage());
-            taskList = new TaskList();
+            taskManager = new TaskManager();
+
         }
     }
 
@@ -69,7 +71,7 @@ public class Duke {
                 String fullCommand = ui.readCommand();
                 ui.showLine();
                 Command c = CommandManager.manageCommand(fullCommand);
-                c.execute(patientTaskList,taskList,patientList, ui, patientTaskStorage, taskStorage, patientStorage);
+                c.execute(patientTaskList,taskManager,patientManager, ui, patientTaskStorage, taskStorage, patientStorage);
                 isExit = c.isExit();
             } catch (DukeException e) {
                 ui.showError(e.getMessage());

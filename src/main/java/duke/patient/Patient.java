@@ -1,7 +1,5 @@
 package duke.patient;
 
-import java.util.ArrayList;
-
 /**
  * Represents a Patient.
  */
@@ -10,7 +8,6 @@ public class Patient {
     private String nric;
     private String name;
     private String remark;
-    private ArrayList<String> remarkList = new ArrayList<String>();
     private String room;
 
     public Patient(int id, String name, String nric, String room, String remark) {

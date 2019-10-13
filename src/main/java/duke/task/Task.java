@@ -1,6 +1,5 @@
 package duke.task;
 
-
 /**
  * Represents a task.  Task is an abstract class that can not be
  * instantiated
@@ -31,6 +30,5 @@ public class Task {
     public String getDescription() {
         return description;
     }
-
 
 }

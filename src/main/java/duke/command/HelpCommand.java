@@ -1,19 +1,19 @@
 package duke.command;
 
 import duke.core.DukeException;
-import duke.patient.PatientList;
+import duke.patient.PatientManager;
 import duke.storage.PatientStorage;
 import duke.storage.PatientTaskStorage;
 import duke.storage.TaskStorage;
 import duke.relation.PatientTaskList;
-import duke.task.TaskList;
 import duke.core.Ui;
+import duke.task.TaskManager;
 
 public class HelpCommand extends Command {
 
     @Override
-    public void execute(PatientTaskList patientTask, TaskList tasks, PatientList patientList, Ui ui, PatientTaskStorage patientTaskStorage, TaskStorage taskStorage, PatientStorage patientStorage) throws DukeException {
-        ui.showHelpCommand();
+    public void execute(PatientTaskList patientTask, TaskManager tasks, PatientManager patientList, Ui ui, PatientTaskStorage patientTaskStorage, TaskStorage taskStorage, PatientStorage patientStorage) throws DukeException {
+        //ui.showHelpCommand();
 
     }
 

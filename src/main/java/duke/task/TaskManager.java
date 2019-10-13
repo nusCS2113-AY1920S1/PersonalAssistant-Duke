@@ -7,7 +7,7 @@ import java.util.ArrayList;
  * Represents a list of Task that can perform operations such as
  * add and delete on the tasks.
  */
-public class TaskList {
+public class TaskManager {
     /**
      * An ArrayList structure.
      */
@@ -18,7 +18,7 @@ public class TaskList {
      * Takes loaded taskList and uses it during Duke's new session.
      * @param loadedTaskList
      */
-    public TaskList(ArrayList<Task> loadedTaskList) {
+    public TaskManager(ArrayList<Task> loadedTaskList) {
         this.taskList = loadedTaskList;
     }
 
@@ -26,7 +26,7 @@ public class TaskList {
      * Constructor used when Duke cannot successfully load a TaskList from a saved file.
      * Instantiates a new TaskList with an empty list.
      */
-    public TaskList() {
+    public TaskManager() {
         this.taskList = new ArrayList<Task>();
     }
 
