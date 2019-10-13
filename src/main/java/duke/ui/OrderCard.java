@@ -34,6 +34,8 @@ public class OrderCard extends UiPart<AnchorPane> {
     private Label remarks;
     @FXML
     private Label status;
+    @FXML
+    private Label total;
 
     public OrderCard(Order order, int displayedIndex) {
         super(FXML);
@@ -43,14 +45,18 @@ public class OrderCard extends UiPart<AnchorPane> {
         name.setText(order.getCustomer().name);
         contact.setText(order.getCustomer().contact);
         remarks.setText(order.getRemarks());
+
         status.setText(order.getStatus().toString().toLowerCase());
         status.getStyleClass().clear();
         status.getStyleClass().addAll("status-" + order.getStatus().toString().toLowerCase());
+
         for (Item<Product> item : order.getItems()) {
             itemFlow.getChildren().add(
                     new OrderItemBox(item.getItem().getProductName(), item.getQuantity().getNumber())
             );
         }
+
+        total.setText(Double.toString(order.getTotal()));
 
     }
 }

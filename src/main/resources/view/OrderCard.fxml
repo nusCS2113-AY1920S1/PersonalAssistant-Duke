@@ -11,6 +11,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
+
 <AnchorPane xmlns:fx="http://javafx.com/fxml/1" maxHeight="1.7976931348623157E308" minHeight="230.0" prefHeight="200.0"
             prefWidth="800.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/11.0.1">
     <children>
@@ -80,7 +81,7 @@
                                         <Insets left="5.0"/>
                                     </HBox.margin>
                                 </Label>
-                                <Label fx:id="name1" alignment="CENTER" text="10.0">
+                                <Label fx:id="total" alignment="CENTER" text="10.0">
                                     <font>
                                         <Font name="Arial" size="14.0"/>
                                     </font>

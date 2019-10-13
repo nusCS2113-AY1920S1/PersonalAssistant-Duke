@@ -15,7 +15,6 @@ import duke.logic.parser.commons.BakingHomeParser;
 import duke.logic.parser.commons.CliSyntax;
 import duke.logic.parser.exceptions.ParseException;
 import duke.model.Model;
-import duke.model.ReadOnlyBakingHome;
 import duke.model.commons.Ingredient;
 import duke.model.order.Order;
 import duke.model.product.Product;
@@ -26,13 +25,13 @@ public class LogicManager implements Logic {
     private final Model model;
     private final Storage storage;
     private final BakingHomeParser bakingHomeParser;
-    private final AutoCompleter autocompleter;
+    private final AutoCompleter autoCompleter;
 
     public LogicManager(Model model, Storage storage) {
         this.model = model;
         this.storage = storage;
         this.bakingHomeParser = new BakingHomeParser();
-        this.autocompleter = new AutoCompleter();
+        this.autoCompleter = new AutoCompleter();
         addFieldsToAutoComplete();
     }
 
@@ -53,15 +52,8 @@ public class LogicManager implements Logic {
 
     @Override
     public AutoCompleter.UserInputState getAutoCompletion(String commandText, int caretPosition) {
-        return autocompleter.getAutoCompletion(new AutoCompleter.UserInputState(commandText, caretPosition));
+        return autoCompleter.getAutoCompletion(new AutoCompleter.UserInputState(commandText, caretPosition));
     }
-
-    @Override
-    public ReadOnlyBakingHome getBakingHome() {
-        //TODO: Clear this
-        return null;
-    }
-
 
     @Override
     public ObservableList<Order> getFilteredOrderList() {
@@ -80,28 +72,27 @@ public class LogicManager implements Logic {
     }
 
     private void addFieldsToAutoComplete() {
-        autocompleter.addCommand(OrderCommand.class);
-        autocompleter.addCommand(AddOrderCommand.class);
-        autocompleter.addCommand(DeleteOrderCommand.class);
-        autocompleter.addCommand(EditOrderCommand.class);
-        autocompleter.addCommand(CompleteOrderCommand.class);
-        autocompleter.addCommand(ProductCommand.class);
-        autocompleter.addCommand(AddOrderCommand.class);
-        autocompleter.addCommand(EditProductCommand.class);
+        autoCompleter.addCommand(OrderCommand.class);
+        autoCompleter.addCommand(AddOrderCommand.class);
+        autoCompleter.addCommand(DeleteOrderCommand.class);
+        autoCompleter.addCommand(EditOrderCommand.class);
+        autoCompleter.addCommand(CompleteOrderCommand.class);
+        autoCompleter.addCommand(ProductCommand.class);
+        autoCompleter.addCommand(AddOrderCommand.class);
+        autoCompleter.addCommand(EditProductCommand.class);
 
-        autocompleter.addPrefix(CliSyntax.PREFIX_CUSTOMER_CONTACT);
-        autocompleter.addPrefix(CliSyntax.PREFIX_CUSTOMER_NAME);
-        autocompleter.addPrefix(CliSyntax.PREFIX_ORDER_DEADLINE);
-        autocompleter.addPrefix(CliSyntax.PREFIX_ORDER_INDEX);
-        autocompleter.addPrefix(CliSyntax.PREFIX_ORDER_ITEM);
-        autocompleter.addPrefix(CliSyntax.PREFIX_ORDER_STATUS);
-        autocompleter.addPrefix(CliSyntax.PREFIX_ORDER_REMARKS);
-        autocompleter.addPrefix(CliSyntax.PREFIX_ORDER_TOTAL);
-        autocompleter.addPrefix(CliSyntax.PREFIX_PRODUCT_INGREDIENT_COST);
-        autocompleter.addPrefix(CliSyntax.PREFIX_PRODUCT_INDEX);
-        autocompleter.addPrefix(CliSyntax.PREFIX_PRODUCT_INGREDIENT);
-        autocompleter.addPrefix(CliSyntax.PREFIX_PRODUCT_NAME);
-        autocompleter.addPrefix(CliSyntax.PREFIX_PRODUCT_RETAIL_PRICE);
-        autocompleter.addPrefix(CliSyntax.PREFIX_PRODUCT_STATUS);
+        autoCompleter.addPrefix(CliSyntax.PREFIX_CUSTOMER_CONTACT);
+        autoCompleter.addPrefix(CliSyntax.PREFIX_CUSTOMER_NAME);
+        autoCompleter.addPrefix(CliSyntax.PREFIX_ORDER_DEADLINE);
+        autoCompleter.addPrefix(CliSyntax.PREFIX_ORDER_ITEM);
+        autoCompleter.addPrefix(CliSyntax.PREFIX_ORDER_STATUS);
+        autoCompleter.addPrefix(CliSyntax.PREFIX_ORDER_REMARKS);
+        autoCompleter.addPrefix(CliSyntax.PREFIX_ORDER_TOTAL);
+        autoCompleter.addPrefix(CliSyntax.PREFIX_PRODUCT_INGREDIENT_COST);
+        autoCompleter.addPrefix(CliSyntax.PREFIX_PRODUCT_INDEX);
+        autoCompleter.addPrefix(CliSyntax.PREFIX_PRODUCT_INGREDIENT);
+        autoCompleter.addPrefix(CliSyntax.PREFIX_PRODUCT_NAME);
+        autoCompleter.addPrefix(CliSyntax.PREFIX_PRODUCT_RETAIL_PRICE);
+        autoCompleter.addPrefix(CliSyntax.PREFIX_PRODUCT_STATUS);
     }
 }

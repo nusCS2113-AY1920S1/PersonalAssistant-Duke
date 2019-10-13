@@ -12,6 +12,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import static java.util.Objects.requireNonNull;
 
@@ -30,6 +31,7 @@ public class AddOrderCommand extends OrderCommand {
     private static final Date DEFAULT_DELIVERY_DATE = Calendar.getInstance().getTime();
     private static final String DEFAULT_REMARKS = "N/A";
     private static final Order.Status DEFAULT_STATUS = Order.Status.ACTIVE;
+
     private final OrderDescriptor addOrderDescriptor;
 
     /**
@@ -53,15 +55,17 @@ public class AddOrderCommand extends OrderCommand {
     }
 
     private Order createOrder(OrderDescriptor descriptor, List<Product> allProducts) throws CommandException {
-        return new Order(new Customer(descriptor.getCustomerName().orElse(DEFAULT_CUSTOMER_NAME),
+        Set<Item<Product>> productItems = OrderCommandUtil.getProducts(allProducts,
+                descriptor.getItems().orElse(new HashSet<Item<String>>()));
+        double total = descriptor.getTotal().orElse(OrderCommandUtil.calculateTotal(productItems));
+        return new Order(
+                new Customer(descriptor.getCustomerName().orElse(DEFAULT_CUSTOMER_NAME),
                 descriptor.getCustomerContact().orElse(DEFAULT_CUSTOMER_CONTACT)),
                 descriptor.getDeliveryDate().orElse(DEFAULT_DELIVERY_DATE),
                 descriptor.getStatus().orElse(DEFAULT_STATUS),
                 descriptor.getRemarks().orElse(DEFAULT_REMARKS),
-                OrderCommandUtil.getProducts(
-                        allProducts,
-                        descriptor.getItems()
-                                .orElse(new HashSet<Item<String>>()))
+                productItems,
+                total
         );
     }
 }
