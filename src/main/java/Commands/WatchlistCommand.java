@@ -29,9 +29,26 @@ public class WatchlistCommand extends CommandSuper {
 
     public void addToWatchList() {
         String movie = ((MovieHandler)this.getUIController()).getAPIRequester().beginAddRequest(getPayload());
-        Deadline deadline = new Deadline(movie, "D", "20/09/1997 12:00");
-        System.out.println(movie);
-        TaskList.addTask(deadline);
+        String type = this.getFlagMap().get("-d").get(0);
+        switch (type) {
+            case "D":
+                String end_date = this.getFlagMap().get("-e").get(0);
+                String concat = end_date + " " + this.getFlagMap().get("-e").get(1);
+                Deadline deadline = new Deadline(movie, "D", concat);
+                TaskList.addTask(deadline);
+                break;
+            case "P":
+                String s_date = this.getFlagMap().get("-s").get(0);
+                String s_time = this.getFlagMap().get("-s").get(1);
+                String s_result = s_date + " " + s_time;
+                String e_date = this.getFlagMap().get("-e").get(0);
+                String e_time = this.getFlagMap().get("-e").get(1);
+                String e_result = e_date + " " + e_time;
+                Period period = new Period(movie, "P", s_result, e_result);
+                TaskList.addTask(period);
+                break;
+        }
+        ((MovieHandler)this.getUIController()).setFeedbackText("");
         Parser.listCommand();
     }
 }
