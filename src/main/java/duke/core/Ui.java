@@ -82,7 +82,7 @@ public class Ui {
     }
 
     public void patientTaskAssigned(PatientTask patientTask, String patientName, String taskName) {
-        System.out.println("Got it. The following Patient ID: " + patientTask.getTaskID() + " " + patientName + " has been assigned the Task ID: " + patientTask.getPatientId() + " " + taskName);
+        System.out.println("Got it. The following Patient ID: " + patientTask.getPatientId() + " " + patientName + " has been assigned the Task ID: " + patientTask.getTaskID() + " " + taskName);
     }
 
     public int choosePatientToDelete(int numberOfPatients) {
