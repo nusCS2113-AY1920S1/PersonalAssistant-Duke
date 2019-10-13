@@ -68,7 +68,7 @@ public class Ui {
      *
      * @param taskList to be printed to user.
      */
-    public void printTaskList(List<Task> taskList) {
+    public <E extends Task> void printTaskList(List<E> taskList) {
         int count = 1;
         for (Task temp : taskList) {
             System.out.println(count + ". " + temp);
@@ -173,5 +173,4 @@ public class Ui {
     public void specificCapMsg(String module) {
         System.out.println("Here is your CAP for the module:" + module);
     }
-
 }

@@ -1,4 +1,5 @@
 package duke.util;
+
 import duke.command.AddCommand;
 import duke.command.ByeCommand;
 import duke.command.Command;
@@ -15,13 +16,14 @@ import duke.exceptions.ModInvalidTimeException;
 import duke.exceptions.ModInvalidTimePeriodException;
 import duke.exceptions.ModMissingArgumentException;
 import duke.exceptions.ModMultipleValuesForSameArgumentException;
+
+import duke.modules.Cca;
 import duke.modules.Deadline;
 import duke.modules.DoWithin;
 import duke.modules.Events;
-import duke.modules.FixedDurationTasks;
+import duke.modules.FixedDurationTask;
 import duke.modules.RecurringTask;
 import duke.modules.Task;
-import duke.modules.Timetable;
 import duke.modules.Todo;
 
 import java.util.Arrays;
@@ -209,6 +211,7 @@ public class DukeParser {
             ModMissingArgumentException, ModInvalidTimePeriodException {
         // Checks every input for keywords
         input = input.trim();
+        LinkedHashMap<String, String> args;
         if (input.startsWith("todo ")) {
             String[] split = parseAdding(input, "todo");
             Task hold = new Todo(split);
@@ -222,17 +225,32 @@ public class DukeParser {
             Task hold = new Deadline(split);
             return new AddCommand(hold);
         } else if (input.startsWith("recurring ")) {
-            String[] split = parseAdding(input, "recurring");
-            Task hold = new RecurringTask(split);
+            args = DukeParser.parse(input, false, true);
+            RecurringTask hold = new RecurringTask(
+                    args.get("description"),
+                    args.get("/days"),
+                    args.get("/hours"),
+                    args.get("/minutes"),
+                    args.get("/seconds"));
             return new AddCommand(hold);
-        } else if (input.startsWith("fixedDuration")) {
-            String[] split = parseAdding(input, "fixedDuration");
-            Task hold = new FixedDurationTasks(split);
+        } else if (input.startsWith("fixedDuration ")) {
+            args = DukeParser.parse(input, false, true);
+            FixedDurationTask hold = new FixedDurationTask(
+                    args.get("description"),
+                    args.get("/days"),
+                    args.get("/hours"),
+                    args.get("/minutes"),
+                    args.get("/seconds"));
             return new AddCommand(hold);
         } else if (input.startsWith("doWithin ")) {
-            LinkedHashMap<String, String> args = parse(input, true, true);
+            args = parse(input, false, true);
             checkContainRequiredArguments(args, "/begin", "/end");
             Task hold = new DoWithin(args.get("description"), args.get("/begin"), args.get("/end"));
+            return new AddCommand(hold);
+        } else if (input.startsWith("cca ")) {
+            args = parse(input, false, true);
+            checkContainRequiredArguments(args, "/begin", "/end", "/day");
+            Task hold = new Cca(args.get("description"), args.get("/begin"), args.get("/end"), args.get("/day"));
             return new AddCommand(hold);
         } else if (input.startsWith("print ")) {
             return new PrintTimetable();
@@ -250,8 +268,6 @@ public class DukeParser {
             return checkValidRescheduleIndex(input);
         } else if (input.startsWith("schedule ")) {
             return new ScheduleCommand(input);
-        } else if (input.startsWith("cap")) {
-            return new CapCommand(input);
         } else {
             //throws invalid command exception when user inputs non-keywords
             throw new ModCommandException();
