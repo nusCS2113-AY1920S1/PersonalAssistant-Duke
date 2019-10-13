@@ -13,7 +13,6 @@ import static duke.logic.parser.commons.CliSyntax.PREFIX_PRODUCT_INGREDIENT_COST
 
 public class ProductParserUtil {
 
-
     static ProductDescriptor createProductDescriptor(ArgumentMultimap map) {
         ProductDescriptor productDescriptor = new ProductDescriptor();
 

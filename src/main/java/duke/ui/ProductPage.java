@@ -67,9 +67,6 @@ public class ProductPage extends UiPart<AnchorPane> {
         productListTable.getColumns().add(indexColumn);
         indexColumn.setMinWidth(80);
         indexColumn.setMaxWidth(80);
-     //   indexColumn.
-        //productListTable.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
-      //  productListTable.setStyle("columnResizePolicy = SmartResize.POLICY");
 
     }
 

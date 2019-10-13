@@ -15,7 +15,6 @@ public class EditProductCommand extends ProductCommand {
 
     public static final String COMMAND_WORD = "edit";
 
-    public final String MESSAGE_COMMIT = "Edit product";
     public static final String MESSAGE_EDIT_PRODUCT_SUCCESS = "Edited Products %s";
 
     public final Index index;
@@ -57,7 +56,6 @@ public class EditProductCommand extends ProductCommand {
         model.setProduct(toEdit, editedProduct);
         model.updateFilteredProductList(Model.PREDICATE_SHOW_ACTIVE_PRODUCTS);
 
-        model.commit(MESSAGE_COMMIT);
         return new CommandResult(String.format(MESSAGE_EDIT_PRODUCT_SUCCESS, editedProduct.getProductName()),
                 CommandResult.DisplayedPage.PRODUCT);
     }

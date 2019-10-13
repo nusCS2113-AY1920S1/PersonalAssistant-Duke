@@ -8,7 +8,6 @@ import duke.model.sale.Sale;
 import duke.model.shortcut.Shortcut;
 import javafx.collections.ObservableList;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import static duke.commons.util.CollectionUtil.requireAllNonNull;

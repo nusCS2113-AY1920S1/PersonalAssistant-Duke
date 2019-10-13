@@ -8,7 +8,6 @@ import duke.logic.command.product.ProductCommand;
 import duke.logic.command.product.ShowProductPageCommand;
 import duke.logic.parser.commons.SubCommandParser;
 import duke.logic.parser.exceptions.ParseException;
-import duke.ui.MainWindow;
 
 
 public class ProductCommandParser implements SubCommandParser<ProductCommand> {

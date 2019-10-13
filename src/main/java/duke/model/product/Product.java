@@ -29,6 +29,12 @@ public class Product {
         this.productName = productName;
     }
 
+    /**
+     * Creates a Product.
+     * @param productName
+     * @param retailPrice
+     * @param ingredientCost
+     */
     public Product(String productName, String retailPrice, String ingredientCost) {
         requireAllNonNull(productName);
         checkEmpty(productName, MESSAGE_CONSTRAINTS);
@@ -57,6 +63,7 @@ public class Product {
             e.printStackTrace();
         }
     }
+
     public void setProductName(String productName) {
         this.productName = productName;
     }
@@ -94,10 +101,10 @@ public class Product {
         this.ingredients = ingredients;
     }
 */
-@Override
-public String toString() {
-    return productName + ": " + retailPrice + "$";
-}
+    @Override
+    public String toString() {
+        return productName + ": " + retailPrice + "$";
+    }
 
     @Override
     public boolean equals(Object o) {

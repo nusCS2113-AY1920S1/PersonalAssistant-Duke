@@ -3,11 +3,6 @@ package duke.logic.command.product;
 import duke.logic.command.CommandResult;
 import duke.logic.command.exceptions.CommandException;
 import duke.model.Model;
-import duke.model.product.Product;
-
-import java.util.List;
-
-
 
 public class ListProductCommand extends ProductCommand {
 

@@ -38,7 +38,6 @@ public class AddProductCommandParser implements Parser<AddProductCommand> {
 
         IngredientList ingredients = new IngredientList(){};
 
-
         Product product = new Product(
                 map.getValue(PREFIX_CUSTOMER_NAME).orElse("ProductName"),
                 map.getValue(PREFIX_PRODUCT_RETAIL_PRICE).orElse(String.valueOf(0)),
@@ -51,8 +50,8 @@ public class AddProductCommandParser implements Parser<AddProductCommand> {
     }
 
     //Todo: IngredientList Parser -ingt [ingredient_name, qty] [ingredient_name2, qty] [ingredient_name3]
-    private void ingredientListParser(String input) {
-        System.out.println("input" + input);
+    private void ingredientListParser(String userInput) {
+        String input = userInput;
         Pattern pattern = Pattern.compile("((\\[)(?<name>[\\w|\\s]*),(?<description>[\\w|\\s]*)(?:\\])"
                 + "\\s*)+");
         Matcher matcher = pattern.matcher(input.trim());
@@ -60,9 +59,8 @@ public class AddProductCommandParser implements Parser<AddProductCommand> {
         if (!matcher.matches()) {
             System.out.println("no"
                     + "Match");
-         //   throw new ParseException("no match");
+            //throw new ParseException("no match");
         }
-
 
         Dictionary<String, String> params = new Hashtable<>();
 
@@ -82,7 +80,5 @@ public class AddProductCommandParser implements Parser<AddProductCommand> {
                     + "\\s*)$", "");
             matcher = pattern.matcher(input);
         }
-      //  System.out.println("params" + params);
-
     }
 }

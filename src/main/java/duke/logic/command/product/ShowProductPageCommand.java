@@ -7,8 +7,6 @@ import duke.model.Model;
 public class ShowProductPageCommand extends ProductCommand {
 
     public final String MESSAGE_SUCCESS = "Product view";
-    public ShowProductPageCommand() {
-    }
 
     /**
      * Executes the command and returns the result message.

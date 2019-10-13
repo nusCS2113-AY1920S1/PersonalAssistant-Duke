@@ -1,6 +1,5 @@
 package duke.logic.command.product;
 
-import duke.logic.command.order.OrderDescriptor;
 import duke.model.product.Product;
 
 import java.util.Objects;
@@ -19,6 +18,11 @@ public class ProductDescriptor {
     public ProductDescriptor() {
     }
 
+    /**
+     * Copy constructor.
+     *
+     * @param toCopy the ProductDescriptor to copy from
+     */
     public ProductDescriptor(ProductDescriptor toCopy) {
         setProductName(toCopy.productName);
         setIngredientCost(toCopy.ingredientCost);
@@ -69,7 +73,7 @@ public class ProductDescriptor {
         }
         ProductDescriptor that = (ProductDescriptor) o;
         return Objects.equals(productName, that.productName)
-        //        && Objects.equals(items, that.items)
+                //&& Objects.equals(items, that.items)
                 && status == that.status;
     }
 
