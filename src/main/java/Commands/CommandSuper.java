@@ -6,6 +6,7 @@ import movieRequesterAPI.RetrieveRequest;
 import object.MovieInfoObject;
 import wrapper.CommandPair;
 
+import java.io.IOException;
 import java.util.*;
 
 public abstract class CommandSuper {
@@ -15,7 +16,7 @@ public abstract class CommandSuper {
     private COMMAND_KEYS[] SubCommand;
     private COMMAND_KEYS Root;
 
-    private TreeMap<String , ArrayList<String>> flagMap = new TreeMap<String, ArrayList<String>>();
+    private TreeMap<String, ArrayList<String>> flagMap = new TreeMap<String, ArrayList<String>>();
     private COMMAND_KEYS subRootCommand;
     private String Payload;
     private boolean execute = false;
@@ -28,6 +29,10 @@ public abstract class CommandSuper {
      */
     public boolean isExecute() {
         return execute;
+    }
+
+    public void setExecute(boolean execute) {
+        this.execute = execute;
     }
 
     public COMMAND_KEYS getRoot() {
@@ -72,7 +77,7 @@ public abstract class CommandSuper {
         subCommand(CommandArr);
         processFlags(CommandArr ,Command);
         processPayload(CommandArr);
-        if(SubCommand.length ==0){
+        if (SubCommand.length == 0) {
             execute = true;
         }
     }
@@ -86,9 +91,12 @@ public abstract class CommandSuper {
      * @param subRootCommand the subRoot command  that was found
      */
     public void initCommand(String[] CommandArr, String Command, COMMAND_KEYS subRootCommand){
+
         this.subRootCommand = subRootCommand;
         processFlags(CommandArr ,Command);
         processPayload(CommandArr);
+
+
     }
 
     /**
@@ -106,11 +114,11 @@ public abstract class CommandSuper {
                     return;
                 }
             }
-        }catch(Exception e){
+        } catch (Exception e) {
             System.out.println(e);
         }
 
-        CommandPair cmds = Command_Debugger.commandSpellChecker(CommandArr , Root , this.UIController);
+        CommandPair cmds = Command_Debugger.commandSpellChecker(CommandArr, Root, this.UIController);
         subRootCommand = cmds.getSubRootCommand();
 
     }
@@ -154,10 +162,19 @@ public abstract class CommandSuper {
             }
             for(String individualFlags: flagsIndividualValues){
                 listOfString.add(individualFlags);
+
+
             }
 
             flagMap.put(flagOrder.get(counter), listOfString);
             counter ++;
+        }
+
+        if(flagOrder.size() != 0){
+            if(flagMap.get(flagOrder.get(flagOrder.size()-1)) == null){
+                flagMap.put(flagOrder.get(flagOrder.size()-1) , new ArrayList<String>());
+            }
+
         }
 
         for (Map.Entry<String, ArrayList<String>> entry : flagMap.entrySet()) {
@@ -167,7 +184,7 @@ public abstract class CommandSuper {
     }
 
     /**
-     * find payload of the user Command
+     * find payload of the user Command based on the interpretation by Command Parser
      *
      * @param CommandArr command that was entered by the user in split array form
      */
@@ -178,29 +195,34 @@ public abstract class CommandSuper {
             }else{
                 Payload = getThePayload(1 , CommandArr);
             }
-        }else{
+        } else {
             Payload = "";
         }
     }
 
-    public static String getThePayload(int start , String []CommandArr){
-        int i  = 0;
-        while( i < CommandArr.length && !CommandArr[i].matches("-[a-z]")){
+    /**
+     * find payload of the user Command
+     *
+     * @param CommandArr command that was entered by the user in split array form
+     * @param start the start index of the payload in the user command
+     */
+    public static String getThePayload(int start, String[] CommandArr) {
+        int i = 0;
+        while (i < CommandArr.length && !CommandArr[i].matches("-[a-z]")) {
+            System.out.println(i + "." + CommandArr[i]);
             i++;
         }
         String payload = "";
-        for(int j = start;j < i ; j++ ){
+        for (int j = start; j < i; j++) {
             payload += CommandArr[j];
             payload += " ";
         }
         return payload.trim();
     }
 
-
     /**
      * Abstract class to be implemented for each root command class
      */
-    public abstract void executeCommands();
-
+    public abstract void executeCommands() throws IOException;
 
 }

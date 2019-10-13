@@ -13,6 +13,7 @@ public class CommandContext {
     static ArrayList<String> keywordsRoot = new ArrayList<>();
     static ArrayList<String> keywordsSubRoot = new ArrayList<>();
 
+
     public static void initialiseContext(){
 
         for( Map.Entry<COMMAND_KEYS, COMMAND_KEYS[]> e: CommandStructure.cmdStructure.entrySet()){
@@ -20,6 +21,7 @@ public class CommandContext {
             for(COMMAND_KEYS a: e.getValue()){
                 keywordsSubRoot.add(a.toString());
             }
+
         }
 
     }
@@ -48,6 +50,7 @@ public class CommandContext {
             }
         }
         return hints;
+
     }
 
     public static Pair<String, String> getSpellingCheck(String key) {

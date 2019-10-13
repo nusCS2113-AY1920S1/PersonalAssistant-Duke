@@ -1,19 +1,22 @@
-package parser;
+package EPparser;
 
 import Commands.*;
 import Execution.CommandStack;
 import MovieUI.Controller;
+import MovieUI.MovieHandler;
 import wrapper.CommandPair;
 import Commands.COMMAND_KEYS;
 
-public class CommandParser {
+import java.io.IOException;
+import java.util.Arrays;
 
+public class CommandParser {
     /**
      * Entry point to command parser Class
      *
      * @param command command that was entered by the user
      */
-    public static void parseCommands(String command , Controller UIController) {
+    public static void parseCommands(String command , Controller UIController) throws IOException {
         command = command.toLowerCase();
         String commandArr[] = command.split(" ");
         rootCommand(commandArr , command, UIController);
@@ -27,7 +30,8 @@ public class CommandParser {
      * @param Command   command that was entered by the user.
      * @param UIController the controller for the UI
      */
-    public static void processCommand(CommandPair command , String[] CommandArr , String Command, Controller UIController){
+    public static void processCommand(CommandPair command , String[] CommandArr , String Command , Controller UIController) throws IOException {
+
 
         switch(command.getRootCommand()){
             case search:
@@ -62,14 +66,32 @@ public class CommandParser {
                 yc.initCommand(CommandArr, Command, command.getSubRootCommand());
                 CommandStack.pushCmd(yc);
                 break;
+            case add:
+                System.out.println("Yes");
+                AddCommand wc = new AddCommand(UIController);
+                wc.initCommand(CommandArr, Command, command.getSubRootCommand());
+            case set:
+                System.out.println("Set");
+                SetCommand stc = new SetCommand(UIController);
+                stc.initCommand(CommandArr, Command , command.getSubRootCommand());
+                CommandStack.pushCmd(stc);
+                break;
+            case playlist:
+                System.out.println("Playlist");
+                PlaylistCommand pc = new PlaylistCommand(UIController);
+                pc.initCommand(CommandArr, Command , command.getSubRootCommand());
+                CommandStack.pushCmd(pc);
+                break;
+            case preference:
+                System.out.println("Preference");
+                PreferenceCommand pfc = new PreferenceCommand(UIController);
+                pfc.initCommand(CommandArr, Command , command.getSubRootCommand());
+                CommandStack.pushCmd(pfc);
+                break;
             default:
                 CommandPair pair = Command_Debugger.commandSpellChecker(CommandArr , COMMAND_KEYS.none , UIController);
-
-
         }
-
     }
-
     /**
      * Function to get the Root command for the comand
      *
@@ -77,7 +99,7 @@ public class CommandParser {
      * @param Command   command that was entered by the user.
      * @param UIController the controller for the UI
      */
-    public static void rootCommand(String[] CommandArr ,String Command , Controller UIController){
+    public static void rootCommand(String[] CommandArr , String Command ,  Controller UIController) throws IOException {
 
         System.out.print("Whats happening");
         switch(CommandArr[0]){
@@ -113,12 +135,35 @@ public class CommandParser {
                 yc.initCommand(CommandArr , Command);
                 CommandStack.pushCmd(yc);
                 break;
+            case "add":
+                System.out.println("Add");
+                AddCommand wc = new AddCommand(UIController);
+                wc.initCommand(CommandArr , Command);
+                CommandStack.pushCmd(wc);
+            case "set":
+                System.out.println("Set");
+                SetCommand stc = new SetCommand(UIController);
+                stc.initCommand(CommandArr , Command);
+                CommandStack.pushCmd(stc);
+                break;
+            case "playlist":
+                System.out.println("Playlist");
+                PlaylistCommand pc = new PlaylistCommand(UIController);
+                pc.initCommand(CommandArr , Command);
+
+                CommandStack.pushCmd(pc);
+                break;
+            case "preference":
+                System.out.println("Preference");
+                PreferenceCommand pfc = new PreferenceCommand(UIController);
+                pfc.initCommand(CommandArr , Command );
+                CommandStack.pushCmd(pfc);
+                break;
             default:
                 CommandPair pair = Command_Debugger.commandSpellChecker(CommandArr , COMMAND_KEYS.none, UIController);
+                ((MovieHandler)UIController).setFeedbackText("Did you mean :"+ pair.getRootCommand() + " " + pair.getSubRootCommand() + " " + String.join(" ", Arrays.copyOfRange(CommandArr,2 , CommandArr.length)));
                 processCommand(pair , CommandArr , Command, UIController);
-
+                break;
         }
-
     }
-
 }

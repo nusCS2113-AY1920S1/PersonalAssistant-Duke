@@ -10,6 +10,7 @@ import object.MovieInfoObject;
 import ui.Ui;
 
 import java.io.IOException;
+import java.net.URISyntaxException;
 
 public class Main extends Application {
     private Stage mainWindow;
@@ -27,12 +28,10 @@ public class Main extends Application {
         mainWindow.show();
     }
 
-
     private void setUp() {
         try {
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(getClass().getClassLoader().getResource("MainPage.fxml"));
-           // loader.getStylesheets().add(this.getClass().getResource("view/MainView.css").toExt‌​ernalForm())
             mainLayout = loader.load();
 
             // setup the controller's window and reference to this main application class
@@ -63,7 +62,6 @@ public class Main extends Application {
             e.printStackTrace();
         }
     }
-
 
     public void transitionBackToMoviesController()
     {

@@ -275,7 +275,7 @@ public class Parser {
     /**
      * Prints the list of tasks in database by calling the showListTask function under Ui class.
      */
-    private static void listCommand() {
+    public static void listCommand() {
         Ui.showListIntroMessage();
         List<Tasks> userToDoList = TaskList.getList();
         for (int i = 0; i < userToDoList.size(); i++) {
