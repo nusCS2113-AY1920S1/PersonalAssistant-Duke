@@ -29,13 +29,12 @@ public class EditCommand extends Command {
     @Override
     public boolean execute(Wallet wallet) {
         if (expense != null) {
-            int index = wallet.getExpenseList().findExpenseWithId(expense.getId());
+            int index = wallet.getExpenseList().findIndexWithId(expense.getId());
             Expense currentExpense = wallet.getExpenseList().getExpense(index);
             if (expense.getRecFrequency() == null || !expense.getRecFrequency().equals("")) {
                 currentExpense.setRecurring(expense.isRecurring());
                 currentExpense.setRecFrequency(expense.getRecFrequency());
             }
-
             if (expense.getAmount() != 0.0) {
                 currentExpense.setAmount(expense.getAmount());
             }
