@@ -12,6 +12,7 @@ import wallet.model.record.RecordList;
 import wallet.model.task.ScheduleList;
 import wallet.model.task.TaskList;
 import wallet.storage.StorageManager;
+import wallet.ui.Reminder;
 
 /**
  * The LogicManager Class handles the logic of Wallet.
@@ -21,6 +22,7 @@ public class LogicManager {
     private StorageManager storageManager;
     private ParserManager parserManager;
     private static Wallet wallet;
+    private static Reminder reminder;
 
     /**
      * Constructs a LogicManager object.
@@ -32,6 +34,7 @@ public class LogicManager {
                 new ContactList(storageManager.loadContact()), new TaskList(storageManager.loadTask()),
                 new ScheduleList(), new LoanList(storageManager.loadLoan()));
         this.parserManager = new ParserManager();
+        this.reminder = new Reminder();
     }
 
     /**
@@ -62,5 +65,18 @@ public class LogicManager {
      */
     public static Wallet getWallet() {
         return wallet;
+    }
+
+    /**
+     * Gets the Reminder object.
+     *
+     * @return The Reminder object.
+     */
+    public static Reminder getReminder() {
+        return reminder;
+    }
+
+    public static void setReminder(Reminder reminder) {
+        LogicManager.reminder = reminder;
     }
 }

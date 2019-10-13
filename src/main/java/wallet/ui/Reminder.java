@@ -1,27 +1,23 @@
 package wallet.ui;
 
+import wallet.logic.LogicManager;
 import wallet.model.Wallet;
 import wallet.model.record.LoanList;
 
 public class Reminder {
 
     private LoanList loanList;
-    private Ui ui;
-    private int number;
     private boolean autoRemind;
     private int timeInSeconds;
     private MyThread thread;
 
     /**
      * The constructor for the Reminder object.
-     *
-     * @param wallet The Wallet object.
      */
-    public Reminder(Wallet wallet) {
-        this.loanList = wallet.getLoanList();
+    public Reminder() {
+        this.loanList = LogicManager.getWallet().getLoanList();
         autoRemind = true;
         timeInSeconds = 1800; //set default time interval of auto remind to be 30 minutes
-        thread = new MyThread(false, wallet.getLoanList(), timeInSeconds);
     }
 
 
@@ -32,7 +28,7 @@ public class Reminder {
      * and also turn it off and on as they wish.
      */
     public void autoRemindStart() {
-        thread.run();
+        thread = new MyThread(false, loanList, timeInSeconds);
     }
 
     /**
