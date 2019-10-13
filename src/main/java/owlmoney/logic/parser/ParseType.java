@@ -6,6 +6,10 @@ import java.util.List;
 import owlmoney.logic.command.Command;
 import owlmoney.logic.command.PlaceHolderEmptyCommand;
 import owlmoney.logic.command.bank.ListSavingsCommand;
+import owlmoney.logic.command.card.ListCardCommand;
+import owlmoney.logic.parser.card.ParseAddCard;
+import owlmoney.logic.parser.card.ParseCard;
+import owlmoney.logic.parser.card.ParseDeleteCard;
 import owlmoney.logic.parser.exception.ParserException;
 import owlmoney.logic.parser.saving.ParseSaving;
 import owlmoney.logic.parser.transaction.deposit.ParseAddDeposit;
@@ -157,7 +161,20 @@ class ParseType extends Parser {
             }
             throw new ParserException("You entered an invalid type");
         case "/card":
-            return new PlaceHolderEmptyCommand();
+            if ("/add".equals(command)) {
+                ParseCard addCard = new ParseAddCard(rawData);
+                addCard.fillHashTable();
+                addCard.checkParameter();
+                return addCard.getCommand();
+            } else if ("/delete".equals(command)) {
+                ParseCard deleteCard = new ParseDeleteCard(rawData);
+                deleteCard.fillHashTable();
+                deleteCard.checkParameter();
+                return deleteCard.getCommand();
+            } else if ("/list".equals(command)) {
+                return new ListCardCommand();
+            }
+
         default:
             throw new ParserException("You entered an invalid type");
         }
