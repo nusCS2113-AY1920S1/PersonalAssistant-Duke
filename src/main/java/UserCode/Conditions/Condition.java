@@ -1,5 +1,5 @@
 package UserCode.Conditions;
 
 public enum Condition {
-    hasSeeds
+    hasMoney, hasSeeds, wheatRipened, wheatHarvested,
 }
