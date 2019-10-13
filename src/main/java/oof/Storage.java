@@ -1,5 +1,6 @@
 package oof;
 
+import oof.exception.OofException;
 import oof.task.Deadline;
 import oof.task.Event;
 import oof.task.Task;
@@ -7,6 +8,7 @@ import oof.task.Todo;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -18,6 +20,28 @@ import java.util.ArrayList;
 public class Storage {
 
     private ArrayList<Task> arr = new ArrayList<>();
+    private static final String MANUALPATH = "src/main/manual.txt";
+
+    /**
+     * Reads and prints all commands available to user.
+     * @return commandList  ArrayList of available commands.
+     * @throws OofException if manual cannot be retrieved from file path.
+     */
+    public ArrayList<String> readManual() throws OofException {
+        try {
+            File file = new File(MANUALPATH);
+            FileReader fileReader = new FileReader(file);
+            BufferedReader br = new BufferedReader(fileReader);
+            String line;
+            ArrayList<String> commandList = new ArrayList<>();
+            while ((line = br.readLine()) != null) {
+                commandList.add(line);
+            }
+            return commandList;
+        } catch (IOException e) {
+            throw new OofException("Manual Unavailable!");
+        }
+    }
 
     /**
      * Writes Task objects to hard disk.

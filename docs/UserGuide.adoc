@@ -63,11 +63,16 @@ There are plentiful examples provided to aid your understanding of the commands'
 Shows a list of commands that can be used.
 
 Format: `help`
+        `help COMMAND`
+
+* `Command` that Help instruction is required for.
 
 Example:
 
 * `help` +
 Provides a list of commands available to the user.
+* `help Deadline` +
+Provides the instruction to add a task with a deadline.
 
 === Adding a task: `deadline`
 Adds a task with a deadline to be completed by. +
