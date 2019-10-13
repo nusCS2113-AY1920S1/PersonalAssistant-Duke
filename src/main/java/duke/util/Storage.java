@@ -7,7 +7,7 @@ import duke.modules.Cca;
 import duke.modules.Deadline;
 import duke.modules.DoWithin;
 import duke.modules.Events;
-import duke.modules.FixedDurationTasks;
+import duke.modules.FixedDurationTask;
 import duke.modules.RecurringTask;
 import duke.modules.Task;
 import duke.modules.Todo;
@@ -115,7 +115,7 @@ public class Storage {
                     break;
                 }
                 case "F": {
-                    FixedDurationTasks tempFixedDuration = new FixedDurationTasks(hold[1], hold[3]);
+                    FixedDurationTask tempFixedDuration = new FixedDurationTask(hold[1], hold[3]);
                     if (hold[2].equals("1")) {
                         tempFixedDuration.setTaskDone();
                     }

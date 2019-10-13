@@ -4,7 +4,7 @@ import duke.modules.Cca;
 import duke.modules.Deadline;
 import duke.modules.DoWithin;
 import duke.modules.Events;
-import duke.modules.FixedDurationTasks;
+import duke.modules.FixedDurationTask;
 import duke.modules.RecurringTask;
 import duke.modules.Task;
 import duke.modules.Todo;
@@ -54,6 +54,7 @@ public class ParserWrapper {
     public Command parse(String input) throws ModException {
         // Checks every input for keywords
         input = input.trim();
+        LinkedHashMap<String, String> args;
         if (input.startsWith("todo ")) {
             String[] split = DukeParser.parseAdding(input, "todo");
             Task hold = new Todo(split);
@@ -69,30 +70,33 @@ public class ParserWrapper {
             Task hold = new Deadline(split);
             return new AddCommand(hold);
         } else if (input.startsWith("recurring ")) {
-            String[] split = DukeParser.parseAdding(input, "recurring");
-            Task hold = new RecurringTask(split);
+            args = DukeParser.parse(input, false, true);
+            RecurringTask hold = new RecurringTask(
+                    args.get("description"),
+                    args.get("/days"),
+                    args.get("/hours"),
+                    args.get("/minutes"),
+                    args.get("/seconds"));
             return new AddCommand(hold);
-        } else if (input.startsWith("fixedDuration")) {
-            String[] split = DukeParser.parseAdding(input, "fixedDuration");
-            split[split.length - 1] = formatInputToStringDate(split[split.length - 1]);
-            Task hold = new FixedDurationTasks(split);
+        } else if (input.startsWith("fixedDuration ")) {
+            args = DukeParser.parse(input, false, true);
+            FixedDurationTask hold = new FixedDurationTask(
+                    args.get("description"),
+                    args.get("/days"),
+                    args.get("/hours"),
+                    args.get("/minutes"),
+                    args.get("/seconds"));
             return new AddCommand(hold);
         } else if (input.startsWith("doWithin ")) {
-            LinkedHashMap<String, String> args = DukeParser.parse(input, true, true);
+            args = DukeParser.parse(input, false, true);
             DukeParser.checkContainRequiredArguments(args, "/begin", "/end");
-            String nattyBegin = formatInputToStringDate(args.get("/begin"));
-            String nattyEnd = formatInputToStringDate(args.get("/end"));
-            args.put("/begin", nattyBegin);
-            args.put("/end", nattyEnd);
+            this.parseDateTime(args, "/begin", "/end");
             Task hold = new DoWithin(args.get("description"), args.get("/begin"), args.get("/end"));
             return new AddCommand(hold);
         } else if (input.startsWith("cca ")) {
-            LinkedHashMap<String, String> args = DukeParser.parse(input, true, true);
+            args = DukeParser.parse(input, false, true);
             DukeParser.checkContainRequiredArguments(args, "/begin", "/end", "/day");
-            String nattyBegin = formatInputToStringDate(args.get("/begin"));
-            String nattyEnd = formatInputToStringDate(args.get("/end"));
-            args.put("/begin", nattyBegin);
-            args.put("/end", nattyEnd);
+            this.parseDateTime(args, "/begin", "/end");
             Task hold = new Cca(args.get("description"), args.get("/begin"), args.get("/end"), args.get("/day"));
             return new AddCommand(hold);
         } else if (input.equals("bye")) {
@@ -117,6 +121,14 @@ public class ParserWrapper {
         }
     }
 
+    private void parseDateTime(LinkedHashMap<String, String> args, String... dateTimeArgs)
+            throws ModInvalidTimeException {
+        for (String dateTimeArg: dateTimeArgs) {
+            if (args.containsKey(dateTimeArg)) {
+                args.put(dateTimeArg, this.formatInputToStringDate(args.get(dateTimeArg)));
+            }
+        }
+    }
 
 
 }
