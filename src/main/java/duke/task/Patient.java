@@ -135,7 +135,7 @@ public class Patient extends DukeObject {
     @Override
     public String toString() {
         // Todo
-        return null;
+        return getName() + " " +  getClass(); // change back to null later
     }
 
     @Override
