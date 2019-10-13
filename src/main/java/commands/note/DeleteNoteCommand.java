@@ -37,7 +37,6 @@ public class DeleteNoteCommand extends EditNoteCommand {
                     if (n.notes.isEmpty()) {
                         listToEdit.remove(n);
                     }
-                    //WRITE TO FILE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
                     NoteStorage.writeToFile(fileName, listToEdit);
                     return deletedNote;
                 } catch (IndexOutOfBoundsException e) {
