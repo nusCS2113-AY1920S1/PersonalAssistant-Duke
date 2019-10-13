@@ -5,7 +5,7 @@ plugins {
     id 'com.github.johnrengelman.shadow' version '5.1.0'
 }
 
-group 'duke'
+group 'moomoo'
 version '0.1.0'
 
 repositories {
@@ -31,7 +31,7 @@ checkstyle {
 }
 
 shadowJar {
-    archiveBaseName = "duke"
+    archiveBaseName = "moomoo"
     archiveVersion = "1.1"
     archiveClassifier = null
     archiveAppendix = null

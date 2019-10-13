@@ -9,7 +9,7 @@ import javafx.stage.Stage;
  */
 public class Main extends Application {
 
-    private Duke duke = new Duke();
+    private MooMoo moomoo = new MooMoo();
 
     /**
      * Starts the GUI to be shown to the user, reads in precreated FXML file created in Java SceneBuilder.
@@ -21,7 +21,7 @@ public class Main extends Application {
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
             stage.setScene(scene);
-            fxmlLoader.<MainWindow>getController().setDuke(duke);
+            fxmlLoader.<MainWindow>getController().setMoomoo(moomoo);
             stage.show();
         } catch (Exception e) {
             e.printStackTrace();
