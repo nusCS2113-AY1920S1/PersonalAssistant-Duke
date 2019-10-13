@@ -32,7 +32,7 @@ public class FeedbackList {
         feedbackList.add(new Feedback(getSize() + 1, feedback));
         int index = feedbackList.size();
         if (index == 1) {
-            msg = " task in the list.";
+            msg = " feedback in the list.";
         } else {
             msg = MESSAGE_ITEMS2;
         }
