@@ -42,6 +42,25 @@ public class ParserWrapper {
         return natty.dateToLocalDateTime(date).format(DateTimeFormatter.ofPattern("dd-MM-yyyy [HH:mm]"));
     }
 
+    private Command modParser(String input) throws ModException {
+        return null;
+    }
+
+    /**
+     * Switching parser to module parser from duke.
+     * @param input User string input.
+     * @param isDuke selector for duke parser or mod parse.
+     * @return Command class based on user input
+     * @throws ModException If user inputs strings which are invalid.
+     */
+    public Command parse(String input, boolean isDuke) throws ModException {
+        if (isDuke) {
+            return modParser(input);
+        } else {
+            return this.parse(input);
+        }
+    }
+
     /**
      * Main parser for user commands, checking for any invalid input
      * placed and empty command placed. Returns the specified command
