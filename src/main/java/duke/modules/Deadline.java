@@ -4,10 +4,9 @@ import duke.exceptions.ModInvalidTimeException;
 import duke.exceptions.ModInvalidTimePeriodException;
 import duke.util.DateTimeParser;
 
-import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-public class Deadline extends TaskWithPeriod {
+public class Deadline extends TaskWithSpanningPeriod {
 
     /**
      * Constructor for Deadline class, using String Varargs.

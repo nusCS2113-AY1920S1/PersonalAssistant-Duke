@@ -1,6 +1,6 @@
 package duke.modules;
 
-import duke.exceptions.ModInvalidTimePeriodException;
+import duke.exceptions.ModInvalidTimeException;
 import duke.util.TimeInterval;
 import java.time.Duration;
 import java.time.LocalDateTime;
@@ -40,11 +40,6 @@ public class TaskWithInterval extends Task {
         this.interval = new TimeInterval();
     }
 
-    @Override
-    public LocalDateTime getTime() {
-        return null;
-    }
-
     public TimeInterval getInterval() {
         return this.interval;
     }
@@ -57,7 +52,38 @@ public class TaskWithInterval extends Task {
         this.interval.setInterval(period, duration);
     }
 
-    public void setInterval(TimeInterval interval) throws ModInvalidTimePeriodException {
+    public void setInterval(TimeInterval interval) {
         this.interval.setInterval(interval);
+    }
+
+    /**
+     * Parse String inputs to TimeInterval object.
+     * @param days input days
+     * @param hours input hours
+     * @param minutes input minutes
+     * @param seconds input seconds
+     * @return equivalent TimeInterval object
+     * @throws ModInvalidTimeException when input value is invalid
+     */
+    static TimeInterval parseInterval(String days, String hours, String minutes, String seconds)
+            throws ModInvalidTimeException {
+        TimeInterval interval = new TimeInterval();
+        try {
+            if (days != null) {
+                interval = interval.plus(TimeInterval.ofDays(Integer.parseInt(days)));
+            }
+            if (hours != null) {
+                interval = interval.plus(TimeInterval.ofHours(Integer.parseInt(hours)));
+            }
+            if (minutes != null) {
+                interval = interval.plus(TimeInterval.ofMinutes(Integer.parseInt(minutes)));
+            }
+            if (seconds != null) {
+                interval = interval.plus(TimeInterval.ofSeconds(Integer.parseInt(seconds)));
+            }
+        } catch (NumberFormatException ex) {
+            throw new ModInvalidTimeException();
+        }
+        return interval;
     }
 }
