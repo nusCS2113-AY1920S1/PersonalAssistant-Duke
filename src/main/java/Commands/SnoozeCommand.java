@@ -29,7 +29,6 @@ public class SnoozeCommand extends Command{
 
     /**
      * Executes the snoozing a task inside the TaskList object with the given number.
-     * @param todos The TaskList object for todos
      * @param events The TaskList object for events
      * @param deadlines The TaskList object for deadlines
      * @param ui The Ui object to display the find message
@@ -37,14 +36,10 @@ public class SnoozeCommand extends Command{
      * @return This returns the method in the Ui object which returns the string to display snooze message
      */
     @Override
-    public String execute(TaskList todos, TaskList events, TaskList deadlines, Ui ui, Storage storage) throws DukeException, FileNotFoundException {
+    public String execute(TaskList events, TaskList deadlines, Ui ui, Storage storage) throws DukeException, FileNotFoundException {
         TaskList list = new TaskList();
-        ArrayList<Task> todosList = todos.getList();
         ArrayList<Task> eventsList = events.getList();
         ArrayList<Task> deadlinesList = deadlines.getList();
-        for (Task task : todosList) {
-                list.addTask(task);
-        }
         for (Task task : eventsList) {
                 list.addTask(task);
         }

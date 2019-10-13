@@ -13,7 +13,7 @@ import java.util.ArrayList;
  * Handles Commnand to plan Tentative Schedule
  */
 public class TentativeSchedulingCommand extends Command{
-    private final TaskList tentativeDates = Duke.getTentativeDates();
+//    private final TaskList tentativeDates = Duke.getTentativeDates();
     private final String description;
     private final ArrayList<String> dateString;
     private final ArrayList<String> startTimeString;
@@ -32,9 +32,9 @@ public class TentativeSchedulingCommand extends Command{
         this.endTimeString = endTimeString;
         for (int i = 0; i < dateString.size();i++){
             Event event = new Event(description, dateString.get(i),startTimeString.get(i),endTimeString.get(i));
-            this.tentativeDates.addTask(event);
+            //this.tentativeDates.addTask(event);
         }
-        Storage.updateTentativeDates(tentativeDates);
+//        Storage.updateTentativeDates(tentativeDates);
     }
     /**
      * Executes the finding of earliest available block period inside the TaskList object with the given duration.
@@ -43,7 +43,8 @@ public class TentativeSchedulingCommand extends Command{
      * @return This returns the method in the Ui object which returns the string to display Tentative Schedule
      */
     @Override
-    public String execute(TaskList todos, TaskList events, TaskList deadlines, Ui ui, Storage storage) {
-        return ui.showTentativeSchedule(this.tentativeDates);
+    public String execute(TaskList events, TaskList deadlines, Ui ui, Storage storage) {
+        //return ui.showTentativeSchedule(this.tentativeDates);
+        return null;
     }
 }

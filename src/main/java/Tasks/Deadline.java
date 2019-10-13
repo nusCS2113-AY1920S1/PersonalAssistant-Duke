@@ -31,5 +31,4 @@ public class Deadline extends Task {
     public String getDateTime() {
         return by;
     }
-
 }

@@ -10,7 +10,6 @@ public class ByeCommand extends Command {
      * Executes the updating of the file with current list of tasks
      * in the TaskList object and displays the goodbye message
      * of the program.
-     * @param todos The TaskList object for todos
      * @param events The TaskList object for events
      * @param deadlines The TaskList object for deadlines
      * @param ui The Ui object to display the goodbye message
@@ -19,7 +18,7 @@ public class ByeCommand extends Command {
      * @throws Exception On file not found error
      */
     @Override
-    public String execute(TaskList todos, TaskList events, TaskList deadlines, Ui ui, Storage storage) throws Exception {
+    public String execute(TaskList events, TaskList deadlines, Ui ui, Storage storage) throws Exception {
         storage.updateEventList(events);
         storage.updateDeadlineList(deadlines);
         return ui.showBye();
