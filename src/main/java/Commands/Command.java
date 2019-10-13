@@ -4,6 +4,7 @@ import FarmioExceptions.FarmioException;
 import Places.ChickenFarm;
 import Places.CowFarm;
 import Places.WheatFarm;
+import UserCode.Conditions.ConditionChecker;
 import UserCode.Tasks.TaskList;
 import UserInterfaces.Ui;
 
@@ -15,6 +16,7 @@ public abstract class Command {
     WheatFarm wheatFarm;
     ChickenFarm chickenFarm;
     CowFarm cowFarm;
+    ConditionChecker conditionChecker;
     public boolean getIsExit() {
         return isExit;
     }

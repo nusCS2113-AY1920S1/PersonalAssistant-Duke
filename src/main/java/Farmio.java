@@ -1,5 +1,6 @@
 import Commands.Command;
 import FarmioExceptions.FarmioException;
+import UserCode.Conditions.ConditionChecker;
 import UserInterfaces.Ui;
 import org.json.simple.parser.ParseException;
 
@@ -10,6 +11,7 @@ public class Farmio {
     private Farmer farmer;
     private Ui ui;
     private Parser parser;
+    private ConditionChecker conditionChecker;
 
     private Farmio() {
         this.ui = new Ui();
@@ -19,7 +21,8 @@ public class Farmio {
     private void run() {
         displayWelcome();
         displayMenu();
-        this.parser = new Parser(ui, farmer.tasks, farmer.wheatFarm, farmer.chickenFarm, farmer.cowFarm);
+        this.conditionChecker = new ConditionChecker(farmer.wheatFarm, farmer.chickenFarm, farmer.cowFarm, farmer.market);
+        this.parser = new Parser(ui, farmer, conditionChecker);
         boolean isExit = false;
         while(!isExit) {
             //introduce the problem, and show the tutorial, and show the conditions and the possible tasks and gets the user input
@@ -48,6 +51,7 @@ public class Farmio {
         boolean isStart = false;
         boolean isExit = false;
         while (!isStart && !isExit) {
+            showLevelStatement(farmer, ui);
             String fullCommand = ui.getInput();
             try {
                 Command c = parser.parse(fullCommand);
@@ -59,6 +63,10 @@ public class Farmio {
             }
         }
         return isExit;
+    }
+
+    private void showLevelStatement(Farmer farmer, Ui ui) {
+        ui.show("Help Farmer John buy seeds IF he has more than 100G");
     }
 
     private void displayArt(String name) {
@@ -106,7 +114,7 @@ public class Farmio {
     private void loadLevel(Farmer farmer) {
         switch (farmer.level) {
             case 1:
-                //in the future, will be simulating instead of just showing static message
+                //in the future, will be running animation instead of just showing static message
                 displayArt("level1");
                 break;
             /*

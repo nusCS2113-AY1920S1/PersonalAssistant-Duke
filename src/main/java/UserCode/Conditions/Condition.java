@@ -1,5 +1,8 @@
 package UserCode.Conditions;
 
-public enum Condition {
-    hasSeeds
+public abstract class Condition {
+
+    public boolean check() {
+        return false;
+    }
 }
