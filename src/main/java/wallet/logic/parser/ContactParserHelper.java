@@ -121,7 +121,7 @@ public class ContactParserHelper {
 
 
         //Process input into three arraylist
-        for (int i = 0; i < info.length; i += 1) {
+        for (int i = 0; i < info.length; i++) {
             if (i == detailsIndex) {
                 section = 1;
             } else if (i == phoneIndex) {
@@ -134,6 +134,8 @@ public class ContactParserHelper {
                 phoneList.add(info[i]);
             } else if (section == 0) {
                 nameList.add(info[i]);
+            } else {
+                continue;
             }
         }
 
@@ -143,13 +145,13 @@ public class ContactParserHelper {
 
         if (!detailsList.isEmpty()) {
             details = concatList(detailsList);
-        } else if (detailsIndex != -1) {
+        } else if (detailsIndex != -1 && detailsList.isEmpty()) {
             details = "[no details]";
         }
 
         if (!phoneList.isEmpty()) {
             phone = concatList(phoneList);
-        } else if (phoneIndex != -1) {
+        } else if (phoneIndex != -1 && phoneList.isEmpty()) {
             phone = "[no phone]";
         }
 
