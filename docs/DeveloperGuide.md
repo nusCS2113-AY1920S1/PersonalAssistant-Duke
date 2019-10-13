@@ -1,5 +1,5 @@
 
-
+  
 
 # COMPal - Developer Guide
 
@@ -19,7 +19,7 @@ Welcome to the **COMPal** Developer Guide! This Developer Guide is still being w
 [**4. Design**](/docs/DeveloperGuide.md#4-design)
  + [4.1 Architecture](/docs/DeveloperGuide.md#41-architecture)
  + [4.2 UI](/docs/DeveloperGuide.md#42-ui-component)
- +  [4.6 Architecture](/docs/DeveloperGuide.md#46-model-component)
+ + [4.6 Architecture](/docs/DeveloperGuide.md#46-model-component)
 
 [**5. Implementation**](/docs/DeveloperGuide.md#5-implementation)
 
@@ -171,15 +171,15 @@ Figure 5. Structure of the UI Component
 
 The UI consists of a `MainWindow` that is made up of parts e.g.`UserInput`,`SecondaryOutput`, `tabWindow`which tabs consist of `MainOutput`, `DailyCalender`. Although the application is only input text-based application, our outputs are both GUI and text-based. 
 
-The  `UI`  component uses JavaFx UI framework. The layout of these UI parts are defined in matching  `.fxml`  files that are in the  `src/main/resources/view`  folder.  
-For example, the layout of the  [`MainWindow`](https://github.com/AY1920S1-CS2113T-W17-1/main/blob/master/src/main/java/compal/ui/MainWindow.java)  is specified in  [`MainWindow.fxml`](https://github.com/AY1920S1-CS2113T-W17-1/main/blob/master/src/main/resources/view/MainWindow.fxml)
+The  `UI`  component uses JavaFx UI framework. The layout of these UI parts are defined in matching  `.fxml`  files that are in the  `src/main/resources/view`  folder.   For example, the layout of the  [`MainWindow`](https://github.com/AY1920S1-CS2113T-W17-1/main/blob/master/src/main/java/compal/ui/MainWindow.java)  is specified in  [`MainWindow.fxml`](https://github.com/AY1920S1-CS2113T-W17-1/main/blob/master/src/main/resources/view/MainWindow.fxml)
 
+The `DailyCalender` use information from the `Model` and `COMPal` component to generate or refresh the stage to reflect changes made to the data.
 
 The  `UI`  component,
 
 - Executes user commands using the  `Logic`  component.  
 - Displays text-based command results in to the user via `MainOutput` or `SecondaryOutput`.
-- Display ​daily calendar of the user via `DailyCalnder`. 
+- Display ​daily calendar of the user via `DailyCalender`. 
 
 ### 4.6. Model Component
 
