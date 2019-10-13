@@ -3,6 +3,7 @@ package duke.ui;
 import duke.data.BusStop;
 import duke.data.UniqueTaskList;
 import duke.data.tasks.Task;
+import duke.model.Venue;
 import duke.ui.calendar.CalendarWindow;
 import duke.ui.map.MapWindow;
 import javafx.scene.image.Image;
@@ -81,6 +82,34 @@ public class Ui {
         }
         show(result);
     }
+
+    /**
+     * Prints the list of Recommended Locations.
+     */
+    public void showRecommendations(List<Venue> recommendations, String days) {
+        StringBuilder result = new StringBuilder("Here are the list of Recommended Locations in "
+                + days + " days:\n");
+        int i = 1;
+        int j = Integer.parseInt(days);
+        if (j <= 1) {
+            j = 1;
+        } else if (j <= 3) {
+            j = 3;
+        } else if (j <= 5) {
+            j = 5;
+        } else {
+            j = recommendations.size();
+        }
+        for (Venue t : recommendations) {
+            result.append(i).append(". ").append(t.getAddress()).append("\n");
+            i += 1;
+            if (i >= j) {
+                break;
+            }
+        }
+        show(result.toString());
+    }
+
 
     /**
      * Prints the description of a task.

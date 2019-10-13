@@ -1,6 +1,6 @@
 package duke.model;
 
-public class Location {
+public class Venue {
     private double latitude;
     private double longitude;
     private double distX;
@@ -10,7 +10,7 @@ public class Location {
     /**
      * Creates a location object.
      */
-    public Location(String address, double latitude, double longitude, double distX, double distY) {
+    public Venue(String address, double latitude, double longitude, double distX, double distY) {
         this.address = address;
         this.latitude = latitude;
         this.longitude = longitude;

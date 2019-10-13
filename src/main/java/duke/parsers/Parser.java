@@ -13,11 +13,12 @@ import duke.commands.HelpCommand;
 import duke.commands.ListCommand;
 import duke.commands.LocationSearchCommand;
 import duke.commands.MarkDoneCommand;
+import duke.commands.RecommendationsCommand;
 import duke.commands.ReminderCommand;
 import duke.commands.RescheduleCommand;
 import duke.commands.ViewScheduleCommand;
-import duke.commons.exceptions.DukeException;
 import duke.commons.Messages;
+import duke.commons.exceptions.DukeException;
 import duke.ui.Ui;
 
 
@@ -37,8 +38,8 @@ public class Parser {
      */
     public Command parse(String input, Ui ui) throws DukeException {
         if (input != null) {
-            if (parseSingleCommmand(input) != null) {
-                return parseSingleCommmand(input);
+            if (parseSingleCommand(input) != null) {
+                return parseSingleCommand(input);
             }
 
             conversationManager.converse(input, ui);
@@ -105,13 +106,14 @@ public class Parser {
         case "findPath":
             return new FindPathCommand(getWord(userInput),  getHolidayIndexInList(1, userInput),
                     getHolidayIndexInList(2, userInput));
-
+        case "recommend":
+            return new RecommendationsCommand(getWord(userInput));
         default:
             throw new DukeException(Messages.UNKNOWN_COMMAND);
         }
     }
 
-    private Command parseSingleCommmand(String userInput) {
+    private Command parseSingleCommand(String userInput) {
         switch (userInput) {
         case "bye":
             return new ExitCommand();

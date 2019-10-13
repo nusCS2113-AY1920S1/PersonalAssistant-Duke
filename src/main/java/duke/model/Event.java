@@ -1,13 +1,11 @@
 package duke.model;
 
-import duke.parsers.api.ApiParser;
 import duke.commons.exceptions.DukeException;
-import duke.data.Location;
 
 import java.time.LocalDateTime;
 
 public class Event extends DoWithin {
-    private Location location;
+    private Venue venue;
 
     /**
      * Initializes a holiday task with location.
@@ -19,7 +17,7 @@ public class Event extends DoWithin {
     public Event(String locationDescription, LocalDateTime startDate, LocalDateTime endDate) throws DukeException {
         super(locationDescription, startDate, endDate);
         // This can be removed once we implement the map ?
-        this.location = ApiParser.getLocationSearch(locationDescription);
+        this.venue = ApiParserUtil.getLocationSearch(locationDescription);
     }
 
     /**
@@ -28,11 +26,11 @@ public class Event extends DoWithin {
      * @param locationDescription A description of this task.
      * @param startDate Starting date of task
      * @param endDate Ending date of task
-     * @param location location of the holiday object
+     * @param venue location of the holiday object
      */
-    public Event(String locationDescription, LocalDateTime startDate, LocalDateTime endDate, Location location) {
+    public Event(String locationDescription, LocalDateTime startDate, LocalDateTime endDate, Venue venue) {
         super(locationDescription, startDate, endDate);
-        this.location = location;
+        this.venue = venue;
     }
 
     @Override
@@ -44,21 +42,21 @@ public class Event extends DoWithin {
      * Get coordinates of the destination.
      * @return
      */
-    public duke.model.Location getLocation() throws DukeException {
-        if (this.location == null) {
-            this.location = ApiParser.getLocationSearch(getDescription());
+    public Venue getLocation() throws DukeException {
+        if (this.venue == null) {
+            this.venue = ApiParserUtil.getLocationSearch(getDescription());
         }
-        return this.location;
+        return this.venue;
     }
 
-    public void setLocation(Location location) {
-        this.location = location;
+    public void setLocation(Venue venue) {
+        this.venue = venue;
     }
 
     /**
      * Returns the string to store the Holiday object in persistent storage.
      */
     public String getHoliday() {
-        return super.getWithin() + " | " + location.toString();
+        return super.getWithin() + " | " + venue.toString();
     }
 }
