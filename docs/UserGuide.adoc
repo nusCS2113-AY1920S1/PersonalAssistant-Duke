@@ -28,12 +28,13 @@ ChefDuke is for private home chef who *prefer to use a desktop app for managing 
 * **`deletebooking`**: Adds a general task to the list (No duration/time listed)
 * **`viewbydate`**: Deletes the task at corresponding index from the list
 * *`viewallbookings`*: Exits the app
-* *`addrecipe`*: Exits the app
+* *`addrecipe`*: Adds an empty recipe
+* *`addrecipeingredient`*: Adds the required ingredients of the recipe
 * *`deleterecipe`*: Exits the app
 * *`editrecipe`*: Exits the app
-* *`viewallrecipes`*: Exits the app
-* *`viewrecipe`*: Exits the app
-* *`vaddingredient`*: Exits the app
+* *`listallrecipes`*: Views all the stored recipes
+* *`viewrecipe`*: Views a specific recipe
+* *`addingredient`*: Exits the app
 * *`userecipe`*: Exits the app
 * *`exit`*: Exits the app
 .  Refer to <<Features>> for details of each command.
@@ -110,6 +111,7 @@ Examples:
 
 Edits a recipe in the recipe list +
 Format:
+
 * `editrecipe <recipe_number> OR editrecipe <recipe_name>`
 * `field1 <changes>, field2 <changes>, field3 <changes> field4 <changes>`
 
@@ -159,6 +161,7 @@ Format:
 * `userecipe <recipe_number>`
 
 Examples:
+
 * `userecipe 2`
 * `userecipe garlic prawn`
 
