@@ -28,23 +28,29 @@ public class AddRecipeIngredientCommand extends CommandRecipeIngredient {
             arrayList.add(ERROR_MESSAGE_GENERAL + MESSAGE_FOLLOWUP_NUll);
             System.out.println("stuck here1");
         } else if (userInput.trim().charAt(19) == ' ') {
-            recipeIngredientName = userInput.split("\\s",4)[1].trim();
-            recipeIngredientQuantity = userInput.split("\\s",4)[2].trim();
-            recipeIngredientWeight = userInput.split("\\s",4)[3].trim();
-            System.out.println(recipeIngredientName + "......" + recipeIngredientQuantity + "....." + recipeIngredientWeight);
-            if (recipeIngredientName.isEmpty() || recipeIngredientQuantity.isEmpty() || recipeIngredientWeight.isEmpty()) {
-                arrayList.add(ERROR_MESSAGE_INVALID_RECIPE_FORMAT);
-            } else {
-                if (isParsable(recipeIngredientQuantity)) {
-                    recipeIngredientList.addRecipeIngredient(recipeIngredientName, Integer.parseInt(recipeIngredientQuantity), recipeIngredientWeight);
-                    recipeIngredientStorage.saveFile(recipeIngredientList);
-                    int index = recipeIngredientList.getSize();
-                    System.out.println(index);
-                    arrayList.add(MESSAGE_ADDED + "       " + recipeIngredientList.listRecipeIngredients().get(index - 1) + "\n" + MESSAGE_ITEMS1 + index + " tasks in the list");
+            String description = userInput.split("\\s", 2)[1].trim();
+            if (description.contains("q/")) {
+                recipeIngredientName = description.split("q/",2)[0].trim();
+                String remaining = description.split("q/", 2)[1].trim();
+                if (remaining.contains("w/")) {
+                    recipeIngredientQuantity = remaining.split("w/")[0].trim();
+                    recipeIngredientWeight = remaining.split("w/")[1].trim();
+                    if (isParsable(recipeIngredientQuantity)) {
+                        recipeIngredientList.addRecipeIngredient(recipeIngredientName, Double.parseDouble(recipeIngredientQuantity), recipeIngredientWeight);
+                        recipeIngredientStorage.saveFile(recipeIngredientList);
+                        int index = recipeIngredientList.getSize();
+                        System.out.println(index);
+                        arrayList.add(MESSAGE_ADDED + "       " + recipeIngredientList.listRecipeIngredients().get(index - 1) + "\n" + MESSAGE_ITEMS1 + index + " tasks in the list");
+                    } else {
+                        arrayList.add(ERROR_MESSAGE_INVALID_RECIPE_QUANTITY);
+                    }
                 } else {
-                    arrayList.add(ERROR_MESSAGE_INVALID_RECIPE_QUANTITY);
+                    arrayList.add(ERROR_MESSAGE_INVALID_RECIPE_FORMAT);
                 }
+            } else {
+                arrayList.add(ERROR_MESSAGE_INVALID_RECIPE_FORMAT);
             }
+            System.out.println(recipeIngredientName + "......" + recipeIngredientQuantity + "....." + recipeIngredientWeight);
         } else {
             arrayList.add(ERROR_MESSAGE_RANDOM);
         }
@@ -53,7 +59,7 @@ public class AddRecipeIngredientCommand extends CommandRecipeIngredient {
 
     private static boolean isParsable(String input) {
         try {
-            Integer.parseInt(input);
+            Double.parseDouble(input);
             return true;
         } catch (NumberFormatException e) {
             return false;

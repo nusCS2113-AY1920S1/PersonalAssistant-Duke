@@ -2,16 +2,16 @@ package duke.task.recipetasks;
 
 public class RecipeIngredient {
     private String recipeIngredientName;
-    private int recipeIngredientQuantity;
+    private double recipeIngredientQuantity;
     private String recipeIngredientWeight;
 
-    public RecipeIngredient(String recipeIngredientName, int recipeIngredientQuantity, String recipeIngredientWeight) {
+    public RecipeIngredient(String recipeIngredientName, double recipeIngredientQuantity, String recipeIngredientWeight) {
         this.recipeIngredientName = recipeIngredientName;
         this.recipeIngredientQuantity = recipeIngredientQuantity;
         this.recipeIngredientWeight = recipeIngredientWeight;
     }
 
-    public int getRecipeIngredientQuantity() {
+    public double getRecipeIngredientQuantity() {
         return recipeIngredientQuantity;
     }
 
