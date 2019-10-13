@@ -1,12 +1,13 @@
 package duke.ui;
 
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXTextField;
 import duke.commons.core.LogsCenter;
 import duke.logic.Logic;
 import duke.logic.command.CommandResult;
 import duke.logic.command.exceptions.CommandException;
+import duke.logic.parser.commons.AutoCompleter;
 import duke.logic.parser.exceptions.ParseException;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.input.KeyCode;
@@ -19,8 +20,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
 
-
-
+/**
+ * The Main Window.
+ * Provides the basic application layout containing a popup bar, a text field, a side bar,
+ * and space where different pages can be displayed.
+ */
 public class MainWindow extends UiPart<Stage> {
 
     private static final String FXML = "MainWindow.fxml";
@@ -43,9 +47,9 @@ public class MainWindow extends UiPart<Stage> {
     @FXML
     private Label popUpLabel;
     @FXML
-    JFXButton popUpButton;
+    private JFXButton popUpButton;
     @FXML
-    private AutoCompleteTextField userInput;
+    private JFXTextField userInput;
 
     //Main page
     @FXML
@@ -63,19 +67,36 @@ public class MainWindow extends UiPart<Stage> {
     @FXML
     private JFXButton salesButton;
 
+    /**
+     * Creates the Main Window.
+     *
+     * @param primaryStage The stage to display MainWindow on.
+     * @param logic        Logic component
+     */
     public MainWindow(Stage primaryStage, Logic logic) {
         super(FXML, primaryStage);
 
-        // Set dependencies
         this.primaryStage = primaryStage;
         this.logic = logic;
-        setUpKeyEvent();
+
+        this.userInput.addEventFilter(KeyEvent.KEY_PRESSED, event -> {
+            if (event.getCode() == KeyCode.TAB) {
+                autocomplete();
+                event.consume();
+            }
+        });
     }
 
-    public Stage getPrimaryStage() {
+    /**
+     * Returns the stage that MainWindow is displayed on.
+     */
+    Stage getPrimaryStage() {
         return primaryStage;
     }
 
+    /**
+     * Creates Order, Product and Sales pages that fill up the placeholder window.
+     */
     void fillInnerParts() {
         orderPage = new OrderPage(logic.getFilteredOrderList());
         productPage = new ProductPage(logic.getFilteredProductList());
@@ -101,53 +122,55 @@ public class MainWindow extends UiPart<Stage> {
             CommandResult commandResult = logic.execute(input);
             showPage(commandResult.getDisplayedPage());
             showMessagePopUp(commandResult.getFeedbackToUser());
-        } catch (CommandException | ParseException e) {
+        } catch (CommandException | ParseException | IllegalArgumentException e) {
             showErrorPopUp(e.getMessage());
         }
         userInput.clear();
     }
 
-    /**
-     * Sets UP key to show previous input, and sets DOWN key to the next input.
-     */
     @FXML
-    private void setUpKeyEvent() {
-        userInput.setOnKeyPressed(new EventHandler<KeyEvent>() {
-            @Override
-            public void handle(KeyEvent event) {
-                if(event.getCode().equals(KeyCode.PAGE_UP)) {
-                    if (historyIndex > 0) {
-                        historyIndex--;
-                        userInput.setText(inputHistory.get(historyIndex));
-                        userInput.setFocusTraversable(false);
-                    }
-                }
-                if(event.getCode().equals(KeyCode.PAGE_DOWN)) {
-                    if (historyIndex < (inputHistory.size() - 1)) {
-                        historyIndex++;
-                        userInput.setText(inputHistory.get(historyIndex));
-                        userInput.setFocusTraversable(false);
-                    }
-                }
+    private void handleKeyPress(KeyEvent keyEvent) {
+        switch (keyEvent.getCode()) {
+        case UP:
+            keyEvent.consume();
+            if (historyIndex > 0) {
+                historyIndex--;
+                userInput.setText(inputHistory.get(historyIndex));
+                userInput.setFocusTraversable(false);
             }
-        });
-        userInput.addEventFilter(KeyEvent.KEY_PRESSED, new EventHandler<KeyEvent>() {
-            public void handle(KeyEvent event) {
-                if (event.getCode() == KeyCode.TAB) {
-                    event.consume(); // to cancel character-removing keys
-                    if (userInput.hasSuggestion()) {
-                        userInput.setText(userInput.getFirstSuggestion());
-                        userInput.positionCaret(userInput.getText().length());
-                    }
-                }
+            break;
+        case DOWN:
+            keyEvent.consume();
+            if (historyIndex < (inputHistory.size() - 1)) {
+                historyIndex++;
+                userInput.setText(inputHistory.get(historyIndex));
+                userInput.setFocusTraversable(false);
             }
-        });
+            break;
+        case TAB:
+            keyEvent.consume();
+            autocomplete();
+            break;
+        default:
+            // let JavaFx handle the keypress
+        }
     }
 
+    private void autocomplete() {
+        AutoCompleter.UserInputState completedUserInput = logic.getAutoCompletion(userInput.getText(),
+                userInput.getCaretPosition());
+        this.userInput.setText(completedUserInput.userInputString);
+        this.userInput.positionCaret(completedUserInput.caretPosition);
+    }
+
+    /**
+     * Hides the pop up bar.
+     */
     @FXML
     private void handleOk() {
         popUp.setVisible(false);
     }
+
 
     @FXML
     private void handleShowRecipe() {
@@ -169,6 +192,9 @@ public class MainWindow extends UiPart<Stage> {
         showSalesPage();
     }
 
+    /**
+     * Shows the pop up bar displaying a {@code message}.
+     */
     private void showMessagePopUp(String message) {
         popUpLabel.setText(message);
         popUpButton.getStyleClass().clear();
@@ -178,8 +204,11 @@ public class MainWindow extends UiPart<Stage> {
         popUp.setVisible(true);
     }
 
-    private void showErrorPopUp(String message) {
-        popUpLabel.setText(message);
+    /**
+     * Shows the pop up bar displaying a {@code errorMessage} signifying an error.
+     */
+    private void showErrorPopUp(String errorMessage) {
+        popUpLabel.setText(errorMessage);
         popUpButton.getStyleClass().clear();
         popUpButton.getStyleClass().add("error-popup");
         popUp.getStyleClass().clear();

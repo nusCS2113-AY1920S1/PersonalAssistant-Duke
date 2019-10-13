@@ -1,12 +1,17 @@
 package duke.logic.parser.sale;
 
 import duke.logic.command.sale.AddSaleCommand;
-import duke.logic.parser.commons.*;
+import duke.logic.parser.commons.ArgumentMultimap;
+import duke.logic.parser.commons.ArgumentTokenizer;
+import duke.logic.parser.commons.Parser;
+import duke.logic.parser.commons.TimeParser;
 import duke.logic.parser.exceptions.ParseException;
-import duke.model.order.Customer;
 import duke.model.sale.Sale;
 
-import static duke.logic.parser.commons.CliSyntax.*;
+import static duke.logic.parser.commons.CliSyntax.PREFIX_SALE_DATE;
+import static duke.logic.parser.commons.CliSyntax.PREFIX_SALE_DESCRIPTION;
+import static duke.logic.parser.commons.CliSyntax.PREFIX_SALE_REMARKS;
+import static duke.logic.parser.commons.CliSyntax.PREFIX_SALE_VALUE;
 
 public class AddSaleCommandParser implements Parser<AddSaleCommand> {
     public AddSaleCommand parse(String args) throws ParseException {

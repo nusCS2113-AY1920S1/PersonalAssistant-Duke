@@ -10,8 +10,6 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 
-import static java.util.Objects.requireNonNull;
-
 public class InventoryPage extends UiPart<AnchorPane> {
     private static final String FXML = "InventoryPage.fxml";
 

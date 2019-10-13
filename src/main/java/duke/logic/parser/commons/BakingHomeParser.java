@@ -2,17 +2,19 @@ package duke.logic.parser.commons;
 
 import duke.commons.core.Message;
 import duke.logic.command.Command;
+import duke.logic.command.RedoCommand;
+import duke.logic.command.UndoCommand;
 import duke.logic.command.inventory.InventoryCommand;
-import duke.logic.command.shortcut.SetShortcutCommand;
-import duke.logic.command.shortcut.ExecuteShortcutCommand;
 import duke.logic.command.order.OrderCommand;
 import duke.logic.command.product.ProductCommand;
+import duke.logic.command.shortcut.ExecuteShortcutCommand;
+import duke.logic.command.shortcut.SetShortcutCommand;
 import duke.logic.parser.exceptions.ParseException;
 import duke.logic.parser.inventory.InventoryCommandParser;
 import duke.logic.parser.order.OrderCommandParser;
 import duke.logic.parser.product.ProductCommandParser;
-import duke.logic.parser.shortcut.SetShortcutCommandParser;
 import duke.logic.parser.shortcut.ExecuteShortcutCommandParser;
+import duke.logic.parser.shortcut.SetShortcutCommandParser;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -60,6 +62,10 @@ public class BakingHomeParser {
             return new SetShortcutCommandParser().parse(subCommandAndArgs);
         case ExecuteShortcutCommand.COMMAND_WORD:
             return new ExecuteShortcutCommandParser().parse(subCommandAndArgs);
+        case UndoCommand.COMMAND_WORD:
+            return new UndoCommand();
+        case RedoCommand.COMMAND_WORD:
+            return new RedoCommand();
         default:
             throw new ParseException(Message.MESSAGE_UNKNOWN_COMMAND);
         }

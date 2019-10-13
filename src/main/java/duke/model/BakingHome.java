@@ -2,8 +2,8 @@ package duke.model;
 
 import duke.commons.core.index.Index;
 import duke.model.commons.Ingredient;
-import duke.model.product.Product;
 import duke.model.order.Order;
+import duke.model.product.Product;
 import duke.model.sale.Sale;
 import duke.model.shortcut.Shortcut;
 import javafx.collections.ObservableList;
@@ -76,14 +76,6 @@ public class BakingHome implements ReadOnlyBakingHome {
      */
     public void addOrder(Order o) {
         orders.add(o);
-    }
-
-    /**
-     * Adds a person to the address book.
-     * The person must not already exist in the address book.
-     */
-    public void addSale(Sale s) {
-        sales.add(s);
     }
 
     /**
@@ -167,6 +159,10 @@ public class BakingHome implements ReadOnlyBakingHome {
         } else {
             shortcuts.add(shortcut);
         }
+    }
+
+    public void addSale(Sale s) {
+        sales.add(s);
     }
 
     /**

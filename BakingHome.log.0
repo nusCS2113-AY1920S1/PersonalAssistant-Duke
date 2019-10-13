@@ -4,3 +4,9 @@ Oct 12, 2019 2:47:36 PM duke.Launcher start
 INFO: Starting BakingHome
 Oct 12, 2019 2:47:36 PM duke.ui.UiManager start
 INFO: Starting UI...
+Oct 13, 2019 10:34:46 AM duke.Launcher init
+INFO: =============================[ Initializing BakingHome ]===========================
+Oct 13, 2019 10:34:47 AM duke.Launcher start
+INFO: Starting BakingHome
+Oct 13, 2019 10:34:47 AM duke.ui.UiManager start
+INFO: Starting UI...
