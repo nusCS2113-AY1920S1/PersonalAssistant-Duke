@@ -16,7 +16,7 @@ public class CreateTaskCommand extends Command {
     @Override
     public void execute() throws FarmioException {
         try {
-            tasks.addTask(task);
+            taskList.addTask(task);
         } catch (Exception e) {
             e.getMessage();
         }

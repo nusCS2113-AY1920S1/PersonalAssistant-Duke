@@ -32,7 +32,7 @@ public class TestCommand extends Command {
             Action plantSeedAction = new PlantSeedAction(wheatFarm, chickenFarm, cowFarm, market);
             IfTask task1 = new IfTask(c, plantSeedAction);
             tasks.addTask(task1);
-            Condition c2 = new MoneyCondition(true, 100, conditionChecker);
+            Condition c2 = new MoneyCondition(Comparator.greaterThanOrEquals, 100, conditionChecker);
             Action buySeedAction = new BuySeedAction(wheatFarm, chickenFarm, cowFarm, market);
             IfTask task2 = new IfTask(c2, buySeedAction);
             tasks.addTask(task2);

@@ -1,5 +1,6 @@
 package UserCode.Actions;
 
+import FarmioExceptions.FarmioException;
 import Places.*;
 import UserInterfaces.Ui;
 import org.json.simple.JSONObject;
@@ -10,8 +11,7 @@ public abstract class Action {
     CowFarm cowFarm;
     Market market;
 
-    public Action() {
-    }
+    public Action() {}
 
     public Action(JSONObject obj) {
         this.wheatFarm = new WheatFarm((JSONObject) obj.get("farm_wheat"));
@@ -46,6 +46,27 @@ public abstract class Action {
             }
         }
         return false;
+    }
+
+    public static Action stringToAction(String actionName, WheatFarm wheatFarm, ChickenFarm chickenFarm, CowFarm cowFarm, Market market) {
+        Action action;
+        switch (actionName) {
+            case "buySeeds":
+                action = new BuySeedAction(wheatFarm, chickenFarm, cowFarm, market);
+                break;
+            case "harvestWheat":
+                action = new HarvestWheatAction(wheatFarm, chickenFarm, cowFarm, market);
+                break;
+            case "plantSeeds":
+                action =  new PlantSeedAction(wheatFarm, chickenFarm, cowFarm, market);
+                break;
+            case "sellWheat":
+                action = new SellWheatAction(wheatFarm, chickenFarm, cowFarm, market);
+                break;
+            default:
+                action = new EmptyAction();
+        }
+        return action;
     }
 
     public JSONObject toJSON() {
