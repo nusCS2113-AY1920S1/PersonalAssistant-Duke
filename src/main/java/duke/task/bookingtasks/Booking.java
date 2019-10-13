@@ -40,4 +40,8 @@ public class Booking {
     public Date getDateTime() {
         return date;
     }
+
+    public String getCustomerName() {
+        return customerName;
+    }
 }

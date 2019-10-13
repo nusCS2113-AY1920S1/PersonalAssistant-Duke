@@ -1,13 +1,10 @@
 package duke.parser;
 
 import duke.command.*;
-import duke.command.bookingcommands.AddBookingCommand;
-import duke.command.bookingcommands.AllBookingsCommand;
-import duke.command.bookingcommands.DeleteBookingCommand;
+import duke.command.bookingcommands.*;
 import duke.exception.DukeException;
 
-import static duke.common.GeneralMessages.ERROR_MESSAGE_RANDOM;
-import static duke.common.GeneralMessages.COMMAND_BYE;
+import static duke.common.Messages.ERROR_MESSAGE_RANDOM;
 
 /**
  * Making sense of the user input command.
@@ -21,10 +18,9 @@ public class Parser {
      * @return the different command object corresponding to the user input
      * @throws DukeException if Duke cannot recognise the user input
      */
-    public static Command parse(String userInputCommand) throws DukeException {
-        if (userInputCommand.trim().equals(COMMAND_BYE)) {
-            return new ByeCommand();
-        } else if (userInputCommand.trim().equals("allbookings")) {
+    public static CommandBooking parseBooking(String userInputCommand) throws DukeException {
+
+        if (userInputCommand.trim().equals("allbookings")) {
             return new AllBookingsCommand();
         } else if (userInputCommand.contains("addbooking")) {
             if (userInputCommand.trim().substring(0, 10).equals("addbooking")) {
@@ -32,14 +28,25 @@ public class Parser {
             } else {
                 throw new DukeException(ERROR_MESSAGE_RANDOM);
             }
-        } else if(userInputCommand.contains("deletebooking")) {
-            if(userInputCommand.trim().substring(0, 13).equals("deletebooking")) {
+        } else if (userInputCommand.contains("deletebooking")) {
+            if (userInputCommand.trim().substring(0, 13).equals("deletebooking")) {
                 return new DeleteBookingCommand(userInputCommand);
             } else {
                 throw new DukeException(ERROR_MESSAGE_RANDOM);
             }
-        }
-        else {
+        } else if (userInputCommand.contains("viewbookingschedule")) {
+            if (userInputCommand.trim().substring(0, 19).equals("viewbookingschedule")) {
+                return new ViewBookingScheduleCommand(userInputCommand);
+            } else {
+                throw new DukeException(ERROR_MESSAGE_RANDOM);
+            }
+        } else if (userInputCommand.contains("findbooking")) {
+            if (userInputCommand.trim().substring(0, 11).equals("findbooking")) {
+                return new FindBookingCommand(userInputCommand);
+            } else {
+                throw new DukeException(ERROR_MESSAGE_RANDOM);
+            }
+        } else {
             throw new DukeException(ERROR_MESSAGE_RANDOM);
         }
     }

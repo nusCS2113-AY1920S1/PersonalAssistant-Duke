@@ -1,14 +1,14 @@
 package duke.command.bookingcommands;
 
-import duke.bookinglist.BookingList;
-import duke.command.Command;
+import duke.list.BookingList;
+import duke.command.CommandBooking;
 import duke.exception.DukeException;
 import duke.storage.BookingStorage;
 import duke.ui.Ui;
 
 import java.text.ParseException;
 
-public class AddBookingCommand extends Command {
+public class AddBookingCommand extends CommandBooking {
 
     public AddBookingCommand(String userInputCommand) {
         this.userInputCommand = userInputCommand;

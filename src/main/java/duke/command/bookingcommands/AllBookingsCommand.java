@@ -1,17 +1,15 @@
 package duke.command.bookingcommands;
 
-import duke.bookinglist.BookingList;
-import duke.command.Command;
+import duke.list.BookingList;
+import duke.command.CommandBooking;
 import duke.storage.BookingStorage;
-import duke.storage.Storage;
-import duke.tasklist.TaskList;
 import duke.ui.Ui;
 
 
 /**
  * Handles the list command and inherits all the fields and methods of Command parent class.
  */
-public class AllBookingsCommand extends Command {
+public class AllBookingsCommand extends CommandBooking {
 
     /**
      * Processes the list command to display all tasks in task list.

@@ -2,12 +2,12 @@ package duke.ui;
 
 import java.util.Scanner;
 
-import static duke.common.GeneralMessages.filePathIngredients;
-import static duke.common.GeneralMessages.filePathBookings;
-import static duke.common.GeneralMessages.filePathRecipes;
-import static duke.common.GeneralMessages.MESSAGE_BYE;
-import static duke.common.GeneralMessages.ERROR_MESSAGE_LOADING;
-import static duke.common.GeneralMessages.DIVIDER;
+import static duke.common.Messages.filePathIngredients;
+import static duke.common.Messages.filePathBookings;
+import static duke.common.Messages.filePathRecipes;
+import static duke.common.Messages.MESSAGE_BYE;
+import static duke.common.Messages.ERROR_MESSAGE_LOADING;
+import static duke.common.Messages.DIVIDER;
 
 public class Ui {
 

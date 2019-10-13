@@ -1,11 +1,13 @@
-package duke.bookinglist;
+package duke.list;
 
+import duke.exception.DukeException;
 import duke.task.bookingtasks.Booking;
 
 import java.text.ParseException;
 import java.util.ArrayList;
 
-import static duke.common.GeneralMessages.DISPLAYED_INDEX_OFFSET;
+import static duke.common.Messages.DISPLAYED_INDEX_OFFSET;
+import static duke.common.Messages.ERROR_MESSAGE_NOTFOUND;
 
 
 public class BookingList {
@@ -50,6 +52,20 @@ public class BookingList {
             arrList.add("     " + displayIndex + ". " + bookingList.get(i));
         }
         return arrList;
+    }
+
+    public ArrayList<String> findBooking(String customerName) throws DukeException {
+        ArrayList<String> arrFind = new ArrayList<>();
+        for (int i = 0; i < getSize(); i++) {
+            if (bookingList.get(i).getCustomerName().toLowerCase().contains(customerName)) {
+                arrFind.add(bookingList.get(i).toString());
+            }
+        }
+        if (arrFind.isEmpty()) {
+            throw new DukeException(ERROR_MESSAGE_NOTFOUND);
+        } else {
+            return arrFind;
+        }
     }
 
     public int getSize() {

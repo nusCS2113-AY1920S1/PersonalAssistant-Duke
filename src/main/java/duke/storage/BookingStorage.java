@@ -2,7 +2,7 @@ package duke.storage;
 
 import duke.exception.DukeException;
 import duke.task.bookingtasks.Booking;
-import duke.bookinglist.BookingList;
+import duke.list.BookingList;
 
 
 import java.io.FileReader;

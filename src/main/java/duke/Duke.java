@@ -1,7 +1,7 @@
 package duke;
 
-import duke.bookinglist.BookingList;
-import duke.command.Command;
+import duke.list.BookingList;
+import duke.command.CommandBooking;
 import duke.exception.DukeException;
 
 import duke.parser.Parser;
@@ -11,9 +11,7 @@ import duke.ui.Ui;
 
 import java.text.ParseException;
 
-import static duke.common.GeneralMessages.filePathIngredients;
-import static duke.common.GeneralMessages.filePathBookings;
-import static duke.common.GeneralMessages.filePathRecipes;
+import static duke.common.Messages.filePathBookings;
 
 /**
  * Duke processes different commands.
@@ -56,7 +54,7 @@ public class Duke {
             try {
                 String fullCommand = ui.readCommand();
                 ui.showLine();
-                Command c = Parser.parse(fullCommand);
+                CommandBooking c = Parser.parseBooking(fullCommand);
                 c.execute(bookingList, ui, bookingStorage);
                 isExit = c.isExit();
             } catch (DukeException | ParseException e) {

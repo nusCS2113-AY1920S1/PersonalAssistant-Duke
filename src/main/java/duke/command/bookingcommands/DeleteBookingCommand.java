@@ -1,24 +1,22 @@
 package duke.command.bookingcommands;
 
-import duke.bookinglist.BookingList;
-import duke.command.Command;
+import duke.list.BookingList;
+import duke.command.CommandBooking;
 import duke.exception.DukeException;
 import duke.storage.BookingStorage;
-import duke.storage.Storage;
-import duke.tasklist.TaskList;
 import duke.ui.Ui;
 
-import static duke.common.GeneralMessages.MESSAGE_FOLLOWUP_EMPTY_INDEX;
-import static duke.common.GeneralMessages.ERROR_MESSAGE_EMPTY_INDEX;
-import static duke.common.GeneralMessages.ERROR_MESSAGE_INVALID_INDEX;
-import static duke.common.GeneralMessages.ERROR_MESSAGE_UNKNOWN_INDEX;
-import static duke.common.GeneralMessages.ERROR_MESSAGE_RANDOM;
+import static duke.common.Messages.MESSAGE_FOLLOWUP_EMPTY_INDEX;
+import static duke.common.Messages.ERROR_MESSAGE_EMPTY_INDEX;
+import static duke.common.Messages.ERROR_MESSAGE_INVALID_INDEX;
+import static duke.common.Messages.ERROR_MESSAGE_UNKNOWN_INDEX;
+import static duke.common.Messages.ERROR_MESSAGE_RANDOM;
 
 
 /**
  * Handles the delete command and inherits all the fields and methods of Command parent class.
  */
-public class DeleteBookingCommand extends Command {
+public class DeleteBookingCommand extends CommandBooking {
 
     /**
      * Constructor for class DeleteCommand.
