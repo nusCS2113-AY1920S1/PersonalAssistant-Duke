@@ -24,7 +24,7 @@ public class ContactParserHelper {
     /**
      * Find index of command line option in user input.
      *
-     * @param info Array of user input arguments.
+     * @param info   Array of user input arguments.
      * @param toFind Command Line option to find.
      * @return Index of command line option.
      */
@@ -56,7 +56,7 @@ public class ContactParserHelper {
 
         ArrayList<String> nameList = new ArrayList<>();
         ArrayList<String> detailsList = new ArrayList<>();
-        ArrayList<String> phoneList= new ArrayList<>();
+        ArrayList<String> phoneList = new ArrayList<>();
 
         detailsIndex = findIndexOf(info, "/d");
         phoneIndex = findIndexOf(info, "/p");
@@ -118,7 +118,6 @@ public class ContactParserHelper {
         detailsIndex = findIndexOf(info, "/d");
         phoneIndex = findIndexOf(info, "/p");
         nameIndex = findIndexOf(info, "/n");
-
 
 
         //Process input into three arraylist
