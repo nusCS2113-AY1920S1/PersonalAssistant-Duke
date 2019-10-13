@@ -5,7 +5,9 @@ import duke.core.Ui;
 import duke.patient.Patient;
 import duke.patient.PatientManager;
 import duke.storage.PatientStorage;
+import duke.storage.PatientTaskStorage;
 import duke.storage.TaskStorage;
+import duke.relation.PatientTaskList;
 import duke.task.TaskManager;
 
 public class AddPatientCommand extends Command {
@@ -17,9 +19,9 @@ public class AddPatientCommand extends Command {
     }
 
     @Override
-    public void execute(TaskManager tasks, PatientManager patientManager, Ui ui, TaskStorage taskStorage, PatientStorage patientStorage) throws DukeException {
-        patientManager.addPatient(newPatient);
-        patientStorage.save(patientManager.getPatientList());
+    public void execute(PatientTaskList patientTask, TaskManager tasks, PatientManager patientList, Ui ui, PatientTaskStorage patientTaskStorage,TaskStorage taskStorage, PatientStorage patientStorage) throws DukeException {
+        patientList.addPatient(newPatient);
+        patientStorage.save(patientList.getPatientList());
         ui.patientAdded(newPatient);
     }
 

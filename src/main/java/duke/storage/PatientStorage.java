@@ -11,7 +11,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 
-public class PatientStorage extends Storage<Patient> {
+public class PatientStorage {
 
     /**
      * A string that represents a relative file path from the project folder.
@@ -47,7 +47,6 @@ public class PatientStorage extends Storage<Patient> {
         }
     }
 
-    @Override
     public void save(ArrayList<Patient> patients) throws DukeException {
         try {
             BufferedWriter writer = Files.newBufferedWriter(Paths.get(filePath));

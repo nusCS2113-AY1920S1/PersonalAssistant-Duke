@@ -1,9 +1,8 @@
 package duke.core;
 
 import duke.patient.Patient;
-import duke.task.StandardTask;
+import duke.relation.PatientTask;
 import duke.task.Task;
-
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -46,13 +45,8 @@ public class Ui {
         System.out.println("☹" + e);
     }
 
-    /**
-     * Shows that a Task has been added
-     *
-     * @param standardTask The Task that is added to the list.
-     */
-    public void taskAdded(StandardTask standardTask) {
-        System.out.println("Got it. I've added this task: \n" + standardTask);
+    public void taskAdded(Task standardTask) {
+        System.out.println("Got it. I've added this task: \n" + standardTask.getDescription());
     }
 
     public void showPatientInfo(Patient patient) {
@@ -85,6 +79,10 @@ public class Ui {
     public void patientAdded(Patient patient) {
         System.out.println("Got it. The following patient has been added:  ");
         showPatientInfo(patient);
+    }
+
+    public void patientTaskAssigned(PatientTask patientTask, String patientName, String taskName) {
+        System.out.println("Got it. The following Patient ID: " + patientTask.getTaskID() + " " + patientName + " has been assigned the Task ID: " + patientTask.getPatientId() + " " + taskName);
     }
 
     public int choosePatientToDelete(int numberOfPatients) {
@@ -143,7 +141,6 @@ public class Ui {
         for (Task task : taskList) {
             System.out.println(index
                     + ". "
-                    + "[" + task.getStatusIcon() + "] "
                     + task.getDescription()
                     + "\n");
             index++;

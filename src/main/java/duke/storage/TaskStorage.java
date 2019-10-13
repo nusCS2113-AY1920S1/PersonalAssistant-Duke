@@ -1,7 +1,6 @@
 package duke.storage;
 
 import duke.core.DukeException;
-import duke.task.StandardTask;
 import duke.task.Task;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVPrinter;
@@ -12,7 +11,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 
-public class TaskStorage extends Storage<Task>{
+public class TaskStorage {
 
     /**
      * A string that represents a relative file path from the project folder.
@@ -43,8 +42,7 @@ public class TaskStorage extends Storage<Task>{
             Iterable<CSVRecord> records = CSVFormat.EXCEL.withFirstRecordAsHeader().parse(in);
             for (CSVRecord record : records) {
                 String description = record.get("Description");
-                taskList.add(new StandardTask(description));
-                System.out.println(description + " | " + description);
+                taskList.add(new Task(description));
             }
             return taskList;
         } catch (IOException e) {
@@ -59,7 +57,6 @@ public class TaskStorage extends Storage<Task>{
      * @param tasks The TaskList storing tasks.
      * @throws DukeException If writing to the local file failed.
      */
-    @Override
     public void save(ArrayList<Task> tasks) throws DukeException {
         try{
             BufferedWriter writer = Files.newBufferedWriter(Paths.get(filePath));
