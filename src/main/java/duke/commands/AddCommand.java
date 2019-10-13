@@ -104,7 +104,6 @@ public class AddCommand extends Command {
                 break;
 
             case "do-within":
-
                 start = new DateTime(fullCommand.split("/between ")[1], 0);
                 end = new DateTime(fullCommand.split("/between ")[1], 1);
                 added = taskList.add(new Within(fullCommand.substring(0, fullCommand.lastIndexOf(" /between"))
