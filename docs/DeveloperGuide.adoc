@@ -1,6 +1,7 @@
 ﻿= OOF (Outstanding Organisation Friend) - Developer Guide
 :site-section: DeveloperGuide
 :toc:
+:toclevels: 3
 :toc-title:
 :toc-placement: preamble
 :sectnums:
@@ -63,9 +64,84 @@ This will generate all resources required by the application and tests.
 
 == Implementation
 
-=== [Proposed] Undo/Redo feature
+=== Recurring task feature
 
-=== [Proposed] Data Encryption
+==== Implementation
+
+The `RecurringCommand` class extends `Command` by providing methods to set a current `Task` in the persistent `TaskList` of the main program `OOF` as a recurring task. It also generates future instances of `Task` as indicated by the user.
+
+[NOTE]
+`TaskList` is stored internally as an `ArrayList` in the Oof Program as well as externally in persistent storage in `output.txt`.
+
+Additionally, it consists of the following features:
+
+* User can select a `Task` in the `TaskList` to be a recurring task.
+* User can choose an integer between `1 - 10` for the number of times the task should recur.
+* User can also choose the `Frequency` of recurrence with the choices being `DAILY, WEEKLY, MONTHLY, YEARLY`
+
+These features are implemented in the `parse` method of the `CommandParser` class that parses user input commands.
+
+Given below is an example usage scenario and how the `RecurringCommand` class behaves at each step.
+
+*Step 1.* +
+The user types in `recurring 1 2`. The `parse` method in `CommandParser` class is called to parse the command to obtain integers `1` as the `Index` of the `Task` in `TaskList` and `2` as the `number of recurrences`.
+
+[WARNING]
+`OofException` will be thrown if the user enters invalid commands.
+
+*Step 2.* +
+The `parse` method then prompts the user to input the `frequency` of recurrence. +
+
+[TIP]
+
+The choices are as follows: +
+1. DAILY +
+2. WEEKLY + 
+3. MONTHLY +
+4. YEARLY +
+
+The user chooses `1`. The `parse` method then parses the command to obtain an integer `1` which sets the `Frequency` of recurrence as `DAILY`.
+
+[WARNING]
+`OofException` will be thrown if the user enters invalid commands.
+
+*Step 3.* +
+A new instance of `RecurringCommand` class is returned to the main `Oof` program with the parameters `1, 2, 1` as described above. The `execute` method of `RecurringCommand` class is then called.
+
+*Step 4.* +
+The `setRecurringTask` method in `RecurringCommand` class is then called by `execute` method. This method does three main things: 
+
+* Calls `getTask` method from `TaskList` class to get the user selected `Task`.
+* Updates the `Task` to a `recurring Task` by: +
+** Calling `setFrequency` method in `Task` class to set `Frequency` to `DAILY`
+** Calling `deleteTask` and `addTaskToIndex` methods in `TaskList` class to update the selected `Task`.
+* Calls `recurInstances` method in `RecurringCommand` class to set upcoming recurring `Tasks` based on user selected `Number of recurrences` and `Frequency` by:
+** `recurInstances` method calls `dateTimeIncrement` method in `RecurringCommand` class to increment the `DateTime` based on the user input `Frequency`.
+
+*Step 5.* +
+After `setRecurring` method finishes its execution, the `execute` method continues on to print the updated `TaskList` by calling `printRecurringMessage` method in `Ui` class and saves the new `Tasks` into persistent storage by calling `writeToFile` method in `Storage` class.
+
+The following activity diagram summarises what happens when a user executes a new command:
+
+image::RecurringCommandActivityDiagram.png[]
+
+==== Design Considerations
+
+* *Selecting currently available `Task` to be set as a `recurring Task`*
+** Rationale: +
+It allows the `RecurringCommand` class to capitalise on the existing features of adding `Deadlines` and `Events. 
+** Alternatives considered: +
+Allow users to add new `recurring Task` instead of selecting from existing `Tasks`. Allowing users to add new recurring tasks strongly overlaps with existing features and this increase coupling in the `OOF` program.
+* *Fixing lower bound and upper bound of the `Number of recurrences` to be `1` and `10` respectively*
+** Rationale: + 
+It ensures a controlled number of recurrences are added to the `TaskList` instead of being a variable amount as a user may unintentionally break the `TaskList`.
+** Alternatives considered: + 
+Insert an upcoming recurring task when the `recurring Task` is nearing. There may be too many `Tasks` to keep track and add when `OOF` starts up especially in the case when the number of `Tasks` in the `TaskList` gets potentially large. This decreases the scalability of the project in the long run.
+* *`Frequency` fixed to four different default frequencies*
+** Rationale: + 
+It requires significantly less effort to choose from a default list of four options than to manually type in customised time ranges.
+** Alternatives considered: +
+Users can enter a customised `Frequency` for the `recurring Task`. It may be a viable option to allow users to set such parameters. However, since the `OOF` program is solely a Command Line Interface program, it may not be user friendly for users to enter so many details just to set a customised `Frequency` for the `recurring Task`.
 
 === Logging
 
