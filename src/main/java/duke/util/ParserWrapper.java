@@ -121,6 +121,12 @@ public class ParserWrapper {
         }
     }
 
+    /**
+     * Parse multiple dateTime arguments.
+     * @param args input argument map
+     * @param dateTimeArgs dateTime arguments to parse
+     * @throws ModInvalidTimeException when input dateTime argument is invalid
+     */
     private void parseDateTime(LinkedHashMap<String, String> args, String... dateTimeArgs)
             throws ModInvalidTimeException {
         for (String dateTimeArg: dateTimeArgs) {
