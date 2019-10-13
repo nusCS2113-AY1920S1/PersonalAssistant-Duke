@@ -344,7 +344,7 @@ public class MovieHandler extends Controller implements RequestListener {
 
     /**
      * Prints message in UI.
-     * @param txt which is the string tecxt to be printed.
+     * @param txt which is the string text to be printed.
      */
     public void setFeedbackText(String txt) {
         text.setText(txt);

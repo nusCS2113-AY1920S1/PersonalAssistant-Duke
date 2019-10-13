@@ -2,14 +2,9 @@ package Commands;
 
 import MovieUI.Controller;
 import MovieUI.MovieHandler;
-import movieRequesterAPI.URLRetriever;
 import task.Deadline;
-import task.Tasks;
 import task.Period;
-import task.TaskList;
-import parser.Parser;
-import object.MovieInfoObject;
-import java.util.ArrayList;
+import ListCommands.WatchlistHandler;
 
 public class AddCommand extends CommandSuper {
     public AddCommand(Controller UIController) {
@@ -30,9 +25,20 @@ public class AddCommand extends CommandSuper {
 
     public void addToWatchList() {
         String movie = ((MovieHandler)this.getUIController()).getAPIRequester().beginAddRequest(getPayload());
-        Deadline deadline = new Deadline(movie, "D", "20/09/1997 12:00");
-        System.out.println(movie);
-        TaskList.addTask(deadline);
-        Parser.listCommand();
+        String type = this.getFlagMap().get("-d").get(0);
+        switch (type) {
+            case " d ":
+                String end_date = this.getFlagMap().get("-e").get(0);
+                Deadline deadline = new Deadline(movie, "D", end_date);
+                WatchlistHandler.add(deadline);
+                break;
+            case " p ":
+                String s_date = this.getFlagMap().get("-s").get(0);
+                String e_date = this.getFlagMap().get("-e").get(0);
+                Period period = new Period(movie, "P", s_date, e_date);
+                WatchlistHandler.add(period);
+                break;
+        }
+        WatchlistHandler.print_list((MovieHandler)(this.getUIController()));
     }
 }
