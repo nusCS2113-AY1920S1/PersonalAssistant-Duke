@@ -1,5 +1,6 @@
 package dolla.command;
 
+import dolla.DollaData;
 import dolla.Ui;
 import dolla.task.Entry;
 
@@ -30,8 +31,9 @@ public class AddEntryCommand extends Command {
     }
 
     @Override
-    public void execute() {
+    public void execute(DollaData dollaData) {
         Entry newEntry = new Entry(type, amount, description, date);
+        dollaData.entryList.add(newEntry);
         Ui.echoAddEntry(newEntry);
     }
 }

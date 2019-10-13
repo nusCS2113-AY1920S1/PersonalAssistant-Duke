@@ -1,16 +1,18 @@
 package dolla.command;
 
+import dolla.DollaData;
 import dolla.Ui;
 
 /**
  * Command is an abstract class which all types of command will inherit from.
  */
 public abstract class Command {
+
     /**
-     * This method is called to read/write the specified duke.task.TaskList after every user input.
+     * This method is called execute the titular command after every user input.
      * @throws Exception handle exception
      */
-    public abstract void execute() throws Exception;
+    public abstract void execute(DollaData dollaData) throws Exception;
 
     /**
      * Returns an integer variable from the specified string.

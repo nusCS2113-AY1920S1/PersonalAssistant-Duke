@@ -8,7 +8,7 @@ import dolla.task.TaskList;
 /**
  * duke.command.AddDeadlineCommand is a command used to add a deadline task into the duke.task.TaskList.
  */
-public class AddDeadlineCommand extends AddCommand {
+public abstract class AddDeadlineCommand extends AddCommand {
 
     /**
      * Instantiates a new Add deadline command.
@@ -33,7 +33,7 @@ public class AddDeadlineCommand extends AddCommand {
      *     returns without doing anything.
      * </p>
      */
-    @Override
+    //@Override
     public void execute() {
         /*
         if (!splitDescTime()) {

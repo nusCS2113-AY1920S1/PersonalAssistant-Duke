@@ -1,6 +1,7 @@
 package dolla;
 
 import dolla.task.Entry;
+import dolla.task.EntryList;
 import dolla.task.Task;
 
 import java.util.ArrayList;
@@ -84,7 +85,7 @@ public class Ui {
     public static void echoAddEntry(Entry currEntry) {
         System.out.println(line);
         System.out.println("\tGot it. I've added this entry: ");
-        System.out.println("\t" + currEntry.getEntryText());
+        System.out.println("\t" + currEntry.getLogText());
         System.out.println(line);
     }
 
@@ -235,6 +236,32 @@ public class Ui {
         System.out.println("\tplease follow the format "
                 + "'add income(/expense) [AMOUNT] [DESCRIPTION] /on [DATE] {/tag [TAG]}'"
                 + "");
+        System.out.println(line);
+    }
+
+    /**
+     * Prints Dolla's new mode after being updated.
+     * @param newMode The new mode to be switched.
+     */
+    public static void printModeUpdated(String newMode) {
+        System.out.println(line);
+        System.out.println("\tMode changed to " + newMode + "!");
+        System.out.println(line);
+    }
+
+    public static void printEmptyListError(String mode) {
+        System.out.println(line);
+        System.out.println("\tYou haven't added any " + mode + " yet!");
+        System.out.println(line);
+    }
+
+    public static void printList(String mode, EntryList entryList) {
+        System.out.println(line);
+        System.out.println("\tHere are the " + mode + " that you have added:");
+        for (int i = 0; i < entryList.size(); i++) {
+            int listNum = i + 1;
+            System.out.println("\t" + listNum + ". " + entryList.get().get(i).getLogText());
+        }
         System.out.println(line);
     }
 }
