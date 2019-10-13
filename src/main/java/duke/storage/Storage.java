@@ -45,8 +45,12 @@ public class Storage {
                 + sep + "Data" + sep + "goal.txt");
         try { //read data file
             bufferedReader = new BufferedReader(new FileReader(file));
-        } catch (Exception e) {
-            throw new DukeException("Unable to access file1");
+        } catch (FileNotFoundException e) {
+            try {
+                bufferedWriter = new BufferedWriter(new FileWriter(file));
+            } catch (Exception f) {
+                throw new DukeException("Failed to load file");
+            }
         }
         try {
             while ((line = bufferedReader.readLine()) != null) {
@@ -59,11 +63,14 @@ public class Storage {
         } catch (IOException e) {
             throw new DukeException("Error reading file1");
         }
-        /*
         try { //read default values file
             bufferedReader = new BufferedReader(new FileReader(defaultFile));
-        } catch (Exception e) {
-            throw new DukeException("Unable to access file2");
+        } catch (FileNotFoundException e) {
+            try {
+                bufferedWriter = new BufferedWriter(new FileWriter(file));
+            } catch (Exception f) {
+                throw new DukeException("Failed to load file");
+            }
         }
         try {
             while ((line = bufferedReader.readLine()) != null) {
@@ -78,8 +85,12 @@ public class Storage {
         }
         try { //read goal file
             bufferedReader = new BufferedReader(new FileReader(goalFile));
-        } catch (Exception e) {
-            throw new DukeException("Unable to access file3");
+        } catch (FileNotFoundException e) {
+            try {
+                bufferedWriter = new BufferedWriter(new FileWriter(file));
+            } catch (Exception f) {
+                throw new DukeException("Failed to load file");
+            }
         }
         try {
             while ((line = bufferedReader.readLine()) != null) {
@@ -93,7 +104,6 @@ public class Storage {
             throw new DukeException("Error reading file3");
         }
         meals.setMealTracker(mealTracker);
-        */
     }
 
     /**
