@@ -25,7 +25,10 @@ public class Parser {
             case "bye":
                 return new ExitCommand();
             case "list":
-                return new ListCommand();
+                if (fcArray.length == 1) {
+                    return new ListCommand();
+                }
+                return new ListCommand(fcArray[1]);
             case "delete":
                 if (fcArray.length == 1) {
                     throw new DukeException("☹ OOPS!!! The description of delete cannot be empty.");
