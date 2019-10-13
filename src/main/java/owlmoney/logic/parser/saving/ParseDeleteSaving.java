@@ -15,7 +15,7 @@ public class ParseDeleteSaving extends ParseSaving {
     private static final String DELETE = "/delete";
 
     /**
-     * Constructor which creates an instance of ParseDeleteSaving.
+     * Creates an instance of ParseDeleteSaving.
      *
      * @param data Raw user input data.
      * @throws ParserException If there are redundant parameters or if the first parameter is not valid.
@@ -41,7 +41,7 @@ public class ParseDeleteSaving extends ParseSaving {
             if (NAME.equals(key) && (value.isBlank() || value.isEmpty())) {
                 throw new ParserException(key + " cannot be empty when deleting savings account");
             } else if (NAME.equals(key)) {
-                checkName(NAME,value);
+                checkName(NAME, value);
             }
         }
     }

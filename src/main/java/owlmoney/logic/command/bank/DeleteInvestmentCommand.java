@@ -4,24 +4,21 @@ import owlmoney.logic.command.Command;
 import owlmoney.model.profile.Profile;
 import owlmoney.ui.Ui;
 
-/**
- * DeleteSavingsCommand class which contains the execution function to delete a saving object.
- */
-public class DeleteSavingsCommand extends Command {
+public class DeleteInvestmentCommand extends Command {
     private final String bankName;
-    private static final String SAVING = "saving";
+    private static final String INVESTMENT = "investment";
 
     /**
-     * Creates an instance of DeleteSavingCommand.
+     * Creates an instance of DeleteInvestmentCommand.
      *
      * @param bankName Bank name to be deleted.
      */
-    public DeleteSavingsCommand(String bankName) {
+    public DeleteInvestmentCommand(String bankName) {
         this.bankName = bankName;
     }
 
     /**
-     * Executes the function to delete a savings account from the profile.
+     * Executes the function to delete an investment account from the profile.
      *
      * @param profile Profile of the user.
      * @param ui      Ui of OwlMoney.
@@ -29,7 +26,7 @@ public class DeleteSavingsCommand extends Command {
      */
     @Override
     public boolean execute(Profile profile, Ui ui) {
-        profile.deleteBank(this.bankName, SAVING, ui);
+        profile.deleteBank(this.bankName, INVESTMENT, ui);
         return this.isExit;
     }
 }

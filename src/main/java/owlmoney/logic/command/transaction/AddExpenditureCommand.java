@@ -22,11 +22,11 @@ public class AddExpenditureCommand extends Command {
     /**
      * Constructor to create an instance of AddExpenditureCommand.
      *
-     * @param name Bank account name.
-     * @param amount Amount of the expenditure.
-     * @param date Date of the expenditure.
+     * @param name        Bank account name.
+     * @param amount      Amount of the expenditure.
+     * @param date        Date of the expenditure.
      * @param description Description of the expenditure.
-     * @param category Category of the expenditure.
+     * @param category    Category of the expenditure.
      */
     public AddExpenditureCommand(String name, double amount, Date date, String description, String category) {
         this.accName = name;
@@ -40,7 +40,7 @@ public class AddExpenditureCommand extends Command {
      * Executes the function to add a new expenditure to the bank account.
      *
      * @param profile Profile of the user.
-     * @param ui Ui of OwlMoney.
+     * @param ui      Ui of OwlMoney.
      * @return false so OwlMoney will not terminate yet.
      */
     public boolean execute(Profile profile, Ui ui) {

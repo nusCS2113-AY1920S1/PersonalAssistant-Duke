@@ -14,7 +14,7 @@ public abstract class Command {
      * Abstract method where each command type implements execution code.
      *
      * @param profile Profile of the user.
-     * @param ui Ui of OwlMoney.
+     * @param ui      Ui of OwlMoney.
      * @return True if OwlMoney should terminate after execution.
      */
     public abstract boolean execute(Profile profile, Ui ui) throws CardException;

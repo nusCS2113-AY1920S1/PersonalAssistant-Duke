@@ -17,7 +17,7 @@ public abstract class Bank {
     TransactionList transactions;
 
     /**
-     * Constructor that allows the child class to create an instance with name and current amount.
+     * Allows the child class to create an instance with name and current amount.
      *
      * @param name          A name of the bank account.
      * @param currentAmount The amount of money in the bank on initial creation.
@@ -63,7 +63,7 @@ public abstract class Bank {
      * @return accountName and currentAmount.
      */
     public String getDescription() {
-        return "Account name: " + accountName + "\nType: " + getType() + "\nCurrent Amount: "
+        return "Account name: " + accountName + "\nType: " + getType() + "\nCurrent Amount: $"
                 + new DecimalFormat("0.00").format(currentAmount);
     }
 
@@ -89,7 +89,7 @@ public abstract class Bank {
      * Abstract method which adds a new expenditure to the current bank account.
      *
      * @param exp Expenditure to be added.
-     * @param ui Ui of OwlMoney
+     * @param ui  Ui of OwlMoney
      */
     public abstract void addInExpenditure(Transaction exp, Ui ui);
 
@@ -101,19 +101,19 @@ public abstract class Bank {
      * Abstract method which deletes an expenditure from the current bank account.
      *
      * @param exNum Transaction number.
-     * @param ui Ui of OwlMoney.
+     * @param ui    Ui of OwlMoney.
      */
     public abstract void deleteExpenditure(int exNum, Ui ui);
 
     /**
      * Edits expenditure in the current bank account.
      *
-     * @param expNum Transaction number.
-     * @param desc New description.
-     * @param amount New amount.
-     * @param date New date.
+     * @param expNum   Transaction number.
+     * @param desc     New description.
+     * @param amount   New amount.
+     * @param date     New date.
      * @param category New category.
-     * @param ui Ui of OwlMoney.
+     * @param ui       Ui of OwlMoney.
      */
     void editExpenditureDetails(int expNum, String desc, String amount, String date, String category, Ui ui) {
         ui.printError("This account does not support this feature");
@@ -123,10 +123,10 @@ public abstract class Bank {
      * Edits deposit in the current bank account.
      *
      * @param expNum Transaction number.
-     * @param desc New description.
+     * @param desc   New description.
      * @param amount New amount.
-     * @param date New date.
-     * @param ui Ui of OwlMoney.
+     * @param date   New date.
+     * @param ui     Ui of OwlMoney.
      */
     void editDepositDetails(int expNum, String desc, String amount, String date, Ui ui) {
         ui.printError("This account does not support this feature");
@@ -144,7 +144,7 @@ public abstract class Bank {
     /**
      * Lists expenditures from the current bank.
      *
-     * @param ui Ui of OwlMoney.
+     * @param ui         Ui of OwlMoney.
      * @param displayNum Number of expenditure to list.
      */
     void listAllExpenditure(Ui ui, int displayNum) {
@@ -154,7 +154,7 @@ public abstract class Bank {
     /**
      * Lists deposits from the current bank.
      *
-     * @param ui Ui of OwlMoney.
+     * @param ui         Ui of OwlMoney.
      * @param displayNum Number of deposits to list.
      */
     void listAllDeposit(Ui ui, int displayNum) {
@@ -165,7 +165,7 @@ public abstract class Bank {
      * Adds a new deposit to the current bank account.
      *
      * @param dep Deposit to add.
-     * @param ui Ui of OwlMoney.
+     * @param ui  Ui of OwlMoney.
      */
     void addDepositTransaction(Transaction dep, Ui ui) {
         ui.printError("This account does not support this feature");
@@ -175,7 +175,7 @@ public abstract class Bank {
      * Deletes a deposit from the current bank account.
      *
      * @param index Transaction number.
-     * @param ui Ui of OwlMoney.
+     * @param ui    Ui of OwlMoney.
      */
     void deleteDepositTransaction(int index, Ui ui) {
         ui.printError("This account does not support this feature");

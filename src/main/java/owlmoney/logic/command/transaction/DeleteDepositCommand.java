@@ -15,7 +15,7 @@ public class DeleteDepositCommand extends Command {
      * Constructor to create an instance of DeleteDepositCommand.
      *
      * @param bankName Bank account name.
-     * @param index Transaction number.
+     * @param index    Transaction number.
      */
     public DeleteDepositCommand(String bankName, int index) {
         this.expNumber = index;
@@ -26,7 +26,7 @@ public class DeleteDepositCommand extends Command {
      * Executes the function to delete a deposit transaction.
      *
      * @param profile Profile of the user.
-     * @param ui Ui of OwlMoney.
+     * @param ui      Ui of OwlMoney.
      * @return false so OwlMoney will not terminate yet.
      */
     public boolean execute(Profile profile, Ui ui) {

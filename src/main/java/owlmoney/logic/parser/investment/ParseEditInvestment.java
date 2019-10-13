@@ -1,23 +1,19 @@
-package owlmoney.logic.parser.saving;
+package owlmoney.logic.parser.investment;
 
 import java.util.Iterator;
 
 import owlmoney.logic.command.Command;
-import owlmoney.logic.command.bank.EditSavingsCommand;
+import owlmoney.logic.command.bank.EditInvestmentCommand;
 import owlmoney.logic.parser.exception.ParserException;
 
-/**
- * Represents the parsing of inputs for editing a saving.
- */
-public class ParseEditSaving extends ParseSaving {
-
+public class ParseEditInvestment extends ParseInvestment {
     /**
-     * Creates an instance of ParseEditSaving.
+     * Creates an instance of ParseEditInvestment.
      *
      * @param data Raw user input date.
      * @throws ParserException If the first parameter is invalid.
      */
-    public ParseEditSaving(String data) throws ParserException {
+    public ParseEditInvestment(String data) throws ParserException {
         super(data);
         checkFirstParameter();
     }
@@ -28,19 +24,15 @@ public class ParseEditSaving extends ParseSaving {
      * @throws ParserException If there are any invalid or missing inputs.
      */
     public void checkParameter() throws ParserException {
-        Iterator<String> savingsIterator = savingsParameters.keySet().iterator();
+        Iterator<String> investmentIterator = investmentParameters.keySet().iterator();
         int changeCounter = 0;
-        while (savingsIterator.hasNext()) {
-            String key = savingsIterator.next();
-            String value = savingsParameters.get(key);
+        while (investmentIterator.hasNext()) {
+            String key = investmentIterator.next();
+            String value = investmentParameters.get(key);
             if (NAME.equals(key) && (value.isEmpty() || value.isBlank())) {
                 throw new ParserException("/name cannot be empty.");
             } else if (NAME.equals(key)) {
                 checkName(NAME, value);
-            }
-            if (INCOME.equals(key) && !(value.isEmpty() || value.isBlank())) {
-                checkIncome(value);
-                changeCounter++;
             }
             if (AMOUNT.equals(key) && !(value.isEmpty() || value.isBlank())) {
                 checkAmount(value);
@@ -57,14 +49,13 @@ public class ParseEditSaving extends ParseSaving {
     }
 
     /**
-     * Returns the command to execute the editing of a saving.
+     * Returns the command to execute the editing of details for investment account.
      *
-     * @return Returns EditSavingsCommand to be executed.
+     * @return Returns EditInvestmentCommand to be executed.
      */
     public Command getCommand() {
-        EditSavingsCommand newEditSavingsCommand = new EditSavingsCommand(savingsParameters.get(NAME),
-                savingsParameters.get(INCOME), savingsParameters.get(AMOUNT), savingsParameters.get(NEW_NAME));
-        return newEditSavingsCommand;
+        EditInvestmentCommand newEditInvestmentCommand = new EditInvestmentCommand(investmentParameters.get(NAME),
+                investmentParameters.get(AMOUNT), investmentParameters.get(NEW_NAME));
+        return newEditInvestmentCommand;
     }
-
 }

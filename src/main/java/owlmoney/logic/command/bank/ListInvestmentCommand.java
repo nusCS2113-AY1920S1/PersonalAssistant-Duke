@@ -4,11 +4,8 @@ import owlmoney.logic.command.Command;
 import owlmoney.model.profile.Profile;
 import owlmoney.ui.Ui;
 
-/**
- * ListSavingsCommand class which contains the execution function to list saving objects.
- */
-public class ListSavingsCommand extends Command {
-    private static final String SAVING = "saving";
+public class ListInvestmentCommand extends Command {
+    private static final String INVESTMENT = "investment";
 
     /**
      * Executes the function to list savings in the profile.
@@ -19,7 +16,7 @@ public class ListSavingsCommand extends Command {
      */
     @Override
     public boolean execute(Profile profile, Ui ui) {
-        profile.listBanks(SAVING,ui);
+        profile.listBanks(INVESTMENT,ui);
         return this.isExit;
     }
 }
