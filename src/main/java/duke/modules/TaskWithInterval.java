@@ -57,7 +57,7 @@ public class TaskWithInterval extends Task {
     }
 
     /**
-     * Parse String inputs to TimeInterval object
+     * Parse String inputs to TimeInterval object.
      * @param days input days
      * @param hours input hours
      * @param minutes input minutes
