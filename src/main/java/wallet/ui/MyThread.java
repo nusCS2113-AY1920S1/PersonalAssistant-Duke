@@ -1,5 +1,6 @@
 package wallet.ui;
 
+import wallet.logic.command.ReminderCommand;
 import wallet.model.record.Loan;
 import wallet.model.record.LoanList;
 
@@ -51,7 +52,9 @@ class MyThread implements Runnable {
                 ui.printLine();
                 Thread.sleep(timeInSeconds * 1000);
             } catch (InterruptedException e) {
-                System.out.println("Stopping auto reminders...:");
+                ui.printLine();
+                System.out.println("Stopping thread...");
+                ui.printLine();
             }
         }
     }
