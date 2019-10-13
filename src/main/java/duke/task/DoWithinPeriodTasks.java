@@ -2,6 +2,10 @@ package duke.task;
 
 import java.util.Date;
 
+/**
+ * One of the B-Extensions.
+ * @author CEGLincoln
+ */
 public class DoWithinPeriodTasks extends Task {
 
     private String from;

@@ -1,6 +1,7 @@
 package duke.task;
 
-import duke.parser.Parser;
+import duke.parser.Convert;
+
 import java.util.Date;
 
 /**
@@ -22,7 +23,7 @@ public class Deadline extends Task {
     @Override
     public void setNewDate(String date) {
         this.by = date;
-        this.date = Parser.stringToDate(by);
+        this.date = Convert.stringToDate(by);
     }
 
     @Override

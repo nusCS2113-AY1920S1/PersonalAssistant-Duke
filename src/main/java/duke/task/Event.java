@@ -1,6 +1,7 @@
 package duke.task;
 
-import duke.parser.Parser;
+import duke.parser.Convert;
+
 import java.util.Date;
 
 /**
@@ -22,7 +23,7 @@ public class Event extends Task {
     @Override
     public void setNewDate(String date) {
         this.at = date;
-        this.date = Parser.stringToDate(at);
+        this.date = Convert.stringToDate(at);
     }
 
     @Override
