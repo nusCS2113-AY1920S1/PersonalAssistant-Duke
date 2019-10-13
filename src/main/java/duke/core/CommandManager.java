@@ -51,24 +51,9 @@ public class CommandManager {
                 }
             case "assign":
                 try {
-                    String[] tempCommand = command[1].split("\\s+", 5);
+                    String[] tempCommand = command[1].split("\\s+", 2);
                     if (tempCommand[0].toLowerCase().equals("byid")) {
-                        if (tempCommand[1].equals("S")) {
-                            String type = tempCommand[1];
-                            int patientId = Integer.parseInt(tempCommand[2]);
-                            int taskId = Integer.parseInt(tempCommand[3]);
-                            String deadline = tempCommand[4];
-                            StandardPatientTask sPatientTask = new StandardPatientTask(patientId, taskId, deadline, type);
-                            return new AssignTaskToPatientCommand(sPatientTask);
-                        } else if (tempCommand[1].equals("E")) {
-                            String type = tempCommand[1];
-                            int patientId = Integer.parseInt(tempCommand[2]);
-                            int taskId = Integer.parseInt(tempCommand[3]);
-                            String sTime = tempCommand[4].split(" /to ", 2)[0];
-                            String eTime = tempCommand[4].split(" /to ", 2)[1];
-                            EventPatientTask ePatientTask = new EventPatientTask(patientId, taskId, sTime, eTime, type);
-                            return new AssignTaskToPatientCommand(ePatientTask);
-                        }
+                        return new AssignTaskToPatientCommand(tempCommand[1]);
                     }
 
                 } catch (Exception e) {
