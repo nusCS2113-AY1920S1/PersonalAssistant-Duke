@@ -7,7 +7,6 @@ import wallet.model.record.Expense;
 
 import java.time.LocalDate;
 
-import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class DeleteCommandTest {

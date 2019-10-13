@@ -13,13 +13,13 @@ public class EditCommandParserTest {
         String input = "2 /d Supper /a 10 /c Others";
         Expense expense = parser.parseExpense(input);
         assertAll("Expense should contain edited values",
-                () -> assertEquals(2, expense.getId()),
-                () -> assertEquals("Supper", expense.getDescription()),
-                () -> assertEquals(null, expense.getDate()),
-                () -> assertEquals(10.0, expense.getAmount()),
-                () -> assertEquals("Others", expense.getCategory()),
-                () -> assertEquals(false, expense.isRecurring()),
-                () -> assertEquals("", expense.getRecFrequency())
+            () -> assertEquals(2, expense.getId()),
+            () -> assertEquals("Supper", expense.getDescription()),
+            () -> assertEquals(null, expense.getDate()),
+            () -> assertEquals(10.0, expense.getAmount()),
+            () -> assertEquals("Others", expense.getCategory()),
+            () -> assertEquals(false, expense.isRecurring()),
+            () -> assertEquals("", expense.getRecFrequency())
         );
     }
 
@@ -29,13 +29,13 @@ public class EditCommandParserTest {
         String input = "2 /d Supper /a 10 /c Others /r Daily";
         Expense expense = parser.parseExpense(input);
         assertAll("Expense should contain edited values",
-                () -> assertEquals(2, expense.getId()),
-                () -> assertEquals("Supper", expense.getDescription()),
-                () -> assertEquals(null, expense.getDate()),
-                () -> assertEquals(10.0, expense.getAmount()),
-                () -> assertEquals("Others", expense.getCategory()),
-                () -> assertEquals(true, expense.isRecurring()),
-                () -> assertEquals("DAILY", expense.getRecFrequency())
+            () -> assertEquals(2, expense.getId()),
+            () -> assertEquals("Supper", expense.getDescription()),
+            () -> assertEquals(null, expense.getDate()),
+            () -> assertEquals(10.0, expense.getAmount()),
+            () -> assertEquals("Others", expense.getCategory()),
+            () -> assertEquals(true, expense.isRecurring()),
+            () -> assertEquals("DAILY", expense.getRecFrequency())
         );
     }
 }

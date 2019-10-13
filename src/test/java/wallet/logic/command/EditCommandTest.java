@@ -28,13 +28,13 @@ public class EditCommandTest {
         command.execute(testWallet);
         Expense e = testWallet.getExpenseList().findExpenseWithId(1);
         assertAll("Expense should be updated with new values",
-                () -> assertEquals(1, e.getId()),
-                () -> assertEquals("Supper", e.getDescription()),
-                () -> assertEquals(LocalDate.now(), e.getDate()),
-                () -> assertEquals(8.0, e.getAmount()),
-                () -> assertEquals("Food", e.getCategory()),
-                () -> assertEquals(false, e.isRecurring()),
-                () -> assertEquals(null, e.getRecFrequency())
+            () -> assertEquals(1, e.getId()),
+            () -> assertEquals("Supper", e.getDescription()),
+            () -> assertEquals(LocalDate.now(), e.getDate()),
+            () -> assertEquals(8.0, e.getAmount()),
+            () -> assertEquals("Food", e.getCategory()),
+            () -> assertEquals(false, e.isRecurring()),
+            () -> assertEquals(null, e.getRecFrequency())
         );
     }
 }
