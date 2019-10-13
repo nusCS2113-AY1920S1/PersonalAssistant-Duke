@@ -1,7 +1,10 @@
 package owlmoney.model.profile;
 
+import owlmoney.logic.parser.exception.CardException;
 import owlmoney.model.bank.Bank;
 import owlmoney.model.bank.BankList;
+import owlmoney.model.card.Card;
+import owlmoney.model.card.CardList;
 import owlmoney.model.transaction.Transaction;
 import owlmoney.ui.Ui;
 
@@ -12,6 +15,7 @@ import owlmoney.ui.Ui;
 public class Profile {
     private String username;
     private BankList bankList;
+    private CardList cardList;
 
     /**
      * Constructor that creates a new instance of the user profile.
@@ -21,6 +25,7 @@ public class Profile {
     public Profile(String newUserName) {
         this.username = newUserName;
         this.bankList = new BankList();
+        this.cardList = new CardList();
     }
 
     /**
@@ -192,5 +197,44 @@ public class Profile {
         bankList.editDep(expNum, editFromBank, desc, amount, date, ui);
     }
 
+    /**
+     * Adds a new credit card into the CardList stored in this profile.
+     *
+     * @param newCard an instance of the new credit card.
+     * @param ui required for printing.
+     */
+    public void addNewCard(Card newCard, Ui ui) {
+        cardList.addCard(newCard, ui);
+    }
 
+    /**
+     * Deletes a card from the CardList.
+     *
+     * @param name name of the credit card.
+     * @param ui required for printing.
+     */
+    public void deleteCard(String name, Ui ui) throws CardException {
+        cardList.deleteCard(name, ui);
+    }
+
+    /**
+     * Deletes a card from the CardList.
+     *
+     * @param name name of the credit card.
+     * @param ui required for printing.
+     */
+    /*
+    public void editCard(String name, String newName, String limit, String rebate, String dueDate, Ui ui) {
+        cardList.editCard(name, newName, limit, rebate, dueDate, ui);
+    }
+    */
+
+    /**
+     * Lists all the cards in the CardList.
+     *
+     * @param ui required for printing.
+     */
+    public void listCards(Ui ui) throws CardException {
+        cardList.listCards(ui);
+    }
 }

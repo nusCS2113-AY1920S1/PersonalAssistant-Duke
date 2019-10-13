@@ -4,6 +4,7 @@ import java.util.Scanner;
 
 import owlmoney.logic.command.Command;
 import owlmoney.logic.parser.ParseCommand;
+import owlmoney.logic.parser.exception.CardException;
 import owlmoney.logic.parser.exception.ParserException;
 import owlmoney.model.profile.Profile;
 import owlmoney.ui.Ui;
@@ -53,7 +54,7 @@ class Main {
                 if (hasExited) {
                     break;
                 }
-            } catch (ParserException exceptionMessage) {
+            } catch (ParserException | CardException exceptionMessage) {
                 ui.printError(exceptionMessage.toString());
             }
         }
