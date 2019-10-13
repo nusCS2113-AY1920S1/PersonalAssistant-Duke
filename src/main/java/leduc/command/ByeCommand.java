@@ -1,6 +1,7 @@
 package leduc.command;
 
 import leduc.exception.FileException;
+import leduc.storage.ConfigStorage;
 import leduc.storage.Storage;
 import leduc.Ui;
 import leduc.task.TaskList;
@@ -28,9 +29,10 @@ public class ByeCommand extends Command {
      * @param tasks leduc.task.TaskList which is the list of task.
      * @param ui leduc.Ui which deals with the interactions with the user.
      * @param storage leduc.storage.Storage which deals with loading tasks from the file and saving tasks in the file.
+     * @param configStorage
      * @throws FileException Exception caught when the file can't be open or read or modify.
      */
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws FileException {
+    public void execute(TaskList tasks, Ui ui, Storage storage, ConfigStorage configStorage) throws FileException {
         storage.save(tasks.getList());
         ui.showBye();
     }

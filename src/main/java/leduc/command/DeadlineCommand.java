@@ -2,6 +2,7 @@ package leduc.command;
 
 import leduc.Date;
 import leduc.exception.*;
+import leduc.storage.ConfigStorage;
 import leduc.storage.Storage;
 import leduc.Ui;
 import leduc.task.DeadlinesTask;
@@ -31,12 +32,13 @@ public class DeadlineCommand extends Command {
      * @param tasks leduc.task.TaskList which is the list of task.
      * @param ui leduc.Ui which deals with the interactions with the user.
      * @param storage leduc.storage.Storage which deals with loading tasks from the file and saving tasks in the file.
+     * @param configStorage
      * @throws EmptyDeadlineDateException Exception caught when the date of the deadline task is not given.
      * @throws EmptyDeadlineException Exception caught when the description of the deadline task is not given.
      * @throws NonExistentDateException Exception caught when the date given does not exist.
      * @throws FileException Exception caught when the file can't be open or read or modify
      */
-    public void execute(TaskList tasks, Ui ui, Storage storage)
+    public void execute(TaskList tasks, Ui ui, Storage storage, ConfigStorage configStorage)
             throws EmptyDeadlineDateException, EmptyDeadlineException, NonExistentDateException, FileException {
         if(user.substring(DeadlineCommand.deadlineShortcut.length()).isBlank()){
             throw new EmptyDeadlineException();

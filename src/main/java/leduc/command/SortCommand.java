@@ -4,6 +4,7 @@ import leduc.Ui;
 import leduc.exception.EmptyArgumentException;
 import leduc.exception.FileException;
 import leduc.exception.MeaninglessException;
+import leduc.storage.ConfigStorage;
 import leduc.storage.Storage;
 import leduc.task.Task;
 import leduc.task.TaskList;
@@ -33,10 +34,11 @@ public class SortCommand extends Command {
      * @param tasks leduc.task.TaskList which is the list of task.
      * @param ui leduc.Ui which deals with the interactions with the user.
      * @param storage leduc.storage.Storage which deals with loading tasks from the file and saving tasks in the file.
+     * @param configStorage
      * @throws FileException Exception caught when the file can't be open or read or modify.
      * @throws MeaninglessException  Exception caught when the input string could not be interpreted.
      */
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws FileException, MeaninglessException, EmptyArgumentException {
+    public void execute(TaskList tasks, Ui ui, Storage storage, ConfigStorage configStorage) throws FileException, MeaninglessException, EmptyArgumentException {
         String sort = user.substring(SortCommand.sortShortcut.length()).trim();
         if(sort.isBlank()) {
             throw new EmptyArgumentException();
@@ -57,7 +59,7 @@ public class SortCommand extends Command {
         storage.save(tasks.getList());
         ui.display("\t This is the new task list order: ");
         ListCommand listCommand = new ListCommand(user);
-        listCommand.execute(tasks,ui,storage);
+        listCommand.execute(tasks,ui,storage, configStorage);
     }
 
     /**

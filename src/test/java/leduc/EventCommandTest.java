@@ -44,7 +44,7 @@ public class EventCommandTest {
 
         EventCommand eventCommand1 = new EventCommand("event");
         try{
-            eventCommand1.execute(tasks,ui, storage);
+            eventCommand1.execute(tasks,ui, storage, );
             fail("should throw exception when there is no description");
         } catch (EmptyEventException | EmptyEventDateException | FileException | NonExistentDateException | ConflictDateException e) {
             assertTrue(e.print().contains("description"));
@@ -52,7 +52,7 @@ public class EventCommandTest {
 
         EventCommand eventCommand2 = new EventCommand("event testNoDate");
         try{
-            eventCommand2.execute(tasks,ui, storage);
+            eventCommand2.execute(tasks,ui, storage, );
             fail("should throw exception when there is no date");
         } catch (EmptyEventException | EmptyEventDateException | FileException | NonExistentDateException | ConflictDateException e) {
             assertTrue(e.print().contains("period"));
@@ -60,7 +60,7 @@ public class EventCommandTest {
 
         EventCommand eventCommand3 = new EventCommand("event testNoDate /at");
         try{
-            eventCommand3.execute(tasks,ui, storage);
+            eventCommand3.execute(tasks,ui, storage, );
             fail("should throw exception when there is no date");
         } catch (EmptyEventException | EmptyEventDateException | FileException | NonExistentDateException | ConflictDateException e) {
             assertTrue(e.print().contains("period"));
@@ -68,7 +68,7 @@ public class EventCommandTest {
 
         EventCommand eventCommand4 = new EventCommand("event testNoDate /at 12/12/2019 20:30");
         try{
-            eventCommand4.execute(tasks,ui, storage);
+            eventCommand4.execute(tasks,ui, storage, );
             fail("should throw exception when there is no period");
         } catch (EmptyEventException | EmptyEventDateException | FileException | NonExistentDateException | ConflictDateException e) {
             assertTrue(e.print().contains("period"));
@@ -76,7 +76,7 @@ public class EventCommandTest {
 
         EventCommand eventCommand5 = new EventCommand("event testNoDate /at 12/12/2019 20:30 12/12/2019 20:40");
         try{
-            eventCommand5.execute(tasks,ui, storage);
+            eventCommand5.execute(tasks,ui, storage, );
             fail("should throw exception when there is a problem with the date");
         } catch (EmptyEventException | EmptyEventDateException | FileException | NonExistentDateException | ConflictDateException e) {
             assertTrue(e.print().contains("period"));
@@ -84,7 +84,7 @@ public class EventCommandTest {
 
         EventCommand eventCommand6 = new EventCommand("event testNoDate /at - 12/12/2019 20:30");
         try{
-            eventCommand6.execute(tasks,ui, storage);
+            eventCommand6.execute(tasks,ui, storage, );
             fail("should throw exception when there is no date");
         } catch (EmptyEventException | EmptyEventDateException | FileException | NonExistentDateException | ConflictDateException e) {
             assertTrue(e.print().contains("period"));
@@ -92,7 +92,7 @@ public class EventCommandTest {
 
         EventCommand eventCommand7 = new EventCommand("event testNoDate /at 12/12/2019 20:30 - ");
         try{
-            eventCommand7.execute(tasks,ui, storage);
+            eventCommand7.execute(tasks,ui, storage, );
             fail("should throw exception when there is no date");
         } catch (EmptyEventException | EmptyEventDateException | FileException | NonExistentDateException | ConflictDateException e) {
             assertTrue(e.print().contains("period"));
@@ -100,7 +100,7 @@ public class EventCommandTest {
 
         EventCommand eventCommand8 = new EventCommand("event testNoDate /at a - b");
         try{
-            eventCommand8.execute(tasks,ui, storage);
+            eventCommand8.execute(tasks,ui, storage, );
             fail("should throw exception when there is a wrong format");
         } catch (EmptyEventException | EmptyEventDateException | FileException | NonExistentDateException | ConflictDateException e) {
             assertTrue(e.print().contains("date doesn't exist"));
@@ -108,7 +108,7 @@ public class EventCommandTest {
 
         EventCommand eventCommand9 = new EventCommand("event testNoDate /at 12-12-2019 20:30 - 12-12-2019 20:40");
         try{
-            eventCommand9.execute(tasks,ui, storage);
+            eventCommand9.execute(tasks,ui, storage, );
             fail("should throw exception when there is a wrong format");
         } catch (EmptyEventException | EmptyEventDateException | FileException | NonExistentDateException | ConflictDateException e) {
             assertTrue(e.print().contains("date doesn't exist"));
@@ -116,7 +116,7 @@ public class EventCommandTest {
 
         EventCommand eventCommand10 = new EventCommand("event testNoDate /at 12/12/2019 2030 - 12/12/2019 20:40");
         try{
-            eventCommand10.execute(tasks,ui, storage);
+            eventCommand10.execute(tasks,ui, storage, );
             fail("should throw exception when there is a wrong format");
         } catch (EmptyEventException | EmptyEventDateException | FileException | NonExistentDateException | ConflictDateException e) {
             assertTrue(e.print().contains("date doesn't exist"));
@@ -124,7 +124,7 @@ public class EventCommandTest {
 
         EventCommand eventCommand11 = new EventCommand("event testConflictDate /at 11/12/2019 20:20 - 11/12/2019 21:00");
         try{
-            eventCommand11.execute(tasks,ui, storage);
+            eventCommand11.execute(tasks,ui, storage, );
             fail("should throw exception when there is a conflict between the date");
         } catch (EmptyEventException | EmptyEventDateException | FileException | NonExistentDateException | ConflictDateException e) {
             assertTrue(e.print().contains("conflict"));
@@ -132,7 +132,7 @@ public class EventCommandTest {
 
         EventCommand eventCommand12 = new EventCommand("event testConflictDate /at 11/12/2019 20:20 - 12/12/2019 21:00");
         try{
-            eventCommand12.execute(tasks,ui, storage);
+            eventCommand12.execute(tasks,ui, storage, );
             fail("should throw exception when there is a conflict between the date");
         } catch (EmptyEventException | EmptyEventDateException | FileException | NonExistentDateException | ConflictDateException e) {
             assertTrue(e.print().contains("conflict"));
@@ -140,7 +140,7 @@ public class EventCommandTest {
 
         EventCommand eventCommand13 = new EventCommand("event testConflictDate /at 12/12/2019 20:20 - 12/12/2019 21:00");
         try{
-            eventCommand13.execute(tasks,ui, storage);
+            eventCommand13.execute(tasks,ui, storage, );
             fail("should throw exception when there is a conflict between the date");
         } catch (EmptyEventException | EmptyEventDateException | FileException | NonExistentDateException | ConflictDateException e) {
             assertTrue(e.print().contains("conflict"));
@@ -148,7 +148,7 @@ public class EventCommandTest {
 
         EventCommand eventCommand14 = new EventCommand("event testConflictDate /at 12/12/2019 20:20 - 12/12/2019 20:30");
         try{
-            eventCommand14.execute(tasks,ui, storage);
+            eventCommand14.execute(tasks,ui, storage, );
             fail("should throw exception when there is a conflict between the date");
         } catch (EmptyEventException | EmptyEventDateException | FileException | NonExistentDateException | ConflictDateException e) {
             assertTrue(e.print().contains("conflict"));

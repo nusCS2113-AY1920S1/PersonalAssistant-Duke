@@ -2,6 +2,7 @@ package leduc;
 
 import leduc.command.RescheduleCommand;
 import leduc.exception.*;
+import leduc.storage.ConfigStorage;
 import leduc.storage.Storage;
 import leduc.task.Task;
 import leduc.task.TaskList;
@@ -24,6 +25,12 @@ public class RescheduleCommandTest {
     public void RescheduleCommandTest() {
         Ui ui = new Ui();
         Storage storage = new Storage(System.getProperty("user.dir")+ "/src/test/testFile/RescheduleCommandTest.txt");
+        ConfigStorage configStorage = null;
+        try {
+            configStorage = new ConfigStorage(System.getProperty("user.dir")+ "/src/test/testFile/configTest.txt");
+        } catch (FileException | MeaninglessException e) {
+            e.printStackTrace();
+        }
         TaskList tasks = new TaskList(new ArrayList<Task>());
         try{
             tasks = new TaskList(storage.load()); // Use of ArrayList (A-Collections) to store tasks
@@ -36,7 +43,7 @@ public class RescheduleCommandTest {
         RescheduleCommand rescheduleCommand1 = new RescheduleCommand(
                 "reschedule 4ee /at 12/12/2222 22:22 - 12/12/2222 22:24");
         try{
-            rescheduleCommand1.execute(tasks,ui,storage);
+            rescheduleCommand1.execute(tasks,ui,storage, configStorage);
         }
         catch( DukeException e ){
             assertTrue(e instanceof NonExistentTaskException);
@@ -45,7 +52,7 @@ public class RescheduleCommandTest {
         RescheduleCommand rescheduleCommand2 = new RescheduleCommand(
                 "reschedule 15 /at 12/12/2222 22:22 - 12/12/2222 22:24");
         try{
-            rescheduleCommand2.execute(tasks,ui,storage);
+            rescheduleCommand2.execute(tasks,ui,storage, configStorage);
         }
         catch( DukeException e ){
             assertTrue(e instanceof NonExistentTaskException);
@@ -54,7 +61,7 @@ public class RescheduleCommandTest {
         RescheduleCommand rescheduleCommand3 = new RescheduleCommand(
                 "reschedule 2 /at 12/12/2222 22:22 - 12/12/2222 22:24");
         try{
-            rescheduleCommand3.execute(tasks,ui,storage);
+            rescheduleCommand3.execute(tasks,ui,storage, configStorage);
         }
         catch( DukeException e ){
             assertTrue(e instanceof EventTypeException);
@@ -62,7 +69,7 @@ public class RescheduleCommandTest {
 
         RescheduleCommand rescheduleCommand4 = new RescheduleCommand("reschedule 3");
         try{
-            rescheduleCommand4.execute(tasks,ui,storage);
+            rescheduleCommand4.execute(tasks,ui,storage, configStorage);
         }
         catch( DukeException e ){
             assertTrue(e instanceof EmptyEventDateException);
@@ -71,7 +78,7 @@ public class RescheduleCommandTest {
         RescheduleCommand rescheduleCommand5 = new RescheduleCommand(
                 "reschedule 3 /at 12/12/22a2 22:22 - 12/12/2222 22:24");
         try{
-            rescheduleCommand5.execute(tasks,ui,storage);
+            rescheduleCommand5.execute(tasks,ui,storage, configStorage);
         }
         catch( DukeException e ){
             assertTrue(e instanceof NonExistentDateException);
@@ -81,7 +88,7 @@ public class RescheduleCommandTest {
         RescheduleCommand rescheduleCommand6 = new RescheduleCommand(
                 "reschedule 3 /at 12/12/2222 22:22 - 12/12/1222 22:24");
         try{
-            rescheduleCommand6.execute(tasks,ui,storage);
+            rescheduleCommand6.execute(tasks,ui,storage, configStorage);
         }
         catch( DukeException e ){
             assertTrue(e instanceof DateComparisonEventException);
@@ -90,7 +97,7 @@ public class RescheduleCommandTest {
         RescheduleCommand rescheduleCommand7 = new RescheduleCommand(
                 "reschedule 3 /at 12/12/2019 22:22 - 12/12/2019 22:24");
         try{
-            rescheduleCommand7.execute(tasks,ui,storage);
+            rescheduleCommand7.execute(tasks,ui,storage, configStorage);
         }
         catch( DukeException e ){ // Should not happen
             assertTrue(false);

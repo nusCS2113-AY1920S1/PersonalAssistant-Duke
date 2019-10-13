@@ -1,8 +1,8 @@
 package leduc.command;
 
-import jdk.jfr.Event;
 import leduc.Date;
 import leduc.exception.*;
+import leduc.storage.ConfigStorage;
 import leduc.storage.Storage;
 import leduc.Ui;
 import leduc.task.EventsTask;
@@ -31,13 +31,14 @@ public class EventCommand extends Command {
      * @param tasks leduc.task.TaskList which is the list of task.
      * @param ui leduc.Ui which deals with the interactions with the user.
      * @param storage leduc.storage.Storage which deals with loading tasks from the file and saving tasks in the file.
+     * @param configStorage
      * @throws EmptyEventDateException Exception caught when the period of the event task is not given by the user.
      * @throws EmptyEventException Exception caught when the description of the event task is not given by the user.
      * @throws NonExistentDateException Exception caught when one of the two date given does not exist.
      * @throws FileException Exception caught when the file can't be open or read or modify
      * @throws ConflictDateException Exception thrown when the new event is in conflict with others event
      */
-    public void execute(TaskList tasks, Ui ui, Storage storage)
+    public void execute(TaskList tasks, Ui ui, Storage storage, ConfigStorage configStorage)
             throws EmptyEventDateException, EmptyEventException, NonExistentDateException, FileException, ConflictDateException {
         if(user.substring(EventCommand.eventShortcut.length()).isBlank()){
             throw new EmptyEventException();

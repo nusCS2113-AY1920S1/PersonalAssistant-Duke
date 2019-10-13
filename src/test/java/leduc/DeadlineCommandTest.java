@@ -41,7 +41,7 @@ public class DeadlineCommandTest {
 
         DeadlineCommand deadlineCommand1 = new DeadlineCommand("deadline ok");
         try{
-            deadlineCommand1.execute(tasks,ui,storage);
+            deadlineCommand1.execute(tasks,ui,storage, );
         }
         catch( DukeException e ){
             assertTrue(e instanceof EmptyDeadlineDateException);
@@ -52,7 +52,7 @@ public class DeadlineCommandTest {
 
         DeadlineCommand deadlineCommand2 = new DeadlineCommand("deadline /by 12/12/2000 22:22");
         try{
-            deadlineCommand2.execute(tasks,ui,storage);
+            deadlineCommand2.execute(tasks,ui,storage, );
         }
         catch(DukeException e ){
             assertTrue(e instanceof EmptyDeadlineException);
@@ -63,7 +63,7 @@ public class DeadlineCommandTest {
 
         DeadlineCommand deadlineCommand3 = new DeadlineCommand("deadline d1 /by 12-12-2000 22:22");
         try{
-            deadlineCommand3.execute(tasks,ui,storage);
+            deadlineCommand3.execute(tasks,ui,storage, );
         }
         catch( DukeException e){
             assertTrue( e instanceof NonExistentDateException);
@@ -72,7 +72,7 @@ public class DeadlineCommandTest {
 
         DeadlineCommand deadlineCommand4 = new DeadlineCommand("deadline d1 /by 12/12/2000 22:22");
         try{
-            deadlineCommand4.execute(tasks,ui,storage);
+            deadlineCommand4.execute(tasks,ui,storage, );
         }
         catch( DukeException e){ //should not happen
             assertTrue(false);
@@ -81,7 +81,7 @@ public class DeadlineCommandTest {
 
         DeleteCommand delete = new DeleteCommand("delete 1");
         try{
-            delete.execute(tasks,ui,storage);
+            delete.execute(tasks,ui,storage, );
         }
         catch( DukeException e){ //should not happen
             assertTrue(false);

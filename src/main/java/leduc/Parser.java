@@ -74,7 +74,7 @@ public class Parser {
         else if (user.matches(ByeCommand.getByeShortcut())){
             c = new ByeCommand(user);
         }
-        else if(user.matches("shortcut")){
+        else if(user.matches("shortcut") | user.matches("shortcut (.*)")){
             c = new ShortcutCommand(user);
         }
         else {

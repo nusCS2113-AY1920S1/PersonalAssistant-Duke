@@ -2,6 +2,7 @@ package leduc.command;
 
 import leduc.exception.FileException;
 import leduc.exception.NonExistentTaskException;
+import leduc.storage.ConfigStorage;
 import leduc.storage.Storage;
 import leduc.Ui;
 import leduc.task.TaskList;
@@ -28,10 +29,11 @@ public class DoneCommand extends Command {
      * @param tasks leduc.task.TaskList which is the list of task.
      * @param ui leduc.Ui which deals with the interactions with the user.
      * @param storage leduc.storage.Storage which deals with loading tasks from the file and saving tasks in the file.
+     * @param configStorage
      * @throws NonExistentTaskException Exception caught when the task which is done does not exist.
      * @throws FileException Exception caught when the file can't be open or read or modify
      */
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws NonExistentTaskException, FileException {
+    public void execute(TaskList tasks, Ui ui, Storage storage, ConfigStorage configStorage) throws NonExistentTaskException, FileException {
         int index = Integer.parseInt(user.substring(DoneCommand.doneShortcut.length() + 1)) - 1;
         if (index > tasks.size() - 1 || index < 0) {
             throw new NonExistentTaskException();

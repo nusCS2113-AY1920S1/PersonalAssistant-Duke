@@ -3,6 +3,7 @@ package leduc.command;
 import leduc.Date;
 import leduc.Ui;
 import leduc.exception.*;
+import leduc.storage.ConfigStorage;
 import leduc.storage.Storage;
 import leduc.task.EventsTask;
 import leduc.task.Task;
@@ -33,6 +34,7 @@ public class RescheduleCommand extends Command {
      * @param tasks leduc.task.TaskList which is the list of task.
      * @param ui leduc.Ui which deals with the interactions with the user.
      * @param storage leduc.storage.Storage which deals with loading tasks from the file and saving tasks in the file.
+     * @param configStorage
      * @throws EmptyEventDateException Exception caught when the period of the event task is not given by the user.
      * @throws NonExistentTaskException Exception caught when the task does not exist.
      * @throws EventTypeException Exception caught when the task is not a event task while it should be.
@@ -41,7 +43,7 @@ public class RescheduleCommand extends Command {
      * @throws FileException Exception caught when the file doesn't exist or cannot be created or cannot be opened.
      * @throws ConflictDateException Exception thrown when the new event is in conflict with others event.
      */
-    public void execute(TaskList tasks, Ui ui , Storage storage) throws EmptyEventDateException,
+    public void execute(TaskList tasks, Ui ui, Storage storage, ConfigStorage configStorage) throws EmptyEventDateException,
             NonExistentTaskException, EventTypeException, NonExistentDateException,
             DateComparisonEventException, FileException, ConflictDateException, EmptyArgumentException {
         if(user.substring(RescheduleCommand.rescheduleShortcut.length()).isBlank()){

@@ -53,7 +53,7 @@ public class SortCommandTest {
 
         SortCommand sortCommand1 = new SortCommand("sort ok");
         try{
-            sortCommand1.execute(tasks,ui,storage);
+            sortCommand1.execute(tasks,ui,storage, );
         }
         catch( DukeException e ){
             assertTrue(e instanceof MeaninglessException);
@@ -62,7 +62,7 @@ public class SortCommandTest {
 
         SortCommand sortCommand2 = new SortCommand("sort 4");
         try{
-            sortCommand2.execute(tasks,ui,storage);
+            sortCommand2.execute(tasks,ui,storage, );
         }
         catch( DukeException e ){
             assertTrue(e instanceof MeaninglessException);
@@ -71,7 +71,7 @@ public class SortCommandTest {
 
         SortCommand sortCommand3 = new SortCommand("sort description");
         try{
-            sortCommand3.execute(tasks,ui,storage);
+            sortCommand3.execute(tasks,ui,storage, );
         }
         catch( DukeException e ){
             assertTrue(false);
@@ -96,7 +96,7 @@ public class SortCommandTest {
 
         SortCommand sortCommand4 = new SortCommand("sort date");
         try{
-            sortCommand4.execute(tasks,ui,storage);
+            sortCommand4.execute(tasks,ui,storage, );
         }
         catch( DukeException e ){
             assertTrue(false);
