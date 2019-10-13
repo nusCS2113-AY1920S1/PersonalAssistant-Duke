@@ -33,7 +33,7 @@ test {
 }
 
 shadowJar {
-    archiveBaseName = "main"
+    archiveBaseName = "test"
     archiveVersion = "1.0"
     archiveClassifier = null
     archiveAppendix = null

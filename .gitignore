@@ -12,11 +12,8 @@ src/main/resources/docs/
 *.iml
 bin/
 
-#Ignore folders under Build except lib (commands need to be in this order)
-/build/*
-!/build/libs
-
 /duke.txt
 /wallet.txt
 /data/
+/build/
 

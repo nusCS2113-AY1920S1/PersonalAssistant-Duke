@@ -4,7 +4,6 @@ import wallet.model.task.Deadline;
 import wallet.model.task.DoWithinPeriod;
 import wallet.model.task.Event;
 import wallet.model.task.Task;
-import wallet.model.task.Tentative;
 import wallet.model.task.Todo;
 
 import java.io.FileNotFoundException;
@@ -54,23 +53,6 @@ public class TaskStorage extends Storage<Task> {
                         event.markAsDone();
                     }
                     taskList.add(event);
-                } else if (strArr[0].trim().equals("*E")) {
-                    //B-TentativeScheduling: Retrieve Tentative Records
-                    String dateList = strArr[3];
-                    String[] dateArr = dateList.split("\\|");
-                    ArrayList<Date> possibleDates = new ArrayList<Date>();
-                    SimpleDateFormat formatDate = new SimpleDateFormat("dd MMM yyyy h:mma");
-                    for (String d : dateArr) {
-                        Date entry = sdf.parse(d);
-                        possibleDates.add(entry);
-                    }
-
-                    Tentative tentative = new Tentative(strArr[2].trim(), possibleDates);
-                    if (strArr[1].trim().equals("1")) {
-                        tentative.markAsDone();
-                    }
-                    taskList.add(tentative);
-
                 } else if (strArr[0].trim().equals("DW")) {
                     Date dateStart = sdf.parse(strArr[3].trim());
                     Date dateEnd = sdf.parse(strArr[4].trim());
