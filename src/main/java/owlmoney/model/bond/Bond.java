@@ -65,4 +65,22 @@ public class Bond {
         return this.category;
     }
 
+    /**
+     * Sets the bond to a new amount.
+     *
+     * @param newAmount new amount of the bond
+     */
+    public void setAmount(double newAmount) {
+        this.amount = newAmount;
+    }
+
+    /**
+     * Sets the name of the bond to a new name.
+     *
+     * @param newName new name of the bond
+     */
+    public void setName(String newName) {
+        this.name = newName;
+    }
+
 }

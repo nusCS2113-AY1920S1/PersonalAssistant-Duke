@@ -1,5 +1,6 @@
 package owlmoney.model.bank;
 
+import owlmoney.model.bond.BondList;
 import owlmoney.model.transaction.Transaction;
 import owlmoney.model.transaction.TransactionList;
 import owlmoney.ui.Ui;
@@ -7,6 +8,7 @@ import owlmoney.ui.Ui;
 public class Investment extends Bank {
 
     private static final String INVESTMENT = "investment";
+    BondList bonds;
 
     /**
      * Creates an instance of an investment account.
@@ -18,6 +20,7 @@ public class Investment extends Bank {
         super(name, currentAmount);
         this.type = INVESTMENT;
         this.transactions = new TransactionList();
+        this.bonds = new BondList();
     }
 
     /**

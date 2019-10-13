@@ -133,6 +133,14 @@ class ParseType extends Parser {
                 return new ListInvestmentCommand();
             }
             throw new ParserException("You entered an invalid type for investment");
+        case "/bond":
+            if ("/add".equals(command)) {
+                ParseInvestment parseAddInvestment = new ParseAddInvestment(rawData);
+                parseAddInvestment.fillHashTable();
+                parseAddInvestment.checkParameter();
+                return parseAddInvestment.getCommand();
+            }
+                throw new ParserException("You entered an invalid type for bond");
         case "/expenditure":
             if ("/add".equals(command)) {
                 ParseExpenditure addExp = new ParseAddExpenditure(rawData);

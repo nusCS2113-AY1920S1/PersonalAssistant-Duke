@@ -100,8 +100,8 @@ public class BankList {
      */
     private boolean hasCorrectBankNameAndType(String bankName, String bankType) {
         for (int i = 0; i < getBankListSize(); i++) {
-            if ((bankName.equals(bankLists.get(i).getAccountName())) &&
-                    (bankType.equals(bankLists.get(i).getType()))) {
+            if ((bankName.equals(bankLists.get(i).getAccountName()))
+                    && (bankType.equals(bankLists.get(i).getType()))) {
                 return true;
             }
         }
