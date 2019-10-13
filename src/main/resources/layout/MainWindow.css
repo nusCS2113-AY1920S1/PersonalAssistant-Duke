@@ -1,19 +1,19 @@
 BorderPane {
 }
 
-Textfield{
+Textfield {
     -fx-background-color: white;
     -fx-alignment: bottom;
 }
 
-ListView{
-    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);
+ListView {
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.8), 10, 0, 0, 0);
 }
 
-Label{
+Label {
     -fx-background-color: white;
 }
 
-#totalSpentLabel{
-    -fx-font-size: 3em;
+#totalSpentLabel, #monthlyBudgetLabel {
+    -fx-font-size: 2em;
 }

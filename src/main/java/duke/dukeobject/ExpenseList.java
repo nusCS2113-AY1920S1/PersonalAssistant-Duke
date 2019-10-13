@@ -4,7 +4,6 @@ import duke.exception.DukeException;
 import duke.exception.DukeRuntimeException;
 
 import java.io.File;
-import java.io.IOException;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -214,8 +213,8 @@ public class ExpenseList extends DukeList<Expense> {
      */
     public BigDecimal getTotalAmount() {
         return internalList.stream()
-            .map(Expense::getAmount)
-            .reduce(BigDecimal.ZERO, BigDecimal::add);
+                .map(Expense::getAmount)
+                .reduce(BigDecimal.ZERO, BigDecimal::add);
     }
 
     public BigDecimal getTotalExternalAmount() {
