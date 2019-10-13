@@ -4,6 +4,7 @@ import java.util.Scanner;
 
 import owlmoney.logic.command.Command;
 import owlmoney.logic.parser.ParseCommand;
+import owlmoney.logic.parser.exception.CardException;
 import owlmoney.logic.parser.exception.ParserException;
 import owlmoney.model.bank.exception.BankException;
 import owlmoney.model.bond.exception.BondException;
@@ -56,7 +57,9 @@ class Main {
                 if (hasExited) {
                     break;
                 }
-            } catch (ParserException | BankException | TransactionException | BondException exceptionMessage) {
+
+            } catch (ParserException | BankException | TransactionException | BondException |
+                    CardException exceptionMessage) {
                 ui.printError(exceptionMessage.toString());
             }
         }
