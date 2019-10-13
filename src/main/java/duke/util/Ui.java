@@ -1,5 +1,6 @@
 package duke.util;
 
+import duke.modules.ModuleInfoSummary;
 import duke.modules.Task;
 
 import java.util.List;
@@ -141,20 +142,111 @@ public class Ui {
         }
     }
 
-    public void reportMsg() {
-        System.out.println("Number of required tasks to complete:\n" + "30");
+    public void reportListMsg() {
+        System.out.println(
+                "Hello there! Welcome to the report page. Please enter 'Report <NUMBER>' to view the specific reports\n" +
+                        "1) Overall module credit report\n" +
+                        "2) SU-ed modules report\n" +
+                        "3) Core modules report\n" +
+                        "4) Unrestricted elective modules report\n" +
+                        "5) General education modules report\n"
+        );
     }
 
     /**
-     * Prints the number of tasks left to be completed.
+     * Prints the information for the first report.
      *
      * @param taskList to be printed to user.
      */
-    public void printReportList(List<Task> taskList) {
-        int requiredTasks = 30;
-        int tasksLeft = requiredTasks - taskList.size();
-        System.out.println("Number of tasks still needed to be completed:\n" + tasksLeft);
+    public void printReportOne(List<Task> taskList) {
+        int requiredMCs = 160;
+        int MCsLeft = requiredMCs - taskList.size();
+        int numOfSem = 1; // Update this
+        System.out.println(
+                "1) Overall module credit report\n" +
+                        "Required amount of MCs: " + requiredMCs + "\n" +
+                        "Amount of MCs taken: " +  taskList.size() + "\n" +
+                        "Amount of MCs left to fulfil: " +  MCsLeft + "\n" +
+                        "Projected amount of MCs to take per semester: " + MCsLeft/numOfSem + "\n"
+                );
     }
+
+    /**
+     * Prints the information for the second report.
+     *
+     * @param taskList to be printed to user.
+     */
+    public void printReportTwo(List<Task> taskList, ModuleInfoSummary[] sem) {
+        int availableSUs;
+        if (sem[sem.length - 1] == 1 || sem[sem.length -1] == 2) {
+            availableSUs = 20;
+        } else {
+            availableSUs = 12;
+        }
+        int SUsLeft = availableSUs - taskList.size();
+        int numOfSem = 1; // Update this
+        System.out.println(
+                "2) SU-ed modules report\n" +
+                        "Amount of SUs used: " +  taskList.size() + "\n" +
+                        "Amount of SUs available: " +  SUsLeft + "\n" +
+                        "Projected amount of SUs available per semester: " + SUsLeft/numOfSem + "\n"
+        );
+    }
+
+    /**
+     * Prints the information for the third report.
+     *
+     * @param taskList to be printed to user.
+     */
+    public void printReportThree(List<Task> taskList) {
+        int requiredCoreMod = 108;
+        int CoreModLeft = requiredCoreMod - taskList.size();
+        int numOfSem = 1; // Update this
+        System.out.println(
+                "3) Core modules report\n" +
+                        "Required amount of core modules: " + requiredCoreMod + "\n" +
+                        "Amount of core modules taken: " +  taskList.size() + "\n" +
+                        "Amount of core modules left to take: " +  CoreModLeft + "\n" +
+                        "Projected amount of core modules to take per semester: " + CoreModLeft/numOfSem + "\n"
+        );
+    }
+
+    /**
+     * Prints the information for the fourth report.
+     *
+     * @param taskList to be printed to user.
+     */
+    public void printReportFour(List<Task> taskList) {
+        int requiredUE = 20;
+        int UELeft = requiredUE - taskList.size();
+        int numOfSem = 1; // Update this
+        System.out.println(
+                "4) Unrestricted elective modules report\n" +
+                        "Required amount of UE modules: " + requiredUE + "\n" +
+                        "Amount of UE modules taken: " +  taskList.size() + "\n" +
+                        "Amount of UE modules left to take: " +  UELeft + "\n" +
+                        "Projected amount of UE modules to take per semester: " + UELeft/numOfSem + "\n"
+        );
+    }
+
+    /**
+     * Prints the information for the fifth report.
+     *
+     * @param taskList to be printed to user.
+     */
+    public void printReportFive(List<Task> taskList) {
+        int requiredGE = 32;
+        int GELeft = requiredGE - taskList.size();
+        int numOfSem = 1; // Update this
+        System.out.println(
+                "4) Unrestricted elective modules report\n" +
+                        "Required amount of UE modules: " + requiredGE + "\n" +
+                        "Amount of UE modules taken: " +  taskList.size() + "\n" +
+                        "Amount of UE modules left to take: " +  GELeft + "\n" +
+                        "Projected amount of UE modules to take per semester: " + GELeft/numOfSem + "\n"
+        );
+    }
+
 
     /**
      * Prints the number of each tasks that is completed.

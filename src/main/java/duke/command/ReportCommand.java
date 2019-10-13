@@ -8,7 +8,6 @@ import duke.util.Ui;
 import duke.exceptions.ModEmptyListException;
 
 import java.util.List;
-import java.util.Objects;
 
 public class ReportCommand extends Command {
 
@@ -29,8 +28,8 @@ public class ReportCommand extends Command {
         if (isEmpty) {
             throw new ModEmptyListException();
         } else {
-            ui.reportMsg();
-            ui.printReportList(tasks.getTasks());
+            ui.reportListMsg();
+            ui.printReportOne(tasks.getTasks());
 
             List<Task> ETemp = tasks.find("[E]");
             ui.printReportTask(ETemp, "event");
