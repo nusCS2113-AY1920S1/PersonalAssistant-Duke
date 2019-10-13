@@ -4,7 +4,7 @@ import duke.command.Command;
 import duke.exception.DukeException;
 import duke.storage.Storage;
 import duke.task.duketasks.Task;
-import duke.tasklist.TaskList;
+import duke.list.tasklist.TaskList;
 import duke.ui.Ui;
 
 import java.util.ArrayList;

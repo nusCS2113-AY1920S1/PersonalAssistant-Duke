@@ -1,25 +1,33 @@
 package duke.task.recipetasks;
 
 public class RecipeIngredient {
+    private String recipeIngredientName;
+    private double recipeIngredientQuantity;
+    private String recipeIngredientWeight;
 
-    private String ingredientName;
-    private int quantity;
-
-    public RecipeIngredient(String ingredientName, int num) {
-        this.ingredientName = ingredientName;
-        this.quantity = quantity;
+    public RecipeIngredient(String recipeIngredientName, double recipeIngredientQuantity, String recipeIngredientWeight) {
+        this.recipeIngredientName = recipeIngredientName;
+        this.recipeIngredientQuantity = recipeIngredientQuantity;
+        this.recipeIngredientWeight = recipeIngredientWeight;
     }
 
-    public String getIngredient() {
-        return ingredientName;
+    public double getRecipeIngredientQuantity() {
+        return recipeIngredientQuantity;
+    }
+
+    public String getRecipeIngredientName() {
+        return recipeIngredientName;
+    }
+
+    public String getRecipeIngredientWeight() {
+        return recipeIngredientWeight;
     }
 
     public String toSaveString() {
-        return ingredientName + " | " + quantity;
+        return recipeIngredientName + " | " + recipeIngredientQuantity + " | " + recipeIngredientWeight;
     }
 
     public String toString() {
-        return ingredientName + "[" + quantity + "] ";
+        return recipeIngredientName + "[" + recipeIngredientQuantity + " " + recipeIngredientWeight + "] ";
     }
-
 }

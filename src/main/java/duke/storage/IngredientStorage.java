@@ -2,7 +2,7 @@ package duke.storage;
 
 import duke.exception.DukeException;
 import duke.task.ingredienttasks.Ingredient;
-import duke.ingredientlist.IngredientList;
+import duke.list.ingredientlist.IngredientList;
 
 import java.io.FileReader;
 import java.io.BufferedReader;
@@ -66,53 +66,6 @@ public class IngredientStorage {
                     Ingredient ingredient = new Ingredient(split[0], quantity);
                     arrIngredientList.add(ingredient);
                 }
-
-                /*
-                if (content.charAt(0) == 'T') {
-                    if (content.charAt(1) == 'S') {
-                        String[] split = content.substring(9).split(" \\| ", 2);
-                        Task task = new TentativeScheduling(split[0], split[1]);
-                        if (content.charAt(5) == '+') {
-                            task.markAsDone();
-                        }
-                        arrTaskList.add(task);
-                    } else {
-                        String details = content.substring(8);
-                        Task task = new Todo(details);
-                        if (content.charAt(4) == '+') {
-                            task.markAsDone();
-                        }
-                        arrTaskList.add(task);
-                    }
-                } else {
-                    //need to escape character in string for "|" by adding "\\" in front of "|"
-                    //if not the split will be on the wrong place
-                    String[] split = content.substring(8).split(" \\| ");
-                    if (content.charAt(0) == 'D') {
-                        Task task = new Deadline(split[0], split[1]);
-                        assignTaskMarker(content, task);
-                    } else if (content.charAt(0) == 'E') {
-                        Task task = new Event(split[0], split[1]);
-                        assignTaskMarker(content, task);
-                    } else if (content.charAt(0) == 'F') {
-                        Task task = new Duration(split[0], split[1]);
-                        assignTaskMarker(content, task);
-                    } else if (content.charAt(0) == 'P') {
-                        if (split.length == 3) {
-                            Task task = new Period(split[0], split[1], split[2]);
-                            assignTaskMarker(content, task);
-                        }
-                    } else if (content.charAt(0) == 'R') {
-                        if (split.length == 2) { // daily
-                            Task task = new Recurring(split[0], split[1], "");
-                            assignTaskMarker(content, task);
-                        } else if (split.length == 3) { // weekly, monthly, yearly
-                            Task task = new Recurring(split[0], split[1], split[2]);
-                            assignTaskMarker(content, task);
-                        }
-                    }
-                }
-                */
             }
             fileReader.close();
         } catch (FileNotFoundException ex) {
@@ -122,13 +75,4 @@ public class IngredientStorage {
         }
         return arrIngredientList;
     }
-
-    /*
-    private static void assignTaskMarker(String content, Task task) {
-        if (content.charAt(4) == '+') {
-            task.markAsDone();
-        }
-        arrTaskList.add(task);
-    }
-    */
 }

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+
+<HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <StackPane fx:id="writeContentPlaceHolder" prefHeight="400.0" prefWidth="600.0">
+         <children>
+            <TextField fx:id="writeContent" onAction="#handleAddRecipe" prefHeight="400.0" prefWidth="600.0" promptText="Write content here..." />
+         </children>
+      </StackPane>
+   </children>
+</HBox>

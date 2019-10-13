@@ -1,5 +1,7 @@
 package duke.task.duketasks;
 
+import duke.task.Task;
+
 import java.util.Date;
 
 public class Period extends Task {

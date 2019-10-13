@@ -1,21 +1,29 @@
 package duke;
 
 import duke.command.CommandIngredients;
-import duke.command.CommandTest;
+import duke.command.CommandRecipeIngredient;
+import duke.command.CommandRecipeTitle;
 import duke.exception.DukeException;
-import duke.ingredientlist.IngredientList;
+import duke.list.ingredientlist.IngredientList;
+import duke.list.recipelist.RecipeIngredientList;
 import duke.parser.Parser;
-import duke.recipelist.RecipeList;
+import duke.list.recipelist.RecipeTitleList;
 import duke.storage.IngredientStorage;
+import duke.storage.RecipeIngredientStorage;
+import duke.storage.RecipeTitleStorage;
 import duke.storage.Storage;
-import duke.tasklist.TaskList;
+import duke.list.tasklist.TaskList;
+import duke.task.recipetasks.Feedback;
+import duke.task.recipetasks.Rating;
+import duke.task.recipetasks.RecipeIngredient;
 import duke.ui.Ui;
 
 import java.util.ArrayList;
 import java.text.ParseException;
 
-import static duke.common.Messages.filePathIngredients;
-import static duke.common.Messages.filePath;
+import static duke.common.IngredientMessages.COMMAND_ADD_INGREDIENT;
+import static duke.common.Messages.*;
+import static duke.common.RecipeMessages.*;
 
 /**
  * Duke processes different commands.
@@ -27,11 +35,16 @@ public class Duke {
     private Ui ui;
 
     private IngredientStorage ingredientStorage;
+    private RecipeIngredientStorage recipeIngredientStorage;
     // private BookingStorage bookingStorage;
-    // private RecipeStorage recipeStorage;
+    private RecipeTitleStorage recipeTitleStorage;
     private IngredientList ingredientList;
+    private RecipeIngredientList recipeIngredientList;
     // private BookingList bookingList;
-    private RecipeList recipeList;
+    private RecipeTitleList recipeTitleList;
+    private RecipeIngredient recipeIngredient;
+    private Rating rating;
+    private Feedback feedback;
 
 //    /**
 //     * Constructor for Duke class to instantiation Ui, Storage, TaskList classes.
@@ -42,14 +55,18 @@ public class Duke {
         this.ui = ui;
         storage = new Storage(filePath);
         ingredientStorage = new IngredientStorage(filePathIngredients);
+        recipeIngredientStorage = new RecipeIngredientStorage(filePathRecipeIngredients);
+        recipeTitleStorage = new RecipeTitleStorage(filePathRecipeTitle);
+
         try {
             taskList = new TaskList(storage.load());
             ingredientList = new IngredientList(ingredientStorage.load());
+            recipeIngredientList = new RecipeIngredientList(recipeIngredientStorage.load());
+            recipeTitleList = new RecipeTitleList(recipeTitleStorage.load());
             System.out.println(taskList.getSize());
         } catch (DukeException e) {
             ui.showIngredientLoadingError();
             ui.showLoadingError();
-            ingredientList = new IngredientList();
         }
     }
 
@@ -57,100 +74,67 @@ public class Duke {
         return ui.showWelcome();
     }
 
-    public ArrayList<String> runProgram(String fullCommand) throws DukeException, ParseException {
-        CommandIngredients command = Parser.parseIngredients(fullCommand);
-        return command.feedback(ingredientList, ui, ingredientStorage);
+    public ArrayList<String> runProgram(String userInput) throws DukeException, ParseException {
+        System.out.println("stuck here4");
+        ArrayList<String> arrayList = new ArrayList<>();
+        if (userInput.contains(COMMAND_ADD_RECIPE_TITLE)) {
+            if (userInput.trim().substring(0, 14).equals(COMMAND_ADD_RECIPE_TITLE)) {
+                CommandRecipeTitle command = Parser.parseRecipeTitle(userInput);
+                return command.execute(recipeTitleList, ui, recipeTitleStorage);
+            } else {
+                arrayList.add(ERROR_MESSAGE_RANDOM);
+                System.out.println("stuck here5");
+                return arrayList;
+            }
+        } else if (userInput.contains(COMMAND_LIST_RECIPES)) {
+            if (userInput.trim().substring(0, 14).equals(COMMAND_LIST_RECIPES)) {
+                CommandRecipeTitle command = Parser.parseRecipeTitle(userInput);
+                return command.execute(recipeTitleList, ui, recipeTitleStorage);
+            } else {
+                arrayList.add(ERROR_MESSAGE_RANDOM);
+                return arrayList;
+            }
+        } else if (userInput.contains(COMMAND_ADD_RECIPE_INGREDIENT)) {
+            if (userInput.trim().substring(0, 19).equals(COMMAND_ADD_RECIPE_INGREDIENT)) {
+                CommandRecipeIngredient command = Parser.parseRecipeIngredient(userInput);
+                return command.execute(recipeIngredientList, ui, recipeIngredientStorage);
+            } else {
+                arrayList.add(ERROR_MESSAGE_RANDOM);
+                System.out.println("stuck here10");
+                return arrayList;
+            }
+        } else if (userInput.contains(COMMAND_DELETE_RECIPE_INGREDIENT)) {
+            if (userInput.trim().substring(0, 3).equals(COMMAND_DELETE_RECIPE_INGREDIENT)) {
+                CommandRecipeIngredient command = Parser.parseRecipeIngredient(userInput);
+                return command.execute(recipeIngredientList, ui, recipeIngredientStorage);
+            } else {
+                arrayList.add(ERROR_MESSAGE_RANDOM);
+                System.out.println("stuck here10");
+                return arrayList;
+            }
+        } else if (userInput.contains(COMMAND_ADD_INGREDIENT)) {
+            if (userInput.trim().substring(0, 13).equals(COMMAND_ADD_INGREDIENT)) {
+                CommandIngredients command = Parser.parseIngredient(userInput);
+                return command.execute(ingredientList, ui, ingredientStorage);
+            } else {
+                arrayList.add(ERROR_MESSAGE_RANDOM);
+                return arrayList;
+            }
+        } else {
+            arrayList.add(ERROR_MESSAGE_RANDOM);
+            System.out.println("stuck here3");
+            return arrayList;
+        }
+//        CommandRecipeTitle command = Parser.parseRecipeTitle(fullCommand);
+//        return command.execute(recipeTitleList, ui, recipeTitleStorage);
 
+//        CommandRecipeIngredient command = Parser.parseRecipeIngredients(fullCommand);
+//        return command.execute(recipeIngredientList, ui, recipeIngredientStorage);
+//
+//        CommandIngredients command = Parser.parseIngredients(fullCommand);
+//        return command.execute(ingredientList, ui, ingredientStorage);
+//
 //        CommandTest command = Parser.parseTest(fullCommand);
-//        return command.feedback(taskList, ui, storage);
+//        return command.execute(taskList, ui, storage);
     }
 }
-
-//    /**
-//     * Constructor for Duke class to instantiation Ui, Storage, ingredientList classes.
-//     * @param filePathIngredients String containing the directory in which the tasks are to be stored
-//     */
-//    public Duke(String filePathIngredients) { // add filePathBookings and filePathRecipes parameters
-//        ui = new Ui();
-//        ingredientStorage = new IngredientStorage(filePathIngredients);
-//        try {
-//            ingredientList = new IngredientList(ingredientStorage.load());
-//        } catch (DukeException e) {
-//            ui.showIngredientLoadingError();
-//            ingredientList = new IngredientList();
-//        }
-//    }
-
-//    /**
-//     * Starting the program.
-//     * @param args the command line parameter
-//     */
-//    public static void main(String[] args) {
-//        new Duke(filePathIngredients).run();
-//    }
-
-//    public void run(String fullCommand) throws DukeException, ParseException {
-//        CommandTest command = Parser.parseTest(fullCommand);
-//        command.exec(taskList, ui, storage);
-//    }
-//    /**
-//     * Gets response from Duke.
-//     *
-//     * @param input String input from user
-//     * @return String output
-//     * @throws DukeException if not able to find any matching items
-//     */
-//    public String getResponse(String input) throws DukeException {
-//        String output = "";
-//        if (input.contains("list")) {
-//            output = "Duke heard: " + taskList.listTask();
-//        } else if (input.contains("find")) {
-//            output = "Duke heard: " + taskList.findTask(input.trim().split("\\s", 2)[1]);
-//        } else {
-//            output = "unknown";
-//        }
-//        return output;
-//    }
-//
-//    public ArrayList<String> getList() {
-//        return taskList.listTask();
-//    }
-//
-//    public ArrayList<String> findList(String description) throws DukeException {
-//        return taskList.findTask(description);
-//    }
-//
-//    public int getSize() {
-//        return taskList.getSize();
-//    }
-
-
-//    /**
-//     * Method to start the program.
-//     */
-//    public void run() {
-//        ui.showWelcome();
-//        boolean isExit = false;
-//        while (!isExit) {
-//            try {
-//                String fullCommand = ui.readCommand();
-//                ui.showLine();
-//                Command c = Parser.parse(fullCommand);
-//                c.execute(tasks, ui, storage);
-//                isExit = c.isExit();
-//            } catch (DukeException e) {
-//                ui.showError(e.getMessage());
-//            } finally {
-//                ui.showLine();
-//            }
-//        }
-//    }
-//
-//    /**
-//     * Starting the program.
-//     * @param args the command line parameter
-//     */
-//    public static void main(String[] args) {
-//        Ui ui = new Ui();
-//        new Duke(ui).runProgram();
-//    }

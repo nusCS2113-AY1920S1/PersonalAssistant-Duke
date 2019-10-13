@@ -1,4 +1,4 @@
-package duke.ingredientlist;
+package duke.list.ingredientlist;
 
 import duke.task.ingredienttasks.Ingredient;
 

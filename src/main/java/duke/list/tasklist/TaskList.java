@@ -1,4 +1,4 @@
-package duke.tasklist;
+package duke.list.tasklist;
 
 import duke.exception.DukeException;
 import duke.task.duketasks.TentativeScheduling;
@@ -8,7 +8,7 @@ import duke.task.duketasks.Duration;
 import duke.task.duketasks.Todo;
 import duke.task.duketasks.Deadline;
 import duke.task.duketasks.Event;
-import duke.task.duketasks.Task;
+import duke.task.Task;
 import duke.task.duketasks.Recurring;
 
 import java.text.ParseException;

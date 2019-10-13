@@ -1,14 +1,8 @@
 package duke.command;
 
-import duke.exception.DukeException;
-import duke.storage.Storage;
-import duke.tasklist.TaskList;
-import duke.ingredientlist.IngredientList;
+import duke.list.ingredientlist.IngredientList;
 import duke.storage.IngredientStorage;
 import duke.ui.Ui;
-
-import java.text.ParseException;
-import java.util.ArrayList;
 
 /**
  * Handles the bye command and inherits all the fields and methods of Command parent class.

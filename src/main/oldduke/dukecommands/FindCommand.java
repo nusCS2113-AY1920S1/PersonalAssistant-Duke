@@ -3,7 +3,7 @@ package duke.command.dukecommands;
 import duke.command.Command;
 import duke.exception.DukeException;
 import duke.storage.Storage;
-import duke.tasklist.TaskList;
+import duke.list.tasklist.TaskList;
 import duke.ui.Ui;
 
 import java.util.ArrayList;

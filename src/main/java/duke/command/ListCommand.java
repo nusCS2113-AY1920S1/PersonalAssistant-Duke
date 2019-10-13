@@ -1,12 +1,9 @@
 package duke.command;
 
-import duke.exception.DukeException;
-import duke.command.Command;
 import duke.storage.Storage;
-import duke.tasklist.TaskList;
+import duke.list.tasklist.TaskList;
 import duke.ui.Ui;
 
-import java.text.ParseException;
 import java.util.ArrayList;
 
 import static duke.common.Messages.MESSAGE_TASKED;
@@ -30,19 +27,19 @@ public class ListCommand extends CommandTest {
      * @param storage deals with loading tasks from the file and saving tasks in the file
      */
     @Override
-    public ArrayList<String> feedback(TaskList taskList, Ui ui, Storage storage) {
+    public ArrayList<String> execute(TaskList taskList, Ui ui, Storage storage) {
         ArrayList<String> arrayList = new ArrayList<>();
         arrayList.add(MESSAGE_TASKED);
         arrayList.addAll(taskList.listTask());
         return arrayList;
     }
 
-    public void execute(TaskList taskList, Ui ui, Storage storage) {
-        System.out.println(MESSAGE_TASKED);
-        for (int i = 0; i < taskList.listTask().size(); i++) {
-            System.out.println(taskList.listTask().get(i));
-        }
-    }
+//    public void execute(TaskList taskList, Ui ui, Storage storage) {
+//        System.out.println(MESSAGE_TASKED);
+//        for (int i = 0; i < taskList.listTask().size(); i++) {
+//            System.out.println(taskList.listTask().get(i));
+//        }
+//    }
 
     @Override
     public boolean isExit() {

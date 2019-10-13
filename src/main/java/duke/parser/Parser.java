@@ -1,47 +1,41 @@
 package duke.parser;
 
-import duke.MainWindow;
 import duke.command.*;
 
 import duke.command.inventorycommands.AddIngredientCommand;
-import duke.command.recipecommands.AddRecipeCommand;
+import duke.command.CommandIngredients;
+import duke.command.recipecommands.DeleteRecipeIngredientCommand;
+import duke.command.recipecommands.AddRecipeTitleCommand;
+import duke.command.recipecommands.AddRecipeIngredientCommand;
+import duke.command.recipecommands.ListAllRecipeCommand;
 import duke.exception.DukeException;
 
-import static duke.common.IngredientMessages.COMMAND_ADD_INGREDIENT;
-
-import static duke.common.RecipeMessages.COMMAND_ADD_RECIPE;
-// import static duke.common.RecipeMessages.COMMAND_LIST_RECIPES;
-
 import static duke.common.Messages.*;
+import static duke.common.RecipeMessages.*;
 
 
 /**
  * Making sense of the user input command.
  */
 public class Parser {
-    private MainWindow mainWindow = new MainWindow();
 
-    public static CommandIngredients parseIngredients(String input) throws DukeException {
-        if (input.trim().contains(COMMAND_ADD_INGREDIENT)) {
-            if (input.trim().substring(0, 13).equals(COMMAND_ADD_INGREDIENT)) {
-                return new AddIngredientCommand(input);
-            } else {
-                throw new DukeException(ERROR_MESSAGE_RANDOM);
-            }
+    public static CommandIngredients parseIngredient(String input) throws DukeException {
+        return new AddIngredientCommand(input);
+    }
+
+    public static CommandRecipeTitle parseRecipeTitle(String input) throws DukeException {
+        if (input.trim().contains(COMMAND_ADD_RECIPE_TITLE)) {
+            return new AddRecipeTitleCommand(input);
         } else {
-            throw new DukeException(ERROR_MESSAGE_RANDOM);
+            return new ListAllRecipeCommand(input);
         }
     }
 
-    public static AddRecipeCommand parseRecipes(String input) throws DukeException {
-        if (input.trim().contains(COMMAND_ADD_RECIPE)) {
-            if (input.trim().substring(0, 9).equals(COMMAND_ADD_RECIPE)) {
-                return new AddRecipeCommand(input);
-            } else {
-                throw new DukeException(ERROR_MESSAGE_RANDOM);
-            }
+    public static CommandRecipeIngredient parseRecipeIngredient(String input) throws DukeException {
+        if (input.trim().contains(COMMAND_ADD_RECIPE_INGREDIENT)) {
+            return new AddRecipeIngredientCommand(input);
         } else {
-            throw new DukeException(ERROR_MESSAGE_RANDOM);
+            return new DeleteRecipeIngredientCommand(input);
         }
     }
 
@@ -58,22 +52,6 @@ public class Parser {
             throw new DukeException(ERROR_MESSAGE_RANDOM);
         }
     }
-
-//    public static Command parse(String userInput) throws DukeException {
-//        if (userInput.trim().equals(COMMAND_BYE)) {
-//            return new ByeCommand(userInput);
-//        } else if (userInput.trim().equals(COMMAND_LIST_INGREDIENTS)) {
-//            return new ListIngredientsCommand(userInput);
-//        }
-//        else if (userInput.contains(COMMAND_ADD_INGREDIENT)) {
-//            if (userInput.trim().substring(0, 13).equals(COMMAND_ADD_INGREDIENT)) {
-//                return new AddIngredientCommand(userInput);
-//            } else {
-//                throw new DukeException(ERROR_MESSAGE_RANDOM);
-//            }
-//        } else {
-//            throw new DukeException(ERROR_MESSAGE_RANDOM);
-//            }
 
     /*
     /**

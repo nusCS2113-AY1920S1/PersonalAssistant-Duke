@@ -1,11 +1,13 @@
 package duke.task.recipetasks;
 
+import java.util.ArrayList;
+
 public class PrepStep {
 
     private int index;
-    private String step;
+    private ArrayList<String> step;
 
-    public PrepStep(int index, String step) {
+    public PrepStep(int index, ArrayList<String> step) {
         this.index = index;
         this.step = step;
     }
@@ -14,7 +16,7 @@ public class PrepStep {
         return this.index;
     }
 
-    public String getStep() {
+    public ArrayList<String> getStep() {
         return step;
     }
 
