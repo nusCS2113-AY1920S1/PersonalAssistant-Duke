@@ -76,4 +76,8 @@ public class Task {
     public HashSet<Integer> getAssignedIndexes() {
         return this.taskMemberList.getAssignedMembersIndexNumbers();
     }
+
+    public void removeMember(Integer memberIndex) {
+        this.taskMemberList.removeMember(memberIndex);
+    }
 }

@@ -364,7 +364,14 @@ public class CLIView {
                 //For now only tasks will have list of members assigned.
                 //Will refactor and implement a way such that when a task is assigned,
                 //both the task and the member will be updated.
-                consolePrint("Assigned: " + toAssign.getName());
+                consolePrint("Assigned task to: " + toAssign.getName());
+            }
+        }
+        if (unassign.size() > 0) {
+            for (Integer i : unassign) {
+                task.removeMember(i);
+                consolePrint("Unassigned task to: ");
+                //recalculate credits for other members assigned to task if necessary
             }
         }
     }
