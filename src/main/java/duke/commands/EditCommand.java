@@ -7,6 +7,8 @@ import duke.tasks.MealList;
 import duke.ui.Ui;
 import duke.user.User;
 
+import java.util.Scanner;
+
 public class EditCommand extends Command {
     private Meal updatedMeal;
 
@@ -15,7 +17,7 @@ public class EditCommand extends Command {
     }
 
     @Override
-    public void execute(MealList meals, Ui ui, Storage storage, User user) throws DukeException {
+    public void execute(MealList meals, Ui ui, Storage storage, User user, Scanner in) throws DukeException {
         updatedMeal = meals.updateMeal(updatedMeal);
         String dateStr = updatedMeal.getDate();
         ui.showUpdated(this.updatedMeal, meals.getMealsList(this.updatedMeal.getDate()), user, dateStr);

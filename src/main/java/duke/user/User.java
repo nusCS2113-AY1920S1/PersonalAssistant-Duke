@@ -164,6 +164,11 @@ public class User {
     }
 
     public void setLoseWeight() {
+        //average kg loss per day should NOT be more than 0.13607787283kg (>0.3 pounds)
+        /*
+        1) find number of days in month
+        2) average calories loss per day (1kg = 7700cal = 7.7kcal)
+         */
         this.loseWeight = true;
     }
 

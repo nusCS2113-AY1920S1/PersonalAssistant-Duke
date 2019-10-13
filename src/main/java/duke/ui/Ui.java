@@ -1,5 +1,6 @@
 package duke.ui;
 
+import duke.tasks.Goal;
 import duke.tasks.Meal;
 import duke.user.User;
 
@@ -147,5 +148,10 @@ public class Ui {
         helpLines.forEach(line -> {
             System.out.println(padding + line);
         });
+    }
+
+    public void showAddedGoal(Goal goal) {
+        System.out.println(padding + "Got it. I've set the goal to be met:");
+        System.out.println(padding + goal);
     }
 }

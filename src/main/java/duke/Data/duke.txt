@@ -1,4 +1,4 @@
-B|0|burger|date|08/10/2019|sodium|100|calcium|100|calorie|100
-D|0|burger|date|08/10/2019|sodium|100|calcium|100|calorie|100
-L|0|burger|date|08/10/2019|sodium|100|calcium|100|calorie|200
-S|0|burger|sodium|100|calcium|100|calorie|100
+B|0|burger|date|13/10/2019|calorie|100
+D|0|burger|date|13/10/2019|calorie|800
+L|0|fries|date|13/10/2019|calorie|200
+L|0|fries|date|13/10/2019|calorie|200
