@@ -5,8 +5,13 @@ public abstract class Condition {
     public boolean check() {
         return false;
     }
-/**
-public enum Condition {
-    hasMoney, hasSeeds, wheatRipened, wheatHarvested, TRUE
-    **/
+
+    public static boolean validateCondition(String userInput) {
+        for (BooleanConditionType type : BooleanConditionType.values()) {
+            if (type.name().equals(userInput)) {
+                return true;
+            }
+        }
+        return false;
+    }
 }

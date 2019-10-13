@@ -39,6 +39,15 @@ public abstract class Action {
 
     public abstract void execute(Ui ui);
 
+    public static boolean validateAction(String userInput) {
+        for (ActionType type : ActionType.values()) {
+            if (type.name().equals(userInput)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     public JSONObject toJSON() {
         JSONObject obj = new JSONObject();
         obj.put("farm_wheat", wheatFarm.toJSON());

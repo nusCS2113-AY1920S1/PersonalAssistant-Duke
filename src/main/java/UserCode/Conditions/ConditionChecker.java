@@ -32,4 +32,5 @@ public class ConditionChecker {
     public boolean check(boolean isGreater, int val) {
         return (isGreater) ? (market.getMoney() >= val) : (market.getMoney() <= val);
     }
+
 }
