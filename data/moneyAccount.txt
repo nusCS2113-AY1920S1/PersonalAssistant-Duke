@@ -32,4 +32,4 @@ G @ 200.0 @ goal-short buy table  @ GS @ 1/12/2019 @ MEDIUM
 INS @ 100000.0 @ mortgage  @ instalments @ 11/10/2019 @ 200 @ 0.06
 INS @ 100000.0 @ mortgage  @ instalments @ 9/10/2019 @ 200 @ 0.06
 LOA @ 700.0 @ mah parents @ 6/10/2019 @ INCOMING @  @ 0 @ 300.0
-LOA @ 500.0 @ mah bitches @ 12/10/2019 @ OUTGOING @  @ 0 @ 500.0
+LOA @ 500.0 @ mah bitches @ 12/10/2019 @ OUTGOING @ 13/10/2019 @ 1 @ 0.0

@@ -39,39 +39,6 @@ public class Loan extends Item {
         dateTimeFormatter  = DateTimeFormatter.ofPattern("d/M/yyyy");
     }
 
-    public Loan(float amount, String description, LocalDate startDate, String type, String endDate,
-                String status, float outstandingLoan) throws ParseException {
-        super(amount, description);
-        this.startDate = startDate;
-
-        if (type.equals("OUTGOING")) {
-            this.type = Type.OUTGOING;
-        } else if (type.equals("INCOMING")) {
-            this.type = Type.INCOMING;
-        } else {
-            this.type = null;
-        }
-
-//        LocalDate compareDate = Parser.shortcutTime("9/10/1997");
-//        if (endDate == compareDate) {
-//            this.endDate = null;
-//        } else {
-//            this.endDate = endDate;
-//        }
-        if (endDate.equals("")) {
-            this.endDate = null;
-        } else {
-            this.endDate = LocalDate.parse(endDate, dateTimeFormatter);
-        }
-
-        if (status.equals("1")) {
-            this.isSettled = true;
-        } else {
-            this.isSettled = false;
-        }
-        this.outstandingLoan = outstandingLoan;
-    }
-
     public LocalDate getDateStartDate() {
         return startDate;
     }
@@ -154,18 +121,13 @@ public class Loan extends Item {
             this.type = Type.INCOMING;
         } else if (typeStr.equals("OUTGOING")) {
             this.type = Type.OUTGOING;
+        } else {
+            this.type = Type.ALL;
         }
-
         if (endDate.equals("")) {
             this.endDate = null;
         }
-
-        if (status == 1) {
-            this.isSettled = true;
-        } else {
-            this.isSettled = false;
-        }
-
+        this.isSettled = status == 1;
         this.outstandingLoan = outstandingLoan;
     }
 
