@@ -1,26 +1,23 @@
 package duke.command;
 
-import duke.exceptions.ModException;
 import duke.util.Reminder;
 import duke.util.Storage;
 import duke.util.TaskList;
 import duke.util.Ui;
 
-public class ChangeCommand extends ModCommand {
+public class ChangeCommand extends Command {
 
-    /**
-     * Constructor for change command.
-     */
-    public ChangeCommand() {
+    @Override
+    public void execute(TaskList tasks, Ui ui, Storage store, Reminder reminder) {
 
     }
 
-    /**
-     * Overloaded execute function for Change Command.
-     * @throws ModException When user input is invalid.
-     */
-    public void execute() throws ModException {
+    public void execute() {
 
     }
 
+    @Override
+    public boolean isExit() {
+        return false;
+    }
 }

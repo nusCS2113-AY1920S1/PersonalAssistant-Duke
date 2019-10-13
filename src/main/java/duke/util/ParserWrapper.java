@@ -40,10 +40,12 @@ public class ParserWrapper {
      * @throws ModInvalidTimeException when string date cannot be parsed by natty.
      */
     private String formatInputToStringDate(String date) throws ModInvalidTimeException {
-        return natty.dateToLocalDateTime(date).format(DateTimeFormatter.ofPattern("dd-MM-yyyy [HH:mm]"));
+        return natty
+                .dateToLocalDateTime(date)
+                .format(DateTimeFormatter.ofPattern("dd-MM-yyyy [HH:mm]"));
     }
 
-    private Command modParser(String input) throws ModException {
+    private Command modParser(String input) {
         return null;
     }
 
@@ -121,8 +123,6 @@ public class ParserWrapper {
             return new ScheduleCommand(input);
         } else if (input.startsWith("report")) {
             return new ReportCommand();
-        } else if (input.startsWith("change")) {
-            return null;
         } else {
             //throws invalid command exception when user inputs non-keywords
             throw new ModCommandException();

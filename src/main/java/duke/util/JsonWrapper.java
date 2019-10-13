@@ -78,6 +78,7 @@ public class JsonWrapper {
      * Reads the Json file for to be parsed into a java object. Since the data is
      * presented in a JSON array, our class object class would need to be wrapped
      * in an array as well.
+     * @return List of ModuleInfoSummary Objects, null if it fails to parse.
      */
     private List<ModuleInfoSummary> getModuleListObject() {
         try {
@@ -110,6 +111,10 @@ public class JsonWrapper {
         return ret;
     }
 
+    /**
+     * Converts the stored json file into a list of ModuleInfoDetailed objects.
+     * @return a list of ModuleInfoDetailed objects, null if it fails to parse.
+     */
     private List<ModuleInfoDetailed> getModuleListDetailedObject() {
         try {
             JsonReader reader = new JsonReader(new FileReader(listDetailedFile));
