@@ -66,7 +66,9 @@ public class AddProductCommandParser implements Parser<AddProductCommand> {
 
         while (matcher.matches()) {
             String s = matcher.group().strip();
-            if (s.isEmpty() || s.isBlank()) continue;
+            if (s.isEmpty() || s.isBlank()) {
+                continue;
+            }
             if (matcher.group("name") != null) {
                 System.out.println(matcher.group("name"));
                 System.out.println(matcher.group("description"));

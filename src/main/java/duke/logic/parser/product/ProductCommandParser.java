@@ -14,7 +14,7 @@ public class ProductCommandParser implements SubCommandParser<ProductCommand> {
 
     @Override
     public ProductCommand parse(String subCommandAndArgs) throws ParseException {
-        if (subCommandAndArgs == "") {
+        if (subCommandAndArgs.equals("")) {
             return new ShowProductPageCommand();
         }
         String subCommand = SubCommandParser.getSubCommandWord(subCommandAndArgs);

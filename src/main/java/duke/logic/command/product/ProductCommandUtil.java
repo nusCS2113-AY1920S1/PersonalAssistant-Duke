@@ -4,6 +4,12 @@ import duke.model.product.Product;
 
 public class ProductCommandUtil {
 
+    /**
+     * Creates a new Product from a productDescriptor.
+     * @param toEdit the product to be edited.
+     * @param productDescriptor contains the information to edit with.
+     * @return edited product.
+     */
     public static Product createNewProduct(Product toEdit, ProductDescriptor productDescriptor) {
         assert toEdit != null;
 

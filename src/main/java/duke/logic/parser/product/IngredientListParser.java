@@ -13,7 +13,8 @@
 //
 //    //private static final Pattern FORMAT_INGREDIENT_INPUT = Pattern.compile("((?:\\[)([a-zA-Z0-9_ ]*),"
 //           // + "([a-zA-Z0-9_ ]*)(?:\\]))*");
-//    private static final Pattern FORMAT_INGREDIENT_INPUT = Pattern.compile("(?:\\[)([a-zA-Z0-9_ ]*),([a-zA-Z0-9_ ]*)(?:\\])");
+//    private static final Pattern FORMAT_INGREDIENT_INPUT = Pattern.compile("(?:\\[)([a-zA-Z0-9_ ]*),
+//    ([a-zA-Z0-9_ ]*)(?:\\])");
 //
 //
 //

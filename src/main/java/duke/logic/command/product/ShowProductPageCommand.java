@@ -6,7 +6,7 @@ import duke.model.Model;
 
 public class ShowProductPageCommand extends ProductCommand {
 
-    public final String MESSAGE_SUCCESS = "Product view";
+    public static final String MESSAGE_SUCCESS = "product view";
 
     /**
      * Executes the command and returns the result message.

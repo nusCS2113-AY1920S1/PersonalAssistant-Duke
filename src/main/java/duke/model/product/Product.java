@@ -31,9 +31,6 @@ public class Product {
 
     /**
      * Creates a Product.
-     * @param productName
-     * @param retailPrice
-     * @param ingredientCost
      */
     public Product(String productName, String retailPrice, String ingredientCost) {
         requireAllNonNull(productName);

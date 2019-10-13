@@ -4,8 +4,6 @@ import duke.logic.command.product.ProductDescriptor;
 import duke.logic.parser.commons.ArgumentMultimap;
 import duke.model.product.Product;
 
-import java.util.Optional;
-
 import static duke.logic.parser.commons.CliSyntax.PREFIX_PRODUCT_RETAIL_PRICE;
 import static duke.logic.parser.commons.CliSyntax.PREFIX_PRODUCT_NAME;
 import static duke.logic.parser.commons.CliSyntax.PREFIX_PRODUCT_STATUS;
@@ -13,7 +11,7 @@ import static duke.logic.parser.commons.CliSyntax.PREFIX_PRODUCT_INGREDIENT_COST
 
 public class ProductParserUtil {
 
-    static ProductDescriptor createProductDescriptor(ArgumentMultimap map) {
+    public static ProductDescriptor createProductDescriptor(ArgumentMultimap map) {
         ProductDescriptor productDescriptor = new ProductDescriptor();
 
         if (map.getValue(PREFIX_PRODUCT_NAME).isPresent()) {
@@ -26,7 +24,9 @@ public class ProductParserUtil {
             productDescriptor.setIngredientCost(Double.parseDouble(map.getValue(PREFIX_PRODUCT_INGREDIENT_COST).get()));
         }
         if (map.getValue(PREFIX_PRODUCT_STATUS).isPresent()) {
-            productDescriptor.setStatus(Product.Status.valueOf(map.getValue(PREFIX_PRODUCT_STATUS).get().toUpperCase()));
+            productDescriptor.setStatus(Product.Status.valueOf(
+                    map.getValue(PREFIX_PRODUCT_STATUS).get().toUpperCase())
+            );
         }
         return productDescriptor;
     }
