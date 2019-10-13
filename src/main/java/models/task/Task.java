@@ -56,4 +56,12 @@ public class Task {
                     + this.taskState;
         }
     }
+
+    public TaskState getTaskState() {
+        return this.taskState;
+    }
+
+    public int getTaskCredit() {
+        return this.taskCredit;
+    }
 }
