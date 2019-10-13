@@ -2,7 +2,11 @@ package owlmoney.model.profile;
 
 import owlmoney.model.bank.Bank;
 import owlmoney.model.bank.BankList;
+import owlmoney.model.bank.exception.BankException;
+import owlmoney.model.bond.Bond;
+import owlmoney.model.bond.exception.BondException;
 import owlmoney.model.transaction.Transaction;
+import owlmoney.model.transaction.exception.TransactionException;
 import owlmoney.ui.Ui;
 
 /**
@@ -38,7 +42,7 @@ public class Profile {
      * @param newBank an instance of the new bank account.
      * @param ui      required for printing.
      */
-    public void addNewBank(Bank newBank, Ui ui) {
+    public void addNewBank(Bank newBank, Ui ui) throws BankException {
         bankList.addBank(newBank, ui);
     }
 
@@ -48,7 +52,7 @@ public class Profile {
      * @param bankName name of the Bank account.
      * @param ui       required for printing.
      */
-    public void deleteBank(String bankName, String bankType, Ui ui) {
+    public void deleteBank(String bankName, String bankType, Ui ui) throws BankException {
         bankList.deleteBank(bankName, bankType, ui);
     }
 
@@ -57,7 +61,7 @@ public class Profile {
      *
      * @param ui required for printing.
      */
-    public void listBanks(String bankType, Ui ui) {
+    public void listBanks(String bankType, Ui ui) throws BankException {
         bankList.listBankAccount(bankType, ui);
     }
 
@@ -68,7 +72,7 @@ public class Profile {
      * @param exp     An expenditure object.
      * @param ui      required for printing.
      */
-    public void addNewExpenditure(String accName, Transaction exp, Ui ui) {
+    public void addNewExpenditure(String accName, Transaction exp, Ui ui) throws BankException {
         bankList.addExpenditure(accName, exp, ui);
     }
 
@@ -79,19 +83,9 @@ public class Profile {
      * @param bankName The name of the bank account.
      * @param ui       required for printing.
      */
-    public void deleteExpenditure(int expIndex, String bankName, Ui ui) {
+    public void deleteExpenditure(int expIndex, String bankName, Ui ui) throws BankException, TransactionException {
         bankList.deleteExp(expIndex, bankName, ui);
     }
-    /*
-    /**
-     * Lists all expenditure tied to a bank account.
-     *
-     * @param listedBank The bank account name.
-     * @param ui         required for printing.
-     *//*
-    public void listTransaction(String listedBank, Ui ui) {
-        bankList.listBankTransaction(listedBank, ui);
-    }*/
 
     /**
      * Lists deposits from a specific bank account.
@@ -100,7 +94,7 @@ public class Profile {
      * @param ui         required for printing.
      * @param displayNum Number of deposits to list.
      */
-    public void listDeposit(String listedBank, Ui ui, int displayNum) {
+    public void listDeposit(String listedBank, Ui ui, int displayNum) throws BankException, TransactionException {
         bankList.listBankDeposit(listedBank, ui, displayNum);
     }
 
@@ -111,7 +105,7 @@ public class Profile {
      * @param ui         required for printing.
      * @param displayNum Number of expenditure to list.
      */
-    public void listExpenditure(String listedBank, Ui ui, int displayNum) {
+    public void listExpenditure(String listedBank, Ui ui, int displayNum) throws BankException, TransactionException {
         bankList.listBankExpenditure(listedBank, ui, displayNum);
     }
 
@@ -127,7 +121,7 @@ public class Profile {
      * @param ui           required for printing.
      */
     public void editExpenditure(int expNum, String editFromBank, String desc, String amount, String date,
-            String category, Ui ui) {
+            String category, Ui ui) throws BankException, TransactionException {
         bankList.editExp(expNum, editFromBank, desc, amount, date, category, ui);
     }
 
@@ -163,7 +157,7 @@ public class Profile {
      * @param bankName Bank name of the deposit.
      * @param ui       required for printing.
      */
-    public void deleteDeposit(int depIndex, String bankName, Ui ui) {
+    public void deleteDeposit(int depIndex, String bankName, Ui ui) throws BankException, TransactionException {
         bankList.deleteDeposit(bankName, depIndex, ui);
     }
 
@@ -174,7 +168,7 @@ public class Profile {
      * @param dep     Deposit to be added.
      * @param ui      required for printing.
      */
-    public void addNewDeposit(String accName, Transaction dep, Ui ui) {
+    public void addNewDeposit(String accName, Transaction dep, Ui ui) throws BankException {
         bankList.addDeposit(accName, dep, ui);
     }
 
@@ -188,8 +182,29 @@ public class Profile {
      * @param date         New date of deposit.
      * @param ui           required for deposit.
      */
-    public void editDeposit(int expNum, String editFromBank, String desc, String amount, String date, Ui ui) {
+    public void editDeposit(int expNum, String editFromBank, String desc, String amount, String date, Ui ui)
+            throws BankException, TransactionException {
         bankList.editDep(expNum, editFromBank, desc, amount, date, ui);
+    }
+
+    /**
+     * Adds bond to a specific bank account.
+     * @param accName the name of the bank account.
+     * @param newBond the bond object.
+     * @param ui      required for printing.
+     */
+    public void addNewBond(String accName, Bond newBond, Ui ui) throws BankException {
+        bankList.addBond(accName, newBond, ui);
+    }
+
+    /**
+     * Checks if the bond exists before adding.
+     *
+     * @param accName the bank account name.
+     * @param bond the bond object.
+     */
+    public void isBondUnique(String accName, Bond bond) throws BankException, BondException {
+        bankList.isBondExist(accName, bond);
     }
 
 

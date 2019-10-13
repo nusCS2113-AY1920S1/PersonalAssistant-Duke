@@ -3,6 +3,7 @@ package owlmoney.logic.command.bank;
 import owlmoney.logic.command.Command;
 import owlmoney.model.bank.Bank;
 import owlmoney.model.bank.Saving;
+import owlmoney.model.bank.exception.BankException;
 import owlmoney.model.profile.Profile;
 import owlmoney.ui.Ui;
 
@@ -35,7 +36,7 @@ public class AddSavingsCommand extends Command {
      * @return false so OwlMoney will not terminate yet.
      */
     @Override
-    public boolean execute(Profile profile, Ui ui) {
+    public boolean execute(Profile profile, Ui ui) throws BankException {
         Bank newSaving = new Saving(this.name, this.amount, this.income);
         profile.addNewBank(newSaving, ui);
         return this.isExit;

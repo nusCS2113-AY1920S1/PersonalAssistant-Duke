@@ -2,6 +2,7 @@ package owlmoney.model.bond;
 
 import java.util.ArrayList;
 
+import owlmoney.model.bond.exception.BondException;
 import owlmoney.ui.Ui;
 
 public class BondList {
@@ -39,6 +40,28 @@ public class BondList {
         ui.printMessage("Added bond:\n" + bond.getName());
     }
 
+    /**
+     * Gets the size of the bondList.
+     *
+     * @return the size of the bondList.
+     */
+    private int getSize() {
+        return bondLists.size();
+    }
+
+    /**
+     * Checks if the bond exists.
+     *
+     * @param bond the bond object that the user is expecting to add
+     * @return     whether the bond name already exists.
+     */
+    public void bondExist(Bond bond) throws BondException {
+        for(int i = 0; i < getSize(); i++) {
+            if(bond.getName().equals(bondLists.get(i).getName())) {
+                throw new BondException("Bond with the name: " + bond.getName() + " already exists");
+            }
+        }
+    }
     /*public void editBond() {
 
     }

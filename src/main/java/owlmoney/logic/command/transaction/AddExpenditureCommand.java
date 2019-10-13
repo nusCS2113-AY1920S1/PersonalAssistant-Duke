@@ -3,6 +3,7 @@ package owlmoney.logic.command.transaction;
 import java.util.Date;
 
 import owlmoney.logic.command.Command;
+import owlmoney.model.bank.exception.BankException;
 import owlmoney.model.transaction.Expenditure;
 import owlmoney.model.transaction.Transaction;
 import owlmoney.model.profile.Profile;
@@ -43,7 +44,7 @@ public class AddExpenditureCommand extends Command {
      * @param ui      Ui of OwlMoney.
      * @return false so OwlMoney will not terminate yet.
      */
-    public boolean execute(Profile profile, Ui ui) {
+    public boolean execute(Profile profile, Ui ui) throws BankException {
         Transaction newExpenditure = new Expenditure(this.description, this.amount, this.date, this.category);
         profile.addNewExpenditure(accName, newExpenditure, ui);
         return this.isExit;

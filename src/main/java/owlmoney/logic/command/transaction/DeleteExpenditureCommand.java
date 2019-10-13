@@ -1,7 +1,9 @@
 package owlmoney.logic.command.transaction;
 
 import owlmoney.logic.command.Command;
+import owlmoney.model.bank.exception.BankException;
 import owlmoney.model.profile.Profile;
+import owlmoney.model.transaction.exception.TransactionException;
 import owlmoney.ui.Ui;
 
 /**
@@ -29,7 +31,7 @@ public class DeleteExpenditureCommand extends Command {
      * @param ui      Ui of OwlMoney.
      * @return false so OwlMoney will not terminate yet.
      */
-    public boolean execute(Profile profile, Ui ui) {
+    public boolean execute(Profile profile, Ui ui) throws BankException, TransactionException {
         profile.deleteExpenditure(this.expNumber, this.from, ui);
         return this.isExit;
     }

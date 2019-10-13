@@ -1,6 +1,7 @@
 package owlmoney.logic.command.bank;
 
 import owlmoney.logic.command.Command;
+import owlmoney.model.bank.exception.BankException;
 import owlmoney.model.profile.Profile;
 import owlmoney.ui.Ui;
 
@@ -15,7 +16,7 @@ public class ListInvestmentCommand extends Command {
      * @return false so OwlMoney will not terminate yet.
      */
     @Override
-    public boolean execute(Profile profile, Ui ui) {
+    public boolean execute(Profile profile, Ui ui) throws BankException {
         profile.listBanks(INVESTMENT,ui);
         return this.isExit;
     }

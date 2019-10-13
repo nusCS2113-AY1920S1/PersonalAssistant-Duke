@@ -2,8 +2,10 @@ package owlmoney.model.bank;
 
 import java.text.DecimalFormat;
 
+import owlmoney.model.bank.exception.BankException;
 import owlmoney.model.transaction.Transaction;
 import owlmoney.model.transaction.TransactionList;
+import owlmoney.model.transaction.exception.TransactionException;
 import owlmoney.ui.Ui;
 
 /**
@@ -50,9 +52,9 @@ public class Saving extends Bank {
      * @param ui  required for printing.
      */
     @Override
-    public void addInExpenditure(Transaction exp, Ui ui) {
+    public void addInExpenditure(Transaction exp, Ui ui) throws BankException {
         if (exp.getAmount() > this.getCurrentAmount()) {
-            ui.printError("Bank account cannot have a negative amount");
+            throw new BankException("Bank account cannot have a negative amount");
         } else {
             transactions.addExpenditureToList(exp, ui);
             deductFromAmount(exp.getAmount());
@@ -66,7 +68,7 @@ public class Saving extends Bank {
      * @param displayNum Number of deposits to list.
      */
     @Override
-    void listAllDeposit(Ui ui, int displayNum) {
+    void listAllDeposit(Ui ui, int displayNum) throws TransactionException {
         transactions.listDeposit(ui, displayNum);
     }
 
@@ -77,7 +79,7 @@ public class Saving extends Bank {
      * @param displayNum Number of expenditure to list.
      */
     @Override
-    void listAllExpenditure(Ui ui, int displayNum) {
+    void listAllExpenditure(Ui ui, int displayNum) throws TransactionException {
         transactions.listExpenditure(ui, displayNum);
     }
 
@@ -88,7 +90,7 @@ public class Saving extends Bank {
      * @param ui   required for printing.
      */
     @Override
-    public void deleteExpenditure(int exId, Ui ui) {
+    public void deleteExpenditure(int exId, Ui ui) throws TransactionException {
         addToAmount(transactions.deleteExpenditureFromList(exId, ui));
     }
 
@@ -113,14 +115,11 @@ public class Saving extends Bank {
      * @param ui       Ui of OwlMoney.
      */
     @Override
-    void editExpenditureDetails(int expNum, String desc, String amount, String date, String category, Ui ui) {
-        if (transactions.getExpenditureAmount(expNum, ui) < 0) {
-            return;
-        }
+    void editExpenditureDetails(int expNum, String desc, String amount, String date, String category, Ui ui)
+            throws TransactionException, BankException {
         if (!(amount.isEmpty() || amount.isBlank()) && this.getCurrentAmount()
                 + transactions.getExpenditureAmount(expNum, ui) < Double.parseDouble(amount)) {
-            ui.printError("Bank account cannot have a negative amount");
-            return;
+            throw new BankException("Bank account cannot have a negative amount");
         }
         double oldAmount = transactions.getExpenditureAmount(expNum, ui);
         double newAmount = transactions.editEx(expNum, desc, amount, date, category, ui);
@@ -138,16 +137,13 @@ public class Saving extends Bank {
      * @param ui     Ui of OwlMoney.
      */
     @Override
-    void editDepositDetails(int expNum, String desc, String amount, String date, Ui ui) {
-        if (transactions.getTransactionValue(expNum, ui) < 0) {
-            return;
-        }
+    void editDepositDetails(int expNum, String desc, String amount, String date, Ui ui)
+            throws TransactionException, BankException {
         if (!(amount.isEmpty() || amount.isBlank()) && this.getCurrentAmount()
-                + Double.parseDouble(amount) < transactions.getTransactionValue(expNum, ui)) {
-            ui.printError("Bank account cannot have a negative amount");
-            return;
+                + Double.parseDouble(amount) < transactions.getDepositValue(expNum, ui)) {
+            throw new BankException("Bank account cannot have a negative amount");
         }
-        double oldAmount = transactions.getTransactionValue(expNum, ui);
+        double oldAmount = transactions.getDepositValue(expNum, ui);
         double newAmount = transactions.editDep(expNum, desc, amount, date, ui);
         this.addToAmount(newAmount);
         this.deductFromAmount(oldAmount);
@@ -172,13 +168,10 @@ public class Saving extends Bank {
      * @param ui    Ui of OwlMoney.
      */
     @Override
-    void deleteDepositTransaction(int index, Ui ui) {
-        double depositValue = transactions.getTransactionValue(index, ui);
-        if (depositValue < 0) {
-            return;
-        }
+    void deleteDepositTransaction(int index, Ui ui) throws TransactionException, BankException {
+        double depositValue = transactions.getDepositValue(index, ui);
         if (this.getCurrentAmount() < depositValue) {
-            ui.printError("Bank account cannot have a negative amount");
+            throw new BankException("Bank account cannot have a negative amount");
         } else {
             this.deductFromAmount(transactions.deleteDepositFromList(index, ui));
         }

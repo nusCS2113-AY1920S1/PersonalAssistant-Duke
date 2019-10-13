@@ -28,17 +28,17 @@ public final class RegexUtil {
 
     /**
      * Checks whether the interest rate entered is within the 100% limit.
-     * The first line of checks determines whether it is a 3 digit number up to 2 decimal places.
+     * The first line of checks determines whether it is a 2 digit number up to 2 decimal places.
      * The second line of checks determines whether it is less than 100%.
      *
      * @param input The user input that is subject to Regex checking.
      * @return the result of the check on whether it fulfills the criteria.
      */
     public static boolean regexCheckInterestRate(String input) {
-        final String interestRegex = "^\\s*(?=.*[1-9])\\d{1,3}(\\.\\d{2})?$";
+        final String interestRegex = "^\\s*(?=.*[1-9])\\d{1,2}(\\.\\d{1,2})?$";
         if (input.matches(interestRegex)) {
             double parsedInput = Double.parseDouble(input);
-            return (parsedInput <= 100.00);
+            return (parsedInput < 100.00);
         } else {
             return false;
         }
@@ -71,6 +71,22 @@ public final class RegexUtil {
     public static boolean regexCheckListNumber(String input) {
         final String listRegex = "^[1-9]\\d{0,8}$";
         return input.matches(listRegex);
+    }
+
+    /**
+     * Checks whether input entered by user is numeric and is within the 9 digit constraints with no decimals.
+     *
+     * @param input The user input that is subject to Regex checking.
+     * @return the result of the check on whether it fulfills the criteria.
+     */
+    public static boolean regexCheckBondYear(String input) {
+        final String yearRegex = "^[1-9]\\d{0,1}$";
+        if(input.matches(yearRegex)) {
+            int parsedInput = Integer.parseInt(input);
+            return (parsedInput <= 10);
+        } else {
+            return false;
+        }
     }
 
     /**
