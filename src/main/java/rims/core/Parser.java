@@ -25,6 +25,9 @@ public class Parser {
         else if (words[0].equals("lend") && words.length == 1) {
             c=reader.ReadLoanCommand(ui);        
         } 
+        else if (words[0].equals("reserve") && words.length == 1) {
+            c=reader.ReadReserveCommand(ui);
+        }
         else if (words[0].equals("return")) {
             if (words[1].equals("/item")) {
                 int itemIndex = input.indexOf("/item") + 6;
