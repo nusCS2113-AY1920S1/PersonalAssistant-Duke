@@ -4,6 +4,7 @@ package Commands;
 import EPstorage.ProfileCommands;
 import MovieUI.Controller;
 import MovieUI.MovieHandler;
+import MovieUI.MoviePosterController;
 import movieRequesterAPI.RetrieveRequest;
 
 import java.util.ArrayList;
@@ -38,6 +39,7 @@ public class SearchCommand extends CommandSuper {
 
     }
 
+
     /**
      * search for movie titles using keywords
      * root: search
@@ -47,13 +49,13 @@ public class SearchCommand extends CommandSuper {
      */
     private void executeMovieSearch() throws IOException {
         TreeMap<String, ArrayList<String>> treeMap = getFlagMap();
-        if (treeMap.containsKey("-[c]")) {
+        if (treeMap.containsKey("-c")) {
             MovieHandler.showCurrentMovies();
-        } else if (treeMap.containsKey("-[u]")) {
+        } else if (treeMap.containsKey("-u")) {
             MovieHandler.showUpcomingMovies();
-        } else if (treeMap.containsKey("-[t]")) {
+        } else if (treeMap.containsKey("-t")) {
             MovieHandler.showTrendMovies();
-        } else if (treeMap.containsKey("-[p]")) {
+        } else if (treeMap.containsKey("-p")) {
             MovieHandler.showPopMovies();
         } else {
             MovieHandler movieHandler = ((MovieHandler) this.getUIController());
@@ -78,13 +80,13 @@ public class SearchCommand extends CommandSuper {
 
     private void executeTvShowSearch() {
         TreeMap<String, ArrayList<String>> treeMap = getFlagMap();
-        if (treeMap.containsKey("-[c]")) {
+        if (treeMap.containsKey("-c")) {
             MovieHandler.showCurrentTV();
             //} else if (treeMap.containsKey("-[u]")){
             //  MovieHandler.showUpcomingTV();
-        } else if (treeMap.containsKey("-[t]")) {
+        } else if (treeMap.containsKey("-t")) {
             MovieHandler.showTrendTV();
-        } else if (treeMap.containsKey("-[p]")) {
+        } else if (treeMap.containsKey("-p")) {
             MovieHandler.showPopTV();
         }
 

@@ -19,7 +19,7 @@ public class ProfileCommands {
     private EditProfileJson editProfileJson;
 
     public ProfileCommands(UserProfile userProfile) throws FileNotFoundException {
-        genreList = new File("/Users/wenhui/main/EPdata/genreIDlist.txt");
+        genreList = new File("../../../../EPdata/genreIDlist.txt");
         this.userProfile = userProfile;
         this.editProfileJson = new EditProfileJson();
     }

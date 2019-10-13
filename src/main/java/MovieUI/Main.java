@@ -1,5 +1,9 @@
 package MovieUI;
 
+/**
+ * This class handles application wide tasks and services.
+ */
+
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -28,6 +32,9 @@ public class Main extends Application {
         mainWindow.show();
     }
 
+    /**
+     * This function sets the scene for the window.
+     */
     private void setUp() {
         try {
             FXMLLoader loader = new FXMLLoader();
@@ -44,11 +51,14 @@ public class Main extends Application {
         }
     }
 
-    // Request control to be passed to the movie info controller to view movie info
+    /**
+     * This function pass over the control to the MovieInfoController class.
+     * To view more information on movies or tv shows.
+     */
     public void transitToMovieInfoController(MovieInfoObject movie) {
         try {
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(getClass().getClassLoader().getResource("InsideMovie.fxml"));
+            loader.setLocation(getClass().getClassLoader().getResource("MoreInfo.fxml"));
             Pane layout = loader.load();
 
             // setup controller
@@ -63,10 +73,10 @@ public class Main extends Application {
         }
     }
 
-    public void transitionBackToMoviesController()
-    {
+    /**
+     * This function pass over the control to the Main class from the MovieInfoController class.
+     */
+    public void transitionBackToMoviesController() {
         mainWindow.setScene(mainMoviesScene);
     }
-
-
 }

@@ -1,7 +1,9 @@
 package MovieUI;
 
+import Contexts.CommandContext;
+import Contexts.ContextHelper;
+import Contexts.SearchResultContext;
 import EPstorage.*;
-
 import javafx.application.Platform;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -12,6 +14,7 @@ import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.input.ScrollEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.VBox;
@@ -26,9 +29,10 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 /**
- * this is main page of gui
+ * This is main page of GUI.
  */
-public class MovieHandler extends Controller implements RequestListener{
+public class MovieHandler extends Controller implements RequestListener {
+
     @FXML
     private ScrollPane mMoviesScrollPane;
 
@@ -45,14 +49,21 @@ public class MovieHandler extends Controller implements RequestListener{
     private Text ageText;
 
     @FXML
-    private Text genreText;
+    private Label genreText;
+
+    @FXML
+    private AnchorPane anchorPane;
 
     @FXML
     private Text text;
 
-    @FXML Label userNameLabel;
-    @FXML Label userAgeLabel;
-    @FXML Label genreListLabel;
+    @FXML
+    Label userNameLabel;
+    @FXML
+    Label userAgeLabel;
+    @FXML
+    Label genreListLabel;
+
     private UserProfile userProfile;
     private ArrayList<Playlist> playlists;
 
@@ -60,6 +71,9 @@ public class MovieHandler extends Controller implements RequestListener{
 
     @FXML
     private Label mStatusLabel;
+
+    @FXML
+    private VBox vbox0;
 
     @FXML
     private ProgressBar mProgressBar;
@@ -72,6 +86,8 @@ public class MovieHandler extends Controller implements RequestListener{
     private double[] mImagesLoadingProgress;
 
     private static RetrieveRequest mMovieRequest;
+    private int num = 0;
+
 
     class KeyboardClick implements EventHandler<KeyEvent> {
 
@@ -81,25 +97,46 @@ public class MovieHandler extends Controller implements RequestListener{
             this.control = control;
         }
 
+        /**
+         * Handles user's inputs and respond appropriately.
+         *
+         * @param event consist of user's inputs.
+         */
         @Override
         public void handle(KeyEvent event) {
+
+            System.out.println("You Pressing : " + ((KeyEvent) event).getCode() );
             if (event.getCode().equals(KeyCode.ENTER)) {
-//                    SearchResultContext.AddKeyWord(mSearchTextField.getText());
-                // do something
                 System.out.println("Hello");
                 try {
-                    CommandParser.parseCommands(mSearchTextField.getText() ,control );
+                    CommandParser.parseCommands(mSearchTextField.getText(), control);
+                    clearSearchTextField();
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-            }else if(event.getCode().equals(KeyCode.TAB)){
+            } else if (event.getCode().equals(KeyCode.TAB)) {
                 System.out.println("Tab presjenksjessed");
                 event.consume();
+            } else if (event.getCode().equals(KeyCode.DOWN)) {
+
+                //mMoviesScrollPane.setOnScroll(new EventHandler<ScrollEvent>() {
+                  //  @Override
+                    //public void handle(ScrollEvent event) {
+                      //  mMoviesScrollPane.setVvalue(mMoviesScrollPane.getVvalue() + 0.5);
+                    //}
+                //});
+                mMoviesScrollPane.requestFocus();
             }
         }
+
     }
 
-    @FXML public void initialize() throws IOException {
+    /**
+     * This function is called when JavaFx runtime when view is loaded
+     */
+    @FXML
+    public void initialize() throws IOException {
+        //mMoviesScrollPane.setFocusTraversable(true);
         EditProfileJson editProfileJson = new EditProfileJson();
         userProfile = editProfileJson.load();
         EditPlaylistJson editPlaylistJson = new EditPlaylistJson();
@@ -109,34 +146,23 @@ public class MovieHandler extends Controller implements RequestListener{
         userAgeLabel.setText(Integer.toString(userProfile.getUserAge()));
         genreListLabel.setText(command.convertToLabel(userProfile.getGenreId()));
 
-
         mMovieRequest = new RetrieveRequest(this);
+        CommandContext.initialiseContext();
 
-//
-//
-//        //mMovieTypeVBox.setStyle("-fx-border-color: white;");
-//
-//
-//
-//
-//
-//        //mMovieTypeListView.getItems().addAll("Now Showing", "Popular", "TV Shows", "Upcoming Movies");
-//        //mMovieTypeListView.getSelectionModel().select(0);
-//
-//
         mSearchTextField.addEventFilter(KeyEvent.KEY_PRESSED, event -> {
             if (event.getCode() == KeyCode.TAB) {
                 System.out.println("Tab pressed");
+
+
+                setFeedbackText(ContextHelper.getAllHints(mSearchTextField.getText() , this));
                 event.consume();
             } else if (event.getCode().equals(KeyCode.ENTER)) {
                 System.out.println("Enter pressed");
-//
             }
         });
 
         mMovieRequest.beginMovieRequest(RetrieveRequest.MoviesRequestType.CURRENT_MOVIES);
-
-        //mMovieRequest.beginMovieRequest(RetrieveRequest.MoviesRequestType.CURRENT_MOVIES);
+        text.setText("Welcome to Entertainment Pro. Displaying currently showing movies...");
 
         //Real time changes to text field
         mSearchTextField.textProperty().addListener((observable, oldValue, newValue) -> {
@@ -147,32 +173,68 @@ public class MovieHandler extends Controller implements RequestListener{
 
         //Enter is Pressed
         mSearchTextField.setOnKeyPressed(new KeyboardClick(this));
-
-        // mMovieTypeListView.getSelectionModel().selectedIndexProperty().addListener((observable, oldValue, newValue) -> moviesTypeSelectionChanged(oldValue.intValue(), newValue.intValue()));
+        mMoviesScrollPane.setOnKeyPressed(new EventHandler<KeyEvent>() {
+            @Override
+            public void handle(KeyEvent event) {
+                if (event.getCode().equals(KeyCode.UP)) {
+                    double num = (double) mMoviesScrollPane.getVvalue();
+                    num *= 10;
+                    if (num == 0) {
+                        mSearchTextField.requestFocus();
+                    }
+                } else if (event.getCode().equals(KeyCode.RIGHT)) {
+                    System.out.println("yesssx");
+                    mMoviesFlowPane.getChildren().get(num).requestFocus();
+                    num += 1;
+                    //mMoviesFlowPane.getChildren().get(num).();
+                } else if (event.getCode().equals(KeyCode.ENTER)) {
+                    moviePosterClicked(mMovies.get(num));
+                }
+            }
+        });
     }
 
-    // Called when the fetch request for the movie data is completed
+    /**
+     * This function is called when data for the movies/tv shows has been fetched.
+     */
     @Override
     public void requestCompleted(ArrayList<MovieInfoObject> moviesInfo) {
         // Build the Movie poster views and add to the flow pane on the main thread
+        System.out.print("Request received");
+        SearchResultContext.addResults(moviesInfo);
         mMovies = moviesInfo;
         mImagesLoadingProgress = new double[mMovies.size()];
         Platform.runLater(() -> buildMoviesFlowPane(moviesInfo));
+
     }
 
-    // Called when the request to fetch movie data timed out.
+    public void displayMovies(){
+        mMovies = SearchResultContext.getMoviesToDisplay();
+        mImagesLoadingProgress = new double[mMovies.size()];
+        Platform.runLater(() -> buildMoviesFlowPane(SearchResultContext.getMoviesToDisplay()));
+    }
+
+    /**
+     * This function is called when data for the movies/tv shows failed to fetch due to timed out.
+     */
     @Override
     public void requestTimedOut() {
         Platform.runLater(() -> showDownloadFailureAlert("Request timed out"));
     }
 
-    // Called when the request fails due to an invalid internet connection
+    /**
+     * This function is called when data for the movies/tv shows failed due to internet connection
+     */
     @Override
     public void requestFailed() {
         Platform.runLater(() -> showDownloadFailureAlert("No internet connection"));
     }
 
-
+    /**
+     * This funcion is called to print a message when the data for movies/tv shows is unavailable due to
+     * no internet connection.
+     * @param headerText consists of the string to be printed.
+     */
     private void showDownloadFailureAlert(String headerText) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle("Failed to download");
@@ -181,6 +243,10 @@ public class MovieHandler extends Controller implements RequestListener{
         alert.showAndWait();
     }
 
+    /**
+     * This function initalises the progress bar and extracts movie posters fro every movie.
+     * @param movies is a array containing details about every movie/tv show that is being displayed.
+     */
     private void buildMoviesFlowPane(ArrayList<MovieInfoObject> movies) {
         // Setup progress bar and status label
         mProgressBar.setProgress(0.0);
@@ -194,15 +260,21 @@ public class MovieHandler extends Controller implements RequestListener{
         mMoviesFlowPane.setPadding(new Insets(10, 8, 4, 8));
         mMoviesFlowPane.prefWrapLengthProperty().bind(mMoviesScrollPane.widthProperty());   // bind to scroll pane width
 
-        for (int i = 0; i < movies.size(); i++)
-        {
+        for (int i = 0; i < movies.size(); i++) {
             AnchorPane posterPane = buildMoviePosterPane(movies.get(i), i + 1);
             mMoviesFlowPane.getChildren().add(posterPane);
         }
 
         mMoviesScrollPane.setContent(mMoviesFlowPane);
+        mMoviesScrollPane.setVvalue(0);
     }
 
+
+    /**
+     * @param movie a object that contains information about a movie
+     * @param index a unique number assigned to every movie/tv show that is being displayed.
+     * @return anchorpane consisting of the movie poster, name and the unique id.
+     */
 
     private AnchorPane buildMoviePosterPane(MovieInfoObject movie, int index) {
         try {
@@ -228,6 +300,11 @@ public class MovieHandler extends Controller implements RequestListener{
         return null;
     }
 
+    /**
+     * This funcion updates the progress bar as the movie poster is being displayed.
+     * @param movie Object that contains all the information about a particular movie.
+     * @param progress contains the progress value.
+     */
     private void updateProgressBar(MovieInfoObject movie, double progress) {
         // update the progress for that movie in the array
         int index = mMovies.indexOf(movie);
@@ -250,20 +327,48 @@ public class MovieHandler extends Controller implements RequestListener{
     }
 
 
-    // User clicks on a movie poster
+    /**
+     * Tis function is called when the user wants to see more information about a movie.
+     */
     private void moviePosterClicked(MovieInfoObject movie) {
 
         mMainApplication.transitToMovieInfoController(movie);
     }
 
-    public void clearSearchTextField(){
+    /**
+     * This function clears the searchTextField when called.
+     */
+    public void clearSearchTextField() {
         mSearchTextField.setText("");
     }
 
+    /**
+     * Prints message in UI.
+     * @param txt which is the string tecxt to be printed.
+     */
     public void setFeedbackText(String txt) {
         text.setText(txt);
     }
 
+    public void updateTextField(String updateStr){
+        mSearchTextField.setText(mSearchTextField.getText() + updateStr);
+        mSearchTextField.positionCaret(mSearchTextField.getText().length());
+    }
+
+    public void setFeedbackText(ArrayList<String> txtArr){
+        String output = "";
+        for(String s: txtArr){
+            output += s;
+            output += "\n";
+
+        }
+        text.setText(output);
+    }
+
+    /**
+     * Retrieves the RetrieveRequest class.
+     * @return the RetrieveRequest class.
+     */
     public RetrieveRequest getAPIRequester() {
         return mMovieRequest;
     }
@@ -276,15 +381,16 @@ public class MovieHandler extends Controller implements RequestListener{
         return playlists;
     }
 
-    public ArrayList<MovieInfoObject> getmMovies() {
-        return mMovies;
-    }
-
 
     @FXML private void clearSearchButtonClicked()
     {
         mSearchTextField.clear();
     }
+
+    public ArrayList<MovieInfoObject> getmMovies() {
+        return mMovies;
+    }
+
 
     // Menu item events
     @FXML

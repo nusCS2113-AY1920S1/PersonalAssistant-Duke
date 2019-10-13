@@ -14,9 +14,7 @@ import java.net.URLEncoder;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Date;
+import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -63,6 +61,116 @@ public class RetrieveRequest implements InfoFetcher, InfoFetcherWithGenre {
     private static final String kMOVIE_POSTER_PATH = "poster_path";
     private static final String kMOVIE_CAST = "cast_id";
 
+    public static String getCastStrings(MovieInfoObject mMovie) {
+
+        try {
+                String jsonResult = "";
+                if (index == 0) {
+                    jsonResult = URLRetriever.readURLAsString(new URL(MAIN_URL + "movie/" + mMovie.getID() + "/credits?api_key=" +
+                    RetrieveRequest.API_KEY));
+                } else {
+                    jsonResult = URLRetriever.readURLAsString(new URL(MAIN_URL + "tv/" + mMovie.getID() + "/credits?api_key=" +
+                        RetrieveRequest.API_KEY));
+
+                }
+                JSONParser parser = new JSONParser();
+                JSONObject jsonData = (JSONObject) parser.parse(jsonResult);
+                JSONArray casts = (JSONArray) jsonData.get("cast");
+
+                String castStrings = "";
+                for (int i = 0; i < casts.size(); i += 1) {
+                    //if (i == 10) {
+                      //  break;
+                    //}
+                    JSONObject castPair = (JSONObject) casts.get(i);
+                    castStrings += castPair.get("name");
+                   // if (i != casts.size() - 1) {
+                        if (i != casts.size() - 1) {
+                        castStrings += ", ";
+                    }
+                }
+
+                return castStrings;
+            } catch (MalformedURLException ex) {
+                ex.printStackTrace();
+            } catch (org.json.simple.parser.ParseException ex) {
+                ex.printStackTrace();
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+
+            return null;
+        }
+
+    public static String getCertStrings(MovieInfoObject mMovie) {
+        try {
+            String jsonResult = "";
+            if (index == 0) {
+                jsonResult = URLRetriever.readURLAsString(new URL(MAIN_URL + "movie/" + mMovie.getID() + "/release_dates?api_key=" +
+                    RetrieveRequest.API_KEY));
+                index = 0;
+            } else {
+                jsonResult = URLRetriever.readURLAsString(new URL(MAIN_URL + "tv/" + mMovie.getID() + "/content_ratings?api_key=" +
+                    RetrieveRequest.API_KEY + "&language=en-US"));
+                index = 1;
+            }
+
+            JSONParser parser = new JSONParser();
+            JSONObject jsonData = (JSONObject) parser.parse(jsonResult);
+            JSONArray casts = (JSONArray) jsonData.get("results");
+            //System.out.println("yes1");
+            String certStrings = "";
+            String ret = "N/A";
+            if (index == 0) {
+                for (int i = 0; i < casts.size(); i += 1) {
+                    JSONObject castPair = (JSONObject) casts.get(i);
+                    if (castPair.get("iso_3166_1").equals("US")) {
+                        Map cert = (Map) casts.get(i);
+                        Iterator<Map.Entry> itr1 = cert.entrySet().iterator();
+                        while (itr1.hasNext()) {
+                            Map.Entry pair = itr1.next();
+                            if (pair.getKey().equals("release_dates")) {
+                                certStrings = pair.getValue().toString();
+                            }
+                        }
+                        System.out.println("this is:" + certStrings);
+                        String[] getCert = certStrings.strip().split("certification");
+                        if (getCert.length == 2) {
+                            ret = getCert[1].substring(2, getCert[1].length() - 2);
+                        } else {
+                            ret = getCert[getCert.length - 1].substring(2, getCert[getCert.length - 1].length() - 2);
+                        }
+
+                        //while (ret.length() > 7) {
+                        //  ret = getCert[1].substring(2, getCert[1].length() - 2);
+                        //ret = getCert[1]
+                        //}
+                    }
+                }
+            } else {
+                for (int i = 0; i < casts.size(); i += 1) {
+                    JSONObject castPair = (JSONObject) casts.get(i);
+                    if (castPair.get("iso_3166_1").equals("GB")) {
+                        certStrings = castPair.get("rating").toString();
+                        ret = "Suitable for " +
+                            certStrings + " years & above";
+                    }
+                }
+            }
+            System.out.println("this is cert" + ret);
+            return ret;
+        } catch (MalformedURLException ex) {
+            ex.printStackTrace();
+        } catch (org.json.simple.parser.ParseException ex) {
+            ex.printStackTrace();
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+
+        return null;
+
+    }
+
 
     public enum MoviesRequestType {
         CURRENT_MOVIES,
@@ -94,17 +202,21 @@ public class RetrieveRequest implements InfoFetcher, InfoFetcherWithGenre {
             case CURRENT_MOVIES:
                 requestURL += RetrieveRequest.CURRENT_MOVIE_URL + RetrieveRequest.API_KEY +
                     "&language=en-US&page=1&region=SG";
+                index = 0;
                 break;
             case POPULAR_MOVIES:
                 requestURL += RetrieveRequest.POPULAR_MOVIE_URL + RetrieveRequest.API_KEY +
                     "&language=en-US&page=1&region=SG";
+                index = 0;
                 break;
             case UPCOMING_MOVIES:
                 requestURL += RetrieveRequest.UPCOMING_MOVIE_URL + RetrieveRequest.API_KEY +
                     "&language=en-US&page=1&region=SG";
+                index = 0;
                 break;
             case TRENDING_MOVIES:
                 requestURL += RetrieveRequest.TRENDING_MOVIE_URL + RetrieveRequest.API_KEY;
+                index = 0;
                 break;
             case CURRENT_TV:
                 requestURL += RetrieveRequest.CURRENT_TV_URL + RetrieveRequest.API_KEY +
@@ -116,10 +228,6 @@ public class RetrieveRequest implements InfoFetcher, InfoFetcherWithGenre {
                     "&language=en-US&page=1";
                 index = 1;
                 break;
-            case POP_CAST:
-                requestURL += RetrieveRequest.POP_CAST_URL + RetrieveRequest.API_KEY +
-                    "&language=en-US&page=1";
-                break;
             case TRENDING_TV:
                 requestURL += RetrieveRequest.TRENDING_TV_URL + RetrieveRequest.API_KEY;
                 index = 1;
@@ -127,6 +235,7 @@ public class RetrieveRequest implements InfoFetcher, InfoFetcherWithGenre {
             case NEW_TV:
                 requestURL += RetrieveRequest.NEW_TV_URL + RetrieveRequest.API_KEY +
                     "&language=en-US&page=1";
+                index = 1;
                 break;
             default:
                 requestURL = null;
@@ -145,6 +254,7 @@ public class RetrieveRequest implements InfoFetcher, InfoFetcherWithGenre {
         }
     }
 
+
     public String beginAddRequest(String movieTitle) {
         try {
             String url = MAIN_URL + MOVIE_SEARCH_URL + API_KEY + "&query=" + URLEncoder.encode(movieTitle, "UTF-8");
@@ -157,6 +267,8 @@ public class RetrieveRequest implements InfoFetcher, InfoFetcherWithGenre {
         }
         return "";
     }
+
+
     public void beginMovieSearchRequestWithGenre (String movieTitle, ArrayList<Integer> genreID) {
         try {
             String url = MAIN_URL + MOVIE_SEARCH_URL + API_KEY + "&query=" + URLEncoder.encode(movieTitle, "UTF-8");
@@ -176,49 +288,6 @@ public class RetrieveRequest implements InfoFetcher, InfoFetcherWithGenre {
             ex.printStackTrace();
         }
     }
-
-    /**
-     * public String getCastMovie (long id) {
-     * String url = MAIN_URL + "movie/" + id + API_KEY;
-     * ArrayList<String> castInfo = fetchCastData(url);
-     * String cast = castInfo.get(0);
-     * for (int i = 1; i < castInfo.size(); i += 1) {
-     * cast += "," + castInfo.get(i);
-     * }
-     * return cast;
-     * }
-     * <p>
-     * public ArrayList<String> fetchCastData(String url) {
-     * if (url == null) {
-     * mListener.requestFailed();
-     * //System.out.println("so far not ok");
-     * return null;
-     * }
-     * //System.out.println("so far ok1");
-     * <p>
-     * // Parse received movies
-     * JSONParser parser = new JSONParser();
-     * JSONObject movieData;
-     * try {
-     * String json = URLRetriever.readURLAsString(new URL(url));
-     * movieData = (JSONObject) parser.parse(json);
-     * JSONArray movies = (JSONArray) movieData.get("cast");
-     * ArrayList<String> parsedMovies = new ArrayList(10);
-     * for (int i = 0; i < movies.size(); i++) {
-     * parsedMovies.add(parseCastJSON((JSONObject) movies.get(i)));
-     * }
-     * return parsedMovies;
-     * //System.out.println("so far ok3");
-     * } catch (org.json.simple.parser.ParseException ex) {
-     * Logger.getLogger(RetrieveRequest.class.getName()).log(Level.SEVERE, null, ex);
-     * } catch (SocketTimeoutException e) {
-     * e.printStackTrace();
-     * } catch (MalformedURLException e) {
-     * e.printStackTrace();
-     * }
-     * return null;
-     * }
-     **/
 
     private String parseCastJSON(JSONObject jsonObject) {
         String name = jsonObject.get("name").toString();
