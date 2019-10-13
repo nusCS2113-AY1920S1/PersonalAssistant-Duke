@@ -18,6 +18,7 @@ EXP @ 20.0 @ hookers  @ hookers  @ 10/10/2020
 EXP @ 10000.0 @ buy Motorbike  @ GS @ 11/10/2019
 EXP @ 792.1389 @ mortgage  @ instalments @ 11/10/2019
 G @ 48.0 @ Mala  @ food  @ 4/10/2019 @ null
+G @ 48.0 @ Mala  @ food  @ 4/10/2019 @ null
 G @ 100000.0 @ buy Lambo  @ GS @ 10/12/2040 @ MEDIUM
 G @ 100000.0 @ buy Boat  @ GS @ 11/12/2050 @ LOW
 G @ 100000.0 @ buy HDB  @ GS @ 15/1/2050 @ HIGH

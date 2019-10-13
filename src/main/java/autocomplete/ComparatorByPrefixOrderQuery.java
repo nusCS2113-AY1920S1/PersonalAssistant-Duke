@@ -5,7 +5,7 @@ import java.util.Comparator;
 public class ComparatorByPrefixOrderQuery implements Comparator<Term> {
     private int r;
 
-    private ComparatorByPrefixOrderQuery(int r) {
+    public ComparatorByPrefixOrderQuery(int r) {
         this.r = r;
     }
 
