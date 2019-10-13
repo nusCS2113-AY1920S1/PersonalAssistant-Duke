@@ -16,6 +16,15 @@ public class Simulate {
         if (simulate == Simulation.PLANTSEED) {
             basepath = "./src/main/resources/asciiArt/PlantSeedSimulation/frame";
             numberOfFrames = 10;
+        } else if (simulate == Simulation.BUYSEED) {
+            basepath = "./src/main/resources/asciiArt/BuySeedSimulation/frame";
+            numberOfFrames = 10;
+        } else if (simulate == Simulation.HARVESTWHEAT) {
+            basepath = "./src/main/resources/asciiArt/HarvestWheatSimulation/frame";
+            numberOfFrames = 10;
+        } else if (simulate == Simulation.SELLWHEAT) {
+            basepath = "./src/main/resources/asciiArt/SellWheatSimulation/frame";
+            numberOfFrames = 10;
         }
     }
     protected void nextFrame(String statusBar,String filePath) {
