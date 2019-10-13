@@ -1,30 +1,30 @@
 package duke.model.sale;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
-import java.util.Calendar;
+import java.util.Collections;
 import java.util.Date;
+import java.util.Objects;
+import java.util.Set;
+
+import static duke.commons.util.CollectionUtil.requireAllNonNull;
 
 public class Sale {
-    private long id = System.currentTimeMillis();
-    private String description = "description";
-    private double value = 0.0;
-    private Date saleDate = Calendar.getInstance().getTime();
-    private String remarks = "N/A";
 
-    public Sale(String description, double value, Date saleDate, String remarks) {
+    //Identity field
+    private long id;
+
+    //Data fields
+    private String description;
+    private Date saleDate;
+    private double value;
+    private String remarks;
+
+    public Sale(String description, Date saleDate, double value, String remarks) {
+        requireAllNonNull(description, saleDate, value, remarks);
+        this.id = System.currentTimeMillis();
         this.description = description;
         this.value = value;
         this.saleDate = saleDate;
         this.remarks = remarks;
-    }
-
-    public Sale(@JsonProperty("description") String description,
-                @JsonProperty("value") double value,
-                @JsonProperty("saleDate") Date saleDate) {
-        this.description = description;
-        this.value = value;
-        this.saleDate = saleDate;
     }
 
     public long getId() {
@@ -43,14 +43,6 @@ public class Sale {
         this.description = description;
     }
 
-    public double getValue() {
-        return value;
-    }
-
-    public void setValue(double value) {
-        this.value = value;
-    }
-
     public Date getSaleDate() {
         return saleDate;
     }
@@ -59,11 +51,36 @@ public class Sale {
         this.saleDate = saleDate;
     }
 
+    public double getValue() {
+        return value;
+    }
+
+    public void setValue(double value) {
+        this.value = value;
+    }
+
     public String getRemarks() {
         return remarks;
     }
 
     public void setRemarks(String remarks) {
         this.remarks = remarks;
+    }
+
+    @Override
+    public boolean equals(Object s) {
+        if (this == s) {
+            return true;
+        }
+        if (s == null || getClass() != s.getClass()) {
+            return false;
+        }
+        Sale sale = (Sale) s;
+        return id == sale.id;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
     }
 }

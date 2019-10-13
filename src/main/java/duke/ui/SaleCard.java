@@ -1,50 +1,42 @@
 package duke.ui;
 
 import duke.logic.parser.commons.TimeParser;
-import duke.model.commons.Item;
 import duke.model.sale.Sale;
-import duke.model.product.Product;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.FlowPane;
 
 /**
- * Controller for OrderCard. An OrderCard displays an order, including its creation time, customer, items,
- * delivery date, index, and status.
+ * Controller for SaleCard.
+ * A SaleCard displays a sale,
+ * including its creation time, description,
+ * sale date, value, and remarks.
  */
 public class SaleCard extends UiPart<AnchorPane> {
-    static final String FXML = "OrderCard.fxml";
+    static final String FXML = "SaleCard.fxml";
 
     @FXML
     private AnchorPane innerPane;
     @FXML
     private FlowPane itemFlow;
     @FXML
-    private Label id;
+    private Label Id;
     @FXML
-    private Label index;
+    private Label value;
     @FXML
-    private Label deadline;
+    private Label saleDate;
     @FXML
-    private Label name;
-    @FXML
-    private Label contact;
+    private Label description;
     @FXML
     private Label remarks;
-    @FXML
-    private Label status;
 
     public SaleCard(Sale sale, int displayedIndex) {
         super(FXML);
-        id.setText(Long.toString(sale.getId()));
-        index.setText(displayedIndex + ".");
-        deadline.setText(TimeParser.convertDateToString(sale.getDeliveryDate()));
-        name.setText(sale.getCustomer().name);
-        contact.setText(sale.getCustomer().contact);
+        Id.setText(Long.toString(sale.getId()));
+        value.setText(Double.toString(sale.getValue()));
+        saleDate.setText(TimeParser.convertDateToString(sale.getSaleDate()));
+        description.setText(sale.getDescription());
         remarks.setText(sale.getRemarks());
-        status.setText(sale.getStatus().toString().toLowerCase());
-        status.getStyleClass().clear();
-        status.getStyleClass().addAll("status-" + sale.getStatus().toString().toLowerCase());
     }
 }

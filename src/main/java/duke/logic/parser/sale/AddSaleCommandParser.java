@@ -24,8 +24,8 @@ public class AddSaleCommandParser implements Parser<AddSaleCommand> {
 
         Sale sale = new Sale(
                 map.getValue(PREFIX_SALE_DESCRIPTION).orElse("N/A"),
-                Double.parseDouble(map.getValue(PREFIX_SALE_VALUE).get()),
                 TimeParser.convertStringToDate(map.getValue(PREFIX_SALE_DATE).orElse("now")),
+                Double.parseDouble(map.getValue(PREFIX_SALE_VALUE).get()),
                 map.getValue(PREFIX_SALE_REMARKS).orElse("N/A")
         );
 
