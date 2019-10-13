@@ -1,7 +1,7 @@
 package repositories;
 
 
-import controllers.ProjectFactory;
+import util.factories.ProjectFactory;
 import java.util.ArrayList;
 import models.data.IProject;
 
