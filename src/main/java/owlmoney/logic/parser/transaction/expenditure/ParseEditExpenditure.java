@@ -75,7 +75,7 @@ public class ParseEditExpenditure extends ParseExpenditure {
         EditExpenditureCommand newEditExpenditureCommand = new EditExpenditureCommand(expendituresParameters.get(FROM),
                 expendituresParameters.get(AMOUNT), expendituresParameters.get(DATE),
                 expendituresParameters.get(DESCRIPTION), expendituresParameters.get(CATEGORY),
-                Integer.parseInt(expendituresParameters.get(TRANSNO)));
+                Integer.parseInt(expendituresParameters.get(TRANSNO)), this.type);
         return newEditExpenditureCommand;
     }
 }

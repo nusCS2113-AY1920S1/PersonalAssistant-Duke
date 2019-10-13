@@ -60,7 +60,7 @@ public class ParseDeleteExpenditure extends ParseExpenditure {
     public Command getCommand() {
         DeleteExpenditureCommand newDeleteExpenditureCommand =
                 new DeleteExpenditureCommand(Integer.parseInt(expendituresParameters.get(TRANSNO)),
-                        expendituresParameters.get(FROM));
+                        expendituresParameters.get(FROM), this.type);
         return newDeleteExpenditureCommand;
     }
 }

@@ -2,8 +2,10 @@ package owlmoney.model.card;
 
 import java.text.DecimalFormat;
 
+import owlmoney.model.card.exception.CardException;
 import owlmoney.model.transaction.Transaction;
 import owlmoney.model.transaction.TransactionList;
+import owlmoney.model.transaction.exception.TransactionException;
 import owlmoney.ui.Ui;
 
 /**
@@ -100,9 +102,9 @@ public class Card {
      * Adds expenditure to the credit card.
      *
      */
-    public void addInExpenditure(Transaction exp, Ui ui) {
+    public void addInExpenditure(Transaction exp, Ui ui) throws CardException {
         if (exp.getAmount() > this.getLimit()) {
-            ui.printError("Bank account cannot have a negative amount");
+            throw new CardException("Expenditure to be added cannot exceed limit");
         } else {
             unpaid.addExpenditureToList(exp, ui);
         }
@@ -114,7 +116,7 @@ public class Card {
      * @param ui         Ui of OwlMoney.
      * @param displayNum Number of expenditure to list.
      */
-    void listAllExpenditure(Ui ui, int displayNum) {
+    void listAllExpenditure(Ui ui, int displayNum) throws TransactionException {
         unpaid.listExpenditure(ui, displayNum);
     }
 

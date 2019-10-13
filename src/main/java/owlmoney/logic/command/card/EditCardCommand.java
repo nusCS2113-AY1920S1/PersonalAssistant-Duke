@@ -13,12 +13,12 @@ public class EditCardCommand extends Command {
     private final String newName;
 
     /**
-     * Creates an instance of EditSavingCommand.
+     * Creates an instance of EditCardCommand.
      *
-     * @param name    Name of bank account.
-     * @param limit  New income of bank account if any.
-     * @param rebate  New amount of bank account if any.
-     * @param newName New name of bank account if any.
+     * @param name    Name of credit card.
+     * @param limit   New limit of credit card if any.
+     * @param rebate  New rebate of credit card if any.
+     * @param newName New name of credit card if any.
      */
     public EditCardCommand(String name, String limit, String rebate, String newName) {
         this.limit = limit;
@@ -28,7 +28,7 @@ public class EditCardCommand extends Command {
     }
 
     /**
-     * Executes the function to edit the details of a savings account in the profile.
+     * Executes the function to edit the details of a credit card in the profile.
      *
      * @param profile Profile of the user.
      * @param ui      Ui of OwlMoney.

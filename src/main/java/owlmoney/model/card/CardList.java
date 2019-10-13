@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import owlmoney.logic.command.exception.CommandException;
 import owlmoney.logic.parser.exception.CardException;
 import owlmoney.model.transaction.Transaction;
+import owlmoney.model.transaction.exception.TransactionException;
 import owlmoney.ui.Ui;
 
 public class CardList {
@@ -84,9 +85,9 @@ public class CardList {
      * Edits the credit card details.
      *
      * @param name     Credit Card to be edited.
-     * @param newName  New name of credit card.
-     * @param limit    New limit of credit card.
-     * @param rebate   New rebate of credit card.
+     * @param newName  New name of credit card if any.
+     * @param limit    New limit of credit card if any.
+     * @param rebate   New rebate of credit card if any.
      * @param ui       Required for printing.
      */
     public void editCard(String name, String newName, String limit, String rebate, Ui ui) throws CardException {
@@ -115,7 +116,7 @@ public class CardList {
     }
 
     /**
-     * Lists all credi cards details.
+     * Lists all credit cards details.
      *
      * @param ui required for printing.
      */
@@ -135,30 +136,32 @@ public class CardList {
      * @param ui       Required for printing.
      */
     //need change exception class in the future for this
-    public void addExpenditure(String cardName, Transaction exp, Ui ui) {
+    public void addExpenditure(String cardName, Transaction exp, Ui ui)
+            throws owlmoney.model.card.exception.CardException {
         for (int i = 0; i < cardLists.size(); i++) {
             if (cardLists.get(i).getName().equals(cardName)) {
                 cardLists.get(i).addInExpenditure(exp, ui);
                 return;
             }
         }
-        ui.printError("There are no credit card named :" + cardName);
+        throw new owlmoney.model.card.exception.CardException("There are no credit card named :" + cardName);
     }
 
     /**
      * Lists expenditures in the credit card.
      *
-     * @param bankToList The name of the bank account.
+     * @param cardToList The name of the credit card.
      * @param ui         required for printing.
      * @param displayNum Number of expenditures to list.
      */
-    public void listCardExpenditure(String bankToList, Ui ui, int displayNum) {
+    public void listCardExpenditure(String cardToList, Ui ui, int displayNum)
+            throws TransactionException, owlmoney.model.card.exception.CardException {
         for (int i = 0; i < cardLists.size(); i++) {
-            if (bankToList.equals(cardLists.get(i).getName())) {
+            if (cardToList.equals(cardLists.get(i).getName())) {
                 cardLists.get(i).listAllExpenditure(ui, displayNum);
                 return;
             }
         }
-        ui.printError("Cannot find bank with name: " + bankToList);
+        throw new owlmoney.model.card.exception.CardException("Cannot find bank with name: " + cardToList);
     }
 }

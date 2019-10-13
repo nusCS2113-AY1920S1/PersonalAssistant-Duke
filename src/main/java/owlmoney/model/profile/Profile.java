@@ -3,9 +3,13 @@ package owlmoney.model.profile;
 import owlmoney.logic.parser.exception.CardException;
 import owlmoney.model.bank.Bank;
 import owlmoney.model.bank.BankList;
+import owlmoney.model.bank.exception.BankException;
+import owlmoney.model.bond.Bond;
+import owlmoney.model.bond.exception.BondException;
 import owlmoney.model.card.Card;
 import owlmoney.model.card.CardList;
 import owlmoney.model.transaction.Transaction;
+import owlmoney.model.transaction.exception.TransactionException;
 import owlmoney.ui.Ui;
 
 /**
@@ -43,7 +47,7 @@ public class Profile {
      * @param newBank an instance of the new bank account.
      * @param ui      required for printing.
      */
-    public void addNewBank(Bank newBank, Ui ui) {
+    public void addNewBank(Bank newBank, Ui ui) throws BankException {
         bankList.addBank(newBank, ui);
     }
 
@@ -53,7 +57,7 @@ public class Profile {
      * @param bankName name of the Bank account.
      * @param ui       required for printing.
      */
-    public void deleteBank(String bankName, String bankType, Ui ui) {
+    public void deleteBank(String bankName, String bankType, Ui ui) throws BankException {
         bankList.deleteBank(bankName, bankType, ui);
     }
 
@@ -62,19 +66,20 @@ public class Profile {
      *
      * @param ui required for printing.
      */
-    public void listBanks(String bankType, Ui ui) {
+    public void listBanks(String bankType, Ui ui) throws BankException {
         bankList.listBankAccount(bankType, ui);
     }
 
     /**
-     * Adds a new expenditure tied to a specific bank account.
+     * Adds a new expenditure tied to a specific bank account or credit card.
      *
-     * @param accName The name of the bank account.
+     * @param accName The name of the bank account or credit card.
      * @param exp     An expenditure object.
      * @param ui      required for printing.
      * @param type    Represents type of expenditure to be added.
      */
-    public void addNewExpenditure(String accName, Transaction exp, Ui ui, String type) {
+    public void addNewExpenditure(String accName, Transaction exp, Ui ui, String type)
+            throws BankException, owlmoney.model.card.exception.CardException {
         if ("card".equals(type)) {
             cardList.addExpenditure(accName, exp, ui);
         } else {
@@ -89,19 +94,11 @@ public class Profile {
      * @param bankName The name of the bank account.
      * @param ui       required for printing.
      */
-    public void deleteExpenditure(int expIndex, String bankName, Ui ui) {
-        bankList.deleteExp(expIndex, bankName, ui);
+    public void deleteExpenditure(int expIndex, String bankName, Ui ui, String type) throws BankException, TransactionException {
+        if ("bank".equals(type)) {
+            bankList.deleteExp(expIndex, bankName, ui);
+        }
     }
-    /*
-    /**
-     * Lists all expenditure tied to a bank account.
-     *
-     * @param listedBank The bank account name.
-     * @param ui         required for printing.
-     *//*
-    public void listTransaction(String listedBank, Ui ui) {
-        bankList.listBankTransaction(listedBank, ui);
-    }*/
 
     /**
      * Lists deposits from a specific bank account.
@@ -110,22 +107,23 @@ public class Profile {
      * @param ui         required for printing.
      * @param displayNum Number of deposits to list.
      */
-    public void listDeposit(String listedBank, Ui ui, int displayNum) {
+    public void listDeposit(String listedBank, Ui ui, int displayNum) throws BankException, TransactionException {
         bankList.listBankDeposit(listedBank, ui, displayNum);
     }
 
     /**
-     * Lists expenditure from a specific bank account.
+     * Lists expenditure from a specific a bank account or credit card.
      *
-     * @param listedBank Bank account to list from.
+     * @param listedBankOrCard Bank account or credit card to list from.
      * @param ui         required for printing.
      * @param displayNum Number of expenditure to list.
      */
-    public void listExpenditure(String listedBank, Ui ui, int displayNum, String type) {
+    public void listExpenditure(String listedBankOrCard, Ui ui, int displayNum, String type)
+            throws BankException, TransactionException, owlmoney.model.card.exception.CardException {
         if ("card".equals(type)) {
-            cardList.listCardExpenditure(listedBank, ui, displayNum);
+            cardList.listCardExpenditure(listedBankOrCard, ui, displayNum);
         } else {
-            bankList.listBankExpenditure(listedBank, ui, displayNum);
+            bankList.listBankExpenditure(listedBankOrCard, ui, displayNum);
         }
     }
 
@@ -141,8 +139,10 @@ public class Profile {
      * @param ui           required for printing.
      */
     public void editExpenditure(int expNum, String editFromBank, String desc, String amount, String date,
-            String category, Ui ui) {
-        bankList.editExp(expNum, editFromBank, desc, amount, date, category, ui);
+            String category, Ui ui, String type) throws BankException, TransactionException {
+        if ("bank".equals(type)) {
+            bankList.editExp(expNum, editFromBank, desc, amount, date, category, ui);
+        }
     }
 
     /**
@@ -177,7 +177,7 @@ public class Profile {
      * @param bankName Bank name of the deposit.
      * @param ui       required for printing.
      */
-    public void deleteDeposit(int depIndex, String bankName, Ui ui) {
+    public void deleteDeposit(int depIndex, String bankName, Ui ui) throws BankException, TransactionException {
         bankList.deleteDeposit(bankName, depIndex, ui);
     }
 
@@ -188,7 +188,7 @@ public class Profile {
      * @param dep     Deposit to be added.
      * @param ui      required for printing.
      */
-    public void addNewDeposit(String accName, Transaction dep, Ui ui) {
+    public void addNewDeposit(String accName, Transaction dep, Ui ui) throws BankException {
         bankList.addDeposit(accName, dep, ui);
     }
 
@@ -202,8 +202,29 @@ public class Profile {
      * @param date         New date of deposit.
      * @param ui           required for deposit.
      */
-    public void editDeposit(int expNum, String editFromBank, String desc, String amount, String date, Ui ui) {
+    public void editDeposit(int expNum, String editFromBank, String desc, String amount, String date, Ui ui)
+            throws BankException, TransactionException {
         bankList.editDep(expNum, editFromBank, desc, amount, date, ui);
+    }
+
+    /**
+     * Adds bond to a specific bank account.
+     * @param accName the name of the bank account.
+     * @param newBond the bond object.
+     * @param ui      required for printing.
+     */
+    public void addNewBond(String accName, Bond newBond, Ui ui) throws BankException {
+        bankList.addBond(accName, newBond, ui);
+    }
+
+    /**
+     * Checks if the bond exists before adding.
+     *
+     * @param accName the bank account name.
+     * @param bond the bond object.
+     */
+    public void isBondUnique(String accName, Bond bond) throws BankException, BondException {
+        bankList.isBondExist(accName, bond);
     }
 
     /**
@@ -216,6 +237,15 @@ public class Profile {
         cardList.addCard(newCard, ui);
     }
 
+    /**
+     * Edits a card from the CardList.
+     *
+     * @param name name of the credit card.
+     * @param newName new name of the credit card if any.
+     * @param limit new limit of the credit card if any.
+     * @param rebate new rebate of the credit card if any.
+     * @param ui required for printing.
+     */
     public void editCardDetails(String name, String newName, String limit, String rebate, Ui ui) throws CardException {
         cardList.editCard(name, newName, limit, rebate, ui);
     }
@@ -229,18 +259,6 @@ public class Profile {
     public void deleteCard(String name, Ui ui) throws CardException {
         cardList.deleteCard(name, ui);
     }
-
-    /**
-     * Deletes a card from the CardList.
-     *
-     * @param name name of the credit card.
-     * @param ui required for printing.
-     */
-    /*
-    public void editCard(String name, String newName, String limit, String rebate, String dueDate, Ui ui) {
-        cardList.editCard(name, newName, limit, rebate, dueDate, ui);
-    }
-    */
 
     /**
      * Lists all the cards in the CardList.

@@ -8,6 +8,8 @@ import owlmoney.logic.command.PlaceHolderEmptyCommand;
 import owlmoney.logic.command.bank.ListInvestmentCommand;
 import owlmoney.logic.command.bank.ListSavingsCommand;
 import owlmoney.logic.command.card.ListCardCommand;
+import owlmoney.logic.parser.bond.ParseAddBond;
+import owlmoney.logic.parser.bond.ParseBond;
 import owlmoney.logic.parser.card.ParseAddCard;
 import owlmoney.logic.parser.card.ParseCard;
 import owlmoney.logic.parser.card.ParseDeleteCard;
@@ -49,6 +51,7 @@ class ParseType extends Parser {
     private static final List<String> TYPE_KEYWORD_LISTS = Arrays.asList(TYPE_KEYWORDS);
     private static final String BANK = "bank";
     private static final String CARD = "card";
+    private static final String BOND = "bond";
 
     /**
      * Determines the type of command and checks if it is of valid type.
@@ -140,12 +143,12 @@ class ParseType extends Parser {
                 return new ListInvestmentCommand();
             }
             throw new ParserException("You entered an invalid type for investment");
-        case "/bond":
+        case "/bonds":
             if ("/add".equals(command)) {
-                ParseInvestment parseAddInvestment = new ParseAddInvestment(rawData);
-                parseAddInvestment.fillHashTable();
-                parseAddInvestment.checkParameter();
-                return parseAddInvestment.getCommand();
+                ParseBond parseAddBond = new ParseAddBond(rawData, BOND);
+                parseAddBond.fillHashTable();
+                parseAddBond.checkParameter();
+                return parseAddBond.getCommand();
             }
             throw new ParserException("You entered an invalid type for bond");
         case "/bankexpenditure":
