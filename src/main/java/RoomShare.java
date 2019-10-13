@@ -15,6 +15,7 @@ public class RoomShare {
     private Ui ui;
     private Storage storage;
     private TaskList taskList;
+    private TaskList deletedList = new TaskList(new ArrayList<>());
     private Parser parser;
     private RecurHandler recurHandler;
 
@@ -82,8 +83,8 @@ public class RoomShare {
 
                 case done:
                     try {
+                        taskList.done(parser.getIndexRange());
                         ui.showDone();
-                        taskList.done(parser.getIndex());
                     } catch (RoomShareException e) {
                         ui.showIndexError();
                     }
@@ -91,8 +92,8 @@ public class RoomShare {
 
                 case delete:
                     try {
-                        int index = parser.getIndex();
-                        taskList.delete(index);
+                        int index[] = parser.getIndexRange();
+                        taskList.delete(index, deletedList);
                         ui.showDeleted(index);
                     } catch (RoomShareException e) {
                         ui.showIndexError();
@@ -252,6 +253,14 @@ public class RoomShare {
                     catch (IllegalArgumentException e){
                         ui.showTimeError();
                     }
+                    break;
+
+                case reorder:
+                    int firstIndex = parser.getIndex();
+                    ui.promptSecondIndex();
+                    int secondIndex = parser.getIndex();
+                    ui.showReordering();
+                    taskList.reorder(firstIndex, secondIndex);
                     break;
 
                     default:

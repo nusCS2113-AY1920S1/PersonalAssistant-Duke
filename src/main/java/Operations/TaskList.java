@@ -7,6 +7,7 @@ import Model_Classes.Task;
 import Model_Classes.ToDo;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Comparator;
 
 import Enums.TimeUnit;
@@ -40,13 +41,25 @@ public class TaskList {
      * @param index Index of task in the list to be deleted
      * @throws RoomShareException If the index cannot be found in the list of tasks.
      */
-    public void delete(int index) throws RoomShareException {
-        if (index < 0 || index > tasks.size()) {
-            throw new RoomShareException(ExceptionType.outOfBounds);
+    public void delete(int[] index, TaskList deletedList) throws RoomShareException {
+        int[] idx = index.clone();
+        if (idx.length == 1) {
+            if (idx[0] < 0 || idx[0] >= tasks.size()) {
+                throw new RoomShareException(ExceptionType.outOfBounds);
+            }
+            deletedList.add(tasks.get(idx[0]));
+            tasks.remove(idx[0]);
         }
-        tasks.remove(index - 1);
+        else {
+            for (int i = idx[0]; idx[1] >= idx[0]; idx[1]--) {
+                if (i < 0 || i >= tasks.size()) {
+                    throw new RoomShareException(ExceptionType.outOfBounds);
+                }
+                deletedList.add(tasks.get(i));
+                tasks.remove(i);
+            }
+        }
     }
-
     /**
      * Lists out all tasks in the current list in the order they were added into the list.
      */
@@ -69,11 +82,21 @@ public class TaskList {
      * @param index Index of the task to be marked as done.
      * @throws RoomShareException If the index cannot be found in the list of tasks.
      */
-    public void done(int index) throws RoomShareException {
-        if (index < 0 || index > tasks.size()) {
-            throw new RoomShareException(ExceptionType.outOfBounds);
+    public void done(int[] index) throws RoomShareException {
+        if (index.length == 1) {
+            if (index[0] < 0 || index[0] >= tasks.size()) {
+                throw new RoomShareException(ExceptionType.outOfBounds);
+            }
+            tasks.get(index[0]).setDone();
         }
-        tasks.get(index - 1).setDone();
+        else {
+            for (int i = index[0]; i <= index[1]; i++){
+                if (i < 0 || i >= tasks.size()) {
+                    throw new RoomShareException(ExceptionType.outOfBounds);
+                }
+                tasks.get(i - 1).setDone();
+            }
+        }
     }
 
     /**
@@ -113,25 +136,25 @@ public class TaskList {
      * @param timeUnit unit for snooze time: year, month, day, hour, minute
      */
     public void snooze (int index, int amount, TimeUnit timeUnit){
-        if (tasks.get(index - 1) instanceof ToDo){
+        if (tasks.get(index) instanceof ToDo){
             System.out.println("Todo cannot be snoozed");
             return;
         }
         switch (timeUnit) {
             case year:
-                tasks.get(index - 1).snoozeYear(amount);
+                tasks.get(index).snoozeYear(amount);
                 break;
             case month:
-                tasks.get(index - 1).snoozeMonth(amount);
+                tasks.get(index).snoozeMonth(amount);
                 break;
             case day:
-                tasks.get(index - 1).snoozeDay(amount);
+                tasks.get(index).snoozeDay(amount);
                 break;
             case hours:
-                tasks.get(index - 1).snoozeHour(amount);
+                tasks.get(index).snoozeHour(amount);
                 break;
             case minutes:
-                tasks.get(index - 1).snoozeMinute(amount);
+                tasks.get(index).snoozeMinute(amount);
                 break;
         }
     }
@@ -178,8 +201,10 @@ public class TaskList {
                 return Integer.compare(getValue(task1), getValue(task2));
             }
         });
+    }
 
-
+    public void reorder(int first, int second) {
+        Collections.swap(tasks, first, second);
     }
 
 }
