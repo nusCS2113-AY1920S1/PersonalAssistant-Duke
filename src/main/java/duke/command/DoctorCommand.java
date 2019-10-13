@@ -18,15 +18,7 @@ public class DoctorCommand extends ArgCommand {
         switches.put("switch", ArgLevel.OPTIONAL);
     }
 
-    public void printArg(PrintStream testPrint) {
-        testPrint.println("Argument: " + arg);
-    }
-
-    public void printSwitches(PrintStream testPrint) {
-        testPrint.println("Switch: " + switchVals.get("switch"));
-    }
-
-    @Override
+   @Override
     public void execute(DukeCore core) {
         core.ui.print("Argument: " + arg + System.lineSeparator() + "Switch: " + switchVals.get("switch"));
     }

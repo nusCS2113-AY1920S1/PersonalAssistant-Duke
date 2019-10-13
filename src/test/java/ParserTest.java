@@ -23,7 +23,7 @@ public class ParserTest {
 
     private Parser uut = new Parser();
 
-    @Test
+    /*@Test
     public void parseCommands_validCommands_correctCommandsReturned() {
         try {
             assertEquals(uut.parse("list").getClass(), ListCommand.class);
@@ -33,5 +33,5 @@ public class ParserTest {
        } catch (DukeException excp) {
             fail("Exception thrown while extracting commands!");
         }
-    }
+    }*/
 }
