@@ -2,14 +2,9 @@ package Commands;
 
 import MovieUI.Controller;
 import MovieUI.MovieHandler;
-import movieRequesterAPI.URLRetriever;
 import task.Deadline;
-import task.Tasks;
 import task.Period;
-import task.TaskList;
-import parser.Parser;
-import object.MovieInfoObject;
-import java.util.ArrayList;
+import ListCommands.WatchlistHandler;
 
 public class AddCommand extends CommandSuper {
     public AddCommand(Controller UIController) {
@@ -32,24 +27,18 @@ public class AddCommand extends CommandSuper {
         String movie = ((MovieHandler)this.getUIController()).getAPIRequester().beginAddRequest(getPayload());
         String type = this.getFlagMap().get("-d").get(0);
         switch (type) {
-            case "D":
+            case " d ":
                 String end_date = this.getFlagMap().get("-e").get(0);
-                String concat = end_date + " " + this.getFlagMap().get("-e").get(1);
-                Deadline deadline = new Deadline(movie, "D", concat);
-                TaskList.addTask(deadline);
+                Deadline deadline = new Deadline(movie, "D", end_date);
+                WatchlistHandler.add(deadline);
                 break;
-            case "P":
+            case " p ":
                 String s_date = this.getFlagMap().get("-s").get(0);
-                String s_time = this.getFlagMap().get("-s").get(1);
-                String s_result = s_date + " " + s_time;
                 String e_date = this.getFlagMap().get("-e").get(0);
-                String e_time = this.getFlagMap().get("-e").get(1);
-                String e_result = e_date + " " + e_time;
-                Period period = new Period(movie, "P", s_result, e_result);
-                TaskList.addTask(period);
+                Period period = new Period(movie, "P", s_date, e_date);
+                WatchlistHandler.add(period);
                 break;
         }
-        ((MovieHandler)this.getUIController()).setFeedbackText("");
-        Parser.listCommand();
+        WatchlistHandler.print_list((MovieHandler)(this.getUIController()));
     }
 }

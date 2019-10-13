@@ -77,7 +77,7 @@ public class Ui {
      */
 
     public static void showListTask(String type, String icon, String message, int num) {
-        MovieHandler.setFeedbackText(space + num + ".[" + type
+       System.out.println(space + num + ".[" + type
             + "][" + icon
             + "] " + message);
     }

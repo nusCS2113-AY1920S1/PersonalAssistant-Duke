@@ -33,7 +33,7 @@ public class Deadline extends Tasks {
     }
 
     public String toMessage() {
-        return description + "(by: " + date.toString() + ")";
+        return description + " (by: " + date.toString() + ")";
     }
 
 }
