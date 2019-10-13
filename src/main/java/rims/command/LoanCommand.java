@@ -19,7 +19,6 @@ public class LoanCommand extends Command {
         this.qty = qty;
         this.loanId = loanId;
         this.stringDate = stringDate;
-
     }
 
     public LoanCommand(String roomName, int loanId, String stringDate) {

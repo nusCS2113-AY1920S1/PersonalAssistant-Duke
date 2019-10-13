@@ -1,4 +1,4 @@
-package rims.core;
+ package rims.core;
 
 import rims.command.*;
 import rims.exception.*;
