@@ -33,7 +33,8 @@ public class AddExpenditureCommand extends Command {
      * @param category    Category of the expenditure.
      * @param type        Represents type of expenditure to be added.
      */
-    public AddExpenditureCommand(String name, double amount, Date date, String description, String category, String type) {
+    public AddExpenditureCommand(String name, double amount, Date date, String description,
+            String category, String type) {
         this.accName = name;
         this.amount = amount;
         this.date = date;

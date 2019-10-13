@@ -233,11 +233,11 @@ class ParseType extends Parser {
                 return deleteCard.getCommand();
             } else if ("/list".equals(command)) {
                 return new ListCardCommand();
-            }else if ("/edit".equals(command)) {
-                ParseCard EditCard = new ParseEditCard(rawData);
-                EditCard.fillHashTable();
-                EditCard.checkParameter();
-                return EditCard.getCommand();
+            } else if ("/edit".equals(command)) {
+                ParseCard editCard = new ParseEditCard(rawData);
+                editCard.fillHashTable();
+                editCard.checkParameter();
+                return editCard.getCommand();
             }
 
             throw new ParserException("You entered an invalid type for card");

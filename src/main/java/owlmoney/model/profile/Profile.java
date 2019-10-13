@@ -94,7 +94,8 @@ public class Profile {
      * @param bankName The name of the bank account.
      * @param ui       required for printing.
      */
-    public void deleteExpenditure(int expIndex, String bankName, Ui ui, String type) throws BankException, TransactionException {
+    public void deleteExpenditure(int expIndex, String bankName, Ui ui,
+            String type) throws BankException, TransactionException {
         if ("bank".equals(type)) {
             bankList.deleteExp(expIndex, bankName, ui);
         }

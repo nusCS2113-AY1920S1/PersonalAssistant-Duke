@@ -2,7 +2,6 @@ package owlmoney.model.card;
 
 import java.util.ArrayList;
 
-import owlmoney.logic.command.exception.CommandException;
 import owlmoney.logic.parser.exception.CardException;
 import owlmoney.model.transaction.Transaction;
 import owlmoney.model.transaction.exception.TransactionException;
@@ -110,7 +109,7 @@ public class CardList {
                 break;
             }
         }
-        if (isEdit == false) {
+        if (!isEdit) {
             throw new CardException("Card could not be found ");
         }
     }
