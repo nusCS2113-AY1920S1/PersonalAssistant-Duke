@@ -1,15 +1,9 @@
 package duke.list.tasklist;
 
 import duke.exception.DukeException;
-import duke.task.duketasks.TentativeScheduling;
-import duke.task.duketasks.Period;
-import duke.task.duketasks.DoAfter;
-import duke.task.duketasks.Duration;
-import duke.task.duketasks.Todo;
-import duke.task.duketasks.Deadline;
-import duke.task.duketasks.Event;
+
 import duke.task.Task;
-import duke.task.duketasks.Recurring;
+
 
 import java.text.ParseException;
 import java.util.ArrayList;
@@ -103,7 +97,7 @@ public class TaskList {
      * @param description String containing the description of the task
      * @param by String containing the date and time of the deadline for the task
      */
-    public void addDeadlineTask(String description, String by) throws ParseException {
+/*    public void addDeadlineTask(String description, String by) throws ParseException {
         taskList.add(new Deadline(description, by));
         int index = taskList.size();
         if (index == 1) {
@@ -114,11 +108,11 @@ public class TaskList {
         System.out.println(MESSAGE_ADDED + "       " + taskList.get(index - 1) + "\n" + MESSAGE_ITEMS1 + index + msg);
     }
 
-    /**
+    *//**
      * Adds event task to taskList.
      * @param description String containing the description of the task
      * @param at String containing the venue of the event
-     */
+     *//*
     public void addEventTask(String description, String at) {
         taskList.add(new Event(description, at));
         int index = taskList.size();
@@ -130,10 +124,10 @@ public class TaskList {
         System.out.println(MESSAGE_ADDED + "       " + taskList.get(index - 1) + "\n" + MESSAGE_ITEMS1 + index + msg);
     }
 
-    /**
+    *//**
      * Adds todo task to taskList.
      * @param description String containing the description of the task
-     */
+     *//*
     public void addTodoTask(String description) {
         taskList.add(new Todo(description));
         int index = taskList.size();
@@ -145,11 +139,11 @@ public class TaskList {
         System.out.println(MESSAGE_ADDED + "       " + taskList.get(index - 1) + "\n" + MESSAGE_ITEMS1 + index + msg);
     }
 
-    /**
+    *//**
      * Adds fixed duration task to taskList.
      * @param description String containing the description of the task
      * @param need String containing time needed for the task
-     */
+     *//*
     public void addDurationTask(String description, String need) {
         taskList.add(new Duration(description, need));
         int index = taskList.size();
@@ -161,12 +155,12 @@ public class TaskList {
         System.out.println(MESSAGE_ADDED + "       " + taskList.get(index - 1) + "\n" + MESSAGE_ITEMS1 + index + msg);
     }
 
-    /**
+    *//**
      * Adds task that has to be done within a certain period of time.
      * @param description String containing the description of the task
      * @param startDate String containing the start date of the period to complete the task.
      * @param endDate String containing the end date of the period to complete the task.
-     */
+     *//*
     public void addPeriodTask(String description, String startDate, String endDate) {
         taskList.add(new Period(description, startDate, endDate));
         int index = taskList.size();
@@ -178,12 +172,12 @@ public class TaskList {
         System.out.println(MESSAGE_ADDED + "       " + taskList.get(index - 1) + "\n" + MESSAGE_ITEMS1 + index + msg);
     }
 
-    /**
+    *//**
      * Adds tasks that will recur daily, weekly, monthly or yearly.
      * @param description String containing the description of the task
      * @param frequency String containing the frequency of recurrence of the task.
      * @param dayOrDate String containing either the day of the date of the recurring task.
-     */
+     *//*
     public void addRecurringTask(String description, String frequency, String dayOrDate) throws ParseException {
         taskList.add(new Recurring(description, frequency, dayOrDate));
         int index = taskList.size();
@@ -195,11 +189,11 @@ public class TaskList {
         System.out.println(MESSAGE_ADDED + "       " + taskList.get(index - 1) + "\n" + MESSAGE_ITEMS1 + index + msg);
     }
   
-    /**
+    *//**
      * Adds todo task need to be done after a specific time or task.
      * @param description String containing the description of the task
      * @param after String containing the specific time or task
-     */
+     *//*
     public void addDoAfterTask(String description, String after) {
         taskList.add(new DoAfter(description, after));
         int index = taskList.size();
@@ -211,11 +205,11 @@ public class TaskList {
         System.out.println(MESSAGE_ADDED + "       " + taskList.get(index - 1) + "\n" + MESSAGE_ITEMS1 + index + msg);
     }
 
-    /**
+    *//**
      * Adds tentative schedule task to taskList.
      * @param description String containing the description of the task
      * @param on String containing the multiple dates and time
-     */
+     *//*
     public void addTentativeSchedulingTask(String description, String on) throws ParseException {
         String[] items = on.split(",");
         ArrayList<Task> tentativeTasks = new ArrayList<>();
@@ -229,7 +223,7 @@ public class TaskList {
             System.out.println("      " + i++ + ". " + task.toString());
         }
         System.out.println("      Pls confirm the scheduling anytime with the command: confirmschedule");
-    }
+    }*/
 
     /**
      * Marks the task as completed.

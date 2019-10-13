@@ -1,13 +1,6 @@
 package duke.storage;
 
 import duke.exception.DukeException;
-import duke.task.duketasks.TentativeScheduling;
-import duke.task.duketasks.Recurring;
-import duke.task.duketasks.Period;
-import duke.task.duketasks.Deadline;
-import duke.task.duketasks.Duration;
-import duke.task.duketasks.Todo;
-import duke.task.duketasks.Event;
 import duke.task.Task;
 import duke.list.tasklist.TaskList;
 
@@ -61,7 +54,7 @@ public class Storage {
      * @return the list of tasks in taskList
      * @throws DukeException if Duke is not able to load the tasks from the file or unable to open the file
      */
-    public ArrayList<Task> load() throws DukeException {
+/*    public ArrayList<Task> load() throws DukeException {
         try {
             FileReader fileReader = new FileReader(filePath);
             BufferedReader bufferedReader = new BufferedReader(fileReader);
@@ -119,7 +112,7 @@ public class Storage {
             System.out.println("Error reading file '" + filePath + "'");
         }
         return arrTaskList;
-    }
+    }*/
 
     private static void assignTaskMarker(String content, Task task) {
         if (content.charAt(4) == '+') {

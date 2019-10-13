@@ -2,7 +2,11 @@ package duke;
 
 import org.junit.jupiter.api.Test;
 import duke.exception.DukeException;
+<<<<<<< HEAD:src/main/oldduke/test/TaskListTest.java
 import duke.list.tasklist.TaskList;
+=======
+import duke.list.TaskList;
+>>>>>>> branch-booking-list:src/test/java/duke/TaskListTest.java
 import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
