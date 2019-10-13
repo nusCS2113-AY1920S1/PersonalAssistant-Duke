@@ -10,6 +10,7 @@ import Commands.COMMAND_KEYS;
 import java.io.IOException;
 import java.util.Arrays;
 
+
 public class CommandParser {
     /**
      * Entry point to command parser Class
@@ -70,6 +71,7 @@ public class CommandParser {
                 System.out.println("Yes");
                 AddCommand wc = new AddCommand(UIController);
                 wc.initCommand(CommandArr, Command, command.getSubRootCommand());
+                break;
             case set:
                 System.out.println("Set");
                 SetCommand stc = new SetCommand(UIController);
@@ -140,6 +142,7 @@ public class CommandParser {
                 AddCommand wc = new AddCommand(UIController);
                 wc.initCommand(CommandArr , Command);
                 CommandStack.pushCmd(wc);
+                break;
             case "set":
                 System.out.println("Set");
                 SetCommand stc = new SetCommand(UIController);
