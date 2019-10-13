@@ -20,16 +20,22 @@ import java.util.ArrayList;
 public class Storage {
 
     private ArrayList<Task> arr = new ArrayList<>();
-    private static final String MANUALPATH = "src/main/manual.txt";
+    private static final String PATH_MANUAL = "src/main/manual.txt";
+    private static final int INDEX_LABEL_END = 7;
+    private static final int INDEX_DESCRIPTION = 0;
+    private static final int INDEX_DATE = 1;
+    private static final int INDEX_START = 0;
+    private static final int INDEX_END = 1;
 
     /**
      * Reads and prints all commands available to user.
+     *
      * @return commandList  ArrayList of available commands.
      * @throws OofException if manual cannot be retrieved from file path.
      */
     public ArrayList<String> readManual() throws OofException {
         try {
-            File file = new File(MANUALPATH);
+            File file = new File(PATH_MANUAL);
             FileReader fileReader = new FileReader(file);
             BufferedReader br = new BufferedReader(fileReader);
             String line;
@@ -42,6 +48,7 @@ public class Storage {
             throw new OofException("Manual Unavailable!");
         }
     }
+
 
     /**
      * Writes Task objects to hard disk.
@@ -76,31 +83,34 @@ public class Storage {
         while ((line = reader.readLine()) != null) {
             counter += 1;
             if (isTodo(line)) {
-                String description = line.substring(7).trim();
-                Task task = new Todo(description);
-                arr.add(task);
+                String details = line.substring(INDEX_LABEL_END).trim();
+                String[] lineSplit = details.split("\\(on: ");
+                String description = lineSplit[INDEX_DESCRIPTION].trim();
+                String on = lineSplit[INDEX_DATE].trim().substring(0, lineSplit[INDEX_DATE].length() - 1);
+                Todo todo = new Todo(description, on);
+                arr.add(todo);
                 if (checkDone(line)) {
                     arr.get(counter - 1).setStatus();
                 }
             } else if (isDeadline(line)) {
-                String details = line.substring(7).trim();
-                String[] lineSplit = details.split("\\(by:");
-                String start = lineSplit[0].trim();
-                String end = lineSplit[1].trim();
-                end = end.substring(0, end.length() - 1);
-                Task task = new Deadline(start, end);
-                arr.add(task);
+                String details = line.substring(INDEX_LABEL_END).trim();
+                String[] lineSplit = details.split("\\(by: ");
+                String description = lineSplit[INDEX_DESCRIPTION].trim();
+                String date = lineSplit[INDEX_DATE].trim().substring(0, lineSplit[INDEX_DATE].length() - 1);
+                Deadline deadline = new Deadline(description, date);
+                arr.add(deadline);
                 if (checkDone(line)) {
                     arr.get(counter - 1).setStatus();
                 }
             } else if (isEvent(line)) {
-                String details = line.substring(7).trim();
+                String details = line.substring(INDEX_LABEL_END).trim();
                 String[] lineSplit = details.split(" \\(from: ");
-                String description = lineSplit[0].trim();
-                String[] dateSplit = lineSplit[1].split(" to: ");
-                dateSplit[1] = dateSplit[1].substring(0, dateSplit[1].length() - 1);
-                Task task = new Event(description, dateSplit[0], dateSplit[1]);
-                arr.add(task);
+                String description = lineSplit[INDEX_DESCRIPTION].trim();
+                String[] dateSplit = lineSplit[INDEX_DATE].split("to: ");
+                String startDate = dateSplit[INDEX_START].trim().substring(0, dateSplit[INDEX_START].length() - 1);
+                String endDate = dateSplit[INDEX_END].trim().substring(0, dateSplit[INDEX_END].length() - 1);
+                Event event = new Event(description, startDate, endDate);
+                arr.add(event);
                 if (checkDone(line)) {
                     arr.get(counter - 1).setStatus();
                 }

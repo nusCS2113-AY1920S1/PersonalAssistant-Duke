@@ -303,9 +303,9 @@ public class Ui {
      *
      * @param yearMonth Object containing month and year information.
      */
-    public void printCalendar(YearMonth yearMonth) {
+    public void printCalendar(YearMonth yearMonth, ArrayList<ArrayList<String[]>> calendar) {
         printCalendarHeader(yearMonth);
-        printCalendarBody(yearMonth);
+        printCalendarBody(yearMonth, calendar);
     }
 
     /**
@@ -319,9 +319,12 @@ public class Ui {
         String month = months[yearMonth.getMonthValue()];
         String year = Integer.toString(yearMonth.getYear());
         System.out.println(month + " " + year);
-        System.out.println("-------------------------------------------------------------------------------------");
-        System.out.println("|    SUN    |    MON    |    TUE    |    WED    |    THU    |    FRI    |    SAT    |");
-        System.out.println("-------------------------------------------------------------------------------------");
+        System.out.println("-----------------------------------------------------------------------------------------"
+                + "------------------------------------------------------------------");
+        System.out.println("|         SUN         |         MON         |         TUE         |         WED         |"
+                + "         THU         |         FRI         |         SAT         |");
+        System.out.println("-----------------------------------------------------------------------------------------"
+                + "------------------------------------------------------------------");
     }
 
     /**
@@ -329,7 +332,7 @@ public class Ui {
      *
      * @param yearMonth Object containing month and year information.
      */
-    public void printCalendarBody(YearMonth yearMonth) {
+    public void printCalendarBody(YearMonth yearMonth, ArrayList<ArrayList<String[]>> calendar) {
         String[] date = {"  ", " 1", " 2", " 3", " 4", " 5", " 6", " 7",
                 " 8", " 9", "10", "11", "12", "13", "14", "15",
                 "16", "17", "18", "19", "20", "21", "22", "23",
@@ -354,16 +357,82 @@ public class Ui {
         for (int week = 0; week < numberOfWeeks; week++) {
             int dayIndex = week * DAYS_IN_WEEK;
             System.out.print("|");
+            int calendarRows = 4;
             for (int day = 0; day < DAYS_IN_WEEK; day++) {
-                System.out.print(" " + calendarDates.get(dayIndex) + "        |");
-                dayIndex++;
+                if (!calendarDates.get(dayIndex + day).equals("  ")) {
+                    int currentDay = Integer.parseInt(calendarDates.get(dayIndex + day).trim());
+                    if (calendar.get(currentDay).size() > calendarRows) {
+                        calendarRows = calendar.get(currentDay).size();
+                    }
+                }
+                System.out.print(" " + calendarDates.get(dayIndex + day) + "                  |");
             }
             System.out.println();
-            System.out.println("|           |           |           |           |           |           |           |");
-            System.out.println("|           |           |           |           |           |           |           |");
-            System.out.println("|           |           |           |           |           |           |           |");
-            System.out.println("|           |           |           |           |           |           |           |");
-            System.out.println("-------------------------------------------------------------------------------------");
+            printCalendarDetails(calendar, calendarDates, dayIndex, calendarRows);
+            System.out.println("-------------------------------------------------------------------------------------"
+                    + "----------------------------------------------------------------------");
+        }
+    }
+
+    /**
+     * Prints calendar details.
+     *
+     * @param calendar      ArrayList containing task information for current month.
+     * @param calendarDates ArrayList containing dates for current month.
+     * @param dayIndex      Offset for current day.
+     * @param calendarRows  Number of rows to be printed for current week.
+     */
+    public void printCalendarDetails(ArrayList<ArrayList<String[]>> calendar, ArrayList<String> calendarDates,
+                                     int dayIndex, int calendarRows) {
+        for (int row = 0; row < calendarRows; row++) {
+            System.out.print("|");
+            for (int day = 0; day < DAYS_IN_WEEK; day++) {
+                String dayString = calendarDates.get(dayIndex + day).trim();
+                if (dayString.equals("") || calendar.get(Integer.parseInt(dayString)).size() <= row) {
+                    System.out.print("                     |");
+                } else {
+                    int currentDay = Integer.parseInt(dayString);
+                    String taskTime = calendar.get(currentDay).get(row)[0];
+                    String taskName = calendar.get(currentDay).get(row)[1];
+                    if (taskTime.equals("")) {
+                        printTodo(taskName);
+                    } else {
+                        printDeadlineAndEvent(taskTime, taskName);
+                    }
+                }
+            }
+            System.out.println();
+        }
+    }
+
+    /**
+     * Prints deadline and event details.
+     *
+     * @param taskTime Time of deadline or event.
+     * @param taskName Name of deadline or event.
+     */
+    public void printDeadlineAndEvent(String taskTime, String taskName) {
+        if (taskName.length() > 13) {
+            taskName = taskName.substring(0, 11);
+            System.out.print(" " + taskTime + " " + taskName + ".. |");
+        } else {
+            taskName = String.format("%-" + 13 + "s", taskName);
+            System.out.print(" " + taskTime + " " + taskName + " |");
+        }
+    }
+
+    /**
+     * Prints todo details.
+     *
+     * @param taskName Name of todo.
+     */
+    public void printTodo(String taskName) {
+        if (taskName.length() > 19) {
+            taskName = taskName.substring(0, 17);
+            System.out.print(" " + taskName + ".. |");
+        } else {
+            taskName = String.format("%-" + 19 + "s", taskName);
+            System.out.print(" " + taskName + " |");
         }
     }
 

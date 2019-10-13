@@ -64,13 +64,14 @@ public class CommandParser {
                 throw new OofException("OOPS!!! Please enter a valid number!");
             }
         case "todo":
-            line = line.replaceFirst("todo ", "");
+            line = line.replaceFirst("todo", "").trim();
             return new AddToDoCommand(line);
         case "deadline":
-            line = line.replaceFirst("deadline ", "");
+            line = line.replaceFirst("deadline", "").trim();
+            System.out.println(line);
             return new AddDeadlineCommand(line);
         case "event":
-            line = line.replaceFirst("event ", "");
+            line = line.replaceFirst("event", "").trim();
             return new AddEventCommand(line);
         case "delete":
             if (argumentArray.length == LENGTH_COMMAND_ONLY) {
@@ -95,12 +96,12 @@ public class CommandParser {
                 throw new OofException("OOPS!!! Please enter a valid number!");
             }
         case "schedule":
-            line = line.replaceFirst("schedule ", "");
+            line = line.replaceFirst("schedule", "").trim();
             return new ScheduleCommand(line);
         case "recurring":
             if (argumentArray.length == LENGTH_COMMAND_ONLY) {
                 throw new OofException("OOPS!!! Please enter the task number and number of recurrences!");
-            } else if (argumentArray.length ==  LENGTH_COMMAND_AND_TASK) {
+            } else if (argumentArray.length == LENGTH_COMMAND_AND_TASK) {
                 throw new OofException("OOPS!!! Please enter the number of recurrences!");
             }
             try {
@@ -118,7 +119,7 @@ public class CommandParser {
         case "calendar":
             return new CalendarCommand(argumentArray);
         case "free":
-            line = line.replaceFirst("free ", "");
+            line = line.replaceFirst("free", "").trim();
             return new FreeCommand(line);
         default:
             throw new OofException("OOPS!!! I'm sorry, but I don't know what that means :-(");
