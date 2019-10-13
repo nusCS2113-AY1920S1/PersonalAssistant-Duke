@@ -201,10 +201,16 @@ public class MovieHandler extends Controller implements RequestListener {
     public void requestCompleted(ArrayList<MovieInfoObject> moviesInfo) {
         // Build the Movie poster views and add to the flow pane on the main thread
         System.out.print("Request received");
-        SearchResultContext.addResults(moviesInfo);
-        mMovies = moviesInfo;
+        final ArrayList<MovieInfoObject> MoviesFinal = Blacklist.filter(moviesInfo);
+        for(MovieInfoObject mf: MoviesFinal){
+
+            System.out.println(mf.getTitle());
+        }
+        System.out.print("Request rsdceceived");
+        SearchResultContext.addResults(MoviesFinal);
+        mMovies = MoviesFinal;
         mImagesLoadingProgress = new double[mMovies.size()];
-        Platform.runLater(() -> buildMoviesFlowPane(moviesInfo));
+        Platform.runLater(() -> buildMoviesFlowPane(MoviesFinal));
 
     }
 

@@ -1,5 +1,7 @@
 package Commands;
 
+import Contexts.SearchResultContext;
+import EPstorage.Blacklist;
 import MovieUI.Controller;
 import MovieUI.MovieHandler;
 import movieRequesterAPI.URLRetriever;
@@ -23,6 +25,9 @@ public class AddCommand extends CommandSuper {
             case watchlist:
                 addToWatchList();
                 break;
+            case blacklist:
+                addToBlackList();
+                break;
             default:
                 break;
         }
@@ -35,4 +40,33 @@ public class AddCommand extends CommandSuper {
         TaskList.addTask(deadline);
         Parser.listCommand();
     }
+
+    public static boolean isInteger(String s, int radix) {
+        if(s.isEmpty()) return false;
+        for(int i = 0; i < s.length(); i++) {
+            if(i == 0 && s.charAt(i) == '-') {
+                if(s.length() == 1) return false;
+                else continue;
+            }
+            if(Character.digit(s.charAt(i),radix) < 0) return false;
+        }
+        return true;
+    }
+
+    public void addToBlackList() {
+        System.out.print("HERE!!");
+        String movie = getPayload().trim();
+        if(isInteger(movie,10)){
+            Blacklist.addToBlacklist(SearchResultContext.getIndex(Integer.parseInt(movie)));
+        }else{
+            Blacklist.addToBlacklist(movie);
+        }
+
+        Blacklist.printList();
+
+
+
+    }
+
+
 }

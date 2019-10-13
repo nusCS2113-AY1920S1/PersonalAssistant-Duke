@@ -16,13 +16,17 @@ public class CommandContext {
 
     public static void initialiseContext(){
 
-        for( Map.Entry<COMMAND_KEYS, COMMAND_KEYS[]> e: CommandStructure.cmdStructure.entrySet()){
-            keywordsRoot.add(e.getKey().toString());
-            for(COMMAND_KEYS a: e.getValue()){
-                keywordsSubRoot.add(a.toString());
-            }
+        if(keywordsRoot.size() == 0){
+            for( Map.Entry<COMMAND_KEYS, COMMAND_KEYS[]> e: CommandStructure.cmdStructure.entrySet()){
+                keywordsRoot.add(e.getKey().toString());
+                for(COMMAND_KEYS a: e.getValue()){
+                    keywordsSubRoot.add(a.toString());
+                }
 
+            }
         }
+
+
 
     }
 

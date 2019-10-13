@@ -90,6 +90,13 @@ public class CommandParser {
                 pfc.initCommand(CommandArr, Command , command.getSubRootCommand());
                 CommandStack.pushCmd(pfc);
                 break;
+            case remove:
+                System.out.println("REmove");
+                RemoveCommand removec = new RemoveCommand(UIController);
+                removec.initCommand(CommandArr , Command);
+
+                CommandStack.pushCmd(removec);
+                break;
             default:
                 CommandPair pair = Command_Debugger.commandSpellChecker(CommandArr , COMMAND_KEYS.none , UIController);
         }
@@ -156,6 +163,13 @@ public class CommandParser {
 
                 CommandStack.pushCmd(pc);
                 break;
+            case "remove":
+                System.out.println("Remove");
+                RemoveCommand removec = new RemoveCommand(UIController);
+                removec.initCommand(CommandArr , Command);
+
+                CommandStack.pushCmd(removec);
+                break;
             case "preference":
                 System.out.println("Preference");
                 PreferenceCommand pfc = new PreferenceCommand(UIController);
@@ -164,7 +178,11 @@ public class CommandParser {
                 break;
             default:
                 CommandPair pair = Command_Debugger.commandSpellChecker(CommandArr , COMMAND_KEYS.none, UIController);
-                ((MovieHandler)UIController).setFeedbackText("Did you mean :"+ pair.getRootCommand() + " " + pair.getSubRootCommand() + " " + String.join(" ", Arrays.copyOfRange(CommandArr,2 , CommandArr.length)));
+                if(pair.getSubRootCommand() == COMMAND_KEYS.none){
+                    ((MovieHandler)UIController).setFeedbackText("Did you mean :"+ pair.getRootCommand() );
+                }else{
+                    ((MovieHandler)UIController).setFeedbackText("Did you mean :"+ pair.getRootCommand() + " " + pair.getSubRootCommand() + " " + String.join(" ", Arrays.copyOfRange(CommandArr,2 , CommandArr.length)));
+                }
                 processCommand(pair , CommandArr , Command, UIController);
                 break;
         }

@@ -21,11 +21,14 @@ public class HelpCommand extends CommandSuper {
     }
 
     private String getHelp() {
+        if(getPayload() ==""){
+            return "Try one of the following commands : \n" + CommandStructure.AllRoots.toString();
+        }
         String printer = "";
         for(Map.Entry<COMMAND_KEYS, COMMAND_KEYS[]> entry : CommandStructure.cmdStructure.entrySet()){
             if(entry.getKey() == this.getSubRootCommand()) {
                 for(COMMAND_KEYS c: entry.getValue() ){
-                    printer += ("\n\t" + c.toString() + " : Do for fun lol");
+                    printer += ("\n\t" + c.toString() + " " + CommandStructure.cmdHelp.get(getSubRootCommand()));
                 }
             }
         }

@@ -1,6 +1,7 @@
 package Commands;
 
 import MovieUI.Controller;
+import MovieUI.MovieHandler;
 import movieRequesterAPI.RequestListener;
 import movieRequesterAPI.RetrieveRequest;
 import object.MovieInfoObject;
@@ -105,21 +106,31 @@ public abstract class CommandSuper {
      * @param CommandArr command that was entered by the user in split array form
      */
     public void subCommand(String[] CommandArr){
-        try{
-            for(COMMAND_KEYS cmd : SubCommand){
-                if(COMMAND_KEYS.valueOf(CommandArr[1])== cmd){
-                    System.out.println("FOUND Sub command" + cmd);
-                    subRootCommand = cmd;
-                    execute = true;
-                    return;
-                }
+        if(CommandArr.length <= 1){
+            subRootCommand = COMMAND_KEYS.none;
+            if(CommandStructure.cmdStructure.get(Root).length > 0){
+                setExecute(false);
+                ((MovieHandler)UIController).setFeedbackText("You are missing a few Arguments!!");
             }
-        } catch (Exception e) {
-            System.out.println(e);
+
+        }else{
+            try{
+                for(COMMAND_KEYS cmd : SubCommand){
+                    if(COMMAND_KEYS.valueOf(CommandArr[1])== cmd){
+                        System.out.println("FOUND Sub command" + cmd);
+                        subRootCommand = cmd;
+                        execute = true;
+                        return;
+                    }
+                }
+            } catch (Exception e) {
+                System.out.println(e);
+            }
+
+            CommandPair cmds = Command_Debugger.commandSpellChecker(CommandArr, Root, this.UIController);
+            subRootCommand = cmds.getSubRootCommand();
         }
 
-        CommandPair cmds = Command_Debugger.commandSpellChecker(CommandArr, Root, this.UIController);
-        subRootCommand = cmds.getSubRootCommand();
 
     }
 
