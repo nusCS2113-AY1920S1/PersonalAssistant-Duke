@@ -2,7 +2,6 @@ package views;
 
 import controllers.ConsoleInputController;
 import models.task.Task;
-import models.temp.commands.RescheduleCommand;
 import models.data.IProject;
 import models.member.Member;
 import models.temp.tasks.ITask;
@@ -232,20 +231,6 @@ public class CLIView {
         toPrint.add("Here are the free time slots you have between your tasks:");
         toPrint.addAll(freeTimeSlots);
         consolePrint(toPrint.toArray(new String[0]));
-    }
-
-    /**
-     * Method that is called when user wishes to reschedule a task.
-     * This method is responsible for handling printing of horizontal lines.
-     * However, certain printing has been abstracted to RescheduleCommand
-     * @param taskList : Current list of tasks.
-     * @param rescheduleCommand : Command that holds the logic for rescheduling tasks and
-*                                 printing certain reschedule messages.
-     */
-    public void rescheduleTask(TaskList taskList, RescheduleCommand rescheduleCommand) {
-        System.out.println(horiLine);
-        rescheduleCommand.execute(taskList);
-        System.out.println(horiLine);
     }
 
     /**

@@ -1,7 +1,5 @@
 package controllers;
 
-import controllers.IViewController;
-import controllers.ProjectInputController;
 import controllers.temp.PeriodTaskFactory;
 import controllers.temp.RecurringFactory;
 import controllers.temp.TaskFactory;
@@ -18,7 +16,7 @@ import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Scanner;
-import models.temp.commands.RescheduleCommand;
+
 import models.data.IProject;
 import models.temp.tasks.IRecurring;
 import models.temp.tasks.ITask;
@@ -164,15 +162,6 @@ public class ConsoleInputController implements IViewController {
                 consoleView.findFreeSlots(taskList, input);
             } catch (ParseException e) {
                 System.out.print("Wrong date time input format");
-            }
-            break;
-        case "reschedule":
-            try {
-                RescheduleCommand rescheduleCommand = new RescheduleCommand(input);
-                consoleView.rescheduleTask(taskList, rescheduleCommand);
-                saveData();
-            } catch (ArrayIndexOutOfBoundsException newException) {
-                consoleView.invalidCommandMessage(newException);
             }
             break;
         case "recurring":
