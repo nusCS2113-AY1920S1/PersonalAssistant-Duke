@@ -47,14 +47,14 @@ public class TaskFactory {
      */
     public TaskState convertStringToTaskState(String inputState) {
         switch (inputState) {
-            case "done":
-                return TaskState.DONE;
-            case "todo":
-                return TaskState.TODO;
-            case "doing":
-                return TaskState.DOING;
-            default:
-                return TaskState.OPEN;
+        case "done":
+            return TaskState.DONE;
+        case "todo":
+            return TaskState.TODO;
+        case "doing":
+            return TaskState.DOING;
+        default:
+            return TaskState.OPEN;
         }
     }
 }
