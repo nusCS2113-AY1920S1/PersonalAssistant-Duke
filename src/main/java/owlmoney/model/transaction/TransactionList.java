@@ -4,7 +4,6 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Stack;
 
 import owlmoney.ui.Ui;
 
@@ -50,23 +49,21 @@ public class TransactionList {
             ui.printError("There are no transactions");
         } else {
             int counter = displayNum;
-            Stack<Transaction> displayStack = new Stack<>();
+            boolean expenditureExist = false;
+            int printCounter = 1;
             for (int i = expLists.size() - 1; i >= 0; i--) {
                 if (!"deposit".equals(expLists.get(i).getCategory())) {
-                    displayStack.push(expLists.get(i));
-                    ui.printMessage((i + 1) + ":\n" + expLists.get(i).getDetails() + "\n");
+                    ui.printMessage((printCounter) + ":\n" + expLists.get(i).getDetails() + "\n");
                     counter--;
+                    expenditureExist = true;
+                    printCounter++;
                 }
                 if (counter <= 0) {
                     break;
                 }
             }
-            if (displayStack.isEmpty()) {
+            if (!expenditureExist) {
                 ui.printError("No expenditure found");
-            } else {
-                while (!displayStack.isEmpty()) {
-                    displayStack.pop().getDetails();
-                }
             }
         }
     }
@@ -82,22 +79,21 @@ public class TransactionList {
             ui.printError("There are no transactions");
         } else {
             int counter = displayNum;
-            Stack<Transaction> displayStack = new Stack<>();
+            boolean depositExist = false;
+            int printCounter = 1;
             for (int i = expLists.size() - 1; i >= 0; i++) {
                 if ("deposit".equals(expLists.get(i).getCategory())) {
-                    displayStack.push(expLists.get(i));
+                    ui.printMessage((printCounter) + ":\n" + expLists.get(i).getDetails() + "\n");
                     counter--;
+                    depositExist = true;
+                    printCounter++;
                 }
                 if (counter <= 0) {
                     break;
                 }
             }
-            if (displayStack.isEmpty()) {
+            if (!depositExist) {
                 ui.printError("No deposit found");
-            } else {
-                while (!displayStack.isEmpty()) {
-                    displayStack.pop().getDetails();
-                }
             }
         }
     }

@@ -40,7 +40,7 @@ public class Saving extends Bank {
      */
     @Override
     public String getDescription() {
-        return super.getDescription() + "\nIncome: " + new DecimalFormat("0.00").format(getIncome());
+        return super.getDescription() + "\nIncome: $" + new DecimalFormat("0.00").format(getIncome());
     }
 
     /**

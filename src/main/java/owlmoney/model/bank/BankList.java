@@ -12,7 +12,7 @@ import owlmoney.ui.Ui;
 public class BankList {
     private ArrayList<Bank> bankLists;
     private static final String SAVING = "saving";
-    private static final String INVESTMENT = "investment";
+    //private static final String INVESTMENT = "investment";
 
     /**
      * Creates a instance of BankList that contains an arrayList of Banks.
@@ -52,6 +52,10 @@ public class BankList {
      * @param ui      required for printing.
      */
     public void addBank(Bank newBank, Ui ui) {
+        if (bankAccountExists(newBank.getAccountName())) {
+            ui.printError("There is already a bank account with the name " + newBank.getAccountName());
+            return;
+        }
         bankLists.add(newBank);
         ui.printMessage("Added new bank: ");
         ui.printMessage(newBank.getDescription());
@@ -109,6 +113,21 @@ public class BankList {
     }
 
     /**
+     * Checks if the bank name that the user specified exists.
+     *
+     * @param bankName name of bank account.
+     * @return the result bankName exists.
+     */
+    private boolean bankAccountExists(String bankName) {
+        for (int i = 0; i < getBankListSize(); i++) {
+            if (bankName.equals(bankLists.get(i).getAccountName())) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
      * Checks if the user passes all requirements to delete a bank account.
      *
      * @param bankName name of bank account.
@@ -120,20 +139,20 @@ public class BankList {
         if (isEmpty()) {
             ui.printError("There are 0 bank accounts in your profile");
             return false;
-        } else {
-            int numberOfSavingAccount = getNumberOfAccountType(SAVING);
-            if (numberOfSavingAccount == 1) {
-                ui.printError("There must be at least 1 savings account");
-                return false;
-            } else {
-                if (hasCorrectBankNameAndType(bankName, bankType)) {
-                    return true;
-                } else {
-                    ui.printError("The bank account is not of correct type or the bank name is wrong");
-                    return false;
-                }
-            }
         }
+        if (bankType.equals(SAVING) && getNumberOfAccountType(SAVING) == 1) {
+            ui.printError("There must be at least 1 savings account");
+            return false;
+        }
+        if (!bankAccountExists(bankName)) {
+            ui.printError("There are no bank accounts with name " + bankName);
+            return false;
+        }
+        if (hasCorrectBankNameAndType(bankName, bankType)) {
+            return true;
+        }
+        ui.printError("The bank account is not of correct type");
+        return false;
     }
 
     /**
