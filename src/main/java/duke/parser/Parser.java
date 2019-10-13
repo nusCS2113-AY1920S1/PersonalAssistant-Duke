@@ -13,6 +13,10 @@ import duke.exception.DukeException;
 import static duke.common.Messages.*;
 import static duke.common.RecipeMessages.*;
 
+import duke.command.bookingcommands.*;
+
+import static duke.common.Messages.ERROR_MESSAGE_RANDOM;
+
 
 /**
  * Making sense of the user input command.
@@ -45,6 +49,40 @@ public class Parser {
         } else if (input.contains(COMMAND_FIND)) {
             if (input.trim().substring(0, 4).equals(COMMAND_FIND)) {
                 return new FindCommand(input);
+            } else {
+                throw new DukeException(ERROR_MESSAGE_RANDOM);
+            }
+        } else {
+            throw new DukeException(ERROR_MESSAGE_RANDOM);
+        }
+    }
+
+
+    public static CommandBooking parseBooking(String userInputCommand) throws DukeException {
+
+        if (userInputCommand.trim().equals("allbookings")) {
+            return new AllBookingsCommand();
+        } else if (userInputCommand.contains("addbooking")) {
+            if (userInputCommand.trim().substring(0, 10).equals("addbooking")) {
+                return new AddBookingCommand(userInputCommand);
+            } else {
+                throw new DukeException(ERROR_MESSAGE_RANDOM);
+            }
+        } else if (userInputCommand.contains("deletebooking")) {
+            if (userInputCommand.trim().substring(0, 13).equals("deletebooking")) {
+                return new DeleteBookingCommand(userInputCommand);
+            } else {
+                throw new DukeException(ERROR_MESSAGE_RANDOM);
+            }
+        } else if (userInputCommand.contains("viewbookingschedule")) {
+            if (userInputCommand.trim().substring(0, 19).equals("viewbookingschedule")) {
+                return new ViewBookingScheduleCommand(userInputCommand);
+            } else {
+                throw new DukeException(ERROR_MESSAGE_RANDOM);
+            }
+        } else if (userInputCommand.contains("findbooking")) {
+            if (userInputCommand.trim().substring(0, 11).equals("findbooking")) {
+                return new FindBookingCommand(userInputCommand);
             } else {
                 throw new DukeException(ERROR_MESSAGE_RANDOM);
             }
