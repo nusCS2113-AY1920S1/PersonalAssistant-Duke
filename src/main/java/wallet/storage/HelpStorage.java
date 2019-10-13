@@ -19,7 +19,7 @@ public class HelpStorage {
      */
     public void sectionData(int input) {
 
-        String chosenPath = null;
+        String chosenPath;
 
         switch (input) {
 
@@ -49,8 +49,6 @@ public class HelpStorage {
         }
 
 
-
-
         try {
 
             //RandomAccessFile raf = new RandomAccessFile(path, "r");
@@ -58,8 +56,8 @@ public class HelpStorage {
             InputStreamReader isr = new InputStreamReader(is);
             BufferedReader br = new BufferedReader(isr);
             String str;
-            while ( (str = br.readLine()) != null) {
-               ;
+            while ((str = br.readLine()) != null) {
+                ;
                 String[] data = str.split(",");
                 if (data.length == 2) {
                     String row = String.format("%-20s %s", data[0], data[1]);

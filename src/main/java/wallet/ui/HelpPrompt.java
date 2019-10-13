@@ -22,7 +22,7 @@ public class HelpPrompt {
      */
     public int prompt() {
 
-        int selection = -1;
+        int selection;
         int index = 1;
         Ui tempInterface = new Ui();
 

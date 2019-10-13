@@ -11,6 +11,7 @@ import wallet.model.task.DoWithinPeriod;
 import wallet.model.task.Event;
 import wallet.model.task.Task;
 import wallet.model.task.Todo;
+import wallet.logic.parser.ContactParserHelper;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -31,41 +32,41 @@ public class AddCommandParser implements Parser<AddCommand> {
     public AddCommand parse(String input) throws ParseException {
         String[] arguments = input.split(" ", 2);
         switch (arguments[0]) {
-        case "todo":
-        case "event":
-        case "deadline":
-        case "dowithin":
-            Task task = parseTask(arguments[0], arguments[1]);
-            if (task != null) {
-                return new AddCommand(task);
-            } else {
-                break;
-            }
-        case "expense":
-            Expense expense = parseExpense(arguments[1]);
-            if (expense != null) {
-                return new AddCommand(expense);
-            } else {
-                break;
-            }
+            case "todo":
+            case "event":
+            case "deadline":
+            case "dowithin":
+                Task task = parseTask(arguments[0], arguments[1]);
+                if (task != null) {
+                    return new AddCommand(task);
+                } else {
+                    break;
+                }
+            case "expense":
+                Expense expense = parseExpense(arguments[1]);
+                if (expense != null) {
+                    return new AddCommand(expense);
+                } else {
+                    break;
+                }
 
-        case "contact":
-            Contact contact = parseContact(arguments[1]);
-            if (contact != null) {
-                return new AddCommand(contact);
-            } else {
-                break;
-            }
-        case "loan":
-            Loan loan = parseLoan(arguments[1]);
-            if (loan != null) {
-                return new AddCommand(loan);
-            } else {
-                break;
-            }
-        default:
-            System.out.println(AddCommand.MESSAGE_USAGE);
-            return null;
+            case "contact":
+                Contact contact = parseContact(arguments[1]);
+                if (contact != null) {
+                    return new AddCommand(contact);
+                } else {
+                    break;
+                }
+            case "loan":
+                Loan loan = parseLoan(arguments[1]);
+                if (loan != null) {
+                    return new AddCommand(loan);
+                } else {
+                    break;
+                }
+            default:
+                System.out.println(AddCommand.MESSAGE_USAGE);
+                return null;
         }
         return null;
     }
@@ -150,18 +151,29 @@ public class AddCommandParser implements Parser<AddCommand> {
 
     /**
      * Returns a Contact object.
+     * Special Cases Considered:
+     * david tang /d friend /p => cannot, fields taken as empty\
+     * david /d /p=> cannot, fields taken as empty
+     * /d /d friend => cannot, /d read as command option
+     * david tag /d friend/p 8092=> cannot, string split by space
+     * DAVID /d /d friend /p 8092 => can, second /d taken as part of details
+     * /david tang /d friend => can /david tang taken as name
+     * david /p 8209 9056 /d sis => no fixed order, spacing allowed in phone number
      *
      * @param input The string after "contact".
      * @return The Contact object.
      * @throws ArrayIndexOutOfBoundsException Out of index.
      */
     private Contact parseContact(String input) throws ArrayIndexOutOfBoundsException {
-        Contact contact = null;
-
-        String[] info = input.split(" ", 3);
-        contact = new Contact(info[0], info[1], info[2]);
-
-        return contact;
+        Contact contact;
+        String[] info = input.split(" ");
+        ContactParserHelper contactHelper = new ContactParserHelper();
+        contact = contactHelper.processInput(info);
+        if (contact == null) {
+            return null;
+        } else {
+            return contact;
+        }
     }
 
     /**

@@ -2,9 +2,9 @@
 command	,list contact
 desc,list all contacts
 --Add Contact--
-command	,add contact <NAME> [DETAILS] [PHONE NUMBER]
+command	,add contact <NAME> [/d DETAILS] [/p PHONE NUMBER]
 desc,add new contact
-example,add contact david friends 82345679
+example,add contact david /d friend. 123@gmail.com. /p 82345679
 --Edit Contact--
 command	,edit contact <INDEX in contact list> [/n new NAME] [/d new DETAILS] [/p new PHONE NUMBER] 
 desc,edit existing contact
