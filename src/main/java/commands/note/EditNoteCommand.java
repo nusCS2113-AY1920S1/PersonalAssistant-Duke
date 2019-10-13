@@ -27,13 +27,12 @@ public class EditNoteCommand extends AddNoteCommand {
      * @param period is either day, week or month
      * @throws DukeException if the note to edit does not exist
      */
-    private void editNoteInList(int noteNumber, ArrayList<Note> listToEdit, LocalDate dateToEdit,
-                                String editedNote, String period, String fileName) throws DukeException{
+    protected void editNoteInList(int noteNumber, ArrayList<Note> listToEdit, LocalDate dateToEdit,
+                                  String editedNote, String period, String fileName) throws DukeException{
         for (Note n: listToEdit) {
             if (n.noteDate.equals(dateToEdit)) {
                 try {
                     n.notes.set(noteNumber-1, editedNote);
-                    //WRITE TO FILE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
                     NoteStorage.writeToFile(fileName, listToEdit);
                     return;
                 } catch (IndexOutOfBoundsException e) {
@@ -52,7 +51,7 @@ public class EditNoteCommand extends AddNoteCommand {
      * @param usersNote the edited version of the note
      * @param period is either day, week or month
      */
-    private void printEditSuccess(String usersNote, String period) {
+    protected void printEditSuccess(String usersNote, String period) {
         System.out.println("Got it. I've edited this note for that " + period +  ":");
         System.out.println(usersNote);
     }

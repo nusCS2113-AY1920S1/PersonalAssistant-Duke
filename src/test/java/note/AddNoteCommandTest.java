@@ -17,16 +17,14 @@ import java.time.LocalDate;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class AddNoteCommandTest {
+class AddNoteCommandTest extends AddNoteCommand{
     private ByteArrayOutputStream output = new ByteArrayOutputStream();
     private PrintStream mine = new PrintStream(output);
     private PrintStream original = System.out;
-    private AddNoteCommand anc;
 
     @BeforeEach
-    void setup() {
+    void setupStream() {
         System.setOut(mine);
-        anc = new AddNoteCommand();
     }
 
     @AfterEach
@@ -35,13 +33,12 @@ class AddNoteCommandTest {
         System.setOut(original);
     }
 
-    //whatIsBeingTested_descriptionOfTestInputs_expectedOutcome
     //processCommand() tests
     @Test
     void processCommand_emptyDescription_exceptionThrown() {
         String[] command = "addNote".split(" ");
         try {
-            anc.processCommand(command, "addNote");
+            processCommand(command, "addNote");
             fail();
         } catch (DukeException d) {
             assertEquals("OOPS!!! The description of a(n) addNote cannot be empty.", d.getMessage());
@@ -52,7 +49,7 @@ class AddNoteCommandTest {
     void processCommand_wrongSecondWord_exceptionThrown() {
         String[] command = "addNote weekly 2019-09-09".split(" ");
         try {
-            anc.processCommand(command, "addNote");
+            processCommand(command, "addNote");
             fail();
         } catch (DukeException d) {
             assertEquals("The second word in the command has to be \'day\', \'week\' or \'month\'.", d.getMessage());
@@ -63,7 +60,7 @@ class AddNoteCommandTest {
     void processCommand_emptyDateField_exceptionThrown() {
         String[] command = "addNote day".split(" ");
         try {
-            anc.processCommand(command, "addNote");
+            processCommand(command, "addNote");
             fail();
         } catch (DukeException d) {
             assertEquals("Please input a date.", d.getMessage());
@@ -74,7 +71,7 @@ class AddNoteCommandTest {
     void processCommand_wrongDateFormatForDay_exceptionThrown() {
         String[] command = "addNote day 2019-1-1".split(" ");
         try {
-            anc.processCommand(command, "addNote");
+            processCommand(command, "addNote");
             fail();
         } catch (DukeException d) {
             assertEquals("The date has to been in YYYY-MM-DD format.", d.getMessage());
@@ -85,7 +82,7 @@ class AddNoteCommandTest {
     void processCommand_wrongDateFormatForWeek_exceptionThrown() {
         String[] command = "addNote week 2019-2-1".split(" "); //this date is not a Monday
         try {
-            anc.processCommand(command, "addNote");
+            processCommand(command, "addNote");
             fail();
         } catch (DukeException d) {
             assertEquals("The date has to been in YYYY-MM-DD format.", d.getMessage());
@@ -96,7 +93,7 @@ class AddNoteCommandTest {
     void processCommand_wrongDateFormatForMonth_exceptionThrown() {
         String[] command = "addNote month 2019-2-1".split(" ");
         try {
-            anc.processCommand(command, "addNote");
+            processCommand(command, "addNote");
             fail();
         } catch (DukeException d) {
             assertEquals("The date has to been in YYYY-MM format.", d.getMessage());
@@ -107,7 +104,7 @@ class AddNoteCommandTest {
     void processCommand_dateForWeekIsNotMonday_exceptionThrown() {
         String[] command = "addNote week 2019-02-01".split(" ");
         try {
-            anc.processCommand(command, "addNote");
+            processCommand(command, "addNote");
             fail();
         } catch (DukeException d) {
             assertEquals("OOPS!!! The date provided must be a Monday.", d.getMessage());
@@ -122,7 +119,7 @@ class AddNoteCommandTest {
         String[] command = ui.FullCommand.split(" ");
         LocalDate userDate;
         try {
-            userDate = anc.processCommand(command, "addNote");
+            userDate = processCommand(command, "addNote");
         } catch (DukeException e) {
             ui.showErrorMessage(e);
             return;
@@ -133,13 +130,13 @@ class AddNoteCommandTest {
         try {
             switch (command[1]) {
             case "day":
-                noteSpecified = anc.addToList(NoteList.daily, userDate, usersNote, command[2], "NoteDaily.txt");
+                noteSpecified = addToList(NoteList.daily, userDate, usersNote, command[2], "NoteDaily.txt");
                 break;
             case "week":
-                noteSpecified = anc.addToList(NoteList.weekly, userDate, usersNote, command[2], "NoteWeekly.txt");
+                noteSpecified = addToList(NoteList.weekly, userDate, usersNote, command[2], "NoteWeekly.txt");
                 break;
             case "month":
-                noteSpecified = anc.addToList(NoteList.monthly, userDate, usersNote, command[2], "NoteMonthly.txt");
+                noteSpecified = addToList(NoteList.monthly, userDate, usersNote, command[2], "NoteMonthly.txt");
                 break;
             default:
                 noteSpecified = null;
@@ -147,7 +144,7 @@ class AddNoteCommandTest {
             }
 
             assert noteSpecified != null : "there is a bug in AddNoteCommand";
-            anc.printConfirmationMessage(usersNote, noteSpecified.notes.size(), command[1]);
+            printConfirmationMessage(usersNote, noteSpecified.notes.size(), command[1]);
         } catch (IOException e) {
             System.out.println("The " + command[1] + " file cannot be opened.");
         }
@@ -162,7 +159,7 @@ class AddNoteCommandTest {
         String[] command = ui.FullCommand.split(" ");
         LocalDate userDate;
         try {
-            userDate = anc.processCommand(command, "addNote");
+            userDate = processCommand(command, "addNote");
         } catch (DukeException e) {
             ui.showErrorMessage(e);
             return;
@@ -173,13 +170,13 @@ class AddNoteCommandTest {
         try {
             switch (command[1]) {
             case "day":
-                noteSpecified = anc.addToList(NoteList.daily, userDate, usersNote, command[2], "NoteDaily.txt");
+                noteSpecified = addToList(NoteList.daily, userDate, usersNote, command[2], "NoteDaily.txt");
                 break;
             case "week":
-                noteSpecified = anc.addToList(NoteList.weekly, userDate, usersNote, command[2], "NoteWeekly.txt");
+                noteSpecified = addToList(NoteList.weekly, userDate, usersNote, command[2], "NoteWeekly.txt");
                 break;
             case "month":
-                noteSpecified = anc.addToList(NoteList.monthly, userDate, usersNote, command[2], "NoteMonthly.txt");
+                noteSpecified = addToList(NoteList.monthly, userDate, usersNote, command[2], "NoteMonthly.txt");
                 break;
             default:
                 noteSpecified = null;
@@ -187,7 +184,7 @@ class AddNoteCommandTest {
             }
 
             assert noteSpecified != null : "there is a bug in AddNoteCommand";
-            anc.printConfirmationMessage(usersNote, noteSpecified.notes.size(), command[1]);
+            printConfirmationMessage(usersNote, noteSpecified.notes.size(), command[1]);
         } catch (IOException e) {
             System.out.println("The " + command[1] + " file cannot be opened.");
         }
@@ -202,7 +199,7 @@ class AddNoteCommandTest {
         String[] command = ui.FullCommand.split(" ");
         LocalDate userDate;
         try {
-            userDate = anc.processCommand(command, "addNote");
+            userDate = processCommand(command, "addNote");
         } catch (DukeException e) {
             ui.showErrorMessage(e);
             return;
@@ -213,13 +210,13 @@ class AddNoteCommandTest {
         try {
             switch (command[1]) {
             case "day":
-                noteSpecified = anc.addToList(NoteList.daily, userDate, usersNote, command[2], "NoteDaily.txt");
+                noteSpecified = addToList(NoteList.daily, userDate, usersNote, command[2], "NoteDaily.txt");
                 break;
             case "week":
-                noteSpecified = anc.addToList(NoteList.weekly, userDate, usersNote, command[2], "NoteWeekly.txt");
+                noteSpecified = addToList(NoteList.weekly, userDate, usersNote, command[2], "NoteWeekly.txt");
                 break;
             case "month":
-                noteSpecified = anc.addToList(NoteList.monthly, userDate, usersNote, command[2], "NoteMonthly.txt");
+                noteSpecified = addToList(NoteList.monthly, userDate, usersNote, command[2], "NoteMonthly.txt");
                 break;
             default:
                 noteSpecified = null;
@@ -227,7 +224,7 @@ class AddNoteCommandTest {
             }
 
             assert noteSpecified != null : "there is a bug in AddNoteCommand";
-            anc.printConfirmationMessage(usersNote, noteSpecified.notes.size(), command[1]);
+            printConfirmationMessage(usersNote, noteSpecified.notes.size(), command[1]);
         } catch (IOException e) {
             System.out.println("The " + command[1] + " file cannot be opened.");
         }
