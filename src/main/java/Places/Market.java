@@ -19,6 +19,10 @@ public class Market {
         return money;
     }
 
+    public void changeMoney(int change) {
+        money += change;
+    }
+
     public JSONObject toJSON() {
         JSONObject obj = new JSONObject();
         obj.put("money", money);

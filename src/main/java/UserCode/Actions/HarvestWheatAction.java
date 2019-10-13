@@ -8,7 +8,6 @@ import UserInterfaces.Ui;
 import org.json.simple.JSONObject;
 
 public class HarvestWheatAction extends Action {
-    int moneyChange = 0; //0 for all actions except sell
 
     public HarvestWheatAction(WheatFarm wheatFarm, ChickenFarm chickenFarm, CowFarm cowFarm) {
         this.wheatFarm = wheatFarm;
@@ -21,14 +20,13 @@ public class HarvestWheatAction extends Action {
     }
 
     @Override
-    public int execute(Ui ui) {
+    public void execute(Ui ui) {
         try {
             wheatFarm.harvestWheat();
             new Simulate(ui, "PlantSeed", 10).simulate();
         } catch (Exception e){
             e.getMessage();
         }
-        return moneyChange;
     }
 
     public JSONObject toJSON() {

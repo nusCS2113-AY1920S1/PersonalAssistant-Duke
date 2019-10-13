@@ -11,11 +11,9 @@ public class WhileTask extends Task {
     }
 
     @Override
-    public int execute(Ui ui) { //if got error during the loop we use FarmioException to break out
-        int moneyChange = 0;
+    public void execute(Ui ui) { //if got error during the loop we use FarmioException to break out
         while (checkCondition()) {
-            moneyChange += action.execute(ui);
+            action.execute(ui);
         }
-            return moneyChange;
     }
 }

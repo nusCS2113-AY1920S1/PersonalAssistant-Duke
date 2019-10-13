@@ -11,14 +11,12 @@ public class ForTask extends Task { //JX PLEASE FILL THIS SHIT UP
     }
 
     @Override
-    public int execute(Ui ui) { //if got error during the loop we use FarmioException to break out
+    public void execute(Ui ui) { //if got error during the loop we use FarmioException to break out
         {
             int repeatNumber = 0;
-            int moneyChange = 0;
             for (int i = 0; i < repeatNumber; i ++) {
-                moneyChange += action.execute(ui);
+                action.execute(ui);
             }
-            return moneyChange;
         }
     }
 }

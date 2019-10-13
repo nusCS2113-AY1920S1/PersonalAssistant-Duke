@@ -17,12 +17,12 @@ public class IfElseTask extends Task {
     }
 
     @Override
-    public int execute(Ui ui) {
+    public void execute(Ui ui) {
         {
             if (checkCondition()) {
-                return ifAction.execute(ui);
+                ifAction.execute(ui);
             } else {
-                return elseAction.execute(ui);
+                elseAction.execute(ui);
             }
         }
     }
