@@ -3,7 +3,10 @@ package compal.logic.commands;
 import compal.commons.Compal;
 import compal.model.tasks.Task;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -30,6 +33,7 @@ public abstract class Command {
     public static final String TOKEN_END_TIME = "/end";
     public static final String TOKEN_DATE = "/date";
     private static final String TOKEN_PRIORITY = "/priority";
+    private static final String EMPTY_INPUT_STRING = "";
     public Compal compal;
 
     /**
@@ -55,7 +59,7 @@ public abstract class Command {
         }
         int splitPoint = restOfInput.indexOf(TOKEN_SLASH);
         String desc = restOfInput.substring(0, splitPoint).trim();
-        if (desc.matches("")) {
+        if (desc.matches(EMPTY_INPUT_STRING)) {
             compal.ui.printg(MESSAGE_MISSING_DESC);
             throw new Compal.DukeException(MESSAGE_MISSING_DESC);
         }
@@ -81,30 +85,92 @@ public abstract class Command {
                 throw new Compal.DukeException(MESSAGE_MISSING_DATE);
             }
             String dateInput = scanner.next();
-
-            String regex = "^(3[01]|[12][0-9]|0[1-9])/(1[0-2]|0[1-9])/[0-9]{4}$";
-            Pattern pattern = Pattern.compile(regex);
-            Matcher matcher = pattern.matcher(dateInput);
-
-            if (matcher.matches() == false) {
-                compal.ui.printg(MESSAGE_INVALID_DATE_FORMATTING);
-                throw new Compal.DukeException(MESSAGE_INVALID_DATE_FORMATTING);
-            }
-            int inputSize = dateInput.length();
-
-            String year = dateInput.substring(inputSize - 4, inputSize);
-            int inputYear = Integer.parseInt(year);
-            int currYear = Calendar.getInstance().get(Calendar.YEAR);
-
-            if (inputYear < currYear) {
-                compal.ui.printg(MESSAGE_INVALID_YEAR);
-                throw new Compal.DukeException(MESSAGE_INVALID_YEAR);
-            }
-            return dateInput;
+            return inputDateValidation(dateInput);
         } else {
             compal.ui.printg(MESSAGE_MISSING_DATE_ARG);
             throw new Compal.DukeException(MESSAGE_MISSING_DATE_ARG);
         }
+    }
+
+
+    /**
+     * Checks if input date and time is after current date time.
+     *
+     * @param inputDate The date of input
+     * @param inputTime the time of input
+     * @return True or false depending if the date and time is after or before.
+     */
+    public boolean isValidDateAndTime(String inputDate, String inputTime) throws ParseException {
+
+        Calendar c = Calendar.getInstance();
+        Date inputDateFormat = new SimpleDateFormat("dd/MM/yyyy").parse(inputDate);
+        c.setTime(inputDateFormat);
+        c.set(Calendar.HOUR_OF_DAY, Integer.parseInt(inputTime.substring(0, 2)));
+        c.set(Calendar.HOUR_OF_DAY, Integer.parseInt(inputTime.substring(0, 2)));
+        Date inputDateAndTime = c.getTime();
+
+        Date currentDate = Calendar.getInstance().getTime();
+        c.setTime(currentDate);
+        Date currDateAndTime = c.getTime();
+
+        return inputDateAndTime.after(currDateAndTime);
+    }
+
+    /**
+     * Parses through each date string input by the user and makes sure it is of the correct format.
+     *
+     * @param inputDateStr The date string input by the user, which may not be of correct format.
+     * @return A date string with its format validated.
+     * @throws Compal.DukeException If date format is invalid (not dd/MM/yyyy), year is before current year.
+     */
+    public String inputDateValidation(String inputDateStr) throws Compal.DukeException {
+        String regex = "^(3[01]|[12][0-9]|0[1-9])/(1[0-2]|0[1-9])/[0-9]{4}$";
+        Pattern pattern = Pattern.compile(regex);
+        Matcher matcher = pattern.matcher(inputDateStr);
+
+        if (!matcher.matches()) {
+            compal.ui.printg(MESSAGE_INVALID_DATE_FORMATTING);
+            throw new Compal.DukeException(MESSAGE_INVALID_DATE_FORMATTING);
+        }
+        int inputSize = inputDateStr.length();
+
+        String year = inputDateStr.substring(inputSize - 4, inputSize);
+        int inputYear = Integer.parseInt(year);
+        int currYear = Calendar.getInstance().get(Calendar.YEAR);
+
+        if (inputYear < currYear) {
+            compal.ui.printg(MESSAGE_INVALID_YEAR);
+            throw new Compal.DukeException(MESSAGE_INVALID_YEAR);
+        }
+        return inputDateStr;
+    }
+
+    /**
+     * Converts a date string to a Date object.
+     *
+     * @param dateStr The date string to be converted.
+     * @return The date string in the form of a Date object.
+     */
+    public Date stringToDate(String dateStr) {
+        SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+        Date date = null;
+        try {
+            date = format.parse(dateStr);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return date;
+    }
+
+    /**
+     * Converts a Date object to a date string. Correct type for creating a Task object.
+     *
+     * @param date The date in the form of a Date object.
+     * @return The date in the form of a String object.
+     */
+    public String dateToString(Date date) {
+        SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+        return format.format(date);
     }
 
     /**

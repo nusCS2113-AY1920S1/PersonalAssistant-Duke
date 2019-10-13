@@ -97,6 +97,15 @@ public abstract class Task implements Serializable {
     }
 
     /**
+     * Sets symbol of task to be symbolInput.
+     *
+     * @param symbolInput The symbol for the task.
+     */
+    public void setSymbol(String symbolInput) {
+        symbol = symbolInput;
+    }
+
+    /**
      * Gets date of task in date format.
      *
      * @return Date of task.
@@ -271,10 +280,8 @@ public abstract class Task implements Serializable {
         list.append("_");
         list.append(getStringDate());
         list.append("_");
-        if (!getStringStartTime().equals("")) {
-            list.append(getStringStartTime());
-            list.append("_");
-        }
+        list.append(getStringStartTime());
+        list.append("_");
         list.append(getStringEndTime());
         list.append("_");
         list.append(gethasReminder());
@@ -290,6 +297,7 @@ public abstract class Task implements Serializable {
     public void calculateAndSetPriorityScore() {
         long score;
         switch (priority) {
+
         case high:
             score = 100;
             break;
@@ -301,6 +309,7 @@ public abstract class Task implements Serializable {
             break;
         default:
             score = 0;
+
         }
 
         Date d = new Date();
