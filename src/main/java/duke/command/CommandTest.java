@@ -16,7 +16,7 @@ public abstract class CommandTest {
         BOOKING, RECIPE, INGREDIENT
     }
 
-    public abstract ArrayList<String> feedback(TaskList taskList, Ui ui, Storage storage) throws DukeException;
+    public abstract ArrayList<String> execute(TaskList taskList, Ui ui, Storage storage) throws DukeException;
 
     public abstract boolean isExit();
 }

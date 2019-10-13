@@ -28,7 +28,7 @@ public class RecipeTitleList {
         ArrayList<String> arrList = new ArrayList<>();
         for (int i = 0; i < getSize(); i++) {
             final int displayedIndex = i + DISPLAYED_INDEX_OFFSET;
-            arrList.add("     " + displayedIndex + ". " + recipeTitleList.get(i));
+            arrList.add(recipeTitleList.get(i).toString());
         }
         return arrList;
     }

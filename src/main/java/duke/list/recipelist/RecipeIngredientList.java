@@ -30,8 +30,8 @@ public class RecipeIngredientList {
         return arrList;
     }
 
-    public void addRecipeIngredient(String ingredientName, int Quantity) throws ParseException {
-        recipeIngredientList.add(new RecipeIngredient(ingredientName, Quantity));
+    public void addRecipeIngredient(String ingredientName, int quantity, String weight) throws ParseException {
+        recipeIngredientList.add(new RecipeIngredient(ingredientName, quantity, weight));
         int index = recipeIngredientList.size();
         if (index == 1) {
             msg = " task in the list.";

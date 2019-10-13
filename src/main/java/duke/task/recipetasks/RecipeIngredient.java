@@ -1,27 +1,33 @@
 package duke.task.recipetasks;
 
-import duke.task.ingredienttasks.Ingredient;
+public class RecipeIngredient {
+    private String recipeIngredientName;
+    private int recipeIngredientQuantity;
+    private String recipeIngredientWeight;
 
-public class RecipeIngredient extends Ingredient {
-
-    public RecipeIngredient(String ingredientName, int quantity) {
-        super(ingredientName, quantity);
+    public RecipeIngredient(String recipeIngredientName, int recipeIngredientQuantity, String recipeIngredientWeight) {
+        this.recipeIngredientName = recipeIngredientName;
+        this.recipeIngredientQuantity = recipeIngredientQuantity;
+        this.recipeIngredientWeight = recipeIngredientWeight;
     }
 
-    public int getQuantity() {
-        return super.getQuantity();
+    public int getRecipeIngredientQuantity() {
+        return recipeIngredientQuantity;
     }
 
-    public String getName() {
-        return super.getName();
+    public String getRecipeIngredientName() {
+        return recipeIngredientName;
+    }
+
+    public String getRecipeIngredientWeight() {
+        return recipeIngredientWeight;
     }
 
     public String toSaveString() {
-        return super.toSaveString();
+        return recipeIngredientName + " | " + recipeIngredientQuantity + " | " + recipeIngredientWeight;
     }
 
     public String toString() {
-        return super.toString();
+        return recipeIngredientName + "[" + recipeIngredientQuantity + " " + recipeIngredientWeight + "] ";
     }
-
 }

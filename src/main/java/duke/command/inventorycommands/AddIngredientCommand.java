@@ -20,7 +20,7 @@ public class AddIngredientCommand extends CommandIngredients {
     }
 
     @Override
-    public ArrayList<String> feedback(IngredientList ingredientList, Ui ui, IngredientStorage ingredientStorage) throws ParseException {
+    public ArrayList<String> execute(IngredientList ingredientList, Ui ui, IngredientStorage ingredientStorage) throws ParseException {
         ArrayList<String> arrayList = new ArrayList<>();
         if (userInput.trim().equals(COMMAND_ADD_INGREDIENT)) {
             arrayList.add(ERROR_MESSAGE_GENERAL + MESSAGE_FOLLOWUP_NUll);

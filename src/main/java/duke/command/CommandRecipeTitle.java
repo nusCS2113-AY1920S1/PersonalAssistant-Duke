@@ -14,7 +14,7 @@ import java.util.ArrayList;
 public abstract class CommandRecipeTitle {
     protected String userInput;
 
-    public abstract ArrayList<String> feedback(RecipeTitleList recipeTitleList, Ui ui, RecipeTitleStorage recipeTitleStorage) throws DukeException, ParseException;
+    public abstract ArrayList<String> execute(RecipeTitleList recipeTitleList, Ui ui, RecipeTitleStorage recipeTitleStorage) throws DukeException, ParseException;
 
     public abstract boolean isExit();
 }

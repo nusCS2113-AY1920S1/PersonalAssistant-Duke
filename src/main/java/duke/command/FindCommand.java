@@ -46,7 +46,7 @@ public class FindCommand extends CommandTest {
 //    }
 
     @Override
-    public ArrayList<String> feedback(TaskList taskList, Ui ui, Storage storage) throws DukeException {
+    public ArrayList<String> execute(TaskList taskList, Ui ui, Storage storage) throws DukeException {
         ArrayList<String> arrayList = new ArrayList<>();
         if (userInput.trim().equals(COMMAND_FIND)) {
             arrayList.add(ERROR_MESSAGE_GENERAL + MESSAGE_FOLLOWUP_NUll);

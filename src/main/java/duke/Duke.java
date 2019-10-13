@@ -3,7 +3,6 @@ package duke;
 import duke.command.CommandIngredients;
 import duke.command.CommandRecipeIngredient;
 import duke.command.CommandRecipeTitle;
-import duke.command.CommandTest;
 import duke.exception.DukeException;
 import duke.list.ingredientlist.IngredientList;
 import duke.list.recipelist.RecipeIngredientList;
@@ -22,7 +21,9 @@ import duke.ui.Ui;
 import java.util.ArrayList;
 import java.text.ParseException;
 
+import static duke.common.IngredientMessages.COMMAND_ADD_INGREDIENT;
 import static duke.common.Messages.*;
+import static duke.common.RecipeMessages.*;
 
 /**
  * Duke processes different commands.
@@ -73,17 +74,58 @@ public class Duke {
         return ui.showWelcome();
     }
 
-    public ArrayList<String> runProgram(String fullCommand) throws DukeException, ParseException {
-        CommandRecipeTitle command = Parser.parseRecipeTitle(fullCommand);
-        return command.feedback(recipeTitleList, ui, recipeTitleStorage);
+    public ArrayList<String> runProgram(String userInput) throws DukeException, ParseException {
+        System.out.println("stuck here4");
+        ArrayList<String> arrayList = new ArrayList<>();
+        if (userInput.contains(COMMAND_ADD_RECIPE)) {
+            if (userInput.trim().substring(0, 9).equals(COMMAND_ADD_RECIPE)) {
+                CommandRecipeTitle command = Parser.parseRecipeTitle(userInput);
+                return command.execute(recipeTitleList, ui, recipeTitleStorage);
+            } else {
+                arrayList.add(ERROR_MESSAGE_RANDOM);
+                System.out.println("stuck here5");
+                return arrayList;
+            }
+        } else if (userInput.contains(COMMAND_LIST_RECIPES)) {
+            if (userInput.trim().substring(0, 14).equals(COMMAND_LIST_RECIPES)) {
+                CommandRecipeTitle command = Parser.parseRecipeTitle(userInput);
+                return command.execute(recipeTitleList, ui, recipeTitleStorage);
+            } else {
+                arrayList.add(ERROR_MESSAGE_RANDOM);
+                return arrayList;
+            }
+        } else if (userInput.contains(COMMAND_ADD_RECIPE_INGREDIENT)) {
+            if (userInput.trim().substring(0, 19).equals(COMMAND_ADD_RECIPE_INGREDIENT)) {
+                System.out.println("stuck here2");
+                CommandRecipeIngredient command = Parser.parseRecipeIngredient(userInput);
+                return command.execute(recipeIngredientList, ui, recipeIngredientStorage);
+            } else {
+                arrayList.add(ERROR_MESSAGE_RANDOM);
+                return arrayList;
+            }
+        } else if (userInput.contains(COMMAND_ADD_INGREDIENT)) {
+            if (userInput.trim().substring(0, 13).equals(COMMAND_ADD_INGREDIENT)) {
+                CommandIngredients command = Parser.parseIngredient(userInput);
+                return command.execute(ingredientList, ui, ingredientStorage);
+            } else {
+                arrayList.add(ERROR_MESSAGE_RANDOM);
+                return arrayList;
+            }
+        } else {
+            arrayList.add(ERROR_MESSAGE_RANDOM);
+            System.out.println("stuck here3");
+            return arrayList;
+        }
+//        CommandRecipeTitle command = Parser.parseRecipeTitle(fullCommand);
+//        return command.execute(recipeTitleList, ui, recipeTitleStorage);
 
 //        CommandRecipeIngredient command = Parser.parseRecipeIngredients(fullCommand);
-//        return command.feedback(recipeIngredientList, ui, recipeIngredientStorage);
+//        return command.execute(recipeIngredientList, ui, recipeIngredientStorage);
 //
 //        CommandIngredients command = Parser.parseIngredients(fullCommand);
-//        return command.feedback(ingredientList, ui, ingredientStorage);
+//        return command.execute(ingredientList, ui, ingredientStorage);
 //
 //        CommandTest command = Parser.parseTest(fullCommand);
-//        return command.feedback(taskList, ui, storage);
+//        return command.execute(taskList, ui, storage);
     }
 }

@@ -16,7 +16,7 @@ public abstract class CommandIngredients {
         BOOKING, RECIPE, INGREDIENT
     }
 
-    public abstract ArrayList<String> feedback(IngredientList ingredientList, Ui ui, IngredientStorage ingredientStorage) throws DukeException, ParseException;
+    public abstract ArrayList<String> execute(IngredientList ingredientList, Ui ui, IngredientStorage ingredientStorage) throws DukeException, ParseException;
 
     public abstract boolean isExit();
 }
