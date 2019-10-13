@@ -45,6 +45,13 @@ public class AddOrderCommand extends OrderCommand {
     }
 
 
+    /**
+     * Executes the add order command and returns the result message.
+     *
+     * @param model {@code Model} which the command should operate on.
+     * @return feedback message of the operation result for display
+     * @throws CommandException If an error occurs during command execution.
+     */
     public CommandResult execute(Model model) throws CommandException {
 
         Order toAdd = createOrder(addOrderDescriptor, model.getFilteredProductList());

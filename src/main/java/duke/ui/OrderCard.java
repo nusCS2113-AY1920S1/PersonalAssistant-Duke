@@ -37,6 +37,12 @@ public class OrderCard extends UiPart<AnchorPane> {
     @FXML
     private Label total;
 
+    /**
+     * Creates a card displaying the {@code order}
+     *
+     * @param order          to display
+     * @param displayedIndex the index of the order to show on the card
+     */
     public OrderCard(Order order, int displayedIndex) {
         super(FXML);
         id.setText(Long.toString(order.getId()));

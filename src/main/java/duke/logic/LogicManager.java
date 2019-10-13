@@ -27,6 +27,9 @@ public class LogicManager implements Logic {
     private final BakingHomeParser bakingHomeParser;
     private final AutoCompleter autoCompleter;
 
+    /**
+     * Creates a logic manager.
+     */
     public LogicManager(Model model, Storage storage) {
         this.model = model;
         this.storage = storage;

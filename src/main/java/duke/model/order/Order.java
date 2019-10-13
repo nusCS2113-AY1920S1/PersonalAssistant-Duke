@@ -30,7 +30,8 @@ public class Order {
      * Creates an order.
      * Every field must be present and not null.
      */
-    public Order(Customer customer, Date deliveryDate, Status status, String remarks, Set<Item<Product>> items, double total) {
+    public Order(Customer customer, Date deliveryDate, Status status,
+                 String remarks, Set<Item<Product>> items, double total) {
         requireAllNonNull(customer, deliveryDate, status, remarks, items, total);
 
         this.customer = customer;

@@ -20,6 +20,7 @@ public class ParserUtil {
     private static final String SEPARATOR_INDEX_MULTIPLE = ",";
 
     ///Common utilities.
+
     /**
      * Parses {@code oneBasedIndex} into an {@code Index} and returns it. Leading and trailing whitespaces will be
      * trimmed.
@@ -33,6 +34,12 @@ public class ParserUtil {
         return Index.fromOneBased(Integer.parseInt(trimmedIndex));
     }
 
+    /**
+     * Parses the string argument as a {@code Status}.
+     * The string is case-insensitive.
+     *
+     * @throws ParseException if the string cannot be converted
+     */
     public static Product.Status parseProductStatus(String statusString) throws ParseException {
         try {
             return Product.Status.valueOf(statusString.trim().toUpperCase());
