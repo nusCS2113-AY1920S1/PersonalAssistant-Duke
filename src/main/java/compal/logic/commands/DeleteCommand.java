@@ -35,7 +35,7 @@ public class DeleteCommand extends Command implements CommandParser {
      * @throws Compal.DukeException If user task number input is invalid.
      */
     @Override
-    public void parseCommand(String userIn) throws Compal.DukeException, ParseException {
+    public void parseCommand(String userIn) throws Compal.DukeException {
         //Compal.ui.printg(userIn);
         Scanner scanner = new Scanner(userIn);
         String delete = scanner.next();

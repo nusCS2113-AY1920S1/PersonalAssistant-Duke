@@ -47,7 +47,7 @@ public class TaskList {
      * @param task Task to be added to the list of tasks.
      * @return Size of arrayList.
      */
-    public int addTask(Task task) throws ParseException, Compal.DukeException {
+    public int addTask(Task task){
         arrlist.add(task);
         compal.storage.saveCompal(arrlist);
         /*if (compal.ui.dateState.equals(task.getStringDate())) {
