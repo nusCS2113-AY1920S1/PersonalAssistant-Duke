@@ -13,16 +13,25 @@ public enum Priority {
 	 * @return integer value representing the priority level of the task
 	 * @throws DukeException
 	 */
-	public int priorityLevel() throws DukeException {
+	public int priorityLevel() {
 		switch(this) {
 			case LOW:
 				return 0;
 			case MEDIUM:
 				return 1;
-			case HIGH:
-				return 2;
 			default:
-				throw new DukeException("No such priority exists.");
+				return 2;
+		}
+	}
+
+	public String priorityCode() {
+		switch(this) {
+			case LOW:
+				return "L";
+			case MEDIUM:
+				return "M";
+			default:
+				return "H";
 		}
 	}
 }

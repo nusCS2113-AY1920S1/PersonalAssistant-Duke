@@ -4,6 +4,7 @@ import duke.task.Task;
 import duke.ui.Ui;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 /**
  * Represents the data structure containing all tasks added to the task manager
@@ -90,7 +91,7 @@ public class TaskList {
 	 * @param ui the user interface class which deals with user interactions
 	 */
 	public void find(String keyword, Ui ui) {
-		ArrayList<Task> temp = new ArrayList<Task>();
+		ArrayList<Task> temp = new ArrayList<>();
 		for (Task t : taskList) {
 			if (t.getDescription().contains(keyword)) {
 				temp.add(t);
@@ -112,5 +113,16 @@ public class TaskList {
 	 */
 	public void remove(int i) {
 		taskList.remove(i);
+	}
+
+	public void priorityPrint(Ui ui) {
+		ArrayList<Task> temp = new ArrayList<>();
+		for (Task t : taskList) {
+			temp.add(t);
+		}
+		Collections.sort(temp, (a, b) -> a.getPriorityLevel() < b.getPriorityLevel() ? 1 : -1);
+		for (Task t : temp) {
+			ui.showLine("*" + t.getPriority() + "* " + t);
+		}
 	}
 }

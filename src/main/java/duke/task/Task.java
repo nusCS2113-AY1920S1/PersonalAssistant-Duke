@@ -106,6 +106,14 @@ public class Task {
         }
     }
 
+    public int getPriorityLevel() {
+        return priority.priorityLevel();
+    }
+
+    public String getPriority() {
+        return priority.priorityCode();
+    }
+
     /**
      * Returns a String which describes the task
      *
