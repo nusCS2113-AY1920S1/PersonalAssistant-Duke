@@ -27,7 +27,7 @@ public class AddProductCommand extends ProductCommand {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         model.addProduct(toAdd);
-        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd.getName()),
+        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd.getProductName()),
                 CommandResult.DisplayedPage.PRODUCT);
     }
 }

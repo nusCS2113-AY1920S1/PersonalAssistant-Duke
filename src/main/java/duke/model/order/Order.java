@@ -30,8 +30,9 @@ public class Order {
      * Creates an order.
      * Every field must be present and not null.
      */
-    public Order(Customer customer, Date deliveryDate, Status status, String remarks, Set<Item<Product>> items) {
-        requireAllNonNull(customer, deliveryDate, status, remarks, items);
+    public Order(Customer customer, Date deliveryDate, Status status,
+                 String remarks, Set<Item<Product>> items, double total) {
+        requireAllNonNull(customer, deliveryDate, status, remarks, items, total);
 
         this.customer = customer;
         this.deliveryDate = deliveryDate;
@@ -39,7 +40,7 @@ public class Order {
         this.remarks = remarks;
         this.id = System.currentTimeMillis();
         this.items = items;
-        this.total = 1.0;
+        this.total = total;
     }
 
     public enum Status {
@@ -70,6 +71,10 @@ public class Order {
 
     public Status getStatus() {
         return status;
+    }
+
+    public double getTotal() {
+        return total;
     }
 
     @Override

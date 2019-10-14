@@ -13,6 +13,8 @@ import static java.util.Objects.requireNonNull;
 public class CollectionUtil {
 
     /**
+     * Checks that the specified object references are all not null.
+     *
      * @see #requireAllNonNull(Collection)
      */
     public static void requireAllNonNull(Object... items) {

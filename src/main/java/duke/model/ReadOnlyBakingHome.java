@@ -21,5 +21,6 @@ public interface ReadOnlyBakingHome {
     ObservableList<Sale> getSaleList();
     ObservableList<Product> getProductList();
     ObservableList<Ingredient> getInventoryList();
+
     List<Shortcut> getShortcutList();
 }

@@ -1,5 +1,6 @@
 .table-view {
     -fx-background-color: rgba(151, 217, 143, 0.5);
+    -fx-table-column-border-color: black;
     -fx-font-size: 15px;
     -fx-text-fill: #000000;
 }
@@ -11,6 +12,10 @@
 .table-view .table-column {
     -fx-alignment: center;
 }
+
+.table-row-cell{
+}
+
 
 .scroll-pane {
     -fx-hbar-policy: never;

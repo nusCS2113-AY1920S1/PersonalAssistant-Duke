@@ -16,12 +16,6 @@ import static duke.logic.parser.commons.CliSyntax.PREFIX_ORDER_TOTAL;
 import static duke.logic.parser.order.OrderParserUtil.createDescriptor;
 
 public class AddOrderCommandParser implements Parser<AddOrderCommand> {
-    private static final String DEFAULT_CUSTOMER_NAME = "customer";
-    private static final String DEFAULT_CUSTOMER_CONTACT = "N/A";
-    private static final String DEFAULT_DELIVERY_DATE = "now";
-    private static final String DEFAULT_REMARKS = "N/A";
-    private static final String DEFAULT_STATUS = "ACTIVE";
-
     @Override
     public AddOrderCommand parse(String args) throws ParseException {
         ArgumentMultimap map = ArgumentTokenizer.tokenize(

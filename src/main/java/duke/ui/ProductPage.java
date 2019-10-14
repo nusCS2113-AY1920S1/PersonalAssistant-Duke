@@ -11,7 +11,6 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
-
 import java.util.logging.Logger;
 
 import static java.util.Objects.requireNonNull;
@@ -44,10 +43,7 @@ public class ProductPage extends UiPart<AnchorPane> {
 
     void setIndexColumn() {
         TableColumn<Product, Void> indexColumn = new TableColumn<>("S/N");
-        indexColumn.setMinWidth(50);
-        indexColumn.setPrefWidth(70);
         indexColumn.setResizable(true);
-
 
         //Solution below adapted from: https://stackoverflow.com/questions/31212400/adding-index-of-records-in-a-javafx-tableview-column
         ///////////////////////////////////////////////////////index column
@@ -64,104 +60,35 @@ public class ProductPage extends UiPart<AnchorPane> {
                         return Integer.toString(cell.getIndex() + 1);
                     }
                 }, cell.emptyProperty(), cell.indexProperty()));
-
                 return cell;
             });
         }
         ////////////////////////////////index column created
-
         productListTable.getColumns().add(indexColumn);
+        indexColumn.setMinWidth(80);
+        indexColumn.setMaxWidth(80);
+
     }
 
     void setProductInfoColumns() {
         TableColumn<Product, String> nameColumn = new TableColumn<>("Name");
         nameColumn.setResizable(true);
-        nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
+        nameColumn.setCellValueFactory(new PropertyValueFactory<>("productName"));
 
         TableColumn<Product, Double> priceColumn = new TableColumn<>("Retail Price");
         priceColumn.setResizable(true);
-        priceColumn.setCellValueFactory(new PropertyValueFactory<>("price"));
+        priceColumn.setCellValueFactory(new PropertyValueFactory<>("retailPrice"));
 
         TableColumn<Product, Double> costColumn = new TableColumn<>("Ingredient Cost");
         costColumn.setResizable(true);
-        costColumn.setCellValueFactory(new PropertyValueFactory<>("cost"));
+        costColumn.setCellValueFactory(new PropertyValueFactory<>("ingredientCost"));
+
+        TableColumn<Product, Double> statusColumn = new TableColumn<>("status");
+        statusColumn.setResizable(true);
+        statusColumn.setCellValueFactory(new PropertyValueFactory<>("status"));
 
         productListTable.getColumns().addAll(nameColumn, priceColumn,
-                costColumn);
+                costColumn, statusColumn);
     }
-
-
-
-/*
-
-    //RecipeList
-    void refreshRecipeListPage(List<comProduct> rpl) {
-        recipeListPane.setVisible(true);
-        recipeShowPane.setVisible(false);
-        ObservableList<comProduct> productObservableList = FXCollections.observableArrayList();
-        for (comProduct product : rpl) {
-            productObservableList.add(product);
-        }
-
-        recipeTable.getColumns().clear();
-        if (rpl.size() != 0) {
-
-            TableColumn<comProduct, Void> indexColumn = new TableColumn<>("S/N");
-            indexColumn.setMinWidth(50);
-            indexColumn.setPrefWidth(70);
-            indexColumn.setResizable(true);
-
-
-            //Solution below adapted from: https://stackoverflow.com/questions/31212400/adding-index-of-records-in-a-javafx-tableview-column
-            ///////////////////////////////////////////////////////index column
-            {
-                indexColumn.setCellFactory(col -> {
-
-                    // just a default table cell:
-                    TableCell<comProduct, Void> cell = new TableCell<>();
-
-                    cell.textProperty().bind(Bindings.createStringBinding(() -> {
-                        if (cell.isEmpty()) {
-                            return null;
-                        } else {
-                            return Integer.toString(cell.getIndex() + 1);
-                        }
-                    }, cell.emptyProperty(), cell.indexProperty()));
-
-                    return cell;
-                });
-            }
-            ////////////////////////////////index column created
-
-            TableColumn<comProduct, String> nameColumn = new TableColumn<>("Name");
-            nameColumn.setMinWidth(150);
-            nameColumn.setPrefWidth(500);
-            nameColumn.setResizable(true);
-            nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
-
-            TableColumn<comProduct, Integer> timeColumn = new TableColumn<>("Time");
-            timeColumn.setMinWidth(50);
-            timeColumn.setPrefWidth(100);
-            timeColumn.setResizable(true);
-            timeColumn.setCellValueFactory(new PropertyValueFactory<>("time"));
-
-            TableColumn<comProduct, Double> costColumn = new TableColumn<>("Cost");
-            costColumn.setMinWidth(50);
-            costColumn.setPrefWidth(70);
-            costColumn.setResizable(true);
-            costColumn.setCellValueFactory(new PropertyValueFactory<>("cost"));
-
-            TableColumn<comProduct, Integer> difficultyLevelColumn = new TableColumn<>("Difficulty Level");
-            difficultyLevelColumn.setMinWidth(70);
-            difficultyLevelColumn.setPrefWidth(300);
-            difficultyLevelColumn.setResizable(true);
-            difficultyLevelColumn.setCellValueFactory(new PropertyValueFactory<>("difficultyLevel"));
-
-            recipeTable.setItems(productObservableList);
-            recipeTable.getColumns().addAll(indexColumn, nameColumn, timeColumn, costColumn,
-                    difficultyLevelColumn);
-        }
-    }
-*/
 
 }

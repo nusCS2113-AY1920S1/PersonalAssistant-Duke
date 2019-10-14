@@ -187,6 +187,8 @@ public class BakingHome implements ReadOnlyBakingHome {
 
         products.set(originalProduct, editedOrder);
     }
+
+
     @Override
     public ObservableList<Product> getProductList() {
         return products.asUnmodifiableObservableList();
@@ -216,6 +218,10 @@ public class BakingHome implements ReadOnlyBakingHome {
         } else {
             shortcuts.add(shortcut);
         }
+    }
+
+    public void addSale(Sale s) {
+        sales.add(s);
     }
 
     /**
