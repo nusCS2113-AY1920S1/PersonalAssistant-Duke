@@ -3,24 +3,24 @@ package duke.modules;
 import duke.exceptions.ModInvalidTimeException;
 import java.time.Duration;
 
-public class RecurringTask extends TaskWithInterval {
+public class FixedDurationTask extends TaskWithInterval {
 
-    public RecurringTask(String task, String days, String hours, String minutes, String seconds)
+    public FixedDurationTask(String task, String days, String hours, String minutes, String seconds)
             throws ModInvalidTimeException {
         super(task, TaskWithInterval.parseInterval(days, hours, minutes, seconds));
     }
 
-    public RecurringTask(String task, String durationString) {
+    public FixedDurationTask(String task, String durationString) {
         super(task, Duration.parse(durationString));
     }
 
-    public RecurringTask(String task) {
+    public FixedDurationTask(String task) {
         super(task);
     }
 
     @Override
     public String writingFile() {
-        return "R"
+        return "F"
                 + "|"
                 + super.writingFile()
                 + "|"
@@ -29,9 +29,9 @@ public class RecurringTask extends TaskWithInterval {
 
     @Override
     public String toString() {
-        return "[R]"
+        return "[F]"
                 + super.toString()
-                + " (every: "
+                + " (needs: "
                 + this.getInterval().toReadableString()
                 + ")";
     }

@@ -1,9 +1,11 @@
 package duke.util;
 
 import java.io.Serializable;
-import java.time.LocalDateTime;
-import java.time.Period;
 import java.time.Duration;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.Period;
 import java.time.temporal.Temporal;
 import java.time.temporal.TemporalAmount;
 import java.time.temporal.TemporalUnit;
@@ -147,6 +149,22 @@ public class TimeInterval implements TemporalAmount, Serializable {
         Period dateDiff = Period.between(begin.toLocalDate(), end.toLocalDate());
         Duration timeDiff = Duration.between(begin.toLocalTime(), end.toLocalTime());
         return new TimeInterval(dateDiff, timeDiff);
+    }
+
+    public static TimeInterval between(LocalDateTime begin, LocalDate end) {
+        return TimeInterval.between(begin, LocalDateTime.of(end, LocalTime.MIN));
+    }
+
+    public static TimeInterval between(LocalDate begin, LocalDateTime end) {
+        return TimeInterval.between(LocalDateTime.of(begin, LocalTime.MIN), end);
+    }
+
+    public static TimeInterval between(LocalDate begin, LocalDate end) {
+        return new TimeInterval(Period.between(begin, end));
+    }
+
+    public static TimeInterval between(LocalTime begin, LocalTime end) {
+        return new TimeInterval(Duration.between(begin, end));
     }
 
     public boolean isZeroApprox() {

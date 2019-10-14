@@ -1,103 +1,38 @@
 package duke.modules;
 
-import duke.exceptions.ModInvalidTimePeriodException;
+import duke.util.DateTime;
 import duke.util.TimeInterval;
 import duke.util.TimePeriod;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
+import java.time.DayOfWeek;
 import java.time.LocalTime;
+import java.time.temporal.TemporalAccessor;
+import java.util.List;
 
-public class TaskWithPeriod extends Task {
+public abstract class TaskWithPeriod extends Task {
 
-    TimePeriod period;
-
-    public TaskWithPeriod(String task, LocalDateTime begin, LocalDateTime end) throws ModInvalidTimePeriodException {
+    public TaskWithPeriod(String task) {
         super(task);
-        this.period = new TimePeriod(begin, end);
     }
 
-    public TaskWithPeriod(String task, LocalDateTime begin, TimeInterval duration)
-            throws ModInvalidTimePeriodException {
-        super(task);
-        this.period = new TimePeriod(begin, duration);
-    }
+    public abstract TimeInterval getInterval();
 
-    public TaskWithPeriod(String task, TimePeriod period) {
-        super(task);
-        this.period = period;
-    }
+    public abstract LocalTime getBeginTime();
 
-    public TaskWithPeriod(String task) throws ModInvalidTimePeriodException {
-        super(task);
-        this.period = new TimePeriod();
-    }
+    public abstract LocalTime getEndTime();
 
-    public TimePeriod getPeriod() {
-        return this.period;
-    }
+    public abstract TemporalAccessor getBegin();
 
-    public TimeInterval getInterval() {
-        return this.period.getInterval();
-    }
+    public abstract TemporalAccessor getEnd();
 
-    public void setPeriod(LocalDateTime begin, LocalDateTime end) throws ModInvalidTimePeriodException {
-        this.period.setPeriod(begin, end);
-    }
+    public abstract TimePeriod getPeriod();
 
-    public void setPeriod(LocalDateTime begin, TimeInterval duration) throws ModInvalidTimePeriodException {
-        this.period.setPeriod(begin, duration);
-    }
-
-    public void setBegin(LocalDateTime begin) throws ModInvalidTimePeriodException {
-        this.setPeriod(begin, this.getEnd());
-    }
-
-    public void setEnd(LocalDateTime end) throws ModInvalidTimePeriodException {
-        this.setPeriod(this.getBegin(), end);
-    }
-
-    @Override
-    public LocalDateTime getTime() {
-        return (this.getBegin() != null) ? this.getBegin() : this.getEnd();
-    }
-
-    public LocalDateTime getBegin() {
-        return this.period.getBegin();
-    }
-
-    public LocalDateTime getEnd() {
-        return this.period.getEnd();
-    }
-
-    public LocalDate getBeginDate() {
-        return this.getBegin().toLocalDate();
-    }
-
-    public LocalTime getBeginTime() {
-        return this.getBegin().toLocalTime();
-    }
-
-    public LocalDate getEndDate() {
-        return this.getEnd().toLocalDate();
-    }
-
-    public LocalTime getEndTime() {
-        return this.getEnd().toLocalTime();
-    }
-
-    public boolean isClashing(LocalDateTime localDateTime) {
-        return this.period.isClashing(localDateTime);
-    }
-
-    public boolean isClashing(LocalDateTime begin, LocalDateTime end) {
-        return this.period.isClashing(begin, end);
-    }
-
-    public boolean isClashing(TimePeriod timePeriod) {
-        return this.period.isClashing(timePeriod);
-    }
+    public abstract List<DayOfWeek> getDaysOfWeek();
 
     public boolean isClashing(TaskWithPeriod other) {
-        return this.period.isClashing(other.getPeriod());
+        return this.isClashing(other.getPeriod());
+    }
+
+    public boolean isClashing(TimePeriod other) {
+        return this.getPeriod().isClashing(other);
     }
 }

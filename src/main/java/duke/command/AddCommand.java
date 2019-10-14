@@ -1,18 +1,16 @@
 package duke.command;
 
 import duke.exceptions.ModScheduleException;
-import duke.modules.FixedDurationTasks;
-import duke.modules.RecurringTask;
+
 import duke.modules.Task;
+import duke.modules.TaskWithInterval;
 import duke.modules.TaskWithPeriod;
-import duke.modules.Todo;
+import duke.modules.TaskWithoutTime;
+import duke.util.Reminder;
+import duke.util.Storage;
 import duke.util.TaskList;
 import duke.util.TimePeriod;
 import duke.util.Ui;
-import duke.util.Storage;
-import duke.util.Reminder;
-
-import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Objects;
 
@@ -38,7 +36,7 @@ public class AddCommand extends Command {
      */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage store, Reminder reminder) throws ModScheduleException {
-        if (task instanceof Todo || task instanceof RecurringTask || task instanceof FixedDurationTasks) {
+        if (task instanceof TaskWithoutTime || task instanceof TaskWithInterval) {
             tasks.add(task);
         } else {
             checkForScheduleConflicts(tasks);
@@ -51,43 +49,15 @@ public class AddCommand extends Command {
     }
 
     private void checkForScheduleConflicts(TaskList tasks) throws ModScheduleException {
-        HashSet<LocalDateTime> dateTimeSet = new HashSet<>();
-        HashSet<TimePeriod> timePeriodSet = new HashSet<>();
-        for (Task temp : tasks.getTasks()) {
-            if (temp instanceof TaskWithPeriod) {
-                timePeriodSet.add(((TaskWithPeriod)temp).getPeriod());
-            } else if (temp instanceof FixedDurationTasks) {
-                FixedDurationTasks hold = (FixedDurationTasks) temp;
-                dateTimeSet.add(hold.getTimePeriod());
-            }
-        }
-        LocalDateTime taskDateTime = null;
-        TimePeriod taskTimePeriod = null;
         if (task instanceof TaskWithPeriod) {
-            taskTimePeriod = ((TaskWithPeriod)task).getPeriod();
-        } else if (task instanceof FixedDurationTasks) {
-            FixedDurationTasks hold = (FixedDurationTasks) task;
-            taskDateTime = hold.getTimePeriod();
-        }
-        if (taskTimePeriod == null) {
-            if (dateTimeSet.contains(taskDateTime)) {
-                throw new ModScheduleException();
-            }
-            for (TimePeriod timePeriod : timePeriodSet) {
-                if (timePeriod.isClashing(taskDateTime)) {
-                    throw new ModScheduleException();
+            TimePeriod taskTimePeriod = ((TaskWithPeriod)task).getPeriod();
+            HashSet<TimePeriod> timePeriods = new HashSet<>();
+            for (Task temp : tasks.getTasks()) {
+                if (temp instanceof TaskWithPeriod) {
+                    timePeriods.add(((TaskWithPeriod) temp).getPeriod());
                 }
             }
-        } else {
-            if (timePeriodSet.contains(taskTimePeriod)) {
-                throw new ModScheduleException();
-            }
-            for (LocalDateTime dateTime : dateTimeSet) {
-                if (taskTimePeriod.isClashing(dateTime)) {
-                    throw new ModScheduleException();
-                }
-            }
-            for (TimePeriod timePeriod : timePeriodSet) {
+            for (TimePeriod timePeriod : timePeriods) {
                 if (taskTimePeriod.isClashing(timePeriod)) {
                     throw new ModScheduleException();
                 }
