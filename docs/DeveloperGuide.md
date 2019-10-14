@@ -19,6 +19,7 @@ Welcome to the **COMPal** Developer Guide! This Developer Guide is still being w
  + [4.1 Architecture](/docs/DeveloperGuide.md#41-architecture)
  + [4.2 UI Component](/docs/DeveloperGuide.md#42-ui-component)
  + [4.4 Commons Component](/docs/DeveloperGuide.md#44-commons-component)
+ + [4.5 Storage Component](/docs/DeveloperGuide.md#45-storage-component)
  + [4.6 Model Component](/docs/DeveloperGuide.md#46-model-component)
 
 
