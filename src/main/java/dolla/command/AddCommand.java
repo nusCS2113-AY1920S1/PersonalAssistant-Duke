@@ -1,7 +1,7 @@
-package command;
+package dolla.command;
 
 import dolla.Time;
-import ui.Ui;
+import dolla.Ui;
 import dolla.task.Task;
 import dolla.task.TaskList;
 

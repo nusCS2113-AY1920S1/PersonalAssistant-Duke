@@ -1,4 +1,4 @@
-package ui;
+package dolla;
 
 import dolla.task.Entry;
 import dolla.task.Task;
