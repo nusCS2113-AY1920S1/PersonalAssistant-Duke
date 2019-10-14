@@ -98,48 +98,52 @@ public class RecurringCommand extends Command {
      */
     private void recurInstances(Ui ui, TaskList taskList, Task task, int count, int frequency) throws OofException {
         if (task instanceof Todo) {
-            ui.printTaskList(taskList);
-            throw new OofException("OOPS!!! Selected task is a todo, it will be labelled instead!");
+            for (int i = 1; i <= count; i++) {
+                String date = ((Todo) task).getOn();
+                date = dateTimeIncrement(date, frequency, i);
+                Todo todo = new Todo(task.getLine(), date);
+                todo.setFrequency(frequency);
+                taskList.addTask(todo);
+            }
         } else if (task instanceof Deadline) {
             for (int i = 1; i <= count; i++) {
-                String dateTime = ((Deadline) task).getBy();
-                dateTime = dateTimeIncrement(task, dateTime, frequency, i);
-                Task newTask = new Deadline(task.getLine(), dateTime);
-                newTask.setFrequency(frequency);
-                taskList.addTask(newTask);
+                String date = ((Deadline) task).getBy();
+                date = dateTimeIncrement(date, frequency, i);
+                Deadline deadline = new Deadline(task.getLine(), date);
+                deadline.setFrequency(frequency);
+                taskList.addTask(deadline);
             }
         } else if (task instanceof Event) {
             for (int i = 1; i <= count; i++) {
                 String startTiming = ((Event) task).getStartTiming();
+                startTiming = dateTimeIncrement(startTiming, frequency, i);
                 String endTiming = ((Event) task).getEndTiming();
-                startTiming = dateTimeIncrement(task, startTiming, frequency, i);
-                endTiming = dateTimeIncrement(task, endTiming, frequency, i);
-                Task newTask = new Event(task.getLine(), startTiming, endTiming);
-                newTask.setFrequency(frequency);
-                taskList.addTask(newTask);
+                endTiming = dateTimeIncrement(endTiming, frequency, i);
+                Event event = new Event(task.getLine(), startTiming, endTiming);
+                event.setFrequency(frequency);
+                taskList.addTask(event);
             }
         }
     }
 
     /**
      * Increments the datetime based on the frequency of recurrence.
-     * @param task Recurring task.
-     * @param datetime Date and time.
+     * @param dateTime Date and time.
      * @param frequency Frequency of recurrence of task.
      * @param increment Number of hops from the first recurrence.
      * @return New datetime after incrementation.
      * @throws OofException Throws an exception if datetime cannot be parsed.
      */
-    private String dateTimeIncrement(Task task, String datetime, int frequency, int increment) throws OofException {
+    private String dateTimeIncrement(String dateTime, int frequency, int increment) throws OofException {
+        SimpleDateFormat format;
+        if (dateTime.split(" ").length == 1) {
+            format = new SimpleDateFormat("dd-MM-yyyy");
+        } else {
+            format = new SimpleDateFormat("dd-MM-yyyy HH:mm");
+        }
         try {
-            SimpleDateFormat format;
-            if (task instanceof Deadline) {
-                format = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
-            } else {
-                format = new SimpleDateFormat("dd-MM-yyyy HH:mm");
-            }
             Calendar calendar = Calendar.getInstance();
-            calendar.setTime(format.parse(datetime));
+            calendar.setTime(format.parse(dateTime));
             if (frequency == DAILY) {
                 calendar.add(Calendar.DATE, DAILY * increment);
             } else if (frequency == WEEKLY) {
@@ -149,11 +153,11 @@ public class RecurringCommand extends Command {
             } else if (frequency == YEARLY) {
                 calendar.add(Calendar.YEAR, COUNT_MIN * increment);
             }
-            datetime = format.format(calendar.getTime());
+            dateTime = format.format(calendar.getTime());
         } catch (ParseException e) {
             throw new OofException("OOPS!!! Datetime is in the wrong format!");
         }
-        return datetime;
+        return dateTime;
     }
 
     /**

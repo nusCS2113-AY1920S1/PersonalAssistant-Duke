@@ -150,18 +150,6 @@ public class Ui {
     }
 
     /**
-     * Displays the newly added recurring tasks.
-     *
-     * @param arr TaskList containing saved tasks.
-     */
-    public void printRecurringMessage(TaskList arr) {
-        printLine();
-        System.out.println("\tI have added recurring tasks:");
-        printTaskList(arr);
-        printLine();
-    }
-
-    /**
      * Retrieves a new Timestamp from the user for the Task
      * to be snoozed.
      *
@@ -262,6 +250,17 @@ public class Ui {
     }
 
     /**
+     * Displays the newly added recurring tasks.
+     *
+     * @param arr TaskList containing saved tasks.
+     */
+    public void printRecurringMessage(TaskList arr) {
+        printLine();
+        System.out.println("\tI have added recurring tasks:");
+        printTaskList(arr);
+    }
+
+    /**
      * Prints all tasks in TaskList.
      *
      * @param arr TaskList containing saved tasks.
@@ -290,7 +289,8 @@ public class Ui {
 
     /**
      * Prints instruction related to individual command available to user.
-     * @param command   instruction of command given by user.
+     *
+     * @param command instruction of command given by user.
      */
     public void printHelpCommand(String command) {
         printLine();
