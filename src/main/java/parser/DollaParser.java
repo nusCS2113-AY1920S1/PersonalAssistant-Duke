@@ -12,9 +12,7 @@ public class DollaParser extends Parser {
     }
 
     @Override
-    public Command handleInput(String inputLine) {
-        String[] inputArray = inputLine.split(" ");
-        String commandToRun = inputArray[0];
+    public Command handleInput(String mode, String inputLine) {
 
         if (commandToRun.equals("add")) {
             String entryType = null;
@@ -32,17 +30,18 @@ public class DollaParser extends Parser {
 
             return new AddEntryCommand(entryType, amount, description, date);
 
-//            switch(commandToRun) {
-//                case "income":
-//                case "expense":
-//                    return new AddExpenseCommand();
-//                default:
-//                    return new ErrorCommand();
-//            }
+            /*
+            switch(commandToRun) {
+                case "income":
+                case "expense":
+                    return new AddExpenseCommand();
+                default:
+                    return new ErrorCommand();
+            }
+            */
 
         } else {
-            Ui.printInvalidCommandError();
-            return new ErrorCommand();
+            return invalidCommand();
         }
     }
 

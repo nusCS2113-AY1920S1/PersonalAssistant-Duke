@@ -1,20 +1,7 @@
 package parser;
 
 import dolla.Ui;
-import dolla.command.Command;
-import dolla.command.CompleteCommand;
-import dolla.command.RemoveCommand;
-import dolla.command.ShowListCommand;
-import dolla.command.FindStringCommand;
-import dolla.command.ViewScheduleCommand;
-import dolla.command.SnoozeCommand;
-import dolla.command.ErrorCommand;
-import dolla.command.AddTodoCommand;
-import dolla.command.AddDeadlineCommand;
-import dolla.command.AddEventCommand;
-import dolla.command.AddDoAfterTaskCommand;
-import dolla.command.AddFixDurationCommand;
-import dolla.command.AddRecurringTaskCommand;
+import dolla.command.*;
 
 import dolla.task.TaskList;
 
@@ -24,48 +11,41 @@ import java.util.Arrays;
 import java.util.Scanner;
 
 /**
- * MainParser checks the user input and creates a command corresponding to the user input.
+ * MainParser checks the current mode and user input
+ * to create the relevant command.
  */
 public class MainParser {
 
     /**
-     * Returns a command corresponding to the user input.
-     * <p>
-     *     This method checks the first word of the 'inputLine' and returns the case
-     *     accordingly.
-     * </p>
-     * <p>
-     *     If the first word is not 'list', 'done', 'remove' or 'find', addToList() will
-     *     run instead.
-     * </p>
-     * <p>
-     *     If a number is not provided in a done or remove command, an error will be printed,
-     *     and an ErrorCommand will be returned.
-     * </p>
+     * Returns a command corresponding to the user input by directing
+     * the input to the relevant parser.
      * @param mode The mode Dolla is currently on.
      * @return a command corresponding to the user input.
      */
     public static Command handleInput(String mode, String inputLine) { // TODO: Rename to something else
 
-//        Scanner input = new Scanner(System.in);
-//        String inputLine = input.nextLine();
+        //Scanner input = new Scanner(System.in);
+        //String inputLine = input.nextLine();
         String[] inputArray = inputLine.split(" ");
         String command = inputArray[0];
+        boolean isSwitchMode = command.equals("dolla") || command.equals("entries")
+                || command.equals("limits") || command.equals("debts")
+                || command.equals("shortcuts");
 
         if (command.equals("bye")) {
             //return new ExitCommand(); // TODO
-
-        } else if (command.equals("dolla") || command.equals("entries") ||
-        command.equals("limits") || command.equals("debts") ||
-        command.equals("shortcuts")) {
-            //return new SwitchModeCommand(); // TODO
+        } else if (isSwitchMode) {
+            return new SwitchModeCommand(command); // TODO
         }
 
         switch (mode) {
         case "dolla":
             DollaParser dollaParser = new DollaParser(inputLine);
             //System.out.println("Running DollaParser...");
-            return dollaParser.handleInput(inputLine);
+            return dollaParser.handleInput(mode, inputLine);
+        case "entries":
+            EntryParser entryParser = new EntryParser(inputLine);
+            return entryParser.handleInput(mode, inputLine);
         default:
             Ui.printInvalidCommandError();
             return new ErrorCommand();

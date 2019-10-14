@@ -5,6 +5,7 @@ import dolla.Ui;
 import dolla.command.AddDeadlineCommand;
 import dolla.command.AddEventCommand;
 import dolla.command.Command;
+import dolla.command.ErrorCommand;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
@@ -14,12 +15,16 @@ public abstract class Parser {
     protected LocalDateTime date;
     protected String description;
     protected String inputLine;
+    protected String[] inputArray;
+    protected String commandToRun;
 
     public Parser(String inputLine) {
         this.inputLine = inputLine;
+        this.inputArray = inputLine.split(" ");
+        this.commandToRun = inputArray[0];
     }
 
-    public abstract Command handleInput(String inputLine);
+    public abstract Command handleInput(String mode, String inputLine);
 
     /**
      * Returns true if the method runs without running into any error.
@@ -30,7 +35,6 @@ public abstract class Parser {
      *     If the incorrect format is given in the input, the corresponding alert will be printed, and
      *     the method will then return false.
      * </p>
-     * @return true if method runs successfully.
      * @see AddDeadlineCommand
      * @see AddEventCommand
      */
@@ -69,5 +73,10 @@ public abstract class Parser {
             Ui.printInvalidNumberError(str);
         }
         return newDouble;
+    }
+
+    public Command invalidCommand() {
+        Ui.printInvalidCommandError();
+        return new ErrorCommand();
     }
 }
