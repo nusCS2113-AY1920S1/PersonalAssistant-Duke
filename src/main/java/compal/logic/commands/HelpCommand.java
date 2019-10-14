@@ -37,7 +37,6 @@ public class HelpCommand extends Command implements CommandParser {
             + "\n /date <dd/mm/yyyy>... /start <hhhh> /end <hhhh> /edate <dd/mm/yyyy>\n";
 
     private ArrayList<String> helpList;
-    private ArrayList<String> detailList;
 
     /**
      * Constructs ByeCommand object.

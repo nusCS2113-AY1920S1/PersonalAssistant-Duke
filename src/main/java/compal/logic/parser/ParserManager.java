@@ -28,23 +28,23 @@ import java.util.Scanner;
  */
 public class ParserManager {
     //***Class Properties/Variables***--------------------------------------------------------------------------------->
-    static final String CMD_EXIT = "bye";
-    static final String CMD_LIST = "list";
-    static final String CMD_CLEAR = "clear";
-    static final String CMD_DONE = "done";
-    static final String CMD_DELETE = "delete";
-    static final String CMD_EVENT = "event";
-    static final String CMD_DEADLINE = "deadline";
-    static final String CMD_RECUR_TASK = "recurtask";
-    static final String CMD_VIEW = "view";
-    static final String CMD_FIND = "find";
-    static final String CMD_SET_REMINDER = "set-reminder";
-    static final String CMD_VIEW_REMIND = "view-reminder";
-    static final String CMD_LECT = "lect";
-    static final String CMD_TUT = "tut";
-    static final String CMD_SECT = "sect";
-    static final String CMD_LAB = "lab";
-    static final String CMD_HELP = "help";
+    public static final String CMD_EXIT = "bye";
+    public static final String CMD_LIST = "list";
+    public static final String CMD_CLEAR = "clear";
+    public static final String CMD_DONE = "done";
+    public static final String CMD_DELETE = "delete";
+    public static final String CMD_EVENT = "event";
+    public static final String CMD_DEADLINE = "deadline";
+    public static final String CMD_RECUR_TASK = "recurtask";
+    public static final String CMD_VIEW = "view";
+    public static final String CMD_FIND = "find";
+    public static final String CMD_SET_REMINDER = "set-reminder";
+    public static final String CMD_VIEW_REMIND = "view-reminder";
+    public static final String CMD_LECT = "lect";
+    public static final String CMD_TUT = "tut";
+    public static final String CMD_SECT = "sect";
+    public static final String CMD_LAB = "lab";
+    public static final String CMD_HELP = "help";
 
     /*
      * Status tells the parser if ComPAL is expecting an answer from a prompt it gave. Parser will then
