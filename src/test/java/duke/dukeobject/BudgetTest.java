@@ -12,6 +12,7 @@ import java.math.BigDecimal;
 public class BudgetTest {
     @TempDir
     File userDirectory;
+
     @Test
     public void testBasicOperations() throws IOException, DukeException {
         Budget budget = new Budget(userDirectory);
