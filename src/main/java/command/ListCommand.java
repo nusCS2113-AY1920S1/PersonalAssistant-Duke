@@ -18,7 +18,7 @@ public class ListCommand extends Command {
     }
 
     @Override
-    public String execute(Ui ui, WordBank wordBank, Storage storage) {
+    public void execute(Ui ui, WordBank wordBank, Storage storage) {
         //ask ui to print something
         //ask tasks to store the thing in arraylist
         //ask storage to write to file
@@ -26,9 +26,9 @@ public class ListCommand extends Command {
             if (wordBank.getWordBank().isEmpty()) {
                 throw new WordBankEmptyException();
             }
-            return ui.showList(wordBank, this.order);
+            ui.showList(wordBank, this.order);
         } catch (WordBankEmptyException e) {
-            return e.showError();
+            e.showError();
         }
     }
 }
