@@ -1,14 +1,20 @@
 package duke.ui;
 
 import duke.model.commons.Ingredient;
+import duke.model.commons.Item;
+import duke.model.order.Quantity;
 import javafx.beans.binding.Bindings;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
+import javafx.util.Callback;
 
 public class InventoryPage extends UiPart<AnchorPane> {
     private static final String FXML = "InventoryPage.fxml";
@@ -18,9 +24,9 @@ public class InventoryPage extends UiPart<AnchorPane> {
     @FXML
     private TableView shoppingListTable;
 
-    private ObservableList<Ingredient> inventoryList;
+    private ObservableList<Item<Ingredient>> inventoryList;
 
-    public InventoryPage(ObservableList<Ingredient> inventoryList) {
+    public InventoryPage(ObservableList<Item<Ingredient>> inventoryList) {
         super(FXML);
         this.inventoryList = inventoryList;
         setupTable();
@@ -63,21 +69,23 @@ public class InventoryPage extends UiPart<AnchorPane> {
         inventoryListTable.getColumns().add(indexColumn);
     }
 
+    //Solution adapted from: http://fxapps.blogspot.com/2012/09/showing-object-properties-in-tableview.html
     void setInventoryInfoColumns() {
-        TableColumn<Ingredient, String> ingredientColumn = new TableColumn<>("Ingredient");
+        TableColumn<Item<Ingredient>, String> ingredientColumn = new TableColumn<>("Ingredient");
         ingredientColumn.setResizable(true);
-        ingredientColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
+        ingredientColumn.setCellValueFactory(itemStringCellDataFeatures -> new SimpleStringProperty(itemStringCellDataFeatures.getValue().getItem().getName()));
 
-        TableColumn<Ingredient, Integer> quantityColumn = new TableColumn<>("Quantity");
+        TableColumn<Item<Ingredient>, String> quantityColumn = new TableColumn<>("Quantity");
         quantityColumn.setResizable(true);
-        quantityColumn.setCellValueFactory(new PropertyValueFactory<>("quantity"));
+        quantityColumn.setCellValueFactory(itemStringCellDataFeatures -> new SimpleStringProperty(itemStringCellDataFeatures.getValue().getQuantity().getNumberAsString()));
 
-        TableColumn<Ingredient, String> unitColumn = new TableColumn<>("Unit");
+        TableColumn<Item<Ingredient>, String> unitColumn = new TableColumn<>("Unit");
         unitColumn.setResizable(true);
-        unitColumn.setCellValueFactory(new PropertyValueFactory<>("unit"));
+        unitColumn.setCellValueFactory(itemStringCellDataFeatures -> new SimpleStringProperty(itemStringCellDataFeatures.getValue().getItem().getUnit()));
 
         inventoryListTable.getColumns().addAll(ingredientColumn, quantityColumn, unitColumn);
     }
-
 }
+
+
 
