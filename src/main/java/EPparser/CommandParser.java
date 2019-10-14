@@ -98,7 +98,7 @@ public class CommandParser {
                 CommandStack.pushCmd(removec);
                 break;
             default:
-                CommandPair pair = Command_Debugger.commandSpellChecker(CommandArr , COMMANDKEYS.none , UIController);
+                CommandPair pair = CommandDebugger.commandSpellChecker(CommandArr , COMMANDKEYS.none , UIController);
         }
     }
     /**
@@ -177,7 +177,7 @@ public class CommandParser {
                 CommandStack.pushCmd(pfc);
                 break;
             default:
-                CommandPair pair = Command_Debugger.commandSpellChecker(CommandArr , COMMANDKEYS.none, UIController);
+                CommandPair pair = CommandDebugger.commandSpellChecker(CommandArr , COMMANDKEYS.none, UIController);
                 if(pair.getSubRootCommand() == COMMANDKEYS.none){
                     ((MovieHandler)UIController).setFeedbackText("Did you mean :"+ pair.getRootCommand() );
                 }else{

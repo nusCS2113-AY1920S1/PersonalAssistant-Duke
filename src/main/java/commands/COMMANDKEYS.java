@@ -2,7 +2,7 @@ package commands;
 
 
 /**
- * Command Keywords
+ * Command Keywords.
  */
 public enum COMMANDKEYS {
     search ,

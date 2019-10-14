@@ -5,22 +5,21 @@ import MovieUI.Controller;
 import MovieUI.MovieHandler;
 
 public class ViewCommand extends CommandSuper {
-    public ViewCommand(Controller UIController) {
-        super(COMMANDKEYS.view, CommandStructure.cmdStructure.get(COMMANDKEYS.view), UIController);
+    public ViewCommand(Controller uicontroller) {
+        super(COMMANDKEYS.view, CommandStructure.cmdStructure.get(COMMANDKEYS.view), uicontroller);
     }
 
     @Override
     public void executeCommands() {
         switch(this.getSubRootCommand()) {
-            case watchlist:
+        case watchlist:
+            break;
+        case blacklist:
+            ((MovieHandler) this.getUIController()).setFeedbackText(Blacklist.printList());
 
-                break;
-            case blacklist:
-                ((MovieHandler) this.getUIController()).setFeedbackText(Blacklist.printList());
-
-                break;
-            default:
-                break;
+            break;
+        default:
+            break;
         }
     }
 
