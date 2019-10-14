@@ -28,13 +28,12 @@ public class MyPlan {
     private String name;
     private int sets;
     private int reps;
-    private int division;
 
      public MyPlan() throws FileNotFoundException {
          filePath = ".\\src\\main\\java\\duke\\Sports\\plan.txt";
          File f = new File(filePath);
          fileInput = new Scanner(f);
-         //division = new Storage(filePath).loadPlans(getMap());
+         //<Integer, Integer, Integer> div = new Storage(filePath).loadPlans(getMap());
      }
 
     public String getName() {
@@ -75,13 +74,13 @@ public class MyPlan {
 
     public int createKey(String intensity, int num) {
          Intensity i = Intensity.valueOf(intensity);
-         double key = Math.pow(10, i.getValue()) + num;
+         double key = 10*i.getValue() + num;
          return (int) key;
     }
 
     public String clearPlan() {
         //getList().clear();
-        return "All your training plans are cleared.";
+        return "Current training plan is cleared.";
     }
 
     public String addActivity(String newName, int newSets, int newReps, int activity_num) {
@@ -157,7 +156,7 @@ public class MyPlan {
         }
     }
 
-    public void savePlan() {
+    public void saveToMap(ArrayList<MyTraining> list, int key) {
     }
 
     public void createPlan(String intensity) {
@@ -170,6 +169,9 @@ public class MyPlan {
                     String input = sc.nextLine();
                     if (input.equals("finalize")) {
                         System.out.println("Plan created.");
+                        System.out.println("Saving to map.");
+                        //int key = createKey(intensity,....)
+                        //saveToMap(getList(),key);
                         break;
                     } else if (input.equals("show")) {
                         if (getList().isEmpty()) {

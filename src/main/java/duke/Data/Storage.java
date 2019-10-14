@@ -7,6 +7,8 @@ import duke.Task.Deadline;
 import duke.Task.Event;
 import duke.Task.Item;
 import duke.Task.ToDo;
+import duke.sports.MyPlan;
+import duke.sports.MyTraining;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -341,8 +343,9 @@ public class Storage {
     public int loadPlans (Map<Integer, ArrayList<MyTraining>> map) throws FileNotFoundException {
         MyPlan plan = new MyPlan();
         ArrayList<MyTraining> list = new ArrayList<>();
-        int division = Integer.parseInt(fileInput.nextLine().split(": ")[1]);
-
+        if (fileInput.hasNextLine()) { //check for number of plans in each intensity category stated in first line
+            tuple<Integer, Integer, Integer> div = fileInput.nextLine();
+        }
         int index = 1;
         int intensity = 1;
         int plan_num = 0;
@@ -381,7 +384,7 @@ public class Storage {
             }
             index++;
         }
-        return division;
+        return div;
     }
 
     public void updatePlans() {
