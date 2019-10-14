@@ -6,19 +6,13 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
-import javafx.stage.FileChooser;
 
-import javax.swing.*;
 import java.io.*;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.nio.file.StandardCopyOption;
 
 /**
  * Controller for MainWindow. Provides the layout for the other controls.
  */
-public class MainWindow extends AnchorPane {
+public class MainWindow extends AnchorPane implements DataTransfer {
 
     @FXML
     private ScrollPane scrollPane;
@@ -71,10 +65,8 @@ public class MainWindow extends AnchorPane {
             userImage = userIcon.getIcon();
         } else if (input.equals("graph monthly report")) {
             graphContainer.getChildren().clear();
-            float[] yData = duke.getMonthlyData();
-            String[] xData = new String[]{"Income", "Expenditure"};
             graphContainer.getChildren().addAll(
-                    Histogram.getHistogram("The Month Report", xData, yData)
+                    DataTransfer.getMonthlyData(duke.getAccount())
             );
         } else if (input.equals("graph category trend")) {
 

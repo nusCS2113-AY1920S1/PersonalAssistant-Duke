@@ -12,7 +12,7 @@ import java.text.ParseException;
 /**
  * The main class which controls the overall flow, run the program.
  */
-public class Duke {
+public class Duke{
 
     private Ui ui;
     private MoneyStorage moneyStorage;
@@ -73,12 +73,8 @@ public class Duke {
         return new String[]{ui.getOutputString(), ui.getGraphContainerString()};
     }
 
-    /**
-     * This function sends the data of y axis for the monthly report
-     * @return y-axis data for the monthly report
-     */
-    public float[] getMonthlyData() {
-        return new float[]{account.getTotalIncome(), account.getTotalExp()};
+    public Account getAccount() {
+        return account;
     }
 
 }
