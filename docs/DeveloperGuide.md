@@ -18,6 +18,7 @@ Welcome to the **COMPal** Developer Guide! This Developer Guide is still being w
 [**4. Design**](/docs/DeveloperGuide.md#4-design)
  + [4.1 Architecture](/docs/DeveloperGuide.md#41-architecture)
  + [4.2 UI Component](/docs/DeveloperGuide.md#42-ui-component)
+ + [4.3 Logic Component](/docs/DeveloperGuide.md#43-logic-component)
  + [4.4 Commons Component](/docs/DeveloperGuide.md#44-commons-component)
  + [4.5 Storage Component](/docs/DeveloperGuide.md#45-storage-component)
  + [4.6 Model Component](/docs/DeveloperGuide.md#46-model-component)
@@ -177,7 +178,20 @@ The  `UI`  component,
 - Displays text-based command results in to the user via `MainOutput` or `SecondaryOutput`.
 - Display ​daily calendar of the user via `DailyCalender`. 
 
-### 4.4 Commons Component
+### 4.3. Logic component
+<img src="https://github.com/AY1920S1-CS2113T-W17-1/main/blob/master/docs/diagrams/LogicCLassDiagram.png" alt="logic Diagram" width="800"/>
+Figure 6. Structure of the Logic component
+
+**API**  :  [`CommandParser.java`](https://github.com/AY1920S1-CS2113T-W17-1/main/blob/master/src/main/java/compal/parser/CommandParser.java)
+
+The  `Logic`  component,
+
+- Set up `ParserManager` to parse the user command.
+- `ParserManager` creates respective `xCommand` class.
+- `xCommand` class can execute the command and can affect the `model`.
+- `xCommand` class can instruct the `ui` to print information.
+
+### 4.4. Commons Component
 Classes used by multiple components are in the [`commons`](/src/main/java/compal/commons) package. It contains 2 important classes: [`Compal`](/src/main/java/compal/commons/Compal.java) and [`Messages`](/src/main/java/compal/commons/Messages.java).
 
 `Compal.java` creates an instance of `Ui`, `Storage`, `TaskList` and `ParserManager`. Other classes will then use `Compal` to call on the aforementioned classes for different method invocations.
@@ -186,7 +200,7 @@ In addition, `Compal` contains the `viewReminder` method, which will be called w
 
 `Messages.java` contains all the error messages that will be printed on the GUI when the user has made an error in their input. This will notify the user to check what he/she has keyed in the command box, and make necessary adjustments. 
 
-### 4.5 Storage Component
+### 4.5. Storage Component
 API: StorageManager.java
 
 We use very simple and user-editable text files to store user data. Data is stored as data strings separated by underscores. The separation token however, can be easily changed if desired. 
