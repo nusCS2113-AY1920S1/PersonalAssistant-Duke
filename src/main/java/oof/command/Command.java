@@ -42,13 +42,8 @@ public abstract class Command {
     public String parseTimeStamp(String date) {
         try {
             SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy HH:mm");
-            format.parse(date);
-            String pattern = "dd-MM-yyyy HH:mm";
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern(pattern);
-            LocalDateTime localDateTime = LocalDateTime.from(formatter.parse(date));
-            Timestamp timestamp = Timestamp.valueOf(localDateTime);
-            DateTimeFormatter formatter2 = DateTimeFormatter.ISO_LOCAL_DATE_TIME;
-            return formatter2.format(timestamp.toLocalDateTime());
+            Date parsed = format.parse(date);
+            return format.format(parsed);
         } catch (ParseException | DateTimeException e) {
             return "failed";
         }

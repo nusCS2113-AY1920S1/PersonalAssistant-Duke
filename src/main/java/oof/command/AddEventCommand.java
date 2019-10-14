@@ -58,24 +58,14 @@ public class AddEventCommand extends Command {
         String startDate = parseTimeStamp(dateSplit[0]);
         String endDate = parseTimeStamp(dateSplit[1]);
         if (isDateValid(startDate) && isDateValid(endDate)) {
-            ArrayList<Event> eventClashes = new ArrayList<>();
             SimpleDateFormat format = new java.text.SimpleDateFormat("dd-MM-yyyy HH:mm");
             try {
-                Date newEventStartTime = format.parse(dateSplit[0]);
-                Date newEventEndTime = format.parse(dateSplit[1]);
-                if (!isStartDateBeforeEndDate(newEventStartTime, newEventEndTime)) {
+                Date newStartTime = format.parse(dateSplit[0]);
+                Date newEndTime = format.parse(dateSplit[1]);
+                if (!isStartDateBeforeEndDate(newStartTime, newEndTime)) {
                     throw new OofException("OOPS!!! The start date of an event cannot be after the end date.");
                 }
-                for (Task t : arr.getTasks()) {
-                    if (t instanceof Event) {
-                        Event event = (Event) t;
-                        Date currEventStartTime = format.parse(event.getStartTiming());
-                        Date currEventEndTime = format.parse(event.getEndTiming());
-                        if (isClash(newEventStartTime, newEventEndTime, currEventStartTime, currEventEndTime)) {
-                            eventClashes.add(event);
-                        }
-                    }
-                }
+                ArrayList<Event> eventClashes = checkClashes(arr, newStartTime, newEndTime);
                 boolean hasClashes = !eventClashes.isEmpty();
                 if (hasClashes) {
                     ui.printClashWarning(eventClashes);
@@ -99,9 +89,34 @@ public class AddEventCommand extends Command {
         }
     }
 
+    /**
+     * Iterates through current task and checks if any events clashes with new event being added.
+     *
+     * @param arr          Instance of TaskList that stores Task objects.
+     * @param newStartTime Start time of event.
+     * @param newEndTime   End time of event.
+     * @throws ParseException Catches invalid time entry.
+     */
+    public ArrayList<Event> checkClashes(TaskList arr, Date newStartTime, Date newEndTime) throws ParseException {
+        ArrayList<Event> clashes = new ArrayList<>();
+        SimpleDateFormat format = new java.text.SimpleDateFormat("dd-MM-yyyy HH:mm");
+        for (Task t : arr.getTasks()) {
+            if (t instanceof Event) {
+                Event event = (Event) t;
+                Date currStartTime = format.parse(event.getStartTiming());
+                Date currEndTime = format.parse(event.getEndTiming());
+                if (isClash(newStartTime, newEndTime, currStartTime, currEndTime)) {
+                    clashes.add(event);
+                }
+            }
+        }
+        return clashes;
+    }
+
 
     /**
      * Checks if input has a description.
+     *
      * @param lineSplit processed user input.
      * @return true if description is more than length 0 and is not whitespace.
      */
@@ -111,6 +126,7 @@ public class AddEventCommand extends Command {
 
     /**
      * Checks if input has a start date (argument given before "/to").
+     *
      * @param lineSplit processed user input.
      * @return true if there is a start date and start date is not whitespace.
      */
@@ -120,6 +136,7 @@ public class AddEventCommand extends Command {
 
     /**
      * Checks if input has an end date (argument given after "/to").
+     *
      * @param lineSplit processed user input.
      * @return true if there is an end date and end date is not whitespace.
      */
@@ -131,29 +148,26 @@ public class AddEventCommand extends Command {
     /**
      * Checks if start and end date are chronologically accurate.
      *
-     * @param newEventStartTime Start time of event being added.
-     * @param newEventEndTime   End time of event being added.
+     * @param startTime Start time of event being added.
+     * @param endTime   End time of event being added.
      * @return true if start date occurs before end date, false otherwise.
      */
-    private boolean isStartDateBeforeEndDate(Date newEventStartTime, Date newEventEndTime) {
-        return newEventStartTime.compareTo(newEventEndTime) <= 0;
+    private boolean isStartDateBeforeEndDate(Date startTime, Date endTime) {
+        return startTime.compareTo(endTime) <= 0;
     }
 
     /**
      * Checks if there is an overlap of event timing.
      *
-     * @param newEventStartTime  Start time of event being added.
-     * @param newEventEndTime    End time of event being added.
-     * @param currEventStartTime Start time of event being compared.
-     * @param currEventEndTime   End time of event being added.
+     * @param newStartTime  Start time of event being added.
+     * @param newEndTime    End time of event being added.
+     * @param currStartTime Start time of event being compared.
+     * @param currEndTime   End time of event being added.
      * @return true if there is an overlap of event timing.
      */
-    private boolean isClash(Date newEventStartTime, Date newEventEndTime, Date currEventStartTime,
-                            Date currEventEndTime) {
-        return (newEventStartTime.compareTo(currEventStartTime) >= 0
-                && newEventStartTime.compareTo(currEventEndTime) < 0)
-                || (newEventEndTime.compareTo(currEventStartTime) > 0
-                && newEventEndTime.compareTo(currEventEndTime) <= 0);
+    private boolean isClash(Date newStartTime, Date newEndTime, Date currStartTime, Date currEndTime) {
+        return (newStartTime.compareTo(currStartTime) >= 0 && newStartTime.compareTo(currEndTime) < 0)
+                || (newEndTime.compareTo(currStartTime) > 0 && newEndTime.compareTo(currEndTime) <= 0);
     }
 
     /**
