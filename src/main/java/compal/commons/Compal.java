@@ -102,12 +102,13 @@ public class Compal {
         for (Task t : tasklist.arrlist) {
             Calendar  tempTaskDateAndTime = Calendar.getInstance();
             tempTaskDateAndTime.setTime(t.getDate());
-            int startingHour = Integer.parseInt(t.getStringStartTime().substring(0,2));
-            tempTaskDateAndTime.set(Calendar.HOUR_OF_DAY, startingHour);
-            int startingMinute = Integer.parseInt(t.getStringStartTime().substring(2,4));
-            tempTaskDateAndTime.set(Calendar.MINUTE, startingMinute);
+            int endingHour = Integer.parseInt(t.getStringEndTime().substring(0,2));
+            tempTaskDateAndTime.set(Calendar.HOUR_OF_DAY, endingHour);
+            int endingMinute = Integer.parseInt(t.getStringEndTime().substring(2,4));
+            tempTaskDateAndTime.set(Calendar.MINUTE, endingMinute);
 
             Date deadline = tempTaskDateAndTime.getTime();
+
 
             if (deadline != null && !t.isDone && deadline.after(dateToday)
                     && (deadline.before(dateAfter) || t.hasReminder())) {
