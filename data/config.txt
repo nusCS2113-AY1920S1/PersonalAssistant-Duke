@@ -1,0 +1,16 @@
+bye:bye
+list:list
+help:help
+done:done
+find:find
+delete:delete
+deadline:deadline
+event:event
+todo:todo
+edit:edit
+postpone:postpone
+snooze:snooze
+reschedule:reschedule
+remind:remind
+sort:sort
+setwelcome:setwelcome
