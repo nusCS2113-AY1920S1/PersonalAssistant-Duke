@@ -20,23 +20,23 @@ public class CommandManager {
      */
     public static Command manageCommand(String userInput) throws DukeException {
         userInput = userInput.trim();
-        String[] command = userInput.split("\\s+", 2);
-        String commandType = command[0].toLowerCase();
-        switch (commandType) { //change this depending on how string is parsed
+        String[] command = userInput.split("\\s+", 3);
+        String firstKeyword = command[0].toLowerCase();
+        switch (firstKeyword) { //change this depending on how string is parsed
             case "add":
                 try {
-                    String[] tempCommand = command[1].split("\\s+");
-                    if (tempCommand[0].toLowerCase().equals("patient")){
+                    String secondKeyword = command[1].toLowerCase();
+                    String commandContent = command[2].trim();
+                    if (secondKeyword.equals("patient")){
                         try {
-                            String[] commandContent = command[1].split("\\s+", 2)[1].split("\\s+", 4);
-                            Patient patient = new Patient(commandContent[0], commandContent[1], commandContent[2], commandContent[3]);
-                            return new AddPatientCommand(patient);
+                            return new AddPatientCommand(commandContent);
                         }catch(Exception e){
                             throw new Exception("Please follow the format 'add patient <name> <NRIC> <Room> <remark>'. ");
                         }
                     }
-                    else if (tempCommand[0].toLowerCase().equals("task")){
+                    else if (secondKeyword.equals("task")){
                         try {
+                            String[] tempCommand = command[1].split("\\s+");
                             Task task = new Task(command[1]);
                             return new AddStandardTaskCommand(task);
                         }catch(Exception e){
