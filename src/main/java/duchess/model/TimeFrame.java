@@ -79,6 +79,10 @@ public class TimeFrame implements Comparable<TimeFrame> {
         return this.fallsWithin(that);
     }
 
+    public LocalDateTime getStart() {
+        return start;
+    }
+
     @Override
     public int compareTo(TimeFrame that) {
         if (this.isIndefinite && that.isIndefinite) {

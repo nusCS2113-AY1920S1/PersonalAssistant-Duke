@@ -33,7 +33,7 @@ public class DetectAnomaliesTest {
                 "12/12/2020 1900 /to 12/12/2020 1930"
         )) {
             assertTrue(store.isClashing(new Event("party", Util.parseDateTime(str.substring(20)),
-                    Util.parseDateTime(str.substring(0,15)))));
+                    Util.parseDateTime(str.substring(0, 15)))));
         }
     }
 
@@ -48,7 +48,7 @@ public class DetectAnomaliesTest {
                 "12/12/2020 1630 /to 12/12/2020 1730"
         )) {
             assertFalse(store.isClashing(new Event("party", Util.parseDateTime(str.substring(20)),
-                    Util.parseDateTime(str.substring(0,15)))));
+                    Util.parseDateTime(str.substring(0, 15)))));
         }
     }
 

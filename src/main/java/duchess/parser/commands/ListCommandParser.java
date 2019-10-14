@@ -16,6 +16,7 @@ public class ListCommandParser {
 
     /**
      * Returns a command to list user's resources.
+     *
      * @param parameters the processed user input
      * @return the command to execute
      * @throws DuchessException if the input is invalid

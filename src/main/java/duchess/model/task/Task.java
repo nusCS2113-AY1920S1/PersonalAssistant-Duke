@@ -73,4 +73,5 @@ public abstract class Task implements Comparable<Task> {
     public abstract void snooze() throws DuchessException;
 
     public abstract Optional<Task> getReminder();
+
 }

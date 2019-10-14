@@ -123,6 +123,7 @@ public class Ui {
     /**
      * Displays schedule of a single day to user.
      * Informs user if there are ongoing events.
+     *
      * @param tasks List of tasks to show
      * @param date  Date
      */
@@ -133,6 +134,10 @@ public class Ui {
         for (Task t : tasks) {
             printIndented(counter++ + ". " + t.toString());
         }
+    }
+
+    public void showFinishedExport(String filePath) {
+        printIndented("Your schedule has finished exporting to " + filePath);
     }
 
     /**
@@ -267,7 +272,6 @@ public class Ui {
     }
 
     /**
-<<<<<<< HEAD
      * Displays number of undone actions to user.
      *
      * @param redoCounter number of undo operations

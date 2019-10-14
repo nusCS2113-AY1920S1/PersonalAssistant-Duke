@@ -1,8 +1,8 @@
 package duchess.logic.commands;
 
 import duchess.exceptions.DuchessException;
-import duchess.model.AcademicContext;
 import duchess.model.TimeFrame;
+import duchess.model.calendar.AcademicContext;
 import duchess.model.task.Task;
 import duchess.parser.Util;
 import duchess.storage.Storage;
@@ -81,8 +81,6 @@ public class ViewScheduleCommand extends Command {
             date = "the week of " + date;
         }
         Collections.sort(tasksForToday);
-        ui.showScheduleResult(tasksForToday, date, academicContext.getAcademicContext()
-        );
-
+        ui.showScheduleResult(tasksForToday, date, academicContext.toString());
     }
 }

@@ -9,11 +9,15 @@ import duchess.parser.states.ParserState;
  * Parses user input.
  */
 public class Parser {
-    /** Used for list command. */
+    /**
+     * Used for list command.
+     */
     public static String TASKS_KEYWORD = "tasks";
     public static String MODULES_KEYWORD = "modules";
 
-    /** Usage for commands. */
+    /**
+     * Usage for commands.
+     */
     public static String LIST_USAGE =
             "Usage: list (tasks | modules)";
 

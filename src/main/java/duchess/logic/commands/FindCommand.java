@@ -50,12 +50,12 @@ public class FindCommand extends Command {
             search for exact matches.
              */
             if (!"\"".equals(searchTerm) && searchTerm.charAt(0) == '"'
-                && searchTerm.charAt(searchTerm.length() - 1) == '"') {
+                    && searchTerm.charAt(searchTerm.length() - 1) == '"') {
                 filteredTasks = store
                         .getTaskList()
                         .stream()
                         .filter(task -> task.getDescription()
-                        .equals(searchTerm.substring(1, searchTerm.length() - 1)))
+                                .equals(searchTerm.substring(1, searchTerm.length() - 1)))
                         .collect(Collectors.toList());
             /*
             Search for task descriptions with longest common subsequence of length
@@ -66,8 +66,8 @@ public class FindCommand extends Command {
                 filteredTasks = store
                         .getTaskList().stream()
                         .filter(task -> longestCommonSubsequence(task.getDescription().toLowerCase()
-                        .replaceAll(" ", ""), trimmedSearchTerm)
-                        >= trimmedSearchTerm.length() - 2)
+                                .replaceAll(" ", ""), trimmedSearchTerm)
+                                >= trimmedSearchTerm.length() - 2)
                         .collect(Collectors.toList());
 
                 /*
@@ -83,7 +83,7 @@ public class FindCommand extends Command {
                  */
                 filteredTasks.sort(Comparator
                         .comparingInt(task -> -longestCommonSubsequence(task.getDescription().toLowerCase()
-                        .replaceAll(" ", ""), trimmedSearchTerm)));
+                                .replaceAll(" ", ""), trimmedSearchTerm)));
             }
 
             if (filteredTasks.size() == 0) {

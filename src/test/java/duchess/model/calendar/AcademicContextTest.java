@@ -1,6 +1,5 @@
-package duchess;
+package duchess.model.calendar;
 
-import duchess.model.AcademicContext;
 import org.junit.jupiter.api.extension.ParameterContext;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.converter.ArgumentConversionException;
@@ -60,7 +59,7 @@ public class AcademicContextTest implements ArgumentConverter {
     void academicContext_processedCorrectly(@ConvertWith(AcademicContextTest.class) LocalDateTime localDateTime,
                                             String expected) {
         AcademicContext ac = new AcademicContext(localDateTime);
-        String academicContext = ac.getAcademicContext();
+        String academicContext = ac.toString();
         assertEquals(expected, academicContext);
     }
 }

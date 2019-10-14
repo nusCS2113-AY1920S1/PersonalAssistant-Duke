@@ -1,4 +1,4 @@
-package duchess.model;
+package duchess.model.calendar;
 
 import java.time.DayOfWeek;
 import java.time.LocalDate;
@@ -11,10 +11,11 @@ public class AcademicContext {
     private LocalDate localDate;
     private LocalDate startDate;
     private LocalDate endDate;
+    private LocalDate academicStartDate;
+    private LocalDate academicEndDate;
     private String academicYear;
     private String academicWeek;
     private String semester;
-    private static final double week = 7.0;
 
     /**
      * Set academic context based on given date.
@@ -23,6 +24,20 @@ public class AcademicContext {
      */
     public AcademicContext(LocalDateTime localDateTime) {
         this.localDate = localDateTime.toLocalDate();
+        this.startDate = localDate;
+        this.endDate = localDate;
+        this.semester = processSemester();
+        this.academicWeek = processAcademicWeek();
+        this.academicYear = processAcademicYear();
+    }
+
+    /**
+     * Set academic context based on given date.
+     *
+     * @param localDate date
+     */
+    public AcademicContext(LocalDate localDate) {
+        this.localDate = localDate;
         this.startDate = localDate;
         this.endDate = localDate;
         this.semester = processSemester();
@@ -50,6 +65,8 @@ public class AcademicContext {
         LocalDate semOneEnd = processDate(Month.AUGUST, true);
         LocalDate semTwoStart = processDate(Month.JANUARY, false);
         LocalDate semTwoEnd = processDate(Month.JANUARY, true);
+        this.academicStartDate = semOneStart;
+        this.academicEndDate = semOneStart.plusYears(1).minusDays(1);
         boolean isSemesterOne = localDate.compareTo(semOneStart) >= 0 && localDate.compareTo(semOneEnd) <= 0;
         boolean isSemesterTwo = localDate.compareTo(semTwoStart) >= 0 && localDate.compareTo(semTwoEnd) <= 0;
         boolean isSummerBreak = localDate.isAfter(semTwoEnd) && localDate.isBefore(semOneStart);
@@ -79,6 +96,7 @@ public class AcademicContext {
         if (isSchoolTerm) {
             daysBetween++;
         }
+        final double week = 7.0;
         int currWeek = (int) Math.ceil(daysBetween / week);
         if (isSchoolTerm) {
             switch (currWeek) {
@@ -120,7 +138,15 @@ public class AcademicContext {
         }
     }
 
-    public String getAcademicContext() {
+    public String toString() {
         return academicYear + ", " + semester + ", " + academicWeek;
+    }
+
+    public LocalDate getAcademicStartDate() {
+        return academicStartDate;
+    }
+
+    public LocalDate getAcademicEndDate() {
+        return academicEndDate;
     }
 }

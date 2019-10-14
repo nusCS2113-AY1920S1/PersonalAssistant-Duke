@@ -20,8 +20,8 @@ public class AddEventCommand extends Command {
      * Creates a command to add an event.
      *
      * @param description description of Event task
-     * @param end end time
-     * @param start start time
+     * @param end         end time
+     * @param start       start time
      */
     public AddEventCommand(String description, LocalDateTime end, LocalDateTime start) {
         this.description = description;
