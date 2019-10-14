@@ -25,7 +25,7 @@ Role: Developer
 '''
 
 === Zhao Pengfei
-image::LL-Pengfei.png[width="150", align="left"]
+image::ll-pengfei.png[width="150", align="left"]
 {empty}[http://www.comp.nus.edu.sg/~pengfei[homepage]] [http://github.com/LL-Pengfei[github]] [https://nus-csm.symplicity.com/profiles/zhao.pengfei[portfolio]]
 
 Role: Developer
@@ -33,7 +33,7 @@ Role: Developer
 '''
 
 === Zheng Kaining
-image::ZKathrynx.png[width="150", align="left"]
+image::zkathrynx.png[width="150", align="left"]
 {empty}[http://github.com/ZKathrynx[github]]
 
 Role: Developer
