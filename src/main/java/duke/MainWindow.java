@@ -2,9 +2,9 @@ package duke;
 
 import duke.dukeobject.Expense;
 import javafx.beans.binding.Bindings;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -33,9 +33,10 @@ public class MainWindow extends BorderPane {
     Label remainingBudgetLabel;
     @FXML
     TableView expenseTableView;
+    @FXML
+    ListView budgetListView = new ListView();
 
     private Duke duke;
-    private ObservableList<Expense> expenseObservableList;
 
     /**
      * Detects enter key and passes command entered in the TextField into Duke, and update the GUI accordingly.
@@ -50,6 +51,7 @@ public class MainWindow extends BorderPane {
         updateTableListView();
         updateMonthlyBudget();
         updateRemainingBudget();
+        updateBudgetListView();
     }
 
     /**
@@ -63,6 +65,8 @@ public class MainWindow extends BorderPane {
         updateMonthlyBudget();
         updateRemainingBudget();
         updateTableListView();
+        updateBudgetListView();
+
     }
 
     /**
@@ -84,6 +88,7 @@ public class MainWindow extends BorderPane {
             }, cell.emptyProperty(), cell.indexProperty()));
             return cell;
         });
+
         TableColumn<String, Expense> timeColumn = new TableColumn<>("Time");
         timeColumn.setCellValueFactory(new PropertyValueFactory<>("timeString"));
         TableColumn<String, Expense> amountColumn = new TableColumn<>("Amount");
@@ -132,6 +137,19 @@ public class MainWindow extends BorderPane {
                 + ((duke.budget.getRemaining(duke.expenseList.getTotalAmount()).compareTo(BigDecimal.valueOf(0)) < 0)
                 ? "-$" + duke.budget.getRemaining(duke.expenseList.getTotalAmount()).abs()
                 : "$" + duke.budget.getRemaining(duke.expenseList.getTotalAmount())));
+    }
+
+    /**
+     * Updates the Budget List of all categories.
+     */
+    public void updateBudgetListView() {
+        budgetListView.getItems().clear();
+        budgetListView.getItems().add("Tag: Spent/Budget");
+        for (String tag : duke.budget.getBudgetCategory().keySet()) {
+            budgetListView.getItems().add(tag
+                    + ": $" + duke.expenseList.getTagAmount(tag)
+                    + "/$" + duke.budget.getBudgetCategory().get(tag));
+        }
     }
 
 }

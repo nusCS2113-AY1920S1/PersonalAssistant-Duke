@@ -2,27 +2,35 @@
 
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.control.TableView?>
 <BorderPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
             fx:controller="duke.MainWindow"
-            prefHeight="400.0" prefWidth="600.0"
+            prefHeight="400.0" prefWidth="700.0"
             fx:id="main">
     <top>
         <VBox alignment="CENTER">
+
             <Label fx:id="totalSpentLabel" text="Total: $0.00"/>
             <Label fx:id="monthlyBudgetLabel" text="Budget:inf"/>
             <Label fx:id="remainingBudgetLabel" text="Remaining:inf"/>
-            <TableView fx:id="expenseTableView" />
+            <HBox>
+                <TableView fx:id="expenseTableView"/>
+                <ListView fx:id="budgetListView"/>
+            </HBox>
+
         </VBox>
     </top>
+
     <bottom>
         <VBox>
             <Label fx:id="lastCommandLabel" text="Hello, welcome to Duke++!" prefWidth="Infinity"/>
             <TextField fx:id="inputField" promptText="enter a command" onAction="#onEnter"/>
         </VBox>
     </bottom>
+
 </BorderPane>
