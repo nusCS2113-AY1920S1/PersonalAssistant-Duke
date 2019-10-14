@@ -79,7 +79,7 @@ public class TaskManager {
 
     }
 
-    public boolean isExist(int id) {
+    public boolean doesExist(int id) {
         if (taskIdMap.containsKey(id)){
             return true;
         }
