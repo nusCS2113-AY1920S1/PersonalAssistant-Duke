@@ -2,6 +2,8 @@ package dolla;
 
 
 //import dolla.task.Task;
+import dolla.task.EntryList;
+import dolla.task.LogList;
 import parser.DollaParser;
 import parser.MainParser;
 import dolla.task.Entry;
@@ -73,72 +75,71 @@ public class Storage {
                 String[] inArray = inLine.split(" \\| ");
                 int numOfElements = inArray.length;
                 String type = inArray[0];
-                Log newTask = null;
-                System.out.println(numOfElements);
+                Log newLog = null;
 //                System.out.println(inArray[0] + " ===----"+inArray[1]);
                 switch(type) {
                 case "I": //check if there is a tag
                     if(numOfElements == 4) {
-                        newTask = new Entry("income",stringToDouble(inArray[1]),inArray[2],Time.readDateTime(inArray[3])); //income [AMOUNT] [DESCRIPTION] /on [DATE]
+                        newLog = new Entry("income",stringToDouble(inArray[1]),inArray[2],Time.readDateTime(inArray[3])); //income [AMOUNT] [DESCRIPTION] /on [DATE]
                     }
 //                    else if (numOfElements == 5) {
-//                        newTask = new income(inArray[1],inArray[2],Time.readDate(inArray[3]),inArray[4]); //income [AMOUNT] [DESCRIPTION] /on [DATE] /tag [TAG]
+//                        newLog = new income(inArray[1],inArray[2],Time.readDate(inArray[3]),inArray[4]); //income [AMOUNT] [DESCRIPTION] /on [DATE] /tag [TAG]
 //                    }
                     break;
 //                case "E": //check if there is a tag
 //                    if(numOfElements == 4) {
-//                        newTask = new expense(inArray[1],inArray[2],Time.readDate(inArray[3])); //expense [AMOUNT] [DESCRIPTION] /on [DATE]
+//                        newLog = new expense(inArray[1],inArray[2],Time.readDate(inArray[3])); //expense [AMOUNT] [DESCRIPTION] /on [DATE]
 //                    } else if (numOfElements == 5) {
-//                        newTask = new expense(inArray[1],inArray[2],Time.readDate(inArray[3]),inArray[4]); //expense [AMOUNT] [DESCRIPTION] /on [DATE] /tag [TAG]
+//                        newLog = new expense(inArray[1],inArray[2],Time.readDate(inArray[3]),inArray[4]); //expense [AMOUNT] [DESCRIPTION] /on [DATE] /tag [TAG]
 //                    }
 //                    break;
 //                case "RI"://no start date, check if there is a tag
 //                    if(numOfElements == 4) {
-//                        newTask = new recurringIncome(inArray[1],inArray[2],Time.readDate(inArray[3])); //recurringIncome [AMOUNT] [DESCRIPTION] /on [DATE]
+//                        newLog = new recurringIncome(inArray[1],inArray[2],Time.readDate(inArray[3])); //recurringIncome [AMOUNT] [DESCRIPTION] /on [DATE]
 //                    } else if(numOfElements == 5) {
-//                        newTask = new recurringIncome(inArray[1],inArray[2],Time.readDate(inArray[3]),inArray[4]); //recurringIncome [AMOUNT] [DESCRIPTION] /on [DATE] /tag [TAG]
+//                        newLog = new recurringIncome(inArray[1],inArray[2],Time.readDate(inArray[3]),inArray[4]); //recurringIncome [AMOUNT] [DESCRIPTION] /on [DATE] /tag [TAG]
 //                    }
 //                    break;
 //                case "RE"://no start date, check if there is a tag
 //                    if(numOfElements == 4) {
-//                        newTask = new recurringExpanse(inArray[1],inArray[2],Time.readDate(inArray[3])); //recurringExpense [AMOUNT] [DESCRIPTION] /on [DATE]
+//                        newLog = new recurringExpanse(inArray[1],inArray[2],Time.readDate(inArray[3])); //recurringExpense [AMOUNT] [DESCRIPTION] /on [DATE]
 //                    } else if (numOfElements == 5) {
-//                        newTask = new recurringExpense(inArray[1],inArray[2],Time.readDate(inArray[3]),inArray[4]); //recurringExpense [AMOUNT] [DESCRIPTION] /on [DATE] /tag [TAG]
+//                        newLog = new recurringExpense(inArray[1],inArray[2],Time.readDate(inArray[3]),inArray[4]); //recurringExpense [AMOUNT] [DESCRIPTION] /on [DATE] /tag [TAG]
 //                    }
 //                    break;
 //                case "B"://must include 3 additional word, every,for and tag
 //                    if(inArray[3].equals("every")) {
-//                        newTask = new budgetEvery(inArray[1],Time.readDate(inArray[2]));
+//                        newLog = new budgetEvery(inArray[1],Time.readDate(inArray[2]));
 //                    } else if (inArray[3].equals("for")) {
-//                        newTask = new budgetFor(inArray[1],Time.readDate(inArray[2]));
+//                        newLog = new budgetFor(inArray[1],Time.readDate(inArray[2]));
 //                    } else if (inArray[3].equals("tag")) {
-//                        newTask = new budgetTag(inArray[1],inArray[2]);
+//                        newLog = new budgetTag(inArray[1],inArray[2]);
 //                    }
 //                    break;
 //                case "S":
-//                    newTask = new saving(inArray[1],Time.readDate(inArray[2]));
+//                    newLog = new saving(inArray[1],Time.readDate(inArray[2]));
 //                    break;
 //                case "O":
-//                    newTask = new owe(inArray[1],inArray[2],inArray[3]);
+//                    newLog = new owe(inArray[1],inArray[2],inArray[3]);
 //                    break;
 //                case"B":
-//                    newTask = new borrow(inArray[1],inArray[2],inArray[3]);
+//                    newLog = new borrow(inArray[1],inArray[2],inArray[3]);
 //                    break;
 //                case"shortcut"://special case for shortcut,only one string
-//                    newTask = new shortcut(inArray[1]);
+//                    newLog = new shortcut(inArray[1]);
 //                    break;
                 default:
                     System.out.println("save file corrupted");
                 }
 
                 if(type.equals("I") || type.equals(("E")) || type.equals("RI") || type.equals("RE")) {
-                    entries.add(newTask);
+                    entries.add(newLog);
                 } else if(type.equals("B") || type.equals("S")) {
-                    limits.add(newTask);
+                    limits.add(newLog);
                 } else if (type.equals("O") || type.equals("B")) {
-                    debts.add(newTask);
+                    debts.add(newLog);
                 } else if (type.equals("shortcut")) {
-                    shortcuts.add(newTask);
+                    shortcuts.add(newLog);
                 }
 
               //if (type.equals("T")) {
@@ -174,23 +175,43 @@ public class Storage {
 //        return list;
     }
 
-    public ArrayList<Log> getEntries() {
+    public static ArrayList<Log> getEntriesFromSave() {
         return entries;
     }
 
-    public ArrayList<Log> getLimits() {
+    public static ArrayList<Log> getLimits() {
         return limits;
     }
 
-    public ArrayList<Log> getDebts() {
+    public static ArrayList<Log> getDebts() {
         return debts;
     }
 
-    public ArrayList<Log> getShortcuts() {
+    public static ArrayList<Log> getShortcuts() {
         return shortcuts;
     }
 
-//    /**
+    public static void setEntries(ArrayList<Log> entries) {
+        Storage.entries = entries;
+        save();
+    }
+
+    public static void setLimits(ArrayList<Log> limits) {
+        Storage.limits = limits;
+        save();
+    }
+
+    public static void setDebts(ArrayList<Log> debts) {
+        Storage.debts = debts;
+        save();
+    }
+
+    public static void setShortcuts(ArrayList<Log> shortcuts) {
+        Storage.shortcuts = shortcuts;
+        save();
+    }
+
+    //    /**
 //     * This method takes and writes the information of the tasks
 //     *  within the specified ArrayList and into a file ./data/duke.txt.
 //     *  <p>
@@ -201,28 +222,45 @@ public class Storage {
 //     * @param debtsSave An Arraylist containing the debts to be saved.
 //     * @param shortcutsSave An Arraylist containing the shortcuts to be saved.
 //     */
-//    public static void save(ArrayList<Log> entriesSave,ArrayList<Log> limitsSave,ArrayList<Log> debtsSave,ArrayList<Log> shortcutsSave) {
-//        try (FileWriter file = new FileWriter("./data/duke.txt")) {
-//            for (Log currLog : entriesSave) {
-//                String fileContent = currLog.formatSave();
+    public static void save() {
+        try (FileWriter file = new FileWriter("./data/duke.txt")) {
+
+            for (Log currEntries : entries) {
+                String fileContent = currEntries.formatSave();
+                file.write(fileContent);
+                file.write(System.lineSeparator());
+            }
+
+            for (Log currLimits : limits) {
+                String fileContent = currLimits.formatSave();
+                file.write(fileContent);
+                file.write(System.lineSeparator());
+            }
+
+            for (Log currDebts : debts) {
+                String fileContent = currDebts.formatSave();
+                file.write(fileContent);
+                file.write(System.lineSeparator());
+            }
+
+            for (Log currShortcuts : shortcuts) {
+                String fileContent = currShortcuts.formatSave();
+                file.write(fileContent);
+                file.write(System.lineSeparator());
+            }
+
+        } catch (IOException e) {
+            System.out.println("***Error writing to duke.txt***");
+        }
+
+    }
+
+//    public static void save(Log saveList) {
+//        try (FileWriter file = new FileWriter("./data/duke.txt",true)) {
+//                String fileContent = saveList.formatSave();
+//                System.out.println(fileContent); ///////////////////////
 //                file.write(fileContent);
 //                file.write(System.lineSeparator());
-//            }
-//            for (Log currLog : limitsSave) {
-//                String fileContent = currLog.formatSave();
-//                file.write(fileContent);
-//                file.write(System.lineSeparator());
-//            }
-//            for (Log currLog : debtsSave) {
-//                String fileContent = currLog.formatSave();
-//                file.write(fileContent);
-//                file.write(System.lineSeparator());
-//            }
-//            for (Log currLog : shortcutsSave) {
-//                String fileContent = currLog.formatSave();
-//                file.write(fileContent);
-//                file.write(System.lineSeparator());
-//            }
 //
 //        } catch (IOException e) {
 //            System.out.println("***Error writing to duke.txt***");

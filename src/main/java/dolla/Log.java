@@ -7,4 +7,6 @@ package dolla;
 public abstract class Log {
 
     public abstract String getLogText();
+
+    public abstract String formatSave();//currently assuming no tags
 }

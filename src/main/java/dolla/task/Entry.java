@@ -11,6 +11,7 @@ import java.time.LocalDateTime;
 public class Entry extends Log {
     protected char sign; // '+' for income, '-' for expense
     protected String type;
+    protected String saveType;
     protected double amount;
     protected String description;
     protected LocalDateTime date;
@@ -47,4 +48,12 @@ public class Entry extends Log {
         return "$" + amount;
     }
 
+    @Override
+    public String formatSave() {
+        saveType = type.equals("income") ? "I" : "E";
+        return  saveType + " | "
+                + amount + " | "
+                + description + " | "
+                + Time.dateTimeToString(date);
+    }
 }
