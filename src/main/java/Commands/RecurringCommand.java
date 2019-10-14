@@ -4,12 +4,13 @@ import Interface.Storage;
 import Interface.Ui;
 import Tasks.Event;
 import Tasks.TaskList;
+
+import java.io.FileNotFoundException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class RecurringCommand extends Command {
-    private static final String NO_FIELD = "void";
     private final String description;
     private final String startTimeString;
     private final String endTimeString;
@@ -34,17 +35,22 @@ public class RecurringCommand extends Command {
     }
 
     @Override
-    public String execute(TaskList events, TaskList deadlines, Ui ui, Storage storage) throws ParseException {
+    public String execute(TaskList events, TaskList deadlines, Ui ui, Storage storage) throws ParseException, FileNotFoundException {
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
         String startDateString = dateFormat.format(startDate);
+        String endDateString = dateFormat.format(endDate);
+        Date oldStartDate = startDate;
 
         do {
-            new AddCommand(new Event(description, startDateString, startTimeString, endTimeString));
+            events.addTask(new Event(description, startDateString, startTimeString, endTimeString));
+            storage.updateEventList(events);
             startOfFollowingWeek = new Date(startDate.getTime() + 7 * 24 * 60 * 60 * 1000);
             startDateString = dateFormat.format(startOfFollowingWeek);
             startDate = startOfFollowingWeek;
         }
         while (startOfFollowingWeek.before(endDate) || startOfFollowingWeek.equals(endDate));
-        return NO_FIELD;
+
+        String oldStartDateString = dateFormat.format(oldStartDate);
+        return ui.showRecurring(description, oldStartDateString, endDateString);
     }
 }
