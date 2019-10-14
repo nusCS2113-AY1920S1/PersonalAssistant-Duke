@@ -6,19 +6,18 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class DoAfterCommandTest {
-    private DoAfterCommand doAfterCommand;
+public class HelpCommandTest {
+    private HelpCommand helpCommand;
     private Compal compal;
 
     @BeforeEach
     public void setUp() {
         compal = new Compal();
-        doAfterCommand = new DoAfterCommand(compal);
+        helpCommand = new HelpCommand(compal);
     }
 
     @Test
     public void iniTest() {
-        assertEquals(compal, doAfterCommand.compal);
-        assertEquals(compal.tasklist,doAfterCommand.compal.tasklist);
+        assertEquals(compal, helpCommand.compal);
     }
 }

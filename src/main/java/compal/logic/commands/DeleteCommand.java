@@ -49,14 +49,12 @@ public class DeleteCommand extends Command implements CommandParser {
                 compal.ui.printg(MESSAGE_INVALID_RANGE);
                 throw new Compal.DukeException(MESSAGE_INVALID_RANGE);
             }
-
-            String removeDesc = taskList.arrlist.get(toRemove).toString();
             Date removeDate = taskList.arrlist.get(toRemove).getDate();
+            String removeDesc = taskList.arrlist.get(toRemove).toString();
 
             taskList.arrlist.remove(toRemove);
             compal.ui.secondaryScreenRefresh(removeDate);
-            compal.ui.printg("Noted. I've removed this task:");
-            compal.ui.printg(removeDesc);
+            compal.ui.printg("Noted. I've removed this task:\n" + removeDesc);
             compal.storage.saveCompal(taskList.arrlist);
             compal.ui.showSize();
 

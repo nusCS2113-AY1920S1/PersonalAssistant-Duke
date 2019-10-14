@@ -5,6 +5,7 @@ import compal.commons.Compal;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.BitSet;
+import java.util.Date;
 
 
 public class TaskList {
@@ -47,19 +48,61 @@ public class TaskList {
      * @param task Task to be added to the list of tasks.
      * @return Size of arrayList.
      */
-    public int addTask(Task task){
+    public int addTask(Task task) {
         arrlist.add(task);
+        sortTask(arrlist);
         compal.storage.saveCompal(arrlist);
         /*if (compal.ui.dateState.equals(task.getStringDate())) {
             compal.ui.dateViewRefresh(task.getStringDate());
         }*/
-        if(!task.getSymbol().equals("D")) {
+        if (!task.getSymbol().equals("D")) {
             compal.ui.dateViewRefresh(task.getStringDate());
         }
         compal.ui.secondaryScreenRefresh(task.getDate());
 
         compal.ui.showSize();
         return arrlist.size();
+    }
+
+
+    /**
+     * Cat to update javadoc.
+     *
+     * @param arrlist the arrlist.
+     */
+    public void sortTask(ArrayList<Task> arrlist) {
+        boolean sorted = false;
+        int arraySize = arrlist.size();
+        while (!sorted) {
+            sorted = true;
+            for (int i = 0; i < arraySize - 1; i++) {
+                Date task1Date = arrlist.get(i).getDate();
+                Date task2Date = arrlist.get(i + 1).getDate();
+                if (task1Date.after(task2Date)) {
+                    Task temp = arrlist.get(i);
+                    arrlist.set(i, arrlist.get(i + 1));
+                    arrlist.set(i + 1, temp);
+                    sorted = false;
+                }
+                if (task1Date.equals(task2Date)) {
+                    Date task1Time = arrlist.get(i).getStartTime();
+                    Date task2Time = arrlist.get(i + 1).getStartTime();
+
+                    if (task1Time == null) {
+                        task1Time = arrlist.get(i).getEndTime();
+                    }
+                    if (task2Time == null) {
+                        task2Time = arrlist.get(i + 1).getEndTime();
+                    }
+                    if (task1Time.after(task2Time)) {
+                        Task temp = arrlist.get(i);
+                        arrlist.set(i, arrlist.get(i + 1));
+                        arrlist.set(i + 1, temp);
+                        sorted = false;
+                    }
+                }
+            }
+        }
     }
 
     /**
