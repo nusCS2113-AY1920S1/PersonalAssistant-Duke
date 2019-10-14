@@ -28,9 +28,6 @@ public class FindBookingCommand extends CommandBooking {
             String customerName = userInputCommand.split("\\s", 2)[1].trim().toLowerCase();
             arrayList.add("     Here are the matching bookings in your list:");
             arrayList.addAll(bookingList.findBooking(customerName));
-/*            for (int i = 0; i < bookingList.findBooking(customerName).size(); i++) {
-                System.out.println("     " + (i + 1) + ". " + bookingList.findBooking(customerName).get(i));
-            }*/
         } else {
             arrayList.add(ERROR_MESSAGE_RANDOM);
         }

@@ -40,7 +40,6 @@ public class ViewBookingScheduleCommand extends CommandBooking {
 
         ArrayList<Booking> scheduleList = new ArrayList<>();
         for (Booking booking : bookingList.getBookingList()) {
-            //        if (task.getTaskType() == Task.TaskType.DEADLINE) {
             calendar.setTime(booking.getDateTime());
             int taskDay = calendar.get(Calendar.DAY_OF_MONTH);
             int taskMonth = calendar.get(Calendar.MONTH);
@@ -48,7 +47,6 @@ public class ViewBookingScheduleCommand extends CommandBooking {
             if (taskYear == currYear && taskMonth == currMonth && taskDay == currDay) {
                 scheduleList.add(booking);
             }
-            //         }
         }
 
         String outputDate = new SimpleDateFormat("dd MMMM yyyy").format(currDate);

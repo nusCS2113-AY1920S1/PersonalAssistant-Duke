@@ -19,6 +19,7 @@ import static duke.common.Messages.ERROR_MESSAGE_RANDOM;
  * Handles the delete command and inherits all the fields and methods of Command parent class.
  */
 public class DeleteBookingCommand extends CommandBooking {
+    private static String msg = "";
 
     /**
      * Constructor for class DeleteCommand.
@@ -67,8 +68,13 @@ public class DeleteBookingCommand extends CommandBooking {
                         arrayList.add(ERROR_MESSAGE_INVALID_INDEX + bookingList.getSize() + ".");
                     }
                 } else {
+                    if (bookingList.getSize() - 1 <= 1) {
+                        msg = " booking in the list.";
+                    } else {
+                        msg = " bookings in the list.";
+                    }
                     arrayList.add("     Noted. I've removed this booking:\n" + "       " + bookingList.getBookingList().get(index - 1)
-                            + "\n" + "     Now you have " + (bookingList.getSize() - 1) + " bookings in the list.");
+                            + "\n" + "Now you have " + (bookingList.getSize() - 1) + msg);
 
                     bookingList.deleteBooking(index - 1);
                     bookingStorage.saveFile(bookingList);
