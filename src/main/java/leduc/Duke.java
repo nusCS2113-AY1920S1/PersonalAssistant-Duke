@@ -2,7 +2,6 @@ package leduc;
 
 import leduc.command.Command;
 import leduc.exception.DukeException;
-import leduc.storage.ConfigStorage;
 import leduc.storage.Storage;
 import leduc.task.TaskList;
 
@@ -15,7 +14,6 @@ public class Duke {
     private TaskList tasks;
     private Storage storage;
     private Parser parser;
-    private ConfigStorage configStorage;
 
     /**
      * Constructor of leduc.Duke class.
@@ -33,11 +31,11 @@ public class Duke {
         else{ // no test file
             file = System.getProperty("user.dir")+ "/data/duke.txt";
         }
-        String fileConfig = System.getProperty("user.dir")+ "/data/config.txt";
-        this.storage = new Storage(file);
+        String configFile = System.getProperty("user.dir")+ "/data/config.txt";
+
 
         try{
-            this.configStorage = new ConfigStorage(fileConfig);
+            this.storage = new Storage(file, configFile);
             this.tasks = new TaskList(storage.load()); // Use of ArrayList (A-Collections) to store tasks
         }
         catch (DukeException e){
@@ -60,7 +58,7 @@ public class Duke {
             try {
                 String user = this.ui.readCommand();
                 Command c = parser.parse(user);
-                c.execute(tasks, ui, storage, configStorage); // parser is needed because stringToDate is in leduc.Parser class
+                c.execute(tasks, ui, storage); // parser is needed because stringToDate is in leduc.Parser class
                 isExit = c.isExit();
             }
             catch (DukeException e){ // catch one of subclass of dukeException and print the right message

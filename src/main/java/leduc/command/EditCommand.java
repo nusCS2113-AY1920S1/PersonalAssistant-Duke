@@ -3,7 +3,6 @@ package leduc.command;
 import leduc.Date;
 import leduc.Ui;
 import leduc.exception.*;
-import leduc.storage.ConfigStorage;
 import leduc.storage.Storage;
 import leduc.task.DeadlinesTask;
 import leduc.task.EventsTask;
@@ -34,7 +33,6 @@ public class EditCommand extends Command {
      * @param tasks leduc.task.TaskList which is the list of task.
      * @param ui leduc.Ui which deals with the interactions with the user.
      * @param storage leduc.storage.Storage which deals with loading tasks from the file and saving tasks in the file.
-     * @param configStorage
      * @throws NonExistentDateException Exception caught when the date given does not exist.
      * @throws FileException Exception caught when the file can't be open or read or modify.
      * @throws NonExistentTaskException  Exception caught when the task to delete does not exist.
@@ -43,13 +41,13 @@ public class EditCommand extends Command {
      * @throws ConflictDateException Exception thrown when the new event is in conflict with others event.
      * @throws DateComparisonEventException  Exception caught when the second date is before the first one.
      */
-    public void execute(TaskList tasks, Ui ui, Storage storage, ConfigStorage configStorage)
+    public void execute(TaskList tasks, Ui ui, Storage storage)
             throws NonExistentDateException, FileException,
             NonExistentTaskException, MeaninglessException, EmptyEventDateException, ConflictDateException,
             DateComparisonEventException {
         ui.display("\t Please choose the task to edit from the list by its index: ");
         ListCommand listCommand = new ListCommand(user);
-        listCommand.execute(tasks,ui,storage, configStorage);
+        listCommand.execute(tasks,ui,storage);
         // The user choose the task
         String userEditTaskNumber = ui.readCommand();
         if ( userEditTaskNumber.matches("\\d+")){

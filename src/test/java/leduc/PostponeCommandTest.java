@@ -24,7 +24,14 @@ public class PostponeCommandTest {
     @Test
     public void PostponeCommandTest() {
         Ui ui = new Ui();
-        Storage storage = new Storage(System.getProperty("user.dir")+ "/src/test/testFile/PostponeCommandTest.txt");
+        Storage storage = null;
+        try {
+            storage = new Storage(System.getProperty("user.dir")+ "/src/test/testFile/PostponeCommandTest.txt", System.getProperty("user.dir")+ "/src/test/testFile/configTest.txt");
+        } catch (FileException e) {
+            e.printStackTrace();
+        } catch (MeaninglessException e) {
+            e.printStackTrace();
+        }
         TaskList tasks = new TaskList(new ArrayList<Task>());
         try{
             tasks = new TaskList(storage.load()); // Use of ArrayList (A-Collections) to store tasks
@@ -36,7 +43,7 @@ public class PostponeCommandTest {
 
         PostponeCommand postponeCommand1 = new PostponeCommand("postpone 4ee /by 12/12/2222 22:22");
         try{
-            postponeCommand1.execute(tasks,ui,storage, );
+            postponeCommand1.execute(tasks,ui,storage);
         }
         catch( DukeException e ){
             assertTrue(e instanceof NonExistentTaskException);
@@ -44,7 +51,7 @@ public class PostponeCommandTest {
 
         PostponeCommand postponeCommand2 = new PostponeCommand("postpone 15 /by 12/12/2222 22:22");
         try{
-            postponeCommand2.execute(tasks,ui,storage, );
+            postponeCommand2.execute(tasks,ui,storage);
         }
         catch( DukeException e ){
             assertTrue(e instanceof NonExistentTaskException);
@@ -52,7 +59,7 @@ public class PostponeCommandTest {
 
         PostponeCommand postponeCommand3 = new PostponeCommand("postpone 3 /by 12/12/2222 22:22");
         try{
-            postponeCommand3.execute(tasks,ui,storage, );
+            postponeCommand3.execute(tasks,ui,storage);
         }
         catch( DukeException e ){
             assertTrue(e instanceof DeadlineTypeException);
@@ -60,7 +67,7 @@ public class PostponeCommandTest {
 
         PostponeCommand postponeCommand4 = new PostponeCommand("postpone 2");
         try{
-            postponeCommand4.execute(tasks,ui,storage, );
+            postponeCommand4.execute(tasks,ui,storage);
         }
         catch( DukeException e ){
             assertTrue(e instanceof EmptyDeadlineDateException);
@@ -68,7 +75,7 @@ public class PostponeCommandTest {
 
         PostponeCommand postponeCommand5 = new PostponeCommand("postpone 2 /by 12/12/22a2 22:22");
         try{
-            postponeCommand5.execute(tasks,ui,storage, );
+            postponeCommand5.execute(tasks,ui,storage);
         }
         catch( DukeException e ){
             assertTrue(e instanceof NonExistentDateException);
@@ -86,7 +93,7 @@ public class PostponeCommandTest {
 
         PostponeCommand postponeCommand6 = new PostponeCommand("postpone 6 /by "+ dBefore);
         try{
-            postponeCommand6.execute(tasks,ui,storage, );
+            postponeCommand6.execute(tasks,ui,storage);
         }
         catch( DukeException e ){
             assertTrue(e instanceof PostponeDeadlineException);
@@ -94,7 +101,7 @@ public class PostponeCommandTest {
 
         PostponeCommand postponeCommand7 = new PostponeCommand("postpone 6 /by " +dAfter);
         try{
-            postponeCommand7.execute(tasks,ui,storage, );
+            postponeCommand7.execute(tasks,ui,storage);
         }
         catch( DukeException e ){ // Should not happen
             assertTrue(false);

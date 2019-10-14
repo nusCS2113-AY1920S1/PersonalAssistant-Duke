@@ -1,7 +1,6 @@
 package leduc.command;
 
 import leduc.exception.DukeException;
-import leduc.storage.ConfigStorage;
 import leduc.storage.Storage;
 import leduc.Ui;
 import leduc.task.TaskList;
@@ -34,8 +33,7 @@ public abstract class Command {
      * @param tasks leduc.task.TaskList which is the list of task.
      * @param ui leduc.Ui which deals with the interactions with the user.
      * @param storage leduc.storage.Storage which deals with loading tasks from the file and saving tasks in the file.
-     * @param configStorage
      * @throws DukeException one of the subclass of leduc.exception.DukeException could be caught in the execution of this method.
      */
-    public abstract void execute(TaskList tasks, Ui ui, Storage storage, ConfigStorage configStorage) throws DukeException;
+    public abstract void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException;
 }

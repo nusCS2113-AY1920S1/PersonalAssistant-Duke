@@ -4,7 +4,6 @@ import leduc.Ui;
 import leduc.exception.DukeException;
 import leduc.exception.DuplicationShortcutException;
 import leduc.exception.MeaninglessException;
-import leduc.storage.ConfigStorage;
 import leduc.storage.Storage;
 import leduc.task.TaskList;
 
@@ -17,7 +16,7 @@ public class ShortcutCommand extends Command {
     }
     private static HashSet<String> setShortcut = new HashSet<>();
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage, ConfigStorage configStorage) throws DukeException {
+    public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
         String[] userCommand = user.split(" ");
         String newShortcut="";
         if (userCommand.length >= 1){
@@ -131,7 +130,7 @@ public class ShortcutCommand extends Command {
 
             ui.display("All shortcut has been set");
         }
-        configStorage.saveConfig();
+        storage.saveConfig();
     }
 
     public static void setOneShortcut(String commandName, String shortcutName) throws MeaninglessException {

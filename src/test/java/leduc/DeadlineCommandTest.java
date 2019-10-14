@@ -2,10 +2,7 @@ package leduc;
 
 import leduc.command.DeadlineCommand;
 import leduc.command.DeleteCommand;
-import leduc.exception.DukeException;
-import leduc.exception.EmptyDeadlineDateException;
-import leduc.exception.EmptyDeadlineException;
-import leduc.exception.NonExistentDateException;
+import leduc.exception.*;
 import leduc.storage.Storage;
 import leduc.task.Task;
 import leduc.task.TaskList;
@@ -27,7 +24,14 @@ public class DeadlineCommandTest {
     @Test
     public void deadlineCommandExecuteTest() {
         Ui ui = new Ui();
-        Storage storage = new Storage(System.getProperty("user.dir")+ "/src/test/testFile/DeadlineCommandTest.txt");
+        Storage storage = null;
+        try {
+            storage = new Storage(System.getProperty("user.dir")+ "/src/test/testFile/DeadlineCommandTest.txt", System.getProperty("user.dir")+ "/src/test/testFile/configTest.txt");
+        } catch (FileException e) {
+            e.printStackTrace();
+        } catch (MeaninglessException e) {
+            e.printStackTrace();
+        }
         TaskList tasks = new TaskList(new ArrayList<Task>());
         try{
             tasks = new TaskList(storage.load()); // Use of ArrayList (A-Collections) to store tasks
@@ -41,7 +45,7 @@ public class DeadlineCommandTest {
 
         DeadlineCommand deadlineCommand1 = new DeadlineCommand("deadline ok");
         try{
-            deadlineCommand1.execute(tasks,ui,storage, );
+            deadlineCommand1.execute(tasks,ui,storage);
         }
         catch( DukeException e ){
             assertTrue(e instanceof EmptyDeadlineDateException);
@@ -52,7 +56,7 @@ public class DeadlineCommandTest {
 
         DeadlineCommand deadlineCommand2 = new DeadlineCommand("deadline /by 12/12/2000 22:22");
         try{
-            deadlineCommand2.execute(tasks,ui,storage, );
+            deadlineCommand2.execute(tasks,ui,storage);
         }
         catch(DukeException e ){
             assertTrue(e instanceof EmptyDeadlineException);
@@ -63,7 +67,7 @@ public class DeadlineCommandTest {
 
         DeadlineCommand deadlineCommand3 = new DeadlineCommand("deadline d1 /by 12-12-2000 22:22");
         try{
-            deadlineCommand3.execute(tasks,ui,storage, );
+            deadlineCommand3.execute(tasks,ui,storage);
         }
         catch( DukeException e){
             assertTrue( e instanceof NonExistentDateException);
@@ -72,7 +76,7 @@ public class DeadlineCommandTest {
 
         DeadlineCommand deadlineCommand4 = new DeadlineCommand("deadline d1 /by 12/12/2000 22:22");
         try{
-            deadlineCommand4.execute(tasks,ui,storage, );
+            deadlineCommand4.execute(tasks,ui,storage);
         }
         catch( DukeException e){ //should not happen
             assertTrue(false);
@@ -81,7 +85,7 @@ public class DeadlineCommandTest {
 
         DeleteCommand delete = new DeleteCommand("delete 1");
         try{
-            delete.execute(tasks,ui,storage, );
+            delete.execute(tasks,ui,storage);
         }
         catch( DukeException e){ //should not happen
             assertTrue(false);

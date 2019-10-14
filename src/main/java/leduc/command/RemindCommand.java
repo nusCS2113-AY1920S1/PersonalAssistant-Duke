@@ -1,5 +1,4 @@
 package leduc.command;
-import leduc.storage.ConfigStorage;
 import leduc.storage.Storage;
 import leduc.Ui;
 import leduc.task.TaskList;
@@ -39,10 +38,9 @@ public class RemindCommand extends Command {
      * @param tasks leduc.task.TaskList which is the list of task.
      * @param ui leduc.Ui which deals with the interactions with the user.
      * @param storage leduc.storage.Storage which deals with loading tasks from the file and saving tasks in the file.
-     * @param configStorage
      */
 
-    public void execute(TaskList tasks, Ui ui, Storage storage, ConfigStorage configStorage){
+    public void execute(TaskList tasks, Ui ui, Storage storage){
         ArrayList<Task> filteredTasklist = tasks.filterTasks(tasks);
         ArrayList<Task> extractedTodo = tasks.extractTodo(tasks);
         TaskList sortedTasks = new TaskList(tasks.sort(filteredTasklist, extractedTodo));

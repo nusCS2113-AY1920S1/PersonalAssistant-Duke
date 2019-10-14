@@ -3,7 +3,6 @@ package leduc.command;
 import leduc.Date;
 import leduc.Ui;
 import leduc.exception.*;
-import leduc.storage.ConfigStorage;
 import leduc.storage.Storage;
 import leduc.task.DeadlinesTask;
 import leduc.task.Task;
@@ -33,7 +32,6 @@ public class PostponeCommand extends Command {
      * @param tasks leduc.task.TaskList which is the list of task.
      * @param ui leduc.Ui which deals with the interactions with the user.
      * @param storage leduc.storage.Storage which deals with loading tasks from the file and saving tasks in the file.
-     * @param configStorage
      * @throws NonExistentTaskException Exception caught when the task does not exist.
      * @throws DeadlineTypeException Exception caught when the task is not a deadline task.
      * @throws FileException Exception caught when the file doesn't exist or cannot be created or cannot be opened.
@@ -41,7 +39,7 @@ public class PostponeCommand extends Command {
      * @throws NonExistentDateException Exception caught when the date given does not exist.
      * @throws PostponeDeadlineException Exception caught when the new deadline is before the old deadline.
      */
-    public void execute(TaskList tasks, Ui ui, Storage storage, ConfigStorage configStorage) throws NonExistentTaskException,
+    public void execute(TaskList tasks, Ui ui, Storage storage) throws NonExistentTaskException,
             DeadlineTypeException, FileException, EmptyDeadlineDateException, NonExistentDateException,
             PostponeDeadlineException {
         String[] postponeString = user.substring(PostponeCommand.postponeShortcut.length() + 1).split("/by");

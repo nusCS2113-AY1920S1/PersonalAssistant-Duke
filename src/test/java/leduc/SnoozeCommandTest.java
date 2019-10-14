@@ -23,7 +23,14 @@ public class SnoozeCommandTest {
     @Test
     public void SnoozeCommandExecuteTest() {
         Ui ui = new Ui();
-        Storage storage = new Storage(System.getProperty("user.dir")+ "/src/test/testFile/SnoozeCommandTest.txt");
+        Storage storage = null;
+        try {
+            storage = new Storage(System.getProperty("user.dir")+ "/src/test/testFile/SnoozeCommandTest.txt", System.getProperty("user.dir")+ "/src/test/testFile/configTest.txt");
+        } catch (FileException e) {
+            e.printStackTrace();
+        } catch (MeaninglessException e) {
+            e.printStackTrace();
+        }
         Parser parser = new Parser();
         TaskList tasks = new TaskList(new ArrayList<Task>());
         try{
@@ -36,7 +43,7 @@ public class SnoozeCommandTest {
 
         SnoozeCommand snoozeCommand1 = new SnoozeCommand("snooze 4");
         try{
-            snoozeCommand1.execute(tasks,ui,storage, );
+            snoozeCommand1.execute(tasks,ui,storage);
         }
         catch( DukeException e ){
             assertTrue(e instanceof DeadlineTypeException);
@@ -44,7 +51,7 @@ public class SnoozeCommandTest {
 
         SnoozeCommand snoozeCommand2 = new SnoozeCommand("snooze 15");
         try{
-            snoozeCommand2.execute(tasks,ui,storage, );
+            snoozeCommand2.execute(tasks,ui,storage);
         }
         catch( DukeException e ){
             assertTrue(e instanceof NonExistentTaskException);
@@ -52,7 +59,7 @@ public class SnoozeCommandTest {
 
         SnoozeCommand snoozeCommand3 = new SnoozeCommand("snooze 2");
         try{
-            snoozeCommand3.execute(tasks,ui,storage, );
+            snoozeCommand3.execute(tasks,ui,storage);
         }
         catch( DukeException e ){ // Should not happen
             assertTrue(false);
