@@ -1,6 +1,6 @@
 package UserCode.Actions;
 
-import UserInterfaces.Ui;
+import Farmio.Ui;
 
 public class EmptyAction extends Action {
     @Override

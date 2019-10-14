@@ -2,7 +2,7 @@ package UserCode.Tasks;
 
 import UserCode.Actions.Action;
 import UserCode.Conditions.Condition;
-import UserInterfaces.Ui;
+import Farmio.Ui;
 
 public class WhileTask extends Task {
 

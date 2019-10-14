@@ -31,7 +31,7 @@ javafx {
 
 application {
     // Change this to your main class.
-    mainClassName = "Farmio"
+    mainClassName = "Farmio.Farmio"
 }
 
 run {

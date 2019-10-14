@@ -5,7 +5,7 @@ import Places.CowFarm;
 import Places.Market;
 import Places.WheatFarm;
 import Simulations.Simulate;
-import UserInterfaces.Ui;
+import Farmio.Ui;
 import org.json.simple.JSONObject;
 
 public class PlantSeedAction extends Action {

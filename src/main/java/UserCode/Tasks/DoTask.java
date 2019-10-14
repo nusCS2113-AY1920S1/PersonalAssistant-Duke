@@ -5,7 +5,7 @@ import UserCode.Conditions.BooleanCondition;
 import UserCode.Conditions.BooleanConditionType;
 import UserCode.Conditions.Condition;
 import UserCode.Conditions.ConditionChecker;
-import UserInterfaces.Ui;
+import Farmio.Ui;
 
 public class DoTask extends Task {
 

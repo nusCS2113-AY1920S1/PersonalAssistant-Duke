@@ -18,7 +18,7 @@ public abstract class Condition {
     }
 
     public static boolean validateMoneyCondition(String userInput) {
-        if (userInput.matches("(money)\\s(>|>=|<|<=)\\s(\\d)+")) {
+        if (userInput.matches("(money)\\s(lessThan|lessThanOrEquals|greaterThan|greaterThanOrEquals)\\s(\\d)+")) {
             return true;
         }
         return false;
