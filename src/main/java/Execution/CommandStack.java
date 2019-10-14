@@ -40,6 +40,7 @@ public class CommandStack {
         CommandSuper cmd = MyStack.peek();
         if (!cmd.isExecute()) {
             cmd.executeCommands();
+            cmd.setExecute(true);
         }
         //TODO Execute Last Command
     }

@@ -22,8 +22,17 @@ public abstract class CommandSuper {
     private boolean execute = false;
 
 
+    /**
+     * Function to decide if the command should be executed
+     * If there is a typo in the command, the command should not be executed
+     *
+     */
     public boolean isExecute() {
         return execute;
+    }
+
+    public void setExecute(boolean execute) {
+        this.execute = execute;
     }
 
     public COMMAND_KEYS getRoot() {
@@ -42,7 +51,10 @@ public abstract class CommandSuper {
         return Payload;
     }
 
-    public CommandSuper(COMMAND_KEYS Root, COMMAND_KEYS[] SubCommand, Controller UIController) {
+    /**
+     * Constructor for each Command Super class
+     */
+    public CommandSuper(COMMAND_KEYS Root , COMMAND_KEYS[] SubCommand , Controller UIController){
 
         this.UIController = UIController;
         this.SubCommand = SubCommand;
@@ -54,27 +66,49 @@ public abstract class CommandSuper {
         return UIController;
     }
 
-    public void initCommand(String[] CommandArr) {
+
+    /**
+     * initialise the Command values
+     *
+     * @param CommandArr command that was entered by the user in split array form
+     * @param Command   command that was entered by the user.
+     */
+    public void initCommand(String[] CommandArr ,String Command){
         subCommand(CommandArr);
-        processFlags(CommandArr);
+        processFlags(CommandArr ,Command);
         processPayload(CommandArr);
         if (SubCommand.length == 0) {
             execute = true;
         }
     }
 
-    public void initCommand(String[] CommandArr, COMMAND_KEYS subRootCommand) {
+
+    /**
+     * initialise the Command values
+     *
+     * @param CommandArr command that was entered by the user in split array form
+     * @param Command   command that was entered by the user.
+     * @param subRootCommand the subRoot command  that was found
+     */
+    public void initCommand(String[] CommandArr, String Command, COMMAND_KEYS subRootCommand){
+
         this.subRootCommand = subRootCommand;
-        processFlags(CommandArr);
+        processFlags(CommandArr ,Command);
         processPayload(CommandArr);
+
+
     }
 
-
-    public void subCommand(String[] CommandArr) {
-        try {
-            for (COMMAND_KEYS cmd : SubCommand) {
-                if (COMMAND_KEYS.valueOf(CommandArr[1]) == cmd) {
-                    System.out.println("FOUND Sub command " + cmd);
+    /**
+     * Find the subRoot Command of the user command
+     *
+     * @param CommandArr command that was entered by the user in split array form
+     */
+    public void subCommand(String[] CommandArr){
+        try{
+            for(COMMAND_KEYS cmd : SubCommand){
+                if(COMMAND_KEYS.valueOf(CommandArr[1])== cmd){
+                    System.out.println("FOUND Sub command" + cmd);
                     subRootCommand = cmd;
                     execute = true;
                     return;
@@ -89,60 +123,90 @@ public abstract class CommandSuper {
 
     }
 
-
-    public void processFlags(String commandArr[]) {
+    /**
+     * find flag values
+     *
+     * @param commandArr command that was entered by the user in split array form
+     * @param command   command that was entered by the user.
+     */
+    public void processFlags(String[] commandArr , String command){
 
         String f = "";
         boolean found = false;
-        for (String s : commandArr) {
-            if (found && !s.matches("-[a-z]")) {
-                ArrayList<String> listOfString = flagMap.get(f);
-                if (listOfString == null) {
-                    listOfString = new ArrayList<String>();
-                    listOfString.add(s);
-                    flagMap.put(f, listOfString);
+        String commandFlagSplit[] = command.split("-[a-z]");
 
-                } else {
-                    listOfString.add(s);
-                }
+        ArrayList<String> flagOrder = new ArrayList<>();
 
-            }
-            if ((s.matches("-[a-z]"))) {
-                f = s;
-                System.out.println("this is" + f);
-                //flagMap.put(f, new ArrayList<String>());
-                found = true;
-                ArrayList<String> listOfString = new ArrayList<String>();
-                flagMap.put(f, listOfString);
+        for(String s :commandArr){
+            if(s.matches("-[a-z]")){
+                flagOrder.add(s);
             }
         }
+
+        boolean first = true;
+
+        int counter = 0;
+
+        for(String flagValues : commandFlagSplit){
+            if(first){
+                first = false;
+                continue;
+            }
+            String flagsIndividualValues[] = flagValues.split(",");
+
+            ArrayList<String> listOfString = flagMap.get(flagOrder.get(counter));
+            if (listOfString == null) {
+                listOfString = new ArrayList<String>();
+            }
+            for(String individualFlags: flagsIndividualValues){
+                listOfString.add(individualFlags);
+
+
+            }
+
+            flagMap.put(flagOrder.get(counter), listOfString);
+            counter ++;
+        }
+
+        if(flagOrder.size() != 0){
+            if(flagMap.get(flagOrder.get(flagOrder.size()-1)) == null){
+                flagMap.put(flagOrder.get(flagOrder.size()-1) , new ArrayList<String>());
+            }
+
+        }
+
         for (Map.Entry<String, ArrayList<String>> entry : flagMap.entrySet()) {
             System.out.println("Key: " + entry.getKey() + " Value: " + entry.getValue());
         }
 
     }
 
-
     /**
-     * This function extracts payload from a particular command.
+     * find payload of the user Command based on the interpretation by Command Parser
      *
-     * @param CommandArr which contains the whole command by user.
+     * @param CommandArr command that was entered by the user in split array form
      */
-    public void processPayload(String[] CommandArr) {
-        if (this.Root != COMMAND_KEYS.none) {
-            if (this.subRootCommand != COMMAND_KEYS.none) {
-                Payload = getThePayload(2, CommandArr);
-            } else {
-                Payload = getThePayload(1, CommandArr);
+    public void processPayload(String []CommandArr){
+        if(this.Root != COMMAND_KEYS.none){
+            if(this.subRootCommand != COMMAND_KEYS.none){
+                Payload =  getThePayload(2 , CommandArr);
+            }else{
+                Payload = getThePayload(1 , CommandArr);
             }
         } else {
             Payload = "";
         }
     }
 
+    /**
+     * find payload of the user Command
+     *
+     * @param CommandArr command that was entered by the user in split array form
+     * @param start the start index of the payload in the user command
+     */
     public static String getThePayload(int start, String[] CommandArr) {
         int i = 0;
-        while (i < CommandArr.length && !CommandArr[i].matches("-[a-z]")){
+        while (i < CommandArr.length && !CommandArr[i].matches("-[a-z]")) {
             System.out.println(i + "." + CommandArr[i]);
             i++;
         }
@@ -154,6 +218,9 @@ public abstract class CommandSuper {
         return payload.trim();
     }
 
+    /**
+     * Abstract class to be implemented for each root command class
+     */
     public abstract void executeCommands() throws IOException;
 
 }

@@ -7,7 +7,7 @@ import wrapper.Pair;
 import task.Event;
 import task.Tasks;
 import wrapper.TimeInterval;
-
+import MovieUI.MovieHandler;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Map;
@@ -77,7 +77,7 @@ public class Ui {
      */
 
     public static void showListTask(String type, String icon, String message, int num) {
-        System.out.println(space + num + ".[" + type
+       System.out.println(space + num + ".[" + type
             + "][" + icon
             + "] " + message);
     }
