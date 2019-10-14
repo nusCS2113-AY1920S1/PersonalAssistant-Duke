@@ -59,17 +59,27 @@ public class MainWindow extends AnchorPane implements DataTransfer {
     @FXML
     private void handleUserInput() throws IOException {
         String input = userInput.getText();
-
-        if (input.equals("change icon")) {
-            userIcon.changeIcon();
-            userImage = userIcon.getIcon();
-        } else if (input.equals("graph monthly report")) {
-            graphContainer.getChildren().clear();
-            graphContainer.getChildren().addAll(
-                    DataTransfer.getMonthlyData(duke.getAccount())
-            );
-        } else if (input.equals("graph category trend")) {
-
+        graphContainer.getChildren().clear();
+        switch (input) {
+            case "change icon":
+                userIcon.changeIcon();
+                userImage = userIcon.getIcon();
+                break;
+            case "graph monthly report":
+                graphContainer.getChildren().addAll(
+                        DataTransfer.getMonthlyData(duke.getAccount())
+                );
+                break;
+            case "graph expenditure trend":
+                graphContainer.getChildren().addAll(
+                        DataTransfer.getExpenditureTrend(duke.getAccount())
+                );
+                break;
+            case "graph income trend":
+                graphContainer.getChildren().addAll(
+                        DataTransfer.getIncomeTrend(duke.getAccount())
+                );
+                break;
         }
 
         String[] response = duke.getResponse(input);
