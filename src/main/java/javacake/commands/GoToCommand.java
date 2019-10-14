@@ -1,6 +1,5 @@
 package javacake.commands;
 
-import javacake.Duke;
 import javacake.DukeException;
 import javacake.ProgressStack;
 import javacake.Profile;
@@ -19,12 +18,7 @@ public class GoToCommand extends Command {
 
     private String index;
 
-    /**
-     * Method to go to next index.
-     * @param inputCommand String inputted by user
-     */
     public GoToCommand(String inputCommand) {
-        type = CmdType.GOTO;
         String[] buffer = inputCommand.split("\\s+");
         index = buffer[1];
     }
@@ -37,111 +31,83 @@ public class GoToCommand extends Command {
      * @param profile Profile of the user
      * @throws DukeException Error thrown when unable to close reader
      */
-    public String execute(ProgressStack progressStack, Ui ui, Storage storage, Profile profile) throws DukeException {
-        try {
-            if (progressStack.checkProgress() == 1 && index.equals("1")) {
+    public void execute(ProgressStack progressStack, Ui ui, Storage storage, Profile profile) throws DukeException, IOException {
+            int intIndex = Integer.parseInt(index)-1;
+            /*if ((progressStack.gotoFilePath(intIndex)).startsWith("Quiz")) {
+
+            }*/
+            progressStack.updateFilePath(progressStack.gotoFilePath(intIndex));
+            progressStack.insertQueries();
+            if (progressStack.containsDirectory()) {
+                progressStack.displayDirectories();
+            } else {
+                progressStack.updateFilePath(progressStack.gotoFilePath(0));
+                progressStack.readQuery();
+            }
+            //progressStack.processQueries();
+
+
+
+            /*if (progressStack.checkProgress() == 1 && index.equals("1")) {
                 progressStack.mainListToListIndex1();
-                return new ListIndex1().printList();
+                new ListIndex1().printList();
             } else if (progressStack.checkProgress() == 1 && index.equals("2")) {
                 progressStack.mainListToListIndex2();
-                return new ListIndex2().printList();
+                new ListIndex2().printList();
             } else if (progressStack.checkProgress() == 1 && index.equals("3")) {
                 progressStack.mainListToListIndex3();
-                return new ListIndex3().printList();
+                new ListIndex3().printList();
             } else if (progressStack.checkProgress() == 1 && index.equals("4")) {
-                if (Duke.isCliMode()) {
-                    return new QuizCommand(Question.QuestionType.ALL).execute(progressStack, ui, storage, profile);
-                } else {
-                    QuizCommand.setProfile(profile);
-                    return "!@#_QUIZ_4";
-                }
+                new QuizCommand().execute(progressStack, ui, storage, profile);
             } else if (progressStack.checkProgress() == 2 && index.equals("1.1")) {
                 progressStack.listIndexToSubList();
-                return getTextFile(new BufferedReader(
-                        new FileReader("content/MainList/ListIndex1/javabasics/Print.txt")));
+                ui.displayTextFile(new BufferedReader(
+                        new FileReader("content/MainList/ListIndex1/JavaBasics/1.txt")));
             } else if (progressStack.checkProgress() == 2 && index.equals("1.2")) {
                 progressStack.listIndexToSubList();
-                return getTextFile(new BufferedReader(
-                        new FileReader("content/MainList/ListIndex1/javabasics/Read.txt")));
+                ui.displayTextFile(new BufferedReader(
+                        new FileReader("content/MainList/ListIndex1/JavaBasics/2.txt")));
             } else if (progressStack.checkProgress() == 2 && index.equals("1.3")) {
                 progressStack.listIndexToSubList();
-                return getTextFile(new BufferedReader(
-                        new FileReader("content/MainList/ListIndex1/javabasics/ClassesandObjects.txt")));
+                ui.displayTextFile(new BufferedReader(
+                        new FileReader("content/MainList/ListIndex1/JavaBasics/3.txt")));
             } else if (progressStack.checkProgress() == 2 && index.equals("1.4")) {
-                if (Duke.isCliMode()) {
-                    return new QuizCommand(Question.QuestionType.BASIC).execute(progressStack, ui, storage, profile);
-                } else {
-                    QuizCommand.setProfile(profile);
-                    return "!@#_QUIZ_1";
-                }
+                new QuizCommand(Question.QuestionType.BASIC).execute(progressStack, ui, storage, profile);
             } else if (progressStack.checkProgress() == 2 && index.equals("2.1")) {
                 progressStack.listIndexToSubList();
-                return getTextFile(new BufferedReader(
-                        new FileReader("content/MainList/ListIndex2/oop/Abstraction.txt")));
+                ui.displayTextFile(new BufferedReader(
+                        new FileReader("content/MainList/ListIndex2/oop/1.txt")));
             } else if (progressStack.checkProgress() == 2 && index.equals("2.2")) {
                 progressStack.listIndexToSubList();
-                return getTextFile(new BufferedReader(
-                        new FileReader("content/MainList/ListIndex2/oop/Encapsulation.txt")));
+                ui.displayTextFile(new BufferedReader(
+                        new FileReader("content/MainList/ListIndex2/oop/2.txt")));
             } else if (progressStack.checkProgress() == 2 && index.equals("2.3")) {
                 progressStack.listIndexToSubList();
-                return getTextFile(new BufferedReader(
-                        new FileReader("content/MainList/ListIndex2/oop/Inheritance.txt")));
+                ui.displayTextFile(new BufferedReader(
+                        new FileReader("content/MainList/ListIndex2/oop/3.txt")));
             } else if (progressStack.checkProgress() == 2 && index.equals("2.4")) {
                 progressStack.listIndexToSubList();
-                return getTextFile(new BufferedReader(
-                        new FileReader("content/MainList/ListIndex2/content/oop/Polymorphism.txt")));
+                ui.displayTextFile(new BufferedReader(
+                        new FileReader("content/MainList/ListIndex2/content/oop/4.txt")));
             } else if (progressStack.checkProgress() == 2 && index.equals("2.5")) {
-                if (Duke.isCliMode()) {
-                    return new QuizCommand(Question.QuestionType.OOP).execute(progressStack, ui, storage, profile);
-                } else {
-                    QuizCommand.setProfile(profile);
-                    return "!@#_QUIZ_2";
-                }
+                new QuizCommand(Question.QuestionType.OOP).execute(progressStack, ui, storage, profile);
+
             } else if (progressStack.checkProgress() == 2 && index.equals("3.1")) {
                 progressStack.listIndexToSubList();
-                return getTextFile(new BufferedReader(
+                ui.displayTextFile(new BufferedReader(
                         new FileReader("content/MainList/ListIndex3/Enumerations/Enumerations.txt")));
             } else if (progressStack.checkProgress() == 2 && index.equals("3.2")) {
                 progressStack.listIndexToSubList();
-                return getTextFile(new BufferedReader(
+                ui.displayTextFile(new BufferedReader(
                         new FileReader("content/MainList/ListIndex3/Varargs/Varargs.txt")));
             } else if (progressStack.checkProgress() == 2 && index.equals("3.3")) {
                 progressStack.listIndexToSubList();
-                return getTextFile(new BufferedReader(
+                ui.displayTextFile(new BufferedReader(
                         new FileReader("content/MainList/ListIndex3/Exceptions/Exceptions.txt")));
             } else if (progressStack.checkProgress() == 2 && index.equals("3.4")) {
-                if (Duke.isCliMode()) {
-                    return new QuizCommand(Question.QuestionType.EXTENSIONS)
-                            .execute(progressStack, ui, storage, profile);
-                } else {
-                    QuizCommand.setProfile(profile);
-                    return "!@#_QUIZ_3";
-                }
+                new QuizCommand(Question.QuestionType.EXTENSIONS).execute(progressStack, ui, storage, profile);
             } else {
                 throw new DukeException("Please enter a valid index!");
-            }
-        } catch (IOException e) {
-            throw new DukeException("File does not exists");
-        }
-    }
-
-    /**
-     * Method to get text from file.
-     * @param reader BufferedReader to read in text from file
-     * @throws DukeException Error thrown when unable to close reader
-     */
-    private String getTextFile(BufferedReader reader) throws DukeException {
-        String lineBuffer;
-        String output = "";
-        try {
-            while ((lineBuffer = reader.readLine()) != null) {
-                output += lineBuffer;
-                output += "\n";
-            }
-            reader.close();
-        } catch (IOException e) {
-            throw new DukeException("File not found!");
-        }
-        return output;
+            }*/
     }
 }
