@@ -38,7 +38,7 @@ public class Duke {
                 String command = ui.FullCommand.trim();
                 Command c = Parser.parse(command);
                 c.execute(list, ui, store, CommandStack, deletedTask);
-                if(!command.equals("undo") && !command.equals("list") && !command.contains("confirm")) {
+                if (!command.equals("undo") && !command.equals("list") && !command.contains("confirm")) {
                     CommandStack.push(command);
                 }
 
