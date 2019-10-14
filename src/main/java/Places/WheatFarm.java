@@ -28,6 +28,18 @@ public class WheatFarm extends Farm {
         this.ripeWheat = (Integer) obj.get("wheat_ripe");
     }
 
+    public int getSeeds() {
+        return seeds;
+    }
+
+    public int getGreenWheat() {
+        return greenWheat;
+    }
+
+    public int getRipeWheat() {
+        return ripeWheat;
+    }
+
     public void buySeeds() {
         seeds += 100;
     }

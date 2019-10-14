@@ -1,22 +1,46 @@
-package UserInterfaces;
+package Farmio;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Scanner;
-import java.util.concurrent.TimeUnit;
 
 public class Ui {
-    Scanner scanner = new Scanner(System.in);
+    private Scanner scanner;
+    private Storage storage;
     private final String CLEAR_SCREEN = (char)27 + "[2J";
 
-    public Ui() {
+    public Ui(Storage storage) {
         this.scanner = new Scanner(System.in);
+        this.storage = storage;
     }
 
     public void show(String message) {
         System.out.println(message);
+    }
+
+    void showWelcome(){
+        try{
+            show(storage.getAsciiArt("welcome"));
+        } catch (IOException e) {
+            showWarning("'welcome' ascii art missing!");
+        }
+        show("Press ENTER to continue.");
+    }
+
+    void showExit(){
+        show("Bye-Bye");
+    }
+
+    public void showNarrative(ArrayList<String> narratives) {
+        for(int i = 0; i < narratives.size(); ++i){
+            show(narratives.get(i));
+            if(i != narratives.size() - 1) {
+                getInput();
+            }
+        }
     }
 
     public void showError(String message) {
@@ -26,6 +50,7 @@ public class Ui {
     public void showWarning(String message) {
         show("Warning: " + message);
     }
+
     public void clearScreen() {
         System.out.println(CLEAR_SCREEN);
     }
@@ -35,28 +60,20 @@ public class Ui {
     }
 
     private String getAsciiArt(String filepath) {
-        String output = "";
+        StringBuilder output = new StringBuilder();
         try {
             BufferedReader bufferreader = new BufferedReader(new FileReader(filepath));
             String line;
             while ((line = bufferreader.readLine()) != null) {
-                output += line;
-                output += "\n";
+                output.append(line);
+                output.append("\n");
             }
-
         } catch (FileNotFoundException ex) {
             ex.printStackTrace();
         } catch (IOException ex) {
             ex.printStackTrace();
         }
-        return output;
-    }
-    public void showMenu(boolean hasSave) {
-        show("Menu:");
-        if(hasSave){
-            show("\t\u2022 Load Save");
-        }
-        show("\t\u2022 New Game\n\t\u2022 Quit");
+        return output.toString();
     }
 
     public String getInput() {
@@ -64,18 +81,9 @@ public class Ui {
         return scanner.nextLine();
     }
 
-    public void getEnter() {
-        try {
-            System.in.read();
-        } catch (IOException e) {
-            showError("Something went wrong!");
-        }
-    }
-
-    public String showAsciiArt(String filepath) {
-        String output = getAsciiArt(filepath);
+    public void showAsciiArt(String fileName) {
+        String output = getAsciiArt(fileName);
         System.out.println(output);
-        return output;
     }
     public void showStatusbar() { //could put in farmer or some kind of info in parameters
         //details ie:money, wheat, chicken
@@ -84,21 +92,5 @@ public class Ui {
         //Task list and current task if any
         String currentTask = "if akshay then anarayan";
         System.out.println("current task");
-    }
-    public void typeWriter(String text) { //use terminal to see full effects, in console only seem to beline by line..
-        int i;
-        try{
-            Thread.sleep(1500);//0.5s pause between characters
-        }catch(InterruptedException ex){
-            Thread.currentThread().interrupt();
-        }
-        for(i = 0; i < text.length(); i++) {
-            System.out.printf("%c", text.charAt(i));
-            try{
-                Thread.sleep(150);//0.5s pause between characters
-            }catch(InterruptedException ex){
-                Thread.currentThread().interrupt();
-            }
-        }
     }
 }

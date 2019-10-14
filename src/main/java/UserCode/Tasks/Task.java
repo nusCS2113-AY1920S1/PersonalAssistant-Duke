@@ -6,7 +6,7 @@ import FarmioExceptions.FarmioException;
 import UserCode.Conditions.BooleanConditionType;
 import UserCode.Conditions.ConditionChecker;
 import UserCode.Conditions.Condition;
-import UserInterfaces.Ui;
+import Farmio.Ui;
 import org.json.simple.JSONObject;
 
 public abstract class Task {
