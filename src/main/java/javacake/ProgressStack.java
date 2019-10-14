@@ -10,29 +10,48 @@ import java.util.Stack;
 public class ProgressStack {
     private String defaultFilePath = "content/MainList";
     private static String currentFilePath = "content/MainList";
-    private Stack<Integer> currentProgress = new Stack<Integer>();
-    private static ArrayList<String> filePathQueries = new ArrayList<String>();
-    private File folder;
+
+    private static ArrayList<String> filePathQueries = new ArrayList<>();
     private File[] listOfFiles;
     private static boolean isDirectory = true;
+
+    private Stack<Integer> currentProgress = new Stack<Integer>();
     public ProgressStack() {
 
     }
 
+    /**
+     * Stores all files in the filePath into listOfFiles.
+     * @param filePath path to the root directory.
+     */
     public void loadFiles(String filePath) {
-        folder = new File(filePath);
+        File folder = new File(filePath);
         listOfFiles = folder.listFiles();
     }
 
+    /**
+     * Method is only invoked when List command is called.
+     */
     public void setDefaultFilePath() {
         currentFilePath = defaultFilePath;
     }
 
+    /**
+     * Method is invoked when GoTo command is called.
+     * Based on the index, return the particular filePath.
+     * @param index Index of the new path found in filePathQueries.
+     * @return the particular filePath based on the input index.
+     */
     public String gotoFilePath(int index) {
-        printFiles();
+        //printFiles();
         return filePathQueries.get(index);
     }
 
+    /**
+     * Update the currentFilePath by concatenating the updatedPath.
+     * updatedPath is given by gotoFilePath method.
+     * @param updatedPath particular path to be updated into currentFilePath.
+     */
     public void updateFilePath(String updatedPath) {
         currentFilePath += ("/" + updatedPath);
     }
@@ -45,9 +64,10 @@ public class ProgressStack {
         }
     }
 
-
-
-    public void displayQueries() {
+    /**
+     * Displays the all directories found in currentFilePath.
+     */
+    public void displayDirectories() {
         System.out.println("Here are the " + filePathQueries.size() + " subtopics available!");
         for (String queries : filePathQueries) {
             System.out.println(queries);
@@ -55,21 +75,32 @@ public class ProgressStack {
         System.out.println("Key in the index to learn more about the topic!");
     }
 
+    /**
+     * Reads the content in content text file.
+     * @throws IOException When the text file in currentFilePath is not found.
+     */
     public void readQuery() throws IOException {
         BufferedReader br = new BufferedReader(new FileReader(currentFilePath));
-        while (br.readLine() != null) {
-            System.out.println(br.readLine());
+        String sentenceRead;
+        while ((sentenceRead = br.readLine()) != null) {
+            System.out.println(sentenceRead);
         }
     }
 
+    /**
+     * Checks current directory contains directory or text files.
+     * @return true if current directory contains directory.
+     */
     public boolean containsDirectory() {
         if (isDirectory) return true;
         return false;
     }
+
+
     public void processQueries() throws DukeException {
         insertQueries();
         try {
-            if (isDirectory) displayQueries();
+            if (isDirectory) displayDirectories();
             else {
                 readQuery();
             }
@@ -78,6 +109,12 @@ public class ProgressStack {
         }
     }
 
+    /**
+     * Clears all file paths in filePathQueries.
+     * Load all files in currentFilePath.
+     * Update isDirectory if current directory contains directories.
+     * Adds new list of file names in filePathQueries to be processed.
+     */
     public void insertQueries() {
         clearQueries();
         loadFiles(currentFilePath);

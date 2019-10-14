@@ -36,9 +36,9 @@ public class GoToCommand extends Command {
             progressStack.updateFilePath(progressStack.gotoFilePath(intIndex));
             progressStack.insertQueries();
             if (progressStack.containsDirectory()) {
-                progressStack.displayQueries();
+                progressStack.displayDirectories();
             } else {
-                progressStack.updateFilePath(progressStack.gotoFilePath(intIndex));
+                progressStack.updateFilePath(progressStack.gotoFilePath(0));
                 progressStack.readQuery();
             }
             //progressStack.processQueries();
