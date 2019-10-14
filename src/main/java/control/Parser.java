@@ -22,34 +22,10 @@ public class Parser {
             return new ListCommand();
         case "bye":
             return new ByeCommand();
-        case "done":
-            return new DoneCommand(splitStr);
-        case "deadline":
-            return new DeadlineCommand(input, splitStr);
-        case "todo":
-            return new TodoCommand(input, splitStr);
-        case "event":
-            return new EventCommand(input, splitStr);
-        case "delete":
-            return new DeleteCommand(splitStr);
-        case "find":
-            return new FindCommand(input, splitStr);
-        case "upcoming":
-            return new UpcomingCommand();
         case "viewschedule":
             return new ViewScheduleCommand(splitStr);
         case "snooze":
             return new SnoozeCommand(input, splitStr);
-        case "duration" :
-            return new FixedDurationCommand(input, splitStr);
-        case "findfree" :
-            return new FindFreeTimesCommand(splitStr);
-        case "recurring" :
-            return new RecurringCommand(input, splitStr);
-        case "doafter" :
-            return new DoAfterCommand(input, splitStr);
-        case "dowithin":
-            return new DoWithinPeriodCommand(input, splitStr);
         case "login":
             return new LoginCommand(input, splitStr);
         case "create":
