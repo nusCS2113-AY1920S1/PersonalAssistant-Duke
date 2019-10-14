@@ -37,7 +37,14 @@ public class SortCommand extends Command {
      * @throws MeaninglessException  Exception caught when the input string could not be interpreted.
      */
     public void execute(TaskList tasks, Ui ui, Storage storage) throws FileException, MeaninglessException, EmptyArgumentException {
-        String sort = user.substring(SortCommand.sortShortcut.length()).trim();
+        String userSubstring;
+        if(callByShortcut){
+            userSubstring = user.substring(SortCommand.sortShortcut.length());
+        }
+        else {
+            userSubstring = user.substring(4);
+        }
+        String sort = userSubstring.trim();
         if(sort.isBlank()) {
             throw new EmptyArgumentException();
         }

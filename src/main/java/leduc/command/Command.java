@@ -11,6 +11,7 @@ import leduc.task.TaskList;
  */
 public abstract class Command {
     protected String user;
+    protected boolean callByShortcut = false;
 
     /**
      * Constructor of Command.
@@ -36,4 +37,8 @@ public abstract class Command {
      * @throws DukeException one of the subclass of leduc.exception.DukeException could be caught in the execution of this method.
      */
     public abstract void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException;
+
+    public void calledByShortcut(){
+        this.callByShortcut = true;
+    }
 }
