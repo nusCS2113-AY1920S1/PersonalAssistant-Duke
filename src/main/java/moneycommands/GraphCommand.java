@@ -9,8 +9,10 @@ import java.text.ParseException;
 
 public class GraphCommand extends MoneyCommand{
 
-    public GraphCommand() {
+    private String cmd;
 
+    public GraphCommand(String inputString) {
+        cmd = inputString;
     }
 
     @Override
@@ -20,7 +22,11 @@ public class GraphCommand extends MoneyCommand{
 
     @Override
     public void execute(Account account, Ui ui, MoneyStorage storage) throws DukeException, ParseException {
-        ui.appendToOutput("Got it, graph will be printed in the other pane!\n");
+        if (cmd.equals("change icon")) {
+            ui.appendToOutput("Done.\n");
+        } else {
+            ui.appendToOutput("Got it, graph will be printed in the other pane!\n");
+        }
     }
 
     @Override

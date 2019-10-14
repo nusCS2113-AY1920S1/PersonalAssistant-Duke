@@ -7,8 +7,8 @@ import javafx.scene.chart.XYChart;
 import javafx.scene.layout.HBox;
 
 import java.io.IOException;
-
-import money.Account;
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 
 public class Histogram extends HBox {
 
@@ -30,11 +30,12 @@ public class Histogram extends HBox {
         yAxis.setLabel("Amount");
     }
 
-    public static Histogram getHistogram(String title, float in, float out) throws IOException {
+    public static Histogram getHistogram(String title, ArrayList<String> xData, ArrayList<Float> yData) throws IOException {
         Histogram histogram = new Histogram(title);
         XYChart.Series<String,Number> series = new XYChart.Series<>();
-        series.getData().add(new XYChart.Data<>("Income", in));
-        series.getData().add(new XYChart.Data<>("Expenditure", out));
+        for (int index = 0; index < yData.size(); index++) {
+            series.getData().add(new XYChart.Data<>(xData.get(index), yData.get(index)));
+        }
         histogram.barChart.getData().add(series);
         return histogram;
     }
