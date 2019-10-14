@@ -68,7 +68,7 @@ public class ProjectInputController {
                 } else if (projectCommand.length() == 8 && ("add task").equals(projectCommand)) {
                     try {
                         consoleView.consolePrint("Enter your task: t/TaskName p/TaskPriorityValue"
-                                                + " [d/TaskDueDate] c/TaskCredit [s/TaskState]");
+                                                + " [d/TaskDueDate] c/TaskCredit [s/TaskState] [r/TaskRequirement]");
                         String taskDetails = manageProjectInput.nextLine();
                         TaskFactory taskFactory = new TaskFactory();
                         consoleView.addTask(projectToManage, taskFactory.createTask(taskDetails));
@@ -77,6 +77,17 @@ public class ProjectInputController {
                     }
                 } else if (projectCommand.length() == 10 && ("view tasks").equals(projectCommand)) {
                     consoleView.viewAllTasks(projectToManage);
+                } else if (projectCommand.length() > 25 && ("view task requirements i/").equals(projectCommand.substring(0, 25))) {
+                    int taskIndex = Integer.parseInt(projectCommand.substring(25));
+                    if (projectToManage.getNumOfTasks() >= taskIndex) {
+                        if (projectToManage.getTask(taskIndex).getTaskRequirements() == null) {
+                            consoleView.consolePrint("This task has no specific requirements.");
+                        } else {
+                            consoleView.viewTaskRequirements(projectToManage, taskIndex);
+                        }
+                    } else {
+                        consoleView.consolePrint("The task index entered is invalid.");
+                    }
                 } else if (projectCommand.length() == 10 && ("edit task ").equals(projectCommand)) {
                     String temp2 = "";
                     System.out.println(temp2);

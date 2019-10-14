@@ -222,4 +222,9 @@ public class CLIView {
             }
         }
     }
+
+    public void viewTaskRequirements(IProject projectToManage, int taskIndex) {
+        ArrayList<String> taskRequirements = projectToManage.getTask(taskIndex).getTaskRequirements();
+        consolePrint(taskRequirements.toArray(new String[0]));
+    }
 }

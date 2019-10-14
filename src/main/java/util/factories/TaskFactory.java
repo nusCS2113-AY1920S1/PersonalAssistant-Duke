@@ -6,6 +6,8 @@ import models.task.TaskState;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 
 public class TaskFactory {
@@ -16,28 +18,69 @@ public class TaskFactory {
      * @return Task as an object
      */
     public Task createTask(String input) throws ParseException {
-        String [] taskDetails = input.split("[tpdcs]\\/");
+        String [] taskDetails = input.split("[tpdcsr]\\/");
         Task newTask = null;
-        if (taskDetails.length == 4) {
-            newTask = new Task(taskDetails[1].trim(), Integer.parseInt(taskDetails[2].trim()),
-                        null, Integer.parseInt(taskDetails[3].trim()), TaskState.OPEN);
-        } else if (taskDetails.length == 5 && input.contains(" d/")) {
-            SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
-            Date dueDate = formatter.parse(taskDetails[3]);
-            newTask = new Task(taskDetails[1].trim(), Integer.parseInt(taskDetails[2].trim()),
-                                dueDate, Integer.parseInt(taskDetails[4].trim()), TaskState.OPEN);
-        } else if (taskDetails.length == 5 && input.contains(" s/")) {
-            TaskState newTaskState = convertStringToTaskState(taskDetails[4]);
-            newTask = new Task(taskDetails[1].trim(), Integer.parseInt(taskDetails[2].trim()),
-                        null, Integer.parseInt(taskDetails[3].trim()), newTaskState);
-        } else if (taskDetails.length == 6) {
-            SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
-            Date dueDate = formatter.parse(taskDetails[3]);
-            TaskState newTaskState = convertStringToTaskState(taskDetails[5].trim());
-            newTask = new Task(taskDetails[1].trim(), Integer.parseInt(taskDetails[2].trim()),
-                                dueDate, Integer.parseInt(taskDetails[4].trim()), newTaskState);
+        if (!input.contains(" d/") && !input.contains(" s/")) {
+            if (taskDetails.length == 4) {
+                newTask = new Task(taskDetails[1].trim(), Integer.parseInt(taskDetails[2].trim()),
+                        null, Integer.parseInt(taskDetails[3].trim()), TaskState.OPEN,
+                        null);
+            } else {
+                ArrayList<String> taskRequirements = parseTaskRequirements(taskDetails, 4);
+                newTask = new Task(taskDetails[1].trim(), Integer.parseInt(taskDetails[2].trim()),
+                        null, Integer.parseInt(taskDetails[3].trim()), TaskState.OPEN,
+                        taskRequirements);
+            }
+
+        } else if (input.contains(" d/") && !input.contains(" s/")) {
+            if (taskDetails.length == 5) {
+                Date dueDate = getDateObject(taskDetails[3]);
+                newTask = new Task(taskDetails[1].trim(), Integer.parseInt(taskDetails[2].trim()),
+                        dueDate, Integer.parseInt(taskDetails[4].trim()), TaskState.OPEN, null);
+            } else {
+                Date dueDate = getDateObject(taskDetails[3]);
+                ArrayList<String> taskRequirements = parseTaskRequirements(taskDetails, 5);
+                newTask = new Task(taskDetails[1].trim(), Integer.parseInt(taskDetails[2].trim()),
+                        dueDate, Integer.parseInt(taskDetails[4].trim()), TaskState.OPEN, taskRequirements);
+            }
+        } else if (!input.contains(" d/") && input.contains(" s/")) {
+            if (taskDetails.length == 5) {
+                TaskState newTaskState = convertStringToTaskState(taskDetails[4]);
+                newTask = new Task(taskDetails[1].trim(), Integer.parseInt(taskDetails[2].trim()),
+                        null, Integer.parseInt(taskDetails[3].trim()), newTaskState, null);
+            } else {
+                TaskState newTaskState = convertStringToTaskState(taskDetails[4]);
+                ArrayList<String> taskRequirements = parseTaskRequirements(taskDetails, 5);
+                newTask = new Task(taskDetails[1].trim(), Integer.parseInt(taskDetails[2].trim()),
+                        null, Integer.parseInt(taskDetails[3].trim()), newTaskState, taskRequirements);
+            }
+        } else if (input.contains(" d/") && input.contains(" s/")) {
+            if (taskDetails.length == 6) {
+                Date dueDate = getDateObject(taskDetails[3]);
+                TaskState newTaskState = convertStringToTaskState(taskDetails[5].trim());
+                newTask = new Task(taskDetails[1].trim(), Integer.parseInt(taskDetails[2].trim()),
+                        dueDate, Integer.parseInt(taskDetails[4].trim()), newTaskState, null);
+            } else {
+                Date dueDate = getDateObject(taskDetails[3]);
+                TaskState newTaskState = convertStringToTaskState(taskDetails[5].trim());
+                ArrayList<String> taskRequirements = parseTaskRequirements(taskDetails, 6);
+                newTask = new Task(taskDetails[1].trim(), Integer.parseInt(taskDetails[2].trim()),
+                        dueDate, Integer.parseInt(taskDetails[4].trim()), newTaskState, taskRequirements);
+            }
+
         }
         return newTask;
+    }
+
+    private ArrayList<String> parseTaskRequirements(String[] taskDetails, int startIndexOfTaskRequirements) {
+        ArrayList<String> taskRequirements = new ArrayList<String>();
+        taskRequirements.addAll(Arrays.asList(taskDetails).subList(startIndexOfTaskRequirements, taskDetails.length));
+        return taskRequirements;
+    }
+
+    private Date getDateObject(String taskDetail) throws ParseException {
+        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+        return formatter.parse(taskDetail);
     }
 
     /**
