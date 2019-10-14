@@ -1,6 +1,7 @@
 package duke.ui;
 
 import duke.task.PriorityList;
+import duke.task.ContactList;
 import duke.task.Task;
 import duke.task.TaskList;
 
@@ -112,6 +113,16 @@ public class Ui {
         for (int i = 0; i < items.size() && i < priorities.getSize(); i++) {
             out.printf("        [%d]\t  |\t%d.%s\n", priorities.getList().get(i), i + 1, items.get(i));
         }
+    }
+
+    /**
+     * Outputs all the contacts of the contact list to the user.
+     *
+     * @param contactList The list of contacts.
+     */
+    public void showContactList(ContactList contactList) {
+        out.println("     Here are all your contacts:");
+        out.print(contactList.getContactList());
     }
 
     /**
@@ -355,5 +366,20 @@ public class Ui {
     public void showSetPriority(TaskList taskList, int taskNum, int priority) {
         out.println("     Updated the priority of \n\t\t" + taskList.get(taskNum));
         out.println("     Current priority: " + priority);
+    }
+
+    /**
+     * Outputs the contact details that are most recently added.
+     *
+     * @param contactList The list of contacts.
+     */
+    public void showAddedContact(ContactList contactList) {
+        out.println("     Got it. Contact added:");
+        if (contactList.size() == 0) {
+            out.println("     You have no contacts!");
+        } else {
+            out.println(contactList.get(contactList.size() - 1));
+            out.println("     Now you have " + contactList.size() + " contacts.");
+        }
     }
 }

@@ -35,7 +35,7 @@ public class FindCommand extends Command {
      *
      * @param items The task list that contains a list of tasks.
      * @param ui To tell the user the matching tasks based on the keyword.
-     * @return String to be outputted to the user.
+     * @return List of tasks.
      */
     @Override
     public String executeGui(TaskList items, Ui ui) {

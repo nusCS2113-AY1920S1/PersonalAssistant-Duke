@@ -49,8 +49,6 @@ public class DeleteCommand extends Command {
         ui.showDelete(items, deletedStr);
     }
 
-
-
     /**
      * Executes a command that deletes the task from the task list and outputs the result (GUI).
      *
