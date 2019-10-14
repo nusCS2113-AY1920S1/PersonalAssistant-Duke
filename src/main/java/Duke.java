@@ -69,7 +69,6 @@ public class Duke {
             return new String[]{ui.getOutputString(), ui.getGraphContainerString()};
         } finally {
             ui.appendToOutput(ui.showLine());
-
         }
         return new String[]{ui.getOutputString(), ui.getGraphContainerString()};
     }
