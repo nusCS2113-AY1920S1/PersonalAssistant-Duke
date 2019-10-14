@@ -44,10 +44,17 @@ public class RescheduleCommand extends Command {
     public void execute(TaskList tasks, Ui ui, Storage storage) throws EmptyEventDateException,
             NonExistentTaskException, EventTypeException, NonExistentDateException,
             DateComparisonEventException, FileException, ConflictDateException, EmptyArgumentException {
-        if(user.substring(RescheduleCommand.rescheduleShortcut.length()).isBlank()){
+        String userSubstring;
+        if(callByShortcut){
+            userSubstring = user.substring(RescheduleCommand.rescheduleShortcut.length()+1);
+        }
+        else {
+            userSubstring = user.substring(11);
+        }
+        if(userSubstring.isBlank()){
             throw new EmptyArgumentException();
         }
-        String[] rescheduleString = user.substring(RescheduleCommand.rescheduleShortcut.length() + 1).split("/at");
+        String[] rescheduleString = userSubstring.split("/at");
         if (rescheduleString.length == 1) { // no /by in input
             throw new EmptyEventDateException();
         }

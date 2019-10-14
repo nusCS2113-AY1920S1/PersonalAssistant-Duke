@@ -234,4 +234,22 @@ public class ShortcutCommand extends Command {
     public static HashSet<String> getSetShortcut(){
         return setShortcut;
     }
+    public static void initializedSetShortcut(){
+        setShortcut.add("bye");
+        setShortcut.add("list");
+        setShortcut.add("done");
+        setShortcut.add("edit");
+        setShortcut.add("deadline");
+        setShortcut.add("event");
+        setShortcut.add("find");
+        setShortcut.add("help");
+        setShortcut.add("postpone");
+        setShortcut.add("remind");
+        setShortcut.add("reschedule");
+        setShortcut.add("setwelcome");
+        setShortcut.add("snooze");
+        setShortcut.add("sort");
+        setShortcut.add("todo");
+        setShortcut.add("delete");
+    }
 }

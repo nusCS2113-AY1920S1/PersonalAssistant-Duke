@@ -92,6 +92,14 @@ public class PrioritizeCommandTest {
             assertTrue(e instanceof NonExistentTaskException);
         }
 
+        PrioritizeCommand prioritizeCommand7  = new PrioritizeCommand("prioritize");
+        try{
+            prioritizeCommand7.execute(tasks,ui,storage);
+        }
+        catch( DukeException e ){
+            assertTrue(e instanceof EmptyArgumentException);
+        }
+
         for ( int i = 0 ; i< tasks.getList().size() ; i++){
             int j = i *2;
             PrioritizeCommand prioritizeCommand = new PrioritizeCommand("prioritize " + (i+1) + " prio " + j);

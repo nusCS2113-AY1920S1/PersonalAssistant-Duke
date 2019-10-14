@@ -34,16 +34,22 @@ public class PrioritizeCommand extends Command {
      * @throws NonExistentTaskException Exception caught when the task to delete does not exist.
      * @throws PrioritizeFormatException Exception caught when the format of a prioritize command is not respected.
      * @throws PrioritizeLimitException Exception caught when the new priority is greater than 9 or less than 0.
+     * @throws EmptyArgumentException Exception caught when there is no argument
      */
     public void execute(TaskList tasks, Ui ui, Storage storage) throws FileException,
-            NonExistentTaskException, PrioritizeFormatException, PrioritizeLimitException {
+            NonExistentTaskException, PrioritizeFormatException, PrioritizeLimitException, EmptyArgumentException {
         String[] commandString = null;
-        if(user.matches("prioritize \\d+ (.*)")){
-            commandString = user.substring(10).trim().split("prio");
+        String subString = null;
+        if(callByShortcut){
+            subString = user.substring(PrioritizeCommand.prioritizeShortcut.length()).trim();
         }
-        else { // user uses the shortcut ( tested in parser)
-            commandString = user.substring(PrioritizeCommand.prioritizeShortcut.length()).trim().split("prio");
+        else {
+            subString = user.substring(10).trim();
         }
+        if (subString.isBlank()){
+            throw new EmptyArgumentException();
+        }
+        commandString = subString.split("prio");
         if (commandString.length==1){ // "prio" is not in the user input
             throw new PrioritizeFormatException();
         }

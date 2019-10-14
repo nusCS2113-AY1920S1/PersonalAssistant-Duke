@@ -35,9 +35,17 @@ public class SortCommand extends Command {
      * @param storage leduc.storage.Storage which deals with loading tasks from the file and saving tasks in the file.
      * @throws FileException Exception caught when the file can't be open or read or modify.
      * @throws MeaninglessException  Exception caught when the input string could not be interpreted.
+     * @throws EmptyArgumentException Exception caught when there is no argument
      */
     public void execute(TaskList tasks, Ui ui, Storage storage) throws FileException, MeaninglessException, EmptyArgumentException {
-        String sort = user.substring(SortCommand.sortShortcut.length()).trim();
+        String userSubstring;
+        if(callByShortcut){
+            userSubstring = user.substring(SortCommand.sortShortcut.length());
+        }
+        else {
+            userSubstring = user.substring(4);
+        }
+        String sort = userSubstring.trim();
         if(sort.isBlank()) {
             throw new EmptyArgumentException();
         }
