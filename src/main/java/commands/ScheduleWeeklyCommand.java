@@ -22,7 +22,8 @@ public class ScheduleWeeklyCommand extends Command {
     //format for the command: scheduleWeekly <yyyy-MM-dd(Mon) yyyy-MM-dd(Sun)>
     protected LocalDate mon;
     protected LocalDate sun;
-    public static final int ONE_WEEK = 7;
+    private static final int ONE_WEEK = 7;
+
     /**
      * This is the main body of the ScheduleWeekly command.
      *
