@@ -1,8 +1,8 @@
 import Tasks.Task;
 import UI.Ui;
 import Storage.Storage;
+import Storage.NoteStorage;
 import commands.Command;
-import notes.Note;
 import notes.NoteList;
 import parsers.*;
 import Exception.DukeException;
@@ -29,6 +29,9 @@ public class Duke {
         try {
             ui.showWelcome();
             list = store.ReadFile();
+            NoteStorage.readFromFile("NoteDaily.txt", NoteList.daily);
+            NoteStorage.readFromFile("NoteWeekly.txt", NoteList.weekly);
+            NoteStorage.readFromFile("NoteMonthly.txt", NoteList.monthly);
             ui.UpcomingTask(list);
             while (!isExit) {
                 ui.ReadCommand();
