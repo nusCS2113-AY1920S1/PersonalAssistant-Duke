@@ -25,7 +25,7 @@ public class AssignTaskToPatientCommand extends Command {
     @Override
     public void execute(PatientTaskList patientTaskList, TaskManager tasksList, PatientManager patientList, Ui ui, PatientTaskStorage patientTaskStorage, TaskStorage taskStorage, PatientStorage patientStorage) throws DukeException {
         this.newPatientTask = finalPatientTask(command);
-        if (patientList.isExist(newPatientTask.getPatientId()) && tasksList.isExist(newPatientTask.getTaskID()))
+        if (patientList.isExist(newPatientTask.getPatientId()) && tasksList.doesExist(newPatientTask.getTaskID()))
         {
             patientTaskList.addPatientTask(newPatientTask);
             patientTaskStorage.save(patientTaskList.fullPatientTaskList());

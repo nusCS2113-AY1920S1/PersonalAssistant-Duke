@@ -55,7 +55,6 @@ public class Duke {
             ui.showLoadingError();
             System.out.println(e.getMessage());
             taskManager = new TaskManager();
-
         }
     }
 
