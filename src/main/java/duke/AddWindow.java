@@ -1,27 +1,19 @@
 package duke;
 
-import duke.command.Command;
-import duke.command.ExitCommand;
-import duke.dukeexception.DukeException;
-import duke.task.Task;
+
 import duke.task.TaskList;
 import javafx.fxml.FXML;
-import javafx.scene.control.*;
-import javafx.scene.image.Image;
-import javafx.scene.input.MouseEvent;
+import javafx.scene.control.TextField;
+import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.VBox;
-import duke.ui.Ui;
+
 import javafx.stage.Stage;
 
-import java.awt.event.ActionEvent;
-import java.util.Date;
-import java.util.Timer;
-import java.util.TimerTask;
 
 
 /**
- * Controller for MainWindow. Provides the layout for the other controls.
+ * Controller for AddWindow. Provides the layout for the other controls.
  */
 public class AddWindow extends AnchorPane {
     private Duke duke;
@@ -51,6 +43,12 @@ public class AddWindow extends AnchorPane {
     @FXML
     private Button btnReset;
 
+    /**
+     * Setting up Add Window Interface.
+     *
+     * @param d The object of Duke.
+     * @param mainWindow The main window that runs DUKE Manager.
+     */
     @FXML
     public void setAddWindow(Duke d, MainWindow mainWindow) {
         duke = d;
@@ -62,7 +60,7 @@ public class AddWindow extends AnchorPane {
                 "Fixed Duration",
                 "Repeat",
                 "Do After"
-                );
+        );
         TaskList items = d.getTaskList();
         for (int i = 0; i < items.size(); i++) {
             cbExistingTask.getItems().add(items.get(i).getDescription());
@@ -80,11 +78,16 @@ public class AddWindow extends AnchorPane {
         } else if (cbType.getSelectionModel().getSelectedItem().equals("Event")) {
             mainWindow.handleUserEvent("event " + tfDesc.getText().trim() + " /at " +  tfDateTime.getText().trim());
         } else if (cbType.getSelectionModel().getSelectedItem().equals("Fixed Duration")) {
-            mainWindow.handleUserEvent("fixedduration " + tfDesc.getText().trim() + " /for " +  tfDuration.getText().trim() + " " +  tfUnit.getText().trim());
+            mainWindow.handleUserEvent("fixedduration " + tfDesc.getText().trim() + " /for "
+                    +  tfDuration.getText().trim() + " " +  tfUnit.getText().trim());
         } else if (cbType.getSelectionModel().getSelectedItem().equals("Repeat")) {
-            mainWindow.handleUserEvent("repeat " + tfDesc.getText().trim() + " /from " +  tfDateTime.getText().trim() + " /for " +  tfDuration.getText().trim() + " "+ tfUnit.getText().trim());
+            mainWindow.handleUserEvent("repeat " + tfDesc.getText().trim()
+                    + " /from " +  tfDateTime.getText().trim() + " /for "
+                    +  tfDuration.getText().trim()
+                    + " " + tfUnit.getText().trim());
         } else if (cbType.getSelectionModel().getSelectedItem().equals("Do After")) {
-            mainWindow.handleUserEvent("doafter " + tfDesc.getText().trim() + " /after " +  cbExistingTask.getSelectionModel().getSelectedItem());
+            mainWindow.handleUserEvent("doafter " + tfDesc.getText().trim()
+                    + " /after " +  cbExistingTask.getSelectionModel().getSelectedItem());
         }
         mainWindow.listViewRefresh();
         Stage stage = (Stage) btnAdd.getScene().getWindow();

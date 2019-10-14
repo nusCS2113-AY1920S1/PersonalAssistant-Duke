@@ -84,6 +84,7 @@ public class TaskList {
     /**
      * Retrieves index of task in the task list (GUI).
      *
+     * @param taskObj A task from the task list.
      * @return int that contains the index of task.
      */
     public int getIndex(Task taskObj) {

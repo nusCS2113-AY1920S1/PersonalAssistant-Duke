@@ -7,21 +7,20 @@ import duke.task.Task;
 import duke.task.TaskList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Insets;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.MenuItem;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
+import javafx.scene.control.ListView;
 import javafx.scene.control.Label;
+import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.image.Image;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
-import javafx.scene.control.ListView;
 import duke.ui.Ui;
 import javafx.stage.Stage;
 
-import java.awt.event.ActionEvent;
 import java.io.IOException;
 import java.util.Date;
 import java.util.Timer;
@@ -32,16 +31,12 @@ import java.util.TimerTask;
  * Controller for MainWindow. Provides the layout for the other controls.
  */
 public class MainWindow extends AnchorPane {
-//    @FXML
-//    private MenuItem exit;
     @FXML
     private ScrollPane scrollPane;
     @FXML
     private VBox dialogContainer;
     @FXML
     private TextField userInput;
-//    @FXML
-//    private Button sendButton;
     @FXML
     private ListView<Task> listT;
     @FXML
@@ -51,7 +46,21 @@ public class MainWindow extends AnchorPane {
     @FXML
     private Button btnDelete;
     @FXML
-    private Button btnEdit;
+    private Button btnUpdate;
+    @FXML
+    private Button btnOK;
+    @FXML
+    private Button btnCancel;
+    @FXML
+    private VBox vboxUpdate;
+    @FXML
+    private ComboBox<String> cbupdateType;
+    @FXML
+    private TextField tfnewDesc;
+    @FXML
+    private TextField tfnewDateTime;
+    @FXML
+    private ComboBox<String> cbtaskType;
 
     private Duke duke;
 
@@ -69,8 +78,10 @@ public class MainWindow extends AnchorPane {
      */
     public void setDuke(Duke d) {
         duke = d;
-        listViewRefresh();
-        setDisableButtons();
+        updateGui();
+        setVboxWidth(false);
+        setButtonsVisibility(true);
+
         dialogContainer.getChildren().add(
                 DialogBox.getDukeDialog(Ui.showWelcomeGui(), dukeImage)
         );
@@ -135,19 +146,11 @@ public class MainWindow extends AnchorPane {
         );
         try {
             Command cmd = duke.getCommand(input);
-//            if (cmd instanceof ExitCommand) {
-//                duke.saveState(cmd);
-//                response = Ui.showLineGui() + Ui.showByeGui() + Ui.showLineGui();
-//                dialogContainer.getChildren().add(
-//                        DialogBox.getDukeDialog(response, dukeImage)
-//                );
-//                timer.schedule(exitDuke, new Date(System.currentTimeMillis() + 500));
-//            } else {
-                response = Ui.showLineGui() + duke.executeCommand(cmd) + Ui.showLineGui();
-                dialogContainer.getChildren().add(
-                        DialogBox.getDukeDialog(response, dukeImage)
-                );
-           // }
+            response = Ui.showLineGui() + duke.executeCommand(cmd) + Ui.showLineGui();
+            dialogContainer.getChildren().add(
+                    DialogBox.getDukeDialog(response, dukeImage)
+            );
+
         } catch (DukeException e) {
             response = Ui.showLineGui() + Ui.showErrorMsgGui(e.getMessage()) + Ui.showLineGui();
             dialogContainer.getChildren().add(
@@ -175,7 +178,7 @@ public class MainWindow extends AnchorPane {
             btnDone.setDisable(false);
         }
         btnDelete.setDisable(false);
-        btnEdit.setDisable(false);
+        btnUpdate.setDisable(false);
     }
 
     @FXML
@@ -198,6 +201,101 @@ public class MainWindow extends AnchorPane {
     }
 
     @FXML
+    private void onMouseClickUpdate() {
+        setVboxWidth(true);
+        setButtonsVisibility(false);
+        cleanUp();
+        cbupdateType.getItems().addAll(
+                "Description",
+                "Date/Time",
+                "Type of Task"
+
+        );
+        cbtaskType.getItems().addAll(
+                "Todo",
+                "Deadline",
+                "Event",
+                "Fixed Duration",
+                "Repeat",
+                "Do After"
+        );
+    }
+
+    @FXML
+    private void onMouseClickOK() {
+        Task taskObj = listT.getSelectionModel().getSelectedItem();
+        TaskList items = duke.getTaskList();
+        int itemNumber = items.getIndex(taskObj) + 1;
+        if (cbupdateType.getSelectionModel().getSelectedItem().equals("Description")) {
+            handleUserEvent("update " + itemNumber + " /desc " + tfnewDesc.getText().trim());
+        } else if (cbupdateType.getSelectionModel().getSelectedItem().equals("Date/Time")) {
+            handleUserEvent("update " + itemNumber + " /date " + tfnewDateTime.getText().trim());
+        } else if (cbupdateType.getSelectionModel().getSelectedItem().equals("Type of Task")) {
+            String typeStr = "";
+            if (cbtaskType.getSelectionModel().getSelectedItem().equals("Todo")) {
+                typeStr = "todo";
+            } else  if (cbtaskType.getSelectionModel().getSelectedItem().equals("Deadline")) {
+                typeStr = "deadline";
+            } else  if (cbtaskType.getSelectionModel().getSelectedItem().equals("Event")) {
+                typeStr = "event";
+            } else  if (cbtaskType.getSelectionModel().getSelectedItem().equals("Fixed Duration")) {
+                typeStr = "fixedduration";
+            } else  if (cbtaskType.getSelectionModel().getSelectedItem().equals("Repeat")) {
+                typeStr = "repeat";
+            } else  if (cbtaskType.getSelectionModel().getSelectedItem().equals("Do After")) {
+                typeStr = "doafter";
+            }
+            handleUserEvent("update " + itemNumber + " /type " + typeStr);
+        }
+        updateGui();
+        setVboxWidth(false);
+        setButtonsVisibility(true);
+    }
+
+    @FXML
+    private void onMouseClickCancel() {
+        setVboxWidth(false);
+        setButtonsVisibility(true);
+    }
+
+    @FXML
+    private void cleanUp() {
+        cbupdateType.getItems().clear();
+        cbtaskType.getItems().clear();
+        tfnewDateTime.clear();
+        tfnewDesc.clear();
+    }
+
+    @FXML
+    private void setVboxWidth(boolean isEnabled) {
+        if (isEnabled) {
+            vboxUpdate.setPrefWidth(200);
+            vboxUpdate.setVisible(true);
+        } else {
+            vboxUpdate.setPrefWidth(0);
+            vboxUpdate.setVisible(false);
+        }
+    }
+
+    @FXML
+    private void setButtonsVisibility(boolean isVisible) {
+        if (isVisible) {
+            btnOK.setVisible(false);
+            btnCancel.setVisible(false);
+            btnDone.setVisible(true);
+            btnUpdate.setVisible(true);
+            btnDelete.setVisible(true);
+        } else {
+            btnOK.setVisible(true);
+            btnCancel.setVisible(true);
+            btnDone.setVisible(false);
+            btnUpdate.setVisible(false);
+            btnDelete.setVisible(false);
+        }
+
+    }
+
+    @FXML
     private void updateGui() {
         listViewRefresh();
         setDisableButtons();
@@ -217,7 +315,7 @@ public class MainWindow extends AnchorPane {
     private void setDisableButtons() {
         btnDone.setDisable(true);
         btnDelete.setDisable(true);
-        btnEdit.setDisable(true);
+        btnUpdate.setDisable(true);
     }
 
     @FXML
@@ -251,6 +349,9 @@ public class MainWindow extends AnchorPane {
         userInput.clear();
     }
 
+    /**
+     * Creates a new window to allow the user to add a new task via user friendly interface.
+     */
     @FXML
     public void createAddWindow() {
         try {
