@@ -22,11 +22,19 @@ public class Parser {
         else if (input.equals("list") && words.length == 1) {
             c = new ListCommand();
         }
+
+        else if (words[0].equals("listByDate")) {
+            Scanner myObj = new Scanner(System.in);
+            String day = myObj.nextLine();
+                c = new ListByDateCommand(day);
+        }
+        
         else if (words[0].equals("lend") && words.length == 1) {
             c=reader.ReadLoanCommand(ui);        
         } 
         else if (words[0].equals("reserve") && words.length == 1) {
             c=reader.ReadReserveCommand(ui);
+
         }
         else if (words[0].equals("return")) {
             if (words[1].equals("/item")) {
