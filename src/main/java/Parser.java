@@ -108,11 +108,13 @@ public class Parser {
                 try {
                     throw new CommandInvalidException(input);
                 } catch (CommandInvalidException e){
-                    return new BadCommand(e.showError());
+                    e.showError();
+                    return new BadCommand();
                 }
             }
         } catch (WordUpException e) {
-            return new BadCommand(e.showError());
+            e.showError();
+            return new BadCommand();
         }
     }
 }

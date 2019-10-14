@@ -14,7 +14,7 @@ public class WordUpException extends Exception {
         super();
     }
 
-    public String showError() {
-        return this.getMessage();
+    public void showError() {
+        System.out.println(this.getMessage());
     }
 }

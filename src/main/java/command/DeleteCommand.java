@@ -27,18 +27,28 @@ public class DeleteCommand extends Command {
     }
 
     @Override
-    public String execute(Ui ui, WordBank wordBank, Storage storage) {
+    public void execute(Ui ui, WordBank wordBank, Storage storage) {
         //ask ui to print something
         //ask tasks to store the thing in arraylist
         //ask storage to write to file
         try {
-
-            word = wordBank.getAndDelete(this.deletedWord);
-            storage.deleteFromFile(word.toString());
-            return ui.showDeleted(word);
-
+            // delete word
+            if (tags.size() == 0) {
+                word = wordBank.getAndDelete(this.deletedWord);
+                storage.deleteFromFile(word.toString() + "\r");
+                ui.showDeleted(word);
+            }
+            //delete tag
+            else {
+                word = wordBank.getWordBank().get(deletedWord);
+                ArrayList<String> nullTags = new ArrayList<>();
+                ArrayList<String> deletedTags = new ArrayList<>();
+                wordBank.deleteTags(deletedWord, tags, deletedTags, nullTags);
+                ui.showDeletedTags(deletedWord, deletedTags);
+                ui.showNullTags(deletedWord, nullTags);
+            }
         } catch (NoWordFoundException e) {
-            return e.showError();
+            e.showError();
         }
     }
 }

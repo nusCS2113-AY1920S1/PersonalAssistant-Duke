@@ -19,18 +19,18 @@ public class SearchCommand extends Command {
     }
 
     @Override
-    public String execute(Ui ui, WordBank wordBank, Storage storage) {
+    public void execute(Ui ui, WordBank wordBank, Storage storage){
         //ask ui to print something
         //ask tasks to store the thing in arraylist
         //ask storage to write to file
         /*try {
             String meaning = wordBank.searchForMeaning(this.searchedWord);
-            return ui.showSearch(this.searchedWord, meaning);
+            ui.showSearch(this.searchedWord, meaning);
         }
         catch (NoWordFoundException e) {
-            return e.showError();
+            e.showError();
         }*/
-
-        return null;
+        String meaning = wordBank.searchForMeaning(this.searchedWord);
+        ui.showSearch(this.searchedWord,meaning);
     }
 }
