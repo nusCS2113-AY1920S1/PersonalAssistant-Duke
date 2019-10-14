@@ -21,7 +21,7 @@ public abstract class Command {
     }
 
     public abstract void execute(ProgressStack progressStack, Ui ui, Storage storage, Profile profile)
-            throws DukeException;
+            throws DukeException, IOException;
 
     /**
      * Method to get the type of command.

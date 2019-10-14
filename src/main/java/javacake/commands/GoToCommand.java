@@ -31,8 +31,19 @@ public class GoToCommand extends Command {
      * @param profile Profile of the user
      * @throws DukeException Error thrown when unable to close reader
      */
-    public void execute(ProgressStack progressStack, Ui ui, Storage storage, Profile profile) throws DukeException {
-        try {
+    public void execute(ProgressStack progressStack, Ui ui, Storage storage, Profile profile) throws DukeException, IOException {
+            int intIndex = Integer.parseInt(index)-1;
+            progressStack.updateFilePath(progressStack.gotoFilePath(intIndex));
+            progressStack.insertQueries();
+            if (progressStack.containsDirectory()) {
+                progressStack.displayQueries();
+            } else {
+                progressStack.updateFilePath(progressStack.gotoFilePath(intIndex));
+                progressStack.readQuery();
+            }
+            //progressStack.processQueries();
+
+
 
             /*if (progressStack.checkProgress() == 1 && index.equals("1")) {
                 progressStack.mainListToListIndex1();
@@ -95,8 +106,5 @@ public class GoToCommand extends Command {
             } else {
                 throw new DukeException("Please enter a valid index!");
             }*/
-        } catch (IOException e) {
-            throw new DukeException("File does not exists");
-        }
     }
 }

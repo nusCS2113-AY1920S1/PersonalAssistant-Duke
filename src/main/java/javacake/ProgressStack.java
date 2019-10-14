@@ -2,7 +2,8 @@ package javacake;
 
 import javacake.topics.SubListTopic;
 
-import java.io.File;
+import java.io.*;
+import java.nio.Buffer;
 import java.util.ArrayList;
 import java.util.Stack;
 
@@ -12,7 +13,8 @@ public class ProgressStack {
     private Stack<Integer> currentProgress = new Stack<Integer>();
     private static ArrayList<String> filePathQueries = new ArrayList<String>();
     private File folder;
-    private static File[] listOfFiles;
+    private File[] listOfFiles;
+    private static boolean isDirectory = true;
     public ProgressStack() {
 
     }
@@ -26,12 +28,63 @@ public class ProgressStack {
         currentFilePath = defaultFilePath;
     }
 
-    public void insertQueries(String currentFilePath) {
+    public String gotoFilePath(int index) {
+        printFiles();
+        return filePathQueries.get(index);
+    }
+
+    public void updateFilePath(String updatedPath) {
+        currentFilePath += ("/" + updatedPath);
+    }
+
+    public void printFiles() {
+        int y = 1;
+        for (String x : filePathQueries) {
+            System.out.println(y + ". " + x);
+            y++;
+        }
+    }
+
+
+
+    public void displayQueries() {
+        System.out.println("Here are the " + filePathQueries.size() + " subtopics available!");
+        for (String queries : filePathQueries) {
+            System.out.println(queries);
+        }
+        System.out.println("Key in the index to learn more about the topic!");
+    }
+
+    public void readQuery() throws IOException {
+        BufferedReader br = new BufferedReader(new FileReader(currentFilePath));
+        while (br.readLine() != null) {
+            System.out.println(br.readLine());
+        }
+    }
+
+    public boolean containsDirectory() {
+        if (isDirectory) return true;
+        return false;
+    }
+    public void processQueries() throws DukeException {
+        insertQueries();
+        try {
+            if (isDirectory) displayQueries();
+            else {
+                readQuery();
+            }
+        } catch (IOException e) {
+            throw new DukeException(e.getMessage());
+        }
+    }
+
+    public void insertQueries() {
         clearQueries();
         loadFiles(currentFilePath);
         for (File listOfFile : listOfFiles) {
             if (listOfFile.isFile()) {
                 filePathQueries.add(listOfFile.getName());
+                isDirectory = false;
             } else if (listOfFile.isDirectory()) {
                 filePathQueries.add(listOfFile.getName());
             }
