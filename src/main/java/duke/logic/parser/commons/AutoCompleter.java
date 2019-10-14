@@ -3,85 +3,119 @@ package duke.logic.parser.commons;
 import duke.logic.command.Command;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 /**
  * A logic component that auto-completes user inputs based on pre-defined command words and prefixes.
  */
 public class AutoCompleter {
     private List<Class<? extends Command>> commandClasses;
-    private List<Prefix> prefixes;
+    private UserInputState previousCompletableUserInputState;
 
-    private UserInputState previousUserInputState;
-    private List<String> autoCompletionResults;
-    private int resultPointer;
+    /**
+     * All the suggestions.
+     */
+    private List<UserInputState> suggestions;
+
+    /**
+     * A pointer to the index of the currently proposed suggestion.
+     */
+    private int suggestionPointer;
 
     /**
      * Creates an {@code AutoCompleter}.
      */
     public AutoCompleter() {
         commandClasses = new ArrayList<>();
-        prefixes = new ArrayList<>();
 
-        previousUserInputState = new UserInputState("$", -1);
-        autoCompletionResults = new ArrayList<>();
-        resultPointer = 0;
+        previousCompletableUserInputState = new UserInputState("", -1);
+        suggestions = new ArrayList<>();
+        suggestionPointer = 0;
     }
 
     /**
-     * Returns a {@code UserInputState} specifying the state after auto completion based on {@code CurrentState}
-     * If the current state is not auto-completable, returns the same state as {@code currentState};
-     * If the current state is the same as the previous state,
-     * returns a new {@code UserInputState} with the next possible completion word.
+     * Returns true if the current state has one or more auto-complete suggestion(s).
+     * @param currentState the detail of current input state.
      */
-    public UserInputState getAutoCompletion(UserInputState currentState) {
+    public Boolean isAutoCompletable(UserInputState currentState) {
         String commandText = currentState.userInputString;
         int caretPosition = currentState.caretPosition;
-        if (commandText.isBlank()) {
-            return currentState;
-        }
-
         String currentWord = getCurrentWord(commandText, caretPosition);
-        if (currentWord.isBlank()) {
-            return currentState;
+
+        //Blank text cannot be auto-completed.
+        if (commandText.isBlank() || currentWord.isBlank()) {
+            return false;
         }
 
-        String completedWord = getCompletedWord(currentState);
+        if (currentState.equals(previousCompletableUserInputState)) {
+            return true;
+        }
 
-        UserInputState newState = new UserInputState(
-                replaceWord(commandText, caretPosition, completedWord),
-                getNewCaretPosition(caretPosition, currentWord, completedWord)
-        );
+        List<String> suggestions = generateSuggestions(commandText, currentWord);
 
-        previousUserInputState = new UserInputState(newState);
+        //If there is no available suggestion words
+        if (suggestions.isEmpty()) {
+            return false;
+        } else {
+            //Convert the suggestion words to a user input state and set pointer to zero
+            this.suggestions = suggestions.stream().distinct().map(
+                suggestionWord -> new UserInputState(replaceWord(commandText, caretPosition, suggestionWord),
+                    getNewCaretPosition(caretPosition, currentWord, suggestionWord)))
+                    .collect(Collectors.toList());
+            suggestionPointer = 0;
 
-        return newState;
+            previousCompletableUserInputState = currentState;
+
+            return true;
+        }
     }
 
+    /**
+     * Returns possible suggestion(s) in the form of {@code UserInputState}.
+     * If there is only one available suggestion, returns that state.
+     * If there are multiple available suggestions, returns the next possible one,
+     * and goes cyclic to the first one if there are no more new suggestions.
+     */
+    public UserInputState complete() {
+        suggestionPointer = (suggestionPointer + 1) % suggestions.size();
+        previousCompletableUserInputState = suggestions.get(suggestionPointer);
+        return suggestions.get(suggestionPointer);
+    }
+
+    /**
+     * Returns the available suggested words for {@code currentWord} based on {@code userInput}.
+     * If there is no available suggestions, returns an empty list.
+     */
+    private List<String> generateSuggestions(String userInput, String currentWord) {
+        List<String> suggestions = new ArrayList<>();
+        Optional<Class<? extends Command>> matchedCommandClass = getMatchedCommandClass(userInput);
+        if (matchedCommandClass.isPresent()) {
+            suggestions.addAll(generateParameterSuggestions(currentWord, matchedCommandClass.get()));
+        } else {
+            suggestions.addAll(generateCommandWordSuggestions(currentWord));
+        }
+        return suggestions;
+    }
+
+    /**
+     * Adds a command class for auto-completion of command word and arguments.
+     * To auto-complete arguments, the command should have fields {@code AUTO_COMPLETION_INDICATOR} and
+     * {@code AUTO_COMPLETION_ARGUMENTS}. The naming and type should be precise for auto-completer to
+     * function properly.
+     *
+     * {@code AUTO_COMPLETION_INDICATOR} is a string specifying when auto-completer should complete the arguments.
+     * Auto-completer only completes the arguments when this field is present in the beginning of user input.
+     * {@code AUTO_COMPLETION_ARGUMENTS} is an array of {@code Prefix} that is used by the command that
+     * can be auto-completed.
+     */
     public void addCommand(Class<? extends Command> commandClass) {
         if (!commandClasses.contains(commandClass)) {
             this.commandClasses.add(commandClass);
         }
-    }
-
-    public void addPrefix(Prefix prefix) {
-        if (!this.prefixes.contains(prefix)) {
-            this.prefixes.add(prefix);
-        }
-    }
-
-    private String getCompletedWord(UserInputState state) {
-        String completedWord;
-        if (state.equals(previousUserInputState)) {
-            completedWord = autoCompletionResults.get(resultPointer);
-        } else {
-            completeWord(getCurrentWord(state.userInputString, state.caretPosition));
-            resultPointer = 0;
-            completedWord = autoCompletionResults.get(0);
-        }
-        resultPointer = (resultPointer + 1) % autoCompletionResults.size();
-        return completedWord;
     }
 
     private int getSelectionStart(String commandText, int caretPosition) {
@@ -109,32 +143,32 @@ public class AutoCompleter {
                 getSelectionEnd(commandText, caretPosition) + 1);
     }
 
-    private void completeWord(String toComplete) {
-        autoCompletionResults.clear();
-
+    private List<String> generateCommandWordSuggestions(String toComplete) {
+        List<String> suggestions = new ArrayList<>();
         for (Class<? extends Command> commandClass : commandClasses) {
-            String commandWord;
-            try {
-                commandWord = (String) commandClass.getField("COMMAND_WORD").get(null);
-            } catch (NoSuchFieldException | IllegalAccessException e) {
-                autoCompletionResults.add(toComplete);
-                return;
-            }
-            assert commandWord != null;
-            if (commandWord.startsWith(toComplete)) {
-                autoCompletionResults.add(commandWord);
-            }
+            getCommandWord(commandClass).ifPresent(commandWordString -> {
+                if (commandWordString.startsWith(toComplete)
+                        && !commandWordString.equals(toComplete)) {
+                    suggestions.add(commandWordString);
+                }
+            });
         }
+        return suggestions;
+    }
 
-        for (Prefix prefix : prefixes) {
-            if (prefix.getPrefix().startsWith(toComplete)) {
-                autoCompletionResults.add(prefix.getPrefix());
-            }
-        }
+    private List<String> generateParameterSuggestions(String toComplete, Class<? extends Command> commandClass) {
+        List<String> suggestions = new ArrayList<>();
 
-        if (autoCompletionResults.isEmpty()) {
-            autoCompletionResults.add(toComplete);
-        }
+        getCommandParameters(commandClass).ifPresent(
+            prefixes -> suggestions.addAll(Arrays.stream(prefixes)
+                    .map(Prefix::getPrefix)
+                    .filter(prefixString -> prefixString.startsWith(toComplete)
+                        && !prefixString.equals(toComplete))
+                    .collect(Collectors.toList())
+                )
+        );
+
+        return suggestions;
     }
 
     private String replaceWord(String commandText, int caretPosition, String newWord) {
@@ -147,21 +181,72 @@ public class AutoCompleter {
         return oldPosition - oldWord.length() + newWord.length();
     }
 
+    private String getCommandIndicator(Class<? extends Command> commandClass) {
+        try {
+            return (String) commandClass.getField("AUTO_COMPLETE_INDICATOR").get(null);
+        } catch (NoSuchFieldException | IllegalAccessException e) {
+            return "";
+        }
+    }
+
+    private Optional<String> getCommandWord(Class<? extends Command> commandClass) {
+        try {
+            return Optional.of((String) commandClass.getField("COMMAND_WORD").get(null));
+        } catch (NoSuchFieldException | IllegalAccessException e) {
+            return Optional.empty();
+        }
+    }
+
+    private Optional<Prefix[]> getCommandParameters(Class<? extends Command> commandClass) {
+        try {
+            return Optional.of((Prefix[]) commandClass
+                    .getField("AUTO_COMPLETE_PARAMETERS")
+                    .get(null));
+        } catch (NoSuchFieldException | IllegalAccessException e) {
+            return Optional.empty();
+        }
+    }
+
+    private Optional<Class<? extends Command>> getMatchedCommandClass(String userInput) {
+        String userInputWithoutConsecutiveSpaces = userInput.strip().replaceAll(" +", " ");
+
+        for (Class<? extends Command> commandClass : commandClasses) {
+            String indicator = getCommandIndicator(commandClass);
+            if (indicator.isEmpty()) {
+                continue;
+            }
+
+            if (userInputWithoutConsecutiveSpaces.startsWith(indicator)) {
+                return Optional.of(commandClass);
+            }
+        }
+
+        return Optional.empty();
+    }
+
     /**
-     * Represents the details of a user input.
+     * Represents the details of a user input, including the text and caret position.
      */
     public static class UserInputState {
+        /**
+         * The text input from user.
+         */
         public final String userInputString;
+
+        /**
+         * The position of the text insertion point.
+         */
         public final int caretPosition;
 
+        /**
+         * Creates a {@code UserInputState}.
+         *
+         * @param userInputString The text input from user
+         * @param caretPosition An integer between 0 and the length of {@code userInputString}
+         */
         public UserInputState(String userInputString, int caretPosition) {
             this.userInputString = userInputString;
             this.caretPosition = caretPosition;
-        }
-
-        public UserInputState(UserInputState toCopy) {
-            this.userInputString = toCopy.userInputString;
-            this.caretPosition = toCopy.caretPosition;
         }
 
         @Override
