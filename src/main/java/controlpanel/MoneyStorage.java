@@ -12,7 +12,11 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 
-import money.*;
+import money.Account;
+import money.Expenditure;
+import money.Goal;
+import money.Income;
+import money.Instalment;
 import javafx.util.Pair;
 
 public class MoneyStorage {
@@ -85,10 +89,6 @@ public class MoneyStorage {
                         account.getInstalments().add(ins);
                         break;
                     case "LOA":
-//                        Loan l = new Loan(Float.parseFloat(info[1]), info[2],
-//                                LocalDate.parse(info[3], dateTimeFormatter),
-//                                info[4], info[5],
-//                                info[6], Float.parseFloat(info[7]));
                         Loan l = new Loan(Float.parseFloat(info[1]), info[2],
                                 LocalDate.parse(info[3], dateTimeFormatter),
                             Loan.Type.ALL);
