@@ -3,6 +3,7 @@ package compal.logic.commands;
 import compal.commons.Compal;
 import compal.model.tasks.Task;
 
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -21,6 +22,8 @@ import static compal.commons.Messages.MESSAGE_MISSING_END_TIME_ARG;
 import static compal.commons.Messages.MESSAGE_MISSING_PRIORITY;
 import static compal.commons.Messages.MESSAGE_MISSING_START_TIME_ARG;
 import static compal.commons.Messages.MESSAGE_MISSING_TIME;
+import static compal.commons.Messages.MESSAGE_MISSING_HOUR;
+import static compal.commons.Messages.MESSAGE_MISSING_MIN;
 
 /**
  * Extracts and formats user input string into description, priority, date and time.
@@ -34,6 +37,8 @@ public abstract class Command {
     public static final String TOKEN_DATE = "/date";
     private static final String TOKEN_PRIORITY = "/priority";
     private static final String EMPTY_INPUT_STRING = "";
+    private static final String TOKEN_HOUR = "/hour";
+    private static final String TOKEN_MIN = "/min";
     public Compal compal;
 
     /**
@@ -43,6 +48,54 @@ public abstract class Command {
      */
     public Command(Compal d) {
         this.compal = d;
+    }
+
+    /**
+     * Returns hour from the input string according to the token (/hour).
+     *
+     * @param restOfInput Input description after initial command word.
+     * @return Hour in the form of a String.
+     * @throws Compal.DukeException If restOfInput is missing hour field.
+     */
+    public String getHour(String restOfInput) throws Compal.DukeException {
+        if (restOfInput.contains(TOKEN_HOUR)) {
+            int startPoint = restOfInput.indexOf(TOKEN_HOUR);
+            String hourInput = restOfInput.substring(startPoint);
+            Scanner scanner = new Scanner(hourInput);
+            scanner.next();
+            if (!scanner.hasNext()) {
+                compal.ui.printg(MESSAGE_MISSING_HOUR);
+                throw new Compal.DukeException(MESSAGE_MISSING_HOUR);
+            }
+            String hour = scanner.next();
+            return hour;
+        } else {
+            return "0";
+        }
+    }
+
+    /**
+     * Returns min from the input string according to the token (/min).
+     *
+     * @param restOfInput Input description after initial command word.
+     * @return Min in the form of a String.
+     * @throws Compal.DukeException If restOfInput is missing min field.
+     */
+    public String getMin(String restOfInput) throws Compal.DukeException {
+        if (restOfInput.contains(TOKEN_MIN)) {
+            int startPoint = restOfInput.indexOf(TOKEN_MIN);
+            String minInput = restOfInput.substring(startPoint);
+            Scanner scanner = new Scanner(minInput);
+            scanner.next();
+            if (!scanner.hasNext()) {
+                compal.ui.printg(MESSAGE_MISSING_MIN);
+                throw new Compal.DukeException(MESSAGE_MISSING_MIN);
+            }
+            String min = scanner.next();
+            return min;
+        } else {
+            return "0";
+        }
     }
 
     /**
@@ -92,7 +145,6 @@ public abstract class Command {
         }
     }
 
-
     /**
      * Checks if input date and time is after current date time.
      *
@@ -114,6 +166,20 @@ public abstract class Command {
         Date currDateAndTime = c.getTime();
 
         return inputDateAndTime.after(currDateAndTime);
+    }
+
+    /**
+     * Checks if input date is after the current date.
+     *
+     * @param inputDate The date of input
+     * @return True or false depending if the date is after or before.
+     */
+    public boolean isValidDate(String inputDate) throws ParseException {
+        Calendar calendar = Calendar.getInstance();
+        Date currentDate = calendar.getTime();
+        DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+        Date input = formatter.parse(inputDate);
+        return (input.after(currentDate) || input.equals(currentDate));
     }
 
     /**

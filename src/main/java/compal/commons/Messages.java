@@ -53,4 +53,5 @@ public class Messages {
     private static Date currentDate = java.util.Calendar.getInstance().getTime();
     public static final String MESSAGE_INVALID_DATE_TIME_INPUT = "DateTimeError: You can only add "
             + "task after current date and time:\n" + currentDate;
+    public static final String MESSAGE_INVALID_DATE = "DateError: You can only input current or future date!";
 }
