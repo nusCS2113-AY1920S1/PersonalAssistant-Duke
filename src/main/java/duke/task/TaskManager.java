@@ -2,12 +2,16 @@ package duke.task;
 
 import duke.core.DukeException;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  * Represents a list of Task that can perform operations such as
  * add and delete on the tasks.
  */
 public class TaskManager {
+    private HashMap<Integer, Task> taskIdMap = new HashMap<>();
+    private int maxId = 0;
+
     /**
      * An ArrayList structure.
      */
@@ -16,10 +20,15 @@ public class TaskManager {
     /**
      * Constructor used when Duke successfully loads a TaskList from a saved file.
      * Takes loaded taskList and uses it during Duke's new session.
-     * @param loadedTaskList
+     * @param taskList
      */
-    public TaskManager(ArrayList<Task> loadedTaskList) {
-        this.taskList = loadedTaskList;
+    public TaskManager(ArrayList<Task> taskList) {
+        for (Task task : taskList) {
+            taskIdMap.put(task.getID(), task);
+        }
+        if (!taskList.isEmpty()) {
+            this.maxId = taskList.get(taskList.size()-1).getID();
+        }
     }
 
     /**
@@ -31,38 +40,35 @@ public class TaskManager {
     }
 
     /**
-     * Retrieves the entire task list stored inside the ArrayList.
-     */
-    public ArrayList<Task> fullTaskList() {
-        return taskList;
-    }
-
-    /**
      * Adds a Task to the list.
      *
-     * @param t The Task to be added to the list.
+     * @param task The Task to be added to the list.
      */
-    public void addTask(Task t) {
-        taskList.add(t);
+    public void addTask(Task task) {
+        if (task.getID() == 0){
+            maxId += 1;
+            task.setID(maxId);
+        }
+        taskIdMap.put(task.getID(), task);
     }
 
     /**
      * Removes the Task with the given index from the list.
      *
-     * @param i The index of the Task to be deleted.
+     * //@param i The index of the Task to be deleted.
      */
-    public void deleteTask(Integer i) throws DukeException {
+    /*public void deleteTask(Integer i) throws DukeException {
         if (getSize() < i) {
             throw new DukeException("Task Number " + i + " does not exist");
         }
         taskList.remove(i - 1);
-    }
+    }*/
 
-    public boolean isExist(Integer i) {
-        if (getSize() >= i) {
+    public boolean isExist(int id) {
+        if (taskIdMap.containsKey(id)){
             return true;
         }
-        else {
+        else{
             return false;
         }
     }
@@ -70,27 +76,19 @@ public class TaskManager {
     /**
      * Returns the Task in the list with the given index.
      *
-     * @param i The index of the Task.
+     * @param id The index of the Task.
      * @return The Task in the list with the specific index.
      */
-    public Task getTask(int i) throws DukeException {
-        if (getSize() < i) {
-            throw new DukeException("Task Number " + i + " does not exist");
+    public Task getTask(int id) throws DukeException {
+        if (taskIdMap.containsKey(id)){
+            return taskIdMap.get(id);
         }
-        return taskList.get(i - 1);
-    }
-
-    /**
-     * Returns the size of task list.
-     *
-     * @return An integer representing the number of tasks in the list.
-     */
-    public int getSize() {
-        return taskList.size();
+        else{
+            throw new DukeException("The task with id "+ id + " does not exist.");
+        }
     }
 
     public ArrayList<Task> getTaskList() {
-        return new ArrayList<>(taskList);
+        return new ArrayList<>(taskIdMap.values());
     }
-
 }

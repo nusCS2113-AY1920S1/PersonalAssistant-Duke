@@ -41,8 +41,9 @@ public class TaskStorage {
             Reader in = new FileReader(filePath);
             Iterable<CSVRecord> records = CSVFormat.EXCEL.withFirstRecordAsHeader().parse(in);
             for (CSVRecord record : records) {
+                int id = Integer.parseInt(record.get("Id"));
                 String description = record.get("Description");
-                taskList.add(new Task(description));
+                taskList.add(new Task(id, description));
             }
             return taskList;
         } catch (IOException e) {
@@ -61,10 +62,11 @@ public class TaskStorage {
         try{
             BufferedWriter writer = Files.newBufferedWriter(Paths.get(filePath));
             CSVPrinter csvPrinter = new CSVPrinter(writer, CSVFormat.DEFAULT
-                    .withHeader("Description"));
+                    .withHeader("Id", "Description"));
             for (Task task : tasks){
+                int id = task.getID();
                 String description = task.getDescription();
-                csvPrinter.printRecord(description);
+                csvPrinter.printRecord(id, description);
             }
             csvPrinter.flush();
         }

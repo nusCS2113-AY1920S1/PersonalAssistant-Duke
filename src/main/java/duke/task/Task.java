@@ -5,12 +5,18 @@ package duke.task;
  * instantiated
  */
 public class Task {
-
+    private int id = 0;
     private String description;
+
+    public Task(int id, String description) {
+        this.id = id;
+        this.description = description;
+    }
 
     public Task(String description) {
         this.description = description;
     }
+
     /**
      * Returns a string with the status icon and the description of the task.
      *
@@ -27,8 +33,11 @@ public class Task {
      *         the task.
      */
 
+    public int getID() { return id; }
+
     public String getDescription() {
         return description;
     }
 
+    public void setID(int id) { this.id = id; }
 }
