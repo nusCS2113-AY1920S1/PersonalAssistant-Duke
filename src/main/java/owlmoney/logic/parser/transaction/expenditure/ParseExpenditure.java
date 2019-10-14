@@ -21,6 +21,7 @@ public abstract class ParseExpenditure {
     HashMap<String, String> expendituresParameters = new HashMap<String, String>();
     private ParseRawData parseRawData = new ParseRawData();
     private String rawData;
+    String type;
     private static final String[] EXPENDITURE_KEYWORD = new String[] {
         "/amount", "/date", "/desc", "/category", "/from", "/transno", "/num"
     };
@@ -34,12 +35,14 @@ public abstract class ParseExpenditure {
     static final String NUM = "/num";
 
     /**
-     * Constructor which creates an instance of any ParseSaving type object.
+     * Constructor which creates an instance of any ParseExpenditure type object.
      *
      * @param data Raw user input date.
+     * @param type Represents type of expenditure to be added.
      */
-    ParseExpenditure(String data) {
+    ParseExpenditure(String data, String type) {
         this.rawData = data;
+        this.type = type;
     }
 
     /**

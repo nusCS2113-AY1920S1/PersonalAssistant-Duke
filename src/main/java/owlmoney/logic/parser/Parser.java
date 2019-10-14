@@ -49,7 +49,8 @@ abstract class Parser {
      * @throws ParserException if the command is not entered to specific requirements.
      */
     String removeListFirstField(String input, String firstField) throws ParserException {
-        if ("/savings".equals(firstField)) {
+
+        if ("/savings".equals(firstField) || "/card".equals(firstField) || "/investment".equals(firstField)) {
             return "";
         } else if (firstField.length() + SPACE_LENGTH < input.length()) {
             return input.substring(firstField.length() + SPACE_LENGTH);

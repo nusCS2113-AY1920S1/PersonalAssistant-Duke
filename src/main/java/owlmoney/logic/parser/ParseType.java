@@ -5,10 +5,28 @@ import java.util.List;
 
 import owlmoney.logic.command.Command;
 import owlmoney.logic.command.PlaceHolderEmptyCommand;
+import owlmoney.logic.command.bank.ListInvestmentCommand;
 import owlmoney.logic.command.bank.ListSavingsCommand;
 import owlmoney.logic.command.goals.ListGoalsCommand;
 import owlmoney.logic.parser.exception.ParserException;
-import owlmoney.logic.parser.goals.*;
+import owlmoney.logic.command.card.ListCardCommand;
+import owlmoney.logic.parser.bond.ParseAddBond;
+import owlmoney.logic.parser.bond.ParseBond;
+import owlmoney.logic.parser.card.ParseAddCard;
+import owlmoney.logic.parser.card.ParseCard;
+import owlmoney.logic.parser.card.ParseDeleteCard;
+import owlmoney.logic.parser.card.ParseEditCard;
+import owlmoney.logic.parser.goals.ParseAddGoals;
+import owlmoney.logic.parser.goals.ParseDeleteGoals;
+import owlmoney.logic.parser.goals.ParseEditGoals;
+import owlmoney.logic.parser.goals.ParseGoals;
+import owlmoney.logic.parser.investment.ParseAddInvestment;
+import owlmoney.logic.parser.investment.ParseDeleteInvestment;
+import owlmoney.logic.parser.investment.ParseEditInvestment;
+import owlmoney.logic.parser.investment.ParseInvestment;
+import owlmoney.logic.parser.saving.ParseAddSaving;
+import owlmoney.logic.parser.saving.ParseDeleteSaving;
+import owlmoney.logic.parser.saving.ParseEditSaving;
 import owlmoney.logic.parser.saving.ParseSaving;
 import owlmoney.logic.parser.transaction.deposit.ParseAddDeposit;
 import owlmoney.logic.parser.transaction.deposit.ParseDeleteDeposit;
@@ -20,9 +38,6 @@ import owlmoney.logic.parser.transaction.expenditure.ParseDeleteExpenditure;
 import owlmoney.logic.parser.transaction.expenditure.ParseEditExpenditure;
 import owlmoney.logic.parser.transaction.expenditure.ParseExpenditure;
 import owlmoney.logic.parser.transaction.expenditure.ParseListExpenditure;
-import owlmoney.logic.parser.saving.ParseAddSaving;
-import owlmoney.logic.parser.saving.ParseDeleteSaving;
-import owlmoney.logic.parser.saving.ParseEditSaving;
 
 /**
  * Represents the second layer of parsing for secondary category of command.
@@ -35,10 +50,13 @@ class ParseType extends Parser {
      * List of whitelisted keywords that the user can use.
      */
     private static final String[] TYPE_KEYWORDS = new String[] {
-        "/savings", "/investment", "/expenditure", "/goals", "/card",
+        "/savings", "/investment", "/cardexpenditure", "/bankexpenditure", "/goals", "/card",
         "/recurexpenditure", "/bonds", "/profile", "/deposit"
     };
     private static final List<String> TYPE_KEYWORD_LISTS = Arrays.asList(TYPE_KEYWORDS);
+    private static final String BANK = "bank";
+    private static final String CARD = "card";
+    private static final String BOND = "bond";
 
     /**
      * Determines the type of command and checks if it is of valid type.
@@ -109,32 +127,81 @@ class ParseType extends Parser {
             } else if ("/list".equals(command)) {
                 return new ListSavingsCommand();
             }
-            throw new ParserException("You entered an invalid type");
+            throw new ParserException("You entered an invalid type for savings");
         case "/investment":
-            return new PlaceHolderEmptyCommand();
-        case "/expenditure":
             if ("/add".equals(command)) {
-                ParseExpenditure addExp = new ParseAddExpenditure(rawData);
+                ParseInvestment parseAddInvestment = new ParseAddInvestment(rawData);
+                parseAddInvestment.fillHashTable();
+                parseAddInvestment.checkParameter();
+                return parseAddInvestment.getCommand();
+            } else if ("/edit".equals(command)) {
+                ParseInvestment parseEditInvestment = new ParseEditInvestment(rawData);
+                parseEditInvestment.fillHashTable();
+                parseEditInvestment.checkParameter();
+                return parseEditInvestment.getCommand();
+            } else if ("/delete".equals(command)) {
+                ParseInvestment parseDeleteInvestment = new ParseDeleteInvestment(rawData);
+                parseDeleteInvestment.fillHashTable();
+                parseDeleteInvestment.checkParameter();
+                return parseDeleteInvestment.getCommand();
+            } else if ("/list".equals(command)) {
+                return new ListInvestmentCommand();
+            }
+            throw new ParserException("You entered an invalid type for investment");
+        case "/bonds":
+            if ("/add".equals(command)) {
+                ParseBond parseAddBond = new ParseAddBond(rawData, BOND);
+                parseAddBond.fillHashTable();
+                parseAddBond.checkParameter();
+                return parseAddBond.getCommand();
+            }
+            throw new ParserException("You entered an invalid type for bond");
+        case "/bankexpenditure":
+            if ("/add".equals(command)) {
+                ParseExpenditure addExp = new ParseAddExpenditure(rawData, BANK);
                 addExp.fillHashTable();
                 addExp.checkParameter();
                 return addExp.getCommand();
             } else if ("/list".equals(command)) {
-                ParseExpenditure listExp = new ParseListExpenditure(rawData);
+                ParseExpenditure listExp = new ParseListExpenditure(rawData, BANK);
                 listExp.fillHashTable();
                 listExp.checkParameter();
                 return listExp.getCommand();
             } else if ("/delete".equals(command)) {
-                ParseExpenditure deleteExp = new ParseDeleteExpenditure(rawData);
+                ParseExpenditure deleteExp = new ParseDeleteExpenditure(rawData, BANK);
                 deleteExp.fillHashTable();
                 deleteExp.checkParameter();
                 return deleteExp.getCommand();
             } else if ("/edit".equals(command)) {
-                ParseExpenditure editExp = new ParseEditExpenditure(rawData);
+                ParseExpenditure editExp = new ParseEditExpenditure(rawData, BANK);
                 editExp.fillHashTable();
                 editExp.checkParameter();
                 return editExp.getCommand();
             }
-            throw new ParserException("You entered an invalid type");
+            throw new ParserException("You entered an invalid type for bank expenditure");
+        case "/cardexpenditure":
+            if ("/add".equals(command)) {
+                ParseExpenditure addExp = new ParseAddExpenditure(rawData, CARD);
+                addExp.fillHashTable();
+                addExp.checkParameter();
+                return addExp.getCommand();
+            } else if ("/list".equals(command)) {
+                ParseExpenditure listExp = new ParseListExpenditure(rawData, CARD);
+                listExp.fillHashTable();
+                listExp.checkParameter();
+                return listExp.getCommand();
+            } else if ("/delete".equals(command)) {
+                ParseExpenditure deleteExp = new ParseDeleteExpenditure(rawData, CARD);
+                deleteExp.fillHashTable();
+                deleteExp.checkParameter();
+                return deleteExp.getCommand();
+            } else if ("/edit".equals(command)) {
+                ParseExpenditure editExp = new ParseEditExpenditure(rawData, CARD);
+                editExp.fillHashTable();
+                editExp.checkParameter();
+                return editExp.getCommand();
+            }
+            throw new ParserException("You entered an invalid type for card expenditure");
         case "/deposit":
             if ("/add".equals(command)) {
                 ParseDeposit addDep = new ParseAddDeposit(rawData);
@@ -157,9 +224,28 @@ class ParseType extends Parser {
                 editDep.checkParameter();
                 return editDep.getCommand();
             }
-            throw new ParserException("You entered an invalid type");
+            throw new ParserException("You entered an invalid type for deposit");
         case "/card":
-            return new PlaceHolderEmptyCommand();
+            if ("/add".equals(command)) {
+                ParseCard addCard = new ParseAddCard(rawData);
+                addCard.fillHashTable();
+                addCard.checkParameter();
+                return addCard.getCommand();
+            } else if ("/delete".equals(command)) {
+                ParseCard deleteCard = new ParseDeleteCard(rawData);
+                deleteCard.fillHashTable();
+                deleteCard.checkParameter();
+                return deleteCard.getCommand();
+            } else if ("/list".equals(command)) {
+                return new ListCardCommand();
+            } else if ("/edit".equals(command)) {
+                ParseCard editCard = new ParseEditCard(rawData);
+                editCard.fillHashTable();
+                editCard.checkParameter();
+                return editCard.getCommand();
+            }
+            throw new ParserException("You entered an invalid type for card");
+
         case "/goals":
             if("/add".equals(command)) {
                 ParseGoals addGoals = new ParseAddGoals(rawData);

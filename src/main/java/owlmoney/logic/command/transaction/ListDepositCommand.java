@@ -1,7 +1,9 @@
 package owlmoney.logic.command.transaction;
 
 import owlmoney.logic.command.Command;
+import owlmoney.model.bank.exception.BankException;
 import owlmoney.model.profile.Profile;
+import owlmoney.model.transaction.exception.TransactionException;
 import owlmoney.ui.Ui;
 
 /**
@@ -14,7 +16,7 @@ public class ListDepositCommand extends Command {
     /**
      * Constructor to create an instance of ListDepositCommand.
      *
-     * @param name Bank account name.
+     * @param name       Bank account name.
      * @param displayNum Number of deposits to display.
      */
     public ListDepositCommand(String name, int displayNum) {
@@ -26,10 +28,10 @@ public class ListDepositCommand extends Command {
      * Executes the function to delete a deposit transaction.
      *
      * @param profile Profile of the user.
-     * @param ui Ui of OwlMoney.
+     * @param ui      Ui of OwlMoney.
      * @return false so OwlMoney will not terminate yet.
      */
-    public boolean execute(Profile profile, Ui ui) {
+    public boolean execute(Profile profile, Ui ui) throws BankException, TransactionException {
         profile.listDeposit(accName, ui, displayNum);
         return this.isExit;
     }

@@ -71,9 +71,9 @@ public abstract class Transaction {
 
     private String checkDebitCredit() {
         if (this.category.equals("deposit")) {
-            return "[+] ";
+            return "[+] $";
         } else {
-            return "[-] ";
+            return "[-] $";
         }
     }
 
@@ -117,6 +117,7 @@ public abstract class Transaction {
 
     /**
      * Sets the new category of the transaction.
+     *
      * @param newCategory New category of the transaction.
      */
     void setCategory(String newCategory) {

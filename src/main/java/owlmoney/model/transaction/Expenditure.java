@@ -8,14 +8,14 @@ import java.util.Date;
 public class Expenditure extends Transaction {
 
     /**
-     * Constructor which constructs a new Expenditure.
+     * Creates an instance of a new Expenditure.
      *
      * @param description Description of expenditure.
-     * @param amount Amount of expenditure.
-     * @param date Date of expenditure.
-     * @param category Category of expenditure.
+     * @param amount      Amount of expenditure.
+     * @param date        Date of expenditure.
+     * @param category    Category of expenditure.
      */
     public Expenditure(String description, double amount, Date date, String category) {
-        super(description,amount,date,category);
+        super(description, amount, date, category);
     }
 }

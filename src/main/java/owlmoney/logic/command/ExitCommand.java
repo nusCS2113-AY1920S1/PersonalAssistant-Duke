@@ -19,7 +19,7 @@ public class ExitCommand extends Command {
      * Executes the function to exit OwlMoney.
      *
      * @param profile Profile of the user.
-     * @param ui Ui of OwlMoney.
+     * @param ui      Ui of OwlMoney.
      * @return true so OwlMoney will terminate after execution.
      */
     @Override

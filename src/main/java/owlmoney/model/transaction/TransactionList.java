@@ -4,68 +4,52 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Stack;
 
+import owlmoney.model.transaction.exception.TransactionException;
 import owlmoney.ui.Ui;
 
 /**
- * The ExpenditureList class that provides a layer of abstraction for the ArrayList that stores expenditures.
+ * The ExpenditureList class that provides a layer of abstraction for the ArrayList.
+ * The ArrayList will store both expenditures and deposits
  */
 
 public class TransactionList {
 
     private ArrayList<Transaction> expLists;
+    private static final int ONE_INDEX = 1;
 
     /**
-     * Constructor that creates an arrayList of expenditures.
+     * Creates an instance of Transaction list that contains an ArrayList of expenditures.
      */
     public TransactionList() {
         expLists = new ArrayList<Transaction>();
     }
-    /*
-    /**
-     * Lists the expenditure in the expenditureList.
-     *
-     * @param ui required for printing.
-     *//*
-    public void listTransaction(Ui ui) {
-        if (expLists.size() <= 0) {
-            ui.printError("There are no transactions");
-        } else {
-            for (int i = 0; i < expLists.size(); i++) {
-                ui.printMessage((i + 1) + ":\n" + expLists.get(i).getDetails() + "\n");
-            }
-        }
-    }*/
 
     /**
      * Lists the expenditures in the current bank account.
      *
-     * @param ui required for printing.
+     * @param ui         required for printing.
      * @param displayNum Number of expenditures to list.
+     * @throws TransactionException If no expenditure is found.
      */
-    public void listExpenditure(Ui ui, int displayNum) {
+    public void listExpenditure(Ui ui, int displayNum) throws TransactionException {
         if (expLists.size() <= 0) {
-            ui.printError("There are no transactions");
+            throw new TransactionException("There are no transactions in this list");
         } else {
             int counter = displayNum;
-            Stack<Transaction> displayStack = new Stack<>();
-            for (int i = expLists.size() - 1; i >= 0; i--) {
+            boolean expenditureExist = false;
+            for (int i = expLists.size() - ONE_INDEX; i >= 0; i--) {
                 if (!"deposit".equals(expLists.get(i).getCategory())) {
-                    displayStack.push(expLists.get(i));
-                    ui.printMessage((i + 1) + ":\n" + expLists.get(i).getDetails() + "\n");
+                    ui.printMessage(i + 1 + ":\n" + expLists.get(i).getDetails() + "\n");
                     counter--;
+                    expenditureExist = true;
                 }
                 if (counter <= 0) {
                     break;
                 }
             }
-            if (displayStack.isEmpty()) {
-                ui.printError("No expenditure found");
-            } else {
-                while (!displayStack.isEmpty()) {
-                    displayStack.pop().getDetails();
-                }
+            if (!expenditureExist) {
+                throw new TransactionException("No expenditure found");
             }
         }
     }
@@ -73,30 +57,28 @@ public class TransactionList {
     /**
      * Lists the deposits in the current bank account.
      *
-     * @param ui required for printing.
+     * @param ui         required for printing.
      * @param displayNum Number of deposits to list.
+     * @throws TransactionException If no deposit is found.
      */
-    public void listDeposit(Ui ui, int displayNum) {
+    public void listDeposit(Ui ui, int displayNum) throws TransactionException {
         if (expLists.size() <= 0) {
-            ui.printError("There are no transactions");
+            throw new TransactionException("There are no transactions in this bank account");
         } else {
             int counter = displayNum;
-            Stack<Transaction> displayStack = new Stack<>();
-            for (int i = expLists.size() - 1; i >= 0; i++) {
+            boolean depositExist = false;
+            for (int i = expLists.size() - ONE_INDEX; i >= 0; i++) {
                 if ("deposit".equals(expLists.get(i).getCategory())) {
-                    displayStack.push(expLists.get(i));
+                    ui.printMessage(i + ":\n" + expLists.get(i).getDetails() + "\n");
                     counter--;
+                    depositExist = true;
                 }
                 if (counter <= 0) {
                     break;
                 }
             }
-            if (displayStack.isEmpty()) {
-                ui.printError("No deposit found");
-            } else {
-                while (!displayStack.isEmpty()) {
-                    displayStack.pop().getDetails();
-                }
+            if (!depositExist) {
+                throw new TransactionException("No deposits found");
             }
         }
     }
@@ -128,111 +110,112 @@ public class TransactionList {
      *
      * @param index index of the expenditure in the expenditureList.
      * @param ui    required for printing.
+     * @throws TransactionException If invalid transaction.
      */
     //magic int used. change next time
-    public double deleteExpenditureFromList(int index, Ui ui) {
+    public double deleteExpenditureFromList(int index, Ui ui) throws TransactionException {
         if (expLists.size() <= 0) {
-            ui.printError("There are no transactions in this bank");
-            return 0;
+            throw new TransactionException("There are no transactions in this bank");
         }
-        if ((index - 1) >= 0 && (index - 1) < expLists.size()) {
+        if ((index - ONE_INDEX) >= 0 && (index - ONE_INDEX) < expLists.size()) {
             if (expLists.get(index - 1).getCategory().equals("deposit")) {
-                ui.printError("The transaction is a deposit");
-                return 0;
+                throw new TransactionException("The transaction is a deposit");
             } else {
-                Transaction temp = expLists.get(index - 1);
-                expLists.remove(index - 1);
+                Transaction temp = expLists.get(index - ONE_INDEX);
+                expLists.remove(index - ONE_INDEX);
                 ui.printMessage("Expenditure deleted:\n" + temp.getDetails());
                 return temp.getAmount();
             }
         } else {
-            ui.printError("Out of transaction list range");
-            return 0;
+            throw new TransactionException("Index is out of transaction list range");
         }
     }
 
     /**
      * Edits the specific expenditure in the list.
      *
-     * @param expNum Transaction number of the expenditure.
-     * @param desc New description of the expenditure.
-     * @param amount New amount of the expenditure.
-     * @param date New date of the expenditure.
+     * @param expNum   Transaction number of the expenditure.
+     * @param desc     New description of the expenditure.
+     * @param amount   New amount of the expenditure.
+     * @param date     New date of the expenditure.
      * @param category New category of the expenditure.
-     * @param ui required for printing.
+     * @param ui       required for printing.
      * @return New amount of the expenditure.
+     * @throws TransactionException If incorrect date format.
      */
-    public double editEx(int expNum, String desc, String amount, String date, String category, Ui ui) {
-        ui.printMessage("Editing transaction...\n");
+    public double editEx(int expNum, String desc, String amount, String date, String category, Ui ui)
+            throws TransactionException {
         if (!(desc.isBlank() || desc.isEmpty())) {
-            expLists.get(expNum - 1).setDescription(desc);
+            expLists.get(expNum - ONE_INDEX).setDescription(desc);
         }
         if (!(amount.isBlank() || amount.isEmpty())) {
-            expLists.get(expNum - 1).setAmount(Double.parseDouble(amount));
+            expLists.get(expNum - ONE_INDEX).setAmount(Double.parseDouble(amount));
         }
         if (!(date.isBlank() || date.isEmpty())) {
             DateFormat temp = new SimpleDateFormat("dd/MM/yyyy");
             try {
-                expLists.get(expNum - 1).setDate(temp.parse(date));
+                expLists.get(expNum - ONE_INDEX).setDate(temp.parse(date));
             } catch (ParseException e) {
                 //check handled in ParseEditExpenditure
+                throw new TransactionException(e.toString());
             }
         }
         if (!(category.isBlank() || category.isEmpty())) {
-            expLists.get(expNum - 1).setCategory(category);
+            expLists.get(expNum - ONE_INDEX).setCategory(category);
         }
-        ui.printMessage("Edited details:\n" + expLists.get(expNum - 1).getDetails());
-        return expLists.get(expNum - 1).getAmount();
+        ui.printMessage("Edited details:\n" + expLists.get(expNum - ONE_INDEX).getDetails());
+        return expLists.get(expNum - ONE_INDEX).getAmount();
     }
 
     /**
      * Edits the specific deposit in the list.
      *
      * @param expNum Transaction number of the deposit.
-     * @param desc New description of the deposit.
+     * @param desc   New description of the deposit.
      * @param amount New amount of the deposit.
-     * @param date New date of the deposit.
-     * @param ui required for printing.
+     * @param date   New date of the deposit.
+     * @param ui     required for printing.
      * @return New amount of the deposit.
+     * @throws TransactionException If incorrect date format.
      */
-    public double editDep(int expNum, String desc, String amount, String date, Ui ui) {
+    public double editDep(int expNum, String desc, String amount, String date, Ui ui) throws TransactionException {
         ui.printMessage("Editing transaction...\n");
         if (!(desc.isBlank() || desc.isEmpty())) {
-            expLists.get(expNum - 1).setDescription(desc);
+            expLists.get(expNum - ONE_INDEX).setDescription(desc);
         }
         if (!(amount.isBlank() || amount.isEmpty())) {
-            expLists.get(expNum - 1).setAmount(Double.parseDouble(amount));
+            expLists.get(expNum - ONE_INDEX).setAmount(Double.parseDouble(amount));
         }
         if (!(date.isBlank() || date.isEmpty())) {
             DateFormat temp = new SimpleDateFormat("dd/MM/yyyy");
             try {
-                expLists.get(expNum - 1).setDate(temp.parse(date));
+                expLists.get(expNum - ONE_INDEX).setDate(temp.parse(date));
             } catch (ParseException e) {
                 //check handled in ParseEditExpenditure
+                throw new TransactionException(e.toString());
             }
         }
         ui.printMessage("Edited details:\n" + expLists.get(expNum - 1).getDetails());
-        return expLists.get(expNum - 1).getAmount();
+        return expLists.get(expNum - ONE_INDEX).getAmount();
     }
 
     /**
      * Gets the specific expenditure amount.
      *
      * @param index Transaction number of the expenditure.
-     * @param ui required for printing.
+     * @param ui    required for printing.
      * @return Amount of the expenditure.
+     * @throws TransactionException If transaction is not an expenditure.
      */
-    public double getExpenditureAmount(int index, Ui ui) {
-        if ((index - 1) >= 0 && (index - 1) < expLists.size()) {
-            if ("deposit".equals(expLists.get(index - 1).getCategory())) {
-                ui.printError("The transaction is a deposit");
-                return -1.0;
+    public double getExpenditureAmount(int index, Ui ui) throws TransactionException {
+        if ((index - ONE_INDEX) >= 0 && (index - ONE_INDEX) < expLists.size()) {
+            if ("deposit".equals(expLists.get(index - ONE_INDEX).getCategory())) {
+                throw new TransactionException("The transaction is a deposit");
             } else {
-                return expLists.get(index - 1).getAmount();
+                return expLists.get(index - ONE_INDEX).getAmount();
             }
         } else {
-            ui.printError("Out of transaction list range");
-            return -1.0;
+            throw new TransactionException("Index is out of transaction list range");
         }
     }
 
@@ -240,12 +223,12 @@ public class TransactionList {
      * Deletes the specific deposit from the current bank account.
      *
      * @param index Transaction number of the deposit.
-     * @param ui required for printing.
+     * @param ui    required for printing.
      * @return Amount of the deleted deposit.
      */
     public double deleteDepositFromList(int index, Ui ui) {
-        Transaction temp = expLists.get(index - 1);
-        expLists.remove(index - 1);
+        Transaction temp = expLists.get(index - ONE_INDEX);
+        expLists.remove(index - ONE_INDEX);
         ui.printMessage("Deposit deleted:\n" + temp.getDetails());
         return temp.getAmount();
     }
@@ -254,24 +237,22 @@ public class TransactionList {
      * Gets the amount of the deposit specified.
      *
      * @param index Transaction number of the deposit.
-     * @param ui required for printing.
+     * @param ui    required for printing.
      * @return Amount of the deposit
+     * @throws TransactionException If transaction is not a deposit.
      */
-    public double getTransactionValue(int index, Ui ui) {
+    public double getDepositValue(int index, Ui ui) throws TransactionException {
         if (expLists.size() <= 0) {
-            ui.printError("There are no transactions in this bank");
-            return 0;
+            throw new TransactionException("There are no transactions in this bank");
         }
-        if ((index - 1) >= 0 && (index - 1) < expLists.size()) {
-            if (!"deposit".equals(expLists.get(index - 1).getCategory())) {
-                ui.printError("The transaction is not a deposit");
-                return -1.0;
+        if ((index - ONE_INDEX) >= 0 && (index - ONE_INDEX) < expLists.size()) {
+            if (!"deposit".equals(expLists.get(index - ONE_INDEX).getCategory())) {
+                throw new TransactionException("The transaction is not a deposit");
             } else {
-                return expLists.get(index - 1).getAmount();
+                return expLists.get(index - ONE_INDEX).getAmount();
             }
         } else {
-            ui.printError("Out of transaction list range");
-            return -1.0;
+            throw new TransactionException("Index is out of transaction list range");
         }
     }
 }

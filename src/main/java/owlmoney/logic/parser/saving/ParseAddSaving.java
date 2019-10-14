@@ -15,7 +15,7 @@ public class ParseAddSaving extends ParseSaving {
     private static final String ADD = "/add";
 
     /**
-     * Constructor which creates an instance of ParseAddSaving.
+     * Creates an instance of ParseAddSaving.
      *
      * @param data Raw data of user input to be parsed.
      * @throws ParserException If there is a redundant parameter or first parameter is not a valid type.
