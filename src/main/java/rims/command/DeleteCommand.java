@@ -25,7 +25,7 @@ public class DeleteCommand extends Command {
 
         int availableResourceQty = resources.getAvailableQuantity(resourceName);
         if (availableResourceQty < qty) {
-            throw new RimException(); //Resources not booked not enough to delete
+            throw new RimException("Insufficient available resources to delete!"); //Resources not booked not enough to delete
         }
 
         for (int i = 0; i < qty; i++) {
@@ -39,7 +39,7 @@ public class DeleteCommand extends Command {
         } else if (type == 'R') {
             ui.print("[R] " + resourceName);
         } else {
-            throw new RimException();
+            throw new RimException("Invalid resource type!");
         }
         ui.printLine();
     }

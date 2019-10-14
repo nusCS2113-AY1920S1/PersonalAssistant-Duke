@@ -36,7 +36,7 @@ public class AddCommand extends Command {
         } else if (type == 'R') {
             ui.print("[R] " + resourceName);
         } else {
-            throw new RimException();
+            throw new RimException("Invalid resource type!");
         }
         ui.printLine();
     }
