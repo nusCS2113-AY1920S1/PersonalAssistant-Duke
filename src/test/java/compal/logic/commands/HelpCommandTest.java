@@ -6,19 +6,18 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class ViewReminderCommandTest {
-    private ViewReminderCommand viewReminderCommand;
+public class HelpCommandTest {
+    private HelpCommand helpCommand;
     private Compal compal;
 
     @BeforeEach
     public void setUp() {
         compal = new Compal();
-        viewReminderCommand = new ViewReminderCommand(compal);
+        helpCommand = new HelpCommand(compal);
     }
 
     @Test
     public void iniTest() {
-        assertEquals(compal, viewReminderCommand.compal);
-        assertEquals(compal.tasklist,viewReminderCommand.compal.tasklist);
+        assertEquals(compal, helpCommand.compal);
     }
 }

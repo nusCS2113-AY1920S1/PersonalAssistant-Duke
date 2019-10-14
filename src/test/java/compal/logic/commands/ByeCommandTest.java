@@ -1,10 +1,12 @@
 package compal.logic.commands;
 
-import compal.Main;
 import compal.commons.Compal;
-import javafx.application.Application;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import static compal.model.tasks.Task.Priority.high;
 import static compal.model.tasks.Task.Priority.medium;
@@ -32,19 +34,11 @@ public class ByeCommandTest {
 
     private ByeCommand byeCommand;
     private Compal compal;
-    private Thread t;
 
     @BeforeEach
     public void setUp() {
         compal = new Compal();
         byeCommand = new ByeCommand(compal);
-        Thread t = new Thread("JavaFX Init Thread") {
-            public void run() {
-                Application.launch(Main.class, new String[0]);
-            }
-        };
-        t.setDaemon(true);
-        t.start();
     }
 
     @Test
@@ -73,6 +67,39 @@ public class ByeCommandTest {
         } catch (Compal.DukeException e) {
             assertEquals(e, MESSAGE_MISSING_DESC);
         }
+    }
+
+    @Test
+    public void isValidDateAndTime() throws ParseException {
+        String date = "01/01/2100";
+        String time = "0000";
+        assertEquals(true, byeCommand.isValidDateAndTime(date, time));
+    }
+
+    @Test
+    public void dateToStringTest() {
+        String date = "14/10/2019";
+        SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+        Date d = null;
+        try {
+            d = format.parse(date);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        assertEquals(date, byeCommand.dateToString(d));
+    }
+
+    @Test
+    public void stringToDateTest() {
+        String date = "14/10/2019";
+        SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+        Date d = null;
+        try {
+            d = format.parse(date);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        assertEquals(d, byeCommand.stringToDate(date));
     }
 
     @Test

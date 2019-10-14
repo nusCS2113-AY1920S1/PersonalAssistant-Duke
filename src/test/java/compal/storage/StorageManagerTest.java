@@ -1,8 +1,6 @@
 package compal.storage;
 
 import compal.model.tasks.Deadline;
-import compal.model.tasks.DoAfterTasks;
-import compal.model.tasks.FixedDurationTask;
 import compal.model.tasks.Event;
 import compal.model.tasks.RecurringTask;
 import compal.model.tasks.Task;
@@ -31,9 +29,7 @@ public class StorageManagerTest {
     private String endTime = "1230";
     private String symbol = "RT";
     private Deadline deadline;
-    private DoAfterTasks doAfterTasks;
     private Event event;
-    private FixedDurationTask fdt;
     private RecurringTask recurringTask;
 
     /**
@@ -45,18 +41,14 @@ public class StorageManagerTest {
     public void setUp() {
         sm = new StorageManager();
         deadline = new Deadline(description, priority, date, endTime);
-        doAfterTasks = new DoAfterTasks(description, priority, date);
         event = new Event(description, priority, date, startTime, endTime);
-        fdt = new FixedDurationTask(description, priority, date, startTime, endTime);
     }
 
     @Test
     public void loadCompalTest() {
         ArrayList<Task> tempList = new ArrayList<>();
         tempList.add(deadline);
-        tempList.add(doAfterTasks);
         tempList.add(event);
-        tempList.add(fdt);
         //tempList.add(recurringTask);
         ArrayList<Task> tempList2;
         ArrayList<Task> tempList3;

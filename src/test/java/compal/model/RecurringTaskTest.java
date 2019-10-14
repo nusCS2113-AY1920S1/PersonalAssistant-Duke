@@ -20,10 +20,10 @@ public class RecurringTaskTest {
     private String symbol = "RT";
     private Task.Priority priority = high;
     private RecurringTask recurringTask;
-/*
+
     @BeforeEach
     public void setUp() {
-        recurringTask = new RecurringTask(description, priority, date, startTime, endTime, symbol);
+        recurringTask = new RecurringTask(description, priority, date, startTime, endTime);
     }
 
     @Test
@@ -183,6 +183,4 @@ public class RecurringTaskTest {
         list.append(recurringTask.gethasReminder());
         assertEquals(list.toString(), recurringTask.getAllDetailsAsString());
     }
-
- */
 }
