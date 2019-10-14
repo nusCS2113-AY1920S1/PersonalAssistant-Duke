@@ -1,6 +1,7 @@
 package main;
 
 import command.Command;
+import command.CommandList;
 import exception.DukeException;
 import javafx.application.Application;
 import javafx.stage.Stage;
@@ -30,6 +31,7 @@ public class Duke extends Application {
     private UI ui;
     private Parser parse;
     private DegreeList lists;
+    private CommandList commandList;
 
 
     /**
@@ -45,6 +47,7 @@ public class Duke extends Application {
 
         ui = new UI(); //initialize ui class that handles input from user
         this.ui = new UI();
+        this.commandList = new CommandList();
         this.storage = new Storage(filePath);
         try {
             myList = new TaskList(storage.load());
@@ -89,7 +92,7 @@ public class Duke extends Application {
         try {
             //String line = ui.readCommand();
             ui.showLine();
-            Command c = Parser.parse(line);
+            Command c = Parser.parse(line, commandList);
             isExit = c.isExit();
             c.execute(this.myList, this.ui, this.storage, this.lists);
         } catch (DukeException | NullPointerException e) {
@@ -112,7 +115,7 @@ public class Duke extends Application {
             try {
                 String line = ui.readCommand();
                 ui.showLine();
-                Command c = Parser.parse(line);
+                Command c = Parser.parse(line, commandList);
                 isExit = c.isExit();
                 c.execute(this.myList, this.ui, this.storage, this.lists);
             } catch (DukeException | NullPointerException e) {

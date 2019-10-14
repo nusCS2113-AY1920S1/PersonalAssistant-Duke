@@ -32,15 +32,15 @@ public class Parser {
      * @return Command is of the appropriate type.
      * @throws DukeException throws when incorrect number of arguments passed.
      */
-    public static Command parse(String line) throws DukeException {
+    public static Command parse(String line, CommandList commandList) throws DukeException {
         Scanner temp = new Scanner(line);
         if (!temp.hasNext()) {
             throw new DukeException("Empty Command!");
         }
         String command = temp.next();
-        if (command.matches("list|bye|choices")) {
+        if (command.matches("list|bye|choices|undo|redo")) {
             if (temp.hasNextLine()) {
-                throw new DukeException("List should not have any other arguments (whitespace acceptable)");
+                throw new DukeException(command + " should not have any other arguments (whitespace acceptable)");
             } else {
                 if (command.matches("list")) {
                     return new PrintCommand(command) {
@@ -48,8 +48,10 @@ public class Parser {
                 } else if (command.matches("bye")) {
                     return new ExitCommand();
                 } else if (command.matches("choices")) {
-                    return new PrintCommand(command) {
-                    };
+                    return new PrintCommand(command);
+                } else if (command.matches("undo")) {
+                    return new PrintCommand(command);
+
                 }
             }
         } else if (command.matches("help")) {
@@ -65,7 +67,6 @@ public class Parser {
                             + "Type \"help\" for a full list of available commands");
                 }
             }
-
         } else if (command.matches("todo|deadline|event|done|delete|find|select|recurring|after|within|fixed"
                 + "|snooze|schedule|add|remove")) {
             if (!temp.hasNextLine()) {

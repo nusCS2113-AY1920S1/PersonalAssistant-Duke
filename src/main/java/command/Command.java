@@ -18,6 +18,7 @@ import list.DegreeList;
  */
 public abstract class Command {
     boolean exit = false;
+    Memento memento; //A class to save the previous state of a list after a command
 
     Command() {
     }
@@ -32,6 +33,8 @@ public abstract class Command {
      * @throws DukeException DukeException throws exception
      */
     public abstract void execute(TaskList tasks, UI ui, Storage storage, DegreeList lists) throws DukeException;
+
+    public abstract void unExecute(TaskList tasks, UI ui, Storage storage, DegreeList lists) throws DukeException;
 
     /**
      * checks if the command is an ExitCommand.
