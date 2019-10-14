@@ -123,6 +123,10 @@ public class Command {
                 changesMade = false;
                 break;
 
+            case "reschedule":
+                rescheduleEvents(events, ui);
+                break;
+
             default:
                 ui.printInvalidCommand();
                 changesMade = false;
@@ -296,6 +300,28 @@ public class Command {
             } else {
                 ui.noSuchEvent();
             }
+        } catch (IndexOutOfBoundsException outOfBoundsE) {
+            ui.noSuchEvent();
+        } catch (NumberFormatException notInteger) {
+            ui.notAnInteger();
+        }
+    }
+
+    public void rescheduleEvents(EventList events, UI ui) {
+        try {
+            String[] rescheduleDetail = continuation.split(" ");
+            int eventIndex = Integer.parseInt(rescheduleDetail[0]) - 1;
+            DateObj newStartDate;
+            DateObj newEndDate;
+            if (rescheduleDetail.length > 2) {
+                newStartDate = new DateObj(rescheduleDetail[1] + " " + rescheduleDetail[2]);
+                newEndDate = new DateObj(rescheduleDetail[1] + " " + rescheduleDetail[3]);
+            } else {
+                newStartDate = new DateObj(rescheduleDetail[1]);
+                newEndDate = null;
+            }
+            events.getEvent(eventIndex).rescheduleStartDate(newStartDate);
+            events.getEvent(eventIndex).rescheduleEndDate(newEndDate);
         } catch (IndexOutOfBoundsException outOfBoundsE) {
             ui.noSuchEvent();
         } catch (NumberFormatException notInteger) {
