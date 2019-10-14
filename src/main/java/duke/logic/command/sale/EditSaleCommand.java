@@ -10,7 +10,6 @@ import duke.model.sale.Sale;
 
 import java.util.Date;
 import java.util.List;
-import java.util.Set;
 
 import static duke.commons.util.CollectionUtil.requireAllNonNull;
 import static java.util.Objects.requireNonNull;

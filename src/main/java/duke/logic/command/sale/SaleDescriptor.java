@@ -1,12 +1,8 @@
 package duke.logic.command.sale;
 
-import duke.model.sale.Sale;
-
 import java.util.Date;
-import java.util.HashSet;
 import java.util.Objects;
 import java.util.Optional;
-import java.util.Set;
 
 /**
  * Stores the details a sale.
@@ -17,9 +13,7 @@ public class SaleDescriptor {
     private Date saleDate;
     private String remarks;
 
-    public SaleDescriptor() {
-
-    }
+    public SaleDescriptor() {}
 
     /**
      * Copy constructor.
@@ -41,7 +35,9 @@ public class SaleDescriptor {
         this.description = description;
     }
 
-    public double getValue() { return value; }
+    public double getValue() {
+        return value;
+    }
 
     public void setValue(double value) {
         this.value = value;
@@ -51,7 +47,9 @@ public class SaleDescriptor {
         return Optional.ofNullable(saleDate);
     }
 
-    public void setSaleDate(Date saleDate) { this.saleDate = saleDate; }
+    public void setSaleDate(Date saleDate) {
+        this.saleDate = saleDate;
+    }
 
     public Optional<String> getRemarks() {
         return Optional.ofNullable(remarks);

@@ -9,7 +9,12 @@ import duke.logic.parser.commons.Parser;
 import duke.logic.parser.commons.ParserUtil;
 import duke.logic.parser.exceptions.ParseException;
 
-import static duke.logic.parser.commons.CliSyntax.*;
+import static duke.logic.parser.commons.CliSyntax.PREFIX_SALE_INDEX;
+import static duke.logic.parser.commons.CliSyntax.PREFIX_SALE_DESCRIPTION;
+import static duke.logic.parser.commons.CliSyntax.PREFIX_SALE_VALUE;
+import static duke.logic.parser.commons.CliSyntax.PREFIX_SALE_DATE;
+import static duke.logic.parser.commons.CliSyntax.PREFIX_SALE_REMARKS;
+
 import static duke.logic.parser.sale.SaleParserUtil.createDescriptor;
 
 public class EditSaleCommandParser implements Parser<EditSaleCommand> {
@@ -25,7 +30,7 @@ public class EditSaleCommandParser implements Parser<EditSaleCommand> {
         Index index;
 
         try {
-            index = ParserUtil.parseIndex(map.getValue(PREFIX_ORDER_INDEX).orElse(""));
+            index = ParserUtil.parseIndex(map.getValue(PREFIX_SALE_INDEX).orElse(""));
         } catch (ParseException pe) {
             throw new ParseException(Message.MESSAGE_INVALID_COMMAND_FORMAT);
         }
