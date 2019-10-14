@@ -9,7 +9,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class RecurTaskCommandTest {
     private RecurTaskCommand recurTask;
     private Compal compal;
-
+/*
     @BeforeEach
     public void setUp() {
         compal = new Compal();
@@ -21,4 +21,5 @@ public class RecurTaskCommandTest {
         assertEquals(compal, recurTask.compal);
         assertEquals(compal.tasklist,recurTask.compal.tasklist);
     }
+ */
 }

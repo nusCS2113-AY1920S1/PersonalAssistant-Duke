@@ -2,10 +2,13 @@ package compal.logic.commands;
 
 import compal.Main;
 import compal.commons.Compal;
+import compal.model.tasks.Deadline;
+import compal.model.tasks.Task;
 import javafx.application.Application;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import static compal.model.tasks.Task.Priority.high;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class DeadlineCommandTest {
@@ -30,10 +33,5 @@ public class DeadlineCommandTest {
     public void iniTest() {
         assertEquals(compal, deadlineCommand.compal);
         assertEquals(compal.tasklist,deadlineCommand.compal.tasklist);
-    }
-
-    @Test
-    public void parseCommandTest() {
-
     }
 }

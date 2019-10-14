@@ -48,7 +48,6 @@ public class StorageManagerTest {
         doAfterTasks = new DoAfterTasks(description, priority, date);
         event = new Event(description, priority, date, startTime, endTime);
         fdt = new FixedDurationTask(description, priority, date, startTime, endTime);
-        recurringTask = new RecurringTask(description, priority, date, startTime, endTime, symbol);
     }
 
     @Test
@@ -58,7 +57,7 @@ public class StorageManagerTest {
         tempList.add(doAfterTasks);
         tempList.add(event);
         tempList.add(fdt);
-        tempList.add(recurringTask);
+        //tempList.add(recurringTask);
         ArrayList<Task> tempList2;
         ArrayList<Task> tempList3;
         tempList3 = sm.loadCompal();
