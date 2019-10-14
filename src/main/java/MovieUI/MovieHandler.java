@@ -53,6 +53,17 @@ public class MovieHandler extends Controller implements RequestListener {
     private AnchorPane anchorPane;
 
     @FXML
+    private Label movieSortAlphaLabel;
+
+    @FXML
+    private Label movieSortDateLabel;
+
+    @FXML
+    private Label movieSortPopLabel;
+
+
+
+    @FXML
     private Text text;
 
     @FXML
@@ -152,7 +163,8 @@ public class MovieHandler extends Controller implements RequestListener {
             }
         });
 
-        mMovieRequest.beginMovieRequest(RetrieveRequest.MoviesRequestType.CURRENT_MOVIES);
+        mMovieRequest.beginMovieRequest(RetrieveRequest.MoviesRequestType.CURRENT_MOVIES,18,
+            "true", true, true, true);
         text.setText("Welcome to Entertainment Pro. Displaying currently showing movies...");
 
         //Real time changes to text field
@@ -373,56 +385,70 @@ public class MovieHandler extends Controller implements RequestListener {
      * Displays list of current movies showing on cinemas.
      */
     public static void showCurrentMovies() {
-        mMovieRequest.beginMovieRequest(RetrieveRequest.MoviesRequestType.CURRENT_MOVIES);
+        mMovieRequest.beginMovieRequest(RetrieveRequest.MoviesRequestType.CURRENT_MOVIES, 18,
+            "true", true, true, true);
     }
 
     /**
      * Displays list of current tv shows showing.
      */
     public static void showCurrentTV() {
-        mMovieRequest.beginMovieRequest(RetrieveRequest.MoviesRequestType.CURRENT_TV);
+        mMovieRequest.beginMovieRequest(RetrieveRequest.MoviesRequestType.CURRENT_TV,
+            18,
+            "true", true, true, true);
     }
 
     /**
      * Displays list of upcoming movies.
      */
     public static void showUpcomingMovies() {
-        mMovieRequest.beginMovieRequest(RetrieveRequest.MoviesRequestType.UPCOMING_MOVIES);
+        mMovieRequest.beginMovieRequest(RetrieveRequest.MoviesRequestType.UPCOMING_MOVIES, 18,
+            "true", true, true, true);
     }
 
     /**
      * Displays list of upcoming tv shows.
      */
     public static void showUpcomingTV() {
-        mMovieRequest.beginMovieRequest(RetrieveRequest.MoviesRequestType.NEW_TV);
+        mMovieRequest.beginMovieRequest(RetrieveRequest.MoviesRequestType.NEW_TV, 18,
+            "true", true, true, true);
     }
 
     /**
      * Displays list of popular movies.
      */
     public static void showPopMovies() {
-        mMovieRequest.beginMovieRequest(RetrieveRequest.MoviesRequestType.POPULAR_MOVIES);
+        mMovieRequest.beginMovieRequest(RetrieveRequest.MoviesRequestType.POPULAR_MOVIES, 18,
+            "true", true, true, true);
     }
 
     /**
      * Displays list of popular tv shows.
      */
     public static void showPopTV() {
-        mMovieRequest.beginMovieRequest(RetrieveRequest.MoviesRequestType.POPULAR_TV);
+        mMovieRequest.beginMovieRequest(RetrieveRequest.MoviesRequestType.POPULAR_TV, 18,
+            "true", true, true, true);
     }
 
     /**
      * Displays list of trending movies.
      */
     public static void showTrendMovies() {
-        mMovieRequest.beginMovieRequest(RetrieveRequest.MoviesRequestType.TRENDING_MOVIES);
+        mMovieRequest.beginMovieRequest(RetrieveRequest.MoviesRequestType.TRENDING_MOVIES, 18,
+            "true", true, true, true);;
     }
 
     /**
      * Displays list of trending tv shows.
      */
     public static void showTrendTV() {
-        mMovieRequest.beginMovieRequest(RetrieveRequest.MoviesRequestType.TRENDING_TV);
+        mMovieRequest.beginMovieRequest(RetrieveRequest.MoviesRequestType.TRENDING_TV, 18,
+            "true", true, true, true);
+    }
+
+    public static void showSearch(int age, String genreList, String payload) {
+        mMovieRequest.beginMovieSearchRequest(age, genreList, payload);
+
     }
 
 }

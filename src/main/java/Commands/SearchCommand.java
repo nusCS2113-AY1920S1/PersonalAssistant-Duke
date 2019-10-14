@@ -57,7 +57,31 @@ public class SearchCommand extends CommandSuper {
         } else if (treeMap.containsKey("-p")) {
             MovieHandler.showPopMovies();
         } else {
-            MovieHandler movieHandler = ((MovieHandler) this.getUIController());
+            String payload = getPayload();
+            ArrayList<String> getElementsAge = treeMap.get("-a");
+            int age = 0;
+            if (getElementsAge.size() > 0) {
+                for (int i = 0; i < getElementsAge.size(); i += 1) {
+                    if (Integer.valueOf(getElementsAge.get(i)) >= age) {
+                        age = (Integer.valueOf(getElementsAge.get(i)));
+
+                    }
+                }
+            }
+            String genreList = "";
+            ArrayList<String> getElementsGenres = treeMap.get("-g");
+            if (getElementsGenres.size() > 0) {
+                for (int i = 0; i < getElementsGenres.size(); i += 1) {
+                    genreList += getElementsGenres.get(i);
+                    if (i != getElementsGenres.size() - 1) {
+                        genreList += ",";
+
+                    }
+                }
+            }
+            MovieHandler.showSearch(age, genreList, payload);
+        }
+            /**MovieHandler movieHandler = ((MovieHandler) this.getUIController());
             if (!this.getFlagMap().containsKey("-g")) {
                 ((MovieHandler) this.getUIController()).getAPIRequester().beginMovieSearchRequest(getPayload());
                 movieHandler.clearSearchTextField();
@@ -74,7 +98,7 @@ public class SearchCommand extends CommandSuper {
                 ((MovieHandler) this.getUIController()).getAPIRequester().beginMovieSearchRequestWithGenre(getPayload(), inputGenre);
                 movieHandler.clearSearchTextField();
             }
-        }
+             **/
     }
 
     private void executeTvShowSearch() {

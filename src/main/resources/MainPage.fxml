@@ -21,7 +21,7 @@
     </HBox>
   </bottom>
   <center>
-    <AnchorPane fx:id= "anchorPane" prefHeight="337.0" BorderPane.alignment="CENTER">
+    <AnchorPane fx:id="anchorPane" prefHeight="337.0" BorderPane.alignment="CENTER">
       <children>
         <ScrollPane fx:id="mMoviesScrollPane" hbarPolicy="NEVER" prefHeight="343.0" prefWidth="528.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
           <content>
@@ -34,30 +34,67 @@
   <left>
     <VBox fx:id="mMovieTypeVBox" alignment="TOP_CENTER" prefHeight="343.0" prefWidth="145.0" spacing="8.0" BorderPane.alignment="CENTER">
       <children>
-        <VBox fx:id="vBox1" minHeight="95.0" prefHeight="160.0" prefWidth="125.0">
-          <Label fx:id="titleLabel" styleClass="titleLabel" text="My Preferences"/>
+        <VBox fx:id="vBox1" minHeight="95.0" prefHeight="288.0" prefWidth="128.0">
+          <Label fx:id="titleLabel" styleClass="titleLabel" text="My Preferences">
+            <font>
+              <Font name="System Bold" size="14.0" />
+            </font>
+          </Label>
           <HBox prefHeight="8.0" prefWidth="125.0">
             <children>
-              <Text fx:id="langText" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Name: "/>
-              <Label fx:id="userNameLabel" text="Label"/>
+              <Text fx:id="langText" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Name: " />
+              <Label fx:id="userNameLabel" text="Label" />
             </children>
+            <VBox.margin>
+              <Insets top="10.0" />
+            </VBox.margin>
           </HBox>
           <HBox prefHeight="13.0" prefWidth="125.0">
             <children>
-              <Text fx:id="ageText" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Age: "/>
-              <Label fx:id="userAgeLabel" text="Label"/>
+              <Text fx:id="ageText" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Age: " />
+              <Label fx:id="userAgeLabel" text="Label" />
             </children>
           </HBox>
           <HBox prefHeight="32.0" prefWidth="125.0">
             <children>
-              <Label fx:id="genreText" text="Genres:"/>
+              <Label fx:id="genreText" text="Genres:" />
             </children>
+            <VBox.margin>
+              <Insets top="5.0" fx:id="x1" />
+            </VBox.margin>
           </HBox>
-          <HBox prefHeight="100.0" prefWidth="200.0">
+          <HBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="-1.0" prefWidth="-1.0" VBox.margin="$x1">
             <children>
-              <Label fx:id="genreListLabel" text="" wrapText="true"/>
+              <Label fx:id="genreListLabel" text="" wrapText="true" />
             </children>
           </HBox>
+          <VBox prefHeight="200.0" prefWidth="100.0">
+            <children>
+              <Label text="Sort by:" VBox.margin="$x1" />
+              <HBox minHeight="15.0" prefHeight="8.0" prefWidth="128.0" VBox.margin="$x1">
+                <children>
+                  <Label text="Alphabetical Order:">
+                    <HBox.margin>
+                      <Insets />
+                    </HBox.margin>
+                  </Label>
+                  <Label fx:id="movieSortAlphaLabel" text="No" />
+                </children>
+              </HBox>
+              <HBox prefHeight="8.0" prefWidth="128.0" VBox.margin="$x1">
+                <children>
+                  <Label text="Latest dates:" />
+                  <Label fx:id="movieSortDateLabel" text="No" />
+                </children>
+              </HBox>
+              <HBox minHeight="15.0" prefHeight="8.0" prefWidth="128.0" VBox.margin="$x1">
+                <children>
+                  <Label fx:id="movieSortPopLabel" text="Most popular:" />
+                  <Label text="No" />
+                </children>
+              </HBox>
+            </children>
+          </VBox>
         </VBox>
       </children>
       <padding>
@@ -82,7 +119,7 @@
             </Menu>
           </menus>
         </MenuBar>
-        <VBox fx:id= "vbox0" prefHeight="74.0" prefWidth="676.0">
+        <VBox fx:id="vbox0" prefHeight="74.0" prefWidth="676.0">
           <children>
             <TextField fx:id="mSearchTextField" prefWidth="400.0" promptText="Enter a command here...">
               <VBox.margin>

@@ -14,6 +14,8 @@ import java.net.URLEncoder;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -26,7 +28,7 @@ public class RetrieveRequest implements InfoFetcher, InfoFetcherWithGenre {
 
     // API Usage constants
     private static final String MAIN_URL = "http://api.themoviedb.org/3/";
-    private static final String API_KEY = "2a888e02edd08043185889ba862cb073";
+    private static final String API_KEY = "5d467eb39777ed643edb8312fb71c157";
 
     // Movie Data Request URL's for movies
     private static final String CURRENT_MOVIE_URL = "movie/now_playing?api_key=";
@@ -35,7 +37,9 @@ public class RetrieveRequest implements InfoFetcher, InfoFetcherWithGenre {
     private static final String MOVIE_SEARCH_URL = "search/movie?api_key=";
     private static final String TRENDING_MOVIE_URL = "trending/movie/day?api_key=";
     private static final String GENRE_LIST_MOVIE_URL = "genre/movie/list?api_key=";
+    private static final String DISCOVER_MOVIE_URL = "discover/movie?";
     private static final String MOVIE_CAST = "/credits?api_key=";
+    private static final String CERT_MOVIE = "&certification_country=US&certification.lte=R";
     //=====================================================
     private static final String TV_SEARCH_URL = "";
     private static final String CURRENT_TV_URL = "tv/on_the_air?api_key=";
@@ -60,6 +64,7 @@ public class RetrieveRequest implements InfoFetcher, InfoFetcherWithGenre {
     private static final String kMOVIE_BACKDROP_PATH = "backdrop_path";
     private static final String kMOVIE_POSTER_PATH = "poster_path";
     private static final String kMOVIE_CAST = "cast_id";
+    private String string;
 
     public static String getCastStrings(MovieInfoObject mMovie) {
 
@@ -114,7 +119,8 @@ public class RetrieveRequest implements InfoFetcher, InfoFetcherWithGenre {
                     RetrieveRequest.API_KEY + "&language=en-US"));
                 index = 1;
             }
-
+            System.out.println(MAIN_URL + "movie/" + mMovie.getID() + "/release_dates?api_key="  +
+                RetrieveRequest.API_KEY);
             JSONParser parser = new JSONParser();
             JSONObject jsonData = (JSONObject) parser.parse(jsonResult);
             JSONArray casts = (JSONArray) jsonData.get("results");
@@ -124,7 +130,7 @@ public class RetrieveRequest implements InfoFetcher, InfoFetcherWithGenre {
             if (index == 0) {
                 for (int i = 0; i < casts.size(); i += 1) {
                     JSONObject castPair = (JSONObject) casts.get(i);
-                    if (castPair.get("iso_3166_1").equals("US")) {
+                    if (castPair.get("iso_3166_1").equals("SG")) {
                         Map cert = (Map) casts.get(i);
                         Iterator<Map.Entry> itr1 = cert.entrySet().iterator();
                         while (itr1.hasNext()) {
@@ -196,12 +202,31 @@ public class RetrieveRequest implements InfoFetcher, InfoFetcherWithGenre {
         return p_Movies;
     }
 
-    public void beginMovieRequest(RetrieveRequest.MoviesRequestType type) {
+    public void beginMovieRequest(RetrieveRequest.MoviesRequestType type, int age, String genre, boolean alphaOrder,
+                                  boolean latDate, boolean pop) {
         String requestURL = RetrieveRequest.MAIN_URL;
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.US);
+        String today = simpleDateFormat.format(new Date());
+        Calendar calendar = GregorianCalendar.getInstance();
+        calendar.setTime(new Date());
+        calendar.add(Calendar.DAY_OF_YEAR, -21);
+        String monthAgo = simpleDateFormat.format(calendar.getTime());
+        System.out.println(today + monthAgo);
+        String add = "";
+
         switch (type) {
             case CURRENT_MOVIES:
-                requestURL += RetrieveRequest.CURRENT_MOVIE_URL + RetrieveRequest.API_KEY +
-                    "&language=en-US&page=1&region=SG";
+                requestURL += DISCOVER_MOVIE_URL;
+                String ageRating = getCertAdvice(age);
+                requestURL += "api_key=" + API_KEY + "&with_genres=35" + "&language=en-US&page=1&region=SG" +
+                    "&primary_release_date.gte=" + monthAgo +
+                "&primary_release_date.lte=" + today;
+                //if (alphaOrder && latDate && pop) {
+
+                //}
+                //requestURL += RetrieveRequest.CURRENT_MOVIE_URL + RetrieveRequest.API_KEY +
+                  //  "&language=en-US&page=1&region=SG";
+                System.out.println(requestURL);
                 index = 0;
                 break;
             case POPULAR_MOVIES:
@@ -244,14 +269,29 @@ public class RetrieveRequest implements InfoFetcher, InfoFetcherWithGenre {
         fetchJSONData(requestURL);
     }
 
-
-    public void beginMovieSearchRequest(String movieTitle) {
-        try {
-            String url = MAIN_URL + MOVIE_SEARCH_URL + API_KEY + "&query=" + URLEncoder.encode(movieTitle, "UTF-8");
-            fetchJSONData(url);
-        } catch (UnsupportedEncodingException ex) {
-            ex.printStackTrace();
+    private String getCertAdvice(int age) {
+        String ret = "";
+        if (age <= 10) {
+            ret = "G";
+        } else if (age <= 13) {
+            ret = "PG";
+        } else if (age <= 17) {
+            ret = "PG-13";
+        } else {
+            ret = "R";
         }
+        System.out.println(ret);
+        return ret;
+    }
+
+
+    public void beginMovieSearchRequest(int age, String genres, String movieTitle) {
+        //try {
+            String url = MAIN_URL + DISCOVER_MOVIE_URL + API_KEY + "&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=1";
+            fetchJSONData(url);
+       // } catch (UnsupportedEncodingException ex) {
+         //   ex.printStackTrace();
+        //}
     }
 
 
@@ -314,13 +354,17 @@ public class RetrieveRequest implements InfoFetcher, InfoFetcherWithGenre {
             movieData = (JSONObject) parser.parse(json);
             //if (index == 0) {
             JSONArray movies = (JSONArray) movieData.get("results");
-            ArrayList<MovieInfoObject> parsedMovies = new ArrayList(10);
+            ArrayList<MovieInfoObject> parsedMovies = new ArrayList(20);
 
             for (int i = 0; i < movies.size(); i++) {
                 parsedMovies.add(parseMovieJSON((JSONObject) movies.get(i)));
             }
             //System.out.println("so far ok2");
-
+          //  Collections.sort(parsedMovies, new Comparator<MovieInfoObject>() {
+            //    public int compare(MovieInfoObject v1, MovieInfoObject v2) {
+              //      return v1.getTitle().compareTo(v2.getTitle());
+               // }
+            //});
             // Notify Listener
             mListener.requestCompleted(parsedMovies);
             p_Movies = parsedMovies;
@@ -362,6 +406,7 @@ public class RetrieveRequest implements InfoFetcher, InfoFetcherWithGenre {
                     }
                 }
             }
+
 
             // Notify Listener
             mListener.requestCompleted(parsedMovies);
