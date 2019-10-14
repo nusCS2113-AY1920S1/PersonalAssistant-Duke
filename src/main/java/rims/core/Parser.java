@@ -28,7 +28,16 @@ public class Parser {
             String day = myObj.nextLine();
                 c = new ListByDateCommand(day);
         }
-        
+        else if (words[0].equals("listByItem")) {
+            Scanner myObj = new Scanner(System.in);
+            String itemName = myObj.nextLine();
+            c = new ListByItemCommand(itemName);
+        }
+        else if (words[0].equals("listByRoom")) {
+            Scanner myObj = new Scanner(System.in);
+            String roomName = myObj.nextLine();
+            c = new ListByRoomCommand(roomName);
+        }
         else if (words[0].equals("lend") && words.length == 1) {
             c=reader.ReadLoanCommand(ui);        
         } 
