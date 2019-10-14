@@ -65,10 +65,10 @@ public class CommandManager {
                 }
             case "delete":
                 try{
-                    String[] tempCommand = command[1].split("\\s+", 2);
-                    if (tempCommand[0].toLowerCase().equals("patient")){
+                    secondKeyword = command[1].toLowerCase();
+                    if (secondKeyword.equals("patient")){
                         try {
-                            return new DeletePatientCommand(tempCommand[1]);
+                            return new DeletePatientCommand(command[2]);
                         }catch(Exception e){
                             throw new Exception("Please follow the format 'delete patient #<id>'.");
                         }
@@ -81,10 +81,10 @@ public class CommandManager {
                 }
             case "find":
                 try{
-                    String[] tempCommand = command[1].split("\\s+", 2);
-                    if (tempCommand[0].toLowerCase().equals("patient")){
+                    secondKeyword = command[1].toLowerCase();
+                    if (secondKeyword.equals("patient")){
                         try {
-                            return new FindPatientCommand(tempCommand[1]);
+                            return new FindPatientCommand(command[2]);
                         }catch(Exception e){
                             throw new Exception("Please follow the format 'find patient #<id>' or 'find patient <name>'.");
                         }
