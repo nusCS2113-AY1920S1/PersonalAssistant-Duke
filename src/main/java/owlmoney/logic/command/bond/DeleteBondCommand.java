@@ -13,7 +13,6 @@ import owlmoney.ui.Ui;
 public class DeleteBondCommand extends Command {
     private final String bankName;
     private final String bondName;
-    private static final String INVESTMENT = "investment";
     private static final String BOND = "bonds";
 
     /**
@@ -33,6 +32,8 @@ public class DeleteBondCommand extends Command {
      * @param profile Profile of the user.
      * @param ui      Ui of OwlMoney.
      * @return false so OwlMoney will not terminate yet.
+     * @throws BankException if used on savings or bank does not exist.
+     * @throws BondException if there are no bonds.
      */
     @Override
     public boolean execute(Profile profile, Ui ui) throws BondException, BankException {

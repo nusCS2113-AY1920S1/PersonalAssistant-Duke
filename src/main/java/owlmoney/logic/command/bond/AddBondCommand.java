@@ -50,6 +50,9 @@ public class AddBondCommand extends Command {
      * @param profile Profile of the user.
      * @param ui      Ui of OwlMoney.
      * @return false so OwlMoney will not terminate yet.
+     * @throws BankException if used on savings or bank does not exist.
+     * @throws BondException if there are no bonds.
+     * @throws CardException if card commands are executed in bonds.
      */
     @Override
     public boolean execute(Profile profile, Ui ui) throws BankException, BondException, CardException {
