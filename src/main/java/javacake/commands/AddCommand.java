@@ -35,7 +35,7 @@ public class AddCommand extends Command {
      * @throws DukeException Shows error when deletion is not possible
      */
     @Override
-    public void execute(ProgressStack progressStack, Ui ui, Storage storage, Profile profile) throws DukeException {
+    public String execute(ProgressStack progressStack, Ui ui, Storage storage, Profile profile) throws DukeException {
 
         /*switch (type) {
         case TODO:
@@ -65,5 +65,6 @@ public class AddCommand extends Command {
         default:
             throw new DukeException("     [Unknown COMMAND TYPE]");
         }*/
+        return "";
     }
 }

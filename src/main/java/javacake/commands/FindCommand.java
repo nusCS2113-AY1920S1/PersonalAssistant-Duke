@@ -20,7 +20,7 @@ public class FindCommand extends Command {
      * @throws DukeException Shows error when unable to access list
      */
     @Override
-    public void execute(ProgressStack progressStack, Ui ui, Storage storage, Profile profile) throws DukeException {
+    public String execute(ProgressStack progressStack, Ui ui, Storage storage, Profile profile) throws DukeException {
         input = input.substring(5);
         /*if (progressStack.size() > 0) {
             boolean isInside = false;
@@ -42,5 +42,6 @@ public class FindCommand extends Command {
         } else {
             ui.showError("Empty List!");
         }*/
+        return "";
     }
 }

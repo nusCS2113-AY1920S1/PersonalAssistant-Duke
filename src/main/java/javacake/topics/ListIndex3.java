@@ -19,14 +19,16 @@ public class ListIndex3 {
     /**
      * Method to print the contents of the list.
      */
-    public void printList() {
+    public String printList() {
+        StringBuilder stringBuilder = new StringBuilder();
         int indexCount = 1;
-        System.out.println("Here are the " + listIndex3SubList.size() + " subtopics available.");
+        stringBuilder.append("Here are the ").append(listIndex3SubList.size()).append(" subtopics available.\n");
         for (String topicsInMainList : listIndex3SubList) {
-            System.out.print("3." + indexCount + " ");
-            System.out.println(topicsInMainList);
+            stringBuilder.append("3.").append(indexCount).append(". ");
+            stringBuilder.append(topicsInMainList).append("\n");
             indexCount++;
         }
-        System.out.println("Key in the index to learn more about the topic!");
+        stringBuilder.append("Key in the index to learn more about the topic!\n");
+        return stringBuilder.toString();
     }
 }

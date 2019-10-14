@@ -2,6 +2,7 @@ package javacake;
 
 import javacake.commands.Command;
 import javacake.commands.ExitCommand;
+import javacake.commands.HelpCommand;
 import javacake.commands.ListCommand;
 import javacake.commands.BackCommand;
 import javacake.commands.GoToCommand;
@@ -37,12 +38,14 @@ public class Parser {
             return new ListCommand();
         } else if (input.equals("back")) {
             return new BackCommand();
+        } else if (input.length() >= 4 && input.substring(0,4).equals("help")) {
+            return new HelpCommand(input);
         } else if (input.equals("score")) {
             return new ScoreCommand();
         } else if (input.length() > 4 && input.substring(0,4).equals("goto")) {
             return new GoToCommand(input);
         } else {
-            throw new DukeException("☹ OOPS!!! I'm sorry, but I don't know what that means :-( [Unknown COMMAND TYPE]");
+            throw new DukeException("OOPS!!! I'm sorry, but I don't know what that means.");
         }
     }
 

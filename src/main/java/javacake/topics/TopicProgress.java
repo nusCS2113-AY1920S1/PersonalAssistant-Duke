@@ -13,15 +13,19 @@ public class TopicProgress {
 
     }
 
-    private String compileResult(BufferedReader br, String bufferResult) throws IOException{
+    private String compileResult(BufferedReader br, String bufferResult) throws IOException {
         if ((br.readLine()).equals("0")) {
             return "0";
-        }
-        else {
+        } else {
             return "1";
         }
     }
 
+    /**
+     * Blank method.
+     * @return String containing content of content.
+     * @throws DukeException error when error todo
+     */
     public String viewSubTopic1Result() throws DukeException {
         String bufferResult = "";
         try {
@@ -38,10 +42,6 @@ public class TopicProgress {
         } catch (IOException e) {
             throw new DukeException(e.getMessage());
         }
-
-    }
-    public static void main(String[] args) throws DukeException {
-
 
     }
 
