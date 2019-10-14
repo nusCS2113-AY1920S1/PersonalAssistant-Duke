@@ -438,7 +438,6 @@ public class UiPart {
         dailyTab.setText(dateToStore);
         dailyTab.setContent(dc.init(dateToStore));
         compal.ui.tabWindow.getTabs().add(1, dailyTab);
-
     }
 
     /**
@@ -446,7 +445,7 @@ public class UiPart {
      *
      * @param currDate current date of task input
      */
-    public void secondaryScreenRefresh(Date currDate){
+    public void secondaryScreenRefresh(Date currDate) {
         Date currentDate = Calendar.getInstance().getTime();
         Calendar c = Calendar.getInstance();
 
