@@ -11,18 +11,18 @@ import javafx.scene.text.Text;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.Comparator;
 
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.text.TextAlignment;
 
 
 /**
  * Create a timetable drawing onto DailyView scroll-pane within tab-pane.
  */
 
-public class DailyCal {
+class DailyCalUI {
 
     private String dateToDisplay;
     private boolean[][] canStore = new boolean[25][5];
@@ -45,28 +45,13 @@ public class DailyCal {
     private double[][] storedYAxis = new double[25][5];
     private int startTime = 8;
     private int endTime = 19;
-    private ArrayList<Task> tempList;
-    private ArrayList<Task> arrList = new ArrayList<>();
+    private ArrayList<Task> tempOriginalList;
+    private ArrayList<Task> dailyCalArrayList = new ArrayList<>();
 
 
-    public DailyCal(Compal compal) {
+    DailyCalUI(Compal compal) {
         this.compal = compal;
     }
-
-    /**
-     * Initializer function to create final gui timetable.
-     *
-     * @return scrollPane final object state
-     */
-    public ScrollPane init(String givenDate) {
-        tempList = compal.tasklist.arrlist;
-        setTrue(canStore);
-        dateToDisplay = givenDate;
-        createDailyArrayList();
-        sp = buildTimeTable();
-        return sp;
-    }
-
 
     /**
      * Initializer function set canStore array to true state.
@@ -78,17 +63,37 @@ public class DailyCal {
     }
 
     /**
+     * Initializer function to create final gui timetable.
+     *
+     * @return scrollPane final object state
+     */
+    public ScrollPane init(String givenDate) {
+        tempOriginalList = compal.tasklist.arrlist;
+        setTrue(canStore);
+        dateToDisplay = givenDate;
+        createDailyArrayList();
+        sp = buildTimeTable();
+        return sp;
+    }
+
+    /**
      * Create an array list of type task of that specific day.
-     * Sorted by starting time.
+     * Sorted by priority scoring and then time..
+     * Only display non-deadline events.
      */
     private void createDailyArrayList() {
-        Comparator<Task> compareByStartTime = Comparator.comparing(Task::getStringStartTime);
-        for (Task t : tempList) {
+        Comparator<Task> compareByStartTime = Comparator.comparingLong(Task::getPriorityScore).reversed()
+                .thenComparing(Task::getStringStartTime);
+        for (Task t : tempOriginalList) {
             if (t.getStringDate().equals(dateToDisplay)) {
-                arrList.add(t);
+                if (t.getSymbol().equals("D")) {
+                    continue;
+                }
+                t.calculateAndSetPriorityScore();
+                dailyCalArrayList.add(t);
             }
         }
-        Collections.sort(arrList, compareByStartTime);
+        dailyCalArrayList.sort(compareByStartTime);
     }
 
     /**
@@ -110,11 +115,9 @@ public class DailyCal {
     /**
      * Check through the daily taskList to check if there's any event that starts before 8am or ends after 7pm
      * If there is, set startTime or EndTime to the detected time.
-     *
-     * @return scrollPane final object state
      */
     private void setTime() {
-        for (Task task : arrList) {
+        for (Task task : dailyCalArrayList) {
 
             int tempStartTime = Integer.parseInt(task.getStringStartTime().substring(0, 2));
             if (tempStartTime < startTime) {
@@ -189,13 +192,47 @@ public class DailyCal {
 
 
     /**
+     * Create title for schedule depending on type of task Type.
+     *
+     * @return Final title to be display for each block on GUI
+     */
+    private String createTitle(Task task) {
+        String blockTitle = "";
+
+        if (task.getSymbol().equals("LECT")) {
+            blockTitle = "[Lecture]\n";
+        } else if (task.getSymbol().equals("TUT")) {
+            blockTitle = "[Tutorial]\n";
+        } else if (task.getSymbol().equals("SECT")) {
+            blockTitle = "[Sectional]\n";
+        } else if (task.getSymbol().equals("LAB")) {
+            blockTitle = "[Lab]\n";
+        } else if (task.getSymbol().equals("RT")) {
+            blockTitle = "[Event]\n";
+        } else if (task.getSymbol().equals("E")) {
+            blockTitle = "[Event]\n";
+        }
+
+        if (task.getPriority().equals(Task.Priority.high)) {
+            blockTitle += "[Priority: High]\n";
+        } else if (task.getPriority().equals(Task.Priority.medium)) {
+            blockTitle += "[Priority: Medium]\n";
+        } else {
+            blockTitle += "[Priority: Low]\n";
+        }
+
+        blockTitle += task.getDescription();
+        return blockTitle;
+    }
+
+    /**
      * Create a square block of schedule depending on the duration of the event.
      */
     private void drawScheduleSquare(int currentTime) {
         int eventCounter = 0;
         int hourInMin = 60;
         double pixelBlock = 100;
-        for (Task task : arrList) {
+        for (Task task : dailyCalArrayList) {
             if (eventCounter < 5) {
                 if (Integer.parseInt(task.getStringStartTime().substring(0, 2)) == currentTime) {
                     int startHour = Integer.parseInt(task.getStringStartTime().substring(0, 2));
@@ -217,7 +254,6 @@ public class DailyCal {
                     if (totalHour == 0 && totalMin == 0) {
                         continue;
                     }
-                    String desc = task.getDescription();
 
                     //Drawing a Rectangle
                     double heightY = 1.7;
@@ -229,8 +265,9 @@ public class DailyCal {
                     rectangle.setStroke(Color.BLACK);
 
                     final StackPane stack = new StackPane();
-                    final Text text = new Text(desc);
+                    final Text text = new Text(createTitle(task));
                     text.setFont(Font.font("Georgia Italic", 12));
+                    text.setTextAlignment(TextAlignment.CENTER);
 
                     stack.getChildren().addAll(rectangle, text);
                     while (storedXAxis[currentTime][eventCounter] == 0) {
@@ -269,7 +306,6 @@ public class DailyCal {
     }
 
 
-
     /**
      * Store schedule axis of current time.
      */
@@ -277,7 +313,7 @@ public class DailyCal {
         int eventCounter = 0;
         double pixelBlock = 100.00;
         int hourInMin = 60;
-        for (Task task : arrList) {
+        for (Task task : dailyCalArrayList) {
             if (Integer.parseInt(task.getStringStartTime().substring(0, 2)) == currentTime && eventCounter < 5) {
                 int startHour = Integer.parseInt(task.getStringStartTime().substring(0, 2));
                 int startMin = Integer.parseInt(task.getStringStartTime().substring(2, 4));
@@ -297,7 +333,7 @@ public class DailyCal {
                 if (totalHour == 0 && totalMin == 0) {
                     continue;
                 }
-                double pxPerMin = (pixelBlock / Double.valueOf(hourInMin));
+                double pxPerMin = (pixelBlock / (double) hourInMin);
                 double downPX = pxPerMin * startMin;
 
                 while (!canStore[currentTime][eventCounter]) {
@@ -305,9 +341,6 @@ public class DailyCal {
                 }
 
                 if (canStore[currentTime][eventCounter]) {
-                    System.out.println("EC " + eventCounter);
-                    System.out.println("CT" + currentTime);
-                    System.out.println();
                     double layoutX = getEventLayoutX(eventCounter);
                     storedXAxis[currentTime][eventCounter] = layoutX;
                     storedYAxis[currentTime][eventCounter] = horizontalYLayout + downPX - 50;

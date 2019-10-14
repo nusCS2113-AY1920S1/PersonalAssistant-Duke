@@ -1,14 +1,18 @@
 package compal.commons;
 
+import compal.model.tasks.Task;
 import compal.storage.StorageManager;
 import compal.ui.UiPart;
 import compal.logic.parser.ParserManager;
 import compal.storage.Storage;
 import compal.model.tasks.TaskList;
+import javafx.scene.paint.Color;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Comparator;
+import java.util.Date;
 
-import static java.lang.System.exit;
 
 /**
  * Main class.
@@ -39,15 +43,8 @@ public class Compal {
 
         storage = new StorageManager();
 
-        /*
-         * Checks if storage is empty. If empty, create new ArrayList for storing Task objects. Else, load the current
-         * arraylist stored in the binary file into tasklist.arrlist.
-         */
-        if (storage.loadCompal() == null) {
-            tasklist.arrlist = new ArrayList<>();
-        } else {
-            tasklist.arrlist = storage.loadCompal();
-        }
+        tasklist.arrlist = new ArrayList<>();
+        tasklist.arrlist = storage.loadCompal();
 
         ui = new UiPart(this, tasklist.arrlist);
 
@@ -61,13 +58,6 @@ public class Compal {
     //------------------------------------------------------------------------------------------------------------------
     //----------------------------------------------------------------------------------------------------------------->
 
-    /**
-     * This function handles the exiting/shutdown of the program Compal.main.Compal.
-     * Used in parser.processCommands
-     */
-    public void exitDuke() {
-        exit(0);
-    }
     //----------------------->
 
     /**
@@ -87,6 +77,75 @@ public class Compal {
         public String toString() {
             return description;
         }
+    }
+
+    /**
+     * Lists all tasks that are incomplete and due in number of days input by user,
+     * or by default 7 days, as well as tasks with reminders set as true.
+     * Will print colour-coded and sorted by importance/priority.
+     */
+    public void viewReminder() {
+        int numberOfDays = 7;
+
+        ArrayList<Task> reminder = new ArrayList<>();
+        Date currentDate = Calendar.getInstance().getTime();
+
+        Calendar c = Calendar.getInstance();
+
+        c.setTime(currentDate);
+        c.add(Calendar.DATE, numberOfDays);
+        Date dateAfter = c.getTime();
+
+        c.setTime(currentDate);
+        Date dateToday = c.getTime();
+
+        for (Task t : tasklist.arrlist) {
+            Calendar  tempTaskDateAndTime = Calendar.getInstance();
+            tempTaskDateAndTime.setTime(t.getDate());
+            int startingHour = Integer.parseInt(t.getStringStartTime().substring(0,2));
+            tempTaskDateAndTime.set(Calendar.HOUR_OF_DAY, startingHour);
+            int startingMinute = Integer.parseInt(t.getStringStartTime().substring(2,4));
+            tempTaskDateAndTime.set(Calendar.MINUTE, startingMinute);
+
+            Date deadline = tempTaskDateAndTime.getTime();
+
+            if (deadline != null && !t.isDone && deadline.after(dateToday)
+                    && (deadline.before(dateAfter) || t.hasReminder())) {
+                t.calculateAndSetPriorityScore();
+                reminder.add(t);
+            }
+        }
+
+        //sort/compare by task priority score
+        Comparator<Task> compareByDateTime = (Task t1, Task t2) ->
+                Long.compare(t2.getPriorityScore(), t1.getPriorityScore());
+        reminder.sort(compareByDateTime);
+
+        //clear secondary window
+        ui.clearSecondary();
+
+        //display the results
+        if (reminder.isEmpty()) {
+            ui.printg("You currently have no tasks that have reminders set or are due within "
+                            + numberOfDays + " days!",
+                    "verdana", 15, Color.DARKGREEN);
+        } else {
+            int counter = 1;
+            for (Task t : reminder) {
+                if (t.getPriority().equals(Task.Priority.high)) {
+                    //compal.ui.printg(counter + ". " + t.toString(),"verdana",15, Color.RED);
+                    ui.printSecondaryg(counter + ". " + t.toString(), "verdana", 15, Color.RED);
+                } else if (t.getPriority().equals(Task.Priority.medium)) {
+                    //compal.ui.printg(counter + ". " + t.toString(),"verdana",15, Color.ORANGE);
+                    ui.printSecondaryg(counter + ". " + t.toString(), "verdana", 15, Color.ORANGE);
+                } else {
+                    //compal.ui.printg(counter + ". " + t.toString(),"verdana",15, Color.GREEN);
+                    ui.printSecondaryg(counter + ". " + t.toString(), "verdana", 15, Color.GREEN);
+                }
+                counter++;
+            }
+        }
+
     }
 }
 

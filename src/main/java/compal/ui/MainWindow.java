@@ -2,14 +2,9 @@ package compal.ui;
 
 import compal.commons.Compal;
 
-
 import java.text.ParseException;
 
-import compal.model.tasks.Task;
 import javafx.fxml.FXML;
-import javafx.scene.control.Label;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 
@@ -22,14 +17,8 @@ public class MainWindow extends AnchorPane {
     @FXML
     private TextField userInput;
 
-    @FXML
-    private TableView<Task> tableView;
-    @FXML
-    private TableColumn<Task, String> midnight;
-
 
     @FXML
-    private Label date;
     private Compal compal;
 
     /**

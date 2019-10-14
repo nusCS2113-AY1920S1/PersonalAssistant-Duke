@@ -8,6 +8,8 @@ import static compal.commons.Messages.MESSAGE_INIT_REMINDER;
 import java.io.File;
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
@@ -386,13 +388,11 @@ public class UiPart {
         } else {
             username = compal.storage.getUserName();
             printg("Hello again "
-                    + username
-                    + "! "
-                    +
-                    "Here are your tasks that are due within a week: \n", "verdana", 15, Color.BLACK);
+                            + username
+                            + "! ", "verdana", 15, Color.BLACK);
 
             //initiate the showing of reminders
-            compal.parser.processCmd(MESSAGE_INIT_REMINDER);
+            compal.viewReminder();
         }
     }
 
@@ -432,12 +432,29 @@ public class UiPart {
      * @param dateToStore date to view of daily calender
      */
     public void dateViewRefresh(String dateToStore) {
-        DailyCal dc = new DailyCal(compal);
+        DailyCalUI dc = new DailyCalUI(compal);
         compal.ui.tabWindow.getTabs().remove(1);
         Tab dailyTab = new Tab();
         dailyTab.setText(dateToStore);
         dailyTab.setContent(dc.init(dateToStore));
         compal.ui.tabWindow.getTabs().add(1, dailyTab);
+    }
+
+    /**
+     * Refresh secondary screen only if task added in within a week of current date.
+     *
+     * @param currDate current date of task input
+     */
+    public void secondaryScreenRefresh(Date currDate) {
+        Date currentDate = Calendar.getInstance().getTime();
+        Calendar c = Calendar.getInstance();
+
+        c.setTime(currentDate);
+        c.add(Calendar.DATE, 7);
+        Date weekLater = c.getTime();
+        if (currDate.before(weekLater)) {
+            compal.viewReminder();
+        }
     }
 
 

@@ -46,7 +46,6 @@ public class ViewCommand extends Command implements CommandParser {
 
             for (Task task : taskList.arrlist) {
                 Date convertDate = task.getDate();
-                System.out.println(convertDate);
                 String compareDate = formatter.format(convertDate);
                 if (compareDate.matches(dateInput)) {
                     if (isEmpty) {

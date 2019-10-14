@@ -1,4 +1,5 @@
 
+
 # COMPal - Developer Guide
 
 Welcome to the **COMPal** Developer Guide! This Developer Guide is still being worked on for now!
@@ -15,6 +16,9 @@ Welcome to the **COMPal** Developer Guide! This Developer Guide is still being w
 + [3.4 Configurations to do before Writing Code](/docs/DeveloperGuide.md#34-configurations-to-do-before-writing-code)
 
 [**4. Design**](/docs/DeveloperGuide.md#4-design)
+ + [4.1 Architecture](/docs/DeveloperGuide.md#41-architecture)
+ + [4.2 UI](/docs/DeveloperGuide.md#42-ui-component)
+ + [4.6 Model Component](/docs/DeveloperGuide.md#46-model-component)
 
 
 [**5. Implementation**](/docs/DeveloperGuide.md#5-implementation)
@@ -109,13 +113,87 @@ Icon                 | Description
 ### 3.4. Configurations to do before Writing Code
 
 ## 4. Design
+
+#### 4.1. Architecture
+
+<img src="https://github.com/AY1920S1-CS2113T-W17-1/main/blob/master/docs/diagrams/ArchitectureDiagram.png" alt="Overview of architecture" width="800"/>
+Figure 1. Architecture Diagram
+
+   
+| :bulb: | *The `.pptx` files used to create diagrams in this document can be found in the [diagrams](https://github.com/AY1920S1-CS2113T-W17-1/main/docs/diagrams/) folder. To update a diagram, modify the diagram in the pptx file, select the objects of the diagram, and choose `Save as picture`.* |
+|--|--|       
+
+The  **_Architecture Diagram_**  given above explains the high-level design of the App. Given below is a quick overview of each component.
+
+[**`Commons`**](https://github.com/AY1920S1-CS2113T-W17-1/main/tree/master/src/main/java/compal/commons)  represents a collection of classes used by multiple other components. Two of those classes play important roles at the architecture level.
+
+-   `Messages`  : This class contain all types of messages that are to be called from depending  on the type of execution. E.g. Invalid syntax commands messages
+
+-   `COMPal`  : Used by many classes to call the needed functionality such as user interface, storage or parser.
+    
+The rest of the App consists of four components.
+
+-   [**`UI`**](https://github.com/AY1920S1-CS2113T-W17-1/main/tree/master/src/main/java/compal/ui): The UI of the App.
+    
+-   [**`Logic`**](https://github.com/AY1920S1-CS2113T-W17-1/main/tree/master/src/main/java/compal/logic): The command executor.
+    
+-   [**`Model`**](https://github.com/AY1920S1-CS2113T-W17-1/main/tree/master/src/main/java/compal/model): Holds the data of the App in-memory.
+    
+-   [**`Storage`**](https://github.com/AY1920S1-CS2113T-W17-1/main/tree/master/src/main/java/compal/storage): Reads data from, and writes data to, the hard disk.
+
+For example, the `Parser` component (see the class diagram given below) defines it’s API in the `CommandParser.java` interface and exposes its functionality using the `ParserManager.java` class.
+
+<img src="https://github.com/AY1920S1-CS2113T-W17-1/main/blob/master/docs/diagrams/LogicDiagram.png" alt="Overview of Logic parser" width="800"/>
+Figure 2. Class Diagram of Logic Parser Component
+
+**Events-Driven nature of the design**
+
+The  _Sequence Diagram_  below shows how the components interact for the scenario where the user issues the command  `delete 1`.
+
+<img src="https://github.com/AY1920S1-CS2113T-W17-1/main/blob/master/docs/diagrams/SDforDeleteSlot.png" alt="Sequence Diagram for deletion of slot" width="800"/>
+Figure 3. Component interactions for `delete 1` command.
+
+The sections below give more details of each component.
+
+### 4.2. UI component
+
+
+<img src="https://github.com/AY1920S1-CS2113T-W17-1/main/blob/master/docs/diagrams/UIClassDiagram.png" alt="Overview of Logic parser" width="800"/>
+Figure 5. Structure of the UI Component
+
+**API**  :  [`Ui.java`](https://github.com/AY1920S1-CS2113T-W17-1/main/blob/master/src/main/java/compal/ui/Ui.java)
+
+The UI consists of a `MainWindow` that is made up of parts e.g.`UserInput`,`SecondaryOutput`, `tabWindow`which tabs consist of `MainOutput`, `DailyCalender`. Although the application is only input text-based application, our outputs are both GUI and text-based. 
+
+The  `UI`  component uses JavaFx UI framework. The layout of these UI parts are defined in matching  `.fxml`  files that are in the  `src/main/resources/view`  folder.   For example, the layout of the  [`MainWindow`](https://github.com/AY1920S1-CS2113T-W17-1/main/blob/master/src/main/java/compal/ui/MainWindow.java)  is specified in  [`MainWindow.fxml`](https://github.com/AY1920S1-CS2113T-W17-1/main/blob/master/src/main/resources/view/MainWindow.fxml)
+
+The `DailyCalender` use information from the `Model` and `COMPal` component to generate or refresh the stage to reflect changes made to the data.
+
+The  `UI`  component,
+
+- Executes user commands using the  `Logic`  component.  
+- Displays text-based command results in to the user via `MainOutput` or `SecondaryOutput`.
+- Display ​daily calendar of the user via `DailyCalender`. 
+
 ### 4.5 Storage Component
 API: StorageManager.java
 
-We use very simple and user-editable text files to store user data. Data is stored separated by underscores. Data is parsed as a string and then processed by our storage API into application-useful datatypes such as Task Objects. 
+We use very simple and user-editable text files to store user data. Data is stored as data strings separated by underscores. The separation token however, can be easily changed if desired. 
+Data is thereafter parsed as a string and then processed by our storage API into application-useful datatypes such as Task Objects. 
 
-The advantage of this approach is that it is a no-frills implementation and comprehensible by the average developer. 
+The advantage of this approach is that it is a no-frills implementation and comprehensible by the average developer. The average user can also understand and easily directly edit the data file if so desired.
 
+### 4.6. Model Component
+
+<img src="https://github.com/AY1920S1-CS2113T-W17-1/main/blob/master/docs/diagrams/DG_ArchitectureDiagram_Task.png" width="800" alt="Overall structure of the Model Component"/>
+Figure 2. Overall structure of the Model Component
+
+**API**: [`Model`](https://github.com/AY1920S1-CS2113T-W17-1/main/tree/master/src/main/java/compal/model)
+ 
+ The `Model` component
+ - stores a `TaskList` object that represents the list of user's tasks
+ - stores the Schedule data.
+ - does not depend on any of the other four components.
 
 
 ## 5. Implementation
