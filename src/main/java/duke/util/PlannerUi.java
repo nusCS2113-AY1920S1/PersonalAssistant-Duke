@@ -63,7 +63,7 @@ public class PlannerUi {
     }
 
     /**
-     * Message shown at start of CapCommand
+     * Message shown at start of CapCommand.
      */
     public void capStartMsg() {
         System.out.println("Start typing the module you have taken, along with it's letter grade");
@@ -71,7 +71,7 @@ public class PlannerUi {
     }
 
     /**
-     * Message to print average CAP to 2 decimal places
+     * Message to print average CAP to 2 decimal places.
      */
     public void capMsg(double averageCap) {
         showLine();

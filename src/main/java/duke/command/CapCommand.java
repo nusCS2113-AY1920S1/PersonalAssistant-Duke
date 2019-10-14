@@ -158,7 +158,7 @@ public class CapCommand extends ModuleCommand {
     }
 
     /**
-     * Converts String grade to a double value according to NUS guidelines
+     * Converts String grade to a double value according to NUS guidelines.
      */
     public double letterGradeToCap(String grade) {
         switch (grade) {
@@ -209,8 +209,8 @@ public class CapCommand extends ModuleCommand {
     }
 
     /**
-     * User will keep inputting "[moduleCode] [letterGrade]" until satisfied
-     * Then user inputs "done" and the user's CAP will be calculated and printed
+     * User will keep inputting "[moduleCode] [letterGrade]" until satisfied.
+     * Then user inputs "done" and the user's CAP will be calculated and printed.
      */
     public void calculateOverallCap(HashMap<String, ModuleInfoSummary> summaryMap,
                                     HashMap<String, ModuleInfoDetailed> detailedMap,
@@ -222,7 +222,8 @@ public class CapCommand extends ModuleCommand {
         double cumulativeCap = 0.00;
         while (!isComplete(userInput)) {
             if (userInput.isEmpty()) {
-                throw new ModMissingArgumentException("Please input a completed module and your grade for it," +
+                throw new ModMissingArgumentException("Please input a completed module and your grade for it,"
+                    +
                     " or input done to finish and calculate your CAP");
             }
             String[] userInfo = userInput.split(" ");
