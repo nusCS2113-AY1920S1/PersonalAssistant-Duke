@@ -1,8 +1,6 @@
-package Commands;
+package commands;
 
-import EPstorage.Playlist;
 import EPstorage.PlaylistCommands;
-import EPstorage.ProfileCommands;
 import MovieUI.Controller;
 import MovieUI.MovieHandler;
 
@@ -10,7 +8,7 @@ import java.io.IOException;
 
 public class PlaylistCommand extends CommandSuper{
     public PlaylistCommand(Controller UIController) {
-        super(COMMAND_KEYS.playlist, CommandStructure.cmdStructure.get(COMMAND_KEYS.playlist) , UIController);
+        super(COMMANDKEYS.playlist, CommandStructure.cmdStructure.get(COMMANDKEYS.playlist) , UIController);
     }
 
     @Override

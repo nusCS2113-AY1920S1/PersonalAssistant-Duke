@@ -1,15 +1,14 @@
-package Commands;
+package commands;
 
 import EPstorage.ProfileCommands;
 import MovieUI.Controller;
 import MovieUI.MovieHandler;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
 
 public class SetCommand extends CommandSuper{
     public SetCommand(Controller UIController) {
-        super(COMMAND_KEYS.set, CommandStructure.cmdStructure.get(COMMAND_KEYS.set) , UIController);
+        super(COMMANDKEYS.set, CommandStructure.cmdStructure.get(COMMANDKEYS.set) , UIController);
     }
 
     @Override

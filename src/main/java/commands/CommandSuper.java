@@ -1,10 +1,7 @@
-package Commands;
+package commands;
 
 import MovieUI.Controller;
 import MovieUI.MovieHandler;
-import movieRequesterAPI.RequestListener;
-import movieRequesterAPI.RetrieveRequest;
-import object.MovieInfoObject;
 import wrapper.CommandPair;
 
 import java.io.IOException;
@@ -14,11 +11,11 @@ public abstract class CommandSuper {
 
     private Controller UIController;
 
-    private COMMAND_KEYS[] SubCommand;
-    private COMMAND_KEYS Root;
+    private COMMANDKEYS[] SubCommand;
+    private COMMANDKEYS Root;
 
     private TreeMap<String, ArrayList<String>> flagMap = new TreeMap<String, ArrayList<String>>();
-    private COMMAND_KEYS subRootCommand;
+    private COMMANDKEYS subRootCommand;
     private String Payload;
     private boolean execute = false;
 
@@ -36,7 +33,7 @@ public abstract class CommandSuper {
         this.execute = execute;
     }
 
-    public COMMAND_KEYS getRoot() {
+    public COMMANDKEYS getRoot() {
         return Root;
     }
 
@@ -44,7 +41,7 @@ public abstract class CommandSuper {
         return flagMap;
     }
 
-    public COMMAND_KEYS getSubRootCommand() {
+    public COMMANDKEYS getSubRootCommand() {
         return subRootCommand;
     }
 
@@ -55,7 +52,7 @@ public abstract class CommandSuper {
     /**
      * Constructor for each Command Super class
      */
-    public CommandSuper(COMMAND_KEYS Root , COMMAND_KEYS[] SubCommand , Controller UIController){
+    public CommandSuper(COMMANDKEYS Root , COMMANDKEYS[] SubCommand , Controller UIController){
 
         this.UIController = UIController;
         this.SubCommand = SubCommand;
@@ -91,7 +88,7 @@ public abstract class CommandSuper {
      * @param Command   command that was entered by the user.
      * @param subRootCommand the subRoot command  that was found
      */
-    public void initCommand(String[] CommandArr, String Command, COMMAND_KEYS subRootCommand){
+    public void initCommand(String[] CommandArr, String Command, COMMANDKEYS subRootCommand){
 
         this.subRootCommand = subRootCommand;
         processFlags(CommandArr ,Command);
@@ -107,7 +104,7 @@ public abstract class CommandSuper {
      */
     public void subCommand(String[] CommandArr){
         if(CommandArr.length <= 1){
-            subRootCommand = COMMAND_KEYS.none;
+            subRootCommand = COMMANDKEYS.none;
             if(CommandStructure.cmdStructure.get(Root).length > 0){
                 setExecute(false);
                 ((MovieHandler)UIController).setFeedbackText("You are missing a few Arguments!!");
@@ -115,8 +112,8 @@ public abstract class CommandSuper {
 
         }else{
             try{
-                for(COMMAND_KEYS cmd : SubCommand){
-                    if(COMMAND_KEYS.valueOf(CommandArr[1])== cmd){
+                for(COMMANDKEYS cmd : SubCommand){
+                    if(COMMANDKEYS.valueOf(CommandArr[1])== cmd){
                         System.out.println("FOUND Sub command" + cmd);
                         subRootCommand = cmd;
                         execute = true;
@@ -198,8 +195,8 @@ public abstract class CommandSuper {
      * @param CommandArr command that was entered by the user in split array form
      */
     public void processPayload(String []CommandArr){
-        if(this.Root != COMMAND_KEYS.none){
-            if(this.subRootCommand != COMMAND_KEYS.none){
+        if(this.Root != COMMANDKEYS.none){
+            if(this.subRootCommand != COMMANDKEYS.none){
                 Payload =  getThePayload(2 , CommandArr);
             }else{
                 Payload = getThePayload(1 , CommandArr);

@@ -1,11 +1,10 @@
-package Commands;
+package commands;
 
-import Execution.CommandStack;
 import MovieUI.Controller;
 
 public class YesCommand extends CommandSuper {
     public YesCommand(Controller UIController) {
-        super(COMMAND_KEYS.yes, CommandStructure.cmdStructure.get(COMMAND_KEYS.yes), UIController);
+        super(COMMANDKEYS.yes, CommandStructure.cmdStructure.get(COMMANDKEYS.yes), UIController);
     }
 
     @Override

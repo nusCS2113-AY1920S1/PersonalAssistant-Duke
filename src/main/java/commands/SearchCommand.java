@@ -1,24 +1,21 @@
-package Commands;
+package commands;
 
 
 import EPstorage.ProfileCommands;
 import MovieUI.Controller;
 import MovieUI.MovieHandler;
-import MovieUI.MoviePosterController;
-import movieRequesterAPI.RetrieveRequest;
 
 import java.util.ArrayList;
 import java.util.TreeMap;
 
 import java.io.IOException;
-import java.util.ArrayList;
 
 
 public class SearchCommand extends CommandSuper {
 
 
     public SearchCommand(Controller UIController) {
-        super(COMMAND_KEYS.search, CommandStructure.cmdStructure.get(COMMAND_KEYS.search), UIController);
+        super(COMMANDKEYS.search, CommandStructure.cmdStructure.get(COMMANDKEYS.search), UIController);
     }
 
     @Override
