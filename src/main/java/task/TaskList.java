@@ -98,7 +98,8 @@ public class TaskList {
     }
 
     /**
-     * Marks a task to be ignored and have reminders to stop showing up for the task.
+     * Marks a task to be ignored and have reminders to stop showing up for the
+     * task.
      *
      * @param index The index of the task to be marked
      * @return The marked task
@@ -144,13 +145,14 @@ public class TaskList {
      *
      * @param dayToFind is of String type which contains the desired date of
      *                  schedule.
-     * @return sortDateList the sorted schedule of all the tasks on a particular date.
+     * @return sortDateList the sorted schedule of all the tasks on a particular
+     *         date.
      */
     public ArrayList<Task> schedule(String dayToFind) {
         ArrayList<Task> sortedDateList = new ArrayList<Task>();
         for (int i = 0; i < listOfTasks.size(); i++) {
             if (!(listOfTasks.get(i).getClass() == task.Todo.class)
-                && listOfTasks.get(i).toString().contains(dayToFind)) {
+                    && listOfTasks.get(i).toString().contains(dayToFind)) {
                 sortedDateList.add(listOfTasks.get(i));
             }
         }
@@ -171,6 +173,18 @@ public class TaskList {
         return taskToBeEdited;
     }
 
+    /**
+     * Function to allow user to edit/add comments to existing tasks.
+     * 
+     * @param indexOfTask Index of task in list
+     * @param comment     commnent to be added/edited
+     * @return taskToBeEdited The task that has its comment edited/added
+     */
+    public Task editTaskComment(int indexOfTask, String comment) {
+        Task taskToBeEdited = listOfTasks.get(indexOfTask);
+        taskToBeEdited.comment = comment;
+        return taskToBeEdited;
+    }
 
     public ArrayList<Task> getTasks() {
         return listOfTasks;
