@@ -54,7 +54,7 @@ public class MyThread implements Runnable {
                 ui.printLine();
             }
         }
-        if(!LogicManager.getWallet().getLoanList().checkUnsettledLoan()) {
+        if (!LogicManager.getWallet().getLoanList().checkUnsettledLoan()) {
             thread.interrupt();
             LogicManager.getReminder().setAutoRemind(false);
             autoRemind = false;
