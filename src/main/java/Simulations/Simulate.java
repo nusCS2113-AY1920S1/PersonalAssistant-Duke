@@ -1,6 +1,6 @@
 package Simulations;
 
-import UserInterfaces.Ui;
+import Farmio.Ui;
 
 import java.util.concurrent.TimeUnit;
 

@@ -3,7 +3,7 @@ package Actions;
 import Places.ChickenFarm;
 import Places.CowFarm;
 import Places.WheatFarm;
-import UserInterfaces.Ui;
+import Farmio.Ui;
 
 public class buyWheatAction extends Action {
     int moneyChange = -100;

@@ -2,9 +2,8 @@ package UserCode.Actions;
 
 import Places.ChickenFarm;
 import Places.CowFarm;
-import Places.Farm;
 import Places.WheatFarm;
-import UserInterfaces.Ui;
+import Farmio.Ui;
 import org.json.simple.JSONObject;
 
 public abstract class Action {
