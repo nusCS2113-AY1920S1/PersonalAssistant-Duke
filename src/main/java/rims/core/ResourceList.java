@@ -79,7 +79,6 @@ public class ResourceList {
             }
         }
         throw new Exception("No available items!");
-        // throw exception if nothing returned
         // replace with custom exception
     }
 
