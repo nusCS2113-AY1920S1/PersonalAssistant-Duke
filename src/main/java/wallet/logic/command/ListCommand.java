@@ -3,6 +3,7 @@ package wallet.logic.command;
 import wallet.model.Wallet;
 import wallet.model.contact.Contact;
 import wallet.model.task.Task;
+import wallet.ui.Ui;
 
 /**
  * The ListCommand Class handles all list commands.
@@ -77,7 +78,7 @@ public class ListCommand extends Command {
             //else fallthrough
 
         case "expense":
-            wallet.getExpenseList().listExpenseList();
+            Ui.printExpenseTable();
             if (!isListAll) {
                 break;
             }
