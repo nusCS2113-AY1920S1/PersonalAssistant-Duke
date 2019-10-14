@@ -59,7 +59,6 @@ public class TaskList {
      */
     public ArrayList<Task> getTasks() {
         return items;
-
     }
 
     /**
@@ -80,6 +79,22 @@ public class TaskList {
      */
     public Task get(int index) {
         return items.get(index);
+    }
+
+    /**
+     * Retrieves index of task in the task list (GUI).
+     *
+     * @param taskObj A task from the task list.
+     * @return int that contains the index of task.
+     */
+    public int getIndex(Task taskObj) {
+        int index = -1;
+        for (int i = 0; i < items.size(); i++) {
+            if (taskObj.equals(items.get(i))) {
+                index = i;
+            }
+        }
+        return index;
     }
 
     /**
