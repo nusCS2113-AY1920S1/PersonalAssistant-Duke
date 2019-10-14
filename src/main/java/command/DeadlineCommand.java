@@ -26,11 +26,11 @@ public class DeadlineCommand extends Command {
      */
     public DeadlineCommand(String input, String[] splitStr) throws DukeException {
         if (splitStr.length == 1) {
-            throw new DukeException("☹ OOPS!!! The description of a deadline cannot be empty.");
+            throw new DukeException("\u2639 OOPS!!! The description of a deadline cannot be empty.");
         }
         String tempD = input.substring(9);
         if (!tempD.contains(" /by ")) {
-            throw new DukeException("☹ OOPS!!! Please add a deadline for the task.");
+            throw new DukeException("\u2639 OOPS!!! Please add a deadline for the task.");
         }
         this.splitD = tempD.split(" /by ");
         if (!isValidDateTime(splitD[1])) {

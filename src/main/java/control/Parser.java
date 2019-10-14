@@ -1,11 +1,8 @@
 package control;
+
 import command.*;
 import exception.DukeException;
-
 import java.io.IOException;
-import java.text.ParseException;
-import java.util.Spliterator;
-
 
 /**
  * Parse input and execute respective user command.
@@ -59,9 +56,8 @@ public class Parser {
             return new CreateAccountCommand(input, splitStr);
          case "add":
             return new AddBookingCommand(input, splitStr);
-
         default:
-            throw new DukeException("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
+            throw new DukeException("\u2639 OOPS!!! I'm sorry, but I don't know what that means :-(");
         }
     }
 }

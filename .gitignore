@@ -14,3 +14,4 @@ src/main/resources/docs/
 bin/
 
 /data/duke.txt
+/data/members.txt
