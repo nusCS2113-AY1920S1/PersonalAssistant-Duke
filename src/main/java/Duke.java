@@ -69,16 +69,16 @@ public class Duke {
             return new String[]{ui.getOutputString(), ui.getGraphContainerString()};
         } finally {
             ui.appendToOutput(ui.showLine());
-
         }
         return new String[]{ui.getOutputString(), ui.getGraphContainerString()};
     }
 
+    /**
+     * This function sends the data of y axis for the monthly report
+     * @return y-axis data for the monthly report
+     */
     public float[] getMonthlyData() {
-        float[] data = new float[2];
-        data[0] = account.getTotalIncome();
-        data[1] = account.getTotalExp();
-        return data;
+        return new float[]{account.getTotalIncome(), account.getTotalExp()};
     }
 
 }

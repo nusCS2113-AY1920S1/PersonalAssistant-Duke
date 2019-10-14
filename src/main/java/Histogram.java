@@ -30,11 +30,12 @@ public class Histogram extends HBox {
         yAxis.setLabel("Amount");
     }
 
-    public static Histogram getHistogram(String title, float in, float out) throws IOException {
+    public static Histogram getHistogram(String title, String[] xData, float[] yData) throws IOException {
         Histogram histogram = new Histogram(title);
         XYChart.Series<String,Number> series = new XYChart.Series<>();
-        series.getData().add(new XYChart.Data<>("Income", in));
-        series.getData().add(new XYChart.Data<>("Expenditure", out));
+        for (int index = 0; index < yData.length; index++) {
+            series.getData().add(new XYChart.Data<>(xData[index], yData[index]));
+        }
         histogram.barChart.getData().add(series);
         return histogram;
     }
