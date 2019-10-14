@@ -299,13 +299,13 @@ public class Command {
         try {
             String[] rescheduleDetail = continuation.split(" ");
             int eventIndex = Integer.parseInt(rescheduleDetail[0]) - 1;
-            DateObj newStartDate;
-            DateObj newEndDate;
+            EventDate newStartDate;
+            EventDate newEndDate;
             if (rescheduleDetail.length > 2) {
-                newStartDate = new DateObj(rescheduleDetail[1] + " " + rescheduleDetail[2]);
-                newEndDate = new DateObj(rescheduleDetail[1] + " " + rescheduleDetail[3]);
+                newStartDate = new EventDate(rescheduleDetail[1] + " " + rescheduleDetail[2]);
+                newEndDate = new EventDate(rescheduleDetail[1] + " " + rescheduleDetail[3]);
             } else {
-                newStartDate = new DateObj(rescheduleDetail[1]);
+                newStartDate = new EventDate(rescheduleDetail[1]);
                 newEndDate = null;
             }
             events.getEvent(eventIndex).rescheduleStartDate(newStartDate);

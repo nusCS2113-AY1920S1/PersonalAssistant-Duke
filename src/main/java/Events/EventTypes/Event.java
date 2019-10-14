@@ -92,11 +92,11 @@ public abstract class Event {
         this.isDone = true;
     }
 
-    public void rescheduleStartDate(DateObj newStartDate) {
-        this.startDateObj = newStartDate;
+    public void rescheduleStartDate(EventDate newStartDate) {
+        this.startEventDate = newStartDate;
     }
 
-    public void rescheduleEndDate(DateObj newEndDate) {
-        this.endDateObj = newEndDate;
+    public void rescheduleEndDate(EventDate newEndDate) {
+        this.endEventDate = newEndDate;
     }
 }
