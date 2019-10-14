@@ -47,7 +47,7 @@ Responsibilities: Storage
 '''
 
 === Karan Sarat
-image::karansarant.png[width="150", align="left"]
+image::karansarat.png[width="150", align="left"]
 {empty}[http://github.com/karansarat[github]] [<<karansarat#, portfolio>>]
 
 Role: Scheduling and tracking,  +

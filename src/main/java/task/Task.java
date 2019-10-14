@@ -61,10 +61,10 @@ public class Task implements Serializable {
     }
 
     /**
-     * Set a new value to the period attribute
+     * Sets a new value to the description attribute.
      */
-    public void setPeriod(String period) {
-        this.period = period;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     /**
