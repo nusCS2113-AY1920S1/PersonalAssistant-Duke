@@ -3,13 +3,10 @@ package cube.storage;
 import cube.model.food.Food;
 import cube.model.food.FoodList;
 
-import java.io.Serializable;
-import java.util.ArrayList;
-
 // this is facade design pattern
 // reference: https://github.com/nusCS2113-AY1920S1/addressbook-level3/tree/master/src/main/java/seedu/address/storage
 
-public class StorageManager implements Serializable {
+public class StorageManager {
 	private FoodStorage foodStorage;
 	private RevenueStorage revenueStorage;
 
@@ -23,8 +20,8 @@ public class StorageManager implements Serializable {
 		this.revenueStorage = revenueStorage;
 	}
 
-	public FoodList loadFood() {
-		return foodStorage.loadFood();
+	public FoodList getFoodList() {
+		return foodStorage.getFoodList();
 	}
 
 	public void appendFood(Food food) {
@@ -35,8 +32,8 @@ public class StorageManager implements Serializable {
 		foodStorage.storeFoodList(foodlist);
 	}
 
-	public double loadRevenue() {
-		return revenueStorage.loadRevenue();
+	public double getRevenue() {
+		return revenueStorage.getRevenue();
 	}
 
 	public void storeRevenue(double revenue) {
