@@ -1,24 +1,22 @@
-import controlpanel.Ui;
+import controlpanel.Parser;
+import guicommand.UserIcon;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.stage.FileChooser;
+import org.controlsfx.control.textfield.TextFields;
 
 import java.io.*;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.nio.file.StandardCopyOption;
+import java.text.ParseException;
+import java.util.List;
 
 /**
  * Controller for MainWindow. Provides the layout for the other controls.
  */
-public class MainWindow extends AnchorPane {
+public class MainWindow extends AnchorPane implements DataTransfer {
 
     @FXML
     private ScrollPane scrollPane;
@@ -31,12 +29,18 @@ public class MainWindow extends AnchorPane {
     @FXML
     private TextField userInput;
     @FXML
+    private TextField searchBar;
+    @FXML
+    public ScrollPane scrollPane3;
+    @FXML
+    public VBox PopUpContainer;
+    @FXML
     private Button sendButton;
     @FXML
-    public VBox autoCompleteContainer;
+    private Button searchButton;
 
     private Duke duke;
-    private Ui mainWindowUi = new Ui();
+    private UserIcon userIcon;
 
     private static Image userImage;
     private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
@@ -44,20 +48,20 @@ public class MainWindow extends AnchorPane {
     /**
      * Initialises scroll bar and outputs Duke Welcome message on startup of GUI.
      */
+
+    String[] words = {"AA", "AB" , "AC"};
+
     @FXML
     public void initialize() throws IOException {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
         scrollPane2.vvalueProperty().bind(graphContainer.heightProperty());
 
-        String welcomeDuke = mainWindowUi.showWelcome();
+        TextFields.bindAutoCompletion(userInput, words);
         dialogContainer.getChildren().addAll(
                 DialogBox.getDukeDialog("enter start to begin", dukeImage));
 
-        FileReader fileReader = new FileReader("data/iconPath.txt");
-        BufferedReader bufferedReader = new BufferedReader(fileReader);
-        String iconPath = bufferedReader.readLine();
-        userImage = new Image(this.getClass().getResourceAsStream(iconPath));
-        bufferedReader.close();
+        userIcon = new UserIcon();
+        userImage = userIcon.getIcon();
     }
 
     public void setDuke(Duke d) {
@@ -69,50 +73,79 @@ public class MainWindow extends AnchorPane {
      * the dialog container. Clears the user input after processing.
      */
     @FXML
-    private void handleUserInput() throws IOException {
+    private void handleUserInput() throws IOException, ParseException {
         String input = userInput.getText();
-        if (input.equals("change icon")) {
-            FileWriter fileWriter = new FileWriter("data/iconPath.txt", false);
-            BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
-
-            FileChooser chooser = new FileChooser();
-            chooser.setTitle("Select a picture:");
-            File defaultDirectory = new File("D:/");
-            chooser.setInitialDirectory(defaultDirectory);
-            File selectedFile = chooser.showOpenDialog(null);
-            Path from = Paths.get(selectedFile.toURI());
-            Path to = Paths.get("src/main/resources/images/" + selectedFile.getName());
-            Files.copy(from, to, StandardCopyOption.REPLACE_EXISTING);
-            Files.copy(from, to, StandardCopyOption.REPLACE_EXISTING);
-            userImage = new Image(this.getClass().getResourceAsStream("/images/" + selectedFile.getName()));
-            dialogContainer.getChildren().addAll(
-                    DialogBox.getUserDialog(input, userImage),
-                    DialogBox.getDukeDialog("Done.", dukeImage)
-            );
-            bufferedWriter.write("/images/" + selectedFile.getName());
-            bufferedWriter.close();
-            userInput.clear();
-        } else {
-            String[] response = duke.getResponse(input);
-            dialogContainer.getChildren().addAll(
-                    DialogBox.getUserDialog(input, userImage),
-                    DialogBox.getDukeDialog(response[0], dukeImage)
-            );
-            if(!response[1].equals("")){
-                graphContainer.getChildren().clear();
+        graphContainer.getChildren().clear();
+        switch (input) {
+            case "change icon":
+                userIcon.changeIcon();
+                userImage = userIcon.getIcon();
+                break;
+            case "graph monthly report":
                 graphContainer.getChildren().addAll(
-                        DialogBox.getDukeDialog(response[1], dukeImage));
-            }
-
-            userInput.clear();
-            if (input.startsWith("graph")) {
-                graphContainer.getChildren().clear();
-                float[] data = duke.getMonthlyData();
-                graphContainer.getChildren().addAll(
-                        Histogram.getHistogram("The Month Report", data[0], data[1])
+                        DataTransfer.getMonthlyData(duke.getAccount())
                 );
-            }
+                break;
+            case "graph expenditure trend":
+                graphContainer.getChildren().addAll(
+                        DataTransfer.getExpenditureTrend(duke.getAccount())
+                );
+                break;
+            case "graph income trend":
+                graphContainer.getChildren().addAll(
+                        DataTransfer.getIncomeTrend(duke.getAccount())
+                );
+                break;
+            default:
+                if (input.startsWith("graph finance status /until ")) {
+                    String dateString = input.split(" /until ")[1];
+                    graphContainer.getChildren().addAll(
+                            DataTransfer.getCurrFinance(duke.getAccount(), Parser.shortcutTime(dateString))
+                    );
+                }
+                break;
+        }
+
+        String[] response = duke.getResponse(input);
+        dialogContainer.getChildren().addAll(
+                DialogBox.getUserDialog(input, userImage),
+                DialogBox.getDukeDialog(response[0], dukeImage)
+        );
+        if (!response[1].equals("")) {
+            graphContainer.getChildren().clear();
+            graphContainer.getChildren().addAll(
+                    DialogBox.getDukeDialog(response[1], dukeImage));
         }
         userInput.clear();
+    }
+
+    @FXML
+    private void handleSearchInput() {
+        String input = searchBar.getText();
+        String[] response = duke.getResponse("find " + input);
+        dialogContainer.getChildren().addAll(
+                DialogBox.getUserDialog(input, userImage),
+                DialogBox.getDukeDialog(response[0], dukeImage)
+        );
+        if(!response[1].equals("")){
+            graphContainer.getChildren().clear();
+            graphContainer.getChildren().addAll(
+                    DialogBox.getDukeDialog(response[1], dukeImage));
+        }
+    }
+
+    @FXML
+    private void handleSuggestion() {
+        String input = userInput.getText();
+        String[] response = duke.getResponse("find " + input);
+        dialogContainer.getChildren().addAll(
+                DialogBox.getUserDialog(input, userImage),
+                DialogBox.getDukeDialog(response[0], dukeImage)
+        );
+        if(!response[1].equals("")){
+            PopUpContainer.getChildren().clear();
+            PopUpContainer.getChildren().addAll(
+                    DialogBox.getDukeDialog(response[1], dukeImage));
+        }
     }
 }

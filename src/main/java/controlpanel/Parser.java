@@ -69,6 +69,10 @@ public class Parser {
             moneyCommand = new DeleteGoalCommand(serialNo);
         } else if (cmd.startsWith("commit goal")) {
             moneyCommand = new CommitGoalCommand(cmd);
+        }else if (cmd.startsWith("done goal")) {
+            moneyCommand = new DoneGoalCommand(cmd);
+        }else if (cmd.startsWith("find")) {
+            moneyCommand = new FindCommand(cmd);
         } else if (cmd.startsWith("add income")) {
             moneyCommand = new AddIncomeCommand(cmd);
         } else if (cmd.startsWith("spent")) {
@@ -83,8 +87,8 @@ public class Parser {
             moneyCommand = new DeleteExpenditureCommand(cmd);
         } else if (cmd.startsWith("done goal")) {
             moneyCommand = new DoneGoalCommand(cmd);
-        } else if (cmd.startsWith("graph")) {
-            moneyCommand = new GraphCommand();
+        } else if (cmd.startsWith("graph") || cmd.equals("change icon")) {
+            moneyCommand = new GraphCommand(cmd);
         } else if (cmd.startsWith("undo")) {
             moneyCommand = new UndoCommand();
         } else if (cmd.startsWith("add instalment")) {
@@ -105,6 +109,12 @@ public class Parser {
             moneyCommand = new AddSplitCommand(cmd);
         } else if (cmd.startsWith("settle")) {
             moneyCommand = new SettleSplitCommand(cmd);
+        } else if (cmd.startsWith("lent") || cmd.startsWith("borrowed")) {
+            moneyCommand = new AddLoanCommand(cmd);
+        } else if (cmd.startsWith("list") && cmd.contains("loans")) {
+            moneyCommand = new ListLoansCommand(cmd);
+        } else if ((cmd.startsWith("paid")) || (cmd.startsWith("received"))) {
+            moneyCommand = new SettleLoanCommand(cmd);
         } else {
             throw new DukeException("OOPS!!! I'm sorry, but I don't know what that means");
         }
