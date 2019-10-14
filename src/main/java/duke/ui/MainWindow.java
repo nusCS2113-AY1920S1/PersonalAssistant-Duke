@@ -157,10 +157,14 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     private void autocomplete() {
-        AutoCompleter.UserInputState completedUserInput = logic.getAutoCompletion(userInput.getText(),
-                userInput.getCaretPosition());
-        this.userInput.setText(completedUserInput.userInputString);
-        this.userInput.positionCaret(completedUserInput.caretPosition);
+        if (logic.isAutoCompletable(new AutoCompleter.UserInputState(
+                userInput.getText(),
+                userInput.getCaretPosition()
+        ))) {
+            AutoCompleter.UserInputState newState = logic.complete();
+            this.userInput.setText(newState.userInputString);
+            this.userInput.positionCaret(newState.caretPosition);
+        }
     }
 
     /**

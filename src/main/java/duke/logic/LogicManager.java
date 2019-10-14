@@ -54,8 +54,13 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public AutoCompleter.UserInputState getAutoCompletion(String commandText, int caretPosition) {
-        return autoCompleter.getAutoCompletion(new AutoCompleter.UserInputState(commandText, caretPosition));
+    public Boolean isAutoCompletable(AutoCompleter.UserInputState currentState) {
+        return autoCompleter.isAutoCompletable(currentState);
+    }
+
+    @Override
+    public AutoCompleter.UserInputState complete() {
+        return autoCompleter.complete();
     }
 
     @Override
@@ -83,19 +88,6 @@ public class LogicManager implements Logic {
         autoCompleter.addCommand(ProductCommand.class);
         autoCompleter.addCommand(AddProductCommand.class);
         autoCompleter.addCommand(EditProductCommand.class);
-//
-//        autoCompleter.addPrefix(CliSyntax.PREFIX_CUSTOMER_CONTACT);
-//        autoCompleter.addPrefix(CliSyntax.PREFIX_CUSTOMER_NAME);
-//        autoCompleter.addPrefix(CliSyntax.PREFIX_ORDER_DEADLINE);
-//        autoCompleter.addPrefix(CliSyntax.PREFIX_ORDER_ITEM);
-//        autoCompleter.addPrefix(CliSyntax.PREFIX_ORDER_STATUS);
-//        autoCompleter.addPrefix(CliSyntax.PREFIX_ORDER_REMARKS);
-//        autoCompleter.addPrefix(CliSyntax.PREFIX_ORDER_TOTAL);
-//        autoCompleter.addPrefix(CliSyntax.PREFIX_PRODUCT_INGREDIENT_COST);
-//        autoCompleter.addPrefix(CliSyntax.PREFIX_PRODUCT_INDEX);
-//        autoCompleter.addPrefix(CliSyntax.PREFIX_PRODUCT_INGREDIENT);
-//        autoCompleter.addPrefix(CliSyntax.PREFIX_PRODUCT_NAME);
-//        autoCompleter.addPrefix(CliSyntax.PREFIX_PRODUCT_RETAIL_PRICE);
-//        autoCompleter.addPrefix(CliSyntax.PREFIX_PRODUCT_STATUS);
+
     }
 }
