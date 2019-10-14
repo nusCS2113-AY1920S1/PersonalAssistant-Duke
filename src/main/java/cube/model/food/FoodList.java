@@ -1,25 +1,32 @@
 package cube.model.food;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import cube.model.food.Food;
 
 // for testing only
-public class FoodList implements Serializable {
+public class FoodList {
+	private ArrayList<Food> foodArrayList;
+
 	public enum SortType {
 		
 	}
 
 	public FoodList() {
+		this.foodArrayList = new ArrayList<>();
 	}
 
-
 	public FoodList(ArrayList<Food> list) {
+		this.foodArrayList = list;
 	}
 
 	public void add(Food food) {
+		this.foodArrayList.add(food);
 	}
 
+	// public getter to allow JSON read/write to work
+	public ArrayList<Food> getFoodList() {
+		return this.foodArrayList;
+	}
 
 	public Food get(int index) {
 		return null;

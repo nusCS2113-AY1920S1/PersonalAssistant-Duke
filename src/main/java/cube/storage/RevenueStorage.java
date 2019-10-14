@@ -1,9 +1,7 @@
 package cube.storage;
 
-import java.io.Serializable;
-
 // for testing only
-public class RevenueStorage implements Serializable {
+public class RevenueStorage {
     private double revenue;
 
     public RevenueStorage() {
@@ -14,7 +12,7 @@ public class RevenueStorage implements Serializable {
         this.revenue = revenue;
 	}
 
-    public double loadRevenue() {
+    public double getRevenue() {
         return revenue;
     }
 
