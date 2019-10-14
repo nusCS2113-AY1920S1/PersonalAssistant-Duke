@@ -35,11 +35,11 @@ public class TodoCommand extends Command {
      * @throws FileException Exception caught when the file can't be open or read or modify
      */
     public void execute(TaskList tasks, Ui ui, Storage storage) throws EmptyTodoException, FileException {
-        if (user.substring(4).isBlank()) {
+        if (user.substring(TodoCommand.todoShortcut.length()).isBlank()) {
             throw new EmptyTodoException();
         }
         else {
-            TodoTask newTask = new TodoTask(user.substring(4).trim());
+            TodoTask newTask = new TodoTask(user.substring(TodoCommand.todoShortcut.length()).trim());
             tasks.add(newTask);
             storage.save(tasks.getList());
             ui.display("\t Got it. I've added this task:\n\t   "

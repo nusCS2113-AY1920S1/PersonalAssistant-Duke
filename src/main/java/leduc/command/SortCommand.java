@@ -1,6 +1,7 @@
 package leduc.command;
 
 import leduc.Ui;
+import leduc.exception.EmptyArgumentException;
 import leduc.exception.FileException;
 import leduc.exception.MeaninglessException;
 import leduc.storage.Storage;
@@ -35,8 +36,11 @@ public class SortCommand extends Command {
      * @throws FileException Exception caught when the file can't be open or read or modify.
      * @throws MeaninglessException  Exception caught when the input string could not be interpreted.
      */
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws FileException, MeaninglessException {
-        String sort = user.substring(5).trim();
+    public void execute(TaskList tasks, Ui ui, Storage storage) throws FileException, MeaninglessException, EmptyArgumentException {
+        String sort = user.substring(SortCommand.sortShortcut.length()).trim();
+        if(sort.isBlank()) {
+            throw new EmptyArgumentException();
+        }
         if (sort.equals("date")){
             ArrayList<Task> filteredTasklist = tasks.filterTasks(tasks);
             ArrayList<Task> extractedTodo = tasks.extractTodo(tasks);

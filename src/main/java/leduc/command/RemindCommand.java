@@ -40,7 +40,7 @@ public class RemindCommand extends Command {
      * @param storage leduc.storage.Storage which deals with loading tasks from the file and saving tasks in the file.
      */
 
-    public void execute(TaskList tasks, Ui ui , Storage storage){
+    public void execute(TaskList tasks, Ui ui, Storage storage){
         ArrayList<Task> filteredTasklist = tasks.filterTasks(tasks);
         ArrayList<Task> extractedTodo = tasks.extractTodo(tasks);
         TaskList sortedTasks = new TaskList(tasks.sort(filteredTasklist, extractedTodo));

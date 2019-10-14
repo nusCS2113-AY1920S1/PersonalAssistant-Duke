@@ -2,10 +2,7 @@ package leduc;
 
 import leduc.command.DeadlineCommand;
 import leduc.command.DeleteCommand;
-import leduc.exception.DukeException;
-import leduc.exception.EmptyDeadlineDateException;
-import leduc.exception.EmptyDeadlineException;
-import leduc.exception.NonExistentDateException;
+import leduc.exception.*;
 import leduc.storage.Storage;
 import leduc.task.Task;
 import leduc.task.TaskList;
@@ -27,7 +24,14 @@ public class DeadlineCommandTest {
     @Test
     public void deadlineCommandExecuteTest() {
         Ui ui = new Ui();
-        Storage storage = new Storage(System.getProperty("user.dir")+ "/src/test/testFile/DeadlineCommandTest.txt");
+        Storage storage = null;
+        try {
+            storage = new Storage(System.getProperty("user.dir")+ "/src/test/testFile/DeadlineCommandTest.txt", System.getProperty("user.dir")+ "/src/test/testFile/configTest.txt");
+        } catch (FileException e) {
+            e.printStackTrace();
+        } catch (MeaninglessException e) {
+            e.printStackTrace();
+        }
         TaskList tasks = new TaskList(new ArrayList<Task>());
         try{
             tasks = new TaskList(storage.load()); // Use of ArrayList (A-Collections) to store tasks

@@ -32,7 +32,7 @@ public class DoneCommand extends Command {
      * @throws FileException Exception caught when the file can't be open or read or modify
      */
     public void execute(TaskList tasks, Ui ui, Storage storage) throws NonExistentTaskException, FileException {
-        int index = Integer.parseInt(user.substring(5)) - 1;
+        int index = Integer.parseInt(user.substring(DoneCommand.doneShortcut.length() + 1)) - 1;
         if (index > tasks.size() - 1 || index < 0) {
             throw new NonExistentTaskException();
         }

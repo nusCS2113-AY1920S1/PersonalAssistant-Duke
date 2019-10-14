@@ -31,8 +31,11 @@ public class Duke {
         else{ // no test file
             file = System.getProperty("user.dir")+ "/data/duke.txt";
         }
-        this.storage = new Storage(file);
+        String configFile = System.getProperty("user.dir")+ "/data/config.txt";
+
+
         try{
+            this.storage = new Storage(file, configFile);
             this.tasks = new TaskList(storage.load()); // Use of ArrayList (A-Collections) to store tasks
         }
         catch (DukeException e){

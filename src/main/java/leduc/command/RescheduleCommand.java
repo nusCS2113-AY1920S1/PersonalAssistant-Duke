@@ -41,10 +41,13 @@ public class RescheduleCommand extends Command {
      * @throws FileException Exception caught when the file doesn't exist or cannot be created or cannot be opened.
      * @throws ConflictDateException Exception thrown when the new event is in conflict with others event.
      */
-    public void execute(TaskList tasks, Ui ui , Storage storage) throws EmptyEventDateException,
+    public void execute(TaskList tasks, Ui ui, Storage storage) throws EmptyEventDateException,
             NonExistentTaskException, EventTypeException, NonExistentDateException,
-            DateComparisonEventException, FileException, ConflictDateException {
-        String[] rescheduleString = user.substring(11).split("/at");
+            DateComparisonEventException, FileException, ConflictDateException, EmptyArgumentException {
+        if(user.substring(RescheduleCommand.rescheduleShortcut.length()).isBlank()){
+            throw new EmptyArgumentException();
+        }
+        String[] rescheduleString = user.substring(RescheduleCommand.rescheduleShortcut.length() + 1).split("/at");
         if (rescheduleString.length == 1) { // no /by in input
             throw new EmptyEventDateException();
         }

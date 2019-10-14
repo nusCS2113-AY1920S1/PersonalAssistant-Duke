@@ -28,7 +28,7 @@ public class SetWelcomeCommand extends Command{
      * @param storage leduc.storage.Storage which deals with loading tasks from the file and saving tasks in the file.
      * @throws FileException Exception caught when the file can't be open or read or modify.
      */
-    public void execute(TaskList tasks, Ui ui , Storage storage) throws FileException {
+    public void execute(TaskList tasks, Ui ui, Storage storage) throws FileException {
         FileWriter fileWriter = null;
         String filepath = System.getProperty("user.dir")+ "/data/welcome.txt";//get location of welcome message file
         File file = Ui.openFile(filepath);

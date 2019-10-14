@@ -24,7 +24,14 @@ public class PostponeCommandTest {
     @Test
     public void PostponeCommandTest() {
         Ui ui = new Ui();
-        Storage storage = new Storage(System.getProperty("user.dir")+ "/src/test/testFile/PostponeCommandTest.txt");
+        Storage storage = null;
+        try {
+            storage = new Storage(System.getProperty("user.dir")+ "/src/test/testFile/PostponeCommandTest.txt", System.getProperty("user.dir")+ "/src/test/testFile/configTest.txt");
+        } catch (FileException e) {
+            e.printStackTrace();
+        } catch (MeaninglessException e) {
+            e.printStackTrace();
+        }
         TaskList tasks = new TaskList(new ArrayList<Task>());
         try{
             tasks = new TaskList(storage.load()); // Use of ArrayList (A-Collections) to store tasks

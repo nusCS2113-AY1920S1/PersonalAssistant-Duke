@@ -38,7 +38,10 @@ public class EventCommand extends Command {
      */
     public void execute(TaskList tasks, Ui ui, Storage storage)
             throws EmptyEventDateException, EmptyEventException, NonExistentDateException, FileException, ConflictDateException {
-        String[] taskDescription = user.substring(5).split("/at");
+        if(user.substring(EventCommand.eventShortcut.length()).isBlank()){
+            throw new EmptyEventException();
+        }
+        String[] taskDescription = user.substring(EventCommand.eventShortcut.length()).split("/at");
         if (taskDescription[0].isBlank()) {
             throw new EmptyEventException();
         }
