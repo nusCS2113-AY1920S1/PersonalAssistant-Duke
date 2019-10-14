@@ -44,6 +44,9 @@ public class Messages {
     public static final String MESSAGE_MISSING_HOUR_ARG = "ArgumentError: Missing /hour";
     public static final String MESSAGE_MISSING_MIN_ARG = "ArgumentError: Missing /min";
     public static final String MESSAGE_MISSING_PRIORITY_ARG = "ArgumentError: Missing /priority";
+    public static final String MESSAGE_MISSING_NUM = "Empty number error: Required command number input!";
+    public static final String MESSAGE_MISSING_SEARCH = "Empty search content error: Required search content input!";
+    public static final String MESSAGE_INVALID_HELP_INPUT = "Invalid input for help function";
     public static final String MESSAGE_MISSING_COMMAND_ARG = "ArgumentError: Missing argument detected!";
     public static final String MESSAGE_MISSING_EDATE_ARG = "ArgumentError: Missing /edate";
     public static final String MESSAGE_INIT_REMINDER = "view-reminder";

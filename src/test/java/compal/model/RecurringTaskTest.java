@@ -23,7 +23,7 @@ public class RecurringTaskTest {
 
     @BeforeEach
     public void setUp() {
-        recurringTask = new RecurringTask(description, priority, date, startTime, endTime, symbol);
+        recurringTask = new RecurringTask(description, priority, date, startTime, endTime);
     }
 
     @Test
