@@ -322,6 +322,7 @@ public class Command {
             }
             events.getEvent(eventIndex).rescheduleStartDate(newStartDate);
             events.getEvent(eventIndex).rescheduleEndDate(newEndDate);
+            ui.rescheduleEvent(events.getEvent(eventIndex));
         } catch (IndexOutOfBoundsException outOfBoundsE) {
             ui.noSuchEvent();
         } catch (NumberFormatException notInteger) {
