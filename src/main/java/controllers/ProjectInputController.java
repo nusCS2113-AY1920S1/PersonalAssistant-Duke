@@ -77,7 +77,8 @@ public class ProjectInputController {
                     }
                 } else if (projectCommand.length() == 10 && ("view tasks").equals(projectCommand)) {
                     consoleView.viewAllTasks(projectToManage);
-                } else if (projectCommand.length() > 25 && ("view task requirements i/").equals(projectCommand.substring(0, 25))) {
+                } else if (projectCommand.length() > 25
+                        && ("view task requirements i/").equals(projectCommand.substring(0, 25))) {
                     int taskIndex = Integer.parseInt(projectCommand.substring(25));
                     if (projectToManage.getNumOfTasks() >= taskIndex) {
                         if (projectToManage.getTask(taskIndex).getTaskRequirements() == null) {
