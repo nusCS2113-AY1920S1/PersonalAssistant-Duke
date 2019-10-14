@@ -1,5 +1,9 @@
 package commands;
 
+
+/**
+ * Command Keywords
+ */
 public enum COMMANDKEYS {
     search ,
     movies ,
