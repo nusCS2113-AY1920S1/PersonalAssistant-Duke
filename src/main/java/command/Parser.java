@@ -100,7 +100,11 @@ public class Parser {
             else if (isViewSchedule(input)) {
                 processViewSchedule(input, tasklist, ui);
                 //storage.save(tasklist.returnArrayList());
-            } else {
+            }
+            else if (isReminder(input)) {
+                processReminder(input, tasklist, ui);
+            }
+            else {
                 throw new DukeException("     ☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
             }
         } catch (DukeException e) {
@@ -464,5 +468,8 @@ public class Parser {
     }
     private static boolean isViewSchedule(String input) {
         return input.startsWith("View Schedule");
+    }
+    private static boolean isReminder(String input) {
+        return input.startsWith("reminder");
     }
 }
