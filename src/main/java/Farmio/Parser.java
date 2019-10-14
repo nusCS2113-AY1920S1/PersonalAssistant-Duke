@@ -39,6 +39,9 @@ class Parser {
         if (userInput.equals("menu")) {
             return new CommandMenuStart();
         }
+        if (userInput.toLowerCase().equals("start")) {
+            return new CommandStart();
+        }
         if (userInput.startsWith("do")) {
             return parseDoTask(userInput);
         } else if (userInput.startsWith("if") || userInput.startsWith("for") || userInput.startsWith("while")) {
