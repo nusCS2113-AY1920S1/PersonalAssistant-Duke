@@ -191,8 +191,8 @@ public class CLIView {
      * @param taskIndexNumber The index of the task to be deleted.
      */
     public void removeTask(IProject projectToManage, int taskIndexNumber) {
+        consolePrint("Removed " + projectToManage.getTask(taskIndexNumber).getTaskName());
         projectToManage.removeTask(taskIndexNumber);
-        consolePrint("Removed task with the index number " + taskIndexNumber);
     }
 
     /**
