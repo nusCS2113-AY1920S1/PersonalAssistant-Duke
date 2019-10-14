@@ -47,13 +47,13 @@ public class TaskList {
      * @param task Task to be added to the list of tasks.
      * @return Size of arrayList.
      */
-    public int addTask(Task task){
+    public int addTask(Task task) {
         arrlist.add(task);
         compal.storage.saveCompal(arrlist);
         /*if (compal.ui.dateState.equals(task.getStringDate())) {
             compal.ui.dateViewRefresh(task.getStringDate());
         }*/
-        if(!task.getSymbol().equals("D")) {
+        if (!task.getSymbol().equals("D")) {
             compal.ui.dateViewRefresh(task.getStringDate());
         }
         compal.ui.secondaryScreenRefresh(task.getDate());

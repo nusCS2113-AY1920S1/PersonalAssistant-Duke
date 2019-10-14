@@ -6,7 +6,10 @@ import compal.commons.Compal;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import static compal.commons.Messages.*;
+import static compal.commons.Messages.MESSAGE_MISSING_NUM;
+import static compal.commons.Messages.MESSAGE_MISSING_SEARCH;
+import static compal.commons.Messages.MESSAGE_INVALID_HELP_INPUT;
+
 
 /**
  * Executes user input "help".
@@ -60,7 +63,7 @@ public class HelpCommand extends Command implements CommandParser {
     }
 
     /**
-     * show the help guideline to the user
+     * show the help guideline to the user.
      *
      * @param userIn Entire user input string.
      */
