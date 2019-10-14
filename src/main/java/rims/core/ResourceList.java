@@ -3,6 +3,8 @@
 import rims.exception.*;
 import rims.resource.*;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 public class ResourceList {
@@ -156,7 +158,7 @@ public class ResourceList {
         } else if (resourceType == 'R') {
             newResource = new Room(resourceName, getAllResourcesQuantity(), false);
         } else {
-            throw new RimException();
+            throw new RimException("Invalid type of resource!");
         }
 
         if (resources.containsKey(resourceName)) {
@@ -176,7 +178,7 @@ public class ResourceList {
     public void deleteResource(String resourceName) throws Exception {
 
         if (!resources.containsKey(resourceName)) {
-            throw new RimException(); //resource stated not in list
+            throw new RimException("Resource not in list"); //resource stated not in list
         }
 
         Resource deletedResource = getAvailableResource(resourceName);
