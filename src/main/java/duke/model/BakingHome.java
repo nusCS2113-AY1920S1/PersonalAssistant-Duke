@@ -1,7 +1,8 @@
 package duke.model;
 
 import duke.commons.core.index.Index;
-import duke.model.commons.Ingredient;
+import duke.model.inventory.Ingredient;
+import duke.model.commons.Item;
 import duke.model.order.Order;
 import duke.model.product.Product;
 import duke.model.sale.Sale;
@@ -21,7 +22,7 @@ public class BakingHome implements ReadOnlyBakingHome {
     private final UniqueEntityList<Sale> sales;
     private final UniqueEntityList<Order> orders;
     private final UniqueEntityList<Product> products;
-    private final UniqueEntityList<Ingredient> inventory;
+    private final UniqueEntityList<Item<Ingredient>> inventory;
     private final UniqueEntityList<Shortcut> shortcuts;
 
     /**
@@ -195,12 +196,12 @@ public class BakingHome implements ReadOnlyBakingHome {
     }
 
     //============Inventory operations==============
-    public void addInventory(Ingredient i) {
+    public void addInventory(Item<Ingredient> i) {
         inventory.add(i);
     }
 
     @Override
-    public ObservableList<Ingredient> getInventoryList() {
+    public ObservableList<Item<Ingredient>> getInventoryList() {
         return inventory.asUnmodifiableObservableList();
     }
 

@@ -1,7 +1,8 @@
 package duke.model;
 
 import duke.commons.core.index.Index;
-import duke.model.commons.Ingredient;
+import duke.model.inventory.Ingredient;
+import duke.model.commons.Item;
 import duke.model.order.Order;
 import duke.model.product.Product;
 import duke.model.sale.Sale;
@@ -26,7 +27,7 @@ public interface Model {
         return product.getStatus() == Product.Status.ARCHIVE;
     };
 
-    Predicate<Ingredient> PREDICATE_SHOW_ALL_INVENTORY = unused -> true;
+    Predicate<Item<Ingredient>> PREDICATE_SHOW_ALL_INVENTORY = unused -> true;
 
     /**
      * Returns true if the model has previous baking home states to restore.
@@ -132,6 +133,11 @@ public interface Model {
     void setProduct(Product originalProduct, Product editedProduct);
 
     /**
+     * Returns true if an product has the same name as {@code product} exists in product list.
+     */
+    boolean hasProduct(Product product);
+
+    /**
      * Returns an unmodifiable view of the filtered product list.
      */
     ObservableList<Product> getFilteredProductList(); //implement archive
@@ -178,11 +184,11 @@ public interface Model {
 
     //========Ingredient operations======
 
-    ObservableList<Ingredient> getFilteredInventoryList();
+    ObservableList<Item<Ingredient>> getFilteredInventoryList();
 
-    void updateFilteredInventoryList(Predicate<Ingredient> predicate);
+    void updateFilteredInventoryList(Predicate<Item<Ingredient>> predicate);
 
-    void addInventory(Ingredient ingredient);
+    void addInventory(Item<Ingredient> inventory);
 
     //======Shopping list operations=====
 
@@ -209,4 +215,5 @@ public interface Model {
      * Returns an unmodifiable view of the shortcut list.
      */
     List<Shortcut> getShortcutList();
+
 }

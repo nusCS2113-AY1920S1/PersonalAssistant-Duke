@@ -1,4 +1,4 @@
-package duke.model.ingredient;
+package duke.model.inventory;
 
 public interface IngredientList {
 

@@ -1,6 +1,8 @@
 package duke.model.commons;
 
 import duke.model.order.Quantity;
+import duke.model.product.Product;
+import duke.model.inventory.Ingredient;
 
 import java.util.Objects;
 
@@ -37,4 +39,15 @@ public class Item<T> {
     public int hashCode() {
         return Objects.hash(item);
     }
+
+    public Double getTotalPrice() {
+        if (item instanceof Product) {
+            return ((Product) item).getRetailPrice() * (quantity.getNumber());
+        }
+        if (item instanceof Ingredient) {
+            return ((Ingredient) item).getUnitPrice() * (quantity.getNumber());
+        }
+        return 0.0;
+    }
+
 }

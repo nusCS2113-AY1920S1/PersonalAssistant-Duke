@@ -1,7 +1,8 @@
 package duke.model;
 
 import duke.commons.core.index.Index;
-import duke.model.commons.Ingredient;
+import duke.model.inventory.Ingredient;
+import duke.model.commons.Item;
 import duke.model.order.Order;
 import duke.model.sale.Sale;
 import duke.model.product.Product;
@@ -23,7 +24,7 @@ public class ModelManager implements Model {
     private final FilteredList<Order> filteredOrders;
     private final FilteredList<Sale> filteredSales;
     private final FilteredList<Product> filteredProducts;
-    private final FilteredList<Ingredient> filteredInventory;
+    private final FilteredList<Item<Ingredient>> filteredInventory;
 
     /**
      * Initializes a ModelManager with the given BakingHome.
@@ -190,6 +191,12 @@ public class ModelManager implements Model {
         bakingHome.setProduct(originalProduct, editedProduct);
     }
 
+    @Override
+    public boolean hasProduct(Product product) {
+        requireNonNull(product);
+        return bakingHome.getProductList().contains(product);
+    }
+
     /**
      * Returns an unmodifiable view of the filtered product list.
      */
@@ -206,18 +213,18 @@ public class ModelManager implements Model {
 
     //========Inventory operations==========
     @Override
-    public void addInventory(Ingredient ingredient) {
-        bakingHome.addInventory(ingredient);
+    public void addInventory(Item<Ingredient> inventory) {
+        bakingHome.addInventory(inventory);
         updateFilteredInventoryList(PREDICATE_SHOW_ALL_INVENTORY);
     }
 
-    public void updateFilteredInventoryList(Predicate<Ingredient> predicate) {
+    public void updateFilteredInventoryList(Predicate<Item<Ingredient>> predicate) {
         requireNonNull(predicate);
         filteredInventory.setPredicate(predicate);
     }
 
     @Override
-    public ObservableList<Ingredient> getFilteredInventoryList() {
+    public ObservableList<Item<Ingredient>> getFilteredInventoryList() {
         return filteredInventory;
     }
 
