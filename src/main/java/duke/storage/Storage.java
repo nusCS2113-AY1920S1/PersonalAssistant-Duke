@@ -129,8 +129,6 @@ public class Storage {
         } else if (taskType.equals("S")) {
             newMeal = new Item(description, nutritionalValue);
         } else if (taskType.equals("G")) {
-            System.out.println(description);
-            System.out.println(nutritionalValue[0]);
             meals.addGoal(new Goal(description, nutritionalValue), true);
         }
         if (taskType.equals("S") == false && taskType.equals("G") == false) {
