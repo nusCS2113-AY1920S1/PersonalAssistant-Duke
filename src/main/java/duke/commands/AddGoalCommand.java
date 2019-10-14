@@ -40,7 +40,12 @@ public class AddGoalCommand extends Command {
             ui.showMessage(e.getMessage());
             ui.showLine();
             String response = ui.readCommand(in);
-            if (response.trim().equals("n")  || response.trim().equals("N") ) {
+            if (response.trim().equals("y")  || response.trim().equals("Y")) {
+                meals.addGoal(this.goal, true);
+                ui.showLine();
+                ui.showAddedGoal(goal);
+                storage.updateGoal(meals);
+            } else if (response.trim().equals("n")  || response.trim().equals("N")){
                 ui.showLine();
                 throw new DukeException("The set goal command has been canceled");
             } else {
