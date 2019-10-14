@@ -4,6 +4,7 @@ import duke.command.*;
 
 import duke.command.inventorycommands.AddIngredientCommand;
 import duke.command.CommandIngredients;
+import duke.command.inventorycommands.DeleteIngredientCommand;
 import duke.command.recipecommands.*;
 import duke.exception.DukeException;
 
@@ -27,6 +28,8 @@ public class Parser {
     public static CommandRecipeTitle parseRecipeTitle(String input) throws DukeException {
         if (input.trim().contains(COMMAND_ADD_RECIPE_TITLE)) {
             return new AddRecipeTitleCommand(input);
+        } else if (input.trim().contains(COMMAND_DELETE_RECIPE_TITLE)) {
+            return new DeleteRecipeTitleCommand(input);
         } else {
             return new ListAllRecipeCommand(input);
         }

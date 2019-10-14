@@ -1,56 +1,54 @@
 package duke.command.recipecommands;
 
 import duke.command.CommandRecipeIngredient;
+import duke.command.CommandRecipeTitle;
 import duke.exception.DukeException;
 import duke.list.recipelist.RecipeIngredientList;
+import duke.list.recipelist.RecipeTitleList;
 import duke.storage.RecipeIngredientStorage;
+import duke.storage.RecipeTitleStorage;
+import duke.task.recipetasks.RecipeTitle;
 import duke.ui.Ui;
 
 import java.text.ParseException;
 import java.util.ArrayList;
 
-import static duke.common.Messages.MESSAGE_FOLLOWUP_EMPTY_INDEX;
-import static duke.common.Messages.ERROR_MESSAGE_EMPTY_INDEX;
-import static duke.common.Messages.ERROR_MESSAGE_EMPTY_LIST;
-import static duke.common.Messages.ERROR_MESSAGE_INVALID_INDEX;
-import static duke.common.Messages.ERROR_MESSAGE_UNKNOWN_INDEX;
-import static duke.common.Messages.ERROR_MESSAGE_RANDOM;
-import static duke.common.RecipeMessages.COMMAND_DELETE_RECIPE_INGREDIENT;
-import static duke.common.RecipeMessages.MESSAGE_DELETE_RECIPE;
+import static duke.common.Messages.*;
+import static duke.common.RecipeMessages.*;
 
 /**
  * Handles the delete command and inherits all the fields and methods of Command parent class.
  */
-public class DeleteRecipeIngredientCommand extends CommandRecipeIngredient {
+public class DeleteRecipeTitleCommand extends CommandRecipeTitle {
 
     /**
      * Constructor for class DeleteCommand.
      * @param userInput String containing input command from user
      */
-    public DeleteRecipeIngredientCommand(String userInput) {
+    public DeleteRecipeTitleCommand(String userInput) {
         this.userInput = userInput;
     }
 
     @Override
-    public ArrayList<String> execute(RecipeIngredientList recipeIngredientList, Ui ui, RecipeIngredientStorage recipeIngredientStorage) throws DukeException, ParseException {
+    public ArrayList<String> execute(RecipeTitleList recipeTitleList, Ui ui, RecipeTitleStorage recipeTitleStorage) throws DukeException, ParseException {
         ArrayList<String> arrayList = new ArrayList<>();
-        if (userInput.trim().equals(COMMAND_DELETE_RECIPE_INGREDIENT)) {
+        if (userInput.trim().equals(COMMAND_DELETE_RECIPE_TITLE)) {
             arrayList.add(ERROR_MESSAGE_EMPTY_INDEX + MESSAGE_FOLLOWUP_EMPTY_INDEX);
         } else if (userInput.trim().charAt(5) == ' ') {
             String description = userInput.split("\\s",2)[1].trim();
             if (isParsable(description)) {
                 //converting string to integer
                 int index = Integer.parseInt(description);
-                if (index > recipeIngredientList.getSize() || index <= 0) {
-                    if (recipeIngredientList.getSize() == 0) {
+                if (index > recipeTitleList.getSize() || index <= 0) {
+                    if (recipeTitleList.getSize() == 0) {
                         arrayList.add(ERROR_MESSAGE_EMPTY_LIST);
                     } else {
-                        arrayList.add(ERROR_MESSAGE_INVALID_INDEX + recipeIngredientList.getSize() + ".");
+                        arrayList.add(ERROR_MESSAGE_INVALID_INDEX + recipeTitleList.getSize() + ".");
                     }
                 } else {
-                    arrayList.add(MESSAGE_DELETE_RECIPE + "         " + recipeIngredientList.getRecipeIngredientList().get(index - 1));
-                    recipeIngredientList.deleteIngredient(index - 1);
-                    recipeIngredientStorage.saveFile(recipeIngredientList);
+                    arrayList.add(MESSAGE_DELETE_RECIPE + "         " + recipeTitleList.getRecipeTitleList().get(index - 1));
+                    recipeTitleList.deleteIngredient(index - 1);
+                    recipeTitleStorage.saveFile(recipeTitleList);
                 }
             } else {
                 arrayList.add(ERROR_MESSAGE_UNKNOWN_INDEX);

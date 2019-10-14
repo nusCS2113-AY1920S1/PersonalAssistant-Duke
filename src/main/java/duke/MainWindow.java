@@ -88,7 +88,8 @@ public class MainWindow extends AnchorPane {
 //            resultDisplay.setText("Pls input a command to proceed");
         } else {
             resultDisplay.clear();
-            listViewResult.getItems().clear();
+//            listView.getItems().clear();
+//            listViewResult.getItems().clear();
             dialogContainer.getChildren().addAll(
                     DialogBox.getUserDialog(input)
             );
@@ -103,14 +104,16 @@ public class MainWindow extends AnchorPane {
                 showMessage(arrayList.get(0));
 //                showMessage(duke.runProgram(input).get(0));
 //                resultDisplay.setText(duke.runProgram(input).get(0));
-                if (input.trim().equals(COMMAND_LIST_RECIPES) || input.trim().equals("allbookings")) {
-
-                    for (int i = 1; i < arrayList.size(); i++) {
-                        listView.getItems().add(arrayList.get(i));
-                    }
-                } else {
+                if (input.trim().contains(COMMAND_LIST_RECIPE_INGREDIENT)) {
+                    listViewResult.getItems().clear();
                     for (int i = 1; i < arrayList.size(); i++) {
                         listViewResult.getItems().add(arrayList.get(i));
+                    }
+                } else {
+                    listViewResult.getItems().clear();
+                    listView.getItems().clear();
+                    for (int i = 1; i < arrayList.size(); i++) {
+                        listView.getItems().add(arrayList.get(i));
                     }
                 }
             }

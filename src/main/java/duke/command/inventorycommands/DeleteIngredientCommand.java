@@ -1,10 +1,12 @@
 package duke.command.inventorycommands;
 
-import duke.command.Command;
+import duke.command.CommandIngredients;
 import duke.exception.DukeException;
 import duke.list.ingredientlist.IngredientList;
 import duke.storage.IngredientStorage;
 import duke.ui.Ui;
+
+import java.util.ArrayList;
 
 import static duke.common.Messages.MESSAGE_FOLLOWUP_EMPTY_INDEX;
 import static duke.common.Messages.ERROR_MESSAGE_EMPTY_INDEX;
@@ -17,7 +19,7 @@ import static duke.common.IngredientMessages.COMMAND_DELETE_INGREDIENT;
 /**
  * Handles the delete command and inherits all the fields and methods of Command parent class.
  */
-public class DeleteIngredientCommand extends Command {
+public class DeleteIngredientCommand extends CommandIngredients {
 
     /**
      * Constructor for class DeleteCommand.
@@ -50,7 +52,7 @@ public class DeleteIngredientCommand extends Command {
      *                      or user inputs an invalid index or the list of tasks is empty
      */
     @Override
-    public void execute(IngredientList ingredientList, Ui ui, IngredientStorage ingredientStorage) throws DukeException {
+    public ArrayList<String> execute(IngredientList ingredientList, Ui ui, IngredientStorage ingredientStorage) throws DukeException {
         if (userInput.trim().equals(COMMAND_DELETE_INGREDIENT)) {
             throw new DukeException(ERROR_MESSAGE_EMPTY_INDEX + MESSAGE_FOLLOWUP_EMPTY_INDEX);
         } else if (userInput.trim().charAt(6) == ' ') {
@@ -74,6 +76,7 @@ public class DeleteIngredientCommand extends Command {
         } else {
             throw new DukeException(ERROR_MESSAGE_RANDOM);
         }
+        return null;
     }
 
     @Override
