@@ -29,8 +29,8 @@ public class TaskList {
         ArrayList<String> taskDetails = new ArrayList<>();
         ArrayList<Task> sortedTaskList = taskList;
         sortedTaskList.sort(sortTasksByPriority);
-        for (Task task : sortedTaskList) {
-            taskDetails.add(task.getDetails());
+        for (int i = 0; i < sortedTaskList.size(); i++) {
+            taskDetails.add((i + 1) + ". " + sortedTaskList.get(i).getDetails());
         }
         return taskDetails;
     }
