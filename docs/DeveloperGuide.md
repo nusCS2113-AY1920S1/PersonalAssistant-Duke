@@ -179,7 +179,7 @@ The  `UI`  component,
 - Display ​daily calendar of the user via `DailyCalender`. 
 
 ### 4.3. Logic component
-<img src="https://github.com/AY1920S1-CS2113T-W17-1/main/blob/master/docs/diagrams/LogicCLassDiagram.png" alt="logic Diagram" width="800"/>
+<img src="https://github.com/AY1920S1-CS2113T-W17-1/main/blob/master/docs/diagrams/LogicClassDiagram.png" alt="logic Diagram" width="800"/>
 Figure 6. Structure of the Logic component
 
 **API**  :  [`CommandParser.java`](https://github.com/AY1920S1-CS2113T-W17-1/main/blob/master/src/main/java/compal/parser/CommandParser.java)
