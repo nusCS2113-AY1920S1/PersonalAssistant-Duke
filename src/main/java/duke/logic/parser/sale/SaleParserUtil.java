@@ -1,15 +1,8 @@
 package duke.logic.parser.sale;
 
-import duke.commons.core.Message;
 import duke.logic.command.sale.SaleDescriptor;
 import duke.logic.parser.commons.ArgumentMultimap;
 import duke.logic.parser.commons.TimeParser;
-import duke.logic.parser.exceptions.ParseException;
-import duke.model.sale.Sale;
-
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
 
 import static duke.logic.parser.commons.CliSyntax.PREFIX_SALE_DESCRIPTION;
 import static duke.logic.parser.commons.CliSyntax.PREFIX_SALE_VALUE;

@@ -1,9 +1,7 @@
 package duke.model.sale;
 
-import java.util.Collections;
 import java.util.Date;
 import java.util.Objects;
-import java.util.Set;
 
 import static duke.commons.util.CollectionUtil.requireAllNonNull;
 
