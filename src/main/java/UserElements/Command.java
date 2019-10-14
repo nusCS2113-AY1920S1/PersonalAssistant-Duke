@@ -7,7 +7,8 @@ import Events.EventTypes.EventSubclasses.Concert;
 import Events.EventTypes.EventSubclasses.RecurringEventSubclasses.Lesson;
 import Events.EventTypes.EventSubclasses.RecurringEventSubclasses.Practice;
 import Events.EventTypes.EventSubclasses.ToDo;
-import Events.Formatting.DateObj;
+import Events.Formatting.EventDate;
+import Events.Storage.ClashException;
 import Events.Storage.EventList;
 import Events.Storage.Storage;
 
@@ -159,7 +160,7 @@ public class Command {
         Calendar dayToCheckIfFree = Calendar.getInstance();
         SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
         String currentDay = formatter.format(dayToCheckIfFree.getTime());
-        DateObj dayToCheckIfFreeObject = new DateObj(currentDay);
+        EventDate dayToCheckIfFreeObject = new EventDate(currentDay);
         Queue<String> daysFree = new LinkedList<String>();
         int nextDays = 1;
         while (daysFree.size() <= 3) {
@@ -186,7 +187,7 @@ public class Command {
             String dateToView = continuation;
             String foundEvent = "";
             int viewIndex = 1;
-            DateObj findDate = new DateObj(dateToView);
+            EventDate findDate = new EventDate(dateToView);
             for (Event viewEvent : events.getEventArrayList()) {
                 if (viewEvent.toString().contains(findDate.getFormattedDateString())) {
                     foundEvent += viewIndex + ". " + viewEvent.toString() + "\n";
@@ -231,21 +232,23 @@ public class Command {
                         break;
 
                 }
-                boolean succeeded;
 
                 if (entryForEvent.getPeriod() == NO_PERIOD) { //add non-recurring event
-                    succeeded = events.addEvent(newEvent, ui);
-                } else { //add recurring event
-                    succeeded = events.addRecurringEvent(newEvent, entryForEvent.getPeriod());
-                }
-
-                if (succeeded) { //if succeeded, print success message, otherwise clash handling done in EventList
-                    if (entryForEvent.getPeriod() == NO_PERIOD) {
+                    try {
+                        events.addEvent(newEvent, ui);
                         ui.eventAdded(newEvent, events.getNumEvents());
-                    } else {
+                    } catch (ClashException e) {
+                        ui.scheduleClash(e.getClashEvent());
+                    }
+                } else { //add recurring event
+                    try {
+                        events.addRecurringEvent(newEvent, entryForEvent.getPeriod());
                         ui.recurringEventAdded(newEvent, events.getNumEvents(), entryForEvent.getPeriod());
+                    } catch (ClashException e) {
+                        ui.scheduleClash(e.getClashEvent());
                     }
                 }
+
             } catch (StringIndexOutOfBoundsException outOfBoundsE) {
                 ui.eventFormatWrong();
             }
@@ -259,24 +262,9 @@ public class Command {
         }
         EntryForEvent entryForEvent = new EntryForEvent().invoke(); //separate all info into relevant details
         Event newEvent = new ToDo(entryForEvent.getDescription(), entryForEvent.getStartDate());
-        events.addEvent(newEvent, ui);
+        events.addNewTodo(newEvent, ui);
         ui.eventAdded(newEvent, events.getNumEvents());
     }
-//
-//    public void searchEvents(EventList events, UI ui) {
-//        String searchFor = continuation;
-//        String allEventsFound = "";
-//        int index = 1;
-//        for (Event eventFound : events.getEventArrayList()) {
-//            if (eventFound.getDescription().contains(searchFor)) {
-//                allEventsFound += index + ". " + eventFound.toString() + "\n";
-//            }
-//            index++;
-//        }
-//
-//        boolean eventsFound = !allEventsFound.isEmpty();
-//        ui.searchEvents(allEventsFound, eventsFound);
-//    }
 
     public void deleteEvent(EventList events, UI ui) {
         try {
@@ -339,13 +327,13 @@ public class Command {
     }
 
     /**
-     * Contains all info concerning a new entry for a recurring event.
+     * Contains all info concerning a new entry an event.
      */
     private class EntryForEvent {
         private String description;
         private String startDate;
         private String endDate;
-        private int period;
+        private int period; //recurring period. -1(NON_RECURRING) if non-recurring.
 
         public String getDescription() {
             return description;
