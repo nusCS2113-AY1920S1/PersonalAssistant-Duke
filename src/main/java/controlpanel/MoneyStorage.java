@@ -143,12 +143,6 @@ public class MoneyStorage {
             }
 
             for (Loan l : account.getLoans()) {
-                String EndDate;
-                if (l.getDateEndDate() == null) {
-                    EndDate = "9/10/1997";
-                } else {
-                    EndDate = l.getEndDate();
-                }
                 bufferedWriter.write("LOA @ " + l.getPrice() + " @ " + l.getDescription() +
                         " @ " + l.getStartDate() + " @ " + l.getType().toString() + " @ " +
                         l.getEndDate() + " @ " + l.getStatusInt() + " @ " + l.getOutstandingLoan() + "\n");
