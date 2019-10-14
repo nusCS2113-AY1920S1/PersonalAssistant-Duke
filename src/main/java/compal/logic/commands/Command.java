@@ -158,7 +158,7 @@ public abstract class Command {
         Date inputDateFormat = new SimpleDateFormat("dd/MM/yyyy").parse(inputDate);
         c.setTime(inputDateFormat);
         c.set(Calendar.HOUR_OF_DAY, Integer.parseInt(inputTime.substring(0, 2)));
-        c.set(Calendar.MINUTE, Integer.parseInt(inputTime.substring(2,4)));
+        c.set(Calendar.MINUTE, Integer.parseInt(inputTime.substring(2, 4)));
         Date inputDateAndTime = c.getTime();
 
         Date currentDate = Calendar.getInstance().getTime();

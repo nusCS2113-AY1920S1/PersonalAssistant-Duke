@@ -64,10 +64,16 @@ public class TaskList {
         return arrlist.size();
     }
 
-    public void sortTask (ArrayList<Task> arrlist) {
+
+    /**
+     * Cat to update javadoc.
+     *
+     * @param arrlist the arrlist.
+     */
+    public void sortTask(ArrayList<Task> arrlist) {
         boolean sorted = false;
         int arraySize = arrlist.size();
-        while(!sorted) {
+        while (!sorted) {
             sorted = true;
             for (int i = 0; i < arraySize - 1; i++) {
                 Date task1Date = arrlist.get(i).getDate();

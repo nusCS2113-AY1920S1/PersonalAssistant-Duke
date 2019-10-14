@@ -17,7 +17,7 @@ import static compal.commons.Messages.MESSAGE_INVALID_DATE;
  */
 
 
-public class FindFreeSlotCommand extends Command implements CommandParser{
+public class FindFreeSlotCommand extends Command implements CommandParser {
 
 
     private TaskList taskList;
@@ -27,8 +27,6 @@ public class FindFreeSlotCommand extends Command implements CommandParser{
      *
      * @param d Compal object
      */
-
-
     public FindFreeSlotCommand(Compal d) {
         super(d);
         this.taskList = d.tasklist;
@@ -38,7 +36,7 @@ public class FindFreeSlotCommand extends Command implements CommandParser{
     public void parseCommand(String userIn) throws Compal.DukeException, ParseException {
         Scanner scanner = new Scanner(userIn);
         scanner.next();
-        if(!scanner.hasNext()) {
+        if (!scanner.hasNext()) {
             compal.ui.printg(MESSAGE_MISSING_COMMAND_ARG);
             throw new Compal.DukeException(MESSAGE_MISSING_COMMAND_ARG);
         }
@@ -49,19 +47,20 @@ public class FindFreeSlotCommand extends Command implements CommandParser{
         String min = getMin(restOfInput);
         int duration = Integer.parseInt(hour) * 60 + Integer.parseInt(min);
 
-        if(!isValidDate(date)) {
+        if (!isValidDate(date)) {
             compal.ui.printg(MESSAGE_INVALID_DATE);
             throw new Compal.DukeException(MESSAGE_INVALID_DATE);
         }
 
         ArrayList<Task> tasks = new ArrayList<Task>();
         for (Task task : taskList.arrlist) {
-            if(task.getStringDate().equals(date) && task.getStringStartTime()!="-" && task.getStringEndTime()!="-") {
+            if (task.getStringDate().equals(date) && task.getStringStartTime()
+                    != "-" && task.getStringEndTime() != "-") {
                 tasks.add(task);
             }
         }
 
-        if(tasks.isEmpty()) {
+        if (tasks.isEmpty()) {
             compal.ui.printg("You are free the whole day!");
         }
 
@@ -76,7 +75,7 @@ public class FindFreeSlotCommand extends Command implements CommandParser{
                 startTime = tasks.get(i - 1).getStringEndTime();
             }
 
-            if(i == arraySize) {
+            if (i == arraySize) {
                 endTime = "2400";
             } else {
                 endTime = tasks.get(i).getStringStartTime();
@@ -91,7 +90,15 @@ public class FindFreeSlotCommand extends Command implements CommandParser{
         printTimeSlot(numberOfSlots, listOfTimeSlots);
     }
 
-    public int calculateDuration (String startTime, String endTime) {
+
+    /**
+     * Cat to add javadoc desc.
+     *
+     * @param startTime the starting Time
+     * @param endTime the ending time.
+     * @return calculated duration
+     */
+    public int calculateDuration(String startTime, String endTime) {
         int start = Integer.parseInt(startTime);
         int end = Integer.parseInt(endTime);
         int startMin = start % 100;
@@ -110,7 +117,13 @@ public class FindFreeSlotCommand extends Command implements CommandParser{
         return durationHour * 60 + durationMin;
     }
 
-    public void printTimeSlot (int numberOfSlots, ArrayList<String> timeSlots) {
+    /**
+     * Cat to add javadoc desc.
+     *
+     * @param numberOfSlots the number of slots.
+     * @param timeSlots the timeslots.
+     */
+    public void printTimeSlot(int numberOfSlots, ArrayList<String> timeSlots) {
         if (numberOfSlots == 0) {
             compal.ui.printg("You do not have any free time slots!");
         } else {
