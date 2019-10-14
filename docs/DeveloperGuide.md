@@ -182,7 +182,7 @@ The  `UI`  component,
 <img src="https://github.com/AY1920S1-CS2113T-W17-1/main/blob/master/docs/diagrams/LogicClassDiagram.png" alt="logic Diagram" width="800"/>
 Figure 6. Structure of the Logic component
 
-**API**  :  [`CommandParser.java`](https://github.com/AY1920S1-CS2113T-W17-1/main/blob/master/src/main/java/compal/parser/CommandParser.java)
+**API**  :  [`CommandParser.java`](https://github.com/AY1920S1-CS2113T-W17-1/main/blob/master/src/main/java/compal/logic/parser/CommandParser.java)
 
 The  `Logic`  component,
 
