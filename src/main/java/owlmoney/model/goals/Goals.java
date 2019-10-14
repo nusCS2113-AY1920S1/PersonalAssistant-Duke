@@ -1,20 +1,19 @@
-package owlmoney.model.goal;
+package owlmoney.model.goals;
+
+import java.util.Date;
 
 public class Goals {
     private String name;
     private double amount;
-    private String date;
+    private Date date;
     private int days;
 
-    public Goals(String name, double amount, String date) {
+    public Goals(String name, double amount, Date date) {
         this.name = name;
         this.amount = amount;
         this.date = date;
     }
 
-    public void AddNewGoals(String name, double amount, String date) {
-
-    }
     public String getGoalsName() {
         return this.name;
     }
@@ -23,12 +22,12 @@ public class Goals {
         return this.amount;
     }
 
-    public String getGoalsDate() {
+    public Date getGoalsDate() {
         return this.date;
     }
 
     protected String getGoalsDetails() {
-        return "Goal to accomplish: " + getGoalsName() + "\nAmount to save: " + getGoalsAmount() + "\nBy: " + getGoalsDate();
+        return "To accomplish: " + getGoalsName() + "\nAmount to save: " + getGoalsAmount() + "\nBy: " + getGoalsDate();
     }
 
     void setGoalsName(String newName) {
@@ -39,7 +38,7 @@ public class Goals {
         this.amount = newAmount;
     }
 
-    void setGoalsDate(String newDate) {
+    void setGoalsDate(Date newDate) {
         this.date = newDate;
     }
 }

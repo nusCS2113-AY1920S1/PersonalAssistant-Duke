@@ -18,7 +18,7 @@ public abstract class ParseGoals {
     ParseRawData parseRawData = new ParseRawData();
     String rawData;
 
-    private static final String[] GOALS_KEYWORD = new String[] {"/name", "income", "/amount"};
+    private static final String[] GOALS_KEYWORD = new String[] {"/name", "/amount", "/by"};
     private static final List<String> GOALS_KEYWORD_LISTS = Arrays.asList(GOALS_KEYWORD);
     static final String NAME = "/name";
     static final String AMOUNT = "/amount";
@@ -53,9 +53,9 @@ public abstract class ParseGoals {
                 parseRawData.extractParameter(rawData,BY,GOALS_KEYWORD));
     }
 
-    void checkAmount(String value) throws ParserException {
-        if (!RegexUtil.regexCheckMoney(value)) {
-            throw new ParserException("/amount can only be positive numbers"
+    void checkAmount(String valueString, String keyword) throws ParserException {
+        if (!RegexUtil.regexCheckMoney(valueString)) {
+            throw new ParserException(keyword + " can only be positive numbers"
                     + " with at most 9 digits and 2 decimal places");
         }
     }

@@ -1,17 +1,19 @@
 package owlmoney.logic.command.goals;
 
 import owlmoney.logic.command.Command;
-import owlmoney.model.goal.Goals;
+import owlmoney.model.goals.Goals;
 import owlmoney.model.profile.Profile;
 import owlmoney.ui.Ui;
+
+import java.util.Date;
 
 public class AddGoalsCommand extends Command {
 
     private final String name;
     private final double amount;
-    private final String date;
+    private final Date date;
 
-    public AddGoalsCommand(String name, double amount, String date) {
+    public AddGoalsCommand(String name, double amount, Date date) {
         this.name = name;
         this.amount = amount;
         this.date = date;

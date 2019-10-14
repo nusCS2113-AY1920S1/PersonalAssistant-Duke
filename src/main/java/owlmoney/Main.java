@@ -8,6 +8,7 @@ import owlmoney.logic.parser.exception.CardException;
 import owlmoney.logic.parser.exception.ParserException;
 import owlmoney.model.bank.exception.BankException;
 import owlmoney.model.bond.exception.BondException;
+import owlmoney.model.goals.exception.GoalsException;
 import owlmoney.model.profile.Profile;
 import owlmoney.model.transaction.exception.TransactionException;
 import owlmoney.ui.Ui;
@@ -58,8 +59,7 @@ class Main {
                     break;
                 }
 
-            } catch (ParserException | BankException | TransactionException | BondException | CardException
-                    | owlmoney.model.card.exception.CardException exceptionMessage) {
+            } catch (ParserException | BankException | TransactionException | BondException | CardException | owlmoney.model.card.exception.CardException | GoalsException exceptionMessage) {
                 ui.printError(exceptionMessage.toString());
             }
         }

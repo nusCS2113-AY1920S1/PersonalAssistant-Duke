@@ -5,9 +5,12 @@ import owlmoney.logic.command.goals.EditGoalsCommand;
 import owlmoney.logic.parser.exception.ParserException;
 
 import javax.swing.text.html.parser.Parser;
+import java.util.Date;
 import java.util.Iterator;
 
 public class ParseEditGoals extends ParseGoals{
+
+    private Date date;
 
     public ParseEditGoals(String data) throws ParserException {
         super(data);
@@ -27,7 +30,7 @@ public class ParseEditGoals extends ParseGoals{
                 checkName(NAME, value);
             }
             if (AMOUNT.equals(key) && !(value.isEmpty() || value.isBlank())) {
-                checkAmount((value));
+                checkAmount(value, AMOUNT);
                 changeCounter++;
             }
             if (NEW_NAME.equals(key) && !(value.isEmpty() || value.isBlank())) {
@@ -35,7 +38,7 @@ public class ParseEditGoals extends ParseGoals{
                 changeCounter++;
             }
             if (BY.equals(key) && !(value.isEmpty() || value.isBlank())) {
-                checkDate(value);
+                date = checkDate(value);
                 changeCounter++;
             }
         }
@@ -47,8 +50,8 @@ public class ParseEditGoals extends ParseGoals{
     @Override
     public Command getCommand() {
         EditGoalsCommand newEditGoalsCommand = new EditGoalsCommand(goalsParameters.get(NAME),
-                Double.parseDouble(goalsParameters.get(AMOUNT)),
-                goalsParameters.get(BY), goalsParameters.get(NEW_NAME));
+                goalsParameters.get(AMOUNT),
+                goalsParameters.get(DATE), goalsParameters.get(NEW_NAME));
         return newEditGoalsCommand;
     }
 }

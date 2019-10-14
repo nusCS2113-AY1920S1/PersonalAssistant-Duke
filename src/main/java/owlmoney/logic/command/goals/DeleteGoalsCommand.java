@@ -1,7 +1,6 @@
 package owlmoney.logic.command.goals;
 
 import owlmoney.logic.command.Command;
-import owlmoney.model.goal.Goals;
 import owlmoney.model.profile.Profile;
 import owlmoney.ui.Ui;
 

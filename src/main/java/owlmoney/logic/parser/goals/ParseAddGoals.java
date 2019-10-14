@@ -4,11 +4,17 @@ import owlmoney.logic.command.Command;
 import owlmoney.logic.command.goals.AddGoalsCommand;
 import owlmoney.logic.parser.exception.ParserException;
 
+import java.util.Date;
 import java.util.Iterator;
 
 public class ParseAddGoals extends ParseGoals {
+
+    private static final String ADD = "/add";
+    private Date date;
+
     public ParseAddGoals(String data) throws ParserException {
         super(data);
+        checkRedundantParameter(NEW_NAME, ADD);
         checkFirstParameter();
     }
 
@@ -25,16 +31,16 @@ public class ParseAddGoals extends ParseGoals {
             String key = goalsIterator.next();
             String value = goalsParameters.get(key);
             if (NAME.equals(key) && (value.isBlank() || value.isEmpty())) {
-                throw new ParserException(key + "cannot be empty when adding new goals");
+                throw new ParserException(key + " cannot be empty when adding new goals");
             }
             if (AMOUNT.equals(key)) {
-                checkAmount(value);
+                checkAmount(value, AMOUNT);
             }
             if(NAME.equals(key)) {
                 checkName(NAME, value);
             }
             if(BY.equals(key)) {
-                checkDate(value);
+                date = checkDate(value);
             }
         }
     }
@@ -47,7 +53,7 @@ public class ParseAddGoals extends ParseGoals {
     @Override
     public Command getCommand() {
         AddGoalsCommand newAddGoalsCommand = new AddGoalsCommand(goalsParameters.get(NAME),
-                Double.parseDouble(goalsParameters.get(AMOUNT)), DATE);
+                Double.parseDouble(goalsParameters.get(AMOUNT)), date);
         return newAddGoalsCommand;
     }
 }

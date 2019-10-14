@@ -3,16 +3,19 @@ package owlmoney.model.profile;
 import owlmoney.logic.parser.exception.CardException;
 import owlmoney.model.bank.Bank;
 import owlmoney.model.bank.BankList;
-import owlmoney.model.goal.Goals;
-import owlmoney.model.goal.GoalsList;
+import owlmoney.model.goals.Goals;
+import owlmoney.model.goals.GoalsList;
 import owlmoney.model.bank.exception.BankException;
 import owlmoney.model.bond.Bond;
 import owlmoney.model.bond.exception.BondException;
 import owlmoney.model.card.Card;
 import owlmoney.model.card.CardList;
+import owlmoney.model.goals.exception.GoalsException;
 import owlmoney.model.transaction.Transaction;
 import owlmoney.model.transaction.exception.TransactionException;
 import owlmoney.ui.Ui;
+
+import java.util.Date;
 
 /**
  * The profile class that stores details of the user which includes bank accounts, cards, names.
@@ -102,11 +105,11 @@ public class Profile {
      * @param expIndex The index of the expenditure in the expenditureList tied to a specific bank account.
      * @param bankName The name of the bank account.
      * @param ui       required for printing.
-     * @throws BankException If bank account does not exist.
+     * @throws BankException        If bank account does not exist.
      * @throws TransactionException If invalid transaction.
      */
     public void deleteExpenditure(int expIndex, String bankName, Ui ui,
-            String type) throws BankException, TransactionException {
+                                  String type) throws BankException, TransactionException {
         if ("bank".equals(type)) {
             bankList.deleteExp(expIndex, bankName, ui);
         }
@@ -118,7 +121,7 @@ public class Profile {
      * @param listedBank Bank account to list from.
      * @param ui         required for printing.
      * @param displayNum Number of deposits to list.
-     * @throws BankException If bank account does not exist.
+     * @throws BankException        If bank account does not exist.
      * @throws TransactionException If invalid transaction
      */
     public void listDeposit(String listedBank, Ui ui, int displayNum) throws BankException, TransactionException {
@@ -129,9 +132,9 @@ public class Profile {
      * Lists expenditure from a specific a bank account or credit card.
      *
      * @param listedBankOrCard Bank account or credit card to list from.
-     * @param ui         required for printing.
-     * @param displayNum Number of expenditure to list.
-     * @throws BankException If bank account does not exist.
+     * @param ui               required for printing.
+     * @param displayNum       Number of expenditure to list.
+     * @throws BankException        If bank account does not exist.
      * @throws TransactionException If no expenditure found.
      */
     public void listExpenditure(String listedBankOrCard, Ui ui, int displayNum, String type)
@@ -153,11 +156,11 @@ public class Profile {
      * @param date         New date of expenditure.
      * @param category     New category of expenditure.
      * @param ui           required for printing.
-     * @throws BankException If bank account does not exist.
+     * @throws BankException        If bank account does not exist.
      * @throws TransactionException If incorrect date format.
      */
     public void editExpenditure(int expNum, String editFromBank, String desc, String amount, String date,
-            String category, Ui ui, String type) throws BankException, TransactionException {
+                                String category, Ui ui, String type) throws BankException, TransactionException {
         if ("bank".equals(type)) {
             bankList.editExp(expNum, editFromBank, desc, amount, date, category, ui);
         }
@@ -196,7 +199,7 @@ public class Profile {
      * @param depIndex Transaction number of the deposit.
      * @param bankName Bank name of the deposit.
      * @param ui       required for printing.
-     * @throws BankException If bank account does not exist.
+     * @throws BankException        If bank account does not exist.
      * @throws TransactionException If transaction is not a deposit.
      */
     public void deleteDeposit(int depIndex, String bankName, Ui ui) throws BankException, TransactionException {
@@ -224,7 +227,7 @@ public class Profile {
      * @param amount       New amount of deposit.
      * @param date         New date of deposit.
      * @param ui           required for deposit.
-     * @throws BankException If bank account does not exist.
+     * @throws BankException        If bank account does not exist.
      * @throws TransactionException If incorrect date format.
      */
     public void editDeposit(int expNum, String editFromBank, String desc, String amount, String date, Ui ui)
@@ -234,6 +237,7 @@ public class Profile {
 
     /**
      * Adds bond to a specific bank account.
+     *
      * @param accName the name of the bank account.
      * @param newBond the bond object.
      * @param ui      required for printing.
@@ -247,7 +251,7 @@ public class Profile {
      * Checks if the bond exists before adding.
      *
      * @param accName the bank account name.
-     * @param bond the bond object.
+     * @param bond    the bond object.
      * @throws BankException If bank account does not exist.
      * @throws BondException If duplicate bond name is found.
      */
@@ -259,7 +263,7 @@ public class Profile {
      * Adds a new credit card into the CardList stored in this profile.
      *
      * @param newCard an instance of the new credit card.
-     * @param ui required for printing.
+     * @param ui      required for printing.
      */
     public void addNewCard(Card newCard, Ui ui) {
         cardList.addCard(newCard, ui);
@@ -268,11 +272,11 @@ public class Profile {
     /**
      * Edits a card from the CardList.
      *
-     * @param name name of the credit card.
+     * @param name    name of the credit card.
      * @param newName new name of the credit card if any.
-     * @param limit new limit of the credit card if any.
-     * @param rebate new rebate of the credit card if any.
-     * @param ui required for printing.
+     * @param limit   new limit of the credit card if any.
+     * @param rebate  new rebate of the credit card if any.
+     * @param ui      required for printing.
      */
     public void editCardDetails(String name, String newName, String limit, String rebate, Ui ui) throws CardException {
         cardList.editCard(name, newName, limit, rebate, ui);
@@ -282,7 +286,7 @@ public class Profile {
      * Deletes a card from the CardList.
      *
      * @param name name of the credit card.
-     * @param ui required for printing.
+     * @param ui   required for printing.
      */
     public void deleteCard(String name, Ui ui) throws CardException {
         cardList.deleteCard(name, ui);
@@ -309,6 +313,7 @@ public class Profile {
         goalsList.deleteFromGoalList(Name, ui);
     }
 
-    public void editGoals(String goalName, double amount, String new_name,  String date, Ui ui) {
+    public void editGoals(String goalName, String amount, String new_name, String date, Ui ui) throws GoalsException {
         goalsList.editGoals(goalName, new_name, amount, date, ui);
+    }
 }
