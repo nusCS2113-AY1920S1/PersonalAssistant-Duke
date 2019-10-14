@@ -2,6 +2,7 @@ package parser;
 
 import command.AddCommand;
 import command.Command;
+import command.CommentCommand;
 import command.DeleteCommand;
 import command.DoneCommand;
 import command.ExitCommand;
@@ -160,6 +161,15 @@ public class Parser {
             return parseIgnore(userInput, true);
         case "unignore":
             return parseIgnore(userInput, false);
+        case "comment":
+            int index = Integer.parseInt(userInput.split("\\s+", 3)[1].trim()) - 1;
+            String comment = "";
+            try {
+                comment = userInput.split("\\s+", 3)[2].trim();
+            } catch (ArrayIndexOutOfBoundsException e) {
+                throw new DukeException(DukeException.emptyUserDescription());
+            }
+            return new CommentCommand(index, comment);
         default:
             // Empty string or unknown command.
             Ui.printUnknownInput();

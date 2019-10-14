@@ -23,7 +23,10 @@ public class TodoWithinPeriod extends Todo {
     public String toString() {
         String message = super.getPriorityIcon() + "[T]" + "[" + super.getStatusIcon() + "] " + this.description;
         String dateString = " (from: " + this.startDate.format(DateTimeExtractor.DATE_FORMATTER) + ")" + " (to: "
-            + this.endDate.format(DateTimeExtractor.DATE_FORMATTER) + ")";
+                + this.endDate.format(DateTimeExtractor.DATE_FORMATTER) + ")";
+        if (!comment.isBlank()) {
+            dateString = dateString + "  Note to self: " + comment;
+        }
         return message.concat(dateString);
     }
 }
