@@ -70,6 +70,7 @@ public class MoneyStorage {
                         Split spltExp = new Split(Float.parseFloat(info[1]), info[2], info[3],
                                 LocalDate.parse(info[4], dateTimeFormatter), parties);
                         account.getExpListTotal().add(spltExp);
+                        break;
                     case "G":
                         Goal g = new Goal(Float.parseFloat(info[1]), info[2], info[3],
                                 LocalDate.parse(info[4], dateTimeFormatter), info[5]);

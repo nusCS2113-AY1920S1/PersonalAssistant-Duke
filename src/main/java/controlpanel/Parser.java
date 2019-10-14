@@ -69,6 +69,10 @@ public class Parser {
             moneyCommand = new DeleteGoalCommand(serialNo);
         } else if (cmd.startsWith("commit goal")) {
             moneyCommand = new CommitGoalCommand(cmd);
+        }else if (cmd.startsWith("done goal")) {
+            moneyCommand = new DoneGoalCommand(cmd);
+        }else if (cmd.startsWith("find")) {
+            moneyCommand = new FindCommand(cmd);
         } else if (cmd.startsWith("add income")) {
             moneyCommand = new AddIncomeCommand(cmd);
         } else if (cmd.startsWith("spent")) {
@@ -81,8 +85,6 @@ public class Parser {
             moneyCommand = new DeleteIncomeCommand(cmd);
         } else if (cmd.startsWith("delete expenditure")) {
             moneyCommand = new DeleteExpenditureCommand(cmd);
-        } else if (cmd.startsWith("done goal")) {
-            moneyCommand = new DoneGoalCommand(cmd);
         } else if (cmd.startsWith("graph")) {
             moneyCommand = new GraphCommand();
         } else if (cmd.startsWith("undo")) {
