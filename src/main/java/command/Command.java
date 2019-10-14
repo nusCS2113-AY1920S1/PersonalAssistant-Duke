@@ -34,7 +34,10 @@ public abstract class Command {
      */
     public abstract void execute(TaskList tasks, UI ui, Storage storage, DegreeList lists) throws DukeException;
 
-    public abstract void unExecute(TaskList tasks, UI ui, Storage storage, DegreeList lists) throws DukeException;
+    //Should not be abstract, as only some command classes will use unExecute i.e. print does not need unExecute
+    public void unExecute(TaskList tasks, UI ui, Storage storage, DegreeList lists) throws DukeException {
+
+    }
 
     /**
      * checks if the command is an ExitCommand.

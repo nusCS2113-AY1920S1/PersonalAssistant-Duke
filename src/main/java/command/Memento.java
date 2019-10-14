@@ -8,6 +8,16 @@ public class Memento
     private TaskList taskList;
     private DegreeList degreeList;
 
+    public Memento(TaskList taskList)
+    {
+        this.taskList = taskList;
+    }
+
+    public Memento(DegreeList degreeList)
+    {
+        this.degreeList = degreeList;
+    }
+
     public TaskList getTaskState()
     {
         return this.taskList;
@@ -16,15 +26,5 @@ public class Memento
     public DegreeList getDegreeState()
     {
         return this.degreeList;
-    }
-
-    public void setState(TaskList taskList)
-    {
-        this.taskList = taskList;
-    }
-
-    public void setState(DegreeList degreeList)
-    {
-        this.degreeList = degreeList;
     }
 }
