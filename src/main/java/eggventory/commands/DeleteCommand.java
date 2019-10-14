@@ -21,7 +21,7 @@ public class DeleteCommand extends Command {
     }
 
     @Override
-    public void execute(StockList list, Ui ui, Storage storage) throws IndexOutOfBoundsException {
+    public String execute(StockList list, Ui ui, Storage storage) throws IndexOutOfBoundsException {
         try {
             list.deleteStock(stockCode);
 
@@ -31,6 +31,6 @@ public class DeleteCommand extends Command {
             throw new IndexOutOfBoundsException("That stock doesn't exist! Please check"
                     + " the available stocks again: ");
         }
-
+        return null;
     }
 }
