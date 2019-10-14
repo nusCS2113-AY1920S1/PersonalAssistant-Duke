@@ -5,9 +5,9 @@ import java.util.ArrayList;
 public class PrepStep {
 
     private int index;
-    private ArrayList<String> step;
+    private String step;
 
-    public PrepStep(int index, ArrayList<String> step) {
+    public PrepStep(int index, String step) {
         this.index = index;
         this.step = step;
     }
@@ -16,7 +16,7 @@ public class PrepStep {
         return this.index;
     }
 
-    public ArrayList<String> getStep() {
+    public String getStep() {
         return step;
     }
 
