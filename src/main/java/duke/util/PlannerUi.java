@@ -2,6 +2,9 @@ package duke.util;
 
 import java.util.Scanner;
 
+import duke.modules.data.ModuleInfoDetailed;
+import duke.modules.data.ModuleTask;
+
 /**
  * Mod Planner inherits functionality from Original Duke Ui.
  */
@@ -31,10 +34,32 @@ public class PlannerUi {
 
     /**
      * Helper function to print any object.
-     * @param object to be printed.
+     * @param mod to be printed.
      */
-    public void showObject(Object object) {
-        System.out.println(object);
+    public void showObject(ModuleInfoDetailed mod) {
+        System.out.println(mod);
+    }
+
+    /**
+     * Added Message for new mods.
+     * @param mod Module Tasks to be added.
+     */
+    public void addedMsg(ModuleInfoDetailed mod) {
+        System.out.println("Got it, added the follow module!");
+        showObject(mod);
+    }
+
+    /**
+     * Delete Message for new mods.
+     * @param mod Module Tasks to be added.
+     */
+    public void deleteMsg(ModuleInfoDetailed mod) {
+        System.out.println("Got it, module will be deleted");
+        showObject(mod);
+    }
+
+    public void listMsg() {
+        System.out.println("All modules in the list!");
     }
 
     /**

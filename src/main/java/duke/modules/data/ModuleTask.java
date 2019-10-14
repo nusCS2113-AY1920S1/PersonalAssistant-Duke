@@ -14,4 +14,9 @@ public class ModuleTask extends Task {
     public ModuleInfoDetailed getModuleInfoDetailed() {
         return moduleInfoDetailed;
     }
+
+    @Override
+    public String toString() {
+        return super.toString() + " | " + moduleInfoDetailed.toString();
+    }
 }

@@ -3,11 +3,11 @@ package duke.command.logic;
 import duke.exceptions.ModException;
 import duke.exceptions.planner.ModNotFoundException;
 import duke.modules.data.ModuleInfoDetailed;
-import duke.modules.data.ModuleInfoSummary;
 import duke.modules.data.ModuleTask;
+import duke.util.JsonWrapper;
 import duke.util.PlannerUi;
 import duke.util.Storage;
-import duke.util.TaskList;
+import duke.util.commons.ModuleTasksList;
 
 import java.util.HashMap;
 
@@ -21,13 +21,15 @@ public class SearchThenAddCommand extends ModuleCommand {
 
     @Override
     public void execute(HashMap<String, ModuleInfoDetailed> detailedMap,
-                        TaskList tasks,
+                        ModuleTasksList tasks,
                         PlannerUi plannerUi,
-                        Storage store) throws ModException {
+                        Storage store,
+                        JsonWrapper jsonWrapper) throws ModException {
         if (detailedMap.containsKey(moduleCode)) {
             ModuleInfoDetailed temp = detailedMap.get(moduleCode);
-            ModuleTask task = new ModuleTask(moduleCode, temp);
-            tasks.add(task);
+            tasks.getTasks().add(temp);
+            plannerUi.addedMsg(temp);
+            jsonWrapper.storeTaskListAsJson(tasks.getTasks(), store);
         } else {
             throw new ModNotFoundException();
         }
