@@ -2,20 +2,18 @@ import Events.EventTypes.Deadline;
 import Events.EventTypes.Event;
 import Events.EventTypes.Task;
 import Events.EventTypes.ToDo;
-import Events.Formatting.DateObj;
+import Events.Formatting.EventDate;
 import Events.Formatting.Predicate;
 import Events.Storage.EventList;
 
 import org.junit.jupiter.api.Test;
 
-import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.Queue;
 import java.util.Calendar;
-import java.util.Date;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -61,7 +59,7 @@ public class DukeTest {
         String dateToView = "19/09/2019";
         String foundTask = "";
         int viewIndex = 1;
-        DateObj findDate = new DateObj(dateToView);
+        EventDate findDate = new EventDate(dateToView);
         for (Task testViewTask : testList.getTaskArrayList()) {
             if (testViewTask.toString().contains(findDate.toOutputString())) {
                 foundTask += viewIndex + ". " + testViewTask.toString() + "\n";
@@ -105,7 +103,7 @@ public class DukeTest {
         Task deadlineTest2 = new Deadline("submit report", "22/09/2019 2000");
         testList.addTask(deadlineTest2);
         SimpleDateFormat f = new SimpleDateFormat("dd/MM/yyyy");
-        DateObj today = new DateObj(f.format(new Date()));
+        EventDate today = new EventDate(f.format(new Date()));
         Queue<String> daysFree = new LinkedList<String>();
         int nextDays = 1;
         while (daysFree.size() <= 3) {
@@ -182,7 +180,7 @@ public class DukeTest {
     	EventList expected = new EventList(testcase);
     	EventList allitms = new EventList(all);
     	
-    	DateObj limit = new DateObj();
+    	EventDate limit = new EventDate();
     	limit.addDays(4);
     	limit.setMidnight();
     	Predicate<Object> pred = new Predicate<>(limit, GREATER_THAN);

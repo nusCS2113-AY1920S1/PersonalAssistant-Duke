@@ -1,6 +1,6 @@
 package Events.EventTypes;
 
-import Events.Formatting.DateObj;
+import Events.Formatting.EventDate;
 
 /**
  * Model_Class.Event object inherits Model_Class.Task.
@@ -9,8 +9,8 @@ import Events.Formatting.DateObj;
 public abstract class Event {
     protected String description;
     protected boolean isDone;
-    protected DateObj startDateObj;
-    protected DateObj endDateObj;
+    protected EventDate startEventDate;
+    protected EventDate endEventDate;
     protected char eventType;
 
     /**
@@ -23,8 +23,8 @@ public abstract class Event {
     public Event(String description, boolean isDone, String dateAndTime) {
         this.description = description;
         this.isDone = isDone;
-        this.startDateObj = new DateObj(dateAndTime);
-        this.endDateObj = null; //no end date, set to null
+        this.startEventDate = new EventDate(dateAndTime);
+        this.endEventDate = null; //no end date, set to null
         this.eventType = 'T'; //event with no end date can only be todo type
     }
 
@@ -39,8 +39,8 @@ public abstract class Event {
     public Event(String description, boolean isDone, String startDateAndTime, String endDateAndTime, char eventType) {
         this.description = description;
         this.isDone = isDone;
-        this.startDateObj = new DateObj(startDateAndTime);
-        this.endDateObj = new DateObj(endDateAndTime);
+        this.startEventDate = new EventDate(startDateAndTime);
+        this.endEventDate = new EventDate(endDateAndTime);
         this.eventType = eventType;
     }
 
@@ -54,8 +54,8 @@ public abstract class Event {
             return "[" + getDoneSymbol() + "][T] " + getDescription() + " BY: " + this.getStartDate().getFormattedDateString();
         } else { //multiple date entries
             return "[" + getDoneSymbol() + "][" + getType() + "] " +
-                    getDescription() + " START: " + startDateObj.getFormattedDateString() +
-                    " END: " + endDateObj.getFormattedDateString();
+                    getDescription() + " START: " + startEventDate.getFormattedDateString() +
+                    " END: " + endEventDate.getFormattedDateString();
         }
     }
 
@@ -72,12 +72,12 @@ public abstract class Event {
     	return eventType;
     }
 
-    public DateObj getStartDate() {
-        return startDateObj;
+    public EventDate getStartDate() {
+        return startEventDate;
     }
 
-    public DateObj getEndDate() {
-        return endDateObj;
+    public EventDate getEndDate() {
+        return endEventDate;
     }
 
     public String getDescription(){
