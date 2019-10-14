@@ -11,7 +11,7 @@ public class Messages {
     public static final String filePathIngredients = "C:\\Users\\Wen Jian\\Desktop\\main\\src\\main\\data\\ingredients.txt";
     public static final String filePathRecipeIngredients = "C:\\Users\\Wen Jian\\Desktop\\main\\src\\main\\data\\recipeIngredients.txt";
     public static final String filePathRecipeTitle = "C:\\Users\\Wen Jian\\Desktop\\main\\src\\main\\data\\recipeTitle.txt";
-    public static final String filePathBookings = "C:\\Users\\Wen Jian\\Desktop\\main\\src\\main\\data\\booking.txt";
+    public static final String filePathBookings = "C:\\Users\\Wen Jian\\Desktop\\main\\src\\main\\data\\bookings.txt";
     public static final String filePathRecipes = "";
 
     public static final String MESSAGE_ADDED = "     Got it. I've added this task:\n";
@@ -76,6 +76,7 @@ public class Messages {
             + "Please provide the task description and day or date of recurrence.";
 
     public static final String COMMAND_BYE = "bye";
+    public static final String COMMAND_HELP = "help";
     public static final String COMMAND_DEADLINE = "deadline";
     public static final String COMMAND_DELETE = "delete";
     public static final String COMMAND_DONE = "done";
