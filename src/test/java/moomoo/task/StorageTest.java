@@ -27,6 +27,9 @@ public class StorageTest {
         Ui newUi = new Ui();
         Storage newStorage = new Storage(budgetFile.getPath(), transactionsFile.getPath(), categoriesFile.getPath());
 
+        newCatList.getCategoryList().add(new Category("sweets"));
+        newCatList.getCategoryList().add(new Category("laptop"));
+
         BudgetCommand budgetCommand = new BudgetCommand(false, "budget set c/sweets b/500 c/laptop b/1500");
         budgetCommand.execute(newBudget, newCatList, newTransList, newUi, newStorage);
 

@@ -12,7 +12,7 @@ public class Category {
         this.entries = new ArrayList<>();
     }
 
-    String getName() {
+    public String getName() {
         return name;
     }
 }

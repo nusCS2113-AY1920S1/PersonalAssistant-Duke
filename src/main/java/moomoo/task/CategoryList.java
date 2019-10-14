@@ -28,4 +28,8 @@ public class CategoryList {
     public void add(Category newCategory) {
         categoryList.add(newCategory);
     }
+
+    public ArrayList<Category> getCategoryList() {
+        return this.categoryList;
+    }
 }

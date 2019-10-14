@@ -72,8 +72,8 @@ public class Ui {
      * Prompts the user for confirmation.
      * @return value given by user
      */
-    public String confirmPrompt() {
-        System.out.println("Are you sure you would like to make the change? (Y/N)");
+    public String confirmPrompt(String value) {
+        System.out.println(value);
         inputScanner = new Scanner(System.in);
 
         return inputScanner.nextLine();
@@ -102,14 +102,6 @@ public class Ui {
         showLine();
         System.out.println(text);
         showLine();
-    }
-
-    /**
-     * Prints the error message for the user.
-     * @param message error message
-     */
-    public void showErrorMessage(String message) {
-        print(message);
     }
 
     /**

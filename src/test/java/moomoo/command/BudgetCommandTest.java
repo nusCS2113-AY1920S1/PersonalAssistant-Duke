@@ -1,6 +1,7 @@
 package moomoo.command;
 
 import moomoo.task.Budget;
+import moomoo.task.Category;
 import moomoo.task.CategoryList;
 import moomoo.task.MooMooException;
 import moomoo.task.Storage;
@@ -24,6 +25,9 @@ public class BudgetCommandTest {
         Budget newBudget = new Budget();
         Ui newUi = new Ui();
         Storage newStorage = new Storage(budgetFile.getPath(),"transactions.txt","category.txt");
+
+        newCatList.getCategoryList().add(new Category("shoes"));
+        newCatList.getCategoryList().add(new Category("food"));
 
         BudgetCommand budgetCommand = new BudgetCommand(false, "budget set c/shoes b/1000.79 c/food b/500");
         budgetCommand.execute(newBudget, newCatList, newTransList, newUi, newStorage);

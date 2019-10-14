@@ -60,7 +60,7 @@ public class Storage {
     }
 
     /**
-     * Loads in budget from an existing file into a created HashMap object.
+     * Loads in budgetFile not found. New file will be created from an existing file into a created HashMap object.
      * @return HashMap object consisting of the categories and corresponding budget read from file.
      * @throws MooMooException Thrown when the file does not exist
      */
@@ -92,7 +92,7 @@ public class Storage {
                     return loadedBudgets;
                 }
             } else {
-                throw new MooMooException("File not found. New file will be created");
+                throw new MooMooException("Budget File not found. New file will be created");
             }
         } catch (IOException e) {
             throw new MooMooException("Unable to write to file. Please retry again.");

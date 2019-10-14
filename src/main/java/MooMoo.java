@@ -24,6 +24,13 @@ public class MooMoo {
         ui = new Ui();
         storage = new Storage("data/budget.txt","data/transactions.txt","data/category.txt");
         try {
+            budget = new Budget(storage.loadBudget());
+        } catch (MooMooException e) {
+            ui.printException(e);
+            budget = new Budget();
+        }
+
+        try {
             categoryList = new CategoryList(storage.loadCategories());
         } catch (MooMooException e) {
             ui.printException(e);
@@ -35,13 +42,6 @@ public class MooMoo {
         } catch (MooMooException e) {
             ui.printException(e);
             transList = new TransactionList();
-        }
-
-        try {
-            budget = new Budget(storage.loadBudget());
-        } catch (MooMooException e) {
-            ui.printException(e);
-            budget = new Budget();
         }
 
     }
