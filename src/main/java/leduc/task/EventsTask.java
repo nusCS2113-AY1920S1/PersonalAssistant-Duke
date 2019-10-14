@@ -31,10 +31,10 @@ public class EventsTask extends Task {
      * @param mark represent if the task is done or not.
      * @param dateFirst the start date of the period of the event.
      * @param dateSecond the end date of the period of the event.
+     * @param priority the priority of the event
      */
-    public EventsTask(String task, String mark, Date dateFirst, Date dateSecond) {
-        super(task);
-        super.setMark(mark);
+    public EventsTask(String task, String mark, Date dateFirst, Date dateSecond, int priority) {
+        super(task,mark,priority);
         this.tag = "[E]";
         this.dateFirst = dateFirst;
         this.dateSecond =dateSecond;
@@ -70,7 +70,7 @@ public class EventsTask extends Task {
      * @return the string format to see a event task
      */
     public String toString(){
-        return super.toString() + " at: " + getDateFirst() + " - " + getDateSecond();
+        return super.toString() + " at: " + getDateFirst() + " - " + getDateSecond() + " [Priority: " + getPriority() + "]";
     }
 
     /**
