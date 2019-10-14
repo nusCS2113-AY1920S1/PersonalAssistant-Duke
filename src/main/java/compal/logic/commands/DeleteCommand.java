@@ -35,7 +35,7 @@ public class DeleteCommand extends Command implements CommandParser {
      * @throws Compal.DukeException If user task number input is invalid.
      */
     @Override
-    public void parseCommand(String userIn) throws Compal.DukeException, ParseException {
+    public void parseCommand(String userIn) throws Compal.DukeException {
         //Compal.ui.printg(userIn);
         Scanner scanner = new Scanner(userIn);
         String delete = scanner.next();
@@ -51,15 +51,16 @@ public class DeleteCommand extends Command implements CommandParser {
             }
 
             String removeDesc = taskList.arrlist.get(toRemove).toString();
+            Date removeDate = taskList.arrlist.get(toRemove).getDate();
 
             taskList.arrlist.remove(toRemove);
+            compal.ui.secondaryScreenRefresh(removeDate);
             compal.ui.printg("Noted. I've removed this task:");
             compal.ui.printg(removeDesc);
             compal.storage.saveCompal(taskList.arrlist);
             compal.ui.showSize();
 
-            Date removeDate = taskList.arrlist.get(toRemove).getDate();
-            compal.ui.secondaryScreenRefresh(removeDate);
+
             //Compal.tasklist.deleteTask(userIn);
         } else {
             compal.ui.printg(MESSAGE_MISSING_COMMAND_ARG);
