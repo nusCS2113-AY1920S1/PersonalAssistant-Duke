@@ -1,9 +1,10 @@
-import org.json.simple.JSONArray;
+import FarmioExceptions.FarmioException;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
 import java.io.*;
+import java.net.URL;
 
 public class Storage {
 
@@ -50,9 +51,19 @@ public class Storage {
         }
         return art.toString();
     }
+<<<<<<< HEAD
 
     public String getLevel(int level) throws IOException{
             //runs level
 
+=======
+    private File getResourceFile(String name) throws FarmioException {
+        ClassLoader classLoader = getClass().getClassLoader();
+        URL resource = classLoader.getResource(name + ".txt");
+        if(resource == null){
+            throw new FarmioException("Game is corrupted!");
+        }
+        return new File(resource.getFile());
+>>>>>>> 1b2c23957f586c565e6a0996e87670212fc9e037
     }
 }

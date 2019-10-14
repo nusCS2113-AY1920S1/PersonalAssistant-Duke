@@ -1,5 +1,6 @@
 import Commands.Command;
 import FarmioExceptions.FarmioException;
+import UserCode.Conditions.ConditionChecker;
 import UserInterfaces.Ui;
 import org.json.simple.parser.ParseException;
 
@@ -10,6 +11,7 @@ public class Farmio {
     private Farmer farmer;
     private Ui ui;
     private Parser parser;
+    private ConditionChecker conditionChecker;
 
     private Farmio() {
         this.ui = new Ui();
@@ -17,59 +19,10 @@ public class Farmio {
     }
 
     private void run() {
-
-        /*Print Random Shit
-         */
-        for(int x = 0; x != 10 ; x++){
-            System.out.println();
-        }
-
-        System.out.println("STARTING NEW GAME : LEVEL 1 - Wheat Farm");
-        for(int x = 0; x != 1 ; x++){
-            System.out.println();
-        }
-
-        System.out.println("|------------|");
-        System.out.println("|            |");
-        System.out.println("|   Insert   |");
-        System.out.println("|   Farmer   |");
-        System.out.println("|   Pic      |");
-        System.out.println("|            |");
-        System.out.println("|------------|");
-
-        System.out.println("|---------------------------------------------------------------------------------------|");
-        System.out.println("|  Welcome to Farmio Farmer John!                                                       |");
-        System.out.println("|      In this game we you will be tasked to complete a series of  challenging tasks    |");
-        System.out.println("|      This game intends expose you to the world of Computational thinking              |");
-        System.out.println("|                                                                                       |");
-        System.out.println("|   PRESS ENTER TO CONTINUE                                                    .   .  . |");
-        System.out.println("|---------------------------------------------------------------------------------------|");
-
-        for(int x = 0; x != 10 ; x++){
-            System.out.println();
-        }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    /*
         displayWelcome();
         displayMenu();
-        this.parser = new Parser(ui, farmer.tasks, farmer.wheatFarm, farmer.chickenFarm, farmer.cowFarm);
+        this.conditionChecker = new ConditionChecker(farmer.wheatFarm, farmer.chickenFarm, farmer.cowFarm, farmer.market);
+        this.parser = new Parser(ui, farmer, conditionChecker);
         boolean isExit = false;
         while(!isExit) {
             //introduce the problem, and show the tutorial, and show the conditions and the possible tasks and gets the user input
@@ -80,7 +33,6 @@ public class Farmio {
                 break;
             }
             farmer.startDay();
-            //TODO: Maybe another method?
             try {
                 Storage.storeFarmer(farmer);
             } catch (IOException e) {
@@ -88,12 +40,7 @@ public class Farmio {
                 ui.showInfo("No gave save was done.");
             }
             checkObjectives(farmer);
-
-
-
-
         }
-*/
     }
 
     public static void main(String[] args) {    //TODO - configure both OS
@@ -104,6 +51,7 @@ public class Farmio {
         boolean isStart = false;
         boolean isExit = false;
         while (!isStart && !isExit) {
+            showLevelStatement(farmer, ui);
             String fullCommand = ui.getInput();
             try {
                 Command c = parser.parse(fullCommand);
@@ -117,6 +65,10 @@ public class Farmio {
         return isExit;
     }
 
+    private void showLevelStatement(Farmer farmer, Ui ui) {
+        ui.show("Help Farmer John buy seeds IF he has more than 100G");
+    }
+
     private void displayArt(String name) {
         try{
             ui.show(storage.getAsciiArt(name));
@@ -126,8 +78,10 @@ public class Farmio {
     }
 
     private void displayWelcome() {
+        ui.clearScreen();
         displayArt("welcome");
         ui.show("Press ENTER to continue.");
+//        ui.typeWriter("Typewriter test message here"); //does not work in console, only terminal, uncomment to test
         ui.getEnter();
     }
 
@@ -149,7 +103,7 @@ public class Farmio {
                         ui.showInfo("Farmio starting a new game.");
                     }
                 case "new game":
-                    this.farmer = new Farmer();
+                    this.farmer = new Farmer(ui);
                     return;
                 case "quit":
                     System.exit(0);
@@ -159,11 +113,30 @@ public class Farmio {
         }
     }
 
-    private static void loadLevel(Farmer farmer) {
-
+    private void loadLevel(Farmer farmer) {
+        switch (farmer.level) {
+            case 1:
+                //in the future, will be running animation instead of just showing static message
+                displayArt("level1");
+                break;
+            /*
+            case 2:
+                displayArt("level2");
+                break;
+            case 3:
+                displayArt("level3");
+                break;
+            case 4:
+                displayArt("level4");
+                break;
+             */
+        }
+        ui.getEnter();
     }
 
-    private static void checkObjectives(Farmer farmer) {
-
+    private void checkObjectives(Farmer farmer) {
+        //in future, end of day will also do other stuff like making the plant grow etc
+        ui.show("End of Day!");
+        ui.getEnter();
     }
 }

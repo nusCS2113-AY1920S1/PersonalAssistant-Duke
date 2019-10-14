@@ -1,34 +1,41 @@
 package Commands;
 
-import Task.TaskList;
-import Actions.Action;
-import Actions.plantSeedAction;
+import Places.Market;
+import UserCode.Conditions.*;
+import UserCode.Actions.BuySeedAction;
+import UserCode.Tasks.TaskList;
+import UserCode.Actions.Action;
+import UserCode.Actions.PlantSeedAction;
 import FarmioExceptions.FarmioException;
 import Places.ChickenFarm;
 import Places.CowFarm;
 import Places.WheatFarm;
-import Simulate.PlantSeedSimulation;
-import Task.Condition;
-import Task.Task;
+import UserCode.Tasks.IfTask;
 import UserInterfaces.Ui;
 
 public class TestCommand extends Command {
 
-    public TestCommand(Ui ui, TaskList tasks, WheatFarm wheatFarm, ChickenFarm chickenFarm, CowFarm cowFarm) {
+    public TestCommand(Ui ui, TaskList tasks, WheatFarm wheatFarm, ChickenFarm chickenFarm, CowFarm cowFarm, Market market, ConditionChecker conditionChecker) {
         this.ui = ui;
         this.tasks = tasks;
         this.wheatFarm = wheatFarm;
         this.chickenFarm = chickenFarm;
         this.cowFarm = cowFarm;
+        this.market = market;
+        this.conditionChecker = conditionChecker;
     }
     @Override
     public void execute() throws FarmioException {
         try {
             Ui ui = new Ui();
-            Condition c = Condition.hasSeeds;
-            Action plantSeedAction = new plantSeedAction(wheatFarm, chickenFarm, cowFarm);
-            Task task = new Task(c, plantSeedAction);
-            tasks.addTask(task);
+            Condition c = new BooleanCondition(BooleanConditionType.hasSeeds, conditionChecker);
+            Action plantSeedAction = new PlantSeedAction(wheatFarm, chickenFarm, cowFarm, market);
+            IfTask task1 = new IfTask(c, plantSeedAction);
+            tasks.addTask(task1);
+            Condition c2 = new MoneyCondition(Comparator.greaterThanOrEquals, 100, conditionChecker);
+            Action buySeedAction = new BuySeedAction(wheatFarm, chickenFarm, cowFarm, market);
+            IfTask task2 = new IfTask(c2, buySeedAction);
+            tasks.addTask(task2);
         } catch (Exception e) {
             e.getMessage();
         }
