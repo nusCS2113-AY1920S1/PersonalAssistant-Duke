@@ -35,10 +35,6 @@ public class ListAllRecipeCommand extends CommandRecipeTitle {
         if (userInput.trim().equals(COMMAND_LIST_RECIPES)) {
             arrayList.add(MESSAGE_TASKED);
             arrayList.addAll(recipeTitleList.listRecipeTitle());
-//        System.out.println(MESSAGE_TASKED);
-//        for (int i = 0; i < recipeTitleList.listRecipeTitle().size(); i++) {
-//            System.out.println(recipeTitleList.listRecipeTitle().get(i));
-//        }
         } else {
             arrayList.add(ERROR_MESSAGE_RANDOM);
         }

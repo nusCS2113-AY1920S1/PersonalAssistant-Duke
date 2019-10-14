@@ -149,7 +149,7 @@ public class MainWindow extends AnchorPane {
         ExitWindow exitWindow = new ExitWindow();
         Stage stage = new Stage();
         stage.setScene(new Scene(exitWindow));
-        stage.setTitle("Help");
+        stage.setTitle("Exit");
         stage.setWidth(480);
         stage.setHeight(100);
         stage.show();
