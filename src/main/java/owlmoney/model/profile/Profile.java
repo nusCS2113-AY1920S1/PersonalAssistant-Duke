@@ -74,15 +74,21 @@ public class Profile {
     }
 
     /**
-     * Adds a new expenditure tied to a specific bank account.
+     * Adds a new expenditure tied to a specific bank account or credit card.
      *
-     * @param accName The name of the bank account.
+     * @param accName The name of the bank account or credit card.
      * @param exp     An expenditure object.
      * @param ui      required for printing.
+     * @param type    Represents type of expenditure to be added.
      * @throws BankException If bank amount becomes negative after adding expenditure.
      */
-    public void addNewExpenditure(String accName, Transaction exp, Ui ui) throws BankException {
-        bankList.addExpenditure(accName, exp, ui);
+    public void addNewExpenditure(String accName, Transaction exp, Ui ui, String type)
+            throws BankException, owlmoney.model.card.exception.CardException {
+        if ("card".equals(type)) {
+            cardList.addExpenditure(accName, exp, ui);
+        } else {
+            bankList.addExpenditure(accName, exp, ui);
+        }
     }
 
     /**
@@ -94,8 +100,11 @@ public class Profile {
      * @throws BankException If bank account does not exist.
      * @throws TransactionException If invalid transaction.
      */
-    public void deleteExpenditure(int expIndex, String bankName, Ui ui) throws BankException, TransactionException {
-        bankList.deleteExp(expIndex, bankName, ui);
+    public void deleteExpenditure(int expIndex, String bankName, Ui ui,
+            String type) throws BankException, TransactionException {
+        if ("bank".equals(type)) {
+            bankList.deleteExp(expIndex, bankName, ui);
+        }
     }
 
     /**
@@ -112,16 +121,21 @@ public class Profile {
     }
 
     /**
-     * Lists expenditure from a specific bank account.
+     * Lists expenditure from a specific a bank account or credit card.
      *
-     * @param listedBank Bank account to list from.
+     * @param listedBankOrCard Bank account or credit card to list from.
      * @param ui         required for printing.
      * @param displayNum Number of expenditure to list.
      * @throws BankException If bank account does not exist.
      * @throws TransactionException If no expenditure found.
      */
-    public void listExpenditure(String listedBank, Ui ui, int displayNum) throws BankException, TransactionException {
-        bankList.listBankExpenditure(listedBank, ui, displayNum);
+    public void listExpenditure(String listedBankOrCard, Ui ui, int displayNum, String type)
+            throws BankException, TransactionException, owlmoney.model.card.exception.CardException {
+        if ("card".equals(type)) {
+            cardList.listCardExpenditure(listedBankOrCard, ui, displayNum);
+        } else {
+            bankList.listBankExpenditure(listedBankOrCard, ui, displayNum);
+        }
     }
 
     /**
@@ -138,8 +152,10 @@ public class Profile {
      * @throws TransactionException If incorrect date format.
      */
     public void editExpenditure(int expNum, String editFromBank, String desc, String amount, String date,
-            String category, Ui ui) throws BankException, TransactionException {
-        bankList.editExp(expNum, editFromBank, desc, amount, date, category, ui);
+            String category, Ui ui, String type) throws BankException, TransactionException {
+        if ("bank".equals(type)) {
+            bankList.editExp(expNum, editFromBank, desc, amount, date, category, ui);
+        }
     }
 
     /**
@@ -245,13 +261,16 @@ public class Profile {
     }
 
     /**
-     * Deletes a card from the CardList.
+     * Edits a card from the CardList.
      *
      * @param name name of the credit card.
+     * @param newName new name of the credit card if any.
+     * @param limit new limit of the credit card if any.
+     * @param rebate new rebate of the credit card if any.
      * @param ui required for printing.
      */
-    public void deleteCard(String name, Ui ui) throws CardException {
-        cardList.deleteCard(name, ui);
+    public void editCardDetails(String name, String newName, String limit, String rebate, Ui ui) throws CardException {
+        cardList.editCard(name, newName, limit, rebate, ui);
     }
 
     /**
@@ -260,11 +279,9 @@ public class Profile {
      * @param name name of the credit card.
      * @param ui required for printing.
      */
-    /*
-    public void editCard(String name, String newName, String limit, String rebate, String dueDate, Ui ui) {
-        cardList.editCard(name, newName, limit, rebate, dueDate, ui);
+    public void deleteCard(String name, Ui ui) throws CardException {
+        cardList.deleteCard(name, ui);
     }
-    */
 
     /**
      * Lists all the cards in the CardList.

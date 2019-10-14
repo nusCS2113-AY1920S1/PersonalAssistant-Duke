@@ -17,8 +17,8 @@ public class ParseAddBond extends ParseBond {
      * @param data Raw data of user input to be parsed.
      * @throws ParserException If there is a redundant parameter or first parameter is not a valid type.
      */
-    public ParseAddBond(String data) throws ParserException {
-        super(data);
+    public ParseAddBond(String data, String type) throws ParserException {
+        super(data, type);
         checkRedundantParameter(NEW_NAME, ADD);
         checkFirstParameter();
     }
@@ -69,7 +69,7 @@ public class ParseAddBond extends ParseBond {
                 Double.parseDouble(bondParameters.get(AMOUNT)),
                 Double.parseDouble(bondParameters.get(RATE)),
                 this.date,
-                Integer.parseInt(bondParameters.get(YEAR)));
+                Integer.parseInt(bondParameters.get(YEAR)), this.type);
         return newAddBondCommand;
     }
 

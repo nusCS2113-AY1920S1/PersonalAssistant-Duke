@@ -17,6 +17,7 @@ public abstract class ParseBond {
     HashMap<String, String> bondParameters = new HashMap<String, String>();
     private ParseRawData parseRawData = new ParseRawData();
     private String rawData;
+    String type;
     private static final String[] BOND_KEYWORD = new String[] {
         "/amount", "/name", "/newname", "/rate", "/date", "/year", "/from"};
     static final String AMOUNT = "/amount";
@@ -33,8 +34,9 @@ public abstract class ParseBond {
      *
      * @param data Raw user input date.
      */
-    ParseBond(String data) {
+    ParseBond(String data, String type) {
         this.rawData = data;
+        this.type = type;
     }
 
     /**

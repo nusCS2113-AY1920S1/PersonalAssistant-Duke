@@ -18,8 +18,8 @@ public class ParseListExpenditure extends ParseExpenditure {
      * @param data Raw user input data.
      * @throws ParserException If there are redundant parameters.
      */
-    public ParseListExpenditure(String data) throws ParserException {
-        super(data);
+    public ParseListExpenditure(String data, String type) throws ParserException {
+        super(data, type);
         checkRedundantParameter(TRANSNO,LIST);
         checkRedundantParameter(AMOUNT,LIST);
         checkRedundantParameter(DATE,LIST);
@@ -58,7 +58,7 @@ public class ParseListExpenditure extends ParseExpenditure {
      */
     public Command getCommand() {
         ListExpenditureCommand newListExpenditureCommand = new ListExpenditureCommand(expendituresParameters.get(FROM),
-                Integer.parseInt(expendituresParameters.get(NUM)));
+                Integer.parseInt(expendituresParameters.get(NUM)), this.type);
         return newListExpenditureCommand;
     }
 }

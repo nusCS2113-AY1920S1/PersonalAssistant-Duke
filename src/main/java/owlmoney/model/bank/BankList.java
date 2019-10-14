@@ -216,7 +216,6 @@ public class BankList {
         for (int i = 0; i < bankLists.size(); i++) {
             if (bankLists.get(i).getAccountName().equals(bankName)
                     && "investment".equals(bankLists.get(i).getType())) {
-                ui.printMessage("Editing " + bankLists.get(i).getAccountName() + "\n");
                 if (!(newName.isEmpty() || newName.isBlank())) {
                     compareBank(bankLists.get(i), newName);
                     bankLists.get(i).setAccountName(newName);
@@ -224,8 +223,8 @@ public class BankList {
                 if (!(amount.isBlank() || amount.isEmpty())) {
                     bankLists.get(i).setCurrentAmount(Double.parseDouble(amount));
                 }
-                ui.printMessage("New details of the account:\n");
-                ui.printMessage(bankLists.get(i).getDescription() + "\n");
+                ui.printMessage("New details of the account:");
+                ui.printMessage(bankLists.get(i).getDescription());
                 break;
             }
         }

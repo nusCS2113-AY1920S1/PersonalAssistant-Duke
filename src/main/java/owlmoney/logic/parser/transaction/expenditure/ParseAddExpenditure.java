@@ -19,10 +19,11 @@ public class ParseAddExpenditure extends ParseExpenditure {
      * Constructor which creates an instance of ParseAddExpenditure.
      *
      * @param data Raw user input date.
+     * @param type Represents type of expenditure to be added.
      * @throws ParserException If there are redundant parameters or first parameter is invalid.
      */
-    public ParseAddExpenditure(String data) throws ParserException {
-        super(data);
+    public ParseAddExpenditure(String data, String type) throws ParserException {
+        super(data, type);
         checkRedundantParameter(TRANSNO, ADD);
         checkRedundantParameter(NUM, ADD);
         checkFirstParameter();
@@ -71,7 +72,7 @@ public class ParseAddExpenditure extends ParseExpenditure {
     public Command getCommand() {
         AddExpenditureCommand newAddExpenditureCommand = new AddExpenditureCommand(expendituresParameters.get(FROM),
                 Double.parseDouble(expendituresParameters.get(AMOUNT)), date,
-                (expendituresParameters.get(DESCRIPTION)), (expendituresParameters.get(CATEGORY)));
+                (expendituresParameters.get(DESCRIPTION)), (expendituresParameters.get(CATEGORY)), this.type);
         return newAddExpenditureCommand;
     }
 }

@@ -2,6 +2,7 @@ package owlmoney.logic.command.transaction;
 
 import owlmoney.logic.command.Command;
 import owlmoney.model.bank.exception.BankException;
+import owlmoney.model.card.exception.CardException;
 import owlmoney.model.profile.Profile;
 import owlmoney.model.transaction.exception.TransactionException;
 import owlmoney.ui.Ui;
@@ -12,16 +13,19 @@ import owlmoney.ui.Ui;
 public class ListExpenditureCommand extends Command {
     private final String accName;
     private final int displayNum;
+    private final String type;
 
     /**
      * Constructor to create an instance of ListExpenditureCommand.
      *
      * @param name       Bank account name.
      * @param displayNum Number of expenditures to display.
+     * @param type Represents type of expenditure to be added.
      */
-    public ListExpenditureCommand(String name, int displayNum) {
+    public ListExpenditureCommand(String name, int displayNum, String type) {
         this.accName = name;
         this.displayNum = displayNum;
+        this.type = type;
     }
 
     /**
@@ -31,8 +35,8 @@ public class ListExpenditureCommand extends Command {
      * @param ui      Ui of OwlMoney.
      * @return false so OwlMoney will not terminate yet.
      */
-    public boolean execute(Profile profile, Ui ui) throws BankException, TransactionException {
-        profile.listExpenditure(accName, ui, displayNum);
+    public boolean execute(Profile profile, Ui ui) throws BankException, TransactionException, CardException {
+        profile.listExpenditure(accName, ui, displayNum, this.type);
         return this.isExit;
     }
 }

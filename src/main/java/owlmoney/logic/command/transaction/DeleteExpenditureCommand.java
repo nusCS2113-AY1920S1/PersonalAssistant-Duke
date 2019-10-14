@@ -12,6 +12,7 @@ import owlmoney.ui.Ui;
 public class DeleteExpenditureCommand extends Command {
     private final int expNumber;
     private final String from;
+    private final String type;
 
     /**
      * Constructor to create an instance of a DeleteExpenditureCommand.
@@ -19,9 +20,10 @@ public class DeleteExpenditureCommand extends Command {
      * @param index    Transaction number.
      * @param bankName Bank account name.
      */
-    public DeleteExpenditureCommand(int index, String bankName) {
+    public DeleteExpenditureCommand(int index, String bankName, String type) {
         this.expNumber = index;
         this.from = bankName;
+        this.type = type;
     }
 
     /**
@@ -32,7 +34,7 @@ public class DeleteExpenditureCommand extends Command {
      * @return false so OwlMoney will not terminate yet.
      */
     public boolean execute(Profile profile, Ui ui) throws BankException, TransactionException {
-        profile.deleteExpenditure(this.expNumber, this.from, ui);
+        profile.deleteExpenditure(this.expNumber, this.from, ui, this.type);
         return this.isExit;
     }
 }
