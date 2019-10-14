@@ -17,6 +17,7 @@ public class Storage {
     private String absolutePath = "Save.txt";
     private String absolutePath_password = "Password.txt";
     private String absolutePath_Contact = "Contact.txt";
+    private String absolutePath_Places = "Places.txt";
 
     public void Storages(String fileContent) throws IOException {
         FileWriter fileWriter = new FileWriter(absolutePath);
@@ -161,5 +162,23 @@ public class Storage {
             }
         }
         return contactList;
+    }
+    public void Storages_Places(String fileContent) throws IOException {
+        FileWriter fileWriter = new FileWriter(absolutePath_Places);
+        fileWriter.write(fileContent);
+        fileWriter.flush();
+        fileWriter.close();
+    }
+    public HashMap<String,String> Read_Places() throws IOException {
+        HashMap<String,String> placesList = new HashMap<String,String>();
+        if (new File(absolutePath_Places).exists()) {
+            File file = new File(absolutePath_Places);
+            Scanner sc = new Scanner(file);
+            while (sc.hasNext()) {
+                String[] split = sc.nextLine().split("\\|");
+                placesList.put(split[0],split[1]);
+            }
+        }
+        return placesList;
     }
 }

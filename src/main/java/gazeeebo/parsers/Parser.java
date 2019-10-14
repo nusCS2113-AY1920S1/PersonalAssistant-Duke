@@ -8,6 +8,7 @@ import gazeeebo.commands.note.AddNoteCommand;
 import gazeeebo.commands.note.DeleteNoteCommand;
 import gazeeebo.commands.note.EditNoteCommand;
 import gazeeebo.commands.note.ListNoteCommand;
+import gazeeebo.commands.places.PlacesCommand;
 
 public class Parser {
     public static Command parse(String command) throws DukeException {
@@ -46,10 +47,11 @@ public class Parser {
             return new TimeboundCommand();
         } else if (splitCommand[0].equals("find")) {
             return new FindCommand();
-        }
-        else if(command.equals("contact")) {
+        } else if(command.equals("contact")) {
             return new ContactsCommand();
-        }else if (splitCommand[0].equals("bye")) {
+        } else if (command.equals("places")) {
+            return new PlacesCommand();
+        } else if (splitCommand[0].equals("bye")) {
             return new ByeCommand();
         } else if (command.contains("/require")) {
             return new FixDurationCommand();
@@ -82,13 +84,12 @@ public class Parser {
         } else if (splitCommand[0].equals("deleteNote")) {
             return new DeleteNoteCommand();
         } else if (splitCommand[0].equals("listNote")) {
-                return new ListNoteCommand();
+            return new ListNoteCommand();
         } else if ((splitCommand[0] + " " + splitCommand[1]).equals("change password")) {
             return new ChangePasswordCommand();
         } else if (command.contains("#")) {
             return new TagCommand();
-        }
-        else {
+        } else {
             throw new DukeException("OOPS!!! I'm sorry, but I don't know what that means :-(");
         }
     }
