@@ -44,7 +44,7 @@ public class PlannerUi {
         showLine();
         System.out.println(
                 "Welcome to ModPlanner, your one stop solution to module planning!\n"
-                + "Begin typing get started!\n"
+                + "Begin typing get started!"
         );
         showLine();
     }
@@ -62,10 +62,14 @@ public class PlannerUi {
         closeScanner();
     }
 
+    public void capStartMsg() {
+        System.out.println("Start typing the module you have taken, along with it's letter grade");
+        System.out.println("Type 'done' when you are ready to calculate your CAP");
+    }
+
     public void capMsg(double averageCap) {
         showLine();
         System.out.println("Here is your current cumulative/predicted CAP");
         System.out.printf("%.2f\n", averageCap);
-        showLine();
         }
 }

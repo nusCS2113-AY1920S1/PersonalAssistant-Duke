@@ -205,13 +205,13 @@ public class CapCommand extends ModuleCommand {
                         PlannerUi plannerUi, Storage store) throws ModException {
         Scanner scanner = new Scanner(System.in);
         if (this.type.equals(commandType.OVERALL)) {
+            plannerUi.capStartMsg();
             calculateOverallCap(summaryMap, detailedMap, plannerUi, store, scanner);
         } else if (this.type.equals(commandType.MODULE)) {
             //calculate the module's predicted cap from its prerequisites
         } else if (this.type.equals(commandType.SEMESTER)) {
             //check modules taken this sem, calculate predicted cap for the sem according to user input
         }
-        scanner.close();
     }
 
     /**
@@ -226,15 +226,15 @@ public class CapCommand extends ModuleCommand {
                 throw new ModMissingArgumentException("Please input a completed module and your grade for it, or input done to finish and calculate your CAP");
             }
             String[] userInfo = userInput.split(" ");
-            if (!detailedMap.containsKey(userInfo[0])) {
+            if (!detailedMap.containsKey(userInfo[0].toUpperCase())) {
                 throw new ModNotFoundException();
             }
-            int mcTemp = detailedMap.get(userInfo[0]).getModuleCredit();
+            int mcTemp = detailedMap.get(userInfo[0].toUpperCase()).getModuleCredit();
             mcCount += mcTemp;
             if (userInfo[1].isEmpty()) {
                 throw new ModMissingArgumentException("Please input a letter grade for this module.");
             }
-            cumulativeCap += (letterGradeToCap(userInfo[1]) * mcTemp);
+            cumulativeCap += (letterGradeToCap(userInfo[1].toUpperCase()) * mcTemp);
             userInput = scanner.nextLine();
         }
         double averageCap = cumulativeCap/mcCount;
