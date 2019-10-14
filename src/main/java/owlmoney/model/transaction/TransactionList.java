@@ -33,13 +33,13 @@ public class TransactionList {
      */
     public void listExpenditure(Ui ui, int displayNum) throws TransactionException {
         if (expLists.size() <= 0) {
-            throw new TransactionException("There are no transactions in this bank account");
+            throw new TransactionException("There are no transactions in this list");
         } else {
             int counter = displayNum;
             boolean expenditureExist = false;
             for (int i = expLists.size() - ONE_INDEX; i >= 0; i--) {
                 if (!"deposit".equals(expLists.get(i).getCategory())) {
-                    ui.printMessage(i + ":\n" + expLists.get(i).getDetails() + "\n");
+                    ui.printMessage(i + 1 + ":\n" + expLists.get(i).getDetails() + "\n");
                     counter--;
                     expenditureExist = true;
                 }
