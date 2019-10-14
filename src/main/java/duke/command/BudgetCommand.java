@@ -47,8 +47,9 @@ public class BudgetCommand extends Command {
             }
             duke.budget.setMonthlyBudget(scaledAmount);
             duke.budget.save();
-        }catch (NumberFormatException e){
-            throw new DukeException(String.format(DukeException.MESSAGE_EXPENSE_AMOUNT_INVALID, commandParams.getParam(SecondaryParam.TAG.name)));
+        } catch (NumberFormatException e) {
+            throw new DukeException(String.format(DukeException.MESSAGE_EXPENSE_AMOUNT_INVALID,
+                    commandParams.getParam(SecondaryParam.TAG.name)));
         }
 
     }

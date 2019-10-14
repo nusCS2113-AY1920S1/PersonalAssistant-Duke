@@ -1,5 +1,6 @@
 package duke.parser;
 
+import duke.exception.DukeException;
 import duke.exception.DukeRuntimeException;
 import org.junit.jupiter.api.Test;
 
@@ -13,30 +14,30 @@ import static org.junit.jupiter.api.Assertions.fail;
 public class CommandParamsTest {
 
     @Test
-    public void testCorrectParamValues() {
+    public void testCorrectParamValues() throws DukeException {
         CommandParams testParams = new CommandParams("name description goes here /a is a /b is b /c is c");
         assertEquals(testParams.getCommandName(), "name");
         assertEquals(testParams.getMainParam(), "description goes here");
         assertEquals(testParams.getParam("a"), "is a");
-        assertEquals(testParams.getOptionalParam("a"), "is a");
+        assertEquals(testParams.getParam("a"), "is a");
         assertEquals(testParams.getParam("b"), "is b");
-        assertEquals(testParams.getOptionalParam("b"), "is b");
+        assertEquals(testParams.getParam("b"), "is b");
         assertEquals(testParams.getParam("c"), "is c");
-        assertEquals(testParams.getOptionalParam("c"), "is c");
-        assertNull(testParams.getOptionalParam("d"));
+        assertEquals(testParams.getParam("c"), "is c");
+        assertNull(testParams.getParam("d"));
         assertTrue(testParams.containsParams("a"));
         assertFalse(testParams.containsParams("d"));
     }
 
     @Test
-    public void testCorrectNullParamValues() {
+    public void testCorrectNullParamValues() throws DukeException {
         CommandParams testParams = new CommandParams("noMainParam /a /b /c /d not null");
         assertNull(testParams.getMainParam());
-        assertNull(testParams.getOptionalParam("a"));
-        assertNull(testParams.getOptionalParam("b"));
-        assertNull(testParams.getOptionalParam("c"));
-        assertEquals(testParams.getOptionalParam("d"), "not null");
-        assertNull(testParams.getOptionalParam("e"));
+        assertNull(testParams.getParam("a"));
+        assertNull(testParams.getParam("b"));
+        assertNull(testParams.getParam("c"));
+        assertEquals(testParams.getParam("d"), "not null");
+        assertNull(testParams.getParam("e"));
 
         try {
             testParams.getParam("a");
@@ -68,7 +69,7 @@ public class CommandParamsTest {
     }
 
     @Test
-    public void testParamNotFoundException() {
+    public void testParamNotFoundException() throws DukeException {
         CommandParams testParams = new CommandParams("noParams");
         try {
             testParams.getParam("a");
@@ -79,7 +80,7 @@ public class CommandParamsTest {
     }
 
     @Test
-    public void testDuplicateParams() {
+    public void testDuplicateParams() throws DukeException {
         try {
             CommandParams testParams = new CommandParams("sameParams /a first /a second");
             fail();
