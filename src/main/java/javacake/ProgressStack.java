@@ -67,24 +67,28 @@ public class ProgressStack {
     /**
      * Displays the all directories found in currentFilePath.
      */
-    public void displayDirectories() {
-        System.out.println("Here are the " + filePathQueries.size() + " subtopics available!");
+    public String displayDirectories() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("Here are the ").append(filePathQueries.size()).append(" subtopics available!\n");
         for (String queries : filePathQueries) {
-            System.out.println(queries);
+            sb.append(queries).append("\n");
         }
-        System.out.println("Key in the index to learn more about the topic!");
+        sb.append("Key in the index to learn more about the topic!").append("\n");
+        return sb.toString();
     }
 
     /**
      * Reads the content in content text file.
      * @throws IOException When the text file in currentFilePath is not found.
      */
-    public void readQuery() throws IOException {
+    public String readQuery() throws IOException {
         BufferedReader br = new BufferedReader(new FileReader(currentFilePath));
+        StringBuilder sb = new StringBuilder();
         String sentenceRead;
         while ((sentenceRead = br.readLine()) != null) {
-            System.out.println(sentenceRead);
+            sb.append(sentenceRead).append("\n");
         }
+        return sb.toString();
     }
 
     /**
@@ -97,12 +101,12 @@ public class ProgressStack {
     }
 
 
-    public void processQueries() throws DukeException {
+    public String processQueries() throws DukeException {
         insertQueries();
         try {
-            if (isDirectory) displayDirectories();
+            if (isDirectory) return displayDirectories();
             else {
-                readQuery();
+                return readQuery();
             }
         } catch (IOException e) {
             throw new DukeException(e.getMessage());

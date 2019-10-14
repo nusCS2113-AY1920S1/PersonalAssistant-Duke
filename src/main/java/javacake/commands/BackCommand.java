@@ -22,7 +22,7 @@ public class BackCommand extends Command {
      * @param profile Profile of the user
      * @throws DukeException Error thrown when unable to close file reader
      */
-    public void execute(ProgressStack progressStack, Ui ui, Storage storage, Profile profile) throws DukeException {
+    public String execute(ProgressStack progressStack, Ui ui, Storage storage, Profile profile) throws DukeException {
 
         /*if (progressStack.checkProgress() == 2) {
             progressStack.listIndexToMainList();
@@ -52,5 +52,6 @@ public class BackCommand extends Command {
                 goToCommand.execute(progressStack, ui, storage, profile);
             }
         }*/
+        return "0";
     }
 }

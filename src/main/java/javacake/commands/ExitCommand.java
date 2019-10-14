@@ -16,6 +16,7 @@ public class ExitCommand extends Command {
      * @param ui the Ui responsible for outputting messages
      * @param storage Storage needed to write the updated data
      * @param profile Profile of the user
+     * @return
      */
     @Override
     public String execute(ProgressStack progressStack, Ui ui, Storage storage, Profile profile) {

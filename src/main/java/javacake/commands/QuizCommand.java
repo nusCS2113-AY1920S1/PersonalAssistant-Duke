@@ -54,6 +54,7 @@ public class QuizCommand extends Command {
      * @param storage Storage to write updated data.
      * @param profile Profile of the user.
      * @throws DukeException Error thrown when there is a problem with score calculation.
+     * @return
      */
     @Override
     public String execute(ProgressStack progressStack, Ui ui, Storage storage, Profile profile) throws DukeException {
