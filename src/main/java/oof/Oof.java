@@ -31,6 +31,20 @@ public class Oof {
     }
 
     /**
+     * Allows developers to run tests using this public method.
+     * @param line Command to be tested.
+     * @throws OofException Exceptions to be handled during tests.
+     */
+    public void runTest(String line) throws OofException {
+        Command command = CommandParser.parse(line);
+        command.execute(arr, ui, storage);
+    }
+
+    public TaskList getArr() {
+        return arr;
+    }
+
+    /**
      * Runs the Personal Assistant.
      */
     private void run() {
