@@ -1,4 +1,4 @@
-= Hall Facility Booking System - Developer Guide
+= Hall Facility user.Booking System - Developer Guide
 :site-section: DeveloperGuide
 :toc:
 :toc-title:
@@ -66,7 +66,7 @@ _{More to be added}_
 [appendix]
 == Use Cases
 
-=== Use case: UC01 Add Booking
+=== Use case: UC01 Add user.Booking
 Actor: Hall Resident
 
 *MSS*
@@ -97,7 +97,7 @@ Use case resumes from step 4
 +
 Use case ends.
 
-=== Use case: UC02 Edit Booking
+=== Use case: UC02 Edit user.Booking
 Actor: Hall Resident
 
 *MSS*
@@ -131,7 +131,7 @@ Use case resumes from step 4.
 Use case ends.
 
 
-=== Use case: UC03 Delete Booking
+=== Use case: UC03 Delete user.Booking
 
 *MSS*
 
@@ -173,7 +173,7 @@ Actor: Hall Resident
 +
 Use case ends.
 
-=== Use case: UC05 View Future Booking -- Personal
+=== Use case: UC05 View Future user.Booking -- Personal
 Actor: Hall Resident
 
 *MSS*
@@ -190,7 +190,7 @@ Use case ends.
 +
 Use case ends.
 
-=== Use Case: UC06 View Booking -- Month
+=== Use Case: UC06 View user.Booking -- Month
 Actor: Hall Resident
 
 *MSS*
@@ -200,7 +200,7 @@ Actor: Hall Resident
 +
 Use case ends.
 
-=== Use Case: UC07 View Booking -- Day
+=== Use Case: UC07 View user.Booking -- Day
 Actor: Hall Resident
 
 *MSS*
@@ -217,7 +217,7 @@ Use case ends.
 +
 Use case ends.
 
-=== Use Case: UC08 Appeal Booking
+=== Use Case: UC08 Appeal user.Booking
 Actor: Hall Resident
 
 *MSS*
@@ -327,7 +327,7 @@ Use case ends.
 +
 Use case resumes at step 2.
 
-=== Use Case: UC13 One Touch Booking
+=== Use Case: UC13 One Touch user.Booking
 Actor: Hall Resident
 
 *MSS*

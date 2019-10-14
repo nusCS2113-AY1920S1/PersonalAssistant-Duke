@@ -2,6 +2,8 @@ package storage;
 
 import task.Task;
 import task.TaskList;
+import user.Booking;
+import user.BookingList;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -39,6 +41,8 @@ public class Storage {
         return textLoaded;
     }
 
+
+
     /**
      * Save task list to text file.
      * @param tasks task list
@@ -48,6 +52,16 @@ public class Storage {
         FileOutputStream fileOutputStream = new FileOutputStream(fileToRead);
         String toWrite = "";
         for (Task i : tasks) {
+            toWrite += i.toWriteFile();
+        }
+        fileOutputStream.write(toWrite.getBytes());
+        fileOutputStream.close();
+    }
+
+    public void saveToFile(BookingList bookingList) throws IOException {
+        FileOutputStream fileOutputStream = new FileOutputStream(fileToRead);
+        String toWrite = "";
+        for (Booking i : bookingList) {
             toWrite += i.toWriteFile();
         }
         fileOutputStream.write(toWrite.getBytes());

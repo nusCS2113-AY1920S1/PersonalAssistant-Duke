@@ -47,4 +47,20 @@ public class Login{
         reader.close();
         return found;
     }
+
+    public static boolean checkUsername(String username,String filePath) throws IOException {
+        BufferedReader reader;
+        boolean exists = true;
+        reader = new BufferedReader(new FileReader(filePath));
+        String line = reader.readLine();
+
+        while (line != null){
+            String[] parts = line.split("[|]");
+            if(!parts[0].trim().equals(username.trim()))
+                exists = false;
+            line = reader.readLine();
+        }
+        reader.close();
+        return exists;
+    }
 }
