@@ -1,7 +1,0 @@
-0 todo rr
-0 todo run dd
-0 deadline fjdj /by 21/12/1212 1232
-0 todo run /doafter ss
-0 todo ds
-0 todo run
-0 deadline ad /by 12/12/1212 1232

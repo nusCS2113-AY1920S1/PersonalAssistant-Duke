@@ -27,6 +27,7 @@ public class Main extends Application {
             stage.setMinHeight(300);
             fxmlLoader.<MainWindow>getController().setDuke(duke);
             stage.show();
+            MainWindow.setMainStage(stage);
         } catch (IOException e) {
             e.printStackTrace();
         }

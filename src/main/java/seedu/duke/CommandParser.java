@@ -1,5 +1,6 @@
 package seedu.duke;
 
+import seedu.duke.common.command.HelpCommand;
 import seedu.duke.task.TaskList;
 import seedu.duke.task.command.TaskAddCommand;
 import seedu.duke.common.command.Command;
@@ -135,7 +136,7 @@ public class CommandParser {
     }
 
     private static Command parseTaskCommand(String rawInput, TaskList taskList,
-                                            ArrayList<Option> optionList) throws UserInputException {
+                                            ArrayList<Option> optionList) {
         if (rawInput.length() <= 5) {
             return new InvalidCommand();
             //return new HelpTaskCommand();
@@ -143,11 +144,12 @@ public class CommandParser {
         String input = rawInput.split("task ", 2)[1].strip();
         if (input.equals("flip")) {
             return new FlipCommand(inputType);
-        }
-        if (input.equals("bye")) {
+        } else if (input.equals("bye")) {
             return new ExitCommand();
         } else if (input.equals("list")) {
             return new TaskListCommand(taskList);
+        } else if(input.equals("help")) {
+            return new HelpCommand();
         } else if (input.startsWith("done")) {
             return parseDoneCommand(input, optionList);
         } else if (input.startsWith("delete")) {
@@ -180,7 +182,6 @@ public class CommandParser {
                                             ArrayList<Option> optionList) throws UserInputException {
         if (rawInput.length() <= 6) {
             return new InvalidCommand();
-            //return new HelpTaskCommand();
         }
         String input = rawInput.substring(6).strip();
         String emailCommand = input.split(" ")[0];
@@ -189,6 +190,8 @@ public class CommandParser {
             return new FlipCommand(inputType);
         case "bye":
             return new ExitCommand();
+        case "help":
+            return new HelpCommand();
         case "list":
             return new EmailListCommand(emailList);
         case "show":
