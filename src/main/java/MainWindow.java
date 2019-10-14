@@ -76,6 +76,8 @@ public class MainWindow extends AnchorPane {
             graphContainer.getChildren().addAll(
                     Histogram.getHistogram("The Month Report", xData, yData)
             );
+        } else if (input.equals("graph category trend")) {
+
         }
 
         String[] response = duke.getResponse(input);
