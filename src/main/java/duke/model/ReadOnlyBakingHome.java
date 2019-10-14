@@ -1,6 +1,7 @@
 package duke.model;
 
-import duke.model.commons.Ingredient;
+
+import duke.model.inventory.Ingredient;
 import duke.model.commons.Item;
 import duke.model.order.Order;
 import duke.model.product.Product;

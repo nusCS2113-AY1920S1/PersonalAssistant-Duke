@@ -1,4 +1,4 @@
-package duke.model.commons;
+package duke.model.inventory;
 
 import java.util.Objects;
 
@@ -6,13 +6,10 @@ import static duke.commons.util.AppUtil.checkArgument;
 import static duke.commons.util.AppUtil.checkEmpty;
 import static duke.commons.util.CollectionUtil.requireAllNonNull;
 
-/**
- * Represents an ingredient of a product.
- */
 public class Ingredient {
     private static final String VALIDATION_FLOAT_NUMBER_REGEX = "^[-+]?[0-9]*\\.?[0-9]+([eE][-+]?[0-9]+)?$";
 
-    private static final String MESSAGE_CONSTRAINTS_NAME = "Ingredient name can take any values, "
+    private static final String MESSAGE_CONSTRAINTS_NAME = "comProduct name can take any values, "
             + "and should not be blank";
     private static final String MESSAGE_CONSTRAINTS_UNIT = "Unit can take any values, "
             + "and should not be blank";
@@ -22,7 +19,7 @@ public class Ingredient {
     private static final String DEFAULT_UNIT = "unit";
 
     public final String name;
-    public final double unitPrice;
+    public final Double unitPrice;
     public final String unit;
 
     /**
@@ -43,12 +40,12 @@ public class Ingredient {
         this.unit = unit;
     }
 
-    public Ingredient(String name) {
-        this(name, DEFAULT_PRICE, DEFAULT_UNIT);
+    public Ingredient(String name, String unitPrice) {
+        this(name, unitPrice, DEFAULT_UNIT);
     }
 
-    public Ingredient(String name, String unit) {
-        this(name, DEFAULT_PRICE, unit);
+    public Ingredient(String name) {
+        this(name, DEFAULT_PRICE, DEFAULT_UNIT);
     }
 
     @Override
@@ -62,7 +59,6 @@ public class Ingredient {
         Ingredient that = (Ingredient) o;
         return Objects.equals(name, that.name);
     }
-
     @Override
     public int hashCode() {
         return Objects.hash(name);
@@ -84,4 +80,10 @@ public class Ingredient {
     public String getUnit() {
         return unit;
     }
+
+    public Double getUnitPrice() {
+        return unitPrice;
+    }
+
+
 }

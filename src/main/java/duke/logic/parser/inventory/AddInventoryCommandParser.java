@@ -5,7 +5,8 @@ import duke.logic.parser.commons.ArgumentMultimap;
 import duke.logic.parser.commons.ArgumentTokenizer;
 import duke.logic.parser.commons.Parser;
 import duke.logic.parser.exceptions.ParseException;
-import duke.model.commons.Ingredient;
+
+import duke.model.inventory.Ingredient;
 import duke.model.commons.Item;
 import duke.model.order.Quantity;
 
