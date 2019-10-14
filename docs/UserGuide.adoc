@@ -101,16 +101,17 @@ Example:
 Adds an event with description, start and end time to be `project meeting`, `20-09-2019 13:00` and `20-09-2019 17:00` respectively.
 
 === Adding a task: `todo`
-Adds a task to be done.
+Adds a task to be done on a specific day.
 
-Format: `todo DESCRIPTION`
+Format: `todo DESCRIPTION /on DD-MM-YYYY`
 
 * `Description` of the task to be done can have multiple words, not just limited to single word descriptions.
+* `Date` has to *strictly* be in the format as stated above.
 
 Example:
 
-* `todo withdraw money` + 
-Adds a task called `withdraw money`.
+* `todo withdraw money /on 19-09-2019` +
+Adds a task called `withdraw money` on `19-09-2019`.
 
 === Adding a task: `do-after`
 Adds a task that needs to be done after a specified task.
