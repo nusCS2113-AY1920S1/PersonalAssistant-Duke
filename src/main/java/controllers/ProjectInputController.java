@@ -65,18 +65,27 @@ public class ProjectInputController {
                     }
                 } else if (projectCommand.length() == 12 && ("view members").equals(projectCommand)) {
                     consoleView.viewAllMembers(projectToManage);
-                } else if (projectCommand.length() == 8 && ("add task").equals(projectCommand)) {
+                } else if (projectCommand.length() >= 9 && ("add task ").equals(projectCommand.substring(0, 9))) {
                     try {
-                        consoleView.consolePrint("Enter your task: t/TaskName p/TaskPriorityValue"
-                                                + " [d/TaskDueDate] c/TaskCredit [s/TaskState]");
-                        String taskDetails = manageProjectInput.nextLine();
                         TaskFactory taskFactory = new TaskFactory();
-                        consoleView.addTask(projectToManage, taskFactory.createTask(taskDetails));
+                        consoleView.addTask(projectToManage, taskFactory.createTask(projectCommand.substring(9)));
                     } catch (NumberFormatException | ParseException e) {
                         consoleView.consolePrint("Please enter your task format correctly");
                     }
                 } else if (projectCommand.length() == 10 && ("view tasks").equals(projectCommand)) {
                     consoleView.viewAllTasks(projectToManage);
+                } else if (projectCommand.length() > 25
+                        && ("view task requirements i/").equals(projectCommand.substring(0, 25))) {
+                    int taskIndex = Integer.parseInt(projectCommand.substring(25));
+                    if (projectToManage.getNumOfTasks() >= taskIndex) {
+                        if (projectToManage.getTask(taskIndex).getTaskRequirements() == null) {
+                            consoleView.consolePrint("This task has no specific requirements.");
+                        } else {
+                            consoleView.viewTaskRequirements(projectToManage, taskIndex);
+                        }
+                    } else {
+                        consoleView.consolePrint("The task index entered is invalid.");
+                    }
                 } else if (projectCommand.length() == 10 && ("edit task ").equals(projectCommand)) {
                     String temp2 = "";
                     System.out.println(temp2);

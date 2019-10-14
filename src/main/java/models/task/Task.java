@@ -1,6 +1,7 @@
 package models.task;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
 import models.member.Member;
@@ -13,6 +14,7 @@ public class Task {
     private int taskCredit;
     private TaskState taskState;
     private TaskMemberList taskMemberList;
+    private ArrayList<String> taskRequirements;
 
     /**
      * Class representing a task in a project.
@@ -23,13 +25,15 @@ public class Task {
      *                   A more difficult task would receive more credit.
      * @param taskState taskState refers to whether the task is in OPEN, TO-DO, DOING, DONE.
      */
-    public Task(String taskName, int taskPriority, Date dueDate, int taskCredit, TaskState taskState) {
+    public Task(String taskName, int taskPriority, Date dueDate, int taskCredit, TaskState taskState,
+                ArrayList<String> taskRequirements) {
         this.taskName = taskName;
         this.taskPriority = taskPriority;
         this.dueDate = dueDate;
         this.taskCredit = taskCredit;
         this.taskState = taskState;
         this.taskMemberList = new TaskMemberList();
+        this.taskRequirements = taskRequirements;
     }
 
     public String getTaskName() {
@@ -79,5 +83,9 @@ public class Task {
 
     public void removeMember(Integer memberIndex) {
         this.taskMemberList.removeMember(memberIndex);
+    }
+
+    public ArrayList<String> getTaskRequirements() {
+        return this.taskRequirements;
     }
 }
