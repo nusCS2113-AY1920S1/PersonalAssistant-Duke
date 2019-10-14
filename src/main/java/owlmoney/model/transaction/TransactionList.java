@@ -115,7 +115,7 @@ public class TransactionList {
     //magic int used. change next time
     public double deleteExpenditureFromList(int index, Ui ui) throws TransactionException {
         if (expLists.size() <= 0) {
-            throw new TransactionException("There are no transactions in this bank");
+            throw new TransactionException("There are no transactions in this account");
         }
         if ((index - ONE_INDEX) >= 0 && (index - ONE_INDEX) < expLists.size()) {
             if (expLists.get(index - 1).getCategory().equals("deposit")) {

@@ -1,6 +1,7 @@
 package owlmoney.logic.command.transaction;
 
 import owlmoney.logic.command.Command;
+import owlmoney.model.card.exception.CardException;
 import owlmoney.model.bank.exception.BankException;
 import owlmoney.model.profile.Profile;
 import owlmoney.model.transaction.exception.TransactionException;
@@ -18,11 +19,11 @@ public class DeleteExpenditureCommand extends Command {
      * Constructor to create an instance of a DeleteExpenditureCommand.
      *
      * @param index    Transaction number.
-     * @param bankName Bank account name.
+     * @param accountName Card or Bank account name.
      */
-    public DeleteExpenditureCommand(int index, String bankName, String type) {
+    public DeleteExpenditureCommand(int index, String accountName, String type) {
         this.expNumber = index;
-        this.from = bankName;
+        this.from = accountName;
         this.type = type;
     }
 
@@ -33,7 +34,7 @@ public class DeleteExpenditureCommand extends Command {
      * @param ui      Ui of OwlMoney.
      * @return false so OwlMoney will not terminate yet.
      */
-    public boolean execute(Profile profile, Ui ui) throws BankException, TransactionException {
+    public boolean execute(Profile profile, Ui ui) throws BankException, TransactionException, CardException {
         profile.deleteExpenditure(this.expNumber, this.from, ui, this.type);
         return this.isExit;
     }

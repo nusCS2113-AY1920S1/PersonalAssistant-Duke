@@ -15,6 +15,7 @@ public class Card {
     private String name;
     private double limit;
     private double rebate;
+    private double remainingLimit;
     TransactionList paid;
     TransactionList unpaid;
 
@@ -28,6 +29,7 @@ public class Card {
     public Card(String name, double limit, double rebate) {
         this.name = name;
         this.limit = limit;
+        this.remainingLimit = limit;
         this.rebate = rebate;
         this.paid = new TransactionList();
         this.unpaid = new TransactionList();
@@ -61,12 +63,48 @@ public class Card {
     }
 
     /**
+     * Gets the remaining limit of the credit card.
+     *
+     * @return remaining limit of the credit card.
+     */
+    double getRemainingLimit() {
+        return this.remainingLimit;
+    }
+
+    /**
      * Set the card limit for the credit card.
      *
      * @param limit A name for the credit card.
      */
     void setLimit(double limit) {
         this.limit = limit;
+    }
+
+    /**
+     * Set the remaining limit for the credit card.
+     *
+     * @param remainingLimit Remaining limit for the credit card.
+     */
+    void setRemainingLimit(double remainingLimit) {
+        this.remainingLimit = remainingLimit;
+    }
+
+    /**
+     * Subtract remaining limit.
+     *
+     * @param amount Amount to be subtracted from remaining limit.
+     */
+    void subtractRemainingLimit(double amount) {
+        this.remainingLimit -= amount;
+    }
+
+    /**
+     * Add remaining limit.
+     *
+     * @param amount Amount to be added to remaining limit.
+     */
+    void addRemainingLimit(double amount) {
+        this.remainingLimit += amount;
     }
 
     /**
@@ -94,20 +132,36 @@ public class Card {
      */
     public String getDetails() {
         return "Card Name: " + getName()
-                + "\nLimit: " + new DecimalFormat("0.00").format(getLimit())
-                + "\nRebate: " + new DecimalFormat("0.00").format(getRebate());
+                + "\nMonthly Limit: $" + new DecimalFormat("0.00").format(getLimit())
+                + "\nRemaining Limit: $" + new DecimalFormat("0.00").format(getRemainingLimit())
+                + "\nRebate: " + new DecimalFormat("0.00").format(getRebate()) + "%";
+    }
+
+    /**
+     * Checks if expenditure exceeds remaining card limit.
+     *
+     * @param exp Expenditure to be added.
+     * @param ui Ui of OwlMoney.
+     * @throws CardException If expenditure exceeds remaining card limit.
+     */
+    private void checkExpExceedRemainingLimit(Transaction exp, Ui ui) throws CardException {
+        if (exp.getAmount() > this.getRemainingLimit()) {
+            throw new CardException("Expenditure to be added cannot exceed remaining limit of $"
+                    + getRemainingLimit());
+        }
     }
 
     /**
      * Adds expenditure to the credit card.
      *
+     * @param exp Expenditure to be added.
+     * @param ui Ui of OwlMoney.
+     * @throws CardException If expenditure exceeds card limit.
      */
     public void addInExpenditure(Transaction exp, Ui ui) throws CardException {
-        if (exp.getAmount() > this.getLimit()) {
-            throw new CardException("Expenditure to be added cannot exceed limit");
-        } else {
-            unpaid.addExpenditureToList(exp, ui);
-        }
+        this.checkExpExceedRemainingLimit(exp, ui);
+        unpaid.addExpenditureToList(exp, ui);
+        this.subtractRemainingLimit(exp.getAmount());
     }
 
     /**
@@ -118,6 +172,42 @@ public class Card {
      */
     void listAllExpenditure(Ui ui, int displayNum) throws TransactionException {
         unpaid.listExpenditure(ui, displayNum);
+    }
+
+    /**
+     * Deletes an expenditure in the current credit card.
+     *
+     * @param exId Transaction number of the transaction.
+     * @param ui Ui of OwlMoney.
+     */
+    void deleteExpenditure(int exId, Ui ui) throws TransactionException {
+        double deletedAmount = unpaid.deleteExpenditureFromList(exId, ui);
+        this.addRemainingLimit(deletedAmount);
+    }
+
+    /**
+     * Edits the expenditure details from the current bank account.
+     *
+     * @param expNum   Transaction number.
+     * @param desc     New description.
+     * @param amount   New amount.
+     * @param date     New date.
+     * @param category New category.
+     * @param ui       Ui of OwlMoney.
+     * @throws TransactionException If incorrect date format.
+     * @throws CardException If amount is negative after editing expenditure.
+     */
+    void editExpenditureDetails(int expNum, String desc, String amount, String date, String category, Ui ui)
+            throws TransactionException, CardException {
+        if (!(amount.isEmpty() || amount.isBlank()) && this.getRemainingLimit()
+                + unpaid.getExpenditureAmount(expNum, ui) < Double.parseDouble(amount)) {
+            throw new CardException("New expenditure cannot exceed remaining limit of $" +
+                    this.getRemainingLimit());
+        }
+        double oldAmount = unpaid.getExpenditureAmount(expNum, ui);
+        double newAmount = unpaid.editEx(expNum, desc, amount, date, category, ui);
+        this.addRemainingLimit(oldAmount);
+        this.subtractRemainingLimit(newAmount);
     }
 
 }

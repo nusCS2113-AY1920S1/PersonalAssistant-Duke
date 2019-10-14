@@ -28,10 +28,10 @@ public class ParseAddCard extends ParseCard {
      * @throws ParserException If there are any invalid or missing input.
      */
     public void checkParameter() throws ParserException {
-        Iterator<String> savingsIterator = cardParameters.keySet().iterator();
+        Iterator<String> cardIterator = cardParameters.keySet().iterator();
 
-        while (savingsIterator.hasNext()) {
-            String key = savingsIterator.next();
+        while (cardIterator.hasNext()) {
+            String key = cardIterator.next();
             String value = cardParameters.get(key);
             if (!NEW_NAME.equals(key) && (value.isBlank() || value.isEmpty())) {
                 throw new ParserException(key + " cannot be empty when adding a new card");
