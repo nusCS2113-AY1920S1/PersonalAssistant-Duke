@@ -7,8 +7,6 @@ import duke.util.Storage;
 import duke.util.TaskList;
 import duke.util.Ui;
 
-import java.util.List;
-
 public class PrintTimetable extends Command {
 
     private Timetable timetables;

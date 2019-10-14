@@ -9,14 +9,13 @@ import java.io.IOException;
 import java.lang.reflect.Type;
 import java.nio.file.Paths;
 import java.util.Arrays;
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 
-import duke.exceptions.ModBadRequestStatus;
-import duke.exceptions.ModFailedJsonException;
-import duke.modules.ModuleInfoDetailed;
-import duke.modules.ModuleInfoSummary;
+import duke.exceptions.planner.ModBadRequestStatus;
+import duke.exceptions.planner.ModFailedJsonException;
+import duke.modules.data.ModuleInfoDetailed;
+import duke.modules.data.ModuleInfoSummary;
 
 public class JsonWrapper {
 
@@ -79,6 +78,7 @@ public class JsonWrapper {
      * Reads the Json file for to be parsed into a java object. Since the data is
      * presented in a JSON array, our class object class would need to be wrapped
      * in an array as well.
+     * @return List of ModuleInfoSummary Objects, null if it fails to parse.
      */
     private List<ModuleInfoSummary> getModuleListObject() {
         try {
@@ -111,6 +111,10 @@ public class JsonWrapper {
         return ret;
     }
 
+    /**
+     * Converts the stored json file into a list of ModuleInfoDetailed objects.
+     * @return a list of ModuleInfoDetailed objects, null if it fails to parse.
+     */
     private List<ModuleInfoDetailed> getModuleListDetailedObject() {
         try {
             JsonReader reader = new JsonReader(new FileReader(listDetailedFile));

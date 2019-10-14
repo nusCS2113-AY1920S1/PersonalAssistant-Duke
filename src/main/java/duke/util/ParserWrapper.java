@@ -1,5 +1,9 @@
 package duke.util;
 
+
+import duke.command.logic.EndCommand;
+import duke.command.logic.ModuleCommand;
+import duke.command.logic.SearchCommand;
 import duke.modules.Cca;
 import duke.modules.Deadline;
 import duke.modules.DoWithin;
@@ -40,7 +44,34 @@ public class ParserWrapper {
      * @throws ModInvalidTimeException when string date cannot be parsed by natty.
      */
     private String formatInputToStringDate(String date) throws ModInvalidTimeException {
-        return natty.dateToLocalDateTime(date).format(DateTimeFormatter.ofPattern("dd-MM-yyyy [HH:mm]"));
+        return natty
+                .dateToLocalDateTime(date)
+                .format(DateTimeFormatter.ofPattern("dd-MM-yyyy [HH:mm]"));
+    }
+
+    private String[] splitFirstSpace(String input) {
+        return input.split(" ", 2);
+    }
+
+    /**
+     * Switching parser to module parser from duke.
+     * @param input User string input.
+     * @param isDuke selector for duke parser or mod parse.
+     * @return Command class based on user input
+     * @throws ModException If user inputs strings which are invalid.
+     */
+    public ModuleCommand parse(String input, boolean isDuke) throws ModException {
+        if (isDuke) {
+            return new EndCommand();
+        }
+        String[] hold = splitFirstSpace(input);
+        if (input.startsWith("search ")) {
+            return new SearchCommand(hold[hold.length - 1]);
+        } else if (input.equals("bye")) {
+            return new EndCommand();
+        } else {
+            throw new ModCommandException();
+        }
     }
 
     /**
