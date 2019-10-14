@@ -1,13 +1,7 @@
+/**
 package Commands;
-
-<<<<<<< HEAD
-import Places.Market;
-import UserCode.Conditions.*;
-import UserCode.Actions.BuySeedAction;
-=======
 import Farmio.Farmer;
 import Farmio.Storage;
->>>>>>> v2/FarmLogicV2
 import UserCode.Tasks.TaskList;
 import UserCode.Actions.Action;
 import UserCode.Actions.PlantSeedAction;
@@ -15,9 +9,7 @@ import FarmioExceptions.FarmioException;
 import Places.ChickenFarm;
 import Places.CowFarm;
 import Places.WheatFarm;
-<<<<<<< HEAD
 import UserCode.Tasks.IfTask;
-import UserInterfaces.Ui;
 
 public class TestCommand extends Command {
 
@@ -65,3 +57,4 @@ public class TestCommand extends Command {
         }
     }
 }
+ **/

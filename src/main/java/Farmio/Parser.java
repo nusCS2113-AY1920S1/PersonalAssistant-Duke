@@ -18,17 +18,6 @@ class Parser {
                 stage = Farmio.Stage.WELCOME;
                 throw new FarmioException("Something went wrong! Restarting game.");
         }
-//        System.out.println("Received command " + userInput);
-//        if (userInput.equals("exit")) {
-//            return new ExitCommand();
-//        }
-//        if (userInput.equals("start")) {
-//            return new StartCommand();
-//        }
-//        if (userInput.equals("test")) {
-//            return new TestCommand(ui, storage, farmer);
-//        }
-//        return new ExitCommand();
     }
 
     private static Command parseMenuStart(String userInput) throws FarmioException {

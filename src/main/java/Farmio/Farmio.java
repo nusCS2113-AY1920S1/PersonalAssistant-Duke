@@ -28,32 +28,13 @@ public class Farmio {
             try {
                 command = Parser.parse(ui.getInput(), stage);
                 //command.execute(this);
+                isExit = command.isExit;
             } catch (FarmioException e) {
                 ui.showWarning(e.getMessage());
             }
         }
+        //save the game before quitting
         ui.showExit();
-//        displayWelcome();
-//        displayMenu();
-//        this.parser = new Farmio.Parser(ui, storage, farmer);
-//        boolean isExit = false;
-//        while(!isExit) {
-//            //introduce the problem, and show the tutorial, and show the conditions and the possible tasks and gets the user input
-//            loadLevel(farmer);
-//            //create the new task, and add to the tasklist or do whatever
-//            isExit = getUserActions(farmer, ui, parser);
-//            if (isExit) {
-//                break;
-//            }
-//            farmer.startDay();
-//            try {
-//                Farmio.Storage.storeFarmer(farmer);
-//            } catch (IOException e) {
-//                ui.showError("Unsuccessful game save.");
-//                ui.showInfo("No gave save was done.");
-//            }
-//            checkObjectives(farmer);
-//        }
     }
 
     public static void main(String[] args) {    //TODO - configure both OS
@@ -61,7 +42,7 @@ public class Farmio {
     }
 
     public static enum Stage {
-        WELCOME, MENU_START, TASK_ADD
+        WELCOME, MENU_START, LOAD_LEVEL, TASK_ADD, RUNNING_DAY, CHECK_OBJECTIVES
     }
 
     public Storage getStorage() {
