@@ -1,3 +1,4 @@
+import controlpanel.Parser;
 import guicommand.UserIcon;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -8,6 +9,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 
 import java.io.*;
+import java.text.ParseException;
 
 /**
  * Controller for MainWindow. Provides the layout for the other controls.
@@ -61,7 +63,7 @@ public class MainWindow extends AnchorPane implements DataTransfer {
      * the dialog container. Clears the user input after processing.
      */
     @FXML
-    private void handleUserInput() throws IOException {
+    private void handleUserInput() throws IOException, ParseException {
         String input = userInput.getText();
         graphContainer.getChildren().clear();
         switch (input) {
@@ -84,6 +86,14 @@ public class MainWindow extends AnchorPane implements DataTransfer {
                         DataTransfer.getIncomeTrend(duke.getAccount())
                 );
                 break;
+            default:
+                if (input.startsWith("graph finance status /until ")) {
+                    String dateString = input.split(" /until ")[1];
+                    graphContainer.getChildren().addAll(
+                            DataTransfer.getCurrFinance(duke.getAccount(), Parser.shortcutTime(dateString))
+                    );
+                }
+                break;
         }
 
         String[] response = duke.getResponse(input);
@@ -100,7 +110,7 @@ public class MainWindow extends AnchorPane implements DataTransfer {
     }
 
     @FXML
-    private void handleSearchInput() throws IOException {
+    private void handleSearchInput() {
         String input = searchBar.getText();
         String[] response = duke.getResponse("find " + input);
         dialogContainer.getChildren().addAll(
