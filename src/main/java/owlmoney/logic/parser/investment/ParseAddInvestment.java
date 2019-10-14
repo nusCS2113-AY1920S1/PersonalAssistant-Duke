@@ -6,6 +6,9 @@ import owlmoney.logic.command.Command;
 import owlmoney.logic.command.bank.AddInvestmentCommand;
 import owlmoney.logic.parser.exception.ParserException;
 
+/**
+ * Represents the parsing of inputs for adding a new investment account.
+ */
 public class ParseAddInvestment extends ParseInvestment {
     private static final String ADD = "/add";
 

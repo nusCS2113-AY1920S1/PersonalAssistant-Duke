@@ -6,6 +6,9 @@ import owlmoney.logic.command.Command;
 import owlmoney.logic.command.bank.EditInvestmentCommand;
 import owlmoney.logic.parser.exception.ParserException;
 
+/**
+ * Represents the parsing of inputs for editing an investment account.
+ */
 public class ParseEditInvestment extends ParseInvestment {
     /**
      * Creates an instance of ParseEditInvestment.

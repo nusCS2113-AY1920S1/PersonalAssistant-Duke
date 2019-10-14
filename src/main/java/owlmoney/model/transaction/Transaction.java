@@ -6,7 +6,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
- * The Transaction class which is abstract where various transaction types will inherit from given that
+ * Transaction class abstracts various transaction types which the child will inherit from given that
  * it is abstract.
  */
 

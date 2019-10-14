@@ -6,9 +6,14 @@ import owlmoney.model.bond.exception.BondException;
 import owlmoney.model.profile.Profile;
 import owlmoney.ui.Ui;
 
+/**
+ * Executes ListBondCommand and prints the results.
+ */
+
 public class ListBondCommand extends Command {
     private final String bankName;
     private final int displayNum;
+
     /**
      * Constructor to create an instance of ListBondCommand.
      *
@@ -21,6 +26,7 @@ public class ListBondCommand extends Command {
     }
 
     /**
+     * Executes the function to list the bonds in the investment account from the profile.
      *
      * @param profile Profile of the user.
      * @param ui      Ui of OwlMoney.

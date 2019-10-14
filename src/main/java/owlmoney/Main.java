@@ -48,7 +48,7 @@ class Main {
         Scanner scanner = new Scanner(System.in);
         String username = scanner.nextLine();
         profile = new Profile(username);
-        ui.greet(profile.getUsername());
+        ui.greet(profile.profileGetUsername());
         // until above this line
         while (parser.hasNextLine()) {
             try {

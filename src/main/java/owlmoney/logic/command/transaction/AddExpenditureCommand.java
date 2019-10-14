@@ -52,7 +52,7 @@ public class AddExpenditureCommand extends Command {
      */
     public boolean execute(Profile profile, Ui ui) throws BankException, CardException {
         Transaction newExpenditure = new Expenditure(this.description, this.amount, this.date, this.category);
-        profile.addNewExpenditure(accName, newExpenditure, ui, this.type);
+        profile.profileAddNewExpenditure(accName, newExpenditure, ui, this.type);
         return this.isExit;
     }
 }

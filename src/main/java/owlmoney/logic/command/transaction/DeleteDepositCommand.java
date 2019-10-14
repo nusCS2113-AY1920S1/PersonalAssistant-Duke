@@ -32,7 +32,7 @@ public class DeleteDepositCommand extends Command {
      * @return false so OwlMoney will not terminate yet.
      */
     public boolean execute(Profile profile, Ui ui) throws BankException, TransactionException {
-        profile.deleteDeposit(this.expNumber, this.from, ui);
+        profile.profileDeleteDeposit(this.expNumber, this.from, ui);
         return this.isExit;
     }
 }

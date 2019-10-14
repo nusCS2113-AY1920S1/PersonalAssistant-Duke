@@ -5,6 +5,11 @@ import java.util.ArrayList;
 import owlmoney.model.bond.exception.BondException;
 import owlmoney.ui.Ui;
 
+/**
+ * BondList  provides a layer of abstraction for the ArrayList.
+ * The ArrayList will store elements of type Bond.
+ */
+
 public class BondList {
     private ArrayList<Bond> bondLists;
 
@@ -28,10 +33,10 @@ public class BondList {
         } else {
             int counter = displayNum;
             for (int i = bondLists.size() - 1; i >= 0; i--) {
-                ui.printMessage((i + 1) +":\n" + bondLists.get(i).getBondDescription() + "\n");
+                ui.printMessage((i + 1) + ":\n" + bondLists.get(i).getBondDescription() + "\n");
                 counter--;
                 if (counter <= 0) {
-                   break;
+                    break;
                 }
             }
         }

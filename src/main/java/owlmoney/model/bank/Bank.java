@@ -11,7 +11,7 @@ import owlmoney.model.transaction.exception.TransactionException;
 import owlmoney.ui.Ui;
 
 /**
- * The Bank class which is abstract where various bank types will inherit from given that it is abstract.
+ * Bank class which is abstract where various bank types will inherit from given that it is abstract.
  */
 
 public abstract class Bank {
@@ -31,14 +31,29 @@ public abstract class Bank {
         this.currentAmount = currentAmount;
     }
 
+    /**
+     * Sets the name of the bank account to a new name.
+     *
+     * @param newName the new name of the bank account.
+     */
     void setAccountName(String newName) {
         this.accountName = newName;
     }
 
+    /**
+     * Gets the type of the bank account.
+     *
+     * @return the bank account type.
+     */
     String getType() {
         return type;
     }
 
+    /**
+     * Sets the bank account to a new amount.
+     *
+     * @param newAmount the new amount in the bank account.
+     */
     void setCurrentAmount(double newAmount) {
         this.currentAmount = newAmount;
     }
@@ -250,7 +265,8 @@ public abstract class Bank {
      * @param ui       required for printing.
      * @throws BankException If used on savings account.
      */
-    void investmentEditBond(String bondName, String year, String rate, Ui ui) throws BankException, BondException {
+    void investmentEditBond(String bondName, String year, String rate, Ui ui)
+            throws BankException, BondException {
         throw new BankException("This account does not support this feature");
     }
 

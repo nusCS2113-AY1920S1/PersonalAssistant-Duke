@@ -5,6 +5,9 @@ import owlmoney.model.bank.exception.BankException;
 import owlmoney.model.profile.Profile;
 import owlmoney.ui.Ui;
 
+/**
+ * EditInvestmentCommand contains the execution function to edit an investment object.
+ */
 public class EditInvestmentCommand extends Command {
     private final String name;
     private final String amount;
@@ -32,7 +35,7 @@ public class EditInvestmentCommand extends Command {
      */
     @Override
     public boolean execute(Profile profile, Ui ui) throws BankException {
-        profile.editInvestmentAccount(name, newName, amount, ui);
+        profile.profileEditInvestmentAccount(name, newName, amount, ui);
         return this.isExit;
     }
 }

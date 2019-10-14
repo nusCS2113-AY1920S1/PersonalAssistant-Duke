@@ -38,7 +38,7 @@ public class DeleteBondCommand extends Command {
     public boolean execute(Profile profile, Ui ui) throws BondException, BankException {
         Bond tempBond = profile.profileGetBond(this.bankName,this.bondName);
         Deposit newDeposit = new Deposit(this.bondName,tempBond.getAmount(), new Date(), BOND);
-        profile.addNewDeposit(this.bankName,newDeposit,ui);
+        profile.profileAddNewDeposit(this.bankName,newDeposit,ui);
         profile.profileDeleteBond(this.bankName, this.bondName, ui);
         return this.isExit;
     }

@@ -29,7 +29,7 @@ public class DeleteCardCommand extends Command {
      */
     @Override
     public boolean execute(Profile profile, Ui ui) throws CardException {
-        profile.deleteCard(this.name, ui);
+        profile.profileDeleteCard(this.name, ui);
         return this.isExit;
     }
 }

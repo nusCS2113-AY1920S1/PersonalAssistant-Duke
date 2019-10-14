@@ -9,6 +9,10 @@ import owlmoney.model.transaction.TransactionList;
 import owlmoney.model.transaction.exception.TransactionException;
 import owlmoney.ui.Ui;
 
+/**
+ * Investment account class that extends a normal bank account.
+ */
+
 public class Investment extends Bank {
 
     private static final String INVESTMENT = "investment";

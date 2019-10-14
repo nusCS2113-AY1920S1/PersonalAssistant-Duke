@@ -31,8 +31,8 @@ public class EditExpenditureCommand extends Command {
      * @param index       Transaction number
      * @param type        The type of account to retrieve expenditure from.
      */
-    public EditExpenditureCommand(String name, String amount, String date, String description, String category,
-            int index, String type) {
+    public EditExpenditureCommand(String name, String amount, String date,
+            String description, String category, int index, String type) {
         this.accName = name;
         this.amount = amount;
         this.date = date;
@@ -50,7 +50,7 @@ public class EditExpenditureCommand extends Command {
      * @return false so OwlMoney will not terminate yet.
      */
     public boolean execute(Profile profile, Ui ui) throws BankException, TransactionException, CardException {
-        profile.editExpenditure(index, accName, description, amount, date, category, ui, this.type);
+        profile.profileEditExpenditure(index, accName, description, amount, date, category, ui, this.type);
         return this.isExit;
     }
 }

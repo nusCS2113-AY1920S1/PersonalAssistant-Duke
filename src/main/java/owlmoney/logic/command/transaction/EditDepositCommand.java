@@ -41,7 +41,7 @@ public class EditDepositCommand extends Command {
      * @return false so OwlMoney will not terminate yet.
      */
     public boolean execute(Profile profile, Ui ui) throws BankException, TransactionException {
-        profile.editDeposit(index, accName, description, amount, date, ui);
+        profile.profileEditDeposit(index, accName, description, amount, date, ui);
         return this.isExit;
     }
 }

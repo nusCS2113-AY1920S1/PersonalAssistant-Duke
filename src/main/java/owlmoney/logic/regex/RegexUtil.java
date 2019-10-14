@@ -1,7 +1,7 @@
 package owlmoney.logic.regex;
 
 /**
- * Regex is used to validate user input to make sure it satisfies constraints set for user input.
+ * RegexUtil is used to validate user input to make sure it satisfies constraints set for user input.
  */
 public final class RegexUtil {
     /**

@@ -7,12 +7,15 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
-
 import owlmoney.logic.command.Command;
 import owlmoney.logic.parser.ParseRawData;
 import owlmoney.logic.parser.exception.ParserException;
 import owlmoney.logic.regex.RegexUtil;
 
+/**
+ * ParseInvestment class which is abstract where the child bond objects will
+ * inherit from given that it is abstract.
+ */
 public abstract class ParseBond {
     HashMap<String, String> bondParameters = new HashMap<String, String>();
     private ParseRawData parseRawData = new ParseRawData();

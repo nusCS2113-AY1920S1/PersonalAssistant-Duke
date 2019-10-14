@@ -19,7 +19,7 @@ public class ListCardCommand extends Command {
      */
     @Override
     public boolean execute(Profile profile, Ui ui) throws CardException {
-        profile.listCards(ui);
+        profile.profileListCards(ui);
         return this.isExit;
     }
 }

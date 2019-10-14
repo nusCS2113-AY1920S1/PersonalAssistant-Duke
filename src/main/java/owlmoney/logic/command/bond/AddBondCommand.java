@@ -56,7 +56,7 @@ public class AddBondCommand extends Command {
         Bond newBond = new Bond(this.bondName, this.amount, this.rate, this.date, this.year);
         Expenditure newExpenditure = new Expenditure(this.bondName, this.amount, this.date, BONDS);
         profile.profileIsBondUnique(this.bankAccountName, newBond);
-        profile.addNewExpenditure(this.bankAccountName, newExpenditure, ui, type);
+        profile.profileAddNewExpenditure(this.bankAccountName, newExpenditure, ui, type);
         profile.profileAddNewBond(this.bankAccountName, newBond, ui);
         return this.isExit;
     }

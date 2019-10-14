@@ -36,7 +36,7 @@ public class DeleteExpenditureCommand extends Command {
      * @return false so OwlMoney will not terminate yet.
      */
     public boolean execute(Profile profile, Ui ui) throws BankException, TransactionException, CardException {
-        profile.deleteExpenditure(this.expNumber, this.from, ui, this.type);
+        profile.profileDeleteExpenditure(this.expNumber, this.from, ui, this.type);
         return this.isExit;
     }
 }

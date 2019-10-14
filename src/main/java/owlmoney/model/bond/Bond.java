@@ -5,6 +5,9 @@ import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+/**
+ * Bond class which represents one bond.
+ */
 public class Bond {
     private String name;
     private double amount;

@@ -36,7 +36,7 @@ public class EditCardCommand extends Command {
      */
     @Override
     public boolean execute(Profile profile, Ui ui) throws CardException {
-        profile.editCardDetails(name, newName, limit, rebate, ui);
+        profile.profileEditCardDetails(name, newName, limit, rebate, ui);
         return this.isExit;
     }
 }
