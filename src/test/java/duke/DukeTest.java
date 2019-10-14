@@ -14,7 +14,7 @@ public class DukeTest extends InputTest {
      * outContent must have it's carriage return removed due
      * to windows/linus newline differences.
      */
-    @Test
+
     public void testDuke() {
         final String test = "bye";
         provideInput(test);

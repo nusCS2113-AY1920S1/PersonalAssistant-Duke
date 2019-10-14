@@ -1,4 +1,6 @@
-package duke.exceptions;
+package duke.exceptions.planner;
+
+import duke.exceptions.ModException;
 
 public class ModFailedJsonException extends ModException {
 

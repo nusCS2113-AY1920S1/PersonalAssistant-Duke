@@ -12,7 +12,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-import duke.exceptions.ModBadRequestStatus;
+import duke.exceptions.planner.ModBadRequestStatus;
 
 public class RequestsData {
 
