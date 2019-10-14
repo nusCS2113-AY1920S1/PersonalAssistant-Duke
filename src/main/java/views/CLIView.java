@@ -154,11 +154,22 @@ public class CLIView {
             + "Member details: " + newMember.getDetails());
     }
 
+    /**
+     * Edits the details of a member belonging to the project.
+     * @param projectToManage The project specified by the user.
+     * @param memberIndexNumber The member whose details are to be updated.
+     * @param memberDetails The updated details of the member.
+     */
     public void editMember(IProject projectToManage, int memberIndexNumber, String memberDetails) {
         projectToManage.editMember(memberIndexNumber, memberDetails);
         consolePrint("Updated member details with the index number " + memberIndexNumber);
     }
 
+    /**
+     * Deletes a member from the project.
+     * @param projectToManage The project specified by the user.
+     * @param memberIndexNumber The member to be removed from the project.
+     */
     public void removeMember(IProject projectToManage, int memberIndexNumber) {
         projectToManage.removeMember(memberIndexNumber);
         consolePrint("Removed member with the index number " + memberIndexNumber);
@@ -172,6 +183,16 @@ public class CLIView {
     public void addTask(IProject projectToManage, Task newTask) {
         projectToManage.addTask(newTask);
         consolePrint("Added new task to the list.");
+    }
+
+    /**
+     * Deletes a task from the project.
+     * @param projectToManage The project specified by the user.
+     * @param taskIndexNumber The index of the task to be deleted.
+     */
+    public void removeTask(IProject projectToManage, int taskIndexNumber) {
+        projectToManage.removeTask(taskIndexNumber);
+        consolePrint("Removed task with the index number " + taskIndexNumber);
     }
 
     /**

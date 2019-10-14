@@ -22,6 +22,14 @@ public class TaskList {
     }
 
     /**
+     * Deletes the task from the list using the index number.
+     * @param taskIndexNumber The index number of the task to be deleted.
+     */
+    public void removeTask(int taskIndexNumber) {
+        this.taskList.remove(taskIndexNumber - 1);
+    }
+
+    /**
      * Returns an ArrayList with String descriptions of task details.
      * @return An ArrayList with String descriptions of task details.
      */
