@@ -24,6 +24,7 @@ public class Email {
     protected String body;
     protected Boolean hasHtml;
     protected String tag;
+    protected String rawJson;
 
     //@FXML
     //private WebView webView;
@@ -41,11 +42,13 @@ public class Email {
      * @param receivedDateTime the date and time when the email is received
      * @param body             the body of the email
      */
-    public Email(String subject, EmailParser.Sender from, LocalDateTime receivedDateTime, String body) {
+    public Email(String subject, EmailParser.Sender from, LocalDateTime receivedDateTime, String body,
+                 String rawJson) {
         this.subject = subject;
         this.from = from;
         this.receivedDateTime = receivedDateTime;
         this.body = body;
+        this.rawJson = rawJson;
     }
 
     /**
@@ -57,8 +60,16 @@ public class Email {
         return this.subject;
     }
 
+    public LocalDateTime getReceivedDateTime() {
+        return this.receivedDateTime;
+    }
+
     public void setTag(String tag) {
         this.tag = tag;
+    }
+
+    public String getRawJson() {
+        return this.rawJson;
     }
 
     /**
@@ -70,18 +81,18 @@ public class Email {
         return getFolderDir() + File.separator + this.subject;
     }
 
-    /**
-     * Show this email on browser. To be replaced by JavaFx code for UI display.
-     *
-     * @throws IOException if fails to load the filepath or open the browser.
-     */
-    @FXML
-    public String getShowEmailPath() throws IOException {
-        File emailFile = new File(this.filepath);
-        //Desktop.getDesktop().browse(emailFile.toURI());
-        String path = emailFile.toURI().toURL().toString();
-        return path;
-    }
+    ///**
+    // * Show this email on browser. To be replaced by JavaFx code for UI display.
+    // *
+    // * @throws IOException if fails to load the filepath or open the browser.
+    // */
+    //@FXML
+    //public String getShowEmailPath() throws IOException {
+    //    File emailFile = new File(this.filepath);
+    //    //Desktop.getDesktop().browse(emailFile.toURI());
+    //    String path = emailFile.toURI().toURL().toString();
+    //    return path;
+    //}
 
     /**
      * Get the pathname of the data/emails folder.

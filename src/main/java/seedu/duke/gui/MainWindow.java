@@ -17,14 +17,9 @@ import javafx.scene.control.ListView;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
-import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
-import javafx.scene.text.Text;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
 import javafx.stage.Popup;
@@ -224,8 +219,7 @@ public class MainWindow extends AnchorPane {
     }
 
     private void updateHtml() {
-        String emailPath = ui.getEmailPath();
-        webEngine.load(emailPath);
+        webEngine.loadContent(ui.getEmailContent());
         showHtml();
     }
 
@@ -344,7 +338,7 @@ public class MainWindow extends AnchorPane {
         //}
         ArrayList<EmailHBoxCell> list = new ArrayList<>();
         for (int i = 0; i < Duke.getEmailList().size(); i++) {
-            list.add(new EmailHBoxCell(Duke.getEmailList().get(i).toFileString(), i));
+            list.add(new EmailHBoxCell(Duke.getEmailList().get(i).getSubject(), i));
         }
         ObservableList<EmailHBoxCell> observableList = FXCollections.observableList(list);
         emailsListView.setItems(observableList);

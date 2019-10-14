@@ -30,7 +30,6 @@ public class KeyBinding {
             // print key pressed info to terminal for debugging purpose.
             String keyInfo =
                     focus + " " + type + ": Key Code=" + keyCode.getName() + ", Text=" + e.getText() + "\n";
-            System.out.println(keyInfo);
             if (focus.equals(userInput)) {
                 mainWindow.handleUserInputKeyEvent(keyCode);
             }

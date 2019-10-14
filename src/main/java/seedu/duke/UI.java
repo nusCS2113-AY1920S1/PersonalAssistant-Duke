@@ -26,7 +26,7 @@ public class UI {
     private boolean isGuiSet = false;
 
     // variable returned to GUI
-    private String emailPath = "";
+    private String emailContent = "";
     private String responseMsg = "";
 
     /**
@@ -94,12 +94,12 @@ public class UI {
         showGui(debugMsg);
     }
 
-    public void setEmailPath(String emailPath) {
-        this.emailPath = emailPath;
+    public void setEmailContent(String emailContent) {
+        this.emailContent = emailContent;
     }
 
-    public String getEmailPath() {
-        return this.emailPath;
+    public String getEmailContent() {
+        return this.emailContent;
     }
 
     public String getResponseMsg() {

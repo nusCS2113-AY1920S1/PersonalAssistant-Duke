@@ -16,10 +16,7 @@ public class EmailListCommand extends Command {
     public boolean execute() {
         if (!silent) {
             try {
-                EmailList syncedEmailList = EmailStorage.syncEmailListWithHtml(emailList);
-                Duke.setEmailList(syncedEmailList);
-                responseMsg = "Syncing email list with local storage...\n\n";
-                responseMsg += Duke.getEmailList().toString();
+                responseMsg += emailList.toString();
                 Duke.getUI().showResponse(responseMsg);
             } catch (Exception e) {
                 Duke.getUI().showError(e.toString());
