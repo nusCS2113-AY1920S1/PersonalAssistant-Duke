@@ -17,16 +17,13 @@ SEX @ 48.0 @ Mala  @ food  @ 4/10/2019 @ Max#0 ! Nic#1 ! Daniel#0
 EXP @ 20.0 @ hookers  @ hookers  @ 10/10/2020
 EXP @ 10000.0 @ buy Motorbike  @ GS @ 11/10/2019
 EXP @ 792.1389 @ mortgage  @ instalments @ 11/10/2019
-G @ 48.0 @ Mala  @ food  @ 4/10/2019 @ null
-G @ 48.0 @ Mala  @ food  @ 4/10/2019 @ null
+EXP @ 10000.0 @ buy BKK air ticket  @ GS @ 14/10/2019
 G @ 100000.0 @ buy Lambo  @ GS @ 10/12/2040 @ MEDIUM
 G @ 100000.0 @ buy Boat  @ GS @ 11/12/2050 @ LOW
 G @ 100000.0 @ buy HDB  @ GS @ 15/1/2050 @ HIGH
 G @ 100.0 @ buy ultraboost  @ GS @ 15/1/2050 @ HIGH
 G @ 100.0 @ buy watch @ GS @ 15/1/2050 @ HIGH
-G @ 10000.0 @ buy BKK air ticket  @ GS @ 11/10/2020 @ MEDIUM
 G @ 100000.0 @ buy Lambo  @ GS @ 10/12/2040 @ MEDIUM
 G @ 10000.0 @ buy expensive watch  @ GS @ 5/10/2029 @ MEDIUM
-G @ 200.0 @ goal-short buy table  @ GS @ 1/12/2019 @ MEDIUM
 INS @ 100000.0 @ mortgage  @ instalments @ 11/10/2019 @ 200 @ 0.06
 INS @ 100000.0 @ mortgage  @ instalments @ 9/10/2019 @ 200 @ 0.06

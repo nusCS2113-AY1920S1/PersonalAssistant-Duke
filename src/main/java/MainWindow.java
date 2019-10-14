@@ -31,7 +31,11 @@ public class MainWindow extends AnchorPane {
     @FXML
     private TextField userInput;
     @FXML
+    private TextField searchBar;
+    @FXML
     private Button sendButton;
+    @FXML
+    private Button searchButton;
 
     private Duke duke;
     private Ui mainWindowUi = new Ui();
@@ -111,6 +115,23 @@ public class MainWindow extends AnchorPane {
                 );
             }
         }
+        userInput.clear();
+    }
+
+    @FXML
+    private void handleSearchInput() throws IOException {
+        String input = searchBar.getText();
+        String[] response = duke.getResponse("find " + input);
+        dialogContainer.getChildren().addAll(
+                DialogBox.getUserDialog(input, userImage),
+                DialogBox.getDukeDialog(response[0], dukeImage)
+        );
+        if(!response[1].equals("")){
+            graphContainer.getChildren().clear();
+            graphContainer.getChildren().addAll(
+                    DialogBox.getDukeDialog(response[1], dukeImage));
+        }
+
         userInput.clear();
     }
 }
