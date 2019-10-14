@@ -4,7 +4,7 @@ public class Feedback {
 
     private String feedback;
 
-    public Feedback(String feedback) {
+    public Feedback(int i, String feedback) {
         this.feedback = feedback;
     }
 

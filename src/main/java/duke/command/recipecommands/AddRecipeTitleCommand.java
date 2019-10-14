@@ -27,9 +27,9 @@ public class AddRecipeTitleCommand extends CommandRecipeTitle {
             if (userInput.trim().contains("n/")) {
                 String recipeTitle = userInput.split("n/", 2)[1].trim();
                 recipeTitleList.addRecipeTitle(recipeTitle);
-                System.out.println("added tasks");
+                System.out.println("added recipe");
                 recipeTitleStorage.saveFile(recipeTitleList);
-                arrayList.add(MESSAGE_ADDED + "       " + recipeTitleList.getRecipeTitleList().get(recipeTitleList.getSize() - 1) + "\n" + "Now you have " + recipeTitleList.getSize() + " tasks in the list.");
+                arrayList.add(MESSAGE_ADDED + "       " + recipeTitleList.getRecipeTitleList().get(recipeTitleList.getSize() - 1) + "\n" + MESSAGE_ITEMS1 + recipeTitleList.getSize() + " recipes in the list.");
             } else {
                 arrayList.add(ERROR_MESSAGE_RANDOM);
             }

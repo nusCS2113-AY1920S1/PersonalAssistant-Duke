@@ -7,7 +7,7 @@ public class PrepStep {
     private int index;
     private ArrayList<String> step;
 
-    public PrepStep(int index, ArrayList<String> step) {
+    public PrepStep(int index, String step) {
         this.index = index;
         this.step = step;
     }
