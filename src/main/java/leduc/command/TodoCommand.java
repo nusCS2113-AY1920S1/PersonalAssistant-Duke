@@ -35,7 +35,14 @@ public class TodoCommand extends Command {
      * @throws FileException Exception caught when the file can't be open or read or modify
      */
     public void execute(TaskList tasks, Ui ui, Storage storage) throws EmptyTodoException, FileException {
-        if (user.substring(TodoCommand.todoShortcut.length()).isBlank()) {
+        String userSubstring;
+        if(callByShortcut){
+            userSubstring = user.substring(TodoCommand.todoShortcut.length());
+        }
+        else {
+            userSubstring = user.substring(4);
+        }
+        if (userSubstring.isBlank()) {
             throw new EmptyTodoException();
         }
         else {

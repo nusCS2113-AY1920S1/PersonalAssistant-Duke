@@ -38,10 +38,17 @@ public class DeadlineCommand extends Command {
      */
     public void execute(TaskList tasks, Ui ui, Storage storage)
             throws EmptyDeadlineDateException, EmptyDeadlineException, NonExistentDateException, FileException {
-        if(user.substring(DeadlineCommand.deadlineShortcut.length()).isBlank()){
+        String userSubstring;
+        if(callByShortcut){
+            userSubstring = user.substring(DeadlineCommand.deadlineShortcut.length());
+        }
+        else {
+            userSubstring = user.substring(8);
+        }
+        if(userSubstring.isBlank()){
             throw new EmptyDeadlineException();
         }
-        String[] taskDescription = user.substring(DeadlineCommand.deadlineShortcut.length()).split("/by");
+        String[] taskDescription = userSubstring.split("/by");
         if (taskDescription[0].isBlank()) {
             throw new EmptyDeadlineException();
         } else if (taskDescription.length == 1) { // no /by in input
