@@ -132,9 +132,7 @@ public class AddCommandParser implements Parser<AddCommand> {
         LocalDate createdDate = LocalDate.parse(info[2].trim(), formatter);
 
         info = info[3].split("/c ");
-        System.out.println(info[0]);
         int contactId = Integer.parseInt(info[1]);
-        System.out.println(info[1]);
 
         if (info[0].equals("/l")) {
             isLend = true;

@@ -2,12 +2,9 @@ package wallet.logic.command;
 
 import wallet.logic.LogicManager;
 import wallet.model.Wallet;
-import wallet.ui.Reminder;
+import wallet.reminder.Reminder;
 import wallet.ui.Ui;
 
-/**
- * The AddCommand Class which extends Command.
- */
 public class ReminderCommand extends Command {
     public static final String COMMAND_WORD = "reminder";
     public static final String MESSAGE_USAGE = "Usage for reminder command."

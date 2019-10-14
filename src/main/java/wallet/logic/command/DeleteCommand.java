@@ -2,6 +2,7 @@ package wallet.logic.command;
 
 import wallet.model.Wallet;
 import wallet.model.record.Expense;
+import wallet.model.record.Loan;
 import wallet.model.task.Task;
 
 /**
@@ -12,7 +13,8 @@ public class DeleteCommand extends Command {
     public static final String MESSAGE_SUCCESS_DELETE_TASK = "Noted. I've removed this task:";
     public static final String MESSAGE_SUCCESS_DELETE_EXPENSE = "Noted. I've removed this expense:";
     public static final String MESSAGE_ERROR_DELETE_EXPENSE = "An error occurred when trying to delete expense.";
-
+    public static final String MESSAGE_SUCCESS_DELETE_LOAN = "Noted. I've removed this loan:";
+    public static final String MESSAGE_ERROR_DELETE_LOAN = "An error occurred when trying to delete loan.";
     private String object;
     private int index;
 
@@ -51,6 +53,17 @@ public class DeleteCommand extends Command {
                 System.out.println(expense.toString());
             } else {
                 System.out.println(MESSAGE_ERROR_DELETE_EXPENSE);
+            }
+            break;
+
+        case "loan":
+            Loan loan = wallet.getLoanList().deleteLoan(index);
+            if (loan != null) {
+                wallet.getLoanList().setModified(true);
+                System.out.println(MESSAGE_SUCCESS_DELETE_LOAN);
+                System.out.println(loan.toString());
+            } else {
+                System.out.println(MESSAGE_ERROR_DELETE_LOAN);
             }
             break;
 

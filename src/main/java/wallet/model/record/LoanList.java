@@ -7,9 +7,11 @@ import java.util.ArrayList;
 public class LoanList {
     private boolean isModified = false;
     private ArrayList<Loan> loanList;
+    private boolean hasUnsettledLoan = false;
 
     public LoanList(ArrayList<Loan> loanList) {
         this.loanList = loanList;
+        checkUnsettledLoan();
     }
 
     public LoanList() {
@@ -109,6 +111,7 @@ public class LoanList {
         }
     }
 
+
     /**
      * Returns the largest id.
      *
@@ -123,5 +126,79 @@ public class LoanList {
             }
         }
         return max;
+    }
+
+    /**
+     * Deletes an expense using its id.
+     * @param id The id of the expense to delete.
+     * @return
+     */
+    public Loan deleteLoan(int id) {
+        int index = findIndexWithId(id);
+        if (index >= 0) {
+            Loan loan = getLoan(index);
+            loanList.remove(index);
+            return loan;
+        }
+        return null;
+    }
+
+    /**
+     * Finds and returns expense index using its id.
+     * @param id The id of the expense to find.
+     * @return
+     */
+    public int findIndexWithId(int id) {
+        int index = 0;
+        for (Loan l : this.loanList) {
+            if (l.getId() == id) {
+                return index;
+            }
+            index++;
+        }
+        return -1;
+    }
+
+    /**
+     * Finds and returns the Loan object using its id.
+     * @param id The id of the loan object.
+     * @return The loan object.
+     */
+    public Loan findLoanWithId(int id) {
+        for (Loan l : this.loanList) {
+            if (l.getId() == id) {
+                return l;
+            }
+        }
+        return null;
+    }
+
+    /**
+     * Checks whether there are unsettled loans.
+     *
+     * @return false if there are no unsettled loans. True, otherwise.
+     */
+    public boolean checkUnsettledLoan() {
+        for (Loan l: this.loanList) {
+            if (!l.getIsSettled()) {
+                hasUnsettledLoan = true;
+            } else {
+                hasUnsettledLoan = false;
+            }
+        }
+        return hasUnsettledLoan;
+    }
+
+    /**
+     * Sets hasUnsettledLoans.
+     *
+     * @param hasUnsettledLoan Whether there are any unsettled loans.
+     */
+    public void setHasUnsettledLoan(boolean hasUnsettledLoan) {
+        this.hasUnsettledLoan = hasUnsettledLoan;
+    }
+    
+    public boolean getHasUnsettledLoan() {
+        return this.hasUnsettledLoan;
     }
 }

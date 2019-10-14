@@ -22,6 +22,9 @@ public class EditCommandParser implements Parser<EditCommand> {
                 break;
             }
 
+        case "loan":
+            break;
+
         case "contact":
             Contact contact = parseContact(arguments[1]);
             if (contact != null) {
