@@ -16,6 +16,7 @@ import duke.logic.parser.commons.BakingHomeParser;
 import duke.logic.parser.exceptions.ParseException;
 import duke.model.Model;
 import duke.model.commons.Ingredient;
+import duke.model.commons.Item;
 import duke.model.order.Order;
 import duke.model.product.Product;
 import duke.storage.Storage;
@@ -75,7 +76,7 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public ObservableList<Ingredient> getFilteredInventoryList() {
+    public ObservableList<Item<Ingredient>> getFilteredInventoryList() {
         return model.getFilteredInventoryList();
     }
 

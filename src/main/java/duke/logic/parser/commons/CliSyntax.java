@@ -27,9 +27,8 @@ public class CliSyntax {
     public static final Prefix PREFIX_PRODUCT_INDEX = new Prefix("-i");
     public static final Prefix PREFIX_PRODUCT_STATUS = new Prefix("-status");
 
-    public static final Prefix PREFIX_INVENTORY_NAME = new Prefix("-ingt");
+    public static final Prefix PREFIX_INVENTORY_NAME = new Prefix("-name");
     public static final Prefix PREFIX_INVENTORY_QUANTITY = new Prefix("-qty");
     public static final Prefix PREFIX_INVENTORY_UNIT = new Prefix("-unit");
     public static final Prefix PREFIX_INVENTORY_INDEX = new Prefix("-i");
-
 }
