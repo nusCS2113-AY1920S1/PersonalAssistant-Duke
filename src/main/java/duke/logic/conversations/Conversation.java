@@ -1,7 +1,5 @@
 package duke.logic.conversations;
 
-import duke.commons.MessagesPrompt;
-
 /**
  * Abstract class representing individual Conversation.
  */

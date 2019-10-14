@@ -1,8 +1,7 @@
 package duke.commands;
 
-import duke.model.ModelManager;
-import duke.model.Venue;
-import duke.storage.Storage;
+import duke.model.Model;
+import duke.model.locations.Venue;
 
 import java.util.List;
 
@@ -19,12 +18,11 @@ public class RecommendationsCommand extends Command {
     /**
      * Executes this command on the given task list and user interface.
      *
-     * @param storage The storage object containing task list.
+     * @param model The model object containing information about the user.
      */
     @Override
-    public CommandResult execute(Storage storage) {
-        ModelManager modelManager = new ModelManager();
-        List<Venue> list = modelManager.getRecommendations();
+    public CommandResult execute(Model model) {
+        List<Venue> list = model.getRecommendations();
         StringBuilder result = new StringBuilder("Here are the list of Recommended Locations in "
                 + days + " days:\n");
         int i = 1;

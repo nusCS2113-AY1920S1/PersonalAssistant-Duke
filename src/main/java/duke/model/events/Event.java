@@ -1,6 +1,8 @@
-package duke.model;
+package duke.model.events;
 
 import duke.commons.exceptions.DukeException;
+import duke.logic.api.ApiParser;
+import duke.model.locations.Venue;
 
 import java.time.LocalDateTime;
 
@@ -17,7 +19,7 @@ public class Event extends DoWithin {
     public Event(String locationDescription, LocalDateTime startDate, LocalDateTime endDate) throws DukeException {
         super(locationDescription, startDate, endDate);
         // This can be removed once we implement the map ?
-        this.venue = ApiParserUtil.getLocationSearch(locationDescription);
+        this.venue = ApiParser.getLocationSearch(locationDescription);
     }
 
     /**
@@ -35,18 +37,15 @@ public class Event extends DoWithin {
 
     @Override
     public String toString() {
-        return "[H]" + super.toString();
+        return "[E]" + super.toString();
     }
 
     /**
-     * Get coordinates of the destination.
-     * @return
+     * Gets the Venue of the event.
      */
-    public Venue getLocation() throws DukeException {
-        if (this.venue == null) {
-            this.venue = ApiParserUtil.getLocationSearch(getDescription());
-        }
-        return this.venue;
+    public Venue getLocation() {
+        assert (venue != null) : "Event can only be created with a venue";
+        return venue;
     }
 
     public void setLocation(Venue venue) {
@@ -54,7 +53,7 @@ public class Event extends DoWithin {
     }
 
     /**
-     * Returns the string to store the Holiday object in persistent storage.
+     * Returns the string to store the Event object in persistent storage.
      */
     public String getHoliday() {
         return super.getWithin() + " | " + venue.toString();

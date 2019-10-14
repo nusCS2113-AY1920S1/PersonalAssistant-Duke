@@ -2,9 +2,9 @@ package duke.commands;
 
 import duke.commons.exceptions.DukeException;
 import duke.commons.Messages;
-import duke.storage.Storage;
-import duke.data.tasks.Task;
-import duke.data.tasks.TaskWithDates;
+import duke.model.Model;
+import duke.model.events.Task;
+import duke.model.events.TaskWithDates;
 
 import java.time.LocalDateTime;
 
@@ -26,18 +26,18 @@ public class RescheduleCommand extends Command {
     /**
      * Executes this command on the given task list and user interface.
      *
-     * @param storage The storage object containing task list.
+     * @param model The model object containing information about the user.
      */
     @Override
-    public CommandResult execute(Storage storage) throws DukeException {
+    public CommandResult execute(Model model) throws DukeException {
         try {
-            Task task =  storage.getTasks().get(index);
+            Task task =  model.getTasks().get(index);
             if (task instanceof TaskWithDates) {
                 ((TaskWithDates) task).setStartDate(newDate);
             } else {
                 throw new DukeException(Messages.TASK_NOT_FOUND);
             }
-            storage.write();
+            model.save();
             return new CommandResult(MESSAGE_UPDATE + task);
         } catch (IndexOutOfBoundsException e) {
             throw new DukeException(Messages.OUT_OF_BOUNDS);

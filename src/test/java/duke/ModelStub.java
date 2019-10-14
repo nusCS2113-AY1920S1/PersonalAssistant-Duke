@@ -1,34 +1,24 @@
-package duke.model;
+package duke;
 
 import duke.commons.exceptions.DukeException;
+import duke.model.Model;
+import duke.model.TaskList;
 import duke.model.events.Event;
 import duke.model.events.Task;
-import duke.model.transports.BusService;
 import duke.model.locations.BusStop;
 import duke.model.locations.Venue;
-import duke.storage.Storage;
+import duke.model.transports.BusService;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class ModelManager implements Model {
-    private Storage storage;
+public class ModelStub implements Model {
     private TaskList tasks;
-    //private List<BusStop> allBusStops;
-    //private List<TrainStation> allTrainStations;
-    //private List<Route> userRoutes;
 
-    /**
-     * Constructs a new ModelManager object.
-     */
-    public ModelManager() {
-        storage = new Storage();
-        tasks = storage.getTasks();
-        //allBusStops = storage.getBusStops();
-        //allTrainStations = storage.getTrainStations();
-        //userRoutes = storage.getRoutes();
+    public ModelStub() {
+        tasks = new TaskList();
     }
 
     @Override
@@ -88,6 +78,5 @@ public class ModelManager implements Model {
 
     @Override
     public void save() throws DukeException {
-        storage.write();
     }
 }

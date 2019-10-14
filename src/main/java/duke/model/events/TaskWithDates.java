@@ -1,4 +1,4 @@
-package duke.model;
+package duke.model.events;
 
 import java.time.LocalDateTime;
 

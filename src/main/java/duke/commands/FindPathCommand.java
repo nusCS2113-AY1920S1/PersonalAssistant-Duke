@@ -2,15 +2,15 @@ package duke.commands;
 
 import duke.PathFinder;
 import duke.commons.enumerations.Constraint;
-import duke.data.BusStop;
-import duke.data.Location;
 import duke.commons.Messages;
 import duke.commons.exceptions.DukeException;
-import duke.data.UniqueTaskList;
-import duke.data.tasks.Holiday;
-import duke.data.tasks.Task;
 import duke.logic.api.ApiConstraintParser;
-import duke.storage.Storage;
+import duke.model.Model;
+import duke.model.TaskList;
+import duke.model.events.Event;
+import duke.model.events.Task;
+import duke.model.locations.BusStop;
+import duke.model.locations.Venue;
 
 import java.util.ArrayList;
 
@@ -50,10 +50,10 @@ public class FindPathCommand extends Command {
         this.startPointIndex = startPointIndex;
     }
 
-    private static Holiday getHoliday(String index, UniqueTaskList t) throws DukeException {
+    private static Event getHoliday(String index, TaskList t) throws DukeException {
         Task t1 = t.get(Integer.parseInt(index) - 1);
-        if (t1 instanceof Holiday) {
-            return (Holiday) t1;
+        if (t1 instanceof Event) {
+            return (Event) t1;
         }
         throw new DukeException(Messages.TASK_NOT_HOLIDAY);
     }
@@ -61,15 +61,15 @@ public class FindPathCommand extends Command {
     /**
      * Executes this command on the given task list and user interface.
      *
-     * @param storage The storage object containing task list.
+     * @param model The model object containing information about the user.
      */
     @Override
-    public CommandResult execute(Storage storage) throws DukeException {
+    public CommandResult execute(Model model) throws DukeException {
 
-        Holiday startPoint = getHoliday(this.startPointIndex, storage.getTasks());
-        Location startLocation = startPoint.getLocation();
-        Holiday endPoint = getHoliday(this.endPointIndex, storage.getTasks());
-        Location endLocation = endPoint.getLocation();
+        Event startPoint = getHoliday(this.startPointIndex, model.getTasks());
+        Venue startLocation = startPoint.getLocation();
+        Event endPoint = getHoliday(this.endPointIndex, model.getTasks());
+        Venue endLocation = endPoint.getLocation();
         startPoint = ApiConstraintParser.getConstraintLocation(startPoint, this.constraint);
         endPoint = ApiConstraintParser.getConstraintLocation(endPoint, this.constraint);
 

@@ -1,4 +1,4 @@
-package duke.data;
+package duke.model.transports;
 
 import java.util.ArrayList;
 
@@ -41,3 +41,4 @@ public class BusService {
         }
     }
 }
+

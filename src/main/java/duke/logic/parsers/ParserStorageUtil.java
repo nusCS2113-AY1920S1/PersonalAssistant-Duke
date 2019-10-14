@@ -3,15 +3,12 @@ package duke.logic.parsers;
 import duke.commons.exceptions.DukeDateTimeParseException;
 import duke.commons.exceptions.DukeException;
 import duke.commons.Messages;
-import duke.data.Location;
-import duke.data.tasks.Deadline;
-import duke.data.tasks.DoWithin;
-import duke.data.tasks.Event;
-import duke.data.tasks.Fixed;
-import duke.data.tasks.Holiday;
-import duke.data.tasks.RecurringTask;
-import duke.data.tasks.Task;
-import duke.data.tasks.Todo;
+import duke.model.events.Deadline;
+import duke.model.events.DoWithin;
+import duke.model.events.Event;
+import duke.model.events.Task;
+import duke.model.events.Todo;
+import duke.model.locations.Venue;
 
 import java.time.LocalDateTime;
 
@@ -37,28 +34,15 @@ public class ParserStorageUtil {
             } catch (DukeDateTimeParseException e) {
                 task = new Deadline(description, taskParts[3].strip());
             }
-        } else if ("E".equals(type)) {
-            try {
-                task = new Event(description, ParserTimeUtil.parseStringToDate(taskParts[3].strip()));
-            } catch (DukeDateTimeParseException e) {
-                task = new Event(description, taskParts[3].strip());
-            }
         } else if ("W".equals(type)) {
             LocalDateTime start = ParserTimeUtil.parseStringToDate(taskParts[3].strip());
             LocalDateTime end = ParserTimeUtil.parseStringToDate(taskParts[4].strip());
             task = new DoWithin(description, start, end);
-        } else if ("R".equals(type)) {
-            task = new RecurringTask(description, ParserTimeUtil.parseStringToDate(taskParts[3].strip()),
-                    Integer.parseInt(taskParts[4].strip()));
-        } else if ("F".equals(type)) {
-            int hour = Integer.parseInt(taskParts[3].strip());
-            int min = Integer.parseInt(taskParts[4].strip());
-            task = new Fixed(description, hour, min);
-        }  else if ("H".equals(type)) {
+        } else if ("E".equals(type)) {
             LocalDateTime start = ParserTimeUtil.parseStringToDate(taskParts[3].strip());
             LocalDateTime end = ParserTimeUtil.parseStringToDate(taskParts[4].strip());
-            Location location = getLocationFromStorage(taskParts);
-            task = new Holiday(description, start, end, location);
+            Venue location = getLocationFromStorage(taskParts);
+            task = new Event(description, start, end, location);
         } else {
             task = new Todo(description);
         }
@@ -69,13 +53,13 @@ public class ParserStorageUtil {
     /**
      * Parses part of a task back to a Location.
      */
-    private static Location getLocationFromStorage(String[] taskParts) {
+    private static Venue getLocationFromStorage(String[] taskParts) {
         String address = taskParts[5].strip();
         double longitude = Double.parseDouble(taskParts[7].strip());
         double latitude = Double.parseDouble(taskParts[6].strip());
         double distX = Double.parseDouble(taskParts[7].strip());
         double distY = Double.parseDouble(taskParts[8].strip());
-        return new Location(address, latitude, longitude, distX, distY);
+        return new Venue(address, latitude, longitude, distX, distY);
     }
 
     /**
@@ -90,16 +74,9 @@ public class ParserStorageUtil {
         } else if (task instanceof Todo) {
             return  "T | " + task.isDone() + " | " + task.getDescription();
         } else if (task instanceof Event) {
-            return "E | " + task.isDone() + " | " + task.getDescription() + " | " + ((Event) task).getEvent();
-        } else if (task instanceof Holiday) {
-            return "H | " + task.isDone() + " | " + task.getDescription() + " | " + ((Holiday) task).getHoliday();
+            return "E | " + task.isDone() + " | " + task.getDescription() + " | " + ((Event) task).getHoliday();
         } else if (task instanceof DoWithin) {
             return "W | " + task.isDone() + " | " + task.getDescription() + " | " + ((DoWithin) task).getWithin();
-        } else if (task instanceof RecurringTask) {
-            return ("R | " + task.isDone() + " | " + task.getDescription() + " | "
-                    + ((RecurringTask) task).getStartDate() + " | " +  ((RecurringTask) task).getRepeatInterval());
-        } else if (task instanceof Fixed) {
-            return "F | " + task.isDone() + " | " + task.getDescription() + " | " + ((Fixed) task).getFixed();
         }
         throw new DukeException(Messages.CORRUPTED_TASK);
     }

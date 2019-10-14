@@ -1,9 +1,9 @@
 package duke.commands;
 
 import duke.commons.exceptions.DukeException;
-import duke.storage.Storage;
-import duke.data.tasks.Task;
-import duke.data.UniqueTaskList;
+import duke.model.Model;
+import duke.model.TaskList;
+import duke.model.events.Task;
 
 /**
  * Class representing a command to find a task by keyword.
@@ -23,12 +23,12 @@ public class FindCommand extends Command {
     /**
      * Executes this command on the given task list and user interface.
      *
-     * @param storage The storage object containing task list.
+     * @param model The model object containing information about the user.
      */
     @Override
-    public CommandResult execute(Storage storage) throws DukeException {
-        UniqueTaskList tasks = storage.getTasks();
-        UniqueTaskList result = new UniqueTaskList();
+    public CommandResult execute(Model model) throws DukeException {
+        TaskList tasks = model.getTasks();
+        TaskList result = new TaskList();
         for (Task task: tasks) {
             if (task.toString().contains(keyword)) {
                 result.add(task);

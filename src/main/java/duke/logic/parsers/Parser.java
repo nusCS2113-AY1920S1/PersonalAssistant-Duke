@@ -42,8 +42,6 @@ public class Parser {
             return new AddCommand(ParserUtil.createTodo(input));
         case "deadline":
             return new AddCommand(ParserUtil.createDeadline(input));
-        case "event":
-            return new AddCommand(ParserUtil.createEvent(input));
         case "done":
             return new MarkDoneCommand(ParserUtil.getIndex(input));
         case "delete":
@@ -58,18 +56,14 @@ public class Parser {
             return new AddCommand(ParserUtil.createWithin(input));
         case "reschedule":
             return new RescheduleCommand(ParserUtil.getSafeIndex(input), ParserUtil.getScheduleDate(input));
-        case "repeat":
-            return new AddCommand(ParserUtil.createRecurringTask(input));
-        case "fixed":
-            return new AddCommand(ParserUtil.createFixed(input));
         case "search":
             return new LocationSearchCommand(getWord(input));
         case "busStop":
             return new GetBusStopCommand(getWord(input));
         case "busRoute":
             return new GetBusRouteCommand(getWord(input));
-        case "holiday":
-            return new AddCommand(ParserUtil.createHoliday(input));
+        case "event":
+            return new AddCommand(ParserUtil.createEvent(input));
         case "findPath":
             return new FindPathCommand(getWord(input),  getHolidayIndexInList(1, input),
                     getHolidayIndexInList(2, input));

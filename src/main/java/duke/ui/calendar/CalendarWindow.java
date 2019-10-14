@@ -2,11 +2,10 @@ package duke.ui.calendar;
 
 import duke.commands.CommandResult;
 import duke.commons.exceptions.DukeException;
-import duke.data.tasks.DoWithin;
-import duke.data.tasks.RecurringTask;
-import duke.data.tasks.Task;
-import duke.data.tasks.TaskWithDates;
-import duke.data.UniqueTaskList;
+import duke.model.TaskList;
+import duke.model.events.DoWithin;
+import duke.model.events.Task;
+import duke.model.events.TaskWithDates;
 import duke.ui.UiPart;
 import javafx.fxml.FXML;
 import javafx.collections.transformation.SortedList;
@@ -27,8 +26,8 @@ public class CalendarWindow extends UiPart<Stage> {
     private int numOfDays;
     private int dayOfTheFirstDay;
     private String currentMonth;
-    private List<UniqueTaskList> filteredTasks;
-    private static UniqueTaskList tasks;
+    private List<TaskList> filteredTasks;
+    private static TaskList tasks;
     private static final int MAX_ROW = 6;
     private static final int MAX_COL = 7;
 
@@ -106,7 +105,7 @@ public class CalendarWindow extends UiPart<Stage> {
         filteredTasks = new ArrayList<>();
         SortedList<Task> sortedTask = tasks.getChronoList();
         for (int i = 0; i <= numOfDays; ++i) {
-            filteredTasks.add(new UniqueTaskList());
+            filteredTasks.add(new TaskList());
         }
         for (Task t : sortedTask) {
             try {
@@ -128,9 +127,7 @@ public class CalendarWindow extends UiPart<Stage> {
         LocalDate startDate = ((TaskWithDates) t).getStartDate().toLocalDate();
         if (isSameYearMonth(startDate)) {
             filteredTasks.get(startDate.getDayOfMonth()).add(t);
-            if (t instanceof RecurringTask) {
-                //do something
-            } else if (t instanceof DoWithin) {
+            if (t instanceof DoWithin) {
                 //do something
             }
         }
@@ -146,7 +143,7 @@ public class CalendarWindow extends UiPart<Stage> {
      *
      * @param tasks The task list from Duke containing all the tasks.
      */
-    private void setCalendarLayout(UniqueTaskList tasks) {
+    private void setCalendarLayout(TaskList tasks) {
         setCalendarBasics(tasks);
         refreshCalendar();
     }
@@ -154,7 +151,7 @@ public class CalendarWindow extends UiPart<Stage> {
     /**
      * Sets the basic information of the calendar; current month, year and tasks.
      */
-    private void setCalendarBasics(UniqueTaskList tasks) {
+    private void setCalendarBasics(TaskList tasks) {
         ZoneId zoneId = ZoneId.systemDefault(); //GMT +8
         currentYearMonth = YearMonth.now(zoneId).minusMonths(0);
         CalendarWindow.tasks = tasks;
@@ -165,7 +162,7 @@ public class CalendarWindow extends UiPart<Stage> {
      *
      * @param root Stage to use as the root of the CalendarWindow.
      */
-    private CalendarWindow(Stage root, UniqueTaskList tasks) {
+    private CalendarWindow(Stage root, TaskList tasks) {
         super(FXML, root);
         root.getScene().getStylesheets().addAll(this.getClass().getResource("/css/calendarStyle.css").toExternalForm());
         setCalendarLayout(tasks);

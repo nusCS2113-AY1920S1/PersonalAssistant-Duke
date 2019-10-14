@@ -1,8 +1,8 @@
 package duke.commands;
 
-import duke.data.BusStop;
-import duke.data.UniqueTaskList;
-import duke.data.tasks.Task;
+import duke.model.TaskList;
+import duke.model.events.Task;
+import duke.model.locations.BusStop;
 
 import java.util.ArrayList;
 
@@ -11,7 +11,7 @@ public class CommandResult {
     private boolean isExit;
     private boolean isMap;
     private boolean isCalendar;
-    private UniqueTaskList tasks;
+    private TaskList tasks;
     private ArrayList<BusStop> route;
 
     /**
@@ -29,7 +29,7 @@ public class CommandResult {
     /**
      * Alternative constructor that helps to create text for a list of tasks.
      */
-    public CommandResult(UniqueTaskList tasks) {
+    public CommandResult(TaskList tasks) {
         message = "Here are the list of tasks:\n";
         int i = 1;
         for (Task t : tasks) {
@@ -46,11 +46,11 @@ public class CommandResult {
         this.route = route;
     }
 
-    public void setTasks(UniqueTaskList tasks) {
+    public void setTasks(TaskList tasks) {
         this.tasks = tasks;
     }
 
-    public UniqueTaskList getTasks() {
+    public TaskList getTasks() {
         return tasks;
     }
 
