@@ -8,10 +8,11 @@ public class DollaData {
 
     private String mode = "dolla";
     public EntryList entryList; // TODO: Find out alternatives to using a public variable
+    Storage saveData = new Storage();
 
     public DollaData() {
-        this.entryList = new EntryList(new ArrayList<Log>());
-        // this.entryList = new EntryList(importEntryList()); TODO: Import from save file
+ //       this.entryList = new EntryList(new ArrayList<Log>());
+         this.entryList = new EntryList(saveData.getEntries()); //TODO: Import from save file
     }
 
     public EntryList getEntryList() {
