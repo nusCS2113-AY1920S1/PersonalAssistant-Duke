@@ -81,7 +81,7 @@ public class PrioritizeCommandTest {
             prioritizeCommand5.execute(tasks,ui,storage);
         }
         catch( DukeException e ){
-            assertTrue(e instanceof PrioritizeFormatException);
+            assertTrue(e instanceof PrioritizeLimitException);
         }
 
         PrioritizeCommand prioritizeCommand6  = new PrioritizeCommand("prioritize 15 prio 2");

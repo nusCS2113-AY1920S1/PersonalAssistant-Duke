@@ -33,7 +33,7 @@ public class PrioritizeCommand extends Command {
      * @throws FileException Exception caught when the file can't be open or read or modify.
      * @throws NonExistentTaskException Exception caught when the task to delete does not exist.
      * @throws PrioritizeFormatException Exception caught when the format of a prioritize command is not respected.
-     * @throws PrioritizeLimitException Exception caught when the new priority is greater than 9 or less than 0.
+     * @throws PrioritizeLimitException Exception caught when the new priority is not an int or is greater than 9 or less than 0.
      * @throws EmptyArgumentException Exception caught when there is no argument
      */
     public void execute(TaskList tasks, Ui ui, Storage storage) throws FileException,
@@ -62,7 +62,7 @@ public class PrioritizeCommand extends Command {
             priority = Integer.parseInt(commandString[1].trim());
         }
         catch (Exception e ){
-            throw new PrioritizeFormatException();
+            throw new PrioritizeLimitException();
         }
         if (priority < 0 || priority > 9) {
             throw new PrioritizeLimitException();

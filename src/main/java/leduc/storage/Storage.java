@@ -24,7 +24,7 @@ public class Storage {
     /**
      * Constructor of leduc.storage.Storage
      * @param file String representing the path of the file
-     * @param configFile
+     * @param configFile String representing the path of the file storing the shortcut
      */
     public Storage(String file, String configFile) throws FileException, MeaninglessException {
         this.file = new File(file);
