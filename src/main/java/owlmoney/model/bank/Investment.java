@@ -32,6 +32,7 @@ public class Investment extends Bank {
      *
      * @param exp an instance of expenditure.
      * @param ui  required for printing.
+     * @throws BankException If amount becomes negative after adding expenditure.
      */
     @Override
     public void addInExpenditure(Transaction exp, Ui ui) throws BankException {
@@ -48,6 +49,7 @@ public class Investment extends Bank {
      *
      * @param exId The id of the expenditure in ExpenditureList.
      * @param ui   required for printing.
+     * @throws TransactionException If invalid transaction.
      */
     @Override
     public void deleteExpenditure(int exId, Ui ui) throws TransactionException {
@@ -69,6 +71,7 @@ public class Investment extends Bank {
      * Checks if bond exists in the bondList.
      *
      * @param bond the bond object.
+     * @throws BondException If duplicate bond name exists.
      */
     @Override
     public void checkBondExist(Bond bond) throws BondException {

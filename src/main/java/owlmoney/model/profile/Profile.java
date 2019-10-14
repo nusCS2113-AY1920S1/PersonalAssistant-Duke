@@ -46,6 +46,7 @@ public class Profile {
      *
      * @param newBank an instance of the new bank account.
      * @param ui      required for printing.
+     * @throws BankException If duplicated bank name found.
      */
     public void addNewBank(Bank newBank, Ui ui) throws BankException {
         bankList.addBank(newBank, ui);
@@ -56,6 +57,7 @@ public class Profile {
      *
      * @param bankName name of the Bank account.
      * @param ui       required for printing.
+     * @throws BankException If bank account fails check criteria.
      */
     public void deleteBank(String bankName, String bankType, Ui ui) throws BankException {
         bankList.deleteBank(bankName, bankType, ui);
@@ -65,6 +67,7 @@ public class Profile {
      * Lists all the bank accounts in the BankList.
      *
      * @param ui required for printing.
+     * @throws BankException If there are no bank account of specified type.
      */
     public void listBanks(String bankType, Ui ui) throws BankException {
         bankList.listBankAccount(bankType, ui);
@@ -77,6 +80,7 @@ public class Profile {
      * @param exp     An expenditure object.
      * @param ui      required for printing.
      * @param type    Represents type of expenditure to be added.
+     * @throws BankException If bank amount becomes negative after adding expenditure.
      */
     public void addNewExpenditure(String accName, Transaction exp, Ui ui, String type)
             throws BankException, owlmoney.model.card.exception.CardException {
@@ -93,6 +97,8 @@ public class Profile {
      * @param expIndex The index of the expenditure in the expenditureList tied to a specific bank account.
      * @param bankName The name of the bank account.
      * @param ui       required for printing.
+     * @throws BankException If bank account does not exist.
+     * @throws TransactionException If invalid transaction.
      */
     public void deleteExpenditure(int expIndex, String bankName, Ui ui,
             String type) throws BankException, TransactionException {
@@ -107,6 +113,8 @@ public class Profile {
      * @param listedBank Bank account to list from.
      * @param ui         required for printing.
      * @param displayNum Number of deposits to list.
+     * @throws BankException If bank account does not exist.
+     * @throws TransactionException If invalid transaction
      */
     public void listDeposit(String listedBank, Ui ui, int displayNum) throws BankException, TransactionException {
         bankList.listBankDeposit(listedBank, ui, displayNum);
@@ -118,6 +126,8 @@ public class Profile {
      * @param listedBankOrCard Bank account or credit card to list from.
      * @param ui         required for printing.
      * @param displayNum Number of expenditure to list.
+     * @throws BankException If bank account does not exist.
+     * @throws TransactionException If no expenditure found.
      */
     public void listExpenditure(String listedBankOrCard, Ui ui, int displayNum, String type)
             throws BankException, TransactionException, owlmoney.model.card.exception.CardException {
@@ -138,6 +148,8 @@ public class Profile {
      * @param date         New date of expenditure.
      * @param category     New category of expenditure.
      * @param ui           required for printing.
+     * @throws BankException If bank account does not exist.
+     * @throws TransactionException If incorrect date format.
      */
     public void editExpenditure(int expNum, String editFromBank, String desc, String amount, String date,
             String category, Ui ui, String type) throws BankException, TransactionException {
@@ -154,8 +166,10 @@ public class Profile {
      * @param amount  New amount of the savings account.
      * @param income  New income of the saving account.
      * @param ui      required for printing.
+     * @throws BankException If duplicate bank account name is found.
      */
-    public void editSavingsAccount(String name, String newName, String amount, String income, Ui ui) {
+    public void editSavingsAccount(String name, String newName, String amount, String income, Ui ui)
+            throws BankException {
         bankList.editSavings(name, newName, amount, income, ui);
     }
 
@@ -167,7 +181,7 @@ public class Profile {
      * @param amount  New amount of the investment account.
      * @param ui      required for printing.
      */
-    public void editInvestmentAccount(String name, String newName, String amount, Ui ui) {
+    public void editInvestmentAccount(String name, String newName, String amount, Ui ui) throws BankException {
         bankList.editInvestment(name, newName, amount, ui);
     }
 
@@ -177,6 +191,8 @@ public class Profile {
      * @param depIndex Transaction number of the deposit.
      * @param bankName Bank name of the deposit.
      * @param ui       required for printing.
+     * @throws BankException If bank account does not exist.
+     * @throws TransactionException If transaction is not a deposit.
      */
     public void deleteDeposit(int depIndex, String bankName, Ui ui) throws BankException, TransactionException {
         bankList.deleteDeposit(bankName, depIndex, ui);
@@ -188,6 +204,7 @@ public class Profile {
      * @param accName Bank account name.
      * @param dep     Deposit to be added.
      * @param ui      required for printing.
+     * @throws BankException If bank account does not exist.
      */
     public void addNewDeposit(String accName, Transaction dep, Ui ui) throws BankException {
         bankList.addDeposit(accName, dep, ui);
@@ -202,6 +219,8 @@ public class Profile {
      * @param amount       New amount of deposit.
      * @param date         New date of deposit.
      * @param ui           required for deposit.
+     * @throws BankException If bank account does not exist.
+     * @throws TransactionException If incorrect date format.
      */
     public void editDeposit(int expNum, String editFromBank, String desc, String amount, String date, Ui ui)
             throws BankException, TransactionException {
@@ -213,6 +232,7 @@ public class Profile {
      * @param accName the name of the bank account.
      * @param newBond the bond object.
      * @param ui      required for printing.
+     * @throws BankException If bank account does not exist.
      */
     public void addNewBond(String accName, Bond newBond, Ui ui) throws BankException {
         bankList.addBond(accName, newBond, ui);
@@ -223,6 +243,8 @@ public class Profile {
      *
      * @param accName the bank account name.
      * @param bond the bond object.
+     * @throws BankException If bank account does not exist.
+     * @throws BondException If duplicate bond name is found.
      */
     public void isBondUnique(String accName, Bond bond) throws BankException, BondException {
         bankList.isBondExist(accName, bond);

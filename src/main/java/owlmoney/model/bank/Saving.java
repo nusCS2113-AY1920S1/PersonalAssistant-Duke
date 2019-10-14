@@ -50,6 +50,7 @@ public class Saving extends Bank {
      *
      * @param exp an instance of expenditure.
      * @param ui  required for printing.
+     * @throws BankException If bank account becomes negative after adding expenditure.
      */
     @Override
     public void addInExpenditure(Transaction exp, Ui ui) throws BankException {
@@ -66,6 +67,7 @@ public class Saving extends Bank {
      *
      * @param ui         Ui of OwlMoney.
      * @param displayNum Number of deposits to list.
+     * @throws TransactionException If no deposit is found.
      */
     @Override
     void listAllDeposit(Ui ui, int displayNum) throws TransactionException {
@@ -77,6 +79,7 @@ public class Saving extends Bank {
      *
      * @param ui         Ui of OwlMoney.
      * @param displayNum Number of expenditure to list.
+     * @throws TransactionException If no expenditure is found.
      */
     @Override
     void listAllExpenditure(Ui ui, int displayNum) throws TransactionException {
@@ -88,6 +91,7 @@ public class Saving extends Bank {
      *
      * @param exId The id of the expenditure in ExpenditureList.
      * @param ui   required for printing.
+     * @throws TransactionException If invalid transaction.
      */
     @Override
     public void deleteExpenditure(int exId, Ui ui) throws TransactionException {
@@ -113,6 +117,8 @@ public class Saving extends Bank {
      * @param date     New date.
      * @param category New category.
      * @param ui       Ui of OwlMoney.
+     * @throws TransactionException If incorrect date format.
+     * @throws BankException If amount is negative after editing expenditure.
      */
     @Override
     void editExpenditureDetails(int expNum, String desc, String amount, String date, String category, Ui ui)
@@ -135,6 +141,8 @@ public class Saving extends Bank {
      * @param amount New amount.
      * @param date   New date.
      * @param ui     Ui of OwlMoney.
+     * @throws TransactionException If incorrect date format.
+     * @throws BankException If amount becomes negative after editing deposit.
      */
     @Override
     void editDepositDetails(int expNum, String desc, String amount, String date, Ui ui)
@@ -166,6 +174,8 @@ public class Saving extends Bank {
      *
      * @param index Transaction number.
      * @param ui    Ui of OwlMoney.
+     * @throws TransactionException If transaction is not a deposit.
+     * @throws BankException If amount becomes negative after editing deposit.
      */
     @Override
     void deleteDepositTransaction(int index, Ui ui) throws TransactionException, BankException {

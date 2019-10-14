@@ -30,6 +30,7 @@ public class TransactionList {
      *
      * @param ui         required for printing.
      * @param displayNum Number of expenditures to list.
+     * @throws TransactionException If no expenditure is found.
      */
     public void listExpenditure(Ui ui, int displayNum) throws TransactionException {
         if (expLists.size() <= 0) {
@@ -58,6 +59,7 @@ public class TransactionList {
      *
      * @param ui         required for printing.
      * @param displayNum Number of deposits to list.
+     * @throws TransactionException If no deposit is found.
      */
     public void listDeposit(Ui ui, int displayNum) throws TransactionException {
         if (expLists.size() <= 0) {
@@ -108,6 +110,7 @@ public class TransactionList {
      *
      * @param index index of the expenditure in the expenditureList.
      * @param ui    required for printing.
+     * @throws TransactionException If invalid transaction.
      */
     //magic int used. change next time
     public double deleteExpenditureFromList(int index, Ui ui) throws TransactionException {
@@ -138,10 +141,10 @@ public class TransactionList {
      * @param category New category of the expenditure.
      * @param ui       required for printing.
      * @return New amount of the expenditure.
+     * @throws TransactionException If incorrect date format.
      */
     public double editEx(int expNum, String desc, String amount, String date, String category, Ui ui)
             throws TransactionException {
-        ui.printMessage("Editing transaction...\n");
         if (!(desc.isBlank() || desc.isEmpty())) {
             expLists.get(expNum - ONE_INDEX).setDescription(desc);
         }
@@ -173,6 +176,7 @@ public class TransactionList {
      * @param date   New date of the deposit.
      * @param ui     required for printing.
      * @return New amount of the deposit.
+     * @throws TransactionException If incorrect date format.
      */
     public double editDep(int expNum, String desc, String amount, String date, Ui ui) throws TransactionException {
         ui.printMessage("Editing transaction...\n");
@@ -201,6 +205,7 @@ public class TransactionList {
      * @param index Transaction number of the expenditure.
      * @param ui    required for printing.
      * @return Amount of the expenditure.
+     * @throws TransactionException If transaction is not an expenditure.
      */
     public double getExpenditureAmount(int index, Ui ui) throws TransactionException {
         if ((index - ONE_INDEX) >= 0 && (index - ONE_INDEX) < expLists.size()) {
@@ -234,6 +239,7 @@ public class TransactionList {
      * @param index Transaction number of the deposit.
      * @param ui    required for printing.
      * @return Amount of the deposit
+     * @throws TransactionException If transaction is not a deposit.
      */
     public double getDepositValue(int index, Ui ui) throws TransactionException {
         if (expLists.size() <= 0) {
