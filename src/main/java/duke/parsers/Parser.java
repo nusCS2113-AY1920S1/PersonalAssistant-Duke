@@ -136,13 +136,9 @@ public class Parser {
                 info = "/" + description.split("/", 2)[1];
                 return new EditCommand(new Meal(name, info, autocorrect));
             case "setgoal":
-                if (description.contains("/")) {
-                    name = description.split("/", 2)[0].trim();
-                    info = "/" + description.split("/", 2)[1];
-                    return new AddGoalCommand(new Goal(name, info, autocorrect));
-                } else {
-                    return new AddGoalCommand(new Goal(description, "", autocorrect));
-                }
+                name = description.split(" ", 2)[0].trim();
+                info = description.split(" ", 2)[1];
+                return new AddGoalCommand(new Goal(name, info, autocorrect));
             case "help":
                 return new HelpCommand();
             default:

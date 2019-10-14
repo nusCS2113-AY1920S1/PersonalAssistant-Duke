@@ -19,7 +19,7 @@ public class MealList {
     private String currentDate = dateFormat.format(calendarDate.getTime());
     private HashMap<String, ArrayList<Meal>> mealTracker = new HashMap<>();
     private HashMap<String, HashMap<String, Integer>> storedItems = new HashMap<>();
-    private Goal goal;
+    private Goal goal = null;
 
     /**
      * This is the constructor of MealList object if there is no argument.

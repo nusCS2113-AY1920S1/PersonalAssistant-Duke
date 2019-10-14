@@ -99,7 +99,7 @@ public class Ui {
         return input;
     }
 
-    public void showError(String message) {
+    public void showMessage(String message) {
         System.out.println(padding + message);
     }
 

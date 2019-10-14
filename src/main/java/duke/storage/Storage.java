@@ -128,8 +128,12 @@ public class Storage {
             newMeal = new Dinner(description, nutritionalValue);
         } else if (taskType.equals("S")) {
             newMeal = new Item(description, nutritionalValue);
+        } else if (taskType.equals("G")) {
+            System.out.println(description);
+            System.out.println(nutritionalValue[0]);
+            meals.addGoal(new Goal(description, nutritionalValue), true);
         }
-        if (taskType.equals("S") == false) {
+        if (taskType.equals("S") == false && taskType.equals("G") == false) {
             if (isDone) {
                 newMeal.markAsDone();
             }
@@ -140,11 +144,8 @@ public class Storage {
             } else {
                 mealTracker.get(mealDate).add(newMeal);
             }
-        } else {
+        } else if (taskType.equals("S") == true) {
             meals.addStoredItem(newMeal);
-        }
-        if (taskType.equals("G")) {
-            meals.addGoal(new Goal(description, nutritionalValue), true);
         }
     }
 

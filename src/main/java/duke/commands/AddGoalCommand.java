@@ -34,15 +34,21 @@ public class AddGoalCommand extends Command {
     public void execute(MealList meals, Ui ui, Storage storage, User user, Scanner in) throws DukeException {
         try {
             meals.addGoal(this.goal, false);
+            ui.showAddedGoal(goal);
+            storage.updateGoal(meals);
         } catch (DukeException e) {
+            ui.showMessage(e.getMessage());
+            ui.showLine();
             String response = ui.readCommand(in);
-            if (response == "n"  || response == "N") {
+            if (response.trim().equals("n")  || response.trim().equals("N") ) {
+                ui.showLine();
                 throw new DukeException("The set goal command has been canceled");
             } else {
                 meals.addGoal(this.goal, true);
+                ui.showLine();
+                ui.showAddedGoal(goal);
+                storage.updateGoal(meals);
             }
         }
-        ui.showAddedGoal(goal);
-        storage.updateGoal(meals);
     }
 }

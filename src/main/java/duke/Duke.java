@@ -46,7 +46,7 @@ public class Duke {
         try {
             storage.loadWord(autocorrect);
         } catch (DukeException e) {
-            ui.showError(e.getMessage());
+            ui.showMessage(e.getMessage());
         }
     }
 
@@ -66,7 +66,7 @@ public class Duke {
                 ui.showUserSetupDone(user);
                 storage.saveUser(user);
             } catch (DukeException e) {
-                ui.showError(e.getMessage());
+                ui.showMessage(e.getMessage());
             }
         }
         boolean isExit = false;
@@ -79,7 +79,7 @@ public class Duke {
                 c.execute(tasks, ui, storage, user, in);
                 isExit = c.isExit();
             } catch (DukeException e) {
-                ui.showError(e.getMessage());
+                ui.showMessage(e.getMessage());
             } finally {
                 ui.showLine();
             }
