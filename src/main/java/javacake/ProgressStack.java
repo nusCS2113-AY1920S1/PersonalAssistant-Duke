@@ -56,6 +56,27 @@ public class ProgressStack {
         currentFilePath += ("/" + updatedPath);
     }
 
+    public void backToPreviousPath() {
+        File currentFile = new File(currentFilePath);
+        if (!currentFilePath.equals(defaultFilePath)) {
+            if (currentFile.isDirectory()) {
+                currentFilePath = gotoParentFilePath(currentFilePath);
+            } else {
+                currentFilePath = gotoParentFilePath(gotoParentFilePath(currentFilePath));
+            }
+        }
+    }
+
+    public String gotoParentFilePath(String filePath) {
+        String[] filesCapture = filePath.split("/");
+        StringBuilder reducedFilePath = new StringBuilder();
+        for (int i = 0; i < filesCapture.length -1; i++) {
+            reducedFilePath.append(filesCapture[i]).append("/");
+        }
+        String finalTrim = reducedFilePath.toString();
+        finalTrim = finalTrim.substring(0, finalTrim.length() -1);
+        return finalTrim;
+    }
     public void printFiles() {
         int y = 1;
         for (String x : filePathQueries) {

@@ -31,18 +31,22 @@ public class GoToCommand extends Command {
      * @param profile Profile of the user
      * @throws DukeException Error thrown when unable to close reader
      */
-    public String execute(ProgressStack progressStack, Ui ui, Storage storage, Profile profile) throws DukeException, IOException {
+    public String execute(ProgressStack progressStack, Ui ui, Storage storage, Profile profile) throws DukeException {
             int intIndex = Integer.parseInt(index)-1;
             /*if ((progressStack.gotoFilePath(intIndex)).startsWith("Quiz")) {
 
             }*/
             progressStack.updateFilePath(progressStack.gotoFilePath(intIndex));
             progressStack.insertQueries();
-            if (progressStack.containsDirectory()) {
-                return (progressStack.displayDirectories());
-            } else {
-                progressStack.updateFilePath(progressStack.gotoFilePath(0));
-                return (progressStack.readQuery());
+            try {
+                if (progressStack.containsDirectory()) {
+                    return (progressStack.displayDirectories());
+                } else {
+                    progressStack.updateFilePath(progressStack.gotoFilePath(0));
+                    return (progressStack.readQuery());
+                }
+            } catch (IOException e) {
+                throw new DukeException(e.getMessage());
             }
             //progressStack.processQueries();
 

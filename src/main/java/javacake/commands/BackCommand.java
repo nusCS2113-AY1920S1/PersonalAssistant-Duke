@@ -22,8 +22,20 @@ public class BackCommand extends Command {
      * @param profile Profile of the user
      * @throws DukeException Error thrown when unable to close file reader
      */
-    public String execute(ProgressStack progressStack, Ui ui, Storage storage, Profile profile) throws DukeException {
+    public String execute(ProgressStack progressStack, Ui ui, Storage storage, Profile profile) throws DukeException, IOException {
 
+        progressStack.backToPreviousPath();
+        progressStack.insertQueries();
+        try {
+            if (progressStack.containsDirectory()) {
+                return (progressStack.displayDirectories());
+            } else {
+                progressStack.updateFilePath(progressStack.gotoFilePath(0));
+                return (progressStack.readQuery());
+            }
+        } catch (IOException e) {
+            throw new DukeException(e.getMessage());
+        }
         /*if (progressStack.checkProgress() == 2) {
             progressStack.listIndexToMainList();
             ListCommand listCommand = new ListCommand();
@@ -52,6 +64,5 @@ public class BackCommand extends Command {
                 goToCommand.execute(progressStack, ui, storage, profile);
             }
         }*/
-        return "0";
     }
 }
