@@ -4,6 +4,7 @@ import duke.command.logic.ModuleCommand;
 import duke.exceptions.ModException;
 import duke.exceptions.ModEmptyListException;
 import duke.exceptions.ModMissingArgumentException;
+import duke.exceptions.planner.ModNotFoundException;
 import duke.modules.data.ModuleInfoDetailed;
 import duke.modules.data.ModuleInfoSummary;
 import duke.util.PlannerUi;
@@ -18,9 +19,6 @@ import java.util.Scanner;
 public class CapCommand extends ModuleCommand {
 
     /* TO-DO
-
-    TODO NEW SHIT make cap command for only user's input command (loop ask for user mod and letter grade, sort grade and get mod mc to get weightage) then then calculate cap
-
 
     Cap report overall METHOD
     get list of done modules from tasklist, store as tuple? new class? (mcs, letter grade, s/u) in a new arraylist
@@ -217,14 +215,20 @@ public class CapCommand extends ModuleCommand {
     }
 
     /**
-     *
+     * User will keep inputting "[moduleCode] [letterGrade]" until satisfied, then user inputs "done" and the user's CAP will be calculated and printed
      */
     public void calculateOverallCap(HashMap<String, ModuleInfoSummary> summaryMap, HashMap<String, ModuleInfoDetailed> detailedMap,
-                                    PlannerUi plannerUi, Storage store, Scanner scanner) throws ModMissingArgumentException {
+                                    PlannerUi plannerUi, Storage store, Scanner scanner) throws ModMissingArgumentException, ModNotFoundException {
         String userInput = scanner.nextLine();
         double cumulativeCap = 0.00;
         while (!isComplete(userInput)) {
+            if (userInput.isEmpty()) {
+                throw new ModMissingArgumentException("Please input a completed module and your grade for it, or input done to finish and calculate your CAP");
+            }
             String[] userInfo = userInput.split(" ");
+            if (!detailedMap.containsKey(userInfo[0])) {
+                throw new ModNotFoundException();
+            }
             int mcTemp = detailedMap.get(userInfo[0]).getModuleCredit();
             mcCount += mcTemp;
             if (userInfo[1].isEmpty()) {
