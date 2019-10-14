@@ -12,7 +12,7 @@ import owlmoney.ui.Ui;
 public class Investment extends Bank {
 
     private static final String INVESTMENT = "investment";
-    BondList bonds;
+    private BondList bonds;
 
     /**
      * Creates an instance of an investment account.
@@ -57,6 +57,18 @@ public class Investment extends Bank {
     }
 
     /**
+     * Adds a new deposit to the current bank account.
+     *
+     * @param dep Deposit to add.
+     * @param ui  Ui of OwlMoney.
+     */
+    @Override
+    public void addDepositTransaction(Transaction dep, Ui ui) {
+        transactions.addDepositToList(dep, ui);
+        addToAmount(dep.getAmount());
+    }
+
+    /**
      * Adds a bond to this investment account.
      *
      * @param bond the bond object.
@@ -74,7 +86,57 @@ public class Investment extends Bank {
      * @throws BondException If duplicate bond name exists.
      */
     @Override
-    public void checkBondExist(Bond bond) throws BondException {
+    void investmentCheckBondExist(Bond bond) throws BondException {
         bonds.bondExist(bond);
+    }
+
+    /**
+     * Deletes bond from the bondList in the specified investment account.
+     *
+     * @param bondName the name of the bond to delete.
+     * @param ui       required for printing.
+     * @throws BondException if the bond does not exist.
+     */
+    @Override
+    void investmentDeleteBond(String bondName, Ui ui) throws BondException {
+        bonds.removeBondFromList(bondName, ui);
+    }
+
+    /**
+     * Gets the bond object from the investment account.
+     *
+     * @param bondName the name of the bond to retrieve.
+     * @return the bond object.
+     * @throws BondException if the bond does not exist.
+     */
+    @Override
+    Bond investmentGetBond(String bondName) throws BondException {
+        return bonds.getBond(bondName);
+    }
+
+    /**
+     * Edits the bond in the bank account.
+     *
+     * @param bondName the name of the bond to edit.
+     * @param year     the new year of the bond.
+     * @param rate     the new rate
+     * @param ui       required for printing.
+     * @throws BondException If the bond does not exist or the year is smaller than the original.
+     */
+    @Override
+    void investmentEditBond(String bondName, String year, String rate, Ui ui) throws BondException {
+        bonds.editBond(bondName, year, rate, ui);
+    }
+
+    /**
+     * Lists the bonds in the bank specified bank account.
+     *
+     * @param displayNum the number of bonds to display.
+     * @param ui required for printing.
+     * @throws BondException if there are not bonds.
+     */
+    @Override
+    void investmentListBond(int displayNum, Ui ui) throws BondException {
+        bonds.listBond(displayNum, ui);
     }
 }

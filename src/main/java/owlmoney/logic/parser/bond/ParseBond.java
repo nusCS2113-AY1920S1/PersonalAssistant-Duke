@@ -19,14 +19,14 @@ public abstract class ParseBond {
     private String rawData;
     String type;
     private static final String[] BOND_KEYWORD = new String[] {
-        "/amount", "/name", "/newname", "/rate", "/date", "/year", "/from"};
+        "/amount", "/name", "/rate", "/date", "/year", "/from", "/num"};
     static final String AMOUNT = "/amount";
     static final String NAME = "/name";
-    static final String NEW_NAME = "/newname";
     static final String RATE = "/rate";
     static final String DATE = "/date";
     static final String YEAR = "/year";
     static final String FROM = "/from";
+    static final String NUM = "/num";
     private static final List<String> BOND_KEYWORD_LISTS = Arrays.asList(BOND_KEYWORD);
 
     /**
@@ -74,8 +74,6 @@ public abstract class ParseBond {
                 parseRawData.extractParameter(rawData, AMOUNT, BOND_KEYWORD));
         bondParameters.put(NAME,
                 parseRawData.extractParameter(rawData, NAME, BOND_KEYWORD));
-        bondParameters.put(NEW_NAME,
-                parseRawData.extractParameter(rawData, NEW_NAME, BOND_KEYWORD));
         bondParameters.put(DATE,
                 parseRawData.extractParameter(rawData, DATE, BOND_KEYWORD));
         bondParameters.put(RATE,
@@ -84,6 +82,8 @@ public abstract class ParseBond {
                 parseRawData.extractParameter(rawData, YEAR, BOND_KEYWORD));
         bondParameters.put(FROM,
                 parseRawData.extractParameter(rawData, FROM, BOND_KEYWORD));
+        bondParameters.put(NUM,
+                parseRawData.extractParameter(rawData, NUM, BOND_KEYWORD));
     }
 
     /**
@@ -159,6 +159,18 @@ public abstract class ParseBond {
     void checkYear(String yearString) throws ParserException {
         if (!RegexUtil.regexCheckBondYear(yearString)) {
             throw new ParserException("Bond years must be between 1 and 10 years");
+        }
+    }
+
+    /**
+     * Checks if the transaction number or display number entered by the user is an integer.
+     *
+     * @param valueString String to be converted to integer.
+     * @throws ParserException If the string is not an integer.
+     */
+    void checkInt(String variable, String valueString) throws ParserException {
+        if (!RegexUtil.regexCheckListNumber(valueString)) {
+            throw new ParserException(variable + " can only be a positive number with at most 9 digits");
         }
     }
 

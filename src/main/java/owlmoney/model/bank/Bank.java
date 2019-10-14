@@ -214,7 +214,55 @@ public abstract class Bank {
      * @throws BankException If used on savings account.
      * @throws BondException If duplicate bond name exists.
      */
-    public void checkBondExist(Bond bond) throws BankException, BondException {
+    void investmentCheckBondExist(Bond bond) throws BankException, BondException {
+        throw new BankException("This account does not support this feature");
+    }
+
+    /**
+     * Deletes bond from the current investment account.
+     *
+     * @param bondName the name of the bond to delete.
+     * @param ui required for printing.
+     * @throws BankException If used on savings account.
+     */
+    void investmentDeleteBond(String bondName, Ui ui) throws BankException, BondException {
+        throw new BankException("This account does not support this feature");
+    }
+
+    /**
+     * Gets the bond object from the investment account.
+     *
+     * @param bondName the name of the bond to retrieve.
+     * @return the bond object.
+     * @throws BankException If used on savings account.
+     * @throws BondException If the bond does not exist.
+     */
+    Bond investmentGetBond(String bondName) throws BankException, BondException {
+        throw new BankException("This account does not support this feature");
+    }
+
+    /**
+     * Edits the bond in the bank account.
+     *
+     * @param bondName the name of the bond to edit.
+     * @param year     the new year of the bond.
+     * @param rate     the new rate
+     * @param ui       required for printing.
+     * @throws BankException If used on savings account.
+     */
+    void investmentEditBond(String bondName, String year, String rate, Ui ui) throws BankException, BondException {
+        throw new BankException("This account does not support this feature");
+    }
+
+    /**
+     * Lists the bonds in the bank specified bank account.
+     *
+     * @param displayNum the number of bonds to display.
+     * @param ui required for printing.
+     * @throws BankException If used on savings account.
+     * @throws BondException If there are no bonds.
+     */
+    void investmentListBond(int displayNum, Ui ui) throws BankException, BondException {
         throw new BankException("This account does not support this feature");
     }
 }

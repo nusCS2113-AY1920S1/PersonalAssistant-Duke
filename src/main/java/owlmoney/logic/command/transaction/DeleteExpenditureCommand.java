@@ -19,6 +19,7 @@ public class DeleteExpenditureCommand extends Command {
      *
      * @param index    Transaction number.
      * @param bankName Bank account name.
+     * @param type     The type of account to delete expenditure from.
      */
     public DeleteExpenditureCommand(int index, String bankName, String type) {
         this.expNumber = index;

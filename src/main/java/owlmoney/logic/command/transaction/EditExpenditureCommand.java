@@ -28,6 +28,7 @@ public class EditExpenditureCommand extends Command {
      * @param description New description of expenditure if any.
      * @param category    New category of expenditure if any.
      * @param index       Transaction number
+     * @param type        The type of account to retrieve expenditure from.
      */
     public EditExpenditureCommand(String name, String amount, String date, String description, String category,
             int index, String type) {

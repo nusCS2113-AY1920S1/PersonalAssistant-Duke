@@ -18,15 +18,21 @@ public class BondList {
     /**
      * Lists the bonds in the bondList.
      *
-     * @param ui         required for display.
      * @param displayNum bond number.
+     * @param ui         required for display.
+     * @throws BondException if there are no bonds.
      */
-    public void listBond(Ui ui, int displayNum) {
+    public void listBond(int displayNum, Ui ui) throws BondException {
         if (bondLists.size() <= 0) {
-            ui.printError("There are no bonds");
+            throw new BondException("There are no bonds");
         } else {
+            int counter = displayNum;
             for (int i = bondLists.size() - 1; i >= 0; i--) {
-                ui.printMessage((i + 1) + bondLists.get(i).getName() + "\n");
+                ui.printMessage((i + 1) +":\n" + bondLists.get(i).getBondDescription() + "\n");
+                counter--;
+                if (counter <= 0) {
+                   break;
+                }
             }
         }
     }
@@ -39,7 +45,8 @@ public class BondList {
      */
     public void addBondToList(Bond bond, Ui ui) {
         bondLists.add(bond);
-        ui.printMessage("Added bond:\n" + bond.getName());
+        ui.printMessage("\nAdded bond: ");
+        ui.printMessage(bond.getBondDescription());
     }
 
     /**
@@ -64,12 +71,85 @@ public class BondList {
             }
         }
     }
-    /*public void editBond() {
 
+    /**
+     * Removes the bond from the bondList.
+     *
+     * @param bondName the name of the bond.
+     * @param ui required for printing.
+     */
+    public void removeBondFromList(String bondName, Ui ui) {
+        for (int i = 0; i < getSize(); i++) {
+            if (bondName.equals(bondLists.get(i).getName())) {
+                bondLists.remove(i);
+                return;
+            }
+        }
     }
 
-    public void deleteBondFromList() {
+    /**
+     * Gets the bond object from the bondList.
+     *
+     * @param bondName the name of the bond to retrieve.
+     * @return the bond object.
+     * @throws BondException if the bond does not exist.
+     */
+    public Bond getBond(String bondName) throws BondException {
+        for (int i = 0; i < getSize(); i++) {
+            if (bondName.equals(bondLists.get(i).getName())) {
+                return bondLists.get(i);
+            }
+        }
+        throw new BondException("There are no bonds with the name: " + bondName);
+    }
 
-    }*/
+    /**
+     * Edits the bond details specifically.
+     *
+     * @param bondName the name of the bond to retrieve.
+     * @param year the new year of the bond
+     * @param rate the new rate of the bond
+     * @param ui required for printing.
+     * @throws BondException If the bond does not exist or the year is smaller than the original.
+     */
+    public void editBond(String bondName, String year, String rate, Ui ui) throws BondException {
+        for (int i = 0; i < getSize(); i++) {
+            if (bondName.equals(bondLists.get(i).getName())) {
+                editBondYear(year, i);
+                editBondRate(rate, i);
+                ui.printMessage(bondLists.get(i).getBondDescription());
+                return;
+            }
+        }
+        throw new BondException("There are no bonds with the name: " + bondName);
+    }
 
+    /**
+     * Edits the bond rate specifically to a new rate.
+     *
+     * @param rate the new interest rate of the bond.
+     * @param i position of the bond in the bondList.
+     */
+    private void editBondRate(String rate, int i) {
+        if (!(rate.isEmpty() || rate.isBlank())) {
+            bondLists.get(i).setRate(Double.parseDouble(rate));
+        }
+    }
+
+    /**
+     * Edits the year of the bond.
+     *
+     * @param year the new year of the bond.
+     * @param i position of the bond in the bondList.
+     * @throws BondException if the year is smaller than the original year.
+     */
+    private void editBondYear(String year, int i) throws BondException {
+        if (!(year.isEmpty() || year.isBlank())) {
+            int originalYear = bondLists.get(i).getYear();
+            if (Integer.parseInt(year) < originalYear) {
+                throw new BondException("The year can only be larger than: " + originalYear);
+            }
+            bondLists.get(i).setYear(Integer.parseInt(year));
+        }
+    }
 }

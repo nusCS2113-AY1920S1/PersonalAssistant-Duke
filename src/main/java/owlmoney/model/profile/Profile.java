@@ -228,29 +228,6 @@ public class Profile {
     }
 
     /**
-     * Adds bond to a specific bank account.
-     * @param accName the name of the bank account.
-     * @param newBond the bond object.
-     * @param ui      required for printing.
-     * @throws BankException If bank account does not exist.
-     */
-    public void addNewBond(String accName, Bond newBond, Ui ui) throws BankException {
-        bankList.addBond(accName, newBond, ui);
-    }
-
-    /**
-     * Checks if the bond exists before adding.
-     *
-     * @param accName the bank account name.
-     * @param bond the bond object.
-     * @throws BankException If bank account does not exist.
-     * @throws BondException If duplicate bond name is found.
-     */
-    public void isBondUnique(String accName, Bond bond) throws BankException, BondException {
-        bankList.isBondExist(accName, bond);
-    }
-
-    /**
      * Adds a new credit card into the CardList stored in this profile.
      *
      * @param newCard an instance of the new credit card.
@@ -290,5 +267,80 @@ public class Profile {
      */
     public void listCards(Ui ui) throws CardException {
         cardList.listCards(ui);
+    }
+
+    /**
+     * Deletes bond from the bondList in the specified investment account.
+     *
+     * @param bankName the name of the bank account.
+     * @param bondName the name of the bond to delete.
+     * @param ui       required for printing.
+     * @throws BankException if the bank is not found.
+     */
+    public void profileDeleteBond(String bankName, String bondName, Ui ui) throws BankException, BondException {
+        bankList.bankListDeleteBond(bankName, bondName, ui);
+    }
+
+    /**
+     * Gets the bond object from the investment account if it exists.
+     *
+     * @param bankName the name of the bank account.
+     * @param bondName the name of the bond to retrieve.
+     * @return the bond object.
+     * @throws BankException if the bank does not exist.
+     * @throws BondException if the bond does not exist.
+     */
+    public Bond profileGetBond(String bankName, String bondName) throws BankException, BondException {
+        return bankList.bankListGetBond(bankName, bondName);
+    }
+
+    /**
+     * Adds bond to a specific bank account.
+     * @param bankName the name of the bank account.
+     * @param newBond the bond object.
+     * @param ui      required for printing.
+     * @throws BankException If bank account does not exist.
+     */
+    public void profileAddNewBond(String bankName, Bond newBond, Ui ui) throws BankException {
+        bankList.bankListAddBond(bankName, newBond, ui);
+    }
+
+    /**
+     * Checks if the bond exists before adding.
+     *
+     * @param bankName the bank account name.
+     * @param bond the bond object.
+     * @throws BankException If bank account does not exist.
+     * @throws BondException If duplicate bond name is found.
+     */
+    public void profileIsBondUnique(String bankName, Bond bond) throws BankException, BondException {
+        bankList.bankListIsBondExist(bankName, bond);
+    }
+
+    /**
+     * Edits the bond in the bank account.
+     *
+     * @param bankName the name of the bank.
+     * @param bondName the name of the bond to edit.
+     * @param year     the new year of the bond.
+     * @param rate     the new rate
+     * @param ui       required for printing.
+     */
+    public void profileEditBond(String bankName, String bondName, String year, String rate, Ui ui)
+            throws BankException, BondException {
+        bankList.bankListEditBond(bankName, bondName, year, rate, ui);
+    }
+
+    /**
+     * Lists the bonds in the bank specified bank account.
+     *
+     * @param bankName the name of the bank account.
+     * @param ui required for printing.
+     * @param displayNum the number of bonds to display.
+     * @throws BankException If bank account does not exist.
+     * @throws BondException If there are no bonds.
+     */
+    public void profileListBonds(String bankName, Ui ui, int displayNum) throws BankException, BondException {
+        bankList.bankListListBond(bankName, ui, displayNum);
     }
 }

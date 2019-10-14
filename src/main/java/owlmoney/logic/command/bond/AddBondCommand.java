@@ -55,9 +55,9 @@ public class AddBondCommand extends Command {
     public boolean execute(Profile profile, Ui ui) throws BankException, BondException, CardException {
         Bond newBond = new Bond(this.bondName, this.amount, this.rate, this.date, this.year);
         Expenditure newExpenditure = new Expenditure(this.bondName, this.amount, this.date, BONDS);
-        profile.isBondUnique(this.bankAccountName, newBond);
+        profile.profileIsBondUnique(this.bankAccountName, newBond);
         profile.addNewExpenditure(this.bankAccountName, newExpenditure, ui, type);
-        profile.addNewBond(this.bankAccountName, newBond, ui);
+        profile.profileAddNewBond(this.bankAccountName, newBond, ui);
         return this.isExit;
     }
 }

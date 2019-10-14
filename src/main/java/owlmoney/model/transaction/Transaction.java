@@ -56,7 +56,7 @@ public abstract class Transaction {
      * @return The date that the expenditure was made.
      */
     private String getDate() {
-        DateFormat temp = new SimpleDateFormat("dd EEEE yyyy");
+        DateFormat temp = new SimpleDateFormat("dd MMMM yyyy");
         return temp.format(this.date);
     }
 

@@ -20,7 +20,7 @@ public class ListExpenditureCommand extends Command {
      *
      * @param name       Bank account name.
      * @param displayNum Number of expenditures to display.
-     * @param type Represents type of expenditure to be added.
+     * @param type Represents type of expenditure to be listed.
      */
     public ListExpenditureCommand(String name, int displayNum, String type) {
         this.accName = name;

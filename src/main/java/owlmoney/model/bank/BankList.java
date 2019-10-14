@@ -432,7 +432,7 @@ public class BankList {
      * @param ui      required for printing.
      * @throws BankException If bank account does not exist.
      */
-    public void addBond(String accName, Bond bond, Ui ui) throws BankException {
+    public void bankListAddBond(String accName, Bond bond, Ui ui) throws BankException {
         for (int i = 0; i < bankLists.size(); i++) {
             if (accName.equals(bankLists.get(i).getAccountName())) {
                 bankLists.get(i).addBondToInvestmentAccount(bond, ui);
@@ -450,13 +450,88 @@ public class BankList {
      * @throws BankException If bank does not exist.
      * @throws BondException If duplicate bond name found.
      */
-    public void isBondExist(String accName, Bond bond) throws BankException, BondException {
-        for (int i = 0; i < bankLists.size(); i++) {
+    public void bankListIsBondExist(String accName, Bond bond) throws BankException, BondException {
+        for (int i = 0; i < getBankListSize(); i++) {
             if (accName.equals(bankLists.get(i).getAccountName())) {
-                bankLists.get(i).checkBondExist(bond);
+                bankLists.get(i).investmentCheckBondExist(bond);
                 return;
             }
         }
         throw new BankException("Cannot find bank with name: " + accName);
+    }
+
+    /**
+     * Deletes bond from the bondList in the specified investment account.
+     *
+     * @param bankName the name of the bank account.
+     * @param bondName the name of the bond to delete.
+     * @param ui       required for printing.
+     * @throws BankException if the bank is not found.
+     */
+    public void bankListDeleteBond(String bankName, String bondName, Ui ui) throws BankException, BondException {
+        for (int i = 0; i < getBankListSize(); i++) {
+            if (bankName.equals(bankLists.get(i).getAccountName())) {
+                bankLists.get(i).investmentDeleteBond(bondName, ui);
+                return;
+            }
+        }
+        throw new BankException("Cannot find bank with name: " + bankName);
+    }
+
+    /**
+     * Gets the bond object from the investment account if it exists.
+     *
+     * @param bankName the name of the bank account.
+     * @param bondName the name of the bond to retrieve.
+     * @return the bond object.
+     * @throws BankException if the bank does not exist.
+     * @throws BondException if the bond does not exist.
+     */
+    public Bond bankListGetBond(String bankName, String bondName) throws BankException, BondException {
+        for (int i = 0; i < getBankListSize(); i++) {
+            if (bankName.equals(bankLists.get(i).getAccountName())) {
+                return bankLists.get(i).investmentGetBond(bondName);
+            }
+        }
+        throw new BankException("Cannot find bank with name: " + bankName);
+    }
+
+    /**
+     * Edits the bond in the bank account.
+     *
+     * @param bankName the name of the bank.
+     * @param bondName the name of the bond to edit.
+     * @param year     the new year of the bond.
+     * @param rate     the new rate
+     * @param ui       required for printing.
+     * @throws BankException if the bank does not exist.
+     */
+    public void bankListEditBond(String bankName, String bondName, String year, String rate, Ui ui)
+            throws BankException, BondException {
+        for (int i = 0; i < getBankListSize(); i++) {
+            if (bankName.equals(bankLists.get(i).getAccountName())) {
+                bankLists.get(i).investmentEditBond(bondName, year, rate, ui);
+                return;
+            }
+        }
+        throw new BankException("Cannot find bank with name: " + bankName);
+    }
+
+    /**
+     * Lists the bonds in the bank specified bank account.
+     *
+     * @param bankName the name of the bank account.
+     * @param ui required for printing.
+     * @param displayNum the number of bonds to display.
+     * @throws BankException If bank account does not exist.
+     * @throws BondException If there are no bonds.
+     */
+    public void bankListListBond(String bankName, Ui ui, int displayNum) throws BankException, BondException {
+        for (int i = 0; i < getBankListSize(); i++) {
+            if (bankName.equals(bankLists.get(i).getAccountName())) {
+                bankLists.get(i).investmentListBond(displayNum, ui);
+                return;
+            }
+        }
     }
 }
