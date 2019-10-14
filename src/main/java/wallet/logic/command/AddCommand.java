@@ -21,7 +21,7 @@ public class AddCommand extends Command {
     public static final String MESSAGE_SUCCESS_ADD_EXPENSE = "Got it. I've added this expense:";
     public static final String MESSAGE_SUCCESS_ADD_LOAN = "Got it. I've added this loan:";
     public static final String MESSAGE_ERROR_ADD_EXPENSE = "Error in format when adding expense.\n"
-                                                            + MESSAGE_USAGE;
+            + MESSAGE_USAGE;
 
     private Expense expense = null;
     private Task task = null;
@@ -67,7 +67,7 @@ public class AddCommand extends Command {
     /**
      * Add the Record objects into their respective lists and returns false.
      *
-     * @param wallet  The Wallet object.
+     * @param wallet The Wallet object.
      * @return a boolean variable which indicates
      */
     @Override

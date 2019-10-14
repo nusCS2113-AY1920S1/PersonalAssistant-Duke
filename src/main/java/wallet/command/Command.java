@@ -8,7 +8,6 @@ import wallet.logic.parser.ExpenseParser;
 import wallet.model.record.RecordList;
 import wallet.model.task.Task;
 import wallet.model.task.TaskList;
-import wallet.model.task.Tentative;
 import wallet.storage.Storage;
 
 import java.util.ArrayList;
@@ -112,47 +111,6 @@ public class Command {
             }
         } else if (command[0].equals("bye")) {
             isExit = true;
-        } else if (command[0].equals("tentative")) {
-            //B-Tentative Scheduling: Create Tentative Event Entry
-            try {
-                Task task = taskList.createTentativeEvent(command[1]);
-                if (task != null) {
-                    taskList.addTask(task);
-                    System.out.println("Got it. I've added this task:");
-                    System.out.println(task.toString());
-                    System.out.println("Now you have " + taskList.getTaskListSize() + " tasks in the list.");
-                    //fileIO.writeToFile(task);
-                }
-            } catch (ArrayIndexOutOfBoundsException e) {
-                System.out.println("☹ OOPS!!! The description of " + command[0] + " cannot be empty");
-            }
-
-        } else if (command[0].equals("schedule")) {
-            //B-Tentative Scheduling: Choose date
-            try {
-                int num = Integer.parseInt(command[1]) - 1;
-                Task task = taskList.getTask(num);
-                String outputString = task.toString();
-                String type = outputString.substring(1, 3);
-                if (type.equals("*E")) {
-                    Tentative notSet = (Tentative) task;
-                    Task newEvent = taskList.updateTentative(notSet);
-                    if (newEvent != null) {
-                        taskList.addTask(newEvent);
-                        taskList.deleteTask(num);
-                        //fileIO.removeFromFile(taskList.getTaskList(), num);
-                        System.out.println("Got it. I've updated it into an event:");
-                        System.out.println(newEvent.toString());
-                        System.out.println("Now you have " + taskList.getTaskListSize() + " tasks in the list.");
-                        //fileIO.writeToFile(newEvent);
-                        //fileIO.removeFromFile(taskList.getTaskList(), num);
-                    }
-                } else {
-                    System.out.println("☹ OOPS!!! I'm sorry, but this task is not a tentative schedule");
-                }
-            } catch (IndexOutOfBoundsException e) {
-                System.out.println("☹ OOPS!!! I'm sorry, but this task does not exist");
-            }
         } else if (command[0].equals("contact")) {
             try {
                 String[] info = command[1].split(" ", 3);

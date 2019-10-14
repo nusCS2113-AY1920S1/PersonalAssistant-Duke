@@ -1,6 +1,7 @@
 package wallet.logic.parser;
 
 import wallet.logic.command.EditCommand;
+import wallet.model.contact.Contact;
 import wallet.model.record.Expense;
 
 /**
@@ -20,13 +21,49 @@ public class EditCommandParser implements Parser<EditCommand> {
             } else {
                 break;
             }
+
         case "loan":
             break;
+
+        case "contact":
+            Contact contact = parseContact(arguments[1]);
+            if (contact != null) {
+                return new EditCommand(contact);
+            } else {
+                break;
+            }
+            
         default:
             System.out.println(EditCommand.MESSAGE_USAGE);
             return null;
         }
         return null;
+    }
+
+    /**
+     * Parses the parameters of contact to be edited.
+     *
+     * @param input User input arguments
+     */
+    private Contact parseContact(String input) throws NumberFormatException, ArrayIndexOutOfBoundsException {
+
+        String[] arguments = input.split(" ", 2);
+        if (arguments.length == 2) {
+
+            String[] parameters = arguments[1].split(" ");
+            try {
+                int id = Integer.parseInt(arguments[0].trim());
+                ContactParserHelper contactHelper = new ContactParserHelper();
+                Contact contact = contactHelper.updateInput(parameters);
+                contact.setId(id);
+                return contact;
+            } catch (NumberFormatException e) {
+                return null;
+            }
+
+        }
+        return null;
+
     }
 
     /**

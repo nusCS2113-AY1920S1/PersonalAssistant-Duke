@@ -118,6 +118,22 @@ public class ContactList {
     public Contact createContact(String name, String detail, String phoneNum) {
         return new Contact(name, detail, phoneNum);
     }
+
+    /**
+     * Finds and returns contact index using its id.
+     * @param id The id of the contact to find.
+     * @return id of contact found. -1 if not found.
+     */
+    public int findContactWithId(int id) {
+        int index = 0;
+        for (Contact e : this.contactList) {
+            if (e.getId() == id) {
+                return index;
+            }
+            index++;
+        }
+        return -1;
+    }
 }
 
 

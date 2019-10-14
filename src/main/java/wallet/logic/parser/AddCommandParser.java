@@ -156,12 +156,14 @@ public class AddCommandParser implements Parser<AddCommand> {
      * @throws ArrayIndexOutOfBoundsException Out of index.
      */
     private Contact parseContact(String input) throws ArrayIndexOutOfBoundsException {
-        Contact contact = null;
-
-        String[] info = input.split(" ", 3);
-        contact = new Contact(info[0], info[1], info[2]);
-
-        return contact;
+        String[] info = input.split(" ");
+        ContactParserHelper contactHelper = new ContactParserHelper();
+        Contact contact = contactHelper.newInput(info);
+        if (contact == null) {
+            return null;
+        } else {
+            return contact;
+        }
     }
 
     /**
