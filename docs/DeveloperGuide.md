@@ -1,5 +1,4 @@
 
-  
 
 # COMPal - Developer Guide
 
@@ -20,6 +19,7 @@ Welcome to the **COMPal** Developer Guide! This Developer Guide is still being w
  + [4.1 Architecture](/docs/DeveloperGuide.md#41-architecture)
  + [4.2 UI](/docs/DeveloperGuide.md#42-ui-component)
  + [4.6 Model Component](/docs/DeveloperGuide.md#46-model-component)
+
 
 [**5. Implementation**](/docs/DeveloperGuide.md#5-implementation)
 
@@ -125,12 +125,6 @@ Figure 1. Architecture Diagram
 
 The  **_Architecture Diagram_**  given above explains the high-level design of the App. Given below is a quick overview of each component.
 
-`Main`  has only one class called  [`Main`](https://github.com/AY1920S1-CS2113T-W17-1/main/blob/master/src/main/java/compal/Main.java). It is responsible for,
-
--   At app launch: Initializes the components in the correct sequence, and connects them up with each other.
-    
-    
-
 [**`Commons`**](https://github.com/AY1920S1-CS2113T-W17-1/main/tree/master/src/main/java/compal/commons)  represents a collection of classes used by multiple other components. Two of those classes play important roles at the architecture level.
 
 -   `Messages`  : This class contain all types of messages that are to be called from depending  on the type of execution. E.g. Invalid syntax commands messages
@@ -180,6 +174,14 @@ The  `UI`  component,
 - Executes user commands using the  `Logic`  component.  
 - Displays text-based command results in to the user via `MainOutput` or `SecondaryOutput`.
 - Display ​daily calendar of the user via `DailyCalender`. 
+
+### 4.5 Storage Component
+API: StorageManager.java
+
+We use very simple and user-editable text files to store user data. Data is stored as data strings separated by underscores. The separation token however, can be easily changed if desired. 
+Data is thereafter parsed as a string and then processed by our storage API into application-useful datatypes such as Task Objects. 
+
+The advantage of this approach is that it is a no-frills implementation and comprehensible by the average developer. The average user can also understand and easily directly edit the data file if so desired.
 
 ### 4.6. Model Component
 
@@ -287,7 +289,6 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
     
 2.  COMPal prompts for the task type.
     
-
 1.  Assignment(DEADLINE)
     
 2.  Meeting (Event)
@@ -304,7 +305,6 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
     
 9.  If the task is of low priority, COMPal prompts user whether to allow task to increase in priority.
     
-
   
 
 **Use Case 3: Edit Task**
