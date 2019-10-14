@@ -14,8 +14,6 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
-import static duke.common.Messages.ERROR_MESSAGE_GENERAL;
-import static duke.common.Messages.ERROR_MESSAGE_VIEWSCHEDULE;
 
 public class ViewBookingScheduleCommand extends CommandBooking {
 
@@ -23,40 +21,61 @@ public class ViewBookingScheduleCommand extends CommandBooking {
         this.userInputCommand = userInputCommand;
     }
 
+    private static boolean isDateParsable(String bookingDate) {
+        try {
+            new SimpleDateFormat("dd/MM/yyyy").parse(bookingDate);
+            return true;
+        } catch (ParseException e) {
+            return false;
+        }
+
+    }
+
     @Override
     public ArrayList<String> execute(BookingList bookingList, Ui ui, BookingStorage bookingStorage) throws DukeException, ParseException {
         ArrayList<String> arrayList = new ArrayList<>();
         if (userInputCommand.trim().equals("viewbookingschedule")) {
-            arrayList.add(ERROR_MESSAGE_GENERAL + ERROR_MESSAGE_VIEWSCHEDULE);
-        }
-        String inputDate = userInputCommand.substring(20).trim();
-        Date currDate = new SimpleDateFormat("dd/MM/yyyy").parse(inputDate);
-        Calendar calendar = GregorianCalendar.getInstance();
-        calendar.setTime(currDate);
+            arrayList.add("Booking date cannot be empty!\n" +
+                    "       Please enter in the following format:\n" +
+                    "       viewbookingschedule <date: dd/MM/yyyy>");
+        } else if (userInputCommand.trim().charAt(19) == ' ') {
+            String inputDate = userInputCommand.substring(20).trim();
+            if (isDateParsable(inputDate)) {
+                Date currDate = new SimpleDateFormat("dd/MM/yyyy").parse(inputDate);
+                Calendar calendar = GregorianCalendar.getInstance();
+                calendar.setTime(currDate);
 
-        int currDay = calendar.get(Calendar.DAY_OF_MONTH);
-        int currMonth = calendar.get(Calendar.MONTH);
-        int currYear = calendar.get(Calendar.YEAR);
+                int currDay = calendar.get(Calendar.DAY_OF_MONTH);
+                int currMonth = calendar.get(Calendar.MONTH);
+                int currYear = calendar.get(Calendar.YEAR);
 
-        ArrayList<Booking> scheduleList = new ArrayList<>();
-        for (Booking booking : bookingList.getBookingList()) {
-            calendar.setTime(booking.getDateTime());
-            int taskDay = calendar.get(Calendar.DAY_OF_MONTH);
-            int taskMonth = calendar.get(Calendar.MONTH);
-            int taskYear = calendar.get(Calendar.YEAR);
-            if (taskYear == currYear && taskMonth == currMonth && taskDay == currDay) {
-                scheduleList.add(booking);
+                ArrayList<Booking> scheduleList = new ArrayList<>();
+                for (Booking booking : bookingList.getBookingList()) {
+                    calendar.setTime(booking.getDateTime());
+                    int taskDay = calendar.get(Calendar.DAY_OF_MONTH);
+                    int taskMonth = calendar.get(Calendar.MONTH);
+                    int taskYear = calendar.get(Calendar.YEAR);
+                    if (taskYear == currYear && taskMonth == currMonth && taskDay == currDay) {
+                        scheduleList.add(booking);
+                    }
+                }
+
+                String outputDate = new SimpleDateFormat("dd MMMM yyyy").format(currDate);
+                if (scheduleList.isEmpty()) {
+                    arrayList.add("      No booking on " + outputDate);
+                } else {
+                    arrayList.add("      Here are your bookings for " + outputDate);
+                    for (int i = 0; i < scheduleList.size(); i++) {
+                        arrayList.add("      " + (i + 1) + ". " + scheduleList.get(i));
+                    }
+                }
+            } else {
+                arrayList.add("Invalid booking date entered.\n Please enter again in the format: dd/MM/yyyy");
             }
-        }
-
-        String outputDate = new SimpleDateFormat("dd MMMM yyyy").format(currDate);
-        if (scheduleList.isEmpty()) {
-            arrayList.add("      No booking on " + outputDate);
         } else {
-            arrayList.add("      Here are your bookings for " + outputDate);
-            for (int i = 0; i < scheduleList.size(); i++) {
-                arrayList.add("      " + (i + 1) + ". " + scheduleList.get(i));
-            }
+            arrayList.add("Incorrect view booking schedule command.\n " +
+                    "       Please enter in the following format:\n" +
+                    "       viewbookingschedule <date: dd/MM/yyyy>");
         }
         return arrayList;
     }

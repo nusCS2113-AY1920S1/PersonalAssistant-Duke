@@ -8,12 +8,8 @@ import duke.ui.Ui;
 
 import java.util.ArrayList;
 
-import static duke.common.Messages.MESSAGE_FOLLOWUP_EMPTY_INDEX;
-import static duke.common.Messages.ERROR_MESSAGE_EMPTY_INDEX;
 import static duke.common.Messages.ERROR_MESSAGE_INVALID_INDEX;
 import static duke.common.Messages.ERROR_MESSAGE_UNKNOWN_INDEX;
-import static duke.common.Messages.ERROR_MESSAGE_RANDOM;
-
 
 /**
  * Handles the delete command and inherits all the fields and methods of Command parent class.
@@ -55,7 +51,9 @@ public class DeleteBookingCommand extends CommandBooking {
     public ArrayList<String> execute(BookingList bookingList, Ui ui, BookingStorage bookingStorage) throws DukeException {
         ArrayList<String> arrayList = new ArrayList<>();
         if (userInputCommand.trim().equals("deletebooking")) {
-            arrayList.add(ERROR_MESSAGE_EMPTY_INDEX + MESSAGE_FOLLOWUP_EMPTY_INDEX);
+            arrayList.add("Booking index cannot be empty!\n" +
+                    "       Please enter in the following format:\n" +
+                    "       deletebooking <booking_index>");
         } else if (userInputCommand.trim().charAt(13) == ' ') {
             String input = userInputCommand.split("\\s",2)[1].trim();
             if (isParsable(input)) {
@@ -84,7 +82,9 @@ public class DeleteBookingCommand extends CommandBooking {
                 arrayList.add(ERROR_MESSAGE_UNKNOWN_INDEX);
             }
         } else {
-            arrayList.add(ERROR_MESSAGE_RANDOM);
+            arrayList.add("Incorrect delete booking command.\n " +
+                    "       Please enter in the following format:\n" +
+                    "       deletebooking <booking_index>");
         }
         return arrayList;
     }
