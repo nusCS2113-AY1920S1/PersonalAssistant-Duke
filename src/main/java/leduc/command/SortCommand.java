@@ -13,7 +13,7 @@ import java.util.Comparator;
 
 /**
  * Represents a sort command.
- * Allows to sort the task by date or description
+ * Allows to sort the task by date or description or priority
  */
 public class SortCommand extends Command {
     /**
@@ -29,7 +29,7 @@ public class SortCommand extends Command {
     }
 
     /**
-     * Execution of leduc.command.SortCommand: Allows to sort the task list ( by description or by date).
+     * Execution of leduc.command.SortCommand: Allows to sort the task list ( by description or by date or ny priority).
      * @param tasks leduc.task.TaskList which is the list of task.
      * @param ui leduc.Ui which deals with the interactions with the user.
      * @param storage leduc.storage.Storage which deals with loading tasks from the file and saving tasks in the file.
