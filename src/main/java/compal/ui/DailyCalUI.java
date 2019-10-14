@@ -45,8 +45,8 @@ class DailyCalUI {
     private double[][] storedYAxis = new double[25][5];
     private int startTime = 8;
     private int endTime = 19;
-    private ArrayList<Task> tempList;
-    private ArrayList<Task> arrList = new ArrayList<>();
+    private ArrayList<Task> tempOriginalList;
+    private ArrayList<Task> dailyCalArrayList = new ArrayList<>();
 
 
     DailyCalUI(Compal compal) {
@@ -68,7 +68,7 @@ class DailyCalUI {
      * @return scrollPane final object state
      */
     public ScrollPane init(String givenDate) {
-        tempList = compal.tasklist.arrlist;
+        tempOriginalList = compal.tasklist.arrlist;
         setTrue(canStore);
         dateToDisplay = givenDate;
         createDailyArrayList();
@@ -78,16 +78,22 @@ class DailyCalUI {
 
     /**
      * Create an array list of type task of that specific day.
-     * Sorted by starting time.
+     * Sorted by priority scoring and then time..
+     * Only display non-deadline events.
      */
     private void createDailyArrayList() {
-        Comparator<Task> compareByStartTime = Comparator.comparing(Task::getStringStartTime);
-        for (Task t : tempList) {
+        Comparator<Task> compareByStartTime = Comparator.comparingLong(Task::getPriorityScore).reversed()
+                .thenComparing(Task::getStringStartTime);
+        for (Task t : tempOriginalList) {
             if (t.getStringDate().equals(dateToDisplay)) {
-                arrList.add(t);
+                if (t.getSymbol().equals("D")) {
+                    continue;
+                }
+                t.calculateAndSetPriorityScore();
+                dailyCalArrayList.add(t);
             }
         }
-        arrList.sort(compareByStartTime);
+        dailyCalArrayList.sort(compareByStartTime);
     }
 
     /**
@@ -111,7 +117,7 @@ class DailyCalUI {
      * If there is, set startTime or EndTime to the detected time.
      */
     private void setTime() {
-        for (Task task : arrList) {
+        for (Task task : dailyCalArrayList) {
 
             int tempStartTime = Integer.parseInt(task.getStringStartTime().substring(0, 2));
             if (tempStartTime < startTime) {
@@ -226,7 +232,7 @@ class DailyCalUI {
         int eventCounter = 0;
         int hourInMin = 60;
         double pixelBlock = 100;
-        for (Task task : arrList) {
+        for (Task task : dailyCalArrayList) {
             if (eventCounter < 5) {
                 if (Integer.parseInt(task.getStringStartTime().substring(0, 2)) == currentTime) {
                     int startHour = Integer.parseInt(task.getStringStartTime().substring(0, 2));
@@ -248,7 +254,6 @@ class DailyCalUI {
                     if (totalHour == 0 && totalMin == 0) {
                         continue;
                     }
-                    String desc = task.getDescription();
 
                     //Drawing a Rectangle
                     double heightY = 1.7;
@@ -308,7 +313,7 @@ class DailyCalUI {
         int eventCounter = 0;
         double pixelBlock = 100.00;
         int hourInMin = 60;
-        for (Task task : arrList) {
+        for (Task task : dailyCalArrayList) {
             if (Integer.parseInt(task.getStringStartTime().substring(0, 2)) == currentTime && eventCounter < 5) {
                 int startHour = Integer.parseInt(task.getStringStartTime().substring(0, 2));
                 int startMin = Integer.parseInt(task.getStringStartTime().substring(2, 4));

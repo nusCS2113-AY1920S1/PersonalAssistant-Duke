@@ -315,10 +315,9 @@ public abstract class Task implements Serializable {
         Date d = new Date();
         long diff = d.getTime() - this.date.getTime();
         long diffHours = diff / (60 * 60 * 1000);
-        System.out.println("Task:LOG: Difference is " + diffHours);
+        //System.out.println("Task:LOG: Difference is " + diffHours);
         score += diffHours;
-        priorityScore = score;
-
+        this.priorityScore = score;
     }
 
     public Date getEndTime() {
