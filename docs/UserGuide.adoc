@@ -59,18 +59,25 @@ Don't worry if you do not understand everything at once. +
 There are plentiful examples provided to aid your understanding of the commands' usage.
 ====
 
-=== Viewing help : `help`
+=== Viewing manual : `help`
 Shows a list of commands that can be used.
 
 Format: `help`
-        `help COMMAND`
-
-* `Command` that Help instruction is required for.
 
 Example:
 
 * `help` +
 Provides a list of commands available to the user.
+
+=== Viewing individual command help : `help`
+Shows instructions for an individual command that can be used.
+
+Format: `help COMMAND`
+
+* `Command` that Help instruction is required for.
+
+Example:
+
 * `help Deadline` +
 Provides the instruction to add a task with a deadline.
 
@@ -249,12 +256,17 @@ Format: `schedule DD-MM-YYYY`
 Example:
 
 * `schedule 04-10-2019` +
-Provides a summary of all the tasks and events that will occur on `04-10-2019`.
+Provides a summary of a list of todo, deadlines and events that will occur on `04-10-2019`.
 
 === Viewing a summary of the next day’s task: `summary`
 Gives a summary of all the tasks to be done for the next day.
 
 Format: `summary`
+
+Example:
+
+* `summary` +
+Provides a summary of a list of todo, deadlines and events that will occur tomorrow.
 
 === Sorting deadlines in chronological order: `sort`
 Sorts and displays all current deadlines recorded by chronological order.

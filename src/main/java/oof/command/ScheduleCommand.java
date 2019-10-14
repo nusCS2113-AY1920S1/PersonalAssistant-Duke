@@ -14,8 +14,7 @@ public class ScheduleCommand extends Command {
 
     /**
      * Constructor for ScheduleCommand.
-     *
-     * @param date String containing date.
+     * @param date      String containing date.
      */
     public ScheduleCommand(String date) {
         super();
@@ -82,7 +81,7 @@ public class ScheduleCommand extends Command {
         if (scheduledTasks.getSize() == 0) {
             throw new OofException("There are no Tasks scheduled on " + this.date + ".");
         }
-        ui.printScheduledTasks(scheduledTasks, this.date);
+        ui.printTasksByDate(scheduledTasks, this.date);
     }
 
     @Override
