@@ -1,16 +1,18 @@
 package duke;
 
+import duke.command.logic.ModuleCommand;
+import duke.util.PlannerUi;
 import java.util.Arrays;
 import java.util.HashMap;
 
 import duke.command.Command;
 import duke.command.ListCommand;
-import duke.exceptions.ModBadRequestStatus;
+import duke.exceptions.planner.ModBadRequestStatus;
 import duke.exceptions.ModException;
-import duke.exceptions.ModFailedJsonException;
+import duke.exceptions.planner.ModFailedJsonException;
 import duke.exceptions.ModTimeIntervalTooCloseException;
-import duke.modules.ModuleInfoDetailed;
-import duke.modules.ModuleInfoSummary;
+import duke.modules.data.ModuleInfoDetailed;
+import duke.modules.data.ModuleInfoSummary;
 import duke.util.JsonWrapper;
 import duke.util.ParserWrapper;
 import duke.util.Storage;
@@ -30,6 +32,7 @@ public class Duke {
     private ParserWrapper parser;
     private Reminder reminder;
     private JsonWrapper data;
+    private PlannerUi modUi;
     private HashMap<String, ModuleInfoSummary> modSummaryMap;
     private HashMap<String, ModuleInfoDetailed> modDetailedMap;
 
@@ -39,6 +42,7 @@ public class Duke {
     public Duke() {
         store = new Storage();
         ui = new Ui();
+        modUi = new PlannerUi();
         tasks = new TaskList(store);
         parser = new ParserWrapper();
         data = new JsonWrapper();
@@ -50,13 +54,29 @@ public class Duke {
      */
     private void testJson(Command c) {
         if (c instanceof ListCommand) {
-            // Demo test of commands
-            System.out.println(modSummaryMap.get("CS2101"));
-            System.out.println(modDetailedMap.get("CS2101"));
-            System.out.println(modDetailedMap.get("CS2101").getAttributes().isSu());
-            System.out.println(Arrays.toString(modSummaryMap.get("CS2113T").getSemesters()));
-            System.out.println(modSummaryMap.get("CG2028").getTitle());
-            System.out.println(modSummaryMap.get("CS1010"));
+            this.testJson();
+        }
+    }
+
+    private void testJson() {
+        // Demo test of commands
+        System.out.println(modSummaryMap.get("CS2101"));
+        System.out.println(modDetailedMap.get("CS2101"));
+        System.out.println(modDetailedMap.get("CS2101").getAttributes().isSu());
+        System.out.println(Arrays.toString(modSummaryMap.get("CS2113T").getSemesters()));
+        System.out.println(modSummaryMap.get("CG2028").getTitle());
+        System.out.println(modSummaryMap.get("CS1010"));
+    }
+
+    private void modSetup() {
+        try {
+            data.runRequests(store);
+            modSummaryMap = data.getModuleSummaryMap();
+            modDetailedMap = data.getModuleDetailedMap();
+        } catch (ModBadRequestStatus er) {
+            er.printStackTrace();
+        } catch (ModFailedJsonException ej) {
+            System.out.println(ej.getLocalizedMessage());
         }
     }
 
@@ -79,6 +99,26 @@ public class Duke {
             er.printStackTrace();
         } catch (ModFailedJsonException ej) {
             System.out.println(ej.getLocalizedMessage());
+        }
+    }
+
+    private void modRun() {
+        modUi.helloMsg();
+        modSetup();
+        boolean isExit = false;
+        while (!isExit) {
+            try {
+                String fullCommand = modUi.readCommand();
+                modUi.showLine();
+                ModuleCommand c = parser.parse(fullCommand, false);
+                c.execute(modSummaryMap, modDetailedMap, modUi, store);
+                //testJson();
+                isExit = c.isExit();
+            } catch (ModException e) {
+                System.out.println(e.getMessage());
+            } finally {
+                modUi.showLine();
+            }
         }
     }
 
@@ -114,6 +154,7 @@ public class Duke {
     public static void main(String[] args) {
         //TODO: args flag could be passed into program for optional runs
         Duke duke = new Duke();
-        duke.run();
+        //duke.run();
+        duke.modRun();
     }
 }

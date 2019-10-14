@@ -2,14 +2,10 @@ package duke.command;
 
 import duke.exceptions.ModException;
 import duke.exceptions.ModEmptyListException;
-import duke.modules.ModuleInfoSummary;
-import duke.modules.Task;
 import duke.util.Reminder;
 import duke.util.Storage;
 import duke.util.TaskList;
 import duke.util.Ui;
-
-import java.util.ArrayList;
 
 public class CapCommand extends Command {
 
