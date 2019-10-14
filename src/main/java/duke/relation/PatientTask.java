@@ -21,7 +21,6 @@ public abstract class PatientTask {
         this.isRecurrsive = isrecurrsive;
     }
 
-
     public Integer getPatientId(){
         return patientId;
     }
