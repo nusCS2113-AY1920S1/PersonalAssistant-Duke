@@ -5,13 +5,15 @@ import gazeeebo.UI.Ui;
 import java.util.Map;
 
 public class FindContactCommand {
+
     /**
+     * This method finds the contact number with the contact name.
      *
-     * @param ui the object that deals with printing things to the user.
-     * @param contact Map each name to its own phone number
+     * @param ui         the object that deals with printing things to the user.
+     * @param contact    the object that map each name to its own phone number
      * @param LINE_BREAK String separator
      */
-    public FindContactCommand(Ui ui, Map<String,String> contact, String LINE_BREAK) {
+    public FindContactCommand(Ui ui, Map<String, String> contact, String LINE_BREAK) {
         int a = ui.FullCommand.split(" ")[1].toCharArray()[0];
         String command = ui.FullCommand.split(" ")[0];
         String name_to_find = "";
@@ -26,8 +28,8 @@ public class FindContactCommand {
             System.out.println("Name not found.");
         } else {
             System.out.print("Name:                         | Number:\n" + LINE_BREAK);
-            for(String keys:contact.keySet()) {
-                if(keys.contains(name_to_find)) {
+            for (String keys : contact.keySet()) {
+                if (keys.contains(name_to_find)) {
                     System.out.print(keys);
                     int l = 30 - keys.length();
                     for (int i = 0; i < l; i++) {

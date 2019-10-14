@@ -27,6 +27,7 @@ public class Ui {
 
     /**
      * This method prompts the user to input the password to login into GAZEEEBO and print a logo and message to welcome the user when he successfully log in.
+     *
      * @return the logo
      * @throws IOException if tDate doesn't get updated.
      */
@@ -49,7 +50,7 @@ public class Ui {
             if (FullCommand.equals(password_list.get(0))) {
                 System.out.println(welcomemessage);
                 LocalDate a = LocalDate.now();
-                System.out.println("Today is "+a.format(DateTimeFormatter.ofLocalizedDate(FormatStyle.FULL)));
+                System.out.println("Today is " + a.format(DateTimeFormatter.ofLocalizedDate(FormatStyle.FULL)));
                 break;
             } else {
                 System.out.println("Incorrect password, please try again:");
@@ -89,25 +90,25 @@ public class Ui {
         int UndoneNumber = 0;
         int DoneNumber = 0;
 
-        for(int i=0;i<list.size();i++){
-            if(list.get(i).isDone){
+        for (int i = 0; i < list.size(); i++) {
+            if (list.get(i).isDone) {
                 DoneNumber++;
-            }else{
+            } else {
                 UndoneNumber++;
             }
         }
 //        System.out.println(UndoneNumber+" "+DoneNumber);
-        double ProgressPercentageTemp = (DoneNumber*1.00/(DoneNumber+UndoneNumber)*1.00)*100.000;
-        int ProgressPercentage = (int)ProgressPercentageTemp;
+        double ProgressPercentageTemp = (DoneNumber * 1.00 / (DoneNumber + UndoneNumber) * 1.00) * 100.000;
+        int ProgressPercentage = (int) ProgressPercentageTemp;
 //        System.out.println(ProgressPercentageTemp+" "+ProgressPercentage);
         StringBuilder progressivebar = new StringBuilder();
-        for(int i =0;i<ProgressPercentage/2;i++){
+        for (int i = 0; i < ProgressPercentage / 2; i++) {
             progressivebar.append("/");
         }
-        for(int i=0;i<(100-ProgressPercentage)/2;i++){
+        for (int i = 0; i < (100 - ProgressPercentage) / 2; i++) {
             progressivebar.append("_");
         }
-        System.out.println("Task progressive: "+ progressivebar.toString()+"("+ProgressPercentage+"%)");
+        System.out.println("Task progressive: " + progressivebar.toString() + "(" + ProgressPercentage + "%)");
     }
 
     public void showDateFormatError() {

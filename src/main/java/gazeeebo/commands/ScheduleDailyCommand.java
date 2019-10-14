@@ -20,14 +20,15 @@ import java.util.Stack;
 public class ScheduleDailyCommand extends Command {
     //format for the command: scheduleDaily <yyyy-MM-dd>
     protected LocalDate date;
+
     /**
      * This is the main body of the ScheduleDaily command.
      *
      * @param list the tasks list.
      * @param ui the object that deals with printing things to the user.
      * @param storage the object that deals with storing data to the Save.txt file.
-     * @param commandStack
-     * @param deletedTask
+     * @param commandStack not used
+     * @param deletedTask not used
      * @throws NullPointerException if tDate doesn't get updated.
      */
     @Override

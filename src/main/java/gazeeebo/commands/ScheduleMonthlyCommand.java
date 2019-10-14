@@ -19,6 +19,7 @@ public class ScheduleMonthlyCommand extends Command {
     //format for the command: scheduleMonthly <yyyy-MM>
     protected LocalDate startMonth;
     protected LocalDate endMonth;
+
     /**
      * This is the main body of the ScheduleMonthly command.
      *

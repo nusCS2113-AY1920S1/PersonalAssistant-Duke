@@ -2,9 +2,10 @@ import gazeeebo.Tasks.Task;
 import gazeeebo.UI.Ui;
 import gazeeebo.Storage.Storage;
 import gazeeebo.commands.Command;
+import gazeeebo.notes.NoteList;
 import gazeeebo.parsers.*;
 import gazeeebo.Exception.DukeException;
-
+import Storage.NoteStorage;
 import java.io.*;
 import java.text.ParseException;
 import java.util.ArrayList;
@@ -27,13 +28,16 @@ public class Duke {
         try {
             ui.showWelcome();
             list = store.ReadFile();
+            NoteStorage.readFromFile("NoteDaily.txt", NoteList.daily);
+            NoteStorage.readFromFile("NoteWeekly.txt", NoteList.weekly);
+            NoteStorage.readFromFile("NoteMonthly.txt", NoteList.monthly);
             ui.UpcomingTask(list);
             while (!isExit) {
                 ui.ReadCommand();
                 String command = ui.FullCommand.trim();
                 Command c = Parser.parse(command);
                 c.execute(list, ui, store, CommandStack, deletedTask);
-                if(!command.equals("undo") && !command.equals("list") && !command.contains("confirm")) {
+                if (!command.equals("undo") && !command.equals("list") && !command.contains("confirm")) {
                     CommandStack.push(command);
                 }
 

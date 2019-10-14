@@ -57,8 +57,7 @@ public class Storage {
                         e.isDone = false;
                     }
                     tList.add(e);
-                }
-                else if (details[0].equals("P")) {
+                } else if (details[0].equals("P")) {
                     Timebound tb = new Timebound(details[2].trim(), details[3].substring(8).trim());
                     if (details[1].equals("D")) {
                         tb.isDone = true;
@@ -84,10 +83,10 @@ public class Storage {
                     tList.add(DA);
                 } else if (details[0].equals("TE")) {
                     ArrayList<String> timeslots = new ArrayList<String>();
-                   for(int i=3;i<details.length;i++){
-                       timeslots.add(details[i]);
-                   }
-                   TentativeEvent TE = new TentativeEvent(details[2].trim(),timeslots);
+                    for (int i = 3; i < details.length; i++) {
+                        timeslots.add(details[i]);
+                    }
+                    TentativeEvent TE = new TentativeEvent(details[2].trim(), timeslots);
                     if (details[1].equals("D")) {
                         TE.isDone = true;
                     } else {
@@ -145,20 +144,33 @@ public class Storage {
         return passwordList;
     }
 
+    /**
+     * THis method writes to the file Contact.txt
+     *
+     * @param fileContent save the contact information into this file
+     * @throws IOException
+     */
     public void Storages_Contact(String fileContent) throws IOException {
         FileWriter fileWriter = new FileWriter(absolutePath_Contact);
         fileWriter.write(fileContent);
         fileWriter.flush();
         fileWriter.close();
     }
-    public HashMap<String,String> Contact() throws IOException {
-        HashMap<String,String> contactList = new HashMap<String,String>();
+
+    /**
+     * This method read from the file Contact.txt and put the details into a HashMap
+     *
+     * @return Returns the HashMap of contacts, key is the contact name and the value is the phone number
+     * @throws IOException
+     */
+    public HashMap<String, String> Contact() throws IOException {
+        HashMap<String, String> contactList = new HashMap<String, String>();
         if (new File(absolutePath_Contact).exists()) {
             File file = new File(absolutePath_Contact);
             Scanner sc = new Scanner(file);
             while (sc.hasNext()) {
                 String[] split = sc.nextLine().split("\\|");
-                contactList.put(split[0],split[1]);
+                contactList.put(split[0], split[1]);
             }
         }
         return contactList;
