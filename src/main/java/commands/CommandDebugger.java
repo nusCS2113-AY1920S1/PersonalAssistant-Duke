@@ -2,44 +2,43 @@ package commands;
 
 import java.util.HashSet;
 import java.util.Set;
-
 import MovieUI.Controller;
 import wrapper.CommandPair;
 
-public class Command_Debugger {
+public class CommandDebugger {
 
     //TODO MOVE THIS SOMEWHERE ELSE
 
 
-    public static CommandPair commandSpellChecker(String[] undefinedCommandArr, COMMANDKEYS Root, Controller controller) {
+    public static CommandPair commandSpellChecker(String[] undefinedCommandArr, COMMANDKEYS root, Controller controller) {
         System.out.println("Cant find anything");
         double score = -1;
-        if (Root == COMMANDKEYS.none) {
+        if (root == COMMANDKEYS.none) {
             for (COMMANDKEYS s : CommandStructure.AllRoots) {
                 double temp = calculateJaccardSimilarity(s.toString(), undefinedCommandArr[0]);
                 if (temp > score) {
-                    Root = s;
+                    root = s;
                     score = temp;
                 }
             }
-            if (Root != COMMANDKEYS.none) {
-                System.out.println("Did you mean" + Root);
+            if (root != COMMANDKEYS.none) {
+                System.out.println("Did you mean" + root);
             }
         }
         score = -1;
-        COMMANDKEYS MostSimilarSub = COMMANDKEYS.none;
-        if (Root != COMMANDKEYS.none && CommandStructure.cmdStructure.get(Root).length != 0) {
-            for (COMMANDKEYS s : CommandStructure.cmdStructure.get(Root)) {
+        COMMANDKEYS mostSimilarSub = COMMANDKEYS.none;
+        if (root != COMMANDKEYS.none && CommandStructure.cmdStructure.get(root).length != 0) {
+            for (COMMANDKEYS s : CommandStructure.cmdStructure.get(root)) {
                 double temp = calculateJaccardSimilarity(s.toString(), undefinedCommandArr[1]);
                 if (temp > score) {
-                    MostSimilarSub = s;
+                    mostSimilarSub = s;
                     score = temp;
                 }
             }
-            System.out.println("Did you mean" + MostSimilarSub);
+            System.out.println("Did you mean" + mostSimilarSub);
         }
 
-        return new CommandPair(Root, MostSimilarSub);
+        return new CommandPair(root, mostSimilarSub);
 
     }
 

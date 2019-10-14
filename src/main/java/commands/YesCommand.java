@@ -3,8 +3,8 @@ package commands;
 import MovieUI.Controller;
 
 public class YesCommand extends CommandSuper {
-    public YesCommand(Controller UIController) {
-        super(COMMANDKEYS.yes, CommandStructure.cmdStructure.get(COMMANDKEYS.yes), UIController);
+    public YesCommand(Controller uicontroller) {
+        super(COMMANDKEYS.yes, CommandStructure.cmdStructure.get(COMMANDKEYS.yes), uicontroller);
     }
 
     @Override

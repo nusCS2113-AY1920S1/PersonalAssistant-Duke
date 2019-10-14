@@ -6,14 +6,14 @@ import MovieUI.MovieHandler;
 
 import java.io.IOException;
 
-public class PreferenceCommand extends CommandSuper{
-    public PreferenceCommand(Controller UIController) {
-        super(COMMANDKEYS.preference, CommandStructure.cmdStructure.get(COMMANDKEYS.preference) , UIController);
+public class PreferenceCommand extends CommandSuper {
+    public PreferenceCommand(Controller uicontroller) {
+        super(COMMANDKEYS.preference, CommandStructure.cmdStructure.get(COMMANDKEYS.preference) , uicontroller);
     }
 
     @Override
     public void executeCommands() throws IOException {
-        switch (this.getSubRootCommand()){
+        switch (this.getSubRootCommand()) {
             case add:
                 executeAddPreference();
                 break;
@@ -26,14 +26,14 @@ public class PreferenceCommand extends CommandSuper{
     }
 
     /**
-     * add to user preference
+     * add to user preference.
      * root: preference
      * sub: add
      * payload: none
      * flag: -g (genre name -- not genre ID)
      */
     private void executeAddPreference() throws IOException {
-        MovieHandler movieHandler = ((MovieHandler)this.getUIController());
+        MovieHandler movieHandler = ((MovieHandler) this.getUIController());
         ProfileCommands command = new ProfileCommands(movieHandler.getUserProfile());
         command.addPreference(this.getFlagMap());
         movieHandler.clearSearchTextField();
@@ -41,14 +41,14 @@ public class PreferenceCommand extends CommandSuper{
     }
 
     /**
-     * remove from user preference
+     * remove from user preference.
      * root: preference
      * sub: remove
      * payload: none
      * flag: -g (genre name -- not genre ID)
      */
     private void executeRemovePreference() throws IOException {
-        MovieHandler movieHandler = ((MovieHandler)this.getUIController());
+        MovieHandler movieHandler = ((MovieHandler) this.getUIController());
         ProfileCommands command = new ProfileCommands(movieHandler.getUserProfile());
         command.removePreference(this.getFlagMap());
         movieHandler.clearSearchTextField();
