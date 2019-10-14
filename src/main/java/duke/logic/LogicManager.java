@@ -8,7 +8,7 @@ import duke.logic.parsers.Parser;
 import duke.storage.Storage;
 
 public class LogicManager extends Logic {
-    private static  final String FILE_PATH = "data/tasks.txt";
+    private static final String FILE_PATH = "data/tasks.txt";
     private Storage storage;
     private ConversationManager conversationManager;
 
@@ -32,7 +32,6 @@ public class LogicManager extends Logic {
             c = Parser.parseSingleCommand(userInput);
             conversationManager.clearContext();
         } catch (DukeException e) {
-            //rename the above particular exception to something more meaningful
             c = getCommandFromConversationManager(userInput);
         }
         return c.execute(storage);
@@ -42,15 +41,13 @@ public class LogicManager extends Logic {
      * Gets a command from ConversationManager.
      */
     private Command getCommandFromConversationManager(String userInput) throws DukeException {
-        Command c;
         conversationManager.converse(userInput);
         if (conversationManager.isFinished()) {
             String result = conversationManager.getResult();
-            c = Parser.parseComplexCommand(result);
+            return Parser.parseComplexCommand(result);
         } else {
             String prompt = conversationManager.getPrompt();
-            c = Parser.parsePromptCommand(prompt);
+            return Parser.parsePromptCommand(prompt);
         }
-        return c;
     }
 }

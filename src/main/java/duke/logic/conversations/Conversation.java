@@ -54,7 +54,7 @@ public abstract class Conversation {
      */
     protected void tryCancelConversation(String userInput) {
         if (attempts > ATTEMPTS_LIMIT || "cancel".equals(userInput)) {
-            result = MessagesPrompt.CANCEL_PROMPT;
+            result = "cancel";
             isFinished = true;
         }
     }

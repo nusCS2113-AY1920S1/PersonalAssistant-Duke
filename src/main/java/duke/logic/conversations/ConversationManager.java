@@ -20,15 +20,36 @@ public class ConversationManager {
      * @param input The user input.
      */
     public void converse(String input) throws DukeException {
-        if (isFinished) {
-            startConversation(input);
-            isFinished = false;
+        if (tryStartConversation(input)) {
             return;
         }
         conversation.execute(input);
+        tryEndConversation();
+    }
+
+    /**
+     * Tries to end a conversation. If the conversation is still ongoing, nothing happens.
+     */
+    private void tryEndConversation() {
         if (conversation.isFinished()) {
             isFinished = true;
         }
+    }
+
+    /**
+     * Tries to start a conversation. If the conversation is still ongoing, nothing happens.
+     *
+     * @param input The user input from ui.
+     * @return true if a conversation is started, false otherwise.
+     * @throws DukeException If no conversation could be started.
+     */
+    private boolean tryStartConversation(String input) throws DukeException {
+        if (isFinished) {
+            startConversation(input);
+            isFinished = false;
+            return true;
+        }
+        return false;
     }
 
     /**

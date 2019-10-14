@@ -19,6 +19,7 @@ import duke.commands.ReminderCommand;
 import duke.commands.RescheduleCommand;
 import duke.commands.ViewScheduleCommand;
 import duke.commons.Messages;
+import duke.commons.MessagesPrompt;
 import duke.commons.exceptions.DukeException;
 
 
@@ -74,6 +75,8 @@ public class Parser {
                     getHolidayIndexInList(2, input));
         case "recommend":
             return new RecommendationsCommand(getWord(input));
+        case "cancel":
+            return new PromptCommand(MessagesPrompt.CANCEL_PROMPT);
         default:
             throw new DukeException(Messages.UNKNOWN_COMMAND);
         }
