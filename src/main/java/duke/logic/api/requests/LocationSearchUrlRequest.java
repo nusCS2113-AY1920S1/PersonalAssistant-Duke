@@ -27,7 +27,7 @@ public class LocationSearchUrlRequest extends UrlRequest {
      * @param param The query
      */
     public LocationSearchUrlRequest(String url, String param) {
-        super(url, param);
+        super(url, param.replace(" ", "+"));
     }
 
     /**
@@ -41,6 +41,8 @@ public class LocationSearchUrlRequest extends UrlRequest {
         try {
             URL url = new URL(this.url + paramType + "=" + param + optionalVariables);
             URLConnection connection = url.openConnection();
+            connection.setConnectTimeout(5000);
+            connection.setReadTimeout(5000);
 
             BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
             response = in.readLine();

@@ -14,7 +14,7 @@ public class LocationSearchCommand extends Command {
 
     public LocationSearchCommand(String param) throws DukeException {
         this.param = param;
-        result = ApiParser.getLocationSearch(param);
+        result = ApiParser.getLocationSearch(this.param);
     }
 
     /**
