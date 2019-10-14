@@ -1,6 +1,6 @@
 package owlmoney.model.goals.exception;
 
-public class GoalsException extends Exception{
+public class GoalsException extends Exception {
     private String message;
 
     /**

@@ -15,7 +15,6 @@ import owlmoney.model.transaction.Transaction;
 import owlmoney.model.transaction.exception.TransactionException;
 import owlmoney.ui.Ui;
 
-import java.util.Date;
 
 /**
  * The profile class that stores details of the user which includes bank accounts, cards, names.
@@ -301,19 +300,49 @@ public class Profile {
         cardList.listCards(ui);
     }
 
+    /**
+     * Lists all goals in GoalsList.
+     *
+     * @param ui required for printing.
+     */
     public void listGoals(Ui ui) {
         goalsList.listGoals(ui);
     }
 
-    public void addGoals(Goals goals, Ui ui) {
+    /**
+     * Adds a new financial goal.
+     *
+     * @param goals the goals object.
+     * @param ui required for printing.
+     * @throws GoalsException If invalid parameters / attempt to add the same goal name.
+     */
+    public void addGoals(Goals goals, Ui ui) throws GoalsException {
         goalsList.addToGoals(goals, ui);
     }
 
-    public void deleteGoals(String Name, Ui ui) {
-        goalsList.deleteFromGoalList(Name, ui);
+    /**
+     * Deletes a goal from GoalsList.
+     *
+     * @param name name of the goal.
+     * @param ui required for printing.
+     * @throws GoalsException If goal does not exists.
+     */
+    public void deleteGoals(String name, Ui ui) throws GoalsException {
+        goalsList.deleteFromGoalList(name, ui);
     }
 
-    public void editGoals(String goalName, String amount, String new_name, String date, Ui ui) throws GoalsException {
-        goalsList.editGoals(goalName, new_name, amount, date, ui);
+    /**
+     * Edit goals from GoalsList.
+     *
+     * @param goalName name of goal.
+     * @param amount new target amount to reach for the goal.
+     * @param date new targeted date to meet goal.
+     * @param newName new name for the goal.
+     * @param ui required for printing.
+     * @throws GoalsException If goal does not exists
+     */
+    public void editGoals(String goalName, String amount, String date, String newName, Ui ui) throws GoalsException {
+        System.out.println("Printing from Profile: " + date);
+        goalsList.editGoals(goalName, amount, date, newName, ui);
     }
 }

@@ -59,7 +59,8 @@ class Main {
                     break;
                 }
 
-            } catch (ParserException | BankException | TransactionException | BondException | CardException | owlmoney.model.card.exception.CardException | GoalsException exceptionMessage) {
+            } catch (ParserException | BankException | TransactionException | BondException | CardException
+                    | owlmoney.model.card.exception.CardException | GoalsException exceptionMessage) {
                 ui.printError(exceptionMessage.toString());
             }
         }

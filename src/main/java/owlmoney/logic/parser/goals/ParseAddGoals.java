@@ -7,21 +7,32 @@ import owlmoney.logic.parser.exception.ParserException;
 import java.util.Date;
 import java.util.Iterator;
 
+/**
+ * Represents the parsing of inputs for adding a new goal.
+ */
 public class ParseAddGoals extends ParseGoals {
 
     private static final String ADD = "/add";
     private Date date;
 
+    /**
+     * Creates instance of ParseAddGoals Class.
+     *
+     * @param data raw data of user input.
+     * @throws ParserException If there is a redundant parameter or first parameter is of invalid type.
+     */
     public ParseAddGoals(String data) throws ParserException {
         super(data);
         checkRedundantParameter(NEW_NAME, ADD);
+        checkRedundantParameter(DATE, ADD);
+        //check wrong parameter e.g. if user accidentally keys in /date instead of by
         checkFirstParameter();
     }
 
     /**
-     * Checks each user input for each parameter
+     * Checks each user input for each parameter.
      *
-     * @throws ParserException If there are nay invalid or missing input
+     * @throws ParserException If there are nay invalid or missing input.
      */
     @Override
     public void checkParameter() throws ParserException {
@@ -34,19 +45,19 @@ public class ParseAddGoals extends ParseGoals {
                 throw new ParserException(key + " cannot be empty when adding new goals");
             }
             if (AMOUNT.equals(key)) {
-                checkAmount(value, AMOUNT);
+                checkAmount(value);
             }
-            if(NAME.equals(key)) {
+            if (NAME.equals(key)) {
                 checkName(NAME, value);
             }
-            if(BY.equals(key)) {
+            if (BY.equals(key)) {
                 date = checkDate(value);
             }
         }
     }
 
     /**
-     * Returns command to execute the adding of a new goal
+     * Returns command to execute the adding of a new goal.
      *
      * @return AddGoalsCommand to be executed.
      */

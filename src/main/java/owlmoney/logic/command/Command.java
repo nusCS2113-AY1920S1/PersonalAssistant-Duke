@@ -22,5 +22,6 @@ public abstract class Command {
      * @return True if OwlMoney should terminate after execution.
      */
     public abstract boolean execute(Profile profile, Ui ui) throws BankException,
-            TransactionException, BondException, CardException, owlmoney.model.card.exception.CardException, GoalsException;
+            TransactionException, BondException, CardException, owlmoney.model.card.exception.CardException,
+            GoalsException;
 }

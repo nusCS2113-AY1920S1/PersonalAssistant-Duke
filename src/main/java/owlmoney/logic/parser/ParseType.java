@@ -49,7 +49,7 @@ class ParseType extends Parser {
     /**
      * List of whitelisted keywords that the user can use.
      */
-    private static final String[] TYPE_KEYWORDS = new String[] {
+    private static final String[] TYPE_KEYWORDS = new String[]{
         "/savings", "/investment", "/cardexpenditure", "/bankexpenditure", "/goals", "/card",
         "/recurexpenditure", "/bonds", "/profile", "/deposit"
     };
@@ -250,7 +250,7 @@ class ParseType extends Parser {
             }
             throw new ParserException("You entered an invalid type for card");
         case "/goals":
-            if("/add".equals(command)) {
+            if ("/add".equals(command)) {
                 ParseGoals addGoals = new ParseAddGoals(rawData);
                 addGoals.fillHashTable();
                 addGoals.checkParameter();
@@ -268,6 +268,7 @@ class ParseType extends Parser {
             } else if ("/list".equals(command)) {
                 return new ListGoalsCommand();
             }
+            throw new ParserException("You entered an invalid type for goals");
         default:
             throw new ParserException("You entered an invalid type");
         }
