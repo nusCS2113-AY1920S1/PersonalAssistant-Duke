@@ -1,7 +1,5 @@
 package eggventory;
 
-import eggventory.enums.PrintType;
-
 import java.util.Scanner;
 
 /**

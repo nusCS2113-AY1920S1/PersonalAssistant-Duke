@@ -1,7 +1,6 @@
 package eggventory.commands;
 
 import eggventory.StockList;
-import eggventory.enums.PrintType;
 import eggventory.exceptions.BadInputException;
 import eggventory.items.StockType;
 import eggventory.Ui;
