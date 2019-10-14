@@ -2,30 +2,18 @@ package duchess.model.task;
 
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonSetter;
-import duchess.exceptions.DuchessException;
 import duchess.model.TimeFrame;
 import duchess.parser.Util;
 
 import java.time.LocalDateTime;
-import java.util.List;
 import java.util.Optional;
 
 public class Deadline extends Task {
     private LocalDateTime deadline;
 
-    /**
-     * Creates a deadline task from user input.
-     *
-     * @param input tokenized user input
-     * @throws DuchessException an error if user input is invalid
-     */
-    public Deadline(List<String> input) throws DuchessException {
-        int separatorIndex = input.indexOf("/by");
-        if (input.size() == 0 || separatorIndex <= 0) {
-            throw new DuchessException("Format for deadline: deadline <task> /by <deadline>");
-        }
-        this.description = String.join(" ", input.subList(0, separatorIndex));
-        this.deadline = Util.parseDateTime(input, separatorIndex + 1);
+    public Deadline(String description, LocalDateTime deadline) {
+        this.description = description;
+        this.deadline = deadline;
     }
 
     @Override

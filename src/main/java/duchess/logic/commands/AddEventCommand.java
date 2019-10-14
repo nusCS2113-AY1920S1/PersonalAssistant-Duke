@@ -7,27 +7,42 @@ import duchess.storage.Storage;
 import duchess.storage.Store;
 import duchess.ui.Ui;
 
-import java.util.List;
+import java.time.LocalDateTime;
 import java.util.Optional;
 
 public class AddEventCommand extends Command {
-    private List<String> words;
+    private String description;
+    private LocalDateTime end;
+    private LocalDateTime start;
+    private String moduleCode;
 
-    public AddEventCommand(List<String> words) {
-        this.words = words;
+    /**
+     * Creates a command to add an event.
+     *
+     * @param description description of Event task
+     * @param end end time
+     * @param start start time
+     */
+    public AddEventCommand(String description, LocalDateTime end, LocalDateTime start) {
+        this.description = description;
+        this.end = end;
+        this.start = start;
+        this.moduleCode = null;
+    }
+
+    public AddEventCommand(String description, LocalDateTime end, LocalDateTime start, String moduleCode) {
+        this(description, end, start);
+        this.moduleCode = moduleCode;
     }
 
     @Override
     public void execute(Store store, Ui ui, Storage storage) throws DuchessException {
-        Event task;
-        if (words.get(words.size() - 1).charAt(0) == '#') {
-            task = new Event(words.subList(0, words.size() - 1));
-            Optional<Module> module = store.findModuleByCode(words.get(words.size() - 1).substring(1));
+        Event task = new Event(description, end, start);
+        if (moduleCode != null) {
+            Optional<Module> module = store.findModuleByCode(moduleCode);
             task.setModule(module.orElseThrow(() ->
                     new DuchessException("Unable to find given module.")
             ));
-        } else {
-            task = new Event(words.subList(0, words.size()));
         }
         if (store.isClashing(task)) {
             throw new DuchessException("Unable to add event - clash found.");

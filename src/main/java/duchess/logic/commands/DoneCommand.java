@@ -6,25 +6,20 @@ import duchess.storage.Storage;
 import duchess.storage.Store;
 import duchess.ui.Ui;
 
-import java.util.List;
-
 public class DoneCommand extends Command {
-    private List<String> words;
+    private int taskNo;
 
-    public DoneCommand(List<String> words) {
-        this.words = words;
+    public DoneCommand(int taskNo) {
+        this.taskNo = taskNo;
     }
 
     @Override
     public void execute(Store store, Ui ui, Storage storage) throws DuchessException {
         try {
-            int taskNo = Integer.parseInt(words.get(0)) - 1;
             Task task = store.getTaskList().get(taskNo);
             task.setDone(true);
             ui.showDoneTask(task);
             storage.save(store);
-        } catch (NumberFormatException e) {
-            throw new DuchessException("Please supply a number. Eg: done 2");
         } catch (IndexOutOfBoundsException e) {
             throw new DuchessException("Please supply a valid number.");
         }

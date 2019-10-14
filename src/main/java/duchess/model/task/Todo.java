@@ -4,22 +4,12 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import duchess.exceptions.DuchessException;
 import duchess.model.TimeFrame;
 
-import java.util.List;
 import java.util.Optional;
 
 public class Todo extends Task {
-    /**
-     * Creates a todo task from given user input.
-     *
-     * @param input tokenized user input
-     * @throws DuchessException the error if user input is invalid
-     */
-    public Todo(List<String> input) throws DuchessException {
-        if (input.size() == 0) {
-            throw new DuchessException("Format for todo: todo <task>");
-        }
 
-        this.description = String.join(" ", input);
+    public Todo(String description) {
+        this.description = description;
     }
 
     @Override

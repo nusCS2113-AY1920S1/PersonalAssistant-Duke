@@ -20,6 +20,7 @@ import duchess.logic.commands.SnoozeCommand;
 import duchess.logic.commands.UndoCommand;
 import duchess.logic.commands.ViewScheduleCommand;
 
+import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.List;
 
@@ -82,13 +83,60 @@ public class Parser {
                 throw new DuchessException("Usage: delete (module|task) <number>");
             }
         case "done":
-            return new DoneCommand(arguments);
+            try {
+                return new DoneCommand(Integer.parseInt(words.get(0)) - 1);
+            } catch (NumberFormatException e) {
+                throw new DuchessException("Please supply a number. Eg: done 2");
+            }
         case "todo":
-            return new AddTodoCommand(arguments);
+            if (arguments.size() == 0) {
+                throw new DuchessException("Format for todo: todo <task>");
+            }
+            if (arguments.get(arguments.size() - 1).charAt(0) == '#') {
+                String description = String.join(" ", arguments.subList(0, arguments.size() - 1));
+                String moduleCode = arguments.get(arguments.size() - 1).substring(1);
+                return new AddTodoCommand(description, moduleCode);
+            } else {
+                String description = String.join(" ", arguments);
+                return new AddTodoCommand(description);
+            }
         case "deadline":
-            return new AddDeadlineCommand(arguments);
+            int separatorIndex = arguments.indexOf("/by");
+            if (arguments.size() == 0 || separatorIndex <= 0) {
+                throw new DuchessException("Format for deadline: deadline <task> /by <deadline>");
+            }
+            if (arguments.get(arguments.size() - 1).charAt(0) == '#') {
+                String description = String.join(" ", arguments.subList(0, separatorIndex));
+                LocalDateTime deadline = Util
+                        .parseDateTime(arguments.subList(0, arguments.size() - 1), separatorIndex + 1);
+                String moduleCode = arguments.get(arguments.size() - 1).substring(1);
+                return new AddDeadlineCommand(description, deadline, moduleCode);
+            } else {
+                String description = String.join(" ", arguments.subList(0, separatorIndex));
+                LocalDateTime deadline = Util
+                        .parseDateTime(arguments, separatorIndex + 1);
+                return new AddDeadlineCommand(description, deadline);
+            }
         case "event":
-            return new AddEventCommand(arguments);
+            int atSeparatorIndex = arguments.indexOf("/at");
+            int toSeparatorIndex = arguments.indexOf("/to");
+            if (arguments.size() == 0 || atSeparatorIndex <= 0 || toSeparatorIndex < atSeparatorIndex) {
+                throw new DuchessException("Format for event: event <event> /at <start datetime> /to <end datetime>");
+            }
+            if (arguments.get(arguments.size() - 1).charAt(0) == '#') {
+                String description = String.join(" ", arguments.subList(0, atSeparatorIndex));
+                LocalDateTime end = Util
+                        .parseDateTime(arguments.subList(0, arguments.size() - 1), toSeparatorIndex + 1);
+                LocalDateTime start = Util
+                        .parseDateTime(arguments.subList(0, arguments.size() - 1), atSeparatorIndex + 1);
+                String moduleCode = arguments.get(arguments.size() - 1).substring(1);
+                return new AddEventCommand(description, end, start, moduleCode);
+            } else {
+                String description = String.join(" ", arguments.subList(0, atSeparatorIndex));
+                LocalDateTime end = Util.parseDateTime(arguments, toSeparatorIndex + 1);
+                LocalDateTime start = Util.parseDateTime(arguments, atSeparatorIndex + 1);
+                return new AddEventCommand(description, end, start);
+            }
         case "reminder":
             return new ReminderCommand();
         case "snooze":

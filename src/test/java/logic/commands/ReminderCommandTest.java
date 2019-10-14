@@ -1,7 +1,6 @@
 package logic.commands;
 
 import duchess.exceptions.DuchessException;
-import duchess.logic.commands.AddDeadlineCommand;
 import duchess.logic.commands.ReminderCommand;
 import duchess.model.task.DuchessLog;
 import duchess.parser.Parser;
@@ -9,9 +8,6 @@ import duchess.storage.Storage;
 import duchess.storage.Store;
 import duchess.ui.Ui;
 import org.junit.jupiter.api.Test;
-
-import java.util.Arrays;
-import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -40,19 +36,13 @@ public class ReminderCommandTest {
         Store store = new Store();
         Ui ui = new Ui();
         Storage storage = new Storage(filename);
-        Parser parser = new Parser();
         DuchessLog duchessLog = new DuchessLog();
 
         // Adding the firstDeadline
-        List<String> firstWords = Arrays.asList(firstDeadline.split(" "));
-        AddDeadlineCommand addDeadlineCommand = new AddDeadlineCommand(firstWords);
-        addDeadlineCommand.execute(store, ui, storage);
+        Parser.parse(firstDeadline).execute(store, ui, storage);
 
-
-        // Adding the firstDeadline
-        List<String> secondWords = Arrays.asList(firstDeadline.split(" "));
-        addDeadlineCommand = new AddDeadlineCommand(secondWords);
-        addDeadlineCommand.execute(store, ui, storage);
+        // Adding the secondDeadline
+        Parser.parse(secondDeadline).execute(store, ui, storage);
 
         assertTrue(store.getTaskList().size() == 2);
         ReminderCommand reminderCommand = new ReminderCommand();

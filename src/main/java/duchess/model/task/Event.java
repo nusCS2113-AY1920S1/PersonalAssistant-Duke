@@ -8,7 +8,6 @@ import duchess.model.TimeFrame;
 import duchess.parser.Util;
 
 import java.time.LocalDateTime;
-import java.util.List;
 import java.util.Optional;
 
 public class Event extends Task {
@@ -16,25 +15,20 @@ public class Event extends Task {
     private LocalDateTime start;
 
     /**
-     * Create an event task from user input.
+     * Creates an event task.
      *
-     * @param input tokenized user input
-     * @throws DuchessException error if user input is invalid
+     * @param description description of event task
+     * @param end end time
+     * @param start start time
+     * @throws DuchessException if end time is before start time
      */
-    public Event(List<String> input) throws DuchessException {
-        int separatorIndex = input.indexOf("/at");
-        int toSeparatorIndex = input.indexOf("/to");
-        if (input.size() == 0 || separatorIndex <= 0 || toSeparatorIndex < separatorIndex) {
-            throw new DuchessException("Format for event: event <event> /at <start datetime> /to <end datetime>");
-        }
-
-        this.description = String.join(" ", input.subList(0, separatorIndex));
-        this.start = Util.parseDateTime(input, separatorIndex + 1);
-        this.end = Util.parseDateTime(input, toSeparatorIndex + 1);
-
+    public Event(String description, LocalDateTime end, LocalDateTime start) throws DuchessException {
         if (end.isBefore(start)) {
             throw new DuchessException("Start datetime cannot be after end datetime.");
         }
+        this.description = description;
+        this.end = end;
+        this.start = start;
     }
 
     @Override
