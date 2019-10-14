@@ -17,6 +17,11 @@ public class HelpCommand extends Command {
         initCommandInfoList();
     }
 
+    /**
+     * Formulates a string containing all the command help message.
+     *
+     * @return the long text of help message to be displayed to the user
+     */
     public String toString() {
         String output = "Note: only A-Z a-z 0-9 \'_\' and \' \' are allowed for user input!\n";
         ArrayList<String> categories = new ArrayList<>();

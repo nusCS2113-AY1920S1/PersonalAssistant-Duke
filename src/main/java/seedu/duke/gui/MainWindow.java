@@ -39,6 +39,7 @@ import seedu.duke.task.TaskStorage;
 import seedu.duke.email.EmailStorage;
 import seedu.duke.task.entity.Task;
 import javafx.scene.Scene;
+
 import java.util.ArrayList;
 
 /**
@@ -250,8 +251,8 @@ public class MainWindow extends AnchorPane {
     }
 
     /**
-     * Shows the previous inputs with the prefix. The prefix is non-deletable while the previous
-     * input shown can be edited.
+     * Shows the previous inputs with the prefix. The prefix is non-deletable while the previous input shown
+     * can be edited.
      */
     private void getPrevInput() {
         String prefix = CommandParser.getInputPrefix();
@@ -261,6 +262,7 @@ public class MainWindow extends AnchorPane {
 
     /**
      * Navigates the inputList and gets the previous input depending on which arrow key is pressed.
+     *
      * @return prevInput to be shown in the textfield
      */
     private String navigateInputList() {
@@ -348,6 +350,11 @@ public class MainWindow extends AnchorPane {
         emailsListView.setItems(observableList);
     }
 
+    /**
+     * Shows a popup displaying long text message.
+     *
+     * @param text the text that is to be displayed in the popup
+     */
     public static void showTextPopup(String text) {
         final Popup popup = new Popup();
         AnchorPane outerPane = new AnchorPane();
