@@ -7,6 +7,7 @@ import oof.Ui;
 import oof.exception.OofException;
 import oof.task.Deadline;
 import oof.task.Event;
+import oof.task.Todo;
 
 public class ScheduleCommand extends Command {
     private String date;
@@ -41,7 +42,13 @@ public class ScheduleCommand extends Command {
     private TaskList scheduleByDate(TaskList arr) {
         TaskList scheduledTasks = new TaskList();
         for (int i = 0; i < arr.getSize(); i++) {
-            if (arr.getTask(i) instanceof Deadline) {
+            if (arr.getTask(i) instanceof Todo) {
+                Todo t = (Todo) arr.getTask(i);
+                String date = t.getOn().substring(0, 10);
+                if (compareDate(this.date, date)) {
+                    scheduledTasks.addTask(t);
+                }
+            } else if (arr.getTask(i) instanceof Deadline) {
                 Deadline d = (Deadline) arr.getTask(i);
                 String date = d.getBy().substring(0, 10);
                 if (compareDate(this.date, date)) {

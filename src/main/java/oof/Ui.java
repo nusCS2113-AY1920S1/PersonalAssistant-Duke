@@ -211,7 +211,7 @@ public class Ui {
      */
     public void printScheduledTasks(TaskList scheduledTasks, String date) {
         printLine();
-        System.out.println("\t Here are your tasks for" + date + ": ");
+        System.out.println("\t Here are your tasks for " + date + ": ");
         for (int i = 0; i < scheduledTasks.getSize(); i++) {
             System.out.println("\t" + (i + 1) + ". " + scheduledTasks.getTask(i));
         }
