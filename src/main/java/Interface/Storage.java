@@ -23,7 +23,7 @@ public class Storage {
     private File filePath;
     private String filePathEvent;
     private String filePathDeadline;
-    private static String filePathTentativeDates;
+
     private HashMap<String, HashMap<String, ArrayList<Task>>> map;
 
     /**
@@ -34,7 +34,7 @@ public class Storage {
         filePath.mkdir();
         filePathEvent = System.getProperty("user.dir") + "\\data\\event.txt";
         filePathDeadline = System.getProperty("user.dir") + "\\data\\deadline.txt";
-        filePathTentativeDates = System.getProperty("user.dir") + "\\data\\TentativeDates.txt";
+
     }
 
     public void updateEventList(TaskList list) throws FileNotFoundException {
