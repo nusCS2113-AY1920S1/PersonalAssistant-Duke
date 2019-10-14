@@ -1,5 +1,6 @@
 language: java
-jdk: oraclejdk11
+dist: xenial
+sudo: required
 
-before_install:
-  - chmod +x gradlew
+jdk:
+  - openjdk11
