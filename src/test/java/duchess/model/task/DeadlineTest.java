@@ -1,8 +1,6 @@
-package model.task;
+package duchess.model.task;
 
 import duchess.exceptions.DuchessException;
-import duchess.model.task.Deadline;
-import duchess.model.task.Task;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDateTime;

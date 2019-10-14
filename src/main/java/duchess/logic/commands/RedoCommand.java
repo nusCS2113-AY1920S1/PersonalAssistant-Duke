@@ -30,13 +30,13 @@ public class RedoCommand extends Command {
     @Override
     public void execute(Store store, Ui ui, Storage storage) throws DuchessException {
         if (redoCounter > 1) {
-            // storage.getFirstSnapshot();
+            // duchess.storage.getFirstSnapshot();
             while (redoCounter > 0 && storage.getRedoStack().size() > 0) {
                 setToNextStore(store, storage);
                 redoCounter--;
             }
         } else {
-            // storage.getFirstSnapshot();
+            // duchess.storage.getFirstSnapshot();
             setToNextStore(store, storage);
         }
         // showUndo should only be placed after execution of undo.
@@ -44,7 +44,7 @@ public class RedoCommand extends Command {
     }
 
     private void setToNextStore(Store store, Storage storage) throws DuchessException {
-        // Obtain Store data from storage Stack
+        // Obtain Store data from duchess.storage Stack
         Store prevStore = storage.getFirstSnapshot();
         storage.save(prevStore);
 

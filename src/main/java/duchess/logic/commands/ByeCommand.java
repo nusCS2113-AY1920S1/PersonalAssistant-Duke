@@ -12,7 +12,7 @@ public class ByeCommand extends Command {
      * @param store the store
      * @param ui Userinterface object
      * @param storage Storage object
-     * @throws DuchessException Exception thrown when storage not found
+     * @throws DuchessException Exception thrown when duchess.storage not found
      */
     @Override
     public void execute(Store store, Ui ui, Storage storage) throws DuchessException {

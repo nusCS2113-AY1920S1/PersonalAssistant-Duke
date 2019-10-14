@@ -1,0 +1,28 @@
+package duchess.parser;
+
+import duchess.exceptions.DuchessException;
+import duchess.logic.commands.Command;
+import duchess.parser.states.ParserState;
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
+class ParserTest {
+    private final Parser parser = new Parser();
+
+    @Test
+    void parse() {
+        parser.setParserState(new ParserStateStub());
+        assertThrows(
+            DuchessException.class,
+            () -> parser.parse("will throw exception"),
+            "Stub test");
+    }
+
+    private class ParserStateStub implements ParserState {
+        @Override
+        public Command parse(String input) throws DuchessException {
+            throw new DuchessException("Stub test");
+        }
+    }
+}

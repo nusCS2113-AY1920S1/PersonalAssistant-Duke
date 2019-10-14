@@ -1,4 +1,4 @@
-package logic.commands;
+package duchess.commands;
 
 import duchess.exceptions.DuchessException;
 import duchess.logic.commands.ViewScheduleCommand;

@@ -1,4 +1,4 @@
-package logic.commands;
+package duchess.commands;
 
 import duchess.exceptions.DuchessException;
 import duchess.logic.commands.ReminderCommand;
@@ -39,10 +39,11 @@ public class ReminderCommandTest {
         DuchessLog duchessLog = new DuchessLog();
 
         // Adding the firstDeadline
-        Parser.parse(firstDeadline).execute(store, ui, storage);
+        Parser parser = new Parser();
+        parser.parse(firstDeadline).execute(store, ui, storage);
 
         // Adding the secondDeadline
-        Parser.parse(secondDeadline).execute(store, ui, storage);
+        parser.parse(secondDeadline).execute(store, ui, storage);
 
         assertTrue(store.getTaskList().size() == 2);
         ReminderCommand reminderCommand = new ReminderCommand();

@@ -1,6 +1,5 @@
-package model.task;
+package duchess.model.task;
 
-import duchess.model.task.Event;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;

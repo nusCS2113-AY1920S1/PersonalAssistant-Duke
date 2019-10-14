@@ -1,10 +1,9 @@
-package storage;
+package duchess.storage;
 
 import duchess.exceptions.DuchessException;
 import duchess.model.task.Event;
 import duchess.model.task.Task;
 import duchess.parser.Util;
-import duchess.storage.Store;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;

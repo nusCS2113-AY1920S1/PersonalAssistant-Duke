@@ -22,7 +22,7 @@ public class ReminderCommand extends Command {
      * @param store List containing tasks
      * @param ui Userinterface object
      * @param storage Storage object
-     * @throws DuchessException Exception thrown when storage not found
+     * @throws DuchessException Exception thrown when duchess.storage not found
      */
     @Override
     public void execute(Store store, Ui ui, Storage storage) throws DuchessException {

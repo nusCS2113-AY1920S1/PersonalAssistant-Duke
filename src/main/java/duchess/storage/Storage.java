@@ -23,7 +23,7 @@ public class Storage {
     /**
      * Constructs Storage object.
      *
-     * @param fileName filename for storage
+     * @param fileName filename for duchess.storage
      */
     public Storage(String fileName) {
         this.fileName = fileName;
@@ -102,7 +102,7 @@ public class Storage {
             throw new DuchessException("Mapping was unsuccessful.");
         } catch (IOException e) {
             e.printStackTrace();
-            throw new DuchessException("Check storage input.");
+            throw new DuchessException("Check duchess.storage input.");
         }
     }
 
@@ -165,7 +165,7 @@ public class Storage {
             throw new DuchessException("Mapping was unsuccessful.");
         } catch (IOException e) {
             e.printStackTrace();
-            throw new DuchessException("Check storage input.");
+            throw new DuchessException("Check duchess.storage input.");
         }
     }
 

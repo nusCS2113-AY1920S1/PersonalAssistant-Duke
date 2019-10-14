@@ -1,7 +1,6 @@
-package model;
+package duchess.model;
 
 import duchess.exceptions.DuchessException;
-import duchess.model.TimeFrame;
 import duchess.parser.Util;
 import org.junit.jupiter.api.Test;
 

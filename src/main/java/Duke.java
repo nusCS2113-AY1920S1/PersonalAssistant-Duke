@@ -11,6 +11,7 @@ public class Duke {
     private Storage storage;
     private Store store;
     private Ui ui;
+    private Parser parser;
 
     /**
      * Creates an instant of Duke to be executed.
@@ -20,6 +21,7 @@ public class Duke {
     private Duke(String filePath) {
         ui = new Ui();
         storage = new Storage(filePath);
+        parser = new Parser();
 
         try {
             store = storage.load();
@@ -47,7 +49,7 @@ public class Duke {
                 String fullCommand = ui.readCommand();
                 duchessLog.add(fullCommand);
                 ui.beginBlock();
-                Command c = Parser.parse(fullCommand);
+                Command c = parser.parse(fullCommand);
                 DuchessLog.addValidCommands(c);
 
                 c.execute(store, ui, storage);

@@ -6,7 +6,9 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.time.format.ResolverStyle;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.TreeMap;
 
 /**
  * Collection of helpful functions to parse user input.
@@ -64,5 +66,42 @@ public class Util {
      */
     public static String formatDateTime(LocalDateTime dateTime) {
         return formatter.format(dateTime);
+    }
+
+    /**
+     * Returns a map mapping the parameter to its corresponding values from user input.
+     *
+     * @param input the raw input from the user
+     * @return the mapping of parameter to values
+     */
+    public static TreeMap<String, String> parameterize(String input) {
+        TreeMap<String, String> mappedTokens = new TreeMap<>();
+        List<String> tokens = List.of(input.split(" "));
+
+        String currentParameter = "general";
+        List<String> collectedTokens = new ArrayList<>();
+
+        for (String token : tokens) {
+            if (!mappedTokens.containsKey("command")) {
+                mappedTokens.put("command", token);
+            } else if (token.charAt(0) == '/') {
+                mappedTokens.put(
+                        currentParameter,
+                        String.join(" ", collectedTokens)
+                );
+
+                currentParameter = token.substring(1);
+                collectedTokens = new ArrayList<>();
+            } else {
+                collectedTokens.add(token);
+            }
+        }
+
+        mappedTokens.put(
+                currentParameter,
+                String.join(" ", collectedTokens)
+        );
+
+        return mappedTokens;
     }
 }

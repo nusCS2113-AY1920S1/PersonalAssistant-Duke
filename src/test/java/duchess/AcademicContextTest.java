@@ -1,3 +1,5 @@
+package duchess;
+
 import duchess.model.AcademicContext;
 import org.junit.jupiter.api.extension.ParameterContext;
 import org.junit.jupiter.params.ParameterizedTest;
