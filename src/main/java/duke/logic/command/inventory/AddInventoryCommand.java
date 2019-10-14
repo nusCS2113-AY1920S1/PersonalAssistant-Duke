@@ -19,6 +19,7 @@ public class AddInventoryCommand extends Command {
 
     public CommandResult execute(Model model) throws CommandException {
         model.addInventory(toAdd);
-        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd.getItem().getName()), CommandResult.DisplayedPage.INVENTORY);
+        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd.getItem().getName()),
+                CommandResult.DisplayedPage.INVENTORY);
     }
 }

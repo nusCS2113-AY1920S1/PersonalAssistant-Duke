@@ -1,8 +1,5 @@
 package duke.model.commons;
 
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.value.ObservableValue;
-
 import java.util.Objects;
 
 import static duke.commons.util.AppUtil.checkArgument;
@@ -50,7 +47,9 @@ public class Ingredient {
         this(name, DEFAULT_PRICE, DEFAULT_UNIT);
     }
 
-    public Ingredient(String name, String unit) { this(name, DEFAULT_PRICE, unit); }
+    public Ingredient(String name, String unit) {
+        this(name, DEFAULT_PRICE, unit);
+    }
 
     @Override
     public boolean equals(Object o) {

@@ -2,19 +2,14 @@ package duke.ui;
 
 import duke.model.commons.Ingredient;
 import duke.model.commons.Item;
-import duke.model.order.Quantity;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.control.Label;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
-import javafx.util.Callback;
 
 public class InventoryPage extends UiPart<AnchorPane> {
     private static final String FXML = "InventoryPage.fxml";
@@ -26,6 +21,11 @@ public class InventoryPage extends UiPart<AnchorPane> {
 
     private ObservableList<Item<Ingredient>> inventoryList;
 
+    /**
+     * Creates a constructor for InventoryPage and sets the ObservableList of Items to be the 1 in the input
+     * Sets up the table view, its columns and data inputted
+     * @param inventoryList An observable list containing the ingredients to be displayed in the inventory list
+     */
     public InventoryPage(ObservableList<Item<Ingredient>> inventoryList) {
         super(FXML);
         this.inventoryList = inventoryList;
@@ -73,15 +73,18 @@ public class InventoryPage extends UiPart<AnchorPane> {
     void setInventoryInfoColumns() {
         TableColumn<Item<Ingredient>, String> ingredientColumn = new TableColumn<>("Ingredient");
         ingredientColumn.setResizable(true);
-        ingredientColumn.setCellValueFactory(itemStringCellDataFeatures -> new SimpleStringProperty(itemStringCellDataFeatures.getValue().getItem().getName()));
+        ingredientColumn.setCellValueFactory(itemStringCellDataFeatures ->
+                new SimpleStringProperty(itemStringCellDataFeatures.getValue().getItem().getName()));
 
         TableColumn<Item<Ingredient>, String> quantityColumn = new TableColumn<>("Quantity");
         quantityColumn.setResizable(true);
-        quantityColumn.setCellValueFactory(itemStringCellDataFeatures -> new SimpleStringProperty(itemStringCellDataFeatures.getValue().getQuantity().getNumberAsString()));
+        quantityColumn.setCellValueFactory(itemStringCellDataFeatures ->
+                new SimpleStringProperty(itemStringCellDataFeatures.getValue().getQuantity().getNumberAsString()));
 
         TableColumn<Item<Ingredient>, String> unitColumn = new TableColumn<>("Unit");
         unitColumn.setResizable(true);
-        unitColumn.setCellValueFactory(itemStringCellDataFeatures -> new SimpleStringProperty(itemStringCellDataFeatures.getValue().getItem().getUnit()));
+        unitColumn.setCellValueFactory(itemStringCellDataFeatures ->
+                new SimpleStringProperty(itemStringCellDataFeatures.getValue().getItem().getUnit()));
 
         inventoryListTable.getColumns().addAll(ingredientColumn, quantityColumn, unitColumn);
     }

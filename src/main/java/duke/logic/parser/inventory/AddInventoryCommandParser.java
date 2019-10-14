@@ -4,7 +4,6 @@ import duke.logic.command.inventory.AddInventoryCommand;
 import duke.logic.parser.commons.ArgumentMultimap;
 import duke.logic.parser.commons.ArgumentTokenizer;
 import duke.logic.parser.commons.Parser;
-import duke.logic.parser.commons.Prefix;
 import duke.logic.parser.exceptions.ParseException;
 import duke.model.commons.Ingredient;
 import duke.model.commons.Item;
