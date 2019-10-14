@@ -1,7 +1,4 @@
-package duke.task;
-
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
+package executor.task;
 
 class Event extends Task {
     // Initialization

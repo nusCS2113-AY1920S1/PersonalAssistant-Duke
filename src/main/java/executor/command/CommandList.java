@@ -1,7 +1,7 @@
-package duke.command;
+package executor.command;
 
-import duke.task.TaskList;
-import duke.worker.Ui;
+import executor.task.TaskList;
+import ui.Ui;
 
 public class CommandList extends Command {
 

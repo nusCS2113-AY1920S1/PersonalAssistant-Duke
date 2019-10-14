@@ -1,23 +1,20 @@
-package duke.worker;
+package interpreter;
 
-import duke.command.Command;
-import duke.command.CommandType;
-import duke.command.CommandSchedule;
-import duke.command.CommandBlank;
-import duke.command.CommandBye;
-import duke.command.CommandNewTask;
-import duke.command.CommandFind;
-import duke.command.CommandError;
-import duke.command.CommandDelete;
-import duke.command.CommandMarkDone;
-import duke.command.CommandList;
-import duke.command.CommandQueue;
-import duke.command.CommandReminder;
+import executor.command.Command;
+import executor.command.CommandType;
+import executor.command.CommandSchedule;
+import executor.command.CommandBlank;
+import executor.command.CommandBye;
+import executor.command.CommandNewTask;
+import executor.command.CommandFind;
+import executor.command.CommandDelete;
+import executor.command.CommandMarkDone;
+import executor.command.CommandList;
+import executor.command.CommandQueue;
+import executor.command.CommandReminder;
 
-import duke.task.Task;
-import duke.task.TaskType;
-
-import java.util.ArrayList;
+import executor.task.Task;
+import executor.task.TaskType;
 
 public class Parser {
 
@@ -28,62 +25,6 @@ public class Parser {
      * Constructor for 'Parser' Class.
      */
     public Parser() {
-    }
-
-    // -- User Input Parsing
-
-    /**
-     * Parses the user input and returns the Command specified.
-     *
-     * @param userInput User input from the CLI
-     * @return Command subclass
-     */
-    public static Command parse(String userInput) {
-        CommandType commandType;
-        commandType = parseCommandType(userInput);
-        Command c;
-        switch (commandType) {
-        case BLANK:
-            c = new CommandBlank();
-            break;
-
-        case LIST:
-            c = new CommandList();
-            break;
-
-        case BYE:
-            c = new CommandBye();
-            break;
-
-        case DELETE:
-            c = new CommandDelete(userInput);
-            break;
-
-        case FIND:
-            c = new CommandFind(userInput);
-            break;
-
-        case DONE:
-            c = new CommandMarkDone(userInput);
-            break;
-            
-        case REMINDER:
-            c = new CommandReminder();
-            break;
-
-        case QUEUE:
-            c = new CommandQueue(userInput);
-            break;
-            
-        case VIEWSCHEDULE:
-            c = new CommandSchedule(userInput);
-            break;
-
-        default:
-            c = new CommandNewTask(userInput);
-            break;
-        }
-        return c;
     }
 
     /**
@@ -106,7 +47,6 @@ public class Parser {
         }
         return enumType;
     }
-
 
     /**
      * Parses the input to classify the Command requested.
@@ -188,7 +128,7 @@ public class Parser {
      * @param task Task Object
      * @return String to be stored/saved
      */
-    static String encodeTask(Task task) {
+    public static String encodeTask(Task task) {
         StringBuilder strSave = new StringBuilder();
         strSave.append(encodeMainTask(task));
         strSave.append(encodeQueuedTasks(task));

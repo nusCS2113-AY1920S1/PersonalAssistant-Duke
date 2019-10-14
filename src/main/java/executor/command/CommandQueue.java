@@ -1,9 +1,10 @@
-package duke.command;
+package executor.command;
 
-import duke.task.Task;
-import duke.task.TaskList;
-import duke.worker.Parser;
-import duke.worker.Ui;
+import executor.task.Task;
+import executor.task.TaskList;
+import interpreter.Interpreter;
+import interpreter.Parser;
+import ui.Ui;
 
 public class CommandQueue extends Command {
     protected String userInput;
@@ -25,7 +26,8 @@ public class CommandQueue extends Command {
         int mainTaskIndex = Integer.parseInt(parsedInput[0]) - 1;
         Task mainTask = taskList.getList().get(mainTaskIndex);
         String taskString = parsedInput[1].trim();
-        Command createNewTaskCommand = Parser.parse(taskString);
+        CommandType commandType = Parser.parseCommandType(taskString);
+        Command createNewTaskCommand = Executor.createCommand(commandType, taskString);
         if (createNewTaskCommand.commandType != CommandType.TASK) {
             Ui.dukeSays("No Task detected after 'Queue'.");
             return;

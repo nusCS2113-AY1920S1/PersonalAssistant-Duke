@@ -1,6 +1,6 @@
-package duke.task;
+package executor.task;
 
-import duke.worker.Parser;
+import interpreter.Parser;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,7 +1,4 @@
-package duke.task;
-
-import duke.exception.DukeException;
-import duke.worker.Parser;
+package executor.task;
 
 public class FixedDuration extends Task {
 

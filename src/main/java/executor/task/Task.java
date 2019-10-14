@@ -1,7 +1,7 @@
-package duke.task;
+package executor.task;
 
-import duke.worker.Parser;
-import java.util.ArrayList;
+import interpreter.Parser;
+
 import java.util.Date;
 
 public abstract class Task {
