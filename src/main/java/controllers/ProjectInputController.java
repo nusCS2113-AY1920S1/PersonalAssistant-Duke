@@ -65,13 +65,10 @@ public class ProjectInputController {
                     }
                 } else if (projectCommand.length() == 12 && ("view members").equals(projectCommand)) {
                     consoleView.viewAllMembers(projectToManage);
-                } else if (projectCommand.length() == 8 && ("add task").equals(projectCommand)) {
+                } else if (projectCommand.length() >= 9 && ("add task ").equals(projectCommand.substring(0, 9))) {
                     try {
-                        consoleView.consolePrint("Enter your task: t/TaskName p/TaskPriorityValue"
-                                                + " [d/TaskDueDate] c/TaskCredit [s/TaskState] [r/TaskRequirement]");
-                        String taskDetails = manageProjectInput.nextLine();
                         TaskFactory taskFactory = new TaskFactory();
-                        consoleView.addTask(projectToManage, taskFactory.createTask(taskDetails));
+                        consoleView.addTask(projectToManage, taskFactory.createTask(projectCommand.substring(9)));
                     } catch (NumberFormatException | ParseException e) {
                         consoleView.consolePrint("Please enter your task format correctly");
                     }
