@@ -4,8 +4,10 @@ import rims.command.*;
 import rims.resource.*;
 import rims.core.*;
 
-public class RimException extends Exception {
-    RimException(String error){
+public class ReaderException extends RimException {
+    ReaderException(String error){
         super(error);
     }
 }
+
+
