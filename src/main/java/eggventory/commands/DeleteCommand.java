@@ -1,8 +1,9 @@
 package eggventory.commands;
 
-import eggventory.StockType;
+import eggventory.items.StockType;
 import eggventory.Ui;
 import eggventory.Storage;
+import eggventory.StockList;
 import eggventory.enums.CommandType;
 import eggventory.items.Stock;
 
@@ -12,21 +13,19 @@ import eggventory.items.Stock;
  */
 public class DeleteCommand extends Command {
 
-    private int itemIndex;
+    private String stockCode;
 
-    public DeleteCommand(CommandType type, int index) {
+    public DeleteCommand(CommandType type, String stockCode) {
         super(type);
-        this.itemIndex = index - 1;
+        this.stockCode = stockCode;
     }
 
     @Override
-    public void execute(StockType list, Ui ui, Storage storage) throws IndexOutOfBoundsException {
+    public void execute(StockList list, Ui ui, Storage storage) throws IndexOutOfBoundsException {
         try {
-            Stock item = list.getStock(itemIndex);
-            list.deleteStock(itemIndex);
-            ui.print("Okay! I've deleted this stock:\n" + item.toString());
+            list.deleteStock(stockCode);
 
-            storage.save(list.getStockList());
+            storage.save(list);
 
         } catch (IndexOutOfBoundsException e) {
             throw new IndexOutOfBoundsException("That stock doesn't exist! Please check"

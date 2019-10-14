@@ -3,7 +3,6 @@ package eggventory.parsers;
 import eggventory.commands.Command;
 import eggventory.commands.AddCommand;
 import eggventory.commands.DeleteCommand;
-import eggventory.commands.DoneCommand;
 import eggventory.commands.FindCommand;
 import eggventory.commands.ListCommand;
 import eggventory.exceptions.InsufficientInfoException;
@@ -59,13 +58,9 @@ public class Parser {
             command = new Command(CommandType.BYE);
             break;
 
-        //Commands which require numerical input.
-        case "done":
-            command = new DoneCommand(CommandType.DONE, Integer.parseInt(inputArr[1]));
-            break;
         case "delete":
-            inputArr[1] = inputArr[1].strip(); //Removes whitespace after the integer so that it can parse correctly.
-            command = new DeleteCommand(CommandType.DELETE, Integer.parseInt(inputArr[1]));
+            inputArr[1] = inputArr[1].strip(); //Removes whitespace after the stockCode so that it can parse correctly.
+            command = new DeleteCommand(CommandType.DELETE, inputArr[1]);
             break;
 
         //Commands which require string input.
