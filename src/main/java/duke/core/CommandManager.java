@@ -22,32 +22,21 @@ public class CommandManager {
         userInput = userInput.trim();
         String[] command = userInput.split("\\s+", 3);
         String firstKeyword = command[0].toLowerCase();
+        Parser parser = new Parser(userInput);
         switch (firstKeyword) { //change this depending on how string is parsed
             case "add":
-                try {
                     String secondKeyword = command[1].toLowerCase();
-                    String commandContent = command[2].trim();
                     if (secondKeyword.equals("patient")){
-                        try {
-                            return new AddPatientCommand(commandContent);
-                        }catch(Exception e){
-                            throw new Exception("Please follow the format 'add patient <name> <NRIC> <Room> <remark>'. ");
-                        }
+                        String[] formattedInput = parser.parseAdd();
+                        return new AddPatientCommand(formattedInput);
                     }
                     else if (secondKeyword.equals("task")){
-                        try {
-                            Task task = new Task(commandContent);
+                            Task task = new Task(parser.parseAdd()[0]);
                             return new AddStandardTaskCommand(task);
-                        }catch(Exception e){
-                            throw new Exception("Please follow the format 'add task <task description> <TasK Type>.' ");
-                        }
                     }
                     else {
-                        throw new Exception("Invalid format. ");
+                        throw new DukeException("Invalid format. ");
                     }
-                } catch (Exception e) {
-                    throw new DukeException("Add command fails. " + e.getMessage());
-                }
             case "assign":
                 try {
                     String[] tempCommand = command[1].split("\\s+", 2);

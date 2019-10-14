@@ -11,18 +11,17 @@ import duke.relation.PatientTaskList;
 import duke.task.TaskManager;
 
 public class AddPatientCommand extends Command {
-    private String command;
-    public AddPatientCommand(String command) {
+    private String[] patientInfo;
+    public AddPatientCommand(String[] patientInfo) {
         super();
-        this.command = command;
+        this.patientInfo = patientInfo;
     }
 
     @Override
     public void execute(PatientTaskList patientTask, TaskManager tasks, PatientManager patientList, Ui ui, PatientTaskStorage patientTaskStorage, TaskStorage taskStorage, PatientStorage patientStorage) throws DukeException {
         Patient newPatient;
         try {
-            String commandArr[] = command.split("\\s+", 4);
-            newPatient = new Patient(commandArr[0], commandArr[1], commandArr[2], commandArr[3]);
+            newPatient = new Patient(patientInfo[0], patientInfo[1], patientInfo[2], patientInfo[3]);
         } catch (Exception e) {
             throw new DukeException("Please follow the format 'add patient <name> <NRIC> <Room> <remark>'. ");
         }

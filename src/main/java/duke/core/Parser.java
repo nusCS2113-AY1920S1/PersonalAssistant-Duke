@@ -8,14 +8,15 @@ public class Parser {
         this.userInput = userInput;
     }
 
-    public String[] addParser() throws DukeException {
-        String[] parsedCommand = userInput.toLowerCase().split("\\s+", 2);
+    public String[] parseAdd() throws DukeException {
+        String[] parsedCommand = userInput.toLowerCase().split("\\s+", 3);
         try {
-            if (parsedCommand[2].equals("patient")) {
+            if (parsedCommand[1].equals("patient")) {
                 String[] patientInfo = userInput.replace("add patient ", "").trim().split("\\s+", 4);
                 return patientInfo;
-            } else if (parsedCommand[2].equals("task")) {
-                String[] taskInfo = userInput.replace("add task ", "").trim().split("\\s+", 2);
+            } else if (parsedCommand[1].equals("task")) {
+                String[] taskInfo = new String[1];
+                taskInfo[0] = userInput.replace("add task ", "").trim();
                 return taskInfo;
             }
         } catch (Exception e) {
