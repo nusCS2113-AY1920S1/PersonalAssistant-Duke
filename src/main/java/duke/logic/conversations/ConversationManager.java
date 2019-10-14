@@ -83,6 +83,9 @@ public class ConversationManager {
         case "find":
             conversation = new FindConversation();
             break;
+        case "search":
+            conversation = new SearchConversation();
+            break;
         default:
             throw new DukeException(Messages.UNKNOWN_COMMAND);
         }

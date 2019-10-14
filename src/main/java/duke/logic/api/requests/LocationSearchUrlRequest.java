@@ -27,7 +27,7 @@ public class LocationSearchUrlRequest extends UrlRequest {
      * @param param The query
      */
     public LocationSearchUrlRequest(String url, String param) {
-        super(url, param);
+        super(url, param.replace(" ", "+"));
     }
 
     /**
