@@ -8,7 +8,11 @@ import compal.storage.Storage;
 import compal.model.tasks.TaskList;
 import javafx.scene.paint.Color;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.Date;
 
 import static java.lang.System.exit;
 
@@ -77,6 +81,11 @@ public class Compal {
         }
     }
 
+    /**
+     * Lists all tasks that are incomplete and due in number of days input by user,
+     * or by default 7 days, as well as tasks with reminders set as true.
+     * Will print colour-coded and sorted by importance/priority.
+     */
     public void viewReminder() {
         int numberOfDays = 7;
 
@@ -106,10 +115,8 @@ public class Compal {
         }
 
         //sort/compare by task priority score
-        Comparator<Task> compareByDateTime = (Task t1, Task t2) -> {
-            return Long.compare(t2.getPriorityScore(), t1.getPriorityScore());
-        };
-        Collections.sort(reminder, compareByDateTime);
+        Comparator<Task> compareByDateTime = (Task t1, Task t2) -> Long.compare(t2.getPriorityScore(), t1.getPriorityScore());
+        reminder.sort(compareByDateTime);
 
         //clear secondary window
         ui.clearSecondary();

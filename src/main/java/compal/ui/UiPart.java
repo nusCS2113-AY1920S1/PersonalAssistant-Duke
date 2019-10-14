@@ -446,7 +446,7 @@ public class UiPart {
      *
      * @param currDate current date of task input
      */
-    public void secondaryScreenRefresh(Date currDate){
+    public void secondaryScreenRefresh(Date currDate) {
         Date currentDate = Calendar.getInstance().getTime();
         Calendar c = Calendar.getInstance();
 
