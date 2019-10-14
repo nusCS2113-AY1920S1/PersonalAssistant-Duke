@@ -39,7 +39,7 @@ public class TransactionList {
             boolean expenditureExist = false;
             for (int i = expLists.size() - ONE_INDEX; i >= 0; i--) {
                 if (!"deposit".equals(expLists.get(i).getCategory())) {
-                    ui.printMessage(i + ":\n" + expLists.get(i).getDetails() + "\n");
+                    ui.printMessage(i + 1 + ":\n" + expLists.get(i).getDetails() + "\n");
                     counter--;
                     expenditureExist = true;
                 }

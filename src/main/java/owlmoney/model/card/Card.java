@@ -93,7 +93,7 @@ public class Card {
      * @return String of credit card details.
      */
     public String getDetails() {
-        return "\nCard Name: " + getName()
+        return "Card Name: " + getName()
                 + "\nLimit: " + new DecimalFormat("0.00").format(getLimit())
                 + "\nRebate: " + new DecimalFormat("0.00").format(getRebate());
     }

@@ -122,7 +122,7 @@ public class CardList {
     public void listCards(Ui ui) throws CardException {
         checkCardListEmpty(ui);
         for (int i = 0; i < cardLists.size(); i++) {
-            ui.printMessage(cardLists.get(i).getDetails());
+            ui.printMessage((i + 1) + ".\n" + cardLists.get(i).getDetails());
         }
     }
 
