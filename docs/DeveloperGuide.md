@@ -18,7 +18,8 @@ Welcome to the **COMPal** Developer Guide! This Developer Guide is still being w
 
 [**4. Design**](/docs/DeveloperGuide.md#4-design)
  + [4.1 Architecture](/docs/DeveloperGuide.md#41-architecture)
- + [4.2 UI](/docs/DeveloperGuide.md#42-ui-component)
+ + [4.2 UI Component](/docs/DeveloperGuide.md#42-ui-component)
+ + [4.4 Commons Component](/docs/DeveloperGuide.md#44-commons-component)
  + [4.6 Model Component](/docs/DeveloperGuide.md#46-model-component)
 
 [**5. Implementation**](/docs/DeveloperGuide.md#5-implementation)
@@ -180,6 +181,15 @@ The  `UI`  component,
 - Executes user commands using the  `Logic`  component.  
 - Displays text-based command results in to the user via `MainOutput` or `SecondaryOutput`.
 - Display ​daily calendar of the user via `DailyCalender`. 
+
+### 4.4 Commons Component
+Classes used by multiple components are in the [`commons`](/src/main/java/compal/commons) package. It contains 2 important classes: [`Compal`](/src/main/java/compal/commons/Compal.java) and [`Messages`](/src/main/java/compal/commons/Messages.java).
+
+`Compal.java` creates an instance of `Ui`, `Storage`, `TaskList` and `ParserManager`. Other classes will then use `Compal` to call on the aforementioned classes for different method invocations.
+
+In addition, `Compal` contains the `viewReminder` method, which will be called when the GUI is initialised. This provides the user with the reminders set or due within 7 days.
+
+`Messages.java` contains all the error messages that will be printed on the GUI when the user has made an error in their input. This will notify the user to check what he/she has keyed in the command box, and make necessary adjustments. 
 
 ### 4.6. Model Component
 
