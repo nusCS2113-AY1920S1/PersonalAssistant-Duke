@@ -37,8 +37,10 @@ public class TaskList {
         ArrayList<String> taskDetails = new ArrayList<>();
         ArrayList<Task> sortedTaskList = taskList;
         sortedTaskList.sort(sortTasksByPriority);
+        int taskIndex = 1;
         for (Task task : sortedTaskList) {
-            taskDetails.add(task.getDetails());
+            taskDetails.add(taskIndex + ". "+ task.getDetails());
+            taskIndex++;
         }
         return taskDetails;
     }
