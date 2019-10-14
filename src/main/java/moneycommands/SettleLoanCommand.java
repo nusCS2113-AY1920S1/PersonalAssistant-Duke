@@ -9,11 +9,19 @@ import money.Loan;
 import java.text.ParseException;
 import java.util.ArrayList;
 
+/**
+ * This command settles the debt of an incoming/outgoing loan in the Loans List.
+ */
 public class SettleLoanCommand extends MoneyCommand {
 
     private String inputString;
     Loan.Type type;
 
+    /**
+     * Constructor of the command which initialises the settle loan command.
+     * Determines the type of of loan to settle specified in the user input.
+     * @param command Settle command inputted by user
+     */
     public SettleLoanCommand(String command) {
         if (command.startsWith("paid")) {
             inputString = command.replaceFirst("paid ", "");
@@ -27,6 +35,11 @@ public class SettleLoanCommand extends MoneyCommand {
         }
     }
 
+    /**
+     * This method checks if a String contains a numeric or non-numeric value.
+     * @param checkStr String to be checked
+     * @return True if the String is  numeric, else returns false
+     */
     private boolean isNumeric(String checkStr) {
         try {
             int i = Integer.parseInt(checkStr);
@@ -36,6 +49,12 @@ public class SettleLoanCommand extends MoneyCommand {
         return true;
     }
 
+    /**
+     * This method scans a given ArrayList of loans and returns an ArrayList
+     * of all the names of the involved party in the loans.
+     * @param loanList ArrayList of loans to be scanned
+     * @return ArrayList of names of parties
+     */
     private ArrayList<String> getListOfNames(ArrayList<Loan> loanList) {
         ArrayList<String> listOfNames = new ArrayList<>();
         for (Loan l : loanList) {
@@ -44,12 +63,15 @@ public class SettleLoanCommand extends MoneyCommand {
         return listOfNames;
     }
 
+    /**
+     * This method returns true if a person, who's name is specified, has a loan
+     * listed within a given ArrayList of loans, else returns false
+     * @param loanList ArrayList of loans to be checked
+     * @param name String name of the person
+     * @return True if the person is found in the loan list, else returns false
+     */
     private boolean isInListOfNames(ArrayList<Loan> loanList, String name) {
-        if (getListOfNames(loanList).contains(name)) {
-            return true;
-        } else {
-            return false;
-        }
+        return getListOfNames(loanList).contains(name);
     }
 
     @Override
@@ -57,6 +79,23 @@ public class SettleLoanCommand extends MoneyCommand {
         return false;
     }
 
+    /**
+     * This method executes the settle loan command. According to the type of loan
+     * to be settled specified by user, checks the incoming/outgoing loans for the
+     * incoming/outgoing loan entry to be settled.
+     * Searches for the loan specified by the user in either the incoming/outgoing
+     * ArrayList of loans according the name or index, depending on user input, and
+     * settles his/her loan with the amount inputted by the user.
+     * If the amount repaid settles the entire debt, the loan is set as settled. Else,
+     * the amount repaid is deducted from outstanding amount in the loan.
+     * If an outgoing loan is settled, the debt repaid is entered into Total Income List.
+     * If an incoming loan is settled, the debt repaid is entered into Total Expenditure List.
+     * @param account Account object containing all financial info of user saved on the programme
+     * @param ui Handles interaction with the user
+     * @param storage Saves and loads data into/from the local disk
+     * @throws ParseException If invalid date is parsed
+     * @throws DukeException When the command is invalid
+     */
     @Override
     public void execute(Account account, Ui ui, MoneyStorage storage) throws DukeException, ParseException {
         String[] splitStr = inputString.split(" /to ", 2);

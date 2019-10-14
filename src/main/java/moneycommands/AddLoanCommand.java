@@ -5,16 +5,13 @@ import controlpanel.MoneyStorage;
 import controlpanel.Ui;
 import controlpanel.DukeException;
 import money.Account;
-import money.Income;
 import money.Loan;
 
 import java.text.ParseException;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.util.Calendar;
 
 /**
- * This command adds an income source to the Total Income List.
+ * This command adds a loan to the Loan List.
  */
 public class AddLoanCommand extends MoneyCommand {
 
@@ -22,8 +19,10 @@ public class AddLoanCommand extends MoneyCommand {
     private Loan.Type type;
 
     /**
-     * Constructor of the command which initialises the add income command
-     * with the income source data within the user input.
+     * Constructor of the command which initialises the add loan command
+     * with the loan data within the user input.
+     * Differentiates between an add outgoing loan or incoming loan according to
+     * data in user input.
      * @param command add command inputted from user
      */
     public AddLoanCommand(String command) {
@@ -42,8 +41,8 @@ public class AddLoanCommand extends MoneyCommand {
     }
 
     /**
-     * This method executes the add income command. Takes the input data from user and
-     * adds an income source to the Total Income List.
+     * This method executes the add loan command. Takes the input data from user and
+     * adds an incoming or outgoing loan to the Loan List.
      * @param account Account object containing all financial info of user saved on the programme
      * @param ui Handles interaction with the user
      * @param storage Saves and loads data into/from the local disk
@@ -63,12 +62,12 @@ public class AddLoanCommand extends MoneyCommand {
 
         int loanTypeSize = l.getType() == Loan.Type.INCOMING ? account.getIncomingLoans().size() :
                 l.getType() == Loan.Type.OUTGOING ? account.getOutgoingLoans().size() : -1;
-        ui.appendToOutput(" Got it. I've added this " + l.getTypeString() + " Loan: \n");
+        ui.appendToOutput(" Got it. I've added this " + l.getType().toString().toLowerCase() + " loan: \n");
         ui.appendToOutput("     ");
         ui.appendToOutput(account.getLoans().get(account.getLoans().size() - 1).toString()
                 + "\n");
         ui.appendToOutput(" Now you have " + account.getLoans().size() + " loans listed");
-        ui.appendToOutput(" and " + loanTypeSize + " " + l.getTypeString() + " Loans\n");
+        ui.appendToOutput(" and " + loanTypeSize + " " + l.getType().toString().toLowerCase() + " loans\n");
     }
 
     @Override
