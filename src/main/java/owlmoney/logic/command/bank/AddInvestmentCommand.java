@@ -7,6 +7,9 @@ import owlmoney.model.bank.exception.BankException;
 import owlmoney.model.profile.Profile;
 import owlmoney.ui.Ui;
 
+/**
+ * AddInvestmentCommand contains the execution function to add a new investment object.
+ */
 public class AddInvestmentCommand extends Command {
     private final String name;
     private final double amount;
@@ -32,7 +35,7 @@ public class AddInvestmentCommand extends Command {
     @Override
     public boolean execute(Profile profile, Ui ui) throws BankException {
         Bank newInvestment = new Investment(this.name, this.amount);
-        profile.addNewBank(newInvestment, ui);
+        profile.profileAddNewBank(newInvestment, ui);
         return this.isExit;
     }
 }

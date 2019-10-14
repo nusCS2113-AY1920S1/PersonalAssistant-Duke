@@ -9,6 +9,10 @@ import owlmoney.logic.parser.ParseRawData;
 import owlmoney.logic.parser.exception.ParserException;
 import owlmoney.logic.regex.RegexUtil;
 
+/**
+ * ParseInvestment class which is abstract where various investment parser objects
+ * inherit from given that it is abstract.
+ */
 public abstract class ParseInvestment {
     HashMap<String, String> investmentParameters = new HashMap<String, String>();
     private ParseRawData parseRawData = new ParseRawData();

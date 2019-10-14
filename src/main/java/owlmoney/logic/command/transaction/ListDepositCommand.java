@@ -32,7 +32,7 @@ public class ListDepositCommand extends Command {
      * @return false so OwlMoney will not terminate yet.
      */
     public boolean execute(Profile profile, Ui ui) throws BankException, TransactionException {
-        profile.listDeposit(accName, ui, displayNum);
+        profile.profileListDeposit(accName, ui, displayNum);
         return this.isExit;
     }
 }

@@ -20,7 +20,7 @@ public class ListExpenditureCommand extends Command {
      *
      * @param name       Bank account name.
      * @param displayNum Number of expenditures to display.
-     * @param type Represents type of expenditure to be added.
+     * @param type Represents type of expenditure to be listed.
      */
     public ListExpenditureCommand(String name, int displayNum, String type) {
         this.accName = name;
@@ -36,7 +36,7 @@ public class ListExpenditureCommand extends Command {
      * @return false so OwlMoney will not terminate yet.
      */
     public boolean execute(Profile profile, Ui ui) throws BankException, TransactionException, CardException {
-        profile.listExpenditure(accName, ui, displayNum, this.type);
+        profile.profileListExpenditure(accName, ui, displayNum, this.type);
         return this.isExit;
     }
 }

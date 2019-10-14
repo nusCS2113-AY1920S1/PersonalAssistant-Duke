@@ -5,6 +5,9 @@ import owlmoney.model.bank.exception.BankException;
 import owlmoney.model.profile.Profile;
 import owlmoney.ui.Ui;
 
+/**
+ * DeleteInvestmentCommand contains the execution function to delete an investment object.
+ */
 public class DeleteInvestmentCommand extends Command {
     private final String bankName;
     private static final String INVESTMENT = "investment";
@@ -27,7 +30,7 @@ public class DeleteInvestmentCommand extends Command {
      */
     @Override
     public boolean execute(Profile profile, Ui ui) throws BankException {
-        profile.deleteBank(this.bankName, INVESTMENT, ui);
+        profile.profileDeleteBank(this.bankName, INVESTMENT, ui);
         return this.isExit;
     }
 }

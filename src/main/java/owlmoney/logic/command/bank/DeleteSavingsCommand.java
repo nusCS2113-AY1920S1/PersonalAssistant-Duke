@@ -6,7 +6,7 @@ import owlmoney.model.profile.Profile;
 import owlmoney.ui.Ui;
 
 /**
- * DeleteSavingsCommand class which contains the execution function to delete a saving object.
+ * DeleteSavingsCommand contains the execution function to delete a saving object.
  */
 public class DeleteSavingsCommand extends Command {
     private final String bankName;
@@ -30,7 +30,7 @@ public class DeleteSavingsCommand extends Command {
      */
     @Override
     public boolean execute(Profile profile, Ui ui) throws BankException {
-        profile.deleteBank(this.bankName, SAVING, ui);
+        profile.profileDeleteBank(this.bankName, SAVING, ui);
         return this.isExit;
     }
 }

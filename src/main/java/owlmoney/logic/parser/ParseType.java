@@ -10,6 +10,9 @@ import owlmoney.logic.command.bank.ListSavingsCommand;
 import owlmoney.logic.command.card.ListCardCommand;
 import owlmoney.logic.parser.bond.ParseAddBond;
 import owlmoney.logic.parser.bond.ParseBond;
+import owlmoney.logic.parser.bond.ParseDeleteBond;
+import owlmoney.logic.parser.bond.ParseEditBond;
+import owlmoney.logic.parser.bond.ParseListBond;
 import owlmoney.logic.parser.card.ParseAddCard;
 import owlmoney.logic.parser.card.ParseCard;
 import owlmoney.logic.parser.card.ParseDeleteCard;
@@ -149,6 +152,21 @@ class ParseType extends Parser {
                 parseAddBond.fillHashTable();
                 parseAddBond.checkParameter();
                 return parseAddBond.getCommand();
+            } else if ("/edit".equals(command)) {
+                ParseBond parseEditBond = new ParseEditBond(rawData, BOND);
+                parseEditBond.fillHashTable();
+                parseEditBond.checkParameter();
+                return parseEditBond.getCommand();
+            } else if ("/delete".equals(command)) {
+                ParseBond parseDeleteBond = new ParseDeleteBond(rawData, BOND);
+                parseDeleteBond.fillHashTable();
+                parseDeleteBond.checkParameter();
+                return parseDeleteBond.getCommand();
+            }   else if ("/list".equals(command)) {
+                ParseBond parseListBond = new ParseListBond(rawData, BOND);
+                parseListBond.fillHashTable();
+                parseListBond.checkParameter();
+                return parseListBond.getCommand();
             }
             throw new ParserException("You entered an invalid type for bond");
         case "/bankexpenditure":

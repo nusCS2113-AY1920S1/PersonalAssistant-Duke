@@ -7,11 +7,15 @@ import owlmoney.model.transaction.Transaction;
 import owlmoney.model.transaction.exception.TransactionException;
 import owlmoney.ui.Ui;
 
+/**
+ * ########################################################################################.
+ */
+
 public class CardList {
     private ArrayList<Card> cardLists;
 
     /**
-     * Constructor that creates an arrayList of Cards.
+     * Creates an arrayList of Cards.
      */
     public CardList() {
         cardLists = new ArrayList<Card>();
@@ -23,7 +27,7 @@ public class CardList {
      * @param newCard a new card object to be added.
      * @param ui required for printing.
      */
-    public void addCard(Card newCard, Ui ui) {
+    public void cardListAddCard(Card newCard, Ui ui) {
         cardLists.add(newCard);
         ui.printMessage("Added new card: ");
         ui.printMessage(newCard.getDetails());
@@ -34,9 +38,10 @@ public class CardList {
      *
      * @param name name of the card to be deleted.
      * @param ui required for printing.
+     * @throws CardException #############################################################################
      */
-    public void deleteCard(String name, Ui ui) throws CardException {
-        checkCardListEmpty(ui);
+    public void cardListDeleteCard(String name, Ui ui) throws CardException {
+        cardListCheckListEmpty();
         boolean isDeleted = false;
         for (int i = 0; i < cardLists.size(); i++) {
             if (cardLists.get(i).getName().equals(name)) {
@@ -54,10 +59,9 @@ public class CardList {
     /**
      * Throws CardException if CardList is empty.
      *
-     * @param ui required for printing.
      * @throws CardException If CardList is empty.
      */
-    public void checkCardListEmpty(Ui ui) throws CardException {
+    public void cardListCheckListEmpty() throws CardException {
         if (cardLists.size() <= 0) {
             throw new CardException("There are 0 cards in your profile");
         }
@@ -113,8 +117,10 @@ public class CardList {
      * @param limit    New limit of credit card if any.
      * @param rebate   New rebate of credit card if any.
      * @param ui       Required for printing.
+     * @throws CardException #############################################################################.
      */
-    public void editCard(String name, String newName, String limit, String rebate, Ui ui) throws CardException {
+    public void cardListEditCard(String name, String newName, String limit, String rebate, Ui ui)
+            throws CardException {
         for (int i = 0; i < cardLists.size(); i++) {
             if (cardLists.get(i).getName().equals(name)) {
                 if (!(newName.isEmpty() || newName.isBlank())) {
@@ -140,9 +146,10 @@ public class CardList {
      * Lists all credit cards details.
      *
      * @param ui Required for printing.
+     * @throws CardException #############################################################################
      */
-    public void listCards(Ui ui) throws CardException {
-        checkCardListEmpty(ui);
+    public void cardListListCards(Ui ui) throws CardException {
+        cardListCheckListEmpty();
         for (int i = 0; i < cardLists.size(); i++) {
             ui.printMessage((i + 1) + ".\n" + cardLists.get(i).getDetails());
         }
@@ -155,9 +162,10 @@ public class CardList {
      * @param cardName The credit card name.
      * @param exp      The instance of the expenditure.
      * @param ui       Required for printing.
+     * @throws CardException #############################################################################
      */
     //need change exception class in the future for this
-    public void addExpenditure(String cardName, Transaction exp, Ui ui)
+    public void cardListAddExpenditure(String cardName, Transaction exp, Ui ui)
             throws CardException {
         for (int i = 0; i < cardLists.size(); i++) {
             if (cardLists.get(i).getName().equals(cardName)) {
@@ -174,8 +182,10 @@ public class CardList {
      * @param cardToList The name of the credit card.
      * @param ui         required for printing.
      * @param displayNum Number of expenditures to list.
+     * @throws CardException #############################################################################
+     * @throws TransactionException #########################################################################
      */
-    public void listCardExpenditure(String cardToList, Ui ui, int displayNum)
+    public void cardListListCardExpenditure(String cardToList, Ui ui, int displayNum)
             throws TransactionException, CardException {
         for (int i = 0; i < cardLists.size(); i++) {
             if (cardToList.equals(cardLists.get(i).getName())) {
@@ -195,7 +205,7 @@ public class CardList {
      * @throws TransactionException If invalid transaction.
      * @throws CardException If card does not exist.
      */
-    public void deleteExp(int expNum, String deleteFromAccountCard, Ui ui)
+    public void cardListDeleteExpenditure(int expNum, String deleteFromAccountCard, Ui ui)
             throws CardException, TransactionException {
         for (int i = 0; i < cardLists.size(); i++) {
             if (deleteFromAccountCard.equals(cardLists.get(i).getName())) {
@@ -219,8 +229,8 @@ public class CardList {
      * @throws CardException If card does not exist.
      * @throws TransactionException If incorrect date format.
      */
-    public void editExp(int expNum, String editFromCard, String desc, String amount, String date, String category,
-            Ui ui) throws CardException, TransactionException {
+    public void cardListEditExpenditure(int expNum, String editFromCard, String desc, String amount,
+            String date, String category, Ui ui) throws CardException, TransactionException {
         for (int i = 0; i < cardLists.size(); i++) {
             if (cardLists.get(i).getName().equals(editFromCard)) {
                 cardLists.get(i).editExpenditureDetails(expNum, desc, amount, date, category, ui);

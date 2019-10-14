@@ -6,11 +6,14 @@ import owlmoney.logic.command.Command;
 import owlmoney.logic.command.bank.EditInvestmentCommand;
 import owlmoney.logic.parser.exception.ParserException;
 
+/**
+ * Represents the parsing of inputs for editing an investment account.
+ */
 public class ParseEditInvestment extends ParseInvestment {
     /**
      * Creates an instance of ParseEditInvestment.
      *
-     * @param data Raw user input date.
+     * @param data Raw user input.
      * @throws ParserException If the first parameter is invalid.
      */
     public ParseEditInvestment(String data) throws ParserException {

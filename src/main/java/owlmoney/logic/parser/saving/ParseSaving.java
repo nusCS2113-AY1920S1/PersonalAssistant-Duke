@@ -10,7 +10,8 @@ import owlmoney.logic.parser.exception.ParserException;
 import owlmoney.logic.regex.RegexUtil;
 
 /**
- * ParseSaving class which is abstract where various savings parser objects inherit from given that it is abstract.
+ * ParseSaving class which is abstract where various savings parser objects
+ * inherit from given that it is abstract.
  */
 public abstract class ParseSaving {
     HashMap<String, String> savingsParameters = new HashMap<String, String>();

@@ -6,7 +6,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
- * The Transaction class which is abstract where various transaction types will inherit from given that
+ * Transaction class abstracts various transaction types which the child will inherit from given that
  * it is abstract.
  */
 
@@ -56,7 +56,7 @@ public abstract class Transaction {
      * @return The date that the expenditure was made.
      */
     private String getDate() {
-        DateFormat temp = new SimpleDateFormat("dd EEEE yyyy");
+        DateFormat temp = new SimpleDateFormat("dd MMMM yyyy");
         return temp.format(this.date);
     }
 

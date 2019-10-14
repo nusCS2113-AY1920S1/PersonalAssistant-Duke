@@ -44,7 +44,7 @@ public class AddDepositCommand extends Command {
      */
     public boolean execute(Profile profile, Ui ui) throws BankException {
         Transaction newDeposit = new Deposit(this.description, this.amount, this.date, this.category);
-        profile.addNewDeposit(accName, newDeposit, ui);
+        profile.profileAddNewDeposit(accName, newDeposit, ui);
         return this.isExit;
     }
 }

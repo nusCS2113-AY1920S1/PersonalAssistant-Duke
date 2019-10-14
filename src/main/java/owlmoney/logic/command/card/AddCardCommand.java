@@ -36,7 +36,7 @@ public class AddCardCommand extends Command {
     @Override
     public boolean execute(Profile profile, Ui ui) {
         Card newCard = new Card(this.name, this.limit, this.rebate);
-        profile.addNewCard(newCard, ui);
+        profile.profileAddNewCard(newCard, ui);
         return this.isExit;
     }
 }

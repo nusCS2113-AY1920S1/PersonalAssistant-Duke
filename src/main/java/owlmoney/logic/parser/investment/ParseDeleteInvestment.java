@@ -6,6 +6,9 @@ import owlmoney.logic.command.Command;
 import owlmoney.logic.command.bank.DeleteInvestmentCommand;
 import owlmoney.logic.parser.exception.ParserException;
 
+/**
+ * Represents the parsing of inputs for deleting an investment account..
+ */
 public class ParseDeleteInvestment extends ParseInvestment {
     private static final String DELETE = "/delete";
 

@@ -38,7 +38,7 @@ public class ParseDeleteCard extends ParseCard {
             String key = cardIterator.next();
             String value = cardParameters.get(key);
             if ((NAME.equals(key) && (value.isBlank() || value.isEmpty()))) {
-                throw new ParserException(key + " cannot be empty when adding a new expenditure");
+                throw new ParserException(key + " cannot be empty when deleting a card");
             }
             if (NAME.equals(key)) {
                 checkName(value);
