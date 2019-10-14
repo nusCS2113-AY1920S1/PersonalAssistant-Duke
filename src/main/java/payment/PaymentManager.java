@@ -5,34 +5,34 @@ import java.util.*;
 /**
  * PaymentManager for managing Payments objects and PaymentForms from the PaymentsList
  */
-public class PaymentManager {
-    HashMap<String, Payee> ManagerMap;
+public abstract class PaymentManager {
+
 
     /**
      * Finds the Payments objects containing a payee name and returns a list of Payments.
      * @param payee Payee of the item.
      * @return Payments object with payee name.
      */
-    public void findPayee(String payee, ArrayList<Payments> paymentslist){
+    public static void findPayee(String payee, ArrayList<Payments> paymentslist){
         //TODO
     }
 
     /**
      * Edits the Payments object details, may overload string to take different ways of inputs.
      */
-    public void editPayments(String payee){
+    public static void editPayments(String payee){
         //TODO
     }
 
     /**
      * List the Payments object details, may extend to generate statement of accounts
      */
-    public void listPayments(){
+    public static void listPayments(HashMap<String, Payee> managermap){
         ArrayList<Payments> overdue = new ArrayList<>();
         ArrayList<Payments> pending = new ArrayList<>();
         ArrayList<Payments> approved = new ArrayList<>();
         Date currDate = new Date();
-        for (Payee payee : ManagerMap.values()) {
+        for (Payee payee : managermap.values()) {
             for (Payments payment : payee.payments) {
                 if (payment.status == Status.PENDING) pending.add(payment);
                 else if (payment.status == Status.OVERDUE) overdue.add(payment);
@@ -45,11 +45,11 @@ public class PaymentManager {
     /**
      * Deletes the Payments object details
      */
-    public void deletePayments(String payee, String item){
+    public static void deletePayments(String payee, String item, HashMap<String, Payee> managermap){
         int i = 0;
-        while (i < ManagerMap.get(payee).payments.size()) {
-            if (ManagerMap.get(payee).payments.get(i++).equals(item)) {
-                ManagerMap.get(payee).payments.remove(--i);
+        while (i < managermap.get(payee).payments.size()) {
+            if (managermap.get(payee).payments.get(i++).equals(item)) {
+                managermap.get(payee).payments.remove(--i);
             }
         }
         // printDeleteMessage(); <-- TODO : Modify implementation in UI
@@ -58,9 +58,20 @@ public class PaymentManager {
     /**
      * Add the Payments object details to PaymentsList
      */
-    public void addPayments(String payee, String item, double cost, String inv){
+    public static Payments addPayments(String payee, String item, double cost, String inv, HashMap<String, Payee> managermap){
         Payments pay = new Payments(item, cost, inv);
-        ManagerMap.get(payee).payments.add(pay);
+        managermap.get(payee).payments.add(pay);
+        return pay;
     }
-    // printAddedMessage(); <-- TODO : Modify implementation in UI
+
+    /**
+     * Add Payee object to managermap
+     */
+    public static Payee addPayee(String payee, String email, String matricNum, String phoneNum, HashMap<String, Payee> managermap){
+        Payee payeeNew = new Payee(payee, email, matricNum, phoneNum);
+        managermap.put(payee, payeeNew);
+        return payeeNew;
+    }
+
+
 }

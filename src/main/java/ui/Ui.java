@@ -1,6 +1,8 @@
 package ui;
 
 import common.TaskList;
+import payment.Payee;
+import payment.Payments;
 import task.Task;
 
 import java.util.Scanner;
@@ -148,6 +150,28 @@ public class Ui {
     public void exceptionMessage(String message) {
         System.out.print(line);
         System.out.println(message);
+        System.out.print(line);
+    }
+
+    public void printAddPaymentMessage(String payee, Payments payments){
+        System.out.print(line);
+        System.out.println("\t" + "Got it. I've added this payment:");
+        System.out.println("\t" + "Payee: " + payee);
+        System.out.println("\t" + "Item: " + payments.item);
+        System.out.println("\t" + "Cost: " + payments.cost);
+        System.out.println("\t" + "Invoice: " + payments.inv);
+        System.out.println("\t" + "Deadline: " + payments.deadline);
+        System.out.println("\t" + "Status: " + payments.status);
+        System.out.print(line);
+    }
+
+    public void printAddPayeeMessage(String payeename, Payee payee){
+        System.out.print(line);
+        System.out.println("\t" + "Got it. I've added this payee:");
+        System.out.println("\t" + "Payee: " + payeename);
+        System.out.println("\t" + "Email: " + payee.email);
+        System.out.println("\t" + "Matric No: " + payee.matricNum);
+        System.out.println("\t" + "Phone No: " + payee.phoneNum);
         System.out.print(line);
     }
 

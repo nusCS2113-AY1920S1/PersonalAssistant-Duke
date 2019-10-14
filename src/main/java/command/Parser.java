@@ -2,6 +2,9 @@ package command;
 
 import common.DukeException;
 import common.TaskList;
+import payment.Payee;
+import payment.PaymentManager;
+import payment.Payments;
 import task.*;
 import task.Deadline;
 import task.Task;
@@ -9,10 +12,7 @@ import ui.Ui;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Collections;
-import java.util.Date;
+import java.util.*;
 
 /**
  * Parser that parses input from the user.
@@ -30,7 +30,7 @@ public class Parser {
      * @return Returns boolean variable to indicate when to stop parsing for input.
      * @throws DukeException if input is not valid.
      */
-    public static boolean parse(String input, TaskList tasklist, Ui ui, Storage storage) {
+    public static boolean parse(String input, TaskList tasklist, Ui ui, Storage storage, HashMap<String, Payee> managermap) {
         try {
             if (isBye(input)) {
                 //print bye message
@@ -74,10 +74,14 @@ public class Parser {
                 //storage.save(tasklist.returnArrayList());
             }
             else if (isReminder(input)) {
-                processReminder(input, tasklist, ui);
+                //processReminder(input, tasklist, ui);
             }
             else if(isEdit(input)){
                 processEdit(input,tasklist,ui);
+            } else if (isPayment(input)){
+                processPayment(input, managermap, ui);
+            } else if (isPayee(input)){
+                processPayee(input, managermap, ui);
             } else {
                 throw new DukeException("     ☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
             }
@@ -370,6 +374,43 @@ public class Parser {
         }
     }
 
+    //INPUT FORMAT: payment add p/payee i/item c/111 v/invoice
+    private static void processPayment(String input, HashMap<String, Payee> managermap, Ui ui){
+        try {
+            String[] splitspace = input.split(" ", 2);
+            if (splitspace[1].startsWith("add")){
+                String[] splitpayments = splitspace[1].split("p/|i/|c/|v/");
+                Payments payment = PaymentManager.addPayments(splitpayments[1], splitpayments[2], Double.parseDouble(splitpayments[3]), splitpayments[4], managermap);
+                ui.printAddPaymentMessage(splitpayments[1], payment);
+            }
+            //TODO --> delete payment
+            //TODO --> edit payment
+
+        } catch(ArrayIndexOutOfBoundsException e) {
+            ui.exceptionMessage("     ☹ OOPS!!! Please input the correct command format (refer to user guide)");
+        } catch(NullPointerException e) {
+            ui.exceptionMessage("     ☹ OOPS!!! There is no payee with that name yet, please add the payee first!");
+        }
+    }
+
+    private static void processPayee(String input, HashMap<String, Payee> managermap, Ui ui) {
+        try {
+            String[] splitspace = input.split(" ", 2);
+            if (splitspace[1].startsWith("add")){
+                String[] splitpayments = splitspace[1].split("p/|e/|m/|ph/");
+                Payee payee = PaymentManager.addPayee(splitpayments[1], splitpayments[2], splitpayments[3], splitpayments[4], managermap);
+                ui.printAddPayeeMessage(splitpayments[1], payee);
+            }
+            //TODO --> delete payee
+            //TODO --> edit payee
+
+        } catch(ArrayIndexOutOfBoundsException e) {
+            ui.exceptionMessage("     ☹ OOPS!!! Please input the correct command format (refer to user guide)");
+        } catch(NullPointerException e) {
+            ui.exceptionMessage("     ☹ OOPS!!! There is no payee with that name yet, please add the payee first!");
+        }
+    }
+
     private static boolean isBye(String input) {
         return input.equals("bye");
     }
@@ -423,5 +464,13 @@ public class Parser {
 
     private static boolean isEdit(String input) {
         return input.startsWith("edit");
+    }
+
+    private static boolean isPayment(String input) {
+        return input.startsWith("payment");
+    }
+
+    private static boolean isPayee(String input) {
+        return input.startsWith("payee");
     }
 }
