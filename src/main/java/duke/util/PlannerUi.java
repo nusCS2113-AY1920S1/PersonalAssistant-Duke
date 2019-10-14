@@ -62,14 +62,20 @@ public class PlannerUi {
         closeScanner();
     }
 
+    /**
+     * Message shown at start of CapCommand
+     */
     public void capStartMsg() {
         System.out.println("Start typing the module you have taken, along with it's letter grade");
         System.out.println("Type 'done' when you are ready to calculate your CAP");
     }
 
+    /**
+     * Message to print average CAP to 2 decimal places
+     */
     public void capMsg(double averageCap) {
         showLine();
         System.out.println("Here is your current cumulative/predicted CAP");
         System.out.printf("%.2f\n", averageCap);
-        }
+    }
 }

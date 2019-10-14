@@ -45,12 +45,14 @@ public class CapCommand extends ModuleCommand {
     private double projectedModuleCap;
     private double projectedCap;
     private int mcCount;
-    private enum commandType{
+
+    private enum CommandType {
         OVERALL,
         MODULE,
         SEMESTER
     }
-    private commandType type;
+
+    private CommandType type;
 
     /**
      * Constructor for the CapCommand class where user can enquire information about their CAP.
@@ -58,17 +60,17 @@ public class CapCommand extends ModuleCommand {
      * Input format can be in three forms
      * `cap` overall cap
      * `cap semester [x]` where x is some integer or some form of 1-1 or 1-2 to indicate year
-     * `cap [moduleCode] to check predicted cap for this module provided it has prerequisites completed by the user with a letter grade
+     * `cap [moduleCode] to check predicted cap for a specific module from prerequisites
      * @param input User input
      */
     public CapCommand(String input) {
         command = input.split(" ");
         if (input.length() <= 4) {
-            this.type = commandType.OVERALL;
+            this.type = CommandType.OVERALL;
         } else if (command[1].equalsIgnoreCase("semester")) {
-            this.type = commandType.SEMESTER;
+            this.type = CommandType.SEMESTER;
         } else {
-            this.type = commandType.MODULE;
+            this.type = CommandType.MODULE;
         }
         mcCount = 0;
         currentCap = 0;
@@ -139,20 +141,6 @@ public class CapCommand extends ModuleCommand {
     */
 
 
-       /*
-        if (specificModuleCap.isEmpty()) {
-            ui.showLine();
-            ui.overallCapMsg();
-            System.out.printf("%.2f\n", this.currentCap);
-            ui.showLine();
-        } else {
-            ui.showLine();
-            ui.specificCapMsg(command[1]);
-            System.out.printf("%.2f\n", this.projectedModuleCap);
-            ui.showLine();
-        }
-        */
-
     public boolean isComplete(String input) {
         return input.equalsIgnoreCase("done");
     }
@@ -169,8 +157,11 @@ public class CapCommand extends ModuleCommand {
         return projectedCap;
     }
 
+    /**
+     * Converts String grade to a double value according to NUS guidelines
+     */
     public double letterGradeToCap(String grade) {
-        switch(grade) {
+        switch (grade) {
             case "A+":
             case "A":
                 return 5.00;
@@ -201,29 +192,38 @@ public class CapCommand extends ModuleCommand {
      * Execute of 3 different forms of user input according to the enum state of this CapCommand class.
      */
     @Override
-    public void execute(HashMap<String, ModuleInfoSummary> summaryMap, HashMap<String, ModuleInfoDetailed> detailedMap,
-                        PlannerUi plannerUi, Storage store) throws ModException {
+    public void execute(HashMap<String, ModuleInfoSummary> summaryMap,
+                        HashMap<String, ModuleInfoDetailed> detailedMap,
+                        PlannerUi plannerUi,
+                        Storage store)
+        throws ModException {
         Scanner scanner = new Scanner(System.in);
-        if (this.type.equals(commandType.OVERALL)) {
+        if (this.type.equals(CommandType.OVERALL)) {
             plannerUi.capStartMsg();
             calculateOverallCap(summaryMap, detailedMap, plannerUi, store, scanner);
-        } else if (this.type.equals(commandType.MODULE)) {
+        } else if (this.type.equals(CommandType.MODULE)) {
             //calculate the module's predicted cap from its prerequisites
-        } else if (this.type.equals(commandType.SEMESTER)) {
+        } else if (this.type.equals(CommandType.SEMESTER)) {
             //check modules taken this sem, calculate predicted cap for the sem according to user input
         }
     }
 
     /**
-     * User will keep inputting "[moduleCode] [letterGrade]" until satisfied, then user inputs "done" and the user's CAP will be calculated and printed
+     * User will keep inputting "[moduleCode] [letterGrade]" until satisfied
+     * Then user inputs "done" and the user's CAP will be calculated and printed
      */
-    public void calculateOverallCap(HashMap<String, ModuleInfoSummary> summaryMap, HashMap<String, ModuleInfoDetailed> detailedMap,
-                                    PlannerUi plannerUi, Storage store, Scanner scanner) throws ModMissingArgumentException, ModNotFoundException {
+    public void calculateOverallCap(HashMap<String, ModuleInfoSummary> summaryMap,
+                                    HashMap<String, ModuleInfoDetailed> detailedMap,
+                                    PlannerUi plannerUi,
+                                    Storage store,
+                                    Scanner scanner)
+        throws ModMissingArgumentException, ModNotFoundException {
         String userInput = scanner.nextLine();
         double cumulativeCap = 0.00;
         while (!isComplete(userInput)) {
             if (userInput.isEmpty()) {
-                throw new ModMissingArgumentException("Please input a completed module and your grade for it, or input done to finish and calculate your CAP");
+                throw new ModMissingArgumentException("Please input a completed module and your grade for it," +
+                    " or input done to finish and calculate your CAP");
             }
             String[] userInfo = userInput.split(" ");
             if (!detailedMap.containsKey(userInfo[0].toUpperCase())) {
@@ -237,7 +237,7 @@ public class CapCommand extends ModuleCommand {
             cumulativeCap += (letterGradeToCap(userInfo[1].toUpperCase()) * mcTemp);
             userInput = scanner.nextLine();
         }
-        double averageCap = cumulativeCap/mcCount;
+        double averageCap = cumulativeCap / mcCount;
         plannerUi.capMsg(averageCap);
     }
 
