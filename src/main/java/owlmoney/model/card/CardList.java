@@ -158,14 +158,14 @@ public class CardList {
      */
     //need change exception class in the future for this
     public void addExpenditure(String cardName, Transaction exp, Ui ui)
-            throws owlmoney.model.card.exception.CardException {
+            throws CardException {
         for (int i = 0; i < cardLists.size(); i++) {
             if (cardLists.get(i).getName().equals(cardName)) {
                 cardLists.get(i).addInExpenditure(exp, ui);
                 return;
             }
         }
-        throw new owlmoney.model.card.exception.CardException("There are no credit card named :" + cardName);
+        throw new CardException("There are no credit card named :" + cardName);
     }
 
     /**
@@ -176,7 +176,7 @@ public class CardList {
      * @param displayNum Number of expenditures to list.
      */
     public void listCardExpenditure(String cardToList, Ui ui, int displayNum)
-            throws TransactionException, owlmoney.model.card.exception.CardException {
+            throws TransactionException, CardException {
         for (int i = 0; i < cardLists.size(); i++) {
             if (cardToList.equals(cardLists.get(i).getName())) {
                 cardLists.get(i).listAllExpenditure(ui, displayNum);

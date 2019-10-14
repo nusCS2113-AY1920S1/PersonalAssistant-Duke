@@ -83,10 +83,10 @@ public class Profile {
      * @throws BankException If bank amount becomes negative after adding expenditure.
      */
     public void addNewExpenditure(String accName, Transaction exp, Ui ui, String type)
-            throws BankException, owlmoney.model.card.exception.CardException {
+            throws BankException, CardException {
         if ("card".equals(type)) {
             cardList.addExpenditure(accName, exp, ui);
-        } else if ("bank".equals(type)){
+        } else if ("bank".equals(type)) {
             bankList.addExpenditure(accName, exp, ui);
         }
     }
@@ -132,7 +132,7 @@ public class Profile {
      * @throws TransactionException If no expenditure found.
      */
     public void listExpenditure(String listedBankOrCard, Ui ui, int displayNum, String type)
-            throws BankException, TransactionException, owlmoney.model.card.exception.CardException {
+            throws BankException, TransactionException, CardException {
         if ("card".equals(type)) {
             cardList.listCardExpenditure(listedBankOrCard, ui, displayNum);
         } else if ("bank".equals(type)) {

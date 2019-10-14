@@ -141,10 +141,9 @@ public class Card {
      * Checks if expenditure exceeds remaining card limit.
      *
      * @param exp Expenditure to be added.
-     * @param ui Ui of OwlMoney.
      * @throws CardException If expenditure exceeds remaining card limit.
      */
-    private void checkExpExceedRemainingLimit(Transaction exp, Ui ui) throws CardException {
+    private void checkExpExceedRemainingLimit(Transaction exp) throws CardException {
         if (exp.getAmount() > this.getRemainingLimit()) {
             throw new CardException("Expenditure to be added cannot exceed remaining limit of $"
                     + getRemainingLimit());
@@ -159,7 +158,7 @@ public class Card {
      * @throws CardException If expenditure exceeds card limit.
      */
     public void addInExpenditure(Transaction exp, Ui ui) throws CardException {
-        this.checkExpExceedRemainingLimit(exp, ui);
+        this.checkExpExceedRemainingLimit(exp);
         unpaid.addExpenditureToList(exp, ui);
         this.subtractRemainingLimit(exp.getAmount());
     }
@@ -201,8 +200,8 @@ public class Card {
             throws TransactionException, CardException {
         if (!(amount.isEmpty() || amount.isBlank()) && this.getRemainingLimit()
                 + unpaid.getExpenditureAmount(expNum, ui) < Double.parseDouble(amount)) {
-            throw new CardException("New expenditure cannot exceed remaining limit of $" +
-                    this.getRemainingLimit());
+            throw new CardException("New expenditure cannot exceed remaining limit of $"
+                    + this.getRemainingLimit());
         }
         double oldAmount = unpaid.getExpenditureAmount(expNum, ui);
         double newAmount = unpaid.editEx(expNum, desc, amount, date, category, ui);
