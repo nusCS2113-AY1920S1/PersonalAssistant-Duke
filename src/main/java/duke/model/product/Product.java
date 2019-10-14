@@ -105,8 +105,12 @@ public class Product {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         duke.model.product.Product product = (duke.model.product.Product) o;
         return productName.equals(product.productName);
     }

@@ -21,6 +21,7 @@ public class EditOrderCommand extends OrderCommand {
 
     private static final String MESSAGE_COMMIT = "Edit order";
     private static final String MESSAGE_EDIT_PERSON_SUCCESS = "Edited Order [%1$s]";
+    private static final String MESSAGE_CANNOT_EDIT_COMPLETED_ORDER = "Completed orders cannot be modified.";
 
     private final Index index;
     private final OrderDescriptor orderDescriptor;
@@ -48,6 +49,10 @@ public class EditOrderCommand extends OrderCommand {
         }
 
         Order orderToEdit = lastShownList.get(index.getZeroBased());
+
+        if (orderToEdit.getStatus().equals(Order.Status.COMPLETED)) {
+            throw new CommandException(MESSAGE_CANNOT_EDIT_COMPLETED_ORDER);
+        }
         Order editedOrder = OrderCommandUtil.createNewOrder(orderToEdit, orderDescriptor,
                 model.getFilteredProductList());
 

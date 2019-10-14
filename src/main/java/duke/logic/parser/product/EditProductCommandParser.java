@@ -14,11 +14,10 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import static duke.logic.parser.commons.CliSyntax.PREFIX_PRODUCT_INDEX;
-import static duke.logic.parser.commons.CliSyntax.PREFIX_PRODUCT_NAME;
 import static duke.logic.parser.commons.CliSyntax.PREFIX_PRODUCT_INGREDIENT;
-import static duke.logic.parser.commons.CliSyntax.PREFIX_PRODUCT_RETAIL_PRICE;
 import static duke.logic.parser.commons.CliSyntax.PREFIX_PRODUCT_INGREDIENT_COST;
-import static duke.logic.parser.commons.CliSyntax.PREFIX_PRODUCT_STATUS;
+import static duke.logic.parser.commons.CliSyntax.PREFIX_PRODUCT_NAME;
+import static duke.logic.parser.commons.CliSyntax.PREFIX_PRODUCT_RETAIL_PRICE;
 import static duke.logic.parser.product.ProductParserUtil.createProductDescriptor;
 
 
@@ -33,8 +32,7 @@ public class EditProductCommandParser implements Parser<EditProductCommand> {
                 PREFIX_PRODUCT_NAME,
                 PREFIX_PRODUCT_INGREDIENT,
                 PREFIX_PRODUCT_RETAIL_PRICE,
-                PREFIX_PRODUCT_INGREDIENT_COST,
-                PREFIX_PRODUCT_STATUS
+                PREFIX_PRODUCT_INGREDIENT_COST
         );
 
         Index index;
@@ -42,7 +40,7 @@ public class EditProductCommandParser implements Parser<EditProductCommand> {
         try {
             index = ParserUtil.parseIndex(map.getValue(PREFIX_PRODUCT_INDEX).orElse(""));
         } catch (ParseException pe) {
-            logger.log(Level.WARNING, "Parse Index error in EditProductCommandParse");
+            logger.log(Level.WARNING, "Parse Index error");
             throw new ParseException(Message.MESSAGE_INVALID_COMMAND_FORMAT);
         }
 

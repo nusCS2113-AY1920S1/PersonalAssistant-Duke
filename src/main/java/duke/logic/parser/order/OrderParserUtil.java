@@ -19,10 +19,11 @@ import static duke.logic.parser.commons.CliSyntax.PREFIX_ORDER_DEADLINE;
 import static duke.logic.parser.commons.CliSyntax.PREFIX_ORDER_ITEM;
 import static duke.logic.parser.commons.CliSyntax.PREFIX_ORDER_REMARKS;
 import static duke.logic.parser.commons.CliSyntax.PREFIX_ORDER_STATUS;
+import static duke.logic.parser.commons.CliSyntax.PREFIX_ORDER_TOTAL;
 
 class OrderParserUtil {
 
-    static Set<Item<String>> parseItems(List<String> itemArg) throws ParseException {
+    private static Set<Item<String>> parseItems(List<String> itemArg) throws ParseException {
         Set<Item<String>> items = new HashSet<>();
         for (String itemString : itemArg) {
             String[] itemAndQty = itemString.split(",");
@@ -44,11 +45,20 @@ class OrderParserUtil {
         return items;
     }
 
-    static Order.Status parseStatus(String statusString) throws ParseException {
+
+    private static Order.Status parseStatus(String statusString) throws ParseException {
         try {
             return Order.Status.valueOf(statusString.trim().toUpperCase());
         } catch (IllegalArgumentException e) {
             throw new ParseException(Message.MESSAGE_INVALID_STATUS);
+        }
+    }
+
+    private static double parseTotal(String totalString) throws ParseException {
+        try {
+            return Double.parseDouble(totalString);
+        } catch (NumberFormatException e) {
+            throw new ParseException(Message.MESSAGE_INVALID_NUMBER_FORMAT);
         }
     }
 
@@ -69,10 +79,13 @@ class OrderParserUtil {
             descriptor.setRemarks(map.getValue(PREFIX_ORDER_REMARKS).get());
         }
         if (map.getValue(PREFIX_ORDER_ITEM).isPresent()) {
-            descriptor.setItems(OrderParserUtil.parseItems(map.getAllValues(PREFIX_ORDER_ITEM)));
+            descriptor.setItems(parseItems(map.getAllValues(PREFIX_ORDER_ITEM)));
         }
         if (map.getValue(PREFIX_ORDER_STATUS).isPresent()) {
-            descriptor.setStatus(OrderParserUtil.parseStatus(map.getValue(PREFIX_ORDER_STATUS).get()));
+            descriptor.setStatus(parseStatus(map.getValue(PREFIX_ORDER_STATUS).get()));
+        }
+        if (map.getValue(PREFIX_ORDER_TOTAL).isPresent()) {
+            descriptor.setTotal(parseTotal(map.getValue(PREFIX_ORDER_TOTAL).get()));
         }
         return descriptor;
     }
