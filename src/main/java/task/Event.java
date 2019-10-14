@@ -69,7 +69,7 @@ public class Event extends Task {
     @Override
     public String toWriteFile() {
         int boolToInt = isDone ? 1 : 0;
-        return "E | " + boolToInt + " | " + this.description + " | " + this.dateTimeStart.getTime() + " | "
+        return "E | " + boolToInt + " | " + this.description + " | " + this.dateTimeStart.getTime() + " | " //saved as long
                 + this.dateTimeEnd.getTime() + "\n";
     }
 
