@@ -54,7 +54,7 @@ public class SummaryCommand extends Command {
     }
 
     /**
-     * Get the date of tomorrow in format DD-MM-YYYY
+     * Get the date of tomorrow in format DD-MM-YYYY.
      * @return date     String containing formatted date of tomorrow
      */
     private String getTomorrowDate() {
