@@ -160,9 +160,9 @@ public class Ui {
             System.out.println(padding + "No commands in history");
         } else {
             System.out.println(padding + "History of Commands you have typed: ");
-            commandHistoryList.forEach(command -> {
-                System.out.println(padding + padding + command);
-            });
+            for (int idx = 0;idx < commandHistoryList.size();idx++) {
+                System.out.println(padding + padding + (idx + 1) + ". " + commandHistoryList.get(idx));
+            }
         }
     }
 }
