@@ -15,7 +15,7 @@ import javafx.scene.layout.HBox;
 /**
  * Represents the DialogBox to be shown in the GUI.
  */
-public class DialogBox extends HBox {
+class DialogBox extends HBox {
     @FXML
     private Label dialog;
     @FXML
@@ -56,7 +56,7 @@ public class DialogBox extends HBox {
      * @param img Image by the User
      * @return DialogBox object that holds User information
      */
-    public static DialogBox getUserDialog(String text, Image img) {
+    static DialogBox getUserDialog(String text, Image img) {
         return new DialogBox(text, img);
     }
 
@@ -66,7 +66,7 @@ public class DialogBox extends HBox {
      * @param img Image of Duke
      * @return DialogBox objects that holds Duke Information
      */
-    public static DialogBox getDukeDialog(String text, Image img) {
+    static DialogBox getDukeDialog(String text, Image img) {
         var db = new DialogBox(text, img);
         db.flip();
         return db;
