@@ -24,4 +24,22 @@ public class Parser {
         }
         throw new DukeException("Failed to parse 'add' command.");
     }
+
+    public String[] parseAssign() throws DukeException {
+        String[] formattedInput;
+        try {
+            String[] parsedCommand = userInput.toLowerCase().split("\\s+", 3);
+            if (parsedCommand[1].equals("by") && parsedCommand[2].equals("id:")) {
+                formattedInput = userInput.replace("assign by id: ", "").split("\\s+", 4);
+            }
+
+
+            return formattedInput;
+
+        } catch (Exception e) {
+            throw new DukeException("Please use the correct format for the 'assign by id' command. ");
+        }
+    }
+
+    
 }
