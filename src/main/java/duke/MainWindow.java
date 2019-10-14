@@ -54,6 +54,7 @@ public class MainWindow extends BorderPane {
         lastCommandLabel.setText(response);
         inputField.clear();
         updateTotalSpentLabel();
+        updateTableListView();
         updateMonthlyBudget();
         updateRemainingBudget();
     }
