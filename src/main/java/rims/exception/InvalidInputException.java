@@ -4,8 +4,8 @@ import rims.command.*;
 import rims.resource.*;
 import rims.core.*;
 
-public class RimException extends Exception {
-    RimException(String error){
+public class InvalidInputException extends RimException {
+    InvalidInputException(String error){
         super(error);
     }
 }

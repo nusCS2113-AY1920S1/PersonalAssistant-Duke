@@ -1,4 +1,4 @@
-package rims.core;
+ package rims.core;
 
 import rims.exception.*;
 import rims.resource.*;
@@ -76,7 +76,6 @@ public class ResourceList {
             }
         }
         throw new Exception("No available items!");
-        // throw exception if nothing returned
         // replace with custom exception
     }
 
@@ -187,6 +186,54 @@ public class ResourceList {
         if (resources.get(resourceName).isEmpty()) {
             resources.remove(resourceName);
         }
+    }
+
+    public ArrayList<String> generateAvailableListByDate(String day) throws ParseException {
+        ArrayList<String> list = new ArrayList<String>();
+        list.add("AVAILABLE FOR LOAN ON THIS DAY");
+        for (Map.Entry<String, ArrayList<Resource>> entry : resources.entrySet()) {
+            ArrayList<Resource> thisResourceArray = entry.getValue();
+            int qtyAvailable = getAvailableQuantity(entry.getKey());
+            for(int i = 0; i < thisResourceArray.size(); i++){
+                Resource thisResource = thisResourceArray.get(i);
+                if (!(thisResource.isBooked()) && ((thisResource.getDateBookedFrom().after(stringToDate(day))) && (thisResource.getDateBookedTill().before(stringToDate(day))))) {
+                    if (thisResourceArray.get(0).getType() == 'I') {
+                        list.add(thisResourceArray.get(0).toString() + " (qty: " + qtyAvailable + ")");
+                    }
+                    else if (thisResourceArray.get(0).getType() == 'R') {
+                        list.add(thisResourceArray.get(0).toString());
+                    }
+                }
+            }
+        }
+        return list;
+    }
+
+    public ArrayList<String> generateBookedListByDate(String day) throws ParseException {
+        ArrayList<String> list = new ArrayList<String>();
+        list.add("CURRENTLY BOOKED ON THIS DAY");
+        for (Map.Entry<String, ArrayList<Resource>> entry : resources.entrySet()) {
+            ArrayList<Resource> thisResourceArray = entry.getValue();
+            int qtyBooked = getBookedQuantity(entry.getKey());
+            for(int i = 0; i < thisResourceArray.size(); i++){
+                Resource thisResource = thisResourceArray.get(i);
+                if (thisResource.isBooked() && ((thisResource.getDateBookedFrom().before(stringToDate(day))) && (thisResource.getDateBookedTill().after(stringToDate(day))))) {
+                    if (thisResourceArray.get(0).getType() == 'I') {
+                        list.add(thisResourceArray.get(0).toString() + " (qty: " + qtyBooked + ")");
+                    }
+                    else if (thisResourceArray.get(0).getType() == 'R') {
+                        list.add(thisResourceArray.get(0).toString());
+                    }
+                }
+            }
+        }
+        return list;
+    }
+
+    public Date stringToDate(String stringDate) throws ParseException {
+        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HHmm");
+        Date dateValue = formatter.parse(stringDate);
+        return dateValue;
     }
 
 }
