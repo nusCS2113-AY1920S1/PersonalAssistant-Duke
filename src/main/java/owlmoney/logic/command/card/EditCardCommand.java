@@ -1,7 +1,7 @@
 package owlmoney.logic.command.card;
 
 import owlmoney.logic.command.Command;
-import owlmoney.logic.parser.exception.CardException;
+import owlmoney.model.card.exception.CardException;
 import owlmoney.model.profile.Profile;
 import owlmoney.ui.Ui;
 
