@@ -33,8 +33,6 @@ import static duke.common.RecipeMessages.*;
  */
 public class Duke {
 
-//    private Storage storage;
-//    private TaskList taskList;
     private Ui ui;
 
     private IngredientStorage ingredientStorage;
@@ -56,19 +54,16 @@ public class Duke {
 
     public Duke(Ui ui) {
         this.ui = ui;
- //       storage = new Storage(filePath);
         ingredientStorage = new IngredientStorage(filePathIngredients);
         recipeIngredientStorage = new RecipeIngredientStorage(filePathRecipeIngredients);
         recipeTitleStorage = new RecipeTitleStorage(filePathRecipeTitle);
         bookingStorage = new BookingStorage(filePathBookings);
 
         try {
-//            taskList = new TaskList(storage.load());
             ingredientList = new IngredientList(ingredientStorage.load());
             recipeIngredientList = new RecipeIngredientList(recipeIngredientStorage.load());
             recipeTitleList = new RecipeTitleList(recipeTitleStorage.load());
             bookingList = new BookingList(bookingStorage.load());
-//            System.out.println(taskList.getSize());
         } catch (DukeException e) {
             ui.showIngredientLoadingError();
             ui.showLoadingError();
@@ -134,62 +129,13 @@ public class Duke {
                 arrayList.add(ERROR_MESSAGE_RANDOM);
                 return arrayList;
             }
-        } else if (userInput.trim().equals("allbookings")) {
+        } else if (userInput.contains("booking")) {
             CommandBooking command = Parser.parseBooking(userInput);
             return command.execute(bookingList, ui, bookingStorage);
-        }
-        else if (userInput.contains("addbooking")) {
-            if (userInput.trim().substring(0, 10).equals("addbooking")) {
-                CommandBooking command = Parser.parseBooking(userInput);
-                return command.execute(bookingList, ui, bookingStorage);
-            } else {
-                arrayList.add(ERROR_MESSAGE_RANDOM);
-                return arrayList;
-            }
-        }
-        else if (userInput.contains("deletebooking")) {
-            if (userInput.trim().substring(0, 13).equals("deletebooking")) {
-                CommandBooking command = Parser.parseBooking(userInput);
-                return command.execute(bookingList, ui, bookingStorage);
-            } else {
-                arrayList.add(ERROR_MESSAGE_RANDOM);
-                return arrayList;
-            }
-        }
-        else if (userInput.contains("viewbookingschedule")) {
-            if (userInput.trim().substring(0, 19).equals("viewbookingschedule")) {
-                CommandBooking command = Parser.parseBooking(userInput);
-                return command.execute(bookingList, ui, bookingStorage);
-            } else {
-                arrayList.add(ERROR_MESSAGE_RANDOM);
-                return arrayList;
-            }
-        }
-        else if (userInput.contains("findbooking")) {
-            if (userInput.trim().substring(0, 11).equals("findbooking")) {
-                CommandBooking command = Parser.parseBooking(userInput);
-                return command.execute(bookingList, ui, bookingStorage);
-            } else {
-                arrayList.add(ERROR_MESSAGE_RANDOM);
-                return arrayList;
-            }
-        }
-
-        else {
+        } else {
             arrayList.add(ERROR_MESSAGE_RANDOM);
             System.out.println("stuck here3");
             return arrayList;
         }
-//        CommandRecipeTitle command = Parser.parseRecipeTitle(fullCommand);
-//        return command.execute(recipeTitleList, ui, recipeTitleStorage);
-
-//        CommandRecipeIngredient command = Parser.parseRecipeIngredients(fullCommand);
-//        return command.execute(recipeIngredientList, ui, recipeIngredientStorage);
-//
-//        CommandIngredients command = Parser.parseIngredients(fullCommand);
-//        return command.execute(ingredientList, ui, ingredientStorage);
-//
-//        CommandTest command = Parser.parseTest(fullCommand);
-//        return command.execute(taskList, ui, storage);
     }
 }

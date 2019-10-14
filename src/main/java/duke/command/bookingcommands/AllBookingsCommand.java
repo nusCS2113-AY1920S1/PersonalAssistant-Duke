@@ -7,8 +7,6 @@ import duke.ui.Ui;
 
 import java.util.ArrayList;
 
-import static duke.common.Messages.ERROR_MESSAGE_RANDOM;
-
 
 /**
  * Handles the list command and inherits all the fields and methods of Command parent class.
@@ -24,13 +22,10 @@ public class AllBookingsCommand extends CommandBooking {
     @Override
     public ArrayList<String> execute(BookingList bookingList, Ui ui, BookingStorage bookingStorage) {
         ArrayList<String> arrayList = new ArrayList<>();
-        //System.out.println("     Here are all the current bookings in your list:");
+
         arrayList.add("     Here are all the current bookings in your list:");
         arrayList.addAll(bookingList.listAllBooking());
 
-/*        for (int i = 0; i < bookingList.listAllBooking().size(); i++) {
-            System.out.println(bookingList.listAllBooking().get(i));
-        }*/
         return arrayList;
     }
 

@@ -25,23 +25,9 @@ public class BookingList {
 
     public void addBooking(String customerName, String customerContact, String numberOfPax, String bookingDate, String orderName) throws ParseException {
         bookingList.add(new Booking(customerName, customerContact, numberOfPax, bookingDate, orderName));
-        int index = bookingList.size();
-        if (index == 1) {
-            msg = " booking in the list.";
-        } else {
-            msg = " bookings in the list.";
-        }
-        System.out.println("New booking added:\n" + "       " + bookingList.get(index - 1) + "\n" + "     Now you have " + index + msg);
     }
 
     public void deleteBooking(int i) {
-        if (bookingList.size() - 1 <= 1) {
-            msg = " booking in the list.";
-        } else {
-            msg = " bookings in the list.";
-        }
-        System.out.println("     Noted. I've removed this booking:\n" + "       " + bookingList.get(i)
-                + "\n" + "     Now you have " + (bookingList.size() - 1) + msg);
         bookingList.remove(bookingList.get(i));
     }
 
@@ -58,7 +44,7 @@ public class BookingList {
         ArrayList<String> arrFind = new ArrayList<>();
         for (int i = 0; i < getSize(); i++) {
             if (bookingList.get(i).getCustomerName().toLowerCase().contains(customerName)) {
-                arrFind.add(bookingList.get(i).toString());
+                arrFind.add("      " + bookingList.get(i).toString());
             }
         }
         if (arrFind.isEmpty()) {
