@@ -6,4 +6,4 @@ A | 1 | Send less help | Sending Enough
 W | 0 | Sleeping | Jan 15 and 25th
 W | 0 | Malaysia | Week 1 and Week 3
 F | 0 | Reading the sales report | 2 hours
-D | 0 | kick a ball | 12-12-2012 1300
+D | 0 | kick a ball | 13-12-2013 1700
