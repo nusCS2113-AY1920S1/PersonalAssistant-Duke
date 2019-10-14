@@ -2,8 +2,9 @@ package ui;
 
 import Dictionary.Word;
 import Dictionary.WordBank;
-import exception.NoWordFoundException;
 
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Map;
 import java.util.Scanner;
 
@@ -49,8 +50,10 @@ public class Ui {
         return "Got it. I've added this word:\n" + w.toString();
     }
 
+
     public String showList(WordBank wordBank, String order) {
         String returnedString = "Here are your words:\n";
+
         if (order.equals("asc") || order.equals("")) {
             for (Map.Entry<String, Word> entry : wordBank.getWordBank().entrySet()) {
                 returnedString += entry.getValue() + "\n";
@@ -64,8 +67,10 @@ public class Ui {
         return returnedString;
     }
 
+
     public String showSearch(String description, String meaning){
         return "Here is the meaning of " + description + ": " + meaning;
+
     }
 }
 

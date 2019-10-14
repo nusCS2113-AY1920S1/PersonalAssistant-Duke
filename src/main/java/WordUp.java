@@ -115,6 +115,7 @@ public class WordUp extends Application{
         Label textToAdd = new Label(text);
         textToAdd.setWrapText(true);
 
+
         return textToAdd;
     }
     /**
@@ -130,6 +131,7 @@ public class WordUp extends Application{
                 DialogBox.getDukeDialog(dukeText, new ImageView(duke))
         );
         userInput.clear();
+
     }
 
 

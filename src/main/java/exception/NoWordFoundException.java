@@ -9,7 +9,9 @@ public class NoWordFoundException extends WordUpException {
     }
 
     @Override
+
     public String showError() {
         return this.getMessage() + searchWord;
+
     }
 }
