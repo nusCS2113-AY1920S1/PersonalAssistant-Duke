@@ -1,12 +1,6 @@
 package parser;
 
-import command.Command;
-import command.AddCommand;
-import command.BadCommand;
-import command.ExitCommand;
-import command.ModCommand;
-import command.PrintCommand;
-import command.SearchCommand;
+import command.*;
 import exception.DukeException;
 
 import java.util.Scanner;
@@ -44,19 +38,36 @@ public class Parser {
             throw new DukeException("Empty Command!");
         }
         String command = temp.next();
-        if (command.matches("list|bye")) {
+        if (command.matches("list|bye|choices")) {
             if (temp.hasNextLine()) {
                 throw new DukeException("List should not have any other arguments (whitespace acceptable)");
             } else {
                 if (command.matches("list")) {
-                    return new PrintCommand() {
+                    return new PrintCommand(command) {
                     };
                 } else if (command.matches("bye")) {
                     return new ExitCommand();
+                } else if (command.matches("choices")) {
+                    return new PrintCommand(command) {
+                    };
                 }
             }
+        } else if (command.matches("help")) {
+            if (!temp.hasNextLine()) { //if the user wants to display all commands
+                return new HelpCommand(command);
+            } else { //if the user wants to display help for only one command
+                String input = temp.nextLine();
+                input = input.strip();
+                if (input.matches("help|detail|compare|add|degreelist|swap|replace|delete|clear|custom|bye")) {
+                    return new HelpCommand(command, input);
+                } else {
+                    throw new DukeException("I do not understand that command. "
+                            + "Type \"help\" for a full list of available commands");
+                }
+            }
+
         } else if (command.matches("todo|deadline|event|done|delete|find|select|recurring|after|within|fixed"
-                + "|snooze|schedule")) {
+                + "|snooze|schedule|add|remove")) {
             if (!temp.hasNextLine()) {
                 throw new DukeException("☹ OOPS!!! The description of a " + command + " cannot be empty.");
             }
@@ -68,9 +79,9 @@ public class Parser {
                 throw new DukeException("☹ OOPS!!! The description of a " + command + " cannot be empty.");
             } else {
                 //add new tasks
-                if (command.matches("todo|deadline|event|recurring|after|within|fixed")) {
+                if (command.matches("todo|deadline|event|recurring|after|within|fixed|add")) {
                     return new AddCommand(command, input);
-                } else if (command.matches("done|delete|select|snooze")) {
+                } else if (command.matches("done|delete|select|snooze|remove")) {
                     return new ModCommand(command, input);
                 } else if (command.matches("find")) { //reading task list
                     return new SearchCommand(command, input);

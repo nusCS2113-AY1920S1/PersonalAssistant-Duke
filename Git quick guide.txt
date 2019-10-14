@@ -1,0 +1,13 @@
+$ git tag -a v1.4 -m "my version 1.4" //Tags current commit, message is a must
+$ git tag v1.4 //Lightweight tag without message, include checksum after tag name to tag a particular commit
+$ git log --pretty=oneline //Displays all commits and their checksum in a nice format
+$ git tag -a v1.2 9fceb02 -m "my version 1.2" //Tags a particular commit via part of its checksum
+$ git tag -d v1.4 // Deletes a tag
+$ git push origin --tags //Pushes all local tags to remote repo
+
+//Tags case sensitive, important implements outside of levels also need to be tagged
+
+To handle Binary files differing, use:
+git checkout --theirs -- ~/path/to/binary_file
+or 
+git checkout --ours -- ~/path/to/binary_file
