@@ -6,7 +6,6 @@ import models.member.Member;
 import models.task.Task;
 import models.temp.tasks.ITask;
 import models.temp.tasks.TaskList;
-
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -192,5 +191,35 @@ public class CLIView {
     public void viewAllTasks(IProject projectToManage) {
         ArrayList<String> allTaskDetails = projectToManage.getTasks().getAllTaskDetails();
         consolePrint(allTaskDetails.toArray(new String[0]));
+    }
+
+    /**
+     * Assigns or unassigns a particular task to members in a project.
+     * @param assign ArrayList containing index number of members to be assigned task.
+     * @param unassign ArrayList containing index number of members to be unassigned task.
+     * @param task Task to assign or unassign to members.
+     * @param projectToManage The project in which the aforementioned task belongs to.
+     */
+    public void assignOrUnassignTask(ArrayList<Integer> assign, ArrayList<Integer> unassign,
+        Task task, IProject projectToManage) {
+        if (assign.size() > 0) {
+            for (Integer i : assign) {
+                Member toAssign = projectToManage.getMembers().getMember(i);
+                task.assignMember(toAssign);
+                //For now only tasks will have list of members assigned.
+                //Will refactor and implement a way such that when a task is assigned,
+                //both the tasklist (for the member) and the memberlist (for the task)
+                // will be updated.
+                consolePrint("Assigned task to: " + toAssign.getName());
+            }
+        }
+        if (unassign.size() > 0) {
+            for (Integer i : unassign) {
+                task.removeMember(i);
+                consolePrint("Unassigned task to: "
+                    + projectToManage.getMembers().getMember(i).getName());
+                //recalculate credits for other members assigned to task if necessary
+            }
+        }
     }
 }

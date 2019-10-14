@@ -1,13 +1,13 @@
 package models.data;
 
 import models.member.Member;
-import models.member.MemberList;
+import models.member.ProjectMemberList;
 import models.task.Task;
 import models.task.TaskList;
 
 public class Project implements IProject {
     private String description;
-    private MemberList memberList;
+    private ProjectMemberList projectMemberList;
     private TaskList taskList;
 
     /**
@@ -16,7 +16,7 @@ public class Project implements IProject {
      */
     public Project(String description) {
         this.description = description;
-        this.memberList = new MemberList();
+        this.projectMemberList = new ProjectMemberList();
         this.taskList = new TaskList();
     }
 
@@ -26,8 +26,8 @@ public class Project implements IProject {
     }
 
     @Override
-    public MemberList getMembers() {
-        return this.memberList;
+    public ProjectMemberList getMembers() {
+        return this.projectMemberList;
     }
 
     @Override
@@ -37,26 +37,42 @@ public class Project implements IProject {
 
     @Override
     public int getNumOfMembers() {
-        return this.memberList.getNumOfMembers();
+        return this.projectMemberList.getNumOfMembers();
+    }
+
+    @Override
+    public int getNumOfTasks() {
+        return this.taskList.getTaskList().size();
     }
 
     @Override
     public void addMember(Member newMember) {
-        this.memberList.addMember(newMember);
+        this.projectMemberList.addMember(newMember);
     }
 
     @Override
     public void editMember(int memberIndexNumber, String updatedMemberDetails) {
-        this.memberList.editMember(memberIndexNumber, updatedMemberDetails);
+        this.projectMemberList.editMember(memberIndexNumber, updatedMemberDetails);
     }
 
     @Override
     public void removeMember(int memberIndexNumber) {
-        this.memberList.removeMember(memberIndexNumber);
+        this.projectMemberList.removeMember(memberIndexNumber);
     }
 
     @Override
     public void addTask(Task newTask) {
         this.taskList.addTask(newTask);
     }
+
+    @Override
+    public boolean memberIndexExists(int indexNumber) {
+        return (indexNumber > 0 && indexNumber <= this.getNumOfMembers());
+    }
+
+    @Override
+    public Task getTask(int taskIndex) {
+        return this.taskList.getTask(taskIndex);
+    }
+
 }

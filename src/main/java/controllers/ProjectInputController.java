@@ -1,13 +1,12 @@
 package controllers;
 
+import java.text.ParseException;
+import java.util.Scanner;
 import models.data.IProject;
 import repositories.ProjectRepository;
 import util.factories.MemberFactoryUtil;
 import util.factories.TaskFactory;
 import views.CLIView;
-
-import java.text.ParseException;
-import java.util.Scanner;
 
 public class ProjectInputController {
     private Scanner manageProjectInput;
@@ -90,6 +89,9 @@ public class ProjectInputController {
                     /*
                         Empty method
                     */
+                } else if (projectCommand.length() >= 12 && ("assign task ").equals(projectCommand.substring(0,12))) {
+                    AssignmentControllerUtil.manageAssignment(projectToManage,
+                        projectCommand.substring(12).split(" "), consoleView);
                 } else {
                     consoleView.consolePrint("Invalid command. Try again!");
                 }

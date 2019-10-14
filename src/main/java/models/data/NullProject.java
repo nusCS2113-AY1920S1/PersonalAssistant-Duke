@@ -1,7 +1,7 @@
 package models.data;
 
 import models.member.Member;
-import models.member.MemberList;
+import models.member.ProjectMemberList;
 import models.task.Task;
 import models.task.TaskList;
 
@@ -12,7 +12,7 @@ public class NullProject implements IProject {
     }
 
     @Override
-    public MemberList getMembers() {
+    public ProjectMemberList getMembers() {
         return null;
     }
 
@@ -23,6 +23,11 @@ public class NullProject implements IProject {
 
     @Override
     public int getNumOfMembers() {
+        return 0;
+    }
+
+    @Override
+    public int getNumOfTasks() {
         return 0;
     }
 
@@ -52,5 +57,15 @@ public class NullProject implements IProject {
         /*
         Empty method
          */
+    }
+
+    @Override
+    public boolean memberIndexExists(int indexNumber) {
+        return false;
+    }
+
+    @Override
+    public Task getTask(int taskIndex) {
+        return null;
     }
 }

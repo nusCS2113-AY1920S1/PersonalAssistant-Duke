@@ -8,4 +8,6 @@ public interface IMember {
     void setIndexNumber(int indexNumber);
 
     int getIndexNumber();
+
+    String getName();
 }

@@ -35,6 +35,14 @@ public class TaskList {
         return taskDetails;
     }
 
+    /**
+     * Returns the list of all tasks.
+     * @return An ArrayList with all tasks.
+     */
+    public ArrayList<Task> getTaskList() {
+        return this.taskList;
+    }
+
     /*
     * This method compares the two tasks and sort list in descending order.
      */
@@ -44,4 +52,8 @@ public class TaskList {
             return task2.getTaskPriority() - task1.getTaskPriority();
         }
     };
+
+    public Task getTask(int taskIndex) {
+        return this.taskList.get(taskIndex - 1);
+    }
 }
