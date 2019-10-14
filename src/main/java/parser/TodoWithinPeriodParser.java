@@ -9,8 +9,8 @@ import java.time.LocalDateTime;
 
 public class TodoWithinPeriodParser extends TodoParser {
 
-    public TodoWithinPeriodParser(String userInput) {
-        super(userInput);
+    public TodoWithinPeriodParser(String userInput, String command) {
+        super(userInput, command);
         this.checkType = Flag.BETWEEN.getFlag();
     }
 

@@ -56,12 +56,12 @@ public class Parser {
         switch (command) {
         case "todo":
             if (userInput.contains(Flag.BETWEEN.getFlag())) {
-                return new TodoWithinPeriodParser(userInput).parse();
+                return new TodoWithinPeriodParser(userInput, command).parse();
             }
             if (userInput.contains(Flag.FOR.getFlag())) {
-                return new ;
+                return new TodoWithDurationParser(userInput, command).parse();
             }
-            return new TodoParser(userInput).parse();
+            return new TodoParser(userInput, command).parse();
         case "deadline":
             return parseDeadline(command, userInput);
         case "event":

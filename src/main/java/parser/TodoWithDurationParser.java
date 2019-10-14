@@ -6,8 +6,8 @@ import exception.DukeException;
 
 public class TodoWithDurationParser extends TodoParser {
 
-    public TodoWithDurationParser(String userInput) {
-        super(userInput);
+    public TodoWithDurationParser(String userInput, String command) {
+        super(userInput, command);
         this.checkType = Flag.FOR.getFlag();
     }
 
