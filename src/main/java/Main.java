@@ -4,6 +4,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import storage.BookingConstants;
 import storage.Constants;
 import ui.MainWindow;
 
@@ -14,7 +15,7 @@ import java.io.IOException;
  */
 public class Main extends Application {
 
-    private Duke duke = new Duke(Constants.FILENAME);
+    private Duke duke = new Duke(Constants.FILENAME, BookingConstants.FILENAME);
 
     @Override
     public void start(Stage stage) {

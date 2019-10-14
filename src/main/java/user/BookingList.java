@@ -25,13 +25,13 @@ public class BookingList extends ArrayList<Booking> {
 
     public static boolean checkBooking(BookingList bookinglist, String roomcode, String timeStart, String timeEnd) {
         boolean found = false;
-        DateTimeFormatter formatterStart = DateTimeFormatter.ofPattern("dd/mm/yyyy HH:mm");
-        DateTimeFormatter formatterEnd = DateTimeFormatter.ofPattern("HH:mm");
+        DateTimeFormatter formatterStart = DateTimeFormatter.ofPattern("dd/mm/yyyy HHmm");
+        DateTimeFormatter formatterEnd = DateTimeFormatter.ofPattern("HHmm");
         LocalDateTime startTime = LocalDateTime.parse(timeStart, formatterStart);
         LocalDateTime endTime = LocalDateTime.parse(timeEnd, formatterEnd);
         for (int i = 0; i < bookinglist.size(); i++) {
             if (bookinglist.get(i).venue == roomcode) {
-                if ((bookinglist.get(i).dateTimeStart.isBefore(startTime) || bookinglist.get(i).dateTimeStart.isEqual(startTime)) && bookinglist.get(i).dateTimeEnd.isAfter(endTime)) {
+                if ((bookinglist.get(i).dateTimeStart.isBefore(startTime) || bookinglist.get(i).dateTimeStart.isEqual(startTime)) &&(bookinglist.get(i).dateTimeEnd.isAfter(endTime) || bookinglist.get(i).dateTimeEnd.isEqual(endTime))) {
                     found = true;
                 }
             }

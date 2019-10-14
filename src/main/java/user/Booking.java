@@ -64,17 +64,16 @@ public class Booking extends User {
 
     @Override
     public String toString() {
-        DateTimeFormatter formatterStart = DateTimeFormatter.ofPattern("dd/mm/yyyy HH:mm");
-        DateTimeFormatter formatterEnd = DateTimeFormatter.ofPattern("HH:mm");
+        DateTimeFormatter formatterStart = DateTimeFormatter.ofPattern("dd/mm/yyyy HHmm");
+        DateTimeFormatter formatterEnd = DateTimeFormatter.ofPattern("HHmm");
         return venue + " " + dateTimeStart.format(formatterStart) + " " + dateTimeEnd.format(formatterEnd);
     }
 
 
     @Override
     public String toWriteFile() {
-        //int boolToInt = isDone ? 1 : 0;
         return this.username + " | " + this.venue + " | " + this.description + " | " + "\n" + this.dateTimeStart.getLong(ChronoField.EPOCH_DAY) + " | "
-                + this.dateTimeEnd.getLong(ChronoField.HOUR_OF_DAY) + "\n";
+                + this.dateTimeEnd.getLong(ChronoField.CLOCK_HOUR_OF_DAY) + "\n";
     }
 
     public LocalDateTime getDateTimeStart() {return this.dateTimeStart;}

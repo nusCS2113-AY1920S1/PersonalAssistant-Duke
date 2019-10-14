@@ -20,7 +20,7 @@ public class AddBookingCommand extends Command {
     private String[] datetime;
     private String timeStart;
     private Storage storage;
-    private ArrayList<Booking> bookingList;
+    private BookingList bookingList;
 
     /**
      * Create new booking request
@@ -30,31 +30,38 @@ public class AddBookingCommand extends Command {
      * @throws IOException when entry is incorrect
      */
     public  AddBookingCommand(String input, String[] splitStr) throws DukeException, IOException {
-        File bookingFile = new File("data\\bookingslist.txt");
+        /*File bookingFile = new File("data\\bookingslist.txt");
         bookingFile.createNewFile();
         storage = new Storage("data\\bookingslist.txt");
-        bookingList = new BookingList(storage.load());
+        bookingList = new BookingList(storage.load());*/
         if (splitStr.length == 1)
             throw new DukeException("☹ OOPS!!! Please create your booking with the following format: username, account type, roomcode, description, date and time");
-        this.splitC = input.split(" ", 5);
-        this.datetime = splitC[4].split(" ", 3);
-        this.timeStart = datetime[0] + datetime[1];
-        if(!Login.checkUsername(splitC[0],"data\\members.txt"))
+        this.splitC = input.split(" ", 6);
+        this.datetime = splitC[5].split(" ", 3);
+        this.timeStart = datetime[0] + " " + datetime[1];
+        if(!Login.checkUsername(splitC[1],"data\\members.txt"))
             throw new DukeException("☹ OOPS!!! Please input a valid username!");
         /*if (splitC[1].matches("[0-9]+") || splitC[2].matches("[a-z]+") || splitC[2].matches("[A-Z]+"))//when we get a room list
             throw new DukeException("☹ OOPS!!! This room does not exist.  Please input a valid roomcode.");*/
-        boolean clash = BookingList.checkBooking((BookingList) bookingList, splitC[2], timeStart, datetime[2]);
-        if (clash)
-            throw new DukeException("☹ OOPS!!! This slot is already filled, please choose another vacant one");
+
+
 
     }
 
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException, IOException, ParseException {
-        Booking newBooking = new Booking(splitC[0], splitC[1], splitC[2], splitC[3], this.timeStart, datetime[2]);
-        BufferedWriter bw = new BufferedWriter(new FileWriter("data\\bookingslist.txt", true));
+    public void execute(BookingList bookingList, Ui ui, Storage storage) throws DukeException, IOException, ParseException {
+        boolean clash = BookingList.checkBooking(bookingList, splitC[3], timeStart, datetime[2]);
+        if (clash)
+            throw new DukeException("☹ OOPS!!! This slot is already filled, please choose another vacant one");
+        Booking newBooking = newBooking = new Booking(splitC[1], splitC[2], splitC[3], splitC[4], this.timeStart, datetime[2]);;
+        bookingList.add(newBooking);
+        storage.saveToFile(bookingList);
+        ui.addToOutput("Got it. I've added this request:\n"
+                + newBooking.toString() + "\n"
+                + "Now there are " + bookingList.size() + " request(s) in the list.");
+        /*BufferedWriter bw = new BufferedWriter(new FileWriter("data\\bookingslist.txt", true));
         bw.write(newBooking.toWriteFile());
         bw.newLine();
         bw.close();
-        ui.addToOutput("Your booking has been successfully requested!");
+        ui.addToOutput("Your booking has been successfully requested!");*/
     }
 }

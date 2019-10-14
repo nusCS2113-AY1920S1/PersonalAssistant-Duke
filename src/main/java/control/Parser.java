@@ -57,6 +57,8 @@ public class Parser {
             return new LoginCommand(input, splitStr);
         case "create":
             return new CreateAccountCommand(input, splitStr);
+         case "add":
+            return new AddBookingCommand(input, splitStr);
 
         default:
             throw new DukeException("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");

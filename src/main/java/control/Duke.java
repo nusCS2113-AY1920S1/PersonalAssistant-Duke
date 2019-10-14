@@ -2,10 +2,12 @@ package control;
 
 import command.Command;
 import exception.DukeException;
+import storage.BookingConstants;
 import storage.Constants;
 import storage.Storage;
 import task.TaskList;
 import ui.Ui;
+import user.BookingList;
 
 import java.io.*;
 import java.text.ParseException;
@@ -15,21 +17,25 @@ import java.text.ParseException;
  * control.Duke is a chatbot that manage tasks for the user
  */
 public class Duke {
-    private Storage storage;
+    private Storage taskStorage, bookingStorage;
     private TaskList tasks;
+    private BookingList bookingList;
     private Ui ui;
     private boolean isExit;
 
     /**
      * Constructor for control.Duke
-     * @param filePath path of text file containing task list
+     * @param taskListFile path of text file containing task list
      */
-    public Duke(String filePath) {
+    public Duke(String taskListFile, String bookingListFile) {
         ui = new Ui();
         ui.showWelcome();
-        storage = new Storage(filePath);
+        taskStorage = new Storage(taskListFile);
+        bookingStorage = new Storage(bookingListFile);
         try {
-            tasks = new TaskList(storage.load());
+            tasks = new TaskList(taskStorage.load());
+            bookingList = new BookingList(bookingStorage.load());
+
         } catch (FileNotFoundException | DukeException e) {
             ui.showLoadingError();
             tasks = new TaskList();
@@ -45,7 +51,7 @@ public class Duke {
                 String fullCommand = ui.readCommand();
                 ui.showUserInput(fullCommand);
                 Command c = Parser.parse(fullCommand);
-                c.execute(tasks, ui, storage);
+                c.execute(tasks, ui, taskStorage);
                 isExit = c.isExit();
             } catch (DukeException | IOException | ParseException e) {
                 ui.showError(e.getMessage());
@@ -58,14 +64,14 @@ public class Duke {
      * @param args input from command line
      */
     public static void main(String[] args) {
-        new Duke(Constants.FILENAME).run();
+        new Duke(Constants.FILENAME, BookingConstants.FILENAME).run();
     }
 
     public String getResponse(String input) {
         try {
             ui.setOutput("");
             Command c = Parser.parse(input);
-            c.execute(tasks, ui, storage);
+            c.execute(tasks, ui, taskStorage);
             return ui.getOutput();
         } catch (DukeException | IOException | ParseException e) {
             return e.getMessage();
