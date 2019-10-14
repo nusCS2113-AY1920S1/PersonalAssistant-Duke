@@ -44,7 +44,7 @@ View Free           viewFree
 
 View Week           viewWeek
 
-View Calendar       viewCalendar
+Calendar            calendar MONTH YEAR
 
 Reminder            reminder
 
