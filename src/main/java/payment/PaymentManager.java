@@ -20,7 +20,7 @@ public class PaymentManager {
     /**
      * Edits the Payments object details, may overload string to take different ways of inputs.
      */
-    public void editPayments(){
+    public void editPayments(String payee){
         //TODO
     }
 
@@ -28,20 +28,39 @@ public class PaymentManager {
      * List the Payments object details, may extend to generate statement of accounts
      */
     public void listPayments(){
-        //TODO
+        ArrayList<Payments> overdue = new ArrayList<>();
+        ArrayList<Payments> pending = new ArrayList<>();
+        ArrayList<Payments> approved = new ArrayList<>();
+        Date currDate = new Date();
+        for (Payee payee : ManagerMap.values()) {
+            for (Payments payment : payee.payments) {
+                if (payment.status == Status.PENDING) pending.add(payment);
+                else if (payment.status == Status.OVERDUE) overdue.add(payment);
+                else approved.add(payment);
+            }
+        }
+        // printList(); <-- TODO : Modify implementation in UI
     }
 
     /**
      * Deletes the Payments object details
      */
-    public void deletePayments(){
-        //TODO
+    public void deletePayments(String payee, String item){
+        int i = 0;
+        while (i < ManagerMap.get(payee).payments.size()) {
+            if (ManagerMap.get(payee).payments.get(i++).equals(item)) {
+                ManagerMap.get(payee).payments.remove(--i);
+            }
+        }
+        // printDeleteMessage(); <-- TODO : Modify implementation in UI
     }
 
     /**
      * Add the Payments object details to PaymentsList
      */
-    public void addPayments(String payee, Payments pay){
+    public void addPayments(String payee, String item, double cost, String inv){
+        Payments pay = new Payments(item, cost, inv);
         ManagerMap.get(payee).payments.add(pay);
     }
+    // printAddedMessage(); <-- TODO : Modify implementation in UI
 }

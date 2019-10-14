@@ -1,6 +1,7 @@
 package payment;
 
-import java.util.ArrayList;
+import java.util.*;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Payments Class to manage the payment details of an item.
@@ -23,11 +24,25 @@ public class Payee {
 
 }
 
-public class Payments {
+class Payments {
     String item;
     double cost;
-    public Payments(String item, double cost) {
+    String inv;
+    Date deadline;
+    Status status;
+
+    public Payments(String item, double cost, String inv) {
         this.item = item;
         this.cost = cost;
+        this.inv = inv;
+        this.status = Status.PENDING;
+        Date currDate = new Date();
+        this.deadline = new Date(currDate.getTime() + TimeUnit.DAYS.toMillis( 30 );
     }
+}
+
+enum Status {
+    PENDING,
+    APPROVED,
+    OVERDUE
 }
