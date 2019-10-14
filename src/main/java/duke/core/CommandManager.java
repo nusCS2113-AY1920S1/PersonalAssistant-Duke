@@ -31,8 +31,8 @@ public class CommandManager {
                         return new AddPatientCommand(formattedInput);
                     }
                     else if (secondKeyword.equals("task")){
-                            Task task = new Task(parser.parseAdd()[0]);
-                            return new AddStandardTaskCommand(task);
+                        String formattedInput = parser.parseAdd()[0];
+                        return new AddStandardTaskCommand(formattedInput);
                     }
                     else {
                         throw new DukeException("Invalid format. ");

@@ -12,9 +12,9 @@ import duke.task.TaskManager;
 
 public class AddStandardTaskCommand extends Command{
     private Task newStandardTask;
-    public AddStandardTaskCommand(Task newStandardTask) {
+    public AddStandardTaskCommand(String taskDescription) {
         super();
-        this.newStandardTask = newStandardTask;
+        this.newStandardTask = new Task(taskDescription);
     }
 
     @Override
