@@ -20,5 +20,10 @@
             <VBox fx:id="graphContainer" prefWidth="409.0" />
          </content>
       </ScrollPane>
+      <ScrollPane fx:id="scrollPane3" hbarPolicy="NEVER" hmax="10.0" hvalue="10.0" pannable="true" prefHeight="500.0" prefWidth="369.0" vmax="10.0" vvalue="10.0">
+          <content>
+            <VBox fx:id="PopUpContainer" prefWidth="348.0" />
+          </content>
+      </ScrollPane>
     </children>
 </AnchorPane>

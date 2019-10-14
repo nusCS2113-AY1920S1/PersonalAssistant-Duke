@@ -32,6 +32,8 @@ public class MainWindow extends AnchorPane {
     private TextField userInput;
     @FXML
     private Button sendButton;
+    @FXML
+    public VBox autoCompleteContainer;
 
     private Duke duke;
     private Ui mainWindowUi = new Ui();
