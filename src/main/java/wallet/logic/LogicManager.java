@@ -56,8 +56,6 @@ public class LogicManager {
             }
 
         } catch (Exception e) {
-            //TODO: Remember to remove this line before final submission
-            e.printStackTrace();
             System.out.println(MESSAGE_ERROR_COMMAND);
         }
 
