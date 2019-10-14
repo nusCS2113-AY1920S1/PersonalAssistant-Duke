@@ -22,8 +22,9 @@ public class AddOrderCommand extends OrderCommand {
 
     public static final String COMMAND_WORD = "add";
 
-    public static final String MESSAGE_COMMIT = "Add order";
-    public static final String MESSAGE_SUCCESS = "New order added [Order ID: %s]";
+    private static final String MESSAGE_COMMIT = "Add order";
+    private static final String MESSAGE_SUCCESS = "New order added [Order ID: %s]";
+
     private static final String DEFAULT_CUSTOMER_NAME = "customer";
     private static final String DEFAULT_CUSTOMER_CONTACT = "N/A";
     private static final Date DEFAULT_DELIVERY_DATE = Calendar.getInstance().getTime();

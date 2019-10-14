@@ -13,7 +13,6 @@ public class AutoCompleter {
     private List<Class<? extends Command>> commandClasses;
     private List<Prefix> prefixes;
 
-    private Boolean completable;
     private UserInputState previousUserInputState;
     private List<String> autoCompletionResults;
     private int resultPointer;
@@ -43,22 +42,15 @@ public class AutoCompleter {
             return currentState;
         }
 
-        String[] words = splitCommand(commandText);
-        int currentWordIndex = getCurrentWordIndex(words, caretPosition);
-        String currentWord = words[currentWordIndex];
-
-        String completedWord;
-        if (currentState.equals(previousUserInputState)) {
-            completedWord = autoCompletionResults.get(resultPointer);
-        } else {
-            completeWord(currentWord);
-            resultPointer = 0;
-            completedWord = autoCompletionResults.get(0);
+        String currentWord = getCurrentWord(commandText, caretPosition);
+        if (currentWord.isBlank()) {
+            return currentState;
         }
-        resultPointer = (resultPointer + 1) % autoCompletionResults.size();
+
+        String completedWord = getCompletedWord(currentState);
 
         UserInputState newState = new UserInputState(
-                replaceWord(words, currentWordIndex, completedWord),
+                replaceWord(commandText, caretPosition, completedWord),
                 getNewCaretPosition(caretPosition, currentWord, completedWord)
         );
 
@@ -79,20 +71,42 @@ public class AutoCompleter {
         }
     }
 
-    private String[] splitCommand(String commandText) {
-        return commandText.split(" ");
+    private String getCompletedWord(UserInputState state) {
+        String completedWord;
+        if (state.equals(previousUserInputState)) {
+            completedWord = autoCompletionResults.get(resultPointer);
+        } else {
+            completeWord(getCurrentWord(state.userInputString, state.caretPosition));
+            resultPointer = 0;
+            completedWord = autoCompletionResults.get(0);
+        }
+        resultPointer = (resultPointer + 1) % autoCompletionResults.size();
+        return completedWord;
     }
 
-    private int getCurrentWordIndex(String[] commandWords, int caretPosition) {
-        int length = 0;
-        for (int i = 0; i < commandWords.length; i++) {
-            String word = commandWords[i];
-            length = length + word.length() + 1;
-            if (length > caretPosition) {
-                return i;
-            }
+    private int getSelectionStart(String commandText, int caretPosition) {
+        int selectionStart = commandText.lastIndexOf(" ", caretPosition - 1);
+        if (selectionStart == -1) {
+            selectionStart = 0;
+        } else {
+            selectionStart += 1;
         }
-        return -1;
+        return selectionStart;
+    }
+
+    private int getSelectionEnd(String commandText, int caretPosition) {
+        int selectionEnd = commandText.indexOf(" ", caretPosition);
+        if (selectionEnd == -1) {
+            selectionEnd = commandText.length() - 1;
+        } else {
+            selectionEnd -= 1;
+        }
+        return selectionEnd;
+    }
+
+    private String getCurrentWord(String commandText, int caretPosition) {
+        return commandText.substring(getSelectionStart(commandText, caretPosition),
+                getSelectionEnd(commandText, caretPosition) + 1);
     }
 
     private void completeWord(String toComplete) {
@@ -107,13 +121,13 @@ public class AutoCompleter {
                 return;
             }
             assert commandWord != null;
-            if (commandWord.indexOf(toComplete) == 0) {
+            if (commandWord.startsWith(toComplete)) {
                 autoCompletionResults.add(commandWord);
             }
         }
 
         for (Prefix prefix : prefixes) {
-            if ((prefix.getPrefix()).indexOf(toComplete) == 0) {
+            if (prefix.getPrefix().startsWith(toComplete)) {
                 autoCompletionResults.add(prefix.getPrefix());
             }
         }
@@ -123,15 +137,10 @@ public class AutoCompleter {
         }
     }
 
-    private String replaceWord(String[] words, int toReplaceIndex, String newWord) {
-        words[toReplaceIndex] = newWord;
-        StringBuilder stringBuilder = new StringBuilder();
-        for (String word : words) {
-            stringBuilder.append(word);
-            stringBuilder.append(" ");
-        }
-        stringBuilder.deleteCharAt(stringBuilder.length() - 1);
-        return stringBuilder.toString();
+    private String replaceWord(String commandText, int caretPosition, String newWord) {
+        String beforeCurrent = commandText.substring(0, getSelectionStart(commandText, caretPosition));
+        String afterCurrent = commandText.substring(getSelectionEnd(commandText, caretPosition) + 1);
+        return beforeCurrent + newWord + afterCurrent;
     }
 
     private int getNewCaretPosition(int oldPosition, String oldWord, String newWord) {
