@@ -1,5 +1,10 @@
 package duke.model;
 
+import duke.commons.exceptions.DukeException;
+import duke.model.events.Task;
+import duke.model.transports.BusService;
+import duke.model.locations.BusStop;
+import duke.model.locations.Venue;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
 
@@ -9,7 +14,7 @@ public interface Model {
     /**
      * Returns the list of tasks.
      */
-    UniqueTaskList getTasks();
+    TaskList getTasks();
 
     /**
      * Returns the list of tasks that contains a date.
@@ -49,5 +54,5 @@ public interface Model {
     /**
      * Saves the Model data in storage.
      */
-    void save();
+    void save() throws DukeException;
 }

@@ -3,12 +3,12 @@ package duke.logic.api;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import duke.commons.Messages;
-import duke.data.BusService;
-import duke.data.BusStop;
-import duke.data.Location;
 import duke.logic.api.requests.LocationSearchUrlRequest;
 import duke.commons.exceptions.DukeException;
 import duke.logic.api.requests.DataMallHttpRequest;
+import duke.model.locations.BusStop;
+import duke.model.locations.Venue;
+import duke.model.transports.BusService;
 
 import java.util.HashMap;
 
@@ -23,13 +23,13 @@ public class ApiParser {
      * @param param The query
      * @return result The locations found
      */
-    public static Location getLocationSearch(String param) throws DukeException {
+    public static Venue getLocationSearch(String param) throws DukeException {
         LocationSearchUrlRequest req = new LocationSearchUrlRequest("https://developers.onemap.sg/commonapi/search?",
                 param);
         JsonObject jsonRes = req.execute();
         JsonArray arr = jsonRes.getAsJsonArray("results");
         if (isFound(jsonRes)) {
-            return new Location(arr.get(0).getAsJsonObject().get("ADDRESS").getAsString(),
+            return new Venue(arr.get(0).getAsJsonObject().get("ADDRESS").getAsString(),
                     arr.get(0).getAsJsonObject().get("LATITUDE").getAsDouble(),
                     arr.get(0).getAsJsonObject().get("LONGITUDE").getAsDouble(),
                     arr.get(0).getAsJsonObject().get("X").getAsDouble(),

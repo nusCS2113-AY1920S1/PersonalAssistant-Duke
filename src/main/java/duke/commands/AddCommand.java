@@ -1,8 +1,8 @@
 package duke.commands;
 
 import duke.commons.exceptions.DukeException;
-import duke.storage.Storage;
-import duke.data.tasks.Task;
+import duke.model.Model;
+import duke.model.events.Task;
 
 /**
  * Class representing a command to add a new task.
@@ -23,12 +23,12 @@ public class AddCommand extends Command {
     /**
      * Executes this command on the given task list and user interface.
      *
-     * @param storage The storage object containing task list.
+     * @param model The model object containing task list.
      */
     @Override
-    public CommandResult execute(Storage storage) throws DukeException {
-        storage.getTasks().add(task);
-        storage.write();
+    public CommandResult execute(Model model) throws DukeException {
+        model.getTasks().add(task);
+        model.save();
         return new CommandResult(MESSAGE_ADDITION + task);
     }
 }

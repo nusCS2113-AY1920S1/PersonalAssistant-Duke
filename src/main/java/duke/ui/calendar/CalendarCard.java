@@ -1,7 +1,7 @@
 package duke.ui.calendar;
 
-import duke.data.tasks.Task;
-import duke.data.UniqueTaskList;
+import duke.model.TaskList;
+import duke.model.events.Task;
 import duke.ui.UiPart;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -18,13 +18,13 @@ public class CalendarCard extends UiPart<StackPane> {
     @FXML
     private StackPane calendarCard;
 
-    private final UniqueTaskList tasks;
+    private final TaskList tasks;
     private static final String FXML = "CalendarCard.fxml";
-    private static final String CLASSNAME = "class duke.data.tasks.";
+    private static final String CLASSNAME = "class duke.model.events.";
     private static int currentIndex = 0;
     private boolean isCalendarCardClass = true;
 
-    private CalendarCard(int day, UniqueTaskList tasks) {
+    private CalendarCard(int day, TaskList tasks) {
         super(FXML);
         this.day.setText(Integer.toString(day));
         this.tasks = tasks;
@@ -46,7 +46,7 @@ public class CalendarCard extends UiPart<StackPane> {
         Tooltip.install(getRoot(), tooltip);
     }
 
-    protected static StackPane getCalendarCard(int day, UniqueTaskList taskListWithDates) {
+    protected static StackPane getCalendarCard(int day, TaskList taskListWithDates) {
         return new CalendarCard(day, taskListWithDates).getRoot();
     }
 

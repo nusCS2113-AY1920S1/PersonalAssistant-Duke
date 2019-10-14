@@ -2,9 +2,9 @@ package duke.commands;
 
 import duke.commons.Messages;
 import duke.commons.exceptions.DukeException;
-import duke.data.BusStop;
 import duke.logic.api.ApiParser;
-import duke.storage.Storage;
+import duke.model.Model;
+import duke.model.locations.BusStop;
 
 import java.util.HashMap;
 
@@ -16,7 +16,7 @@ public class GetBusStopCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(Storage storage) throws DukeException {
+    public CommandResult execute(Model model) throws DukeException {
         HashMap<String, BusStop> allBus = ApiParser.getBusStop();
         if (allBus.containsKey(this.buscode)) {
             return new CommandResult("This is the information for this Bus Stop:\n"

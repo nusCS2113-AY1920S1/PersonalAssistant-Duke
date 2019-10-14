@@ -2,8 +2,8 @@ package duke.commands;
 
 import duke.commons.exceptions.DukeException;
 import duke.commons.Messages;
-import duke.storage.Storage;
-import duke.data.tasks.Task;
+import duke.model.Model;
+import duke.model.events.Task;
 
 /**
  * Class representing a command to mark a task as done.
@@ -24,14 +24,14 @@ public class MarkDoneCommand extends Command {
     /**
      * Executes this command on the given task list and user interface.
      *
-     * @param storage The duke.storage object containing task list.
+     * @param model The model object containing information about the user.
      */
     @Override
-    public CommandResult execute(Storage storage) throws DukeException {
+    public CommandResult execute(Model model) throws DukeException {
         try {
-            Task task = storage.getTasks().get(index);
+            Task task = model.getTasks().get(index);
             task.setDone(true);
-            storage.write();
+            model.save();
             return new CommandResult(MESSAGE_MARK_DONE + task);
         } catch (IndexOutOfBoundsException e) {
             throw new DukeException(Messages.OUT_OF_BOUNDS);

@@ -1,11 +1,11 @@
 package duke;
 
 import duke.commons.exceptions.DukeException;
-import duke.data.BusService;
-import duke.data.BusStop;
-import duke.data.Location;
 import duke.logic.api.ApiConstraintParser;
 import duke.logic.api.ApiParser;
+import duke.model.locations.BusStop;
+import duke.model.locations.Venue;
+import duke.model.transports.BusService;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -51,7 +51,7 @@ public class PathFinder {
      * @param end ending location.
      * @return path.
      */
-    public ArrayList<BusStop> execute(Location start, Location end) {
+    public ArrayList<BusStop> execute(Venue start, Venue end) {
         BusStop startBusStop = ApiConstraintParser.getNearestBusStop(start, this.busStopMap);
         BusStop endBusStop = ApiConstraintParser.getNearestBusStop(end, this.busStopMap);
 

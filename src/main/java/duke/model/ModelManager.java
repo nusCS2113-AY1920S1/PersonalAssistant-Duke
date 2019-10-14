@@ -1,6 +1,12 @@
 package duke.model;
 
 import duke.commons.exceptions.DukeException;
+import duke.model.events.Event;
+import duke.model.events.Task;
+import duke.model.transports.BusService;
+import duke.model.locations.BusStop;
+import duke.model.locations.Venue;
+import duke.storage.Storage;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
 
@@ -8,12 +14,22 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ModelManager implements Model {
-    private UniqueTaskList tasks;
-    private ArrayList<BusStop> allBusStops;
-    //List<TrainStation> allTrainStations;
+    private Storage storage;
+    private TaskList tasks;
+    //private List<BusStop> allBusStops;
+    //private List<TrainStation> allTrainStations;
+    //private List<Route> userRoutes;
+
+    public ModelManager() throws DukeException {
+        storage = new Storage();
+        tasks = storage.getTasks();
+        //allBusStops = storage.getBusStops();
+        //allTrainStations = storage.getTrainStations();
+        //userRoutes = storage.getRoutes();
+    }
 
     @Override
-    public UniqueTaskList getTasks() {
+    public TaskList getTasks() {
         return tasks;
     }
 
@@ -32,11 +48,7 @@ public class ModelManager implements Model {
         //move this to UniqueTaskList
         List<Venue> locations = new ArrayList<>();
         for (Task t : tasks.getEventList()) {
-            try {
-                locations.add(((Event) t).getLocation());
-            } catch (DukeException e) {
-                //silent failure
-            }
+            locations.add(((Event) t).getLocation());
         }
         return locations;
     }
@@ -48,7 +60,7 @@ public class ModelManager implements Model {
 
     @Override
     public List<BusStop> getBusStops() {
-        return allBusStops;
+        return null;
     }
 
     @Override
@@ -72,7 +84,7 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void save() {
-
+    public void save() throws DukeException {
+        storage.write();
     }
 }
