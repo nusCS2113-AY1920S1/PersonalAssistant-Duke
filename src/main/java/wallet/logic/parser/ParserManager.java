@@ -52,9 +52,10 @@ public class ParserManager {
             return new ReminderCommandParser().parse(arguments[1]);
 
         case HelpCommand.COMMAND_WORD:
-            //fallthrough
-        default:
             return new HelpCommand();
+
+        default:
+            return null;
         }
     }
 }
