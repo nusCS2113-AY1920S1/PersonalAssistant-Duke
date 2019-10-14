@@ -1,7 +1,7 @@
-import duke.DateTime;
-import duke.items.tasks.Deadline;
-import duke.items.tasks.Event;
-import duke.items.tasks.Task;
+import spinbox.DateTime;
+import spinbox.items.tasks.Deadline;
+import spinbox.items.tasks.Event;
+import spinbox.items.tasks.Task;
 
 import java.util.Date;
 

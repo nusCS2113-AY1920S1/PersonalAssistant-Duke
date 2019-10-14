@@ -1,6 +1,6 @@
-import duke.items.tasks.Recurring;
-import duke.items.tasks.Task;
-import duke.DateTime;
+import spinbox.items.tasks.Recurring;
+import spinbox.items.tasks.Task;
+import spinbox.DateTime;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;

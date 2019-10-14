@@ -1,7 +1,6 @@
-import duke.Duke;
-import duke.exceptions.DukeException;
-import duke.exceptions.InputException;
-import duke.items.GradedComponent;
+import spinbox.exceptions.SpinBoxException;
+import spinbox.exceptions.InputException;
+import spinbox.items.GradedComponent;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -63,7 +62,7 @@ public class GradedComponentTest {
     @Test
     public void gradeUpdateUnweighted_gradedEssayScoredZeroMaximumScore_ExceptionThrown() throws InputException {
         GradedComponent testGradeOne = new GradedComponent("Essay", 20);
-        assertThrows(DukeException.class, () -> testGradeOne.updateWeightedScore(15, 0));
+        assertThrows(SpinBoxException.class, () -> testGradeOne.updateWeightedScore(15, 0));
 
         assertEquals(testGradeOne.getWeight(), 20);
         assertEquals(testGradeOne.storeString(), "0 | Essay | 0 | 20.0 | 0.0");

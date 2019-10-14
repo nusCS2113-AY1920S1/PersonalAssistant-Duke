@@ -1,14 +1,14 @@
-import duke.DateTime;
-import duke.Storage;
-import duke.exceptions.DukeException;
-import duke.items.tasks.Task;
-import duke.items.tasks.Todo;
-import duke.items.tasks.Deadline;
-import duke.items.tasks.Event;
-import duke.items.tasks.Within;
-import duke.items.tasks.Tentative;
-import duke.items.tasks.Recurring;
-import duke.items.tasks.FileTask;
+import spinbox.DateTime;
+import spinbox.Storage;
+import spinbox.exceptions.SpinBoxException;
+import spinbox.items.tasks.Task;
+import spinbox.items.tasks.Todo;
+import spinbox.items.tasks.Deadline;
+import spinbox.items.tasks.Event;
+import spinbox.items.tasks.Within;
+import spinbox.items.tasks.Tentative;
+import spinbox.items.tasks.Recurring;
+import spinbox.items.tasks.FileTask;
 import org.junit.jupiter.api.Test;
 import java.io.File;
 import java.util.ArrayList;
@@ -42,7 +42,7 @@ public class StorageTest {
     }
 
     @Test
-    public void setAndLoadData() throws DukeException {
+    public void setAndLoadData() throws SpinBoxException {
         File file = new File("data/storageTest.txt");
         file.delete();
 

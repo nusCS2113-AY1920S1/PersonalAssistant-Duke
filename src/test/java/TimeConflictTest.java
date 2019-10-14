@@ -1,10 +1,10 @@
-import duke.Parser;
-import duke.Storage;
-import duke.lists.TaskList;
-import duke.Ui;
-import duke.commands.Command;
-import duke.exceptions.DukeException;
-import duke.exceptions.InputException;
+import spinbox.Parser;
+import spinbox.Storage;
+import spinbox.lists.TaskList;
+import spinbox.Ui;
+import spinbox.commands.Command;
+import spinbox.exceptions.SpinBoxException;
+import spinbox.exceptions.InputException;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -13,7 +13,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class TimeConflictTest {
 
     @Test
-    void testIfTwoEventsOverlap_TestOne() throws DukeException {
+    void testIfTwoEventsOverlap_TestOne() throws SpinBoxException {
         TaskList tasks = new TaskList();
         Ui ui = new Ui();
         Storage storage = new Storage("data/dukeTest.txt");
@@ -33,7 +33,7 @@ public class TimeConflictTest {
     }
 
     @Test
-    void testIfTwoEventsOverlap_TestTwo() throws DukeException {
+    void testIfTwoEventsOverlap_TestTwo() throws SpinBoxException {
         TaskList tasks = new TaskList();
         Ui ui = new Ui();
         Storage storage = new Storage("data/dukeTest.txt");
@@ -53,7 +53,7 @@ public class TimeConflictTest {
     }
 
     @Test
-    void testIfTwoEventsOverlap_TestThree() throws DukeException {
+    void testIfTwoEventsOverlap_TestThree() throws SpinBoxException {
         TaskList tasks = new TaskList();
         Ui ui = new Ui();
         Storage storage = new Storage("data/dukeTest.txt");
@@ -73,7 +73,7 @@ public class TimeConflictTest {
     }
 
     @Test
-    void testIfTwoEventsOverlap_TestFour() throws DukeException {
+    void testIfTwoEventsOverlap_TestFour() throws SpinBoxException {
         TaskList tasks = new TaskList();
         Ui ui = new Ui();
         Storage storage = new Storage("data/dukeTest.txt");

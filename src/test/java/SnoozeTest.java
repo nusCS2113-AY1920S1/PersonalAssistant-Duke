@@ -1,10 +1,10 @@
-import duke.Parser;
-import duke.Storage;
-import duke.lists.TaskList;
-import duke.Ui;
-import duke.commands.Command;
-import duke.exceptions.DukeException;
-import duke.items.tasks.Event;
+import spinbox.Parser;
+import spinbox.Storage;
+import spinbox.lists.TaskList;
+import spinbox.Ui;
+import spinbox.commands.Command;
+import spinbox.exceptions.SpinBoxException;
+import spinbox.items.tasks.Event;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -13,7 +13,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class SnoozeTest {
 
     @Test
-    public void snoozeCommand_rescheduleDeadline() throws DukeException {
+    public void snoozeCommand_rescheduleDeadline() throws SpinBoxException {
         TaskList tasks = new TaskList();
         Ui ui = new Ui();
         Storage storage = new Storage("data/dukeTest.txt");
@@ -27,7 +27,7 @@ public class SnoozeTest {
     }
 
     @Test
-    public void snoozeCommand_rescheduleEvent() throws DukeException {
+    public void snoozeCommand_rescheduleEvent() throws SpinBoxException {
         TaskList tasks = new TaskList();
         Ui ui = new Ui();
         Storage storage = new Storage("data/dukeTest.txt");

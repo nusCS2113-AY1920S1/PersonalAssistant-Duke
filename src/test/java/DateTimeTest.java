@@ -1,16 +1,13 @@
-import duke.DateTime;
-import duke.exceptions.DukeException;
+import spinbox.DateTime;
+import spinbox.exceptions.SpinBoxException;
 import org.junit.jupiter.api.Test;
-
-import java.util.Date;
-import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class DateTimeTest {
 
     @Test
-    public void correctDateInputShouldCreateReusableString() throws DukeException {
+    public void correctDateInputShouldCreateReusableString() throws SpinBoxException {
         DateTime test = new DateTime("05/02/2020 12:00");
         assertEquals("05/02/2020 12:00", test.toString());
 
@@ -26,7 +23,7 @@ public class DateTimeTest {
     }
 
     @Test
-    public void parseDifferentDateFormattedString() throws DukeException {
+    public void parseDifferentDateFormattedString() throws SpinBoxException {
         DateTime test = new DateTime("the day before 12/16/2019 4pm");
         assertEquals("12/15/2019 16:00", test.toString());
 
