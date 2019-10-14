@@ -3,7 +3,7 @@ package duke.util;
 
 import duke.command.logic.EndCommand;
 import duke.command.logic.ModuleCommand;
-import duke.command.logic.SearchCommand;
+import duke.command.logic.SearchThenAddCommand;
 import duke.modules.Cca;
 import duke.modules.Deadline;
 import duke.modules.DoWithin;
@@ -66,7 +66,7 @@ public class ParserWrapper {
         }
         String[] hold = splitFirstSpace(input);
         if (input.startsWith("search ")) {
-            return new SearchCommand(hold[hold.length - 1]);
+            return new SearchThenAddCommand(hold[hold.length - 1]);
         } else if (input.equals("bye")) {
             return new EndCommand();
         } else {

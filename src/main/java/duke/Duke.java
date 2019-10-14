@@ -48,30 +48,9 @@ public class Duke {
         data = new JsonWrapper();
     }
 
-    //TODO: function to be removed after implementing feature
-    /**
-     * Testing function for json parsing for both summary and detailed json files.
-     */
-    private void testJson(Command c) {
-        if (c instanceof ListCommand) {
-            this.testJson();
-        }
-    }
-
-    private void testJson() {
-        // Demo test of commands
-        System.out.println(modSummaryMap.get("CS2101"));
-        System.out.println(modDetailedMap.get("CS2101"));
-        System.out.println(modDetailedMap.get("CS2101").getAttributes().isSu());
-        System.out.println(Arrays.toString(modSummaryMap.get("CS2113T").getSemesters()));
-        System.out.println(modSummaryMap.get("CG2028").getTitle());
-        System.out.println(modSummaryMap.get("CS1010"));
-    }
-
     private void modSetup() {
         try {
             data.runRequests(store);
-            modSummaryMap = data.getModuleSummaryMap();
             modDetailedMap = data.getModuleDetailedMap();
         } catch (ModBadRequestStatus er) {
             er.printStackTrace();
@@ -111,8 +90,7 @@ public class Duke {
                 String fullCommand = modUi.readCommand();
                 modUi.showLine();
                 ModuleCommand c = parser.parse(fullCommand, false);
-                c.execute(modSummaryMap, modDetailedMap, modUi, store);
-                //testJson();
+                c.execute(modDetailedMap, tasks, modUi, store);
                 isExit = c.isExit();
             } catch (ModException e) {
                 System.out.println(e.getMessage());
@@ -137,7 +115,6 @@ public class Duke {
                 ui.showLine();
                 Command c = parser.parse(fullCommand);
                 c.execute(tasks, ui, store, reminder);
-                testJson(c);
                 isExit = c.isExit();
             } catch (ModException e) {
                 e.printStackTrace();

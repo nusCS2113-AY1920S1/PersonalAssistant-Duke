@@ -23,6 +23,7 @@ public class JsonWrapper {
     private RequestsData requestsData;
     private final String listFile = "data/modsListData.json";
     private final String listDetailedFile = "data/modsDetailedListData.json";
+    private final String userModuleFile = "data/userData.json";
     private final String academicYear = "2019-2020";
 
     public enum Requests {
@@ -70,9 +71,6 @@ public class JsonWrapper {
         }
     }
 
-
-    //TODO: This function would return a string list of
-    //      all modules in NUS in this academic year.
 
     /**
      * Reads the Json file for to be parsed into a java object. Since the data is
@@ -145,4 +143,6 @@ public class JsonWrapper {
         }
         return ret;
     }
+
+
 }
