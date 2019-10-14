@@ -158,8 +158,7 @@ public class Ui {
     public void showHistory(ArrayList<String> commandHistoryList) {
         if (commandHistoryList.isEmpty()) {
             System.out.println(padding + "No commands in history");
-        }
-        else {
+        } else {
             System.out.println(padding + "History of Commands you have typed: ");
             commandHistoryList.forEach(command -> {
                 System.out.println(padding + padding + command);

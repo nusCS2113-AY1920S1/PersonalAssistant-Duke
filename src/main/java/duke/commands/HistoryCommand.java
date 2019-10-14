@@ -8,7 +8,7 @@ import duke.user.User;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class HistoryCommand extends Command{
+public class HistoryCommand extends Command {
     private ArrayList<String> historyCommandsList;
 
     public HistoryCommand() {
