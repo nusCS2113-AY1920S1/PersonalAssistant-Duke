@@ -115,6 +115,17 @@ public class Duke {
     }
 
     /**
+     * Executes a command and outputs the result to the user (GUI).
+     *
+     *
+     * @return String to be outputted.
+     */
+    public TaskList getTaskList() {
+        //String str = cmd.executeGui(items, ui);
+        return items;
+    }
+
+    /**
      * Runs the duke program until exit command is executed.
      */
     public void run() {
