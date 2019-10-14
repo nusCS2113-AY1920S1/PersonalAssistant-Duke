@@ -3,9 +3,9 @@ package Commands;
 import Farmio.Farmio;
 import FarmioExceptions.FarmioException;
 
-public class StartCommand extends Command {
+public class CommandStart extends Command {
     @Override
     public void execute(Farmio farmio) throws FarmioException {
-        //do something
+        farmio.setStage(Farmio.Stage.RUNNING_DAY);
     }
 }
