@@ -88,7 +88,7 @@ public class Compal {
         int numberOfDays = 7;
 
         ArrayList<Task> reminder = new ArrayList<>();
-        Date currentDate = java.util.Calendar.getInstance().getTime();
+        Date currentDate = Calendar.getInstance().getTime();
 
         Calendar c = Calendar.getInstance();
 
@@ -97,14 +97,18 @@ public class Compal {
         Date dateAfter = c.getTime();
 
         c.setTime(currentDate);
-        c.add(Calendar.DATE, -1);
-        c.set(Calendar.HOUR_OF_DAY, 23);
-        c.set(Calendar.MINUTE, 59);
-        c.set(Calendar.SECOND, 59);
         Date dateToday = c.getTime();
 
         for (Task t : tasklist.arrlist) {
-            Date deadline = t.getDate();
+            Calendar  tempTaskDateAndTime = Calendar.getInstance();
+            tempTaskDateAndTime.setTime(t.getDate());
+            int startingHour = Integer.parseInt(t.getStringStartTime().substring(0,2));
+            tempTaskDateAndTime.set(Calendar.HOUR_OF_DAY, startingHour);
+            int startingMinute = Integer.parseInt(t.getStringStartTime().substring(2,4));
+            tempTaskDateAndTime.set(Calendar.MINUTE, startingMinute);
+
+            Date deadline = tempTaskDateAndTime.getTime();
+
             if (deadline != null && !t.isDone && deadline.after(dateToday)
                     && (deadline.before(dateAfter) || t.hasReminder())) {
                 t.calculateAndSetPriorityScore();
