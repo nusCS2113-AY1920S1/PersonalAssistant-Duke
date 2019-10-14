@@ -2,7 +2,6 @@ package duke;
 
 import duke.commons.exceptions.DukeException;
 import duke.model.Model;
-import duke.model.ModelManager;
 import duke.model.TaskList;
 import duke.model.events.Event;
 import duke.model.events.Task;

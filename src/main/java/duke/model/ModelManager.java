@@ -20,7 +20,10 @@ public class ModelManager implements Model {
     //private List<TrainStation> allTrainStations;
     //private List<Route> userRoutes;
 
-    public ModelManager() throws DukeException {
+    /**
+     * Constructs a new ModelManager object.
+     */
+    public ModelManager() {
         storage = new Storage();
         tasks = storage.getTasks();
         //allBusStops = storage.getBusStops();

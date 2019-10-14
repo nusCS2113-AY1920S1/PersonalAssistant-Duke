@@ -13,11 +13,14 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Manages storage of Duke data in local storage.
  */
 public class Storage {
+    private static final Logger logger = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
     private TaskList tasks;
     private static final String BUS_FILE_PATH = "data/bus.txt";
     private static final String TRAIN_FILE_PATH = "data/train.txt";
@@ -31,19 +34,23 @@ public class Storage {
     /**
      * Constructs a Storage object that contains information fro the model.
      */
-    public Storage() throws DukeException {
+    public Storage() {
         tasks = new TaskList();
-        read();
+        try {
+            read();
+        } catch (DukeException e) {
+            logger.log(Level.WARNING, "File path does not exists.");
+        }
     }
 
     /**
      * Reads tasks from filepath. Creates empty tasks if file cannot be read.
      */
-    private void read() throws DukeException {
+    public void read() throws DukeException {
         readEvents();
     }
 
-    protected void readEvents() throws DukeException {
+    private void readEvents() throws DukeException {
         List<Task> newTasks = new ArrayList<>();
         try {
             File f = new File(EVENTS_FILE_PATH);
