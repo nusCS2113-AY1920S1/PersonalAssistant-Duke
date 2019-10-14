@@ -33,6 +33,9 @@ public class GoToCommand extends Command {
      */
     public void execute(ProgressStack progressStack, Ui ui, Storage storage, Profile profile) throws DukeException, IOException {
             int intIndex = Integer.parseInt(index)-1;
+            /*if ((progressStack.gotoFilePath(intIndex)).startsWith("Quiz")) {
+
+            }*/
             progressStack.updateFilePath(progressStack.gotoFilePath(intIndex));
             progressStack.insertQueries();
             if (progressStack.containsDirectory()) {

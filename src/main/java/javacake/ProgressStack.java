@@ -120,9 +120,10 @@ public class ProgressStack {
         loadFiles(currentFilePath);
         for (File listOfFile : listOfFiles) {
             if (listOfFile.isFile()) {
-                filePathQueries.add(listOfFile.getName());
                 isDirectory = false;
+                filePathQueries.add(listOfFile.getName());
             } else if (listOfFile.isDirectory()) {
+                isDirectory = true;
                 filePathQueries.add(listOfFile.getName());
             }
         }
