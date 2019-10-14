@@ -5,7 +5,7 @@ import duke.logic.parser.commons.ArgumentMultimap;
 import duke.logic.parser.commons.ArgumentTokenizer;
 import duke.logic.parser.commons.Parser;
 import duke.logic.parser.exceptions.ParseException;
-import duke.model.ingredient.IngredientList;
+import duke.model.inventory.IngredientList;
 import duke.model.product.Product;
 
 import java.util.Dictionary;
@@ -21,6 +21,8 @@ import static duke.logic.parser.commons.CliSyntax.PREFIX_PRODUCT_RETAIL_PRICE;
 
 
 public class AddProductCommandParser implements Parser<AddProductCommand> {
+
+    public static final Double DEFAULT_PRODUCT_RETAIL_PRICE = 0.0;
     /**
      * Parses {@code userInput} into a command and returns it.
      *
@@ -36,11 +38,15 @@ public class AddProductCommandParser implements Parser<AddProductCommand> {
                 PREFIX_PRODUCT_RETAIL_PRICE
         );
 
+        if (map.getValue(PREFIX_CUSTOMER_NAME).isEmpty() || map.getValue(PREFIX_PRODUCT_NAME) == null) {
+            throw new ParseException("Please enter the name of the product");
+
+        }
         IngredientList ingredients = new IngredientList(){};
 
         Product product = new Product(
                 map.getValue(PREFIX_CUSTOMER_NAME).orElse("ProductName"),
-                map.getValue(PREFIX_PRODUCT_RETAIL_PRICE).orElse(String.valueOf(0)),
+                map.getValue(PREFIX_PRODUCT_RETAIL_PRICE).orElse(String.valueOf(DEFAULT_PRODUCT_RETAIL_PRICE)),
                 map.getValue(PREFIX_PRODUCT_INGREDIENT_COST).orElse(String.valueOf(0))
         );
 
@@ -49,7 +55,7 @@ public class AddProductCommandParser implements Parser<AddProductCommand> {
         return new AddProductCommand(product);
     }
 
-    //Todo: IngredientList Parser -ingt [ingredient_name, qty] [ingredient_name2, qty] [ingredient_name3]
+    //Todo: IngredientItemList Parser -ingt [ingredient_name, qty] [ingredient_name2, qty] [ingredient_name3]
     private void ingredientListParser(String userInput) {
         String input = userInput;
         Pattern pattern = Pattern.compile("((\\[)(?<name>[\\w|\\s]*),(?<description>[\\w|\\s]*)(?:\\])"

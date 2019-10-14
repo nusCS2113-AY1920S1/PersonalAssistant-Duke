@@ -1,6 +1,6 @@
 package duke.ui;
 
-import duke.model.commons.Ingredient;
+import duke.model.inventory.Ingredient;
 import duke.model.commons.Item;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.SimpleStringProperty;

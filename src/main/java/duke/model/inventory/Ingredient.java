@@ -1,4 +1,4 @@
-package duke.model.commons;
+package duke.model.inventory;
 
 import java.util.Objects;
 
@@ -6,9 +6,6 @@ import static duke.commons.util.AppUtil.checkArgument;
 import static duke.commons.util.AppUtil.checkEmpty;
 import static duke.commons.util.CollectionUtil.requireAllNonNull;
 
-/**
- * Represents an ingredient of a product.
- */
 public class Ingredient {
     private static final String VALIDATION_FLOAT_NUMBER_REGEX = "^[-+]?[0-9]*\\.?[0-9]+([eE][-+]?[0-9]+)?$";
 
@@ -22,7 +19,7 @@ public class Ingredient {
     private static final String DEFAULT_UNIT = "unit";
 
     public final String name;
-    public final double unitPrice;
+    public final Double unitPrice;
     public final String unit;
 
     /**
@@ -62,7 +59,6 @@ public class Ingredient {
         Ingredient that = (Ingredient) o;
         return Objects.equals(name, that.name);
     }
-
     @Override
     public int hashCode() {
         return Objects.hash(name);
@@ -83,5 +79,9 @@ public class Ingredient {
 
     public String getUnit() {
         return unit;
+    }
+
+    public Double getUnitPrice() {
+        return unitPrice;
     }
 }
