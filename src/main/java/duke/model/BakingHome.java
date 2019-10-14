@@ -220,10 +220,6 @@ public class BakingHome implements ReadOnlyBakingHome {
         }
     }
 
-    public void addSale(Sale s) {
-        sales.add(s);
-    }
-
     /**
      * Replaces the contents of the shortcut list with {@code shortcuts}.
      */
