@@ -132,6 +132,5 @@ public class MainWindow extends AnchorPane {
                     DialogBox.getDukeDialog(response[1], dukeImage));
         }
 
-        userInput.clear();
     }
 }
