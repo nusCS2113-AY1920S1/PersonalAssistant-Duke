@@ -1,12 +1,12 @@
 package payment;
 
-import java.util.ArrayList;
+import java.util.*;
 
 /**
  * PaymentManager for managing Payments objects and PaymentForms from the PaymentsList
  */
 public class PaymentManager {
-
+    HashMap<String, Payee> ManagerMap;
 
     /**
      * Finds the Payments objects containing a payee name and returns a list of Payments.
@@ -41,7 +41,7 @@ public class PaymentManager {
     /**
      * Add the Payments object details to PaymentsList
      */
-    public void addPayments(){
-        //TODO
+    public void addPayments(String payee, Payments pay){
+        ManagerMap.get(payee).payments.add(pay);
     }
 }
