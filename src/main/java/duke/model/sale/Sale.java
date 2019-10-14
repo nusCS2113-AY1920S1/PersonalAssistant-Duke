@@ -14,11 +14,11 @@ public class Sale {
 
     //Data fields
     private String description;
-    private Date saleDate;
     private double value;
+    private Date saleDate;
     private String remarks;
 
-    public Sale(String description, Date saleDate, double value, String remarks) {
+    public Sale(String description, double value, Date saleDate, String remarks) {
         requireAllNonNull(description, saleDate, value, remarks);
         this.id = System.currentTimeMillis();
         this.description = description;
