@@ -195,6 +195,13 @@ public class BankList {
         throw new BankException("There are no bank with the name: " + bankName);
     }
 
+    /**
+     * Checks if new bank name is unique.
+     *
+     * @param currentBank The bank to be changed.
+     * @param newBankName The new name of the bank.
+     * @throws BankException If new name is not unique.
+     */
     private void compareBank(Bank currentBank, String newBankName) throws BankException {
         for (int i = 0; i < getBankListSize(); i++) {
             if (bankLists.get(i).getAccountName().equals(newBankName) && !bankLists.get(i).equals(currentBank)) {
