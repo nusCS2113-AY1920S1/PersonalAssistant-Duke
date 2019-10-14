@@ -1,7 +1,7 @@
 language: java
 install: true
 
-os: windows
+os: linux
 dist: trusty
 jdk: oraclejdk11
 
