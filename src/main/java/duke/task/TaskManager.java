@@ -39,6 +39,18 @@ public class TaskManager {
         this.taskList = new ArrayList<Task>();
     }
 
+    public ArrayList<Task> getTaskByDescription(String description){
+        description = description.toLowerCase();
+        ArrayList<Task> tasksWithThisDescription = new ArrayList<>();
+        for (Task task : taskIdMap.values()) {
+            if(task.getDescription().toLowerCase().equals(description)){
+                tasksWithThisDescription.add(task);
+            }
+        }
+        return tasksWithThisDescription;
+    }
+
+
     /**
      * Adds a Task to the list.
      *
@@ -55,14 +67,17 @@ public class TaskManager {
     /**
      * Removes the Task with the given index from the list.
      *
-     * //@param i The index of the Task to be deleted.
+     * @param id The index of the Task to be deleted.
      */
-    /*public void deleteTask(Integer i) throws DukeException {
-        if (getSize() < i) {
-            throw new DukeException("Task Number " + i + " does not exist");
+    public void deleteTask(int id) throws DukeException {
+        if (taskIdMap.containsKey(id)){
+            taskIdMap.remove(id);
         }
-        taskList.remove(i - 1);
-    }*/
+        else{
+            throw new DukeException("The task with id "+ id + " does not exist.");
+        }
+
+    }
 
     public boolean doesExist(int id) {
         if (taskIdMap.containsKey(id)){
