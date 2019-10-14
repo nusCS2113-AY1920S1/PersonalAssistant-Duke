@@ -8,6 +8,18 @@ import java.util.*;
 import java.io.*;
 import java.text.*;
 
+/**
+ * Current format for text file:
+ * For every line:
+ * 0) ITEM/ROOM
+ * 1) ID (of unique item/room)
+ * 2) DESCRIPTION
+ * 3) Booked or not?
+ * Optional:
+ * 4) Loan ID (if booked)]
+ * 5) Loan start date
+ * 6) Loan end date
+ */
 public class Storage {
     protected HashMap<String, ArrayList<Resource>> resources = new HashMap<String, ArrayList<Resource>>();
     protected File file;
@@ -17,6 +29,13 @@ public class Storage {
         readFromFile();
     }
 
+    /**
+     * Obtains the contents of a ResourceList line by line
+     * from a text file in a specified file path.
+     *
+     * @throws FileNotFoundException when specified file path does not lead to a valid file type.
+     * @throws ParseException when unable to parse an integer for ID or checking if a resource is booked.
+     */
     public void readFromFile() throws FileNotFoundException, ParseException {
         Scanner fileScanner = new Scanner(file);
         while (fileScanner.hasNextLine()) {
@@ -50,6 +69,12 @@ public class Storage {
         }
     }
 
+    /**
+     * Put contents of a ResourceList into a text file for future reference.
+     *
+     * @param resources ResourceList to put contents into text file.
+     * @throws IOException when file given is directory, or file does not exist and cannot be created.
+     */
     public void saveToFile(HashMap<String, ArrayList<Resource>> resources) throws IOException {
         BufferedWriter fileWriter = new BufferedWriter(new FileWriter(file, false));
         for (Map.Entry<String, ArrayList<Resource>> entry : resources.entrySet()) {
