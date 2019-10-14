@@ -61,6 +61,21 @@ public class StockList {
     }
 
     /**
+     * Prints every stock within stocklist. Should only be called by Ui.
+     * @return The string of the stocklist.
+     */
+    public String toString() {
+        String ret = "";
+        ret += "CURRENT INVENTORY\n";
+        for (int i = 0; i < quantity; i++) {
+            ret += "------------------------\n";
+            ret += stockList.get(i).toString() + "\n";
+        }
+
+        return ret;
+    }
+
+    /**
      * Saves the list into a String.
      * @return The String that will be directly saved into file.
      */

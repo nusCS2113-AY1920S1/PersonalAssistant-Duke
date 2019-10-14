@@ -89,6 +89,23 @@ public class StockType {
     }
 
     /**
+     * A string of all the stock objects within this stocktype. Should only be called by Ui and StockList.
+     * @return A string list of all the stock objects and their details.
+     */
+    public String toString() {
+        String ret = "";
+        int i = 1;
+
+        for (Stock stock : stocks) {
+            ret += String.format("%d. ", i++) + stock.toString() + "\n";
+        }
+
+        return ret;
+
+    }
+
+
+    /**
      * Creates a String of all Stock objects under this StockType.
      * @return The String of all Stock objects.
      */
