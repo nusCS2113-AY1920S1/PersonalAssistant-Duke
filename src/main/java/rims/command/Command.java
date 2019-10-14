@@ -28,7 +28,5 @@ public abstract class Command {
         exitCode = true;
     }
 
-    public void execute(Ui ui, Storage storage, ResourceList resources) throws Exception, IOException {
-        ;
-    }
+    abstract public void execute(Ui ui, Storage storage, ResourceList resources) throws Exception;
 }
