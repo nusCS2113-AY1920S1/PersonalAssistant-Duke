@@ -2,15 +2,17 @@ package Farmio;
 
 import Commands.*;
 import FarmioExceptions.FarmioException;
+import UserCode.Actions.Action;
+import UserCode.Conditions.Condition;
 
 class Parser {
     static Command parse(String userInput, Farmio.Stage stage) throws FarmioException {
-        userInput = userInput.toLowerCase();
+        //userInput = userInput.toLowerCase();
         switch (stage) {
             case WELCOME:
                 return new CommandMenuStart();
             case MENU_START:
-                return parseMenuStart(userInput);
+                return parseMenuStart(userInput.toLowerCase());
             case TASK_ADD:
                 return parseTaskAdd(userInput);
             default:
@@ -33,13 +35,49 @@ class Parser {
         }
     }
 
-    private static Command parseTaskAdd(String userInput){
-        switch(userInput){
-            case "":
-                break;
-            default:
+    private static Command parseTaskAdd(String userInput) throws FarmioException {
+        if (userInput.equals("menu")) {
+            return new CommandMenuStart();
         }
-        return new CommandGameLoad();
+        if (userInput.startsWith("do")) {
+            return parseDoTask(userInput);
+        } else if (userInput.startsWith("if") || userInput.startsWith("for") || userInput.startsWith("while")) {
+            return parseConditionalTask(userInput);
+        }
+        throw new FarmioException("Invalid command!");
+    }
+
+    private static Command parseDoTask(String userInput) throws FarmioException {
+        String userAction = (userInput.substring(userInput.indexOf(" "))).trim();
+        if (Action.validateAction(userAction)) {
+            return new CommandCreateTask("TRUE", userAction);
+        } else {
+            throw new FarmioException("Invalid action!");
+        }
+    }
+
+    private static Command parseConditionalTask (String userInput) throws FarmioException {
+        String taskType = "", condition = "", action = "";
+        try {
+            taskType = (userInput.substring(0, userInput.indexOf(" "))).trim();
+            condition = (userInput.substring(userInput.indexOf(" ") + 1, userInput.indexOf("then"))).trim();
+            action = userInput.substring(userInput.lastIndexOf(" ") + 1);
+        } catch (Exception e) {
+            throw new FarmioException("Invalid command format!");
+        }
+        System.out.println(taskType);
+        System.out.println(condition);
+        System.out.println(action);
+        if (!taskType.equals("if")  && ! taskType.equals("for") && !taskType.equals("while")) {
+            throw new FarmioException("Invalid Task Type!");
+        }
+        if (!Condition.validateBooleanCondition(condition) && !Condition.validateMoneyCondition(condition)) {
+            throw new FarmioException("Invalid Condition!");
+        }
+        if (!Action.validateAction(action)) {
+            throw new FarmioException("Invalid Action!");
+        }
+        return new CommandCreateTask(taskType, condition, action);
     }
 
     /*

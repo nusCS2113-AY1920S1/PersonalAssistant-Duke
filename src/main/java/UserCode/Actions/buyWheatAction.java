@@ -1,4 +1,4 @@
-package Actions;
+package UserCode.Actions;
 
 import Places.ChickenFarm;
 import Places.CowFarm;
@@ -15,10 +15,9 @@ public class buyWheatAction extends Action {
     }
 
     @Override
-    public int execute(Ui ui) {
+    public void execute(Ui ui) {
         wheatFarm.buySeeds();
         //I'll write the simulation stuff after the simulation class is fixed
         ui.show("Buying seeds!");
-        return moneyChange;
     }
 }

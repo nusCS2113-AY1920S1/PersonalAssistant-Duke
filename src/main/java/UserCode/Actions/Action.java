@@ -1,15 +1,11 @@
 package UserCode.Actions;
 
-<<<<<<< HEAD
-import FarmioExceptions.FarmioException;
-import Places.*;
-import UserInterfaces.Ui;
-=======
+
 import Places.ChickenFarm;
 import Places.CowFarm;
 import Places.WheatFarm;
+import Places.Market;
 import Farmio.Ui;
->>>>>>> v2/FarmLogicV2
 import org.json.simple.JSONObject;
 
 public abstract class Action {
