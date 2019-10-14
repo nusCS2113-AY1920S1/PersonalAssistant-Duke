@@ -31,23 +31,17 @@ public class PrioritizeCommand extends Command {
      * @param ui leduc.Ui which deals with the interactions with the user.
      * @param storage leduc.storage.Storage which deals with loading tasks from the file and saving tasks in the file.
      * @throws FileException Exception caught when the file can't be open or read or modify.
-     * @throws EmptyArgumentException Exception caught when there is no argument.
      * @throws NonExistentTaskException Exception caught when the task to delete does not exist.
      * @throws PrioritizeFormatException Exception caught when the format of a prioritize command is not respected.
+     * @throws PrioritizeLimitException Exception caught when the new priority is greater than 9 or less than 0.
      */
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws FileException, EmptyArgumentException,
-            NonExistentTaskException, PrioritizeFormatException {
+    public void execute(TaskList tasks, Ui ui, Storage storage) throws FileException,
+            NonExistentTaskException, PrioritizeFormatException, PrioritizeLimitException {
         String[] commandString = null;
         if(user.matches("prioritize \\d+ (.*)")){
-            if (user.substring(10).isBlank()){
-                throw new EmptyArgumentException();
-            }
             commandString = user.substring(10).trim().split("prio");
         }
         else { // user uses the shortcut ( tested in parser)
-            if (user.substring(PrioritizeCommand.prioritizeShortcut.length()).isBlank()){
-                throw new EmptyArgumentException();
-            }
             commandString = user.substring(PrioritizeCommand.prioritizeShortcut.length()).trim().split("prio");
         }
         if (commandString.length==1){ // "prio" is not in the user input
@@ -63,6 +57,9 @@ public class PrioritizeCommand extends Command {
         }
         catch (Exception e ){
             throw new PrioritizeFormatException();
+        }
+        if (priority >= 0 || priority <= 9) {
+            throw new PrioritizeLimitException();
         }
         Task t = tasks.get(taskIndex);
         t.setPriority(priority);
