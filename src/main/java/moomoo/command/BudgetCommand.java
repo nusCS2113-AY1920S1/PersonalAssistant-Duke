@@ -80,7 +80,6 @@ public class BudgetCommand extends Command {
             input = input.substring(4);
             String[] splitInput = input.split(" ");
             String category = "";
-            double addedBudget = 0;
 
             for (int i = 0; i < splitInput.length; ++i) {
                 if (i % 2 == 0) {
@@ -95,14 +94,7 @@ public class BudgetCommand extends Command {
                     }
                 } else {
                     if (splitInput[i].startsWith("b/")) {
-                        addedBudget = Double.parseDouble(splitInput[i].substring(2));
-                        if (budget.getBudgetFromCategory(category) != 0) {
-                            throw new MooMooException("The budget for " + category + " has already been set. "
-                                    + "Please edit it using budget edit.");
-                        }
-                        budget.addNewBudget(category, addedBudget);
-                        outputValue += "You have set $" + df.format(addedBudget)
-                                + " as the budget for " + category + "\n";
+                        outputValue += addBudget(budget, splitInput[i].substring(2), category);
                     } else {
                         throw new MooMooException("Please place the category before the budget "
                                 + "and use b/BUDGET to set the budget.\n");
@@ -115,7 +107,6 @@ public class BudgetCommand extends Command {
             input = input.substring(5);
             String[] splitInput = input.split(" ");
             String category = "";
-            double addedBudget = 0;
 
             for (int i = 0; i < splitInput.length; ++i) {
                 if (i % 2 == 0) {
@@ -135,24 +126,8 @@ public class BudgetCommand extends Command {
                     }
                 } else {
                     if (splitInput[i].startsWith("b/")) {
-                        try {
-                            addedBudget = Double.parseDouble(splitInput[i].substring(2));
-                            if (addedBudget <= 0) {
-                                throw new MooMooException("The budget to set for " + category + " is invalid. "
-                                        + "Please type in a positive number greater than 0");
-                            }
-                        } catch (NumberFormatException e) {
-                            throw new MooMooException("The budget set for " + category + " is invalid. "
-                                    + "Please type in a positive number greater than 0");
-                        }
-                        double oldBudget = budget.getBudgetFromCategory(category);
-                        if (oldBudget == addedBudget) {
-                            outputValue += "The budget for " + category + " is the same.\n";
-                            continue;
-                        }
-                        budget.addNewBudget(category, addedBudget);
-                        outputValue += "You have changed the budget for " + category + " from $"
-                                + df.format(oldBudget) + " to $" + df.format(addedBudget) + "\n";
+                        outputValue += editBudget(budget, splitInput[i].substring(2), category);
+
                     } else {
                         throw new MooMooException("Please place the category before the budget "
                                 + "and use b/BUDGET to set the budget.\n");
@@ -216,49 +191,12 @@ public class BudgetCommand extends Command {
                     throw new MooMooException("Please use [c/CATEGORY], s/02/2019, e/12/2019");
                 }
             }
-            LocalDate start = parseMonth(startMonth.strip());
-            LocalDate end = parseMonth(endMonth.strip());
-
-            if (!endMonth.equals("") && end == null) {
-                throw new MooMooException("Please set your start and end month in this format \"05/2019\"");
-            }
-
-            if (!startMonth.equals("") && start == null) {
-                throw new MooMooException("Please set your start and end month in this format \"05/2019\"");
-            }
-
-            if (end != null && end.isBefore(start)) {
-                throw new MooMooException("Your end month is earlier than the start month.");
-            }
             if (hasCategories) {
-                for (String category : categories) {
-                    if (!inCategoryList(category, catList)) {
-                        throw new MooMooException("The " + category + " does not exist."
-                                + " Please create it first.");
-                    }
-                    if (budget.getBudgetFromCategory(category) == 0) {
-                        throw new MooMooException("The budget for " + category + " does not exist."
-                                + "Please set it using budget set.");
-                    }
-                    if (endMonth.equals("")) {
-                        outputValue += "Your savings for " + category + " for " + start.getMonth()
-                                + " " + start.getYear() + " is: $"
-                                + df.format((budget.getBudgetFromCategory(category) - 0)) + "\n";
-                    } else {
-                        outputValue += "Your savings for " + category + " from " + start.getMonth() + " "
-                                + start.getYear() + " to "
-                                + end.getMonth() + " " + end.getYear() + " is: $"
-                                + df.format((budget.getBudgetFromCategory(category) - 0)) + "\n";
-                    }
-                }
+                outputValue += viewSavings(budget, ui, catList, startMonth, endMonth, "", categories);
             } else {
-                if (endMonth.equals("")) {
-                    outputValue += "Your total savings for " + start.getMonth() + " " + start.getYear() + " is: ";
-                } else {
-                    outputValue += "Your total savings from " + start.getMonth() + " " + start.getYear() + " to "
-                            + end.getMonth() + " " + end.getYear() + " is: ";
-                }
+                outputValue += viewSavings(budget, ui, catList, startMonth, endMonth, "", null);
             }
+
             if (outputValue.endsWith("\n")) {
                 ui.setOutput(outputValue.substring(0, outputValue.length() - 1));
             } else {
@@ -289,171 +227,139 @@ public class BudgetCommand extends Command {
             try {
                 switch (Integer.parseInt(command)) {
                 case 1:
-                    inputVal = "Please type in the category that you would like to set the budget for, type 0 to exit.";
-                    String category = ui.confirmPrompt(inputVal);
+                    String category = initialPrompt(catList, ui, budget,
+                            "Please type in the category that you would like to set the budget for, "
+                            + "type 0 to exit.");
                     while (!category.equals("0")) {
                         if (!inCategoryList(category, catList)) {
-                            throw new MooMooException(category + " does not exist. Please create it first.");
+                            ui.setOutput(category + " does not exist. Please create it first.");
+                            ui.showResponse();
+                            category = initialPrompt(catList, ui, budget,
+                                    "Please type in the category that you would like to set the budget for, "
+                                    + "type 0 to exit.");
+                            continue;
                         }
-                        inputVal = "Please type in the budget that you would like to set for " + category;
-                        double addedBudget = 0;
-                        try {
-                            addedBudget = Double.parseDouble(ui.confirmPrompt(inputVal));
-                            if (addedBudget <= 0) {
-                                throw new MooMooException("The budget set for " + category + " is invalid. "
-                                        + "Please type in a positive number greater than 0");
-                            }
-                        } catch (NumberFormatException e) {
-                            throw new MooMooException("The budget set for " + category + " is invalid. "
-                                    + "Please type in a positive number greater than 0");
-                        }
-                        if (budget.getBudgetFromCategory(category) != 0) {
-                            throw new MooMooException("The budget for " + category + " has already been set. "
-                                    + "Please edit it using budget edit.");
-                        }
-                        budget.addNewBudget(category, addedBudget);
-                        ui.setOutput("You have set $" + df.format(addedBudget)
-                                + " as the budget for " + category + "\n");
+
+                        inputVal = "\nPlease type in the budget that you would like to set for " + category;
+                        String inputBudget = ui.confirmPrompt(inputVal);
+
+                        ui.setOutput(addBudget(budget, inputBudget, category));
                         ui.showResponse();
 
-                        inputVal = "Please type in the category that you would like to set the budget for, "
-                                + "type 0 to exit.";
-                        category = ui.confirmPrompt(inputVal);
+                        category = initialPrompt(catList, ui, budget,
+                                "Please type in the category that you would like to set the budget for, "
+                                + "type 0 to exit.");
                     }
                     inputVal = initialInput;
                     storage.saveBudgetToFile(budget);
                     continue;
                 case 2:
-                    inputVal = "Please type in the category that you would like to change the budget for, "
-                            + "type 0 to exit.";
-                    category = ui.confirmPrompt(inputVal);
+                    if (budget.getBudgetSize()  == 0) {
+                        ui.setOutput("You have yet to set a budget for any category. Please set at least one.");
+                        ui.showResponse();
+                        inputVal = initialInput;
+                        continue;
+                    }
+
+                    category = initialPrompt(catList, ui, budget,
+                            "Please type in the category that you would like to change the budget for, "
+                        + "type 0 to exit");
+
                     while (!category.equals("0")) {
                         if (!inCategoryList(category, catList)) {
-                            throw new MooMooException(category + " does not exist. Please create it first.");
-                        }
-                        inputVal = "Please type in the budget that you would like to change to for " + category;
-                        double addedBudget = 0;
-                        try {
-                            addedBudget = Double.parseDouble(ui.confirmPrompt(inputVal));
-                            if (addedBudget <= 0) {
-                                throw new MooMooException("The budget set for " + category + " is invalid. "
-                                        + "Please type in a positive number greater than 0");
-                            }
-                        } catch (NumberFormatException e) {
-                            throw new MooMooException("The budget to set for " + category + " is invalid. "
-                                    + "Please type in a positive number greater than 0");
-                        }
-                        if (budget.getBudgetFromCategory(category) == 0) {
-                            throw new MooMooException("The budget for " + category + " has already been set. "
-                                    + "Please edit it using budget edit.");
-                        }
-                        double oldBudget = budget.getBudgetFromCategory(category);
-                        if (oldBudget == addedBudget) {
-                            ui.setOutput("The budget for " + category + " is the same.\n");
-                            inputVal = "Please type in the category that you would like to set the budget for, "
-                                    + "type 0 to exit.";
-                            category = ui.confirmPrompt(inputVal);
+                            ui.setOutput(category + " does not exist. Please create it first.");
+                            ui.showResponse();
+                            category = initialPrompt(catList, ui, budget,
+                                    "Please type in the category that you would like to change the budget for, "
+                                    + "type 0 to exit.");
                             continue;
                         }
+                        inputVal = "Please type in the budget that you would like to change to for " + category;
+                        String inputBudget = ui.confirmPrompt(inputVal);
 
-                        budget.addNewBudget(category, addedBudget);
-                        ui.setOutput("You have changed the budget for " + category + " from $"
-                                + df.format(oldBudget) + " to $" + df.format(addedBudget) + "\n");
+                        ui.setOutput(editBudget(budget, inputBudget, category));
                         ui.showResponse();
 
-                        inputVal = "Please type in the category that you would like to set the budget for, "
-                                + "type 0 to exit.";
-                        category = ui.confirmPrompt(inputVal);
+                        category = initialPrompt(catList, ui, budget,
+                                "Please type in the category that you would like to change the budget for, "
+                                + "type 0 to exit.");
                     }
                     inputVal = initialInput;
                     storage.saveBudgetToFile(budget);
                     continue;
                 case 3:
-                    inputVal = "Please type in the category that you would like to view the budget for, "
-                            + "type 0 to exit or all to view all categories.";
-                    category = ui.confirmPrompt(inputVal);
+                    if (budget.getBudgetSize()  == 0) {
+                        ui.setOutput("You have yet to set a budget for any category. Please set at least one.");
+                        ui.showResponse();
+                        inputVal = initialInput;
+                        continue;
+                    }
+
+                    category = initialPrompt(catList, ui, budget,
+                            "Please type in the category that you would like to view the budget for, "
+                        + "type 0 to exit or leave blank to view all categories.");
+
                     while (!category.equals("0")) {
-                        if (category.equals("all")) {
+                        if (category.equals("")) {
                             ui.setOutput(budget.toString().substring(0, budget.toString().length() - 1));
                             ui.showResponse();
+                            category = initialPrompt(catList, ui, budget,
+                                    "Please type in the category that you would like to view the budget for, "
+                                    + "type 0 to exit or leave blank to view all categories.");
                             continue;
                         }
 
                         if (!inCategoryList(category, catList)) {
-                            throw new MooMooException(category + " does not exist. Please create it first.");
+                            ui.setOutput(category + " does not exist. Please create it first.");
+                            ui.showResponse();
+                            category = initialPrompt(catList, ui, budget,
+                                    "Please type in the category that you would like to view the budget for, "
+                                    + "type 0 to exit or leave blank to view all categories.");
+                            continue;
                         }
 
                         ui.setOutput(budget.toStringCategory(category));
                         ui.showResponse();
 
-                        inputVal = "Please type in the category that you would like to view the budget for, "
-                                + "type 0 to exit or all to view all categories.";
-                        category = ui.confirmPrompt(inputVal);
+                        category = initialPrompt(catList, ui, budget,
+                                "Please type in the category that you would like to view the budget for, "
+                                + "type 0 to exit or leave blank to view all categories.");
                     }
                     inputVal = initialInput;
                     continue;
                 case 4:
-                    inputVal = "Please type in the category that you would like to view your savings for, "
-                            + "type 0 to exit or leave it blank to view all.";
-                    category = ui.confirmPrompt(inputVal);
+                    if (budget.getBudgetSize()  == 0) {
+                        ui.setOutput("You have yet to set a budget for any category. Please set at least one.");
+                        ui.showResponse();
+                        inputVal = initialInput;
+                        continue;
+                    }
+                    category = initialPrompt(catList, ui, budget,
+                            "Please type in the category that you would like to view your savings for, "
+                            + "type 0 to exit or leave it blank to view all.");
+
                     while (!category.equals("0")) {
                         if (!category.equals("") && !inCategoryList(category, catList)) {
-                            throw new MooMooException(category + " does not exist. Please create it first.");
+                            ui.setOutput(category + " does not exist. Please create it first.");
+                            ui.showResponse();
+                            category = initialPrompt(catList, ui, budget,
+                                    "Please type in the category that you would like to view your savings for, "
+                                    + "type 0 to exit or leave it blank to view all.");
+                            continue;
                         }
+
                         inputVal = "Please type in the start month and year (01/2019).";
                         String startMonth = ui.confirmPrompt(inputVal);
 
                         inputVal = "Please type in the end period or leave blank to view for a month (10/2019).";
                         String endMonth = ui.confirmPrompt(inputVal);
 
-                        LocalDate start = parseMonth(startMonth.strip());
-                        LocalDate end = parseMonth(endMonth.strip());
-
-                        if (!endMonth.equals("") && end == null) {
-                            throw new MooMooException("Please set your start and end month in this format \"05/2019\"");
-                        }
-
-                        if (!startMonth.equals("") && start == null) {
-                            throw new MooMooException("Please set your start and end month in this format \"05/2019\"");
-                        }
-
-                        if (end != null && end.isBefore(start)) {
-                            throw new MooMooException("Your end month is earlier than the start month.");
-                        }
-
-                        if (category.equals("")) {
-                            if (endMonth.equals("")) {
-                                ui.setOutput("Your total savings for " + start.getMonth()
-                                        + " " + start.getYear() + " is: ");
-                            } else {
-                                ui.setOutput("Your total savings from " + start.getMonth()
-                                        + " " + start.getYear() + " to "
-                                        + end.getMonth() + " " + end.getYear() + " is: ");
-                            }
-                        } else {
-                            if (!inCategoryList(category, catList)) {
-                                throw new MooMooException("The " + category + " does not exist."
-                                        + " Please create it first.");
-                            }
-                            if (budget.getBudgetFromCategory(category) == 0) {
-                                throw new MooMooException("The budget for " + category + " does not exist."
-                                        + "Please set it using budget set.");
-                            }
-                            if (endMonth.equals("")) {
-                                ui.setOutput("Your savings for " + category + " for " + start.getMonth()
-                                        + " " + start.getYear() + " is: $"
-                                        + df.format((budget.getBudgetFromCategory(category) - 0)) + "\n");
-                            } else {
-                                ui.setOutput("Your savings for " + category + " from " + start.getMonth() + " "
-                                        + start.getYear() + " to "
-                                        + end.getMonth() + " " + end.getYear() + " is: $"
-                                        + df.format((budget.getBudgetFromCategory(category) - 0)) + "\n");
-                            }
-                        }
+                        ui.setOutput(viewSavings(budget, ui, catList, startMonth, endMonth, category, null));
                         ui.showResponse();
-                        inputVal = "Please type in the category that you would like to view your savings for, "
-                                + "type 0 to exit or leave it blank to view all.";
-                        category = ui.confirmPrompt(inputVal);
+
+                        category = initialPrompt(catList, ui, budget,
+                                "Please type in the category that you would like to view your savings for, "
+                                + "type 0 to exit or leave it blank to view all.");
                     }
                     inputVal = initialInput;
                     continue;
@@ -481,5 +387,137 @@ public class BudgetCommand extends Command {
         return false;
     }
 
-    
+    private String addBudget(Budget budget, String inputBudget, String category) throws MooMooException {
+        double addedBudget = 0;
+        String outputValue;
+        try {
+            addedBudget = Double.parseDouble(inputBudget);
+            if (addedBudget <= 0) {
+                outputValue = "The budget set for " + category + " is invalid. "
+                        + "Please type in a positive number greater than 0";
+                return outputValue;
+            }
+        } catch (NumberFormatException e) {
+            outputValue = "The budget set for " + category + " is invalid. "
+                    + "Please type in a positive number greater than 0";
+            return outputValue;
+        }
+        if (budget.getBudgetFromCategory(category) != 0) {
+            outputValue = "The budget for " + category + " has already been set. "
+                    + "Please edit it using budget edit.";
+            return outputValue;
+        }
+        budget.addNewBudget(category, addedBudget);
+        outputValue = "You have set $" + df.format(addedBudget)
+                + " as the budget for " + category + "\n";
+
+        return outputValue;
+    }
+
+    private String editBudget(Budget budget, String inputBudget, String category) throws MooMooException {
+        double addedBudget = 0;
+        String outputValue;
+        try {
+            addedBudget = Double.parseDouble(inputBudget);
+            if (addedBudget <= 0) {
+                outputValue = "The budget set for " + category + " is invalid. "
+                        + "Please type in a positive number greater than 0";
+                return outputValue;
+            }
+        } catch (NumberFormatException e) {
+            outputValue = "The budget set for " + category + " is invalid. "
+                    + "Please type in a positive number greater than 0";
+            return outputValue;
+        }
+
+        if (budget.getBudgetFromCategory(category) == 0) {
+            outputValue = "The budget for " + category + " has already been set. "
+                    + "Please edit it using budget edit.";
+            return outputValue;
+        }
+
+        double oldBudget = budget.getBudgetFromCategory(category);
+
+        if (oldBudget == addedBudget) {
+            outputValue = "The budget for " + category + " is the same.\n";
+            return outputValue;
+        }
+
+        budget.addNewBudget(category, addedBudget);
+        outputValue = "You have changed the budget for " + category + " from $"
+                + df.format(oldBudget) + " to $" + df.format(addedBudget) + "\n";
+
+        return outputValue;
+    }
+
+    private String viewSavings(Budget budget, Ui ui, CategoryList catList, String startMonth,
+                               String endMonth, String category, List<String> categories) throws MooMooException {
+        String outputValue = "";
+        LocalDate start = parseMonth(startMonth.strip());
+        LocalDate end = parseMonth(endMonth.strip());
+
+        if (!endMonth.equals("") && end == null) {
+            outputValue = "Please set your start and end month in this format \"05/2019\"";
+            return outputValue;
+        }
+
+        if (!startMonth.equals("") && start == null) {
+            outputValue = "Please set your start and end month in this format \"05/2019\"";
+            return outputValue;
+        }
+
+        if (end != null && end.isBefore(start)) {
+            outputValue = "Your end month is earlier than your start month.";
+            return outputValue;
+        }
+
+        if (categories == null && category.equals("")) {
+            if (endMonth.equals("")) {
+                outputValue = "Your total savings for " + start.getMonth()
+                        + " " + start.getYear() + " is: ";
+            } else {
+                outputValue = "Your total savings from " + start.getMonth()
+                        + " " + start.getYear() + " to "
+                        + end.getMonth() + " " + end.getYear() + " is: ";
+            }
+        } else {
+            if (!category.equals("") && categories == null) {
+                categories = new ArrayList<>();
+                categories.add(category);
+            }
+            for (String iteratorCategory : categories) {
+                if (!inCategoryList(iteratorCategory, catList)) {
+                    throw new MooMooException("The " + iteratorCategory + " does not exist."
+                            + " Please create it first.");
+                }
+                if (budget.getBudgetFromCategory(iteratorCategory) == 0) {
+                    throw new MooMooException("The budget for " + iteratorCategory + " does not exist."
+                            + "Please set it using budget set.");
+                }
+                if (endMonth.equals("")) {
+                    outputValue += "Your savings for " + iteratorCategory + " for " + start.getMonth()
+                            + " " + start.getYear() + " is: $"
+                            + df.format((budget.getBudgetFromCategory(iteratorCategory) - 0)) + "\n";
+                } else {
+                    outputValue += "Your savings for " + iteratorCategory + " from " + start.getMonth() + " "
+                            + start.getYear() + " to "
+                            + end.getMonth() + " " + end.getYear() + " is: $"
+                            + df.format((budget.getBudgetFromCategory(iteratorCategory) - 0)) + "\n";
+                }
+            }
+        }
+        return outputValue;
+    }
+
+    private String initialPrompt(CategoryList catList, Ui ui, Budget budget, String promptValue) {
+        String outputValue = "CATEGORIES:\n";
+        for (int i = 0; i < catList.getCategoryList().size(); ++i) {
+            String categoryName = catList.getCategoryList().get(i).getName();
+            outputValue +=  categoryName + "\n";
+        }
+
+        String inputVal = outputValue + promptValue;
+        String category = ui.confirmPrompt(inputVal);
+        return category;
+    }
 }

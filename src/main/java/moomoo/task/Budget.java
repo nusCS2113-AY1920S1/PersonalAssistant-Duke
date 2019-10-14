@@ -6,7 +6,7 @@ import java.util.Iterator;
 import java.util.Map;
 
 /**
- * Represents an event that allows for a timing to be set.
+ * Holds a map for the budget for each category.
  */
 public class Budget {
 

@@ -88,9 +88,8 @@ public class Storage {
                 }
                 if (loadedBudgets == null) {
                     throw new MooMooException("Unable to load budget from file. Please reset your budget.");
-                } else {
-                    return loadedBudgets;
                 }
+                return loadedBudgets;
             } else {
                 throw new MooMooException("Budget File not found. New file will be created");
             }
