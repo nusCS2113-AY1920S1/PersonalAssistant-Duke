@@ -31,7 +31,6 @@ public class EditGoalsCommand extends Command {
         this.amount = amount;
         this.date = date;
         this.newName = newName;
-        System.out.println("Printing from:" + date);
     }
 
     /**
@@ -40,10 +39,10 @@ public class EditGoalsCommand extends Command {
      * @param profile Profile of the user.
      * @param ui      Ui of OwlMoney.
      * @return false so OwlMoney will not terminate yet.
+     * @throws GoalsException If goal does not exists / invalid parameters provided
      */
     @Override
     public boolean execute(Profile profile, Ui ui) throws GoalsException {
-        System.out.println("Printing from execute:" + date);
         profile.editGoals(name, amount, date, newName, ui);
         return this.isExit;
     }

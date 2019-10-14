@@ -2,6 +2,7 @@ package owlmoney.model.goals;
 
 import owlmoney.model.bank.Saving;
 
+import java.text.DecimalFormat;
 import java.util.Date;
 
 /**
@@ -11,7 +12,6 @@ public class Goals {
     private String name;
     private double amount;
     private Date date;
-    private Saving savingacc;
     private int days;
 
     /**
@@ -60,8 +60,8 @@ public class Goals {
      * @return name, amount and date of goal in the corrected format.
      */
     protected String getGoalsDetails() {
-        return "To accomplish: " + getGoalsName()
-                + "\nAmount to save: $" + getGoalsAmount() + ".0\nBy: " + getGoalsDate();
+        return "To accomplish: " + getGoalsName() + "\nAmount to save: $"
+                + new DecimalFormat("0.00").format(getGoalsAmount()) + "\nBy: " + getGoalsDate();
     }
 
     /**

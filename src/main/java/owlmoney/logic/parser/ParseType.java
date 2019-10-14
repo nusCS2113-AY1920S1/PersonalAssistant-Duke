@@ -57,7 +57,7 @@ class ParseType extends Parser {
     private static final String BANK = "bank";
     private static final String CARD = "card";
     private static final String BOND = "bond";
-    private static final String GOALS = "/goals";
+    private static final String GOALS = "goals";
 
     /**
      * Determines the type of command and checks if it is of valid type.
@@ -70,9 +70,6 @@ class ParseType extends Parser {
      * @throws ParserException if the user specified an invalid type.
      */
     Command parseData(String command, String data) throws ParserException {
-        if ("/goals".equals(data)) {
-            return parseTypeMenu(command, GOALS, GOALS);
-        }
         String type = parseFirstField(data);
         if (!TYPE_KEYWORD_LISTS.contains(type)) {
             throw new ParserException(type + " is an invalid type");

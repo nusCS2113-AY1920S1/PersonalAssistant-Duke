@@ -21,13 +21,12 @@ public abstract class ParseGoals {
     ParseRawData parseRawData = new ParseRawData();
     String rawData;
 
-    private static final String[] GOALS_KEYWORD = new String[] {"/name", "/amount", "/by", "/newname"};
+    private static final String[] GOALS_KEYWORD = new String[] {"/name", "/amount", "/by", "/newname", "/from", "/num"};
     private static final List<String> GOALS_KEYWORD_LISTS = Arrays.asList(GOALS_KEYWORD);
     static final String NAME = "/name";
     static final String AMOUNT = "/amount";
     static final String BY = "/by";
     static final String NEW_NAME = "/newname";
-    static final String DATE = "/date";
     static final String FROM = "/from";
     static final String NUM = "/num";
 

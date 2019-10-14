@@ -60,9 +60,7 @@ public class GoalsList {
      */
     public void deleteFromGoalList(String goalName, Ui ui) throws GoalsException {
         if (goalList.size() <= 0) {
-            throw new GoalsException("You have yet to set any goals!");
-        } else if (goalList.size() == 1) {
-            ui.printError("You should have at least 1 goal set");
+            throw new GoalsException("There are no goals set!");
         } else {
             for (int i = 0; i < goalList.size(); i++) {
                 if (goalList.get(i).getGoalsName().equals(goalName)) {
@@ -118,7 +116,6 @@ public class GoalsList {
      */
     public void editGoals(String goalName, String amount, String date, String newName, Ui ui) throws GoalsException {
         for (int i = 0; i < goalList.size(); i++) {
-            System.out.println("GoalList:" + date);
             if (goalList.get(i).getGoalsName().equals(goalName)) {
                 if (!(newName.isEmpty() || newName.isBlank())) {
                     compareGoals(goalList.get(i), newName);

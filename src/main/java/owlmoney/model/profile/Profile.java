@@ -339,10 +339,9 @@ public class Profile {
      * @param date new targeted date to meet goal.
      * @param newName new name for the goal.
      * @param ui required for printing.
-     * @throws GoalsException If goal does not exists
+     * @throws GoalsException If goal does not exists.
      */
     public void editGoals(String goalName, String amount, String date, String newName, Ui ui) throws GoalsException {
-        System.out.println("Printing from Profile: " + date);
         goalsList.editGoals(goalName, amount, date, newName, ui);
     }
 }

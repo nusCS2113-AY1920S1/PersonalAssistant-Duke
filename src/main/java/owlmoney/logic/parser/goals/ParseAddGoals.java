@@ -13,7 +13,7 @@ import java.util.Iterator;
 public class ParseAddGoals extends ParseGoals {
 
     private static final String ADD = "/add";
-    private Date date;
+    private Date by;
 
     /**
      * Creates instance of ParseAddGoals Class.
@@ -24,7 +24,6 @@ public class ParseAddGoals extends ParseGoals {
     public ParseAddGoals(String data) throws ParserException {
         super(data);
         checkRedundantParameter(NEW_NAME, ADD);
-        checkRedundantParameter(DATE, ADD);
         //check wrong parameter e.g. if user accidentally keys in /date instead of by
         checkFirstParameter();
     }
@@ -43,15 +42,18 @@ public class ParseAddGoals extends ParseGoals {
             String value = goalsParameters.get(key);
             if (NAME.equals(key) && (value.isBlank() || value.isEmpty())) {
                 throw new ParserException(key + " cannot be empty when adding new goals");
-            }
-            if (AMOUNT.equals(key)) {
-                checkAmount(value);
-            }
-            if (NAME.equals(key)) {
+            } else if (NAME.equals(key)) {
                 checkName(NAME, value);
             }
-            if (BY.equals(key)) {
-                date = checkDate(value);
+            if (AMOUNT.equals(key) && (value.isBlank() || value.isEmpty())) {
+                throw new ParserException(key + " cannot be empty when adding new goals");
+            } else if (AMOUNT.equals(key)) {
+                checkAmount(value);
+            }
+            if (BY.equals(key) && (value.isBlank() || value.isEmpty())) {
+                throw new ParserException(key + " cannot be empty when adding new goals");
+            } else if (BY.equals(key)) {
+                by = checkDate(value);
             }
         }
     }
@@ -64,7 +66,7 @@ public class ParseAddGoals extends ParseGoals {
     @Override
     public Command getCommand() {
         AddGoalsCommand newAddGoalsCommand = new AddGoalsCommand(goalsParameters.get(NAME),
-                Double.parseDouble(goalsParameters.get(AMOUNT)), date);
+                Double.parseDouble(goalsParameters.get(AMOUNT)), by);
         return newAddGoalsCommand;
     }
 }

@@ -36,6 +36,7 @@ public class AddGoalsCommand extends Command {
      * @param profile Profile of the user.
      * @param ui      Ui of OwlMoney.
      * @return false so OwlMoney will not terminate yet.
+     * @throws GoalsException invalid parameters / attempt to add the same goal name.
      */
     @Override
     public boolean execute(Profile profile, Ui ui) throws GoalsException {
