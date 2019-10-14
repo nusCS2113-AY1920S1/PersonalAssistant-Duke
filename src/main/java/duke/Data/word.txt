@@ -12,3 +12,4 @@ bye
 update
 clear
 edit
+history
