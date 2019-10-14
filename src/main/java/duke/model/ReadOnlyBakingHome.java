@@ -18,8 +18,20 @@ public interface ReadOnlyBakingHome {
      * Returns an unmodifiable view of the order list.
      */
     ObservableList<Order> getOrderList();
+
+    /**
+     * Returns an unmodifiable view of the sale list.
+     */
     ObservableList<Sale> getSaleList();
+
+    /**
+     * Returns an unmodifiable view of the product list.
+     */
     ObservableList<Product> getProductList();
+
+    /**
+     * Returns an unmodifiable view of the inventory list.
+     */
     ObservableList<Ingredient> getInventoryList();
 
     List<Shortcut> getShortcutList();

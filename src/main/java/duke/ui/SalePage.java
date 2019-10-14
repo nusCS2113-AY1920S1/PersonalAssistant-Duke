@@ -12,7 +12,6 @@ import java.util.logging.Logger;
 
 public class SalePage extends UiPart<AnchorPane> {
     private static final String FXML = "SalePage.fxml";
-    private final Logger logger = LogsCenter.getLogger(OrderPage.class);
 
     @FXML
     private ListView<Sale> saleListView;

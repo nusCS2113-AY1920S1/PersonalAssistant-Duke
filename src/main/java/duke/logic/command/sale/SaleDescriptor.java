@@ -13,7 +13,8 @@ public class SaleDescriptor {
     private Date saleDate;
     private String remarks;
 
-    public SaleDescriptor() {}
+    public SaleDescriptor() {
+    }
 
     /**
      * Copy constructor.

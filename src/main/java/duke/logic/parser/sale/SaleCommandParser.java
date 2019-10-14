@@ -15,12 +15,12 @@ public class SaleCommandParser implements SubCommandParser<SaleCommand> {
         String args = SubCommandParser.getArgs(subCommandAndArgs);
 
         switch (subCommand) {
-            case AddSaleCommand.COMMAND_WORD:
-                return new AddSaleCommandParser().parse(args);
-            case EditSaleCommand.COMMAND_WORD:
-                return new EditSaleCommandParser().parse(args);
-            default:
-                throw new ParseException(Message.MESSAGE_UNKNOWN_COMMAND);
+        case AddSaleCommand.COMMAND_WORD:
+            return new AddSaleCommandParser().parse(args);
+        case EditSaleCommand.COMMAND_WORD:
+            return new EditSaleCommandParser().parse(args);
+        default:
+            throw new ParseException(Message.MESSAGE_UNKNOWN_COMMAND);
         }
     }
 }

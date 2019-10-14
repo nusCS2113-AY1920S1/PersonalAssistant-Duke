@@ -21,7 +21,7 @@ public class SaleCard extends UiPart<AnchorPane> {
     @FXML
     private FlowPane itemFlow;
     @FXML
-    private Label Id;
+    private Label id;
     @FXML
     private Label value;
     @FXML
@@ -33,7 +33,7 @@ public class SaleCard extends UiPart<AnchorPane> {
 
     public SaleCard(Sale sale, int displayedIndex) {
         super(FXML);
-        Id.setText(Long.toString(sale.getId()));
+        id.setText(Long.toString(sale.getId()));
         value.setText(Double.toString(sale.getValue()));
         saleDate.setText(TimeParser.convertDateToString(sale.getSaleDate()));
         description.setText(sale.getDescription());
