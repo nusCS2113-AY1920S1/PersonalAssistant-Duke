@@ -11,7 +11,6 @@ import java.util.Objects;
  */
 public class AutoCompleter {
     private List<Class<? extends Command>> commandClasses;
-    private List<Prefix> prefixes;
 
     private UserInputState previousUserInputState;
     private List<String> autoCompletionResults;
@@ -22,7 +21,6 @@ public class AutoCompleter {
      */
     public AutoCompleter() {
         commandClasses = new ArrayList<>();
-        prefixes = new ArrayList<>();
 
         previousUserInputState = new UserInputState("$", -1);
         autoCompletionResults = new ArrayList<>();
@@ -65,21 +63,23 @@ public class AutoCompleter {
         }
     }
 
-    public void addPrefix(Prefix prefix) {
-        if (!this.prefixes.contains(prefix)) {
-            this.prefixes.add(prefix);
-        }
-    }
-
     private String getCompletedWord(UserInputState state) {
         String completedWord;
+
         if (state.equals(previousUserInputState)) {
             completedWord = autoCompletionResults.get(resultPointer);
+        } else if (getMatchingCommand(state.userInputString) != null) {
+            completeCommandParameters(getCurrentWord(state.userInputString, state.caretPosition),
+                    getMatchingCommand(state.userInputString)
+            );
+            resultPointer = 0;
+            completedWord = autoCompletionResults.get(0);
         } else {
-            completeWord(getCurrentWord(state.userInputString, state.caretPosition));
+            completeCommandWord(getCurrentWord(state.userInputString, state.caretPosition));
             resultPointer = 0;
             completedWord = autoCompletionResults.get(0);
         }
+
         resultPointer = (resultPointer + 1) % autoCompletionResults.size();
         return completedWord;
     }
@@ -109,21 +109,29 @@ public class AutoCompleter {
                 getSelectionEnd(commandText, caretPosition) + 1);
     }
 
-    private void completeWord(String toComplete) {
+    private void completeCommandWord(String toComplete) {
         autoCompletionResults.clear();
 
         for (Class<? extends Command> commandClass : commandClasses) {
-            String commandWord;
-            try {
-                commandWord = (String) commandClass.getField("COMMAND_WORD").get(null);
-            } catch (NoSuchFieldException | IllegalAccessException e) {
-                autoCompletionResults.add(toComplete);
-                return;
-            }
+            String commandWord = getCommandWord(commandClass);
             assert commandWord != null;
             if (commandWord.startsWith(toComplete)) {
                 autoCompletionResults.add(commandWord);
             }
+        }
+
+        if (autoCompletionResults.isEmpty()) {
+            autoCompletionResults.add(toComplete);
+        }
+    }
+
+    private void completeCommandParameters(String toComplete, Class<? extends Command> commandClass) {
+        autoCompletionResults.clear();
+        Prefix[] prefixes = getCommandParameters(commandClass);
+
+        if (prefixes == null) {
+            autoCompletionResults.add(toComplete);
+            return;
         }
 
         for (Prefix prefix : prefixes) {
@@ -145,6 +153,47 @@ public class AutoCompleter {
 
     private int getNewCaretPosition(int oldPosition, String oldWord, String newWord) {
         return oldPosition - oldWord.length() + newWord.length();
+    }
+
+    private String getCommandIndicator(Class<? extends Command> commandClass) {
+        try {
+            return (String) commandClass.getField("AUTO_COMPLETE_INDICATOR").get(null);
+        } catch (NoSuchFieldException | IllegalAccessException e) {
+            return "";
+        }
+    }
+
+    private String getCommandWord(Class<? extends Command> commandClass) {
+        try {
+            return (String) commandClass.getField("COMMAND_WORD").get(null);
+        } catch (NoSuchFieldException | IllegalAccessException e) {
+            return "";
+        }
+    }
+
+    private Prefix[] getCommandParameters(Class<? extends Command> commandClass) {
+        try {
+            return (Prefix[]) commandClass.getField("AUTO_COMPLETE_PARAMETERS").get(null);
+        } catch (NoSuchFieldException | IllegalAccessException e) {
+            return null;
+        }
+    }
+
+    private Class<? extends Command> getMatchingCommand(String userInput) {
+        String userInputWithoutConsecutiveSpaces = userInput.strip().replaceAll(" +", " ");
+
+        for (Class<? extends Command> commandClass : commandClasses) {
+            String indicator = getCommandIndicator(commandClass);
+            if (indicator.isEmpty()) {
+                continue;
+            }
+
+            if (userInputWithoutConsecutiveSpaces.startsWith(indicator)) {
+                return commandClass;
+            }
+        }
+
+        return null;
     }
 
     /**
