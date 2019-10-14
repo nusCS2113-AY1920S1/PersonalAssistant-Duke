@@ -108,7 +108,7 @@ public class Parser {
             return new DoneCommand(indexOfTask);
 
         case "remind":
-            return parseRemind(command, userInput);
+            return new RemindParser(userInput, command).parse();
 
         case "postpone":
             atDate = nullDate;
@@ -190,41 +190,12 @@ public class Parser {
         }
     }
 
-    private static Command parseRemind(String command, String userInput) throws DukeException {
-        String description;
-        int indexOfTask;
-        int days;
-
-        description = extractDescription(command, userInput);
-        indexOfTask = extractIndexOfTask(description);
-        days = extractReminderValue(description);
-
-        assert indexOfTask >= 0;
-        assert days > 0;
-        return new RemindCommand(indexOfTask, days);
-    }
-
     private static String extractDescription(String command, String userInput) throws DukeException {
         try {
             return userInput.split("\\s+", 2)[1].trim();
         } catch (ArrayIndexOutOfBoundsException e) {
             throw new DukeException(DukeException.emptyUserDescription());
         }
-    }
-
-    private static int extractIndexOfTask(String description) throws DukeException {
-        int index;
-        index = Integer.parseInt(description.split("in", 2)[0].trim()) - 1;
-        if (index <= 0) {
-            throw new DukeException("Non-positive number for index detected." +
-                    " Please input a positive number for task index.");
-        }
-        return index;
-    }
-
-    private static int extractReminderValue(String description) {
-        String substring = description.split("in", 2)[1].trim();
-        return Integer.parseInt(substring.split("\\s+", 2)[0].trim());
     }
 
     private static Command parseDeadline(String command, String userInput) throws DukeException {

@@ -8,6 +8,7 @@ public abstract class Parse {
     String userInput;
     String command;
     String taskFeatures;
+    String checkType;
 
     public Parse(String userInput, String command) {
         this.userInput = userInput;
