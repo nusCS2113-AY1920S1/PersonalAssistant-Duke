@@ -107,9 +107,9 @@ public class ContactsCommandTest {
 
     @Test
     void testListContactsCommand() {
-        String LINE_BREAK = "------------------------------------------\n";
         HashMap<String, String> map = new HashMap<>(); //Read the file
         Map<String, String> contact = new TreeMap<String, String>(map);
+        String LINE_BREAK = "------------------------------------------\n";
         contact.put("janel", "9625 1722");
         contact.put("jason", "9825 1822");
         ListContactCommand test = new ListContactCommand(contact, LINE_BREAK);

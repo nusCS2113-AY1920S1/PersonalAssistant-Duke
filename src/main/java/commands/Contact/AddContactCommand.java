@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.util.Map;
 
 public class AddContactCommand {
+
     /**
      * This method allows add new contact into the contact page
      *

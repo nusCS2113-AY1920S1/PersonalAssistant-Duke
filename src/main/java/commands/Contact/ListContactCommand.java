@@ -4,6 +4,7 @@ package commands.Contact;
 import java.util.Map;
 
 public class ListContactCommand {
+
     /**
      * This method list out all the phone numbers.
      *

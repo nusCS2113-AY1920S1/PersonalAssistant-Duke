@@ -6,6 +6,7 @@ import UI.Ui;
 import java.util.Map;
 
 public class FindContactCommand {
+
     /**
      * This method finds the contact number with the contact name.
      *

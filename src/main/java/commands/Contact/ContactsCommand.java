@@ -9,7 +9,6 @@ import java.io.IOException;
 import java.util.*;
 
 public class ContactsCommand extends Command {
-
     /**
      * This method is the list of all the contact numbers and you got add/find/delete contacts.
      *

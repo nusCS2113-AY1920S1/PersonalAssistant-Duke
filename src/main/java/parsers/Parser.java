@@ -46,16 +46,15 @@ public class Parser {
             return new TimeboundCommand();
         } else if (splitCommand[0].equals("find")) {
             return new FindCommand();
-        }
-        else if(command.equals("contact")) {
+        } else if (command.equals("contact")) {
             return new ContactsCommand();
-        }else if (splitCommand[0].equals("bye")) {
+        } else if (splitCommand[0].equals("bye")) {
             return new ByeCommand();
         } else if (command.contains("/require")) {
             return new FixDurationCommand();
         } else if (splitCommand[0].equals("reschedule")) {
             return new RescheduleCommand();
-        } else if(splitCommand[0].equals("sort")){
+        } else if (splitCommand[0].equals("sort")) {
             return new SortCommand();
         } else if (splitCommand[0].equals("scheduleDaily")) {
             return new ScheduleDailyCommand();
@@ -82,13 +81,12 @@ public class Parser {
         } else if (splitCommand[0].equals("deleteNote")) {
             return new DeleteNoteCommand();
         } else if (splitCommand[0].equals("listNote")) {
-                return new ListNoteCommand();
+            return new ListNoteCommand();
         } else if ((splitCommand[0] + " " + splitCommand[1]).equals("change password")) {
             return new ChangePasswordCommand();
         } else if (command.contains("#")) {
             return new TagCommand();
-        }
-        else {
+        } else {
             throw new DukeException("OOPS!!! I'm sorry, but I don't know what that means :-(");
         }
     }
