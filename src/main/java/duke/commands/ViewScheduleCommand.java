@@ -5,13 +5,14 @@ import duke.storage.Storage;
 import duke.data.tasks.Task;
 import duke.data.tasks.TaskWithDates;
 import duke.data.UniqueTaskList;
-import duke.ui.Ui;
+
 import javafx.collections.transformation.SortedList;
 
 import java.time.LocalDateTime;
 
 public class ViewScheduleCommand extends Command {
     private LocalDateTime date;
+    private static final String MESSAGE_SHOW_CALENDAR = "Calendar is launching...";
 
     /**
      * Creates a new ViewScheduleCommand with the given date.
@@ -25,11 +26,10 @@ public class ViewScheduleCommand extends Command {
     /**
      * Executes this command on the given task list and user interface.
      *
-     * @param ui The user interface displaying events on the task list.
-     * @param storage The duke.storage object containing task list.
+     * @param storage The storage object containing task list.
      */
     @Override
-    public void execute(Ui ui, Storage storage) throws DukeException {
+    public CommandResult execute(Storage storage) throws DukeException {
         SortedList<Task> tasks = storage.getTasks().getChronoList();
         UniqueTaskList result = new UniqueTaskList();
 
@@ -41,7 +41,9 @@ public class ViewScheduleCommand extends Command {
                 result.add(task);
             }
         }
-        ui.showList(result);
-        ui.showCalendar(storage.getTasks());
+        CommandResult commandResult = new CommandResult(MESSAGE_SHOW_CALENDAR);
+        commandResult.setCalendar(true);
+        commandResult.setTasks(storage.getTasks());
+        return commandResult;
     }
 }

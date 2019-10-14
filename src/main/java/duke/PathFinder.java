@@ -4,8 +4,8 @@ import duke.commons.exceptions.DukeException;
 import duke.data.BusService;
 import duke.data.BusStop;
 import duke.data.Location;
-import duke.parsers.api.ApiConstraintParser;
-import duke.parsers.api.ApiParser;
+import duke.logic.api.ApiConstraintParser;
+import duke.logic.api.ApiParser;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -47,9 +47,9 @@ public class PathFinder {
     /**
      * Find path between start and end.
      *
-     * @param start starting location
-     * @param end ending location
-     * @return path
+     * @param start starting location.
+     * @param end ending location.
+     * @return path.
      */
     public ArrayList<BusStop> execute(Location start, Location end) {
         BusStop startBusStop = ApiConstraintParser.getNearestBusStop(start, this.busStopMap);

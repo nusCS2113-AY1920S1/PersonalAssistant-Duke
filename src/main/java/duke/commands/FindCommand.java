@@ -4,7 +4,6 @@ import duke.commons.exceptions.DukeException;
 import duke.storage.Storage;
 import duke.data.tasks.Task;
 import duke.data.UniqueTaskList;
-import duke.ui.Ui;
 
 /**
  * Class representing a command to find a task by keyword.
@@ -24,11 +23,10 @@ public class FindCommand extends Command {
     /**
      * Executes this command on the given task list and user interface.
      *
-     * @param ui The user interface displaying events on the task list.
-     * @param storage The duke.storage object containing task list.
+     * @param storage The storage object containing task list.
      */
     @Override
-    public void execute(Ui ui, Storage storage) throws DukeException {
+    public CommandResult execute(Storage storage) throws DukeException {
         UniqueTaskList tasks = storage.getTasks();
         UniqueTaskList result = new UniqueTaskList();
         for (Task task: tasks) {
@@ -36,6 +34,6 @@ public class FindCommand extends Command {
                 result.add(task);
             }
         }
-        ui.showList(result);
+        return new CommandResult(result);
     }
 }

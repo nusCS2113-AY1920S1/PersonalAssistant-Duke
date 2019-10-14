@@ -1,10 +1,10 @@
 package duke.commands;
 
+import duke.commons.Messages;
 import duke.commons.exceptions.DukeException;
 import duke.data.BusStop;
-import duke.parsers.api.ApiParser;
+import duke.logic.api.ApiParser;
 import duke.storage.Storage;
-import duke.ui.Ui;
 
 import java.util.HashMap;
 
@@ -16,14 +16,15 @@ public class GetBusStopCommand extends Command {
     }
 
     @Override
-    public void execute(Ui ui, Storage storage) throws DukeException {
+    public CommandResult execute(Storage storage) throws DukeException {
         HashMap<String, BusStop> allBus = ApiParser.getBusStop();
         if (allBus.containsKey(this.buscode)) {
-            ui.show("This is the information for this Bus Stop:\n"
+            return new CommandResult("This is the information for this Bus Stop:\n"
                     + allBus.get(this.buscode).getAddress() + "\n"
                     + allBus.get(this.buscode).getLatitude() + "\n"
                     + allBus.get(this.buscode).getLongitude());
         }
+        throw new DukeException(Messages.DATA_NOT_FOUND);
     }
 
 }

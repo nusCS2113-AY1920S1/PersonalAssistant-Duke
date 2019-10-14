@@ -17,4 +17,5 @@ public class Messages {
     public static final String DATA_NOT_FOUND = "☹ I'm sorry, something went wrong while fetching data. :-(";
     public static final String TASK_NOT_HOLIDAY = "Sorry, the numbers you entered are not a holiday destination.";
     public static final String REQUEST_TIMEOUT = "☹ I'm sorry, but the request has timed out... :-(";
+    public static final String PARSE_ERROR = "Parsing failed.";
 }

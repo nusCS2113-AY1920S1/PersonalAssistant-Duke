@@ -1,5 +1,6 @@
 package duke.ui.map;
 
+import duke.commands.CommandResult;
 import duke.data.BusStop;
 import duke.data.Location;
 import duke.ui.UiPart;
@@ -47,8 +48,8 @@ public class MapWindow extends UiPart<Stage> {
     /**
      * Creates a new MapWindow.
      */
-    public MapWindow(List<BusStop> routes) {
-        this(new Stage(), routes);
+    public MapWindow(CommandResult commandResult) {
+        this(new Stage(), commandResult.getRoute());
     }
 
     /**

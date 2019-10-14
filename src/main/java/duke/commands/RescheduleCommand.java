@@ -5,13 +5,13 @@ import duke.commons.Messages;
 import duke.storage.Storage;
 import duke.data.tasks.Task;
 import duke.data.tasks.TaskWithDates;
-import duke.ui.Ui;
 
 import java.time.LocalDateTime;
 
 public class RescheduleCommand extends Command {
     private int index;
     private LocalDateTime newDate;
+    private static final String MESSAGE_UPDATE = "No problem! I've rescheduled this task:\n  ";
 
     /**
      * Creates a new RescheduleCommand with the given index and newDate of the task.
@@ -26,11 +26,10 @@ public class RescheduleCommand extends Command {
     /**
      * Executes this command on the given task list and user interface.
      *
-     * @param ui The user interface displaying events on the task list.
-     * @param storage The duke.storage object containing task list.
+     * @param storage The storage object containing task list.
      */
     @Override
-    public void execute(Ui ui, Storage storage) throws DukeException {
+    public CommandResult execute(Storage storage) throws DukeException {
         try {
             Task task =  storage.getTasks().get(index);
             if (task instanceof TaskWithDates) {
@@ -38,10 +37,10 @@ public class RescheduleCommand extends Command {
             } else {
                 throw new DukeException(Messages.TASK_NOT_FOUND);
             }
-            ui.showUpdateTask(task);
+            storage.write();
+            return new CommandResult(MESSAGE_UPDATE + task);
         } catch (IndexOutOfBoundsException e) {
             throw new DukeException(Messages.OUT_OF_BOUNDS);
         }
-        storage.write();
     }
 }
