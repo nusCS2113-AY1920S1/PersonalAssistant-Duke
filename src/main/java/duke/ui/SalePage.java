@@ -1,14 +1,11 @@
 package duke.ui;
 
-import duke.commons.core.LogsCenter;
 import duke.model.sale.Sale;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.AnchorPane;
-
-import java.util.logging.Logger;
 
 public class SalePage extends UiPart<AnchorPane> {
     private static final String FXML = "SalePage.fxml";

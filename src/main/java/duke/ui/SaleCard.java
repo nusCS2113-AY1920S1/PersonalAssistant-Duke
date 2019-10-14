@@ -14,7 +14,7 @@ import javafx.scene.layout.FlowPane;
  * sale date, value, and remarks.
  */
 public class SaleCard extends UiPart<AnchorPane> {
-    static final String FXML = "SaleCard.fxml";
+    private static final String FXML = "SaleCard.fxml";
 
     @FXML
     private AnchorPane innerPane;
