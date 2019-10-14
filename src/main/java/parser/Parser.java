@@ -56,8 +56,8 @@ public class Parser {
 
         switch (UserCommand.valueOf(command)) {
         case TODO:
-            if (userInput.contains(Flag.BETWEEN)) {
-                return TodoWithinPeriodParse.parse();
+            if (userInput.contains(Flag.BETWEEN.getFlag())) {
+                return new TodoWithinPeriodParse(userInput).parse();
             }
             return parseTodo(command, userInput);
         case DEADLINE:
@@ -210,30 +210,6 @@ public class Parser {
         return new AddCommand(command, taskDetails[0], null, null);
     }
 
-    private static Command parseToDoPeriod(String taskFeatures, String[] taskDetails, String checkType, String command)
-            throws DukeException {
-        String dateTimeFromUser = taskDetails[1];
-        String taskDescription = taskFeatures.split(checkType, 2)[0].trim();
-        String fromDate;
-        String toDate;
-        try {
-            fromDate = dateTimeFromUser.split("-", 2)[0].trim();
-            toDate = dateTimeFromUser.split("-", 2)[1].trim();
-        } catch (ArrayIndexOutOfBoundsException e) {
-            throw new DukeException(DukeException.emptyDateOrTime());
-        }
-        LocalDateTime to;
-        LocalDateTime from;
-        try {
-            to = DateTimeExtractor.extractDateTime(toDate, command);
-            from = DateTimeExtractor.extractDateTime(fromDate, command);
-        } catch (ParseException e) {
-            throw new DukeException(DukeException.wrongDateOrTime());
-
-        }
-        return new AddCommand(command, taskDescription, from, to);
-    }
-
     private static Command parseRemind(String command, String userInput) throws DukeException {
         String description;
         int indexOfTask;
@@ -327,18 +303,5 @@ public class Parser {
     private static Command parseIgnore(String userInput, Boolean isIgnore) {
         int index = Integer.parseInt(userInput.split("\\s+", 2)[1].trim()) - 1;
         return new IgnoreCommand(index, isIgnore);
-    }
-
-    private static Command parseDuration(String userInput, String[] taskDetails, String checktype, String command)
-            throws DukeException {
-        int duration;
-
-        String substring = userInput.split(checktype, 2)[1].trim();
-        try {
-            duration = Integer.parseInt(substring.split("\\s+", 2)[0].trim());
-        } catch (NumberFormatException e) {
-            throw new DukeException("Invalid duration format. Duration must be a number");
-        }
-        return new AddCommand(command, taskDetails[0].trim(), duration);
     }
 }

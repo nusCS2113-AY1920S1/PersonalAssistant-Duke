@@ -7,8 +7,12 @@ public enum Flag {
 
     private String flag;
 
-    private Flag(String flag) {
+    Flag(String flag) {
         this.flag = flag;
+    }
+
+    public String getFlag() {
+        return flag;
     }
 }
 

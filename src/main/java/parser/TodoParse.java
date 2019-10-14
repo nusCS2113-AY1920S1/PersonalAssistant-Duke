@@ -4,33 +4,31 @@ import command.AddCommand;
 import command.Command;
 import exception.DukeException;
 
+import java.text.ParseException;
+import java.time.LocalDateTime;
+
 public class TodoParse {
 
     String userInput;
     String command;
+    String taskFeatures;
+    String checkType;
+    String taskDescription;
 
     public TodoParse (String userInput) {
         this.userInput = userInput;
         this.command = "todo";
     }
 
-    private Command parse() throws DukeException {
-        String taskFeatures;
+    public Command parse() throws DukeException {
+        extract();
 
-        taskFeatures = removeCommandInput(userInput);
-        String checkType = checkFlags(taskFeatures);
-        String taskDescription = parseDetails(taskFeatures, checkType);
+        return new AddCommand(command, taskDescription, null, null);
+    }
 
-        switch(checkType) {
-            case "/between": {
-                return parseToDoPeriod(taskFeatures, taskDescription, checkType, command);
-            }
-            case "/for": {
-                return parseDuration(taskFeatures, taskDescription, checkType, command);
-            }
-            default:
-                return new AddCommand(command, taskDescription, null, null);
-        }
+    void extract() throws DukeException {
+        this.taskFeatures = removeCommandInput(userInput);
+        this.taskDescription = parseDetails(taskFeatures, checkType);
     }
 
     private String removeCommandInput(String userInput)  throws DukeException {
@@ -43,27 +41,23 @@ public class TodoParse {
         return taskFeatures;
     }
 
-    private String checkFlags(String taskFeatures) {
-        String checkType;
-
-        checkType = "/between";
-        String[] taskDetails = taskFeatures.split(checkType, 2);
-        if (taskDetails.length != 1) {
-            return "between";
-        }
-        checkType = "/for";
-        taskDetails = taskFeatures.split(checkType, 2);
-        if (taskDetails.length != 1) {
-            return "for";
-        }
-        return "";
-    }
-
     private String parseDetails(String taskFeatures, String checkType) {
-        if (checkType.equals("")) {
+        if (checkType == null) {
             return taskFeatures;
         }
         return taskFeatures.split(checkType,2)[0].trim();
     }
 
+    private static Command parseDuration(String userInput, String taskDescription, String checkType, String command)
+            throws DukeException {
+        int duration;
+
+        String substring = userInput.split(checkType, 2)[1].trim();
+        try {
+            duration = Integer.parseInt(substring.split("\\s+", 2)[0].trim());
+        } catch (NumberFormatException e) {
+            throw new DukeException("Invalid duration format. Duration must be a number");
+        }
+        return new AddCommand(command, taskDescription, duration);
+    }
 }
