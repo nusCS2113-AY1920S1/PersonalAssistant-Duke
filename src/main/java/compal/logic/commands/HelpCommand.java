@@ -17,23 +17,23 @@ import static compal.commons.Messages.MESSAGE_INVALID_HELP_INPUT;
 public class HelpCommand extends Command implements CommandParser {
     public static final String TOKEN_SEARCH = "/search";
     public static final String TOKEN_NUM = "/num";
-    public static final String  CLEAR_COMMAND = "1. clear";
-    public static final String  BYE_COMMAND = "2. bye";
-    public static final String  HELP_COMMAND = "3. help [/num <command id>|/search <key word>]";
-    public static final String  LIST_COMMAND = "4. list";
-    public static final String  FIND_COMMAND = "5. find <key word>";
-    public static final String  DELETE_COMMAND = "6. delete <task id>";
-    public static final String  DONE_COMMAND = "7. done <task id>";
-    public static final String  SET_REMINDER_COMMAND = "8. set-reminder <task id>";
-    public static final String  VIEW_COMMAND = "9. view /date <dd/mm/yyyy>";
-    public static final String  DEADLINE_COMMAND = "10. deadline <description> [/priority high|medium|low]"
+    public static final String CLEAR_COMMAND = "1. clear";
+    public static final String BYE_COMMAND = "2. bye";
+    public static final String HELP_COMMAND = "3. help [/num <command id>|/search <key word>]";
+    public static final String LIST_COMMAND = "4. list";
+    public static final String FIND_COMMAND = "5. find <key word>";
+    public static final String DELETE_COMMAND = "6. delete <task id>";
+    public static final String DONE_COMMAND = "7. done <task id>";
+    public static final String SET_REMINDER_COMMAND = "8. set-reminder <task id>";
+    public static final String VIEW_COMMAND = "9. view /date <dd/mm/yyyy>";
+    public static final String DEADLINE_COMMAND = "10. deadline <description> [/priority high|medium|low]"
             + "\n /date <dd/mm/yyyy> /end <hhhh>\n";
-    public static final String  EVENT_COMMAND = "11. event <description> [/priority high|medium|low]"
+    public static final String EVENT_COMMAND = "11. event <description> [/priority high|medium|low]"
             + "\n /date <dd/mm/yyyy> /start <hhhh> /end <hhhh>\n";
-    public static final String  RECUR_TASK_COMMAND = "12. recurtask <description> [/priority high|medium|low]"
+    public static final String RECUR_TASK_COMMAND = "12. recurtask <description> [/priority high|medium|low]"
             + "\n /date <dd/mm/yyyy> /start <hhhh> /end <hhhh>"
-        + "\n /edate <hhhh>|/rep <repeat time>\n";
-    public static final String  ACAD_COMMAND = "13. lec|tut|sec|lab <description> [/priority high|medium|low]"
+            + "\n /edate <hhhh>|/rep <repeat time>\n";
+    public static final String ACAD_COMMAND = "13. lec|tut|sec|lab <description> [/priority high|medium|low]"
             + "\n /date <dd/mm/yyyy>... /start <hhhh> /end <hhhh> /edate <dd/mm/yyyy>\n";
 
     private ArrayList<String> helpList;
@@ -99,7 +99,7 @@ public class HelpCommand extends Command implements CommandParser {
                 throw new Compal.DukeException(MESSAGE_INVALID_HELP_INPUT);
             }
         } else {
-            for (String command: helpList) {
+            for (String command : helpList) {
                 compal.ui.printg(command);
             }
         }
