@@ -1,16 +1,13 @@
-package Commands;
+package commands;
 
 import MovieUI.Controller;
 import MovieUI.MovieHandler;
-import task.Tasks;
 
-import java.util.Date;
 import java.util.Map;
-import java.util.TreeMap;
 
 public class HelpCommand extends CommandSuper {
     public HelpCommand(Controller UIController) {
-        super(COMMAND_KEYS.help, CommandStructure.cmdStructure.get(COMMAND_KEYS.help), UIController);
+        super(COMMANDKEYS.help, CommandStructure.cmdStructure.get(COMMANDKEYS.help), UIController);
     }
 
     @Override
@@ -25,9 +22,9 @@ public class HelpCommand extends CommandSuper {
             return "Try one of the following commands : \n" + CommandStructure.AllRoots.toString();
         }
         String printer = "";
-        for(Map.Entry<COMMAND_KEYS, COMMAND_KEYS[]> entry : CommandStructure.cmdStructure.entrySet()){
+        for(Map.Entry<COMMANDKEYS, COMMANDKEYS[]> entry : CommandStructure.cmdStructure.entrySet()){
             if(entry.getKey() == this.getSubRootCommand()) {
-                for(COMMAND_KEYS c: entry.getValue() ){
+                for(COMMANDKEYS c: entry.getValue() ){
                     printer += ("\n\t" + c.toString() + " " + CommandStructure.cmdHelp.get(getSubRootCommand()));
                 }
             }

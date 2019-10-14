@@ -1,4 +1,4 @@
-package Commands;
+package commands;
 
 import EPstorage.Blacklist;
 import MovieUI.Controller;
@@ -14,7 +14,7 @@ public class RemoveCommand extends CommandSuper
      * @param UIController
      */
     public RemoveCommand(Controller UIController) {
-        super(COMMAND_KEYS.remove, CommandStructure.cmdStructure.get(COMMAND_KEYS.remove), UIController);
+        super(COMMANDKEYS.remove, CommandStructure.cmdStructure.get(COMMANDKEYS.remove), UIController);
     }
 
     @Override

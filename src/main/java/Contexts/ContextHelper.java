@@ -1,13 +1,10 @@
 package Contexts;
 
-import Commands.*;
+import commands.*;
 import EPstorage.Blacklist;
-import Execution.CommandStack;
 import MovieUI.Controller;
 import MovieUI.MovieHandler;
-import wrapper.CommandPair;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Map;
@@ -107,7 +104,7 @@ public class ContextHelper {
     }
 
     private static boolean isRootCommandComplete(String Root){
-        for(COMMAND_KEYS c : CommandStructure.AllRoots){
+        for(COMMANDKEYS c : CommandStructure.AllRoots){
             if(c.toString() == Root){
                 return true;
             }
@@ -118,8 +115,8 @@ public class ContextHelper {
 
 
     private static boolean isSubRootCommandComplete(String SubRoot){
-        for( Map.Entry<COMMAND_KEYS, COMMAND_KEYS[]> e: CommandStructure.cmdStructure.entrySet()){
-            for(COMMAND_KEYS a: e.getValue()){
+        for( Map.Entry<COMMANDKEYS, COMMANDKEYS[]> e: CommandStructure.cmdStructure.entrySet()){
+            for(COMMANDKEYS a: e.getValue()){
                 if(e.toString() == SubRoot){
                     return true;
                 }

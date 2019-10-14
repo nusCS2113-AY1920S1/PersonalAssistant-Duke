@@ -1,4 +1,4 @@
-package Commands;
+package commands;
 
 import Contexts.SearchResultContext;
 import EPstorage.Blacklist;
@@ -11,7 +11,7 @@ import ListCommands.WatchlistHandler;
 public class AddCommand extends CommandSuper {
 
     public AddCommand(Controller uicontroller) {
-        super(COMMAND_KEYS.add, CommandStructure.cmdStructure.get(COMMAND_KEYS.add), uicontroller);
+        super(COMMANDKEYS.add, CommandStructure.cmdStructure.get(COMMANDKEYS.add), uicontroller);
     }
 
 
@@ -30,7 +30,7 @@ public class AddCommand extends CommandSuper {
     }
 
     /**
-     * Add items to the watchlist
+     * Add items to the watchlist.
      *
      */
     public void addToWatchList() {
@@ -43,9 +43,9 @@ public class AddCommand extends CommandSuper {
             WatchlistHandler.add(deadline);
             break;
         case " p ":
-            String sDate = this.getFlagMap().get("-s").get(0);
-            String eDate = this.getFlagMap().get("-e").get(0);
-            Period period = new Period(movie, "P", sDate, eDate);
+            String stDate = this.getFlagMap().get("-s").get(0);
+            String enDate = this.getFlagMap().get("-e").get(0);
+            Period period = new Period(movie, "P", stDate, enDate);
             WatchlistHandler.add(period);
             break;
         default:
@@ -55,18 +55,18 @@ public class AddCommand extends CommandSuper {
     }
 
     /**
-     * Check if payload is an integer
+     * Check if payload is an integer.
      *
-     * @param radix the chosen radix
-     * @param s string payload
+     * @param radix the chosen radix.
+     * @param s string payload.
      */
     public static boolean isInteger(String s, int radix) {
         if (s.isEmpty()) {
             return false;
         }
         for (int i = 0; i < s.length(); i++) {
-            if(i == 0 && s.charAt(i) == '-') {
-                if(s.length() == 1) {
+            if (i == 0 && s.charAt(i) == '-') {
+                if (s.length() == 1) {
                     return false;
                 } else {
                     continue;
@@ -80,7 +80,7 @@ public class AddCommand extends CommandSuper {
     }
 
     /**
-     * Add items to the blacklist
+     * Add items to the blacklist.
      *
      */
     public void addToBlackList() {

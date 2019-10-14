@@ -1,11 +1,11 @@
 package EPparser;
 
-import Commands.*;
+import commands.*;
 import Execution.CommandStack;
 import MovieUI.Controller;
 import MovieUI.MovieHandler;
 import wrapper.CommandPair;
-import Commands.COMMAND_KEYS;
+import commands.COMMANDKEYS;
 
 import java.io.IOException;
 import java.util.Arrays;
@@ -98,7 +98,7 @@ public class CommandParser {
                 CommandStack.pushCmd(removec);
                 break;
             default:
-                CommandPair pair = Command_Debugger.commandSpellChecker(CommandArr , COMMAND_KEYS.none , UIController);
+                CommandPair pair = Command_Debugger.commandSpellChecker(CommandArr , COMMANDKEYS.none , UIController);
         }
     }
     /**
@@ -177,8 +177,8 @@ public class CommandParser {
                 CommandStack.pushCmd(pfc);
                 break;
             default:
-                CommandPair pair = Command_Debugger.commandSpellChecker(CommandArr , COMMAND_KEYS.none, UIController);
-                if(pair.getSubRootCommand() == COMMAND_KEYS.none){
+                CommandPair pair = Command_Debugger.commandSpellChecker(CommandArr , COMMANDKEYS.none, UIController);
+                if(pair.getSubRootCommand() == COMMANDKEYS.none){
                     ((MovieHandler)UIController).setFeedbackText("Did you mean :"+ pair.getRootCommand() );
                 }else{
                     ((MovieHandler)UIController).setFeedbackText("Did you mean :"+ pair.getRootCommand() + " " + pair.getSubRootCommand() + " " + String.join(" ", Arrays.copyOfRange(CommandArr,2 , CommandArr.length)));

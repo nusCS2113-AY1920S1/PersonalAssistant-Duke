@@ -1,4 +1,4 @@
-package Commands;
+package commands;
 
 import EPstorage.ProfileCommands;
 import MovieUI.Controller;
@@ -8,7 +8,7 @@ import java.io.IOException;
 
 public class PreferenceCommand extends CommandSuper{
     public PreferenceCommand(Controller UIController) {
-        super(COMMAND_KEYS.preference, CommandStructure.cmdStructure.get(COMMAND_KEYS.preference) , UIController);
+        super(COMMANDKEYS.preference, CommandStructure.cmdStructure.get(COMMANDKEYS.preference) , UIController);
     }
 
     @Override

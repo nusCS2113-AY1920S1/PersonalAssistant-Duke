@@ -1,9 +1,8 @@
-package Commands;
+package commands;
 
 import java.util.HashSet;
 import java.util.Set;
 
-import Commands.CommandStructure;
 import MovieUI.Controller;
 import wrapper.CommandPair;
 
@@ -12,25 +11,25 @@ public class Command_Debugger {
     //TODO MOVE THIS SOMEWHERE ELSE
 
 
-    public static CommandPair commandSpellChecker(String[] undefinedCommandArr, COMMAND_KEYS Root, Controller controller) {
+    public static CommandPair commandSpellChecker(String[] undefinedCommandArr, COMMANDKEYS Root, Controller controller) {
         System.out.println("Cant find anything");
         double score = -1;
-        if (Root == COMMAND_KEYS.none) {
-            for (COMMAND_KEYS s : CommandStructure.AllRoots) {
+        if (Root == COMMANDKEYS.none) {
+            for (COMMANDKEYS s : CommandStructure.AllRoots) {
                 double temp = calculateJaccardSimilarity(s.toString(), undefinedCommandArr[0]);
                 if (temp > score) {
                     Root = s;
                     score = temp;
                 }
             }
-            if (Root != COMMAND_KEYS.none) {
+            if (Root != COMMANDKEYS.none) {
                 System.out.println("Did you mean" + Root);
             }
         }
         score = -1;
-        COMMAND_KEYS MostSimilarSub = COMMAND_KEYS.none;
-        if (Root != COMMAND_KEYS.none && CommandStructure.cmdStructure.get(Root).length != 0) {
-            for (COMMAND_KEYS s : CommandStructure.cmdStructure.get(Root)) {
+        COMMANDKEYS MostSimilarSub = COMMANDKEYS.none;
+        if (Root != COMMANDKEYS.none && CommandStructure.cmdStructure.get(Root).length != 0) {
+            for (COMMANDKEYS s : CommandStructure.cmdStructure.get(Root)) {
                 double temp = calculateJaccardSimilarity(s.toString(), undefinedCommandArr[1]);
                 if (temp > score) {
                     MostSimilarSub = s;
