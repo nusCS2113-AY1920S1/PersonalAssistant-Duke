@@ -26,7 +26,6 @@ public class BudgetCommand extends Command {
         }
     }
 
-
     public BudgetCommand() {
         super(name, description, usage, Stream.of(BudgetCommand.SecondaryParam.values())
                 .collect(Collectors.toMap(s -> s.name, s -> s.description)));
@@ -47,8 +46,9 @@ public class BudgetCommand extends Command {
             }
             duke.budget.setMonthlyBudget(scaledAmount);
             duke.budget.save();
-        }catch (NumberFormatException e){
-            throw new DukeException(String.format(DukeException.MESSAGE_EXPENSE_AMOUNT_INVALID, commandParams.getParam(SecondaryParam.TAG.name)));
+        } catch (NumberFormatException e) {
+            throw new DukeException(String.format(DukeException.MESSAGE_EXPENSE_AMOUNT_INVALID,
+                    commandParams.getParam(SecondaryParam.TAG.name)));
         }
 
     }

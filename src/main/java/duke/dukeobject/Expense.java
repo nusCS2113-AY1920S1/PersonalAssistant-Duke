@@ -224,7 +224,7 @@ public class Expense extends DukeItem {
      *
      * @return String of time that is formatted
      */
-    public String getTimeString(){
+    public String getTimeString() {
         return Parser.formatTime(time);
     }
 
