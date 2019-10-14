@@ -10,13 +10,13 @@ import java.util.TreeMap;
 
 public class DeleteContactCommand {
     /**
+     * This method deletes the contact from the contact list.
      *
-     * @param ui the object that deals with printing things to the user.
-     * @param storage the object that deals with storing data.
-     * @param contact Map each name to its own phone number
+     * @param ui      the object that deals with printing things to the user.
+     * @param contact the object that map each name to its own phone number
      * @throws IOException catch any error if read file fails
      */
-    public DeleteContactCommand(Ui ui, Storage storage, Map<String,String> contact) throws IOException {
+    public DeleteContactCommand(Ui ui, Map<String, String> contact) throws IOException {
         String name_to_delete = "";
         for (int i = 1; i < ui.FullCommand.split(" ").length; i++) {
             if (i != ui.FullCommand.split(" ").length - 1) {
@@ -26,17 +26,12 @@ public class DeleteContactCommand {
             }
         }
         if (ui.FullCommand.equals("delete")) {
-            System.out.println("You need to indicate what you want to delete, Format: delete name");
+            System.out.print("You need to indicate what you want to delete, Format: delete name\n");
         } else if (contact.containsKey(name_to_delete)) {
             contact.remove(name_to_delete);
-            System.out.println(name_to_delete + " has been removed.");
+            System.out.print(name_to_delete + " has been removed.\n");
         } else {
-            System.out.println(name_to_delete + " is not in the list.");
+            System.out.print(name_to_delete + " is not in the list.\n");
         }
-        String toStore = "";
-        for (String key : contact.keySet()) {
-            toStore = toStore.concat(key + "|" + contact.get(key) + "\n");
-        }
-        storage.Storages_Contact(toStore);
     }
 }

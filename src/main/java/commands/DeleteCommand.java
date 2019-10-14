@@ -13,6 +13,18 @@ import java.util.Arrays;
 import java.util.Stack;
 
 public class DeleteCommand extends Command {
+    /**
+     *
+     * @param list
+     * @param ui
+     * @param storage
+     * @param commandStack
+     * @param deletedTask
+     * @throws DukeException
+     * @throws ParseException
+     * @throws IOException
+     * @throws NullPointerException
+     */
     @Override
     public void execute(ArrayList<Task> list, Ui ui, Storage storage, Stack<String> commandStack, ArrayList<Task> deletedTask) throws DukeException, ParseException, IOException, NullPointerException {
             if (ui.FullCommand.length() == 6) {
