@@ -388,8 +388,8 @@ public class UiPart {
         } else {
             username = compal.storage.getUserName();
             printg("Hello again "
-                            + username
-                            + "! ", "verdana", 15, Color.BLACK);
+                    + username
+                    + "! ", "verdana", 15, Color.BLACK);
 
             //initiate the showing of reminders
             compal.viewReminder();

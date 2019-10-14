@@ -50,8 +50,8 @@ public class Messages {
     public static final String MESSAGE_MISSING_COMMAND_ARG = "ArgumentError: Missing argument detected!";
     public static final String MESSAGE_MISSING_EDATE_ARG = "ArgumentError: Missing /edate";
     public static final String MESSAGE_INIT_REMINDER = "view-reminder";
+    public static final String MESSAGE_INVALID_DATE = "DateError: You can only input current or future date!";
     private static Date currentDate = java.util.Calendar.getInstance().getTime();
     public static final String MESSAGE_INVALID_DATE_TIME_INPUT = "DateTimeError: You can only add "
             + "task after current date and time:\n" + currentDate;
-    public static final String MESSAGE_INVALID_DATE = "DateError: You can only input current or future date!";
 }

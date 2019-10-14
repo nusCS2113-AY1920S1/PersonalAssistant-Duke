@@ -61,25 +61,6 @@ public class Compal {
     //----------------------->
 
     /**
-     * This static inner class is the custom exception class extending Exception
-     * that overwrites toString() for returning custom exception messages.
-     * It is thrown when command is unknown or when there are invalid arguments.
-     */
-    public static class DukeException extends Exception {
-
-        String description;
-
-        public DukeException(String description) {
-            this.description = description;
-        }
-
-        @Override
-        public String toString() {
-            return description;
-        }
-    }
-
-    /**
      * Lists all tasks that are incomplete and due in number of days input by user,
      * or by default 7 days, as well as tasks with reminders set as true.
      * Will print colour-coded and sorted by importance/priority.
@@ -100,11 +81,11 @@ public class Compal {
         Date dateToday = c.getTime();
 
         for (Task t : tasklist.arrlist) {
-            Calendar  tempTaskDateAndTime = Calendar.getInstance();
+            Calendar tempTaskDateAndTime = Calendar.getInstance();
             tempTaskDateAndTime.setTime(t.getDate());
-            int endingHour = Integer.parseInt(t.getStringEndTime().substring(0,2));
+            int endingHour = Integer.parseInt(t.getStringEndTime().substring(0, 2));
             tempTaskDateAndTime.set(Calendar.HOUR_OF_DAY, endingHour);
-            int endingMinute = Integer.parseInt(t.getStringEndTime().substring(2,4));
+            int endingMinute = Integer.parseInt(t.getStringEndTime().substring(2, 4));
             tempTaskDateAndTime.set(Calendar.MINUTE, endingMinute);
 
             Date deadline = tempTaskDateAndTime.getTime();
@@ -147,6 +128,25 @@ public class Compal {
             }
         }
 
+    }
+
+    /**
+     * This static inner class is the custom exception class extending Exception
+     * that overwrites toString() for returning custom exception messages.
+     * It is thrown when command is unknown or when there are invalid arguments.
+     */
+    public static class DukeException extends Exception {
+
+        String description;
+
+        public DukeException(String description) {
+            this.description = description;
+        }
+
+        @Override
+        public String toString() {
+            return description;
+        }
     }
 }
 

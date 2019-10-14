@@ -161,7 +161,7 @@ public class ParserManager {
                 case CMD_HELP:
                     HelpCommand helpCommand = new HelpCommand(compal);
                     helpCommand.parseCommand(userInput);
-		    break;
+                    break;
                 case CMD_FIND_FREE_SLOT:
                     FindFreeSlotCommand findFreeSlotCommand = new FindFreeSlotCommand(compal);
                     findFreeSlotCommand.parseCommand(userInput);
