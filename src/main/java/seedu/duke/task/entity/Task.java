@@ -37,6 +37,11 @@ public class Task {
     protected ArrayList<String> tags;
 
     /**
+     * The priority assigned to the task.
+     */
+    protected String priority;
+
+    /**
      * A date format that is shared by all tasks to parse and out the date involved in the task.
      */
     protected static DateTimeFormatter format = DateTimeFormatter
@@ -61,6 +66,7 @@ public class Task {
         this.isDone = false;
         this.doAfterDescription = null;
         this.tags = new ArrayList<>();
+        this.priority = null;
     }
 
     /**
@@ -175,5 +181,9 @@ public class Task {
 
     public String getDoAfterDescription() {
         return doAfterDescription;
+    }
+
+    public void setPriorityTo(String priority) {
+        this.priority = priority;
     }
 }

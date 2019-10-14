@@ -3,10 +3,10 @@ package seedu.duke.common.network;
 import org.json.JSONException;
 import org.json.JSONObject;
 import seedu.duke.Duke;
-import seedu.duke.email.entity.Email;
 import seedu.duke.email.EmailList;
 import seedu.duke.email.EmailParser;
 import seedu.duke.email.EmailStorage;
+import seedu.duke.email.entity.Email;
 
 import java.awt.Desktop;
 import java.io.BufferedReader;
@@ -35,6 +35,9 @@ public class Http {
     private static String redirect = "http://localhost:3000";
     private static String scope = "openid+Mail.Read+offline_access";
 
+    /**
+     * Starts process to obtain authorisation token from user account.
+     */
     public static void startAuthProcess() {
         refreshToken = EmailStorage.readRefreshToken();
         if (refreshToken == "") {

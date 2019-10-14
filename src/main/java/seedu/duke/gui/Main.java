@@ -1,5 +1,6 @@
 package seedu.duke.gui;
 
+
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -26,10 +27,12 @@ public class Main extends Application {
             stage.setMinWidth(450);
             stage.setMinHeight(300);
             fxmlLoader.<MainWindow>getController().setDuke(duke);
+            fxmlLoader.<MainWindow>getController().setKeyBinding(scene);
             stage.show();
             MainWindow.setMainStage(stage);
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
+
 }

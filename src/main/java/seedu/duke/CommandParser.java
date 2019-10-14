@@ -5,20 +5,22 @@ import seedu.duke.task.TaskList;
 import seedu.duke.task.command.TaskAddCommand;
 import seedu.duke.common.command.Command;
 import seedu.duke.common.command.Command.Option;
+import seedu.duke.common.command.ExitCommand;
+import seedu.duke.common.command.FlipCommand;
+import seedu.duke.common.command.InvalidCommand;
+import seedu.duke.email.EmailList;
+import seedu.duke.email.command.EmailFetchCommand;
+import seedu.duke.email.command.EmailListCommand;
+import seedu.duke.email.command.EmailShowCommand;
+import seedu.duke.task.TaskList;
 import seedu.duke.task.command.TaskDeleteCommand;
 import seedu.duke.task.command.TaskDoAfterCommand;
 import seedu.duke.task.command.TaskDoneCommand;
-import seedu.duke.common.command.ExitCommand;
 import seedu.duke.task.command.TaskFindCommand;
-import seedu.duke.common.command.FlipCommand;
-import seedu.duke.common.command.InvalidCommand;
 import seedu.duke.task.command.TaskListCommand;
 import seedu.duke.task.command.TaskReminderCommand;
+import seedu.duke.task.command.TaskSetPriorityCommand;
 import seedu.duke.task.command.TaskSnoozeCommand;
-import seedu.duke.email.EmailList;
-import seedu.duke.email.command.EmailListCommand;
-import seedu.duke.email.command.EmailShowCommand;
-import seedu.duke.email.command.EmailFetchCommand;
 import seedu.duke.task.entity.Task;
 
 import java.time.LocalDateTime;
@@ -51,6 +53,12 @@ public class CommandParser {
         this.inputType = InputType.TASK;    // default input type when initiating the program.
     }
 
+    /**
+     * Checks if input command is in the correct format.
+     *
+     * @param commandString input command
+     * @return true if matches pattern, false otherwise
+     */
     public static boolean isCommandFormat(String commandString) {
         return commandString.matches(
                 "(?:task|email\\s)(?:\\s*([\\w]+)[\\s|\\w]*)(?:\\s+"
@@ -86,6 +94,12 @@ public class CommandParser {
         inputType = newInputType;
     }
 
+    /**
+     * Parses input to retrieve options from command string.
+     *
+     * @param input command string
+     * @return list of all options specified in the command
+     */
     public static ArrayList<Option> parseOptions(String input) {
         ArrayList<Option> optionList = new ArrayList<>();
         Pattern optionPattern = Pattern.compile(".*(?<key>-[\\w]+)\\s+(?<value>[\\w]+[\\s|\\w/]*)\\s*");
@@ -164,6 +178,8 @@ public class CommandParser {
             return parseSnoozeCommand(input, taskList, optionList);
         } else if (input.startsWith("todo") | input.startsWith("deadline") | input.startsWith("event")) {
             return parseAddTaskCommand(taskList, input, optionList);
+        } else if (input.startsWith("set")) {
+            return parsePriorityCommand(input, taskList, optionList);
         }
         return new InvalidCommand();
     }
@@ -342,7 +358,40 @@ public class CommandParser {
             return new TaskDoAfterCommand(taskList, index, description);
         } catch (NumberFormatException e) {
             if (ui != null) {
-                ui.showError("Please enter a valid index of task after \'doAfter\'");
+                ui.showError("Please enter a valid task index after \'doAfter\'");
+            }
+            return new InvalidCommand();
+        }
+    }
+
+    private static Command parsePriorityCommand(String input, TaskList taskList, ArrayList<Option> optionList) {
+        Pattern priorityCommandPattern = Pattern.compile("^set\\s+(?<index>[\\d]+)\\s*$");
+        Matcher priorityCommandMatcher = priorityCommandPattern.matcher(input);
+        if (!priorityCommandMatcher.matches()) {
+            if (ui!= null) {
+                ui.showError("Please enter index after 'set' command and priority level after '-priority' option");
+            }
+            return new InvalidCommand();
+        }
+        String priority = "";
+        for (Option option : optionList) {
+            if (option.getKey().equals("priority")) {
+                priority = option.getValue();
+                break;
+            }
+        }
+        if (priority.equals("")) {
+            if (ui != null) {
+                ui.showError("Please enter a priority level to set for the task after \'-priority\' option");
+            }
+            return new InvalidCommand();
+        }
+        try {
+            int index = parseIndex(priorityCommandMatcher.group("index"));
+            return new TaskSetPriorityCommand(taskList, index, priority);
+        } catch (NumberFormatException e) {
+            if (ui != null) {
+                ui.showError("Please enter a valid task index after \'set\'");
             }
             return new InvalidCommand();
         }
@@ -374,7 +423,7 @@ public class CommandParser {
      *
      * @param taskList   target task list to which the new task is to be added to
      * @param input      user/file input ready to be parsed
-     * @param optionList
+     * @param optionList contains all options specified in input command
      * @return an AddCommand of the task parsed from the input
      * @throws UserInputException an exception when the parsing is failed, probably due to the wrong format of
      *                            input
@@ -398,19 +447,29 @@ public class CommandParser {
             time = null; //todo can tolerate a null time, but not event and deadline
         }
         ArrayList<String> tags = extractTags(optionList);
+        String priority;
+        try {
+            priority = extractPriority(optionList);
+        } catch (UserInputException e) {
+            if
+            (ui != null) {
+                ui.showError(e.getMessage());
+            }
+            return new InvalidCommand();
+        }
         if (input.startsWith("todo")) {
-            return parseAddToDoCommand(taskList, input, doAfter, tags);
+            return parseAddToDoCommand(taskList, input, doAfter, tags, priority);
         } else if (input.startsWith("deadline")) {
-            return parseAddDeadlineCommand(taskList, input, time, doAfter, tags);
+            return parseAddDeadlineCommand(taskList, input, time, doAfter, tags, priority);
         } else if (input.startsWith("event")) {
-            return parseEventCommand(taskList, input, time, doAfter, tags);
+            return parseEventCommand(taskList, input, time, doAfter, tags, priority);
         } else {
             return new InvalidCommand();
         }
     }
 
     private static Command parseAddToDoCommand(TaskList taskList, String input, String doAfter,
-                                               ArrayList<String> tags) {
+                                               ArrayList<String> tags, String priority) {
         Task.TaskType taskType = Task.TaskType.ToDo;
         Pattern toDoPattern = Pattern.compile("todo\\s+(?<name>\\w+[\\s+\\w+]*)\\s*");
         Matcher toDoMatcher = toDoPattern.matcher(input);
@@ -421,12 +480,12 @@ public class CommandParser {
             return new InvalidCommand();
         }
         String name = toDoMatcher.group("name");
-        return new TaskAddCommand(taskList, taskType, name, null, doAfter, tags);
+        return new TaskAddCommand(taskList, taskType, name, null, doAfter, tags, priority);
     }
 
     private static Command parseAddDeadlineCommand(TaskList taskList, String input,
                                                    LocalDateTime time, String doAfter,
-                                                   ArrayList<String> tags) {
+                                                   ArrayList<String> tags, String priority) {
         Task.TaskType taskType = Task.TaskType.Deadline;
         Pattern deadlinePattern = Pattern.compile("deadline\\s+(?<name>\\w+[\\s+\\w+]*)\\s*");
         Matcher deadlineMatcher = deadlinePattern.matcher(input);
@@ -444,11 +503,11 @@ public class CommandParser {
             return new InvalidCommand();
         }
         String name = deadlineMatcher.group("name");
-        return new TaskAddCommand(taskList, taskType, name, time, doAfter, tags);
+        return new TaskAddCommand(taskList, taskType, name, time, doAfter, tags, priority);
     }
 
     private static Command parseEventCommand(TaskList taskList, String input, LocalDateTime time,
-                                             String doAfter, ArrayList<String> tags) {
+                                             String doAfter, ArrayList<String> tags, String priority) {
         Task.TaskType taskType = Task.TaskType.Event;
         Pattern eventPattern = Pattern.compile("event\\s+(?<name>\\w+[\\s+\\w+]*)\\s*");
         Matcher eventMatcher = eventPattern.matcher(input);
@@ -465,7 +524,7 @@ public class CommandParser {
             return new InvalidCommand();
         }
         String name = eventMatcher.group("name");
-        return new TaskAddCommand(taskList, taskType, name, time, doAfter, tags);
+        return new TaskAddCommand(taskList, taskType, name, time, doAfter, tags, priority);
     }
 
     private static ArrayList<String> extractTags(ArrayList<Option> optionList) {
@@ -492,7 +551,7 @@ public class CommandParser {
         return doafter;
     }
 
-    private static String extractTime(ArrayList<Option> optionList) throws UserInputException{
+    private static String extractTime(ArrayList<Option> optionList) throws UserInputException {
         String time = "";
         for (Option option : optionList) {
             if (option.getKey().equals("time")) {
@@ -506,10 +565,24 @@ public class CommandParser {
         return time;
     }
 
-    /**
-     * An type of exception dedicated to handling the unexpected user/file input. The message contains more
-     * specific information.
-     */
+    private static String extractPriority(ArrayList<Option> optionList) throws UserInputException {
+        String priority = "";
+        for (Option option : optionList) {
+            if (option.getKey().equals("priority")) {
+                if (priority == "") {
+                    priority = option.getValue();
+                } else {
+                    throw new UserInputException("Each task can have only one priority");
+                }
+            }
+        }
+        return priority;
+    }
+
+        /**
+         * An type of exception dedicated to handling the unexpected user/file input. The message contains more
+         * specific information.
+         */
     public static class UserInputException extends Exception {
         private String msg;
 
