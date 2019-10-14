@@ -173,8 +173,13 @@ public class LoanList {
         return null;
     }
 
+    /**
+     * Checks whether there are unsettled loans.
+     *
+     * @return false if there are no unsettled loans. True, otherwise.
+     */
     public boolean checkUnsettledLoan() {
-        for(Loan l: this.loanList) {
+        for (Loan l: this.loanList) {
             if (!l.getIsSettled()) {
                 hasUnsettledLoan = true;
             } else {
@@ -184,10 +189,15 @@ public class LoanList {
         return hasUnsettledLoan;
     }
 
+    /**
+     * Sets hasUnsettledLoans.
+     *
+     * @param hasUnsettledLoan Whether there are any unsettled loans.
+     */
     public void setHasUnsettledLoan(boolean hasUnsettledLoan) {
         this.hasUnsettledLoan = hasUnsettledLoan;
     }
-
+    
     public boolean getHasUnsettledLoan() {
         return this.hasUnsettledLoan;
     }
