@@ -6,8 +6,6 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 
-import java.awt.*;
-
 /**
  * Represents the main window holding the different elements of the GUI.
  */

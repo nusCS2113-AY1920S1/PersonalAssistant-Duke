@@ -1,11 +1,11 @@
 import moomoo.command.Command;
 import moomoo.task.Budget;
 import moomoo.task.CategoryList;
-import moomoo.task.MooMooException;
-import moomoo.task.Parser;
 import moomoo.task.Storage;
 import moomoo.task.TransactionList;
 import moomoo.task.Ui;
+import moomoo.task.MooMooException;
+import moomoo.task.Parser;
 
 /**
  * Runs MooMoo.
@@ -13,7 +13,7 @@ import moomoo.task.Ui;
 public class MooMoo {
     private Storage storage;
     private TransactionList transList;
-    private CategoryList catList;
+    private CategoryList categoryList;
     private Budget budget;
     private Ui ui;
 
@@ -24,10 +24,10 @@ public class MooMoo {
         ui = new Ui();
         storage = new Storage("data/moomoo.txt");
         try {
-            catList = new CategoryList(storage.loadCategories());
+            categoryList = new CategoryList(storage.loadCategories());
         } catch (MooMooException e) {
             ui.printException(e);
-            catList = new CategoryList();
+            categoryList = new CategoryList();
         }
 
         try {
@@ -55,8 +55,8 @@ public class MooMoo {
         while (!isExit) {
             try {
                 String fullCommand = ui.readCommand();
-                Command c = Parser.parse(fullCommand);
-                c.execute(budget, catList, transList, ui, storage);
+                Command c = Parser.parse(fullCommand, ui);
+                c.execute(budget, categoryList, transList, ui, storage);
                 ui.showResponse();
                 isExit = c.isExit;
             } catch (MooMooException e) {
@@ -75,8 +75,8 @@ public class MooMoo {
         String response;
         boolean isExit = false;
         try {
-            Command c = Parser.parse(input);
-            c.execute(budget, catList, transList, ui, storage);
+            Command c = Parser.parse(input, ui);
+            c.execute(budget, categoryList, transList, ui, storage);
             isExit = c.isExit;
             if (isExit) {
                 ui.showGoodbye();
