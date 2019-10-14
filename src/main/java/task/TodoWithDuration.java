@@ -1,7 +1,5 @@
 package task;
 
-import java.time.Period;
-
 public class TodoWithDuration extends Todo {
     public int duration;
 

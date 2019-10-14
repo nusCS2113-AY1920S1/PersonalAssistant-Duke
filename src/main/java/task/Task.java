@@ -18,6 +18,7 @@ public abstract class Task implements Serializable {
     public String description;
     public Priority priority;
     public int remindInHowManyDays = 0;
+    public String notes;
 
     protected boolean isIgnored;
     protected boolean isDone;
@@ -39,6 +40,7 @@ public abstract class Task implements Serializable {
         this.isIgnored = false;
         this.priority = Priority.MEDIUM;
         this.createdDate = LocalDateTime.now();
+        this.notes = "";
     }
 
     /**

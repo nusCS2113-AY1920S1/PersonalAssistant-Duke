@@ -15,7 +15,6 @@ import command.ViewCommand;
 import command.EditCommand;
 import command.IgnoreCommand;
 import exception.DukeException;
-import task.Priority;
 import ui.Ui;
 
 import java.time.LocalDateTime;
@@ -38,14 +37,14 @@ public class Parser {
      *
      * @param userInput This string is provided by the user to ask 'Duke' to perform
      *                  a particular action
-     * @return Command After processing the user's input it returns the correct command for further processing
+     * @return Command After processing the user's input it returns the correct
+     *         command for further processing
      * @throws DukeException The DukeException class has all the respective methods
      *                       and messages!
      */
     public static Command parse(String userInput) throws DukeException {
 
         String command = userInput.split("\\s+", 2)[0].trim();
-        String taskFeatures;
         String checkType;
         String description;
         Integer indexOfTask;
@@ -191,8 +190,8 @@ public class Parser {
         return new AddCommand(command, taskDetails[0], NULL_DATE, NULL_DATE);
     }
 
-    private static Command parseToDoPeriod(String taskFeatures, String[] taskDetails, String checkType,
-                                           String command) throws DukeException {
+    private static Command parseToDoPeriod(String taskFeatures, String[] taskDetails, String checkType, String command)
+            throws DukeException {
         String dateTimeFromUser = taskDetails[1];
         String taskDescription = taskFeatures.split(checkType, 2)[0].trim();
         String fromDate;
@@ -303,7 +302,7 @@ public class Parser {
     }
 
     private static Command parseDuration(String userInput, String[] taskDetails, String checktype, String command)
-        throws DukeException {
+            throws DukeException {
         int duration;
 
         String substring = userInput.split(checktype, 2)[1].trim();
