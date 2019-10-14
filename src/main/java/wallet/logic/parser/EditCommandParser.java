@@ -32,7 +32,7 @@ public class EditCommandParser implements Parser<EditCommand> {
             } else {
                 break;
             }
-            
+
         default:
             System.out.println(EditCommand.MESSAGE_USAGE);
             return null;

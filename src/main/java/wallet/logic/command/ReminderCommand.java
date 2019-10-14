@@ -2,7 +2,7 @@ package wallet.logic.command;
 
 import wallet.logic.LogicManager;
 import wallet.model.Wallet;
-import wallet.ui.Reminder;
+import wallet.reminder.Reminder;
 import wallet.ui.Ui;
 
 public class ReminderCommand extends Command {

@@ -3,13 +3,15 @@ package wallet.logic.parser;
 import wallet.logic.command.AddCommand;
 import wallet.logic.command.Command;
 import wallet.logic.command.DeleteCommand;
+import wallet.logic.command.DoneCommand;
 import wallet.logic.command.EditCommand;
 import wallet.logic.command.ExitCommand;
 import wallet.logic.command.HelpCommand;
 import wallet.logic.command.ListCommand;
+import wallet.logic.command.ReminderCommand;
 import wallet.logic.command.SetBudgetCommand;
 import wallet.logic.command.ViewCommand;
-import wallet.logic.command.ReminderCommand;
+
 
 import java.text.ParseException;
 
@@ -50,6 +52,9 @@ public class ParserManager {
 
         case ReminderCommand.COMMAND_WORD:
             return new ReminderCommandParser().parse(arguments[1]);
+
+        case DoneCommand.COMMAND_WORD:
+            return new DoneCommandParser().parse(arguments[1]);
 
         case HelpCommand.COMMAND_WORD:
             //fallthrough

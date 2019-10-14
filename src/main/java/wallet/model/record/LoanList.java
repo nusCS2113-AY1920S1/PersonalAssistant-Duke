@@ -7,9 +7,11 @@ import java.util.ArrayList;
 public class LoanList {
     private boolean isModified = false;
     private ArrayList<Loan> loanList;
+    private boolean hasUnsettledLoan = false;
 
     public LoanList(ArrayList<Loan> loanList) {
         this.loanList = loanList;
+        checkUnsettledLoan();
     }
 
     public LoanList() {
@@ -169,5 +171,24 @@ public class LoanList {
             }
         }
         return null;
+    }
+
+    public boolean checkUnsettledLoan() {
+        for(Loan l: this.loanList) {
+            if (!l.getIsSettled()) {
+                hasUnsettledLoan = true;
+            } else {
+                hasUnsettledLoan = false;
+            }
+        }
+        return hasUnsettledLoan;
+    }
+
+    public void setHasUnsettledLoan(boolean hasUnsettledLoan) {
+        this.hasUnsettledLoan = hasUnsettledLoan;
+    }
+
+    public boolean getHasUnsettledLoan() {
+        return this.hasUnsettledLoan;
     }
 }

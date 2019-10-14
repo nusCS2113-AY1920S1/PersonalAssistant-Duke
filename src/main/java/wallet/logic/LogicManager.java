@@ -12,7 +12,7 @@ import wallet.model.record.RecordList;
 import wallet.model.task.ScheduleList;
 import wallet.model.task.TaskList;
 import wallet.storage.StorageManager;
-import wallet.ui.Reminder;
+import wallet.reminder.Reminder;
 
 /**
  * The LogicManager Class handles the logic of Wallet.
@@ -41,7 +41,7 @@ public class LogicManager {
      * Executes the command and returns the result.
      *
      * @param fullCommand The full command input by user.
-     * @return
+     * @return A boolean isExit.
      */
     public boolean execute(String fullCommand) {
         boolean isExit = false;

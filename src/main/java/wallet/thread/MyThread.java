@@ -1,10 +1,11 @@
-package wallet.ui;
+package wallet.thread;
 
 import wallet.logic.command.ReminderCommand;
 import wallet.model.record.Loan;
 import wallet.model.record.LoanList;
+import wallet.ui.Ui;
 
-class MyThread implements Runnable {
+public class MyThread implements Runnable {
 
     // to stop the thread
     private boolean isExit;
@@ -21,7 +22,7 @@ class MyThread implements Runnable {
      * @param loanList      The LoanList object.
      * @param timeInSeconds The time in seconds.
      */
-    MyThread(boolean isExit, LoanList loanList, int timeInSeconds) {
+    public MyThread(boolean isExit, LoanList loanList, int timeInSeconds) {
         this.isExit = isExit;
         this.timeInSeconds = timeInSeconds;
         this.loanList = loanList;
@@ -44,7 +45,7 @@ class MyThread implements Runnable {
                 ui.printLine();
                 System.out.println("Remember to settle your loans soon!");
                 for (Loan l : loanList.getLoanList()) {
-                    if (!l.isSettled()) {
+                    if (!l.getIsSettled()) {
                         System.out.println(counter + ". " + l.toString());
                     }
                     counter++;

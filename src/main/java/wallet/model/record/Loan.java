@@ -59,7 +59,7 @@ public class Loan extends Record {
      *
      * @return true or false.
      */
-    public boolean isLend() {
+    public boolean getIsLend() {
         return this.isLend;
     }
 
@@ -68,7 +68,7 @@ public class Loan extends Record {
      *
      * @param isLend States whether user is borrowing or lending.
      */
-    public void setLend(boolean isLend) {
+    public void setIsLend(boolean isLend) {
         this.isLend = isLend;
     }
 
@@ -77,7 +77,7 @@ public class Loan extends Record {
      *
      * @return True or false - Whether the user has settled the loan.
      */
-    public boolean isSettled() {
+    public boolean getIsSettled() {
         return isSettled;
     }
 
