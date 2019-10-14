@@ -18,8 +18,7 @@ public class Product {
             + "and should not be blank";
 
     private String productName;
-    //private List<Ingredient> ingredients = new ArrayList<>();
-    private IngredientList ingredients = new IngredientList() {};
+    private IngredientItemList ingredients;
     private double ingredientCost;
     private double retailPrice;
     private Status status;
@@ -47,7 +46,7 @@ public class Product {
     }
 
     /** Constructor for edit comProduct */
-    public Product(String productName, double retailPrice, double ingredientCost, Product.Status status) {
+    public Product(String productName, Double retailPrice, Double ingredientCost, Product.Status status) {
         requireAllNonNull(productName);
         checkEmpty(productName, MESSAGE_CONSTRAINTS);
 
