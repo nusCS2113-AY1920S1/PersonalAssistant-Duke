@@ -10,10 +10,15 @@ import duke.util.TaskList;
 import duke.util.Ui;
 
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class CapCommand extends Command {
 
     /* TO-DO
+
+    TODO NEW SHIT make cap command for only user's input command (loop ask for user mod and letter grade, sort grade and get mod mc to get weightage) then then calculate cap
+
+
     Cap report overall METHOD
     get list of done modules from tasklist, store as tuple? new class? (mcs, letter grade, s/u) in a new arraylist
     calculate mc weightage and cap, request for additional cap info if necessary eg. letter grade missing, s/u options
@@ -35,18 +40,22 @@ public class CapCommand extends Command {
     public String[] command;
     //public ArrayList<ModuleInfoSummary> completedModuleList = new ArrayList<>();
     //public ModuleList specificModuleCap;
-    private float currentCap;
-    private float projectedModuleCap;
+    private double currentCap;
+    private double projectedModuleCap;
+    private double projectedCap;
     private int mcCount;
 
     /**
      * Constructor for the CapCommand class where user can enquire information about their CAP.
      * Such as overall CAP and what-if reports about predicted CAP.
      * @param input
-     * @throws ModEmptyCommandException
-     * @throws ModMissingArgumentException
-     * @throws ModCommandException
      */
+    public CapCommand(String input) {
+        switch (input) {
+
+        }
+
+    }
     /*public CapCommand(String input) throws ModEmptyCommandException
                                             , ModMissingArgumentException
                                                 , ModCommandException {
@@ -100,12 +109,12 @@ public class CapCommand extends Command {
      * @return something
      * @throws ModEmptyListException something exception
      */
-    /*public float addTotalCap(ModuleList moduleList) throws ModEmptyListException {
+    /*public double addTotalCap(ModuleList moduleList) throws ModEmptyListException {
 
         if (moduleList.isEmpty()) {
             throw new ModEmptyListException();
         }
-        float tempCap = 0;
+        double tempCap = 0;
         int mcCount = 0;
         for (ModuleInfoSummary module : moduleList) {
             if (module.getDone()) {
@@ -123,6 +132,9 @@ public class CapCommand extends Command {
 
     @Override
     public void execute(TaskList moduleList, Ui ui, Storage store, Reminder reminder) throws ModException {
+        Scanner scanner = new Scanner(System.in);
+
+
        /*
         if (specificModuleCap.isEmpty()) {
             ui.showLine();
@@ -138,7 +150,45 @@ public class CapCommand extends Command {
         */
     }
 
+    public double getCurrentCap() {
+        return currentCap;
+    }
 
+    public double getProjectedModuleCap() {
+        return projectedModuleCap;
+    }
+
+    public double getProjectedCap() {
+        return projectedCap;
+    }
+
+    public double letterGradeToCap(String grade) {
+        switch(grade) {
+            case "A+":
+            case "A":
+                return 5.00;
+            case "A-":
+                return 4.50;
+            case "B+":
+                return 4.00;
+            case "B":
+                return 3.50;
+            case "B-":
+                return 3.00;
+            case "C+":
+                return 2.50;
+            case "C":
+                return 2.00;
+            case "D+":
+                return 1.50;
+            case "D":
+                return 1.00;
+            case "F":
+                return 0.50;
+            default:
+                return 0.00;
+        }
+    }
 
     @Override
     public boolean isExit() {
