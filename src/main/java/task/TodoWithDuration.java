@@ -1,7 +1,5 @@
 package task;
 
-import java.time.Period;
-
 public class TodoWithDuration extends Todo {
     public int duration;
 
@@ -12,8 +10,11 @@ public class TodoWithDuration extends Todo {
 
     @Override
     public String toString() {
-        String message =  super.getPriorityIcon() + "[T]" + "[" + super.getStatusIcon() + "] " + this.description + " ";
+        String message = super.getPriorityIcon() + "[T]" + "[" + super.getStatusIcon() + "] " + this.description + " ";
         String timeDetails = "(for " + duration + " hours)";
+        if (!comment.isBlank()) {
+            timeDetails = timeDetails + "  Note to self: " + comment;
+        }
         return message.concat(timeDetails);
     }
 }

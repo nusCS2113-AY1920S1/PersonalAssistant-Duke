@@ -20,11 +20,16 @@ public class Todo extends Task implements Serializable {
      * This override of the toString function of the task class etches the different
      * portions of the user input into a single string.
      *
-     * @return This function returns a string of the required task in the desired output format of string type.
+     * @return This function returns a string of the required task in the desired
+     *         output format of string type.
      */
     @Override
     public String toString() {
-        return super.getPriorityIcon() + "[T]" + "[" + super.getStatusIcon() + "] " + this.description;
+        String message = super.getPriorityIcon() + "[T]" + "[" + super.getStatusIcon() + "] " + this.description;
+        if (!comment.isBlank()) {
+            message = message + "  Note to self: " + comment;
+        }
+        return message;
     }
 
     @Override

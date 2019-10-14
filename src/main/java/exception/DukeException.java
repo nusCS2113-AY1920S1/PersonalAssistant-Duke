@@ -132,6 +132,15 @@ public class DukeException extends Exception {
         return "☹ OOPS!!! The new priority level is invalid. It must be either high,medium or low.Please try again";
     }
 
+    /**
+     * Handles if index is invalid.
+     *
+     * @return message to be displayed
+     */
+    public static String invalidIndex() {
+        return "☹ OOPS!!! The index given is invalid. It must be a existing index in the list. Please try again";
+    }
+
     public DukeException(String message) {
         super(message);
     }

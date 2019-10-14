@@ -16,6 +16,7 @@ public abstract class Task implements Serializable {
     public String description;
     public Priority priority;
     public Reminder reminder;
+    public String comment;
 
     protected boolean isIgnored;
     protected boolean isDone;
@@ -37,6 +38,7 @@ public abstract class Task implements Serializable {
         this.isIgnored = false;
         this.priority = Priority.MEDIUM;
         this.createdDate = LocalDateTime.now();
+        this.comment = "";
     }
 
     /**
@@ -55,21 +57,20 @@ public abstract class Task implements Serializable {
     }
 
     /**
-     * Returns a priority symbol to be printed
-     * as output.
+     * Returns a priority symbol to be printed as output.
      *
      * @return Unicode that represent priority level.
      */
     public String getPriorityIcon() {
         if (!isPrioritizable) {
-            return "[\u26A0]"; //Return warning sign symbol
+            return "[\u26A0]"; // Return warning sign symbol
         }
         if (priority == Priority.HIGH) {
-            return "[\u2605\u2605\u2605]"; //Return triple star symbols
+            return "[\u2605\u2605\u2605]"; // Return triple star symbols
         } else if (priority == Priority.MEDIUM) {
-            return "[\u2605\u2605]";//Return double star symbol
+            return "[\u2605\u2605]";// Return double star symbol
         } else {
-            return "[\u2605]";//Return single star symbol
+            return "[\u2605]";// Return single star symbol
         }
     }
 
@@ -109,8 +110,15 @@ public abstract class Task implements Serializable {
         this.isDone = true;
     }
 
+    /**
+     * converts the task to a string.
+     */
     public String toString() {
-        return "[" + getPriorityIcon() + "]" + "[" + getStatusIcon() + "] " + description;
+        String message = "[" + getPriorityIcon() + "]" + "[" + getStatusIcon() + "] " + description;
+        if (!comment.isBlank()) {
+            message = message + "  Note to self: " + comment;
+        }
+        return message;
     }
 
     abstract boolean checkForClash(Task taskToCheck);
