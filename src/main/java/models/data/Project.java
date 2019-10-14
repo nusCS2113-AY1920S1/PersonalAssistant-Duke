@@ -66,6 +66,11 @@ public class Project implements IProject {
     }
 
     @Override
+    public void removeTask(int taskIndexNumber) {
+        this.taskList.removeTask(taskIndexNumber);
+    }
+
+    @Override
     public boolean memberIndexExists(int indexNumber) {
         return (indexNumber > 0 && indexNumber <= this.getNumOfMembers());
     }
