@@ -4,7 +4,7 @@ import command.AddCommand;
 import command.Command;
 import exception.DukeException;
 
-public class TodoParser extends Parse {
+public class TodoParser extends DescriptionParser {
 
     String checkType;
     String taskDescription;
@@ -14,20 +14,8 @@ public class TodoParser extends Parse {
     }
 
     public Command parse() throws DukeException {
-        extract();
+        super.extract();
 
         return new AddCommand(command, taskDescription, null, null);
-    }
-
-    void extract() throws DukeException {
-        this.taskFeatures = removeCommandInput(userInput);
-        this.taskDescription = parseDetails(taskFeatures, checkType);
-    }
-
-    private String parseDetails(String taskFeatures, String checkType) {
-        if (checkType == null) {
-            return taskFeatures;
-        }
-        return taskFeatures.split(checkType,2)[0].trim();
     }
 }
