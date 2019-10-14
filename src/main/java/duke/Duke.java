@@ -33,8 +33,6 @@ import static duke.common.RecipeMessages.*;
  */
 public class Duke {
 
-//    private Storage storage;
-//    private TaskList taskList;
     private Ui ui;
 
     private IngredientStorage ingredientStorage;
@@ -56,19 +54,16 @@ public class Duke {
 
     public Duke(Ui ui) {
         this.ui = ui;
- //       storage = new Storage(filePath);
         ingredientStorage = new IngredientStorage(filePathIngredients);
         recipeIngredientStorage = new RecipeIngredientStorage(filePathRecipeIngredients);
         recipeTitleStorage = new RecipeTitleStorage(filePathRecipeTitle);
         bookingStorage = new BookingStorage(filePathBookings);
 
         try {
-//            taskList = new TaskList(storage.load());
             ingredientList = new IngredientList(ingredientStorage.load());
             recipeIngredientList = new RecipeIngredientList(recipeIngredientStorage.load());
             recipeTitleList = new RecipeTitleList(recipeTitleStorage.load());
             bookingList = new BookingList(bookingStorage.load());
-//            System.out.println(taskList.getSize());
         } catch (DukeException e) {
             ui.showIngredientLoadingError();
             ui.showLoadingError();
@@ -159,69 +154,14 @@ public class Duke {
                 arrayList.add(ERROR_MESSAGE_RANDOM);
                 return arrayList;
             }
-        } else if (userInput.trim().equals("allbookings")) {
+        } else if (userInput.contains("booking")) {
             System.out.println("stuck here20");
             CommandBooking command = Parser.parseBooking(userInput);
             return command.execute(bookingList, ui, bookingStorage);
-        } else if (userInput.contains("addbooking")) {
-            System.out.println("stuck here21");
-            if (userInput.trim().substring(0, 10).equals("addbooking")) {
-                System.out.println("stuck here21");
-                CommandBooking command = Parser.parseBooking(userInput);
-                return command.execute(bookingList, ui, bookingStorage);
-            } else {
-                System.out.println("stuck here22");
-                arrayList.add(ERROR_MESSAGE_RANDOM);
-                return arrayList;
-            }
-        } else if (userInput.contains("deletebooking")) {
-            System.out.println("stuck here23");
-            if (userInput.trim().substring(0, 13).equals("deletebooking")) {
-                System.out.println("stuck here24");
-                CommandBooking command = Parser.parseBooking(userInput);
-                return command.execute(bookingList, ui, bookingStorage);
-            } else {
-                System.out.println("stuck here25");
-                arrayList.add(ERROR_MESSAGE_RANDOM);
-                return arrayList;
-            }
-        } else if (userInput.contains("viewbookingschedule")) {
-            System.out.println("stuck here26");
-            if (userInput.trim().substring(0, 19).equals("viewbookingschedule")) {
-                System.out.println("stuck here27");
-                CommandBooking command = Parser.parseBooking(userInput);
-                return command.execute(bookingList, ui, bookingStorage);
-            } else {
-                System.out.println("stuck here28");
-                arrayList.add(ERROR_MESSAGE_RANDOM);
-                return arrayList;
-            }
-        } else if (userInput.contains("findbooking")) {
-            System.out.println("stuck here29");
-            if (userInput.trim().substring(0, 11).equals("findbooking")) {
-                System.out.println("stuck here30");
-                CommandBooking command = Parser.parseBooking(userInput);
-                return command.execute(bookingList, ui, bookingStorage);
-            } else {
-                System.out.println("stuck here31");
-                arrayList.add(ERROR_MESSAGE_RANDOM);
-                return arrayList;
-            }
         } else {
-            System.out.println("stuck here32");
+            System.out.println("stuck here21");
             arrayList.add(ERROR_MESSAGE_RANDOM);
             return arrayList;
         }
-//        CommandRecipeTitle command = Parser.parseRecipeTitle(fullCommand);
-//        return command.execute(recipeTitleList, ui, recipeTitleStorage);
-
-//        CommandRecipeIngredient command = Parser.parseRecipeIngredients(fullCommand);
-//        return command.execute(recipeIngredientList, ui, recipeIngredientStorage);
-//
-//        CommandIngredients command = Parser.parseIngredients(fullCommand);
-//        return command.execute(ingredientList, ui, ingredientStorage);
-//
-//        CommandTest command = Parser.parseTest(fullCommand);
-//        return command.execute(taskList, ui, storage);
     }
 }
