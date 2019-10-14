@@ -72,7 +72,11 @@ public class Parser {
             } else if (isViewSchedule(input)) {
                 processViewSchedule(input, tasklist, ui);
                 //storage.save(tasklist.returnArrayList());
-            } else if(isEdit(input)){
+            }
+            else if (isReminder(input)) {
+                processReminder(input, tasklist, ui);
+            }
+            else if(isEdit(input)){
                 processEdit(input,tasklist,ui);
             } else {
                 throw new DukeException("     ☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
@@ -411,6 +415,10 @@ public class Parser {
 
     private static boolean isViewSchedule(String input) {
         return input.startsWith("View Schedule");
+    }
+
+    private static boolean isReminder(String input) {
+        return input.startsWith("reminder");
     }
 
     private static boolean isEdit(String input) {
