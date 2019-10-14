@@ -1,7 +1,13 @@
 package owlmoney.model.bond;
 
+import java.text.DateFormat;
+import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
+/**
+ * Bond class which represents one bond.
+ */
 public class Bond {
     private String name;
     private double amount;
@@ -42,8 +48,9 @@ public class Bond {
      *
      * @return the date the bond was purchased.
      */
-    public Date getDate() {
-        return this.date;
+    public String getDate() {
+        DateFormat temp = new SimpleDateFormat("dd MMMM yyyy");
+        return temp.format(this.date);
     }
 
     /**
@@ -92,21 +99,34 @@ public class Bond {
     }
 
     /**
-     * Sets the bond to a new amount.
+     * Sets the bond to a new interest rate.
      *
-     * @param newAmount new amount of the bond
+     * @param newRate new amount of the bond
      */
-    public void setAmount(double newAmount) {
-        this.amount = newAmount;
+    public void setRate(double newRate) {
+        this.rate = newRate;
     }
 
     /**
-     * Sets the name of the bond to a new name.
+     * Sets the year of the bond to a new year.
      *
-     * @param newName new name of the bond
+     * @param newYear new name of the bond
      */
-    public void setName(String newName) {
-        this.name = newName;
+    public void setYear(int newYear) {
+        this.year = newYear;
+    }
+
+    /**
+     * Gets the description of the bond.
+     *
+     * @return the description of the bond.
+     */
+    public String getBondDescription() {
+        return "Name: " + getName() + "\n"
+                + "Amount: $" + new DecimalFormat("0.00").format(getAmount()) + "\n"
+                + "Rate: " + new DecimalFormat("0.00").format(getYearlyCouponRate()) + "\n"
+                + "Date Purchased: " + getDate() + "\n"
+                + "Number of years: " + getYear() + "\n";
     }
 
 }

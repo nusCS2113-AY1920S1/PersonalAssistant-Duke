@@ -1,10 +1,14 @@
 package owlmoney.logic.command.card;
 
 import owlmoney.logic.command.Command;
-import owlmoney.logic.parser.exception.CardException;
+import owlmoney.model.card.exception.CardException;
 import owlmoney.model.profile.Profile;
 import owlmoney.ui.Ui;
 
+/**
+ * Please fill in the javadoc.
+ * ##############################################################################################
+ */
 public class EditCardCommand extends Command {
 
     private final String name;
@@ -36,7 +40,7 @@ public class EditCardCommand extends Command {
      */
     @Override
     public boolean execute(Profile profile, Ui ui) throws CardException {
-        profile.editCardDetails(name, newName, limit, rebate, ui);
+        profile.profileEditCardDetails(name, newName, limit, rebate, ui);
         return this.isExit;
     }
 }

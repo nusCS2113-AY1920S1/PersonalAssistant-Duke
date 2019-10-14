@@ -5,6 +5,9 @@ import owlmoney.model.bank.exception.BankException;
 import owlmoney.model.profile.Profile;
 import owlmoney.ui.Ui;
 
+/**
+ * ListInvestmentCommand contains the execution function to list investment objects.
+ */
 public class ListInvestmentCommand extends Command {
     private static final String INVESTMENT = "investment";
 
@@ -17,7 +20,7 @@ public class ListInvestmentCommand extends Command {
      */
     @Override
     public boolean execute(Profile profile, Ui ui) throws BankException {
-        profile.listBanks(INVESTMENT,ui);
+        profile.profileListBanks(INVESTMENT,ui);
         return this.isExit;
     }
 }

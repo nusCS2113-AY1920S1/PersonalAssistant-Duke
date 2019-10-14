@@ -32,13 +32,13 @@ public class ParseDeleteCard extends ParseCard {
      * @throws ParserException If parameter is missing or invalid.
      */
     public void checkParameter() throws ParserException {
-        Iterator<String> savingsIterator = cardParameters.keySet().iterator();
+        Iterator<String> cardIterator = cardParameters.keySet().iterator();
 
-        while (savingsIterator.hasNext()) {
-            String key = savingsIterator.next();
+        while (cardIterator.hasNext()) {
+            String key = cardIterator.next();
             String value = cardParameters.get(key);
             if ((NAME.equals(key) && (value.isBlank() || value.isEmpty()))) {
-                throw new ParserException(key + " cannot be empty when adding a new expenditure");
+                throw new ParserException(key + " cannot be empty when deleting a card");
             }
             if (NAME.equals(key)) {
                 checkName(value);

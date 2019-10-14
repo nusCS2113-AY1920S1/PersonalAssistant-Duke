@@ -6,7 +6,7 @@ import owlmoney.model.profile.Profile;
 import owlmoney.ui.Ui;
 
 /**
- * ListSavingsCommand class which contains the execution function to list saving objects.
+ * ListSavingsCommand contains the execution function to list saving objects.
  */
 public class ListSavingsCommand extends Command {
     private static final String SAVING = "saving";
@@ -20,7 +20,7 @@ public class ListSavingsCommand extends Command {
      */
     @Override
     public boolean execute(Profile profile, Ui ui) throws BankException {
-        profile.listBanks(SAVING,ui);
+        profile.profileListBanks(SAVING,ui);
         return this.isExit;
     }
 }

@@ -8,7 +8,7 @@ import owlmoney.model.profile.Profile;
 import owlmoney.ui.Ui;
 
 /**
- * AddSavingsCommand class which contains the execution function to add a new saving object.
+ * AddSavingsCommand contains the execution function to add a new saving object.
  */
 public class AddSavingsCommand extends Command {
     private final String name;
@@ -38,7 +38,7 @@ public class AddSavingsCommand extends Command {
     @Override
     public boolean execute(Profile profile, Ui ui) throws BankException {
         Bank newSaving = new Saving(this.name, this.amount, this.income);
-        profile.addNewBank(newSaving, ui);
+        profile.profileAddNewBank(newSaving, ui);
         return this.isExit;
     }
 }

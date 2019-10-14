@@ -9,7 +9,7 @@ import owlmoney.ui.Ui;
 public class ExitCommand extends Command {
 
     /**
-     * Constructor to create an instance of ExitCommand.
+     * Creates an instance of ExitCommand.
      */
     public ExitCommand() {
         this.isExit = true;

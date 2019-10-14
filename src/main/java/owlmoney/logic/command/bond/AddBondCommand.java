@@ -11,6 +11,9 @@ import owlmoney.model.profile.Profile;
 import owlmoney.model.transaction.Expenditure;
 import owlmoney.ui.Ui;
 
+/**
+ * Executes AddBondCommand and prints the results.
+ */
 public class AddBondCommand extends Command {
 
     private final String bondName;
@@ -50,14 +53,17 @@ public class AddBondCommand extends Command {
      * @param profile Profile of the user.
      * @param ui      Ui of OwlMoney.
      * @return false so OwlMoney will not terminate yet.
+     * @throws BankException if used on savings or bank does not exist.
+     * @throws BondException if there are no bonds.
+     * @throws CardException if card commands are executed in bonds.
      */
     @Override
     public boolean execute(Profile profile, Ui ui) throws BankException, BondException, CardException {
         Bond newBond = new Bond(this.bondName, this.amount, this.rate, this.date, this.year);
         Expenditure newExpenditure = new Expenditure(this.bondName, this.amount, this.date, BONDS);
-        profile.isBondUnique(this.bankAccountName, newBond);
-        profile.addNewExpenditure(this.bankAccountName, newExpenditure, ui, type);
-        profile.addNewBond(this.bankAccountName, newBond, ui);
+        profile.profileIsBondUnique(this.bankAccountName, newBond);
+        profile.profileAddNewExpenditure(this.bankAccountName, newExpenditure, ui, type);
+        profile.profileAddNewBond(this.bankAccountName, newBond, ui);
         return this.isExit;
     }
 }

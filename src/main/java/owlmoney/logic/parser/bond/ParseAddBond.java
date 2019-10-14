@@ -19,7 +19,7 @@ public class ParseAddBond extends ParseBond {
      */
     public ParseAddBond(String data, String type) throws ParserException {
         super(data, type);
-        checkRedundantParameter(NEW_NAME, ADD);
+        checkRedundantParameter(NUM, ADD);
         checkFirstParameter();
     }
 
@@ -29,12 +29,12 @@ public class ParseAddBond extends ParseBond {
      * @throws ParserException If there are any invalid or missing input.
      */
     public void checkParameter() throws ParserException {
-        Iterator<String> investmentIterator = bondParameters.keySet().iterator();
+        Iterator<String> bondIterator = bondParameters.keySet().iterator();
 
-        while (investmentIterator.hasNext()) {
-            String key = investmentIterator.next();
+        while (bondIterator.hasNext()) {
+            String key = bondIterator.next();
             String value = bondParameters.get(key);
-            if (!NEW_NAME.equals(key) && (value.isBlank() || value.isEmpty())) {
+            if (!NUM.equals(key) && (value.isBlank() || value.isEmpty())) {
                 throw new ParserException(key + " cannot be empty when adding bond");
             }
             if (NAME.equals(key)) {
@@ -72,5 +72,4 @@ public class ParseAddBond extends ParseBond {
                 Integer.parseInt(bondParameters.get(YEAR)), this.type);
         return newAddBondCommand;
     }
-
 }

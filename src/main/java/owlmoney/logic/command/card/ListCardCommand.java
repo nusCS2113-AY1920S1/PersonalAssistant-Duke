@@ -1,7 +1,7 @@
 package owlmoney.logic.command.card;
 
 import owlmoney.logic.command.Command;
-import owlmoney.logic.parser.exception.CardException;
+import owlmoney.model.card.exception.CardException;
 import owlmoney.model.profile.Profile;
 import owlmoney.ui.Ui;
 
@@ -19,7 +19,7 @@ public class ListCardCommand extends Command {
      */
     @Override
     public boolean execute(Profile profile, Ui ui) throws CardException {
-        profile.listCards(ui);
+        profile.profileListCards(ui);
         return this.isExit;
     }
 }

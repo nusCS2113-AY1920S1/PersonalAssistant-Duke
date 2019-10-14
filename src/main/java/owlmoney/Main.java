@@ -4,7 +4,7 @@ import java.util.Scanner;
 
 import owlmoney.logic.command.Command;
 import owlmoney.logic.parser.ParseCommand;
-import owlmoney.logic.parser.exception.CardException;
+import owlmoney.model.card.exception.CardException;
 import owlmoney.logic.parser.exception.ParserException;
 import owlmoney.model.bank.exception.BankException;
 import owlmoney.model.bond.exception.BondException;
@@ -49,7 +49,7 @@ class Main {
         Scanner scanner = new Scanner(System.in);
         String username = scanner.nextLine();
         profile = new Profile(username);
-        ui.greet(profile.getUsername());
+        ui.greet(profile.profileGetUsername());
         // until above this line
         while (parser.hasNextLine()) {
             try {
@@ -60,7 +60,7 @@ class Main {
                 }
 
             } catch (ParserException | BankException | TransactionException | BondException | CardException
-                    | owlmoney.model.card.exception.CardException | GoalsException exceptionMessage) {
+                     | GoalsException exceptionMessage) {
                 ui.printError(exceptionMessage.toString());
             }
         }

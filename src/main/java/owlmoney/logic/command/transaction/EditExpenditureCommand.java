@@ -2,6 +2,7 @@ package owlmoney.logic.command.transaction;
 
 import owlmoney.logic.command.Command;
 import owlmoney.model.bank.exception.BankException;
+import owlmoney.model.card.exception.CardException;
 import owlmoney.model.profile.Profile;
 import owlmoney.model.transaction.exception.TransactionException;
 import owlmoney.ui.Ui;
@@ -28,9 +29,10 @@ public class EditExpenditureCommand extends Command {
      * @param description New description of expenditure if any.
      * @param category    New category of expenditure if any.
      * @param index       Transaction number
+     * @param type        The type of account to retrieve expenditure from.
      */
-    public EditExpenditureCommand(String name, String amount, String date, String description, String category,
-            int index, String type) {
+    public EditExpenditureCommand(String name, String amount, String date,
+            String description, String category, int index, String type) {
         this.accName = name;
         this.amount = amount;
         this.date = date;
@@ -47,8 +49,8 @@ public class EditExpenditureCommand extends Command {
      * @param ui      Ui of OwlMoney.
      * @return false so OwlMoney will not terminate yet.
      */
-    public boolean execute(Profile profile, Ui ui) throws BankException, TransactionException {
-        profile.editExpenditure(index, accName, description, amount, date, category, ui, this.type);
+    public boolean execute(Profile profile, Ui ui) throws BankException, TransactionException, CardException {
+        profile.profileEditExpenditure(index, accName, description, amount, date, category, ui, this.type);
         return this.isExit;
     }
 }

@@ -9,8 +9,8 @@ import owlmoney.model.transaction.exception.TransactionException;
 import owlmoney.ui.Ui;
 
 /**
- * The ExpenditureList class that provides a layer of abstraction for the ArrayList.
- * The ArrayList will store both expenditures and deposits
+ * TransactionList  provides a layer of abstraction for the ArrayList.
+ * The ArrayList will store both expenditures and deposits.
  */
 
 public class TransactionList {
@@ -19,7 +19,7 @@ public class TransactionList {
     private static final int ONE_INDEX = 1;
 
     /**
-     * Creates an instance of Transaction list that contains an ArrayList of expenditures.
+     * Creates an instance of Transaction list that contains an ArrayList of expenditures and deposits.
      */
     public TransactionList() {
         expLists = new ArrayList<Transaction>();
@@ -67,7 +67,7 @@ public class TransactionList {
         } else {
             int counter = displayNum;
             boolean depositExist = false;
-            for (int i = expLists.size() - ONE_INDEX; i >= 0; i++) {
+            for (int i = expLists.size() - ONE_INDEX; i >= 0; i--) {
                 if ("deposit".equals(expLists.get(i).getCategory())) {
                     ui.printMessage(i + ":\n" + expLists.get(i).getDetails() + "\n");
                     counter--;
@@ -84,7 +84,7 @@ public class TransactionList {
     }
 
     /**
-     * Adds an expenditure to the transactionList.
+     * Adds an expenditure to the TransactionList.
      *
      * @param exp an instance of an expenditure.
      * @param ui  required for printing.
@@ -95,7 +95,7 @@ public class TransactionList {
     }
 
     /**
-     * Adds an deposit to the transactionList.
+     * Adds a deposit to the TransactionList.
      *
      * @param dep an instance of an deposit.
      * @param ui  required for printing.
@@ -106,16 +106,16 @@ public class TransactionList {
     }
 
     /**
-     * Deletes an expenditure to the expenditureList.
+     * Deletes an expenditure to the TransactionList.
      *
-     * @param index index of the expenditure in the expenditureList.
+     * @param index index of the expenditure in the TransactionList.
      * @param ui    required for printing.
      * @throws TransactionException If invalid transaction.
      */
     //magic int used. change next time
     public double deleteExpenditureFromList(int index, Ui ui) throws TransactionException {
         if (expLists.size() <= 0) {
-            throw new TransactionException("There are no transactions in this bank");
+            throw new TransactionException("There are no transactions in this account");
         }
         if ((index - ONE_INDEX) >= 0 && (index - ONE_INDEX) < expLists.size()) {
             if (expLists.get(index - 1).getCategory().equals("deposit")) {

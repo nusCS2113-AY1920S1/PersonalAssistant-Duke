@@ -6,7 +6,7 @@ import owlmoney.model.profile.Profile;
 import owlmoney.ui.Ui;
 
 /**
- * EditSavingsCommand class which contains the execution function to edit a saving object.
+ * EditSavingsCommand contains the execution function to edit a saving object.
  */
 public class EditSavingsCommand extends Command {
     private final String name;
@@ -38,7 +38,7 @@ public class EditSavingsCommand extends Command {
      */
     @Override
     public boolean execute(Profile profile, Ui ui) throws BankException {
-        profile.editSavingsAccount(name, newName, amount, income, ui);
+        profile.profileEditSavingsAccount(name, newName, amount, income, ui);
         return this.isExit;
     }
 }

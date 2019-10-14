@@ -6,10 +6,13 @@ import owlmoney.logic.command.Command;
 import owlmoney.logic.command.card.EditCardCommand;
 import owlmoney.logic.parser.exception.ParserException;
 
+/**
+ * ########################################################################################.
+ */
 public class ParseEditCard extends ParseCard {
 
     /**
-     * Creates an instance of ParseEditSaving.
+     * Creates an instance of ParseEditCard.
      *
      * @param data Raw user input date.
      * @throws ParserException If the first parameter is invalid.
@@ -54,9 +57,9 @@ public class ParseEditCard extends ParseCard {
     }
 
     /**
-     * Returns the command to execute the editing of a saving.
+     * Returns the command to execute the editing of a card.
      *
-     * @return Returns EditSavingsCommand to be executed.
+     * @return Returns EditCardCommand to be executed.
      */
     public Command getCommand() {
         EditCardCommand newEditCardCommand = new EditCardCommand(cardParameters.get(NAME),
