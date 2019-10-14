@@ -52,6 +52,23 @@ public class Storage {
         return art.toString();
     }
 <<<<<<< HEAD
+<<<<<<< HEAD
+
+    public String getLevel(int level) throws IOException{
+            //runs level
+
+=======
+    private File getResourceFile(String name) throws FarmioException {
+        ClassLoader classLoader = getClass().getClassLoader();
+        URL resource = classLoader.getResource(name + ".txt");
+        if(resource == null){
+            throw new FarmioException("Game is corrupted!");
+        }
+        return new File(resource.getFile());
+>>>>>>> 1b2c23957f586c565e6a0996e87670212fc9e037
+||||||| merged common ancestors
+
+
 
     public String getLevel(int level) throws IOException{
             //runs level
