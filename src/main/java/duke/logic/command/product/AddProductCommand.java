@@ -5,15 +5,21 @@ import duke.logic.command.exceptions.CommandException;
 import duke.model.Model;
 import duke.model.product.Product;
 
+import static java.util.Objects.requireNonNull;
+
 public class AddProductCommand extends ProductCommand {
 
     public static final String COMMAND_WORD = "add";
     public static String MESSAGE_SUCCESS = "New product: %s added";
+    public static final String MESSAGE_DUPLICATE_PRODUCT = "Product with name \"%s\" already exists in the "
+            + "product list";
     public static String MESSAGE_NEW_INGREDIENTS_CREATED = MESSAGE_SUCCESS + ", new ingredients created";
     private final Product toAdd;
 
 
+
     public AddProductCommand(Product toAdd) {
+        requireNonNull(toAdd);
         this.toAdd = toAdd;
     }
 
@@ -26,8 +32,21 @@ public class AddProductCommand extends ProductCommand {
      */
     @Override
     public CommandResult execute(Model model) throws CommandException {
+        requireNonNull(model);
+
+        if (model.hasProduct(toAdd)) {
+            throw new CommandException(String.format(MESSAGE_DUPLICATE_PRODUCT, toAdd.getProductName()));
+        }
+
         model.addProduct(toAdd);
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd.getProductName()),
                 CommandResult.DisplayedPage.PRODUCT);
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this
+                || (other instanceof AddProductCommand)
+                && toAdd.equals(((AddProductCommand) other).toAdd);
     }
 }

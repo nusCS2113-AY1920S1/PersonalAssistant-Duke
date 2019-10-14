@@ -1,7 +1,7 @@
 package duke.model;
 
 import duke.commons.core.index.Index;
-import duke.model.commons.Ingredient;
+import duke.model.inventory.Ingredient;
 import duke.model.order.Order;
 import duke.model.product.Product;
 import duke.model.shortcut.Shortcut;
@@ -140,6 +140,12 @@ public class ModelManager implements Model {
         requireNonNull(editedProduct);
 
         bakingHome.setProduct(originalProduct, editedProduct);
+    }
+
+    @Override
+    public boolean hasProduct(Product product) {
+        requireNonNull(product);
+        return bakingHome.getProductList().contains(product);
     }
 
     /**

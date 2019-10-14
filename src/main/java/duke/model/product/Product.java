@@ -1,6 +1,6 @@
 package duke.model.product;
 
-import duke.model.ingredient.IngredientList;
+import duke.model.inventory.IngredientList;
 
 import java.util.Objects;
 

@@ -1,7 +1,7 @@
 package duke.model;
 
 import duke.commons.core.index.Index;
-import duke.model.commons.Ingredient;
+import duke.model.inventory.Ingredient;
 import duke.model.order.Order;
 import duke.model.product.Product;
 import duke.model.sale.Sale;
@@ -130,6 +130,11 @@ public interface Model {
      * {@code originalProduct} must exist in product list
      */
     void setProduct(Product originalProduct, Product editedProduct);
+
+    /**
+     * Returns true if an product has the same name as {@code product} exists in product list.
+     */
+    boolean hasProduct(Product product);
 
     /**
      * Returns an unmodifiable view of the filtered product list.

@@ -1,7 +1,7 @@
 //package duke.logic.parser.product;
 //
 //import duke.logic.parser.exceptions.ParseException;
-//import duke.model.ingredient.IngredientList;
+//import duke.model.ingredient.IngredientItemList;
 //
 //import java.util.Dictionary;
 //import java.util.Hashtable;
@@ -54,13 +54,13 @@
 //    }
 //
 //
-//    public IngredientList getIngredientList() {
-//        return new IngredientList() {};
+//    public IngredientItemList getIngredientList() {
+//        return new IngredientItemList() {};
 //    }
 //
 //    //todo: add logic
 //    public void addIngredients(String ingredientName) {
-//        if (!IngredientList.contains(ingredientName)) {
+//        if (!IngredientItemList.contains(ingredientName)) {
 //            //add ingredient;
 //        }
 //    }

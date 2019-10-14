@@ -16,7 +16,7 @@ import duke.logic.parser.commons.CliSyntax;
 import duke.logic.parser.exceptions.ParseException;
 import duke.model.Model;
 import duke.model.ReadOnlyBakingHome;
-import duke.model.commons.Ingredient;
+import duke.model.inventory.Ingredient;
 import duke.model.order.Order;
 import duke.model.product.Product;
 import duke.storage.Storage;

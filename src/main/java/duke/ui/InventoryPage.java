@@ -1,6 +1,6 @@
 package duke.ui;
 
-import duke.model.commons.Ingredient;
+import duke.model.inventory.Ingredient;
 import javafx.beans.binding.Bindings;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
