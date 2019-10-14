@@ -96,7 +96,7 @@ public abstract class ParseCard {
      */
     void checkRedundantParameter(String parameter, String command) throws ParserException {
         if (rawData.contains(parameter)) {
-            throw new ParserException(command + "/savings should not contain " + parameter);
+            throw new ParserException(command + "/card should not contain " + parameter);
         }
     }
 

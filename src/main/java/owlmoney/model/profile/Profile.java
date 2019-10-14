@@ -1,6 +1,6 @@
 package owlmoney.model.profile;
 
-import owlmoney.logic.parser.exception.CardException;
+import owlmoney.model.card.exception.CardException;
 import owlmoney.model.bank.Bank;
 import owlmoney.model.bank.BankList;
 import owlmoney.model.bank.exception.BankException;
@@ -83,10 +83,10 @@ public class Profile {
      * @throws BankException If bank amount becomes negative after adding expenditure.
      */
     public void addNewExpenditure(String accName, Transaction exp, Ui ui, String type)
-            throws BankException, owlmoney.model.card.exception.CardException {
+            throws BankException, CardException {
         if ("card".equals(type)) {
             cardList.addExpenditure(accName, exp, ui);
-        } else {
+        } else if ("bank".equals(type)) {
             bankList.addExpenditure(accName, exp, ui);
         }
     }
@@ -95,15 +95,17 @@ public class Profile {
      * Deletes an expenditure tied to a specific bank account.
      *
      * @param expIndex The index of the expenditure in the expenditureList tied to a specific bank account.
-     * @param bankName The name of the bank account.
+     * @param accountName The name of the card or bank account.
      * @param ui       required for printing.
      * @throws BankException If bank account does not exist.
      * @throws TransactionException If invalid transaction.
      */
-    public void deleteExpenditure(int expIndex, String bankName, Ui ui,
-            String type) throws BankException, TransactionException {
+    public void deleteExpenditure(int expIndex, String accountName, Ui ui,
+            String type) throws BankException, TransactionException, CardException {
         if ("bank".equals(type)) {
-            bankList.deleteExp(expIndex, bankName, ui);
+            bankList.deleteExp(expIndex, accountName, ui);
+        } else if ("card".equals(type)) {
+            cardList.deleteExp(expIndex, accountName, ui);
         }
     }
 
@@ -130,10 +132,10 @@ public class Profile {
      * @throws TransactionException If no expenditure found.
      */
     public void listExpenditure(String listedBankOrCard, Ui ui, int displayNum, String type)
-            throws BankException, TransactionException, owlmoney.model.card.exception.CardException {
+            throws BankException, TransactionException, CardException {
         if ("card".equals(type)) {
             cardList.listCardExpenditure(listedBankOrCard, ui, displayNum);
-        } else {
+        } else if ("bank".equals(type)) {
             bankList.listBankExpenditure(listedBankOrCard, ui, displayNum);
         }
     }
@@ -152,8 +154,10 @@ public class Profile {
      * @throws TransactionException If incorrect date format.
      */
     public void editExpenditure(int expNum, String editFromBank, String desc, String amount, String date,
-            String category, Ui ui, String type) throws BankException, TransactionException {
-        if ("bank".equals(type)) {
+            String category, Ui ui, String type) throws BankException, TransactionException, CardException {
+        if ("card".equals(type)) {
+            cardList.editExp(expNum, editFromBank, desc, amount, date, category, ui);
+        } else if ("bank".equals(type)) {
             bankList.editExp(expNum, editFromBank, desc, amount, date, category, ui);
         }
     }
