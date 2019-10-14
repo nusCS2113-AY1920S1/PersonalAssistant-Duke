@@ -155,11 +155,5 @@ public class Ui {
                     " End Date: " + endDate + "\n";
         }
     }
-    public String showTentativeSchedule(TaskList tentativeDates) {
-        String out = "Here is your tentative schedule. \n" ;
-        for (int i = 0; i< tentativeDates.taskListSize(); i++){
-            out += i+1 + "." + tentativeDates.taskToString(i ) + "\n";
-        }
-        return  out;
-    }
+
 }

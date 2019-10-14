@@ -11,9 +11,10 @@ import javafx.util.Pair;
 public class TaskList {
     private static final String NO_FIELD = "void";
 
-
     private ArrayList<Task> list;
-    private ArrayList<String> todoArrList = new ArrayList<>();
+    private HashMap<String, HashMap<String, ArrayList<Task>>> map;
+    private HashMap<String, HashMap<String, ArrayList<String>>> deadlineList = new HashMap<>();
+    private HashMap<String, HashMap<String, ArrayList<String>>> eventList = new HashMap<>();
     private ArrayList<String> deadlineArrList = new ArrayList<>();
     private ArrayList<String> eventArrList = new ArrayList<>();
 
@@ -22,33 +23,61 @@ public class TaskList {
      */
     public TaskList(){
         this.list = new ArrayList<>();
+        this.map = new HashMap<>();
     }
 
     public ArrayList<Task> getList() {
         return list;
     }
 
+    public HashMap<String, HashMap<String, ArrayList<Task>>> getMap(){
+        return this.map;
+    }
+
+    public ArrayList<Task> getListFromDate(Task task) {
+        return this.map.get(task.getModCode()).get(task.getDateTime());
+    }
+
+    public HashMap<String, ArrayList<Task>> getMapFromModCode(Task task) {
+        return this.map.get(task.getModCode());
+    }
+
     public void addTask(Task task){
         this.list.add(task);
-        //System.out.println("HERE IS THE LIST PRINTED" + this.list);
+        if (this.map.containsKey(task.getModCode())) {
+            if (!this.map.get(task.getModCode()).containsKey(task.getDateTime())) {
+                map.get(task.getModCode()).put(task.getDateTime(), new ArrayList<>());
+            }
+        } else {
+            this.map.put(task.getModCode(), new HashMap<>());
+            this.map.get(task.getModCode()).put(task.getDateTime(), new ArrayList<>());
+        }
+        this.map.get(task.getModCode()).get(task.getDateTime()).add(task);
     }
 
-    public void removeTask(int index){
-        this.list.remove(index);
-    }
 
+    public void removeTask(Task task) {
+        ArrayList<Task> taskList = this.map.get(task.getModCode()).get(task.getDateTime());
+        for(Task taskInList : taskList) {
+            if(taskInList.getDescription().equals(task.getDescription())) {
+                taskList.remove(taskInList);
+                break;
+            }
+        }
+    }
+    //Do not use this: User will input the task in the CLI
     public Task getTask(int index){
         return this.list.get(index);
     }
-
+    //Do not use this: Use toString method in Task
     public String taskToString(int index){
         return list.get(index).toString();
     }
-
+    //Do not use this: Use setDone method in Task
     public void markAsDone(int index){
         this.list.get(index).setDone(true);
     }
-
+    //Use the getArrayList method then arrayList.size()
     public int taskListSize(){
         return list.size();
     }
@@ -179,9 +208,7 @@ public class TaskList {
     private void sortList() {
         for (int i = 0; i < list.size(); i++) {
             String description = list.get(i).toString();
-            if (list.get(i).getType().equals("[T]")) {
-                this.todoArrList.add(description);
-            } else if (list.get(i).getType().equals("[D]")) {
+            if (list.get(i).getType().equals("[D]")) {
                 this.deadlineArrList.add(description);
             } else if (list.get(i).getType().equals("[E]")){
                 this.eventArrList.add(description);
@@ -197,7 +224,6 @@ public class TaskList {
         sortList();
         int sizeOfDeadlineArr = getDeadlineArrList().size();
         int sizeOfEventArr = getEventArrList().size();
-        int sizeOfTodoArr = getTodoArrList().size();
         String finalSchedule = "Here is your schedule!\n";
         if (sizeOfDeadlineArr != 0) {
             finalSchedule += "DEADLINE Task\n";
@@ -217,23 +243,9 @@ public class TaskList {
                 num++;
             }
         }
-        if (sizeOfTodoArr != 0) {
-            finalSchedule += "TODO Task\n";
-            int num = 1;
-
-            for (int i = 0; i < sizeOfTodoArr; i++) {
-                finalSchedule = finalSchedule + num + "." + getTodoArrList().get(i) + "\n";
-                num++;
-            }
-        }
-        todoArrList.clear();
         deadlineArrList.clear();
         eventArrList.clear();
         return finalSchedule;
-    }
-  
-    private ArrayList<String> getTodoArrList() {
-        return this.todoArrList;
     }
 
     private ArrayList<String> getDeadlineArrList() {

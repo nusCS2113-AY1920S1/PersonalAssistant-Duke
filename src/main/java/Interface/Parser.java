@@ -29,9 +29,6 @@ public class Parser {
         }
     }
 
-    public Parser() throws IOException, ParseException {
-    }
-
     /**
      * This method breaks apart the user's input and tries to make sense with it.
      * @param fullCommand The user's input
@@ -96,11 +93,18 @@ public class Parser {
                     if (arr[0].trim().isEmpty()) {
                         throw new DukeException("\u2639" + " OOPS!!! The description of a event cannot be empty.");
                     }
-//                    arr3 = arr[0].split(" ");
-//                    String modCode = arr3[0];
                     arr1 = arr[1].split("from"); //arr1[0] is "date", arr1[1] is "time to time"
+                    String weekdate ="";
+                    arr2 = arr1[0].trim().split(" ");
+                    weekdate = arr2[0];
+                    if(weekdate.equalsIgnoreCase("reading") || weekdate.equalsIgnoreCase("exam")
+                            ||weekdate.equalsIgnoreCase("week")|| weekdate.equalsIgnoreCase("recess")){
+                        weekdate = LT.getDate(arr1[0].trim());
+                    }else{
+                        weekdate = arr1[0].trim();
+                    }
                     SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy"); //format date
-                    Date date = formatter.parse(arr1[0].trim());
+                    Date date = formatter.parse(weekdate.trim());
                     arr2 = arr1[1].split("to"); //arr2[0] is (start) "time", arr2[1] is (end) "time"
                     SimpleDateFormat formatter1 = new SimpleDateFormat("HHmm"); //format time
                     Date startTime = formatter1.parse(arr2[0].trim());
@@ -116,25 +120,68 @@ public class Parser {
                             "event name_of_event /at dd/MM/yyyy from HHmm to HHmm\n" +
                             "For example: event project meeting /at 1/1/2020 from 1500 to 1700");
                 }
+            }else if(fullCommand.trim().substring(0,8).equals("delete/e")){
+                try { //add/e module_code description /at date from time to time
+                    String activity = fullCommand.trim().substring(8);
+                    arr = activity.split("/at"); //arr[0] is " module_code description", arr[1] is "date from time to time"
+                    if (arr[0].trim().isEmpty()) {
+                        throw new DukeException("\u2639" + " OOPS!!! The description of a event cannot be empty.");
+                    }
+                    arr1 = arr[1].split("from"); //arr1[0] is "date", arr1[1] is "time to time"
+                    String weekdate ="";
+                    arr2 = arr1[0].trim().split(" ");
+                    weekdate = arr2[0];
+                    if(weekdate.equalsIgnoreCase("reading") || weekdate.equalsIgnoreCase("exam")
+                            ||weekdate.equalsIgnoreCase("week")|| weekdate.equalsIgnoreCase("recess")){
+                        weekdate = LT.getDate(arr1[0].trim());
+                    }else{
+                        weekdate = arr1[0].trim();
+                    }
+                    SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy"); //format date
+                    Date date = formatter.parse(weekdate.trim());
+                    arr2 = arr1[1].split("to"); //arr2[0] is (start) "time", arr2[1] is (end) "time"
+                    SimpleDateFormat formatter1 = new SimpleDateFormat("HHmm"); //format time
+                    Date startTime = formatter1.parse(arr2[0].trim());
+                    Date endTime = formatter1.parse(arr2[1].trim());
+                    SimpleDateFormat dateFormat = new SimpleDateFormat("E dd/MM/yyyy");
+                    SimpleDateFormat timeFormat = new SimpleDateFormat("hh:mm a");
+                    String dateString = dateFormat.format(date);
+                    String startTimeString = timeFormat.format(startTime);
+                    String endTimeString = timeFormat.format(endTime);
+                    return new DeleteCommand("event",new Event(arr[0].trim(), dateString, startTimeString, endTimeString));
+                } catch (ParseException | ArrayIndexOutOfBoundsException e) {
+                    throw new DukeException("OOPS!!! Please enter event as follows:\n" +
+                            "event name_of_event /at dd/MM/yyyy from HHmm to HHmm\n" +
+                            "For example: event project meeting /at 1/1/2020 from 1500 to 1700");
+                }
             } else if (fullCommand.trim().substring(0,6).equals("remind")) {
                 return new RemindCommand();
-            } else if (fullCommand.trim().substring(0, 6).equals("delete")) {
+            } else if (fullCommand.trim().substring(0,8).equals("delete/d")) {
                 try {
-                    arr = fullCommand.trim().substring(7).split(" ");
-                    String list = arr[0].trim();
-                    int index = Integer.parseInt(arr[1]) - 1;
+                    String activity = fullCommand.trim().substring(8);
+                    arr = activity.split("/by");
                     if (arr[0].trim().isEmpty()) {
-                        throw new DukeException("\u2639" + " OOPS!!! The name of list cannot be empty.");
-                    } else if (!list.trim().equals("todo") && !list.trim().equals("event") && !list.trim().equals("deadline")) {
-                        throw new DukeException("OOPS!!! Please enter delete as follows:\n" +
-                                "delete name_of_list task_number\n" +
-                                "For example: delete todo 1");
+                        throw new DukeException("\u2639" + " OOPS!!! The description of a deadline cannot be empty.");
                     }
-                    return new DeleteCommand(index, arr[0]);
-                } catch (NumberFormatException e) {
-                    throw new DukeException("\u2639" + " OOPS!!! Please enter a valid task number.");
-                } catch (ArrayIndexOutOfBoundsException e) {
-                    throw new DukeException("\u2639" + " OOPS!!! Please do not leave task number or list name blank.");
+                    String weekdate ="";
+                    arr2 = arr[1].trim().split(" ");
+                    weekdate = arr2[0];
+                    if(weekdate.equalsIgnoreCase("reading") || weekdate.equalsIgnoreCase("exam")
+                            ||weekdate.equalsIgnoreCase("week")|| weekdate.equalsIgnoreCase("recess")){
+                        weekdate = arr[1].substring(0,arr[1].length()- 4); // week x day y
+                        String time = arr[1].substring(arr[1].length()- 4); // time E.g 0300
+                        weekdate = LT.getDate(weekdate) + " " + time;
+                    }else{
+                        weekdate = arr[1];
+                    }
+                    SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HHmm");
+                    Date date = formatter.parse(weekdate);
+                    SimpleDateFormat dateFormat = new SimpleDateFormat("E dd/MM/yyyy hh:mm a");
+                    String dateString = dateFormat.format(date);
+                    return new DeleteCommand("deadline",new Deadline(arr[0].substring(6).trim(), dateString));
+
+                } catch (ParseException | ArrayIndexOutOfBoundsException e) {
+                    throw new DukeException("\u2639" + " OOPS!!! The format input is wrong!");
                 }
             } else if (fullCommand.trim().substring(0, 5).equals("add/d")) {//deadline
                 try {
@@ -143,17 +190,22 @@ public class Parser {
                     if (arr[0].trim().isEmpty()) {
                         throw new DukeException("\u2639" + " OOPS!!! The description of a deadline cannot be empty.");
                     }
-                    arr3 = arr[0].split(" ");
-                    String modCode = arr3[0];
-                    String des = arr[0].substring(6).trim();
-                    String weekdate = arr[1].substring(0,arr[1].length()- 4); // week x day y
-                    String time = arr[1].substring(arr[1].length()- 4); // time E.g 0300
-                    weekdate = LT.getDate(weekdate) + " " + time;
+                    String weekdate ="";
+                    arr2 = arr[1].trim().split(" ");
+                    weekdate = arr2[0];
+                    if(weekdate.equalsIgnoreCase("reading") || weekdate.equalsIgnoreCase("exam")
+                        ||weekdate.equalsIgnoreCase("week")|| weekdate.equalsIgnoreCase("recess")){
+                        weekdate = arr[1].substring(0,arr[1].length()- 4); // week x day y
+                        String time = arr[1].substring(arr[1].length()- 4); // time E.g 0300
+                        weekdate = LT.getDate(weekdate) + " " + time;
+                    }else{
+                        weekdate = arr[1];
+                    }
                     SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HHmm");
                     Date date = formatter.parse(weekdate);
                     SimpleDateFormat dateFormat = new SimpleDateFormat("E dd/MM/yyyy hh:mm a");
                     String dateString = dateFormat.format(date);
-                    return new AddCommand(new Deadline(des, dateString,modCode));
+                    return new AddCommand(new Deadline(arr[0].substring(6).trim(), dateString));
                 } catch (ParseException | ArrayIndexOutOfBoundsException e) {
                     throw new DukeException(" OOPS!!! Please enter deadline as follows:\n" +
                             "deadline name_of_activity /by dd/MM/yyyy HHmm\n" +

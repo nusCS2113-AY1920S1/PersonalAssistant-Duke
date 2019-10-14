@@ -9,23 +9,22 @@ import java.io.FileNotFoundException;
  */
 public class DeleteCommand extends Command {
 
-    private final int index;
+    private Task T;
     private final String list;
     private TaskList listToChange;
 
     /**
      * Creates a DeleteCommand object.
-     * @param index The index representing the task number in the TaskList object
+     * @param T The task to be deleted
      * @param list The name of the TaskList that requires changing
      */
-    public DeleteCommand(int index, String list){
-        this.index = index;
+    public DeleteCommand(String list, Task T){
+        this.T =T;
         this.list = list;
     }
 
     /**
      * Executes the deletion of a task inside the TaskList object with the given index.
-     * @param todos The TaskList object for todos
      * @param events The TaskList object for events
      * @param deadlines The TaskList object for deadlines
      * @param ui The Ui object to display the delete task message
@@ -34,24 +33,17 @@ public class DeleteCommand extends Command {
      * @throws DukeException On ArrayList out of bound error
      */
     @Override
-    public String execute(TaskList todos, TaskList events, TaskList deadlines, Ui ui, Storage storage) throws DukeException, FileNotFoundException {
-        if (list.equals("todo")) {
-            listToChange = todos;
-        } else if (list.equals("event")) {
-            listToChange = events;
+    public String execute(TaskList events, TaskList deadlines, Ui ui, Storage storage) throws DukeException, FileNotFoundException {
+       try{
+        if (list.equals("event")) {
+            events.removeTask(T);
+            storage.updateEventList(events);
         } else if (list.equals("deadline")) {
-            listToChange = deadlines;
+            deadlines.removeTask(T);
+            storage.updateDeadlineList(deadlines);
         }
-        if (index >= 0 && index < listToChange.taskListSize()) {
-            Task task = listToChange.getTask(index);
-            listToChange.removeTask(this.index);
-            if (listToChange.equals("event")) {
-                storage.updateEventList(listToChange);
-            } else if (listToChange.equals("deadline")) {
-                storage.updateDeadlineList(listToChange);
-            }
-            return ui.showDelete(task, listToChange.taskListSize());
-        } else {
+            return ui.showDelete(T, listToChange.taskListSize());
+         }catch(ArrayIndexOutOfBoundsException e) {
             throw new DukeException("\u2639" + " OOPS!!! I'm sorry, but we cannot find the input task number :-(\n");
         }
     }
