@@ -2,6 +2,7 @@ package duke.model;
 
 import duke.commons.core.index.Index;
 import duke.model.inventory.Ingredient;
+import duke.model.commons.Item;
 import duke.model.order.Order;
 import duke.model.product.Product;
 import duke.model.shortcut.Shortcut;
@@ -21,7 +22,7 @@ public class ModelManager implements Model {
     private final VersionedBakingHome bakingHome;
     private final FilteredList<Order> filteredOrders;
     private final FilteredList<Product> filteredProducts;
-    private final FilteredList<Ingredient> filteredInventory;
+    private final FilteredList<Item<Ingredient>> filteredInventory;
 
     /**
      * Initializes a ModelManager with the given BakingHome.
@@ -164,18 +165,18 @@ public class ModelManager implements Model {
 
     //========Inventory operations==========
     @Override
-    public void addInventory(Ingredient ingredient) {
-        bakingHome.addInventory(ingredient);
+    public void addInventory(Item<Ingredient> inventory) {
+        bakingHome.addInventory(inventory);
         updateFilteredInventoryList(PREDICATE_SHOW_ALL_INVENTORY);
     }
 
-    public void updateFilteredInventoryList(Predicate<Ingredient> predicate) {
+    public void updateFilteredInventoryList(Predicate<Item<Ingredient>> predicate) {
         requireNonNull(predicate);
         filteredInventory.setPredicate(predicate);
     }
 
     @Override
-    public ObservableList<Ingredient> getFilteredInventoryList() {
+    public ObservableList<Item<Ingredient>> getFilteredInventoryList() {
         return filteredInventory;
     }
 

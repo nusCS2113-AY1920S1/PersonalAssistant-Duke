@@ -53,6 +53,15 @@ class OrderCommandUtil {
 
         String newRemarks = orderDescriptor.getRemarks().orElse(original.getRemarks());
         Order.Status newStatus = orderDescriptor.getStatus().orElse(original.getStatus());
-        return new Order(newCustomer, newDate, newStatus, newRemarks, newItems);
+        double newTotal = orderDescriptor.getTotal().orElse(original.getTotal());
+        return new Order(newCustomer, newDate, newStatus, newRemarks, newItems, newTotal);
+    }
+
+    static double calculateTotal(Set<Item<Product>> productItems) {
+        double total = 0;
+        for (Item<Product> productItem : productItems) {
+            total += productItem.getItem().getRetailPrice() * productItem.getQuantity().getNumber();
+        }
+        return total;
     }
 }

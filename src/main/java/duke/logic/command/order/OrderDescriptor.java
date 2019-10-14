@@ -10,7 +10,7 @@ import java.util.Optional;
 import java.util.Set;
 
 /**
- * Stores the details an order.
+ * A class that stores the details an order.
  */
 public class OrderDescriptor {
     private String customerName;
@@ -19,6 +19,7 @@ public class OrderDescriptor {
     private Set<Item<String>> items;
     private String remarks;
     private Order.Status status;
+    private Double total;
 
     public OrderDescriptor() {
     }
@@ -35,6 +36,7 @@ public class OrderDescriptor {
         setItems(toCopy.items);
         setRemarks(toCopy.remarks);
         setStatus(toCopy.status);
+        setTotal(toCopy.total);
     }
 
     public Optional<String> getCustomerName() {
@@ -85,6 +87,14 @@ public class OrderDescriptor {
         this.status = status;
     }
 
+    public Optional<Double> getTotal() {
+        return Optional.ofNullable(total);
+    }
+
+    public void setTotal(Double total) {
+        this.total = total;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -99,11 +109,12 @@ public class OrderDescriptor {
                 && Objects.equals(deliveryDate, that.deliveryDate)
                 && Objects.equals(items, that.items)
                 && Objects.equals(remarks, that.remarks)
-                && status == that.status;
+                && status == that.status
+                && total.equals(that.total);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(customerName, customerContact, deliveryDate, items, remarks, status);
+        return Objects.hash(customerName, customerContact, deliveryDate, items, remarks, status, total);
     }
 }

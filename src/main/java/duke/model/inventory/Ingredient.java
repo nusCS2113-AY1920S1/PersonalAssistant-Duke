@@ -19,7 +19,7 @@ public class Ingredient {
     private static final String DEFAULT_UNIT = "unit";
 
     public final String name;
-    public final double unitPrice;
+    public final Double unitPrice;
     public final String unit;
 
     /**
@@ -56,10 +56,9 @@ public class Ingredient {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        duke.model.inventory.Ingredient that = (duke.model.inventory.Ingredient) o;
+        Ingredient that = (Ingredient) o;
         return Objects.equals(name, that.name);
     }
-
     @Override
     public int hashCode() {
         return Objects.hash(name);
