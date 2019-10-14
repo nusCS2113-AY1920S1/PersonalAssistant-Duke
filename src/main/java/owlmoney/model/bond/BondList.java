@@ -17,7 +17,8 @@ public class BondList {
 
     /**
      * Lists the bonds in the bondList.
-     * @param ui required for display.
+     *
+     * @param ui         required for display.
      * @param displayNum bond number.
      */
     public void listBond(Ui ui, int displayNum) {
@@ -32,8 +33,9 @@ public class BondList {
 
     /**
      * Add bond to list.
+     *
      * @param bond bond object.
-     * @param ui required for printing.
+     * @param ui   required for printing.
      */
     public void addBondToList(Bond bond, Ui ui) {
         bondLists.add(bond);
@@ -52,7 +54,8 @@ public class BondList {
     /**
      * Checks if the bond exists.
      *
-     * @param bond the bond object that the user is expecting to add
+     * @param bond the bond object that the user is expecting to add.
+     * @throws BondException If duplicate bond name is found.
      */
     public void bondExist(Bond bond) throws BondException {
         for (int i = 0; i < getSize(); i++) {

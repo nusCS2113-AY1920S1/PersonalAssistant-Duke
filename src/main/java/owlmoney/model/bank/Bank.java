@@ -94,6 +94,7 @@ public abstract class Bank {
      *
      * @param exp Expenditure to be added.
      * @param ui  Ui of OwlMoney
+     * @throws BankException If bank amount becomes negative after adding expenditure.
      */
     public abstract void addInExpenditure(Transaction exp, Ui ui) throws BankException;
 
@@ -102,6 +103,7 @@ public abstract class Bank {
      *
      * @param exNum Transaction number.
      * @param ui    Ui of OwlMoney.
+     * @throws TransactionException If invalid transaction.
      */
     public abstract void deleteExpenditure(int exNum, Ui ui) throws TransactionException;
 
@@ -114,6 +116,8 @@ public abstract class Bank {
      * @param date     New date.
      * @param category New category.
      * @param ui       Ui of OwlMoney.
+     * @throws TransactionException If incorrect date format.
+     * @throws BankException If bank amount becomes negative after editing expenditure.
      */
     void editExpenditureDetails(int expNum, String desc, String amount, String date, String category, Ui ui)
             throws TransactionException, BankException {
@@ -128,6 +132,8 @@ public abstract class Bank {
      * @param amount New amount.
      * @param date   New date.
      * @param ui     Ui of OwlMoney.
+     * @throws TransactionException If incorrect date format.
+     * @throws BankException If bank amount becomes negative after editing deposit.
      */
     void editDepositDetails(int expNum, String desc, String amount, String date, Ui ui)
             throws TransactionException, BankException {
@@ -138,9 +144,10 @@ public abstract class Bank {
      * Sets the income of the current bank.
      *
      * @param newIncome Income to set.
+     * @throws BankException If used on investment account.
      */
-    void setIncome(double newIncome) {
-        //for Saving class
+    void setIncome(double newIncome) throws BankException {
+        throw new BankException("This account does not support this feature");
     }
 
     /**
@@ -148,6 +155,7 @@ public abstract class Bank {
      *
      * @param ui         Ui of OwlMoney.
      * @param displayNum Number of expenditure to list.
+     * @throws TransactionException If no expenditure is found.
      */
     void listAllExpenditure(Ui ui, int displayNum) throws TransactionException {
         throw new TransactionException("This account does not support this feature");
@@ -158,9 +166,11 @@ public abstract class Bank {
      *
      * @param ui         Ui of OwlMoney.
      * @param displayNum Number of deposits to list.
+     * @throws TransactionException If no deposit is found
+     * @throws BankException        If used on investment account.
      */
-    void listAllDeposit(Ui ui, int displayNum) throws TransactionException {
-        throw new TransactionException("This account does not support this feature");
+    void listAllDeposit(Ui ui, int displayNum) throws TransactionException, BankException {
+        throw new BankException("This account does not support this feature");
     }
 
     /**
@@ -168,6 +178,7 @@ public abstract class Bank {
      *
      * @param dep Deposit to add.
      * @param ui  Ui of OwlMoney.
+     * @throws BankException If used on investment account.
      */
     void addDepositTransaction(Transaction dep, Ui ui) throws BankException {
         throw new BankException("This account does not support this feature");
@@ -178,16 +189,19 @@ public abstract class Bank {
      *
      * @param index Transaction number.
      * @param ui    Ui of OwlMoney.
+     * @throws TransactionException If transaction is not a deposit.
+     * @throws BankException        If amount becomes negative after deleting deposit.
      */
     void deleteDepositTransaction(int index, Ui ui) throws TransactionException, BankException {
-        throw new TransactionException("This account does not support this feature");
+        throw new BankException("This account does not support this feature");
     }
 
     /**
      * Adds a bond to the current bank account.
      *
      * @param newBond the bond object.
-     * @param ui required for printing.
+     * @param ui      required for printing.
+     * @throws BankException If used on savings account.
      */
     void addBondToInvestmentAccount(Bond newBond, Ui ui) throws BankException {
         throw new BankException("This account does not support this feature");
@@ -197,6 +211,8 @@ public abstract class Bank {
      * Checks if the bond exists before adding.
      *
      * @param bond the bond object.
+     * @throws BankException If used on savings account.
+     * @throws BondException If duplicate bond name exists.
      */
     public void checkBondExist(Bond bond) throws BankException, BondException {
         throw new BankException("This account does not support this feature");
