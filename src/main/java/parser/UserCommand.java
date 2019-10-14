@@ -1,8 +1,0 @@
-package parser;
-
-public enum UserCommand {
-    TODO, DEADLINE, EVENT,
-    VIEW, LIST, FIND, SEARCH,
-    DELETE, POSTPONE, EDIT, COMMENT,
-    LECTURE, TUTORIAL, LAB, ASSIGNMENT, TEST
-}

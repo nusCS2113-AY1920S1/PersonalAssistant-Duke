@@ -7,11 +7,11 @@ import exception.DukeException;
 import java.text.ParseException;
 import java.time.LocalDateTime;
 
-public class TodoWithinPeriodParse extends TodoParse {
+public class TodoWithinPeriodParser extends TodoParser {
 
-    public TodoWithinPeriodParse(String userInput) {
+    public TodoWithinPeriodParser(String userInput) {
         super(userInput);
-        this.checkType = "/between";
+        this.checkType = Flag.BETWEEN.getFlag();
     }
 
     @Override
@@ -37,6 +37,4 @@ public class TodoWithinPeriodParse extends TodoParse {
         }
         return new AddCommand(command, taskDescription, startDate, endDate);
     }
-
-
 }

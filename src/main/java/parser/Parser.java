@@ -16,7 +16,6 @@ import command.ViewCommand;
 import command.EditCommand;
 import command.IgnoreCommand;
 import exception.DukeException;
-import task.TodoWithinPeriod;
 import ui.Ui;
 
 import java.time.LocalDateTime;
@@ -54,13 +53,16 @@ public class Parser {
         LocalDateTime fromDate = nullDate;
         final String dateTimeFromUser;
 
-        switch (UserCommand.valueOf(command)) {
-        case TODO:
+        switch (command) {
+        case "todo":
             if (userInput.contains(Flag.BETWEEN.getFlag())) {
-                return new TodoWithinPeriodParse(userInput).parse();
+                return new TodoWithinPeriodParser(userInput).parse();
             }
-            return parseTodo(command, userInput);
-        case DEADLINE:
+            if (userInput.contains(Flag.FOR.getFlag())) {
+                return new ;
+            }
+            return new TodoParser(userInput).parse();
+        case "deadline":
             return parseDeadline(command, userInput);
         case "event":
             return parseEvent(command, userInput);
@@ -186,28 +188,6 @@ public class Parser {
             Ui.userOutputForUI = "Wrong Command";
             throw new DukeException(DukeException.unknownUserCommand());
         }
-    }
-
-    private static Command parseTodo(String command, String userInput) throws DukeException {
-        String taskFeatures;
-
-        try {
-            taskFeatures = userInput.split("\\s+", 2)[1].trim();
-        } catch (ArrayIndexOutOfBoundsException e) {
-            throw new DukeException(DukeException.emptyUserDescription());
-        }
-
-        String checkType = "/between";
-        String[] taskDetails = taskFeatures.split(checkType, 2);
-        if (taskDetails.length != 1) {
-            return parseToDoPeriod(taskFeatures, taskDetails, checkType, command);
-        }
-        checkType = "/for";
-        taskDetails = taskFeatures.split(checkType, 2);
-        if (taskDetails.length != 1) {
-            return parseDuration(taskFeatures, taskDetails, checkType, command);
-        }
-        return new AddCommand(command, taskDetails[0], null, null);
     }
 
     private static Command parseRemind(String command, String userInput) throws DukeException {
