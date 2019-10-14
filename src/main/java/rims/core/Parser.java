@@ -19,6 +19,12 @@ public class Parser {
         else if (input.equals("list") && words.length == 1) {
             c = new ListCommand();
         }
+
+        else if (words[0].equals("listByDate")) {
+            Scanner myObj = new Scanner(System.in);
+            String day = myObj.nextLine();
+                c = new ListByDateCommand(day);
+        }
         else if (words[0].equals("lend")) {
             if (words[1].equals("/item")) {
                 int itemIndex = input.indexOf("/item") + 6;
