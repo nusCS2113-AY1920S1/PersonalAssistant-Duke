@@ -63,9 +63,8 @@ public class AutoCompleter {
         } else {
             //Convert the suggestion words to a user input state and set pointer to zero
             this.suggestions = suggestions.stream().distinct().map(
-                    suggestionWord -> new UserInputState(replaceWord(commandText, caretPosition, suggestionWord),
-                            getNewCaretPosition(caretPosition, currentWord, suggestionWord)
-                    ))
+                suggestionWord -> new UserInputState(replaceWord(commandText, caretPosition, suggestionWord),
+                    getNewCaretPosition(caretPosition, currentWord, suggestionWord)))
                     .collect(Collectors.toList());
             suggestionPointer = 0;
 
@@ -107,10 +106,9 @@ public class AutoCompleter {
      * To auto-complete arguments, the command should have fields {@code AUTO_COMPLETION_INDICATOR} and
      * {@code AUTO_COMPLETION_ARGUMENTS}. The naming and type should be precise for auto-completer to
      * function properly.
-     * <p>
+     *
      * {@code AUTO_COMPLETION_INDICATOR} is a string specifying when auto-completer should complete the arguments.
      * Auto-completer only completes the arguments when this field is present in the beginning of user input.
-     * <p>
      * {@code AUTO_COMPLETION_ARGUMENTS} is an array of {@code Prefix} that is used by the command that
      * can be auto-completed.
      */
@@ -162,11 +160,11 @@ public class AutoCompleter {
         List<String> suggestions = new ArrayList<>();
 
         getCommandParameters(commandClass).ifPresent(
-                prefixes -> suggestions.addAll(Arrays.stream(prefixes)
-                        .map(Prefix::getPrefix)
-                        .filter(prefixString -> prefixString.startsWith(toComplete)
-                                && !prefixString.equals(toComplete))
-                        .collect(Collectors.toList())
+            prefixes -> suggestions.addAll(Arrays.stream(prefixes)
+                    .map(Prefix::getPrefix)
+                    .filter(prefixString -> prefixString.startsWith(toComplete)
+                        && !prefixString.equals(toComplete))
+                    .collect(Collectors.toList())
                 )
         );
 
