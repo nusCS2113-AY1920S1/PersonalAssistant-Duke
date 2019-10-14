@@ -1,5 +1,7 @@
 package Commands;
 
+import Execution.CommandStack;
+
 import java.util.TreeMap;
 
 public class CommandStructure {
@@ -16,15 +18,19 @@ public class CommandStructure {
         });
 
         put(COMMAND_KEYS.view, new COMMAND_KEYS[]{
-            COMMAND_KEYS.profile, COMMAND_KEYS.filters, COMMAND_KEYS.preferences, COMMAND_KEYS.watchlist, COMMAND_KEYS.info, COMMAND_KEYS.showtimes
+            COMMAND_KEYS.profile, COMMAND_KEYS.filters, COMMAND_KEYS.preferences, COMMAND_KEYS.watchlist, COMMAND_KEYS.info, COMMAND_KEYS.showtimes , COMMAND_KEYS.blacklist
         });
 
         put(COMMAND_KEYS.add, new COMMAND_KEYS[]{
             COMMAND_KEYS.blacklist, COMMAND_KEYS.watchlist
         });
 
+        put(COMMAND_KEYS.remove, new COMMAND_KEYS[]{
+                COMMAND_KEYS.blacklist, COMMAND_KEYS.watchlist
+        });
+
         put(COMMAND_KEYS.help, new COMMAND_KEYS[]{
-            COMMAND_KEYS.search, COMMAND_KEYS.view, COMMAND_KEYS.add, COMMAND_KEYS.help, COMMAND_KEYS.more, COMMAND_KEYS.yes
+            COMMAND_KEYS.search, COMMAND_KEYS.view, COMMAND_KEYS.add, COMMAND_KEYS.help, COMMAND_KEYS.more, COMMAND_KEYS.yes ,COMMAND_KEYS.set ,  COMMAND_KEYS.playlist , COMMAND_KEYS.yes
         });
 
         put(COMMAND_KEYS.more, new COMMAND_KEYS[]{
@@ -49,5 +55,19 @@ public class CommandStructure {
 
     }};
 
-    public static COMMAND_KEYS[] AllRoots = new COMMAND_KEYS[]{COMMAND_KEYS.search , COMMAND_KEYS.view , COMMAND_KEYS.add ,COMMAND_KEYS.help , COMMAND_KEYS.more , COMMAND_KEYS.yes , COMMAND_KEYS.set ,  COMMAND_KEYS.playlist};
+
+    public static TreeMap<COMMAND_KEYS , String> cmdHelp = new TreeMap<>() {
+        {
+            put(COMMAND_KEYS.search , "Search for movies,tvshows, cast etc.\neg.: search movies MOVIE_NAME [-P][-C][-L]");
+            put(COMMAND_KEYS.view , "Search for movies,tvshows, cast etc.\neg.: search movies MOVIE_NAME [-P][-C][-L]");
+            put(COMMAND_KEYS.add , "Search for movies,tvshows, cast etc.\neg.: search movies MOVIE_NAME [-P][-C][-L]");
+            put(COMMAND_KEYS.help , "Search for movies,tvshows, cast etc.\neg.: search movies MOVIE_NAME [-P][-C][-L]");
+            put(COMMAND_KEYS.more , "Search for movies,tvshows, cast etc.\neg.: search movies MOVIE_NAME [-P][-C][-L]");
+            put(COMMAND_KEYS.set , "Search for movies,tvshows, cast etc.\neg.: search movies MOVIE_NAME [-P][-C][-L]");
+            put(COMMAND_KEYS.preference , "Search for movies,tvshows, cast etc.\neg.: search movies MOVIE_NAME [-P][-C][-L]");
+            put(COMMAND_KEYS.playlist , "Search for movies,tvshows, cast etc.\neg.: search movies MOVIE_NAME [-P][-C][-L]");
+        }
+    };
+
+    public static COMMAND_KEYS[] AllRoots = new COMMAND_KEYS[]{COMMAND_KEYS.search ,COMMAND_KEYS.remove , COMMAND_KEYS.view , COMMAND_KEYS.add ,COMMAND_KEYS.help , COMMAND_KEYS.more , COMMAND_KEYS.yes , COMMAND_KEYS.set ,  COMMAND_KEYS.playlist};
 }

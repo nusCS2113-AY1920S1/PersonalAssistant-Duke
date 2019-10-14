@@ -1,10 +1,16 @@
 package Contexts;
 
+import Commands.*;
+import EPstorage.Blacklist;
+import Execution.CommandStack;
 import MovieUI.Controller;
 import MovieUI.MovieHandler;
+import wrapper.CommandPair;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Map;
 
 public class ContextHelper {
 
@@ -69,11 +75,22 @@ public class ContextHelper {
 
         if(splitCommand.length == 0){
             return CommandContext.getRoot();
+        }else if(splitCommand.length == 1 && isRootCommandComplete(splitCommand[0])){
+            ArrayList<String> allPossibilities =  CommandContext.getPossibilitiesSubRoot(incompleteCommand);
+            String update = completeCommand(allPossibilities , incompleteCommand);
+            ((MovieHandler)controller).updateTextField(update);
+            return allPossibilities;
         }else if(splitCommand.length == 1){
             ArrayList<String> allPossibilities =  CommandContext.getPossibilitiesRoot(incompleteCommand);
             String update = completeCommand(allPossibilities , incompleteCommand);
             ((MovieHandler)controller).updateTextField(update);
             return allPossibilities;
+        }else if(splitCommand.length ==2 && isSubRootCommandComplete(splitCommand[1])){
+            ArrayList<String> hints  = CommandSpecificHints(splitCommand[1]);
+//            ((MovieHandler)controller).updateTextField(update);
+
+            //TODO NOT COMPELTE and ROBUST
+            return hints;
         }else if(splitCommand.length == 2){
             ArrayList<String> allPossibilities =  CommandContext.getPossibilitiesSubRoot(incompleteCommand);
             String update = completeCommand(allPossibilities , incompleteCommand);
@@ -85,6 +102,46 @@ public class ContextHelper {
             String update = completeCommand(allPossibilities , incompleteCommand);
             ((MovieHandler)controller).updateTextField(update);
             return allPossibilities;
+        }
+
+    }
+
+    private static boolean isRootCommandComplete(String Root){
+        for(COMMAND_KEYS c : CommandStructure.AllRoots){
+            if(c.toString() == Root){
+                return true;
+            }
+        }
+        return false;
+
+    }
+
+
+    private static boolean isSubRootCommandComplete(String SubRoot){
+        for( Map.Entry<COMMAND_KEYS, COMMAND_KEYS[]> e: CommandStructure.cmdStructure.entrySet()){
+            for(COMMAND_KEYS a: e.getValue()){
+                if(e.toString() == SubRoot){
+                    return true;
+                }
+            }
+
+        }
+        return false;
+
+    }
+
+    private static ArrayList<String> CommandSpecificHints(String SubRoot){
+        switch(SubRoot){
+            case("blacklist"):
+                return Blacklist.getBlackListMovies();
+
+            default:
+                return new ArrayList<String>(){
+                    {
+                        add("Do you need help??");
+                    }
+                };
+
         }
 
     }
