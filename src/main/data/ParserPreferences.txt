@@ -1,0 +1,10 @@
+a\|add
+b\|bye
+D\|delete-all
+d\|delete
+e\|edit
+h\|help
+l\|list
+p\|postpone
+s\|sell
+v\|view
