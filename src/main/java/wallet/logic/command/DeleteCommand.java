@@ -1,5 +1,6 @@
 package wallet.logic.command;
 
+import wallet.logic.LogicManager;
 import wallet.model.Wallet;
 import wallet.model.record.Expense;
 import wallet.model.record.Loan;
@@ -62,6 +63,10 @@ public class DeleteCommand extends Command {
                 wallet.getLoanList().setModified(true);
                 System.out.println(MESSAGE_SUCCESS_DELETE_LOAN);
                 System.out.println(loan.toString());
+                if (!LogicManager.getWallet().getLoanList().checkUnsettledLoan()) {
+                    LogicManager.getReminder().autoRemindStop();
+                    System.out.println("Turning off auto reminders because all loans have been settled!");
+                }
             } else {
                 System.out.println(MESSAGE_ERROR_DELETE_LOAN);
             }

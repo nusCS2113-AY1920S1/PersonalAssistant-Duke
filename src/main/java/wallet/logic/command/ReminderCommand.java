@@ -35,8 +35,8 @@ public class ReminderCommand extends Command {
                 if (LogicManager.getReminder().getAutoRemind()) {
                     System.out.println(MESSAGE_FAILURE_REMINDER_ON);
                 } else {
-                    LogicManager.getReminder().autoRemindStart();
                     LogicManager.getReminder().setAutoRemind(true);
+                    LogicManager.getReminder().autoRemindStart();
                     System.out.println(MESSAGE_SUCCESS_REMINDER_ON);
                 }
             } else if (info[0].equals("off")) {

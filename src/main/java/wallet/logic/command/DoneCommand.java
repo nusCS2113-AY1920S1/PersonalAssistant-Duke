@@ -1,5 +1,6 @@
 package wallet.logic.command;
 
+import wallet.logic.LogicManager;
 import wallet.model.Wallet;
 import wallet.model.record.Loan;
 
@@ -47,8 +48,11 @@ public class DoneCommand extends Command {
                 return false;
             }
             wallet.getLoanList().setModified(true);
-            wallet.getLoanList().setHasUnsettledLoan(wallet.getLoanList().checkUnsettledLoan());
             System.out.println(MESSAGE_SUCCESS_DONE + loan.toString());
+            if (!LogicManager.getWallet().getLoanList().checkUnsettledLoan()) {
+                LogicManager.getReminder().autoRemindStop();
+                System.out.println("Turning off auto reminders because all loans have been settled!");
+            }
         } catch (Exception e) {
             System.out.println(MESSAGE_FAILURE_DONE);
         }
