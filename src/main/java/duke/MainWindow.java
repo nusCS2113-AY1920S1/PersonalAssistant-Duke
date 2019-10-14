@@ -6,6 +6,8 @@ import duke.dukeexception.DukeException;
 import duke.task.Task;
 import duke.task.TaskList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.ScrollPane;
@@ -17,8 +19,10 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.control.ListView;
 import duke.ui.Ui;
+import javafx.stage.Stage;
 
 import java.awt.event.ActionEvent;
+import java.io.IOException;
 import java.util.Date;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -123,7 +127,7 @@ public class MainWindow extends AnchorPane {
     }
 
     @FXML
-    private void handleUserEvent(String input) {
+    protected void handleUserEvent(String input) {
         //String input = userInput.getText();
         String response;
         dialogContainer.getChildren().addAll(
@@ -161,7 +165,7 @@ public class MainWindow extends AnchorPane {
     }
 
     @FXML
-    private void onMouseClick_ListView(MouseEvent event) {
+    private void onMouseClick_ListView() {
         //System.out.println("clicked on " + listT.getSelectionModel().getSelectedItem());
         labelSelectedTask.setText("Selected Task: " + listT.getSelectionModel().getSelectedItem());
         Task taskObj = listT.getSelectionModel().getSelectedItem();
@@ -175,7 +179,7 @@ public class MainWindow extends AnchorPane {
     }
 
     @FXML
-    private void onMouseClickDone(MouseEvent event) {
+    private void onMouseClickDone() {
         //System.out.println("CURRENTLY on " + listT.getSelectionModel().getSelectedItem());
         Task taskObj = listT.getSelectionModel().getSelectedItem();
         TaskList items = duke.getTaskList();
@@ -185,7 +189,7 @@ public class MainWindow extends AnchorPane {
     }
 
     @FXML
-    private void onMouseClickDelete(MouseEvent event) {
+    private void onMouseClickDelete() {
         Task taskObj = listT.getSelectionModel().getSelectedItem();
         TaskList items = duke.getTaskList();
         int itemNumber = items.getIndex(taskObj) + 1;
@@ -201,7 +205,7 @@ public class MainWindow extends AnchorPane {
     }
 
     @FXML
-    private void listViewRefresh() {
+    protected void listViewRefresh() {
         listT.getItems().clear();
         TaskList items = duke.getTaskList();
         for (int i = 0; i < items.size(); i++) {
@@ -245,5 +249,20 @@ public class MainWindow extends AnchorPane {
             e.printStackTrace();
         }
         userInput.clear();
+    }
+
+    @FXML
+    public void createAddWindow() {
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/view/AddWindow.fxml"));
+            AnchorPane ap = fxmlLoader.load();
+            Scene scene = new Scene(ap);
+            Stage stage = new Stage();
+            stage.setScene(scene);
+            fxmlLoader.<AddWindow>getController().setAddWindow(duke, this);
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
