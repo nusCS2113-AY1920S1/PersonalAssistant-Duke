@@ -1,5 +1,9 @@
 package wallet.ui;
 
+import wallet.logic.LogicManager;
+import wallet.model.record.Expense;
+
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Ui {
@@ -36,9 +40,7 @@ public class Ui {
      * Prints the goodbye message when the user exits the program.
      */
     public void byeMsg() {
-        printLine();
         System.out.println("Bye. Hope to see you again soon!");
-        printLine();
     }
 
     /**
@@ -54,6 +56,28 @@ public class Ui {
      * Prints the separator lines for UI.
      */
     public void printLine() {
-        System.out.println("____________________________________________________________");
+        System.out.println("_______________________________________________________________________________");
+    }
+
+    public static void printExpenseTable() {
+        ArrayList<Expense> expenseList = LogicManager.getWallet().getExpenseList().getExpenseList();
+        System.out.println("Here are the expenses in your list:");
+        System.out.println("----------------------------------------------------------------------------------------------------\n"
+                + "|  ID  |              Description                 | Category |    Date    |   Amount   | Recurring |\n"
+                + "|--------------------------------------------------------------------------------------------------|");
+        double total = 0;
+        for (Expense e : expenseList) {
+            if (e.isRecurring()) {
+                System.out.printf("| %-4d | %-40s | %-8s | %-10s |  $%-7.2f  |  %-7s  |\n",
+                        e.getId(), e.getDescription(), e.getCategory(), e.getDate(), e.getAmount(), e.getRecFrequency());
+            } else {
+                System.out.printf("| %-4d | %-40s | %-8s | %-10s |  $%-7.2f  |  %-7s  |\n",
+                        e.getId(), e.getDescription(), e.getCategory(), e.getDate(), e.getAmount(), "No");
+
+            }
+            total += e.getAmount();
+        }
+        System.out.println("----------------------------------------------------------------------------------------------------");
+        System.out.println("Total amount spent: $" + total);
     }
 }
