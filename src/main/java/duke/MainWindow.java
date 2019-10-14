@@ -94,7 +94,8 @@ public class MainWindow extends BorderPane {
         tagColumn.setCellValueFactory(new PropertyValueFactory<>("tagsString"));
         TableColumn<Expense, Boolean> isTentativeColumn = new TableColumn<>("Tentative");
         isTentativeColumn.setCellValueFactory(new PropertyValueFactory<>("tentative"));
-        expenseTableView.getColumns().setAll(indexColumn,
+        expenseTableView.getColumns().setAll(
+                indexColumn,
                 timeColumn,
                 amountColumn,
                 descriptionColumn,
