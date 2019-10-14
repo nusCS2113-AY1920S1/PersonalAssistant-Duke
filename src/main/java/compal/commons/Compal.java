@@ -10,11 +10,9 @@ import javafx.scene.paint.Color;
 
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
 
-import static java.lang.System.exit;
 
 /**
  * Main class.
@@ -115,7 +113,8 @@ public class Compal {
         }
 
         //sort/compare by task priority score
-        Comparator<Task> compareByDateTime = (Task t1, Task t2) -> Long.compare(t2.getPriorityScore(), t1.getPriorityScore());
+        Comparator<Task> compareByDateTime = (Task t1, Task t2) ->
+                Long.compare(t2.getPriorityScore(), t1.getPriorityScore());
         reminder.sort(compareByDateTime);
 
         //clear secondary window
