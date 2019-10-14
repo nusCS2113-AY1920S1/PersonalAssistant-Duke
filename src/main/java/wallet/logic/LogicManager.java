@@ -51,9 +51,12 @@ public class LogicManager {
                 isExit = command.execute(wallet);
                 ExpenseParser.updateRecurringRecords(wallet);
                 storageManager.save(wallet);
+            } else {
+                System.out.println(MESSAGE_ERROR_COMMAND);
             }
 
         } catch (Exception e) {
+            //TODO: Remember to remove this line before final submission
             e.printStackTrace();
             System.out.println(MESSAGE_ERROR_COMMAND);
         }

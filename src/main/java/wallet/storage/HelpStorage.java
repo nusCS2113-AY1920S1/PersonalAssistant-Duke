@@ -59,7 +59,6 @@ public class HelpStorage {
 
         try {
 
-            //RandomAccessFile raf = new RandomAccessFile(path, "r");
             InputStream is = getClass().getResourceAsStream(chosenPath);
             InputStreamReader isr = new InputStreamReader(is);
             BufferedReader br = new BufferedReader(isr);
@@ -79,6 +78,10 @@ public class HelpStorage {
             isr.close();
             is.close();
 
+
+        } catch (NullPointerException e) {
+
+            System.out.println(MESSAGE_ERROR_ACCESS_SECTION);
 
         } catch (FileNotFoundException e) {
 
