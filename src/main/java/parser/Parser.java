@@ -162,7 +162,15 @@ public class Parser {
         case "unignore":
             return parseIgnore(userInput, false);
         case "comment":
-            int index = Integer.parseInt(userInput.split("\\s+", 3)[1].trim()) - 1;
+            int index;
+            try {
+                String rawIndex = userInput.split("\\s+", 3)[1].trim();
+                index = Integer.parseInt(rawIndex) - 1;
+            } catch (ArrayIndexOutOfBoundsException e) {
+                throw new DukeException(DukeException.invalidIndex());
+            } catch (NumberFormatException e) {
+                throw new DukeException(DukeException.invalidIndex());
+            }
             String comment = "";
             try {
                 comment = userInput.split("\\s+", 3)[2].trim();

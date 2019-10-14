@@ -10,6 +10,7 @@ import ui.Ui;
  * Used to add a comment to an existing task.
  * 
  * @author Hans Kurnia
+ * @version 1.2
  */
 public class CommentCommand extends Command {
     private int indexOfTask;
@@ -34,6 +35,14 @@ public class CommentCommand extends Command {
         } else {
             throw new DukeException(DukeException.taskDoesNotExist());
         }
+    }
+
+    public int getIndexOfTask() {
+        return indexOfTask;
+    }
+
+    public String getComment() {
+        return comment;
     }
 
 }

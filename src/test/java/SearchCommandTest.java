@@ -11,6 +11,7 @@ import parser.Parser;
  * unit test for search command feature.
  * 
  * @author Hans kurnia
+ * @version 1.1
  */
 
 public class SearchCommandTest {
