@@ -76,7 +76,7 @@ public class MainWindow extends BorderPane {
      * Populate the ListView with a list of expenses.
      */
 
-    private void updateTableListView(){
+    private void updateTableListView() {
         expenseTableView.getItems().clear();
         expenseTableView.setPlaceholder(new Label("No expenses to display!"));
         TableColumn<Expense, Void> indexColumn = new TableColumn<>("No.");
@@ -84,12 +84,12 @@ public class MainWindow extends BorderPane {
             TableCell<Expense, Void> cell = new TableCell<>();
             cell.textProperty().bind(Bindings.createStringBinding(() -> {
                 if (cell.isEmpty()) {
-                    return null ;
+                    return null;
                 } else {
                     return Integer.toString(cell.getIndex() + 1);
                 }
             }, cell.emptyProperty(), cell.indexProperty()));
-            return cell ;
+            return cell;
         });
         TableColumn<String,Expense> timeColumn = new TableColumn<>("Time");
         timeColumn.setCellValueFactory(new PropertyValueFactory<>("time"));
@@ -101,8 +101,9 @@ public class MainWindow extends BorderPane {
         tagColumn.setCellValueFactory(new PropertyValueFactory<>("tagsString"));
         TableColumn<Expense,Boolean> isTentativeColumn = new TableColumn<>("Tentative");
         isTentativeColumn.setCellValueFactory(new PropertyValueFactory<>("tentative"));
-        expenseTableView.getColumns().setAll(indexColumn,timeColumn, amountColumn,descriptionColumn,tagColumn,isTentativeColumn);
-        for(Expense expense : duke.expenseList.getExternalList()) {
+        expenseTableView.getColumns().setAll(indexColumn,timeColumn, amountColumn,
+                descriptionColumn,tagColumn,isTentativeColumn);
+        for (Expense expense : duke.expenseList.getExternalList()) {
             expenseTableView.getItems().add(expense);
         }
     }

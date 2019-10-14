@@ -176,9 +176,9 @@ abstract class DukeItem implements Serializable {
      */
     public String getTagsString() {
         StringJoiner stringJoiner = new StringJoiner(" ");
-        if(tags.isEmpty()) {
+        if (tags.isEmpty()) {
             return "";
-        }else{
+        } else {
             stringJoiner.add("Tags: " + String.join(" ", tags));
         }
         return stringJoiner.toString();
