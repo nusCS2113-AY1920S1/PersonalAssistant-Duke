@@ -45,29 +45,30 @@ public class TodoCommand extends Command {
         else {
             userSubstring = user.substring(4);
         }
-        if (userSubstring.isBlank()) {
-            throw new EmptyTodoException();
-        }
-        else {
-            String[] prioritySplit = userSubstring.split("prio");
-            TodoTask newTask = null;
-            int priority = -1 ;
-            if (prioritySplit.length != 1 && prioritySplit[1].trim().matches("\\d+")){
-                priority = Integer.parseInt(prioritySplit[1].trim());
-                if (priority < 0 || priority > 9) {
-                    throw new PrioritizeLimitException();
-                }
-                newTask = new TodoTask(prioritySplit[0],"[✗]",priority);
+        String[] prioritySplit = userSubstring.split("prio");
+        TodoTask newTask = null;
+        int priority = -1 ;
+        if (prioritySplit.length != 1 && prioritySplit[1].trim().matches("\\d+")){
+            priority = Integer.parseInt(prioritySplit[1].trim());
+            if (priority < 0 || priority > 9) {
+                throw new PrioritizeLimitException();
             }
-            else { // The description of the todo task could contain "prio"
-                newTask = new TodoTask(userSubstring.trim());
+            if (prioritySplit[0].isBlank()){
+                throw new EmptyTodoException();
             }
-            tasks.add(newTask);
-            storage.save(tasks.getList());
-            ui.display("\t Got it. I've added this task:\n\t   "
-                    + newTask.toString() +
-                    "\n\t Now you have " + tasks.size() + " tasks in the list.");
+            newTask = new TodoTask(prioritySplit[0],"[✗]",priority);
         }
+        else { // The description of the todo task could contain "prio"
+            if (userSubstring.isBlank()){
+                throw new EmptyTodoException();
+            }
+            newTask = new TodoTask(userSubstring.trim());
+        }
+        tasks.add(newTask);
+        storage.save(tasks.getList());
+        ui.display("\t Got it. I've added this task:\n\t   "
+                + newTask.toString() +
+                "\n\t Now you have " + tasks.size() + " tasks in the list.");
     }
     /**
      * getter because the shortcut is private

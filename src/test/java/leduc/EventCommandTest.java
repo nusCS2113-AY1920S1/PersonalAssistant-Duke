@@ -1,5 +1,6 @@
 package leduc;
 
+import leduc.command.DeleteCommand;
 import leduc.command.EventCommand;
 import leduc.exception.*;
 import leduc.storage.Storage;
@@ -160,5 +161,51 @@ public class EventCommandTest {
         } catch (EmptyEventException | EmptyEventDateException | FileException | NonExistentDateException | ConflictDateException | PrioritizeLimitException e) {
             assertTrue(e.print().contains("conflict"));
         }
+
+
+        EventCommand eventCommand15 = new EventCommand("event e1 /at 12/12/2000 22:22 - 12/12/2000 22:23 prio 6");
+        try{
+            eventCommand15.execute(tasks,ui,storage);
+        }
+        catch( DukeException e){
+            assertTrue(false);
+        }
+        assertTrue(tasks.size()==2);
+        assertTrue(tasks.get(1).getPriority() == 6);
+
+        EventCommand eventCommand16 = new EventCommand("event e2 /at 12/12/2001 22:22 - 12/12/2001 22:23 prio 12");
+        try{
+            eventCommand16.execute(tasks,ui,storage);
+        }
+        catch( DukeException e){
+            assertTrue(e instanceof PrioritizeLimitException);
+        }
+        assertTrue(tasks.size()==2);
+
+        EventCommand eventCommand17 = new EventCommand("event e3 /at 12/12/2002 22:22 - 12/12/2002 22:23 prio Qzeaze");
+        try{
+            eventCommand17.execute(tasks,ui,storage);
+        }
+        catch( DukeException e){
+            assertTrue(e instanceof PrioritizeLimitException);
+        }
+        assertTrue(tasks.size()==2);
+
+        DeleteCommand delete = new DeleteCommand("delete 1");
+        try{
+            delete.execute(tasks,ui,storage);
+        }
+        catch( DukeException e){ //should not happen
+            assertTrue(false);
+        }
+        assertTrue(tasks.size()==1);
+
+        try{
+            delete.execute(tasks,ui,storage);
+        }
+        catch( DukeException e){ //should not happen
+            assertTrue(false);
+        }
+        assertTrue(tasks.size()==0);
     }
 }

@@ -61,8 +61,8 @@ public class EventCommand extends Command {
             String description = taskDescription[0].trim();
             String periodString = taskDescription[1].trim();
             //date format used: dd/MM/yyyy HH:mm - dd/MM/yyyy HH:mm
-            String[] dateString = periodString.split(" - ");
             String[] prioritySplit = periodString.split("prio");
+            String[] dateString = prioritySplit[0].split(" - ");
             if(dateString.length == 1){
                 throw new EmptyEventDateException();
             }
