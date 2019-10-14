@@ -1,6 +1,8 @@
 package compal.logic.commands;
 
+import compal.Main;
 import compal.commons.Compal;
+import javafx.application.Application;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -30,11 +32,19 @@ public class ByeCommandTest {
 
     private ByeCommand byeCommand;
     private Compal compal;
+    private Thread t;
 
     @BeforeEach
     public void setUp() {
         compal = new Compal();
         byeCommand = new ByeCommand(compal);
+        Thread t = new Thread("JavaFX Init Thread") {
+            public void run() {
+                Application.launch(Main.class, new String[0]);
+            }
+        };
+        t.setDaemon(true);
+        t.start();
     }
 
     @Test
