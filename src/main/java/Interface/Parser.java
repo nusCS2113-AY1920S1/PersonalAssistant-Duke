@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 
 /**
@@ -117,8 +118,43 @@ public class Parser {
                     return new AddCommand(new Event(arr[0].trim(), dateString, startTimeString, endTimeString));
                 } catch (ParseException | ArrayIndexOutOfBoundsException e) {
                     throw new DukeException("OOPS!!! Please enter event as follows:\n" +
-                            "event name_of_event /at dd/MM/yyyy from HHmm to HHmm\n" +
-                            "For example: event project meeting /at 1/1/2020 from 1500 to 1700");
+                            "add/e modCode name_of_event /at dd/MM/yyyy from HHmm to HHmm\n" +
+                            "For example: event CS1231 project meeting /at 1/1/2020 from 1500 to 1700");
+                }
+            } else if (fullCommand.trim().substring(0,7).equals("recur/e")) {
+                try {
+                    String activity = fullCommand.trim().substring(7);
+                    String startWeekDate;
+                    String endWeekDate;
+                    arr = activity.split("/start"); //arr[0] is " module_code description", arr[1] is "date to date from time to time"
+                    if (arr[0].trim().isEmpty()) {
+                        throw new DukeException("\u2639" + " OOPS!!! The description of a event cannot be empty.");
+                    }
+                    arr1 = arr[1].split("from"); //arr1[0] is "date to date" or "week X mon to week X mon", arr1[1] is "time to time"
+                    if (arr1[0].trim().startsWith("week")) {
+                        arr3 = arr1[0].split("to"); //arr3[0] is (start) "date", arr3[1] is (end) "date"
+                        startWeekDate = LT.getDate(arr3[0].trim());
+                        endWeekDate = LT.getDate(arr3[1].trim());
+                    } else {
+                        arr3 = arr1[0].split("to"); //arr3[0] is (start) "date", arr3[1] is (end) "date"
+                        startWeekDate = arr3[0].trim();
+                        endWeekDate = arr3[1].trim();
+                    }
+                    SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy"); //format date
+                    Date startDate = formatter.parse(startWeekDate);
+                    Date endDate = formatter.parse(endWeekDate);
+                    arr2 = arr1[1].split("to"); //arr2[0] is (start) "time", arr2[1] is (end) "time"
+                    SimpleDateFormat formatter1 = new SimpleDateFormat("HHmm"); //format time
+                    Date startTime = formatter1.parse(arr2[0].trim());
+                    Date endTime = formatter1.parse(arr2[1].trim());
+                    SimpleDateFormat timeFormat = new SimpleDateFormat("hh:mm a");
+                    String startTimeString = timeFormat.format(startTime);
+                    String endTimeString = timeFormat.format(endTime);
+                    return new RecurringCommand(arr[0].trim(),startDate, endDate, startTimeString, endTimeString);
+                } catch (ParseException | ArrayIndexOutOfBoundsException e) {
+                    throw new DukeException("OOPS!!! Please enter recurring event as follows:\n" +
+                            "recur/e modCode name_of_event /start dd/MM/yyyy to dd/MM/yyyy from HHmm to HHmm\n" +
+                            "For example: recur/e CS1231 project meeting /start 1/10/2019 to 15/11/2019 from 1500 to 1700");
                 }
             }else if(fullCommand.trim().substring(0,8).equals("delete/e")){
                 try { //add/e module_code description /at date from time to time
