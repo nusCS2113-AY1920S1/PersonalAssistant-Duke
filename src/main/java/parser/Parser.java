@@ -16,6 +16,7 @@ import command.ViewCommand;
 import command.EditCommand;
 import command.IgnoreCommand;
 import exception.DukeException;
+import task.TodoWithinPeriod;
 import ui.Ui;
 
 import java.time.LocalDateTime;
@@ -53,10 +54,13 @@ public class Parser {
         LocalDateTime fromDate = nullDate;
         final String dateTimeFromUser;
 
-        switch (command) {
-        case "todo":
+        switch (UserCommand.valueOf(command)) {
+        case TODO:
+            if (userInput.contains(Flag.BETWEEN)) {
+                return TodoWithinPeriodParse.parse();
+            }
             return parseTodo(command, userInput);
-        case "deadline":
+        case DEADLINE:
             return parseDeadline(command, userInput);
         case "event":
             return parseEvent(command, userInput);
