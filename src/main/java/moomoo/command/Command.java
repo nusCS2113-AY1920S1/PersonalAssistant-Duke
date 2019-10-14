@@ -2,10 +2,10 @@ package moomoo.command;
 
 import moomoo.task.Budget;
 import moomoo.task.CategoryList;
-import moomoo.task.MooMooException;
-import moomoo.task.Storage;
 import moomoo.task.TransactionList;
 import moomoo.task.Ui;
+import moomoo.task.Storage;
+import moomoo.task.MooMooException;
 
 
 /**
@@ -20,7 +20,7 @@ public class Command {
      * @param isExit True if the program should exit after running this command, false otherwise
      * @param input Input given by the user
      */
-    public Command(boolean isExit, String input) {
+    Command(boolean isExit, String input) {
         this.isExit = isExit;
         this.input = input;
     }
@@ -29,13 +29,13 @@ public class Command {
     /**
      * Executes necessary functions for each different command.
      * @param budget Budget object containing the budget.
-     * @param catList CategoryList object containing the categories
+     * @param categoryList CategoryList object containing the categories
      * @param transList TransactionList object containing transactions within each category.
      * @param ui Ui object for interaction with user interface.
      * @param storage Storage object for interaction with filesystem.
      * @throws MooMooException Thrown when error such as invalid input occurs
      */
-    public void execute(Budget budget, CategoryList catList, TransactionList transList, Ui ui, Storage storage)
+    public void execute(Budget budget, CategoryList categoryList, TransactionList transList, Ui ui, Storage storage)
             throws MooMooException {
 
     }

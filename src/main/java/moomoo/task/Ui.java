@@ -21,11 +21,12 @@ public class Ui {
      * Prints the welcome message to the User.
      */
     public void showWelcome() {
-        System.out.println("   ^____^\n"
-                + "   ( oo )\\_______\n"
-                + "   (____)\\       )\\/\\\n"
-                + "         ||----w |\n"
-                + "         ||     ||\n"
+        print("   \n"
+                + "   ^____^________\n"
+                + "   ( oo )\\ *  *  )\\/\\\n"
+                + "   (____)||----w |  o \n"
+                + "         ||     ||   00\n"
+                + "   wmwwmWMWMwmWMmwMWWMWMwm\n"
                 + "MOOOOOOOO\n"
                 + "Welcome to MooMooMoney! Your one-stop budgeting and expenses tracker!\n"
                 + "What can MooMoo do for you today?");
@@ -84,5 +85,53 @@ public class Ui {
      */
     public void setOutput(String output) {
         this.output = output;
+    }
+
+    /**
+     * Prints a line to enclose message.
+     */
+    private void showLine() {
+        System.out.println("______________________________________________________________________________");
+    }
+
+    /**
+     * Prints out a message enclosed between two lines.
+     * @param text message to be printed
+     */
+    private void print(String text) {
+        showLine();
+        System.out.println(text);
+        showLine();
+    }
+
+    /**
+     * Prints the error message for the user.
+     * @param message error message
+     */
+    public void showErrorMessage(String message) {
+        print(message);
+    }
+
+    /**
+     * Prints out when a new category is created.
+     * @param categoryName name of the new category
+     */
+    public void showNewCategoryMessage(String categoryName) {
+        print("Ok, I've added a new category named " + categoryName);
+    }
+
+    /**
+     * Prompts the user to enter a category name.
+     */
+    void showAddCategoryMessage() {
+        print("Please enter a name for your new category");
+    }
+
+    /**
+     * Prints the list of categories.
+     * @param categories list of current categories
+     */
+    public void showCategoryList(String categories) {
+        print(categories);
     }
 }
