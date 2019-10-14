@@ -73,6 +73,13 @@ public class CommandManager {
                             throw new Exception("Please follow the format 'delete patient #<id>'.");
                         }
                     }
+                    else if (secondKeyword.equals("task")){
+                        try {
+                            return new DeleteTaskCommand(command[2]);
+                        }catch(Exception e){
+                            throw new Exception("Please follow the format 'delete task #<id>'.");
+                        }
+                    }
                     else {
                         throw new Exception("Invalid format. ");
                     }

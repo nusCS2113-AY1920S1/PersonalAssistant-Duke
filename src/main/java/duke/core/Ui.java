@@ -56,6 +56,10 @@ public class Ui {
                 + "\nRemark: " + patient.getRemark());
     }
 
+    public void showTaskInfo(Task task) {
+        System.out.println("Task: " + task.getDescription());
+    }
+
     public void patientsFoundByName(ArrayList<Patient> patients, String name) {
         if (patients.size() > 0) {
             System.out.println("Got it. " + patients.size() + " patients is/are found with name: " + name);
@@ -68,6 +72,21 @@ public class Ui {
             }
         } else {
             System.out.println("No patient was found with name: " + name);
+        }
+    }
+
+    public void tasksFoundByDescription(ArrayList<Task> tasks, String description) {
+        if (tasks.size() > 0) {
+            System.out.println("Got it. " + tasks.size() + " tasks is/are found with description: " + description);
+            int i = 1;
+            for (Task task : tasks) {
+                System.out.println("Task #" + i);
+                showTaskInfo(task);
+                showLine();
+                i++;
+            }
+        } else {
+            System.out.println("No task was found with description: " + description);
         }
     }
 
@@ -109,6 +128,29 @@ public class Ui {
 
     }
 
+    public int chooseTaskToDelete(int numberOfTasks) {
+        int chosenNumber = -1;
+        while (true) {
+            System.out.println("Enter the number of task to delete, or enter number 0 to cancel: ");
+            String command = readCommand();
+            try {
+                chosenNumber = Integer.parseInt(command);
+            } catch (Exception e) {
+                System.out.println("Please enter a valid number!");
+                continue;
+            }
+            if (chosenNumber >= 0 && chosenNumber <= numberOfTasks) {
+                if (chosenNumber == 0) {
+                    System.out.println("Delete command is canceled");
+                }
+                return chosenNumber;
+            } else {
+                System.out.println("The task #" + chosenNumber + " does not exist. Please enter a valid number!");
+            }
+        }
+
+    }
+
     public boolean confirmPatientToBeDeleted(Patient patient) {
         showPatientInfo(patient);
         while (true) {
@@ -129,6 +171,10 @@ public class Ui {
         System.out.println("Got it. The patient is deleted.");
     }
 
+    public void taskDeleted() {
+        System.out.println("Got it. The task is deleted.");
+    }
+
     public void listAllPatients(ArrayList<Patient> patients) {
         for (Patient patient : patients) {
             showPatientInfo(patient);
@@ -145,6 +191,22 @@ public class Ui {
                     + task.getDescription()
                     + "\n");
             index++;
+        }
+    }
+
+    public boolean confirmTaskToBeDeleted(Task task) {
+        showTaskInfo(task);
+        while (true) {
+            System.out.println("The task is to be deleted. Are you sure (Y/N)? ");
+            String command = readCommand();
+            if (command.toLowerCase().equals("y")) {
+                return true;
+            } else if (command.toLowerCase().equals("n")) {
+                System.out.println("Delete command is canceled");
+                return false;
+            } else {
+                System.out.println("Please enter only Y/N to confirm/cancel deletion!");
+            }
         }
     }
 
