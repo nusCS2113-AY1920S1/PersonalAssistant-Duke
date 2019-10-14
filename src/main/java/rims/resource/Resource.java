@@ -95,6 +95,13 @@ public abstract class Resource {
         this.loanId = loanId;
     }
 
+    public void markAsBooked(String StringDateFrom, String stringDateTill, int loanId) throws ParseException {
+        booked = true;
+        bookedFrom = stringToDate(StringDateFrom);
+        bookedTill = stringToDate(stringDateTill);
+        this.loanId = loanId;
+    }
+
     public void markAsReturned() {
         this.loanId = -1;
         this.booked = false;

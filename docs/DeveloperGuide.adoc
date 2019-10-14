@@ -1,0 +1,571 @@
+= RIMS Developer Guide
+:site-section: DeveloperGuide
+:toc:
+:toc-title:
+:toc-placement: preamble
+:sectnums:
+:imagesDir: images
+:stylesDir:
+:xrefstyle: full
+ifdef::env-github[]
+:tip-caption: :bulb:
+:note-caption: :information_source:
+:warning-caption: :warning:
+endif::[]
+:repoURL: https://github.com/AY1920S1-CS2113T-W12-1/main
+
+By: `Team W12-1`      Since: `Aug 2019`      Licence: `MIT`
+
+
+== Target User Profile
+
+* needs to manage various facilities, items and resources efficiently
+* needs to track loaning and borrowing of items and facilities
+* wants to digitalise his inventory
+* is comfortable using Command Line Interface (CLI) apps
+* community centres
+* school/tertiary institutions
+* people who manage dorms – Office of Housing Services / hostels’ facilities management
+
+== Value proposition
+Manage facilities more quickly and efficiently by maintaining a digital ledger of his inventory
+
+[appendix]
+== RIMS
+
+=== User Stories
+
+Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (unlikely to have) - `*`
+
+[width="100%",cols="10%,20%,35%,35%",options="header",]
+|=======================================================================
+|Priority |As a ... |I want to ... |So that I can...
+
+//High priority
+
+|`* * *` |logistics head |have a digital ledger of my assets |better track my assets
+
+|`* * *` |logistics manager |have a record of all items in my inventory |keep track of items the status of my items (whether rented, borrowed or reserved, location, date due, etc.)
+
+|`* * *` |facilities manager |have a record of all my rooms and facilities under my charge |better manage the people booking my facilities
+
+|`* * *` |logistics head |record items that have been lent out and the name of the person who borrowed the item  |keep track of items that I have lent out and to whom
+
+|`* * *` |house/CSC/JCRC committee member |record the names of those who I have borrowed items from|keep track of the items I have borrowed and who I have borrowed those items from
+
+|`* * *` |house committee member |view if deadlines are approaching for me to return items |return items that I have borrowed promptly
+
+|`* * *` |CSC member |check which items that I lent out are overdue for return |remind users who have not returned my items to do so
+
+|`* * *` |logistics manager|add and delete items from my inventory |keep my digital ledger up-to-date with my actual inventory
+
+//Middle priority
+
+|`* *` |orientation committee member |record the names of those who have  reserved items in advance from me |keep track of the items that have been reserved in advance and who they have been reserved for
+
+|`* *` |logistics committee member|view in a calendar format when an item/facility has been and when it will next be available |keep track of my items/facilities
+
+|`* *` |procurement executive |extend return-by dates for items I have lent out |allow others who still need the items to use them for longer
+
+|`* *` |logistics head |extend return-by dates for items I have borrowed |allow others who still need the items to use them for longer
+
+//Low priority
+
+|`*` |facilities manager |suggest alternatives to my clients if the item/facility they requested is already booked |still have business / be helpful
+
+|`*` |CSC member |access my items in a GUI |have a more user-friendly experience
+|=======================================================================
+
+_{More to be added}_
+
+=== Use Cases
+
+(For all use cases below, the *System* is the `RIMS` and the *Actor* is the `user`, unless specified otherwise)
+
+[discrete]
+==== Use case: Add asset
+
+*MSS*
+
+1.  User enters command `add /item ITEM /qty QUANTITY` or `add /room ROOM /cap CAPACITY`.
+2.  RIMS appends asset to asset list.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. `ITEM`/`ROOM` is empty.
+[none]
+** 1a1. RIMS re-prompts for user to key in command again.
++
+Use case resumes at step 1.
+
+* 1b. `QUANTITY`/`CAPACITY` is less than or equals to 0 or not of `int` type.
++
+[none]
+** 1b1. RIMS re-prompts for user to key in command again.
++
+Use case resumes at step 1.
+
+* 1c. Any keywords in command is misspelt or in wrong format.
++
+[none]
+** 1c1. RIMS re-prompts for user to key in command in proper format.
++
+Use case resumes at step 1.
+
+[discrete]
+==== Use case: Add a borrowed asset (from third party)
+
+*MSS*
+
+1.	User enters command `add /item ITEM /qty QUANTITY /by DEADLINE` or ` add /room ROOM /cap CAPACITY /by DEADLINE`.
+2.	RIMS appends asset to asset list.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. `ITEM`/`ROOM` is empty.
+[none]
+** 1a1. RIMS re-prompts for user to key in command again.
++
+Use case resumes at step 1.
+
+* 1b. `QUANTITY`/`CAPACITY` is less than or equals to 0 or not of `int` type.
++
+[none]
+** 1b1. RIMS re-prompts for user to key in command again.
++
+Use case resumes at step 1.
+
+* 1c. Any keywords in command is misspelt or in wrong format.
++
+[none]
+** 1c1. RIMS re-prompts for user to key in command in proper format.
++
+Use case resumes at step 1.
+
+* 1d. DEADLINE is empty or an invalid due date.
++
+[none]
+** 1d1. RIMS displays error message and re-prompts user for valid due date.
+** 1d2. User enters a valid due date.
++
+Use case resumes at step 2.
+
+[discrete]
+==== Use case: Delete asset
+
+*MSS*
+
+1.  User enters command `delete /item ITEM /qty QUANTITY` or `delete /room ROOM`.
+2.	RIMS removes the asset from asset list.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. `ITEM`/`ROOM` is left unspecified by the user.
+[none]
+** Use case ends.
+
+* 1b. `QUANTITY` is less than or equals to 0 or not of `int` type.
++
+[none]
+** 1b1. RIMS re-prompts for user to key in command.
++
+Use case resumes at step 1.
+
+* 1c. Any keywords in command is misspelt or in wrong format.
++
+[none]
+** 1c1. RIMS re-prompts for user to key in command in proper format.
++
+Use case resumes at step 1.
+
+* 2a. `ITEM`/`ROOM` not found in asset list.
+[none]
+** 2a1. RIMS re-prompts user to key in a valid asset.
+** 2a2. User enters a valid asset name in the list.
++
+Use case resumes at step 2
+
+* 2b. `QUANTITY` is more than the number of assets available in asset list.
++
+[none]
+** 2b1. RIMS re-prompts for user to key in command.
++
+Use case resumes at step 1.
+
+[discrete]
+==== Use case: Lend asset
+
+*MSS*
+
+1.  User enters command `lend /item ITEM /qty QUANTITY /by DEADLINE` or `lend /room ROOM /by DEADLINE`
+2.	RIMS updates the status of the asset and appends asset to the ‘on loan’ list
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. `ITEM`/`ROOM` is empty.
+[none]
+** Use case ends.
+
+* 1b. `DEADLINE` is invalid or empty.
++
+[none]
+** 1b1. RIMS displays error message and re-prompts user for valid due date.
+** 1b2. User enters a valid due date
++
+Use case resumes at step 2.
+
+* 1c. `QUANTITY` is less than or equals to 0 or not of `int` type.
++
+[none]
+** 1c1. RIMS re-prompts for user to key in command.
++
+Use case resumes at step 1.
+
+* 1d. Any keywords in command is misspelt or in wrong format.
++
+[none]
+** 1d1. RIMS re-prompts for user to key in command in proper format.
++
+Use case resumes at step 1.
+
+* 2a. `ITEM`/`ROOM` not found in asset list.
+[none]
+** 2a1. RIMS re-prompts user to key in a valid asset.
+** 2a2. User enters a valid asset name in the list.
++
+Use case resumes at step 2.
+
+* 2b. `QUANTITY` is more than the number of assets available in asset list.
++
+[none]
+** 2b1. RIMS re-prompts for user to key in command.
++
+Use case resumes at step 1.
+
+[discrete]
+==== Use case: Return asset
+
+*MSS*
+
+1.  User enters command `return /item ITEM /qty QUANTITY` or `return /room ROOM`
+2.	RIMS updates the status of the asset and removes the asset from the ‘on loan’ list
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. `ITEM`/`ROOM` is empty.
+[none]
+** Use case ends.
+
+* 1b. `QUANTITY` is less than or equals to 0 or not of `int` type.
++
+[none]
+** 1b1. RIMS re-prompts for user to key in command.
++
+Use case resumes at step 1.
+
+* 1c. Any keywords in command is misspelt or in wrong format.
++
+[none]
+** 1c1. RIMS re-prompts for user to key in command in proper format.
++
+Use case resumes at step 1.
+
+* 2a. `ITEM`/`ROOM` not found in asset list.
+[none]
+** 2a1. RIMS re-prompts user to key in a valid asset.
+** 2a2. User enters a valid asset name in the list.
++
+Use case resumes at step 2.
+
+* `NEW` 2b. `QUANTITY` is more than the number of assets borrowed.
++
+[none]
+** 2b1. RIMS re-prompts for user to key in command.
++
+Use case resumes at step 1.
+
+* `NEW` 2c. `ITEM`/`ROOM` not found in 'on loan' list.
++
+[none]
+** 2c1. RIMS re-prompts for user to key in command.
++
+Use case resumes at step 1.
+
+[discrete]
+==== Use case: Reserve asset
+
+*MSS*
+
+1. User enters command `reserve /item ITEM /qty QUANTITY /from DATE /to DEADLINE` or `reserve /room ROOM /from DATE /to DEADLINE`.
+2. RIMS updates the status of the asset and appends asset to the 'reserved' list.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. `ITEM`/`ROOM` is empty.
+[none]
+** Use case ends.
+
+* 1b. `QUANTITY` is less than or equals to 0 or not of `int` type.
++
+[none]
+** 1b1. RIMS re-prompts for user to key in command.
++
+Use case resumes at step 1.
+
+* 1c. `DATE` is invalid or empty.
++
+[none]
+** 1c1. RIMS displays error message and re-prompts user for valid start date.
+** 1c2. User enters a valid start date.
++
+Use case resumes at step 2.
+
+* 1d. `DEADLINE` is invalid or empty.
++
+[none]
+** 1d1. RIMS displays error message and re-prompts user for valid due date.
+** 1d2. User enters a valid due date.
++
+Use case resumes at step 2.
+
+* 1e. Any keywords in command is misspelt or in wrong format.
++
+[none]
+** 1e1. RIMS re-prompts for user to key in command in proper format.
++
+Use case resumes at step 1.
+
+* 2a. `ITEM`/`ROOM` not found in asset list.
+[none]
+** 2a1. RIMS re-prompts user to key in a valid asset.
+** 2a2. User enters a valid asset name in the list.
++
+Use case resumes at step 2.
+
+* 2b. `QUANTITY` is more than the number of assets available in asset list.
++
+[none]
+** 2b1. RIMS re-prompts for user to key in command.
++
+Use case resumes at step 1.
+
+* `NEW` 2c. `ITEM`/`ROOM` not found in 'on loan' list.
++
+[none]
+** 2c1. RIMS re-prompts for user to key in command.
++
+Use case resumes at step 1.
+
+[discrete]
+==== Use case: Extend existing loan
+
+*MSS*
+
+1.	User enters command `extend /item ITEM /qty QUANTITY /by DEADLINE` or `extend /room ROOM /by DEADLINE`.
+2.	RIMS updates the status of the asset and updates asset on the ‘on-loan’ list.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. `ITEM`/`ROOM` is empty.
+[none]
+** Use case ends.
+
+* 1b. `QUANTITY` is less than or equals to 0 or not of `int` type.
++
+[none]
+** 1b1. RIMS re-prompts for user to key in command.
++
+Use case resumes at step 1.
+
++
+Use case resumes at step 2.
+
+* 1c. `DEADLINE` is invalid or empty.
++
+[none]
+** 1c1. RIMS displays error message and re-prompts user for valid due date.
+** 1c2. User enters a valid due date.
++
+Use case resumes at step 2.
+
+* 1d. Any keywords in command is misspelt or in wrong format.
++
+[none]
+** 1d1. RIMS re-prompts for user to key in command in proper format.
++
+Use case resumes at step 1.
+
+* 2a. `ITEM`/`ROOM` not found in asset list.
+[none]
+** 2a1. RIMS re-prompts user to key in a valid asset.
+** 2a2. User enters a valid asset name in the list.
++
+Use case resumes at step 2.
+
+* 2b. `ITEM`/`ROOM` not available for extension.
+[none]
+** 2b1. RIMS re-prompts for user to key in command.
++
+Use case resumes at step 1.
+
+* 2c. `DEADLINE` is not available for extension due to reservation.
++
+[none]
+** 2c1. RIMS displays message that asset has been reserved.
++
+Use case ends.
+
+[discrete]
+==== Use case: View assets on loan with a specified deadine
+
+*MSS*
+
+1.	User enters command `due DATE`.
+2.	RIMS displays assets due for return on specified date.
++
+Use case ends.
+
+*Extensions*
+
+* 1a. `DATE` is invalid or empty.
++
+[none]
+** 1a1. RIMS displays error message and re-prompts user for valid date.
+** 1a2. User enters a valid date.
++
+Use case resumes at step 2.
+
+[none]
+* 1b. Command `due` is misspelt.
+[none]
+** 1b1. RIMS displays error message.
++
+Use case ends.
+
+* 2a. Asset list is empty.
++
+[none]
+** 2a1. RIMS informs user that no assets are owned at the moment.
++
+Use case ends.
+
+[discrete]
+==== Use case: List assets and their statuses
+
+*MSS*
+
+1.	User enters command `list`.
+2.	RIMS displays all assets on asset list and their statuses.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. Command `list` is misspelt.
+[none]
+** 1a1. RIMS displays error message.
++
+Use case ends.
+
+* 2a. Asset list is empty.
++
+[none]
+** 2a1. RIMS informs user that no assets are owned at the moment.
++
+Use case ends.
+
+[discrete]
+==== Use case: View calendar
+*MSS*
+
+1.	User enters command `calendar`.
+2.	RIMS displays all assets that are loaned out/reserved in a table form.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. Command `calendar` is misspelt.
+[none]
+** 1a1. RIMS displays error message.
++
+Use case ends.
+
+* 2a. Asset list is empty.
++
+[none]
+** 2a1. RIMS informs user that no assets are owned at the moment.
++
+Use case ends.
+
+[discrete]
+==== Use case: Exit RIMS
+*MSS*
+
+1.	User enters command `bye`.
+2.	RIMS saves and terminates.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. Command `bye` is misspelt.
+[none]
+** 1a1. RIMS displays error message.
++
+Use case ends.
+
+
+_{More to be added}_
+
+=== Non Functional Requirements
+
+. *Computer environment*: should work on any <<mainstream-os,mainstream OS>> as long as it has Java `11` or above installed.
+. *Persistence*: the total logistics list should be retained upon termination of RIMS.
+. *Ease of use*: Program functions should be easy and convenient to use.
+. *Quality requirement*: The system should be efficient enough for the user to quickly update and keep track of the facilities and items under their care.
+. *Speed*: Program should execute commands efficiently and without lag.
+
+=== Glossary
+
+[[inventory]] Inventory::
+The complete collection of items, rooms and resources as maintained by the user.
+
+[[item]] Item::
+An object in the user’s inventory, that is not a room or facility, that can be lent out
+to others. There can be multiple instances of a certain item in a user’s inventory.
+
+[[facility]] Facility::
+A room under the user’s purview. Rooms are uniquely defined and there cannot be
+multiple instances of a certain room.
+
+[[deadline]] Deadline::
+The specified date and time by which an object that has been lent out by the user,
+must be returned to the user.
+
+[[mainstream-os]] Mainstream OS::
+Windows, Linux, Unix, OS-X
