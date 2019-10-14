@@ -1,6 +1,7 @@
 package command;
 
 import exception.DukeException;
+import list.DegreeList;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -22,7 +23,7 @@ class ModCommandTest {
             + "E | 0 | Sleeping | 01-01-1970 2200");
     private UI testUi = new UI();
     private Storage testStorage = new Storage("dummy.txt");
-
+    private DegreeList testList = new DegreeList();
     //Variable to catch system.out.println, must be converted to string to be usable
     private ByteArrayOutputStream systemOutput = new ByteArrayOutputStream();
     private PrintStream originalOut = System.out;
@@ -43,7 +44,7 @@ class ModCommandTest {
     @Test
     void testDone() throws DukeException {
         testCommand = new ModCommand("done", "3");
-        testCommand.execute(testTaskList, testUi, testStorage);
+        testCommand.execute(testTaskList, testUi, testStorage, testList);
         assertEquals("Nice! I've marked this task as done:\n"
                 + "  [A][Y] Send less help (After: Sending Enough)\r\n", systemOutput.toString());
     }
@@ -51,7 +52,7 @@ class ModCommandTest {
     @Test
     void testSnooze() throws DukeException {
         testCommand = new ModCommand("snooze", "4 /to 12-12-2013 2345");
-        testCommand.execute(testTaskList, testUi, testStorage);
+        testCommand.execute(testTaskList, testUi, testStorage, testList);
         assertEquals("Noted. I've snoozed this task:\n"
                 + "  [E][N] Sleeping (At: 12-12-2013 2345)\r\n", systemOutput.toString());
     }
@@ -59,7 +60,7 @@ class ModCommandTest {
     @Test
     void testDelete() throws DukeException {
         testCommand = new ModCommand("delete", "1");
-        testCommand.execute(testTaskList, testUi, testStorage);
+        testCommand.execute(testTaskList, testUi, testStorage, testList);
         assertEquals("Noted. I've removed this task:\n"
                 + "  [T][N] Send even more Help\r\n"
                 + "Now you have 3 tasks in the list.\r\n", systemOutput.toString());
@@ -74,7 +75,7 @@ class ModCommandTest {
                                                 + "/at 04-04-1973 2200");
         testCommand = new ModCommand("select", "5 1");
         System.setOut(new PrintStream(freshOutput)); //sets the system output to a different stream
-        testCommand.execute(testTaskList, testUi, testStorage);
+        testCommand.execute(testTaskList, testUi, testStorage, testList);
         assertEquals("Tentative Date selected successfully\r\n", freshOutput.toString());
     }
 }

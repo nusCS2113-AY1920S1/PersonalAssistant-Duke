@@ -1,6 +1,7 @@
 package command;
 
 import exception.DukeException;
+import list.DegreeList;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -22,7 +23,7 @@ class ExitCommandTest {
             + "W | 0 | Sleeping | Jan 15th and 25th");
     private UI testUi = new UI();
     private Storage testStorage = new Storage("dummy.txt");
-
+    private DegreeList testList = new DegreeList();
     //Variable to catch system.out.println, must be converted to string to be usable
     private ByteArrayOutputStream systemOutput = new ByteArrayOutputStream();
     private PrintStream originalOut = System.out;
@@ -44,7 +45,7 @@ class ExitCommandTest {
     void testExecute() throws DukeException {
 //        testUi.showWelcome();
         try {
-            testCommand.execute(testTaskList, testUi, testStorage);
+            testCommand.execute(testTaskList, testUi, testStorage, testList);
         } catch (Exception e) {
             assertEquals("Exit Error: Storage Attempt Failed", e.getMessage());
         }
