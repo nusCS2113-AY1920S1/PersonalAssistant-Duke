@@ -2,6 +2,7 @@ package compal.logic.commands;
 
 import compal.commons.Compal;
 import compal.logic.parser.CommandParser;
+import compal.model.tasks.Task;
 import compal.model.tasks.TaskList;
 
 import java.text.ParseException;
@@ -38,21 +39,27 @@ public class DeleteCommand extends Command implements CommandParser {
     public void parseCommand(String userIn) throws Compal.DukeException {
         //Compal.ui.printg(userIn);
         Scanner scanner = new Scanner(userIn);
-        String delete = scanner.next();
+        scanner.next();
         if (scanner.hasNext()) {
             String restOfInput = scanner.nextLine();
 
-            int toRemove = Integer.parseInt(restOfInput.trim()) - 1;
+            int indexToRemove = Integer.parseInt(restOfInput.trim()) - 1;
             int maxLimit = taskList.arrlist.size();
 
-            if (toRemove < 0 || toRemove >= maxLimit) {
+            if (indexToRemove < 0 || indexToRemove >= maxLimit) {
                 compal.ui.printg(MESSAGE_INVALID_RANGE);
                 throw new Compal.DukeException(MESSAGE_INVALID_RANGE);
             }
-            Date removeDate = taskList.arrlist.get(toRemove).getDate();
-            String removeDesc = taskList.arrlist.get(toRemove).toString();
 
-            taskList.arrlist.remove(toRemove);
+            Task toRemove = taskList.arrlist.get(indexToRemove);
+
+            //free up the task's unique ID for future use
+            taskList.unsetId(toRemove.getId());
+
+            Date removeDate = toRemove.getDate();
+            String removeDesc = toRemove.toString();
+
+            taskList.arrlist.remove(indexToRemove);
             compal.ui.secondaryScreenRefresh(removeDate);
             compal.ui.printg("Noted. I've removed this task:\n" + removeDesc);
             compal.storage.saveCompal(taskList.arrlist);
