@@ -59,17 +59,23 @@ public class Ui {
         System.out.println("_______________________________________________________________________________");
     }
 
+    /**
+     * Displays the expense list in table format.
+     */
     public static void printExpenseTable() {
         ArrayList<Expense> expenseList = LogicManager.getWallet().getExpenseList().getExpenseList();
         System.out.println("Here are the expenses in your list:");
-        System.out.println("----------------------------------------------------------------------------------------------------\n"
-                + "|  ID  |              Description                 | Category |    Date    |   Amount   | Recurring |\n"
-                + "|--------------------------------------------------------------------------------------------------|");
+        System.out.println("-----------------------------------------------------"
+                + "-----------------------------------------------\n"
+                + "|  ID  |              Description                 |"
+                + " Category |    Date    |   Amount   | Recurring |\n"
+                + "|-------------------------------------------------------------"
+                + "-------------------------------------|");
         double total = 0;
         for (Expense e : expenseList) {
             if (e.isRecurring()) {
-                System.out.printf("| %-4d | %-40s | %-8s | %-10s |  $%-7.2f  |  %-7s  |\n",
-                        e.getId(), e.getDescription(), e.getCategory(), e.getDate(), e.getAmount(), e.getRecFrequency());
+                System.out.printf("| %-4d | %-40s | %-8s | %-10s |  $%-7.2f  |  %-7s  |\n", e.getId(),
+                        e.getDescription(), e.getCategory(), e.getDate(), e.getAmount(), e.getRecFrequency());
             } else {
                 System.out.printf("| %-4d | %-40s | %-8s | %-10s |  $%-7.2f  |  %-7s  |\n",
                         e.getId(), e.getDescription(), e.getCategory(), e.getDate(), e.getAmount(), "No");
@@ -77,7 +83,8 @@ public class Ui {
             }
             total += e.getAmount();
         }
-        System.out.println("----------------------------------------------------------------------------------------------------");
+        System.out.println("-----------------------------------------------------"
+                + "-----------------------------------------------");
         System.out.println("Total amount spent: $" + total);
     }
 }
