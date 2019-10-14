@@ -1,0 +1,17 @@
+STARTING NEW GAME : LEVEL 1 - Wheat Farm
+
+|------------|
+|            |
+|   Insert   |
+|   Farmio.Farmer   |
+|   Pic      |
+|            |
+|------------|
+
+|---------------------------------------------------------------------------------------|
+|  Welcome to Farmio.Farmio Farmio.Farmer John!                                                       |
+|      In this game we you will be tasked to complete a series of  challenging tasks    |
+|      This game intends expose you to the world of Computational thinking              |
+|                                                                                       |
+|   PRESS ENTER TO CONTINUE                                                    .   .  . |
+|---------------------------------------------------------------------------------------|
