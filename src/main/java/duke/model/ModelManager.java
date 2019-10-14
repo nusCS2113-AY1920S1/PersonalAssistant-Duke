@@ -223,6 +223,11 @@ public class ModelManager implements Model {
         filteredInventory.setPredicate(predicate);
     }
 
+    public boolean hasInventory(Item<Ingredient> inventoryItem) {
+        requireNonNull(inventoryItem);
+        return bakingHome.getInventoryList().contains(inventoryItem);
+    }
+
     @Override
     public ObservableList<Item<Ingredient>> getFilteredInventoryList() {
         return filteredInventory;

@@ -183,12 +183,24 @@ public interface Model {
     void updateFilteredSaleList(Predicate<Sale> predicate);
 
     //========Ingredient operations======
-
+    /**
+     * Returns an unmodifiable view of the filtered inventory list.
+     */
     ObservableList<Item<Ingredient>> getFilteredInventoryList();
 
     void updateFilteredInventoryList(Predicate<Item<Ingredient>> predicate);
 
+    /**
+     * Adds an inventory item to the inventory list
+     * @param inventory The inventory item
+     */
     void addInventory(Item<Ingredient> inventory);
+
+    /**
+     * Checks if the item with the same name already exists in the inventory list
+     * @return true if the given inventory item already exists in the inventory list
+     */
+    boolean hasInventory(Item<Ingredient> inventoryItem);
 
     //======Shopping list operations=====
 
