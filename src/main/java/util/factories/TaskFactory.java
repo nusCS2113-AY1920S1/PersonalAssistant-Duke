@@ -74,13 +74,15 @@ public class TaskFactory {
 
     private ArrayList<String> parseTaskRequirements(String[] taskDetails, int startIndexOfTaskRequirements) {
         ArrayList<String> taskRequirements = new ArrayList<String>();
-        taskRequirements.addAll(Arrays.asList(taskDetails).subList(startIndexOfTaskRequirements, taskDetails.length));
+        for (int i = startIndexOfTaskRequirements; i < taskDetails.length; i++) {
+            taskRequirements.add(taskDetails[i].trim());
+        }
         return taskRequirements;
     }
 
-    private Date getDateObject(String taskDetail) throws ParseException {
+    private Date getDateObject(String dateString) throws ParseException {
         SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
-        return formatter.parse(taskDetail);
+        return formatter.parse(dateString);
     }
 
     /**
