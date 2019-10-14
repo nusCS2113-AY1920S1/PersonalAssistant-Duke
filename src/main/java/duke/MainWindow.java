@@ -92,7 +92,7 @@ public class MainWindow extends BorderPane {
             return cell ;
         });
         TableColumn<String,Expense> timeColumn = new TableColumn<>("Time");
-        timeColumn.setCellValueFactory(new PropertyValueFactory<>("time"));
+        timeColumn.setCellValueFactory(new PropertyValueFactory<>("timeString"));
         TableColumn<String,Expense> amountColumn = new TableColumn<>("Amount");
         amountColumn.setCellValueFactory(new PropertyValueFactory<>("amount"));
         TableColumn<Expense,String> descriptionColumn = new TableColumn<>("Description");
