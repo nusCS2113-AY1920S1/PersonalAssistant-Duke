@@ -4,9 +4,10 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Scanner;
-
 import eggventory.StockList;
 import eggventory.commands.AddCommand;
 import eggventory.enums.CommandType;
@@ -28,9 +29,16 @@ public class Storage {
      * Converts save file details into a StockList object.
      */
     public StockList load() {
-
         StockList savedList = new StockList();
-        File f = new File(filePath); //Create a File for the given file path
+
+        if (Files.notExists(Paths.get(filePath))) {
+            try {
+                Files.createDirectory(Paths.get("data/"));
+            } catch (IOException e) {
+                System.out.println("Unknown IO error when creating 'data/' folder.");
+            }
+        }
+        File f = new File(filePath);
 
         try {
             Scanner s = new Scanner(f); //Create a Scanner using the File as the source
