@@ -49,10 +49,9 @@ public class AddGoalCommand extends Command {
                 ui.showLine();
                 throw new DukeException("The set goal command has been canceled");
             } else {
-                meals.addGoal(this.goal, true);
                 ui.showLine();
-                ui.showAddedGoal(goal);
-                storage.updateGoal(meals);
+                throw new DukeException("An unknown response has been recorded"
+                        + "     The set goal command has been canceled");
             }
         }
     }
