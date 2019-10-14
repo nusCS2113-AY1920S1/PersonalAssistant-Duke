@@ -56,6 +56,9 @@ public class SortCommand extends Command {
             extractedTodo.sort(Comparator.comparing(Task::getTask));
             tasks.setList(tasks.sort(filteredTasklist, extractedTodo));
         }
+        else if (sort.equals("priority")){
+            tasks.getList().sort(Comparator.comparingInt(Task::getPriority));
+        }
         else if (sort.equals("description")){
             tasks.getList().sort(Comparator.comparing(Task::getTask));
         }
