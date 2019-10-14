@@ -35,10 +35,11 @@ public class Command {
      * Prints the list or saves the list and sends exit message.
      * Might need to separate into bye and list commands.
      */
-    public void execute(StockList list, Ui ui, Storage storage) throws BadInputException {
+    public String execute(StockList list, Ui ui, Storage storage) throws BadInputException {
         if (type == CommandType.BYE) {
             storage.save(list);
             ui.printExitMessage();
         }
+        return null;
     }
 }

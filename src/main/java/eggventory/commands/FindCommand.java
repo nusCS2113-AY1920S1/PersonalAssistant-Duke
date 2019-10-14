@@ -22,7 +22,8 @@ public class FindCommand extends Command {
      * Prints the list of stocks that match. Alternatively prints a message if none are found.
      */
     @Override
-    public void execute(StockList list, Ui ui, Storage storage) {
+    public String execute(StockList list, Ui ui, Storage storage) {
+        String output;
         int max = list.getQuantity();
         boolean found = false;
 
@@ -39,11 +40,14 @@ public class FindCommand extends Command {
         }
 
         if (!found) {
-            ui.print("Sorry, I could not find any tasks containing the description \""
-                    + search + "\".\nPlease try a different search string.");
+            output = "Sorry, I could not find any tasks containing the description \""
+                    + search + "\".\nPlease try a different search string.";
+            ui.print(output);
         } else {
-            ui.print(listString);
+            output = listString;
+            ui.print(output);
         }
+        return output;
     }
 }
 
