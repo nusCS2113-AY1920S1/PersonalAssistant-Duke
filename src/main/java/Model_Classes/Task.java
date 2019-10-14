@@ -44,7 +44,6 @@ public class Task{
         this.user = user;
     }
 
-
     /**
      * Overload constructor for the task object. takes in the description of the task
      * @param description Description of the task.
