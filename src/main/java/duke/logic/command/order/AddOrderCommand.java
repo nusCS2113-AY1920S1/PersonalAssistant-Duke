@@ -27,13 +27,13 @@ public class AddOrderCommand extends OrderCommand {
 
     public static final String AUTO_COMPLETE_INDICATOR = OrderCommand.COMMAND_WORD + " " + COMMAND_WORD;
     public static final Prefix[] AUTO_COMPLETE_PARAMETERS = {
-            CliSyntax.PREFIX_CUSTOMER_NAME,
-            CliSyntax.PREFIX_CUSTOMER_CONTACT,
-            CliSyntax.PREFIX_ORDER_DEADLINE,
-            CliSyntax.PREFIX_ORDER_STATUS,
-            CliSyntax.PREFIX_ORDER_ITEM,
-            CliSyntax.PREFIX_ORDER_REMARKS,
-            CliSyntax.PREFIX_ORDER_TOTAL
+        CliSyntax.PREFIX_CUSTOMER_NAME,
+        CliSyntax.PREFIX_CUSTOMER_CONTACT,
+        CliSyntax.PREFIX_ORDER_DEADLINE,
+        CliSyntax.PREFIX_ORDER_STATUS,
+        CliSyntax.PREFIX_ORDER_ITEM,
+        CliSyntax.PREFIX_ORDER_REMARKS,
+        CliSyntax.PREFIX_ORDER_TOTAL
     };
 
     private static final String MESSAGE_COMMIT = "Add order";
