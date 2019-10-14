@@ -6,7 +6,9 @@ import java.util.List;
 import owlmoney.logic.command.Command;
 import owlmoney.logic.command.PlaceHolderEmptyCommand;
 import owlmoney.logic.command.bank.ListSavingsCommand;
+import owlmoney.logic.command.goals.ListGoalsCommand;
 import owlmoney.logic.parser.exception.ParserException;
+import owlmoney.logic.parser.goals.*;
 import owlmoney.logic.parser.saving.ParseSaving;
 import owlmoney.logic.parser.transaction.deposit.ParseAddDeposit;
 import owlmoney.logic.parser.transaction.deposit.ParseDeleteDeposit;
@@ -158,6 +160,25 @@ class ParseType extends Parser {
             throw new ParserException("You entered an invalid type");
         case "/card":
             return new PlaceHolderEmptyCommand();
+        case "/goals":
+            if("/add".equals(command)) {
+                ParseGoals addGoals = new ParseAddGoals(rawData);
+                addGoals.fillHashTable();
+                addGoals.checkParameter();
+                return addGoals.getCommand();
+            } else if ("/delete".equals(command)) {
+                ParseGoals deleteGoals = new ParseDeleteGoals(rawData);
+                deleteGoals.fillHashTable();
+                deleteGoals.checkParameter();
+                return deleteGoals.getCommand();
+            } else if ("/edit".equals(command)) {
+                ParseGoals editGoals = new ParseEditGoals(rawData);
+                editGoals.fillHashTable();
+                editGoals.checkParameter();
+                return editGoals.getCommand();
+            } else if ("/list".equals(command)) {
+                return new ListGoalsCommand();
+            }
         default:
             throw new ParserException("You entered an invalid type");
         }

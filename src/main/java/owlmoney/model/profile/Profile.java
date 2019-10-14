@@ -2,6 +2,8 @@ package owlmoney.model.profile;
 
 import owlmoney.model.bank.Bank;
 import owlmoney.model.bank.BankList;
+import owlmoney.model.goal.Goals;
+import owlmoney.model.goal.GoalsList;
 import owlmoney.model.transaction.Transaction;
 import owlmoney.ui.Ui;
 
@@ -12,6 +14,7 @@ import owlmoney.ui.Ui;
 public class Profile {
     private String username;
     private BankList bankList;
+    private GoalsList goalsList;
 
     /**
      * Constructor that creates a new instance of the user profile.
@@ -21,6 +24,7 @@ public class Profile {
     public Profile(String newUserName) {
         this.username = newUserName;
         this.bankList = new BankList();
+        this.goalsList = new GoalsList();
     }
 
     /**
@@ -176,7 +180,23 @@ public class Profile {
      * @param date New date of deposit.
      * @param ui required for deposit.
      */
-    public  void editDeposit(int expNum, String editFromBank, String desc, String amount, String date, Ui ui) {
+    public void editDeposit(int expNum, String editFromBank, String desc, String amount, String date, Ui ui) {
         bankList.editDep(expNum, editFromBank, desc, amount, date, ui);
+    }
+
+    public void listGoals(Ui ui) {
+        goalsList.listGoals(ui);
+    }
+
+    public void addGoals(Goals goals, Ui ui) {
+        goalsList.addToGoals(goals, ui);
+    }
+
+    public void deleteGoals(String Name, Ui ui) {
+        goalsList.deleteFromGoalList(Name, ui);
+    }
+
+    public void editGoals(String goalName, double amount, String new_name,  String date, Ui ui) {
+        goalsList.editGoals(goalName, new_name, amount, date, ui);
     }
 }
