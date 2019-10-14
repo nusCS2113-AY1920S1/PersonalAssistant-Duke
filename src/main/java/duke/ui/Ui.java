@@ -154,4 +154,16 @@ public class Ui {
         System.out.println(padding + "Got it. I've set the goal to be met:");
         System.out.println(padding + goal);
     }
+
+    public void showHistory(ArrayList<String> commandHistoryList) {
+        if (commandHistoryList.isEmpty()) {
+            System.out.println(padding + "No commands in history");
+        }
+        else {
+            System.out.println(padding + "History of Commands you have typed: ");
+            commandHistoryList.forEach(command -> {
+                System.out.println(padding + padding + command);
+            });
+        }
+    }
 }

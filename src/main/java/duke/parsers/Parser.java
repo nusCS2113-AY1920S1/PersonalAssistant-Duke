@@ -13,6 +13,7 @@ import java.util.Calendar;
  */
 public class Parser {
     private static Calendar currentDate = Calendar.getInstance();
+    private static HistoryCommand historyCommand = new HistoryCommand();
 
     /**
      * This is the main function that parse the command inputted by the user.
@@ -42,6 +43,7 @@ public class Parser {
         autocorrect.execute();
         command = autocorrect.getWord();
         String description = "";
+        historyCommand.addCommand(command);
 
         if (splitCommand.length >= 2) {
             description = splitCommand[1];
@@ -145,6 +147,12 @@ public class Parser {
                 }
             case "help":
                 return new HelpCommand();
+            case "history":
+                // clear history if requested
+                if (!description.isEmpty() && description.equals("clear")) {
+                    historyCommand.clearHistory();
+                }
+                return historyCommand;
             default:
                 throw new DukeException("\u2639 OOPS!!! I'm sorry, but I don't know what " + command + " means :-(");
         }
