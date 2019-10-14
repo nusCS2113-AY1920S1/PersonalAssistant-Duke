@@ -1,6 +1,7 @@
 package duke.util;
 
 
+import duke.command.CapCommand;
 import duke.command.logic.EndCommand;
 import duke.command.logic.ModuleCommand;
 import duke.command.logic.SearchCommand;
@@ -67,6 +68,8 @@ public class ParserWrapper {
         String[] hold = splitFirstSpace(input);
         if (input.startsWith("search ")) {
             return new SearchCommand(hold[hold.length - 1]);
+        } else if (input.startsWith("cap")) {
+            return new CapCommand(input);
         } else if (input.equals("bye")) {
             return new EndCommand();
         } else {

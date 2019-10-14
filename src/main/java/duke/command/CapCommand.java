@@ -1,18 +1,21 @@
 package duke.command;
 
+import duke.command.logic.ModuleCommand;
 import duke.exceptions.ModException;
 import duke.exceptions.ModEmptyListException;
-import duke.modules.ModuleInfoSummary;
-import duke.modules.Task;
+import duke.exceptions.ModMissingArgumentException;
+import duke.modules.data.ModuleInfoDetailed;
+import duke.modules.data.ModuleInfoSummary;
+import duke.util.PlannerUi;
 import duke.util.Reminder;
 import duke.util.Storage;
 import duke.util.TaskList;
 import duke.util.Ui;
 
-import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Scanner;
 
-public class CapCommand extends Command {
+public class CapCommand extends ModuleCommand {
 
     /* TO-DO
 
@@ -54,7 +57,11 @@ public class CapCommand extends Command {
     /**
      * Constructor for the CapCommand class where user can enquire information about their CAP.
      * Such as overall CAP and what-if reports about predicted CAP.
-     * @param input
+     * Input format can be in three forms
+     * `cap` overall cap
+     * `cap semester [x]` where x is some integer or some form of 1-1 or 1-2 to indicate year
+     * `cap [moduleCode] to check predicted cap for this module provided it has prerequisites completed by the user with a letter grade
+     * @param input User input
      */
     public CapCommand(String input) {
         command = input.split(" ");
@@ -116,13 +123,6 @@ public class CapCommand extends Command {
         */
     }
 
-
-    /**
-     * Method to calculate the total CAP based on the modules completed in the moduleList.
-     * @param moduleList blah
-     * @return something
-     * @throws ModEmptyListException something exception
-     */
     /*public double addTotalCap(ModuleList moduleList) throws ModEmptyListException {
 
         if (moduleList.isEmpty()) {
@@ -141,20 +141,6 @@ public class CapCommand extends Command {
     */
 
 
-    // for printing cap, use System.out.printf("%.2f", this.currentCap or this.projectedModuleCap);
-
-
-    @Override
-    public void execute(TaskList moduleList, Ui ui, Storage store, Reminder reminder) throws ModException {
-        Scanner scanner = new Scanner(System.in);
-        if (this.type.equals(commandType.OVERALL)) {
-            ui.showLine();
-            String userInput = scanner.nextLine();
-            while (!isComplete(userInput)) {
-                String[] userInfo = userInput.split(" ");
-                mcCount += (moduleList.find(userInfo[0]).getModuleCredit; //todo replace this with hashmap when it is up
-        }
-
        /*
         if (specificModuleCap.isEmpty()) {
             ui.showLine();
@@ -168,14 +154,9 @@ public class CapCommand extends Command {
             ui.showLine();
         }
         */
-        }
-    }
 
     public boolean isComplete(String input) {
-        if (input.equalsIgnoreCase("done")) {
-            return true;
-        }
-        return false;
+        return input.equalsIgnoreCase("done");
     }
 
     public double getCurrentCap() {
@@ -216,6 +197,44 @@ public class CapCommand extends Command {
             default:
                 return 0.00;
         }
+    }
+
+    /**
+     * Execute of 3 different forms of user input according to the enum state of this CapCommand class.
+     */
+    @Override
+    public void execute(HashMap<String, ModuleInfoSummary> summaryMap, HashMap<String, ModuleInfoDetailed> detailedMap,
+                        PlannerUi plannerUi, Storage store) throws ModException {
+        Scanner scanner = new Scanner(System.in);
+        if (this.type.equals(commandType.OVERALL)) {
+            calculateOverallCap(summaryMap, detailedMap, plannerUi, store, scanner);
+        } else if (this.type.equals(commandType.MODULE)) {
+            //calculate the module's predicted cap from its prerequisites
+        } else if (this.type.equals(commandType.SEMESTER)) {
+            //check modules taken this sem, calculate predicted cap for the sem according to user input
+        }
+        scanner.close();
+    }
+
+    /**
+     *
+     */
+    public void calculateOverallCap(HashMap<String, ModuleInfoSummary> summaryMap, HashMap<String, ModuleInfoDetailed> detailedMap,
+                                    PlannerUi plannerUi, Storage store, Scanner scanner) throws ModMissingArgumentException {
+        String userInput = scanner.nextLine();
+        double cumulativeCap = 0.00;
+        while (!isComplete(userInput)) {
+            String[] userInfo = userInput.split(" ");
+            int mcTemp = detailedMap.get(userInfo[0]).getModuleCredit();
+            mcCount += mcTemp;
+            if (userInfo[1].isEmpty()) {
+                throw new ModMissingArgumentException("Please input a letter grade for this module.");
+            }
+            cumulativeCap += (letterGradeToCap(userInfo[1]) * mcTemp);
+            userInput = scanner.nextLine();
+        }
+        double averageCap = cumulativeCap/mcCount;
+        plannerUi.capMsg(averageCap);
     }
 
     @Override
