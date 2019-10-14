@@ -5,7 +5,7 @@ import rims.resource.*;
 import rims.core.*;
 
 public class RimException extends Exception {
-    RimException(String error){
+    public RimException(String error){
         super(error);
     }
 }

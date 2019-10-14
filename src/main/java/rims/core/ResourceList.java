@@ -1,12 +1,11 @@
  package rims.core;
 
-import rims.command.*;
 import rims.exception.*;
 import rims.resource.*;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.*;
-import java.io.*;
-import java.text.*;
 
 public class ResourceList {
     protected HashMap<String, ArrayList<Resource>> resources;
@@ -82,8 +81,6 @@ public class ResourceList {
         // replace with custom exception
     }
 
-
-
     public ArrayList<String> generateBookedList() {
         ArrayList<String> list = new ArrayList<String>();
         list.add("CURRENTLY BOOKED");
@@ -120,6 +117,78 @@ public class ResourceList {
         return list;
     }
 
+    /**
+     * Gets total quantity of resources in ResourceList regardless of status.
+     *
+     * @return total quantity of resources.
+     */
+    public int getAllResourcesQuantity() {
+        int qty = 0;
+        for (ArrayList<Resource> identicalResources : resources.values()) {
+            qty += identicalResources.size();
+        }
+        return qty;
+    }
+
+    /**
+     * Adds new resource to ResourceList.
+     * (OUTDATED + conceptually incorrect because resource id is allocated outside of ResourceList)
+     * @param newResource new resource to add, can be item or room.
+     */
+    public void addResource(Resource newResource) {
+        String resourceName = newResource.getName();
+        if (resources.containsKey(resourceName)) {
+            resources.get(resourceName).add(newResource);
+        } else {
+            resources.put(resourceName, new ArrayList<Resource>());
+            resources.get(resourceName).add(newResource);
+        }
+    }
+
+    /**
+     * Adds a new resource to ResourceList given resource name and type.
+     * @param resourceName Name of resource to add.
+     * @param resourceType Type of resource: item or room.
+     * @throws RimException when type of resource is not item nor room
+     */
+    public void addResource(String resourceName, char resourceType) throws RimException {
+        Resource newResource;
+        if (resourceType == 'I') {
+            newResource = new Item(resourceName, getAllResourcesQuantity(), false);
+        } else if (resourceType == 'R') {
+            newResource = new Room(resourceName, getAllResourcesQuantity(), false);
+        } else {
+            throw new RimException("Invalid type of resource!");
+        }
+
+        if (resources.containsKey(resourceName)) {
+            resources.get(resourceName).add(newResource);
+        } else {
+            resources.put(resourceName, new ArrayList<>());
+            resources.get(resourceName).add(newResource);
+        }
+    }
+
+    /**
+     * Deletes a resource from ResourceList given the resourceName.
+     * @param resourceName Name of resource to delete.
+     * @return the resource that was deleted.
+     * @throws RimException
+     */
+    public void deleteResource(String resourceName) throws Exception {
+
+        if (!resources.containsKey(resourceName)) {
+            throw new RimException("Resource not in list"); //resource stated not in list
+        }
+
+        Resource deletedResource = getAvailableResource(resourceName);
+        resources.get(resourceName).remove(deletedResource);
+
+        //Remove empty ArrayList entry in inventory if that resource is depleted
+        if (resources.get(resourceName).isEmpty()) {
+            resources.remove(resourceName);
+        }
+    }
 
     public ArrayList<String> generateAvailableListByDate(String day) throws ParseException {
         ArrayList<String> list = new ArrayList<String>();
