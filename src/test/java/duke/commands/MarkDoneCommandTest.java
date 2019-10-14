@@ -1,10 +1,9 @@
 package duke.commands;
 
-import duke.StorageStub;
+import duke.ModelStub;
 import duke.commons.exceptions.DukeException;
-import duke.storage.Storage;
-import duke.data.tasks.Task;
-import duke.data.tasks.Todo;
+import duke.model.events.Task;
+import duke.model.events.Todo;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -13,14 +12,14 @@ class MarkDoneCommandTest {
 
     @Test
     void execute() throws DukeException {
-        Storage storage = new StorageStub();
+        ModelStub model = new ModelStub();
         Task task = new Todo("homework1");
         AddCommand addCommand = new AddCommand(task);
-        addCommand.execute(storage);
+        addCommand.execute(model);
         MarkDoneCommand markDoneCommand = new MarkDoneCommand(0);
-        markDoneCommand.execute(storage);
-        assertTrue(storage.getTasks().get(0).isDone());
+        markDoneCommand.execute(model);
+        assertTrue(model.getTasks().get(0).isDone());
         DeleteCommand deleteCommand = new DeleteCommand(0);
-        deleteCommand.execute(storage);
+        deleteCommand.execute(model);
     }
 }
