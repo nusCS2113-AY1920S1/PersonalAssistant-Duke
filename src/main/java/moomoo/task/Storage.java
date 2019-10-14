@@ -64,7 +64,7 @@ public class Storage {
      * @return HashMap object consisting of the categories and corresponding budget read from file.
      * @throws MooMooException Thrown when the file does not exist
      */
-    public HashMap<String, Double> loadBudget() throws MooMooException {
+    public HashMap<String, Double> loadBudget(CategoryList catList) throws MooMooException {
         try {
             if (Files.isRegularFile(Paths.get(this.budgetFilePath))) {
                 HashMap<String, Double> loadedBudgets = new HashMap<String, Double>();
@@ -77,10 +77,15 @@ public class Storage {
                         double budget = 0;
                         for (int i = 1; i < splitInput.length; ++i) {
                             if (i % 2 == 0) {
-                                budget = Double.parseDouble(splitInput[i]);
-                                loadedBudgets.put(category, budget);
+                                if (!category.equals("")) {
+                                    budget = Double.parseDouble(splitInput[i]);
+                                    loadedBudgets.put(category, budget);
+                                }
+                                category = "";
                             } else {
-                                category = splitInput[i];
+                                if (inCategoryList(catList, splitInput[i])) {
+                                    category = splitInput[i];
+                                }
                             }
                         }
                         return loadedBudgets;
@@ -150,5 +155,18 @@ public class Storage {
         } catch (Exception e) {
             throw new MooMooException("Unable to write to file. Please retry again.");
         }
+    }
+
+    /**
+     * Checks if a category is found in the list of categories.
+     * @return true if it exists.
+     */
+    private boolean inCategoryList(CategoryList catList, String value) {
+        for (Category cat : catList.getCategoryList()) {
+            if (cat.getName().equals(value)) {
+                return true;
+            }
+        }
+        return false;
     }
 }

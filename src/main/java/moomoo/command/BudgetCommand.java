@@ -515,7 +515,9 @@ public class BudgetCommand extends Command {
             String categoryName = catList.getCategoryList().get(i).getName();
             outputValue +=  categoryName + "\n";
         }
-
+        if (outputValue.equals("CATEGORIES:\n")) {
+            outputValue += "There are no categories set.\n";
+        }
         String inputVal = outputValue + promptValue;
         String category = ui.confirmPrompt(inputVal);
         return category;

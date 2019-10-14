@@ -21,26 +21,27 @@ public class StorageTest {
         File categoriesFile = File.createTempFile("categories", ".txt");
         categoriesFile.deleteOnExit();
 
-        TransactionList newTransList = new TransactionList();
         CategoryList newCatList = new CategoryList();
-        Budget newBudget = new Budget();
-        Ui newUi = new Ui();
-        Storage newStorage = new Storage(budgetFile.getPath(), transactionsFile.getPath(), categoriesFile.getPath());
-
         newCatList.getCategoryList().add(new Category("sweets"));
         newCatList.getCategoryList().add(new Category("laptop"));
+        newCatList.getCategoryList().add(new Category("desktop"));
+
+        Budget newBudget = new Budget();
+        Ui newUi = new Ui();
+        TransactionList newTransList = new TransactionList();
+        Storage newStorage = new Storage(budgetFile.getPath(), transactionsFile.getPath(), categoriesFile.getPath());
 
         BudgetCommand budgetCommand = new BudgetCommand(false, "budget set c/sweets b/500 c/laptop b/1500");
         budgetCommand.execute(newBudget, newCatList, newTransList, newUi, newStorage);
 
-        HashMap<String, Double> newHashMap = newStorage.loadBudget();
+        HashMap<String, Double> newHashMap = newStorage.loadBudget(newCatList);
         assertEquals(500, newHashMap.get("sweets"));
         assertEquals(1500, newHashMap.get("laptop"));
 
         budgetCommand = new BudgetCommand(false, "budget edit c/sweets b/700 c/laptop b/1500");
         budgetCommand.execute(newBudget, newCatList, newTransList, newUi, newStorage);
 
-        newHashMap = newStorage.loadBudget();
+        newHashMap = newStorage.loadBudget(newCatList);
         assertEquals(700, newHashMap.get("sweets"));
         assertEquals(1500, newHashMap.get("laptop"));
     }

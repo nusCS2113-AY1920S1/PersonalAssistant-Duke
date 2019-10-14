@@ -20,14 +20,21 @@ public class BudgetCommandTest {
         File budgetFile = File.createTempFile("budget", ".txt");
         budgetFile.deleteOnExit();
 
-        TransactionList newTransList = new TransactionList();
-        CategoryList newCatList = new CategoryList();
-        Budget newBudget = new Budget();
-        Ui newUi = new Ui();
-        Storage newStorage = new Storage(budgetFile.getPath(),"transactions.txt","category.txt");
+        File transactionsFile = File.createTempFile("transactions", ".txt");
+        transactionsFile.deleteOnExit();
 
+        File categoriesFile = File.createTempFile("categories", ".txt");
+        categoriesFile.deleteOnExit();
+
+        CategoryList newCatList = new CategoryList();
         newCatList.getCategoryList().add(new Category("shoes"));
         newCatList.getCategoryList().add(new Category("food"));
+        newCatList.getCategoryList().add(new Category("window"));
+
+        TransactionList newTransList = new TransactionList();
+        Budget newBudget = new Budget();
+        Ui newUi = new Ui();
+        Storage newStorage = new Storage(budgetFile.getPath(), transactionsFile.getPath(), categoriesFile.getPath());
 
         BudgetCommand budgetCommand = new BudgetCommand(false, "budget set c/shoes b/1000.79 c/food b/500");
         budgetCommand.execute(newBudget, newCatList, newTransList, newUi, newStorage);

@@ -20,6 +20,7 @@ public class Budget {
 
     /**
      * Takes in budget set by user and set budget variable.
+     * Initializes DecimalFormat to force doubles to display with 2 decimal places.
      */
     public Budget(HashMap<String, Double> newBudget) {
         this.categoryBudgets = newBudget;
