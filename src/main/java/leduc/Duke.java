@@ -1,6 +1,7 @@
 package leduc;
 
 import leduc.command.Command;
+import leduc.command.ShortcutCommand;
 import leduc.exception.DukeException;
 import leduc.storage.Storage;
 import leduc.task.TaskList;
@@ -24,6 +25,7 @@ public class Duke {
     public Duke(String[] filePath) {
         this.ui = new Ui();
         this.parser = new Parser();
+        ShortcutCommand.initializedSetShortcut();
         String file; // file name
         if (filePath.length != 0 ){ // test file in case of test
             file = filePath[0];
