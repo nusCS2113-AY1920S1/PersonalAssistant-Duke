@@ -21,25 +21,22 @@ public abstract class Task implements Serializable {
     private boolean hasReminder;
     private Priority priority;
     private long priorityScore;
+    private int id;
+
 
     /**
      * Constructs Task object.
      *
      * @param description Description.
      */
-    public Task(String description, Priority priority) {
+    protected Task(String description, Priority priority) {
         this.description = description;
         this.priority = priority;
         this.isDone = false;
         hasReminder = false;
 
     }
-    //----------------------->
 
-
-    //***CONSTRUCTORS***------------------------------------------------------------------------------------------------
-    //------------------------------------------------------------------------------------------------------------------
-    //----------------------------------------------------------------------------------------------------------------->
 
     /**
      * Gets priority status (HIGH, MEDIUM, LOW) of task.
@@ -49,7 +46,18 @@ public abstract class Task implements Serializable {
     public Priority getPriority() {
         return priority;
     }
-    //----------------------->
+
+    /**
+     * Gets/returns task id.
+     *
+     */
+    public int getId() {
+        return id;
+    }
+
+
+
+
 
     /**
      * Sets priority of task as HIGH, MEDIUM or LOW.
@@ -58,6 +66,15 @@ public abstract class Task implements Serializable {
      */
     public void setPriority(Priority priority) {
         this.priority = priority;
+    }
+
+
+    /**
+     * Sets task id.
+     *
+     */
+    public void setId(int id) {
+        this.id = id;
     }
 
     /**
@@ -249,10 +266,12 @@ public abstract class Task implements Serializable {
         switch (strCase) {
         case 1:
             return "\n" + "[" + getSymbol() + "]" + "[" + getStatusIcon() + "] " + getDescription()
+                    + " \nTask ID:" + getId()
                     + " \nDate: " + getStringDate() + " \nEnd Time: " + getStringEndTime()
                     + " \nPriority: " + getPriority() + "\n***************";
         default:
             return "\n" + "[" + getSymbol() + "]" + "[" + getStatusIcon() + "] " + getDescription()
+                    + " \nTask ID:" + getId()
                     + " \nDate: " + getStringDate() + " \nStart Time: " + getStringStartTime()
                     + " \nEnd Time: " + getStringEndTime() + " \nPriority: " + getPriority()
                     + "\n***************";
@@ -260,7 +279,6 @@ public abstract class Task implements Serializable {
 
 
     }
-    //----------------------->
 
     /**
      * Gets all the details of the task as a string, for saving into the text file.
@@ -270,6 +288,8 @@ public abstract class Task implements Serializable {
      */
     public String getAllDetailsAsString() {
         StringBuilder list = new StringBuilder();
+        list.append(getId());
+        list.append("_");
         list.append(getSymbol());
         list.append("_");
         list.append(getDescription());

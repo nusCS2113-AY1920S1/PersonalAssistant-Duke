@@ -1,5 +1,6 @@
 
 
+
 # COMPal - Developer Guide
 
 Welcome to the **COMPal** Developer Guide! This Developer Guide is still being worked on for now!
@@ -206,7 +207,7 @@ API: StorageManager.java
 We use very simple and user-editable text files to store user data. Data is stored as data strings separated by underscores. The separation token however, can be easily changed if desired. 
 Data is thereafter parsed as a string and then processed by our storage API into application-useful datatypes such as Task Objects. 
 
-The advantage of this approach is that it is a no-frills implementation and comprehensible by the average developer. The average user can also understand and easily directly edit the data file if so desired.
+While it might be viewed as primitive, the advantage of this approach is that it is an almost no-frills implementation and is easily comprehended the average developer. The average user can also understand and easily directly edit the data file if so desired. 
 
 ### 4.6. Model Component
 
