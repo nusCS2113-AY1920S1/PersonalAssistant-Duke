@@ -392,7 +392,7 @@ public class UiPart {
                             + "! ", "verdana", 15, Color.BLACK);
 
             //initiate the showing of reminders
-            compal.parser.processCmd(MESSAGE_INIT_REMINDER);
+            compal.viewReminder();
         }
     }
 
@@ -446,7 +446,7 @@ public class UiPart {
      *
      * @param currDate current date of task input
      */
-    public void secondaryScreenRefresh(Date currDate) throws ParseException, Compal.DukeException {
+    public void secondaryScreenRefresh(Date currDate){
         Date currentDate = Calendar.getInstance().getTime();
         Calendar c = Calendar.getInstance();
 
@@ -454,7 +454,7 @@ public class UiPart {
         c.add(Calendar.DATE, 7);
         Date weekLater = c.getTime();
         if (currDate.before(weekLater)) {
-            compal.parser.processCmd(MESSAGE_INIT_REMINDER);
+            compal.viewReminder();
         }
     }
 

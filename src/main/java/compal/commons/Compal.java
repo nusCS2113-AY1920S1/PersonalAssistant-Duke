@@ -1,12 +1,14 @@
 package compal.commons;
 
+import compal.model.tasks.Task;
 import compal.storage.StorageManager;
 import compal.ui.UiPart;
 import compal.logic.parser.ParserManager;
 import compal.storage.Storage;
 import compal.model.tasks.TaskList;
+import javafx.scene.paint.Color;
 
-import java.util.ArrayList;
+import java.util.*;
 
 import static java.lang.System.exit;
 
@@ -54,13 +56,6 @@ public class Compal {
     //------------------------------------------------------------------------------------------------------------------
     //----------------------------------------------------------------------------------------------------------------->
 
-    /**
-     * This function handles the exiting/shutdown of the program Compal.main.Compal.
-     * Used in parser.processCommands
-     */
-    public void exitDuke() {
-        exit(0);
-    }
     //----------------------->
 
     /**
@@ -80,6 +75,67 @@ public class Compal {
         public String toString() {
             return description;
         }
+    }
+
+    public void viewReminder() {
+        int numberOfDays = 7;
+
+        ArrayList<Task> reminder = new ArrayList<>();
+        Date currentDate = java.util.Calendar.getInstance().getTime();
+
+        Calendar c = Calendar.getInstance();
+
+        c.setTime(currentDate);
+        c.add(Calendar.DATE, numberOfDays);
+        Date dateAfter = c.getTime();
+
+        c.setTime(currentDate);
+        c.add(Calendar.DATE, -1);
+        c.set(Calendar.HOUR_OF_DAY, 23);
+        c.set(Calendar.MINUTE, 59);
+        c.set(Calendar.SECOND, 59);
+        Date dateToday = c.getTime();
+
+        for (Task t : tasklist.arrlist) {
+            Date deadline = t.getDate();
+            if (deadline != null && !t.isDone && deadline.after(dateToday)
+                    && (deadline.before(dateAfter) || t.hasReminder())) {
+                t.calculateAndSetPriorityScore();
+                reminder.add(t);
+            }
+        }
+
+        //sort/compare by task priority score
+        Comparator<Task> compareByDateTime = (Task t1, Task t2) -> {
+            return Long.compare(t2.getPriorityScore(), t1.getPriorityScore());
+        };
+        Collections.sort(reminder, compareByDateTime);
+
+        //clear secondary window
+        ui.clearSecondary();
+
+        //display the results
+        if (reminder.isEmpty()) {
+            ui.printg("You currently have no tasks that have reminders set or are due within "
+                            + numberOfDays + " days!",
+                    "verdana", 15, Color.DARKGREEN);
+        } else {
+            int counter = 1;
+            for (Task t : reminder) {
+                if (t.getPriority().equals(Task.Priority.high)) {
+                    //compal.ui.printg(counter + ". " + t.toString(),"verdana",15, Color.RED);
+                    ui.printSecondaryg(counter + ". " + t.toString(), "verdana", 15, Color.RED);
+                } else if (t.getPriority().equals(Task.Priority.medium)) {
+                    //compal.ui.printg(counter + ". " + t.toString(),"verdana",15, Color.ORANGE);
+                    ui.printSecondaryg(counter + ". " + t.toString(), "verdana", 15, Color.ORANGE);
+                } else {
+                    //compal.ui.printg(counter + ". " + t.toString(),"verdana",15, Color.GREEN);
+                    ui.printSecondaryg(counter + ". " + t.toString(), "verdana", 15, Color.GREEN);
+                }
+                counter++;
+            }
+        }
+
     }
 }
 
