@@ -73,6 +73,7 @@ public class EventPatientTask extends PatientTask {
     {
         return this.duration;
     }
+
     public String toString(){
         return super.printStatus() + " From " + DateTimeParser.convertToEnglishDateTimeBeforeParse(startTime) + "To" + DateTimeParser.convertToEnglishDateTimeBeforeParse(endTime);
     }

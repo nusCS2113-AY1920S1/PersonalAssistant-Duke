@@ -96,6 +96,13 @@ public class CommandManager {
                             throw new Exception("Please follow the format 'find patient #<id>' or 'find patient <name>'.");
                         }
                     }
+                    else if (secondKeyword.equals("patienttask")){
+                        try {
+                            return new FindPatientTaskCommand(command[2]);
+                        }catch(Exception e){
+                            throw new Exception("Please follow the format 'find patient #<id>' or 'find patient <name>'.");
+                        }
+                    }
                     else {
                         throw new Exception("Invalid format. ");
                     }
