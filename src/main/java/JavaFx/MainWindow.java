@@ -234,11 +234,13 @@ public class MainWindow extends BorderPane implements Initializable {
             setListItem();
         } else if (input.startsWith("add")) {
             refresh(input);
+
         } else if (userInput.getText().equals("bye")) {
             PauseTransition delay = new PauseTransition(Duration.seconds(1));
             delay.setOnFinished( event -> Platform.exit() );
             delay.play();
         }
+        AlertBox.display(" ","",response, Alert.AlertType.INFORMATION);
         userInput.clear();
     }
 
