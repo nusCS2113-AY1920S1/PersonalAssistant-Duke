@@ -2,8 +2,6 @@ package duke.command;
 
 import duke.DukeCore;
 
-import java.io.PrintStream;
-
 /**
  * Stub Command for testing new Parser.
  */
