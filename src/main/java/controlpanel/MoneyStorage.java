@@ -6,6 +6,7 @@ import java.io.BufferedWriter;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.text.ParseException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -33,7 +34,8 @@ public class MoneyStorage {
             while ((line = bufferedReader.readLine()) != null) {
                 String[] info = line.split(" @ ");
                 if (!(info[0].equals("BS") || info[0].equals("INC") || info[0].equals("EXP") || info[0].equals("SEX") ||
-                        info[0].equals("G") || info[0].equals("INS") || info[0].equals("INIT"))) {
+                        info[0].equals("G") || info[0].equals("INS") || info[0].equals("INIT") ||
+                        info[0].equals("LOA"))) {
                     throw new DukeException("OOPS!! Your file has been corrupted/ input file is invalid!");
                 }
                 switch(info[0]) {
@@ -67,9 +69,10 @@ public class MoneyStorage {
                             Pair<String, Boolean> temp = new Pair<>(splitStr[0], status);
                             parties.add(temp);
                         }
-                        Split spltExp = new Split(Float.parseFloat(info[1]), info[2], info[3],
+                        Split spiltExp = new Split(Float.parseFloat(info[1]), info[2], info[3],
                                 LocalDate.parse(info[4], dateTimeFormatter), parties);
-                        account.getExpListTotal().add(spltExp);
+                        account.getExpListTotal().add(spiltExp);
+                        break;
                     case "G":
                         Goal g = new Goal(Float.parseFloat(info[1]), info[2], info[3],
                                 LocalDate.parse(info[4], dateTimeFormatter), info[5]);
@@ -80,6 +83,13 @@ public class MoneyStorage {
                                 LocalDate.parse(info[4], dateTimeFormatter), Integer.parseInt(info[5]),
                                 Float.parseFloat(info[6]) * 100);
                         account.getInstalments().add(ins);
+                        break;
+                    case "LOA":
+                        Loan l = new Loan(Float.parseFloat(info[1]), info[2],
+                                LocalDate.parse(info[3], dateTimeFormatter),
+                            Loan.Type.ALL);
+                        l.updateExistingLoan(info[4], info[5], Integer.parseInt(info[6]), Float.parseFloat(info[7]));
+                        account.getLoans().add(l);
                         break;
                     default:
                         break;
@@ -126,6 +136,12 @@ public class MoneyStorage {
                 bufferedWriter.write("INS @ " + ins.getPrice() + " @ " + ins.getDescription() + " @ " +
                         ins.getCategory() + " @ " + ins.getBoughtDate() + " @ " + ins.getNumOfPayments() + " @ " +
                         ins.getAIR() + "\n");
+            }
+
+            for (Loan l : account.getLoans()) {
+                bufferedWriter.write("LOA @ " + l.getPrice() + " @ " + l.getDescription() +
+                        " @ " + l.getStartDate() + " @ " + l.getType().toString() + " @ " +
+                        l.getEndDate() + " @ " + l.getStatusInt() + " @ " + l.getOutstandingLoan() + "\n");
             }
 
             bufferedWriter.close();

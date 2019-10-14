@@ -45,7 +45,6 @@ public class AddIncomeCommand extends MoneyCommand {
      */
     @Override
     public void execute(Account account, Ui ui, MoneyStorage storage) throws ParseException, DukeException {
-        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("d/M/yyyy");
         String[] splitStr = inputString.split("/amt ", 2);
         String description = splitStr[0];
         String[] furSplit = splitStr[1].split("/payday ", 2);
