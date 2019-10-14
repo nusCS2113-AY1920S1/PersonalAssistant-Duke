@@ -95,6 +95,7 @@ public class ParserManager {
      * @throws Compal.DukeException If command input is unknown or user input is empty.
      */
     public void processCmd(String userInput) throws ParseException, Compal.DukeException {
+        compal.ui.clearPrimary();
         Scanner sc = new Scanner(userInput);
         if (sc.hasNext()) {
             String cmd = sc.next();

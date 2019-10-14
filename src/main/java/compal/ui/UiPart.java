@@ -438,7 +438,6 @@ public class UiPart {
         dailyTab.setText(dateToStore);
         dailyTab.setContent(dc.init(dateToStore));
         compal.ui.tabWindow.getTabs().add(1, dailyTab);
-
     }
 
     /**
