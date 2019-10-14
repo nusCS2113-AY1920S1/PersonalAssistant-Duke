@@ -34,7 +34,7 @@ public class FindCommand extends Command implements CommandParser {
      * @throws Compal.DukeException If user input after "find" is empty.
      */
     @Override
-    public void parseCommand(String userIn) throws Compal.DukeException, ParseException {
+    public void parseCommand(String userIn) throws Compal.DukeException {
         Scanner scanner = new Scanner(userIn);
         scanner.next();
         if (!scanner.hasNext()) {
