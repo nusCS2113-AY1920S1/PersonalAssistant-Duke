@@ -10,6 +10,9 @@ import owlmoney.model.profile.Profile;
 import owlmoney.model.transaction.Deposit;
 import owlmoney.ui.Ui;
 
+/**
+ * Executes DeleteBondCommand and prints the results.
+ */
 public class DeleteBondCommand extends Command {
     private final String bankName;
     private final String bondName;

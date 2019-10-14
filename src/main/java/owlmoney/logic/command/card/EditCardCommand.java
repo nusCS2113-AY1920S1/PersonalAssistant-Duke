@@ -5,6 +5,10 @@ import owlmoney.model.card.exception.CardException;
 import owlmoney.model.profile.Profile;
 import owlmoney.ui.Ui;
 
+/**
+ * Please fill in the javadoc.
+ * ##############################################################################################
+ */
 public class EditCardCommand extends Command {
 
     private final String name;

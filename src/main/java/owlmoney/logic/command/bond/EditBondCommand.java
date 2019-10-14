@@ -6,6 +6,9 @@ import owlmoney.model.bond.exception.BondException;
 import owlmoney.model.profile.Profile;
 import owlmoney.ui.Ui;
 
+/**
+ * Executes EditBondCommand and prints the results.
+ */
 public class EditBondCommand extends Command {
     private final String bankName;
     private final String bondName;
@@ -28,6 +31,7 @@ public class EditBondCommand extends Command {
     }
 
     /**
+     * Executes the function to edit the bond in the investment account from the profile.
      *
      * @param profile Profile of the user.
      * @param ui      Ui of OwlMoney.

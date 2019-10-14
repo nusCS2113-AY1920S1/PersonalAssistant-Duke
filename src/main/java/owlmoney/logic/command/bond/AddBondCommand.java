@@ -11,6 +11,9 @@ import owlmoney.model.profile.Profile;
 import owlmoney.model.transaction.Expenditure;
 import owlmoney.ui.Ui;
 
+/**
+ * Executes AddBondCommand and prints the results.
+ */
 public class AddBondCommand extends Command {
 
     private final String bondName;

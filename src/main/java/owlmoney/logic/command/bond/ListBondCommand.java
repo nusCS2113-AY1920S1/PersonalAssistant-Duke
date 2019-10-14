@@ -9,7 +9,6 @@ import owlmoney.ui.Ui;
 /**
  * Executes ListBondCommand and prints the results.
  */
-
 public class ListBondCommand extends Command {
     private final String bankName;
     private final int displayNum;
