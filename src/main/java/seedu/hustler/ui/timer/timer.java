@@ -2,65 +2,96 @@ package seedu.hustler.ui.timer;
 
 import java.util.*;
 
+/**
+ * The timer device operated by timerManager.
+ */
 public class timer implements Runnable {
 
-    protected int hours;
-    protected int minutes;
-    protected int seconds;
+    /**
+     * The current status of the timer, an attribute that is
+     * affected by the types of commands used by the user.
+     */
+    protected static threadStatus threadstatus = threadStatus.DEFAULT;
 
-    public timer() {
-        hours = 0;
-        minutes = 0;
-        seconds = 0;
+    /**
+     * An array of 3 integers representing the hours, minutes
+     * and seconds (indexes 2, 1, and 0 respectively of timeArray)
+     * of the timer.
+     */
+    protected int[] timeArray = new int[3];
+
+    /**
+     * Default constructor that initialises the timer to 0hrs
+     * 0minutes and 0seconds.
+     */
+    protected timer() {
+        timeArray = new int[3];
+	threadstatus = threadStatus.DEFAULT;
     }
 
-    public timer(String hours, String minutes, String seconds) {
-        this.hours = Integer.parseInt(hours);
-        this.minutes = Integer.parseInt(minutes);
-        this.seconds = Integer.parseInt(seconds);
+    /**
+     * Overloaded constructor that directly sets the hours, minutes
+     * and seconds of the timer according to the user's discretion.
+     *
+     * @param hours hours of the timer.
+     * @param minutes minutes of the timer.
+     * @param seconds seconds of the timer.
+     */
+    protected timer(String hours, String minutes, String seconds) {
+        timeArray[0] = Integer.parseInt(seconds);
+        timeArray[1] = Integer.parseInt(minutes);
+        timeArray[2] = Integer.parseInt(hours);
     }
 
+    /**
+     * Types of statuses the timer can have.
+     */
+    protected enum threadStatus {
+        DEFAULT,
+	RUNNING,
+	PAUSED,
+        RESUMED,
+        RESET,
+        STOPPED,
+        FINISHED
+    }
+
+    /**
+     * Starts running the timer, counting down until
+     * the time is up or if the timer is ended
+     * prematurely by the user. Timer can be paused
+     * and resumed.
+     */
     public void run() {
-        System.out.println("Timer mode has commenced! Time set: "
-                + (hours < 10 ? "0" : "") + hours + "hr "
-                + (minutes < 10 ? "0" : "") + minutes + "min "
-                + (seconds < 10 ? "0" : "") + seconds + "sec");
+        timerUI.printThreadStart(threadstatus, timeArray);
         try {
-            while (hours != 0 || minutes != 0 | seconds != 0) {
+            while (!isFinished()) {
                 Thread.sleep(1000);
-                decrementSeconds();
+                timeArray = timerLogic.decrement(timeArray);
             }
-        } catch (Exception e) {}
-
-	System.out.println("Timer mode has ended.");
-    }
-
-    public void decrementSeconds() {
-        if (seconds != 0) {
-            seconds--;
-        } else  {
-            seconds = 59;
-            decrementMinutes();
+        } catch (Exception e) {
         }
+        timerUI.printThreadInterrupt(threadstatus);
     }
 
-    public void decrementMinutes() {
-        if (minutes != 0) {
-            minutes--;
-        } else {
-            minutes = 59;
-            decrementHours();
-        }
+    /**
+     * Returns the time currently stored by the timer.
+     * This method is an accessor for other methods.
+     *
+     * @return the entire array containing information
+     * about the timer's hours, minutes and seconds.
+     */
+    protected int[] getTime() {
+        return timeArray;
     }
 
-    public void decrementHours() {
-        hours--;
-    }
-
-    public void printTimeLeft() {
-        System.out.println("time remaining: "
-                           + (hours < 10 ? "0" : "") + hours + "hr "
-                           + (minutes < 10 ? "0" : "") + minutes + "min "
-                           + (seconds < 10 ? "0" : "") + seconds + "sec");
+    /**
+     * @return a boolean value telling the timer if
+     * the countdown is complete. The countdown is
+     * complete if all 3 values of hours, minutes
+     * and seconds are 0.
+     */
+    private boolean isFinished() {
+        return (timeArray[0] == 0 && timeArray[1] == 0 && timeArray[2] == 0);
     }
 }

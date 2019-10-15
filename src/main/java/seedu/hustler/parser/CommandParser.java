@@ -83,6 +83,10 @@ public class CommandParser extends Parser {
             return new TimerCommand(userInput);
         } else if (userInput[0].equals("undo")) {
             return new UndoCommand(userInput);
+        } else if (userInput[0].equals("pausetimer")) {
+            return new PauseTimerCommand();
+        } else if (userInput[0].equals("resumetimer")) {
+            return new ResumeTimerCommand();
         } else if (userInput[0].equals("stoptimer")) {
             return new StopTimerCommand();
         } else if (userInput[0].equals("showtimer")) {
