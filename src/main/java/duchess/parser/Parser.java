@@ -79,4 +79,13 @@ public class Parser {
         this.parserState = newState;
         return this;
     }
+
+    /**
+     * Returns the current parser state.
+     *
+     * @return the parser state
+     */
+    public ParserState getParserState() {
+        return this.parserState;
+    }
 }
