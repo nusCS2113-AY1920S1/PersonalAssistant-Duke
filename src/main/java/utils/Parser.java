@@ -1,7 +1,18 @@
 package utils;
 
-import commands.*;
-
+import commands.AddCommand;
+import commands.ByeCommand;
+import commands.CheckAnomaliesCommand;
+import commands.Command;
+import commands.DeleteCommand;
+import commands.DoneCommand;
+import commands.FindCommand;
+import commands.LinkCommand;
+import commands.ListCommand;
+import commands.MemberAddCommand;
+import commands.RecurringCommand;
+import commands.SnoozeCommand;
+import commands.ViewScheCommand;
 import members.Member;
 import core.Ui;
 import tasks.Deadline;
@@ -267,13 +278,15 @@ public class Parser {
     /**
      * This method automatically correct typos of command, only support the command words
      * in the dict String Array: <br />
-     * <code>dict = {"ADD", "LIST", "DONE", "BYE", "DELETE", "FIND", "RECURRING", "SNOOZE", "SCHEDULE", "CHECK"};</code>
+     * <code>dict = {"ADD", "LIST", "DONE", "BYE", "DELETE", "FIND", "RECURRING", "SNOOZE", "SCHEDULE", "CHECK"};
+     * </code>
      * @param command the original command word
      * @return If the method can recognize the word, return the correct(ed) command word;
      * if the method cannot recognize the word, return the original word.
      */
     public static String commandCorrector(String command) {
-        String[] dict = {"ADD", "LIST", "DONE", "BYE", "DELETE", "FIND", "RECURRING", "SNOOZE", "SCHEDULE", "CHECK", "LINK"};
+        String[] dict = {"ADD", "LIST", "DONE", "BYE", "DELETE",
+            "FIND", "RECURRING", "SNOOZE", "SCHEDULE", "CHECK", "LINK"};
         double[] similarity = new double[dict.length];
         double maxSimilarity = 0;
         int maxSimilarityCommandIndex = -1;
