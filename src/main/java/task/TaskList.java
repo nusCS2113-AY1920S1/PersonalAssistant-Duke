@@ -3,8 +3,8 @@ package task;
 import exception.DukeException;
 import parser.Parser;
 
+import java.io.*;
 import java.util.ArrayList;
-import java.util.Collections;
 
 
 /**
@@ -15,11 +15,25 @@ import java.util.Collections;
  * @version 1.0
  * @since 08/19
  */
-public class TaskList {
+public class TaskList implements Serializable, Cloneable {
     private ArrayList<Task> list = new ArrayList<>();
 
     public TaskList() {
 
+    }
+
+    public TaskList deepClone() {
+        try {
+            ByteArrayOutputStream byteOutputStream = new ByteArrayOutputStream();
+            ObjectOutputStream objectOutputStream = new ObjectOutputStream(byteOutputStream);
+            objectOutputStream.writeObject(list);
+
+            ByteArrayInputStream byteInputStream = new ByteArrayInputStream(byteOutputStream.toByteArray());
+            ObjectInputStream objectInputStream = new ObjectInputStream(byteInputStream);
+            return (TaskList) objectInputStream.readObject();
+        } catch (IOException | ClassNotFoundException e) {
+            return null;
+        }
     }
 
     /**
@@ -181,6 +195,10 @@ public class TaskList {
         } else {
             throw new DukeException("Requested Task not found within list");
         }
+    }
+
+    public ArrayList<Task> get() {
+        return this.list;
     }
 
     /**

@@ -51,8 +51,14 @@ public class AddCommand extends Command {
             tasks.conflict_check();
         }
         else if (this.command.matches("add")) {
-            this.listType = 1;
-            memento = new Memento(lists); //1 for degree list
+            this.listType = 1; //1 for degree list
+
+            DegreeList degreesBuffer = new DegreeList();
+            for (int i = 0; i < lists.size(); i++) {
+                degreesBuffer.add(lists.get(i));
+            }
+
+            memento = new Memento(degreesBuffer);
             lists.add_custom(this.arguments);
         }
         else {
@@ -84,5 +90,4 @@ public class AddCommand extends Command {
             }
         }
     }
-
 }

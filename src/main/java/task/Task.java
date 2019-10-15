@@ -31,7 +31,7 @@ public class Task {
      *
      * @param description String containing description information
      */
-    Task(String description) {
+    public Task(String description) {
         this.description = description;
         this.isDone = false;
     }
@@ -39,7 +39,7 @@ public class Task {
     /**
      * Empty Task.
      */
-    Task() {
+    public Task() {
     }
 
     /**
