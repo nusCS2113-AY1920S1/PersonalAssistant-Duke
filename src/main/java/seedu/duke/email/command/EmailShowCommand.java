@@ -18,17 +18,10 @@ public class EmailShowCommand extends Command {
 
     @Override
     public boolean execute() {
-        try {
-            String[] parsedMsg = emailList.show(index);
-            responseMsg = parsedMsg[0];
-            Duke.getUI().showResponse(parsedMsg[0]);
-            Duke.getUI().setEmailContent(parsedMsg[1]);
-            return true;
-        } catch (CommandParser.UserInputException | IOException e) {
-            if (!silent) {
-                Duke.getUI().showError(e.toString());
-            }
-            return false;
-        }
+        String[] parsedMsg = emailList.show(index);
+        responseMsg = parsedMsg[0];
+        Duke.getUI().showResponse(parsedMsg[0]);
+        Duke.getUI().setEmailContent(parsedMsg[1]);
+        return true;
     }
 }

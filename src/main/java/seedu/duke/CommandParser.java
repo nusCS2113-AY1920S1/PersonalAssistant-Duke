@@ -1,6 +1,8 @@
 package seedu.duke;
 
 import seedu.duke.common.command.HelpCommand;
+import seedu.duke.email.command.EmailTagCommand;
+import seedu.duke.email.entity.Email;
 import seedu.duke.task.TaskList;
 import seedu.duke.task.command.TaskAddCommand;
 import seedu.duke.common.command.Command;
@@ -214,24 +216,61 @@ public class CommandParser {
             return parseShowEmailCommand(emailList, input);
         case "fetch":
             return new EmailFetchCommand(emailList);
+        case "update":
+            return parseEmailTagCommand(emailList, optionList, input);
         default:
             throw new CommandParser.UserInputException("OOPS!!! Enter \'email help\' to get list of methods for "
                     + "email.");
         }
     }
 
-    private static Command parseShowEmailCommand(EmailList emailList, String input) throws UserInputException {
-        if (input.length() <= 4) {
-            throw new UserInputException("Please enter a valid index of email to be shown after \'email "
-                    + "show\'");
+
+    private static Command parseEmailTagCommand(EmailList emailList, ArrayList<Option> optionList,
+                                                String input) throws UserInputException {
+        Pattern emailTagCommandPattern = Pattern.compile("^update\\s+(?<index>\\d+)\\s*$");
+        Matcher emailTagCommandMatcher = emailTagCommandPattern.matcher(input);
+        if (!emailTagCommandMatcher.matches()) {
+            if (ui != null) {
+                ui.showError("Please enter a valid email index after \'update\'");
+            }
+            return new InvalidCommand();
+        }
+        ArrayList<String> tags = extractTags(optionList);
+        if (tags.size() == 0) {
+            if (ui != null) {
+                ui.showError("Please enter a tag name after \'-tag\' option");
+            }
+            return new InvalidCommand();
         }
         try {
-            String parsedInput = input.substring(4).strip();
-            int index = Integer.parseInt(parsedInput) - 1;
-            return new EmailShowCommand(emailList, index);
-        } catch (NumberFormatException e) {
+            int index = parseEmailIndex(emailTagCommandMatcher.group("index"), emailList);
+            return new EmailTagCommand(emailList, index, tags);
+        } catch (UserInputException e) {
             throw new UserInputException(e.toString());
-        } catch (Exception e) {
+        }
+    }
+
+    private static int parseEmailIndex(String input, EmailList emailList) throws UserInputException {
+        int index = Integer.parseInt(input) - 1;
+        if (index < 0 || index >= emailList.size()) {
+            throw new CommandParser.UserInputException("Invalid index");
+        }
+        return index;
+    }
+
+    private static Command parseShowEmailCommand(EmailList emailList, String input) throws UserInputException {
+        Pattern showCommandPattern = Pattern.compile("^show\\s+(?<index>\\d+)\\s*$");
+        Matcher showCommandMatcher = showCommandPattern.matcher(input);
+        if (!showCommandMatcher.matches()) {
+            if (ui != null) {
+                ui.showError("Please enter a valid index of task after \'show\'");
+            }
+            return new InvalidCommand();
+        }
+        try {
+            int index = parseEmailIndex(showCommandMatcher.group("index"), emailList);
+            return new EmailShowCommand(emailList, index);
+        } catch (UserInputException e) {
             throw new UserInputException(e.toString());
         }
     }
