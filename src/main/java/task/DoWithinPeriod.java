@@ -23,7 +23,6 @@ public class DoWithinPeriod extends Task {
         this.start = start;
         this.end = end;
         this.isDone = isDone.equals("1");
-
     }
 
     @Override
