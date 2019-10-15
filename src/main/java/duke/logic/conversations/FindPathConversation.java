@@ -24,26 +24,18 @@ public class FindPathConversation extends Conversation {
             state++;
             break;
         case 2:
-            try {
-                ParserUtil.getIndex(input);
-                prompt = MessagesPrompt.ENDPOINT_PROMPT;
+            if (isIntInput(input)) {
                 startPointIndex = input;
+                prompt = MessagesPrompt.ENDPOINT_PROMPT;
                 state++;
                 attempts = 0;
-            } catch (DukeException e) {
-                attempts++;
-                prompt = MessagesPrompt.PROMPT_NOT_INT;
             }
             break;
         case 3:
-            try {
-                ParserUtil.getIndex(input);
+            if (isIntInput(input)) {
                 endPointIndex = input;
                 buildResult();
                 setFinished(true);
-            } catch (DukeException e) {
-                attempts++;
-                prompt = MessagesPrompt.PROMPT_NOT_INT;
             }
             break;
         default:
@@ -55,6 +47,10 @@ public class FindPathConversation extends Conversation {
 
     @Override
     protected void buildResult() {
-        result = command + " " + constraint + " " + startPointIndex + " " + endPointIndex;
+        if (constraint != null && startPointIndex != null && endPointIndex != null) {
+            result = command + " " + constraint + " " + startPointIndex + " " + endPointIndex;
+        } else {
+            attempts++;
+        }
     }
 }

@@ -23,13 +23,9 @@ public class DeadlineConversation extends Conversation {
             state++;
             break;
         case 2:
-            try {
-                ParserTimeUtil.parseStringToDate(input);
+            if (isDateInput(input)) {
                 date = input;
                 buildResult();
-                setFinished(true);
-            } catch (DukeDateTimeParseException e) {
-                attempts++;
             }
             break;
         default:
@@ -41,6 +37,11 @@ public class DeadlineConversation extends Conversation {
 
     @Override
     protected void buildResult() {
-        result = command + " " + description + " by " + date;
+        if (description != null && date != null) {
+            result = command + " " + description + " by " + date;
+            setFinished(true);
+        } else {
+            attempts++;
+        }
     }
 }

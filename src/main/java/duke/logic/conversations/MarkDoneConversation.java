@@ -15,20 +15,21 @@ public class MarkDoneConversation extends Conversation {
 
     @Override
     public void execute(String input) {
-        try {
-            ParserUtil.getIndex(input);
+        if (isIntInput(input)) {
             index = input;
             buildResult();
-            setFinished(true);
-        } catch (DukeException e) {
-            attempts++;
-            prompt = MessagesPrompt.PROMPT_NOT_INT;
         }
+
         tryCancelConversation(input);
     }
 
     @Override
     protected void buildResult() {
-        result = command + " " + index;
+        if (index != null) {
+            result = command + " " + index;
+            setFinished(true);
+        } else {
+            attempts++;
+        }
     }
 }

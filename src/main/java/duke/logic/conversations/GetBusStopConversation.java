@@ -15,20 +15,20 @@ public class GetBusStopConversation extends Conversation {
 
     @Override
     public void execute(String input) {
-        try {
-            ParserUtil.getIndex(input);
+        if (isIntInput(input)) {
             busCode = input;
             buildResult();
-            setFinished(true);
-        } catch (DukeException e) {
-            attempts++;
-            prompt = MessagesPrompt.PROMPT_NOT_INT;
         }
+
         tryCancelConversation(input);
     }
 
     @Override
     protected void buildResult() {
-        result = command + " " + busCode;
+        if (busCode != null) {
+            result = command + " " + busCode;
+        } else {
+            attempts++;
+        }
     }
 }

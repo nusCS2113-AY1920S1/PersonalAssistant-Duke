@@ -36,16 +36,6 @@ public class ApiParser {
                     arr.get(0).getAsJsonObject().get("Y").getAsDouble());
         }
         throw new DukeException(Messages.DATA_NOT_FOUND);
-        /*
-        ArrayList<String> result = new ArrayList<>();
-        for (int i = 0; i < Integer.parseInt(String.valueOf(jsonRes.getAsJsonPrimitive("found")))
-                ; i++) {
-            result.add(arr.get(i).getAsJsonObject().get("SEARCHVAL").getAsString() + " ("
-                    + arr.get(i).getAsJsonObject().get("LATITUDE").getAsString() + " : "
-                    + arr.get(i).getAsJsonObject().get("LONGITUDE").getAsString() + ")");
-        }
-        return result;
-         */
     }
 
     private static boolean isFound(JsonObject jsonRes) {
