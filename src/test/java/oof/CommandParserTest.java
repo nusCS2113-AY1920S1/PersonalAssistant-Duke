@@ -280,8 +280,8 @@ public class CommandParserTest {
      * @throws OofException Parse method throws OofException.
      */
     @Test
-    public void parse_FreeEntered_ShowFreeTimeSlots() throws OofException {
-        assertTrue(CommandParser.parse("free") instanceof FreeCommand);
+    public void parse_FreeEnteredWithCorrectFields_ShowFreeTimeSlots() throws OofException {
+        assertTrue(CommandParser.parse("free 30-10-2019 23:59") instanceof FreeCommand);
     }
 
     /**

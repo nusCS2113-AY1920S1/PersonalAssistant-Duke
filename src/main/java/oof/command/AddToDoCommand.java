@@ -7,6 +7,11 @@ import oof.exception.OofException;
 import oof.task.Task;
 import oof.task.Todo;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.DateTimeException;
+import java.util.Date;
+
 /**
  * Represents a Command to add Todo objects to TaskList.
  */
@@ -54,6 +59,17 @@ public class AddToDoCommand extends Command {
             ui.addTaskMessage(task, arr.getSize());
         } else {
             throw new OofException("OOPS!!! The date is invalid.");
+        }
+    }
+
+    @Override
+    public String parseTimeStamp(String date) {
+        try {
+            SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy");
+            Date parsed = format.parse(date);
+            return format.format(parsed);
+        } catch (ParseException | DateTimeException e) {
+            return "failed";
         }
     }
 

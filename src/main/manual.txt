@@ -40,7 +40,7 @@ Sort                sort
 
 View Undone         viewUndone
 
-View Free           viewFree
+View Free           free DD-MM-YYYY
 
 View Week           viewWeek
 

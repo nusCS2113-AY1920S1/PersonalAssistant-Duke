@@ -85,7 +85,7 @@ public class FreeCommand extends Command {
         }
         allEventStartTime.sort(new SortByDate());
         allEventEndTime.sort(new SortByDate());
-        for (int i = 0; i <allEventStartTime.size(); i++) {
+        for (int i = 0; i < allEventStartTime.size(); i++) {
             if (isOutOfRange(allEventStartTime.get(i), rangeStop)) {
                 ui.printFreeTimings(convertDateToString(current), convertDateToString(rangeStop), count);
                 break;

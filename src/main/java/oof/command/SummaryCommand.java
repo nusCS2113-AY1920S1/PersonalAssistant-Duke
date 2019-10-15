@@ -13,6 +13,8 @@ import java.time.format.DateTimeFormatter;
 import java.util.Locale;
 
 public class SummaryCommand extends Command {
+
+    private static final int EMPTY = 0;
     private TaskList summary = new TaskList();
 
     /**
@@ -67,7 +69,7 @@ public class SummaryCommand extends Command {
     public void execute(TaskList tasks, Ui ui, Storage storage) throws OofException {
         String tomorrow = getTomorrowDate();
         TaskList summary = getSummary(tomorrow, tasks);
-        if (summary.getSize() == 0) {
+        if (summary.getSize() == EMPTY) {
             throw new OofException("There are no Tasks scheduled on " + tomorrow + ".");
         }
         ui.printTasksByDate(summary, tomorrow);
