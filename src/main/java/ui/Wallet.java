@@ -4,14 +4,14 @@ import java.util.ArrayList;
 
 public class Wallet {
     private Double balance;
-    private ArrayList<Receipt> receipts;
+    private ReceiptTracker receipts;
 
     /**
      * Complete Constructor for Wallet Object.
      * @param balance Double to be set for balance property of Wallet Object
      * @param receipts ArrayList to be set for receipts property of Wallet Object
      */
-    public Wallet(Double balance, ArrayList<Receipt> receipts) {
+    public Wallet(Double balance, ReceiptTracker receipts) {
         this.setBalance(balance);
         this.setReceipts(receipts);
     }
@@ -22,7 +22,7 @@ public class Wallet {
      */
     public Wallet(Double balance) {
         this.setBalance(balance);
-        this.setReceipts(new ArrayList<Receipt>());
+        this.setReceipts(new ReceiptTracker());
     }
 
     /**
@@ -30,7 +30,7 @@ public class Wallet {
      */
     public Wallet() {
         this.setBalance(0.00);
-        this.setReceipts(new ArrayList<Receipt>());
+        this.setReceipts(new ReceiptTracker());
     }
 
     /**
@@ -42,6 +42,11 @@ public class Wallet {
     }
 
     // -- Boolean Functions
+
+    /**
+     * Checks if the Wallet contains any receipts.
+     * @return true if receipts property is an empty list, false otherwise
+     */
     public Boolean isReceiptsEmpty() {
         return this.getReceipts().isEmpty();
     }
@@ -67,7 +72,7 @@ public class Wallet {
      * Setter for receipts property of Wallet Object.
      * @param receipts ArrayList of receipts property of Wallet Object
      */
-    public void setReceipts(ArrayList<Receipt> receipts) {
+    public void setReceipts(ReceiptTracker receipts) {
         this.receipts = receipts;
     }
 
@@ -75,7 +80,7 @@ public class Wallet {
      * Getter for receipts property of Wallet Object.
      * @return ArrayList of receipts property in Wallet Object
      */
-    public ArrayList<Receipt> getReceipts() {
+    public ReceiptTracker getReceipts() {
         return receipts;
     }
 }
