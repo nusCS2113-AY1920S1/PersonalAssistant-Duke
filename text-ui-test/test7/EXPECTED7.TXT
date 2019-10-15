@@ -1,0 +1,9 @@
+        ---------------------------------------------------------------------------------
+Here are some statistics about your task list: 
+Number of tasks: 6.0
+Number of Todo's : 4.0
+Number of Events: 1.0
+Number of Deadlines: 1.0
+Percent Complete: 16.666668%
+
+        ---------------------------------------------------------------------------------
