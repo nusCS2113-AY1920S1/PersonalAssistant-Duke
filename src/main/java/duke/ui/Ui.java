@@ -387,4 +387,27 @@ public class Ui {
             out.println("     Now you have " + contactList.size() + " contacts.");
         }
     }
+
+    public void showBudget(float amount) {
+        out.println("     Your budget is : $" + amount);
+    }
+
+    public void rejectBudgetResetMessage() {
+        out.println("     Budget reset cancelled.");
+    }
+
+    /**
+     * Checks if the user is certain about resetting the budget by prompting the user to confirm his/her actions.
+     *
+     * @return returns true if user pressed Y, and false otherwise.
+     */
+    public boolean isBudgetResetTrue() {
+        out.println("     You have an existing budget, are you sure you want to do this? Y/N");
+        String choice = readCommand();
+        if (choice.equals("Y") || choice.equals("y")) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 }
