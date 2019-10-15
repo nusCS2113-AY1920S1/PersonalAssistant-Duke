@@ -2,9 +2,10 @@ package task;
 
 import parser.DateTimeExtractor;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
-public class TodoWithinPeriod extends Todo {
+public class TodoWithinPeriod extends Todo implements Serializable {
 
     /**
      * Creates a ToDo task with a specific duration and timing.

@@ -16,10 +16,12 @@ import command.ViewCommand;
 import command.EditCommand;
 import command.IgnoreCommand;
 import exception.DukeException;
+import task.Deadline;
 import ui.Ui;
 
 import java.time.LocalDateTime;
 import java.text.ParseException;
+import java.util.Date;
 
 /**
  * The parser class is used to parse and make sense of the different queries the
@@ -44,14 +46,9 @@ public class ParserFactory {
     public static Command parse(String userInput) throws DukeException {
 
         String command = userInput.split("\\s+", 2)[0].trim();
-        String checkType;
         String description;
         Integer indexOfTask;
         LocalDateTime nullDate = LocalDateTime.of(1, 1, 1, 1, 1, 1, 1);
-        LocalDateTime atDate = nullDate;
-        LocalDateTime toDate = nullDate;
-        LocalDateTime fromDate = nullDate;
-        final String dateTimeFromUser;
 
         switch (command) {
         case "todo":
@@ -111,39 +108,35 @@ public class ParserFactory {
             return new RemindParser(userInput, command).parse();
 
         case "postpone":
-            atDate = nullDate;
-            toDate = nullDate;
-            fromDate = nullDate;
-
-            checkType = "/to";
-
-            if (!userInput.contains(checkType)) {
-                throw new DukeException("No checkType(/to)");
+            String dateTimeString;
+            LocalDateTime newStartDate;
+            LocalDateTime fromDate;
+            LocalDateTime toDate;
+            String[] postponeCommandParts = userInput.split(" ", 3);
+            try {
+                indexOfTask = Integer.parseInt(postponeCommandParts[1]) - 1;
+            } catch (ArrayIndexOutOfBoundsException e) {
+                throw new DukeException(DukeException.invalidIndex());
             }
-            description = userInput.substring(userInput.indexOf(command) + 8, userInput.indexOf(checkType)).trim();
-            dateTimeFromUser = userInput.split(checkType, 2)[1].trim();
-
-            if (description.isEmpty()) {
-                throw new DukeException(DukeException.emptyUserDescription());
-            }
-            if (dateTimeFromUser.isEmpty()) {
+            try {
+                dateTimeString = postponeCommandParts[2].trim();
+            } catch (ArrayIndexOutOfBoundsException e) {
                 throw new DukeException(DukeException.emptyDateOrTime());
             }
-
-            indexOfTask = Integer.parseInt(description) - 1;
             try {
-                if (dateTimeFromUser.contains("-")) {
-                    String obtainStartDate = dateTimeFromUser.split("-", 2)[0].trim();
+                if (dateTimeString.contains("-")) {
+                    String obtainStartDate = dateTimeString.split("-", 2)[0].trim();
                     fromDate = DateTimeExtractor.extractDateTime(obtainStartDate, command);
-                    String obtainEndDate = dateTimeFromUser.split("-", 2)[1].trim();
+                    String obtainEndDate = dateTimeString.split("-", 2)[1].trim();
                     toDate = DateTimeExtractor.extractDateTime(obtainEndDate, command);
+                    return new PostponeCommand(indexOfTask, fromDate, toDate);
                 } else {
-                    atDate = DateTimeExtractor.extractDateTime(dateTimeFromUser, command);
+                    newStartDate = DateTimeExtractor.extractDateTime(dateTimeString, command);
+                    return new PostponeCommand(indexOfTask, newStartDate);
                 }
             } catch (ParseException e) {
                 throw new DukeException(DukeException.wrongDateOrTime());
             }
-            return new PostponeCommand(indexOfTask, atDate, fromDate, toDate);
 
         case "view":
             String userScheduleDate = userInput.split(" ", 2)[1].trim();

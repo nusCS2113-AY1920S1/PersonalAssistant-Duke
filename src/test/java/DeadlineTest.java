@@ -3,8 +3,10 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import parser.ParserFactory;
 import task.Deadline;
+import task.Task;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 
 public class DeadlineTest {
     LocalDateTime fromDate = LocalDateTime.of(2001, 1, 1, 1, 0);
@@ -24,6 +26,13 @@ public class DeadlineTest {
         Assertions.assertThrows(DukeException.class, () -> {
             ParserFactory.parse("deadline");
         });
+    }
+
+    @Test
+    public void testDeadlinePostponement() {
+        LocalDateTime newFromDate = LocalDateTime.of(2003, 1, 1, 1, 0);
+        deadline.setStartDate(newFromDate);
+        Assertions.assertEquals(deadline.startDate, newFromDate);
     }
 
 }
