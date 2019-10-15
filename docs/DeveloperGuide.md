@@ -44,7 +44,7 @@
 
 #### 2.1  Architecture
 
-![architecture](https://github.com/9hafidz6/main/blob/master/docs/images/architecture.png)
+![architecture](https://github.com/9hafidz6/main/blob/master/docs/images/architectureV1.1.png)
 
 `main` has 1 class called `Duke`. It is responsible for,
 
@@ -60,6 +60,8 @@ The Application consist of 6 other components
 - `storage`: Reads, writes data from and to the hard disk
 - `task`: stores a list of deadline/event/todo that needs to be done
 - `ui`: The UI of the application
+
+![sequence](https://github.com/9hafidz6/main/blob/master/docs/images/UMLsequence.png)
 
 #### 2.2 UI
 
