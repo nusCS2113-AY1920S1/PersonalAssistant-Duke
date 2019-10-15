@@ -84,9 +84,10 @@
                                                 <Font name="Arial" size="26.0"/>
                                             </font>
                                         </Button>
-                                        <Button fx:id="btnShedule" layoutX="89.0" layoutY="77.0" mnemonicParsing="false"
-                                                onAction="#viewSchedule" prefHeight="65.0" prefWidth="447.0"
-                                                style="-fx-background-color: #7782c5;" text="Schedule">
+                                        <Button fx:id="btnSchedule" layoutX="89.0" layoutY="77.0"
+                                                mnemonicParsing="false" onAction="#viewSchedule" prefHeight="65.0"
+                                                prefWidth="447.0" style="-fx-background-color: #7782c5;"
+                                                text="Schedule">
                                             <font>
                                                 <Font name="Arial" size="26.0"/>
                                             </font>
@@ -123,7 +124,7 @@
                                                 <Font size="27.0"/>
                                             </font>
                                         </Label>
-                                        <DatePicker layoutX="8.0" layoutY="250.0"/>
+                                        <DatePicker layoutX="14.0" layoutY="58.0"/>
                                     </children>
                                 </AnchorPane>
                                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
@@ -153,7 +154,7 @@
                         <SplitPane dividerPositions="0.5" prefHeight="65.0" prefWidth="1283.0">
                             <items>
                                 <Button fx:id="submit" mnemonicParsing="false" onAction="#handleSubmit"
-                                        prefHeight="46.0" prefWidth="151.0" text="Submit">
+                                        prefHeight="46.0" prefWidth="151.0" text="Enter">
                                     <padding>
                                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
                                     </padding>
