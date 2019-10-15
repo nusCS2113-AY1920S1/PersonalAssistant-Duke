@@ -566,7 +566,7 @@ public class CommandParser {
                     attribute = TaskEditCommand.Attributes.priority;
                 }
                 return new TaskEditCommand(taskList, index, description, attribute);
-            } 
+            }
         } catch (UserInputException e) {
             return new InvalidCommand();
         }
