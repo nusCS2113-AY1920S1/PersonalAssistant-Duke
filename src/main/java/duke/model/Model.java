@@ -55,7 +55,7 @@ public interface Model {
     /**
      * Returns the list of all attractions.
      */
-    List<Venue> getRecommendations();
+    List<Venue> getRecommendations() throws DukeException;
 
     /**
      * Saves the Model data in storage.

@@ -74,7 +74,7 @@ public class ParserStorageUtil {
         if (task instanceof Deadline) {
             return "D | " + task.isDone() + " | " + task.getDescription() + " | " + ((Deadline) task).getDeadline();
         } else if (task instanceof Todo) {
-            return  "T | " + task.isDone() + " | " + task.getDescription();
+            return "T | " + task.isDone() + " | " + task.getDescription();
         } else if (task instanceof Event) {
             return "E | " + task.isDone() + " | " + task.getDescription() + " | " + ((Event) task).getHoliday();
         } else if (task instanceof DoWithin) {
@@ -82,6 +82,7 @@ public class ParserStorageUtil {
         }
         throw new DukeException(Messages.CORRUPTED_TASK);
     }
+
 
     /**
      * Parses a bus stop from String format back to BusStop.
@@ -159,5 +160,17 @@ public class ParserStorageUtil {
             }
         }
         return busService;
+      
+    /**
+     * Parses part of a task back to a Location.
+     */
+    public static Venue getVenueFromStorage(String line) {
+        String[] taskParts = line.split("\\|");
+        String address = taskParts[0].strip();
+        double longitude = Double.parseDouble(taskParts[1].strip());
+        double latitude = Double.parseDouble(taskParts[2].strip());
+        double distX = Double.parseDouble(taskParts[3].strip());
+        double distY = Double.parseDouble(taskParts[4].strip());
+        return new Venue(address, latitude, longitude, distX, distY);
     }
 }
