@@ -130,7 +130,7 @@
                                 onAction="#viewMenu" prefHeight="31.0" prefWidth="106.0" text="Home"/>
                         <Button fx:id="btnSchedule" layoutX="17.0" layoutY="112.0" mnemonicParsing="false"
                                 onAction="#viewSchedule" prefHeight="31.0" prefWidth="106.0" text="Schedule"/>
-                        <Button fx:id="btnStudent" layoutX="17.0" layoutY="161.0" mnemonicParsing="false"
+                        <Button fx:id="btnStudents" layoutX="17.0" layoutY="161.0" mnemonicParsing="false"
                                 onAction="#viewStudents" prefHeight="31.0" prefWidth="106.0" text="Students"/>
                     </children>
                 </AnchorPane>
