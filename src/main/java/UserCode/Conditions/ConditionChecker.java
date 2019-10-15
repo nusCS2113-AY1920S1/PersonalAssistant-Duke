@@ -29,6 +29,7 @@ public class ConditionChecker {
                 assetValue = farmio.getFarmer().getMoney();
                 break;
         }
+        System.out.println("comparing " + assetValue + " against " + val + " with comparator " + comparator.name());
         switch (comparator) {
             case lessThan:
                 return assetValue < val;

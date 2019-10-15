@@ -15,7 +15,6 @@ public class Farmer {
     protected ChickenFarm chickenFarm;
     protected CowFarm cowFarm;
     protected TaskList tasks;
-    public Ui ui;
 
     public Farmer() {
         this.money = 100;
@@ -26,8 +25,7 @@ public class Farmer {
         this.tasks = new TaskList();
     }
 
-    public Farmer(Ui ui, JSONObject jsonObject) throws FarmioException {
-        this.ui = ui;
+    public Farmer(JSONObject jsonObject) throws FarmioException {
         this.level = (Integer) jsonObject.get("level");
         this.money = (Integer) jsonObject.get("money");
         this.wheatFarm = new WheatFarm((JSONObject) jsonObject.get("farm_wheat"));
@@ -67,9 +65,9 @@ public class Farmer {
         ++this.level;
     }
 
-    public void startDay() {
+    public void startDay(Farmio farmio) throws FarmioException {
         for (int i = 0; i < tasks.size(); i++) {
-            tasks.get(i).execute(ui);
+            tasks.get(i).execute(farmio);
         }
     }
 

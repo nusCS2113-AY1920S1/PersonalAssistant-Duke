@@ -15,6 +15,8 @@ class Parser {
                 return parseMenuStart(userInput.toLowerCase());
             case TASK_ADD:
                 return parseTaskAdd(userInput);
+            case RUNNING_DAY:
+                return new CommandTasksRun();
             default:
                 //Game should not reach this stage.
                 stage = Farmio.Stage.WELCOME;

@@ -14,6 +14,7 @@ public class ValueCondition extends Condition {
         this.value = value;
     }
 
+    @Override
     public boolean check(Farmio farmio) throws FarmioException {
         return ConditionChecker.check(type, comparator, value, farmio);
     }
