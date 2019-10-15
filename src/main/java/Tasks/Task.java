@@ -58,14 +58,14 @@ public class Task {
     }
 
     public String remindTimeToString() {
-        return "[<R" + remindTime + "/R>]";
+        return "[<R" + remindTime + "/R>] ";
     }
     public String toString() {
         if (isReminder) {
             return "[" + getStatusIcon()
-                    + "] " + getReminderStatus()  + remindTimeToString() + getDescription();
+                    + "]" + getReminderStatus()  + remindTimeToString() + getDescription();
         } else {
-            return "[" + getStatusIcon() + "] " + getReminderStatus()  + remindTimeToString() + getDescription();
+            return "[" + getStatusIcon() + "]" + getReminderStatus()  + remindTimeToString() + getDescription();
         }
     }
 
@@ -91,11 +91,15 @@ public class Task {
         this.isReminder = reminder;
     }
 
-    public boolean getReminder() {
+    public boolean getIsReminder() {
         return this.isReminder;
     }
 
     public String toShow() {
         return modCode + "\n" + description;
+    }
+
+    public boolean getIsDone(){
+        return this.isDone;
     }
 }

@@ -47,7 +47,7 @@ public class RemindCommand extends Command {
      */
     @Override
     public String execute(TaskList events, TaskList deadlines, Ui ui, Storage storage) throws DukeException, FileNotFoundException {
-        HashMap<String, HashMap<String, ArrayList<Task>>> deadlineMap = events.getMap();
+        HashMap<String, HashMap<String, ArrayList<Task>>> deadlineMap = deadlines.getMap();
         HashMap<Date, Task> reminderMap = storage.getReminderMap();
         Date currentDate = new Date();
         DateFormat dateFormat = new SimpleDateFormat("E dd/MM/yyyy hh:mm a");
@@ -61,19 +61,19 @@ public class RemindCommand extends Command {
         if (this.time.before(currentDate)) {
             throw new DukeException("Sorry, you cannot set a time that has already passed!");
         } else if (this.time.after(currentDate)) {
-            long seconds = currentDate.getTime() - time.getTime();
+            long seconds = time.getTime() - currentDate.getTime();
             if (timerHashMap.containsKey(time)) {
                 Task remindedTask = reminderMap.get(time);
                 throw new DukeException("Sorry, you have a reminder set for " + remindedTask.getDescription() + " at: " + task.getDateTime());
             } else if (!deadlineMap.containsKey(task.getModCode())) {
                 throw new DukeException("Sorry, you have no such mod entered in your deadline table!");
-            } else if (!deadlineMap.get(task.getModCode()).containsKey(time)) {
+            } else if (!deadlineMap.get(task.getModCode()).containsKey(task.getDateTime())) {
                 throw new DukeException("Sorry, you have no such timing entered in your deadline table!");
             } else {
-                ArrayList<Task> allTaskInDate = deadlineMap.get(task.getModCode()).get(time);
+                ArrayList<Task> allTaskInDate = deadlineMap.get(task.getModCode()).get(task.getDateTime());
                 boolean hasTask = false;
                 for (Task taskInList : allTaskInDate) {
-                    if (taskInList.equals(task)) {
+                    if (taskInList.getDescription().equals(task.getDescription())) {
                         hasTask = true;
                         break;
                     }
@@ -103,29 +103,3 @@ public class RemindCommand extends Command {
         return ui.showReminder(task, reminderTime);
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

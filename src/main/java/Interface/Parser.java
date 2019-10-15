@@ -206,7 +206,7 @@ public class Parser {
                             throw new DukeException("\u2639" + " OOPS!!! The description of a deadline cannot be empty.");
                         }
                     }
-                    split1 = split[1].trim().split("/to");
+                    split1 = split[1].trim().split(" /to ");
                     String weekDate = "";
                     String reminderDate = "";
                     split2 = split1[0].trim().split(" ");

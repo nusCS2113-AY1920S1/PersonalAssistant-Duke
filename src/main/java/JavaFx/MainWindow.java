@@ -272,6 +272,8 @@ public class MainWindow extends BorderPane implements Initializable {
             delay.setOnFinished( event -> Platform.exit() );
             delay.play();
         }
+        AlertBox.display("", "",
+                response, Alert.AlertType.INFORMATION);
         userInput.clear();
     }
 
