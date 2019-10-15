@@ -13,7 +13,12 @@ public class StatsCommand extends Command{
     public StatsCommand(String user){
         super(user);
     }
-
+    /**
+     * Allow to see statistics on their taskList
+     * @param taskList leduc.task.TaskList which is the list of task.
+     * @param ui leduc.Ui which deals with the interactions with the user.
+     * @param storage leduc.storage.Storage which deals with loading tasks from the file and saving tasks in the file.
+     */
     public void execute(TaskList taskList, Ui ui, Storage storage){
         double numComplete = 0.0;
         double numTasks = taskList.size();
@@ -61,10 +66,10 @@ public class StatsCommand extends Command{
 
     /**
      * used when the user want to change the shortcut
-     * @param StatShortcut the new shortcut
+     * @param StatsShortcut the new shortcut
      */
-    public static void setStatsShortcut(String StatShortcut) {
-        StatsCommand.StatsShortcut = StatShortcut;
+    public static void setStatsShortcut(String StatsShortcut) {
+        StatsCommand.StatsShortcut = StatsShortcut;
     }
 
 }
