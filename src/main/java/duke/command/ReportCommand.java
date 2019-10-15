@@ -35,18 +35,6 @@ public class ReportCommand extends Command {
             ui.reportListMsg();
             ui.printReportOne(tasks.getTasks());
 
-            List<duke.modules.Task> ETemp = tasks.find("[E]");
-            ui.printReportTask(ETemp, "event");
-            List<duke.modules.Task> DTemp = tasks.find("[D]");
-            ui.printReportTask(DTemp, "deadline");
-            List<duke.modules.Task> RTemp = tasks.find("[R]");
-            ui.printReportTask(RTemp, "recurring");
-            List<duke.modules.Task> TTemp = tasks.find("[T]");
-            ui.printReportTask(TTemp, "todo");
-            List<duke.modules.Task> WTemp = tasks.find("[W]");
-            ui.printReportTask(WTemp, "do within");
-            List<duke.modules.Task> FTemp = tasks.find("[F]");
-            ui.printReportTask(FTemp, "fixed duration");
         }
     }
 
