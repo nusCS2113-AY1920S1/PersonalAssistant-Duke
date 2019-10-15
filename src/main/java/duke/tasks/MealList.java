@@ -5,9 +5,13 @@ import duke.exceptions.DukeException;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
+
+import static java.time.temporal.ChronoUnit.DAYS;
 
 /**
  * TaskList is a public class that represents the list of meals under DIYeats.
@@ -138,9 +142,33 @@ public class MealList {
     }
 
 
-    public boolean hasMealsOnDate(String date) {
-        ArrayList<Meal> temp = getMealsList(date);
-        return temp.size() > 0;
+    public int CaloriesAvgToGoal() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/MM/yyyy");
+        LocalDate startDate = LocalDate.parse(goal.getStartDate(), formatter);
+        LocalDate endDate = LocalDate.parse(goal.getEndDate(), formatter);
+        LocalDate currentDate = LocalDate.parse(this.currentDate, formatter);
+        int totalConsume = 0;
+        for (LocalDate iterator = startDate; iterator.isBefore(currentDate); iterator = iterator.plusDays(1)) {
+            if (mealTracker.containsKey(iterator) == false) {
+                totalConsume += goal.getNutritionalValue().get("calorie") / (int) DAYS.between(startDate, endDate);
+            } else {
+                ArrayList<Meal> meals = mealTracker.get(iterator.format(formatter));
+                if (meals.size() == 0) {
+                    totalConsume += goal.getNutritionalValue().get("calorie") / (int) DAYS.between(startDate, endDate);
+                } else {
+                    for (int i = 0; i < meals.size(); i += 1) {
+                        totalConsume += meals.get(i).getNutritionalValue().get("calorie");
+                    }
+                }
+            }
+        }
+        long daysLeft = DAYS.between(currentDate,endDate);
+        int caloriesRemaining = goal.getNutritionalValue().get("calorie") - totalConsume;
+        if (daysLeft >= 1) {
+            return caloriesRemaining/(int)daysLeft;
+        } else {
+            return -1;
+        }
     }
 
     /**
@@ -148,7 +176,7 @@ public class MealList {
      * @param date the date to be checked
      * @return boolean
      */
-    public boolean checkDate(String date) {
+    public boolean checkDate (String date) {
         return mealTracker.containsKey(date);
     }
 
