@@ -39,13 +39,9 @@ public class CommandManager {
                     }
             case "assign":
                 try {
-                    String[] tempCommand = command[1].split("\\s+", 2);
-                    if (tempCommand[0].toLowerCase().equals("byid")) {
-                        return new AssignTaskToPatientCommand(tempCommand[1]);
-                    }
-
+                    return new AssignTaskToPatientCommand(parser.parseAssign());
                 } catch (Exception e) {
-                    throw new DukeException("update command fails. " + e.getMessage());
+                    throw new DukeException("'Assign' command fails. " + e.getMessage());
                 }
 
             case "list":
