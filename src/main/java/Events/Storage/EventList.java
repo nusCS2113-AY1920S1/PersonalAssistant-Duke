@@ -14,6 +14,7 @@ import UserElements.UI;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
 
 /**
  * Allows for access to the list of events currently stored, and editing that list of events.
@@ -201,6 +202,13 @@ public class EventList {
             }
         }
         return null;
+    }
+
+    /**
+     * sorts the list of events/tasks according to date, in increasing order.
+     */
+    public void sortList(){
+        Collections.sort(eventArrayList);
     }
 
     /**

@@ -134,6 +134,7 @@ public class Command {
                 break;
         }
         if (changesMade) {
+            events.sortList();
             storage.saveToFile(events, ui);
         }
     }
@@ -367,7 +368,7 @@ public class Command {
             if (splitDate.length == 3) {
                 startDate = splitDate[0] + " " + splitDate[1];
                 endDate = splitDate[0] + " " + splitDate[2];
-            } else if (splitDate.length == 2){
+            } else if (splitDate.length == 2) {
                 startDate = splitDate[0] + " " + splitDate[1];
                 endDate = "";
             } else {

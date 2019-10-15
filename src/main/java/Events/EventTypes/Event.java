@@ -1,12 +1,13 @@
 package Events.EventTypes;
 
 import Events.Formatting.EventDate;
+import java.util.Comparator;
 
 /**
  * Model_Class.Event object inherits Model_Class.Task.
  * Is a type of task available for use.
  */
-public abstract class Event {
+public abstract class Event implements Comparable<Event>{
     protected String description;
     protected boolean isDone;
     protected EventDate startEventDate;
@@ -98,5 +99,14 @@ public abstract class Event {
 
     public void rescheduleEndDate(EventDate newEndDate) {
         this.endEventDate = newEndDate;
+    }
+
+    @Override
+    public int compareTo(Event currEvent) {
+        if (this.startEventDate.getEventJavaDate().compareTo(currEvent.startEventDate.getEventJavaDate()) > 0) {
+            return 1;
+        } else {
+            return -1;
+        }
     }
 }
