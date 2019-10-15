@@ -29,13 +29,7 @@ public class Reminder {
      * and also turn it off and on as they wish.
      */
     public void autoRemindStart() {
-        LogicManager.getWallet().getLoanList().checkUnsettledLoan();
-        System.out.println("hasUnsettledLoan: " + LogicManager.getWallet().getLoanList().getHasUnsettledLoan());
-        if (LogicManager.getWallet().getLoanList().getHasUnsettledLoan()) {
-            thread = new MyThread(false, loanList, timeInSeconds);
-        } else {
-            thread = new MyThread(true, loanList, timeInSeconds);
-        }
+        thread = new MyThread(autoRemind, loanList, timeInSeconds);
     }
 
     /**

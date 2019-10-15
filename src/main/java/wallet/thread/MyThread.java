@@ -1,14 +1,13 @@
 package wallet.thread;
 
-import wallet.logic.command.ReminderCommand;
+import wallet.logic.LogicManager;
 import wallet.model.record.Loan;
 import wallet.model.record.LoanList;
 import wallet.ui.Ui;
 
 public class MyThread implements Runnable {
 
-    // to stop the thread
-    private boolean isExit;
+    private boolean autoRemind;
     private Thread thread;
     private int timeInSeconds;
     private int counter;
@@ -18,17 +17,16 @@ public class MyThread implements Runnable {
     /**
      * Constructs a custom thread.
      *
-     * @param isExit        A boolean variable to continue running thread/terminate.
      * @param loanList      The LoanList object.
      * @param timeInSeconds The time in seconds.
      */
-    public MyThread(boolean isExit, LoanList loanList, int timeInSeconds) {
-        this.isExit = isExit;
+    public MyThread(boolean autoRemind, LoanList loanList, int timeInSeconds) {
+
+        this.autoRemind = autoRemind;
         this.timeInSeconds = timeInSeconds;
         this.loanList = loanList;
         this.ui = new Ui();
         thread = new Thread(this);
-        //System.out.println("New thread: " + thread);
         thread.start(); // Starting the thread
     }
 
@@ -37,9 +35,7 @@ public class MyThread implements Runnable {
      * Executes the thread.
      */
     public void run() {
-        int i = 0;
-        while (!isExit) {
-            i++;
+        while (LogicManager.getWallet().getLoanList().checkUnsettledLoan() && autoRemind) {
             try {
                 counter = 1;
                 ui.printLine();
@@ -47,8 +43,8 @@ public class MyThread implements Runnable {
                 for (Loan l : loanList.getLoanList()) {
                     if (!l.getIsSettled()) {
                         System.out.println(counter + ". " + l.toString());
+                        counter++;
                     }
-                    counter++;
                 }
                 ui.printLine();
                 Thread.sleep(timeInSeconds * 1000);
@@ -58,14 +54,20 @@ public class MyThread implements Runnable {
                 ui.printLine();
             }
         }
+        if (!LogicManager.getWallet().getLoanList().checkUnsettledLoan()) {
+            thread.interrupt();
+            LogicManager.getReminder().setAutoRemind(false);
+            autoRemind = false;
+            System.out.println("Turning off auto reminders because all loans have been settled!");
+        }
     }
 
     /**
      * Stops the thread.
      */
     public void stop() {
+        autoRemind = false;
         thread.interrupt();
-        isExit = true;
     }
 }
 
