@@ -4,7 +4,7 @@ import duke.Data.Storage;
 import duke.Module.Schedule;
 import duke.Sports.ManageStudents;
 import duke.Sports.MyPlan;
-import duke.task.TaskList;
+import duke.Task.TaskList;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -69,7 +69,7 @@ public class Duke extends Application {
     @Override
     public void start(Stage stage) {
         try {
-            URL url = Duke.class.getClassLoader().getResource("view/schedule.fxml");
+            URL url = Duke.class.getClassLoader().getResource("view/menu.fxml");
             System.out.println(url);
             Parent root = FXMLLoader.load(url);
             stage.setScene(new Scene(root, 1280,720));
@@ -79,7 +79,7 @@ public class Duke extends Application {
 
         }
         catch (IOException e) {
-            System.err.println("Could not find sample.fxml");
+            System.err.println("Could not find fxml file");
         }
     }
 

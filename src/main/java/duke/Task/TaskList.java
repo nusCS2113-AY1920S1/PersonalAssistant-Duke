@@ -1,4 +1,4 @@
-package duke.task;
+package duke.Task;
 
 import duke.Data.Storage;
 

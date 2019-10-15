@@ -6,7 +6,7 @@ import duke.Module.Goal;
 import duke.Module.Schedule;
 import duke.Sports.MyClass;
 import duke.Sports.MyStudent;
-import duke.task.*;
+import duke.Task.*;
 import duke.Module.Reminder;
 import duke.Ui;
 import duke.Sports.MyPlan;
