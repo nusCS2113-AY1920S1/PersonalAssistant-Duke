@@ -9,16 +9,16 @@ import util.factories.TaskFactory;
 import views.CLIView;
 
 
-
-public class ProjectInputController {
+public class ProjectInputController implements IController {
     private Scanner manageProjectInput;
     private ProjectRepository projectRepository;
     private CLIView consoleView;
 
     /**
-     * Class responsible for handling user input when user chooses to manage a project.
+     * Constructor for ProjectInputController takes in a View model and a ProjectRepository.
+     * ProjectInputController is responsible for handling user input when user chooses to manage a project.
      * @param consoleView The main UI of ArchDuke.
-     * @param projectRepository The list of all projects.
+     * @param projectRepository The object holding all projects.
      */
     public ProjectInputController(CLIView consoleView, ProjectRepository projectRepository) {
         this.manageProjectInput = new Scanner(System.in);
@@ -30,16 +30,16 @@ public class ProjectInputController {
      * Allows the user to manage the project by branching into the project of their choice.
      * @param input User input containing project index number (to add to project class).
      */
-    public void manageProject(String input) {
+    public void onCommandReceived(String input) {
         int projectNumber = Integer.parseInt(input);
         IProject projectToManage = projectRepository.getItem(projectNumber);
         this.consoleView.consolePrint("Now managing: " + projectToManage.getDescription());
-        boolean continueManaging = true;
-        while (continueManaging) {
+        boolean isManagingAProject = true;
+        while (isManagingAProject) {
             if (manageProjectInput.hasNextLine()) {
                 String projectCommand = manageProjectInput.nextLine();
                 if (projectCommand.length() == 4 && ("exit").equals(projectCommand.substring(0, 4))) {
-                    continueManaging = false;
+                    isManagingAProject = false;
                     consoleView.exitProject(projectToManage.getDescription());
                 } else if (projectCommand.length() >= 11 && ("add member ").equals(projectCommand.substring(0, 11))) {
                     String memberDetails = projectCommand.substring(11);
