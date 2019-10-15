@@ -3,6 +3,7 @@ package moomoo.task;
 import moomoo.command.BudgetCommand;
 import moomoo.command.Command;
 import moomoo.command.ExitCommand;
+import moomoo.command.GraphCommand;
 
 /**
  * Takes in a string and parses it to return a valid command to be ran.
@@ -19,8 +20,10 @@ public class Parser {
             return new ExitCommand(true, "");
         } else if (input.startsWith("budget")) {
             return new BudgetCommand(false, input);
+        } else if (input.startsWith("graph")) {
+            return new GraphCommand(input);
         } else {
-            throw new MooMooException("OOPS!!! I'm sorry, but I don't know what that means :-(");
+            throw new MooMooException("OOPS!!! I'm sorry, but I don't know what that means :(");
         }
     }
 }

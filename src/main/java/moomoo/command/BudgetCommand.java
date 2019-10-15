@@ -31,7 +31,7 @@ public class BudgetCommand extends Command {
     public void execute(Budget budget, CategoryList catList, TransactionList transList, Ui ui, Storage storage)
             throws MooMooException {
         if (input.length() < 7) {
-            throw new MooMooException("OOPS!!! Please use set/edit/savings/list sub command");
+            throw new MooMooException("OOPS!!! Please use the set/edit/savings/list sub-command");
         }
         input = input.substring(7);
         if (input.startsWith("set ")) {

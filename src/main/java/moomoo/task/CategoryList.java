@@ -12,6 +12,35 @@ public class CategoryList {
     public CategoryList(ArrayList<Category> inList) {
         this.catList = inList;
     }
-
+    
+    //Methods
+    public int size() {
+        return catList.size();
+    }
+    
+    public Category get(int i) {
+        return catList.get(i);
+    }
+    
+    public double getGrandMonthTotal() {
+        double total = 0;
+        for (Category category : catList)
+        {
+            total += category.getCategoryMonthTotal();
+        }
+        return total;
+    }
+    
+    public double getLargestExpenditure() {
+        double expenditure = 0;
+        for (Category category : catList)
+        {
+            if (category.getCategoryMonthTotal() > expenditure)
+            {
+                expenditure = category.getCategoryMonthTotal();
+            }
+        }
+        return expenditure;
+    }
 }
 

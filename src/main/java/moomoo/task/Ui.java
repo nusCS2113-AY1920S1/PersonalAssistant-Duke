@@ -22,11 +22,11 @@ public class Ui {
      */
     public void showWelcome() {
         System.out.println("   ^____^\n"
-                + "   ( oo )\\_______\n"
+                + "   (o  o)\\_______\n"
                 + "   (____)\\       )\\/\\\n"
                 + "         ||----w |\n"
                 + "         ||     ||\n"
-                + "MOOOOOOOO\n"
+                + "MOOoOoOO!\n"
                 + "Welcome to MooMooMoney! Your one-stop budgeting and expenses tracker!\n"
                 + "What can MooMoo do for you today?");
     }
