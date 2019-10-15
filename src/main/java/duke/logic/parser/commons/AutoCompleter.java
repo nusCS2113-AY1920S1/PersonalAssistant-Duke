@@ -14,7 +14,6 @@ import java.util.stream.Collectors;
  */
 public class AutoCompleter {
     private List<Class<? extends Command>> commandClasses;
-    private UserInputState previousCompletableUserInputState;
 
     /**
      * All the suggestions.
@@ -32,7 +31,6 @@ public class AutoCompleter {
     public AutoCompleter() {
         commandClasses = new ArrayList<>();
 
-        previousCompletableUserInputState = new UserInputState("", -1);
         suggestions = new ArrayList<>();
         suggestionPointer = 0;
     }
@@ -51,7 +49,7 @@ public class AutoCompleter {
             return false;
         }
 
-        if (currentState.equals(previousCompletableUserInputState)) {
+        if (!suggestions.isEmpty() && currentState.equals(suggestions.get(suggestionPointer))) {
             return true;
         }
 
@@ -68,8 +66,6 @@ public class AutoCompleter {
                     .collect(Collectors.toList());
             suggestionPointer = 0;
 
-            previousCompletableUserInputState = currentState;
-
             return true;
         }
     }
@@ -82,7 +78,6 @@ public class AutoCompleter {
      */
     public UserInputState complete() {
         suggestionPointer = (suggestionPointer + 1) % suggestions.size();
-        previousCompletableUserInputState = suggestions.get(suggestionPointer);
         return suggestions.get(suggestionPointer);
     }
 
