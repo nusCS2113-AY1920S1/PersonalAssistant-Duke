@@ -17,7 +17,8 @@
     <scene>
         <Scene stylesheets="@../css/duke.css">
             <root>
-                <AnchorPane prefHeight="800.0" prefWidth="1110.0">
+<!--                <AnchorPane prefHeight="800.0" prefWidth="1110.0">-->
+                <AnchorPane prefHeight="600.0" prefWidth="900.0">
                     <children>
                         <AnchorPane prefHeight="600.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="200.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                             <children>

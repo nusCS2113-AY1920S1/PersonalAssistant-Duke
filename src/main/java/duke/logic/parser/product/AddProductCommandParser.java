@@ -5,7 +5,7 @@ import duke.logic.parser.commons.ArgumentMultimap;
 import duke.logic.parser.commons.ArgumentTokenizer;
 import duke.logic.parser.commons.Parser;
 import duke.logic.parser.exceptions.ParseException;
-import duke.model.inventory.IngredientList;
+import duke.model.product.IngredientItemList;
 import duke.model.product.Product;
 
 import java.util.Dictionary;
@@ -40,53 +40,19 @@ public class AddProductCommandParser implements Parser<AddProductCommand> {
 
         if (map.getValue(PREFIX_CUSTOMER_NAME).isEmpty() || map.getValue(PREFIX_PRODUCT_NAME) == null) {
             throw new ParseException("Please enter the name of the product");
-
         }
-        IngredientList ingredients = new IngredientList(){};
 
+        IngredientItemList ingredientItemList =
+                IngredientItemListParser.getIngredientItemList(
+                        map.getValue(PREFIX_PRODUCT_INGREDIENT).orElse("")
+                );
         Product product = new Product(
                 map.getValue(PREFIX_CUSTOMER_NAME).orElse("ProductName"),
                 map.getValue(PREFIX_PRODUCT_RETAIL_PRICE).orElse(String.valueOf(DEFAULT_PRODUCT_RETAIL_PRICE)),
-                map.getValue(PREFIX_PRODUCT_INGREDIENT_COST).orElse(String.valueOf(0))
+                map.getValue(PREFIX_PRODUCT_INGREDIENT_COST).orElse(String.valueOf(0)),
+                ingredientItemList
         );
-
-        System.out.println(map.getValue(PREFIX_PRODUCT_INGREDIENT));
-        ingredientListParser(map.getValue(PREFIX_PRODUCT_INGREDIENT).orElse(""));
+        System.out.println(product.toString());
         return new AddProductCommand(product);
-    }
-
-    //Todo: IngredientItemList Parser -ingt [ingredient_name, qty] [ingredient_name2, qty] [ingredient_name3]
-    private void ingredientListParser(String userInput) {
-        String input = userInput;
-        Pattern pattern = Pattern.compile("((\\[)(?<name>[\\w|\\s]*),(?<description>[\\w|\\s]*)(?:\\])"
-                + "\\s*)+");
-        Matcher matcher = pattern.matcher(input.trim());
-
-        if (!matcher.matches()) {
-            System.out.println("no"
-                    + "Match");
-            //throw new ParseException("no match");
-        }
-
-        Dictionary<String, String> params = new Hashtable<>();
-
-        while (matcher.matches()) {
-            String s = matcher.group().strip();
-            if (s.isEmpty() || s.isBlank()) {
-                continue;
-            }
-            if (matcher.group("name") != null) {
-                System.out.println(matcher.group("name"));
-                System.out.println(matcher.group("description"));
-                if (matcher.group("description") != null) {
-                    params.put(matcher.group("name"), matcher.group("description"));
-                } else {
-                    params.put(matcher.group("name"), "");
-                }
-            }
-            input = input.replaceAll("\\s*((\\[)(?<name>[\\w|\\s]*),(?<description>[\\w|\\s]*)(?:\\])"
-                    + "\\s*)$", "");
-            matcher = pattern.matcher(input);
-        }
     }
 }
