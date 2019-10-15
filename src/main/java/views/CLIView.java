@@ -5,8 +5,7 @@ import models.data.IProject;
 import models.data.Project;
 import models.member.Member;
 import models.task.Task;
-import models.temp.tasks.ITask;
-import models.temp.tasks.TaskList;
+
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -40,6 +39,7 @@ public class CLIView {
 
         consolePrint("Hello! I'm Duke", "What can I do for you?");
 
+        //noinspection InfiniteLoopStatement
         while (true) {
             String command = sc.nextLine();
             consoleInputController.onCommandReceived(command);
@@ -52,49 +52,6 @@ public class CLIView {
     public void end() {
         consolePrint("Bye. Hope to see you again soon!");
         System.exit(0);
-    }
-
-    /**
-     * Method to be called when user prompts for a task to be marked as done.
-     * @param taskList : list of tasks.
-     * @param input : Input containing task numbers to be marked as done by user.
-     */
-    public void markDone(TaskList taskList, String input) {
-        String[] allInputs = input.split(" ");
-        ArrayList<String> toPrint = new ArrayList<>();
-        toPrint.add("Nice! I've marked the following task(s) as done:");
-        for (String i : allInputs) {
-            if (!("done").equals(i)) {
-                int index = Integer.parseInt(i) - 1;
-                ITask chosenToDos = taskList.getTask(index);
-                chosenToDos.markAsDone();
-                toPrint.add(chosenToDos.getFullDescription());
-            }
-        }
-        consolePrint(toPrint.toArray(new String[0]));
-    }
-
-    /**
-     * Method that is called when user wishes to delete a task.
-     * This method is responsible for handling printing of horizontal lines.
-     * @param taskList : List of tasks from which the chosen task should be deleted from.
-     * @param input : Input containing task numbers to delete as given by the user.
-     */
-    public void deleteTask(TaskList taskList, String input) {
-        ArrayList<String> toPrint = new ArrayList<>();
-        toPrint.add("Noted. I've removed the following task(s):");
-        String[] allInputs = input.split(" ");
-        for (String i : allInputs) {
-            if (!("delete").equals(i)) {
-                int index = Integer.parseInt(i) - 1;
-                ITask chosenTask = taskList.getTask(index);
-                toPrint.add(chosenTask.getFullDescription());
-                taskList.deleteFromList(chosenTask);
-            }
-        }
-        String grammarTasks = taskList.getNumOfTasks() == 1 ? "tasks" : "task";
-        toPrint.add("Now you have " + taskList.getNumOfTasks() + " " + grammarTasks + " in the list.");
-        consolePrint(toPrint.toArray(new String[0]));
     }
 
     /**
@@ -196,7 +153,7 @@ public class CLIView {
      */
     public void viewAssignedTask(IProject projectToManage) {
         for (Task task: projectToManage.getTasks().getTaskList()) {
-            ArrayList<String> allAssignedTasks = new ArrayList<String>();
+            ArrayList<String> allAssignedTasks = new ArrayList<>();
             allAssignedTasks.add(task.getTaskName() + " is assigned to: ");
             allAssignedTasks.addAll(task.getAssignedTasks().getAllMemberDetails());
             consolePrint(allAssignedTasks.toArray(new String[0]));
