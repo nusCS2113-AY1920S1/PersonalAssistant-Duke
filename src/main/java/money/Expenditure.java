@@ -7,7 +7,7 @@ public class Expenditure extends Item {
 
     private String category;
     private LocalDate boughtDate;
-    private DateTimeFormatter dateTimeFormatter;
+    protected DateTimeFormatter dateTimeFormatter;
 
     /**
      * Constructor of the Expenditure Object to record expenditure.
