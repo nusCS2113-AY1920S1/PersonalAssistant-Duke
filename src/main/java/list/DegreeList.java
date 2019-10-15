@@ -9,6 +9,8 @@ import java.util.ArrayList;
 public class DegreeList {
     private ArrayList<String> list = new ArrayList<>();
 
+
+    public DegreeList(){}
     /**
      * Fetches current size of ArrayList.
      *

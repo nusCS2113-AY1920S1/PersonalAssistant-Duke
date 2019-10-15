@@ -10,6 +10,13 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.FileWriter;
 import java.io.FileReader;
+import java.nio.file.DirectoryStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 
 /**
@@ -23,7 +30,12 @@ import java.io.FileReader;
  */
 public class Storage {
     private File saveFile;
+    private String saveFileString;
     private String input = "";
+    private final Path folder = Paths.get("..\\data\\");
+    private final String folderName = "..\\data\\";
+    private HashMap<String, List<String>> data = new HashMap<>();
+    private List<String> fileNames = new ArrayList<>();
 
     /**
      * Constructs storage class with the target file.
@@ -35,17 +47,37 @@ public class Storage {
         //forDuke working directory affects!!!!
         //String file = "./data/" + filePath;
         //for runTest
-        String file = "../data/" + filePath;
-        this.saveFile = new File(file);
+        saveFileString = folderName + filePath;
+        this.saveFile = new File(saveFileString);
+        System.out.println(saveFileString);
         /*encoding is ANSI */
     }
 
     /**
-     * This method reads the file.
+     * This method reads the folder.
      *
      * @return String this returns the file's lines separated by "\\n" line symbols.
      */
-    public String load() {
+    public String load() throws DukeException {
+        try (DirectoryStream<Path> directoryStream = Files.newDirectoryStream(folder)) {
+            for (Path path : directoryStream) {
+                fileNames.add(path.toString());
+                //System.out.println(path.toString());
+            }
+        } catch (IOException ex) {
+            throw new DukeException("Error Reading Files");
+        }
+        for (String file : fileNames) {
+            try {
+                // put the file's name and its content into the data structure
+                List<String> lines = Files.readAllLines(folder.resolve(file));
+                data.put(file, lines);
+                //System.out.println("success for " + file);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        /*
         try (BufferedReader bufferedReader = new BufferedReader(new FileReader(saveFile))) {
             String line = bufferedReader.readLine();
             while (line != null) {
@@ -60,6 +92,14 @@ public class Storage {
             System.out.println("I/O Issues");
         }
         return this.input;
+        */
+        String result = "";
+        for(String lines: data.get(saveFileString))
+        {
+            result = result.concat(lines);
+            result = result.concat("\n");
+        }
+        return result;
     }
 
     /**

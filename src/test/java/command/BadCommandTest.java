@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 import storage.Storage;
 import task.TaskList;
 import ui.UI;
+import list.DegreeList;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -17,14 +18,14 @@ class BadCommandTest {
             + "W | 0 | Sleeping | Jan 15th and 25th");
     private UI testUi = new UI();
     private Storage testStorage = new Storage("dummy.txt");
-
+    private DegreeList testList = new DegreeList();
     BadCommandTest() throws DukeException {
     }
 
     @Test
     void testExecute() {
         try {
-            testCommand.execute(testTaskList, testUi, testStorage);
+            testCommand.execute(testTaskList, testUi, testStorage, testList);
         } catch (Exception e) {
             assertEquals("☹ OOPS!!! I'm sorry, but I don't know what that means :-(", e.getMessage());
         }
