@@ -38,7 +38,7 @@ public class RecommendationsCommand extends Command {
             result.append(i).append(". ").append(list.get(i).getAddress()).append("\n");
         }
         // Until more locations are added
-        
+
         if (j > 7) {
             throw new DukeException("Too many days, enter less than 8 ");
         }
