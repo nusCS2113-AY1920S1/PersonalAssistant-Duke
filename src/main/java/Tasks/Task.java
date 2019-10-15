@@ -4,8 +4,7 @@ package Tasks;
  */
 public class Task {
     private final String description;
-    private boolean isDone;
-    private final String type;
+    public boolean isDone;
     private String modCode;
 
     /**
@@ -15,7 +14,6 @@ public class Task {
     public Task(String description) {
         this.description = description;
         this.isDone = false;
-        this.type = "";
         this.modCode ="";
     }
 
@@ -58,5 +56,9 @@ public class Task {
     public String getModCode() {
         String[] split = description.split(" ");
         return split[0];
+    }
+
+    public String toShow() {
+        return modCode + "\n" + description;
     }
 }
