@@ -19,7 +19,7 @@ public class Duke {
     private static Ui ui;
     private static TaskList tasklist;
     private static Storage storage;
-    private static HashMap<String, Payee> managermap;
+    private static HashMap<String, Payee> ManagerMap;
 
     /**
      * Creates a Duke instance and initialises the required attributes.
@@ -30,7 +30,7 @@ public class Duke {
         storage = new Storage(filepath);
         ArrayList<Task> arraylist = storage.load();
         tasklist = new TaskList(arraylist);
-        managermap = new HashMap<String, Payee>();
+        ManagerMap = new HashMap<String, Payee>();
     }
 
     /**
@@ -42,7 +42,7 @@ public class Duke {
         boolean isExit = false;
         while (!isExit) {
             String input = ui.readInput();
-            isExit = Parser.parse(input, tasklist, ui, storage, managermap);
+            isExit = Parser.parse(input, tasklist, ui, storage, ManagerMap);
         }
     }
 
