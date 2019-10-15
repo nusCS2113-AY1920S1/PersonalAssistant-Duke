@@ -2,6 +2,7 @@ package owlmoney.logic.command.card;
 
 import owlmoney.logic.command.Command;
 import owlmoney.model.card.Card;
+import owlmoney.model.card.exception.CardException;
 import owlmoney.model.profile.Profile;
 import owlmoney.ui.Ui;
 
@@ -32,9 +33,10 @@ public class AddCardCommand extends Command {
      * @param profile Profile of the user.
      * @param ui Ui of OwlMoney.
      * @return false so OwlMoney will not terminate yet.
+     * @throws CardException If duplicate credit card name found.
      */
     @Override
-    public boolean execute(Profile profile, Ui ui) {
+    public boolean execute(Profile profile, Ui ui) throws CardException {
         Card newCard = new Card(this.name, this.limit, this.rebate);
         profile.profileAddNewCard(newCard, ui);
         return this.isExit;

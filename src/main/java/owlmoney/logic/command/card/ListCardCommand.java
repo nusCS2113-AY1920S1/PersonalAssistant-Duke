@@ -16,6 +16,7 @@ public class ListCardCommand extends Command {
      * @param profile Profile of the user.
      * @param ui Ui of OwlMoney.
      * @return false so OwlMoney will not terminate yet.
+     * @throws CardException If CardList is empty.
      */
     @Override
     public boolean execute(Profile profile, Ui ui) throws CardException {

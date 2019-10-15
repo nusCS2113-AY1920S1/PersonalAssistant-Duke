@@ -26,8 +26,12 @@ public class CardList {
      *
      * @param newCard a new card object to be added.
      * @param ui required for printing.
+     * @throws CardException If duplicate credit card name found.
      */
-    public void cardListAddCard(Card newCard, Ui ui) {
+    public void cardListAddCard(Card newCard, Ui ui) throws CardException {
+        if (cardExists(newCard.getName())) {
+            throw new CardException("There is already a credit card with the name " + newCard.getName());
+        }
         cardLists.add(newCard);
         ui.printMessage("Added new card: ");
         ui.printMessage(newCard.getDetails());
@@ -67,22 +71,29 @@ public class CardList {
         }
     }
 
+    /**
+     * Gets the size of the cardList which counts the number of credit cards object within.
+     *
+     * @return size of cardList.
+     */
+    private int getCardListSize() {
+        return cardLists.size();
+    }
 
     /**
-     * Throws CardException if card name already exist in CardList.
+     * Checks if the credit card name that the user specified exists.
      *
-     * @param ui Required for printing.
-     * @throws CardException If card name already exist in CardList.
+     * @param cardName name of credit card.
+     * @return the result specifying whether the credit card name already exists.
      */
-    /*
-    public void checkCardNameDuplicate(String name, Ui ui) throws CardException {
-        for (int i = 0; i < cardLists.size(); i++) {
-            if(cardLists.get(i).getName().equals(name)) {
-                throw new CardException("Card name already exist.");
+    private boolean cardExists(String cardName) {
+        for (int i = 0; i < getCardListSize(); i++) {
+            if (cardName.equals(cardLists.get(i).getName())) {
+                return true;
             }
         }
+        return false;
     }
-    */
 
     /**
      * Checks if new limit exceeds total expenditure spent of card.
@@ -183,7 +194,7 @@ public class CardList {
      * @param ui         required for printing.
      * @param displayNum Number of expenditures to list.
      * @throws CardException If the credit card name cannot be found.
-     * @throws TransactionException If no expenditure is found or no expenditure is in the list.
+     * @throws TransactionException If no expenditure found or no expenditure is in the list.
      */
     public void cardListListCardExpenditure(String cardToList, Ui ui, int displayNum)
             throws TransactionException, CardException {

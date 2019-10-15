@@ -41,6 +41,7 @@ public class AddDepositCommand extends Command {
      * @param profile Profile of the user.
      * @param ui      Ui of OwlMoney.
      * @return false so OwlMoney will not terminate yet.
+     * @throws BankException If bank account does not exist.
      */
     public boolean execute(Profile profile, Ui ui) throws BankException {
         Transaction newDeposit = new Deposit(this.description, this.amount, this.date, this.category);
