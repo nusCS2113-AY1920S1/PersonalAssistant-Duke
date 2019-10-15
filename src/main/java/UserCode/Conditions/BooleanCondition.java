@@ -9,6 +9,7 @@ public class BooleanCondition extends Condition {
         this.type = conditionType;
     }
 
+    @Override
     public boolean check(Farmio farmio) {
         return ConditionChecker.check(type, farmio);
     }

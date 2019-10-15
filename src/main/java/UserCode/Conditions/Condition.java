@@ -7,7 +7,7 @@ public abstract class Condition {
 
     public Condition() {}
 
-    public boolean check() {
+    public boolean check(Farmio farmio) throws FarmioException {
         return false;
     }
 
@@ -56,7 +56,7 @@ public abstract class Condition {
             }
         }
         String comp = userInput.substring(userInput.indexOf(" "), userInput.lastIndexOf(" "));
-        comp.replaceAll("\\s+", "");
+        comp = comp.replaceAll("\\s+", "");
         for (Comparator c : Comparator.values()) {
             if ((c.name()).toLowerCase().equals(comp)) {
                 comparator = c;

@@ -3,10 +3,9 @@ package Commands;
 import Farmio.Farmio;
 import FarmioExceptions.FarmioException;
 
-public class CommandStart extends Command {
+public class CommandTasksRun extends Command {
     @Override
     public void execute(Farmio farmio) throws FarmioException {
-        System.out.println("STARTING DAY");
-        farmio.setStage(Farmio.Stage.RUNNING_DAY);
+        farmio.getFarmer().startDay(farmio);
     }
 }
