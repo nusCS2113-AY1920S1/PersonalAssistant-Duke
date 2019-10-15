@@ -213,7 +213,7 @@ public class CardList {
                 return;
             }
         }
-        throw new CardException("Card expenditure to be deleted cannot be found: " + deleteFromAccountCard);
+        throw new CardException("Card cannot be found for deleting expenditure: " + deleteFromAccountCard);
     }
 
     /**
@@ -237,6 +237,6 @@ public class CardList {
                 return;
             }
         }
-        throw new CardException("Card expenditure to be edited cannot be found: " + editFromCard);
+        throw new CardException("Card cannot be found for editing expenditure: " + editFromCard);
     }
 }
