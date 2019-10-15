@@ -436,10 +436,20 @@ public class Ui {
         }
     }
 
+    /**
+     * Prints header for free time slots.
+     */
     public void printFree() {
         System.out.println("\t Here are your free time slots: ");
     }
 
+    /**
+     * Prints the free time slots that the user has.
+     *
+     * @param startDate The starting time of the free time slot.
+     * @param endDate The ending time of the free time slot.
+     * @param count The index of the free time slots.
+     */
     public void printFreeTimings(String startDate, String endDate, int count) {
         System.out.println("\t" + count + ". " + startDate + " to " + endDate);
     }

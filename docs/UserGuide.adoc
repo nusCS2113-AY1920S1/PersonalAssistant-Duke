@@ -367,19 +367,19 @@ Format: `export`
 * *Help*: `help`
 
 * *Deadline*: `deadline DESCRIPTION /by DD-MM-YYYY HH:MM` +
-e.g. `deadline homework /by 2019 20-09-2019 13:00`
+e.g. `deadline homework /by 20-09-2019 13:00`
 
 * *Event*: `event DESCRIPTION /from DD-MM-YYYY HH:MM /to DD-MM-YYYY HH:MM` +
 e.g. `event project meeting /from 20-09-2019 13:00 /to 20-09-2019 17:00` 
 
-* *Todo*: `todo DESCRIPTION` +
-e.g. `todo withdraw money`
+* *Todo*: `todo DESCRIPTION /on DD-MM-YYYY` +
+e.g. `todo withdraw money /on 19-09-2019`
 
 * *Do-after*: `Do-after INDEX DESCRIPTION` +
 e.g. `do-after 1 buy groceries`
 
-* *Recurring*: `recurring DESCRIPTION` +
-e.g. `recurring math lecture`
+* *Recurring*: `recurring INDEX NUMBER_OF_OCCURRENCES` +
+e.g. `recurring 4 3`
 
 * *Tentative*: `tentative DESCRIPTION` +
 e.g. `tentative group lunch`
@@ -413,11 +413,13 @@ e.g. `schedule 04-10-2019`
 
 * *ViewUndone*: `viewUndone`
 
-* *ViewFree*: `viewFree`
+* *Free*: `free DD-MM-YYYY` +
+e.g. `free 10-10-2019 23:59`
 
 * *ViewWeek*: `viewWeek`
 
-* *ViewCalendar*: `viewCalendar`
+* *Calendar*: `calendar MONTH YEAR` +
+e.g. `calendar 10 2019`
 
 * *Reminder*: `reminder` 
 

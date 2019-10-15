@@ -13,6 +13,8 @@ import java.time.format.DateTimeFormatter;
 import java.util.Locale;
 
 public class SummaryCommand extends Command {
+
+    private static final int EMPTY = 0;
     private TaskList summary = new TaskList();
 
     /**
@@ -63,20 +65,11 @@ public class SummaryCommand extends Command {
         return format.format(ldt);
     }
 
-    /**
-     * Invokes other Command subclasses based on the input given by the user.
-     *
-     * @param tasks   Instance of TaskList that stores Task objects.
-     * @param ui      Instance of Ui that is responsible for visual feedback.
-     * @param storage Instance of Storage that enables the reading and writing of Task
-     *                objects to hard disk.
-     * @throws OofException Catches invalid commands given by user.
-     */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws OofException {
         String tomorrow = getTomorrowDate();
         TaskList summary = getSummary(tomorrow, tasks);
-        if (summary.getSize() == 0) {
+        if (summary.getSize() == EMPTY) {
             throw new OofException("There are no Tasks scheduled on " + tomorrow + ".");
         }
         ui.printTasksByDate(summary, tomorrow);

@@ -10,6 +10,8 @@ import oof.task.Task;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.DateTimeException;
+import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.Date;
 
 /**
@@ -32,19 +34,6 @@ public class FreeCommand extends Command {
         this.endTiming = endTiming;
     }
 
-    /**
-     * Performs a series of tasks.
-     * Get the current time.
-     * Checks the validity of user specified end date.
-     * Searches for free time between current time and the user specified end date.
-     * Prints all the free time slots found.
-     *
-     * @param taskList  Instance of TaskList that stores Task Objects.
-     * @param ui        Instance of Ui that is responsible for visual feedback.
-     * @param storage   Instance of Storage that enables the reading and writing of Task
-     *                  objects to hard disk.
-     * @throws OofException Catches invalid commands given by user.
-     */
     @Override
     public void execute(TaskList taskList, Ui ui, Storage storage) throws OofException {
         Date current = new Date();
@@ -72,6 +61,8 @@ public class FreeCommand extends Command {
         ui.printFree();
         int count = 1;
         Date rangeStop = convertStringToDate(endTiming);
+        ArrayList<Date> allEventStartTime = new ArrayList<>();
+        ArrayList<Date> allEventEndTime = new ArrayList<>();
         for (int i = 0; i < taskList.getSize(); i++) {
             Task task = taskList.getTask(i);
             if (task instanceof Event) {
@@ -83,17 +74,25 @@ public class FreeCommand extends Command {
                 try {
                     Date startDate = format.parse(start);
                     Date endDate = format.parse(end);
-                    if (isOutOfRange(startDate, rangeStop)) {
-                        ui.printFreeTimings(convertDateToString(current), convertDateToString(rangeStop), count);
-                        break;
-                    } else if (!isClash(startDate, endDate, current) && !isEventOver(endDate, current)) {
-                        ui.printFreeTimings(convertDateToString(current), convertDateToString(startDate), count);
-                        current = endDate;
-                        count++;
+                    if (!isEventOver(endDate, current)) {
+                        allEventStartTime.add(startDate);
+                        allEventEndTime.add(endDate);
                     }
                 } catch (ParseException | DateTimeException e) {
                     System.out.println("Timestamp given is invalid! Please try again.");
                 }
+            }
+        }
+        allEventStartTime.sort(new SortByDate());
+        allEventEndTime.sort(new SortByDate());
+        for (int i = 0; i < allEventStartTime.size(); i++) {
+            if (isOutOfRange(allEventStartTime.get(i), rangeStop)) {
+                ui.printFreeTimings(convertDateToString(current), convertDateToString(rangeStop), count);
+                break;
+            } else if (!isClash(allEventStartTime.get(i), allEventEndTime.get(i), current)) {
+                ui.printFreeTimings(convertDateToString(current), convertDateToString(allEventStartTime.get(i)), count);
+                current = allEventEndTime.get(i);
+                count++;
             }
             if (isOutOfRange(current, rangeStop)) {
                 break;
@@ -160,7 +159,17 @@ public class FreeCommand extends Command {
         Date endDate = convertStringToDate(end);
         return endDate.compareTo(currTime) > 0;
     }
-    
+
+    /**
+     * Comparator to sort events by their date in ascending order.
+     */
+    class SortByDate implements Comparator<Date> {
+        @Override
+        public int compare(Date firstStartTime, Date secondStartTime) {
+            return firstStartTime.compareTo(secondStartTime);
+        }
+    }
+
     @Override
     public boolean isExit() {
         return false;
