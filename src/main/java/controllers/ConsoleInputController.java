@@ -1,18 +1,14 @@
 package controllers;
 
-import controllers.temp.TaskFactory;
-import exceptions.DukeException;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
+import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import models.data.IProject;
-import models.temp.tasks.ITask;
 import models.temp.tasks.TaskList;
 import repositories.ProjectRepository;
 import views.CLIView;
@@ -20,11 +16,10 @@ import views.CLIView;
 public class ConsoleInputController implements IViewController {
 
     private CLIView consoleView;
-    private TaskFactory taskFactory;
     private TaskList taskList;
-    private String filePath = "src/main/saves/savefile.txt";
     private ProjectRepository projectRepository;
     private ProjectInputController projectInputController;
+    private String filePath = System.getProperty("user.dir") + "/savedProjects.json";
 
     /**
      * Constructor.
@@ -32,9 +27,8 @@ public class ConsoleInputController implements IViewController {
      */
     public ConsoleInputController(CLIView view) {
         this.consoleView = view;
-        this.taskFactory = new TaskFactory();
         this.taskList = new TaskList();
-        this.projectRepository = new ProjectRepository();
+        loadProjectsData();
         this.projectInputController = new ProjectInputController(this.consoleView, this.projectRepository);
     }
 
@@ -61,11 +55,9 @@ public class ConsoleInputController implements IViewController {
                 switch (command) {
                 case "done":
                     consoleView.markDone(taskList, input);
-                    saveData();
                     break;
                 case "delete":
                     consoleView.deleteTask(taskList, input);
-                    saveData();
                     break;
                 default:
                 }
@@ -82,6 +74,7 @@ public class ConsoleInputController implements IViewController {
                 consoleView.consolePrint("Creation of Project failed. Please check parameters given!");
             } else {
                 consoleView.consolePrint("Project created!");
+                saveProjectsData();
             }
             break;
         case "manage":
@@ -98,46 +91,28 @@ public class ConsoleInputController implements IViewController {
             consoleView.consolePrint("Invalid inputs. Please refer to User Guide or type help!");
         }
     }
-    // TODO refactor saving data and reading data to repository/database
 
-    /**
-     * Method that is called in order to saveData to persistent storage.
-     */
-    public void saveData() {
+
+    private void saveProjectsData() {
+        Gson gson = new GsonBuilder()
+                .setPrettyPrinting()
+                .create();
         try {
-            FileOutputStream file = new FileOutputStream(filePath);
-            ObjectOutputStream out = new ObjectOutputStream(file);
-
-            out.writeObject(taskList);
-
-            out.flush();
-            out.close();
-            file.close();
-
-        } catch (IOException e) {
-            e.printStackTrace();
+            FileWriter fileWriter = new FileWriter(filePath);
+            gson.toJson(this.projectRepository, fileWriter);
+            fileWriter.flush();
+            fileWriter.close();
+        } catch (java.io.IOException err) {
+            consoleView.consolePrint("savedProjects file does not exist or is not created!");
         }
     }
 
-    /**
-     * Method that is called when reading data from persistent storage.
-     * If file read is empty, will throw EOFException which is suppressed.
-     * If file read is corrupted, will throw IOException which is suppressed also.
-     */
-    public void readData() {
-        try {
-            FileInputStream file = new FileInputStream(filePath);
-            ObjectInputStream in = new ObjectInputStream(file);
-
-            this.taskList = (TaskList) in.readObject();
-
-            in.close();
-            file.close();
-
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.getSuppressed();
+    private void loadProjectsData() {
+        Gson gson = new Gson();
+        try (FileReader fileReader = new FileReader(filePath)) {
+            this.projectRepository = gson.fromJson(fileReader, ProjectRepository.class);
+        } catch (IOException err) {
+            this.projectRepository = new ProjectRepository();
         }
     }
 }

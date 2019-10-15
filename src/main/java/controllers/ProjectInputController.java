@@ -110,7 +110,5 @@ public class ProjectInputController {
                 consoleView.consolePrint("Please enter a command.");
             }
         }
-
     }
-
 }
