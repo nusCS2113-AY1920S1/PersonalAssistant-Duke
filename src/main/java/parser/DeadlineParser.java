@@ -9,8 +9,6 @@ import java.time.LocalDateTime;
 
 public class DeadlineParser extends DescriptionParser {
 
-    LocalDateTime startDate;
-
     public DeadlineParser(String userInput, String command) {
         super(userInput, command);
         this.checkType = Flag.BY.getFlag();
@@ -19,8 +17,14 @@ public class DeadlineParser extends DescriptionParser {
     @Override
     public Command parse() throws DukeException {
         super.extract();
+        LocalDateTime startDate = extractStartDate(taskFeatures);
 
+        return new AddCommand(command, taskDescription, startDate, null);
+    }
+
+    private LocalDateTime extractStartDate(String taskFeatures) throws DukeException {
         String dateTimeFromUser;
+        LocalDateTime startDate;
         try {
             dateTimeFromUser = taskFeatures.split(checkType, 2)[1].trim();
             startDate = DateTimeExtractor.extractDateTime(dateTimeFromUser, command);
@@ -29,7 +33,6 @@ public class DeadlineParser extends DescriptionParser {
         } catch (ParseException e) {
             throw new DukeException(DukeException.wrongDateOrTime());
         }
-
-        return new AddCommand(command, taskDescription, startDate, null);
+        return startDate;
     }
 }

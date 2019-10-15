@@ -17,24 +17,43 @@ public class TodoWithinPeriodParser extends TodoParser {
     @Override
     public Command parse() throws DukeException {
         super.extract();
+        LocalDateTime startDate = extractStartDate(taskFeatures);
+        LocalDateTime endDate = extractEndDate(taskFeatures);
 
+        return new AddCommand(command, taskDescription, startDate, endDate);
+    }
+
+    private LocalDateTime extractStartDate(String taskFeatures) throws DukeException {
         String dateTimeFromUser = taskFeatures.split(checkType, 2)[1].trim();
         String from;
-        String to;
         try {
             from = dateTimeFromUser.split("-", 2)[0].trim();
-            to = dateTimeFromUser.split("-", 2)[1].trim();
         } catch (ArrayIndexOutOfBoundsException e) {
             throw new DukeException(DukeException.emptyDateOrTime());
         }
         LocalDateTime startDate;
-        LocalDateTime endDate;
         try {
-            startDate = DateTimeExtractor.extractDateTime(to, command);
-            endDate = DateTimeExtractor.extractDateTime(from, command);
+            startDate = DateTimeExtractor.extractDateTime(from, command);
         } catch (ParseException e) {
             throw new DukeException(DukeException.wrongDateOrTime());
         }
-        return new AddCommand(command, taskDescription, startDate, endDate);
+        return startDate;
+    }
+
+    private LocalDateTime extractEndDate(String taskFeatures) throws DukeException {
+        String dateTimeFromUser = taskFeatures.split(checkType, 2)[1].trim();
+        String to;
+        try {
+            to = dateTimeFromUser.split("-", 2)[1].trim();
+        } catch (ArrayIndexOutOfBoundsException e) {
+            throw new DukeException(DukeException.emptyDateOrTime());
+        }
+        LocalDateTime endDate;
+        try {
+            endDate = DateTimeExtractor.extractDateTime(to, command);
+        } catch (ParseException e) {
+            throw new DukeException(DukeException.wrongDateOrTime());
+        }
+        return endDate;
     }
 }

@@ -14,14 +14,19 @@ public class TodoWithDurationParser extends TodoParser {
     @Override
     public Command parse() throws DukeException {
         super.extract();
+        int duration = extractDuration(taskFeatures);
 
-        String substring = userInput.split(checkType, 2)[1].trim();
+        return new AddCommand(command, taskDescription, duration);
+    }
+
+    private int extractDuration(String taskFeatures) throws DukeException {
+        String substring = taskFeatures.split(checkType, 2)[1].trim();
         int duration;
         try {
             duration = Integer.parseInt(substring.split("\\s+", 2)[0].trim());
         } catch (NumberFormatException e) {
             throw new DukeException("Invalid duration format. Duration must be a number");
         }
-        return new AddCommand(command, taskDescription, duration);
+        return duration;
     }
 }
