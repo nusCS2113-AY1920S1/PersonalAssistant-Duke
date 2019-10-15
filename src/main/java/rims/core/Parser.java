@@ -28,7 +28,16 @@ public class Parser {
             String day = myObj.nextLine();
                 c = new ListByDateCommand(day);
         }
-        
+        else if (words[0].equals("listByItem")) {
+            Scanner myObj = new Scanner(System.in);
+            String itemName = myObj.nextLine();
+            c = new ListByItemCommand(itemName);
+        }
+        else if (words[0].equals("listByRoom")) {
+            Scanner myObj = new Scanner(System.in);
+            String roomName = myObj.nextLine();
+            c = new ListByRoomCommand(roomName);
+        }
         else if (words[0].equals("lend") && words.length == 1) {
             c=reader.ReadLoanCommand(ui);        
         } 
@@ -54,7 +63,45 @@ public class Parser {
                 int id = Integer.parseInt(input);
                 c = new ReturnCommand(room, id);
             }
-        } else {
+
+        }
+        else if (words[0].equals("add")) {
+            if (words[1].equals("/item")) {
+                int itemIndex = input.indexOf("/item") + 6;
+                int qtyIndex = input.indexOf(" /qty");
+                String item = input.substring(itemIndex, qtyIndex);
+                String qtyString = input.replaceFirst("add /item " + item + " /qty ", "");
+                int qty = Integer.parseInt(qtyString);
+                c = new AddCommand(item, qty);
+            }
+            else if (words[1].equals("/room")) {
+                int roomIndex = input.indexOf("/room") + 6;
+                String room = input.substring(roomIndex);
+                c = new AddCommand(room);
+            }
+            else {
+                //throw new RimException
+            }
+        }
+        else if (words[0].equals("delete")) {
+            if (words[1].equals("/item")) {
+                int itemIndex = input.indexOf("/item") + 6;
+                int qtyIndex = input.indexOf(" /qty");
+                String item = input.substring(itemIndex, qtyIndex);
+                String qtyString = input.replaceFirst("delete /item " + item + " /qty ", "");
+                int qty = Integer.parseInt(qtyString);
+                c = new DeleteCommand(item, qty);
+            }
+            else if (words[1].equals("/room")) {
+                int roomIndex = input.indexOf("/room") + 6;
+                String room = input.substring(roomIndex);
+                c = new DeleteCommand(room);
+            }
+            else {
+                //throw new RimException
+            }
+        }
+        else {
             // throw an exception
             ;
         }
