@@ -46,6 +46,12 @@ public class Deadline extends Task {
         this.by = by;
     }
 
+    /**
+     * Returns date of Deadline
+     * @return date of Deadline
+     */
+    public Date checkDate() { return by; }
+
     @Override
     public void snoozeYear(int amount) {
         this.by.setYear(this.by.getYear() + amount);;
@@ -66,7 +72,6 @@ public class Deadline extends Task {
     public void snoozeMinute(int amount){
         this.by.setMinutes(this.by.getMinutes() + amount);
     }
-
 
     /**
      * Returns the full description including the deadline of the task.

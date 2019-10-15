@@ -158,7 +158,7 @@ public class RecurHandler {
                 String description = check.getDescription();
                 if (check.toString().contains(TODO_MARKER)) {
                     // extract the recurrence schedule.
-                    recurrenceSchedule = array[3].substring(0, array[3].length() - 1);
+                    recurrenceSchedule = array[4].substring(0, array[4].length() - 1);
                     type = RecurrenceScheduleType.valueOf(recurrenceSchedule);
 
                     switch (type) {

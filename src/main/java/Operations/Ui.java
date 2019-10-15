@@ -7,8 +7,7 @@ public class Ui {
     /**
      * Constructor for Ui class
      */
-    public Ui () {
-    }
+    public Ui () {   }
 
     /**
      * Shows the startup logo for RoomShare
@@ -320,5 +319,71 @@ public class Ui {
         System.out.println("Swaps the tasks with a specified index");
         System.out.println("\te.g : reorder 1");
         System.out.println("RoomShare will prompt you to input a new index to swap the task to");
+    }
+
+    public void reportTasks() {
+        System.out.println("Here's your report for the task list:");
+    }
+
+    public void showListError() {
+        System.out.println("Seems like your task list is empty... Try adding a task to your list before listing!");
+    }
+
+    public void reportFinished() {
+        System.out.println("\nHere's all the tasks that you have done");
+    }
+
+    public void reportDonePercentage(double percentage) {
+        System.out.println("You've finished " + percentage + " of your tasks");
+        if (percentage < 25.0) {
+            System.out.println("Keep working at it!");
+        } else if (percentage < 50.0) {
+            System.out.println("On track to the halfway mark!");
+        } else if (percentage == 50.0) {
+            System.out.println("Halfway there!");
+        } else if (percentage < 75.0) {
+            System.out.println("Good progress!");
+        } else if (percentage < 100.0) {
+            System.out.println("That's a lot of work done!");
+        } else if (percentage >= 100) {
+            System.out.println("Congratulations! All done!");
+        }
+    }
+
+    public void reportUnfinished() {
+        System.out.println("\nHere's all the tasks that you have NOT done");
+    }
+
+    public void reportNotDonePercentage(double percentage) {
+        System.out.println("You haven't finished " + percentage + " of your tasks...");
+        if (percentage < 25.0) {
+            System.out.println("Keep up the good work");
+        } else if (percentage < 50.0) {
+            System.out.println("Good progress!");
+        } else if (percentage == 50.0) {
+            System.out.println("Halfway there!");
+        } else if (percentage < 75.0) {
+            System.out.println("Good try, let's hit the halfway mark");
+        } else if (percentage < 100.0) {
+            System.out.println("Isn't it time to start work soon?");
+        } else if (percentage >= 100) {
+            System.out.println("Better to start work than never....");
+        }
+    }
+
+    public void reportUpcoming() {
+        System.out.println("\nThese are your upcoming tasks: ");
+    }
+
+    public void reportUpcomingCount(int upcoming) {
+        System.out.println("You have " + upcoming + " tasks that are upcoming");
+    }
+
+    public void reportRecurring() {
+        System.out.println("\nThese are the recurring tasks in your list");
+    }
+
+    public void reportRecurringCount(int recurring) {
+        System.out.println("You have " + recurring + " recurring tasks");
     }
 }
