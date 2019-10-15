@@ -30,4 +30,6 @@ public interface IProject {
     boolean memberIndexExists(int indexNumber);
 
     Task getTask(int taskIndex);
+
+    void editTask(String updatedTaskDetails);
 }

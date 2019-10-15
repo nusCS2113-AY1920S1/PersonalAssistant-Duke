@@ -75,4 +75,11 @@ public class NullProject implements IProject {
     public Task getTask(int taskIndex) {
         return null;
     }
+
+    @Override
+    public void editTask(String updatedTaskDetails) {
+        /*
+        Empty method
+         */
+    }
 }

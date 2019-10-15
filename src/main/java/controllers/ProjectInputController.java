@@ -78,7 +78,7 @@ public class ProjectInputController {
                 } else if (projectCommand.length() > 25
                         && ("view task requirements i/").equals(projectCommand.substring(0, 25))) {
                     int taskIndex = Integer.parseInt(projectCommand.substring(25));
-                    if (projectToManage.getNumOfTasks() >= taskIndex) {
+                    if (projectToManage.getNumOfTasks() >= taskIndex && taskIndex > 0) {
                         if (projectToManage.getTask(taskIndex).getTaskRequirements() == null) {
                             consoleView.consolePrint("This task has no specific requirements.");
                         } else {
@@ -87,12 +87,14 @@ public class ProjectInputController {
                     } else {
                         consoleView.consolePrint("The task index entered is invalid.");
                     }
-                } else if (projectCommand.length() == 10 && ("edit task ").equals(projectCommand)) {
-                    String temp2 = "";
-                    System.out.println(temp2);
-                    /*
-                        Empty method
-                    */
+                } else if (projectCommand.length() > 10 && ("edit task ").equals(projectCommand.substring(0, 10))) {
+                    String [] updatedTaskDetails = projectCommand.split(" [itpdcs]\\/");
+                    int taskIndexNumber = Integer.parseInt(updatedTaskDetails[1]);
+                    if (projectToManage.getNumOfTasks() >= taskIndexNumber && taskIndexNumber > 0) {
+                        consoleView.editTask(projectToManage, projectCommand, taskIndexNumber);
+                    } else {
+                        consoleView.consolePrint("The task index entered is invalid.");
+                    }
                 } else if (projectCommand.length() >= 12 && ("delete task ").equals(projectCommand.substring(0,12))) {
                     int taskIndexNumber = Integer.parseInt(projectCommand.substring(12).split(" ")[0]);
                     if (projectToManage.getNumOfTasks() >= taskIndexNumber) {

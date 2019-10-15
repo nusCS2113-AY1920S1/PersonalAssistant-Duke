@@ -248,4 +248,9 @@ public class CLIView {
         ArrayList<String> taskRequirements = projectToManage.getTask(taskIndex).getTaskRequirements();
         consolePrint(taskRequirements.toArray(new String[0]));
     }
+
+    public void editTask(IProject projectToManage, String updatedTaskDetails, int taskIndexNumber) {
+        projectToManage.editTask(updatedTaskDetails);
+        consolePrint("The task has been updated!");
+    }
 }

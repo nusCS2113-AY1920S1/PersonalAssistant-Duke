@@ -80,4 +80,9 @@ public class Project implements IProject {
         return this.taskList.getTask(taskIndex);
     }
 
+    @Override
+    public void editTask(String updatedTaskDetails) {
+        this.taskList.editTask(updatedTaskDetails);
+    }
+
 }

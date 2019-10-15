@@ -1,7 +1,10 @@
 package models.task;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.Date;
 
 public class TaskList {
     private ArrayList<Task> taskList;
@@ -63,5 +66,40 @@ public class TaskList {
 
     public Task getTask(int taskIndex) {
         return this.taskList.get(taskIndex - 1);
+    }
+
+
+    /**
+     * Edits details of a task excluding task requirements.
+     * @param updatedTaskDetails input command String in the form of (must be this order)
+     *                           edit task i/TASK_INDEX [n/TASK_NAME] [p/TASK_PRIORITY]
+     *                           [d/TASK_DUEDATE] [c/TASK_CREDIT] [s/STATE]
+     */
+    public void editTask(String updatedTaskDetails) {
+        String [] updatedTaskDetailsArray = updatedTaskDetails.split(" [itpdcs]\\/");
+        int taskIndex = Integer.parseInt(updatedTaskDetailsArray[1]);
+        boolean checkedTaskName = false;
+        boolean checkedTaskPriority = false;
+        boolean checkedTaskDueDate = false;
+        boolean checkedTaskCredit = false;
+        boolean checkedTaskState = false;
+        for (int i = 2; i < updatedTaskDetailsArray.length; i++) {
+            if (!checkedTaskName && updatedTaskDetails.contains(" t/")) {
+                checkedTaskName = true;
+                this.taskList.get(taskIndex - 1).setTaskName(updatedTaskDetailsArray[i]);
+            } else if (!checkedTaskPriority && updatedTaskDetails.contains(" p/")) {
+                checkedTaskPriority = true;
+                this.taskList.get(taskIndex - 1).setTaskPriority(Integer.parseInt(updatedTaskDetailsArray[i]));
+            } else if (!checkedTaskDueDate && updatedTaskDetails.contains(" d/")) {
+                checkedTaskDueDate = true;
+                this.taskList.get(taskIndex - 1).setDueDate(updatedTaskDetailsArray[i]);
+            } else if (!checkedTaskCredit && updatedTaskDetails.contains(" c/")) {
+                checkedTaskCredit = true;
+                this.taskList.get(taskIndex - 1).setTaskCredit(Integer.parseInt(updatedTaskDetailsArray[i]));
+            } else if (!checkedTaskState && updatedTaskDetails.contains(" s/")) {
+                checkedTaskState = true;
+                this.taskList.get(taskIndex - 1).setTaskState(updatedTaskDetailsArray[i]);
+            }
+        }
     }
 }

@@ -1,11 +1,13 @@
 package models.task;
 
+import models.member.Member;
+import models.member.TaskMemberList;
+
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
-import models.member.Member;
-import models.member.TaskMemberList;
 
 public class Task {
     private String taskName;
@@ -87,5 +89,55 @@ public class Task {
 
     public ArrayList<String> getTaskRequirements() {
         return this.taskRequirements;
+    }
+
+    public void setTaskName(String newTaskName) {
+        this.taskName = newTaskName;
+    }
+
+    public void setTaskPriority(int newTaskPriority) {
+        this.taskPriority = newTaskPriority;
+    }
+
+    /**
+     * Converts String input into Date object to be set as the new dueDate.
+     * @param newDueDateString String form of the new dueDate to be set.
+     */
+    public void setDueDate(String newDueDateString) {
+        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+        try {
+            this.dueDate = formatter.parse(newDueDateString);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * Edits current task credit to new input task credit.
+     * @param newTaskCredit new task credit to be set.
+     */
+    public void setTaskCredit(int newTaskCredit) {
+        this.taskCredit = newTaskCredit;
+    }
+
+    /**
+     * Converts input String into TaskState and edits current task state to new task state.
+     * @param newTaskStateString String form of new task state.
+     */
+    public void setTaskState(String newTaskStateString) {
+        switch (newTaskStateString) {
+        case "done":
+            this.taskState = TaskState.DONE;
+            break;
+        case "todo":
+            this.taskState = TaskState.TODO;
+            break;
+        case "doing":
+            this.taskState = TaskState.DOING;
+            break;
+        default:
+            this.taskState = TaskState.OPEN;
+        }
+
     }
 }
