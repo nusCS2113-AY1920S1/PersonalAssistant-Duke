@@ -1,25 +1,6 @@
-# User Guide
-<<Our Product>> serve as a mangement tool for
-project managers, team leaders to manage ongoing tasks,
-assign roles, and weights of current tasks. It also allows managers
-to have an overview of the workload of individual members and other
-analytics.
+# Documentations
+You can refer to our user guide at this link:
+*   [User Guide](./docs/UserGuide.adoc)
 
-## Features 
-
-### Feature 1 
-Description of feature.
-
-## Usage
-
-### `Keyword` - Describe action
-
-Describe action and its outcome.
-
-Example of usage: 
-
-`keyword (optional arguments)`
-
-Expected outcome:
-
-`outcome`
+For more advanced users and developers, do refer to our Developer Guide:
+*   [Developer Guide](./docs/DeveloperGuide.adoc)

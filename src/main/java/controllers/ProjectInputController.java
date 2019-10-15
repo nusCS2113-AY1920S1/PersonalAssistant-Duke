@@ -1,13 +1,14 @@
 package controllers;
 
+import java.text.ParseException;
+import java.util.Scanner;
 import models.data.IProject;
 import repositories.ProjectRepository;
 import util.factories.MemberFactoryUtil;
 import util.factories.TaskFactory;
 import views.CLIView;
 
-import java.text.ParseException;
-import java.util.Scanner;
+
 
 public class ProjectInputController {
     private Scanner manageProjectInput;
@@ -31,7 +32,7 @@ public class ProjectInputController {
      */
     public void manageProject(String input) {
         int projectNumber = Integer.parseInt(input);
-        IProject projectToManage = projectRepository.getProject(projectNumber);
+        IProject projectToManage = projectRepository.getItem(projectNumber);
         this.consoleView.consolePrint("Now managing: " + projectToManage.getDescription());
         boolean continueManaging = true;
         while (continueManaging) {
@@ -75,6 +76,8 @@ public class ProjectInputController {
                     }
                 } else if (projectCommand.length() == 10 && ("view tasks").equals(projectCommand)) {
                     consoleView.viewAllTasks(projectToManage);
+                } else if (projectCommand.length() == 19 && ("view assigned tasks").equals(projectCommand)) {
+                    AssignmentControllerUtil.viewTaskAssigned(projectToManage, consoleView);
                 } else if (projectCommand.length() > 25
                         && ("view task requirements i/").equals(projectCommand.substring(0, 25))) {
                     int taskIndex = Integer.parseInt(projectCommand.substring(25));
@@ -112,7 +115,5 @@ public class ProjectInputController {
                 consoleView.consolePrint("Please enter a command.");
             }
         }
-
     }
-
 }

@@ -38,10 +38,12 @@ public class TaskList {
      */
     public ArrayList<String> getAllTaskDetails() {
         ArrayList<String> taskDetails = new ArrayList<>();
-        ArrayList<Task> sortedTaskList = taskList;
-        sortedTaskList.sort(sortTasksByPriority);
-        for (int i = 0; i < sortedTaskList.size(); i++) {
-            taskDetails.add((i + 1) + ". " + sortedTaskList.get(i).getDetails());
+        // This method compares the two tasks and sort list in descending order.
+        taskList.sort((task1, task2) -> task2.getTaskPriority() - task1.getTaskPriority());
+        int taskIndex = 1;
+        for (Task task : taskList) {
+            taskDetails.add(taskIndex + ". " + task.getDetails());
+            taskIndex++;
         }
         return taskDetails;
     }
@@ -53,16 +55,6 @@ public class TaskList {
     public ArrayList<Task> getTaskList() {
         return this.taskList;
     }
-
-    /*
-    * This method compares the two tasks and sort list in descending order.
-     */
-    private Comparator<Task> sortTasksByPriority = new Comparator<Task>() {
-        @Override
-        public int compare(Task task1, Task task2) {
-            return task2.getTaskPriority() - task1.getTaskPriority();
-        }
-    };
 
     public Task getTask(int taskIndex) {
         return this.taskList.get(taskIndex - 1);
@@ -76,7 +68,7 @@ public class TaskList {
      *                           [d/TASK_DUEDATE] [c/TASK_CREDIT] [s/STATE]
      */
     public void editTask(String updatedTaskDetails) {
-        String [] updatedTaskDetailsArray = updatedTaskDetails.split(" [itpdcs]\\/");
+        String[] updatedTaskDetailsArray = updatedTaskDetails.split(" [itpdcs]\\/");
         int taskIndex = Integer.parseInt(updatedTaskDetailsArray[1]);
         boolean checkedTaskName = false;
         boolean checkedTaskPriority = false;
@@ -101,5 +93,9 @@ public class TaskList {
                 this.taskList.get(taskIndex - 1).setTaskState(updatedTaskDetailsArray[i]);
             }
         }
+    }
+
+    public int getSize() {
+        return this.taskList.size();
     }
 }

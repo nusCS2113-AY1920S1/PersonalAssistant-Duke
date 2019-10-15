@@ -34,7 +34,7 @@ public class ProjectFactory implements IArchDukeFactory<IProject> {
         int numberFlag = input.indexOf("i/");
         String description;
         if (nameFlag < numberFlag) {
-            description = input.substring(nameFlag + 1, numberFlag - 1);
+            description = input.substring(nameFlag + 2, numberFlag - 1);
         } else {
             description = input.substring(nameFlag + 1);
         }

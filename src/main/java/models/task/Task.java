@@ -79,6 +79,10 @@ public class Task {
         this.taskMemberList.addMember(member);
     }
 
+    public TaskMemberList getAssignedTasks() {
+        return taskMemberList;
+    }
+
     public HashSet<Integer> getAssignedIndexes() {
         return this.taskMemberList.getAssignedMembersIndexNumbers();
     }

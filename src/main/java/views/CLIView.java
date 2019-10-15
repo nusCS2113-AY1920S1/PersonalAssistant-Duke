@@ -2,10 +2,10 @@ package views;
 
 import controllers.ConsoleInputController;
 import models.data.IProject;
+import models.data.Project;
 import models.member.Member;
 import models.task.Task;
-import models.temp.tasks.ITask;
-import models.temp.tasks.TaskList;
+
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -36,10 +36,10 @@ public class CLIView {
      */
     public void start() {
         Scanner sc = new Scanner(System.in);
-        consoleInputController.readData();
 
         consolePrint("Hello! I'm Duke", "What can I do for you?");
 
+        //noinspection InfiniteLoopStatement
         while (true) {
             String command = sc.nextLine();
             consoleInputController.onCommandReceived(command);
@@ -55,82 +55,15 @@ public class CLIView {
     }
 
     /**
-     * Method to be called when user prompts for a task to be marked as done.
-     * @param taskList : list of tasks.
-     * @param input : Input containing task numbers to be marked as done by user.
-     */
-    public void markDone(TaskList taskList, String input) {
-        String[] allInputs = input.split(" ");
-        ArrayList<String> toPrint = new ArrayList<>();
-        toPrint.add("Nice! I've marked the following task(s) as done:");
-        for (String i : allInputs) {
-            if (!("done").equals(i)) {
-                int index = Integer.parseInt(i) - 1;
-                ITask chosenToDos = taskList.getTask(index);
-                chosenToDos.markAsDone();
-                toPrint.add(chosenToDos.getFullDescription());
-            }
-        }
-        consolePrint(toPrint.toArray(new String[0]));
-    }
-
-    /**
-     * Method to be called when a Invalid Command is input by the user.
-     * @param newException : Exception that is thrown when an Invalid Command is detected
-     */
-    public void invalidCommandMessage(Exception newException) {
-        consolePrint(newException.getMessage());
-    }
-
-    /**
-     * Method that is called when user wishes to delete a task.
-     * This method is responsible for handling printing of horizontal lines.
-     * @param taskList : List of tasks from which the chosen task should be deleted from.
-     * @param input : Input containing task numbers to delete as given by the user.
-     */
-    public void deleteTask(TaskList taskList, String input) {
-        ArrayList<String> toPrint = new ArrayList<>();
-        toPrint.add("Noted. I've removed the following task(s):");
-        String[] allInputs = input.split(" ");
-        for (String i : allInputs) {
-            if (!("delete").equals(i)) {
-                int index = Integer.parseInt(i) - 1;
-                ITask chosenTask = taskList.getTask(index);
-                toPrint.add(chosenTask.getFullDescription());
-                taskList.deleteFromList(chosenTask);
-            }
-        }
-        String grammarTasks = taskList.getNumOfTasks() == 1 ? "tasks" : "task";
-        toPrint.add("Now you have " + taskList.getNumOfTasks() + " " + grammarTasks + " in the list.");
-        consolePrint(toPrint.toArray(new String[0]));
-    }
-
-    /**
-     * Method that is called when user wishes to find a specific task.
-     * This method updates the UI (in this case CLI) with relevant print messages and information.
-     * @param taskList : Current list of tasks. Users will enter a keyword to search for a task residing in this list.
-     * @param input : Full command that user has keyed into CLI.
-     */
-    public void findTask(TaskList taskList, String input) {
-        ArrayList<String> toPrint = new ArrayList<>();
-        toPrint.add("Here are the matching tasks in your list:");
-        ArrayList<ITask> results = taskList.getSearchedTasks(input);
-        for (int i = 0; i < results.size(); i++) {
-            toPrint.add("" + (i + 1) + "." + results.get(i).getFullDescription());
-        }
-        consolePrint(toPrint.toArray(new String[0]));
-    }
-
-    /**
      * Method called when users wishes to view all Projects that are currently created or stored.
      * @param allProjects List of Projects returned to View model by the Controller from the Repository
      */
-    public void viewAllProjects(ArrayList<IProject> allProjects) {
+    public void viewAllProjects(ArrayList<Project> allProjects) {
         ArrayList<String> toPrint = new ArrayList<>();
         toPrint.add("Here are all the Projects you are managing:");
         for (int i = 0; i < allProjects.size(); i++) {
             toPrint.add("" + (i + 1) + ". " + allProjects.get(i).getDescription() + " "
-                + allProjects.get(i).getMembers());
+                + allProjects.get(i).getMembers().getAllMemberDetails());
         }
         consolePrint(toPrint.toArray(new String[0]));
     }
@@ -191,8 +124,8 @@ public class CLIView {
      * @param taskIndexNumber The index of the task to be deleted.
      */
     public void removeTask(IProject projectToManage, int taskIndexNumber) {
+        consolePrint("Removed " + projectToManage.getTask(taskIndexNumber).getTaskName());
         projectToManage.removeTask(taskIndexNumber);
-        consolePrint("Removed task with the index number " + taskIndexNumber);
     }
 
     /**
@@ -212,6 +145,19 @@ public class CLIView {
     public void viewAllTasks(IProject projectToManage) {
         ArrayList<String> allTaskDetails = projectToManage.getTasks().getAllTaskDetails();
         consolePrint(allTaskDetails.toArray(new String[0]));
+    }
+
+    /**
+     * Shows all the task that is assigned in the project.
+     * @param projectToManage The project specified by the user.
+     */
+    public void viewAssignedTask(IProject projectToManage) {
+        for (Task task: projectToManage.getTasks().getTaskList()) {
+            ArrayList<String> allAssignedTasks = new ArrayList<>();
+            allAssignedTasks.add(task.getTaskName() + " is assigned to: ");
+            allAssignedTasks.addAll(task.getAssignedTasks().getAllMemberDetails());
+            consolePrint(allAssignedTasks.toArray(new String[0]));
+        }
     }
 
     /**
