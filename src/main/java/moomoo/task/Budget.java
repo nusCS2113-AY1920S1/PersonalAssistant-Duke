@@ -32,7 +32,7 @@ public class Budget {
         String returnVal = "";
         Iterator budgetIterator = categoryBudgets.entrySet().iterator();
         while (budgetIterator.hasNext()) {
-            Map.Entry mapElement = (Map.Entry)budgetIterator.next();
+            Map.Entry mapElement = (Map.Entry) budgetIterator.next();
             returnVal += "Your budget for " + mapElement.getKey() + " is: $" + df.format(mapElement.getValue()) + "\n";
         }
         return returnVal;
@@ -44,6 +44,7 @@ public class Budget {
 
     /**
      * Returns budget from corresponding category.
+     *
      * @param category Category to get budget from.
      * @return The budget of the given category.
      */

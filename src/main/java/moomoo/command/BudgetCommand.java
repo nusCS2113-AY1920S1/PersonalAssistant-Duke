@@ -229,14 +229,14 @@ public class BudgetCommand extends Command {
                 case 1:
                     String category = initialPrompt(catList, ui, budget,
                             "Please type in the category that you would like to set the budget for, "
-                            + "type 0 to exit.");
+                                    + "type 0 to exit.");
                     while (!category.equals("0")) {
                         if (!inCategoryList(category, catList)) {
                             ui.setOutput(category + " does not exist. Please create it first.");
                             ui.showResponse();
                             category = initialPrompt(catList, ui, budget,
                                     "Please type in the category that you would like to set the budget for, "
-                                    + "type 0 to exit.");
+                                            + "type 0 to exit.");
                             continue;
                         }
 
@@ -248,13 +248,13 @@ public class BudgetCommand extends Command {
 
                         category = initialPrompt(catList, ui, budget,
                                 "Please type in the category that you would like to set the budget for, "
-                                + "type 0 to exit.");
+                                        + "type 0 to exit.");
                     }
                     inputVal = initialInput;
                     storage.saveBudgetToFile(budget);
                     continue;
                 case 2:
-                    if (budget.getBudgetSize()  == 0) {
+                    if (budget.getBudgetSize() == 0) {
                         ui.setOutput("You have yet to set a budget for any category. Please set at least one.");
                         ui.showResponse();
                         inputVal = initialInput;
@@ -263,7 +263,7 @@ public class BudgetCommand extends Command {
 
                     category = initialPrompt(catList, ui, budget,
                             "Please type in the category that you would like to change the budget for, "
-                        + "type 0 to exit");
+                                    + "type 0 to exit");
 
                     while (!category.equals("0")) {
                         if (!inCategoryList(category, catList)) {
@@ -271,7 +271,7 @@ public class BudgetCommand extends Command {
                             ui.showResponse();
                             category = initialPrompt(catList, ui, budget,
                                     "Please type in the category that you would like to change the budget for, "
-                                    + "type 0 to exit.");
+                                            + "type 0 to exit.");
                             continue;
                         }
                         inputVal = "Please type in the budget that you would like to change to for " + category;
@@ -282,13 +282,13 @@ public class BudgetCommand extends Command {
 
                         category = initialPrompt(catList, ui, budget,
                                 "Please type in the category that you would like to change the budget for, "
-                                + "type 0 to exit.");
+                                        + "type 0 to exit.");
                     }
                     inputVal = initialInput;
                     storage.saveBudgetToFile(budget);
                     continue;
                 case 3:
-                    if (budget.getBudgetSize()  == 0) {
+                    if (budget.getBudgetSize() == 0) {
                         ui.setOutput("You have yet to set a budget for any category. Please set at least one.");
                         ui.showResponse();
                         inputVal = initialInput;
@@ -297,7 +297,7 @@ public class BudgetCommand extends Command {
 
                     category = initialPrompt(catList, ui, budget,
                             "Please type in the category that you would like to view the budget for, "
-                        + "type 0 to exit or leave blank to view all categories.");
+                                    + "type 0 to exit or leave blank to view all categories.");
 
                     while (!category.equals("0")) {
                         if (category.equals("")) {
@@ -305,7 +305,7 @@ public class BudgetCommand extends Command {
                             ui.showResponse();
                             category = initialPrompt(catList, ui, budget,
                                     "Please type in the category that you would like to view the budget for, "
-                                    + "type 0 to exit or leave blank to view all categories.");
+                                            + "type 0 to exit or leave blank to view all categories.");
                             continue;
                         }
 
@@ -314,7 +314,7 @@ public class BudgetCommand extends Command {
                             ui.showResponse();
                             category = initialPrompt(catList, ui, budget,
                                     "Please type in the category that you would like to view the budget for, "
-                                    + "type 0 to exit or leave blank to view all categories.");
+                                            + "type 0 to exit or leave blank to view all categories.");
                             continue;
                         }
 
@@ -323,12 +323,12 @@ public class BudgetCommand extends Command {
 
                         category = initialPrompt(catList, ui, budget,
                                 "Please type in the category that you would like to view the budget for, "
-                                + "type 0 to exit or leave blank to view all categories.");
+                                        + "type 0 to exit or leave blank to view all categories.");
                     }
                     inputVal = initialInput;
                     continue;
                 case 4:
-                    if (budget.getBudgetSize()  == 0) {
+                    if (budget.getBudgetSize() == 0) {
                         ui.setOutput("You have yet to set a budget for any category. Please set at least one.");
                         ui.showResponse();
                         inputVal = initialInput;
@@ -336,7 +336,7 @@ public class BudgetCommand extends Command {
                     }
                     category = initialPrompt(catList, ui, budget,
                             "Please type in the category that you would like to view your savings for, "
-                            + "type 0 to exit or leave it blank to view all.");
+                                    + "type 0 to exit or leave it blank to view all.");
 
                     while (!category.equals("0")) {
                         if (!category.equals("") && !inCategoryList(category, catList)) {
@@ -344,7 +344,7 @@ public class BudgetCommand extends Command {
                             ui.showResponse();
                             category = initialPrompt(catList, ui, budget,
                                     "Please type in the category that you would like to view your savings for, "
-                                    + "type 0 to exit or leave it blank to view all.");
+                                            + "type 0 to exit or leave it blank to view all.");
                             continue;
                         }
 
@@ -359,7 +359,7 @@ public class BudgetCommand extends Command {
 
                         category = initialPrompt(catList, ui, budget,
                                 "Please type in the category that you would like to view your savings for, "
-                                + "type 0 to exit or leave it blank to view all.");
+                                        + "type 0 to exit or leave it blank to view all.");
                     }
                     inputVal = initialInput;
                     continue;
@@ -513,7 +513,7 @@ public class BudgetCommand extends Command {
         String outputValue = "CATEGORIES:\n";
         for (int i = 0; i < catList.getCategoryList().size(); ++i) {
             String categoryName = catList.getCategoryList().get(i).getName();
-            outputValue +=  categoryName + "\n";
+            outputValue += categoryName + "\n";
         }
         if (outputValue.equals("CATEGORIES:\n")) {
             outputValue += "There are no categories set.\n";
