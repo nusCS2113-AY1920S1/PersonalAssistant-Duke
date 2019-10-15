@@ -7,16 +7,6 @@ import duke.exception.DukeException;
  * Highest-level abstract class for Command objects.
  */
 public abstract class Command {
-    /**
-     * Parses the user's input and loads the parameters for this Command from it.
-     *
-     * @param inputStr The input provided by the user for this command, without the command keyword and stripped.
-     * @throws DukeException If input was in the wrong format, contained invalid values, or was otherwise unable to be
-     *                       parsed.
-     */
-    public void parse(String inputStr) throws DukeException {
-        //TODO
-    }
 
     /**
      * Runs the command using the parameters loaded with Command's parse method.
@@ -38,5 +28,10 @@ public abstract class Command {
      */
     public String silentExecute(DukeCore core) throws DukeException {
         return null;
+    }
+
+    //TODO: replace with abstract function that actually prints excerpts from the user guide
+    public String getHelp() {
+        return "https://github.com/AY1920S1-CS2113-T14-1/main/blob/master/docs/UserGuide.adoc";
     }
 }
