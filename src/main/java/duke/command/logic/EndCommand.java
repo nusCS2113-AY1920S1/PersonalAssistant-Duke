@@ -1,10 +1,11 @@
 package duke.command.logic;
 
-import duke.exceptions.ModException;
 import duke.modules.data.ModuleInfoDetailed;
-import duke.modules.data.ModuleInfoSummary;
+import duke.util.JsonWrapper;
 import duke.util.PlannerUi;
 import duke.util.Storage;
+import duke.util.commons.ModuleTasksList;
+
 import java.util.HashMap;
 
 public class EndCommand extends ModuleCommand {
@@ -18,10 +19,11 @@ public class EndCommand extends ModuleCommand {
 
     @Override
     public void execute(
-            HashMap<String, ModuleInfoSummary> summaryMap,
             HashMap<String, ModuleInfoDetailed> detailedMap,
+            ModuleTasksList tasks,
             PlannerUi plannerUi,
-            Storage store) {
+            Storage store,
+            JsonWrapper jsonWrapper) {
         plannerUi.goodbyeMsg();
     }
 

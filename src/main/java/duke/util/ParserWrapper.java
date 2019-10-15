@@ -4,7 +4,9 @@ package duke.util;
 import duke.command.CapCommand;
 import duke.command.logic.EndCommand;
 import duke.command.logic.ModuleCommand;
-import duke.command.logic.SearchCommand;
+import duke.command.logic.RemoveModCommand;
+import duke.command.logic.SearchThenAddCommand;
+import duke.command.logic.ShowModuleCommand;
 import duke.modules.Cca;
 import duke.modules.Deadline;
 import duke.modules.DoWithin;
@@ -66,14 +68,26 @@ public class ParserWrapper {
             return new EndCommand();
         }
         String[] hold = splitFirstSpace(input);
-        if (input.startsWith("search ")) {
-            return new SearchCommand(hold[hold.length - 1]);
-        } else if (input.startsWith("cap")) {
-            return new CapCommand(input);
-        } else if (input.equals("bye")) {
-            return new EndCommand();
-        } else {
-            throw new ModCommandException();
+        //TODO: update the parsing below with a more robust Argsj4 library
+        switch (hold[0]) {
+            case "add": {
+                return new SearchThenAddCommand(hold[hold.length - 1]);
+            }
+            case "show": {
+                return new ShowModuleCommand();
+            }
+            case "bye": {
+                return new EndCommand();
+            }
+            case "remove": {
+                return new RemoveModCommand(Integer.parseInt(hold[hold.length - 1]));
+            }
+            case "cap": {
+                return new CapCommand(input);
+            }
+            default: {
+                throw new ModCommandException();
+            }
         }
     }
 
