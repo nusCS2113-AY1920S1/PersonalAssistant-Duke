@@ -15,16 +15,17 @@ import duke.task.TaskManager;
 public class AssignTaskToPatientCommand extends Command {
 
     private String command;
+    private String[] taskAssignmentInfo;
     private PatientTask newPatientTask;
 
-    public AssignTaskToPatientCommand(String cmd) {
+    public AssignTaskToPatientCommand(String[] taskAssignmentInfo) throws DukeException {
         super();
-        this.command = cmd;
+        this.taskAssignmentInfo = taskAssignmentInfo;
+        this.newPatientTask = finalPatientTask(taskAssignmentInfo);
     }
 
     @Override
     public void execute(PatientTaskList patientTaskList, TaskManager tasksList, PatientManager patientList, Ui ui, PatientTaskStorage patientTaskStorage, TaskStorage taskStorage, PatientStorage patientStorage) throws DukeException {
-        this.newPatientTask = finalPatientTask(command);
         if (patientList.isExist(newPatientTask.getPatientId()) && tasksList.isExist(newPatientTask.getTaskID()))
         {
             patientTaskList.addPatientTask(newPatientTask);
@@ -38,26 +39,32 @@ public class AssignTaskToPatientCommand extends Command {
 
     }
 
-    public PatientTask finalPatientTask(String cmd) throws DukeException {
-        String[] tempCommand = command.split("\\s+",4 );
-        if (tempCommand[0].equals("S")) {
-            String type = tempCommand[0];
-            int patientId = Integer.parseInt(tempCommand[1]);
-            int taskId = Integer.parseInt(tempCommand[2]);
-            String deadline = tempCommand[3];
-            StandardPatientTask sPatientTask = new StandardPatientTask(patientId, taskId, deadline, type);
-            return sPatientTask;
-        } else if (tempCommand[0].equals("E")) {
-            String type = tempCommand[0];
-            int patientId = Integer.parseInt(tempCommand[1]);
-            int taskId = Integer.parseInt(tempCommand[2]);
-            String sTime = tempCommand[3].split(" /to ", 2)[0];
-            String eTime = tempCommand[3].split(" /to ", 2)[1];
-            EventPatientTask ePatientTask = new EventPatientTask(patientId, taskId, sTime, eTime, type);
-            return  ePatientTask;
-        }
-        else{
-            throw new DukeException("Parsing failed! Please ensure the format you have entered is correct!");
+    public PatientTask finalPatientTask(String[] assignmentInfo) throws DukeException {
+        try {
+            if (assignmentInfo[0].equals("S")) {
+
+                String type = assignmentInfo[0];
+                int patientId = Integer.parseInt(assignmentInfo[1]);
+                int taskId = Integer.parseInt(assignmentInfo[2]);
+                String deadline = assignmentInfo[3];
+
+                StandardPatientTask standardPatientTask = new StandardPatientTask(patientId, taskId, deadline, type);
+                return standardPatientTask;
+            } else if (assignmentInfo[0].equals("E")) {
+
+                String type = assignmentInfo[0];
+                int patientId = Integer.parseInt(assignmentInfo[1]);
+                int taskId = Integer.parseInt(assignmentInfo[2]);
+                String startTime = assignmentInfo[3];
+                String endTime = assignmentInfo[4];
+
+                EventPatientTask eventPatientTask = new EventPatientTask(patientId, taskId, startTime, endTime, type);
+                return eventPatientTask;
+            } else {
+                throw new DukeException("Parsing failed! Please ensure the format you have entered is correct!");
+            }
+        } catch (Exception e) {
+            throw new DukeException("Unable to parse your task assignment. Please check your command's format!");
         }
     }
     @Override

@@ -28,14 +28,21 @@ public class Parser {
     public String[] parseAssign() throws DukeException {
         String[] formattedInput;
         try {
-            String[] parsedCommand = userInput.toLowerCase().split("\\s+", 3);
+            String[] parsedCommand = userInput.toLowerCase().split("\\s+", 4);
             if (parsedCommand[1].equals("by") && parsedCommand[2].equals("id:")) {
                 formattedInput = userInput.replace("assign by id: ", "").split("\\s+", 4);
+                //System.out.println(formattedInput[3]);
+                if (formattedInput[0].equals("E")) {
+                    String[] parsedTimes = formattedInput[3].split(" to ", 2);
+                    //System.out.println(parsedTimes[3] + " ?? " + parsedTimes[4]);
+                    formattedInput[3] = parsedTimes[0].trim();
+                    formattedInput[4] = parsedTimes[1].trim();
+                }
+
+            } else {
+                throw new DukeException("Please use proper 'assign by ID' command format. ");
             }
-
-
             return formattedInput;
-
         } catch (Exception e) {
             throw new DukeException("Please use the correct format for the 'assign by id' command. ");
         }
