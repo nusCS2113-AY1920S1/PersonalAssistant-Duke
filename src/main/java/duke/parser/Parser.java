@@ -322,7 +322,7 @@ public class Parser {
                 if (tasknum < 0 || tasknum >= items.size()) {
                     throw new DukeException("     (>_<) OOPS!!! Invalid task number.");
                 } else if (arr.length < 4) {
-                    throw new DukeException("     (>_<) OOPS!!! Insufficient parameters."
+                    throw new DukeException("     (>_<) OOPS!!! Insufficient parameters. "
                             + "Format: update <tasknum> <type> <desc or date>");
                 } else {
                     int typeOfUpdate = -1;
