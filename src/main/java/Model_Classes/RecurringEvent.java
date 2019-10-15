@@ -18,6 +18,7 @@ public class RecurringEvent extends Event {
         this.recurrence = recurrence;
     }
 
+
     /**
      * Overload constructor for RecurringEvent object
      * Takes in inputs for description of the event and the time the event occurs
