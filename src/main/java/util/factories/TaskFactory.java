@@ -71,6 +71,12 @@ public class TaskFactory {
         return newTask;
     }
 
+    /**
+     * Creates ArrayList of Strings containing task requirements.
+     * @param taskDetails  Details of new task.
+     * @param startIndexOfTaskRequirements index from which the content in taskDetails will be task requirements.
+     * @return ArrayList of type String containing task requirements.
+     */
     private ArrayList<String> parseTaskRequirements(String[] taskDetails, int startIndexOfTaskRequirements) {
         ArrayList<String> taskRequirements = new ArrayList<String>();
         for (int i = startIndexOfTaskRequirements; i < taskDetails.length; i++) {

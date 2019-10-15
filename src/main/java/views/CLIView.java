@@ -190,6 +190,11 @@ public class CLIView {
         }
     }
 
+    /**
+     * Shows specific requirements of a task
+     * @param projectToManage The project in which the aforementioned task belongs to.
+     * @param taskIndex Index of task to be viewed.
+     */
     public void viewTaskRequirements(IProject projectToManage, int taskIndex) {
         ArrayList<String> taskRequirements = projectToManage.getTask(taskIndex).getTaskRequirements();
         consolePrint(taskRequirements.toArray(new String[0]));
