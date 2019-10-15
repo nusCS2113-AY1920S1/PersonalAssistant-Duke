@@ -56,13 +56,9 @@ public class Parser {
             return new FindCommand();
         } else if (command.equals("contact")) {
             return new ContactsCommand();
-<<<<<<< HEAD
         } else if(command.equals("expenses")) {
                 return new ExpenseCommand();
         }else if (splitCommand[0].equals("bye")) {
-=======
-        } else if (splitCommand[0].equals("bye")) {
->>>>>>> 85c7997012ee8ba5dcdc3e69104a9f4a5bf6c3a3
             return new ByeCommand();
         } else if (command.contains("/require")) {
             return new FixDurationCommand();

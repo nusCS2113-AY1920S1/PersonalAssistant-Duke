@@ -161,15 +161,13 @@ public class Storage {
         fileWriter.close();
     }
 
-<<<<<<< HEAD
-=======
+
     /**
      * This method read from the file Contact.txt and put the details into a HashMap
      *
      * @return Returns the HashMap of contacts, key is the contact name and the value is the phone number
      * @throws IOException
      */
->>>>>>> 85c7997012ee8ba5dcdc3e69104a9f4a5bf6c3a3
     public HashMap<String, String> Contact() throws IOException {
         HashMap<String, String> contactList = new HashMap<String, String>();
         if (new File(absolutePath_Contact).exists()) {
