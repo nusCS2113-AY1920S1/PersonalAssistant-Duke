@@ -27,6 +27,10 @@ public class Deadline extends Task {
         this(description, by, "none");
     }
 
+    public Date getDatetime() {
+        return this.datetime;
+    }
+
     @Override
     public String toString() {
         return super.toString() + " (by: " + datetime + ")";
