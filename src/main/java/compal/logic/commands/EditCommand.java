@@ -13,7 +13,7 @@ import static compal.commons.Messages.MESSAGE_INVALID_PRIORITY;
 
 /**
  * Edit command is the command object handling the editing of tasks.
- * Syntax: edit <task id> /<field to edit> <new value>
+ * Syntax: edit task id /field-to-edit new value
  * Currently only 1 editable field per edit command. Will slowly implement changing of multiple fields.
  *
  * @author jaedonkey
@@ -46,7 +46,7 @@ public class EditCommand extends Command implements CommandParser {
                 taskToEdit.setDescription(newValue);
                 break;
             case "priority":
-                switch (newValue.trim()){
+                switch (newValue.trim()) {
                 case "high":
                     taskToEdit.setPriority(Task.Priority.high);
                     break;

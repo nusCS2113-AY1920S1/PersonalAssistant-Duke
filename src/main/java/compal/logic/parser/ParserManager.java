@@ -2,7 +2,21 @@ package compal.logic.parser;
 
 import compal.commons.Compal;
 
-import compal.logic.commands.*;
+import compal.logic.commands.HelpCommand;
+import compal.logic.commands.ListCommand;
+import compal.logic.commands.AcadCommand;
+import compal.logic.commands.ViewCommand;
+import compal.logic.commands.SetReminderCommand;
+import compal.logic.commands.RecurTaskCommand;
+import compal.logic.commands.FindCommand;
+import compal.logic.commands.EventCommand;
+import compal.logic.commands.DoneCommand;
+import compal.logic.commands.DeleteCommand;
+import compal.logic.commands.DeadlineCommand;
+import compal.logic.commands.ByeCommand;
+import compal.logic.commands.ClearCommand;
+import compal.logic.commands.FindFreeSlotCommand;
+import compal.logic.commands.EditCommand;
 
 import compal.model.tasks.TaskList;
 
@@ -158,6 +172,7 @@ public class ParserManager {
                     EditCommand ec = new EditCommand(compal);
                     ec.parseCommand(userInput);
                     break;
+
                 default:
                     compal.ui.printg(MESSAGE_INVALID_COMMAND);
                     throw new Compal.DukeException(MESSAGE_INVALID_COMMAND);
