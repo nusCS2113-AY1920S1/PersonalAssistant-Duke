@@ -1,8 +1,6 @@
 package duke.logic.conversations;
 
 import duke.commons.MessagesPrompt;
-import duke.commons.exceptions.DukeException;
-import duke.logic.parsers.ParserUtil;
 
 public class DeleteConversation extends Conversation {
     private static final String command = "delete";
@@ -16,7 +14,7 @@ public class DeleteConversation extends Conversation {
     @Override
     public void execute(String input) {
         if (isIntInput(input)) {
-            input = input;
+            index = input;
             buildResult();
         }
 
