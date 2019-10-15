@@ -39,7 +39,7 @@ public class TaskList {
         sortedTaskList.sort(sortTasksByPriority);
         int taskIndex = 1;
         for (Task task : sortedTaskList) {
-            taskDetails.add(taskIndex + ". "+ task.getDetails());
+            taskDetails.add(taskIndex + ". " + task.getDetails());
             taskIndex++;
         }
         return taskDetails;

@@ -219,7 +219,7 @@ public class CLIView {
      * @param projectToManage The project specified by the user.
      */
     public void viewAssignedTask(IProject projectToManage) {
-        for (Task task: projectToManage.getTasks().getTaskList()){
+        for (Task task: projectToManage.getTasks().getTaskList()) {
             ArrayList<String> allAssignedTasks = new ArrayList<String>();
             allAssignedTasks.add(task.getTaskName() + " is assigned to: ");
             allAssignedTasks.addAll(task.getAssignedTasks().getAllMemberDetails());
