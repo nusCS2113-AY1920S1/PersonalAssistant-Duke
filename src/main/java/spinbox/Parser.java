@@ -1,74 +1,65 @@
 package spinbox;
 
-import spinbox.commands.AddCommand;
 import spinbox.commands.Command;
-import spinbox.commands.DeleteCommand;
-import spinbox.commands.MultipleCommand;
-import spinbox.commands.DoneCommand;
-import spinbox.commands.ExitCommand;
-import spinbox.commands.UnknownCommand;
-import spinbox.commands.ReminderCommand;
-import spinbox.commands.ListCommand;
-import spinbox.commands.ViewScheduleCommand;
-import spinbox.commands.FileCommand;
-import spinbox.commands.FindCommand;
-import spinbox.commands.SnoozeCommand;
-import spinbox.commands.SetCommand;
-import spinbox.commands.FindFreeCommand;
 import spinbox.exceptions.SpinBoxException;
 import spinbox.exceptions.InputException;
 
-import java.util.Stack;
+import java.util.ArrayDeque;
 
 public class Parser {
-    private static Stack<String> commandLog = new Stack<>();
+    private static ArrayDeque<String> pageTrace;
 
-    private static Stack<String> getCommandLog() {
-        return commandLog;
+    public static void setPageTrace(ArrayDeque<String> pageTraceNew) {
+        pageTrace = pageTraceNew;
     }
 
     /**
-     * Builds a partial user input string into a full command string with the necessary details.
-     * @param initialComponents String array of tokenized partial user input.
-     * @return Prepended full user input with the necessary command details.
-     * @throws InputException If the first user input is already incomplete.
+     * Builds the required page data for command input.
+     * @param inputPageData The page data input.
+     * @return Full page data.
+     * @throws InputException If the input is invalid.
      */
-    public static String commandBuilder(String[] initialComponents) throws InputException {
-        StringBuilder fullUserInput = new StringBuilder();
-        for (int i = 1; i < initialComponents.length; i++) {
-            if (i == 1) {
-                fullUserInput.append(initialComponents[i]);
+    private static String commandBuilder(String inputPageData) throws InputException {
+        StringBuilder pageData = new StringBuilder();
+
+        String[] pageComponent = inputPageData.split(" ");
+
+        ArrayDeque<String> tempPageTrace = pageTrace.clone();
+        if (pageComponent.length == 0) {
+            pageData.append(tempPageTrace.getLast());
+            tempPageTrace.removeLast();
+            if (tempPageTrace.size() != 0) {
+                pageData.append(" ").append(tempPageTrace.getLast());
+            }
+        } else if (pageComponent.length == 1) {
+            switch (pageComponent[0]) {
+            case "main":
+            case "calendar":
+                pageData.append(pageComponent[0]);
+                break;
+            case "modules":
+                pageData.append(pageComponent[0]);
+                tempPageTrace.removeLast();
+                if (tempPageTrace.size() != 0) {
+                    pageData.append(" ").append(tempPageTrace.getLast());
+                }
+                break;
+            default:
+                if (pageTrace.getLast().equals("modules")) {
+                    pageData.append("modules ").append(pageComponent[0]);
+                } else {
+                    throw new InputException("Invalid input.");
+                }
+            }
+        } else if (pageComponent.length == 2) {
+            if (pageComponent[0].equals("modules")) {
+                pageData.append("modules ").append(pageComponent[1]);
             } else {
-                fullUserInput.append(" ");
-                fullUserInput.append(initialComponents[i]);
+                throw new InputException("Please input a valid command.");
             }
         }
-        Stack<String> cloneLog = new Stack<>();
-        cloneLog.addAll(getCommandLog());
-        if (getCommandLog().empty()) {
-            throw new InputException("Please input the full command in this format: <action> <page> "
-                    + "<necessary information>. E.g. Delete modules CG1111 files 1");
-        }
-        while (!cloneLog.empty()) {
-            String individualInput = cloneLog.peek();
-            fullUserInput.insert(0, " ");
-            fullUserInput.insert(0, individualInput);
-            cloneLog.pop();
-        }
-        fullUserInput.insert(0, " ");
-        fullUserInput.insert(0, initialComponents[0]);
-        return fullUserInput.toString();
-    }
 
-    /**
-     * Builds up the stack for the information necessary to be remembered when a full command is entered.
-     * @param componentsLength Length of the String array containing the tokenized full user input.
-     * @param components String array of the tokenized full user input.
-     */
-    public static void stackBuilder(int componentsLength, String[] components) {
-        for (int i = 1; i < componentsLength - 1; i++) {
-            getCommandLog().push(components[i]);
-        }
+        return pageData.toString();
     }
 
     /**
@@ -78,93 +69,27 @@ public class Parser {
      * @throws SpinBoxException Storage errors or input errors.
      */
     public static Command parse(String input) throws SpinBoxException {
-        Command command;
-        String[] initialComponents = input.split(" ");
-        if (initialComponents[0].equals("bye")) {
-            command = new ExitCommand();
-            return command;
-        }
-        if (initialComponents[0].equals("list")) {
-            command = new ListCommand();
-            return command;
-        }
-        try {
-            if (!initialComponents[1].equals("main") && !initialComponents[1].equals("modules")
-                    && !initialComponents[1].equals("calendar")) {
-                input = commandBuilder(initialComponents);
-            }
-            getCommandLog().clear();
-            String[] components = input.split(" ");
-            int componentsLength = components.length;
-            switch (components[0]) {
-            case "done":
-                stackBuilder(componentsLength, components);
-                command = new DoneCommand(Integer.parseInt(components[componentsLength - 1]) - 1);
-                break;
+        Command command = null;
 
-            case "remind":
-                command = new ReminderCommand();
-                break;
+        String[] colonSeparate = input.split(" : ");
+        String content = colonSeparate[1];
+        String action = colonSeparate[0].substring(0, colonSeparate[0].indexOf(" "));
+        String pageData = colonSeparate[0].substring(colonSeparate[0].indexOf(action + 2));
+        pageData = commandBuilder(pageData);
+        String[] pageDataComponents = pageData.split(" ");
 
-            case "delete":
-                stackBuilder(componentsLength, components);
-                command = new DeleteCommand(Integer.parseInt(components[componentsLength - 1]) - 1);
-                break;
+        //      **This will be an example of how to turn the input into commands.**
+        //
+        //        try {
+        //            switch (action) {
+        //                case "done":
+        //                    String moduleCode = pageDataComponents[1];
+        //                    command = new DoneCommand(moduleCode, Integer.parseInt(content) - 1);
+        //            }
+        //        } catch (NumberFormatException e) {
+        //            throw new InputException("Please enter an integer for index");
+        //        }
 
-            case "delete-multiple":
-            case "done-multiple":
-                stackBuilder(componentsLength, components);
-                command = new MultipleCommand(components[0], components[componentsLength - 1]);
-                break;
-
-            case "find":
-                command = new FindCommand(components, input);
-                break;
-
-            case "view-schedule":
-                command = new ViewScheduleCommand(components, input);
-                break;
-
-            case "view":
-                stackBuilder(componentsLength + 1, components);
-                command = null; // to be developed
-                break;
-
-            case "todo":
-            case "deadline":
-            case "event":
-            case "exam":
-            case "lab":
-            case "lecture":
-            case "tutorial":
-                stackBuilder(componentsLength, components);
-                command = new AddCommand(components, input);
-                break;
-
-            case "set-tentative":
-                command = new SetCommand(components, input);
-                break;
-
-            case "snooze":
-                command = new SnoozeCommand(Integer.parseInt(components[1]) - 1, components, input);
-                break;
-
-            case "free":
-                command = new FindFreeCommand(components[1]);
-                break;
-
-            case "file":
-                command = new FileCommand(components[1], input);
-                break;
-
-            default:
-                command = new UnknownCommand();
-            }
-            return command;
-        } catch (NumberFormatException e) {
-            throw new InputException("Invalid index entered. Type 'list' to see your list.");
-        } catch (ArrayIndexOutOfBoundsException e) {
-            throw new InputException("Please provide an index or action. Eg. 'done 5', 'delete 3', 'file view'");
-        }
+        return null;
     }
 }
