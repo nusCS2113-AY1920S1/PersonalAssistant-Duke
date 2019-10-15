@@ -25,7 +25,7 @@ public class DoctorCommand extends ArgCommand {
         return ArgLevel.OPTIONAL;
     }
 
-    String emptyArgMsg() {
+    String getEmptyArgMsg() {
         return "You didn't tell me what to do!";
     }
 }
