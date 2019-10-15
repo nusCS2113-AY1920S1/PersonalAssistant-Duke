@@ -41,10 +41,10 @@ public class SnoozeCommand extends Command{
         ArrayList<Task> eventsList = events.getList();
         ArrayList<Task> deadlinesList = deadlines.getList();
         for (Task task : eventsList) {
-                list.addTask(task);
+            list.addTask(task);
         }
         for (Task task : deadlinesList) {
-                list.addTask(task);
+            list.addTask(task);
         }
         if (end == dateString) {
             list.snoozeTask(deadlinesList, index, dateString, dateString, dateString);
