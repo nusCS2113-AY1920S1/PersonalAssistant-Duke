@@ -1,3 +1,4 @@
+import autocomplete.AutoComplete;
 import controlpanel.Parser;
 import guicommand.UserIcon;
 import javafx.fxml.FXML;
@@ -31,8 +32,6 @@ public class MainWindow extends AnchorPane implements DataTransfer {
     @FXML
     private TextField searchBar;
     @FXML
-    public ScrollPane scrollPane3;
-    @FXML
     public VBox PopUpContainer;
     @FXML
     private Button sendButton;
@@ -44,19 +43,15 @@ public class MainWindow extends AnchorPane implements DataTransfer {
 
     private static Image userImage;
     private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
-
+    private AutoComplete autoComplete = new AutoComplete();
     /**
      * Initialises scroll bar and outputs Duke Welcome message on startup of GUI.
      */
-
-    String[] words = {"AA", "AB" , "AC"};
-
     @FXML
     public void initialize() throws IOException {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
         scrollPane2.vvalueProperty().bind(graphContainer.heightProperty());
 
-        TextFields.bindAutoCompletion(userInput, words);
         dialogContainer.getChildren().addAll(
                 DialogBox.getDukeDialog("enter start to begin", dukeImage));
 
@@ -132,6 +127,12 @@ public class MainWindow extends AnchorPane implements DataTransfer {
             graphContainer.getChildren().addAll(
                     DialogBox.getDukeDialog(response[1], dukeImage));
         }
+    }
+
+    @FXML
+    private void autoCompleteSuggestion() {
+        List<String> commands = autoComplete.Populate(userInput.getText());
+        TextFields.bindAutoCompletion(userInput, commands);
     }
 
     @FXML

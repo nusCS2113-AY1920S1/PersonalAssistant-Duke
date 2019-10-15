@@ -1,44 +1,46 @@
-goal-short buy Lambo /amt 100000 /by 10/12/2040 /priority MEDIUM
-goal-short buy Boat /amt 100000 /by 11/12/2050 /priority LOW
-goal buy Motorbike /amt 10000 /by 15/1/2050 /priority HIGH
-goal-short buy chair /amt 200 /by 1/12/2019 /priority LOW
-list goals
-delete goal 2
-done goal 2
 add income TA /amt 560 /payday 10/12/2040
-spent ice-cream /amt 3 /cat food /on 10/12/2040
-delete expenditure 1
-list all income
-list all expenditure
-list month income
-list month expenditure
-check income 10 2019
-check expenditure 10 2020
-start (only works if is a new user)
-init 30000 200 (only works if is a new user)
+add instalment mortgage /amt 100000 /within 200 months /from 12/12/2010 @6%
 bank-account OCBC /amt 30 /at 27/7/2017 /rate 0.005
 bank-account DBS /amt 100 /at 14/8/2018 /rate 0
+borrowed mah parents /amt 700 /on lstwk
+change icon
 check-balance OCBC /at 8/2/2020
 check-balance OCBC /at 8/7/2050
+check expenditure 10 2020
+check income 10 2019
+delete expenditure 1
+delete goal 2
+delete instalments 1
 deposit 200 OCBC /at 3/3/2018
-withdraw 10 DBS /at 5/5/2020
-list bank trackers 
-Shortcuts for all add commands: now, tmr, ytd, lstwk, nxtwk, lstmth, nxtmth, lstyr, nxtyr
-change icon
-graph monthly report
-graph income trend
-graph expenditure trend
+done goal 2
+goal buy Motorbike /amt 10000 /by 15/1/2050 /priority HIGH
+goal buy Boat /amt 100000 /by 11/12/2050 /priority MEDIUM
+goal buy chair /amt 200 /by 1/12/2019 /priority LOW
+goal-short buy Lambo /amt 100000 /by 10/12/2040 /priority HIGH
+goal-short buy Boat /amt 100000 /by 11/12/2050 /priority MEDIUM
+goal-short buy chair /amt 200 /by 1/12/2019 /priority LOW
 graph curr finance /until 12/2/2019
-graph curr finance /until 5/7/2019
-add instalment mortgage /amt 100000 /within 200 months /from 12/12/2010 @6%
+graph expenditure trend
+graph income trend
+graph monthly report
+init 30000 200 (only works if is a new user)
+lent mah bitches /amt 500 /on ytd
+list all income
+list all expenditure
 list all instalments
+list all loans
+list bank trackers
+list incoming loans
+list goals
+list month income
+list month expenditure
+list outgoing loans
+paid 200 /to mah parents
+received 300 /to mah bros
+spent ice-cream /amt 3 /cat food /on 10/12/2040
+start (only works if is a new user)
 split Mala /amt 48 /cat food /on lstwk /with Max and Nic and Daniel
 settle 10 1
 settle 10 Nic
-lent mah bitches /amt 500 /on ytd
-borrowed mah parents /amt 700 /on lstwk
-list outgoing loans
-list all loans
-list incoming loans
-received 300 /to mah bros
-paid 200 /to mah parents
+Shortcuts for all add commands: now, tmr, ytd, lstwk, nxtwk, lstmth, nxtmth, lstyr, nxtyr
+withdraw 10 DBS /at 5/5/2020

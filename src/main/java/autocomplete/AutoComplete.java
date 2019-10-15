@@ -1,38 +1,90 @@
 package autocomplete;
 
 import java.util.Arrays;
+import java.util.List;
 
-public final class AutoComplete {
-    private final Term[] terms;
+public class AutoComplete {
+    private List<String> PopUpList;
+    private List<String> MatchList;
+    private final String[] List = {
+            "add income",
+            "add instalment",
+            "bank-account",
+            "borrowed",
+            "change icon",
+            "check-balance",
+            "check expenditure",
+            "check income",
+            "delete expenditure",
+            "delete goal",
+            "delete instalments",
+            "deposit",
+            "done goal",
+            "goal",
+            "goal-short",
+            "graph curr finance",
+            "graph expenditure trend",
+            "graph income trend",
+            "graph monthly report",
+            "init",
+            "lent",
+            "list all income",
+            "list all expenditure",
+            "list all instalments",
+            "list all loans",
+            "list bank trackers",
+            "list incoming loans",
+            "list goals",
+            "list month income",
+            "list month expenditure",
+            "list outgoing loans",
+            "paid",
+            "received",
+            "spent",
+            "start",
+            "split",
+            "settle",
+            "withdraw"
+    };
+    private List<String> CommandList = Arrays.asList(List);
 
-    public AutoComplete(Term[] terms) {
-        this.terms = new Term[terms.length];
-        for (int i = 0; i < terms.length; i++) {
-            this.terms[i] = terms[i];
-        }
-        Arrays.sort(this.terms);
+    public AutoComplete()  {
+        this.PopUpList = null;
+        this.MatchList = null;
     }
 
-    public Term[] allMatches(String prefix) {
-        int firstIndex = BinarySearchDeluxe.firstIndexOf(terms, new Term(prefix), Term.byPrefixOrder(prefix.length()));
+    public List<String> Populate(String prefix) {
+        //populatePopup(prefix);
+        return CommandList;
+    }
+
+    public void populatePopup(String prefix) {
+        int maxEntries = 5;
+        allMatches(prefix);
+        int count = Math.min(MatchList.size(), maxEntries);
+        for (int i = 0; i < count; i++) {
+            PopUpList.add(MatchList.get(i));
+        }
+    }
+
+    public void allMatches(String prefix) {
+        int firstIndex = -1;
+        for (int i = 0; i < CommandList.size(); i++) {
+            if (CommandList.get(i).startsWith(prefix)) {
+                firstIndex = i;
+                break;
+            }
+        }
         if (firstIndex == -1) {
-            return new Term[0];
-        }
-        int lastIndex  = BinarySearchDeluxe.lastIndexOf (terms, new Term(prefix), Term.byPrefixOrder(prefix.length()));
-        Term[] matchTerms = new Term[1 + lastIndex - firstIndex];
-
-        for (int i = 0; i < matchTerms.length; i++) {
-            matchTerms[i] = terms[firstIndex++];
+            return;
         }
 
-        Arrays.sort(matchTerms, Term.byPrefixOrder(3)); //probably have to make r dynamic according to the amount of letters the user enter
-
-        return matchTerms;
-    }
-
-    public int numberOfMatches(String prefix) {
-        if (prefix == null) throw new NullPointerException("Prefix can't be null");
-        return BinarySearchDeluxe.lastIndexOf (terms, new Term(prefix), Term.byPrefixOrder(prefix.length()))
-                - BinarySearchDeluxe.firstIndexOf(terms, new Term(prefix), Term.byPrefixOrder(prefix.length())) + 1;
+        int lastIndex = firstIndex;
+        for (int i = firstIndex + 1; i < CommandList.size(); i++) {
+            if (CommandList.get(i).startsWith(prefix)) {
+                continue;
+            }
+            lastIndex = i;
+        }
     }
 }

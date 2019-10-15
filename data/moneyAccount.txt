@@ -18,7 +18,6 @@ EXP @ 3.0 @ ice-cream  @ food  @ 5/10/2020
 EXP @ 3.0 @ ice-cream  @ food  @ 4/10/2019
 EXP @ 3.0 @ pencil  @ stationary  @ 6/10/2019
 EXP @ 20.0 @ godzilla  @ animal  @ 7/10/2020
-SEX @ 48.0 @ Mala  @ food  @ 4/10/2019 @ Max#0 ! Nic#1 ! Daniel#0
 EXP @ 20.0 @ hookers  @ hookers  @ 10/10/2020
 EXP @ 10000.0 @ buy Motorbike  @ GS @ 11/10/2019
 EXP @ 792.1389 @ mortgage  @ instalments @ 11/10/2019
@@ -29,7 +28,6 @@ G @ 100.0 @ buy ultraboost  @ GS @ 15/1/2050 @ HIGH
 G @ 100.0 @ buy watch @ GS @ 15/1/2050 @ HIGH
 G @ 100000.0 @ buy Lambo  @ GS @ 10/12/2040 @ MEDIUM
 G @ 10000.0 @ buy expensive watch  @ GS @ 5/10/2029 @ MEDIUM
-INS @ 100000.0 @ mortgage  @ instalments @ 11/10/2019 @ 200 @ 0.06
 INS @ 100000.0 @ mortgage  @ instalments @ 9/10/2019 @ 200 @ 0.06
 LOA @ 5000.0 @ mah sluts @ 14/9/2019 @ OUTGOING @  @ 0 @ 4500.0
 LOA @ 500.0 @ mah bitches @ 13/10/2019 @ OUTGOING @  @ 0 @ 300.0
