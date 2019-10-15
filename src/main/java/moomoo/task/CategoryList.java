@@ -4,28 +4,27 @@ import java.util.ArrayList;
 
 public class CategoryList {
     private ArrayList<Category> categoryList;
-
+    
     public CategoryList() {
         categoryList = new ArrayList<>();
     }
-
+    
     public CategoryList(ArrayList<Category> categoryList) {
         this.categoryList = categoryList;
     }
     
     //Methods
     public int size() {
-        return catList.size();
+        return categoryList.size();
     }
     
     public Category get(int i) {
-        return catList.get(i);
+        return categoryList.get(i);
     }
     
     public double getGrandMonthTotal() {
         double total = 0;
-        for (Category category : catList)
-        {
+        for (Category category : categoryList) {
             total += category.getCategoryMonthTotal();
         }
         return total;
@@ -33,19 +32,17 @@ public class CategoryList {
     
     public double getLargestExpenditure() {
         double expenditure = 0;
-        for (Category category : catList)
-        {
-            if (category.getCategoryMonthTotal() > expenditure)
-            {
+        for (Category category : categoryList) {
+            if (category.getCategoryMonthTotal() > expenditure) {
                 expenditure = category.getCategoryMonthTotal();
             }
         }
         return expenditure;
     }
-}
-
+    
     /**
      * Prints the current list of categories.
+     *
      * @param ui MooMoo's ui
      */
     public void list(Ui ui) {
@@ -55,7 +52,7 @@ public class CategoryList {
         }
         ui.showCategoryList(categoryList);
     }
-
+    
     public void add(Category newCategory) {
         categoryList.add(newCategory);
     }

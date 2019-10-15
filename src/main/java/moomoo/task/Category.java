@@ -6,10 +6,6 @@ public class Category {
     String categoryName;
     //Dummy variable
     int monthTotal;
-    
-    public Category() {
-
-
     private String name;
     private ArrayList<String> entries;
 
