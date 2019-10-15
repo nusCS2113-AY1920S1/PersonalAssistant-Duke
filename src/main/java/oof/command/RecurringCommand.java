@@ -43,15 +43,7 @@ public class RecurringCommand extends Command {
         this.frequency = frequency;
     }
 
-    /**
-     * Marks the specific Task defined by the user as a recurring task and adds the specified number of recurrences.
-     *
-     * @param taskList Instance of TaskList that stores Task objects.
-     * @param ui       Instance of Ui that is responsible for visual feedback.
-     * @param storage  Instance of Storage that enables the reading and writing of Task
-     *                 objects to hard disk.
-     * @throws OofException Catches invalid commands given by user.
-     */
+    @Override
     public void execute(TaskList taskList, Ui ui, Storage storage) throws OofException {
         if (!taskList.isIndexValid(this.index)) {
             throw new OofException("OOPS!!! Please select a valid task!");
