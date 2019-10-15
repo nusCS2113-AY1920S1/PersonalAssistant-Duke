@@ -1,18 +1,30 @@
 package javacake;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 
+import javafx.animation.Animation;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
+import javafx.animation.Transition;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
+import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.HBox;
+import javafx.scene.paint.Color;
+import javafx.util.Duration;
 
 /**
  * An example of a custom control using FXML.
@@ -25,7 +37,15 @@ public class DialogBox extends HBox {
     @FXML
     private ImageView displayPicture;
 
+    private Image hilda1 = new Image(this.getClass().getResourceAsStream("/images/hilda_1.png"));
+    private Image hilda2 = new Image(this.getClass().getResourceAsStream("/images/hilda_2.png"));
+    List<Image> images = new ArrayList<>();
+    private int imageIndex = 0 ;
+
     private DialogBox(String text, Image img) {
+        images.add(hilda1);
+        images.add(hilda2);
+
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(MainWindow.class.getResource("/view/DialogBox.fxml"));
             fxmlLoader.setController(this);
@@ -37,6 +57,12 @@ public class DialogBox extends HBox {
 
         dialog.setText(text);
         displayPicture.setImage(img);
+
+//        Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(1), ev -> {
+//            displayPicture.setImage(images.get(imageIndex++%2));
+//        }));
+//        timeline.setCycleCount(Animation.INDEFINITE);
+//        timeline.play();
     }
 
     /**

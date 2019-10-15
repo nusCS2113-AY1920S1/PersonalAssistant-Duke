@@ -24,8 +24,10 @@ public class Main extends Application {
             Scene scene = new Scene(ap);
             stage.setScene(scene);
             fxmlLoader.<MainWindow>getController().setDuke(duke);
+            fxmlLoader.<MainWindow>getController().setStage(stage);
             stage.show();
             stage.getIcons().add(new Image(this.getClass().getResourceAsStream("/images/imgay.jpg")));
+            stage.setTitle("JavaCake");
         } catch (IOException e) {
             e.printStackTrace();
         }
