@@ -3,14 +3,14 @@ package models.member;
 import java.util.ArrayList;
 import util.ParserUtil;
 
-public class ProjectMemberList implements IMemberList {
+public class ListOfMembersInProject implements IMemberList {
     private ArrayList<Member> memberList;
 
     /**
      * Class representing a list with all members and their details.
      */
-    public ProjectMemberList() {
-        this.memberList = new ArrayList<Member>();
+    public ListOfMembersInProject() {
+        this.memberList = new ArrayList<>();
     }
 
     /**
@@ -34,10 +34,9 @@ public class ProjectMemberList implements IMemberList {
         String phone = memberDetails[1];
         String email = memberDetails[2];
 
-        for (int i = 0; i < memberList.size(); i++) {
-            Member currentMember = memberList.get(i);
+        for (Member currentMember : memberList) {
             if (currentMember.getIndexNumber() == memberIndexNumber) {
-                currentMember.updateDetails(name,phone,email);
+                currentMember.updateDetails(name, phone, email);
                 break;
             }
         }
@@ -53,7 +52,7 @@ public class ProjectMemberList implements IMemberList {
         /*
             Implement methods to ensure that task assignments are updated,
             credits are redistributed, etc.
-            1) Scroll through all tasks of this member. Remove them from the TaskMemberList.
+            1) Scroll through all tasks of this member. Remove them from the ListOfMemebersAssignedToTask.
             2) Recalculate the credits for other members in the task.
             3) Change task state if necessary (if only 1 member was DOING, now it is OPEN)
             4) Update index number of other members if necessary.

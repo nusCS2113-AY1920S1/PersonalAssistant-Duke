@@ -3,6 +3,7 @@ package controllers;
 import java.text.ParseException;
 import java.util.Scanner;
 import models.data.IProject;
+import models.data.Project;
 import repositories.ProjectRepository;
 import util.factories.MemberFactoryUtil;
 import util.factories.TaskFactory;
@@ -32,7 +33,7 @@ public class ProjectInputController implements IController {
      */
     public void onCommandReceived(String input) {
         int projectNumber = Integer.parseInt(input);
-        IProject projectToManage = projectRepository.getItem(projectNumber);
+        Project projectToManage = projectRepository.getItem(projectNumber);
         this.consoleView.consolePrint("Now managing: " + projectToManage.getDescription());
         boolean isManagingAProject = true;
         while (isManagingAProject) {
@@ -67,6 +68,8 @@ public class ProjectInputController implements IController {
                     }
                 } else if (projectCommand.length() == 12 && ("view members").equals(projectCommand)) {
                     consoleView.viewAllMembers(projectToManage);
+                } else if (projectCommand.length() == 12 && ("view credits").equals(projectCommand)) {
+                    // TODO view all credits.
                 } else if (projectCommand.length() >= 9 && ("add task ").equals(projectCommand.substring(0, 9))) {
                     try {
                         TaskFactory taskFactory = new TaskFactory();

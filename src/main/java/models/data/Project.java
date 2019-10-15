@@ -1,13 +1,13 @@
 package models.data;
 
 import models.member.Member;
-import models.member.ProjectMemberList;
+import models.member.ListOfMembersInProject;
 import models.task.Task;
 import models.task.TaskList;
 
 public class Project implements IProject {
     private String description;
-    private ProjectMemberList projectMemberList;
+    private ListOfMembersInProject listOfMembersInProject;
     private TaskList taskList;
 
     /**
@@ -16,7 +16,7 @@ public class Project implements IProject {
      */
     public Project(String description) {
         this.description = description;
-        this.projectMemberList = new ProjectMemberList();
+        this.listOfMembersInProject = new ListOfMembersInProject();
         this.taskList = new TaskList();
     }
 
@@ -26,8 +26,8 @@ public class Project implements IProject {
     }
 
     @Override
-    public ProjectMemberList getMembers() {
-        return this.projectMemberList;
+    public ListOfMembersInProject getMembers() {
+        return this.listOfMembersInProject;
     }
 
     @Override
@@ -37,7 +37,7 @@ public class Project implements IProject {
 
     @Override
     public int getNumOfMembers() {
-        return this.projectMemberList.getNumOfMembers();
+        return this.listOfMembersInProject.getNumOfMembers();
     }
 
     @Override
@@ -47,17 +47,17 @@ public class Project implements IProject {
 
     @Override
     public void addMember(Member newMember) {
-        this.projectMemberList.addMember(newMember);
+        this.listOfMembersInProject.addMember(newMember);
     }
 
     @Override
     public void editMember(int memberIndexNumber, String updatedMemberDetails) {
-        this.projectMemberList.editMember(memberIndexNumber, updatedMemberDetails);
+        this.listOfMembersInProject.editMember(memberIndexNumber, updatedMemberDetails);
     }
 
     @Override
     public void removeMember(int memberIndexNumber) {
-        this.projectMemberList.removeMember(memberIndexNumber);
+        this.listOfMembersInProject.removeMember(memberIndexNumber);
     }
 
     @Override
