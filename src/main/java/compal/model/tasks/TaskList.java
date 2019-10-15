@@ -85,7 +85,7 @@ public class TaskList {
     }
 
     /**
-     * Remove a task from the arrayList
+     * Remove a task from the arrayList.
      */
     public void removeTask(int index) {
         arrlist.remove(index);
