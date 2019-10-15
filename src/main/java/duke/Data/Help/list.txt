@@ -1,0 +1,17 @@
+show the current recorded nutritional intake for a particular date.
+
+    list [/date] <DATE>
+
+For example:
+
+1. You want to view your data today:
+
+    list
+
+2. You want to view your data from 26th of December, 2019:
+
+    list /date 26/12/2019
+
+Note:
+- Current date is obtained from the system date in your computer
+- Dates should be entered in the following format: day/month/year

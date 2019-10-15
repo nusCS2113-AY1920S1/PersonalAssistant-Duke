@@ -1,0 +1,18 @@
+delete a meal on a particular date from the database
+
+    delete INDEX [/date]<DATE>
+
+For example:
+
+    delete 3
+
+will delete the item indexed from today's date.
+
+    delete 2 /date 1/1/2019
+
+will delete the item indexed 2 from the date 1/1/2019.
+
+note:
+- the index refers to index number shown in the displayed tasklist
+- the index must be a positive integer (e.g. 1, 2, 3, ...)
+

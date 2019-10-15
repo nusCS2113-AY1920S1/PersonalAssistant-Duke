@@ -1,0 +1,15 @@
+update the user profile
+
+    update [/reset] [/TAG]<VALUE>...
+
+Tags you can use are: /name /age /weight /gender
+
+For example:
+
+1. You want to update your body weight for the day to 50 kg
+
+    update /weight 50
+
+2. You want to reset your personal information
+
+    update /reset

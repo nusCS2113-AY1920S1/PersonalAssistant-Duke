@@ -30,6 +30,8 @@ class ParserTest {
                     instanceof AddItemCommand);
             assertTrue(Parser.parse("list", autocorrect) instanceof ListCommand);
             assertTrue(Parser.parse("done 1", autocorrect) instanceof MarkDoneCommand);
+            assertTrue(Parser.parse("help", autocorrect) instanceof HelpCommand);
+            assertTrue(Parser.parse("help breakfast", autocorrect) instanceof HelpCommand);
         } catch (DukeException e) {
             System.out.println("Something is wrong with the parser");
         }

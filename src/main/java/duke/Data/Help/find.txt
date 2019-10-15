@@ -1,0 +1,9 @@
+refer to a meal had in the past
+
+    find DESCRIPTION
+
+for example:
+
+    find fish
+
+will list down the meals with "fish" as a description.

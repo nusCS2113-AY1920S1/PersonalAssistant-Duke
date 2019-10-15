@@ -336,11 +336,17 @@ public class Storage {
         }
     }
 
-    public void loadHelp(ArrayList<String> lines) throws DukeException {
+    public void loadHelp(ArrayList<String> lines, String specifiedHelp) throws DukeException {
         String line = "";
+        String helpFileName = "";
+        if (specifiedHelp.isBlank()) {
+            helpFileName = "help.txt";
+        } else {
+            helpFileName = specifiedHelp + ".txt";
+        }
         String sep = System.getProperty("file.separator");
         file = new File("src" + sep + "main" + sep + "java" + sep + "duke"
-                            + sep + "Data" + sep + "help.txt");
+                            + sep + "Data" + sep + "Help" + sep + helpFileName);
         try {
             bufferedReader = new BufferedReader(new FileReader(file));
         } catch (Exception e) {

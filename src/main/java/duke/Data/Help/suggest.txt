@@ -1,0 +1,4 @@
+suggest food items to be added on a certain date
+
+    suggest [/date] <DATE>
+
