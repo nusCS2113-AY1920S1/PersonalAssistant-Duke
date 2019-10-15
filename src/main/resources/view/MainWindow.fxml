@@ -12,19 +12,17 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seedu.hustler.MainWindow">
     <children>
-        <ScrollPane fx:id="scrollPane" hbarPolicy="NEVER" hvalue="1.0" layoutY="-32.0" prefHeight="590.0" prefWidth="574.0" vvalue="1.0">
+        <ScrollPane fx:id="scrollPane" hbarPolicy="NEVER" hvalue="1.0" layoutY="-32.0" prefHeight="590.0" prefWidth="558.0" vvalue="1.0">
             <content>
                 <VBox fx:id="dialogContainer" />
             </content>
         </ScrollPane>
-      <Pane layoutX="175.0" opacity="0.5" prefHeight="558.0" prefWidth="399.0" />
         <TextField fx:id="userInput" layoutX="174.0" layoutY="553.0" minHeight="-Infinity" minWidth="-Infinity" onAction="#handleUserInput" prefHeight="48.0" prefWidth="401.0" promptText="Type a command..." style="-fx-border-color: #ffffff;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="178.0" AnchorPane.rightAnchor="0.0" />
       <GridPane alignment="CENTER" layoutX="176.0" prefHeight="90.0" prefWidth="399.0" style="-fx-background-color: #ffffff;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
         <columnConstraints>
@@ -72,7 +70,7 @@
                <graphic>
                   <ImageView fx:id="menu" fitHeight="41.0" fitWidth="37.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../../../../Downloads/Menus.png" />
+                        <Image url="@../../../../images/Menus.png" />
                      </image>
                      <effect>
                         <ColorAdjust />
@@ -90,7 +88,7 @@
                <graphic>
                   <ImageView fx:id="timer" fitHeight="46.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../../../../Downloads/Timers.png" />
+                        <Image url="@../../../../images/Timers.png" />
                      </image>
                      <viewport>
                         <Rectangle2D minX="1.0" minY="1.0" />
@@ -108,7 +106,7 @@
                <graphic>
                   <ImageView fx:id="trophy" fitHeight="68.0" fitWidth="42.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../../../../Downloads/trophies.png" />
+                        <Image url="@../../../../images/trophies.png" />
                      </image>
                   </ImageView>
                </graphic>
@@ -120,7 +118,7 @@
                <graphic>
                   <ImageView fx:id="spiderGraph" fitHeight="108.0" fitWidth="51.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../../../../Downloads/Statistics.png" />
+                        <Image url="@../../../../images/Statistics.png" />
                      </image>
                   </ImageView>
                </graphic>
@@ -132,7 +130,7 @@
                <graphic>
                   <ImageView fx:id="profile" fitHeight="46.0" fitWidth="42.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../../../../Downloads/Avatars.png" />
+                        <Image url="@../../../../images/Avatars.png" />
                      </image>
                   </ImageView>
                </graphic>
@@ -144,7 +142,7 @@
                <graphic>
                   <ImageView fx:id="trolley" fitHeight="75.0" fitWidth="43.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../../../../Downloads/Shops.png" />
+                        <Image url="@../../../../images/Shops.png" />
                      </image>
                   </ImageView>
                </graphic>
@@ -156,7 +154,7 @@
                <graphic>
                   <ImageView fx:id="swords" fitHeight="44.0" fitWidth="42.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../../../../Downloads/Arena.png" />
+                        <Image url="@../../../../images/Arena.png" />
                      </image>
                   </ImageView>
                </graphic>
@@ -168,7 +166,7 @@
                <graphic>
                   <ImageView fx:id="gear" fitHeight="49.0" fitWidth="46.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../../../../Downloads/Settings.png" />
+                        <Image url="@../../../../images/Settings.png" />
                      </image>
                   </ImageView>
                </graphic>

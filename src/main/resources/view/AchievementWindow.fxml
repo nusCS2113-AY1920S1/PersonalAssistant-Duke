@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.AnchorPane?>
+
+
+<AnchorPane maxHeight="601.0" maxWidth="579.0" minHeight="601.0" minWidth="424.0" prefHeight="601.0" prefWidth="579.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.AchievementWindow">
+   <children>
+      <ScrollPane layoutX="23.0" layoutY="-3.0" minHeight="590.0" minWidth="329.0" prefHeight="605.0" prefWidth="406.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="176.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <content>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="200.0" />
+        </content>
+      </ScrollPane>
+      <AnchorPane prefHeight="601.0" prefWidth="176.0" style="-fx-background-color: #34495e;" />
+   </children>
+</AnchorPane>
