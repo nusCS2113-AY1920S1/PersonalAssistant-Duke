@@ -38,6 +38,7 @@ public class ReportCommand extends Command {
         }
     }
 
+    /*
     private Set<String> coreModList = new HashSet<String>();
 
     public Set<String> getCoreModList() {
@@ -72,7 +73,7 @@ public class ReportCommand extends Command {
         } else {
             return false;
         }
-    }
+    }*/
 
     @Override
     public boolean isExit() {

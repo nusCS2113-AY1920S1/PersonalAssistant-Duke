@@ -141,14 +141,18 @@ public class Ui {
         }
     }
 
+    /**
+     * Prints the information for the main report message.
+     */
     public void reportListMsg() {
         System.out.println(
-                "Hello there! Welcome to the report page. Please enter 'Report <NUMBER>' to view the specific reports\n" +
-                        "1) Overall module credit report\n" +
-                        "2) SU-ed modules report\n" +
-                        "3) Core modules report\n" +
-                        "4) Unrestricted elective modules report\n" +
-                        "5) General education modules report\n"
+                "Hello there! Welcome to the report page."
+                        + "Please enter 'Report <NUMBER>' to view the specific reports\n"
+                        + "1) Overall module credit report\n"
+                        + "2) SU-ed modules report\n"
+                        + "3) Core modules report\n"
+                        + "4) Unrestricted elective modules report\n"
+                        + "5) General education modules report\n"
         );
     }
 
@@ -159,15 +163,15 @@ public class Ui {
      */
     public void printReportOne(List<Task> taskList) {
         int requiredMCs = 160;
-        int MCsLeft = requiredMCs - taskList.size();
+        int mcsLeft = requiredMCs - taskList.size();
         int numOfSem = 1; // Update this
         System.out.println(
-                "1) Overall module credit report\n" +
-                        "Required amount of MCs: " + requiredMCs + "\n" +
-                        "Amount of MCs taken: " +  taskList.size() + "\n" +
-                        "Amount of MCs left to fulfil: " +  MCsLeft + "\n" +
-                        "Projected amount of MCs to take per semester: " + MCsLeft/numOfSem + "\n"
-                );
+                "1) Overall module credit report\n"
+                        + "Required amount of MCs: " + requiredMCs + "\n"
+                        + "Amount of MCs taken: " +  taskList.size() + "\n"
+                        + "Amount of MCs left to fulfil: " +  mcsLeft + "\n"
+                        + "Projected amount of MCs to take per semester: " + mcsLeft / numOfSem + "\n"
+        );
     }
 
     /**
@@ -182,13 +186,13 @@ public class Ui {
         } else {
             availableSUs = 12;
         }*/
-        int SUsLeft = availableSUs - taskList.size();
+        int suLeft = availableSUs - taskList.size();
         int numOfSem = 1; // Update this
         System.out.println(
-                "2) SU-ed modules report\n" +
-                        "Amount of SUs used: " +  taskList.size() + "\n" +
-                        "Amount of SUs available: " +  SUsLeft + "\n" +
-                        "Projected amount of SUs available per semester: " + SUsLeft/numOfSem + "\n"
+                "2) SU-ed modules report\n"
+                        + "Amount of SUs used: " +  taskList.size() + "\n"
+                        + "Amount of SUs available: " +  suLeft + "\n"
+                        + "Projected amount of SUs available per semester: " + suLeft / numOfSem + "\n"
         );
     }
 
@@ -199,14 +203,14 @@ public class Ui {
      */
     public void printReportThree(List<Task> taskList) {
         int requiredCoreMod = 108;
-        int CoreModLeft = requiredCoreMod - taskList.size();
+        int coreModLeft = requiredCoreMod - taskList.size();
         int numOfSem = 1; // Update this
         System.out.println(
-                "3) Core modules report\n" +
-                        "Required amount of core modules: " + requiredCoreMod + "\n" +
-                        "Amount of core modules taken: " +  taskList.size() + "\n" +
-                        "Amount of core modules left to take: " +  CoreModLeft + "\n" +
-                        "Projected amount of core modules to take per semester: " + CoreModLeft/numOfSem + "\n"
+                "3) Core modules report\n"
+                        + "Required amount of core modules: " + requiredCoreMod + "\n"
+                        + "Amount of core modules taken: " +  taskList.size() + "\n"
+                        + "Amount of core modules left to take: " +  coreModLeft + "\n"
+                        + "Projected amount of core modules to take per semester: " + coreModLeft / numOfSem + "\n"
         );
     }
 
@@ -217,14 +221,14 @@ public class Ui {
      */
     public void printReportFour(List<Task> taskList) {
         int requiredUE = 20;
-        int UELeft = requiredUE - taskList.size();
+        int ueLeft = requiredUE - taskList.size();
         int numOfSem = 1; // Update this
         System.out.println(
-                "4) Unrestricted elective modules report\n" +
-                        "Required amount of UE modules: " + requiredUE + "\n" +
-                        "Amount of UE modules taken: " +  taskList.size() + "\n" +
-                        "Amount of UE modules left to take: " +  UELeft + "\n" +
-                        "Projected amount of UE modules to take per semester: " + UELeft/numOfSem + "\n"
+                "4) Unrestricted elective modules report\n"
+                        + "Required amount of UE modules: " + requiredUE + "\n"
+                        + "Amount of UE modules taken: " +  taskList.size() + "\n"
+                        + "Amount of UE modules left to take: " +  ueLeft + "\n"
+                        + "Projected amount of UE modules to take per semester: " + ueLeft / numOfSem + "\n"
         );
     }
 
@@ -235,14 +239,14 @@ public class Ui {
      */
     public void printReportFive(List<Task> taskList) {
         int requiredGE = 32;
-        int GELeft = requiredGE - taskList.size();
+        int geLeft = requiredGE - taskList.size();
         int numOfSem = 1; // Update this
         System.out.println(
-                "4) Unrestricted elective modules report\n" +
-                        "Required amount of UE modules: " + requiredGE + "\n" +
-                        "Amount of UE modules taken: " +  taskList.size() + "\n" +
-                        "Amount of UE modules left to take: " +  GELeft + "\n" +
-                        "Projected amount of UE modules to take per semester: " + GELeft/numOfSem + "\n"
+                "4) Unrestricted elective modules report\n"
+                        + "Required amount of UE modules: " + requiredGE + "\n"
+                        + "Amount of UE modules taken: " +  taskList.size() + "\n"
+                        + "Amount of UE modules left to take: " +  geLeft + "\n"
+                        + "Projected amount of UE modules to take per semester: " + geLeft / numOfSem + "\n"
         );
     }
 
