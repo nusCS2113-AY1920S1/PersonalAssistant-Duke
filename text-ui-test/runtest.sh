@@ -101,8 +101,23 @@ if [ $? -eq 0 ]
 then
     echo "TEST EditCommand  // Test result: PASSED"
     echo ""
-    exit 0
+
 else
     echo "TEST EditCommand  // Test result: FAILED"
+    exit 1
+fi
+
+#                 TEST EditCommand
+java -classpath ../bin leduc.Duke test7/test7.txt < test7/input7.txt > test7/ACTUAL7.TXT
+
+# compare the output to the expected output
+diff test7/ACTUAL7.TXT test7/EXPECTED7.TXT
+if [ $? -eq 0 ]
+then
+    echo "TEST StatsCommand  // Test result: PASSED"
+    echo ""
+    exit 0
+else
+    echo "TEST StatsCommand  // Test result: FAILED"
     exit 1
 fi
