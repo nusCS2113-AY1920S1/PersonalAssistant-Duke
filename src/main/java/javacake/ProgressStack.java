@@ -25,11 +25,15 @@ public class ProgressStack {
      * Stores all files in the filePath into listOfFiles.
      * @param filePath path to the root directory.
      */
-    public void loadFiles(String filePath) {
+    public void loadFiles(String filePath) throws DukeException {
         File folder = new File(filePath);
-        listOfFiles = folder.listFiles();
-        assert listOfFiles != null;
-        Arrays.sort(listOfFiles); //in case the files stored locally are not in alphabetical order
+        try {
+            listOfFiles = folder.listFiles();
+            assert listOfFiles != null;
+            Arrays.sort(listOfFiles); //in case the files stored locally are not in alphabetical order
+        } catch (NullPointerException e) {
+            throw new DukeException("Content not found!" + "\nPls key 'back' or 'list' to view previous content!");
+        }
     }
 
     /**
@@ -49,9 +53,13 @@ public class ProgressStack {
      * @param index Index of the new path found in filePathQueries.
      * @return the particular filePath based on the input index.
      */
-    public String gotoFilePath(int index) {
+    public String gotoFilePath(int index) throws  DukeException {
         //printFiles();
-        return filePathQueries.get(index);
+        try {
+            return filePathQueries.get(index);
+        } catch (IndexOutOfBoundsException e) {
+            throw new DukeException(e.getMessage() + "\n Pls key 'back' or 'list' to view previous content");
+        }
     }
 
     /**
@@ -148,7 +156,7 @@ public class ProgressStack {
      * Update isDirectory if current directory contains directories.
      * Adds new list of file names in filePathQueries to be processed.
      */
-    public void insertQueries() {
+    public void insertQueries() throws DukeException {
         clearQueries();
         loadFiles(currentFilePath);
         for (File listOfFile : listOfFiles) {
