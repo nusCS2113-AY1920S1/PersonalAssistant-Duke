@@ -64,10 +64,26 @@ public class Parser {
         if (inputToParse.contains("#")) {
             try {
                 formattedInput = inputToParse.replace("#", "").trim();
-                System.out.println(formattedInput);
                 return formattedInput;
             } catch(Exception e){
                 throw new DukeException("Please follow the format 'delete patient #<id>'.");
+            }
+        } else {
+            formattedInput = inputToParse;
+            return formattedInput;
+        }
+    }
+
+    public String parseDeleteTask() throws DukeException {
+        String formattedInput;
+        String inputToParse = userInput.replace("delete task", "").trim();
+
+        if (inputToParse.contains("#")) {
+            try {
+                formattedInput = inputToParse.replace("#", "").trim();
+                return formattedInput;
+            } catch(Exception e){
+                throw new DukeException("Please follow the format 'delete task #<id>'.");
             }
         } else {
             formattedInput = inputToParse;
