@@ -1,7 +1,7 @@
 package duke;
 
 import duke.command.logic.ModuleCommand;
-import duke.util.PlannerUi;
+import duke.util.*;
 
 import java.util.HashMap;
 
@@ -11,12 +11,6 @@ import duke.exceptions.ModException;
 import duke.exceptions.planner.ModFailedJsonException;
 import duke.exceptions.ModTimeIntervalTooCloseException;
 import duke.modules.data.ModuleInfoDetailed;
-import duke.util.JsonWrapper;
-import duke.util.ParserWrapper;
-import duke.util.Storage;
-import duke.util.TaskList;
-import duke.util.Ui;
-import duke.util.Reminder;
 import duke.util.commons.ModuleTasksList;
 
 public class Duke {
@@ -30,6 +24,7 @@ public class Duke {
     private TaskList tasks;
     private ModuleTasksList modTasks;
     private ParserWrapper parser;
+    private Argparse4jWrapper argparser;
     private Reminder reminder;
     private JsonWrapper jsonWrapper;
     private PlannerUi modUi;
