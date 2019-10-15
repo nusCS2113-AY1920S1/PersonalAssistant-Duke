@@ -91,4 +91,12 @@ public abstract class Event {
     public void markAsDone() {
         this.isDone = true;
     }
+
+    public void rescheduleStartDate(EventDate newStartDate) {
+        this.startEventDate = newStartDate;
+    }
+
+    public void rescheduleEndDate(EventDate newEndDate) {
+        this.endEventDate = newEndDate;
+    }
 }
