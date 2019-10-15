@@ -15,11 +15,6 @@ import java.util.ArrayList;
 
 public abstract class CommandBooking {
     protected String userInputCommand;
-    protected CommandIngredients.CommandType commandType;
-
-    public enum CommandType {
-        BOOKING, RECIPE, INGREDIENT
-    }
 
     public abstract ArrayList<String> execute(BookingList bookingList, Ui ui, BookingStorage bookingStorage) throws DukeException, ParseException;
 

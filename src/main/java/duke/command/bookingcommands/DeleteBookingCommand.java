@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import static duke.common.Messages.ERROR_MESSAGE_INVALID_INDEX;
 import static duke.common.Messages.ERROR_MESSAGE_UNKNOWN_INDEX;
 
+
 /**
  * Handles the delete command and inherits all the fields and methods of Command parent class.
  */

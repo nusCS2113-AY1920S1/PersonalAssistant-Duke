@@ -5,7 +5,9 @@ public class RecipeMessages {
     public static final String COMMAND_ADD_RECIPE_INGREDIENT = "addrecipeingredient";
     public static final String COMMAND_LIST_RECIPES = "listallrecipes";
     public static final String COMMAND_LIST_RECIPE_INGREDIENT = "listingredient";
-    public static final String COMMAND_DELETE_RECIPE_INGREDIENT = "delri ";
+    public static final String COMMAND_DELETE_RECIPE_INGREDIENT = "delri";
+    public static final String COMMAND_DELETE_RECIPE_TITLE = "delrt";
+
     public static final String COMMAND_ADD_FEEDBACK = "addfeedback";
     public static final String COMMAND_ADD_RATING = "addrating";
     public static final String COMMAND_ADD_PREPSTEP = "addprepstep";
