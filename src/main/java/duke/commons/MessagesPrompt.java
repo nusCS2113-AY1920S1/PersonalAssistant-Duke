@@ -11,6 +11,7 @@ public class MessagesPrompt {
     public static final String PROMPT_SPACES = "Please do not include spaces in your search!";
     public static final String PROMPT_NOT_INT = "Please use a number!";
     public static final String PROMPT_NOT_STRING = "Please use a string!";
+    public static final String PROMPT_NOT_DATE = "Please use a proper date!";
 
     public static final String SEARCH_PROMPT_STARTER = "Where would you like to find?";
     public static final String SEARCH_PROMPT_SUCCESS = "These are the coordinates of your search:";

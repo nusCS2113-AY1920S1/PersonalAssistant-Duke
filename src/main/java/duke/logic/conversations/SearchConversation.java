@@ -21,6 +21,11 @@ public class SearchConversation extends Conversation {
 
     @Override
     protected void buildResult() {
-        result = command + " " + location;
+        if (location != null) {
+            result = command + " " + location;
+            setFinished(true);
+        } else {
+            attempts++;
+        }
     }
 }

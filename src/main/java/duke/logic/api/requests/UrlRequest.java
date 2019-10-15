@@ -7,11 +7,9 @@ import duke.commons.exceptions.DukeException;
  * Abstract class representing individual URL requests.
  */
 public abstract class UrlRequest {
-    protected String url;
     protected String param;
 
-    public UrlRequest(String url, String param) {
-        this.url = url;
+    public UrlRequest(String param) {
         this.param = param;
     }
 

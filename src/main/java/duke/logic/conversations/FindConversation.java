@@ -15,11 +15,15 @@ public class FindConversation extends Conversation {
     public void execute(String input) {
         keyword = input;
         buildResult();
-        setFinished(true);
     }
 
     @Override
     protected void buildResult() {
-        result = command + " " + keyword;
+        if (keyword != null) {
+            result = command + " " + keyword;
+            setFinished(true);
+        } else {
+            attempts++;
+        }
     }
 }

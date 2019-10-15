@@ -15,11 +15,15 @@ public class ToDoConversation extends Conversation {
     public void execute(String input) {
         description = input;
         buildResult();
-        setFinished(true);
     }
 
     @Override
     protected void buildResult() {
-        result = command + " " + description;
+        if (description != null) {
+            result = command + " " + description;
+            setFinished(true);
+        } else {
+            attempts++;
+        }
     }
 }

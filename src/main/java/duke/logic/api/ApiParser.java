@@ -24,8 +24,7 @@ public class ApiParser {
      * @return result The locations found
      */
     public static Venue getLocationSearch(String param) throws DukeException {
-        LocationSearchUrlRequest req = new LocationSearchUrlRequest("https://developers.onemap.sg/commonapi/search?",
-                param);
+        LocationSearchUrlRequest req = new LocationSearchUrlRequest(param);
         JsonObject jsonRes = req.execute();
         JsonArray arr = jsonRes.getAsJsonArray("results");
         if (isFound(jsonRes)) {
@@ -36,16 +35,6 @@ public class ApiParser {
                     arr.get(0).getAsJsonObject().get("Y").getAsDouble());
         }
         throw new DukeException(Messages.DATA_NOT_FOUND);
-        /*
-        ArrayList<String> result = new ArrayList<>();
-        for (int i = 0; i < Integer.parseInt(String.valueOf(jsonRes.getAsJsonPrimitive("found")))
-                ; i++) {
-            result.add(arr.get(i).getAsJsonObject().get("SEARCHVAL").getAsString() + " ("
-                    + arr.get(i).getAsJsonObject().get("LATITUDE").getAsString() + " : "
-                    + arr.get(i).getAsJsonObject().get("LONGITUDE").getAsString() + ")");
-        }
-        return result;
-         */
     }
 
     private static boolean isFound(JsonObject jsonRes) {

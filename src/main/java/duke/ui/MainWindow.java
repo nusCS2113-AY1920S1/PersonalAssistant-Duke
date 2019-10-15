@@ -7,6 +7,7 @@ import duke.logic.LogicManager;
 
 import duke.ui.calendar.CalendarWindow;
 import duke.ui.map.MapWindow;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -36,6 +37,7 @@ public class MainWindow extends UiPart<Stage> {
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/user.png"));
     private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/duke.png"));
 
+
     /**
      * Initialises the MainWindow.
      */
@@ -64,7 +66,7 @@ public class MainWindow extends UiPart<Stage> {
         } catch (DukeException e) {
             dukeShow(e.getMessage());
         }
-        dukeShow("Hi");
+        dukeShow("Hi, welcome to SGTravel.");
     }
 
     /**
@@ -81,19 +83,21 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     private void dukeResponse(String input) {
-        try {
-            CommandResult result = logic.execute(input);
-            dukeShow(result);
-            if (result.isExit()) {
-                tryExitApp();
-            } else if (result.isCalendar()) {
-                new CalendarWindow(result).show();
-            } else if (result.isMap()) {
-                new MapWindow(result).show();
+        Platform.runLater(() -> {
+            try {
+                CommandResult result = logic.execute(input);
+                dukeShow(result);
+                if (result.isExit()) {
+                    tryExitApp();
+                } else if (result.isCalendar()) {
+                    new CalendarWindow(result).show();
+                } else if (result.isMap()) {
+                    new MapWindow(result).show();
+                }
+            } catch (DukeException e) {
+                dukeShow(e.getMessage());
             }
-        } catch (DukeException e) {
-            dukeShow(e.getMessage());
-        }
+        });
     }
 
     private void echoUserInput(String input) {

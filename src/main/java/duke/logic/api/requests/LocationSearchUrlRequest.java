@@ -19,15 +19,15 @@ import duke.commons.Messages;
 public class LocationSearchUrlRequest extends UrlRequest {
     private static final String paramType = "searchVal";
     private static final String optionalVariables = "&returnGeom=Y&getAddrDetails=Y&pageNum=1";
+    private static final String URL = "https://developers.onemap.sg/commonapi/search?";
 
     /**
      * Construct the URL Request.
      *
-     * @param url The URL
      * @param param The query
      */
-    public LocationSearchUrlRequest(String url, String param) {
-        super(url, param.replace(" ", "+"));
+    public LocationSearchUrlRequest(String param) {
+        super(param.replace(" ", "+"));
     }
 
     /**
@@ -39,7 +39,7 @@ public class LocationSearchUrlRequest extends UrlRequest {
     public JsonObject execute() throws DukeException {
         String response;
         try {
-            URL url = new URL(this.url + paramType + "=" + param + optionalVariables);
+            URL url = new URL(URL + paramType + "=" + param + optionalVariables);
             URLConnection connection = url.openConnection();
             connection.setConnectTimeout(5000);
             connection.setReadTimeout(5000);
@@ -51,10 +51,15 @@ public class LocationSearchUrlRequest extends UrlRequest {
             throw new DukeException(Messages.DATA_NOT_FOUND);
         }
 
-        //TODO: if response == null/api call fail, do some handling
-        JsonParser jp = new JsonParser();
-        JsonElement root = jp.parse(response);
-        JsonObject result = root.getAsJsonObject();
+        JsonObject result;
+        try {
+            assert (response != null);
+            JsonParser jp = new JsonParser();
+            JsonElement root = jp.parse(response);
+            result = root.getAsJsonObject();
+        } catch (Throwable e) {
+            throw new DukeException(Messages.DATA_NULL);
+        }
 
         return result;
     }
