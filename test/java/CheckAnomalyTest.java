@@ -35,11 +35,27 @@ public class CheckAnomalyTest {
     }
 
     @Test
-    public void checkanomalyTest() {
+    public void timeCheckFixedTest() {
         assertEquals(true, new CheckAnomaly().checkTime(new FixedDuration("check", at3, 3)));
+    }
+
+    @Test
+    public void timeCheckFalseEventTest() {
         assertEquals(false, new CheckAnomaly().checkTime(new Event("check", at3)));
+    }
+
+    @Test
+    public void timeCheckEventTrueTest() {
         assertEquals(true, new CheckAnomaly().checkTime(new Event("check", at4)));
+    }
+
+    @Test
+    public void timeCheckOnlyDateTrueTest() {
         assertEquals(true, new CheckAnomaly().checkTime(at1));
+    }
+
+    @Test
+    public void timeCheckOnlyDateFalseTest() {
         assertEquals(false, new CheckAnomaly().checkTime(at5));
     }
 
