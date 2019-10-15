@@ -66,6 +66,40 @@ public class Repeat extends Task {
     }
 
     /**
+     * Extracting a task content into readable string (GUI).
+     *
+     * @return String to be displayed.
+     */
+    @Override
+    public String toStringGui() {
+        SimpleDateFormat datetimeFormat2 = new SimpleDateFormat("MMMMM yyyy, h:mm a");
+        SimpleDateFormat datetimeFormat3 = new SimpleDateFormat("MMMMM yyyy, ha");
+        String displayDT = "";
+
+        int day = Integer.parseInt(new SimpleDateFormat("d").format(from));
+        int min = Integer.parseInt(new SimpleDateFormat("m").format(from));
+        if (min > 0) {
+            displayDT = datetimeFormat2.format(from);
+        } else {
+            displayDT = datetimeFormat3.format(from);
+        }
+        int sufIndex = -1;
+
+        if (day == 1 || day == 21 || day == 31) {
+            sufIndex = 0;
+        } else if (day == 2 || day == 22) {
+            sufIndex = 1;
+        } else if (day == 3 || day == 23) {
+            sufIndex = 2;
+        } else if (day > 3 && day < 31) {
+            sufIndex = 3;
+        }
+        String suffixStr = day + suf[sufIndex];
+        displayDT = suffixStr + " of " + displayDT;
+        return "[R]" + super.toStringGui() + " (Last day of schedule: " + displayDT + ")";
+    }
+
+    /**
      * Retrieves the date of the task as a String format.
      *
      * @return String of Date.

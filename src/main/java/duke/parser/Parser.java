@@ -16,6 +16,9 @@ import duke.command.UpdateCommand;
 import duke.command.DuplicateFoundCommand;
 import duke.command.AddContactsCommand;
 import duke.command.ListContactsCommand;
+import duke.command.AddBudgetCommand;
+import duke.command.UpdateBudgetCommand;
+import duke.command.ViewBudgetCommand;
 
 import duke.task.TaskList;
 import duke.task.Todo;
@@ -28,7 +31,9 @@ import duke.task.FixedDuration;
 import duke.task.DetectDuplicate;
 import duke.dukeexception.DukeException;
 import duke.task.Contacts;
+import duke.task.BudgetList;
 
+import java.text.ParseException;
 import java.util.ArrayList;
 
 /**
@@ -43,7 +48,7 @@ public class Parser {
      * @return Command to be executed afterwards.
      * @throws Exception  If there is an error interpreting the user input.
      */
-    public static Command parse(String sentence, TaskList items) throws Exception {
+    public static Command parse(String sentence, TaskList items, BudgetList budgetList) throws Exception {
         String[] arr = sentence.split(" ");
         String taskDesc = "";
         String dateDesc = "";
@@ -322,7 +327,7 @@ public class Parser {
                 if (tasknum < 0 || tasknum >= items.size()) {
                     throw new DukeException("     (>_<) OOPS!!! Invalid task number.");
                 } else if (arr.length < 4) {
-                    throw new DukeException("     (>_<) OOPS!!! Insufficient parameters."
+                    throw new DukeException("     (>_<) OOPS!!! Insufficient parameters. "
                             + "Format: update <tasknum> <type> <desc or date>");
                 } else {
                     int typeOfUpdate = -1;
@@ -383,6 +388,35 @@ public class Parser {
             }
         } else if (sentence.equals("listcontacts")) {
             return new ListContactsCommand();
+        } else if (arr.length > 0 && arr[0].equals("budget")) {
+            try {
+                String budgetCommandString = sentence.split(" ", 2)[1];
+            } catch (Exception e) {
+                throw new DukeException("     (>_<) OoPS!!! Invalid Budget Command. "
+                                        + "It should be: budget <new/add/minus/reset/view> <amount> ");
+            }
+            String budgetCommandString = sentence.split(" ", 2)[1];
+            String budgetCommand = budgetCommandString.split(" ", 2)[0];
+            if (budgetCommand.trim().equals("view")) {
+                return new ViewBudgetCommand(budgetList);
+            } else {
+                try {
+                    String budgetAmount = budgetCommandString.split(" ", 2)[1];
+                    if (budgetCommand.trim().equals("new") || budgetCommand.trim().equals("reset")) {
+                        return new UpdateBudgetCommand(budgetList, Float.parseFloat(budgetAmount));
+                    } else if (budgetCommand.trim().equals("add") || budgetCommand.trim().equals("+")) {
+                        return new AddBudgetCommand(budgetList, Float.parseFloat(budgetAmount));
+                    } else if (budgetCommand.trim().equals("minus") || budgetCommand.trim().equals("-")) {
+                        return new AddBudgetCommand(budgetList, -Float.parseFloat(budgetAmount));
+                    } else {
+                        throw new DukeException("     (>_<) OoPS!!! Invalid Budget Command. "
+                                                + "It should be: budget <new/add/minus/reset/view> <amount> ");
+                    }
+                } catch (Exception p) {
+                    throw new DukeException("     (>_<) OoPS!!! Invalid amount! "
+                                            + "Please enter a numerical/decimal after command!");
+                }
+            }
         } else if (sentence.equals("backup")) {
             return new BackupCommand();
         } else if (sentence.equals("bye") || sentence.equals("exit")) {

@@ -14,6 +14,8 @@ import duke.parser.Parser;
 import duke.storage.PriorityStorage;
 import duke.storage.Storage;
 import duke.storage.ContactStorage;
+import duke.storage.BudgetStorage;
+import duke.task.BudgetList;
 import duke.task.PriorityList;
 import duke.task.ContactList;
 import duke.command.ListContactsCommand;
@@ -36,37 +38,51 @@ public class Duke {
     private PriorityStorage priorityStorage;
     private PriorityList priorityList;
 
+    private BudgetStorage budgetStorage;
+    private BudgetList budgetList;
 
     /**
      * Creates a duke to initialize storage, task list, and ui.
      *
      * @param filePath1 The location of the text file.
      * @param filePath2 The location of the priority text file.
+     * @param filePathForBudget The location of the budget text file
      * @param filePathForContacts The location of the contact text file.
      */
-    public Duke(String filePath1, String filePath2, String filePathForContacts) {
+    public Duke(String filePath1, String filePath2, String filePathForBudget, String filePathForContacts) {
         ui = new Ui();
         storage = new Storage(filePath1);
         priorityStorage = new PriorityStorage(filePath2);
         contactStorage = new ContactStorage(filePathForContacts);
+        budgetStorage = new BudgetStorage(filePathForBudget);
         try {
             items = new TaskList(storage.read());
         } catch (IOException e) {
             ui.showLoadingError();
+            ui.showErrorMsg("Storage NF");//temp
             items = new TaskList();
         }
         try {
             priorityList = new PriorityList(priorityStorage.read());
         } catch (IOException e) {
             ui.showLoadingError();
+            ui.showErrorMsg("Priority Storage NF");//temp
             priorityList = new PriorityList();
         }
-
         try {
             contactList = new ContactList(contactStorage.read());
         } catch (IOException e) {
             ui.showLoadingError();
+            ui.showErrorMsg("Contact List NF");//temp
             contactList = new ContactList();
+        }
+        try {
+            budgetList = new BudgetList(budgetStorage.read());
+            System.out.println(budgetList);
+        } catch (IOException e) {
+            ui.showLoadingError();
+            budgetList = new BudgetList();
+            budgetList.addToBudget(0);
         }
     }
 
@@ -89,7 +105,7 @@ public class Duke {
      * @throws Exception  If there is an error reading the command.
      */
     public Command getCommand(String sentence) throws Exception {
-        Command cmd = Parser.parse(sentence, items);
+        Command cmd = Parser.parse(sentence, items, budgetList);
         return cmd;
     }
 
@@ -137,9 +153,10 @@ public class Duke {
             sentence = ui.readCommand();
             ui.showLine(); //Please do not remove!
             try {
-                Command cmd = Parser.parse(sentence, items);
+                Command cmd = Parser.parse(sentence, items, budgetList);
                 if (cmd instanceof ExitCommand) {
                     priorityStorage.write(priorityList);
+                    budgetStorage.write(budgetList);
                     cmd.executeStorage(items, ui, storage);
                     break;
                 } else if (cmd instanceof ListPriorityCommand
@@ -148,6 +165,11 @@ public class Duke {
                         || cmd instanceof SetPriorityCommand) {
                     cmd.execute(items, priorityList, ui);
                 } else if (cmd instanceof BackupCommand) {
+                    ui.showBeforeBackupMsg();
+                    priorityStorage.write(priorityList);
+                    budgetStorage.write(budgetList);
+                    contactStorage.write(contactList);
+                    storage.write(items);
                     cmd.executeStorage(items, ui, storage);
                 } else if (cmd instanceof AddContactsCommand) {
                     cmd.execute(items, contactList, ui);
@@ -171,6 +193,6 @@ public class Duke {
     }
 
     public static void main(String[] args) {
-        new Duke("data/duke.txt", "data/priority.txt","data/contacts.txt").run();
+        new Duke("data/duke.txt", "data/priority.txt", "data/budget.txt","data/contacts.txt").run();
     }
 }
