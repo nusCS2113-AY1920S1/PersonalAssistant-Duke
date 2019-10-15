@@ -134,7 +134,7 @@ public class Parser {
         }
 
         checkCommandValid();
-        currCommand.setSwitchVals(switchVals);
+        currCommand.setSwitchValMap(switchVals);
     }
 
     private void handleEmpty(char curr) throws DukeHelpException {
@@ -257,9 +257,11 @@ public class Parser {
 
     private void checkInputAllowed() throws DukeHelpException {
         if (currSwitch == null) {
-            if (currCommand.cmdArgLevel == ArgLevel.NONE) {
-                throw new DukeHelpException("This command should not have an argument!", currCommand);
-            } else if (currCommand.arg != null) {
+            if (currCommand.arg == null) {
+                if (currCommand.cmdArgLevel == ArgLevel.NONE) {
+                    throw new DukeHelpException("This command should not have an argument!", currCommand);
+                }
+            } else {
                 throw new DukeHelpException("Multiple arguments supplied! You already gave: " + currCommand.arg,
                         currCommand);
             }

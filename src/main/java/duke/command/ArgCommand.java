@@ -11,11 +11,12 @@ import java.util.Map;
  */
 public abstract class ArgCommand extends Command {
 
-    protected static ArgLevel cmdArgLevel; //whether or not the command itself is required to have an argument
-    protected static String arg = null; //argument supplied to the command
+    // TODO: replace with getters and setters
     protected static String emptyArgMsg; //error message if the argument is empty
-    protected static HashMap<String, String> switchVals = new HashMap<String, String>(); //hashmap of switch parameters
-    protected static Map<String, ArgLevel> switches; //list of recognised switches
+    protected static ArgLevel cmdArgLevel; //whether or not the command itself is required to have an argument
+    protected static Map<String, ArgLevel> switches; //list of recognised switches, and their argument requirements
+    private String arg = null; //argument supplied to the command
+    private HashMap<String, String> switchVals = new HashMap<String, String>(); //hashmap of switch parameters
 
     @Override
     public void execute(DukeCore core) throws DukeException {
@@ -32,7 +33,7 @@ public abstract class ArgCommand extends Command {
         return switches;
     }
 
-    void setSwitchVals(HashMap<String, String> switchVals) {
+    void setSwitchValMap(HashMap<String, String> switchVals) {
         this.switchVals.putAll(switchVals);
     }
 }
