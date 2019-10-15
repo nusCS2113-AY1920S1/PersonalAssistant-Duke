@@ -1,6 +1,6 @@
 package payment;
 
-public enum Field {
+enum Field {
     PAYEE,
     EMAIL,
     MATRIC,
