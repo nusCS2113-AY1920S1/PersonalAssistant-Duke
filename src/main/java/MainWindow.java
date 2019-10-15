@@ -19,7 +19,7 @@ public class MainWindow extends AnchorPane {
     @FXML
     private Button sendButton;
 
-    private Duke duke;
+    private MooMoo moomoo;
 
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
     private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
@@ -29,8 +29,8 @@ public class MainWindow extends AnchorPane {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
     }
 
-    public void setDuke(Duke d) {
-        duke = d;
+    public void setMoomoo(MooMoo d) {
+        moomoo = d;
     }
 
     @FXML
@@ -39,10 +39,26 @@ public class MainWindow extends AnchorPane {
      */
     private void handleUserInput() throws InterruptedException {
         String input = userInput.getText();
-        String response = duke.getResponse(input);
+        String response = moomoo.getResponse(input);
+        String[] splitArray = response.split("\n");
+        String newResponse = "";
+        for (String element : splitArray) {
+            if (element.length() > 80) {
+                for (int i = 0; i < element.length(); ++i) {
+                    if (i > 0 && i % 80 == 0) {
+                        newResponse += "\n";
+                    }
+                    newResponse += element.charAt(i);
+                }
+            } else {
+                newResponse += element;
+            }
+            newResponse += "\n";
+        }
+
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
-                DialogBox.getDukeDialog(response, dukeImage)
+                DialogBox.getDukeDialog(newResponse, dukeImage)
         );
         userInput.clear();
 

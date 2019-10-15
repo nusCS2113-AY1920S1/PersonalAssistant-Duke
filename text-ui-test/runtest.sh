@@ -20,7 +20,11 @@ then
 fi
 
 # run the program, feed commands from input.txt file and redirect the output to the ACTUAL.TXT
-java -classpath ../bin Duke < input.txt > ACTUAL.TXT
+<<<<<<< HEAD
+java -classpath ../bin moomoo < input.txt > ACTUAL.TXT
+=======
+java -classpath ../bin Moomoo < input.txt > ACTUAL.TXT
+>>>>>>> 522aec57a7cec42638b478af435fddc3c8b4064f
 
 # compare the output to the expected output
 diff ACTUAL.TXT EXPECTED.TXT
