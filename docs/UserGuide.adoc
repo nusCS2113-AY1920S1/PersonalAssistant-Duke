@@ -101,24 +101,25 @@ image::Ui.png[width="970"]
 endif::[]
 +
 . As this is your first time starting up this program, you have to create a profile by
-typing *`/add /profile /name USER_NAME `* and pressing kbd:[Enter]
+typing your *USER NAME* when prompted and pressing kbd:[Enter]
 . You can now try entering commands in the *command box* and press kbd:[Enter] to execute it! +
 e.g. try typing *`help`* and pressing kbd:[Enter] will list down the commands available.
 . Some example commands you can try:
-* **`/add`** `/savings /name JunBank Savings Account /amount 4719.90 /income 2000`
+* `/add /savings /name JunBank Savings Account /amount 4719.90 /income 2000`
 : adds a new `JunBank Savings Account`, which has an initial amount of $`4719.90` dollars.
-* **`/delete`** `/savings /name JunBank Savings Account`
+* `/delete /savings /name JunBank Savings Account`
 : deletes JunBank Savings Account
-* **`/list`** `/savings`
-: lists all bank accounts
-* **`/exit`**
-: exits the app
+* `/list /savings`
+: lists all savings accounts
+* `/exit`
+: exits *OwlMoney*
 
 .  Refer to, <<Features>> for details of each command.
 
 [[Features]]
 == Features
-In this section, the expected command format will be introduced, and you can expect to learn the various commands you can use.
+In this section, the expected command format will be introduced, and you can expect to learn the various
+commands you can use.
 [NOTE]
 ====
 Don't worry if you don't understand everything at once. +
@@ -128,7 +129,7 @@ There are plentiful examples provided to aid your understanding of the commands'
 *Command Format*
 
 * Words in `UPPER_CASE` are the parameters to be supplied by the user
-** e.g. in `/add /savings /name BANK_NAME`, `BANK_NAME` is a parameter
+** e.g. in `/add /savings /name ACCOUNT_NAME`, `ACCOUNT_NAME` is a parameter
 which can be used as:
 .. `/add /savings /name JunBank Savings Account /amount 218.90 /income 0`
 .. `/add /savings /name Standard Bank Investment Account /amount 123.45 /income 5678`
@@ -165,72 +166,84 @@ If you want to exit *OwlMoney*, you can enter `/exit` in the *command box*. +
 Hope you had a wonderful experience using *OwlMoney*. Do come back to manage your finances soon!
 
 === Detailed Management Commands
-In this section, you'll be introduced to commands that helps you to manage your account in *OwlMoney*.
+Financial management starts with managing your money!
+
+*OwlMoney* provides various detailed management commands that helps you to do just that!
+
+They include the management of various bank accounts like savings and investment accounts to recording expenditures
+and setting financial goals.
+
+==== Savings Account Management
+In this section, you'll be introduced to commands and parameters that helps you to manage your savings account and
+expenditures associated with it in *OwlMoney*.
 
 Below is a list of command parameters that you can expect to use for the commands in this section.
 [cols="18%,37%,45%"]
 |======
 |*Parameter*| *Description* | *Acceptable Range of Values*
-| `YOUR_NAME`
-| Indicates your name used in *OwlMoney*
-| `YOUR_NAME` should contain alphabetic characters and spaces. +
-Take note that there is a maximum 30 character limit.
-`YOUR_NAME` is case-insensitive.
-| `BANK_NAME`
-| Indicates the bank name of the bank account you are adding +
-(e.g. `JunBank Savings Account`).
-| `BANK_NAME` should contain alphabetic characters, spaces and dashes only
-`BANK_NAME` is case-insensitive. +
-Take note that there is a maximum 30 character limit.
-| `CARD_NAME`
-| Indicates the name of the credit card you have
-(e.g. `POBB Tomorrow Card`).
-| `CARD_NAME` should contain alphabetic characters, spaces and dashes only +
-Take note that there is a maximum 30 character limit.
-| `CATEGORY`
-| Indicates the category of spending +
-(e.g. `Entertainment`).
-| `CATEGORY` should contain alphabetic characters and spaces only.
+| `ACCOUNT_NAME`
+| Indicates the name of the savings bank account.
+
+(e.g. JunBank Savings Account)
+
+| `ACCOUNT_NAME` should contain alphabetic characters, numeric characters and spaces only.
+
+`ACCOUNT_NAME` is case-sensitive.
+
+Take note that there is a maximum of *30* character limit.
+
 | `AMOUNT`
-| Indicates the amount of money that you are adding or spending +
-(e.g. `2113.30`)
-| `AMOUNT` should contain only digits and up to 2 decimal places up to a maximum of 1 billion dollars
+| Indicates the amount of money.
+
+(e.g. 2113.30)
+
+| `AMOUNT` should contain only digits up to *2* decimal places and a maximum of *9* digits.
+
 | `INCOME`
-| Indicates the amount of money coming in per month from *any sources*
-| `INCOME` should contain only digits and up to 2 decimal places up to a maximum of 1 billion dollars
-| `INTEREST_RATE`
-| Indicates the bond's coupon interest annually
-| `INTEREST_RATE` should contain only digits and up to 2 decimal places up to a maximum of 100.00
-| `CASHBACK_RATE`
-| Indicates the cashback rate of the credit card
-| `CASHBACK_RATE` should contain only digits and up to 2 decimal places up to a maximum of 20.00
-| `CARD_LIMIT`
-| Indicates the credit limit of the credit card
-(e.g `3000`)
-| `CARD_LIMIT` should contain only digits and up to 2 decimal places up to a maximum of 200 000 dollars
-| `GOAL_NAME`
-| Indicates the name of the goal you are setting.
-| `GOAL_NAME` should contain alphabetic characters and spaces only. +
-Take note that there is a maximum 50 character limit.
-| `TARGET_AMOUNT`
-| Indicates the amount that you wish to achieve at the end of your goal.
-| `TARGET_AMOUNT` should contain only digits and up to 2 decimal places up to a maximum of 1 billion dollars
+| Indicates the amount of money coming in per month from any sources.
+
+(e.g. Salary, pocket money, scholarship allowance)
+
+| `INCOME` should contain only digits up to *2* decimal places and a maximum of *9* digits.
+
 | `DATE`
-| Indicates the date you wish to achieve your goal by.
-| `DATE` should be in `DD/MM/YYYY` format and can only be in the future
-| `DAYS`
-| Indicates the number of days you wish to achieve your goal by.
-| `DAYS` should contain digits up to 365 only.
+| Indicates the date the expenditure was made.
+
+(e.g. 2/2/2019)
+
+| `DATE` should be in *DD/MM/YYYY* format and cannot be a newer date than the current date.
+
+| `DESCRIPTION`
+| Indicates the description of the transaction.
+| `DESCRIPTION` should contain alphabetic characters, numeric characters and spaces only.
+
+Take note that there is a maximum of *50* character limit.
+
+| `TRANSACTION_NUMBER`
+| Indicates the transaction number in the list when displayed. It is used for editing or deleting expenditures.
+| `TRANSACTION_NUMBER` should contain positive numbers only up to a maximum of *9* digits.
+
+| `CATEGORY`
+| The category that the expenditure can be tagged to.
+
+(e.g. Dining)
+
+| `CATEGORY` should contain alphabetic characters and spaces only.
+
 |======
-==== /add `/add`
-===== `/savings`
+
+
+
+
+
+===== Adding savings bank account `/add /savings`
 Before you can add any *expenditures*, you will need to add a savings account first.
 It's easy to add a savings account! +
 Here's how you can use the `/add /savings` command.
 
 *Command Syntax*
 
-`/add /savings /name BANK_NAME /amount AMOUNT /income INCOME`
+`/add /savings /name ACCOUNT_NAME /amount AMOUNT /income INCOME`
 
 [WARNING]
 ====
@@ -247,130 +260,18 @@ Adds a savings account named `JunBank Savings Account` which has an initial amou
 of $`218.90` inside with a monthly income of `2000` automatically credited into the account
 every start of the month.
 
-===== `/investment`
-Want to start *investing* to grow your wealth? No problem!
-All you need to do is to add an investment account! +
-Here's how you can use the `/add /investment` command.
 
-*Command Syntax*
-
-`/add /investment /name BANK_NAME /amount AMOUNT`
-
-*Example*
-
-* `/add /investment /name DBB Vickers Account /amount 10000`
-
-Adds an investment account named `DBB Vickers Account` which has an initial amount
-of $`10000` inside that you can start investing with.
-
-===== `/bonds`
-Signed up for a bond? Finding it difficult to keep up with the interest?
-No worries! *OwlMoney* allows efficient tracking of your semi annual coupon interest!
-
-*Command Syntax*
-`/add /bonds /from BANK_NAME /name BOND_NAME /amount AMOUNT /rate RATE`
-
-[WARNING]
-====
-An investment account needs to be created first to add bonds.
-====
-
-*Example*
-
-* `/add /bonds /from DBB Vickers Account /name June SSB /amount 1000 /rate 1.92`
-
-Adds a bond named `June SSB` charged to `DBB Vickers Account` at $`1000` with interest rate of `1.92`%/
-
-===== `/card`
-Have a credit card? We can help you track your spending and cashback rebates with it! +
-Here's how you can use the `/add /card` command.
-
-*Command Syntax*
-
-`/add /card /name CARD_NAME /amount CARD_LIMIT /rebate CASHBACK_RATE`
-
-*Example*
-
-* `/add /card /name POBB Tomorrow Card /amount 10000 /rebate 1.5`
-
-Adds a credit card named `POBB Tomorrow Card` which has a credit limit of $`10 000` and
-cashback rate of `1.5`%
-
-===== `/goals`
-
-Have financial goals that you want to achieve? We can certainly help you with that!
-Regardless of it being short term goals like saving for a holiday or long term goals
-like saving for your wedding or retirement, we got you covered!
-
-*Command Syntax*
-
-`/add /goals /name GOAL_NAME /amount TARGET_AMOUNT /by DATE`
-
-`/add /goals /name GOAL_NAME /amount TARGET_AMOUNT /in DAYS`
-
-*Example*
-
-* `/add /goals /name Delicious Dinner at WAA COW /amount 50 /in 15`
-
-Adds a goal named `Delicious Dinner at WAA COW` which aims to save $`50` in `15` days.
-
-* `/add /goals /name BTO at Punggol Downpayment /amount 200000 /by 10/10/2020`
-
-Adds a goal named `BTO at Punggol Downpayment` which aims to save $`20000` by `10/10/2020`.
-
-===== `/expenditure`
-
-Spending is a daily affair and it is difficult to keep track of so many of them. Fret not!
-`OwlMoney` allows you to keep track of your spending and categorise them as well!
-
-*Command Syntax*
-
-`/add /expenditure /amount AMOUNT /from BANK_NAME /date DATE /description DESCRIPTION [/category CATEGORY]`
-
-*Example*
-
-`/add /expenditure /amount 1.20 /from JunBank Savings Account /date 28/09/2019 /description bubble tea /category Dining`
-
-Adds an expenditure that deducts from `JunBank Savings Account` dated on `28/09/2019` that costs $`1.20` with
-the description of `bubble tea` and category of `Dining`.
-
-===== `/recurexpenditure`
-
-Postpaid mobile plan bills that are consistent monthly? We can save you the hassle from adding them every month!
-
-*Command Syntax*
-
-`/add /recurexpenditure /amount AMOUNT /from BANK_NAME /frequency MONTH/WEEK/YEAR /description DESCRIPTION [/category
- CATEGORY]`
-
-*Example*
-
-`/add /recurexpenditure /amount 72.90 /from JunBank Savings Account /frequency week /description Telco Bills /category
-Bills`
-
-Adds a recurring expenditure that deducts $`72.90` every `week` days to pay `Telco Bills` charged to `JunBank Savings
-Account`
-categorised under the `Bills` category.
-
-`/add /recurexpenditure /amount 2000 /from DBB Vickers Account /frequency month /description AAB Bonds /category
-Investments`
-
-Adds a recurring expenditure that deducts $`2000` every `month` days to buy `AAB Bonds` charged to `DBB Vickers
-Account`
-categorised under the `Investments` category.
-
-==== /edit `/edit`
-===== `/savings`
+===== Editing savings bank account `/edit /savings`
 
 Changes made to your savings account? Reflect them on *OwlMoney* as well!
 
 *Command Syntax*
 
-`/edit /savings /name BANK_NAME [/newname BANK_NAME] [/amount AMOUNT] [/income INCOME]`
+`/edit /savings /name ACCOUNT_NAME [/newname ACCOUNT_NAME] [/amount AMOUNT] [/income INCOME]`
 
 [WARNING]
 ====
-At least one of /newname, /amount or /income must be used.
+At least one of `/newname`, `/amount` or `/income` must be used.
 ====
 
 *Example*
@@ -400,17 +301,248 @@ Edits `JunBank Savings Account` by setting the new amount in the account to $`20
 
 Edits `JunBank Savings Account` by setting the income to $`5000`.
 
-===== `/investment`
+===== Deleting savings bank account `/delete /savings`
+Closed your savings bank account? You can reflect it on `OwlMoney` as well!
+
+*Command Syntax*
+
+`/delete /savings /name ACCOUNT_NAME`
+
+[WARNING]
+====
+All transactions related to the bank account will be deleted.
+====
+
+*Example*
+
+* `/delete /savings /name JunBank Savings Account`
+
+Deletes a savings account named `JunBank Savings Account`.
+
+===== Adding expenditures for savings bank account `/add /bankexpenditure`
+
+Spending is a daily affair and it is difficult to keep track of so many of them. Fret not!
+`OwlMoney` allows you to keep track of your spending and categorise them as well!
+
+*Command Syntax*
+
+`/add /bankexpenditure /amount AMOUNT /from ACCOUNT_NAME /date DATE /desc DESCRIPTION [/category CATEGORY]`
+
+[WARNING]
+====
+An expenditure cannot be added to an investment bank account.
+====
+
+*Example*
+
+* `/add /bankexpenditure /amount 1.20 /from JunBank Savings Account /date 28/09/2019 /description bubble tea /category
+Dining`
+
+Adds an expenditure that deducts from `JunBank Savings Account` dated on `28/09/2019` that costs $`1.20` with
+the description of `bubble tea` and category of `Dining`.
+
+===== Editing expenditures for savings bank account `/edit /bankexpenditure`
+
+Spent lesser than you initially recorded? You can edit them here!
+
+*Command Syntax*
+
+`/edit /bankexpenditure /from ACCOUNT_NAME /transno TRANSACTION_NUMBER [/desc DESCRIPTION] [/category CATEGORY] [/amount
+AMOUNT] [/date DATE]`
+
+[WARNING]
+====
+At least one of `/desc`, `/category`, `/amount`, `/date` must be used.
+====
+
+[TIP]
+====
+To find out which transaction to edit, use the `/list` or `/find` function to find `/transno`
+====
+
+*Example*
+
+* `/edit /bankexpenditure /from JunBank Savings Account /transno 2 /desc Uniwlo Shirt`
+
+Changes expenditure `2` that was charged to `JunBank Savings Account` to a new description of `Uniwlo Shirt`.
+
+* `/edit /bankexpenditure /from JunBank Savings Account /transno 4 /category miscellaneous`
+
+Changes expenditure `4` that was charged to `JunBank Savings Account` to a new category of `miscellaneous`.
+
+* `/edit /bankexpenditure /from JunBank Savings Account /transno 5 /amount 3.50`
+
+Changes expenditure `5` that was charged to `JunBank Savings Account` to a amount of $`3.50`.
+
+===== Deleting expenditures for savings bank account `/delete /bankexpenditure`
+
+Accidentally added a transaction that did not happen? You can delete it!
+
+*Command Syntax*
+
+`/delete /bankexpenditure /from ACCOUNT_NAME /transno TRANSACTION_NUMBER`
+
+[TIP]
+====
+To find out which expenditure to delete, use the `/list` or `/find` function to find the expenditure number.
+====
+
+*Example*
+
+* `/delete /expenditure /from /JunBank Savings Account /transno 1`
+
+Deletes an expenditure from `JunBank Savings Account with transaction number` `1`.
+
+===== Adding deposit to savings bank account `/add /deposit`
+
+Saved up some spare cash to deposit into your bank account? Record them here!
+
+*Command Syntax*
+
+`/add /deposit /to ACCOUNT_NAME /amount AMOUNT /desc DESCRIPTION /date DATE`
+
+*Example*
+
+* `/add /deposit /to JunBank Savings Account /amount 300 /description FREELANCE WORK /date 10/10/2019`
+
+Deposits $`300` earned from `FREELANCE WORK` work into `JunBank Savings Account`.
+
+===== Editing deposit details for savings bank account `/edit /deposit`
+
+Accidentally added more zeroes than expected when entering your deposit? Edit them here!
+
+*Command Syntax*
+
+`/edit /deposit /from ACCOUNT_NAME /transno TRANSACTION_NUMBER [/desc DESCRIPTION] [/amount AMOUNT] [/date DATE]`
+
+[WARNING]
+====
+At least one of `/desc`, `/amount`, `/date` must be used.
+====
+
+[TIP]
+====
+To find which to deposit to edit, use the `/list` or `/find` function to find the transaction number.
+====
+
+*Example*
+
+* `/edit /deposit /from JunBank Savings Account /transno 11 /desc FREELANCE WORK /amount 270 /date 29/11/2019`
+
+Changes the `deposit` with transaction number `11` deposited to `JunBank Savings Account` to a new description of
+`FREELANCE WORK`, new amount of $`270` and a new date of `29/11/2019`
+
+* `/edit /deposit /from JunBank Savings Account /transno 11 /amount 5001`
+
+Changes the `deposit` with transaction number `11` deposited to `JunBank Savings Account` to a new amount of $`500`.
+
+===== Deleting deposit for savings bank account `/delete /deposit`
+
+Accidentally added a deposit which you have not done? You can delete it here!
+
+*Command Syntax*
+
+`/delete /deposit /from ACCOUNT_NAME /transno TRANSACTION_NUMBER`
+
+[TIP]
+====
+To find out which recurring expenditure to delete, use the `/list` or `/find` function to find the description.
+====
+
+*Example*
+
+* `/edit /deposit /from JunBank Savings Account /transno 11`
+
+Deletes a `deposit` with transaction number `11` from `JunBank Savings Account`.
+
+==== Investment Account Management
+In this section, you'll be introduced to commands and parameters that helps you to manage your investment account
+and bonds that you can track in *OwlMoney*.
+
+Below is a list of command parameters that you can expect to use for the commands in this section.
+[cols="18%,37%,45%"]
+|======
+|*Parameter*| *Description* | *Acceptable Range of Values*
+| `ACCOUNT_NAME`
+| Indicates the name of the investment bank account.
+
+(e.g. DBB Vickers Account)
+
+| `ACCOUNT_NAME` should contain alphabetic characters, numeric characters and spaces only.
+
+`ACCOUNT_NAME` is case-sensitive.
+
+Take note that there is a maximum of *30* character limit.
+
+| `AMOUNT`
+| Indicates the amount of money.
+
+(e.g. 2113.30)
+
+| `AMOUNT` should contain only digits up to *2* decimal places and a maximum of *9* digits.
+
+| `BOND_NAME`
+| Indicates the name of the investment bond purchased.
+
+(e.g. June SSB)
+
+| `BOND_NAME` should contain alphabetic characters, numeric characters and spaces only.
+
+`BOND_NAME` is case-sensitive.
+
+Take note that there is a maximum of *30* character limit.
+
+| `BOND_RATE`
+| Indicates the coupon rate of the investment bond.
+
+(e.g. 1.92)
+
+| `BOND_RATE` should contain only digits up to *2* decimal places with a maximum of *99.99%*.
+
+| `DATE`
+| Indicates the date the bond was purchased.
+
+(e.g. 2/2/2019)
+
+| `DATE` should be in *DD/MM/YYYY* format and cannot be a newer date than the current date.
+
+| `YEARS`
+| Indicates the number of years the investment bond lasts.
+| `YEARS` should contain only digits from *1* to *9*.
+
+|======
+
+
+
+
+
+===== Adding investment bank account `/add /investment`
+Want to start *investing* to grow your wealth? No problem!
+All you need to do is to add an investment account! +
+Here's how you can use the `/add /investment` command.
+
+*Command Syntax*
+
+`/add /investment /name ACCOUNT_NAME /amount AMOUNT`
+
+*Example*
+
+* `/add /investment /name DBB Vickers Account /amount 10000`
+
+Adds an investment account named `DBB Vickers Account` which has an initial amount
+of $`10000` inside that you can start investing with.
+
+===== Editing investment bank account `/edit /investment`
 
 Want changes made to your investment account? Here is how you can do it!
 
 *Command Syntax*
 
-`/edit /investment /name BANK_NAME [/newname BANK_NAME] [/amount AMOUNT]`
+`/edit /investment /name ACCOUNT_NAME [/newname ACCOUNT_NAME] [/amount AMOUNT]`
 
 [WARNING]
 ====
-At least one of /newname, /amount must be used.
+At least one of `/newname`, `/amount` must be used.
 ====
 
 *Example*
@@ -428,11 +560,50 @@ Changes the amount in `DBB Vickers Account` to $`50 000`.
 Changes the name of the account from `DBB Vickers Account` to `OBOB Securities Account` and the amount in the account
 to $`50 000`.
 
-===== `/bonds`
+===== Deleting investment bank Account `/delete /investment`
+You can also close your investment bank account on `OwlMoney` as well!
+
+*Command Syntax*
+
+`/delete /investment /name ACCOUNT_NAME`
+
+[WARNING]
+====
+All transactions related to the bank account will be deleted.
+====
+
+*Example*
+
+* `/delete /investment /name DBB Vickers Account`
+
+Deletes an investment account named `DBB Vickers Account`.
+
+===== Adding investment bonds `/add /bonds`
+Signed up for a bond? Finding it difficult to keep up with the interest?
+No worries! *OwlMoney* allows efficient tracking of your semi annual coupon interest!
+
+*Command Syntax*
+`/add /bonds /from ACCOUNT_NAME /name BOND_NAME /amount AMOUNT /rate BOND_RATE /date DATE /years YEARS`
+
+[WARNING]
+====
+An investment account needs to be created first to add bonds.
+
+Bonds can only be added to investment accounts.
+====
+
+*Example*
+
+* `/add /bonds /from DBB Vickers Account /name June SSB /amount 1000 /rate 1.92`
+
+Adds a bond named `June SSB` charged to `DBB Vickers Account` at $`1000` with interest rate of `1.92`% bought on
+`1/1/2019` for a period of `1` year(s).
+
+===== Editing Bond details `/edit /bonds`
 Change in your investment details? Edit them here!
 
 *Command Syntax*
-`/edit /bonds /from BANK_NAME /name BOND_NAME [/newname BOND_NAME] [/amount AMOUNT] [/rate RATE]`
+`/edit /bonds /from ACCOUNT_NAME /name BOND_NAME [/newname BOND_NAME] [/amount AMOUNT] [/rate BOND_RATE]`
 
 *Example*
 
@@ -441,17 +612,119 @@ Change in your investment details? Edit them here!
 Changes the bond named `June SSB` charged to `DBB Vickers Account` to a new amount of $`5000` with new interest rate
 of `1.98`%.
 
-===== `/card`
+===== Deleting bonds `/delete /bonds`
+Sold your bonds? Delete it from *OwlMoney*!
+
+*Command Syntax*
+`/delete /bonds /from ACCOUNT_NAME /name BOND_NAME`
+
+*Example*
+
+* `/delete /bonds /from DBB Vickers Account /name June SSB`
+
+Deletes the bond named `June SSB` charged to `DBB Vickers Account`.
+
+==== Credit Card Management
+In this section, you'll be introduced to commands and parameters that helps you to manage your credit cards and
+expenditures associated with it in *OwlMoney*.
+
+Below is a list of command parameters that you can expect to use for the commands in this section.
+[cols="18%,37%,45%"]
+|======
+|*Parameter*| *Description* | *Acceptable Range of Values*
+| `CARD_NAME`
+| Indicates the name of the credit card.
+
+(e.g. POBB Everyday Card)
+
+| `CARD_NAME` should contain alphabetic characters, numeric characters and spaces only.
+
+`CARD_NAME` is case-sensitive.
+
+Take note that there is a maximum of *30* character limit.
+
+| `CARD_LIMIT`
+| Indicates the credit limit of the credit card.
+
+(e.g. 5000.00)
+
+| `CARD_LIMIT` should contain only digits and up to *2* decimal places and a maximum of *9* digits.
+
+| `CASHBACK_RATE`
+| Indicates the cash back returns rate of the credit card.
+
+(e.g. 3.1)
+
+| `CASHBACK_RATE` should contain only digits and up to 2 decimal places up to a maximum of *20%*
+
+| `AMOUNT`
+| Indicates the amount of money.
+
+(e.g. 2113.30)
+
+| `AMOUNT` should contain only digits up to *2* decimal places and a maximum of *9* digits.
+
+| `DATE`
+| Indicates the date the expenditure was made.
+
+(e.g. 2/2/2019)
+
+| `DATE` should be in *DD/MM/YYYY* format and cannot be a newer date than the current date.
+
+| `DESCRIPTION`
+| Indicates the description of the transaction.
+| `DESCRIPTION` should contain alphabetic characters, numeric characters and spaces only.
+
+Take note that there is a maximum of *50* character limit.
+
+| `CATEGORY`
+| The category that the expenditure can be tagged to.
+
+(e.g. Dining)
+
+| `CATEGORY` should contain alphabetic characters and spaces only.
+
+| `TRANSACTION_NUMBER`
+| Indicates the transaction number in the list when displayed. It is used for editing or deleting expenditures.
+| `TRANSACTION_NUMBER` should contain positive numbers only up to a maximum of *9* digits.
+
+|======
+
+
+
+
+
+===== Adding credit card `/add /card`
+Have a credit card? We can help you track your spending and cashback rebates with it! +
+Here's how you can use the `/add /card` command.
+
+*Command Syntax*
+
+`/add /card /name CARD_NAME /limit CARD_LIMIT /rebate CASHBACK_RATE`
+
+[WARNING]
+====
+*OwlMoney* only supports card with credit limit in lieu of encouraging you to spend less!
+====
+
+*Example*
+
+* `/add /card /name POBB Tomorrow Card /limit 10000 /rebate 1.5`
+
+Adds a credit card named `POBB Tomorrow Card` which has a credit limit of $`10 000` and
+cashback rate of `1.5`%
+
+===== Editing credit card `/edit /card`
 
 Change in your credit card rebates rate? You can change them here as well!
 
 *Command Syntax*
 
-`/edit /card /name CARD_NAME [/newname BANK_NAME] [/amount AMOUNT] [/rebate REBATE]`
+`/edit /card /name CARD_NAME [/newname CARD_NAME] [/amount AMOUNT] [/rebate CASHBACK_RATE]`
 
 [WARNING]
 ====
-At least one of /newname, /amount or /rebate must be used.
+At least one of `/newname`, `/amount` or `/rebate` must be used.
 ====
 
 *Example*
@@ -468,131 +741,7 @@ Changes the credit limit of `POBB Tomorrow Card` to $`10 000`.
 
 Changes the cashback rate of `POBB Tomorrow Card` to `2.05`%.
 
-===== `/goals`
-
-Changing your life goals? We can certainly help you with that!
-
-*Command Syntax*
-
-`/edit /goals /name GOAL_NAME [/newname GOAL_NAME] [/amount AMOUNT] [/in DAYS] [/by DATE]`
-
-[WARNING]
-====
-At least one of /newname, /amount, /in or /by must be used.
-
-/in and /by cannot be used together at the same time
-====
-
-*Example*
-
-* `/edit /goals /name BTO at Punggol Downpayment /newname BTO at Tampines Downpayment`
-
-Changes the name of the goals from `BTO at Punggol Downpayment` to `BTO at Tampines Downpayment`.
-
-* `/edit /goals /name BTO at Punggol Downpayment /amount 27500`
-
-Changes the goals of `BTO at Punggol Downpayment` amount to $`27500`.
-
-* `/edit /goals /name BTO at Punggol Downpayment /by 11/11/2021`
-
-Changes the goals of `BTO at Punggol Downpayment` to a new date of `11/11/2021`.
-
-===== `/expenditure`
-
-Spent lesser than you initially recorded? You can edit them here!
-
-*Command Syntax*
-
-`/edit /expenditure /from BANK_NAME /expno EXPENDITURE_NUMBER [/desc DESCRIPTION] [/category CATEGORY] [/amount
-AMOUNT] [/date DATE]`
-
-[WARNING]
-====
-At least one of /desc, /category, /amount, /date must be used.
-====
-
-*Example*
-
-* `/edit /expenditure /from JunBank Savings Account /expno 2 /desc Uniwlo Shirt`
-
-Changes expenditure `2` that was charged to `JunBank Savings Account` to a new description of `Uniwlo Shirt`.
-
-* `/edit /expenditure /from JunBank Savings Account /expno 4 /category miscellaneous`
-
-Changes expenditure `4` that was charged to `JunBank Savings Account` to a new category of `miscellaneous`.
-
-* `/edit /expenditure /from JunBank Savings Account /expno 5 /amount 3.50`
-
-Changes expenditure `5` that was charged to `JunBank Savings Account` to a amount of $`3.50`.
-
-===== `/recurexpenditure`
-
-*Command Syntax*
-
-`/edit /recurexpenditure /from BANK_NAME /desc DESCRIPTION [/category CATEGORY] [/amount
-AMOUNT] [/frequency MONTH/WEEK/YEAR]`
-
-[WARNING]
-====
-At least one of /category, /amount, /frequency must be used.
-====
-
-*Example*
-
-* `/edit /recurexpenditure /from JunBank Savings Account /desc Telco Bills /amount 119.90`
-
-Changes the recurring expenditure named `Telco Bills` to charge $`119.90`.
-
-==== /delete `/delete`
-===== `/savings`
-Closed your savings bank account? You can reflect it on `OwlMoney` as well!
-
-*Command Syntax*
-
-`/delete /savings /name BANK_NAME`
-
-[WARNING]
-====
-All transactions related to the bank account will be deleted.
-====
-
-*Example*
-
-* `/delete /savings /name JunBank Savings Account`
-
-Deletes a savings account named `JunBank Savings Account`.
-
-===== `/investment`
-You can also close your investment bank account on `OwlMoney` as well!
-
-*Command Syntax*
-
-`/delete /investment /name BANK_NAME`
-
-[WARNING]
-====
-All transactions related to the bank account will be deleted.
-====
-
-*Example*
-
-* `/delete /investment /name DBB Vickers Account`
-
-Deletes an investment account named `DBB Vickers Account`.
-
-===== `/bonds`
-Sold your bonds? Delete it from `OwlMoney`!
-
-*Command Syntax*
-`/delete /bonds /from BANK_NAME /name BOND_NAME`
-
-*Example*
-
-* `/delete /bonds /from DBB Vickers Account /name June SSB`
-
-Deletes the bond named `June SSB` charged to `DBB Vickers Account`.
-
-===== `/card`
+===== Deleting credit card `/delete /card`
 
 Cancelled your credit card as well, you can delete them here too!
 
@@ -611,7 +760,164 @@ All transactions related to the credit card will be deleted.
 
 Deletes a credit card named `POBB Tomorrow Card`.
 
-===== `/goals`
+===== Adding expenditures for credit cards `/add /cardexpenditure`
+
+Charged an expenditure to your credit card to earn cash back rebates? You can record them here!
+
+*Command Syntax*
+
+`/add /cardexpenditure /amount AMOUNT /from CARD_NAME /date DATE /desc DESCRIPTION [/category CATEGORY]`
+
+*Example*
+
+* `/add /cardexpenditure /amount 1.20 /from MYCARD /date 28/09/2019 /desc bubble tea /category Dining`
+
+Adds an expenditure that charged to `MYCARD` dated on `28/09/2019` that costs `$1.20` with the description of `bubble
+tea` and category of `Dining`.
+
+===== Editing expenditures for credit cards `/edit /cardexpenditure`
+
+Charged more expenditure to your card than you initially recorded? You can edit them here!
+
+*Command Syntax*
+
+`/edit /cardexpenditure /from CARD_NAME /transno TRANSACTION_NUMBER [/desc DESCRIPTION] [/category CATEGORY] [/amount
+AMOUNT] [/date DATE]`
+
+[WARNING]
+====
+At least one of `/desc`, `/category`, `/amount`, `/date` must be used.
+====
+
+[TIP]
+====
+To find out which transaction to edit, use the `/list` or `/find` function to find `/transno`
+====
+
+*Example*
+
+* `/edit /cardexpenditure /from MYCARD /transno 2 /desc Uniwlo Shirt`
+
+Changes expenditure `2` that was charged to `MYCARD` to a new description of `Uniwlo Shirt`.
+
+* `/edit /cardexpenditure /from MYCARD /transno 5 /amount 3.50`
+
+Changes expenditure `5` that was charged to `MYCARD` to an amount of $`3.50`
+
+===== Deleting expenditures for credit cards `/cardexpenditure`
+
+Accidentally added a transaction that did not happen? You can delete it!
+
+*Command Syntax*
+
+`/delete /cardexpenditure /from CARD_NAME /transno TRANSACTION_NUMBER`
+
+[TIP]
+====
+To find out which expenditure to delete, use the `/list` or `/find` function to find the expenditure number.
+====
+
+*Example*
+
+* `/delete /cardexpenditure /from /MYCARD /transno 1`
+
+Deletes an expenditure from `MYCARD` with transaction number `1`.
+
+==== Financial Goal Management
+In this section, you'll be introduced to commands and parameters that helps you to create financial goals to
+achieve your short and long term goals in *OwlMoney*.
+
+Below is a list of command parameters that you can expect to use for the commands in this section.
+[cols="18%,37%,45%"]
+|======
+|*Parameter*| *Description* | *Acceptable Range of Values*
+| `GOAL_NAME`
+| Indicates the name of the goal you are setting.
+
+(e.g. Punggol BTO down payment)
+
+| `GOAL_NAME` should contain alphabetic characters, numeric characters and spaces only.
+
+`GOAL_NAME` is case-sensitive.
+
+Take note that there is a maximum of *30* character limit.
+
+| `TARGET_AMOUNT`
+| Indicates the amount of money.
+
+(e.g. 35000.00)
+
+| `TARGET_AMOUNT` should contain only digits up to *2* decimal places and a maximum of *9* digits.
+
+| `DATE`
+| Indicates the date you wish to achieve your goal by.
+
+(e.g. 1/12/2022)
+
+| `DATE` should be in *DD/MM/YYYY* format and *MUST* be a newer date than the current date.
+
+| `DAYS`
+| Indicates the number of days you wish to achieve your goal by.
+| `DAYS` should contain digits up to *365* only.
+
+|======
+
+
+
+
+
+===== Adding financial goals `/add /goals`
+
+Have financial goals that you want to achieve? We can certainly help you with that!
+Regardless of it being short term goals like saving for a holiday or long term goals
+like saving for your wedding or retirement, we got you covered!
+
+*Command Syntax*
+
+`/add /goals /name GOAL_NAME /amount TARGET_AMOUNT /by DATE`
+
+`/add /goals /name GOAL_NAME /amount TARGET_AMOUNT /in DAYS`
+
+*Example*
+
+* `/add /goals /name Delicious Dinner at WAA COW /amount 50 /in 15`
+
+Adds a goal named `Delicious Dinner at WAA COW` which aims to save $`50` in `15` days.
+
+* `/add /goals /name BTO at Punggol Downpayment /amount 200000 /by 10/10/2020`
+
+Adds a goal named `BTO at Punggol Downpayment` which aims to save $`20000` by `10/10/2020`.
+
+===== Editing financial goals `/edit /goals`
+
+Changing your life goals? We can certainly help you with that!
+
+*Command Syntax*
+
+`/edit /goals /name GOAL_NAME [/newname GOAL_NAME] [/amount AMOUNT] [/in DAYS] [/by DATE]`
+
+[WARNING]
+====
+At least one of `/newname`, `/amount`, `/in` or `/by` must be used.
+
+`/in` and `/by` cannot be used together at the same time
+====
+
+*Example*
+
+* `/edit /goals /name BTO at Punggol Downpayment /newname BTO at Tampines Downpayment`
+
+Changes the name of the goals from `BTO at Punggol Downpayment` to `BTO at Tampines Downpayment`.
+
+* `/edit /goals /name BTO at Punggol Downpayment /amount 27500`
+
+Changes the goals of `BTO at Punggol Downpayment` amount to $`27500`.
+
+* `/edit /goals /name BTO at Punggol Downpayment /by 11/11/2021`
+
+Changes the goals of `BTO at Punggol Downpayment` to a new date of `11/11/2021`.
+
+===== Deleting financial goals `/delete /goals`
 
 Achieved your goals? You can safely delete them!
 
@@ -625,43 +931,20 @@ Achieved your goals? You can safely delete them!
 
 Deletes a goal named `BTO at Punggol Downpayment`.
 
-===== `/expenditure`
+==== Profile Management
+===== Edit Profile details `/edit /profile`
 
-Accidentally added a transaction that did not happen? You can delete it!
-
-*Command Syntax*
-
-`/delete /expenditure /from BANK_NAME /expno EXPENDITURE_NUMBER`
-
-[TIP]
-====
-To find out which expenditure to delete, use the /list or /find function to find the expenditure number.
-====
-
-*Example*
-
-* `/delete /expenditure /from /JunBank Savings Account /expno 1`
-
-Deletes an expenditure from `JunBank Savings Account with expenditure number` `1`.
-
-===== `/recurexpenditure`
-
-Cancelled your recurring bill? You can delete it!
+Thought of a new profile name? Change it now!
 
 *Command Syntax*
 
-`/delete /recurexpenditure /from BANK_NAME /desc DESCRIPTION`
-
-[TIP]
-====
-To find out which recurring expenditure to delete, use the /list or /find function to find the description.
-====
+`/edit /profile /newname NAME`
 
 *Example*
 
-* `/delete /recurexpenditure /from JunBank Savings Account /desc Telco Bills`
+`/edit /profile /newname JUNNY`
 
-Deletes a recurring expenditure from `JunBank Savings Account` with description `Telco Bills`.
+Changes the profile name to JUNNY
 
 === Utility Commands
 ==== /find `/find`
@@ -670,21 +953,21 @@ Searching for a transaction in the past? *OwlMoney* helps you by providing you v
 
 *Command Syntax*
 
-`/find /savings /name BANK_NAME [/description DESCRIPTION] [/category CATEGORY] [/from DATE /to DATE]`
+`/find /savings /name ACCOUNT_NAME [/desc DESCRIPTION] [/category CATEGORY] [/from DATE /to DATE]`
 
-`/find /investment /name BANK_NAME [/description DESCRIPTION] [/category CATEGORY] [/from DATE /to DATE]`
+`/find /investment /name ACCOUNT_NAME [/desc DESCRIPTION] [/category CATEGORY] [/from DATE /to DATE]`
 
-`/find /card /name BANK_NAME [/description DESCRIPTION] [/category CATEGORY] [/from DATE /to DATE]`
+`/find /card /name CARD_NAME [/desc DESCRIPTION] [/category CATEGORY] [/from DATE /to DATE]`
 
-`/find /bonds /name BANK_NAME [/description DESCRIPTION] [/category CATEGORY] [/from DATE /to DATE]`
+`/find /bonds /name BOND_NAME [/desc DESCRIPTION] [/category CATEGORY] [/from DATE /to DATE]`
 
 *Example*
 
-`/find /savings /name JunBank Savings Account /description bubble tea`
+`/find /savings /name JunBank Savings Account /desc bubble tea`
 
 Finds all transactions with the description `bubble tea` charged to `JunBank Savings Account`.
 
-`/find /savings /name JunBank Savings Account /description bubble tea /from 1/1/2019 /to 7/1/2019`
+`/find /savings /name JunBank Savings Account /desc bubble tea /from 1/1/2019 /to 7/1/2019`
 
 Finds all transactions with the description `bubble tea` charged to `JunBank Savings Account` between `1/1/2019`
 and `7/1/2019`.
@@ -697,24 +980,34 @@ Curious to find out your transactions for your accounts? Let us show you how it 
 
 `/list /savings`
 
-`/list /expenditure /from BANK_NAME [/num NUMBER]`
+`/list /card`
 
-`/list /bonds /from BANK_NAME [/num NUMBER]`
+`/list /bankexpenditure /from ACCOUNT_NAME [/num NUMBER]`
+
+`/list /bonds /from ACCOUNT_NAME [/num NUMBER]`
 
 `/list /expenditure /from CARD_NAME [/num NUMBER]`
 
+[TIP]
+====
+When `/num` is not specified, it is defaulted to 30 most recent records.
+====
 
 *Example*
 
 * `/list /savings`
 
-Lists all savings accounts
+Lists all savings accounts.
 
-* `/list /expenditure /from JunBank Savings Account /num 60`
+* `/list /investment`
+
+Lists all investment accounts.
+
+* `/list /bankexpenditure /from JunBank Savings Account /num 60`
 
 Lists the most recent 60 transactions linked to JunBank Savings Account.
 
-* `/list /expenditure /from POBB Tomorrow Card`
+* `/list /cardexpenditure /from POBB Tomorrow Card`
 
 Lists the most recent 30 transactions tied to the POBB Tomorrow Card.
 
@@ -724,9 +1017,9 @@ Transferred money between accounts? We can do that too.
 
 *Command Syntax*
 
-`/transfer /savings /from BANK_NAME /to BANK_NAME /amount AMOUNT`
+`/transfer /savings /from ACCOUNT_NAME /to ACCOUNT_NAME /amount AMOUNT`
 
-`/transfer /investment /from BANK_NAME /to BANK_NAME /amount AMOUNT`
+`/transfer /investment /from ACCOUNT_NAME /to ACCOUNT_NAME /amount AMOUNT`
 
 *Example*
 
@@ -738,9 +1031,76 @@ Transfers $`500` from `JunBank Savings Account` to `POBB Savings Account`.
 
 Transfers $`250` from `DBB Vickers Account` to `JunBank Savings Account`.
 
+==== Adding recurring expenditures `/add /recurexpenditure`
+
+Postpaid mobile plan bills that are consistent monthly? We can save you the hassle from adding them every month!
+
+*Command Syntax*
+
+`/add /recurexpenditure /amount AMOUNT /from ACCOUNT_NAME /frequency MONTH/WEEK/YEAR /desc DESCRIPTION [/category
+ CATEGORY]`
+
+*Example*
+
+`/add /recurexpenditure /amount 72.90 /from JunBank Savings Account /frequency week /desc Telco Bills /category
+Bills`
+
+Adds a recurring expenditure that deducts $`72.90` every `week` days to pay `Telco Bills` charged to `JunBank Savings
+Account`
+categorised under the `Bills` category.
+
+`/add /recurexpenditure /amount 2000 /from DBB Vickers Account /frequency month /desc AAB Bonds /category
+Investments`
+
+Adds a recurring expenditure that deducts $`2000` every `month` days to buy `AAB Bonds` charged to `DBB Vickers
+Account` categorised under the `Investments` category.
+
+==== Editing recurring expenditure `/edit /recurexpenditure`
+
+*Command Syntax*
+
+`/edit /recurexpenditure /from ACCOUNT_NAME /desc DESCRIPTION [/category CATEGORY] [/amount
+AMOUNT] [/frequency MONTH/WEEK/YEAR]`
+
+[WARNING]
+====
+At least one of `/category`, `/amount`, `/frequency` must be used.
+====
+
+*Example*
+
+* `/edit /recurexpenditure /from JunBank Savings Account /desc Telco Bills /amount 119.90`
+
+Changes the recurring expenditure named `Telco Bills` to charge $`119.90`.
+
+==== Deleting recurring expenditure `/delete /recurexpenditure`
+
+Cancelled your recurring bill? You can delete it!
+
+*Command Syntax*
+
+`/delete /recurexpenditure /from ACCOUNT_NAME /desc DESCRIPTION`
+
+[TIP]
+====
+To find out which recurring expenditure to delete, use the `/list` or `/find` function to find the description.
+====
+
+*Example*
+
+* `/delete /recurexpenditure /from JunBank Savings Account /desc Telco Bills`
+
+Deletes a recurring expenditure from `JunBank Savings Account` with description `Telco Bills`.
+
 == Future Enhancements `[coming in v2.0]`
 === Multi-Currency Support `/currency USD`
-=== Support for Stocks `/investment_type stocks`
+Multiple most currently used currencies will be supported in future releases. This will enable OwlMoney to support a
+wider range of users around the globe as well as to account for expenses made overseas, given the rise in online
+shopping.
+
+=== Support for Stocks `/stocks`
+Plans for stocks and options investment type will be supported in future releases. This will provide support for
+users who are more financially savvy in terms of growing their money with higher risk instruments.
 
 == FAQ
 *Q*: How do I save my data in the application? +
