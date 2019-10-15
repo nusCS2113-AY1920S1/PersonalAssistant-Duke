@@ -1,5 +1,6 @@
 package payment;
 
+import java.lang.reflect.GenericDeclaration;
 import java.util.*;
 
 /**
@@ -13,15 +14,44 @@ public class PaymentManager {
      * @param payee Payee of the item.
      * @return Payments object with payee name.
      */
-    public void findPayee(String payee, ArrayList<Payments> paymentslist){
-        //TODO
+    public void findPayee(String payee) {
+        for (Payments payment : ManagerMap.get(payee).payments) {
+            //TODO Output payment to UI
+        }
     }
 
     /**
      * Edits the Payments object details, may overload string to take different ways of inputs.
      */
-    public void editPayments(String payee){
-        //TODO
+    public void editPayee(String payee, String inv, Field field, String replace) {
+        if (inv.isEmpty()) {
+            if (field == Field.PAYEE) {
+                ManagerMap.get(payee).payee = replace;
+            } else if (field == Field.EMAIL) {
+                ManagerMap.get(payee).email = replace;
+            } else if (field == Field.MATRIC) {
+                ManagerMap.get(payee).matricNum = replace;
+            } else if (field == Field.PHONE) {
+                ManagerMap.get(payee).phoneNum = replace;
+            }
+        }
+        else {
+            for (Payments payment : ManagerMap.get(payee).payments) {
+                if (payment.inv.equals(inv)) {
+                    if (field == Field.ITEM) {
+                        payment.item = replace;
+                    }
+                    else if (field == Field.COST) {
+                        payment.cost = Double.parseDouble(replace);
+                    }
+                    else if (field == Field.INV) {
+                        payment.inv = replace;
+                    }
+                    break;
+                }
+                assert(false); //Invalid invoice number
+            }
+        }
     }
 
     /**
