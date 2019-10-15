@@ -1,6 +1,6 @@
 package java;
 
-import CustomExceptions.DukeException;
+import CustomExceptions.RoomShareException;
 import Model_Classes.Deadline;
 import Operations.Parser;
 import org.junit.jupiter.api.Test;
@@ -16,7 +16,7 @@ public class EventTest {
     static {
         try {
             by = parser.formatDate("22/12/2019 18:00");
-        } catch (DukeException e) {
+        } catch (RoomShareException e) {
             e.printStackTrace();
         }
     }

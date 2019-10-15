@@ -3,12 +3,12 @@ package Operations;
 import CustomExceptions.RoomShareException;
 import Enums.ExceptionType;
 import Enums.Priority;
-import Model_Classes.Task;
-import Model_Classes.ToDo;
+import Model_Classes.*;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.Date;
 
 import Enums.TimeUnit;
 
@@ -67,13 +67,12 @@ public class TaskList {
         if( tasks.size() != 0 ){
             int listCount = 1;
             for (Task output : tasks) {
-                System.out.println("    " + listCount + ". " + output.toString());
+                System.out.println("\t" + listCount + ". " + output.toString());
                 listCount += 1;
             }
         } else {
             throw new RoomShareException(ExceptionType.emptylist);
         }
-
     }
 
 
@@ -109,7 +108,7 @@ public class TaskList {
         int queryCount = 1;
         for (Task query : tasks) {
             if (query.toString().toLowerCase().contains(key.trim())) {
-                System.out.println("    " + queryCount + ". " + query.toString());
+                System.out.println("\t" + queryCount + ". " + query.toString());
             }
             queryCount += 1;
         }
@@ -208,4 +207,76 @@ public class TaskList {
         Collections.swap(tasks, first, second);
     }
 
+    public double listDone() throws RoomShareException {
+        if( tasks.size() != 0 ){
+            int listCount = 1;
+            double doneCount = 0.0;
+            for (Task output : tasks) {
+                if (output.getDone()) {
+                    System.out.println("\t" + listCount + ". " + output.toString());
+                    doneCount += 1.0;
+                }
+                listCount += 1;
+            }
+            return (doneCount/tasks.size()) * 100.0;
+        } else {
+            throw new RoomShareException(ExceptionType.emptylist);
+        }
+    }
+
+    public double listNotDone() throws RoomShareException {
+        if( tasks.size() != 0 ){
+            int listCount = 1;
+            double notDoneCount = 0.0;
+            for (Task output : tasks) {
+                if (!output.getDone()) {
+                    System.out.println("\t" + listCount + ". " + output.toString());
+                    notDoneCount += 1.0;
+                }
+                listCount += 1;
+            }
+            return (notDoneCount/tasks.size()) * 100.0;
+        } else {
+            throw new RoomShareException(ExceptionType.emptylist);
+        }
+    }
+
+    public int listUpcoming(String currentDate) throws RoomShareException {
+        if( tasks.size() != 0 ){
+            Parser parser = new Parser();
+            Date dateNow = parser.formatDate(currentDate);
+            int listCount = 1;
+            int upcomingCount = 0;
+            for (Task output : tasks) {
+                if (!(output instanceof ToDo)) {
+                    String date = new Storage().convertForStorage(output);
+                    date = date.substring(0, 16);
+                    Date storedDate = parser.formatDate(date);
+                    if (storedDate.compareTo(dateNow) > 0) {
+                        // the date the task should be done by has not passed the current date
+                        System.out.println("\t" + listCount + ". " + output.toString());
+                        upcomingCount += 1;
+                    }
+                }
+                listCount += 1;
+            }
+            return upcomingCount;
+        } else {
+            throw new RoomShareException(ExceptionType.emptylist);
+        }
+    }
+
+    public int listRecurringReport() {
+        int listCount = 1;
+        int recurringCount = 0;
+        for (Task output : tasks) {
+            if (output instanceof RecurringEvent || output instanceof RecurringDeadline
+                    || output instanceof RecurringToDo) {
+                System.out.println("\t" + listCount + ". " + output.toString());
+                recurringCount += 1;
+            }
+            listCount += 1;
+        }
+        return recurringCount;
+    }
 }

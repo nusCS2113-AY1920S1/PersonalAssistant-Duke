@@ -3,6 +3,7 @@ import Enums.*;
 import Model_Classes.*;
 import Modes.HelpMode;
 import Modes.RecurringMode;
+import Modes.ReportMode;
 import Operations.*;
 
 import java.util.ArrayList;
@@ -282,6 +283,11 @@ public class RoomShare {
                     int secondIndex = parser.getIndex();
                     ui.showReordering();
                     taskList.reorder(firstIndex, secondIndex);
+                    break;
+
+                case report:
+                    ReportMode reportMode= new ReportMode(taskList);
+                    reportMode.run();
                     break;
 
                 default:
