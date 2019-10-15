@@ -157,6 +157,6 @@ public class Ui {
     }
 
     public String showRecurring(String description, String startDate, String endDate) {
-        return description + " has been recurred between " + startDate + " and " + endDate + "\n";
+        return "Recurring task: " + description + " has been added between " + startDate + " and " + endDate + "\n";
     }
 }
