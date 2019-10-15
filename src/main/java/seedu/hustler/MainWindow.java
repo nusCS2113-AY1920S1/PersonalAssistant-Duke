@@ -55,7 +55,6 @@ public class MainWindow extends AnchorPane{
     @FXML
     private Button settings;
 
-
     @FXML
     private ImageView menu;
 
@@ -83,11 +82,6 @@ public class MainWindow extends AnchorPane{
 
 
     private Hustler hustler;
-
-    public MainWindow() {
-        achievement = new Button("Achievements");
-
-    }
 
     /**
      * Initializes essential components to run Hustler.
@@ -133,6 +127,14 @@ public class MainWindow extends AnchorPane{
         String input = userInput.getText();
         Hustler.run(input);
         userInput.clear();
+
+        String token[] = input.split(" ");
+
+        if(input.equals("achievement")) {
+            achievementAction();
+        } else if(token[0].equals("/add") || input.equals("list")) {
+            taskAction();
+        }
     }
 
     @FXML
