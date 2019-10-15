@@ -1,6 +1,8 @@
 package com.algosenpai.app.chapters;
 
 import com.algosenpai.app.Question;
+import com.algosenpai.app.model.ReviewTracingListModel;
+import com.algosenpai.app.model.ReviewTracingModel;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -12,13 +14,13 @@ public class ChapterSorting {
 
     private static Random random = new Random();
     private static Scanner s = new Scanner(System.in);
-
     /**
      * Generates the question by using a random number to determine which of the
      * sub-questions to ask.
      * 
      * @return A question class that contains the question and expected answer.
      */
+
     public static Question generateQuestions() {
         int questionType = random.nextInt(4);
         switch (questionType) {
@@ -54,8 +56,9 @@ public class ChapterSorting {
                 + "       for (j = i+1; j < n; j++) {\n" + "           if (arr[j] < arr[min_idx]) {\n"
                 + "               min_idx = j;\n" + "       }\n" + "       }\n" + "   if (min_idx != i) {"
                 + "       swap(arr[min_idx], arr[i]);\n" + "   }" + "}\n";
-        selectionSort(initialArray, swaps);
-        Question newQuestion = new Question(question, initialArray.toString());
+        ReviewTracingListModel rtlm = new ReviewTracingListModel();
+        selectionSort(initialArray, swaps, rtlm);
+        Question newQuestion = new Question(question, initialArray.toString(), rtlm);
         return newQuestion;
     }
 
@@ -77,8 +80,9 @@ public class ChapterSorting {
         question += "int i, key, j;\n" + "for (i = 1; i < n; i++) {\n" + "    key = arr[i];\n"
                 + "    j = i - 1;\n" + "    while (j >= 0 && arr[j] > key) {\n" + "        arr[j + 1] = arr[j];\n"
                 + "        j = j - 1;\n" + "    }\n" + "    arr[j + 1] = key;\n" + "} \n\n";
-        insertionSort(initialArray, swaps);
-        Question newQuestion = new Question(question, initialArray.toString());
+        ReviewTracingListModel rtlm = new ReviewTracingListModel();
+        insertionSort(initialArray, swaps, rtlm);
+        Question newQuestion = new Question(question, initialArray.toString(), rtlm);
         return newQuestion;
     }
 
@@ -118,7 +122,7 @@ public class ChapterSorting {
                 answer++;
             }
         }
-        Question newQuestion = new Question(question, Integer.toString(answer));
+        Question newQuestion = new Question(question, Integer.toString(answer), new ReviewTracingListModel());
         return newQuestion;
     }
 
@@ -126,7 +130,7 @@ public class ChapterSorting {
      * Generates the BubbleSort Algorithm question regarding the sequence of
      * integers after a certain number of passes. It determines a random array size,
      * then fills the array with unique numbers. A random number of passes is
-     * determined and the BubbleSort Algorithm stops midway. 
+     * determined and the BubbleSort Algorithm stops midway.
      * 
      * @return the question class with the question.
      */
@@ -140,18 +144,19 @@ public class ChapterSorting {
         question += "for (int i = 0; i < passes; i++) {\n"
                 + "   for (int j = 0; j < arr.size - 1 - i; j ++) {\n" + "       if (arr[j] > arr[j + 1]) {\n"
                 + "            swap (arr[j], arr[j+1]);\n" + "       }\n" + "   }\n" + "}\n\n";
-        bubbleSort(initialArray, passes);
-        Question newQuestion = new Question(question, initialArray.toString());
+        ReviewTracingListModel rtlm = new ReviewTracingListModel();
+        bubbleSort(initialArray, passes, rtlm);
+        Question newQuestion = new Question(question, initialArray.toString(), rtlm);
         return newQuestion;
     }
 
     /**
      * Conducts Selection Sort on the given ArrayList.
-     * 
      * @param arr   The ArrayList to be sorted.
      * @param swaps The number of swaps before the program terminates.
+     * @param rtlm  The steps taken in the solution
      */
-    private static void selectionSort(ArrayList<Integer> arr, int swaps) {
+    private static void selectionSort(ArrayList<Integer> arr, int swaps, ReviewTracingListModel rtlm) {
         int i;
         int j;
         int minIdx;
@@ -177,12 +182,11 @@ public class ChapterSorting {
 
     /**
      * Conducts Insertion Sort on the given ArrayList.
-     * 
-     * @param arr   The array to conduct the Insertion Sort algorithm on.
+     *  @param arr   The array to conduct the Insertion Sort algorithm on.
      * @param swaps The number of swaps to be performed before the algorithm
-     *              terminates.
+     * @param rtlm  The steps taken in the solution
      */
-    private static void insertionSort(ArrayList<Integer> arr, int swaps) {
+    private static void insertionSort(ArrayList<Integer> arr, int swaps, ReviewTracingListModel rtlm) {
         int i;
         int key;
         int j;
@@ -207,16 +211,18 @@ public class ChapterSorting {
 
     /**
      * Bubble Sorts the array.
-     * 
      * @param arr    The arraylist to be sorted.
      * @param passes The number of passes before the program gets terminated.
+     * @param rtlm   The steps taken in the solution
      */
-    private static void bubbleSort(ArrayList<Integer> arr, int passes) {
+    private static void bubbleSort(ArrayList<Integer> arr, int passes, ReviewTracingListModel rtlm) {
         for (int i = 0; i < passes; i++) {
             for (int j = 0; j < arr.size() - 1 - i; j++) {
                 int first = arr.get(j);
                 int second = arr.get(j + 1);
+                rtlm.addReviewTracingModel(new ReviewTracingModel(j, j + 1, "c"));
                 if (first > second) {
+                    rtlm.addReviewTracingModel(new ReviewTracingModel(j, j + 1, "s"));
                     int temp = first;
                     arr.set(j, second);
                     arr.set(j + 1, temp);
