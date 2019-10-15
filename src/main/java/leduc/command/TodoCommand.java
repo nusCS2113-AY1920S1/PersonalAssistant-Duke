@@ -5,7 +5,6 @@ import leduc.exception.FileException;
 import leduc.exception.PrioritizeLimitException;
 import leduc.storage.Storage;
 import leduc.Ui;
-import leduc.task.DeadlinesTask;
 import leduc.task.TaskList;
 import leduc.task.TodoTask;
 
@@ -56,9 +55,10 @@ public class TodoCommand extends Command {
             if (prioritySplit[0].isBlank()){
                 throw new EmptyTodoException();
             }
-            newTask = new TodoTask(prioritySplit[0],"[✗]",priority);
+            newTask = new TodoTask(prioritySplit[0],priority );
         }
         else { // The description of the todo task could contain "prio"
+            // For exmaple, "todo prio" create a todo task with description prio and priority 5
             if (userSubstring.isBlank()){
                 throw new EmptyTodoException();
             }
