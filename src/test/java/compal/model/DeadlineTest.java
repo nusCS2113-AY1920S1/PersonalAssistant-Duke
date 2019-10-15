@@ -144,6 +144,7 @@ class DeadlineTest {
     @Test
     void toStringTest() {
         assertEquals("\n" + "[D]" + "[" + "\u2718" + "] " + description
+                + " \nTask ID:0"
                 + " \nDate: " + date + " \nEnd Time: " + endTime
                 + " \nPriority: " + priority + "\n***************", deadline.toString());
     }
@@ -151,6 +152,8 @@ class DeadlineTest {
     @Test
     void getAllDetailsTest() {
         StringBuilder list = new StringBuilder();
+        list.append("0");
+        list.append("_");
         list.append("D");
         list.append("_");
         list.append(description);
