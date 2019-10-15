@@ -166,8 +166,8 @@ public class CLIView {
      * @param taskIndexNumber The index of the task to be deleted.
      */
     public void removeTask(IProject projectToManage, int taskIndexNumber) {
+        consolePrint("Removed " + projectToManage.getTask(taskIndexNumber).getTaskName());
         projectToManage.removeTask(taskIndexNumber);
-        consolePrint("Removed task with the index number " + taskIndexNumber);
     }
 
     /**
@@ -187,6 +187,19 @@ public class CLIView {
     public void viewAllTasks(IProject projectToManage) {
         ArrayList<String> allTaskDetails = projectToManage.getTasks().getAllTaskDetails();
         consolePrint(allTaskDetails.toArray(new String[0]));
+    }
+
+    /**
+     * Shows all the task that is assigned in the project.
+     * @param projectToManage The project specified by the user.
+     */
+    public void viewAssignedTask(IProject projectToManage) {
+        for (Task task: projectToManage.getTasks().getTaskList()) {
+            ArrayList<String> allAssignedTasks = new ArrayList<String>();
+            allAssignedTasks.add(task.getTaskName() + " is assigned to: ");
+            allAssignedTasks.addAll(task.getAssignedTasks().getAllMemberDetails());
+            consolePrint(allAssignedTasks.toArray(new String[0]));
+        }
     }
 
     /**
