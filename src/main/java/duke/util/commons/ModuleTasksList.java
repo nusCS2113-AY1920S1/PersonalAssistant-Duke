@@ -15,7 +15,7 @@ public class ModuleTasksList {
     /**
      * Task list where active tasks are stored.
      */
-    private List<ModuleInfoDetailed> tasks;
+    private List<ModuleTask> tasks;
 
     /**
      * Constructor for TaskList class.
@@ -30,21 +30,21 @@ public class ModuleTasksList {
      * @param input Parsed keyword of the task name to be searched.
      * @return Returns the taskList where each task contains the search keyword.
      */
-    public List<ModuleInfoDetailed> find(String input) {
-        List<ModuleInfoDetailed> temp = new ArrayList<>();
-        for (ModuleInfoDetailed hold : tasks) {
-            if (hold.getModuleCode().contains(input)) {
+    public List<ModuleTask> find(String input) {
+        List<ModuleTask> temp = new ArrayList<>();
+        for (ModuleTask hold : tasks) {
+            if (hold.getTask().contains(input)) {
                 temp.add(hold);
             }
         }
         return temp;
     }
 
-    public void setTasks(List<ModuleInfoDetailed> tasks) {
+    public void setTasks(List<ModuleTask> tasks) {
         this.tasks = tasks;
     }
 
-    public List<ModuleInfoDetailed> getTasks() {
+    public List<ModuleTask> getTasks() {
         return tasks;
     }
 

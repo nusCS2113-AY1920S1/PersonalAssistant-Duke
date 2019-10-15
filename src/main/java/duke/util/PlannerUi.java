@@ -36,7 +36,7 @@ public class PlannerUi {
      * Helper function to print any object.
      * @param mod to be printed.
      */
-    public void showObject(ModuleInfoDetailed mod) {
+    public void showObject(ModuleTask mod) {
         System.out.println(mod);
     }
 
@@ -44,7 +44,7 @@ public class PlannerUi {
      * Added Message for new mods.
      * @param mod Module Tasks to be added.
      */
-    public void addedMsg(ModuleInfoDetailed mod) {
+    public void addedMsg(ModuleTask mod) {
         System.out.println("Got it, added the follow module!");
         showObject(mod);
     }
@@ -53,7 +53,7 @@ public class PlannerUi {
      * Delete Message for new mods.
      * @param mod Module Tasks to be added.
      */
-    public void deleteMsg(ModuleInfoDetailed mod) {
+    public void deleteMsg(ModuleTask mod) {
         System.out.println("Got it, module will be deleted");
         showObject(mod);
     }

@@ -154,7 +154,7 @@ public class JsonWrapper {
      * @param tasksList List of module tasks.
      * @param store object which handles file storing.
      */
-    public void storeTaskListAsJson(List<ModuleInfoDetailed> tasksList, Storage store) {
+    public void storeTaskListAsJson(List<ModuleTask> tasksList, Storage store) {
         String jsonString = gson.toJson(tasksList);
         List<String> stringsList = requestsData.getResponseList(jsonString);
         store.setDataPath(Paths.get(userModuleFile));
@@ -165,12 +165,12 @@ public class JsonWrapper {
      * Returns taskList after reading json file.
      * @return List of tasks of the read was successful, null if otherwise.
      */
-    public List<ModuleInfoDetailed> readJsonTaskList(Storage store) {
+    public List<ModuleTask> readJsonTaskList(Storage store) {
         try {
             store.setDataPath(Paths.get(userModuleFile));
             if (store.getDataPathExists()) {
                 JsonReader reader = new JsonReader(new FileReader(userModuleFile));
-                Type listType = new TypeToken<List<ModuleInfoDetailed>>() {}.getType();
+                Type listType = new TypeToken<List<ModuleTask>>() {}.getType();
                 return gson.fromJson(reader, listType);
             }
         } catch (IllegalStateException e) {

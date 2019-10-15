@@ -28,9 +28,10 @@ public class RemoveModCommand extends ModuleCommand {
         if (index < 0 || index > tasks.getSize() || tasks.getTasks().isEmpty()) {
             throw new ModEmptyListException();
         }
-        ModuleInfoDetailed delMod = tasks.getTasks().get(index);
+        ModuleTask delMod = tasks.getTasks().get(index);
         plannerUi.deleteMsg(delMod);
         tasks.delete(index);
+        jsonWrapper.storeTaskListAsJson(tasks.getTasks(), store);
     }
 
     @Override
