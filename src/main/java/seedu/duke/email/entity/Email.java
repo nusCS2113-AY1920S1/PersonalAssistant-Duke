@@ -1,29 +1,25 @@
 package seedu.duke.email.entity;
 
-import javafx.fxml.FXML;
-import javafx.scene.web.WebEngine;
-import javafx.scene.web.WebView;
 import seedu.duke.Duke;
-import seedu.duke.email.EmailParser;
-import seedu.duke.gui.MainWindow;
+import seedu.duke.email.EmailFormatParser;
 
-import java.awt.Desktop;
 import java.io.File;
-import java.io.IOException;
 import java.math.BigInteger;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 
 public class Email {
     protected String filepath;
     protected String subject;
-    protected EmailParser.Sender from;
+    protected EmailFormatParser.Sender sender;
     protected LocalDateTime receivedDateTime;
     protected String body;
     protected Boolean hasHtml;
-    protected String tag;
+    protected ArrayList<String> tags = new ArrayList<>();
+    protected String rawJson;
 
     //@FXML
     //private WebView webView;
@@ -37,15 +33,17 @@ public class Email {
      * Detailed constructor of Email class with more paramaters.
      *
      * @param subject          subject of the email
-     * @param from             the sender of the email
+     * @param sender           the sender of the email
      * @param receivedDateTime the date and time when the email is received
      * @param body             the body of the email
      */
-    public Email(String subject, EmailParser.Sender from, LocalDateTime receivedDateTime, String body) {
+    public Email(String subject, EmailFormatParser.Sender sender, LocalDateTime receivedDateTime, String body,
+                 String rawJson) {
         this.subject = subject;
-        this.from = from;
+        this.sender = sender;
         this.receivedDateTime = receivedDateTime;
         this.body = body;
+        this.rawJson = rawJson;
     }
 
     /**
@@ -57,8 +55,23 @@ public class Email {
         return this.subject;
     }
 
-    public void setTag(String tag) {
-        this.tag = tag;
+    public LocalDateTime getReceivedDateTime() {
+        return this.receivedDateTime;
+    }
+
+    public void addTag(String tag) {
+        if (this.tags.contains(tag)) {
+            return;
+        }
+        this.tags.add(tag);
+    }
+
+    public String getRawJson() {
+        return this.rawJson;
+    }
+
+    public String getSenderString() {
+        return this.sender.toString();
     }
 
     /**
@@ -70,18 +83,18 @@ public class Email {
         return getFolderDir() + File.separator + this.subject;
     }
 
-    /**
-     * Show this email on browser. To be replaced by JavaFx code for UI display.
-     *
-     * @throws IOException if fails to load the filepath or open the browser.
-     */
-    @FXML
-    public String getShowEmailPath() throws IOException {
-        File emailFile = new File(this.filepath);
-        //Desktop.getDesktop().browse(emailFile.toURI());
-        String path = emailFile.toURI().toURL().toString();
-        return path;
-    }
+    ///**
+    // * Show this email on browser. To be replaced by JavaFx code for UI display.
+    // *
+    // * @throws IOException if fails to load the filepath or open the browser.
+    // */
+    //@FXML
+    //public String getShowEmailPath() throws IOException {
+    //    File emailFile = new File(this.filepath);
+    //    //Desktop.getDesktop().browse(emailFile.toURI());
+    //    String path = emailFile.toURI().toURL().toString();
+    //    return path;
+    //}
 
     /**
      * Get the pathname of the data/emails folder.
@@ -118,11 +131,11 @@ public class Email {
     }
 
     private String getDateTimeString() {
-        return EmailParser.formatEmailDateTime(receivedDateTime);
+        return EmailFormatParser.formatEmailDateTime(receivedDateTime);
     }
 
     private String getDateTimePlainString() {
-        return EmailParser.formatEmailDateTimePlain(receivedDateTime);
+        return EmailFormatParser.formatEmailDateTimePlain(receivedDateTime);
     }
 
     /**
@@ -131,7 +144,7 @@ public class Email {
      * @return a string capturing the email info
      */
     public String toCliString() {
-        String output = this.subject + "\n\t" + "From: " + this.from.toString() + "\n\t"
+        String output = this.subject + "\n\t" + "From: " + this.sender.toString() + "\n\t"
                 + "ReceivedDateTime: " + getDateTimeString() + "\n\t" + "Body: " + body.substring(0, 30)
                 + "...\n";
         return output;

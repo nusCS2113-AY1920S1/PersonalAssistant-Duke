@@ -44,7 +44,8 @@ public class TaskCard extends HBox {
 
     /**
      * Constructor for TaskCard.
-     * @param task Task object
+     *
+     * @param task           Task object
      * @param displayedIndex Index as displayed in Task List Pane
      */
     public TaskCard(Task task, int displayedIndex) {

@@ -11,7 +11,7 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.ResolverStyle;
 import java.util.Locale;
 
-public class EmailParser {
+public class EmailFormatParser {
     protected static DateTimeFormatter format = DateTimeFormatter
             .ofPattern("uuuu-MM-dd'T'HH:mm:ss'Z'", Locale.ENGLISH)
             .withResolverStyle(ResolverStyle.STRICT);
@@ -35,17 +35,36 @@ public class EmailParser {
             JSONArray emailJsonArray = responseJson.getJSONArray("value");
             for (int i = 0; i < emailJsonArray.length(); i++) {
                 JSONObject emailJson = emailJsonArray.getJSONObject(i);
-                String subject = emailJson.getString("subject");
-                Sender from = new Sender(emailJson.getJSONObject("from"));
-                LocalDateTime dateTime = parseEmailDateTime(emailJson.getString("receivedDateTime"));
-                String body = emailJson.getString("body");
-                emailList.add(new Email(subject, from, dateTime, body));
+                emailList.add(parseComponentsToEmail(emailJson));
             }
         } catch (JSONException e) {
             throw new EmailParsingException("Email fetch response failed to parse");
         }
-
         return emailList;
+    }
+
+    private static Email parseComponentsToEmail(JSONObject emailJson) throws JSONException {
+        String subject = emailJson.getString("subject");
+        Sender from = new Sender(emailJson.getJSONObject("from"));
+        LocalDateTime dateTime = parseEmailDateTime(emailJson.getString("receivedDateTime"));
+        String body = emailJson.getJSONObject("body").getString("content");
+        return new Email(subject, from, dateTime, body, emailJson.toString());
+    }
+
+    /**
+     * Parses an email from a raw json string stored or retrieved from the Outlook server.
+     *
+     * @param jsonString raw json string of the email to be parsed
+     * @return email object as the pars result
+     * @throws EmailParsingException thrown when raw json passed in is in wrong format
+     */
+    public static Email parseRawJson(String jsonString) throws EmailParsingException {
+        try {
+            JSONObject emailJson = new JSONObject(jsonString);
+            return parseComponentsToEmail(emailJson);
+        } catch (JSONException e) {
+            throw new EmailParsingException("Email raw json failed to parse");
+        }
     }
 
     /**
