@@ -51,9 +51,16 @@ public class MoneyStorage {
                         account.getIncomeListTotal().add(i);
                         break;
                     case "EXP":
-                        Expenditure exp = new Expenditure(Float.parseFloat(info[1]), info[2], info[3],
-                                LocalDate.parse(info[4], dateTimeFormatter));
-                        account.getExpListTotal().add(exp);
+                        if (info.length > 5) {
+                            Bill bill = new Bill(Float.parseFloat(info[1]), info[2], info[3],
+                                    LocalDate.parse(info[4], dateTimeFormatter),
+                                    LocalDate.parse(info[5], dateTimeFormatter));
+                            account.getExpListTotal().add(bill);
+                        } else {
+                            Expenditure exp = new Expenditure(Float.parseFloat(info[1]), info[2], info[3],
+                                    LocalDate.parse(info[4], dateTimeFormatter));
+                            account.getExpListTotal().add(exp);
+                        }
                         break;
                     case "SEX":
                         String[] names = info[5].split(" ! ");
@@ -121,6 +128,10 @@ public class MoneyStorage {
                     bufferedWriter.write("SEX @ " + exp.getPrice() + " @ " + exp.getDescription() + " @ " +
                             exp.getCategory() + " @ " + exp.getBoughtDate() + " @ " +
                             ((Split) exp).getNamesOfPeople() + "\n");
+                } else if (exp instanceof Bill) {
+                    bufferedWriter.write("EXP @ " + exp.getPrice() + " @ " + exp.getDescription() + " @ " +
+                            exp.getCategory() + " @ " + exp.getBoughtDate() + " @ " +
+                            ((Bill) exp).getNextPayDay() + "\n");
                 } else {
                     bufferedWriter.write("EXP @ " + exp.getPrice() + " @ " + exp.getDescription() + " @ " +
                             exp.getCategory() + " @ " + exp.getBoughtDate() + "\n");
@@ -197,12 +208,23 @@ public class MoneyStorage {
                     String[] info = line.split(" # ");
                     switch(dataType) {
                         case "EXP":
-                            Expenditure exp = new Expenditure(Float.parseFloat(info[1]), info[2], info[3],
-                                    LocalDate.parse(info[4], dateTimeFormatter));
-                            if (index > account.getExpListTotal().size()) {
-                                account.getExpListTotal().add(exp);
+                            if (info.length > 5) {
+                                Bill bill = new Bill(Float.parseFloat(info[1]), info[2], info[3],
+                                        LocalDate.parse(info[4], dateTimeFormatter),
+                                        LocalDate.parse(info[5], dateTimeFormatter));
+                                if (index > account.getExpListTotal().size()) {
+                                    account.getExpListTotal().add(bill);
+                                } else {
+                                    account.getExpListTotal().add(index - 1, bill);
+                                }
                             } else {
-                                account.getExpListTotal().add(index - 1, exp);
+                                Expenditure exp = new Expenditure(Float.parseFloat(info[1]), info[2], info[3],
+                                        LocalDate.parse(info[4], dateTimeFormatter));
+                                if (index > account.getExpListTotal().size()) {
+                                    account.getExpListTotal().add(exp);
+                                } else {
+                                    account.getExpListTotal().add(index - 1, exp);
+                                }
                             }
                             break;
                         case "INC":

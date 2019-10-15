@@ -85,8 +85,6 @@ public class Parser {
             moneyCommand = new DeleteIncomeCommand(cmd);
         } else if (cmd.startsWith("delete expenditure")) {
             moneyCommand = new DeleteExpenditureCommand(cmd);
-        } else if (cmd.startsWith("done goal")) {
-            moneyCommand = new DoneGoalCommand(cmd);
         } else if (cmd.startsWith("graph") || cmd.equals("change icon")) {
             moneyCommand = new GraphCommand(cmd);
         } else if (cmd.startsWith("undo")) {
@@ -115,6 +113,8 @@ public class Parser {
             moneyCommand = new ListLoansCommand(cmd);
         } else if ((cmd.startsWith("paid")) || (cmd.startsWith("received"))) {
             moneyCommand = new SettleLoanCommand(cmd);
+        } else if (cmd.startsWith("add bill")) {
+            moneyCommand = new AddBillCommand(cmd);
         } else {
             throw new DukeException("OOPS!!! I'm sorry, but I don't know what that means");
         }

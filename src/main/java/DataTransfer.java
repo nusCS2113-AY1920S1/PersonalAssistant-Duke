@@ -1,7 +1,6 @@
 import money.Account;
 import money.Expenditure;
 import money.Income;
-import moneycommands.InternalTransferCommand;
 
 import java.io.IOException;
 import java.time.LocalDate;
@@ -92,5 +91,4 @@ public interface DataTransfer {
         }
         return Histogram.getTwoSeriesHistogram("Current Financial Status", xData, yData1, yData2);
     }
-
 }

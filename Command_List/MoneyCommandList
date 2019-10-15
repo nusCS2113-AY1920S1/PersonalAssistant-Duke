@@ -1,3 +1,4 @@
+add bill utility /amt 500 /lastpaid 10/10/2019 /paynext 4/11/2019
 add income TA /amt 560 /payday 10/12/2040
 add instalment mortgage /amt 100000 /within 200 months /from 12/12/2010 @6%
 bank-account OCBC /amt 30 /at 27/7/2017 /rate 0.005

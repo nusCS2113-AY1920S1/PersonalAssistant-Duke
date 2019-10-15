@@ -32,3 +32,6 @@ INS @ 100000.0 @ mortgage  @ instalments @ 9/10/2019 @ 200 @ 0.06
 LOA @ 5000.0 @ mah sluts @ 14/9/2019 @ OUTGOING @  @ 0 @ 4500.0
 LOA @ 500.0 @ mah bitches @ 13/10/2019 @ OUTGOING @  @ 0 @ 300.0
 LOA @ 5000.0 @ mah bros @ 14/10/2019 @ INCOMING @  @ 0 @ 3000.0
+BS @ 0.0
+INC @ 1200.0 @ Initial Savings @ 15/10/2019
+EXP @ 99.0 @  water  @ bills @ 1/1/2019 @ 1/2/2019
