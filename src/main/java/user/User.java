@@ -5,6 +5,7 @@ public class User {
     protected String password;
     protected String username;
     protected String userType;
+    protected boolean loginStatus;
 
     /**
      *
@@ -30,5 +31,17 @@ public class User {
 
     public String toWriteFile() {
         return email + " | " + password + " | " + username + " | " + userType;
+    }
+
+    public boolean getLoginStatus() {
+        return loginStatus;
+    }
+
+    public void setLoginStatus() {
+        loginStatus = true;
+    }
+
+    public String getUsername() {
+        return username;
     }
 }
