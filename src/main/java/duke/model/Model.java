@@ -17,6 +17,7 @@ import java.util.function.Predicate;
  */
 public interface Model {
     Predicate<Order> PREDICATE_SHOW_ALL_ORDERS = unused -> true;
+
     Predicate<Sale> PREDICATE_SHOW_ALL_SALES = unused -> true;
 
     Predicate<Product> PREDICATE_SHOW_ALL_PRODUCTS = product -> true;
@@ -200,7 +201,9 @@ public interface Model {
      * Checks if the item with the same name already exists in the inventory list
      * @return true if the given inventory item already exists in the inventory list
      */
-    boolean hasInventory(Item<Ingredient> inventoryItem);
+    boolean hasInventory(Item<Ingredient> inventory);
+
+    void deleteInventory(Item<Ingredient> inventory);
 
     //======Shopping list operations=====
 

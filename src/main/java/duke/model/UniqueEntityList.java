@@ -79,7 +79,6 @@ public class UniqueEntityList<T> implements Iterable<T> {
         internalList.set(index.getZeroBased(), edited);
     }
 
-
     /**
      * Removes the equivalent element from the list.
      *

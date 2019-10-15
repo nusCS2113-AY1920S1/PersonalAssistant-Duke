@@ -10,7 +10,6 @@ import duke.model.inventory.Ingredient;
 import duke.model.commons.Item;
 import duke.model.order.Quantity;
 
-import static duke.logic.parser.commons.CliSyntax.PREFIX_INVENTORY_INDEX;
 import static duke.logic.parser.commons.CliSyntax.PREFIX_INVENTORY_NAME;
 import static duke.logic.parser.commons.CliSyntax.PREFIX_INVENTORY_QUANTITY;
 import static duke.logic.parser.commons.CliSyntax.PREFIX_INVENTORY_UNIT;
@@ -22,8 +21,7 @@ public class AddInventoryCommandParser implements Parser<AddInventoryCommand> {
         ArgumentMultimap map = ArgumentTokenizer.tokenize(args,
                 PREFIX_INVENTORY_NAME,
                 PREFIX_INVENTORY_QUANTITY,
-                PREFIX_INVENTORY_UNIT,
-                PREFIX_INVENTORY_INDEX
+                PREFIX_INVENTORY_UNIT
         );
 
         Ingredient ingredient = new Ingredient(

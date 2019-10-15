@@ -223,9 +223,14 @@ public class ModelManager implements Model {
         filteredInventory.setPredicate(predicate);
     }
 
-    public boolean hasInventory(Item<Ingredient> inventoryItem) {
-        requireNonNull(inventoryItem);
-        return bakingHome.getInventoryList().contains(inventoryItem);
+    public boolean hasInventory(Item<Ingredient> inventory) {
+        requireNonNull(inventory);
+        return bakingHome.getInventoryList().contains(inventory);
+    }
+
+    public void deleteInventory(Item<Ingredient> inventory) {
+        requireNonNull(inventory);
+        bakingHome.removeInventory(inventory);
     }
 
     @Override

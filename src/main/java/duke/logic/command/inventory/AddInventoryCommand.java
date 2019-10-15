@@ -1,6 +1,5 @@
 package duke.logic.command.inventory;
 
-import duke.logic.command.Command;
 import duke.logic.command.CommandResult;
 import duke.logic.command.exceptions.CommandException;
 import duke.model.Model;
@@ -9,7 +8,7 @@ import duke.model.commons.Item;
 
 import static java.util.Objects.requireNonNull;
 
-public class AddInventoryCommand extends Command {
+public class AddInventoryCommand extends InventoryCommand {
 
     public static final String COMMAND_WORD = "add";
     public static final String MESSAGE_SUCCESS = "New ingredient added: %s";

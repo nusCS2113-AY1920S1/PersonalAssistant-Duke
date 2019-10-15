@@ -189,15 +189,18 @@ public class BakingHome implements ReadOnlyBakingHome {
         products.set(originalProduct, editedOrder);
     }
 
-
     @Override
     public ObservableList<Product> getProductList() {
         return products.asUnmodifiableObservableList();
     }
 
     //============Inventory operations==============
-    public void addInventory(Item<Ingredient> i) {
-        inventory.add(i);
+    public void addInventory(Item<Ingredient> toAdd) {
+        inventory.add(toAdd);
+    }
+
+    public void removeInventory(Item<Ingredient> toRemove) {
+        inventory.remove(toRemove);
     }
 
     @Override
