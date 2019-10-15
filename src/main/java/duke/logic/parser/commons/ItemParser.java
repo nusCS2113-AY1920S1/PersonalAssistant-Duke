@@ -8,10 +8,11 @@ public class ItemParser {
 
     //private static final Pattern FORMAT_INGREDIENT_INPUT = Pattern.compile("((?:\\[)([a-zA-Z0-9_ ]*),"
            // + "([a-zA-Z0-9_ ]*)(?:\\]))*");
-    private static final Pattern FORMAT_INGREDIENT_INPUT = Pattern.compile("(?:\\[)([a-zA-Z0-9_ ]*),([a-zA-Z0-9_ ]*)(?:\\])");
+    private static final Pattern FORMAT_INGREDIENT_INPUT = Pattern.compile("((?:\\s*\\[)([a-zA-Z0-9_ ]*),([0-9 .?]*)(?:\\]\\s*))*");
 
 
-    /** Constructs a IngredientListParser with the userInput */
+
+    /** Constructs a IngredientItemListParser with the userInput */
     public ItemParser(String inputIngredientList) {
         this.inputIngredientList = inputIngredientList;
     }

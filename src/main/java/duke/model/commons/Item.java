@@ -1,6 +1,5 @@
 package duke.model.commons;
 
-import duke.model.order.Quantity;
 import duke.model.product.Product;
 import duke.model.inventory.Ingredient;
 
