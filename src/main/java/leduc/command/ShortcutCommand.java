@@ -127,6 +127,11 @@ public class ShortcutCommand extends Command {
                 newShortcut = ui.readCommand();
             } while(setShortcut.contains(newShortcut));
             setOneShortcut("setwelcome", newShortcut);
+            do{
+                ui.display("The precedent shortcut for setWelcome is " + ShowCommand.getShowShortcut() +" please enter new shortcut");
+                newShortcut = ui.readCommand();
+            } while(setShortcut.contains(newShortcut));
+            setOneShortcut("show", newShortcut);
 
             ui.display("All shortcut has been set");
         }
@@ -215,6 +220,10 @@ public class ShortcutCommand extends Command {
                 SetWelcomeCommand.setSetWelcomeShortcut(shortcutName);
                 setShortcut.add(shortcutName);
                 break;
+            case "show":
+                setShortcut.remove(ShowCommand.getShowShortcut());
+                ShowCommand.setShowShortcut(shortcutName);
+                setShortcut.add(shortcutName);
             default:
                 throw new MeaninglessException();
         }
@@ -240,5 +249,6 @@ public class ShortcutCommand extends Command {
         setShortcut.add("sort");
         setShortcut.add("todo");
         setShortcut.add("delete");
+        setShortcut.add("show");
     }
 }

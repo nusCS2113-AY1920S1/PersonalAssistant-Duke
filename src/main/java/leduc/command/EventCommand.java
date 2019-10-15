@@ -16,7 +16,7 @@ public class EventCommand extends Command {
     /**
      * static variable used for shortcut
      */
-    public static String eventShortcut = "event";
+    private static String eventShortcut = "event";
     /**
      * Constructor of EventCommand.
      * @param user String which represent the input string of the user.
