@@ -63,8 +63,9 @@ public class Ui {
      * Displays the delete task message when user wants to delete a task.
      */
     public String showDelete(Task task, int listSize){
+        listSize -= 1;
         return "Noted. I've removed this task:\n" + task.toString() + "\n" + "Now you have "
-                + listSize + (listSize > 1 ? " tasks in the list.\n" : " task in the list.\n");
+                + listSize  + (listSize > 1 ? " tasks in the list.\n" : " task in the list.\n");
     }
 
     /**
@@ -72,6 +73,7 @@ public class Ui {
      */
     public String showFind(TaskList list){
         if(list.taskListSize() == 0) {
+
             return "There are no matching tasks in your list.\n";
         } else {
             String findMessage = "Here are the matching tasks in your list:\n";
@@ -138,6 +140,7 @@ public class Ui {
                 "Now you have " + listSize + (listSize > 1 ? " tasks in the list.\n" : " task in the list.\n");
     }
 
+
     /**
      * Displays the show reminder message when user enter a task with a period to do within
      * @param TaskDescription The description of the task entered
@@ -155,11 +158,5 @@ public class Ui {
                     " End Date: " + endDate + "\n";
         }
     }
-    public String showTentativeSchedule(TaskList tentativeDates) {
-        String out = "Here is your tentative schedule. \n" ;
-        for (int i = 0; i< tentativeDates.taskListSize(); i++){
-            out += i+1 + "." + tentativeDates.taskToString(i ) + "\n";
-        }
-        return  out;
-    }
+
 }

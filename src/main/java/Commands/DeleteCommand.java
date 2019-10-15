@@ -9,17 +9,17 @@ import java.io.FileNotFoundException;
  */
 public class DeleteCommand extends Command {
 
-    private final int index;
+    private Task T;
     private final String list;
     private TaskList listToChange;
 
     /**
      * Creates a DeleteCommand object.
-     * @param index The index representing the task number in the TaskList object
+     * @param T The task to be deleted
      * @param list The name of the TaskList that requires changing
      */
-    public DeleteCommand(int index, String list){
-        this.index = index;
+    public DeleteCommand(String list, Task T){
+        this.T =T;
         this.list = list;
     }
 
@@ -34,22 +34,19 @@ public class DeleteCommand extends Command {
      */
     @Override
     public String execute(TaskList events, TaskList deadlines, Ui ui, Storage storage) throws DukeException, FileNotFoundException {
+       try{
         if (list.equals("event")) {
+            events.removeTask(T);
+            storage.updateEventList(events);
             listToChange = events;
         } else if (list.equals("deadline")) {
+            deadlines.removeTask(T);
+            storage.updateDeadlineList(deadlines);
             listToChange = deadlines;
         }
-        if (index >= 0 && index < listToChange.taskListSize()) {
-            Task task = listToChange.getTask(index);
-            listToChange.removeTask(this.index);
-            if (listToChange.equals("event")) {
-                storage.updateEventList(listToChange);
-            } else if (listToChange.equals("deadline")) {
-                storage.updateDeadlineList(listToChange);
-            }
-            return ui.showDelete(task, listToChange.taskListSize());
-        } else {
-            throw new DukeException("\u2639" + " OOPS!!! I'm sorry, but we cannot find the input task number :-(\n");
+            return ui.showDelete(T, listToChange.taskListSize());
+         }catch(ArrayIndexOutOfBoundsException e) {
+            throw new DukeException("\u2639" + " OOPS!!! I'm sorry, but we cannot find the input task  :-(\n");
         }
     }
 }

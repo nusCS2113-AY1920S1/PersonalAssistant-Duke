@@ -54,10 +54,7 @@ public class TaskList {
         }
         this.map.get(task.getModCode()).get(task.getDateTime()).add(task);
     }
-    //Do not use this
-    public void removeTask(int index){
-        this.list.remove(index);
-    }
+
 
     public void removeTask(Task task) {
         ArrayList<Task> taskList = this.map.get(task.getModCode()).get(task.getDateTime());
@@ -251,11 +248,11 @@ public class TaskList {
         return finalSchedule;
     }
 
-    private ArrayList<String> getDeadlineArrList() {
+    public  ArrayList<String> getDeadlineArrList() {
         return this.deadlineArrList;
     }
 
-    private ArrayList<String> getEventArrList() {
+    public  ArrayList<String> getEventArrList() {
         return this.eventArrList;
     }
 
