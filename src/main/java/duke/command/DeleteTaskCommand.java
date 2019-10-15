@@ -19,9 +19,10 @@ public class DeleteTaskCommand extends Command{
     public DeleteTaskCommand(String deletedTaskInfo) throws DukeException {
 
         this.deletedTaskInfo = deletedTaskInfo;
-        if (Character.isDigit(deletedTaskInfo.charAt(0))) {
+        char firstChar = deletedTaskInfo.charAt(0);
+        if (firstChar == '#') {
             try {
-                this.id = Integer.parseInt(deletedTaskInfo);
+                this.id = Integer.parseInt(deletedTaskInfo.substring(1));
             } catch (Exception e) {
                 throw new DukeException("Please follow format 'delete task #<id>'. ");
             }

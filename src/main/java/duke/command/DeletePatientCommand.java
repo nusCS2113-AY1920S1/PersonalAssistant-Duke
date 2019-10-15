@@ -20,10 +20,10 @@ public class DeletePatientCommand extends Command {
     public DeletePatientCommand(String deletedPatientInfo) throws DukeException {
 
         this.deletedPatientInfo = deletedPatientInfo;
-
-        if (Character.isDigit(deletedPatientInfo.charAt(0))) {
+        char firstChar = deletedPatientInfo.charAt(0);
+        if (firstChar == '#') {
             try {
-                this.id = Integer.parseInt(deletedPatientInfo);
+                this.id = Integer.parseInt(deletedPatientInfo.substring(1));
             } catch (Exception e) {
                 throw new DukeException("Please follow format 'delete patient #<id>'. ");
             }
