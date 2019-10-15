@@ -13,18 +13,6 @@ public class RemindTest {
     Storage storage = new Storage();
 
     @Test
-    public void remindTestTodo() throws Exception {
-        String expected ="Here are your tasks for this week:\n" + "1.[T][\u2718] buy bread\n";
-        TaskList todos = new TaskList();
-        TaskList events = new TaskList();
-        TaskList deadlines = new TaskList();
-        todos.addTask(new Todo("buy bread"));
-        Command c = Parser.parse("remind");
-        String actual = c.execute(todos, events, deadlines, ui, storage);
-        assertEquals(expected, actual);
-    }
-
-    @Test
     public void remindTestWithDate() throws Exception {
         Date date = new Date();
         TaskList todos = new TaskList();

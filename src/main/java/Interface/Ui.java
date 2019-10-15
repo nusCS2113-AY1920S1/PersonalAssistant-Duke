@@ -9,22 +9,7 @@ import java.util.ArrayList;
  */
 public class Ui {
     private static final String NO_FIELD = "void";
-    private final String logo = " ____        _        \n"
-            + "|  _ \\ _   _| | _____ \n"
-            + "| | | | | | | |/ / _ \\\n"
-            + "| |_| | |_| |   <  __/\n"
-            + "|____/ \\__,_|_|\\_\\___|\n";
-    private final String welcomeMessage = "Hello! I'm Duke\n"
-            + "What can I do for you?\n";
     private final String byeMessage = "Bye. Hope to see you again soon!\n";
-    protected String line = "____________________________________________________________\n";
-
-    /**
-     * Displays the welcome message when Duke program starts.
-     */
-    public String showWelcome(){
-        return "Hello from\n" + logo + welcomeMessage;
-    }
 
     /**
      * Displays the exit message when Duke Program ends.
@@ -98,18 +83,17 @@ public class Ui {
     }
 
     /**
-     * Displays the reminder message when user asks for a reminder.
+     * Displays the show reminder message when user sets a reminder for a task.
      */
-    public String showReminder(TaskList list){
-        if(list.taskListSize() == 0) {
-            return "There are no upcoming tasks this week.\n";
-        } else {
-            String remindMessage = "Here are your tasks for this week:\n";
-            for (int i = 1; i <= list.taskListSize(); i++) {
-                remindMessage = remindMessage + i + "." + list.taskToString(i - 1) + "\n";
-            }
-            return remindMessage;
-        }
+    public String showReminder(Task task, String time) {
+        return "Reminder has been set for " + task.getModCode() + " " + task.getDescription() + "at: " + time;
+    }
+
+    /**
+     * Displays the show cancel reminder message when user sets a reminder for a task.
+     */
+    public String showCancelReminder(Task task, String time) {
+        return "Reminder has been removed for " + task.getModCode() + " " + task.getDescription() + "at: " + time;
     }
 
     /**
@@ -159,4 +143,7 @@ public class Ui {
         }
     }
 
+    public String showRecurring(String description, String startDate, String endDate) {
+        return "Recurring task: " + description + " has been added between " + startDate + " and " + endDate + "\n";
+    }
 }
