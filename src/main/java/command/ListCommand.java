@@ -1,25 +1,24 @@
 package command;
 
+import booking.Booking;
+import booking.BookingList;
 import exception.DukeException;
 import storage.Storage;
-import task.TaskList;
 import ui.Ui;
+import user.User;
 
-/**
- * command.Command to list all tasks in task list
- */
-public class ListCommand extends Command {
+import java.io.IOException;
+import java.text.ParseException;
+
+public class ListCommand extends Command{
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
-        try {
-            if (tasks.isEmpty()) {
-                throw new DukeException("☹ OOPS!!! There are no tasks in your list");
-            }
-            for (int i = 0; i < tasks.size(); i++) {
-                ui.addToOutput(i + 1 + ". " + tasks.get(i).toString());
-            }
-        } catch (DukeException e) {
-            ui.showError(e.getMessage());
+    public void execute(BookingList bookingList, Ui ui, Storage bookingStorage, User user) throws DukeException, IOException, ParseException {
+        if (bookingList.isEmpty()) {
+            throw new DukeException("OOPS! There are no bookings in your list");
+        }
+        ui.addToOutput("Here are the bookings: ");
+        for (int i = 0; i < bookingList.size(); i++) {
+            ui.addToOutput(i + 1 + ". " + bookingList.get(i).toString());
         }
     }
 }

@@ -1,4 +1,4 @@
-package user;
+package booking;
 
 import exception.DukeException;
 import storage.BookingConstants;
@@ -6,7 +6,6 @@ import storage.BookingConstants;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Comparator;
 
 public class BookingList extends ArrayList<Booking> {
 
@@ -20,13 +19,16 @@ public class BookingList extends ArrayList<Booking> {
             String[] splitStr = line.split(" \\| ", 5);
             this.add(new Booking(splitStr[BookingConstants.USERNAME], splitStr[BookingConstants.VENUE], splitStr[BookingConstants.DESCRIPTION], splitStr[BookingConstants.TIMESTART], splitStr[BookingConstants.TIMEEND]));
         }
-
     }
+
+    public BookingList(){
+        super();
+    };
 
     public static boolean checkBooking(BookingList bookinglist, String roomcode, String timeStart, String timeEnd) {
         boolean found = false;
-        DateTimeFormatter formatterStart = DateTimeFormatter.ofPattern("dd/mm/yyyy HHmm");
-        DateTimeFormatter formatterEnd = DateTimeFormatter.ofPattern("HHmm");
+        DateTimeFormatter formatterStart = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
+        DateTimeFormatter formatterEnd = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
         LocalDateTime startTime = LocalDateTime.parse(timeStart, formatterStart);
         LocalDateTime endTime = LocalDateTime.parse(timeEnd, formatterEnd);
         for (int i = 0; i < bookinglist.size(); i++) {

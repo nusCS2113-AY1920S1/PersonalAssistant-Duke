@@ -51,5 +51,6 @@ public class TaskList extends ArrayList<Task> {
     }
 
     public TaskList() {
+        super();
     }
 }

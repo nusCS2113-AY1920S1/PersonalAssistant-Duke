@@ -9,12 +9,14 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 
+import java.time.YearMonth;
+
 /**
  * Controller for ui.MainWindow. Provides the layout for the other controls.
  */
 public class MainWindow extends AnchorPane {
     @FXML
-    private AnchorPane calendarView;
+    private AnchorPane calendarPane;
     @FXML
     private ScrollPane scrollPane;
     @FXML
@@ -34,8 +36,12 @@ public class MainWindow extends AnchorPane {
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
         ui = new Ui();
+
         dialogContainer.getChildren().addAll(
                 DialogBox.getDukeDialog(ui.showWelcome(), dukeImage)
+        );
+        calendarPane.getChildren().add(
+                new FullCalendarView(YearMonth.now()).getView()
         );
     }
 

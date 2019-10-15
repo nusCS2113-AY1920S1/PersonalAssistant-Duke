@@ -4,6 +4,8 @@ import exception.DukeException;
 import storage.Storage;
 import task.TaskList;
 import ui.Ui;
+import booking.BookingList;
+import user.User;
 
 import java.io.IOException;
 import java.text.ParseException;
@@ -17,14 +19,15 @@ public abstract class Command {
 
     /**
      * Execute command logic.
-     * @param tasks task list
+     * @param bookingList bookings list
      * @param ui user interface
-     * @param storage handles read write of text file
+     * @param bookingStorage handles read write of text file
+     * @param user Current user
      * @throws DukeException if control.Duke specific exception found
      * @throws IOException if IO exception found
      */
-
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException, IOException, ParseException {
+    public void execute(BookingList bookingList, Ui ui, Storage bookingStorage, User user)
+            throws DukeException, IOException, ParseException {
     }
 
     public boolean isExit() {

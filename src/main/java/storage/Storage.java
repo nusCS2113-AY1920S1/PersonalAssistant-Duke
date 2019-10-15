@@ -1,9 +1,11 @@
 package storage;
 
+import room.RoomList;
+import room.Room;
 import task.Task;
 import task.TaskList;
-import user.Booking;
-import user.BookingList;
+import booking.Booking;
+import booking.BookingList;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -62,6 +64,16 @@ public class Storage {
         FileOutputStream fileOutputStream = new FileOutputStream(fileToRead);
         String toWrite = "";
         for (Booking i : bookingList) {
+            toWrite += i.toWriteFile();
+        }
+        fileOutputStream.write(toWrite.getBytes());
+        fileOutputStream.close();
+    }
+
+    public void saveToFile(RoomList roomList) throws IOException {
+        FileOutputStream fileOutputStream = new FileOutputStream(fileToRead);
+        String toWrite = "";
+        for (Room i : roomList) {
             toWrite += i.toWriteFile();
         }
         fileOutputStream.write(toWrite.getBytes());

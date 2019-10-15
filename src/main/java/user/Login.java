@@ -48,19 +48,38 @@ public class Login{
         return found;
     }
 
-    public static boolean checkUsername(String username,String filePath) throws IOException {
+    public static boolean checkUsername(String username, String filePath) throws IOException {
         BufferedReader reader;
         boolean exists = true;
         reader = new BufferedReader(new FileReader(filePath));
         String line = reader.readLine();
 
         while (line != null){
-            String[] parts = line.split("[|]");
+            String[] parts = line.split(" \\| ");
             if(!parts[0].trim().equals(username.trim()))
                 exists = false;
             line = reader.readLine();
         }
         reader.close();
         return exists;
+    }
+
+    public static User getUser(String username, String filePath) throws IOException {
+        BufferedReader reader;
+        boolean exists = true;
+        reader = new BufferedReader(new FileReader(filePath));
+        String line = reader.readLine();
+
+        while (line != null){
+            String[] parts = line.split(" \\| ");
+            if (parts[0].trim().equals(username.trim())) {
+                User validUser = new User(parts[0], parts[1], parts[2], parts[3]);
+                validUser.setLoginStatus();
+                return validUser;
+            }
+            line = reader.readLine();
+        }
+        reader.close();
+        return new Guest("guest");
     }
 }

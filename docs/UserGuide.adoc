@@ -1,1 +1,281 @@
+= Hall Booker - User Guide
+:site-section: UserGuide
+:toc:
+:toc-title:
+:toc-placement: preamble
+:sectnums:
+:imagesDir: images
+:stylesDir: stylesheets
+:experimental:
+ifdef::env-github[]
+:tip-caption: :bulb:
+:note-caption: :information_source:
+endif::[]
+:repoURL: https://github.com/CS2113T-AY1920S1-W12-3/main
+
+By: `AY1920S1-CS2113T-W12-3`      Since: `Aug 2019`
+
+== Introduction
+
+HallBooker is for students who stay on campus in the Halls of residence and need to use the facilities at any time and any place. More importantly, HallBookeris optimized for those who prefer to work with a Command Line Interface (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, HallBooker can get your daily tasks such as viewing your schedule done faster than traditional GUI apps. Interested? Jump to the Section 2, “Quick Start” to get started. Enjoy!
+
+== Quick Start
+
+.	Ensure that you have Java Version 11 installed on your device.
+. Download the latest HallBooker.jar here.
+. Copy the file to the folder you want to use as the home folder for your HallBooker.
+. Double-click the file to start the app. The GUI should appear in a few seconds.
+. Type the command in the command box and press Enter to execute it.
+. e.g. typing help or h and pressing Enter will open the help window.
+. Some example commands you can try:
+.. list : lists all future bookings
+.. add : starts the process to add a booking
+.. delete 3 : deletes the 3rd booking shown in the current list
+.. bye : exits the app and saves the current list to a text file
+.. help : access the help document
+
+
+Refer to Section 3, “Features” for details of each command.
+
++
+image::Ui.png[width="790"]
++
+
+[NOTE]
+====
+*   The text box is located at the bottom of the screen, and is grey in colour
+*   Throughout the list of features, each command will indicate if its available for HQP, PO or both
+====
+
+.	Type the password in the text box below and press kbd:[Enter] to enter system as a specific user.
+.	Type a command in the same text box and press kbd:[Enter] to excecute it.
+.	To display the full list of commands and a summary of their functions in the application, type 'help' and press kbd:[Enter].
+.	Refer to Section 3, “Features” for details of each feature.
+
+[[Features]]
+== Features
+
+=== General
+
+==== Viewing help : `help`
+
+Lists all the commands in a user friendly format for users and how to use them.
+
+Format: 'help'
+
+Example:
+
+*	help
+*	Displays all commands which can be used by the user
+
+==== Create Account
+Creates an account to access the booking using NUSMail and new password. A confirmation email will be sent upon account creation.
+
+Format: `create-account`
+
+Example:
+
+*   create-account
+*   Prompts for NUSMail and a new password
+*   Prompt to reenter password for confirmation
+*   Account is created, a confirmation email is sent to NUSMail.
+
+==== Login System
+Allows user to log into the booking facility
+
+Format: `login`
+
+Example:
+
+*   login
+*   Prompts for NUSMail and password
+*   Correct login credentials entered
+*   User is logged into the facility
+
+=== Bookings
+
+==== Add Bookings: `add`
+Adds a booking to the list. Time, venue and number of participants required
+
+Format: `add *ROOM_CODE*`
+
+* enter timing and booking description when prompted
+
+Example:
+
+* `add ROOM03`
+* HallBooker `Please add a description`
+* `Sports Committee Meeting`
+* HallBooker `Please add a timing`
+* `22/10/2019 1700 to 22/10/2019 1800`
+* HallBooker: `Here is your booking: Sports Committee Meeting at ROOM04 on 22nd Oct 5.00pm to 6.00pm`
+
+==== Edit Bookings: `edit`
+Edits booking details (time, venue, pax) of a booked facility in current list.
+
+Format: `edit *INDEX*`
+
+* enter new timing of booking when propmted
+* enter new booking description when prompted
+
+Example:
+
+* `edit 2`
+* HallBooker: `Please add a new timing
+* `22/10/2019 1700 to 22/10/2019 1800`
+* HallBooker: `Please add a new description`
+* `Project Meeting`
+* HallBooker: `Here is your booking: Project Meeting ROOM04 on 22nd Oct 5.00pm to 6.00pm`
+
+==== Delete Bookings: `delete`
+Deletes booking of given index. Removes the booking associated to the index from list of bookings. The list now has 1 less booking
+
+Format: `delete *INDEX*`
+
+Example:
+
+* `delete 2`
+* HallBooker: `Are you sure you want to delete this booking?: Project Meeting ROOM04 on 22nd Oct 5.00pm to 6.00pm`
+* `y`
+* `Booking has been removed`
+
+==== View future booking: `list`
+Lists all your personal bookings.
+
+Format: `list`
+Retrieves and displays your list of bookings.
+
+Example:
+
+* `list`
+* `There are 2 bookings in your list:`
+* `Project Meeting ROOM04 on 22nd Oct 5.00pm to 6.00pm`
+* `Sports Committee Meeting at ROOM04 on 22nd Oct 5.00pm to 6.00pm`
+
+
+==== View upcoming bookings: `upcoming`
+View upcoming bookings in a list in chronological order
+
+Format: `upcoming`
+
+Example:
+
+* `upcoming`
+* Displays list of all future bookings
+
+==== View past booking: `history`
+View past bookings in a list
+
+Format: `history`
+
+Example:
+
+* `history`
+* Displays list of past bookings in chronological order
+
+==== View bookings - month: `view-month`
+View all bookings made by all users in a month in a calendar format without timings.
+
+Format: `view-month ROOM_CODE MONTH`
+
+Example:
+
+* `view-month ROOM04 sep`
+* Displays all bookings in September in a calendar format without timings
+
+==== View bookings - day: `view-day`
+View all bookings made by all users for the day in a list in chronological order.
+
+Format: `view-day ROOM_CODE DD/MM/YYYY`
+
+Example:
+
+* view-day ROOM03 10/10/2019
+* Displays in a list all bookings for the day in a list
+
+==== Find booking: `find`
+Display all bookings that contain a search phrase in a list
+
+Format: `find TEXT`
+
+Example:
+
+* `find study room`
+* Displays all bookings containing keywords “study room”
+
+=== Rooms
+
+==== View Room List: `roomlist`
+Displays a list of all the rooms with their corresponding room code
+
+Format: `room-list`
+
+Example:
+
+* `room-list`
+* Displays a list of all the bookable facilities/rooms in hall
+
+
+==== View Room Layout: `layout`
+Fetches data related to the room with ROOM_CODE, then displays a .PNG photo of the room
+
+Format: `layout *ROOM_CODE*`
+
+Example:
+
+* layout ROOM01
+* Displays picture of the interior of ROOM01
+
+==== View Room Capacity: `capacity`
+Displays the total number of people a room can hold
+
+Format: `capacity` *ROOM_CODE*
+
+Example:
+
+* capacity ROOM04
+* 6 (Maximum number of people the room ROOM04 can hold)
+
+==== View Room Inventory: `capacity`
+Fetches data related to the room with ROOM_CODE, then displays list of items inside the room
+
+Format: `inventory` *ROOM_CODE*
+
+Example:
+
+* inventory ROOM04
+* List:
+** Chairs: 2
+** Tables: 1
+** Whiteboards: 2
+** Markers: 4
+
+== Commands List
+
+* Help: `help`
+* Create account: `create-account`
+* Login: `login`
+* Add booking: `add ROOM_CODE`
+** e.g. `add ROOM3`
+* Edit booking: `edit INDEX`
+** e.g. `edit 3`
+* Delete booking: `delete INDEX`
+** e.g. `delete 3`
+* Appeal booking: `appeal ROOM_CODE`
+** e.g. `appeal ROOM3`
+* List all personal bookings: `list`
+* View future personal bookings: `upcoming`
+* View room schedule for a month: `view-month ROOM_CODE MONTH`
+* View room schedule for a day: `view-day ROOM_CODE DATE`
+* View past personal bookings: `history`
+* Find booking under keyword: `find KEYWORD`
+** e.g. `find study`
+* List of rooms: `room-list`
+* View room layout: `layout ROOM_CODE`
+** e.g. `layout ROOM3`
+* View room capacity: `capacity ROOM_CODE`
+** e.g. `capacity ROOM3`
+* View room inventory: `inventory ROOM_CODE`
+** e.g. `inventory ROOM3`
+* Exit app: `bye`
 

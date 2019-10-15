@@ -1,10 +1,12 @@
 package command;
 
+import booking.BookingList;
 import exception.DukeException;
 import storage.Storage;
 import task.TaskList;
 import ui.Ui;
 import user.Login;
+import user.User;
 
 import java.io.File;
 import java.io.IOException;
@@ -32,11 +34,14 @@ public class LoginCommand extends Command{
     }
 
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException, IOException, ParseException {
+    public void execute(BookingList bookingList, Ui ui, Storage storage, User user) throws DukeException, IOException, ParseException {
         boolean isVerified = Login.verifyLogin(splitL[1], splitL[2], "data\\members.txt");
-        if (isVerified)
+        if (isVerified) {
+            user = Login.getUser(splitL[1], "data\\members.txt");
             ui.addToOutput("You have successfully logged in!");
-        else
+        }
+        else {
             ui.addToOutput("\u2639 OOPS!!! You have entered your email/password incorrectly.");
+        }
     }
 }
