@@ -252,6 +252,17 @@ public class UI {
         System.out.print(lineSeparation);
     }
 
+    /**
+     * prints message when reschedule an event successfully
+     *
+     * @param event event after rescheduled
+     */
+    public void rescheduleEvent(Event event) {
+        System.out.print(lineSeparation);
+        System.out.println("Reschedule the event to " + event.toString() + " successfully!");
+        System.out.print(lineSeparation);
+    }
+
     public void errorWritingToFile() {
         System.out.print(lineSeparation);
         System.out.println("Error writing to file! Details not saved!");
