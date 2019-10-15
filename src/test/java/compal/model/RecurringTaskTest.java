@@ -158,6 +158,7 @@ public class RecurringTaskTest {
     @Test
     void toStringTest() {
         assertEquals("\n" + "[" + symbol + "]" + "[" + "\u2718" + "] " + description
+                + " \nTask ID:0"
                 + " \nDate: " + date + " \nStart Time: " + startTime
                 + " \nEnd Time: " + endTime + " \nPriority: " + priority
                 + "\n***************", recurringTask.toString());
@@ -166,6 +167,8 @@ public class RecurringTaskTest {
     @Test
     void getAllDetailsTest() {
         StringBuilder list = new StringBuilder();
+        list.append("0");
+        list.append("_");
         list.append(symbol);
         list.append("_");
         list.append(description);

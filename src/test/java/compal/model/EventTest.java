@@ -157,6 +157,7 @@ public class EventTest {
     @Test
     void toStringTest() {
         assertEquals("\n" + "[E]" + "[" + "\u2718" + "] " + description
+                + " \nTask ID:0"
                 + " \nDate: " + date + " \nStart Time: " + startTime
                 + " \nEnd Time: " + endTime + " \nPriority: " + priority
                 + "\n***************", event.toString());
@@ -165,6 +166,8 @@ public class EventTest {
     @Test
     void getAllDetailsTest() {
         StringBuilder list = new StringBuilder();
+        list.append("0");
+        list.append("_");
         list.append("E");
         list.append("_");
         list.append(description);

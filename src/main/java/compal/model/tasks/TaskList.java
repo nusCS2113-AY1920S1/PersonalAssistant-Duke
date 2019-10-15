@@ -85,6 +85,13 @@ public class TaskList {
     }
 
     /**
+     * Remove a task from the arrayList.
+     */
+    public void removeTask(int index) {
+        arrlist.remove(index);
+    }
+
+    /**
      * Clears the current id for future tasks to use (used in deletion of tasks).
      * @param id task id
      */
@@ -150,6 +157,9 @@ public class TaskList {
 
 
     }
+
+
+
 
     /**
      * Reads in the saved idbitset as an object and returns it.
