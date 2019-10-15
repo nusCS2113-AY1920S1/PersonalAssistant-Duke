@@ -366,4 +366,22 @@ public class MainWindow extends AnchorPane {
             e.printStackTrace();
         }
     }
+
+    /**
+     * Creates a new window to allow the user to view commands under help via user friendly interface.
+     */
+    @FXML
+    public void createHelpWindow() {
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/view/HelpWindow.fxml"));
+            AnchorPane ap = fxmlLoader.load();
+            Scene scene = new Scene(ap);
+            Stage stage = new Stage();
+            stage.setScene(scene);
+            fxmlLoader.<HelpWindow>getController().setHelpWindow(duke, this);
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 }
