@@ -259,7 +259,7 @@ public class UI {
      */
     public void rescheduleEvent(Event event) {
         System.out.print(lineSeparation);
-        System.out.println("Reschedule the event to " + event.toString() + " successfully!");
+        System.out.println("Rescheduled event to " + event.toString() + " successfully!");
         System.out.print(lineSeparation);
     }
 

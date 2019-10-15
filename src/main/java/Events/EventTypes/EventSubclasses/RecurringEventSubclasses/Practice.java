@@ -3,6 +3,7 @@ package Events.EventTypes.EventSubclasses.RecurringEventSubclasses;
 import Events.EventTypes.EventSubclasses.RecurrentEvent;
 
 public class Practice extends RecurrentEvent {
+
     /**
      * creates new practice class with boolean to read from file
      */
