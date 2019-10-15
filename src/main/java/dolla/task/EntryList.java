@@ -1,6 +1,7 @@
 package dolla.task;
 
 import dolla.Log;
+import sort.Sort;
 
 import java.util.ArrayList;
 
@@ -9,8 +10,10 @@ import java.util.ArrayList;
  */
 public class EntryList extends LogList {
 
+    Sort sort;
     public EntryList(ArrayList<Log> importEntryList) {
         super(importEntryList);
+//        sort = new Sort(importEntryList);
     }
 
 }

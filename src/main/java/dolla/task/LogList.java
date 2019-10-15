@@ -13,6 +13,7 @@ public class LogList {
         //this.list = new ArrayList<Log>(); // TODO: UPDATE!
     }
 
+
     public ArrayList<Log> get() {
         return list;
     }
