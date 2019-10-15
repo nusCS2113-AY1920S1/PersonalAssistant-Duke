@@ -39,7 +39,7 @@
           </Menu>
           <Menu mnemonicParsing="false" text="Help">
             <items>
-              <MenuItem mnemonicParsing="false" text="About" />
+              <MenuItem fx:id="help" mnemonicParsing="false" onAction="#createHelpWindow" text="View Commands"/>
             </items>
           </Menu>
         </menus>
