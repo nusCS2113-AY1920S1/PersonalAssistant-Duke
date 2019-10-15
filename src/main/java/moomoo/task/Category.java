@@ -30,7 +30,7 @@ public class Category {
         return totalCost;
     }
 
-    String getName() {
+    public String getName() {
         return name;
     }
     
