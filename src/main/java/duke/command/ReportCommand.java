@@ -8,6 +8,8 @@ import duke.util.Ui;
 import duke.exceptions.ModEmptyListException;
 
 import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 public class ReportCommand extends Command {
 
@@ -43,6 +45,42 @@ public class ReportCommand extends Command {
             ui.printReportTask(WTemp, "do within");
             List<Task> FTemp = tasks.find("[F]");
             ui.printReportTask(FTemp, "fixed duration");
+        }
+    }
+
+    private Set<String> coreModList = new HashSet<String>();
+
+    public Set<String> getCoreModList() {
+        coreModList.add("CG111");
+        coreModList.add("CG112");
+        coreModList.add("CS1010");
+        coreModList.add("CS1231");
+        coreModList.add("MA1511");
+        coreModList.add("MA1512");
+        coreModList.add("M1508E");
+        coreModList.add("CG2023");
+        coreModList.add("CG2027");
+        coreModList.add("CG2028");
+        coreModList.add("CG2271");
+        coreModList.add("CS2040C");
+        coreModList.add("CS2101");
+        coreModList.add("EE2026");
+        coreModList.add("EG2401A");
+        coreModList.add("ST2334");
+        coreModList.add("CG3207");
+        coreModList.add("CP3380");
+        coreModList.add("EG3611A");
+        coreModList.add("CG4002");
+        coreModList.add("EE4204");
+        return coreModList;
+    }
+
+    public boolean isCoreMod((Task module) {
+        getCoreModList();
+        if(coreModList.contains(module)) {
+            return true;
+        } else {
+            return false;
         }
     }
 
