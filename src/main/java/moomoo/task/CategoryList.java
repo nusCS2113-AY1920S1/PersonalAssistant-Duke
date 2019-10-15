@@ -13,7 +13,6 @@ public class CategoryList {
         this.categoryList = categoryList;
     }
     
-    //Methods
     public int size() {
         return categoryList.size();
     }
@@ -22,6 +21,10 @@ public class CategoryList {
         return categoryList.get(i);
     }
     
+    /**
+     * Return the total sum of all expenditure across all categories for the current month.
+     * @return total The total sum
+     */
     public double getGrandMonthTotal() {
         double total = 0;
         for (Category category : categoryList) {
@@ -30,6 +33,10 @@ public class CategoryList {
         return total;
     }
     
+    /**
+     * Find the category with the largest total expenditure and return the value of that expenditure.
+     * @return expenditure The value of the largest expenditure
+     */
     public double getLargestExpenditure() {
         double expenditure = 0;
         for (Category category : categoryList) {

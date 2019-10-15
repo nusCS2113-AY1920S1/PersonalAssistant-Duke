@@ -1,15 +1,23 @@
 package moomoo.command;
-import moomoo.task.*;
+
+import moomoo.task.Budget;
+import moomoo.task.Category;
+import moomoo.task.CategoryList;
+import moomoo.task.MooMooException;
+import moomoo.task.Storage;
+import moomoo.task.TransactionList;
+import moomoo.task.Ui;
+
 import java.util.ArrayList;
 
 public class GraphCommand extends Command {
-    private ArrayList<String> yAxis;
-    private final String fullBlock ="█";
-    private final String halfBlock ="▌";
+    private ArrayList<String> verticalAxis;
+    private final String fullBlock = "█";
+    private final String halfBlock = "▌";
     private final String topBorder = "┬";
     private final String bottomBorder = "┴";
-    private String xAxisTop = "";
-    private String xAxisBottom = "";
+    private String horizontalAxisTop = "";
+    private String horizontalAxisBottom = "";
     private String output = "";
     
     public GraphCommand(String input) {
@@ -21,7 +29,8 @@ public class GraphCommand extends Command {
     }
     
     @Override
-    public void execute(Budget budget, CategoryList catList, TransactionList transList, Ui ui, Storage storage) throws MooMooException {
+    public void execute(Budget budget, CategoryList catList, TransactionList transList, Ui ui, Storage storage)
+            throws MooMooException {
         if (input.length() < 7) {
             throw new MooMooException("OOPS!!! Please use the total/[CATEGORY} sub-command");
         }
@@ -35,35 +44,33 @@ public class GraphCommand extends Command {
                 if (categoryName.length() > 14) {
                     categoryName = categoryName.substring(0, 10) + "...";
                 }
-                yAxis.add(categoryName);
+                verticalAxis.add(categoryName);
             }
             double grandTotal = catList.getGrandMonthTotal();
-            int maxAxisUnit = (int) (grandTotal/catList.getLargestExpenditure()) + 1;
+            int maxAxisUnit = (int) (grandTotal / catList.getLargestExpenditure()) + 1;
             for (int i = 0; i < maxAxisUnit; i += 1) {
-                xAxisTop += topBorder;
-                xAxisBottom += bottomBorder;
+                horizontalAxisTop += topBorder;
+                horizontalAxisBottom += bottomBorder;
             }
             //15 spaces before xAxisTop
-            output = "               " + xAxisTop + "\n";
+            output = "               " + horizontalAxisTop + "\n";
             for (int i = 0; i < catList.size(); i += 1) {
                 Category category = catList.get(i);
-                double percentage = 10 * (category.getCategoryMonthTotal()/grandTotal);
+                double percentage = 10 * (category.getCategoryMonthTotal() / grandTotal);
                 percentage = roundToHalf(percentage);
                 int noOfFullBars = (int) percentage;
                 int noOfHalfBars = (int) Math.round(percentage % 1);
-                output = output + category + " \n";
-                for (int j = 0; j < noOfFullBars; j += 1)
-                {
+                output = output + verticalAxis.get(i) + " \n";
+                for (int j = 0; j < noOfFullBars; j += 1) {
                     output = output + fullBlock;
                 }
                 if (noOfHalfBars == 1) {
                     output = output + halfBlock + "\n";
                 }
             }
-            output = "               " + xAxisBottom + "\n";
+            output = "               " + horizontalAxisBottom + "\n";
             ui.setOutput(output);
-        }
-        else {
+        } else {
             throw new MooMooException("OOPS!!! Wrong sub-command! Please use the total/[CATEGORY} sub-command");
         }
     }

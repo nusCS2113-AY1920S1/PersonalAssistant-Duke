@@ -1,6 +1,11 @@
 package moomoo.task;
 
-import moomoo.command.*;
+import moomoo.command.AddCategoryCommand;
+import moomoo.command.BudgetCommand;
+import moomoo.command.Command;
+import moomoo.command.ExitCommand;
+import moomoo.command.GraphCommand;
+import moomoo.command.ListCategoryCommand;
 
 import java.util.Scanner;
 
