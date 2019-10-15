@@ -1,9 +1,9 @@
 import java.time.Month;
 import java.util.*;
 
-import duke.Task.Event;
-import duke.Task.Item;
-import duke.Task.TaskList;
+import duke.task.Event;
+import duke.task.Item;
+import duke.task.TaskList;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -19,8 +19,7 @@ public class FindDateTest {
 
         String[] temp = date.split("/");
 
-        TaskList tl = new TaskList();
-        String dd = tl.numOrdinal(Integer.parseInt(temp[0]));
+        String dd = TaskList.numOrdinal(Integer.parseInt(temp[0]));
         assertEquals("23rd",dd);
 
         Month mm = Month.of(Integer.parseInt(temp[1]));

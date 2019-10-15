@@ -1,4 +1,4 @@
-package duke.module;
+package duke.Module;
 
 import duke.Data.Storage;
 import duke.Task.TaskList;
@@ -123,7 +123,6 @@ public class Schedule {
      * @return String of every hour from 8am inside the day.
      */
     public String getDay(String dayOfClass) throws ParseException {
-        String message = "";
         for (int i = 0; i <= 24; i++) {
             String time = (i < 10) ? "0" + i + "00" : i + "00";
             SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy HHmm");
@@ -133,15 +132,15 @@ public class Schedule {
             for (TimeSlot t : this.list) {
                 if (now.equals(t.getStartTime())) {
                     isAssignedClass = true;
-                    message += df.format(now) + " " + t.getClassName() + " from " + df.format(t.getStartTime()) + " to " + df.format(t.getEndTime()) + " at " + t.getLocation() + "\n";
+                    System.out.println(df.format(now) + " " + t.getClassName() + " from " + df.format(t.getStartTime()) + " to " + df.format(t.getEndTime()) + " at " + t.getLocation());
                 }
             }
             if (!isAssignedClass) {
-                message += df.format(now) + "\n";
+                System.out.println(df.format(now));
             }
         }
-        message += "--------------------------";
-        return message;
+
+        return "--------------------------";
     }
 
     public String addClass(String startTime, String endTime, String location, String className, TaskList taskList, Storage scheduleStorage) {

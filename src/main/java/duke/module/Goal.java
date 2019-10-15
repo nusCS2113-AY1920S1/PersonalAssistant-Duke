@@ -1,4 +1,4 @@
-package duke.module;
+package duke.Module;
 
 import duke.Data.Storage;
 
@@ -11,7 +11,7 @@ import java.util.Map;
 public class Goal {
 
     /**
-     * A hash map which holds the optional goals of the day for any day.
+     * A hash map which holds the optional goal of the day for any day.
      */
     private Map<Date, ArrayList<String>> goals;
 

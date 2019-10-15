@@ -1,5 +1,5 @@
-import duke.Task.After;
-import duke.Task.TaskList;
+import duke.task.After;
+import duke.task.TaskList;
 import org.junit.jupiter.api.Test;
 
 import java.text.ParseException;
@@ -20,11 +20,10 @@ public class AfterTest {
         /**
          * First test is for after a specific task
          */
-        TaskList list = new TaskList();
         String info = "return book";
         String endDate = "16/08/2019 1600";
         Date date = new SimpleDateFormat("dd/MM/yyyy HHmm").parse(endDate);
-        String expectedDate = list.dateToStringFormat(date);
+        String expectedDate = TaskList.dateToStringFormat(date);
         After after = new After(info, false, endDate);
         assertEquals("[A][" + cross + "] return book (after: " + expectedDate + ")", after.toString());
 

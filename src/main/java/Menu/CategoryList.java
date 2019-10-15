@@ -1,7 +1,6 @@
 package Menu;
 
-import Menu.MyMenu;
-import duke.Task.Item;
+import duke.task.Item;
 
 import java.util.ArrayList;
 

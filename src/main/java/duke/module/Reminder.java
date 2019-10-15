@@ -1,6 +1,6 @@
-package duke.module;
+package duke.Module;
 
-import duke.Task.*;
+import duke.task.*;
 
 import java.util.ArrayList;
 import java.util.Date;

@@ -1,6 +1,4 @@
-package duke.Task;
-
-import javafx.scene.layout.Pane;
+package duke.task;
 
 import java.util.Date;
 

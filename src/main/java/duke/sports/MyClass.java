@@ -1,6 +1,6 @@
-package duke.sports;
+package duke.Sports;
 
-import duke.Task.Item;
+import duke.task.Item;
 
 import java.util.ArrayList;
 

@@ -1,4 +1,4 @@
-import duke.Task.Deadline;
+import duke.task.Deadline;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;

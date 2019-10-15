@@ -1,20 +1,15 @@
 package duke.Data;
 
 
-import duke.module.Goal;
-import duke.module.Lesson;
-import duke.module.Reminder;
-import duke.module.Schedule;
-import duke.Task.After;
-import duke.Task.Deadline;
-import duke.Task.Event;
-import duke.Task.TaskList;
-import duke.Task.ToDo;
+import duke.Sports.ManageStudents;
+import duke.Module.Goal;
+import duke.Module.Schedule;
+import duke.Sports.MyClass;
+import duke.Sports.MyStudent;
+import duke.task.*;
+import duke.Module.Reminder;
 import duke.Ui;
-import duke.sports.ManageStudents;
-import duke.sports.MyClass;
-import duke.sports.MyPlan;
-import duke.sports.MyStudent;
+import duke.Sports.MyPlan;
 
 import java.io.FileNotFoundException;
 import java.text.ParseException;
@@ -258,56 +253,6 @@ public class Parser {
                 }
                 break;
 
-        /**
-         * View: lesson view 5/10/2019
-         * Add: lesson add 5/10/2019 Makes sure every student masters freestyle
-         * Delete: lesson delete-all 5/10/2019|lesson delete 5/10/2019 Makes sure every student masters freestyle
-         */
-        case "lesson":
-            Storage lessonStorage = new Storage(".\\src\\main\\java\\duke\\Module\\lessons.txt");
-            Lesson lesson = new Lesson(lessonStorage.loadLesson());
-            try {
-                switch (word[1]) {
-                case "view": {
-                    String date = word[2];
-                    System.out.print(lesson.viewLesson(date));
-                    break;
-                }
-                case "add": {
-                    String date = word[2];
-                    index = input.indexOf(word[3]);
-                    String message = input.substring(index);
-                    System.out.println(lesson.addLesson(date, message, lessonStorage));
-                    break;
-                }
-                case "delete": {
-                    String date = word[2];
-                    index = input.indexOf(word[3]);
-                    String message = input.substring(index);
-                    System.out.println(lesson.removeLesson(date, message, lessonStorage));
-                    break;
-                }
-                case "delete-all": {
-                    String date = word[2];
-                    System.out.println(lesson.removeAllLesson(date, lessonStorage));
-                    break;
-                }
-                }
-            } catch (ArrayIndexOutOfBoundsException e) {
-                System.out.println("Please enter the full command.\n" +
-                    "To view a lesson learnt for the day, enter input in the format: lesson view dd/MM/yyyy\n" +
-                    "To add a lesson learnt for the day, enter input in the format: lesson add dd/MM/yyyy {lesson}\n" +
-                    "To delete all lessons learnt for the day, enter input in the format: lesson delete-all dd/MM/yyyy\n" +
-                    "To delete a lesson learnt for the day, enter input in the format: lesson delete dd/MM/yyyy {lesson}");
-            } catch (ParseException e) {
-                System.out.println("Please enter the details in the correct format.\n" +
-                    "To view a lesson learnt for the day, enter input in the format: lesson view dd/MM/yyyy\n" +
-                    "To add a lesson learnt for the day, enter input in the format: lesson add dd/MM/yyyy {lesson}\n" +
-                    "To delete all lessons learnt for the day, enter input in the format: lesson delete-all dd/MM/yyyy\n" +
-                    "To delete a lesson learnt for the day, enter input in the format: lesson delete dd/MM/yyyy {lesson}");
-            }
-            break;
-
             /**
              * View: training view [plan number]
              * Add: training add-activity [name] [sets] [reps] [activity number]|training add-plan [plan number]
@@ -418,13 +363,14 @@ public class Parser {
 
             /**
              * Command is in the form: plan new [intensity level] or plan view [intensity] plan/[plan number]
+             *
              */
             case "plan":
                 if (word[1].equals("view")) {
-                    plan.loadPlan(word[2].toLowerCase(), word[3]);
+                    plan.loadPlan(word[2].toLowerCase(),word[3]);
                     plan.viewPlan();
                 } else if (word[1].equals("new")) {
-                    plan.createPlan(word[2].toLowerCase());
+                    plan.createPlan(word[3].toLowerCase());
                 } else if (word[1].equals("edit")) {
                     //not yet created
                 }

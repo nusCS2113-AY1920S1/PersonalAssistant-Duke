@@ -1,10 +1,10 @@
 package duke;
 
 import duke.Data.Storage;
-import duke.module.Schedule;
-import duke.sports.ManageStudents;
-import duke.sports.MyPlan;
-import duke.Task.TaskList;
+import duke.Module.Schedule;
+import duke.Sports.ManageStudents;
+import duke.Sports.MyPlan;
+import duke.task.TaskList;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -69,22 +69,14 @@ public class Duke extends Application {
     @Override
     public void start(Stage stage) {
         try {
-            //URL url = Duke.class.getClassLoader().getResource("view/menu.fxml");
             URL url = Duke.class.getClassLoader().getResource("view/schedule.fxml");
-            //URL url = Duke.class.getClassLoader().getResource("view/daily.fxml");
-            //URL url = Duke.class.getClassLoader().getResource("view/goal.fxml");
             System.out.println(url);
             Parent root = FXMLLoader.load(url);
             stage.setScene(new Scene(root, 1280,720));
             stage.setTitle("Sports Manager");
+            stage.setResizable(false);
             stage.show();
 
-//            Scene scene = new Scene(ViewModules.layoutHome(), 1280, 720);
-//            stage.setScene(scene);
-//            stage.setTitle("Sports Manager");
-//            stage.setResizable(false);
-//            stage.show();
-//            window.setScene(scene);
         }
         catch (IOException e) {
             System.err.println("Could not find sample.fxml");
