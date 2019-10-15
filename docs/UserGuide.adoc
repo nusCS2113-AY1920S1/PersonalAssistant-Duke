@@ -380,6 +380,68 @@ To find out which expenditure to delete, use the `/list` or `/find` function to 
 
 Deletes an expenditure from `JunBank Savings Account with transaction number` `1`.
 
+===== Adding deposit to savings bank account `/add /deposit`
+
+Saved up some spare cash to deposit into your bank account? Record them here!
+
+*Command Syntax*
+
+`/add /deposit /to BANK_NAME /amount AMOUNT /desc DESCRIPTION /date DATE`
+
+*Example*
+
+* `/add /deposit /to JunBank Savings Account /amount 300 /description FREELANCE WORK /date 10/10/2019`
+
+Deposits $`300` earned from `FREELANCE WORK` work into `JunBank Savings Account`.
+
+===== Editing deposit details for savings bank account `/edit /deposit`
+
+Accidentally added more zeroes than expected when entering your deposit? Edit them here!
+
+*Command Syntax*
+
+`/edit /deposit /from BANK_NAME /transno TRANSACTION_NUMBER [/desc DESCRIPTION] [/amount AMOUNT] [/date DATE]`
+
+[WARNING]
+====
+At least one of /desc, /amount, /date must be used.
+====
+
+[TIP]
+====
+To find which to deposit to edit, use the `/list` or `/find` function to find the transaction number.
+====
+
+*Example*
+
+* `/edit /deposit /from JunBank Savings Account /transno 11 /desc FREELANCE WORK /amount 270 /date 29/11/2019`
+
+Changes the `deposit` with transaction number `11` deposited to `JunBank Savings Account` to a new description of
+`FREELANCE WORK`, new amount of $`270` and a new date of `29/11/2019`
+
+* `/edit /deposit /from JunBank Savings Account /transno 11 /amount 5001`
+
+Changes the `deposit` with transaction number `11` deposited to `JunBank Savings Account` to a new amount of $`500`.
+
+===== Deleting deposit for savings bank account `/delete /deposit`
+
+Accidentally added a deposit which you have not done? You can delete it here!
+
+*Command Syntax*
+
+`/delete /deposit /from BANK_NAME /transno TRANSACTION_NUMBER`
+
+[TIP]
+====
+To find out which recurring expenditure to delete, use the `/list` or `/find` function to find the description.
+====
+
+*Example*
+
+* `/edit /deposit /from JunBank Savings Account /transno 11`
+
+Deletes a `deposit` with transaction number `11` from `JunBank Savings Account`.
+
 ==== Investment Account Management
 ===== Adding investment bank account `/add /investment`
 Want to start *investing* to grow your wealth? No problem!
@@ -453,6 +515,8 @@ No worries! *OwlMoney* allows efficient tracking of your semi annual coupon inte
 [WARNING]
 ====
 An investment account needs to be created first to add bonds.
+
+Bonds can only be added to investment accounts.
 ====
 
 *Example*
@@ -495,6 +559,11 @@ Here's how you can use the `/add /card` command.
 *Command Syntax*
 
 `/add /card /name CARD_NAME /limit CARD_LIMIT /rebate CASHBACK_RATE`
+
+[WARNING]
+====
+OwlMoney only supports card with credit limit in lieu of encouraging you to spend less!
+====
 
 *Example*
 
@@ -693,130 +762,6 @@ Thought of a new profile name? Change it now!
 
 Changes the profile name to JUNNY
 
-
-===== Adding recurring expenditures for bills `/add /recurexpenditure`
-
-Postpaid mobile plan bills that are consistent monthly? We can save you the hassle from adding them every month!
-
-*Command Syntax*
-
-`/add /recurexpenditure /amount AMOUNT /from BANK_NAME /frequency MONTH/WEEK/YEAR /desc DESCRIPTION [/category
- CATEGORY]`
-
-*Example*
-
-`/add /recurexpenditure /amount 72.90 /from JunBank Savings Account /frequency week /desc Telco Bills /category
-Bills`
-
-Adds a recurring expenditure that deducts $`72.90` every `week` days to pay `Telco Bills` charged to `JunBank Savings
-Account`
-categorised under the `Bills` category.
-
-`/add /recurexpenditure /amount 2000 /from DBB Vickers Account /frequency month /desc AAB Bonds /category
-Investments`
-
-Adds a recurring expenditure that deducts $`2000` every `month` days to buy `AAB Bonds` charged to `DBB Vickers
-Account` categorised under the `Investments` category.
-
-===== Editing recurring expenditure `/edit /recurexpenditure`
-
-*Command Syntax*
-
-`/edit /recurexpenditure /from BANK_NAME /desc DESCRIPTION [/category CATEGORY] [/amount
-AMOUNT] [/frequency MONTH/WEEK/YEAR]`
-
-[WARNING]
-====
-At least one of /category, /amount, /frequency must be used.
-====
-
-*Example*
-
-* `/edit /recurexpenditure /from JunBank Savings Account /desc Telco Bills /amount 119.90`
-
-Changes the recurring expenditure named `Telco Bills` to charge $`119.90`.
-
-===== Deleting recurring expenditure `/delete /recurexpenditure`
-
-Cancelled your recurring bill? You can delete it!
-
-*Command Syntax*
-
-`/delete /recurexpenditure /from BANK_NAME /desc DESCRIPTION`
-
-[TIP]
-====
-To find out which recurring expenditure to delete, use the `/list` or `/find` function to find the description.
-====
-
-*Example*
-
-* `/delete /recurexpenditure /from JunBank Savings Account /desc Telco Bills`
-
-Deletes a recurring expenditure from `JunBank Savings Account` with description `Telco Bills`.
-
-===== Adding deposit to bank account `/add /deposit`
-
-Saved up some spare cash to deposit into your bank account? Record them here!
-
-*Command Syntax*
-
-`/add /deposit /to BANK_NAME /amount AMOUNT /desc DESCRIPTION /date DATE`
-
-*Example*
-
-* `/add /deposit /to JunBank Savings Account /amount 300 /description FREELANCE WORK /date 10/10/2019`
-
-Deposits $`300` earned from `FREELANCE WORK` work into `JunBank Savings Account`.
-
-===== Editing deposit details `/edit /deposit`
-
-Accidentally added more zeroes than expected when entering your deposit? Edit them here!
-
-*Command Syntax*
-
-`/edit /deposit /from BANK_NAME /transno TRANSACTION_NUMBER [/desc DESCRIPTION] [/amount AMOUNT] [/date DATE]`
-
-[WARNING]
-====
-At least one of /desc, /amount, /date must be used.
-====
-
-[TIP]
-====
-To find which to deposit to edit, use the `/list` or `/find` function to find the transaction number.
-====
-
-*Example*
-
-* `/edit /deposit /from JunBank Savings Account /transno 11 /desc FREELANCE WORK /amount 270 /date 29/11/2019`
-
-Changes the `deposit` with transaction number `11` deposited to `JunBank Savings Account` to a new description of
-`FREELANCE WORK`, new amount of $`270` and a new date of `29/11/2019`
-
-* `/edit /deposit /from JunBank Savings Account /transno 11 /amount 5001`
-
-Changes the `deposit` with transaction number `11` deposited to `JunBank Savings Account` to a new amount of $`500`.
-
-===== Deleting deposit `/delete /deposit`
-
-Accidentally added a deposit which you have not done? You can delete it here!
-
-*Command Syntax*
-
-`/delete /deposit /from BANK_NAME /transno TRANSACTION_NUMBER`
-
-[TIP]
-====
-To find out which recurring expenditure to delete, use the `/list` or `/find` function to find the description.
-====
-
-*Example*
-
-* `/edit /deposit /from JunBank Savings Account /transno 11`
-
-Deletes a `deposit` with transaction number `11` from `JunBank Savings Account`.
-
 === Utility Commands
 ==== /find `/find`
 
@@ -901,6 +846,67 @@ Transfers $`500` from `JunBank Savings Account` to `POBB Savings Account`.
 * `/transfer /investment /from DBB Vickers Account /to JunBank Savings Account /amount 250`
 
 Transfers $`250` from `DBB Vickers Account` to `JunBank Savings Account`.
+
+==== Adding recurring expenditures `/add /recurexpenditure`
+
+Postpaid mobile plan bills that are consistent monthly? We can save you the hassle from adding them every month!
+
+*Command Syntax*
+
+`/add /recurexpenditure /amount AMOUNT /from BANK_NAME /frequency MONTH/WEEK/YEAR /desc DESCRIPTION [/category
+ CATEGORY]`
+
+*Example*
+
+`/add /recurexpenditure /amount 72.90 /from JunBank Savings Account /frequency week /desc Telco Bills /category
+Bills`
+
+Adds a recurring expenditure that deducts $`72.90` every `week` days to pay `Telco Bills` charged to `JunBank Savings
+Account`
+categorised under the `Bills` category.
+
+`/add /recurexpenditure /amount 2000 /from DBB Vickers Account /frequency month /desc AAB Bonds /category
+Investments`
+
+Adds a recurring expenditure that deducts $`2000` every `month` days to buy `AAB Bonds` charged to `DBB Vickers
+Account` categorised under the `Investments` category.
+
+==== Editing recurring expenditure `/edit /recurexpenditure`
+
+*Command Syntax*
+
+`/edit /recurexpenditure /from BANK_NAME /desc DESCRIPTION [/category CATEGORY] [/amount
+AMOUNT] [/frequency MONTH/WEEK/YEAR]`
+
+[WARNING]
+====
+At least one of /category, /amount, /frequency must be used.
+====
+
+*Example*
+
+* `/edit /recurexpenditure /from JunBank Savings Account /desc Telco Bills /amount 119.90`
+
+Changes the recurring expenditure named `Telco Bills` to charge $`119.90`.
+
+==== Deleting recurring expenditure `/delete /recurexpenditure`
+
+Cancelled your recurring bill? You can delete it!
+
+*Command Syntax*
+
+`/delete /recurexpenditure /from BANK_NAME /desc DESCRIPTION`
+
+[TIP]
+====
+To find out which recurring expenditure to delete, use the `/list` or `/find` function to find the description.
+====
+
+*Example*
+
+* `/delete /recurexpenditure /from JunBank Savings Account /desc Telco Bills`
+
+Deletes a recurring expenditure from `JunBank Savings Account` with description `Telco Bills`.
 
 == Future Enhancements `[coming in v2.0]`
 === Multi-Currency Support `/currency USD`
