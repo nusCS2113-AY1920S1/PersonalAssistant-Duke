@@ -64,6 +64,8 @@ public class CheckAnomaly {
         for( int i = 0; i<TaskList.currentList().size(); i++ ) {
             if( curr.get(i) instanceof Event && ((Event) curr.get(i)).checkDate().equals(at) ) {
                 return true;
+            } else if( curr.get(i) instanceof FixedDuration ) {
+                return true;
             }
         }
         return false;

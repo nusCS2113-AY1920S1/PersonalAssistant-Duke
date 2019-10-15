@@ -1,24 +1,26 @@
-package java;
-
+import CustomExceptions.RoomShareException;
 import Enums.Priority;
-import CustomExceptions.DukeException;
 import Model_Classes.Task;
-import Operations.Parser;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import java.util.Date;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
-public class TaskTest {
-    private static final Parser parser = new Parser();
+public class Task_Test {
+    private static Task task;
 
-    @Test
-    public void testGetUser() {
-        assertEquals("user", new Task("test", "user").getUser());
+    static {
+        task = new Task("test", "user");
     }
 
     @Test
+    public void testGetUser() { assertEquals("user", new Task("test", "user").getUser()); }
+
+    @Test
     public void testGetCreated() {
-        assertEquals(LocalDateTime.now().format(dateTimeFormatterNow), new Task("test", "user").getCreated();
+        DateTimeFormatter dateTimeFormatterNow = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
+        LocalDateTime now = LocalDateTime.now();
+        assertEquals(now.format(dateTimeFormatterNow), new Task("test", "user").getCreated());
     }
 
     @Test
@@ -43,12 +45,14 @@ public class TaskTest {
 
     @Test
     public void testSetDone() {
-        assertEquals(true, new Task("test", "user").setDone().getDone());
+        task.setDone();
+        assertEquals(true, task.getDone());
     }
 
     @Test
     public void testSetPriority() {
-        assertEquals(Priority.high, new Task("test", "user").setPriority(Priority.high).getPriority());
+        task.setPriority(Priority.high);
+        assertEquals(Priority.high, task.getPriority());
     }
 
     @Test

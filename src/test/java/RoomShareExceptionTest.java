@@ -1,21 +1,24 @@
-package java;
-
+import CustomExceptions.RoomShareException;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import Enums.ExceptionType;
 
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
+
 public class RoomShareExceptionTest {
     private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
-    private final PrintStream originalOut = System.out;
-    private static final RoomShareExceptionTest exeptionTest = new RoomShareExceptionTest();
+    private static final PrintStream originalOut = System.out;
 
-    @Before
+    @BeforeAll
     public void setUpStreams() {
         System.setOut(new PrintStream(outContent));
     }
 
-    @After
-    public void restoreStreams() {
+    @AfterAll
+    static void restoreStreams() {
         System.setOut(originalOut);
     }
 
@@ -27,7 +30,7 @@ public class RoomShareExceptionTest {
 
     @Test
     public void testTimeclash() {
-        new RoomShareException(ExceptionType.timeclash);
+        new RoomShareException(ExceptionType.timeClash);
         assertEquals("Time Clash Detected", outContent.toString());
     }
 
