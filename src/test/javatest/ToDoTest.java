@@ -1,4 +1,4 @@
-package java;
+package javatest;
 
 import Model_Classes.ToDo;
 import org.junit.jupiter.api.Test;
