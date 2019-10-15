@@ -67,6 +67,12 @@ public class Storage {
         tasks.setTasks(newTasks);
     }
 
+    /**
+     * Returns Venues fetched from stored memory.
+     *
+     * @return The List of all Venues in Recommendations list
+     */
+
     public List<Venue> readVenues() throws DukeException {
         List<Venue> recommendations = new ArrayList<>();
         try {

@@ -23,8 +23,8 @@ class RecommendationsCommandTest {
         List<Venue> list = model.getRecommendations();
         StringBuilder result = new StringBuilder("Here are the list of Recommended Locations in 5 days:\n");
         for (int i = 0; i < 10; i++) {
-            if(i%2 == 0){
-                result.append("Day ").append( (i/2) + 1).append(":").append("\n");
+            if (i % 2 == 0) {
+                result.append("Day ").append((i / 2) + 1).append(":").append("\n");
             }
             result.append(i).append(". ").append(list.get(i).getAddress()).append("\n");
         }

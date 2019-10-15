@@ -72,7 +72,9 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public List<Venue> getRecommendations() throws DukeException { return storage.readVenues(); }
+    public List<Venue> getRecommendations() throws DukeException {
+        return storage.readVenues();
+    }
 
     @Override
     public void save() throws DukeException {

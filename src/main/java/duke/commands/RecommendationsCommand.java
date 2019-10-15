@@ -31,12 +31,13 @@ public class RecommendationsCommand extends Command {
 
         int j = Integer.parseInt(days);
 
-        for (int i = 0; i < 2*j; i++) {
-            if(i%2 == 0){
-                result.append("Day ").append( (i/2) + 1).append(":").append("\n");
+        for (int i = 0; i < 2 * j; i++) {
+            if (i % 2 == 0) {
+                result.append("Day ").append((i / 2) + 1).append(":").append("\n");
             }
             result.append(i).append(". ").append(list.get(i).getAddress()).append("\n");
         }
+
         // Until more locations are added
 
         if (j > 7) {
