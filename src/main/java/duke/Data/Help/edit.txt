@@ -1,0 +1,24 @@
+Edit the nutritional intake of a meal.
+
+    edit DESCRIPTION [/TAG]<QUANTITY>... [/date]<DATE>
+
+For example:
+
+1. You have a breakfast item in the database today called burger which contains 100 kilocalories, 100g calcium, and 100 fats
+    You want to change the value of fats to 50g
+
+        edit hamburger /fats 50
+
+    You want to change the value of fats and calcium to 50g
+
+        edit hamburger /fats 50 /calcium 50
+
+2. You have a breakfast item in the database on 1st of January 2019 called burger, with 100 kilocalories, 100g calcium
+and 100g fats for its nutritional value
+    You want to change the value of fats to 50g
+
+        edit hamburger /fats 50 /date 1/1/2019
+
+Note:
+- Current date is obtained from the system date in your computer
+- Dates should be entered in the following format: day/month/year

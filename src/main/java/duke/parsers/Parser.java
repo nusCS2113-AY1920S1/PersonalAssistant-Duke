@@ -146,6 +146,9 @@ public class Parser {
                     return new AddGoalCommand(new Goal(description, "", autocorrect));
                 }
             case "help":
+                if (description.trim().length() >= 0) {
+                    return new HelpCommand(description);
+                }
                 return new HelpCommand();
             case "history":
                 // clear history if requested

@@ -1,0 +1,14 @@
+set nutritional goal to be met at the end of a time period.
+
+    goal END_DATE [/TAGS] <QUANTITY>
+
+For example:
+
+    goal 1/2/2019 /calories 3000 /sodium 800
+
+will set a nutritional goal of 3000 calories and 800 grams of sodium to be completed by 1st of February 2019
+
+Note:
+- The nutritional goal must be at least 1
+- The current date is obtained from the system date in your comptuer.
+- Dates should be entered in the following format: day/month/year

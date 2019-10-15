@@ -1,0 +1,24 @@
+Add a breakfast item with its (optional) associated nutritional information.
+The command also support the addition of breakfast item to other dates
+by simply specify the date after a /date flag at the end of the statement.
+
+breakfast DESCRIPTION [/TAG] <QUANTITY> [/date] <DATE>
+
+For example:
+
+1. You ate a hamburger today, but you are unsure of its nutritional value:
+
+    breakfast hamburger
+
+2. You ate a hamburger that had 1000 calories and 10 grams of sodium
+
+    breakfast hamburger /calories 1000 /sodium 10
+
+3. You ate a hamburger that had 1000 calories and 10 grams of sodium on 1st of January, 2019,
+   but you are only adding the item today
+
+   breakfast hamburger /calories 1000 /sodium 10 /date 1/1/2019
+
+Note:
+- Current date is obtained from the system date in your computer
+- Dates should be entered in the following format: day/month/year

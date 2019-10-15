@@ -1,0 +1,3 @@
+show the statistics regarding the nutritional progress
+
+    stats

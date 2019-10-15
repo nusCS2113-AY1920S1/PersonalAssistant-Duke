@@ -1,0 +1,14 @@
+clear all the data in an interval between two dates
+
+    clear START_DATE END_DATE
+
+For example:
+
+    clear today tomorrow
+
+will delete all meal items from today to tomorrow (inclusive)
+
+    clear 1/1/2019 3/1/2019
+
+will delete all meal items from 1 January 2019 to 3 January 2019 (inclusive)
+

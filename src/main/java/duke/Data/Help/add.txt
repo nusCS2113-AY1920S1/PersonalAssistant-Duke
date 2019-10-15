@@ -1,0 +1,11 @@
+Create or modify a fixed food item.
+You can set default nutritional values for food items that have the same description.
+
+add DESCRIPTION [/TAG] <QUANTITY>
+
+For example:
+
+add     Hamburger /fats 50 /calorie 500
+
+will add an food item "Hamburger" that has a nutritional value of 50 units of fats and 500 units of calorie.
+The next time Hamburger is called, there is no need to input the nutritional values as it is already recorded.

@@ -1,0 +1,13 @@
+display previously entered commands.
+
+    history [clear]
+
+For example:
+
+    history
+
+will generate all the commands during the current session or after the latest clear.
+
+    history clear
+
+will clear the history list of the commands entered during the current session.
