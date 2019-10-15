@@ -26,7 +26,6 @@ public class BudgetCommand extends Command {
         }
     }
 
-
     public BudgetCommand() {
         super(name, description, usage, Stream.of(BudgetCommand.SecondaryParam.values())
                 .collect(Collectors.toMap(s -> s.name, s -> s.description)));
@@ -38,17 +37,20 @@ public class BudgetCommand extends Command {
         if (!commandParams.containsMainParam()) {
             throw new DukeException(String.format(DukeException.MESSAGE_COMMAND_PARAM_MISSING, "amount"));
         }
-        BigDecimal amount = new BigDecimal(commandParams.getMainParam());
-        BigDecimal scaledAmount = amount.setScale(2, RoundingMode.HALF_UP);
-        if (commandParams.containsParams(SecondaryParam.TAG.name)) {
-            String category = commandParams.getParam(SecondaryParam.TAG.name);
-            duke.budget.setCategoryBudget(category, amount);
+        try {
+            BigDecimal amount = new BigDecimal(commandParams.getMainParam());
+            BigDecimal scaledAmount = amount.setScale(2, RoundingMode.HALF_UP);
+            if (commandParams.containsParams(SecondaryParam.TAG.name)) {
+                String category = commandParams.getParam(SecondaryParam.TAG.name);
+                duke.budget.setCategoryBudget(category, amount);
+            }
+            duke.budget.setMonthlyBudget(scaledAmount);
+            duke.budget.save();
+        } catch (NumberFormatException e) {
+            throw new DukeException(String.format(DukeException.MESSAGE_EXPENSE_AMOUNT_INVALID,
+                    commandParams.getParam(SecondaryParam.TAG.name)));
         }
 
-        duke.budget.setMonthlyBudget(scaledAmount);
-        duke.budget.save();
-
     }
-
 
 }

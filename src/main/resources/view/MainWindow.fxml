@@ -5,6 +5,7 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.TableView?>
 <BorderPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
             fx:controller="duke.MainWindow"
@@ -15,8 +16,7 @@
             <Label fx:id="totalSpentLabel" text="Total: $0.00"/>
             <Label fx:id="monthlyBudgetLabel" text="Budget:inf"/>
             <Label fx:id="remainingBudgetLabel" text="Remaining:inf"/>
-            <ListView fx:id="expenseListView">
-            </ListView>
+            <TableView fx:id="expenseTableView" />
         </VBox>
     </top>
     <bottom>

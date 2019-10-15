@@ -44,6 +44,7 @@ public class Budget {
             file.createNewFile();
             try (FileWriter fileWriter = new FileWriter(file)) {
                 fileWriter.write(monthlyBudget.toPlainString());
+                fileWriter.write(STORAGE_DELIMITER);
                 if (!budgetCategory.isEmpty()) {
                     for (String category : budgetCategory.keySet()) {
                         BigDecimal budget = budgetCategory.get(category);
@@ -56,6 +57,7 @@ public class Budget {
             throw new DukeException(String.format(DukeException.MESSAGE_SAVE_FILE_FAILED, file.getPath()));
         }
     }
+
 
     /**
      * loads from the save file.
