@@ -1,6 +1,7 @@
 package duke.util;
 
 
+import duke.command.CapCommand;
 import duke.command.logic.EndCommand;
 import duke.command.logic.ModuleCommand;
 import duke.command.logic.RemoveModCommand;
@@ -80,6 +81,9 @@ public class ParserWrapper {
             }
             case "remove": {
                 return new RemoveModCommand(Integer.parseInt(hold[hold.length - 1]));
+            }
+            case "cap": {
+                return new CapCommand(input);
             }
             default: {
                 throw new ModCommandException();
