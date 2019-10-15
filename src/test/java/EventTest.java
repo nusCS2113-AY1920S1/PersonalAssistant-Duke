@@ -5,8 +5,6 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import java.util.Date;
 
-
-
 public class EventTest {
     private static final Parser parser = new Parser();
     private static Date by;
