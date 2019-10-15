@@ -268,7 +268,7 @@ Signed up for a bond? Finding it difficult to keep up with the interest?
 No worries! *OwlMoney* allows efficient tracking of your semi annual coupon interest!
 
 *Command Syntax*
-`/add /bonds /from BANK_NAME /name BOND_NAME /amount AMOUNT /rate RATE`
+`/add /bonds /from BANK_NAME /name BOND_NAME /amount AMOUNT /rate RATE /date DATE /years YEARS`
 
 [WARNING]
 ====
@@ -279,7 +279,8 @@ An investment account needs to be created first to add bonds.
 
 * `/add /bonds /from DBB Vickers Account /name June SSB /amount 1000 /rate 1.92`
 
-Adds a bond named `June SSB` charged to `DBB Vickers Account` at $`1000` with interest rate of `1.92`%/
+Adds a bond named `June SSB` charged to `DBB Vickers Account` at $`1000` with interest rate of `1.92`% bought on
+`1/1/2019` for a period of `1` year(s).
 
 ===== `/card`
 Have a credit card? We can help you track your spending and cashback rebates with it! +
@@ -287,11 +288,11 @@ Here's how you can use the `/add /card` command.
 
 *Command Syntax*
 
-`/add /card /name CARD_NAME /amount CARD_LIMIT /rebate CASHBACK_RATE`
+`/add /card /name CARD_NAME /limit CARD_LIMIT /rebate CASHBACK_RATE`
 
 *Example*
 
-* `/add /card /name POBB Tomorrow Card /amount 10000 /rebate 1.5`
+* `/add /card /name POBB Tomorrow Card /limit 10000 /rebate 1.5`
 
 Adds a credit card named `POBB Tomorrow Card` which has a credit limit of $`10 000` and
 cashback rate of `1.5`%
@@ -318,21 +319,37 @@ Adds a goal named `Delicious Dinner at WAA COW` which aims to save $`50` in `15`
 
 Adds a goal named `BTO at Punggol Downpayment` which aims to save $`20000` by `10/10/2020`.
 
-===== `/expenditure`
+===== `/bankexpenditure`
 
 Spending is a daily affair and it is difficult to keep track of so many of them. Fret not!
 `OwlMoney` allows you to keep track of your spending and categorise them as well!
 
 *Command Syntax*
 
-`/add /expenditure /amount AMOUNT /from BANK_NAME /date DATE /description DESCRIPTION [/category CATEGORY]`
+`/add /bankexpenditure /amount AMOUNT /from BANK_NAME /date DATE /desc DESCRIPTION [/category CATEGORY]`
 
 *Example*
 
-`/add /expenditure /amount 1.20 /from JunBank Savings Account /date 28/09/2019 /description bubble tea /category Dining`
+* `/add /bankexpenditure /amount 1.20 /from JunBank Savings Account /date 28/09/2019 /description bubble tea /category
+Dining`
 
 Adds an expenditure that deducts from `JunBank Savings Account` dated on `28/09/2019` that costs $`1.20` with
 the description of `bubble tea` and category of `Dining`.
+
+===== `/cardexpenditure`
+
+Charged an expenditure to your credit card to earn cash back rebates? You can record them here!
+
+*Command Syntax*
+
+`/add /cardexpenditure /amount AMOUNT /from CARD_NAME /date DATE /desc DESCRIPTION [/category CATEGORY]`
+
+*Example*
+
+* `/add /cardexpenditure /amount 1.20 /from MYCARD /date 28/09/2019 /desc bubble tea /category Dining`
+
+Adds an expenditure that charged to `MYCARD` dated on `28/09/2019` that costs `$1.20` with the description of `bubble
+tea` and category of `Dining`.
 
 ===== `/recurexpenditure`
 
@@ -340,24 +357,37 @@ Postpaid mobile plan bills that are consistent monthly? We can save you the hass
 
 *Command Syntax*
 
-`/add /recurexpenditure /amount AMOUNT /from BANK_NAME /frequency MONTH/WEEK/YEAR /description DESCRIPTION [/category
+`/add /recurexpenditure /amount AMOUNT /from BANK_NAME /frequency MONTH/WEEK/YEAR /desc DESCRIPTION [/category
  CATEGORY]`
 
 *Example*
 
-`/add /recurexpenditure /amount 72.90 /from JunBank Savings Account /frequency week /description Telco Bills /category
+`/add /recurexpenditure /amount 72.90 /from JunBank Savings Account /frequency week /desc Telco Bills /category
 Bills`
 
 Adds a recurring expenditure that deducts $`72.90` every `week` days to pay `Telco Bills` charged to `JunBank Savings
 Account`
 categorised under the `Bills` category.
 
-`/add /recurexpenditure /amount 2000 /from DBB Vickers Account /frequency month /description AAB Bonds /category
+`/add /recurexpenditure /amount 2000 /from DBB Vickers Account /frequency month /desc AAB Bonds /category
 Investments`
 
 Adds a recurring expenditure that deducts $`2000` every `month` days to buy `AAB Bonds` charged to `DBB Vickers
-Account`
-categorised under the `Investments` category.
+Account` categorised under the `Investments` category.
+
+===== `/deposit`
+
+Saved up some spare cash to deposit into your bank account? Record them here!
+
+*Command Syntax*
+
+`/add /deposit /to BANK_NAME /amount AMOUNT /desc DESCRIPTION /date DATE`
+
+*Example*
+
+* `/add /deposit /to JunBank Savings Account /amount 300 /description FREELANCE WORK /date 10/10/2019`
+
+Deposits $`300` earned from `FREELANCE WORK` work into `JunBank Savings Account`.
 
 ==== /edit `/edit`
 ===== `/savings`
@@ -497,13 +527,13 @@ Changes the goals of `BTO at Punggol Downpayment` amount to $`27500`.
 
 Changes the goals of `BTO at Punggol Downpayment` to a new date of `11/11/2021`.
 
-===== `/expenditure`
+===== `/bankexpenditure`
 
 Spent lesser than you initially recorded? You can edit them here!
 
 *Command Syntax*
 
-`/edit /expenditure /from BANK_NAME /expno EXPENDITURE_NUMBER [/desc DESCRIPTION] [/category CATEGORY] [/amount
+`/edit /bankexpenditure /from BANK_NAME /transno TRANSACTION_NUMBER [/desc DESCRIPTION] [/category CATEGORY] [/amount
 AMOUNT] [/date DATE]`
 
 [WARNING]
@@ -511,19 +541,53 @@ AMOUNT] [/date DATE]`
 At least one of /desc, /category, /amount, /date must be used.
 ====
 
+[TIP]
+====
+To find out which transaction to edit, use the `/list` or `/find` function to find `/transno`
+====
+
 *Example*
 
-* `/edit /expenditure /from JunBank Savings Account /expno 2 /desc Uniwlo Shirt`
+* `/edit /bankexpenditure /from JunBank Savings Account /transno 2 /desc Uniwlo Shirt`
 
 Changes expenditure `2` that was charged to `JunBank Savings Account` to a new description of `Uniwlo Shirt`.
 
-* `/edit /expenditure /from JunBank Savings Account /expno 4 /category miscellaneous`
+* `/edit /bankexpenditure /from JunBank Savings Account /transno 4 /category miscellaneous`
 
 Changes expenditure `4` that was charged to `JunBank Savings Account` to a new category of `miscellaneous`.
 
-* `/edit /expenditure /from JunBank Savings Account /expno 5 /amount 3.50`
+* `/edit /bankexpenditure /from JunBank Savings Account /transno 5 /amount 3.50`
 
 Changes expenditure `5` that was charged to `JunBank Savings Account` to a amount of $`3.50`.
+
+===== `/cardexpenditure`
+
+Charged more expenditure to your card than you initially recorded? You can edit them here!
+
+*Command Syntax*
+
+`/edit /cardexpenditure /from CARD_NAME /transno TRANSACTION_NUMBER [/desc DESCRIPTION] [/category CATEGORY] [/amount
+AMOUNT] [/date DATE]`
+
+[WARNING]
+====
+At least one of /desc, /category, /amount, /date must be used.
+====
+
+[TIP]
+====
+To find out which transaction to edit, use the `/list` or `/find` function to find `/transno`
+====
+
+*Example*
+
+* `/edit /cardexpenditure /from MYCARD /transno 2 /desc Uniwlo Shirt`
+
+Changes expenditure `2` that was charged to `MYCARD` to a new description of `Uniwlo Shirt`.
+
+* `/edit /cardexpenditure /from MYCARD /transno 5 /amount 3.50`
+
+Changes expenditure `5` that was charged to `MYCARD` to an amount of $`3.50`
 
 ===== `/recurexpenditure`
 
@@ -542,6 +606,49 @@ At least one of /category, /amount, /frequency must be used.
 * `/edit /recurexpenditure /from JunBank Savings Account /desc Telco Bills /amount 119.90`
 
 Changes the recurring expenditure named `Telco Bills` to charge $`119.90`.
+
+===== `/deposit`
+
+Accidentally added more zeroes than expected when entering your deposit? Edit them here!
+
+*Command Syntax*
+
+`/edit /deposit /from BANK_NAME /transno TRANSACTION_NUMBER [/desc DESCRIPTION] [/amount AMOUNT] [/date DATE]`
+
+[WARNING]
+====
+At least one of /desc, /amount, /date must be used.
+====
+
+[TIP]
+====
+To find which to deposit to edit, use the `/list` or `/find` function to find the transaction number.
+====
+
+*Example*
+
+* `/edit /deposit /from JunBank Savings Account /transno 11 /desc FREELANCE WORK /amount 270 /date 29/11/2019`
+
+Changes the `deposit` with transaction number `11` deposited to `JunBank Savings Account` to a new description of
+`FREELANCE WORK`, new amount of $`270` and a new date of `29/11/2019`
+
+* `/edit /deposit /from JunBank Savings Account /transno 11 /amount 5001`
+
+Changes the `deposit` with transaction number `11` deposited to `JunBank Savings Account` to a new amount of $`500`.
+
+===== `/profile`
+
+Thought of a new profile name? Change it now!
+
+*Command Syntax*
+
+`/edit /profile /newname NAME`
+
+*Example*
+
+`/edit /profile /newname JUNNY`
+
+Changes the profile name to JUNNY
 
 ==== /delete `/delete`
 ===== `/savings`
@@ -625,24 +732,43 @@ Achieved your goals? You can safely delete them!
 
 Deletes a goal named `BTO at Punggol Downpayment`.
 
-===== `/expenditure`
+===== `/bankexpenditure`
 
 Accidentally added a transaction that did not happen? You can delete it!
 
 *Command Syntax*
 
-`/delete /expenditure /from BANK_NAME /expno EXPENDITURE_NUMBER`
+`/delete /bankexpenditure /from BANK_NAME /transno TRANSACTION_NUMBER`
 
 [TIP]
 ====
-To find out which expenditure to delete, use the /list or /find function to find the expenditure number.
+To find out which expenditure to delete, use the `/list` or `/find` function to find the expenditure number.
 ====
 
 *Example*
 
-* `/delete /expenditure /from /JunBank Savings Account /expno 1`
+* `/delete /expenditure /from /JunBank Savings Account /transno 1`
 
-Deletes an expenditure from `JunBank Savings Account with expenditure number` `1`.
+Deletes an expenditure from `JunBank Savings Account with transaction number` `1`.
+
+===== `/cardexpenditure`
+
+Accidentally added a transaction that did not happen? You can delete it!
+
+*Command Syntax*
+
+`/delete /cardexpenditure /from CARD_NAME /transno TRANSACTION_NUMBER`
+
+[TIP]
+====
+To find out which expenditure to delete, use the `/list` or `/find` function to find the expenditure number.
+====
+
+*Example*
+
+* `/delete /cardexpenditure /from /MYCARD /transno 1`
+
+Deletes an expenditure from `MYCARD` with transaction number `1`.
 
 ===== `/recurexpenditure`
 
@@ -654,7 +780,7 @@ Cancelled your recurring bill? You can delete it!
 
 [TIP]
 ====
-To find out which recurring expenditure to delete, use the /list or /find function to find the description.
+To find out which recurring expenditure to delete, use the `/list` or `/find` function to find the description.
 ====
 
 *Example*
@@ -663,6 +789,24 @@ To find out which recurring expenditure to delete, use the /list or /find functi
 
 Deletes a recurring expenditure from `JunBank Savings Account` with description `Telco Bills`.
 
+===== `/deposit`
+
+
+*Command Syntax*
+
+`/delete /deposit /from BANK_NAME /transno TRANSACTION_NUMBER`
+
+[TIP]
+====
+To find out which recurring expenditure to delete, use the `/list` or `/find` function to find the description.
+====
+
+*Example*
+
+* `/edit /deposit /from JunBank Savings Account /transno 11`
+
+Deletes a `deposit` with transaction number `11` from `JunBank Savings Account`.
+
 === Utility Commands
 ==== /find `/find`
 
@@ -670,21 +814,21 @@ Searching for a transaction in the past? *OwlMoney* helps you by providing you v
 
 *Command Syntax*
 
-`/find /savings /name BANK_NAME [/description DESCRIPTION] [/category CATEGORY] [/from DATE /to DATE]`
+`/find /savings /name BANK_NAME [/desc DESCRIPTION] [/category CATEGORY] [/from DATE /to DATE]`
 
-`/find /investment /name BANK_NAME [/description DESCRIPTION] [/category CATEGORY] [/from DATE /to DATE]`
+`/find /investment /name BANK_NAME [/desc DESCRIPTION] [/category CATEGORY] [/from DATE /to DATE]`
 
-`/find /card /name BANK_NAME [/description DESCRIPTION] [/category CATEGORY] [/from DATE /to DATE]`
+`/find /card /name BANK_NAME [/desc DESCRIPTION] [/category CATEGORY] [/from DATE /to DATE]`
 
-`/find /bonds /name BANK_NAME [/description DESCRIPTION] [/category CATEGORY] [/from DATE /to DATE]`
+`/find /bonds /name BANK_NAME [/desc DESCRIPTION] [/category CATEGORY] [/from DATE /to DATE]`
 
 *Example*
 
-`/find /savings /name JunBank Savings Account /description bubble tea`
+`/find /savings /name JunBank Savings Account /desc bubble tea`
 
 Finds all transactions with the description `bubble tea` charged to `JunBank Savings Account`.
 
-`/find /savings /name JunBank Savings Account /description bubble tea /from 1/1/2019 /to 7/1/2019`
+`/find /savings /name JunBank Savings Account /desc bubble tea /from 1/1/2019 /to 7/1/2019`
 
 Finds all transactions with the description `bubble tea` charged to `JunBank Savings Account` between `1/1/2019`
 and `7/1/2019`.
@@ -697,24 +841,34 @@ Curious to find out your transactions for your accounts? Let us show you how it 
 
 `/list /savings`
 
-`/list /expenditure /from BANK_NAME [/num NUMBER]`
+`/list /card`
+
+`/list /bankexpenditure /from BANK_NAME [/num NUMBER]`
 
 `/list /bonds /from BANK_NAME [/num NUMBER]`
 
 `/list /expenditure /from CARD_NAME [/num NUMBER]`
 
+[TIP]
+====
+When `/num` is not specified, it is defaulted to 30 most recent records.
+====
 
 *Example*
 
 * `/list /savings`
 
-Lists all savings accounts
+Lists all savings accounts.
 
-* `/list /expenditure /from JunBank Savings Account /num 60`
+* `/list /investment`
+
+Lists all investment accounts.
+
+* `/list /bankexpenditure /from JunBank Savings Account /num 60`
 
 Lists the most recent 60 transactions linked to JunBank Savings Account.
 
-* `/list /expenditure /from POBB Tomorrow Card`
+* `/list /cardexpenditure /from POBB Tomorrow Card`
 
 Lists the most recent 30 transactions tied to the POBB Tomorrow Card.
 
@@ -740,7 +894,10 @@ Transfers $`250` from `DBB Vickers Account` to `JunBank Savings Account`.
 
 == Future Enhancements `[coming in v2.0]`
 === Multi-Currency Support `/currency USD`
-=== Support for Stocks `/investment_type stocks`
+Multiple most currently used currencies will be supported in future releases.
+
+=== Support for Stocks `/stocks`
+Plans for stocks and options investment type will be supported in future releases.
 
 == FAQ
 *Q*: How do I save my data in the application? +
