@@ -44,6 +44,22 @@ public class ShopList {
         }
     }
 
+    public int size() {
+        return this.shopList.size();
+    }
+
+    public void updateStatus(int index, Boolean bool) {
+        this.shopList.get(index).setPurchased(bool);
+    }
+
+    public String itemsStatus() {
+        String toWrite = "";
+        for (int i = 0; i < shopList.size(); i++) {
+            toWrite += shopList.get(i).isPurchased().toString() + (i != shopList.size() - 1 ? "\n" : "");
+        }
+        return toWrite;
+    }
+
     private void populateShop() {
         shopList.add(new Broadsword());
         shopList.add(new Mace());

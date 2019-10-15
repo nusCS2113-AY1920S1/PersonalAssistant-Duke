@@ -2,9 +2,9 @@ package seedu.hustler.game.shop.items;
 
 public abstract class shopItem implements Purchasable {
     protected int cost;
-    protected boolean isPurchased;
+    protected Boolean isPurchased;
 
-    public shopItem(int cost, boolean hasPurchased) {
+    public shopItem(int cost, Boolean hasPurchased) {
         this.cost = cost;
         this.isPurchased = hasPurchased;
     }
@@ -13,11 +13,11 @@ public abstract class shopItem implements Purchasable {
         return this.cost;
     }
 
-    public boolean isPurchased() {
+    public Boolean isPurchased() {
         return this.isPurchased;
     }
 
-    public void setPurchased(boolean purchased) {
+    public void setPurchased(Boolean purchased) {
         this.isPurchased = purchased;
     }
 
@@ -28,6 +28,6 @@ public abstract class shopItem implements Purchasable {
 
     @Override
     public String toString() {
-        return "[" + this.cost + " points needed]";
+        return isPurchased ? "[Purchased]" : "[" + this.cost + " points needed]";
     }
 }

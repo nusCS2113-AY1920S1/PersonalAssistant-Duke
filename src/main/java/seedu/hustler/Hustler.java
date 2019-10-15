@@ -101,6 +101,7 @@ public class Hustler extends Application {
         System.out.println();
         avatar = AvatarStorage.load();
         AvatarStorage.save(avatar);
+        shopList = ShopStorage.load();
     }
 
     /**
