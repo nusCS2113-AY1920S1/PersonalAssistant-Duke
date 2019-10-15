@@ -48,19 +48,19 @@ public class MainWindow extends BorderPane implements Initializable {
     @FXML
     private HBox progressContainer;
     @FXML
-    private ListView sunEventView;
+    private ListView<Text> sunEventView;
     @FXML
-    private ListView monEventView;
+    private ListView<Text> monEventView;
     @FXML
-    private ListView tueEventView;
+    private ListView<Text> tueEventView;
     @FXML
-    private ListView wedEventView;
+    private ListView<Text> wedEventView;
     @FXML
-    private ListView thuEventView;
+    private ListView<Text> thuEventView;
     @FXML
-    private ListView friEventView;
+    private ListView<Text> friEventView;
     @FXML
-    private ListView satEventView;
+    private ListView<Text> satEventView;
     @FXML
     private TableView<DeadlineView> overdueTable;
     @FXML
@@ -254,8 +254,7 @@ public class MainWindow extends BorderPane implements Initializable {
             setWeek(false, input);
             setListView();
         } else if (input.startsWith("add")) {
-            if(response.startsWith("true|"))
-            refresh(input);
+            if(response.startsWith("true|")) refresh(input);
         } else if (input.startsWith("delete/e" ) || input.startsWith("done/e")) {
             String[] split = input.split("/at");
             String[] dateAndTime = split[1].split("from");
@@ -368,7 +367,7 @@ public class MainWindow extends BorderPane implements Initializable {
                         //boolean isTick = task.isDone;
                         Text toShow = new Text(task.toShow() + task.getModCode() + "\n" + task.getDescription());
                         toShow.setFont(Font.font(10));
-                        if (task.isDone){
+                        if (task.getStatus()){
                             toShow.setFill(Color.GAINSBORO);
                             toShow.setStrikethrough(true);
                         }
@@ -401,13 +400,13 @@ public class MainWindow extends BorderPane implements Initializable {
                 }
             }
         }
-        monEventView.setItems(monList.sorted(MainWindow::compareByTime));
-        tueEventView.setItems(tueList.sorted(MainWindow::compareByTime));
-        wedEventView.setItems(wedList.sorted(MainWindow::compareByTime));
-        thuEventView.setItems(thuList.sorted(MainWindow::compareByTime));
-        friEventView.setItems(friList.sorted(MainWindow::compareByTime));
-        satEventView.setItems(satList.sorted(MainWindow::compareByTime));
-        sunEventView.setItems(sunList.sorted(MainWindow::compareByTime));
+        if(monList.size() != 0 ) monEventView.setItems(monList.sorted(MainWindow::compareByTime));
+        if(tueList.size() != 0 ) tueEventView.setItems(tueList.sorted(MainWindow::compareByTime));
+        if(wedList.size() != 0 ) wedEventView.setItems(wedList.sorted(MainWindow::compareByTime));
+        if(thuList.size() != 0 ) thuEventView.setItems(thuList.sorted(MainWindow::compareByTime));
+        if(friList.size() != 0 ) friEventView.setItems(friList.sorted(MainWindow::compareByTime));
+        if(satList.size() != 0 ) satEventView.setItems(satList.sorted(MainWindow::compareByTime));
+        if(sunList.size() != 0 ) sunEventView.setItems(sunList.sorted(MainWindow::compareByTime));
     }
 
     /**
@@ -425,8 +424,6 @@ public class MainWindow extends BorderPane implements Initializable {
             week = selectedWeek;
             currentWeek.setFont(Font.font("Verdana", FontWeight.BOLD, FontPosture.ITALIC,23));
             currentWeek.setTextFill(Color.GOLDENROD);
-            //currentWeek.setUnderline(true);
-            //currentWeek.setDisable(true);
         }
         else{
             currentWeek.setText(selectedWeek + " ( " + LT.getDates(selectedWeek.toLowerCase()) + " )");
