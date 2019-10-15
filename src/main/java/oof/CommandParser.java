@@ -1,20 +1,21 @@
 package oof;
 
-import oof.command.AddDeadlineCommand;
-import oof.command.AddEventCommand;
-import oof.command.AddToDoCommand;
-import oof.command.CalendarCommand;
 import oof.command.Command;
+import oof.command.AddToDoCommand;
+import oof.command.AddEventCommand;
+import oof.command.AddDeadlineCommand;
+import oof.command.CalendarCommand;
 import oof.command.CompleteCommand;
 import oof.command.DeleteCommand;
 import oof.command.ExitCommand;
 import oof.command.FindCommand;
-import oof.command.HelpCommand;
 import oof.command.FreeCommand;
+import oof.command.HelpCommand;
 import oof.command.ListCommand;
 import oof.command.RecurringCommand;
 import oof.command.ScheduleCommand;
 import oof.command.SnoozeCommand;
+import oof.command.SummaryCommand;
 
 import oof.exception.OofException;
 import java.util.InputMismatchException;
@@ -98,6 +99,8 @@ public class CommandParser {
         case "schedule":
             line = line.replaceFirst("schedule", "").trim();
             return new ScheduleCommand(line);
+        case "summary":
+            return new SummaryCommand();
         case "recurring":
             if (argumentArray.length == LENGTH_COMMAND_ONLY) {
                 throw new OofException("OOPS!!! Please enter the task number and number of recurrences!");

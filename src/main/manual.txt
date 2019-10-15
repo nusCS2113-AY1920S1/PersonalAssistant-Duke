@@ -10,7 +10,7 @@ Deadline            deadline DESCRIPTION /by DD-MM-YYYY HH:MM
 
 Event               event DESCRIPTION /from DD-MM-YYYY HH:MM /to DD-MM-YYYY HH:MM
 
-Todo                todo DESCRIPTION
+Todo                todo DESCRIPTION /on DD-MM-YYYY
 
 Do-after            do-after INDEX DESCRIPTION
 
@@ -44,7 +44,7 @@ View Free           viewFree
 
 View Week           viewWeek
 
-View Calendar       viewCalendar
+Calendar            calendar MONTH YEAR
 
 Reminder            reminder
 
