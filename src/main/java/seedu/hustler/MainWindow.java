@@ -2,6 +2,7 @@ package seedu.hustler;
 
 import javafx.application.Platform;
 import javafx.fxml.FXML;
+import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextArea;
@@ -10,10 +11,14 @@ import javafx.scene.effect.ColorAdjust;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.FlowPane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Font;
 import seedu.hustler.game.achievement.AchievementList;
+import javafx.scene.text.Text;
 
 import java.io.IOException;
 import java.io.OutputStream;
@@ -153,7 +158,7 @@ public class MainWindow extends AnchorPane{
     @FXML
     public void taskAction() {
 
-
+        Hustler.run(userInput.getText());
         ColorAdjust color = new ColorAdjust();
         color.setContrast(0.35);
         color.setHue(-0.21);
@@ -229,21 +234,50 @@ public class MainWindow extends AnchorPane{
     @FXML
     public void achievementAction() {
 
-        console.clear();
+        flowPane.getChildren().clear();
         Hustler.run("achievement");
 
         flowPane.setVgap(10);
+
         for(int i = 0; i < AchievementList.achievementList.size(); i += 1) {
-            Rectangle rect = new Rectangle();
-            rect.setOpacity(0.3);
-            rect.setHeight(50);
-            rect.widthProperty().bind(flowPane.widthProperty());
-            rect.setArcHeight(30.0);
-            rect.setArcWidth(30.0); 
-            rect.setStyle("#ffffff");
-            rect.setAccessibleText("HIHIHIHI");
-            flowPane.getChildren().add(rect);
+            if(!AchievementList.achievementList.get(i).checkLock()) {
+                StackPane stackPane = new StackPane();
+                Rectangle rect = new Rectangle();
+                Text text = new Text(AchievementList.achievementList.get(i).toString());
+                text.setFont(Font.font("Gill Sans", 20));
+                text.setFill(Color.WHITE);
+                rect.setOpacity(0.3);
+                rect.setHeight(50);
+                rect.widthProperty().bind(scrollPANEE.widthProperty());
+                rect.setArcHeight(30.0);
+                rect.setArcWidth(30.0);
+                rect.setStyle("#ffffff");
+                stackPane.setAlignment(text,Pos.CENTER);
+                stackPane.getChildren().addAll(rect, text);
+                flowPane.getChildren().add(stackPane);
+            }
         }
+
+        for(int i = 0; i < AchievementList.achievementList.size(); i += 1) {
+            if(AchievementList.achievementList.get(i).checkLock()) {
+                StackPane stackPane = new StackPane();
+                Rectangle rect = new Rectangle();
+                Text text = new Text(AchievementList.achievementList.get(i).toString());
+                text.setFont(Font.font("Gill Sans", 20));
+                text.setStyle("-fx-fill: white");
+                text.setOpacity(0.3);
+                rect.setOpacity(0.3);
+                rect.setHeight(50);
+                rect.widthProperty().bind(scrollPANEE.widthProperty());
+                rect.setArcHeight(30.0);
+                rect.setArcWidth(30.0);
+                rect.setStyle("#ffffff");
+                stackPane.setAlignment(text, Pos.CENTER);
+                stackPane.getChildren().addAll(rect,text);
+                flowPane.getChildren().add(stackPane);
+            }
+        }
+
         scrollPANEE.setContent(flowPane);
         ColorAdjust color = new ColorAdjust();
         color.setContrast(0.35);
