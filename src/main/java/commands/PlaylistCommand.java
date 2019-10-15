@@ -1,16 +1,15 @@
-package Commands;
+package commands;
 
-import EPstorage.Playlist;
 import EPstorage.PlaylistCommands;
-import EPstorage.ProfileCommands;
 import MovieUI.Controller;
 import MovieUI.MovieHandler;
 
 import java.io.IOException;
 
-public class PlaylistCommand extends CommandSuper{
-    public PlaylistCommand(Controller UIController) {
-        super(COMMAND_KEYS.playlist, CommandStructure.cmdStructure.get(COMMAND_KEYS.playlist) , UIController);
+public class PlaylistCommand extends CommandSuper {
+
+    public PlaylistCommand(Controller uicontroller) {
+        super(COMMANDKEYS.playlist, CommandStructure.cmdStructure.get(COMMANDKEYS.playlist) , uicontroller);
     }
 
     @Override
@@ -40,63 +39,63 @@ public class PlaylistCommand extends CommandSuper{
     }
 
     /**
-     * create new playlist
+     * create new playlist.
      * root: playlist
      * sub: create
      * payload: <playlist name>
      * flag: none
      */
     private void executeCreatePlaylist() throws IOException {
-        MovieHandler movieHandler = ((MovieHandler)this.getUIController());
+        MovieHandler movieHandler = ((MovieHandler) this.getUIController());
         PlaylistCommands command = new PlaylistCommands(movieHandler.getPlaylists());
         command.newPlaylist(this.getPayload());
         movieHandler.clearSearchTextField();
     }
 
     /**
-     * delete playlist
+     * delete playlist.
      * root: playlist
      * sub: delete
      * payload: <playlist name>
      * flag: none
      */
     private void executeDeletePlaylist() throws IOException {
-        MovieHandler movieHandler = ((MovieHandler)this.getUIController());
+        MovieHandler movieHandler = ((MovieHandler) this.getUIController());
         PlaylistCommands command = new PlaylistCommands(movieHandler.getPlaylists());
         command.deletePlaylist(this.getPayload());
         movieHandler.clearSearchTextField();
     }
 
     /**
-     * add movie titles to playlist
+     * add movie titles to playlist.
      * root: playlist
      * sub: add
      * payload: <playlist name>
      * flag: -m (movie number -- not movie ID)
      */
     private void executeAddToPlaylist() throws IOException {
-        MovieHandler movieHandler = ((MovieHandler)this.getUIController());
+        MovieHandler movieHandler = ((MovieHandler) this.getUIController());
         PlaylistCommands command = new PlaylistCommands(movieHandler.getPlaylists());
         command.addToPlaylist(this.getPayload(), this.getFlagMap(), movieHandler.getmMovies());
         movieHandler.clearSearchTextField();
     }
 
     /**
-     * remove movie titles from playlist
+     * remove movie titles from playlist.
      * root: playlist
      * sub: remove
      * payload: <playlist name>
      * flag: -m (movie number -- not movie ID)
      */
     private void executeRemoveFromPlaylist() throws IOException {
-        MovieHandler movieHandler = ((MovieHandler)this.getUIController());
+        MovieHandler movieHandler = ((MovieHandler) this.getUIController());
         PlaylistCommands command = new PlaylistCommands(movieHandler.getPlaylists());
         command.removeFromPlaylist(this.getPayload(), this.getFlagMap(), movieHandler.getmMovies());
         movieHandler.clearSearchTextField();
     }
 
     /**
-     * edit playlist's name and description
+     * edit playlist's name and description.
      * root: playlist
      * sub: set
      * payload: <playlist name>
@@ -104,7 +103,7 @@ public class PlaylistCommand extends CommandSuper{
      * so far can only take one worded description :/:/:/:/ D:
      */
     private void executeSetToPlaylist() throws IOException {
-        MovieHandler movieHandler = ((MovieHandler)this.getUIController());
+        MovieHandler movieHandler = ((MovieHandler) this.getUIController());
         PlaylistCommands command = new PlaylistCommands(movieHandler.getPlaylists());
         command.setToPlaylist(this.getPayload(), this.getFlagMap());
         movieHandler.clearSearchTextField();

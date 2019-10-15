@@ -17,7 +17,7 @@ public class ProfileCommands {
     private EditProfileJson editProfileJson;
 
     public ProfileCommands(UserProfile userProfile) throws FileNotFoundException {
-        genreList = new File("/Users/wenhui/main/EPdata/genreIDlist.txt");
+        genreList = new File("../../../../EPdata/genreIDlist.txt");
         this.userProfile = userProfile;
         this.editProfileJson = new EditProfileJson();
     }
@@ -178,6 +178,7 @@ public class ProfileCommands {
     }
 
     public Integer findGenreID(String genreName) throws IOException {
+        genreName = genreName.trim();
         ObjectMapper mapper = new ObjectMapper();
         InputStream inputStream = new FileInputStream("EPdata/GenreId.json");
         TypeReference<ArrayList<GenreId>> typeReference = new TypeReference<ArrayList<GenreId>>() {};

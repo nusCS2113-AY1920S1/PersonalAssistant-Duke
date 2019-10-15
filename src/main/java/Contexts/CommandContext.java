@@ -1,44 +1,64 @@
 package Contexts;
 
+import commands.COMMANDKEYS;
+import commands.CommandStructure;
 import javafx.util.Pair;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 public class CommandContext {
 
-    static ArrayList<String> keywords = new ArrayList<>();
+    static ArrayList<String> keywordsRoot = new ArrayList<>();
+    static ArrayList<String> keywordsSubRoot = new ArrayList<>();
 
-    public static void initialiseContext(String[] listOfKeys) {
-        for (String a : listOfKeys) {
-            keywords.add(a);
+
+    public static void initialiseContext(){
+
+        if(keywordsRoot.size() == 0){
+            for( Map.Entry<COMMANDKEYS, COMMANDKEYS[]> e: CommandStructure.cmdStructure.entrySet()){
+                keywordsRoot.add(e.getKey().toString());
+                for(COMMANDKEYS a: e.getValue()){
+                    keywordsSubRoot.add(a.toString());
+                }
+
+            }
         }
+
+
+
     }
 
-    public static ArrayList<String> getPossibilities(String key) {
+    public static ArrayList<String> getRoot(){
+        return keywordsRoot;
+    }
+
+    public static ArrayList<String> getPossibilitiesRoot(String key) {
         ArrayList<String> hints = new ArrayList<>();
 
-        for (String a : keywords) {
-            if (a.contains(key)) {
+        for (String a : keywordsRoot) {
+            if (a.toLowerCase().startsWith(key.toLowerCase())) {
                 hints.add(a);
             }
         }
         return hints;
     }
 
+    public static ArrayList<String> getPossibilitiesSubRoot(String key) {
+        ArrayList<String> hints = new ArrayList<>();
+
+        for (String a : keywordsSubRoot) {
+            if (a.toLowerCase().startsWith(key.toLowerCase())) {
+                hints.add(a);
+            }
+        }
+        return hints;
+
+    }
+
     public static Pair<String, String> getSpellingCheck(String key) {
         return null;
     }
 
-    public static void AddKeyWord(String key) {
-        keywords.add(key);
-    }
 
-    public static void clearContext() {
-        keywords.clear();
-    }
-
-    public static void removeKeyWords(String key) {
-
-        //NOT ALLOWED FOR THIS CONTEXT
-    }
 }

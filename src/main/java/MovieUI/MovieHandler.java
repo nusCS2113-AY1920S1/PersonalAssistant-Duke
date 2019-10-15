@@ -1,7 +1,9 @@
 package MovieUI;
 
+import Contexts.CommandContext;
+import Contexts.ContextHelper;
+import Contexts.SearchResultContext;
 import EPstorage.*;
-
 import javafx.application.Platform;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -103,11 +105,13 @@ public class MovieHandler extends Controller implements RequestListener {
          */
         @Override
         public void handle(KeyEvent event) {
+
             System.out.println("You Pressing : " + ((KeyEvent) event).getCode() );
             if (event.getCode().equals(KeyCode.ENTER)) {
                 System.out.println("Hello");
                 try {
                     CommandParser.parseCommands(mSearchTextField.getText(), control);
+                    clearSearchTextField();
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -157,9 +161,14 @@ public class MovieHandler extends Controller implements RequestListener {
     @FXML public void initialize() throws IOException {
         setLabels();
         mMovieRequest = new RetrieveRequest(this);
+        CommandContext.initialiseContext();
+
         mSearchTextField.addEventFilter(KeyEvent.KEY_PRESSED, event -> {
             if (event.getCode() == KeyCode.TAB) {
                 System.out.println("Tab pressed");
+
+
+                setFeedbackText(ContextHelper.getAllHints(mSearchTextField.getText() , this));
                 event.consume();
             } else if (event.getCode().equals(KeyCode.ENTER)) {
                 System.out.println("Enter pressed");
@@ -205,9 +214,24 @@ public class MovieHandler extends Controller implements RequestListener {
     @Override
     public void requestCompleted(ArrayList<MovieInfoObject> moviesInfo) {
         // Build the Movie poster views and add to the flow pane on the main thread
-        mMovies = moviesInfo;
+        System.out.print("Request received");
+        final ArrayList<MovieInfoObject> MoviesFinal = Blacklist.filter(moviesInfo);
+        for(MovieInfoObject mf: MoviesFinal){
+
+            System.out.println(mf.getTitle());
+        }
+        System.out.print("Request rsdceceived");
+        SearchResultContext.addResults(MoviesFinal);
+        mMovies = MoviesFinal;
         mImagesLoadingProgress = new double[mMovies.size()];
-        Platform.runLater(() -> buildMoviesFlowPane(moviesInfo));
+        Platform.runLater(() -> buildMoviesFlowPane(MoviesFinal));
+
+    }
+
+    public void displayMovies(){
+        mMovies = SearchResultContext.getMoviesToDisplay();
+        mImagesLoadingProgress = new double[mMovies.size()];
+        Platform.runLater(() -> buildMoviesFlowPane(SearchResultContext.getMoviesToDisplay()));
     }
 
     /**
@@ -340,10 +364,25 @@ public class MovieHandler extends Controller implements RequestListener {
 
     /**
      * Prints message in UI.
-     * @param txt which is the string tecxt to be printed.
+     * @param txt which is the string text to be printed.
      */
     public void setFeedbackText(String txt) {
         text.setText(txt);
+    }
+
+    public void updateTextField(String updateStr){
+        mSearchTextField.setText(mSearchTextField.getText() + updateStr);
+        mSearchTextField.positionCaret(mSearchTextField.getText().length());
+    }
+
+    public void setFeedbackText(ArrayList<String> txtArr){
+        String output = "";
+        for(String s: txtArr){
+            output += s;
+            output += "\n";
+
+        }
+        text.setText(output);
     }
 
     /**

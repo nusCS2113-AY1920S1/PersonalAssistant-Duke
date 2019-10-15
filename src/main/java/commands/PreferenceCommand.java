@@ -1,4 +1,4 @@
-package Commands;
+package commands;
 
 import EPstorage.ProfileCommands;
 import MovieUI.Controller;
@@ -6,22 +6,22 @@ import MovieUI.MovieHandler;
 
 import java.io.IOException;
 
-public class RestrictionCommand extends CommandSuper{
-    public RestrictionCommand(Controller UIController) {
-        super(COMMAND_KEYS.preference, CommandStructure.cmdStructure.get(COMMAND_KEYS.preference) , UIController);
+public class PreferenceCommand extends CommandSuper {
+    public PreferenceCommand(Controller uicontroller) {
+        super(COMMANDKEYS.preference, CommandStructure.cmdStructure.get(COMMANDKEYS.preference) , uicontroller);
     }
 
     @Override
     public void executeCommands() throws IOException {
-        switch (this.getSubRootCommand()){
+        switch (this.getSubRootCommand()) {
             case add:
-                executeAddRestriction();
+                executeAddPreference();
                 break;
             case remove:
-                executeRemoveRestriction();
+                executeRemovePreference();
                 break;
             case clear:
-                executeClearRestriction();
+                executeClearPreference();
                 break;
             default:
                 break;
@@ -29,31 +29,31 @@ public class RestrictionCommand extends CommandSuper{
     }
 
     /**
-     * add to user preference
+     * add to user preference.
      * root: preference
      * sub: add
      * payload: none
      * flag: -g (genre name -- not genre ID)
      */
-    private void executeAddRestriction() throws IOException {
-        MovieHandler movieHandler = ((MovieHandler)this.getUIController());
+    private void executeAddPreference() throws IOException {
+        MovieHandler movieHandler = ((MovieHandler) this.getUIController());
         ProfileCommands command = new ProfileCommands(movieHandler.getUserProfile());
-        command.addRestriction(this.getFlagMap());
+        command.addPreference(this.getFlagMap());
         movieHandler.clearSearchTextField();
         movieHandler.setLabels();
     }
 
     /**
-     * remove from user preference
+     * remove from user preference.
      * root: preference
      * sub: remove
      * payload: none
      * flag: -g (genre name -- not genre ID)
      */
-    private void executeRemoveRestriction() throws IOException {
-        MovieHandler movieHandler = ((MovieHandler)this.getUIController());
+    private void executeRemovePreference() throws IOException {
+        MovieHandler movieHandler = ((MovieHandler) this.getUIController());
         ProfileCommands command = new ProfileCommands(movieHandler.getUserProfile());
-        command.removeRestriction(this.getFlagMap());
+        command.removePreference(this.getFlagMap());
         movieHandler.clearSearchTextField();
         movieHandler.setLabels();
     }
@@ -65,10 +65,10 @@ public class RestrictionCommand extends CommandSuper{
      * payload: none
      * flag: -g (genre name -- not genre ID) -a (adult -- yes to allow adult content, no to restrict, set to yes by default)
      */
-    private void executeClearRestriction() throws IOException {
+    private void executeClearPreference() throws IOException {
         MovieHandler movieHandler = ((MovieHandler)this.getUIController());
         ProfileCommands command = new ProfileCommands(movieHandler.getUserProfile());
-        command.clearRestriction(this.getFlagMap());
+        command.clearPreference(this.getFlagMap());
         movieHandler.clearSearchTextField();
         movieHandler.setLabels();
     }

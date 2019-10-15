@@ -1,4 +1,4 @@
-package Commands;
+package commands;
 
 
 import EPstorage.ProfileCommands;
@@ -17,30 +17,31 @@ import java.io.IOException;
 public class SearchCommand extends CommandSuper {
 
 
-    public SearchCommand(Controller UIController) {
-        super(COMMAND_KEYS.search, CommandStructure.cmdStructure.get(COMMAND_KEYS.search), UIController);
+    public SearchCommand(Controller uicontroller) {
+        super(COMMANDKEYS.search, CommandStructure.cmdStructure.get(COMMANDKEYS.search), uicontroller);
     }
 
     @Override
     public void executeCommands() throws IOException {
-        switch (this.getSubRootCommand()){
-            case movies:
-                executeMovieSearch();
-                break;
-            case tvshows:
-                executeTvShowSearch();
-                break;
-//            case all:
-//                executeTvShowSearch();
-//                break;
-            default:
-                break;
+        switch (this.getSubRootCommand()) {
+        case movies:
+            executeMovieSearch();
+            break;
+        case tvshows:
+            executeTvShowSearch();
+            break;
+//        case all:
+//            executeTvShowSearch();
+//            break;
+        default:
+            break;
         }
 
     }
 
+
     /**
-     * search for movie titles using keywords
+     * search for movie titles using keywords.
      * root: search
      * sub: movies
      * payload: <keywords>

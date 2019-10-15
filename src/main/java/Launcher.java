@@ -1,3 +1,4 @@
+import ListCommands.WatchlistHandler;
 import MovieUI.Main;
 import javafx.application.Application;
 import task.TaskList;
@@ -10,9 +11,9 @@ import MovieUI.Main;
  * Start the javafx program.
  */
 public class Launcher {
-    private static TaskList tasks;
+    private static WatchlistHandler tasks;
     public static void main(String[] args) {
-        tasks = new TaskList(new ArrayList<Tasks>());
+        tasks = new WatchlistHandler();
         Application.launch(Main.class,args);
     }
 }
