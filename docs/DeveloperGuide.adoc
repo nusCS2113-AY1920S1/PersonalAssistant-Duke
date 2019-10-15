@@ -1,4 +1,4 @@
-= Duke - Developer Guide
+= ArchDuke - Developer Guide
 :toc:
 :toc-title: Table of Contents
 :toc-placement: preamble
