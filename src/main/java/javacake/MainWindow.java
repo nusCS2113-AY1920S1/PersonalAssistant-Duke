@@ -2,13 +2,17 @@ package javacake;
 
 import javacake.commands.QuizCommand;
 import javacake.quiz.Question;
+import javafx.animation.PauseTransition;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
+import javafx.util.Duration;
 
 /**
  * Controller for MainWindow. Provides the layout for the other controls.
@@ -23,15 +27,24 @@ public class MainWindow extends AnchorPane {
     private TextField userInput;
     @FXML
     private Button sendButton;
+    @FXML
+    private HBox topBar;
+    @FXML
+    private VBox rightScreen;
 
     private Duke duke;
+    private Stage primaryStage;
+
 
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
-    private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
+    private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/Hilda_Portrait.png"));
+
+
 
     private boolean isQuiz = false;
     private QuizCommand quizCommand;
     private boolean isStarting = true;
+
 
     /**
      * Initialise the Main Window launched.
@@ -39,12 +52,15 @@ public class MainWindow extends AnchorPane {
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
+        rightScreen.getChildren().add(AvatarScreen.setAvatar(AvatarScreen.AvatarMode.HAPPY));
+        topBar.getChildren().add(TopBar.setTitle());
+
         if (duke.isFirstTimeUser) {
-            dialogContainer.getChildren().addAll(
+            dialogContainer.getChildren().add(
                     DialogBox.getDukeDialog(Ui.showWelcomeMsgA(duke.isFirstTimeUser), dukeImage)
             );
         } else {
-            dialogContainer.getChildren().addAll(
+            dialogContainer.getChildren().add(
                     DialogBox.getDukeDialog(
                             Ui.showWelcomeMsgA(duke.isFirstTimeUser)
                                     + Ui.showWelcomeMsgB(duke.isFirstTimeUser, duke.userName, duke.userProgress),
@@ -57,6 +73,10 @@ public class MainWindow extends AnchorPane {
         duke = d;
     }
 
+    public void setStage(Stage stage) {
+        primaryStage = stage;
+    }
+
 
     /**
      * Creates two dialog boxes, one echoing user input and the other containing Duke's reply and then appends them to
@@ -64,24 +84,30 @@ public class MainWindow extends AnchorPane {
      */
     @FXML
     private void handleUserInput() {
+
         try {
-            if (isStarting) {
-                if (duke.isFirstTimeUser) {
-                    String input = userInput.getText();
-                    dialogContainer.getChildren().addAll(
-                            DialogBox.getUserDialog(input, userImage),
-                            DialogBox.getDukeDialog(Ui.showWelcomeMsgB(
-                                    duke.isFirstTimeUser, duke.userName, duke.userProgress), dukeImage)
-                    );
-                    duke.userName = input;
-                    duke.profile.overwriteName(duke.userName);
-                    userInput.clear();
-                }
+            dialogContainer.getChildren().clear();
+            String input = userInput.getText();
+            userInput.clear();
+            System.out.println(input);
+            //            dialogContainer.getChildren().add(
+            //                    DialogBox.getUserDialog(input, userImage));
+            String response = "";
+            if (isStarting && duke.isFirstTimeUser) {
+                duke.userName = input;
+                duke.profile.overwriteName(duke.userName);
+                dialogContainer.getChildren().add(
+                        DialogBox.getDukeDialog(Ui.showWelcomeMsgB(
+                                duke.isFirstTimeUser, duke.userName, duke.userProgress), dukeImage)
+                );
+                isStarting = false;
+            } else if (isStarting && !duke.isFirstTimeUser) {
+                response = duke.getResponse(input);
+                dialogContainer.getChildren().add(
+                        DialogBox.getDukeDialog(response, dukeImage)
+                );
                 isStarting = false;
             } else {
-                String input = userInput.getText();
-                System.out.println(input);
-                String response = "";
                 if (!isQuiz) {
                     response = duke.getResponse(input);
                 } else {
@@ -97,14 +123,17 @@ public class MainWindow extends AnchorPane {
                     isQuiz = true;
                     response = getFirstQn(response);
                 }
-                dialogContainer.getChildren().addAll(
-                        DialogBox.getUserDialog(input, userImage),
+                dialogContainer.getChildren().add(
                         DialogBox.getDukeDialog(response, dukeImage)
                 );
-                userInput.clear();
+            }
+            if (response.contains("Bye.")) {
+                PauseTransition pause = new PauseTransition(Duration.seconds(2));
+                pause.setOnFinished(e -> primaryStage.hide());
+                pause.play();
             }
         } catch (DukeException e) {
-            dialogContainer.getChildren().addAll(
+            dialogContainer.getChildren().add(
                     DialogBox.getDukeDialog(e.getMessage(), dukeImage)
             );
         }
