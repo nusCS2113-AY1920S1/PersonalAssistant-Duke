@@ -12,7 +12,7 @@ public class Payee {
     public String email;
     public String matricNum;
     public String phoneNum;
-    ArrayList<Payments> payments;
+    public ArrayList<Payments> payments;
 
     public Payee(String payee, String email, String matricNum, String phoneNum) {
         this.payee = payee;
@@ -22,39 +22,4 @@ public class Payee {
         this.payments = new ArrayList<Payments>();
     }
 
-}
-
-class Payments {
-    String item;
-    double cost;
-    String inv;
-    Date deadline;
-    Status status;
-
-    public Payments(String item, double cost, String inv) {
-        this.item = item;
-        this.cost = cost;
-        this.inv = inv;
-        this.status = Status.PENDING;
-        Date currDate = new Date();
-        this.deadline = new Date(currDate.getTime() + TimeUnit.DAYS.toMillis( 30 ));
-    }
-}
-
-enum Status {
-    PENDING,
-    APPROVED,
-    OVERDUE
-}
-
-enum Field {
-    PAYEE,
-    EMAIL,
-    MATRIC,
-    PHONE,
-    ITEM,
-    COST,
-    INV,
-    DEADLINE,
-    STATUS
 }
