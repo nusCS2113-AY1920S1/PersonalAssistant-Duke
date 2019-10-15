@@ -77,6 +77,7 @@ public class ProgressStack {
         finalTrim = finalTrim.substring(0, finalTrim.length() -1);
         return finalTrim;
     }
+
     public void printFiles() {
         int y = 1;
         for (String x : filePathQueries) {

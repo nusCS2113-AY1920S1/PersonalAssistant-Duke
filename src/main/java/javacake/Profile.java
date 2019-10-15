@@ -13,6 +13,10 @@ public class Profile {
     private String username;
     private ArrayList<Integer> topicsDone = new ArrayList<>();
 
+    public Profile() {
+
+    }
+
     /**
      * Constructor for profile.
      * @param filename String of filepath
