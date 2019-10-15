@@ -47,7 +47,6 @@ public class MarkDoneCommand extends Command {
         }
         storage.updateFile(tasks);
         ui.showDone(matchingMeals);
-        ui.showRemainingCalorie(currentMeals, user);
-
+        ui.showRemainingCalorie(currentMeals, user, tasks.caloriesAvgToGoal());
     }
 }

@@ -42,7 +42,7 @@ public class FunctionTest {
         try {
             storage.loadWord(autocorrect);
         } catch (DukeException e) {
-            ui.showError(e.getMessage());
+            ui.showMessage(e.getMessage());
         }
     }
 

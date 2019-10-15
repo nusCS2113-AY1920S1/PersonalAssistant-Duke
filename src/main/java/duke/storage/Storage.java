@@ -128,8 +128,10 @@ public class Storage {
             newMeal = new Dinner(description, nutritionalValue);
         } else if (taskType.equals("S")) {
             newMeal = new Item(description, nutritionalValue);
+        } else if (taskType.equals("G")) {
+            meals.addGoal(new Goal(description, nutritionalValue[0], nutritionalValue), true);
         }
-        if (taskType.equals("S") == false) {
+        if (taskType.equals("S") == false && taskType.equals("G") == false) {
             if (isDone) {
                 newMeal.markAsDone();
             }
@@ -140,11 +142,8 @@ public class Storage {
             } else {
                 mealTracker.get(mealDate).add(newMeal);
             }
-        } else {
+        } else if (taskType.equals("S") == true) {
             meals.addStoredItem(newMeal);
-        }
-        if (taskType.equals("G")) {
-            meals.addGoal(new Goal(description, nutritionalValue), true);
         }
     }
 
@@ -228,7 +227,7 @@ public class Storage {
         }
         try {
             Goal goal = mealData.getGoal();
-            String toWrite = "G|0|" + goal.getDate();
+            String toWrite = "G|0|" + goal.getEndDate() + "|" + goal.getStartDate();
             HashMap<String, Integer> nutritionData = goal.getNutritionalValue();
             if (nutritionData.size() != 0) {
                 toWrite += "|";

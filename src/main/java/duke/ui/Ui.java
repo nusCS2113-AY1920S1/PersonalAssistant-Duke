@@ -99,7 +99,7 @@ public class Ui {
         return input;
     }
 
-    public void showError(String message) {
+    public void showMessage(String message) {
         System.out.println(padding + message);
     }
 
@@ -127,20 +127,21 @@ public class Ui {
     }
 
     public void showCalorie(User user) {
-        System.out.println(padding + "This is your daily limit");
-        System.out.println(padding + user.getDailyCalorie());
+        System.out.println(padding + "This is your daily calorie limit: " + user.getDailyCalorie());
     }
 
-    public void showRemainingCalorie(ArrayList<Meal> mealsOfDay, User user) {
-        System.out.println(padding + "You can consume this many calories today");
+    public void showRemainingCalorie(ArrayList<Meal> mealsOfDay, User user, int remainingCalories) {
         int limit = user.getDailyCalorie();
         int consumeTotal = 0;
         for (int i = 0; i < mealsOfDay.size(); i += 1) {
-            if (mealsOfDay.get(i).getIsDone()) {
-                consumeTotal += mealsOfDay.get(i).getNutritionalValue().get("calorie");
-            }
+            consumeTotal += mealsOfDay.get(i).getNutritionalValue().get("calorie");
         }
-        System.out.println(padding + Integer.toString(limit - consumeTotal));
+        if (remainingCalories == -1) {
+            System.out.println(padding + "You have this many calories left today: " + (limit - consumeTotal));
+        } else {
+            System.out.println(padding + "You have this many calories left today: "
+                    + (remainingCalories - consumeTotal));
+        }
     }
 
     public void showHelp(ArrayList<String> helpLines) {

@@ -32,17 +32,34 @@ public class AddGoalCommand extends Command {
      */
     @Override
     public void execute(MealList meals, Ui ui, Storage storage, User user, Scanner in) throws DukeException {
+        //average kg loss per day should NOT be more than 0.13607787283kg (>0.3 pounds)
+        //average calorie loss per day should NOT exceed 40% base calorie intake,
+        // balanced at around 20% (1kg = 7700cal = 7.7kcal)
+        /*
+        1) find number of days in month
+        2) average calories loss per day
+         */
         try {
             meals.addGoal(this.goal, false);
+            ui.showAddedGoal(goal);
+            storage.updateGoal(meals);
         } catch (DukeException e) {
+            ui.showMessage(e.getMessage());
+            ui.showLine();
             String response = ui.readCommand(in);
-            if (response == "n"  || response == "N") {
+            if (response.trim().equals("y")  || response.trim().equals("Y")) {
+                meals.addGoal(this.goal, true);
+                ui.showLine();
+                ui.showAddedGoal(goal);
+                storage.updateGoal(meals);
+            } else if (response.trim().equals("n")  || response.trim().equals("N")) {
+                ui.showLine();
                 throw new DukeException("The set goal command has been canceled");
             } else {
-                meals.addGoal(this.goal, true);
+                ui.showLine();
+                throw new DukeException("An unknown response has been recorded \n"
+                        + "     The set goal command has been canceled");
             }
         }
-        ui.showAddedGoal(goal);
-        storage.updateGoal(meals);
     }
 }
