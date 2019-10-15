@@ -5,7 +5,6 @@
 5 | wanton mee
 6 | fish fillet
 7 | horfun
-8 | beehoon
 10 | maggi mee
 11 | baked salmon with red wine
 12 | spaghetti bolognese
