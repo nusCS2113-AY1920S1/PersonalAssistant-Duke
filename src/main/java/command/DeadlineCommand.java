@@ -11,7 +11,7 @@ import java.io.IOException;
 /**
  * Class to interpret task.Deadline command
  */
-public class DeadlineCommand extends Command {
+public class  DeadlineCommand extends Command {
 
     /**
      * String array to contain the parts of the command.
@@ -34,7 +34,7 @@ public class DeadlineCommand extends Command {
         }
         this.splitD = tempD.split(" /by ");
         if (!isValidDateTime(splitD[1])) {
-            throw  new DukeException("Please enter correct date time format: dd/mm/yyyy hhmm");
+            throw new DukeException("Please enter correct date time format: dd/mm/yyyy hhmm");
         }
     }
 
