@@ -26,7 +26,8 @@ public class SearchThenAddCommand extends ModuleCommand {
                         Storage store,
                         JsonWrapper jsonWrapper) throws ModException {
         if (detailedMap.containsKey(moduleCode)) {
-            ModuleInfoDetailed temp = detailedMap.get(moduleCode);
+            ModuleInfoDetailed mod = detailedMap.get(moduleCode);
+            ModuleTask temp = new ModuleTask(moduleCode, mod);
             tasks.getTasks().add(temp);
             plannerUi.addedMsg(temp);
             jsonWrapper.storeTaskListAsJson(tasks.getTasks(), store);
