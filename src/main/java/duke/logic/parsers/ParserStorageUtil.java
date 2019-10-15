@@ -149,7 +149,7 @@ public class ParserStorageUtil {
         BusService busService = new BusService(busData[0].strip());
         for (int i = 1; i < busData.length; i++) {
             String buffer = busData[i].strip();
-            if (buffer.equals("change")) {
+            if ("change".equals(buffer)) {
                 changedDirection = true;
             }
             if (changedDirection) {

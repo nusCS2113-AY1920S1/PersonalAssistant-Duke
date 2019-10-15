@@ -68,7 +68,7 @@ public class Storage {
             boolean isBusData = false;
             while (s.hasNext()) {
                 String line = s.nextLine();
-                if (line.equals("==========")) {
+                if ("==========".equals(line)) {
                     isBusData = true;
                 }
                 if (isBusData) {
