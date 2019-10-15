@@ -258,7 +258,7 @@ Changes made to your savings account? Reflect them on *OwlMoney* as well!
 
 [WARNING]
 ====
-At least one of /newname, /amount or /income must be used.
+At least one of `/newname`, `/amount` or `/income` must be used.
 ====
 
 *Example*
@@ -339,7 +339,7 @@ AMOUNT] [/date DATE]`
 
 [WARNING]
 ====
-At least one of /desc, /category, /amount, /date must be used.
+At least one of `/desc`, `/category`, `/amount`, `/date` must be used.
 ====
 
 [TIP]
@@ -404,7 +404,7 @@ Accidentally added more zeroes than expected when entering your deposit? Edit th
 
 [WARNING]
 ====
-At least one of /desc, /amount, /date must be used.
+At least one of `/desc`, `/amount`, `/date` must be used.
 ====
 
 [TIP]
@@ -469,7 +469,7 @@ Want changes made to your investment account? Here is how you can do it!
 
 [WARNING]
 ====
-At least one of /newname, /amount must be used.
+At least one of `/newname`, `/amount` must be used.
 ====
 
 *Example*
@@ -540,7 +540,7 @@ Changes the bond named `June SSB` charged to `DBB Vickers Account` to a new amou
 of `1.98`%.
 
 ===== Deleting bonds `/delete /bonds`
-Sold your bonds? Delete it from `OwlMoney`!
+Sold your bonds? Delete it from *OwlMoney*!
 
 *Command Syntax*
 `/delete /bonds /from BANK_NAME /name BOND_NAME`
@@ -562,7 +562,7 @@ Here's how you can use the `/add /card` command.
 
 [WARNING]
 ====
-OwlMoney only supports card with credit limit in lieu of encouraging you to spend less!
+*OwlMoney* only supports card with credit limit in lieu of encouraging you to spend less!
 ====
 
 *Example*
@@ -582,7 +582,7 @@ Change in your credit card rebates rate? You can change them here as well!
 
 [WARNING]
 ====
-At least one of /newname, /amount or /rebate must be used.
+At least one of `/newname`, `/amount` or `/rebate` must be used.
 ====
 
 *Example*
@@ -644,7 +644,7 @@ AMOUNT] [/date DATE]`
 
 [WARNING]
 ====
-At least one of /desc, /category, /amount, /date must be used.
+At least one of `/desc`, `/category`, `/amount`, `/date` must be used.
 ====
 
 [TIP]
@@ -714,9 +714,9 @@ Changing your life goals? We can certainly help you with that!
 
 [WARNING]
 ====
-At least one of /newname, /amount, /in or /by must be used.
+At least one of `/newname`, `/amount`, `/in` or `/by` must be used.
 
-/in and /by cannot be used together at the same time
+`/in` and `/by` cannot be used together at the same time
 ====
 
 *Example*
@@ -880,7 +880,7 @@ AMOUNT] [/frequency MONTH/WEEK/YEAR]`
 
 [WARNING]
 ====
-At least one of /category, /amount, /frequency must be used.
+At least one of `/category`, `/amount`, `/frequency` must be used.
 ====
 
 *Example*
