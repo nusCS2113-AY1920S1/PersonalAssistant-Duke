@@ -16,10 +16,6 @@ import java.util.Date;
 public class Schedule {
 
     /**
-     * loading path.
-     */
-    private String filePath;
-    /**
      * Input  scan
      */
     private ArrayList<TimeSlot> list;
@@ -28,22 +24,6 @@ public class Schedule {
         this.list = timeSlots;
     }
 
-    /**
-     * Array of all possible months
-     */
-    private String[] months = {
-        "January", "February", "March",
-        "April", "May", "June",
-        "July", "August", "September",
-        "October", "November", "December"
-    };
-
-    /**
-     * Array of all days in each month
-     */
-//    private int[] days = {
-//        31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31
-//    };
 
     /**
      * Will print out a formatted calender.
@@ -144,7 +124,9 @@ public class Schedule {
         return message;
     }
 
-    public String addClass(String startTime, String endTime, String location, String className, TaskList taskList, Storage scheduleStorage) {
+    public String addClass(String startTime, String endTime,
+                           String location, String className,
+                           TaskList taskList, Storage scheduleStorage) {
         Date start = taskList.dateConvert(startTime);
         Date end = taskList.dateConvert(endTime);
         TimeSlot timeSlot = new TimeSlot(start, end, location, className);
@@ -161,8 +143,8 @@ public class Schedule {
         if (this.list.isEmpty()) {
             return "No class available";
         }
-        for (TimeSlot i: this.list) {
-            if (i.getClassName().equals(name) && i.getStartTime().equals(start)){
+        for (TimeSlot i : this.list) {
+            if (i.getClassName().equals(name) && i.getStartTime().equals(start)) {
                 this.list.remove(index);
                 scheduleStorage.updateSchedule(this.list);
                 return "Class removed";
@@ -172,8 +154,15 @@ public class Schedule {
         return "Class not found";
     }
 
+    /**
+     * Method will remove all the saved classes from the list.
+     *
+     * @param date            The date to remove all the classes.
+     * @param scheduleStorage Where the save file will be located.
+     * @return Success string
+     */
     public String delAllClass(String date, Storage scheduleStorage) {
-        for (TimeSlot i: this.list) {
+        for (TimeSlot i : this.list) {
             DateFormat df = new SimpleDateFormat("HHmm");
             String today = df.format(i.getStartTime());
             String[] temp = today.split(" ");

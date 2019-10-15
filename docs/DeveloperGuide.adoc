@@ -20,6 +20,60 @@ toc::[]
 == Introduction
 Sports Manager is an app designed for busy sports trainers. The app is optimized to track what classes a trainer has to teach and the progress of his students. He is able to view his schedule and his lessons and can even adjust his training plans as needed depending on the class and students ability level. In addition, the planner helps the trainer to track his student’s progress by comparing their current standards to their personal best.
 
+== Setting Up
+== Design
+== Implementation
+This section describes some noteworthy details on how certain features are implemented.
+
+=== Scheduler
+This mechanism is largely supported by the `Storage`, `TaskList` and `TimeSlot` and facilitated by  `Parser` Classes.
+
+image::scheduleClassDiagram.png[align="left"]
+
+The class diagram above illustrates the Schedule Class.
+
+In schedule class there are methods to get:
+
+* The current month
+* The current timetable for the day
+* Viewing the timetable for a given day
+* Adding more Classes to the day
+* Deleting specific classes
+* Deleting all classes in a specific day
+
+In this feature there are a few main commands.
+
+The flow of these commands and how they are executed will be described below. A sequence diagram will be given to help illustrate the process.
+
+1. <<addDay>>
+
+==== addDay
+The TimeSlot Class implements the login feature by creating an object that represents a scheduled class in a day.
+
+|===
+|Step 1. The user keys in the command `schedule add STARTDATETIME ENDDATETIME VENUE CLASSNAME`.
+|Step 2. `Parser` recognises this command and parse the arguments.
+|Step 3. `Parser` will send the parsed arguments to `Schedule`. It will call the command `addClass`.
+|Step 4. `Schedule` will call `TaskList` method `dateConvert` to convert the string arguments of the start date-time and end date-time into a date object.
+|Step 5. `Schedule will now call create a new `TimeSlot` object to contain all the data of the newly added class.
+|Step 6. The new `TimeSlot` object will be passed into an ArrayList containing all `TimeSlot` objects.
+|Step 7. The updated ArrayList will be saved via a text file when `Storage` calls function `saveScheduler`.
+|Step 8. `addClass` will return to `Parser` saying it is successful.
+|===
+
+The following sequence diagram below shows the flow of `addDay`.
+
+image::addClass.png[align="left"]
+
+
+
+== Documentation
+== Testing
+== Dev Ops
+
+This section describes some noteworthy details on how certain features are implemented.
+
+
 == Appendix A: Product Scope
 
 === Target User Profile
