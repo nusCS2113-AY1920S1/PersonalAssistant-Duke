@@ -147,7 +147,7 @@ The rest of the App consists of four components.
 
 For example, the `Parser` component (see the class diagram given below) defines it’s API in the `CommandParser.java` interface and exposes its functionality using the `ParserManager.java` class.
 
-<img src="https://github.com/AY1920S1-CS2113T-W17-1/main/blob/master/docs/diagrams/LogicDiagram.png" alt="Overview of Logic parser" width="800"/>
+<img src="https://github.com/AY1920S1-CS2113T-W17-1/main/blob/master/docs/diagrams/LogicClassDiagram.png" alt="Overview of Logic parser" width="800"/>
 Figure 2. Class Diagram of Logic Parser Component
 
 **Events-Driven nature of the design**
@@ -162,7 +162,7 @@ The sections below give more details of each component.
 ### 4.2. UI component
 
 
-<img src="https://github.com/AY1920S1-CS2113T-W17-1/main/blob/master/docs/diagrams/UIClassDiagram.png" alt="Overview of Logic parser" width="800"/>
+<img src="https://github.com/AY1920S1-CS2113T-W17-1/main/blob/master/docs/diagrams/UIClassDiagram.png" alt="Overview of UI Component" width="800"/>
 Figure 5. Structure of the UI Component
 
 **API**  :  [`Ui.java`](https://github.com/AY1920S1-CS2113T-W17-1/main/blob/master/src/main/java/compal/ui/Ui.java)
