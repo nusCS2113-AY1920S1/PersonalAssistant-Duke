@@ -96,7 +96,14 @@ public class EmailStorage {
         for (Email serverEmail : serverEmailList) {
             boolean exist = false;
             for (Email localEmail : Duke.getEmailList()) {
-                if (localEmail.getSubject().equals(serverEmail.getSubject())) {
+                // Check existence of serverEmail in localEmail by comparing the email subject and
+                // ReceivedDateTime.
+                // If not checked by ReceivedDateTime, emails with same subject is filtered out from being
+                // added to emailList.
+                boolean isEqualSubject = localEmail.getSubject().equals(serverEmail.getSubject());
+                boolean isEqualDateTime =
+                        localEmail.getReceivedDateTime().equals(serverEmail.getReceivedDateTime());
+                if (isEqualSubject && isEqualDateTime) {
                     exist = true;
                     break;
                 }
