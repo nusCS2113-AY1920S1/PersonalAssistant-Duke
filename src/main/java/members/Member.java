@@ -45,6 +45,15 @@ public class Member {
         return data;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public void setTask(int indexInList) {
+        tasksInCharge.add(indexInList);
+    }
+
+
     @Override
     public String toString() {
         if (this.tasksInCharge.size() <= 0) {
