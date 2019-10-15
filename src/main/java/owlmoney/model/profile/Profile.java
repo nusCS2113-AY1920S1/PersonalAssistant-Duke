@@ -246,7 +246,7 @@ public class Profile {
      * @param newCard an instance of the new credit card.
      * @param ui required for printing.
      */
-    public void profileAddNewCard(Card newCard, Ui ui) {
+    public void profileAddNewCard(Card newCard, Ui ui) throws CardException {
         cardList.cardListAddCard(newCard, ui);
     }
 
