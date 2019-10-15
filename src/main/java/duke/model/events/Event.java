@@ -10,7 +10,7 @@ public class Event extends DoWithin {
     private Venue venue;
 
     /**
-     * Initializes a holiday task with location.
+     * Initializes a event task with location.
      *
      * @param locationDescription A description of this task.
      * @param startDate Starting date of task
@@ -23,7 +23,7 @@ public class Event extends DoWithin {
     }
 
     /**
-     * Initializes a holiday task from persistent storage.
+     * Initializes a event task from persistent storage.
      *
      * @param locationDescription A description of this task.
      * @param startDate Starting date of task

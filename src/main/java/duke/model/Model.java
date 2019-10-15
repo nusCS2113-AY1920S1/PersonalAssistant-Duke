@@ -1,6 +1,7 @@
 package duke.model;
 
 import duke.commons.exceptions.DukeException;
+import duke.logic.CreateMap;
 import duke.model.events.Task;
 import duke.model.transports.BusService;
 import duke.model.locations.BusStop;
@@ -15,6 +16,11 @@ public interface Model {
      * Returns the list of tasks.
      */
     TaskList getTasks();
+
+    /**
+     * Return map object.
+     */
+    CreateMap getMap();
 
     /**
      * Returns the list of tasks that contains a date.

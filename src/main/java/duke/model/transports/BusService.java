@@ -3,13 +3,15 @@ package duke.model.transports;
 import java.util.ArrayList;
 
 public class BusService {
+    private String bus;
     private ArrayList<String> direction1;
     private ArrayList<String> direction2;
 
     /**
      * Create bus object.
      */
-    public BusService() {
+    public BusService(String bus) {
+        this.bus = bus;
         this.direction1 = new ArrayList<>();
         this.direction2 = new ArrayList<>();
     }
@@ -39,6 +41,10 @@ public class BusService {
         } else {
             return direction2;
         }
+    }
+
+    public String getBus() {
+        return bus;
     }
 }
 
