@@ -20,16 +20,6 @@ public class Parser {
      * @throws MooMooException Thrown when an invalid input is given
      */
 
-    public static Command parse(String input) throws MooMooException {
-        if (input.equals("bye")) {
-            return new ExitCommand(true, "");
-        } else if (input.startsWith("budget")) {
-            return new BudgetCommand(false, input);
-        } else if (input.startsWith("graph")) {
-            return new GraphCommand(input);
-        } else {
-            throw new MooMooException("OOPS!!! I'm sorry, but I don't know what that means :(");
-
     public static Command parse(String input, Ui ui) throws MooMooException {
         Scanner scanner = new Scanner(input);
         String commandType = scanner.next();
@@ -38,6 +28,7 @@ public class Parser {
         case ("budget"): return new BudgetCommand(false, input);
         case ("categories"): return new ListCategoryCommand(false, "");
         case ("add"): return parseAdd(scanner, ui);
+        case ("graph"): return new GraphCommand(input);
         default: throw new MooMooException("OOPS!!! I'm sorry, but I don't know what that means :-(");
         }
     }
