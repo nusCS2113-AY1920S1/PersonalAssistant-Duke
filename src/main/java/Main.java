@@ -15,7 +15,7 @@ import java.io.IOException;
  */
 public class Main extends Application {
 
-    private Duke duke = new Duke(Constants.FILENAME, BookingConstants.FILENAME);
+    private Duke duke = new Duke(BookingConstants.FILENAME);
 
     @Override
     public void start(Stage stage) {

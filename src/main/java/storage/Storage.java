@@ -2,8 +2,8 @@ package storage;
 
 import task.Task;
 import task.TaskList;
-import user.Booking;
-import user.BookingList;
+import booking.Booking;
+import booking.BookingList;
 
 import java.io.File;
 import java.io.FileNotFoundException;
