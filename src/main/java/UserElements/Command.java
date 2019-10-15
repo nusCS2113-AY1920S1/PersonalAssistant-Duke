@@ -319,10 +319,10 @@ public class Command {
 
             try {
                 events.addEvent(tempEvent);
+                ui.rescheduleEvent(tempEvent);
             } catch (ClashException clashE) {
                 ui.scheduleClash(clashE.getClashEvent());
             }
-            ui.rescheduleEvent(tempEvent);
 
         } catch (IndexOutOfBoundsException outOfBoundsE) {
             ui.noSuchEvent();
