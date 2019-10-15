@@ -1,10 +1,6 @@
 package duke.core;
 
 import duke.command.*;
-import duke.patient.Patient;
-import duke.relation.EventPatientTask;
-import duke.relation.StandardPatientTask;
-import duke.task.*;
 
 /**
  * Represents a Parser that parses user input into a specific
@@ -59,7 +55,7 @@ public class CommandManager {
                     secondKeyword = command[1].toLowerCase();
                     if (secondKeyword.equals("patient")) {
                         try {
-                            String formattedInput = parser.parseDelete();
+                            String formattedInput = parser.parseDeletePatient();
                             return new DeletePatientCommand(formattedInput);
                         } catch(Exception e){
                             throw new Exception("Please follow the format 'delete patient #<id>'.");

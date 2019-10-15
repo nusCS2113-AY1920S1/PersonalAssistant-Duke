@@ -57,9 +57,9 @@ public class Parser {
         }
     }
 
-    public String parseDelete() throws DukeException {
+    public String parseDeletePatient() throws DukeException {
         String formattedInput;
-        String inputToParse = userInput.replace("patient", "").replace("delete", "").trim();
+        String inputToParse = userInput.replace("delete patient", "").trim();
 
         if (inputToParse.contains("#")) {
             try {
