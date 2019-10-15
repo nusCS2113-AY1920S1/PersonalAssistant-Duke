@@ -203,7 +203,13 @@ public interface Model {
      */
     boolean hasInventory(Item<Ingredient> inventory);
 
+    /**
+     * Removes an inventory item from the inventory list
+     * @param inventory The inventory item
+     */
     void deleteInventory(Item<Ingredient> inventory);
+
+    void setInventory(Item<Ingredient> toEdit, Item<Ingredient> edited);
 
     //======Shopping list operations=====
 

@@ -81,10 +81,10 @@ public class InventoryPage extends UiPart<AnchorPane> {
         quantityColumn.setCellValueFactory(itemStringCellDataFeatures ->
                 new SimpleStringProperty(itemStringCellDataFeatures.getValue().getQuantity().getNumberAsString()));
 
-        TableColumn<Item<Ingredient>, String> unitColumn = new TableColumn<>("Unit");
+        TableColumn<Item<Ingredient>, String> unitColumn = new TableColumn<>("Remarks");
         unitColumn.setResizable(true);
         unitColumn.setCellValueFactory(itemStringCellDataFeatures ->
-                new SimpleStringProperty(itemStringCellDataFeatures.getValue().getItem().getUnit()));
+                new SimpleStringProperty(itemStringCellDataFeatures.getValue().getItem().getRemarks()));
 
         inventoryListTable.getColumns().addAll(ingredientColumn, quantityColumn, unitColumn);
     }

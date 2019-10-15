@@ -30,6 +30,6 @@ public class CliSyntax {
 
     public static final Prefix PREFIX_INVENTORY_NAME = new Prefix("-name");
     public static final Prefix PREFIX_INVENTORY_QUANTITY = new Prefix("-qty");
-    public static final Prefix PREFIX_INVENTORY_UNIT = new Prefix("-unit");
+    public static final Prefix PREFIX_INVENTORY_REMARKS = new Prefix("-rmk");
     public static final Prefix PREFIX_INVENTORY_INDEX = new Prefix("-i");
 }

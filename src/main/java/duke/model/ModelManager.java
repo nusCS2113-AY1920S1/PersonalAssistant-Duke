@@ -233,6 +233,11 @@ public class ModelManager implements Model {
         bakingHome.removeInventory(inventory);
     }
 
+    public void setInventory(Item<Ingredient> toEdit, Item<Ingredient> edited) {
+        requireAllNonNull(toEdit, edited);
+        bakingHome.setInventory(toEdit, edited);
+    }
+
     @Override
     public ObservableList<Item<Ingredient>> getFilteredInventoryList() {
         return filteredInventory;
