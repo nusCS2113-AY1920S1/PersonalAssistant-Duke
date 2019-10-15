@@ -9,7 +9,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 /**
- * main class of the Duke program
+ * Main class of the RoomShare program.
  */
 public class RoomShare {
     private Ui ui;
@@ -58,220 +58,218 @@ public class RoomShare {
                 type = TaskType.others;
             }
             switch (type) {
-                case help:
-                    ui.help();
-                    break;
+            case help:
+                ui.help();
+                break;
 
-                case list:
-                    ui.showList();
+            case list:
+                ui.showList();
+                try {
+                    taskList.list();
+                } catch (RoomShareException e) {
+                    ui.showWriteError();
+                }
+                break;
+
+            case bye:
+                isExit = true;
+                try {
+                    storage.writeFile(TaskList.currentList(), "data.txt");
+                } catch (RoomShareException e) {
+                    ui.showWriteError();
+                }
+                ui.showBye();
+                break;
+
+            case done:
+                try {
+                    taskList.done(parser.getIndexRange());
+                    ui.showDone();
+                } catch (RoomShareException e) {
+                    ui.showIndexError();
+                }
+                break;
+
+            case delete:
+                try {
+                    int[] index = parser.getIndexRange();
+                    taskList.delete(index, deletedList);
+                    ui.showDeleted(index);
+                } catch (RoomShareException e) {
+                    ui.showIndexError();
+                }
+                break;
+
+            case find:
+                ui.showFind();
+                taskList.find(parser.getKey().toLowerCase());
+                break;
+
+            case priority:
+                boolean success = true;
+                try {
+                    taskList.list();
+                    ui.priority();
+                    taskList.setPriority(parser.getPriority());
+                } catch (RoomShareException e) {
+                    success = false;
+                    ui.priority();
+                } finally {
+                    if (success) {
+                        taskList.sortPriority();
+                        ui.prioritySet();
+                    }
+                }
+                break;
+
+            case todo:
+                try {
+                    ui.showAdd();
+                    ToDo temp = new ToDo(parser.getDescription());
+                    taskList.add(temp);
+                } catch (RoomShareException e) {
+                    ui.showEmptyDescriptionError();
+                }
+                break;
+
+            case deadline:
+                try {
+                    ui.showAdd();
+                    String[] deadlineArray = parser.getDescriptionWithDate();
+                    Date by = parser.formatDate(deadlineArray[1]);
+                    Deadline temp = new Deadline(deadlineArray[0], by);
+                    taskList.add(temp);
+                } catch (RoomShareException e) {
+                    ui.showDateError();
+                }
+                break;
+
+            case event:
+                try {
+                    String[] eventArray = parser.getDescriptionWithDate();
+                    Date at = parser.formatDate(eventArray[1]);
+
+                    ui.promptForReply();
+                    ReplyType replyType;
                     try {
-                        taskList.list();
-                    } catch (RoomShareException e) {
-                        ui.showWriteError();
+                        replyType = parser.getReply();
+                    } catch (IllegalArgumentException e) {
+                        replyType = ReplyType.others;
                     }
-                    break;
-
-                case bye:
-                    isExit = true;
-                    try {
-                        storage.writeFile(TaskList.currentList(), "data.txt");
-                    } catch (RoomShareException e) {
-                        ui.showWriteError();
-                    }
-                    ui.showBye();
-                    break;
-
-                case done:
-                    try {
-                        taskList.done(parser.getIndexRange());
-                        ui.showDone();
-                    } catch (RoomShareException e) {
-                        ui.showIndexError();
-                    }
-                    break;
-
-                case delete:
-                    try {
-                        int index[] = parser.getIndexRange();
-                        taskList.delete(index, deletedList);
-                        ui.showDeleted(index);
-                    } catch (RoomShareException e) {
-                        ui.showIndexError();
-                    }
-                    break;
-
-                case find:
-                    ui.showFind();
-                    taskList.find(parser.getKey().toLowerCase());
-                    break;
-
-                case priority:
-                    boolean success = true;
-                    try {
-                        taskList.list();
-                        ui.priority();
-                        taskList.setPriority(parser.getPriority());
-                    } catch (RoomShareException e) {
-                        success = false;
-                        ui.priority();
-                    } finally {
-                        if(success) {
-                            taskList.sortPriority();
-                            ui.prioritySet();
-                        }
-                    }
-                    break;
-
-                case todo:
-                    try {
-                        ui.showAdd();
-                        ToDo temp = new ToDo(parser.getDescription());
-                        taskList.add(temp);
-                    } catch (RoomShareException e) {
-                        ui.showEmptyDescriptionError();
-                    }
-                    break;
-
-                case deadline:
-                    try {
-                        ui.showAdd();
-                        String[] deadlineArray = parser.getDescriptionWithDate();
-                        Date by = parser.formatDate(deadlineArray[1]);
-                        Deadline temp = new Deadline(deadlineArray[0], by);
-                        taskList.add(temp);
-                    } catch (RoomShareException e) {
-                        ui.showDateError();
-                    }
-                    break;
-
-                case event:
-                    try {
-                        String[] eventArray = parser.getDescriptionWithDate();
-                        Date at = parser.formatDate(eventArray[1]);
-
-                        ui.promptForReply();
-                        ReplyType replyType;
-                        try {
-                            replyType = parser.getReply();
-                        } catch (IllegalArgumentException e) {
-                            replyType = ReplyType.others;
-                        }
-                        switch (replyType) {
-                            case yes:
-                                ui.promptForDuration();
-                                TimeUnit timeUnit = parser.getTimeUnit();
-                                ui.promptForTime();
-                                int duration = parser.getAmount();
-                                FixedDuration fixedDuration = new FixedDuration(eventArray[0], at, duration);
-
-                                //checks for clashes
-                                if( CheckAnomaly.checkTime(fixedDuration) ) {
-                                    taskList.add(fixedDuration);
-                                } else {
-                                    throw new RoomShareException(ExceptionType.timeClash);
-                                }
-
-                                Timer timer = new Timer();
-                                class RemindTask extends TimerTask {
-                                    public void run() {
-                                        System.out.println(eventArray[0] + " is completed");
-                                        timer.cancel();
-                                    }
-                                }
-                                RemindTask rt = new RemindTask();
-                                switch (timeUnit) {
-                                    case hours:
-                                        timer.schedule(rt, duration * 1000 * 60 * 60);
-                                        break;
-                                    case minutes:
-                                        timer.schedule(rt, duration * 1000 * 60);
-                                        break;
-                                }
-                                ui.showAdd();
-                            break;
-                            case no:
-                                Event event = new Event(eventArray[0], at);
-                                taskList.add(event);
-                                ui.showAdd();
-                            break;
-                            default:
-                                ui.showCommandError();
-                                break;
-                        }
-                    }
-                    catch (RoomShareException e) {
-                        ui.showDateError();
-                    }
-                    break;
-
-                case recur:
-                    ui.promptRecurringActions();
-                    while (!isExitRecur) {
-                        String temp = parser.getCommand();
-                        RecurTaskType recurType;
-                        try {
-                            recurType = RecurTaskType.valueOf(temp);
-                        } catch (IllegalArgumentException e) {
-                            recurType = RecurTaskType.others;
-                        }
-                        switch (recurType) {
-                            case list:
-                                recurHandler.listRecurring();
-                                break;
-                            case find:
-                                recurHandler.findRecurring(parser.getKey());
-                                break;
-                            case exit:
-                                isExitRecur = true;
-                                ui.showExit();
-                                break;
-                            case add:
-                                recurHandler.addBasedOnOperation();
-                                break;
-                            default:
-                                ui.showCommandError();
-                                break;
-                        }
-                    }
-                    isExitRecur = false;
-                    break;
-
-
-                case snooze :
-                    try {
-                        int index = parser.getIndex();
-                        TaskList.currentList().get(index - 1);
-                        ui.showSnooze();
-                        int amount = parser.getAmount();
+                    switch (replyType) {
+                    case yes:
+                        ui.promptForDuration();
                         TimeUnit timeUnit = parser.getTimeUnit();
-                        taskList.snooze(index, amount, timeUnit);
-                        ui.showSnoozeComplete();
-                    }
-                    catch (IndexOutOfBoundsException e){
-                        ui.showIndexError();
-                    }
-                    catch (IllegalArgumentException e){
-                        ui.showTimeError();
-                    }
-                    break;
+                        ui.promptForTime();
+                        int duration = parser.getAmount();
+                        FixedDuration fixedDuration = new FixedDuration(eventArray[0], at, duration);
 
-                case reorder:
-                    int firstIndex = parser.getIndex();
-                    ui.promptSecondIndex();
-                    int secondIndex = parser.getIndex();
-                    ui.showReordering();
-                    taskList.reorder(firstIndex, secondIndex);
-                    break;
+                        //checks for clashes
+                        if (CheckAnomaly.checkTime(fixedDuration)) {
+                            taskList.add(fixedDuration);
+                        } else {
+                            throw new RoomShareException(ExceptionType.timeClash);
+                        }
 
+                        Timer timer = new Timer();
+                        class RemindTask extends TimerTask {
+                            public void run() {
+                                System.out.println(eventArray[0] + " is completed");
+                                timer.cancel();
+                            }
+                        }
+
+                        RemindTask rt = new RemindTask();
+                        switch (timeUnit) {
+                        case hours:
+                            timer.schedule(rt, duration * 1000 * 60 * 60);
+                            break;
+                        case minutes:
+                            timer.schedule(rt, duration * 1000 * 60);
+                            break;
+                        }
+                        ui.showAdd();
+                        break;
+                    case no:
+                        Event event = new Event(eventArray[0], at);
+                        taskList.add(event);
+                        ui.showAdd();
+                        break;
                     default:
-                    ui.showCommandError();
-                    break;
+                        ui.showCommandError();
+                        break;
+                    }
+                } catch (RoomShareException e) {
+                    ui.showDateError();
+                }
+                break;
+
+            case recur:
+                ui.promptRecurringActions();
+                while (!isExitRecur) {
+                    String temp = parser.getCommand();
+                    RecurTaskType recurType;
+                    try {
+                        recurType = RecurTaskType.valueOf(temp);
+                    } catch (IllegalArgumentException e) {
+                        recurType = RecurTaskType.others;
+                    }
+                    switch (recurType) {
+                    case list:
+                        recurHandler.listRecurring();
+                        break;
+                    case find:
+                        recurHandler.findRecurring(parser.getKey());
+                        break;
+                    case exit:
+                        isExitRecur = true;
+                        ui.showExit();
+                        break;
+                    case add:
+                        recurHandler.addBasedOnOperation();
+                        break;
+                    default:
+                        ui.showCommandError();
+                        break;
+                    }
+                }
+                isExitRecur = false;
+                break;
+
+
+            case snooze :
+                try {
+                    int index = parser.getIndex();
+                    TaskList.currentList().get(index - 1);
+                    ui.showSnooze();
+                    int amount = parser.getAmount();
+                    TimeUnit timeUnit = parser.getTimeUnit();
+                    taskList.snooze(index, amount, timeUnit);
+                    ui.showSnoozeComplete();
+                } catch (IndexOutOfBoundsException e) {
+                    ui.showIndexError();
+                } catch (IllegalArgumentException e) {
+                    ui.showTimeError();
+                }
+                break;
+
+            case reorder:
+                int firstIndex = parser.getIndex();
+                ui.promptSecondIndex();
+                int secondIndex = parser.getIndex();
+                ui.showReordering();
+                taskList.reorder(firstIndex, secondIndex);
+                break;
+
+            default:
+                ui.showCommandError();
+                break;
             }
         }
     }
 
     /**
-     * Main function of Duke
+     * Main function of Duke.
      * Creates a new instance of Duke class
      * @param args command line arguments
      * @throws RoomShareException Custom exception class within Duke program
