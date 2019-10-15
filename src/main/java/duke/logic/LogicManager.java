@@ -5,11 +5,11 @@ import duke.commands.CommandResult;
 import duke.commons.exceptions.DukeException;
 import duke.logic.conversations.ConversationManager;
 import duke.logic.parsers.Parser;
-import duke.storage.Storage;
+import duke.model.Model;
+import duke.model.ModelManager;
 
 public class LogicManager extends Logic {
-    private static final String FILE_PATH = "data/tasks.txt";
-    private Storage storage;
+    private Model model;
     private ConversationManager conversationManager;
 
     /**
@@ -17,7 +17,7 @@ public class LogicManager extends Logic {
      */
     public LogicManager() throws DukeException {
         conversationManager = new ConversationManager();
-        storage = new Storage(FILE_PATH);
+        model = new ModelManager();
     }
 
     /**
@@ -34,7 +34,7 @@ public class LogicManager extends Logic {
         } catch (DukeException e) {
             c = getCommandFromConversationManager(userInput);
         }
-        return c.execute(storage);
+        return c.execute(model);
     }
 
     /**

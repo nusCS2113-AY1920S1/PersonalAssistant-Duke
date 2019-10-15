@@ -1,9 +1,9 @@
-package duke.data;
+package duke.model.locations;
 
 import java.util.HashSet;
 import java.util.Set;
 
-public class BusStop extends Location {
+public class BusStop extends Venue {
     private String busCode;
     private String description;
     private Set<String> buses;
@@ -35,3 +35,4 @@ public class BusStop extends Location {
         return busCode;
     }
 }
+

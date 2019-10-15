@@ -3,14 +3,10 @@ package duke.logic.parsers;
 import duke.commons.exceptions.DukeDateTimeParseException;
 import duke.commons.exceptions.DukeException;
 import duke.commons.Messages;
-import duke.data.tasks.Deadline;
-import duke.data.tasks.DoWithin;
-import duke.data.tasks.Event;
-import duke.data.tasks.Fixed;
-import duke.data.tasks.Holiday;
-import duke.data.tasks.RecurringTask;
-import duke.data.tasks.Task;
-import duke.data.tasks.Todo;
+import duke.model.events.Deadline;
+import duke.model.events.DoWithin;
+import duke.model.events.Event;
+import duke.model.events.Todo;
 
 import java.time.LocalDateTime;
 
@@ -55,27 +51,6 @@ public class ParserUtil {
     }
 
     /**
-     * Parses the userInput and return a new event constructed from it.
-     *
-     * @param userInput The userInput read by the user interface.
-     * @return The new event object.
-     */
-    protected static Event createEvent(String userInput) throws DukeException {
-        String[] eventDetails = userInput.substring("event".length()).strip().split("at");
-        if (eventDetails.length != 2 || eventDetails[1] == null) {
-            throw new DukeException(Messages.INVALID_FORMAT);
-        }
-        if (eventDetails[0].strip().isEmpty()) {
-            throw new DukeException(Messages.EMPTY_DESCRIPTION);
-        }
-        try {
-            return new Event(eventDetails[0].strip(), ParserTimeUtil.parseStringToDate(eventDetails[1].strip()));
-        } catch (DukeDateTimeParseException e) {
-            return new Event(eventDetails[0].strip(), eventDetails[1].strip());
-        }
-    }
-
-    /**
      * Parses the userInput and return a new DoWithin constructed from it.
      *
      * @param userInput The userInput read by the user interface.
@@ -95,71 +70,13 @@ public class ParserUtil {
     }
 
     /**
-     * Parses the user input and creates a recurring task.
+     * Parses the userInput and return a new Event constructed from it.
      *
      * @param userInput The userInput read by the user interface.
-     * @return The new recurring task.
+     * @return The new Event object.
      */
-    protected static Task createRecurringTask(String userInput) throws DukeException {
-        String[] taskDetails = userInput.substring("repeat".length()).strip().split("at");
-        try {
-            String[] dateDetails = taskDetails[1].split("every");
-            if (dateDetails.length != 2 || dateDetails[1] == null) {
-                throw new DukeException(Messages.INVALID_FORMAT);
-            }
-            if (taskDetails[0].strip().isEmpty()) {
-                throw new DukeException(Messages.EMPTY_DESCRIPTION);
-            }
-            return new RecurringTask(taskDetails[0].strip(), ParserTimeUtil.parseStringToDate(dateDetails[0].strip()),
-                    getIndex(dateDetails[1].strip()) + 1);
-        } catch (ArrayIndexOutOfBoundsException e) {
-            throw new DukeException(Messages.INVALID_FORMAT);
-        }
-    }
-
-    /**
-     * Parses the userInput and return a new Fixed constructed from it.
-     *
-     * @param userInput The userInput read by the user interface.
-     * @return The new Fixed object.
-     */
-    protected static Fixed createFixed(String userInput) throws  DukeException {
-        String[] fixedDetails = userInput.substring("fixed".length()).strip().split("needs");
-        if (fixedDetails.length != 2 || fixedDetails[1] == null) {
-            throw new DukeException(Messages.INVALID_FORMAT);
-        }
-        if (fixedDetails[0].strip().isEmpty()) {
-            throw new DukeException(Messages.EMPTY_DESCRIPTION);
-        }
-        try {
-            int hour = 0;
-            int min = 0;
-
-            String[] timeDetails = fixedDetails[1].strip().split("hours");
-
-            if (timeDetails.length == 2) {
-                hour = Integer.parseInt(timeDetails[0].strip());
-                min = Integer.parseInt(timeDetails[1].replaceAll("mins","").strip());
-            } else if (timeDetails[0].contains("mins")) {
-                min = Integer.parseInt(timeDetails[0].replaceAll("mins","").strip());
-            } else {
-                hour = Integer.parseInt(timeDetails[0].strip());
-            }
-            return new Fixed(fixedDetails[0].strip(),hour,min);
-        } catch (NumberFormatException e) {
-            throw new DukeException(Messages.INVALID_FORMAT);
-        }
-
-    }
-
-    /**
-     * Parses the userInput and return a new Holiday constructed from it.
-     *
-     * @param userInput The userInput read by the user interface.
-     * @return The new Holiday object
-     */
-    public static Holiday createHoliday(String userInput) throws DukeException {
-        String[] withinDetails = userInput.substring("holiday".length()).strip().split("between|and");
+    public static Event createEvent(String userInput) throws DukeException {
+        String[] withinDetails = userInput.substring("event".length()).strip().split("between|and");
         if (withinDetails.length != 3 || withinDetails[1] == null || withinDetails[2] == null) {
             throw new DukeException(Messages.INVALID_FORMAT);
         }
@@ -168,7 +85,7 @@ public class ParserUtil {
         }
         LocalDateTime start = ParserTimeUtil.parseStringToDate(withinDetails[1].strip());
         LocalDateTime end = ParserTimeUtil.parseStringToDate(withinDetails[2].strip());
-        return new Holiday(withinDetails[0].strip(), start, end);
+        return new Event(withinDetails[0].strip(), start, end);
     }
 
     /**

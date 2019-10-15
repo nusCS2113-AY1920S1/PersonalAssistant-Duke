@@ -1,7 +1,9 @@
-package duke.model;
+package duke;
 
 import duke.commons.exceptions.DukeException;
 import duke.logic.CreateMap;
+import duke.model.Model;
+import duke.model.TaskList;
 import duke.model.events.Event;
 import duke.model.events.Task;
 import duke.model.locations.BusStop;
@@ -14,34 +16,24 @@ import javafx.collections.transformation.SortedList;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ModelManager implements Model {
+public class ModelStub implements Model {
     private Storage storage;
     private TaskList tasks;
     private CreateMap map;
-    //private List<BusStop> allBusStops;
-    //private List<TrainStation> allTrainStations;
-    //private List<Route> userRoutes;
 
-    /**
-     * Constructs a new ModelManager object.
-     */
-    public ModelManager() {
+    public ModelStub() {
         storage = new Storage();
-        tasks = storage.getTasks();
-        map = storage.getMap();
-        //allBusStops = storage.getBusStops();
-        //allTrainStations = storage.getTrainStations();
-        //userRoutes = storage.getRoutes();
-    }
-
-    @Override
-    public CreateMap getMap() {
-        return map;
+        tasks = new TaskList();
     }
 
     @Override
     public TaskList getTasks() {
         return tasks;
+    }
+
+    @Override
+    public CreateMap getMap() {
+        return map;
     }
 
     @Override
@@ -86,6 +78,5 @@ public class ModelManager implements Model {
 
     @Override
     public void save() throws DukeException {
-        storage.write();
     }
 }

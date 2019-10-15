@@ -1,4 +1,4 @@
-package duke.model;
+package duke.model.locations;
 
 public class Venue {
     private double latitude;

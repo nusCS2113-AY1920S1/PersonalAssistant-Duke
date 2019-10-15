@@ -1,4 +1,4 @@
-package duke.data.tasks;
+package duke.model.events;
 
 import org.junit.jupiter.api.Test;
 

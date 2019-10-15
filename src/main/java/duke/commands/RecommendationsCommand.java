@@ -1,8 +1,8 @@
 package duke.commands;
 
-import duke.model.ModelManager;
-import duke.model.Venue;
-import duke.storage.Storage;
+import duke.commons.exceptions.DukeException;
+import duke.model.Model;
+import duke.model.locations.Venue;
 
 import java.util.List;
 
@@ -10,7 +10,7 @@ import java.util.List;
  * Class representing a command to list items in a task list.
  */
 public class RecommendationsCommand extends Command {
-    public String days;
+    private String days;
 
     public RecommendationsCommand(String days) {
         this.days = days;
@@ -19,32 +19,31 @@ public class RecommendationsCommand extends Command {
     /**
      * Executes this command on the given task list and user interface.
      *
-     * @param storage The storage object containing task list.
+     * @param model The model object containing information about the user.
      */
     @Override
-    public CommandResult execute(Storage storage) {
-        ModelManager modelManager = new ModelManager();
-        List<Venue> list = modelManager.getRecommendations();
+    public CommandResult execute(Model model) throws DukeException {
+        // Multiple possibilities with the logic here.
+        List<Venue> list = model.getRecommendations();
+
         StringBuilder result = new StringBuilder("Here are the list of Recommended Locations in "
                 + days + " days:\n");
-        int i = 1;
-        int j = Integer.parseInt(days);
-        if (j <= 1) {
-            j = 1;
-        } else if (j <= 3) {
-            j = 3;
-        } else if (j <= 5) {
-            j = 5;
-        } else {
-            j = list.size();
-        }
-        for (Venue t : list) {
-            result.append(i).append(". ").append(t.getAddress()).append("\n");
-            i += 1;
-            if (i >= j) {
-                break;
+
+        int numDays = Integer.parseInt(days);
+
+        for (int i = 0; i < 2 * numDays; i++) {
+            if (i % 2 == 0) {
+                result.append("Day ").append((i / 2) + 1).append(":").append("\n");
             }
+            result.append(i).append(". ").append(list.get(i).getAddress()).append("\n");
         }
+
+        // Until more locations are added
+
+        if (numDays > 7) {
+            throw new DukeException("Too many days, enter less than 8 ");
+        }
+
         return new CommandResult(result.toString());
     }
 }

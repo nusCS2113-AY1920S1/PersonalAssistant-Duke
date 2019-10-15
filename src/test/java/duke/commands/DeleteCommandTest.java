@@ -1,10 +1,9 @@
 package duke.commands;
 
-import duke.StorageStub;
+import duke.ModelStub;
 import duke.commons.exceptions.DukeException;
-import duke.storage.Storage;
-import duke.data.tasks.Task;
-import duke.data.tasks.Todo;
+import duke.model.events.Task;
+import duke.model.events.Todo;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -13,11 +12,11 @@ class DeleteCommandTest {
 
     @Test
     void execute() throws DukeException {
-        Storage storage = new StorageStub();
+        ModelStub model = new ModelStub();
         Task task = new Todo("homework");
-        storage.getTasks().add(task);
+        model.getTasks().add(task);
         DeleteCommand deleteCommand = new DeleteCommand(0);
-        deleteCommand.execute(storage);
-        assertFalse(storage.getTasks().contains(task));
+        deleteCommand.execute(model);
+        assertFalse(model.getTasks().contains(task));
     }
 }

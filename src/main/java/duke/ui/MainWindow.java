@@ -66,7 +66,7 @@ public class MainWindow extends UiPart<Stage> {
         } catch (DukeException e) {
             dukeShow(e.getMessage());
         }
-        dukeShow("Hi");
+        dukeShow("Hi, welcome to SGTravel.");
     }
 
     /**
@@ -95,7 +95,6 @@ public class MainWindow extends UiPart<Stage> {
                     new MapWindow(result).show();
                 }
             } catch (DukeException e) {
-                System.out.println(e.getMessage());
                 dukeShow(e.getMessage());
             }
         });

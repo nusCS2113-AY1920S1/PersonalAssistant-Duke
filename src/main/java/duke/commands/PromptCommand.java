@@ -1,6 +1,6 @@
 package duke.commands;
 
-import duke.storage.Storage;
+import duke.model.Model;
 
 public class PromptCommand extends Command {
     private String prompt;
@@ -9,7 +9,7 @@ public class PromptCommand extends Command {
         this.prompt = prompt;
     }
 
-    public CommandResult execute(Storage storage) {
+    public CommandResult execute(Model model) {
         return new CommandResult(prompt);
     }
 }

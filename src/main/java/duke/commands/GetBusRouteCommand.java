@@ -1,9 +1,8 @@
 package duke.commands;
 
 import duke.commons.exceptions.DukeException;
-import duke.data.BusService;
-import duke.logic.api.ApiParser;
-import duke.storage.Storage;
+import duke.model.Model;
+import duke.model.transports.BusService;
 
 import java.util.HashMap;
 
@@ -16,8 +15,8 @@ public class GetBusRouteCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(Storage storage) throws DukeException {
-        HashMap<String, BusService> busMap = ApiParser.getBusRoute();
+    public CommandResult execute(Model model) throws DukeException {
+        HashMap<String, BusService> busMap = model.getMap().getBusMap();
         BusService bus = busMap.get(this.bus);
         String result = "";
         for (String busCode : bus.getDirection(1)) {

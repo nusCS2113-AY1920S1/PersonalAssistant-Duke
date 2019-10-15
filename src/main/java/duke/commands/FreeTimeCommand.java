@@ -2,10 +2,9 @@ package duke.commands;
 
 import duke.commons.exceptions.DukeException;
 import duke.commons.Messages;
-import duke.storage.Storage;
-import duke.data.tasks.Task;
-import duke.data.tasks.TaskWithDates;
-
+import duke.model.Model;
+import duke.model.events.Task;
+import duke.model.events.TaskWithDates;
 import javafx.collections.transformation.SortedList;
 
 import java.time.LocalDateTime;
@@ -25,21 +24,21 @@ public class FreeTimeCommand extends Command {
     /**
      * Executes this command on the given task list and user interface.
      *
-     * @param storage The storage object containing task list.
+     * @param model The model object containing information about the user.
      */
     @Override
-    public CommandResult execute(Storage storage) throws DukeException {
+    public CommandResult execute(Model model) throws DukeException {
         TaskWithDates primalTask = new TaskWithDates("earliest", LocalDateTime.now().plusMinutes(1));
         TaskWithDates worldEndTask = new TaskWithDates("latest", LocalDateTime.MAX);
-        storage.getTasks().add(primalTask);
-        storage.getTasks().add(worldEndTask);
-        SortedList<Task> tasks = storage.getTasks().getChronoList();
+        model.getTasks().add(primalTask);
+        model.getTasks().add(worldEndTask);
+        SortedList<Task> tasks = model.getTasks().getChronoList();
         for (int i = 1; i < tasks.size(); ++i) {
             LocalDateTime prev = ((TaskWithDates) tasks.get(i - 1)).getStartDate();
             LocalDateTime now = ((TaskWithDates) tasks.get(i)).getStartDate();
             if (LocalDateTime.now().compareTo(prev) < 0 && prev.plusHours(duration).compareTo(now) <= 0) {
-                storage.getTasks().remove(primalTask);
-                storage.getTasks().remove(worldEndTask);
+                model.getTasks().remove(primalTask);
+                model.getTasks().remove(worldEndTask);
                 return new CommandResult(prev.toString());
             }
         }
