@@ -1,5 +1,0 @@
-0 todo run -priority high
-0 deadline efc -time 12/12/2102 1232
-0 deadline efc -time 12/12/2102 1232 -tag df
-0 todo pp
-0 todo run

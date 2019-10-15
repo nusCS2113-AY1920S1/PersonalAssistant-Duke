@@ -4,7 +4,10 @@ import javafx.animation.PauseTransition;
 import javafx.application.Platform;
 import javafx.collections.ObservableList;
 import javafx.collections.FXCollections;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.geometry.Insets;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -14,12 +17,19 @@ import javafx.scene.control.ListView;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
+import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Text;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
+import javafx.stage.Popup;
 import javafx.stage.Screen;
+import javafx.stage.Stage;
 import javafx.util.Duration;
 import seedu.duke.Duke;
 import seedu.duke.CommandParser;
@@ -27,7 +37,6 @@ import seedu.duke.UI;
 import seedu.duke.task.TaskList;
 import seedu.duke.task.TaskStorage;
 import seedu.duke.email.EmailStorage;
-import seedu.duke.task.entity.Event;
 import seedu.duke.task.entity.Task;
 import javafx.scene.Scene;
 import java.util.ArrayList;
@@ -69,6 +78,8 @@ public class MainWindow extends AnchorPane {
 
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
     private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
+
+    private static Stage mainStage;
 
     /**
      * Starts up GUI screen by loading welcome message, task list and email list.
@@ -207,6 +218,10 @@ public class MainWindow extends AnchorPane {
         updateInputList(input);
     }
 
+    public static void setMainStage(Stage stage) {
+        mainStage = stage;
+    }
+
     private void updateHtml() {
         String emailPath = ui.getEmailPath();
         webEngine.load(emailPath);
@@ -250,7 +265,7 @@ public class MainWindow extends AnchorPane {
      */
     private String navigateInputList() {
         String prevInput = "";
-        if (isUpKey == true) {
+        if (isUpKey) {
             if (inputListIndex < 1) {
                 inputListIndex = inputList.size();
             }
@@ -331,6 +346,42 @@ public class MainWindow extends AnchorPane {
         }
         ObservableList<EmailHBoxCell> observableList = FXCollections.observableList(list);
         emailsListView.setItems(observableList);
+    }
+
+    public static void showTextPopup(String text) {
+        final Popup popup = new Popup();
+        AnchorPane outerPane = new AnchorPane();
+        ScrollPane scroll = new ScrollPane();
+
+        AnchorPane pane = new AnchorPane();
+        Label label = new Label(text);
+        Button button = new Button("Close");
+
+        outerPane.setPrefSize(800, 650);
+        outerPane.setStyle("-fx-background-color: #FFFFFF;"
+                + "-fx-border-color: black;");
+
+        scroll.setPrefSize(796, 600);
+        scroll.setLayoutX(2);
+        scroll.setPadding(new Insets(0, 10, 0, 10));
+
+        button.setPrefSize(80, 16);
+        button.setLayoutX(380);
+        button.setLayoutY(610);
+        button.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                popup.hide();
+                System.out.println(popup);
+            }
+        });
+
+        pane.getChildren().add(label);
+        scroll.setContent(pane);
+        outerPane.getChildren().addAll(scroll, button);
+        popup.getContent().add(outerPane);
+        popup.show(mainStage);
+        Duke.getUI().showDebug("Popup created");
     }
 
     public static class EmailHBoxCell extends HBox {

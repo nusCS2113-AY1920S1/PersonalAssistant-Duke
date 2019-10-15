@@ -29,6 +29,7 @@ public class Main extends Application {
             fxmlLoader.<MainWindow>getController().setDuke(duke);
             fxmlLoader.<MainWindow>getController().setKeyBinding(scene);
             stage.show();
+            MainWindow.setMainStage(stage);
         } catch (IOException e) {
             e.printStackTrace();
         }

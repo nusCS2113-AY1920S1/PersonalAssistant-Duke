@@ -88,6 +88,7 @@ public class Duke {
             command.execute();
             return command.toString();
         } catch (Exception e) {
+            e.printStackTrace();
             return e.getMessage();
         }
     }
