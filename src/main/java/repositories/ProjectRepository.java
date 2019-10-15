@@ -1,12 +1,12 @@
 package repositories;
 
-
+import models.data.Project;
 import util.factories.ProjectFactory;
 import java.util.ArrayList;
 import models.data.IProject;
 
-public class ProjectRepository implements IRepository<IProject> {
-    private ArrayList<IProject> allProjects;
+public class ProjectRepository implements IRepository<Project> {
+    private ArrayList<Project> allProjects;
     private ProjectFactory projectFactory;
 
     public ProjectRepository() {
@@ -15,7 +15,7 @@ public class ProjectRepository implements IRepository<IProject> {
     }
 
     @Override
-    public ArrayList<IProject> getAll() {
+    public ArrayList<Project> getAll() {
         return allProjects;
     }
 
@@ -25,12 +25,12 @@ public class ProjectRepository implements IRepository<IProject> {
         if (newProject.getDescription() == null || newProject.getMembers() == null) {
             return false;
         }
-        allProjects.add(newProject);
+        Project newlyCreatedProject = (Project) newProject;
+        allProjects.add(newlyCreatedProject);
         return true;
     }
 
-    @Override
-    public IProject getProject(int projectNumber) {
+    public Project getItem(int projectNumber) {
         return this.allProjects.get(projectNumber - 1);
     }
 

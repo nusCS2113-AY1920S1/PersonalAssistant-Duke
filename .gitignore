@@ -1,5 +1,6 @@
 # Configuration Files in saves
 /src/main/saves/
+./savedProjects.json
 
 # IDEA files
 /.idea/

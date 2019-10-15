@@ -32,7 +32,7 @@ public class ProjectInputController {
      */
     public void manageProject(String input) {
         int projectNumber = Integer.parseInt(input);
-        IProject projectToManage = projectRepository.getProject(projectNumber);
+        IProject projectToManage = projectRepository.getItem(projectNumber);
         this.consoleView.consolePrint("Now managing: " + projectToManage.getDescription());
         boolean continueManaging = true;
         while (continueManaging) {
@@ -113,7 +113,5 @@ public class ProjectInputController {
                 consoleView.consolePrint("Please enter a command.");
             }
         }
-
     }
-
 }

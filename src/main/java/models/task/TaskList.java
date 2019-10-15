@@ -36,7 +36,8 @@ public class TaskList {
     public ArrayList<String> getAllTaskDetails() {
         ArrayList<String> taskDetails = new ArrayList<>();
         ArrayList<Task> sortedTaskList = taskList;
-        sortedTaskList.sort(sortTasksByPriority);
+        // This method compares the two tasks and sort list in descending order.
+        sortedTaskList.sort((task1, task2) -> task2.getTaskPriority() - task1.getTaskPriority());
         int taskIndex = 1;
         for (Task task : sortedTaskList) {
             taskDetails.add(taskIndex + ". " + task.getDetails());
@@ -52,16 +53,6 @@ public class TaskList {
     public ArrayList<Task> getTaskList() {
         return this.taskList;
     }
-
-    /*
-    * This method compares the two tasks and sort list in descending order.
-     */
-    private Comparator<Task> sortTasksByPriority = new Comparator<Task>() {
-        @Override
-        public int compare(Task task1, Task task2) {
-            return task2.getTaskPriority() - task1.getTaskPriority();
-        }
-    };
 
     public Task getTask(int taskIndex) {
         return this.taskList.get(taskIndex - 1);

@@ -2,6 +2,7 @@ package views;
 
 import controllers.ConsoleInputController;
 import models.data.IProject;
+import models.data.Project;
 import models.member.Member;
 import models.task.Task;
 import models.temp.tasks.ITask;
@@ -36,7 +37,6 @@ public class CLIView {
      */
     public void start() {
         Scanner sc = new Scanner(System.in);
-        consoleInputController.readData();
 
         consolePrint("Hello! I'm Duke", "What can I do for you?");
 
@@ -75,14 +75,6 @@ public class CLIView {
     }
 
     /**
-     * Method to be called when a Invalid Command is input by the user.
-     * @param newException : Exception that is thrown when an Invalid Command is detected
-     */
-    public void invalidCommandMessage(Exception newException) {
-        consolePrint(newException.getMessage());
-    }
-
-    /**
      * Method that is called when user wishes to delete a task.
      * This method is responsible for handling printing of horizontal lines.
      * @param taskList : List of tasks from which the chosen task should be deleted from.
@@ -106,31 +98,15 @@ public class CLIView {
     }
 
     /**
-     * Method that is called when user wishes to find a specific task.
-     * This method updates the UI (in this case CLI) with relevant print messages and information.
-     * @param taskList : Current list of tasks. Users will enter a keyword to search for a task residing in this list.
-     * @param input : Full command that user has keyed into CLI.
-     */
-    public void findTask(TaskList taskList, String input) {
-        ArrayList<String> toPrint = new ArrayList<>();
-        toPrint.add("Here are the matching tasks in your list:");
-        ArrayList<ITask> results = taskList.getSearchedTasks(input);
-        for (int i = 0; i < results.size(); i++) {
-            toPrint.add("" + (i + 1) + "." + results.get(i).getFullDescription());
-        }
-        consolePrint(toPrint.toArray(new String[0]));
-    }
-
-    /**
      * Method called when users wishes to view all Projects that are currently created or stored.
      * @param allProjects List of Projects returned to View model by the Controller from the Repository
      */
-    public void viewAllProjects(ArrayList<IProject> allProjects) {
+    public void viewAllProjects(ArrayList<Project> allProjects) {
         ArrayList<String> toPrint = new ArrayList<>();
         toPrint.add("Here are all the Projects you are managing:");
         for (int i = 0; i < allProjects.size(); i++) {
             toPrint.add("" + (i + 1) + ". " + allProjects.get(i).getDescription() + " "
-                + allProjects.get(i).getMembers());
+                + allProjects.get(i).getMembers().getAllMemberDetails());
         }
         consolePrint(toPrint.toArray(new String[0]));
     }

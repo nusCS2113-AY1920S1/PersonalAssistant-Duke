@@ -1,7 +1,6 @@
 package repositories;
 
 import java.util.ArrayList;
-import models.data.IProject;
 
 public interface IRepository<T> {
     ArrayList<T> getAll();
@@ -10,5 +9,5 @@ public interface IRepository<T> {
 
     void deleteItem();
 
-    IProject getProject(int projectNumber);
+    T getItem(int projectNumber);
 }
