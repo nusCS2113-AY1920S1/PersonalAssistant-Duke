@@ -6,18 +6,20 @@ import java.util.ArrayList;
 
 /**
  * Handles temporary storage of user stats while the program is running.
+ * The relationship between the various members is:
  *
- * The relationship between the various members is.
- *
+ * <p>
  * chapterData: An ArrayList that holds the data for all chapters. Chapters are addressed by index, but can also be
  * searched by name.
  * characterImagePath: a string containing the path of the image that is used for the user's character in game.
  * The two data above are stored permanently to a text file, and retrieved from the text file when the program starts.
+ *</p>
  *
+ * <p>
  * currentChapter: A single ChapterStat object that stores the chapter data of the chapter that is currently running.
  * This is reset for every run. The contents of currentChapter can be transferred to chapterData by calling
  * saveCurrentChapterToChapterData()
- *
+ * </p>
  */
 public class UserStats {
 
