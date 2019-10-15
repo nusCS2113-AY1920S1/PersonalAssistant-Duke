@@ -1,13 +1,8 @@
 package task;
 
-import javafx.collections.ObservableList;
-
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
-
-import static parser.DateTimeExtractor.NULL_DATE;
 
 /**
  * The TaskList class handles all operations performed on the TaskList as well
@@ -102,22 +97,30 @@ public class TaskList {
     }
 
     /**
-     * updates the timing of a particular task.
+     * Marks a task to be ignored and have reminders to stop showing up for the
+     * task.
      *
-     * @param taskToBeChanged task to be updated
-     * @param command         task type to be updated
-     * @param atDate          new start time of task
-     * @param toDate          new end time of task
+     * @param index The index of the task to be marked
+     * @return The marked task
      */
-    public void updateDate(Task taskToBeChanged, String command, LocalDateTime atDate, LocalDateTime toDate) {
-
-        if ("event".equals(command)) {
-            taskToBeChanged.startDate = atDate;
-            taskToBeChanged.endDate = toDate;
-        } else {
-            taskToBeChanged.startDate = atDate;
-        }
+    public Task markAsIgnorable(int index) {
+        Task task = listOfTasks.get(index);
+        task.markAsIgnorable();
+        return task;
     }
+
+    /**
+     * Marks a task to no longer be ignored and have reminders to show up again.
+     *
+     * @param index The index of the task to be marked
+     * @return The marked task
+     */
+    public Task markAsUnignorable(int index) {
+        Task task = listOfTasks.get(index);
+        task.markAsUnignorable();
+        return task;
+    }
+
 
     /**
      * This function allows the user to obtain the tasks on a particular date.
@@ -129,8 +132,7 @@ public class TaskList {
     public ArrayList<Task> schedule(String dayToFind) {
         ArrayList<Task> sortedDateList = new ArrayList<Task>();
         for (int i = 0; i < listOfTasks.size(); i++) {
-            if ((listOfTasks.get(i).startDate != NULL_DATE)
-                && listOfTasks.get(i).toString().contains(dayToFind)) {
+            if (listOfTasks.get(i).toString().contains(dayToFind)) {
                 sortedDateList.add(listOfTasks.get(i));
             }
         }
@@ -141,16 +143,29 @@ public class TaskList {
     /**
      * This function allows the user to edit the task description.
      *
-     * @param indexOfTask Location of task in the list
+     * @param indexOfTask    Location of task in the list
      * @param newDescription The new task description to be updated
-     *
      * @return taskToBeEdited The task that had its description edited
      */
-    public Task editTaskDescription(int indexOfTask,String newDescription) {
+    public Task editTaskDescription(int indexOfTask, String newDescription) {
         Task taskToBeEdited = listOfTasks.get(indexOfTask);
         taskToBeEdited.description = newDescription;
         return taskToBeEdited;
     }
+
+    /**
+     * Function to allow user to edit/add comments to existing tasks.
+     *
+     * @param indexOfTask Index of task in list
+     * @param comment     commnent to be added/edited
+     * @return taskToBeEdited The task that has its comment edited/added
+     */
+    public Task editTaskComment(int indexOfTask, String comment) {
+        Task taskToBeEdited = listOfTasks.get(indexOfTask);
+        taskToBeEdited.comment = comment;
+        return taskToBeEdited;
+    }
+
 
     public ArrayList<Task> getTasks() {
         return listOfTasks;
@@ -160,14 +175,4 @@ public class TaskList {
         return listOfTasks.size();
     }
 
-    /**
-     * Marks a task to be ignored and have reminders to stop showing up for the task.
-     * @param index The index of the task to be marked
-     * @return The marked task
-     */
-    public Task markAsIgnorable(int index) {
-        Task task = listOfTasks.get(index);
-        task.markAsIgnorable();
-        return task;
-    }
 }

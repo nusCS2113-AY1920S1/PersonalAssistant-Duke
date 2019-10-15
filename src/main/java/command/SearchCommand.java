@@ -15,7 +15,7 @@ import java.util.Collections;
  * Used to find the next free timeslot of a duration of user's choosing.
  *
  * @author Hans kurnia
- * @version 1.0
+ * @version 1.1
  */
 public class SearchCommand extends Command {
     private long durationToFind;

@@ -114,6 +114,33 @@ public class DukeException extends Exception {
         return "☹ OOPS!!! Unable to read from previous task list. A new file has been created for you";
     }
 
+    /**
+     * Handles if priority level is missing from priority command.
+     *
+     * @return message to be displayed
+     */
+    public static String emptyPriorityLevel() {
+        return "☹ OOPS!!! The new priority level is missing. Please try typing the command again.";
+    }
+
+    /**
+     * Handles if priority level is invalid.
+     *
+     * @return message to be displayed
+     */
+    public static String invalidPriorityLevel() {
+        return "☹ OOPS!!! The new priority level is invalid. It must be either high,medium or low.Please try again";
+    }
+
+    /**
+     * Handles if index is invalid.
+     *
+     * @return message to be displayed
+     */
+    public static String invalidIndex() {
+        return "☹ OOPS!!! The index given is invalid. It must be a existing index in the list. Please try again";
+    }
+
     public DukeException(String message) {
         super(message);
     }

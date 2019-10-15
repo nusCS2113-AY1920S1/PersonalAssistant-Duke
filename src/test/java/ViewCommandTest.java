@@ -26,6 +26,6 @@ public class ViewCommandTest {
         TaskList testisClash = new TaskList(test);
 
         testIfNull = testisClash.schedule("23/09/2019");
-        Assertions.assertEquals((testIfNull.size() > 0), true);
+        Assertions.assertTrue((testIfNull.size() > 0));
     }
 }

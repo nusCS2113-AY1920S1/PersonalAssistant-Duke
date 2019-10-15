@@ -3,22 +3,20 @@ import command.Command;
 import exception.DukeException;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import parser.Parser;
+import parser.ParserFactory;
 
 import java.lang.reflect.Field;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
 
-import static parser.DateTimeExtractor.NULL_DATE;
-
-public class ParserTest {
+public class ParserFactoryTest {
 
     LocalDateTime startDate = LocalDateTime.of(2001,1,1,1,0);
     LocalDateTime endDate = LocalDateTime.of(2001,1,1,13,0);
 
     Command event = new AddCommand("event", "test", startDate, endDate);
-    Command deadline = new AddCommand("deadline", "test", startDate, NULL_DATE);
-    Command todo = new AddCommand("todo", "test", NULL_DATE, NULL_DATE);
+    Command deadline = new AddCommand("deadline", "test", startDate, null);
+    Command todo = new AddCommand("todo", "test", null, null);
 
     private Field[] getAddCommandFields(Command command) throws NoSuchFieldException {
         Field[] commandFields = new Field[4];
@@ -44,7 +42,7 @@ public class ParserTest {
     @Test
     public void testToDoParsing() throws DukeException, NoSuchFieldException, IllegalAccessException {
         Field[] todoFields = getAddCommandFields(todo);
-        Command todoTest = Parser.parse("todo test");
+        Command todoTest = ParserFactory.parse("todo test");
         Field[] toDoTestFields = getAddCommandFields(todoTest);
         assertEqualsAddCommand(toDoTestFields, todoFields, todoTest, todo);
     }
@@ -52,7 +50,7 @@ public class ParserTest {
     @Test
     public void testDeadlineParsing() throws DukeException, NoSuchFieldException, IllegalAccessException {
         Field[] deadlineFields = getAddCommandFields(deadline);
-        Command deadlineTest = Parser.parse("deadline test /by 01/01/2001 0100");
+        Command deadlineTest = ParserFactory.parse("deadline test /by 01/01/2001 0100");
         Field[] deadlineTestFields = getAddCommandFields(deadlineTest);
         assertEqualsAddCommand(deadlineTestFields, deadlineFields, deadlineTest, deadline);
     }
@@ -60,7 +58,7 @@ public class ParserTest {
     @Test
     public void testEventParsing() throws DukeException, NoSuchFieldException, IllegalAccessException {
         Field[] eventFields = getAddCommandFields(event);
-        Command eventTest = Parser.parse("event test /at 01/01/2001 0100 - 01/01/2001 1300");
+        Command eventTest = ParserFactory.parse("event test /at 01/01/2001 0100 - 01/01/2001 1300");
         Field[] eventTestFields = getAddCommandFields(eventTest);
         assertEqualsAddCommand(eventTestFields, eventFields, eventTest, event);
     }
@@ -68,19 +66,19 @@ public class ParserTest {
     @Test
     public void testExceptionForDeadline() {
         Assertions.assertThrows(DukeException.class, () -> {
-            Parser.parse("deadline");
+            ParserFactory.parse("deadline");
         });
         Assertions.assertThrows(DukeException.class, () -> {
-            Parser.parse("deadline test");
+            ParserFactory.parse("deadline test");
         });
         Assertions.assertThrows(DateTimeParseException.class, () -> {
-            Parser.parse("deadline test /by");
+            ParserFactory.parse("deadline test /by");
         });
         Assertions.assertThrows(DukeException.class, () -> {
-            Parser.parse("deadline /by 01/01/2001 0100");
+            ParserFactory.parse("deadline /by 01/01/2001 0100");
         });
         Assertions.assertThrows(DukeException.class, () -> {
-            Parser.parse("deadline test 01/01/2001 0100");
+            ParserFactory.parse("deadline test 01/01/2001 0100");
         });
     }
 }

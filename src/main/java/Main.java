@@ -25,6 +25,7 @@ public class Main extends Application {
             Scene scene = new Scene(ap);
             stage.getIcons().add(new Image(getClass().getResourceAsStream("/images/GuiLogo.png")));
             stage.setScene(scene);
+            stage.setTitle("Chronologer");
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();

@@ -2,16 +2,17 @@ package task;
 
 import parser.DateTimeExtractor;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
-public class TodoWithinPeriod extends Todo {
+public class TodoWithinPeriod extends Todo implements Serializable {
 
     /**
      * Creates a ToDo task with a specific duration and timing.
      *
      * @param description description of task
-     * @param startDate start time of the task
-     * @param endDate end time of the task
+     * @param startDate   start time of the task
+     * @param endDate     end time of the task
      */
     public TodoWithinPeriod(String description, LocalDateTime startDate, LocalDateTime endDate) {
         super(description);
@@ -21,8 +22,12 @@ public class TodoWithinPeriod extends Todo {
 
     @Override
     public String toString() {
-        return "[T]" + "[" + super.getStatusIcon() + "] " + this.description + " " + " (from: "
-                    + this.startDate.format(DateTimeExtractor.DATE_FORMATTER) + ")" + " (to: "
-                    + this.endDate.format(DateTimeExtractor.DATE_FORMATTER) + ")";
+        String message = super.getPriorityIcon() + "[T]" + "[" + super.getStatusIcon() + "] " + this.description;
+        String dateString = " (from: " + this.startDate.format(DateTimeExtractor.DATE_FORMATTER) + ")" + " (to: "
+                + this.endDate.format(DateTimeExtractor.DATE_FORMATTER) + ")";
+        if (!comment.isBlank()) {
+            dateString = dateString + "  Note to self: " + comment;
+        }
+        return message.concat(dateString);
     }
 }

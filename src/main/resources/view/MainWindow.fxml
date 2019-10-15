@@ -18,7 +18,7 @@
       </ScrollPane>
       <ScrollPane fx:id="todayTaskPane" hbarPolicy="NEVER" hvalue="1.0" layoutX="586.0" layoutY="1.0" prefHeight="298.0" prefWidth="200.0" vvalue="1.0">
          <content>
-            <ListView fx:id="tasksForTheDay" fixedCellSize="0.0" layoutX="586.0" layoutY="1.0" prefHeight="298.0" prefWidth="200.0" style="-fx-background-color: #4a5b71;" />
+            <ListView fx:id="tasksForTheDay" fixedCellSize="0.0" layoutX="586.0" layoutY="1.0" prefHeight="298.0" prefWidth="190.0" style="-fx-background-color: #4a5b71;" />
          </content>
       </ScrollPane>
       <ScrollPane fx:id="errorScrollPane" hbarPolicy="NEVER" hvalue="1.0" layoutX="586.0" layoutY="298.0" prefHeight="158.0" prefWidth="200.0" vvalue="1.0">

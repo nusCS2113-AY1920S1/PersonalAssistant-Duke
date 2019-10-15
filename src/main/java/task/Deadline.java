@@ -5,8 +5,6 @@ import parser.DateTimeExtractor;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
-import static parser.DateTimeExtractor.NULL_DATE;
-
 /**
  * This extension of the task class will allow the user to add a task of
  * deadline type.
@@ -17,35 +15,34 @@ import static parser.DateTimeExtractor.NULL_DATE;
 public class Deadline extends Task implements Serializable {
 
     /**
-     * contructs a deadline task.
+     * Constructor for deadline task.
      *
-     * @param description description of task
-     * @param atDate      time of the task
+     * @param description Description of the deadline
+     * @param atDate      Due date for deadline
      */
     public Deadline(String description, LocalDateTime atDate) {
         super(description);
         this.startDate = atDate;
-        this.remindInHowManyDays = 3;
+        setReminder(3);
     }
 
-    /**
-     * This override of the toString function of the task class etches the different
-     * portions of the user input into a single string.
-     *
-     * @return This function returns a string of the required task in the desired output format of string type.
-     */
     @Override
     public String toString() {
-        return "[D]" + "[" + super.getStatusIcon() + "] " + this.description + "(by: "
-                + this.startDate.format(DateTimeExtractor.DATE_FORMATTER) + ")";
+        String message = super.getPriorityIcon() + "[D]" + "[" + super.getStatusIcon() + "] " + this.description;
+        String dateString = "(by: " + this.startDate.format(DateTimeExtractor.DATE_FORMATTER) + ")";
+        if (!comment.isBlank()) {
+            dateString = dateString + "  Note to self: " + comment;
+        }
+        return message.concat(dateString);
     }
 
     @Override
     public boolean checkForClash(Task taskToCheck) {
-        if (taskToCheck.endDate.isEqual(NULL_DATE)) {
+        if (taskToCheck.endDate == null) {
             return (this.startDate.isEqual(taskToCheck.startDate));
         } else {
             return (taskToCheck.startDate.isBefore(this.startDate) && taskToCheck.endDate.isAfter(this.startDate));
         }
     }
+
 }

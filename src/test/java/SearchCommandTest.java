@@ -5,12 +5,13 @@ import org.junit.jupiter.api.Test;
 
 import command.SearchCommand;
 import exception.DukeException;
-import parser.Parser;
+import parser.ParserFactory;
 
 /**
  * unit test for search command feature.
  * 
  * @author Hans kurnia
+ * @version 1.1
  */
 
 public class SearchCommandTest {
@@ -27,7 +28,7 @@ public class SearchCommandTest {
     @DisplayName("Test Parser with valid search input")
     void testParserValid() {
         Assertions.assertDoesNotThrow(() -> {
-            Parser.parse("search 3");
+            ParserFactory.parse("search 3");
         });
     }
 
@@ -35,7 +36,7 @@ public class SearchCommandTest {
     @DisplayName("Test Parser with invalid search input")
     void testParserInvalidLong() {
         Assertions.assertThrows(DukeException.class, () -> {
-            Parser.parse("search h");
+            ParserFactory.parse("search h");
         });
     }
 }

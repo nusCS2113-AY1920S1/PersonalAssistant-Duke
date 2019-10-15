@@ -1,8 +1,8 @@
 package task;
 
-import java.time.Period;
+import java.io.Serializable;
 
-public class TodoWithDuration extends Todo {
+public class TodoWithDuration extends Todo implements Serializable {
     public int duration;
 
     public TodoWithDuration(String description, int duration) {
@@ -12,6 +12,11 @@ public class TodoWithDuration extends Todo {
 
     @Override
     public String toString() {
-        return "[T]" + "[" + super.getStatusIcon() + "] " + this.description + " " + "(for " + duration + " hours)";
+        String message = super.getPriorityIcon() + "[T]" + "[" + super.getStatusIcon() + "] " + this.description + " ";
+        String timeDetails = "(for " + duration + " hours)";
+        if (!comment.isBlank()) {
+            timeDetails = timeDetails + "  Note to self: " + comment;
+        }
+        return message.concat(timeDetails);
     }
 }
