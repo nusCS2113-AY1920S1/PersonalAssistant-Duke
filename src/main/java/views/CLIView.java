@@ -215,6 +215,19 @@ public class CLIView {
     }
 
     /**
+     * Shows all the task that is assigned in the project.
+     * @param projectToManage The project specified by the user.
+     */
+    public void viewAssignedTask(IProject projectToManage) {
+        for (Task task: projectToManage.getTasks().getTaskList()){
+            ArrayList<String> allAssignedTasks = new ArrayList<String>();
+            allAssignedTasks.add(task.getTaskName() + " is assigned to: ");
+            allAssignedTasks.addAll(task.getAssignedTasks().getAllMemberDetails());
+            consolePrint(allAssignedTasks.toArray(new String[0]));
+        }
+    }
+
+    /**
      * Assigns or unassigns a particular task to members in a project.
      * @param assign ArrayList containing index number of members to be assigned task.
      * @param unassign ArrayList containing index number of members to be unassigned task.
