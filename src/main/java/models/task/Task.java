@@ -4,8 +4,9 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
+
+import models.member.ListOfMemebersAssignedToTask;
 import models.member.Member;
-import models.member.TaskMemberList;
 
 public class Task {
     private String taskName;
@@ -13,7 +14,7 @@ public class Task {
     private Date dueDate;
     private int taskCredit;
     private TaskState taskState;
-    private TaskMemberList taskMemberList;
+    private ListOfMemebersAssignedToTask listOfMemebersAssignedToTask;
     private ArrayList<String> taskRequirements;
 
     /**
@@ -32,7 +33,7 @@ public class Task {
         this.dueDate = dueDate;
         this.taskCredit = taskCredit;
         this.taskState = taskState;
-        this.taskMemberList = new TaskMemberList();
+        this.listOfMemebersAssignedToTask = new ListOfMemebersAssignedToTask();
         this.taskRequirements = taskRequirements;
     }
 
@@ -44,7 +45,7 @@ public class Task {
         return taskPriority;
     }
 
-    public String getDueDateString() {
+    private String getDueDateString() {
         SimpleDateFormat formatter = new SimpleDateFormat("dd MMM yyyy");
         return formatter.format(this.dueDate);
     }
@@ -74,19 +75,19 @@ public class Task {
     }
 
     public void assignMember(Member member) {
-        this.taskMemberList.addMember(member);
+        this.listOfMemebersAssignedToTask.addMember(member);
     }
 
-    public TaskMemberList getAssignedTasks() {
-        return taskMemberList;
+    public ListOfMemebersAssignedToTask getAssignedTasks() {
+        return listOfMemebersAssignedToTask;
     }
 
     public HashSet<Integer> getAssignedIndexes() {
-        return this.taskMemberList.getAssignedMembersIndexNumbers();
+        return this.listOfMemebersAssignedToTask.getAssignedMembersIndexNumbers();
     }
 
     public void removeMember(Integer memberIndex) {
-        this.taskMemberList.removeMember(memberIndex);
+        this.listOfMemebersAssignedToTask.removeMember(memberIndex);
     }
 
     public ArrayList<String> getTaskRequirements() {

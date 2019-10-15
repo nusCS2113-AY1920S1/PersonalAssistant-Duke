@@ -12,7 +12,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class ConsoleInputController implements IViewController {
+public class ConsoleInputController implements IController {
 
     private CLIView consoleView;
     private ProjectRepository projectRepository;
@@ -46,15 +46,6 @@ public class ConsoleInputController implements IViewController {
             ArrayList<Project> allProjects = projectRepository.getAll();
             consoleView.viewAllProjects(allProjects);
             break;
-        case "done":
-            // Unimplemented
-            break;
-        case "delete":
-            // Unimplemented;
-            break;
-        case "find":
-            // Can consider implementation in the future
-            break;
         case "create":
             // Creation of a new project with a given name and a number of numbers
             boolean isProjectCreated = projectRepository.addToRepo(input);
@@ -67,7 +58,7 @@ public class ConsoleInputController implements IViewController {
             break;
         case "manage":
             if (inputReader.hasNext()) {
-                this.projectInputController.manageProject(inputReader.next());
+                this.projectInputController.onCommandReceived(inputReader.next());
             } else {
                 consoleView.consolePrint("Please enter a project number!");
             }

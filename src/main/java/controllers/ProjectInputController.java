@@ -3,22 +3,23 @@ package controllers;
 import java.text.ParseException;
 import java.util.Scanner;
 import models.data.IProject;
+import models.data.Project;
 import repositories.ProjectRepository;
 import util.factories.MemberFactoryUtil;
 import util.factories.TaskFactory;
 import views.CLIView;
 
 
-
-public class ProjectInputController {
+public class ProjectInputController implements IController {
     private Scanner manageProjectInput;
     private ProjectRepository projectRepository;
     private CLIView consoleView;
 
     /**
-     * Class responsible for handling user input when user chooses to manage a project.
+     * Constructor for ProjectInputController takes in a View model and a ProjectRepository.
+     * ProjectInputController is responsible for handling user input when user chooses to manage a project.
      * @param consoleView The main UI of ArchDuke.
-     * @param projectRepository The list of all projects.
+     * @param projectRepository The object holding all projects.
      */
     public ProjectInputController(CLIView consoleView, ProjectRepository projectRepository) {
         this.manageProjectInput = new Scanner(System.in);
@@ -30,16 +31,16 @@ public class ProjectInputController {
      * Allows the user to manage the project by branching into the project of their choice.
      * @param input User input containing project index number (to add to project class).
      */
-    public void manageProject(String input) {
+    public void onCommandReceived(String input) {
         int projectNumber = Integer.parseInt(input);
-        IProject projectToManage = projectRepository.getItem(projectNumber);
+        Project projectToManage = projectRepository.getItem(projectNumber);
         this.consoleView.consolePrint("Now managing: " + projectToManage.getDescription());
-        boolean continueManaging = true;
-        while (continueManaging) {
+        boolean isManagingAProject = true;
+        while (isManagingAProject) {
             if (manageProjectInput.hasNextLine()) {
                 String projectCommand = manageProjectInput.nextLine();
                 if (projectCommand.length() == 4 && ("exit").equals(projectCommand.substring(0, 4))) {
-                    continueManaging = false;
+                    isManagingAProject = false;
                     consoleView.exitProject(projectToManage.getDescription());
                 } else if (projectCommand.length() >= 11 && ("add member ").equals(projectCommand.substring(0, 11))) {
                     String memberDetails = projectCommand.substring(11);
@@ -67,6 +68,9 @@ public class ProjectInputController {
                     }
                 } else if (projectCommand.length() == 12 && ("view members").equals(projectCommand)) {
                     consoleView.viewAllMembers(projectToManage);
+                } else if (projectCommand.length() == 12 && ("view credits").equals(projectCommand)) {
+                    // TODO view all credits.
+                    consoleView.consolePrint("Not implemented yet");
                 } else if (projectCommand.length() >= 9 && ("add task ").equals(projectCommand.substring(0, 9))) {
                     try {
                         TaskFactory taskFactory = new TaskFactory();

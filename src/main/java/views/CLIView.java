@@ -133,7 +133,7 @@ public class CLIView {
      * Can be updated later on to include more information (tasks etc).
      * @param projectToManage The project specified by the user.
      */
-    public void viewAllMembers(IProject projectToManage) {
+    public void viewAllMembers(Project projectToManage) {
         ArrayList<String> allMemberDetails = projectToManage.getMembers().getAllMemberDetails();
         consolePrint(allMemberDetails.toArray(new String[0]));
     }

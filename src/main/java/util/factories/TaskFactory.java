@@ -1,6 +1,5 @@
 package util.factories;
 
-
 import models.task.Task;
 import models.task.TaskState;
 
@@ -19,54 +18,55 @@ public class TaskFactory {
     public Task createTask(String input) throws ParseException {
         String [] taskDetails = input.split("[tpdcsr]\\/");
         Task newTask = null;
-        if (!input.contains(" d/") && !input.contains(" s/")) {
+        String newTaskName = taskDetails[1].trim();
+        int newTaskPriority = Integer.parseInt(taskDetails[2].trim());
+        boolean hasDueDateFlag = input.contains(" d/");
+        boolean hasStateFlag = input.contains(" s/");
+        if (!hasDueDateFlag && !hasStateFlag) {
             if (taskDetails.length == 4) {
-                newTask = new Task(taskDetails[1].trim(), Integer.parseInt(taskDetails[2].trim()),
+                newTask = new Task(newTaskName, newTaskPriority,
                         null, Integer.parseInt(taskDetails[3].trim()), TaskState.OPEN,
                         null);
             } else {
                 ArrayList<String> taskRequirements = parseTaskRequirements(taskDetails, 4);
-                newTask = new Task(taskDetails[1].trim(), Integer.parseInt(taskDetails[2].trim()),
+                newTask = new Task(newTaskName, newTaskPriority,
                         null, Integer.parseInt(taskDetails[3].trim()), TaskState.OPEN,
                         taskRequirements);
             }
 
-        } else if (input.contains(" d/") && !input.contains(" s/")) {
+        } else if (hasDueDateFlag && !hasStateFlag) {
             if (taskDetails.length == 5) {
                 Date dueDate = getDateObject(taskDetails[3]);
-                newTask = new Task(taskDetails[1].trim(), Integer.parseInt(taskDetails[2].trim()),
+                newTask = new Task(newTaskName, newTaskPriority,
                         dueDate, Integer.parseInt(taskDetails[4].trim()), TaskState.OPEN, null);
             } else {
                 Date dueDate = getDateObject(taskDetails[3]);
                 ArrayList<String> taskRequirements = parseTaskRequirements(taskDetails, 5);
-                newTask = new Task(taskDetails[1].trim(), Integer.parseInt(taskDetails[2].trim()),
+                newTask = new Task(newTaskName, newTaskPriority,
                         dueDate, Integer.parseInt(taskDetails[4].trim()), TaskState.OPEN, taskRequirements);
             }
-        } else if (!input.contains(" d/") && input.contains(" s/")) {
+        } else if (!hasDueDateFlag && hasStateFlag) {
+            TaskState newTaskState = convertStringToTaskState(taskDetails[4]);
             if (taskDetails.length == 5) {
-                TaskState newTaskState = convertStringToTaskState(taskDetails[4]);
-                newTask = new Task(taskDetails[1].trim(), Integer.parseInt(taskDetails[2].trim()),
+                newTask = new Task(newTaskName, newTaskPriority,
                         null, Integer.parseInt(taskDetails[3].trim()), newTaskState, null);
             } else {
-                TaskState newTaskState = convertStringToTaskState(taskDetails[4]);
                 ArrayList<String> taskRequirements = parseTaskRequirements(taskDetails, 5);
-                newTask = new Task(taskDetails[1].trim(), Integer.parseInt(taskDetails[2].trim()),
+                newTask = new Task(newTaskName, newTaskPriority,
                         null, Integer.parseInt(taskDetails[3].trim()), newTaskState, taskRequirements);
             }
-        } else if (input.contains(" d/") && input.contains(" s/")) {
+
+        } else if (hasDueDateFlag && hasStateFlag) {
+            Date dueDate = getDateObject(taskDetails[3]);
+            TaskState newTaskState = convertStringToTaskState(taskDetails[5].trim());
             if (taskDetails.length == 6) {
-                Date dueDate = getDateObject(taskDetails[3]);
-                TaskState newTaskState = convertStringToTaskState(taskDetails[5].trim());
-                newTask = new Task(taskDetails[1].trim(), Integer.parseInt(taskDetails[2].trim()),
+                newTask = new Task(newTaskName, newTaskPriority,
                         dueDate, Integer.parseInt(taskDetails[4].trim()), newTaskState, null);
             } else {
-                Date dueDate = getDateObject(taskDetails[3]);
-                TaskState newTaskState = convertStringToTaskState(taskDetails[5].trim());
                 ArrayList<String> taskRequirements = parseTaskRequirements(taskDetails, 6);
-                newTask = new Task(taskDetails[1].trim(), Integer.parseInt(taskDetails[2].trim()),
+                newTask = new Task(newTaskName, newTaskPriority,
                         dueDate, Integer.parseInt(taskDetails[4].trim()), newTaskState, taskRequirements);
             }
-
         }
         return newTask;
     }
@@ -89,7 +89,7 @@ public class TaskFactory {
      * @param inputState String input of state.
      * @return enum TaskState object.
      */
-    public TaskState convertStringToTaskState(String inputState) {
+    private TaskState convertStringToTaskState(String inputState) {
         switch (inputState) {
         case "done":
             return TaskState.DONE;
