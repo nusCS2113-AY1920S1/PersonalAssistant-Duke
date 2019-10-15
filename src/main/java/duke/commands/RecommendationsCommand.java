@@ -29,9 +29,9 @@ public class RecommendationsCommand extends Command {
         StringBuilder result = new StringBuilder("Here are the list of Recommended Locations in "
                 + days + " days:\n");
 
-        int j = Integer.parseInt(days);
+        int numDays = Integer.parseInt(days);
 
-        for (int i = 0; i < 2 * j; i++) {
+        for (int i = 0; i < 2 * numDays; i++) {
             if (i % 2 == 0) {
                 result.append("Day ").append((i / 2) + 1).append(":").append("\n");
             }
@@ -40,7 +40,7 @@ public class RecommendationsCommand extends Command {
 
         // Until more locations are added
 
-        if (j > 7) {
+        if (numDays > 7) {
             throw new DukeException("Too many days, enter less than 8 ");
         }
 
