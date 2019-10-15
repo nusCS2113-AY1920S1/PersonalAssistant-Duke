@@ -570,7 +570,7 @@ public class CommandParser {
         ArrayList<String> tagList = new ArrayList<>();
         for (Option option : optionList) {
             if (option.getKey().equals("tag")) {
-                tagList.add(option.getValue());
+                tagList.add(option.getValue().strip());
             }
         }
         return tagList;
