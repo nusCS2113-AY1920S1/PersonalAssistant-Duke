@@ -1,0 +1,18 @@
+{
+  "narratives": [
+    "Game opening intro.",
+    "Tutorial 1 (Day 1)",
+    "Hi there partner, you only have enough money to start a small farm.\nWhy not we head over to the market and see what we can buy for you.",
+    "on your top right hand corner you can see the amount of money you have, and your current location",
+    "what you see in the center of the screen is your current location which in this case is your small farm that is currently empty.",
+    "At the buttom, you can see an opion that says 'A-Go to Market' as well as an empty box below with a title of user code; this is where you will send instructions to farmer John.",
+    "blah blah blah",
+    "the first command is a do command. it instructs farmer John to carry out an action.",
+    "Enter [Do GoToMarket} to instruct farmer John to go to the market.",
+    "Enter [Start] to execute the user code."
+  ],
+  "money": 100,
+  "wheat_seed": 0,
+  "wheat_green": 0,
+  "wheat_ripe": 0
+}
