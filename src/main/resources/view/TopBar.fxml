@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.text.Font?>
+
+
+<fx:root maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="90.0" prefWidth="990.0" type="HBox" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <ImageView fx:id="cakeLeft" fitHeight="80.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/cake.png" />
+         </image>
+         <HBox.margin>
+            <Insets bottom="5.0" left="15.0" top="5.0" />
+         </HBox.margin>
+      </ImageView>
+      <Label fx:id="title" prefHeight="76.0" prefWidth="206.0" text="JavaCake">
+         <HBox.margin>
+            <Insets bottom="5.0" left="5.0" right="5.0" />
+         </HBox.margin>
+         <padding>
+            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+         </padding>
+         <font>
+            <Font name="Edwardian Script ITC" size="59.0" />
+         </font>
+      </Label>
+      <ImageView fx:id="cakeRight" fitHeight="80.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/cake.png" />
+         </image>
+         <HBox.margin>
+            <Insets bottom="5.0" top="5.0" />
+         </HBox.margin>
+      </ImageView>
+   </children>
+</fx:root>
