@@ -80,26 +80,45 @@ public class BudgetCommand extends Command {
             input = input.substring(4);
             String[] splitInput = input.split(" ");
             String category = "";
-
+            boolean reset = false;
             for (int i = 0; i < splitInput.length; ++i) {
                 if (i % 2 == 0) {
                     if (splitInput[i].startsWith("c/")) {
                         category = splitInput[i].substring(2);
-                        if (!inCategoryList(category, catList)) { //check if category exists.
-                            throw new MooMooException(category + " does not exist. Please create it first.");
+                        if (splitInput[i + 1].startsWith("b/")) {
+                            if (!inCategoryList(category, catList)) { //check if category exists.
+                                throw new MooMooException(category + " does not exist. Please create it first.");
+                            }
                         }
                     } else {
+                        if (!reset) {
+                            category += " " + splitInput[i];
+                            continue;
+                        }
                         throw new MooMooException("Please place the category before the budget "
                                 + "and use c/CATEGORY to set the category.\n");
                     }
                 } else {
                     if (splitInput[i].startsWith("b/")) {
+                        reset = true;
+                        if (!inCategoryList(category, catList)) {
+                            throw new MooMooException(category + " does not exist. Please create it first.");
+                        }
                         outputValue += addBudget(budget, splitInput[i].substring(2), category);
                     } else {
+                        if (!reset) {
+                            category += " " + splitInput[i];
+                            continue;
+                        }
                         throw new MooMooException("Please place the category before the budget "
                                 + "and use b/BUDGET to set the budget.\n");
                     }
                 }
+            }
+
+            if (outputValue == "") {
+                throw new MooMooException("You have not typed in a valid format. "
+                        + " Please use budget set c/CATEGORY b/BUDGET.");
             }
             ui.setOutput(outputValue.substring(0, outputValue.length() - 1));
             storage.saveBudgetToFile(budget);
@@ -107,51 +126,87 @@ public class BudgetCommand extends Command {
             input = input.substring(5);
             String[] splitInput = input.split(" ");
             String category = "";
-
+            boolean reset = false;
             for (int i = 0; i < splitInput.length; ++i) {
                 if (i % 2 == 0) {
                     if (splitInput[i].startsWith("c/")) {
                         category = splitInput[i].substring(2);
-                        if (!inCategoryList(category, catList)) { //check if category exists.
-                            throw new MooMooException("The " + category + " does not exist. Please create it first.");
+                        if (splitInput[i + 1].startsWith("b/")) {
+                            if (!inCategoryList(category, catList)) { //check if category exists.
+                                throw new MooMooException("The " + category
+                                        + " does not exist. Please create it first.");
+                            }
                         }
-                        if (budget.getBudgetFromCategory(category) == 0) {
-                            throw new MooMooException("The budget for " + category + " does not exist."
-                                    + "Please set it using budget set.");
-                        }
-
                     } else {
+                        if (!reset) {
+                            category += " " + splitInput[i];
+                            continue;
+                        }
                         throw new MooMooException("Please place the category before the budget and "
                                 + "use c/CATEGORY to set the category.");
                     }
                 } else {
                     if (splitInput[i].startsWith("b/")) {
+                        reset = true;
+                        if (!inCategoryList(category, catList)) {
+                            throw new MooMooException(category + " does not exist. Please create it first.");
+                        }
+                        if (budget.getBudgetFromCategory(category) == 0) {
+                            throw new MooMooException("The budget for " + category + " does not exist."
+                                    + " Please set it using budget set.");
+                        }
+
                         outputValue += editBudget(budget, splitInput[i].substring(2), category);
 
                     } else {
+                        if (!reset) {
+                            category += " " + splitInput[i];
+                            continue;
+                        }
                         throw new MooMooException("Please place the category before the budget "
                                 + "and use b/BUDGET to set the budget.\n");
                     }
                 }
             }
+            if (outputValue == "") {
+                throw new MooMooException("You have not typed in a valid format. "
+                        + " Please use budget set c/CATEGORY b/BUDGET.");
+            }
             ui.setOutput(outputValue.substring(0, outputValue.length() - 1));
             storage.saveBudgetToFile(budget);
         } else if (input.startsWith("list")) {
             if (input.length() == 4) {
-                ui.setOutput(budget.toString().substring(0, budget.toString().length() - 1));
+                if (budget.getBudgetSize() > 0) {
+                    ui.setOutput(budget.toString().substring(0, budget.toString().length() - 1));
+                } else {
+                    throw new MooMooException("You have not set your budget for any categories.");
+                }
             } else {
                 input = input.substring(5);
                 String[] splitInput = input.split(" ");
                 String category = "";
-
+                boolean reset = false;
                 for (int i = 0; i < splitInput.length; ++i) {
                     if (splitInput[i].startsWith("c/")) {
-                        category = splitInput[i].substring(2);
-                        if (!inCategoryList(category, catList) || budget.getBudgetFromCategory(category) == 0) {
-                            throw new MooMooException("The " + category + " does not exist or"
-                                    + " the budget has not been set yet.");
+                        if (i > 0) {
+                            reset = true;
                         }
-                        outputValue += budget.toStringCategory(category);
+                        category = splitInput[i].substring(2);
+                        if (i < (splitInput.length - 1) && splitInput[i + 1].startsWith("c/")) {
+                            outputValue += addOutputValue(category, catList, budget);
+                        } else if (i == (splitInput.length - 1)) {
+                            outputValue += addOutputValue(category, catList, budget);
+                        }
+                    } else {
+                        if (!reset) {
+                            category += " " + splitInput[i];
+                        }
+                        if (i < (splitInput.length - 1) && splitInput[i + 1].startsWith("c/")) {
+                            outputValue += addOutputValue(category, catList, budget);
+                        } else if (i == (splitInput.length - 1)) {
+                            outputValue += addOutputValue(category, catList, budget);
+
+                        }
                     }
                 }
                 if (outputValue == "") {
@@ -521,5 +576,15 @@ public class BudgetCommand extends Command {
         String inputVal = outputValue + promptValue;
         String category = ui.confirmPrompt(inputVal);
         return category;
+    }
+
+    private String addOutputValue(String category, CategoryList catList, Budget budget) throws MooMooException {
+        String outputValue = "";
+        if (!inCategoryList(category, catList) || budget.getBudgetFromCategory(category) == 0) {
+            throw new MooMooException("The " + category + " does not exist or"
+                    + " the budget has not been set yet.");
+        }
+        outputValue = budget.toStringCategory(category);
+        return outputValue;
     }
 }

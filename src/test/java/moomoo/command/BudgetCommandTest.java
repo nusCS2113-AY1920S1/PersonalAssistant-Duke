@@ -30,6 +30,7 @@ public class BudgetCommandTest {
         newCatList.getCategoryList().add(new Category("shoes"));
         newCatList.getCategoryList().add(new Category("food"));
         newCatList.getCategoryList().add(new Category("window"));
+        newCatList.getCategoryList().add(new Category("places to go"));
 
         TransactionList newTransList = new TransactionList();
         Budget newBudget = new Budget();
@@ -43,29 +44,44 @@ public class BudgetCommandTest {
         assertEquals("You have set $1000.79 as the budget for shoes\n"
                 + "You have set $500.00 as the budget for food", newUi.printResponse());
 
+        budgetCommand = new BudgetCommand(false, "budget set c/places to go b/460");
+        budgetCommand.execute(newBudget, newCatList, newTransList, newUi, newStorage);
+
+        assertEquals("Your budget for places to go is: $460.00\nYour budget for shoes is: $1000.79\n"
+                + "Your budget for food is: $500.00\n", newBudget.toString());
+        assertEquals("You have set $460.00 as the budget for places to go", newUi.printResponse());
+
         budgetCommand = new BudgetCommand(false, "budget edit c/shoes b/700 c/food b/400");
         budgetCommand.execute(newBudget, newCatList, newTransList, newUi, newStorage);
 
-        assertEquals("Your budget for shoes is: $700.00\nYour budget for food is: $400.00\n", newBudget.toString());
+        assertEquals("Your budget for places to go is: $460.00\nYour budget for shoes is: $700.00\n"
+                + "Your budget for food is: $400.00\n", newBudget.toString());
         assertEquals("You have changed the budget for shoes from $1000.79 to $700.00\n"
                 + "You have changed the budget for food from $500.00 to $400.00", newUi.printResponse());
 
         budgetCommand = new BudgetCommand(false, "budget edit c/shoes b/800 c/food b/400");
         budgetCommand.execute(newBudget, newCatList, newTransList, newUi, newStorage);
 
-        assertEquals("Your budget for shoes is: $800.00\nYour budget for food is: $400.00\n", newBudget.toString());
+        assertEquals("Your budget for places to go is: $460.00\nYour budget for shoes is: $800.00\n"
+                + "Your budget for food is: $400.00\n", newBudget.toString());
         assertEquals("You have changed the budget for shoes from $700.00 to $800.00\n"
                 + "The budget for food is the same.", newUi.printResponse());
 
         budgetCommand = new BudgetCommand(false, "budget list");
         budgetCommand.execute(newBudget, newCatList, newTransList, newUi, newStorage);
 
-        assertEquals("Your budget for shoes is: $800.00\nYour budget for food is: $400.00", newUi.printResponse());
+        assertEquals("Your budget for places to go is: $460.00\nYour budget for shoes is: $800.00\n"
+                + "Your budget for food is: $400.00", newUi.printResponse());
 
         budgetCommand = new BudgetCommand(false, "budget list c/shoes");
         budgetCommand.execute(newBudget, newCatList, newTransList, newUi, newStorage);
 
         assertEquals("Your budget for shoes is: $800.00", newUi.printResponse());
+
+        budgetCommand = new BudgetCommand(false, "budget list c/places to go");
+        budgetCommand.execute(newBudget, newCatList, newTransList, newUi, newStorage);
+
+        assertEquals("Your budget for places to go is: $460.00", newUi.printResponse());
 
         budgetCommand = new BudgetCommand(false, "budget savings s/10/2019 e/12/2019");
         budgetCommand.execute(newBudget, newCatList, newTransList, newUi, newStorage);
