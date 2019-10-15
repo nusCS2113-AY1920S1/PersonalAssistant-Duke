@@ -39,6 +39,10 @@ public class ProgressStack {
         currentFilePath = defaultFilePath;
     }
 
+    public String getFullFilePath() {
+        return currentFilePath;
+    }
+
     /**
      * Method is invoked when GoTo command is called.
      * Based on the index, return the particular filePath.
