@@ -9,7 +9,7 @@ import java.io.FileNotFoundException;
 /**
  * Represents the command to add a Task object to a TaskList object.
  */
-public class  AddCommand extends Command {
+public class AddCommand extends Command {
 
     private final Task task;
 
