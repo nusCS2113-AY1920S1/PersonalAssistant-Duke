@@ -22,6 +22,7 @@ import duke.ui.Ui;
 import java.util.ArrayList;
 import java.text.ParseException;
 
+import static duke.common.BookingMessages.*;
 import static duke.common.IngredientMessages.COMMAND_ADD_INGREDIENT;
 import static duke.common.Messages.*;
 import static duke.common.RecipeMessages.*;
@@ -152,12 +153,53 @@ public class Duke {
                 arrayList.add(ERROR_MESSAGE_RANDOM);
                 return arrayList;
             }
-        } else if (userInput.contains("booking")) {
-            System.out.println("stuck here20");
+        } else if (userInput.trim().equals(COMMAND_LIST_BOOKINGS)) {
+            System.out.println("stuck here 20");
             CommandBooking command = Parser.parseBooking(userInput);
             return command.execute(bookingList, ui, bookingStorage);
+
+        } else if (userInput.contains(COMMAND_ADD_BOOKING)) {
+            System.out.println("stuck here 21");
+            if (userInput.trim().substring(0, 10).equals(COMMAND_ADD_BOOKING)) {
+                System.out.println("stuck here 21.1");
+                CommandBooking command = Parser.parseBooking(userInput);
+                return command.execute(bookingList, ui, bookingStorage);
+            } else {
+                arrayList.add(ERROR_MESSAGE_RANDOM);
+                return arrayList;
+            }
+        } else if (userInput.contains(COMMAND_DELETE_BOOKING)) {
+            System.out.println("stuck here 22");
+            if (userInput.trim().substring(0, 13).equals(COMMAND_DELETE_BOOKING)) {
+                System.out.println("stuck here 22.1");
+                CommandBooking command = Parser.parseBooking(userInput);
+                return command.execute(bookingList, ui, bookingStorage);
+            } else {
+                arrayList.add(ERROR_MESSAGE_RANDOM);
+                return arrayList;
+            }
+        } else if (userInput.contains(COMMAND_VIEW_BOOKING_SCHEDULE)) {
+            System.out.println("stuck here 23");
+            if (userInput.trim().substring(0, 19).equals(COMMAND_VIEW_BOOKING_SCHEDULE)) {
+                System.out.println("stuck here 23.1");
+                CommandBooking command = Parser.parseBooking(userInput);
+                return command.execute(bookingList, ui, bookingStorage);
+            } else {
+                arrayList.add(ERROR_MESSAGE_RANDOM);
+                return arrayList;
+            }
+        } else if (userInput.contains(COMMAND_FIND_BOOKING)) {
+            System.out.println("stuck here 24");
+            if (userInput.trim().substring(0, 11).equals(COMMAND_FIND_BOOKING)) {
+                System.out.println("stuck here 24.1");
+                CommandBooking command = Parser.parseBooking(userInput);
+                return command.execute(bookingList, ui, bookingStorage);
+            } else {
+                arrayList.add(ERROR_MESSAGE_RANDOM);
+                return arrayList;
+            }
         } else {
-            System.out.println("stuck here21");
+            System.out.println("stuck here 99");
             arrayList.add(ERROR_MESSAGE_RANDOM);
             return arrayList;
         }

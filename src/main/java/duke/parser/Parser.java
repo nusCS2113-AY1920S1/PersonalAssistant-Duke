@@ -21,11 +21,11 @@ import static duke.common.Messages.ERROR_MESSAGE_RANDOM;
  */
 public class Parser {
 
-    public static CommandIngredients parseIngredient(String input) throws DukeException {
+    public static CommandIngredients parseIngredient(String input) {
         return new AddIngredientCommand(input);
     }
 
-    public static CommandRecipeTitle parseRecipeTitle(String input) throws DukeException {
+    public static CommandRecipeTitle parseRecipeTitle(String input) {
         if (input.trim().contains(COMMAND_ADD_RECIPE_TITLE)) {
             return new AddRecipeTitleCommand(input);
         } else if (input.trim().contains(COMMAND_DELETE_RECIPE_TITLE)) {
@@ -35,7 +35,7 @@ public class Parser {
         }
     }
 
-    public static CommandRecipeIngredient parseRecipeIngredient(String input) throws DukeException {
+    public static CommandRecipeIngredient parseRecipeIngredient(String input) {
         if (input.trim().contains(COMMAND_ADD_RECIPE_INGREDIENT)) {
             return new AddRecipeIngredientCommand(input);
         } else if (input.trim().contains(COMMAND_LIST_RECIPE_INGREDIENT)) {
@@ -45,37 +45,17 @@ public class Parser {
         }
     }
 
-    public static CommandBooking parseBooking(String userInputCommand) throws DukeException {
-
-        if (userInputCommand.trim().equals(COMMAND_LIST_BOOKINGS)) {
-            return new AllBookingsCommand();
+    public static CommandBooking parseBooking(String userInputCommand) {
+        if (userInputCommand.contains(COMMAND_FIND_BOOKING)) {
+            return new FindBookingCommand(userInputCommand);
         } else if (userInputCommand.contains(COMMAND_ADD_BOOKING)) {
-            if (userInputCommand.trim().substring(0, 10).equals(COMMAND_ADD_BOOKING)) {
-                return new AddBookingCommand(userInputCommand);
-            } else {
-                throw new DukeException(ERROR_MESSAGE_RANDOM);
-            }
+            return new AddBookingCommand(userInputCommand);
         } else if (userInputCommand.contains(COMMAND_DELETE_BOOKING)) {
-            if (userInputCommand.trim().substring(0, 13).equals(COMMAND_DELETE_BOOKING)) {
-                return new DeleteBookingCommand(userInputCommand);
-            } else {
-                throw new DukeException(ERROR_MESSAGE_RANDOM);
-            }
+            return new DeleteBookingCommand(userInputCommand);
         } else if (userInputCommand.contains(COMMAND_VIEW_BOOKING_SCHEDULE)) {
-            if (userInputCommand.trim().substring(0, 19).equals(COMMAND_VIEW_BOOKING_SCHEDULE)) {
-                return new ViewBookingScheduleCommand(userInputCommand);
-            } else {
-                throw new DukeException(ERROR_MESSAGE_RANDOM);
-            }
-        } else if (userInputCommand.contains(COMMAND_FIND_BOOKING)) {
-            if (userInputCommand.trim().substring(0, 11).equals(COMMAND_FIND_BOOKING)) {
-                return new FindBookingCommand(userInputCommand);
-            } else {
-                throw new DukeException(ERROR_MESSAGE_RANDOM);
-            }
-        } else {
-            throw new DukeException(ERROR_MESSAGE_RANDOM);
+            return new ViewBookingScheduleCommand(userInputCommand);
+        } else { //userInputCommand.equals(COMMAND_LIST_BOOKINGS)
+            return new AllBookingsCommand();
         }
     }
-
 }
