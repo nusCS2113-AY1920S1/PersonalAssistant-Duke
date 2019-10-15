@@ -29,15 +29,14 @@ public class UndoCommand extends Command {
      * Undoes a set number of user commands..
      */
     public void execute() {
-        if (this.taskInfo.length == 1) {
-            Ui ui = new Ui();
-            ui.empty_description_error();
-            return;
-        }
-
-        this.numberOfCommandsToUndo = Integer.parseInt(taskInfo[1]);
-
         MemoryManager memorymanager = new MemoryManager();
-        memorymanager.reloadBackup(numberOfCommandsToUndo);
+
+        if (this.taskInfo.length == 1) {
+            this.numberOfCommandsToUndo = 1;
+            memorymanager.reloadBackup(numberOfCommandsToUndo);
+        } else {
+            this.numberOfCommandsToUndo = Integer.parseInt(taskInfo[1]);
+            memorymanager.reloadBackup(numberOfCommandsToUndo);
+        }
     }
 }
