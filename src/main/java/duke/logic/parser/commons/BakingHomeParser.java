@@ -7,12 +7,14 @@ import duke.logic.command.UndoCommand;
 import duke.logic.command.inventory.InventoryCommand;
 import duke.logic.command.order.OrderCommand;
 import duke.logic.command.product.ProductCommand;
+import duke.logic.command.sale.SaleCommand;
 import duke.logic.command.shortcut.ExecuteShortcutCommand;
 import duke.logic.command.shortcut.SetShortcutCommand;
 import duke.logic.parser.exceptions.ParseException;
 import duke.logic.parser.inventory.InventoryCommandParser;
 import duke.logic.parser.order.OrderCommandParser;
 import duke.logic.parser.product.ProductCommandParser;
+import duke.logic.parser.sale.SaleCommandParser;
 import duke.logic.parser.shortcut.ExecuteShortcutCommandParser;
 import duke.logic.parser.shortcut.SetShortcutCommandParser;
 
@@ -54,6 +56,8 @@ public class BakingHomeParser {
         switch (primaryCommand) {
         case OrderCommand.COMMAND_WORD:
             return new OrderCommandParser().parse(subCommandAndArgs);
+        case SaleCommand.COMMAND_WORD:
+            return new SaleCommandParser().parse(subCommandAndArgs);
         case ProductCommand.COMMAND_WORD:
             return new ProductCommandParser().parse(subCommandAndArgs);
         case InventoryCommand.COMMAND_WORD:

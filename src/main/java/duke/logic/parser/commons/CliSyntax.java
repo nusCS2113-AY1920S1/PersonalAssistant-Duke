@@ -15,6 +15,7 @@ public class CliSyntax {
     public static final Prefix PREFIX_CUSTOMER_NAME = new Prefix("-name");
     public static final Prefix PREFIX_CUSTOMER_CONTACT = new Prefix("-contact");
 
+    public static final Prefix PREFIX_SALE_INDEX = new Prefix("-i");
     public static final Prefix PREFIX_SALE_DESCRIPTION = new Prefix("-desc");
     public static final Prefix PREFIX_SALE_VALUE = new Prefix("-val");
     public static final Prefix PREFIX_SALE_DATE = new Prefix("-at");

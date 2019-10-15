@@ -38,7 +38,7 @@ public class OrderCard extends UiPart<AnchorPane> {
     private Label total;
 
     /**
-     * Creates a card displaying the {@code order}
+     * Creates a card displaying the {@code order}.
      *
      * @param order          to display
      * @param displayedIndex the index of the order to show on the card
