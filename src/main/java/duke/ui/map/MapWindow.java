@@ -1,8 +1,8 @@
 package duke.ui.map;
 
 import duke.commands.CommandResult;
-import duke.data.BusStop;
-import duke.data.Location;
+import duke.model.locations.BusStop;
+import duke.model.locations.Venue;
 import duke.ui.UiPart;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
@@ -18,16 +18,16 @@ public class MapWindow extends UiPart<Stage> {
     private AnchorPane map;
 
     private static final String FXML = "MapWindow.fxml";
-    private ObservableList<Location> locations = FXCollections.observableArrayList();
+    private ObservableList<Venue> locations = FXCollections.observableArrayList();
 
     private void generateNodes(List<BusStop> routes) {
         locations.addAll(routes);
     }
 
     private void attachListener() {
-        locations.addListener((ListChangeListener<Location>) c -> {
+        locations.addListener((ListChangeListener<Venue>) c -> {
             map.getChildren().clear();
-            for (Location location : locations) {
+            for (Venue location : locations) {
                 map.getChildren().add(LocationCard.getCard(location));
             }
         });

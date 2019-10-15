@@ -1,4 +1,4 @@
-package duke.model;
+package duke.model.events;
 
 /**
  * A generic task, which can be marked as done.

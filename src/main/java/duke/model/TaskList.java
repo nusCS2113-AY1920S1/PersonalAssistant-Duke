@@ -4,6 +4,9 @@ import duke.commons.Messages;
 import duke.commons.exceptions.DukeDuplicateTaskException;
 import duke.commons.exceptions.DukeException;
 import duke.commons.exceptions.DukeTaskNotFoundException;
+import duke.model.events.Event;
+import duke.model.events.Task;
+import duke.model.events.TaskWithDates;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -14,10 +17,10 @@ import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
 
-public class UniqueTaskList implements Iterable<Task> {
+public class TaskList implements Iterable<Task> {
     private ObservableList<Task> internalList;
 
-    public UniqueTaskList() {
+    public TaskList() {
         internalList = FXCollections.observableArrayList();
     }
 
@@ -98,7 +101,7 @@ public class UniqueTaskList implements Iterable<Task> {
         return internalList.remove(index);
     }
 
-    public void setTasks(UniqueTaskList replacement) {
+    public void setTasks(TaskList replacement) {
         internalList.setAll(replacement.internalList);
     }
 
@@ -122,8 +125,8 @@ public class UniqueTaskList implements Iterable<Task> {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof UniqueTaskList // instanceof handles nulls
-                && internalList.equals(((UniqueTaskList) other).internalList));
+                || (other instanceof TaskList // instanceof handles nulls
+                && internalList.equals(((TaskList) other).internalList));
     }
 
     @Override

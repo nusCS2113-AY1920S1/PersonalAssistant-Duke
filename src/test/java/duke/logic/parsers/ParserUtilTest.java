@@ -1,9 +1,9 @@
 package duke.logic.parsers;
 
 import duke.commons.exceptions.DukeException;
-import duke.data.tasks.Deadline;
+import duke.model.events.Deadline;
+import duke.model.events.Todo;
 import org.junit.jupiter.api.Test;
-import duke.data.tasks.Todo;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertEquals;

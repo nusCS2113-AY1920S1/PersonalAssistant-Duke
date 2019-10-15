@@ -2,8 +2,8 @@ package duke.commands;
 
 import duke.commons.exceptions.DukeException;
 import duke.commons.Messages;
-import duke.storage.Storage;
-import duke.data.tasks.Task;
+import duke.model.Model;
+import duke.model.events.Task;
 
 /**
  * Class representing a command to delete a task.
@@ -24,13 +24,13 @@ public class DeleteCommand extends Command {
     /**
      * Executes this command on the given task list and user interface.
      *
-     * @param storage The storage object containing task list.
+     * @param model The model object containing information about the user.
      */
     @Override
-    public CommandResult execute(Storage storage) throws DukeException {
+    public CommandResult execute(Model model) throws DukeException {
         try {
-            Task task = storage.getTasks().remove(index);
-            storage.write();
+            Task task = model.getTasks().remove(index);
+            model.save();
             return new CommandResult(MESSAGE_DELETE + task);
         } catch (IndexOutOfBoundsException e) {
             throw new DukeException(Messages.OUT_OF_BOUNDS);

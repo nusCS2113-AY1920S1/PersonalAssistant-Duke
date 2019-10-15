@@ -1,16 +1,15 @@
 package duke.commands;
 
-import duke.StorageStub;
+import duke.ModelStub;
 import duke.commons.exceptions.DukeException;
-import duke.storage.Storage;
 import org.junit.jupiter.api.Test;
 
 class FreeTimeCommandTest {
 
     @Test
     void execute() throws DukeException {
-        Storage storage = new StorageStub();
+        ModelStub model = new ModelStub();
         FreeTimeCommand freeTimeCommand = new FreeTimeCommand(1);
-        freeTimeCommand.execute(storage);
+        freeTimeCommand.execute(model);
     }
 }

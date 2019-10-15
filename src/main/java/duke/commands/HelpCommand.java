@@ -1,6 +1,6 @@
 package duke.commands;
 
-import duke.storage.Storage;
+import duke.model.Model;
 
 /**
  * Class representing a command to show the help message.
@@ -24,10 +24,10 @@ public class HelpCommand extends Command {
     /**
      * Executes this command on the given task list and user interface.
      *
-     * @param storage The storage object containing task list.
+     * @param model The model object containing information about the user.
      */
     @Override
-    public CommandResult execute(Storage storage) {
+    public CommandResult execute(Model model) {
         return new CommandResult(MESSAGE_HELP);
     }
 }

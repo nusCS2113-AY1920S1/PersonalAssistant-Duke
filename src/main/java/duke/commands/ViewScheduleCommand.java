@@ -1,10 +1,10 @@
 package duke.commands;
 
 import duke.commons.exceptions.DukeException;
-import duke.storage.Storage;
-import duke.data.tasks.Task;
-import duke.data.tasks.TaskWithDates;
-import duke.data.UniqueTaskList;
+import duke.model.Model;
+import duke.model.TaskList;
+import duke.model.events.Task;
+import duke.model.events.TaskWithDates;
 
 import javafx.collections.transformation.SortedList;
 
@@ -26,12 +26,12 @@ public class ViewScheduleCommand extends Command {
     /**
      * Executes this command on the given task list and user interface.
      *
-     * @param storage The storage object containing task list.
+     * @param model The model object containing information about the user.
      */
     @Override
-    public CommandResult execute(Storage storage) throws DukeException {
-        SortedList<Task> tasks = storage.getTasks().getChronoList();
-        UniqueTaskList result = new UniqueTaskList();
+    public CommandResult execute(Model model) throws DukeException {
+        SortedList<Task> tasks = model.getTasks().getChronoList();
+        TaskList result = new TaskList();
 
         for (Task task : tasks) {
             if (((TaskWithDates) task).getStartDate() != null
@@ -43,7 +43,7 @@ public class ViewScheduleCommand extends Command {
         }
         CommandResult commandResult = new CommandResult(MESSAGE_SHOW_CALENDAR);
         commandResult.setCalendar(true);
-        commandResult.setTasks(storage.getTasks());
+        commandResult.setTasks(model.getTasks());
         return commandResult;
     }
 }

@@ -1,10 +1,10 @@
 package duke.logic.api;
 
 import duke.commons.enumerations.Constraint;
-import duke.data.BusStop;
-import duke.data.Location;
 import duke.commons.exceptions.DukeException;
-import duke.data.tasks.Holiday;
+import duke.model.events.Event;
+import duke.model.locations.BusStop;
+import duke.model.locations.Venue;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -21,7 +21,7 @@ public class ApiConstraintParser {
      * @param constraint The constraint to be applied
      * @return The updated Holiday object with constraint
      */
-    public static Holiday getConstraintLocation(Holiday holiday, Constraint constraint) throws DukeException {
+    public static Event getConstraintLocation(Event holiday, Constraint constraint) throws DukeException {
         switch (constraint) {
         case BUS:
             return getBus(holiday);
@@ -34,7 +34,7 @@ public class ApiConstraintParser {
         }
     }
 
-    private static Holiday getHybrid(Holiday holiday) throws DukeException {
+    private static Event getHybrid(Event holiday) throws DukeException {
 
         // Make calls to the API and get the new coordinates of the longitude and latitude of the nearest constraint;
 
@@ -48,7 +48,7 @@ public class ApiConstraintParser {
         return holiday;
     }
 
-    private static Holiday getBus(Holiday holiday) {
+    private static Event getBus(Event holiday) {
 
         // Make calls to the API and get the new coordinates of the longitude and latitude of the nearest busstop;
 
@@ -63,7 +63,7 @@ public class ApiConstraintParser {
         return holiday;
     }
 
-    private static Holiday getMrt(Holiday holiday) {
+    private static Event getMrt(Event holiday) {
 
         // Make calls to the API and get the new coordinates of the longitude and latitude of the nearest mrt;
 
@@ -83,7 +83,7 @@ public class ApiConstraintParser {
      * @param busStopMap Map of all bus stop
      * @return nearest bus stop
      */
-    public static BusStop getNearestBusStop(Location place, HashMap<String, BusStop> busStopMap) {
+    public static BusStop getNearestBusStop(Venue place, HashMap<String, BusStop> busStopMap) {
         double placeLatitude = place.getLatitude();
         double placeLongitude = place.getLongitude();
         double minimumDisplacement = 1000;
@@ -101,5 +101,4 @@ public class ApiConstraintParser {
 
         return nearestBusStop;
     }
-
 }

@@ -1,16 +1,14 @@
-package duke;
+package duke.logic;
 
 import duke.commons.exceptions.DukeException;
-import duke.data.BusService;
-import duke.data.BusStop;
-import duke.data.Location;
 import duke.logic.api.ApiConstraintParser;
-import duke.logic.api.ApiParser;
+import duke.model.locations.BusStop;
+import duke.model.locations.Venue;
+import duke.model.transports.BusService;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Map;
 
 public class PathFinder {
     private HashMap<String, BusService> busMap;
@@ -23,24 +21,12 @@ public class PathFinder {
      * Initialise Pathfinder object.
      *
      */
-    public PathFinder() throws DukeException {
-        this.busMap = ApiParser.getBusRoute();
-        this.busStopMap = ApiParser.getBusStop();
+    public PathFinder(CreateMap map) throws DukeException {
+        this.busStopMap = map.getBusStopMap();
+        this.busMap = map.getBusMap();
         this.visited = new HashSet<>();
         this.path = new HashMap<>();
-        fillBusStop();
-    }
 
-    private void fillBusStop() {
-        for (Map.Entry mapElement : this.busMap.entrySet()) {
-            String bus = (String)mapElement.getKey();
-            BusService busService = (BusService)mapElement.getValue();
-            for (String busCode : busService.getDirection(1)) {
-                if (busStopMap.containsKey(busCode)) {
-                    busStopMap.get(busCode).addBuses(bus);
-                }
-            }
-        }
     }
 
 
@@ -51,7 +37,7 @@ public class PathFinder {
      * @param end ending location.
      * @return path.
      */
-    public ArrayList<BusStop> execute(Location start, Location end) {
+    public ArrayList<BusStop> execute(Venue start, Venue end) {
         BusStop startBusStop = ApiConstraintParser.getNearestBusStop(start, this.busStopMap);
         BusStop endBusStop = ApiConstraintParser.getNearestBusStop(end, this.busStopMap);
 
