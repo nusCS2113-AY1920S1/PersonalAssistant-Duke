@@ -2,6 +2,7 @@ package views;
 
 import controllers.ConsoleInputController;
 import models.data.IProject;
+import models.data.Project;
 import models.member.Member;
 import models.task.Task;
 import models.temp.tasks.ITask;
@@ -100,7 +101,7 @@ public class CLIView {
      * Method called when users wishes to view all Projects that are currently created or stored.
      * @param allProjects List of Projects returned to View model by the Controller from the Repository
      */
-    public void viewAllProjects(ArrayList<IProject> allProjects) {
+    public void viewAllProjects(ArrayList<Project> allProjects) {
         ArrayList<String> toPrint = new ArrayList<>();
         toPrint.add("Here are all the Projects you are managing:");
         for (int i = 0; i < allProjects.size(); i++) {

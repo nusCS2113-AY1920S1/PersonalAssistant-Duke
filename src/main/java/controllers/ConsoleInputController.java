@@ -1,17 +1,17 @@
 package controllers;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import models.data.Project;
+import models.temp.tasks.TaskList;
+import repositories.ProjectRepository;
+import views.CLIView;
+
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
-
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import models.data.IProject;
-import models.temp.tasks.TaskList;
-import repositories.ProjectRepository;
-import views.CLIView;
 
 public class ConsoleInputController implements IViewController {
 
@@ -28,7 +28,8 @@ public class ConsoleInputController implements IViewController {
     public ConsoleInputController(CLIView view) {
         this.consoleView = view;
         this.taskList = new TaskList();
-        loadProjectsData();
+        this.projectRepository = new ProjectRepository();
+//        loadProjectsData();
         this.projectInputController = new ProjectInputController(this.consoleView, this.projectRepository);
     }
 
@@ -46,7 +47,7 @@ public class ConsoleInputController implements IViewController {
             consoleView.end();
             break;
         case "list":
-            ArrayList<IProject> allProjects = projectRepository.getAll();
+            ArrayList<Project> allProjects = projectRepository.getAll();
             consoleView.viewAllProjects(allProjects);
             break;
         case "done":
@@ -111,6 +112,9 @@ public class ConsoleInputController implements IViewController {
         Gson gson = new Gson();
         try (FileReader fileReader = new FileReader(filePath)) {
             this.projectRepository = gson.fromJson(fileReader, ProjectRepository.class);
+            if (this.projectRepository == null) {
+                this.projectRepository = new ProjectRepository();
+            }
         } catch (IOException err) {
             this.projectRepository = new ProjectRepository();
         }

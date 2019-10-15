@@ -56,12 +56,7 @@ public class TaskList {
     /*
     * This method compares the two tasks and sort list in descending order.
      */
-    private Comparator<Task> sortTasksByPriority = new Comparator<Task>() {
-        @Override
-        public int compare(Task task1, Task task2) {
-            return task2.getTaskPriority() - task1.getTaskPriority();
-        }
-    };
+    private Comparator<Task> sortTasksByPriority = (task1, task2) -> task2.getTaskPriority() - task1.getTaskPriority();
 
     public Task getTask(int taskIndex) {
         return this.taskList.get(taskIndex - 1);
