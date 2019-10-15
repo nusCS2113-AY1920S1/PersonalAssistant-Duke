@@ -10,7 +10,7 @@ import java.util.Optional;
  */
 public class ProductDescriptor {
     private String productName;
-    //private IngredientList ingredientList;
+    //private IngredientItemList ingredientList;
     private Double ingredientCost;
     private Double retailPrice;
     private Product.Status status;

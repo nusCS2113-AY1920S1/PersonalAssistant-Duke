@@ -9,6 +9,8 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import static java.util.Objects.requireNonNull;
+
 /**
  * A logic component that auto-completes user inputs based on pre-defined command words and prefixes.
  */
@@ -40,6 +42,8 @@ public class AutoCompleter {
      * @param currentState the detail of current input state.
      */
     public Boolean isAutoCompletable(UserInputState currentState) {
+        requireNonNull(currentState);
+
         String commandText = currentState.userInputString;
         int caretPosition = currentState.caretPosition;
         String currentWord = getCurrentWord(commandText, caretPosition);

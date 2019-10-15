@@ -1,7 +1,7 @@
 package duke.model;
 
 import duke.commons.core.index.Index;
-import duke.model.commons.Ingredient;
+import duke.model.inventory.Ingredient;
 import duke.model.commons.Item;
 import duke.model.order.Order;
 import duke.model.product.Product;
@@ -133,13 +133,54 @@ public interface Model {
     void setProduct(Product originalProduct, Product editedProduct);
 
     /**
+     * Returns true if an product has the same name as {@code product} exists in product list.
+     */
+    boolean hasProduct(Product product);
+
+    /**
      * Returns an unmodifiable view of the filtered product list.
      */
     ObservableList<Product> getFilteredProductList(); //implement archive
 
     void updateFilteredProductList(Predicate<Product> predicate);
 
-    //========Finance operations=========
+    //========Sale operations=========
+    /**
+     * Adds the given sale.
+     * The sale must not exist in sale list
+     */
+    void addSale(Sale sale);
+
+    /**
+     * Deletes the given sale.
+     * The sale must exist in order list.
+     */
+    void deleteSale(Sale target);
+
+    /**
+     * Returns true if an sale with the same id as {@code order} exists in sale list.
+     */
+    boolean hasSale(Sale sale);
+
+    /**
+     * Replaces the given sale {@code target} in the list with {@code editedSale}.
+     * {@code target} must exist in order list
+     */
+    void setSale(Sale target, Sale editedSale);
+
+    /**
+     * Replaces the sale at {@code Index} in the list with {@code editedSale}.
+     * {@code Index} must be a valid index
+     * {@code target} must exist in order list
+     */
+    void setSale(Index index, Sale sale);
+
+    /**
+     * Returns an unmodifiable view of the filtered sale list.
+     */
+    ObservableList<Sale> getFilteredSaleList();
+
+    void updateFilteredSaleList(Predicate<Sale> predicate);
 
     //========Ingredient operations======
 

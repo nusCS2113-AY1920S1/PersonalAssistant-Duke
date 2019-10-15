@@ -1,30 +1,20 @@
-//package duke.logic.parser.product;
-//
-//import duke.logic.parser.exceptions.ParseException;
-//import duke.model.ingredient.IngredientItemList;
-//
-//import java.util.Dictionary;
-//import java.util.Hashtable;
-//import java.util.regex.Matcher;
-//import java.util.regex.Pattern;
-//
-//public class IngredientListParser {
-//    private String inputIngredientList;
-//
-//    //private static final Pattern FORMAT_INGREDIENT_INPUT = Pattern.compile("((?:\\[)([a-zA-Z0-9_ ]*),"
-//           // + "([a-zA-Z0-9_ ]*)(?:\\]))*");
-//    private static final Pattern FORMAT_INGREDIENT_INPUT = Pattern.compile("(?:\\[)([a-zA-Z0-9_ ]*),
-//    ([a-zA-Z0-9_ ]*)(?:\\])");
-//
-//
-//
-//
-//    /** Constructs a IngredientListParser with the userInput */
-//    public IngredientListParser(String inputIngredientList) {
-//        this.inputIngredientList = inputIngredientList;
-//    }
-//
-//
+package duke.logic.parser.commons;
+
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+public class ItemParser {
+    //private static final Pattern FORMAT_INGREDIENT_INPUT = Pattern.compile("((?:\\[)([a-zA-Z0-9_ ]*),"
+           // + "([a-zA-Z0-9_ ]*)(?:\\]))*");
+    private static final Pattern FORMAT_INGREDIENT_INPUT = Pattern.compile("(?:\\[)([a-zA-Z0-9_ ]*),([a-zA-Z0-9_ ]*)(?:\\])");
+    private String inputIngredientList;
+
+
+    /** Constructs a IngredientListParser with the userInput */
+    public ItemParser(String inputIngredientList) {
+        this.inputIngredientList = inputIngredientList;
+    }
+
 //
 //    public static Dictionary<String, String> getIngredients(String input) {
 //        Matcher matcher = FORMAT_INGREDIENT_INPUT.matcher(input.trim());
@@ -65,3 +55,5 @@
 //        }
 //    }
 //}
+
+}

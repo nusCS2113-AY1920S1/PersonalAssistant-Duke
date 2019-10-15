@@ -4,9 +4,10 @@ import duke.logic.command.CommandResult;
 import duke.logic.command.exceptions.CommandException;
 import duke.logic.parser.commons.AutoCompleter;
 import duke.logic.parser.exceptions.ParseException;
-import duke.model.commons.Ingredient;
+import duke.model.inventory.Ingredient;
 import duke.model.commons.Item;
 import duke.model.order.Order;
+import duke.model.sale.Sale;
 import duke.model.product.Product;
 import javafx.collections.ObservableList;
 
@@ -29,6 +30,8 @@ public interface Logic {
     AutoCompleter.UserInputState complete();
 
     ObservableList<Order> getFilteredOrderList();
+
+    ObservableList<Sale> getFilteredSaleList();
 
     ObservableList<Product> getFilteredProductList();
 
