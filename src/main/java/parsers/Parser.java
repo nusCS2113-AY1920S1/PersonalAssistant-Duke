@@ -3,8 +3,9 @@ package parsers;
 import Exception.DukeException;
 import commands.*;
 
-import commands.expense.DiningCommand;
-import commands.expense.ExpenseListCommand;
+import commands.expense.AddExpensesCommand;
+import commands.expense.ExpenseCommand;
+//import commands.expense.ExpenseListCommand;
 
 import commands.Contact.ContactsCommand;
 import commands.Edit.EditCommand;
@@ -14,8 +15,10 @@ import commands.note.DeleteNoteCommand;
 import commands.note.EditNoteCommand;
 import commands.note.ListNoteCommand;
 
+import java.io.IOException;
+
 public class Parser {
-    public static Command parse(String command) throws DukeException {
+    public static Command parse(String command) throws DukeException, IOException {
         String[] splitCommand = command.split(" ");
         if (splitCommand[0].equals("list")) {
             if (command.contains("event")) {
@@ -31,7 +34,7 @@ public class Parser {
             } else {
                 return new ListCommand();
             }
-        } else if (command.equals("done list")) {
+         } else if (command.equals("done list")) {
             return new DoneListCommand();
         } else if (command.equals("undo list")) {
             return new UndoneListCommand();
@@ -54,6 +57,8 @@ public class Parser {
         }
         else if(command.equals("contact")) {
             return new ContactsCommand();
+        } else if(command.equals("expenses")) {
+                return new ExpenseCommand();
         }else if (splitCommand[0].equals("bye")) {
             return new ByeCommand();
         } else if (command.contains("/require")) {
@@ -92,10 +97,6 @@ public class Parser {
             return new ChangePasswordCommand();
         } else if (command.contains("#")) {
             return new TagCommand();
-        } else if(command.equals("expense list")) {
-            return new ExpenseListCommand();
-        } else if(command.contains("$")) {
-            return new DiningCommand();
         }
         else {
             throw new DukeException("OOPS!!! I'm sorry, but I don't know what that means :-(");

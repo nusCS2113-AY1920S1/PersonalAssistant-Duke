@@ -8,7 +8,9 @@ import commands.FixDurationCommand;
 
 import java.io.FileWriter;
 import java.io.IOException;
+import java.lang.reflect.Array;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Scanner;
@@ -59,8 +61,7 @@ public class Storage {
                         e.isDone = false;
                     }
                     tList.add(e);
-                }
-                else if (details[0].equals("P")) {
+                } else if (details[0].equals("P")) {
                     Timebound tb = new Timebound(details[2].trim(), details[3].substring(8).trim());
                     if (details[1].equals("D")) {
                         tb.isDone = true;
@@ -86,10 +87,10 @@ public class Storage {
                     tList.add(DA);
                 } else if (details[0].equals("TE")) {
                     ArrayList<String> timeslots = new ArrayList<String>();
-                   for(int i=3;i<details.length;i++){
-                       timeslots.add(details[i]);
-                   }
-                   TentativeEvent TE = new TentativeEvent(details[2].trim(),timeslots);
+                    for (int i = 3; i < details.length; i++) {
+                        timeslots.add(details[i]);
+                    }
+                    TentativeEvent TE = new TentativeEvent(details[2].trim(), timeslots);
                     if (details[1].equals("D")) {
                         TE.isDone = true;
                     } else {
@@ -153,14 +154,15 @@ public class Storage {
         fileWriter.flush();
         fileWriter.close();
     }
-    public HashMap<String,String> Contact() throws IOException {
-        HashMap<String,String> contactList = new HashMap<String,String>();
+
+    public HashMap<String, String> Contact() throws IOException {
+        HashMap<String, String> contactList = new HashMap<String, String>();
         if (new File(absolutePath_Contact).exists()) {
             File file = new File(absolutePath_Contact);
             Scanner sc = new Scanner(file);
             while (sc.hasNext()) {
                 String[] split = sc.nextLine().split("\\|");
-                contactList.put(split[0],split[1]);
+                contactList.put(split[0], split[1]);
             }
         }
         return contactList;
@@ -172,15 +174,32 @@ public class Storage {
         fileWriter.flush();
         fileWriter.close();
     }
-    public ArrayList<String> Dining() throws IOException {
-        ArrayList<String> Dining = new ArrayList<String>();
+
+    public HashMap<LocalDate, ArrayList<String>> Expenses() throws IOException {
+        HashMap<LocalDate, ArrayList<String>> expenses = new HashMap<LocalDate, ArrayList<String>>();
+        DateTimeFormatter fmt = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         if (new File(absolutePath_Expenses).exists()) {
             File file = new File(absolutePath_Expenses);
             Scanner sc = new Scanner(file);
             while (sc.hasNext()) {
-                Dining.add(sc.nextLine());
+                ArrayList<String> itemAndPriceList = new ArrayList<>();
+                String[] split = sc.nextLine().split("\\|");
+                LocalDate dateOfPurchase = LocalDate.parse(split[0], fmt);
+                boolean isEqual = false;
+                for (LocalDate key : expenses.keySet()) {
+                    if (dateOfPurchase.equals(key)) { //if date equal
+                        expenses.get(key).add(split[1]);
+                        isEqual = true;
+                    }
+                }
+
+                if (isEqual == false) {
+                    itemAndPriceList.add(split[1]);
+                    expenses.put(dateOfPurchase, itemAndPriceList);
+                }
             }
         }
-        return Dining;
+        return expenses;
     }
+
 }
