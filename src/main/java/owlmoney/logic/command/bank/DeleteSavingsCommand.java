@@ -27,6 +27,7 @@ public class DeleteSavingsCommand extends Command {
      * @param profile Profile of the user.
      * @param ui      Ui of OwlMoney.
      * @return false so OwlMoney will not terminate yet.
+     * @throws BankException If bank account fails check criteria.
      */
     @Override
     public boolean execute(Profile profile, Ui ui) throws BankException {

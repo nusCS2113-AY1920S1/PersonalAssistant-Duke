@@ -49,6 +49,8 @@ public class AddExpenditureCommand extends Command {
      * @param profile Profile of the user.
      * @param ui      Ui of OwlMoney.
      * @return false so OwlMoney will not terminate yet.
+     * @throws BankException If bank amount becomes negative after adding expenditure.
+     * @throws CardException If the credit card name cannot be found.
      */
     public boolean execute(Profile profile, Ui ui) throws BankException, CardException {
         Transaction newExpenditure = new Expenditure(this.description, this.amount, this.date, this.category);

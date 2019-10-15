@@ -34,6 +34,9 @@ public class DeleteExpenditureCommand extends Command {
      * @param profile Profile of the user.
      * @param ui      Ui of OwlMoney.
      * @return false so OwlMoney will not terminate yet.
+     * @throws BankException If bank account does not exist.
+     * @throws TransactionException If invalid transaction.
+     * @throws CardException If card does not exist.
      */
     public boolean execute(Profile profile, Ui ui) throws BankException, TransactionException, CardException {
         profile.profileDeleteExpenditure(this.expNumber, this.from, ui, this.type);

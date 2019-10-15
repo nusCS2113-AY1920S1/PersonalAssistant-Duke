@@ -31,6 +31,7 @@ public class AddInvestmentCommand extends Command {
      * @param profile Profile of the user.
      * @param ui      Ui of OwlMoney.
      * @return false so OwlMoney will not terminate yet.
+     * @throws BankException If duplicate investment account name found.
      */
     @Override
     public boolean execute(Profile profile, Ui ui) throws BankException {
