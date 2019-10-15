@@ -220,9 +220,9 @@ public class ChapterSorting {
             for (int j = 0; j < arr.size() - 1 - i; j++) {
                 int first = arr.get(j);
                 int second = arr.get(j + 1);
-                rtlm.addReviewTracingModel(new ReviewTracingModel(j, j+1, "c"));
+                rtlm.addReviewTracingModel(new ReviewTracingModel(j, j + 1, "c"));
                 if (first > second) {
-                    rtlm.addReviewTracingModel(new ReviewTracingModel(j, j+1, "s"));
+                    rtlm.addReviewTracingModel(new ReviewTracingModel(j, j + 1, "s"));
                     int temp = first;
                     arr.set(j, second);
                     arr.set(j + 1, temp);
