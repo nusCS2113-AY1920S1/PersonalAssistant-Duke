@@ -3,7 +3,9 @@ package seedu.duke.email;
 import seedu.duke.Duke;
 import seedu.duke.email.entity.Email;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -16,6 +18,7 @@ public class EmailContentParser {
     private static int KEYWORD_SENDER_WEIGHTAGE = 3;
     private static int KEYWORD_BODY_WEIGHTAGE = 1;
     private static ArrayList<KeywordPair> keywordList;
+    private static int INFINITY = 0x3f3f3f;
 
     public static void allKeywordInEmail(Email email) {
         for (KeywordPair keywordPair : keywordList) {
@@ -87,8 +90,61 @@ public class EmailContentParser {
                 "Low Mun Bak"))));
         keywordList.add(new KeywordPair("SEP", new ArrayList<String>(List.of(
                 "SEP", "Student Exchange Programme"))));
+        keywordList.add(new KeywordPair("Tutorial", new ArrayList<String>(List.of(
+                "Tutorial"))));
+        keywordList.add(new KeywordPair("Assignment", new ArrayList<String>(List.of(
+                "Assignment"))));
+        keywordList.add(new KeywordPair("Spam", new ArrayList<String>(List.of(
+                "UHC Wellness", "luminus-do-not-reply", "NUS Libraries"))));
 
         EmailContentParser.keywordList = keywordList;
+    }
+
+    /**
+     * Computes the edit distance between A and B, which is the number of steps required to transform A to B
+     * if only addition, deletion, update of a single character is allowed for each step.
+     *
+     * @param A first string
+     * @param B second string
+     * @return edit distance between A and B
+     */
+    public static int editDistance(String A, String B) {
+        if (A.length() == 0 || B.length() == 0) {
+            return A.length() + B.length();
+        }
+        A = A.toLowerCase();
+        B = B.toLowerCase();
+        //Prepare a distance array for DP
+        int[][] dist = new int[A.length() + 1][B.length() + 1];
+        //Initialize distance array with all zeros
+        for (int[] row : dist) {
+            Arrays.fill(row, 0);
+        }
+        //Initialize starting positions for DP
+        for (int i = 0; i <= A.length(); i++) {
+            dist[i][0] = i;
+        }
+        for (int j = 0; j <= B.length(); j++) {
+            dist[0][j] = j;
+        }
+        //Start DP
+        for (int i = 1; i <= A.length(); i++) {
+            for (int j = 1; j <= B.length(); j++) {
+                int min = INFINITY;
+                min = Math.min(min, dist[i - 1][j - 1] + (A.charAt(i - 1) == B.charAt(j - 1) ? 0 : 1));
+                min = Math.min(min, dist[i - 1][j] + 1);
+                min = Math.min(min, dist[i][j - 1] + 1);
+                dist[i][j] = min;
+            }
+        }
+        for (int i = 0; i <= A.length(); i++) {
+            for (int j = 0; j <= B.length(); j++) {
+                System.out.print(dist[i][j]);
+                System.out.print(" ");
+            }
+            System.out.println("\n");
+        }
+        return dist[A.length()][B.length()];
     }
 
     /**
