@@ -10,11 +10,14 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
+import java.net.SocketTimeoutException;
 import java.net.URL;
 
 public class DataMallHttpRequest extends HttpRequest {
+    private static final String URL = "http://datamall2.mytransport.sg/ltaodataservice/";
+
     public DataMallHttpRequest(String reqType, String path, String param) {
-        super(reqType, "http://datamall2.mytransport.sg/ltaodataservice/" + path, param);
+        super(reqType, URL + path, param);
     }
 
     @Override
@@ -36,10 +39,15 @@ public class DataMallHttpRequest extends HttpRequest {
             throw new DukeException(Messages.DATA_NOT_FOUND);
         }
 
-        //TODO: if response == null/api call fail, do some handling
-        JsonParser jp = new JsonParser();
-        JsonElement root = jp.parse(response);
-        JsonObject result = root.getAsJsonObject();
+        JsonObject result;
+        try {
+            assert (response != null);
+            JsonParser jp = new JsonParser();
+            JsonElement root = jp.parse(response);
+            result = root.getAsJsonObject();
+        } catch (Throwable e) {
+            throw new DukeException(Messages.DATA_NULL);
+        }
 
         return result;
     }

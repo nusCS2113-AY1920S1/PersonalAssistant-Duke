@@ -24,8 +24,7 @@ public class ApiParser {
      * @return result The locations found
      */
     public static Location getLocationSearch(String param) throws DukeException {
-        LocationSearchUrlRequest req = new LocationSearchUrlRequest("https://developers.onemap.sg/commonapi/search?",
-                param);
+        LocationSearchUrlRequest req = new LocationSearchUrlRequest(param);
         JsonObject jsonRes = req.execute();
         JsonArray arr = jsonRes.getAsJsonArray("results");
         if (isFound(jsonRes)) {
