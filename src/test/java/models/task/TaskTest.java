@@ -11,6 +11,8 @@ import java.util.Date;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class TaskTest {
+    private TaskFactory consoleInputFactory = new TaskFactory();
+
     @Test
     public void alwaysTrue() {
         assertEquals(2, 2);
@@ -34,7 +36,15 @@ class TaskTest {
     @Test
     public void testGetTaskRequirements() {
         try {
-            TaskFactory consoleInputFactory = new TaskFactory();
+            SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+            Date dueDate = formatter.parse("19/10/2019");
+            ArrayList<String> taskRequirements = new ArrayList<>();
+            taskRequirements.add("requirement1");
+            Task dummyTask = new Task("task1",1,dueDate,10, TaskState.TODO, taskRequirements);
+            Task task = consoleInputFactory.createTask("t/task1 p/1 d/19/10/2019 c/10 s/todo r/requirement1");
+            assertEquals(dummyTask.getDetails(),task.getDetails());
+            assertEquals(dummyTask.getTaskRequirements(), task.getTaskRequirements());
+
             ArrayList<String> taskRequirements2 = new ArrayList<>();
             taskRequirements2.add("requirement1");
             taskRequirements2.add("requirement2");

@@ -1,10 +1,11 @@
 package controllers;
 
-import java.util.ArrayList;
-import java.util.HashSet;
 import models.data.IProject;
 import models.task.Task;
 import views.CLIView;
+
+import java.util.ArrayList;
+import java.util.HashSet;
 
 public class AssignmentControllerUtil {
 
@@ -18,13 +19,13 @@ public class AssignmentControllerUtil {
      */
     public static void manageAssignment(IProject projectToManage, String[] details,
         CLIView consoleView) {
-        int taskNumber = Integer.parseInt(details[0].substring(2).trim());
+        int taskIndex = Integer.parseInt(details[0].substring(2).trim());
         Task task = null;
-        if (taskNumber > projectToManage.getNumOfTasks() || taskNumber <= 0) {
+        if (taskIndex > projectToManage.getNumOfTasks() || taskIndex <= 0) {
             consoleView.consolePrint("The task you wish to assign does not exist!",
                 "Please check the index number of the task and try again.");
         } else {
-            task = projectToManage.getTask(taskNumber);
+            task = projectToManage.getTask(taskIndex);
             HashSet<Integer> assignedIndexes = task.getAssignedIndexes(); //existing assignments
             ArrayList<Integer> assign = new ArrayList<>(); //List of members to be assigned task
             ArrayList<Integer> unassign = new ArrayList<>();//List of members to be unassigned task
@@ -65,5 +66,9 @@ public class AssignmentControllerUtil {
             }
             consoleView.assignOrUnassignTask(assign, unassign, task, projectToManage);
         }
+    }
+
+    public static void viewTaskAssigned(IProject projectToManage, CLIView consoleView) {
+        consoleView.viewAssignedTask(projectToManage);
     }
 }
