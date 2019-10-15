@@ -52,4 +52,8 @@ public abstract class ArgCommand extends Command {
     String getArg() {
         return arg;
     }
+
+    ArgLevel getCmdArgLevel() {
+        return cmdArgLevel;
+    }
 }

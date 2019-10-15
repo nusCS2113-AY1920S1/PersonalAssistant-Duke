@@ -258,7 +258,7 @@ public class Parser {
     private void checkInputAllowed() throws DukeHelpException {
         if (currSwitch == null) {
             if (currCommand.getArg() == null) {
-                if (currCommand.cmdArgLevel == ArgLevel.NONE) {
+                if (currCommand.getCmdArgLevel() == ArgLevel.NONE) {
                     throw new DukeHelpException("This command should not have an argument!", currCommand);
                 }
             } else {
@@ -269,7 +269,7 @@ public class Parser {
     }
 
     private void checkCommandValid() throws DukeException {
-        if (currCommand.cmdArgLevel == ArgLevel.REQUIRED) {
+        if (currCommand.getCmdArgLevel() == ArgLevel.REQUIRED) {
             throw new DukeHelpException("You need to give an argument for the command!", currCommand);
         }
         for (HashMap.Entry<String, ArgLevel> switchEntry : switches.entrySet()) {
