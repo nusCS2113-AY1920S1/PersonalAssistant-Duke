@@ -8,10 +8,10 @@ import java.util.concurrent.TimeUnit;
  */
 public class Payee {
 
-    String payee;
-    String email;
-    String matricNum;
-    String phoneNum;
+    public String payee;
+    public String email;
+    public String matricNum;
+    public String phoneNum;
     ArrayList<Payments> payments;
 
     public Payee(String payee, String email, String matricNum, String phoneNum) {

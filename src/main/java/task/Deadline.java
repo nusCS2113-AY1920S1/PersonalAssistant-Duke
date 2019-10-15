@@ -49,7 +49,7 @@ public class Deadline extends Task implements Serializable {
      * return the boolean value (true or false) of the invoice
      * @return the task's invoice value
      */
-    public Boolean getInVoice(){
+    public boolean getInVoice(){
         return inVoice;
     }
 
