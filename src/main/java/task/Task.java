@@ -1,5 +1,6 @@
 package task;
 
+import javax.xml.stream.Location;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.time.Period;
@@ -21,11 +22,14 @@ public abstract class Task implements Serializable {
     protected boolean isIgnored;
     protected boolean isDone;
     public boolean isPrioritizable = true;
+    public boolean hasLocation = false;
 
     public LocalDateTime endDate = null;
     public LocalDateTime startDate = null;
     public LocalDateTime createdDate;
+    public Location locationOfTask;
     public Period eventPeriod;
+
 
     /**
      * Constructor for task.

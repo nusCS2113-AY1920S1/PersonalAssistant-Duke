@@ -8,6 +8,7 @@ import command.DoneCommand;
 import command.ExitCommand;
 import command.FindCommand;
 import command.ListCommand;
+import command.LocationCommand;
 import command.PostponeCommand;
 import command.PriorityCommand;
 import command.RemindCommand;
@@ -144,8 +145,10 @@ public class ParserFactory {
 
         case "list":
             return new ListCommand();
+
         case "bye":
             return new ExitCommand();
+
         case "search":
             long duration;
             try {
@@ -159,13 +162,10 @@ public class ParserFactory {
         case "unignore":
             return parseIgnore(userInput, false);
         case "comment":
-            int index;
             try {
                 String rawIndex = userInput.split("\\s+", 3)[1].trim();
-                index = Integer.parseInt(rawIndex) - 1;
-            } catch (ArrayIndexOutOfBoundsException e) {
-                throw new DukeException(DukeException.invalidIndex());
-            } catch (NumberFormatException e) {
+                indexOfTask = Integer.parseInt(rawIndex) - 1;
+            } catch (ArrayIndexOutOfBoundsException | NumberFormatException e) {
                 throw new DukeException(DukeException.invalidIndex());
             }
             String comment = "";
@@ -174,7 +174,23 @@ public class ParserFactory {
             } catch (ArrayIndexOutOfBoundsException e) {
                 throw new DukeException(DukeException.emptyUserDescription());
             }
-            return new CommentCommand(index, comment);
+            return new CommentCommand(indexOfTask, comment);
+        case "location":
+            try {
+                String userIndex = userInput.split("\\s", 5)[2].trim();
+                System.out.println(userIndex);
+                indexOfTask = Integer.parseInt(userIndex) - 1;
+            } catch (ArrayIndexOutOfBoundsException | NumberFormatException e) {
+                throw new DukeException(DukeException.invalidIndex());
+            }
+            String location = "Default: Null Location";
+            try {
+                location = userInput.split("\\s", 5)[4].trim();
+            } catch (ArrayIndexOutOfBoundsException e){
+                throw new DukeException(DukeException.invalidLocation());
+            }
+            return new LocationCommand(indexOfTask,location);
+
         default:
             // Empty string or unknown command.
             Ui.printUnknownInput();

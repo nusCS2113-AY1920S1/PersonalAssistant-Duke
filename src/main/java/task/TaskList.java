@@ -121,6 +121,20 @@ public class TaskList {
         return task;
     }
 
+    /**
+     * This function allows the user to adda location to tasks.
+     *
+     * @param taskWithLocation is of String type which contains the desired date of
+     *                  schedule.
+     * @return sortDateList the sorted schedule of all the tasks on a particular date.
+     */
+    public Task addLocation(Integer indexOfTask  , String taskWithLocation) {
+            Task taskHasLocation = listOfTasks.get(indexOfTask);
+            taskHasLocation.hasLocation = true;
+            taskHasLocation.comment += (" the" + taskHasLocation.getClass().toString().replace("class task.", " ") + " task is at " + taskWithLocation);
+            return taskHasLocation;
+    }
+
 
     /**
      * This function allows the user to obtain the tasks on a particular date.

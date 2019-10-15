@@ -141,6 +141,15 @@ public class DukeException extends Exception {
         return "☹ OOPS!!! The index given is invalid. It must be a existing index in the list. Please try again";
     }
 
+    /**
+     * notifies user if location is not provided.
+     *
+     * @return message to be displayed
+     */
+    public static String invalidLocation() {
+        return "☹ OOPS!!! The location portion is not provided. Please try again";
+    }
+
     public DukeException(String message) {
         super(message);
     }
