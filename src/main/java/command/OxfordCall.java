@@ -2,6 +2,9 @@ package command;
 import Dictionary.Word;
 import command.*;
 import exception.*;
+
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import javax.net.ssl.HttpsURLConnection;
 import java.io.BufferedReader;
@@ -15,7 +18,7 @@ import java.net.URL;
  */
 public class OxfordCall{
 
-    public static String onlineSearch(String word){
+    public static String onlineSearch(String word) throws NoWordFoundException{
         String queryWord = word;
         String alpha = doInBackground(queryWord);
         String result = CleanUp(alpha);
@@ -31,7 +34,7 @@ public class OxfordCall{
         return "https://od-api.oxforddictionaries.com/api/v2/entries/" + language + "/" + word_id + "?" + "fields=" + fields + "&strictMatch=" + strictMatch;
     }
 
-    public static String doInBackground(String word) {
+    public static String doInBackground(String word) throws NoWordFoundException {
         final String app_id = "11f848bf"; //obtained from Oxford account
         final String app_key = "5be9615c9940859a6ce549f449cc670d"; //obtained from Oxford account
         try {
@@ -50,9 +53,8 @@ public class OxfordCall{
                 stringBuilder.append(line + "\n");
             }
             return stringBuilder.toString();
-        } catch (Exception e) {
-            e.printStackTrace();
-            return e.toString();
+        } catch (IOException e) {
+            throw new NoWordFoundException(word);
         }
     }
     /**
