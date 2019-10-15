@@ -142,7 +142,7 @@ public class MealList {
     }
 
 
-    public int CaloriesAvgToGoal() {
+    public int caloriesAvgToGoal() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/MM/yyyy");
         LocalDate startDate = LocalDate.parse(goal.getStartDate(), formatter);
         LocalDate endDate = LocalDate.parse(goal.getEndDate(), formatter);
@@ -165,7 +165,7 @@ public class MealList {
         long daysLeft = DAYS.between(currentDate,endDate);
         int caloriesRemaining = goal.getNutritionalValue().get("calorie") - totalConsume;
         if (daysLeft >= 1) {
-            return caloriesRemaining/(int)daysLeft;
+            return caloriesRemaining / (int)daysLeft;
         } else {
             return -1;
         }
@@ -176,7 +176,7 @@ public class MealList {
      * @param date the date to be checked
      * @return boolean
      */
-    public boolean checkDate (String date) {
+    public boolean checkDate(String date) {
         return mealTracker.containsKey(date);
     }
 
