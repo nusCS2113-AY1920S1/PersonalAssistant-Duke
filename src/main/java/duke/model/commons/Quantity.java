@@ -1,9 +1,9 @@
-package duke.model.order;
+package duke.model.commons;
 
 public class Quantity {
-    private final Integer number;
+    private final Double number;
 
-    public Quantity(int number) {
+    public Quantity(double number) {
         this.number = number;
     }
 
@@ -11,7 +11,7 @@ public class Quantity {
         this.number = toCopy.number;
     }
 
-    public Integer getNumber() {
+    public Double getNumber() {
         return number;
     }
 

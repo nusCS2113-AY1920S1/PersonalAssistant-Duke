@@ -14,12 +14,12 @@ public class FindOrderCommandParser implements Parser<CompleteOrderCommand> {
     @Override
     public CompleteOrderCommand parse(String args) throws ParseException {
         ArgumentMultimap map = ArgumentTokenizer.tokenize(args,
-            CliSyntax.PREFIX_ORDER_STATUS,
+            CliSyntax.PREFIX_ORDER_STATUS
 
         );
 
         if (map.getPreamble().isBlank()) {
-            throw new ParseException(MESSAGE_EMPTY_INDICES);
+            throw new ParseException("");
         }
 
 

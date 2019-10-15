@@ -98,7 +98,7 @@ public class MainWindow extends UiPart<Stage> {
      * Creates Order, Product and Sales pages that fill up the placeholder window.
      */
     void fillInnerParts() {
-        orderPage = new OrderPage(logic.getFilteredOrderList());
+        orderPage = new OrderPage(logic.getFilteredOrderList(), logic.getFilteredInventoryList());
         productPage = new ProductPage(logic.getFilteredProductList());
         salePage = new SalePage(logic.getFilteredSaleList());
         inventoryPage = new InventoryPage(logic.getFilteredInventoryList());
