@@ -90,8 +90,8 @@ public class MainWindow extends AnchorPane {
             String input = userInput.getText();
             userInput.clear();
             System.out.println(input);
-//            dialogContainer.getChildren().add(
-//                    DialogBox.getUserDialog(input, userImage));
+            //            dialogContainer.getChildren().add(
+            //                    DialogBox.getUserDialog(input, userImage));
             String response = "";
             if (isStarting && duke.isFirstTimeUser) {
                 duke.userName = input;
@@ -129,7 +129,7 @@ public class MainWindow extends AnchorPane {
             }
             if (response.contains("Bye.")) {
                 PauseTransition pause = new PauseTransition(Duration.seconds(2));
-                pause.setOnFinished(e->primaryStage.hide());
+                pause.setOnFinished(e -> primaryStage.hide());
                 pause.play();
             }
         } catch (DukeException e) {

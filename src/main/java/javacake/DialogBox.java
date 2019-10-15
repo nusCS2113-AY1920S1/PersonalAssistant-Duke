@@ -39,13 +39,8 @@ public class DialogBox extends HBox {
 
     private Image hilda1 = new Image(this.getClass().getResourceAsStream("/images/hilda_1.png"));
     private Image hilda2 = new Image(this.getClass().getResourceAsStream("/images/hilda_2.png"));
-    List<Image> images = new ArrayList<>();
-    private int imageIndex = 0 ;
 
     private DialogBox(String text, Image img) {
-        images.add(hilda1);
-        images.add(hilda2);
-
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(MainWindow.class.getResource("/view/DialogBox.fxml"));
             fxmlLoader.setController(this);
@@ -57,12 +52,6 @@ public class DialogBox extends HBox {
 
         dialog.setText(text);
         displayPicture.setImage(img);
-
-//        Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(1), ev -> {
-//            displayPicture.setImage(images.get(imageIndex++%2));
-//        }));
-//        timeline.setCycleCount(Animation.INDEFINITE);
-//        timeline.play();
     }
 
     /**

@@ -16,6 +16,9 @@ public class TopBar extends HBox {
     @FXML
     private ImageView cakeRight;
 
+    /**
+     * Constructor for title bar.
+     */
     public TopBar() {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(MainWindow.class.getResource("/view/TopBar.fxml"));
@@ -27,6 +30,10 @@ public class TopBar extends HBox {
         }
     }
 
+    /**
+     * Method to set TopBar.
+     * @return TopBar object
+     */
     public static TopBar setTitle() {
         return new TopBar();
     }
