@@ -34,7 +34,7 @@ public class TaskFactory {
                         taskRequirements);
             }
 
-        } else if (hasDueDateFlag&& !hasStateFlag) {
+        } else if (hasDueDateFlag && !hasStateFlag) {
             if (taskDetails.length == 5) {
                 Date dueDate = getDateObject(taskDetails[3]);
                 newTask = new Task(newTaskName, newTaskPriority,
