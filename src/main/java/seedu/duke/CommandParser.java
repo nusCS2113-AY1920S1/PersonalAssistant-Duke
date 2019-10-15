@@ -531,7 +531,7 @@ public class CommandParser {
     }
 
     private static Command parseEditCommand(TaskList taskList, String input, ArrayList<Option> optionList) {
-        TaskList.Attributes attribute = null;
+        TaskEditCommand.Attributes attribute = null;
         String description = null;
         int index;
         Pattern editPattern = Pattern.compile("^edit\\s+(?<index>\\d+)\\s*$");
@@ -554,17 +554,23 @@ public class CommandParser {
         }
 
         try {
-            if (!extractDoAfter(optionList).equals("")) {
-                description = extractDoAfter(optionList);
-                attribute = TaskList.Attributes.doAfter;
-            } else if (!extractTime(optionList).equals("")) {
-                description = extractTime(optionList);
-                attribute = TaskList.Attributes.time;
-            }
+            if (!extractPriority(optionList).equals("") ^ !extractTime(optionList).equals("") ^ !extractDoAfter(optionList).equals("")) {
+                if (!extractDoAfter(optionList).equals("")) {
+                    description = extractDoAfter(optionList);
+                    attribute = TaskEditCommand.Attributes.doAfter;
+                } else if (!extractTime(optionList).equals("")) {
+                    description = extractTime(optionList);
+                    attribute = TaskEditCommand.Attributes.time;
+                } else if (!extractPriority(optionList).equals("")) {
+                    description = extractPriority(optionList);
+                    attribute = TaskEditCommand.Attributes.priority;
+                }
+                return new TaskEditCommand(taskList, index, description, attribute);
+            } 
         } catch (UserInputException e) {
             return new InvalidCommand();
         }
-        return new TaskEditCommand(taskList, index, description, attribute);
+        return new InvalidCommand();
     }
 
     private static ArrayList<String> extractTags(ArrayList<Option> optionList) {

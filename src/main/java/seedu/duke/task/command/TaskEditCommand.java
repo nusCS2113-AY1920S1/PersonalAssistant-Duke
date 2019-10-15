@@ -12,7 +12,7 @@ public class TaskEditCommand extends Command {
     private TaskList taskList;
     private int index;
     private String description;
-    private TaskList.Attributes attribute;
+    private TaskEditCommand.Attributes attribute;
 
     /**
      * Instantiates a find command with all variables necessary.
@@ -21,11 +21,15 @@ public class TaskEditCommand extends Command {
      * @param description   what to modify to
      * @param attribute     what attribute to modify
      */
-    public TaskEditCommand(TaskList taskList, int index, String description, TaskList.Attributes attribute) {
+    public TaskEditCommand(TaskList taskList, int index, String description, TaskEditCommand.Attributes attribute) {
         this.taskList = taskList;
         this.index = index;
         this.description = description;
         this.attribute = attribute;
+    }
+
+    public enum Attributes {
+        time, doAfter, priority
     }
 
     /**
@@ -36,7 +40,20 @@ public class TaskEditCommand extends Command {
     public boolean execute() {
         String msg = "";
         try {
-            msg = taskList.setAttributes(index, description, attribute);
+            switch(attribute) {
+            case time:
+                msg = taskList.setTime(index, description);
+                break;
+            case doAfter:
+                msg = taskList.setDoAfter(index, description);
+                break;
+            case priority:
+                msg = taskList.setPriority(index, description);
+                break;
+            default:
+                msg = "Invalid attribute";
+                break;
+            }
         } catch (CommandParser.UserInputException e) {
             Duke.getUI().showError(e.getMessage());
             return false;
