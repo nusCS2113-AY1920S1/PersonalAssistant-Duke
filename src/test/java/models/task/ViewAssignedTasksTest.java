@@ -1,9 +1,7 @@
-package task;
+package models.task;
 
 import models.data.Project;
 import models.member.Member;
-import models.task.Task;
-import models.task.TaskState;
 import org.junit.jupiter.api.Test;
 
 import java.text.ParseException;
