@@ -62,6 +62,7 @@ The TimeSlot Class implements the login feature by creating an object that repre
 |===
 
 The following sequence diagram below shows the flow of `addDay`.
+
 image::addClass.png[align="left"]
 
 
