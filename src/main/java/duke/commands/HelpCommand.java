@@ -11,6 +11,7 @@ import java.util.Scanner;
 
 public class HelpCommand extends Command {
     private String specifiedHelp = "";
+
     public HelpCommand() {
     }
 
