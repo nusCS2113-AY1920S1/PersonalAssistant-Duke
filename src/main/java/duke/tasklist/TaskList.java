@@ -141,13 +141,13 @@ public class TaskList {
 
     public void dayViewPrint(Ui ui) {
         Date currDate = new Date();
-
         SimpleDateFormat fmt = new SimpleDateFormat("yyyyMMdd");
 
         ArrayList<Task> temp = new ArrayList<>();
 
         for (Task t : taskList) {
             if (t instanceof Event) {
+                System.out.println("this is one event");
                 Date taskDate = ((Event) t).getDatetime();
                 if (taskDate.equals(currDate)) {
                     temp.add(t);

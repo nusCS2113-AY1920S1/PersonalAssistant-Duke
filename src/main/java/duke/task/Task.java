@@ -15,7 +15,7 @@ public class Task {
     protected String description;
     protected boolean isDone;
     protected String type;
-    protected LocalDate dateCreated;
+    protected LocalDate createdDate;
     protected RecurrencePeriod recurrencePeriod;
     protected Priority priority;
 
@@ -31,7 +31,7 @@ public class Task {
         this.description = description;
         this.isDone = false;
         this.type = "";
-        this.dateCreated = LocalDate.now();
+        this.createdDate = LocalDate.now();
         this.priority = Priority.LOW;
         switch (recurrencePeriod) {
             case "none":
@@ -73,20 +73,26 @@ public class Task {
         isDone = false;
     }
 
-    public void recurringTaskChecker() {
+    /**
+     * This function marks tasks as undone every week/day based on the
+     * recurrence period of the task.
+     */
+    public boolean isTimeToReset(LocalDate dateCreated, LocalDate dateNow) {
         switch (recurrencePeriod) {
             case DAILY:
-                if (ChronoUnit.HOURS.between(dateCreated, LocalDate.now()) % 24 == 0) {
-                    markAsUndone();
+                if (ChronoUnit.DAYS.between(dateCreated, dateNow) > 0) {
+                    return true;
+                } else {
+                    return false;
                 }
-                break;
             case WEEKLY:
-                if (ChronoUnit.DAYS.between(dateCreated, LocalDate.now()) % 7 == 0) {
-                    markAsUndone();
+                if (ChronoUnit.DAYS.between(dateCreated, dateNow) % 7 == 0) {
+                    return true;
+                } else {
+                    return false;
                 }
-                break;
             default:
-                break;
+                return false;
         }
     }
 
@@ -134,8 +140,6 @@ public class Task {
             recurringDescription = "every week";
             recurringIcon = "[R]";
         }
-
         return recurringIcon + type + "[" + this.getStatusIcon() + "] " + description + recurringDescription;
-
     }
 }
