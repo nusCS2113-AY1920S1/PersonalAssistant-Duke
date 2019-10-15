@@ -1,6 +1,7 @@
 package javacake.quiz;
 
 import javacake.DukeException;
+import javacake.ProgressStack;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
@@ -10,12 +11,13 @@ import java.util.ArrayList;
 import java.util.Random;
 
 public class QuestionList {
+    public ProgressStack progressStack;
     private ArrayList<Question> chosenQuestions;
-    /** The maximum number of questions in one session of a quiz. */
-    public static final int MAX_QUESTIONS = 3;
     private static final int TOTALNUMOFBASICQNS = 15;
     private static final int TOTALNUMOFOOPQNS = 3;
     private static final int TOTALNUMOFUSEFULEXTENSIONQNS = 3;
+    /** The maximum number of questions in one session of a quiz. */
+    public static final int MAX_QUESTIONS = 3;
 
     public QuestionList() {
         chosenQuestions = new ArrayList<>(MAX_QUESTIONS);
@@ -25,7 +27,7 @@ public class QuestionList {
         ArrayList<BasicQuestion> basicQuestionList = new ArrayList<>();
         for (int i = 1; i <= TOTALNUMOFBASICQNS; i++) {
             try {
-                String filePath = "content/MainList/ListIndex1/javabasics/Quiz/Qn" + i + ".txt";
+                String filePath = "content/MainList/1. Java Basics/4. Quiz/Qn" + i + ".txt";
                 BufferedReader bufferedReader = new BufferedReader(new FileReader(filePath));
                 String currentLine;
                 String qns = new String();
@@ -45,7 +47,6 @@ public class QuestionList {
     private ArrayList<OopQuestion> initOopList() throws DukeException {
         ArrayList<OopQuestion> oopQuestionList = new ArrayList<>();
         for (int i = 1; i <= TOTALNUMOFOOPQNS; i++) {
-
             try {
                 String filePath = "content/MainList/ListIndex2/oop/Quiz/Qn" + i + ".txt";
                 BufferedReader bufferedReader = new BufferedReader(new FileReader(filePath));
