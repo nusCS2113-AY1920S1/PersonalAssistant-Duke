@@ -4,11 +4,9 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class ItemParser {
-    private String inputIngredientList;
-
     //private static final Pattern FORMAT_INGREDIENT_INPUT = Pattern.compile("((?:\\[)([a-zA-Z0-9_ ]*),"
            // + "([a-zA-Z0-9_ ]*)(?:\\]))*");
-    private static final Pattern FORMAT_INGREDIENT_INPUT = Pattern.compile("((?:\\s*\\[)([a-zA-Z0-9_ ]*),([0-9 .?]*)(?:\\]\\s*))*");
+
 
 
 

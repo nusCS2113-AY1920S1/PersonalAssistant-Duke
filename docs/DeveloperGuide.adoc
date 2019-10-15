@@ -155,27 +155,61 @@ This section describes some noteworthy details on how certain features are imple
 
 === Auto-Complete Feature
 
-BakingHome comes with a auto-complete feature that predicts the commands or arguments that the user attempts to type based on what has already been entered. Auto-Complete is invoked by pressing the `TAB` key, and the user can navigate among all the suggestions by continue to press the `TAB` key.
+BakingHome comes with a auto-complete feature that predicts the commands or arguments that the user attempts to type based on what has already been entered. Auto-Complete is invoked by pressing the `Tab` key. If there are multiple suggestions available, the user can navigate among the suggestions by repeatdely pressing the `Tab` key.
 
-==== Proposed Implementation
+==== Implementation
 
-Auto-complete mechanism is facilitated by `AutoCompleter` in `Logic` component.
+Auto-complete mechanism is facilitated by `AutoCompleter` in `Logic` component.  
 
-The undo/redo mechanism is facilitated by `VersionedAddressBook`.
-It extends `AddressBook` with an undo/redo history, stored internally as an `addressBookStateList` and `currentStatePointer`.
-Additionally, it implements the following operations:
+`AutoCompleter` implements the following operations:
 
-* `VersionedAddressBook#commit()` -- Saves the current address book state in its history.
-* `VersionedAddressBook#undo()` -- Restores the previous address book state from its history.
-* `VersionedAddressBook#redo()` -- Restores a previously undone address book state from its history.
+* `AutoCompleter#addCommandClass(Class<? extends Command>)` -- Adds a command class for `AutoCompleter` to complete.
 
-These operations are exposed in the `Model` interface as `Model#commitAddressBook()`, `Model#undoAddressBook()` and `Model#redoAddressBook()` respectively.
+* `AutoCompleter#isAutoCompletable(UserInputState)` -- Returns true if the current user input can be completed by `AutoCompleter`.
 
-Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
+* `AutoCompleter#complete()` -- Returns a  `UserInputState` that specifies the details of the user input after auto-completion.
 
-Step 1. The user launches the application for the first time. The `VersionedAddressBook` will be initialized with the initial address book state, and the `currentStatePointer` pointing to that single address book state.
+The last two operations are exposed in the `Model` interface as `Model#isAutoCompletable(UserInputState)()` and `Model#complete()` respectively.
 
-image::UndoRedoState0.png[]
+In addition, `AutoCompleter` has a nested class `UserInputState`, which reprsents the details of a user input status, including the text and the position of the caret.
+
+===== Workflow
+
+When the user presses a key in `UserInputTextField`, `UserInputTextField` checks if the key pressed is `Tab`. If `Tab` is pressed, the text field checks with `AutoCompleter` to verify if the current state is auto-completable. If the state is auto-completable, `UserInputTextField` will request for a suggestion by calling `Model#complete()` and set itself (including the text and caret position) accordingly. The workflow is illustrated in the diagram below:
+
+image::auto_complete_activity_diagram.png[]
+
+//TODO: Add figure X
+
+===== Navigating among suggestions
+
+The auto-complete feature allows the user to navigate among possible suggestions by repeately pressing `Tab`. 
+
+Internally, `AutoCompleter` maintains a cyclic list `SuggestionList` containing possible suggestions and a  `suggestionPointer` pointing to the current suggestion. 
+
+`suggestionPointer` moves to the next position and the suggestion When `AutoCompleter#complete()` is called.
+
+`SuggestionList` is updated if the user input no longer matches any of the suggestions in `SuggestionList`.
+
+==== Extending Auto-Complete to More Commands
+
+Following Open-Closed Principle, the Auto-Complete feature is designed to be extensible. You can add a command to support auto-completion by taking the following steps:
+
+*Step 1.* Declare `COMMAND_WORD`, `AUTO_COMPLETE_INDICATOR`(optional) and `AUTO_COMPLETE_PARAMETERS` (optional) in your command class.
+
+[NOTE] 
+`AUTO_COMPLETE_INDICATOR` is a string specifying when should the arguments be completed. Auto-complete only completes the arguments when this field is present in the beginning of user input;
+`AUTO_COMPLETE_PARAMETERS` is an array of `Prefix` that that you want to auto-complete.
+
+An example is shown below
+
+```
+public static final String AUTO_COMPLETE_INDICATOR = "order add";
+public static final Prefix[] AUTO_COMPLETE_PARAMETERS = { new Prefix("by"), new Prefix("name")};
+```
+
+*Step 2.* Add the command to `AutoCompleter` by calling `AutoCompleter#addCommandClass(Class<? extends Command>)`
+
 
 Step 2. The user executes `delete 5` command to delete the 5th person in the address book. The `delete` command calls `Model#commitAddressBook()`, causing the modified state of the address book after the `delete 5` command executes to be saved in the `addressBookStateList`, and the `currentStatePointer` is shifted to the newly inserted address book state.
 

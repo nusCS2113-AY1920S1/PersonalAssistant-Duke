@@ -13,6 +13,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 <?import javafx.stage.Stage?>
+
 <fx:root type="Stage" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
     <scene>
         <Scene stylesheets="@../css/duke.css">
@@ -22,12 +23,7 @@
                     <children>
                         <AnchorPane prefHeight="600.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="200.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                             <children>
-                                <JFXTextField fx:id="userInput" focusColor="#00bfa5" layoutX="10.0" layoutY="493.0"
-                                              onAction="#handleUserInput" onKeyPressed="#handleKeyPress"
-                                              prefHeight="33.0" prefWidth="338.0"
-                                              promptText="Enter any duke.logic.command to start"
-                                              AnchorPane.bottomAnchor="6.0" AnchorPane.leftAnchor="5.0"
-                                              AnchorPane.rightAnchor="5.0"/>
+                                <JFXTextField fx:id="userInput" focusColor="#00bfa5" layoutX="10.0" layoutY="493.0" onAction="#handleUserInput" onKeyPressed="#handleKeyPress" prefHeight="33.0" prefWidth="338.0" promptText="Enter any duke.logic.command to start" AnchorPane.bottomAnchor="6.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" />
                                 <Label fx:id="currentPage" text="Orders" textFill="#5086ec" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="5.0">
                                     <font>
                                         <Font name="Arial Bold" size="30.0" />
@@ -50,7 +46,7 @@
                                 <HBox fx:id="popUp" alignment="BOTTOM_CENTER" layoutX="10.0" layoutY="523.0" maxHeight="30.0" prefHeight="30.0" prefWidth="200.0" AnchorPane.bottomAnchor="60.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0">
                                     <children>
                                         <Label fx:id="popUpLabel" alignment="CENTER" maxHeight="30.0" prefHeight="30.0" text="fvfvdvfdfvfvdvfdfvfvdvfdfvfvdvfdfvfvdvfdfvfvdvfdfvfvdvfd" textFill="WHITE" />
-                                        <JFXButton fx:id="popUpButton" alignment="CENTER" defaultButton="true" minWidth="61.0" onAction="#handleOk" prefHeight="30.0" prefWidth="61.0" text="Okay" />
+                                        <JFXButton fx:id="popUpButton" alignment="CENTER" defaultButton="true" minWidth="61.0" onAction="#handleOk" prefHeight="30.0" prefWidth="61.0" text="Okay" textFill="WHITE" />
                                     </children>
                                 </HBox>
                             </children>
@@ -64,8 +60,7 @@
                                                 <Font name="Arial Bold" size="30.0" />
                                             </font>
                                         </Label>
-                                        <JFXButton fx:id="productButton" onAction="#handleShowRecipe"
-                                                   prefHeight="50.0" prefWidth="200.0" text="Products" textFill="WHITE">
+                                        <JFXButton fx:id="productButton" onAction="#handleShowRecipe" prefHeight="50.0" prefWidth="200.0" text="Products" textFill="WHITE">
                                             <font>
                                                 <Font name="Arial" size="18.0" />
                                             </font>
