@@ -3,7 +3,7 @@ package parser;
 import command.Command;
 import exception.DukeException;
 
-public abstract class DescriptionParser extends Parse {
+public abstract class DescriptionParser extends Parser {
 
     String checkType;
     String taskDescription;

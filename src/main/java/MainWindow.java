@@ -7,7 +7,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
-import parser.Parser;
+import parser.ParserFactory;
 import storage.Storage;
 import task.Task;
 import task.TaskList;
@@ -80,7 +80,7 @@ public class MainWindow extends AnchorPane {
     private void handleUserInput() {
         String input = userInput.getText();
         try {
-            Command command = Parser.parse(input);
+            Command command = ParserFactory.parse(input);
             command.execute(tasks, storage);
         } catch (DukeException e) {
             Ui.printMessage(e.getMessage());

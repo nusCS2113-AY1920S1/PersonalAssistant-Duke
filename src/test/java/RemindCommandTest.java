@@ -5,7 +5,7 @@ import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
-import parser.Parser;
+import parser.ParserFactory;
 import storage.Storage;
 import task.*;
 
@@ -60,10 +60,10 @@ public class RemindCommandTest {
     @Test
     public void whenExceptionThrown() {
         Assertions.assertThrows(DukeException.class, () -> {
-            Parser.parse("remind");
+            ParserFactory.parse("remind");
         });
         Assertions.assertThrows(DukeException.class, () -> {
-            Parser.parse(("remind 0 in 3 days"));
+            ParserFactory.parse(("remind 0 in 3 days"));
         });
         Assertions.assertThrows(DukeException.class, () -> {
             Command test = new RemindCommand(100, 3);

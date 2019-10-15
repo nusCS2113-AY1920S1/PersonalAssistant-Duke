@@ -3,7 +3,7 @@ package parser;
 import command.Command;
 import exception.DukeException;
 
-public abstract class IndexParser extends Parse {
+public abstract class IndexParser extends Parser {
 
     int indexOfTask;
 

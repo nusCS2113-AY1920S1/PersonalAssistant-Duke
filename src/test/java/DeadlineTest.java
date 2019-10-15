@@ -1,7 +1,7 @@
 import exception.DukeException;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import parser.Parser;
+import parser.ParserFactory;
 import task.Deadline;
 
 import java.time.LocalDateTime;
@@ -22,7 +22,7 @@ public class DeadlineTest {
     @Test
     public void whenExceptionThrown() {
         Assertions.assertThrows(DukeException.class, () -> {
-            Parser.parse("deadline");
+            ParserFactory.parse("deadline");
         });
     }
 
