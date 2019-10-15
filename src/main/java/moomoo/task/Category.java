@@ -41,6 +41,7 @@ public class Category {
     
     public double getCategoryMonthTotal() {
         return monthTotal;
+    }
 
     void addExpenditure() {
 
