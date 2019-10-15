@@ -7,7 +7,7 @@ import UserCode.Conditions.Condition;
 
 class Parser {
     static Command parse(String userInput, Farmio.Stage stage) throws FarmioException {
-        //userInput = userInput.toLowerCase();
+        userInput = userInput.toLowerCase();
         switch (stage) {
             case WELCOME:
                 return new CommandMenuStart();
@@ -53,7 +53,7 @@ class Parser {
     private static Command parseDoTask(String userInput) throws FarmioException {
         String userAction = (userInput.substring(userInput.indexOf(" "))).trim();
         if (Action.validateAction(userAction)) {
-            return new CommandCreateTask("TRUE", userAction);
+            return new CommandTaskCreate("do","TRUE", userAction);
         } else {
             throw new FarmioException("Invalid action!");
         }
@@ -63,7 +63,7 @@ class Parser {
         String taskType = "", condition = "", action = "";
         try {
             taskType = (userInput.substring(0, userInput.indexOf(" "))).trim();
-            condition = (userInput.substring(userInput.indexOf(" ") + 1, userInput.indexOf("then"))).trim();
+            condition = (userInput.substring(userInput.indexOf(" ") + 1, userInput.indexOf("do"))).trim();
             action = userInput.substring(userInput.lastIndexOf(" ") + 1);
         } catch (Exception e) {
             throw new FarmioException("Invalid command format!");
@@ -80,7 +80,7 @@ class Parser {
         if (!Action.validateAction(action)) {
             throw new FarmioException("Invalid Action!");
         }
-        return new CommandCreateTask(taskType, condition, action);
+        return new CommandTaskCreate(taskType, condition, action);
     }
 
     /*
