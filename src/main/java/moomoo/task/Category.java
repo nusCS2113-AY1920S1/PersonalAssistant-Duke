@@ -5,14 +5,46 @@ import java.util.ArrayList;
 public class Category {
 
     private String name;
-    private ArrayList<String> entries;
+    private ArrayList<Expenditure> expenditure;
 
     public Category(String name) {
         this.name = name;
-        this.entries = new ArrayList<>();
+        this.expenditure = new ArrayList<>();
+    }
+
+    public int getExpenditureArraySize() {
+        return expenditure.size();
+    }
+
+    /**
+     * Calculates the total expenditure for every entry in the category.
+     * @return
+     */
+    public double getTotalExpenditure() {
+        double totalCost = 0;
+        for (Expenditure entry : expenditure) {
+            totalCost += entry.cost;
+        }
+        return totalCost;
     }
 
     String getName() {
         return name;
+    }
+
+    double getMonthlyExpenditure(int month) {
+        return 0;
+    }
+
+    void addExpenditure() {
+
+    }
+
+    void editExpenditure() {
+
+    }
+
+    void deleteExpenditure() {
+
     }
 }

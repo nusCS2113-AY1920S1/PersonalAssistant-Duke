@@ -3,6 +3,7 @@ package moomoo.task;
 import java.util.ArrayList;
 
 public class CategoryList {
+
     private ArrayList<Category> categoryList;
 
     public CategoryList() {
@@ -25,7 +26,19 @@ public class CategoryList {
         ui.showCategoryList(categoryList);
     }
 
+    public ArrayList<Category> getCategoryList() {
+        return categoryList;
+    }
+
     public void add(Category newCategory) {
         categoryList.add(newCategory);
+    }
+
+    void deleteExpenditure() {
+
+    }
+
+    double getMonthlyGrandTotal(int month) {
+        return 0;
     }
 }
