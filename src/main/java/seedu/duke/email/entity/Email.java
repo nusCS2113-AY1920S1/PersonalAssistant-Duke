@@ -66,6 +66,10 @@ public class Email {
         this.tags.add(tag);
     }
 
+    public ArrayList<String> getTags() {
+        return this.tags;
+    }
+
     public String getRawJson() {
         return this.rawJson;
     }
