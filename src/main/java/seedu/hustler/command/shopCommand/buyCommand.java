@@ -16,6 +16,6 @@ public class buyCommand extends Command {
 
     @Override
     public void execute() throws IOException {
-        Hustler.shopList.buy(this.index);
+        Hustler.shopList.buy(this.index - 1);
     }
 }

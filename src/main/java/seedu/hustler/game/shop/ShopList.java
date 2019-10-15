@@ -25,7 +25,7 @@ public class ShopList {
         }
     }
 
-    public Optional<shopItem> buy(int index) {
+    public void buy(int index) {
         try {
             if (!shopList.get(index).isPurchased()) {
                 if (shopList.get(index).canPurchase(Achievements.totalPoints)) {
@@ -39,10 +39,9 @@ public class ShopList {
             } else {
                 System.out.println("\tItem has already been purchased! Please check your inventory.");
             }
-        } catch (ArrayIndexOutOfBoundsException e) {
+        } catch (IndexOutOfBoundsException e) {
             System.out.println("\tThere is no such index! Please input a valid number");
         }
-        return Optional.ofNullable(shopList.get(index));
     }
 
     private void populateShop() {

@@ -7,6 +7,8 @@ import seedu.hustler.command.shopCommand.buyCommand;
 import seedu.hustler.command.shopCommand.shopListCommand;
 import seedu.hustler.command.taskCommand.*;
 import seedu.hustler.data.CommandLog;
+
+import java.text.ParseException;
 import java.util.Arrays;
 
 import seedu.hustler.command.*;
@@ -88,7 +90,13 @@ public class CommandParser extends Parser {
         } else if (userInput[0].equals("/shop")) {
             return new shopListCommand();
         } else if (userInput[0].equals("buy")) {
-            return new buyCommand(Integer.parseInt(userInput[1]));
+            try {
+                int index = Integer.parseInt(userInput[1]);
+                return new buyCommand(index);
+            } catch (NumberFormatException e) {
+                System.out.println("\tPlease input buy <index>!");
+                return new InvalidCommand();
+            }
         } else {
             return new InvalidCommand();
         }
