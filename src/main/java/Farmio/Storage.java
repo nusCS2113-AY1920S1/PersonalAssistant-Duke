@@ -43,7 +43,7 @@ public class Storage {
 
     public String getAsciiArt(String name) throws IOException {
         StringBuilder art = new StringBuilder();
-        FileReader fileReader = new FileReader(getResourceFile(name+".txt"));
+        FileReader fileReader = new FileReader(getResourceFile("asciiArt/" + name+".txt"));
         BufferedReader bufferedReader = new BufferedReader(fileReader);
         String line;
         while ((line = bufferedReader.readLine()) != null) {
