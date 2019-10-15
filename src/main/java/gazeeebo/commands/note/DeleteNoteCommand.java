@@ -1,22 +1,12 @@
 package gazeeebo.commands.note;
 
-<<<<<<< HEAD:src/main/java/gazeeebo/commands/note/DeleteNoteCommand.java
 import gazeeebo.Storage.Storage;
 import gazeeebo.Tasks.Task;
 import gazeeebo.UI.Ui;
 import gazeeebo.Exception.DukeException;
 import gazeeebo.notes.Note;
 import gazeeebo.notes.NoteList;
-=======
-import Storage.Storage;
 import Storage.NoteStorage;
-import Tasks.Task;
-import UI.Ui;
-import Exception.DukeException;
-import notes.Note;
-import notes.NoteList;
->>>>>>> 85c7997012ee8ba5dcdc3e69104a9f4a5bf6c3a3:src/main/java/commands/note/DeleteNoteCommand.java
-
 import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
