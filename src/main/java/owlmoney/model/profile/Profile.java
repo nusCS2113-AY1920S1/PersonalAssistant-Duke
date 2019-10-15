@@ -34,6 +34,7 @@ public class Profile {
         this.username = newUserName;
         this.bankList = new BankList();
         this.cardList = new CardList();
+        this.goalsList = new GoalsList();
     }
 
     /**
@@ -89,9 +90,9 @@ public class Profile {
     public void profileAddNewExpenditure(String accName, Transaction exp, Ui ui, String type)
             throws BankException, CardException {
         if ("card".equals(type)) {
-            cardList.cardListAddExpenditure(accName, exp, ui);
-        } else if ("bank".equals(type)) {
-            bankList.bankListAddExpenditure(accName, exp, ui);
+            cardList.cardListAddExpenditure(accName, exp, ui, type);
+        } else if ("bank".equals(type) || "bond".equals(type)) {
+            bankList.bankListAddExpenditure(accName, exp, ui, type);
         }
     }
 
@@ -133,6 +134,7 @@ public class Profile {
      * @param listedBankOrCard Bank account or credit card to list from.
      * @param ui         required for printing.
      * @param displayNum Number of expenditure to list.
+     * @param type Type of account to add expenditure into.
      * @throws BankException If bank account does not exist.
      * @throws TransactionException If no expenditure found.
      */
@@ -217,10 +219,12 @@ public class Profile {
      * @param accName Bank account name.
      * @param dep     Deposit to be added.
      * @param ui      required for printing.
+     * @param bankType Type of bank to add deposit into
      * @throws BankException If bank account does not exist.
      */
-    public void profileAddNewDeposit(String accName, Transaction dep, Ui ui) throws BankException {
-        bankList.bankListAddDeposit(accName, dep, ui);
+    public void profileAddNewDeposit(String accName, Transaction dep, Ui ui, String bankType)
+            throws BankException {
+        bankList.bankListAddDeposit(accName, dep, ui, bankType);
     }
 
     /**

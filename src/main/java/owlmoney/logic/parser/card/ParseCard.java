@@ -66,13 +66,19 @@ public abstract class ParseCard {
      * Checks if the parameter entered by the user is a double and only contains numbers.
      *
      * @param valueString String to be checked and converted to double.
-     * @param keyword Keyword of the parameter to be checked and converted to double.
      * @throws ParserException If the string is not a double value.
      */
-    void checkDouble(String valueString, String keyword) throws ParserException {
+    void checkLimist(String valueString) throws ParserException {
         if (!RegexUtil.regexCheckMoney(valueString)) {
-            throw new ParserException(keyword + " can only be positive numbers"
+            throw new ParserException("Limit can only be positive numbers"
                     + " with at most 9 digits and 2 decimal places");
+        }
+    }
+
+    void checkCashBack(String valueString) throws ParserException {
+        if (!RegexUtil.regexCheckMoney(valueString)) {
+            throw new ParserException("Cash back can only be positive numbers"
+                    + " with at most 2 digits and 2 decimal places and at most 20");
         }
     }
 

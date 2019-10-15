@@ -16,6 +16,7 @@ public abstract class Transaction {
     private double amount;
     private Date date;
     private String category;
+    private boolean spent;
 
     /**
      * Creates an instance of a transaction object.
@@ -30,6 +31,10 @@ public abstract class Transaction {
         this.amount = amount;
         this.date = date;
         this.category = category;
+    }
+
+    void setSpent(boolean spent) {
+        this.spent = spent;
     }
 
     /**
@@ -70,7 +75,7 @@ public abstract class Transaction {
     }
 
     private String checkDebitCredit() {
-        if (this.category.equals("deposit")) {
+        if (!this.spent) {
             return "[+] $";
         } else {
             return "[-] $";
@@ -85,7 +90,7 @@ public abstract class Transaction {
     String getDetails() {
         return "Description: " + getDescription() + "\nAmount: " + checkDebitCredit()
                 + new DecimalFormat("0.00").format(getAmount()) + "\nDate: " + getDate()
-                + "\nCategory: " + getCategory();
+                + "\nCategory: " + getCategory() + "\n";
     }
 
     /**

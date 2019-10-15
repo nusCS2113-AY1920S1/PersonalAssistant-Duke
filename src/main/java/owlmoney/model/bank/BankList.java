@@ -307,12 +307,14 @@ public class BankList {
      * @param accName The Bank account name.
      * @param exp     The instance of the expenditure.
      * @param ui      Required for printing.
+     * @param type Type of bank to add expenditure into.
      * @throws BankException If bank account does not exist.
      */
-    public void bankListAddExpenditure(String accName, Transaction exp, Ui ui) throws BankException {
+    public void bankListAddExpenditure(String accName, Transaction exp, Ui ui, String type)
+            throws BankException {
         for (int i = 0; i < bankLists.size(); i++) {
             if (bankLists.get(i).getAccountName().equals(accName)) {
-                bankLists.get(i).addInExpenditure(exp, ui);
+                bankLists.get(i).addInExpenditure(exp, ui, type);
                 return;
             }
         }
@@ -370,12 +372,13 @@ public class BankList {
      * @param accName The Bank account name.
      * @param dep     The instance of the deposit.
      * @param ui      Required for printing.
+     * @param bankType Type of bank to add deposit into
      * @throws BankException If bank name does not exist.
      */
-    public void bankListAddDeposit(String accName, Transaction dep, Ui ui) throws BankException {
+    public void bankListAddDeposit(String accName, Transaction dep, Ui ui, String bankType) throws BankException {
         for (int i = 0; i < bankLists.size(); i++) {
             if (bankLists.get(i).getAccountName().equals(accName)) {
-                bankLists.get(i).addDepositTransaction(dep, ui);
+                bankLists.get(i).addDepositTransaction(dep, ui, bankType);
                 return;
             }
         }

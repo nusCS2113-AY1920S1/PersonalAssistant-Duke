@@ -162,14 +162,15 @@ public class CardList {
      * @param cardName The credit card name.
      * @param exp      The instance of the expenditure.
      * @param ui       Required for printing.
+     * @param type Type of account to add expenditure into
      * @throws CardException If the credit card name cannot be found.
      */
     //need change exception class in the future for this
-    public void cardListAddExpenditure(String cardName, Transaction exp, Ui ui)
+    public void cardListAddExpenditure(String cardName, Transaction exp, Ui ui, String type)
             throws CardException {
         for (int i = 0; i < cardLists.size(); i++) {
             if (cardLists.get(i).getName().equals(cardName)) {
-                cardLists.get(i).addInExpenditure(exp, ui);
+                cardLists.get(i).addInExpenditure(exp, ui, type);
                 return;
             }
         }

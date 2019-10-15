@@ -50,14 +50,18 @@ public class Saving extends Bank {
      *
      * @param exp an instance of expenditure.
      * @param ui  required for printing.
+     * @param bankType Type of bank to add expenditure into.
      * @throws BankException If bank account becomes negative after adding expenditure.
      */
     @Override
-    public void addInExpenditure(Transaction exp, Ui ui) throws BankException {
+    public void addInExpenditure(Transaction exp, Ui ui, String bankType) throws BankException {
+        if (!"bank".equals(bankType)) {
+            throw new BankException("Bonds cannot be added to this account");
+        }
         if (exp.getAmount() > this.getCurrentAmount()) {
             throw new BankException("Bank account cannot have a negative amount");
         } else {
-            transactions.addExpenditureToList(exp, ui);
+            transactions.addExpenditureToList(exp, ui, bankType);
             deductFromAmount(exp.getAmount());
         }
     }
@@ -162,10 +166,14 @@ public class Saving extends Bank {
      *
      * @param dep Deposit to add.
      * @param ui  Ui of OwlMoney.
+     * @param bankType Type of bank to add deposit into.
      */
     @Override
-    void addDepositTransaction(Transaction dep, Ui ui) {
-        transactions.addDepositToList(dep, ui);
+    void addDepositTransaction(Transaction dep, Ui ui, String bankType) throws BankException {
+        if (!"bank".equals(bankType)) {
+            throw new BankException("This account does not support investment account deposits");
+        }
+        transactions.addDepositToList(dep, ui, bankType);
         addToAmount(dep.getAmount());
     }
 

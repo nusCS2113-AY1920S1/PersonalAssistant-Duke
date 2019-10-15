@@ -108,10 +108,11 @@ public abstract class Bank {
      * Abstract method which adds a new expenditure to the current bank account.
      *
      * @param exp Expenditure to be added.
-     * @param ui  Ui of OwlMoney
+     * @param ui  Ui of OwlMoney.
+     * @param bankType Type of bank to add expenditure into.
      * @throws BankException If bank amount becomes negative after adding expenditure.
      */
-    public abstract void addInExpenditure(Transaction exp, Ui ui) throws BankException;
+    public abstract void addInExpenditure(Transaction exp, Ui ui, String bankType) throws BankException;
 
     /**
      * Abstract method which deletes an expenditure from the current bank account.
@@ -119,8 +120,11 @@ public abstract class Bank {
      * @param exNum Transaction number.
      * @param ui    Ui of OwlMoney.
      * @throws TransactionException If invalid transaction.
+     * @throws BankException If used on investment account.
      */
-    public abstract void deleteExpenditure(int exNum, Ui ui) throws TransactionException;
+    public void deleteExpenditure(int exNum, Ui ui) throws TransactionException, BankException {
+        throw new BankException("This account does not support this feature");
+    }
 
     /**
      * Edits expenditure in the current bank account.
@@ -181,7 +185,7 @@ public abstract class Bank {
      *
      * @param ui         Ui of OwlMoney.
      * @param displayNum Number of deposits to list.
-     * @throws TransactionException If no deposit is found
+     * @throws TransactionException If no deposit is found.
      * @throws BankException        If used on investment account.
      */
     void listAllDeposit(Ui ui, int displayNum) throws TransactionException, BankException {
@@ -193,9 +197,10 @@ public abstract class Bank {
      *
      * @param dep Deposit to add.
      * @param ui  Ui of OwlMoney.
+     * @param bankType Type of bank to add deposit into
      * @throws BankException If used on investment account.
      */
-    void addDepositTransaction(Transaction dep, Ui ui) throws BankException {
+    void addDepositTransaction(Transaction dep, Ui ui, String bankType) throws BankException {
         throw new BankException("This account does not support this feature");
     }
 
@@ -261,7 +266,7 @@ public abstract class Bank {
      *
      * @param bondName the name of the bond to edit.
      * @param year     the new year of the bond.
-     * @param rate     the new rate
+     * @param rate     the new rate.
      * @param ui       required for printing.
      * @throws BankException If used on savings account.
      */

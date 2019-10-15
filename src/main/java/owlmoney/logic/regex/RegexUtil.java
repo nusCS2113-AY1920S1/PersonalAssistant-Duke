@@ -53,7 +53,7 @@ public final class RegexUtil {
      * @return the result of the check on whether it fulfills the criteria.
      */
     public static boolean regexCheckCashbackRate(String input) {
-        final String interestRegex = "^\\s*(?=.*[1-9])\\d{1,2}(\\.\\d{2})?$";
+        final String interestRegex = "^\\s*(?=.*[1-9])\\d{1,2}(\\.\\d{1,2})?$";
         if (input.matches(interestRegex)) {
             double parsedInput = Double.parseDouble(input);
             return (parsedInput <= 20.00);
