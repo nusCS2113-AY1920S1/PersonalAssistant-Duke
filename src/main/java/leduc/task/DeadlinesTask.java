@@ -33,6 +33,21 @@ public class DeadlinesTask extends Task {
         super(task,priority);
         this.deadlines = deadlines;
     }
+
+    /**
+     * Constructor of leduc.task.DeadlinesTask. The task could be done or not depending on the parameter given.
+     * And the priority is 5 by default.
+     * @param task  String representing the description of the Task.
+     * @param mark represent if the task is done or not.
+     * @param deadlines the deadline of the task.
+     */
+    public DeadlinesTask(String task, String mark, Date deadlines){
+        super(task,mark);
+        this.tag ="[D]";
+        this.deadlines = deadlines;
+    }
+
+
     /**
      * Constructor of leduc.task.DeadlinesTask. The task could be done or not depending on the parameter given.
      * @param task  String representing the description of the Task.
