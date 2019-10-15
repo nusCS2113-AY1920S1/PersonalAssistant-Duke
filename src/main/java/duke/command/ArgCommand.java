@@ -33,7 +33,23 @@ public abstract class ArgCommand extends Command {
         return switches;
     }
 
-    void setSwitchValMap(HashMap<String, String> switchVals) {
+    void setSwitchValsMap(HashMap<String, String> switchVals) {
         this.switchVals.putAll(switchVals);
+    }
+
+    void setSwitchVal(String switchName, String value) {
+        switchVals.put(switchName, value);
+    }
+
+    String getSwitchVal(String switchName) {
+        return switchVals.get(switchName);
+    }
+
+    void setArg(String arg) {
+        this.arg = arg;
+    }
+
+    String getArg() {
+        return arg;
     }
 }

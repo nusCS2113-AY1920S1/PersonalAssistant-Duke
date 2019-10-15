@@ -134,7 +134,7 @@ public class Parser {
         }
 
         checkCommandValid();
-        currCommand.setSwitchValMap(switchVals);
+        currCommand.setSwitchValsMap(switchVals);
     }
 
     private void handleEmpty(char curr) throws DukeHelpException {
@@ -226,12 +226,12 @@ public class Parser {
     }
 
     private void writeElement() {
-        assert (currSwitch != null || currCommand.arg == null);
+        assert (currSwitch != null || currCommand.getArg() == null);
         if (currSwitch != null) {
             switchVals.put(currSwitch, elementBuilder.toString());
             currSwitch = null;
         } else { //currCommand.arg == null
-            currCommand.arg = elementBuilder.toString();
+            currCommand.setArg(elementBuilder.toString());
         }
         elementBuilder.setLength(0); //clear elementBuilder
         state = EMPTY;
@@ -257,12 +257,12 @@ public class Parser {
 
     private void checkInputAllowed() throws DukeHelpException {
         if (currSwitch == null) {
-            if (currCommand.arg == null) {
+            if (currCommand.getArg() == null) {
                 if (currCommand.cmdArgLevel == ArgLevel.NONE) {
                     throw new DukeHelpException("This command should not have an argument!", currCommand);
                 }
             } else {
-                throw new DukeHelpException("Multiple arguments supplied! You already gave: " + currCommand.arg,
+                throw new DukeHelpException("Multiple arguments supplied! You already gave: " + currCommand.getArg(),
                         currCommand);
             }
         }
