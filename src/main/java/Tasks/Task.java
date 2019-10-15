@@ -34,6 +34,10 @@ public class Task {
         return (isDone ? "\u2713" : "\u2718");
     }
 
+    public boolean getStatus() {
+        return isDone;
+    }
+
     private String getReminderStatus() {
         return (isReminder ? "[HR]" : "[NR]");
     }
