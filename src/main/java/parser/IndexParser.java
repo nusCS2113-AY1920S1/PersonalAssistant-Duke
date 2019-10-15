@@ -26,8 +26,8 @@ public abstract class IndexParser extends Parse {
             throw new DukeException(DukeException.unknownUserCommand());
         }
         if (index <= 0) {
-            throw new DukeException("Non-positive number for index detected." +
-                    " Please input a positive number for task index.");
+            throw new DukeException("Non-positive number for index detected."
+                    + " Please input a positive number for task index.");
         }
         return index;
     }

@@ -19,10 +19,14 @@ public abstract class DescriptionParser extends Parse {
         this.taskDescription = parseDetails(taskFeatures, checkType);
     }
 
-    private String parseDetails(String taskFeatures, String checkType) {
+    private String parseDetails(String taskFeatures, String checkType) throws DukeException {
         if (checkType == null) {
             return taskFeatures;
         }
-        return taskFeatures.split(checkType,2)[0].trim();
+        String description = taskFeatures.split(checkType,2)[0].trim();
+        if (description.isEmpty()) {
+            throw new DukeException(DukeException.emptyUserDescription());
+        }
+        return description;
     }
 }

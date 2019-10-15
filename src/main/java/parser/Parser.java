@@ -63,7 +63,7 @@ public class Parser {
             }
             return new TodoParser(userInput, command).parse();
         case "deadline":
-            return parseDeadline(command, userInput);
+            return new DeadlineParser(userInput, command).parse();
         case "event":
             return parseEvent(command, userInput);
         case "find":
@@ -196,30 +196,6 @@ public class Parser {
         } catch (ArrayIndexOutOfBoundsException e) {
             throw new DukeException(DukeException.emptyUserDescription());
         }
-    }
-
-    private static Command parseDeadline(String command, String userInput) throws DukeException {
-        String taskFeatures;
-        String checkType = "/by";
-
-        taskFeatures = extractDescription(command, userInput);
-        String taskDescription = taskFeatures.split(checkType, 2)[0].trim();
-        if (taskDescription.isEmpty()) {
-            throw new DukeException(DukeException.emptyUserDescription());
-        }
-
-        String dateTimeFromUser;
-        LocalDateTime atDate;
-        try {
-            dateTimeFromUser = taskFeatures.split(checkType, 2)[1].trim();
-            atDate = DateTimeExtractor.extractDateTime(dateTimeFromUser, command);
-        } catch (ArrayIndexOutOfBoundsException e) {
-            throw new DukeException(DukeException.emptyDateOrTime());
-        } catch (ParseException e) {
-            throw new DukeException(DukeException.wrongDateOrTime());
-        }
-        assert atDate != null;
-        return new AddCommand(command, taskDescription, atDate, null);
     }
 
     private static Command parseEvent(String command, String userInput) throws DukeException {

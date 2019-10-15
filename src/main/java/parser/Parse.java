@@ -15,7 +15,7 @@ public abstract class Parse {
         this.command = command;
     }
 
-    abstract public Command parse() throws DukeException;
+    public abstract Command parse() throws DukeException;
 
     String removeCommandInput(String userInput) throws DukeException {
         String taskFeatures;

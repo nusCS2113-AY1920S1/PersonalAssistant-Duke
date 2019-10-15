@@ -21,6 +21,9 @@ public class RemindCommandTest {
     private static Storage storage;
     private static Command reminder;
 
+    /**
+     * Setups the necessary base to carry out the test operations.
+     */
     @BeforeAll
     public static void setup() {
         list = new ArrayList<>();
@@ -60,11 +63,11 @@ public class RemindCommandTest {
             Parser.parse("remind");
         });
         Assertions.assertThrows(DukeException.class, () -> {
-           Parser.parse(("remind 0 in 3 days"));
+            Parser.parse(("remind 0 in 3 days"));
         });
         Assertions.assertThrows(DukeException.class, () -> {
-           Command test = new RemindCommand(100, 3);
-           test.execute(tasks, storage);
+            Command test = new RemindCommand(100, 3);
+            test.execute(tasks, storage);
         });
     }
 
