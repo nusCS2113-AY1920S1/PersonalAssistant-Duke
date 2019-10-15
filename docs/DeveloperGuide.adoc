@@ -143,6 +143,8 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 |33|* *|existing user|delete my investment account (bond)|sell it before the maturity date.
 |34|* *|existing user|have my investment account’s (bond) interest being accumulated automatically every half yearly|do not have to go through the hassle of entering it manually
 |35|* *|existing user|have my money transfer from one bank account to another bank account|I can organize them as investment or saving account for ease in tracking different expenditure
+|36|* *|organised user|list my card details|view the specific details like cashback rate and credit limit of my card.
+|37|* *|organised user|list my card expenditures|view how much I have spent and reduce my spending accordingly.
 |===
 
 
@@ -445,8 +447,9 @@ Use case ends.
 . System requests the keyword to be search.
 . User specifies the keyword to be search.
 . System displays information found from the search.
-Use case ends.
 +
+Use case ends.
+
 *Extensions*
 [none]
 * 3a. System detects invalid user input.
@@ -475,6 +478,7 @@ Use case ends.
 . System creates the financial goal.
 +
 Use case ends.
+
 *Extensions*
 [none]
 * 3a. System detects invalid user input.
@@ -713,6 +717,7 @@ Use case ends.
 *Preconditions:*
 
 * *User has a profile created*
+
 *Main success scenario:*
 
 . User chooses to set recurring income.
@@ -803,7 +808,7 @@ Use case ends.
 ** 3a2. User re-enters input.
 ** Steps 3a1-3a2 are repeated until the input entered are correct.
 * Use case resumes from step 4.
-** 5a. System detects invalid user input.
+* 5a. System detects invalid user input.
 ** 5a1. System requests for the correct user input.
 ** 5a2. User re-enters input.
 ** Steps 5a1-5a2 are repeated until the input entered are correct.
@@ -1062,6 +1067,57 @@ Use case ends.
 *Extensions*
 [none]
 * 3a. System detects invalid user input in personal details.
+** 3a1. System requests for the correct user input.
+** 3a2. User re-enters input.
+** Steps 3a1-3a2 are repeated until the input entered are correct.
+** Use case resumes from step 4.
+
+
+
+
+
+*Actor: Organized User* +
+[[UC-36]] *Use case: UC36 - Gain achievement* +
+*Preconditions:*
+
+* *User has a profile created*
+* *User has added a credit card to the profile*
+
+*Main success scenario:*
+
+. User choose to list credit card details.
+. System displays all credit card details.
++
+Use case ends.
+
+*Extensions*
+
+* None
+
+
+
+
+
+*Actor: Organized User* +
+[[UC-37]] *Use case: UC37 - Gain achievement* +
+*Preconditions:*
+
+* *User has a profile created*
+* *User has added a credit card to the profile*
+* *User has expenditure added to credit card*
+
+*Main success scenario:*
+
+. User chooses to list the card expenditure record.
+. System requests name of the card for the expenditure to be listed.
+. User specifies the name of the card for the expenditure to be listed.
+. System displays the expenditure records specified.
++
+Use case ends.
+
+*Extensions*
+
+* 3a. System detects invalid user input.
 ** 3a1. System requests for the correct user input.
 ** 3a2. User re-enters input.
 ** Steps 3a1-3a2 are repeated until the input entered are correct.

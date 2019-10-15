@@ -101,18 +101,18 @@ image::Ui.png[width="970"]
 endif::[]
 +
 . As this is your first time starting up this program, you have to create a profile by
-typing *`/add /profile /name USER_NAME `* and pressing kbd:[Enter]
+typing your *USER NAME* when prompted and pressing kbd:[Enter]
 . You can now try entering commands in the *command box* and press kbd:[Enter] to execute it! +
 e.g. try typing *`help`* and pressing kbd:[Enter] will list down the commands available.
 . Some example commands you can try:
-* **`/add`** `/savings /name JunBank Savings Account /amount 4719.90 /income 2000`
+* `/add /savings /name JunBank Savings Account /amount 4719.90 /income 2000`
 : adds a new `JunBank Savings Account`, which has an initial amount of $`4719.90` dollars.
-* **`/delete`** `/savings /name JunBank Savings Account`
+* `/delete /savings /name JunBank Savings Account`
 : deletes JunBank Savings Account
-* **`/list`** `/savings`
-: lists all bank accounts
-* **`/exit`**
-: exits the app
+* `/list /savings`
+: lists all savings accounts
+* `/exit`
+: exits *OwlMoney*
 
 .  Refer to, <<Features>> for details of each command.
 
