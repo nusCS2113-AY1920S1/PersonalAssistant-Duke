@@ -1,3 +1,4 @@
+import autocomplete.AutoComplete;
 import controlpanel.Parser;
 import guicommand.UserIcon;
 import javafx.fxml.FXML;
@@ -7,9 +8,11 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import org.controlsfx.control.textfield.TextFields;
 
 import java.io.*;
 import java.text.ParseException;
+import java.util.List;
 
 /**
  * Controller for MainWindow. Provides the layout for the other controls.
@@ -29,6 +32,8 @@ public class MainWindow extends AnchorPane implements DataTransfer {
     @FXML
     private TextField searchBar;
     @FXML
+    public VBox PopUpContainer;
+    @FXML
     private Button sendButton;
     @FXML
     private Button searchButton;
@@ -38,7 +43,7 @@ public class MainWindow extends AnchorPane implements DataTransfer {
 
     private static Image userImage;
     private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
-
+    private AutoComplete autoComplete = new AutoComplete();
     /**
      * Initialises scroll bar and outputs Duke Welcome message on startup of GUI.
      */
@@ -122,6 +127,26 @@ public class MainWindow extends AnchorPane implements DataTransfer {
             graphContainer.getChildren().addAll(
                     DialogBox.getDukeDialog(response[1], dukeImage));
         }
+    }
 
+    @FXML
+    private void autoCompleteSuggestion() {
+        List<String> commands = autoComplete.Populate(userInput.getText());
+        TextFields.bindAutoCompletion(userInput, commands);
+    }
+
+    @FXML
+    private void handleSuggestion() {
+        String input = userInput.getText();
+        String[] response = duke.getResponse("find " + input);
+        dialogContainer.getChildren().addAll(
+                DialogBox.getUserDialog(input, userImage),
+                DialogBox.getDukeDialog(response[0], dukeImage)
+        );
+        if(!response[1].equals("")){
+            PopUpContainer.getChildren().clear();
+            PopUpContainer.getChildren().addAll(
+                    DialogBox.getDukeDialog(response[1], dukeImage));
+        }
     }
 }

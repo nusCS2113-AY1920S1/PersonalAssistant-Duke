@@ -1,15 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="580.0" prefWidth="910.0" xmlns="http://javafx.com/javafx/10.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="MainWindow">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="680.0" prefWidth="910.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="MainWindow">
     <children>
-        <TextField fx:id="searchBar" layoutY="558.0" onKeyReleased="#handleSearchInput" prefHeight="30" prefWidth="348.0" AnchorPane.bottomAnchor="45.0" />
-        <TextField fx:id="userInput" layoutY="558.0" onAction="#handleUserInput" prefHeight="41.0" prefWidth="830.0" AnchorPane.bottomAnchor="1.0" />
+        <TextField fx:id="searchBar" layoutY="500.0" onKeyReleased="#handleSearchInput" prefHeight="30" prefWidth="348.0" AnchorPane.bottomAnchor="149.60000000000002" />
+        <TextField fx:id="userInput" layoutY="530.0" onAction="#handleUserInput" onKeyReleased="#autoCompleteSuggestion" prefHeight="41.0" prefWidth="830.0" AnchorPane.bottomAnchor="108.39999999999998" />
         <!--<Button fx:id="sendButton" layoutX="834.0" layoutY="600.0" mnemonicParsing="false" onAction="#handleUserInput" prefHeight="41.0" prefWidth="76.0" text="Send" />-->
         <ScrollPane fx:id="scrollPane" hbarPolicy="NEVER" hmax="10.0" hvalue="10.0" pannable="true" prefHeight="500.0" prefWidth="369.0" vmax="10.0" vvalue="10.0">
             <content>
@@ -21,5 +20,6 @@
             <VBox fx:id="graphContainer" prefWidth="409.0" />
          </content>
       </ScrollPane>
+      <VBox layoutY="572.0" prefHeight="30.0" prefWidth="238.0" />
     </children>
 </AnchorPane>
