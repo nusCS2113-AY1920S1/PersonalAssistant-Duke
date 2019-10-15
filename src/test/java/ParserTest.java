@@ -1,9 +1,27 @@
+
+import duke.command.ByeCommand;
+import duke.command.DeleteCommand;
+import duke.command.DoneCommand;
+import duke.command.FindCommand;
+import duke.command.ListCommand;
+import duke.command.NewDeadlineCommand;
+import duke.command.NewEventCommand;
+import duke.command.NewRecurringTaskCommand;
+import duke.command.NewToDoCommand;
+import duke.command.Parser;
+import duke.command.SnoozeCommand;
+import duke.exception.DukeException;
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
+
 public class ParserTest {
 
     // TODO test failure modes
     // this is going to take a lot of typing
 
-    //private Parser uut = new Parser();
+    private Parser uut = new Parser();
 
     @Test
     public void parseCommands_validCommands_correctCommandsReturned() {
