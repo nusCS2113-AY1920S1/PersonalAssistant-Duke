@@ -1,6 +1,5 @@
 package duke.util;
 
-import duke.modules.ModuleInfoSummary;
 import duke.modules.Task;
 
 import java.util.List;
@@ -176,13 +175,13 @@ public class Ui {
      *
      * @param taskList to be printed to user.
      */
-    public void printReportTwo(List<Task> taskList, ModuleInfoSummary[] sem) {
-        int availableSUs;
-        if (sem[sem.length - 1] == 1 || sem[sem.length -1] == 2) {
+    public void printReportTwo(List<Task> taskList) {
+        int availableSUs = 0;
+        /*if (sem[sem.length - 1] == 1 || sem[sem.length -1] == 2) {
             availableSUs = 20;
         } else {
             availableSUs = 12;
-        }
+        }*/
         int SUsLeft = availableSUs - taskList.size();
         int numOfSem = 1; // Update this
         System.out.println(

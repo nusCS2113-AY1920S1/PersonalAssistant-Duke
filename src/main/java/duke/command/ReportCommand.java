@@ -1,6 +1,5 @@
 package duke.command;
 
-import duke.modules.Task;
 import duke.util.Reminder;
 import duke.util.Storage;
 import duke.util.TaskList;
@@ -16,6 +15,9 @@ public class ReportCommand extends Command {
     public ReportCommand() {
 
     }
+
+
+
 
     /**
      * Takes in TaskList, Ui and Storage objects which then displays
@@ -33,17 +35,17 @@ public class ReportCommand extends Command {
             ui.reportListMsg();
             ui.printReportOne(tasks.getTasks());
 
-            List<Task> ETemp = tasks.find("[E]");
+            List<duke.modules.Task> ETemp = tasks.find("[E]");
             ui.printReportTask(ETemp, "event");
-            List<Task> DTemp = tasks.find("[D]");
+            List<duke.modules.Task> DTemp = tasks.find("[D]");
             ui.printReportTask(DTemp, "deadline");
-            List<Task> RTemp = tasks.find("[R]");
+            List<duke.modules.Task> RTemp = tasks.find("[R]");
             ui.printReportTask(RTemp, "recurring");
-            List<Task> TTemp = tasks.find("[T]");
+            List<duke.modules.Task> TTemp = tasks.find("[T]");
             ui.printReportTask(TTemp, "todo");
-            List<Task> WTemp = tasks.find("[W]");
+            List<duke.modules.Task> WTemp = tasks.find("[W]");
             ui.printReportTask(WTemp, "do within");
-            List<Task> FTemp = tasks.find("[F]");
+            List<duke.modules.Task> FTemp = tasks.find("[F]");
             ui.printReportTask(FTemp, "fixed duration");
         }
     }
@@ -75,7 +77,7 @@ public class ReportCommand extends Command {
         return coreModList;
     }
 
-    public boolean isCoreMod((Task module) {
+    public boolean isCoreMod(duke.modules.Task module) {
         getCoreModList();
         if(coreModList.contains(module)) {
             return true;

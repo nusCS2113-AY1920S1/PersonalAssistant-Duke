@@ -2,6 +2,9 @@ package duke.util;
 
 import java.util.Scanner;
 
+import duke.modules.data.ModuleInfoDetailed;
+import duke.modules.data.ModuleTask;
+
 /**
  * Mod Planner inherits functionality from Original Duke Ui.
  */
@@ -31,10 +34,32 @@ public class PlannerUi {
 
     /**
      * Helper function to print any object.
-     * @param object to be printed.
+     * @param mod to be printed.
      */
-    public void showObject(Object object) {
-        System.out.println(object);
+    public void showObject(ModuleInfoDetailed mod) {
+        System.out.println(mod);
+    }
+
+    /**
+     * Added Message for new mods.
+     * @param mod Module Tasks to be added.
+     */
+    public void addedMsg(ModuleInfoDetailed mod) {
+        System.out.println("Got it, added the follow module!");
+        showObject(mod);
+    }
+
+    /**
+     * Delete Message for new mods.
+     * @param mod Module Tasks to be added.
+     */
+    public void deleteMsg(ModuleInfoDetailed mod) {
+        System.out.println("Got it, module will be deleted");
+        showObject(mod);
+    }
+
+    public void listMsg() {
+        System.out.println("All modules in the list!");
     }
 
     /**
@@ -44,7 +69,7 @@ public class PlannerUi {
         showLine();
         System.out.println(
                 "Welcome to ModPlanner, your one stop solution to module planning!\n"
-                + "Begin typing get started!\n"
+                + "Begin typing get started!"
         );
         showLine();
     }
@@ -60,5 +85,22 @@ public class PlannerUi {
         );
         showLine();
         closeScanner();
+    }
+
+    /**
+     * Message shown at start of CapCommand.
+     */
+    public void capStartMsg() {
+        System.out.println("Start typing the module you have taken, along with it's letter grade");
+        System.out.println("Type 'done' when you are ready to calculate your CAP");
+    }
+
+    /**
+     * Message to print average CAP to 2 decimal places.
+     */
+    public void capMsg(double averageCap) {
+        showLine();
+        System.out.println("Here is your current cumulative/predicted CAP");
+        System.out.printf("%.2f\n", averageCap);
     }
 }
