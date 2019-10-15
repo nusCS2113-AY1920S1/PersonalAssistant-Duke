@@ -8,6 +8,8 @@ import wrapper.CommandPair;
 import Commands.COMMAND_KEYS;
 import java.util.ArrayList;
 import java.io.IOException;
+import java.io.IOException;
+
 
 public class CommandParser {
     /**
@@ -61,6 +63,7 @@ public class CommandParser {
                 System.out.println("Yes");
                 WatchlistCommand wc = new WatchlistCommand(UIController);
                 wc.initCommand(CommandArr, command.getSubRootCommand());
+                break;
             case set:
                 System.out.println("Set");
                 SetCommand stc = new SetCommand(UIController);
@@ -131,6 +134,7 @@ public class CommandParser {
                 WatchlistCommand wc = new WatchlistCommand(UIController);
                 wc.initCommand(CommandArr);
                 CommandStack.pushCmd(wc);
+                break;
             case "set":
                 System.out.println("Set");
                 SetCommand stc = new SetCommand(UIController);

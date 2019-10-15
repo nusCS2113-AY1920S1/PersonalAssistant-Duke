@@ -4,6 +4,9 @@ package Commands;
 import EPstorage.ProfileCommands;
 import MovieUI.Controller;
 import MovieUI.MovieHandler;
+import MovieUI.MoviePosterController;
+import movieRequesterAPI.MovieResultFilter;
+import movieRequesterAPI.RetrieveRequest;
 
 import java.util.ArrayList;
 import java.util.TreeMap;
@@ -45,14 +48,14 @@ public class SearchCommand extends CommandSuper {
      */
     private void executeMovieSearch() throws IOException {
         TreeMap<String, ArrayList<String>> treeMap = getFlagMap();
-        MovieHandler movieHandler = ((MovieHandler) this.getUIController());
-        if (treeMap.containsKey("-[c]")) {
+        MovieHandler movieHandler = new MovieHandler();
+        if (treeMap.containsKey("-c")) {
             movieHandler.showCurrentMovies();
-        } else if (treeMap.containsKey("-[u]")) {
+        } else if (treeMap.containsKey("-u")) {
             movieHandler.showUpcomingMovies();
-        } else if (treeMap.containsKey("-[t]")) {
+        } else if (treeMap.containsKey("-t")) {
             movieHandler.showTrendMovies();
-        } else if (treeMap.containsKey("-[p]")) {
+        } else if (treeMap.containsKey("-p")) {
             movieHandler.showPopMovies();
         } else {
             if (!this.getFlagMap().containsKey("-g")) {
@@ -88,15 +91,16 @@ public class SearchCommand extends CommandSuper {
     }
 
     private void executeTvShowSearch() {
+        MovieHandler movieHandler = new MovieHandler();
+
         TreeMap<String, ArrayList<String>> treeMap = getFlagMap();
-        MovieHandler movieHandler = ((MovieHandler) this.getUIController());
-        if (treeMap.containsKey("-[c]")) {
+        if (treeMap.containsKey("-c")) {
             movieHandler.showCurrentTV();
             //} else if (treeMap.containsKey("-[u]")){
             //  MovieHandler.showUpcomingTV();
-        } else if (treeMap.containsKey("-[t]")) {
+        } else if (treeMap.containsKey("-t")) {
             movieHandler.showTrendTV();
-        } else if (treeMap.containsKey("-[p]")) {
+        } else if (treeMap.containsKey("-p")) {
             movieHandler.showPopTV();
         }
 

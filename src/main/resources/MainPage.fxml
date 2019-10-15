@@ -57,14 +57,14 @@
                                 <Label fx:id="userAgeLabel" text="Label" />
                             </children>
                         </HBox>
-                  <HBox prefHeight="100.0" prefWidth="200.0">
-                     <children>
-                        <Label fx:id="adultText" text="Adult: " />
-                        <Label fx:id="adultLabel" text="Label" />
-                     </children>
-                  </HBox>
+                        <HBox prefHeight="100.0" prefWidth="200.0">
+                            <children>
+                                <Label fx:id="adultText" text="Adult: " />
+                                <Label fx:id="adultLabel" text="Label" />
+                            </children>
+                        </HBox>
                         <Text fx:id="genreText" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Genre: " />
-                  <TextFlow fx:id="genreListText" prefHeight="200.0" prefWidth="200.0" />
+                        <TextFlow fx:id="genreListText" prefHeight="200.0" prefWidth="200.0" />
                     </children>
                 </VBox>
             </children>
@@ -80,17 +80,17 @@
                     <menus>
                         <Menu mnemonicParsing="false" text="File">
                             <items>
-                                <MenuItem mnemonicParsing="false" onAction="#exitMenuItemClicked" text="Close" />
+                                <MenuItem mnemonicParsing="false" text="Close" />
                             </items>
                         </Menu>
                         <Menu mnemonicParsing="false" text="Help">
                             <items>
-                                <MenuItem mnemonicParsing="false" onAction="#aboutMenuItemClicked" text="About" />
+                                <MenuItem mnemonicParsing="false" text="About" />
                             </items>
                         </Menu>
                     </menus>
                 </MenuBar>
-                <VBox prefHeight="74.0" prefWidth="676.0">
+                <VBox fx:id= "vbox0" prefHeight="74.0" prefWidth="676.0">
                     <children>
                         <TextField fx:id="mSearchTextField" prefWidth="400.0" promptText="Enter a command here...">
                             <VBox.margin>
@@ -105,8 +105,6 @@
                     </children>
                 </VBox>
             </children>
-
-
         </VBox>
     </top>
 </BorderPane>
