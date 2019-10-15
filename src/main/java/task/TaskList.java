@@ -4,6 +4,7 @@ import exception.DukeException;
 import parser.Parser;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 
 /**
@@ -72,7 +73,7 @@ public class TaskList {
      *
      * @return long size of ArrayList
      */
-    public long size() {
+    public int size() {
         return list.size();
     }
 
@@ -226,6 +227,10 @@ public class TaskList {
         }
     }
 
+    public void add(Task task) {
+        this.list.add(task); //Straightforward command to add a task, for backend methods
+    }
+
     /**
      * Finds a Task if any part of its description/date matches the input.
      *
@@ -362,5 +367,9 @@ public class TaskList {
                 throw new DukeException("That is NOT a valid Integer");
             }
         }
+    }
+
+    public void clear() {
+        list.clear();
     }
 }

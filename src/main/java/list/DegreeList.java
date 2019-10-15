@@ -30,16 +30,28 @@ public class DegreeList {
         return ((request < 0) || (request >= this.size()));
     }
 
+    public void add(String input) {
+        list.add(input); //Straightforward and quiet method to add degrees, for backend stuffs
+    }
+
     public void add_custom(String input) throws DukeException {
-        try{
-        list.add(input);
-        System.out.print("Added ");
-        System.out.print(input);
-        System.out.println(" to your choices of degrees");
+        try {
+            list.add(input);
+            System.out.print("Added ");
+            System.out.print(input);
+            System.out.println(" to your choices of degrees");
         }
         catch (Exception e)
         {
             throw new DukeException(e.getLocalizedMessage());
+        }
+    }
+
+    public String get(int index) throws DukeException {
+        if (!this.isOutOfRange(index)) {
+            return this.list.get(index);
+        } else {
+            throw new DukeException("Requested Degree not found within degree list");
         }
     }
 
@@ -70,5 +82,9 @@ public class DegreeList {
                 System.out.println((i+1) + ". " + list.get(i));
             }
         }
+    }
+
+    public void clear() {
+        list.clear();
     }
 }

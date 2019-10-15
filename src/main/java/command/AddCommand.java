@@ -40,7 +40,13 @@ public class AddCommand extends Command {
     public void execute(TaskList tasks, UI ui, Storage storage, DegreeList lists) throws DukeException {
         if (this.command.matches("event")) {
             this.listType = 0; //0 for task list
-            memento = new Memento(tasks);
+
+            TaskList tasksBuffer = new TaskList();
+            for (int i = 0; i < tasks.size(); i++) {
+                tasksBuffer.add(tasks.get(i));
+            }
+
+            memento = new Memento(tasksBuffer);
             tasks.add(this.command, this.arguments);
             tasks.conflict_check();
         }
@@ -51,9 +57,13 @@ public class AddCommand extends Command {
         }
         else {
             this.listType = 0;
-            TaskList newTaskList = new TaskList();
-            newTaskList = tasks
-            memento = new Memento(tasks);
+
+            TaskList tasksBuffer = new TaskList();
+            for (int i = 0; i < tasks.size(); i++) {
+                tasksBuffer.add(tasks.get(i));
+            }
+
+            memento = new Memento(tasksBuffer);
             tasks.add(this.command, this.arguments);
         }
     }
@@ -61,9 +71,17 @@ public class AddCommand extends Command {
     @Override
     public void unExecute(TaskList tasks, UI ui, Storage storage, DegreeList lists) throws DukeException {
         if (this.listType == 0) {
-            tasks = memento.getTaskState();
+            TaskList tasksBuffer = memento.getTaskState();
+            tasks.clear();
+            for (int i = 0; i < tasksBuffer.size(); i++) {
+                tasks.add(tasksBuffer.get(i));
+            }
         } else {
-            lists = memento.getDegreeState();
+            DegreeList degreesBuffer = memento.getDegreeState();
+            lists.clear();
+            for (int i = 0; i < degreesBuffer.size(); i++) {
+                lists.add(degreesBuffer.get(i));
+            }
         }
     }
 
