@@ -32,10 +32,10 @@ public final class Controller implements Initializable {
         System.out.println("View is now loaded!");
     }
 
-    @FXML
     /**
      * Method will submit when the submit button is pressed.
      */
+    @FXML
     public void handleSubmit() {
         System.out.println("Submit!");
     }
@@ -60,11 +60,11 @@ public final class Controller implements Initializable {
      * @param event Will get the active instance of the button.
      */
     public void viewStudents(final ActionEvent event) {
-            URL url = Duke.class.getClassLoader()
-                .getResource("view/student.fxml");
-            System.out.println(url);
-            assert url != null;
-            changeScene(url, event);
+        URL url = Duke.class.getClassLoader()
+            .getResource("view/student.fxml");
+        System.out.println(url);
+        assert url != null;
+        changeScene(url, event);
     }
 
     /**
@@ -93,12 +93,26 @@ public final class Controller implements Initializable {
         changeScene(url, event);
     }
 
+    /**
+     * When this method is called, the day scene will be called.
+     *
+     * @param event Will get the active instance of the button.
+     */
+    public void viewDay(final ActionEvent event) {
+        URL url = Duke.class.getClassLoader()
+            .getResource("view/daily.fxml");
+        System.out.println(url);
+        assert url != null;
+        changeScene(url, event);
+    }
+
+
 
     /**
-     *Method will change the scene of the current stage.
+     * Method will change the scene of the current stage.
      *
-     * @param url
-     * @param event
+     * @param url   Directory of the fxml file to be loaded
+     * @param event The event handled by the button
      */
     public void changeScene(final URL url, final ActionEvent event) {
         try {
