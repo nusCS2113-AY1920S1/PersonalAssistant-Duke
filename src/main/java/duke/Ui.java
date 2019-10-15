@@ -1,11 +1,11 @@
 package duke;
 
-import duke.Data.Parser;
+import duke.data.Parser;
 import duke.module.Schedule;
 import duke.sports.ManageStudents;
 import duke.sports.MyPlan;
-import duke.Task.TaskList;
-import duke.Data.Storage;
+import duke.task.TaskList;
+import duke.data.Storage;
 
 import java.io.FileNotFoundException;
 import java.text.ParseException;

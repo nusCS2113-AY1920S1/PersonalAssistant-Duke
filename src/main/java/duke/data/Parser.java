@@ -1,15 +1,15 @@
-package duke.Data;
+package duke.data;
 
 
 import duke.module.Goal;
 import duke.module.Lesson;
 import duke.module.Reminder;
 import duke.module.Schedule;
-import duke.Task.After;
-import duke.Task.Deadline;
-import duke.Task.Event;
-import duke.Task.TaskList;
-import duke.Task.ToDo;
+import duke.task.After;
+import duke.task.Deadline;
+import duke.task.Event;
+import duke.task.TaskList;
+import duke.task.ToDo;
 import duke.Ui;
 import duke.sports.ManageStudents;
 import duke.sports.MyClass;

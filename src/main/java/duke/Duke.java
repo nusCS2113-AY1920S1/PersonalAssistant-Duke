@@ -1,10 +1,10 @@
 package duke;
 
-import duke.Data.Storage;
+import duke.data.Storage;
 import duke.module.Schedule;
 import duke.sports.ManageStudents;
 import duke.sports.MyPlan;
-import duke.Task.TaskList;
+import duke.task.TaskList;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -31,10 +31,10 @@ public class Duke extends Application {
 
     public Duke() throws FileNotFoundException, ParseException {
         ui = new Ui();
-        storage = new Storage(".\\src\\main\\java\\duke\\Data\\duke.txt");
+        storage = new Storage(".\\src\\main\\java\\duke\\data\\duke.txt");
         tasks = new TaskList();
         students = new ManageStudents();
-        schedule = new Schedule(new Storage(".\\src\\main\\java\\duke\\Data\\timeslots.txt").loadSchedule());
+        schedule = new Schedule(new Storage(".\\src\\main\\java\\duke\\data\\timeslots.txt").loadSchedule());
         plan = new MyPlan();
     }
 
@@ -69,25 +69,16 @@ public class Duke extends Application {
     @Override
     public void start(Stage stage) {
         try {
-            //URL url = Duke.class.getClassLoader().getResource("view/menu.fxml");
-            URL url = Duke.class.getClassLoader().getResource("view/schedule.fxml");
-            //URL url = Duke.class.getClassLoader().getResource("view/daily.fxml");
-            //URL url = Duke.class.getClassLoader().getResource("view/goal.fxml");
+            URL url = Duke.class.getClassLoader().getResource("view/menu.fxml");
             System.out.println(url);
             Parent root = FXMLLoader.load(url);
             stage.setScene(new Scene(root, 1280,720));
             stage.setTitle("Sports Manager");
             stage.show();
 
-//            Scene scene = new Scene(ViewModules.layoutHome(), 1280, 720);
-//            stage.setScene(scene);
-//            stage.setTitle("Sports Manager");
-//            stage.setResizable(false);
-//            stage.show();
-//            window.setScene(scene);
         }
         catch (IOException e) {
-            System.err.println("Could not find sample.fxml");
+            System.err.println("Could not find menu.fxml");
         }
     }
 

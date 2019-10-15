@@ -1,4 +1,4 @@
-package duke.Task;
+package duke.task;
 
 import javafx.scene.layout.Pane;
 

@@ -1,5 +1,5 @@
 package duke.sports;
-import duke.Data.Storage;
+import duke.data.Storage;
 
 import java.io.File;
 import java.io.FileNotFoundException;

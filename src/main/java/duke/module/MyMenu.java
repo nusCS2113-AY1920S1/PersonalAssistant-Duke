@@ -1,4 +1,4 @@
-package duke.Module;
+package duke.module;
 
 /*
 * To add all the main menu list

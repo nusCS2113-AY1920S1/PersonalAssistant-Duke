@@ -1,6 +1,6 @@
-package duke.Task;
+package duke.task;
 
-import duke.Data.Storage;
+import duke.data.Storage;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
