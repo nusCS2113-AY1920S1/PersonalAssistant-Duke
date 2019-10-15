@@ -30,6 +30,7 @@ public class Parser {
         try {
             String[] parsedCommand = userInput.toLowerCase().split("\\s+", 4);
             if (parsedCommand[1].equals("by") && parsedCommand[2].equals("id:")) {
+
                 String[] tempInput = userInput.replace("assign by id: ", "").split("\\s+", 4);
                 if (tempInput[0].equals("E")) {
                     String[] parsedTimes = tempInput[3].split(" to ", 2);
@@ -53,6 +54,24 @@ public class Parser {
             return formattedInput;
         } catch (Exception e) {
             throw new DukeException("Please use the correct format for the 'assign by id' command. ");
+        }
+    }
+
+    public String parseDelete() throws DukeException {
+        String formattedInput;
+        String inputToParse = userInput.replace("patient", "").replace("delete", "").trim();
+
+        if (inputToParse.contains("#")) {
+            try {
+                formattedInput = inputToParse.replace("#", "").trim();
+                System.out.println(formattedInput);
+                return formattedInput;
+            } catch(Exception e){
+                throw new DukeException("Please follow the format 'delete patient #<id>'.");
+            }
+        } else {
+            formattedInput = inputToParse;
+            return formattedInput;
         }
     }
 

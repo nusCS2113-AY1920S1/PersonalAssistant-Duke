@@ -38,12 +38,7 @@ public class CommandManager {
                         throw new DukeException("Invalid format. ");
                     }
             case "assign":
-                try {
                     return new AssignTaskToPatientCommand(parser.parseAssign());
-                } catch (Exception e) {
-                    throw new DukeException("'Assign' command fails. " + e.getMessage());
-                }
-
             case "list":
                 try {
                     String[] tempCommand = command[1].split("\\s+");
@@ -62,10 +57,11 @@ public class CommandManager {
             case "delete":
                 try{
                     secondKeyword = command[1].toLowerCase();
-                    if (secondKeyword.equals("patient")){
+                    if (secondKeyword.equals("patient")) {
                         try {
-                            return new DeletePatientCommand(command[2]);
-                        }catch(Exception e){
+                            String formattedInput = parser.parseDelete();
+                            return new DeletePatientCommand(formattedInput);
+                        } catch(Exception e){
                             throw new Exception("Please follow the format 'delete patient #<id>'.");
                         }
                     }
