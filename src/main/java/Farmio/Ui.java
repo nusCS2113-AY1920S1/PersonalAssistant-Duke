@@ -36,8 +36,10 @@ public class Ui {
 
     public void showNarrative(ArrayList<String> narratives) {
         for(int i = 0; i < narratives.size(); ++i){
+            clearScreen();
             show(narratives.get(i));
             if(i != narratives.size() - 1) {
+                show("Press ENTER to continue.");
                 getInput();
             }
         }

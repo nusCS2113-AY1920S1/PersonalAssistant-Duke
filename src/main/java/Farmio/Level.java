@@ -26,25 +26,26 @@ public class Level {
 
     public Level(JSONObject object, Farmer farmer) {
         JSONArray array = (JSONArray) object.get("narratives");
+        narratives = new ArrayList<>();
         for (Object i : array) {
             narratives.add((String) i);
         }
-        startMoney = farmer.money;
+        startMoney = farmer.getMoney();
         startWheatSeed = farmer.wheatFarm.getSeeds();
         startWheatGreen = farmer.wheatFarm.getGreenWheat();
         startWheatRipe = farmer.wheatFarm.getRipeWheat();
-//        startChicken;
-//        startChickenEggs;
-//        startCow;
-//        startCowMilk;
-//        endMoney;
-//        endWheatSeed;
-//        endWheatGreen;
-//        endWheatRipe;
-//        endChicken;
-//        endChickenEggs;
-//        endCow;
-//        endCowMilk;
+        startChicken = 0;
+        startChickenEggs = 0;
+        startCow = 0;
+        startCowMilk = 0;
+        endMoney = Math.toIntExact((Long) object.get("money"));
+        endWheatSeed = Math.toIntExact((Long) object.get("wheat_seed"));
+        endWheatGreen = Math.toIntExact((Long) object.get("wheat_green"));
+        endWheatRipe = Math.toIntExact((Long) object.get("wheat_ripe"));
+        endChicken = 0;
+        endChickenEggs = 0;
+        endCow = 0;
+        endCowMilk = 0;
     }
 
     public ArrayList<String> getNarratives(){
