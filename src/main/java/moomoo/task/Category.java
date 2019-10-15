@@ -18,7 +18,7 @@ public class Category {
 
     /**
      * Calculates the total expenditure for every entry in the category.
-     * @return
+     * @return total
      */
     public double getTotalExpenditure() {
         double totalCost = 0;
