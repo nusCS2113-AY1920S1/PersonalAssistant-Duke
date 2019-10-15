@@ -13,7 +13,7 @@ import java.util.Comparator;
 
 /**
  * Represents a sort command.
- * Allows to sort the task by date or description
+ * Allows to sort the task by date or description or priority
  */
 public class SortCommand extends Command {
     /**
@@ -29,12 +29,13 @@ public class SortCommand extends Command {
     }
 
     /**
-     * Execution of leduc.command.SortCommand: Allows to sort the task list ( by description or by date).
+     * Execution of leduc.command.SortCommand: Allows to sort the task list ( by description or by date or ny priority).
      * @param tasks leduc.task.TaskList which is the list of task.
      * @param ui leduc.Ui which deals with the interactions with the user.
      * @param storage leduc.storage.Storage which deals with loading tasks from the file and saving tasks in the file.
      * @throws FileException Exception caught when the file can't be open or read or modify.
      * @throws MeaninglessException  Exception caught when the input string could not be interpreted.
+     * @throws EmptyArgumentException Exception caught when there is no argument
      */
     public void execute(TaskList tasks, Ui ui, Storage storage) throws FileException, MeaninglessException, EmptyArgumentException {
         String userSubstring;
@@ -54,6 +55,9 @@ public class SortCommand extends Command {
             // The todo task list is sort by description
             extractedTodo.sort(Comparator.comparing(Task::getTask));
             tasks.setList(tasks.sort(filteredTasklist, extractedTodo));
+        }
+        else if (sort.equals("priority")){
+            tasks.getList().sort(Comparator.comparingInt(Task::getPriority));
         }
         else if (sort.equals("description")){
             tasks.getList().sort(Comparator.comparing(Task::getTask));

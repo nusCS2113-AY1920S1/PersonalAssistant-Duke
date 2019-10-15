@@ -1,5 +1,6 @@
 package leduc;
 
+import leduc.command.DeleteCommand;
 import leduc.command.EventCommand;
 import leduc.exception.*;
 import leduc.storage.Storage;
@@ -53,7 +54,7 @@ public class EventCommandTest {
         try{
             eventCommand1.execute(tasks,ui, storage);
             fail("should throw exception when there is no description");
-        } catch (EmptyEventException | EmptyEventDateException | FileException | NonExistentDateException | ConflictDateException e) {
+        } catch (EmptyEventException | EmptyEventDateException | FileException | NonExistentDateException | ConflictDateException | PrioritizeLimitException e) {
             assertTrue(e.print().contains("description"));
         }
 
@@ -61,7 +62,7 @@ public class EventCommandTest {
         try{
             eventCommand2.execute(tasks,ui, storage);
             fail("should throw exception when there is no date");
-        } catch (EmptyEventException | EmptyEventDateException | FileException | NonExistentDateException | ConflictDateException e) {
+        } catch (EmptyEventException | EmptyEventDateException | FileException | NonExistentDateException | ConflictDateException | PrioritizeLimitException e) {
             assertTrue(e.print().contains("period"));
         }
 
@@ -69,7 +70,7 @@ public class EventCommandTest {
         try{
             eventCommand3.execute(tasks,ui, storage);
             fail("should throw exception when there is no date");
-        } catch (EmptyEventException | EmptyEventDateException | FileException | NonExistentDateException | ConflictDateException e) {
+        } catch (EmptyEventException | EmptyEventDateException | FileException | NonExistentDateException | ConflictDateException | PrioritizeLimitException e) {
             assertTrue(e.print().contains("period"));
         }
 
@@ -77,7 +78,7 @@ public class EventCommandTest {
         try{
             eventCommand4.execute(tasks,ui, storage);
             fail("should throw exception when there is no period");
-        } catch (EmptyEventException | EmptyEventDateException | FileException | NonExistentDateException | ConflictDateException e) {
+        } catch (EmptyEventException | EmptyEventDateException | FileException | NonExistentDateException | ConflictDateException | PrioritizeLimitException e) {
             assertTrue(e.print().contains("period"));
         }
 
@@ -85,7 +86,7 @@ public class EventCommandTest {
         try{
             eventCommand5.execute(tasks,ui, storage);
             fail("should throw exception when there is a problem with the date");
-        } catch (EmptyEventException | EmptyEventDateException | FileException | NonExistentDateException | ConflictDateException e) {
+        } catch (EmptyEventException | EmptyEventDateException | FileException | NonExistentDateException | ConflictDateException | PrioritizeLimitException e) {
             assertTrue(e.print().contains("period"));
         }
 
@@ -93,7 +94,7 @@ public class EventCommandTest {
         try{
             eventCommand6.execute(tasks,ui, storage);
             fail("should throw exception when there is no date");
-        } catch (EmptyEventException | EmptyEventDateException | FileException | NonExistentDateException | ConflictDateException e) {
+        } catch (EmptyEventException | EmptyEventDateException | FileException | NonExistentDateException | ConflictDateException | PrioritizeLimitException e) {
             assertTrue(e.print().contains("period"));
         }
 
@@ -101,7 +102,7 @@ public class EventCommandTest {
         try{
             eventCommand7.execute(tasks,ui, storage);
             fail("should throw exception when there is no date");
-        } catch (EmptyEventException | EmptyEventDateException | FileException | NonExistentDateException | ConflictDateException e) {
+        } catch (EmptyEventException | EmptyEventDateException | FileException | NonExistentDateException | ConflictDateException | PrioritizeLimitException e) {
             assertTrue(e.print().contains("period"));
         }
 
@@ -109,7 +110,7 @@ public class EventCommandTest {
         try{
             eventCommand8.execute(tasks,ui, storage);
             fail("should throw exception when there is a wrong format");
-        } catch (EmptyEventException | EmptyEventDateException | FileException | NonExistentDateException | ConflictDateException e) {
+        } catch (EmptyEventException | EmptyEventDateException | FileException | NonExistentDateException | ConflictDateException | PrioritizeLimitException e) {
             assertTrue(e.print().contains("date doesn't exist"));
         }
 
@@ -117,7 +118,7 @@ public class EventCommandTest {
         try{
             eventCommand9.execute(tasks,ui, storage);
             fail("should throw exception when there is a wrong format");
-        } catch (EmptyEventException | EmptyEventDateException | FileException | NonExistentDateException | ConflictDateException e) {
+        } catch (EmptyEventException | EmptyEventDateException | FileException | NonExistentDateException | ConflictDateException | PrioritizeLimitException e) {
             assertTrue(e.print().contains("date doesn't exist"));
         }
 
@@ -125,7 +126,7 @@ public class EventCommandTest {
         try{
             eventCommand10.execute(tasks,ui, storage);
             fail("should throw exception when there is a wrong format");
-        } catch (EmptyEventException | EmptyEventDateException | FileException | NonExistentDateException | ConflictDateException e) {
+        } catch (EmptyEventException | EmptyEventDateException | FileException | NonExistentDateException | ConflictDateException | PrioritizeLimitException e) {
             assertTrue(e.print().contains("date doesn't exist"));
         }
 
@@ -133,7 +134,7 @@ public class EventCommandTest {
         try{
             eventCommand11.execute(tasks,ui, storage);
             fail("should throw exception when there is a conflict between the date");
-        } catch (EmptyEventException | EmptyEventDateException | FileException | NonExistentDateException | ConflictDateException e) {
+        } catch (EmptyEventException | EmptyEventDateException | FileException | NonExistentDateException | ConflictDateException | PrioritizeLimitException e) {
             assertTrue(e.print().contains("conflict"));
         }
 
@@ -141,7 +142,7 @@ public class EventCommandTest {
         try{
             eventCommand12.execute(tasks,ui, storage);
             fail("should throw exception when there is a conflict between the date");
-        } catch (EmptyEventException | EmptyEventDateException | FileException | NonExistentDateException | ConflictDateException e) {
+        } catch (EmptyEventException | EmptyEventDateException | FileException | NonExistentDateException | ConflictDateException | PrioritizeLimitException e) {
             assertTrue(e.print().contains("conflict"));
         }
 
@@ -149,7 +150,7 @@ public class EventCommandTest {
         try{
             eventCommand13.execute(tasks,ui, storage);
             fail("should throw exception when there is a conflict between the date");
-        } catch (EmptyEventException | EmptyEventDateException | FileException | NonExistentDateException | ConflictDateException e) {
+        } catch (EmptyEventException | EmptyEventDateException | FileException | NonExistentDateException | ConflictDateException | PrioritizeLimitException e) {
             assertTrue(e.print().contains("conflict"));
         }
 
@@ -157,8 +158,54 @@ public class EventCommandTest {
         try{
             eventCommand14.execute(tasks,ui, storage);
             fail("should throw exception when there is a conflict between the date");
-        } catch (EmptyEventException | EmptyEventDateException | FileException | NonExistentDateException | ConflictDateException e) {
+        } catch (EmptyEventException | EmptyEventDateException | FileException | NonExistentDateException | ConflictDateException | PrioritizeLimitException e) {
             assertTrue(e.print().contains("conflict"));
         }
+
+
+        EventCommand eventCommand15 = new EventCommand("event e1 /at 12/12/2000 22:22 - 12/12/2000 22:23 prio 6");
+        try{
+            eventCommand15.execute(tasks,ui,storage);
+        }
+        catch( DukeException e){
+            assertTrue(false);
+        }
+        assertTrue(tasks.size()==2);
+        assertTrue(tasks.get(1).getPriority() == 6);
+
+        EventCommand eventCommand16 = new EventCommand("event e2 /at 12/12/2001 22:22 - 12/12/2001 22:23 prio 12");
+        try{
+            eventCommand16.execute(tasks,ui,storage);
+        }
+        catch( DukeException e){
+            assertTrue(e instanceof PrioritizeLimitException);
+        }
+        assertTrue(tasks.size()==2);
+
+        EventCommand eventCommand17 = new EventCommand("event e3 /at 12/12/2002 22:22 - 12/12/2002 22:23 prio Qzeaze");
+        try{
+            eventCommand17.execute(tasks,ui,storage);
+        }
+        catch( DukeException e){
+            assertTrue(e instanceof PrioritizeLimitException);
+        }
+        assertTrue(tasks.size()==2);
+
+        DeleteCommand delete = new DeleteCommand("delete 1");
+        try{
+            delete.execute(tasks,ui,storage);
+        }
+        catch( DukeException e){ //should not happen
+            assertTrue(false);
+        }
+        assertTrue(tasks.size()==1);
+
+        try{
+            delete.execute(tasks,ui,storage);
+        }
+        catch( DukeException e){ //should not happen
+            assertTrue(false);
+        }
+        assertTrue(tasks.size()==0);
     }
 }
