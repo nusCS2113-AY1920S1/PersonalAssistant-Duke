@@ -1,0 +1,45 @@
+= ArchDuke Project Manager - User Guide
+:toc:
+:toc-title: Table of Contents
+:toc-placement: preamble
+:repoURL: https://github.com/AY1920S1-CS2113-T13-1/main
+
+By: `CS2113-T13-1`      Since: `Aug 2019`      Licence: `MIT`
+
+== Introduction
+Ever wondered how good it will be to have a Kanban board for all your projects instead of using multiple
+Kanban boards for different group projects? ArchDuke is the application for you!
+
+ArchDuke is a simple desktop application designed by team leaders, for team leaders to manage their multiple projects!
+ArchDuke is optimized for team leaders who wish to work using a Command Line Interface (CLI) while still
+being able to view certain features such as a calendar through a Graphical User Interface (GUI).
+
+== Quick Start
+. Ensure *Java `11`* is installed in your computer. To check the version of Java installed in your work environment,
+type `java -version` into your preferred terminal (such as Command Prompt, Git Bash, or MacOS terminal)
+. Download the latest *.jar* file from here.
+. Copy the *.jar* file to your desired folder.
+. Double click the file to run. The GUI shown above will appear within a few seconds.
+. Type your commands in the command box at the very top and press Enter to execute it.
+.. Typing `help` and executing it will open the help window for a complete overview of all available commands,
+their usage and their functions.
+. Refer to the Features section for detailed documentation and usage of each command
+. Refer to Command Summary section for a quick summary of all available commands.
+
+== Features
+=== Command Format
+- Words in UPPER_CASE are the parameters that needs to be specified by each user.
+E.g. `create n/PROJECT_NAME where PROJECT_NAME` is a parameter which can be used as `create n/CS2113_Project`
+- Parameters can be typed in any order
+E.g. if the command specifies `n/NAME d/DATE`, `d/DATE n/NAME` is acceptable as well
+- Parameters defined in square brackets are optional.
+E.g. `n/NAME [s/PHONE_NUMBER]` can be used as `n/Cynthia s/91234567` or as `n/Cynthia`
+- `n/` indicates a name or string flag
+- `e/` indicates a flag for email
+- `a/` indicates a flag for an address of a member
+- `i/` indicates an integer flag
+- `d/` indicates a flag for a date in the format of ddMMyyyy behind
+- `p/` indicates a flag for task priority, represented in integers.
+- `c/` indicates a flag for the amount of credit awarded for completion of a certain task, represented in integers.
+- `to/` indicates the flag for the index of the member to assign the selected task to
+- `s/` indicates the flag where user can specify the state of the specific task
