@@ -55,23 +55,29 @@ public class StorageManager implements Storage {
                 Task t;
                 System.out.println("StorageManager:LOG: Task read:" + st);
                 String[] parts = st.split("_");
-                String taskType = parts[0];
+
+                //check if it is a valid task read
+                if (parts.length <= 1) {
+                    continue;
+                }
+
+                String taskType = parts[1];
                 switch (taskType) {
                 case SYMBOL_DEADLINE:
-                    t = new Deadline(parts[1], stringToPriority(parts[3]), parts[4], parts[6]);
+                    t = new Deadline(parts[2], stringToPriority(parts[4]), parts[5], parts[7]);
                     break;
                 case SYMBOL_LECT:
                 case SYMBOL_TUT:
                 case SYMBOL_SECT:
                 case SYMBOL_LAB:
                 case SYMBOL_ACAD:
-                    t = new AcadTask(parts[1], stringToPriority(parts[3]), parts[4], parts[5], parts[6], taskType);
+                    t = new AcadTask(parts[2], stringToPriority(parts[4]), parts[5], parts[6], parts[7], taskType);
                     break;
                 case SYMBOL_RECUR:
-                    t = new RecurringTask(parts[1], stringToPriority(parts[3]), parts[4], parts[5], parts[6]);
+                    t = new RecurringTask(parts[2], stringToPriority(parts[4]), parts[5], parts[6], parts[7]);
                     break;
                 case SYMBOL_EVENT:
-                    t = new Event(parts[1], stringToPriority(parts[3]), parts[4], parts[5], parts[6]);
+                    t = new Event(parts[2], stringToPriority(parts[4]), parts[5], parts[6], parts[7]);
                     break;
                 default:
                     System.out.println("Storage:LOG: Could not parse text. Returning what we managed to parse.");
@@ -79,12 +85,15 @@ public class StorageManager implements Storage {
                 }
 
                 //set tasks completion and reminder status
-                if (parts[2].equals("true")) {
+                if (parts[3].equals("true")) {
                     t.markAsDone();
                 }
-                if (parts[7].equals("true")) {
+                if (parts[8].equals("true")) {
                     t.setHasReminder();
                 }
+
+                //set task id
+                t.setId(Integer.parseInt(parts[0]));
 
                 //add created task to list
                 tempList.add(t);

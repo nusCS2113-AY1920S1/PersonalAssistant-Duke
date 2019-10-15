@@ -4,6 +4,10 @@ import compal.commons.Compal;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import static compal.model.tasks.Task.Priority.high;
 import static compal.model.tasks.Task.Priority.medium;
 import static compal.model.tasks.Task.Priority.low;
@@ -50,19 +54,52 @@ public class ByeCommandTest {
             String command2 = "no slash test";
             //EasyMock.createMock(UiManager.class);
             byeCommand.getDescription(command2);
-        } catch (NullPointerException t) {
+        } catch (NullPointerException e) {
             //ignore the null pointer exception because ui is not welly declared in this test
-        } catch (Exception t) {
-            assertEquals(t, MESSAGE_MISSING_COMMAND_ARG);
+        } catch (Compal.DukeException e) {
+            assertEquals(e, MESSAGE_MISSING_COMMAND_ARG);
         }
         try {
             String command2 = "/slash first test";
             byeCommand.getDescription(command2);
-        } catch (NullPointerException t) {
+        } catch (NullPointerException e) {
             //ignore the null pointer exception because ui is not welly declared in this test
-        } catch (Exception t) {
-            assertEquals(t, MESSAGE_MISSING_DESC);
+        } catch (Compal.DukeException e) {
+            assertEquals(e, MESSAGE_MISSING_DESC);
         }
+    }
+
+    @Test
+    public void isValidDateAndTime() throws ParseException {
+        String date = "01/01/2100";
+        String time = "0000";
+        assertEquals(true, byeCommand.isValidDateAndTime(date, time));
+    }
+
+    @Test
+    public void dateToStringTest() {
+        String date = "14/10/2019";
+        SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+        Date d = null;
+        try {
+            d = format.parse(date);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        assertEquals(date, byeCommand.dateToString(d));
+    }
+
+    @Test
+    public void stringToDateTest() {
+        String date = "14/10/2019";
+        SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+        Date d = null;
+        try {
+            d = format.parse(date);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        assertEquals(d, byeCommand.stringToDate(date));
     }
 
     @Test
@@ -72,34 +109,34 @@ public class ByeCommandTest {
             assertEquals("09/10/2019", byeCommand.getDate(date));
             String date2 = "no token date";
             byeCommand.getDate(date2);
-        } catch (NullPointerException t) {
+        } catch (NullPointerException e) {
             //ignore the null pointer exception because ui is not welly declared in this test
-        } catch (Exception t) {
-            assertEquals(t, MESSAGE_MISSING_DESC);
+        } catch (Compal.DukeException e) {
+            assertEquals(e, MESSAGE_MISSING_DESC);
         }
         try {
             String date = "/date";
             byeCommand.getDate(date);
-        } catch (NullPointerException t) {
+        } catch (NullPointerException e) {
             //ignore the null pointer exception because ui is not welly declared in this test
-        } catch (Exception t) {
-            assertEquals(t, MESSAGE_MISSING_DATE);
+        } catch (Compal.DukeException e) {
+            assertEquals(e, MESSAGE_MISSING_DATE);
         }
         try {
             String date = "/date 111";
             byeCommand.getDescription(date);
-        } catch (NullPointerException t) {
+        } catch (NullPointerException e) {
             //ignore the null pointer exception because ui is not welly declared in this test
-        } catch (Exception t) {
-            assertEquals(t, MESSAGE_INVALID_DATE_FORMATTING);
+        } catch (Compal.DukeException e) {
+            assertEquals(e, MESSAGE_INVALID_DATE_FORMATTING);
         }
         try {
             String date = "/date 10/10/2018";
             byeCommand.getDescription(date);
-        } catch (NullPointerException t) {
+        } catch (NullPointerException e) {
             //ignore the null pointer exception because ui is not welly declared in this test
-        } catch (Exception t) {
-            assertEquals(t, MESSAGE_INVALID_YEAR);
+        } catch (Compal.DukeException e) {
+            assertEquals(e, MESSAGE_INVALID_YEAR);
         }
     }
 
@@ -110,18 +147,18 @@ public class ByeCommandTest {
             assertEquals("1010", byeCommand.getStartTime(time));
             String time2 = "no token time";
             byeCommand.getStartTime(time2);
-        } catch (NullPointerException t) {
+        } catch (NullPointerException e) {
             //ignore the null pointer exception because ui is not welly declared in this test
-        } catch (Exception t) {
-            assertEquals(t, MESSAGE_MISSING_START_TIME_ARG);
+        } catch (Compal.DukeException e) {
+            assertEquals(e, MESSAGE_MISSING_START_TIME_ARG);
         }
         try {
             String time = "/start";
             byeCommand.getStartTime(time);
-        } catch (NullPointerException t) {
+        } catch (NullPointerException e) {
             //ignore the null pointer exception because ui is not welly declared in this test
-        } catch (Exception t) {
-            assertEquals(t, MESSAGE_MISSING_TIME);
+        } catch (Compal.DukeException e) {
+            assertEquals(e, MESSAGE_MISSING_TIME);
         }
     }
 
@@ -132,18 +169,18 @@ public class ByeCommandTest {
             assertEquals("1010", byeCommand.getEndTime(time));
             String time2 = "no token time";
             byeCommand.getEndTime(time2);
-        } catch (NullPointerException t) {
+        } catch (NullPointerException e) {
             //ignore the null pointer exception because ui is not welly declared in this test
-        } catch (Exception t) {
-            assertEquals(t, MESSAGE_MISSING_END_TIME_ARG);
+        } catch (Compal.DukeException e) {
+            assertEquals(e, MESSAGE_MISSING_END_TIME_ARG);
         }
         try {
             String time = "/end";
             byeCommand.getEndTime(time);
-        } catch (NullPointerException t) {
+        } catch (NullPointerException e) {
             //ignore the null pointer exception because ui is not welly declared in this test
-        } catch (Exception t) {
-            assertEquals(t, MESSAGE_MISSING_TIME);
+        } catch (Compal.DukeException e) {
+            assertEquals(e, MESSAGE_MISSING_TIME);
         }
     }
 
@@ -160,10 +197,10 @@ public class ByeCommandTest {
             assertEquals(low, byeCommand.getPriority(priority));
             String time = "/priority";
             byeCommand.getPriority(time);
-        } catch (NullPointerException t) {
+        } catch (NullPointerException e) {
             //ignore the null pointer exception because ui is not welly declared in this test
-        } catch (Exception t) {
-            assertEquals(t, MESSAGE_MISSING_PRIORITY);
+        } catch (Compal.DukeException e) {
+            assertEquals(e, MESSAGE_MISSING_PRIORITY);
         }
     }
 }
