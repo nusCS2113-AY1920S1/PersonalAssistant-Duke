@@ -55,20 +55,20 @@ public class HelpWindow extends AnchorPane {
                 if (cbCommands.getSelectionModel().getSelectedItem().equals("todo")) {
                     getDescription.setText(cbCommands.getValue() + " <task description>");
                     getDescription.getScene().getWindow();
-                } else if (cbCommands.getSelectionModel().getSelectedItem().equals("deadline")){
+                } else if (cbCommands.getSelectionModel().getSelectedItem().equals("deadline")) {
                     getDescription.setText(cbCommands.getValue() + " <task description> /by <date and time>");
                     getDescription.getScene().getWindow();
-                } else if (cbCommands.getSelectionModel().getSelectedItem().equals("event")){
+                } else if (cbCommands.getSelectionModel().getSelectedItem().equals("event")) {
                     getDescription.setText(cbCommands.getValue() + " <task description> /at <date and time>");
                     getDescription.getScene().getWindow();
-                } else if (cbCommands.getSelectionModel().getSelectedItem().equals("fixedduration")){
+                } else if (cbCommands.getSelectionModel().getSelectedItem().equals("fixedduration")) {
                     getDescription.setText(cbCommands.getValue() + " <task description> /for <duration> <unit>");
                     getDescription.getScene().getWindow();
-                } else if (cbCommands.getSelectionModel().getSelectedItem().equals("repeat")){
-                    getDescription.setText(cbCommands.getValue() + " <task> /from <date and time> /for <duration> <day/week/month>");
+                } else if (cbCommands.getSelectionModel().getSelectedItem().equals("repeat")) {
+                    getDescription.setText(cbCommands.getValue());
                     getDescription.getScene().getWindow();
-                } else if (cbCommands.getSelectionModel().getSelectedItem().equals("doafter")){
-                    getDescription.setText(cbCommands.getValue() + " <task description> /after <existing task description>");
+                } else if (cbCommands.getSelectionModel().getSelectedItem().equals("doafter")) {
+                    getDescription.setText(cbCommands.getValue());
                     getDescription.getScene().getWindow();
                 }
             }
