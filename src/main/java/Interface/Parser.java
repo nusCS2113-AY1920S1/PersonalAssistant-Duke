@@ -70,24 +70,6 @@ public class Parser {
                 } catch (ArrayIndexOutOfBoundsException e) {
                     throw new DukeException("\u2639" + " OOPS!!! Please do not leave task number blank.");
                 }
-            } else if (fullCommand.trim().substring(0, 4).equals("find")) {
-                try {
-                    String key = fullCommand.trim().substring(5);
-                    if (key.trim().isEmpty()) {
-                        throw new DukeException("\u2639" + " OOPS!!! Please do not leave the keyword blank.");
-                    } else {
-                        return new FindCommand(key);
-                    }
-                } catch (StringIndexOutOfBoundsException e) {
-                    throw new DukeException("\u2639" + " OOPS!!! Please enter keyword.");
-                }
-            } else if (fullCommand.trim().substring(0, 4).equals("todo")) {
-                String activity = fullCommand.trim().substring(4).trim();
-                if (activity.isEmpty()) {
-                    throw new DukeException("\u2639" + " OOPS!!! The description of a todo cannot be empty.");
-                } else {
-                    return new AddCommand(new Todo(activity));
-                }
             } else if (fullCommand.trim().substring(0, 5).equals("add/e")) {
                 try { //add/e module_code description /at date from time to time
                     String activity = fullCommand.trim().substring(5);
@@ -215,8 +197,6 @@ public class Parser {
                             "add/d mod_code name_of_event /by dd/MM/yyyy HHmm\n" +
                             "or add/d mod_code name_of_event /by week x day HHmm\n");
                 }
-            } else if (fullCommand.equals("show schedule")) {
-                return new ViewSchedulesCommand();
             } else if (fullCommand.trim().substring(0,6).equals("snooze")) {
                 try {
                     String activity = fullCommand.trim().substring(6);

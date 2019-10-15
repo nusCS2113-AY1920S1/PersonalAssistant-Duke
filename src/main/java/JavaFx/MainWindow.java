@@ -23,6 +23,8 @@ import javafx.scene.text.FontPosture;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.util.Duration;
+import javafx.util.Pair;
+
 import java.io.IOException;
 import java.net.URL;
 import java.text.DateFormat;
@@ -88,6 +90,7 @@ public class MainWindow extends BorderPane implements Initializable {
         }
     }
 
+    int number_of_modules;
     /**
      * This method initializes the display in the window of the GUI.
      */
@@ -112,9 +115,31 @@ public class MainWindow extends BorderPane implements Initializable {
             overdueTable.setItems(setOverdueTable());
 
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/view/ProgressIndicator.fxml"));
-            Parent loader = fxmlLoader.load();
-            fxmlLoader.<ProgressController>getController().getData("CS2100", "5", "6");
-            progressContainer.getChildren().add(loader);
+            fxmlLoader.load();
+            Pair<HashMap<String, String>, ArrayList<Pair<String, Pair<String, String>>>> result= fxmlLoader.<ProgressController>getController().getProgressIndicatorMap(eventsList.getMap(), deadlinesList.getMap());
+            number_of_modules = result.getKey().keySet().size();
+            //System.out.println("Number of times: " + (String.valueOf(number_of_modules)));
+
+            HashMap<String, String> modules = result.getKey();
+            int totalNumTasks = 0;
+            int completedValue = 0;
+            for (String module : modules.keySet()) {
+                ArrayList<Pair<String, Pair<String, String>>> tasks = result.getValue();
+                //totalNumTasks = tasks.size();
+                for (Pair<String, Pair<String, String>> as : tasks) {
+                    if (as.getKey().equals(module)) {
+                        totalNumTasks += 1;
+                        if (as.getValue().getKey().equals("\u2713")) {
+                            completedValue += 1;
+                        }
+                    }
+                }
+                FXMLLoader fxmlLoad = new FXMLLoader(getClass().getResource("/view/ProgressIndicator.fxml"));
+                Parent loads = fxmlLoad.load();
+                fxmlLoad.<ProgressController>getController().getData(module, totalNumTasks, completedValue);
+                progressContainer.getChildren().add(loads);
+            }
+
             setListView();
         } catch (IOException | NullPointerException | ParseException e) {
             e.printStackTrace();

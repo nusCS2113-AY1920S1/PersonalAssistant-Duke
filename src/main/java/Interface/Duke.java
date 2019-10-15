@@ -16,7 +16,6 @@ public class Duke extends Application {
 
     private final Storage storage;
     private final TaskList events;
-    private final TaskList todos;
     private final TaskList deadlines;
     private final Ui ui;
 
@@ -27,7 +26,6 @@ public class Duke extends Application {
 
         ui = new Ui();
         storage = new Storage();
-        todos = new TaskList();
         events = new TaskList();
         deadlines = new TaskList();
         try {
