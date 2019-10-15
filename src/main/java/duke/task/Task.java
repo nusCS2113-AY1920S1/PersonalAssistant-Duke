@@ -14,7 +14,7 @@ public class Task {
 
     protected String description;
     protected boolean isDone;
-    protected String type;
+    protected String key;
     protected LocalDate createdDate;
     protected RecurrencePeriod recurrencePeriod;
     protected Priority priority;
@@ -30,7 +30,7 @@ public class Task {
     public Task(String description, String recurrencePeriod) {
         this.description = description;
         this.isDone = false;
-        this.type = "";
+        this.key = "";
         this.createdDate = LocalDate.now();
         this.priority = Priority.LOW;
         switch (recurrencePeriod) {
@@ -140,6 +140,6 @@ public class Task {
             recurringDescription = "every week";
             recurringIcon = "[R]";
         }
-        return recurringIcon + type + "[" + this.getStatusIcon() + "] " + description + recurringDescription;
+        return recurringIcon + key + "[" + this.getStatusIcon() + "] " + description + recurringDescription;
     }
 }

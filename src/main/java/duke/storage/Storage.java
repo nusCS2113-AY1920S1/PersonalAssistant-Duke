@@ -41,7 +41,14 @@ public class Storage {
 	 * previous data will be lost
 	 */
 	public ArrayList<Task> load() throws FileNotFoundException {
-		Gson gson = new Gson();
+		Gson gson = new GsonBuilder()
+				.registerTypeAdapterFactory(RuntimeTypeAdapterFactory
+						.of(Task.class)
+						.registerSubtype(ToDo.class)
+						.registerSubtype(Deadline.class)
+						.registerSubtype(Event.class)
+						.registerSubtype(FixedDurationTask.class))
+				.create();
 		JsonReader reader = new JsonReader(new FileReader("data/duke.json"));
 		Type type = new TypeToken<ArrayList<Task>>() {}.getType();
 		ArrayList<Task> tasks = gson.fromJson(reader, type);
@@ -57,7 +64,14 @@ public class Storage {
 	public void save(TaskList tasks) throws IOException {
 		FileWriter writer = new FileWriter("data/duke.json");
 		ArrayList<Task> list= tasks.getList();
-		Gson gson = new GsonBuilder().create();
+		Gson gson = new GsonBuilder()
+				.registerTypeAdapterFactory(RuntimeTypeAdapterFactory
+						.of(Task.class)
+						.registerSubtype(ToDo.class)
+						.registerSubtype(Deadline.class)
+						.registerSubtype(Event.class)
+						.registerSubtype(FixedDurationTask.class))
+				.create();
 		gson.toJson(list, writer);
 		writer.close();
 	}

@@ -17,7 +17,7 @@ public class FixedDurationTask extends Task {
 	public FixedDurationTask(String description, int duration) {
 		super(description);
 		this.duration = duration;
-		this.type = "[F]";
+		this.key = "[F]";
 	}
 
 	@Override

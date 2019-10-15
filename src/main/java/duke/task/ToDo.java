@@ -13,7 +13,7 @@ public class ToDo extends Task {
 	 */
 	public ToDo(String description, String recurrencePeriod) {
 		super(description, recurrencePeriod);
-		this.type = "[T]";
+		this.key = "[T]";
 	}
 
 	public ToDo(String description) {
