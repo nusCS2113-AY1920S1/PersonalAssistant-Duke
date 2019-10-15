@@ -1,12 +1,13 @@
 package controllers;
 
-import java.text.ParseException;
-import java.util.Scanner;
 import models.data.IProject;
 import repositories.ProjectRepository;
 import util.factories.MemberFactoryUtil;
 import util.factories.TaskFactory;
 import views.CLIView;
+
+import java.text.ParseException;
+import java.util.Scanner;
 
 public class ProjectInputController {
     private Scanner manageProjectInput;
@@ -48,7 +49,7 @@ public class ProjectInputController {
                         consoleView.consolePrint("Failed to add member. Please ensure you have entered "
                                 + "at least the name of the new member.");
                     }
-                } else if (projectCommand.length() >= 11 && ("edit member ").equals(projectCommand.substring(0, 12))) {
+                } else if (projectCommand.length() >= 12 && ("edit member ").equals(projectCommand.substring(0, 12))) {
                     int memberIndexNumber = Integer.parseInt(projectCommand.substring(12).split(" ")[0]);
                     if (projectToManage.getNumOfMembers() >= memberIndexNumber) {
                         String updatedMemberDetails = projectCommand.substring(projectCommand.indexOf("n/"));
@@ -56,7 +57,7 @@ public class ProjectInputController {
                     } else {
                         consoleView.consolePrint("The member index entered is invalid.");
                     }
-                } else if (projectCommand.length() >= 13 && ("delete member ").equals(projectCommand.substring(0,14))) {
+                } else if (projectCommand.length() >= 14 && ("delete member ").equals(projectCommand.substring(0,14))) {
                     int memberIndexNumber = Integer.parseInt(projectCommand.substring(14).split(" ")[0]);
                     if (projectToManage.getNumOfMembers() >= memberIndexNumber) {
                         consoleView.removeMember(projectToManage, memberIndexNumber);
@@ -74,6 +75,8 @@ public class ProjectInputController {
                     }
                 } else if (projectCommand.length() == 10 && ("view tasks").equals(projectCommand)) {
                     consoleView.viewAllTasks(projectToManage);
+                } else if (projectCommand.length() == 19 && ("view assigned tasks").equals(projectCommand)) {
+                    AssignmentControllerUtil.viewTaskAssigned(projectToManage, consoleView);
                 } else if (projectCommand.length() > 25
                         && ("view task requirements i/").equals(projectCommand.substring(0, 25))) {
                     int taskIndex = Integer.parseInt(projectCommand.substring(25));
@@ -92,12 +95,13 @@ public class ProjectInputController {
                     /*
                         Empty method
                     */
-                } else if (projectCommand.length() == 12 && ("delete task ").equals(projectCommand)) {
-                    String temp3 = "";
-                    System.out.println(temp3);
-                    /*
-                        Empty method
-                    */
+                } else if (projectCommand.length() >= 12 && ("delete task ").equals(projectCommand.substring(0,12))) {
+                    int taskIndexNumber = Integer.parseInt(projectCommand.substring(12).split(" ")[0]);
+                    if (projectToManage.getNumOfTasks() >= taskIndexNumber) {
+                        consoleView.removeTask(projectToManage, taskIndexNumber);
+                    } else {
+                        consoleView.consolePrint("The task index entered is invalid.");
+                    }
                 } else if (projectCommand.length() >= 12 && ("assign task ").equals(projectCommand.substring(0,12))) {
                     AssignmentControllerUtil.manageAssignment(projectToManage,
                         projectCommand.substring(12).split(" "), consoleView);

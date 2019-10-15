@@ -60,6 +60,13 @@ public class NullProject implements IProject {
     }
 
     @Override
+    public void removeTask(int taskIndexNumber) {
+        /*
+        Empty method
+         */
+    }
+
+    @Override
     public boolean memberIndexExists(int indexNumber) {
         return false;
     }

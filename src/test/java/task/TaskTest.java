@@ -32,8 +32,7 @@ public class TaskTest {
             assertEquals(dummyTask.getDetails(),task.getDetails());
             assertEquals(dummyTask.getTaskRequirements(), task.getTaskRequirements());
 
-            SimpleDateFormat formatter2 = new SimpleDateFormat("dd/MM/yyyy");
-            Date dueDate2 = formatter2.parse("1/4/1989");
+            Date dueDate2 = formatter.parse("1/4/1989");
             ArrayList<String> taskRequirements2 = new ArrayList<>();
             taskRequirements2.add("requirement1");
             taskRequirements2.add("requirement2");

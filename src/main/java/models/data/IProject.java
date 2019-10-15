@@ -25,6 +25,8 @@ public interface IProject {
 
     void addTask(Task newTask);
 
+    void removeTask(int taskIndexNumber);
+
     boolean memberIndexExists(int indexNumber);
 
     Task getTask(int taskIndex);
