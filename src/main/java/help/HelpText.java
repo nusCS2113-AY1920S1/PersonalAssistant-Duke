@@ -1,6 +1,6 @@
 package help;
 
-public class Help {
+public class HelpText {
     public final String commandSeparator = System.lineSeparator() +
             "---------------------------------------------------------\n" +
             System.lineSeparator();

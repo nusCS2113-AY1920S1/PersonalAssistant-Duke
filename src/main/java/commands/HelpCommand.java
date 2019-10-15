@@ -4,7 +4,7 @@ import Storage.Storage;
 import Tasks.Task;
 import UI.Ui;
 import Exception.DukeException;
-import help.Help;
+import help.HelpText;
 
 import java.io.IOException;
 import java.text.ParseException;
@@ -17,7 +17,7 @@ public class HelpCommand extends Command {
     public void execute(ArrayList<Task> list, Ui ui, Storage storage, Stack<String> commandStack, ArrayList<Task> deletedTask) throws DukeException, ParseException, IOException, NullPointerException {
         //help COMMAND or just help
         //description of a help can be empty
-        Help help = new Help();
+        HelpText help = new HelpText();
         String description;
         String[] command = ui.FullCommand.split(" ");
         assert command.length != 0 : "Bug in parser that affects HelpCommand";
