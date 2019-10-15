@@ -6,14 +6,20 @@ import java.util.ArrayList;
 
 /**
  * Handles temporary storage of user stats while the program is running.
+ *
+ * The relationship between the various members is.
+ *
+ * chapterData: An ArrayList that holds the data for all chapters. Chapters are addressed by index, but can also be
+ * searched by name.
+ * characterImagePath: a string containing the path of the image that is used for the user's character in game.
+ * The two data above are stored permanently to a text file, and retrieved from the text file when the program starts.
+ *
+ * currentChapter: A single ChapterStat object that stores the chapter data of the chapter that is currently running.
+ * This is reset for every run. The contents of currentChapter can be transferred to chapterData by calling
+ * saveCurrentChapterToChapterData()
+ *
  */
 public class UserStats {
-
-    /**
-     * Inner class to hold the data for each chapter.
-     * the chapter name, total questions answered and correct answers.
-     */
-
 
     // Array of chapter stats
     private ArrayList<ChapterStat> chapterData;
@@ -92,7 +98,8 @@ public class UserStats {
     }
 
     /**
-     * After the chapter has been played, add the number answered/number correct to the permanently stored chapterData associated with that chapter.
+     * After the chapter has been played, add the number answered/number correct to the permanently stored chapterData
+     * associated with that chapter.
      * NOTE: This function increments the number of attempts done, so only call it once per attempt.
      * @param index The index of the chapter in chapterData.
      */
@@ -104,7 +111,8 @@ public class UserStats {
     }
 
     /**
-     * After the chapter has been played, add the number answered/number correct to the permanently stored chapterData associated with that chapter.
+     * After the chapter has been played, add the number answered/number correct to the permanently stored chapterData
+     * associated with that chapter.
      * @param name The name of the chapter in chapterData.
      */
     public void saveCurrentChapterToChapterData(String name) {
