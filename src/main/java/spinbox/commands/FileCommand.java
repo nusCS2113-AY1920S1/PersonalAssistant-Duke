@@ -5,7 +5,7 @@ import spinbox.exceptions.InputException;
 import spinbox.Storage;
 import spinbox.lists.TaskList;
 import spinbox.items.tasks.Task;
-import spinbox.items.tasks.FileTask;
+import spinbox.items.File;
 import spinbox.Ui;
 
 import java.util.ArrayList;
@@ -65,11 +65,11 @@ public class FileCommand extends Command {
         List<Task> files;
 
         switch (action) {
-        case "add":
-            Task added = fileTaskList.add(new FileTask(fileName));
+        /*case "add":
+            Task added = fileTaskList.add(new File(fileName));
             formattedOutput.add("Got it. I've added this file:");
             formattedOutput.add(added.toString());
-            break;
+            break;*/
         case "done":
             try {
                 Task downloaded = fileTaskList.mark(index);

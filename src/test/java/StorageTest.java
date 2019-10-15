@@ -5,12 +5,8 @@ import spinbox.items.tasks.Task;
 import spinbox.items.tasks.Todo;
 import spinbox.items.tasks.Deadline;
 import spinbox.items.tasks.Event;
-import spinbox.items.tasks.Within;
-import spinbox.items.tasks.Tentative;
-import spinbox.items.tasks.Recurring;
-import spinbox.items.tasks.FileTask;
 import org.junit.jupiter.api.Test;
-import java.io.File;
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -43,14 +39,14 @@ public class StorageTest {
 
     @Test
     public void setAndLoadData() throws SpinBoxException {
-        File file = new File("data/storageTest.txt");
+        java.io.File file = new java.io.File("data/storageTest.txt");
         file.delete();
 
         Storage test = new Storage("data/storageTest.txt");
         List<Task> testTasks = new ArrayList<Task>();
         Random random = new Random();
         for (int i = 0; i < 2000; i++) {
-            int taskType = random.nextInt(7);
+            int taskType = random.nextInt(3);
             int randomDone = random.nextInt(2);
             String randomTaskName = randomString(random.nextInt(100) + 2);
             String randomStringForTask = randomString(random.nextInt(20));
@@ -67,19 +63,6 @@ public class StorageTest {
                 break;
             case 2:
                 testTasks.add(new Event(randomDone, randomTaskName, randomStartDate, randomEndDate));
-                break;
-            case 3:
-                testTasks.add(new Within(randomDone, randomTaskName, randomStartDate, randomEndDate));
-                break;
-            case 4:
-                testTasks.add(new Tentative(randomDone, randomTaskName, randomStartDate, randomEndDate));
-                break;
-            case 5:
-                testTasks.add(
-                        new Recurring(randomTaskName, randomStartDate, randomEndDate, random.nextInt(3000)));
-                break;
-            case 6:
-                testTasks.add(new FileTask(randomDone, randomTaskName));
                 break;
             default:
                 break;

@@ -26,7 +26,7 @@ public abstract class Item {
     }
 
     public String storeString() {
-        return Integer.toString((this.getDone() ? 1 : 0)) + " | " + this.getName();
+        return (this.getDone() ? 1 : 0) + " | " + this.getName();
     }
 
     protected void setDone(Boolean done) {

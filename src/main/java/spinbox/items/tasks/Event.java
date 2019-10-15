@@ -2,7 +2,7 @@ package spinbox.items.tasks;
 
 import spinbox.DateTime;
 
-public class Event extends Task {
+public class Event extends Schedulable {
     /**
      * Constructor for SpinBox.Tasks.Event object.
      * @param description name of the event.
@@ -13,6 +13,7 @@ public class Event extends Task {
         super(description);
         this.startDate = startDate;
         this.endDate = endDate;
+        taskType = TaskType.EVENT;
     }
 
     /**
@@ -27,6 +28,7 @@ public class Event extends Task {
         this.setDone(done == 1);
         this.startDate = startDate;
         this.endDate = endDate;
+        taskType = TaskType.EVENT;
     }
 
     @Override

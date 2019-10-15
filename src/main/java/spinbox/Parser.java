@@ -132,12 +132,11 @@ public class Parser {
 
             case "todo":
             case "deadline":
-            case "do-within":
-            case "do-after":
             case "event":
-            case "tentative":
-            case "fixed":
-            case "recurring":
+            case "exam":
+            case "lab":
+            case "lecture":
+            case "tutorial":
                 stackBuilder(componentsLength, components);
                 command = new AddCommand(components, input);
                 break;

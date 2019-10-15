@@ -2,20 +2,13 @@ package spinbox;
 
 import spinbox.exceptions.SpinBoxException;
 import spinbox.exceptions.StorageException;
-import spinbox.items.tasks.After;
 import spinbox.items.tasks.Deadline;
 import spinbox.items.tasks.Event;
-import spinbox.items.tasks.FileTask;
-import spinbox.items.tasks.Fixed;
-import spinbox.items.tasks.Recurring;
 import spinbox.items.tasks.Task;
-import spinbox.items.tasks.Tentative;
 import spinbox.items.tasks.Todo;
-import spinbox.items.tasks.Within;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
-import java.io.File;
 import java.io.IOException;
 import java.io.FileReader;
 import java.io.FileWriter;
@@ -23,7 +16,7 @@ import java.util.List;
 import java.util.Vector;
 
 public class Storage {
-    private File dukeFile;
+    private java.io.File dukeFile;
 
     /**
      * This constructor creates the file if needed.
@@ -31,7 +24,7 @@ public class Storage {
      */
     public Storage(String fileLocation) throws SpinBoxException {
         try {
-            dukeFile = new File(fileLocation);
+            dukeFile = new java.io.File(fileLocation);
             if (dukeFile.getParentFile().mkdir()) {
                 dukeFile.createNewFile();
             }
@@ -64,31 +57,6 @@ public class Storage {
                     case "D":
                         start = new DateTime(arguments[3]);
                         tasks.addElement(new Deadline(Integer.parseInt(arguments[1]), arguments[2], start));
-                        break;
-                    case "F":
-                        tasks.addElement(new Fixed(Integer.parseInt(arguments[1]), arguments[2], arguments[3]));
-                        break;
-                    case "A":
-                        tasks.addElement(new After(Integer.parseInt(arguments[1]), arguments[2], arguments[3]));
-                        break;
-                    case "W":
-                        start = new DateTime(arguments[3]);
-                        end = new DateTime(arguments[4]);
-                        tasks.addElement(new Within(Integer.parseInt(arguments[1]), arguments[2], start, end));
-                        break;
-                    case "TE":
-                        start = new DateTime(arguments[3]);
-                        end = new DateTime(arguments[4]);
-                        tasks.addElement(new Tentative(Integer.parseInt(arguments[1]), arguments[2], start, end));
-                        break;
-                    case "R":
-                        start = new DateTime(arguments[3]);
-                        end = new DateTime(arguments[4]);
-                        tasks.addElement(new Recurring(arguments[2], start, end, Long.parseLong(arguments[5]),
-                                Long.parseLong(arguments[6])));
-                        break;
-                    case "FILE":
-                        tasks.addElement(new FileTask(Integer.parseInt(arguments[1]), arguments[2]));
                         break;
                     default:
                         start = new DateTime(arguments[3]);

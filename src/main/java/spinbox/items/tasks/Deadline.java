@@ -2,10 +2,16 @@ package spinbox.items.tasks;
 
 import spinbox.DateTime;
 
-public class Deadline extends Task {
+public class Deadline extends Schedulable {
+    /**
+     * Constructor for creation of SpinBox.Tasks.Deadline.
+     * @param description the name or description of the deadline.
+     * @param startDate the due date/time of the deadline.
+     */
     public Deadline(String description, DateTime startDate) {
         super(description);
         this.startDate = startDate;
+        taskType = TaskType.DEADLINE;
     }
 
     /**
@@ -18,6 +24,7 @@ public class Deadline extends Task {
         super(description);
         this.setDone(done == 1);
         this.startDate = startDate;
+        taskType = TaskType.DEADLINE;
     }
 
     @Override

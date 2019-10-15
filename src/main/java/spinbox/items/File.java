@@ -1,7 +1,7 @@
-package spinbox.items.tasks;
+package spinbox.items;
 
-public class FileTask extends Task {
-    public FileTask(String fileName) {
+public class File extends Item {
+    public File(String fileName) {
         super(fileName);
     }
 
@@ -10,7 +10,7 @@ public class FileTask extends Task {
      * @param done 1 if task has been mark completed, 0 otherwise.
      * @param fileName the name of the file.
      */
-    public FileTask(int done, String fileName) {
+    public File(int done, String fileName) {
         super(fileName);
         this.setDone(done == 1);
     }
@@ -23,15 +23,5 @@ public class FileTask extends Task {
     @Override
     public String storeString() {
         return "FILE | " + super.storeString();
-    }
-
-    @Override
-    String getStartDateString() {
-        return null;
-    }
-
-    @Override
-    String getEndDateString() {
-        return null;
     }
 }

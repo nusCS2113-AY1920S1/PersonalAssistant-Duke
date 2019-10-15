@@ -3,6 +3,7 @@ package spinbox.commands;
 import spinbox.DateTime;
 import spinbox.exceptions.InputException;
 import spinbox.Storage;
+import spinbox.items.tasks.Schedulable;
 import spinbox.lists.TaskList;
 import spinbox.items.tasks.Task;
 import spinbox.Ui;
@@ -47,8 +48,10 @@ public class ViewScheduleCommand extends Command {
         List<Task> tasks = taskList.getList();
 
         for (Task task : tasks) {
-            if (task.compareEquals(inputDate)) {
-                formattedOutput.add((resultCount++ + 1) + ". " + task.toString());
+            if (task.isSchedulable()) {
+                if (((Schedulable) task).compareEquals(inputDate)) {
+                    formattedOutput.add((resultCount++ + 1) + ". " + task.toString());
+                }
             }
         }
 

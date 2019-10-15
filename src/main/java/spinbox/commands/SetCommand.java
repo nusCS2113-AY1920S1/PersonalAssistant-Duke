@@ -8,7 +8,6 @@ import spinbox.exceptions.SpinBoxException;
 import spinbox.exceptions.InputException;
 import spinbox.items.tasks.Event;
 import spinbox.items.tasks.Task;
-import spinbox.items.tasks.Tentative;
 
 import java.util.ArrayList;
 
@@ -65,7 +64,7 @@ public class SetCommand extends Command {
 
         int tentativeTaskDone = tentativeTask.getDone() ? 1 : 0;
         Task addTask = new Event(tentativeTaskDone,
-                ((Tentative) tentativeTask).getDescription(),
+                (tentativeTask).getName(),
                 this.startDate, this.endDate);
         taskList.replace(index, addTask);
         ArrayList<String> formattedOutput = new ArrayList<>();

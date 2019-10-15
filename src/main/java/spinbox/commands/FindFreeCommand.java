@@ -2,6 +2,7 @@ package spinbox.commands;
 
 import spinbox.DateTime;
 import spinbox.Storage;
+import spinbox.items.tasks.Schedulable;
 import spinbox.lists.TaskList;
 import spinbox.Ui;
 import spinbox.items.tasks.Event;
@@ -37,12 +38,15 @@ public class FindFreeCommand extends Command {
         freeTime = new ArrayList<>();
         freeTime.add(new Pair<>(startDate, endDate));
         for (Task task : tasks) {
-            if (task.isOverlapping(startDate,endDate)) {
-                Event event = (Event) task;
-                DateTime taskStart = event.getStartDate();
-                DateTime taskEnd = event.getEndDate();
-                freeTime = newFreeTime(taskStart, taskEnd);
+            if (task.isSchedulable()) {
+                if (((Schedulable) task).isOverlapping(startDate,endDate)) {
+                    Event event = (Event) task;
+                    DateTime taskStart = event.getStartDate();
+                    DateTime taskEnd = event.getEndDate();
+                    freeTime = newFreeTime(taskStart, taskEnd);
+                }
             }
+
         }
         List<String> formattedOutput = new ArrayList<String>();
         formattedOutput.add("Free Times are:");

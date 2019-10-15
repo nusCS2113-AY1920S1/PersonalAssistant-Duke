@@ -1,6 +1,7 @@
 package spinbox.commands;
 
 import spinbox.Storage;
+import spinbox.items.tasks.Schedulable;
 import spinbox.lists.TaskList;
 import spinbox.Ui;
 import spinbox.items.tasks.Task;
@@ -30,9 +31,10 @@ public class ReminderCommand extends Command {
                 continue;
             }
 
-            if (task.getStartDate() != null) {
+            if (task.isSchedulable()) {
+
                 LocalDateTime today = LocalDateTime.now();
-                LocalDateTime startDate = task.getStartDate().getDateTime()
+                LocalDateTime startDate = ((Schedulable)task).getStartDate().getDateTime()
                         .toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime();
 
                 date = startDate.toLocalDate().toString();
