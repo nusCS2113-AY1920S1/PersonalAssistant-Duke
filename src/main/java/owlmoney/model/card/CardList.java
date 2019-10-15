@@ -8,7 +8,7 @@ import owlmoney.model.transaction.exception.TransactionException;
 import owlmoney.ui.Ui;
 
 /**
- * ########################################################################################.
+ * CardList class that provides a layer of abstraction for the ArrayList that stores credit cards.
  */
 
 public class CardList {
@@ -38,7 +38,7 @@ public class CardList {
      *
      * @param name name of the card to be deleted.
      * @param ui required for printing.
-     * @throws CardException #############################################################################
+     * @throws CardException If CardList is empty or card to be deleted do not exist.
      */
     public void cardListDeleteCard(String name, Ui ui) throws CardException {
         cardListCheckListEmpty();
@@ -52,7 +52,7 @@ public class CardList {
             }
         }
         if (!isDeleted) {
-            throw new CardException("No such card exist.");
+            throw new CardException("No such card exist for deletion.");
         }
     }
 
@@ -117,7 +117,7 @@ public class CardList {
      * @param limit    New limit of credit card if any.
      * @param rebate   New rebate of credit card if any.
      * @param ui       Required for printing.
-     * @throws CardException #############################################################################.
+     * @throws CardException If card cannot be found.
      */
     public void cardListEditCard(String name, String newName, String limit, String rebate, Ui ui)
             throws CardException {
@@ -139,14 +139,14 @@ public class CardList {
                 return;
             }
         }
-        throw new CardException("Card could not be found ");
+        throw new CardException("Card could not be found for editing card details");
     }
 
     /**
      * Lists all credit cards details.
      *
      * @param ui Required for printing.
-     * @throws CardException #############################################################################
+     * @throws CardException If CardList is empty.
      */
     public void cardListListCards(Ui ui) throws CardException {
         cardListCheckListEmpty();
@@ -162,7 +162,7 @@ public class CardList {
      * @param cardName The credit card name.
      * @param exp      The instance of the expenditure.
      * @param ui       Required for printing.
-     * @throws CardException #############################################################################
+     * @throws CardException If the credit card name cannot be found.
      */
     //need change exception class in the future for this
     public void cardListAddExpenditure(String cardName, Transaction exp, Ui ui)
@@ -173,7 +173,7 @@ public class CardList {
                 return;
             }
         }
-        throw new CardException("There are no credit card named :" + cardName);
+        throw new CardException("Card cannot be found for adding expenditure:" + cardName);
     }
 
     /**
@@ -182,8 +182,8 @@ public class CardList {
      * @param cardToList The name of the credit card.
      * @param ui         required for printing.
      * @param displayNum Number of expenditures to list.
-     * @throws CardException #############################################################################
-     * @throws TransactionException #########################################################################
+     * @throws CardException If the credit card name cannot be found.
+     * @throws TransactionException If no expenditure is found or no expenditure is in the list.
      */
     public void cardListListCardExpenditure(String cardToList, Ui ui, int displayNum)
             throws TransactionException, CardException {
@@ -193,7 +193,7 @@ public class CardList {
                 return;
             }
         }
-        throw new CardException("Cannot find bank with name: " + cardToList);
+        throw new CardException("Card cannot be found to list expenditure: " + cardToList);
     }
 
     /**
@@ -213,7 +213,7 @@ public class CardList {
                 return;
             }
         }
-        throw new CardException("Cannot find card with name: " + deleteFromAccountCard);
+        throw new CardException("Card expenditure to be deleted cannot be found: " + deleteFromAccountCard);
     }
 
     /**
@@ -237,6 +237,6 @@ public class CardList {
                 return;
             }
         }
-        throw new CardException("Cannot find bank with name: " + editFromCard);
+        throw new CardException("Card expenditure to be edited cannot be found: " + editFromCard);
     }
 }

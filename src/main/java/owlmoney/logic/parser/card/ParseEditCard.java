@@ -7,7 +7,7 @@ import owlmoney.logic.command.card.EditCardCommand;
 import owlmoney.logic.parser.exception.ParserException;
 
 /**
- * ########################################################################################.
+ * Parses input by user for editing card.
  */
 public class ParseEditCard extends ParseCard {
 
