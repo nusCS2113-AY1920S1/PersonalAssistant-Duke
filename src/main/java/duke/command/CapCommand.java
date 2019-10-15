@@ -192,15 +192,16 @@ public class CapCommand extends ModuleCommand {
      * Execute of 3 different forms of user input according to the enum state of this CapCommand class.
      */
     @Override
-    public void execute(HashMap<String, ModuleInfoSummary> summaryMap,
-                        HashMap<String, ModuleInfoDetailed> detailedMap,
+    public void execute(HashMap<String, ModuleInfoDetailed> detailedMap,
+                        ModuleTasksList moduleTasksList,
                         PlannerUi plannerUi,
-                        Storage store)
+                        Storage store,
+                        JsonWrapper jsonWrapper))
         throws ModException {
         Scanner scanner = new Scanner(System.in);
         if (this.type.equals(CommandType.OVERALL)) {
             plannerUi.capStartMsg();
-            calculateOverallCap(summaryMap, detailedMap, plannerUi, store, scanner);
+            calculateOverallCap(moduleTasksList, detailedMap, plannerUi, store, scanner);
         } else if (this.type.equals(CommandType.MODULE)) {
             //calculate the module's predicted cap from its prerequisites
         } else if (this.type.equals(CommandType.SEMESTER)) {
@@ -212,7 +213,7 @@ public class CapCommand extends ModuleCommand {
      * User will keep inputting "[moduleCode] [letterGrade]" until satisfied.
      * Then user inputs "done" and the user's CAP will be calculated and printed.
      */
-    public void calculateOverallCap(HashMap<String, ModuleInfoSummary> summaryMap,
+    public void calculateOverallCap(ModuleTasksList moduleTasksList,
                                     HashMap<String, ModuleInfoDetailed> detailedMap,
                                     PlannerUi plannerUi,
                                     Storage store,
