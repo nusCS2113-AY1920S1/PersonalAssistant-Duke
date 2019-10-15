@@ -1,44 +1,194 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
+<?import javafx.geometry.Rectangle2D?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.ColorAdjust?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seedu.hustler.MainWindow">
     <children>
-        <TextField fx:id="userInput" layoutX="177.0" layoutY="560.0" onAction="#handleUserInput" prefHeight="42.0" prefWidth="321.0" AnchorPane.bottomAnchor="1.0" />
-        <Button fx:id="sendButton" layoutX="498.0" layoutY="560.0" mnemonicParsing="false" onAction="#handleUserInput" prefHeight="41.0" prefWidth="76.0" text="Send" />
         <ScrollPane fx:id="scrollPane" hbarPolicy="NEVER" hvalue="1.0" layoutY="-32.0" prefHeight="590.0" prefWidth="574.0" vvalue="1.0">
             <content>
                 <VBox fx:id="dialogContainer" />
             </content>
         </ScrollPane>
-      <AnchorPane minWidth="100.0" prefHeight="600.0" prefWidth="176.0">
+      <Pane layoutX="175.0" opacity="0.5" prefHeight="558.0" prefWidth="399.0" />
+        <TextField fx:id="userInput" layoutX="174.0" layoutY="553.0" minHeight="-Infinity" minWidth="-Infinity" onAction="#handleUserInput" prefHeight="48.0" prefWidth="401.0" promptText="Type a command..." style="-fx-border-color: #ffffff;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="178.0" AnchorPane.rightAnchor="0.0" />
+      <GridPane alignment="CENTER" layoutX="176.0" prefHeight="90.0" prefWidth="399.0" style="-fx-background-color: #ffffff;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="60.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="30.0" minHeight="10.0" prefHeight="24.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="36.0" minHeight="10.0" prefHeight="36.0" vgrow="SOMETIMES" />
+        </rowConstraints>
          <children>
-            <Button layoutY="0" mnemonicParsing="false" prefHeight="70.0" prefWidth="176.0" text="Tasks" />
-            <Button layoutY="70.0" mnemonicParsing="false" prefHeight="70.0" prefWidth="176.0" text="Task Completion Mode" />
-            <Button layoutY="140.0" mnemonicParsing="false" prefHeight="70.0" prefWidth="176.0" text="Achievements" />
-            <Button layoutY="210.0" mnemonicParsing="false" prefHeight="70.0" prefWidth="176.0" text="Statistics" />
-            <Button layoutY="280.0" mnemonicParsing="false" prefHeight="70.0" prefWidth="176.0" text="Avatar" />
-            <Button layoutY="350.0" mnemonicParsing="false" prefHeight="70.0" prefWidth="176.0" text="Shop" />
-            <Button layoutY="420.0" mnemonicParsing="false" prefHeight="70.0" prefWidth="176.0" text="Arena" />
-            <Button layoutY="490.0" mnemonicParsing="false" prefHeight="70.0" prefWidth="176.0" text="Settings" />
+            <ImageView fitHeight="66.0" fitWidth="91.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.rowIndex="2">
+               <image>
+                  <Image url="@../../../../../../Downloads/ICON.png" />
+               </image>
+               <GridPane.margin>
+                  <Insets left="50.0" right="50.0" />
+               </GridPane.margin>
+            </ImageView>
+         </children>
+      </GridPane>
+      <TextArea fx:id="console" prefHeight="157.0" prefWidth="400.0" wrapText="true" AnchorPane.bottomAnchor="45.0" AnchorPane.leftAnchor="175.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="90.0" />
+      <GridPane prefHeight="601.0" prefWidth="176.0" style="-fx-background-color: #34495e;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+      </GridPane>
+      <AnchorPane minWidth="100.0" prefHeight="601.0" prefWidth="176.0" style="-fx-background-color: #34495e;">
+         <children>
+            <Button fx:id="task" layoutY="88.0" mnemonicParsing="false" onAction="#taskAction" prefHeight="62.0" prefWidth="176.0" style="-fx-background-color: #34495e;" text=" TASK" textFill="#95a5a6" wrapText="true">
+               <font>
+                  <Font name="Helvetica Neue" size="13.0" />
+               </font>
+               <graphic>
+                  <ImageView fx:id="menu" fitHeight="41.0" fitWidth="37.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../../../../Downloads/Menus.png" />
+                     </image>
+                     <effect>
+                        <ColorAdjust />
+                     </effect>
+                  </ImageView>
+               </graphic>
+               <padding>
+                  <Insets right="75.0" />
+               </padding>
+            </Button>
+            <Button fx:id="taskCompletionMode" layoutY="150.0" mnemonicParsing="false" onAction="#taskCompletionModeAction" prefHeight="62.0" prefWidth="176.0" style="-fx-background-color: #34495e;" text="TASK COMPLETION MODE" textFill="#95a5a6" wrapText="true">
+               <font>
+                  <Font name="Helvetica" size="12.0" />
+               </font>
+               <graphic>
+                  <ImageView fx:id="timer" fitHeight="46.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../../../../Downloads/Timers.png" />
+                     </image>
+                     <viewport>
+                        <Rectangle2D minX="1.0" minY="1.0" />
+                     </viewport>
+                  </ImageView>
+               </graphic>
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+            </Button>
+            <Button fx:id="achievement" layoutY="212.0" mnemonicParsing="false" onAction="#achievementAction" prefHeight="62.0" prefWidth="176.0" style="-fx-background-color: #34495e;" text="ACHIEVEMENTS" textFill="#95a5a6" wrapText="true">
+               <font>
+                  <Font name="Helvetica Neue" size="13.0" />
+               </font>
+               <graphic>
+                  <ImageView fx:id="trophy" fitHeight="68.0" fitWidth="42.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../../../../Downloads/trophies.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+               <padding>
+                  <Insets right="10.0" />
+               </padding>
+            </Button>
+            <Button fx:id="statistics" layoutY="274.0" mnemonicParsing="false" onAction="#statisticsAction" prefHeight="62.0" prefWidth="176.0" style="-fx-background-color: #34495e;" text="STATISTICS" textFill="#95a5a6" wrapText="true">
+               <graphic>
+                  <ImageView fx:id="spiderGraph" fitHeight="108.0" fitWidth="51.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../../../../Downloads/Statistics.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+               <padding>
+                  <Insets right="26.0" />
+               </padding>
+            </Button>
+            <Button fx:id="avatar" layoutY="336.0" mnemonicParsing="false" onAction="#avatarAction" prefHeight="62.0" prefWidth="176.0" style="-fx-background-color: #34495e;" text="AVATAR" textFill="#95a5a6" wrapText="true">
+               <graphic>
+                  <ImageView fx:id="profile" fitHeight="46.0" fitWidth="42.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../../../../Downloads/Avatars.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+               <padding>
+                  <Insets right="55.0" />
+               </padding>
+            </Button>
+            <Button fx:id="shop" layoutY="398.0" mnemonicParsing="false" onAction="#shopAction" prefHeight="62.0" prefWidth="176.0" style="-fx-background-color: #34495e;" text=" SHOP" textFill="#95a5a6" wrapText="true">
+               <graphic>
+                  <ImageView fx:id="trolley" fitHeight="75.0" fitWidth="43.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../../../../Downloads/Shops.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+               <padding>
+                  <Insets right="70.0" />
+               </padding>
+            </Button>
+            <Button fx:id="arena" layoutY="460.0" mnemonicParsing="false" onAction="#arenaAction" prefHeight="62.0" prefWidth="176.0" style="-fx-background-color: #34495e;" text="ARENA" textFill="#95a5a6" wrapText="true">
+               <graphic>
+                  <ImageView fx:id="swords" fitHeight="44.0" fitWidth="42.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../../../../Downloads/Arena.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+               <padding>
+                  <Insets right="60.0" />
+               </padding>
+            </Button>
+            <Button fx:id="settings" layoutY="522.0" mnemonicParsing="false" onAction="#settingsAction" prefHeight="62.0" prefWidth="176.0" style="-fx-background-color: #34495e;" text="SETTINGS" textFill="#95a5a6" wrapText="true">
+               <graphic>
+                  <ImageView fx:id="gear" fitHeight="49.0" fitWidth="46.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../../../../Downloads/Settings.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+               <padding>
+                  <Insets right="40.0" />
+               </padding>
+            </Button>
          </children>
       </AnchorPane>
-      <Pane layoutX="175.0" opacity="0.5" prefHeight="558.0" prefWidth="399.0">
-         <children>
-            <TextArea fx:id="console" layoutY="107.0" prefHeight="451.0" prefWidth="399.0" />
-            <Label alignment="CENTER" prefHeight="107.0" prefWidth="399.0" style="-fx-background-color: #00FF00;" text="HUSTLER">
-               <font>
-                  <Font size="52.0" />
-               </font>
-            </Label>
-         </children></Pane>
+      <GridPane prefHeight="90.0" prefWidth="176.0" style="-fx-background-color: #2dcb70;" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+      </GridPane>
+        <Button fx:id="sendButton" layoutX="498.0" layoutY="559.0" mnemonicParsing="false" onAction="#handleUserInput" prefHeight="45.0" prefWidth="76.0" text="Send" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" />
     </children>
 </AnchorPane>
