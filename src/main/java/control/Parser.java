@@ -2,6 +2,8 @@ package control;
 
 import command.*;
 import exception.DukeException;
+import room.AddRoom;
+
 import java.io.IOException;
 
 /**
@@ -26,6 +28,8 @@ public class Parser {
             return new CreateAccountCommand(input, splitStr);
         case "add":
             return new AddBookingCommand(input, splitStr);
+        case "addroom":
+            return new AddRoomCommand(input, splitStr);
         default:
             throw new DukeException("\u2639 OOPS!!! I'm sorry, but I don't know what that means :-(");
         }

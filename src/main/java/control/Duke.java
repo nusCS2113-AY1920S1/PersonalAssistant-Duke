@@ -2,6 +2,7 @@ package control;
 
 import command.Command;
 import exception.DukeException;
+import room.RoomList;
 import storage.BookingConstants;
 import storage.Storage;
 import ui.Ui;
@@ -23,18 +24,24 @@ public class Duke {
     private Ui ui;
     private User user;
     private boolean isExit;
+    private Storage roomStorage;
+    private RoomList rooms;
 
     /**
      * Constructor for control.Duke
      * @param bookingListFile path of text file containing bookings list
      */
     public Duke(String bookingListFile) {
+    public Duke(String taskListFile, String bookingListFile, String roomListFile) {
         ui = new Ui();
         ui.showWelcome();
         user = new Guest("guest");
         bookingStorage = new Storage(bookingListFile);
+        roomStorage = new Storage(roomListFile);
         try {
             bookingList = new BookingList(bookingStorage.load());
+            rooms = new RoomList(roomStorage.load());
+
         } catch (FileNotFoundException | DukeException e) {
             ui.showLoadingError();
             bookingList = new BookingList();
@@ -64,6 +71,7 @@ public class Duke {
      */
     public static void main(String[] args) {
         new Duke(BookingConstants.FILENAME).run();
+        new Duke(Constants.FILENAME, BookingConstants.FILENAME, Constants.ROOMFILENAME).run();
     }
 
     public String getResponse(String input) {
