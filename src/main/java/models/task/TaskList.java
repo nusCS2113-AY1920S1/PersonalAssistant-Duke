@@ -35,11 +35,10 @@ public class TaskList {
      */
     public ArrayList<String> getAllTaskDetails() {
         ArrayList<String> taskDetails = new ArrayList<>();
-        ArrayList<Task> sortedTaskList = taskList;
         // This method compares the two tasks and sort list in descending order.
-        sortedTaskList.sort((task1, task2) -> task2.getTaskPriority() - task1.getTaskPriority());
+        taskList.sort((task1, task2) -> task2.getTaskPriority() - task1.getTaskPriority());
         int taskIndex = 1;
-        for (Task task : sortedTaskList) {
+        for (Task task : taskList) {
             taskDetails.add(taskIndex + ". " + task.getDetails());
             taskIndex++;
         }
