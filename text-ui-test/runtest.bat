@@ -15,7 +15,11 @@ IF ERRORLEVEL 1 (
 REM no error here, errorlevel == 0
 
 REM run the program, feed commands from input.txt file and redirect the output to the ACTUAL.TXT
+<<<<<<< HEAD
+java -classpath ..\bin moomoo < input.txt > ACTUAL.TXT
+=======
 java -classpath ..\bin Moomoo < input.txt > ACTUAL.TXT
+>>>>>>> 522aec57a7cec42638b478af435fddc3c8b4064f
 
 REM compare the output to the expected output
 FC ACTUAL.TXT EXPECTED.TXT

@@ -10,9 +10,10 @@ public class ParserTest {
     @Test
     public void testParser() {
         try {
-            assertTrue(Parser.parse("bye") instanceof ExitCommand);
+            Ui ui = new Ui();
+            assertTrue(Parser.parse("bye", ui) instanceof ExitCommand);
 
-            Parser.parse("invalid input");
+            Parser.parse("invalid input", ui);
         } catch (MooMooException e) {
             assertEquals("moomoo.task.MooMooException: OOPS!!! I'm sorry, but I don't know what that means :-(",
                     e.toString());
