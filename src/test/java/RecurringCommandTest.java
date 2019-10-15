@@ -1,9 +1,9 @@
 
-import Storage.Storage;
-import Tasks.Deadline;
-import Tasks.Task;
-import UI.Ui;
-import commands.RecurringCommand;
+import gazeeebo.Storage.Storage;
+import gazeeebo.Tasks.Deadline;
+import gazeeebo.Tasks.Task;
+import gazeeebo.UI.Ui;
+import gazeeebo.commands.RecurringCommand;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -43,7 +43,7 @@ public class RecurringCommandTest  {
         ui.FullCommand = "done 1";
 
         testR.AddRecurring(list, 0,list.get(0).toString(),storage);
-        assertEquals("\nI've automatically added this yearly task again:\n[D][ND]yearly assignment(by:01 Jan 2020 01:01:01)"
+        assertEquals("\nI've automatically added this yearly task again:\n[D][ND] yearly assignment(by:01 Jan 2020 01:01:01)"
                 + "\nNow you have " + list.size() + " tasks in the list.\n",output.toString());
     }
 }

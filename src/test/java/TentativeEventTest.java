@@ -1,22 +1,17 @@
-import Tasks.TentativeEvent;
+import gazeeebo.Tasks.TentativeEvent;
 import org.junit.jupiter.api.Test;
-import java.io.IOException;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
+
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
 import java.util.ArrayList;
-import Exception.DukeException;
-
-import java.util.Date;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class TentativeEventTest {
     @Test
-    public void testListFormat() throws ParseException,IOException,DukeException{
+    public void testListFormat() {
         String description = "return book";
         ArrayList<String> tentativetimes = new ArrayList<String>();
         tentativetimes.add("2008-06-07 05:05:05-08:08:08");

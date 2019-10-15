@@ -1,4 +1,4 @@
-import Tasks.Timebound;
+import gazeeebo.Tasks.Timebound;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -14,6 +14,6 @@ public class TimeboundTest {
 
     @Test
     void getFormatTest() {
-        assertEquals("P | ND | task to be done | 2019-08-12 and 2019-08-13", timeboundTest.toString());
+        assertEquals("P|ND|task to be done|2019-08-12 and 2019-08-13", timeboundTest.toString());
     }
 }
