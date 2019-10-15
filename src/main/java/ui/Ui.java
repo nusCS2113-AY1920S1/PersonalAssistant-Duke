@@ -4,9 +4,11 @@ import Dictionary.Word;
 import Dictionary.WordBank;
 
 import java.util.ArrayList;
+
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Scanner;
+import java.util.Stack;
 
 /**
  * Represents the object that displays prompts and feedback from the system to the user's commands.
@@ -86,6 +88,21 @@ public class Ui {
 
     public String showSearch(String description, String meaning){
         return ("Here is the meaning of " + description + ": " + meaning);
+    }
+
+    public void showHistory(Stack<Word> wordHistory, int numberOfWordsToDisplay) {
+        int numberOfWords;
+        if (numberOfWordsToDisplay > wordHistory.size()) {
+            System.out.println("     The number of words requested exceeds the number of words in your word bank.");
+            numberOfWords = wordHistory.size();
+        } else {
+            numberOfWords= numberOfWordsToDisplay;
+        }
+        System.out.println("     Here are the last " + numberOfWords + " words you have added:");
+        for (int i = 0; i < numberOfWords; i++) {
+            System.out.println("     " + wordHistory.peek());
+            wordHistory.pop();
+        }
     }
 }
 
