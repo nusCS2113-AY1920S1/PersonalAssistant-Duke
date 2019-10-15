@@ -18,7 +18,59 @@ import spinbox.commands.FindFreeCommand;
 import spinbox.exceptions.SpinBoxException;
 import spinbox.exceptions.InputException;
 
+import java.util.Stack;
+
 public class Parser {
+    private static Stack<String> commandLog = new Stack<>();
+
+    private static Stack<String> getCommandLog() {
+        return commandLog;
+    }
+
+    /**
+     * Builds a partial user input string into a full command string with the necessary details.
+     * @param initialComponents String array of tokenized partial user input.
+     * @return Prepended full user input with the necessary command details.
+     * @throws InputException If the first user input is already incomplete.
+     */
+    public static String commandBuilder(String[] initialComponents) throws InputException {
+        StringBuilder fullUserInput = new StringBuilder();
+        for (int i = 1; i < initialComponents.length; i++) {
+            if (i == 1) {
+                fullUserInput.append(initialComponents[i]);
+            } else {
+                fullUserInput.append(" ");
+                fullUserInput.append(initialComponents[i]);
+            }
+        }
+        Stack<String> cloneLog = new Stack<>();
+        cloneLog.addAll(getCommandLog());
+        if (getCommandLog().empty()) {
+            throw new InputException("Please input the full command in this format: <action> <page> "
+                    + "<necessary information>. E.g. Delete modules CG1111 files 1");
+        }
+        while (!cloneLog.empty()) {
+            String individualInput = cloneLog.peek();
+            fullUserInput.insert(0, " ");
+            fullUserInput.insert(0, individualInput);
+            cloneLog.pop();
+        }
+        fullUserInput.insert(0, " ");
+        fullUserInput.insert(0, initialComponents[0]);
+        return fullUserInput.toString();
+    }
+
+    /**
+     * Builds up the stack for the information necessary to be remembered when a full command is entered.
+     * @param componentsLength Length of the String array containing the tokenized full user input.
+     * @param components String array of the tokenized full user input.
+     */
+    public static void stackBuilder(int componentsLength, String[] components) {
+        for (int i = 1; i < componentsLength - 1; i++) {
+            getCommandLog().push(components[i]);
+        }
+    }
+
     /**
      * Parses an input string into a workable command.
      * @param input user typed in this string.
@@ -27,16 +79,27 @@ public class Parser {
      */
     public static Command parse(String input) throws SpinBoxException {
         Command command;
-        String[] components = input.split(" ");
-
+        String[] initialComponents = input.split(" ");
+        if (initialComponents[0].equals("bye")) {
+            command = new ExitCommand();
+            return command;
+        }
+        if (initialComponents[0].equals("list")) {
+            command = new ListCommand();
+            return command;
+        }
         try {
+            if (!initialComponents[1].equals("main") && !initialComponents[1].equals("modules")
+                    && !initialComponents[1].equals("calendar")) {
+                input = commandBuilder(initialComponents);
+            }
+            getCommandLog().clear();
+            String[] components = input.split(" ");
+            int componentsLength = components.length;
             switch (components[0]) {
             case "done":
-                command = new DoneCommand(Integer.parseInt(components[1]) - 1);
-                break;
-
-            case "list":
-                command = new ListCommand();
+                stackBuilder(componentsLength, components);
+                command = new DoneCommand(Integer.parseInt(components[componentsLength - 1]) - 1);
                 break;
 
             case "remind":
@@ -44,12 +107,14 @@ public class Parser {
                 break;
 
             case "delete":
-                command = new DeleteCommand(Integer.parseInt(components[1]) - 1);
+                stackBuilder(componentsLength, components);
+                command = new DeleteCommand(Integer.parseInt(components[componentsLength - 1]) - 1);
                 break;
 
             case "delete-multiple":
             case "done-multiple":
-                command = new MultipleCommand(components[0], components[1], components.length);
+                stackBuilder(componentsLength, components);
+                command = new MultipleCommand(components[0], components[componentsLength - 1]);
                 break;
 
             case "find":
@@ -60,6 +125,11 @@ public class Parser {
                 command = new ViewScheduleCommand(components, input);
                 break;
 
+            case "view":
+                stackBuilder(componentsLength + 1, components);
+                command = null; // to be developed
+                break;
+
             case "todo":
             case "deadline":
             case "do-within":
@@ -68,15 +138,12 @@ public class Parser {
             case "tentative":
             case "fixed":
             case "recurring":
+                stackBuilder(componentsLength, components);
                 command = new AddCommand(components, input);
                 break;
 
             case "set-tentative":
                 command = new SetCommand(components, input);
-                break;
-
-            case "bye":
-                command = new ExitCommand();
                 break;
 
             case "snooze":

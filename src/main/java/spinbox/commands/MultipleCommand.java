@@ -14,18 +14,15 @@ import java.util.List;
 public class MultipleCommand extends Command {
     private String commandType;
     private String indexes;
-    private int inputSize;
 
     /**
      * Constructor for multiple command.
      * @param commandType Either done-multiple or delete-multiple.
      * @param indexes Indexes of the tasks to be deleted.
-     * @param inputSize Length of the tokenized input command.
      */
-    public MultipleCommand(String commandType, String indexes, int inputSize) {
+    public MultipleCommand(String commandType, String indexes) {
         this.commandType = commandType;
         this.indexes = indexes;
-        this.inputSize = inputSize;
     }
 
     /**
@@ -38,7 +35,8 @@ public class MultipleCommand extends Command {
      */
     @Override
     public String execute(TaskList taskList, Storage storage, Ui ui) throws SpinBoxException {
-        if (inputSize > 2) {
+        int inputSize = indexes.split(" ").length;
+        if (inputSize > 1) {
             throw new InputException("Ensure that the indexes are separated by ',' without any spacing. "
                     + "E.g. delete-multiple 2,3,4 or done-multiple 2,3,4");
         }
