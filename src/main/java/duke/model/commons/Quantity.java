@@ -20,10 +20,10 @@ public class Quantity {
     }
 
     public Double getQuantity() {
-        return portion;
+        return number;
     }
 
     public String toString() {
-        return String.valueOf(portion);
+        return String.valueOf(number);
     }
 }
