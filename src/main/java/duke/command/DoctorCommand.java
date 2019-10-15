@@ -10,8 +10,6 @@ import java.util.Map;
 public class DoctorCommand extends ArgCommand {
 
     static {
-        cmdArgLevel = ArgLevel.OPTIONAL;
-        emptyArgMsg = "You didn't tell me what to do!";
         switches = Map.ofEntries(
                 Map.entry("switch", ArgLevel.OPTIONAL)
         );
@@ -21,5 +19,13 @@ public class DoctorCommand extends ArgCommand {
     public void execute(DukeCore core) {
         core.ui.print("Argument: " + super.getArg() + System.lineSeparator() + "Switch: " +
                 super.getSwitchVal("switch"));
+    }
+
+    ArgLevel getCmdArgLevel() {
+        return ArgLevel.OPTIONAL;
+    }
+
+    String emptyArgMsg() {
+        return "You didn't tell me what to do!";
     }
 }

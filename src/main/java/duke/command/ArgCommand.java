@@ -12,8 +12,6 @@ import java.util.Map;
 public abstract class ArgCommand extends Command {
 
     // TODO: replace with getters and setters
-    protected static String emptyArgMsg; //error message if the argument is empty
-    protected static ArgLevel cmdArgLevel; //whether or not the command itself is required to have an argument
     protected static Map<String, ArgLevel> switches; //list of recognised switches, and their argument requirements
     private String arg = null; //argument supplied to the command
     private HashMap<String, String> switchVals = new HashMap<String, String>(); //hashmap of switch parameters
@@ -23,10 +21,6 @@ public abstract class ArgCommand extends Command {
         if (arg == null) {
             throw new DukeException("Command needs to parse argument first!");
         }
-    }
-
-    String getEmptyArgMsg() {
-        return emptyArgMsg;
     }
 
     Map<String, ArgLevel> getSwitches() {
@@ -53,7 +47,6 @@ public abstract class ArgCommand extends Command {
         return arg;
     }
 
-    ArgLevel getCmdArgLevel() {
-        return cmdArgLevel;
-    }
+    abstract String getEmptyArgMsg();
+    abstract ArgLevel getCmdArgLevel();
 }
