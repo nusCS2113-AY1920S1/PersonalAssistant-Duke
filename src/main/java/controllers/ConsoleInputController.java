@@ -28,8 +28,8 @@ public class ConsoleInputController implements IViewController {
     public ConsoleInputController(CLIView view) {
         this.consoleView = view;
         this.taskList = new TaskList();
-        this.projectRepository = new ProjectRepository();
-//        loadProjectsData();
+//        this.projectRepository = new ProjectRepository();
+        loadProjectsData();
         this.projectInputController = new ProjectInputController(this.consoleView, this.projectRepository);
     }
 
