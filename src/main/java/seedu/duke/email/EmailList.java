@@ -48,7 +48,7 @@ public class EmailList extends ArrayList<Email> {
         for (String tag : tags) {
             email.addTag(tag);
         }
-        String responseMsg = "Added tags: " + tags.toString() + "\nto email: " + email.getSubject();
+        String responseMsg = "Tags added: " + tags.toString() + "\nto email: " + email.getSubject();
         return responseMsg;
     }
 }

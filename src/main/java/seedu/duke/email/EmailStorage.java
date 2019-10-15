@@ -274,6 +274,8 @@ public class EmailStorage {
 
                 String[] tags = splitString[1].strip().split("#");
                 for (String tag : tags) {
+                    if (tag.strip().equals("")) continue;
+                    System.out.println(tag);
                     email.addTag(tag.strip());
                 }
                 emailList.add(email);
