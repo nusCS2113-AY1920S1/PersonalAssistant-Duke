@@ -20,12 +20,40 @@ public class RoomShareExceptionTest {
     }
 
     @Test
-    public void testException() {
+    public void testEmptylist() {
         new RoomShareException(ExceptionType.emptylist);
         assertEquals("List is empty", outContent.toString());
     }
 
+    @Test
+    public void testTimeclash() {
+        new RoomShareException(ExceptionType.timeclash);
+        assertEquals("Time Clash Detected", outContent.toString());
+    }
 
+    @Test
+    public void testWrongFormat() {
+        new RoomShareException(ExceptionType.wrongFormat);
+        assertEquals("Wrong Format Detected", outContent.toString());
+    }
+
+    @Test
+    public void testWrongPrioirty() {
+        new RoomShareException(ExceptionType.wrongPriority);
+        assertEquals("Wrong Priority Detected", outContent.toString());
+    }
+
+    @Test
+    public void testOutofBounds() {
+        new RoomShareException(ExceptionType.outOfBounds);
+        assertEquals("Index is out of Bounds!", outContent.toString());
+    }
+
+    @Test
+    public void testDefault() {
+        new RoomShareException(ExceptionType.test);
+        assertEquals("Anomaly Detected", outContent.toString());
+    }
 }
 
 
