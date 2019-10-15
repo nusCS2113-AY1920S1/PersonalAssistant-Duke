@@ -1,12 +1,11 @@
-import Storage.Storage;
-import Tasks.Task;
-import UI.Ui;
-import commands.DeadlineCommand;
-import commands.UndoCommand;
+import gazeeebo.Storage.Storage;
+import gazeeebo.Tasks.Task;
+import gazeeebo.UI.Ui;
+import gazeeebo.commands.UndoCommand;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import Exception.DukeException;
+import gazeeebo.Exception.DukeException;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
