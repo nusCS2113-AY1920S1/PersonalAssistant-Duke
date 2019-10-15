@@ -1,5 +1,6 @@
 package commands;
 
+import members.Member;
 import core.Ui;
 import tasks.Task;
 import utils.Storage;
@@ -17,7 +18,7 @@ public class ByeCommand extends Command {
     }
 
     @Override
-    public void execute(ArrayList<Task> tasks, Storage storage) {
+    public void execute(ArrayList<Task> tasks, ArrayList<Member> members, Storage storage) {
         Ui.print("Bye. Hope to see you again soon!");
     }
 

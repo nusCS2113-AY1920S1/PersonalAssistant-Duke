@@ -1,5 +1,6 @@
 package commands;
 
+import members.Member;
 import core.Ui;
 import tasks.Deadline;
 import tasks.Event;
@@ -29,7 +30,7 @@ public class ViewScheCommand extends Command {
     }
 
     @Override
-    public void execute(ArrayList<Task> tasks, Storage storage) throws DukeException {
+    public void execute(ArrayList<Task> tasks, ArrayList<Member> members, Storage storage) throws DukeException {
         ArrayList<Task> scheTasks = new ArrayList<Task>();
         String output = "Here is your schedule in order";
         if (line.length() > 0) {

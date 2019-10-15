@@ -1,3 +1,4 @@
+import members.Member;
 import gui.Window;
 import commands.Command;
 import tasks.Task;
@@ -27,15 +28,19 @@ public class Duke {
      */
     private ArrayList<Task> tasks;
 
+    private ArrayList<Member> members;
+
 
     /**
      * A constructor which applies the file path to load previous data
      *
-     * @param filePath the file path
+     * @param taskFilePath the file path of task list
+     * @param memberFilePath the file path of member list
      */
-    public Duke(String filePath) {
-        storage = new Storage(filePath);
-        tasks = storage.load();
+    public Duke(String taskFilePath, String memberFilePath) {
+        storage = new Storage(taskFilePath, memberFilePath);
+        tasks = storage.loadTaskList();
+        members = storage.loadMemberList();
     }
 
     /**
@@ -51,7 +56,7 @@ public class Duke {
             try {
                 String fullCommand = Ui.readLine(in);
                 Command c = Parser.commandLine(fullCommand);
-                c.execute(tasks, storage);
+                c.execute(tasks, members, storage);
                 isExit = c.isExit();
             } catch (DukeException e) {
                 Ui.print(e.getMessage());
@@ -65,6 +70,6 @@ public class Duke {
      * @param args command line arguments, not used here
      */
     public static void main(String[] args) {
-        new Duke("data/tasks.txt").run();
+        new Duke("data/tasks.txt", "data/members.txt").run();
     }
 }
