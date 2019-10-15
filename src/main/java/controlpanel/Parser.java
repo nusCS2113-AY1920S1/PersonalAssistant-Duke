@@ -85,8 +85,10 @@ public class Parser {
             moneyCommand = new DeleteIncomeCommand(cmd);
         } else if (cmd.startsWith("delete expenditure")) {
             moneyCommand = new DeleteExpenditureCommand(cmd);
-        } else if (cmd.startsWith("graph")) {
-            moneyCommand = new GraphCommand();
+        } else if (cmd.startsWith("done goal")) {
+            moneyCommand = new DoneGoalCommand(cmd);
+        } else if (cmd.startsWith("graph") || cmd.equals("change icon")) {
+            moneyCommand = new GraphCommand(cmd);
         } else if (cmd.startsWith("undo")) {
             moneyCommand = new UndoCommand();
         } else if (cmd.startsWith("add instalment")) {

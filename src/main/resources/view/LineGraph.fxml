@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.LineChart?>
+<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.layout.HBox?>
+
+<fx:root prefHeight="261.0" prefWidth="331.0" type="javafx.scene.layout.HBox" xmlns="http://javafx.com/javafx/10.0.2" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <LineChart fx:id="lineChart" layoutX="-4.0" prefHeight="337.0" prefWidth="409.0" titleSide="BOTTOM">
+        <xAxis>
+          <CategoryAxis side="BOTTOM" fx:id="xAxis" />
+        </xAxis>
+        <yAxis>
+          <NumberAxis side="LEFT" fx:id="yAxis" />
+        </yAxis>
+      </LineChart>
+   </children>
+</fx:root>
