@@ -42,8 +42,8 @@ public class DeleteCommand extends Command {
             deadlines.removeTask(T);
             storage.updateDeadlineList(deadlines);
         }
-            return ui.showDelete(T, listToChange.taskListSize());
-         }catch(ArrayIndexOutOfBoundsException e) {
+        return ui.showDelete(T, listToChange.taskListSize());
+        } catch (ArrayIndexOutOfBoundsException e) {
             throw new DukeException("\u2639" + " OOPS!!! I'm sorry, but we cannot find the input task number :-(\n");
         }
     }
