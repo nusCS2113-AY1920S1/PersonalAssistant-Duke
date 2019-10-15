@@ -9,12 +9,12 @@ import java.net.URL;
 import static java.util.Objects.requireNonNull;
 
 /**
- * Represents a distinct UI element in the application, e.g. windows, panels, dialogs, etc.
+ * Represents a distinct UI component in the application, e.g. windows, panels, dialogs, etc.
  * It contains a scene graph with a root node of type {@code T}.
  *
  * @param <T> Type.
  */
-public abstract class UiElement<T> {
+public abstract class UiComponent<T> {
     /**
      * Resource folder where FXML files are stored.
      */
@@ -22,38 +22,38 @@ public abstract class UiElement<T> {
     private final FXMLLoader fxmlLoader = new FXMLLoader();
 
     /**
-     * Constructs a UiElement with the specified FXML file URL.
+     * Constructs a UiComponent with the specified FXML file URL.
      * The FXML file need not specify the {@code fx:controller} attribute as it will be specified
      * in {@link #loadFxmlFile(URL, T)}.
      */
-    private UiElement(URL fxmlFileUrl) {
+    private UiComponent(URL fxmlFileUrl) {
         loadFxmlFile(fxmlFileUrl, null);
     }
 
     /**
-     * Constructs a UiElement with the specified FXML file URL and root object.
+     * Constructs a UiComponent with the specified FXML file URL and root object.
      * The FXML file need not specify the {@code fx:controller} attribute as it will be specified
      * in {@link #loadFxmlFile(URL, T)}.
      */
-    private UiElement(URL fxmlFileUrl, T root) {
+    private UiComponent(URL fxmlFileUrl, T root) {
         loadFxmlFile(fxmlFileUrl, root);
     }
 
     /**
-     * Constructs a UiElement using the specified FXML file within {@link #FXML_FILE_FOLDER}.
+     * Constructs a UiComponent using the specified FXML file within {@link #FXML_FILE_FOLDER}.
      *
-     * @see #UiElement(URL)
+     * @see #UiComponent(URL)
      */
-    public UiElement(String fxmlFileName) {
+    public UiComponent(String fxmlFileName) {
         this(getFxmlFileUrl(fxmlFileName));
     }
 
     /**
-     * Constructs a UiElement with the specified FXML file within {@link #FXML_FILE_FOLDER} and root object.
+     * Constructs a UiComponent with the specified FXML file within {@link #FXML_FILE_FOLDER} and root object.
      *
-     * @see #UiElement(URL, T)
+     * @see #UiComponent(URL, T)
      */
-    public UiElement(String fxmlFileName, T root) {
+    public UiComponent(String fxmlFileName, T root) {
         this(getFxmlFileUrl(fxmlFileName), root);
     }
 
@@ -86,7 +86,7 @@ public abstract class UiElement<T> {
     }
 
     /**
-     * Returns the root object of the scene graph of this UiElement.
+     * Returns the root object of the scene graph of this UiComponent.
      */
     public T getRoot() {
         return fxmlLoader.getRoot();
