@@ -1,5 +1,6 @@
 package Operations;
 
+import Model_Classes.Deadline;
 import Model_Classes.Event;
 import Model_Classes.FixedDuration;
 import Model_Classes.Task;
@@ -50,7 +51,21 @@ public class CheckAnomaly {
         return true;
     }
 
+    /**
+     * Overload function for checkTime
+     * Checks if the FixedDuration task has any clashes with any other tasks in the task list
+     * If there is a clash, returns true
+     * If there is no clash, returns false
+     * @param at Date of the event we are checking
+     * @return true if there are time clashes, false if there are no time clashes
+     */
     public static Boolean checkTime(Date at){
-        return true;
+        ArrayList<Task> curr = TaskList.currentList();
+        for( int i = 0; i<TaskList.currentList().size(); i++ ) {
+            if( curr.get(i) instanceof Event && ((Event) curr.get(i)).checkDate().equals(at) ) {
+                return true;
+            }
+        }
+        return false;
     }
 }

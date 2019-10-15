@@ -7,8 +7,7 @@ public class Ui {
     /**
      * Constructor for Ui class
      */
-    public Ui () {
-    }
+    public Ui () {   }
 
     /**
      * Shows the startup logo for RoomShare
