@@ -258,7 +258,7 @@ public class Profile {
      * @param limit new limit of the credit card if any.
      * @param rebate new rebate of the credit card if any.
      * @param ui required for printing.
-     * @throws CardException #############################################################################
+     * @throws CardException If card cannot be found.
      */
     public void profileEditCardDetails(String name, String newName, String limit, String rebate, Ui ui)
             throws CardException {
@@ -270,7 +270,7 @@ public class Profile {
      *
      * @param name name of the credit card.
      * @param ui required for printing.
-     * @throws CardException #############################################################################
+     * @throws CardException If card does not exist.
      */
     public void profileDeleteCard(String name, Ui ui) throws CardException {
         cardList.cardListDeleteCard(name, ui);
@@ -280,7 +280,7 @@ public class Profile {
      * Lists all the cards in the CardList.
      *
      * @param ui required for printing.
-     * @throws CardException ########################################################
+     * @throws CardException If CardList is empty.
      */
     public void profileListCards(Ui ui) throws CardException {
         cardList.cardListListCards(ui);

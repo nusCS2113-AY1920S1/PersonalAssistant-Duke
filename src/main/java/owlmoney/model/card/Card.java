@@ -168,7 +168,7 @@ public class Card {
      *
      * @param ui         Ui of OwlMoney.
      * @param displayNum Number of expenditure to list.
-     * @throws TransactionException #########################################################################
+     * @throws TransactionException If no expenditure is found or no expenditure is in the list.
      */
     void listAllExpenditure(Ui ui, int displayNum) throws TransactionException {
         unpaid.listExpenditure(ui, displayNum);
@@ -179,7 +179,7 @@ public class Card {
      *
      * @param exId Transaction number of the transaction.
      * @param ui Ui of OwlMoney.
-     * @throws TransactionException #########################################################################
+     * @throws TransactionException If invalid transaction.
      */
     void deleteExpenditure(int exId, Ui ui) throws TransactionException {
         double deletedAmount = unpaid.deleteExpenditureFromList(exId, ui);

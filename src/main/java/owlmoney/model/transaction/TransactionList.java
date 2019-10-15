@@ -30,11 +30,11 @@ public class TransactionList {
      *
      * @param ui         required for printing.
      * @param displayNum Number of expenditures to list.
-     * @throws TransactionException If no expenditure is found.
+     * @throws TransactionException If no expenditure is found or no expenditure is in the list.
      */
     public void listExpenditure(Ui ui, int displayNum) throws TransactionException {
         if (expLists.size() <= 0) {
-            throw new TransactionException("There are no transactions in this list");
+            throw new TransactionException("There are no expenditure in this list");
         } else {
             int counter = displayNum;
             boolean expenditureExist = false;
