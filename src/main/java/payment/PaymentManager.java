@@ -16,8 +16,8 @@ public abstract class PaymentManager {
      * Finds the Payments objects containing a payee name and returns a list of Payments.
      * @param payee Payee of the item.
      */
-    public void findPayee(String payee, HashMap<String, Payee> managermap) {
-        for (Payments payment : managermap.get(payee).payments) {
+    public void findPayee(String payee, HashMap<String, Payee> ManagerMap) {
+        for (Payments payment : ManagerMap.get(payee).payments) {
             //TODO Output payment to UI
         }
     }
@@ -25,19 +25,19 @@ public abstract class PaymentManager {
     /**
      * Edits the Payments object details, may overload string to take different ways of inputs.
      */
-    public void editPayee(String payee, String inv, Field field, String replace, HashMap<String, Payee> managermap) {
+    public void editPayee(String payee, String inv, Field field, String replace, HashMap<String, Payee> ManagerMap) {
         if (inv.isEmpty()) {
             if (field == Field.PAYEE) {
-                managermap.get(payee).payee = replace;
+                ManagerMap.get(payee).payee = replace;
             } else if (field == Field.EMAIL) {
-                managermap.get(payee).email = replace;
+                ManagerMap.get(payee).email = replace;
             } else if (field == Field.MATRIC) {
-                managermap.get(payee).matricNum = replace;
+                ManagerMap.get(payee).matricNum = replace;
             } else if (field == Field.PHONE) {
-                managermap.get(payee).phoneNum = replace;
+                ManagerMap.get(payee).phoneNum = replace;
             }
         } else {
-            for (Payments payment : managermap.get(payee).payments) {
+            for (Payments payment : ManagerMap.get(payee).payments) {
                 if (payment.inv.equals(inv)) {
                     if (field == Field.ITEM) {
                         payment.item = replace;
@@ -48,7 +48,7 @@ public abstract class PaymentManager {
                     }
                     break;
                 }
-                assert (false); //Invalid invoice number
+                assert (false); //Invalid invoice number <-- TODO : Raise error
             }
         }
     }
@@ -56,12 +56,12 @@ public abstract class PaymentManager {
     /**
      * List the Payments object details, may extend to generate statement of accounts.
      */
-    public static void listPayments(HashMap<String, Payee> managermap) {
+    public static void listPayments(HashMap<String, Payee> ManagerMap) {
         ArrayList<Payments> overdue = new ArrayList<>();
         ArrayList<Payments> pending = new ArrayList<>();
         ArrayList<Payments> approved = new ArrayList<>();
         Date currDate = new Date();
-        for (Payee payee : managermap.values()) {
+        for (Payee payee : ManagerMap.values()) {
             for (Payments payment : payee.payments) {
                 if (payment.status == Status.PENDING) {
                     pending.add(payment);
@@ -78,35 +78,35 @@ public abstract class PaymentManager {
     /**
      * Deletes the Payments object details.
      */
-    public static void deletePayments(String payee, String item, HashMap<String, Payee> managermap) {
+    public static Payments deletePayments(String payee, String item, HashMap<String, Payee> ManagerMap){
         int i = 0;
-        while (i < managermap.get(payee).payments.size()) {
-            if (managermap.get(payee).payments.get(i++).item.equals(item)) {
-                managermap.get(payee).payments.remove(--i);
+        while (i < ManagerMap.get(payee).payments.size()) {
+            if (ManagerMap.get(payee).payments.get(i++).item.equals(item)) {
+                Payments deleted = new Payments(payee, ManagerMap.get(payee).payments.get(--i).cost, ManagerMap.get(payee).payments.get(i).inv);
+                ManagerMap.get(payee).payments.remove(i);
+                return deleted;
             }
         }
-        // printDeleteMessage(); <-- TODO : Modify implementation in UI
+        throw new IllegalArgumentException();
     }
 
     /**
      * Add the Payments object details to PaymentsList.
      */
     public static Payments addPayments(String payee, String item, double cost, String inv,
-                                       HashMap<String, Payee> managermap) {
+                                       HashMap<String, Payee> ManagerMap) {
         Payments pay = new Payments(item, cost, inv);
-        managermap.get(payee).payments.add(pay);
+        ManagerMap.get(payee).payments.add(pay);
         return pay;
     }
 
     /**
-     * Add Payee object to managermap.
+     * Add Payee object to ManagerMap.
      */
     public static Payee addPayee(String payee, String email, String matricNum, String phoneNum,
-                                 HashMap<String, Payee> managermap) {
+                                 HashMap<String, Payee> ManagerMap) {
         Payee payeeNew = new Payee(payee, email, matricNum, phoneNum);
-        managermap.put(payee, payeeNew);
+        ManagerMap.put(payee, payeeNew);
         return payeeNew;
     }
-
-
 }

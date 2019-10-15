@@ -12,7 +12,7 @@ public class Payee {
     public String email;
     public String matricNum;
     public String phoneNum;
-    ArrayList<Payments> payments;
+    public ArrayList<Payments> payments;
 
     /**
      * Creates a Payee object with the payee's information and list of payments.
@@ -30,6 +30,3 @@ public class Payee {
     }
 
 }
-
-
-
