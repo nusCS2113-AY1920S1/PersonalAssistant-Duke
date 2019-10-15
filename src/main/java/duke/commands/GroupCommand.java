@@ -5,6 +5,7 @@ import duke.Storage;
 import duke.Ui;
 import duke.components.Bar;
 import duke.components.Group;
+import duke.components.Song;
 import duke.components.SongList;
 
 import java.util.ArrayList;
@@ -16,6 +17,7 @@ import java.util.ArrayList;
 public class GroupCommand extends Command<SongList> {
 
     private String message;
+    private Song song;
 
     /**
      * Constructor for the command to group bars together as a verse.
@@ -51,12 +53,10 @@ public class GroupCommand extends Command<SongList> {
             endNo = Integer.parseInt(sections[1]);
             name = sections[2];
 
-            // add in code to extract the bars out of the song into the arraylist
-            //add those bars to the arraylist of bars - mBar
-            ArrayList<Bar> mbars = new ArrayList<>();
+            Group group = createGroup(name, startNo, endNo);
 
-            Group group = new Group(name, mbars);
             //code to add this group into the storage (verse list)
+
             return ui.formatGroupBar(startNo, endNo, name);
         } catch (Exception e) {
             throw new DukeException(message, "group");
@@ -73,5 +73,20 @@ public class GroupCommand extends Command<SongList> {
     @Override
     public boolean isExit() {
         return false;
+    }
+
+    private Group createGroup(String name, int start, int end) throws DukeException{
+        //check that the bounds are valid
+        if(start < 1 || end > song.getNumBars()){
+            throw new DukeException("", "group");
+        }
+
+        ArrayList<Bar> mBars = new ArrayList<>();
+        ArrayList<Bar> allBars = song.getBars();
+        for(int i = start - 1; i < end -1; i++){
+            mBars.add(allBars.get(i));
+        }
+
+        return new Group(name, mBars);
     }
 }

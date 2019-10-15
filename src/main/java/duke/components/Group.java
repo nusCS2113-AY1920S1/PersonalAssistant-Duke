@@ -12,4 +12,16 @@ public class Group {
         this.bars = bars;
     }
 
+    public String getName(){
+        return this.name;
+    }
+
+    public int size(){
+        return bars.size();
+    }
+
+    public Bar get(int i){
+        return bars.get(i);
+    }
+
 }

@@ -59,4 +59,13 @@ public class Song {
     public ArrayList<Group> getGroups() {
         return groups;
     }
+
+    public int getNumBars(){
+        return bars.size();
+    }
+
+    public void updateBars(ArrayList<Bar> newBars){
+        this.bars = newBars;
+    }
+
 }
