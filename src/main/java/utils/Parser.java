@@ -8,9 +8,12 @@ import commands.DeleteCommand;
 import commands.DoneCommand;
 import commands.FindCommand;
 import commands.ListCommand;
+import commands.MemberAddCommand;
 import commands.RecurringCommand;
 import commands.SnoozeCommand;
 import commands.ViewScheCommand;
+
+import members.Member;
 import core.Ui;
 import tasks.Deadline;
 import tasks.Event;
@@ -21,6 +24,7 @@ import tasks.Task;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 
 /**
@@ -34,7 +38,7 @@ public class Parser {
      * @return a Task.Task object produced by the input line
      * @throws ParseException if the line cannot be parsed properly
      */
-    public static Task dataLine(String line) throws ParseException {
+    public static Task taskDataLine(String line) throws ParseException {
         String[] splites = line.split(" \\| ");
         if (splites.length < 3 || (splites.length < 2 && (splites[0].equals("E") || splites[0].equals("D")))) {
             throw new ParseException("Invalid Duke data line, the information is incomplete.", -1);
@@ -92,6 +96,23 @@ public class Parser {
     }
 
     /**
+     * <p>parse a line in the data text to an object.</p>
+     *
+     * @param line a line of String to be parsed, without \n last
+     * @return a Member. Member object produced by the input line
+     */
+    public static Member memberDataLine(String line) {
+        String[] splites = line.split(" \\| ");
+        String name = splites[0].trim();
+        int numOfTaskInCharge = splites.length - 1;
+        ArrayList<Integer> taskInCharge = new ArrayList<>();
+        for (int i = 0; i < numOfTaskInCharge; i++) {
+            taskInCharge.add(Integer.parseInt(splites[1 + i].trim()));
+        }
+        return new Member(name, taskInCharge);
+    }
+
+    /**
      * <p>Parse a command line String to a Commands.Command object.</p>
      *
      * @param line the input command line String
@@ -103,17 +124,33 @@ public class Parser {
         splites[0] = splites[0].trim().toUpperCase();
         splites[0] = commandCorrector(splites[0]);
         Command temp = null;
+        int length = splites.length;
         if (splites[0].equals("ADD")) {
+            if (length < 2) {
+                throw new DukeException("usage: add [type of tasks] ...");
+            }
             temp = new AddCommand(splites[1]);
         } else if (splites[0].equals("LIST")) {
-            temp = new ListCommand();
+            if (length < 2) {
+                throw new DukeException("usage: list [tasks/members]");
+            }
+            temp = new ListCommand(splites[1].trim());
         } else if (splites[0].equals("DONE")) {
+            if (length < 2) {
+                throw new DukeException("usage: done [index]");
+            }
             temp = new DoneCommand(splites[1]);
         } else if (splites[0].equals("BYE")) {
             temp = new ByeCommand();
         } else if (splites[0].equals("DELETE")) {
+            if (length < 2) {
+                throw new DukeException("usage: delete [index]");
+            }
             temp = new DeleteCommand(splites[1]);
         } else if (splites[0].equals("FIND")) {
+            if (length < 2) {
+                throw new DukeException("usage: find [keyword]");
+            }
             temp = new FindCommand(splites[1]);
         } else if (splites[0].equals("RECURRING")) {
             temp = new RecurringCommand(splites[1]);
@@ -123,6 +160,11 @@ public class Parser {
             temp = new ViewScheCommand(splites.length > 1 ? splites[1] : "");
         } else if (splites[0].equals("CHECK")) {
             temp = new CheckAnomaliesCommand();
+        } else if (splites[0].equals("MEMBER")) {
+            if (length < 2) {
+                throw new DukeException("usage: member [name]");
+            }
+            temp = new MemberAddCommand(splites[1]);
         } else {
             throw new DukeException("command not found");
         }

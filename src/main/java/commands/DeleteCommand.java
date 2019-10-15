@@ -1,5 +1,6 @@
 package commands;
 
+import members.Member;
 import tasks.Task;
 import utils.DukeException;
 import utils.Storage;
@@ -23,11 +24,11 @@ public class DeleteCommand extends Command {
     }
 
     @Override
-    public void execute(ArrayList<Task> tasks, Storage storage) throws DukeException {
+    public void execute(ArrayList<Task> tasks, ArrayList<Member> members, Storage storage) throws DukeException {
         try {
             int order = Integer.parseInt(line);
             Ui.print("Noted. I've removed this task: \n" + tasks.remove(order - 1));
-            storage.store(tasks);
+            storage.storeTaskList(tasks);
         } catch (Exception e) {
             throw new DukeException("Not a valid task number");
         }

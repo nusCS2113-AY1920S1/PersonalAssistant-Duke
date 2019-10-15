@@ -37,6 +37,7 @@ public abstract class Task {
     protected int recurringWeeks;
 
 
+
     /**
      * default constructor of Task
      */

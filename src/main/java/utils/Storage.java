@@ -1,5 +1,6 @@
 package utils;
 
+import members.Member;
 import tasks.Task;
 
 import java.io.BufferedReader;
@@ -20,7 +21,9 @@ public class Storage {
     /**
      * file that store the data
      */
-    private File dataFile;
+    private File taskDataFile;
+
+    private File memberDataFile;
 
     /**
      * input stream to get the file input
@@ -30,10 +33,14 @@ public class Storage {
     /**
      * constructor of Storage, pass the data to dataFile by file path
      *
-     * @param filePath path of the file that store the task list
+     * @param taskFilePath path of the file that store the task list
+     * @param memberFilePath path of the file that store the member list
      */
-    public Storage(String filePath) {
-        dataFile = new File(filePath);
+    public Storage(String taskFilePath, String memberFilePath) {
+
+        taskDataFile = new File(taskFilePath);
+
+        memberDataFile = new File(memberFilePath);
     }
 
     /**
@@ -41,15 +48,15 @@ public class Storage {
      *
      * @return an ArrayList of Task, which is the task list
      */
-    public ArrayList<Task> load() {
+    public ArrayList<Task> loadTaskList() {
         ArrayList<Task> tasks = new ArrayList<Task>();
         Task.tasks = tasks;
         try {
-            is = new FileInputStream(dataFile);
+            is = new FileInputStream(taskDataFile);
             BufferedReader br = new BufferedReader(new InputStreamReader(is));
             String line = null;
             while ((line = br.readLine()) != null) {
-                tasks.add(Parser.dataLine(line));
+                tasks.add(Parser.taskDataLine(line));
             }
             br.close();
             is.close();
@@ -65,13 +72,13 @@ public class Storage {
      * @param taskList the array list of tasks to be saved.
      * @return if this method executed successfully
      */
-    public boolean store(ArrayList<Task> taskList) {
+    public boolean storeTaskList(ArrayList<Task> taskList) {
         String output = "";
         for (int i = 0; i < taskList.size(); i++) {
             output += taskList.get(i).dataString() + "\n";
         }
         try {
-            BufferedWriter bw = new BufferedWriter(new FileWriter(dataFile));
+            BufferedWriter bw = new BufferedWriter(new FileWriter(taskDataFile));
             bw.write(output);
             bw.close();
         } catch (IOException e) {
@@ -80,4 +87,49 @@ public class Storage {
         }
         return true;
     }
+
+    /**
+     * Read the data stored in hard disk to memberList.
+     *
+     * @return an ArrayList of Member, which is the member list
+     */
+    public ArrayList<Member> loadMemberList() {
+        ArrayList<Member> members = new ArrayList<Member>();
+        try {
+            is = new FileInputStream(memberDataFile);
+            BufferedReader br = new BufferedReader(new InputStreamReader(is));
+            String line = null;
+            while ((line = br.readLine()) != null) {
+                members.add(Parser.memberDataLine(line));
+            }
+            br.close();
+            is.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return members;
+    }
+
+    /**
+     * Save the members data to the hard disk.
+     *
+     * @param memberList the array list of members to be saved.
+     * @return if this method executed successfully
+     */
+    public boolean storeMemberList(ArrayList<Member> memberList) {
+        String output = "";
+        for (int i = 0; i < memberList.size(); i++) {
+            output += memberList.get(i).dataString() + "\n";
+        }
+        try {
+            BufferedWriter bw = new BufferedWriter(new FileWriter(memberDataFile));
+            bw.write(output);
+            bw.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+            return false;
+        }
+        return true;
+    }
+
 }

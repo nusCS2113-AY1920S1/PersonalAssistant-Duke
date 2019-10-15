@@ -1,5 +1,6 @@
 package commands;
 
+import members.Member;
 import core.Ui;
 import tasks.Deadline;
 import tasks.Event;
@@ -21,7 +22,7 @@ public class CheckAnomaliesCommand extends Command {
     /**
      * Checks for scheduling clashes.
      */
-    public void execute(ArrayList<Task> tasks, Storage storage) throws DukeException {
+    public void execute(ArrayList<Task> tasks, ArrayList<Member> members, Storage storage) throws DukeException {
 
         ArrayList<Task> scheTasks = new ArrayList<Task>();
         String msg = "Here is your time crash\n";

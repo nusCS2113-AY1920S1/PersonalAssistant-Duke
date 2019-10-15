@@ -1,5 +1,6 @@
 package commands;
 
+import members.Member;
 import core.Ui;
 import tasks.Task;
 import utils.DukeException;
@@ -24,7 +25,7 @@ public class AddCommand extends Command {
     }
 
     @Override
-    public void execute(ArrayList<Task> tasks, Storage storage) throws DukeException {
+    public void execute(ArrayList<Task> tasks, ArrayList<Member> members, Storage storage) throws DukeException {
         try {
             Task temp = Parser.addCommand(content);
             if (content.contains("/after")) {
@@ -33,7 +34,7 @@ public class AddCommand extends Command {
                 temp.addPrecondition(preconditionString);
             }
             tasks.add(temp);
-            storage.store(tasks);
+            storage.storeTaskList(tasks);
             Ui.print("Got it. I've added this task: \n" + tasks.get(tasks.size() - 1)
                     + "\nNow you have " + tasks.size() + " tasks in the list.");
         } catch (DukeException e) {

@@ -1,5 +1,6 @@
 package commands;
 
+import members.Member;
 import core.Ui;
 import tasks.Event;
 import tasks.Task;
@@ -31,7 +32,7 @@ public class RecurringCommand extends Command {
 
 
     @Override
-    public void execute(ArrayList<Task> tasks, Storage storage) throws DukeException {
+    public void execute(ArrayList<Task> tasks, ArrayList<Member> members, Storage storage) throws DukeException {
         try {
             Event temp = (Event) tasks.get(index - 1); //TODO Generalise implementation of recurrence
             Date originalDate = temp.getAt();
@@ -45,7 +46,7 @@ public class RecurringCommand extends Command {
                 tasks.add(newEvent);
             }
             tasks.get(index - 1).setRecurring(numWeeks);
-            storage.store(tasks);
+            storage.storeTaskList(tasks);
             Ui.print("The task "
                     + tasks.get(index - 1).getDescription()
                     +
