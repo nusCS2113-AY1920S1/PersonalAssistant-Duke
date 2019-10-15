@@ -103,6 +103,7 @@ public class Profile {
      * @param ui       required for printing.
      * @throws BankException If bank account does not exist.
      * @throws TransactionException If invalid transaction.
+     * @throws CardException If card does not exist.
      */
     public void profileDeleteExpenditure(int expIndex, String accountName, Ui ui,
                                          String type) throws BankException, TransactionException, CardException {
@@ -134,7 +135,8 @@ public class Profile {
      * @param ui         required for printing.
      * @param displayNum Number of expenditure to list.
      * @throws BankException If bank account does not exist.
-     * @throws TransactionException If no expenditure found.
+     * @throws TransactionException If no expenditure found or no expenditure is in the list..
+     * @throws CardException If the credit card name cannot be found.
      */
     public void profileListExpenditure(String listedBankOrCard, Ui ui, int displayNum, String type)
             throws BankException, TransactionException, CardException {

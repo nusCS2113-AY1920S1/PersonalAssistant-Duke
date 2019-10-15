@@ -35,6 +35,7 @@ public class EditSavingsCommand extends Command {
      * @param profile Profile of the user.
      * @param ui      Ui of OwlMoney.
      * @return false so OwlMoney will not terminate yet.
+     * @throws BankException If duplicate bank account name is found.
      */
     @Override
     public boolean execute(Profile profile, Ui ui) throws BankException {

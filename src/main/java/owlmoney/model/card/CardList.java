@@ -194,7 +194,7 @@ public class CardList {
      * @param ui         required for printing.
      * @param displayNum Number of expenditures to list.
      * @throws CardException If the credit card name cannot be found.
-     * @throws TransactionException If no expenditure is found or no expenditure is in the list.
+     * @throws TransactionException If no expenditure found or no expenditure is in the list.
      */
     public void cardListListCardExpenditure(String cardToList, Ui ui, int displayNum)
             throws TransactionException, CardException {
