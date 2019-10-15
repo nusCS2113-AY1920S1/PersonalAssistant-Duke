@@ -46,15 +46,6 @@ public class Ui {
     }
 
     /**
-     * Outputs an horizontal line to the user (GUI).
-     *
-     * @return String of the horizontal line.
-     */
-    public static String showLineGui() {
-        return LINE + "\n";
-    }
-
-    /**
      * Show the help page.
      *
      * @param items The task list that contains a list of tasks.

@@ -53,12 +53,14 @@ public class Duke {
             items = new TaskList(storage.read());
         } catch (IOException e) {
             ui.showLoadingError();
+            ui.showErrorMsg("Storage NF");//temp
             items = new TaskList();
         }
         try {
             priorityList = new PriorityList(priorityStorage.read());
         } catch (IOException e) {
             ui.showLoadingError();
+            ui.showErrorMsg("Priority Storage NF");//temp
             priorityList = new PriorityList();
         }
 
@@ -66,6 +68,7 @@ public class Duke {
             contactList = new ContactList(contactStorage.read());
         } catch (IOException e) {
             ui.showLoadingError();
+            ui.showErrorMsg("Contact List NF");//temp
             contactList = new ContactList();
         }
     }

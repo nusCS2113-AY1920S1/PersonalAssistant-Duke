@@ -109,26 +109,26 @@ public class MainWindow extends AnchorPane {
             Command cmd = duke.getCommand(input);
             if (cmd instanceof ExitCommand) {
                 duke.saveState(cmd);
-                response = Ui.showLineGui() + Ui.showByeGui() + Ui.showLineGui();
+                response = Ui.showByeGui();
                 dialogContainer.getChildren().add(
                         DialogBox.getDukeDialog(response, dukeImage)
                 );
                 timer.schedule(exitDuke, new Date(System.currentTimeMillis() + 500));
             } else {
-                response = Ui.showLineGui() + duke.executeCommand(cmd) + Ui.showLineGui();
+                response = duke.executeCommand(cmd);
                 dialogContainer.getChildren().add(
                     DialogBox.getDukeDialog(response, dukeImage)
                 );
                 updateGui();
             }
         } catch (DukeException e) {
-            response = Ui.showLineGui() + Ui.showErrorMsgGui(e.getMessage()) + Ui.showLineGui();
+            response = Ui.showErrorMsgGui(e.getMessage());
             dialogContainer.getChildren().add(
                     DialogBox.getDukeDialog(response, dukeImage)
             );
         } catch (Exception e) {
-            response = Ui.showLineGui() + Ui.showErrorMsgGui("     New error, please read console:")
-                    +  Ui.showErrorMsgGui("     Duke will continue as per normal.") + Ui.showLineGui();
+            response = Ui.showErrorMsgGui("     New error, please read console:")
+                    +  Ui.showErrorMsgGui("     Duke will continue as per normal.");
             dialogContainer.getChildren().add(
                     DialogBox.getDukeDialog(response, dukeImage)
             );
@@ -146,19 +146,19 @@ public class MainWindow extends AnchorPane {
         );
         try {
             Command cmd = duke.getCommand(input);
-            response = Ui.showLineGui() + duke.executeCommand(cmd) + Ui.showLineGui();
+            response =  duke.executeCommand(cmd);
             dialogContainer.getChildren().add(
                     DialogBox.getDukeDialog(response, dukeImage)
             );
 
         } catch (DukeException e) {
-            response = Ui.showLineGui() + Ui.showErrorMsgGui(e.getMessage()) + Ui.showLineGui();
+            response = Ui.showErrorMsgGui(e.getMessage());
             dialogContainer.getChildren().add(
                     DialogBox.getDukeDialog(response, dukeImage)
             );
         } catch (Exception e) {
-            response = Ui.showLineGui() + Ui.showErrorMsgGui("     New error, please read console:")
-                    +  Ui.showErrorMsgGui("     Duke will continue as per normal.") + Ui.showLineGui();
+            response = Ui.showErrorMsgGui("     New error, please read console:")
+                    +  Ui.showErrorMsgGui("     Duke will continue as per normal.");
             dialogContainer.getChildren().add(
                     DialogBox.getDukeDialog(response, dukeImage)
             );
@@ -328,19 +328,19 @@ public class MainWindow extends AnchorPane {
         try {
             Command cmd = duke.getCommand(input);
             duke.saveState(cmd);
-            response = Ui.showLineGui() + Ui.showByeGui() + Ui.showLineGui();
+            response = Ui.showByeGui();
             dialogContainer.getChildren().add(
                     DialogBox.getDukeDialog(response, dukeImage)
             );
             timer.schedule(exitDuke, new Date(System.currentTimeMillis() + 500));
         } catch (DukeException e) {
-            response = Ui.showLineGui() + Ui.showErrorMsgGui(e.getMessage()) + Ui.showLineGui();
+            response = Ui.showErrorMsgGui(e.getMessage());
             dialogContainer.getChildren().add(
                     DialogBox.getDukeDialog(response, dukeImage)
             );
         } catch (Exception e) {
-            response = Ui.showLineGui() + Ui.showErrorMsgGui("     New error, please read console:")
-                    +  Ui.showErrorMsgGui("     Duke will continue as per normal.") + Ui.showLineGui();
+            response = Ui.showErrorMsgGui("     New error, please read console:")
+                    +  Ui.showErrorMsgGui("     Duke will continue as per normal.");
             dialogContainer.getChildren().add(
                     DialogBox.getDukeDialog(response, dukeImage)
             );
@@ -361,6 +361,24 @@ public class MainWindow extends AnchorPane {
             Stage stage = new Stage();
             stage.setScene(scene);
             fxmlLoader.<AddWindow>getController().setAddWindow(duke, this);
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * Creates a new window to allow the user to view commands under help via user friendly interface.
+     */
+    @FXML
+    public void createHelpWindow() {
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/view/HelpWindow.fxml"));
+            AnchorPane ap = fxmlLoader.load();
+            Scene scene = new Scene(ap);
+            Stage stage = new Stage();
+            stage.setScene(scene);
+            fxmlLoader.<HelpWindow>getController().setHelpWindow(duke, this);
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();
