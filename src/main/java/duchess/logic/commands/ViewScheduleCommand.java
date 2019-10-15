@@ -2,7 +2,6 @@ package duchess.logic.commands;
 
 import duchess.exceptions.DuchessException;
 import duchess.model.TimeFrame;
-import duchess.model.calendar.AcademicContext;
 import duchess.model.task.Task;
 import duchess.parser.Util;
 import duchess.storage.Storage;
@@ -21,7 +20,6 @@ public class ViewScheduleCommand extends Command {
     private String date;
     private String view;
     private TimeFrame timeFrame;
-    private AcademicContext academicContext;
 
     /**
      * Constructor for class.
@@ -35,7 +33,6 @@ public class ViewScheduleCommand extends Command {
         this.view = view;
         LocalDateTime start = processDate(" 0000");
         LocalDateTime end = processDate(" 2359");
-        this.academicContext = new AcademicContext(start);
         this.timeFrame = new TimeFrame(start, end);
     }
 
@@ -81,6 +78,6 @@ public class ViewScheduleCommand extends Command {
             date = "the week of " + date;
         }
         Collections.sort(tasksForToday);
-        ui.showScheduleResult(tasksForToday, date, academicContext.toString());
+        ui.showScheduleResult(tasksForToday, date);
     }
 }

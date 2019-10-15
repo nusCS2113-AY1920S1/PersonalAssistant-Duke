@@ -49,6 +49,7 @@ public class AddEventCommand extends Command {
         }
         store.getTaskList().add(task);
         ui.showTaskAdded(store.getTaskList(), task);
+        store.addToCalendar(task.getTimeFrame(), task);
         storage.save(store);
     }
 }

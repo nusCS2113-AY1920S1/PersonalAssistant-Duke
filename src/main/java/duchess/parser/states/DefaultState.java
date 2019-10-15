@@ -3,7 +3,6 @@ package duchess.parser.states;
 import duchess.exceptions.DuchessException;
 import duchess.logic.commands.AddDeadlineCommand;
 import duchess.logic.commands.AddEventCommand;
-import duchess.logic.commands.AddModuleCommand;
 import duchess.logic.commands.AddTodoCommand;
 import duchess.logic.commands.ByeCommand;
 import duchess.logic.commands.Command;

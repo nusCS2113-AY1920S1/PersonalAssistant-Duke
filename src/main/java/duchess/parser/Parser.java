@@ -23,7 +23,9 @@ public class Parser {
     public static String LIST_USAGE =
             "Usage: list (tasks | modules)";
 
-    /** Prompts. */
+    /**
+     * Prompts.
+     */
     public static final String ADD_TYPE_PROMPT =
             "What do you want to add? (module | deadline | todo | event)";
     public static final String MODULE_NAME_PROMPT =

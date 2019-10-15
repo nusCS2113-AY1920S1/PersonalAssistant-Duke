@@ -3,14 +3,12 @@ package duchess.storage;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonSetter;
 import duchess.model.Module;
-import duchess.model.calendar.CalendarEntry;
+import duchess.model.TimeFrame;
 import duchess.model.calendar.CalendarManager;
 import duchess.model.task.Task;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 
 public class Store {
@@ -56,7 +54,7 @@ public class Store {
         this.moduleList = moduleList;
     }
 
-    public Map<LocalDate, CalendarEntry> getDuchessCalendar() {
-        return CalendarManager.getDuchessCalendar();
+    public void addToCalendar(TimeFrame timeFrame, Task task) {
+        duchessCalendar.addEntry(timeFrame, task);
     }
 }

@@ -1,6 +1,5 @@
 package duchess.parser.states.add;
 
-import duchess.exceptions.DuchessException;
 import duchess.logic.commands.AddModuleCommand;
 import duchess.logic.commands.Command;
 import duchess.logic.commands.DisplayCommand;
