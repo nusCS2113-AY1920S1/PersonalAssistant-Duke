@@ -56,8 +56,6 @@ public class RoomShare {
      */
     public void run() {
         boolean isExit = false;
-        boolean isExitRecur = false;
-        boolean isExitAssign = false;
         while (!isExit) {
             String command = parser.getCommand();
             TaskType type;
@@ -70,6 +68,8 @@ public class RoomShare {
 
             case help:
                 ui.help();
+                HelpMode helpMode = new HelpMode();
+                helpMode.run();
                 break;
 
             case list:
@@ -80,7 +80,6 @@ public class RoomShare {
                     ui.showWriteError();
                 }
                 break;
-
 
             case bye:
                 isExit = true;
@@ -283,9 +282,9 @@ public class RoomShare {
                 break;
 
             case report:
-                ReportMode reportMode= new ReportMode(taskList);
-                reportMode.run();
-                break;
+                ReportMode report = new ReportMode(taskList);
+                report.run();
+            break;
 
             default:
                 ui.showCommandError();

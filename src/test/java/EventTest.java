@@ -1,5 +1,3 @@
-package javatest;
-
 import CustomExceptions.RoomShareException;
 import Model_Classes.Deadline;
 import Operations.Parser;
