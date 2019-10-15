@@ -33,7 +33,7 @@ public class EventTask extends TimedTask {
     }
 
     String getEndTime() throws DateTimeException {
-        return endTime.format(getPatDatetimeDisplay());
+        return endTime.format(super.getPatDatetimeDisplay());
     }
 
     @Override
