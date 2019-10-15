@@ -11,7 +11,7 @@ public class ManageStudents {
     /**
      * An array list for the list of students.
      */
-    private final ArrayList<MyStudent> studentList;
+    private ArrayList<MyStudent> studentList;
 
 //    public void loadStudentList() {
 //        Storage storage = new Storage ();
@@ -114,19 +114,19 @@ public class ManageStudents {
         }
     }
 
+    public void findName(String name) {
+        int cnt = 1;
+        for (MyStudent i : getStudentList()) {
+            if (i.getName().contains(name)) {
+                if (cnt == 1) {
+                    System.out.println("Here are the matching names in your list:");
+                }
+                System.out.println(cnt++ + ". " + i.toString());
+            }
+        }
 
-//
-//    public void manageStudentsCategory() {
-//        System.out.println("MANAGE STUDENTS COMMANDS:\n" +
-//                "1. student list - View all students\n" +
-//                "2. student add/ name/ age/ address - Adding a student\n" +
-//                "3. Class Details\n" +
-//                "4. Student Progress\n" +
-//                "5. Personal Best\n" +
-//                "6. Dietary Plan\n");
-//    }
-
-
-
-
+        if (cnt == 1) {
+            System.out.println("Sorry, there are no tasks matching your search");
+        }
+    }
 }

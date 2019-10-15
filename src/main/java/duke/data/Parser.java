@@ -386,13 +386,13 @@ public class Parser {
              * When cmd student is called
              * Format for adding student is: student add/ Name/ age/ address.
              */
-        case "student":
+            case "student":
                 switch (word[1]) {
                     case "add/":
-                        String[] splitByComma = input.split("/ ");
-                        String name = splitByComma[1];
-                        String age = splitByComma[2];
-                        String address = splitByComma[3];
+                        String[] splitBySlash = input.split("/ ");
+                        String name = splitBySlash[1];
+                        String age = splitBySlash[2];
+                        String address = splitBySlash[3];
                         MyStudent myNewStudent = new MyStudent(name, age, address);
                         students.addStudent(myNewStudent);
                         break;
@@ -405,14 +405,20 @@ public class Parser {
 
                     case "details":
                         //add student details
+                        break;
 
                     case "edit":
                         // editStudentDetails(detail)
+                        break;
 
                     case "list":
                         students.listAllStudents();
                         break;
 
+                    case "search":
+                        String searchName = input.substring(15);
+                        students.findName(searchName);
+                        break;
                     }
                 break;
 
