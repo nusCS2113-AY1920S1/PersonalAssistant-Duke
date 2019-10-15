@@ -1,18 +1,12 @@
-Inheritance can be defined as the process where one class acquires the properties (methods and fields) of another.
-With the use of inheritance the information is made manageable in a hierarchical order.
+Abstract Class
+A class which contains the abstract keyword in its declaration is known as abstract class.
 
-The class which inherits the properties of other is known as subclass (derived class, child class)
-and the class whose properties are inherited is known as superclass (base class, parent class).
+Abstract classes may or may not contain abstract methods, i.e., methods without body ( public void get(); )
 
+But, if a class has at least one abstract method, then the class must be declared abstract.
 
-extends is the keyword used to inherit the properties of a class. Following is the syntax of extends keyword:
+If a class is declared abstract, it cannot be instantiated.
 
+To use an abstract class, you have to inherit it from another class, provide implementations to the abstract methods in it.
 
-class Super {
-   .....
-   .....
-}
-class Sub extends Super {
-   .....
-   .....
-}
+If you inherit an abstract class, you have to provide implementations to all the abstract methods in it.

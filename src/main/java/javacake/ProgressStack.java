@@ -5,6 +5,7 @@ import javacake.topics.SubListTopic;
 import java.io.*;
 import java.nio.Buffer;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Stack;
 
 public class ProgressStack {
@@ -27,6 +28,8 @@ public class ProgressStack {
     public void loadFiles(String filePath) {
         File folder = new File(filePath);
         listOfFiles = folder.listFiles();
+        assert listOfFiles != null;
+        Arrays.sort(listOfFiles); //in case the files stored locally are not in alphabetical order
     }
 
     /**
@@ -34,6 +37,10 @@ public class ProgressStack {
      */
     public void setDefaultFilePath() {
         currentFilePath = defaultFilePath;
+    }
+
+    public String getFullFilePath() {
+        return currentFilePath;
     }
 
     /**

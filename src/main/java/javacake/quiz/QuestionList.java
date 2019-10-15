@@ -1,31 +1,44 @@
 package javacake.quiz;
 
 import javacake.DukeException;
+import javacake.ProgressStack;
 
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Random;
 
 public class QuestionList {
     private ArrayList<Question> chosenQuestions;
+    private int TOTALNUMOFBASICQNS = 0;
+    private int TOTALNUMOFOOPQNS = 0;
+    private int TOTALNUMOFUSEFULEXTENSIONQNS = 0;
     /** The maximum number of questions in one session of a quiz. */
-    public static final int MAX_QUESTIONS = 3;
-    private static final int TOTALNUMOFBASICQNS = 15;
-    private static final int TOTALNUMOFOOPQNS = 3;
-    private static final int TOTALNUMOFUSEFULEXTENSIONQNS = 3;
+    public static final int MAX_QUESTIONS = 5;
 
     public QuestionList() {
         chosenQuestions = new ArrayList<>(MAX_QUESTIONS);
     }
 
+
+    /**
+     * Updates the current number of basic questions in the hardcoded file path and returns all the questions stored.
+     * @return ArrayList of all the basic questions available.
+     */
     private ArrayList<BasicQuestion> initBasicList() throws DukeException {
+        String filePath = "content/MainList/1. Java Basics/4. Quiz";
+        File folder = new File(filePath);
+        File[] listOfFiles = folder.listFiles();
+
+        for (int i = 0; i < listOfFiles.length; i ++) {
+            if (listOfFiles[i] != null) {
+                TOTALNUMOFBASICQNS++;
+            }
+        }
+
         ArrayList<BasicQuestion> basicQuestionList = new ArrayList<>();
         for (int i = 1; i <= TOTALNUMOFBASICQNS; i++) {
             try {
-                String filePath = "content/MainList/ListIndex1/javabasics/Quiz/Qn" + i + ".txt";
+                filePath = "content/MainList/1. Java Basics/4. Quiz/Qn" + i + ".txt";
                 BufferedReader bufferedReader = new BufferedReader(new FileReader(filePath));
                 String currentLine;
                 String qns = new String();
@@ -42,12 +55,25 @@ public class QuestionList {
         return basicQuestionList;
     }
 
+    /**
+     * Updates the current number of oop questions in the hardcoded file path and returns all the questions stored.
+     * @return ArrayList of all the oop questions available.
+     */
     private ArrayList<OopQuestion> initOopList() throws DukeException {
+        String filePath = "content/MainList/2. Object-Oriented Programming/5. Quiz";
+        File folder = new File(filePath);
+        File[] listOfFiles = folder.listFiles();
+
+        for (int i = 0; i < listOfFiles.length; i ++) {
+            if (listOfFiles[i] != null) {
+                TOTALNUMOFOOPQNS++;
+            }
+        }
+
         ArrayList<OopQuestion> oopQuestionList = new ArrayList<>();
         for (int i = 1; i <= TOTALNUMOFOOPQNS; i++) {
-
             try {
-                String filePath = "content/MainList/ListIndex2/oop/Quiz/Qn" + i + ".txt";
+                filePath = "content/MainList/2. Object-Oriented Programming/5. Quiz/Qn" + i + ".txt";
                 BufferedReader bufferedReader = new BufferedReader(new FileReader(filePath));
                 String currentline;
                 String qns = new String();
@@ -66,12 +92,26 @@ public class QuestionList {
         return oopQuestionList;
     }
 
+    /**
+     * Updates the current number of extension questions in the hardcoded file path and returns all the questions stored.
+     * @return ArrayList of all the extension questions available.
+     */
     private ArrayList<ExtensionQuestion> initExtensionList() throws DukeException {
+        String filePath = "content/MainList/3. Extensions/4. Quiz";
+        File folder = new File(filePath);
+        File[] listOfFiles = folder.listFiles();
+
+        for (int i = 0; i < listOfFiles.length; i ++) {
+            if (listOfFiles[i] != null) {
+                TOTALNUMOFUSEFULEXTENSIONQNS++;
+            }
+        }
+
         ArrayList<ExtensionQuestion> extensionQuestionList = new ArrayList<>();
         for (int i = 1; i <= TOTALNUMOFUSEFULEXTENSIONQNS; i++) {
 
             try {
-                String filePath = "content/MainList/ListIndex2/oop/Quiz/Qn" + i + ".txt";
+                filePath = "content/MainList/3. Extensions/4. Quiz/Qn" + i + ".txt";
                 BufferedReader bufferedReader = new BufferedReader(new FileReader(filePath));
                 String currentLine; 
                 String qns = new String();

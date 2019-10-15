@@ -32,14 +32,23 @@ public class GoToCommand extends Command {
      * @throws DukeException Error thrown when unable to close reader
      */
     public String execute(ProgressStack progressStack, Ui ui, Storage storage, Profile profile) throws DukeException {
-            int intIndex = Integer.parseInt(index)-1;
-            /*if ((progressStack.gotoFilePath(intIndex)).startsWith("Quiz")) {
-
-            }*/
-            progressStack.updateFilePath(progressStack.gotoFilePath(intIndex));
-            progressStack.insertQueries();
-            try {
-                if (progressStack.containsDirectory()) {
+        int intIndex = Integer.parseInt(index)-1;
+        progressStack.updateFilePath(progressStack.gotoFilePath(intIndex));
+        String filePath = progressStack.getFullFilePath();
+        if (filePath.contains("Quiz")) {
+            if (filePath.contains("1. Java Basics")){
+                return new QuizCommand(Question.QuestionType.BASIC).execute(progressStack, ui, storage, profile);
+            } else if (filePath.contains("2. Object-Oriented Programming")) {
+                return new QuizCommand(Question.QuestionType.OOP).execute(progressStack, ui, storage, profile);
+            } else if (filePath.contains("3. Extensions")) {
+                return new QuizCommand(Question.QuestionType.EXTENSIONS).execute(progressStack, ui, storage, profile);
+            } else {
+                return new QuizCommand(Question.QuestionType.ALL).execute(progressStack, ui, storage, profile);
+            }
+        }
+        progressStack.insertQueries();
+        try {
+            if (progressStack.containsDirectory()) {
                     return (progressStack.displayDirectories());
                 } else {
                     progressStack.updateFilePath(progressStack.gotoFilePath(0));
