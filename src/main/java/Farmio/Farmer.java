@@ -49,9 +49,19 @@ public class Farmer {
         return money;
     }
 
+    public WheatFarm getWheatFarm() { return  wheatFarm; }
+
+    public ChickenFarm getChickenFarm() { return chickenFarm; }
+
+    public CowFarm getCowFarm() { return cowFarm; }
+
+    public TaskList getTasks() { return tasks; }
+
     public void setMoney(int money){
         this.money = money;
     }
+
+    public void changeMoney(int change) { money -= change; }
 
     public void nextLevel(){
         ++this.level;
@@ -70,7 +80,7 @@ public class Farmer {
         obj.put("farm_wheat", wheatFarm.toJSON());
         obj.put("farm_chicken", chickenFarm.toJSON());
         obj.put("farm_cow", cowFarm.toJSON());
-        obj.put("task_list", tasks.toJSON());
+        //obj.put("task_list", tasks.toJSON());
         return obj;
     }
 }

@@ -2,6 +2,7 @@ package Farmio;
 
 import Commands.Command;
 import FarmioExceptions.FarmioException;
+import UserCode.Conditions.ConditionChecker;
 import org.json.simple.parser.ParseException;
 
 import java.io.IOException;
