@@ -5,8 +5,6 @@ import parser.DateTimeExtractor;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
-import static parser.DateTimeExtractor.NULL_DATE;
-
 /**
  * This extension of the task class will allow the user to add a task of
  * deadline type.
@@ -25,7 +23,7 @@ public class Deadline extends Task implements Serializable {
     public Deadline(String description, LocalDateTime atDate) {
         super(description);
         this.startDate = atDate;
-        this.remindInHowManyDays = 3;
+        setReminder(3);
     }
 
     @Override
@@ -40,7 +38,7 @@ public class Deadline extends Task implements Serializable {
 
     @Override
     public boolean checkForClash(Task taskToCheck) {
-        if (taskToCheck.endDate.isEqual(NULL_DATE)) {
+        if (taskToCheck.endDate == null) {
             return (this.startDate.isEqual(taskToCheck.startDate));
         } else {
             return (taskToCheck.startDate.isBefore(this.startDate) && taskToCheck.endDate.isAfter(this.startDate));

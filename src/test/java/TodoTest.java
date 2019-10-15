@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Test;
 
 import exception.DukeException;
 import parser.DateTimeExtractor;
-import parser.Parser;
+import parser.ParserFactory;
 import task.Todo;
 import task.TodoWithinPeriod;
 
@@ -30,7 +30,7 @@ public class TodoTest {
     @Test
     public void whenExceptionThrown() {
         Assertions.assertThrows(DukeException.class, () -> {
-            Parser.parse("todo");
+            ParserFactory.parse("todo");
         });
     }
 

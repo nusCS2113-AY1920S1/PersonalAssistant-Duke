@@ -1,11 +1,10 @@
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import command.CommentCommand;
 import exception.DukeException;
-import parser.Parser;
+import parser.ParserFactory;
 
 /**
  * unit test for search command feature.
@@ -30,7 +29,7 @@ public class CommentCommandTest {
     @DisplayName("Test Parser with valid comment input")
     void testParserValid() {
         Assertions.assertDoesNotThrow(() -> {
-            Parser.parse("comment 1 testing");
+            ParserFactory.parse("comment 1 testing");
         });
     }
 
@@ -38,7 +37,7 @@ public class CommentCommandTest {
     @DisplayName("Test Parser with invalid comment input")
     void testParserInvalidLong() {
         Assertions.assertThrows(DukeException.class, () -> {
-            Parser.parse("comment");
+            ParserFactory.parse("comment");
         });
     }
 }

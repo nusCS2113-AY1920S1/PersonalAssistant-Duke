@@ -1,6 +1,6 @@
 import command.Command;
 import exception.DukeException;
-import parser.Parser;
+import parser.ParserFactory;
 import storage.Storage;
 import task.TaskList;
 import ui.Ui;
@@ -50,7 +50,7 @@ public class Duke {
         do {
             String userInput = Ui.readInput();
             try {
-                Command command = Parser.parse(userInput);
+                Command command = ParserFactory.parse(userInput);
                 command.execute(tasks, storage);
                 isExit = command.isExit();
             } catch (DukeException e) {

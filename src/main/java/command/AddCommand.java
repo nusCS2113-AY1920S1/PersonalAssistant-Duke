@@ -7,8 +7,6 @@ import ui.Ui;
 
 import java.time.LocalDateTime;
 
-import static parser.DateTimeExtractor.NULL_DATE;
-
 /**
  * The AddCommand class is used when the user has input a command which requires
  * a task to be added to the TaskList.
@@ -20,8 +18,8 @@ public class AddCommand extends Command {
 
     private String command;
     private String taskFeatures;
-    private LocalDateTime formattedStartDate = NULL_DATE;
-    private LocalDateTime formattedEndDate = NULL_DATE;
+    private LocalDateTime formattedStartDate;
+    private LocalDateTime formattedEndDate;
     private int duration = 0;
 
     /**
@@ -74,7 +72,7 @@ public class AddCommand extends Command {
         Task task;
         switch (command) {
         case "todo":
-            if (!formattedStartDate.equals(NULL_DATE)) {
+            if (formattedStartDate != null) {
                 task = new TodoWithinPeriod(taskFeatures, formattedStartDate, formattedEndDate);
             } else if (duration != 0) {
                 task = new TodoWithDuration(taskFeatures, duration);

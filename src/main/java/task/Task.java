@@ -4,8 +4,6 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.time.Period;
 
-import static parser.DateTimeExtractor.NULL_DATE;
-
 /**
  * This Task class is extended by the other tasks and serves as a template for
  * all tasks.
@@ -17,15 +15,15 @@ public abstract class Task implements Serializable {
 
     public String description;
     public Priority priority;
-    public int remindInHowManyDays = 0;
+    public Reminder reminder;
     public String comment;
 
     protected boolean isIgnored;
     protected boolean isDone;
     public boolean isPrioritizable = true;
 
-    public LocalDateTime endDate = NULL_DATE;
-    public LocalDateTime startDate = NULL_DATE;
+    public LocalDateTime endDate;
+    public LocalDateTime startDate;
     public LocalDateTime createdDate;
     public Period eventPeriod;
 
@@ -52,9 +50,8 @@ public abstract class Task implements Serializable {
         if (isIgnored) {
             return false;
         }
-        if (!startDate.isEqual(NULL_DATE)) {
-            LocalDateTime reminderDate = startDate.minusDays(remindInHowManyDays);
-            return LocalDateTime.now().isAfter(reminderDate);
+        if (reminder != null) {
+            return reminder.checkReminderTrigger();
         }
         return false;
     }
@@ -92,7 +89,7 @@ public abstract class Task implements Serializable {
     }
 
     public void setReminder(int days) {
-        this.remindInHowManyDays = days;
+        reminder = new Reminder(days, startDate);
     }
 
     public void setPriority(Priority priority) {
