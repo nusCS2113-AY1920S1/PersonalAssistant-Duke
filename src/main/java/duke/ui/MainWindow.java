@@ -7,6 +7,8 @@ import duke.logic.LogicManager;
 
 import duke.ui.calendar.CalendarWindow;
 import duke.ui.map.MapWindow;
+import javafx.application.Platform;
+import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -14,6 +16,12 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+
+import java.sql.SQLSyntaxErrorException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Controller for MainWindow. Provides the layout for the other controls.
@@ -30,11 +38,14 @@ public class MainWindow extends UiPart<Stage> {
 
     private LogicManager logic;
     private static final String FXML = "MainWindow.fxml";
+    private static final int COMMAND_TIMEOUT_PERIOD = 10000;
     private Stage primaryStage;
     private Main main;
 
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/user.png"));
     private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/duke.png"));
+    private ExecutorService executor = Executors.newFixedThreadPool(1);
+
 
     /**
      * Initialises the MainWindow.
@@ -81,19 +92,22 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     private void dukeResponse(String input) {
-        try {
-            CommandResult result = logic.execute(input);
-            dukeShow(result);
-            if (result.isExit()) {
-                tryExitApp();
-            } else if (result.isCalendar()) {
-                new CalendarWindow(result).show();
-            } else if (result.isMap()) {
-                new MapWindow(result).show();
+        Platform.runLater(() -> {
+            try {
+                CommandResult result = logic.execute(input);
+                dukeShow(result);
+                if (result.isExit()) {
+                    tryExitApp();
+                } else if (result.isCalendar()) {
+                    new CalendarWindow(result).show();
+                } else if (result.isMap()) {
+                    new MapWindow(result).show();
+                }
+            } catch (DukeException e) {
+                System.out.println(e.getMessage());
+                dukeShow(e.getMessage());
             }
-        } catch (DukeException e) {
-            dukeShow(e.getMessage());
-        }
+        });
     }
 
     private void echoUserInput(String input) {
