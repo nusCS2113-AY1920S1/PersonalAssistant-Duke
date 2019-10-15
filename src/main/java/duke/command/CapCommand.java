@@ -196,7 +196,7 @@ public class CapCommand extends ModuleCommand {
                         ModuleTasksList moduleTasksList,
                         PlannerUi plannerUi,
                         Storage store,
-                        JsonWrapper jsonWrapper))
+                        JsonWrapper jsonWrapper)
         throws ModException {
         Scanner scanner = new Scanner(System.in);
         if (this.type.equals(CommandType.OVERALL)) {
