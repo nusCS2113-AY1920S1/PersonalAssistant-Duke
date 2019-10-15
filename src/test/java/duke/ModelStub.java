@@ -8,6 +8,7 @@ import duke.model.events.Task;
 import duke.model.locations.BusStop;
 import duke.model.locations.Venue;
 import duke.model.transports.BusService;
+import duke.storage.Storage;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
 
@@ -15,9 +16,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ModelStub implements Model {
+    private Storage storage;
     private TaskList tasks;
 
     public ModelStub() {
+        storage = new Storage();
         tasks = new TaskList();
     }
 
@@ -62,18 +65,8 @@ public class ModelStub implements Model {
     }
 
     @Override
-    public List<Venue> getRecommendations() {
-        List<Venue> recommendations = new ArrayList<>();
-        recommendations.add(new Venue("Sentosa", 1.2454983, 103.8437327, 0, 0));
-        recommendations.add(new Venue("Mandai", 1.421336, 103.802622, 0, 0));
-        recommendations.add(new Venue("lck", 1.431321, 103.718253, 0, 0));
-        recommendations.add(new Venue("Jurong island", 1.254945,
-                103.678820, 0, 0));
-        recommendations.add(new Venue("Changi Airport", 1.346703,
-                103.986755, 0, 0));
-        recommendations.add(new Venue("Bukit Timah", 1.327360,
-                103.794509, 0, 0));
-        return recommendations;
+    public List<Venue> getRecommendations() throws DukeException {
+        return storage.readVenues();
     }
 
     @Override
