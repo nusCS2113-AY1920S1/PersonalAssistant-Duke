@@ -111,7 +111,7 @@ public class Ui {
      * Prints message to indicate a Task being snoozed.
      * @param task Task to be snoozed.
      */
-        public void printSnoozeMessage(Task task) {
+    public void printSnoozeMessage(Task task) {
         System.out.print(line + "     Got it. I've snoozed this task:  \n");
         System.out.print("       " + task.giveTask() + "\n");
         System.out.print(line);
@@ -137,6 +137,10 @@ public class Ui {
         System.out.print(line);
     }
 
+    /**
+     * Prints message to indicate a task being edited.
+     * @param task Task to be edited.
+     */
     public void printEditMessage(Task task) {
         System.out.print(line + "     Got it. I've edited this task:  \n");
         System.out.print("       " + task.giveTask() + "\n");
@@ -153,10 +157,15 @@ public class Ui {
         System.out.print(line);
     }
 
-    public void printAddPaymentMessage(String payee, Payments payments){
+    /**
+     * Prints the message to indicate a payment being added.
+     * @param payeename Payee name.
+     * @param payments Payment added.
+     */
+    public void printAddPaymentMessage(String payeename, Payments payments) {
         System.out.print(line);
         System.out.println("\t" + "Got it. I've added this payment:");
-        System.out.println("\t" + "Payee: " + payee);
+        System.out.println("\t" + "Payee: " + payeename);
         System.out.println("\t" + "Item: " + payments.item);
         System.out.println("\t" + "Cost: " + payments.cost);
         System.out.println("\t" + "Invoice: " + payments.inv);
@@ -165,7 +174,12 @@ public class Ui {
         System.out.print(line);
     }
 
-    public void printAddPayeeMessage(String payeename, Payee payee){
+    /**
+     * Prints message to indicate a payee being added.
+     * @param payeename Payee name.
+     * @param payee Payee object containing details of the payee.
+     */
+    public void printAddPayeeMessage(String payeename, Payee payee) {
         System.out.print(line);
         System.out.println("\t" + "Got it. I've added this payee:");
         System.out.println("\t" + "Payee: " + payeename);

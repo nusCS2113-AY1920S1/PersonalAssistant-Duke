@@ -5,14 +5,19 @@ import common.TaskList;
 import payment.Payee;
 import payment.PaymentManager;
 import payment.Payments;
-import task.*;
 import task.Deadline;
+import task.DoAfterTasks;
 import task.Task;
+import task.WithinPeriodTask;
 import ui.Ui;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Calendar;
 
 /**
  * Parser that parses input from the user.
@@ -30,7 +35,8 @@ public class Parser {
      * @return Returns boolean variable to indicate when to stop parsing for input.
      * @throws DukeException if input is not valid.
      */
-    public static boolean parse(String input, TaskList tasklist, Ui ui, Storage storage, HashMap<String, Payee> managermap) {
+    public static boolean parse(String input, TaskList tasklist, Ui ui,
+                                Storage storage, HashMap<String, Payee> managermap) {
         try {
             if (isBye(input)) {
                 //print bye message
@@ -48,8 +54,8 @@ public class Parser {
                 processDeadline(input, tasklist, ui);
                 storage.save(tasklist.returnArrayList());
 
-            } else if (IsDoAfter(input)) {
-                ProcessDoAfter(input, tasklist, ui);
+            } else if (isDoAfter(input)) {
+                processDoAfter(input, tasklist, ui);
                 Storage.save(tasklist.returnArrayList());
             } else if (isDelete(input)) {
                 processDelete(input, tasklist, ui);
@@ -60,27 +66,27 @@ public class Parser {
             } else if (isWithinPeriodTask(input)) {
                 processWithin(input, tasklist, ui);
                 storage.save(tasklist.returnArrayList());
-            }else if (isSnooze(input)) {
+            } else if (isSnooze(input)) {
                 processSnooze(input, tasklist, ui);
                 storage.save(tasklist.returnArrayList());
-//            }else if (isPostpone(input)) {
-//                processPostpone(input, tasklist, ui);
-//                storage.save(tasklist.returnArrayList());
+            /*
+            `} else if (isPostpone(input)) {
+                processPostpone(input, tasklist, ui);
+                storage.save(tasklist.returnArrayList());`
+            */
             } else if (isReschedule(input)) {
                 processReschedule(input, tasklist, ui);
                 storage.save(tasklist.returnArrayList());
             } else if (isViewSchedule(input)) {
                 processViewSchedule(input, tasklist, ui);
                 //storage.save(tasklist.returnArrayList());
-            }
-            else if (isReminder(input)) {
+            } else if (isReminder(input)) {
                 //processReminder(input, tasklist, ui);
-            }
-            else if(isEdit(input)){
+            } else if (isEdit(input)) {
                 processEdit(input,tasklist,ui);
-            } else if (isPayment(input)){
+            } else if (isPayment(input)) {
                 processPayment(input, managermap, ui);
-            } else if (isPayee(input)){
+            } else if (isPayee(input)) {
                 processPayee(input, managermap, ui);
             } else {
                 throw new DukeException("     ☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
@@ -111,6 +117,7 @@ public class Parser {
             ui.exceptionMessage("     ☹ OOPS!!! The content to find cannot be empty.");
         }
     }
+
     /**
      * Processes the View Schedule command and outputs the schedule for the specific date entered in the input.
      * @param input Input from the user.
@@ -127,16 +134,16 @@ public class Parser {
                 }
             }
             ArrayList<String> time = new ArrayList<String>();
-            for(Task tasks: findlist.returnArrayList()){
+            for (Task tasks: findlist.returnArrayList()) {
                 String[] splitcolon = tasks.giveTask().split(":");
                 String[] splitspaces = splitcolon[1].split(" ");
                 time.add(splitspaces[2]);
             }
             Collections.sort(time);
             TaskList finalList = new TaskList();
-            for(int i = 0; i < time.size(); i = i + 1){
-                for(Task tasks: findlist.returnArrayList()){
-                    if(tasks.giveTask().contains(time.get(i))){
+            for (int i = 0; i < time.size(); i = i + 1) {
+                for (Task tasks: findlist.returnArrayList()) {
+                    if (tasks.giveTask().contains(time.get(i))) {
                         finalList.addTask(tasks);
                     }
                 }
@@ -209,12 +216,14 @@ public class Parser {
     }
 
     /**
-     * Processes the DoAfter command and adds a task, which has to be done after another task or a specific date and time, to the user's Tasklist.
+     * Processes the DoAfter command and adds a task,
+     * which has to be done after another task or a specific date and time,
+     * to the user's Tasklist.
      * @param input Input from the user.
      * @param tasklist Tasklist of the user.
      * @param ui Ui that interacts with the user.
      */
-    private static void ProcessDoAfter(String input, TaskList tasklist, Ui ui){
+    private static void processDoAfter(String input, TaskList tasklist, Ui ui) {
         try {
             String[] splitspace = input.split(" ", 2);
             String[] splitslash = splitspace[1].split("/", 2);
@@ -222,22 +231,19 @@ public class Parser {
             String[] splittime = splitslash[1].split(" ", 2);
             String taskTime = splittime[1];
             if (taskTime.contains("/")) {
-            Date formattedtime = dataformat.parse(taskTime);
-            DoAfterTasks After = new DoAfterTasks(taskDescription, dataformat.format(formattedtime));
-            tasklist.addTask(After);
-            ui.printAddedMessage(After, tasklist);
+                Date formattedtime = dataformat.parse(taskTime);
+                DoAfterTasks after = new DoAfterTasks(taskDescription, dataformat.format(formattedtime));
+                tasklist.addTask(after);
+                ui.printAddedMessage(after, tasklist);
+            } else {
+                DoAfterTasks after = new DoAfterTasks(taskDescription, taskTime);
+                tasklist.addTask(after);
+                ui.printAddedMessage(after, tasklist);
             }
-            else{
-                DoAfterTasks After = new DoAfterTasks(taskDescription, taskTime);
-                tasklist.addTask(After);
-                ui.printAddedMessage(After, tasklist);
-            }
-            }
-        catch(ArrayIndexOutOfBoundsException e) {
-            ui.exceptionMessage("     \u2639 OOPS!!! The description of a DoAfter cannot be empty.");
-        }
-        catch (ParseException e){
-            ui.exceptionMessage("     \u2639 OOPS!!! Format of time is wrong.");
+        } catch (ArrayIndexOutOfBoundsException e) {
+            ui.exceptionMessage("     ☹ OOPS!!! The description of a DoAfter cannot be empty.");
+        } catch (ParseException e) {
+            ui.exceptionMessage("     ☹ OOPS!!! Format of time is wrong.");
         }
     }
 
@@ -258,7 +264,8 @@ public class Parser {
             String taskend = splitand[1];
             Date formattedtimestart = dataformat.parse(taskstart);
             Date formattedtimeend = dataformat.parse(taskend);
-            WithinPeriodTask withinPeriodTask = new WithinPeriodTask(taskDescription, dataformat.format(formattedtimestart), dataformat.format(formattedtimeend));
+            WithinPeriodTask withinPeriodTask = new WithinPeriodTask(taskDescription,
+                    dataformat.format(formattedtimestart), dataformat.format(formattedtimeend));
             tasklist.addTask(withinPeriodTask);
             ui.printAddedMessage(withinPeriodTask, tasklist);
         } catch (ArrayIndexOutOfBoundsException e) {
@@ -280,7 +287,7 @@ public class Parser {
         try {
             String[] arr = input.split(" ", 2);
             int nsnooze = Integer.parseInt(arr[1]) - 1;
-            if(tasklist.get(nsnooze).getType().equals("D")){
+            if (tasklist.get(nsnooze).getType().equals("D")) {
                 String taskTime = tasklist.get(nsnooze).getBy();
                 Date formattedtime = dataformat.parse(taskTime);
                 java.util.Calendar calendar = java.util.Calendar.getInstance();
@@ -295,11 +302,11 @@ public class Parser {
 
         } catch (ArrayIndexOutOfBoundsException e) {
             ui.exceptionMessage("     ☹ OOPS!!! Please input the list number to snooze.");
-        }catch (ParseException e) {
+        } catch (ParseException e) {
             ui.exceptionMessage("     ☹ OOPS!!! Format of time is wrong.");
-
         }
     }
+
     /**
      * Process the postpone command and postpone the selected deadline task by required number of hours.
      * @param input Input from the user.
@@ -312,7 +319,7 @@ public class Parser {
             String[] splittime = splitspace[1].split(" ", 2);
             int npostpone = Integer.parseInt(splittime[0]) - 1;
             int delaytime = Integer.parseInt(splittime[1]);
-            if(tasklist.get(npostpone).getType().equals("D")){
+            if (tasklist.get(npostpone).getType().equals("D")) {
                 String taskTime = tasklist.get(npostpone).getBy();
                 Date formattedtime = dataformat.parse(taskTime);
                 java.util.Calendar calendar = java.util.Calendar.getInstance();
@@ -326,9 +333,11 @@ public class Parser {
             }
 
         } catch (ArrayIndexOutOfBoundsException e) {
-            ui.exceptionMessage("     ☹ OOPS!!! Please input the list number to postpone. Format:'postpone <index> <no.of hours to postpone>'");
-        }catch (ParseException e) {
-            ui.exceptionMessage("     ☹ OOPS!!! Format of time is wrong. Format:'postpone <index> <no.of hours to postpone>");
+            ui.exceptionMessage("     ☹ OOPS!!! Please input the list number to postpone. "
+                    + "Format:'postpone <index> <no.of hours to postpone>'");
+        } catch (ParseException e) {
+            ui.exceptionMessage("     ☹ OOPS!!! Format of time is wrong. "
+                    + "Format:'postpone <index> <no.of hours to postpone>");
         }
     }
 
@@ -338,12 +347,12 @@ public class Parser {
             String[] splittime = splitspace[1].split(" ", 2);
             int nreschedule = Integer.parseInt(splittime[0]) - 1;
             String delay = splittime[1];
-            if(tasklist.get(nreschedule).getType().equals("D")){
+            if (tasklist.get(nreschedule).getType().equals("D")) {
                 Date formattedtime = dataformat.parse(delay);
                 String newschedule = dataformat.format(formattedtime);
                 tasklist.get(nreschedule).setBy(tasklist.get(nreschedule).getInVoice());
                 ui.printRescheduleMessage(tasklist.get(nreschedule));
-            } else if(tasklist.get(nreschedule).getType().equals("E")){
+            } else if (tasklist.get(nreschedule).getType().equals("E")) {
                 Date formattedtime = dataformat.parse(delay);
                 String newschedule = dataformat.format(formattedtime);
                 tasklist.get(nreschedule).setAt(newschedule);
@@ -353,9 +362,11 @@ public class Parser {
             }
 
         } catch (ArrayIndexOutOfBoundsException e) {
-            ui.exceptionMessage("     ☹ OOPS!!! Please input the list number to reschedule. Format:'postpone <index> <the new scheduled time in dd/mm/yyyy HHmm>'");
-        }catch (ParseException e) {
-            ui.exceptionMessage("     ☹ OOPS!!! Format of time is wrong. Format:'postpone <index> <the new scheduled time in dd/mm/yyyy HHmm>");
+            ui.exceptionMessage("     ☹ OOPS!!! Please input the list number to reschedule. "
+                    + "Format:'postpone <index> <the new scheduled time in dd/mm/yyyy HHmm>'");
+        } catch (ParseException e) {
+            ui.exceptionMessage("     ☹ OOPS!!! Format of time is wrong. "
+                    + "Format:'postpone <index> <the new scheduled time in dd/mm/yyyy HHmm>");
         }
     }
 
@@ -367,28 +378,32 @@ public class Parser {
             String description = splitedit[1];
             tasklist.get(nedit).setDescription(description);
             ui.printEditMessage(tasklist.get(nedit));
-        }catch(ArrayIndexOutOfBoundsException e){
+        } catch (ArrayIndexOutOfBoundsException e) {
             ui.exceptionMessage("     ☹ OOPS!!! Please input the correct command format (refer to user guide)");
-        }catch(NumberFormatException e){
+        } catch (NumberFormatException e) {
             ui.exceptionMessage("     ☹ OOPS!!! Please input the correct command format (refer to user guide)");
         }
     }
 
     //INPUT FORMAT: payment add p/payee i/item c/111 v/invoice
-    private static void processPayment(String input, HashMap<String, Payee> managermap, Ui ui){
+    private static void processPayment(String input, HashMap<String, Payee> managermap, Ui ui) {
         try {
             String[] splitspace = input.split(" ", 2);
-            if (splitspace[1].startsWith("add")){
+            if (splitspace[1].startsWith("add")) {
                 String[] splitpayments = splitspace[1].split("p/|i/|c/|v/");
-                Payments payment = PaymentManager.addPayments(splitpayments[1], splitpayments[2], Double.parseDouble(splitpayments[3]), splitpayments[4], managermap);
+                String payee = splitpayments[1];
+                String item = splitpayments[2];
+                Double cost = Double.parseDouble(splitpayments[3]);
+                String invoice = splitpayments[4];
+                Payments payment = PaymentManager.addPayments(payee, item, cost, invoice, managermap);
                 ui.printAddPaymentMessage(splitpayments[1], payment);
             }
             //TODO --> delete payment
             //TODO --> edit payment
 
-        } catch(ArrayIndexOutOfBoundsException e) {
+        } catch (ArrayIndexOutOfBoundsException e) {
             ui.exceptionMessage("     ☹ OOPS!!! Please input the correct command format (refer to user guide)");
-        } catch(NullPointerException e) {
+        } catch (NullPointerException e) {
             ui.exceptionMessage("     ☹ OOPS!!! There is no payee with that name yet, please add the payee first!");
         }
     }
@@ -396,17 +411,21 @@ public class Parser {
     private static void processPayee(String input, HashMap<String, Payee> managermap, Ui ui) {
         try {
             String[] splitspace = input.split(" ", 2);
-            if (splitspace[1].startsWith("add")){
+            if (splitspace[1].startsWith("add")) {
                 String[] splitpayments = splitspace[1].split("p/|e/|m/|ph/");
-                Payee payee = PaymentManager.addPayee(splitpayments[1], splitpayments[2], splitpayments[3], splitpayments[4], managermap);
+                String payeename = splitpayments[1];
+                String email = splitpayments[2];
+                String matricNum = splitpayments[3];
+                String phoneNum = splitpayments[4];
+                Payee payee = PaymentManager.addPayee(payeename, email, matricNum, phoneNum, managermap);
                 ui.printAddPayeeMessage(splitpayments[1], payee);
             }
             //TODO --> delete payee
             //TODO --> edit payee
 
-        } catch(ArrayIndexOutOfBoundsException e) {
+        } catch (ArrayIndexOutOfBoundsException e) {
             ui.exceptionMessage("     ☹ OOPS!!! Please input the correct command format (refer to user guide)");
-        } catch(NullPointerException e) {
+        } catch (NullPointerException e) {
             ui.exceptionMessage("     ☹ OOPS!!! There is no payee with that name yet, please add the payee first!");
         }
     }
@@ -427,9 +446,10 @@ public class Parser {
         return input.startsWith("deadline");
     }
 
-    private static boolean IsDoAfter(String input){
+    private static boolean isDoAfter(String input) {
         return input.startsWith("DoAfter");
     }
+
     private static boolean isDelete(String input) {
         return input.startsWith("delete");
     }
@@ -446,9 +466,11 @@ public class Parser {
         return input.startsWith("snooze");
     }
 
-//    private static boolean isPostpone(String input) {
-//        return input.startsWith("postpone");
-//    }
+    /*
+    private static boolean isPostpone(String input) {
+        return input.startsWith("postpone");
+    }
+    */
 
     private static boolean isReschedule(String input) {
         return input.startsWith("reschedule");
