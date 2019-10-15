@@ -9,8 +9,11 @@ import javafx.scene.control.TextField;
 import javafx.scene.effect.ColorAdjust;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Paint;
+import javafx.scene.shape.Rectangle;
+import seedu.hustler.game.achievement.AchievementList;
 
 import java.io.IOException;
 import java.io.OutputStream;
@@ -79,10 +82,16 @@ public class MainWindow extends AnchorPane{
     @FXML
     private ImageView gear;
 
-
+    @FXML
+    private AnchorPane rootPane;
 
     private Hustler hustler;
 
+    @FXML
+    private FlowPane flowPane = new FlowPane();
+
+    @FXML
+    private ScrollPane scrollPANEE;
     /**
      * Initializes essential components to run Hustler.
      * @throws IOException if text area could not be found.
@@ -125,8 +134,8 @@ public class MainWindow extends AnchorPane{
     @FXML
     public void handleUserInput() {
         String input = userInput.getText();
-        Hustler.run(input);
-        userInput.clear();
+        //Hustler.run(input);
+
 
         String token[] = input.split(" ");
 
@@ -134,11 +143,17 @@ public class MainWindow extends AnchorPane{
             achievementAction();
         } else if(token[0].equals("/add") || input.equals("list")) {
             taskAction();
+        } else if(input.equals("bye")) {
+            Hustler.run("bye");
         }
+
+        userInput.clear();
     }
 
     @FXML
     public void taskAction() {
+
+
         ColorAdjust color = new ColorAdjust();
         color.setContrast(0.35);
         color.setHue(-0.21);
@@ -174,6 +189,9 @@ public class MainWindow extends AnchorPane{
 
     @FXML
     public void taskCompletionModeAction() {
+
+        console.clear();
+
         ColorAdjust color = new ColorAdjust();
         color.setContrast(0.35);
         color.setHue(-0.21);
@@ -211,6 +229,22 @@ public class MainWindow extends AnchorPane{
     @FXML
     public void achievementAction() {
 
+        console.clear();
+        Hustler.run("achievement");
+
+        flowPane.setVgap(10);
+        for(int i = 0; i < AchievementList.achievementList.size(); i += 1) {
+            Rectangle rect = new Rectangle();
+            rect.setOpacity(0.3);
+            rect.setHeight(50);
+            rect.widthProperty().bind(flowPane.widthProperty());
+            rect.setArcHeight(30.0);
+            rect.setArcWidth(30.0); 
+            rect.setStyle("#ffffff");
+            rect.setAccessibleText("HIHIHIHI");
+            flowPane.getChildren().add(rect);
+        }
+        scrollPANEE.setContent(flowPane);
         ColorAdjust color = new ColorAdjust();
         color.setContrast(0.35);
         color.setHue(-0.21);
