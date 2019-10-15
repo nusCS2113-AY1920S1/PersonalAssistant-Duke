@@ -12,14 +12,14 @@ public class ViewCommand extends CommandSuper {
     @Override
     public void executeCommands() {
         switch(this.getSubRootCommand()) {
-        case watchlist:
-            break;
-        case blacklist:
-            ((MovieHandler) this.getUIController()).setFeedbackText(Blacklist.printList());
+            case watchlist:
+                break;
+            case blacklist:
+                ((MovieHandler) this.getUIController()).setFeedbackText(Blacklist.printList());
 
-            break;
-        default:
-            break;
+                break;
+            default:
+                break;
         }
     }
 

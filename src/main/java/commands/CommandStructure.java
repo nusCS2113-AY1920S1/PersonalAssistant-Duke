@@ -12,44 +12,48 @@ public class CommandStructure {
      */
     public static TreeMap<COMMANDKEYS , COMMANDKEYS[]> cmdStructure = new TreeMap<COMMANDKEYS , COMMANDKEYS[]>() {{
         put(COMMANDKEYS.search , new COMMANDKEYS[]{
-            COMMANDKEYS.movies , COMMANDKEYS.tvshows , COMMANDKEYS.cast , COMMANDKEYS.filters
-            });
+                COMMANDKEYS.movies , COMMANDKEYS.tvshows , COMMANDKEYS.cast , COMMANDKEYS.filters
+        });
 
         put(COMMANDKEYS.view , new COMMANDKEYS[]{
-            COMMANDKEYS.profile , COMMANDKEYS.filters , COMMANDKEYS.preferences , COMMANDKEYS.watchlist , COMMANDKEYS.info , COMMANDKEYS.showtimes , COMMANDKEYS.blacklist
-            });
+                COMMANDKEYS.profile , COMMANDKEYS.filters , COMMANDKEYS.preferences , COMMANDKEYS.watchlist , COMMANDKEYS.info , COMMANDKEYS.showtimes , COMMANDKEYS.blacklist
+        });
 
         put(COMMANDKEYS.add , new COMMANDKEYS[]{
-            COMMANDKEYS.blacklist, COMMANDKEYS.watchlist
-            });
+                COMMANDKEYS.blacklist, COMMANDKEYS.watchlist
+        });
 
         put(COMMANDKEYS.remove , new COMMANDKEYS[]{
                 COMMANDKEYS.blacklist, COMMANDKEYS.watchlist
-            });
+        });
 
         put(COMMANDKEYS.help , new COMMANDKEYS[]{
-            COMMANDKEYS.search , COMMANDKEYS.view , COMMANDKEYS.add , COMMANDKEYS.help , COMMANDKEYS.more , COMMANDKEYS.yes , COMMANDKEYS.set ,  COMMANDKEYS.playlist , COMMANDKEYS.yes
-            });
+                COMMANDKEYS.search , COMMANDKEYS.view , COMMANDKEYS.add , COMMANDKEYS.help , COMMANDKEYS.more , COMMANDKEYS.yes , COMMANDKEYS.set ,  COMMANDKEYS.playlist , COMMANDKEYS.yes
+        });
 
         put(COMMANDKEYS.more , new COMMANDKEYS[]{
-            //EMPTY
-            });
+                //EMPTY
+        });
 
         put(COMMANDKEYS.yes , new COMMANDKEYS[]{
-            //EMPTY
-            });
+                //EMPTY
+        });
 
         put(COMMANDKEYS.set , new COMMANDKEYS[]{
                 COMMANDKEYS.name , COMMANDKEYS.age , COMMANDKEYS.preference
-            });
+        });
 
         put(COMMANDKEYS.preference , new COMMANDKEYS[]{
-                COMMANDKEYS.add , COMMANDKEYS.remove
-            });
+                COMMANDKEYS.add , COMMANDKEYS.remove , COMMANDKEYS.clear
+        });
 
         put(COMMANDKEYS.playlist , new COMMANDKEYS[]{
                 COMMANDKEYS.create , COMMANDKEYS.delete , COMMANDKEYS.add , COMMANDKEYS.remove , COMMANDKEYS.set
-            });
+        });
+
+        put(COMMANDKEYS.restriction , new COMMANDKEYS[]{
+                COMMANDKEYS.add , COMMANDKEYS.remove , COMMANDKEYS.clear
+        });
 
     }};
 

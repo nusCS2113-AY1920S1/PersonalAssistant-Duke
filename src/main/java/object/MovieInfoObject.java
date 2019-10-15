@@ -17,19 +17,21 @@ public class MovieInfoObject {
     private String movieFullBackdropPath;
     private double movieRating;
     private long[] movieGenreIDs;
+    private boolean adult;
 
-    /**
-     * Construct info about a movie/tv show
-     * @param ID ID stored in the api.
-     * @param title Title of the movie/tv show.
-     * @param date Release date of the movie/tv show.
-     * @param summary Plot summary of the movie/tv show.
-     * @param rating Rating of the movie or tv show.
-     * @param genreIDs Array of numbers that contains the genres belonging to the movie/tv show extracted from api.
-     * @param posterPath Filepath of the movie/tv show poster.
-     * @param backdropPath Filepath of the movie/tv show backdrop poster.
-     */
-    public MovieInfoObject(long ID, String title, Date date, String summary, double rating, long[] genreIDs, String posterPath, String backdropPath) {
+
+        /**
+         * Construct info about a movie/tv show
+         * @param ID ID stored in the api.
+         * @param title Title of the movie/tv show.
+         * @param date Release date of the movie/tv show.
+         * @param summary Plot summary of the movie/tv show.
+         * @param rating Rating of the movie or tv show.
+         * @param genreIDs Array of numbers that contains the genres belonging to the movie/tv show extracted from api.
+         * @param posterPath Filepath of the movie/tv show poster.
+         * @param backdropPath Filepath of the movie/tv show backdrop poster.
+         */
+    public MovieInfoObject(long ID, String title, Date date, String summary, double rating, long[] genreIDs, String posterPath, String backdropPath, boolean adult) {
         movieID = ID;
         movieTitle = title;
         movieReleaseDate = date;
@@ -38,6 +40,7 @@ public class MovieInfoObject {
         moviePosterPath = posterPath;
         movieBackdropPath = backdropPath;
         movieGenreIDs = genreIDs;
+        this.adult = adult;
     }
 
     /**
@@ -107,4 +110,7 @@ public class MovieInfoObject {
         return movieFullBackdropPath;
     }
 
+    public boolean isAdult() {
+        return adult;
+    }
 }

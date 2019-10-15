@@ -6,22 +6,22 @@ import MovieUI.MovieHandler;
 
 import java.io.IOException;
 
-public class PreferenceCommand extends CommandSuper {
-    public PreferenceCommand(Controller uicontroller) {
-        super(COMMANDKEYS.preference, CommandStructure.cmdStructure.get(COMMANDKEYS.preference) , uicontroller);
+public class RestrictionCommand extends CommandSuper{
+    public RestrictionCommand(Controller UIController) {
+        super(COMMANDKEYS.restriction, CommandStructure.cmdStructure.get(COMMANDKEYS.restriction), UIController);
     }
 
     @Override
     public void executeCommands() throws IOException {
-        switch (this.getSubRootCommand()) {
+        switch (this.getSubRootCommand()){
             case add:
-                executeAddPreference();
+                executeAddRestriction();
                 break;
             case remove:
-                executeRemovePreference();
+                executeRemoveRestriction();
                 break;
             case clear:
-                executeClearPreference();
+                executeClearRestriction();
                 break;
             default:
                 break;
@@ -29,31 +29,31 @@ public class PreferenceCommand extends CommandSuper {
     }
 
     /**
-     * add to user preference.
+     * add to user preference
      * root: preference
      * sub: add
      * payload: none
      * flag: -g (genre name -- not genre ID)
      */
-    private void executeAddPreference() throws IOException {
-        MovieHandler movieHandler = ((MovieHandler) this.getUIController());
+    private void executeAddRestriction() throws IOException {
+        MovieHandler movieHandler = ((MovieHandler)this.getUIController());
         ProfileCommands command = new ProfileCommands(movieHandler.getUserProfile());
-        command.addPreference(this.getFlagMap());
+        command.addRestriction(this.getFlagMap());
         movieHandler.clearSearchTextField();
         movieHandler.setLabels();
     }
 
     /**
-     * remove from user preference.
+     * remove from user preference
      * root: preference
      * sub: remove
      * payload: none
      * flag: -g (genre name -- not genre ID)
      */
-    private void executeRemovePreference() throws IOException {
-        MovieHandler movieHandler = ((MovieHandler) this.getUIController());
+    private void executeRemoveRestriction() throws IOException {
+        MovieHandler movieHandler = ((MovieHandler)this.getUIController());
         ProfileCommands command = new ProfileCommands(movieHandler.getUserProfile());
-        command.removePreference(this.getFlagMap());
+        command.removeRestriction(this.getFlagMap());
         movieHandler.clearSearchTextField();
         movieHandler.setLabels();
     }
@@ -65,10 +65,10 @@ public class PreferenceCommand extends CommandSuper {
      * payload: none
      * flag: -g (genre name -- not genre ID) -a (adult -- yes to allow adult content, no to restrict, set to yes by default)
      */
-    private void executeClearPreference() throws IOException {
+    private void executeClearRestriction() throws IOException {
         MovieHandler movieHandler = ((MovieHandler)this.getUIController());
         ProfileCommands command = new ProfileCommands(movieHandler.getUserProfile());
-        command.clearPreference(this.getFlagMap());
+        command.clearRestriction(this.getFlagMap());
         movieHandler.clearSearchTextField();
         movieHandler.setLabels();
     }

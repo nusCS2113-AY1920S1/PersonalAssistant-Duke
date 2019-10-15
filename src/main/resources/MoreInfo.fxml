@@ -102,29 +102,29 @@
     <VBox fx:id="mMovieTypeVBox" alignment="TOP_CENTER" prefHeight="343.0" prefWidth="145.0" spacing="8.0" BorderPane.alignment="CENTER">
       <children>
         <VBox fx:id="vBox1" minHeight="95.0" prefHeight="160.0" prefWidth="125.0">
-          <Label fx:id="titleLabel" styleClass="titleLabel" text="My Preferences" />
-          <HBox prefHeight="8.0" prefWidth="125.0">
-            <children>
-              <Text fx:id="langText" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Name: " />
-              <Label fx:id="userNameLabel" text="Label" />
-            </children>
-          </HBox>
-          <HBox prefHeight="13.0" prefWidth="125.0">
-            <children>
-              <Text fx:id="ageText" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Age: " />
-              <Label fx:id="userAgeLabel" text="Label" />
-            </children>
-          </HBox>
-          <HBox prefHeight="32.0" prefWidth="125.0">
-            <children>
-              <Label fx:id="genreText" text="Genres:" />
-            </children>
-          </HBox>
-          <HBox prefHeight="100.0" prefWidth="200.0">
-            <children>
-              <Label fx:id="genreListLabel" text="" wrapText="true" />
-            </children>
-          </HBox>
+          <children>
+            <Label fx:id="titleLabel" styleClass="titleLabel" text="My Preferences" />
+            <HBox prefHeight="8.0" prefWidth="125.0">
+              <children>
+                <Text fx:id="langText" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Name: " />
+                <Label fx:id="userNameLabel" text="Label" />
+              </children>
+            </HBox>
+            <HBox prefHeight="13.0" prefWidth="125.0">
+              <children>
+                <Text fx:id="ageText" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Age: " />
+                <Label fx:id="userAgeLabel" text="Label" />
+              </children>
+            </HBox>
+            <HBox prefHeight="100.0" prefWidth="200.0">
+              <children>
+                <Label fx:id="adultText" text="Adult: " />
+                <Label fx:id="adultLabel" text="Label" />
+              </children>
+            </HBox>
+          <Text fx:id="genreText" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Genre: " />
+          <TextFlow fx:id="genreListText" prefHeight="200.0" prefWidth="200.0" />
+          </children>
         </VBox>
       </children>
       <padding>

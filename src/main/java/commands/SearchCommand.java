@@ -4,6 +4,9 @@ package commands;
 import EPstorage.ProfileCommands;
 import MovieUI.Controller;
 import MovieUI.MovieHandler;
+import MovieUI.MoviePosterController;
+import movieRequesterAPI.MovieResultFilter;
+import movieRequesterAPI.RetrieveRequest;
 
 import java.util.ArrayList;
 import java.util.TreeMap;
@@ -46,45 +49,60 @@ public class SearchCommand extends CommandSuper {
      */
     private void executeMovieSearch() throws IOException {
         TreeMap<String, ArrayList<String>> treeMap = getFlagMap();
+        MovieHandler movieHandler = new MovieHandler();
         if (treeMap.containsKey("-c")) {
-            MovieHandler.showCurrentMovies();
+            movieHandler.showCurrentMovies();
         } else if (treeMap.containsKey("-u")) {
-            MovieHandler.showUpcomingMovies();
+            movieHandler.showUpcomingMovies();
         } else if (treeMap.containsKey("-t")) {
-            MovieHandler.showTrendMovies();
+            movieHandler.showTrendMovies();
         } else if (treeMap.containsKey("-p")) {
-            MovieHandler.showPopMovies();
+            movieHandler.showPopMovies();
         } else {
-            MovieHandler movieHandler = ((MovieHandler) this.getUIController());
             if (!this.getFlagMap().containsKey("-g")) {
-                ((MovieHandler) this.getUIController()).getAPIRequester().beginMovieSearchRequest(getPayload());
+                if (movieHandler.getUserProfile().isAdult()) {
+                    ((MovieHandler) this.getUIController()).getAPIRequester().beginMovieSearchRequest(getPayload(), true);
+                } else {
+                    ((MovieHandler) this.getUIController()).getAPIRequester().beginMovieSearchRequest(getPayload(), false);
+                }
                 movieHandler.clearSearchTextField();
             } else {
-                ArrayList<Integer> inputGenre = new ArrayList<>(10);
+                ArrayList<Integer> inputGenrePreference = new ArrayList<>(10);
+                ArrayList<Integer> inputGenreRestriction = new ArrayList<>(10);
+
                 for (String log : this.getFlagMap().get("-g")) {
                     if (log.equalsIgnoreCase("preferences")) {
-                        inputGenre.addAll(movieHandler.getUserProfile().getGenreId());
-                    } else {
+                        inputGenrePreference.addAll(movieHandler.getUserProfile().getGenreIdPreference());
+                    } else if (log.equalsIgnoreCase("restrictions")) {
+                        inputGenreRestriction.addAll(movieHandler.getUserProfile().getGenreIdRestriction());
+                    }
+                    else {
                         ProfileCommands command = new ProfileCommands(movieHandler.getUserProfile());
-                        inputGenre.add(command.findGenreID(log));
+                        inputGenrePreference.add(command.findGenreID(log));
                     }
                 }
-                ((MovieHandler) this.getUIController()).getAPIRequester().beginMovieSearchRequestWithGenre(getPayload(), inputGenre);
+                if (movieHandler.getUserProfile().isAdult()) {
+                    ((MovieHandler) this.getUIController()).getAPIRequester().beginMovieSearchRequestWithPreference(getPayload(), inputGenrePreference, inputGenreRestriction, true);
+                } else {
+                    ((MovieHandler) this.getUIController()).getAPIRequester().beginMovieSearchRequestWithPreference(getPayload(), inputGenrePreference, inputGenreRestriction, false);
+                }
                 movieHandler.clearSearchTextField();
             }
         }
     }
 
     private void executeTvShowSearch() {
+        MovieHandler movieHandler = new MovieHandler();
+
         TreeMap<String, ArrayList<String>> treeMap = getFlagMap();
         if (treeMap.containsKey("-c")) {
-            MovieHandler.showCurrentTV();
+            movieHandler.showCurrentTV();
             //} else if (treeMap.containsKey("-[u]")){
             //  MovieHandler.showUpcomingTV();
         } else if (treeMap.containsKey("-t")) {
-            MovieHandler.showTrendTV();
+            movieHandler.showTrendTV();
         } else if (treeMap.containsKey("-p")) {
-            MovieHandler.showPopTV();
+            movieHandler.showPopTV();
         }
 
     }

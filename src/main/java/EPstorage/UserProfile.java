@@ -8,7 +8,9 @@ import java.util.ArrayList;
 public class UserProfile {
     private String userName;
     private int userAge;
-    private ArrayList<Integer> genreId;
+    private ArrayList<Integer> genreIdPreference = new ArrayList<>();
+    private ArrayList<Integer> genreIdRestriction = new ArrayList<>();
+    private boolean adult = true;
 
     public String getUserName(){
         return userName;
@@ -18,8 +20,8 @@ public class UserProfile {
         return userAge;
     }
 
-    public ArrayList<Integer> getGenreId() {
-        return genreId;
+    public ArrayList<Integer> getGenreIdPreference() {
+        return genreIdPreference;
     }
 
     public void setUserName(String inputName) {
@@ -30,15 +32,39 @@ public class UserProfile {
         userAge = inputAge;
     }
 
-    public void setGenreId(ArrayList<Integer> inputGenre) {
-        genreId = inputGenre;
+    public void setGenreIdPreference(ArrayList<Integer> inputGenre) {
+        genreIdPreference = inputGenre;
     }
 
-    public void addGenreId(ArrayList<Integer> inputGenre) {
-        genreId.addAll(inputGenre);
+    public void addGenreIdPreference(ArrayList<Integer> inputGenre) {
+        genreIdPreference.addAll(inputGenre);
     }
 
-    public void removeGenreId(ArrayList<Integer> inputGenre) {
-        genreId.removeAll(inputGenre);
+    public void removeGenreIdPreference(ArrayList<Integer> inputGenre) {
+        genreIdPreference.removeAll(inputGenre);
+    }
+
+    public boolean isAdult() {
+        return adult;
+    }
+
+    public void setAdult(boolean adult) {
+        this.adult = adult;
+    }
+
+    public ArrayList<Integer> getGenreIdRestriction() {
+        return genreIdRestriction;
+    }
+
+    public void setGenreIdRestriction(ArrayList<Integer> genreIdRestriction) {
+        this.genreIdRestriction = genreIdRestriction;
+    }
+
+    public void addGenreIdRestriction(ArrayList<Integer> inputGenre) {
+        genreIdRestriction.addAll(inputGenre);
+    }
+
+    public void removeGenreIdRestriction(ArrayList<Integer> inputGenre) {
+        genreIdRestriction.removeAll(inputGenre);
     }
 }
