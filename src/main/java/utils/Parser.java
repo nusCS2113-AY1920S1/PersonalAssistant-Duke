@@ -1,17 +1,6 @@
 package utils;
 
-import commands.AddCommand;
-import commands.ByeCommand;
-import commands.CheckAnomaliesCommand;
-import commands.Command;
-import commands.DeleteCommand;
-import commands.DoneCommand;
-import commands.FindCommand;
-import commands.ListCommand;
-import commands.MemberAddCommand;
-import commands.RecurringCommand;
-import commands.SnoozeCommand;
-import commands.ViewScheCommand;
+import commands.*;
 
 import members.Member;
 import core.Ui;
@@ -156,6 +145,8 @@ public class Parser {
             temp = new RecurringCommand(splites[1]);
         } else if (splites[0].equals("SNOOZE")) {
             temp = new SnoozeCommand(splites[1]);
+        } else if (splites[0].equals("LINK")) {
+            temp = new LinkCommand(splites[1]);
         } else if (splites[0].equals(("SCHEDULE"))) {
             temp = new ViewScheCommand(splites.length > 1 ? splites[1] : "");
         } else if (splites[0].equals("CHECK")) {
@@ -282,7 +273,7 @@ public class Parser {
      * if the method cannot recognize the word, return the original word.
      */
     public static String commandCorrector(String command) {
-        String[] dict = {"ADD", "LIST", "DONE", "BYE", "DELETE", "FIND", "RECURRING", "SNOOZE", "SCHEDULE", "CHECK"};
+        String[] dict = {"ADD", "LIST", "DONE", "BYE", "DELETE", "FIND", "RECURRING", "SNOOZE", "SCHEDULE", "CHECK", "LINK"};
         double[] similarity = new double[dict.length];
         double maxSimilarity = 0;
         int maxSimilarityCommandIndex = -1;
