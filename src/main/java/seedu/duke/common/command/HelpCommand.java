@@ -10,6 +10,7 @@ import java.util.ArrayList;
  */
 public class HelpCommand extends Command {
     private ArrayList<CommandInfo> commandInfoList = new ArrayList<>();
+
     /**
      * Initializes help command with pre-determined values
      */

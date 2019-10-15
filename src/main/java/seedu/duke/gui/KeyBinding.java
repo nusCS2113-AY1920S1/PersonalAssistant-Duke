@@ -16,8 +16,8 @@ public class KeyBinding {
     /**
      * Set key binding to read from scene.
      *
-     * @param scene whole scene of application.
-     * @param userInput textfield for user input.
+     * @param scene      whole scene of application.
+     * @param userInput  textfield for user input.
      * @param sendButton send button.
      * @param mainWindow fxml controller.
      */

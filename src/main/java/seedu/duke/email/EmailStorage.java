@@ -13,6 +13,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import static seedu.duke.email.EmailContentParser.allKeywordInEmail;
+
 /**
  * Handles loading and saving of emails from local storage.
  */
@@ -90,7 +92,7 @@ public class EmailStorage {
      * current email list with local storage after that by calling syncEmailListWithHtml().
      */
     public static void syncWithServer() {
-        EmailList serverEmailList = Http.fetchEmail(2);
+        EmailList serverEmailList = Http.fetchEmail(50);
         for (Email serverEmail : serverEmailList) {
             boolean exist = false;
             for (Email localEmail : Duke.getEmailList()) {
@@ -102,6 +104,9 @@ public class EmailStorage {
             if (!exist) {
                 Duke.getEmailList().add(serverEmail);
             }
+        }
+        for (Email email : Duke.getEmailList()) {
+            allKeywordInEmail(email);
         }
         saveEmails(Duke.getEmailList());
     }
@@ -122,8 +127,6 @@ public class EmailStorage {
             FileOutputStream indexOut = new FileOutputStream(indexFile, false);
             String content = "";
             for (Email email : emailList) {
-                Duke.getUI().showDebug(email.getSubject());
-                Duke.getUI().showDebug(email.getReceivedDateTime().toString());
                 content += email.getFilename() + "\n";
             }
             indexOut.write(content.getBytes());
@@ -239,7 +242,7 @@ public class EmailStorage {
                 while (emailScanner.hasNextLine()) {
                     emailContent += emailScanner.nextLine();
                 }
-                emailList.add(EmailParser.parseRawJson(emailContent));
+                emailList.add(EmailFormatParser.parseRawJson(emailContent));
             }
             Duke.getUI().showMessage("Saved email file successfully loaded...");
             indexIn.close();
@@ -251,7 +254,7 @@ public class EmailStorage {
         } catch (TaskStorage.StorageException e) {
             Duke.getUI().showError(e.getMessage());
             emailList = new EmailList();
-        } catch (EmailParser.EmailParsingException e) {
+        } catch (EmailFormatParser.EmailParsingException e) {
             Duke.getUI().showError("Email save file is in wrong format");
         }
         return emailList;

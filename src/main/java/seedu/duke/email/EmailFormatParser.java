@@ -11,7 +11,7 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.ResolverStyle;
 import java.util.Locale;
 
-public class EmailParser {
+public class EmailFormatParser {
     protected static DateTimeFormatter format = DateTimeFormatter
             .ofPattern("uuuu-MM-dd'T'HH:mm:ss'Z'", Locale.ENGLISH)
             .withResolverStyle(ResolverStyle.STRICT);

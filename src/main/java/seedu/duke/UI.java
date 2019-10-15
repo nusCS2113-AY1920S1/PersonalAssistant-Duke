@@ -122,6 +122,7 @@ public class UI {
 
     /**
      * Show input command and output response in GUI.
+     *
      * @param msg input
      */
     public void showGui(String msg) {

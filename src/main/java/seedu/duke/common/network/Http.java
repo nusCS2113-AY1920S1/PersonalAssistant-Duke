@@ -4,7 +4,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import seedu.duke.Duke;
 import seedu.duke.email.EmailList;
-import seedu.duke.email.EmailParser;
+import seedu.duke.email.EmailFormatParser;
 import seedu.duke.email.EmailStorage;
 import seedu.duke.email.entity.Email;
 
@@ -77,25 +77,27 @@ public class Http {
     /**
      * Fetches email from Outlook serer.
      *
-     * @param limit the limit of number of emails to be fetched
+     * @param limit the limit of number of emails to be fetched. 0 means all emails are fetched.
      * @return the list of emails fetched
      */
     public static EmailList fetchEmail(int limit) {
         JSONObject apiParams = new JSONObject();
         try {
             apiParams.put("select", "subject,from,body,receivedDateTime");
-            apiParams.put("top", Integer.toString(limit));
+            if (limit > 0) {
+                apiParams.put("top", Integer.toString(limit));
+            }
             apiParams.put("orderby", "receivedDateTime%20desc");
         } catch (JSONException e) {
             Duke.getUI().showError("Api parameter error...");
         }
         try {
-            EmailList emailList = EmailParser.parseFetchResponse(callEmailApi(apiParams));
-            for (Email email : emailList) {
-                Duke.getUI().showMessage(email.toCliString());
-            }
+            EmailList emailList = EmailFormatParser.parseFetchResponse(callEmailApi(apiParams));
+            //for (Email email : emailList) {
+            //    Duke.getUI().showMessage(email.toCliString());
+            //}
             return emailList;
-        } catch (EmailParser.EmailParsingException e) {
+        } catch (EmailFormatParser.EmailParsingException e) {
             Duke.getUI().showError(e.toString());
         }
         return new EmailList();
