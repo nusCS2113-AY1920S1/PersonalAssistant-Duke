@@ -79,6 +79,14 @@ public class EmailContentParser {
         ArrayList<KeywordPair> keywordList = new ArrayList<>();
         keywordList.add(new KeywordPair("CS2113T", new ArrayList<String>(List.of(
                 "CS2113T", "CS2113", "TAN KIAN WEI, JASON", "Leow Wei Xiang"))));
+        keywordList.add(new KeywordPair("CS2101", new ArrayList<String>(List.of(
+                "CS2101", "Anita Toh Ann Lee"))));
+        keywordList.add(new KeywordPair("CG2271", new ArrayList<String>(List.of(
+                "CG2271", "Djordje Jevdjic"))));
+        keywordList.add(new KeywordPair("CEG Admin", new ArrayList<String>(List.of(
+                "Low Mun Bak"))));
+        keywordList.add(new KeywordPair("SEP", new ArrayList<String>(List.of(
+                "SEP", "Student Exchange Programme"))));
 
         EmailContentParser.keywordList = keywordList;
     }
@@ -87,8 +95,8 @@ public class EmailContentParser {
      * A pair of keyword with its possible expressions
      */
     public static class KeywordPair {
-        private static String keyword;
-        private static ArrayList<String> expressions;
+        private String keyword;
+        private ArrayList<String> expressions;
 
         /**
          * Constructs a keyword pair.
