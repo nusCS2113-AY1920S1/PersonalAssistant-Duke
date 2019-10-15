@@ -54,8 +54,8 @@ public class ModuleInfoDetailed {
     public String toString() {
         return "ModuleCode:"
                 + getModuleCode()
-                + ", "
-                + getPreclusion()
+                + ", MC:"
+                + getModuleCredit()
                 + ", SU:"
                 + getAttributes().isSu();
     }

@@ -2,23 +2,22 @@ package duke;
 
 import duke.command.logic.ModuleCommand;
 import duke.util.PlannerUi;
-import java.util.Arrays;
+
 import java.util.HashMap;
 
 import duke.command.Command;
-import duke.command.ListCommand;
 import duke.exceptions.planner.ModBadRequestStatus;
 import duke.exceptions.ModException;
 import duke.exceptions.planner.ModFailedJsonException;
 import duke.exceptions.ModTimeIntervalTooCloseException;
 import duke.modules.data.ModuleInfoDetailed;
-import duke.modules.data.ModuleInfoSummary;
 import duke.util.JsonWrapper;
 import duke.util.ParserWrapper;
 import duke.util.Storage;
 import duke.util.TaskList;
 import duke.util.Ui;
 import duke.util.Reminder;
+import duke.util.commons.ModuleTasksList;
 
 public class Duke {
     /**
@@ -29,11 +28,11 @@ public class Duke {
     private Storage store;
     private Ui ui;
     private TaskList tasks;
+    private ModuleTasksList modTasks;
     private ParserWrapper parser;
     private Reminder reminder;
-    private JsonWrapper data;
+    private JsonWrapper jsonWrapper;
     private PlannerUi modUi;
-    private HashMap<String, ModuleInfoSummary> modSummaryMap;
     private HashMap<String, ModuleInfoDetailed> modDetailedMap;
 
     /**
@@ -45,56 +44,15 @@ public class Duke {
         modUi = new PlannerUi();
         tasks = new TaskList(store);
         parser = new ParserWrapper();
-        data = new JsonWrapper();
-    }
-
-    //TODO: function to be removed after implementing feature
-    /**
-     * Testing function for json parsing for both summary and detailed json files.
-     */
-    private void testJson(Command c) {
-        if (c instanceof ListCommand) {
-            this.testJson();
-        }
-    }
-
-    private void testJson() {
-        // Demo test of commands
-        System.out.println(modSummaryMap.get("CS2101"));
-        System.out.println(modDetailedMap.get("CS2101"));
-        System.out.println(modDetailedMap.get("CS2101").getAttributes().isSu());
-        System.out.println(Arrays.toString(modSummaryMap.get("CS2113T").getSemesters()));
-        System.out.println(modSummaryMap.get("CG2028").getTitle());
-        System.out.println(modSummaryMap.get("CS1010"));
+        jsonWrapper = new JsonWrapper();
+        modTasks = new ModuleTasksList();
     }
 
     private void modSetup() {
         try {
-            data.runRequests(store);
-            modSummaryMap = data.getModuleSummaryMap();
-            modDetailedMap = data.getModuleDetailedMap();
-        } catch (ModBadRequestStatus er) {
-            er.printStackTrace();
-        } catch (ModFailedJsonException ej) {
-            System.out.println(ej.getLocalizedMessage());
-        }
-    }
-
-
-    /**
-     * Main setup function to start threads in reminder and fill module data on startup.
-     */
-    private void setup() {
-        try {
-            // Starting reminder threads and pulling data from API
-            reminder = new Reminder(tasks.getTasks());
-            reminder.run();
-            // This pulls data once and stores in the data files.
-            data.runRequests(store);
-            modSummaryMap = data.getModuleSummaryMap();
-            modDetailedMap = data.getModuleDetailedMap();
-        } catch (ModTimeIntervalTooCloseException e) {
-            System.out.println(e.getMessage());
+            jsonWrapper.runRequests(store);
+            modDetailedMap = jsonWrapper.getModuleDetailedMap();
+            modTasks.setTasks(jsonWrapper.readJsonTaskList(store));
         } catch (ModBadRequestStatus er) {
             er.printStackTrace();
         } catch (ModFailedJsonException ej) {
@@ -111,14 +69,33 @@ public class Duke {
                 String fullCommand = modUi.readCommand();
                 modUi.showLine();
                 ModuleCommand c = parser.parse(fullCommand, false);
-                c.execute(modSummaryMap, modDetailedMap, modUi, store);
-                //testJson();
+                c.execute(modDetailedMap, modTasks, modUi, store, jsonWrapper);
                 isExit = c.isExit();
             } catch (ModException e) {
                 System.out.println(e.getMessage());
             } finally {
                 modUi.showLine();
             }
+        }
+    }
+
+    /**
+     * Main setup function to start threads in reminder and fill module data on startup.
+     */
+    private void setup() {
+        try {
+            // Starting reminder threads and pulling data from API
+            reminder = new Reminder(tasks.getTasks());
+            reminder.run();
+            // This pulls data once and stores in the data files.
+            jsonWrapper.runRequests(store);
+            modDetailedMap = jsonWrapper.getModuleDetailedMap();
+        } catch (ModTimeIntervalTooCloseException e) {
+            System.out.println(e.getMessage());
+        } catch (ModBadRequestStatus er) {
+            er.printStackTrace();
+        } catch (ModFailedJsonException ej) {
+            System.out.println(ej.getLocalizedMessage());
         }
     }
 
@@ -137,7 +114,6 @@ public class Duke {
                 ui.showLine();
                 Command c = parser.parse(fullCommand);
                 c.execute(tasks, ui, store, reminder);
-                testJson(c);
                 isExit = c.isExit();
             } catch (ModException e) {
                 e.printStackTrace();

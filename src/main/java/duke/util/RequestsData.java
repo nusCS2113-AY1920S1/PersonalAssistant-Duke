@@ -90,7 +90,7 @@ public class RequestsData {
      * @param responseBody String containing response from HttpRequest.
      * @return A list of string, separated by new line characters.
      */
-    private List<String> getResponseList(String responseBody) {
+    public List<String> getResponseList(String responseBody) {
         String[] test = responseBody.split("\n");
         List<String> ret = new ArrayList<>(Collections.emptyList());
         Collections.addAll(ret, test);
