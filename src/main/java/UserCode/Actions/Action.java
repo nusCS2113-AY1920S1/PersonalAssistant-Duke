@@ -44,7 +44,7 @@ public abstract class Action {
 
     public static boolean validateAction(String userInput) {
         for (ActionType type : ActionType.values()) {
-            if (type.name().equals(userInput)) {
+            if ((type.name()).toLowerCase() .equals(userInput)) {
                 return true;
             }
         }

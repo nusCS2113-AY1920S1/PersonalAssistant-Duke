@@ -10,7 +10,7 @@ public abstract class Condition {
 
     public static boolean validateBooleanCondition(String userInput) {
         for (BooleanConditionType type : BooleanConditionType.values()) {
-            if (type.name().equals(userInput)) {
+            if ((type.name()).toLowerCase().equals(userInput)) {
                 return true;
             }
         }
@@ -18,15 +18,15 @@ public abstract class Condition {
     }
 
     public static boolean validateMoneyCondition(String userInput) {
-        if (userInput.matches("(money)\\s(lessThan|lessThanOrEquals|greaterThan|greaterThanOrEquals)\\s(\\d)+")) {
+        if (userInput.matches("(money)(\\s)*(((less)(\\s)*(than)(\\s)*(or)(\\s)*(equals))|(less(\\s)*than)|((greater)(\\s)*(than)(\\s)*(or)(\\s)*(equals))|((greater)(\\s)*(than)))(\\s)+(\\d)+")) {
             return true;
         }
         return false;
     }
 
-    public static BooleanConditionType getConditionTypeFromString(String userInput) {
+    public static BooleanConditionType toBooleanCondition (String userInput) {
         for (BooleanConditionType type : BooleanConditionType.values()) {
-            if (type.name().equals(userInput)) {
+            if ((type.name()).toLowerCase().equals(userInput)) {
                 return type;
             }
         }
