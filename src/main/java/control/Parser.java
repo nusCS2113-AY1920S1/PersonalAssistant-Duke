@@ -30,6 +30,8 @@ public class Parser {
             return new AddBookingCommand(input, splitStr);
         case "addroom":
             return new AddRoomCommand(input, splitStr);
+        case "list":
+            return new ListCommand();
         default:
             throw new DukeException("\u2639 OOPS!!! I'm sorry, but I don't know what that means :-(");
         }
