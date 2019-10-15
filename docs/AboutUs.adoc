@@ -10,7 +10,7 @@ We are a team based in the http://www.comp.nus.edu.sg[School of Computing, Natio
 == Project Team
 
 === Jerry
-image::lucria.jpg[width="150", align="left"]
+image::lucria.png[width="150", align="left"]
 {empty}[https://github.com/Lucria[github]] [https://github.com/Lucria[portfolio]]
 
 Role: Team Lead +
@@ -19,7 +19,7 @@ Responsibilities: Documentation, Implementation of Data Models, Unit Tests
 '''
 
 === Kee Hui (Dillen)
-image::dkenobi.jpg[width="150", align="left"]
+image::dkenobi.png[width="150", align="left"]
 {empty}[https://github.com/Dkenobi[github]] [https://github.com/Dkenobi[portfolio]]
 
 Role: Architecture Lead +
@@ -28,7 +28,7 @@ Responsibilities: Architecture of ArchDuke, Documentation, Implementation of Dat
 '''
 
 === Abhishek
-image::iamabhishek98.jpg[width="150", align="left"]
+image::iamabhishek98.png[width="150", align="left"]
 {empty}[https://github.com/iamabhishek98[github]] [https://github.com/iamabhishek98[portfolio]]
 
 Role: Release and Tags Manager +
@@ -37,7 +37,7 @@ Responsibilities: Documentation, Releases, Implementation of Domain Logic
 '''
 
 === Sean
-image::seanlimhx.jpg[width="150", align="left"]
+image::seanlimhx.png[width="150", align="left"]
 {empty}[https://github.com/seanlimhx[github]] [https://github.com/seanlimhx[portfolio]]
 
 Role: Tests Lead +
@@ -46,7 +46,7 @@ Responsibilities: Unit Tests, Implementation of Domain Logic, Documentation
 '''
 
 === Cynthia
-image::sinteary.jpg[width="150", align="left"]
+image::sinteary.png[width="150", align="left"]
 {empty}[https://github.com/sinteary[github]] [https://github.com/sinteary[portfolio]]
 
 Role: UI Lead +
