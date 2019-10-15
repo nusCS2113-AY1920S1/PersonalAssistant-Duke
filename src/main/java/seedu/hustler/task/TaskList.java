@@ -100,7 +100,7 @@ public class TaskList {
                 difficulty = "";
             }
         }
-        if (splitInput.contains("-tag")) {
+        if (splitInput.contains("/tag")) {
             int tIndex = splitInput.indexOf("-tag") + 1;
             try {
                 tag = splitInput.get(tIndex);
