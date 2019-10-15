@@ -3,7 +3,9 @@ package moomoo.task;
 import java.util.ArrayList;
 
 public class Category {
-
+    String categoryName;
+    //Dummy variable
+    int monthTotal;
     private String name;
     private ArrayList<Expenditure> expenditure;
 
@@ -31,10 +33,14 @@ public class Category {
     String getName() {
         return name;
     }
-
-    double getMonthlyExpenditure(int month) {
-        return 0;
+    
+    //Method
+    public String toString() {
+        return categoryName;
     }
+    
+    public double getCategoryMonthTotal() {
+        return monthTotal;
 
     void addExpenditure() {
 

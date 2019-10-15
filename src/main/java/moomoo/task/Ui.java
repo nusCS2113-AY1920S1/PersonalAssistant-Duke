@@ -27,7 +27,8 @@ public class Ui {
                 + "   (____)||----w |  o \n"
                 + "         ||     ||   00\n"
                 + "   wmwwmWMWMwmWMmwMWWMWMwm\n"
-                + "MOOOOOOOO\n"
+                + "MOOOOOOOO!\n"
+
                 + "Welcome to MooMooMoney! Your one-stop budgeting and expenses tracker!\n"
                 + "What can MooMoo do for you today?");
     }
