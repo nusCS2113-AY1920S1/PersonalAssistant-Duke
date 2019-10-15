@@ -8,6 +8,9 @@ import owlmoney.model.bond.Bond;
 import owlmoney.model.bond.exception.BondException;
 import owlmoney.model.card.Card;
 import owlmoney.model.card.CardList;
+import owlmoney.model.goals.Goals;
+import owlmoney.model.goals.GoalsList;
+import owlmoney.model.goals.exception.GoalsException;
 import owlmoney.model.transaction.Transaction;
 import owlmoney.model.transaction.exception.TransactionException;
 import owlmoney.ui.Ui;
@@ -20,6 +23,7 @@ public class Profile {
     private String username;
     private BankList bankList;
     private CardList cardList;
+    private GoalsList goalsList;
 
     /**
      * Creates a new instance of the user profile.
@@ -101,7 +105,7 @@ public class Profile {
      * @throws TransactionException If invalid transaction.
      */
     public void profileDeleteExpenditure(int expIndex, String accountName, Ui ui,
-            String type) throws BankException, TransactionException, CardException {
+                                         String type) throws BankException, TransactionException, CardException {
         if ("bank".equals(type)) {
             bankList.bankListDeleteExpenditure(expIndex, accountName, ui);
         } else if ("card".equals(type)) {
@@ -155,7 +159,7 @@ public class Profile {
      * @throws TransactionException If incorrect date format.
      */
     public void profileEditExpenditure(int expNum, String editFromBank, String desc, String amount,
-            String date, String category, Ui ui, String type)
+                                       String date, String category, Ui ui, String type)
             throws BankException, TransactionException, CardException {
         if ("card".equals(type)) {
             cardList.cardListEditExpenditure(expNum, editFromBank, desc, amount, date, category, ui);
@@ -232,7 +236,7 @@ public class Profile {
      * @throws TransactionException If incorrect date format.
      */
     public void profileEditDeposit(int expNum, String editFromBank, String desc, String amount,
-            String date, Ui ui) throws BankException, TransactionException {
+                                   String date, Ui ui) throws BankException, TransactionException {
         bankList.bankListEditDeposit(expNum, editFromBank, desc, amount, date, ui);
     }
 
@@ -359,5 +363,51 @@ public class Profile {
     public void profileListBonds(String bankName, Ui ui, int displayNum)
             throws BankException, BondException {
         bankList.bankListListBond(bankName, ui, displayNum);
+    }
+
+
+    /**
+     * Lists all goals in GoalsList.
+     *
+     * @param ui required for printing.
+     */
+    public void listGoals(Ui ui) {
+        goalsList.listGoals(ui);
+    }
+
+    /**
+     * Adds a new financial goal.
+     *
+     * @param goals the goals object.
+     * @param ui required for printing.
+     * @throws GoalsException If invalid parameters / attempt to add the same goal name.
+     */
+    public void addGoals(Goals goals, Ui ui) throws GoalsException {
+        goalsList.addToGoals(goals, ui);
+    }
+
+    /**
+     * Deletes a goal from GoalsList.
+     *
+     * @param name name of the goal.
+     * @param ui required for printing.
+     * @throws GoalsException If goal does not exists.
+     */
+    public void deleteGoals(String name, Ui ui) throws GoalsException {
+        goalsList.deleteFromGoalList(name, ui);
+    }
+
+    /**
+     * Edit goals from GoalsList.
+     *
+     * @param goalName name of goal.
+     * @param amount new target amount to reach for the goal.
+     * @param date new targeted date to meet goal.
+     * @param newName new name for the goal.
+     * @param ui required for printing.
+     * @throws GoalsException If goal does not exists.
+     */
+    public void editGoals(String goalName, String amount, String date, String newName, Ui ui) throws GoalsException {
+        goalsList.editGoals(goalName, amount, date, newName, ui);
     }
 }

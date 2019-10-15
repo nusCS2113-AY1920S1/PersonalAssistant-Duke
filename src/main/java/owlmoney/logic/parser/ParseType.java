@@ -7,6 +7,8 @@ import owlmoney.logic.command.Command;
 import owlmoney.logic.command.PlaceHolderEmptyCommand;
 import owlmoney.logic.command.bank.ListInvestmentCommand;
 import owlmoney.logic.command.bank.ListSavingsCommand;
+import owlmoney.logic.command.goals.ListGoalsCommand;
+import owlmoney.logic.parser.exception.ParserException;
 import owlmoney.logic.command.card.ListCardCommand;
 import owlmoney.logic.parser.bond.ParseAddBond;
 import owlmoney.logic.parser.bond.ParseBond;
@@ -17,7 +19,10 @@ import owlmoney.logic.parser.card.ParseAddCard;
 import owlmoney.logic.parser.card.ParseCard;
 import owlmoney.logic.parser.card.ParseDeleteCard;
 import owlmoney.logic.parser.card.ParseEditCard;
-import owlmoney.logic.parser.exception.ParserException;
+import owlmoney.logic.parser.goals.ParseAddGoals;
+import owlmoney.logic.parser.goals.ParseDeleteGoals;
+import owlmoney.logic.parser.goals.ParseEditGoals;
+import owlmoney.logic.parser.goals.ParseGoals;
 import owlmoney.logic.parser.investment.ParseAddInvestment;
 import owlmoney.logic.parser.investment.ParseDeleteInvestment;
 import owlmoney.logic.parser.investment.ParseEditInvestment;
@@ -47,7 +52,7 @@ class ParseType extends Parser {
     /**
      * List of whitelisted keywords that the user can use.
      */
-    private static final String[] TYPE_KEYWORDS = new String[] {
+    private static final String[] TYPE_KEYWORDS = new String[]{
         "/savings", "/investment", "/cardexpenditure", "/bankexpenditure", "/goals", "/card",
         "/recurexpenditure", "/bonds", "/profile", "/deposit"
     };
@@ -55,6 +60,7 @@ class ParseType extends Parser {
     private static final String BANK = "bank";
     private static final String CARD = "card";
     private static final String BOND = "bond";
+    private static final String GOALS = "goals";
 
     /**
      * Determines the type of command and checks if it is of valid type.
@@ -257,8 +263,27 @@ class ParseType extends Parser {
                 editCard.checkParameter();
                 return editCard.getCommand();
             }
-
             throw new ParserException("You entered an invalid type for card");
+        case "/goals":
+            if ("/add".equals(command)) {
+                ParseGoals addGoals = new ParseAddGoals(rawData);
+                addGoals.fillHashTable();
+                addGoals.checkParameter();
+                return addGoals.getCommand();
+            } else if ("/delete".equals(command)) {
+                ParseGoals deleteGoals = new ParseDeleteGoals(rawData);
+                deleteGoals.fillHashTable();
+                deleteGoals.checkParameter();
+                return deleteGoals.getCommand();
+            } else if ("/edit".equals(command)) {
+                ParseGoals editGoals = new ParseEditGoals(rawData);
+                editGoals.fillHashTable();
+                editGoals.checkParameter();
+                return editGoals.getCommand();
+            } else if ("/list".equals(command)) {
+                return new ListGoalsCommand();
+            }
+            throw new ParserException("You entered an invalid type for goals");
         default:
             throw new ParserException("You entered an invalid type");
         }
