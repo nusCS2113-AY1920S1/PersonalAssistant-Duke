@@ -3,7 +3,6 @@ package controllers;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import models.data.Project;
-import models.temp.tasks.TaskList;
 import repositories.ProjectRepository;
 import views.CLIView;
 
@@ -16,7 +15,6 @@ import java.util.Scanner;
 public class ConsoleInputController implements IViewController {
 
     private CLIView consoleView;
-    private TaskList taskList;
     private ProjectRepository projectRepository;
     private ProjectInputController projectInputController;
     private String filePath = System.getProperty("user.dir") + "/savedProjects.json";
@@ -27,7 +25,6 @@ public class ConsoleInputController implements IViewController {
      */
     public ConsoleInputController(CLIView view) {
         this.consoleView = view;
-        this.taskList = new TaskList();
         loadProjectsData();
         this.projectInputController = new ProjectInputController(this.consoleView, this.projectRepository);
     }
@@ -50,23 +47,14 @@ public class ConsoleInputController implements IViewController {
             consoleView.viewAllProjects(allProjects);
             break;
         case "done":
+            // Unimplemented
+            break;
         case "delete":
-            if (inputReader.hasNext()) {
-                switch (command) {
-                case "done":
-                    consoleView.markDone(taskList, input);
-                    break;
-                case "delete":
-                    consoleView.deleteTask(taskList, input);
-                    break;
-                default:
-                }
-            } else {
-                consoleView.consolePrint("Oops! Please enter task number.");
-            }
+            // Unimplemented;
             break;
         case "find":
             // Can consider implementation in the future
+            break;
         case "create":
             // Creation of a new project with a given name and a number of numbers
             boolean isProjectCreated = projectRepository.addToRepo(input);
