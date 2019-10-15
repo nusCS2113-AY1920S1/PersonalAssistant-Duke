@@ -7,6 +7,7 @@ import java.util.Date;
  * Model class to represent a movie/tv show by storing details about it.
  */
 public class MovieInfoObject {
+    private int movieType;
     private long movieID;
     private String movieTitle;
     private Date movieReleaseDate;
@@ -20,6 +21,7 @@ public class MovieInfoObject {
 
     /**
      * Construct info about a movie/tv show
+     * @param type type of the object whether is it a movie or a tv show.
      * @param ID ID stored in the api.
      * @param title Title of the movie/tv show.
      * @param date Release date of the movie/tv show.
@@ -29,7 +31,8 @@ public class MovieInfoObject {
      * @param posterPath Filepath of the movie/tv show poster.
      * @param backdropPath Filepath of the movie/tv show backdrop poster.
      */
-    public MovieInfoObject(long ID, String title, Date date, String summary, double rating, long[] genreIDs, String posterPath, String backdropPath) {
+    public MovieInfoObject(int type, long ID, String title, Date date, String summary, double rating, long[] genreIDs, String posterPath, String backdropPath) {
+        movieType = type;
         movieID = ID;
         movieTitle = title;
         movieReleaseDate = date;
@@ -105,6 +108,10 @@ public class MovieInfoObject {
     public String getFullBackdropPath()
     {
         return movieFullBackdropPath;
+    }
+
+    public int getMovieType() {
+        return movieType;
     }
 
 }

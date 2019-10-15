@@ -21,8 +21,13 @@ import movieRequesterAPI.RequestListener;
 import movieRequesterAPI.RetrieveRequest;
 import object.MovieInfoObject;
 import EPparser.CommandParser;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 import ui.Ui;
 
+import java.io.BufferedOutputStream;
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -125,13 +130,6 @@ public class MovieHandler extends Controller implements RequestListener {
                 System.out.println("Tab presjenksjessed");
                 event.consume();
             } else if (event.getCode().equals(KeyCode.DOWN)) {
-
-                //mMoviesScrollPane.setOnScroll(new EventHandler<ScrollEvent>() {
-                  //  @Override
-                    //public void handle(ScrollEvent event) {
-                      //  mMoviesScrollPane.setVvalue(mMoviesScrollPane.getVvalue() + 0.5);
-                    //}
-                //});
                 mMoviesScrollPane.requestFocus();
             }
         }
@@ -143,7 +141,6 @@ public class MovieHandler extends Controller implements RequestListener {
      */
     @FXML
     public void initialize() throws IOException {
-        //mMoviesScrollPane.setFocusTraversable(true);
         EditProfileJson editProfileJson = new EditProfileJson();
         userProfile = editProfileJson.load();
         EditPlaylistJson editPlaylistJson = new EditPlaylistJson();
@@ -163,8 +160,7 @@ public class MovieHandler extends Controller implements RequestListener {
             }
         });
 
-        mMovieRequest.beginMovieRequest(RetrieveRequest.MoviesRequestType.CURRENT_MOVIES,18,
-            "true", true, true, true);
+        mMovieRequest.beginMovieRequest("0", RetrieveRequest.MoviesRequestType.CURRENT_MOVIES,true, true, true);
         text.setText("Welcome to Entertainment Pro. Displaying currently showing movies...");
 
         //Real time changes to text field
@@ -344,6 +340,16 @@ public class MovieHandler extends Controller implements RequestListener {
         text.setText(txt);
     }
 
+    public void setFeedbackText(ArrayList<String> txtArr){
+        String output = "";
+        for(String s: txtArr){
+            output += s;
+            output += "\n";
+
+        }
+        text.setText(output);
+    }
+
     /**
      * Retrieves the RetrieveRequest class.
      * @return the RetrieveRequest class.
@@ -381,74 +387,82 @@ public class MovieHandler extends Controller implements RequestListener {
     public void aboutMenuItemClicked() {
     }
 
+    public void updateTextField(String updateStr){
+        mSearchTextField.setText(mSearchTextField.getText() + updateStr);
+        mSearchTextField.positionCaret(mSearchTextField.getText().length());
+    }
+
     /**
      * Displays list of current movies showing on cinemas.
      */
     public static void showCurrentMovies() {
-        mMovieRequest.beginMovieRequest(RetrieveRequest.MoviesRequestType.CURRENT_MOVIES, 18,
-            "true", true, true, true);
+        mMovieRequest.beginMovieRequest("0", RetrieveRequest.MoviesRequestType.CURRENT_MOVIES,
+            true, false, false);
     }
 
     /**
      * Displays list of current tv shows showing.
      */
     public static void showCurrentTV() {
-        mMovieRequest.beginMovieRequest(RetrieveRequest.MoviesRequestType.CURRENT_TV,
-            18,
-            "true", true, true, true);
+        mMovieRequest.beginMovieRequest("0", RetrieveRequest.MoviesRequestType.CURRENT_TV,
+            true, false, false);
     }
 
     /**
      * Displays list of upcoming movies.
      */
     public static void showUpcomingMovies() {
-        mMovieRequest.beginMovieRequest(RetrieveRequest.MoviesRequestType.UPCOMING_MOVIES, 18,
-            "true", true, true, true);
+        mMovieRequest.beginMovieRequest("0", RetrieveRequest.MoviesRequestType.UPCOMING_MOVIES,
+            true, false, false);
     }
 
     /**
      * Displays list of upcoming tv shows.
      */
     public static void showUpcomingTV() {
-        mMovieRequest.beginMovieRequest(RetrieveRequest.MoviesRequestType.NEW_TV, 18,
-            "true", true, true, true);
+        mMovieRequest.beginMovieRequest("0", RetrieveRequest.MoviesRequestType.CURRENT_TV,
+             true, false, false);
     }
 
     /**
      * Displays list of popular movies.
      */
     public static void showPopMovies() {
-        mMovieRequest.beginMovieRequest(RetrieveRequest.MoviesRequestType.POPULAR_MOVIES, 18,
-            "true", true, true, true);
+        mMovieRequest.beginMovieRequest("0", RetrieveRequest.MoviesRequestType.POPULAR_MOVIES,true, true, true);
     }
 
     /**
      * Displays list of popular tv shows.
      */
     public static void showPopTV() {
-        mMovieRequest.beginMovieRequest(RetrieveRequest.MoviesRequestType.POPULAR_TV, 18,
-            "true", true, true, true);
+        mMovieRequest.beginMovieRequest("0", RetrieveRequest.MoviesRequestType.POPULAR_TV, true, true, true);
     }
 
     /**
      * Displays list of trending movies.
      */
     public static void showTrendMovies() {
-        mMovieRequest.beginMovieRequest(RetrieveRequest.MoviesRequestType.TRENDING_MOVIES, 18,
-            "true", true, true, true);;
+        mMovieRequest.beginMovieRequest("0", RetrieveRequest.MoviesRequestType.TRENDING_MOVIES, true, true, true);;
     }
 
     /**
      * Displays list of trending tv shows.
      */
     public static void showTrendTV() {
-        mMovieRequest.beginMovieRequest(RetrieveRequest.MoviesRequestType.TRENDING_TV, 18,
-            "true", true, true, true);
+        mMovieRequest.beginMovieRequest("0", RetrieveRequest.MoviesRequestType.TRENDING_TV,true, true, true);
     }
 
-    public static void showSearch(int age, String genreList, String payload) {
-        mMovieRequest.beginMovieSearchRequest(age, genreList, payload);
+
+    public static void showSearch(int age, String genreList, String castList, String payload) {
+        mMovieRequest.beginMovieSearchRequest(age, genreList, castList, payload);
 
     }
 
+    public static void getAllTheMovie() {
+        try {
+            mMovieRequest.getAllTheMovie();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+    }
 }

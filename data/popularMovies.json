@@ -1,0 +1,411 @@
+{
+  "page": 1,
+  "total_results": 1851,
+  "total_pages": 93,
+  "results": [
+    {
+      "popularity": 602.723,
+      "vote_count": 2742,
+      "video": false,
+      "poster_path": "\/udDclJoHjfjb8Ekgsd4FDteOkCU.jpg",
+      "id": 475557,
+      "adult": false,
+      "backdrop_path": "\/n6bUvigpRFqSwmPp1m2YADdbRBc.jpg",
+      "original_language": "en",
+      "original_title": "Joker",
+      "genre_ids": [
+        80,
+        18,
+        53
+      ],
+      "title": "Joker",
+      "vote_average": 8.7,
+      "overview": "During the 1980s, a failed stand-up comedian is driven insane and turns to a life of crime and chaos in Gotham City while becoming an infamous psychopathic crime figure.",
+      "release_date": "2019-10-04"
+    },
+    {
+      "popularity": 316.457,
+      "vote_count": 2903,
+      "video": false,
+      "poster_path": "\/2bXbqYdUdNVa8VIWXVfclP2ICtT.jpg",
+      "id": 420818,
+      "adult": false,
+      "backdrop_path": "\/nRXO2SnOA75OsWhNhXstHB8ZmI3.jpg",
+      "original_language": "en",
+      "original_title": "The Lion King",
+      "genre_ids": [
+        12,
+        16,
+        18,
+        10751
+      ],
+      "title": "The Lion King",
+      "vote_average": 7.1,
+      "overview": "Simba idolises his father, King Mufasa, and takes to heart his own royal destiny. But not everyone in the kingdom celebrates the new cub's arrival. Scar, Mufasa's brother—and former heir to the throne—has plans of his own. The battle for Pride Rock is ravaged with betrayal, tragedy and drama, ultimately resulting in Simba's exile. With help from a curious pair of newfound friends, Simba will have to figure out how to grow up and take back what is rightfully his.",
+      "release_date": "2019-07-19"
+    },
+    {
+      "popularity": 182.507,
+      "vote_count": 1539,
+      "video": false,
+      "poster_path": "\/zfE0R94v1E8cuKAerbskfD3VfUt.jpg",
+      "id": 474350,
+      "adult": false,
+      "backdrop_path": "\/8moTOzunF7p40oR5XhlDvJckOSW.jpg",
+      "original_language": "en",
+      "original_title": "It Chapter Two",
+      "genre_ids": [
+        27
+      ],
+      "title": "It Chapter Two",
+      "vote_average": 7,
+      "overview": "27 years after overcoming the malevolent supernatural entity Pennywise, the former members of the Losers' Club, who have grown up and moved away from Derry, are brought back together by a devastating phone call.",
+      "release_date": "2019-09-06"
+    },
+    {
+      "popularity": 186.811,
+      "vote_count": 200,
+      "video": false,
+      "poster_path": "\/uTALxjQU8e1lhmNjP9nnJ3t2pRU.jpg",
+      "id": 453405,
+      "adult": false,
+      "backdrop_path": "\/c3F4P2oauA7IQmy4hM0OmRt2W7d.jpg",
+      "original_language": "en",
+      "original_title": "Gemini Man",
+      "genre_ids": [
+        28,
+        53
+      ],
+      "title": "Gemini Man",
+      "vote_average": 6,
+      "overview": "Henry Brogen, an aging assassin tries to get out of the business but finds himself in the ultimate battle: fighting his own clone who is 25 years younger than him and at the peak of his abilities.",
+      "release_date": "2019-10-11"
+    },
+    {
+      "popularity": 142.367,
+      "vote_count": 4436,
+      "video": false,
+      "poster_path": "\/lcq8dVxeeOqHvvgcte707K0KVx5.jpg",
+      "id": 429617,
+      "adult": false,
+      "backdrop_path": "\/5myQbDzw3l8K9yofUXRJ4UTVgam.jpg",
+      "original_language": "en",
+      "original_title": "Spider-Man: Far from Home",
+      "genre_ids": [
+        28,
+        12,
+        878
+      ],
+      "title": "Spider-Man: Far from Home",
+      "vote_average": 7.6,
+      "overview": "Peter Parker and his friends go on a summer trip to Europe. However, they will hardly be able to rest - Peter will have to agree to help Nick Fury uncover the mystery of creatures that cause natural disasters and destruction throughout the continent.",
+      "release_date": "2019-07-02"
+    },
+    {
+      "popularity": 136.48,
+      "vote_count": 2631,
+      "video": false,
+      "poster_path": "\/w9kR8qbmQ01HwnvK4alvnQ2ca0L.jpg",
+      "id": 301528,
+      "adult": false,
+      "backdrop_path": "\/m67smI1IIMmYzCl9axvKNULVKLr.jpg",
+      "original_language": "en",
+      "original_title": "Toy Story 4",
+      "genre_ids": [
+        12,
+        16,
+        35,
+        14,
+        10751
+      ],
+      "title": "Toy Story 4",
+      "vote_average": 7.6,
+      "overview": "Woody has always been confident about his place in the world and that his priority is taking care of his kid, whether that's Andy or Bonnie. But when Bonnie adds a reluctant new toy called \"Forky\" to her room, a road trip adventure alongside old and new friends will show Woody how big the world can be for a toy.",
+      "release_date": "2019-06-21"
+    },
+    {
+      "popularity": 196.897,
+      "vote_count": 681,
+      "video": false,
+      "poster_path": "\/ePXuKdXZuJx8hHMNr2yM4jY2L7Z.jpg",
+      "id": 559969,
+      "adult": false,
+      "backdrop_path": "\/uLXK1LQM28XovWHPao3ViTeggXA.jpg",
+      "original_language": "en",
+      "original_title": "El Camino: A Breaking Bad Movie",
+      "genre_ids": [
+        80,
+        18,
+        53
+      ],
+      "title": "El Camino: A Breaking Bad Movie",
+      "vote_average": 7.3,
+      "overview": "In the wake of his dramatic escape from captivity, Jesse Pinkman must come to terms with his past in order to forge some kind of future.",
+      "release_date": "2019-10-11"
+    },
+    {
+      "popularity": 85.951,
+      "vote_count": 442,
+      "video": false,
+      "poster_path": "\/kTQ3J8oTTKofAVLYnds2cHUz9KO.jpg",
+      "id": 522938,
+      "adult": false,
+      "backdrop_path": "\/spYx9XQFODuqEVoPpvaJI1ksAVt.jpg",
+      "original_language": "en",
+      "original_title": "Rambo: Last Blood",
+      "genre_ids": [
+        28,
+        53
+      ],
+      "title": "Rambo: Last Blood",
+      "vote_average": 6,
+      "overview": "When John Rambo's niece travels to Mexico to find the father that abandoned her and her mother, she finds herself in the grasps of Calle Mexican sex traffickers. When she doesn't return home as expected, John learns she's crossed into Mexico and sets out to get her back and make them pay.",
+      "release_date": "2019-09-20"
+    },
+    {
+      "popularity": 104.706,
+      "vote_count": 3722,
+      "video": false,
+      "poster_path": "\/3iYQTLGoy7QnjcUYRJy4YrAgGvp.jpg",
+      "id": 420817,
+      "adult": false,
+      "backdrop_path": "\/rVqY0Bo4Npf6EIONUROxjYAJfmD.jpg",
+      "original_language": "en",
+      "original_title": "Aladdin",
+      "genre_ids": [
+        12,
+        35,
+        14,
+        10749,
+        10751
+      ],
+      "title": "Aladdin",
+      "vote_average": 7.1,
+      "overview": "A kindhearted street urchin named Aladdin embarks on a magical adventure after finding a lamp that releases a wisecracking genie while a power-hungry Grand Vizier vies for the same lamp that has the power to make their deepest wishes come true.",
+      "release_date": "2019-05-24"
+    },
+    {
+      "popularity": 118.677,
+      "vote_count": 8209,
+      "video": false,
+      "poster_path": "\/jpfkzbIXgKZqCZAkEkFH2VYF63s.jpg",
+      "id": 920,
+      "adult": false,
+      "backdrop_path": "\/a1MlbLBk5Sy6YvMbSuKfwGlDVlb.jpg",
+      "original_language": "en",
+      "original_title": "Cars",
+      "genre_ids": [
+        12,
+        16,
+        35,
+        10751
+      ],
+      "title": "Cars",
+      "vote_average": 6.7,
+      "overview": "Lightning McQueen, a hotshot rookie race car driven to succeed, discovers that life is about the journey, not the finish line, when he finds himself unexpectedly detoured in the sleepy Route 66 town of Radiator Springs. On route across the country to the big Piston Cup Championship in California to compete against two seasoned pros, McQueen gets to know the town's offbeat characters.",
+      "release_date": "2006-06-09"
+    },
+    {
+      "popularity": 97.695,
+      "vote_count": 1471,
+      "video": false,
+      "poster_path": "\/dPrUPFcgLfNbmDL8V69vcrTyEfb.jpg",
+      "id": 479455,
+      "adult": false,
+      "backdrop_path": "\/enNSnMYj78ihLmiWrB4K6ymv9ux.jpg",
+      "original_language": "en",
+      "original_title": "Men in Black: International",
+      "genre_ids": [
+        28,
+        12,
+        35,
+        878
+      ],
+      "title": "Men in Black: International",
+      "vote_average": 5.9,
+      "overview": "The Men in Black have always protected the Earth from the scum of the universe. In this new adventure, they tackle their biggest, most global threat to date: a mole in the Men in Black organization.",
+      "release_date": "2019-06-14"
+    },
+    {
+      "popularity": 124.259,
+      "vote_count": 1507,
+      "video": false,
+      "poster_path": "\/keym7MPn1icW1wWfzMnW3HeuzWU.jpg",
+      "id": 384018,
+      "adult": false,
+      "backdrop_path": "\/hpgda6P9GutvdkDX5MUJ92QG9aj.jpg",
+      "original_language": "en",
+      "original_title": "Fast & Furious Presents: Hobbs & Shaw",
+      "genre_ids": [
+        28
+      ],
+      "title": "Fast & Furious Presents: Hobbs & Shaw",
+      "vote_average": 6.5,
+      "overview": "A spinoff of The Fate of the Furious, focusing on Johnson's US Diplomatic Security Agent Luke Hobbs forming an unlikely alliance with Statham's Deckard Shaw.",
+      "release_date": "2019-08-02"
+    },
+    {
+      "popularity": 100.135,
+      "vote_count": 2919,
+      "video": false,
+      "poster_path": "\/ziEuG1essDuWuC5lpWUaw1uXY2O.jpg",
+      "id": 458156,
+      "adult": false,
+      "backdrop_path": "\/stemLQMLDrlpfIlZ5OjllOPT8QX.jpg",
+      "original_language": "en",
+      "original_title": "John Wick: Chapter 3 - Parabellum",
+      "genre_ids": [
+        28,
+        80,
+        53
+      ],
+      "title": "John Wick: Chapter 3 - Parabellum",
+      "vote_average": 7.1,
+      "overview": "Super-assassin John Wick returns with a $14 million price tag on his head and an army of bounty-hunting killers on his trail. After killing a member of the shadowy international assassin’s guild, the High Table, John Wick is excommunicado, but the world’s most ruthless hit men and women await his every turn.",
+      "release_date": "2019-05-17"
+    },
+    {
+      "popularity": 89.553,
+      "vote_count": 2302,
+      "video": false,
+      "poster_path": "\/8j58iEBw9pOXFD2L0nt0ZXeHviB.jpg",
+      "id": 466272,
+      "adult": false,
+      "backdrop_path": "\/kKTPv9LKKs5L3oO1y5FNObxAPWI.jpg",
+      "original_language": "en",
+      "original_title": "Once Upon a Time... in Hollywood",
+      "genre_ids": [
+        35,
+        18
+      ],
+      "title": "Once Upon a Time... in Hollywood",
+      "vote_average": 7.6,
+      "overview": "A faded television actor and his stunt double strive to achieve fame and success in the film industry during the final years of Hollywood's Golden Age in 1969 Los Angeles.",
+      "release_date": "2019-07-26"
+    },
+    {
+      "popularity": 70.155,
+      "vote_count": 24,
+      "video": false,
+      "poster_path": "\/uaXNjRkDdjfxfVuKHo25wkA6CiA.jpg",
+      "id": 481084,
+      "adult": false,
+      "backdrop_path": "\/nHZpVTiGLj0GXP3D9bFbmvzw73y.jpg",
+      "original_language": "en",
+      "original_title": "The Addams Family",
+      "genre_ids": [
+        16,
+        35,
+        14,
+        27,
+        10751
+      ],
+      "title": "The Addams Family",
+      "vote_average": 6.6,
+      "overview": "The Addams family's lives begin to unravel when they face-off against a treacherous, greedy crafty reality-TV host while also preparing for their extended family to arrive for a major celebration.",
+      "release_date": "2019-10-11"
+    },
+    {
+      "popularity": 67.276,
+      "vote_count": 185,
+      "video": false,
+      "poster_path": "\/klkFYDZOetegK8floj6IjvbzzQ2.jpg",
+      "id": 513045,
+      "adult": false,
+      "backdrop_path": "\/xgfn98c2UzvFWP6MXDzytearmQ3.jpg",
+      "original_language": "en",
+      "original_title": "Stuber",
+      "genre_ids": [
+        28,
+        35,
+        80,
+        53
+      ],
+      "title": "Stuber",
+      "vote_average": 6.5,
+      "overview": "After crashing his car, a cop who's recovering from eye surgery recruits an Uber driver to help him catch a heroin dealer. The mismatched pair soon find themselves in for a wild day of stakeouts and shootouts as they encounter the city's seedy side.",
+      "release_date": "2019-07-12"
+    },
+    {
+      "popularity": 66.473,
+      "vote_count": 2149,
+      "video": false,
+      "poster_path": "\/cCTJPelKGLhALq3r51A9uMonxKj.jpg",
+      "id": 320288,
+      "adult": false,
+      "backdrop_path": "\/cjRUhKyt2Jo3V1KNzc5tpPNfccG.jpg",
+      "original_language": "en",
+      "original_title": "Dark Phoenix",
+      "genre_ids": [
+        28,
+        12,
+        878
+      ],
+      "title": "Dark Phoenix",
+      "vote_average": 6.1,
+      "overview": "The X-Men face their most formidable and powerful foe when one of their own, Jean Grey, starts to spiral out of control. During a rescue mission in outer space, Jean is nearly killed when she's hit by a mysterious cosmic force. Once she returns home, this force not only makes her infinitely more powerful, but far more unstable. The X-Men must now band together to save her soul and battle aliens that want to use Grey's new abilities to rule the galaxy.",
+      "release_date": "2019-06-07"
+    },
+    {
+      "popularity": 55.166,
+      "vote_count": 614,
+      "video": false,
+      "poster_path": "\/4WH6AZd473lRZ3hUp8TYiv2LfZW.jpg",
+      "id": 511987,
+      "adult": false,
+      "backdrop_path": "\/lm4xH0YwFbVvTgdtau1thNK5S6J.jpg",
+      "original_language": "en",
+      "original_title": "Crawl",
+      "genre_ids": [
+        28,
+        18,
+        27,
+        53
+      ],
+      "title": "Crawl",
+      "vote_average": 6.1,
+      "overview": "When a huge hurricane hits her hometown in Florida, Haley ignores evacuation orders to look for her father. After finding him badly wounded, both are trapped by the flood. With virtually no time to escape the storm, they discover that rising water levels are the least of their problems.",
+      "release_date": "2019-07-12"
+    },
+    {
+      "popularity": 64.274,
+      "vote_count": 23396,
+      "video": false,
+      "poster_path": "\/qmDpIHrmpJINaRKAfWQfftjCdyi.jpg",
+      "id": 27205,
+      "adult": false,
+      "backdrop_path": "\/s2bT29y0ngXxxu2IA8AOzzXTRhd.jpg",
+      "original_language": "en",
+      "original_title": "Inception",
+      "genre_ids": [
+        28,
+        12,
+        878
+      ],
+      "title": "Inception",
+      "vote_average": 8.3,
+      "overview": "Cobb, a skilled thief who commits corporate espionage by infiltrating the subconscious of his targets is offered a chance to regain his old life as payment for a task considered to be impossible: \"inception\", the implantation of another person's idea into a target's subconscious.",
+      "release_date": "2010-07-16"
+    },
+    {
+      "popularity": 63.517,
+      "vote_count": 9829,
+      "video": false,
+      "poster_path": "\/or06FN3Dka5tukK1e9sl16pB3iy.jpg",
+      "id": 299534,
+      "adult": false,
+      "backdrop_path": "\/7RyHsO4yDXtBv1zUU3mTpHeQ0d5.jpg",
+      "original_language": "en",
+      "original_title": "Avengers: Endgame",
+      "genre_ids": [
+        28,
+        12,
+        878
+      ],
+      "title": "Avengers: Endgame",
+      "vote_average": 8.3,
+      "overview": "After the devastating events of Avengers: Infinity War, the universe is in ruins due to the efforts of the Mad Titan, Thanos. With the help of remaining allies, the Avengers must assemble once more in order to undo Thanos' actions and restore order to the universe once and for all, no matter what consequences may be in store.",
+      "release_date": "2019-04-26"
+    }
+  ]
+}

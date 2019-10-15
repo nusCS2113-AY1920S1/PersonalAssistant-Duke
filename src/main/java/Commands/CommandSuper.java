@@ -133,7 +133,7 @@ public abstract class CommandSuper {
 
         String f = "";
         boolean found = false;
-        String commandFlagSplit[] = command.split("-[a-z]");
+        String commandFlagSplit[] = command.split("-[a-z] ");
 
         ArrayList<String> flagOrder = new ArrayList<>();
 
@@ -213,8 +213,10 @@ public abstract class CommandSuper {
         String payload = "";
         for (int j = start; j < i; j++) {
             payload += CommandArr[j];
-            payload += " ";
+            payload += ",";
         }
+
+        System.out.println("this is payload:" + payload);
         return payload.trim();
     }
 

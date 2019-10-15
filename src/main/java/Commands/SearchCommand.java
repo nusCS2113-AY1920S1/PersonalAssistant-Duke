@@ -30,9 +30,6 @@ public class SearchCommand extends CommandSuper {
             case tvshows:
                 executeTvShowSearch();
                 break;
-//            case all:
-//                executeTvShowSearch();
-//                break;
             default:
                 break;
         }
@@ -48,7 +45,10 @@ public class SearchCommand extends CommandSuper {
      */
     private void executeMovieSearch() throws IOException {
         TreeMap<String, ArrayList<String>> treeMap = getFlagMap();
-        if (treeMap.containsKey("-c")) {
+        if (treeMap.containsKey("-q")) {
+            MovieHandler.getAllTheMovie();
+        }
+        if (treeMap.containsKey("-n")) {
             MovieHandler.showCurrentMovies();
         } else if (treeMap.containsKey("-u")) {
             MovieHandler.showUpcomingMovies();
@@ -58,28 +58,56 @@ public class SearchCommand extends CommandSuper {
             MovieHandler.showPopMovies();
         } else {
             String payload = getPayload();
-            ArrayList<String> getElementsAge = treeMap.get("-a");
-            int age = 0;
-            if (getElementsAge.size() > 0) {
+            int age = 100;
+            if (treeMap.containsKey("-a")) {
+                ArrayList<String> getElementsAge = treeMap.get("-a");
                 for (int i = 0; i < getElementsAge.size(); i += 1) {
-                    if (Integer.valueOf(getElementsAge.get(i)) >= age) {
-                        age = (Integer.valueOf(getElementsAge.get(i)));
+                    System.out.println("checkk" + getElementsAge.get(i));
+                }
+                if (getElementsAge.size() > 0) {
+                    for (int i = 0; i < getElementsAge.size(); i += 1) {
+                        String getAge = getElementsAge.get(i);
+                        if (getAge.endsWith(" ")) {
+                            getAge = getAge.substring(0, getAge.length() - 2);
+                        }
+                        if (Integer.valueOf(getAge) < age) {
+                            age = (Integer.valueOf(getElementsAge.get(i)));
 
+                        }
                     }
                 }
             }
             String genreList = "";
-            ArrayList<String> getElementsGenres = treeMap.get("-g");
-            if (getElementsGenres.size() > 0) {
-                for (int i = 0; i < getElementsGenres.size(); i += 1) {
-                    genreList += getElementsGenres.get(i);
-                    if (i != getElementsGenres.size() - 1) {
-                        genreList += ",";
+            if (treeMap.containsKey("-g")) {
+                ArrayList<String> getElementsGenres = treeMap.get("-g");
+                if (getElementsGenres.size() > 0) {
+                    MovieHandler movieHandler = ((MovieHandler) this.getUIController());
+                    ProfileCommands command = new ProfileCommands(movieHandler.getUserProfile());
+                    for (int i = 0; i < getElementsGenres.size(); i += 1) {
+                        String genre = String.valueOf(command.findGenreID(getElementsGenres.get(i)));
+                        genreList += genre;
+                        if (i != getElementsGenres.size() - 1) {
+                            genreList += ",";
 
+                        }
                     }
                 }
             }
-            MovieHandler.showSearch(age, genreList, payload);
+            String castList = "";
+            if (treeMap.containsKey("-c")) {
+                ArrayList<String> getElementsCast = treeMap.get("-c");
+                if (getElementsCast.size() > 0) {
+                    for (int i = 0; i < getElementsCast.size(); i += 1) {
+                        String name = getElementsCast.get(i).replace(' ', ',');
+                        String id = RetrieveRequest.getCastID(name);
+                        castList += id;
+                        if (i != getElementsCast.size() - 1) {
+                            castList += ",";
+                        }
+                    }
+                }
+            }
+            MovieHandler.showSearch(age, genreList, castList, payload);
         }
             /**MovieHandler movieHandler = ((MovieHandler) this.getUIController());
             if (!this.getFlagMap().containsKey("-g")) {
