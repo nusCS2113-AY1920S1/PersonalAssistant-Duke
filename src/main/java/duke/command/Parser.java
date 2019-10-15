@@ -5,6 +5,7 @@ import duke.exception.DukeException;
 import duke.exception.DukeHelpException;
 
 import java.util.HashMap;
+import java.util.Map;
 
 import static duke.command.Parser.ParseState.EMPTY;
 import static java.lang.Math.min;
@@ -24,7 +25,7 @@ public class Parser {
     private ParseState state;
     private String currSwitch;
     private boolean isEscaped;
-    private HashMap<String, ArgLevel> switches;
+    private Map<String, ArgLevel> switches;
     private HashMap<String, String> switchVals;
 
     /**
@@ -240,6 +241,7 @@ public class Parser {
     private void addSwitch() throws DukeHelpException {
         String newSwitch = elementBuilder.toString();
         if (!switches.containsKey(newSwitch)) {
+            // TODO: call helpers
             throw new DukeHelpException("I don't know what this switch is: " + newSwitch, currCommand);
         } else if (switchVals.containsKey(newSwitch)) {
             throw new DukeHelpException("Multiple values supplied for switch: " + newSwitch, currCommand);

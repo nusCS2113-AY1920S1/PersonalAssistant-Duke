@@ -2,18 +2,19 @@ package duke.command;
 
 import duke.DukeCore;
 
+import java.util.Map;
+
 /**
  * Stub Command for testing new Parser.
  */
 public class DoctorCommand extends ArgCommand {
 
-    /**
-     * Constructor for DoctorCommand command, specifying 1 possible switch.
-     */
-    public DoctorCommand() {
+    static {
         cmdArgLevel = ArgLevel.OPTIONAL;
         emptyArgMsg = "You didn't tell me what to do!";
-        switches.put("switch", ArgLevel.OPTIONAL);
+        switches = Map.ofEntries(
+                Map.entry("switch", ArgLevel.OPTIONAL)
+        );
     }
 
     @Override

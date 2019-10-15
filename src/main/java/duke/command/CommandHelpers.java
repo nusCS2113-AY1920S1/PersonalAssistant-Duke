@@ -23,7 +23,6 @@ public class CommandHelpers {
         unambiguously, and a HashMap to store the possible inputs. Investigations might be
         better implemented as a map of command strings to possible inputs?*/
 
-        TreeMap<String, String> wordMap;
         ArrayList<String> suggestions = new ArrayList<String>();
         return disambiguate(word, suggestions, command.getSwitches().keySet());
     }
