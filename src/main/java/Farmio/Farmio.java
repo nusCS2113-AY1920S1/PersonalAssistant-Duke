@@ -26,7 +26,6 @@ public class Farmio {
         Command command;
         while(!isExit){
             try {
-                System.out.println(stage.name());
                 command = Parser.parse(ui.getInput(), stage);
                 command.execute(this);
                 isExit = command.isExit;
