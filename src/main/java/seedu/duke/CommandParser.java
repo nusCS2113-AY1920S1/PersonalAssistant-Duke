@@ -163,7 +163,7 @@ public class CommandParser {
             return new ExitCommand();
         } else if (input.equals("list")) {
             return new TaskListCommand(taskList);
-        } else if(input.equals("help")) {
+        } else if (input.equals("help")) {
             return new HelpCommand();
         } else if (input.startsWith("done")) {
             return parseDoneCommand(input, optionList);
@@ -371,7 +371,7 @@ public class CommandParser {
         Pattern priorityCommandPattern = Pattern.compile("^set\\s+(?<index>[\\d]+)\\s*$");
         Matcher priorityCommandMatcher = priorityCommandPattern.matcher(input);
         if (!priorityCommandMatcher.matches()) {
-            if (ui!= null) {
+            if (ui != null) {
                 ui.showError("Please enter index after 'set' command and priority level after '-priority' option");
             }
             return new InvalidCommand();

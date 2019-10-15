@@ -16,8 +16,8 @@ public class KeyBinding {
     /**
      * Set key binding to read from scene.
      *
-     * @param scene whole scene of application.
-     * @param userInput textfield for user input.
+     * @param scene      whole scene of application.
+     * @param userInput  textfield for user input.
      * @param sendButton send button.
      * @param mainWindow fxml controller.
      */
@@ -30,7 +30,6 @@ public class KeyBinding {
             // print key pressed info to terminal for debugging purpose.
             String keyInfo =
                     focus + " " + type + ": Key Code=" + keyCode.getName() + ", Text=" + e.getText() + "\n";
-            System.out.println(keyInfo);
             if (focus.equals(userInput)) {
                 mainWindow.handleUserInputKeyEvent(keyCode);
             }

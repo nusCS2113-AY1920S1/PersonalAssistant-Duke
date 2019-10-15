@@ -2,6 +2,7 @@ package seedu.duke;
 
 import seedu.duke.common.network.Http;
 import seedu.duke.common.command.Command;
+import seedu.duke.email.EmailContentParser;
 import seedu.duke.email.EmailList;
 import seedu.duke.email.EmailStorage;
 import seedu.duke.task.TaskList;
@@ -16,19 +17,6 @@ public class Duke {
     private static EmailList emailList = new EmailList();
     private static UI ui;
     private static CommandParser commandParser;
-
-    ///**
-    // * The main function of the cli program, which is the entry point.
-    // *
-    // * @param args the arguments from the console when running
-    // */
-    //public static void main(String[] args) throws Parser.UserInputException {
-    //    ui = new UI();
-    //    parser = new Parser();
-    //    ui.setDebug(true);
-    //    Http.startAuthProcess();
-    //    run();
-    //}
 
     public static TaskList getTaskList() {
         return taskList;
@@ -46,22 +34,6 @@ public class Duke {
         return ui;
     }
 
-    //private static void run() throws Parser.UserInputException {
-    //    taskList = Storage.readTasks();
-    //    emailList = EmailStorage.readEmails();
-    //    Scanner scanner = new Scanner(System.in);
-    //    String input = scanner.nextLine();
-    //    Command command = parser.parseCommand(input);
-    //    while (!(command instanceof ExitCommand)) {
-    //        command.execute();
-    //        input = scanner.nextLine();
-    //        command = parser.parseCommand(input);
-    //    }
-    //    Storage.saveTasks(taskList);
-    //    EmailStorage.saveEmails(emailList);
-    //    ui.showMessage("Bye. Hope to see you again!");
-    //}
-
     /**
      * Main function of the GUI program.
      */
@@ -71,6 +43,7 @@ public class Duke {
         ui.setDebug(true);
         taskList = TaskStorage.readTasks();
         emailList = EmailStorage.readEmails();
+        EmailContentParser.initKeywordList();
         Http.startAuthProcess();
     }
 

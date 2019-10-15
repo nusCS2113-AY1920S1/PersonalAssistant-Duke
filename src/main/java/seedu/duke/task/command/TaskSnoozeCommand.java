@@ -11,6 +11,7 @@ public class TaskSnoozeCommand extends Command {
 
     /**
      * Instantiation of the snooze command which can be used to snooze a task.
+     *
      * @param taskList the list where snoozed command is looked up
      * @param index    the index of the task to be snoozed
      */

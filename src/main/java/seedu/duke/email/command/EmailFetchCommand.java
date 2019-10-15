@@ -20,8 +20,7 @@ public class EmailFetchCommand extends Command {
                 // EmailStorage.syncWithServer();
 
                 // Sync the current emailList with the html files in local storage.
-                EmailList syncedEmailList = EmailStorage.syncEmailListWithHtml(emailList);
-                Duke.setEmailList(syncedEmailList);
+                EmailStorage.syncWithServer();
                 responseMsg = "Fetching emails and syncing with local storage...\n\n";
                 responseMsg += Duke.getEmailList().toString();
                 Duke.getUI().showResponse(responseMsg);

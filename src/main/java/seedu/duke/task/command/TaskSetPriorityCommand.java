@@ -17,9 +17,9 @@ public class TaskSetPriorityCommand extends Command {
     /**
      * Instantiation of set priority command
      *
-     * @param taskList       list of tasks
-     * @param index          index of task
-     * @param priorityLevel  priority level set for the task
+     * @param taskList      list of tasks
+     * @param index         index of task
+     * @param priorityLevel priority level set for the task
      */
     public TaskSetPriorityCommand(TaskList taskList, int index, String priorityLevel) {
         this.taskList = taskList;

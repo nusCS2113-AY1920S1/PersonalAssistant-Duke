@@ -35,14 +35,15 @@ public class EmailList extends ArrayList<Email> {
      * @throws CommandParser.UserInputException thrown when index parsing failed or out of range
      * @throws IOException                      if fails to load the filepath or open the browser.
      */
-    public String show(int index) throws CommandParser.UserInputException, IOException {
+    public String[] show(int index) throws CommandParser.UserInputException, IOException {
         if (index < 0 || index >= this.size()) {
             throw new CommandParser.UserInputException("Invalid index");
         }
         Email email = this.get(index);
-        String path = email.getShowEmailPath();
-        String responseMsg = "Showing email in browser: " + email.getSubject() + " path: " + path;
-        return responseMsg;
+        String emailContent = email.getBody();
+        String responseMsg = "Showing email in browser: " + email.getSubject();
+        String[] responseArray = {responseMsg, emailContent};
+        return responseArray;
     }
 
 }
