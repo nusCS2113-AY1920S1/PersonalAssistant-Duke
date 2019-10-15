@@ -57,6 +57,7 @@ public class Ui {
     /**
      * Show the help page.
      *
+     * @param items The task list that contains a list of tasks.
      * @return an event requesting to view the help page
      */
     public static String helpRequest(TaskList items) {
@@ -362,6 +363,10 @@ public class Ui {
 
     /**
      * Outputs a message to the user to let it know that it has changed the priority of a task.
+     *
+     * @param taskList The task list that contains a list of tasks.
+     * @param taskNum The index of the task in the task list.
+     * @param priority The index of the priority.
      */
     public void showSetPriority(TaskList taskList, int taskNum, int priority) {
         out.println("     Updated the priority of \n\t\t" + taskList.get(taskNum));
