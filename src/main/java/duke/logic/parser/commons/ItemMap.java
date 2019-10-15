@@ -8,4 +8,5 @@ import java.util.Map;
 
 public class ItemMap {
     private final Map<Item, Double> ItemMap = new HashMap<>();
+
 }

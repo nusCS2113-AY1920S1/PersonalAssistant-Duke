@@ -6,11 +6,11 @@ import java.util.regex.Pattern;
 public class ItemParser {
     //private static final Pattern FORMAT_INGREDIENT_INPUT = Pattern.compile("((?:\\[)([a-zA-Z0-9_ ]*),"
            // + "([a-zA-Z0-9_ ]*)(?:\\]))*");
-    private static final Pattern FORMAT_INGREDIENT_INPUT = Pattern.compile("(?:\\[)([a-zA-Z0-9_ ]*),([a-zA-Z0-9_ ]*)(?:\\])");
-    private String inputIngredientList;
 
 
-    /** Constructs a IngredientListParser with the userInput */
+
+
+    /** Constructs a IngredientItemListParser with the userInput */
     public ItemParser(String inputIngredientList) {
         this.inputIngredientList = inputIngredientList;
     }

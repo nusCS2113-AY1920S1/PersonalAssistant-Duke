@@ -18,4 +18,12 @@ public class Quantity {
     public String getNumberAsString() {
         return String.valueOf(number);
     }
+
+    public Double getQuantity() {
+        return portion;
+    }
+
+    public String toString() {
+        return String.valueOf(portion);
+    }
 }
