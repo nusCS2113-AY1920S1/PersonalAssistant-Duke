@@ -10,6 +10,11 @@ import java.util.Map;
 import static duke.command.Parser.ParseState.EMPTY;
 import static java.lang.Math.min;
 
+/**
+ * Class for parsing user input from the UI in order to construct Commands of the appropriate type and parameters,
+ * and execute them. The static initializer generates a static map from Cmd enum values to allow fast lookup of
+ * command types.
+ */
 public class Parser {
 
     enum ParseState {
@@ -19,7 +24,7 @@ public class Parser {
         SWITCH //parsing a switch name
     }
 
-    private final HashMap<String, Cmd> commandMap = new HashMap<String, Cmd>();
+    private static Map<String, Cmd> commandMap;
     private ArgCommand currCommand;
     private StringBuilder elementBuilder;
     private ParseState state;
@@ -28,13 +33,14 @@ public class Parser {
     private Map<String, ArgLevel> switches;
     private HashMap<String, String> switchVals;
 
-    /**
-     * Constructs a new Parser, generating a HashMap from Cmd enum values to allow fast lookup of command types.
-     */
-    public Parser() {
+    static {
+        HashMap<String, Cmd> tempMap = new HashMap<String, Cmd>();
         for (Cmd cmd : Cmd.values()) {
-            commandMap.put(cmd.toString(), cmd);
+            tempMap.put(cmd.toString(), cmd);
         }
+        commandMap = Map.ofEntries(
+                (Map.Entry[]) tempMap.entrySet().toArray()
+        );
     }
 
     /**
