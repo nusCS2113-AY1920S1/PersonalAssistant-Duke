@@ -1,10 +1,12 @@
 package duke.storage;
 
+import duke.commons.exceptions.DukeDateTimeParseException;
 import duke.commons.exceptions.DukeException;
 import duke.commons.Messages;
 import duke.logic.parsers.ParserStorageUtil;
 import duke.model.TaskList;
 import duke.model.events.Task;
+import duke.model.locations.Venue;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -25,7 +27,7 @@ public class Storage {
     private static final String BUS_FILE_PATH = "data/bus.txt";
     private static final String TRAIN_FILE_PATH = "data/train.txt";
     private static final String EVENTS_FILE_PATH = "data/events.txt";
-    private static final String RECOMMENDATIONS_FILE_PATH = "data/recommendations.txt";
+    private static final String RECOMMENDATIONS_FILE_PATH = "memory/recommendations.txt";
     private static final String ROUTES_FILE_PATH = "data/routes.txt";
     //private List<BusStop> allBusStops;
     //private List<TrainStation> allTrainStations;
@@ -65,6 +67,21 @@ public class Storage {
         tasks.setTasks(newTasks);
     }
 
+    public List<Venue> readVenues() throws DukeException {
+        List<Venue> recommendations = new ArrayList<>();
+        try {
+            File f = new File(RECOMMENDATIONS_FILE_PATH);
+            Scanner s = new Scanner(f);
+            while (s.hasNext()) {
+                recommendations.add(ParserStorageUtil.getVenueFromStorage(s.nextLine()));
+            }
+            s.close();
+        } catch (FileNotFoundException e) {
+            throw new DukeException(Messages.FILE_NOT_FOUND);
+        }
+        return recommendations;
+    }
+
     /**
      * Writes the tasks into a file of the given filepath.
      */
@@ -87,4 +104,5 @@ public class Storage {
     public TaskList getTasks() {
         return tasks;
     }
+
 }
