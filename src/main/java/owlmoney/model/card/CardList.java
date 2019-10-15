@@ -96,6 +96,21 @@ public class CardList {
     }
 
     /**
+     * Checks if new card name is unique.
+     *
+     * @param currentCard The card to be changed.
+     * @param newCardName The new name of the card.
+     * @throws CardException If new card name is not unique.
+     */
+    private void compareCard(Card currentCard, String newCardName) throws CardException {
+        for (int i = 0; i < getCardListSize(); i++) {
+            if (cardLists.get(i).getName().equals(newCardName) && !cardLists.get(i).equals(currentCard)) {
+                throw new CardException("There is already a credit card with the name " + newCardName);
+            }
+        }
+    }
+
+    /**
      * Checks if new limit exceeds total expenditure spent of card.
      *
      * @param card The card object.
@@ -128,13 +143,14 @@ public class CardList {
      * @param limit    New limit of credit card if any.
      * @param rebate   New rebate of credit card if any.
      * @param ui       Required for printing.
-     * @throws CardException If card cannot be found.
+     * @throws CardException If card cannot be found or new card name already exist.
      */
     public void cardListEditCard(String name, String newName, String limit, String rebate, Ui ui)
             throws CardException {
         for (int i = 0; i < cardLists.size(); i++) {
             if (cardLists.get(i).getName().equals(name)) {
                 if (!(newName.isEmpty() || newName.isBlank())) {
+                    compareCard(cardLists.get(i), newName);
                     cardLists.get(i).setName(newName);
                 }
                 if (!(limit.isEmpty() || limit.isBlank())) {
