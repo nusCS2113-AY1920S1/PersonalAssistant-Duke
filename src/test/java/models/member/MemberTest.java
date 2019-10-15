@@ -4,7 +4,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-class MemberTest {
+public class MemberTest {
     @Test
     public void alwaysTrue() {
         assertEquals(2, 2);
