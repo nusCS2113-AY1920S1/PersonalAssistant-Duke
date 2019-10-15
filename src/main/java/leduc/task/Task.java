@@ -8,6 +8,7 @@ import java.time.LocalDateTime;
 public abstract class Task {
     private String task;
     private String mark;
+    private int priority = 5 ; // the priority of the task is initialized to 5
 
     /**
      * Constructor of leduc.task.Task
@@ -16,6 +17,45 @@ public abstract class Task {
     protected Task (String task){
         this.task = task;
         this.mark = "[✗]";
+    }
+
+    /**
+     * Constructor of leduc.task.Task
+     * @param task String representing the description of the leduc.task.Task.
+     * @param priority the priority of the deadline task.
+     */
+    protected Task(String task, int priority){
+        this.task = task;
+        this.mark = "[✗]";
+        this.priority = priority;
+    }
+
+
+    /**
+     * Constructor of leduc.task.Task
+     * @param task String representing the description of the leduc.task.Task.
+     * @param priority the priority of the task
+     */
+    protected Task (String task, String mark, int priority){
+        this.task = task;
+        this.mark = mark;
+        this.priority= priority;
+    }
+
+    /**
+     * Getter of the priority of the task
+     * @return the priority of the task
+     */
+    public int getPriority() {
+        return priority;
+    }
+
+    /**
+     * Setter of the priority of the task
+     * @param priority the new priority of the task
+     */
+    public void setPriority(int priority) {
+        this.priority = priority;
     }
 
     /**

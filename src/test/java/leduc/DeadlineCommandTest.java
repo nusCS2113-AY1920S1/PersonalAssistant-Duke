@@ -2,10 +2,7 @@ package leduc;
 
 import leduc.command.DeadlineCommand;
 import leduc.command.DeleteCommand;
-import leduc.exception.DukeException;
-import leduc.exception.EmptyDeadlineDateException;
-import leduc.exception.EmptyDeadlineException;
-import leduc.exception.NonExistentDateException;
+import leduc.exception.*;
 import leduc.storage.Storage;
 import leduc.task.Task;
 import leduc.task.TaskList;
@@ -27,7 +24,14 @@ public class DeadlineCommandTest {
     @Test
     public void deadlineCommandExecuteTest() {
         Ui ui = new Ui();
-        Storage storage = new Storage(System.getProperty("user.dir")+ "/src/test/testFile/DeadlineCommandTest.txt");
+        Storage storage = null;
+        try {
+            storage = new Storage(System.getProperty("user.dir")+ "/src/test/testFile/DeadlineCommandTest.txt", System.getProperty("user.dir")+ "/src/test/testFile/configTest.txt");
+        } catch (FileException e) {
+            e.printStackTrace();
+        } catch (MeaninglessException e) {
+            e.printStackTrace();
+        }
         TaskList tasks = new TaskList(new ArrayList<Task>());
         try{
             tasks = new TaskList(storage.load()); // Use of ArrayList (A-Collections) to store tasks
@@ -79,6 +83,36 @@ public class DeadlineCommandTest {
         }
         assertTrue(tasks.size()==1);
 
+        DeadlineCommand deadlineCommand5 = new DeadlineCommand("deadline d1 /by 12/12/2000 22:22 prio 6");
+        try{
+            deadlineCommand5.execute(tasks,ui,storage);
+        }
+        catch( DukeException e){
+            assertTrue(false);
+        }
+        assertTrue(tasks.size()==2);
+        assertTrue(tasks.get(1).getPriority() == 6);
+        assertTrue(tasks.get(0).getPriority() == 5);
+
+
+        DeadlineCommand deadlineCommand6 = new DeadlineCommand("deadline d1 /by 12/12/2000 22:22 prio 12");
+        try{
+            deadlineCommand6.execute(tasks,ui,storage);
+        }
+        catch( DukeException e){
+            assertTrue(e instanceof PrioritizeLimitException);
+        }
+        assertTrue(tasks.size()==2);
+
+        DeadlineCommand deadlineCommand7 = new DeadlineCommand("deadline d1 /by 12/12/2000 22:22 prio Qzeaze");
+        try{
+            deadlineCommand7.execute(tasks,ui,storage);
+        }
+        catch( DukeException e){
+            assertTrue(e instanceof PrioritizeLimitException);
+        }
+        assertTrue(tasks.size()==2);
+
         DeleteCommand delete = new DeleteCommand("delete 1");
         try{
             delete.execute(tasks,ui,storage);
@@ -86,8 +120,14 @@ public class DeadlineCommandTest {
         catch( DukeException e){ //should not happen
             assertTrue(false);
         }
+        assertTrue(tasks.size()==1);
+        try{
+            delete.execute(tasks,ui,storage);
+        }
+        catch( DukeException e){ //should not happen
+            assertTrue(false);
+        }
         assertTrue(tasks.size()==0);
-
 
     }
 

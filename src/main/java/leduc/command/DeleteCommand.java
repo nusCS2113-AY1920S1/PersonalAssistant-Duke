@@ -12,6 +12,10 @@ import leduc.task.TaskList;
  */
 public class DeleteCommand extends Command {
     /**
+     * static variable used for shortcut
+     */
+    private static String deleteShortcut = "delete";
+    /**
      * Constructor of DeleteCommand.
      * @param user String which represent the input string of the user.
      */
@@ -28,7 +32,14 @@ public class DeleteCommand extends Command {
      * @throws FileException Exception caught when the file can't be open or read or modify
      */
     public void execute(TaskList tasks, Ui ui, Storage storage) throws NonExistentTaskException, FileException {
-        int index = Integer.parseInt(user.substring(7)) - 1;
+        String userSubstring;
+        if(callByShortcut){
+            userSubstring = user.substring(DeleteCommand.deleteShortcut.length() + 1);
+        }
+        else {
+            userSubstring = user.substring(7);
+        }
+        int index = Integer.parseInt(userSubstring) - 1;
         if (index > tasks.size() - 1 || index < 0) {
             throw new NonExistentTaskException();
         }
@@ -40,5 +51,19 @@ public class DeleteCommand extends Command {
                     "\n\t Now you have "+ tasks.size() +" tasks in the list");
         }
     }
+    /**
+     * getter because the shortcut is private
+     * @return the shortcut name
+     */
+    public static String getDeleteShortcut() {
+        return deleteShortcut;
+    }
 
+    /**
+     * used when the user want to change the shortcut
+     * @param deleteShortcut the new shortcut
+     */
+    public static void setDeleteShortcut(String deleteShortcut) {
+        DeleteCommand.deleteShortcut = deleteShortcut;
+    }
 }

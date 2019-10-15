@@ -13,6 +13,11 @@ import leduc.task.TaskList;
  * Represents Postpone command which postpone the deadline of a deadline task.
  */
 public class PostponeCommand extends Command {
+
+    /**
+     * static variable used for shortcut
+     */
+    public static String postponeShortcut = "postpone";
     /**
      * Constructor of PostponeCommand.
      * @param user String which represent the input string of the user.
@@ -34,10 +39,17 @@ public class PostponeCommand extends Command {
      * @throws NonExistentDateException Exception caught when the date given does not exist.
      * @throws PostponeDeadlineException Exception caught when the new deadline is before the old deadline.
      */
-    public void execute(TaskList tasks, Ui ui , Storage storage) throws NonExistentTaskException,
+    public void execute(TaskList tasks, Ui ui, Storage storage) throws NonExistentTaskException,
             DeadlineTypeException, FileException, EmptyDeadlineDateException, NonExistentDateException,
             PostponeDeadlineException {
-        String[] postponeString = user.substring(9).split("/by");
+        String userSubstring;
+        if(callByShortcut){
+            userSubstring = user.substring(PostponeCommand.postponeShortcut.length() + 1);
+        }
+        else {
+            userSubstring = user.substring(9);
+        }
+        String[] postponeString = userSubstring.split("/by");
         if (postponeString.length == 1) { // no /by in input
             throw new EmptyDeadlineDateException();
         }
@@ -67,11 +79,18 @@ public class PostponeCommand extends Command {
     }
 
     /**
-     * Returns a boolean false as it is a PostponeCommand.
-     * @return a boolean false.
+     * getter because the shortcut is private
+     * @return the shortcut name
      */
-    public boolean isExit(){
-        return false;
+    public static String getPostponeShortcut() {
+        return postponeShortcut;
     }
 
+    /**
+     * used when the user want to change the shortcut
+     * @param postponeShortcut the new shortcut
+     */
+    public static void setPostponeShortcut(String postponeShortcut) {
+        PostponeCommand.postponeShortcut = postponeShortcut;
+    }
 }

@@ -10,6 +10,7 @@ public class TodoTask extends Task {
 
     /**
      * Constructor of leduc.task.TodoTask. The task is not done by default.
+     * And the priority is 5 by default.
      * @param task String representing the description of the todo task.
      */
     public TodoTask(String task){
@@ -18,13 +19,22 @@ public class TodoTask extends Task {
     }
 
     /**
+     * Constructor of leduc.task.TodoTask. The task is not done by default.
+     * @param task String representing the description of the todo task.
+     * @param priority the priority of the todo task.
+     */
+    public TodoTask( String task, int priority){
+        super(task,priority);
+    }
+
+    /**
      * Constructor of leduc.task.TodoTask. The task could be done or not depending on the parameter given.
      * @param task String representing the description of the todo task.
      * @param mark represent if the task is done or not.
+     * @param priority the priority of the todo task.
      */
-    public TodoTask(String task, String mark){
-        super(task);
-        super.setMark(mark);
+    public TodoTask(String task, String mark, int priority){
+        super(task,mark,priority);
         this.tag ="[T]";
     }
 
@@ -46,6 +56,6 @@ public class TodoTask extends Task {
      * @return the string format to see a event task
      */
     public String toString(){
-        return super.toString();
+        return super.toString() + " [Priority: " + getPriority() + "]";
     }
 }

@@ -5,13 +5,16 @@ import leduc.Ui;
 import leduc.task.TaskList;
 import java.lang.*;
 import java.util.ArrayList;
-import java.util.Collections;
 
 /**
  * Represents a Find Command.
  * Allow to find a specific task from the task list.
  */
 public class FindCommand extends Command {
+    /**
+     * static variable used for shortcut
+     */
+    public static String findShortcut = "find";
     /**
      * Constructor of FindCommand.
      * @param user String which represent the input string of the user.
@@ -76,11 +79,13 @@ public class FindCommand extends Command {
      * @param ui leduc.Ui which deals with the interactions with the user.
      * @param storage leduc.storage.Storage which deals with loading tasks from the file and saving tasks in the file.
      */
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
-        String find = user.substring(5);
+
+    public void execute(TaskList tasks, Ui ui, Storage storage){
+        String find = user.substring(FindCommand.findShortcut.length()+1);
         ArrayList<Double> scores;
         //populate list of relevance scores
         scores = generateRelevanceScores(find, tasks);
+
         String result = "";
         //Add tasks to "String result" in the order of relevance.
         for(int i = 0; i < scores.size(); i++) {
@@ -103,5 +108,19 @@ public class FindCommand extends Command {
             ui.display("\t Here are the matching tasks in your list:\n" + result);
         }
     }
+    /**
+     * getter because the shortcut is private
+     * @return the shortcut name
+     */
+    public static String getFindShortcut() {
+        return findShortcut;
+    }
 
+    /**
+     * used when the user want to change the shortcut
+     * @param findShortcut the new shortcut
+     */
+    public static void setFindShortcut(String findShortcut) {
+        FindCommand.findShortcut = findShortcut;
+    }
 }

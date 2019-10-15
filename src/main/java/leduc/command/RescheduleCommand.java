@@ -12,6 +12,11 @@ import leduc.task.TaskList;
  * Represents Reschedule command which reschedule the period of a event task.
  */
 public class RescheduleCommand extends Command {
+
+    /**
+     * static variable used for shortcut
+     */
+    public static String rescheduleShortcut = "reschedule";
     /**
      * Constructor of RescheduleCommand.
      * @param user String which represent the input string of the user.
@@ -36,10 +41,20 @@ public class RescheduleCommand extends Command {
      * @throws FileException Exception caught when the file doesn't exist or cannot be created or cannot be opened.
      * @throws ConflictDateException Exception thrown when the new event is in conflict with others event.
      */
-    public void execute(TaskList tasks, Ui ui , Storage storage) throws EmptyEventDateException,
+    public void execute(TaskList tasks, Ui ui, Storage storage) throws EmptyEventDateException,
             NonExistentTaskException, EventTypeException, NonExistentDateException,
-            DateComparisonEventException, FileException, ConflictDateException {
-        String[] rescheduleString = user.substring(11).split("/at");
+            DateComparisonEventException, FileException, ConflictDateException, EmptyArgumentException {
+        String userSubstring;
+        if(callByShortcut){
+            userSubstring = user.substring(RescheduleCommand.rescheduleShortcut.length()+1);
+        }
+        else {
+            userSubstring = user.substring(11);
+        }
+        if(userSubstring.isBlank()){
+            throw new EmptyArgumentException();
+        }
+        String[] rescheduleString = userSubstring.split("/at");
         if (rescheduleString.length == 1) { // no /by in input
             throw new EmptyEventDateException();
         }
@@ -79,11 +94,18 @@ public class RescheduleCommand extends Command {
     }
 
     /**
-     * Returns a boolean false as it is a RescheduleCommand.
-     * @return a boolean false.
+     * getter because the shortcut is private
+     * @return the shortcut name
      */
-    public boolean isExit(){
-        return false;
+    public static String getRescheduleShortcut() {
+        return rescheduleShortcut;
     }
 
+    /**
+     * used when the user want to change the shortcut
+     * @param rescheduleShortcut the new shortcut
+     */
+    public static void setRescheduleShortcut(String rescheduleShortcut) {
+        RescheduleCommand.rescheduleShortcut = rescheduleShortcut;
+    }
 }

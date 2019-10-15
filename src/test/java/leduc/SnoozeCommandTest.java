@@ -23,7 +23,14 @@ public class SnoozeCommandTest {
     @Test
     public void SnoozeCommandExecuteTest() {
         Ui ui = new Ui();
-        Storage storage = new Storage(System.getProperty("user.dir")+ "/src/test/testFile/SnoozeCommandTest.txt");
+        Storage storage = null;
+        try {
+            storage = new Storage(System.getProperty("user.dir")+ "/src/test/testFile/SnoozeCommandTest.txt", System.getProperty("user.dir")+ "/src/test/testFile/configTest.txt");
+        } catch (FileException e) {
+            e.printStackTrace();
+        } catch (MeaninglessException e) {
+            e.printStackTrace();
+        }
         Parser parser = new Parser();
         TaskList tasks = new TaskList(new ArrayList<Task>());
         try{

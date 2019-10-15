@@ -10,6 +10,11 @@ import leduc.task.TaskList;
  * Represents a Delete Command.
  */
 public class DoneCommand extends Command {
+
+    /**
+     * static variable used for shortcut
+     */
+    private static String doneShortcut = "done";
     /**
      * Constructor of DoneCommand
      * @param user String which represent the input string of the user.
@@ -27,7 +32,14 @@ public class DoneCommand extends Command {
      * @throws FileException Exception caught when the file can't be open or read or modify
      */
     public void execute(TaskList tasks, Ui ui, Storage storage) throws NonExistentTaskException, FileException {
-        int index = Integer.parseInt(user.substring(5)) - 1;
+        String userSubstring;
+        if(callByShortcut){
+            userSubstring = user.substring(DoneCommand.doneShortcut.length() + 1);
+        }
+        else {
+            userSubstring = user.substring(5);
+        }
+        int index = Integer.parseInt(userSubstring) - 1;
         if (index > tasks.size() - 1 || index < 0) {
             throw new NonExistentTaskException();
         }
@@ -38,5 +50,18 @@ public class DoneCommand extends Command {
             ui.display("\t Nice! I've marked this task as done:\n\t " + tasks.get(index).toString());
         }
     }
-
+    /**
+     * getter because the shortcut is private
+     * @return the shortcut name
+     */
+    public static String getDoneShortcut() {
+        return doneShortcut;
+    }
+    /**
+     * used when the user want to change the shortcut
+     * @param doneShortcut the new shortcut
+     */
+    public static void setDoneShortcut(String doneShortcut) {
+        DoneCommand.doneShortcut = doneShortcut;
+    }
 }
