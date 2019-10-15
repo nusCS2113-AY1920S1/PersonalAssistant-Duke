@@ -273,6 +273,8 @@ public class MainWindow extends BorderPane implements Initializable {
             delay.setOnFinished( event -> Platform.exit() );
             delay.play();
         }
+        AlertBox.display("", "",
+                response, Alert.AlertType.INFORMATION);
         userInput.clear();
     }
 
@@ -368,7 +370,7 @@ public class MainWindow extends BorderPane implements Initializable {
                         //boolean isTick = task.isDone;
                         Text toShow = new Text(task.toShow() + task.getModCode() + "\n" + task.getDescription());
                         toShow.setFont(Font.font(10));
-                        if (task.isDone){
+                        if (task.getIsDone()){
                             toShow.setFill(Color.GAINSBORO);
                             toShow.setStrikethrough(true);
                         }

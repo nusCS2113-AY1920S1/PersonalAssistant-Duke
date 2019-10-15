@@ -5,7 +5,6 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.lang.reflect.InvocationTargetException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.text.DateFormat;
@@ -36,6 +35,7 @@ public class Storage {
         filePathEvent = System.getProperty("user.dir") + "\\data\\event.txt";
         filePathDeadline = System.getProperty("user.dir") + "\\data\\deadline.txt";
         reminderMap = new HashMap<>();
+        map = new HashMap<>();
     }
 
     public void updateEventList(TaskList list) throws FileNotFoundException {
@@ -84,7 +84,7 @@ public class Storage {
             DateFormat dateFormat = new SimpleDateFormat("E dd/MM/yyyy hh:mm a");
             Task task = stringToTask(string);
             list.addTask(task);
-            if (task.getReminder()) {
+            if (task.getIsReminder()) {
                 Date date = dateFormat.parse(task.getRemindTime());
                 reminderMap.put(date, task);
             }
@@ -116,7 +116,7 @@ public class Storage {
             String startTimeString = timeFormat.format(startTime);
             Date endTime = timeFormat.parse(string.substring(string.indexOf("to") + 3, string.indexOf(')')).trim());
             String endTimeString = timeFormat.format(endTime);
-            line = new Event(string.substring(0, string.indexOf("[E]") - 1) + " " + string.substring(string.indexOf("[E]") + 7, string.indexOf("at:")-2), dateString, startTimeString, endTimeString);
+            line = new Event(string.substring(0, string.indexOf("[E]") - 1) + " " + string.substring(string.indexOf("/R>]") + 5, string.indexOf("at:")-2), dateString, startTimeString, endTimeString);
         }
         if(string.contains("\u2713")) {
             line.setDone(true);
