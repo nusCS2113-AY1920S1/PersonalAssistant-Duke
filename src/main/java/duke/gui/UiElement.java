@@ -1,6 +1,6 @@
 package duke.gui;
 
-import duke.DukeGui;
+import duke.DukeCore;
 import javafx.fxml.FXMLLoader;
 
 import java.io.IOException;
@@ -8,19 +8,35 @@ import java.net.URL;
 
 import static java.util.Objects.requireNonNull;
 
+/**
+ * Represents a distinct UI element in the application, e.g. windows, panels, dialogs, etc.
+ * It contains a scene graph with a root node of type {@code T}.
+ *
+ * @param <T> Type.
+ */
 public abstract class UiElement<T> {
     /**
      * Resource folder where FXML files are stored.
      */
-    public static final String FXML_FILE_FOLDER = "/view/";
+    private static final String FXML_FILE_FOLDER = "/view/";
     private final FXMLLoader fxmlLoader = new FXMLLoader();
 
     /**
      * Constructs a UiElement with the specified FXML file URL.
-     * The FXML file must not specify the {@code fx:controller} attribute.
+     * The FXML file need not specify the {@code fx:controller} attribute as it will be specified
+     * in {@link #loadFxmlFile(URL, T)}.
      */
-    public UiElement(URL fxmlFileUrl) {
+    private UiElement(URL fxmlFileUrl) {
         loadFxmlFile(fxmlFileUrl, null);
+    }
+
+    /**
+     * Constructs a UiElement with the specified FXML file URL and root object.
+     * The FXML file need not specify the {@code fx:controller} attribute as it will be specified
+     * in {@link #loadFxmlFile(URL, T)}.
+     */
+    private UiElement(URL fxmlFileUrl, T root) {
+        loadFxmlFile(fxmlFileUrl, root);
     }
 
     /**
@@ -30,14 +46,6 @@ public abstract class UiElement<T> {
      */
     public UiElement(String fxmlFileName) {
         this(getFxmlFileUrl(fxmlFileName));
-    }
-
-    /**
-     * Constructs a UiElement with the specified FXML file URL and root object.
-     * The FXML file must not specify the {@code fx:controller} attribute.
-     */
-    public UiElement(URL fxmlFileUrl, T root) {
-        loadFxmlFile(fxmlFileUrl, root);
     }
 
     /**
@@ -54,16 +62,8 @@ public abstract class UiElement<T> {
      */
     private static URL getFxmlFileUrl(String fxmlFileName) {
         requireNonNull(fxmlFileName);
-        String fxmlFileNameWithFolder = FXML_FILE_FOLDER + fxmlFileName;
-        URL fxmlFileUrl = DukeGui.class.getResource(fxmlFileNameWithFolder);
+        URL fxmlFileUrl = DukeCore.class.getResource(FXML_FILE_FOLDER + fxmlFileName);
         return requireNonNull(fxmlFileUrl);
-    }
-
-    /**
-     * Returns the root object of the scene graph of this UiElement.
-     */
-    public T getRoot() {
-        return fxmlLoader.getRoot();
     }
 
     /**
@@ -75,13 +75,20 @@ public abstract class UiElement<T> {
     private void loadFxmlFile(URL location, T root) {
         requireNonNull(location);
         fxmlLoader.setLocation(location);
-        fxmlLoader.setController(this);
         fxmlLoader.setRoot(root);
+        fxmlLoader.setController(this);
 
         try {
             fxmlLoader.load();
         } catch (IOException e) {
             throw new AssertionError(e);
         }
+    }
+
+    /**
+     * Returns the root object of the scene graph of this UiElement.
+     */
+    public T getRoot() {
+        return fxmlLoader.getRoot();
     }
 }
