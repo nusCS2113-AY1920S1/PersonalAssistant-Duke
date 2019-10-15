@@ -20,7 +20,7 @@ public class Deadline extends Task {
     public Deadline(String description, Date by, String recurrencePeriod) {
         super(description, recurrencePeriod);
         this.datetime = by;
-        this.type = "[D]";
+        this.key = "[D]";
     }
 
     public Deadline(String description, Date by) {

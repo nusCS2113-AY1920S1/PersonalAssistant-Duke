@@ -20,7 +20,7 @@ public class Event extends Task {
 	public Event(String description, Date at, String recurrencePeriod) {
 		super(description, recurrencePeriod);
 		this.datetime = at;
-		this.type = "[E]";
+		this.key = "[E]";
 	}
 
 	public Event(String description, Date at) {
