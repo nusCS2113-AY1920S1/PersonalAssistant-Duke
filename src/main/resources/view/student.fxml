@@ -59,6 +59,7 @@
                     </font>
                 </MenuButton>
                 <AnchorPane layoutX="161.0" prefHeight="683.0" prefWidth="1119.0" />
+            <Button fx:id="returnMenu" layoutX="37.0" layoutY="95.0" mnemonicParsing="false" text="Button" />
             </children>
         </AnchorPane>
     </children>
