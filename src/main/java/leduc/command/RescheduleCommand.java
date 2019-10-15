@@ -16,7 +16,7 @@ public class RescheduleCommand extends Command {
     /**
      * static variable used for shortcut
      */
-    public static String rescheduleShortcut = "reschedule";
+    private static String rescheduleShortcut = "reschedule";
     /**
      * Constructor of RescheduleCommand.
      * @param user String which represent the input string of the user.

@@ -1,12 +1,6 @@
 package leduc;
 
 import leduc.command.*;
-import leduc.exception.NonExistentDateException;
-import leduc.task.DeadlinesTask;
-
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.Locale;
 
 /**
  * Represents a leduc.Parser which deals with making sense of the user command.
@@ -113,6 +107,13 @@ public class Parser {
         }
         else if (user.matches(SetWelcomeCommand.getSetWelcomeShortcut() + " (.*)") | user.matches(SetWelcomeCommand.getSetWelcomeShortcut())) {
             c = new SetWelcomeCommand(user);
+            c.calledByShortcut();
+        }
+        else if (user.matches("show (.*)") | user.matches("show")) {
+            c = new ShowCommand(user);
+        }
+        else if (user.matches( ShowCommand.getShowShortcut() + " (.*)") | user.matches(ShowCommand.getShowShortcut())) {
+            c = new ShowCommand(user);
             c.calledByShortcut();
         }
         else if (user.matches(RemindCommand.getRemindShortcut())) {

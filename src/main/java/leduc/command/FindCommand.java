@@ -14,7 +14,7 @@ public class FindCommand extends Command {
     /**
      * static variable used for shortcut
      */
-    public static String findShortcut = "find";
+    private static String findShortcut = "find";
     /**
      * Constructor of FindCommand.
      * @param user String which represent the input string of the user.

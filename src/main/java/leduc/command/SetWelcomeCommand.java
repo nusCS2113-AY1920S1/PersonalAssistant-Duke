@@ -19,7 +19,7 @@ public class SetWelcomeCommand extends Command{
     /**
      * static variable used for shortcut
      */
-    public static String setWelcomeShortcut = "setwelcome";
+    private static String setWelcomeShortcut = "setwelcome";
 
     /**
      * Allow to change the welcome message.

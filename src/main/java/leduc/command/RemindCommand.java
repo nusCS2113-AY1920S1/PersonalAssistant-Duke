@@ -14,7 +14,7 @@ public class RemindCommand extends Command {
     /**
      * static variable used for shortcut
      */
-    public static String remindShortcut = "remind";
+    private static String remindShortcut = "remind";
     /**
      * Constructor of FindCommand.
      * @param user String which represent the input string of the user.
