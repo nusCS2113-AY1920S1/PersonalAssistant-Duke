@@ -2,27 +2,34 @@ package seedu.duke.gui;
 
 import javafx.animation.PauseTransition;
 import javafx.application.Platform;
-import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.ObservableList;
 import javafx.collections.FXCollections;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.geometry.Insets;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ListView;
-import javafx.scene.control.TextFormatter;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
+import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Text;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
+import javafx.stage.Popup;
 import javafx.stage.Screen;
+import javafx.stage.Stage;
 import javafx.util.Duration;
 import seedu.duke.Duke;
 import seedu.duke.CommandParser;
@@ -30,12 +37,9 @@ import seedu.duke.UI;
 import seedu.duke.task.TaskList;
 import seedu.duke.task.TaskStorage;
 import seedu.duke.email.EmailStorage;
-import seedu.duke.task.entity.Deadline;
-import seedu.duke.task.entity.Event;
 import seedu.duke.task.entity.Task;
-
+import javafx.scene.Scene;
 import java.util.ArrayList;
-import java.util.function.UnaryOperator;
 
 /**
  * Controller for MainWindow. Provides the layout for the other controls.
@@ -63,13 +67,19 @@ public class MainWindow extends AnchorPane {
     private WebEngine webEngine;
     private TaskList tasks;
 
-    private ArrayList<String> inputList = new ArrayList<>();
-
     private Duke duke;
     private UI ui;
+    private UserInputHandler userInputHandler;
+
+    boolean isShowingEmail = false;
+    boolean isUpKey;
+    int inputListIndex;
+    private ArrayList<String> inputList = new ArrayList<>();
 
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
     private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
+
+    private static Stage mainStage;
 
     /**
      * Starts up GUI screen by loading welcome message, task list and email list.
@@ -94,6 +104,8 @@ public class MainWindow extends AnchorPane {
         // initialize GUI with database
         updateTasksList();
         updateEmailsList();
+
+        userInputHandler = new UserInputHandler(userInput, sendButton);
         setInputPrefix();
 
         // disable webView so that userInput can get focus
@@ -123,23 +135,74 @@ public class MainWindow extends AnchorPane {
         ui.setupGui(dialogContainer, userImage, dukeImage);
     }
 
+    public void setKeyBinding(Scene scene) {
+        new KeyBinding(scene, userInput, sendButton, this);
+    }
+
+    /**
+     * Handle userInput key event.
+     *
+     * @param keyCode key code of the key pressed when focus is in the userInput.
+     */
+    public void handleUserInputKeyEvent(KeyCode keyCode) {
+        switch (keyCode) {
+        case ENTER:
+            sendButton.fire();
+            break;
+        case UP:
+            isUpKey = true;
+            getPrevInput();
+            break;
+        case DOWN:
+            isUpKey = false;
+            getPrevInput();
+            break;
+        case LEFT:
+            userInputHandler.moveCaretLeft();
+            break;
+        case RIGHT:
+            userInputHandler.moveCaretRight();
+            break;
+        case BACK_SPACE:
+            userInputHandler.setTextBackSpace();
+            break;
+        case DELETE:
+            userInputHandler.setTextDelete();
+            break;
+        default:
+            return;
+        }
+    }
+
+    /**
+     * Handle scene key event.
+     *
+     * @param keyCode key code of the key pressed when focus is in any nodes in the scene.
+     */
+    public void handleSceneKeyEvent(KeyCode keyCode) {
+        switch (keyCode) {
+        case ESCAPE:
+            toggleEmailDisplay();
+            break;
+        default:
+            return;
+        }
+    }
+
     /**
      * Creates two dialog boxes, one echoing user input and the other containing Duke's reply and then appends
      * them to the dialog container. Clears the user input after processing.
      */
     @FXML
     private void handleUserInput() {
-
         webView.setDisable(false);
         String input = userInput.getText();
         duke.respond(input);
-
         //String response = ui.getResponseMsg();
         //dialogContainer.getChildren().addAll(
         //        DialogBox.getUserDialog(input, userImage),
         //        DialogBox.getDukeDialog(command + "\n\n" + response, dukeImage)
         //);
-
         setInputPrefix();
         updateTasksList();
         updateEmailsList();
@@ -152,7 +215,11 @@ public class MainWindow extends AnchorPane {
         if (input.contains("bye")) {
             exit();
         }
-        getInput(input);
+        updateInputList(input);
+    }
+
+    public static void setMainStage(Stage stage) {
+        mainStage = stage;
     }
 
     private void updateHtml() {
@@ -169,44 +236,16 @@ public class MainWindow extends AnchorPane {
         delay.play();
     }
 
-    int index;
-
     /**
      * Gets the input without prefixes.
      */
-    private void getInput(String input) {
+    private void updateInputList(String input) {
         input = input.split(" ", 2)[1];
         if (inputList.contains(input)) {
-            index = inputList.indexOf(input);
+            inputListIndex = inputList.indexOf(input);
         } else {
             inputList.add(input);
-            index = inputList.size();
-        }
-    }
-
-    boolean isShowingEmail = false;
-    boolean isUpKey;
-
-    @FXML
-    private void handleKeyEvent(KeyEvent e) {
-        String type = e.getEventType().getName();
-        KeyCode keyCode = e.getCode();
-        String keyInfo = type + ": Key Code=" + keyCode.getName() + ", Text=" + e.getText() + "\n";
-        // print key pressed info to terminal for debugging purpose.
-        //System.out.println(keyInfo);
-
-        // Toggle email or html display if ESC key is pressed
-        if (e.getCode() == KeyCode.ESCAPE) {
-            toggleEmailDisplay();
-            e.consume();
-        } else if (e.getCode() == KeyCode.UP) { // Gets previous input if Up Arrow key is pressed
-            isUpKey = true;
-            getPrevInput();
-            e.consume();
-        } else if (e.getCode() == KeyCode.DOWN) { // Gets previous input if Down Arrow key is pressed
-            isUpKey = false;
-            getPrevInput();
-            e.consume();
+            inputListIndex = inputList.size();
         }
     }
 
@@ -215,27 +254,9 @@ public class MainWindow extends AnchorPane {
      * input shown can be edited.
      */
     private void getPrevInput() {
-        UnaryOperator<TextFormatter.Change> noFilter = c -> {
-            return c;
-        };
-        userInput.setTextFormatter(new TextFormatter<String>(noFilter));
-
-        userInput.clear();
-
         String prefix = CommandParser.getInputPrefix();
         String prevInput = navigateInputList();
-
-        userInput.setText(prefix + prevInput);
-
-        UnaryOperator<TextFormatter.Change> filter = c -> {
-            if (c.getCaretPosition() < prefix.length()) {
-                return null;
-            } else {
-                return c;
-            }
-        };
-        userInput.setTextFormatter(new TextFormatter<String>(filter));
-        userInput.positionCaret(prefix.length() + prevInput.length());
+        userInputHandler.setUserInputText(prefix + prevInput);
     }
 
     /**
@@ -244,18 +265,18 @@ public class MainWindow extends AnchorPane {
      */
     private String navigateInputList() {
         String prevInput = "";
-        if (isUpKey == true) {
-            if (index < 1) {
-                index = inputList.size();
+        if (isUpKey) {
+            if (inputListIndex < 1) {
+                inputListIndex = inputList.size();
             }
-            index--;
-            prevInput = inputList.get(index);
+            inputListIndex--;
+            prevInput = inputList.get(inputListIndex);
         } else {
-            if (index > inputList.size() - 2) {
-                index = -1;
+            if (inputListIndex > inputList.size() - 2) {
+                inputListIndex = -1;
             }
-            index++;
-            prevInput = inputList.get(index);
+            inputListIndex++;
+            prevInput = inputList.get(inputListIndex);
         }
         return prevInput;
     }
@@ -285,27 +306,8 @@ public class MainWindow extends AnchorPane {
      * non-deletable, enter "flip" to toggle between them.
      */
     private void setInputPrefix() {
-        // To apply a noFilter to userInput to remove the effect of the previous filter so that clear()
-        // can work properly.
-        UnaryOperator<TextFormatter.Change> noFilter = c -> {
-            return c;
-        };
-        userInput.setTextFormatter(new TextFormatter<String>(noFilter));
-
-        userInput.clear();
         String prefix = CommandParser.getInputPrefix();
-        userInput.setText(prefix);
-
-        // To apply a filter to any changes in userInput text field so that the prefix is non-deletable text.
-        UnaryOperator<TextFormatter.Change> filter = c -> {
-            if (c.getCaretPosition() < prefix.length()) {
-                return null;
-            } else {
-                return c;
-            }
-        };
-        userInput.setTextFormatter(new TextFormatter<String>(filter));
-        userInput.positionCaret(prefix.length());
+        userInputHandler.setUserInputText(prefix);
     }
 
     private void updateTasksList() {
@@ -344,6 +346,42 @@ public class MainWindow extends AnchorPane {
         }
         ObservableList<EmailHBoxCell> observableList = FXCollections.observableList(list);
         emailsListView.setItems(observableList);
+    }
+
+    public static void showTextPopup(String text) {
+        final Popup popup = new Popup();
+        AnchorPane outerPane = new AnchorPane();
+        ScrollPane scroll = new ScrollPane();
+
+        AnchorPane pane = new AnchorPane();
+        Label label = new Label(text);
+        Button button = new Button("Close");
+
+        outerPane.setPrefSize(800, 650);
+        outerPane.setStyle("-fx-background-color: #FFFFFF;"
+                + "-fx-border-color: black;");
+
+        scroll.setPrefSize(796, 600);
+        scroll.setLayoutX(2);
+        scroll.setPadding(new Insets(0, 10, 0, 10));
+
+        button.setPrefSize(80, 16);
+        button.setLayoutX(380);
+        button.setLayoutY(610);
+        button.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                popup.hide();
+                System.out.println(popup);
+            }
+        });
+
+        pane.getChildren().add(label);
+        scroll.setContent(pane);
+        outerPane.getChildren().addAll(scroll, button);
+        popup.getContent().add(outerPane);
+        popup.show(mainStage);
+        Duke.getUI().showDebug("Popup created");
     }
 
     public static class EmailHBoxCell extends HBox {
