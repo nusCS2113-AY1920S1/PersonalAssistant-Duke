@@ -8,6 +8,7 @@ import java.time.format.DateTimeParseException;
 import java.time.format.ResolverStyle;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.TreeMap;
 
 /**
@@ -76,12 +77,11 @@ public class Util {
      */
     public static TreeMap<String, String> parameterize(String input) {
         TreeMap<String, String> mappedTokens = new TreeMap<>();
-        List<String> tokens = List.of(input.split(" "));
 
         String currentParameter = "general";
         List<String> collectedTokens = new ArrayList<>();
 
-        for (String token : tokens) {
+        for (String token : List.of(input.split(" "))) {
             if (!mappedTokens.containsKey("command")) {
                 mappedTokens.put("command", token);
             } else if (token.charAt(0) == '/') {
@@ -102,6 +102,20 @@ public class Util {
                 String.join(" ", collectedTokens)
         );
 
+        removeEmptyStrings(mappedTokens);
+
         return mappedTokens;
+    }
+
+    private static void removeEmptyStrings(Map<String, String> map) {
+        for (String key : map.keySet()) {
+            if (map.get(key).equals("")) {
+                map.put(key, null);
+            }
+        }
+    }
+
+    public static Map<String, String> parameterizeWithoutCommand(String input) {
+        return parameterize("dummy " + input);
     }
 }

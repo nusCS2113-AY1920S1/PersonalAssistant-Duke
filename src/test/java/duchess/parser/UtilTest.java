@@ -29,6 +29,6 @@ public class UtilTest {
         assertEquals("something happening", parameters.get("general"));
         assertEquals("a b", parameters.get("at"));
         assertEquals("c d", parameters.get("to"));
-        assertEquals("", parameters.get("hi"));
+        assertEquals(null, parameters.get("hi"));
     }
 }

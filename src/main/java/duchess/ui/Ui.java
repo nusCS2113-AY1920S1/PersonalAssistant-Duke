@@ -308,6 +308,15 @@ public class Ui {
     }
 
     /**
+     * Displays a given message.
+     *
+     * @param msg the message to display
+     */
+    public void displayMessage(String msg) {
+        printIndented(msg);
+    }
+
+    /**
      * Prints a straight line.
      */
     private void printHR() {

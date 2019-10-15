@@ -5,6 +5,8 @@ import duchess.logic.commands.Command;
 import duchess.parser.states.DefaultState;
 import duchess.parser.states.ParserState;
 
+import java.util.Map;
+
 /**
  * Parses user input.
  */
@@ -21,10 +23,18 @@ public class Parser {
     public static String LIST_USAGE =
             "Usage: list (tasks | modules)";
 
+    /** Prompts. */
+    public static final String ADD_TYPE_PROMPT =
+            "What do you want to add? (module | deadline | todo | event)";
+    public static final String MODULE_NAME_PROMPT =
+            "What's the name of the module? (e.g. Discrete Mathematics)";
+    public static final String MODULE_CODE_PROMPT =
+            "What's the module code for %s? (e.g. CS1231)";
+
     private ParserState parserState;
 
     /**
-     * Initializes the duchess.parser.
+     * Initializes the duchess parser.
      */
     public Parser() {
         this.parserState = new DefaultState(this);
@@ -42,11 +52,29 @@ public class Parser {
     }
 
     /**
-     * Sets the duchess.parser state.
+     * Continues the parsing of user input from extracted parameters.
      *
-     * @param newState the state to set the duchess.parser to
+     * <p>
+     * This function is called when there are consecutive state transitions
+     * within a single parse call.
+     * </p>
+     *
+     * @param parameters the parameterized user input
+     * @return the command to execute
+     * @throws DuchessException if the user input is invalid
      */
-    public void setParserState(ParserState newState) {
+    public Command continueParsing(Map<String, String> parameters) throws DuchessException {
+        return this.parserState.continueParsing(parameters);
+    }
+
+    /**
+     * Sets the duchess parser state.
+     *
+     * @param newState the state to set the duchess parser to
+     * @return the parser itself
+     */
+    public Parser setParserState(ParserState newState) {
         this.parserState = newState;
+        return this;
     }
 }

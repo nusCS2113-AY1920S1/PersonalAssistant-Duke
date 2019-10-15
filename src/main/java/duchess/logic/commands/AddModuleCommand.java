@@ -6,8 +6,6 @@ import duchess.storage.Storage;
 import duchess.storage.Store;
 import duchess.ui.Ui;
 
-import java.util.List;
-
 public class AddModuleCommand extends Command {
     private String moduleCode;
     private String moduleName;
@@ -15,15 +13,12 @@ public class AddModuleCommand extends Command {
     /**
      * Create a command to add a module.
      *
-     * @param words arguments supplied by the user
+     * @param moduleName the name of the module
+     * @param moduleCode the code of the module
      */
-    public AddModuleCommand(List<String> words) throws DuchessException {
-        if (words.size() < 2) {
-            throw new DuchessException("Usage: add modules <module code> <module name>");
-        }
-
-        moduleCode = words.get(0);
-        moduleName = String.join(" ", words.subList(1, words.size()));
+    public AddModuleCommand(String moduleName, String moduleCode) {
+        this.moduleName = moduleName;
+        this.moduleCode = moduleCode;
     }
 
     @Override
@@ -31,5 +26,6 @@ public class AddModuleCommand extends Command {
         Module module = new Module(moduleCode, moduleName);
         store.getModuleList().add(module);
         ui.showModuleAdded(module, store.getModuleList());
+        storage.save(store);
     }
 }
