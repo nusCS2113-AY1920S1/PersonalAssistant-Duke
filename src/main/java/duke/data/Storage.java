@@ -1,12 +1,12 @@
-package duke.Data;
+package duke.data;
 
-import duke.Module.TimeSlot;
-import duke.Sports.MyClass;
-import duke.Task.After;
-import duke.Task.Deadline;
-import duke.Task.Event;
-import duke.Task.Item;
-import duke.Task.ToDo;
+import duke.module.TimeSlot;
+import duke.sports.MyClass;
+import duke.task.After;
+import duke.task.Deadline;
+import duke.task.Event;
+import duke.task.Item;
+import duke.task.ToDo;
 
 import java.io.File;
 import java.io.FileNotFoundException;

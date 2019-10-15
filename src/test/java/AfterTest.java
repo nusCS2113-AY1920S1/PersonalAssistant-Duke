@@ -1,5 +1,5 @@
-import duke.Task.After;
-import duke.Task.TaskList;
+import duke.task.After;
+import duke.task.TaskList;
 import org.junit.jupiter.api.Test;
 
 import java.text.ParseException;

@@ -1,7 +1,7 @@
-package duke.Module;
+package duke.module;
 
-import duke.Data.Storage;
-import duke.Task.TaskList;
+import duke.data.Storage;
+import duke.task.TaskList;
 
 import java.text.DateFormat;
 import java.text.ParseException;

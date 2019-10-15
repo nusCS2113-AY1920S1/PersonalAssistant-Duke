@@ -10,4 +10,4 @@
  * TaskList controls all the operations of the main class.
  */
 
-package duke.Task;
+package duke.task;

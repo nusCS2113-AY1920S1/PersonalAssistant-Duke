@@ -1,5 +1,5 @@
 import duke.module.Reminder;
-import duke.Task.TaskList;
+import duke.task.TaskList;
 import org.junit.jupiter.api.Test;
 
 import java.text.ParseException;

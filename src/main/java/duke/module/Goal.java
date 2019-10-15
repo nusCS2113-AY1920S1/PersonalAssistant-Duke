@@ -1,6 +1,6 @@
-package duke.Module;
+package duke.module;
 
-import duke.Data.Storage;
+import duke.data.Storage;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;

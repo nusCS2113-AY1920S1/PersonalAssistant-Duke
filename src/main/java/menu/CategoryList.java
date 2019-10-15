@@ -1,6 +1,6 @@
-package duke.Module;
+package menu;
 
-import duke.Task.Item;
+import duke.task.Item;
 
 import java.util.ArrayList;
 

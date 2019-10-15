@@ -1,4 +1,4 @@
-import duke.Task.TaskList;
+import duke.task.TaskList;
 import org.junit.jupiter.api.Test;
 
 import java.util.Date;

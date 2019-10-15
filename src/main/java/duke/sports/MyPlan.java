@@ -1,4 +1,4 @@
-package duke.Sports;
+package duke.sports;
 
 import java.io.File;
 import java.io.FileNotFoundException;
