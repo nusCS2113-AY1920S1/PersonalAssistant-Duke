@@ -1,7 +1,6 @@
 package models.task;
 
 import org.junit.jupiter.api.Test;
-import views.CLIView;
 
 import java.util.ArrayList;
 
