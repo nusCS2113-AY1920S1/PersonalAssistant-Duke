@@ -1,6 +1,6 @@
 package leduc.task;
 
-import leduc.task.Task;
+
 
 /**
  * Represents a Todo leduc.task.Task.
@@ -26,6 +26,19 @@ public class TodoTask extends Task {
     public TodoTask( String task, int priority){
         super(task,priority);
     }
+
+
+    /**
+     * Constructor of leduc.task.TodoTask.
+     * And the priority is 5 by default.
+     * @param task String representing the description of the todo task.
+     * @param mark represent if the task is done or not.
+     */
+    public TodoTask(String task, String mark){
+        super(task,mark);
+        this.tag ="[T]";
+    }
+
 
     /**
      * Constructor of leduc.task.TodoTask. The task could be done or not depending on the parameter given.
