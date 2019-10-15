@@ -60,8 +60,6 @@ public class BackupCommand extends Command {
      */
     @Override
     public void executeStorage(TaskList items, Ui ui, Storage storage) throws IOException {
-        ui.showBeforeBackupMsg();
-        storage.write(items);
         openBackupFolder();
         ui.showAfterBackupMsg();
     }
