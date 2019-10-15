@@ -1,4 +1,5 @@
 package Tasks;
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -54,7 +55,10 @@ public class TaskList {
         }
         this.map.get(task.getModCode()).get(task.getDateTime()).add(task);
     }
-
+    //Do not use this
+    public void removeTask(int index){
+        this.list.remove(index);
+    }
 
     public void removeTask(Task task) {
         ArrayList<Task> taskList = this.map.get(task.getModCode()).get(task.getDateTime());

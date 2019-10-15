@@ -48,7 +48,7 @@ public class AddCommand extends Command {
             }
             if (con == 0) {
                 events.addTask(this.task);
-                out = ui.showAdd(this.task, events.taskListSize());
+                out = "true|" + ui.showAdd(this.task, events.taskListSize());
                 storage.updateEventList(events);
             } else {
                 out = "Sorry, you have similar events at the same time and on the same day \n";
@@ -76,9 +76,8 @@ public class AddCommand extends Command {
                         out += deadlines.getTask(i).toString() + "\n";
                     }
                 }
-                isOK = AB.display("Note", "Similar deadline", out, Alert.AlertType.INFORMATION);
-            }
-            if (isOK) {
+                isOK = AB.display("Note", "Similar deadline", "Here are the list of similar deadlines", Alert.AlertType.INFORMATION);
+            } else {
                 deadlines.addTask(this.task);
                 out = ui.showAdd(this.task, deadlines.taskListSize());
                 storage.updateDeadlineList(deadlines);
