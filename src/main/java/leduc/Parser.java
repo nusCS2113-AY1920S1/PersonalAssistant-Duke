@@ -124,8 +124,8 @@ public class Parser {
         else if (user.matches(ByeCommand.getByeShortcut())){
             c = new ByeCommand(user);
         }
-  
-        else if (user.matches(("stats"))){
+
+        else if (user.matches(StatsCommand.getStatsShortcut())){
             c = new StatsCommand(user);
         }
         else if(user.matches("shortcut") | user.matches("shortcut (.*)")){
