@@ -1,6 +1,7 @@
 package Interface;
 import Commands.*;
 import JavaFx.AlertBox;
+import JavaFx.MainWindow;
 import Tasks.*;
 import javafx.scene.control.Alert;
 
@@ -21,6 +22,7 @@ public class Parser {
     private static String[] arr2;
     private static String[] arr3;
     private static LookupTable LT;
+
     static {
         try {
             LT = new LookupTable();
@@ -117,8 +119,8 @@ public class Parser {
                     return new AddCommand(new Event(arr[0].trim(), dateString, startTimeString, endTimeString));
                 } catch (ParseException | ArrayIndexOutOfBoundsException e) {
                     throw new DukeException("OOPS!!! Please enter event as follows:\n" +
-                            "event name_of_event /at dd/MM/yyyy from HHmm to HHmm\n" +
-                            "For example: event project meeting /at 1/1/2020 from 1500 to 1700");
+                            "add/e mod_code name_of_event /at dd/MM/yyyy from HHmm to HHmm\n" +
+                            "or add/e mod_code name_of_event /at week x day from HHmm to HHmm\n");
                 }
             }else if(fullCommand.trim().substring(0,8).equals("delete/e")){
                 try { //add/e module_code description /at date from time to time
@@ -150,9 +152,9 @@ public class Parser {
                     String endTimeString = timeFormat.format(endTime);
                     return new DeleteCommand("event",new Event(arr[0].trim(), dateString, startTimeString, endTimeString));
                 } catch (ParseException | ArrayIndexOutOfBoundsException e) {
-                    throw new DukeException("OOPS!!! Please enter event as follows:\n" +
-                            "event name_of_event /at dd/MM/yyyy from HHmm to HHmm\n" +
-                            "For example: event project meeting /at 1/1/2020 from 1500 to 1700");
+                    throw new DukeException("OOPS!!! Please enter in the format as follows:\n" +
+                            "delete/e mod_code name_of_event /at dd/MM/yyyy from HHmm to HHmm\n" +
+                            "or delete/e mod_code name_of_event /at week x day from HHmm to HHmm\n");
                 }
             } else if (fullCommand.trim().substring(0,6).equals("remind")) {
                 return new RemindCommand();
@@ -178,10 +180,12 @@ public class Parser {
                     Date date = formatter.parse(weekdate);
                     SimpleDateFormat dateFormat = new SimpleDateFormat("E dd/MM/yyyy hh:mm a");
                     String dateString = dateFormat.format(date);
-                    return new DeleteCommand("deadline",new Deadline(arr[0].substring(6).trim(), dateString));
+                    return new DeleteCommand("deadline",new Deadline(arr[0].trim(), dateString));
 
                 } catch (ParseException | ArrayIndexOutOfBoundsException e) {
-                    throw new DukeException("\u2639" + " OOPS!!! The format input is wrong!");
+                    throw new DukeException("OOPS!!! Please enter in the format as follows:\n" +
+                            "delete/d mod_code name_of_event /by dd/MM/yyyy HHmm\n" +
+                            "or delete/d mod_code name_of_event /by week x day HHmm\n");
                 }
             } else if (fullCommand.trim().substring(0, 5).equals("add/d")) {//deadline
                 try {
@@ -205,11 +209,11 @@ public class Parser {
                     Date date = formatter.parse(weekdate);
                     SimpleDateFormat dateFormat = new SimpleDateFormat("E dd/MM/yyyy hh:mm a");
                     String dateString = dateFormat.format(date);
-                    return new AddCommand(new Deadline(arr[0].substring(6).trim(), dateString));
+                    return new AddCommand(new Deadline(arr[0].trim(), dateString));
                 } catch (ParseException | ArrayIndexOutOfBoundsException e) {
                     throw new DukeException(" OOPS!!! Please enter deadline as follows:\n" +
-                            "deadline name_of_activity /by dd/MM/yyyy HHmm\n" +
-                            "For example: deadline return book /by 2/12/2019 1800");
+                            "add/d mod_code name_of_event /by dd/MM/yyyy HHmm\n" +
+                            "or add/d mod_code name_of_event /by week x day HHmm\n");
                 }
             } else if(fullCommand.trim().contains("when is the nearest day in which I have a ") && fullCommand.trim().contains(" hour free slot?")) {
                 try {

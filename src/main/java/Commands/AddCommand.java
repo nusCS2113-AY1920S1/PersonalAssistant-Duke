@@ -76,9 +76,8 @@ public class  AddCommand extends Command {
                         out += deadlines.getTask(i).toString() + "\n";
                     }
                 }
-                isOK = AB.display("Note", "Similar deadline", out, Alert.AlertType.INFORMATION);
-            }
-            if (isOK) {
+                isOK = AB.display("Note", "Similar deadline", "Here are the list of similar deadlines", Alert.AlertType.INFORMATION);
+            } else {
                 deadlines.addTask(this.task);
                 out = ui.showAdd(this.task, deadlines.taskListSize());
                 storage.updateDeadlineList(deadlines);
