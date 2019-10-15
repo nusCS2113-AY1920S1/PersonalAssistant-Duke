@@ -1,7 +1,7 @@
 package duke.commands;
 
-import duke.PathFinder;
 import duke.commons.enumerations.Constraint;
+import duke.logic.PathFinder;
 import duke.commons.Messages;
 import duke.commons.exceptions.DukeException;
 import duke.logic.api.ApiConstraintParser;
@@ -75,7 +75,7 @@ public class FindPathCommand extends Command {
 
         // calculate the shortest path using algorithm with 2 locations as parameters
 
-        PathFinder pathFinder = new PathFinder();
+        PathFinder pathFinder = new PathFinder(model.getMap());
         ArrayList<BusStop> route = pathFinder.execute(startLocation, endLocation);
 
         CommandResult commandResult = new CommandResult(MESSAGE_FIND_PATH);

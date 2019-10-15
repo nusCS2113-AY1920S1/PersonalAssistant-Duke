@@ -1,6 +1,7 @@
 package duke;
 
 import duke.commons.exceptions.DukeException;
+import duke.logic.CreateMap;
 import duke.model.Model;
 import duke.model.TaskList;
 import duke.model.events.Event;
@@ -18,6 +19,7 @@ import java.util.List;
 public class ModelStub implements Model {
     private Storage storage;
     private TaskList tasks;
+    private CreateMap map;
 
     public ModelStub() {
         storage = new Storage();
@@ -27,6 +29,11 @@ public class ModelStub implements Model {
     @Override
     public TaskList getTasks() {
         return tasks;
+    }
+
+    @Override
+    public CreateMap getMap() {
+        return map;
     }
 
     @Override

@@ -8,7 +8,9 @@ import duke.model.events.DoWithin;
 import duke.model.events.Event;
 import duke.model.events.Task;
 import duke.model.events.Todo;
+import duke.model.locations.BusStop;
 import duke.model.locations.Venue;
+import duke.model.transports.BusService;
 
 import java.time.LocalDateTime;
 
@@ -79,6 +81,85 @@ public class ParserStorageUtil {
             return "W | " + task.isDone() + " | " + task.getDescription() + " | " + ((DoWithin) task).getWithin();
         }
         throw new DukeException(Messages.CORRUPTED_TASK);
+    }
+
+
+    /**
+     * Parses a bus stop from String format back to BusStop.
+     *
+     * @param line The String description of a bus stop.
+     * @return The corresponding BusStop object.
+     */
+    public static BusStop createBusStopDataFromStorage(String line) {
+        String[] busStopData = line.split("\\|");
+        String busCode = busStopData[0].strip();
+        String description = busStopData[1].strip();
+        String address = busStopData[2].strip();
+        double latitude = Double.parseDouble(busStopData[3].strip());
+        double longitude = Double.parseDouble(busStopData[4].strip());
+        BusStop busStop = new BusStop(busCode,description, address, latitude, longitude);
+        for (int i = 5; i < busStopData.length; i++) {
+            busStop.addBuses(busStopData[i].strip());
+        }
+        return busStop;
+    }
+
+    /**
+     * Parses a bus stop from BusStop to String format.
+     *
+     * @param busStop The bus stop.
+     * @return The corresponding String format of the BusStop object.
+     */
+    public static String busStopToStorageString(BusStop busStop) {
+        String buses = "";
+        for (String bus : busStop.getBuses()) {
+            buses += " | " + bus;
+        }
+        return busStop.getBusCode() + " | " + busStop.getDescription() + " | " + busStop.getAddress()
+                + " | " + busStop.getLatitude() + " | " + busStop.getLongitude() + buses;
+    }
+
+    /**
+     * Parses a bus service from BusService to String format.
+     *
+     * @param busService The bus.
+     * @return The corresponding String format of the BusService object.
+     */
+    public static String busToStorageString(BusService busService) {
+        String busRoute1 = "";
+        String busRoute2 = "";
+        for (String busCode : busService.getDirection(1)) {
+            busRoute1 += busCode + " | ";
+        }
+        for (String busCode : busService.getDirection(2)) {
+            busRoute2 += " | " + busCode;
+        }
+
+        return  busService.getBus() + " | " + busRoute1 + "change" + busRoute2;
+    }
+
+    /**
+     * Parses a bus from String format back to BusService.
+     *
+     * @param line The String description of a bus.
+     * @return The corresponding BusService object.
+     */
+    public static BusService createBusFromStorage(String line) {
+        String[] busData = line.split("\\|");
+        boolean changedDirection = false;
+        BusService busService = new BusService(busData[0].strip());
+        for (int i = 1; i < busData.length; i++) {
+            String buffer = busData[i].strip();
+            if ("change".equals(buffer)) {
+                changedDirection = true;
+            }
+            if (changedDirection) {
+                busService.addRoute(buffer, 2);
+            } else {
+                busService.addRoute(buffer, 1);
+            }
+        }
+        return busService;
     }
 
     /**

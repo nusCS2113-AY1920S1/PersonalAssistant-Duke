@@ -97,7 +97,7 @@ public class ApiParser {
             for (int i = 0; i < arr.size(); i++) {
                 String serviceNo = arr.get(i).getAsJsonObject().get("ServiceNo").getAsString();
                 if (!busMap.containsKey(serviceNo)) {
-                    BusService bus = new BusService();
+                    BusService bus = new BusService(serviceNo);
                     busMap.put(serviceNo, bus);
                     bus.addRoute(arr.get(i).getAsJsonObject().get("BusStopCode").getAsString(),
                             arr.get(i).getAsJsonObject().get("Direction").getAsInt());
