@@ -1,17 +1,16 @@
 package seedu.hustler.game.shop.items.weapons;
 
-import seedu.hustler.game.shop.items.Purchasable;
-import seedu.hustler.game.shop.items.shopItem;
+import seedu.hustler.game.shop.items.ShopItem;
 
 /**
  * Abstract interface of weapon that all weapons the avatar yield inherits from.
  */
-public abstract class Weapon extends shopItem {
+public abstract class Weapon extends ShopItem {
 
     private final int DMG_INCR;
 
     public Weapon(int cost, boolean hasPurchased, int dmgIncr) {
-        super(cost, hasPurchased);
+        super(cost, hasPurchased, "Weapon");
         this.DMG_INCR = dmgIncr;
     }
 

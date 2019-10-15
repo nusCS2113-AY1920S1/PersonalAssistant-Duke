@@ -1,14 +1,14 @@
 package seedu.hustler.game.shop.items.armors;
 
-import seedu.hustler.game.shop.items.shopItem;
+import seedu.hustler.game.shop.items.ShopItem;
 
-public abstract class Armor extends shopItem {
+public abstract class Armor extends ShopItem {
 
     private final int DEF_INCR;
     private final int STA_INCR;
 
     public Armor(int cost, boolean hasPurchased, int defIcr, int staIcr) {
-        super(cost, hasPurchased);
+        super(cost, hasPurchased, "Armor");
         this.DEF_INCR = defIcr;
         this.STA_INCR = staIcr;
     }

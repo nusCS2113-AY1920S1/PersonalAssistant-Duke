@@ -1,12 +1,14 @@
 package seedu.hustler.game.shop.items;
 
-public abstract class shopItem implements Purchasable {
+public abstract class ShopItem implements Purchasable {
     protected int cost;
     protected Boolean isPurchased;
+    protected String type;
 
-    public shopItem(int cost, Boolean hasPurchased) {
+    public ShopItem(int cost, Boolean hasPurchased, String type) {
         this.cost = cost;
         this.isPurchased = hasPurchased;
+        this.type = type;
     }
 
     public int getCost() {
@@ -24,6 +26,10 @@ public abstract class shopItem implements Purchasable {
     @Override
     public boolean canPurchase(int points) {
         return points >= this.cost;
+    }
+
+    public String getType() {
+        return this.type;
     }
 
     @Override
