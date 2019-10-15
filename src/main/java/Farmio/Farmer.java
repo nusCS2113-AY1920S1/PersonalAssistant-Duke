@@ -9,7 +9,7 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
 public class Farmer {
-    protected int money;
+    private int money;
     private int level;
     protected WheatFarm wheatFarm;
     protected ChickenFarm chickenFarm;
@@ -43,6 +43,14 @@ public class Farmer {
         this.chickenFarm = chickenFarm;
         this.cowFarm = cowFarm;
         this.tasks = tasks;
+    }
+
+    public int getMoney() {
+        return money;
+    }
+
+    public void setMoney(int money){
+        this.money = money;
     }
 
     public void nextLevel(){
