@@ -40,7 +40,7 @@ public class TaskEditCommand extends Command {
     public boolean execute() {
         String msg = "";
         try {
-            switch(attribute) {
+            switch (attribute) {
             case time:
                 msg = taskList.setTime(index, description);
                 break;

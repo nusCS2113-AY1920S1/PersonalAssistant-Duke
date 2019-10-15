@@ -59,6 +59,10 @@ public class Email {
         return this.receivedDateTime;
     }
 
+    /**
+     * Adds tag to this email object.
+     * @param tag Tag to categorise email
+     */
     public void addTag(String tag) {
         if (this.tags.contains(tag)) {
             return;

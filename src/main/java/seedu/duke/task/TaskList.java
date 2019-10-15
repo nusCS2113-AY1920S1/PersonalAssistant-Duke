@@ -178,7 +178,7 @@ public class TaskList extends ArrayList<Task> {
     }
 
     /**
-     * Adds or modifies task to include a priority level
+     * Adds or modifies task to include a priority level.
      *
      * @param index    Position of task in list
      * @param priority Priority level of task

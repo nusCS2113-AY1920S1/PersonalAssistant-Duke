@@ -92,9 +92,9 @@ public class Task {
      */
     protected String getStatus() {
         if (this.isDone) {
-            return "[\u2713] " + this.name;
+            return "[✓] " + this.name;
         } else {
-            return "[\u2718] " + this.name;
+            return "[✗] " + this.name;
         }
     }
 

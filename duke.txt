@@ -1,7 +1,5 @@
-0 todo a
-0 todo b
-0 todo c
-0 deadline d -time 12/10/2019 1234
-0 event e -time 12/12/2019 2359
-0 deadline f -time 25/12/2019 1200
-0 event g -time 05/12/2019 1000
+0 todo buy milk
+0 todo email prof
+0 deadline write user guide -time 22/11/2019 2359
+0 event CS2113T exam -time 23/11/2019 1300
+0 event internship interview -time 12/12/2019 1400

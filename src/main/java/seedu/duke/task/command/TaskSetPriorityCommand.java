@@ -6,7 +6,7 @@ import seedu.duke.task.TaskList;
 import seedu.duke.common.command.Command;
 
 /**
- * Adds a priority level for a task
+ * Adds a priority level for a task.
  */
 public class TaskSetPriorityCommand extends Command {
 
@@ -15,7 +15,7 @@ public class TaskSetPriorityCommand extends Command {
     private String priorityLevel;
 
     /**
-     * Instantiation of set priority command
+     * Instantiation of set priority command.
      *
      * @param taskList      list of tasks
      * @param index         index of task
@@ -28,7 +28,7 @@ public class TaskSetPriorityCommand extends Command {
     }
 
     /**
-     * Sets priority level for a task
+     * Sets priority level for a task.
      *
      * @return true
      */

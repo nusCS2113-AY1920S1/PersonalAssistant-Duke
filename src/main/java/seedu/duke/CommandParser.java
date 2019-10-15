@@ -454,8 +454,7 @@ public class CommandParser {
         try {
             priority = extractPriority(optionList);
         } catch (UserInputException e) {
-            if
-            (ui != null) {
+            if (ui != null) {
                 ui.showError(e.getMessage());
             }
             return new InvalidCommand();
@@ -554,7 +553,8 @@ public class CommandParser {
         }
 
         try {
-            if (!extractPriority(optionList).equals("") ^ !extractTime(optionList).equals("") ^ !extractDoAfter(optionList).equals("")) {
+            if (!extractPriority(optionList).equals("") ^ !extractTime(optionList).equals("")
+                    ^ !extractDoAfter(optionList).equals("")) {
                 if (!extractDoAfter(optionList).equals("")) {
                     description = extractDoAfter(optionList);
                     attribute = TaskEditCommand.Attributes.doAfter;
