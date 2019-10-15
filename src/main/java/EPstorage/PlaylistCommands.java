@@ -41,13 +41,13 @@ public class PlaylistCommands {
      */
     public void setToPlaylist(String name, TreeMap<String, ArrayList<String>> flagMap) throws IOException {
         if (flagMap.containsKey("-n") && !flagMap.containsKey("-d")) {
-            setPlaylistName(name, flagMap.get("-n").get(0));
+            setPlaylistName(name, flagMap.get("-n").get(0).trim());
         }
         if (flagMap.containsKey("-d") && !flagMap.containsKey("-n")) {
-            setPlaylistDescription(name, flagMap.get("-d").get(0));
+            setPlaylistDescription(name, flagMap.get("-d").get(0).trim());
         }
         if (flagMap.containsKey("-d") && flagMap.containsKey("-n")) {
-            setAll(name, flagMap.get("-n").get(0), flagMap.get("-d").get(0));
+            setAll(name, flagMap.get("-n").get(0), flagMap.get("-d").get(0).trim());
         }
     }
 
@@ -103,7 +103,8 @@ public class PlaylistCommands {
     public void addToPlaylist(String name, TreeMap<String, ArrayList<String>> flagMap, ArrayList<MovieInfoObject> mMovies) throws IOException {
         ArrayList<Long> userMovies = new ArrayList<>(20);
         for (String log : flagMap.get("-m")){
-            int index = Integer.parseInt(log);
+            int index = Integer.parseInt(log.trim());
+            System.out.println(index);
             userMovies.add((mMovies.get(--index)).getID());
         }
         for (Playlist log : playlists) {
@@ -123,7 +124,7 @@ public class PlaylistCommands {
     public void removeFromPlaylist(String name, TreeMap<String, ArrayList<String>> flagMap, ArrayList<MovieInfoObject> mMovies) throws IOException {
         ArrayList<Long> userMovies = new ArrayList<>(20);
         for (String log : flagMap.get("-m")){
-            int index = Integer.parseInt(log);
+            int index = Integer.parseInt(log.trim());
             userMovies.add((mMovies.get(--index)).getID());
         }
         for (Playlist log : playlists) {

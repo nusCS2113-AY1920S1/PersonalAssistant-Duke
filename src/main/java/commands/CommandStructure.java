@@ -44,11 +44,15 @@ public class CommandStructure {
         });
 
         put(COMMANDKEYS.preference , new COMMANDKEYS[]{
-                COMMANDKEYS.add , COMMANDKEYS.remove
+                COMMANDKEYS.add , COMMANDKEYS.remove , COMMANDKEYS.clear
         });
 
         put(COMMANDKEYS.playlist , new COMMANDKEYS[]{
                 COMMANDKEYS.create , COMMANDKEYS.delete , COMMANDKEYS.add , COMMANDKEYS.remove , COMMANDKEYS.set
+        });
+
+        put(COMMANDKEYS.restriction , new COMMANDKEYS[]{
+                COMMANDKEYS.add , COMMANDKEYS.remove , COMMANDKEYS.clear
         });
 
     }};
