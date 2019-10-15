@@ -32,35 +32,7 @@ public final class Controller implements Initializable {
         System.out.println("View is now loaded!");
     }
 
-    /**
-     * Method will return to menu when button is pressed.
-     *
-     * @param event Will get the active instance of the button.
-     */
     @FXML
-    public void viewMenu(ActionEvent event) {
-        try {
-            URL url = Duke.class.getClassLoader()
-                .getResource("view/menu.fxml");
-            System.out.println(url);
-            assert url != null;
-            Parent root = FXMLLoader.load(url);
-
-            //get current stage information
-            Stage stage = (Stage) ((Node) event
-                .getSource()).getScene().getWindow();
-
-            //Change scene
-            stage.setScene(new Scene(root, width, height));
-            stage.setTitle("Sports Manager");
-            stage.setResizable(false);
-            stage.show();
-            System.out.println("View menu");
-        } catch (IOException e) {
-            System.err.println("Unable to open menu.fxml");
-        }
-    }
-
     /**
      * Method will submit when the submit button is pressed.
      */
@@ -69,31 +41,43 @@ public final class Controller implements Initializable {
     }
 
     /**
+     * When this method is called, the menu scene will be called.
+     *
+     * @param event Will get the active instance of the button.
+     */
+    public void viewMenu(final ActionEvent event) {
+        URL url = Duke.class.getClassLoader()
+            .getResource("view/menu.fxml");
+        System.out.println(url);
+        assert url != null;
+        changeScene(url, event);
+    }
+
+
+    /**
+     * When this method is called, the student scene will be called.
+     *
+     * @param event Will get the active instance of the button.
+     */
+    public void viewStudents(final ActionEvent event) {
+            URL url = Duke.class.getClassLoader()
+                .getResource("view/student.fxml");
+            System.out.println(url);
+            assert url != null;
+            changeScene(url, event);
+    }
+
+    /**
      * When this method is called, the training scene will be called.
      *
      * @param event Will get the active instance of the button.
      */
     public void viewTraining(final ActionEvent event) {
-        try {
-            URL url = Duke.class.getClassLoader()
-                .getResource("view/training.fxml");
-            System.out.println(url);
-            assert url != null;
-            Parent root = FXMLLoader.load(url);
-
-            //get current stage information
-            Stage stage = (Stage) ((Node) event
-                .getSource()).getScene().getWindow();
-
-            //Change scene
-            stage.setScene(new Scene(root, width, height));
-            stage.setTitle("Sports Manager");
-            stage.setResizable(false);
-            stage.show();
-            System.out.println("View Training");
-        } catch (IOException e) {
-            System.err.println("Unable to open training.fxml");
-        }
+        URL url = Duke.class.getClassLoader()
+            .getResource("view/training.fxml");
+        System.out.println(url);
+        assert url != null;
+        changeScene(url, event);
     }
 
     /**
@@ -102,39 +86,23 @@ public final class Controller implements Initializable {
      * @param event Will get the active instance of the button.
      */
     public void viewSchedule(final ActionEvent event) {
-        try {
-            URL url = Duke.class.getClassLoader()
-                .getResource("view/schedule.fxml");
-            System.out.println(url);
-            assert url != null;
-            Parent root = FXMLLoader.load(url);
-
-            //get current stage information
-            Stage stage = (Stage) ((Node) event.getSource())
-                .getScene().getWindow();
-
-            //Change scene
-            stage.setScene(new Scene(root, width, height));
-            stage.setTitle("Sports Manager");
-            stage.setResizable(false);
-            stage.show();
-            System.out.println("View Schedule");
-        } catch (IOException e) {
-            System.err.println("Unable to open schedule.fxml");
-        }
+        URL url = Duke.class.getClassLoader()
+            .getResource("view/schedule.fxml");
+        System.out.println(url);
+        assert url != null;
+        changeScene(url, event);
     }
+
 
     /**
-     * When this method is called, the student scene will be called.
+     *Method will change the scene of the current stage.
      *
-     * @param event Will get the active instance of the button.
+     * @param url
+     * @param event
      */
-    public void viewStudents(final ActionEvent event) {
+    public void changeScene(final URL url, final ActionEvent event) {
         try {
-            URL url = Duke.class.getClassLoader()
-                .getResource("view/student.fxml");
-            System.out.println(url);
-            assert url != null;
+
             Parent root = FXMLLoader.load(url);
 
             //get current stage information
@@ -146,10 +114,10 @@ public final class Controller implements Initializable {
             stage.setTitle("Sports Manager");
             stage.setResizable(false);
             stage.show();
-            System.out.println("View Schedule");
         } catch (IOException e) {
-            System.err.println("Unable to open student.fxml");
+            System.err.println("Unable to open " + url);
         }
     }
+
 
 }

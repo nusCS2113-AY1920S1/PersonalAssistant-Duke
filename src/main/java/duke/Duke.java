@@ -31,10 +31,10 @@ public class Duke extends Application {
 
     public Duke() throws FileNotFoundException, ParseException {
         ui = new Ui();
-        storage = new Storage(".\\src\\main\\java\\duke\\Data\\duke.txt");
+        storage = new Storage(".\\src\\main\\java\\duke\\data\\duke.txt");
         tasks = new TaskList();
         students = new ManageStudents();
-        schedule = new Schedule(new Storage(".\\src\\main\\java\\duke\\Data\\timeslots.txt").loadSchedule());
+        schedule = new Schedule(new Storage(".\\src\\main\\java\\duke\\data\\timeslots.txt").loadSchedule());
         plan = new MyPlan();
     }
 
@@ -74,12 +74,11 @@ public class Duke extends Application {
             Parent root = FXMLLoader.load(url);
             stage.setScene(new Scene(root, 1280,720));
             stage.setTitle("Sports Manager");
-            stage.setResizable(false);
             stage.show();
 
         }
         catch (IOException e) {
-            System.err.println("Could not find fxml file");
+            System.err.println("Could not find menu.fxml");
         }
     }
 

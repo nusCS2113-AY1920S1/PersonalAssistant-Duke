@@ -6,20 +6,16 @@ import javafx.application.Application;
 /**
  * A launcher class to workaround classpath issues.
  */
-public final class Launcher {
+public class Launcher {
 
-    /**
-     * Constructor.
-     */
-    private Launcher() {
-        //do nothing
+    public Launcher() {
     }
 
     /**
      * Begin GUI application and run main duke class.
      * @param args expects array of string objects
      */
-    public static void main(final String[] args) {
+    public static void main(String[] args) {
         Application.launch(Duke.class, args);
     }
 }

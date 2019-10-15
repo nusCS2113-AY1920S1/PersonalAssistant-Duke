@@ -276,8 +276,69 @@ public class Storage {
             System.out.println("File not found:" + io.getMessage());
         }
     }
-/**
-    public int loadPMap (Map<Integer, ArrayList<MyTraining>> map) throws FileNotFoundException {
+
+    /**
+     * Reads filePath, takes in Strings and turns them into a hash map of lessons learnt for the day.
+     * @return A hash map of lessons learnt for the day.
+     * @throws ParseException if the user input is in wrong format.
+     */
+    public Map<Date,ArrayList<String>> loadLesson() throws ParseException {
+        try {
+            Map<Date,ArrayList<String>> temp = new HashMap<>();
+            while (fileInput.hasNextLine()) {
+                String s1 = fileInput.nextLine();
+                String[] data = s1.split("-");
+                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
+                Date date = simpleDateFormat.parse(data[0]);
+                ArrayList<String> temp2 = new ArrayList<>();
+                for (String str : data) {
+                    if (!str.equals(data[0])) {
+                        temp2.add(str);
+                    }
+                }
+                temp.put(date,temp2);
+            }
+            fileInput.close();
+            return temp;
+        } catch (ArrayIndexOutOfBoundsException e) {
+            return null;
+        }
+    }
+
+    /**
+     * This function updates the hash map of lessons learnt for the day.
+     * Erases the entire hash map that exists presently and rewrites the file.
+     * @param lessons The updated hash map that must be used to recreate the updated lessons.txt
+     * @throws IOException io if the file cannot be found.
+     */
+    public void updateLesson(Map<Date,ArrayList<String>> lessons) {
+        try {
+            FileWriter fileWriter = new FileWriter(filePath);
+            fileWriter.write("");
+            fileWriter.close();
+        } catch (IOException io) {
+            System.out.println("File not found:" + io.getMessage());
+        }
+
+        try {
+            FileWriter fileWriter = new FileWriter(filePath, true);
+            DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+            for (Map.Entry<Date,ArrayList<String>> entry : lessons.entrySet()) {
+                String extra = "";
+                ArrayList<String> temp = entry.getValue();
+                for (String str : temp) {
+                    extra += "-" + str;
+                }
+                fileWriter.write(df.format(entry.getKey()) + extra + "\n");
+            }
+            fileWriter.close();
+        } catch (IOException io) {
+            System.out.println("File not found:" + io.getMessage());
+        }
+    }
+
+/*
+    public int loadPlans (Map<Integer, ArrayList<MyTraining>> map) throws FileNotFoundException {
         MyPlan plan = new MyPlan();
         ArrayList<MyTraining> list = new ArrayList<>();
         int division = Integer.parseInt(fileInput.nextLine().split(": ")[1]);
@@ -323,7 +384,7 @@ public class Storage {
         return division;
     }
 
-    public void savePMap() {
+    public void updatePlans() {
         System.out.println("To be confirmed");
     }*/
 }
