@@ -248,11 +248,11 @@ public class TaskList {
         return finalSchedule;
     }
 
-    private ArrayList<String> getDeadlineArrList() {
+    public  ArrayList<String> getDeadlineArrList() {
         return this.deadlineArrList;
     }
 
-    private ArrayList<String> getEventArrList() {
+    public  ArrayList<String> getEventArrList() {
         return this.eventArrList;
     }
 
