@@ -53,8 +53,8 @@ public class Storage {
      * @return ArrayList object consisting of the transactions read from the file.
      * @throws MooMooException Thrown when the file does not exist
      */
-    public ArrayList<Transaction> loadTransactions() throws MooMooException {
-        ArrayList<Transaction> transactionArrayList = new ArrayList<Transaction>();
+    public ArrayList<Expenditure> loadTransactions() throws MooMooException {
+        ArrayList<Expenditure> transactionArrayList = new ArrayList<Expenditure>();
 
         return transactionArrayList;
     }
