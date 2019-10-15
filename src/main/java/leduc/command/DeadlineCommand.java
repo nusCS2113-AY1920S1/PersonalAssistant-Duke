@@ -80,7 +80,7 @@ public class DeadlineCommand extends Command {
                     if (priority < 0 || priority > 9) {
                         throw new PrioritizeLimitException();
                     }
-                    newTask = new DeadlinesTask(description,"[✗]",d,priority);
+                    newTask = new DeadlinesTask(description,d,priority);
                 }
                 tasks.add(newTask);
                 storage.save(tasks.getList());

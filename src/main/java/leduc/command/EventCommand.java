@@ -4,7 +4,6 @@ import leduc.Date;
 import leduc.exception.*;
 import leduc.storage.Storage;
 import leduc.Ui;
-import leduc.task.DeadlinesTask;
 import leduc.task.EventsTask;
 import leduc.task.TaskList;
 
@@ -87,7 +86,7 @@ public class EventCommand extends Command {
                 if (priority < 0 || priority > 9) {
                     throw new PrioritizeLimitException();
                 }
-                newTask = new EventsTask(description,"[✗]",date1,date2,priority);
+                newTask = new EventsTask(description,date1,date2,priority);
             }
             tasks.add(newTask);
             storage.save(tasks.getList());

@@ -14,7 +14,8 @@ public class EventsTask extends Task {
 
     /**
      * Constructor of leduc.task.EventsTask. The task is not done by default.
-     * @param task tasks list.
+     * And the priority is 5 by default.
+     * @param task String representing the description of the Task.
      * @param dateFirst the start date of the period of the event.
      * @param dateSecond the end date of the period of the event.
      */
@@ -26,12 +27,24 @@ public class EventsTask extends Task {
     }
 
     /**
+     * Constructor of leduc.task.EventsTask. The task is not done by default.
+     * @param task String representing the description of the Task.
+     * @param dateFirst the start date of the period of the event.
+     * @param dateSecond the end date of the period of the event.
+     * @param priority the priority of the event.
+     */
+    public EventsTask(String task, Date dateFirst, Date dateSecond, int priority){
+        super(task,priority);
+        this.dateFirst= dateFirst;
+        this.dateSecond = dateSecond;
+    }
+    /**
      * Constructor of leduc.task.EventsTask. The task could be done or not depending on the parameter given.
-     * @param task tasks list.
+     * @param task String representing the description of the Task.
      * @param mark represent if the task is done or not.
      * @param dateFirst the start date of the period of the event.
      * @param dateSecond the end date of the period of the event.
-     * @param priority the priority of the event
+     * @param priority the priority of the event.
      */
     public EventsTask(String task, String mark, Date dateFirst, Date dateSecond, int priority) {
         super(task,mark,priority);

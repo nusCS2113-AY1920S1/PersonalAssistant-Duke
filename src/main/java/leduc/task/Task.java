@@ -22,11 +22,23 @@ public abstract class Task {
     /**
      * Constructor of leduc.task.Task
      * @param task String representing the description of the leduc.task.Task.
-     * @param priority
+     * @param priority the priority of the deadline task.
+     */
+    protected Task(String task, int priority){
+        this.task = task;
+        this.mark = "[✗]";
+        this.priority = priority;
+    }
+
+
+    /**
+     * Constructor of leduc.task.Task
+     * @param task String representing the description of the leduc.task.Task.
+     * @param priority the priority of the task
      */
     protected Task (String task, String mark, int priority){
         this.task = task;
-        this.mark = "[✗]";
+        this.mark = mark;
         this.priority= priority;
     }
 
