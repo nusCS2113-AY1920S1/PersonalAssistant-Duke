@@ -9,22 +9,7 @@ import java.util.ArrayList;
  */
 public class Ui {
     private static final String NO_FIELD = "void";
-    private final String logo = " ____        _        \n"
-            + "|  _ \\ _   _| | _____ \n"
-            + "| | | | | | | |/ / _ \\\n"
-            + "| |_| | |_| |   <  __/\n"
-            + "|____/ \\__,_|_|\\_\\___|\n";
-    private final String welcomeMessage = "Hello! I'm Duke\n"
-            + "What can I do for you?\n";
     private final String byeMessage = "Bye. Hope to see you again soon!\n";
-    protected String line = "____________________________________________________________\n";
-
-    /**
-     * Displays the welcome message when Duke program starts.
-     */
-    public String showWelcome(){
-        return "Hello from\n" + logo + welcomeMessage;
-    }
 
     /**
      * Displays the exit message when Duke Program ends.

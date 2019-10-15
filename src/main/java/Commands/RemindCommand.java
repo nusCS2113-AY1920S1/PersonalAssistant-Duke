@@ -35,7 +35,6 @@ public class RemindCommand extends Command {
 
     /**
      * Finds the tasks that are not done and within the current week.
-     * @param todos The TaskList object for todos
      * @param events The TaskList object for events
      * @param deadlines The TaskList object for deadlines
      * @param ui The Ui object to display the done task message

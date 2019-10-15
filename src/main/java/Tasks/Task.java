@@ -25,7 +25,7 @@ public class Task {
      * Checks whether the task is completed.
      * @return This returns a tick or cross depending on the boolean value of isDone
      */
-    private String getStatusIcon() {
+    public String getStatusIcon() {
         return (isDone ? "\u2713" : "\u2718");
     }
 
