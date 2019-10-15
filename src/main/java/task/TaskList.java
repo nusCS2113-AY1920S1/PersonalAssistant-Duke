@@ -122,37 +122,19 @@ public class TaskList {
         return task;
     }
 
-    /**
-     * updates the timing of a particular task.
-     *
-     * @param taskToBeChanged task to be updated
-     * @param command         task type to be updated
-     * @param atDate          new start time of task
-     * @param toDate          new end time of task
-     */
-    public void updateDate(Task taskToBeChanged, String command, LocalDateTime atDate, LocalDateTime toDate) {
-        if ("event".equals(command)) {
-            taskToBeChanged.startDate = atDate;
-            taskToBeChanged.endDate = toDate;
-        } else {
-            taskToBeChanged.startDate = atDate;
-        }
-
-    }
 
     /**
      * This function allows the user to obtain the tasks on a particular date.
      *
      * @param dayToFind is of String type which contains the desired date of
      *                  schedule.
-     * @return sortDateList the sorted schedule of all the tasks on a particular
-     *         date.
+     * @return sortDateList the sorted schedule of all the tasks on a particular date.
      */
     public ArrayList<Task> schedule(String dayToFind) {
         ArrayList<Task> sortedDateList = new ArrayList<Task>();
         for (int i = 0; i < listOfTasks.size(); i++) {
             if (!(listOfTasks.get(i).getClass() == task.Todo.class)
-                    && listOfTasks.get(i).toString().contains(dayToFind)) {
+                && listOfTasks.get(i).toString().contains(dayToFind)) {
                 sortedDateList.add(listOfTasks.get(i));
             }
         }
@@ -175,7 +157,7 @@ public class TaskList {
 
     /**
      * Function to allow user to edit/add comments to existing tasks.
-     * 
+     *
      * @param indexOfTask Index of task in list
      * @param comment     commnent to be added/edited
      * @return taskToBeEdited The task that has its comment edited/added
@@ -185,6 +167,7 @@ public class TaskList {
         taskToBeEdited.comment = comment;
         return taskToBeEdited;
     }
+
 
     public ArrayList<Task> getTasks() {
         return listOfTasks;

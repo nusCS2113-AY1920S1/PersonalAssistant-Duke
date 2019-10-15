@@ -14,6 +14,7 @@ public class DeadlineParser extends DescriptionParser {
         this.checkType = Flag.BY.getFlag();
     }
 
+
     @Override
     public Command parse() throws DukeException {
         super.extract();

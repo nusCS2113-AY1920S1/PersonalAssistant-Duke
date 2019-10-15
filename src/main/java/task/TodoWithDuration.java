@@ -1,6 +1,8 @@
 package task;
 
-public class TodoWithDuration extends Todo {
+import java.io.Serializable;
+
+public class TodoWithDuration extends Todo implements Serializable {
     public int duration;
 
     public TodoWithDuration(String description, int duration) {

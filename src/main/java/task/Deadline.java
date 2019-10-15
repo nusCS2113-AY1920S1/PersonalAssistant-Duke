@@ -44,4 +44,5 @@ public class Deadline extends Task implements Serializable {
             return (taskToCheck.startDate.isBefore(this.startDate) && taskToCheck.endDate.isAfter(this.startDate));
         }
     }
+
 }

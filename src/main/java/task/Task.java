@@ -22,8 +22,8 @@ public abstract class Task implements Serializable {
     protected boolean isDone;
     public boolean isPrioritizable = true;
 
-    public LocalDateTime endDate;
-    public LocalDateTime startDate;
+    public LocalDateTime endDate = null;
+    public LocalDateTime startDate = null;
     public LocalDateTime createdDate;
     public Period eventPeriod;
 
@@ -94,6 +94,14 @@ public abstract class Task implements Serializable {
 
     public void setPriority(Priority priority) {
         this.priority = priority;
+    }
+
+    public void setStartDate(LocalDateTime startDate) {
+        this.startDate = startDate;
+    }
+
+    public void setEndDate(LocalDateTime endDate) {
+        this.endDate = endDate;
     }
 
     public void markAsIgnorable() {
