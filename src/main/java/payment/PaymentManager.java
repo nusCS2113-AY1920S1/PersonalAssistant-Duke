@@ -14,8 +14,8 @@ public abstract class PaymentManager {
      * @param payee Payee of the item.
      * @return Payments object with payee name.
      */
-    public void findPayee(String payee) {
-        for (Payments payment : ManagerMap.get(payee).payments) {
+    public void findPayee(String payee, HashMap<String, Payee> managermap) {
+        for (Payments payment : managermap.get(payee).payments) {
             //TODO Output payment to UI
         }
     }
@@ -23,20 +23,20 @@ public abstract class PaymentManager {
     /**
      * Edits the Payments object details, may overload string to take different ways of inputs.
      */
-    public void editPayee(String payee, String inv, Field field, String replace) {
+    public void editPayee(String payee, String inv, Field field, String replace, HashMap<String, Payee> managermap) {
         if (inv.isEmpty()) {
             if (field == Field.PAYEE) {
-                ManagerMap.get(payee).payee = replace;
+                managermap.get(payee).payee = replace;
             } else if (field == Field.EMAIL) {
-                ManagerMap.get(payee).email = replace;
+                managermap.get(payee).email = replace;
             } else if (field == Field.MATRIC) {
-                ManagerMap.get(payee).matricNum = replace;
+                managermap.get(payee).matricNum = replace;
             } else if (field == Field.PHONE) {
-                ManagerMap.get(payee).phoneNum = replace;
+                managermap.get(payee).phoneNum = replace;
             }
         }
         else {
-            for (Payments payment : ManagerMap.get(payee).payments) {
+            for (Payments payment : managermap.get(payee).payments) {
                 if (payment.inv.equals(inv)) {
                     if (field == Field.ITEM) {
                         payment.item = replace;
@@ -78,7 +78,7 @@ public abstract class PaymentManager {
     public static void deletePayments(String payee, String item, HashMap<String, Payee> managermap){
         int i = 0;
         while (i < managermap.get(payee).payments.size()) {
-            if (managermap.get(payee).payments.get(i++).equals(item)) {
+            if (managermap.get(payee).payments.get(i++).item.equals(item)) {
                 managermap.get(payee).payments.remove(--i);
             }
         }

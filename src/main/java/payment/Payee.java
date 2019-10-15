@@ -24,37 +24,5 @@ public class Payee {
 
 }
 
-class Payments {
-    String item;
-    double cost;
-    String inv;
-    Date deadline;
-    Status status;
 
-    public Payments(String item, double cost, String inv) {
-        this.item = item;
-        this.cost = cost;
-        this.inv = inv;
-        this.status = Status.PENDING;
-        Date currDate = new Date();
-        this.deadline = new Date(currDate.getTime() + TimeUnit.DAYS.toMillis( 30 ));
-    }
-}
 
-enum Status {
-    PENDING,
-    APPROVED,
-    OVERDUE
-}
-
-enum Field {
-    PAYEE,
-    EMAIL,
-    MATRIC,
-    PHONE,
-    ITEM,
-    COST,
-    INV,
-    DEADLINE,
-    STATUS
-}

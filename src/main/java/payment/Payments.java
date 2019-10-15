@@ -18,8 +18,4 @@ public class Payments {
         Date currDate = new Date();
         this.deadline = new Date(currDate.getTime() + TimeUnit.DAYS.toMillis( 30 ));
     }
-
-    public String giveItem() {
-        return item;
-    }
 }
