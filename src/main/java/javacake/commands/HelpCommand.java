@@ -19,6 +19,7 @@ public class HelpCommand extends Command {
      * @param storage Storage needed to write the updated data
      * @param profile Profile of the user
      * @throws DukeException Error thrown when unable to close reader
+     * @return
      */
     @Override
     public String execute(ProgressStack progressStack, Ui ui, Storage storage, Profile profile) throws DukeException {

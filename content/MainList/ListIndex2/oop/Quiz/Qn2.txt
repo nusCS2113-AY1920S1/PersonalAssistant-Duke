@@ -1,1 +1,0 @@
-Name a class that does not inherit from any other class. | object

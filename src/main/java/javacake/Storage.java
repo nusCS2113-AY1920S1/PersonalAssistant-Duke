@@ -21,6 +21,10 @@ public class Storage {
         TODO, DEADLINE, TODO_DAILY, TODO_WEEKLY, TODO_MONTHLY
     }
 
+    public Storage() {
+
+    }
+
     /**
      * Initialises the 'data' based on previous data
      * from filepath.

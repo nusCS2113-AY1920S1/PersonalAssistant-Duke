@@ -1,4 +1,0 @@
-What does OOP stand for in software engineering context?
-    a. Out Of Print
-    b. Object-Oriented Programming
-    c. Ogre Onion Paradigm" | b

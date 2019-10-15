@@ -54,9 +54,12 @@ public class QuizCommand extends Command {
      * @param storage Storage to write updated data.
      * @param profile Profile of the user.
      * @throws DukeException Error thrown when there is a problem with score calculation.
+     * @return
      */
     @Override
     public String execute(ProgressStack progressStack, Ui ui, Storage storage, Profile profile) throws DukeException {
+        progressStack.insertQueries();
+        assert !progressStack.containsDirectory();
         for (int i = 0; i < QuestionList.MAX_QUESTIONS; i++) {
             Question question = chosenQuestions.get(i);
             ui.displayQuiz(question.getQuestion(), i + 1, QuestionList.MAX_QUESTIONS);

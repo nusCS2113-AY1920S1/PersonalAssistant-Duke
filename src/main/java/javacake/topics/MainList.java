@@ -1,34 +1,37 @@
 package javacake.topics;
 
+import java.io.File;
 import java.util.ArrayList;
 
-public class MainList extends ListFormat {
+public class MainList {
 
-    public ArrayList<String> mainContentList = new ArrayList<String>();
+    private String folderPath = "content/MainList";
+    private File folder;
+    private static File[] listOfFiles;
+    public static ArrayList<MainListTopic> openingMainList = new ArrayList<MainListTopic>();
 
-    /**
-     * Adds the available content in the main list.
-     */
+
     public MainList() {
-        mainContentList.add("Java Basics");
-        mainContentList.add("OOP concepts");
-        mainContentList.add("Useful Extensions");
-        mainContentList.add("Overall Quiz");
+        folder = new File(this.folderPath);
+        listOfFiles = folder.listFiles();
     }
 
     /**
-     * Prints the available content in the main list.
+     * Creates SubListTopic objects based on the names of the directories.
+     * Store SubListTopic objects into listIndex1Sublist ArrayList.
      */
-    public String printList() {
-        StringBuilder stringBuilder = new StringBuilder();
-        int indexCount = 1;
-        stringBuilder.append("Here are the ").append(mainContentList.size()).append(" topics available.\n");
-        for (String topicsInMainList : mainContentList) {
-            stringBuilder.append(indexCount).append(". ");
-            stringBuilder.append(topicsInMainList).append("\n");
-            indexCount++;
+    public void loadTopics() {
+        for (File listOfFile : listOfFiles) {
+            if (listOfFile.isFile()) {
+                openingMainList.add(new MainListTopic(listOfFile.getName()));
+            } else if (listOfFile.isDirectory()) {
+                openingMainList.add(new MainListTopic(listOfFile.getName()));
+            }
         }
-        stringBuilder.append("Key in the index to learn more about the topic!\n");
-        return stringBuilder.toString();
     }
+
+
+
+
 }
+

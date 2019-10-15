@@ -25,25 +25,27 @@ public class Parser {
 
     /**
      * Allows the user input to be parsed before running 'execute'.
-     * @param input String inputted by user, which needs to be parsed
+     * @param inputCommand String inputted by user, which needs to be parsed
      *              to identify the intent
      * @return a subclass of the Command Class along
      *         with their respective intent
      * @throws DukeException Shows error when unknown command is inputted
      */
-    public static Command parse(String input) throws DukeException {
+    public static Command parse(String inputCommand) throws DukeException {
+        String[] buffer = inputCommand.split("\\s+");
+        String input = buffer[0];
         if (input.equals("exit")) {
             return new ExitCommand();
         } else if (input.equals("list")) {
             return new ListCommand();
         } else if (input.equals("back")) {
             return new BackCommand();
-        } else if (input.length() >= 4 && input.substring(0,4).equals("help")) {
-            return new HelpCommand(input);
+        } else if (input.equals("help")) {
+            return new HelpCommand(inputCommand);
         } else if (input.equals("score")) {
             return new ScoreCommand();
-        } else if (input.length() > 4 && input.substring(0,4).equals("goto")) {
-            return new GoToCommand(input);
+        } else if (input.equals("goto")) {
+            return new GoToCommand(inputCommand);
         } else {
             throw new DukeException("OOPS!!! I'm sorry, but I don't know what that means.");
         }

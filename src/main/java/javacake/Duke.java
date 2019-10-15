@@ -5,6 +5,7 @@ import javacake.commands.QuizCommand;
 import javacake.quiz.Question;
 
 import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.io.PrintStream;
 
 public class Duke  {
@@ -71,7 +72,7 @@ public class Duke  {
                 ui.showMessage(c.execute(progressStack, ui, storage, profile));
                 isExit = c.isExit();
                 //System.out.println("Current progress is " + progressStack.checkProgress());
-            } catch (DukeException e) {
+            } catch (DukeException | IOException e) {
                 ui.showError(e.getMessage());
             } finally {
                 ui.showLine();
@@ -97,7 +98,7 @@ public class Duke  {
         try {
             Command c = Parser.parse(input);
             return c.execute(progressStack, ui, storage, profile);
-        } catch (DukeException e) {
+        } catch (DukeException | IOException e) {
             return e.getMessage();
         }
     }

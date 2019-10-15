@@ -18,6 +18,7 @@ public class DeleteCommand extends Command {
      * @param ui the Ui responsible for outputting messages
      * @param storage Storage needed to write the updated data
      * @throws DukeException Shows error when deletion is not possible
+     * @return
      */
     @Override
     public String execute(ProgressStack progressStack, Ui ui, Storage storage, Profile profile) throws DukeException {
