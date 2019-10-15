@@ -1,13 +1,15 @@
 package spinbox;
 
+import spinbox.commands.Command;
+import spinbox.exceptions.SpinBoxException;
+
 import java.util.ArrayDeque;
-import java.util.Deque;
 import java.util.HashMap;
 
 public class SpinBox {
     private Ui userInterface;
     private HashMap<String, Module> modules;
-    private Deque<String> page;
+    private ArrayDeque<String> pageTrace;
     private boolean shutdown = false;
 
     /**
@@ -16,8 +18,8 @@ public class SpinBox {
     public SpinBox(boolean cliMode) {
         userInterface = new Ui();
         modules = new HashMap<>();
-        page = new ArrayDeque<>();
-
+        pageTrace = new ArrayDeque<>();
+        pageTrace.add("main");
         if (cliMode) {
             this.startSpinBoxCli();
         }
@@ -44,6 +46,7 @@ public class SpinBox {
         userInterface.print(userInterface.showWelcome());
 
         while (!this.isShutdown()) {
+            userInterface.print(userInterface.showPage(pageTrace));
             String input = userInterface.readInput();
             userInterface.print(getResponse(input));
         }
@@ -55,24 +58,16 @@ public class SpinBox {
      * @return output response String to be returned to GUI/CLI.
      */
     public String getResponse(String input) {
-        /*
-        Need to implement parser and see what needs to be passed into userInterface.
         try {
+            Parser.setPageTrace(pageTrace);
             Command command = Parser.parse(input);
-            String response;
-            if (!command.isFileCommand()) {
-                response = command.execute(modules, dukeData, userInterface);
-            } else {
-                response = command.execute(modules, fileData, userInterface);
-            }
+            String response = command.execute(modules, pageTrace, userInterface);
             this.setShutdown(command.isExit());
             return response;
-        } catch (DukeException e) {
+        } catch (SpinBoxException e) {
             return userInterface.showFormatted(e.getMessage());
         }
-         */
-        this.shutdown = true;
-        return null;
+
     }
 
     private void setShutdown(boolean shutdown) {

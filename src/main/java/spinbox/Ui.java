@@ -1,5 +1,6 @@
 package spinbox;
 
+import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -59,5 +60,22 @@ public class Ui {
 
     public String readInput() {
         return scanner.nextLine();
+    }
+
+    /**
+     * Returns the current page.
+     * @param pageTrace the structure the pages are stored.
+     * @return a string of the page hierarchy.
+     */
+    public String showPage(ArrayDeque<String> pageTrace) {
+        ArrayDeque<String> tempPageTrace = pageTrace.clone();
+        String trace = "";
+        trace = trace.concat("Page: ");
+
+        while (tempPageTrace.size() > 0) {
+            trace = trace.concat("/" + tempPageTrace.getLast());
+            tempPageTrace.removeLast();
+        }
+        return trace;
     }
 }

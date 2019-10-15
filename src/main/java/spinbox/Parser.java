@@ -1,6 +1,9 @@
 package spinbox;
 
 import spinbox.commands.Command;
+import spinbox.commands.ExitCommand;
+import spinbox.commands.ViewCommand;
+
 import spinbox.exceptions.SpinBoxException;
 import spinbox.exceptions.InputException;
 
@@ -14,7 +17,7 @@ public class Parser {
     }
 
     /**
-     * Builds the required page data for command input.
+     * Builds the required page data for command input. Return page and maybe moduleCode
      * @param inputPageData The page data input.
      * @return Full page data.
      * @throws InputException If the input is invalid.
@@ -23,14 +26,15 @@ public class Parser {
         StringBuilder pageData = new StringBuilder();
 
         String[] pageComponent = inputPageData.split(" ");
-
         ArrayDeque<String> tempPageTrace = pageTrace.clone();
-        if (pageComponent.length == 0) {
+        // append page or page + module from pageTrace
+        if (pageComponent[0].isEmpty()) {
             pageData.append(tempPageTrace.getLast());
             tempPageTrace.removeLast();
             if (tempPageTrace.size() != 0) {
                 pageData.append(" ").append(tempPageTrace.getLast());
             }
+        // append page from input and maybe moduleCode from pageTrace
         } else if (pageComponent.length == 1) {
             switch (pageComponent[0]) {
             case "main":
@@ -45,12 +49,14 @@ public class Parser {
                 }
                 break;
             default:
-                if (pageTrace.getLast().equals("modules")) {
+                // means inputPageData is a moduleCode
+                if (tempPageTrace.getLast().equals("modules")) {
                     pageData.append("modules ").append(pageComponent[0]);
                 } else {
                     throw new InputException("Invalid input.");
                 }
             }
+        // append "modules" + moduleCode from input
         } else if (pageComponent.length == 2) {
             if (pageComponent[0].equals("modules")) {
                 pageData.append("modules ").append(pageComponent[1]);
@@ -58,7 +64,6 @@ public class Parser {
                 throw new InputException("Please input a valid command.");
             }
         }
-
         return pageData.toString();
     }
 
@@ -70,13 +75,42 @@ public class Parser {
      */
     public static Command parse(String input) throws SpinBoxException {
         Command command = null;
+        String content = "";
+        String action = "";
+        String pageData = "";
 
         String[] colonSeparate = input.split(" : ");
-        String content = colonSeparate[1];
-        String action = colonSeparate[0].substring(0, colonSeparate[0].indexOf(" "));
-        String pageData = colonSeparate[0].substring(colonSeparate[0].indexOf(action + 2));
-        pageData = commandBuilder(pageData);
-        String[] pageDataComponents = pageData.split(" ");
+        try {
+            if (colonSeparate.length == 1) {
+                if (input.equals("bye")) {
+                    action = "bye";
+                } else {
+                    throw new InputException("Please give valid command:\n"
+                            + "'<action> <page> : <content>' or 'bye'");
+                }
+            } else {
+                content = colonSeparate[1].trim();
+                String[] frontComponents = colonSeparate[0].split(" ");
+                action = frontComponents[0];
+                pageData = colonSeparate[0].replace(action, "");
+                pageData = commandBuilder(pageData);
+                String[] pageDataComponents = pageData.split(" ");
+            }
+        } catch (ArrayIndexOutOfBoundsException | StringIndexOutOfBoundsException e) {
+            throw new InputException("Please give valid command:\n"
+                    + "'<action> <page> : <content>' or 'bye'");
+        }
+
+        switch (action) {
+        case "bye":
+            command = new ExitCommand();
+            break;
+        case "view":
+            command = new ViewCommand(pageData, content);
+            break;
+        default:
+        }
+        return command;
 
         //      **This will be an example of how to turn the input into commands.**
         //
@@ -89,7 +123,5 @@ public class Parser {
         //        } catch (NumberFormatException e) {
         //            throw new InputException("Please enter an integer for index");
         //        }
-
-        return null;
     }
 }

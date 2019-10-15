@@ -1,17 +1,28 @@
 package spinbox.commands;
 
+import spinbox.Module;
 import spinbox.exceptions.SpinBoxException;
 import spinbox.Storage;
 import spinbox.Ui;
 import spinbox.lists.TaskList;
 
-import java.util.Stack;
+import java.util.HashMap;
+import java.util.ArrayDeque;
 
 public abstract class Command {
     private boolean isExit;
     private boolean isFileCommand;
 
-    public abstract String execute(TaskList taskList, Storage storage, Ui ui) throws SpinBoxException;
+    // New execute needs to be made abstract
+    public String execute(HashMap<String, Module> modules, ArrayDeque<String> pageTrace, Ui ui)
+            throws SpinBoxException {
+        return "Blank";
+    }
+
+    // Old execute
+    public String execute(TaskList taskList, Storage storage, Ui ui) throws SpinBoxException {
+        return null;
+    }
 
     public boolean isExit() {
         return isExit;
