@@ -1,9 +1,13 @@
 package task;
 
+import javafx.collections.ObservableList;
+
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+
+import static parser.DateTimeExtractor.NULL_DATE;
 
 /**
  * The TaskList class handles all operations performed on the TaskList as well
@@ -113,7 +117,6 @@ public class TaskList {
         } else {
             taskToBeChanged.startDate = atDate;
         }
-
     }
 
     /**
@@ -126,7 +129,7 @@ public class TaskList {
     public ArrayList<Task> schedule(String dayToFind) {
         ArrayList<Task> sortedDateList = new ArrayList<Task>();
         for (int i = 0; i < listOfTasks.size(); i++) {
-            if (!(listOfTasks.get(i).getClass() == task.Todo.class)
+            if ((listOfTasks.get(i).startDate != NULL_DATE)
                 && listOfTasks.get(i).toString().contains(dayToFind)) {
                 sortedDateList.add(listOfTasks.get(i));
             }
