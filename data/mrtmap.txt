@@ -78,3 +78,18 @@ Kallang | 1.3115 | 103.8714 | green
 Lavender | 1.3074 | 103.8628 | green
 Bugis | 1.3007 | 103.8559 | green | downtown
 Tanjong Pagar | 1.2763 | 103.8468 | green
+Tiong Bahru | 1.2865 | 13.8270 | green
+Redhill | 1.2896 | 103.8168 | green
+Queenstown | 1.2948 | 103.8059 | green
+Commonwealth | 1.3024 | 103.7983 | green
+Dover | 1.3114 | 103.7786 | green
+Clementi | 1.3152 | 103.7652 | green
+Chinese Garden | 1.3385 | 103.7304 | green
+Lakeside | 1.3442 | 103.7208 |  green
+Boon Lay | 1.3386 | 103.7326 | green
+Pioneer | 1.3376 | 103.6974 | green
+Joo Koon | 1.3278 | 1303.6783 | green
+Gul Circle | 1.3198 | 103.66008 | green
+Tuas | 1.3210 | 103.66491 | green
+Tuas West Road | 1.3300 | 103.6396 | green
+Tuas Link | 1.3403 | 103.6369 | green
