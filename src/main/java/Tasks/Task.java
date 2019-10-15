@@ -8,6 +8,7 @@ public class Task {
     private boolean isDone;
     private boolean isReminder;
     private String remindTime;
+    private String modCode;
 
     /**
      * Creates Task object.
@@ -18,6 +19,7 @@ public class Task {
         this.isDone = false;
         this.isReminder = false;
         this.remindTime = "";
+        this.modCode ="";
     }
 
     public String getType() {
@@ -28,7 +30,7 @@ public class Task {
      * Checks whether the task is completed.
      * @return This returns a tick or cross depending on the boolean value of isDone
      */
-    private String getStatusIcon() {
+    public String getStatusIcon() {
         return (isDone ? "\u2713" : "\u2718");
     }
 
@@ -72,6 +74,7 @@ public class Task {
         return split[0];
     }
 
+
     public void setRemindTime(String time) {
         remindTime = time;
     }
@@ -86,5 +89,9 @@ public class Task {
 
     public boolean getReminder() {
         return this.isReminder;
+    }
+
+    public String toShow() {
+        return modCode + "\n" + description;
     }
 }

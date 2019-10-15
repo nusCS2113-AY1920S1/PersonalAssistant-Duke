@@ -38,13 +38,15 @@ public class DeleteCommand extends Command {
         if (list.equals("event")) {
             events.removeTask(T);
             storage.updateEventList(events);
+            listToChange = events;
         } else if (list.equals("deadline")) {
             deadlines.removeTask(T);
             storage.updateDeadlineList(deadlines);
+            listToChange = deadlines;
         }
         return ui.showDelete(T, listToChange.taskListSize());
-        } catch (ArrayIndexOutOfBoundsException e) {
-            throw new DukeException("\u2639" + " OOPS!!! I'm sorry, but we cannot find the input task number :-(\n");
+        } catch(ArrayIndexOutOfBoundsException e) {
+            throw new DukeException("\u2639" + " OOPS!!! I'm sorry, but we cannot find the input task  :-(\n");
         }
     }
 }

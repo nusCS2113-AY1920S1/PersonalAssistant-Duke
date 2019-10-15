@@ -1,4 +1,5 @@
 package Tasks;
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -54,7 +55,10 @@ public class TaskList {
         }
         this.map.get(task.getModCode()).get(task.getDateTime()).add(task);
     }
-
+    //Do not use this
+    public void removeTask(int index){
+        this.list.remove(index);
+    }
 
     public void removeTask(Task task) {
         for(Task taskInList : this.map.get(task.getModCode()).get(task.getDateTime())) {
@@ -110,7 +114,7 @@ public class TaskList {
      * This method sort and removes duplicated Dates of the list.
      * @param date The current datetime instance which locks the time
      * @return A list of dates combining data from taskList
-     * @throws ParseException Throws a error when date being passed contains and error
+     * @throws ParseException Throws a error when date being passed contains an error
      */
     private TreeSet<Date> sortAndRemoveDuplicatedDates(Date date) throws ParseException {
         SimpleDateFormat dateFormat = new SimpleDateFormat("E dd/MM/yyyy hh:mm aa");

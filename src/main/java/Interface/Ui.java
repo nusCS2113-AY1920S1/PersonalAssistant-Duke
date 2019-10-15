@@ -9,22 +9,7 @@ import java.util.ArrayList;
  */
 public class Ui {
     private static final String NO_FIELD = "void";
-    private final String logo = " ____        _        \n"
-            + "|  _ \\ _   _| | _____ \n"
-            + "| | | | | | | |/ / _ \\\n"
-            + "| |_| | |_| |   <  __/\n"
-            + "|____/ \\__,_|_|\\_\\___|\n";
-    private final String welcomeMessage = "Hello! I'm Duke\n"
-            + "What can I do for you?\n";
     private final String byeMessage = "Bye. Hope to see you again soon!\n";
-    protected String line = "____________________________________________________________\n";
-
-    /**
-     * Displays the welcome message when Duke program starts.
-     */
-    public String showWelcome(){
-        return "Hello from\n" + logo + welcomeMessage;
-    }
 
     /**
      * Displays the exit message when Duke Program ends.
@@ -63,8 +48,9 @@ public class Ui {
      * Displays the delete task message when user wants to delete a task.
      */
     public String showDelete(Task task, int listSize){
+        listSize -= 1;
         return "Noted. I've removed this task:\n" + task.toString() + "\n" + "Now you have "
-                + listSize + (listSize > 1 ? " tasks in the list.\n" : " task in the list.\n");
+                + listSize  + (listSize > 1 ? " tasks in the list.\n" : " task in the list.\n");
     }
 
     /**
@@ -72,6 +58,7 @@ public class Ui {
      */
     public String showFind(TaskList list){
         if(list.taskListSize() == 0) {
+
             return "There are no matching tasks in your list.\n";
         } else {
             String findMessage = "Here are the matching tasks in your list:\n";
@@ -137,6 +124,7 @@ public class Ui {
                 "Now you have " + listSize + (listSize > 1 ? " tasks in the list.\n" : " task in the list.\n");
     }
 
+
     /**
      * Displays the show reminder message when user enter a task with a period to do within
      * @param TaskDescription The description of the task entered
@@ -155,4 +143,7 @@ public class Ui {
         }
     }
 
+    public String showRecurring(String description, String startDate, String endDate) {
+        return "Recurring task: " + description + " has been added between " + startDate + " and " + endDate + "\n";
+    }
 }
