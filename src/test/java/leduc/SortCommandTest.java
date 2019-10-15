@@ -42,6 +42,15 @@ public class SortCommandTest {
         }
         assertTrue(tasks.size()==15);
 
+        SortCommand sortCommandDate = new SortCommand("sort date");
+        try{
+            sortCommandDate.execute(tasks,ui,storage);
+        }
+        catch( DukeException e ){
+            assertTrue(false);
+        }
+        assertTrue(tasks.size()==15);
+
         assertEquals("d1",tasks.get(0).getTask());
         assertEquals("deadline",tasks.get(1).getTask());
         assertEquals("e1",tasks.get(2).getTask());
@@ -76,6 +85,15 @@ public class SortCommandTest {
         }
         assertTrue(tasks.size()==15);
 
+        SortCommand sortCommand10 = new SortCommand("sort");
+        try{
+            sortCommand10.execute(tasks,ui,storage);
+        }
+        catch( DukeException e ){
+            assertTrue(e instanceof EmptyArgumentException);
+        }
+        assertTrue(tasks.size()==15);
+
         SortCommand sortCommand3 = new SortCommand("sort description");
         try{
             sortCommand3.execute(tasks,ui,storage);
@@ -100,6 +118,31 @@ public class SortCommandTest {
         assertEquals("test",tasks.get(12).getTask());
         assertEquals("test 2",tasks.get(13).getTask());
         assertEquals("test 3",tasks.get(14).getTask());
+
+        SortCommand sortCommand13 = new SortCommand("sort priority");
+        try{
+            sortCommand13.execute(tasks,ui,storage);
+        }
+        catch( DukeException e ){
+            assertTrue(false);
+        }
+        assertTrue(tasks.size()==15);
+
+        assertEquals("&",tasks.get(4).getTask());
+        assertEquals("1",tasks.get(5).getTask());
+        assertEquals("2",tasks.get(6).getTask());
+        assertEquals("5",tasks.get(8).getTask());
+        assertEquals("d1",tasks.get(0).getTask());
+        assertEquals("deadline",tasks.get(1).getTask());
+        assertEquals("deadlineOther",tasks.get(2).getTask());
+        assertEquals("e1",tasks.get(3).getTask());
+        assertEquals("td1",tasks.get(10).getTask());
+        assertEquals("td3",tasks.get(12).getTask());
+        assertEquals("td4",tasks.get(14).getTask());
+        assertEquals("td5",tasks.get(13).getTask());
+        assertEquals("test",tasks.get(11).getTask());
+        assertEquals("test 2",tasks.get(9).getTask());
+        assertEquals("test 3",tasks.get(7).getTask());
 
         SortCommand sortCommand4 = new SortCommand("sort date");
         try{

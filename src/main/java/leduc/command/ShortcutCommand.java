@@ -133,6 +133,12 @@ public class ShortcutCommand extends Command {
             } while(setShortcut.contains(newShortcut));
             setOneShortcut("show", newShortcut);
 
+            do{
+                ui.display("The precedent shortcut for prioritize is " + PrioritizeCommand.getPrioritizeShortcut() +" please enter new shortcut");
+                newShortcut = ui.readCommand();
+            } while(setShortcut.contains(newShortcut));
+            setOneShortcut("prioritize", newShortcut);
+
             ui.display("All shortcut has been set");
         }
         storage.saveConfig();
@@ -224,6 +230,11 @@ public class ShortcutCommand extends Command {
                 setShortcut.remove(ShowCommand.getShowShortcut());
                 ShowCommand.setShowShortcut(shortcutName);
                 setShortcut.add(shortcutName);
+            case "prioritize" :
+                setShortcut.remove(PrioritizeCommand.getPrioritizeShortcut());
+                PrioritizeCommand.setPrioritizeShortcut(shortcutName);
+                setShortcut.add(shortcutName);
+                break;
             default:
                 throw new MeaninglessException();
         }

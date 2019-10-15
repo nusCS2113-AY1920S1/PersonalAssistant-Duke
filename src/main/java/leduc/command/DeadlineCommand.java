@@ -34,10 +34,12 @@ public class DeadlineCommand extends Command {
      * @throws EmptyDeadlineDateException Exception caught when the date of the deadline task is not given.
      * @throws EmptyDeadlineException Exception caught when the description of the deadline task is not given.
      * @throws NonExistentDateException Exception caught when the date given does not exist.
-     * @throws FileException Exception caught when the file can't be open or read or modify
+     * @throws FileException Exception caught when the file can't be open or read or modify.
+     * @throws PrioritizeLimitException Exception caught when the new priority is greater than 9 or less than 0.
      */
     public void execute(TaskList tasks, Ui ui, Storage storage)
-            throws EmptyDeadlineDateException, EmptyDeadlineException, NonExistentDateException, FileException {
+            throws EmptyDeadlineDateException, EmptyDeadlineException, NonExistentDateException,
+            FileException, PrioritizeLimitException {
         String userSubstring;
         if(callByShortcut){
             userSubstring = user.substring(DeadlineCommand.deadlineShortcut.length());
@@ -55,14 +57,31 @@ public class DeadlineCommand extends Command {
             throw new EmptyDeadlineDateException();
         } else {
             String description = taskDescription[0].trim();
-            String deadlineString = taskDescription[1].trim();
+            String[] prioritySplit = taskDescription[1].trim().split("prio");
+            String deadlineString = prioritySplit[0].trim();
             //date format used: dd/MM/yyyy HH:mm
             if (deadlineString.isBlank()) {
                 throw new EmptyDeadlineDateException();
             }
             else {
                 Date d = new Date(deadlineString);
-                DeadlinesTask newTask = new DeadlinesTask(description, d);
+                DeadlinesTask newTask = null;
+                if (prioritySplit.length == 1){
+                    newTask = new DeadlinesTask(description, d);
+                }
+                else {
+                    int priority = -1 ;
+                    try{
+                        priority = Integer.parseInt(prioritySplit[1].trim());
+                    }
+                    catch(Exception e){
+                        throw new PrioritizeLimitException();
+                    }
+                    if (priority < 0 || priority > 9) {
+                        throw new PrioritizeLimitException();
+                    }
+                    newTask = new DeadlinesTask(description,d,priority);
+                }
                 tasks.add(newTask);
                 storage.save(tasks.getList());
                 ui.display("\t Got it. I've added this task:\n\t   "

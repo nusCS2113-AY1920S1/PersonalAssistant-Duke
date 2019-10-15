@@ -13,7 +13,8 @@ public class DeadlinesTask extends Task {
 
     /**
      * Constructor of leduc.task.DeadlinesTask. The task is not done by default.
-     * @param task task list.
+     * And the priority is 5 by default.
+     * @param task String representing the description of the Task.
      * @param deadlines the deadline of the task.
      */
     public DeadlinesTask(String task, Date deadlines){
@@ -23,14 +24,24 @@ public class DeadlinesTask extends Task {
     }
 
     /**
+     * Constructor of leduc.task.DeadlinesTask. The task is not done by default.
+     * @param task  String representing the description of the Task.
+     * @param deadlines the deadline of the task.
+     * @param priority the priority of the deadline task.
+     */
+    public DeadlinesTask(String task, Date deadlines, int priority){
+        super(task,priority);
+        this.deadlines = deadlines;
+    }
+    /**
      * Constructor of leduc.task.DeadlinesTask. The task could be done or not depending on the parameter given.
-     * @param task task list.
+     * @param task  String representing the description of the Task.
      * @param mark represent if the task is done or not.
      * @param deadlines the deadline of the task.
+     * @param priority the priority of the deadline task.
      */
-    public DeadlinesTask(String task, String mark, Date deadlines){
-        super(task);
-        super.setMark(mark);
+    public DeadlinesTask(String task, String mark, Date deadlines, int priority){
+        super(task,mark,priority);
         this.tag ="[D]";
         this.deadlines = deadlines;
     }
@@ -76,7 +87,7 @@ public class DeadlinesTask extends Task {
      * @return the string format to see a deadline task
      */
     public String toString(){
-        return super.toString() + " by: " + getDeadlines();
+        return super.toString() + " by: " + getDeadlines() + " [Priority: " + getPriority() + "]";
     }
 
     /**

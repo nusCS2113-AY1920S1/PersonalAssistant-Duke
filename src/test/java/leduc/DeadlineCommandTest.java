@@ -83,6 +83,36 @@ public class DeadlineCommandTest {
         }
         assertTrue(tasks.size()==1);
 
+        DeadlineCommand deadlineCommand5 = new DeadlineCommand("deadline d1 /by 12/12/2000 22:22 prio 6");
+        try{
+            deadlineCommand5.execute(tasks,ui,storage);
+        }
+        catch( DukeException e){
+            assertTrue(false);
+        }
+        assertTrue(tasks.size()==2);
+        assertTrue(tasks.get(1).getPriority() == 6);
+        assertTrue(tasks.get(0).getPriority() == 5);
+
+
+        DeadlineCommand deadlineCommand6 = new DeadlineCommand("deadline d1 /by 12/12/2000 22:22 prio 12");
+        try{
+            deadlineCommand6.execute(tasks,ui,storage);
+        }
+        catch( DukeException e){
+            assertTrue(e instanceof PrioritizeLimitException);
+        }
+        assertTrue(tasks.size()==2);
+
+        DeadlineCommand deadlineCommand7 = new DeadlineCommand("deadline d1 /by 12/12/2000 22:22 prio Qzeaze");
+        try{
+            deadlineCommand7.execute(tasks,ui,storage);
+        }
+        catch( DukeException e){
+            assertTrue(e instanceof PrioritizeLimitException);
+        }
+        assertTrue(tasks.size()==2);
+
         DeleteCommand delete = new DeleteCommand("delete 1");
         try{
             delete.execute(tasks,ui,storage);
@@ -90,8 +120,14 @@ public class DeadlineCommandTest {
         catch( DukeException e){ //should not happen
             assertTrue(false);
         }
+        assertTrue(tasks.size()==1);
+        try{
+            delete.execute(tasks,ui,storage);
+        }
+        catch( DukeException e){ //should not happen
+            assertTrue(false);
+        }
         assertTrue(tasks.size()==0);
-
 
     }
 

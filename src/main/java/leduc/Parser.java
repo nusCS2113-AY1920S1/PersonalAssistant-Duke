@@ -95,7 +95,13 @@ public class Parser {
             c = new RescheduleCommand(user);
             c.calledByShortcut();
         }
-
+        else if (user.matches("prioritize \\d+ (.*)") | user.matches("prioritize")){
+            c = new PrioritizeCommand(user);
+        }
+        else if (user.matches(PrioritizeCommand.getPrioritizeShortcut() + " \\d+ (.*)") | user.matches(PrioritizeCommand.getPrioritizeShortcut())) { // prioritize 1 prio 2
+            c = new PrioritizeCommand(user);
+            c.calledByShortcut();
+        }
         else if (user.matches("setwelcome (.*)") | user.matches("setwelcome")) {
             c = new SetWelcomeCommand(user);
         }

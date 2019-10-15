@@ -33,11 +33,13 @@ public class SetWelcomeCommand extends Command{
         String filepath = System.getProperty("user.dir")+ "/data/welcome.txt";//get location of welcome message file
         File file = Ui.openFile(filepath);
         //open fileWriter object
+        String welcomeMessage;
         try {
             fileWriter = new FileWriter(file);
             try {
                 //removes the first word of the user input
-                fileWriter.write(String.join(" ", Arrays.copyOfRange(user.split(" "), 1, user.split( " ").length)));
+                welcomeMessage = String.join(" ", Arrays.copyOfRange(user.split(" "), 1, user.split( " ").length));
+                fileWriter.write(welcomeMessage);
             }
             finally{
                 fileWriter.close();
@@ -47,7 +49,9 @@ public class SetWelcomeCommand extends Command{
             e.printStackTrace();
             throw new FileException();
         }
+        ui.display("\t The welcome message is edited: " + welcomeMessage);
     }
+
     /**
      * getter because the shortcut is private
      * @return the shortcut name
