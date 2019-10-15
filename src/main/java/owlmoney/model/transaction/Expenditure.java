@@ -6,7 +6,6 @@ import java.util.Date;
  * Expenditure class which represents one expenditure.
  */
 public class Expenditure extends Transaction {
-
     /**
      * Creates an instance of a new Expenditure.
      *
@@ -17,5 +16,6 @@ public class Expenditure extends Transaction {
      */
     public Expenditure(String description, double amount, Date date, String category) {
         super(description, amount, date, category);
+        this.setSpent(true);
     }
 }

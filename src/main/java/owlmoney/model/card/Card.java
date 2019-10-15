@@ -16,8 +16,8 @@ public class Card {
     private double limit;
     private double rebate;
     private double remainingLimit;
-    TransactionList paid;
-    TransactionList unpaid;
+    private TransactionList paid;
+    private TransactionList unpaid;
 
     /**
      * Constructor that allows the child class to create an instance with credit card name.
@@ -94,7 +94,7 @@ public class Card {
      *
      * @param amount Amount to be subtracted from remaining limit.
      */
-    void subtractRemainingLimit(double amount) {
+    private void subtractRemainingLimit(double amount) {
         this.remainingLimit -= amount;
     }
 
@@ -103,7 +103,7 @@ public class Card {
      *
      * @param amount Amount to be added to remaining limit.
      */
-    void addRemainingLimit(double amount) {
+    private void addRemainingLimit(double amount) {
         this.remainingLimit += amount;
     }
 
@@ -112,7 +112,7 @@ public class Card {
      *
      * @return rebate of the credit card.
      */
-    double getRebate() {
+    private double getRebate() {
         return this.rebate;
     }
 
@@ -155,11 +155,12 @@ public class Card {
      *
      * @param exp Expenditure to be added.
      * @param ui Ui of OwlMoney.
+     * @param type Type of account to add expenditure into
      * @throws CardException If expenditure exceeds card limit.
      */
-    public void addInExpenditure(Transaction exp, Ui ui) throws CardException {
+    void addInExpenditure(Transaction exp, Ui ui, String type) throws CardException {
         this.checkExpExceedRemainingLimit(exp);
-        unpaid.addExpenditureToList(exp, ui);
+        unpaid.addExpenditureToList(exp, ui, type);
         this.subtractRemainingLimit(exp.getAmount());
     }
 

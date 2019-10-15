@@ -18,12 +18,12 @@ public abstract class ParseCard {
     private ParseRawData parseRawData = new ParseRawData();
     private String rawData;
     private static final String[] CARD_KEYWORD = new String[] {
-        "/name", "/limit", "/rebate", "/new_name" };
+        "/name", "/limit", "/rebate", "/newname" };
     private static final List<String> EXPENDITURE_KEYWORD_LISTS = Arrays.asList(CARD_KEYWORD);
     static final String NAME = "/name";
     static final String LIMIT = "/limit";
     static final String REBATE = "/rebate";
-    static final String NEW_NAME = "/new_name";
+    static final String NEW_NAME = "/newname";
 
     /**
      * Constructor which creates an instance of Card object.
@@ -66,13 +66,19 @@ public abstract class ParseCard {
      * Checks if the parameter entered by the user is a double and only contains numbers.
      *
      * @param valueString String to be checked and converted to double.
-     * @param keyword Keyword of the parameter to be checked and converted to double.
      * @throws ParserException If the string is not a double value.
      */
-    void checkDouble(String valueString, String keyword) throws ParserException {
+    void checkLimist(String valueString) throws ParserException {
         if (!RegexUtil.regexCheckMoney(valueString)) {
-            throw new ParserException(keyword + " can only be positive numbers"
+            throw new ParserException("Limit can only be positive numbers"
                     + " with at most 9 digits and 2 decimal places");
+        }
+    }
+
+    void checkCashBack(String valueString) throws ParserException {
+        if (!RegexUtil.regexCheckMoney(valueString)) {
+            throw new ParserException("Cash back can only be positive numbers"
+                    + " with at most 2 digits and 2 decimal places and at most 20");
         }
     }
 

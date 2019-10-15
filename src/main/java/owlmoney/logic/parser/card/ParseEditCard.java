@@ -39,11 +39,11 @@ public class ParseEditCard extends ParseCard {
                 checkName(value);
             }
             if (LIMIT.equals(key) && !(value.isEmpty() || value.isBlank())) {
-                checkDouble(value, LIMIT);
+                checkLimist(value);
                 changeCounter++;
             }
             if (REBATE.equals(key) && !(value.isEmpty() || value.isBlank())) {
-                checkDouble(value, REBATE);
+                checkCashBack(value);
                 changeCounter++;
             }
             if (NEW_NAME.equals(key) && !(value.isEmpty() || value.isBlank())) {

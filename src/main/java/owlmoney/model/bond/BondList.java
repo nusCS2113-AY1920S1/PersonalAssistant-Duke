@@ -50,7 +50,7 @@ public class BondList {
      */
     public void addBondToList(Bond bond, Ui ui) {
         bondLists.add(bond);
-        ui.printMessage("\nAdded bond: ");
+        ui.printMessage("Added bond: ");
         ui.printMessage(bond.getBondDescription());
     }
 
@@ -86,6 +86,9 @@ public class BondList {
     public void removeBondFromList(String bondName, Ui ui) {
         for (int i = 0; i < getSize(); i++) {
             if (bondName.equals(bondLists.get(i).getName())) {
+                Bond temp = bondLists.get(i);
+                ui.printMessage("Deleting bond:");
+                ui.printMessage(temp.getBondDescription());
                 bondLists.remove(i);
                 return;
             }
@@ -112,8 +115,8 @@ public class BondList {
      * Edits the bond details specifically.
      *
      * @param bondName the name of the bond to retrieve.
-     * @param year the new year of the bond
-     * @param rate the new rate of the bond
+     * @param year the new year of the bond.
+     * @param rate the new rate of the bond.
      * @param ui required for printing.
      * @throws BondException If the bond does not exist or the year is smaller than the original.
      */

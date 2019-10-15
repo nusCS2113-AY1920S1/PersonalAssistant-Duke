@@ -52,7 +52,11 @@ abstract class Parser {
 
         if ("/savings".equals(firstField) || "/card".equals(firstField)
                 || "/investment".equals(firstField) || "/goals".equals(firstField)) {
-            return "";
+            if (input.equals(firstField)) {
+                return "";
+            } else {
+                throw new ParserException("/list " + firstField + " cannot have trailing arguments");
+            }
         } else if (firstField.length() + SPACE_LENGTH < input.length()) {
             return input.substring(firstField.length() + SPACE_LENGTH);
         } else {

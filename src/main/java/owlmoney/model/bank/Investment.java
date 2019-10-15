@@ -36,28 +36,20 @@ public class Investment extends Bank {
      *
      * @param exp an instance of expenditure.
      * @param ui  required for printing.
+     * @param bankType Type of bank to add expenditure into.
      * @throws BankException If amount becomes negative after adding expenditure.
      */
     @Override
-    public void addInExpenditure(Transaction exp, Ui ui) throws BankException {
+    public void addInExpenditure(Transaction exp, Ui ui, String bankType) throws BankException {
+        if (!"bond".equals(bankType)) {
+            throw new BankException("This account does not support savings expenditures");
+        }
         if (exp.getAmount() > this.getCurrentAmount()) {
             throw new BankException("Bank account cannot have a negative amount");
         } else {
-            transactions.addExpenditureToList(exp, ui);
+            transactions.addExpenditureToList(exp, ui, bankType);
             deductFromAmount(exp.getAmount());
         }
-    }
-
-    /**
-     * Deletes an expenditure tied to this bank account.
-     *
-     * @param exId The id of the expenditure in ExpenditureList.
-     * @param ui   required for printing.
-     * @throws TransactionException If invalid transaction.
-     */
-    @Override
-    public void deleteExpenditure(int exId, Ui ui) throws TransactionException {
-        addToAmount(transactions.deleteExpenditureFromList(exId, ui));
     }
 
     /**
@@ -65,10 +57,15 @@ public class Investment extends Bank {
      *
      * @param dep Deposit to add.
      * @param ui  Ui of OwlMoney.
+     * @param bankType Type of bank to add deposit into.
+     * @throws BankException If user manually adds deposit into investment account
      */
     @Override
-    public void addDepositTransaction(Transaction dep, Ui ui) {
-        transactions.addDepositToList(dep, ui);
+    public void addDepositTransaction(Transaction dep, Ui ui, String bankType) throws BankException {
+        if (!"bonds".equals(bankType)) {
+            throw new BankException("This account does not support this feature");
+        }
+        transactions.addDepositToList(dep, ui, bankType);
         addToAmount(dep.getAmount());
     }
 
@@ -123,7 +120,7 @@ public class Investment extends Bank {
      *
      * @param bondName the name of the bond to edit.
      * @param year     the new year of the bond.
-     * @param rate     the new rate
+     * @param rate     the new rate.
      * @param ui       required for printing.
      * @throws BondException If the bond does not exist or the year is smaller than the original.
      */

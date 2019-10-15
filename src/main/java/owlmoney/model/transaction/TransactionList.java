@@ -40,7 +40,7 @@ public class TransactionList {
             boolean expenditureExist = false;
             for (int i = expLists.size() - ONE_INDEX; i >= 0; i--) {
                 if (!"deposit".equals(expLists.get(i).getCategory())) {
-                    ui.printMessage(i + 1 + ":\n" + expLists.get(i).getDetails() + "\n");
+                    ui.printMessage((i + 1) + ":\n" + expLists.get(i).getDetails());
                     counter--;
                     expenditureExist = true;
                 }
@@ -69,7 +69,7 @@ public class TransactionList {
             boolean depositExist = false;
             for (int i = expLists.size() - ONE_INDEX; i >= 0; i--) {
                 if ("deposit".equals(expLists.get(i).getCategory())) {
-                    ui.printMessage(i + ":\n" + expLists.get(i).getDetails() + "\n");
+                    ui.printMessage((i + 1) + ":\n" + expLists.get(i).getDetails());
                     counter--;
                     depositExist = true;
                 }
@@ -89,9 +89,11 @@ public class TransactionList {
      * @param exp an instance of an expenditure.
      * @param ui  required for printing.
      */
-    public void addExpenditureToList(Transaction exp, Ui ui) {
+    public void addExpenditureToList(Transaction exp, Ui ui, String type) {
         expLists.add(exp);
-        ui.printMessage("Added expenditure:\n" + exp.getDetails());
+        if (!"bond".equals(type)) {
+            ui.printMessage("Added expenditure:\n" + exp.getDetails());
+        }
     }
 
     /**
@@ -100,9 +102,11 @@ public class TransactionList {
      * @param dep an instance of an deposit.
      * @param ui  required for printing.
      */
-    public void addDepositToList(Transaction dep, Ui ui) {
+    public void addDepositToList(Transaction dep, Ui ui, String bankType) {
         expLists.add(dep);
-        ui.printMessage("Added deposit:\n" + dep.getDetails());
+        if ("bank".equals(bankType)) {
+            ui.printMessage("Added deposit:\n" + dep.getDetails());
+        }
     }
 
     /**
