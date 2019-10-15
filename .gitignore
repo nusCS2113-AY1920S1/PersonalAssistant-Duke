@@ -21,3 +21,6 @@ bin/
 .classpath
 .project
 .settings/org.eclipse.buildship.core.prefs
+
+# Github Beta Action
+/.github
