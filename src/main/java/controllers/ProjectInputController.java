@@ -70,6 +70,7 @@ public class ProjectInputController implements IController {
                     consoleView.viewAllMembers(projectToManage);
                 } else if (projectCommand.length() == 12 && ("view credits").equals(projectCommand)) {
                     // TODO view all credits.
+                    consoleView.consolePrint("Not implemented yet");
                 } else if (projectCommand.length() >= 9 && ("add task ").equals(projectCommand.substring(0, 9))) {
                     try {
                         TaskFactory taskFactory = new TaskFactory();
