@@ -11,6 +11,8 @@ import java.util.ArrayList;
 import java.util.BitSet;
 import java.util.Date;
 
+import static compal.commons.Messages.MESSAGE_INVALID_TASK_ID;
+
 
 public class TaskList {
 
@@ -83,6 +85,38 @@ public class TaskList {
 
         compal.ui.showSize();
     }
+
+
+    /**
+     * Returns a task that has an id value of id.
+     */
+    public Task getTaskById(int id) throws Compal.DukeException {
+
+        //search for task with id of id
+        for (Task t:arrlist) {
+            if (t.getId() == id) {
+                return t;
+            }
+        }
+        throw new Compal.DukeException(MESSAGE_INVALID_TASK_ID);
+
+    }
+
+    /**
+     * Removes a task that has an id value of id.
+     */
+    public Task removeTaskById(int id) throws Compal.DukeException {
+
+        //search for task with id of id
+        for (Task t:arrlist) {
+            if (t.getId() == id) {
+                arrlist.remove(t);
+            }
+        }
+        throw new Compal.DukeException(MESSAGE_INVALID_TASK_ID);
+
+    }
+
 
     /**
      * Remove a task from the arrayList.

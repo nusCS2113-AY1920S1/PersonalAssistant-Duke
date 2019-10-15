@@ -340,6 +340,12 @@ public abstract class Task implements Serializable {
         this.priorityScore = score;
     }
 
+
+    /**
+     * Gets the end time for the task.
+     *
+     * @return date end time
+     */
     public Date getEndTime() {
         return endTime;
     }
@@ -373,6 +379,14 @@ public abstract class Task implements Serializable {
         } else {
             return formatter.format(this.endTime);
         }
+    }
+
+    /**
+     * Sets the description of task.
+     *
+     */
+    public void setDescription(String newDescription) {
+        this.description = newDescription;
     }
 
     public enum Priority {
