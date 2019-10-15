@@ -40,17 +40,18 @@ public class WordBank {
      * Looks up for meaning of a specific word
      * @param word word to be searched for its meaning
      * @return a string represents meaning of that word
-     * @throws NoWordFoundException if the word doesn't exist in the word bank
+     * @throws NoWordFoundException if the word doesn't exist in the word bank nor Oxford dictionary
      */
-    public String searchForMeaning(String word){ //throws NoWordFoundException {
+    public String searchForMeaning(String word)throws NoWordFoundException {
         word = word.toLowerCase();
+        String s = "";
         if (!(wordBank.containsKey(word))){
-            System.out.println("Unable to locate "+word+" in local dictionary. Looking up Oxford Dictionary\n");
+            s = "Unable to locate \""+word+"\" in local dictionary. Looking up Oxford Dictionary\n";
             String result = OxfordCall.onlineSearch(word);
-            Word temp = new Word(word,result);
-            wordBank.put(word,temp);
+            Word temp = new Word(word, result);
+            wordBank.put(word, temp);
         }
-        return wordBank.get(word).getMeaning();
+        return s + wordBank.get(word).getMeaning();
     }
 
     /**

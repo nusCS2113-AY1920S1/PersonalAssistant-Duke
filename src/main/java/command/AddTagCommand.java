@@ -18,13 +18,13 @@ public class AddTagCommand extends Command {
     }
 
     @Override
-    public void execute(Ui ui, WordBank wordBank, Storage storage) {
+    public String execute(Ui ui, WordBank wordBank, Storage storage) {
         try {
             HashSet<String> tagList = wordBank.addTag(wordDescription, tags);
-            ui.showAddTag(wordDescription, tags, tagList);
+            return ui.showAddTag(wordDescription, tags, tagList);
         }
         catch (NoWordFoundException e) {
-            e.showError();
+            return e.showError();
         }
     }
 }
