@@ -619,10 +619,10 @@ public class CommandParser {
         return priority;
     }
 
-        /**
-         * An type of exception dedicated to handling the unexpected user/file input. The message contains more
-         * specific information.
-         */
+    /**
+     * An type of exception dedicated to handling the unexpected user/file input. The message contains more
+     * specific information.
+     */
     public static class UserInputException extends Exception {
         private String msg;
 

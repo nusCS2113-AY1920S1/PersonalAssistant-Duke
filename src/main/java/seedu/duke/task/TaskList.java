@@ -135,7 +135,7 @@ public class TaskList extends ArrayList<Task> {
     }
 
     public enum Attributes {
-        time, doAfter, name, isDone;
+        time, doAfter, priority
     }
 
     /**
@@ -154,10 +154,6 @@ public class TaskList extends ArrayList<Task> {
         Task task = this.get(index);
         String msg = null;
         switch (attributes) {
-        case name:
-            task.setName(description);
-            msg = "Task " + (index + 1) + " has been changed to " + description;
-            break;
         case doAfter:
             task.setDoAfterDescription(description);
             msg = "Do after task " + description + " has been added to task " + (index + 1);
