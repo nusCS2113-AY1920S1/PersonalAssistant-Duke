@@ -4,6 +4,7 @@ import command.Command;
 import exception.DukeException;
 import room.RoomList;
 import storage.BookingConstants;
+import storage.Constants;
 import storage.Storage;
 import ui.Ui;
 import booking.BookingList;
@@ -31,8 +32,7 @@ public class Duke {
      * Constructor for control.Duke
      * @param bookingListFile path of text file containing bookings list
      */
-    public Duke(String bookingListFile) {
-    public Duke(String taskListFile, String bookingListFile, String roomListFile) {
+    public Duke(String bookingListFile, String roomListFile) {
         ui = new Ui();
         ui.showWelcome();
         user = new Guest("guest");
@@ -70,8 +70,7 @@ public class Duke {
      * @param args input from command line
      */
     public static void main(String[] args) {
-        new Duke(BookingConstants.FILENAME).run();
-        new Duke(Constants.FILENAME, BookingConstants.FILENAME, Constants.ROOMFILENAME).run();
+        new Duke(BookingConstants.FILENAME, Constants.ROOMFILENAME).run();
     }
 
     public String getResponse(String input) {
