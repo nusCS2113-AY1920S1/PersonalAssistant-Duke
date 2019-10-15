@@ -3,7 +3,6 @@ package duchess.storage;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonSetter;
 import duchess.model.Module;
-import duchess.model.TimeFrame;
 import duchess.model.calendar.CalendarManager;
 import duchess.model.task.Task;
 
@@ -14,7 +13,7 @@ import java.util.Optional;
 public class Store {
     private List<Task> taskList;
     private List<Module> moduleList;
-    private CalendarManager duchessCalendar;
+    private CalendarManager calendarManager;
 
     /**
      * Initialises new taskList, moduleList and duchessCalendar.
@@ -22,7 +21,7 @@ public class Store {
     public Store() {
         this.taskList = new ArrayList<>();
         this.moduleList = new ArrayList<>();
-        this.duchessCalendar = new CalendarManager();
+        this.calendarManager = new CalendarManager();
     }
 
     public boolean isClashing(Task newTask) {
@@ -54,7 +53,11 @@ public class Store {
         this.moduleList = moduleList;
     }
 
-    public void addToCalendar(TimeFrame timeFrame, Task task) {
-        duchessCalendar.addEntry(timeFrame, task);
+    public void addToCalendar(Task task) {
+        calendarManager.addEntry(task);
+    }
+
+    public void deleteFromCalendar(Task task) {
+        calendarManager.deleteEntry(task);
     }
 }

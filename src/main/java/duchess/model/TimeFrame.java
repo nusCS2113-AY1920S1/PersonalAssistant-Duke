@@ -83,6 +83,15 @@ public class TimeFrame implements Comparable<TimeFrame> {
         return start;
     }
 
+    /**
+     * Checks if TimeFrame belongs to task of type event.
+     *
+     * @return true if task is an event
+     */
+    public boolean hasDuration() {
+        return !isIndefinite && !isInstantaneous;
+    }
+
     @Override
     public int compareTo(TimeFrame that) {
         if (this.isIndefinite && that.isIndefinite) {
