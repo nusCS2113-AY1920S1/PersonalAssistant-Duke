@@ -60,15 +60,15 @@ public class Booking {
 
 
     public String toString() {
-        DateTimeFormatter formatterStart = DateTimeFormatter.ofPattern("dd/mm/yyyy HHmm");
-        DateTimeFormatter formatterEnd = DateTimeFormatter.ofPattern("HHmm");
-        return venue + " " + dateTimeStart.format(formatterStart) + " " + dateTimeEnd.format(formatterEnd);
+        DateTimeFormatter formatterStart = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
+        DateTimeFormatter formatterEnd = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
+        return venue + " " + dateTimeStart.format(formatterStart) + " to " + dateTimeEnd.format(formatterEnd);
     }
 
 
     public String toWriteFile() {
-        return this.username + " | " + this.venue + " | " + this.description + " | " + "\n" + this.dateTimeStart.getLong(ChronoField.EPOCH_DAY) + " | "
-                + this.dateTimeEnd.getLong(ChronoField.CLOCK_HOUR_OF_DAY) + "\n";
+        return this.username + " | " + this.venue + " | " + this.description + " | " + this.dateTimeStart.getLong(ChronoField.EPOCH_DAY) + " | "
+                + this.dateTimeEnd.getLong(ChronoField.EPOCH_DAY) + "\n";
     }
 
     public LocalDateTime getDateTimeStart() {return this.dateTimeStart;}

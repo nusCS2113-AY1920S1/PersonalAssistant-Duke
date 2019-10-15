@@ -38,16 +38,14 @@ public class AddBookingCommand extends Command {
             throw new DukeException("Please add the end time of your booking");
         }
         String temp = input.substring(4);
-        splitC = input.split(" /at ", 3);
+        splitC = temp.split(" /at ", 3);
         if (splitC.length < 3) {
             throw new DukeException("☹ OOPS!!! Please create your booking with the following format: description, roomcode, date and time");
         }
-        this.description = splitC[1];
-        this.room = splitC[2];
+        this.description = splitC[0];
+        this.room = splitC[1];
         this.datetime = splitC[2].split(" /to ", 2);
         this.timeStart = datetime[0];
-        /*if (splitC[1].matches("[0-9]+") || splitC[2].matches("[a-z]+") || splitC[2].matches("[A-Z]+"))//when we get a room list
-            throw new DukeException("☹ OOPS!!! This room does not exist.  Please input a valid roomcode.");*/
     }
 
     @Override
