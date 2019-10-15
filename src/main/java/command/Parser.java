@@ -36,7 +36,7 @@ public class Parser {
      * @throws DukeException if input is not valid.
      */
     public static boolean parse(String input, TaskList tasklist, Ui ui,
-                                Storage storage, HashMap<String, Payee> ManagerMap) {
+                                Storage storage, HashMap<String, Payee> managermap) {
         try {
             if (isBye(input)) {
                 //print bye message
@@ -58,7 +58,7 @@ public class Parser {
                 processDoAfter(input, tasklist, ui);
                 Storage.save(tasklist.returnArrayList());
             } else if (isDelete(input)) {
-                processDelete(input, ManagerMap, ui);
+                processDelete(input, managermap, ui);
                 storage.save(tasklist.returnArrayList());
 
             } else if (isFind(input)) {
@@ -85,9 +85,9 @@ public class Parser {
             } else if (isEdit(input)) {
                 processEdit(input,tasklist,ui);
             } else if (isPayment(input)) {
-                processPayment(input, ManagerMap, ui);
+                processPayment(input, managermap, ui);
             } else if (isPayee(input)) {
-                processPayee(input, ManagerMap, ui);
+                processPayee(input, managermap, ui);
             } else {
                 throw new DukeException("     ☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
             }
@@ -158,14 +158,14 @@ public class Parser {
      * Processes the delete command.
      * INPUT FORMAT: delete p/payee i/item
      * @param input Input from the user.
-     * @param ManagerMap HashMap containing all Payees and their Payments.
+     * @param managermap HashMap containing all Payees and their Payments.
      * @param ui Ui that interacts with the user.
      */
-    private static void processDelete(String input, HashMap<String, Payee> ManagerMap, Ui ui) {
+    private static void processDelete(String input, HashMap<String, Payee> managermap, Ui ui) {
         String[] arr = input.split(" ", 1);
         String[] split = arr[1].split("p/|i/");
-        Payments deleted = PaymentManager.deletePayments(split[0], split[1], ManagerMap);
-        ui.printDeleteMessage(split[0], deleted, ManagerMap.get(split[0]).payments.size());
+        Payments deleted = PaymentManager.deletePayments(split[0], split[1], managermap);
+        ui.printDeleteMessage(split[0], deleted, managermap.get(split[0]).payments.size());
     }
 
     /**
@@ -381,7 +381,7 @@ public class Parser {
     }
 
     //INPUT FORMAT: payment add p/payee i/item c/111 v/invoice
-    private static void processPayment(String input, HashMap<String, Payee> ManagerMap, Ui ui) {
+    private static void processPayment(String input, HashMap<String, Payee> managermap, Ui ui) {
         try {
             String[] splitspace = input.split(" ", 2);
             if (splitspace[1].startsWith("add")) {
@@ -390,7 +390,7 @@ public class Parser {
                 String item = splitpayments[2];
                 Double cost = Double.parseDouble(splitpayments[3]);
                 String invoice = splitpayments[4];
-                Payments payment = PaymentManager.addPayments(payee, item, cost, invoice, ManagerMap);
+                Payments payment = PaymentManager.addPayments(payee, item, cost, invoice, managermap);
                 ui.printAddPaymentMessage(splitpayments[1], payment);
             }
             //TODO --> delete payment
@@ -403,7 +403,7 @@ public class Parser {
         }
     }
 
-    private static void processPayee(String input, HashMap<String, Payee> ManagerMap, Ui ui) {
+    private static void processPayee(String input, HashMap<String, Payee> managermap, Ui ui) {
         try {
             String[] splitspace = input.split(" ", 2);
             if (splitspace[1].startsWith("add")) {
@@ -412,7 +412,7 @@ public class Parser {
                 String email = splitpayments[2];
                 String matricNum = splitpayments[3];
                 String phoneNum = splitpayments[4];
-                Payee payee = PaymentManager.addPayee(payeename, email, matricNum, phoneNum, ManagerMap);
+                Payee payee = PaymentManager.addPayee(payeename, email, matricNum, phoneNum, managermap);
                 ui.printAddPayeeMessage(splitpayments[1], payee);
             }
             //TODO --> delete payee

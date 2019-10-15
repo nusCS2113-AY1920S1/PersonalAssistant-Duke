@@ -99,7 +99,11 @@ public class Ui {
         System.out.print(line);
     }
 
-
+    /**
+     * Prints message to indicate a task being added.
+     * @param task Task.
+     * @param tasklist Tasklist.
+     */
     public void printAddedMessage(Task task, TaskList tasklist) {
         System.out.print(line + "     Got it. I've added this task:  \n");
         System.out.print("       " + task.giveTask() + "\n");
@@ -192,11 +196,11 @@ public class Ui {
 
     /**
      * Prints out the statement of accounts.
-     * @param ManagerMap ManagerMap containing Payee and Payments information.
+     * @param managermap managermap containing Payee and Payments information.
      */
-    public static void genSOA(HashMap<String, Payee> ManagerMap) {
+    public static void generateStatementofAccounts(HashMap<String, Payee> managermap) {
         System.out.print("Item\tExpense\n");
-        for ( Payee payee : ManagerMap.values()) {
+        for (Payee payee : managermap.values()) {
             for (Payments payment : payee.payments) {
                 System.out.println(payment.item + "\t" + payment.cost);
             }
