@@ -9,7 +9,7 @@ public class Impression extends DukeObject {
     private String description;
     private ArrayList<Evidence> evidences;
     private ArrayList<Treatment> treatments;
-    private Patient patient;
+    private String patientName;
 
     /**
      * Represents the impression a doctor has about a Patient.
@@ -24,10 +24,10 @@ public class Impression extends DukeObject {
      * - treatments: the list of treatments determined by a doctor to deal with the impression
      * - patient: the Patient it is tagged to
      */
-    public Impression(String name, String description, Patient patient) {
+    public Impression(String name, String description, String patientName) {
         super(name);
         this.description = description;
-        this.patient = patient;
+        this.patientName = patientName;
         this.evidences = new ArrayList<Evidence>();
         this.treatments = new ArrayList<Treatment>();
     }
@@ -163,8 +163,8 @@ public class Impression extends DukeObject {
         this.description = description;
     }
 
-    public Patient getPatient() {
-        return patient;
+    public String getPatient() {
+        return patientName;
     }
 
     public ArrayList<Evidence> getEvidences() {
