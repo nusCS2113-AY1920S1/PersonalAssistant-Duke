@@ -236,7 +236,7 @@ public class Command {
 
                 if (entryForEvent.getPeriod() == NO_PERIOD) { //add non-recurring event
                     try {
-                        events.addEvent(newEvent, ui);
+                        events.addEvent(newEvent);
                         ui.eventAdded(newEvent, events.getNumEvents());
                     } catch (ClashException e) {
                         ui.scheduleClash(e.getClashEvent());
@@ -300,20 +300,33 @@ public class Command {
         try {
             String[] rescheduleDetail = continuation.split(" ");
             int eventIndex = Integer.parseInt(rescheduleDetail[0]) - 1;
+            Event tempEvent = events.getEvent(eventIndex);
+            events.deleteEvent(eventIndex);
             EventDate newStartDate;
             EventDate newEndDate;
+
             if (rescheduleDetail.length > 2) {
                 newStartDate = new EventDate(rescheduleDetail[1] + " " + rescheduleDetail[2]);
                 newEndDate = new EventDate(rescheduleDetail[1] + " " + rescheduleDetail[3]);
+
             } else {
                 newStartDate = new EventDate(rescheduleDetail[1]);
                 newEndDate = null;
             }
-            events.getEvent(eventIndex).rescheduleStartDate(newStartDate);
-            events.getEvent(eventIndex).rescheduleEndDate(newEndDate);
-            ui.rescheduleEvent(events.getEvent(eventIndex));
+
+            tempEvent.rescheduleStartDate(newStartDate);
+            tempEvent.rescheduleEndDate(newEndDate);
+
+            try {
+                events.addEvent(tempEvent);
+                ui.rescheduleEvent(tempEvent);
+            } catch (ClashException clashE) {
+                ui.scheduleClash(clashE.getClashEvent());
+            }
+
         } catch (IndexOutOfBoundsException outOfBoundsE) {
             ui.noSuchEvent();
+
         } catch (NumberFormatException notInteger) {
             ui.notAnInteger();
         }

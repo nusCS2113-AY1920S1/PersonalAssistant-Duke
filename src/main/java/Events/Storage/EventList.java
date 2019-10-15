@@ -100,11 +100,10 @@ public class EventList {
      * Checks for a clash, then adds a new event if possible.
      *
      * @param event Model_Class.Event object to be added
-     * @param ui user interface class
      * @return boolean signifying whether or not the event was added successfully. True if succeeded
      * and false if not
      */
-    public boolean addEvent(Event event, UI ui) throws ClashException{
+    public boolean addEvent(Event event) throws ClashException{
         Event clashEvent = clashEvent(event); //check the list for a schedule clash
         if (clashEvent == null) { //null means no clash was found
             this.eventArrayList.add(event);
