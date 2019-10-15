@@ -42,5 +42,11 @@ This app may not work with older major Java releases such as Java 10, 9, 8 etc.
 * *`search upcoming movie:`* displays all the upcoming movies
 * *`display cinema:`* displays the location of all the nearby cinemas
 * *`exit the apprch new movie:`* displays all the current movies that are showing on cinemas 
+. Refer to Section 4, “Features” for details of each command.
 
-. Refer to Section 3, “Features” for details of each command.
+== Overview of the interface
+. Command Box: This is where users type commands.
+. Command Feedback: This shows the result of command execution in addition to useful tips and error messages.
+. Preferences List: This shows the list of preferences users have set in the app.
+. Movies List: This displays either the set of movies or information related to a particular movie with respect to users’ command.
+
