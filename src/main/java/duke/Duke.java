@@ -1,9 +1,9 @@
 package duke;
 
 import duke.Data.Storage;
-import duke.Module.Schedule;
-import duke.Sports.ManageStudents;
-import duke.Sports.MyPlan;
+import duke.module.Schedule;
+import duke.sports.ManageStudents;
+import duke.sports.MyPlan;
 import duke.Task.TaskList;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;

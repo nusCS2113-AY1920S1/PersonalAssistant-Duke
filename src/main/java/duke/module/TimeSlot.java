@@ -1,4 +1,4 @@
-package duke.Module;
+package duke.module;
 
 import java.util.Date;
 

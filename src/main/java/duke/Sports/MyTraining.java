@@ -1,4 +1,4 @@
-package duke.Sports;
+package duke.sports;
 
 /**
  * Represents a training programme.
@@ -42,13 +42,13 @@ public class MyTraining {
     
     public void changeReps(int newReps) {
         this.reps = newReps;
-    }    
+    }
+
     public void changeIntensity(String newIntensity) {
         this.intensity = newIntensity;
-    }    
-    
-    public String toString() {
-        return getName() + ", sets of " + getSets() + " with " + getReps() + "reps each";
     }
     
+    public String toString() {
+        return getName() + ", sets of " + getSets() + " with " + getReps() + " reps each";
+    }
 }
