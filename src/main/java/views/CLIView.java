@@ -191,7 +191,7 @@ public class CLIView {
     }
 
     /**
-     * Shows specific requirements of a task
+     * Shows specific requirements of a task.
      * @param projectToManage The project in which the aforementioned task belongs to.
      * @param taskIndex Index of task to be viewed.
      */

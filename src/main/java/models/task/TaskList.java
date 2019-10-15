@@ -1,10 +1,7 @@
 package models.task;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Comparator;
-import java.util.Date;
 
 public class TaskList {
     private ArrayList<Task> taskList;
