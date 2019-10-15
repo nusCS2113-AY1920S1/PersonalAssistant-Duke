@@ -2,11 +2,19 @@ package duke.command;
 
 // enum for generating hashmap of strings to commands
 
+// TODO: Write different commands for different contexts
+
 /**
  * Maintains the associations between command keywords and commands (e.g. "list" -> ListCommand). For use in parsing
  * user input.
  */
 public enum Cmd {
+
+    DOCTOR("doctor") {
+        public Command getCommand() {
+            return new DoctorCommand();
+        }
+    },
     LIST("list") {
         public Command getCommand() {
             return new ListCommand();
@@ -22,26 +30,6 @@ public enum Cmd {
             return new DoneCommand();
         }
     },
-    TODO("todo") {
-        public Command getCommand() {
-            return new NewToDoCommand();
-        }
-    },
-    EVENT("event") {
-        public Command getCommand() {
-            return new NewEventCommand();
-        }
-    },
-    DLINE("deadline") {
-        public Command getCommand() {
-            return new NewDeadlineCommand();
-        }
-    },
-    RECUR("recurring") {
-        public Command getCommand() {
-            return new NewRecurringTaskCommand();
-        }
-    },
     DEL("delete") {
         public Command getCommand() {
             return new DeleteCommand();
@@ -55,27 +43,6 @@ public enum Cmd {
     VIEW("view") {
         public Command getCommand() {
             return new ViewCommand();
-        }
-    },
-    SNOOZE("snooze") {
-        public Command getCommand() {
-            return new SnoozeCommand();
-        }
-    },
-    REMIND("remind") {
-        public Command getCommand() {
-            return new NewReminderCommand();
-        }
-    },
-    FORP("fixedduration") {
-        public Command getCommand() {
-            return new NewFixedDurationCommand();
-        }
-    },
-    BETWN("doin") {
-        @Override
-        public Command getCommand() {
-            return new NewDoWithinPeriodCommand();
         }
     };
 
