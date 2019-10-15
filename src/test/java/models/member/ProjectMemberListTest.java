@@ -2,7 +2,7 @@ package models.member;
 
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class ProjectMemberListTest {
     @Test
@@ -24,9 +24,11 @@ public class ProjectMemberListTest {
         ProjectMemberList projectMemberList = new ProjectMemberList();
         projectMemberList.addMember(member);
         projectMemberList.editMember(1,"n/John i/91177777 e/john@gmail.com");
-        assertEquals("1. John (Phone: 91177777 | Email: john@gmail.com)",projectMemberList.getMember(1).getDetails());
+        assertEquals("1. John (Phone: 91177777 | Email: john@gmail.com)",
+                projectMemberList.getMember(1).getDetails());
         projectMemberList.editMember(1,"n/John e/john@gmail.com");
-        assertEquals("1. John (Phone: No phone number | Email: john@gmail.com)",projectMemberList.getMember(1).getDetails());
+        assertEquals("1. John (Phone: No phone number | Email: john@gmail.com)",
+                projectMemberList.getMember(1).getDetails());
     }
 
     @Test
