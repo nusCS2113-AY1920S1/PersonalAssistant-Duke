@@ -280,10 +280,10 @@ public class ResourceList {
             ArrayList<Resource> thisResourceArray = entry.getValue();
             if (thisResourceArray.size() > 0 && thisResourceArray.get(0).getName().equals(roomName)) {
                 Resource thisResource = thisResourceArray.get(0);
-                if (!(thisResource.isBookedNow())) {
-                    list.add(thisResourceArray.get(0).toString() + " - booked from " + thisResource.getDateBookedFrom() + " till " + thisResource.getDateBookedTill());
+                if (thisResource.isBookedNow()) {
+                    list.add(thisResourceArray.get(0).toString() + " - booked from " + getDateToPrint(thisResource.getDateBookedFrom()) + " till " + getDateToPrint(thisResource.getDateBookedTill()));
                 }
-                else if ((thisResource.isBookedNow())) {
+                else if (!(thisResource.isBookedNow())) {
                     list.add(thisResourceArray.get(0).toString() + " - is available");
                 }
             }
