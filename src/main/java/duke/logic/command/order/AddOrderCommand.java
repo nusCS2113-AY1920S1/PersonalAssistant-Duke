@@ -21,7 +21,7 @@ import java.util.Set;
 import static java.util.Objects.requireNonNull;
 
 /**
- * A command to add an order to BakingHome.
+ * A command to add an order to order list.
  */
 public class AddOrderCommand extends OrderCommand {
 

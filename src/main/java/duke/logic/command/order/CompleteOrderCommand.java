@@ -62,4 +62,7 @@ public class CompleteOrderCommand extends OrderCommand {
 
     }
 
+    private void deductInventory() {
+
+    }
 }

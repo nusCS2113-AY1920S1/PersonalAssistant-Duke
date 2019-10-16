@@ -26,7 +26,6 @@ public class EditOrderCommand extends OrderCommand {
         CliSyntax.PREFIX_CUSTOMER_NAME,
         CliSyntax.PREFIX_CUSTOMER_CONTACT,
         CliSyntax.PREFIX_ORDER_DEADLINE,
-        CliSyntax.PREFIX_ORDER_STATUS,
         CliSyntax.PREFIX_ORDER_ITEM,
         CliSyntax.PREFIX_ORDER_REMARKS,
         CliSyntax.PREFIX_ORDER_TOTAL
