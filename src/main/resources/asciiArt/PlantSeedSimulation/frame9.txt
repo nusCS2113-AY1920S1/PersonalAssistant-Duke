@@ -1,3 +1,8 @@
+<<<<<<< HEAD
 dxnkj
 avhk adkjv 
+=======
+dxnkj
+avhk adkjv 
+>>>>>>> ed4e35485dbfed07c4d7337b51acfafacc82b2ac
 adklvk lad 
