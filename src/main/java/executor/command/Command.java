@@ -6,7 +6,7 @@ import ui.Wallet;
 public abstract class Command {
     protected Boolean exitRequest = false;
     protected CommandType commandType;
-    protected String description = "Basic";
+    protected String description = "NO DESCRIPTION";
 
     // Constructor
     public Command() {
