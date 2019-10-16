@@ -17,7 +17,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="rootPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seedu.hustler.MainWindow">
+<AnchorPane fx:id="rootPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="601.0" prefWidth="590.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seedu.hustler.MainWindow">
     <children>
         <ScrollPane fx:id="scrollPane" hbarPolicy="NEVER" hvalue="1.0" layoutY="-32.0" prefHeight="590.0" prefWidth="558.0" vvalue="1.0">
             <content>
@@ -51,6 +51,7 @@
          </children>
       </GridPane>
       <TextArea fx:id="console" prefHeight="157.0" prefWidth="400.0" wrapText="true" AnchorPane.bottomAnchor="45.0" AnchorPane.leftAnchor="175.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="90.0" />
+        <Button fx:id="sendButton" layoutX="498.0" layoutY="559.0" mnemonicParsing="false" onAction="#handleUserInput" prefHeight="45.0" prefWidth="76.0" text="Send" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" />
       <GridPane prefHeight="601.0" prefWidth="176.0" style="-fx-background-color: #34495e;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
         <columnConstraints>
           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -189,8 +190,10 @@
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
       </GridPane>
-        <Button fx:id="sendButton" layoutX="498.0" layoutY="559.0" mnemonicParsing="false" onAction="#handleUserInput" prefHeight="45.0" prefWidth="76.0" text="Send" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" />
-      <FlowPane fx:id="flowPane" layoutX="181.0" layoutY="98.0" prefHeight="458.0" prefWidth="392.0" style="-fx-background-color: #ffffff;" />
-      <ScrollPane fx:id="scrollPANEE" layoutX="183.0" layoutY="91.0" prefHeight="466.0" prefWidth="392.0" AnchorPane.bottomAnchor="43.0" AnchorPane.leftAnchor="176.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="91.0" />
+      <ScrollPane fx:id="scrollPANEE" AnchorPane.bottomAnchor="43.0" AnchorPane.leftAnchor="176.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="90.0">
+         <content>
+            <FlowPane fx:id="flowPane" prefHeight="466.0" prefWidth="414.0" style="-fx-background-color: #ffffff;" />
+         </content>
+      </ScrollPane>
     </children>
 </AnchorPane>

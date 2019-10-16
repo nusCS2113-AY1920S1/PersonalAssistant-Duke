@@ -2,24 +2,24 @@ package seedu.hustler;
 
 import javafx.application.Platform;
 import javafx.fxml.FXML;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.effect.ColorAdjust;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.FlowPane;
-import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
-import seedu.hustler.game.achievement.AchievementList;
 import javafx.scene.text.Text;
+import seedu.hustler.game.achievement.AchievementList;
 
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.PrintStream;
@@ -97,6 +97,8 @@ public class MainWindow extends AnchorPane{
 
     @FXML
     private ScrollPane scrollPANEE;
+
+
     /**
      * Initializes essential components to run Hustler.
      * @throws IOException if text area could not be found.
@@ -108,6 +110,7 @@ public class MainWindow extends AnchorPane{
         System.setOut(ps);
         System.setErr(ps);
         Hustler.initialize();
+
     }
 
     public void setHustler(Hustler h) {
@@ -137,7 +140,7 @@ public class MainWindow extends AnchorPane{
      * Handles operations after each user's input.
      */
     @FXML
-    public void handleUserInput() {
+    public void handleUserInput() throws IOException{
         String input = userInput.getText();
         //Hustler.run(input);
 
@@ -158,6 +161,7 @@ public class MainWindow extends AnchorPane{
     @FXML
     public void taskAction() {
 
+        flowPane.getChildren().clear();
         Hustler.run(userInput.getText());
         ColorAdjust color = new ColorAdjust();
         color.setContrast(0.35);
@@ -194,6 +198,8 @@ public class MainWindow extends AnchorPane{
 
     @FXML
     public void taskCompletionModeAction() {
+
+        flowPane.getChildren().clear();
 
         console.clear();
 
@@ -232,12 +238,42 @@ public class MainWindow extends AnchorPane{
     }
 
     @FXML
-    public void achievementAction() {
+    public void achievementAction() throws IOException{
+
+        Image lock = new Image(new FileInputStream("images/locked_padlock.png"));
+
+
+//
+
 
         flowPane.getChildren().clear();
         Hustler.run("achievement");
 
         flowPane.setVgap(10);
+
+        Rectangle whiteSpace0 = new Rectangle();
+        whiteSpace0.setOpacity(0.0);
+        whiteSpace0.setHeight(10);
+        whiteSpace0.widthProperty().bind(scrollPANEE.widthProperty());
+        flowPane.getChildren().add(whiteSpace0);
+
+        StackPane SP = new StackPane();
+        Rectangle R = new Rectangle();
+        Text T = new Text("ACHIEVEMENTS UNLOCKED");
+        T.setFont(Font.font("Gill Sans", 20));
+        T.setFill(Color.WHITE);
+        R.setOpacity(0.3);
+        R.setHeight(30);
+
+        R.widthProperty().bind(scrollPANEE.widthProperty());
+        R.setArcHeight(30.0);
+        R.setArcWidth(30.0);
+        R.setStyle("#ffffff");
+
+
+        SP.setAlignment(T,Pos.CENTER);
+        SP.getChildren().addAll(R,T);
+        flowPane.getChildren().add(SP);
 
         for(int i = 0; i < AchievementList.achievementList.size(); i += 1) {
             if(!AchievementList.achievementList.get(i).checkLock()) {
@@ -252,15 +288,43 @@ public class MainWindow extends AnchorPane{
                 rect.setArcHeight(30.0);
                 rect.setArcWidth(30.0);
                 rect.setStyle("#ffffff");
-                stackPane.setAlignment(text,Pos.CENTER);
+                stackPane.setMargin(text,new Insets(0,0,0,50));
+                stackPane.setAlignment(text,Pos.CENTER_LEFT);
                 stackPane.getChildren().addAll(rect, text);
                 flowPane.getChildren().add(stackPane);
             }
         }
+        Rectangle whiteSpace1 = new Rectangle();
+        whiteSpace1.setOpacity(0.0);
+        whiteSpace1.setHeight(10);
+        whiteSpace1.widthProperty().bind(scrollPANEE.widthProperty());
+        flowPane.getChildren().add(whiteSpace1);
+
+        StackPane StackPanel = new StackPane();
+        Rectangle Rec = new Rectangle();
+        Text Txt = new Text("ACHIEVEMENTS LOCKED");
+        Txt.setFont(Font.font("Gill Sans", 20));
+        Txt.setFill(Color.WHITE);
+        Rec.setOpacity(0.3);
+        Rec.setHeight(50);
+        Rec.widthProperty().bind(scrollPANEE.widthProperty());
+        Rec.setArcHeight(30.0);
+        Rec.setArcWidth(30.0);
+        Rec.setStyle("#ffffff");
+        StackPanel.setAlignment(Txt,Pos.CENTER);
+        StackPanel.getChildren().addAll(Rec,Txt);
+        flowPane.getChildren().add(StackPanel);
 
         for(int i = 0; i < AchievementList.achievementList.size(); i += 1) {
             if(AchievementList.achievementList.get(i).checkLock()) {
+
+                ImageView imageview = new ImageView();
+                imageview.setImage(lock);
+                imageview.setFitHeight(30);
+                imageview.setFitWidth(30);
+                imageview.setOpacity(0.3);
                 StackPane stackPane = new StackPane();
+                StackPane stackPane2 = new StackPane();
                 Rectangle rect = new Rectangle();
                 Text text = new Text(AchievementList.achievementList.get(i).toString());
                 text.setFont(Font.font("Gill Sans", 20));
@@ -268,17 +332,23 @@ public class MainWindow extends AnchorPane{
                 text.setOpacity(0.3);
                 rect.setOpacity(0.3);
                 rect.setHeight(50);
-                rect.widthProperty().bind(scrollPANEE.widthProperty());
+                rect.widthProperty().bind(flowPane.widthProperty());
                 rect.setArcHeight(30.0);
                 rect.setArcWidth(30.0);
                 rect.setStyle("#ffffff");
-                stackPane.setAlignment(text, Pos.CENTER);
-                stackPane.getChildren().addAll(rect,text);
-                flowPane.getChildren().add(stackPane);
+                stackPane.setMargin(text,new Insets(0,0,0,80));
+                stackPane.setAlignment(text, Pos.CENTER_LEFT);
+                stackPane.setMargin(imageview, new Insets(0,0,0,30));
+                stackPane.setAlignment(imageview,Pos.CENTER_LEFT);
+                stackPane.getChildren().addAll(rect,text,imageview);
+                flowPane.getChildren().addAll(stackPane);
             }
         }
 
+        flowPane.prefWidthProperty().bind(scrollPANEE.widthProperty());
         scrollPANEE.setContent(flowPane);
+
+
         ColorAdjust color = new ColorAdjust();
         color.setContrast(0.35);
         color.setHue(-0.21);
@@ -315,6 +385,8 @@ public class MainWindow extends AnchorPane{
 
     @FXML
     public void statisticsAction() {
+
+        flowPane.getChildren().clear();
 
         ColorAdjust color = new ColorAdjust();
         color.setContrast(0.35);
@@ -354,6 +426,8 @@ public class MainWindow extends AnchorPane{
     @FXML
     public void avatarAction() {
 
+        flowPane.getChildren().clear();
+
         ColorAdjust color = new ColorAdjust();
         color.setContrast(0.35);
         color.setHue(-0.21);
@@ -392,6 +466,8 @@ public class MainWindow extends AnchorPane{
     @FXML
     public void shopAction() {
 
+        flowPane.getChildren().clear();
+
         ColorAdjust color = new ColorAdjust();
         color.setContrast(0.35);
         color.setHue(-0.21);
@@ -429,6 +505,8 @@ public class MainWindow extends AnchorPane{
     @FXML
     public void arenaAction() {
 
+        flowPane.getChildren().clear();
+
         ColorAdjust color = new ColorAdjust();
         color.setContrast(0.35);
         color.setHue(-0.21);
@@ -465,6 +543,8 @@ public class MainWindow extends AnchorPane{
 
     @FXML
     public void settingsAction() {
+
+        flowPane.getChildren().clear();
 
         ColorAdjust color = new ColorAdjust();
         color.setContrast(0.35);
