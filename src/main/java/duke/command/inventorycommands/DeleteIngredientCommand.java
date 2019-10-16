@@ -37,7 +37,7 @@ public class DeleteIngredientCommand extends CommandIngredients {
         ArrayList<String> arrayList = new ArrayList<>();
         if (userInput.trim().equals(COMMAND_DELETE_INGREDIENT)) {
             arrayList.add(ERROR_MESSAGE_EMPTY_INDEX + MESSAGE_FOLLOWUP_EMPTY_INDEX);
-        } else if (userInput.trim().charAt(16) == ' ') {
+        } else if (userInput.trim().charAt(19) == ' ') {
             String description = userInput.split("\\s",2)[1].trim();
             if (isParsable(description)) {
                 //converting string to integer

@@ -25,7 +25,7 @@ public class AddIngredientCommand extends CommandIngredients {
         if (userInput.trim().equals(COMMAND_ADD_INGREDIENT)) {
             arrayList.add(ERROR_MESSAGE_GENERAL + MESSAGE_FOLLOWUP_NUll);
             System.out.println("stuck here1");
-        } else if (userInput.trim().charAt(13) == ' ') {
+        } else if (userInput.trim().charAt(14) == ' ') {
             String description = userInput.split("\\s",2)[1].trim();
             if (description.contains("q/")) {
                 String ingredientName = description.split("q/", 2)[0].trim();

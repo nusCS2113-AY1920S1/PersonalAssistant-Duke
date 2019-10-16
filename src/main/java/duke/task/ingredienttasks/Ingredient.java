@@ -24,7 +24,7 @@ public class Ingredient {
     }
 
     public String toString() {
-        return ingredientName + "[" + quantity + "] ";
+        return ingredientName + " [" + quantity + "] ";
     }
 
     /*

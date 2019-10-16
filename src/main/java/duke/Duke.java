@@ -144,7 +144,7 @@ public class Duke {
             }
         } else if (userInput.contains(COMMAND_ADD_INGREDIENT)) {
             System.out.println("stuck here17");
-            if (userInput.trim().substring(0, 13).equals(COMMAND_ADD_INGREDIENT)) {
+            if (userInput.trim().substring(0, 14).equals(COMMAND_ADD_INGREDIENT)) {
                 System.out.println("stuck here18");
                 CommandIngredients command = Parser.parseIngredient(userInput);
                 return command.execute(ingredientList, ui, ingredientStorage);
@@ -154,7 +154,7 @@ public class Duke {
                 return arrayList;
             }
         } else if (userInput.contains(COMMAND_DELETE_INGREDIENT)) {
-            if (userInput.trim().substring(0, 16).equals(COMMAND_DELETE_INGREDIENT)) {
+            if (userInput.trim().substring(0, 19).equals(COMMAND_DELETE_INGREDIENT)) {
                 CommandIngredients command = Parser.parseIngredient(userInput);
                 return command.execute(ingredientList, ui, ingredientStorage);
             } else {
