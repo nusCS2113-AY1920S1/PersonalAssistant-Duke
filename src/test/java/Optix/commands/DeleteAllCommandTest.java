@@ -21,8 +21,8 @@ class DeleteAllCommandTest {
 
     @Test
     void execute() {
-        AddCommand addTestShow1 = new AddCommand("Test Show 1", "5/5/2020", 2000, 20);
-        AddCommand addTestShow2 = new AddCommand("Test Show 2", "6/5/2020", 2000, 50);
+        AddCommand addTestShow1 = new AddCommand("Test Show 1", "5/5/2020", 20);
+        AddCommand addTestShow2 = new AddCommand("Test Show 2", "6/5/2020", 50);
         addTestShow1.execute(model, ui, storage);
         addTestShow2.execute(model, ui, storage);
         DeleteAllCommand testCommand = new DeleteAllCommand(new String[]{"Test Show 1", "Test Show 2", "Intentionally missing show"});

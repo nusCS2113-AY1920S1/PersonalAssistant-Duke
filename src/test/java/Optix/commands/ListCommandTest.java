@@ -30,9 +30,9 @@ class ListCommandTest {
         assertEquals(expected1, ui.showCommandLine());
 
         // testing for a filled show list
-        AddCommand addShow1 = new AddCommand("dummy test 1", "5/5/2020", 2000, 20);
+        AddCommand addShow1 = new AddCommand("dummy test 1", "5/5/2020", 20);
         addShow1.execute(model, ui, storage);
-        AddCommand addShow2 = new AddCommand("dummy test 2", "6/5/2020", 2000, 20);
+        AddCommand addShow2 = new AddCommand("dummy test 2", "6/5/2020", 20);
         addShow2.execute(model, ui, storage);
         ListCommand testCommand2 = new ListCommand();
         testCommand2.execute(model, ui, storage);

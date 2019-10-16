@@ -1,11 +1,19 @@
 package optix.commons.model;
 
 public class Show {
-    private final String showName;
-    private final double profit;
+    private String showName;
+    private double profit;
 
     public Show(String showName, double profit) {
         this.showName = showName;
+        this.profit = profit;
+    }
+
+    public void setShowName(String showName) {
+        this.showName = showName;
+    }
+
+    public void setProfit(double profit) {
         this.profit = profit;
     }
 

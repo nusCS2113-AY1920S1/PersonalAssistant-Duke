@@ -237,18 +237,17 @@ public class Parser {
      * @throws NumberFormatException        if user attempt to convert String into double.
      */
     private static Command parseAddShow(String showDetails) throws OptixInvalidCommandException, NumberFormatException {
-        String[] splitStr = showDetails.trim().split("\\|", 4);
+        String[] splitStr = showDetails.trim().split("\\|", 3);
 
-        if (splitStr.length != 4) {
+        if (splitStr.length != 3) {
             throw new OptixInvalidCommandException();
         }
 
         String showName = splitStr[0].trim();
         String showDate = splitStr[1].trim();
-        double showCost = Double.parseDouble(splitStr[2]);
-        double seatBasePrice = Double.parseDouble(splitStr[3]);
+        double seatBasePrice = Double.parseDouble(splitStr[2]);
 
-        return new AddCommand(showName, showDate, showCost, seatBasePrice);
+        return new AddCommand(showName, showDate, seatBasePrice);
     }
 
     /**
@@ -313,21 +312,20 @@ public class Parser {
     private static Command parseSellSeats(String details) throws OptixInvalidCommandException {
         String[] splitStr = details.trim().split("\\|");
 
-        if (splitStr.length < 3 || splitStr.length > 4) {
+        if (splitStr.length < 2 || splitStr.length > 3) {
             throw new OptixInvalidCommandException();
         }
 
         String showName = splitStr[0].trim();
         String showDate = splitStr[1].trim();
-        String buyerName = splitStr[2].trim();
 
-        if (splitStr.length == 4) {
-            String seats = splitStr[3].trim();
+        if (splitStr.length == 3) {
+            String seats = splitStr[2].trim();
 
-            return new SellSeatCommand(showName, showDate, buyerName, seats);
+            return new SellSeatCommand(showName, showDate, seats);
         }
 
-        return new SellSeatCommand(showName, showDate, buyerName);
+        return new SellSeatCommand(showName, showDate);
 
     }
 

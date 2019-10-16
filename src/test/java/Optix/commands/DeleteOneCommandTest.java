@@ -21,7 +21,7 @@ class DeleteOneCommandTest {
 
     @Test
     void execute() {
-        AddCommand addTestShow1 = new AddCommand("Test Show 1", "5/5/2020", 2000, 20);
+        AddCommand addTestShow1 = new AddCommand("Test Show 1", "5/5/2020", 20);
         addTestShow1.execute(model, ui, storage);
         DeleteOneCommand testCommand1 = new DeleteOneCommand("Test Show 1", "5/5/2020");
         testCommand1.execute(model, ui, storage);

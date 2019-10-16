@@ -21,9 +21,9 @@ class EditCommandTest {
     @Test
     void execute() {
         // add test shows
-        AddCommand addTestShow1 = new AddCommand("Test Show 1", "5/5/2020", 2000, 20);
+        AddCommand addTestShow1 = new AddCommand("Test Show 1", "5/5/2020", 20);
         addTestShow1.execute(model, ui, storage);
-        AddCommand addTestShow2 = new AddCommand("Test Show 2", "7/5/2020", 2000, 20);
+        AddCommand addTestShow2 = new AddCommand("Test Show 2", "7/5/2020", 20);
         addTestShow2.execute(model, ui, storage);
         // postpone show 1 to a valid date (there is no show on desired date.)
         EditCommand testCommand = new EditCommand("Test Show 1", "5/5/2020", "Test Show 3");

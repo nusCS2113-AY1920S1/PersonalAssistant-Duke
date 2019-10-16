@@ -20,7 +20,7 @@ class AddCommandTest {
 
     @Test
     void execute() {
-        AddCommand testCommand = new AddCommand("dummy show name", "5/5/2020", 2000, 20);
+        AddCommand testCommand = new AddCommand("dummy show name", "5/5/2020", 20);
 
         testCommand.execute(model, ui, storage);
         String expected = "__________________________________________________________________________________\n"

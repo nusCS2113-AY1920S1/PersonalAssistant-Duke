@@ -2,7 +2,6 @@ package optix.commons.model;
 
 public class Seat {
     private double ticketPrice;
-    private String buyerName;
     private String seatTier;
     private boolean isBooked;
 
@@ -13,12 +12,7 @@ public class Seat {
      */
     public Seat(String seatTier) {
         this.isBooked = false;
-        this.buyerName = null;
         this.seatTier = seatTier;
-    }
-
-    public void setName(String name) {
-        this.buyerName = name;
     }
 
 
@@ -45,11 +39,6 @@ public class Seat {
 
     public void setSeatTier(String seatTier) {
         this.seatTier = seatTier;
-    }
-
-
-    public String getName() {
-        return buyerName;
     }
 
     public String getSeatTier() {

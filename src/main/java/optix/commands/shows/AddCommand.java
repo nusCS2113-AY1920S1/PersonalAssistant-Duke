@@ -14,7 +14,6 @@ import java.time.LocalDate;
 public class AddCommand extends Command {
     private String showName;
     private String date;
-    private double cost;
     private double seatBasePrice;
 
     private OptixDateFormatter formatter = new OptixDateFormatter();
@@ -32,21 +31,19 @@ public class AddCommand extends Command {
      *
      * @param showName      name of new show.
      * @param date          date of new show.
-     * @param cost          cost of setting up the new show.
      * @param seatBasePrice the base price of the seat.
      */
-    public AddCommand(String showName, String date, double cost, double seatBasePrice) {
+    public AddCommand(String showName, String date, double seatBasePrice) {
         // need to check if it is a valid date if not need to throw exception
         this.showName = showName;
         this.date = date;
-        this.cost = cost;
         this.seatBasePrice = seatBasePrice;
     }
 
     @Override
     public void execute(Model model, Ui ui, Storage storage) {
         ShowMap shows = model.getShows();
-        Theatre theatre = new Theatre(showName, cost, seatBasePrice);
+        Theatre theatre = new Theatre(showName, seatBasePrice);
         LocalDate today = storage.getToday();
 
         try {

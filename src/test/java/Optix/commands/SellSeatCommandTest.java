@@ -22,10 +22,10 @@ class SellSeatCommandTest {
     @Test
     void execute() {
         filePath.deleteOnExit();
-        AddCommand addTestShow1 = new AddCommand("Test Show 1", "5/5/2020", 2000, 20);
+        AddCommand addTestShow1 = new AddCommand("Test Show 1", "5/5/2020", 20);
         addTestShow1.execute(model, ui, storage);
         // sell an available seat
-        SellSeatCommand testCommand1 = new SellSeatCommand("Test Show 1", "5/5/2020", "John", "A1");
+        SellSeatCommand testCommand1 = new SellSeatCommand("Test Show 1", "5/5/2020", "A1");
         testCommand1.execute(model, ui, storage);
         String expected1 = "__________________________________________________________________________________\n"
                 + "You have successfully purchased the following seats: \n"
@@ -42,7 +42,7 @@ class SellSeatCommandTest {
                 + "__________________________________________________________________________________\n";
         assertEquals(expected2, ui.showCommandLine());
         //sell a seat that does not exist
-        SellSeatCommand testCommand2 = new SellSeatCommand("Test Show 1", "5/5/2020", "John", "%1");
+        SellSeatCommand testCommand2 = new SellSeatCommand("Test Show 1", "5/5/2020", "%1");
         testCommand2.execute(model, ui, storage);
         String expected3 = "__________________________________________________________________________________\n"
                 + "☹ OOPS!!! All of the seats [%1] are unavailable\n"

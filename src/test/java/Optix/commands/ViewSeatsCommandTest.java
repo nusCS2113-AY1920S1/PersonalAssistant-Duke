@@ -22,7 +22,7 @@ class ViewSeatsCommandTest {
     @Test
     void execute() {
         // add a dummy show
-        AddCommand addDummyShow = new AddCommand("Dummy Show", "5/5/2020", 2000, 20);
+        AddCommand addDummyShow = new AddCommand("Dummy Show", "5/5/2020", 20);
         addDummyShow.execute(model, ui, storage);
         ViewSeatsCommand testCommand = new ViewSeatsCommand("Dummy Show", "5/5/2020");
         testCommand.execute(model, ui, storage);

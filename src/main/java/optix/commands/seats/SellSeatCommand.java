@@ -17,7 +17,6 @@ public class SellSeatCommand extends Command {
     private String showName;
     private String showDate;
     private String[] seats;
-    private String buyerName;
 
     private OptixDateFormatter formatter = new OptixDateFormatter();
 
@@ -30,12 +29,10 @@ public class SellSeatCommand extends Command {
      *
      * @param showName  name of show
      * @param showDate  date of show
-     * @param buyerName name of buyer
      */
-    public SellSeatCommand(String showName, String showDate, String buyerName) {
+    public SellSeatCommand(String showName, String showDate) {
         this.showName = showName;
         this.showDate = showDate;
-        this.buyerName = buyerName;
         seats = new String[0];
     }
 
@@ -46,13 +43,11 @@ public class SellSeatCommand extends Command {
      *
      * @param showName  name of show.
      * @param showDate  date of show.
-     * @param buyerName name of buyer.
      * @param seats     desired seat.
      */
-    public SellSeatCommand(String showName, String showDate, String buyerName, String seats) {
+    public SellSeatCommand(String showName, String showDate, String seats) {
         this.showName = showName;
         this.showDate = showDate;
-        this.buyerName = buyerName;
         this.seats = seats.split(" ");
     }
 
@@ -76,7 +71,7 @@ public class SellSeatCommand extends Command {
                     System.out.println(ui.showCommandLine());
                     message.append(querySeats(ui, show));
                 } else {
-                    message.append(show.sellSeats(buyerName, seats));
+                    message.append(show.sellSeats(seats));
                 }
 
             } else {
@@ -112,7 +107,7 @@ public class SellSeatCommand extends Command {
             }
 
             // TODO: Bug fix for seatInput query. If deviated from seat input, error will occur.
-            double costOfSeat = show.sellSeats(buyerName, seatInput.trim());
+            double costOfSeat = show.sellSeats(seatInput.trim());
 
             if (costOfSeat != 0) {
                 totalCost += costOfSeat;

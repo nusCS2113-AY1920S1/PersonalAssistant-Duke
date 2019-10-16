@@ -61,9 +61,8 @@ public class Storage {
                 if (arrStr[0].toLowerCase().equals("s")) {
                     LocalDate date = localDate(arrStr[1]);
                     String showName = arrStr[2].trim();
-                    double cost = Double.parseDouble(arrStr[3]);
-                    double revenue = Double.parseDouble(arrStr[4]);
-                    double seatBasePrice = Double.parseDouble(arrStr[5]);
+                    double revenue = Double.parseDouble(arrStr[3]);
+                    double seatBasePrice = Double.parseDouble(arrStr[4]);
 
                     if (date.compareTo(today) <= 0) {
                         Show show = new Show(showName, revenue);
@@ -71,7 +70,7 @@ public class Storage {
                         continue;
                     }
 
-                    Theatre theatre = new Theatre(showName, cost, revenue, seatBasePrice);
+                    Theatre theatre = new Theatre(showName, revenue, seatBasePrice);
                     loadSeat(br, theatre);
 
                     shows.put(date, theatre);
@@ -98,11 +97,10 @@ public class Storage {
         String message;
         while ((message = br.readLine()) != null && !message.equals("next")) {
             String[] arrStr = message.split("\\|");
-            String buyerName = arrStr[0].trim();
-            int row = Integer.parseInt(arrStr[1].trim());
-            int col = Integer.parseInt(arrStr[2].trim());
+            int row = Integer.parseInt(arrStr[0].trim());
+            int col = Integer.parseInt(arrStr[1].trim());
 
-            theatre.setSeat(buyerName, row, col);
+            theatre.setSeat(row, col);
         }
 
         return theatre;
@@ -172,7 +170,7 @@ public class Storage {
         for (int i = 0; i < seats.length; i++) {
             for (int j = 0; j < seats[i].length; j++) {
                 if (seats[i][j].isBooked()) {
-                    wr.write(String.format("%s | %d | %d\n", seats[i][j].getName(), i, j));
+                    wr.write(String.format("%d | %d\n", i, j));
                 }
             }
         }
