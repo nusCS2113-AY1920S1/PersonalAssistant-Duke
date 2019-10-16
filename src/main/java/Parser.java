@@ -105,7 +105,6 @@ public class Parser {
                 // CREATE AN EDIT COMMAND TO DEAL WITH EDIT WORD
                 return null;
             } else if (taskInfo[0].equals("tag")) {
-
                 if (taskInfo.length == 1 || !taskInfo[1].startsWith("w/")) {
                     throw new WrongAddTagFormatException();
                 }
@@ -118,11 +117,8 @@ public class Parser {
                 for (int i = 1; i < wordAndTags.length; ++i) {
                     tags.add(wordAndTags[i].trim());
                 }
-                return new AddTagCommand(wordDescription, tags);                
-            } else if (taskInfo[0].equals("quiz")){
-                return new QuizCommand();
-            }
-            else {
+                return new AddTagCommand(wordDescription, tags);
+            } else {
                 try {
                     throw new CommandInvalidException(input);
                 } catch (CommandInvalidException e){
