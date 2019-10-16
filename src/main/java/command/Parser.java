@@ -87,10 +87,9 @@ public class Parser {
                 processEdit(input,tasklist,ui);
             } else if (isPayment(input)) {
                 processPayment(input, managermap, ui);
-            } else if(isgetpayee(input)){
+            } else if (isgetpayee(input)) {
                 processfindpayee(input, ui, managermap);
-            }
-            else if (isPayee(input)) {
+            } else if (isPayee(input)) {
                 processPayee(input, managermap, ui);
             } else {
                 throw new DukeException("     ☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
@@ -125,15 +124,16 @@ public class Parser {
     private static void processfindpayee(String input, Ui ui, HashMap<String, Payee> managermap) {
         try {
             String[] splitspace = input.split(" ", 2);
-            PaymentList list_of_payments = new PaymentList();
+            PaymentList payList = new PaymentList();
             for (Payments payment : managermap.get(splitspace[1]).payments) {
-                list_of_payments.addPayments(payment);
+                payList.addPayments(payment);
             }
-            ui.printPaymentList(list_of_payments);
-        }catch (ArrayIndexOutOfBoundsException e) {
+            ui.printPaymentList(payList);
+        } catch (ArrayIndexOutOfBoundsException e) {
             ui.exceptionMessage("     ☹ OOPS!!! The content to find cannot be empty.");
         }
     }
+
     /**
      * Processes the View Schedule command and outputs the schedule for the specific date entered in the input.
      * @param input Input from the user.
@@ -179,7 +179,9 @@ public class Parser {
      */
     private static void processDelete(String input, HashMap<String, Payee> managermap, Ui ui) {
         String[] arr = input.split(" ", 1);
+        System.out.print(arr[0] + " and " + arr[1]);
         String[] split = arr[1].split("p/|i/");
+
         Payments deleted = PaymentManager.deletePayments(split[0], split[1], managermap);
         ui.printDeleteMessage(split[0], deleted, managermap.get(split[0]).payments.size());
     }

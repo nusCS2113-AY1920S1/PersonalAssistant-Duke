@@ -73,6 +73,11 @@ public class Ui {
         }
         System.out.print(line);
     }
+
+    /**
+     * Prints message to indicate deletion of a Payment from the Payee and the number of Payments left.
+     * @param paymentList Representation of the Payment that is deleted.
+     */
     public void printPaymentList(PaymentList paymentList) {
         for (int i = 0; i < paymentList.size(); i = i + 1) {
             System.out.println(paymentList.get(i).givePayments());
