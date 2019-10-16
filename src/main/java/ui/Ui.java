@@ -45,6 +45,10 @@ public class Ui {
         return "Got it. I've added this word:\n" + w.toString();
     }
 
+    public String showEdited(Word w) {
+        return "Got it. I've edited this word:\n" + w.toString();
+    }
+
     public String showAddTag(String word, ArrayList<String> tags, HashSet<String> tagList) {
         String returnedString = "I have added " + (tags.size() == 1 ? "this tag \"" + tags.get(0) + "\"" : "these tags")
                 + " to word \"" + word + "\"" + "\n";

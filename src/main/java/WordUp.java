@@ -18,7 +18,7 @@ public class WordUp extends Application{
 
     public WordUp() {
         ui = new Ui();
-        storage = new Storage("C:\\Users\\user\\gitclones\\main\\src\\data\\wordup.txt");
+        storage = new Storage("data/wordup.txt");
         wordBank = new WordBank(storage);
     }
 
