@@ -5,6 +5,7 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 public class TaskList extends ArrayList<Task>{
 
@@ -34,7 +35,12 @@ public class TaskList extends ArrayList<Task>{
 //        }
 //        return array;
 //    }
+
     public ArrayList<String> toStringArray() {
-        return new ArrayList<String>();
+        ArrayList<String> list = new ArrayList<String>();
+        for (int i = 0; i < this.size(); i++) {
+            list.add(this.get(i).toString());
+        }
+        return list;
     }
 }

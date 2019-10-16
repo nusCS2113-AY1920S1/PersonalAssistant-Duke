@@ -8,6 +8,7 @@ public class PlantSeedAction extends Action {
 
     public PlantSeedAction(Farmio farmio) {
         super(farmio);
+        this.type = ActionType.plantSeeds;
     }
 
     /*public PlantSeedAction(JSONObject obj){

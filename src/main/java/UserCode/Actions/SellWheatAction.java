@@ -8,6 +8,7 @@ public class SellWheatAction extends Action {
 
     public SellWheatAction(Farmio farmio) {
         super(farmio);
+        this.type = ActionType.sellWheat;
     }
 
     @Override
