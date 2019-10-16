@@ -1,23 +1,32 @@
 package seedu.hustler.game.shop.items.weapons;
 
 /**
- * The cheapest weapon in the shop.
+ * The highest tiered Weapon in the shop.
  */
 public class MoonlightSword extends Weapon {
 
+    /**
+     * The damage increment of the Moonlight Sword.
+     */
     private static final int DMG_INCR = 10;
+    /**
+     * The cost of the Moonlight Sword.
+     */
     private static final int COST = 20;
 
+    /**
+     * Constructs a new Moonlight Sword with its default variables.
+     */
     public MoonlightSword() {
         super(COST, false, DMG_INCR);
     }
 
+    /**
+     * Constructs a new Moonlight Sword with the given hasPurchased.
+     * @param hasPurchased
+     */
     public MoonlightSword(boolean hasPurchased) {
         super(COST, hasPurchased, DMG_INCR);
-    }
-
-    public int attack(int damage) {
-        return DMG_INCR + damage;
     }
 
     @Override
