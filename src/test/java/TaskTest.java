@@ -1,9 +1,9 @@
 import duke.exception.DukeException;
-import duke.task.EventTask;
-import duke.task.Reminder;
-import duke.task.Task;
-import duke.task.TimedTask;
-import duke.task.ToDoTask;
+import duke.data.EventTask;
+import duke.data.Reminder;
+import duke.data.Task;
+import duke.data.TimedTask;
+import duke.data.ToDoTask;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

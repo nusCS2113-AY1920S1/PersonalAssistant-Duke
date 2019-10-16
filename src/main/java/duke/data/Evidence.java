@@ -1,4 +1,4 @@
-package duke.task;
+package duke.data;
 
 import duke.exception.DukeException;
 
@@ -15,6 +15,10 @@ import duke.exception.DukeException;
  */
 public abstract class Evidence extends DukeData {
     public Evidence(String name, Impression impression, int priority) {
+        super(name, impression, priority);
+    }
+
+    protected Evidence(String name, String impression, int priority) {
         super(name, impression, priority);
     }
 

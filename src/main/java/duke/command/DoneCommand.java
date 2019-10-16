@@ -8,7 +8,7 @@ public class DoneCommand extends ArgCommand {
     public void execute(DukeCore core) throws DukeException {
         String taskStr = core.taskList.markDone(arg);
         taskStr = "Nice! I've marked this task as done:" + System.lineSeparator() + "  " + taskStr;
-        core.storage.writeTaskFile(core.taskList.getFileStr());
+        core.storage.writeJsonFile(core.patientMap.getPatientHashMap());
         core.ui.print(taskStr);
     }
 }

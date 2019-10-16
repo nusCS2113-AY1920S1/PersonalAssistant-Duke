@@ -1,6 +1,6 @@
 package duke.gui;
 
-import duke.task.Patient;
+import duke.data.Patient;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Region;

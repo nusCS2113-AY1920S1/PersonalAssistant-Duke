@@ -1,4 +1,4 @@
-package duke.task;
+package duke.data;
 
 import com.google.gson.Gson;
 import duke.exception.DukeFatalException;
@@ -17,7 +17,9 @@ public class GsonStorage {
 
     private final File jsonFile;
     private final String filePath;
-    private HashMap<String, Patient> patientMap = new HashMap<String, Patient>();
+
+    //deprecated, preserved for test compatibility
+    private HashMap<String, Patient> testPatientMap = new HashMap<String, Patient>();
 
     /**
      * Looks if a Json file exists at the specified filepath and creates one if it does not exist.
@@ -43,21 +45,30 @@ public class GsonStorage {
     }
 
     /**
-     * Loads all the patients in the Jsonfilen to the patient hashmap for quick patient lookup (Deserialization).
+     * Loads all the patients in the JSON file to the patient hashmap for quick patient lookup (Deserialization).
+     *
+     * @param patientMap The HashMap to load the Patients into.
      *
      * @throws DukeFatalException If data file cannot be setup.
      */
-    public HashMap<String, Patient> loadPatientHashMap() throws DukeFatalException {
+    public void loadPatientHashMap(HashMap<String, Patient> patientMap) throws DukeFatalException {
         try {
             String json = Files.readString(Paths.get(filePath), StandardCharsets.US_ASCII);
             Patient[] patientList = new Gson().fromJson(json, Patient[].class);
+            if (patientList == null) {
+                return;
+            }
             for (Patient patient : patientList) {
-                addPatientToMap(patient);
+                patientMap.put(patient.getBedNo(), patient);
             }
         } catch (IOException excp) {
             throw new DukeFatalException("Unable to load data file, try checking your permissions?");
         }
-        return this.patientMap;
+    }
+    
+    //deprecated, test compatibility purposes only
+    public void loadPatientHashMap() throws DukeFatalException {
+        loadPatientHashMap(testPatientMap);
     }
 
     /**
@@ -66,7 +77,7 @@ public class GsonStorage {
      *
      * @throws DukeFatalException If the file writer cannot be setup.
      */
-    public void writeJsonFile() throws DukeFatalException {
+    public void writeJsonFile(HashMap<String, Patient> patientMap) throws DukeFatalException {
         ArrayList<Patient> patientArrList = new ArrayList<Patient>(patientMap.values());
         try {
             FileWriter fileWriter = new FileWriter(jsonFile);
@@ -77,15 +88,20 @@ public class GsonStorage {
         }
     }
 
+    //deprecated, test compatibility purposes only
+    public void writeJsonFile() throws DukeFatalException {
+        writeJsonFile(testPatientMap);
+    }
+
     /**
      * Adds a patient object to the hash map with all the patients - used when testing.
      */
     public void addPatientToMap(Patient patient) {
-        patientMap.put(patient.getBedNo(), patient);
+        testPatientMap.put(patient.getBedNo(), patient);
     }
 
     public Patient getPatient(String bedNo) {
-        return patientMap.get(bedNo);
+        return testPatientMap.get(bedNo);
     }
 
     public String getFilePath() {
@@ -98,6 +114,6 @@ public class GsonStorage {
     public void resetAllData() throws IOException {
         FileWriter fileWriter = new FileWriter(jsonFile);
         fileWriter.close();
-        patientMap.clear();
+        testPatientMap.clear();
     }
 }

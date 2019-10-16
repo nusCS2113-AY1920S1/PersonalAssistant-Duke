@@ -1,8 +1,8 @@
 import duke.exception.DukeException;
 import duke.exception.DukeFatalException;
-import duke.task.GsonStorage;
-import duke.task.Impression;
-import duke.task.Patient;
+import duke.data.GsonStorage;
+import duke.data.Impression;
+import duke.data.Patient;
 import org.junit.jupiter.api.Test;
 
 import java.io.File;
@@ -46,7 +46,7 @@ public class GsonStorageTest {
      */
     private Patient createComplexPatient() throws DukeException {
         Patient complexPatient = new Patient("Complexia", "C100", "cookies");
-        complexPatient.addNewImpression(new Impression("Afraid", "bit me", complexPatient.getName()));
+        complexPatient.addNewImpression(new Impression("Afraid", "bit me", complexPatient));
         complexPatient.setPriDiagnosis(0);
         complexPatient.setAllergies("dogs");
         complexPatient.setHeight(124);

@@ -1,4 +1,4 @@
-package duke.task;
+package duke.data;
 
 /*
  * Highest level of abstraction for all DukeObjects storing Patient related Data
@@ -41,5 +41,9 @@ public abstract class DukeObject {
 
     public String getName() {
         return this.name;
+    }
+
+    protected void setName(String name) {
+        this.name = name;
     }
 }

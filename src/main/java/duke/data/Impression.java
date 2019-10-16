@@ -1,4 +1,4 @@
-package duke.task;
+package duke.data;
 
 import duke.exception.DukeException;
 
@@ -9,7 +9,7 @@ public class Impression extends DukeObject {
     private String description;
     private ArrayList<Evidence> evidences;
     private ArrayList<Treatment> treatments;
-    private String patientName;
+    private String patientbedNo;
 
     /**
      * Represents the impression a doctor has about a Patient.
@@ -24,10 +24,10 @@ public class Impression extends DukeObject {
      * - treatments: the list of treatments determined by a doctor to deal with the impression
      * - patient: the Patient it is tagged to
      */
-    public Impression(String name, String description, String patientName) {
-        super(name);
+    public Impression(String name, String description, Patient patient) {
+        super(patient.getBedNo() + "\t" + name);
         this.description = description;
-        this.patientName = patientName;
+        this.patientbedNo = patient.getBedNo();
         this.evidences = new ArrayList<Evidence>();
         this.treatments = new ArrayList<Treatment>();
     }
@@ -164,7 +164,7 @@ public class Impression extends DukeObject {
     }
 
     public String getPatient() {
-        return patientName;
+        return patientbedNo;
     }
 
     public ArrayList<Evidence> getEvidences() {

@@ -9,7 +9,7 @@ public class ParserTest {
     public void parseCommands_validCommands_correctCommandsReturned() {
         try {
             assertEquals(uut.parse("list").getClass(), ListCommand.class);
-            assertEquals(uut.parse("todo JUnit tests").getClass(), NewToDoCommand.class);
+            assertEquals(uut.parse("todo JUnit tests").getClass(), NewPatientCommand.class);
             assertEquals(uut.parse("event tutorial /at 12/09/2019 1400 /to 12/10/2019 1200").getClass(),
                         NewEventCommand.class);
        } catch (DukeException excp) {
