@@ -22,7 +22,7 @@ public class AssignmentControllerTest {
     /*
     Set up a dummy project for the test. It is assumed that all other components are working.
     Some tests for other classes are included in this test to ensure proper functioning before
-    testing.
+    testing. Testing:
      */
     AssignmentControllerTest() {
         project = new Project("New project");
