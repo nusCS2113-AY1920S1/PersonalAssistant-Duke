@@ -2,6 +2,7 @@ package duke.command;
 
 import duke.DukeCore;
 import duke.exception.DukeException;
+import javafx.util.Pair;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -12,9 +13,6 @@ import java.util.Map;
  */
 public abstract class ArgCommand extends Command {
 
-    protected static Map<String, ArgLevel> switches; //list of recognised switches, and their argument requirements
-    protected static Map<String, String> switchAliases; //map of all possible words that can be identified as switches,
-    //and the switches they correspond to
     private String arg = null; //argument supplied to the command
     private HashMap<String, String> switchVals = new HashMap<String, String>(); //hashmap of switch parameters
 
@@ -23,10 +21,6 @@ public abstract class ArgCommand extends Command {
         if (arg == null) {
             throw new DukeException("Command needs to parse argument first!");
         }
-    }
-
-    Map<String, ArgLevel> getSwitches() {
-        return switches;
     }
 
     void setSwitchValsMap(HashMap<String, String> switchVals) {
@@ -50,7 +44,7 @@ public abstract class ArgCommand extends Command {
     }
 
     /**
-     * Sets up the static data structures of the class using parameters provided. All arrays must be of the same length.
+     * Returns the static data structures of the class using parameters provided. All arrays must be of the same length.
      * Unchecked assignments are used to generate arrays of entries for the argument level and switch root maps.
      *
      * @param switchNameArr The names of the switches for this command.
@@ -59,8 +53,8 @@ public abstract class ArgCommand extends Command {
      * @param aliases An array containing an even number of strings. Each pair of strings is added as a key-value
      * pair to the switchAliases map.
      */
-    protected static void switchInit(String[] switchNameArr, ArgLevel[] argLevelArr, String[] switchRootArr,
-            String... aliases) {
+    protected static Pair<Map<String, ArgLevel>, Map<String, String>> switchInit(String[] switchNameArr,
+            ArgLevel[] argLevelArr, String[] switchRootArr, String... aliases) {
         assert(switchNameArr.length == argLevelArr.length);
         assert(switchRootArr.length == switchNameArr.length);
         assert(aliases.length % 2 == 0);
@@ -85,11 +79,13 @@ public abstract class ArgCommand extends Command {
         }
 
         // create static data structures
-        switchAliases = Map.ofEntries((Map.Entry[]) entryArrList.toArray());
-        switches = Map.ofEntries(argLevelEntries);
+        return new Pair<Map<String, ArgLevel>, Map<String, String>> (
+                Map.ofEntries((Map.Entry[]) entryArrList.toArray()), Map.ofEntries(argLevelEntries));
     }
 
     // Override these methods to specify parameters of child classes
     abstract String getEmptyArgMsg();
     abstract ArgLevel getCmdArgLevel();
+    abstract Map<String, ArgLevel> getSwitches();
+    abstract Map<String, String> getSwitchAliases();
 }
