@@ -121,6 +121,13 @@ public class PriorityList {
         return new PriorityList(new ArrayList<Integer>());
     }
 
+
+    /**
+     * Sort tasks based on their priority.
+     * @param taskList The list of tasks.
+     * @param priorities The list of priorities.
+     * @return The sorted list.
+     */
     public static ArrayList<Pair> sortPriority(TaskList taskList, PriorityList priorities) {
         ArrayList<Pair> pairList = new ArrayList<>();
         for (int i = 0; i < taskList.size(); i++) {
@@ -128,8 +135,8 @@ public class PriorityList {
             pairList.add(pair);
         }
 
-        for (int i = 1; i < taskList.size(); i++)
-            for (int j = i; j > 0; j--)
+        for (int i = 1; i < taskList.size(); i++) {
+            for (int j = i; j > 0; j--) {
                 if (((int) pairList.get(j).getKey()) < (int) pairList.get(j - 1).getKey()) {
                     Pair<Integer, String> temp = pairList.get(j);
                     pairList.set(j, pairList.get(j - 1));
@@ -137,6 +144,8 @@ public class PriorityList {
                 } else {
                     break;
                 }
+            }
+        }
         return pairList;
 
     }
