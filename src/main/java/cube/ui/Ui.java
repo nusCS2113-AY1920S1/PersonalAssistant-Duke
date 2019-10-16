@@ -5,6 +5,8 @@
  */
 package cube.ui;
 
+import cube.model.food.Food;
+import cube.model.food.FoodList;
 import cube.task.TaskList;
 import cube.task.Task;
 import cube.util.Parser;
@@ -113,15 +115,28 @@ public class Ui {
 	//@@author
 
 	/**
-	 * Prints the list of tasks due in 10 days.
+	 * Prints the list of food products whose expiry is in the next 7 days.
 	 *
-	 * @param list the list of task stored in Cube.
+	 * @param list the list of food products nearing expiry.
 	 */
-	public void showReminder(TaskList list) {
-		System.out.println("Here are the deadline/event within 10 days:");
+	public void showExpiryReminder(FoodList list) {
+		System.out.println("Here are the upcoming expiry dates:");
 		for(int i = 0; i < list.size(); i++) {
-			Task task = list.get(i);
-			System.out.println(task.getDescription() + " due in " + Parser.parseDateToString(task.getDate()));
+			Food food = list.get(i);
+			System.out.println(food.getName() + " due in " + Parser.parseDateToString(food.getExpiryDate()));
+		}
+	}
+
+	/**
+	 * Prints the list of food products that are low on stock.
+	 *
+	 * @param list the list of food products that are low on stock.
+	 */
+	public void showStockReminder(FoodList list) {
+		System.out.println("Here are the food products low in stock:");
+		for(int i = 0; i < list.size(); i++) {
+			Food food = list.get(i);
+			System.out.println(food.getName() + ": " + food.getStock() + " left");
 		}
 	}
 
@@ -170,17 +185,17 @@ public class Ui {
 	public void showHelp() {
 		String help = "Currently we support the following commands: (all command ignore cases)\n"
 				+ "Manipulate tasks:\n"
-				+ String.format("%1$-50s", "  'Todo <description>'") + "add a Todo task with description\n"
-				+ String.format("%1$-50s", "  'Deadline <description> /by <dd/mm/yy>'") + "add a Deadline task with description and time\n"
-				+ String.format("%1$-50s", "  'Event <description> /by <dd/mm/yy>'") + "add a Event task with description and time\n"
-				+ String.format("%1$-50s", "  'Done <number>'") + "mark the nth task in the list as finished\n"
-				+ String.format("%1$-50s", "  'Delete <number>'") + "delete the nth task in the list\n"
+				+ String.format("%1$-50s", "  'add -n <food name> -t <food type> -p <price> -s <stock> -e <expiry date>' ") + "add a new food product with all details/description\n"
+				+ String.format("%1$-50s", "  'delete -i <number>'") + "delete the nth food product in the list\n"
+				+ String.format("%1$-50s", "  'sold -n <food name> -q <quantity>'") + "marks quantity q of product n sold\n"
+				//+ String.format("%1$-50s", "  'Delete <number>'") + "delete the nth task in the list\n"
 				+ "Show task list:\n"
-				+ String.format("%1$-50s", "  'List'") + "show the list of tasks\n"
-				+ String.format("%1$-50s", "  'Find <keywords>'") + "show the list of tasks with specified keywords\n"
-				+ String.format("%1$-50s", "  'Reminder'") + "show the list of tasks due in 10 days\n"				
-				+ String.format("%1$-50s", "  'FreeTime <number>'") + "show the nearest day with free time of n hours\n"
-				+ String.format("%1$-50s", "  'ViewSchedule /at <dd/mm/yy>'") + "show the list of tasks that falls within specified date\n"
+				+ String.format("%1$-50s", "  'list'") + "shows the list of food products\n"
+				+ String.format("%1$-50s", "  'Reminder'") + "show the list of food products that are low on stock or are approaching its expiry date\n"
+				//+ String.format("%1$-50s", "  'List'") + "show the list of tasks\n"
+				//+ String.format("%1$-50s", "  'Find <keywords>'") + "show the list of tasks with specified keywords\n"
+				//+ String.format("%1$-50s", "  'FreeTime <number>'") + "show the nearest day with free time of n hours\n"
+				//+ String.format("%1$-50s", "  'ViewSchedule /at <dd/mm/yy>'") + "show the list of tasks that falls within specified date\n"
 				+ "Miscellaneous:\n"
 				+ String.format("%1$-50s", "  'bye' OR 'exit' OR 'quit'") + "to exit the programme\n"
 				+ String.format("%1$-50s", "  'help'") + "to show a list of available command\n";
