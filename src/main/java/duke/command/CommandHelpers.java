@@ -24,8 +24,9 @@ public class CommandHelpers {
 
         String corrStr = command.getSwitchAliases().get(word);
         if (corrStr != null) {
-
+            return corrStr;
         }
+
 
         ArrayList<String> suggestions = new ArrayList<String>();
         return disambiguate(word, suggestions, command.getSwitches().keySet());
@@ -49,5 +50,21 @@ public class CommandHelpers {
 
         String selectedStr = ""; //TODO: get from user
         return selectedStr;
+    }
+
+    /**
+     * Algorithm to compute a hybrid version of the Damerau-Levenshtein distance that takes into account distance
+     * between keys on a standard QWERTY keyboard.
+     *
+     * https://stackoverflow.com/questions/29233888/
+     * https://en.wikipedia.org/wiki/Damerau%E2%80%93Levenshtein_distance
+     * https://dl.acm.org/citation.cfm?doid=1963190.1963191
+     *
+     * @param str1 The first string to compare.
+     * @param str2 The second string to compare.
+     * @return The hybrid Damerau-Levenshtein distance between str1 and str2.
+     */
+    private int stringDistance(String str1, String str2) {
+        return 0;
     }
 }

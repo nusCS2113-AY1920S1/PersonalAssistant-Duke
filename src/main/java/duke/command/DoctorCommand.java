@@ -31,18 +31,22 @@ public class DoctorCommand extends ArgCommand {
                 super.getSwitchVal("switch"));
     }
 
+    @Override
     ArgLevel getCmdArgLevel() {
         return ArgLevel.OPTIONAL;
     }
 
+    @Override
     String getEmptyArgMsg() {
         return "You didn't tell me what to do!";
     }
 
+    @Override
     Map<String, ArgLevel> getSwitches() {
         return switches;
     };
 
+    @Override
     Map<String, String> getSwitchAliases() {
         return switchAliases;
     };

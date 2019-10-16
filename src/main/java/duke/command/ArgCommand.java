@@ -53,6 +53,7 @@ public abstract class ArgCommand extends Command {
      * @param aliases An array containing an even number of strings. Each pair of strings is added as a key-value
      * pair to the switchAliases map.
      */
+    @SuppressWarnings("unchecked")
     protected static Pair<Map<String, ArgLevel>, Map<String, String>> switchInit(String[] switchNameArr,
             ArgLevel[] argLevelArr, String[] switchRootArr, String... aliases) {
         assert(switchNameArr.length == argLevelArr.length);
