@@ -7,9 +7,11 @@ import ui.Wallet;
 public class CommandDelete extends Command {
     protected String userInput;
 
+
     // Constructor
     public CommandDelete(String userInput) {
         this.userInput = userInput;
+        this.description = "Deletes the specific entry that the user wants to remove";
     }
 
     @Override
