@@ -55,7 +55,7 @@ class Parser {
     private static Command parseDoTask(String userInput) throws FarmioException {
         String userAction = (userInput.substring(userInput.indexOf(" "))).trim();
         if (Action.validateAction(userAction)) {
-            return new CommandTaskCreate("do","TRUE", userAction);
+            return new CommandTaskCreate("do","true", userAction);
         } else {
             throw new FarmioException("Invalid action!");
         }
