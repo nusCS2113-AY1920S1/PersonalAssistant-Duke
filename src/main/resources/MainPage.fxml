@@ -32,11 +32,11 @@
     </HBox>
   </bottom>
   <center>
-    <AnchorPane prefHeight="337.0" BorderPane.alignment="CENTER">
+    <AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="337.0" BorderPane.alignment="CENTER">
       <children>
-        <ScrollPane fx:id="mMoviesScrollPane" hbarPolicy="NEVER" prefHeight="343.0" prefWidth="528.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <ScrollPane fx:id="mMoviesScrollPane" hbarPolicy="NEVER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="343.0" prefWidth="528.0" vbarPolicy="ALWAYS" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
           <content>
-            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="200.0" />
+            <AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="200.0" />
           </content>
         </ScrollPane>
       </children>
@@ -54,7 +54,7 @@
             </Label>
             <HBox fx:id="nameHBox" prefHeight="8.0" prefWidth="125.0">
               <children>
-                <Text id="userNameText" fx:id="userNameText" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Name: " />
+                <Text fx:id="userNameText" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Name: " />
                 <Label fx:id="userNameLabel" text="Label">
                   <HBox.margin>
                     <Insets left="3.0" fx:id="x1" />
@@ -87,7 +87,7 @@
                     <Insets bottom="5.0" />
                   </VBox.margin>
                 </Label>
-                <TextFlow fx:id="genreListText" prefHeight="200.0" prefWidth="200.0"/>
+                  <TextFlow fx:id="genreListText" prefHeight="200.0" prefWidth="200.0"/>
               </children>
               <VBox.margin>
                 <Insets top="5.0" fx:id="x18" />
@@ -206,7 +206,7 @@
                 </Text>
               </children>
               <VBox.margin>
-                <Insets left= "10.0" top="5.0" fx:id="x13" />
+                <Insets left="10.0" top="5.0" fx:id="x13" />
               </VBox.margin>
             </VBox>
           </children>

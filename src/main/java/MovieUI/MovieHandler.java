@@ -35,7 +35,10 @@ import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 
 /**
  * This is main page of GUI.
@@ -270,7 +273,6 @@ public class MovieHandler extends Controller implements RequestListener {
         mProgressBar.setVisible(true);
         mStatusLabel.setText("Loading..");
 
-        // Build a flow pane layout with the width and size of the
         mMoviesFlowPane = new FlowPane(Orientation.HORIZONTAL);
         mMoviesFlowPane.setHgap(4);
         mMoviesFlowPane.setVgap(10);
@@ -348,8 +350,58 @@ public class MovieHandler extends Controller implements RequestListener {
      * Tis function is called when the user wants to see more information about a movie.
      */
     private void moviePosterClicked(MovieInfoObject movie) {
+        try {
+            //mMainApplication.transitToMovieInfoController(movie);
+            mMoviesFlowPane.getChildren().clear();
+            mMoviesFlowPane = new FlowPane(Orientation.HORIZONTAL);
+            mMoviesFlowPane.setHgap(4);
+            mMoviesFlowPane.setVgap(10);
+            mMoviesFlowPane.setPadding(new Insets(10, 8, 4, 8));
+            mMoviesFlowPane.prefWrapLengthProperty().bind(mMoviesScrollPane.widthProperty());
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(getClass().getClassLoader().getResource("MoreInfo.fxml"));
+            AnchorPane posterView = loader.load();
+            InfoController controller = loader.getController();
 
-        mMainApplication.transitToMovieInfoController(movie);
+            controller.getMovieTitleLabel().setText(movie.getTitle());
+            controller.getMovieRatingLabel().setText(String.format("%.2f", movie.getRating()));
+            if (movie.getReleaseDate() != null) {
+                Date date = movie.getReleaseDate();
+                Calendar calendar = Calendar.getInstance();
+                calendar.setTime(date);
+                String printDate = new SimpleDateFormat("dd/MM/yyyy").format(date);
+                controller.getMovieReleaseDateLabel().setText(printDate);
+            } else {
+                controller.getMovieReleaseDateLabel().setText("N/A");
+            }
+            Image posterImage = new Image(movie.getFullBackdropPath(), true);
+            controller.getMovieSummaryLabel().setText(movie.getSummary());
+            controller.getMovieBackdropImageView().setImage(posterImage);
+            controller.getMovieCastLabel().setText(RetrieveRequest.getCastStrings(movie));
+            controller.getMovieCertLabel().setText(RetrieveRequest.getCertStrings(movie));
+            String[] genres = RetrieveRequest.getGenreStrings(movie);
+            StringBuilder builder = new StringBuilder();
+            try {
+                for (String genre : genres) {
+                    builder.append(genre);
+                    System.out.println(genre + "  " + genres.length);
+                    // if not last string in array, append a ,
+                    if (genres.length == 0) {
+                        System.out.println("no genres");
+                    } else if (!genres[genres.length - 1].equals(genre)) {
+                        builder.append(", ");
+                    }
+                }
+            } catch (NullPointerException ex) {
+
+            }
+            controller.getMovieGenresLabel().setText(builder.toString());
+            mMoviesFlowPane.getChildren().add(posterView);
+            mMoviesScrollPane.setContent(mMoviesFlowPane);
+            mMoviesScrollPane.setVvalue(0);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     /**

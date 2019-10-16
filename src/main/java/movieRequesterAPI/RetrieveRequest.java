@@ -666,7 +666,7 @@ public class RetrieveRequest implements InfoFetcher, InfoFetcherWithPreference {
      */
     private MovieInfoObject parseMovieJSON(JSONObject movieData) {
         //long ID = (long) movieData.get(kMOVIE_ID);
-        boolean adult = (boolean) movieData.get(kADULT);
+        //boolean adult = (boolean) movieData.get(kADULT);
         String title = "";
         int movieType = -1;
         if (index == 0) {
