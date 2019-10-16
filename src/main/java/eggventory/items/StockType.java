@@ -11,8 +11,8 @@ import java.util.ArrayList;
 public class StockType {
     private String name;
     private ArrayList<Stock> stocks;
-    private int quantity;
-    private boolean isUniqueStock;
+    //private int quantity;
+    //private boolean isUniqueStock;
 
     /**
      * Creates a new StockType object. This overload should only be called from a Storage class.
@@ -22,8 +22,8 @@ public class StockType {
     public StockType(String name, ArrayList<Stock> savedFile) {
         this.name = name;
         stocks = savedFile;
-        quantity = savedFile.size();
-        isUniqueStock = isUniqueStock();
+        //quantity = savedFile.size();
+        //isUniqueStock = isUniqueStock();
     }
 
     /**
@@ -34,8 +34,8 @@ public class StockType {
     public StockType(String name, boolean isUniqueStock) {
         this.name = name;
         this.stocks = new ArrayList<>();
-        this.quantity = 0;
-        this.isUniqueStock = isUniqueStock;
+        //this.quantity = 0;
+        //this.isUniqueStock = isUniqueStock;
     }
 
     /**
@@ -45,21 +45,23 @@ public class StockType {
     public StockType(String name) {
         this.name = name;
         this.stocks = new ArrayList<>();
-        this.quantity = 0;
-        this.isUniqueStock = false;
+        //this.quantity = 0;
+        //this.isUniqueStock = false;
     }
 
     /**
      * Determines whether this StockType is a collection of UniqueStock or CollectiveStock.
      */
-    private boolean isUniqueStock() {
-        for (Stock stock : stocks) {
-            if (stock instanceof CollectiveStock) {
-                return false;
+    /*
+        private boolean isUniqueStock() {
+            for (Stock stock : stocks) {
+                if (stock instanceof CollectiveStock) {
+                    return false;
+                }
             }
+            return true;
         }
-        return true;
-    }
+    */
 
     /**
      * Returns the entire stockList.
@@ -100,7 +102,7 @@ public class StockType {
      */
     public boolean addStock(String stockType, String stockCode, int quantity, String description) {
         stocks.add(new CollectiveStock(stockType, stockCode, quantity, description));
-        this.quantity++;
+        //this.quantity++;
         return true;
     }
 
@@ -108,10 +110,24 @@ public class StockType {
      * Deletes a stock of the user's choice.
      *
      * @param stockCode The code of the stock to be deleted.
+     * @return true if some stockCode was found and the corresponding stock removed. false if none were found.
      */
-    public void deleteStock(String stockCode) {
-        stocks.removeIf(stock -> stock.getStockCode().equals(stockCode));
-        this.quantity--;
+    public Stock deleteStock(String stockCode) {
+
+        //While this is nice, we are unable to print a confirmation message of the stock deleted.
+        //stocks.removeIf(stock -> stock.getStockCode().equals(stockCode));
+
+        Stock deletedStock;
+
+        for (Stock stock : stocks) {
+            if (stockCode.equals(stock.getStockCode())) {
+                deletedStock = stock; //Not sure if this is a copy or not. Assumes unique stockCodes.
+                stocks.remove(stock);
+                return deletedStock;
+            }
+        }
+        return null;
+        //this.quantity--;
     }
 
     /**
