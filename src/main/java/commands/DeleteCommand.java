@@ -27,11 +27,11 @@ public class DeleteCommand extends Command {
      */
     @Override
     public void execute(ArrayList<Task> list, Ui ui, Storage storage, Stack<String> commandStack, ArrayList<Task> deletedTask) throws DukeException, ParseException, IOException, NullPointerException {
-            if (ui.FullCommand.length() == 6) {
+            if (ui.fullCommand.length() == 6) {
                 throw new DukeException("OOPS!!! The description of a deletion cannot be empty.");
             } else {
-                if (ui.FullCommand.length() == 8) {
-                    int index = Integer.parseInt(ui.FullCommand.substring(6).trim()) - 1;
+                if (ui.fullCommand.length() == 8) {
+                    int index = Integer.parseInt(ui.fullCommand.substring(6).trim()) - 1;
                     deletedTask.add(list.get(index));
                     String taskremoved = list.get(index).listFormat();
                     list.remove(index);
@@ -39,7 +39,7 @@ public class DeleteCommand extends Command {
                     System.out.println(taskremoved);
                     System.out.println("Now you have " + list.size() + " tasks in the list.");
 
-                    } else if (ui.FullCommand.contains("all")) { //delete all tasks at once
+                    } else if (ui.fullCommand.contains("all")) { //delete all tasks at once
                         for (int i = 0; i < list.size(); i++){
                             deletedTask.add(list.get(i));
                         }
@@ -47,14 +47,14 @@ public class DeleteCommand extends Command {
                         System.out.println("Noted. I've removed all the tasks.");
                         System.out.println("Now you have " + list.size() + " tasks in the list.");
 
-                    } else if (ui.FullCommand.contains("and")) { //delete multiple chosen tasks
+                    } else if (ui.fullCommand.contains("and")) { //delete multiple chosen tasks
                     int numOfAnds = 0;
-                    for(int i = 0; i < ui.FullCommand.length(); i++) {
-                        if (ui.FullCommand.charAt(i) == 'a') {
+                    for(int i = 0; i < ui.fullCommand.length(); i++) {
+                        if (ui.fullCommand.charAt(i) == 'a') {
                             numOfAnds++;
                         }
                     }
-                    String[] strNumberList = ui.FullCommand.substring(7).split(" and ", numOfAnds+1);
+                    String[] strNumberList = ui.fullCommand.substring(7).split(" and ", numOfAnds+1);
                     int size = strNumberList.length;
                     int[] intNumberList = new int[size];
                     for(int j = 0; j < size; j++){
@@ -78,7 +78,7 @@ public class DeleteCommand extends Command {
                 for (int i = 0; i < list.size(); i++) {
                     sb.append(list.get(i).toString() + "\n");
                 }
-                storage.Storages(sb.toString());
+                storage.storages(sb.toString());
             }
     }
     public void undo(ArrayList<Task> list, Storage storage,ArrayList<Task> deletedTask) throws IOException {
@@ -87,7 +87,7 @@ public class DeleteCommand extends Command {
         for (int i = 0; i < list.size(); i++) {
             sb.append(list.get(i).toString() + "\n");
         }
-        storage.Storages(sb.toString());
+        storage.storages(sb.toString());
     }
     @Override
     public boolean isExit() {

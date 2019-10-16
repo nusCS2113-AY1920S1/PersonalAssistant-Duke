@@ -17,27 +17,27 @@ public class ConfirmTentativeCommand extends Command{
             int index = 0;
             Event ev;
             TentativeEvent tev;
-            if (ui.FullCommand.length() == 7) {
+            if (ui.fullCommand.length() == 7) {
                 throw new DukeException("OOPS!!! The index of tentative event cannot be empty.");
                 } else {
-                    index = Integer.parseInt(ui.FullCommand.substring(7).trim()) - 1;
-                    if(list.get(index).listFormat().getBytes()[1] !='T' && list.get(index).listFormat().getBytes()[2] != 'E'){
+                    index = Integer.parseInt(ui.fullCommand.substring(7).trim()) - 1;
+                    if(list.get(index).listFormat().getBytes()[1] != 'T' && list.get(index).listFormat().getBytes()[2] != 'E'){
                         throw new DukeException("OOPS!!! You can only confirm tentative event task.");
                     }else {
                         String tempstring = list.get(index).listFormat();
                         System.out.println("You are confirming this tentative event: " + list.get(index).description);
                         System.out.println(tempstring);
                         System.out.println("Please indicate which time slot you want to confirm");
-                        ui.ReadCommand();
-                        int WhichTimeSlot = Integer.parseInt(ui.FullCommand);
+                        ui.readCommand();
+                        int WhichTimeSlot = Integer.parseInt(ui.fullCommand);
                         String[] timeslots = list.get(index).toString().split("\\|");
                         System.out.println(timeslots[WhichTimeSlot+2]);
                         ev = new Event(list.get(index).description, timeslots[WhichTimeSlot+2]);
                         tev = (TentativeEvent)list.get(index);
                         System.out.println("Are you sure you want to confirm this time slot: ");
                         System.out.println(ev.listFormat());
-                        ui.ReadCommand();
-                        if (ui.FullCommand.equals("yes")) {
+                        ui.readCommand();
+                        if (ui.fullCommand.equals("yes")) {
                             list.add(ev);
                             list.remove(index);
                             System.out.println("Confirmed.");
@@ -52,7 +52,7 @@ public class ConfirmTentativeCommand extends Command{
                         sb.append(list.get(i).toString() + "\n");
                     }
                 }
-                storage.Storages(sb.toString());
+                storage.storages(sb.toString());
                 commandStack.push("confirm"+"~"+ev.toString()+"~"+tev.toString());
             }
         catch (DukeException e) {
@@ -90,7 +90,7 @@ public class ConfirmTentativeCommand extends Command{
         for (int i = 0; i < list.size(); i++) {
             sb.append(list.get(i).toString() + "\n");
         }
-        storage.Storages(sb.toString());
+        storage.storages(sb.toString());
     }
 
     @Override

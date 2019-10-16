@@ -18,20 +18,19 @@ public class ChangePasswordCommand extends Command {
      * @throws IOException
      */
     @Override
-    public void execute(ArrayList<Task> list, Ui ui, Storage storage, Stack<String> commandStack, ArrayList<Task> deletedTask) throws DukeException, ParseException, IOException, NullPointerException {
+    public void execute(final ArrayList<Task> list, final Ui ui, final Storage storage, final Stack<String> commandStack, final ArrayList<Task> deletedTask) throws DukeException, ParseException, IOException, NullPointerException {
         System.out.println("Enter your current password:");
-        ui.ReadCommand();
-        ArrayList<String> password_list = new ArrayList<>();
-        while(!ui.FullCommand.equals("esc")) {
-            if (ui.FullCommand.equals(storage.Password().get(0))) {
+        ui.readCommand();
+        while (!ui.fullCommand.equals("esc")) {
+            if (ui.fullCommand.equals(storage.password().get(0))) {
                 System.out.println("Enter new password:");
-                ui.ReadCommand();
-                storage.Storages_password(ui.FullCommand);
+                ui.readCommand();
+                storage.storagesPassword(ui.fullCommand);
                 System.out.println("Password successfully changed :)");
                 break;
             } else {
                 System.out.println("Wrong password, exit by entering esc or try again:");
-                ui.ReadCommand();
+                ui.readCommand();
             }
         }
     }

@@ -10,7 +10,13 @@ import commands.note.EditNoteCommand;
 import commands.note.ListNoteCommand;
 
 public class Parser {
-    public static Command parse(String command) throws DukeException {
+    /**
+     * This method
+     * @param command
+     * @return
+     * @throws DukeException
+     */
+    public static Command parse(final String command) throws DukeException {
         String[] splitCommand = command.split(" ");
         if (splitCommand[0].equals("list")) {
             if (command.contains("event")) {

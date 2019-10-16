@@ -15,14 +15,14 @@ public class TimeboundCommand extends Command {
     @Override
     public void execute(ArrayList<Task> list, Ui ui, Storage storage, Stack<String> commandStack, ArrayList<Task> deletedTask) throws DukeException, ParseException, IOException, NullPointerException {
         String description = "";
-        String duration = ui.FullCommand.split("/")[1];
+        String duration = ui.fullCommand.split("/")[1];
         try {
             if (duration.length() > 6 && duration.length() < 33){
                 throw new DukeException("OOPS!!! There is no proper duration of time allocated for this task.");
             } else {
-                description = ui.FullCommand.split("/between ")[0];
+                description = ui.fullCommand.split("/between ")[0];
             }
-            String period = ui.FullCommand.split("/between ")[1];
+            String period = ui.fullCommand.split("/between ")[1];
 
             Timebound tb = new Timebound(description, period);
             list.add(tb);
@@ -33,7 +33,7 @@ public class TimeboundCommand extends Command {
             for (int i = 0; i < list.size(); i++) {
                 sb.append(list.get(i).toString() + "\n");
             }
-            storage.Storages(sb.toString());
+            storage.storages(sb.toString());
         }
 
         catch (DukeException e) {
@@ -51,7 +51,7 @@ public class TimeboundCommand extends Command {
         for (int i = 0; i < list.size(); i++) {
             sb.append(list.get(i).toString() + "\n");
         }
-        storage.Storages(sb.toString());
+        storage.storages(sb.toString());
     }
     @Override
     public boolean isExit() {

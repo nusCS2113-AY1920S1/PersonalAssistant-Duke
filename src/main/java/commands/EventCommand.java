@@ -19,12 +19,12 @@ public class EventCommand extends Command {
     public void execute(ArrayList<Task> list, Ui ui, Storage storage, Stack<String> commandStack, ArrayList<Task> deletedTask) throws DukeException, ParseException, IOException, NullPointerException {
         String description;
         try {
-            if (ui.FullCommand.length() == 5) {
+            if (ui.fullCommand.length() == 5) {
                 throw new DukeException("OOPS!!! The description of an event cannot be empty.");
             } else {
-                description = ui.FullCommand.split("/at ")[0].substring(6);
+                description = ui.fullCommand.split("/at ")[0].substring(6);
             }
-            String at = ui.FullCommand.split("/at ")[1];
+            String at = ui.fullCommand.split("/at ")[1];
             Event ev = new Event(description, at);
 
             //CHECKING FOR SCHEDULE ANOMALIES------------------------------------------------------------------
@@ -54,7 +54,7 @@ public class EventCommand extends Command {
             for (int i = 0; i < list.size(); i++) {
                 sb.append(list.get(i).toString() + "\n");
             }
-            storage.Storages(sb.toString());
+            storage.storages(sb.toString());
         } catch (DukeException e) {
             System.out.println(e.getMessage());
         } catch (ArrayIndexOutOfBoundsException | DateTimeParseException a) {
@@ -72,7 +72,7 @@ public class EventCommand extends Command {
         for (int i = 0; i < list.size(); i++) {
             sb.append(list.get(i).toString() + "\n");
         }
-        storage.Storages(sb.toString());
+        storage.storages(sb.toString());
     }
     @Override
     public boolean isExit() {

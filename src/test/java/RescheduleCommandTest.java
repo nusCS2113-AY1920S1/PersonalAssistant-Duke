@@ -24,17 +24,17 @@ public class RescheduleCommandTest {
         Storage storage = new Storage();
         Stack<String> CommandStack = new Stack<>();
         ArrayList<Task> deletedTask = new ArrayList<Task>();
-        ui.FullCommand = "deadline return book /by 2008-07-07 03:03:03";
+        ui.fullCommand = "deadline return book /by 2008-07-07 03:03:03";
         try {
             deadlineCommand.execute(tasks,ui,storage, CommandStack, deletedTask);
         } catch (DukeException dukeException) {
             dukeException.printStackTrace();
         }
-        ui.FullCommand = "reschedule 1";
+        ui.fullCommand = "reschedule 1";
         int index =0;
         String Decription = tasks.get(index).description;
-        ui.FullCommand="2019-09-18 05:05:05";
-        Task RescheduledDeadline = new Deadline(Decription, ui.FullCommand);
+        ui.fullCommand ="2019-09-18 05:05:05";
+        Task RescheduledDeadline = new Deadline(Decription, ui.fullCommand);
         tasks.remove(index);
         tasks.add(RescheduledDeadline);
 

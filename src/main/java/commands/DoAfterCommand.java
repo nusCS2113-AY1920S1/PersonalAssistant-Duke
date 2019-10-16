@@ -21,10 +21,10 @@ public class DoAfterCommand extends Command {
      * @throws NullPointerException if tDate doesn't get updated.
      */
     @Override
-    public void execute(ArrayList<Task> list, Ui ui, Storage storage, Stack<String> commandStack, ArrayList<Task> deletedTask) throws DukeException, ParseException, IOException, NullPointerException {
+    public void execute(final ArrayList<Task> list, final Ui ui, final Storage storage, final Stack<String> commandStack, final ArrayList<Task> deletedTask) throws DukeException, ParseException, IOException, NullPointerException {
         String before = "";
         String after = "";
-        String[] splitstring = ui.FullCommand.split("/after");
+        String[] splitstring = ui.fullCommand.split("/after");
         before = splitstring[1];
         after = splitstring[0];
         DoAfter to = new DoAfter(before, before, after);
@@ -36,9 +36,9 @@ public class DoAfterCommand extends Command {
         for (int i = 0; i < list.size(); i++) {
             sb.append(list.get(i).toString() + "\n");
         }
-        storage.Storages(sb.toString());
+        storage.storages(sb.toString());
     }
-    public void undo(String command, ArrayList<Task> list, Storage storage) throws IOException {
+    public void undo(final String command, final ArrayList<Task> list, final Storage storage) throws IOException {
         String before = "";
         String after = "";
         String[] splitstring = command.split("/after");
@@ -54,10 +54,10 @@ public class DoAfterCommand extends Command {
         for (int i = 0; i < list.size(); i++) {
             sb.append(list.get(i).toString() + "\n");
         }
-        storage.Storages(sb.toString());
+        storage.storages(sb.toString());
     }
     /**
-     * Tells the main Duke class that the system should not exit and continue running
+     * Tells the main Duke class that the system should not exit and continue running.
      *
      * @return false
      */

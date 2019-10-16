@@ -15,9 +15,10 @@ public class EditCommand extends Command {
     /**
      * This method will receive the user's input on which list index to edit and then receive another user's input, checking he/she wants to edit the
      * task's description or time or both and execute them in the following methods respectively.
-     * @param list    task lists
-     * @param ui      the object that deals with printing things to the user.
-     * @param storage the object that deals with storing data to the Save.txt file.
+     *
+     * @param list         task lists
+     * @param ui           the object that deals with printing things to the user.
+     * @param storage      the object that deals with storing data to the Save.txt file.
      * @param commandStack
      * @param deletedTask
      * @throws IOException
@@ -25,27 +26,27 @@ public class EditCommand extends Command {
      */
 
     @Override
-    public void execute(ArrayList<Task> list, Ui ui, Storage storage, Stack<String> commandStack, ArrayList<Task> deletedTask) throws DukeException, ParseException, IOException, NullPointerException {
-        String[] input = ui.FullCommand.split(" ");
+    public void execute(final ArrayList<Task> list, final Ui ui, final Storage storage, final Stack<String> commandStack, final ArrayList<Task> deletedTask) throws DukeException, ParseException, IOException, NullPointerException {
+        String[] input = ui.fullCommand.split(" ");
         System.out.println("Edit description/time/both ?");
-        int listno_index = Integer.parseInt(input[1]) - 1;
-        ui.ReadCommand();
-        if (ui.FullCommand.equals("description")) {
-            new EditDescriptionCommand(list, ui, listno_index);
-        } else if (ui.FullCommand.equals("time")) {
-            new EditTimeCommand(list, ui, listno_index);
+        int listnoIndex = Integer.parseInt(input[1]) - 1;
+        ui.readCommand();
+        if (ui.fullCommand.equals("description")) {
+            new EditDescriptionCommand(list, ui, listnoIndex);
+        } else if (ui.fullCommand.equals("time")) {
+            new EditTimeCommand(list, ui, listnoIndex);
         } else {
-            new EditBothCommand(list, ui, listno_index);
+            new EditBothCommand(list, ui, listnoIndex);
         }
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < list.size(); i++) {
             sb.append(list.get(i).toString() + "\n");
         }
-        storage.Storages(sb.toString());
+        storage.storages(sb.toString());
     }
 
     /**
-     * Tells the main Duke class that the system should not exit and continue running
+     * Tells the main Duke class that the system should not exit and continue running.
      *
      * @return false
      */

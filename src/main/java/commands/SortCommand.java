@@ -8,28 +8,25 @@ import UI.Ui;
 import java.io.IOException;
 import Exception.DukeException;
 import java.text.ParseException;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 public class SortCommand extends Command {
     @Override
     public void execute(ArrayList<Task> list, Ui ui, Storage storage, Stack<String> commandStack, ArrayList<Task> deletedTask) throws DukeException, ParseException, IOException, NullPointerException {
         try {
-            if(ui.FullCommand.length() == 4) {
+            if(ui.fullCommand.length() == 4) {
                 throw new DukeException("OOPS!!! Please enter method of sorting.");
             }else{
                 ArrayList<Task> SortedList = new ArrayList<Task>(list);
-                if(ui.FullCommand.split(" ")[1].equals("name")){
+                if(ui.fullCommand.split(" ")[1].equals("name")){
                     Collections.sort(SortedList,new CustomNameComparator());
                     for(int i =0;i<SortedList.size();i++){
                         System.out.println(SortedList.get(i).listFormat());
                     }
-                }else if(ui.FullCommand.split(" ")[1].equals("date")){
+                }else if(ui.fullCommand.split(" ")[1].equals("date")){
                     throw new DukeException("OOPS!!! Gazeebo currently does not support sort by date.");
-                }else if(ui.FullCommand.split(" ")[1].equals("priority")){
+                }else if(ui.fullCommand.split(" ")[1].equals("priority")){
                     throw new DukeException("OOPS!!! Gazeebo currently does not support sort by priority.");
                 }else{
                     throw new DukeException("OOPS!!! Gazeebo currently does not support this sorting method.");

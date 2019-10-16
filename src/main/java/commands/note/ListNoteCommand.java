@@ -52,7 +52,7 @@ public class ListNoteCommand extends AddNoteCommand {
     /** The main method that executes all the sub methods. */
     @Override
     public void execute(ArrayList<Task> list, Ui ui, Storage storage, Stack<String> commandStack, ArrayList<Task> deletedTask) throws IOException {
-        String[] command = ui.FullCommand.split(" ");
+        String[] command = ui.fullCommand.split(" ");
         LocalDate userDate;
         try {
             userDate = processCommand(command, "listNote");

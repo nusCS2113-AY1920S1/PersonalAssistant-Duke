@@ -16,7 +16,7 @@ public class DoneListCommand extends Command {
     public void execute(ArrayList<Task> list, Ui ui, Storage storage, Stack<String> commandStack, ArrayList<Task> deletedTask) throws DukeException, ParseException, IOException, NullPointerException {
         ArrayList<Task> DoneList = new ArrayList<>();
         try {
-            if (ui.FullCommand.equals("done")) {
+            if (ui.fullCommand.equals("done")) {
                 throw new DukeException("Command for 'done' cannot be empty.");
             }
             for (Task task : list) {
@@ -25,7 +25,7 @@ public class DoneListCommand extends Command {
                 }
             }
 
-            if (ui.FullCommand.equals("done list")) {
+            if (ui.fullCommand.equals("done list")) {
                 System.out.println("List of tasks that are done:");
                 for (int i = 0; i < DoneList.size(); i++) {
                     System.out.println(i + 1 + "." + DoneList.get(i).listFormat());
@@ -35,7 +35,7 @@ public class DoneListCommand extends Command {
             for (int i = 0; i < list.size(); i++) {
                 sb.append(list.get(i).toString() + "\n");
             }
-            storage.Storages(sb.toString());
+            storage.storages(sb.toString());
         }
         catch (DukeException e) {
         System.out.println(e.getMessage());

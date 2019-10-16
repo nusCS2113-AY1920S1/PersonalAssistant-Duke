@@ -36,7 +36,7 @@ public class ScheduleWeeklyCommand extends Command {
     public void execute(ArrayList<Task> list, Ui ui, Storage storage, Stack<String> commandStack, ArrayList<Task> deletedTask) throws NullPointerException {
         DateTimeFormatter fmt = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         try {
-            String[] date = ui.FullCommand.trim().split(" ");
+            String[] date = ui.fullCommand.trim().split(" ");
             if (date.length > 3) {
                 System.out.println("The command should be in the format \"scheduleWeekly yyyy-MM-dd yyyy-MM-dd\".");
                 return;

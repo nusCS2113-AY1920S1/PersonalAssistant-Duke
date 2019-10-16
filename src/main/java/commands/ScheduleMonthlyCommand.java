@@ -31,7 +31,7 @@ public class ScheduleMonthlyCommand extends Command {
     @Override
     public void execute(ArrayList<Task> list, Ui ui, Storage storage, Stack<String> commandStack, ArrayList<Task> deletedTask) throws NullPointerException {
         DateTimeFormatter fmt = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        String[] command = ui.FullCommand.trim().split(" ");
+        String[] command = ui.fullCommand.trim().split(" ");
         if (command.length > 2) {
             System.out.println("The command should be in the format \"scheduleMonthly yyyy-MM\".");
             return;

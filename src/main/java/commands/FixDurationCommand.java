@@ -22,11 +22,11 @@ public class FixDurationCommand extends Command {
      * @throws NullPointerException if tDate doesn't get updated.
      */
     @Override
-    public void execute(ArrayList<Task> list, Ui ui, Storage storage, Stack<String> commandStack, ArrayList<Task> deletedTask) throws DukeException, ParseException, IOException, NullPointerException {
+    public void execute(final ArrayList<Task> list, final Ui ui, final Storage storage, final Stack<String> commandStack, final ArrayList<Task> deletedTask) throws DukeException, ParseException, IOException, NullPointerException {
         String description = "";
         String duration = "";
         String[] splitstring;
-        splitstring = ui.FullCommand.split("/require");
+        splitstring = ui.fullCommand.split("/require");
         description = splitstring[0];
         duration = splitstring[1];
 
@@ -39,9 +39,10 @@ public class FixDurationCommand extends Command {
         for (int i = 0; i < list.size(); i++) {
             sb.append(list.get(i).toString() + "\n");
         }
-        storage.Storages(sb.toString());
+        storage.storages(sb.toString());
     }
-    public void undo(String command, ArrayList<Task> list, Storage storage) throws IOException {
+
+    public void undo(final String command, final ArrayList<Task> list, final Storage storage) throws IOException {
         for (Task it : list) {
             if (it.description.contains(command.split("/requires")[0].trim())) {
                 list.remove(it);
@@ -52,9 +53,11 @@ public class FixDurationCommand extends Command {
         for (int i = 0; i < list.size(); i++) {
             sb.append(list.get(i).toString() + "\n");
         }
-        storage.Storages(sb.toString());
-    }    /**
-     * Tells the main Duke class that the system should not exit and continue running
+        storage.storages(sb.toString());
+    }
+    /**
+     * Tells the main Duke class that the system
+     * should not exit and continue running.
      *
      * @return false
      */

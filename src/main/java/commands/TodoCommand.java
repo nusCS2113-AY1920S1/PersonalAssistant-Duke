@@ -2,8 +2,9 @@ package commands;
 
 
 import Tasks.Task;
+import Tasks.Todo;
 import UI.Ui;
-import Tasks.*;
+
 import Storage.Storage;
 import Exception.DukeException;
 import java.io.IOException;
@@ -14,13 +15,13 @@ import java.util.Stack;
 public class TodoCommand extends Command {
 
     @Override
-    public void execute(ArrayList<Task> list, Ui ui, Storage storage, Stack<String> commandStack, ArrayList<Task> deletedTask) throws DukeException, ParseException, IOException, NullPointerException {
+    public void execute(final ArrayList<Task> list, final Ui ui, final Storage storage, final Stack<String> commandStack, final ArrayList<Task> deletedTask) throws DukeException, ParseException, IOException, NullPointerException {
         String description = "";
         try {
-            if (ui.FullCommand.length() <= 4) {
+            if (ui.fullCommand.length() <= 4) {
                 throw new DukeException("OOPS!!! The description of a todo cannot be empty.");
             } else {
-                description = ui.FullCommand.substring(5);
+                description = ui.fullCommand.substring(5);
 
         }
         Todo to = new Todo(description);
@@ -32,13 +33,12 @@ public class TodoCommand extends Command {
         for (int i = 0; i < list.size(); i++) {
             sb.append(list.get(i).toString() + "\n");
         }
-        storage.Storages(sb.toString());
-        }
-        catch (DukeException e) {
+        storage.storages(sb.toString());
+        } catch (DukeException e) {
             System.out.println(e.getMessage());
         }
     }
-    public void undo(String command, ArrayList<Task> list, Storage storage) throws IOException {
+    public void undo(final String command, final ArrayList<Task> list, final Storage storage) throws IOException {
         for (Task it : list) {
             if (it.description.contains(command.substring(6).trim())) {
                 list.remove(it);
@@ -49,7 +49,7 @@ public class TodoCommand extends Command {
         for (int i = 0; i < list.size(); i++) {
             sb.append(list.get(i).toString() + "\n");
         }
-        storage.Storages(sb.toString());
+        storage.storages(sb.toString());
     }
     @Override
     public boolean isExit() {

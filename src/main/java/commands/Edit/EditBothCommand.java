@@ -1,7 +1,11 @@
 package commands.Edit;
 
-import Storage.Storage;
-import Tasks.*;
+import Tasks.Deadline;
+import Tasks.Event;
+import Tasks.Task;
+import Tasks.Todo;
+import Tasks.FixedDuration;
+import Tasks.Timebound;
 import UI.Ui;
 
 import java.io.IOException;
@@ -12,51 +16,45 @@ public class EditBothCommand {
      * This method will receive the user new description and time and edit the old description and time in the list.
      * @param list task lists
      * @param ui the object that deals with printing things to the user.
-     * @param listno_index  the index of the list
+     * @param listIndex  the index of the list
      * @throws IOException
      */
-    public EditBothCommand(ArrayList<Task> list, Ui ui, int listno_index) throws IOException {
+    public EditBothCommand(final ArrayList<Task> list, final Ui ui, final int listIndex) throws IOException {
         System.out.print("Type your description & date:\n");
-        ui.ReadCommand();
-        String[] break_list_words = list.get(listno_index).toString().split("\\|");
-        if (break_list_words[0].equals("T")) {
-            Todo newtodo = new Todo(ui.FullCommand);
-            System.out.print("Ok, we have edited your ToDo description.\n\tFrom: " + list.get(listno_index).listFormat() +
-                    "\n\tTo:   " + newtodo.listFormat() + "\n");
-            list.set(listno_index, newtodo);
-        } else if (break_list_words[0].equals("D")) {
-            String[] break_deadline = ui.FullCommand.split("/by ");
-            String description = break_deadline[0];
-            String by = break_deadline[1];
+        ui.readCommand();
+        String[] breakListWords = list.get(listIndex).toString().split("\\|");
+        if (breakListWords[0].equals("T")) {
+            Todo newtodo = new Todo(ui.fullCommand);
+            System.out.print("Ok, we have edited your ToDo description.\n\tFrom: " + list.get(listIndex).listFormat() + "\n\tTo:   " + newtodo.listFormat() + "\n");
+            list.set(listIndex, newtodo);
+        } else if (breakListWords[0].equals("D")) {
+            String[] breakDeadline = ui.fullCommand.split("/by ");
+            String description = breakDeadline[0];
+            String by = breakDeadline[1];
             Deadline newdeadline = new Deadline(description, by);
-            System.out.print("Ok, we have edited your Deadline description and time.\n\tFrom: " + list.get(listno_index).listFormat() +
-                    "\n\tTo:   " + newdeadline.listFormat() + "\n");
-            list.set(listno_index, newdeadline);
-        } else if(break_list_words[0].equals("E")) {
-            String[] break_event = ui.FullCommand.split("/at ");
-            String description = break_event[0];
-            String at = break_event[1];
+            System.out.print("Ok, we have edited your Deadline description and time.\n\tFrom: "
+                    + list.get(listIndex).listFormat()
+                    + "\n\tTo:   " + newdeadline.listFormat() + "\n");
+            list.set(listIndex, newdeadline);
+        } else if (breakListWords[0].equals("E")) {
+            String[] breakEvent = ui.fullCommand.split("/at ");
+            String description = breakEvent[0];
+            String at = breakEvent[1];
             Event newEvent = new Event(description, at);
-            System.out.print("Ok, we have edited your Event description and time." +
-                    "\n\tFrom: " + list.get(listno_index).listFormat() +
-                    "\n\tTo:   " + newEvent.listFormat() + "\n");
-            list.set(listno_index, newEvent);
-        } else if(break_list_words[0].equals("DA")) {
+            System.out.print("Ok, we have edited your Event description and time." + "\n\tFrom: " + list.get(listIndex).listFormat() + "\n\tTo:   " + newEvent.listFormat() + "\n");
+            list.set(listIndex, newEvent);
+        } else if (breakListWords[0].equals("DA")) {
 
-
-        } else if(break_list_words[0].equals("FD")) {
-            String[] break_FD = ui.FullCommand.split(" /require ");
-            FixedDuration newFD = new FixedDuration(break_FD[0],break_FD[1]);
-            System.out.print("Ok, we have edited your FixDuration description and time.\n\tFrom: " + list.get(listno_index).listFormat() +
-                    "\n\tTo:   " + newFD.listFormat() + "\n");
-            list.set(listno_index, newFD);
-        }
-        else if(break_list_words[0].equals("P")) {
-            String[] break_P = ui.FullCommand.split(" /between ");
-            Timebound newP = new Timebound(break_P[0], break_P[1]);
-            System.out.print("Ok, we have edited your FixDuration description and time.\n\tFrom: " + list.get(listno_index).listFormat() +
-                    "\n\tTo:   " + newP.listFormat() + "\n");
-            list.set(listno_index, newP);
+        } else if (breakListWords[0].equals("FD")) {
+            String[] breakFD = ui.fullCommand.split(" /require ");
+            FixedDuration newFD = new FixedDuration(breakFD[0], breakFD[1]);
+            System.out.print("Ok, we have edited your FixDuration description and time.\n\tFrom: " + list.get(listIndex).listFormat() + "\n\tTo:   " + newFD.listFormat() + "\n");
+            list.set(listIndex, newFD);
+        } else if (breakListWords[0].equals("P")) {
+            String[] breakP = ui.fullCommand.split(" /between ");
+            Timebound newP = new Timebound(breakP[0], breakP[1]);
+            System.out.print("Ok, we have edited your FixDuration description and time.\n\tFrom: " + list.get(listIndex).listFormat() + "\n\tTo:   " + newP.listFormat() + "\n");
+            list.set(listIndex, newP);
         }
     }
 }

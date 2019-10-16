@@ -19,19 +19,19 @@ public class SnoozeCommand extends Command {
     @Override
     public void execute(ArrayList<Task> list, Ui ui, Storage storage, Stack<String> commandStack, ArrayList<Task> deletedTask) throws DukeException, ParseException, IOException, NullPointerException {
         try {
-        if(ui.FullCommand.length() == 6) {
+        if(ui.fullCommand.length() == 6) {
             throw new DukeException("OOPS!!! The object of a snoozing cannot be null.");
         }else{
 
-            int index = Integer.parseInt(ui.FullCommand.substring(6).trim()) - 1;
+            int index = Integer.parseInt(ui.fullCommand.substring(6).trim()) - 1;
             String Description=list.get(index).description;
             System.out.println("You are snoozing this task: "+list.get(index).description);
             System.out.println("Please indicate how much time you want to snooze");
-            ui.ReadCommand();
-            int year = Integer.parseInt(ui.FullCommand.split(" ")[0]);
-            int day = Integer.parseInt(ui.FullCommand.split(" ")[2]);
-            int month =Integer.parseInt(ui.FullCommand.split(" ")[1]);
-            int hour = Integer.parseInt(ui.FullCommand.split(" ")[3]);
+            ui.readCommand();
+            int year = Integer.parseInt(ui.fullCommand.split(" ")[0]);
+            int day = Integer.parseInt(ui.fullCommand.split(" ")[2]);
+            int month =Integer.parseInt(ui.fullCommand.split(" ")[1]);
+            int hour = Integer.parseInt(ui.fullCommand.split(" ")[3]);
 
             if (list.get(index).listFormat().contains("by")) {
                 String date = list.get(index).toString().split("\\|")[3].substring(4);
@@ -64,7 +64,7 @@ public class SnoozeCommand extends Command {
             for (int i = 0; i < list.size(); i++) {
                 sb.append(list.get(i).toString() + "\n");
                 }
-                storage.Storages(sb.toString());
+                storage.storages(sb.toString());
             }
         }
         catch (DukeException e) {

@@ -61,7 +61,7 @@ public class EditNoteCommand extends AddNoteCommand {
     public void execute(ArrayList<Task> list, Ui ui, Storage storage, Stack<String> commandStack, ArrayList<Task> deletedTask) throws IOException {
         //editNote day/week/month yyyy-MM-dd <note_num = index+1>
         //<the note they want to edit to become>
-        String[] command = ui.FullCommand.split(" ");
+        String[] command = ui.fullCommand.split(" ");
         LocalDate userDate;
         try {
             userDate = processCommand(command, "editNote");
@@ -78,8 +78,8 @@ public class EditNoteCommand extends AddNoteCommand {
             return;
         }
 
-        ui.ReadCommand();
-        String usersNote = ui.FullCommand;
+        ui.readCommand();
+        String usersNote = ui.fullCommand;
         try {
             switch (command[1]) {
             case "day": editNoteInList(noteNum, NoteList.daily, userDate, usersNote, command[1], "NoteDaily.txt");

@@ -9,7 +9,6 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
@@ -18,12 +17,12 @@ import java.util.Collections;
 import java.util.Comparator;
 
 public class Ui {
-    public String FullCommand;
+    public String fullCommand;
 
 
-    public void ReadCommand() throws IOException {
+    public void readCommand() throws IOException {
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-        FullCommand = reader.readLine();
+        fullCommand = reader.readLine();
     }
 
     /**
@@ -44,11 +43,11 @@ public class Ui {
                 + "\n__________________________________________\n";
 
         while (true) {
-            ReadCommand();
-            ArrayList<String> password_list;
+            readCommand();
+            ArrayList<String> passwordList;
             Storage store = new Storage();
-            password_list = store.Password();
-            if (FullCommand.equals(password_list.get(0))) {
+            passwordList = store.password();
+            if (fullCommand.equals(passwordList.get(0))) {
                 System.out.println(welcomemessage);
                 LocalDate a = LocalDate.now();
                 System.out.println("Today is " + a.format(DateTimeFormatter.ofLocalizedDate(FormatStyle.FULL)));
@@ -60,34 +59,34 @@ public class Ui {
         return welcomemessage;
     }
 
-    public void UpcomingTask(ArrayList<Task> list) throws ParseException {
-        ArrayList<Deadline> DeadlineList = new ArrayList<Deadline>();
-        ArrayList<Event> EventList = new ArrayList<Event>();
+    public void UpcomingTask(final ArrayList<Task> list) throws ParseException {
+        ArrayList<Deadline> deadlineList = new ArrayList<Deadline>();
+        ArrayList<Event> arrayList = new ArrayList<Event>();
 
         for (Task task : list) {
             if (task.getClass().getName().equals("Tasks.Deadline") && !task.isDone) {
                 Deadline deadline = new Deadline(task.description, task.toString().split("by:")[1].trim());
                 deadline.isDone = task.isDone;
-                DeadlineList.add(deadline);
+                deadlineList.add(deadline);
             } else if (task.getClass().getName().equals("Tasks.Event") && !task.isDone) {
                 Event event = new Event(task.description, task.toString().split("at:")[1].trim());
                 event.isDone = task.isDone;
-                EventList.add(event);
+                arrayList.add(event);
             }
         }
-        Collections.sort(DeadlineList, Comparator.comparing(u -> u.by));
-        Collections.sort(EventList, Comparator.comparing(u -> u.date));
+        Collections.sort(deadlineList, Comparator.comparing(u -> u.by));
+        Collections.sort(arrayList, Comparator.comparing(u -> u.date));
         System.out.println("Upcoming deadlines:");
-        for (int i = 0; i < DeadlineList.size(); i++) {
-            System.out.println(i + 1 + "." + DeadlineList.get(i).listFormat());
+        for (int i = 0; i < deadlineList.size(); i++) {
+            System.out.println(i + 1 + "." + deadlineList.get(i).listFormat());
         }
         System.out.println("Upcoming events:");
-        for (int i = 0; i < EventList.size(); i++) {
-            System.out.println(i + 1 + "." + EventList.get(i).listFormat());
+        for (int i = 0; i < arrayList.size(); i++) {
+            System.out.println(i + 1 + "." + arrayList.get(i).listFormat());
         }
     }
 
-    public void showProgessiveBar(ArrayList<Task> list) throws IOException {
+    public void showProgessiveBar(final ArrayList<Task> list) throws IOException {
         int UndoneNumber = 0;
         int DoneNumber = 0;
 
@@ -124,11 +123,11 @@ public class Ui {
         System.out.println("Date Time has to be in YYYY-MM-DD HH:mm:ss-HH:mm:ss format");
     }
 
-    public void showIOErrorMessage(Exception e) {
+    public void showIOErrorMessage(final Exception e) {
         System.err.println("An IOException was caught :" + e.getMessage());
     }
 
-    public void showErrorMessage(Exception e) {
+    public void showErrorMessage(final Exception e) {
         System.out.println(e.getMessage());
     }
 

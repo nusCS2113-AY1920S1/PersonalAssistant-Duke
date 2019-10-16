@@ -4,10 +4,10 @@ import Storage.Storage;
 import Storage.NoteStorage;
 import commands.Command;
 import notes.NoteList;
-import parsers.*;
+import parsers.Parser;
 import Exception.DukeException;
 
-import java.io.*;
+import java.io.IOException;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Stack;
@@ -19,27 +19,27 @@ public class Duke {
      * @param args a String array that takes in input from the command line
      * @throws DukeException | ParseException | IOException | NullPointerException
      */
-    public static void main(String[] args) {
+    public static void main(final String[] args) {
         ArrayList<Task> list;
-        Stack<String> CommandStack = new Stack<String>();
+        Stack<String> commandStack = new Stack<String>();
         ArrayList<Task> deletedTask = new ArrayList<Task>();
         Storage store = new Storage();
         boolean isExit = false;
         Ui ui = new Ui();
         try {
             ui.showWelcome();
-            list = store.ReadFile();
+            list = store.readFile();
             NoteStorage.readFromFile("NoteDaily.txt", NoteList.daily);
             NoteStorage.readFromFile("NoteWeekly.txt", NoteList.weekly);
             NoteStorage.readFromFile("NoteMonthly.txt", NoteList.monthly);
             ui.UpcomingTask(list);
             while (!isExit) {
-                ui.ReadCommand();
-                String command = ui.FullCommand.trim();
+                ui.readCommand();
+                String command = ui.fullCommand.trim();
                 Command c = Parser.parse(command);
-                c.execute(list, ui, store, CommandStack, deletedTask);
+                c.execute(list, ui, store, commandStack, deletedTask);
                 if (!command.equals("undo") && !command.equals("list") && !command.contains("confirm")) {
-                    CommandStack.push(command);
+                    commandStack.push(command);
                 }
 
                 isExit = c.isExit();

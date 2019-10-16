@@ -1,12 +1,9 @@
 package commands.Contact;
 
-import Storage.Storage;
 import UI.Ui;
 
 import java.io.IOException;
-import java.util.HashMap;
 import java.util.Map;
-import java.util.TreeMap;
 
 public class DeleteContactCommand {
 
@@ -17,22 +14,22 @@ public class DeleteContactCommand {
      * @param contact the object that map each name to its own phone number
      * @throws IOException catch any error if read file fails
      */
-    public DeleteContactCommand(Ui ui, Map<String, String> contact) throws IOException {
-        String name_to_delete = "";
-        for (int i = 1; i < ui.FullCommand.split(" ").length; i++) {
-            if (i != ui.FullCommand.split(" ").length - 1) {
-                name_to_delete = name_to_delete.concat(ui.FullCommand.split(" ")[i] + " ");
+    public DeleteContactCommand(final Ui ui, final Map<String, String> contact) throws IOException {
+        String nameToDelete = "";
+        for (int i = 1; i < ui.fullCommand.split(" ").length; i++) {
+            if (i != ui.fullCommand.split(" ").length - 1) {
+                nameToDelete = nameToDelete.concat(ui.fullCommand.split(" ")[i] + " ");
             } else {
-                name_to_delete = name_to_delete.concat(ui.FullCommand.split(" ")[i]);
+                nameToDelete = nameToDelete.concat(ui.fullCommand.split(" ")[i]);
             }
         }
-        if (ui.FullCommand.equals("delete")) {
+        if (ui.fullCommand.equals("delete")) {
             System.out.print("You need to indicate what you want to delete, Format: delete name\n");
-        } else if (contact.containsKey(name_to_delete)) {
-            contact.remove(name_to_delete);
-            System.out.print(name_to_delete + " has been removed.\n");
+        } else if (contact.containsKey(nameToDelete)) {
+            contact.remove(nameToDelete);
+            System.out.print(nameToDelete + " has been removed.\n");
         } else {
-            System.out.print(name_to_delete + " is not in the list.\n");
+            System.out.print(nameToDelete + " is not in the list.\n");
         }
     }
 }

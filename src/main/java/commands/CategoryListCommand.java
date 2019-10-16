@@ -40,28 +40,28 @@ public class CategoryListCommand extends Command {
             }
         }
 
-        if(ui.FullCommand.equals("deadline list")) {
+        if(ui.fullCommand.equals("deadline list")) {
             System.out.println("List of deadlines tasks:");
             for (int i = 0; i < DeadlineList.size(); i++) {
                 System.out.println(i + 1 + "." + DeadlineList.get(i).listFormat());
             }
-        } else if (ui.FullCommand.equals("event list")) {
+        } else if (ui.fullCommand.equals("event list")) {
             System.out.println("List of events tasks:");
             for (int i = 0; i < EventList.size(); i++) {
                 System.out.println(i + 1 + "." + EventList.get(i).listFormat());
             }
-        } else if (ui.FullCommand.equals("todo list")) {
+        } else if (ui.fullCommand.equals("todo list")) {
             System.out.println("List of todo tasks:");
             for (int i = 0; i < TodoList.size(); i++) {
                 System.out.println(i + 1 + "." + TodoList.get(i).listFormat());
             }
-        } else if (ui.FullCommand.equals("fixed duration list")) {
+        } else if (ui.fullCommand.equals("fixed duration list")) {
             System.out.println("List of fixed duration tasks:");
             for (int i = 0; i < FDList.size(); i++) {
                 System.out.println(i + 1 + "." + FDList.get(i).listFormat());
             }
         }
-        else if (ui.FullCommand.equals("timebound list")) {
+        else if (ui.fullCommand.equals("timebound list")) {
             System.out.println("List of timebounded tasks:");
             for (int i = 0; i < TBList.size(); i++) {
                 System.out.println(i + 1 + "." + TBList.get(i).listFormat());

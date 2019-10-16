@@ -80,7 +80,7 @@ public class ContactsCommandTest {
         HashMap<String, String> map = new HashMap<>(); //Read the file
         Map<String, String> contact = new TreeMap<String, String>(map);
         contact.put("jason", "9625 1722");
-        ui.FullCommand = "delete jason";
+        ui.fullCommand = "delete jason";
         DeleteContactCommand test = new DeleteContactCommand(ui, contact);
         assertEquals("jason has been removed.\n", output.toString());
     }
@@ -90,7 +90,7 @@ public class ContactsCommandTest {
         HashMap<String, String> map = new HashMap<>(); //Read the file
         Map<String, String> contact = new TreeMap<String, String>(map);
         contact.put("janel", "9625 1722");
-        ui.FullCommand = "delete jason";
+        ui.fullCommand = "delete jason";
         DeleteContactCommand test = new DeleteContactCommand(ui, contact);
         assertEquals("jason is not in the list.\n", output.toString());
     }
@@ -100,7 +100,7 @@ public class ContactsCommandTest {
         HashMap<String, String> map = new HashMap<>(); //Read the file
         Map<String, String> contact = new TreeMap<String, String>(map);
         contact.put("janel", "9625 1722");
-        ui.FullCommand = "delete";
+        ui.fullCommand = "delete";
         DeleteContactCommand test = new DeleteContactCommand(ui, contact);
         assertEquals("You need to indicate what you want to delete, Format: delete name\n", output.toString());
     }

@@ -15,11 +15,11 @@ public class TagCommand extends Command {
     @Override
     public void execute(ArrayList<Task> list, Ui ui, Storage storage, Stack<String> commandStack, ArrayList<Task> deletedTask) throws DukeException, ParseException, IOException, NullPointerException {
         try {
-            if (ui.FullCommand.equals("#") || ui.FullCommand.equals("# ")) {
+            if (ui.fullCommand.equals("#") || ui.fullCommand.equals("# ")) {
                 throw new DukeException("The tag description cannot be empty.");
             } else {
                 ArrayList<Task> tagList = new ArrayList<>();
-                String tag = ui.FullCommand.substring(1);
+                String tag = ui.fullCommand.substring(1);
                 for (Task it : list) {
                     if (it.description.contains("#")) {
                         if (it.description.split("#")[1].trim().equals(tag)) {

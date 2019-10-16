@@ -14,11 +14,11 @@ public class UndoneCommand extends Command {
     @Override
     public void execute(ArrayList<Task> list, Ui ui, Storage storage, Stack<String> commandStack, ArrayList<Task> deletedTask) throws DukeException, ParseException, IOException, NullPointerException {
 
-            if (ui.FullCommand.equals("undo")) {
+            if (ui.fullCommand.equals("undo")) {
                 throw new DukeException("The undo task number cannot be empty.");
             }
 
-            int numberCheck = Integer.parseInt(ui.FullCommand.substring(5)) - 1;
+            int numberCheck = Integer.parseInt(ui.fullCommand.substring(5)) - 1;
             if (list.get(numberCheck).isDone == true) {
                 list.get(numberCheck).isDone = false;
             }
@@ -30,7 +30,7 @@ public class UndoneCommand extends Command {
             for (int i = 0; i < list.size(); i++) {
                 sb.append(list.get(i).toString() + "\n");
             }
-            storage.Storages(sb.toString());
+            storage.storages(sb.toString());
     }
     public void undo(String command, ArrayList<Task> list, Storage storage) throws IOException {
         int numberCheck = Integer.parseInt(command.substring(7)) - 1;
@@ -39,7 +39,7 @@ public class UndoneCommand extends Command {
         for (int i = 0; i < list.size(); i++) {
             sb.append(list.get(i).toString() + "\n");
         }
-        storage.Storages(sb.toString());
+        storage.storages(sb.toString());
         System.out.println("Nice! I've undo this command" + command);
     }
     @Override

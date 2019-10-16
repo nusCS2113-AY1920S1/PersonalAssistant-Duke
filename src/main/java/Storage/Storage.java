@@ -4,7 +4,6 @@ import java.io.File;
 
 import Tasks.Task;
 import Tasks.*;
-import commands.FixDurationCommand;
 
 import java.io.FileWriter;
 import java.io.IOException;
@@ -16,17 +15,17 @@ import java.util.Scanner;
 public class Storage {
 
     private String absolutePath = "Save.txt";
-    private String absolutePath_password = "Password.txt";
-    private String absolutePath_Contact = "Contact.txt";
+    private String absolutePathPassword = "Password.txt";
+    private String absolutePathContact = "Contact.txt";
 
-    public void Storages(String fileContent) throws IOException {
+    public void storages(final String fileContent) throws IOException {
         FileWriter fileWriter = new FileWriter(absolutePath);
         fileWriter.write(fileContent);
         fileWriter.flush();
         fileWriter.close();
     }
 
-    public ArrayList<Task> ReadFile() throws IOException {
+    public ArrayList<Task> readFile() throws IOException {
         ArrayList<Task> tList = new ArrayList<Task>();
         if (new File(absolutePath).exists()) {
             File file = new File(absolutePath);
@@ -66,33 +65,33 @@ public class Storage {
                     }
                     tList.add(tb);
                 } else if (details[0].equals("FD")) {
-                    FixedDuration FD = new FixedDuration(details[2].trim(), details[3].trim());
+                    FixedDuration fd = new FixedDuration(details[2].trim(), details[3].trim());
                     if (details[1].equals("D")) {
-                        FD.isDone = true;
+                        fd.isDone = true;
                     } else {
-                        FD.isDone = false;
+                        fd.isDone = false;
                     }
-                    tList.add(FD);
+                    tList.add(fd);
                 } else if (details[0].equals("DA")) {
-                    DoAfter DA = new DoAfter(details[3].trim(), details[3].trim(), details[2].trim());
+                    DoAfter da = new DoAfter(details[3].trim(), details[3].trim(), details[2].trim());
                     if (details[1].equals("D")) {
-                        DA.isDone = true;
+                        da.isDone = true;
                     } else {
-                        DA.isDone = false;
+                        da.isDone = false;
                     }
-                    tList.add(DA);
+                    tList.add(da);
                 } else if (details[0].equals("TE")) {
                     ArrayList<String> timeslots = new ArrayList<String>();
                     for (int i = 3; i < details.length; i++) {
                         timeslots.add(details[i]);
                     }
-                    TentativeEvent TE = new TentativeEvent(details[2].trim(), timeslots);
+                    TentativeEvent te = new TentativeEvent(details[2].trim(), timeslots);
                     if (details[1].equals("D")) {
-                        TE.isDone = true;
+                        te.isDone = true;
                     } else {
-                        TE.isDone = false;
+                        te.isDone = false;
                     }
-                    tList.add(TE);
+                    tList.add(te);
                 } else {
                     if (details[3].contains("at:") || details[3].contains("by:")) {
                         Event e = new Event(details[2].trim(), details[3].substring(3).trim());
@@ -110,14 +109,6 @@ public class Storage {
                             tb.isDone = false;
                         }
                         tList.add(tb);
-                    } else {
-                        FixedDuration FD = new FixedDuration(details[2].trim(), details[3].trim());
-                        if (details[1].equals("D")) {
-                            FD.isDone = true;
-                        } else {
-                            FD.isDone = false;
-                        }
-                        tList.add(FD);
                     }
                 }
             }
@@ -125,17 +116,23 @@ public class Storage {
         return tList;
     }
 
-    public void Storages_password(String fileContent) throws IOException {
-        FileWriter fileWriter = new FileWriter(absolutePath_password);
+    /**
+     * This method write the password to the file.
+     * @param fileContent contains the password.
+     * @throws IOException
+     */
+
+    public void storagesPassword(final String fileContent) throws IOException {
+        FileWriter fileWriter = new FileWriter(absolutePathPassword);
         fileWriter.write(fileContent);
         fileWriter.flush();
         fileWriter.close();
     }
 
-    public ArrayList<String> Password() throws IOException {
+    public ArrayList<String> password() throws IOException {
         ArrayList<String> passwordList = new ArrayList<>();
-        if (new File(absolutePath_password).exists()) {
-            File file = new File(absolutePath_password);
+        if (new File(absolutePathPassword).exists()) {
+            File file = new File(absolutePathPassword);
             Scanner sc = new Scanner(file);
             while (sc.hasNext()) {
                 passwordList.add(sc.nextLine());
@@ -145,13 +142,13 @@ public class Storage {
     }
 
     /**
-     * THis method writes to the file Contact.txt
+     * THis method writes to the file Contact.txt.
      *
      * @param fileContent save the contact information into this file
      * @throws IOException
      */
-    public void Storages_Contact(String fileContent) throws IOException {
-        FileWriter fileWriter = new FileWriter(absolutePath_Contact);
+    public void storagesContact(final String fileContent) throws IOException {
+        FileWriter fileWriter = new FileWriter(absolutePathContact);
         fileWriter.write(fileContent);
         fileWriter.flush();
         fileWriter.close();
@@ -165,8 +162,8 @@ public class Storage {
      */
     public HashMap<String, String> Contact() throws IOException {
         HashMap<String, String> contactList = new HashMap<String, String>();
-        if (new File(absolutePath_Contact).exists()) {
-            File file = new File(absolutePath_Contact);
+        if (new File(absolutePathContact).exists()) {
+            File file = new File(absolutePathContact);
             Scanner sc = new Scanner(file);
             while (sc.hasNext()) {
                 String[] split = sc.nextLine().split("\\|");

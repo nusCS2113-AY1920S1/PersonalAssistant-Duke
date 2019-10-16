@@ -58,8 +58,8 @@ class EditNoteCommandTest extends EditNoteCommand {
 
     @Test
     void execute_noteNumberNotSpecified_errorMessagePrinted() {
-        ui.FullCommand = "editNote day 2019-08-11";
-        String[] command = ui.FullCommand.split(" ");
+        ui.fullCommand = "editNote day 2019-08-11";
+        String[] command = ui.fullCommand.split(" ");
         int noteNum;
         try {
             noteNum = Integer.parseInt(command[3]);
@@ -72,8 +72,8 @@ class EditNoteCommandTest extends EditNoteCommand {
     @Test
     void execute_day_success() {
         NoteList.daily.add(new Note("2019-08-11", "note to be edited"));
-        ui.FullCommand = "editNote day 2019-08-11 1";
-        String[] command = ui.FullCommand.split(" ");
+        ui.fullCommand = "editNote day 2019-08-11 1";
+        String[] command = ui.fullCommand.split(" ");
         LocalDate userDate;
         try {
             userDate = processCommand(command, "editNote");
@@ -112,8 +112,8 @@ class EditNoteCommandTest extends EditNoteCommand {
     @Test
     void execute_week_success() {
         NoteList.weekly.add(new Note("2019-10-14", "note to be edited"));
-        ui.FullCommand = "editNote week 2019-10-14 1";
-        String[] command = ui.FullCommand.split(" ");
+        ui.fullCommand = "editNote week 2019-10-14 1";
+        String[] command = ui.fullCommand.split(" ");
         LocalDate userDate;
         try {
             userDate = processCommand(command, "editNote");
@@ -152,8 +152,8 @@ class EditNoteCommandTest extends EditNoteCommand {
     @Test
     void execute_month_success() {
         NoteList.monthly.add(new Note("2019-08-01", "note to be edited"));
-        ui.FullCommand = "editNote month 2019-08 1";
-        String[] command = ui.FullCommand.split(" ");
+        ui.fullCommand = "editNote month 2019-08 1";
+        String[] command = ui.fullCommand.split(" ");
         LocalDate userDate;
         try {
             userDate = processCommand(command, "editNote");
