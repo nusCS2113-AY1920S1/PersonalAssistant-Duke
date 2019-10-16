@@ -1,7 +1,7 @@
 package duke.model.commons;
 
 public class Quantity {
-    private final Double number;
+    private Double number;
 
     public Quantity(double number) {
         this.number = number;
@@ -21,5 +21,9 @@ public class Quantity {
 
     public String toString() {
         return String.valueOf(number);
+    }
+
+    public void setQuantity(Double number) {
+        this.number = number;
     }
 }

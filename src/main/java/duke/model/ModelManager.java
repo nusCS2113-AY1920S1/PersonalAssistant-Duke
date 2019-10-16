@@ -241,6 +241,11 @@ public class ModelManager implements Model {
         bakingHome.setInventory(toEdit, edited);
     }
 
+    public void setInventory(List<Item<Ingredient>> replacement) {
+        requireNonNull(replacement);
+        bakingHome.setInventory(replacement);
+    }
+
     public void clearInventory(List<Item<Ingredient>> emptyList) {
         bakingHome.clearInventory(emptyList);
     }
@@ -276,6 +281,11 @@ public class ModelManager implements Model {
     public void setShoppingList(Item<Ingredient> toEdit, Item<Ingredient> edited) {
         requireAllNonNull(toEdit, edited);
         bakingHome.setShoppingList(toEdit, edited);
+    }
+
+    public void setShoppingList(List<Item<Ingredient>> replacement) {
+        requireNonNull(replacement);
+        bakingHome.setShoppingList(replacement);
     }
 
     public void clearShoppingList(List<Item<Ingredient>> emptyList) {

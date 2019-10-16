@@ -218,6 +218,8 @@ public interface Model {
      */
     void setInventory(Item<Ingredient> toEdit, Item<Ingredient> edited);
 
+    void setInventory(List<Item<Ingredient>> replacement);
+
     /**
      * Clears the inventory list
      * @param emptyList
@@ -254,6 +256,8 @@ public interface Model {
      * @param edited the edited ingredient with changes
      */
     void setShoppingList(Item<Ingredient> toEdit, Item<Ingredient> edited);
+
+    void setShoppingList(List<Item<Ingredient>> replacement);
 
     /**
      * Clears the shopping list
