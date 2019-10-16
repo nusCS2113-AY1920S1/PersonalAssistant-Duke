@@ -4,8 +4,7 @@ import Farmio.Farmio;
 import FarmioExceptions.FarmioException;
 import UserCode.Actions.Action;
 import UserCode.Conditions.Condition;
-import UserCode.Conditions.ConditionChecker;
-import Farmio.Ui;
+import FrontEnd.Ui;
 
 public class IfElseTask extends Task {
 

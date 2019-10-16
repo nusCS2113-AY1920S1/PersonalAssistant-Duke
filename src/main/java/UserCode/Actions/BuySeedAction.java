@@ -6,7 +6,7 @@ import Places.CowFarm;
 import Places.Market;
 import Places.WheatFarm;
 import Simulations.Simulate;
-import Farmio.Ui;
+import FrontEnd.Ui;
 
 public class BuySeedAction extends Action {
 

@@ -2,10 +2,7 @@ package Farmio;
 
 import Commands.Command;
 import FarmioExceptions.FarmioException;
-import UserCode.Conditions.ConditionChecker;
-import org.json.simple.parser.ParseException;
-
-import java.io.IOException;
+import FrontEnd.Ui;
 
 public class Farmio {
     private Storage storage;
@@ -81,48 +78,4 @@ public class Farmio {
     public void setExit(){
         this.isExit = true;
     }
-
-//    public boolean getUserActions(Farmer farmer, Ui ui, Parser parser) {
-//        boolean isStart = false;
-//        boolean isExit = false;
-//        while (!isStart && !isExit) {
-//            String fullCommand = ui.getInput();
-//            try {
-//                Command c = Parser.parse(fullCommand);
-//                c.execute();
-//                isStart =  c.getIsStart();
-//                isExit = c.getIsExit();
-//            } catch (FarmioException e) {
-//                e.getMessage();
-//            }
-//        }
-//        return isExit;
-//    }
-
-//    private void loadLevel(Farmer farmer) {
-//        switch (farmer.level) {
-//            case 1:
-//                //in the future, will be simulating instead of just showing static message
-//                displayArt("level1");
-//                break;
-//            /*
-//            case 2:
-//                displayArt("level2");
-//                break;
-//            case 3:
-//                displayArt("level3");
-//                break;
-//            case 4:
-//                displayArt("level4");
-//                break;
-//             */
-//        }
-//        ui.getEnter();
-//    }
-
-//    private void checkObjectives(Farmer farmer) {
-//        //in future, end of day will also do other stuff like making the plant grow etc
-//        ui.show("End of Day!");
-//        ui.getEnter();
-//    }
 }
