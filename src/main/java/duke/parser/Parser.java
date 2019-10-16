@@ -1,19 +1,19 @@
 package duke.parser;
 
-import duke.command.*;
-
-import duke.command.inventorycommands.AddIngredientCommand;
+import duke.command.CommandBooking;
 import duke.command.CommandIngredients;
+import duke.command.CommandRecipeIngredient;
+import duke.command.CommandRecipeTitle;
+import duke.command.bookingcommands.*;
+import duke.command.inventorycommands.AddIngredientCommand;
 import duke.command.inventorycommands.DeleteIngredientCommand;
+import duke.command.inventorycommands.ListIngredientsCommand;
 import duke.command.recipecommands.*;
-import duke.exception.DukeException;
 
 import static duke.common.BookingMessages.*;
+import static duke.common.IngredientMessages.COMMAND_ADD_INGREDIENT;
+import static duke.common.IngredientMessages.COMMAND_DELETE_INGREDIENT;
 import static duke.common.RecipeMessages.*;
-
-import duke.command.bookingcommands.*;
-
-import static duke.common.Messages.ERROR_MESSAGE_RANDOM;
 
 
 /**
@@ -22,7 +22,13 @@ import static duke.common.Messages.ERROR_MESSAGE_RANDOM;
 public class Parser {
 
     public static CommandIngredients parseIngredient(String input) {
-        return new AddIngredientCommand(input);
+        if (input.trim().contains(COMMAND_ADD_INGREDIENT)) {
+            return new AddIngredientCommand(input);
+        } else if (input.trim().contains(COMMAND_DELETE_INGREDIENT)) {
+            return new DeleteIngredientCommand(input);
+        } else {
+            return new ListIngredientsCommand(input);
+        }
     }
 
     public static CommandRecipeTitle parseRecipeTitle(String input) {
