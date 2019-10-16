@@ -40,7 +40,7 @@ abstract class DukeList<T extends DukeItem> {
     /**
      * Creates a new {@code DukeList}, which saves its data to a file {@code file}.
      *
-     * @param file The file to save to.
+     * @param file     The file to save to.
      * @param itemName the name of the item that populates the list.
      * @throws DukeException if the file cannot be created or read.
      */

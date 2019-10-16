@@ -43,7 +43,10 @@ public class CommandParams {
         new AddExpenseCommand(),
         new BudgetCommand(),
         new DeleteCommand(),
-        new ExitCommand()
+        new ExitCommand(),
+        new FilterCommand(),
+        new SortCommand(),
+        new ViewCommand()
     );
 
     /**

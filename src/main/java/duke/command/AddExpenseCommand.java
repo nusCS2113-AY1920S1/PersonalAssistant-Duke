@@ -37,10 +37,10 @@ public class AddExpenseCommand extends Command {
      */
     public AddExpenseCommand() {
         super(name,
-                description,
-                usage,
-                Stream.of(SecondaryParam.values())
-                        .collect(Collectors.toMap(s -> s.name, s -> s.description))
+            description,
+            usage,
+            Stream.of(SecondaryParam.values())
+                .collect(Collectors.toMap(s -> s.name, s -> s.description))
         );
     }
 

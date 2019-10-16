@@ -2,6 +2,7 @@ package duke.command;
 
 import duke.Duke;
 import javafx.application.Platform;
+
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -37,6 +38,7 @@ public class ExitCommand extends Command {
 
     /**
      * Shows bye to user.
+     *
      * @param duke The Duke object.
      */
     public void execute(CommandParams commandParams, Duke duke) {

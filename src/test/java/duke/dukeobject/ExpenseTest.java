@@ -1,7 +1,6 @@
 package duke.dukeobject;
 
 import duke.exception.DukeException;
-import duke.exception.DukeRuntimeException;
 import duke.parser.Parser;
 import org.junit.jupiter.api.Test;
 
@@ -140,7 +139,7 @@ public class ExpenseTest {
             new Expense.Builder(INVALID_STORAGE_STRING);
             fail();
         } catch (DukeException e) {
-            assertEquals(String.format(DukeException.MESSAGE_EXPENSE_AMOUNT_INVALID, "1.234"), e.getMessage());
+            assertEquals(String.format(DukeException.MESSAGE_EXPENSE_AMOUNT_INVALID, "1.223"), e.getMessage());
         }
     }
 }

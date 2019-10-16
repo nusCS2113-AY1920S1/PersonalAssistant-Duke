@@ -106,7 +106,7 @@ public class Expense extends DukeItem {
         public Builder setAmount(BigDecimal amount) throws DukeException {
             if (amount.scale() > 2) {
                 throw new DukeException(
-                        String.format(DukeException.MESSAGE_EXPENSE_AMOUNT_INVALID, amount.toPlainString()));
+                    String.format(DukeException.MESSAGE_EXPENSE_AMOUNT_INVALID, amount.toPlainString()));
             }
             this.amount = amount.setScale(2, RoundingMode.UNNECESSARY);
             return this;

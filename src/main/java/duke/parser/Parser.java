@@ -23,6 +23,7 @@ public class Parser {
     public static String formatTime(LocalDateTime localDateTime) {
         return localDateTime.format(dateTimeFormatter);
     }
+
     /**
      * Converts a {@code String} to a {@code LocalDateTime}.
      *

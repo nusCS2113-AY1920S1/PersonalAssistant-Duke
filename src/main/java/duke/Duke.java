@@ -20,9 +20,9 @@ public class Duke {
     private static final File EXPENSES_FILE = new File(DEFAULT_USER_DIRECTORY, "expenses.txt");
     private static final File BUDGET_FILE = new File(DEFAULT_USER_DIRECTORY, "budget.txt");
     private static final File EXPENSES_BACKUP_FILE =
-            new File(DEFAULT_USER_DIRECTORY, "expenses.txt" + BACKUP_EXTENSION);
+        new File(DEFAULT_USER_DIRECTORY, "expenses.txt" + BACKUP_EXTENSION);
     private static final File BUDGET_BACKUP_FILE =
-            new File(DEFAULT_USER_DIRECTORY, "budget.txt" + BACKUP_EXTENSION);
+        new File(DEFAULT_USER_DIRECTORY, "budget.txt" + BACKUP_EXTENSION);
     public Budget budget;
     public ExpenseList expenseList;
     public Ui ui;

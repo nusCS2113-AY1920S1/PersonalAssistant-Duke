@@ -20,6 +20,7 @@ public class ExpenseList extends DukeList<Expense> {
         DESCRIPTION(Comparator.comparing(Expense::getDescription));
 
         private Comparator<Expense> comparator;
+
         SortCriteria(Comparator<Expense> comparator) {
             this.comparator = comparator;
         }
@@ -39,7 +40,7 @@ public class ExpenseList extends DukeList<Expense> {
                 this.viewScopeName = ViewScopeName.valueOf(viewScopeName.toUpperCase());
             } catch (IllegalArgumentException e) {
                 throw new DukeException(String.format(
-                        DukeException.MESSAGE_EXPENSE_VIEW_SCOPE_NAME_INVALID, viewScopeName));
+                    DukeException.MESSAGE_EXPENSE_VIEW_SCOPE_NAME_INVALID, viewScopeName));
             }
         }
 
@@ -51,66 +52,66 @@ public class ExpenseList extends DukeList<Expense> {
 
         private List<Expense> dayView(List<Expense> currentList) {
             return currentList.stream()
-                    .filter(e -> {
-                        LocalDate dateOfExpense = e.getTime().toLocalDate();
-                        LocalDate current = LocalDate.now().minusDays(viewScopeNumber);
-                        return dateOfExpense.equals(current);
-                    })
-                    .collect(Collectors.toList());
+                .filter(e -> {
+                    LocalDate dateOfExpense = e.getTime().toLocalDate();
+                    LocalDate current = LocalDate.now().minusDays(viewScopeNumber);
+                    return dateOfExpense.equals(current);
+                })
+                .collect(Collectors.toList());
         }
 
         private List<Expense> weekView(List<Expense> currentList) {
             return currentList.stream()
-                    .filter(e -> {
-                        int dayOfWeek =  e.getTime().getDayOfWeek().getValue();
-                        LocalDate start = e.getTime().minusDays(dayOfWeek - 1).toLocalDate(); // Sunday of week of expense.
-                        LocalDate end = e.getTime().plusDays(7 - dayOfWeek).toLocalDate(); // Monday of week of expense.
-                        LocalDate current = LocalDate.now().minusWeeks(viewScopeNumber);
+                .filter(e -> {
+                    int dayOfWeek = e.getTime().getDayOfWeek().getValue();
+                    LocalDate start = e.getTime().minusDays(dayOfWeek - 1).toLocalDate(); // Sunday of week of expense.
+                    LocalDate end = e.getTime().plusDays(7 - dayOfWeek).toLocalDate(); // Monday of week of expense.
+                    LocalDate current = LocalDate.now().minusWeeks(viewScopeNumber);
 
-                        return (current.equals(end) || current.equals(start) ||
-                                (current.isAfter(start) && current.isBefore(end)));
-                    })
-                    .collect(Collectors.toList());
+                    return (current.equals(end) || current.equals(start)
+                        || (current.isAfter(start) && current.isBefore(end)));
+                })
+                .collect(Collectors.toList());
         }
 
         private List<Expense> monthView(List<Expense> currentList) {
             return currentList.stream()
-                    .filter(e -> {
-                        LocalDate dateOfExpense = e.getTime().toLocalDate();
-                        LocalDate current = LocalDate.now().minusMonths(viewScopeNumber);
-                        boolean isSameYear = dateOfExpense.getYear() == current.getYear();
-                        boolean isSameMonth = dateOfExpense.getMonth().equals(current.getMonth());
-                        return (isSameYear && isSameMonth);
-                    })
-                    .collect(Collectors.toList());
+                .filter(e -> {
+                    LocalDate dateOfExpense = e.getTime().toLocalDate();
+                    LocalDate current = LocalDate.now().minusMonths(viewScopeNumber);
+                    boolean isSameYear = dateOfExpense.getYear() == current.getYear();
+                    boolean isSameMonth = dateOfExpense.getMonth().equals(current.getMonth());
+                    return (isSameYear && isSameMonth);
+                })
+                .collect(Collectors.toList());
         }
 
         private List<Expense> yearView(List<Expense> currentList) {
             return currentList.stream()
-                    .filter(e -> {
-                        LocalDate dateOfExpense = e.getTime().toLocalDate();
-                        LocalDate current = LocalDate.now().minusYears(viewScopeNumber);
-                        return dateOfExpense.getYear() == current.getYear();
-                    })
-                    .collect(Collectors.toList());
+                .filter(e -> {
+                    LocalDate dateOfExpense = e.getTime().toLocalDate();
+                    LocalDate current = LocalDate.now().minusYears(viewScopeNumber);
+                    return dateOfExpense.getYear() == current.getYear();
+                })
+                .collect(Collectors.toList());
         }
 
         public List<Expense> view(List<Expense> currentList) {
             switch (viewScopeName) {
-                case DAY:
-                    return dayView(currentList);
+            case DAY:
+                return dayView(currentList);
 
-                case WEEK:
-                    return weekView(currentList);
+            case WEEK:
+                return weekView(currentList);
 
-                case MONTH:
-                    return monthView(currentList);
+            case MONTH:
+                return monthView(currentList);
 
-                case YEAR:
-                    return yearView(currentList);
+            case YEAR:
+                return yearView(currentList);
 
-                default: // case ALL:
-                    return currentList; // the viewScope here is ALL.
+            default: // case ALL:
+                return currentList; // the viewScope here is ALL.
             }
         }
     }
@@ -119,6 +120,11 @@ public class ExpenseList extends DukeList<Expense> {
     private ViewScope viewScope;
     private String filterCriteria;
 
+    /**
+     * Creates a new expense list using a file for storage.
+     * @param file the file to store the list into
+     * @throws DukeException if the file could not be loaded from, or created.
+     */
     public ExpenseList(File file) throws DukeException {
         super(file, "expense");
         viewScope = new ViewScope(ViewScopeName.ALL);
@@ -161,7 +167,7 @@ public class ExpenseList extends DukeList<Expense> {
 
     /**
      * Sets the view scope.
-     * View scopes incldue DAY, WEEK, MONTH, YEAR, ALL;
+     * View scopes include DAY, WEEK, MONTH, YEAR, ALL;
      *
      * @param viewScopeName The string indicating the time scope of displayed list.
      * @throws DukeException If the format of view scope is incorrect.
@@ -222,8 +228,8 @@ public class ExpenseList extends DukeList<Expense> {
      */
     public BigDecimal getTotalAmount() {
         return internalList.stream()
-                .map(Expense::getAmount)
-                .reduce(BigDecimal.ZERO, BigDecimal::add);
+            .map(Expense::getAmount)
+            .reduce(BigDecimal.ZERO, BigDecimal::add);
     }
 
     /**
@@ -234,15 +240,19 @@ public class ExpenseList extends DukeList<Expense> {
      */
     public BigDecimal getTagAmount(String tag) {
         return internalList.stream()
-                .filter(expense -> expense.getTags().contains(tag))
-                .map(Expense::getAmount)
-                .reduce(BigDecimal.ZERO, BigDecimal::add);
-        }
+            .filter(expense -> expense.getTags().contains(tag))
+            .map(Expense::getAmount)
+            .reduce(BigDecimal.ZERO, BigDecimal::add);
+    }
 
+    /**
+     * Returns the total amount of money spent on currently visible expenses i.e. those in {@code externalList}.
+     *
+     * @return BigDecimal of the total amount of money spent on currently visible expenses.
+     */
     public BigDecimal getTotalExternalAmount() {
         return externalList.stream()
             .map(Expense::getAmount)
             .reduce(BigDecimal.ZERO, BigDecimal::add);
     }
-      
 }
