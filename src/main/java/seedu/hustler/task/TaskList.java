@@ -12,7 +12,6 @@ import seedu.hustler.data.Schedule;
 import seedu.hustler.game.achievement.AchievementList;
 import seedu.hustler.game.achievement.AddTask;
 import seedu.hustler.game.achievement.DoneTask;
-import seedu.hustler.task.variables.Difficulty;
 import seedu.hustler.ui.Ui;
 import static seedu.hustler.game.achievement.AddTask.addAchievementLevel;
 import static seedu.hustler.game.achievement.DoneTask.doneAchievementLevel;
