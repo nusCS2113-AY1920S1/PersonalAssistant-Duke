@@ -159,6 +159,7 @@ public class Task {
             break;
         default:
             this.taskState = TaskState.OPEN;
+            break;
         }
     }
 
