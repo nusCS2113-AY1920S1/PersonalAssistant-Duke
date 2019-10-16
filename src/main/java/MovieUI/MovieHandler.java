@@ -17,6 +17,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.ScrollEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.FlowPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Paint;
 import javafx.scene.text.Text;
@@ -45,55 +46,31 @@ public class MovieHandler extends Controller implements RequestListener {
     private ScrollPane mMoviesScrollPane;
 
     @FXML
-    private VBox mMovieTypeVBox;
+    private VBox vbox0, vBox1, vBox2, vBox3, gneresVBox, mainVBox, searchCommandVBox, generalFeedbackVBox, autoCompleteVBox;
 
     @FXML
-    private Label titleLabel;
+    private HBox nameHBox, adultHBox, genresHBox, alphaSortHBox, latestDatesHBox, highestRatingHBox;
 
     @FXML
-    private Label titleLabel2;
+    private Label userPreferenceLabel, userNameLabel, userAgeLabel, userAdultLabel1, userAdultLabel2,
+            userGenreLabel, sortAlphaOrderLabel, sortLatestDateLabel, sortHighestRatingLabel,
+            sortHighestRatingText, autoCompleteLabel, generalFeedbackLabel;
 
     @FXML
-    private Text ageText;
+    private Text userPreferenceText, userNameText, userAgeText, generalFeedbackText,
+            sortAlphaOrderText, sortLatestDateText, autoCompleteText;
 
     @FXML
-    private Text generalFeedbackText;
-
-//    @FXML
-//    private Label genreText;
+    private MenuBar menuBar;
 
     @FXML
-    private AnchorPane anchorPane;
+    private Menu fileMenu, helpMenu;
 
-    @FXML
-    private Label movieSortAlphaLabel;
-
-    @FXML
-    private Label movieSortDateLabel;
-
-    @FXML
-    private Label movieSortPopLabel;
-
-
-
-    @FXML
-    private Text text;
-
-    @FXML Label userNameLabel;
-    @FXML Label userAgeLabel;
-    @FXML Label userAdultLabel;
     @FXML TextFlow genreListText;
-
-    private static UserProfile userProfile;
-    private ArrayList<Playlist> playlists;
-
-    private FlowPane mMoviesFlowPane;
 
     @FXML
     private Label mStatusLabel;
 
-    @FXML
-    private VBox vbox0;
 
     @FXML
     private ProgressBar mProgressBar;
@@ -101,10 +78,13 @@ public class MovieHandler extends Controller implements RequestListener {
     @FXML
     private TextField mSearchTextField;
 
+
+    private AnchorPane anchorPane;
+    private static UserProfile userProfile;
+    private ArrayList<Playlist> playlists;
+    private FlowPane mMoviesFlowPane;
     private ArrayList<MovieInfoObject> mMovies;
-
     private double[] mImagesLoadingProgress;
-
     private static RetrieveRequest mMovieRequest;
     private int num = 0;
 
@@ -158,12 +138,12 @@ public class MovieHandler extends Controller implements RequestListener {
 
         //setting adult label
         if (command.getAdultLabel().equals("allow")) {
-            userAdultLabel.setStyle("-fx-text-fill: \"#48C9B0\";");
+            userAdultLabel2.setStyle("-fx-text-fill: \"#48C9B0\";");
         }
         if (command.getAdultLabel().equals("restrict")) {
-            userAdultLabel.setStyle("-fx-text-fill: \"#EC7063\";");
+            userAdultLabel2.setStyle("-fx-text-fill: \"#EC7063\";");
         }
-        userAdultLabel.setText(command.getAdultLabel());
+        userAdultLabel2.setText(command.getAdultLabel());
         //setting text for preference & restrictions
         Text preferences = new Text(command.convertToLabel(userProfile.getGenreIdPreference()));
         preferences.setFill(Paint.valueOf("#48C9B0"));
@@ -383,7 +363,7 @@ public class MovieHandler extends Controller implements RequestListener {
      * @param txt which is the string text to be printed.
      */
     public void setFeedbackText(String txt) {
-        text.setText(txt);
+        generalFeedbackText.setText(txt);
     }
 
     public void updateTextField(String updateStr){
@@ -398,7 +378,7 @@ public class MovieHandler extends Controller implements RequestListener {
             output += "\n";
 
         }
-        text.setText(output);
+        generalFeedbackText.setText(output);
     }
 
     /**

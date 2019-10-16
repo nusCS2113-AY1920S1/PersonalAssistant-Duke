@@ -19,7 +19,7 @@
 <?import javafx.scene.text.*?>
 <?import javafx.scene.text.Text?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="485.0" prefWidth="676.0" stylesheets="@Main_Styles.css" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="MovieUI.MovieHandler">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="485.0" prefWidth="676.0" stylesheets="Main_Styles.css" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="MovieUI.MovieHandler">
   <bottom>
     <HBox alignment="BOTTOM_LEFT" spacing="10.0" BorderPane.alignment="CENTER">
       <children>
@@ -49,37 +49,40 @@
           <children>
             <Label fx:id="userPreferenceLabel" styleClass="userPreferenceLabel" text="My Preferences">
               <font>
-                <Font name="System Bold" size="13.0" fx:id="x2" />
+                <Font name="System Bold" size="13.0" fx:id="x15" />
               </font>
             </Label>
-            <HBox prefHeight="8.0" prefWidth="125.0">
+            <HBox fx:id="nameHBox" prefHeight="8.0" prefWidth="125.0">
               <children>
-                <Text id="langText" fx:id="userNameText" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Name: " />
+                <Text id="userNameText" fx:id="userNameText" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Name: " />
                 <Label fx:id="userNameLabel" text="Label">
                   <HBox.margin>
-                    <Insets left="3.0" fx:id="x3" />
+                    <Insets left="3.0" fx:id="x1" />
                   </HBox.margin>
                 </Label>
               </children>
               <VBox.margin>
-                <Insets top="5.0" fx:id="x1" />
+                <Insets top="5.0" fx:id="x2" />
               </VBox.margin>
             </HBox>
-            <HBox prefHeight="13.0" prefWidth="125.0" VBox.margin="$x1">
+            <HBox fx:id="ageHBox" prefHeight="13.0" prefWidth="125.0">
               <children>
-                <Text id="ageText" fx:id="userAgeText" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Age: " />
-                <Label fx:id="userAgeLabel" text="Label" HBox.margin="$x3" />
+                <Text id="ageText" fx:id="userAgeText" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Age:" />
+                <Label fx:id="userAgeLabel" text="Label" HBox.margin="$x1" />
+              </children>
+              <VBox.margin>
+                <Insets top="5.0" fx:id="x17" />
+              </VBox.margin>
+            </HBox>
+            <HBox fx:id="adultHBox" prefHeight="32.0" prefWidth="125.0" VBox.margin="$x2">
+              <children>
+                <Label id="adultText" fx:id="userAdultLabel1" text="Adult Content:" />
+                <Label id="adultLabel" fx:id="userAdultLabel2" text="Label" HBox.margin="$x1" />
               </children>
             </HBox>
-            <HBox prefHeight="32.0" prefWidth="125.0" VBox.margin="$x1">
+            <VBox fx:id="genresVBox" prefHeight="89.0" prefWidth="125.0">
               <children>
-                <Label id="adultText" fx:id="userAdultText" text="Adult Content:" />
-                <Label id="adultLabel" fx:id="userAdultLabel" text="Label" HBox.margin="$x3" />
-              </children>
-            </HBox>
-            <VBox prefHeight="89.0" prefWidth="125.0">
-              <children>
-                <Label fx:id="userGenreText" text="Genres:">
+                <Label fx:id="userGenreLabel" text="Genres:">
                   <VBox.margin>
                     <Insets bottom="5.0" />
                   </VBox.margin>
@@ -87,51 +90,51 @@
                 <TextFlow fx:id="genreListText" prefHeight="200.0" prefWidth="200.0"/>
               </children>
               <VBox.margin>
-                <Insets top="5.0" fx:id="x1" />
+                <Insets top="5.0" fx:id="x18" />
               </VBox.margin>
             </VBox>
           </children>
         </VBox>
         <VBox id="vBox1" fx:id="vBox2" minHeight="83.0" prefHeight="93.0" prefWidth="181.0">
           <children>
-            <Label id="userSortLabel" font="$x2" styleClass="userSortLabel" text="Sort By:" />
-            <HBox prefHeight="8.0" prefWidth="125.0">
+            <Label id="userSortLabel" font="$x15" styleClass="userSortLabel" text="Sort By:" />
+            <HBox fx:id="alphaSortHBox" prefHeight="8.0" prefWidth="125.0">
               <children>
                 <Text id="langText" fx:id="sortAlphaOrderText" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Alphabetical Order:" />
                 <Label id="userNameLabel" fx:id="sortAlphaOrderLabel" text="N">
                   <HBox.margin>
-                    <Insets left="3.0" fx:id="x3" />
+                    <Insets left="3.0" fx:id="x19" />
                   </HBox.margin>
                 </Label>
               </children>
               <VBox.margin>
-                <Insets top="5.0" fx:id="x1" />
+                <Insets top="5.0" fx:id="x5" />
               </VBox.margin>
             </HBox>
-            <HBox prefHeight="13.0" prefWidth="125.0">
+            <HBox fx:id="latestDatesHBox" prefHeight="13.0" prefWidth="125.0">
               <children>
-                <Text id="ageText" fx:id="sortLatestDate" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Latest Release Dates:" />
-                <Label id="userAgeLabel" fx:id="sortLatestLabel" text="N">
+                <Text id="ageText" fx:id="sortLatestDateText" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Latest Release Dates:" />
+                <Label id="userAgeLabel" fx:id="sortLatestDateLabel" text="N">
                   <HBox.margin>
-                    <Insets left="3.0" fx:id="x3" />
+                    <Insets left="3.0" fx:id="x6" />
                   </HBox.margin>
                 </Label>
               </children>
               <VBox.margin>
-                <Insets top="5.0" fx:id="x1" />
+                <Insets top="5.0" fx:id="x7" />
               </VBox.margin>
             </HBox>
-            <HBox prefHeight="32.0" prefWidth="125.0">
+            <HBox fx:id="highestRatingHBox" prefHeight="32.0" prefWidth="125.0">
               <children>
                 <Label id="adultText" fx:id="sortHighestRatingText" text="Highest Rating:" />
                 <Label id="adultLabel" fx:id="sortHighestRatingLabel" text="N">
                   <HBox.margin>
-                    <Insets left="3.0" fx:id="x3" />
+                    <Insets left="3.0" fx:id="x8" />
                   </HBox.margin>
                 </Label>
               </children>
               <VBox.margin>
-                <Insets top="5.0" fx:id="x1" />
+                <Insets top="5.0" fx:id="x9" />
               </VBox.margin>
             </HBox>
           </children>
@@ -171,33 +174,40 @@
             </TextField>
             <VBox fx:id="autoCompleteVBox" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-1.0" prefHeight="40.0" prefWidth="666.0" VBox.vgrow="ALWAYS">
               <children>
-                <Label fx:id="autoCompleteLabel" font="$x2" text="Auto Completion &amp; Spell Checker Feedback:" textFill="WHITE">
+                <Label fx:id="autoCompleteLabel" font="$x15" text="Auto Completion &amp; Spell Checker Feedback:" textFill="WHITE">
                   <VBox.margin>
-                    <Insets top="3.0" fx:id="x4" />
+                    <Insets top="3.0" fx:id="x11" />
                   </VBox.margin>
                 </Label>
                 <Text fx:id="autoCompleteText" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Start typing a command &amp; press 'tab' to explore more..." VBox.vgrow="ALWAYS">
                   <VBox.margin>
-                    <Insets top="5.0" fx:id="x1" />
+                    <Insets top="5.0" fx:id="x12" />
                   </VBox.margin>
                 </Text>
               </children>
               <padding>
-                <Insets />
+                <Insets fx:id="x3" />
               </padding>
               <VBox.margin>
-                <Insets left="10.0" top="5.0" fx:id="x5" />
+                <Insets left="10.0" top="5.0" fx:id="x20" />
               </VBox.margin>
             </VBox>
-            <VBox fx:id="generalFeedbackVBox" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-1.0" prefHeight="40.0" prefWidth="666.0" VBox.margin="$x5" VBox.vgrow="ALWAYS">
+            <VBox fx:id="generalFeedbackVBox" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-1.0" prefHeight="40.0" prefWidth="666.0" VBox.vgrow="ALWAYS">
               <children>
-                <Label fx:id="generalFeedbackLabel" font="$x2" text="Command Feedback:" textFill="WHITE" VBox.margin="$x4" />
+                <Label fx:id="generalFeedbackLabel" font="$x15" text="Command Feedback:" textFill="WHITE">
+                  <VBox.margin>
+                    <Insets left="3.0" fx:id="x4" />
+                  </VBox.margin>
+                </Label>
                 <Text id="text" fx:id="generalFeedbackText" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Text">
                   <VBox.margin>
-                    <Insets top="5.0" fx:id="x1" />
+                    <Insets top="5.0" fx:id="x14" />
                   </VBox.margin>
                 </Text>
               </children>
+              <VBox.margin>
+                <Insets left="10.0" top="5.0" fx:id="x13" />
+              </VBox.margin>
             </VBox>
           </children>
         </VBox>
