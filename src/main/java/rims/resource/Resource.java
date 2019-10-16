@@ -44,7 +44,7 @@ public abstract class Resource {
         setLoanId(loanId);
         this.bookedFrom = stringToDate(stringDateFrom);
         this.bookedTill = stringToDate(stringDateTill);
-        if (!(isBooked())) {
+        if (!(isBookedOrReserved())) {
             markAsReturned();
         }
     }
@@ -73,7 +73,7 @@ public abstract class Resource {
         return bookedTill;
     }
 
-    public boolean isBooked() {
+    public boolean isBookedNow() {
         if (bookedFrom == null && bookedTill == null) {
             return false;
         }
@@ -86,6 +86,14 @@ public abstract class Resource {
             return false;
         }
         return (date.after(bookedFrom) && date.before(bookedTill));
+    }
+
+    public boolean isBookedOrReserved() {
+        if (bookedFrom == null && bookedFrom == null) {
+            return false;
+        }
+        Date currentDate = new Date(System.currentTimeMillis());
+        return (isBookedNow() || currentDate.before(bookedFrom));
     }
 
 

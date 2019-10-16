@@ -32,7 +32,6 @@ public class Item extends Resource {
 
     public Item(String name, int id, int loanId, String stringDateFrom, String stringDateTill) throws ParseException {
         super(name, id, loanId, stringDateFrom, stringDateTill);
-        System.out.println(this.loanId);
         this.type = 'I';
     }
 }
