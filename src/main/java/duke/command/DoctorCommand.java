@@ -9,7 +9,6 @@ import java.util.Map;
  * Stub Command for testing new Parser.
  */
 
-
 public class DoctorCommand extends ArgCommand {
 
     private static Map<String, ArgLevel> switches;

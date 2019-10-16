@@ -79,9 +79,15 @@ public abstract class ArgCommand extends Command {
             entryArrList.add(Map.entry(aliases[k], aliases[k + 1]));
         }
 
+        // translate the ArrayList into an array
+        Map.Entry[] entryArr = new Map.Entry[entryArrList.size()];
+        for (int l = 0; l < entryArr.length; ++l) {
+            entryArr[l] = entryArrList.get(l);
+        }
+
         // create static data structures
         return new Pair<Map<String, ArgLevel>, Map<String, String>> (
-                Map.ofEntries((Map.Entry[]) entryArrList.toArray()), Map.ofEntries(argLevelEntries));
+                Map.ofEntries(entryArr), Map.ofEntries(argLevelEntries));
     }
 
     // Override these methods to specify parameters of child classes

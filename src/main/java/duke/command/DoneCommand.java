@@ -3,6 +3,7 @@ package duke.command;
 import duke.DukeCore;
 import duke.exception.DukeException;
 
+import java.util.HashMap;
 import java.util.Map;
 
 public class DoneCommand extends ArgCommand {
