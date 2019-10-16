@@ -1,5 +1,6 @@
 package eggventory;
 
+import eggventory.items.Stock;
 import eggventory.items.StockType;
 
 import java.util.ArrayList;
@@ -93,11 +94,17 @@ public class StockList {
     /**
      * Deletes a Stock object from a list.
      * @param stockCode The unique String that identifies a Stock.
+     * @return true if some stock was deleted, and false if the stock could not be found.
      */
-    public void deleteStock(String stockCode) {
+    public Stock deleteStock(String stockCode) {
+        Stock deleted;
         for (StockType stockType : stockList) {
-            stockType.deleteStock(stockCode);
+            deleted = stockType.deleteStock(stockCode);
+            if (deleted !=  null) { //If something WAS deleted
+                return deleted;
+            }
         }
+        return null;
     }
 
     /**

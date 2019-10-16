@@ -4,8 +4,6 @@ import eggventory.commands.Command;
 import eggventory.enums.CommandType;
 import eggventory.parsers.Parser;
 
-import java.io.IOException;
-
 /**
  * Eggventory is a task list that supports 3 types of classes - Todos, deadlines and events.
  * Tasks can be added, marked as done, searched for, and deleted.
