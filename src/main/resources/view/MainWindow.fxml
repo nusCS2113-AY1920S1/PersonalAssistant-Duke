@@ -51,7 +51,11 @@
          </children>
       </GridPane>
       <TextArea fx:id="console" prefHeight="157.0" prefWidth="400.0" wrapText="true" AnchorPane.bottomAnchor="45.0" AnchorPane.leftAnchor="175.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="90.0" />
-        <Button fx:id="sendButton" layoutX="498.0" layoutY="559.0" mnemonicParsing="false" onAction="#handleUserInput" prefHeight="45.0" prefWidth="76.0" text="Send" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" />
+      <FlowPane fx:id="heading" layoutX="175.0" layoutY="91.0" prefHeight="45.0" prefWidth="414.0" style="-fx-background-color: #ffffff;" AnchorPane.bottomAnchor="465.0" AnchorPane.leftAnchor="176.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="91.0" />
+        <Button fx:id="sendButton" layoutX="498.0" layoutY="559.0" mnemonicParsing="false" onAction="#handleUserInput" onMousePressed="#sendClicked" onMouseReleased="#sendReleased" prefHeight="45.0" prefWidth="76.0" style="-fx-background-color: #2dcb70;" text="Send" textFill="WHITE" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0">
+         <effect>
+            <ColorAdjust />
+         </effect></Button>
       <GridPane prefHeight="601.0" prefWidth="176.0" style="-fx-background-color: #34495e;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
         <columnConstraints>
           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -65,7 +69,7 @@
       </GridPane>
       <AnchorPane fx:id="stack" minWidth="100.0" prefHeight="601.0" prefWidth="176.0" style="-fx-background-color: #34495e;">
          <children>
-            <Button fx:id="task" layoutY="88.0" mnemonicParsing="false" onAction="#taskAction" prefHeight="62.0" prefWidth="176.0" style="-fx-background-color: #34495e;" text=" TASK" textFill="#95a5a6" wrapText="true">
+            <Button fx:id="task" layoutY="88.0" mnemonicParsing="false" onAction="#taskAction" onMouseClicked="#removeWelcome" prefHeight="62.0" prefWidth="176.0" style="-fx-background-color: #34495e;" text=" TASK" textFill="#95a5a6" wrapText="true">
                <font>
                   <Font name="Helvetica Neue" size="13.0" />
                </font>
@@ -83,7 +87,7 @@
                   <Insets right="75.0" />
                </padding>
             </Button>
-            <Button fx:id="taskCompletionMode" layoutY="150.0" mnemonicParsing="false" onAction="#taskCompletionModeAction" prefHeight="62.0" prefWidth="176.0" style="-fx-background-color: #34495e;" text="TASK COMPLETION MODE" textFill="#95a5a6" wrapText="true">
+            <Button fx:id="taskCompletionMode" layoutY="150.0" mnemonicParsing="false" onAction="#taskCompletionModeAction" onMouseClicked="#removeWelcome" prefHeight="62.0" prefWidth="176.0" style="-fx-background-color: #34495e;" text="TASK COMPLETION MODE" textFill="#95a5a6" wrapText="true">
                <font>
                   <Font name="Helvetica" size="12.0" />
                </font>
@@ -101,7 +105,7 @@
                   <Insets />
                </opaqueInsets>
             </Button>
-            <Button fx:id="achievement" layoutY="212.0" mnemonicParsing="false" onAction="#achievementAction" prefHeight="62.0" prefWidth="176.0" style="-fx-background-color: #34495e;" text="ACHIEVEMENTS" textFill="#95a5a6" wrapText="true">
+            <Button fx:id="achievement" layoutY="212.0" mnemonicParsing="false" onAction="#achievementAction" onMouseClicked="#removeWelcome" prefHeight="62.0" prefWidth="176.0" style="-fx-background-color: #34495e;" text="ACHIEVEMENTS" textFill="#95a5a6" wrapText="true">
                <font>
                   <Font name="Helvetica Neue" size="13.0" />
                </font>
@@ -116,7 +120,7 @@
                   <Insets right="10.0" />
                </padding>
             </Button>
-            <Button fx:id="statistics" layoutY="274.0" mnemonicParsing="false" onAction="#statisticsAction" prefHeight="62.0" prefWidth="176.0" style="-fx-background-color: #34495e;" text="STATISTICS" textFill="#95a5a6" wrapText="true">
+            <Button fx:id="statistics" layoutY="274.0" mnemonicParsing="false" onAction="#statisticsAction" onMouseClicked="#removeWelcome" prefHeight="62.0" prefWidth="176.0" style="-fx-background-color: #34495e;" text="STATISTICS" textFill="#95a5a6" wrapText="true">
                <graphic>
                   <ImageView fx:id="spiderGraph" fitHeight="108.0" fitWidth="51.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -128,7 +132,7 @@
                   <Insets right="26.0" />
                </padding>
             </Button>
-            <Button fx:id="avatar" layoutY="336.0" mnemonicParsing="false" onAction="#avatarAction" prefHeight="62.0" prefWidth="176.0" style="-fx-background-color: #34495e;" text="AVATAR" textFill="#95a5a6" wrapText="true">
+            <Button fx:id="avatar" layoutY="336.0" mnemonicParsing="false" onAction="#avatarAction" onMouseClicked="#removeWelcome" prefHeight="62.0" prefWidth="176.0" style="-fx-background-color: #34495e;" text="AVATAR" textFill="#95a5a6" wrapText="true">
                <graphic>
                   <ImageView fx:id="profile" fitHeight="46.0" fitWidth="42.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -140,7 +144,7 @@
                   <Insets right="55.0" />
                </padding>
             </Button>
-            <Button fx:id="shop" layoutY="398.0" mnemonicParsing="false" onAction="#shopAction" prefHeight="62.0" prefWidth="176.0" style="-fx-background-color: #34495e;" text=" SHOP" textFill="#95a5a6" wrapText="true">
+            <Button fx:id="shop" layoutY="398.0" mnemonicParsing="false" onAction="#shopAction" onMouseClicked="#removeWelcome" prefHeight="62.0" prefWidth="176.0" style="-fx-background-color: #34495e;" text=" SHOP" textFill="#95a5a6" wrapText="true">
                <graphic>
                   <ImageView fx:id="trolley" fitHeight="75.0" fitWidth="43.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -152,7 +156,7 @@
                   <Insets right="70.0" />
                </padding>
             </Button>
-            <Button fx:id="arena" layoutY="460.0" mnemonicParsing="false" onAction="#arenaAction" prefHeight="62.0" prefWidth="176.0" style="-fx-background-color: #34495e;" text="ARENA" textFill="#95a5a6" wrapText="true">
+            <Button fx:id="arena" layoutY="460.0" mnemonicParsing="false" onAction="#arenaAction" onMouseClicked="#removeWelcome" prefHeight="62.0" prefWidth="176.0" style="-fx-background-color: #34495e;" text="ARENA" textFill="#95a5a6" wrapText="true">
                <graphic>
                   <ImageView fx:id="swords" fitHeight="44.0" fitWidth="42.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -164,7 +168,7 @@
                   <Insets right="60.0" />
                </padding>
             </Button>
-            <Button fx:id="settings" layoutY="522.0" mnemonicParsing="false" onAction="#settingsAction" prefHeight="62.0" prefWidth="176.0" style="-fx-background-color: #34495e;" text="SETTINGS" textFill="#95a5a6" wrapText="true">
+            <Button fx:id="settings" layoutY="522.0" mnemonicParsing="false" onAction="#settingsAction" onMouseClicked="#removeWelcome" prefHeight="62.0" prefWidth="176.0" style="-fx-background-color: #34495e;" text="SETTINGS" textFill="#95a5a6" wrapText="true">
                <graphic>
                   <ImageView fx:id="gear" fitHeight="49.0" fitWidth="46.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -190,10 +194,11 @@
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
       </GridPane>
-      <ScrollPane fx:id="scrollPANEE" AnchorPane.bottomAnchor="43.0" AnchorPane.leftAnchor="176.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="90.0">
+      <ScrollPane fx:id="scrollPANEE" layoutY="133.0" prefHeight="425.0" prefWidth="414.0" AnchorPane.bottomAnchor="43.0" AnchorPane.leftAnchor="176.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="133.0">
          <content>
             <FlowPane fx:id="flowPane" prefHeight="466.0" prefWidth="414.0" style="-fx-background-color: #ffffff;" />
          </content>
       </ScrollPane>
+      <FlowPane fx:id="welcomeScreen" layoutX="176.0" layoutY="91.0" prefHeight="45.0" prefWidth="414.0" AnchorPane.bottomAnchor="44.0" AnchorPane.leftAnchor="176.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="91.0" />
     </children>
 </AnchorPane>

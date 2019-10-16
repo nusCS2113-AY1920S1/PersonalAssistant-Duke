@@ -11,12 +11,16 @@ import javafx.scene.control.TextField;
 import javafx.scene.effect.ColorAdjust;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.*;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.FlowPane;
+import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
+import javafx.scene.text.TextAlignment;
 import seedu.hustler.game.achievement.AchievementList;
 
 import java.io.FileInputStream;
@@ -38,6 +42,9 @@ public class MainWindow extends AnchorPane{
     private TextArea console;
     @FXML
     private PrintStream ps;
+
+    @FXML
+    private Button sendButton;
 
     @FXML
     private Button task;
@@ -90,6 +97,9 @@ public class MainWindow extends AnchorPane{
     @FXML
     private AnchorPane rootPane;
 
+    @FXML
+    private FlowPane welcomeScreen;
+
     private Hustler hustler;
 
     @FXML
@@ -98,6 +108,8 @@ public class MainWindow extends AnchorPane{
     @FXML
     private ScrollPane scrollPANEE;
 
+    @FXML
+    private FlowPane heading;
 
     /**
      * Initializes essential components to run Hustler.
@@ -110,6 +122,22 @@ public class MainWindow extends AnchorPane{
         System.setOut(ps);
         System.setErr(ps);
         Hustler.initialize();
+        StackPane stackPane = new StackPane();
+        welcomeScreen.setStyle("-fx-background-color:#2dcb70");
+        Rectangle whiteSpace = new Rectangle();
+        whiteSpace.setOpacity(0.0);
+        whiteSpace.setHeight(50);
+        whiteSpace.widthProperty().bind(flowPane.widthProperty());
+        Text text = new Text("Hi, I am Hustler!\n What can I do for you?");
+        text.setFont(Font.font("Gill Sans", 30));
+        text.setFill(Color.WHITE);
+        text.setTextAlignment(TextAlignment.CENTER);
+        stackPane.setMargin(text,new Insets(0,50,0,50));
+        stackPane.setAlignment(text,Pos.CENTER);
+        stackPane.getChildren().addAll(text);
+        stackPane.prefWidthProperty().bind(welcomeScreen.widthProperty());
+        welcomeScreen.getChildren().addAll(whiteSpace,stackPane);
+
 
     }
 
@@ -141,28 +169,95 @@ public class MainWindow extends AnchorPane{
      */
     @FXML
     public void handleUserInput() throws IOException{
-        String input = userInput.getText();
-        //Hustler.run(input);
 
-
-        String token[] = input.split(" ");
-
-        if(input.equals("achievement")) {
-            achievementAction();
-        } else if(token[0].equals("/add") || input.equals("list")) {
-            taskAction();
-        } else if(input.equals("bye")) {
-            Hustler.run("bye");
+        if (!userInput.getText().isEmpty()) {
+            removeWelcome();
+            sendClicked();
+            flowPane.setStyle("-fx-background-color:#ffffff");
+            String input = userInput.getText();
+            //Hustler.run(input);
+            String token[] = input.split(" ");
+            if(input.equals("achievement")) {
+                achievementAction();
+            } else if(token[0].equals("/add") || input.equals("list")) {
+                taskAction();
+            } else if(input.equals("bye")) {
+                Hustler.run("bye");
+            }
+            userInput.clear();
+            sendReleased();
         }
+    }
 
-        userInput.clear();
+    @FXML
+    public void sendClicked() {
+        ColorAdjust color = new ColorAdjust();
+        color.setBrightness(-0.16);
+        sendButton.setEffect(color);
+    }
+
+    @FXML
+    public void sendReleased() {
+        ColorAdjust color = new ColorAdjust();
+        color.setBrightness(0);
+        sendButton.setEffect(color);
+    }
+
+    @FXML
+    public void removeWelcome() {
+        rootPane.getChildren().remove(welcomeScreen);
     }
 
     @FXML
     public void taskAction() {
 
-        flowPane.getChildren().clear();
+        heading.getChildren().clear();
+        Text title1 = new Text("TASKS");
+        title1.setFont(Font.font("Gill Sans", 15));
+        title1.setFill(Color.GRAY);
+        StackPane titlePane = new StackPane();
+        //titlePane.setMargin(title1, new Insets(0,0,0,50));
+        titlePane.setAlignment(title1, Pos.CENTER);
+        titlePane.prefHeightProperty().bind(heading.prefHeightProperty());
+        titlePane.prefWidthProperty().bind(heading.widthProperty());
+        titlePane.getChildren().addAll(title1);
+        heading.getChildren().addAll(titlePane);
+
+        flowPane.setStyle("-fx-background-color:#ffffff");
         Hustler.run(userInput.getText());
+
+        flowPane.getChildren().clear();
+        flowPane.setStyle("-fx-background-color:#ffffff");
+
+        Rectangle whiteSpace0 = new Rectangle();
+        whiteSpace0.setOpacity(0.0);
+        whiteSpace0.setHeight(30);
+        whiteSpace0.widthProperty().bind(scrollPANEE.widthProperty());
+        flowPane.getChildren().add(whiteSpace0);
+
+        flowPane.setVgap(10);
+        for(int i = 0; i < Hustler.list.size(); i += 1) {
+
+            StackPane stackPane = new StackPane();
+            Rectangle rect = new Rectangle();
+            Text text = new Text(Hustler.list.get(i).getDescription());
+            text.setFont(Font.font("Gill Sans", 20));
+            text.setFill(Color.WHITE);
+            rect.setOpacity(0.3);
+            rect.setHeight(50);
+            rect.widthProperty().bind(scrollPANEE.widthProperty());
+            rect.setArcHeight(30.0);
+            rect.setArcWidth(30.0);
+            rect.setStyle("#ffffff");
+            stackPane.setMargin(text,new Insets(0,0,0,50));
+            stackPane.setAlignment(text,Pos.CENTER_LEFT);
+            stackPane.getChildren().addAll(rect, text);
+            flowPane.getChildren().add(stackPane);
+        }
+
+        flowPane.prefWidthProperty().bind(scrollPANEE.widthProperty());
+        scrollPANEE.setContent(flowPane);
+
         ColorAdjust color = new ColorAdjust();
         color.setContrast(0.35);
         color.setHue(-0.21);
@@ -199,6 +294,20 @@ public class MainWindow extends AnchorPane{
     @FXML
     public void taskCompletionModeAction() {
 
+        heading.getChildren().clear();
+        Text title1 = new Text("TASK COMPLETION MODE");
+        title1.setFont(Font.font("Gill Sans", 15));
+        title1.setFill(Color.GRAY);
+        StackPane titlePane = new StackPane();
+        //titlePane.setMargin(title1, new Insets(0,0,0,50));
+        titlePane.setAlignment(title1, Pos.CENTER);
+        titlePane.prefHeightProperty().bind(heading.prefHeightProperty());
+        titlePane.prefWidthProperty().bind(heading.widthProperty());
+        titlePane.getChildren().addAll(title1);
+        heading.getChildren().addAll(titlePane);
+
+
+        flowPane.setStyle("-fx-background-color:#ffffff");
         flowPane.getChildren().clear();
 
         console.clear();
@@ -238,14 +347,24 @@ public class MainWindow extends AnchorPane{
     }
 
     @FXML
-    public void achievementAction() throws IOException{
+    public void achievementAction() throws IOException {
+
+        heading.getChildren().clear();
+        Text title1 = new Text("ACHIEVEMENTS");
+        title1.setFont(Font.font("Gill Sans", 15));
+        title1.setFill(Color.GRAY);
+        StackPane titlePane = new StackPane();
+//        titlePane.setMargin(title1, new Insets(0,0,0,50));
+        titlePane.setAlignment(title1, Pos.CENTER);
+        titlePane.prefHeightProperty().bind(heading.prefHeightProperty());
+        titlePane.prefWidthProperty().bind(heading.widthProperty());
+        titlePane.getChildren().addAll(title1);
+        heading.getChildren().addAll(titlePane);
+
+
 
         Image lock = new Image(new FileInputStream("images/locked_padlock.png"));
-
-
-//
-
-
+        flowPane.setStyle("-fx-background-color:#ffffff");
         flowPane.getChildren().clear();
         Hustler.run("achievement");
 
@@ -348,7 +467,6 @@ public class MainWindow extends AnchorPane{
         flowPane.prefWidthProperty().bind(scrollPANEE.widthProperty());
         scrollPANEE.setContent(flowPane);
 
-
         ColorAdjust color = new ColorAdjust();
         color.setContrast(0.35);
         color.setHue(-0.21);
@@ -386,6 +504,20 @@ public class MainWindow extends AnchorPane{
     @FXML
     public void statisticsAction() {
 
+        heading.getChildren().clear();
+        Text title1 = new Text("STATISTICS");
+        title1.setFont(Font.font("Gill Sans", 15));
+        title1.setFill(Color.GRAY);
+        StackPane titlePane = new StackPane();
+        //titlePane.setMargin(title1, new Insets(0,0,0,50));
+        titlePane.setAlignment(title1, Pos.CENTER);
+        titlePane.prefHeightProperty().bind(heading.prefHeightProperty());
+        titlePane.prefWidthProperty().bind(heading.widthProperty());
+        titlePane.getChildren().addAll(title1);
+        heading.getChildren().addAll(titlePane);
+
+
+        flowPane.setStyle("-fx-background-color:#ffffff");
         flowPane.getChildren().clear();
 
         ColorAdjust color = new ColorAdjust();
@@ -426,6 +558,20 @@ public class MainWindow extends AnchorPane{
     @FXML
     public void avatarAction() {
 
+        heading.getChildren().clear();
+        Text title1 = new Text("AVATAR");
+        title1.setFont(Font.font("Gill Sans", 15));
+        title1.setFill(Color.GRAY);
+        StackPane titlePane = new StackPane();
+        //titlePane.setMargin(title1, new Insets(0,0,0,50));
+        titlePane.setAlignment(title1, Pos.CENTER);
+        titlePane.prefHeightProperty().bind(heading.prefHeightProperty());
+        titlePane.prefWidthProperty().bind(heading.widthProperty());
+        titlePane.getChildren().addAll(title1);
+        heading.getChildren().addAll(titlePane);
+
+
+        flowPane.setStyle("-fx-background-color:#ffffff");
         flowPane.getChildren().clear();
 
         ColorAdjust color = new ColorAdjust();
@@ -466,6 +612,21 @@ public class MainWindow extends AnchorPane{
     @FXML
     public void shopAction() {
 
+        heading.getChildren().clear();
+        Text title1 = new Text("SHOP");
+        title1.setFont(Font.font("Gill Sans", 15));
+        title1.setFill(Color.GRAY);
+        StackPane titlePane = new StackPane();
+        //titlePane.setMargin(title1, new Insets(0,0,0,50));
+        titlePane.setAlignment(title1, Pos.CENTER);
+        titlePane.prefHeightProperty().bind(heading.prefHeightProperty());
+        titlePane.prefWidthProperty().bind(heading.widthProperty());
+        titlePane.getChildren().addAll(title1);
+        heading.getChildren().addAll(titlePane);
+
+
+
+        flowPane.setStyle("-fx-background-color:#ffffff");
         flowPane.getChildren().clear();
 
         ColorAdjust color = new ColorAdjust();
@@ -505,6 +666,20 @@ public class MainWindow extends AnchorPane{
     @FXML
     public void arenaAction() {
 
+        heading.getChildren().clear();
+        Text title1 = new Text("ARENA");
+        title1.setFont(Font.font("Gill Sans", 15));
+        title1.setFill(Color.GRAY);
+        StackPane titlePane = new StackPane();
+        //titlePane.setMargin(title1, new Insets(0,0,0,50));
+        titlePane.setAlignment(title1, Pos.CENTER);
+        titlePane.prefHeightProperty().bind(heading.prefHeightProperty());
+        titlePane.prefWidthProperty().bind(heading.widthProperty());
+        titlePane.getChildren().addAll(title1);
+        heading.getChildren().addAll(titlePane);
+
+
+        flowPane.setStyle("-fx-background-color:#ffffff");
         flowPane.getChildren().clear();
 
         ColorAdjust color = new ColorAdjust();
@@ -544,6 +719,21 @@ public class MainWindow extends AnchorPane{
     @FXML
     public void settingsAction() {
 
+        heading.getChildren().clear();
+        Text title1 = new Text("SETTINGS");
+        title1.setFont(Font.font("Gill Sans", 15));
+        title1.setFill(Color.GRAY);
+        StackPane titlePane = new StackPane();
+        //titlePane.setMargin(title1, new Insets(0,0,0,50));
+        titlePane.setAlignment(title1, Pos.CENTER);
+        titlePane.prefHeightProperty().bind(heading.prefHeightProperty());
+        titlePane.prefWidthProperty().bind(heading.widthProperty());
+        titlePane.getChildren().addAll(title1);
+        heading.getChildren().addAll(titlePane);
+
+
+
+        flowPane.setStyle("-fx-background-color:#ffffff");
         flowPane.getChildren().clear();
 
         ColorAdjust color = new ColorAdjust();
