@@ -5,14 +5,15 @@ import duke.exception.DukeException;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.TreeSet;
 
 /**
  * Abstract class for commands that involve an argument.
  */
 public abstract class ArgCommand extends Command {
 
-    // TODO: replace with getters and setters
     protected static Map<String, ArgLevel> switches; //list of recognised switches, and their argument requirements
+    protected static TreeSet switchTree; //tree of switches, used for fast lookup for autocomplete
     private String arg = null; //argument supplied to the command
     private HashMap<String, String> switchVals = new HashMap<String, String>(); //hashmap of switch parameters
 
@@ -47,6 +48,12 @@ public abstract class ArgCommand extends Command {
         return arg;
     }
 
+    // Call after static initialization of switches
+    protected static void switchInit() {
+        switchTree = new TreeSet<String>(switches.keySet());
+    }
+
+    // Override these methods to specify parameters of child classes
     abstract String getEmptyArgMsg();
     abstract ArgLevel getCmdArgLevel();
 }

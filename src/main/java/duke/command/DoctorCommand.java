@@ -3,16 +3,17 @@ package duke.command;
 import duke.DukeCore;
 
 import java.util.Map;
+import java.util.TreeSet;
 
 /**
  * Stub Command for testing new Parser.
  */
 public class DoctorCommand extends ArgCommand {
-
     static {
         switches = Map.ofEntries(
                 Map.entry("switch", ArgLevel.OPTIONAL)
         );
+        switchInit();
     }
 
     @Override

@@ -20,8 +20,10 @@ public class CommandHelpers {
         to disambiguate.*/
 
         /*Might be possible to just use a TreeSet to check if autocomplete can be evaluated
-        unambiguously, and a HashMap to store the possible inputs. Investigations might be
+        unambiguously, and a HashMap to store the possible inputs. Suggestions might be
         better implemented as a map of command strings to possible inputs?*/
+
+
 
         ArrayList<String> suggestions = new ArrayList<String>();
         return disambiguate(word, suggestions, command.getSwitches().keySet());
