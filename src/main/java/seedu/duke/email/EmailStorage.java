@@ -104,11 +104,9 @@ public class EmailStorage {
                 }
             }
             if (!exist) {
+                allKeywordInEmail(serverEmail);
                 Duke.getEmailList().add(serverEmail);
             }
-        }
-        for (Email email : Duke.getEmailList()) {
-            allKeywordInEmail(email);
         }
         saveEmails(Duke.getEmailList());
     }
