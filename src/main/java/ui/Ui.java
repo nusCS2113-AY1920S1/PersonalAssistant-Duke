@@ -2,6 +2,8 @@ package ui;
 
 import common.TaskList;
 import payment.Payee;
+import payment.PaymentList;
+import payment.PaymentManager;
 import payment.Payments;
 import task.Task;
 
@@ -70,6 +72,11 @@ public class Ui {
             System.out.print("     " + listnum + "." + list.get(i).giveTask() + "\n");
         }
         System.out.print(line);
+    }
+    public void printPaymentList(PaymentList paymentList) {
+        for (int i = 0; i < paymentList.size(); i = i + 1) {
+            System.out.println(paymentList.get(i).givePayments());
+        }
     }
 
     /**
