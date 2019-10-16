@@ -45,7 +45,9 @@ public class UpdatePatientCommand extends Command {
             }catch(Exception e) {
                 throw new DukeException("Please follow the format 'update patient #<id> <Name/NRIC/Room> <new information>'.");
             }
-
+        }
+        else {
+            throw new DukeException("Please follow the format 'update patient #<id> <Name/NRIC/Room> <new information>'.");
         }
     }
 
