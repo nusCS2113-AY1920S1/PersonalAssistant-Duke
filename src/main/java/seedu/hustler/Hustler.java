@@ -14,6 +14,7 @@ import seedu.hustler.command.Command;
 import seedu.hustler.data.AvatarStorage;
 import seedu.hustler.data.CommandLog;
 import seedu.hustler.data.MemoryManager;
+import seedu.hustler.game.shop.ShopList;
 import seedu.hustler.logic.CommandLineException;
 import seedu.hustler.parser.Parser;
 import seedu.hustler.task.Reminders;
@@ -38,6 +39,13 @@ public class Hustler extends Application {
      * user and from storage.
      */
     public static TaskList list;
+
+    /**
+     * shopList stores and manages the items to purchased in Hustler.
+     * Bought items will be added to the storage and is not able for purchase
+     * in the future.
+     */
+    public static ShopList shopList = new ShopList();
 
     /**
      * Storage instance that stores and loads tasks to and from
@@ -93,6 +101,7 @@ public class Hustler extends Application {
         System.out.println();
         avatar = AvatarStorage.load();
         AvatarStorage.save(avatar);
+        shopList = ShopStorage.load();
     }
 
     /**
