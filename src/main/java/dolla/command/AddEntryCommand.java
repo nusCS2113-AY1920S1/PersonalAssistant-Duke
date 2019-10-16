@@ -33,7 +33,7 @@ public class AddEntryCommand extends Command {
     @Override
     public void execute(DollaData dollaData) {
         Entry newEntry = new Entry(type, amount, description, date);
-        dollaData.entryList.add(newEntry);
+        dollaData.addToLogList("entries", newEntry);
         Ui.echoAddEntry(newEntry);
     }
 }
