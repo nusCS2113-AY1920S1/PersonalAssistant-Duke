@@ -1,4 +1,4 @@
-import gazeeebo.Tasks.FixedDuration;
+import gazeeebo.tasks.FixedDuration;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;

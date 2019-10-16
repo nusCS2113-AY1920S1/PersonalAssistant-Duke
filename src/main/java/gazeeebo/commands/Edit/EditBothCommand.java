@@ -1,6 +1,6 @@
 package gazeeebo.commands.Edit;
 
-import gazeeebo.Tasks.*;
+import gazeeebo.tasks.*;
 import gazeeebo.UI.Ui;
 
 import java.io.IOException;

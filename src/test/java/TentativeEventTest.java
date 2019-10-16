@@ -1,4 +1,4 @@
-import gazeeebo.Tasks.TentativeEvent;
+import gazeeebo.tasks.TentativeEvent;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;

@@ -1,12 +1,12 @@
-import gazeeebo.Storage.Storage;
-import gazeeebo.Tasks.Task;
+import gazeeebo.storage.Storage;
+import gazeeebo.tasks.Task;
 import gazeeebo.TriviaManager.TriviaManager;
 import gazeeebo.UI.Ui;
 import gazeeebo.commands.UndoCommand;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import gazeeebo.Exception.DukeException;
+import gazeeebo.exception.DukeException;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;

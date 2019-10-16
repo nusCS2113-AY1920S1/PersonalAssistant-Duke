@@ -2,15 +2,19 @@ package gazeeebo.parsers;
 
 import gazeeebo.commands.expenses.ExpenseCommand;
 
-import gazeeebo.Exception.DukeException;
+import gazeeebo.exception.DukeException;
 import gazeeebo.commands.*;
 import gazeeebo.commands.Contact.ContactsCommand;
 import gazeeebo.commands.Edit.EditCommand;
+import gazeeebo.commands.help.HelpCommand;
 import gazeeebo.commands.note.AddNoteCommand;
 import gazeeebo.commands.note.DeleteNoteCommand;
 import gazeeebo.commands.note.EditNoteCommand;
 import gazeeebo.commands.note.ListNoteCommand;
 import gazeeebo.commands.places.PlacesCommand;
+import gazeeebo.commands.schedule.ScheduleDailyCommand;
+import gazeeebo.commands.schedule.ScheduleMonthlyCommand;
+import gazeeebo.commands.schedule.ScheduleWeeklyCommand;
 
 import java.io.IOException;
 
@@ -91,7 +95,9 @@ public class Parser {
             return new DeleteNoteCommand();
         } else if (splitCommand[0].equals("listNote")) {
             return new ListNoteCommand();
-        } else if (command.equals("change password")) {
+        } else if (splitCommand[0].equals("help")) {
+                return new HelpCommand();
+       } else if (command.equals("change password")) {
             return new ChangePasswordCommand();
         } else if (command.contains("#")) {
             return new TagCommand();
