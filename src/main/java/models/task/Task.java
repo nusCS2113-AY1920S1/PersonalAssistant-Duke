@@ -100,6 +100,7 @@ public class Task {
      */
     public ArrayList<String> getTaskRequirements() {
         ArrayList<String> taskRequirements = new ArrayList<>();
+        taskRequirements.add(getDetails());
         int index = 1;
         for (String s : this.taskRequirements) {
             taskRequirements.add(index + ". " + s);
