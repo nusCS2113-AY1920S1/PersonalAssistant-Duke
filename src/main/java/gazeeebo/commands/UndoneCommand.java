@@ -24,7 +24,7 @@ public class UndoneCommand extends Command {
                 list.get(numberCheck).isDone = false;
             }
 
-            System.out.println("Nice! I've marked this task as UNDONE: ");
+            System.out.println("Nice! I've marked this task as undone: ");
             System.out.println(list.get(numberCheck).listFormat());
 
             StringBuilder sb = new StringBuilder();

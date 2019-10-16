@@ -1,5 +1,7 @@
 package gazeeebo.parsers;
 
+import gazeeebo.commands.expenses.ExpenseCommand;
+
 import gazeeebo.Exception.DukeException;
 import gazeeebo.commands.*;
 import gazeeebo.commands.Contact.ContactsCommand;
@@ -10,8 +12,10 @@ import gazeeebo.commands.note.EditNoteCommand;
 import gazeeebo.commands.note.ListNoteCommand;
 import gazeeebo.commands.places.PlacesCommand;
 
+import java.io.IOException;
+
 public class Parser {
-    public static Command parse(String command) throws DukeException {
+    public static Command parse(String command) throws DukeException, IOException {
         String[] splitCommand = command.split(" ");
         if (splitCommand[0].equals("list")) {
             if (command.contains("event")) {
@@ -47,8 +51,10 @@ public class Parser {
             return new TimeboundCommand();
         } else if (splitCommand[0].equals("find")) {
             return new FindCommand();
-        } else if(command.equals("contact")) {
+        } else if (command.equals("contact")) {
             return new ContactsCommand();
+        } else if (command.equals("expenses")) {
+            return new ExpenseCommand();
         } else if (command.equals("places")) {
             return new PlacesCommand();
         } else if (splitCommand[0].equals("bye")) {
