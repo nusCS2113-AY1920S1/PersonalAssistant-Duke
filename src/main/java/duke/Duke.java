@@ -26,6 +26,7 @@ public class Duke extends Application {
     private Schedule schedule;
     private MyPlan plan;
     public static Stage window;
+    private Storage studentRead;
 
 
 
@@ -36,6 +37,7 @@ public class Duke extends Application {
         students = new ManageStudents();
         schedule = new Schedule(new Storage(".\\src\\main\\java\\duke\\data\\timeslots.txt").loadSchedule());
         plan = new MyPlan();
+        studentRead = new Storage("C:\\Users\\Dell\\Desktop\\main\\src\\main\\java\\duke\\data\\studentList.txt");
     }
 
     /**
@@ -75,6 +77,7 @@ public class Duke extends Application {
             stage.setScene(new Scene(root, 1280,720));
             stage.setTitle("Sports Manager");
             stage.show();
+            studentRead.readStudentListFile(students.getStudentList());
 
         }
         catch (IOException e) {

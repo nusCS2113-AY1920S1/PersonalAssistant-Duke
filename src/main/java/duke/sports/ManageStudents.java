@@ -15,7 +15,7 @@ public class ManageStudents {
 
 //    public void loadStudentList() {
 //        Storage storage = new Storage ();
-//        studentList.addAll(storage.loadFile());
+//        studentList.txt.addAll(storage.loadFile());
 //    }
 
     /**
@@ -27,14 +27,14 @@ public class ManageStudents {
 
 
 
-//    public void setStudentList(ArrayList<MyStudent> studentList) {
-//        this.studentList = studentList;
+//    public void setStudentList(ArrayList<MyStudent> studentList.txt) {
+//        this.studentList.txt = studentList.txt;
 //    }
 
     /**
      * @return list of all the students.
      */
-    private ArrayList<MyStudent> getStudentList() {
+    public ArrayList<MyStudent> getStudentList() {
         return studentList;
     }
 

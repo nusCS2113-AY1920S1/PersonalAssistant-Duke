@@ -2,16 +2,14 @@ package duke.data;
 
 import duke.module.TimeSlot;
 import duke.sports.MyClass;
+import duke.sports.MyStudent;
 import duke.task.After;
 import duke.task.Deadline;
 import duke.task.Event;
 import duke.task.Item;
 import duke.task.ToDo;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -335,6 +333,52 @@ public class Storage {
         } catch (IOException io) {
             System.out.println("File not found:" + io.getMessage());
         }
+    }
+
+    public void updateStudentList(ArrayList<MyStudent> student) {
+        File studentListFile = new File("C:\\Users\\Dell\\Desktop\\main\\src\\main\\java\\duke\\data\\studentList.txt");
+        try {
+            PrintWriter printWriter = new PrintWriter(studentListFile);
+            for (MyStudent x: student) {
+                printWriter.println(x.toString() +"\n");
+            }
+            printWriter.close();
+            printWriter.write("");
+            printWriter.close();
+        } catch (IOException io) {
+            System.out.println("File not found: " + io.getMessage());
+        }
+    }
+
+    public void readStudentListFile (ArrayList<MyStudent> student) {
+        String fileName = "studentList.txt";
+        String line;
+        ArrayList loadStudent = new ArrayList();
+
+        try {
+            FileReader fr = new FileReader("C:\\Users\\Dell\\Desktop\\main\\src\\main\\java\\duke\\data\\studentList.txt");
+            BufferedReader input = new BufferedReader(fr);
+            if (!input.ready()) {
+                throw new IOException();
+            }
+            while ((line = input.readLine()) != null) {
+                String[] splitter = line.split("\n");
+                for (int i = 0; i < splitter.length; i++) {
+                    splitter[i] = splitter[i].trim();
+                }
+                MyStudent studentInfo = new MyStudent(splitter[0], splitter[1], splitter[2]);
+                student.add(studentInfo);
+            }
+            fr.close();
+        }catch (IOException e) {
+            System.out.println(e);
+        }
+//
+//        int listSize = loadStudent.size();
+//        for (int i = 0; i < listSize; i++) {
+//            System.out.println(student.get(i).toString());
+//        }
+
     }
 
 /*
