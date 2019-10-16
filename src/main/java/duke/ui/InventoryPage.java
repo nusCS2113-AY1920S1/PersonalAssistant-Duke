@@ -113,11 +113,13 @@ public class InventoryPage extends UiPart<AnchorPane> {
                 new SimpleStringProperty(itemStringCellDataFeatures.getValue().getItem().getRemarks()));
 
         TableColumn<Item<Ingredient>, String> costColumn = new TableColumn<>("Unit Cost ($)");
+
         costColumn.setResizable(true);
         costColumn.setCellValueFactory(itemStringCellDataFeatures ->
                 new SimpleStringProperty(String.valueOf(itemStringCellDataFeatures.getValue().getItem().getUnitPrice())));
 
         TableColumn<Item<Ingredient>, String> totalCostColumn = new TableColumn<>("Cost ($)");
+
         totalCostColumn.setResizable(true);
         totalCostColumn.setCellValueFactory(itemStringCellDataFeatures ->
                 new SimpleStringProperty(String.valueOf(itemStringCellDataFeatures.getValue().getTotalPrice())));
