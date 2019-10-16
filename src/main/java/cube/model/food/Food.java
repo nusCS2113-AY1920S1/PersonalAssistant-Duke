@@ -33,6 +33,16 @@ public class Food implements Serializable {
 	}
 
 	/**
+	 * Gets the name of the food product.
+	 *
+	 * @return the name of the food product.
+	 */
+
+	public String getName() {
+		return name;
+	}
+
+	/**
 	 * Sets the type of the product.
 	 *
 	 * @param type The type of the product.
