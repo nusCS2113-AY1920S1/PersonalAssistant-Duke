@@ -123,6 +123,9 @@ public class Ui {
         Interpreter.interpret(this.taskList, this.wallet, "balance");
     }
 
+    /**
+     * Prints the User's Current Expenses.
+     */
     private void printUserExpenses() {
         Interpreter.interpret(this.taskList, this.wallet, "expenses");
     }
