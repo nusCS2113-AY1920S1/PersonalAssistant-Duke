@@ -84,15 +84,15 @@ public class MainWindow extends AnchorPane {
      */
     @FXML
     private void handleUserInput() {
-
         try {
             dialogContainer.getChildren().clear();
             String input = userInput.getText();
+            String response = "";
             userInput.clear();
             System.out.println(input);
-            //            dialogContainer.getChildren().add(
-            //                    DialogBox.getUserDialog(input, userImage));
-            String response = "";
+
+            AvatarScreen.avatarMode = AvatarScreen.AvatarMode.HAPPY;
+
             if (isStarting && duke.isFirstTimeUser) {
                 duke.userName = input;
                 duke.profile.overwriteName(duke.userName);
@@ -101,7 +101,7 @@ public class MainWindow extends AnchorPane {
                                 duke.isFirstTimeUser, duke.userName, duke.userProgress), dukeImage)
                 );
                 isStarting = false;
-            } else if (isStarting && !duke.isFirstTimeUser) {
+            } else if (isStarting) {
                 response = duke.getResponse(input);
                 dialogContainer.getChildren().add(
                         DialogBox.getDukeDialog(response, dukeImage)
@@ -117,6 +117,11 @@ public class MainWindow extends AnchorPane {
                     } else {
                         isQuiz = false;
                         response = quizCommand.getQuizScore();
+                        if (quizCommand.scoreGrade == QuizCommand.ScoreGrade.BAD) {
+                            AvatarScreen.avatarMode = AvatarScreen.AvatarMode.POUT;
+                        } else if (quizCommand.scoreGrade == QuizCommand.ScoreGrade.OKAY) {
+                            AvatarScreen.avatarMode = AvatarScreen.AvatarMode.SAD;
+                        }
                     }
                 }
                 if (response.contains("!@#_QUIZ")) {

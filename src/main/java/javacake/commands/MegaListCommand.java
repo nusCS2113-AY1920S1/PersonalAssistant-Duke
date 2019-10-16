@@ -4,6 +4,7 @@ import javacake.*;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -16,7 +17,7 @@ public class MegaListCommand extends Command {
 
     public String execute(ProgressStack progressStack, Ui ui, Storage storage, Profile profile) throws DukeException {
 
-        try (Stream<Path> walk = Files.walk(Paths.get("content/MainList"))) {
+        try (Stream<Path> walk = Files.walk(Paths.get("src/main/resources/content/MainList"))) {
             List<String> result = walk.filter(Files::isDirectory).map(x -> x.toString()).collect(Collectors.toList());
             return String.join("", result);
         } catch (IOException e) {
@@ -24,7 +25,7 @@ public class MegaListCommand extends Command {
         }
     }
 
-    public static void main(String args[]) throws DukeException{
+    public static void main(String args[]) throws DukeException {
         ProgressStack ps = new ProgressStack();
         Ui ui = new Ui();
         Storage s = new Storage();

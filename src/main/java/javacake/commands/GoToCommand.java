@@ -22,7 +22,7 @@ public class GoToCommand extends Command {
      * @throws DukeException Error thrown when unable to close reader
      */
     public String execute(ProgressStack progressStack, Ui ui, Storage storage, Profile profile) throws DukeException {
-        int intIndex = Integer.parseInt(index)-1;
+        int intIndex = Integer.parseInt(index) - 1;
         progressStack.updateFilePath(progressStack.gotoFilePath(intIndex));
         String filePath = progressStack.getFullFilePath();
         if (filePath.contains("Quiz")) {
@@ -32,7 +32,7 @@ public class GoToCommand extends Command {
                             .execute(progressStack, ui, storage, profile);
                 } else {
                     QuizCommand.setProfile(profile);
-                    return "!@#_QUIZ_3";
+                    return "!@#_QUIZ_1";
                 }
             } else if (filePath.contains("2. Object-Oriented Programming")) {
                 if (Duke.isCliMode()) {
@@ -40,7 +40,7 @@ public class GoToCommand extends Command {
                             .execute(progressStack, ui, storage, profile);
                 } else {
                     QuizCommand.setProfile(profile);
-                    return "!@#_QUIZ_3";
+                    return "!@#_QUIZ_2";
                 }
             } else if (filePath.contains("3. Extensions")) {
                 if (Duke.isCliMode()) {
@@ -56,7 +56,7 @@ public class GoToCommand extends Command {
                             .execute(progressStack, ui, storage, profile);
                 } else {
                     QuizCommand.setProfile(profile);
-                    return "!@#_QUIZ_3";
+                    return "!@#_QUIZ_4";
                 }
             }
         }

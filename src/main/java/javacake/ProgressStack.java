@@ -3,22 +3,32 @@ package javacake;
 import javacake.topics.SubListTopic;
 
 import java.io.*;
+import java.net.URISyntaxException;
+import java.net.URL;
 import java.nio.Buffer;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Stack;
 
 public class ProgressStack {
-    private String defaultFilePath = "content/MainList";
-    private static String currentFilePath = "content/MainList";
+    private File f1 = null;
+    private String defaultFilePath = null;
+    private String currentFilePath = null;
 
     private static ArrayList<String> filePathQueries = new ArrayList<>();
     private File[] listOfFiles;
     private static boolean isDirectory = true;
 
     private Stack<Integer> currentProgress = new Stack<Integer>();
-    public ProgressStack() {
-
+    public ProgressStack() throws DukeException {
+        try {
+            f1 = new File(getClass().getResource("/content/MainList").toURI());
+        } catch (URISyntaxException e) {
+            throw new DukeException("Unable to load file directory");
+        }
+        System.out.println(f1.getAbsolutePath());
+        defaultFilePath = f1.getPath();
+        currentFilePath = f1.getPath();
     }
 
     /**

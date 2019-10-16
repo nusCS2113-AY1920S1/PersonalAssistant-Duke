@@ -10,7 +10,10 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 import javafx.util.Duration;
 
+import java.io.File;
 import java.io.IOException;
+import java.net.URISyntaxException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,16 +27,31 @@ public class AvatarScreen extends VBox {
 
     private Image avatarHappy1 = new Image(this.getClass().getResourceAsStream("/images/avatar/hapop.png"));
     private Image avatarHappy2 = new Image(this.getClass().getResourceAsStream("/images/avatar/hapclos.png"));
+    private Image avatarSad1 = new Image(this.getClass().getResourceAsStream("/images/avatar/cryop.png"));
+    private Image avatarSad2 = new Image(this.getClass().getResourceAsStream("/images/avatar/cryclos.png"));
+    private Image avatarPout1 = new Image(this.getClass().getResourceAsStream("/images/avatar/poutop.png"));
+    private Image avatarPout2 = new Image(this.getClass().getResourceAsStream("/images/avatar/poutclos.png"));
     List<Image> images = new ArrayList<>();
     private int imageIndex = 0;
+    private int timeFrame = 0;
+    public static AvatarMode avatarMode;
+
+    private void initialiseList() {
+        images.add(avatarSad2);
+        images.add(avatarSad1);
+        images.add(avatarHappy2);
+        images.add(avatarHappy1);
+        images.add(avatarPout2);
+        images.add(avatarPout1);
+    }
 
     /**
      * Constructor for setting Avatar's face.
      * @param type Type of face Avatar makes
      */
     public AvatarScreen(AvatarMode type) {
-        images.add(avatarHappy1);
-        images.add(avatarHappy2);
+        initialiseList();
+        avatarMode = type;
 
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(MainWindow.class.getResource("/view/AvatarScreen.fxml"));
@@ -44,9 +62,27 @@ public class AvatarScreen extends VBox {
             e.printStackTrace();
         }
 
-        //avatarImage.setImage(images.get(0));
         Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(1), ev -> {
-            avatarImage.setImage(images.get(imageIndex++ % 2));
+            if (avatarMode == AvatarMode.HAPPY) {
+                if (timeFrame % 4 <= 2) {
+                    avatarImage.setImage(images.get(3));
+                } else {
+                    avatarImage.setImage(images.get(2));
+                }
+            } else if (avatarMode == AvatarMode.SAD) {
+                if (timeFrame % 4 <= 2) {
+                    avatarImage.setImage(images.get(1));
+                } else {
+                    avatarImage.setImage(images.get(0));
+                }
+            } else {
+                if (timeFrame % 4 <= 2) {
+                    avatarImage.setImage(images.get(5));
+                } else {
+                    avatarImage.setImage(images.get(4));
+                }
+            }
+            timeFrame++;
         }));
         timeline.setCycleCount(Animation.INDEFINITE);
         timeline.play();
