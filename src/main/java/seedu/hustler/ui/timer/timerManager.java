@@ -1,7 +1,7 @@
 package seedu.hustler.ui.timer;
 
-import seedu.hustler.ui.timer.timer.threadStatus;
-import seedu.hustler.ui.timer.threadErrorUIMessages.threadErrorType;
+import seedu.hustler.ui.timer.statusTypes.threadStatus;
+import seedu.hustler.ui.timer.statusTypes.threadError;
 
 /**
  * The access point for all timer-related things.
@@ -72,7 +72,7 @@ public class timerManager {
             timer.threadstatus = threadStatus.PAUSED;
             countdownThread.interrupt();
         } else {
-            timerUI.printThreadError(threadErrorType.PAUSEERROR);
+            timerUI.printThreadError(threadError.PAUSEERROR);
         }
     }
 
@@ -87,7 +87,7 @@ public class timerManager {
             countdownThread = new Thread(countdownTimer);
             countdownThread.start();
         } else {
-            timerUI.printThreadError(threadErrorType.RESUMEERROR);
+            timerUI.printThreadError(threadError.RESUMEERROR);
         }
     }
 
@@ -101,7 +101,7 @@ public class timerManager {
             countdownThread.interrupt();
             resetTimer();
         } else {
-            timerUI.printThreadError(threadErrorType.STOPERROR);
+            timerUI.printThreadError(threadError.STOPERROR);
         }
     }
 }

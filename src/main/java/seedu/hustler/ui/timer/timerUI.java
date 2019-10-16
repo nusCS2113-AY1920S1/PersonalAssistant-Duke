@@ -1,7 +1,7 @@
 package seedu.hustler.ui.timer;
 
-import seedu.hustler.ui.timer.threadErrorUIMessages.threadErrorType;
-import seedu.hustler.ui.timer.timer.threadStatus;
+import seedu.hustler.ui.timer.statusTypes.threadError;
+import seedu.hustler.ui.timer.statusTypes.threadStatus;
 
 /**
  * Manages all code that will need to print information for the user.
@@ -10,9 +10,9 @@ import seedu.hustler.ui.timer.timer.threadStatus;
 public class timerUI {
 
     /**
-     * All strings to be printed will always be generated else. This private
-     * function will be the last part of every printing-related; this method
-     * is the gate of sorts. This deliberate abstraction always the developer
+     * All strings to be printed will always be generated elsewhere. This private
+     * function will be the last part of every printing-related action; this method
+     * is the gate of sorts. This deliberate abstraction allows the developer
      * to mute printing if required.
      */
     private static void printToUser (String output) {
@@ -25,9 +25,9 @@ public class timerUI {
      */
     protected static void printThreadStart(threadStatus threadstatus, int[] timeArray) {
         if (threadstatus == threadStatus.RUNNING) {
-            printToUser(threadStartUIMessages.TimerStart(timeArray));
+            printToUser(UIMessages.threadStart.TimerStart(timeArray));
 	} else if (threadstatus == threadStatus.RESUMED) {
-            printToUser(threadStartUIMessages.TimerResumed());
+            printToUser(UIMessages.threadStart.TimerResumed());
         }
     }
 
@@ -37,11 +37,11 @@ public class timerUI {
      */
     protected static void printThreadInterrupt(threadStatus threadstatus) {
         if (threadstatus == threadStatus.PAUSED) {
-            printToUser(threadStopUIMessages.TimerPaused());
+            printToUser(UIMessages.threadStop.TimerPaused());
         } else if (threadstatus == threadStatus.RESET) {
-            printToUser(threadStopUIMessages.TimerStopped());
+            printToUser(UIMessages.threadStop.TimerStopped());
         } else if (threadstatus == threadStatus.RUNNING || threadstatus == threadStatus.RESUMED) {
-            printToUser(threadStopUIMessages.TimesUp());
+            printToUser(UIMessages.threadStop.TimesUp());
             timer.threadstatus = threadStatus.FINISHED;
         }
     }
@@ -50,13 +50,13 @@ public class timerUI {
      * The main location to generate messages related to all errors that arise
      * to the the timer/ thread (invalid commands, etc). 
      */
-    protected static void printThreadError(threadErrorType threaderrortype) {
-        if (threaderrortype == threadErrorType.RESUMEERROR) {
-            printToUser(threadErrorUIMessages.NoTimerToResumeError());
-        } else if (threaderrortype == threadErrorType.PAUSEERROR) {
-            printToUser(threadErrorUIMessages.NoTimerToPauseError());
-        } else if (threaderrortype == threadErrorType.STOPERROR) {
-            printToUser(threadErrorUIMessages.NoTimerToStopError());
+    protected static void printThreadError(threadError threaderrortype) {
+        if (threaderrortype == threadError.RESUMEERROR) {
+            printToUser(UIMessages.threadError.NoTimerToResumeError());
+        } else if (threaderrortype == threadError.PAUSEERROR) {
+            printToUser(UIMessages.threadError.NoTimerToPauseError());
+        } else if (threaderrortype == threadError.STOPERROR) {
+            printToUser(UIMessages.threadError.NoTimerToStopError());
         }
     }
 

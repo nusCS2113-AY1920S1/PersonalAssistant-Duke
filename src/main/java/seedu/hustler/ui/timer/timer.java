@@ -1,6 +1,7 @@
 package seedu.hustler.ui.timer;
 
 import java.util.*;
+import seedu.hustler.ui.timer.statusTypes.threadStatus;
 
 /**
  * The timer device operated by timerManager.
@@ -41,19 +42,6 @@ public class timer implements Runnable {
         timeArray[0] = Integer.parseInt(seconds);
         timeArray[1] = Integer.parseInt(minutes);
         timeArray[2] = Integer.parseInt(hours);
-    }
-
-    /**
-     * Types of statuses the timer can have.
-     */
-    protected enum threadStatus {
-        DEFAULT,
-	RUNNING,
-	PAUSED,
-        RESUMED,
-        RESET,
-        STOPPED,
-        FINISHED
     }
 
     /**
