@@ -1,6 +1,5 @@
 package task;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -122,6 +121,23 @@ public class TaskList {
         return task;
     }
 
+    /**
+     * This function allows the user to adda location to tasks.
+     *
+     * @param taskWithLocation is of String type which contains the desired date of
+     *                  schedule.
+     * @return sortDateList the sorted schedule of all the tasks on a particular date.
+     */
+    public Task addLocation(Integer indexOfTask, String taskWithLocation) {
+        Task taskHasLocation = listOfTasks.get(indexOfTask);
+        taskHasLocation.hasLocation = true;
+        taskHasLocation.comment += ("Location of the task is " + taskWithLocation);
+        // This is to later encompass further key information such as eg. exam is at location
+        // taskHasLocation.comment += (" the" + taskHasLocation.getClass().toString()
+        // .replace("class task.", " ") + " task is at " + taskWithLocation);
+        return taskHasLocation;
+    }
+
 
     /**
      * This function allows the user to obtain the tasks on a particular date.
@@ -133,8 +149,7 @@ public class TaskList {
     public ArrayList<Task> schedule(String dayToFind) {
         ArrayList<Task> sortedDateList = new ArrayList<Task>();
         for (int i = 0; i < listOfTasks.size(); i++) {
-            if (!(listOfTasks.get(i).getClass() == task.Todo.class)
-                && listOfTasks.get(i).toString().contains(dayToFind)) {
+            if (listOfTasks.get(i).toString().contains(dayToFind)) {
                 sortedDateList.add(listOfTasks.get(i));
             }
         }

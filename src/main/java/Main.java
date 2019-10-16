@@ -17,7 +17,7 @@ public class Main extends Application {
      * along with the and finally the stage is shown.
      */
     @Override
-    public void start(Stage stage) throws DukeException {
+    public void start(Stage stage) {
         try {
             MainWindow.initializeDukeElements();
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/view/MainWindow.fxml"));

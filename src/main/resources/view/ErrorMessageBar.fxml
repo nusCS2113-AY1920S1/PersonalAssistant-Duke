@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.HBox?>
+
+<fx:root maxHeight="158.0" maxWidth="200.0" prefWidth="200.0" type="javafx.scene.layout.HBox" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Label fx:id="errorMessage" minHeight="80.0" minWidth="200.0" text="Label" wrapText="true" style="-fx-border-color: #de1b15; -fx-text-fill: #01f222" />
+   </children>
+   <padding>
+      <!--<Insets>-->
+   </padding>
+</fx:root>

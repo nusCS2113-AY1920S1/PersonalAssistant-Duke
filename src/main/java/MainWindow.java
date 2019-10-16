@@ -1,7 +1,15 @@
 import command.Command;
 import exception.DukeException;
+import javafx.beans.InvalidationListener;
+import javafx.beans.Observable;
+import javafx.beans.value.ObservableStringValue;
+import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
@@ -25,6 +33,10 @@ public class MainWindow extends AnchorPane {
     @FXML
     private ScrollPane scrollPane;
     @FXML
+    private ScrollPane errorScrollPane;
+    @FXML
+    private VBox errorMessageContainer;
+    @FXML
     private VBox dialogContainer;
     @FXML
     private VBox todayTaskContainer;
@@ -32,6 +44,10 @@ public class MainWindow extends AnchorPane {
     private TextField userInput;
     @FXML
     private Button sendButton;
+    @FXML
+    private Label test;
+    @FXML
+    private ListView<Task> tasksForTheDay;
 
     /**
      * Allocation of the images for the chat bot.
@@ -39,12 +55,11 @@ public class MainWindow extends AnchorPane {
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
     private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
 
-
     private static String filePath = System.getProperty("user.dir") + "/src/DukeDatabase/ArrayList";
     private static Storage storage;
     private static TaskList tasks;
     private static File file = new File(filePath);
-    private static ArrayList<Task> holdTodayTasks;
+    private static ObservableList<Task> holdTodayTasks;
 
     /**
      * This method is utilised to initialize the required aspects of Duke such as the storage and the rendering of
@@ -58,9 +73,7 @@ public class MainWindow extends AnchorPane {
             tasks = new TaskList(new ArrayList<>());
             Ui.printMessage(e.getMessage());
         }
-        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-        LocalDateTime now = LocalDateTime.now();
-        holdTodayTasks = tasks.schedule(dtf.format(now));
+        populateTodayTasks();
     }
 
     /**
@@ -69,7 +82,7 @@ public class MainWindow extends AnchorPane {
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
-        todayTaskContainer.getChildren().add(TodayTaskBox.getUserTaskForToday(holdTodayTasks));
+        tasksForTheDay.setItems(holdTodayTasks);
     }
 
     /**
@@ -82,14 +95,25 @@ public class MainWindow extends AnchorPane {
         try {
             Command command = ParserFactory.parse(input);
             command.execute(tasks, storage);
+            tasks = new TaskList(storage.loadFile(file));
+            populateTodayTasks();
+            tasksForTheDay.setItems(holdTodayTasks);
         } catch (DukeException e) {
-            Ui.printMessage(e.getMessage());
+            errorMessageContainer.getChildren().addAll(
+                ErrorMessageBar.getErrorMessage(e.getMessage())
+            );
         }
         dialogContainer.getChildren().addAll(
             DialogBox.getUserDialog(input, userImage),
             DialogBox.getDukeDialog(Ui.userOutputForUI, dukeImage)
         );
         userInput.clear();
+    }
+
+    private static void populateTodayTasks() {
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        LocalDateTime now = LocalDateTime.now();
+        holdTodayTasks = FXCollections.observableArrayList(tasks.schedule(dtf.format(now)));
     }
 
 }
