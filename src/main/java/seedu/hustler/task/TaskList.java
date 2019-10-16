@@ -310,15 +310,15 @@ public class TaskList {
             break;
         case "prioritize":
             Collections.sort(list, (t1, t2) -> {
-                if (t1.getDifficulty().equals(t2.getDifficulty())) {
+                if (t1.getDifficulty().toString().equals(t2.getDifficulty().toString())) {
                     return 0;
-                } else if (t1.getDifficulty().equals(new Difficulty("H"))) {
-                    return 1;
-                } else if (t1.getDifficulty().equals(new Difficulty("M")) &&
-                        t2.getDifficulty().equals(new Difficulty("L"))) {
-                    return 1;
-                } else {
+                } else if (t1.getDifficulty().toString().equals("[H]")) {
                     return -1;
+                } else if (t1.getDifficulty().toString().equals("[M]") &&
+                        t2.getDifficulty().toString().equals("[L]")) {
+                    return -1;
+                } else {
+                    return 1;
                 }
             });
             break;
