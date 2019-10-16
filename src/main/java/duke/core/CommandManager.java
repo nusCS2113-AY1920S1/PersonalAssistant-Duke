@@ -96,6 +96,13 @@ public class CommandManager {
                         String formattedInput = parser.parseUpdatePatient();
                         return new UpdatePatientCommand(formattedInput);
                     }
+                    else if (secondKeyword.equals("task")){
+                        String formattedInput = parser.parseUpdateTask();
+                        return new UpdateTaskCommand(formattedInput);
+                    }
+                    else {
+                        throw new Exception("Invalid format. ");
+                    }
                 } catch (Exception e) {
                     throw new DukeException("update command fails. " + e.getMessage());
                 }
