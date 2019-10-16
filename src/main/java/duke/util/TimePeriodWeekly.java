@@ -5,6 +5,7 @@ import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.time.temporal.TemporalAccessor;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -112,6 +113,11 @@ public class TimePeriodWeekly implements TimePeriod {
         return this.isClashing(begin) || this.isClashing(end);
     }
 
+    @Override
+    public <E extends TemporalAccessor> boolean isClashing(E begin, E end) {
+        return this.isClashing(LocalDateTime.from(begin), LocalDateTime.from(end));
+    }
+
     public boolean isClashing(LocalTime begin, LocalTime end) {
         return this.isClashing(begin) || this.isClashing(end);
     }
@@ -181,6 +187,11 @@ public class TimePeriodWeekly implements TimePeriod {
             return this.isClashing((TimePeriodWeekly) other);
         }
         return false;
+    }
+
+    @Override
+    public <E extends TemporalAccessor> boolean isClashing(E other) {
+        return this.isClashing(LocalDateTime.from(other));
     }
     
     public DayOfWeek getDayOfWeek() {

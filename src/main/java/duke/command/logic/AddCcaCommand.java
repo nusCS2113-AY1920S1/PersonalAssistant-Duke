@@ -1,5 +1,6 @@
 package duke.command.logic;
 
+import duke.exceptions.ModCcaScheduleException;
 import duke.exceptions.ModInvalidTimeException;
 import duke.modules.Cca;
 import duke.modules.data.ModuleInfoDetailed;
@@ -24,14 +25,11 @@ public class AddCcaCommand extends ModuleCommand {
                         CcaList ccas,
                         PlannerUi plannerUi,
                         Storage store,
-                        JsonWrapper jsonWrapper) {
-        if (!ccas.clashes(this.cca)) {
-            ccas.add(this.cca);
+                        JsonWrapper jsonWrapper) throws ModCcaScheduleException {
+        if (ccas.clashes(this.cca)) {
+            throw new ModCcaScheduleException();
         }
-        int counter = 0;
-        for (Cca cca : ccas) {
-            plannerUi.println(++counter + " ");
-            plannerUi.println(cca);
-        }
+        ccas.add(this.cca);
+        plannerUi.addedMsg(this.cca);
     }
 }

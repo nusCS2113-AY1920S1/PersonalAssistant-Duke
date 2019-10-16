@@ -6,6 +6,7 @@ import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.time.temporal.TemporalAccessor;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -138,6 +139,16 @@ public class TimePeriodSpanning implements TimePeriod {
 
     public boolean isClashing(LocalTime begin, LocalTime end) throws ModInvalidTimePeriodException {
         return this.isClashing(new TimePeriodSpanning(begin, end));
+    }
+
+    @Override
+    public <E extends TemporalAccessor> boolean isClashing(E other) {
+        return this.isClashing(LocalDateTime.from(other));
+    }
+
+    @Override
+    public <E extends TemporalAccessor> boolean isClashing(E begin, E end) throws ModInvalidTimePeriodException {
+        return this.isClashing(LocalDateTime.from(begin), LocalDateTime.from(end));
     }
 
     /**

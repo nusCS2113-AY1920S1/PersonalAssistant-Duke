@@ -1,12 +1,14 @@
 package duke.modules;
 
+import duke.exceptions.ModInvalidIndexException;
 import duke.exceptions.ModInvalidTimeException;
 import duke.util.DateTimeParser;
+import duke.util.TimePeriodWeekly;
 import java.time.DayOfWeek;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 
-public class Cca extends TaskWithWeeklyPeriod {
+public class Cca extends TaskWithMultipleWeeklyPeriod {
 
     /**
      * Constructor for Cca module.
@@ -20,32 +22,40 @@ public class Cca extends TaskWithWeeklyPeriod {
         super(task, DayOfWeek.valueOf(dayOfWeek.toUpperCase()));
         LocalTime begin = DateTimeParser.getStringToDate(beginString).toLocalTime();
         LocalTime end = DateTimeParser.getStringToDate(endString).toLocalTime();
-        this.setPeriod(begin, end);
+        try {
+            this.setPeriod(0, begin, end);
+        } catch (ModInvalidIndexException ex) {
+            ex.printStackTrace();
+        }
     }
 
     @Override
     public String writingFile() {
-        return "C"
-                + "|"
-                + super.writingFile()
-                + "|"
-                + this.getBeginTime().format(DateTimeFormatter.ofPattern("[HH:mm]"))
-                + "|"
-                + this.getEndTime().format(DateTimeFormatter.ofPattern("[HH:mm]"))
-                + "|"
-                + this.getDayOfWeek();
+        StringBuilder prefix = new StringBuilder("C|" + super.writingFile());
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("[HH:mm]");
+        for (TimePeriodWeekly period: this.getPeriods()) {
+            prefix.append("|")
+                    .append(period.getBeginTime().format(formatter))
+                    .append("~")
+                    .append(period.getEndTime()
+                            .format(formatter)).append("~")
+                    .append(period.getDayOfWeek());
+        }
+        return prefix.toString();
     }
 
     @Override
     public String toString() {
-        return "[C]"
-                + super.toString()
-                + " ("
-                + this.getBeginTime().format(DateTimeFormatter.ofPattern("[HH:mm]"))
-                + " - "
-                + this.getEndTime().format(DateTimeFormatter.ofPattern("[HH:mm]"))
-                + " on "
-                + this.getDayOfWeek()
-                + ")";
+        StringBuilder prefix = new StringBuilder("[C]" + super.toString() + " | ");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("[HH:mm]");
+        for (TimePeriodWeekly period: this.getPeriods()) {
+            prefix.append(period.getBeginTime().format(formatter))
+                    .append(" - ")
+                    .append(period.getEndTime()
+                            .format(formatter)).append(" on ")
+                    .append(period.getDayOfWeek())
+                    .append(", ");
+        }
+        return prefix.toString().substring(0, prefix.length() - 2);
     }
 }

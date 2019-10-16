@@ -5,6 +5,7 @@ import duke.util.TimeInterval;
 import duke.util.TimePeriod;
 import java.time.DayOfWeek;
 import java.time.LocalTime;
+import java.time.temporal.Temporal;
 import java.time.temporal.TemporalAccessor;
 import java.util.List;
 
@@ -14,25 +15,41 @@ public abstract class TaskWithPeriod extends Task {
         super(task);
     }
 
-    public abstract TimeInterval getInterval();
+    public TimeInterval getInterval() {
+        return new TimeInterval(this.getPeriod());
+    };
 
-    public abstract LocalTime getBeginTime();
+    public LocalTime getBeginTime() {
+        return this.getPeriod().getBeginTime();
+    }
 
-    public abstract LocalTime getEndTime();
+    public LocalTime getEndTime() {
+        return this.getPeriod().getEndTime();
+    }
 
-    public abstract TemporalAccessor getBegin();
+    public Temporal getBegin() {
+        return this.getPeriod().getBegin();
+    }
 
-    public abstract TemporalAccessor getEnd();
+    public Temporal getEnd() {
+        return this.getPeriod().getEnd();
+    }
 
     public abstract TimePeriod getPeriod();
 
-    public abstract List<DayOfWeek> getDaysOfWeek();
+    public List<DayOfWeek> getDaysOfWeek() {
+        return this.getPeriod().getDaysOfWeek();
+    }
 
-    public boolean isClashing(TaskWithPeriod other) {
+    public <T extends TemporalAccessor> boolean isClashing(T other) {
+        return this.getPeriod().isClashing(other);
+    };
+
+    public <E extends TaskWithPeriod> boolean isClashing(E other) {
         return this.isClashing(other.getPeriod());
     }
 
-    public boolean isClashing(TimePeriod other) {
+    public <E extends TimePeriod> boolean isClashing(E other) {
         return this.getPeriod().isClashing(other);
     }
 }

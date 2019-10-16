@@ -1,6 +1,7 @@
 package duke.util.argparse4j;
 
 import duke.command.logic.AddCcaCommand;
+import duke.command.logic.AddCcaScheduleCommand;
 import duke.command.logic.EndCommand;
 import duke.command.logic.ModuleCommand;
 import duke.command.logic.RemoveCcaCommand;
@@ -54,6 +55,7 @@ public class Argparse4jWrapper {
         this.mapArgument("remove", "index");
         this.mapArgument("addCca", "name", "begin", "end", "dayOfWeek");
         this.mapArgument("removeCca", "index");
+        this.mapArgument("scheduleCca", "index", "begin", "end", "dayOfWeek");
     }
 
     /**
@@ -68,6 +70,7 @@ public class Argparse4jWrapper {
         this.mapCommand("remove", RemoveModCommand.class);
         this.mapCommand("addCca", AddCcaCommand.class);
         this.mapCommand("removeCca", RemoveCcaCommand.class);
+        this.mapCommand("scheduleCca", AddCcaScheduleCommand.class);
     }
 
     /**
@@ -111,6 +114,25 @@ public class Argparse4jWrapper {
                 .type(Integer.class)
                 .required(true)
                 .help("Index of cca to remove");
+
+        Subparser scheduleCcaParser = this.getSubParser("scheduleCca");
+        scheduleCcaParser.addArgument("index")
+                .type(Integer.class)
+                .required(true)
+                .help("Index of cca to schedule");
+        scheduleCcaParser.addArgument("--begin")
+                .required(true)
+                .nargs("+")
+                .action(this.joinString)
+                .help("Begin time");
+        scheduleCcaParser.addArgument("--end")
+                .required(true)
+                .nargs("+")
+                .action(this.joinString)
+                .help("End time");
+        scheduleCcaParser.addArgument("--dayOfWeek")
+                .required(true)
+                .help("Day of week on which cca takes place");
     }
 
     // This point onwards is automatic
