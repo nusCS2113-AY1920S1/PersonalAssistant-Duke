@@ -1,9 +1,7 @@
-import duke.command.CommandNewTask;
-import duke.task.Task;
-import duke.task.TaskList;
-import duke.task.TaskType;
-import duke.worker.Parser;
-import duke.worker.Storage;
+import executor.task.Task;
+import executor.task.TaskList;
+import executor.task.TaskType;
+import storage.Storage;
 import org.junit.jupiter.api.Test;
 
 import java.io.File;

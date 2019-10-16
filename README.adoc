@@ -1,6 +1,6 @@
 # Duke$$$
 
-image::docs/images/UI_SAMPLE.jpg[width="600"]
+image::docs/images/Ui.png[width="600"]
 
 * A desktop Financial Tracker application for Exchange Students.
 * Personalized for users who love typing over clicking.

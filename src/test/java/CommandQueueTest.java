@@ -1,7 +1,7 @@
-import duke.command.CommandQueue;
-import duke.task.Task;
-import duke.task.TaskList;
-import duke.task.TaskType;
+import executor.command.CommandQueue;
+import executor.task.Task;
+import executor.task.TaskList;
+import executor.task.TaskType;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
