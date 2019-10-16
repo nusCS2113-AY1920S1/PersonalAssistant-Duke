@@ -1,4 +1,4 @@
-package duke.util.Argparse4j;
+package duke.util.argparse4j;
 
 import duke.command.logic.AddCcaCommand;
 import duke.command.logic.EndCommand;
@@ -9,7 +9,7 @@ import duke.command.logic.SearchThenAddCommand;
 import duke.command.logic.ShowCcaCommand;
 import duke.command.logic.ShowModuleCommand;
 import duke.exceptions.ModException;
-import duke.util.Argparse4j.customParserAction.Join;
+import duke.util.argparse4j.action.Join;
 import java.lang.reflect.InvocationTargetException;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -252,7 +252,7 @@ public class Argparse4jWrapper {
     }
 
     /**
-     * Invoke a module command
+     * Invoke a module command.
      * @param commandClass command class to invoke
      * @param argumentsClasses corresponding classes of arguments
      * @param objects corresponding arguments

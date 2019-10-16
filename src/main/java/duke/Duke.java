@@ -2,7 +2,7 @@ package duke;
 
 import duke.command.logic.ModuleCommand;
 
-import duke.util.Argparse4j.Argparse4jWrapper;
+import duke.util.argparse4j.Argparse4jWrapper;
 import duke.util.CcaList;
 import duke.util.JsonWrapper;
 import duke.util.ParserWrapper;

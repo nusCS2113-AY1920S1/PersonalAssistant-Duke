@@ -60,7 +60,7 @@ public class CcaList extends ArrayList<Cca> {
     }
 
     /**
-     * Check whether given cca clashes with current ccas
+     * Check whether given cca clashes with current ccas.
      * @param cca given cca
      * @return true if clashes else false
      */

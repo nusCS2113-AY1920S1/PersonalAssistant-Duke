@@ -1,7 +1,6 @@
 package duke.modules;
 
 import duke.exceptions.ModInvalidTimeException;
-import duke.modules.*;
 import duke.util.DateTimeParser;
 import java.time.DayOfWeek;
 import java.time.LocalTime;

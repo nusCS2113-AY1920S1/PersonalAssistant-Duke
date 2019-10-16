@@ -59,7 +59,7 @@ public class PlannerUi {
 
     /**
      * Added Message for cca.
-     * @param mod Cca to be added.
+     * @param cca Cca to be added.
      */
     public void addedMsg(Cca cca) {
         System.out.println("Got it, added the follow cca!");
