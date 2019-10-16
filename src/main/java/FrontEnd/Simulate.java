@@ -1,11 +1,12 @@
-package Simulations;
+package FrontEnd;
 
+import Farmio.Farmio;
 import FrontEnd.Ui;
 
 import java.util.concurrent.TimeUnit;
 
 public class Simulate {
-    //need run in terminal not console for clear screen to work
+    //this class now does shit if changes to farmio happen after animation
     protected String basepath;
     protected int numberOfFrames;
     private final int framePerSecond = 3;
@@ -13,22 +14,21 @@ public class Simulate {
 
     public Simulate(Ui userInterface, String path, int numFrames) {
         ui = userInterface;
-        basepath = "./src/main/resources/asciiArt/" + path + "/frame";
+        basepath = path;
         numberOfFrames = numFrames;
     }
-    protected void nextFrame(String statusBar, String filePath) {
+    private void nextFrame(String filePath, int frame, Farmio farmio) {
         try {
             TimeUnit.MILLISECONDS.sleep((int) (1000 / framePerSecond) );
         } catch (InterruptedException e) {
             e.getMessage();
         }
         ui.clearScreen();
-        ui.showStatusbar();
-        ui.showAsciiArt(filePath);
+        ui.show(GameConsole.content(ui.loadStage(filePath, frame), farmio));
     }
-    public void simulate() {
+    public void simulate(Farmio farmio) {
         for (int i=0; i<numberOfFrames; i++) {
-            nextFrame("statusBar", basepath + i + ".txt");
+            nextFrame(basepath, i, farmio);
         }
     }
 }

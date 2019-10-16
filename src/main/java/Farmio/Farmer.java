@@ -60,6 +60,10 @@ public class Farmer {
 
     public String getLocation() {return location;}
 
+    public void changeLocation(String newLocation) {
+        location = newLocation;
+    }
+
     public ArrayList<Pair<String, Integer>> getAssets() {
         ArrayList<Pair<String, Integer>> assets = new ArrayList<Pair<String, Integer>>();
         assets.add(new Pair<>("Dummy", 0));

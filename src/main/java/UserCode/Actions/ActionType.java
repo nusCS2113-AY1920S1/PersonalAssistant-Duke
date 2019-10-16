@@ -6,5 +6,7 @@ public enum ActionType {
     buySeeds,
     harvestWheat,
     plantSeeds,
-    sellWheat
+    sellWheat,
+    gotoMarket,
+    gotoFarm,
 }
