@@ -11,6 +11,10 @@ public class AssignmentControllerUtil {
     private ArrayList<Integer> unassign;
     private ArrayList<String> messages;
 
+    /**
+     * Class that assists with parsing of input for assigning or unassigning tasks, and
+     * delivering of messages to the main UI to inform user about task assignments.
+     */
     public AssignmentControllerUtil() {
         this.assign = new ArrayList<>();
         this.unassign = new ArrayList<>();
@@ -83,7 +87,9 @@ public class AssignmentControllerUtil {
         consoleView.viewAssignedTask(projectToManage);
     }
 
-    public ArrayList<Integer> getAssigneesIndex() { return this.assign;}
+    public ArrayList<Integer> getAssigneesIndex() {
+        return this.assign;
+    }
 
     public ArrayList<Integer> getUnassigneesIndex() {
         return this.unassign;

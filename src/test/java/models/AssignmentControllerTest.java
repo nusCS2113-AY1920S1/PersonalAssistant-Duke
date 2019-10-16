@@ -13,12 +13,12 @@ import org.junit.jupiter.api.Test;
 import views.CLIView;
 
 public class AssignmentControllerTest {
-    private Project project;
-    private Member member1;
-    private Member member2;
-    private Member member3;
-    private Task task;
-    private CLIView consoleView;
+    private final Project project;
+    private final Member member1;
+    private final Member member2;
+    private final Member member3;
+    private final Task task;
+    private final CLIView consoleView;
 
     /*
     Set up a dummy project for the test. It is assumed that all other components are working.
@@ -30,7 +30,6 @@ public class AssignmentControllerTest {
         member1 = new Member("Tom", "NIL", "NIL", 1);
         member2 = new Member("Dick", "NIL","NIL", 2);
         member3 = new Member("Harry", "NIL", "NIL", 3);
-        CLIView consoleView = new CLIView();
         task = new Task("Test task", 0,
             null, 0, TaskState.OPEN, new ArrayList<String>());
         project.addMember(member1);
