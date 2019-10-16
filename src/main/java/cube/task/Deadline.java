@@ -6,7 +6,6 @@
 package cube.task;
 
 import java.util.Date;
-import cube.util.Parser;
 
 public class Deadline extends Task {
 
