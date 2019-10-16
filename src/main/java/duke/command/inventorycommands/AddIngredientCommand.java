@@ -39,13 +39,13 @@ public class AddIngredientCommand extends CommandIngredients {
                         ingredientStorage.saveFile(ingredientList);
                         int index = ingredientList.getSize();
                         System.out.println(index);
-                        arrayList.add(MESSAGE_ADDED + "       " + ingredientList.listIngredients().get(index - 1) + "\n" + MESSAGE_ITEMS1 + index + " tasks in the list");
+                        arrayList.add(MESSAGE_ADDED + "       " + ingredientList.listOfIngredients().get(index - 1) + "\n" + MESSAGE_ITEMS1 + index + " tasks in the list");
                     } else {
                         arrayList.add(ERROR_MESSAGE_INVALID_QUANTITY);
                     }
                 }
             } else {
-                arrayList.add(ERROR_MESSAGE_INVALID_FORMAT);
+                arrayList.add(ERROR_MESSAGE_ADD_INCORRECT_FORMAT);
             }
         } else {
             arrayList.add(ERROR_MESSAGE_RANDOM);

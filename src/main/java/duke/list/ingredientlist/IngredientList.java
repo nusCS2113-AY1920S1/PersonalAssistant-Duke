@@ -5,8 +5,8 @@ import duke.task.ingredienttasks.Ingredient;
 import java.text.ParseException;
 import java.util.ArrayList;
 
+import static duke.common.IngredientMessages.MESSAGE_INGREDIENT_ADDED;
 import static duke.common.Messages.*;
-import static duke.common.Messages.MESSAGE_ITEMS1;
 
 public class IngredientList {
 
@@ -21,7 +21,7 @@ public class IngredientList {
         this.ingredientList = ingredientList;
     }
 
-    public ArrayList<String> listIngredients() {
+    public ArrayList<String> listOfIngredients() {
         ArrayList<String> arrList = new ArrayList<>();
         for (int i = 0; i < getSize(); i++) {
             final int displayedIndex = i + DISPLAYED_INDEX_OFFSET;
@@ -50,23 +50,29 @@ public class IngredientList {
         ingredientList.add(new Ingredient(ingredientName, Quantity));
         int index = ingredientList.size();
         if (index == 1) {
-            msg = " task in the list.";
+            msg = " ingredient in the list.";
         } else {
             msg = MESSAGE_ITEMS2;
         }
-        System.out.println(MESSAGE_ADDED + "       " + ingredientList.get(index - 1) + "\n" + MESSAGE_ITEMS1 + index + msg);
+        System.out.println(MESSAGE_INGREDIENT_ADDED + "       " + ingredientList.get(index - 1) + "\n" + MESSAGE_ITEMS1 + index + msg);
     }
 
     // delete ingredient by index on list
     public void deleteIngredient(int i) {
+        /*
         if (ingredientList.size() - 1 <= 1) {
-            msg = " task in the list.";
+            msg = " ingredient in the list.";
         } else {
             msg = MESSAGE_ITEMS2;
         }
-        System.out.println(MESSAGE_DELETE + "       " + ingredientList.get(i)
+        System.out.println(MESSAGE_INGREDIENT_DELETED + "       " + ingredientList.get(i)
                 + "\n" + MESSAGE_ITEMS1 + (ingredientList.size() - 1) + msg);
+         */
         ingredientList.remove(ingredientList.get(i));
+    }
+
+    public String get(int i) {
+        return ingredientList.get(i).toString();
     }
 
     /*

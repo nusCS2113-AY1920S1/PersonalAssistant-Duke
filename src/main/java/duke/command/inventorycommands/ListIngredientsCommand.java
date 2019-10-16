@@ -7,7 +7,7 @@ import duke.ui.Ui;
 
 import java.util.ArrayList;
 
-import static duke.common.Messages.MESSAGE_TASKED;
+import static duke.common.IngredientMessages.MESSAGE_LIST_INGREDIENTS;
 
 /**
  * Handles the list command and inherits all the fields and methods of Command parent class.
@@ -30,9 +30,10 @@ public class ListIngredientsCommand extends CommandIngredients {
      */
 
     public ArrayList<String> execute(IngredientList ingredientList, Ui ui, IngredientStorage ingredientStorage) {
-        System.out.println(MESSAGE_TASKED);
-        for (int i = 0; i < ingredientList.listIngredients().size(); i++) {
-            System.out.println(ingredientList.listIngredients().get(i));
+        ArrayList<String> arrayList = new ArrayList<>();
+        arrayList.add(MESSAGE_LIST_INGREDIENTS);
+        for (int i = 0; i < ingredientList.listOfIngredients().size(); i++) {
+            arrayList.add(ingredientList.listOfIngredients().get(i));
         }
         return null;
     }
