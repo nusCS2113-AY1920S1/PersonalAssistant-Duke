@@ -1,10 +1,14 @@
 package duke.parser;
 
+
 import duke.command.AddExpenseCommand;
 import duke.command.BudgetCommand;
 import duke.command.Command;
 import duke.command.DeleteCommand;
 import duke.command.ExitCommand;
+import duke.command.FilterCommand;
+import duke.command.SortCommand;
+import duke.command.ViewCommand;
 import duke.exception.DukeException;
 
 import java.time.LocalDateTime;
@@ -34,11 +38,19 @@ public class Parser {
         case "delete":
             return new DeleteCommand();
 
+        case "sort":
+            return new SortCommand();
+
+        case "view":
+            return new ViewCommand();
+
+        case "filter":
+            return new FilterCommand();
+
         case "budget":
             return new BudgetCommand();
 
         case "bye":
-
             return new ExitCommand();
 
         default:
@@ -55,7 +67,6 @@ public class Parser {
     public static String formatTime(LocalDateTime localDateTime) {
         return localDateTime.format(dateTimeFormatter);
     }
-
     /**
      * Converts a {@code String} to a {@code LocalDateTime}.
      *
