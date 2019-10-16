@@ -48,56 +48,21 @@ public abstract class ArgCommand extends Command {
         return arg;
     }
 
-    /**
-     * Returns the static data structures of the class using parameters provided. All arrays must be of the same length.
-     * Unchecked assignments are used to generate arrays of entries for the argument level and switch root maps.
-     *
-     * @param switchNameArr The names of the switches for this command.
-     * @param argLevelArr The argument requirement level for each command.
-     * @param switchRootArr The shortest recognised truncation of each switch.
-     * @param aliases An array containing an even number of strings. Each pair of strings is added as a key-value
-     * pair to the switchAliases map.
-     */
-    @SuppressWarnings("unchecked")
-    protected static Pair<Map<String, ArgLevel>, Map<String, String>> switchInit(String[] switchNameArr,
-            ArgLevel[] argLevelArr, String[] switchRootArr, String... aliases) {
-        assert(switchNameArr.length == argLevelArr.length);
-        assert(switchRootArr.length == switchNameArr.length);
-        assert(aliases.length % 2 == 0);
+    abstract ArgCommandSpec getSpec();
 
-        int switchCnt = switchNameArr.length;
-        Map.Entry[] argLevelEntries = new Map.Entry[switchCnt];
-        ArrayList<Map.Entry<String, String>> entryArrList = new ArrayList<Map.Entry<String, String>>();
-
-        // extract argument requirement levels and generate aliases
-        for (int i = 0; i < switchCnt; ++i) {
-            String name = switchNameArr[i];
-            argLevelEntries[i] = Map.entry(name, argLevelArr[i]);
-            assert(name.startsWith(switchRootArr[i]));
-            for (int j = switchRootArr[i].length(); j <= name.length(); ++j) {
-                entryArrList.add(Map.entry(name.substring(0, j), name));
-            }
-        }
-
-        // extract remaining aliases
-        for (int k = 0; k < aliases.length; ++k) {
-            entryArrList.add(Map.entry(aliases[k], aliases[k + 1]));
-        }
-
-        // translate the ArrayList into an array
-        Map.Entry[] entryArr = new Map.Entry[entryArrList.size()];
-        for (int l = 0; l < entryArr.length; ++l) {
-            entryArr[l] = entryArrList.get(l);
-        }
-
-        // create static data structures
-        return new Pair<Map<String, ArgLevel>, Map<String, String>> (
-                Map.ofEntries(argLevelEntries), Map.ofEntries(entryArr));
+    public String getEmptyArgMsg() {
+        return getSpec().emptyArgMsg;
     }
 
-    // Override these methods to specify parameters of child classes
-    abstract String getEmptyArgMsg();
-    abstract ArgLevel getCmdArgLevel();
-    abstract Map<String, ArgLevel> getSwitches();
-    abstract Map<String, String> getSwitchAliases();
+    public ArgLevel getCmdArgLevel() {
+        return getSpec().cmdArgLevel;
+    }
+
+    public Map<String, Switch> getSwitchMap() {
+        return getSpec().switchMap;
+    }
+
+    public Map<String, String> getSwitchAliases() {
+        return getSpec().switchAliases;
+    };
 }

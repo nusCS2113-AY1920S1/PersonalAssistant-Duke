@@ -9,6 +9,10 @@ public class DoctorCommandSpec extends ArgCommandSpec {
     }
 
     private DoctorCommandSpec() {
-
+        emptyArgMsg = "You didn't tell me what to do!";
+        cmdArgLevel = ArgLevel.REQUIRED;
+        initSwitches(
+               new Switch("switch", String.class, true, ArgLevel.OPTIONAL, "s")
+        );
     }
 }

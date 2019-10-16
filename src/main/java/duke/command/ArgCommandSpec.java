@@ -29,23 +29,22 @@ public abstract class ArgCommandSpec {
         return emptyArgMsg;
     }
 
-    private void switchInit(Switch... switches) {
-        int switchCnt = switches.length;
+    protected void initSwitches(Switch... switches) {
         Map<String, Switch> tempSwitchMap = new HashMap<String, Switch>();
         Map<String, String> tempSwitchAliases = new HashMap<String, String>();
 
         // extract argument requirement levels and generate aliases
-        for (int i = 0; i < switchCnt; ++i) {
-            String name = switches[i].name;
-            tempSwitchMap.put(name, switches[i]);
+        for (Switch aSwitch : switches) {
+            String name = aSwitch.name;
+            tempSwitchMap.put(name, aSwitch);
 
-            assert(name.startsWith(switches[i].root));
-            for (int j = switches[i].root.length(); j <= name.length(); ++j) {
+            assert (name.startsWith(aSwitch.root));
+            for (int j = aSwitch.root.length(); j <= name.length(); ++j) {
                 tempSwitchAliases.put(name.substring(0, j), name);
             }
 
             // extract remaining aliases
-            for (String alias : switches[i].aliases) {
+            for (String alias : aSwitch.aliases) {
                 tempSwitchAliases.put(alias, name);
             }
         }
