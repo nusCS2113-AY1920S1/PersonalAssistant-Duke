@@ -1,6 +1,8 @@
 package duke.command;
 
 import duke.exception.DukeException;
+import duke.recipebook.dishes;
+import duke.recipebook.dishlist;
 import duke.storage.Storage;
 import duke.task.Task;
 import duke.task.TaskList;
@@ -14,6 +16,7 @@ import java.io.IOException;
 public class AddCommand extends Command {
 
     private Task task;
+    private dishes dish;
 
     /**
      * The constructor method for AddCommand.
@@ -22,6 +25,10 @@ public class AddCommand extends Command {
      */
     public AddCommand(Task task) {
         this.task = task;
+    }
+
+    public AddCommand(dishes dish) {
+        this.dish = dish;
     }
 
     /**
@@ -33,13 +40,15 @@ public class AddCommand extends Command {
      * @throws DukeException Error while adding the command to the duke.txt file
      */
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) throws DukeException {
+    public void execute(dishlist dish1, TaskList taskList, Ui ui, Storage storage) throws DukeException {
         taskList.addTask(task);
-        ui.showAddCommand(task.toString(), taskList.size());
-        try {
-            storage.addCommandInFile(task.printInFile());
-        } catch (IOException e) {
-            throw new DukeException("Error while adding the command to the duke.txt file");
-        }
+        dish1.addDish(dish); // add dish into list found in dishes class
+        System.out.println("\t dish added: " + dish.toString() + "\n\t amount :" + dish.getAmount());
+//        ui.showAddCommand(task.toString(), taskList.size());
+//        try {
+//            storage.addCommandInFile(task.printInFile());
+//        } catch (IOException e) {
+//            throw new DukeException("Error while adding the command to the duke.txt file");
+//        }
     }
 }
