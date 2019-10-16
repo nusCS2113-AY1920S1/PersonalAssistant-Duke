@@ -5,7 +5,6 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.lang.reflect.InvocationTargetException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.text.DateFormat;
@@ -25,6 +24,7 @@ public class Storage {
     private String filePathDeadline;
 
     private HashMap<String, HashMap<String, ArrayList<Task>>> map;
+    private HashMap<Date, Task> reminderMap;
 
     /**
      * Creates Storage object.
@@ -34,7 +34,8 @@ public class Storage {
         filePath.mkdir();
         filePathEvent = System.getProperty("user.dir") + "\\data\\event.txt";
         filePathDeadline = System.getProperty("user.dir") + "\\data\\deadline.txt";
-
+        reminderMap = new HashMap<>();
+        map = new HashMap<>();
     }
 
     public void updateEventList(TaskList list) throws FileNotFoundException {
@@ -80,22 +81,32 @@ public class Storage {
     public void readDeadlineList(TaskList list) throws IOException, ParseException {
         ArrayList<String> temp = new ArrayList<>(Files.readAllLines(Paths.get(filePathDeadline)));
         for (String string : temp) {
+            DateFormat dateFormat = new SimpleDateFormat("E dd/MM/yyyy hh:mm a");
             Task task = stringToTask(string);
             list.addTask(task);
+            if (task.getIsReminder()) {
+                Date date = dateFormat.parse(task.getRemindTime());
+                reminderMap.put(date, task);
+            }
         }
+    }
+
+    public HashMap<Date, Task> getReminderMap() {
+        return this.reminderMap;
     }
 
     private static Task stringToTask(String string) throws ParseException {
         if (string.trim().isEmpty()) {
-            System.out.println("Error");
-            System.exit(5);
+
         }
         Task line;
         if (string.contains("[D]")) {
             DateFormat format = new SimpleDateFormat("E dd/MM/yyyy hh:mm a");
             Date date = format.parse(string.substring(string.indexOf("by:") + 4, string.indexOf(')')).trim());
+            String remindTime = string.substring(string.indexOf("[<R") + 3, string.indexOf("/R>]"));
             String dateString = format.format(date);
-            line = new Deadline(string.substring(0, string.indexOf("[D]") - 1) + " " + string.substring(string.indexOf("[D]") + 7, string.indexOf("by:") - 2), dateString);
+            line = new Deadline(string.substring(0, string.indexOf("[D]") - 1) + " " + string.substring(string.indexOf("/R>]") + 5, string.indexOf("by:") - 2), dateString);
+            line.setRemindTime(remindTime);
         } else {
             DateFormat format = new SimpleDateFormat("E dd/MM/yyyy");
             SimpleDateFormat timeFormat = new SimpleDateFormat("hh:mm a");
@@ -105,9 +116,13 @@ public class Storage {
             String startTimeString = timeFormat.format(startTime);
             Date endTime = timeFormat.parse(string.substring(string.indexOf("to") + 3, string.indexOf(')')).trim());
             String endTimeString = timeFormat.format(endTime);
-            line = new Event(string.substring(0, string.indexOf("[E]") - 1) + " " + string.substring(string.indexOf("[E]") + 7, string.indexOf("at:")-2), dateString, startTimeString, endTimeString);
-        } if(string.contains("\u2713")) {
+            line = new Event(string.substring(0, string.indexOf("[E]") - 1) + " " + string.substring(string.indexOf("/R>]") + 5, string.indexOf("at:")-2), dateString, startTimeString, endTimeString);
+        }
+        if(string.contains("\u2713")) {
             line.setDone(true);
+        }
+        if (string.contains("[HR]")) {
+            line.setReminder(true);
         }
         return line;
     }

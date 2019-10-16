@@ -5,7 +5,7 @@ package Tasks;
  */
 public class Deadline extends Task {
 
-    private String by;
+    private final String by;
 
     /**
      * Creates a Deadline object.

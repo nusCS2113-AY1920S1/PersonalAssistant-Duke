@@ -9,7 +9,7 @@ import java.io.FileNotFoundException;
 /**
  * Represents the command to add a Task object to a TaskList object.
  */
-public class  AddCommand extends Command {
+public class AddCommand extends Command {
 
     private final Task task;
 
@@ -48,7 +48,7 @@ public class  AddCommand extends Command {
             }
             if (con == 0) {
                 events.addTask(this.task);
-                out = ui.showAdd(this.task, events.taskListSize());
+                out = "true|" + ui.showAdd(this.task, events.taskListSize());
                 storage.updateEventList(events);
             } else {
                 out = "Sorry, you have similar events at the same time and on the same day \n";

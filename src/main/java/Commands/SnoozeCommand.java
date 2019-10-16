@@ -46,7 +46,7 @@ public class SnoozeCommand extends Command{
         for (Task task : deadlinesList) {
             list.addTask(task);
         }
-        if (end == dateString) {
+        if (end.equals(dateString)) {
             list.snoozeTask(deadlinesList, index, dateString, dateString, dateString);
 
             storage.updateDeadlineList(deadlines);

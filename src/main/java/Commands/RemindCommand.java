@@ -1,41 +1,43 @@
 package Commands;
 
+import Interface.DukeException;
 import Interface.Storage;
 import Interface.Ui;
 import Tasks.Task;
 import Tasks.TaskList;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.geometry.Pos;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import org.controlsfx.control.Notifications;
 
+import java.io.FileNotFoundException;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
+import java.util.*;
 
 public class RemindCommand extends Command {
 
-    /**
-     * Checks if date of tasks is within the current week.
-     */
-    private boolean withinWeek(Date date) {
-        //Solution below adapted from https://stackoverflow.com/questions/23930216/how-to-check-if-the-date-belongs-to-current-week-or-not/23930578#23930578
-        Calendar c = Calendar.getInstance();
-        c.setFirstDayOfWeek(Calendar.SUNDAY);
-        c.set(Calendar.DAY_OF_WEEK, Calendar.SUNDAY);
-        c.set(Calendar.HOUR_OF_DAY, 0);
-        c.set(Calendar.MINUTE, 0);
-        c.set(Calendar.MILLISECOND, 0);
+    private Task task;
+    private Date time;
+    private Timer timer;
+    private HashMap<Date, Timer> timerHashMap;
+    private Image img;
+    private boolean remind;
 
-        Date startOfWeek = c.getTime();
-        Date startOfFollowingWeek = new Date(startOfWeek.getTime() + 7 * 24 * 60 * 60 * 1000);
-        if (date.after(startOfWeek) && date.before(startOfFollowingWeek)) {
-            return true;
-        } else return false;
+    public RemindCommand (Task task, Date time, boolean remind) {
+        this.task = task;
+        this.time = time;
+        timerHashMap = new HashMap<>();
+        timer = new Timer();
+        img = new Image("/images/DaDuke.png");
+        this.remind = remind;
     }
 
     /**
-     * Finds the tasks that are not done and within the current week.
-     * @param todos The TaskList object for todos
+     * Sets a reminder pop-up for task user wants to set a reminder to.
      * @param events The TaskList object for events
      * @param deadlines The TaskList object for deadlines
      * @param ui The Ui object to display the done task message
@@ -44,31 +46,60 @@ public class RemindCommand extends Command {
      * @throws ParseException On date parsing error
      */
     @Override
-    public String execute(TaskList events, TaskList deadlines, Ui ui, Storage storage) throws ParseException {
-        TaskList reminder = new TaskList();
-        ArrayList<Task> eventsList = events.getList();
-        ArrayList<Task> deadlinesList = deadlines.getList();
-        ArrayList<Task> temp = new ArrayList<>();
-        temp.addAll(eventsList);
-        temp.addAll(deadlinesList);
-        for (Task task : temp) {
-            if (task.toString().contains("[D]") && task.toString().contains("\u2718")) {
-                DateFormat format = new SimpleDateFormat("E dd/MM/yyyy hh:mm a");
-                Date currentDate = format.parse(task.toString().substring(task.toString().indexOf("by:") + 4, task.toString().indexOf(')')).trim());
-                if (withinWeek(currentDate)) {
-                    reminder.addTask(task);
+    public String execute(TaskList events, TaskList deadlines, Ui ui, Storage storage) throws DukeException, FileNotFoundException {
+        HashMap<String, HashMap<String, ArrayList<Task>>> deadlineMap = deadlines.getMap();
+        HashMap<Date, Task> reminderMap = storage.getReminderMap();
+        Date currentDate = new Date();
+        DateFormat dateFormat = new SimpleDateFormat("E dd/MM/yyyy hh:mm a");
+        String reminderTime = dateFormat.format(time);
+        if (!remind) {
+            timer = timerHashMap.get(time);
+            timer.cancel();
+            timerHashMap.remove(time);
+            return ui.showCancelReminder(task, reminderTime);
+        }
+        if (this.time.before(currentDate)) {
+            throw new DukeException("Sorry, you cannot set a time that has already passed!");
+        } else if (this.time.after(currentDate)) {
+            long seconds = time.getTime() - currentDate.getTime();
+            if (timerHashMap.containsKey(time)) {
+                Task remindedTask = reminderMap.get(time);
+                throw new DukeException("Sorry, you have a reminder set for " + remindedTask.getDescription() + " at: " + task.getDateTime());
+            } else if (!deadlineMap.containsKey(task.getModCode())) {
+                throw new DukeException("Sorry, you have no such mod entered in your deadline table!");
+            } else if (!deadlineMap.get(task.getModCode()).containsKey(task.getDateTime())) {
+                throw new DukeException("Sorry, you have no such timing entered in your deadline table!");
+            } else {
+                ArrayList<Task> allTaskInDate = deadlineMap.get(task.getModCode()).get(task.getDateTime());
+                boolean hasTask = false;
+                for (Task taskInList : allTaskInDate) {
+                    if (taskInList.getDescription().equals(task.getDescription())) {
+                        hasTask = true;
+                        break;
+                    }
                 }
-            } else if (task.toString().contains("[E]") && task.toString().contains("\u2718")) {
-                DateFormat format = new SimpleDateFormat("dd/MM/yyyy hh:mm a");
-                String[] arr = task.getDateTime().split("to");
-                String[] arr1 = arr[0].trim().split(" ");
-                String date = arr1[1].trim() + " " + arr[1].trim();
-                Date currentDate = format.parse(date);
-                if (withinWeek(currentDate)) {
-                    reminder.addTask(task);
+                if (!hasTask) {
+                    throw new DukeException("Sorry, there are no such task description in your deadline table!");
                 }
             }
+            deadlines.setReminder(task , reminderTime, remind);
+            timer.schedule(new TimerTask() {
+                @Override
+                public void run() {
+                    Notifications notificationBuilder = Notifications.create()
+                            .title("REMINDER!!!")
+                            .graphic(new ImageView(img))
+                            .text(task.getModCode() + " " + task.getDescription() + "\n" + task.getDateTime())
+                            .darkStyle()
+                            .position(Pos.BOTTOM_RIGHT);
+                    notificationBuilder.show();
+                    timer.cancel();
+                    deadlines.setReminder(task , reminderTime, false);
+                }
+            }, seconds);
+            timerHashMap.put(time, timer);
         }
-        return ui.showReminder(reminder);
+        storage.updateDeadlineList(deadlines);
+        return ui.showReminder(task, reminderTime);
     }
 }

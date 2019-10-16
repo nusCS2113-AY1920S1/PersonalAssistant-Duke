@@ -1,4 +1,5 @@
 package Tasks;
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -54,13 +55,15 @@ public class TaskList {
         }
         this.map.get(task.getModCode()).get(task.getDateTime()).add(task);
     }
-
+    //Do not use this
+    public void removeTask(int index){
+        this.list.remove(index);
+    }
 
     public void removeTask(Task task) {
-        ArrayList<Task> taskList = this.map.get(task.getModCode()).get(task.getDateTime());
-        for(Task taskInList : taskList) {
+        for(Task taskInList : this.map.get(task.getModCode()).get(task.getDateTime())) {
             if(taskInList.getDescription().equals(task.getDescription())) {
-                taskList.remove(taskInList);
+                this.map.get(task.getModCode()).get(task.getDateTime()).remove(taskInList);
                 break;
             }
         }
@@ -82,6 +85,16 @@ public class TaskList {
         return list.size();
     }
 
+    public void setReminder(Task task, String time, boolean reminder){
+        for (Task taskInList : this.map.get(task.getModCode()).get(task.getDateTime())) {
+            if (taskInList.equals(task)) {
+                taskInList.setRemindTime(time);
+                taskInList.setReminder(reminder);
+                break;
+            }
+        }
+    }
+
     /**
      * This method generates a increased a dateTime given by days or hours based on given duration and returns the new dateTime.
      * @param inDate The dateTime given
@@ -101,7 +114,7 @@ public class TaskList {
      * This method sort and removes duplicated Dates of the list.
      * @param date The current datetime instance which locks the time
      * @return A list of dates combining data from taskList
-     * @throws ParseException Throws a error when date being passed contains and error
+     * @throws ParseException Throws a error when date being passed contains an error
      */
     private TreeSet<Date> sortAndRemoveDuplicatedDates(Date date) throws ParseException {
         SimpleDateFormat dateFormat = new SimpleDateFormat("E dd/MM/yyyy hh:mm aa");
@@ -248,11 +261,11 @@ public class TaskList {
         return finalSchedule;
     }
 
-    public  ArrayList<String> getDeadlineArrList() {
+    private ArrayList<String> getDeadlineArrList() {
         return this.deadlineArrList;
     }
 
-    public  ArrayList<String> getEventArrList() {
+    private ArrayList<String> getEventArrList() {
         return this.eventArrList;
     }
 
