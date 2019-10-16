@@ -6,33 +6,37 @@ import duke.task.Task;
 import duke.task.TaskList;
 import duke.ui.Ui;
 
-/**
- * Represents a specific {@link Command} used to find a String occurring in the {@link TaskList}.
- */
-public class FindCommand extends Command {
 
-    private String toFind;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
-    public FindCommand(String toFind) {
-        this.toFind = toFind;
-    }
+public class FindToday extends Command {
+    private Date today = new Date();
+    private String pattern = "dd/MM/yyyy";
+    private SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
+    private String TodayDate = simpleDateFormat.format(today);
 
     @Override
+    public boolean isExit() {
+        return false;
+    }
+
     public void execute(dishlist dish1, TaskList taskList, Ui ui, Storage storage) {
-        StringBuilder sb = new StringBuilder();
         int i = 1;
+        StringBuilder sb = new StringBuilder();
         for (Task task : taskList.getAllTasks()) {
-            if (task.getDescription().contains(toFind)) {
+            if (task.getDescription().contains(TodayDate)) {
                 sb.append("\t ").append(i++).append(".").append(task.toString());
                 sb.append(System.lineSeparator());
             }
         }
         if (sb.length() == 0) {
-            System.out.println("No matching tasks found! ");
+            System.out.println("No ingredients for today!");
         } else {
-            System.out.println("\t Here are the matching tasks in your list:");
+            System.out.println("\t Here are the ingredients for today");
         }
         sb.setLength(sb.length() - 1);// to remove the last new line
         System.out.println(sb.toString());
     }
 }
+

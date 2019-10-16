@@ -1,5 +1,6 @@
 package duke.command;
 
+import duke.recipebook.dishlist;
 import duke.storage.Storage;
 import duke.task.Task;
 import duke.task.TaskList;
@@ -20,7 +21,7 @@ public class ViewCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) {
+    public void execute(dishlist dish1, TaskList taskList, Ui ui, Storage storage) {
         StringBuilder sb = new StringBuilder();
         int i = 1;
         try {

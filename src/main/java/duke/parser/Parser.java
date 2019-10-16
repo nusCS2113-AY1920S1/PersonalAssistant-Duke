@@ -10,6 +10,7 @@ import duke.command.RemindCommand;
 import duke.command.ViewCommand;
 import duke.exception.DukeException;
 import duke.orderCommand.*;
+import duke.recipebook.dishes;
 import duke.task.Deadline;
 import duke.task.DoWithinPeriodTasks;
 import duke.task.Event;
@@ -37,11 +38,13 @@ public class Parser {
      */
     public static Command parse(String fullCommand, int size) throws DukeException {
         //splitted contains the keyword and the rest (description or task number)
-        String[] splitted = fullCommand.split(" ", 2);
+        String[] splitted = fullCommand.split(" ", 3);
         //switching on the keyword
         switch (splitted[0]) {
             case "list":
                 return new ListCommand();
+            case "listtoday":
+                return new FindToday();
             case "bye":
                 return new ExitCommand();
             case "done":
@@ -79,6 +82,9 @@ public class Parser {
                 String[] getPart = splitAndCheck(splitted[1], " /from ");
                 String[] part = splitAndCheck(getPart[1], " /to ");
                 return new AddCommand(new DoWithinPeriodTasks(getPart[0], part[0], part[1]));
+            case "add":
+                int amount = Integer.parseInt(splitted[2]);
+                return new AddCommand(new dishes(splitted[1], amount));
             default:
                 throw new DukeException("I'm sorry, but I don't know what that means :-(");
         }
