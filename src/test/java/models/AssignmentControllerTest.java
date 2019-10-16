@@ -2,7 +2,7 @@ package models;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import controllers.AssignmentControllerUtil;
+import controllers.AssignmentController;
 import java.util.ArrayList;
 import models.data.Project;
 import models.member.Member;
@@ -30,7 +30,7 @@ public class AssignmentControllerTest {
         member2 = new Member("Dick", "NIL","NIL", 2);
         member3 = new Member("Harry", "NIL", "NIL", 3);
         Task task = new Task("Test task", 0,
-            null, 0, TaskState.OPEN, new ArrayList<String>());
+            null, 0, TaskState.OPEN, new ArrayList<>());
         project.addMember(member1);
         project.addMember(member2);
         project.addMember(member3);
@@ -66,7 +66,7 @@ public class AssignmentControllerTest {
         assertEquals(1, project.getTasks().getSize());
         assertEquals("Test task", project.getTask(1).getTaskName());
         String projectCommand = "assign task i/1 to/ 1 3 rm/ 2 4";
-        AssignmentControllerUtil assignmentController = new AssignmentControllerUtil();
+        AssignmentController assignmentController = new AssignmentController();
         assignmentController.manageAssignment(project,
             projectCommand.substring(12).split(" "), this.consoleView);
         assertEquals(2, assignmentController.getAssigneesIndex().size());
@@ -84,7 +84,7 @@ public class AssignmentControllerTest {
             assignmentController.getMessages().get(1));
 
         projectCommand = "assign task i/1 to/ 1 rm/ 3";
-        assignmentController = new AssignmentControllerUtil();
+        assignmentController = new AssignmentController();
         assignmentController.manageAssignment(project,
             projectCommand.substring(12).split(" "), consoleView);
         assertEquals(0, assignmentController.getAssigneesIndex().size());
@@ -102,7 +102,7 @@ public class AssignmentControllerTest {
         assertEquals(1, project.getTasks().getSize());
         assertEquals("Test task", project.getTask(1).getTaskName());
         String projectCommand = "assign task i/200 to/ 1";
-        AssignmentControllerUtil assignmentController = new AssignmentControllerUtil();
+        AssignmentController assignmentController = new AssignmentController();
         String[] args = projectCommand.substring(12).split(" ");
         assignmentController.manageAssignment(project,
             args, this.consoleView);

@@ -10,7 +10,6 @@ import util.factories.MemberFactory;
 import util.factories.TaskFactory;
 import views.CLIView;
 
-
 public class ProjectInputController implements IController {
     private Scanner manageProjectInput;
     private ProjectRepository projectRepository;
@@ -87,7 +86,7 @@ public class ProjectInputController implements IController {
                 } else if (projectCommand.length() == 10 && ("view tasks").equals(projectCommand)) {
                     consoleView.viewAllTasks(projectToManage);
                 } else if (projectCommand.length() == 19 && ("view assigned tasks").equals(projectCommand)) {
-                    AssignmentControllerUtil.viewTaskAssigned(projectToManage, consoleView);
+                    AssignmentController.viewTaskAssigned(projectToManage, consoleView);
                 } else if (projectCommand.length() > 25
                         && ("view task requirements i/").equals(projectCommand.substring(0, 25))) {
                     int taskIndex = Integer.parseInt(projectCommand.substring(25));
@@ -130,8 +129,8 @@ public class ProjectInputController implements IController {
                         consoleView.consolePrint("The task index entered is invalid.");
                     }
                 } else if (projectCommand.length() >= 12 && ("assign task ").equals(projectCommand.substring(0,12))) {
-                    AssignmentControllerUtil assignmentControllerUtil = new AssignmentControllerUtil();
-                    assignmentControllerUtil.manageAssignment(projectToManage,
+                    AssignmentController assignmentController = new AssignmentController();
+                    assignmentController.manageAssignment(projectToManage,
                         projectCommand.substring(12).split(" "), consoleView);
                 } else if ("bye".equals(projectCommand)) {
                     consoleView.end();

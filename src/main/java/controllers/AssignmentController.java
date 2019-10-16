@@ -6,7 +6,7 @@ import models.data.IProject;
 import models.task.Task;
 import views.CLIView;
 
-public class AssignmentControllerUtil {
+public class AssignmentController {
     private ArrayList<Integer> assign;
     private ArrayList<Integer> unassign;
     private ArrayList<String> messages;
@@ -15,7 +15,7 @@ public class AssignmentControllerUtil {
      * Class that assists with parsing of input for assigning or unassigning tasks, and
      * delivering of messages to the main UI to inform user about task assignments.
      */
-    public AssignmentControllerUtil() {
+    public AssignmentController() {
         this.assign = new ArrayList<>();
         this.unassign = new ArrayList<>();
         this.messages = new ArrayList<>();
@@ -32,7 +32,7 @@ public class AssignmentControllerUtil {
     public void manageAssignment(IProject projectToManage, String[] details,
         CLIView consoleView) {
         int taskIndex = Integer.parseInt(details[0].substring(2).trim());
-        Task task = null;
+        Task task;
         if (taskIndex > projectToManage.getNumOfTasks() || taskIndex <= 0) {
             this.messages.add("The task you wish to assign (task index "
                 + taskIndex + " ) does not exist!");
