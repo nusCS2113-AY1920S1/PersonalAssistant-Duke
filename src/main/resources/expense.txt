@@ -1,24 +1,24 @@
 --View Expenses--
-command	,list expense [/sortby TYPE]
-TYPE,date OR category
-desc,list all expenses
+command|list expense [/sortby TYPE]
+TYPE|date OR category
+desc|list all expenses
 --View Recurring Expenses--
-command,list recurring [/sortby TYPE]
-TYPE,date OR category
-desc,list all recurring expenses
+command|list recurring [/sortby TYPE]
+TYPE|date OR category
+desc|list all recurring expenses
 --Add Expense--
-command	,add expense <DETAILS> <AMOUNT> <CATEGORY> [/on DATE] [/r RECURRENCE]
-DATE,dd/mm/yyyy
-RECURRENCE,daily OR weekly OR monthly		
-desc,add new expense entry
-example,add expense bills $10 bills /on 01/02/2019 /r monthly
+command|add expense <DETAILS> <AMOUNT> <CATEGORY> [/on DATE] [/r RECURRENCE]
+DATE|dd/mm/yyyy
+RECURRENCE|daily OR weekly OR monthly
+desc|add new expense entry
+example|add expense bills $10 bills /on 01/02/2019 /r monthly
 --Edit Expense--
-command,edit expense <INDEX in expense list> </d new DETAILS> </a new AMOUNT> </c new CATEGORY> [/r new RECURRENCE]
-DATE,dd/mm/yyyy
-RECURRENCE,daily OR weekly OR monthly
-desc,edit existing expense entry
-example,edit expense 2 /a 4.50 /c food /r daily
+command|edit expense <INDEX in expense list> </d new DETAILS> </a new AMOUNT> </c new CATEGORY> [/r new RECURRENCE]
+DATE|dd/mm/yyyy
+RECURRENCE|daily OR weekly OR monthly
+desc|edit existing expense entry
+example|edit expense 2 /a 4.50 /c food /r daily
 --Delete Expense --
-command	,delete expense <INDEX in expense list>
-desc,delete existing expense entry
-example,delete expense 2
+command|delete expense <INDEX in expense list>
+desc|delete existing expense entry
+example|delete expense 2

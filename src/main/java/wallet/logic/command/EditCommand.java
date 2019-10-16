@@ -63,7 +63,7 @@ public class EditCommand extends Command {
             System.out.println(currentExpense.toString());
         } else if (contact != null) {
 
-            int index = wallet.getContactList().findContactWithId(contact.getId());
+            int index = wallet.getContactList().findIndexWithId(contact.getId());
             if (index != -1) {
                 Contact currentContact = wallet.getContactList().getContact(index);
                 if (contact.getName() != null) {

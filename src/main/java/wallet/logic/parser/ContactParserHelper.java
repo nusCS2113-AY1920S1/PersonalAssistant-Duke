@@ -80,14 +80,24 @@ public class ContactParserHelper {
             return null;
         } else {
             name = concatList(nameList);
+
+            if (name.trim().isEmpty()) {
+                return null;
+            }
         }
 
         if (!detailsList.isEmpty()) {
             details = concatList(detailsList);
+            if (details.trim().isEmpty()) {
+                details = "[no details]";
+            }
         }
 
         if (!phoneList.isEmpty()) {
             phone = concatList(phoneList);
+            if (phone.trim().isEmpty()) {
+                phone = "[no phone]";
+            }
         }
 
         Contact processed = new Contact(name, details, phone);
@@ -141,16 +151,25 @@ public class ContactParserHelper {
 
         if (!nameList.isEmpty()) {
             name = concatList(nameList);
+            if (name.trim().isEmpty()) {
+                name = null;
+            }
         }
 
         if (!detailsList.isEmpty()) {
             details = concatList(detailsList);
+            if (details.trim().isEmpty()) {
+                details = "[no details]";
+            }
         } else if (detailsIndex != -1 && detailsList.isEmpty()) {
             details = "[no details]";
         }
 
         if (!phoneList.isEmpty()) {
             phone = concatList(phoneList);
+            if (phone.trim().isEmpty()) {
+                phone = "[no phone]";
+            }
         } else if (phoneIndex != -1 && phoneList.isEmpty()) {
             phone = "[no phone]";
         }

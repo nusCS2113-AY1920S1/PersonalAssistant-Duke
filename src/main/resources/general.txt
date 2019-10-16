@@ -1,40 +1,40 @@
 --View All Data--
-command	,list all
-desc,list your data in the application
+command	|list all
+desc|list your data in the application
 --Monthly Budget--
-command	,set budget <MONTH>
-MONTH,mm/yyyy
-desc,sets budget for given month
-example,set budget 02/2019
+command	|set budget <MONTH>
+MONTH|mm/yyyy
+desc|sets budget for given month
+example|set budget 02/2019
 -- Enable/Disable Reminder --
-command	,reminder  </on OR /off>
-/on,use this to turn on reminders
-/off,use this to turn off reminders
-desc,enable or disable display of reminders
-example,reminder /off
+command	|reminder  </on OR /off>
+/on|use this to turn on reminders
+/off|use this to turn off reminders
+desc|enable or disable display of reminders
+example|reminder /off
 -- Reminder Interval --
-command	,reminder  </t RATE>
-RATE,<number>min
-desc,change reminder interval (in minutes)
-example,reminder /t 30min
+command	|reminder  </t RATE>
+RATE|<number>min
+desc|change reminder interval (in minutes)
+example|reminder /t 30min
 --View Schedule--
-command	,view schedule <DATE>
-DATE,dd/mm/yyyy
-desc,view schedule of a given date
-example,view schedule 01/02/2019
+command	|view schedule <DATE>
+DATE|dd/mm/yyyy
+desc|view schedule of a given date
+example|view schedule 01/02/2019
 --Statistics--
-command	,view stats <MONTH>
-MONTH,mm/yyyy
-desc,view statistics of expenses for a given month
-example,view stats 02/2019
+command	|view stats <MONTH>
+MONTH|mm/yyyy
+desc|view statistics of expenses for a given month
+example|view stats 02/2019
 --Export--
-command	,export <DATA>
-DATA,loans OR expenses
-desc,export one group of data in text format
-example,export loans
+command	|export <DATA>
+DATA|loans OR expenses
+desc|export one group of data in text format
+example|export loans
 --Exit--
-command	,bye
-desc,Exits WalletCLi
+command	|bye
+desc|Exits WalletCLi
 --Help--
-command	,help
-desc,displays available commands and usage
+command	|help
+desc|displays available commands and usage

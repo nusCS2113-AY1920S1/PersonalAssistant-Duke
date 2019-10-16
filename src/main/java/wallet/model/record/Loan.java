@@ -126,4 +126,8 @@ public class Loan extends Record {
         }
         return null;
     }
+
+    public Contact getPerson() {
+        return person;
+    }
 }
