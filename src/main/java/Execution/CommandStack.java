@@ -10,7 +10,7 @@ public class CommandStack {
     private static Stack<CommandSuper> MyStack = new Stack<>();
 
     public static void pushCmd(CommandSuper cmd) throws IOException {
-        if(cmd.getRoot() == COMMANDKEYS.yes){
+        if (cmd.getRoot() == COMMANDKEYS.yes) {
             executeLastCommand();
         } else {
             MyStack.push(cmd);
