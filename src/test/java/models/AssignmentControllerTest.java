@@ -17,7 +17,6 @@ public class AssignmentControllerTest {
     private final Member member1;
     private final Member member2;
     private final Member member3;
-    private final Task task;
     private final CLIView consoleView;
 
     /*
@@ -30,7 +29,7 @@ public class AssignmentControllerTest {
         member1 = new Member("Tom", "NIL", "NIL", 1);
         member2 = new Member("Dick", "NIL","NIL", 2);
         member3 = new Member("Harry", "NIL", "NIL", 3);
-        task = new Task("Test task", 0,
+        Task task = new Task("Test task", 0,
             null, 0, TaskState.OPEN, new ArrayList<String>());
         project.addMember(member1);
         project.addMember(member2);
@@ -99,7 +98,7 @@ public class AssignmentControllerTest {
     }
 
     @Test
-    public void testManageAssignment_invalidTaskNumber() {
+    public void testManageAssignmentInvalidTaskNumber() {
         assertEquals(1, project.getTasks().getSize());
         assertEquals("Test task", project.getTask(1).getTaskName());
         String projectCommand = "assign task i/200 to/ 1";
