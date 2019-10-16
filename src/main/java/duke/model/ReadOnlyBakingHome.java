@@ -1,6 +1,5 @@
 package duke.model;
 
-
 import duke.model.inventory.Ingredient;
 import duke.model.commons.Item;
 import duke.model.order.Order;
@@ -36,6 +35,10 @@ public interface ReadOnlyBakingHome {
      */
     ObservableList<Item<Ingredient>> getInventoryList();
 
+    /**
+     * Returns an unmodifiable view of the shopping list.
+     */
+    ObservableList<Item<Ingredient>> getShoppingList();
 
     List<Shortcut> getShortcutList();
 }

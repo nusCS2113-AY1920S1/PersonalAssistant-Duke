@@ -25,6 +25,7 @@ public class ModelManager implements Model {
     private final FilteredList<Sale> filteredSales;
     private final FilteredList<Product> filteredProducts;
     private final FilteredList<Item<Ingredient>> filteredInventory;
+    private final FilteredList<Item<Ingredient>> filteredShoppingList;
 
     /**
      * Initializes a ModelManager with the given BakingHome.
@@ -36,6 +37,7 @@ public class ModelManager implements Model {
         this.filteredSales = new FilteredList<>(this.bakingHome.getSaleList());
         this.filteredProducts = new FilteredList<>(this.bakingHome.getProductList());
         this.filteredInventory = new FilteredList<>(this.bakingHome.getInventoryList());
+        this.filteredShoppingList = new FilteredList<>(this.bakingHome.getShoppingList());
     }
 
     public ModelManager() {
@@ -212,9 +214,10 @@ public class ModelManager implements Model {
     }
 
     //========Inventory operations==========
-    @Override
-    public void addInventory(Item<Ingredient> inventory) {
-        bakingHome.addInventory(inventory);
+
+    public void addInventory(Item<Ingredient> toAdd) {
+        requireNonNull(toAdd);
+        bakingHome.addInventory(toAdd);
         updateFilteredInventoryList(PREDICATE_SHOW_ALL_INVENTORY);
     }
 
@@ -223,9 +226,57 @@ public class ModelManager implements Model {
         filteredInventory.setPredicate(predicate);
     }
 
+    public boolean hasInventory(Item<Ingredient> ingredientItem) {
+        requireNonNull(ingredientItem);
+        return bakingHome.getInventoryList().contains(ingredientItem);
+    }
+
+    public void deleteInventory(Item<Ingredient> toDelete) {
+        requireNonNull(toDelete);
+        bakingHome.removeInventory(toDelete);
+    }
+
+    public void setInventory(Item<Ingredient> toEdit, Item<Ingredient> edited) {
+        requireAllNonNull(toEdit, edited);
+        bakingHome.setInventory(toEdit, edited);
+    }
+
     @Override
     public ObservableList<Item<Ingredient>> getFilteredInventoryList() {
         return filteredInventory;
+    }
+
+    //========Shopping List operations==========
+
+    public void addShoppingList(Item<Ingredient> toAdd) {
+        requireNonNull(toAdd);
+        bakingHome.addShoppingList(toAdd);
+        updateFilteredShoppingList(PREDICATE_SHOW_ALL_SHOPPING);
+    }
+
+    public void updateFilteredShoppingList(Predicate<Item<Ingredient>> predicate) {
+        requireNonNull(predicate);
+        filteredShoppingList.setPredicate(predicate);
+    }
+
+    public boolean hasShoppingList(Item<Ingredient> ingredientItem) {
+        requireNonNull(ingredientItem);
+        return bakingHome.getShoppingList().contains(ingredientItem);
+    }
+
+    public void deleteShoppingList(Item<Ingredient> toDelete) {
+        requireNonNull(toDelete);
+        bakingHome.removeShoppingList(toDelete);
+    }
+
+    public void setShoppingList(Item<Ingredient> toEdit, Item<Ingredient> edited) {
+        requireAllNonNull(toEdit, edited);
+        bakingHome.setShoppingList(toEdit, edited);
+    }
+
+    @Override
+    public ObservableList<Item<Ingredient>> getFilteredShoppingList() {
+        return filteredShoppingList;
     }
 
     //========Shortcut operations=========
