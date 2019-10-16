@@ -26,9 +26,10 @@ public class Budget {
 
     /**
      * Constructor of Budget object.
+     *
      * @param file the File for budget in Duke
      * @throws DukeException if the file cannot be created or read.
-     * @throws IOException if the file cannot be created or read.
+     * @throws IOException   if the file cannot be created or read.
      */
     public Budget(File file) throws DukeException, IOException {
         this.file = file;
@@ -37,6 +38,7 @@ public class Budget {
 
     /**
      * Writes to the save file.
+     *
      * @throws DukeException if unable to save the file successfully
      */
     public void save() throws DukeException {
@@ -61,8 +63,9 @@ public class Budget {
 
     /**
      * loads from the save file.
+     *
      * @throws DukeException if the file cannot be created or read.if the file cannot be created or read.
-     * @throws IOException if the file cannot be created or read.
+     * @throws IOException   if the file cannot be created or read.
      */
     public void load() throws DukeException, IOException {
         file.createNewFile();
@@ -89,6 +92,7 @@ public class Budget {
 
     /**
      * Setter method for monthlyBudget.
+     *
      * @param monthlyBudget BigDecimal budget set for each month
      */
     public void setMonthlyBudget(BigDecimal monthlyBudget) {
@@ -97,6 +101,7 @@ public class Budget {
 
     /**
      * Gets a string value for monthlyBudget.
+     *
      * @return a String of the monthly budget
      */
     public String getMonthlyBudgetString() {
@@ -105,8 +110,9 @@ public class Budget {
 
     /**
      * Sets budget to a given category.
+     *
      * @param category the String tag specified that we want to set a budget for
-     * @param budget a BigDecimal amount for the budget we want to set
+     * @param budget   a BigDecimal amount for the budget we want to set
      */
     public void setCategoryBudget(String category, BigDecimal budget) {
         budgetCategory.put(category, budget);
@@ -114,11 +120,16 @@ public class Budget {
 
     /**
      * Gets the difference between the monthly budget and the total expenses spent.
+     *
      * @param total the BigDecimal total expenditure from expenseList
      * @return BigDecimal value fo the difference
      */
     public BigDecimal getRemaining(BigDecimal total) {
         return monthlyBudget.subtract(total);
+    }
+
+    public HashMap<String, BigDecimal> getBudgetCategory() {
+        return budgetCategory;
     }
 
 }

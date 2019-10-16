@@ -220,6 +220,15 @@ public class Expense extends DukeItem {
     }
 
     /**
+     * Return the formatted time.
+     *
+     * @return String of time that is formatted
+     */
+    public String getTimeString() {
+        return Parser.formatTime(time);
+    }
+
+    /**
      * Converts the expense into a string.
      *
      * @return the expense as a string.

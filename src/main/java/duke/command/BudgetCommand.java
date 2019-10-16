@@ -26,7 +26,6 @@ public class BudgetCommand extends Command {
         }
     }
 
-
     public BudgetCommand() {
         super(name, description, usage, Stream.of(BudgetCommand.SecondaryParam.values())
                 .collect(Collectors.toMap(s -> s.name, s -> s.description)));

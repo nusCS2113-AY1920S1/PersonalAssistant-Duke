@@ -1,14 +1,8 @@
 package duke;
 
 import duke.dukeobject.Expense;
-import javafx.beans.Observable;
 import javafx.beans.binding.Bindings;
-import javafx.beans.property.ReadOnlyIntegerWrapper;
-import javafx.beans.property.ReadOnlyStringWrapper;
-import javafx.beans.property.SimpleIntegerProperty;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.geometry.VPos;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TableCell;
@@ -17,7 +11,6 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.BorderPane;
-import javafx.util.Callback;
 
 import java.math.BigDecimal;
 
@@ -40,9 +33,10 @@ public class MainWindow extends BorderPane {
     Label remainingBudgetLabel;
     @FXML
     TableView expenseTableView;
+    @FXML
+    ListView budgetListView = new ListView();
 
     private Duke duke;
-    private ObservableList<Expense> expenseObservableList;
 
     /**
      * Detects enter key and passes command entered in the TextField into Duke, and update the GUI accordingly.
@@ -57,6 +51,7 @@ public class MainWindow extends BorderPane {
         updateTableListView();
         updateMonthlyBudget();
         updateRemainingBudget();
+        updateBudgetListView();
     }
 
     /**
@@ -70,6 +65,8 @@ public class MainWindow extends BorderPane {
         updateMonthlyBudget();
         updateRemainingBudget();
         updateTableListView();
+        updateBudgetListView();
+
     }
 
     /**
@@ -91,18 +88,24 @@ public class MainWindow extends BorderPane {
             }, cell.emptyProperty(), cell.indexProperty()));
             return cell;
         });
-        TableColumn<String,Expense> timeColumn = new TableColumn<>("Time");
-        timeColumn.setCellValueFactory(new PropertyValueFactory<>("time"));
-        TableColumn<String,Expense> amountColumn = new TableColumn<>("Amount");
+
+        TableColumn<String, Expense> timeColumn = new TableColumn<>("Time");
+        timeColumn.setCellValueFactory(new PropertyValueFactory<>("timeString"));
+        TableColumn<String, Expense> amountColumn = new TableColumn<>("Amount");
         amountColumn.setCellValueFactory(new PropertyValueFactory<>("amount"));
-        TableColumn<Expense,String> descriptionColumn = new TableColumn<>("Description");
+        TableColumn<Expense, String> descriptionColumn = new TableColumn<>("Description");
         descriptionColumn.setCellValueFactory(new PropertyValueFactory<>("description"));
-        TableColumn<Expense,String> tagColumn = new TableColumn<>("Tags");
+        TableColumn<Expense, String> tagColumn = new TableColumn<>("Tags");
         tagColumn.setCellValueFactory(new PropertyValueFactory<>("tagsString"));
-        TableColumn<Expense,Boolean> isTentativeColumn = new TableColumn<>("Tentative");
+        TableColumn<Expense, Boolean> isTentativeColumn = new TableColumn<>("Tentative");
         isTentativeColumn.setCellValueFactory(new PropertyValueFactory<>("tentative"));
-        expenseTableView.getColumns().setAll(indexColumn,timeColumn, amountColumn,
-                descriptionColumn,tagColumn,isTentativeColumn);
+        expenseTableView.getColumns().setAll(
+                indexColumn,
+                timeColumn,
+                amountColumn,
+                descriptionColumn,
+                tagColumn,
+                isTentativeColumn);
         for (Expense expense : duke.expenseList.getExternalList()) {
             expenseTableView.getItems().add(expense);
         }
@@ -132,8 +135,21 @@ public class MainWindow extends BorderPane {
     public void updateRemainingBudget() {
         remainingBudgetLabel.setText("Remaining: "
                 + ((duke.budget.getRemaining(duke.expenseList.getTotalAmount()).compareTo(BigDecimal.valueOf(0)) < 0)
-                        ? "-$" + duke.budget.getRemaining(duke.expenseList.getTotalAmount()).abs()
-                        : "$" + duke.budget.getRemaining(duke.expenseList.getTotalAmount())));
+                ? "-$" + duke.budget.getRemaining(duke.expenseList.getTotalAmount()).abs()
+                : "$" + duke.budget.getRemaining(duke.expenseList.getTotalAmount())));
+    }
+
+    /**
+     * Updates the Budget List of all categories.
+     */
+    public void updateBudgetListView() {
+        budgetListView.getItems().clear();
+        budgetListView.getItems().add("Tag: Spent/Budget");
+        for (String tag : duke.budget.getBudgetCategory().keySet()) {
+            budgetListView.getItems().add(tag
+                    + ": $" + duke.expenseList.getTagAmount(tag)
+                    + "/$" + duke.budget.getBudgetCategory().get(tag));
+        }
     }
 
 }
