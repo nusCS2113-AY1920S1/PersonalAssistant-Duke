@@ -80,7 +80,7 @@ public class AssignmentController {
                 }
             }
             consoleView.consolePrint(this.messageForView.toArray(new String[0]));
-            ArrayList <String> forViewToPrint = new ArrayList<>();
+            ArrayList<String> forViewToPrint = new ArrayList<>();
             forViewToPrint.add("The task: " + selectedTask.getTaskName() + " has been assigned to:");
             for (Integer i : indexOfMembersToAssign) {
                 Member memberToAssign = projectToManage.getMembers().getMember(i);

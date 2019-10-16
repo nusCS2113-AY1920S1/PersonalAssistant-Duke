@@ -67,7 +67,9 @@ public class ProjectInputController implements IController {
                 } else if (projectCommand.length() >= 14 && ("delete member ").equals(projectCommand.substring(0,14))) {
                     int memberIndexNumber = Integer.parseInt(projectCommand.substring(14).split(" ")[0]);
                     if (projectToManage.getNumOfMembers() >= memberIndexNumber) {
-                        consoleView.removeMember(projectToManage, memberIndexNumber);
+                        Member memberToRemove = projectToManage.getMembers().getMember(memberIndexNumber);
+                        projectToManage.removeMember(memberToRemove);
+                        consoleView.consolePrint("Removed member with the index number " + memberIndexNumber);
                     } else {
                         consoleView.consolePrint("The member index entered is invalid.");
                     }

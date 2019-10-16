@@ -97,16 +97,6 @@ public class CLIView {
     }
 
     /**
-     * Deletes a member from the project.
-     * @param projectToManage The project specified by the user.
-     * @param memberIndexNumber The member to be removed from the project.
-     */
-    public void removeMember(IProject projectToManage, int memberIndexNumber) {
-        projectToManage.removeMember(memberIndexNumber);
-        consolePrint("Removed member with the index number " + memberIndexNumber);
-    }
-
-    /**
      * Adds a member to the project.
      * @param projectToManage The project specified by the user.
      * @param newTask A new task with details specified by the user.

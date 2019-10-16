@@ -45,7 +45,8 @@ public class ListOfMembersInProjectTest {
         Member member = new Member("Tom","91198766", "tom@gmail.com",1);
         ListOfMembersInProject listOfMembersInProject = new ListOfMembersInProject();
         listOfMembersInProject.addMember(member);
-        listOfMembersInProject.removeMember(1);
+        Member toBeRemoved = listOfMembersInProject.getMember(1);
+        listOfMembersInProject.removeMember(toBeRemoved);
         assertEquals(0, listOfMembersInProject.getNumOfMembers());
     }
 }
