@@ -1,5 +1,7 @@
 package models.task;
 
+import util.ParserHelper;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -35,14 +37,17 @@ public class TaskList {
      */
     public ArrayList<String> getAllTaskDetails() {
         ArrayList<String> taskDetails = new ArrayList<>();
-        // This method compares the two tasks and sort list in descending order.
-        taskList.sort((task1, task2) -> task2.getTaskPriority() - task1.getTaskPriority());
+        // default method of printing (to be extracted out into another method)
         int taskIndex = 1;
         for (Task task : taskList) {
             taskDetails.add(taskIndex + ". " + task.getDetails());
             taskIndex++;
         }
         return taskDetails;
+    }
+
+    public ArrayList<String> getAllSortedTaskDetails(String sortCriteria) {
+        return ParserHelper.parseSortTaskDetails(taskList,sortCriteria);
     }
 
     /**

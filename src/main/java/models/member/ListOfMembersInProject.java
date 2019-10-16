@@ -1,7 +1,7 @@
 package models.member;
 
 import java.util.ArrayList;
-import util.ParserUtil;
+import util.ParserHelper;
 
 public class ListOfMembersInProject implements IMemberList {
     private ArrayList<Member> memberList;
@@ -29,7 +29,7 @@ public class ListOfMembersInProject implements IMemberList {
      * @param updatedMemberDetails The updated member details.
      */
     public void editMember(int memberIndexNumber, String updatedMemberDetails) {
-        String [] memberDetails = ParserUtil.parseMemberDetails(updatedMemberDetails);
+        String [] memberDetails = ParserHelper.parseMemberDetails(updatedMemberDetails);
         String name = memberDetails[0];
         String phone = memberDetails[1];
         String email = memberDetails[2];

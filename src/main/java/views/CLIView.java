@@ -145,6 +145,11 @@ public class CLIView {
         consolePrint(allTaskDetails.toArray(new String[0]));
     }
 
+    public void viewSortedTasks(IProject projectToManage, String sortCriteria) {
+        ArrayList<String> allTaskDetails = projectToManage.getTasks().getAllSortedTaskDetails(sortCriteria);
+        consolePrint(allTaskDetails.toArray(new String[0]));
+    }
+
     /**
      * Shows all the task that is assigned in the project.
      * @param projectToManage The project specified by the user.

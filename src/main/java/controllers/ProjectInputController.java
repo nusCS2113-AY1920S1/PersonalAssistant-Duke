@@ -1,8 +1,5 @@
 package controllers;
 
-import java.text.ParseException;
-import java.util.Scanner;
-
 import models.data.Project;
 import models.member.IMember;
 import models.member.Member;
@@ -10,6 +7,9 @@ import repositories.ProjectRepository;
 import util.factories.MemberFactory;
 import util.factories.TaskFactory;
 import views.CLIView;
+
+import java.text.ParseException;
+import java.util.Scanner;
 
 
 public class ProjectInputController implements IController {
@@ -85,8 +85,13 @@ public class ProjectInputController implements IController {
                     } catch (NumberFormatException | ParseException e) {
                         consoleView.consolePrint("Please enter your task format correctly");
                     }
-                } else if (projectCommand.length() == 10 && ("view tasks").equals(projectCommand)) {
-                    consoleView.viewAllTasks(projectToManage);
+                } else if (projectCommand.length() >= 10 && ("view tasks").equals(projectCommand.substring(0,10))) {
+                    if ("view tasks".equals(projectCommand)) {
+                        consoleView.viewAllTasks(projectToManage);
+                    } else if (projectCommand.length() >= 11) {
+                        String sortCriteria = projectCommand.substring(11);
+                        consoleView.viewSortedTasks(projectToManage, sortCriteria);
+                    }
                 } else if (projectCommand.length() == 19 && ("view assigned tasks").equals(projectCommand)) {
                     AssignmentControllerUtil.viewTaskAssigned(projectToManage, consoleView);
                 } else if (projectCommand.length() > 25

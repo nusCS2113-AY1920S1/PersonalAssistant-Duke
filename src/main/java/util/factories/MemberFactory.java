@@ -3,7 +3,7 @@ package util.factories;
 import models.member.IMember;
 import models.member.Member;
 import models.member.NullMember;
-import util.ParserUtil;
+import util.ParserHelper;
 
 public class MemberFactory implements IArchDukeFactory<IMember> {
     /**
@@ -12,7 +12,7 @@ public class MemberFactory implements IArchDukeFactory<IMember> {
      * @return Member with the relevant details. Index number is set later when adding to list.
      */
     public IMember create(String input) {
-        String[] memberDetails = ParserUtil.parseMemberDetails(input);
+        String[] memberDetails = ParserHelper.parseMemberDetails(input);
         boolean isNameCreated = false;
         String name = memberDetails[0];
         if (!("No name").equals(name)) {
