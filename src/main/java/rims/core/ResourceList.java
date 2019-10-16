@@ -18,6 +18,11 @@ public class ResourceList {
         return resources;
     }
 
+
+    public int getTotalQuantity(String resourceName) {
+        return resources.get(resourceName).size();
+    }
+
     public int getAvailableQuantity(String resourceName) {
         ArrayList<Resource> thisResourceArray = resources.get(resourceName);
         int availableQty = 0;
@@ -50,10 +55,6 @@ public class ResourceList {
             }
         }
         return bookedQty;
-    }
-
-    public int getTotalQuantity(String resourceName) {
-        return resources.get(resourceName).size();
     }
 
     public Resource getAvailableResource(String resourceName) throws Exception {

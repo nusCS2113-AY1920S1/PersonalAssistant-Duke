@@ -20,14 +20,16 @@ public abstract class Resource {
     protected Date bookedTill;
     protected int loanId;
 
+    // for creation of new resource
     public Resource(String name) {
         this.name = name;
         this.booked = false;
         this.bookedFrom = null;
         this.bookedTill = null;
-        this.loanId = -1; // yes yes magic, I know
+        this.loanId = -1; // change magic number!
     }
 
+    // for loading an unbooked resource from data list when RIMS is started up
     public Resource(String name, int id, boolean isBooked) {
         this.name = name;
         this.id = id;
@@ -35,6 +37,7 @@ public abstract class Resource {
         this.loanId = -1;
     }
 
+    // for loading a booked resource from data list when RIMS is started up
     public Resource(String name, int id, boolean isBooked, int loanId, String stringDateFrom, String stringDateTill) throws ParseException {
         this.name = name;
         this.id = id;
