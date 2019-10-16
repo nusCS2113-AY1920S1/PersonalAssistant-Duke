@@ -15,7 +15,6 @@ public class Interpreter {
      */
     public static boolean interpret(TaskList taskList, Wallet wallet, String userInput) {
         CommandType commandType = Parser.parseCommandType(userInput);
-
         boolean exitRequest = Executor.runCommand(taskList, wallet, commandType, userInput);
         return exitRequest;
     }
