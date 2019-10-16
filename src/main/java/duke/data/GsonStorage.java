@@ -55,6 +55,9 @@ public class GsonStorage {
         try {
             String json = Files.readString(Paths.get(filePath), StandardCharsets.US_ASCII);
             Patient[] patientList = new Gson().fromJson(json, Patient[].class);
+            if (patientList == null) {
+                return;
+            }
             for (Patient patient : patientList) {
                 patientMap.put(patient.getBedNo(), patient);
             }
