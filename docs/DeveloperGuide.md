@@ -44,7 +44,7 @@
 
 #### 2.1  Architecture
 
-![architecture](https://github.com/9hafidz6/main/blob/master/docs/images/architecture.png)
+![architecture](https://github.com/9hafidz6/main/blob/master/docs/images/architectureV1.1.png)
 
 `main` has 1 class called `Duke`. It is responsible for,
 
@@ -60,6 +60,8 @@ The Application consist of 6 other components
 - `storage`: Reads, writes data from and to the hard disk
 - `task`: stores a list of deadline/event/todo that needs to be done
 - `ui`: The UI of the application
+
+![sequence](https://github.com/9hafidz6/main/blob/master/docs/images/UMLsequence.png)
 
 #### 2.2 UI
 
@@ -152,8 +154,7 @@ Target user profile: Restaurant Chef
 
 | Priority | As a ...           | I want to ...                                                | So that ...                                          |
 | -------- | ------------------ | ------------------------------------------------------------ | ---------------------------------------------------- |
-| Epic     | restaurant manager | I want to be able to prepare the salary reports              | my employees could get the right salary              |
-| High     | restaurant manager | I want to ensure that data related to my restaurant is secure | not anyone can have access                           |
+| High     | restaurant manager | I want to ensure that only specific users are able to access the application | the data related to my restaurant is secure          |
 | High     | restaurant manager | I want to keep track of food expiry dates                    | the restaurant will not serve expired food           |
 | High     | restaurant manager | I want to note down my part timer's available dates          | I can ensure there is enough manpower in the kitchen |
 | Medium   | restaurant manager | I want to keep track of my monthly expenses                  | I know whether I am making a profit or loss          |
@@ -165,6 +166,8 @@ Target user profile: Restaurant Chef
 ### Appendix C: Use Case
 
 **Use case: Exit the program**
+
+**MSS**
 
 ​	1. User requests to exit the program
 
@@ -304,11 +307,18 @@ Target user profile: Restaurant Chef
 
 ### Appendix D: Non Functional Requirement
 
+1. should work on any windows OS as long it has `java 11` or newer installed 
+2. The application needs to be secure. only specific users are able to access this application. for example, the restaurant manager as well as the chef
+3. should be reliable in displaying accurate and correct data 
+4. should be easy to use for users with basic knowledge of command line interface
+5. should be able to handle large amounts of data without displaying any slowdown in application performance 
+6. 
+
 
 
 ### Appendix E: Glossary 
 
-
+1. 
 
 ### Appendix F: Product Survey
 
