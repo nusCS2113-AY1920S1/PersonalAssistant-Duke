@@ -358,21 +358,28 @@ public class Process {
         }
     }
 
-    public void inVoice(String input, TaskList tasklist, Ui ui){
-        try{
+    /**
+     * process the invoice command, set invoice status as true, update invoice value and set the deadline
+     * INPUT FORMAT: invoice id i/invoice_num
+     * @param input Input from the user.
+     * @param tasklist Tasklist of the user.
+     * @param ui Ui that interacts with the user.
+     */
+    public void inVoice(String input, TaskList tasklist, Ui ui) {
+        try {
             String[] splitspace = input.split(" ", 2);
             String[] splitInvoice = splitspace[1].split(" i/");
             int id = Integer.parseInt(splitInvoice[0]) - 1;
-            if(tasklist.get(id).getType().equals("D")) {
+            if (tasklist.get(id).getType().equals("D")) {
                 String invoice = splitInvoice[1];
                 tasklist.get(id).setInVoice(invoice);
                 ui.printAddInvoiceMessage(tasklist.get(id));
-            }else{
+            } else {
                 ui.exceptionMessage("     ☹ OOPS!!! Please select a deadline instead!");
             }
-        }catch(ArrayIndexOutOfBoundsException e){
+        } catch (ArrayIndexOutOfBoundsException e) {
             ui.exceptionMessage("     ☹ OOPS!!! Please input a valid ID!");
-        }catch(NumberFormatException e){
+        } catch (NumberFormatException e) {
             ui.exceptionMessage("     ☹ OOPS!!! Please input the correct command format (refer to user guide)");
         }
     }

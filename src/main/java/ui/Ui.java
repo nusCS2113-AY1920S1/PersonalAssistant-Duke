@@ -206,6 +206,10 @@ public class Ui {
         System.out.print(line);
     }
 
+    /**
+     * Prints message to indicate a deadline with an invoice added.
+     * @param task Task to be edited.
+     */
     public void printAddInvoiceMessage(Task task) {
         System.out.print(line);
         System.out.println("\t" + "Got it. I've added invoice to this deadline:");

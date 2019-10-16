@@ -138,6 +138,7 @@ public class Task implements Serializable {
     public boolean getIsInVoice() {
         return this.isInVoice;
     }
+
     /**
      * Gets the invoice string of the Task.
      * @return a string represents invoice.
