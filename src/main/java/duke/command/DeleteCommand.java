@@ -33,7 +33,7 @@ public class DeleteCommand extends Command {
                 fileContent.remove(taskNb); // changing the file content
                 Files.write(storage.getPath(), fileContent, StandardCharsets.UTF_8);
             } catch (IOException e) {
-                throw new DukeException("Error while deleting the task from the had disc");
+                throw new DukeException("Error while deleting the task from the hard disc");
             }
             ui.showRemovedTask(removed.toString(), taskList.size());
         } else {

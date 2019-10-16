@@ -2,7 +2,14 @@ package duke.parser;
 
 import duke.Duke;
 import duke.command.*;
+import duke.command.AddCommand;
+import duke.command.DoneCommand;
+import duke.command.ExitCommand;
+import duke.command.FindCommand;
+import duke.command.RemindCommand;
+import duke.command.ViewCommand;
 import duke.exception.DukeException;
+import duke.orderCommand.*;
 import duke.recipebook.dishes;
 import duke.task.Deadline;
 import duke.task.DoWithinPeriodTasks;
@@ -83,6 +90,31 @@ public class Parser {
         }
     }
 
+    public static OrderCommand parse(String fullCommand) throws DukeException {
+        //splitted contains the keyword and the rest (description or task number)
+        String[] splitted = fullCommand.split(" ", 2);
+        //switching on the keyword
+        switch (splitted[0]) {
+            case "add":
+                return new AddOrder();
+            case "list":
+                if (splitted[1].startsWith("undone")) { return new ListUndoneOrders(); }
+                else return new ListAllOrders();
+            case "done":
+                checkLength(splitted);
+                return new DoneOrder(splitted[1]);
+            case "cancel":
+                return new CancelOrder(splitted[1]);
+            case "postpone":
+                checkLength(splitted);
+                String[] getUntil = splitAndCheck(splitted[1], " /by ");
+                return new PostponeOrder(Integer.parseInt(getUntil[0]), getUntil[1]);
+            case "find":
+                return new FindOrderByDate(splitted[1]);
+            default:
+                throw new DukeException("I'm sorry, but I don't know what that means :-(");
+        }
+    }
     /**
      * Checks the length of a String array is of size 2.
      * @throws DukeException when array is not of size 2.
