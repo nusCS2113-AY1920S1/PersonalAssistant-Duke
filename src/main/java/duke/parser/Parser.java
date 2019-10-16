@@ -284,7 +284,7 @@ public class Parser {
                     throw new DukeException("The task number must be an integer");
                 }
 
-                if (taskNum <= 0 || taskNum >= items.size()) {
+                if (taskNum <= 0 || taskNum > items.size()) {
                     throw new DukeException("     (>_<) OOPS!!! Invalid task number.");
                 }
 

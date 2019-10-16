@@ -1,9 +1,10 @@
 package duke.task;
 
 import duke.command.AddCommand;
-
+import duke.task.TaskList;
 import java.util.ArrayList;
 import java.util.Scanner;
+import javafx.util.Pair;
 
 /**
  * Represents a priority list that stores a list of priorities associated with each task.
@@ -80,31 +81,15 @@ public class PriorityList {
         priorityList.remove(index);
     }
 
+
     /**
      * Get user input for the priority of a task.
      *
+     * @param num The index number of the target priority.
      * @return The priority for a task.
      */
-    public int getPriority() {
-        Scanner sc = new Scanner(System.in);
-
-        System.out.println("     Enter the priority for the above added task: (1-high ~ 5-low)");
-        int priority;
-        while (true) {
-            String input = sc.nextLine();
-            try {
-                priority = Integer.parseInt(input.trim());
-                if ((1 <= priority) && (priority <= 5)) {
-                    System.out.printf("     Set the priority to %d\n", priority);
-                    break;
-                } else {
-                    System.out.println("Wrong input! Please enter an integer between 1 and 5!");
-                }
-            } catch (Exception e) {
-                System.out.println("Wrong input! Please enter an integer between 1 and 5!");
-                continue;
-            }
-        }
+    public int getPriority(int num) {
+        int priority = priorityList.get(num);
         return priority;
     }
 
@@ -134,6 +119,35 @@ public class PriorityList {
      */
     private PriorityList clearList() {
         return new PriorityList(new ArrayList<Integer>());
+    }
+
+
+    /**
+     * Sort tasks based on their priority.
+     * @param taskList The list of tasks.
+     * @param priorities The list of priorities.
+     * @return The sorted list.
+     */
+    public static ArrayList<Pair> sortPriority(TaskList taskList, PriorityList priorities) {
+        ArrayList<Pair> pairList = new ArrayList<>();
+        for (int i = 0; i < taskList.size(); i++) {
+            Pair<Integer, Task> pair = new Pair<>(priorities.getPriority(i), taskList.get(i));
+            pairList.add(pair);
+        }
+
+        for (int i = 1; i < taskList.size(); i++) {
+            for (int j = i; j > 0; j--) {
+                if (((int) pairList.get(j).getKey()) < (int) pairList.get(j - 1).getKey()) {
+                    Pair<Integer, String> temp = pairList.get(j);
+                    pairList.set(j, pairList.get(j - 1));
+                    pairList.set(j - 1, temp);
+                } else {
+                    break;
+                }
+            }
+        }
+        return pairList;
+
     }
 
     @Override
