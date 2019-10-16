@@ -30,7 +30,7 @@ public class Dolla {
      */
     public Dolla() {
         //tasks = new TaskList(Storage.load());
-        load();
+        load(); //load from save
     }
 
     /**
