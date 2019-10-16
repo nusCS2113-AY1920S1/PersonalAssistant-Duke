@@ -2,6 +2,7 @@ package gazeeebo.commands.Edit;
 
 import gazeeebo.Storage.Storage;
 import gazeeebo.Tasks.Task;
+import gazeeebo.TriviaManager.TriviaManager;
 import gazeeebo.UI.Ui;
 import gazeeebo.Exception.DukeException;
 import gazeeebo.commands.Command;
@@ -25,7 +26,7 @@ public class EditCommand extends Command {
      */
 
     @Override
-    public void execute(ArrayList<Task> list, Ui ui, Storage storage, Stack<String> commandStack, ArrayList<Task> deletedTask) throws DukeException, ParseException, IOException, NullPointerException {
+    public void execute(ArrayList<Task> list, Ui ui, Storage storage, Stack<String> commandStack, ArrayList<Task> deletedTask, TriviaManager triviaManager) throws DukeException, ParseException, IOException, NullPointerException {
         String[] input = ui.FullCommand.split(" ");
         System.out.println("Edit description/time/both ?");
         int listno_index = Integer.parseInt(input[1]) - 1;

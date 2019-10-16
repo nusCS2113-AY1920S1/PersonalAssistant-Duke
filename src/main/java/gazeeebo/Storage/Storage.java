@@ -1,9 +1,11 @@
 package gazeeebo.Storage;
 
+import java.io.BufferedWriter;
 import java.io.File;
 
 import gazeeebo.Tasks.Task;
 import gazeeebo.Tasks.*;
+import gazeeebo.TriviaManager.TriviaManager;
 
 import java.io.FileWriter;
 import java.io.IOException;
@@ -18,6 +20,7 @@ public class Storage {
     private String absolutePath_password = "Password.txt";
     private String absolutePath_Contact = "Contact.txt";
     private String absolutePath_Places = "Places.txt";
+    private String absolutePath_Trivia = "Trivia.txt";
 
     public void Storages(String fileContent) throws IOException {
         FileWriter fileWriter = new FileWriter(absolutePath);
@@ -193,4 +196,31 @@ public class Storage {
         }
         return placesList;
     }
+
+    public void Read_Trivia(TriviaManager triviamanager) throws IOException {
+        if (new File(absolutePath_Trivia).exists()) {
+            File file = new File(absolutePath_Trivia);
+            Scanner sc = new Scanner(file);
+            while (sc.hasNext()) {
+                String InputCommand= sc.nextLine();
+                if(triviamanager.CommandMemory.containsKey(InputCommand.split(" ")[0])) {
+                    ArrayList<String> oldlist = new ArrayList<String>(triviamanager.CommandMemory.get(InputCommand.split(" ")[0]));
+                    oldlist.add(InputCommand);
+                    triviamanager.CommandMemory.put(InputCommand.split(" ")[0], oldlist);
+                }else{
+                    ArrayList<String> newlist = new ArrayList<String>();
+                    newlist.add(InputCommand);
+                    triviamanager.CommandMemory.put(InputCommand.split(" ")[0],newlist);
+                }
+            }
+        }
+    }
+    public void Storage_Trivia(String fileContent) throws IOException{
+        BufferedWriter fileWriter = new BufferedWriter(new FileWriter(absolutePath_Trivia,true));
+        fileWriter.newLine();
+        fileWriter.write(fileContent);
+        fileWriter.flush();
+        fileWriter.close();
+    }
+
 }

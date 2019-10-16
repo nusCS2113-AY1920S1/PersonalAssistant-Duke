@@ -1,6 +1,7 @@
 package gazeeebo.commands;
 
 import gazeeebo.Tasks.*;
+import gazeeebo.TriviaManager.TriviaManager;
 import gazeeebo.UI.Ui;
 import gazeeebo.Storage.Storage;
 import gazeeebo.Exception.DukeException;
@@ -12,7 +13,7 @@ import java.util.ArrayList;
 
 public class CategoryListCommand extends Command {
     @Override
-    public void execute(ArrayList<Task> list, Ui ui, Storage storage, Stack<String> commandStack, ArrayList<Task> deletedTask) throws DukeException, ParseException, IOException, NullPointerException {
+    public void execute(ArrayList<Task> list, Ui ui, Storage storage, Stack<String> commandStack, ArrayList<Task> deletedTask, TriviaManager triviaManager) throws DukeException, ParseException, IOException, NullPointerException {
         ArrayList<Deadline> DeadlineList = new ArrayList<Deadline>();
         ArrayList<Event> EventList = new ArrayList<Event>();
         ArrayList<Todo> TodoList = new ArrayList<>();
