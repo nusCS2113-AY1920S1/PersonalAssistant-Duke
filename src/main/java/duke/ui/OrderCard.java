@@ -60,7 +60,7 @@ public class OrderCard extends UiPart<AnchorPane> {
 
         for (Item<Product> item : order.getItems()) {
             itemFlow.getChildren().add(
-                    new OrderItemBox(item.getItem().productNameProperty() , item.getQuantity().getNumber())
+                    new OrderItemBox(item.getItem().getProductName(), item.getQuantity().getNumber())
             );
         }
 
