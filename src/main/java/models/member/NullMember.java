@@ -9,12 +9,16 @@ public class NullMember implements IMember {
 
     @Override
     public void updateDetails(String name, String phone, String email) {
-
+        /**
+         * Empty method
+         */
     }
 
     @Override
     public void setIndexNumber(int indexNumber) {
-
+        /**
+         * Empty method
+         */
     }
 
     @Override
