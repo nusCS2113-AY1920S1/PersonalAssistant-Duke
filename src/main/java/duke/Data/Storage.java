@@ -1,23 +1,4 @@
-package duke.Data;
 
-import duke.module.TimeSlot;
-
-import duke.sports.MyClass;
-import duke.sports.MyPlan;
-import duke.sports.MyTraining;
-
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Scanner;
 
 /**
  * Storage handles all the loading and saving of data
