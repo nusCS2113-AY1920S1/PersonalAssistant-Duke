@@ -65,7 +65,7 @@ public class MainWindow extends UiPart<Stage> {
     @FXML
     private JFXButton inventoryButton;
     @FXML
-    private JFXButton salesButton;
+    private JFXButton saleButton;
 
     /**
      * Creates the Main Window.
@@ -189,7 +189,7 @@ public class MainWindow extends UiPart<Stage> {
 
     @FXML
     private void handleShowSale() {
-        showSalesPage();
+        showSalePage();
     }
 
     /**
@@ -219,7 +219,7 @@ public class MainWindow extends UiPart<Stage> {
     private void showPage(CommandResult.DisplayedPage toDisplay) {
         switch (toDisplay) {
         case SALE:
-            showSalesPage();
+            showSalePage();
             break;
         case ORDER:
             showOrderPage();
@@ -243,7 +243,7 @@ public class MainWindow extends UiPart<Stage> {
         productButton.setButtonType(JFXButton.ButtonType.FLAT);
         orderButton.setButtonType(JFXButton.ButtonType.RAISED);
         inventoryButton.setButtonType(JFXButton.ButtonType.FLAT);
-        salesButton.setButtonType(JFXButton.ButtonType.FLAT);
+        saleButton.setButtonType(JFXButton.ButtonType.FLAT);
 
         currentPage.setText("Orders");
     }
@@ -255,7 +255,7 @@ public class MainWindow extends UiPart<Stage> {
         productButton.setButtonType(JFXButton.ButtonType.RAISED);
         orderButton.setButtonType(JFXButton.ButtonType.FLAT);
         inventoryButton.setButtonType(JFXButton.ButtonType.FLAT);
-        salesButton.setButtonType(JFXButton.ButtonType.FLAT);
+        saleButton.setButtonType(JFXButton.ButtonType.FLAT);
 
         currentPage.setText("Products");
     }
@@ -267,19 +267,19 @@ public class MainWindow extends UiPart<Stage> {
         productButton.setButtonType(JFXButton.ButtonType.FLAT);
         orderButton.setButtonType(JFXButton.ButtonType.FLAT);
         inventoryButton.setButtonType(JFXButton.ButtonType.RAISED);
-        salesButton.setButtonType(JFXButton.ButtonType.FLAT);
+        saleButton.setButtonType(JFXButton.ButtonType.FLAT);
 
         currentPage.setText("Inventory");
     }
 
-    private void showSalesPage() {
+    private void showSalePage() {
         pagePane.getChildren().clear();
         pagePane.getChildren().add(salePage.getRoot());
 
         productButton.setButtonType(JFXButton.ButtonType.FLAT);
         orderButton.setButtonType(JFXButton.ButtonType.FLAT);
         inventoryButton.setButtonType(JFXButton.ButtonType.FLAT);
-        salesButton.setButtonType(JFXButton.ButtonType.RAISED);
+        saleButton.setButtonType(JFXButton.ButtonType.RAISED);
 
         currentPage.setText("Sales");
     }
