@@ -1,7 +1,5 @@
 package dolla;
 
-
-
 import dolla.task.Task;
 import dolla.task.ToDo;
 import dolla.task.Event;

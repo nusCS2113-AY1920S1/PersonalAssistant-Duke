@@ -4,6 +4,7 @@ import dolla.DollaData;
 import dolla.Log;
 import dolla.Ui;
 import dolla.task.EntryList;
+import dolla.task.DebtList;
 import dolla.task.LogList;
 import dolla.task.Task;
 import dolla.task.TaskList;
@@ -33,6 +34,9 @@ public class ShowListCommand extends Command {
         case "entries":
             logList = dollaData.entryList;
             break;
+        case "debts":
+            logList = dollaData.debtList;
+            break;
         default:
             break; // TODO: What to do here?
         }
@@ -44,6 +48,9 @@ public class ShowListCommand extends Command {
             return;
         } else if (mode.equals("entries")) {
             Ui.printList(mode, dollaData.getEntryList());
+            return;
+        } else if (mode.equals("debts")) {
+            Ui.printList(mode, dollaData.getDebtList());
             return;
         }
 

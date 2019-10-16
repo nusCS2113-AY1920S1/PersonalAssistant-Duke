@@ -46,6 +46,9 @@ public class MainParser {
         case "entries":
             EntryParser entryParser = new EntryParser(inputLine);
             return entryParser.handleInput(mode, inputLine);
+        case "debts":
+            DebtsParser debtsParser = new DebtsParser(inputLine);
+            return debtsParser.handleInput(mode, inputLine);
         default:
             Ui.printInvalidCommandError();
             return new ErrorCommand();

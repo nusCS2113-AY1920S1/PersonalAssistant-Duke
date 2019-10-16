@@ -1,8 +1,6 @@
 package dolla;
 
-import dolla.task.Entry;
-import dolla.task.EntryList;
-import dolla.task.Task;
+import dolla.task.*;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -86,6 +84,13 @@ public class Ui {
         System.out.println(line);
         System.out.println("\tGot it. I've added this entry: ");
         System.out.println("\t" + currEntry.getLogText());
+        System.out.println(line);
+    }
+
+    public static void echoAddDebt(Debt currDebt) {
+        System.out.println(line);
+        System.out.println("\tGot it. I've added this debt: ");
+        System.out.println("\t" + currDebt.getLogText());
         System.out.println(line);
     }
 
@@ -239,6 +244,12 @@ public class Ui {
         System.out.println(line);
     }
 
+    public static void printInvalidDebtFormatError() {
+        System.out.println(line);
+        System.out.println("\tplease follow the format"
+                + "'owe(/borrow) [NAME] [AMOUNT] [DESCRIPTION]'");
+        System.out.println(line);
+    }
     /**
      * Prints Dolla's new mode after being updated.
      * @param newMode The new mode to be switched.
@@ -255,7 +266,7 @@ public class Ui {
         System.out.println(line);
     }
 
-    public static void printList(String mode, EntryList entryList) {
+    public static void printList(String mode, LogList entryList) {
         System.out.println(line);
         System.out.println("\tHere are the " + mode + " that you have added:");
         for (int i = 0; i < entryList.size(); i++) {
