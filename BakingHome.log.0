@@ -1,4 +1,5 @@
 
+<<<<<<< HEAD
 Oct 16, 2019 7:59:17 PM duke.Launcher init
 INFO: =============================[ Initializing BakingHome ]===========================
 Oct 16, 2019 7:59:18 PM duke.Launcher start
@@ -70,4 +71,12 @@ INFO: =============================[ Initializing BakingHome ]==================
 Oct 16, 2019 8:35:38 PM duke.Launcher start
 INFO: Starting BakingHome
 Oct 16, 2019 8:35:38 PM duke.ui.UiManager start
+INFO: Starting UI...
+=======
+>>>>>>> upstream/master
+Oct 16, 2019 8:44:39 PM duke.Launcher init
+INFO: =============================[ Initializing BakingHome ]===========================
+Oct 16, 2019 8:44:39 PM duke.Launcher start
+INFO: Starting BakingHome
+Oct 16, 2019 8:44:39 PM duke.ui.UiManager start
 INFO: Starting UI...
