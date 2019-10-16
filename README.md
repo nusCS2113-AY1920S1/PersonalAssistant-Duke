@@ -4,13 +4,13 @@
 
 # ArchDuke - A CLI Project Manager with Kanban board
 **Done by:**
-* Sean
-* Abhishek
-* Dillen
-* Cynthia
-* Jerry
+  * Sean
+  * Abhishek
+  * Dillen
+  * Cynthia
+  * Jerry
 
-# Introduction
+## Introduction
 * ArchDuke is a desktop Project Manager application. It has a GUI for better visualisation of the Kanban board and tasks
 , but most of the user interactions will happen using a Command Line Interface (CLI).
 * The Kanban board will also be printed onto command line for users that favour the usage of a CLI interface compared
@@ -50,12 +50,10 @@
 
 8.  Click `Finish`.
 
-# Tutorials 
+## Tutorials 
 
 |Duke Increment   |Tutorial                                                                                                                                                                                       |
 |---------------  |---------------                                                                                                                                                                                |
-|`A-Gradle`       |[Gradle Tutorial](tutorials/gradleTutorial.md)                                                                                                                                                 |
-|`A-TextUiTesting`|[Text UI Testing Tutorial](tutorials/textUiTestingTutorial.md)                                                                                                                                 |
 |`Level-10`       |JavaFX tutorials:<br>→ [Part 1: Introduction to JavaFX][fx1]<br>→ [Part 2: Creating a GUI for Duke][fx2]<br>→ [Part 3: Interacting with the user][fx3]<br>→ [Part 4: Introduction to FXML][fx4]|
 
 [fx1]: <tutorials/javaFxTutorialPart1.md>
@@ -71,10 +69,10 @@ For more advanced users and developers, do refer to our Developer Guide:
 *   [Developer Guide](./docs/DeveloperGuide.adoc)
 
 ## Acknowledgements 
-* This application was written as submission for our Team project under the module CS2113 Software Engineering and
+  * This application was written as submission for our Team project under the module CS2113 Software Engineering and
  Object-Oriented Programming
 
-* Libraries used in this project: Natty?, GSON?, some Text to Speech?, JavaFX?, JUnit5
+  * Libraries used in this project: Natty?, GSON?, some Text to Speech?, JavaFX?, JUnit5
 
 ## License
 MIT Licensesd

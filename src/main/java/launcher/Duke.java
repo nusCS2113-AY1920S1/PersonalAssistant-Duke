@@ -1,3 +1,5 @@
+package launcher;
+
 import views.CLIView;
 
 public class Duke {
