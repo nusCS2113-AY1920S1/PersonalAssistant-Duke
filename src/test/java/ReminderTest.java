@@ -1,6 +1,5 @@
 import duke.module.Reminder;
-import duke.Task.TaskList;
-import javafx.concurrent.Task;
+import duke.task.TaskList;
 import org.junit.jupiter.api.Test;
 
 import java.text.ParseException;
@@ -21,9 +20,8 @@ public class ReminderTest {
      */
     @Test
     public void reminderTestDate () {
-        TaskList list = new TaskList();
         String date = "20/09/2020 1900";
-        Date formatDate = list.dateConvert(date);
+        Date formatDate = TaskList.dateConvert(date);
         Reminder reminder = new Reminder(formatDate);
         try {
             Date expectedDate = new SimpleDateFormat("dd/MM/yyyy HHmm").parse(date);

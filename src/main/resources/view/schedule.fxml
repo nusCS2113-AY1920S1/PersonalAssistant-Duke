@@ -1,86 +1,117 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.Cursor?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Menu?>
-<?import javafx.scene.control.MenuBar?>
-<?import javafx.scene.control.MenuItem?>
-<?import javafx.scene.control.SeparatorMenuItem?>
-<?import javafx.scene.control.SplitPane?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Font?>
+<?import javafx.scene.web.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.*?>
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<VBox prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="duke.GUI.Controller">
-   <children>
-      <MenuBar prefHeight="26.0" prefWidth="600.0">
-         <menus>
-            <Menu mnemonicParsing="false" text="File">
-               <items>
-                  <MenuItem mnemonicParsing="false" text="New" />
-                  <MenuItem mnemonicParsing="false" text="Open…" />
-                  <Menu mnemonicParsing="false" text="Open Recent" />
-                  <SeparatorMenuItem mnemonicParsing="false" />
-                  <MenuItem mnemonicParsing="false" text="Close" />
-                  <MenuItem mnemonicParsing="false" text="Save" />
-                  <MenuItem mnemonicParsing="false" text="Save As…" />
-                  <MenuItem mnemonicParsing="false" text="Revert" />
-                  <SeparatorMenuItem mnemonicParsing="false" />
-                  <MenuItem mnemonicParsing="false" text="Preferences…" />
-                  <SeparatorMenuItem mnemonicParsing="false" />
-                  <MenuItem mnemonicParsing="false" text="Quit" />
-               </items>
-            </Menu>
-            <Menu mnemonicParsing="false" text="Edit">
-               <items>
-                  <MenuItem mnemonicParsing="false" text="Undo" />
-                  <MenuItem mnemonicParsing="false" text="Redo" />
-                  <SeparatorMenuItem mnemonicParsing="false" />
-                  <MenuItem mnemonicParsing="false" text="Cut" />
-                  <MenuItem mnemonicParsing="false" text="Copy" />
-                  <MenuItem mnemonicParsing="false" text="Paste" />
-                  <MenuItem mnemonicParsing="false" text="Delete" />
-                  <SeparatorMenuItem mnemonicParsing="false" />
-                  <MenuItem mnemonicParsing="false" text="Select All" />
-                  <MenuItem mnemonicParsing="false" text="Unselect All" />
-               </items>
-            </Menu>
-            <Menu mnemonicParsing="false" text="Help">
-               <items>
-                  <MenuItem mnemonicParsing="false" text="About MyHelloApp" />
-               </items>
-            </Menu>
-         </menus>
-      </MenuBar>
-      <AnchorPane prefHeight="630.0" prefWidth="1280.0">
-         <children>
-            <Button layoutX="239.0" layoutY="265.0" mnemonicParsing="false" prefHeight="100.0" prefWidth="160.0" text="Daily Schedule" />
-            <Button layoutX="560.0" layoutY="265.0" mnemonicParsing="false" prefHeight="100.0" prefWidth="160.0" text="Weekly Schedule" />
-            <Button layoutX="904.0" layoutY="265.0" mnemonicParsing="false" prefHeight="100.0" prefWidth="160.0" text="Monthly Schedule" />
-            <Button layoutX="1120.0" mnemonicParsing="false" onMousePressed="#returnToMenu" prefHeight="50.0" prefWidth="160.0" text="Back to Menu" />
-         </children>
-      </AnchorPane>
-      <SplitPane dividerPositions="0.5" prefHeight="65.0" prefWidth="600.0">
-         <items>
-            <TextField id="cmdInput" maxWidth="1120.0" prefHeight="34.0" prefWidth="442.0" promptText="Command">
-               <cursor>
-                  <Cursor fx:constant="TEXT" />
-               </cursor>
-               <font>
-                  <Font name="Microsoft Sans Serif" size="15.0" />
-               </font>
-               <padding>
-                  <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
-               </padding>
-            </TextField>
-            <Button fx:id="submit" mnemonicParsing="false" onAction="#handleSubmit" prefHeight="46.0" prefWidth="151.0" text="Submit">
-               <padding>
-                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-               </padding>
-            </Button>
-         </items>
-      </SplitPane>
-   </children>
+<VBox prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="duke.gui.Controller">
+    <children>
+        <MenuBar prefHeight="26.0" prefWidth="600.0">
+            <menus>
+                <Menu mnemonicParsing="false" text="File">
+                    <items>
+                        <MenuItem mnemonicParsing="false" text="New" />
+                        <MenuItem mnemonicParsing="false" text="Open…" />
+                        <Menu mnemonicParsing="false" text="Open Recent" />
+                        <SeparatorMenuItem mnemonicParsing="false" />
+                        <MenuItem mnemonicParsing="false" text="Close" />
+                        <MenuItem mnemonicParsing="false" text="Save" />
+                        <MenuItem mnemonicParsing="false" text="Save As…" />
+                        <MenuItem mnemonicParsing="false" text="Revert" />
+                        <SeparatorMenuItem mnemonicParsing="false" />
+                        <MenuItem mnemonicParsing="false" text="Preferences…" />
+                        <SeparatorMenuItem mnemonicParsing="false" />
+                        <MenuItem mnemonicParsing="false" text="Quit" />
+                    </items>
+                </Menu>
+                <Menu mnemonicParsing="false" text="Edit">
+                    <items>
+                        <MenuItem mnemonicParsing="false" text="Undo" />
+                        <MenuItem mnemonicParsing="false" text="Redo" />
+                        <SeparatorMenuItem mnemonicParsing="false" />
+                        <MenuItem mnemonicParsing="false" text="Cut" />
+                        <MenuItem mnemonicParsing="false" text="Copy" />
+                        <MenuItem mnemonicParsing="false" text="Paste" />
+                        <MenuItem mnemonicParsing="false" text="Delete" />
+                        <SeparatorMenuItem mnemonicParsing="false" />
+                        <MenuItem mnemonicParsing="false" text="Select All" />
+                        <MenuItem mnemonicParsing="false" text="Unselect All" />
+                    </items>
+                </Menu>
+                <Menu mnemonicParsing="false" text="Help">
+                    <items>
+                        <MenuItem mnemonicParsing="false" text="About MyHelloApp" />
+                    </items>
+                </Menu>
+            </menus>
+        </MenuBar>
+        <AnchorPane prefHeight="693.0" prefWidth="1280.0" style="-fx-background-color: #43436e;">
+            <children>
+                <Label alignment="CENTER" layoutX="161.0" layoutY="14.0" prefHeight="55.0" prefWidth="1105.0" style="-fx-background-color: CECCCC;" text="SCHEDULE">
+                    <font>
+                        <Font name="Arial" size="27.0" />
+                    </font>
+                </Label>
+                <AnchorPane layoutX="161.0" layoutY="78.0" prefHeight="595.0" prefWidth="1105.0">
+                    <children>
+                        <Pane layoutX="2.0" layoutY="-2.0" prefHeight="595.0" prefWidth="215.0" style="-fx-background-color: CECCCC;">
+                            <children>
+                                <TableView layoutX="-1.0" layoutY="-1.0" prefHeight="595.0" prefWidth="215.0">
+                                    <columns>
+                                        <TableColumn fx:id="Months" prefWidth="214.0" resizable="false" text="Month" />
+                                    </columns>
+                                </TableView>
+                            </children>
+                        </Pane>
+                        <Pane layoutX="224.0" layoutY="-2.0" prefHeight="595.0" prefWidth="880.0" style="-fx-background-color: CECCCC;">
+                            <children>
+                                <DatePicker layoutX="318.0" layoutY="14.0" promptText="Select date" showWeekNumbers="true" />
+                                <Label alignment="CENTER" layoutX="10.0" layoutY="14.0" prefHeight="32.0" prefWidth="271.0" style="-fx-border-color: #3F6596;" text="Calender">
+                                    <font>
+                                        <Font name="Arial" size="24.0" />
+                                    </font>
+                                </Label>
+                                <TableView layoutX="90.0" layoutY="112.0" prefHeight="398.0" prefWidth="700.0">
+                                    <columns>
+                                        <TableColumn prefWidth="100.0" text="Monday" />
+                                        <TableColumn prefWidth="100.0" text="Tuesday" />
+                                        <TableColumn prefWidth="100.0" text="Wednesday" />
+                                        <TableColumn prefWidth="100.0" text="Thursday" />
+                                        <TableColumn prefWidth="100.0" text="Friday" />
+                                        <TableColumn prefWidth="100.0" text="Saturday" />
+                                        <TableColumn prefWidth="100.0" text="Sunday" />
+                                    </columns>
+                                </TableView>
+                                <Button fx:id="btnDay" layoutX="582.0" layoutY="15.0" mnemonicParsing="false" onAction="#viewDay" prefHeight="31.0" prefWidth="106.0" text="View Day" />
+                                <Button fx:id="btnPrev" layoutX="202.0" layoutY="525.0" mnemonicParsing="false" onAction="" prefHeight="31.0" prefWidth="116.0" text="Previous" />
+                                <Button fx:id="btnNext" layoutX="577.0" layoutY="525.0" mnemonicParsing="false" onAction="" prefHeight="31.0" prefWidth="116.0" text="Next" />
+                                <Label alignment="CENTER" layoutX="10.0" layoutY="64.0" prefHeight="32.0" prefWidth="271.0" style="-fx-border-color: #3F6596;" text="October 2019">
+                                    <font>
+                                        <Font name="Arial" size="24.0" />
+                                    </font>
+                                </Label>
+                            </children>
+                        </Pane>
+                    </children>
+                </AnchorPane>
+                <AnchorPane layoutX="14.0" layoutY="14.0" prefHeight="658.0" prefWidth="139.0" style="-fx-background-color: CECCCC;">
+                    <children>
+                        <Label alignment="CENTER" layoutX="12.0" layoutY="14.0" prefHeight="32.0" prefWidth="116.0" style="-fx-border-color: #3F6596;" text="Menu">
+                            <font>
+                                <Font name="Arial" size="24.0" />
+                            </font>
+                        </Label>
+                        <Button fx:id="btnHome" layoutX="17.0" layoutY="60.0" mnemonicParsing="false" onAction="#viewMenu" prefHeight="31.0" prefWidth="106.0" text="Home" />
+                        <Button fx:id="btnStudents" layoutX="17.0" layoutY="112.0" mnemonicParsing="false" onAction="#viewStudents" prefHeight="31.0" prefWidth="106.0" text="Students" />
+                        <Button fx:id="btnTraining" layoutX="17.0" layoutY="160.0" mnemonicParsing="false" onAction="#viewTraining" prefHeight="31.0" prefWidth="106.0" text="Training" />
+                    </children>
+                </AnchorPane>
+            </children>
+        </AnchorPane>
+    </children>
 </VBox>

@@ -1,14 +1,175 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
+<?import javafx.scene.chart.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.image.*?>
 <?import javafx.scene.*?>
+<?import java.lang.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="view.Student"
-            prefHeight="400.0" prefWidth="600.0">
-
-</AnchorPane>
+<VBox prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="duke.gui.Controller">
+    <children>
+        <MenuBar prefHeight="26.0" prefWidth="600.0">
+            <menus>
+                <Menu mnemonicParsing="false" text="File">
+                    <items>
+                        <MenuItem mnemonicParsing="false" text="New"/>
+                        <MenuItem mnemonicParsing="false" text="Open…"/>
+                        <Menu mnemonicParsing="false" text="Open Recent"/>
+                        <SeparatorMenuItem mnemonicParsing="false"/>
+                        <MenuItem mnemonicParsing="false" text="Close"/>
+                        <MenuItem mnemonicParsing="false" text="Save"/>
+                        <MenuItem mnemonicParsing="false" text="Save As…"/>
+                        <MenuItem mnemonicParsing="false" text="Revert"/>
+                        <SeparatorMenuItem mnemonicParsing="false"/>
+                        <MenuItem mnemonicParsing="false" text="Preferences…"/>
+                        <SeparatorMenuItem mnemonicParsing="false"/>
+                        <MenuItem mnemonicParsing="false" text="Quit"/>
+                    </items>
+                </Menu>
+                <Menu mnemonicParsing="false" text="Edit">
+                    <items>
+                        <MenuItem mnemonicParsing="false" text="Undo"/>
+                        <MenuItem mnemonicParsing="false" text="Redo"/>
+                        <SeparatorMenuItem mnemonicParsing="false"/>
+                        <MenuItem mnemonicParsing="false" text="Cut"/>
+                        <MenuItem mnemonicParsing="false" text="Copy"/>
+                        <MenuItem mnemonicParsing="false" text="Paste"/>
+                        <MenuItem mnemonicParsing="false" text="Delete"/>
+                        <SeparatorMenuItem mnemonicParsing="false"/>
+                        <MenuItem mnemonicParsing="false" text="Select All"/>
+                        <MenuItem mnemonicParsing="false" text="Unselect All"/>
+                    </items>
+                </Menu>
+                <Menu mnemonicParsing="false" text="Help">
+                    <items>
+                        <MenuItem mnemonicParsing="false" text="About MyHelloApp"/>
+                    </items>
+                </Menu>
+            </menus>
+        </MenuBar>
+        <AnchorPane prefHeight="693.0" prefWidth="1280.0" style="-fx-background-color: #43436e;">
+            <children>
+                <Label alignment="CENTER" layoutX="161.0" layoutY="14.0" prefHeight="55.0" prefWidth="1105.0"
+                       style="-fx-background-color: CECCCC;" text="Student">
+                    <font>
+                        <Font name="Arial" size="27.0"/>
+                    </font>
+                </Label>
+                <AnchorPane layoutX="161.0" layoutY="78.0" prefHeight="595.0" prefWidth="1105.0">
+                    <children>
+                        <Pane layoutX="2.0" layoutY="-2.0" prefHeight="556.0" prefWidth="215.0"
+                              style="-fx-background-color: CECCCC;">
+                            <children>
+                                <ScrollBar layoutX="188.0" layoutY="36.0" orientation="VERTICAL" prefHeight="517.0"
+                                           prefWidth="26.0"/>
+                                <ListView layoutY="30.0" prefHeight="524.0" prefWidth="188.0"/>
+                                <Label alignment="CENTER" layoutX="-3.0" layoutY="-2.0" prefHeight="32.0"
+                                       prefWidth="222.0" style="-fx-border-color: #3F6596;" text="Student List">
+                                    <font>
+                                        <Font name="Arial" size="21.0"/>
+                                    </font>
+                                </Label>
+                            </children>
+                        </Pane>
+                        <Pane layoutX="225.0" layoutY="-2.0" prefHeight="595.0" prefWidth="880.0"
+                              style="-fx-background-color: CECCCC;">
+                            <children>
+                                <TextField alignment="TOP_LEFT" layoutX="258.0" layoutY="83.0" prefHeight="31.0"
+                                           prefWidth="106.0">
+                                    <cursor>
+                                        <Cursor fx:constant="TEXT"/>
+                                    </cursor>
+                                </TextField>
+                                <TextField alignment="CENTER" layoutX="19.0" layoutY="82.0" prefHeight="32.0"
+                                           prefWidth="222.0" text="Paul">
+                                    <opaqueInsets>
+                                        <Insets/>
+                                    </opaqueInsets>
+                                    <cursor>
+                                        <Cursor fx:constant="TEXT"/>
+                                    </cursor>
+                                    <font>
+                                        <Font size="14.0"/>
+                                    </font>
+                                </TextField>
+                                <Label alignment="CENTER" layoutX="19.0" layoutY="36.0" prefHeight="32.0"
+                                       prefWidth="222.0" style="-fx-border-color: #3F6596;" text="Name">
+                                    <font>
+                                        <Font name="Arial" size="24.0"/>
+                                    </font>
+                                </Label>
+                                <Button layoutX="693.0" layoutY="231.0" mnemonicParsing="false" prefHeight="32.0"
+                                        prefWidth="155.0" text="Edit Particulars"/>
+                                <Label alignment="CENTER" layoutX="258.0" layoutY="36.0" prefHeight="32.0"
+                                       prefWidth="106.0" style="-fx-border-color: #3F6596;" text="Age">
+                                    <font>
+                                        <Font name="Arial" size="24.0"/>
+                                    </font>
+                                </Label>
+                                <Label alignment="CENTER" layoutX="19.0" layoutY="198.0" prefHeight="32.0"
+                                       prefWidth="222.0" style="-fx-border-color: #3F6596;" text="Address">
+                                    <font>
+                                        <Font name="Arial" size="24.0"/>
+                                    </font>
+                                </Label>
+                                <TextField alignment="TOP_LEFT" layoutX="20.0" layoutY="247.0" prefHeight="65.0"
+                                           prefWidth="459.0">
+                                    <cursor>
+                                        <Cursor fx:constant="TEXT"/>
+                                    </cursor>
+                                </TextField>
+                                <LineChart layoutX="24.0" layoutY="379.0" prefHeight="197.0" prefWidth="836.0">
+                                    <xAxis>
+                                        <CategoryAxis side="BOTTOM"/>
+                                    </xAxis>
+                                    <yAxis>
+                                        <NumberAxis side="LEFT"/>
+                                    </yAxis>
+                                </LineChart>
+                                <Label alignment="CENTER" layoutX="19.0" layoutY="339.0" prefHeight="32.0"
+                                       prefWidth="222.0" style="-fx-border-color: #3F6596;" text="Progress">
+                                    <font>
+                                        <Font name="Arial" size="24.0"/>
+                                    </font>
+                                </Label>
+                                <Button layoutX="249.0" layoutY="336.0" mnemonicParsing="false" prefHeight="38.0"
+                                        prefWidth="116.0" text="Edit"/>
+                                <Button layoutX="693.0" layoutY="282.0" mnemonicParsing="false" prefHeight="32.0"
+                                        prefWidth="155.0" text="Delete"/>
+                                <ImageView fitHeight="169.0" fitWidth="150.0" layoutX="696.0" layoutY="24.0"
+                                           pickOnBounds="true" preserveRatio="true">
+                                    <image>
+                                        <Image url="@../images/DaDuke.png"/>
+                                    </image>
+                                </ImageView>
+                            </children>
+                        </Pane>
+                        <Button layoutX="2.0" layoutY="554.0" mnemonicParsing="false" prefHeight="38.0"
+                                prefWidth="215.0" text="Add Student"/>
+                    </children>
+                </AnchorPane>
+                <AnchorPane layoutX="14.0" layoutY="14.0" prefHeight="658.0" prefWidth="139.0"
+                            style="-fx-background-color: CECCCC;">
+                    <children>
+                        <Label alignment="CENTER" layoutX="12.0" layoutY="14.0" prefHeight="32.0" prefWidth="116.0"
+                               style="-fx-border-color: #3F6596;" text="Menu">
+                            <font>
+                                <Font name="Arial" size="24.0"/>
+                            </font>
+                        </Label>
+                        <Button fx:id="btnHome" layoutX="17.0" layoutY="60.0" mnemonicParsing="false"
+                                onAction="#viewMenu" prefHeight="31.0" prefWidth="106.0" text="Home"/>
+                        <Button fx:id="btnSchedule" layoutX="17.0" layoutY="112.0" mnemonicParsing="false"
+                                onAction="#viewSchedule" prefHeight="31.0" prefWidth="106.0" text="Schedule"/>
+                        <Button fx:id="btnStudents" layoutX="17.0" layoutY="160.0" mnemonicParsing="false"
+                                onAction="#viewStudents" prefHeight="31.0" prefWidth="106.0" text="Students"/>
+                    </children>
+                </AnchorPane>
+            </children>
+        </AnchorPane>
+    </children>
+</VBox>

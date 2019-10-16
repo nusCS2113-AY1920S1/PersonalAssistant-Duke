@@ -1,22 +1,23 @@
 package duke.sports;
 
+import duke.module.Details;
+
 import java.util.ArrayList;
 
 /**
  * This class is called when option 2 is chosen.
  * All commands related to students will be managed by this class
  */
-public class ManageStudents {
+public class ManageStudents implements Details {
 
     /**
      * An array list for the list of students.
      */
-    private final ArrayList<MyStudent> studentList;
+    private ArrayList<MyStudent> studentList;
 
-//    public void loadStudentList() {
-//        Storage storage = new Storage ();
-//        studentList.addAll(storage.loadFile());
-//    }
+    public String detailType;
+
+    public String detailMessage;
 
     /**
      * Constructor of Manage Students to initialise ManageStudent class.
@@ -27,14 +28,14 @@ public class ManageStudents {
 
 
 
-//    public void setStudentList(ArrayList<MyStudent> studentList) {
-//        this.studentList = studentList;
+//    public void setStudentList(ArrayList<MyStudent> studentList.txt) {
+//        this.studentList.txt = studentList.txt;
 //    }
 
     /**
      * @return list of all the students.
      */
-    private ArrayList<MyStudent> getStudentList() {
+    public ArrayList<MyStudent> getStudentList() {
         return studentList;
     }
 
@@ -87,6 +88,19 @@ public class ManageStudents {
                 + "Now you have " + getStudentListSize() + " students.");
     }
 
+    public void setDetail(String type, String detailMessage) {
+        this.detailType = type;
+        this.detailMessage = detailMessage;
+    }
+
+    public String getDetailType() {
+        return detailType;
+    }
+
+    public String getDetailMessage() {
+        return detailMessage;
+    }
+
     /**
      * Method to remove a particular student in a list.
      * @param index of the student in the list.
@@ -114,19 +128,74 @@ public class ManageStudents {
         }
     }
 
+    public void findName(String name) {
+        int cnt = 1;
+        for (MyStudent i : getStudentList()) {
+            if (i.getName().contains(name)) {
+                if (cnt == 1) {
+                    System.out.println("Here are the matching names in your list:");
+                }
+                System.out.println(cnt++ + ". " + i.toString());
+            }
+        }
 
-//
-//    public void manageStudentsCategory() {
-//        System.out.println("MANAGE STUDENTS COMMANDS:\n" +
-//                "1. student list - View all students\n" +
-//                "2. student add/ name/ age/ address - Adding a student\n" +
-//                "3. Class Details\n" +
-//                "4. Student Progress\n" +
-//                "5. Personal Best\n" +
-//                "6. Dietary Plan\n");
-//    }
+        if (cnt == 1) {
+            System.out.println("Sorry, there are no names matching your search");
+        }
+    }
 
+    @Override
+    public String getName() {
+        return null;
+    }
 
+    @Override
+    public String getAge() {
+        return null;
+    }
 
+    @Override
+    public String getAddress() {
+        return null;
+    }
 
+    @Override
+    public String getGender() {
+        return null;
+    }
+
+    @Override
+    public String getContactNumber() {
+        return null;
+    }
+
+    @Override
+    public String getEmail() {
+        return null;
+    }
+
+    @Override
+    public String getDOB() {
+        return null;
+    }
+
+    @Override
+    public String getPersonalBest() {
+        return null;
+    }
+
+    @Override
+    public String getDietaryPlan() {
+        return null;
+    }
+
+    @Override
+    public String getNotes() {
+        return null;
+    }
+
+    @Override
+    public String getNOK() {
+        return null;
+    }
 }

@@ -1,8 +1,8 @@
-# Sports Manager
+# Coach Manager
 By: `W13-1`   Since: `16 September 2019`
 
 ## Introduction
-Sports Manager is an app designed for use by busy sports trainers in charge of multiple classes and many students. The app is optimized to keep track of the classes and students a trainer is in charge of. The schedule and lessons to be taught can be viewed by the trainer, and training plans can even be adjusted as per requirements. In addition, the planner helps the trainer track the progress of the students by making comparisons between their current standards to past records or personal best.
+Coach Manager is an app designed for use by busy sports trainers in charge of multiple classes and many students. The app is optimized to keep track of the classes and students a trainer is in charge of. The schedule and lessons to be taught can be viewed by the trainer, and training plans can even be adjusted as per requirements. In addition, the planner helps the trainer track the progress of the students by making comparisons between their current standards to past records or personal best.
 
 ## User Interface
 ![UI Example](https://github.com/AY1920S1-CS2113T-W13-1/main/blob/master/docs/images/Ui.png)

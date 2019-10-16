@@ -1,7 +1,7 @@
-package duke.module;
+package menu;
 
 /*
-* To add all the main menu list
+* To add al the main menu list
 * 1. Manage Students
 * 2. Training Schedule
 * 3. Training Circuits
