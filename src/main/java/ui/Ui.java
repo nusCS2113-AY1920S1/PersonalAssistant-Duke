@@ -26,6 +26,15 @@ public class Ui {
         );
     }
 
+    public String quizGreet() {
+        return ("\n                      |   | _ _ _|   /  \\ _  \n"
+                + "                      |/\\|(_)| (_|  \\__/|_) \n"
+                + "                                            |   \n"
+                + "Let's do some quiz to enhance your word knowledge \n"
+                + "Type \"start\" to begin quiz or \"exit_quiz\" to go back"
+        );
+    }
+
     public String showDeleted(Word w) {
         return "Noted. I've removed this word:\n" + w.toString();
     }
@@ -86,6 +95,25 @@ public class Ui {
 
     public String showSearch(String description, String meaning){
         return ("Here is the meaning of " + description + ": " + meaning);
+    }
+
+    public String quizDisplay(String question, String[] options, int optionSequence){
+        String s = ("What is the meaning of " + question +"?\n");
+        int index=1;
+        for(int i=optionSequence; i<optionSequence+4; i++){
+            s += (index + "." + options[i%4] + "  ");
+            index++;
+        }
+        s += "\n";
+        return s;
+    }
+    public String quizResponse(Boolean isCorrect, String answer){
+        if(isCorrect){
+            return ("Yes!! The correct answer is \""+ answer + "\".");
+        }
+        else{
+            return ("Sorry, The answer is \""+ answer + "\".");
+        }
     }
 }
 

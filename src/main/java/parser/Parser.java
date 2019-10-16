@@ -1,3 +1,5 @@
+package parser;
+
 import Dictionary.Word;
 import command.*;
 import exception.*;
@@ -53,14 +55,15 @@ public class Parser {
                 }
                 return new AddCommand(word);
             } else if (taskInfo[0].equals("delete")) {
-                // FIX DELETE COMMAND TO DELETE WORD FROM DICTIONARY (BOTH TAG AND WORD)
                 if (taskInfo.length == 1 || !taskInfo[1].startsWith("w/")) {
                     throw new WrongDeleteFormatException();
                 }
                 String[] wordAndTags = taskInfo[1].split("t/");
+                //delete word
                 if (wordAndTags.length == 1) {
                     return new DeleteCommand(taskInfo[1].substring(2));
                 }
+                //delete tag
                 else {
                     String wordDescription = wordAndTags[0].substring(2).trim();
                     ArrayList<String> tags = new ArrayList<>();
@@ -75,7 +78,6 @@ public class Parser {
                 }
                 return new SearchCommand(taskInfo[1].substring(2));
             } else if (taskInfo[0].equals("list")) {
-                //FIX LIST COMMAND TO MATCH THE TASK WE NEED TO DO
                 String order = "";
                 if (taskInfo.length > 1) {
                     if (!taskInfo[1].startsWith("o/")) {
@@ -104,7 +106,13 @@ public class Parser {
                     tags.add(wordAndTags[i].trim());
                 }
                 return new AddTagCommand(wordDescription, tags);
-            } else {
+            }  else if (taskInfo[0].equals("quiz")){
+                if (taskInfo.length > 1) {
+                    throw new WrongQuizFormatException();
+                }
+                return new QuizCommand();
+            }
+            else {
                 try {
                     throw new CommandInvalidException(input);
                 } catch (CommandInvalidException e){
