@@ -218,6 +218,12 @@ public interface Model {
      */
     void setInventory(Item<Ingredient> toEdit, Item<Ingredient> edited);
 
+    /**
+     * Clears the inventory list
+     * @param emptyList
+     */
+    void clearInventory(List<Item<Ingredient>> emptyList);
+
     //======Shopping list operations=====
 
     ObservableList<Item<Ingredient>> getFilteredShoppingList();
@@ -248,6 +254,12 @@ public interface Model {
      * @param edited the edited ingredient with changes
      */
     void setShoppingList(Item<Ingredient> toEdit, Item<Ingredient> edited);
+
+    /**
+     * Clears the shopping list
+     * @param emptyList
+     */
+    void clearShoppingList(List<Item<Ingredient>> emptyList);
 
     //=========Shortcut operations=======
 

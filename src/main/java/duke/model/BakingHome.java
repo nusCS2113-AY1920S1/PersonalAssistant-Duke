@@ -199,6 +199,7 @@ public class BakingHome implements ReadOnlyBakingHome {
     //============Inventory operations==============
 
     /**
+
      * Adds an ingredient to the inventory list.
      * @param toAdd The ingredient to be added to the inventory list
      */
@@ -223,6 +224,10 @@ public class BakingHome implements ReadOnlyBakingHome {
     public void setInventory(Item<Ingredient> toEdit, Item<Ingredient> edited) {
         requireAllNonNull(toEdit, edited);
         inventory.set(toEdit, edited);
+    }
+
+    public void clearInventory(List<Item<Ingredient>> emptyList) {
+        inventory.setAll(emptyList);
     }
 
     @Override
@@ -257,6 +262,10 @@ public class BakingHome implements ReadOnlyBakingHome {
     public void setShoppingList(Item<Ingredient> toEdit, Item<Ingredient> edited) {
         requireAllNonNull(toEdit, edited);
         shoppingList.set(toEdit, edited);
+    }
+
+    public void clearShoppingList(List<Item<Ingredient>> emptyList) {
+        shoppingList.setAll(emptyList);
     }
 
     @Override

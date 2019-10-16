@@ -47,8 +47,6 @@ public class InventoryPage extends UiPart<AnchorPane> {
 
     void setIndexColumn() {
         TableColumn<Ingredient, Void> indexColumn = new TableColumn<>("S/N");
-        indexColumn.setMinWidth(50);
-        indexColumn.setPrefWidth(70);
         indexColumn.setResizable(true);
 
         //Solution below adapted from: https://stackoverflow.com/questions/31212400/adding-index-of-records-in-a-javafx-tableview-column
@@ -74,6 +72,8 @@ public class InventoryPage extends UiPart<AnchorPane> {
 
         inventoryListTable.getColumns().add(indexColumn);
         shoppingListTable.getColumns().add(indexColumn);
+        indexColumn.setMinWidth(50);
+        indexColumn.setMaxWidth(50);
     }
 
     //Solution adapted from: http://fxapps.blogspot.com/2012/09/showing-object-properties-in-tableview.html
@@ -112,12 +112,14 @@ public class InventoryPage extends UiPart<AnchorPane> {
         remarksColumn.setCellValueFactory(itemStringCellDataFeatures ->
                 new SimpleStringProperty(itemStringCellDataFeatures.getValue().getItem().getRemarks()));
 
-        TableColumn<Item<Ingredient>, String> costColumn = new TableColumn<>("Unit Cost");
+        TableColumn<Item<Ingredient>, String> costColumn = new TableColumn<>("Unit Cost ($)");
+      
         costColumn.setResizable(true);
         costColumn.setCellValueFactory(itemStringCellDataFeatures ->
                 new SimpleStringProperty(String.valueOf(itemStringCellDataFeatures.getValue().getItem().getUnitPrice())));
 
-        TableColumn<Item<Ingredient>, String> totalCostColumn = new TableColumn<>("Cost");
+        TableColumn<Item<Ingredient>, String> totalCostColumn = new TableColumn<>("Cost ($)");
+
         totalCostColumn.setResizable(true);
         totalCostColumn.setCellValueFactory(itemStringCellDataFeatures ->
                 new SimpleStringProperty(String.valueOf(itemStringCellDataFeatures.getValue().getTotalPrice())));

@@ -241,6 +241,10 @@ public class ModelManager implements Model {
         bakingHome.setInventory(toEdit, edited);
     }
 
+    public void clearInventory(List<Item<Ingredient>> emptyList) {
+        bakingHome.clearInventory(emptyList);
+    }
+
     @Override
     public ObservableList<Item<Ingredient>> getFilteredInventoryList() {
         return filteredInventory;
@@ -272,6 +276,10 @@ public class ModelManager implements Model {
     public void setShoppingList(Item<Ingredient> toEdit, Item<Ingredient> edited) {
         requireAllNonNull(toEdit, edited);
         bakingHome.setShoppingList(toEdit, edited);
+    }
+
+    public void clearShoppingList(List<Item<Ingredient>> emptyList) {
+        bakingHome.clearShoppingList(emptyList);
     }
 
     @Override

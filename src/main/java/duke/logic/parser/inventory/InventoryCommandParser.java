@@ -4,7 +4,9 @@ import duke.commons.core.Message;
 import duke.logic.command.inventory.AddInventoryCommand;
 import duke.logic.command.inventory.DeleteInventoryCommand;
 import duke.logic.command.inventory.EditInventoryCommand;
+import duke.logic.command.inventory.ClearInventoryCommand;
 import duke.logic.command.inventory.InventoryCommand;
+
 import duke.logic.parser.commons.SubCommandParser;
 import duke.logic.parser.exceptions.ParseException;
 
@@ -22,6 +24,9 @@ public class InventoryCommandParser implements SubCommandParser<InventoryCommand
             return new DeleteInventoryCommandParser().parse(args);
         case EditInventoryCommand.COMMAND_WORD:
             return new EditInventoryCommandParser().parse(args);
+        case ClearInventoryCommand.COMMAND_WORD:
+            return new ClearInventoryCommandParser().parse(args);
+
         default:
             throw new ParseException(Message.MESSAGE_UNKNOWN_COMMAND);
         }
