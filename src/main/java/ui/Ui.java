@@ -14,6 +14,7 @@ import java.util.Scanner;
 public class Ui {
     private Storage storage;
     private TaskList taskList;
+    private Wallet wallet;
     private Scanner scanner;
     private Boolean exitRequest;
     private List<String> userInputHistory;
@@ -32,6 +33,7 @@ public class Ui {
     public Ui(String dataPath) {
         this.storage = new Storage(dataPath);
         this.taskList = storage.loadData();
+        this.wallet = new Wallet();
         this.scanner = new Scanner(System.in);
         this.exitRequest = false;
         this.userInputHistory = new ArrayList<String>();
@@ -43,7 +45,7 @@ public class Ui {
     public void initialise() {
         printWelcomeMsg();
         while (!this.exitRequest) {
-            this.interact(this.taskList);
+            this.interact(this.taskList, this.wallet);
         }
         this.exitUi();
     }
@@ -51,9 +53,9 @@ public class Ui {
     /**
      * Obtains user input and executes commands.
      */
-    public void interact(TaskList taskList)  {
+    public void interact(TaskList taskList, Wallet wallet)  {
         String userInput = this.scanInput();
-        this.exitRequest = Interpreter.interpret(taskList, userInput);
+        this.exitRequest = Interpreter.interpret(taskList, wallet, userInput);
     }
 
     /**
