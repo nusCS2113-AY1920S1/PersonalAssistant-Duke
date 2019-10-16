@@ -163,7 +163,7 @@ public class Duke {
                 return arrayList;
             }
         } else if (userInput.contains(COMMAND_LIST_INGREDIENTS)) {
-            if (userInput.trim().substring(0, 15).equals(COMMAND_LIST_INGREDIENTS)) {
+            if (userInput.trim().substring(0, 13).equals(COMMAND_LIST_INGREDIENTS)) {
                 CommandIngredients command = Parser.parseIngredient(userInput);
                 return command.execute(ingredientList, ui, ingredientStorage);
             } else {

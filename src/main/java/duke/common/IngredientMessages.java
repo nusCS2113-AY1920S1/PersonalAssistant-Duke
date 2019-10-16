@@ -2,7 +2,7 @@ package duke.common;
 
 public class IngredientMessages {
     public static final String COMMAND_ADD_INGREDIENT = "addingredient";
-    public static final String COMMAND_LIST_INGREDIENTS = "listingredients";
+    public static final String COMMAND_LIST_INGREDIENTS = "listinventory";
     public static final String COMMAND_DELETE_INGREDIENT = "deleteingredient";
 
     public static final String MESSAGE_INGREDIENT_DELETED = "     Noted. I've removed this ingredient:\n";
