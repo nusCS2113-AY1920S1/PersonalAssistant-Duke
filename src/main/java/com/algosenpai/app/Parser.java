@@ -127,7 +127,11 @@ public class Parser {
      */
 
     public static String possibleCommand(String userInput) {
-        String[] all = {"menu", "start", "select", "report", "result", "back", "history", "undo", "clear", "reset", "save", "help", "exit"};
+        String[] all = {"menu",
+                "start", "select", "report",
+                "result", "back", "history",
+                "undo", "clear", "reset",
+                "save", "help", "exit"};
         String str = "";
         double num = -1;
         for (String s : all) {
