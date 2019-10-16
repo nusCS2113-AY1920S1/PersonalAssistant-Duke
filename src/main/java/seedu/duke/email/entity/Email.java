@@ -60,10 +60,14 @@ public class Email {
     }
 
     public void addTag(String tag) {
-        if (this.tags.contains(tag)) {
+        if (this.tags.contains(tag.strip())) {
             return;
         }
-        this.tags.add(tag);
+        this.tags.add(tag.strip());
+    }
+
+    public ArrayList<String> getTags() {
+        return this.tags;
     }
 
     public String getRawJson() {
@@ -168,5 +172,17 @@ public class Email {
             Duke.getUI().showError("Hashing email name error");
         }
         return input;
+    }
+
+    public String toGuiString() {
+        String guiStr = this.subject;
+        if (tags.size() > 0) {
+            guiStr += "\n";
+            for (String tag : tags)
+            {
+                guiStr += " #" + tag;
+            }
+        }
+        return guiStr;
     }
 }
