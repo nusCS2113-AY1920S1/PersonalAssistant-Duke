@@ -1,7 +1,5 @@
 package duke.model.product;
 
-import duke.model.inventory.IngredientList;
-
 import java.util.Objects;
 
 import static duke.commons.util.AppUtil.checkEmpty;
@@ -40,6 +38,21 @@ public class Product {
             this.ingredientCost = Double.parseDouble(ingredientCost);
             this.retailPrice = Double.parseDouble(retailPrice);
             this.status = Status.ACTIVE;
+        } catch (NumberFormatException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public Product(String productName, String retailPrice, String ingredientCost, IngredientItemList ingredientItemList) {
+        requireAllNonNull(productName);
+        checkEmpty(productName, MESSAGE_CONSTRAINTS);
+
+        try {
+            this.productName = productName;
+            this.ingredientCost = Double.parseDouble(ingredientCost);
+            this.retailPrice = Double.parseDouble(retailPrice);
+            this.status = Status.ACTIVE;
+            this.ingredients = ingredientItemList;
         } catch (NumberFormatException e) {
             e.printStackTrace();
         }
@@ -99,7 +112,7 @@ public class Product {
 */
     @Override
     public String toString() {
-        return productName + ": " + retailPrice + "$";
+        return productName + ": " + retailPrice + "$" + ingredients.toString();
     }
 
     @Override

@@ -19,13 +19,13 @@ public class ExecuteShortcutCommand extends Command {
     private static final String MESSAGE_COMMIT = "Execute shortcut";
     private static final String MESSAGE_SHORTCUT_NOT_FOUND = "Shortcut not found";
     private static final String MESSAGE_SUCCESS = "Shortcut executed successfully";
-    private static final String MESSAGE_EXECUTION_FAILED = "Execute [%s] failed: %s";
+    private static final String MESSAGE_EXECUTION_FAILED = "Execution of [%s] failed: [%s]";
 
     private final String shortcutName;
     private Shortcut toExecute;
 
     /**
-     * Creates ExecuteShortcutCommand.
+     * Creates {@code ExecuteShortcutCommand}.
      *
      * @param shortcutName The name of the shortcut. Must be non-empty.
      */
@@ -39,6 +39,7 @@ public class ExecuteShortcutCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         getShortcut(model);
 
+        //Disable version control so that commands executed are not added to undo/redo list.
         model.setVersionControl(false);
 
         BakingHomeParser parser = new BakingHomeParser();
@@ -51,6 +52,7 @@ public class ExecuteShortcutCommand extends Command {
             }
         }
 
+        //Enable version control.
         model.setVersionControl(true);
 
         model.commit(MESSAGE_COMMIT);

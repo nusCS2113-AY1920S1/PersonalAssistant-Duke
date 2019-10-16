@@ -7,7 +7,7 @@ import duke.logic.parser.commons.TimeParser;
 import duke.logic.parser.exceptions.ParseException;
 import duke.model.commons.Item;
 import duke.model.order.Order;
-import duke.model.order.Quantity;
+import duke.model.commons.Quantity;
 
 import java.util.HashSet;
 import java.util.List;

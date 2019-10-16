@@ -14,7 +14,7 @@ import javafx.scene.layout.FlowPane;
  * delivery date, index, and status.
  */
 public class OrderCard extends UiPart<AnchorPane> {
-    static final String FXML = "OrderCard.fxml";
+    private static final String FXML = "OrderCard.fxml";
 
     @FXML
     private AnchorPane innerPane;

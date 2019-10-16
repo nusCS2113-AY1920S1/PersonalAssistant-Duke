@@ -13,7 +13,7 @@ public class InventoryParserUtil {
             inventoryDescriptor.setName(map.getValue(PREFIX_INVENTORY_NAME).get());
         }
         if (map.getValue(PREFIX_INVENTORY_QUANTITY).isPresent()) {
-            inventoryDescriptor.setQuantity(Integer.parseInt(map.getValue(PREFIX_INVENTORY_QUANTITY).get()));
+            inventoryDescriptor.setQuantity(Double.parseDouble(map.getValue(PREFIX_INVENTORY_QUANTITY).get()));
         }
         if (map.getValue(PREFIX_INVENTORY_REMARKS).isPresent()) {
             inventoryDescriptor.setRemarks(map.getValue(PREFIX_INVENTORY_REMARKS).get());

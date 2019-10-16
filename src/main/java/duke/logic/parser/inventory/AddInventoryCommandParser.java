@@ -8,7 +8,7 @@ import duke.logic.parser.exceptions.ParseException;
 
 import duke.model.inventory.Ingredient;
 import duke.model.commons.Item;
-import duke.model.order.Quantity;
+import duke.model.commons.Quantity;
 
 import static duke.logic.parser.commons.CliSyntax.*;
 

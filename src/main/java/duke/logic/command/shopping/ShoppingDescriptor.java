@@ -4,7 +4,7 @@ import java.util.Optional;
 
 public class ShoppingDescriptor {
     private String name;
-    private Integer quantity;
+    private Double quantity;
     private String remarks;
     private Double unitCost;
 
@@ -25,11 +25,11 @@ public class ShoppingDescriptor {
         this.name = name;
     }
 
-    public Optional<Integer> getQuantity() {
+    public Optional<Double> getQuantity() {
         return Optional.ofNullable(quantity);
     }
 
-    public void setQuantity(Integer quantity) {
+    public void setQuantity(Double quantity) {
         this.quantity = quantity;
     }
 

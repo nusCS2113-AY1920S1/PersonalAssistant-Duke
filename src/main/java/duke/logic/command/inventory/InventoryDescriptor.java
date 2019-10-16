@@ -4,7 +4,7 @@ import java.util.Optional;
 
 public class InventoryDescriptor {
     private String name;
-    private Integer quantity;
+    private Double quantity;
     private String remarks;
 
     public InventoryDescriptor() {}
@@ -23,11 +23,11 @@ public class InventoryDescriptor {
         this.name = name;
     }
 
-    public Optional<Integer> getQuantity() {
+    public Optional<Double> getQuantity() {
         return Optional.ofNullable(quantity);
     }
 
-    public void setQuantity(Integer quantity) {
+    public void setQuantity(Double quantity) {
         this.quantity = quantity;
     }
 
