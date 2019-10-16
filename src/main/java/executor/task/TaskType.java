@@ -1,7 +1,7 @@
 package executor.task;
 
 public enum TaskType {
-    BLANK, PARENT, DEADLINE, TODO, EVENT, FDURATION;
+    BLANK, PARENT, DEADLINE, TODO, EVENT, FDURATION, RECURRING;
 
     /**
      * Constructor for 'TaskType' enum.

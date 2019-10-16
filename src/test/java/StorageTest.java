@@ -57,6 +57,7 @@ public class StorageTest {
                 "Loaded wrong isDone");
         assertEquals("19/09/2019 1015", dateFormat.format(taskResult.getDatetime()),
                 "Loaded wrong taskDetails");
+
     }
 
     @Test
