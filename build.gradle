@@ -4,6 +4,7 @@ plugins {
     id 'checkstyle'
     id 'com.github.johnrengelman.shadow' version '5.1.0'
     id 'org.openjfx.javafxplugin' version '0.0.7'
+    id 'jacoco'
 }
 
 checkstyle {
@@ -17,9 +18,23 @@ shadowJar {
     archiveAppendix = null
 }
 
+jacoco {
+    toolVersion = "0.8.4"
+    reportsDir = file("$buildDir/customJacocoReportDir")
+}
+
+jacocoTestReport {
+    reports {
+        xml.enabled false
+        csv.enabled false
+        html.destination file("${buildDir}/jacocoHtml")
+    }
+}
+
 dependencies {
     testImplementation 'org.junit.jupiter:junit-jupiter:5.5.0'
     implementation 'com.google.code.gson:gson:2.8.6'
+    implementation 'org.eluder.coveralls:coveralls-maven-plugin:4.3.0'
 }
 
 test {
