@@ -25,6 +25,6 @@
       </content>
     </ScrollPane>
       <VBox fx:id="rightScreen" layoutX="606.0" layoutY="101.0" prefHeight="450.0" prefWidth="389.0" style="-fx-background-color: grey;" AnchorPane.topAnchor="100.0" />
-      <HBox fx:id="topBar" layoutX="5.0" prefHeight="90.0" prefWidth="991.0" style="-fx-background-color: #BBB;" AnchorPane.leftAnchor="5.0" AnchorPane.topAnchor="5.0" />
+      <HBox fx:id="topBar" layoutX="5.0" prefHeight="90.0" prefWidth="990.0" style="-fx-background-color: #BBB;" AnchorPane.leftAnchor="5.0" AnchorPane.topAnchor="5.0" />
   </children>
 </AnchorPane>
