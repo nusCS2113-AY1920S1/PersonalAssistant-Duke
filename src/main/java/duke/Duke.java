@@ -40,6 +40,7 @@ public class Duke {
 
     private BudgetStorage budgetStorage;
     private BudgetList budgetList;
+    private static final int ZERO = 0;
 
     /**
      * Creates a duke to initialize storage, task list, and ui.
@@ -82,7 +83,7 @@ public class Duke {
         } catch (IOException e) {
             ui.showLoadingError();
             budgetList = new BudgetList();
-            budgetList.addToBudget(0);
+            budgetList.addToBudget(ZERO);
         }
     }
 

@@ -11,7 +11,10 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 public class BudgetStorage {
-    protected String filePath = "./";
+    //protected String filePath = "./";
+    protected String filePath = "";
+    String storageClassPath = Storage.class.getProtectionDomain().getCodeSource().getLocation().getPath();
+
 
     /**
      * Creates a storage with path pointing to the file in the system.
@@ -19,6 +22,14 @@ public class BudgetStorage {
      * @param filePathForBudget The location of the file in computer.
      */
     public BudgetStorage(String filePathForBudget) {
+        String[] pathSplitter = storageClassPath.split("/");
+        for (String directory: pathSplitter) {
+            if (!directory.isEmpty() && !directory.equals("build")) {
+                this.filePath += directory + "/";
+            } else if (directory.equals("build")) {
+                break;
+            }
+        }
         this.filePath += filePathForBudget;
     }
 

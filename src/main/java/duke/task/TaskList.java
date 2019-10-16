@@ -7,6 +7,9 @@ import java.util.ArrayList;
  */
 public class TaskList {
     protected ArrayList<Task> items;
+    private static final int ZERO = 0;
+    private static final int MINUS_ONE = -1;
+    private static final int ONE = 1;
 
     /**
      * Creates an empty task list using an array list.
@@ -88,8 +91,8 @@ public class TaskList {
      * @return int that contains the index of task.
      */
     public int getIndex(Task taskObj) {
-        int index = -1;
-        for (int i = 0; i < items.size(); i++) {
+        int index = MINUS_ONE;
+        for (int i = ZERO; i < items.size(); i++) {
             if (taskObj.equals(items.get(i))) {
                 index = i;
             }
@@ -104,8 +107,8 @@ public class TaskList {
      */
     public String getList() {
         String listStr = "";
-        for (int i = 0; i < items.size(); i++) {
-            listStr += "     " + (i + 1) + "." + items.get(i).toString() + "\n";
+        for (int i = ZERO; i < items.size(); i++) {
+            listStr += "     " + (i + ONE) + "." + items.get(i).toString() + "\n";
         }
         return listStr;
     }
@@ -117,8 +120,8 @@ public class TaskList {
      */
     public String getListGui() {
         String listStr = "";
-        for (int i = 0; i < items.size(); i++) {
-            listStr += "     " + (i + 1) + "." + items.get(i).toStringGui() + "\n";
+        for (int i = ZERO; i < items.size(); i++) {
+            listStr += "     " + (i + ONE) + "." + items.get(i).toStringGui() + "\n";
         }
         return listStr;
     }

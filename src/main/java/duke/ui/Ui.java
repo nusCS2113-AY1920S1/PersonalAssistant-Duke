@@ -20,6 +20,8 @@ public class Ui {
     protected static final String LINE = "    ____________________________________________________________";
     protected final Scanner in;
     protected final PrintStream out;
+    private static final int ZERO = 0;
+    private static final int ONE = 1;
 
     /**
      * Creates an empty ui using default scanner and print stream.
@@ -74,11 +76,11 @@ public class Ui {
     public static void showReminder(TaskList tasks) {
         ArrayList<Task> taskList = tasks.getTasks();
         System.out.println("     You currently have these upcoming tasks:\n");
-        int currentIndex = 1;
+        int currentIndex = ONE;
         for (Task remaining: taskList) {
             remaining.isTriggerReminder();
             System.out.println("     " + currentIndex + "." + remaining.toString());
-            currentIndex += 1;
+            currentIndex += ONE;
         }
         System.out.println(LINE);
     }
@@ -104,7 +106,7 @@ public class Ui {
         ArrayList<Pair> pair = PriorityList.sortPriority(items, priorities);
         out.println("     Here are the tasks in your list with priority shown:\n");
         out.printf("     Priority |\tTask\n");
-        for (int i = 0; i < items.size() && i < priorities.getSize(); i++) {
+        for (int i = ZERO; i < items.size() && i < priorities.getSize(); i++) {
             out.printf("        [%d]\t  |\t%s\n", pair.get(i).getKey(), pair.get(i).getValue());
         }
     }
@@ -138,7 +140,7 @@ public class Ui {
      */
     public void showUpdate(TaskList items, int index) {
         out.println("     Nice! I've updated this task ^^:");
-        out.println("       " + (index + 1) + "." + items.get(index).toString());
+        out.println("       " + (index + ONE) + "." + items.get(index).toString());
     }
 
     /**
@@ -150,7 +152,7 @@ public class Ui {
      */
     public static String showUpdateGui(TaskList items, int index) {
         String str = "     Nice! I've updated this task ^^:\n"
-                + "       " + (index + 1) + "." + items.get(index).toString();
+                + "       " + (index + ONE) + "." + items.get(index).toString();
         return str;
     }
 
@@ -209,7 +211,7 @@ public class Ui {
      */
     public void showAdd(TaskList items) {
         out.println("     Got it. I've added this task:");
-        out.println("       " + items.get(items.size() - 1).toString());
+        out.println("       " + items.get(items.size() - ONE).toString());
         out.println("     Now you have " + items.size() + " tasks in the list.");
     }
 
@@ -221,7 +223,7 @@ public class Ui {
      */
     public static String showAddGui(TaskList items) {
         String str = "     Got it. I've added this task:\n       "
-                + items.get(items.size() - 1).toStringGui() + "\n     Now you have "
+                + items.get(items.size() - ONE).toStringGui() + "\n     Now you have "
                 + items.size() + " tasks in the list.\n";
         return str;
     }
@@ -271,14 +273,14 @@ public class Ui {
      */
     public void showFind(TaskList items, String keyword) {
         out.println("     Here are the matching tasks in your list:");
-        int numFound = 0;
-        for (int i = 0; i < items.size(); i++) {
+        int numFound = ZERO;
+        for (int i = ZERO; i < items.size(); i++) {
             if (items.get(i).getDescription().contains(keyword)) {
-                out.println("     " + (i + 1) + "." + items.get(i).toString());
+                out.println("     " + (i + ONE) + "." + items.get(i).toString());
                 numFound++;
             }
         }
-        if (numFound == 0) {
+        if (numFound == ZERO) {
             out.println("     No matching tasks found.");
         }
     }
@@ -292,14 +294,14 @@ public class Ui {
      */
     public static String showFindGui(TaskList items, String keyword) {
         String str = "     Here are the matching tasks in your list:\n";
-        int numFound = 0;
-        for (int i = 0; i < items.size(); i++) {
+        int numFound = ZERO;
+        for (int i = ZERO; i < items.size(); i++) {
             if (items.get(i).getDescription().contains(keyword)) {
-                str += "     " + (i + 1) + "." + items.get(i).toStringGui() + "\n";
+                str += "     " + (i + ONE) + "." + items.get(i).toStringGui() + "\n";
                 numFound++;
             }
         }
-        if (numFound == 0) {
+        if (numFound == ZERO) {
             str += "     No matching tasks found.\n";
         }
         return str;
@@ -361,7 +363,7 @@ public class Ui {
      * @param priority The index of the priority.
      */
     public void showSetPriority(TaskList taskList, int taskNum, int priority) {
-        out.println("     Updated the priority of \n\t\t" + taskList.get(taskNum - 1));
+        out.println("     Updated the priority of \n\t\t" + taskList.get(taskNum - ONE));
         out.println("     Current priority: " + priority);
     }
 
@@ -372,10 +374,10 @@ public class Ui {
      */
     public void showAddedContact(ContactList contactList) {
         out.println("     Got it. Contact added:");
-        if (contactList.size() == 0) {
+        if (contactList.size() == ZERO) {
             out.println("     You have no contacts!");
         } else {
-            out.println(contactList.get(contactList.size() - 1));
+            out.println(contactList.get(contactList.size() - ONE));
             out.println("     Now you have " + contactList.size() + " contacts.");
         }
     }

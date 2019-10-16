@@ -17,6 +17,8 @@ import javafx.stage.Stage;
  */
 public class AddWindow extends AnchorPane {
     private Duke duke;
+    private static final int ZERO = 0;
+
     private MainWindow mainWindow;
 
     @FXML
@@ -62,7 +64,7 @@ public class AddWindow extends AnchorPane {
                 "Do After"
         );
         TaskList items = d.getTaskList();
-        for (int i = 0; i < items.size(); i++) {
+        for (int i = ZERO; i < items.size(); i++) {
             cbExistingTask.getItems().add(items.get(i).getDescription());
         }
     }

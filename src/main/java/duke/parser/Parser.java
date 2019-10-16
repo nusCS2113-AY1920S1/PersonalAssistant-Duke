@@ -39,11 +39,19 @@ import java.util.ArrayList;
  * Represents a parser that breaks down user input into commands.
  */
 public class Parser {
+    private static final int ZERO = 0;
+    private static final int ONE = 1;
+    private static final int MINUS_ONE = -1;
+    private static final int TWO = 2;
+    private static final int THREE = 3;
+    private static final int FOUR = 4;
+
     /**
      * Generates a command based on the user input.
      *
      * @param sentence User input.
      * @param items The task list that contains a list of tasks.
+     * @param budgetList The list that contains a list of budget.
      * @return Command to be executed afterwards.
      * @throws Exception  If there is an error interpreting the user input.
      */
@@ -56,19 +64,20 @@ public class Parser {
             return new ListCommand();
         } else if (sentence.equals("priority")) {
             return new ListPriorityCommand();
-        } else if (arr.length > 0 && (arr[0].equals("done") || arr[0].equals("delete") || arr[0].equals("del"))) {
-            if (arr.length == 1) {
+        } else if (arr.length > ZERO && (arr[ZERO].equals("done")
+                || arr[ZERO].equals("delete") || arr[ZERO].equals("del"))) {
+            if (arr.length == ONE) {
                 throw new DukeException("     (>_<) OOPS!!! The task number cannot be empty.");
             } else {
-                int tasknum = Integer.parseInt(arr[1]) - 1;
-                if (tasknum < 0 || tasknum >= items.size()) {
+                int tasknum = Integer.parseInt(arr[ONE]) - ONE;
+                if (tasknum < ZERO || tasknum >= items.size()) {
                     throw new DukeException("     (>_<) OOPS!!! Invalid task number.");
                 } else {
-                    if (arr[0].equals("done")) {
+                    if (arr[ZERO].equals("done")) {
                         if (items.get(tasknum).toString().contains("[A]")) {
                             String tempString = items.get(tasknum).toString();
-                            tempString = tempString.split(": ", 2)[1];
-                            tempString = tempString.split("\\)")[0];
+                            tempString = tempString.split(": ", TWO)[ONE];
+                            tempString = tempString.split("\\)")[ZERO];
 
                             if (!items.isTaskDone(tempString)) {
                                 throw new DukeException("     (>_<) OOPS!! Task requirements has yet to be completed!"
@@ -81,23 +90,23 @@ public class Parser {
                     }
                 }
             }
-        } else if (arr.length > 0 && arr[0].equals("find")) {
-            if (arr.length == 1) {
+        } else if (arr.length > ZERO && arr[ZERO].equals("find")) {
+            if (arr.length == ONE) {
                 throw new DukeException("     (>_<) OOPS!!! The keyword cannot be empty.");
             } else {
-                if (arr[1].trim().isEmpty()) {
+                if (arr[ONE].trim().isEmpty()) {
                     throw new DukeException("     (>_<) OOPS!!! The keyword cannot be empty.");
                 } else {
-                    return new FindCommand(arr[1]);
+                    return new FindCommand(arr[ONE]);
                 }
             }
-        } else if (arr.length > 0 && arr[0].equals("todo")) {
-            String[] getDescription = sentence.split(" ", 2);
+        } else if (arr.length > ZERO && arr[ZERO].equals("todo")) {
+            String[] getDescription = sentence.split(" ", TWO);
             DetectDuplicate detectDuplicate = new DetectDuplicate(items);
-            if (detectDuplicate.isDuplicate(getDescription[0], getDescription[1])) {
+            if (detectDuplicate.isDuplicate(getDescription[ZERO], getDescription[ONE])) {
                 return new DuplicateFoundCommand();
             } else {
-                for (int i = 1; i < arr.length; i++) {
+                for (int i = ONE; i < arr.length; i++) {
                     taskDesc += arr[i] + " ";
                 }
                 taskDesc = taskDesc.trim();
@@ -108,9 +117,10 @@ public class Parser {
                     return new AddCommand(taskObj);
                 }
             }
-        } else if (arr.length > 0 && (arr[0].equals("deadline") || arr[0].equals("dl") || arr[0].equals("event"))) {
-            for (int i = 1; i < arr.length; i++) {
-                if ((arr[i].trim().isEmpty() || !arr[i].substring(0, 1).equals("/")) && !getDate) {
+        } else if (arr.length > ZERO && (arr[ZERO].equals("deadline")
+                || arr[ZERO].equals("dl") || arr[ZERO].equals("event"))) {
+            for (int i = ONE; i < arr.length; i++) {
+                if ((arr[i].trim().isEmpty() || !arr[i].substring(ZERO, ONE).equals("/")) && !getDate) {
                     taskDesc += arr[i] + " ";
                 } else {
                     if (!getDate) { //detect "/"
@@ -123,33 +133,33 @@ public class Parser {
             taskDesc = taskDesc.trim();
             dateDesc = dateDesc.trim();
             if (taskDesc.isEmpty()) {
-                throw new DukeException("     (>_<) OOPS!!! The description of a " + arr[0] + " cannot be empty.");
+                throw new DukeException("     (>_<) OOPS!!! The description of a " + arr[ZERO] + " cannot be empty.");
             } else if (dateDesc.isEmpty()) {
                 throw new DukeException("     (>_<) OOPS!!! The description of date/time for "
-                        + arr[0] + " cannot be empty.");
+                        + arr[ZERO] + " cannot be empty.");
             } else {
                 Task taskObj;
-                if (arr[0].equals("deadline") || arr[0].equals("dl")) {
+                if (arr[ZERO].equals("deadline") || arr[ZERO].equals("dl")) {
                     taskObj = new Deadline(taskDesc, dateDesc);
                 } else {
                     taskObj = new Event(taskDesc, dateDesc);
                 }
 
-                for (int i = 0; i < items.size(); i++) {
+                for (int i = ZERO; i < items.size(); i++) {
                     if (taskObj.getDateTime().equals(items.get(i).getDateTime()) && !items.get(i).isDone()) {
                         throw new DukeException("     (>_<) OOPS!!! The date/time for "
-                                + arr[0] + " clashes with " + items.get(i).toString()
+                                + arr[ZERO] + " clashes with " + items.get(i).toString()
                                 + "\n     Please choose another date/time! Or mark the above task as Done first!");
                     }
                 }
                 return new AddCommand(taskObj);
             }
-        } else if (arr.length > 0 && (arr[0].equals("doafter") || arr[0].equals("da"))) {
+        } else if (arr.length > ZERO && (arr[ZERO].equals("doafter") || arr[ZERO].equals("da"))) {
             //doafter <task> /after <pre-requisite task>
             String afterTaskDesc = "";
             boolean detectBackSlash = false;
-            for (int i = 1; i < arr.length; i++) {
-                if ((arr[i].trim().isEmpty() || !arr[i].substring(0, 1).equals("/")) && !detectBackSlash) {
+            for (int i = ONE; i < arr.length; i++) {
+                if ((arr[i].trim().isEmpty() || !arr[i].substring(ZERO, ONE).equals("/")) && !detectBackSlash) {
                     taskDesc += arr[i] + " ";
                 } else {
                     if (!detectBackSlash) {
@@ -162,10 +172,10 @@ public class Parser {
             taskDesc = taskDesc.trim();
             afterTaskDesc = afterTaskDesc.trim();
             if (taskDesc.isEmpty()) {
-                throw new DukeException("     (>_<) OOPS!!! The description of a " + arr[0] + " cannot be empty.");
+                throw new DukeException("     (>_<) OOPS!!! The description of a " + arr[ZERO] + " cannot be empty.");
             } else if (afterTaskDesc.isEmpty()) {
                 throw new DukeException("     (>_<) OOPS!!! The description of Task for "
-                        + arr[0] + " cannot be empty.");
+                        + arr[ZERO] + " cannot be empty.");
             } else {
                 String currentTasks = items.getList();
                 if (currentTasks.contains(afterTaskDesc)) {
@@ -174,13 +184,13 @@ public class Parser {
                     return new AddCommand(taskObj);
                 } else {
                     throw new DukeException("(>_<) OOPS!!! You cant set a "
-                            + arr[0] + " task for a task that is not in the list!");
+                            + arr[ZERO] + " task for a task that is not in the list!");
                 }
             }
-        } else if (arr.length > 0 && (arr[0].equals("repeat") || arr[0].equals("rep"))) {
+        } else if (arr.length > ZERO && (arr[ZERO].equals("repeat") || arr[ZERO].equals("rep"))) {
             //repeat <task> /from <date time> /for 3 <day/week/month>
-            for (int i = 1; i < arr.length; i++) {
-                if ((arr[i].trim().isEmpty() || !arr[i].substring(0, 1).equals("/")) && !getDate) {
+            for (int i = ONE; i < arr.length; i++) {
+                if ((arr[i].trim().isEmpty() || !arr[i].substring(ZERO, ONE).equals("/")) && !getDate) {
                     taskDesc += arr[i] + " ";
                 } else {
                     if (!getDate) { //detect "/"
@@ -194,18 +204,18 @@ public class Parser {
             dateDesc = dateDesc.trim();
 
             if (taskDesc.isEmpty()) {
-                throw new DukeException("     (>_<) OOPS!!! The description of a " + arr[0] + " cannot be empty.");
+                throw new DukeException("     (>_<) OOPS!!! The description of a " + arr[ZERO] + " cannot be empty.");
             } else if (dateDesc.isEmpty()) {
                 throw new DukeException("     (>_<) OOPS!!! The description of date/time for "
-                        + arr[0] + " cannot be empty.");
+                        + arr[ZERO] + " cannot be empty.");
             } else {
                 String repeatSettings;
                 int repeatTimes;
                 String repeatPeriod;
                 try {
-                    repeatSettings = dateDesc.split("/for ")[1];
+                    repeatSettings = dateDesc.split("/for ")[ONE];
                     repeatTimes = Integer.parseInt(repeatSettings.replaceAll("[\\D]", ""));
-                    repeatPeriod = repeatSettings.split(repeatTimes + " ")[1];
+                    repeatPeriod = repeatSettings.split(repeatTimes + " ")[ONE];
 
                 } catch (Exception e) {
                     throw new DukeException("Format is in: repeat <task> /from <date time> "
@@ -213,50 +223,50 @@ public class Parser {
                 }
 
                 ArrayList<Task> repeatList = new ArrayList<>();
-                String timeDesc = dateDesc.split(" ", 3)[1];
-                for (int i = 0; i < repeatTimes; i++) {
+                String timeDesc = dateDesc.split(" ", THREE)[ONE];
+                for (int i = ZERO; i < repeatTimes; i++) {
                     Task taskObj;
                     taskObj = new Repeat(taskDesc, dateDesc);
                     dateDesc = DateParser.add(dateDesc, repeatPeriod) + " " + timeDesc;
                     repeatList.add(taskObj);
 
-                    for (int j = 0; j < items.size(); j++) {
+                    for (int j = ZERO; j < items.size(); j++) {
                         if (taskObj.getDateTime().equals(items.get(j).getDateTime()) && !items.get(j).isDone()) {
                             throw new DukeException("     (>_<) OOPS!!! The date/time for "
-                                    + arr[0] + " clashes with " + items.get(j).toString()
+                                    + arr[ZERO] + " clashes with " + items.get(j).toString()
                                     + "\n     Please choose another date/time! Or mark the above task as Done first!");
                         }
                     }
                 }
                 return new AddMultipleCommand(repeatList);
             }
-        } else if (arr.length > 0 && (arr[0].equals("fixedduration") || arr[0].equals("fd"))) {
+        } else if (arr.length > ZERO && (arr[ZERO].equals("fixedduration") || arr[ZERO].equals("fd"))) {
             //fixedduration <task> /for <duration> <unit>
             String description = "";
             String durDesc;
             int duration;
             String unit;
-            for (int i = 1; i < arr.length; i++) {
+            for (int i = ONE; i < arr.length; i++) {
                 description += arr[i] + " ";
             }
-            taskDesc = description.split(" /for ")[0].trim();
-            durDesc = description.split(" /for ")[1].trim();
+            taskDesc = description.split(" /for ")[ZERO].trim();
+            durDesc = description.split(" /for ")[ONE].trim();
             DetectDuplicate detectDuplicate = new DetectDuplicate(items);
 
             if (taskDesc.isEmpty()) {
-                throw new DukeException("     (>_<) OOPS!!! The description of a " + arr[0] + " cannot be empty.");
+                throw new DukeException("     (>_<) OOPS!!! The description of a " + arr[ZERO] + " cannot be empty.");
             } else if (durDesc.isEmpty()) {
                 throw new DukeException("     (>_<) OOPS!!! The description of duration for "
-                        + arr[0] + " cannot be empty.");
-            } else if (detectDuplicate.isDuplicate(arr[0], taskDesc)) {
+                        + arr[ZERO] + " cannot be empty.");
+            } else if (detectDuplicate.isDuplicate(arr[ZERO], taskDesc)) {
                 return new DuplicateFoundCommand();
             } else {
                 try {
-                    duration = Integer.parseInt(durDesc.split(" ")[0].trim());
+                    duration = Integer.parseInt(durDesc.split(" ")[ZERO].trim());
                 } catch (Exception e) {
                     throw new DukeException("Format is in: fixedduration <task> /for <duration> <unit>");
                 }
-                unit = durDesc.split(" ")[1].trim();
+                unit = durDesc.split(" ")[ONE].trim();
                 if (unit.isEmpty() || (!unit.toLowerCase().contains("min") && ! unit.toLowerCase().contains("hour"))) {
                     throw new DukeException("Format is in: fixedduration <task> /for <duration> <unit>");
                 } else {
@@ -264,75 +274,75 @@ public class Parser {
                     return new AddCommand(fixedDuration);
                 }
             }
-        } else if (arr.length > 0 && (arr[0].equals("setpriority"))) {
+        } else if (arr.length > ZERO && (arr[ZERO].equals("setpriority"))) {
             //fixedduration <taskNum> <priority>
             String description = "";
 
             int taskNum;
             int priority;
-            for (int i = 1; i < arr.length; i++) {
+            for (int i = ONE; i < arr.length; i++) {
                 description += arr[i] + " ";
             }
 
             String[] holder = description.split(" ");
-            if (holder.length < 2) {
+            if (holder.length < TWO) {
                 throw new DukeException("     (>_<) OOPS!!! Format is in: setpriority <taskNum> <Priority>");
             } else {
                 try {
-                    taskNum = Integer.parseInt(holder[0].trim());
+                    taskNum = Integer.parseInt(holder[ZERO].trim());
                 } catch (Exception e) {
                     throw new DukeException("The task number must be an integer");
                 }
 
-                if (taskNum <= 0 || taskNum > items.size()) {
+                if (taskNum <= ZERO || taskNum > items.size()) {
                     throw new DukeException("     (>_<) OOPS!!! Invalid task number.");
                 }
 
                 try {
-                    priority = Integer.parseInt(holder[1].trim());
+                    priority = Integer.parseInt(holder[ONE].trim());
                 } catch (Exception e) {
                     throw new DukeException("The priority must be an integer");
                 }
 
-                if (!((priority > 0) && (priority < 6))) {
+                if (!((priority > ZERO) && (priority < 6))) {
                     throw new DukeException("     (>_<) OOPS!!! Invalid priority! (1 - High ~ 5 - Low).");
                 }
 
                 return new SetPriorityCommand(taskNum, priority);
             }
 
-        } else if (arr.length > 0 && arr[0].equals("remind")) {
+        } else if (arr.length > ZERO && arr[ZERO].equals("remind")) {
             //remind <taskNumber> /in <howManyDays>
             String description = "";
             String durDesc;
             int duration;
             String unit;
-            for (int i = 1; i < arr.length; i++) {
+            for (int i = ONE; i < arr.length; i++) {
                 description += arr[i] + " ";
             }
             if (description.isEmpty()) {
-                throw new DukeException("     (>_<) OOPS!!! The description of a " + arr[0] + " cannot be empty.");
+                throw new DukeException("     (>_<) OOPS!!! The description of a " + arr[ZERO] + " cannot be empty.");
             }
 
-            duration = Integer.parseInt(description.split("/in", 2)[0].trim()) - 1;
-            String in = description.split(" /in ", 2)[1].trim();
-            int howManyDays = Integer.parseInt(in.split(" ", 2)[0].trim());
+            duration = Integer.parseInt(description.split("/in", TWO)[ZERO].trim()) - ONE;
+            String in = description.split(" /in ", TWO)[ONE].trim();
+            int howManyDays = Integer.parseInt(in.split(" ", TWO)[ZERO].trim());
             return new RemindCommand(duration, howManyDays);
-        } else if (arr.length > 0 && (arr[0].equals("update"))) {
-            if (arr.length == 1) {
+        } else if (arr.length > ZERO && (arr[ZERO].equals("update"))) {
+            if (arr.length == ONE) {
                 throw new DukeException("     (>_<) OOPS!!! The task number cannot be empty.");
             } else {
-                int tasknum = Integer.parseInt(arr[1]) - 1;
-                if (tasknum < 0 || tasknum >= items.size()) {
+                int tasknum = Integer.parseInt(arr[ONE]) - ONE;
+                if (tasknum < ZERO || tasknum >= items.size()) {
                     throw new DukeException("     (>_<) OOPS!!! Invalid task number.");
-                } else if (arr.length < 4) {
+                } else if (arr.length < FOUR) {
                     throw new DukeException("     (>_<) OOPS!!! Insufficient parameters. "
                             + "Format: update <tasknum> <type> <desc or date>");
                 } else {
-                    int typeOfUpdate = -1;
+                    int typeOfUpdate = MINUS_ONE;
                     String typeDesc = "";
-                    for (int i = 2; i < arr.length; i++) {
-                        if (i == 2) {
+                    for (int i = TWO; i < arr.length; i++) {
+                        if (i == TWO) {
                             if (arr[i].trim().isEmpty()
                                     || (!arr[i].equals("/desc")
                                     && !arr[i].equals("/date")
@@ -341,17 +351,17 @@ public class Parser {
                                         + "/date, /desc, or /type.");
                             } else {
                                 if (arr[i].equals("/desc")) {
-                                    typeOfUpdate = 1;
+                                    typeOfUpdate = ONE;
                                 } else if (arr[i].equals("/date")) {
-                                    typeOfUpdate = 2;
+                                    typeOfUpdate = TWO;
                                 } else { //equals /type
-                                    typeOfUpdate = 3;
+                                    typeOfUpdate = THREE;
                                 }
                             }
                         } else {
-                            if (typeOfUpdate == 1) {
+                            if (typeOfUpdate == ONE) {
                                 taskDesc += arr[i] + " ";
-                            } else if (typeOfUpdate == 2) {
+                            } else if (typeOfUpdate == TWO) {
                                 dateDesc += arr[i] + " ";
                             } else { //type of update is number 3
                                 typeDesc += arr[i] + " ";
@@ -361,46 +371,46 @@ public class Parser {
                     taskDesc = taskDesc.trim();
                     dateDesc = dateDesc.trim();
                     typeDesc = typeDesc.trim();
-                    if (typeOfUpdate == 1 && taskDesc.isEmpty()) {
+                    if (typeOfUpdate == ONE && taskDesc.isEmpty()) {
                         throw new DukeException("     (>_<) OOPS!!! The description of a "
-                                + arr[0] + " cannot be empty.");
-                    } else if (typeOfUpdate == 2 && dateDesc.isEmpty()) {
+                                + arr[ZERO] + " cannot be empty.");
+                    } else if (typeOfUpdate == TWO && dateDesc.isEmpty()) {
                         throw new DukeException("     (>_<) OOPS!!! The description of date/time for "
-                                + arr[0] + " cannot be empty.");
-                    } else if (typeOfUpdate == 3 && typeDesc.isEmpty()) {
+                                + arr[ZERO] + " cannot be empty.");
+                    } else if (typeOfUpdate == THREE && typeDesc.isEmpty()) {
                         throw new DukeException("     (>_<) OOPS!!! The description of type for "
-                                + arr[0] + " cannot be empty.");
+                                + arr[ZERO] + " cannot be empty.");
                     } else {
                         return new UpdateCommand(taskDesc, dateDesc, typeDesc, typeOfUpdate, tasknum);
                     }
                 }
             }
-        } else if (arr.length > 0 && arr[0].equals("addcontact")) {
-            String[] userInput = sentence.split(" ",2);
-            String[] contactDetails = userInput[1].split(",");
+        } else if (arr.length > ZERO && arr[ZERO].equals("addcontact")) {
+            String[] userInput = sentence.split(" ",TWO);
+            String[] contactDetails = userInput[ONE].split(",");
             try {
-                Contacts contactObj = new Contacts(contactDetails[0], contactDetails[1],
-                                          contactDetails[2], contactDetails[3]);
+                Contacts contactObj = new Contacts(contactDetails[ZERO], contactDetails[ONE],
+                                          contactDetails[TWO], contactDetails[THREE]);
                 return new AddContactsCommand(contactObj);
             } catch (Exception e) {
                 throw new DukeException("Format is in: addcontact <name>, <contact>, <email>, <office>");
             }
         } else if (sentence.equals("listcontacts")) {
             return new ListContactsCommand();
-        } else if (arr.length > 0 && arr[0].equals("budget")) {
+        } else if (arr.length > ZERO && arr[ZERO].equals("budget")) {
             try {
-                String budgetCommandString = sentence.split(" ", 2)[1];
+                String budgetCommandString = sentence.split(" ", TWO)[ONE];
             } catch (Exception e) {
                 throw new DukeException("     (>_<) OoPS!!! Invalid Budget Command. "
                                         + "It should be: budget <new/add/minus/reset/view> <amount> ");
             }
-            String budgetCommandString = sentence.split(" ", 2)[1];
-            String budgetCommand = budgetCommandString.split(" ", 2)[0];
+            String budgetCommandString = sentence.split(" ", TWO)[ONE];
+            String budgetCommand = budgetCommandString.split(" ", TWO)[ZERO];
             if (budgetCommand.trim().equals("view")) {
                 return new ViewBudgetCommand(budgetList);
             } else {
                 try {
-                    String budgetAmount = budgetCommandString.split(" ", 2)[1];
+                    String budgetAmount = budgetCommandString.split(" ", TWO)[ONE];
                     if (budgetCommand.trim().equals("new") || budgetCommand.trim().equals("reset")) {
                         return new ResetBudgetCommand(budgetList, Float.parseFloat(budgetAmount));
                     } else if (budgetCommand.trim().equals("add") || budgetCommand.trim().equals("+")) {
