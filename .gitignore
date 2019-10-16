@@ -15,5 +15,6 @@ bin/
 
 #My additions
 /data/*.txt
+/SpinBoxData/*
 !placeholder.txt
 /text-ui-test/*.txt

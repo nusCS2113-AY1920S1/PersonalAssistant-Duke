@@ -1,31 +1,27 @@
 package spinbox.lists;
 
 import spinbox.DateTime;
-import spinbox.items.tasks.Schedulable;
+import spinbox.Storage;
+import spinbox.exceptions.FileCreationException;
+import spinbox.exceptions.StorageException;
+import spinbox.items.tasks.Deadline;
 import spinbox.items.tasks.Task;
+import spinbox.items.tasks.Schedulable;
+import spinbox.items.tasks.Event;
+import spinbox.items.tasks.Todo;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
 public class TaskList extends SpinBoxList<Task> {
-    public TaskList() {
-        super();
-    }
+    private static final String TASK_LIST_FILE_NAME = "/tasks.txt";
+    private static final String DELIMITER_FILTER = " \\| ";
 
-    public TaskList(List<Task> tasks) {
-        super(tasks);
-    }
-
-    /**
-     * Mark the task at index as done.
-     * @param index index of element to be marked.
-     * @return task that was marked as done.
-     * @throws IndexOutOfBoundsException if index is invalid.
-     */
-    public Task mark(int index) throws IndexOutOfBoundsException {
-        list.get(index).markDone();
-        return list.get(index);
+    public TaskList(String parentName) throws FileCreationException {
+        super(parentName);
+        localStorage = new Storage(DIRECTORY_NAME + this.getParentCode() + TASK_LIST_FILE_NAME);
     }
 
     static class StartDateComparator implements Comparator<Task> {
@@ -55,5 +51,38 @@ public class TaskList extends SpinBoxList<Task> {
 
     public void sort() {
         Collections.sort(list, new StartDateComparator());
+    }
+
+    @Override
+    public void loadData() throws StorageException {
+        DateTime start;
+        DateTime end;
+        List<String> savedData = localStorage.loadData();
+
+        for (String datum : savedData) {
+            String[] arguments = datum.split(DELIMITER_FILTER);
+            switch (arguments[0]) {
+            case "T":
+                this.add(new Todo(Integer.parseInt(arguments[1]), arguments[2]));
+                break;
+            case "D":
+                start = new DateTime(arguments[3]);
+                this.add(new Deadline(Integer.parseInt(arguments[1]), arguments[2], start));
+                break;
+            default:
+                start = new DateTime(arguments[3]);
+                end = new DateTime(arguments[4]);
+                this.add(new Event(Integer.parseInt(arguments[1]), arguments[2], start, end));
+            }
+        }
+    }
+
+    @Override
+    public void saveData() throws StorageException {
+        List<String> dataToSave = new ArrayList<>();
+        for (Task task: this.getList()) {
+            dataToSave.add(task.storeString());
+        }
+        localStorage.saveData(dataToSave);
     }
 }

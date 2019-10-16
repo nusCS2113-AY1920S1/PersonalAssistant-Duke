@@ -31,7 +31,7 @@ public class DeleteCommand extends Command {
             List<Task> tasks = taskList.getList();
 
             Task removed = taskList.remove(index);
-            storage.setData(tasks);
+            taskList.saveData();
             formattedOutput.add("Noted. I've removed this task:\n" + removed.toString());
             formattedOutput.add("You currently have " + tasks.size()
                     + ((tasks.size() == 1) ? " task in the list." : " tasks in the list."));

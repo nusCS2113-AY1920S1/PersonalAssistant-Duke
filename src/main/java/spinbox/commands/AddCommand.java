@@ -121,7 +121,7 @@ public class AddCommand extends Command {
         }
         formattedOutput.add("You currently have " + taskList.getList().size()
                 + ((taskList.getList().size() == 1) ? " task in the list." : " tasks in the list."));
-        storage.setData(taskList.getList());
+        taskList.saveData();
         taskList.sort();
         return ui.showFormatted(formattedOutput);
     }

@@ -1,5 +1,6 @@
 package spinbox.items;
 
+import spinbox.exceptions.CorruptedDataException;
 import spinbox.exceptions.InputException;
 
 import java.text.DecimalFormat;
@@ -8,6 +9,9 @@ public class GradedComponent extends Item {
     private static final String UNKNOWN_SCORE = "----";
     private static final String DIVIDE_BY_ZERO = "Maximum possible score should be non-zero";
     private static final String TWO_DP = "#.##";
+    private static final String CORRUPTED_GRADES_DATA = "Corrupted grades data.";
+    private static final String STORE_DELIMITER = " | ";
+    private static final String DELIMITER_FILTER = " \\| ";
 
     private double weight;
     private boolean scoreKnown;
@@ -25,14 +29,34 @@ public class GradedComponent extends Item {
         this.weightedScore = 0.0;
     }
 
-    public double getWeight() {
-        return weight;
+    /**
+     * Parses a string extracted from storage back into a GradedComponent object.
+     * @param fromStorage This String is provided directly from the localStorage instance.
+     * @throws CorruptedDataException Thrown when a user manually edits the .txt file incorrectly.
+     */
+    public GradedComponent(String fromStorage) throws CorruptedDataException {
+        super();
+        try {
+            String[] components = fromStorage.split(DELIMITER_FILTER);
+            this.setDone(Integer.parseInt(components[0]) == 1);
+            this.setName(components[1]);
+            this.setScoreKnown(Integer.parseInt(components[2]) == 1);
+            this.setWeight(Double.parseDouble(components[3]));
+            this.setWeightedScore(Double.parseDouble(components[4]));
+        } catch (ArrayIndexOutOfBoundsException e) {
+            throw new CorruptedDataException(CORRUPTED_GRADES_DATA);
+        }
+
     }
 
+    /**
+     * This is to create a stringified version of a GradedComponent instance for storage purposes.
+     * @return String version of GradedComponent, ready for storage.
+     */
     @Override
     public String storeString() {
-        return super.storeString() + " | " + (this.isScoreKnown() ? 1 : 0)
-            + " | " + Double.toString(this.weight) + " | " + Double.toString(this.weightedScore);
+        return super.storeString() + STORE_DELIMITER + (this.isScoreKnown() ? 1 : 0)
+            + STORE_DELIMITER + Double.toString(this.weight) + STORE_DELIMITER + Double.toString(this.weightedScore);
     }
 
     /**
@@ -83,8 +107,12 @@ public class GradedComponent extends Item {
         return (Double.compare(0.0, maximumScore) == 0);
     }
 
-    private void setScoreKnown() {
+    private void setScoreKnownAsTrue() {
         this.scoreKnown = true;
+    }
+
+    private void setScoreKnown(boolean scoreKnown) {
+        this.scoreKnown = scoreKnown;
     }
 
     private boolean isScoreKnown() {
@@ -93,7 +121,19 @@ public class GradedComponent extends Item {
 
     private void setComplete() {
         this.markDone();
-        this.setScoreKnown();
+        this.setScoreKnownAsTrue();
+    }
+
+    private void setWeight(double weight) {
+        this.weight = weight;
+    }
+
+    /**
+     * Returns the relative weight in % of the graded component across 100% of module assessment.
+     * @return a double, stating the relative weight of the graded component.
+     */
+    public double getWeight() {
+        return weight;
     }
 
     private void setWeightedScore(double weightedScore) {

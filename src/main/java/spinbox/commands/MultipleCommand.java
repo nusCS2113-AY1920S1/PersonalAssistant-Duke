@@ -77,7 +77,7 @@ public class MultipleCommand extends Command {
                 }
             }
             List<Task> tasks = taskList.getList();
-            storage.setData(tasks);
+            taskList.saveData();
             formattedOutput.add("You currently have " + tasks.size()
                     + ((tasks.size() == 1) ? " task in the list." : " tasks in the list."));
             return ui.showFormatted(formattedOutput);

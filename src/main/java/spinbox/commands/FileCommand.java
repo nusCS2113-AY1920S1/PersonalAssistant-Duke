@@ -5,7 +5,6 @@ import spinbox.exceptions.InputException;
 import spinbox.Storage;
 import spinbox.lists.TaskList;
 import spinbox.items.tasks.Task;
-import spinbox.items.File;
 import spinbox.Ui;
 
 import java.util.ArrayList;
@@ -73,7 +72,7 @@ public class FileCommand extends Command {
         case "done":
             try {
                 Task downloaded = fileTaskList.mark(index);
-                fileStorage.setData(fileTaskList.getList());
+                fileTaskList.saveData();
                 formattedOutput.add("Nice! I've marked this file as downloaded:");
                 formattedOutput.add(downloaded.toString());
             } catch (IndexOutOfBoundsException e) {
@@ -84,7 +83,7 @@ public class FileCommand extends Command {
             try {
                 Task removed = fileTaskList.remove(index);
                 files = fileTaskList.getList();
-                fileStorage.setData(fileTaskList.getList());
+                fileTaskList.saveData();
                 formattedOutput.add("Noted. I've removed this file:\n" + removed.toString());
                 formattedOutput.add("You currently have " + files.size()
                         + ((files.size() == 1) ? " task in the list." : " tasks in the list."));
@@ -100,7 +99,7 @@ public class FileCommand extends Command {
             }
         }
 
-        fileStorage.setData(fileTaskList.getList());
+        fileTaskList.saveData();
         return ui.showFormatted(formattedOutput);
     }
 

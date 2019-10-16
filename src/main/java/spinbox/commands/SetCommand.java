@@ -72,7 +72,7 @@ public class SetCommand extends Command {
         formattedOutput.add(tentativeTask.toString());
         formattedOutput.add("With event:");
         formattedOutput.add(addTask.toString());
-        storage.setData(taskList.getList());
+        taskList.saveData();
         taskList.sort();
 
         return ui.showFormatted(formattedOutput);

@@ -1,3 +1,4 @@
+import spinbox.exceptions.CorruptedDataException;
 import spinbox.exceptions.SpinBoxException;
 import spinbox.exceptions.InputException;
 import spinbox.items.GradedComponent;
@@ -67,5 +68,32 @@ public class GradedComponentTest {
         assertEquals(testGradeOne.getWeight(), 20);
         assertEquals(testGradeOne.storeString(), "0 | Essay | 0 | 20.0 | 0.0");
         assertEquals(testGradeOne.getWeightedScoreAsString(), "----");
+    }
+
+    @Test
+    public void storeStringCreation_gradedEssayScored_expectedString() throws InputException {
+        GradedComponent testGradeOne = new GradedComponent("Essay", 20);
+        testGradeOne.updateWeightedScore(15, 30);
+
+        assertEquals(testGradeOne.storeString(), "1 | Essay | 1 | 20.0 | 10.0");
+    }
+
+    @Test
+    public void storeStringRecreation_gradedEssayScored_expectedObjectAfterReconstruction()
+            throws InputException, CorruptedDataException {
+        GradedComponent testGradeOne = new GradedComponent("Essay", 20);
+        testGradeOne.updateWeightedScore(15, 30);
+        assertEquals(testGradeOne.storeString(), "1 | Essay | 1 | 20.0 | 10.0");
+
+        GradedComponent testGradeOneRecreated = new GradedComponent("1 | Essay | 1 | 20.0 | 10.0");
+        assertEquals(testGradeOneRecreated.getWeight(), 20);
+        assertEquals(testGradeOneRecreated.storeString(), "1 | Essay | 1 | 20.0 | 10.0");
+        assertEquals(testGradeOneRecreated.getWeightedScoreAsString(), "10");
+    }
+
+    @Test
+    public void getWeight_gradedQuizNotScored_expectedWeight() {
+        GradedComponent testGradeOne = new GradedComponent("Quiz", 8);
+        assertEquals(testGradeOne.getWeight(), 8);
     }
 }

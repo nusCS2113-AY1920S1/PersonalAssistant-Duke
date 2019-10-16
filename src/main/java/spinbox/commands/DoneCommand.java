@@ -33,7 +33,7 @@ public class DoneCommand extends Command {
             formattedOutput.add("Nice! I've marked this task as done:");
             formattedOutput.add(completed.toString());
             formattedOutput.add("This task has been removed from the list.");
-            storage.setData(taskList.getList());
+            taskList.saveData();
             List<Task> tasks = taskList.getList();
             formattedOutput.add("You currently have " + tasks.size()
                     + ((tasks.size() == 1) ? " task in the list." : " tasks in the list."));

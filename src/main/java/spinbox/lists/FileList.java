@@ -1,29 +1,23 @@
 package spinbox.lists;
 
+import spinbox.Storage;
+import spinbox.exceptions.FileCreationException;
+import spinbox.exceptions.SpinBoxException;
+import spinbox.exceptions.StorageException;
 import spinbox.items.File;
+import spinbox.items.tasks.Task;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
 public class FileList extends SpinBoxList<File> {
-    public FileList() {
-        super();
-    }
+    private static final String FILE_LIST_FILE_NAME = "/files.txt";
 
-    public FileList(List<File> files) {
-        super(files);
-    }
-
-    /**
-     * Mark the file at index as downloaded.
-     * @param index index of element to be marked.
-     * @return task that was marked as downloaded.
-     * @throws IndexOutOfBoundsException if index is invalid.
-     */
-    public File mark(int index) throws IndexOutOfBoundsException {
-        list.get(index).markDone();
-        return list.get(index);
+    public FileList(String parentName) throws FileCreationException {
+        super(parentName);
+        localStorage = new Storage(DIRECTORY_NAME + this.getParentCode() + FILE_LIST_FILE_NAME);
     }
 
     /**
@@ -38,5 +32,22 @@ public class FileList extends SpinBoxList<File> {
 
     public void sort() {
         Collections.sort(list, new FileComparator());
+    }
+
+    @Override
+    public void loadData() throws StorageException {
+        List<String> savedData = localStorage.loadData();
+        for (String datum : savedData) {
+            this.add(new File(datum));
+        }
+    }
+
+    @Override
+    public void saveData() throws StorageException {
+        List<String> dataToSave = new ArrayList<>();
+        for (File file: this.getList()) {
+            dataToSave.add(file.storeString());
+        }
+        localStorage.saveData(dataToSave);
     }
 }
