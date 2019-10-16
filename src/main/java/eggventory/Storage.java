@@ -1,18 +1,15 @@
 package eggventory;
 
+import eggventory.commands.AddCommand;
+import eggventory.enums.CommandType;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.ArrayList;
 import java.util.Scanner;
-import eggventory.StockList;
-import eggventory.commands.AddCommand;
-import eggventory.enums.CommandType;
-import eggventory.items.Stock;
-import eggventory.items.StockType;
 
 /**
  * Handles reading and writing the stockList to file.
@@ -59,7 +56,7 @@ public class Storage {
             System.out.println("Save file cannot be read. Please fix it manually or use a new list.");
         }
 
-        return savedList; //Returns a StockType.
+        return savedList; //Returns a StockList.
     }
 
     private void writeToFile(String textToAdd) throws IOException {
@@ -74,9 +71,9 @@ public class Storage {
     public void save(StockList stockList) {
         StringBuilder tasksToSave = new StringBuilder();
         int max = stockList.getQuantity();
-        for (int i = 0; i < max; i++) { //index starts from 0.
-            tasksToSave.append(stockList.saveDetailsString()).append(System.lineSeparator());
-        }
+        //for (int i = 0; i < max; i++) { //index starts from 0.
+        tasksToSave.append(stockList.saveDetailsString()).append(System.lineSeparator());
+        //}
 
         String taskListToSave = tasksToSave.toString();
         try {

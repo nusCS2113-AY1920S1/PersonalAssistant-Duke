@@ -1,13 +1,12 @@
 package eggventory;
 
-import java.util.ArrayList;
-
-import eggventory.items.Stock;
 import eggventory.items.StockType;
+
+import java.util.ArrayList;
 
 public class StockList {
     private ArrayList<StockType> stockList;
-    private int quantity;
+    //private int quantity;
 
     /**
      * Constructs a new StockList object using an already existing stockList.
@@ -15,7 +14,7 @@ public class StockList {
      */
     public StockList(ArrayList<StockType> stockList) {
         this.stockList = stockList;
-        this.quantity = stockList.size() - 1;
+        //this.quantity = stockList.size() - 1;
     }
 
     /**
@@ -24,7 +23,7 @@ public class StockList {
     public StockList() {
         this.stockList = new ArrayList<>();
         this.stockList.add(new StockType("Uncategorised", false));
-        this.quantity = 0;
+        //this.quantity = 0;
     }
 
     public void addStockType(String name) {
@@ -48,7 +47,7 @@ public class StockList {
 
         // "Uncategorised" is always the first element on stockList.
         stockList.get(0).addStock("Uncategorised", stockCode, quantity, description);
-        this.quantity++;
+        //this.quantity++;
     }
 
     /**
@@ -58,7 +57,7 @@ public class StockList {
     public void deleteStock(String stockCode) {
         for (StockType stockType : stockList) {
             stockType.deleteStock(stockCode);
-            this.quantity--;
+            //this.quantity--;
         }
     }
 
@@ -69,6 +68,8 @@ public class StockList {
     public String toString() {
         String ret = "";
         ret += "CURRENT INVENTORY\n";
+
+        int quantity = getQuantity(); //Use the stockList size instead.
         for (int i = 0; i < quantity; i++) {
             ret += "------------------------\n";
             ret += stockList.get(i).toString() + "\n";
@@ -85,7 +86,7 @@ public class StockList {
         String details = "";
 
         for (StockType stocktype : stockList) {
-            details += stocktype.saveDetailsString() + " ";
+            details += stocktype.saveDetailsString() + "\n";
         }
 
         return details;
@@ -111,7 +112,7 @@ public class StockList {
     }
 
     public int getQuantity() {
-        return quantity;
+        return stockList.size();
     }
 
 }

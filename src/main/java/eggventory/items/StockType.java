@@ -1,13 +1,6 @@
 package eggventory.items;
 
-import eggventory.items.CollectiveStock;
-import eggventory.items.UniqueStock;
-
 import java.util.ArrayList;
-
-import eggventory.exceptions.BadInputException;
-import eggventory.items.Stock;
-import eggventory.items.CollectiveStock;
 
 /**
  * Manages the list of (different types of classes),
@@ -112,7 +105,7 @@ public class StockType {
     public String saveDetailsString() {
         String details = "";
         for (Stock stock : stocks) {
-            details += stock.saveDetailsString() + " ";
+            details += stock.saveDetailsString() + "\n";
         }
         return details;
     }
