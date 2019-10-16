@@ -65,6 +65,11 @@ public class GsonStorage {
             throw new DukeFatalException("Unable to load data file, try checking your permissions?");
         }
     }
+    
+    //deprecated, test compatibility purposes only
+    public void loadPatientHashMap() throws DukeFatalException {
+        loadPatientHashMap(testPatientMap);
+    }
 
     /**
      * Creates a list with the patients in the patient hash map and add the lists json representation
@@ -81,11 +86,6 @@ public class GsonStorage {
         } catch (IOException e) {
             throw new DukeFatalException("Unable to write data! Some data may have been lost,");
         }
-    }
-
-    //deprecated, test compatibility purposes only
-    public void loadPatientHashMap() throws DukeFatalException {
-        loadPatientHashMap(testPatientMap);
     }
 
     //deprecated, test compatibility purposes only
