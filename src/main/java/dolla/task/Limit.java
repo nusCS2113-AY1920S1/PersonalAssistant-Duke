@@ -75,8 +75,6 @@ public class Limit extends Log {
         } else {
 
         }
-
-
     }
 
     public void EditCurrBudget() {
