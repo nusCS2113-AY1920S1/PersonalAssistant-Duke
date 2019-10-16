@@ -5,6 +5,7 @@ plugins {
     id 'com.github.johnrengelman.shadow' version '5.1.0'
     id 'org.openjfx.javafxplugin' version '0.0.7'
     id 'jacoco'
+    id 'com.github.kt3k.coveralls' version '2.8.4'
 }
 
 checkstyle {
@@ -20,15 +21,34 @@ shadowJar {
 
 jacoco {
     toolVersion = "0.8.4"
-    reportsDir = file("$buildDir/customJacocoReportDir")
 }
 
 jacocoTestReport {
     reports {
-        xml.enabled false
-        csv.enabled false
+        xml.enabled true
+        csv.enabled true
         html.destination file("${buildDir}/jacocoHtml")
     }
+}
+
+task coverage(type: JacocoReport) {
+    sourceDirectories.from files(sourceSets.main.allSource.srcDirs)
+    classDirectories.from files(sourceSets.main.output)
+    executionData.from files(jacocoTestReport.executionData)
+    afterEvaluate {
+        classDirectories.from files(classDirectories.files.collect {
+            fileTree(dir: it, exclude: ['**/*.jar'])
+        })
+    }
+}
+
+tasks.coveralls {
+    dependsOn coverage
+    onlyIf { System.env.'CI' }
+}
+
+coveralls {
+    jacocoReportPath "${buildDir}/reports/jacoco/test/jacocoTestReport.xml"
 }
 
 dependencies {
@@ -39,6 +59,9 @@ dependencies {
 
 test {
     useJUnitPlatform()
+    jacoco {
+        destinationFile = new File("${buildDir}/jacoco/test.exec")
+    }
 }
 
 group 'seedu.duke'
