@@ -7,7 +7,7 @@ public class Member implements IMember {
     private String phone;
     private String email;
     private int indexNumber;
-    private MemberTaskList memberTaskList;
+    private ListOfTasksAssignedToMember listOfTasksAssignedToMember;
 
     /**
      * Class representing a member in a project team.
@@ -52,6 +52,6 @@ public class Member implements IMember {
     }
 
     public void assignTask(Task task) {
-        this.memberTaskList.addAssignedTask(task);
+        this.listOfTasksAssignedToMember.addAssignedTask(task);
     }
 }

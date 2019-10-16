@@ -1,5 +1,5 @@
 package controllers;
 
-public interface IViewController {
+public interface IController {
     void onCommandReceived(String input);
 }

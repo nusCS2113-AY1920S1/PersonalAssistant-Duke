@@ -3,10 +3,10 @@ package models.member;
 import java.util.ArrayList;
 import java.util.HashSet;
 
-public class TaskMemberList implements IMemberList {
+public class ListOfMemebersAssignedToTask implements IMemberList {
     private ArrayList<Member> memberList;
 
-    public TaskMemberList() {
+    public ListOfMemebersAssignedToTask() {
         this.memberList = new ArrayList<>();
     }
 
