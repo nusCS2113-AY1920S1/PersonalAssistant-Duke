@@ -3,6 +3,7 @@ package executor.command;
 import executor.task.TaskList;
 import interpreter.Parser;
 import ui.Ui;
+import ui.Wallet;
 
 public class CommandFind extends Command {
     protected String userInput;
@@ -13,6 +14,11 @@ public class CommandFind extends Command {
      */
     public CommandFind(String userInput) {
         this.userInput = userInput;
+    }
+
+    @Override
+    public void execute(Wallet wallet) {
+
     }
 
     @Override

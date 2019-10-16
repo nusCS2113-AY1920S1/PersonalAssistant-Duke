@@ -3,6 +3,7 @@ package executor.command;
 import executor.task.Task;
 import executor.task.TaskList;
 import ui.Ui;
+import ui.Wallet;
 
 import java.util.Calendar;
 import java.util.Date;
@@ -13,6 +14,11 @@ public class CommandReminder extends Command {
 
     public CommandReminder() {
         this.currentDate.setTime(0);
+    }
+
+    @Override
+    public void execute(Wallet wallet) {
+
     }
 
     @Override
