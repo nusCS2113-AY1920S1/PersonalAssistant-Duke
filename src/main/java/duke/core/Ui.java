@@ -247,13 +247,10 @@ public class Ui {
     }
 
 
-    public void showUpdateStatus(Patient patient , String targetInfo) {
-        System.out.println("I have successfully updated the " + targetInfo + " of " + patient.getName() + " ID:" + patient.getID()  );
+    public void showUpdatedSuccessfully() {
+        System.out.println("I have successfully updated the following information: \n");
     }
 
-    /**
-     * Shows an error in loading the file where past tasks are stored.
-     */
     public void showLoadingError() {
         System.out.println("Failed to Load from local text file!");
     }

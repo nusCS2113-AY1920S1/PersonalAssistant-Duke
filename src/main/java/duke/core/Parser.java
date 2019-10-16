@@ -71,5 +71,10 @@ public class Parser {
         return formattedInput;
     }
 
-    
+    public String parseUpdatePatient() throws DukeException {
+        String formattedInput;
+        String inputToParse = userInput.replaceAll("(?i)update patient ", "").trim();
+        formattedInput = inputToParse;
+        return formattedInput;
+    }
 }
