@@ -1,0 +1,6 @@
+apple | 5
+apple | 5
+apple | 5
+apple | 10
+apple | 10
+apple | 10
