@@ -25,6 +25,7 @@ public class ModelManager implements Model {
     private final FilteredList<Sale> filteredSales;
     private final FilteredList<Product> filteredProducts;
     private final FilteredList<Item<Ingredient>> filteredInventory;
+    private final FilteredList<Item<Ingredient>> filteredShoppingList;
 
     /**
      * Initializes a ModelManager with the given BakingHome.
@@ -36,6 +37,7 @@ public class ModelManager implements Model {
         this.filteredSales = new FilteredList<>(this.bakingHome.getSaleList());
         this.filteredProducts = new FilteredList<>(this.bakingHome.getProductList());
         this.filteredInventory = new FilteredList<>(this.bakingHome.getInventoryList());
+        this.filteredShoppingList = new FilteredList<>(this.bakingHome.getShoppingList());
     }
 
     public ModelManager() {
@@ -241,6 +243,13 @@ public class ModelManager implements Model {
     @Override
     public ObservableList<Item<Ingredient>> getFilteredInventoryList() {
         return filteredInventory;
+    }
+
+    //========Shopping operations==========
+
+    @Override
+    public ObservableList<Item<Ingredient>> getFilteredShoppingList() {
+        return filteredShoppingList;
     }
 
     //========Shortcut operations=========

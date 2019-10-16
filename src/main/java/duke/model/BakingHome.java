@@ -23,6 +23,7 @@ public class BakingHome implements ReadOnlyBakingHome {
     private final UniqueEntityList<Order> orders;
     private final UniqueEntityList<Product> products;
     private final UniqueEntityList<Item<Ingredient>> inventory;
+    private final UniqueEntityList<Item<Ingredient>> shoppingList;
     private final UniqueEntityList<Shortcut> shortcuts;
 
     /**
@@ -33,6 +34,7 @@ public class BakingHome implements ReadOnlyBakingHome {
         orders = new UniqueEntityList<>();
         products = new UniqueEntityList<>();
         inventory = new UniqueEntityList<>();
+        shoppingList = new UniqueEntityList<>();
         shortcuts = new UniqueEntityList<>();
     }
 
@@ -226,6 +228,13 @@ public class BakingHome implements ReadOnlyBakingHome {
     @Override
     public ObservableList<Item<Ingredient>> getInventoryList() {
         return inventory.asUnmodifiableObservableList();
+    }
+
+    //============Shopping operations==============
+
+    @Override
+    public ObservableList<Item<Ingredient>> getShoppingList() {
+        return shoppingList.asUnmodifiableObservableList();
     }
 
     //// shortcut-related operations

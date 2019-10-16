@@ -101,7 +101,7 @@ public class MainWindow extends UiPart<Stage> {
         orderPage = new OrderPage(logic.getFilteredOrderList());
         productPage = new ProductPage(logic.getFilteredProductList());
         salePage = new SalePage(logic.getFilteredSaleList());
-        inventoryPage = new InventoryPage(logic.getFilteredInventoryList());
+        inventoryPage = new InventoryPage(logic.getFilteredInventoryList(), logic.getFilteredShoppingList());
         setAllPageAnchor(orderPage.getRoot(), productPage.getRoot(), salePage.getRoot(), inventoryPage.getRoot());
     }
 

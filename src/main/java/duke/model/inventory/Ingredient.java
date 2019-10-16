@@ -80,6 +80,10 @@ public class Ingredient {
         return unitPrice;
     }
 
+    public String getUnitPriceAsString() {
+        return String.valueOf(unitPrice);
+    }
+
     public String getRemarks() {
         return remarks;
     }

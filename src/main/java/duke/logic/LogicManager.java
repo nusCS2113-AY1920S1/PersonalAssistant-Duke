@@ -86,6 +86,11 @@ public class LogicManager implements Logic {
         return model.getFilteredInventoryList();
     }
 
+    @Override
+    public ObservableList<Item<Ingredient>> getFilteredShoppingList() {
+        return model.getFilteredShoppingList();
+    }
+
     private void addFieldsToAutoComplete() {
         autoCompleter.addCommand(OrderCommand.class);
         autoCompleter.addCommand(AddOrderCommand.class);

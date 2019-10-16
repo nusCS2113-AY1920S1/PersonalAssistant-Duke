@@ -30,6 +30,8 @@ public interface Model {
 
     Predicate<Item<Ingredient>> PREDICATE_SHOW_ALL_INVENTORY = unused -> true;
 
+    Predicate<Item<Ingredient>> PREDICATE_SHOW_ALL_SHOPPING= unused -> true;
+
     /**
      * Returns true if the model has previous baking home states to restore.
      */
@@ -213,6 +215,8 @@ public interface Model {
 
     //======Shopping list operations=====
 
+    ObservableList<Item<Ingredient>> getFilteredShoppingList();
+
     //=========Shortcut operations=======
 
     /**
@@ -236,5 +240,4 @@ public interface Model {
      * Returns an unmodifiable view of the shortcut list.
      */
     List<Shortcut> getShortcutList();
-
 }

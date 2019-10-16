@@ -35,5 +35,7 @@ public interface ReadOnlyBakingHome {
      */
     ObservableList<Item<Ingredient>> getInventoryList();
 
+    ObservableList<Item<Ingredient>> getShoppingList();
+
     List<Shortcut> getShortcutList();
 }
