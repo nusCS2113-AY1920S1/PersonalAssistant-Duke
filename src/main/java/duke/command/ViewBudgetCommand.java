@@ -11,6 +11,7 @@ import java.io.IOException;
 public class ViewBudgetCommand extends Command {
 
     protected Ui ui = new Ui();
+    protected BudgetList budgetList;
 
     /**
      * Command that allows the user to view the budget that he/she currently has.
@@ -18,9 +19,8 @@ public class ViewBudgetCommand extends Command {
      * @param budgetList The list of budget that is stored by Duke Manager.
      */
     public ViewBudgetCommand(BudgetList budgetList) {
-        ui.showBudget(budgetList.getBudget());
+        this.budgetList = budgetList;
     }
-
 
     /**
      * Executes a command with task list and ui.
@@ -31,7 +31,7 @@ public class ViewBudgetCommand extends Command {
      */
     @Override
     public void execute(TaskList items, Ui ui) {
-
+        ui.showBudget(budgetList.getBudget());
     }
 
     /**
@@ -44,7 +44,7 @@ public class ViewBudgetCommand extends Command {
      */
     @Override
     public String executeGui(TaskList items, Ui ui) {
-        return null;
+        return ui.showBudgetGui(budgetList.getBudget());
     }
 
     /**

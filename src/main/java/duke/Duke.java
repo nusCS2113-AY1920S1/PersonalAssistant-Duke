@@ -165,11 +165,11 @@ public class Duke {
                         || cmd instanceof SetPriorityCommand) {
                     cmd.execute(items, priorityList, ui);
                 } else if (cmd instanceof BackupCommand) {
-                    ui.showBeforeBackupMsg();
                     priorityStorage.write(priorityList);
                     budgetStorage.write(budgetList);
                     contactStorage.write(contactList);
                     storage.write(items);
+                    cmd.execute(items, ui);
                     cmd.executeStorage(items, ui, storage);
                 } else if (cmd instanceof AddContactsCommand) {
                     cmd.execute(items, contactList, ui);

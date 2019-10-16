@@ -17,7 +17,7 @@ import duke.command.DuplicateFoundCommand;
 import duke.command.AddContactsCommand;
 import duke.command.ListContactsCommand;
 import duke.command.AddBudgetCommand;
-import duke.command.UpdateBudgetCommand;
+import duke.command.ResetBudgetCommand;
 import duke.command.ViewBudgetCommand;
 
 import duke.task.TaskList;
@@ -33,7 +33,6 @@ import duke.dukeexception.DukeException;
 import duke.task.Contacts;
 import duke.task.BudgetList;
 
-import java.text.ParseException;
 import java.util.ArrayList;
 
 /**
@@ -403,7 +402,7 @@ public class Parser {
                 try {
                     String budgetAmount = budgetCommandString.split(" ", 2)[1];
                     if (budgetCommand.trim().equals("new") || budgetCommand.trim().equals("reset")) {
-                        return new UpdateBudgetCommand(budgetList, Float.parseFloat(budgetAmount));
+                        return new ResetBudgetCommand(budgetList, Float.parseFloat(budgetAmount));
                     } else if (budgetCommand.trim().equals("add") || budgetCommand.trim().equals("+")) {
                         return new AddBudgetCommand(budgetList, Float.parseFloat(budgetAmount));
                     } else if (budgetCommand.trim().equals("minus") || budgetCommand.trim().equals("-")) {
