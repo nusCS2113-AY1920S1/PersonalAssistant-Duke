@@ -266,6 +266,6 @@ public class Ui {
             System.out.println("\t" + listNum + ". " + entryList.get().get(i).getLogText());
         }
         System.out.println(line);
-        new SortDescription().setEntriesToSort(entryList.get());
+        new SortDescription().sortEntry(entryList.get());
     }
 }
