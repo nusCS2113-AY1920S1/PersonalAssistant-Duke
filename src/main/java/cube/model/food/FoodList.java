@@ -8,7 +8,7 @@ public class FoodList {
 	private ArrayList<Food> foodArrayList;
 
 	public enum SortType {
-		
+		EXPIRY,
 	}
 
 	public FoodList() {
@@ -29,7 +29,7 @@ public class FoodList {
 	}
 
 	public Food get(int index) {
-		return null;
+		return foodArrayList.get(index);
 	}
 
 	public Food get(String foodName) {
@@ -37,15 +37,15 @@ public class FoodList {
 	}
 
 	public void remove(int index) {
-		
+		foodArrayList.remove(index);
 	}
 
 	public boolean exists(Food food) {
-		return true;
+		return foodArrayList.contains(food);
 	}
 
 	public int size() {
-		return 0;
+		return foodArrayList.size();
 	}
 
 	public void sort(SortType sortType) {

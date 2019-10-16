@@ -68,6 +68,13 @@ public class Ui {
 		System.out.println("Now you have " + list.size() + " tasks in the list.");
 	}
 
+	public void showAddFood(FoodList list) {
+		System.out.println("Got it. I've added this food:");
+		Food food = list.get(list.size() -1);
+		System.out.println("  " + food);
+		System.out.println("Now you have " + list.size() + " food in the list.");
+	}
+
 	/**
 	 * Prints each task in the task list.
 	 *
@@ -75,6 +82,13 @@ public class Ui {
 	 */
 	public void showList(TaskList list) {
 		System.out.println("Here are the tasks in your list: ");
+		for(int i = 0; i < list.size(); i++) {
+			System.out.println((i + 1) + "." + list.get(i));
+		}
+	}
+
+	public void showListFood(FoodList list) {
+		System.out.println("Here are the food in your list: ");
 		for(int i = 0; i < list.size(); i++) {
 			System.out.println((i + 1) + "." + list.get(i));
 		}
@@ -133,7 +147,7 @@ public class Ui {
 	 * @param list the list of food products that are low on stock.
 	 */
 	public void showStockReminder(FoodList list) {
-		System.out.println("Here are the food products low in stock:");
+		System.out.println("Here are the food products that are low in stock:");
 		for(int i = 0; i < list.size(); i++) {
 			Food food = list.get(i);
 			System.out.println(food.getName() + ": " + food.getStock() + " left");
@@ -150,6 +164,18 @@ public class Ui {
 		System.out.println("Nice! I've removed this task:");
 		System.out.println(removed);
 		System.out.println("Now you have " + list.size() + " tasks in the list.");
+	}
+
+	public void showDelete(Food removed, FoodList list) {
+		System.out.println("Nice! I've removed this food:");
+		System.out.println(removed);
+		System.out.println("Now you have " + list.size() + " food in the list.");
+	}
+
+	public void showSold(String foodName, int quantity, double profit, double revenue) {
+		String display = String.format("%d of %s sold\n", quantity, foodName);
+		display += String.format("you have earn %f, the total revenue is %f", profit, revenue);
+		System.out.println(display);
 	}
 
 	/**
@@ -191,7 +217,7 @@ public class Ui {
 				//+ String.format("%1$-50s", "  'Delete <number>'") + "delete the nth task in the list\n"
 				+ "Show task list:\n"
 				+ String.format("%1$-50s", "  'list'") + "shows the list of food products\n"
-				+ String.format("%1$-50s", "  'Reminder'") + "show the list of food products that are low on stock or are approaching its expiry date\n"
+				+ String.format("%1$-50s", "  'Reminder'") + "show the list of food products that are low on stock and/or are approaching its expiry date\n"
 				//+ String.format("%1$-50s", "  'List'") + "show the list of tasks\n"
 				//+ String.format("%1$-50s", "  'Find <keywords>'") + "show the list of tasks with specified keywords\n"
 				//+ String.format("%1$-50s", "  'FreeTime <number>'") + "show the nearest day with free time of n hours\n"
