@@ -83,6 +83,9 @@ public class TaskList {
         case FDURATION:
             newTask = new FixedDuration(taskDesc);
             break;
+        case RECURRING:
+            newTask = new Recurring(taskDesc);
+            break;
         default:
             newTask = null;
             break;
@@ -132,13 +135,12 @@ public class TaskList {
         for (int index = 0; index < this.taskList.size(); ++index) {
             try {
                 System.out.println((index + 1)
-                        + ". "
-                        + this.taskList.get(index).genTaskDesc()
+                                 + ". "
+                                 + this.taskList.get(index).genTaskDesc()
                 );
             } catch (Exception e) {
                 System.out.println("Unable to print Task "
-                        + String.valueOf(index + 1)
-                );
+                         + String.valueOf(index + 1));
             }
         }
     }

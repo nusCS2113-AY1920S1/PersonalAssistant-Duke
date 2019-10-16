@@ -29,5 +29,10 @@ class ToDoTest {
         assertEquals("between", test.getDetailDesc(), "detailDesc interpretation error");
         assertEquals("19/09/1997", dateFormat.format(test.getDateFrom()), "dateFrom interpretation error");
         assertEquals("19/09/2019",  dateFormat.format(test.getDateTo()), "dateTo interpretation error");
+
+        test = new ToDo("todo SU /for weekly");
+        assertEquals("SU", test.getTaskName(), "taskName interpretation error");
+        assertEquals("for", test.getDetailDesc(), "detailDesc interpretation error");
+        assertEquals("weekly", test.getTaskDetails(), "taskDetails interpretation error");
     }
 }
