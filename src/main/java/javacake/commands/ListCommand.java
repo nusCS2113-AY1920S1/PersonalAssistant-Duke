@@ -5,7 +5,6 @@ import javacake.ProgressStack;
 import javacake.Profile;
 import javacake.Ui;
 import javacake.Storage;
-import javacake.topics.MainList;
 
 public class ListCommand extends Command {
     public ListCommand() {

@@ -1,6 +1,11 @@
 package javacake.commands;
 
-import javacake.*;
+import javacake.Duke;
+import javacake.DukeException;
+import javacake.Profile;
+import javacake.ProgressStack;
+import javacake.Storage;
+import javacake.Ui;
 import javacake.quiz.Question;
 import java.io.IOException;
 
@@ -15,18 +20,18 @@ public class GoToCommand extends Command {
 
     /**
      * Execute jumping to given index.
-     * @param progressStack TaskList containing current tasks
+     * @param progressStack tracks current location in program
      * @param ui the Ui responsible for outputting messages
      * @param storage Storage needed to write the updated data
      * @param profile Profile of the user
      * @throws DukeException Error thrown when unable to close reader
      */
     public String execute(ProgressStack progressStack, Ui ui, Storage storage, Profile profile) throws DukeException {
-        int intIndex = Integer.parseInt(index)-1;
+        int intIndex = Integer.parseInt(index) - 1;
         progressStack.updateFilePath(progressStack.gotoFilePath(intIndex));
         String filePath = progressStack.getFullFilePath();
         if (filePath.contains("Quiz")) {
-            if (filePath.contains("1. Java Basics")){
+            if (filePath.contains("1. Java Basics")) {
                 if (Duke.isCliMode()) {
                     return new QuizCommand(Question.QuestionType.BASIC)
                             .execute(progressStack, ui, storage, profile);

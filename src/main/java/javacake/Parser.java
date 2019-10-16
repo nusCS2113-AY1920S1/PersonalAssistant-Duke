@@ -1,12 +1,6 @@
 package javacake;
 
-import javacake.commands.Command;
-import javacake.commands.ExitCommand;
-import javacake.commands.HelpCommand;
-import javacake.commands.ListCommand;
-import javacake.commands.BackCommand;
-import javacake.commands.GoToCommand;
-import javacake.commands.ScoreCommand;
+import javacake.commands.*;
 import javacake.tasks.Task;
 import javacake.tasks.ToDo;
 import javacake.tasks.Deadline;
@@ -46,6 +40,8 @@ public class Parser {
             return new ScoreCommand();
         } else if (input.equals("goto")) {
             return new GoToCommand(inputCommand);
+        } else if (input.equals("tree")) {
+            return new MegaListCommand();
         } else {
             throw new DukeException("OOPS!!! I'm sorry, but I don't know what that means.");
         }
