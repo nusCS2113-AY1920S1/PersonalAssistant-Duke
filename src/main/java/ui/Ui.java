@@ -4,9 +4,11 @@ import Dictionary.Word;
 import Dictionary.WordBank;
 
 import java.util.ArrayList;
+
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Scanner;
+import java.util.Stack;
 
 /**
  * Represents the object that displays prompts and feedback from the system to the user's commands.
@@ -95,6 +97,23 @@ public class Ui {
 
     public String showSearch(String description, String meaning){
         return ("Here is the meaning of " + description + ": " + meaning);
+    }
+
+    public String showHistory(Stack<Word> wordHistory, int numberOfWordsToDisplay) {
+        int numberOfWords;
+        String s = "";
+        if (numberOfWordsToDisplay > wordHistory.size()) {
+            s += "The number of words requested exceeds the number of words in your word bank.\n";
+            numberOfWords = wordHistory.size();
+        } else {
+            numberOfWords = numberOfWordsToDisplay;
+        }
+        s += ("Here are the last " + numberOfWords + " words you have added:\n");
+        for (int i = 0; i < numberOfWords; i++) {
+            s += wordHistory.peek() + "\n";
+            wordHistory.pop();
+        }
+        return s;
     }
 
     public String quizDisplay(String question, String[] options, int optionSequence){

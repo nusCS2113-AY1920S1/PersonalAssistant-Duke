@@ -89,6 +89,20 @@ public class Parser {
                     }
                 }
                 return new ListCommand(order);
+            } else if (taskInfo[0].equals("history")) {
+                int numberOfWordsToDisplay;
+                if (taskInfo.length == 1){
+                    throw new WrongHistoryFormatException();
+                }
+                if (taskInfo[1].equals("0")) {
+                    throw new ZeroHistoryRequestException();
+                }
+                try {
+                    numberOfWordsToDisplay = Integer.parseInt(taskInfo[1]);
+                } catch (NumberFormatException nfe){
+                    throw new WrongHistoryFormatException();
+                }
+                return new HistoryCommand(numberOfWordsToDisplay);
             } else if (taskInfo[0].equals("edit")) {
                 // CREATE AN EDIT COMMAND TO DEAL WITH EDIT WORD
                 return null;

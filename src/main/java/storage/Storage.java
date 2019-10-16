@@ -8,6 +8,9 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.File;
 import java.io.IOException;
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.Stack;
 import java.util.TreeMap;
 
 /**
@@ -62,6 +65,39 @@ public class Storage {
         }
     }
 
+    public Stack<Word> loadHistoryFromFile() {
+        File file = new File(FILE_PATH);
+        FileReader fr = null;
+        BufferedReader br = null;
+        try {
+            fr = new FileReader(file);
+            br = new BufferedReader(fr);
+            Stack<Word> wordHistory = new Stack<>();
+            String line = br.readLine();
+            while (line != null) {
+                // get data from storage
+                // parse the line first
+                if (line.equals("")) {
+                    line = br.readLine(); continue;
+                }
+                String[] parsedWordAndMeaning = line.split(":");
+                Word word = new Word(parsedWordAndMeaning[0].trim(), parsedWordAndMeaning[1].trim());
+                wordHistory.add(word);
+                line = br.readLine();
+            }
+            return wordHistory;
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        } finally {
+            try {
+                br.close();
+                fr.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
     public void writeFile(String s, boolean append) {
         File file = new File(FILE_PATH);
         FileWriter fw = null;
@@ -70,7 +106,7 @@ public class Storage {
             fw = new FileWriter(file, append);
             bw = new BufferedWriter(fw);
             bw.write(s);
-//            bw.newLine();
+            bw.newLine();
         } catch (IOException e) {
             e.printStackTrace();
         } finally {
