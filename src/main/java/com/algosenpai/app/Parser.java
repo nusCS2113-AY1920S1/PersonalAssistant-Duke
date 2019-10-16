@@ -34,7 +34,6 @@ public class Parser {
 
         String[] outputs = userInput.split(" "); //for commands
 
-<<<<<<< HEAD
         try {
             DukeExceptions.checkUserInput(userInput);
             if (userInput.contains("exit")) {
@@ -100,43 +99,7 @@ public class Parser {
         } catch (DukeExceptions e) {
             String closestCommand = possibleCommand(userInput);
             System.out.println(e + "Did you mean" + closestCommand);
-=======
-    public static Command parse(String userInput) throws DukeExceptions {
-        String[] outputs = userInput.trim().split(" ");
-        String firstWord = outputs[0];
-        int num = Integer.parseInt(outputs[1]);
 
-        if (firstWord.equals("exit")) {
-            return new ExitCommand();
-        } else if (firstWord.equals("menu")) {
-            return new MenuCommand();
-        } else if (firstWord.equals("start")) {
-            return new StartCommand();
-        } else if (firstWord.equals("select")) {
-            return new SelectCommand(num);
-        } else if (firstWord.equals("result")) {
-            return new ResultCommand(num);
-        } else if (firstWord.equals("report")) {
-            return new ReportCommand();
-        } else if (firstWord.equals("back")) {
-            return new BackCommand();
-        } else if (firstWord.equals("history")) {
-            return new HistoryCommand(num);
-        } else if (firstWord.equals("undo")) {
-            return new UndoCommand();
-        } else if (firstWord.equals("clear")) {
-            return new ClearCommand(num);
-        } else if (firstWord.equals("reset")) {
-            return new ResetCommand();
-        } else if (firstWord.equals("save")) {
-            return new SaveCommand();
-        } else if (firstWord.equals("help")) {
-            return new HelpCommand();
-        } else if (isInteger(firstWord)) {
-            return new ConvertStringToIntegerArrayCommand(userInput);
-        } else {
-            throw new DukeExceptions("☹ OOPS!!! I'm sorry, please enter a valid command.");
->>>>>>> 4a9530083f1126064d36c59c966645811e3a7383
         }
         return null;
     }
