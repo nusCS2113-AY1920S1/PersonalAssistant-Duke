@@ -247,6 +247,16 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public boolean hasIngredient(Ingredient ingredient) {
+        return false;
+    }
+
+    @Override
+    public boolean deductIngredient(Ingredient ingredient, double amount) {
+        return false;
+    }
+
+    @Override
     public ObservableList<Item<Ingredient>> getFilteredInventoryList() {
         return filteredInventory;
     }

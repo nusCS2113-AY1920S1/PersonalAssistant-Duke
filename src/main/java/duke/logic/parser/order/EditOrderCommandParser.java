@@ -14,7 +14,6 @@ import static duke.logic.parser.commons.CliSyntax.PREFIX_CUSTOMER_NAME;
 import static duke.logic.parser.commons.CliSyntax.PREFIX_ORDER_DEADLINE;
 import static duke.logic.parser.commons.CliSyntax.PREFIX_ORDER_ITEM;
 import static duke.logic.parser.commons.CliSyntax.PREFIX_ORDER_REMARKS;
-import static duke.logic.parser.commons.CliSyntax.PREFIX_ORDER_STATUS;
 import static duke.logic.parser.commons.CliSyntax.PREFIX_ORDER_TOTAL;
 import static duke.logic.parser.order.OrderParserUtil.createDescriptor;
 
@@ -27,7 +26,6 @@ public class EditOrderCommandParser implements Parser<EditOrderCommand> {
                 PREFIX_CUSTOMER_CONTACT,
                 PREFIX_ORDER_ITEM,
                 PREFIX_ORDER_DEADLINE,
-                PREFIX_ORDER_STATUS,
                 PREFIX_ORDER_REMARKS,
                 PREFIX_ORDER_TOTAL
         );

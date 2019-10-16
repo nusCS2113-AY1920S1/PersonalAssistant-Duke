@@ -205,6 +205,11 @@ public interface Model {
      */
     boolean hasInventory(Item<Ingredient> inventory);
 
+    boolean hasIngredient(Ingredient ingredient);
+
+    //TODO:Hi Eugene. This method returns false if deduction leads to negative. Thanks.
+    boolean deductIngredient(Ingredient ingredient, double amount);
+
     /**
      * Removes an inventory item from the inventory list
      * @param inventory The inventory item
