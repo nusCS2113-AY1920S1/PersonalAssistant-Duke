@@ -18,6 +18,10 @@ public abstract class Evidence extends DukeData {
         super(name, impression, priority);
     }
 
+    public Evidence(String name, String impression, int priority) {
+        super(name, impression, priority);
+    }
+
     @Override
     public int updatePriority(int priorityVal) throws DukeException {
         if (priorityVal >= 0 && priorityVal < 5) {
