@@ -2,7 +2,6 @@ package seedu.duke;
 
 import seedu.duke.common.command.HelpCommand;
 import seedu.duke.email.command.EmailTagCommand;
-import seedu.duke.email.entity.Email;
 import seedu.duke.task.TaskList;
 import seedu.duke.task.command.TaskAddCommand;
 import seedu.duke.common.command.Command;
@@ -14,7 +13,6 @@ import seedu.duke.email.EmailList;
 import seedu.duke.email.command.EmailFetchCommand;
 import seedu.duke.email.command.EmailListCommand;
 import seedu.duke.email.command.EmailShowCommand;
-import seedu.duke.task.TaskList;
 import seedu.duke.task.command.TaskDeleteCommand;
 import seedu.duke.task.command.TaskDoAfterCommand;
 import seedu.duke.task.command.TaskDoneCommand;
@@ -23,7 +21,7 @@ import seedu.duke.task.command.TaskListCommand;
 import seedu.duke.task.command.TaskReminderCommand;
 import seedu.duke.task.command.TaskSetPriorityCommand;
 import seedu.duke.task.command.TaskSnoozeCommand;
-import seedu.duke.task.command.TaskEditCommand;
+import seedu.duke.task.command.TaskUpdateCommand;
 import seedu.duke.task.entity.Task;
 
 import java.time.LocalDateTime;
@@ -181,8 +179,8 @@ public class CommandParser {
             return parseSnoozeCommand(input, taskList, optionList);
         } else if (input.startsWith("todo") | input.startsWith("deadline") | input.startsWith("event")) {
             return parseAddTaskCommand(taskList, input, optionList);
-        } else if (input.startsWith("edit")) {
-            return parseEditCommand(taskList, input, optionList);
+        } else if (input.startsWith("update")) {
+            return parseUpdateCommand(taskList, input, optionList);
         } else if (input.startsWith("set")) {
             return parsePriorityCommand(input, taskList, optionList);
         }
@@ -568,15 +566,15 @@ public class CommandParser {
         return new TaskAddCommand(taskList, taskType, name, time, doAfter, tags, priority);
     }
 
-    private static Command parseEditCommand(TaskList taskList, String input, ArrayList<Option> optionList) {
-        TaskEditCommand.Attributes attribute = null;
+    private static Command parseUpdateCommand(TaskList taskList, String input, ArrayList<Option> optionList) {
+        TaskUpdateCommand.Attributes attribute = null;
         String description = null;
         int index;
-        Pattern editPattern = Pattern.compile("^edit\\s+(?<index>\\d+)\\s*$");
+        Pattern editPattern = Pattern.compile("^update\\s+(?<index>\\d+)\\s*$");
         Matcher editMatcher = editPattern.matcher(input);
         if (!editMatcher.matches()) {
             if (ui != null) {
-                ui.showError("Please enter an index after \'edit\'");
+                ui.showError("Please enter an index after \'update\'");
             }
             return new InvalidCommand();
         } else {
@@ -596,15 +594,15 @@ public class CommandParser {
                     ^ !extractDoAfter(optionList).equals("")) {
                 if (!extractDoAfter(optionList).equals("")) {
                     description = extractDoAfter(optionList);
-                    attribute = TaskEditCommand.Attributes.doAfter;
+                    attribute = TaskUpdateCommand.Attributes.doAfter;
                 } else if (!extractTime(optionList).equals("")) {
                     description = extractTime(optionList);
-                    attribute = TaskEditCommand.Attributes.time;
+                    attribute = TaskUpdateCommand.Attributes.time;
                 } else if (!extractPriority(optionList).equals("")) {
                     description = extractPriority(optionList);
-                    attribute = TaskEditCommand.Attributes.priority;
+                    attribute = TaskUpdateCommand.Attributes.priority;
                 }
-                return new TaskEditCommand(taskList, index, description, attribute);
+                return new TaskUpdateCommand(taskList, index, description, attribute);
             }
         } catch (UserInputException e) {
             return new InvalidCommand();

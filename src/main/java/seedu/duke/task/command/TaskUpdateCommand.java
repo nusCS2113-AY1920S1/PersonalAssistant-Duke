@@ -8,11 +8,11 @@ import seedu.duke.task.TaskList;
 /**
  * Edit command to change (or add) certain attributes of a task.
  */
-public class TaskEditCommand extends Command {
+public class TaskUpdateCommand extends Command {
     private TaskList taskList;
     private int index;
     private String description;
-    private TaskEditCommand.Attributes attribute;
+    private TaskUpdateCommand.Attributes attribute;
 
     /**
      * Instantiates a find command with all variables necessary.
@@ -21,7 +21,7 @@ public class TaskEditCommand extends Command {
      * @param description   what to modify to
      * @param attribute     what attribute to modify
      */
-    public TaskEditCommand(TaskList taskList, int index, String description, TaskEditCommand.Attributes attribute) {
+    public TaskUpdateCommand(TaskList taskList, int index, String description, TaskUpdateCommand.Attributes attribute) {
         this.taskList = taskList;
         this.index = index;
         this.description = description;
