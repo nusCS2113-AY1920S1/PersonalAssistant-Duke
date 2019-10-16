@@ -1,7 +1,7 @@
 package seedu.hustler.command.avatarCommand;
 
-import seedu.hustler.Hustler;
 import seedu.hustler.command.Command;
+import seedu.hustler.ui.Ui;
 
 /**
  * Command that checks the avatar's current status.
@@ -14,8 +14,7 @@ public class CheckAvatarCommand extends Command {
 
     @Override
     public void execute() {
-        System.out.println("\t_____________________________________");
-        System.out.println(Hustler.avatar.toString());
-        System.out.println("\t_____________________________________");
+        Ui ui = new Ui();
+        ui.showAvatarStatistics();
     }
 }
