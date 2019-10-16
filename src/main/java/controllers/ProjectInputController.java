@@ -2,7 +2,6 @@ package controllers;
 
 import java.text.ParseException;
 import java.util.Scanner;
-
 import models.data.Project;
 import models.member.IMember;
 import models.member.Member;
@@ -131,7 +130,8 @@ public class ProjectInputController implements IController {
                         consoleView.consolePrint("The task index entered is invalid.");
                     }
                 } else if (projectCommand.length() >= 12 && ("assign task ").equals(projectCommand.substring(0,12))) {
-                    AssignmentControllerUtil.manageAssignment(projectToManage,
+                    AssignmentControllerUtil assignmentControllerUtil = new AssignmentControllerUtil();
+                    assignmentControllerUtil.manageAssignment(projectToManage,
                         projectCommand.substring(12).split(" "), consoleView);
                 } else if ("bye".equals(projectCommand)) {
                     consoleView.end();
