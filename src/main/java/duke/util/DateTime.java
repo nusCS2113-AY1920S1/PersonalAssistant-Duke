@@ -5,14 +5,14 @@ import java.time.temporal.Temporal;
 
 public class DateTime<E extends Temporal> {
 
-    private E Temporal;
+    private E temporal;
 
     public DateTime(E Temporal) {
-        this.Temporal = Temporal;
+        this.temporal = Temporal;
     }
 
     public E value() {
-        return this.Temporal;
+        return this.temporal;
     }
 
     public static LocalDateTime now() {

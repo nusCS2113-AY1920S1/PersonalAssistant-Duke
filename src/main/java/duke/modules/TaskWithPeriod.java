@@ -17,7 +17,7 @@ public abstract class TaskWithPeriod extends Task {
 
     public TimeInterval getInterval() {
         return new TimeInterval(this.getPeriod());
-    };
+    }
 
     public LocalTime getBeginTime() {
         return this.getPeriod().getBeginTime();
@@ -43,7 +43,7 @@ public abstract class TaskWithPeriod extends Task {
 
     public <T extends TemporalAccessor> boolean isClashing(T other) {
         return this.getPeriod().isClashing(other);
-    };
+    }
 
     public <E extends TaskWithPeriod> boolean isClashing(E other) {
         return this.isClashing(other.getPeriod());

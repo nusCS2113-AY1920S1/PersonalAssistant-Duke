@@ -23,7 +23,7 @@ public abstract class TaskWithMultiplePeriods<E extends TimePeriod> extends Task
 
     public TimeInterval getInterval(int index) throws ModInvalidIndexException {
         return new TimeInterval(this.getPeriod(index));
-    };
+    }
 
     public LocalTime getBeginTime(int index) throws ModInvalidIndexException {
         return this.getPeriod(index).getBeginTime();
@@ -44,8 +44,14 @@ public abstract class TaskWithMultiplePeriods<E extends TimePeriod> extends Task
     public E getPeriod(int index) throws ModInvalidIndexException {
         this.checkIndex(index);
         return this.getPeriods().get(index);
-    };
+    }
 
+    /**
+     * Set period for a task.
+     * @param index task index
+     * @param period new period
+     * @throws ModInvalidIndexException when input index is invalid
+     */
     public void setPeriod(int index, E period) throws ModInvalidIndexException {
         try {
             this.getPeriods().set(index, period);
@@ -62,7 +68,7 @@ public abstract class TaskWithMultiplePeriods<E extends TimePeriod> extends Task
 
     public List<E> getPeriods() {
         return this.periods;
-    };
+    }
 
     public void setPeriods(List<E> periods) {
         this.periods = periods;
@@ -130,7 +136,7 @@ public abstract class TaskWithMultiplePeriods<E extends TimePeriod> extends Task
             }
         }
         return false;
-    };
+    }
 
     /**
      * Check for clashing with time between two given TemporalAccessors.
