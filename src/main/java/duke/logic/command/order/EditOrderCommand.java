@@ -23,13 +23,13 @@ public class EditOrderCommand extends OrderCommand {
 
     public static final String AUTO_COMPLETE_INDICATOR = OrderCommand.COMMAND_WORD + " " + COMMAND_WORD;
     public static final Prefix[] AUTO_COMPLETE_PARAMETERS = {
-            CliSyntax.PREFIX_CUSTOMER_NAME,
-            CliSyntax.PREFIX_CUSTOMER_CONTACT,
-            CliSyntax.PREFIX_ORDER_DEADLINE,
-            CliSyntax.PREFIX_ORDER_STATUS,
-            CliSyntax.PREFIX_ORDER_ITEM,
-            CliSyntax.PREFIX_ORDER_REMARKS,
-            CliSyntax.PREFIX_ORDER_TOTAL
+        CliSyntax.PREFIX_CUSTOMER_NAME,
+        CliSyntax.PREFIX_CUSTOMER_CONTACT,
+        CliSyntax.PREFIX_ORDER_DEADLINE,
+        CliSyntax.PREFIX_ORDER_STATUS,
+        CliSyntax.PREFIX_ORDER_ITEM,
+        CliSyntax.PREFIX_ORDER_REMARKS,
+        CliSyntax.PREFIX_ORDER_TOTAL
     };
 
     private static final String MESSAGE_COMMIT = "Edit order";
@@ -66,8 +66,11 @@ public class EditOrderCommand extends OrderCommand {
         if (orderToEdit.getStatus().equals(Order.Status.COMPLETED)) {
             throw new CommandException(MESSAGE_CANNOT_EDIT_COMPLETED_ORDER);
         }
-        Order editedOrder = OrderCommandUtil.createNewOrder(orderToEdit, orderDescriptor,
-                model.getFilteredProductList());
+        Order editedOrder = OrderCommandUtil.createNewOrder(
+            orderToEdit,
+            orderDescriptor,
+            model.getFilteredProductList(),
+            model.getFilteredInventoryList());
 
         model.setOrder(orderToEdit, editedOrder);
         model.updateFilteredOrderList(Model.PREDICATE_SHOW_ALL_ORDERS);
