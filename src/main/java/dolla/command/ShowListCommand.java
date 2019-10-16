@@ -31,7 +31,7 @@ public class ShowListCommand extends Command {
 
         switch (mode) {
         case "entries":
-            logList = dollaData.entryList;
+            logList = dollaData.getLogList(mode);
             break;
         default:
             break; // TODO: What to do here?
@@ -43,7 +43,7 @@ public class ShowListCommand extends Command {
             Ui.printEmptyListError(mode);
             return;
         } else if (mode.equals("entries")) {
-            Ui.printList(mode, dollaData.getEntryList());
+            Ui.printList(mode, logList);
             return;
         }
 
