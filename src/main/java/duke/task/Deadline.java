@@ -1,5 +1,6 @@
 package duke.task;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 /**
@@ -7,7 +8,7 @@ import java.util.Date;
  * Describes an event which is classified as a deadline
  */
 public class Deadline extends Task {
-    private Date datetime;
+    private LocalDate datetime;
 
     /**
      * Constructor of deadline
@@ -17,17 +18,17 @@ public class Deadline extends Task {
      * @param description the description of the deadline
      * @param by          the date and time which the deadline should be done by
      */
-    public Deadline(String description, Date by, String recurrencePeriod) {
+    public Deadline(String description, LocalDate by, String recurrencePeriod) {
         super(description, recurrencePeriod);
         this.datetime = by;
         this.key = "[D]";
     }
 
-    public Deadline(String description, Date by) {
+    public Deadline(String description, LocalDate by) {
         this(description, by, "none");
     }
 
-    public Date getDatetime() {
+    public LocalDate getDatetime() {
         return this.datetime;
     }
 

@@ -6,12 +6,19 @@ import java.time.LocalDate;
 
 class TaskTest {
 
-     private final Task task = new Task("homework", "daily");
 
     @Test
      public void testIsTimeToReset() {
-        assertEquals(true, task.isTimeToReset(LocalDate.now().minusDays(1), LocalDate.now()));
-        assertEquals(false, task.isTimeToReset(LocalDate.now(), LocalDate.now()));
+        final Task taskDaily = new Task("homework", "daily");
+        assertEquals(true, taskDaily.isTimeToReset(LocalDate.now().minusDays(1), LocalDate.now()));
+        assertEquals(false, taskDaily.isTimeToReset(LocalDate.now(), LocalDate.now()));
+
+        final Task taskWeekly = new Task("homework", "weekly");
+        assertEquals(false, taskWeekly.isTimeToReset(LocalDate.now().minusDays(1), LocalDate.now()));
+        assertEquals(false, taskWeekly.isTimeToReset(LocalDate.now(), LocalDate.now()));
+        assertEquals(true, taskWeekly.isTimeToReset(LocalDate.now().minusDays(8), LocalDate.now()));
     }
+
+
 
 }

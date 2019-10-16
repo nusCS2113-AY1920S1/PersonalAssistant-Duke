@@ -8,8 +8,8 @@ import duke.ui.Ui;
 
 import java.io.IOException;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 /**
  * duke.command.AddCommand that deals with the adding of new duke.task.Task objects to the duke.tasklist.TaskList
@@ -60,8 +60,7 @@ public class AddCommand extends Command {
                 break;
             case "deadline":
                 String[] dInfo = description.split(" /by ");
-                SimpleDateFormat dFormat = new SimpleDateFormat("ddMMyyyy HHmm");
-                Date by = dFormat.parse(dInfo[1]);
+                LocalDate by = convertToLocalDate(dInfo[1]);
                 if (isRecurring) {
                     tasks.add(new Deadline(dInfo[0], by, recurrencePeriod));
                 } else {
@@ -71,8 +70,7 @@ public class AddCommand extends Command {
                 break;
             case "event":
                 String[] eInfo = description.split(" /at ");
-                SimpleDateFormat eFormat = new SimpleDateFormat("ddMMyyyy HHmm");
-                Date at = eFormat.parse(eInfo[1]);
+                LocalDate at = convertToLocalDate(eInfo[1]);
                 Event newEvent;
                 if (isRecurring) {
                     newEvent = new Event(eInfo[0], at, recurrencePeriod);
@@ -88,6 +86,12 @@ public class AddCommand extends Command {
                 break;
         }
         storage.save(tasks);
+    }
+
+    public LocalDate convertToLocalDate(String rawDate) {
+        DateTimeFormatter fmt = DateTimeFormatter.ofPattern("ddMMyyyy HHmm");
+        LocalDate date = LocalDate.parse(rawDate, fmt);
+        return date;
     }
 
     @Override

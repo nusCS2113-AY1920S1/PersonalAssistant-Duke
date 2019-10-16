@@ -1,13 +1,13 @@
 package duke.task;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 /**
  * Subclass of duke.task.Task
  * Describes specific type of task which can be classified as an event
  */
 public class Event extends Task {
-	private Date datetime;
+	private LocalDate datetime;
 
 	/**
 	 * Constructor for duke.task.Event
@@ -17,17 +17,17 @@ public class Event extends Task {
 	 * @param description the description of the event
 	 * @param at the date and time at which the event will be held
 	 */
-	public Event(String description, Date at, String recurrencePeriod) {
+	public Event(String description, LocalDate at, String recurrencePeriod) {
 		super(description, recurrencePeriod);
 		this.datetime = at;
 		this.key = "[E]";
 	}
 
-	public Event(String description, Date at) {
+	public Event(String description, LocalDate at) {
 		this(description, at, "none");
 	}
 
-	public Date getDatetime() {
+	public LocalDate getDatetime() {
 		return this.datetime;
 	}
 

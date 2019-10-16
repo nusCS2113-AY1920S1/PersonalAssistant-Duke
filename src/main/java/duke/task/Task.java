@@ -86,7 +86,7 @@ public class Task {
                     return false;
                 }
             case WEEKLY:
-                if (ChronoUnit.DAYS.between(dateCreated, dateNow) % 7 == 0) {
+                if (ChronoUnit.DAYS.between(dateCreated, dateNow) > 7) {
                     return true;
                 } else {
                     return false;
