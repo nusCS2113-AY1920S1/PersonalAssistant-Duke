@@ -86,10 +86,9 @@ public class Parser {
                 processEdit(input,tasklist,ui);
             } else if (isPayment(input)) {
                 processPayment(input, managermap, ui);
-            } else if(isgetpayee(input)){
+            } else if (isgetpayee(input)) {
                 processfindpayee(input, ui, managermap);
-            }
-            else if (isPayee(input)) {
+            } else if (isPayee(input)) {
                 processPayee(input, managermap, ui);
             } else {
                 throw new DukeException("     ☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
@@ -120,14 +119,19 @@ public class Parser {
             ui.exceptionMessage("     ☹ OOPS!!! The content to find cannot be empty.");
         }
     }
-
+    /**
+     * Processes the getpayee command and outputs a list of payments of the payee whose name was entered.
+     * @param input Input from the user.
+     * @param managermap Payee(key) and their details(value).
+     * @param ui Ui that interacts with the user.
+     */
     private static void processfindpayee(String input, Ui ui, HashMap<String, Payee> managermap) {
         try {
             String[] splitspace = input.split(" ", 2);
             ArrayList<Payments> paymentsArrayList = new ArrayList<Payments>();
             paymentsArrayList  = PaymentManager.findPayee(splitspace[1], managermap);
             ui.printPaymentList(paymentsArrayList);
-        }catch (ArrayIndexOutOfBoundsException e) {
+        } catch (ArrayIndexOutOfBoundsException e) {
             ui.exceptionMessage("     ☹ OOPS!!! The content to find cannot be empty.");
         }
     }
@@ -138,6 +142,7 @@ public class Parser {
      * @param ui Ui that interacts with the user.
      */
     private static void processViewSchedule(String input, TaskList tasklist, Ui ui) {
+
         try {
             TaskList findlist = new TaskList();
             String[] splitspace = input.split(" ", 3);

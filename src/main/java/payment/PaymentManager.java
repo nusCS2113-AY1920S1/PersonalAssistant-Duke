@@ -9,13 +9,13 @@ import java.util.HashMap;
  * PaymentManager for managing Payments objects and PaymentForms from the PaymentsList.
  */
 public abstract class PaymentManager {
-
+    static ArrayList<Payments> paymentsArrayList = new ArrayList<Payments>();
     /**
      * Finds the Payments objects containing a payee name and returns a list of Payments.
      * @param payee Payee of the item.
      */
-    static ArrayList<Payments> paymentsArrayList = new ArrayList<Payments>();
     public static ArrayList<Payments> findPayee(String payee, HashMap<String, Payee> managermap) {
+
         for (Payments payment : managermap.get(payee).payments) {
             paymentsArrayList.add(payment);
             //TODO Output payment to UI

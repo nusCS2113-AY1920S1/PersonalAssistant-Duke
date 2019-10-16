@@ -72,7 +72,12 @@ public class Ui {
         }
         System.out.print(line);
     }
+    /**
+     * Prints the list of payments of a payee.
+     * @param paymentList paymentList of the payee.
+     */
     public void printPaymentList(ArrayList<Payments> paymentList) {
+
         for (int i = 0; i < paymentList.size(); i = i + 1) {
             System.out.println(paymentList.get(i).givePayments());
         }
