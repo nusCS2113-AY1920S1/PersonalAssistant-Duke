@@ -9,6 +9,7 @@ import java.io.InputStream;
 import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.Scanner;
+import javafx.util.Pair;
 
 /**
  * Represents a ui that informs the user.
@@ -100,10 +101,11 @@ public class Ui {
      * @param priorities The list of priorities associated with each task.
      */
     public void showTaskListWithPriority(TaskList items, PriorityList priorities) {
+        ArrayList<Pair> pair = PriorityList.sortPriority(items, priorities);
         out.println("     Here are the tasks in your list with priority shown:\n");
         out.printf("     Priority |\tTask\n");
         for (int i = 0; i < items.size() && i < priorities.getSize(); i++) {
-            out.printf("        [%d]\t  |\t%d.%s\n", priorities.getList().get(i), i + 1, items.get(i));
+            out.printf("        [%d]\t  |\t%s\n", pair.get(i).getKey(), pair.get(i).getValue());
         }
     }
 
@@ -360,7 +362,7 @@ public class Ui {
      * @param priority The index of the priority.
      */
     public void showSetPriority(TaskList taskList, int taskNum, int priority) {
-        out.println("     Updated the priority of \n\t\t" + taskList.get(taskNum));
+        out.println("     Updated the priority of \n\t\t" + taskList.get(taskNum - 1));
         out.println("     Current priority: " + priority);
     }
 
