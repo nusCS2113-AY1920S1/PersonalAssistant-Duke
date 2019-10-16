@@ -35,3 +35,5 @@ build/distributions/duke-shadow-0.1.0.zip
 build/libs/mid-v1.1.jar
 build/reports/tests/test/css/style.css
 build/reports/tests/test/js/report.js
+/data/testData/
+src/test/java/duke/storage/PatientStorageTest.java
