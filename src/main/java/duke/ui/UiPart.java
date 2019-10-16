@@ -89,5 +89,4 @@ public abstract class UiPart<T> {
         URL fxmlFileUrl = Launcher.class.getResource(fxmlFileNameWithFolder);
         return requireNonNull(fxmlFileUrl);
     }
-
 }

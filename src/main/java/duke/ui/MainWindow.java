@@ -151,6 +151,8 @@ public class MainWindow extends UiPart<Stage> {
             keyEvent.consume();
             autocomplete();
             break;
+        case ESCAPE:
+            keyEvent.consume();
         default:
             // let JavaFx handle the keypress
         }

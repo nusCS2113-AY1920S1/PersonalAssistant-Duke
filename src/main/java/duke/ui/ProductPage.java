@@ -24,7 +24,12 @@ public class ProductPage extends UiPart<AnchorPane> {
     @FXML
     private TableView productListTable;
 
+    @FXML
+    private ProductDetailsPage productDetailsPage;
+
     private ObservableList<Product> productList;
+
+
 
     public ProductPage(ObservableList<Product> productList) {
         super(FXML);
@@ -33,6 +38,7 @@ public class ProductPage extends UiPart<AnchorPane> {
 
         setupTable();
     }
+
 
     void setupTable() {
         productListTable.setItems(productList);
@@ -90,5 +96,7 @@ public class ProductPage extends UiPart<AnchorPane> {
         productListTable.getColumns().addAll(nameColumn, priceColumn,
                 costColumn, statusColumn);
     }
+
+
 
 }

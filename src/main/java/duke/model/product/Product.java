@@ -101,6 +101,10 @@ public class Product {
         return this.status;
     }
 
+    public IngredientItemList getIngredients() {
+        return ingredients;
+    }
+
 /*
     public List<Ingredient> getIngredients() {
         return this.ingredients;
