@@ -12,32 +12,43 @@ import duke.task.TaskManager;
 
 public class UpdatePatientCommand extends Command {
 
-    private int Id;
-    private String targetInfo;
-    private String updatedValue;
+    private String command;
 
-    public UpdatePatientCommand(int Id , String targetInfo , String updatedValue) {
-        super();
-        this.Id = Id;
-        this.targetInfo = targetInfo;
-        this.updatedValue = updatedValue;
-    }
+    public UpdatePatientCommand(String command) { this.command = command; }
 
     @Override
     public void execute(PatientTaskList patientTask, TaskManager tasks, PatientManager patientManager, Ui ui, PatientTaskStorage patientTaskStorage, TaskStorage taskStorage, PatientStorage patientStorage) throws DukeException {
-        Patient targetPatient = patientManager.getPatient(Id);
-            if (targetInfo.equals("name")) {
-                targetPatient.setName(updatedValue);
-            } else if (targetInfo.equals("nric")) {
-                targetPatient.setNric(updatedValue);
-            } else if (targetInfo.equals("room")) {
-                targetPatient.setRoom(updatedValue);
-            } else {
-                throw new DukeException("No such Patient information existed. Please Enter a valid Patient information");
-            }
-            patientStorage.save(patientManager.getPatientList());
-            ui.showUpdateStatus(targetPatient , targetInfo);
+        String[] tempCommand = command.split(" ", 3);
+        char firstChar = tempCommand[0].charAt(0);
+        if (firstChar == '#'){
+            int id;
+            try {
+                id = Integer.parseInt(tempCommand[0].substring(1, tempCommand[0].length()));
+                Patient patientToBeUpdated = patientManager.getPatient(id);
+                if (tempCommand[1].toLowerCase().equals("name")) {
+                    patientToBeUpdated.setName(tempCommand[2]);
+                }
+                else if (tempCommand[1].toLowerCase().equals("nric")) {
+                    patientToBeUpdated.setNric(tempCommand[2]);
+                }
+                else if (tempCommand[1].toLowerCase().equals("room")) {
+                    patientToBeUpdated.setRoom(tempCommand[2]);
+                }
+                else {
+                    throw new DukeException("You can only update 'Name', 'NRIC', or 'Room' of the patient");
+                }
 
+                patientStorage.save(patientManager.getPatientList());
+
+                ui.showUpdatedSuccessfully();
+                ui.showPatientInfo(patientToBeUpdated);
+            }catch(Exception e) {
+                throw new DukeException("Please follow the format 'update patient #<id> <Name/NRIC/Room> <new information>'.");
+            }
+        }
+        else {
+            throw new DukeException("Please follow the format 'update patient #<id> <Name/NRIC/Room> <new information>'.");
+        }
     }
 
     @Override
