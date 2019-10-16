@@ -81,9 +81,9 @@ public class Storage {
             ArrayList<Resource> thisResourceArray = entry.getValue();
             for (int i = 0; i < thisResourceArray.size(); i++) {
                 Resource thisResource = thisResourceArray.get(i);
-                int isBooked = (thisResource.isBooked() == true) ? 1 : 0;
+                int isBooked = (thisResource.isBookedOrReserved() == true) ? 1 : 0;
                 String line = thisResource.getType() + "`" + thisResource.getId() + "`" + thisResource.getName() + "`" + isBooked;
-                if (thisResource.isBooked()) {
+                if (thisResource.isBookedOrReserved()) {
                     line += "`";
                     line += thisResource.getLoanId();
                     line += "`";
