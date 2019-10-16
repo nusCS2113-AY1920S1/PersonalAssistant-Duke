@@ -54,6 +54,15 @@ public class Module {
         }
     }
 
+    /**
+     * Returns a human readable String of module information.
+     * @return String containing code and name.
+     */
+    @Override
+    public String toString() {
+        return this.getModuleCode().concat(" ").concat(this.getModuleName());
+    }
+
     public String storeString() {
         return this.getModuleCode() + STORE_DELIMITER + this.getModuleName();
     }

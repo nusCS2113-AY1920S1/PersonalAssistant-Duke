@@ -47,6 +47,27 @@ public class ModuleContainer {
     }
 
     /**
+     * Adds a module to be saved to the module container.
+     * @param module Module object to be added.
+     * @return the Module object which has been stored.
+     * @throws DataReadWriteException I/O Error.
+     */
+    public Module addModule(Module module) throws DataReadWriteException {
+        this.getModules().put(module.getModuleCode(), module);
+        this.saveData();
+        return module;
+    }
+
+    /**
+     * Check the existence of a module within SpinBox.
+     * @param moduleCode A String denoting the module code.
+     * @return True if the module already exists.
+     */
+    public boolean checkModuleExists(String moduleCode) {
+        return this.getModules().containsKey(moduleCode);
+    }
+
+    /**
      * Loads data using the localStorage instance from the relevant .txt file.
      * @throws DataReadWriteException I/O error.
      * @throws CorruptedDataException polluted data within txt files.

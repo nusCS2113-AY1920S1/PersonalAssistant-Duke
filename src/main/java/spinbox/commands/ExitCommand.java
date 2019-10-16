@@ -1,5 +1,6 @@
 package spinbox.commands;
 
+import spinbox.containers.ModuleContainer;
 import spinbox.entities.Module;
 import spinbox.Storage;
 import spinbox.containers.lists.TaskList;
@@ -17,7 +18,7 @@ public class ExitCommand extends Command {
     }
 
     @Override
-    public String execute(HashMap<String, Module> modules, ArrayDeque<String> pageTrace, Ui ui) {
+    public String execute(ModuleContainer moduleContainer, ArrayDeque<String> pageTrace, Ui ui) {
         this.setExit(true);
         return ui.showGoodbye();
     }

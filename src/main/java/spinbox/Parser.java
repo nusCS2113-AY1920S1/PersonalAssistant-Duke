@@ -1,5 +1,6 @@
 package spinbox;
 
+import spinbox.commands.AddCommand;
 import spinbox.commands.Command;
 import spinbox.commands.ExitCommand;
 import spinbox.commands.ViewCommand;
@@ -78,6 +79,7 @@ public class Parser {
         String content = "";
         String action = "";
         String pageData = "";
+        String[] pageDataComponents = new String[10];
 
         String[] colonSeparate = input.split(" : ");
         try {
@@ -92,9 +94,9 @@ public class Parser {
                 content = colonSeparate[1].trim();
                 String[] frontComponents = colonSeparate[0].split(" ");
                 action = frontComponents[0];
-                pageData = colonSeparate[0].replace(action, "");
+                pageData = colonSeparate[0].replace(action.concat(" "), "");
                 pageData = commandBuilder(pageData);
-                String[] pageDataComponents = pageData.split(" ");
+                pageDataComponents = pageData.split(" ");
             }
         } catch (ArrayIndexOutOfBoundsException | StringIndexOutOfBoundsException e) {
             throw new InputException("Please give valid command:\n"
@@ -107,6 +109,9 @@ public class Parser {
             break;
         case "view":
             command = new ViewCommand(pageData, content);
+            break;
+        case "add":
+            command = new AddCommand(pageDataComponents[1], content);
             break;
         default:
         }

@@ -1,5 +1,6 @@
 package spinbox.commands;
 
+import spinbox.containers.ModuleContainer;
 import spinbox.entities.Module;
 import spinbox.Ui;
 import spinbox.exceptions.InputException;
@@ -42,6 +43,7 @@ public class ViewCommand extends Command {
             case "tasks":
             case "files":
             case "grades":
+            case "notes":
                 // check if on a module page first
                 try {
                     moduleCode = pageDataComponents[1];
@@ -79,13 +81,14 @@ public class ViewCommand extends Command {
 
     /**
      * Replace pageTrace with the new pageTrace.
-     * @param modules the modules stored.
+     * @param moduleContainer the modules stored.
      * @param pageTrace the current pageTrace.
      * @param ui the Ui instance.
      * @return the display once been changed..
      * @throws SpinBoxException if page, module, or tab does not exist.
      */
-    public String execute(HashMap<String, Module> modules, ArrayDeque<String> pageTrace, Ui ui)
+    @Override
+    public String execute(ModuleContainer moduleContainer, ArrayDeque<String> pageTrace, Ui ui)
             throws SpinBoxException {
         StringBuilder oldTrace = new StringBuilder();
         while (pageTrace.size() > 0) {
@@ -104,11 +107,11 @@ public class ViewCommand extends Command {
         // add module if exists
         if (page.equals("modules") && moduleCode != null) {
             // check if module exists
-            if (modules.containsKey(moduleCode)) {
+            if (moduleContainer.checkModuleExists(moduleCode)) {
                 pageTrace.addFirst(moduleCode);
             } else {
                 String currentModules = "";
-                for (HashMap.Entry<String, Module> entry : modules.entrySet()) {
+                for (HashMap.Entry<String, Module> entry : moduleContainer.getModules().entrySet()) {
                     currentModules = currentModules.concat(entry.getKey() + "\n");
                 }
                 throw new InputException("Sorry, that module does not exist. These are the current modules\n"

@@ -15,7 +15,7 @@ public class NotepadTest {
     public void notepadCreation_oneNewNotepad_successfulCreationAndWorkingGetters() throws
             FileCreationException, CorruptedDataException, DataReadWriteException {
         ModuleContainer testContainer = new ModuleContainer();
-        Notepad testPad = new Notepad("testModule");
+        Notepad testPad = new Notepad("notesTest1");
         assertEquals(testPad.getNotes().size(),0);
     }
 
@@ -23,7 +23,7 @@ public class NotepadTest {
     public void notepadAddLine_addNewLineToNewNotepad_successfulAddition() throws FileCreationException,
             DataReadWriteException, CorruptedDataException {
         ModuleContainer testContainer = new ModuleContainer();
-        Notepad testPad = new Notepad("testModule");
+        Notepad testPad = new Notepad("notesTest2");
         testPad.addLine("test line");
         assertEquals(testPad.getNotes().get(0), "test line");
     }
@@ -32,7 +32,7 @@ public class NotepadTest {
     public void notepadUpdateLine_AddThenUpdateLineInNewNotepad_successfulUpdateAndIndexException() throws
             DataReadWriteException, InvalidIndexException, FileCreationException, CorruptedDataException {
         ModuleContainer testContainer = new ModuleContainer();
-        Notepad testPad = new Notepad("testModule");
+        Notepad testPad = new Notepad("notesTest3");
         testPad.addLine("test line");
 
         testPad.updateLine(0, "test line2");
@@ -47,7 +47,7 @@ public class NotepadTest {
     public void notepadRemoveLine_AddMultipleLinesThenRemoveOne_successfulRemoveAndIndexException() throws
             InvalidIndexException, DataReadWriteException, FileCreationException, CorruptedDataException {
         ModuleContainer testContainer = new ModuleContainer();
-        Notepad testPad = new Notepad("testModule");
+        Notepad testPad = new Notepad("notesTest4");
         testPad.addLine("test line0");
         testPad.addLine("test line1");
         testPad.addLine("test line2");
@@ -65,7 +65,7 @@ public class NotepadTest {
     public void loadDataSuccessful_AddLinesThenManualClear_successfulRepopulationOfData() throws
             DataReadWriteException, FileCreationException, CorruptedDataException {
         ModuleContainer testContainer = new ModuleContainer();
-        Notepad testPad = new Notepad("testModule");
+        Notepad testPad = new Notepad("notesTest5");
         testPad.addLine("test line0");
         testPad.addLine("test line1");
         testPad.addLine("test line2");

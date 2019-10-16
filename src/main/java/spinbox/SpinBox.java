@@ -68,7 +68,7 @@ public class SpinBox {
         try {
             Parser.setPageTrace(pageTrace);
             Command command = Parser.parse(input);
-            String response = command.execute(modules.getModules(), pageTrace, userInterface);
+            String response = command.execute(modules, pageTrace, userInterface);
             this.setShutdown(command.isExit());
             return response;
         } catch (SpinBoxException e) {

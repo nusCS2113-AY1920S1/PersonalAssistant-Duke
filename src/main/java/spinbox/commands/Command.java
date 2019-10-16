@@ -1,5 +1,6 @@
 package spinbox.commands;
 
+import spinbox.containers.ModuleContainer;
 import spinbox.entities.Module;
 import spinbox.exceptions.SpinBoxException;
 import spinbox.Storage;
@@ -14,7 +15,7 @@ public abstract class Command {
     private boolean isFileCommand;
 
     // New execute needs to be made abstract
-    public String execute(HashMap<String, Module> modules, ArrayDeque<String> pageTrace, Ui ui)
+    public String execute(ModuleContainer moduleContainer, ArrayDeque<String> pageTrace, Ui ui)
             throws SpinBoxException {
         return "Blank";
     }

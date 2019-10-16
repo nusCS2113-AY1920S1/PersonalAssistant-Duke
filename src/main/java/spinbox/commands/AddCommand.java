@@ -1,6 +1,8 @@
 package spinbox.commands;
 
 import spinbox.DateTime;
+import spinbox.containers.ModuleContainer;
+import spinbox.entities.Module;
 import spinbox.exceptions.SpinBoxException;
 import spinbox.exceptions.InputException;
 import spinbox.Storage;
@@ -12,12 +14,30 @@ import spinbox.entities.items.tasks.Todo;
 import spinbox.entities.items.tasks.Schedulable;
 import spinbox.containers.lists.TaskList;
 
+import java.util.ArrayDeque;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class AddCommand extends Command {
+    private static final String MODULE_ADDED = "The following module has been added to SpinBox: ";
+    private static final String MODULE_NOT_ADDED = "A module with this code already exists in SpinBox.";
     private String type;
     private String fullCommand;
+
+    private String moduleCode;
+    private String content;
+
+    /**
+     * Constructor for initialization of variables to support addition of entities.
+     * @param moduleCode A String denoting the module code.
+     * @param content A string containing the content of the processed user input.
+     */
+    public AddCommand(String moduleCode, String content) {
+        this.moduleCode = moduleCode;
+        this.content = content;
+        this.type = content.split(" ")[0];
+    }
 
     /**
      * Constructor for creation of Task objects, does some input checking.
@@ -43,6 +63,20 @@ public class AddCommand extends Command {
             throw new InputException("☹ OOPS!!! The description of an lab cannot be empty.");
         } else if (this.type.equals("lecture") && components[1].equals("/by")) {
             throw new InputException("☹ OOPS!!! The description of an lecture cannot be empty.");
+        }
+    }
+
+    @Override
+    public String execute(ModuleContainer moduleContainer, ArrayDeque<String> pageTrace, Ui ui) throws
+            SpinBoxException {
+
+        if (!moduleContainer.checkModuleExists(moduleCode)) {
+            String moduleName = this.content;
+            Module module = new Module(this.moduleCode, moduleName);
+            moduleContainer.addModule(module);
+            return MODULE_ADDED + module.toString();
+        } else {
+            return MODULE_NOT_ADDED;
         }
     }
 
