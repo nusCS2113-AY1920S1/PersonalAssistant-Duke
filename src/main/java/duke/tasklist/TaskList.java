@@ -172,20 +172,20 @@ public class TaskList {
         for (Task t : taskList) {
             if (t instanceof Event) {
                 LocalDate taskDate = ((Event) t).getDatetime();
-                if (ChronoUnit.DAYS.between(currDate, taskDate) < 7) {
+                if (ChronoUnit.DAYS.between(currDate, taskDate) < 7 && ChronoUnit.DAYS.between(currDate, taskDate) > -1) {
                     temp.add(t);
                 }
             } else if (t instanceof Deadline) {
                 LocalDate taskDate = ((Deadline) t).getDatetime();
-                if (ChronoUnit.DAYS.between(currDate, taskDate) < 7) {
+                if (ChronoUnit.DAYS.between(currDate, taskDate) < 7 && ChronoUnit.DAYS.between(currDate, taskDate) > -1) {
                     temp.add(t);
                 }
             }
         }
         if (temp.size() == 0) {
-            ui.showLine("Congratulations, you have no task for today! Take a break, have a kit kat");
+            ui.showLine("Congratulations, you have no task for this week! Take a break, have a kit kat");
         } else {
-            ui.showLine("You have " + temp.size() + ((temp.size() == 1) ? " task today!" : " tasks today!"));
+            ui.showLine("You have " + temp.size() + ((temp.size() == 1) ? " task this week!" : " tasks week!"));
             for (Task t : temp) {
                 ui.showLine("  " + t.toString());
             }
