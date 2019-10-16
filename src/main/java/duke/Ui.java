@@ -278,4 +278,92 @@ public class Ui {
                 + " in the song.";
         return wrap(result);
     }
+    /**
+     * Returns a String formatted for display that indicates that
+     * a duke.components.AddOverlay object has been created
+     * by the group command.
+     * @param list array of song list
+     * @param index this is the index of the bar being copied
+     * @param song the song that is being copied to
+     * @return the formatted String to be displayed
+     */
+
+    public String formatAddOverlay(ArrayList<Song> list, int index,Song song) {
+        String result = "Got it. I've added this overlay:\n  "
+                + "bar" + new Integer(index).toString() + "\nto "
+                + song.getName();
+        return wrap(result);
+    }
+    /**
+     * Returns a String formatted for display that indicates that
+     * a duke.components.Group object has been created
+     * by the group command.
+     * @param start starting bar number for the verse
+     * @param end ending bar number for the verse
+     * @param name name of the verse
+     * @return the formatted String to be displayed
+     */
+
+    public String formatGroupBar(int start, int end, String name) {
+        String result = "Got it. Successfully grouped bars "
+                + start
+                + " to "
+                + end
+                + " as "
+                + name;
+        return result;
+    }
+
+    /**
+     * Returns a String formatted for display that indicates that
+     * some bars or verse has been copied and pasted successfully to the
+     * current track.
+     * @param verseName name of the verse copied and pasted
+     * @param copyStartNum starting bar number for to be copied (inclusive)
+     * @param copyEndNum ending bar number to stop copying (exclusive)
+     * @param pasteStartNum bar number on the track where the copied content is meant to be pasted
+     * @param mode the mode number specifies the type of copy invoked.
+     *             0: only the verse name is specified. If it is a valid verse name
+     *             it will be added to the end of the current track.
+     *             1: Copies the bar from a starting index to an ending index and adds
+     *             these bars to the end of the current track.
+     *             2: Pastes a verse at the specified starting index in the song
+     *             3: Copies the bars between a starting index (inclusive) and ending index
+     *             (exclusive) and inserted it into a specified index. If there are bars at this
+     *             index, they will be pushed back by the number of bars copied to make space for
+     *             the copied bars.
+     *
+     * @return the formatted String to be displayed
+     */
+    public String formatCopy(String verseName,
+                             Integer copyStartNum,
+                             Integer copyEndNum,
+                             Integer pasteStartNum,
+                             int mode) {
+        String result;
+        if (mode == 0) {
+            result = "Got it. Successfully copied " + verseName + " to end of current track";
+        } else if (mode == 1) {
+            result = "Got it. Successfully copied bars from "
+                    + copyStartNum
+                    + " and "
+                    + copyEndNum
+                    + " to the end of the track";
+        } else if (mode == 2) {
+            result = "Got it. Successfully copied verse "
+                     + verseName
+                     + " to "
+                     + pasteStartNum;
+        } else if (mode == 3) {
+            result = "Got it. Successfully copied bars from "
+                     + copyStartNum
+                     + " to "
+                     + copyEndNum
+                     + " and inserted them to "
+                     + pasteStartNum;
+        } else {
+            result = "Nothing is done";
+        }
+        return result;
+    }
 }

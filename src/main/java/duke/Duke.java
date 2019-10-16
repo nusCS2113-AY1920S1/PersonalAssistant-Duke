@@ -1,12 +1,18 @@
 package duke;
 
 import duke.commands.AddBarCommand;
+
 import duke.commands.Command;
-import duke.commands.HelpCommand;
-import duke.commands.NewCommand;
 import duke.commands.RemindCommand;
+import duke.commands.AddOverlayCommand;
 import duke.commands.ViewCommand;
+import duke.commands.GroupCommand;
+import duke.commands.NewCommand;
+import duke.commands.HelpCommand;
+import duke.commands.CopyCommand;
+
 import duke.components.SongList;
+
 
 
 import java.nio.file.Paths;
@@ -71,8 +77,14 @@ public class Duke {
                 Command c = Parser.parse(fullCommand);
                 //if the command uses the SongList
                 String output;
-                if (c instanceof AddBarCommand || c instanceof ViewCommand
-                        || c instanceof NewCommand || c instanceof HelpCommand) {
+                if (c instanceof AddBarCommand
+                        || c instanceof ViewCommand
+                        || c instanceof NewCommand
+                        || c instanceof HelpCommand
+                        || c instanceof GroupCommand
+                        || c instanceof CopyCommand
+                        || c instanceof AddOverlayCommand) {
+
                     output = c.execute(songs, ui, storage);
                 } else {
                     output = c.execute(tasks, ui, storage);

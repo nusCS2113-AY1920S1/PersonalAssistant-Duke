@@ -1,16 +1,21 @@
 package duke;
 
+import duke.commands.Command;
+import duke.commands.ViewCommand;
+import duke.commands.GroupCommand;
+import duke.commands.NewCommand;
+import duke.commands.HelpCommand;
+import duke.commands.CopyCommand;
+import duke.commands.ByeCommand;
+import duke.commands.ListCommand;
+import duke.commands.AddOverlayCommand;
+import duke.commands.DeleteCommand;
+import duke.commands.FindCommand;
+import duke.commands.DoneCommand;
 import duke.commands.AddBarCommand;
 import duke.commands.AddCommand;
-import duke.commands.ByeCommand;
-import duke.commands.Command;
-import duke.commands.DeleteCommand;
-import duke.commands.DoneCommand;
-import duke.commands.FindCommand;
-import duke.commands.HelpCommand;
-import duke.commands.ListCommand;
-import duke.commands.NewCommand;
-import duke.commands.ViewCommand;
+
+
 
 /**
  * A class used to interpret the incoming messages and translate them into the appropriate duke.Commands.
@@ -45,6 +50,15 @@ class Parser {
             return new ViewCommand(message);
         } else if (message.length() >= 8 && message.substring(0, 6).equals("addbar")) {
             return new AddBarCommand(message);
+
+        } else if (message.length() >= 8 && message.substring(0, 7).equals("overlay")) {
+            //overlay command
+            //System.out.println("je");
+            return new AddOverlayCommand(message);
+        } else if (message.length() >= 7 && message.substring(0, 5).equals("group")) {
+            return new GroupCommand(message);
+        } else if (message.length() >= 6 && message.substring(0,4).equals("copy")) {
+            return new CopyCommand(message);
         } else {
             return new AddCommand(message);
         }

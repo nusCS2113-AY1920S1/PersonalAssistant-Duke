@@ -93,6 +93,10 @@ public class DukeException extends Exception {
                 message = "OOPS!!! An IO exception has occurred.";
                 break;
             }
+            case "no_index": {
+                message = "The index does not exist!";
+                break;
+            }
             case "empty": {
                 message = "List is empty! Please enter a valid command.";
                 break;
@@ -116,6 +120,14 @@ public class DukeException extends Exception {
                 message += "<frequency> could only be one of: daily, weekly, monthly or yearly\n";
                 message += "<date> has to follow the specific format of: dd/mm/yy\n";
                 message += "/at <time> is optional.";
+                break;
+            }
+            case "group": {
+                message = "OOPS!!! These groups cannot be grouped due to invalid input.";
+                break;
+            }
+            case "copy": {
+                message = "OOPS!!! Invalid input for copy command.";
                 break;
             }
             default: {
