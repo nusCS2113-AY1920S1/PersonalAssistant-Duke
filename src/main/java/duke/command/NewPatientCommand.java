@@ -27,7 +27,8 @@ public class NewPatientCommand extends ArgCommand {
     public void execute(DukeCore core) throws DukeException {
         super.execute(core);
 
-        
+        String bedNo, allergies, address, history;
+        int height, weight, age, number;
 
         String addStr = core.taskList.addTask(new ToDoTask(arg));
         core.storage.writeTaskFile(core.taskList.getFileStr());
