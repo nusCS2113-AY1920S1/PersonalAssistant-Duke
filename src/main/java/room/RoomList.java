@@ -11,6 +11,6 @@ public class RoomList extends ArrayList<Room> {
             String[] splitStr = line.split("\\|", 4);
             this.add(new AddRoom(splitStr[Constants.ISBOOKED], splitStr[Constants.ROOMCODE],
                     splitStr[Constants.ROOMDATE], splitStr[Constants.ROOMTIMESLOT]));
-            }
         }
+    }
 }
