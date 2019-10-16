@@ -12,18 +12,22 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 public class ReceiptTrackerTest {
 
     private ReceiptTracker initializeTracker() {
+        ReceiptTracker tracker = new ReceiptTracker();
+
         Receipt receiptA = new Receipt(5.00);
-        Receipt receiptB = new Receipt(4.00);
-        Receipt receiptC = new IncomeReceipt(9.00);
-        Receipt receiptD = new Receipt(1.00);
         receiptA.addTag("loans");
+        tracker.addReceipt(receiptA);
+
+        Receipt receiptB = new Receipt(4.00);
         receiptB.addTag("loans");
         receiptB.addTag("ice");
-        receiptC.addTag("ice");
-        ReceiptTracker tracker = new ReceiptTracker();
-        tracker.addReceipt(receiptA);
         tracker.addReceipt(receiptB);
+
+        Receipt receiptC = new IncomeReceipt(9.00);
+        receiptC.addTag("ice");
         tracker.addReceipt(receiptC);
+
+        Receipt receiptD = new Receipt(1.00);
         tracker.addReceipt(receiptD);
         return tracker;
     }
