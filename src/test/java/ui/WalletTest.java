@@ -1,10 +1,9 @@
 package ui;
 
 import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.Date;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class WalletTest {
 

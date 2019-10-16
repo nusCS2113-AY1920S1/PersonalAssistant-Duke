@@ -15,13 +15,16 @@ public class ReceiptTracker extends ArrayList<Receipt> {
      */
     public ReceiptTracker(ArrayList<Receipt> receiptList) {
         this.addAll(receiptList);
-        this.setTotalCashSpent(this.sumReceipts());
+        this.updateTotalCashSpent();
+        this.setFolders(new HashMap<>());
     }
 
     /**
      * Default Constructor for ReceiptTracker.
      */
     public ReceiptTracker() {
+        this.setFolders(new HashMap<>());
+        this.updateTotalCashSpent();
         this.setFolders(new HashMap<>());
     }
 
@@ -38,6 +41,14 @@ public class ReceiptTracker extends ArrayList<Receipt> {
                 folders.get(tag).setTotalCashSpent(currTotalCashSpent + receipt.getCashSpent());
             }
         }
+        this.updateTotalCashSpent();
+    }
+
+    /**
+     * Updates totalCashSpent property of this ReceiptTracker Object.
+     */
+    public void updateTotalCashSpent() {
+        this.setTotalCashSpent(this.sumReceipts());
     }
 
     /**
@@ -90,6 +101,23 @@ public class ReceiptTracker extends ArrayList<Receipt> {
     }
 
     // -- Setters & Getters
+
+    /**
+     * Retrieves the totalCashSpent based on a tag and initializes a Folder.
+     * @param tag String representing the tag to filter by
+     * @return Double, the total amount spent on a given tag
+     */
+    public double getCashSpentByTag(String tag) {
+        if (!isRegisteredTag(tag)) {
+            try {
+                this.addFolder(tag);
+            } catch (DukeException e) {
+                Ui.dukeSays(e.toString());
+            }
+        }
+        return this.getFolders().get(tag).getTotalCashSpent();
+    }
+
     /**
      * Setter for the folders property of the ReceiptTracker Object.
      * @param folders HashMap to be set as the folders property of ReceiptTracker Object
