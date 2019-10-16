@@ -10,6 +10,12 @@ public class Blacklist {
     private static ArrayList<MovieInfoObject>  blackListMovies = new ArrayList<>();
     private static ArrayList<String>  blackListMoviesTitle = new ArrayList<>();
 
+
+    /**
+     * Adding keywords to blacklist
+     *
+     * @param movie command that was entered by the user in split array form
+     */
     public static void addToBlacklistKeyWord(String movie) {
         if (movie.trim() == "") {
             return;
