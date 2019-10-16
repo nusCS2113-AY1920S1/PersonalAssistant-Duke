@@ -25,13 +25,13 @@ public class Item extends Resource {
         // find some way to generate ID
     }
 
-    public Item(String name, int id, boolean isBooked) {
-        super(name, id, isBooked);
+    public Item(String name, int id) {
+        super(name, id);
         this.type = 'I';
     }
 
-    public Item(String name, int id, boolean isBooked, int loanId, String stringDateFrom, String stringDateTill) throws ParseException {
-        super(name, id, isBooked, loanId, stringDateFrom, stringDateTill);
+    public Item(String name, int id, int loanId, String stringDateFrom, String stringDateTill) throws ParseException {
+        super(name, id, loanId, stringDateFrom, stringDateTill);
         System.out.println(this.loanId);
         this.type = 'I';
     }

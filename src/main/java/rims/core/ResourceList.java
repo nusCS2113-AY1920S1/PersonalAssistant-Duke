@@ -1,10 +1,11 @@
- package rims.core;
+package rims.core;
 
 import rims.exception.*;
 import rims.resource.*;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.text.DateFormat;
 import java.util.*;
 
 public class ResourceList {
@@ -16,6 +17,11 @@ public class ResourceList {
 
     public HashMap<String, ArrayList<Resource>> getResources() {
         return resources;
+    }
+
+
+    public int getTotalQuantity(String resourceName) {
+        return resources.get(resourceName).size();
     }
 
     public int getAvailableQuantity(String resourceName) {
@@ -50,10 +56,6 @@ public class ResourceList {
             }
         }
         return bookedQty;
-    }
-
-    public int getTotalQuantity(String resourceName) {
-        return resources.get(resourceName).size();
     }
 
     public Resource getAvailableResource(String resourceName) throws Exception {
@@ -154,9 +156,9 @@ public class ResourceList {
     public void addResource(String resourceName, char resourceType) throws RimException {
         Resource newResource;
         if (resourceType == 'I') {
-            newResource = new Item(resourceName, getAllResourcesQuantity(), false);
+            newResource = new Item(resourceName, getAllResourcesQuantity());
         } else if (resourceType == 'R') {
-            newResource = new Room(resourceName, getAllResourcesQuantity(), false);
+            newResource = new Room(resourceName, getAllResourcesQuantity());
         } else {
             throw new RimException("Invalid type of resource!");
         }
@@ -190,22 +192,18 @@ public class ResourceList {
         }
     }
 
-    public ArrayList<String> generateAvailableListByDate(String day) throws ParseException {
+    public ArrayList<String> generateAvailableListByDate(String stringDate) throws ParseException {
         ArrayList<String> list = new ArrayList<String>();
-        list.add("AVAILABLE FOR LOAN ON THIS DAY");
+        list.add("AVAILABLE FOR LOAN ON: " + getDateToPrint(stringToDate(stringDate)));
         for (Map.Entry<String, ArrayList<Resource>> entry : resources.entrySet()) {
             ArrayList<Resource> thisResourceArray = entry.getValue();
             int qtyAvailable = 0;
             for(int i = 0; i < thisResourceArray.size(); i++){
                 Resource thisResource = thisResourceArray.get(i);
-                if((thisResource.getDateBookedFrom() == null) && (thisResource.getDateBookedTill() == null)){
+                if (!(thisResource.isBookedOn(stringToDate(stringDate)))) {
                     qtyAvailable += 1;
                 }
-                else if((thisResource.getDateBookedFrom().after(stringToDate(day))) || (thisResource.getDateBookedTill().before(stringToDate(day)))) {
-                    qtyAvailable += 1;
-
-                }
-                if(i == thisResourceArray.size() - 1 && qtyAvailable > 0){
+                if (i == thisResourceArray.size() - 1 && qtyAvailable > 0) {
                     if (thisResourceArray.get(0).getType() == 'I') {
                         list.add(thisResourceArray.get(0).toString() + " (qty: " + qtyAvailable + ")");
                     }
@@ -218,18 +216,18 @@ public class ResourceList {
         return list;
     }
 
-    public ArrayList<String> generateBookedListByDate(String day) throws ParseException {
+    public ArrayList<String> generateBookedListByDate(String stringDate) throws ParseException {
         ArrayList<String> list = new ArrayList<String>();
-        list.add("CURRENTLY BOOKED ON THIS DAY");
+        list.add("CURRENTLY BOOKED ON: " + getDateToPrint(stringToDate(stringDate)));
         for (Map.Entry<String, ArrayList<Resource>> entry : resources.entrySet()) {
             ArrayList<Resource> thisResourceArray = entry.getValue();
             int qtyBooked = 0;
-            for(int i = 0; i < thisResourceArray.size(); i++){
+            for (int i = 0; i < thisResourceArray.size(); i++) {
                 Resource thisResource = thisResourceArray.get(i);
-                if ((thisResource.getDateBookedFrom() != null) && (thisResource.getDateBookedTill() != null) && (thisResource.getDateBookedFrom().before(stringToDate(day))) && (thisResource.getDateBookedTill().after(stringToDate(day)))) {
+                if (thisResource.isBookedOn(stringToDate(stringDate))) {
                     qtyBooked += 1;
                 }
-                if((i == thisResourceArray.size() - 1) && qtyBooked > 0){
+                if ((i == thisResourceArray.size() - 1) && qtyBooked > 0) {
                     if (thisResourceArray.get(0).getType() == 'I') {
                         list.add(thisResourceArray.get(0).toString() + " (qty: " + qtyBooked + ")");
                     }
@@ -247,6 +245,15 @@ public class ResourceList {
         Date dateValue = formatter.parse(stringDate);
         return dateValue;
     }
+
+    public String getDateToPrint(Date date) {
+        DateFormat dayFormat = new SimpleDateFormat("d");
+        int day = Integer.parseInt(dayFormat.format(date)) % 10;
+        String suffix = day == 1 ? "st" : (day == 2 ? "nd" : (day == 3 ? "rd" : "th"));
+        String stringDate = (new SimpleDateFormat("EEEEE, ")).format(date) + (dayFormat.format(date)) + suffix + " of " + (new SimpleDateFormat("MMMMM yyyy, hh:mm aaa")).format(date);
+        return stringDate;
+    }
+
     public ArrayList<String> generateListByItem(String itemName) throws ParseException {
         ArrayList<String> list = new ArrayList<String>();
         list.add("LIST OF " + itemName + ": ");
@@ -257,11 +264,11 @@ public class ResourceList {
             for(int i = 0; i < thisResourceArray.size(); i++){
                 Resource thisResource = thisResourceArray.get(i);
                 if(thisResource.getName().equals(itemName)){
-                    if ((thisResource.getDateBookedFrom() != null) && (thisResource.getDateBookedTill() != null)){
+                    if (thisResource.isBooked()) {
                         k += 1;
-                        list.add((k) + ". " + "one " + thisResourceArray.get(i).toString() + " booked from " + thisResource.getDateBookedFrom() + " till " + thisResource.getDateBookedTill());
+                        list.add((k) + ". " + "one " + thisResourceArray.get(i).toString() + " booked from " + getDateToPrint(thisResource.getDateBookedFrom()) + " till " + getDateToPrint(thisResource.getDateBookedTill()));
                     }
-                    else if((thisResource.getDateBookedFrom() == null) && (thisResource.getDateBookedTill() == null)){
+                    else if(!(thisResource.isBooked())) {
                         qtyAvailable += 1;
                     }
                     if(qtyAvailable > 1 && i == thisResourceArray.size() - 1){
@@ -275,7 +282,7 @@ public class ResourceList {
                 }
             }
         }
-        return  list;
+        return list;
     }
     public ArrayList<String> generateListByRoom(String roomName) throws ParseException {
         ArrayList<String> list = new ArrayList<String>();
@@ -284,16 +291,16 @@ public class ResourceList {
             for(int i = 0; i < thisResourceArray.size(); i++){
                 Resource thisResource = thisResourceArray.get(i);
                 if(thisResource.getName().equals(roomName)){
-                    if ((thisResource.getDateBookedFrom() != null) && (thisResource.getDateBookedTill() != null)){
+                    if ((thisResource.isBooked())) {
                         list.add(thisResourceArray.get(i).toString() + " booked from " + thisResource.getDateBookedFrom() + " till " + thisResource.getDateBookedTill());
                     }
-                    else if((thisResource.getDateBookedFrom() == null) && (thisResource.getDateBookedTill() == null)){
+                    else if ((thisResource.isBooked())) {
                         list.add(thisResourceArray.get(i).toString() + " is available");
                     }
                 }
             }
         }
-        return  list;
+        return list;
     }
 
 }
