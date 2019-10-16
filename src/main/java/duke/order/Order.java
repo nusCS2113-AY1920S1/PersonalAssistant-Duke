@@ -144,10 +144,6 @@ public class Order {
      */
     public void markAsDone() {
         this.isDone = true;
-
-        //To do
-        // trigger get feedback here
-
     }
 
     public String getDishName(int dishNb) throws DukeException {

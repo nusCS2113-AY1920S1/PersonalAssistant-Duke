@@ -21,7 +21,9 @@ public class CancelOrder extends OrderCommand {
     private int orderNb;
 
     public CancelOrder(String number) throws DukeException {
-        int orderNb = checkNumber(number);
+        int orderNb;
+        try { orderNb = Integer.parseInt(number) - 1; }
+        catch (Exception e) { throw new DukeException(e.getMessage()); }
         this.orderNb = orderNb;
     }
 
@@ -37,26 +39,10 @@ public class CancelOrder extends OrderCommand {
             } catch (IOException e) {
                 throw new DukeException("Error while deleting the order from the hard disc");
             }
-            //ui.showRemovedOrder(removed.toString(), orderList.size());
+            ui.showRemovedOrder(removed.toString(), orderList.size());
         } else {
             throw new DukeException("Enter a valid order number after delete, between 1 and " + orderList.size());
         }
     }
 
-    /**
-     * Converts a string into a number, and checks if it is out of bounds.
-     * @return Returns a valid integer
-     * @throws DukeException when it is invalid
-     */
-    public static int checkNumber(String str) throws DukeException {
-        int x;
-        try {
-            //Minus one because index starts from zero.
-            //Throws NumberFormatException
-            x = Integer.parseInt(str) - 1;
-        } catch (Exception e) {
-            throw new DukeException(e.getMessage());
-        }
-        return x;
-    }
 }
