@@ -1,9 +1,11 @@
 package duke.util;
 
+import java.util.List;
 import java.util.Scanner;
 
 import duke.modules.data.ModuleInfoDetailed;
 import duke.modules.data.ModuleTask;
+import duke.modules.data.ModuleTime;
 
 /**
  * Mod Planner inherits functionality from Original Duke Ui.
@@ -69,7 +71,7 @@ public class PlannerUi {
         showLine();
         System.out.println(
                 "Welcome to ModPlanner, your one stop solution to module planning!\n"
-                + "Begin typing get started!"
+                + "Begin typing to get started!"
         );
         showLine();
     }
@@ -102,5 +104,20 @@ public class PlannerUi {
         showLine();
         System.out.println("Here is your current cumulative/predicted CAP");
         System.out.printf("%.2f\n", averageCap);
+    }
+
+    /**
+     * Message to print the timetable.
+     */
+    public void printTimetableMsg() {
+        System.out.println("Here is your timetable!");
+    }
+
+    /**
+     * Sorts the modules into each day of the week and prints to the users.
+     * @param mods List of modules the student is taking
+     */
+    //public void showAccordingToDays(List<ModuleTime> mods) {
+    public void showAccordingToDays(List<ModuleTask> mods) {
     }
 }

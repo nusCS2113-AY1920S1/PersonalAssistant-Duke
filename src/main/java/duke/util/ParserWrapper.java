@@ -4,6 +4,7 @@ package duke.util;
 import duke.command.CapCommand;
 import duke.command.logic.EndCommand;
 import duke.command.logic.ModuleCommand;
+import duke.command.logic.PrintTimetableCommand;
 import duke.command.logic.RemoveModCommand;
 import duke.command.logic.SearchThenAddCommand;
 import duke.command.logic.ShowModuleCommand;
@@ -84,6 +85,9 @@ public class ParserWrapper {
             }
             case "cap": {
                 return new CapCommand(input);
+            }
+            case "print": {
+                return new PrintTimetableCommand();
             }
             default: {
                 throw new ModCommandException();

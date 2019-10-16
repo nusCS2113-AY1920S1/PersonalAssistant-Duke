@@ -7,9 +7,9 @@ import duke.command.DeleteCommand;
 import duke.command.DoneCommand;
 import duke.command.FindCommand;
 import duke.command.ListCommand;
-import duke.command.PrintTimetable;
 import duke.command.RescheduleCommand;
 import duke.command.ScheduleCommand;
+import duke.command.logic.PrintTimetableCommand;
 import duke.exceptions.ModCommandException;
 import duke.exceptions.ModEmptyCommandException;
 import duke.exceptions.ModInvalidTimeException;
@@ -252,8 +252,6 @@ public class DukeParser {
             checkContainRequiredArguments(args, "/begin", "/end", "/day");
             Task hold = new Cca(args.get("description"), args.get("/begin"), args.get("/end"), args.get("/day"));
             return new AddCommand(hold);
-        } else if (input.startsWith("print ")) {
-            return new PrintTimetable();
         } else if (input.equals("bye")) {
             return new ByeCommand();
         } else if (input.startsWith("done ")) {
