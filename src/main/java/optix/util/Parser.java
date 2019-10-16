@@ -15,6 +15,7 @@ import optix.commands.shows.ListDateCommand;
 import optix.commands.shows.ListShowCommand;
 import optix.commands.shows.PostponeCommand;
 import optix.commands.shows.ViewProfitCommand;
+import optix.commands.shows.ViewMonthlyCommand;
 import optix.commands.seats.SellSeatCommand;
 import optix.commands.seats.ViewSeatsCommand;
 import optix.exceptions.OptixException;
@@ -114,6 +115,8 @@ public class Parser {
                 return parseDeleteOneOfShow(splitStr[1]);
             case "view-profit": //e.g. view-profit lion king|5/5/2020
                 return parseViewProfit(splitStr[1]);
+            case "view-monthly": //e.g. view-monthly May 2020
+                return parseViewMonthly(splitStr[1]);
             case "help":
                 return new HelpCommand(splitStr[1].trim());
             case "add-alias":
@@ -368,6 +371,19 @@ public class Parser {
         String showDate = splitStr[1];
 
         return new ViewProfitCommand(showName, showDate);
+    }
+
+    private static Command parseViewMonthly(String details) throws OptixInvalidCommandException {
+        String[] splitStr = details.trim().split(" ");
+
+        if (splitStr.length != 2) {
+            throw new OptixInvalidCommandException();
+        }
+
+        String month = splitStr[0];
+        String year = splitStr[1];
+
+        return new ViewMonthlyCommand(month, year);
     }
 
     /**
