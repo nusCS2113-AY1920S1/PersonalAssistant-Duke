@@ -81,11 +81,11 @@ public class GsonStorage {
      * Adds a patient object to the hash map with all the patients - used when testing.
      */
     public void addPatientToMap(Patient patient) {
-        patientMap.put(patient.getName(), patient);
+        patientMap.put(patient.getBedNo(), patient);
     }
 
-    public Patient getPatient(String name) {
-        return patientMap.get(name);
+    public Patient getPatient(String bedNo) {
+        return patientMap.get(bedNo);
     }
 
     public String getFilePath() {
