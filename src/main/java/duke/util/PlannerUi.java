@@ -1,8 +1,8 @@
 package duke.util;
 
+import duke.modules.Cca;
 import java.util.Scanner;
 
-import duke.modules.data.ModuleInfoDetailed;
 import duke.modules.data.ModuleTask;
 
 /**
@@ -18,6 +18,14 @@ public class PlannerUi {
      */
     public PlannerUi() {
         scan = new Scanner(System.in);
+    }
+
+    public void print(Object object) {
+        System.out.print(object.toString());
+    }
+
+    public void println(Object object) {
+        System.out.println(object.toString());
     }
 
     public void showLine() {
@@ -50,6 +58,15 @@ public class PlannerUi {
     }
 
     /**
+     * Added Message for cca.
+     * @param mod Cca to be added.
+     */
+    public void addedMsg(Cca cca) {
+        System.out.println("Got it, added the follow cca!");
+        println(cca);
+    }
+
+    /**
      * Delete Message for new mods.
      * @param mod Module Tasks to be added.
      */
@@ -58,8 +75,21 @@ public class PlannerUi {
         showObject(mod);
     }
 
+    /**
+     * Delete Message for cca.
+     * @param cca Cca to be deleted.
+     */
+    public void deleteMsg(Cca cca) {
+        System.out.println("Got it, module will be deleted");
+        println(cca);
+    }
+
     public void listMsg() {
         System.out.println("All modules in the list!");
+    }
+
+    public void listCcaMsg() {
+        System.out.println("All ccas in the list!");
     }
 
     /**
