@@ -36,15 +36,24 @@ public class SortHelper {
     }
 
     /**
-     * Sorts the list of tasks by the task due date.
+     * Sorts the list of tasks by the task due date in descending order.
      * @param taskList The list of tasks.
      * @return The list of tasks sorted by the task due date.
      */
     public ArrayList<String> sortTaskDueDate(ArrayList<Task> taskList) {
         ArrayList<String> taskDetails = new ArrayList<>();
-        /*
-            Empty method
-         */
+        ArrayList<Task> sortedTaskList = new ArrayList<>();
+        for (Task task : taskList) {
+            if (task.getDueDate() != null) {
+                sortedTaskList.add(task);
+            }
+        }
+        sortedTaskList.sort((task1, task2) -> task2.getDueDate().compareTo(task1.getDueDate()));
+        int taskIndex = 1;
+        for (Task task : sortedTaskList) {
+            taskDetails.add(taskIndex + ". " + task.getDetails());
+            taskIndex++;
+        }
         return taskDetails;
     }
 
