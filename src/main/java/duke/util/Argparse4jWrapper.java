@@ -27,6 +27,9 @@ public class Argparse4jWrapper {
     private HashMap<String, List<String>> argumentMapper;
     private HashMap<Class, Class> typeMapper;
 
+    /**
+     * Constructor for parser.
+     */
     public Argparse4jWrapper() {
         this.parser = ArgumentParsers.newFor("ModPlanner")
                 .build()
@@ -36,12 +39,18 @@ public class Argparse4jWrapper {
         this.init();
     }
 
+    /**
+     * Map CLI command to arguments used in respective ModuleCommand classes.
+     */
     // Map arguments here -> this.mapArgument("commandName", "arg1", "arg2", "arg3", ...);
     public void mapBuiltinCommandsArguments() {
         this.mapArgument("add", "moduleCode");
         this.mapArgument("remove", "index");
     }
 
+    /**
+     * Map CLI commands to respective ModuleCommand classes.
+     */
     // Add new command types here
     public void mapBuiltinCommands() {
         this.mapCommand("add", SearchThenAddCommand.class);
@@ -50,6 +59,9 @@ public class Argparse4jWrapper {
         this.mapCommand("remove", RemoveModCommand.class);
     }
 
+    /**
+     * Add arguments for respective sub-parsers.
+     */
     // Add arguments for parsers here
     public void mapBuiltinParserArguments() {
         Subparser addParser = this.getSubParser("add");
@@ -69,6 +81,9 @@ public class Argparse4jWrapper {
         this.typeMapper.put(Integer.class, int.class);
     }
 
+    /**
+     * Initialize sub-parsers and command mappers.
+     */
     public void init() {
         this.subParserManager = this.parser.addSubparsers();
         this.subParsers = new HashMap<>();
@@ -82,6 +97,9 @@ public class Argparse4jWrapper {
         this.initTypeMapper();
     }
 
+    /**
+     * Map CLI commands to sub-parsers.
+     */
     public void initBuiltinParsers() {
         for (String command: this.commandMapper.keySet()) {
             this.addParser(command);
@@ -100,6 +118,13 @@ public class Argparse4jWrapper {
         this.commandMapper.put(command, type);
     }
 
+    /**
+     * Add a custom sub-parser.
+     * @param name name of sub-parser
+     * @param addHelp add help or not
+     * @param prefixChars prefix character to distinguish arguments
+     * @return added sub-parser
+     */
     public Subparser addParser(String name, boolean addHelp, String prefixChars) {
         this.subParsers.put(name,
                 this.subParserManager
@@ -128,6 +153,11 @@ public class Argparse4jWrapper {
         return this.getSubParser(subParserName).addArgument(name);
     }
 
+    /**
+     * Parse input.
+     * @param args input "words"
+     * @return parsed Namespace if input is valid else null
+     */
     public Namespace parse(String[] args) {
         try {
             return this.getParser().parseArgs(args);
@@ -141,6 +171,11 @@ public class Argparse4jWrapper {
         return this.parse(userInput.split(" +"));
     }
 
+    /**
+     * Parse input using a sub-parser.
+     * @param args input "words"
+     * @return parsed Namespace if input is valid else null
+     */
     public Namespace parse(String subParserName, String[] args) {
         try {
             return this.getSubParser(subParserName).parseArgs(args);
@@ -162,6 +197,10 @@ public class Argparse4jWrapper {
         this.getSubParser(subParserName).handleError(ex);
     }
 
+    /**
+     * Remap some classes for compatibility.
+     * @param classes parsed classes.
+     */
     private void remapTypes(Class[] classes) {
         for (int i = 0; i < classes.length; ++i) {
             if (this.typeMapper.containsKey(classes[i])) {
@@ -170,6 +209,11 @@ public class Argparse4jWrapper {
         }
     }
 
+    /**
+     * Parse input to ModuleCommand.
+     * @param userInput input String
+     * @return parsed ModuleCommand if input is valid else null
+     */
     private ModuleCommand parseCommand(String userInput) {
         Namespace parsedInput = this.parse(userInput);
         if (parsedInput != null) {
@@ -195,6 +239,10 @@ public class Argparse4jWrapper {
         }
     }
 
+    /**
+     * Test run.
+     * @param args input args
+     */
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
 
