@@ -2,6 +2,7 @@ package executor.command;
 
 import executor.task.TaskList;
 import ui.Ui;
+import ui.Wallet;
 
 public class CommandList extends Command {
 
@@ -17,5 +18,10 @@ public class CommandList extends Command {
         );
         taskList.printTasks();
         Ui.printSeparator();
+    }
+
+    @Override
+    public void execute(Wallet wallet) {
+
     }
 }
