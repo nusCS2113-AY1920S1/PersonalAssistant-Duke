@@ -241,6 +241,10 @@ public class ModelManager implements Model {
         bakingHome.setInventory(toEdit, edited);
     }
 
+    public void clearInventory(List<Item<Ingredient>> emptyList) {
+        bakingHome.clearInventory(emptyList);
+    }
+
     @Override
     public ObservableList<Item<Ingredient>> getFilteredInventoryList() {
         return filteredInventory;

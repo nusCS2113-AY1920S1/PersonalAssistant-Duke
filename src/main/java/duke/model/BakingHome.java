@@ -225,6 +225,10 @@ public class BakingHome implements ReadOnlyBakingHome {
         inventory.set(toEdit, edited);
     }
 
+    public void clearInventory(List<Item<Ingredient>> emptyList) {
+        inventory.setAll(emptyList);
+    }
+
     @Override
     public ObservableList<Item<Ingredient>> getInventoryList() {
         return inventory.asUnmodifiableObservableList();

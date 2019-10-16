@@ -218,6 +218,8 @@ public interface Model {
      */
     void setInventory(Item<Ingredient> toEdit, Item<Ingredient> edited);
 
+    void clearInventory(List<Item<Ingredient>> emptyList);
+
     //======Shopping list operations=====
 
     ObservableList<Item<Ingredient>> getFilteredShoppingList();
