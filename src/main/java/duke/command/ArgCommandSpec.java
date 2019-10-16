@@ -1,4 +1,7 @@
 package duke.command;
 
-public class ArgCommandSpec {
+public abstract class ArgCommandSpec {
+
+
+
 }

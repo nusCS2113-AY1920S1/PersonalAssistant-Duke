@@ -73,7 +73,7 @@ public abstract class ArgCommand extends Command {
             String name = switchNameArr[i];
             argLevelEntries[i] = Map.entry(name, argLevelArr[i]);
             assert(name.startsWith(switchRootArr[i]));
-            for (int j = switchRootArr[i].length(); j < name.length(); ++j) {
+            for (int j = switchRootArr[i].length(); j <= name.length(); ++j) {
                 entryArrList.add(Map.entry(name.substring(0, j), name));
             }
         }
