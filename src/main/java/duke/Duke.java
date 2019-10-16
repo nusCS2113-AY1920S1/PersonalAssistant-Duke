@@ -5,8 +5,7 @@ import duke.dukeobject.Budget;
 import duke.dukeobject.ExpenseList;
 import duke.exception.DukeException;
 import duke.exception.DukeRuntimeException;
-import duke.parser.CommandParams;
-import duke.parser.Parser;
+import duke.command.CommandParams;
 import duke.ui.Ui;
 
 import java.io.File;
@@ -79,7 +78,7 @@ public class Duke {
     public String getResponse(String fullCommand) {
         try {
             CommandParams commandParams = new CommandParams(fullCommand);
-            Command command = Parser.parseCommand(commandParams.getCommandName());
+            Command command = commandParams.getCommand();
             command.execute(commandParams, this);
         } catch (DukeException e) {
             ui.showError(e);

@@ -4,7 +4,6 @@ package duke.command;
 import duke.Duke;
 import duke.dukeobject.Expense;
 import duke.exception.DukeException;
-import duke.parser.CommandParams;
 
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -20,7 +19,7 @@ public class AddExpenseCommand extends Command {
     private static final String usage = "add $cost";
 
     private enum SecondaryParam {
-        DESCRIPTION("d", "a short description or name for the expense"),
+        DESCRIPTION("description", "a short description or name for the expense"),
         TAG("tag", "tags that should be added to the expense"),
         TIME("time", "the time of the expense");
 

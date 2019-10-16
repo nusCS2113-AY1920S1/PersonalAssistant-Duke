@@ -28,7 +28,7 @@ public class ExpenseTest {
     private static final String[] TEST_FLIPPED_TAGS = {"tag3", "tag4"};
 
     private static final String INVALID_STORAGE_STRING = "tags:tag1 tag2 tag3\n"
-            + "amount:1.23\n"
+            + "amount:1.234\n"
             + "d:1\n"
             + "t:2";
 
@@ -139,10 +139,8 @@ public class ExpenseTest {
         try {
             new Expense.Builder(INVALID_STORAGE_STRING);
             fail();
-        } catch (DukeRuntimeException | DukeException e) {
-            // Success
-            // todo: I would check the message here if the message was constant
-            e.printStackTrace();
+        } catch (DukeException e) {
+            assertEquals(String.format(DukeException.MESSAGE_EXPENSE_AMOUNT_INVALID, "1.234"), e.getMessage());
         }
     }
 }

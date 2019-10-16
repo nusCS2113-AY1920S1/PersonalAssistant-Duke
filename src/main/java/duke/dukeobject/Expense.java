@@ -4,6 +4,7 @@ import duke.exception.DukeException;
 import duke.parser.Parser;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.time.LocalDateTime;
 import java.util.Map;
 import java.util.StringJoiner;
@@ -107,7 +108,7 @@ public class Expense extends DukeItem {
                 throw new DukeException(
                         String.format(DukeException.MESSAGE_EXPENSE_AMOUNT_INVALID, amount.toPlainString()));
             }
-            this.amount = amount;
+            this.amount = amount.setScale(2, RoundingMode.UNNECESSARY);
             return this;
         }
 

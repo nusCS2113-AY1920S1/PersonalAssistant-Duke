@@ -2,7 +2,6 @@ package duke.command;
 
 import duke.Duke;
 import duke.exception.DukeException;
-import duke.parser.CommandParams;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -47,8 +46,8 @@ public class BudgetCommand extends Command {
             duke.budget.setMonthlyBudget(scaledAmount);
             duke.budget.save();
         } catch (NumberFormatException e) {
-            throw new DukeException(String.format(DukeException.MESSAGE_EXPENSE_AMOUNT_INVALID,
-                    commandParams.getParam(SecondaryParam.TAG.name)));
+            throw new DukeException(String.format(DukeException.MESSAGE_BUDGET_AMOUNT_INVALID,
+                commandParams.getMainParam()));
         }
 
     }

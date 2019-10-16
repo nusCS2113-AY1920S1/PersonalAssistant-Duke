@@ -1,5 +1,6 @@
 package duke.parser;
 
+import duke.command.CommandParams;
 import duke.exception.DukeException;
 import duke.exception.DukeRuntimeException;
 import org.junit.jupiter.api.Test;
@@ -15,77 +16,65 @@ public class CommandParamsTest {
 
     @Test
     public void testCorrectParamValues() throws DukeException {
-        CommandParams testParams = new CommandParams("name description goes here /a is a /b is b /c is c");
-        assertEquals(testParams.getCommandName(), "name");
-        assertEquals(testParams.getMainParam(), "description goes here");
-        assertEquals(testParams.getParam("a"), "is a");
-        assertEquals(testParams.getParam("a"), "is a");
-        assertEquals(testParams.getParam("b"), "is b");
-        assertEquals(testParams.getParam("b"), "is b");
-        assertEquals(testParams.getParam("c"), "is c");
-        assertEquals(testParams.getParam("c"), "is c");
-        assertNull(testParams.getParam("d"));
-        assertTrue(testParams.containsParams("a"));
-        assertFalse(testParams.containsParams("d"));
+        CommandParams testParams = new CommandParams("add 2.12 /description hello /tag a b c");
+        assertEquals(testParams.getCommand().getName(), "add");
+        assertEquals(testParams.getMainParam(), "2.12");
+        assertEquals(testParams.getParam("description"), "hello");
+        assertEquals(testParams.getParam("tag"), "a b c");
+        assertTrue(testParams.containsParams("tag"));
+        assertFalse(testParams.containsParams("time"));
     }
 
     @Test
     public void testCorrectNullParamValues() throws DukeException {
-        CommandParams testParams = new CommandParams("noMainParam /a /b /c /d not null");
+        CommandParams testParams = new CommandParams("add /description /tag not null");
         assertNull(testParams.getMainParam());
-        assertNull(testParams.getParam("a"));
-        assertNull(testParams.getParam("b"));
-        assertNull(testParams.getParam("c"));
-        assertEquals(testParams.getParam("d"), "not null");
-        assertNull(testParams.getParam("e"));
+        assertEquals(testParams.getParam("tag"), "not null");
 
         try {
-            testParams.getParam("a");
+            testParams.getParam("description");
             fail();
-        } catch (DukeRuntimeException e) {
-            assertEquals("☹ OOPS!!! You need to give me a value for a!", e.getMessage());
-        }
-
-        try {
-            testParams.getParam("b");
-            fail();
-        } catch (DukeRuntimeException e) {
-            assertEquals("☹ OOPS!!! You need to give me a value for b!", e.getMessage());
-        }
-
-        try {
-            testParams.getParam("c");
-            fail();
-        } catch (DukeRuntimeException e) {
-            assertEquals("☹ OOPS!!! You need to give me a value for c!", e.getMessage());
-        }
-
-        try {
-            testParams.getParam("e");
-            fail();
-        } catch (DukeRuntimeException e) {
-            assertEquals("☹ OOPS!!! You need to give me a value for e!", e.getMessage());
+        } catch (DukeException e) {
+            assertEquals(
+                String.format(DukeException.MESSAGE_COMMAND_PARAM_MISSING_VALUE, "description"), e.getMessage());
         }
     }
 
     @Test
     public void testParamNotFoundException() throws DukeException {
-        CommandParams testParams = new CommandParams("noParams");
+        CommandParams testParams = new CommandParams("add");
         try {
             testParams.getParam("a");
             fail();
-        } catch (DukeRuntimeException e) {
-            assertEquals("☹ OOPS!!! You need to give me a value for a!", e.getMessage());
+        } catch (DukeException e) {
+            assertEquals(
+                String.format(DukeException.MESSAGE_COMMAND_PARAM_MISSING_VALUE, "a"), e.getMessage());
         }
     }
 
     @Test
     public void testDuplicateParams() throws DukeException {
         try {
-            CommandParams testParams = new CommandParams("sameParams /a first /a second");
+            CommandParams testParams = new CommandParams("add /time /time");
             fail();
-        } catch (DukeRuntimeException e) {
-            assertEquals("☹ OOPS!!! You specified a twice!", e.getMessage());
+        } catch (DukeException e) {
+            assertEquals(
+                String.format(DukeException.MESSAGE_COMMAND_PARAM_DUPLICATE, "time"), e.getMessage());
         }
+    }
+
+    @Test
+    public void testAbbreviationFunctionality() throws DukeException {
+        try {
+            CommandParams testParams = new CommandParams("b");
+            fail();
+        } catch (DukeException e) {
+            assertEquals(
+                DukeException.MESSAGE_COMMAND_NAME_UNKNOWN, e.getMessage());
+        }
+
+        CommandParams testParams = new CommandParams("ad /d description");
+        assertEquals(testParams.getCommand().getName(), "add");
+        assertEquals(testParams.getParam("description"), "description");
     }
 }

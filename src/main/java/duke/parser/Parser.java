@@ -3,8 +3,6 @@ package duke.parser;
 import duke.command.AddExpenseCommand;
 import duke.command.BudgetCommand;
 import duke.command.Command;
-import duke.command.DeleteCommand;
-import duke.command.ExitCommand;
 import duke.exception.DukeException;
 
 import java.time.LocalDateTime;
@@ -18,33 +16,6 @@ import java.time.format.DateTimeParseException;
 public class Parser {
 
     private static DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("HH:mm dd/MM/yyyy");
-
-    /**
-     * Returns the command with the name commandName.
-     *
-     * @param commandName The name of the command.
-     * @return {@code Command} object converted from fullCommand.
-     * @throws DukeException If user input is invalid.
-     */
-    public static Command parseCommand(String commandName) throws DukeException {
-        switch (commandName) {
-        case "add":
-            return new AddExpenseCommand();
-
-        case "delete":
-            return new DeleteCommand();
-
-        case "budget":
-            return new BudgetCommand();
-
-        case "bye":
-
-            return new ExitCommand();
-
-        default:
-            throw new DukeException(String.format(DukeException.MESSAGE_COMMAND_NAME_UNKNOWN, commandName));
-        }
-    }
 
     /**
      * Converts a LocalDateTime to a user readable string.
