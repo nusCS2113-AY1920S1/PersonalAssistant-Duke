@@ -130,3 +130,123 @@ Oct 16, 2019 2:31:26 PM duke.Launcher start
 INFO: Starting BakingHome
 Oct 16, 2019 2:31:26 PM duke.ui.UiManager start
 INFO: Starting UI...
+Oct 16, 2019 8:13:40 PM duke.Launcher init
+INFO: =============================[ Initializing BakingHome ]===========================
+Oct 16, 2019 8:13:40 PM duke.Launcher start
+INFO: Starting BakingHome
+Oct 16, 2019 8:13:40 PM duke.ui.UiManager start
+INFO: Starting UI...
+Oct 16, 2019 8:15:31 PM duke.Launcher init
+INFO: =============================[ Initializing BakingHome ]===========================
+Oct 16, 2019 8:15:31 PM duke.Launcher start
+INFO: Starting BakingHome
+Oct 16, 2019 8:15:31 PM duke.ui.UiManager start
+INFO: Starting UI...
+Oct 16, 2019 8:18:09 PM duke.Launcher init
+INFO: =============================[ Initializing BakingHome ]===========================
+Oct 16, 2019 8:18:09 PM duke.Launcher start
+INFO: Starting BakingHome
+Oct 16, 2019 8:18:09 PM duke.ui.UiManager start
+INFO: Starting UI...
+Oct 16, 2019 8:20:46 PM duke.Launcher init
+INFO: =============================[ Initializing BakingHome ]===========================
+Oct 16, 2019 8:20:46 PM duke.Launcher start
+INFO: Starting BakingHome
+Oct 16, 2019 8:20:46 PM duke.ui.UiManager start
+INFO: Starting UI...
+Oct 16, 2019 8:20:47 PM duke.ui.UiManager start
+SEVERE: null
+java.lang.NullPointerException
+	at duke.ui.ProductPage.setupTable(ProductPage.java:48)
+	at duke.ui.ProductPage.<init>(ProductPage.java:39)
+	at duke.ui.MainWindow.fillInnerParts(MainWindow.java:102)
+	at duke.ui.UiManager.start(UiManager.java:43)
+	at duke.Launcher.start(Launcher.java:67)
+	at javafx.graphics/com.sun.javafx.application.LauncherImpl.lambda$launchApplication1$9(LauncherImpl.java:919)
+	at javafx.graphics/com.sun.javafx.application.PlatformImpl.lambda$runAndWait$11(PlatformImpl.java:449)
+	at javafx.graphics/com.sun.javafx.application.PlatformImpl.lambda$runLater$9(PlatformImpl.java:418)
+	at java.base/java.security.AccessController.doPrivileged(Native Method)
+	at javafx.graphics/com.sun.javafx.application.PlatformImpl.lambda$runLater$10(PlatformImpl.java:417)
+	at javafx.graphics/com.sun.glass.ui.InvokeLaterDispatcher$Future.run(InvokeLaterDispatcher.java:96)
+	at javafx.graphics/com.sun.glass.ui.win.WinApplication._runLoop(Native Method)
+	at javafx.graphics/com.sun.glass.ui.win.WinApplication.lambda$runLoop$3(WinApplication.java:175)
+	at java.base/java.lang.Thread.run(Thread.java:834)
+
+Oct 16, 2019 8:20:47 PM duke.ui.UiManager showFatalErrorDialogAndShutdown
+SEVERE: Fatal error during initializing nullnull
+java.lang.NullPointerException
+	at duke.ui.ProductPage.setupTable(ProductPage.java:48)
+	at duke.ui.ProductPage.<init>(ProductPage.java:39)
+	at duke.ui.MainWindow.fillInnerParts(MainWindow.java:102)
+	at duke.ui.UiManager.start(UiManager.java:43)
+	at duke.Launcher.start(Launcher.java:67)
+	at javafx.graphics/com.sun.javafx.application.LauncherImpl.lambda$launchApplication1$9(LauncherImpl.java:919)
+	at javafx.graphics/com.sun.javafx.application.PlatformImpl.lambda$runAndWait$11(PlatformImpl.java:449)
+	at javafx.graphics/com.sun.javafx.application.PlatformImpl.lambda$runLater$9(PlatformImpl.java:418)
+	at java.base/java.security.AccessController.doPrivileged(Native Method)
+	at javafx.graphics/com.sun.javafx.application.PlatformImpl.lambda$runLater$10(PlatformImpl.java:417)
+	at javafx.graphics/com.sun.glass.ui.InvokeLaterDispatcher$Future.run(InvokeLaterDispatcher.java:96)
+	at javafx.graphics/com.sun.glass.ui.win.WinApplication._runLoop(Native Method)
+	at javafx.graphics/com.sun.glass.ui.win.WinApplication.lambda$runLoop$3(WinApplication.java:175)
+	at java.base/java.lang.Thread.run(Thread.java:834)
+
+Oct 16, 2019 8:20:57 PM duke.Launcher init
+INFO: =============================[ Initializing BakingHome ]===========================
+Oct 16, 2019 8:20:57 PM duke.Launcher start
+INFO: Starting BakingHome
+Oct 16, 2019 8:20:57 PM duke.ui.UiManager start
+INFO: Starting UI...
+Oct 16, 2019 8:21:33 PM duke.Launcher init
+INFO: =============================[ Initializing BakingHome ]===========================
+Oct 16, 2019 8:21:33 PM duke.Launcher start
+INFO: Starting BakingHome
+Oct 16, 2019 8:21:33 PM duke.ui.UiManager start
+INFO: Starting UI...
+Oct 16, 2019 8:22:08 PM duke.Launcher init
+INFO: =============================[ Initializing BakingHome ]===========================
+Oct 16, 2019 8:22:08 PM duke.Launcher start
+INFO: Starting BakingHome
+Oct 16, 2019 8:22:08 PM duke.ui.UiManager start
+INFO: Starting UI...
+Oct 16, 2019 8:24:48 PM duke.Launcher init
+INFO: =============================[ Initializing BakingHome ]===========================
+Oct 16, 2019 8:24:48 PM duke.Launcher start
+INFO: Starting BakingHome
+Oct 16, 2019 8:24:48 PM duke.ui.UiManager start
+INFO: Starting UI...
+Oct 16, 2019 8:26:03 PM duke.Launcher init
+INFO: =============================[ Initializing BakingHome ]===========================
+Oct 16, 2019 8:26:03 PM duke.Launcher start
+INFO: Starting BakingHome
+Oct 16, 2019 8:26:03 PM duke.ui.UiManager start
+INFO: Starting UI...
+Oct 16, 2019 8:26:41 PM duke.Launcher init
+INFO: =============================[ Initializing BakingHome ]===========================
+Oct 16, 2019 8:26:41 PM duke.Launcher start
+INFO: Starting BakingHome
+Oct 16, 2019 8:26:41 PM duke.ui.UiManager start
+INFO: Starting UI...
+Oct 16, 2019 8:26:53 PM duke.Launcher init
+INFO: =============================[ Initializing BakingHome ]===========================
+Oct 16, 2019 8:26:53 PM duke.Launcher start
+INFO: Starting BakingHome
+Oct 16, 2019 8:26:53 PM duke.ui.UiManager start
+INFO: Starting UI...
+Oct 16, 2019 8:38:36 PM duke.Launcher init
+INFO: =============================[ Initializing BakingHome ]===========================
+Oct 16, 2019 8:38:36 PM duke.Launcher start
+INFO: Starting BakingHome
+Oct 16, 2019 8:38:36 PM duke.ui.UiManager start
+INFO: Starting UI...
+Oct 16, 2019 8:39:38 PM duke.Launcher init
+INFO: =============================[ Initializing BakingHome ]===========================
+Oct 16, 2019 8:39:38 PM duke.Launcher start
+INFO: Starting BakingHome
+Oct 16, 2019 8:39:38 PM duke.ui.UiManager start
+INFO: Starting UI...
+Oct 16, 2019 8:43:18 PM duke.Launcher init
+INFO: =============================[ Initializing BakingHome ]===========================
+Oct 16, 2019 8:43:18 PM duke.Launcher start
+INFO: Starting BakingHome
+Oct 16, 2019 8:43:18 PM duke.ui.UiManager start
+INFO: Starting UI...

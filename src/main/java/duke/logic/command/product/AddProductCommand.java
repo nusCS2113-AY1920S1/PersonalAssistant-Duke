@@ -4,7 +4,6 @@ import duke.logic.command.CommandResult;
 import duke.logic.command.exceptions.CommandException;
 import duke.model.Model;
 import duke.model.product.Product;
-import duke.ui.IngredientPopUp;
 
 import static java.util.Objects.requireNonNull;
 
@@ -40,8 +39,6 @@ public class AddProductCommand extends ProductCommand {
         }
 
         model.addProduct(toAdd);
-        IngredientPopUp.setUpPopUp(toAdd);
-        System.out.println("here");
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd.getProductName()),
                 CommandResult.DisplayedPage.PRODUCT);
     }

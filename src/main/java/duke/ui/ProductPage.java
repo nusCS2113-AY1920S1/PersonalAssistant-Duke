@@ -6,11 +6,15 @@ import javafx.beans.binding.Bindings;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.control.SplitPane;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
+import javafx.util.Callback;
+import org.controlsfx.control.MasterDetailPane;
+
 import java.util.logging.Logger;
 
 import static java.util.Objects.requireNonNull;
@@ -22,10 +26,7 @@ public class ProductPage extends UiPart<AnchorPane> {
     @FXML
     private Label tableTitle;
     @FXML
-    private TableView productListTable;
-
-    @FXML
-    private ProductDetailsPage productDetailsPage;
+    private MasterDetailPane productIngredientPane;
 
     private ObservableList<Product> productList;
 
@@ -36,18 +37,33 @@ public class ProductPage extends UiPart<AnchorPane> {
         requireNonNull(productList);
         this.productList = productList;
 
-        setupTable();
+        showProductList();
     }
 
 
-    void setupTable() {
-        productListTable.setItems(productList);
-        productListTable.getColumns().clear();
-        setIndexColumn();
-        setProductInfoColumns();
+    private void showProductList() {
+        productIngredientPane.setMasterNode(setUpTable());
+        productIngredientPane.setShowDetailNode(false);
     }
 
-    void setIndexColumn() {
+    private void showProductIngredient() {
+        productIngredientPane.setMasterNode(setUpTable());
+        productIngredientPane.setShowDetailNode(true);
+    }
+    private TableView setUpTable() {
+        TableView<Product> productListTable = new TableView<>();
+        productListTable.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
+        setProperty(productListTable, productList);
+        setIndexColumn(productListTable);
+        setProductInfoColumns(productListTable);
+        return productListTable;
+    }
+
+    private void setProperty(TableView table, ObservableList observableList) {
+        table.setItems(observableList);
+        table.getColumns().clear();
+    }
+    void setIndexColumn(TableView table) {
         TableColumn<Product, Void> indexColumn = new TableColumn<>("S/N");
         indexColumn.setResizable(true);
 
@@ -70,13 +86,13 @@ public class ProductPage extends UiPart<AnchorPane> {
             });
         }
         ////////////////////////////////index column created
-        productListTable.getColumns().add(indexColumn);
+        table.getColumns().add(indexColumn);
         indexColumn.setMinWidth(80);
         indexColumn.setMaxWidth(80);
 
     }
 
-    void setProductInfoColumns() {
+    void setProductInfoColumns(TableView table) {
         TableColumn<Product, String> nameColumn = new TableColumn<>("Name");
         nameColumn.setResizable(true);
         nameColumn.setCellValueFactory(new PropertyValueFactory<>("productName"));
@@ -93,7 +109,7 @@ public class ProductPage extends UiPart<AnchorPane> {
         statusColumn.setResizable(true);
         statusColumn.setCellValueFactory(new PropertyValueFactory<>("status"));
 
-        productListTable.getColumns().addAll(nameColumn, priceColumn,
+        table.getColumns().addAll(nameColumn, priceColumn,
                 costColumn, statusColumn);
     }
 
