@@ -14,6 +14,10 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class Email {
     protected String filepath;
@@ -80,6 +84,10 @@ public class Email {
         return this.receivedDateTime;
     }
 
+    public ArrayList<Tag> getTags() {
+        return this.tags;
+    }
+
     /**
      * Add tag from string if not exist.
      *
@@ -95,7 +103,7 @@ public class Email {
     }
 
     /**
-     * Add tag from keywordPair if not exist. Update relevance if already exists.
+     * Add tag from keywordPair if not exist.
      *
      * @param keywordPair keywordPair of the tag
      * @param relevance relevance of the tag
@@ -103,11 +111,53 @@ public class Email {
     public void addTag(EmailContentParser.KeywordPair keywordPair, int relevance) {
         for (Tag tag : tags) {
             if (tag.getKeywordPair().getKeyword().equals(keywordPair.getKeyword())) {
-                tag.setRelevance(relevance);
                 return;
             }
         }
         this.tags.add(new Tag(keywordPair, relevance));
+    }
+
+    /**
+     * Add tag to tag list if keyword not exist.
+     *
+     * @param newTag the new tag to be added to the list
+     */
+    public void addTag(Tag newTag) {
+        for (Tag tag : tags) {
+            if (tag.getKeywordPair().getKeyword().equals(newTag.getKeywordPair().getKeyword())) {
+                return;
+            }
+        }
+        this.tags.add(newTag);
+    }
+
+    /**
+     * Colors the email body with the tag of highest relevance. Also, longer expression will have a higher
+     * priority to be colored currently.
+     *
+     * @return email body after the coloring
+     */
+    public String colorBodyOnTag() {
+        if (this.tags.size() == 0) {
+            Duke.getUI().showDebug("Empty tags");
+            return this.body;
+        }
+        Tag highestTag = null;
+        for (Tag tag : tags) {
+            if (highestTag == null || tag.relevance > highestTag.relevance) {
+                highestTag = tag;
+            }
+        }
+        String output = this.body;
+        ArrayList<String> expressions = highestTag.getKeywordPair().getExpressions();
+        Collections.sort(expressions, (ex1, ex2) -> ex1.length() >= ex2.length() ? 1 : -1);
+        for (String expression: expressions) {
+            Pattern colorPattern = Pattern.compile("expression", Pattern.CASE_INSENSITIVE);
+            Matcher colorMatcher = colorPattern.matcher(output);
+            colorMatcher.replaceAll(x -> "<p style=\"color:red\">" + x + "</p>");
+        }
+        //Duke.getUI().showDebug(output);
+        return output;
     }
 
     public String getRawJson() {

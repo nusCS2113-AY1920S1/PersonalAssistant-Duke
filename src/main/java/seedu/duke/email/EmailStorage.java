@@ -231,8 +231,8 @@ public class EmailStorage {
             Scanner scanner = new Scanner(indexIn);
             while (scanner.hasNextLine()) {
                 String input = scanner.nextLine();
-                Email email = EmailFormatParser.parseIndexJson(input);
-                String filename = email.getFilename();
+                Email indexEmail = EmailFormatParser.parseIndexJson(input);
+                String filename = indexEmail.getFilename();
 
                 String fileDir = getFolderDir() + filename;
                 File emailFile = new File(fileDir);
@@ -242,7 +242,11 @@ public class EmailStorage {
                 while (emailScanner.hasNextLine()) {
                     emailContent += emailScanner.nextLine();
                 }
-                emailList.add(EmailFormatParser.parseRawJson(emailContent));
+                Email fileEmail = EmailFormatParser.parseRawJson(emailContent);
+                for (Email.Tag tag : indexEmail.getTags()) {
+                    fileEmail.addTag(tag);
+                }
+                emailList.add(fileEmail);
             }
             Duke.getUI().showMessage("Saved email file successfully loaded...");
             indexIn.close();
