@@ -85,8 +85,8 @@ public class ProjectInputController implements IController {
                 } else if (projectCommand.length() > 25
                         && ("view task requirements i/").equals(projectCommand.substring(0, 25))) {
                     int taskIndex = Integer.parseInt(projectCommand.substring(25));
-                    if (projectToManage.getNumOfTasks() >= taskIndex) {
-                        if (projectToManage.getTask(taskIndex).getTaskRequirements() == null) {
+                    if (projectToManage.getNumOfTasks() >= taskIndex && taskIndex > 0) {
+                        if (projectToManage.getTask(taskIndex).getNumOfTaskRequirements() == 0) {
                             consoleView.consolePrint("This task has no specific requirements.");
                         } else {
                             consoleView.viewTaskRequirements(projectToManage, taskIndex);
@@ -94,12 +94,28 @@ public class ProjectInputController implements IController {
                     } else {
                         consoleView.consolePrint("The task index entered is invalid.");
                     }
-                } else if (projectCommand.length() == 10 && ("edit task ").equals(projectCommand)) {
-                    String temp2 = "";
-                    System.out.println(temp2);
-                    /*
-                        Empty method
-                    */
+                } else if (projectCommand.length() > 23
+                        && ("edit task requirements ").equals(projectCommand.substring(0, 23))) {
+                    String[] updatedTaskRequirements = projectCommand.split(" [ir]m?/");
+                    int taskIndexNumber = Integer.parseInt(updatedTaskRequirements[1]);
+                    boolean haveRemove = false;
+                    if (projectCommand.contains(" rm/")) {
+                        haveRemove = true;
+                    }
+                    if (projectToManage.getNumOfTasks() >= taskIndexNumber && taskIndexNumber > 0) {
+                        consoleView.editTaskRequirements(projectToManage, taskIndexNumber, updatedTaskRequirements,
+                                haveRemove);
+                    } else {
+                        consoleView.consolePrint("The task index entered is invalid.");
+                    }
+                } else if (projectCommand.length() > 10 && ("edit task ").equals(projectCommand.substring(0, 10))) {
+                    String [] updatedTaskDetails = projectCommand.split(" [itpdcs]\\/");
+                    int taskIndexNumber = Integer.parseInt(updatedTaskDetails[1]);
+                    if (projectToManage.getNumOfTasks() >= taskIndexNumber && taskIndexNumber > 0) {
+                        consoleView.editTask(projectToManage, projectCommand, taskIndexNumber);
+                    } else {
+                        consoleView.consolePrint("The task index entered is invalid.");
+                    }
                 } else if (projectCommand.length() >= 12 && ("delete task ").equals(projectCommand.substring(0,12))) {
                     int taskIndexNumber = Integer.parseInt(projectCommand.substring(12).split(" ")[0]);
                     if (projectToManage.getNumOfTasks() >= taskIndexNumber) {
