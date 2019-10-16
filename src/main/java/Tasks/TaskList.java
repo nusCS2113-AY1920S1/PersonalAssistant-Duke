@@ -61,10 +61,9 @@ public class TaskList {
     }
 
     public void removeTask(Task task) {
-        ArrayList<Task> taskList = this.map.get(task.getModCode()).get(task.getDateTime());
-        for(Task taskInList : taskList) {
+        for(Task taskInList : this.map.get(task.getModCode()).get(task.getDateTime())) {
             if(taskInList.getDescription().equals(task.getDescription())) {
-                taskList.remove(taskInList);
+                this.map.get(task.getModCode()).get(task.getDateTime()).remove(taskInList);
                 break;
             }
         }
@@ -84,6 +83,16 @@ public class TaskList {
     //Use the getArrayList method then arrayList.size()
     public int taskListSize(){
         return list.size();
+    }
+
+    public void setReminder(Task task, String time, boolean reminder){
+        for (Task taskInList : this.map.get(task.getModCode()).get(task.getDateTime())) {
+            if (taskInList.equals(task)) {
+                taskInList.setRemindTime(time);
+                taskInList.setReminder(reminder);
+                break;
+            }
+        }
     }
 
     /**

@@ -48,19 +48,19 @@ public class MainWindow extends BorderPane implements Initializable {
     @FXML
     private HBox progressContainer;
     @FXML
-    private ListView sunEventView;
+    private ListView<Text> sunEventView;
     @FXML
-    private ListView monEventView;
+    private ListView<Text> monEventView;
     @FXML
-    private ListView tueEventView;
+    private ListView<Text> tueEventView;
     @FXML
-    private ListView wedEventView;
+    private ListView<Text> wedEventView;
     @FXML
-    private ListView thuEventView;
+    private ListView<Text> thuEventView;
     @FXML
-    private ListView friEventView;
+    private ListView<Text> friEventView;
     @FXML
-    private ListView satEventView;
+    private ListView<Text> satEventView;
     @FXML
     private TableView<DeadlineView> overdueTable;
     @FXML
@@ -90,7 +90,8 @@ public class MainWindow extends BorderPane implements Initializable {
         }
     }
 
-    int number_of_modules;
+    protected int number_of_modules;
+
     /**
      * This method initializes the display in the window of the GUI.
      */
@@ -114,35 +115,43 @@ public class MainWindow extends BorderPane implements Initializable {
             overdueTaskColumn.setCellValueFactory(new PropertyValueFactory<>("task"));
             overdueTable.setItems(setOverdueTable());
 
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/view/ProgressIndicator.fxml"));
-            fxmlLoader.load();
-            Pair<HashMap<String, String>, ArrayList<Pair<String, Pair<String, String>>>> result= fxmlLoader.<ProgressController>getController().getProgressIndicatorMap(eventsList.getMap(), deadlinesList.getMap());
-            number_of_modules = result.getKey().keySet().size();
-            //System.out.println("Number of times: " + (String.valueOf(number_of_modules)));
-
-            HashMap<String, String> modules = result.getKey();
-            int totalNumTasks = 0;
-            int completedValue = 0;
-            for (String module : modules.keySet()) {
-                ArrayList<Pair<String, Pair<String, String>>> tasks = result.getValue();
-                //totalNumTasks = tasks.size();
-                for (Pair<String, Pair<String, String>> as : tasks) {
-                    if (as.getKey().equals(module)) {
-                        totalNumTasks += 1;
-                        if (as.getValue().getKey().equals("\u2713")) {
-                            completedValue += 1;
-                        }
-                    }
-                }
-                FXMLLoader fxmlLoad = new FXMLLoader(getClass().getResource("/view/ProgressIndicator.fxml"));
-                Parent loads = fxmlLoad.load();
-                fxmlLoad.<ProgressController>getController().getData(module, totalNumTasks, completedValue);
-                progressContainer.getChildren().add(loads);
-            }
-
+            setProgressContainer();
             setListView();
         } catch (IOException | NullPointerException | ParseException e) {
             e.printStackTrace();
+        }
+    }
+
+    /**
+     * This method creates the progress indicator for the different modules.
+     * @throws IOException On reading error in the lines of the file
+     */
+    private void setProgressContainer() throws IOException {
+        progressContainer.getChildren().clear();
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/view/ProgressIndicator.fxml"));
+        fxmlLoader.load();
+        Pair<HashMap<String, String>, ArrayList<Pair<String, Pair<String, String>>>> result= fxmlLoader.<ProgressController>getController().getProgressIndicatorMap(eventsList.getMap(), deadlinesList.getMap());
+        number_of_modules = result.getKey().keySet().size();
+        //System.out.println("Number of times: " + (String.valueOf(number_of_modules)));
+
+        HashMap<String, String> modules = result.getKey();
+        int totalNumTasks = 0;
+        int completedValue = 0;
+        for (String module : modules.keySet()) {
+            ArrayList<Pair<String, Pair<String, String>>> tasks = result.getValue();
+            //totalNumTasks = tasks.size();
+            for (Pair<String, Pair<String, String>> as : tasks) {
+                if (as.getKey().equals(module)) {
+                    totalNumTasks += 1;
+                    if (as.getValue().getKey().equals("\u2713")) {
+                        completedValue += 1;
+                    }
+                }
+            }
+            FXMLLoader fxmlLoad = new FXMLLoader(getClass().getResource("/view/ProgressIndicator.fxml"));
+            Parent loads = fxmlLoad.load();
+            fxmlLoad.<ProgressController>getController().getData(module, totalNumTasks, completedValue);
+            progressContainer.getChildren().add(loads);
         }
     }
 
@@ -247,15 +256,17 @@ public class MainWindow extends BorderPane implements Initializable {
     }
 
     @FXML
-    private void handleUserInput() throws ParseException {
+    private void handleUserInput() throws ParseException, IOException {
         String input = userInput.getText();
         String response = duke.getResponse(input);
         if (input.startsWith("Week")) {
             setWeek(false, input);
             setListView();
         } else if (input.startsWith("add")) {
-            if(response.startsWith("true|"))
-            refresh(input);
+            if(response.startsWith("true|")) {
+                refresh(input);
+                setProgressContainer();
+            }
         } else if (input.startsWith("delete/e" ) || input.startsWith("done/e")) {
             String[] split = input.split("/at");
             String[] dateAndTime = split[1].split("from");
@@ -273,6 +284,8 @@ public class MainWindow extends BorderPane implements Initializable {
             delay.setOnFinished( event -> Platform.exit() );
             delay.play();
         }
+        AlertBox.display("", "",
+                response, Alert.AlertType.INFORMATION);
         userInput.clear();
     }
 
@@ -331,22 +344,17 @@ public class MainWindow extends BorderPane implements Initializable {
             if(leftTimeSplitHourMinute[0].equals("12") && rightTimeSplitHourMinute[0].equals("12")) {
                 return leftTimeSplitHourMinute[1].compareTo(rightTimeSplitHourMinute[1]);
             } else if(leftTimeSplitHourMinute[0].equals("12")) {
-                //return left
                 return -1;
             } else if (rightTimeSplitHourMinute[0].equals("12")) {
-                //return right
                 return 1;
             } else {
                 return leftTimeSplit[0].compareTo(rightTimeSplit[0]);
             }
         } else if (leftTimeSplit[1].equals("AM")) {
-            //return left
             return -1;
         } else if (rightTimeSplit[1].equals("AM")) {
-            //return right
             return 1;
         } else {
-            //return left
             return leftSplit[0].compareTo(rightSplit[0]);
         }
     }
@@ -368,7 +376,7 @@ public class MainWindow extends BorderPane implements Initializable {
                         //boolean isTick = task.isDone;
                         Text toShow = new Text(task.toShow() + task.getModCode() + "\n" + task.getDescription());
                         toShow.setFont(Font.font(10));
-                        if (task.isDone){
+                        if (task.getStatus()){
                             toShow.setFill(Color.GAINSBORO);
                             toShow.setStrikethrough(true);
                         }
@@ -401,13 +409,13 @@ public class MainWindow extends BorderPane implements Initializable {
                 }
             }
         }
-        monEventView.setItems(monList.sorted(MainWindow::compareByTime));
-        tueEventView.setItems(tueList.sorted(MainWindow::compareByTime));
-        wedEventView.setItems(wedList.sorted(MainWindow::compareByTime));
-        thuEventView.setItems(thuList.sorted(MainWindow::compareByTime));
-        friEventView.setItems(friList.sorted(MainWindow::compareByTime));
-        satEventView.setItems(satList.sorted(MainWindow::compareByTime));
-        sunEventView.setItems(sunList.sorted(MainWindow::compareByTime));
+        if(monList.size() != 0 ) monEventView.setItems(monList.sorted(MainWindow::compareByTime));
+        if(tueList.size() != 0 ) tueEventView.setItems(tueList.sorted(MainWindow::compareByTime));
+        if(wedList.size() != 0 ) wedEventView.setItems(wedList.sorted(MainWindow::compareByTime));
+        if(thuList.size() != 0 ) thuEventView.setItems(thuList.sorted(MainWindow::compareByTime));
+        if(friList.size() != 0 ) friEventView.setItems(friList.sorted(MainWindow::compareByTime));
+        if(satList.size() != 0 ) satEventView.setItems(satList.sorted(MainWindow::compareByTime));
+        if(sunList.size() != 0 ) sunEventView.setItems(sunList.sorted(MainWindow::compareByTime));
     }
 
     /**
@@ -425,8 +433,6 @@ public class MainWindow extends BorderPane implements Initializable {
             week = selectedWeek;
             currentWeek.setFont(Font.font("Verdana", FontWeight.BOLD, FontPosture.ITALIC,23));
             currentWeek.setTextFill(Color.GOLDENROD);
-            //currentWeek.setUnderline(true);
-            //currentWeek.setDisable(true);
         }
         else{
             currentWeek.setText(selectedWeek + " ( " + LT.getDates(selectedWeek.toLowerCase()) + " )");

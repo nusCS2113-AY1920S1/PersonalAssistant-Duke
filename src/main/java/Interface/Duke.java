@@ -31,9 +31,8 @@ public class Duke extends Application {
         try {
             storage.readDeadlineList(deadlines);
             storage.readEventList(events);
-        } catch (IOException | ParseException | StringIndexOutOfBoundsException e) {
+        } catch (IOException | ParseException e) {
             ui.showLoadingError(e);
-            e.printStackTrace();
         }
     }
 
