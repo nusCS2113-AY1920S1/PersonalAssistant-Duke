@@ -1,5 +1,6 @@
 package javafx;
 
+import exception.DukeException;
 import main.Duke;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -81,7 +82,7 @@ public class MainWindow extends AnchorPane {
      * Clears the user input after processing.
      */
     @FXML
-    private void handleUserInput() {
+    private void handleUserInput() throws DukeException {
         String input = userInput.getText();
         String response = duke.run(input);
         dialogContainer.getChildren().addAll(

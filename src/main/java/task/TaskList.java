@@ -3,6 +3,7 @@ package task;
 import exception.DukeException;
 import parser.Parser;
 
+import java.io.*;
 import java.util.ArrayList;
 
 
@@ -14,11 +15,35 @@ import java.util.ArrayList;
  * @version 1.0
  * @since 08/19
  */
-public class TaskList {
+public class TaskList implements Serializable, Cloneable {
     private ArrayList<Task> list = new ArrayList<>();
 
     public TaskList() {
 
+    }
+
+    /**
+     * Method to facilitate the deep cloning of this taskList.
+     * Returns a copy of this taskList, but with different references.
+     * This is to avoid shallow copying, which will also modify the saved state of the taskList.
+     *
+     * @return A copy of this taskList with different references to objects.
+     */
+    public TaskList deepClone() {
+        try {
+            //Serialization of object
+            ByteArrayOutputStream byteOutputStream = new ByteArrayOutputStream();
+            ObjectOutputStream objectOutputStream = new ObjectOutputStream(byteOutputStream);
+            objectOutputStream.writeObject(this);
+
+            //De-serialization of object
+            ByteArrayInputStream byteInputStream = new ByteArrayInputStream(byteOutputStream.toByteArray());
+            ObjectInputStream objectInputStream = new ObjectInputStream(byteInputStream);
+            return (TaskList) objectInputStream.readObject();
+        } catch (IOException | ClassNotFoundException e) {
+            System.out.println(e.getLocalizedMessage());
+            return null;
+        }
     }
 
     /**
@@ -72,7 +97,7 @@ public class TaskList {
      *
      * @return long size of ArrayList
      */
-    public long size() {
+    public int size() {
         return list.size();
     }
 
@@ -182,6 +207,10 @@ public class TaskList {
         }
     }
 
+    public ArrayList<Task> get() {
+        return this.list;
+    }
+
     /**
      * Adds another task to the list, given the inputs.
      *
@@ -224,6 +253,10 @@ public class TaskList {
         } catch (DukeException e) {
             throw new DukeException(e.getLocalizedMessage());
         }
+    }
+
+    public void add(Task task) {
+        this.list.add(task); //Straightforward command to add a task, for backend methods
     }
 
     /**
@@ -362,5 +395,12 @@ public class TaskList {
                 throw new DukeException("That is NOT a valid Integer");
             }
         }
+    }
+
+    /**
+     * Deletes the entire taskList.
+     */
+    public void clear() {
+        list.clear();
     }
 }
