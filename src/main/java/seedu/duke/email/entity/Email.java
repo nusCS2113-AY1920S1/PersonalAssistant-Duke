@@ -178,12 +178,15 @@ public class Email {
         return input;
     }
 
+    /**
+     * Converts information about email to string that will be displayed to user.
+     * @return string that will be displayed in GUI
+     */
     public String toGuiString() {
         String guiStr = this.subject;
         if (tags.size() > 0) {
             guiStr += "\n";
-            for (String tag : tags)
-            {
+            for (String tag : tags) {
                 guiStr += " #" + tag;
             }
         }
