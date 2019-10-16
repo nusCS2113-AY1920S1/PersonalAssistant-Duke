@@ -4,7 +4,6 @@ import duke.DukeException;
 import duke.Storage;
 import duke.Ui;
 import duke.components.Bar;
-import duke.components.Note;
 import duke.components.Song;
 import duke.components.SongList;
 
@@ -21,6 +20,7 @@ public class AddBarCommand extends Command<SongList> {
      */
     public AddBarCommand(String message) {
         this.message = message;
+        this.songIndex = 0;
     }
 
     /**
@@ -34,21 +34,17 @@ public class AddBarCommand extends Command<SongList> {
      * @throws DukeException if an exception occurs in the parsing of the message or in IO
      */
     public String execute(SongList songList, Ui ui, Storage storage) throws DukeException {
-        Note note1;
-        Note note2;
-        Note note3;
-        Note note4;
         int barNo;
         if (message.length() < 7 || !message.substring(0, 7).equals("addbar ")) { //exception if not fully spelt
             throw new DukeException(message);
         }
         try {
             String[] sections = message.substring(7).split(" ");
-            barNo = Integer.parseInt(sections[4].substring(4));
-            Bar newBar = new Bar(barNo, sections[0] + " " + sections[1] + " "
-                    + sections[2] + " " + sections[3]);
+            barNo = Integer.parseInt(sections[0].substring(4));
+            int notesIndex = message.indexOf(sections[1]);
+            Bar newBar = new Bar(barNo, message.substring(notesIndex));
             Song song = songList.getSongIndex(songIndex);
-            //add the bar to the song in the songlist
+            song.addBar(newBar);
             //storage.updateFile(taskList);
             return ui.formatAddBar(songList.getSongList(), newBar, song);
         } catch (Exception e) {

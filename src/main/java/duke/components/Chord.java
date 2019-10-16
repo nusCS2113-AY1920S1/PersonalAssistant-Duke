@@ -5,6 +5,7 @@ import java.util.ArrayList;
 public class Chord {
 
     private ArrayList<Note> notes;
+    private ArrayList<String> chordChart;
 
     /**
      * A Chord has the set relative duration of 1/8, and is comprised of all the Note objects that are to be played
@@ -17,6 +18,8 @@ public class Chord {
     }
 
     public Chord() {
+        notes = new ArrayList<>();
+        chordChart = new ArrayList<>();
     }
 
     public ArrayList<Note> getNotes() {
