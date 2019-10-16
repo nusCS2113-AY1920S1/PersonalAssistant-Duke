@@ -46,11 +46,10 @@ public class PatientStorage {
                     patientList.add(new Patient(id, name, nric, room, remark));
                 }
             }
-        } catch (IllegalArgumentException e) {
+            return patientList;
+        } catch (Exception e) {
             throw new DukeException("Loading of " + filePath + "is unsuccessful. Header is not found.\n" +
                     "e.getMessage()");
-        } finally {
-            return patientList;
         }
     }
 

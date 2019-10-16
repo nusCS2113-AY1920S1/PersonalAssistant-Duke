@@ -32,28 +32,34 @@ public class PatientTaskStorage {
 
     public ArrayList<PatientTask> load() throws DukeException {
         ArrayList<PatientTask> patientTaskList = new ArrayList<PatientTask>();
+        File csvFile = new File(filePath);
         try {
-            Reader in = new FileReader(filePath);
-            Iterable<CSVRecord> records = CSVFormat.EXCEL.withFirstRecordAsHeader().parse(in);
-            for (CSVRecord record : records) {
-                Integer pid = Integer.parseInt(record.get("PID"));
-                Integer tid = Integer.parseInt(record.get("TID"));
-                boolean isDone = Boolean.parseBoolean(record.get("DONE"));
-                boolean isRecursive = Boolean.parseBoolean(record.get("RECURRENCE"));
-                String deadline = record.get("DEADLINE");
-                String startTime = record.get("STARTTIME");
-                String endTime = record.get("ENDTIME");
-                String taskType = record.get("TASKTYPE");
-                if (taskType.equals("S")){
-                    patientTaskList.add(new StandardPatientTask(pid,tid,isDone,isRecursive,deadline,taskType));
-                }
-                else if (taskType.equals("E")){
-                    patientTaskList.add(new EventPatientTask(pid,tid,isDone,isRecursive,startTime,endTime,taskType));
+            if (csvFile.createNewFile()) {
+                System.out.println("File " + filePath + " is created.");
+            } else {
+                Reader in = new FileReader(filePath);
+                Iterable<CSVRecord> records = CSVFormat.EXCEL.withFirstRecordAsHeader().parse(in);
+                for (CSVRecord record : records) {
+                    int pid = Integer.parseInt(record.get("PID"));
+                    int tid = Integer.parseInt(record.get("TID"));
+                    boolean isDone = Boolean.parseBoolean(record.get("DONE"));
+                    boolean isRecursive = Boolean.parseBoolean(record.get("RECURRENCE"));
+                    String deadline = record.get("DEADLINE");
+                    String startTime = record.get("STARTTIME");
+                    String endTime = record.get("ENDTIME");
+                    String taskType = record.get("TASKTYPE");
+                    if (taskType.equals("S")){
+                        patientTaskList.add(new StandardPatientTask(pid,tid,isDone,isRecursive,deadline,taskType));
+                    }
+                    else if (taskType.equals("E")){
+                        patientTaskList.add(new EventPatientTask(pid,tid,isDone,isRecursive,startTime,endTime,taskType));
+                    }
                 }
             }
             return patientTaskList;
-        } catch (IOException e) {
-            throw new DukeException(e.getMessage());
+        } catch (Exception e) {
+            throw new DukeException("Loading of " + filePath + "is unsuccessful." +
+                    "e.getMessage()");
         }
     }
 
