@@ -22,6 +22,10 @@ public class CommandList extends Command {
 
     @Override
     public void execute(Wallet wallet) {
-
+        Ui.dukeSays("You have ("
+                + wallet.getReceipts().size()
+                + ") receipts!"
+        );
+        wallet.getReceipts().printReceipts();
     }
 }
