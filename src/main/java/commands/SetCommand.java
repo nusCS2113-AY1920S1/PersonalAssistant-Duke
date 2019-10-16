@@ -59,6 +59,7 @@ public class SetCommand extends CommandSuper {
         command.setAge(this.getPayload());
         movieHandler.clearSearchTextField();
         movieHandler.setLabels();
+        System.out.println("its fine");
     }
 
     /**

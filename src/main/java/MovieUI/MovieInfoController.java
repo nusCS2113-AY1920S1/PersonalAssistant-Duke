@@ -37,6 +37,24 @@ import java.util.Date;
 public class MovieInfoController extends Controller {
 
     @FXML
+    private ScrollPane mMoviesScrollPane;
+
+    @FXML
+    private VBox vbox0, vBox1, vBox2, vBox3, gneresVBox, mainVBox, searchCommandVBox, generalFeedbackVBox, autoCompleteVBox;
+
+    @FXML
+    private HBox nameHBox, adultHBox, genresHBox, alphaSortHBox, latestDatesHBox, highestRatingHBox;
+
+    @FXML
+    private Label userPreferenceLabel, userNameLabel, userAgeLabel, userAdultLabel1, userAdultLabel2,
+            userGenreLabel, sortAlphaOrderLabel, sortLatestDateLabel, sortHighestRatingLabel,
+            sortHighestRatingText, autoCompleteLabel, generalFeedbackLabel;
+
+    @FXML
+    private Text userPreferenceText, userNameText, userAgeText, generalFeedbackText,
+            sortAlphaOrderText, sortLatestDateText, autoCompleteText;
+
+    @FXML
     private Label movieTitleLabel;
     @FXML
     private Label movieGenresLabel;
@@ -48,8 +66,6 @@ public class MovieInfoController extends Controller {
     private Label movieSummaryLabel;
     @FXML
     private ImageView movieBackdropImageView;
-    @FXML
-    private ScrollPane mMoviesScrollPane;
     @FXML
     private AnchorPane anchorPane;
     @FXML
@@ -73,12 +89,6 @@ public class MovieInfoController extends Controller {
 
     private MovieInfoObject mMovie;
 
-    @FXML
-    private Text text;
-
-    @FXML Label userNameLabel;
-    @FXML Label userAgeLabel;
-    @FXML Label adultLabel;
     @FXML TextFlow genreListText;
 
     private UserProfile userProfile;
@@ -134,19 +144,18 @@ public class MovieInfoController extends Controller {
         userAgeLabel.setText(Integer.toString(userProfile.getUserAge()));
         //setting adult label
         if (command.getAdultLabel().equals("allow")) {
-            adultLabel.setStyle("-fx-text-fill: \"#48C9B0\";");
+            userAdultLabel2.setStyle("-fx-text-fill: \"#48C9B0\";");
         }
         if (command.getAdultLabel().equals("restrict")) {
-            adultLabel.setStyle("-fx-text-fill: \"#EC7063\";");
+            userAdultLabel2.setText(command.getAdultLabel());
+            //setting text for preference & restrictions
+            Text preferences = new Text(command.convertToLabel(userProfile.getGenreIdPreference()));
+            preferences.setFill(Paint.valueOf("#48C9B0"));
+            Text restrictions = new Text(command.convertToLabel(userProfile.getGenreIdRestriction()));
+            restrictions.setFill(Paint.valueOf("#EC7063"));
+            genreListText.getChildren().clear();
+            genreListText.getChildren().addAll(preferences, restrictions);
         }
-        adultLabel.setText(command.getAdultLabel());
-        //setting text for preference & restrictions
-        Text preferences = new Text(command.convertToLabel(userProfile.getGenreIdPreference()));
-        preferences.setFill(Paint.valueOf("#48C9B0"));
-        Text restrictions = new Text(command.convertToLabel(userProfile.getGenreIdRestriction()));
-        restrictions.setFill(Paint.valueOf("#EC7063"));
-        genreListText.getChildren().clear();
-        genreListText.getChildren().addAll(preferences, restrictions);
     }
 
     @FXML public void initialize() throws IOException {
@@ -213,7 +222,7 @@ public class MovieInfoController extends Controller {
             System.out.println("textfield changed from " + oldValue + " to " + newValue);
         });
 
-        System.out.println(text.getText());
+        System.out.println(generalFeedbackText.getText());
 
         //Enter is Pressed
         mSearchTextField.setOnKeyPressed(new KeyboardClick(this));

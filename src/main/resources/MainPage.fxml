@@ -206,7 +206,7 @@
                 </Text>
               </children>
               <VBox.margin>
-                <Insets left="10.0" top="5.0" fx:id="x13" />
+                <Insets left= "10.0" top="5.0" fx:id="x13" />
               </VBox.margin>
             </VBox>
           </children>

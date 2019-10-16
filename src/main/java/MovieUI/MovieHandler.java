@@ -135,6 +135,7 @@ public class MovieHandler extends Controller implements RequestListener {
         ProfileCommands command = new ProfileCommands(userProfile);
         userNameLabel.setText(userProfile.getUserName());
         userAgeLabel.setText(Integer.toString(userProfile.getUserAge()));
+        System.out.println("changed age");
 
         //setting adult label
         if (command.getAdultLabel().equals("allow")) {
