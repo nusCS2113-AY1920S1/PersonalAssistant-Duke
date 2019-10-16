@@ -1,5 +1,6 @@
 package payment;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
@@ -27,4 +28,5 @@ public class Payments {
         Date currDate = new Date();
         this.deadline = new Date(currDate.getTime() + TimeUnit.DAYS.toMillis(30));
     }
+    public String givePayments() {return item + "/n" + cost + "/n" + inv + "/n" + status + "/n" + deadline; }
 }

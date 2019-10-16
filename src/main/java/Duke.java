@@ -2,6 +2,7 @@ import command.Parser;
 import command.Storage;
 import common.TaskList;
 import payment.Payee;
+import payment.PaymentList;
 import task.Task;
 import ui.Ui;
 
@@ -18,6 +19,7 @@ import java.util.HashMap;
 public class Duke {
     private static Ui ui;
     private static TaskList tasklist;
+    private static PaymentList paymentlist;
     private static Storage storage;
     private static HashMap<String, Payee> managermap;
 
@@ -30,6 +32,7 @@ public class Duke {
         storage = new Storage(filepath);
         //ArrayList<Task> arraylist = storage.load(); <-- Giving file not found exception, to remove
         tasklist = new TaskList();
+        paymentlist = new PaymentList();
         managermap = new HashMap<String, Payee>();
     }
 
