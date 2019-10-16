@@ -91,6 +91,12 @@ public class AssignmentControllerTest {
             projectCommand.substring(12).split(" "), consoleView);
         assertEquals(0, assignmentController.getAssigneesIndex().size());
         assertEquals(1, assignmentController.getUnassigneesIndex().size());
+        assertEquals("Member with index 1 (Tom) has already been assigned this task!",
+            assignmentController.getMessages().get(0));
+        assertEquals(1,
+            project.getTask(1).getAssignedMembers().getNumberOfAssignees());
+        assertEquals("Tom",
+            project.getTask(1).getAssignedMembers().getMember(1).getName());
     }
 
     @Test
@@ -108,6 +114,5 @@ public class AssignmentControllerTest {
             assignmentController.getMessages().get(0));
         assertEquals("Please check the index number of the task and try again.",
             assignmentController.getMessages().get(1));
-
     }
 }
