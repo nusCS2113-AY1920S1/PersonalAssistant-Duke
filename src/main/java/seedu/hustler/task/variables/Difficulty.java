@@ -42,9 +42,15 @@ public class Difficulty {
         }
     }
 
-    @Override
     public String toString() {
         return "[" + this.level.toString() + "]";
     }
 
+    public String toSaveFormat() {
+        return this.level.toString();
+    }
+
+    public Level getLevel() {
+        return this.level;
+    }
 }

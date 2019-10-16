@@ -1,9 +1,9 @@
 package seedu.hustler.task;
 
+import java.time.LocalDateTime;
+
 import seedu.hustler.task.variables.Difficulty;
 import seedu.hustler.task.variables.Tag;
-
-import java.time.LocalDateTime;
 
 /**
  * An abstract class that acts as a template for ToDo, Deadline and Event.
@@ -42,19 +42,18 @@ public abstract class Task {
         this.description = description;
         this.isDone = false;
         this.difficulty = new Difficulty("M");
-        this.inputDateTime = LocalDateTime.now();
     }
 
     /**
      * Initializes description, sets isDone as false and difficulty
      * according to user's input.
      */
-    public Task(String description, String difficulty, String tagName) {
+    public Task(String description, String difficulty, String tagName, LocalDateTime now) {
         this.description = description;
         this.isDone = false;
         this.difficulty = new Difficulty(difficulty);
         this.tag = new Tag(tagName);
-        this.inputDateTime = LocalDateTime.now();
+        this.inputDateTime = now;
     }
 
     /**
@@ -89,7 +88,7 @@ public abstract class Task {
     /**
      * Returns the difficulty of the task.
      *
-     * @return string difficulty.
+     * @return Difficulty of the task.
      */
     public Difficulty getDifficulty() {
         return this.difficulty;
@@ -126,9 +125,12 @@ public abstract class Task {
      * @return a pipe separated string of the status, difficulty and description.
      */
     public String toSaveFormat() {
-        return (this.isDone ? 1 : 0) + "|" + this.difficulty.toString() + "|" +
-                this.tag.tagName + "|"+
-                this.description;
+        return (this.isDone ? 1 : 0) + "|" + this.difficulty.toSaveFormat() + "|" +
+                this.tag.tagName + "|" + this.description;
+    }
+
+    public String toSaveInputDateTime() {
+        return "|" + inputDateTime;
     }
 
     /**
