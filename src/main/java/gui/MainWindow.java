@@ -1,7 +1,8 @@
 package gui;
 
-import javax.swing.*;
-import java.awt.*;
+import javax.swing.JTextArea;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
 
 public class MainWindow {
     public JPanel rootPane;
