@@ -38,8 +38,8 @@ public class TaskList {
      * @return An ArrayList with String descriptions of task details sorted by name by default.
      */
     public ArrayList<String> getAllTaskDetails() {
-        // after implementing task index, change "/NAME" to "/INDEX"
-        return this.parserHelper.parseSortTaskDetails(taskList,"/NAME");
+        // after implementing task index, change "/PRIORITY" to "/INDEX"
+        return this.parserHelper.parseSortTaskDetails(taskList,"/PRIORITY");
     }
 
     /**
