@@ -105,7 +105,11 @@ public class CommandManager {
             case "bye":
                 return new ExitCommand();
             default:
-                throw new DukeException("Could not understand user input.");
+                String possibleCommand = TypoCorrector.CommandCorrection(userInput);
+                if (!possibleCommand.equals(userInput)){
+                    throw new DukeException("Could not understand user input. Did you mean: \n" + possibleCommand);
+                }
+                throw new DukeException("Could not understand user input");
         }
     }
 
