@@ -46,6 +46,21 @@ public abstract class Event implements Comparable<Event>{
     }
 
     /**
+     * Edit event with new description and two date input
+     *
+     * @param newDescription new event description
+     * @param newStartDateAndTime string representing new start date of event
+     * @param newEndDateAndTime string representing new end date of event
+     */
+    public void editEvent(String newDescription, String newStartDateAndTime, String newEndDateAndTime) {
+        this.description = newDescription;
+        this.startEventDate = new EventDate(newStartDateAndTime);
+        if(this.eventType != 'T') {
+            this.endEventDate = new EventDate(newEndDateAndTime);
+        }
+    }
+
+    /**
      * Converts event type task to string format for printing.
      *
      * @return Formatted string representing the event, whether or not it is completed and its date.

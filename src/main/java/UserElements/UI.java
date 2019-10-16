@@ -268,4 +268,15 @@ public class UI {
         System.out.println("Error writing to file! Details not saved!");
         System.out.print(lineSeparation);
     }
+
+    /**
+     * Prints message to show success of edit command.
+     *
+     * @param eventIndex The index of the edited event
+     */
+    public void printEditedEvent(int eventIndex) {
+        System.out.print(lineSeparation);
+        System.out.println("Successfully edited event " + eventIndex + "!");
+        System.out.print(lineSeparation);
+    }
 }

@@ -128,6 +128,10 @@ public class Command {
                 rescheduleEvents(events, ui);
                 break;
 
+            case "edit":
+                editEvent(events, ui);
+                break;
+
             default:
                 ui.printInvalidCommand();
                 changesMade = false;
@@ -136,6 +140,28 @@ public class Command {
         if (changesMade) {
             events.sortList();
             storage.saveToFile(events, ui);
+        }
+    }
+
+    /**
+     * Command to edit an event in the list.
+     */
+    private void editEvent(EventList events, UI ui) {
+        if (continuation.isEmpty()) {
+            ui.eventDescriptionEmpty();
+        } else {
+            String[] splitInfo = continuation.split("/");
+            int eventIndex = Integer.parseInt(splitInfo[0]) - 1;
+            String newDescription = splitInfo[1];
+            String newStartDateAndTime = splitInfo[2];
+            String newEndDateAndTime;
+            if (splitInfo.length==4) {
+                newEndDateAndTime = splitInfo[3];
+            } else {
+                newEndDateAndTime = "";
+            }
+            events.editEvent(eventIndex, newDescription, newStartDateAndTime, newEndDateAndTime);
+            ui.printEditedEvent(eventIndex);
         }
     }
 
