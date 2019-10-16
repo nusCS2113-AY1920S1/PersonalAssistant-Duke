@@ -13,9 +13,9 @@ public abstract class DukeData extends DukeObject {
      * the impression that led to that data as well as an integer
      * between 1-4 representing the priority or significance of the investigation.
      * Attributes:
-     * @param name: the evidence or treatment needed
-     * @param impression: the impression object the data is tagged to
-     * @param priority: the priority level of the investigation
+     * @param name the evidence or treatment needed
+     * @param impression the impression object the data is tagged to
+     * @param priority the priority level of the investigation
      */
     public DukeData(String name, Impression impression, int priority) {
         super(impression.getName() + "\t" + name);
@@ -29,9 +29,9 @@ public abstract class DukeData extends DukeObject {
      * the impression that led to that data as well as an integer
      * between 1-4 representing the priority or significance of the investigation.
      * Attributes:
-     * @param name: the evidence or treatment needed
-     * @param impression: the name of the impression object the data is tagged to
-     * @param priority: the priority level of the investigation
+     * @param name the evidence or treatment needed
+     * @param impression the name of the impression object the data is tagged to
+     * @param priority the priority level of the investigation
      */
     protected DukeData(String name, String impression, int priority) {
         super(impression + "\t" + name);
