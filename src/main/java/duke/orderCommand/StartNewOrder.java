@@ -3,38 +3,86 @@ package duke.orderCommand;
 import duke.exception.DukeException;
 import duke.order.Order;
 import duke.order.OrderList;
+import duke.parser.Convert;
 import duke.storage.Storage;
 import duke.task.Dish;
 import duke.ui.Ui;
 
+import java.util.Date;
+
 /**
- *
+ * operation of starting a new order
  */
 public class StartNewOrder extends OrderCommand{
 
     @Override
     public void execute(OrderList orderList, Ui ui, Storage storage) throws DukeException {
-        printStartMsg();
+
+        printStartMsg(ui);
+        String preOrderDate = PreOrderDate(ui);
+        printMenu();
+
         boolean isConfirmed = false;
         while (!isConfirmed) {
             try {
                 String fullCommand = ui.readCommand();
                 ui.showLine();
-                String[] splitted = fullCommand.split(", ");
+                String[] split = fullCommand.split(", ");
                 System.out.println("You have ordered:");
-                showOrderContent(splitted);
+                showOrderContent(split);
                 System.out.println("Confirm [Y/N]?");
                 isConfirmed = (ui.readCommand().toLowerCase()=="y")? true: false;
             } catch (DukeException e) {
                 ui.showError(e.getMessage());
             }
         }
-        printConfirmMsg();
+
+        String customerName = "";
+        if (preOrderDate!="") { customerName = getCustomerName(ui); }
+
+        Order newOrder = new Order();
+        printConfirmMsg(newOrder, preOrderDate, customerName);
+
+        //To do...
+        //Add customer name in order info (if it is a pre-order).
+        //Will do as long as dish class is implemented
+
+        orderList.addOrder(newOrder);
+
+        //To do...
+        //Add dishes one by one into the current order
     }
 
-    public void printStartMsg() {
+    public void printConfirmMsg(Order newOrder, String preOrderDate, String customerName) {
+        if (preOrderDate=="") {
+            System.out.println("Order received. Start preparing now...");
+        } else {
+            newOrder.setNewDate(preOrderDate);
+            newOrder.setNewName(customerName);
+            System.out.println("Order received. Please come at "+preOrderDate+" on time."); }
+    }
+
+    public String getCustomerName(Ui ui) {
+        System.out.println("What name is the reservation under, sir/madam?");
+        String name = ui.readCommand();
+        return name;
+    }
+
+    public void printStartMsg(Ui ui) {
+        System.out.println("Hello! This is restaurant SUPERDELIOUS! What can I help you?");
+        String command = ui.readCommand();
+
+        // Not finished this part yet
+        switch (command){
+            case "start ordering": return;
+            default: return;
+        }
+
+    }
+
+    public void printMenu() {
         System.out.println("Start ordering...");
-        System.out.println("Here is the menu. What would you like to eat?");
+        System.out.println("Here is the menu. What would you like to order?");
         System.out.println("==============================================");
         System.out.println("            Today's Menu                      ");
         System.out.println("[1] Beef Noodle           $5.50\n" +
@@ -47,19 +95,25 @@ public class StartNewOrder extends OrderCommand{
         System.out.println("==============================================");
     }
 
-    public void printConfirmMsg() {
-        System.out.println("Order received. Start preparing now...");
-    }
+    public String PreOrderDate(Ui ui) {
+        System.out.println("Reservation or not [Y/N]?");
+        boolean isPreOrder = (ui.readCommand().toLowerCase() == "y")? true:false;
+        if (isPreOrder) {
+            System.out.println("Please specify the serving date:");
+            String date = ui.readCommand();
+            return date;
+        } else {return "";}
 
+    }
     public void showOrderContent(String[] commandList) throws DukeException {
         //commandList contains the dishes number and dishes amount
         int total = 0;
         int cnt = 0;
         for (String s: commandList) {
-            cnt++;
             String[] command = s.split("\\*", 2);
             String DishName = getDishName(command[0]);
             String DishAmount = command[1];
+            cnt += Integer.parseInt(DishAmount);
             total += Integer.parseInt(DishAmount) * getDishPrice(command[0]);
             System.out.println(DishAmount+" "+DishName);
         }
