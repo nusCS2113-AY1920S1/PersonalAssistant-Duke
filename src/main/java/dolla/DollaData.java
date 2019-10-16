@@ -12,6 +12,7 @@ public class DollaData {
     public EntryList entryList; // TODO: Find out alternatives to using a public variable
     public DebtList debtList;
 
+    //private EntryList entryList;
 
     public DollaData() {
         this.entryList = new EntryList(new ArrayList<Log>());
@@ -19,8 +20,27 @@ public class DollaData {
         this.debtList = new DebtList(new ArrayList<Log>());
     }
 
-    public EntryList getEntryList() {
-        return entryList;
+    /**
+     * Returns the relevant LogList (ie. EntryList) according to the specified mode.
+     * @param mode The mode pertaining to the LogList to be retrieved.
+     * @return The LogList according to the specified mode.
+     */
+    public LogList getLogList(String mode) {
+        if (mode.equals("entries")) {
+            return entryList;
+        }
+        return null; // placeholder so that Dolla can compile
+    }
+
+    /**
+     * Adds a new Log (ie. Entry) into the relevant LogList (ie. EntryList) according to the specified mode.
+     * @param mode The mode pertaining to the LogList to be retrieved.
+     * @param newLog The new Log to be added into the relevant LogList.
+     */
+    public void addToLogList(String mode, Log newLog) {
+        if (mode.equals("entries")) {
+            entryList.add(newLog);
+        }
     }
 
     public DebtList getDebtList() {

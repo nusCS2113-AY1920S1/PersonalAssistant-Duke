@@ -8,7 +8,9 @@ import dolla.command.ShowListCommand;
 
 public class DebtsParser extends Parser {
 
-    public DebtsParser(String inputLine) { super(inputLine); }
+    public DebtsParser(String inputLine) {
+        super(inputLine);
+    }
 
     @Override
     public Command handleInput(String mode, String inputLine) {

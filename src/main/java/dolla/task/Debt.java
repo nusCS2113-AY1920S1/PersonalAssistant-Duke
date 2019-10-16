@@ -24,5 +24,7 @@ public class Debt extends Log {
                 + "[" + description + "]";
     }
 
-    public String amountToMoney() { return "$" + amount; }
+    public String amountToMoney() {
+        return "$" + amount;
+    }
 }

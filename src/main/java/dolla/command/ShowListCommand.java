@@ -47,10 +47,10 @@ public class ShowListCommand extends Command {
             Ui.printEmptyListError(mode);
             return;
         } else if (mode.equals("entry")) {
-            Ui.printList(mode, dollaData.getEntryList());
+            Ui.printList(mode, logList);
             return;
         } else if (mode.equals("debt")) {
-            Ui.printList(mode, dollaData.getDebtList());
+            Ui.printList(mode, logList);
             return;
         }
 

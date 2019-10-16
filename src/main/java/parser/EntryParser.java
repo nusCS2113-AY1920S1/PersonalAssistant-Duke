@@ -15,9 +15,7 @@ public class EntryParser extends Parser { public EntryParser(String inputLine) {
 
         if (commandToRun.equals("entries")) { //show entry list
             return new ShowListCommand(mode);
-        }
-
-        else if (commandToRun.equals("add")) {
+        } else if (commandToRun.equals("add")) {
             String entryType = null;
             double amount = 0.0;
             try {
@@ -33,8 +31,7 @@ public class EntryParser extends Parser { public EntryParser(String inputLine) {
             }
             return new AddEntryCommand(entryType, amount, description, date);
 
-        }
-        else {
+        } else {
             return invalidCommand();
         }
     }
