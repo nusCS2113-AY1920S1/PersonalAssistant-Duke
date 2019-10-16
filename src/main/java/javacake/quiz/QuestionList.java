@@ -4,6 +4,11 @@ import javacake.DukeException;
 import javacake.ProgressStack;
 
 import java.io.*;
+import java.net.URISyntaxException;
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -14,6 +19,7 @@ public class QuestionList {
     private int TOTALNUMOFUSEFULEXTENSIONQNS = 0;
     /** The maximum number of questions in one session of a quiz. */
     public static final int MAX_QUESTIONS = 5;
+    private File dir = null;
 
     public QuestionList() {
         chosenQuestions = new ArrayList<>(MAX_QUESTIONS);
@@ -25,8 +31,15 @@ public class QuestionList {
      * @return ArrayList of all the basic questions available.
      */
     private ArrayList<BasicQuestion> initBasicList() throws DukeException {
-        String filePath = "content/MainList/1. Java Basics/4. Quiz";
-        File folder = new File(filePath);
+        try {
+            dir = new File(getClass().getResource("/content/MainList").toURI());
+        } catch (URISyntaxException e) {
+            throw new DukeException("Unable to load file directory");
+        }
+
+        String filePath = "1. Java Basics/4. Quiz";
+        File folder = new File(dir, filePath);
+        System.out.println(folder.getPath());
         File[] listOfFiles = folder.listFiles();
 
         for (int i = 0; i < listOfFiles.length; i ++) {
@@ -38,8 +51,10 @@ public class QuestionList {
         ArrayList<BasicQuestion> basicQuestionList = new ArrayList<>();
         for (int i = 1; i <= TOTALNUMOFBASICQNS; i++) {
             try {
-                filePath = "content/MainList/1. Java Basics/4. Quiz/Qn" + i + ".txt";
-                BufferedReader bufferedReader = new BufferedReader(new FileReader(filePath));
+                String fileContentPath = "content/MainList/1. Java Basics/4. Quiz/Qn" + i + ".txt";
+                InputStream in = ClassLoader.getSystemClassLoader().getResourceAsStream(fileContentPath);
+                //System.out.println(filePath);
+                BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(in));
                 String currentLine;
                 String qns = new String();
                 while ((currentLine = bufferedReader.readLine()) != null) {
@@ -60,8 +75,14 @@ public class QuestionList {
      * @return ArrayList of all the oop questions available.
      */
     private ArrayList<OopQuestion> initOopList() throws DukeException {
-        String filePath = "content/MainList/2. Object-Oriented Programming/5. Quiz";
-        File folder = new File(filePath);
+        try {
+            dir = new File(getClass().getResource("/content/MainList").toURI());
+        } catch (URISyntaxException e) {
+            throw new DukeException("Unable to load file directory");
+        }
+
+        String filePath = "2. Object-Oriented Programming/5. Quiz";
+        File folder = new File(dir, filePath);
         File[] listOfFiles = folder.listFiles();
 
         for (int i = 0; i < listOfFiles.length; i ++) {
@@ -73,8 +94,9 @@ public class QuestionList {
         ArrayList<OopQuestion> oopQuestionList = new ArrayList<>();
         for (int i = 1; i <= TOTALNUMOFOOPQNS; i++) {
             try {
-                filePath = "content/MainList/2. Object-Oriented Programming/5. Quiz/Qn" + i + ".txt";
-                BufferedReader bufferedReader = new BufferedReader(new FileReader(filePath));
+                String fileContentPath = "content/MainList/2. Object-Oriented Programming/5. Quiz/Qn" + i + ".txt";
+                InputStream in = ClassLoader.getSystemClassLoader().getResourceAsStream(fileContentPath);
+                BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(in));
                 String currentline;
                 String qns = new String();
 
@@ -97,8 +119,13 @@ public class QuestionList {
      * @return ArrayList of all the extension questions available.
      */
     private ArrayList<ExtensionQuestion> initExtensionList() throws DukeException {
-        String filePath = "content/MainList/3. Extensions/4. Quiz";
-        File folder = new File(filePath);
+        try {
+            dir = new File(getClass().getResource("/content/MainList").toURI());
+        } catch (URISyntaxException e) {
+            throw new DukeException("Unable to load file directory");
+        }
+        String filePath = "3. Extensions/4. Quiz";
+        File folder = new File(dir, filePath);
         File[] listOfFiles = folder.listFiles();
 
         for (int i = 0; i < listOfFiles.length; i ++) {
@@ -109,10 +136,10 @@ public class QuestionList {
 
         ArrayList<ExtensionQuestion> extensionQuestionList = new ArrayList<>();
         for (int i = 1; i <= TOTALNUMOFUSEFULEXTENSIONQNS; i++) {
-
             try {
-                filePath = "content/MainList/3. Extensions/4. Quiz/Qn" + i + ".txt";
-                BufferedReader bufferedReader = new BufferedReader(new FileReader(filePath));
+                String fileContentPath = "content/MainList/3. Extensions/4. Quiz/Qn" + i + ".txt";
+                InputStream in = ClassLoader.getSystemClassLoader().getResourceAsStream(fileContentPath);
+                BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(in));
                 String currentLine; 
                 String qns = new String();
 

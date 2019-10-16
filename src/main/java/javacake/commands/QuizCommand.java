@@ -17,6 +17,11 @@ public class QuizCommand extends Command {
     private Question prevQuestion;
     private int currScore = 0;
     private static Profile profile;
+    public ScoreGrade scoreGrade;
+
+    public enum ScoreGrade {
+        BAD, OKAY, GOOD
+    }
 
     /**
      * QuizCommand constructor for overall quiz.
@@ -149,12 +154,15 @@ public class QuizCommand extends Command {
 
         if ((double)currScore / QuestionList.MAX_QUESTIONS <= 0.5) {
             stringBuilder.append("Aw, that's too bad! Try revising the topics and try again. Don't give up!");
+            scoreGrade = ScoreGrade.BAD;
         } else if ((double)currScore / QuestionList.MAX_QUESTIONS != 1.0) {
             stringBuilder.append("Almost there! Clarify some of your doubts and try again.");
+            scoreGrade = ScoreGrade.OKAY;
         } else {
             stringBuilder.append("Congrats! Full marks, you're amazing!");
+            scoreGrade = ScoreGrade.GOOD;
         }
-        stringBuilder.append("Type \"back\" to go back to the table of contents.");
+        stringBuilder.append("\nType \"back\" to go back to the table of contents.");
 
         overwriteOldScore(currScore, profile);
 

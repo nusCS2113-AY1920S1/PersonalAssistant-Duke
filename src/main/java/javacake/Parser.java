@@ -45,6 +45,9 @@ public class Parser {
         } else if (input.equals("score")) {
             return new ScoreCommand();
         } else if (input.equals("goto")) {
+            if (inputCommand.length() <= 4) {
+                throw new DukeException("Please specify index number in 'goto' command!");
+            }
             return new GoToCommand(inputCommand);
         } else {
             throw new DukeException("OOPS!!! I'm sorry, but I don't know what that means.");
