@@ -7,7 +7,10 @@ import java.awt.Dimension;
 public class Window {
     public static JTextArea outputArea;
 
-    public Window(){
+    /**
+     * Creates a new JFrame Window
+     */
+    public Window() {
         JFrame frame = new JFrame("Duke Pro");
         frame.setMinimumSize(new Dimension(900, 600));
         frame.setDefaultCloseOperation((JFrame.EXIT_ON_CLOSE));
