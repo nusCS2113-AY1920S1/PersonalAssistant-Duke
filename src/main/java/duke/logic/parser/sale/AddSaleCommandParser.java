@@ -13,6 +13,8 @@ import static duke.logic.parser.commons.CliSyntax.PREFIX_SALE_DESCRIPTION;
 import static duke.logic.parser.commons.CliSyntax.PREFIX_SALE_REMARKS;
 import static duke.logic.parser.commons.CliSyntax.PREFIX_SALE_VALUE;
 
+import static duke.logic.parser.sale.SaleParserUtil.createDescriptor;
+
 public class AddSaleCommandParser implements Parser<AddSaleCommand> {
     public AddSaleCommand parse(String args) throws ParseException {
         ArgumentMultimap map = ArgumentTokenizer.tokenize(args,
@@ -29,6 +31,6 @@ public class AddSaleCommandParser implements Parser<AddSaleCommand> {
                 map.getValue(PREFIX_SALE_REMARKS).orElse("N/A")
         );
 
-        return new AddSaleCommand(sale);
+        return new AddSaleCommand(createDescriptor(map));
     }
 }

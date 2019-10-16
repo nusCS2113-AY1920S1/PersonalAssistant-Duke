@@ -199,6 +199,7 @@ public class BakingHome implements ReadOnlyBakingHome {
     //============Inventory operations==============
 
     /**
+
      * Adds an ingredient to the inventory list.
      * @param toAdd The ingredient to be added to the inventory list
      */
@@ -280,7 +281,6 @@ public class BakingHome implements ReadOnlyBakingHome {
     public ObservableList<Item<Ingredient>> getShoppingList() {
         return shoppingList.asUnmodifiableObservableList();
     }
-
 
 
     //// shortcut-related operations

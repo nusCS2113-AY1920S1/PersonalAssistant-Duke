@@ -29,7 +29,7 @@
                      <children>
                         <StackPane minHeight="30.0" style="-fx-background-color: B5651D;">
                            <children>
-                              <Label fx:id="Id" alignment="CENTER" contentDisplay="CENTER" text="Sale ID">
+                              <Label fx:id="id" alignment="CENTER" contentDisplay="CENTER" text="Sale ID">
                                  <font>
                                     <Font name="Arial" size="18.0" />
                                  </font>

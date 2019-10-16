@@ -131,6 +131,7 @@ public class ModelManager implements Model {
 
     //================Sale operations=================
 
+
     @Override
     public void addSale(Sale sale) {
         bakingHome.addSale(sale);
@@ -248,6 +249,16 @@ public class ModelManager implements Model {
 
     public void clearInventory(List<Item<Ingredient>> emptyList) {
         bakingHome.clearInventory(emptyList);
+    }
+
+    @Override
+    public boolean hasIngredient(Ingredient ingredient) {
+        return false;
+    }
+
+    @Override
+    public boolean deductIngredient(Ingredient ingredient, double amount) {
+        return false;
     }
 
     @Override

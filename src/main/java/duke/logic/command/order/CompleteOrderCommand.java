@@ -4,7 +4,10 @@ import duke.commons.core.index.Index;
 import duke.logic.command.CommandResult;
 import duke.logic.command.exceptions.CommandException;
 import duke.model.Model;
+import duke.model.commons.Item;
+import duke.model.inventory.Ingredient;
 import duke.model.order.Order;
+import duke.model.product.Product;
 
 import java.util.Set;
 
@@ -45,6 +48,13 @@ public class CompleteOrderCommand extends OrderCommand {
             OrderDescriptor descriptor = new OrderDescriptor();
             descriptor.setStatus(Order.Status.COMPLETED);
 
+            //deducts ingredients used in this order from inventory.
+            //If inventory ingredient is not enough, deduct to zero.
+            deductInventory(
+                model.getFilteredOrderList().get(index.getZeroBased()),
+                model
+            );
+
             model.setOrder(index,
                     OrderCommandUtil.createNewOrder(
                         model.getFilteredOrderList().get(index.getZeroBased()),
@@ -62,4 +72,25 @@ public class CompleteOrderCommand extends OrderCommand {
 
     }
 
+    /**
+     * Deducts the amount of ingredients used in this {@code order} from inventory.
+     * If ingredients in inventory are not enough, deducts to zero.
+     *
+     * @returns true if ingredients in inventory are enough.
+     */
+    private boolean deductInventory(Order order, Model model) {
+        boolean isInventoryEnough = true;
+        for (Item<Product> productItem : order.getItems()) {
+            for (Item<Ingredient> ingredientItem : productItem.getItem().getIngredients()) {
+                if (model.hasIngredient(ingredientItem.getItem())) {
+                    if (model.deductIngredient(ingredientItem.getItem(),
+                        productItem.getQuantity().getNumber() * ingredientItem.getQuantity().getNumber()
+                        )) {
+                        isInventoryEnough = false;
+                    }
+                }
+            }
+        }
+        return isInventoryEnough;
+    }
 }
