@@ -28,6 +28,7 @@ public class Task {
      * @param taskCredit The amount of credit a person would receive for completing the task.
      *                   A more difficult task would receive more credit.
      * @param taskState taskState refers to whether the task is in OPEN, TO-DO, DOING, DONE.
+     * @param taskRequirements ArrayList of Strings containing specific requirements of a task.
      */
     public Task(String taskName, int taskPriority, Date dueDate, int taskCredit, TaskState taskState,
                 ArrayList<String> taskRequirements) {
@@ -36,11 +37,7 @@ public class Task {
         this.dueDate = dueDate;
         this.taskCredit = taskCredit;
         this.taskState = taskState;
-        if (taskRequirements != null) {
-            this.taskRequirements = taskRequirements;
-        } else {
-            this.taskRequirements = new ArrayList<>();
-        }
+        this.taskRequirements = taskRequirements;
         this.listOfMemebersAssignedToTask = new ListOfMemebersAssignedToTask();
     }
 
