@@ -5,6 +5,8 @@
  */
 package cube.task;
 
+import cube.util.Parser;
+
 import java.util.Date;
 
 public class Event extends Task{

@@ -22,9 +22,9 @@ run {
     standardInput = System.in
 }
 
-dependencies {
+/*dependencies {
     implementation group: 'com.fasterxml.jackson.core', name: 'jackson-databind';
-}
+}*/
 
 checkstyle {
     toolVersion = '8.23'
