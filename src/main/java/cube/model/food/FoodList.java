@@ -2,13 +2,14 @@ package cube.model.food;
 
 import java.util.ArrayList;
 import cube.model.food.Food;
+import java.util.Collections;
 
 // for testing only
 public class FoodList {
 	private ArrayList<Food> foodArrayList;
 
 	public enum SortType {
-		EXPIRY,
+		EXPIRY, NAME, STOCK
 	}
 
 	public FoodList() {
@@ -33,7 +34,12 @@ public class FoodList {
 	}
 
 	public Food get(String foodName) {
-		return new Food(foodName);
+		for(Food food : foodArrayList) {
+			if (food.getName().equals(foodName)) {
+				return food;
+			}
+		}
+		return null;
 	}
 
 	public void remove(int index) {
@@ -49,7 +55,16 @@ public class FoodList {
 	}
 
 	public void sort(SortType sortType) {
-		
+		switch(sortType) {
+			case EXPIRY:
+				Collections.sort(foodArrayList, new SortByExpiry());
+				break;
+			case NAME:
+				Collections.sort(foodArrayList, new SortByName());
+				break;
+			case STOCK:
+				Collections.sort(foodArrayList, new SortByStock());
+		}
 	}
 
 	//public Iteator iterator() {}
