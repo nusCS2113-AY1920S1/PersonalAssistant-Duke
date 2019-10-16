@@ -1,5 +1,7 @@
 package duke.logic.command.shopping;
 
+import org.ocpsoft.prettytime.shade.org.apache.commons.lang.StringUtils;
+
 import java.util.Optional;
 
 public class ShoppingDescriptor {
@@ -22,7 +24,7 @@ public class ShoppingDescriptor {
     }
 
     public void setName(String name) {
-        this.name = name;
+        this.name = StringUtils.capitalize(name.toLowerCase());
     }
 
     public Optional<Double> getQuantity() {

@@ -1,5 +1,7 @@
 package duke.logic.command.inventory;
 
+import org.ocpsoft.prettytime.shade.org.apache.commons.lang.StringUtils;
+
 import java.util.Optional;
 
 public class InventoryDescriptor {
@@ -20,7 +22,7 @@ public class InventoryDescriptor {
     }
 
     public void setName(String name) {
-        this.name = name;
+        this.name = StringUtils.capitalize(name.toLowerCase());
     }
 
     public Optional<Double> getQuantity() {
