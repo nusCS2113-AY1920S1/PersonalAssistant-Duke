@@ -8,6 +8,7 @@ public class HarvestWheatAction extends Action {
 
     public HarvestWheatAction(Farmio farmio) {
         super(farmio);
+        this.type = ActionType.harvestWheat;
     }
 
     /*public HarvestWheatAction(JSONObject obj){

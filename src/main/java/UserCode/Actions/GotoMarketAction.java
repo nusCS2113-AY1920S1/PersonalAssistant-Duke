@@ -8,6 +8,7 @@ import FrontEnd.Ui;
 public class GotoMarketAction extends Action {
     public GotoMarketAction(Farmio farmio) {
         super(farmio);
+        this.type = ActionType.gotoMarket;
     }
     @Override
     public void execute(Ui ui) {

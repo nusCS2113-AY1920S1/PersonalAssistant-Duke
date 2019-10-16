@@ -8,6 +8,7 @@ public class BuySeedAction extends Action {
 
     public BuySeedAction(Farmio farmio) {
         super(farmio);
+        this.type = ActionType.buySeeds;
     }
 
     @Override

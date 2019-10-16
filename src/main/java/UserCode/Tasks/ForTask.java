@@ -21,4 +21,9 @@ public class ForTask extends Task { //JX PLEASE FILL THIS SHIT UP
             }
         }
     }
+
+    @Override
+    public String toString() {
+        return "for " + super.toString();
+    }
 }

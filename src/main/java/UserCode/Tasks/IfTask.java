@@ -22,4 +22,9 @@ public class IfTask extends Task {
             }
         }
     }
+
+    @Override
+    public String toString() {
+        return "if " + super.toString();
+    }
 }
