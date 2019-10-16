@@ -29,7 +29,6 @@ public class Payments {
         this.deadline = new Date(currDate.getTime() + TimeUnit.DAYS.toMillis(30));
     }
     public String givePayments() {
-
         return item + "/n" + cost + "/n" + inv + "/n" + status + "/n" + deadline;
     }
 }
