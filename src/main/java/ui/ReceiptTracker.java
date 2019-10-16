@@ -149,7 +149,7 @@ public class ReceiptTracker extends ArrayList<Receipt> {
     }
 
     /**
-     * Prints all the receipts in the arraylist.
+     * Prints all the receipts stored in the ReceiptTracker Object.
      */
     public void printReceipts() {
         for (int index = 0; index < this.size(); ++index) {
