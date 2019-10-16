@@ -99,11 +99,12 @@ public class Parser {
                 return new DoneOrder(splitted[1]);
             case "cancel":
                 return new CancelOrder(splitted[1]);
-            case "cancel":
-                return new CancelOrder(splitted[1]);
-            case "cancel":
-                return new CancelOrder(splitted[1]);
-            case "":return;
+            case "postpone":
+                checkLength(splitted);
+                String[] getUntil = splitAndCheck(splitted[1], " /by ");
+                return new PostponeOrder(Integer.parseInt(getUntil[0]), getUntil[1]);
+            case "find":
+                return new FindOrderByDate(splitted[1]);
             default:
                 throw new DukeException("I'm sorry, but I don't know what that means :-(");
         }

@@ -1,6 +1,7 @@
 package duke.orderCommand;
 
 import duke.command.Command;
+import duke.parser.Convert;
 import duke.storage.Storage;
 import duke.order.Order;
 import duke.order.OrderList;
@@ -12,7 +13,10 @@ public class FindOrderByDate extends OrderCommand {
 
     private Date toView;
 
-    public FindOrderByDate(Date toView) {
+    public FindOrderByDate(String command) {
+        //expected to be "date xxxx"
+        String date = command.split(" ")[1];
+        Date toView = Convert.stringToDate(date);
         this.toView = toView;
     }
 
