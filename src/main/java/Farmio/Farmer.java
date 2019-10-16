@@ -6,11 +6,16 @@ import Places.ChickenFarm;
 import Places.CowFarm;
 import Places.WheatFarm;
 import UserCode.Tasks.TaskList;
+import javafx.util.Pair;
 import org.json.simple.JSONObject;
+
+import java.util.ArrayList;
 
 public class Farmer {
     private int money;
     private int level;
+    private int day;
+    private String location;
     protected WheatFarm wheatFarm;
     protected ChickenFarm chickenFarm;
     protected CowFarm cowFarm;
@@ -19,6 +24,8 @@ public class Farmer {
     public Farmer() {
         this.money = 100;
         this.level = 1;
+        this.day = 1;
+        this.location = "@WheatFarm";
         this.wheatFarm = new WheatFarm(); //TODO: create wheatFarm subclass
         this.chickenFarm = new ChickenFarm(); //TODO: create chickenFarm subclass
         this.cowFarm = new CowFarm(); //TODO: create cowFarm subclass
@@ -45,6 +52,18 @@ public class Farmer {
 
     public int getMoney() {
         return money;
+    }
+
+    public int getLevel() { return level;}
+
+    public int getDay() {return day;}
+
+    public String getLocation() {return location;}
+
+    public ArrayList<Pair<String, Integer>> getAssets() {
+        ArrayList<Pair<String, Integer>> assets = new ArrayList<Pair<String, Integer>>();
+        assets.add(new Pair<>("Dummy", 0));
+        return assets;
     }
 
     public WheatFarm getWheatFarm() { return  wheatFarm; }

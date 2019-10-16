@@ -34,4 +34,7 @@ public class TaskList extends ArrayList<Task>{
 //        }
 //        return array;
 //    }
+    public ArrayList<String> toStringArray() {
+        return new ArrayList<String>();
+    }
 }

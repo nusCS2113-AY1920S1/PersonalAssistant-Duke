@@ -30,8 +30,6 @@ public class Ui {
             showWarning("'welcome' ascii art missing!");
         }
         show("Press ENTER to continue.");
-        show(GameConsole.content(loadStage("LevelTemplate", 1)));
-        typeWriter("story board or instructions go here...\t\t\t\t\tpress ENTER to continue");
     }
 
     public void showExit(){
@@ -151,5 +149,8 @@ public class Ui {
                 Thread.currentThread().interrupt();
             }
         }
+    }
+    public void animate() { //just goes next screen without input
+
     }
 }
