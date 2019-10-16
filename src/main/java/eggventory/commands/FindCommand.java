@@ -1,9 +1,8 @@
 package eggventory.commands;
 
 import eggventory.StockList;
-import eggventory.items.StockType;
-import eggventory.Ui;
 import eggventory.Storage;
+import eggventory.Ui;
 import eggventory.enums.CommandType;
 
 /**
@@ -24,7 +23,8 @@ public class FindCommand extends Command {
     @Override
     public String execute(StockList list, Ui ui, Storage storage) {
         String output;
-        int max = list.getQuantity();
+        //int max = list.getQuantity(); Note by Rebs: changed variable name to be more specific.
+        int max = list.getStockQuantity();
         boolean found = false;
 
         String listString = "";

@@ -46,6 +46,10 @@ public class Storage {
 
                 AddCommand cmd = new AddCommand(CommandType.ADD, item[0], item[1],
                         Integer.parseInt(item[2]), item[3]);
+
+                /*Todo: In the future, call setMinimum here to update the minimum value (item[4]) instead of defaulting.
+                    Also applies for other optional params that we may add.
+                */
                 cmd.execute(savedList);
             }
         } catch (FileNotFoundException e) {
@@ -69,13 +73,16 @@ public class Storage {
      * Saves existing StockType to a text file.
      */
     public void save(StockList stockList) {
-        StringBuilder tasksToSave = new StringBuilder();
-        int max = stockList.getQuantity();
-        //for (int i = 0; i < max; i++) { //index starts from 0.
-        tasksToSave.append(stockList.saveDetailsString()).append(System.lineSeparator());
-        //}
+        //StringBuilder tasksToSave = new StringBuilder();
 
-        String taskListToSave = tasksToSave.toString();
+//        int max = stockList.getQuantity(); //The number of stockTypes in the stockList.
+//
+//        for (int i = 0; i < max; i++) { //Index starts from 0.
+//            tasksToSave.append(stockList.saveDetailsString()).append(System.lineSeparator());
+//        }
+
+        String taskListToSave = stockList.saveDetailsString();
+
         try {
             writeToFile(taskListToSave);
         } catch (IOException e) {

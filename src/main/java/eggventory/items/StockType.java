@@ -62,6 +62,39 @@ public class StockType {
     }
 
     /**
+     * Returns the entire stockList.
+     * @return the stockList.
+     */
+    public ArrayList<Stock> getStockList() {
+        return stocks;
+    }
+
+    /**
+     * Returns a stock of the user's choice.
+     *
+     * @param i the index of the stock selected.
+     */
+    public Stock getStock(int i) {
+        return stocks.get(i);
+    }
+
+    /**
+     * Gets the total number of stocks.
+     * @return the number of stocks in this stockType.
+     */
+    public int getQuantity() {
+        return stocks.size();
+    }
+
+    /**
+     * Gets the name of this stockType.
+     * @return the name.
+     */
+    public String getName() {
+        return name;
+    }
+
+    /**
      * Adds a stock to the stockList.
      * @return True if item was added successfully.
      */
@@ -97,7 +130,6 @@ public class StockType {
 
     }
 
-
     /**
      * Creates a String of all Stock objects under this StockType.
      * @return The String of all Stock objects.
@@ -108,38 +140,5 @@ public class StockType {
             details += stock.saveDetailsString() + "\n";
         }
         return details;
-    }
-
-    /**
-     * Returns the entire stockList.
-     * @return the stockList.
-     */
-    public ArrayList<Stock> getStockList() {
-        return stocks;
-    }
-
-    /**
-     * Returns a stock of the user's choice.
-     *
-     * @param i the index of the stock selected.
-     */
-    public Stock getStock(int i) {
-        return stocks.get(i);
-    }
-
-    /**
-     * Gets the number of stocks in the stockList.
-     * @return the number of stocks in the stockList.
-     */
-    public int getSize() {
-        return stocks.size();
-    }
-
-    public int getQuantity() {
-        return quantity;
-    }
-
-    public String getName() {
-        return name;
     }
 }

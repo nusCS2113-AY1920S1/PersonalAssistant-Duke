@@ -23,6 +23,50 @@ public class StockList {
         this.stockList.add(new StockType("Uncategorised", false));
     }
 
+    /**
+     * Gets the whole stockList. Note: technically doing using this method will violate OOP.
+     * @return the list.
+     */
+    public ArrayList<StockType> getList() {
+        return stockList;
+    }
+
+    /**
+     * Returns a stockType from stockList if it exits else retuns a null StockType.
+     * @param stockType The unique string that identifies a stockType
+     * @return stockType of stockList
+     */
+    public StockType getStockType(String stockType) {
+        StockType nullType = new StockType("NULL", true);
+        for (StockType stType : stockList) {
+            if (stType.getName().equals(stockType)) {
+                return stType;
+            }
+        }
+        return nullType;
+    }
+
+    /**
+     * Gets the total number of stockTypes in this stockList. Not to be confused with getStockQuantity.
+     * @return the number of stockTypes.
+     */
+    public int getStockTypeQuantity() { //The number of stockTypes in the list.
+        return stockList.size();
+    }
+
+    /**
+     * Gets the total number of stocks in this stockList. This sums the number of stocks across stockTypes.
+     * @return the total number of stocks.
+     */
+    public int getStockQuantity() { //The number of stocks in the list, across all stockTypes.
+        int total = 0;
+        for (StockType stockType : stockList) {
+            total += stockType.getQuantity();
+        }
+
+        return total;
+    }
+
     public void addStockType(String name) {
         stockList.add(new StockType(name, false));
     }
@@ -64,10 +108,9 @@ public class StockList {
         String ret = "";
         ret += "CURRENT INVENTORY\n";
 
-        int quantity = getQuantity(); //Use the stockList size instead.
-        for (int i = 0; i < quantity; i++) {
+        for (StockType stocktype : stockList) {
             ret += "------------------------\n";
-            ret += stockList.get(i).toString() + "\n";
+            ret += stocktype.toString() + "\n";
         }
 
         return ret;
@@ -85,29 +128,6 @@ public class StockList {
         }
 
         return details;
-    }
-
-    /**
-     * Returns a stockType from stockList if it exits else retuns a null StockType.
-     * @param stockType The unique string that identifies a stockType
-     * @return stockType of stockList
-     */
-    public StockType getStockType(String stockType) {
-        StockType nullType = new StockType("NULL", true);
-        for (StockType stType : stockList) {
-            if (stType.getName().equals(stockType)) {
-                return stType;
-            }
-        }
-        return nullType;
-    }
-
-    public ArrayList<StockType> getList() {
-        return stockList;
-    }
-
-    public int getQuantity() {
-        return stockList.size();
     }
 
 }
