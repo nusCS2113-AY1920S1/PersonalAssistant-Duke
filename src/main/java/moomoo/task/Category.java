@@ -36,7 +36,7 @@ public class Category {
     
     //Method
     public String toString() {
-        return categoryName;
+        return name;
     }
     
     public double getCategoryMonthTotal() {

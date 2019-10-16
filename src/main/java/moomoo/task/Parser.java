@@ -6,6 +6,7 @@ import moomoo.command.Command;
 import moomoo.command.ExitCommand;
 import moomoo.command.GraphCommand;
 import moomoo.command.ListCategoryCommand;
+import moomoo.command.DeleteCategoryCommand;
 
 import java.util.Scanner;
 
@@ -30,8 +31,16 @@ public class Parser {
         case ("budget"): return new BudgetCommand(false, input);
         case ("categories"): return new ListCategoryCommand(false, "");
         case ("add"): return parseAdd(scanner, ui);
+        case ("delete"): return parseDelete(scanner, ui);
         case ("graph"): return new GraphCommand(input);
         default: throw new MooMooException("OOPS!!! I'm sorry, but I don't know what that means :-(");
+        }
+    }
+
+    private static Command parseDelete(Scanner scanner, Ui ui) throws MooMooException {
+        switch (scanner.next()) {
+        case ("category"): return new DeleteCategoryCommand();
+        default: throw new MooMooException("Sorry I did not recognize that command.");
         }
     }
 
@@ -47,6 +56,6 @@ public class Parser {
     private static Command parseAddCategory(Ui ui) {
         ui.showAddCategoryMessage();
         String categoryName = ui.readCommand();
-        return new AddCategoryCommand(false, "", categoryName);
+        return new AddCategoryCommand(categoryName);
     }
 }

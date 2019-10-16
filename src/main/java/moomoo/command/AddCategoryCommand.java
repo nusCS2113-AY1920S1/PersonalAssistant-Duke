@@ -12,8 +12,8 @@ public class AddCategoryCommand extends Command {
 
     private String categoryName;
 
-    public AddCategoryCommand(boolean isExit, String input, String categoryName) {
-        super(isExit, input);
+    public AddCategoryCommand(String categoryName) {
+        super(false, "");
         this.categoryName = categoryName;
     }
 

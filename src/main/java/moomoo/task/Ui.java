@@ -39,8 +39,16 @@ public class Ui {
      */
     public String readCommand() {
         this.inputScanner = new Scanner(System.in);
-
         return this.inputScanner.nextLine();
+    }
+
+    /**
+     * Used to read input from the user.
+     * @return Integer representing the input given by the User
+     */
+    public int readNumber() {
+        this.inputScanner = new Scanner(System.in);
+        return this.inputScanner.nextInt();
     }
 
     /**
@@ -100,9 +108,7 @@ public class Ui {
      * @param text message to be printed
      */
     private void print(String text) {
-        showLine();
         System.out.println(text);
-        showLine();
     }
 
     /**
@@ -125,7 +131,7 @@ public class Ui {
      * Prompts the user to enter a category name.
      */
     void showAddCategoryMessage() {
-        print("Please enter a name for your new category");
+        print("Please enter a name for your new category.");
     }
 
     /**
@@ -134,5 +140,20 @@ public class Ui {
      */
     public void showCategoryList(String categories) {
         print(categories);
+    }
+
+    /**
+     * Promts the user to enter a category index.
+     */
+    public void showDeleteCategoryMessage() {
+        print("Please enter the index of the category you wish to delete.");
+    }
+
+    /**
+     * Prints out when a category is deleted.
+     * @param category name of the new category
+     */
+    public void showRemovedCategoryMessage(Category category) {
+        print("Ok, I've deleted the category named " + category.toString());
     }
 }

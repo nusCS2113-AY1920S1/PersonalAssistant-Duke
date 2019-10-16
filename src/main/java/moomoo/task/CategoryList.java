@@ -56,7 +56,7 @@ public class CategoryList {
     public void list(Ui ui) {
         String categoryList = "These are your current categories:";
         for (int i = 0; i < this.categoryList.size(); i++) {
-            categoryList = categoryList.concat("\n" + i + ". " + this.categoryList.get(i).getName());
+            categoryList = categoryList.concat("\n" + (i+1) + ". " + this.categoryList.get(i).getName());
         }
         ui.showCategoryList(categoryList);
     }
@@ -69,11 +69,11 @@ public class CategoryList {
         categoryList.add(newCategory);
     }
 
-    void deleteExpenditure() {
-
+    public void deleteCategory(int categoryNumber) {
+        categoryList.remove(categoryNumber);
     }
 
-    double getMonthlyGrandTotal(int month) {
+    public double getMonthlyGrandTotal(int month) {
         return 0;
     }
 }
