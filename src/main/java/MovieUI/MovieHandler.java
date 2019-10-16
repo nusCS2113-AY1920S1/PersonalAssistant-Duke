@@ -71,7 +71,8 @@ public class MovieHandler extends Controller implements RequestListener {
     @FXML
     private Menu fileMenu, helpMenu;
 
-    @FXML TextFlow genreListText;
+    @FXML
+    TextFlow genreListText;
 
     @FXML
     private Label mStatusLabel;
@@ -110,7 +111,7 @@ public class MovieHandler extends Controller implements RequestListener {
         @Override
         public void handle(KeyEvent event) {
 
-            System.out.println("You Pressing : " + ((KeyEvent) event).getCode() );
+            System.out.println("You Pressing : " + ((KeyEvent) event).getCode());
             if (event.getCode().equals(KeyCode.ENTER)) {
                 System.out.println("Hello");
                 try {
@@ -132,7 +133,8 @@ public class MovieHandler extends Controller implements RequestListener {
     /**
      * This function is called when JavaFx runtime when view is loaded
      */
-    @FXML public void setLabels() throws IOException {
+    @FXML
+    public void setLabels() throws IOException {
         EditProfileJson editProfileJson = new EditProfileJson();
         userProfile = editProfileJson.load();
         EditSortProfileJson editSortProfileJson = new EditSortProfileJson();
@@ -164,7 +166,8 @@ public class MovieHandler extends Controller implements RequestListener {
         sortHighestRatingLabel.setText(sortProfile.getHighestRatingOrder());
     }
 
-    @FXML public void initialize() throws IOException {
+    @FXML
+    public void initialize() throws IOException {
         setLabels();
         mMovieRequest = new RetrieveRequest(this);
         CommandContext.initialiseContext();
@@ -174,14 +177,14 @@ public class MovieHandler extends Controller implements RequestListener {
                 System.out.println("Tab pressed");
 
 
-                setFeedbackText(ContextHelper.getAllHints(mSearchTextField.getText() , this));
+                setFeedbackText(ContextHelper.getAllHints(mSearchTextField.getText(), this));
                 event.consume();
             } else if (event.getCode().equals(KeyCode.ENTER)) {
                 System.out.println("Enter pressed");
             }
         });
 
-        mMovieRequest.beginMovieRequest("0", RetrieveRequest.MoviesRequestType.CURRENT_MOVIES,true, false, false, false);
+        mMovieRequest.beginMovieRequest("0", RetrieveRequest.MoviesRequestType.CURRENT_MOVIES, true, false, false, false);
 
         generalFeedbackText.setText("Welcome to Entertainment Pro. Displaying currently showing movies...");
 
@@ -223,7 +226,7 @@ public class MovieHandler extends Controller implements RequestListener {
         // Build the Movie poster views and add to the flow pane on the main thread
         System.out.print("Request received");
         final ArrayList<MovieInfoObject> MoviesFinal = Blacklist.filter(moviesInfo);
-        for(MovieInfoObject mf: MoviesFinal){
+        for (MovieInfoObject mf : MoviesFinal) {
 
             System.out.println(mf.getTitle());
         }
@@ -235,7 +238,7 @@ public class MovieHandler extends Controller implements RequestListener {
 
     }
 
-    public void displayMovies(){
+    public void displayMovies() {
         mMovies = SearchResultContext.getMoviesToDisplay();
         mImagesLoadingProgress = new double[mMovies.size()];
         Platform.runLater(() -> buildMoviesFlowPane(SearchResultContext.getMoviesToDisplay()));
@@ -260,6 +263,7 @@ public class MovieHandler extends Controller implements RequestListener {
     /**
      * This funcion is called to print a message when the data for movies/tv shows is unavailable due to
      * no internet connection.
+     *
      * @param headerText consists of the string to be printed.
      */
     private void showDownloadFailureAlert(String headerText) {
@@ -272,6 +276,7 @@ public class MovieHandler extends Controller implements RequestListener {
 
     /**
      * This function initalises the progress bar and extracts movie posters fro every movie.
+     *
      * @param movies is a array containing details about every movie/tv show that is being displayed.
      */
     private void buildMoviesFlowPane(ArrayList<MovieInfoObject> movies) {
@@ -328,7 +333,8 @@ public class MovieHandler extends Controller implements RequestListener {
 
     /**
      * This funcion updates the progress bar as the movie poster is being displayed.
-     * @param movie Object that contains all the information about a particular movie.
+     *
+     * @param movie    Object that contains all the information about a particular movie.
      * @param progress contains the progress value.
      */
     private void updateProgressBar(MovieInfoObject movie, double progress) {
@@ -420,12 +426,20 @@ public class MovieHandler extends Controller implements RequestListener {
 
     /**
      * Prints message in UI.
+     *
      * @param txt which is the string text to be printed.
      */
     public void setFeedbackText(String txt) {
         generalFeedbackText.setText(txt);
     }
 
+    /**
+     * Updates the components in the SortProfile accordingly.
+     *
+     * @param isAlphaOrder    true when user have entered command to sort results in alphabetical order and otherwise false.
+     * @param isLatDatesOrder true when user have entered command to sort results based on release dates and otherwise false.
+     * @param isRatingsOrder  true when user have entered command to sort results based on ratings and otherwise false.
+     */
     public void setSort(boolean isAlphaOrder, boolean isLatDatesOrder, boolean isRatingsOrder) {
         String yes = "Y";
         String no = "N";
@@ -441,7 +455,10 @@ public class MovieHandler extends Controller implements RequestListener {
 
 
     /**
+     * Sets the updated values for the sort components.
      * Sets the text for the sort components in the UI.
+     * Updates the changes into json file by calling update function in the end.
+     *
      * @param txt1 String text to be set in sortAlphaOrderLabel.
      * @param txt2 String text to be set in sortLatestDateLabel.
      * @param txt3 String text to be set in sortHighestRatingLabel.
@@ -456,14 +473,14 @@ public class MovieHandler extends Controller implements RequestListener {
         EditSortProfileJson.update(sortProfile);
     }
 
-    public void updateTextField(String updateStr){
+    public void updateTextField(String updateStr) {
         mSearchTextField.setText(mSearchTextField.getText() + updateStr);
         mSearchTextField.positionCaret(mSearchTextField.getText().length());
     }
 
-    public void setFeedbackText(ArrayList<String> txtArr){
+    public void setFeedbackText(ArrayList<String> txtArr) {
         String output = "";
-        for(String s: txtArr){
+        for (String s : txtArr) {
             output += s;
             output += "\n";
 
@@ -473,6 +490,7 @@ public class MovieHandler extends Controller implements RequestListener {
 
     /**
      * Retrieves the RetrieveRequest class.
+     *
      * @return the RetrieveRequest class.
      */
     public RetrieveRequest getAPIRequester() {
@@ -495,8 +513,8 @@ public class MovieHandler extends Controller implements RequestListener {
         moviePosterClicked(movie);
     }
 
-    @FXML private void clearSearchButtonClicked()
-    {
+    @FXML
+    private void clearSearchButtonClicked() {
         mSearchTextField.clear();
     }
 
@@ -516,7 +534,7 @@ public class MovieHandler extends Controller implements RequestListener {
      */
     public static void showCurrentMovies() {
         mMovieRequest.beginMovieRequest("0", RetrieveRequest.MoviesRequestType.CURRENT_MOVIES,
-            true, false, false, userProfile.isAdult());
+                true, false, false, userProfile.isAdult());
     }
 
     /**
@@ -524,7 +542,7 @@ public class MovieHandler extends Controller implements RequestListener {
      */
     public static void showCurrentTV() {
         mMovieRequest.beginMovieRequest("0", RetrieveRequest.MoviesRequestType.CURRENT_TV,
-            true, false, false, userProfile.isAdult());
+                true, false, false, userProfile.isAdult());
     }
 
     /**
@@ -532,7 +550,7 @@ public class MovieHandler extends Controller implements RequestListener {
      */
     public static void showUpcomingMovies() {
         mMovieRequest.beginMovieRequest("0", RetrieveRequest.MoviesRequestType.UPCOMING_MOVIES,
-            true, false, false, userProfile.isAdult());
+                true, false, false, userProfile.isAdult());
     }
 
     /**
@@ -540,21 +558,21 @@ public class MovieHandler extends Controller implements RequestListener {
      */
     public static void showUpcomingTV() {
         mMovieRequest.beginMovieRequest("0", RetrieveRequest.MoviesRequestType.CURRENT_TV,
-             true, false, false, userProfile.isAdult());
+                true, false, false, userProfile.isAdult());
     }
 
     /**
      * Displays list of popular movies.
      */
     public static void showPopMovies() {
-        mMovieRequest.beginMovieRequest("0", RetrieveRequest.MoviesRequestType.POPULAR_MOVIES,true, true, true, userProfile.isAdult());
+        mMovieRequest.beginMovieRequest("0", RetrieveRequest.MoviesRequestType.POPULAR_MOVIES, true, true, true, userProfile.isAdult());
     }
 
     /**
      * Displays list of popular tv shows.
      */
     public static void showPopTV() {
-                            mMovieRequest.beginMovieRequest("0", RetrieveRequest.MoviesRequestType.POPULAR_TV, true, true, true, userProfile.isAdult());
+        mMovieRequest.beginMovieRequest("0", RetrieveRequest.MoviesRequestType.POPULAR_TV, true, true, true, userProfile.isAdult());
     }
 
 
@@ -563,14 +581,15 @@ public class MovieHandler extends Controller implements RequestListener {
      */
     public static void showTrendMovies() {
         mMovieRequest.beginMovieRequest("0", RetrieveRequest.MoviesRequestType.TRENDING_MOVIES, true, true,
-                true, userProfile.isAdult());;
+                true, userProfile.isAdult());
+        ;
     }
 
     /**
      * Displays list of trending tv shows.
      */
     public static void showTrendTV() {
-        mMovieRequest.beginMovieRequest("0", RetrieveRequest.MoviesRequestType.TRENDING_TV,true, true,
+        mMovieRequest.beginMovieRequest("0", RetrieveRequest.MoviesRequestType.TRENDING_TV, true, true,
                 true, userProfile.isAdult());
     }
 
