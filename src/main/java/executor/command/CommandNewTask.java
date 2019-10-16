@@ -6,6 +6,7 @@ import executor.task.TaskList;
 import executor.task.TaskType;
 import interpreter.Parser;
 import ui.Ui;
+import ui.Wallet;
 
 public class CommandNewTask extends Command {
     protected String userInput;
@@ -19,6 +20,11 @@ public class CommandNewTask extends Command {
         this.taskType = Parser.parseTaskType(userInput);
         this.userInput = userInput;
         this.commandType = CommandType.TASK;
+    }
+
+    @Override
+    public void execute(Wallet wallet) {
+
     }
 
     @Override
