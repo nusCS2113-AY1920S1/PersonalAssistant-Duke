@@ -1,14 +1,10 @@
 package duke.command;
 
-import duke.modules.Task;
 import duke.util.Reminder;
 import duke.util.Storage;
 import duke.util.TaskList;
 import duke.util.Ui;
 import duke.exceptions.ModEmptyListException;
-
-import java.util.List;
-import java.util.Objects;
 
 public class ReportCommand extends Command {
 

@@ -5,6 +5,7 @@ import duke.exceptions.ModTimeIntervalTooCloseException;
 
 import duke.modules.Task;
 import duke.modules.TaskWithPeriod;
+import duke.modules.TaskWithSpanningPeriod;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -101,14 +102,14 @@ public class Reminder {
                 try {
                     new Ui().printUpcomingTasks(
                             this.getUpcomingTasks(
-                                    new TimePeriod(now, now.plus(this.remindBefore))));
+                                    new TimePeriodSpanning(now, now.plus(this.remindBefore))));
                 } catch (ModInvalidTimePeriodException e) {
                     System.out.println(e.getMessage());
                 }
             }
             sleepSeconds = Math.max(TimeInterval.between(LocalDateTime.now(), targetTime)
                     .toDuration().getSeconds() - 1, 0);
-            if (sleepSeconds > 0) {
+            if (sleepSeconds > 0 && !this.kill) {
                 try {
                     Thread.sleep(sleepSeconds * 1000);
                 } catch (InterruptedException ignored) {
@@ -120,15 +121,15 @@ public class Reminder {
 
     /**
      * Get upcoming tasks.
-     * @param timePeriod How long before the task begin to remind
+     * @param timePeriodSpanning How long before the task begin to remind
      * @return the upcoming tasks
      */
-    private List<Task> getUpcomingTasks(TimePeriod timePeriod) {
+    private List<Task> getUpcomingTasks(TimePeriodSpanning timePeriodSpanning) {
         List<Task> upcomingTasks = new ArrayList<>();
         for (Task task: this.tasks) {
             if (task instanceof TaskWithPeriod
                     && !task.isDone()
-                    && timePeriod.isClashing(((TaskWithPeriod)task).getPeriod().getBegin())) {
+                    && ((TaskWithPeriod)task).isClashing(timePeriodSpanning)) {
                 upcomingTasks.add(task);
             }
         }

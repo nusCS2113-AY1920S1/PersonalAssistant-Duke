@@ -1,16 +1,12 @@
 package duke.modules;
 
-import duke.exceptions.ModInvalidTimePeriodException;
-
-import java.time.LocalDateTime;
-
 public class Todo extends TaskWithoutTime {
 
     /**
      * constructor for the Task class.
      * @param input User input task name.
      */
-    public Todo(String... input) throws ModInvalidTimePeriodException {
+    public Todo(String... input) {
         super(input[0]);
     }
 

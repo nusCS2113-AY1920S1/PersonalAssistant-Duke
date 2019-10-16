@@ -1,9 +1,10 @@
 package duke.modules;
 
-import java.time.LocalDateTime;
+import duke.util.TimeInterval;
+import java.time.temporal.Temporal;
 import java.util.Objects;
 
-public abstract class Task {
+public class Task {
 
     /**
      * task is the string value of the task name.
@@ -66,6 +67,4 @@ public abstract class Task {
     public boolean isDone() {
         return this.done;
     }
-
-    public abstract LocalDateTime getTime();
 }

@@ -2,14 +2,15 @@ package duke.util;
 
 import duke.exceptions.ModInvalidTimeException;
 import duke.exceptions.ModInvalidTimePeriodException;
+
+import duke.modules.Cca;
 import duke.modules.Deadline;
 import duke.modules.DoWithin;
 import duke.modules.Events;
+import duke.modules.FixedDurationTask;
 import duke.modules.RecurringTask;
 import duke.modules.Task;
 import duke.modules.Todo;
-import duke.modules.FixedDurationTasks;
-
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
@@ -114,11 +115,19 @@ public class Storage {
                     break;
                 }
                 case "F": {
-                    FixedDurationTasks tempFixedDuration = new FixedDurationTasks(hold[1], hold[3]);
+                    FixedDurationTask tempFixedDuration = new FixedDurationTask(hold[1], hold[3]);
                     if (hold[2].equals("1")) {
                         tempFixedDuration.setTaskDone();
                     }
                     list.add(tempFixedDuration);
+                    break;
+                }
+                case "C": {
+                    Cca tempTodo = new Cca(hold[1], hold[3], hold[4], hold[5]);
+                    if (hold[2].equals("1")) {
+                        tempTodo.setTaskDone();
+                    }
+                    list.add(tempTodo);
                     break;
                 }
                 default: {
@@ -129,7 +138,7 @@ public class Storage {
         return list;
     }
 
-    boolean getFileExits() {
+    public boolean getFileExits() {
         return fileExists;
     }
 

@@ -1,16 +1,8 @@
 package duke.modules;
 
-import duke.exceptions.ModInvalidTimePeriodException;
-import java.time.LocalDateTime;
-
 public class TaskWithoutTime extends Task {
 
-    public TaskWithoutTime(String task) throws ModInvalidTimePeriodException {
+    public TaskWithoutTime(String task) {
         super(task);
-    }
-
-    @Override
-    public LocalDateTime getTime() {
-        return null;
     }
 }

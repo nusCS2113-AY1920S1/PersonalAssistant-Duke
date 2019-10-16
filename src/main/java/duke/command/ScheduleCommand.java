@@ -3,16 +3,17 @@ package duke.command;
 import duke.exceptions.ModEmptyCommandException;
 import duke.exceptions.ModEmptyListException;
 import duke.exceptions.ModInvalidTimeException;
-
-import duke.modules.Task;
+import duke.exceptions.ModInvalidTimePeriodException;
 import duke.modules.TaskWithPeriod;
 import duke.util.DateTimeParser;
 import duke.util.Reminder;
 import duke.util.Storage;
 import duke.util.TaskList;
+import duke.util.TimePeriodSpanning;
 import duke.util.Ui;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 public class ScheduleCommand extends Command {
@@ -46,12 +47,14 @@ public class ScheduleCommand extends Command {
      */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage, Reminder reminder) throws ModEmptyListException {
-        ArrayList<Task> printArray = ScheduleCommand.getTasksIn(this.currentDate, tasks, true);
+        ArrayList<TaskWithPeriod> printArray = ScheduleCommand.getTasksIn(this.currentDate, tasks, true);
         boolean isEmpty = printArray.isEmpty();
         if (isEmpty) {
             throw new ModEmptyListException();
         } else {
-            System.out.println("Here is your schedule for today:");
+            System.out.println("Here is your schedule for "
+                    + DateTimeFormatter.ofPattern("dd-MM-yyyy").format(this.currentDate)
+                    + ":");
             ui.printTaskList(printArray);
         }
     }
@@ -63,12 +66,18 @@ public class ScheduleCommand extends Command {
      * @param isSorted should the results be sorted
      * @return an array list containing all tasks in the input date
      */
-    public static ArrayList<Task> getTasksIn(LocalDate localDate, TaskList tasks, boolean isSorted) {
-        ArrayList<Task> ret = new ArrayList<>();
+    public static ArrayList<TaskWithPeriod> getTasksIn(LocalDate localDate, TaskList tasks, boolean isSorted) {
+        ArrayList<TaskWithPeriod> ret = new ArrayList<>();
+        TimePeriodSpanning timePeriodSpanning = null;
+        try {
+            timePeriodSpanning = new TimePeriodSpanning(localDate, localDate.plusDays(1));
+        } catch (ModInvalidTimePeriodException ex) {
+            ex.printStackTrace();
+        }
         for (int i = 0; i < tasks.getSize(); i++) {
             if (tasks.access(i) instanceof TaskWithPeriod) {
                 TaskWithPeriod t = (TaskWithPeriod) tasks.access(i);
-                if (localDate.equals(t.getTime().toLocalDate())) {
+                if (t.isClashing(timePeriodSpanning)) {
                     ret.add(t);
                 }
             }
@@ -85,9 +94,9 @@ public class ScheduleCommand extends Command {
      * @param t2 Task 2 to be compared
      * @return true when Task t1 has an earlier time than Task t2
      */
-    public static int compareTime(Task t1, Task t2) {
-        LocalDateTime time1 = t1.getTime();
-        LocalDateTime time2 = t2.getTime();
+    public static int compareTime(TaskWithPeriod t1, TaskWithPeriod t2) {
+        LocalTime time1 = t1.getBeginTime();
+        LocalTime time2 = t2.getBeginTime();
         //ascending order
         return (time1 == null) ? (time2 == null ? 0 : -1) : (time2 == null ? 1 : time1.compareTo(time2));
     }

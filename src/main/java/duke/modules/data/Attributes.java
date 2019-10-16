@@ -1,4 +1,4 @@
-package duke.modules;
+package duke.modules.data;
 
 public class Attributes {
 
@@ -8,6 +8,9 @@ public class Attributes {
     private boolean fyp = false;
     private boolean year = false;
 
+    public Attributes() {
+
+    }
 
     public boolean isSu() {
         return su;

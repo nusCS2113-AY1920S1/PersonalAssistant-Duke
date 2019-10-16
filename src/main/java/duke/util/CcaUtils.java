@@ -5,7 +5,6 @@ import duke.exceptions.ModInvalidTimePeriodException;
 import duke.modules.Task;
 import duke.modules.TaskWithPeriod;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
 
@@ -16,23 +15,23 @@ public class CcaUtils {
      * @param localDate input date
      * @return a list of free time slots
      */
-    public static ArrayList<TimePeriod> getFreeTimePeriods(LocalDate localDate, TaskList tasks) {
-        ArrayList<Task> tasksInDate = ScheduleCommand.getTasksIn(localDate, tasks, true);
-        ArrayList<TimePeriod> ret = new ArrayList<>();
-        LocalDateTime begin = LocalDateTime.of(localDate, LocalTime.MIN);
-        LocalDateTime end;
+    public static ArrayList<TimePeriodSpanning> getFreeTimePeriods(LocalDate localDate, TaskList tasks) {
+        ArrayList<TaskWithPeriod> tasksInDate = ScheduleCommand.getTasksIn(localDate, tasks, true);
+        ArrayList<TimePeriodSpanning> ret = new ArrayList<>();
+        LocalTime begin = LocalTime.MIN;
+        LocalTime end;
         for (Task task: tasksInDate) {
             TaskWithPeriod currentTask = ((TaskWithPeriod) task);
-            end = currentTask.getBegin();
+            end = currentTask.getBeginTime();
             if (end.isAfter(begin)) {
                 try {
-                    ret.add(new TimePeriod(begin, end));
+                    ret.add(new TimePeriodSpanning(begin, end));
                 } catch (ModInvalidTimePeriodException ex) {
-                    begin = currentTask.getEnd();
+                    begin = currentTask.getEndTime();
                     continue;
                 }
             }
-            begin = currentTask.getEnd();
+            begin = currentTask.getEndTime();
         }
         return ret;
     }

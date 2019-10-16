@@ -1,33 +1,27 @@
-package duke.util;
+package duke.util.commons;
 
 import duke.exceptions.ModInvalidTimeException;
 import duke.exceptions.ModInvalidTimePeriodException;
 import duke.modules.Task;
+import duke.modules.data.ModuleInfoDetailed;
+import duke.modules.data.ModuleTask;
+import duke.util.Storage;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class TaskList {
+public class ModuleTasksList {
 
     /**
      * Task list where active tasks are stored.
      */
-    private List<Task> tasks;
+    private List<ModuleTask> tasks;
 
     /**
      * Constructor for TaskList class.
-     * @param store Storage class handling file writing and reading.
      */
-    public TaskList(Storage store) {
-        if (store.getDataPathExists()) {
-            try {
-                tasks = store.readData();
-            } catch (ModInvalidTimeException | ModInvalidTimePeriodException e) {
-                System.out.println(e.getMessage());
-            }
-        } else {
-            tasks = new ArrayList<>();
-        }
+    public ModuleTasksList() {
+        tasks = new ArrayList<>();
     }
 
     /**
@@ -36,9 +30,9 @@ public class TaskList {
      * @param input Parsed keyword of the task name to be searched.
      * @return Returns the taskList where each task contains the search keyword.
      */
-    public List<Task> find(String input) {
-        List<Task> temp = new ArrayList<>();
-        for (Task hold : tasks) {
+    public List<ModuleTask> find(String input) {
+        List<ModuleTask> temp = new ArrayList<>();
+        for (ModuleTask hold : tasks) {
             if (hold.getTask().contains(input)) {
                 temp.add(hold);
             }
@@ -46,12 +40,12 @@ public class TaskList {
         return temp;
     }
 
-    public List<Task> getTasks() {
-        return tasks;
+    public void setTasks(List<ModuleTask> tasks) {
+        this.tasks = tasks;
     }
 
-    public void add(Task task) {
-        tasks.add(task);
+    public List<ModuleTask> getTasks() {
+        return tasks;
     }
 
     public void delete(int index) {
@@ -60,10 +54,6 @@ public class TaskList {
 
     public int getSize() {
         return tasks.size();
-    }
-
-    public Task access(int index) {
-        return tasks.get(index);
     }
 
 }

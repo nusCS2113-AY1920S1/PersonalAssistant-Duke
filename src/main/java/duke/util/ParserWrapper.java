@@ -1,5 +1,20 @@
 package duke.util;
 
+
+import duke.command.CapCommand;
+import duke.command.logic.EndCommand;
+import duke.command.logic.ModuleCommand;
+import duke.command.logic.RemoveModCommand;
+import duke.command.logic.SearchThenAddCommand;
+import duke.command.logic.ShowModuleCommand;
+import duke.modules.Cca;
+import duke.modules.Deadline;
+import duke.modules.DoWithin;
+import duke.modules.Events;
+import duke.modules.FixedDurationTask;
+import duke.modules.RecurringTask;
+import duke.modules.Task;
+import duke.modules.Todo;
 import java.time.format.DateTimeFormatter;
 import java.util.LinkedHashMap;
 
@@ -12,13 +27,6 @@ import duke.command.ReportCommand;
 import duke.exceptions.ModCommandException;
 import duke.exceptions.ModException;
 import duke.exceptions.ModInvalidTimeException;
-import duke.modules.Deadline;
-import duke.modules.DoWithin;
-import duke.modules.Events;
-import duke.modules.FixedDurationTasks;
-import duke.modules.RecurringTask;
-import duke.modules.Task;
-import duke.modules.Todo;
 
 
 public class ParserWrapper {
@@ -39,7 +47,48 @@ public class ParserWrapper {
      * @throws ModInvalidTimeException when string date cannot be parsed by natty.
      */
     private String formatInputToStringDate(String date) throws ModInvalidTimeException {
-        return natty.dateToLocalDateTime(date).format(DateTimeFormatter.ofPattern("dd-MM-yyyy [HH:mm]"));
+        return natty
+                .dateToLocalDateTime(date)
+                .format(DateTimeFormatter.ofPattern("dd-MM-yyyy [HH:mm]"));
+    }
+
+    private String[] splitFirstSpace(String input) {
+        return input.split(" ", 2);
+    }
+
+    /**
+     * Switching parser to module parser from duke.
+     * @param input User string input.
+     * @param isDuke selector for duke parser or mod parse.
+     * @return Command class based on user input
+     * @throws ModException If user inputs strings which are invalid.
+     */
+    public ModuleCommand parse(String input, boolean isDuke) throws ModException {
+        if (isDuke) {
+            return new EndCommand();
+        }
+        String[] hold = splitFirstSpace(input);
+        //TODO: update the parsing below with a more robust Argsj4 library
+        switch (hold[0]) {
+            case "add": {
+                return new SearchThenAddCommand(hold[hold.length - 1]);
+            }
+            case "show": {
+                return new ShowModuleCommand();
+            }
+            case "bye": {
+                return new EndCommand();
+            }
+            case "remove": {
+                return new RemoveModCommand(Integer.parseInt(hold[hold.length - 1]));
+            }
+            case "cap": {
+                return new CapCommand(input);
+            }
+            default: {
+                throw new ModCommandException();
+            }
+        }
     }
 
     /**
@@ -53,6 +102,7 @@ public class ParserWrapper {
     public Command parse(String input) throws ModException {
         // Checks every input for keywords
         input = input.trim();
+        LinkedHashMap<String, String> args;
         if (input.startsWith("todo ")) {
             String[] split = DukeParser.parseAdding(input, "todo");
             Task hold = new Todo(split);
@@ -68,22 +118,34 @@ public class ParserWrapper {
             Task hold = new Deadline(split);
             return new AddCommand(hold);
         } else if (input.startsWith("recurring ")) {
-            String[] split = DukeParser.parseAdding(input, "recurring");
-            Task hold = new RecurringTask(split);
+            args = DukeParser.parse(input, false, true);
+            RecurringTask hold = new RecurringTask(
+                    args.get("description"),
+                    args.get("/days"),
+                    args.get("/hours"),
+                    args.get("/minutes"),
+                    args.get("/seconds"));
             return new AddCommand(hold);
-        } else if (input.startsWith("fixedDuration")) {
-            String[] split = DukeParser.parseAdding(input, "fixedDuration");
-            split[split.length - 1] = formatInputToStringDate(split[split.length - 1]);
-            Task hold = new FixedDurationTasks(split);
+        } else if (input.startsWith("fixedDuration ")) {
+            args = DukeParser.parse(input, false, true);
+            FixedDurationTask hold = new FixedDurationTask(
+                    args.get("description"),
+                    args.get("/days"),
+                    args.get("/hours"),
+                    args.get("/minutes"),
+                    args.get("/seconds"));
             return new AddCommand(hold);
         } else if (input.startsWith("doWithin ")) {
-            LinkedHashMap<String, String> args = DukeParser.parse(input, true, true);
+            args = DukeParser.parse(input, false, true);
             DukeParser.checkContainRequiredArguments(args, "/begin", "/end");
-            String nattyBegin = formatInputToStringDate(args.get("/begin"));
-            String nattyEnd = formatInputToStringDate(args.get("/end"));
-            args.put("/begin", nattyBegin);
-            args.put("/end", nattyEnd);
+            this.parseDateTime(args, "/begin", "/end");
             Task hold = new DoWithin(args.get("description"), args.get("/begin"), args.get("/end"));
+            return new AddCommand(hold);
+        } else if (input.startsWith("cca ")) {
+            args = DukeParser.parse(input, false, true);
+            DukeParser.checkContainRequiredArguments(args, "/begin", "/end", "/day");
+            this.parseDateTime(args, "/begin", "/end");
+            Task hold = new Cca(args.get("description"), args.get("/begin"), args.get("/end"), args.get("/day"));
             return new AddCommand(hold);
         } else if (input.equals("bye")) {
             return new ByeCommand();
@@ -107,6 +169,20 @@ public class ParserWrapper {
         }
     }
 
+    /**
+     * Parse multiple dateTime arguments.
+     * @param args input argument map
+     * @param dateTimeArgs dateTime arguments to parse
+     * @throws ModInvalidTimeException when input dateTime argument is invalid
+     */
+    private void parseDateTime(LinkedHashMap<String, String> args, String... dateTimeArgs)
+            throws ModInvalidTimeException {
+        for (String dateTimeArg: dateTimeArgs) {
+            if (args.containsKey(dateTimeArg)) {
+                args.put(dateTimeArg, this.formatInputToStringDate(args.get(dateTimeArg)));
+            }
+        }
+    }
 
 
 }
