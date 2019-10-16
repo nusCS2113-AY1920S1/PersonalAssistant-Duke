@@ -5,7 +5,7 @@ import parser.DateTimeExtractor;
 
 /**
  * This extension of the Event class will allow the student to add Tutorials to
- * his schedule
+ * his schedule.
  *
  * @author Varun
  */
