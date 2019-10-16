@@ -28,27 +28,32 @@ public class Deadline extends Task implements Serializable {
     /**
      * set the value of inVoice as true.
      */
-    public void SetInVoice(){
+    public void setInVoice() {
         this.inVoice = true;
         setBy(inVoice);
     }
 
-//    public void setBy(boolean inVoice){
-//        if(inVoice==true){
-//            Date date = new Date(System.currentTimeMillis());
-//            java.util.Calendar calendar = java.util.Calendar.getInstance();
-//            calendar.setTime(date);
-//            calendar.add(Calendar.DAY_OF_MONTH,30);
-//            Date newDate = calendar.getTime();
-//            this.by = dataformat.format(newDate);
-//        }
-//
-//    }
+    /*
+    public void setBy(boolean inVoice){
+        if(inVoice==true){
+            Date date = new Date(System.currentTimeMillis());
+            java.util.Calendar calendar = java.util.Calendar.getInstance();
+            calendar.setTime(date);
+            calendar.add(Calendar.DAY_OF_MONTH,30);
+            Date newDate = calendar.getTime();
+            this.by = dataformat.format(newDate);
+        }
+    }
+    */
 
     /**
-     * return the boolean value (true or false) of the invoice
-     * @return the task's invoice value
-     */、
+     * return the boolean value (true or false) of the invoice.
+     * @return the task's invoice value.
+     */
+    public boolean getInVoice() {
+        return inVoice;
+    }
+
 
     /**
      * Returns a string status of the Deadline task.
