@@ -36,7 +36,7 @@ public class TypoCorrector {
         int commandSize = splitCommand.length;
         String firstKeyword = splitCommand[0].toLowerCase();
         String closestMatch;
-        if (commandSize == 1 || command.length() <= 5) {
+        if (commandSize == 1 || command.length() <= 6) {
             closestMatch = matchStringFromDict(command, oneKeywordCommand);
             if (isSimilar(command, closestMatch)){
                 return closestMatch;
@@ -104,7 +104,6 @@ public class TypoCorrector {
      */
     public static boolean isSimilar(String referenceText, String targetText) {
         final int threshold = (int) Math.round(MAX_DISTANCE_DIFF_RATIO * referenceText.length());
-        System.out.println("threshold = " + threshold);
         final LevenshteinDistance levenshteinDistance = new LevenshteinDistance(threshold);
         return levenshteinDistance.apply(referenceText, targetText) != -1;
     }
