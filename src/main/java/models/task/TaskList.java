@@ -1,6 +1,7 @@
 package models.task;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Comparator;
 
 public class TaskList {
@@ -94,5 +95,44 @@ public class TaskList {
 
     public int getSize() {
         return this.taskList.size();
+    }
+
+    /**
+     * Edits the task requirements of a specific task by adding or removing them.
+     * @param taskIndexNumber Index of task to be edited.
+     * @param updatedTaskRequirements Array containing indexes of task requirements to be removed and
+     *                                task requirements to be added.
+     * @param haveRemove boolean value to indicate if command wants to remove task requirements.
+     */
+    public void editTaskRequirements(int taskIndexNumber, String[] updatedTaskRequirements, boolean haveRemove) {
+        if (haveRemove) {
+            String[] indexesToBeRemoved = updatedTaskRequirements[2].split(" ");
+            Arrays.sort(indexesToBeRemoved);
+            for (int i = indexesToBeRemoved.length - 1; i >= 0; i--) {
+                int indexToBeRemoved = Integer.parseInt(indexesToBeRemoved[i]);
+                this.taskList.get(taskIndexNumber - 1).removeTaskRequirement(indexToBeRemoved);
+            }
+            if (updatedTaskRequirements.length > 3) {
+                addTaskRequirements(taskIndexNumber, updatedTaskRequirements, 3);
+            }
+        } else {
+            if (updatedTaskRequirements.length > 2) {
+                addTaskRequirements(taskIndexNumber, updatedTaskRequirements, 2);
+            }
+        }
+    }
+
+    /**
+     * Adds new task requirements to a specific task.
+     * @param taskIndexNumber Index of task to be edited.
+     * @param updatedTaskRequirements Array containing indexes of task requirements to be removed and
+     *                                task requirements to be added.
+     * @param indexOfFirstTaskReq Index in updatedTaskRequirements from which the contents are new task requirements
+     *                            to be added.
+     */
+    private void addTaskRequirements(int taskIndexNumber, String[] updatedTaskRequirements, int indexOfFirstTaskReq) {
+        for (int i = indexOfFirstTaskReq; i < updatedTaskRequirements.length; i++) {
+            this.taskList.get(taskIndexNumber - 1).addTaskRequirement(updatedTaskRequirements[i]);
+        }
     }
 }

@@ -204,4 +204,10 @@ public class CLIView {
         projectToManage.editTask(updatedTaskDetails);
         consolePrint("The task has been updated!");
     }
+
+    public void editTaskRequirements(IProject projectToManage, int taskIndexNumber, String[] updatedTaskRequirements,
+                                     boolean haveRemove) {
+        projectToManage.editTaskRequirements(taskIndexNumber, updatedTaskRequirements, haveRemove);
+        consolePrint("The requirements of your specified task has been updated!");
+    }
 }

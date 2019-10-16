@@ -142,6 +142,13 @@ public class Task {
         default:
             this.taskState = TaskState.OPEN;
         }
+    }
 
+    public void removeTaskRequirement(int indexOfTaskRequirement) {
+        this.taskRequirements.remove(indexOfTaskRequirement - 1);
+    }
+
+    public void addTaskRequirement(String newTaskRequirement) {
+        this.taskRequirements.add(newTaskRequirement);
     }
 }

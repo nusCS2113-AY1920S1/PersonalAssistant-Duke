@@ -95,7 +95,7 @@ public class TaskFactory {
      * @param inputState String input of state.
      * @return enum TaskState object.
      */
-    public TaskState convertStringToTaskState(String inputState) {
+    private TaskState convertStringToTaskState(String inputState) {
         switch (inputState) {
         case "done":
             return TaskState.DONE;

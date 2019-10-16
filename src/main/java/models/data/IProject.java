@@ -32,4 +32,6 @@ public interface IProject {
     Task getTask(int taskIndex);
 
     void editTask(String updatedTaskDetails);
+
+    void editTaskRequirements(int taskIndexNumber, String[] updatedTaskRequirements, boolean haveRemove);
 }

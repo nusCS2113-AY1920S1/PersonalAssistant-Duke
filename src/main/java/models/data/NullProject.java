@@ -82,4 +82,11 @@ public class NullProject implements IProject {
         Empty method
          */
     }
+
+    @Override
+    public void editTaskRequirements(int taskIndexNumber, String[] updatedTaskRequirements, boolean haveRemove) {
+        /*
+        Empty method
+         */
+    }
 }

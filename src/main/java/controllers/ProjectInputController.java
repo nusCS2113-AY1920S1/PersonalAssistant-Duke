@@ -90,6 +90,20 @@ public class ProjectInputController {
                     } else {
                         consoleView.consolePrint("The task index entered is invalid.");
                     }
+                } else if (projectCommand.length() > 23
+                        && ("edit task requirements ").equals(projectCommand.substring(0, 23))) {
+                    String[] updatedTaskRequirements = projectCommand.split(" [ir]m?/");
+                    int taskIndexNumber = Integer.parseInt(updatedTaskRequirements[1]);
+                    boolean haveRemove = false;
+                    if (projectCommand.contains(" rm/")) {
+                        haveRemove = true;
+                    }
+                    if (projectToManage.getNumOfTasks() >= taskIndexNumber && taskIndexNumber > 0) {
+                        consoleView.editTaskRequirements(projectToManage, taskIndexNumber, updatedTaskRequirements,
+                                haveRemove);
+                    } else {
+                        consoleView.consolePrint("The task index entered is invalid.");
+                    }
                 } else if (projectCommand.length() > 10 && ("edit task ").equals(projectCommand.substring(0, 10))) {
                     String [] updatedTaskDetails = projectCommand.split(" [itpdcs]\\/");
                     int taskIndexNumber = Integer.parseInt(updatedTaskDetails[1]);
