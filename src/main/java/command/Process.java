@@ -22,6 +22,14 @@ import java.util.Calendar;
 public class Process {
     public SimpleDateFormat dataformat = new SimpleDateFormat("dd/MM/yyyy HHmm");
 
+    private String[] cleanStrStr(String[] arr) {
+        String[] clean_arr = arr.clone();
+        for (int i = 0; i < arr.length; i++) {
+            clean_arr[i] = arr[i].trim();
+        }
+        return clean_arr;
+    }
+
     /**
      * Processes the find command and outputs a list of payments from the payee name given.
      * @param input Input from the user.
@@ -85,12 +93,11 @@ public class Process {
      * @param ui Ui that interacts with the user.
      */
     public void delete(String input, HashMap<String, Payee> managermap, Ui ui) {
-        String[] arr = input.split(" ", 1);
-        System.out.print(arr[0] + " and " + arr[1]);
+        String[] arr = input.split(" ", 2);
         String[] split = arr[1].split("p/|i/");
-
-        Payments deleted = PaymentManager.deletePayments(split[0], split[1], managermap);
-        ui.printDeleteMessage(split[0], deleted, managermap.get(split[0]).payments.size());
+        split = cleanStrStr(split);
+        Payments deleted = PaymentManager.deletePayments(split[1], split[2], managermap);
+        ui.printDeleteMessage(split[1], deleted, managermap.get(split[1]).payments.size());
     }
 
     /**
@@ -318,9 +325,10 @@ public class Process {
             String[] splitspace = input.split(" ", 2);
             if (splitspace[1].startsWith("add")) {
                 String[] splitpayments = splitspace[1].split("p/|i/|c/|v/");
+                splitpayments = cleanStrStr(splitpayments);
                 String payee = splitpayments[1];
                 String item = splitpayments[2];
-                Double cost = Double.parseDouble(splitpayments[3]);
+                double cost = Double.parseDouble(splitpayments[3]);
                 String invoice = splitpayments[4];
                 Payments payment = PaymentManager.addPayments(payee, item, cost, invoice, managermap);
                 ui.printAddPaymentMessage(splitpayments[1], payment);
@@ -347,6 +355,7 @@ public class Process {
             String[] splitspace = input.split(" ", 2);
             if (splitspace[1].startsWith("add")) {
                 String[] splitpayments = splitspace[1].split("p/|e/|m/|ph/");
+                splitpayments = cleanStrStr(splitpayments);
                 String payeename = splitpayments[1];
                 String email = splitpayments[2];
                 String matricNum = splitpayments[3];
