@@ -2,55 +2,69 @@ package duke;
 
 import duke.exception.DukeFatalException;
 import duke.exception.DukeResetException;
-import duke.gui.Gui;
+import duke.gui.Ui;
+import duke.gui.UiManager;
 import duke.task.Storage;
 import duke.task.TaskList;
+import javafx.application.Application;
+import javafx.stage.Stage;
 
-public class DukeCore {
-    public final Storage storage;
-    public final Gui ui;
+import java.io.File;
+
+/**
+ * Launching point for Dr. Duke. Contains the core which holds the UI manager, storage, and task list.
+ */
+public class DukeCore extends Application {
+    private static final String FILE_PATH = "data" + File.separator + "tasks.tsv";
+
+    public Storage storage;
     public TaskList taskList;
+    public Ui ui;
 
     /**
-     * Create new DukeCore, generating taskList from the provided Ui and Storage objects.
-     *
-     * @param storage Storage object to use in this context.
-     * @param ui      Ui object to use in this context.
-     * @throws DukeFatalException If unable to setup data file.
-     * @see Gui
-     * @see TaskList
-     * @see Storage
+     * Construct a DukeCore object.
      */
-    public DukeCore(Storage storage, Gui ui) throws DukeFatalException {
-        this.storage = storage;
-        this.ui = ui;
-
+    public DukeCore() {
         try {
+            storage = new Storage(FILE_PATH);
             taskList = new TaskList(storage);
         } catch (DukeResetException excp) {
-            String resetStr;
-            ui.printError(excp);
-
-            while (true) { //wait for user to respond
-                // TODO: Read user input
-                // resetStr = ui.readLine();
-
-                resetStr = "Y";
-                if (resetStr.length() > 0) {
-                    resetStr = resetStr.substring(0, 1); //extract first char
-                    if (resetStr.equalsIgnoreCase("y")) {
-                        storage.writeTaskFile(""); //write empty string to data file
-                        taskList = new TaskList();
-                        ui.print("Your data has been reset!");
-                        break;
-                    } else if (resetStr.equalsIgnoreCase("n")) {
-                        ui.closeUi();
-                        //System.exit(0);
-                    }
-                }
+            // Reset data file
+            try {
+                storage.writeTaskFile(""); //write empty string to data file
+            } catch (DukeFatalException e) {
+                stop();
             }
-        } catch (DukeFatalException excp) {
-            excp.killProgram(ui);
+
+            taskList = new TaskList();
+        } catch (DukeFatalException e) {
+            stop();
         }
+
+        // TODO: relocate mkdir to Storage class instead
+        File dataDir = new File("data");
+        if (!dataDir.exists()) {
+            dataDir.mkdir();
+        }
+
+        ui = new UiManager(this);
+    }
+
+    /**
+     * Main function.
+     *
+     * @param args Arguments.
+     */
+    public static void main(String[] args) {
+        launch(args);
+    }
+
+    @Override
+    public void start(Stage primaryStage) {
+        ui.start(primaryStage);
+    }
+
+    @Override
+    public void stop() {
     }
 }

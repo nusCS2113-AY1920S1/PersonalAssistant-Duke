@@ -16,9 +16,7 @@ repositories {
 }
 
 application {
-    // Change this to your main class.
-    // mainClassName = "duke.Duke"
-    mainClassName = "duke.DukeLauncher"
+    mainClassName = "duke.DukeCore"
 }
 
 run {
@@ -59,6 +57,7 @@ test {
 dependencies {
     testImplementation 'org.junit.jupiter:junit-jupiter:5.5.0'
     implementation 'com.google.code.gson:gson:2.8.6'
+    implementation 'com.jfoenix:jfoenix:9.0.8'
 
     String javaFxVersion = '11'
 
