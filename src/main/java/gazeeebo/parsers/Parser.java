@@ -95,7 +95,7 @@ public class Parser {
             return new DeleteNoteCommand();
         } else if (splitCommand[0].equals("listNote")) {
             return new ListNoteCommand();
-        } else if (splitCommand[0].equals("gazeeebo/help")) {
+        } else if (splitCommand[0].equals("help")) {
                 return new HelpCommand();
        } else if (command.equals("change password")) {
             return new ChangePasswordCommand();
