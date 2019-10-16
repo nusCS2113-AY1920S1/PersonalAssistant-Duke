@@ -2,6 +2,7 @@ package executor.command;
 
 import executor.task.TaskList;
 import ui.Ui;
+import ui.Wallet;
 
 public class CommandDelete extends Command {
     protected String userInput;
@@ -25,5 +26,10 @@ public class CommandDelete extends Command {
         } catch (Exception e) {
             Ui.dukeSays("Invalid 'delete' statement. Please indicate the index of the task you wish to mark delete.");
         }
+    }
+
+    @Override
+    public void execute(Wallet wallet) {
+
     }
 }

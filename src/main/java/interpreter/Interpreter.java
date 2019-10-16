@@ -3,6 +3,7 @@ package interpreter;
 import executor.command.CommandType;
 import executor.command.Executor;
 import executor.task.TaskList;
+import ui.Wallet;
 
 public class Interpreter {
 
@@ -12,9 +13,9 @@ public class Interpreter {
      * @param userInput The userInput taken from the User Interface
      * @return True if the Command executed calls for an ExitRequest, false otherwise
      */
-    public static boolean interpret(TaskList taskList, String userInput) {
+    public static boolean interpret(TaskList taskList, Wallet wallet, String userInput) {
         CommandType commandType = Parser.parseCommandType(userInput);
-        boolean exitRequest = Executor.runCommand(taskList, commandType, userInput);
+        boolean exitRequest = Executor.runCommand(taskList, wallet, commandType, userInput);
         return exitRequest;
     }
 }

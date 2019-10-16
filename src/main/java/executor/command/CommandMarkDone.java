@@ -4,6 +4,7 @@ import executor.task.Task;
 import executor.task.TaskList;
 import interpreter.Parser;
 import ui.Ui;
+import ui.Wallet;
 
 public class CommandMarkDone extends Command {
     private String userInput;
@@ -11,6 +12,11 @@ public class CommandMarkDone extends Command {
     // Constructor
     public CommandMarkDone(String userInput) {
         this.userInput = userInput;
+    }
+
+    @Override
+    public void execute(Wallet wallet) {
+
     }
 
     @Override

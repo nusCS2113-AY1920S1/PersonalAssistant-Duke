@@ -3,6 +3,7 @@ package executor.command;
 import executor.task.TaskList;
 import interpreter.Parser;
 import ui.Ui;
+import ui.Wallet;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -18,6 +19,10 @@ public class CommandSchedule extends Command {
         this.commandType = CommandType.VIEWSCHEDULE;
     }
 
+    @Override
+    public void execute(Wallet wallet) {
+
+    }
 
     @Override
     public void execute(TaskList taskList) {
