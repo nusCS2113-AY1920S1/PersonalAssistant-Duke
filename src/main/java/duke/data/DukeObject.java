@@ -42,4 +42,8 @@ public abstract class DukeObject {
     public String getName() {
         return this.name;
     }
+
+    protected void setName(String name) {
+        this.name = name;
+    }
 }
