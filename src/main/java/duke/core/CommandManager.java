@@ -91,14 +91,11 @@ public class CommandManager {
                 }
             case "update":
                 try {
-                    String[] descriptions = command[1].split("\\s+");
-                    int targetId = Integer.parseInt(descriptions[1]);
-                    String targetInfo = descriptions[2];
-                    String updateValue = descriptions[3];
-
-                    return new UpdatePatientCommand(targetId, targetInfo, updateValue);
-
-
+                    secondKeyword = command[1].toLowerCase();
+                    if (secondKeyword.equals("patient")){
+                        String formattedInput = parser.parseUpdatePatient();
+                        return new UpdatePatientCommand(formattedInput);
+                    }
                 } catch (Exception e) {
                     throw new DukeException("update command fails. " + e.getMessage());
                 }
