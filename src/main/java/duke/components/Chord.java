@@ -29,4 +29,5 @@ public class Chord {
     public void addToChord(Note note) {
         notes.add(note);
     }
+
 }

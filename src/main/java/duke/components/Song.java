@@ -65,4 +65,12 @@ public class Song {
     public void addBar(Bar bar) {
         bars.add(bar);
     }
+
+    public int getNumBars() {
+        return bars.size();
+    }
+
+    public void updateBars(ArrayList<Bar> newBars) {
+        this.bars = newBars;
+    }
 }
