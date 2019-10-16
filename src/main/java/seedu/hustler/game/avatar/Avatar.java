@@ -57,6 +57,13 @@ public class Avatar implements Convertible {
     }
 
     /**
+     * Gets the name for the avatar.
+     */
+    public String getName() {
+        return this.name;
+    }
+
+    /**
      * Increases avatar xp by 1. Avatar levels up and increases
      * its stats if the xp gained levels it up.
      *

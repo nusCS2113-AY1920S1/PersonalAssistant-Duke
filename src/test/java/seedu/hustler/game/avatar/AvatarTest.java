@@ -6,7 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 /**
  *  Test class for Avatar.
  */
-public class Avatar {
+public class AvatarTest {
 
     @Test
     /**

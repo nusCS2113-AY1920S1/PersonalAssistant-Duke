@@ -38,7 +38,7 @@ public class ShopList {
             /**
              * Divides the list to format the printing of different classes.
              */
-            if (i == 0 || !shopList.get(i).getType().equals(shopList.get(i - 1).getType())) {
+            if (i == 0 || !(shopList.get(i).isEquals(shopList.get(i - 1)))) {
                 System.out.println("\t======" + shopList.get(i).getType() + "=====");
             }
             System.out.print((i + 1) + ". ");
