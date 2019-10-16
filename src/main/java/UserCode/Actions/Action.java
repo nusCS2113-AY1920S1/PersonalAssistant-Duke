@@ -13,6 +13,7 @@ import org.json.simple.JSONObject;
 
 public abstract class Action {
     Farmer farmer;
+    Farmio farmio;
 
     public Action() {}
 
@@ -23,8 +24,9 @@ public abstract class Action {
         this.cowFarm = new CowFarm((JSONObject) obj.get("farm_cow"));
     }
     **/
-    public Action(Farmer farmer) {
-        this.farmer = farmer;
+    public Action(Farmio farmio) {
+        this.farmer = farmio.getFarmer();
+        this.farmio = farmio;
     }
 
     public abstract void execute(Ui ui);
@@ -48,13 +50,15 @@ public abstract class Action {
         }
         switch (actionType) {
             case buySeeds:
-                return new BuySeedAction(farmio.getFarmer());
+                return new BuySeedAction(farmio);
             case harvestWheat:
-                return new HarvestWheatAction(farmio.getFarmer());
+                return new HarvestWheatAction(farmio);
             case plantSeeds:
-                return new PlantSeedAction(farmio.getFarmer());
+                return new PlantSeedAction(farmio);
             case sellWheat:
-                return new SellWheatAction(farmio.getFarmer());
+                return new SellWheatAction(farmio);
+            case gotoMarket:
+                return new GotoMarketAction(farmio);
             default:
             throw new FarmioException("Error Creating Action!");
         }

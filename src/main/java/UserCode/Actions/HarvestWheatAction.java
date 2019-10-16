@@ -1,15 +1,13 @@
 package UserCode.Actions;
 
-import Farmio.Farmer;
-import Places.*;
-import Simulations.Simulate;
+import Farmio.Farmio;
+import FrontEnd.Simulate;
 import FrontEnd.Ui;
-import org.json.simple.JSONObject;
 
 public class HarvestWheatAction extends Action {
 
-    public HarvestWheatAction(Farmer farmer) {
-        super(farmer);
+    public HarvestWheatAction(Farmio farmio) {
+        super(farmio);
     }
 
     /*public HarvestWheatAction(JSONObject obj){
@@ -20,7 +18,7 @@ public class HarvestWheatAction extends Action {
     public void execute(Ui ui) {
         try {
             farmer.getWheatFarm().harvestWheat();
-            new Simulate(ui, "PlantSeed", 10).simulate();
+            new Simulate(ui, "PlantSeed", 10).simulate(super.farmio);
         } catch (Exception e){
             e.getMessage();
         }

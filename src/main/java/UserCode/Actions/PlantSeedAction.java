@@ -1,18 +1,13 @@
 package UserCode.Actions;
 
-import Farmio.Farmer;
-import Places.ChickenFarm;
-import Places.CowFarm;
-import Places.Market;
-import Places.WheatFarm;
-import Simulations.Simulate;
+import Farmio.Farmio;
+import FrontEnd.Simulate;
 import FrontEnd.Ui;
-import org.json.simple.JSONObject;
 
 public class PlantSeedAction extends Action {
 
-    public PlantSeedAction(Farmer farmer) {
-        super(farmer);
+    public PlantSeedAction(Farmio farmio) {
+        super(farmio);
     }
 
     /*public PlantSeedAction(JSONObject obj){
@@ -23,7 +18,7 @@ public class PlantSeedAction extends Action {
     public void execute(Ui ui) {
         try {
             farmer.getWheatFarm().plantSeeds();
-            new Simulate(ui, "PlantSeedSimulation", 10).simulate();
+            new Simulate(ui, "PlantSeedSimulation", 9).simulate(super.farmio);
         } catch (Exception e){
             e.getMessage();
         }

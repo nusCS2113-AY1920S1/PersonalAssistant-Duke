@@ -41,7 +41,8 @@ public class Ui {
         for(int i = 0; i < narratives.size(); ++i){
             clearScreen();
             show(GameConsole.content(loadStage(directory, i), farmio));
-            typeWriter(narratives.get(i));
+//            typeWriter(narratives.get(i));
+            show(narratives.get(i));
             if(i != narratives.size() - 1) {
                 show("Press ENTER to continue.");
                 getInput();
@@ -117,6 +118,7 @@ public class Ui {
                 if (line.length() < 55) {
                     int padding_left = (55 - line.length()) / 2;
                     int padding_right = 55 - line.length() - padding_left;
+
                     line = blankSpace(padding_left) + line + blankSpace(padding_right);
                 } else if (line.length() > 55) {
                     line = blankSpace(55);
