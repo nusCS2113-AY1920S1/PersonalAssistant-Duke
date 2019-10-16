@@ -1,6 +1,7 @@
 package duke.modules;
 
 import duke.exceptions.ModInvalidTimeException;
+import duke.modules.*;
 import duke.util.DateTimeParser;
 import java.time.DayOfWeek;
 import java.time.LocalTime;
@@ -17,7 +18,7 @@ public class Cca extends TaskWithWeeklyPeriod {
      * @throws ModInvalidTimeException when input time is invalid
      */
     public Cca(String task, String beginString, String endString, String dayOfWeek) throws ModInvalidTimeException {
-        super(task, DayOfWeek.valueOf(dayOfWeek));
+        super(task, DayOfWeek.valueOf(dayOfWeek.toUpperCase()));
         LocalTime begin = DateTimeParser.getStringToDate(beginString).toLocalTime();
         LocalTime end = DateTimeParser.getStringToDate(endString).toLocalTime();
         this.setPeriod(begin, end);
