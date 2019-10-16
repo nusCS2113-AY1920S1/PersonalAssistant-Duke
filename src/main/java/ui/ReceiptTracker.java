@@ -147,4 +147,26 @@ public class ReceiptTracker extends ArrayList<Receipt> {
     public Double getTotalCashSpent() {
         return totalCashSpent;
     }
+
+    /**
+     * Prints all the receipts in the arraylist.
+     */
+    public void printReceipts() {
+        for (int index = 0; index < this.size(); ++index) {
+            try {
+                System.out.println((index + 1)
+                        + ". "
+                        + this.get(index).getTags()
+                        + " "
+                        + this.get(index).getCashSpent()
+                        + " "
+                        + this.get(index).getDate()
+                );
+            } catch (Exception e) {
+                System.out.println("Unable to print Receipts"
+                        + String.valueOf(index + 1)
+                );
+            }
+        }
+    }
 }
