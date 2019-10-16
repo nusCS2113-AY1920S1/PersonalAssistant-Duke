@@ -23,20 +23,21 @@ public class EmailContentParser {
 
     public static void allKeywordInEmail(Email email) {
         for (KeywordPair keywordPair : keywordList) {
-            if (keywordInEmail(email, keywordPair) > 0) {
+            int relevance = keywordInEmail(email, keywordPair);
+            if (relevance > 0) {
                 Duke.getUI().showDebug(keywordPair.getKeyword() + ": " + keywordInEmail(email, keywordPair) + " => " + email.getSubject());
-                email.addTag(keywordPair.getKeyword());
+                email.addTag(keywordPair, relevance);
             }
         }
     }
 
     /**
-     * Calculates the keyword occurrence score within an email based on its position and number of
+     * Calculates the keyword relevance score within an email based on its position and number of
      * occurrence.
      *
      * @param email       the email where the keyword pair is to be looked for
      * @param keywordPair the target keyword pair
-     * @return the occurrence score
+     * @return            the occurrence score
      */
     public static int keywordInEmail(Email email, KeywordPair keywordPair) {
         int totalScore = 0;
@@ -183,6 +184,16 @@ public class EmailContentParser {
         public KeywordPair(String keyword, ArrayList<String> expressions) {
             this.keyword = keyword;
             this.expressions = expressions;
+        }
+
+        /**
+         * Constructs a keyword pair with only keyword. Expression will be the same as the keyword by default.
+         *
+         * @param keyword the value of keyword looked for
+         */
+        public KeywordPair(String keyword) {
+            this.keyword = keyword;
+            this.expressions = new ArrayList<>(List.of(keyword));
         }
 
         public String getKeyword() {

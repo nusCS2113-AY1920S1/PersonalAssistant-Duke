@@ -1,5 +1,7 @@
 package seedu.duke.email;
 
+import org.json.JSONException;
+import org.json.JSONObject;
 import seedu.duke.Duke;
 import seedu.duke.common.network.Http;
 import seedu.duke.email.entity.Email;
@@ -127,7 +129,7 @@ public class EmailStorage {
             FileOutputStream indexOut = new FileOutputStream(indexFile, false);
             String content = "";
             for (Email email : emailList) {
-                content += email.getFilename() + "\n";
+                content += email.getIndexJson().toString() + "\n";
             }
             indexOut.write(content.getBytes());
             indexOut.close();
@@ -143,6 +145,8 @@ public class EmailStorage {
         } catch (IOException e) {
             e.printStackTrace();
             Duke.getUI().showError("Write to output file IO exception!");
+        } catch (JSONException e) {
+            Duke.getUI().showError("Email index formatting exception!");
         }
     }
 
@@ -229,10 +233,8 @@ public class EmailStorage {
             Scanner scanner = new Scanner(indexIn);
             while (scanner.hasNextLine()) {
                 String input = scanner.nextLine();
-                if (input.length() <= 2) {
-                    throw new TaskStorage.StorageException("Invalid Save File!");
-                }
-                String filename = input.split("\\|")[0].strip();
+                Email email = EmailFormatParser.parseIndexJson(input);
+                String filename = email.getFilename();
 
                 String fileDir = getFolderDir() + filename;
                 File emailFile = new File(fileDir);
@@ -251,9 +253,6 @@ public class EmailStorage {
             return emailList;
         } catch (IOException e) {
             Duke.getUI().showError("Read save file IO exception");
-        } catch (TaskStorage.StorageException e) {
-            Duke.getUI().showError(e.getMessage());
-            emailList = new EmailList();
         } catch (EmailFormatParser.EmailParsingException e) {
             Duke.getUI().showError("Email save file is in wrong format");
         }

@@ -8,8 +8,6 @@ import seedu.duke.email.EmailStorage;
 import seedu.duke.task.TaskList;
 import seedu.duke.task.TaskStorage;
 
-import static seedu.duke.email.EmailContentParser.testFuzzySearchInString;
-
 
 /**
  * The main class of the program, which provides the entry point.
@@ -41,7 +39,6 @@ public class Duke {
      */
     public Duke() {
         ui = new UI();
-        testFuzzySearchInString();
         commandParser = new CommandParser();
         ui.setDebug(true);
         taskList = TaskStorage.readTasks();
