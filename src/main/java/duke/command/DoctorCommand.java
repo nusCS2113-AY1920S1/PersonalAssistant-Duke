@@ -10,10 +10,10 @@ import java.util.TreeSet;
  */
 public class DoctorCommand extends ArgCommand {
     static {
-        switches = Map.ofEntries(
-                Map.entry("switch", ArgLevel.OPTIONAL)
-        );
-        switchInit();
+        String[] switchNameArr = new String[]{"switch"};
+        ArgLevel[] argLevelArr = new ArgLevel[]{ArgLevel.OPTIONAL};
+        String[] switchRootArr = new String[]{"s"};
+        switchInit(switchNameArr, argLevelArr, switchRootArr);
     }
 
     @Override

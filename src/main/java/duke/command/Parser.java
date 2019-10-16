@@ -15,6 +15,7 @@ import static java.lang.Math.min;
  * and execute them. The static initializer generates a static map from Cmd enum values to allow fast lookup of
  * command types.
  */
+@SuppressWarnings("unchecked") //unchecked assignment used in static initializer
 public class Parser {
 
     enum ParseState {
@@ -38,9 +39,7 @@ public class Parser {
         for (Cmd cmd : Cmd.values()) {
             tempMap.put(cmd.toString(), cmd);
         }
-        commandMap = Map.ofEntries(
-                (Map.Entry[]) tempMap.entrySet().toArray()
-        );
+        commandMap = Map.ofEntries((Map.Entry[]) tempMap.entrySet().toArray());
     }
 
     /**
