@@ -23,6 +23,10 @@ public class ListCommand extends Command {
         mode = modeInformation;
     }
 
+    public String getMode() {
+        return mode;
+    }
+
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
         switch (mode) {
@@ -41,6 +45,9 @@ public class ListCommand extends Command {
                 break;
             case "day":
                 tasks.dayViewPrint(ui);
+                break;
+            case "week":
+                tasks.weekViewPrint(ui);
                 break;
             default:
                 throw new DukeException("The description of list is invalid");

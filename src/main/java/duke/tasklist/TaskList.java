@@ -1,7 +1,6 @@
 package duke.tasklist;
-
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 
 import duke.task.Deadline;
 import duke.task.Event;
@@ -140,21 +139,45 @@ public class TaskList {
     }
 
     public void dayViewPrint(Ui ui) {
-        Date currDate = new Date();
-        SimpleDateFormat fmt = new SimpleDateFormat("yyyyMMdd");
-
+        LocalDate currDate = LocalDate.now();
         ArrayList<Task> temp = new ArrayList<>();
 
         for (Task t : taskList) {
             if (t instanceof Event) {
-                System.out.println("this is one event");
-                Date taskDate = ((Event) t).getDatetime();
-                if (taskDate.equals(currDate)) {
+                LocalDate taskDate = ((Event) t).getDatetime();
+                if (ChronoUnit.DAYS.between(currDate, taskDate) == 0) {
                     temp.add(t);
                 }
             } else if (t instanceof Deadline) {
-                Date taskDate = ((Deadline) t).getDatetime();
-                if (fmt.format(currDate).equals(fmt.format(taskDate))) {
+                LocalDate taskDate = ((Deadline) t).getDatetime();
+                if (ChronoUnit.DAYS.between(currDate, taskDate) == 0) {
+                    temp.add(t);
+                }
+            }
+        }
+        if (temp.size() == 0) {
+            ui.showLine("Congratulations, you have no task for today! Take a break, have a kit kat");
+        } else {
+            ui.showLine("You have " + temp.size() + ((temp.size() == 1) ? " task today!" : " tasks today!"));
+            for (Task t : temp) {
+                ui.showLine("  " + t.toString());
+            }
+        }
+    }
+
+    public void weekViewPrint(Ui ui) {
+        LocalDate currDate = LocalDate.now();
+        ArrayList<Task> temp = new ArrayList<>();
+
+        for (Task t : taskList) {
+            if (t instanceof Event) {
+                LocalDate taskDate = ((Event) t).getDatetime();
+                if (ChronoUnit.DAYS.between(currDate, taskDate) < 7) {
+                    temp.add(t);
+                }
+            } else if (t instanceof Deadline) {
+                LocalDate taskDate = ((Deadline) t).getDatetime();
+                if (ChronoUnit.DAYS.between(currDate, taskDate) < 7) {
                     temp.add(t);
                 }
             }
