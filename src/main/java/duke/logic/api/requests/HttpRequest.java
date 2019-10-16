@@ -8,7 +8,7 @@ import java.io.IOException;
 /**
  * Abstract class representing individual HTTP requests.
  */
-public abstract class HttpRequest {
+public abstract class HttpRequest<T> {
     protected String reqType;
     protected String url;
     protected String param;
@@ -28,7 +28,7 @@ public abstract class HttpRequest {
 
     /**
      * Executes the HTTP Request.
-     * @return
+     * @return response The response from request
      */
-    public abstract JsonObject execute() throws DukeException, IOException;
+    public abstract T execute() throws DukeException, IOException;
 }
