@@ -23,8 +23,6 @@ public class Farmio {
 
     private void run() {
         ui.showWelcome();
-        ui.show(GameConsole.content(ui.loadStage("LevelTemplate", 1), this));
-        ui.typeWriter("story board or instructions go here...\t\t\t\t\tpress ENTER to continue");
         Command command;
         while(!isExit){
             try {

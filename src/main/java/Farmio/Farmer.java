@@ -25,7 +25,7 @@ public class Farmer {
         this.money = 100;
         this.level = 1;
         this.day = 1;
-        this.location = "@WheatFarm";
+        this.location = "WheatFarm";
         this.wheatFarm = new WheatFarm(); //TODO: create wheatFarm subclass
         this.chickenFarm = new ChickenFarm(); //TODO: create chickenFarm subclass
         this.cowFarm = new CowFarm(); //TODO: create cowFarm subclass

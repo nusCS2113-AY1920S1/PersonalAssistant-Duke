@@ -1,5 +1,6 @@
 package FrontEnd;
 
+import Farmio.Farmio;
 import Farmio.Storage;
 
 import java.io.BufferedReader;
@@ -36,10 +37,11 @@ public class Ui {
         show("Bye-Bye");
     }
 
-    public void showNarrative(ArrayList<String> narratives) {
+    public void showNarrative(ArrayList<String> narratives, String directory, Farmio farmio) {
         for(int i = 0; i < narratives.size(); ++i){
             clearScreen();
-            show(narratives.get(i));
+            show(GameConsole.content(loadStage(directory, i), farmio));
+            typeWriter(narratives.get(i));
             if(i != narratives.size() - 1) {
                 show("Press ENTER to continue.");
                 getInput();
@@ -149,8 +151,5 @@ public class Ui {
                 Thread.currentThread().interrupt();
             }
         }
-    }
-    public void animate() { //just goes next screen without input
-
     }
 }
