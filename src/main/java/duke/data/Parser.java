@@ -18,10 +18,7 @@ import duke.sports.MyStudent;
 
 import java.io.FileNotFoundException;
 import java.text.ParseException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 /**
  * Parser is the controller for the string inputs received by the standard input.
@@ -404,6 +401,7 @@ public class Parser {
                         break;
 
                     case "details":
+
                         //add student details
                         break;
 
@@ -420,6 +418,7 @@ public class Parser {
                         students.findName(searchName);
                         break;
                     }
+                    storage.updateStudentList(students.getStudentList());
                 break;
 
             /**
