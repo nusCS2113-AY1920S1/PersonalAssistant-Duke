@@ -206,6 +206,13 @@ public class Ui {
         System.out.print(line);
     }
 
+    public void printAddInvoiceMessage(Task task) {
+        System.out.print(line);
+        System.out.println("\t" + "Got it. I've added invoice to this deadline:");
+        System.out.print("\t" + task.giveTask() + "\n");
+        System.out.print(line);
+    }
+
     /**
      * Prints out the statement of accounts.
      * @param managermap managermap containing Payee and Payments information.

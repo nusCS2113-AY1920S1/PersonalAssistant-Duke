@@ -120,18 +120,12 @@ public class Process {
     public void deadline(String input, TaskList tasklist, Ui ui) {
         try {
             String[] splitspace = input.split(" ", 2);
-            String[] splitslash = splitspace[1].split("/", 2);
-            String taskDescription = splitslash[0];
-            String[] splittime = splitslash[1].split(" ", 2);
-            String taskTime = splittime[1];
-            Date formattedtime = dataformat.parse(taskTime);
-            Deadline deadline = new Deadline(taskDescription, dataformat.format(formattedtime));
+            String taskDescription = splitspace[1];
+            Deadline deadline = new Deadline(taskDescription);
             tasklist.addTask(deadline);
             ui.printAddedMessage(deadline, tasklist);
         } catch (ArrayIndexOutOfBoundsException e) {
             ui.exceptionMessage("     ☹ OOPS!!! The description of a deadline cannot be empty.");
-        } catch (ParseException e) {
-            ui.exceptionMessage("     ☹ OOPS!!! Format of time is wrong.");
         }
     }
 
@@ -214,7 +208,7 @@ public class Process {
                 calendar.setTime(formattedtime);
                 calendar.add(Calendar.HOUR_OF_DAY,1);
                 Date newDate = calendar.getTime();
-                tasklist.get(nsnooze).setBy(tasklist.get(nsnooze).getInVoice());
+                tasklist.get(nsnooze).setBy(tasklist.get(nsnooze).getIsInVoice());
                 ui.printSnoozeMessage(tasklist.get(nsnooze));
             } else {
                 ui.exceptionMessage("     ☹ OOPS!!! Please select a deadline type task to snooze.");
@@ -246,7 +240,7 @@ public class Process {
                 calendar.setTime(formattedtime);
                 calendar.add(Calendar.HOUR_OF_DAY,delaytime);
                 Date newDate = calendar.getTime();
-                tasklist.get(npostpone).setBy(tasklist.get(npostpone).getInVoice());
+                tasklist.get(npostpone).setBy(tasklist.get(npostpone).getIsInVoice());
                 ui.printPostponeMessage(tasklist.get(npostpone));
             } else {
                 ui.exceptionMessage("     ☹ OOPS!!! Please select a deadline type task to postpone.");
@@ -361,6 +355,25 @@ public class Process {
             ui.exceptionMessage("     ☹ OOPS!!! Please input the correct command format (refer to user guide)");
         } catch (NullPointerException e) {
             ui.exceptionMessage("     ☹ OOPS!!! There is no payee with that name yet, please add the payee first!");
+        }
+    }
+
+    public void inVoice(String input, TaskList tasklist, Ui ui){
+        try{
+            String[] splitspace = input.split(" ", 2);
+            String[] splitInvoice = splitspace[1].split(" i/");
+            int id = Integer.parseInt(splitInvoice[0]) - 1;
+            if(tasklist.get(id).getType().equals("D")) {
+                String invoice = splitInvoice[1];
+                tasklist.get(id).setInVoice(invoice);
+                ui.printAddInvoiceMessage(tasklist.get(id));
+            }else{
+                ui.exceptionMessage("     ☹ OOPS!!! Please select a deadline instead!");
+            }
+        }catch(ArrayIndexOutOfBoundsException e){
+            ui.exceptionMessage("     ☹ OOPS!!! Please input a valid ID!");
+        }catch(NumberFormatException e){
+            ui.exceptionMessage("     ☹ OOPS!!! Please input the correct command format (refer to user guide)");
         }
     }
 }

@@ -77,7 +77,9 @@ public class Parser {
                 process.findPayee(input, ui, managermap);
             } else if (instr.isPayee(input)) {
                 process.payee(input, managermap, ui);
-            } else {
+            } else if(instr.isInvoice(input)){
+                process.inVoice(input, tasklist, ui);
+            }else {
                 throw new DukeException("     ☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
             }
         } catch (DukeException e) {
