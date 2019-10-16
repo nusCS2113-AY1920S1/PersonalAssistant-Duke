@@ -11,10 +11,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.effect.ColorAdjust;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.FlowPane;
-import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
@@ -179,13 +176,14 @@ public class MainWindow extends AnchorPane{
             String token[] = input.split(" ");
             if(input.equals("achievement")) {
                 achievementAction();
-            } else if(token[0].equals("/add") || input.equals("list")) {
+            } else if(token[0].equals("/add") || input.equals("list") || token[0].equals("done") || token[0].equals("delete")) {
                 taskAction();
             } else if(input.equals("bye")) {
                 Hustler.run("bye");
             } else {
                 Hustler.run(userInput.getText());
                 scrollPANEE.setContent(console);
+                console.prefHeightProperty().bind(scrollPANEE.heightProperty());
             }
             userInput.clear();
             sendReleased();
@@ -225,15 +223,13 @@ public class MainWindow extends AnchorPane{
         titlePane.getChildren().addAll(title1);
         heading.getChildren().addAll(titlePane);
 
-        flowPane.setStyle("-fx-background-color:#ffffff");
         Hustler.run(userInput.getText());
-
         flowPane.getChildren().clear();
         flowPane.setStyle("-fx-background-color:#ffffff");
 
         Rectangle whiteSpace0 = new Rectangle();
         whiteSpace0.setOpacity(0.0);
-        whiteSpace0.setHeight(30);
+        whiteSpace0.setHeight(10);
         whiteSpace0.widthProperty().bind(scrollPANEE.widthProperty());
         flowPane.getChildren().add(whiteSpace0);
 
@@ -249,7 +245,7 @@ public class MainWindow extends AnchorPane{
             imageView.setFitWidth(10);
             StackPane stackPane = new StackPane();
             Rectangle rect = new Rectangle();
-            
+
             Text text = new Text(i + 1 + ". " + Hustler.list.get(i).getDescription());
             text.setFont(Font.font("Gill Sans", 20));
             text.setFill(Color.WHITE);
@@ -259,10 +255,37 @@ public class MainWindow extends AnchorPane{
             rect.setArcHeight(30.0);
             rect.setArcWidth(30.0);
             rect.setStyle("#ffffff");
+
             stackPane.setMargin(text,new Insets(0,0,3,50));
             stackPane.setAlignment(text,Pos.CENTER_LEFT);
+
+            Image notDoneCheck = new Image(new FileInputStream("images/notDone.png"));
+            ImageView notdoneCheckImage = new ImageView();
+            notdoneCheckImage.setFitHeight(20);
+            notdoneCheckImage.setFitWidth(20);
+            notdoneCheckImage.setImage(notDoneCheck);
+
+
+            Image doneCheck = new Image(new FileInputStream("images/done.png"));
+            ImageView doneCheckImage = new ImageView();
+            doneCheckImage.setFitHeight(25);
+            doneCheckImage.setFitWidth(30);
+            doneCheckImage.setImage(doneCheck);
+
+            Button doneButton = new Button();
+            doneButton.setGraphic(notdoneCheckImage);
+            doneButton.setBackground(Background.EMPTY);
+            stackPane.setAlignment(doneButton,Pos.CENTER_LEFT);
+            stackPane.setMargin(doneButton, new Insets(0,0,0,10));
+
+            if(Hustler.list.get(i).getStatusIcon().contains("\u2713")) {
+                doneButton.setGraphic(doneCheckImage);
+                stackPane.setMargin(doneButton, new Insets(0,0,0,5));
+                text.setStrikethrough(true);
+                text.setOpacity(0.5);
+            }
             if(Hustler.list.get(i).getDateTime() == null) {
-                stackPane.getChildren().addAll(rect, text);
+                stackPane.getChildren().addAll(rect, text,doneButton);
                 flowPane.getChildren().add(stackPane);
             }
             else if(Hustler.list.get(i).getDateTime() != null) {
@@ -271,6 +294,7 @@ public class MainWindow extends AnchorPane{
                 stackPane.setAlignment(dateTime,Pos.BOTTOM_LEFT);
                 stackPane.setMargin(imageView, new Insets(0,0,3,53));
                 stackPane.setAlignment(imageView,Pos.BOTTOM_LEFT);
+
                 dateTime.setFont(Font.font("Gill Sans", 10));
                 ColorAdjust colorAdjust = new ColorAdjust();
                 if(Reminders.checkOverdue(i)) {
@@ -294,7 +318,7 @@ public class MainWindow extends AnchorPane{
                 } else {
                     dateTime.setFill(Color.WHITE);
                 }
-                stackPane.getChildren().addAll(rect, text, dateTime,imageView);
+                stackPane.getChildren().addAll(rect, text, dateTime,imageView, doneButton);
                 flowPane.getChildren().add(stackPane);
             }
         }
@@ -665,8 +689,6 @@ public class MainWindow extends AnchorPane{
         titlePane.getChildren().addAll(title1);
         heading.getChildren().addAll(titlePane);
 
-
-
         flowPane.setStyle("-fx-background-color:#ffffff");
         flowPane.getChildren().clear();
 
@@ -771,14 +793,11 @@ public class MainWindow extends AnchorPane{
         title1.setFont(Font.font("Gill Sans", 15));
         title1.setFill(Color.GRAY);
         StackPane titlePane = new StackPane();
-        //titlePane.setMargin(title1, new Insets(0,0,0,50));
         titlePane.setAlignment(title1, Pos.CENTER);
         titlePane.prefHeightProperty().bind(heading.prefHeightProperty());
         titlePane.prefWidthProperty().bind(heading.widthProperty());
         titlePane.getChildren().addAll(title1);
         heading.getChildren().addAll(titlePane);
-
-
 
         flowPane.setStyle("-fx-background-color:#ffffff");
         flowPane.getChildren().clear();
@@ -818,6 +837,6 @@ public class MainWindow extends AnchorPane{
         settings.textFillProperty().setValue(Paint.valueOf("#ffffff"));
     }
 
-
+    
 
 }
