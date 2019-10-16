@@ -25,7 +25,7 @@ public class Duke {
             new File(DEFAULT_USER_DIRECTORY, "budget.txt" + BACKUP_EXTENSION);
     public Budget budget;
     public ExpenseList expenseList;
-    private Ui ui;
+    public Ui ui;
 
     /**
      * Constructs the Duke with the filePath of storage.txt

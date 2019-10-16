@@ -62,7 +62,7 @@ public class AddExpenseCommand extends Command {
         }
 
         if (commandParams.containsParams(SecondaryParam.TIME.name)) {
-            expenseBuilder.setDescription(commandParams.getParam(SecondaryParam.TIME.name));
+            expenseBuilder.setTime(commandParams.getParam(SecondaryParam.TIME.name));
         }
 
         duke.expenseList.add(expenseBuilder.build());

@@ -40,6 +40,7 @@ public class ExitCommand extends Command {
      * @param duke The Duke object.
      */
     public void execute(CommandParams commandParams, Duke duke) {
+        duke.ui.println("Bye. Hope to see you again soon!");
         Platform.exit();
     }
 }

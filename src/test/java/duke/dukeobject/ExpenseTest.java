@@ -28,7 +28,7 @@ public class ExpenseTest {
     private static final String[] TEST_FLIPPED_TAGS = {"tag3", "tag4"};
 
     private static final String INVALID_STORAGE_STRING = "tags:tag1 tag2 tag3\n"
-            + "amount:1.234\n"
+            + "amount:1.223\n"
             + "d:1\n"
             + "t:2";
 
