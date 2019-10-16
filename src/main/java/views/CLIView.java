@@ -97,16 +97,6 @@ public class CLIView {
     }
 
     /**
-     * Deletes a member from the project.
-     * @param projectToManage The project specified by the user.
-     * @param memberIndexNumber The member to be removed from the project.
-     */
-    public void removeMember(IProject projectToManage, int memberIndexNumber) {
-        projectToManage.removeMember(memberIndexNumber);
-        consolePrint("Removed member with the index number " + memberIndexNumber);
-    }
-
-    /**
      * Adds a member to the project.
      * @param projectToManage The project specified by the user.
      * @param newTask A new task with details specified by the user.
@@ -166,37 +156,6 @@ public class CLIView {
             allAssignedTasks.addAll(task.getAssignedMembers().getAllMemberDetails());
             consolePrint(allAssignedTasks.toArray(new String[0]));
         }
-    }
-
-    /**
-     * Assigns or unassigns a particular task to members in a project.
-     * @param assign ArrayList containing index number of members to be assigned task.
-     * @param unassign ArrayList containing index number of members to be unassigned task.
-     * @param task Task to assign or unassign to members.
-     * @param projectToManage The project in which the aforementioned task belongs to.
-     */
-    public void assignOrUnassignTask(ArrayList<Integer> assign, ArrayList<Integer> unassign,
-        Task task, IProject projectToManage) {
-        ArrayList<String> toPrint = new ArrayList<>();
-        if (assign.size() > 0) {
-            toPrint.add("The task: " + task.getTaskName() + " has been assigned to:");
-            for (Integer i : assign) {
-                Member toAssign = projectToManage.getMembers().getMember(i);
-                task.assignMember(toAssign);
-                toPrint.add(toAssign.getName());
-            }
-        }
-        if (unassign.size() > 0) {
-            toPrint.add("The task: " + task.getTaskName() + " has been unassigned from:");
-            for (Integer i : unassign) {
-                //bug here: removing by index.
-                Member memberToRemove = projectToManage.getMembers().getMember(i);
-                task.removeMember(memberToRemove);
-                toPrint.add(projectToManage.getMembers().getMember(i).getName());
-                //recalculate credits for other members assigned to task if necessary
-            }
-        }
-        consolePrint(toPrint.toArray(new String[0]));
     }
 
     /**

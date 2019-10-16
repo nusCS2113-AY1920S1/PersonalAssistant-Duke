@@ -67,7 +67,9 @@ public class ProjectInputController implements IController {
                 } else if (projectCommand.length() >= 14 && ("delete member ").equals(projectCommand.substring(0,14))) {
                     int memberIndexNumber = Integer.parseInt(projectCommand.substring(14).split(" ")[0]);
                     if (projectToManage.getNumOfMembers() >= memberIndexNumber) {
-                        consoleView.removeMember(projectToManage, memberIndexNumber);
+                        Member memberToRemove = projectToManage.getMembers().getMember(memberIndexNumber);
+                        projectToManage.removeMember(memberToRemove);
+                        consoleView.consolePrint("Removed member with the index number " + memberIndexNumber);
                     } else {
                         consoleView.consolePrint("The member index entered is invalid.");
                     }
@@ -91,7 +93,7 @@ public class ProjectInputController implements IController {
                         consoleView.viewSortedTasks(projectToManage, sortCriteria);
                     }
                 } else if (projectCommand.length() == 19 && ("view assigned tasks").equals(projectCommand)) {
-                    AssignmentControllerUtil.viewTaskAssigned(projectToManage, consoleView);
+                    AssignmentController.viewTaskAssigned(projectToManage, consoleView);
                 } else if (projectCommand.length() > 25
                         && ("view task requirements i/").equals(projectCommand.substring(0, 25))) {
                     int taskIndex = Integer.parseInt(projectCommand.substring(25));
@@ -134,9 +136,9 @@ public class ProjectInputController implements IController {
                         consoleView.consolePrint("The task index entered is invalid.");
                     }
                 } else if (projectCommand.length() >= 12 && ("assign task ").equals(projectCommand.substring(0,12))) {
-                    AssignmentControllerUtil assignmentControllerUtil = new AssignmentControllerUtil();
-                    assignmentControllerUtil.manageAssignment(projectToManage,
-                            projectCommand.substring(12).split(" "), consoleView);
+                    AssignmentController assignmentController = new AssignmentController();
+                    assignmentController.manageAssignment(projectToManage,
+                        projectCommand.substring(12).split(" "), consoleView);
                 } else if ("bye".equals(projectCommand)) {
                     consoleView.end();
                 } else {

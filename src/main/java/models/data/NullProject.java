@@ -46,7 +46,7 @@ public class NullProject implements IProject {
     }
 
     @Override
-    public void removeMember(int memberIndexNumber) {
+    public void removeMember(Member toBeRemoved) {
         /*
         Empty method
          */

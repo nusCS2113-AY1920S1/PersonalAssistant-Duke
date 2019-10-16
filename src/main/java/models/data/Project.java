@@ -56,8 +56,8 @@ public class Project implements IProject {
     }
 
     @Override
-    public void removeMember(int memberIndexNumber) {
-        this.listOfMembersInProject.removeMember(memberIndexNumber);
+    public void removeMember(Member memberToBeRemoved) {
+        this.listOfMembersInProject.removeMember(memberToBeRemoved);
     }
 
     @Override
