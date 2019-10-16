@@ -1,5 +1,6 @@
 package com.algosenpai.app.controller;
 
+import com.algosenpai.app.Parser;
 import com.algosenpai.app.Question;
 import com.algosenpai.app.chapters.ChapterSorting;
 import com.algosenpai.app.constant.CommandsConstant;
@@ -7,7 +8,10 @@ import com.algosenpai.app.constant.JavaFxConstant;
 import com.algosenpai.app.constant.ImagesConstant;
 import com.algosenpai.app.constant.ViewConstant;
 import com.algosenpai.app.constant.SoundConstant;
+import com.algosenpai.app.exceptions.DukeExceptions;
 import com.algosenpai.app.utility.ResourceRandomUtility;
+
+import com.itextpdf.text.Chapter;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.DialogPane;
@@ -22,10 +26,19 @@ import javafx.scene.text.Text;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class QuizController extends SceneController implements Initializable {
 
     private Question newQuestion;
+
+    private String userAnswer;
+
+    private int questionNumber;
+
+    private int correctCount = 0;
+
+    private Question currQuestion;
 
     @FXML
     private Text sceneTitle;
@@ -60,6 +73,12 @@ public class QuizController extends SceneController implements Initializable {
         setNodePos(sceneTitle, 50, 400);
         setTextStyle(sceneTitle, 199,21,133, true, 30, "arial");
 
+        //generate the first question and display it
+        currQuestion = ChapterSorting.generateQuestions();
+        sceneText.setText(currQuestion.getQuestion());
+        setNodePos(sceneText, 360, 55);
+        setTextStyle(sceneText, 255,255,255, true, 9, "arial");
+
         displayCharacterImage(characterImage, "miku.png", 400, 400);
         setNodePos(characterImage, 250.0, -350);
 
@@ -72,7 +91,22 @@ public class QuizController extends SceneController implements Initializable {
         displayCommandList(container, CommandsConstant.quizCommand,
                 255, 218, 185, true, 20, "arial",
                 350.0, 250.0, 30);
+
+        //handle any answers entered
+        userInput.setOnKeyPressed(ke -> {
+            if (ke.getCode().equals(KeyCode.ENTER)) {
+                userAnswer = userInput.getText();
+                try {
+                    handleAnswer();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                userInput.setText("");
+                sceneText.setText(currQuestion.getQuestion());
+            }
+        });
     }
+
 
     private void handle() {
         backgroundSceneTimer = new AnimationTimerController(JavaFxConstant.sceneInterval) {
@@ -106,37 +140,6 @@ public class QuizController extends SceneController implements Initializable {
         if (keyEvent.getCode() == KeyCode.M) {
             toggleVolume();
         }
-        //handling the user commands entered
-        if (keyEvent.getCode() == KeyCode.ENTER) {
-            switch (userInput.getText()) {
-            case "menu":
-                sceneText.setText("These are the commands available");
-                break;
-            case "start":
-                sceneText.setText("The game is loading....");
-                int questionNumber = 0;
-                while (questionNumber < 10) {
-                    newQuestion = ChapterSorting.generateQuestions();
-                    assert newQuestion != null;
-                    sceneText.setText(newQuestion.getQuestion());
-                    if (keyEvent.getCode() == KeyCode.ENTER) {
-                        if (newQuestion.isAnswerEqual(userInput.getText())) {
-                            sceneText.setText("Correct!");
-                        } else {
-                            sceneText.setText(newQuestion.getAnswer());
-                        }
-                    }
-                    questionNumber++;
-                }
-                break;
-            case "exit":
-                sceneText.setText("Aww you're leaving already? See you soon!");
-                break;
-            default:
-                sceneText.setText("I'm sorry, I don't understand what you mean..");
-            }
-            userInput.setText("");
-        }
     }
 
     /**
@@ -148,5 +151,20 @@ public class QuizController extends SceneController implements Initializable {
         if (!userInput.equals(mouseEvent.getSource())) {
             userInput.getParent().requestFocus();
         }
+    }
+
+    /**
+     * Handle the answer input by the user.
+     */
+    public void handleAnswer() throws IOException {
+        if (questionNumber > 9) {
+            changeSceneOnKeyPressed(ViewConstant.endView, ImagesConstant.endImages, SoundConstant.endSound);
+            backgroundSceneTimer.stop();
+        }
+        if (userAnswer.equals(currQuestion.getAnswer())) {
+            correctCount++;
+        }
+        currQuestion = ChapterSorting.generateQuestions();
+        questionNumber++;
     }
 }

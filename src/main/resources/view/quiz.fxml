@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.control.DialogPane?>
@@ -18,3 +19,4 @@
   <Text fx:id="sceneText" text="quiz text"/>
   <StackPane fx:id="container"/>
 </AnchorPane>
+
