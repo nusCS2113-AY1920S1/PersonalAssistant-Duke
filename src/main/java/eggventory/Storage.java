@@ -73,14 +73,15 @@ public class Storage {
      * Saves existing StockType to a text file.
      */
     public void save(StockList stockList) {
-        //StringBuilder tasksToSave = new StringBuilder();
+        /*
+            StringBuilder tasksToSave = new StringBuilder();
 
-//        int max = stockList.getQuantity(); //The number of stockTypes in the stockList.
-//
-//        for (int i = 0; i < max; i++) { //Index starts from 0.
-//            tasksToSave.append(stockList.saveDetailsString()).append(System.lineSeparator());
-//        }
+            int max = stockList.getQuantity(); //The number of stockTypes in the stockList.
 
+            for (int i = 0; i < max; i++) { //Index starts from 0.
+                tasksToSave.append(stockList.saveDetailsString()).append(System.lineSeparator());
+            }
+        */
         String taskListToSave = stockList.saveDetailsString();
 
         try {
