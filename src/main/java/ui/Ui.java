@@ -28,6 +28,15 @@ public class Ui {
         );
     }
 
+    public String quizGreet() {
+        return ("\n                      |   | _ _ _|   /  \\ _  \n"
+                + "                      |/\\|(_)| (_|  \\__/|_) \n"
+                + "                                            |   \n"
+                + "Let's do some quiz to enhance your word knowledge \n"
+                + "Type \"start\" to begin quiz or \"exit_quiz\" to go back"
+        );
+    }
+
     public String showDeleted(Word w) {
         return "Noted. I've removed this word:\n" + w.toString();
     }
@@ -90,18 +99,39 @@ public class Ui {
         return ("Here is the meaning of " + description + ": " + meaning);
     }
 
-    public void showHistory(Stack<Word> wordHistory, int numberOfWordsToDisplay) {
+    public String showHistory(Stack<Word> wordHistory, int numberOfWordsToDisplay) {
         int numberOfWords;
+        String s = "";
         if (numberOfWordsToDisplay > wordHistory.size()) {
-            System.out.println("     The number of words requested exceeds the number of words in your word bank.");
+            s += "The number of words requested exceeds the number of words in your word bank.\n";
             numberOfWords = wordHistory.size();
         } else {
-            numberOfWords= numberOfWordsToDisplay;
+            numberOfWords = numberOfWordsToDisplay;
         }
-        System.out.println("     Here are the last " + numberOfWords + " words you have added:");
+        s += ("Here are the last " + numberOfWords + " words you have added:\n");
         for (int i = 0; i < numberOfWords; i++) {
-            System.out.println("     " + wordHistory.peek());
+            s += wordHistory.peek() + "\n";
             wordHistory.pop();
+        }
+        return s;
+    }
+
+    public String quizDisplay(String question, String[] options, int optionSequence){
+        String s = ("What is the meaning of " + question +"?\n");
+        int index=1;
+        for(int i=optionSequence; i<optionSequence+4; i++){
+            s += (index + "." + options[i%4] + "  ");
+            index++;
+        }
+        s += "\n";
+        return s;
+    }
+    public String quizResponse(Boolean isCorrect, String answer){
+        if(isCorrect){
+            return ("Yes!! The correct answer is \""+ answer + "\".");
+        }
+        else{
+            return ("Sorry, The answer is \""+ answer + "\".");
         }
     }
 }
