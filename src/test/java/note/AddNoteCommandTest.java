@@ -1,11 +1,11 @@
 package note;
 
-import Exception.DukeException;
-import UI.Ui;
+import gazeeebo.Exception.DukeException;
+import gazeeebo.UI.Ui;
+import gazeeebo.commands.note.AddNoteCommand;
+import gazeeebo.notes.Note;
+import gazeeebo.notes.NoteList;
 
-import commands.note.AddNoteCommand;
-import notes.Note;
-import notes.NoteList;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -17,7 +17,7 @@ import java.time.LocalDate;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class AddNoteCommandTest extends AddNoteCommand{
+class AddNoteCommandTest extends AddNoteCommand {
     private ByteArrayOutputStream output = new ByteArrayOutputStream();
     private PrintStream mine = new PrintStream(output);
     private PrintStream original = System.out;

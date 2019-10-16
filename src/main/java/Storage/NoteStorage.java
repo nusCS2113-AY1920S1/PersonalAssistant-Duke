@@ -1,7 +1,6 @@
 package Storage;
 
-import notes.Note;
-
+import gazeeebo.notes.Note;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
