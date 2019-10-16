@@ -1,22 +1,21 @@
 package duke.sports;
 
+import duke.module.Details;
+
 import java.util.ArrayList;
 
 /**
  * This class is called when option 2 is chosen.
  * All commands related to students will be managed by this class
  */
-public class ManageStudents {
+public class ManageStudents implements Details {
 
     /**
      * An array list for the list of students.
      */
     private ArrayList<MyStudent> studentList;
 
-//    public void loadStudentList() {
-//        Storage storage = new Storage ();
-//        studentList.txt.addAll(storage.loadFile());
-//    }
+    public String detailType;
 
     /**
      * Constructor of Manage Students to initialise ManageStudent class.
@@ -87,6 +86,14 @@ public class ManageStudents {
                 + "Now you have " + getStudentListSize() + " students.");
     }
 
+    public void setDetailType(String type) {
+        this.detailType = type;
+    }
+
+    public String getDetailType() {
+        return detailType;
+    }
+
     /**
      * Method to remove a particular student in a list.
      * @param index of the student in the list.
@@ -128,5 +135,60 @@ public class ManageStudents {
         if (cnt == 1) {
             System.out.println("Sorry, there are no tasks matching your search");
         }
+    }
+
+    @Override
+    public String getName() {
+        return null;
+    }
+
+    @Override
+    public String getAge() {
+        return null;
+    }
+
+    @Override
+    public String getAddress() {
+        return null;
+    }
+
+    @Override
+    public String getGender() {
+        return null;
+    }
+
+    @Override
+    public String getContactNumber() {
+        return null;
+    }
+
+    @Override
+    public String getEmail() {
+        return null;
+    }
+
+    @Override
+    public String getDOB() {
+        return null;
+    }
+
+    @Override
+    public String getPersonalBest() {
+        return null;
+    }
+
+    @Override
+    public String getDietaryPlan() {
+        return null;
+    }
+
+    @Override
+    public String getNotes() {
+        return null;
+    }
+
+    @Override
+    public String getNOK() {
+        return null;
     }
 }
