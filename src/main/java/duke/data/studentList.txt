@@ -1,0 +1,12 @@
+Name: danish
+Age: 22
+Address: woodlands
+
+Name: kh
+Age: 26
+Address: boon lay
+
+Name: danial eddie
+Age: 23
+Address: admiralty
+

@@ -385,11 +385,13 @@ public class Parser {
              */
             case "student":
                 switch (word[1]) {
-                    case "add/":
-                        String[] splitBySlash = input.split("/ ");
-                        String name = splitBySlash[1];
-                        String age = splitBySlash[2];
-                        String address = splitBySlash[3];
+                    case "add":
+                        Scanner sc = new Scanner(System.in);
+                        String newStudent = sc.nextLine();
+                        String[] splitByComma = newStudent.split(",");
+                        String name = splitByComma[0];
+                        String age = splitByComma[1];
+                        String address = splitByComma[2];
                         MyStudent myNewStudent = new MyStudent(name, age, address);
                         students.addStudent(myNewStudent);
                         break;
@@ -402,6 +404,14 @@ public class Parser {
 
                     case "details":
 
+                        System.out.println("Details for: ");
+                        Scanner scan = new Scanner(System.in);
+                        if (scan.equals("add details")) {
+                            System.out.println("Details for: ");
+
+                        }
+                        String studentName = scan.nextLine();
+                        students.findName(studentName);
                         //add student details
                         break;
 

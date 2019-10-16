@@ -17,6 +17,8 @@ public class ManageStudents implements Details {
 
     public String detailType;
 
+    public String detailMessage;
+
     /**
      * Constructor of Manage Students to initialise ManageStudent class.
      */
@@ -86,12 +88,17 @@ public class ManageStudents implements Details {
                 + "Now you have " + getStudentListSize() + " students.");
     }
 
-    public void setDetailType(String type) {
+    public void setDetail(String type, String detailMessage) {
         this.detailType = type;
+        this.detailMessage = detailMessage;
     }
 
     public String getDetailType() {
         return detailType;
+    }
+
+    public String getDetailMessage() {
+        return detailMessage;
     }
 
     /**
@@ -133,7 +140,7 @@ public class ManageStudents implements Details {
         }
 
         if (cnt == 1) {
-            System.out.println("Sorry, there are no tasks matching your search");
+            System.out.println("Sorry, there are no names matching your search");
         }
     }
 
