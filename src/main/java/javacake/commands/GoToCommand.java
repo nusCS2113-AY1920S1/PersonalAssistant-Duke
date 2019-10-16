@@ -1,17 +1,7 @@
 package javacake.commands;
 
-import javacake.DukeException;
-import javacake.ProgressStack;
-import javacake.Profile;
-import javacake.Ui;
-import javacake.Storage;
+import javacake.*;
 import javacake.quiz.Question;
-import javacake.topics.ListIndex1;
-import javacake.topics.ListIndex2;
-import javacake.topics.ListIndex3;
-
-import java.io.BufferedReader;
-import java.io.FileReader;
 import java.io.IOException;
 
 public class GoToCommand extends Command {
@@ -37,13 +27,37 @@ public class GoToCommand extends Command {
         String filePath = progressStack.getFullFilePath();
         if (filePath.contains("Quiz")) {
             if (filePath.contains("1. Java Basics")){
-                return new QuizCommand(Question.QuestionType.BASIC).execute(progressStack, ui, storage, profile);
+                if (Duke.isCliMode()) {
+                    return new QuizCommand(Question.QuestionType.BASIC)
+                            .execute(progressStack, ui, storage, profile);
+                } else {
+                    QuizCommand.setProfile(profile);
+                    return "!@#_QUIZ_3";
+                }
             } else if (filePath.contains("2. Object-Oriented Programming")) {
-                return new QuizCommand(Question.QuestionType.OOP).execute(progressStack, ui, storage, profile);
+                if (Duke.isCliMode()) {
+                    return new QuizCommand(Question.QuestionType.OOP)
+                            .execute(progressStack, ui, storage, profile);
+                } else {
+                    QuizCommand.setProfile(profile);
+                    return "!@#_QUIZ_3";
+                }
             } else if (filePath.contains("3. Extensions")) {
-                return new QuizCommand(Question.QuestionType.EXTENSIONS).execute(progressStack, ui, storage, profile);
+                if (Duke.isCliMode()) {
+                    return new QuizCommand(Question.QuestionType.EXTENSIONS)
+                            .execute(progressStack, ui, storage, profile);
+                } else {
+                    QuizCommand.setProfile(profile);
+                    return "!@#_QUIZ_3";
+                }
             } else {
-                return new QuizCommand(Question.QuestionType.ALL).execute(progressStack, ui, storage, profile);
+                if (Duke.isCliMode()) {
+                    return new QuizCommand(Question.QuestionType.ALL)
+                            .execute(progressStack, ui, storage, profile);
+                } else {
+                    QuizCommand.setProfile(profile);
+                    return "!@#_QUIZ_3";
+                }
             }
         }
         progressStack.insertQueries();
@@ -57,70 +71,5 @@ public class GoToCommand extends Command {
             } catch (IOException e) {
                 throw new DukeException(e.getMessage());
             }
-            //progressStack.processQueries();
-
-
-
-            /*if (progressStack.checkProgress() == 1 && index.equals("1")) {
-                progressStack.mainListToListIndex1();
-                new ListIndex1().printList();
-            } else if (progressStack.checkProgress() == 1 && index.equals("2")) {
-                progressStack.mainListToListIndex2();
-                new ListIndex2().printList();
-            } else if (progressStack.checkProgress() == 1 && index.equals("3")) {
-                progressStack.mainListToListIndex3();
-                new ListIndex3().printList();
-            } else if (progressStack.checkProgress() == 1 && index.equals("4")) {
-                new QuizCommand().execute(progressStack, ui, storage, profile);
-            } else if (progressStack.checkProgress() == 2 && index.equals("1.1")) {
-                progressStack.listIndexToSubList();
-                ui.displayTextFile(new BufferedReader(
-                        new FileReader("content/MainList/ListIndex1/JavaBasics/1.txt")));
-            } else if (progressStack.checkProgress() == 2 && index.equals("1.2")) {
-                progressStack.listIndexToSubList();
-                ui.displayTextFile(new BufferedReader(
-                        new FileReader("content/MainList/ListIndex1/JavaBasics/2.txt")));
-            } else if (progressStack.checkProgress() == 2 && index.equals("1.3")) {
-                progressStack.listIndexToSubList();
-                ui.displayTextFile(new BufferedReader(
-                        new FileReader("content/MainList/ListIndex1/JavaBasics/3.txt")));
-            } else if (progressStack.checkProgress() == 2 && index.equals("1.4")) {
-                new QuizCommand(Question.QuestionType.BASIC).execute(progressStack, ui, storage, profile);
-            } else if (progressStack.checkProgress() == 2 && index.equals("2.1")) {
-                progressStack.listIndexToSubList();
-                ui.displayTextFile(new BufferedReader(
-                        new FileReader("content/MainList/ListIndex2/oop/1.txt")));
-            } else if (progressStack.checkProgress() == 2 && index.equals("2.2")) {
-                progressStack.listIndexToSubList();
-                ui.displayTextFile(new BufferedReader(
-                        new FileReader("content/MainList/ListIndex2/oop/2.txt")));
-            } else if (progressStack.checkProgress() == 2 && index.equals("2.3")) {
-                progressStack.listIndexToSubList();
-                ui.displayTextFile(new BufferedReader(
-                        new FileReader("content/MainList/ListIndex2/oop/3.txt")));
-            } else if (progressStack.checkProgress() == 2 && index.equals("2.4")) {
-                progressStack.listIndexToSubList();
-                ui.displayTextFile(new BufferedReader(
-                        new FileReader("content/MainList/ListIndex2/content/oop/4.txt")));
-            } else if (progressStack.checkProgress() == 2 && index.equals("2.5")) {
-                new QuizCommand(Question.QuestionType.OOP).execute(progressStack, ui, storage, profile);
-
-            } else if (progressStack.checkProgress() == 2 && index.equals("3.1")) {
-                progressStack.listIndexToSubList();
-                ui.displayTextFile(new BufferedReader(
-                        new FileReader("content/MainList/ListIndex3/Enumerations/Enumerations.txt")));
-            } else if (progressStack.checkProgress() == 2 && index.equals("3.2")) {
-                progressStack.listIndexToSubList();
-                ui.displayTextFile(new BufferedReader(
-                        new FileReader("content/MainList/ListIndex3/Varargs/Varargs.txt")));
-            } else if (progressStack.checkProgress() == 2 && index.equals("3.3")) {
-                progressStack.listIndexToSubList();
-                ui.displayTextFile(new BufferedReader(
-                        new FileReader("content/MainList/ListIndex3/Exceptions/Exceptions.txt")));
-            } else if (progressStack.checkProgress() == 2 && index.equals("3.4")) {
-                new QuizCommand(Question.QuestionType.EXTENSIONS).execute(progressStack, ui, storage, profile);
-            } else {
-                throw new DukeException("Please enter a valid index!");
-            }*/
     }
 }
