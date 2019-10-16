@@ -79,6 +79,7 @@ public class ParserHelper {
             case "/KANBAN/DOING":
             case "/KANBAN/DONE":
                 taskDetails = this.sortHelper.sortTaskState(taskList, sortCriteria.substring(8));
+                break;
             default:
                 break;
             }
