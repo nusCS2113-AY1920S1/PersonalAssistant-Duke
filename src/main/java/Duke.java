@@ -47,7 +47,7 @@ public class Duke {
      * main running structure of Duke.
      */
     public void run() {
-        new Window().newForm();
+        Window window = new Window();
         Ui.welcome();
         Reminder.checkReminders(tasks);
         boolean isExit = false;
