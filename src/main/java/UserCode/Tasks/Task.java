@@ -3,10 +3,8 @@ package UserCode.Tasks;
 import UserCode.Actions.Action;
 import UserCode.Actions.PlantSeedAction;
 import FarmioExceptions.FarmioException;
-import UserCode.Conditions.BooleanConditionType;
-import UserCode.Conditions.ConditionChecker;
 import UserCode.Conditions.Condition;
-import Farmio.Ui;
+import FrontEnd.Ui;
 import org.json.simple.JSONObject;
 
 public abstract class Task {
