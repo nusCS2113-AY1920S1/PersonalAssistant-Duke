@@ -1,17 +1,17 @@
-package gazeeebo.Tasks;
+package gazeeebo.tasks;
 public class FixedDuration extends Task {
-    private String duration;
-    public FixedDuration(final String description, final String duration) {
+    public String duration;
+    public FixedDuration(String description, String duration) {
         super(description);
         this.duration = duration;
     }
 
     @Override
     public String toString() {
-        return "FD" + "|" + super.getStatusIcon() + "|" + super.description + "|" + duration;
+        return "FD"+ "|" + super.getStatusIcon() + "|" + super.description + "|" + duration;
     }
     @Override
-    public String listFormat() {
+    public String listFormat(){
         return "[FD]" + "[" + super.getStatusIcon() + "] " + super.description + "(requires:" + duration + ")";
     }
 
