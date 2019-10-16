@@ -5,6 +5,7 @@ import duke.commands.*;
 import duke.exceptions.DukeException;
 import duke.tasks.*;
 
+import java.lang.reflect.Array;
 import java.util.Calendar;
 
 /**
@@ -14,6 +15,11 @@ import java.util.Calendar;
 public class Parser {
     private static Calendar currentDate = Calendar.getInstance();
     private static HistoryCommand historyCommand = new HistoryCommand();
+    private static Autocorrect autocorrect;
+
+    public Parser(Autocorrect autocorrect) {
+        this.autocorrect = autocorrect;
+    }
 
     /**
      * This is the main function that parse the command inputted by the user.
@@ -36,119 +42,50 @@ public class Parser {
      *         "delete" followed by the index of the task to be deleted
      * @throws DukeException when the command is not recognized or command syntax is invalid
      */
-    public static Command parse(String fullCommand, Autocorrect autocorrect) throws DukeException {
+    public Command parse(String fullCommand) throws DukeException {
+        String UserInput = "";
         String[] splitCommand = fullCommand.split(" ", 2);
+        if (splitCommand.length != 2) {
+            splitCommand = new String[] {splitCommand[0], ""};
+        }
         String command = splitCommand[0];
-        autocorrect.setWord(command);
-        autocorrect.execute();
-        command = autocorrect.getWord();
-        String description = "";
+        command = autocorrect.runOnCommand(command);
+        UserInput = splitCommand[1];
+        UserInput = autocorrect.runOnArgument(UserInput);
         historyCommand.addCommand(command);
 
-        if (splitCommand.length >= 2) {
-            description = splitCommand[1];
-        }
-        if (command.equals("done") || command.equals("breakfast")
-                || command.equals("lunch") || command.equals("dinner")
-                || command.equals("edit")) {
-            if (description.trim().length() == 0) {
-                throw new DukeException("\u2639 OOPS!!! The description of a " + command + " cannot be empty.");
-            }
-        }
-
-        String name;
-        String info;
-        String date = "";
-        int index;
         switch (command) {
             case "bye":
                 return new ExitCommand();
             case "breakfast":
-                if (description.contains("/")) {
-                    name = description.split("/", 2)[0].trim();
-                    info = "/" + description.split("/", 2)[1];
-                    return new AddCommand(new Breakfast(name, info, autocorrect));
-                } else {
-                    return new AddCommand(new Breakfast(description, "", autocorrect));
-                }
+                return new AddBreakfastCommandParser().parse(UserInput);
             case "lunch":
-                if (description.contains("/")) {
-                    name = description.split("/", 2)[0].trim();
-                    info = "/" + description.split("/", 2)[1];
-                    return new AddCommand(new Lunch(name, info, autocorrect));
-                } else {
-                    return new AddCommand(new Lunch(description, "", autocorrect));
-                }
+                return new AddLunchCommandParser().parse(UserInput);
             case "dinner":
-                if (description.contains("/")) {
-                    name = description.split("/", 2)[0].trim();
-                    info = "/" + description.split("/", 2)[1];
-                    return new AddCommand(new Dinner(name, info, autocorrect));
-                } else {
-                    return new AddCommand(new Dinner(description, "", autocorrect));
-                }
+                return new AddDinnerCommandParser().parse(UserInput);
             case "add" :
-                name = description.split("/", 2)[0].trim();
-                info = "/" + description.split("/", 2)[1];
-                return new AddItemCommand(new Item(name, info, autocorrect));
+                return new AddItemCommandParser().parse(UserInput);
             case "list":
-                if (splitCommand.length > 1) {
-                    return new ListCommand(splitCommand[1]);
-                }
-                return new ListCommand();
+                return new ListCommandParser().parse(UserInput);
             case "done":
-                name = description.split(" /date ", 2)[0];
-                if (description.split(" /date ").length > 1) {
-                    date = description.split(" /date ")[1];
-                    return new MarkDoneCommand(name, date);
-                }
-                throw new DukeException("\u2639 OOPS!!! The done command was not entered correctly");
+                return new DoneCommandParser().parse(UserInput);
             case "find":
-                name = description.split(" /date ", 2)[0];
-                if (description.split(" /date ").length > 1) {
-                    date = description.split(" /date ")[1];
-                    return new FindCommand(name, date);
-                }
-                return new FindCommand(name);
+                return new FindCommandParser().parse(UserInput);
             case "delete":
-                if (splitCommand.length > 1) {
-                    // user specifies date and index.
-                    if (description.split("/date").length >= 2) {
-                        String[] splitArgs = description.split("/date", 2);
-                        return new DeleteCommand(splitArgs[0], splitArgs[1]);
-                    } else {
-                        // user only specifies index to delete for current day.
-                        return new DeleteCommand(description);
-                    }
-                }
-                throw new DukeException("Please enter index of meal to delete on today's list or "
-                        + "date and index of meal to delete");
+                return new DeleteCommandParser().parse(UserInput);
             case "update":
-                return new UpdateWeightCommand(description);
+                return new UpdateWeightCommand(UserInput);
             case "clear":
-                if (splitCommand.length > 1) {
-                    String[] splitArgs = description.split(" ", 2);
-                    if (splitArgs.length >= 2) {
-                        return new ClearCommand(splitArgs[0], splitArgs[1]);
-                    }
-                }
-                throw new DukeException("Please enter 2 dates; Start and End dates to clear meals from.");
+                return new ClearCommandParser().parse(UserInput);
             case "edit":
-                name = description.split("/", 2)[0];
-                info = "/" + description.split("/", 2)[1];
-                return new EditCommand(new Meal(name, info, autocorrect));
+                return new EditCommandParser().parse(UserInput);
             case "setgoal":
-                name = description.split(" ", 2)[0].trim();
-                info = description.split(" ", 2)[1];
-                return new AddGoalCommand(new Goal(name, info, autocorrect));
+                return new SetgoalCommandParser().parse(UserInput);
             case "help":
-                if (description.trim().length() >= 0) {
-                    return new HelpCommand(description);
-                }
-                return new HelpCommand();
+                return new HelpCommandParser().parse(UserInput);
             case "history":
                 // clear history if requested
-                if (!description.isEmpty() && description.equals("clear")) {
+                if (!UserInput.isEmpty() && UserInput.equals("clear")) {
                     historyCommand.clearHistory();
                 }
                 return historyCommand;

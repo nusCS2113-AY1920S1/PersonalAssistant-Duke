@@ -14,7 +14,7 @@ public class Goal {
     private String startdate;
     private HashMap<String, Integer> nutritionValue = new HashMap<String, Integer>();
 
-    public Goal(String enddate, String details, Autocorrect autocorrect) throws DukeException {
+    public Goal(String enddate, String details) throws DukeException {
         try {
             Date day;
             startdate = dateparser.format(Calendar.getInstance().getTime());
@@ -28,9 +28,7 @@ public class Goal {
             for (String data : splitString1) {
                 if (data.trim().length() != 0) {
                     String[] partitionedData = data.split(" ", 2);
-                    autocorrect.setWord(partitionedData[0]);
-                    autocorrect.execute();
-                    String nutrient = autocorrect.getWord();
+                    String nutrient = partitionedData[0];
                     int value = Integer.valueOf(partitionedData[1].trim());
                     nutritionValue.put(nutrient, value);
                 }

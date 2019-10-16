@@ -13,8 +13,8 @@ public class Lunch extends Meal {
      * This is the constructor of lunch object.
      * @param description the description of the lunch object
      */
-    public Lunch(String description, String details, Autocorrect autocorrect) {
-        super(description, details, autocorrect);
+    public Lunch(String description, String details) {
+        super(description, details);
         super.type = "L";
     }
 

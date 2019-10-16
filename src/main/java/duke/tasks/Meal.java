@@ -24,7 +24,7 @@ public class Meal {
      * This is the constructor of Task object.
      * @param description the description of the task
      */
-    public Meal(String description, String details, Autocorrect autocorrect) {
+    public Meal(String description, String details) {
         this.description = description.trim();
         //todo: date input can only be accepted at the back of the statement
         if (details.contains("/date")) {
@@ -43,9 +43,7 @@ public class Meal {
             for (String data : splitString1) {
                 if (data.trim().length() != 0) {
                     String[] partitionedData = data.split(" ", 2);
-                    autocorrect.setWord(partitionedData[0]);
-                    autocorrect.execute();
-                    String nutrient = autocorrect.getWord();
+                    String nutrient = partitionedData[0];
                     int value = Integer.valueOf(partitionedData[1].trim());
                     nutritionValue.put(nutrient, value);
                 }

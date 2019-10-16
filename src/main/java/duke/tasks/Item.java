@@ -8,8 +8,8 @@ public class Item extends Meal {
      * This is the constructor of item object, which is used to store default meal info.
      * @param description the description of the item object
      */
-    public Item(String description, String details, Autocorrect autocorrect) {
-        super(description, details, autocorrect);
+    public Item(String description, String details) {
+        super(description, details);
         super.type = "S";
     }
 

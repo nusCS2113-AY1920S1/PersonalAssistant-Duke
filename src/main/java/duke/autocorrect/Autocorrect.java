@@ -33,6 +33,35 @@ public class Autocorrect {
         words.add(word);
     }
 
+    public String runOnCommand(String command) {
+        setWord(command);
+        execute();
+        return getWord();
+    }
+
+    public String runOnArgument(String UserInput) {
+        if (UserInput.trim().length() != 0) {
+            String correctedInput = "";
+            String[] splitString1 = UserInput.split("/");
+            if (splitString1.length > 1) {
+                for (String data : splitString1) {
+                    if (data.trim().length() != 0) {
+                        String[] partitionedData = data.split(" ", 2);
+                        setWord(partitionedData[0]);
+                        execute();
+                        String nutrient = getWord();
+                        UserInput.replace("/" + partitionedData[0], "/" + nutrient);
+                    }
+                }
+            } else {
+                return UserInput;
+            }
+            return UserInput;
+        } else {
+            return "";
+        }
+    }
+
     /**
      * This is a function that will store the user input word into the object.
      * @param word word to be stored.

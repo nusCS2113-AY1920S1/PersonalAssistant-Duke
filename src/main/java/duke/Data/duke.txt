@@ -6,5 +6,7 @@ B|0|burger|date|13/10/2019|calorie|100
 D|0|burger|date|13/10/2019|calorie|800
 L|0|fries|date|13/10/2019|calorie|200
 L|0|fries|date|13/10/2019|calorie|200
+B|0|burger|date|17/10/2019|sodium|100|fats|100|calorie|100
+B|0|burger|date|17/10/2019|sodium|100|fats|100|calorie|100|calories|200
 B|0|burger|date|14/10/2019|sodium|100|fats|100|calorie|100
 B|0|burger|date|14/10/2019|sodium|100|fats|100|calorie|100

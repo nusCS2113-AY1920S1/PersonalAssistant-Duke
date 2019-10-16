@@ -13,25 +13,25 @@ class ParserTest {
     @Test
     void parse() {
         try {
-            assertTrue(Parser.parse("bye", autocorrect) instanceof ExitCommand);
-            assertTrue(Parser.parse("breakfast burger", autocorrect) instanceof AddCommand);
-            assertTrue(Parser.parse("breakfast burger /calories 100", autocorrect) instanceof AddCommand);
-            assertTrue(Parser.parse("breakfast burger /calories 100 /date 1/1/2019", autocorrect)
+            assertTrue(Parser.parse("bye") instanceof ExitCommand);
+            assertTrue(Parser.parse("breakfast burger") instanceof AddCommand);
+            assertTrue(Parser.parse("breakfast burger /calories 100") instanceof AddCommand);
+            assertTrue(Parser.parse("breakfast burger /calories 100 /date 1/1/2019")
                     instanceof AddCommand);
-            assertTrue(Parser.parse("lunch burger", autocorrect) instanceof AddCommand);
-            assertTrue(Parser.parse("lunch burger /calories 100", autocorrect) instanceof AddCommand);
-            assertTrue(Parser.parse("lunch burger /calories 100 /date 1/1/2019", autocorrect)
+            assertTrue(Parser.parse("lunch burger") instanceof AddCommand);
+            assertTrue(Parser.parse("lunch burger /calories 100") instanceof AddCommand);
+            assertTrue(Parser.parse("lunch burger /calories 100 /date 1/1/2019")
                     instanceof AddCommand);
-            assertTrue(Parser.parse("dinner burger", autocorrect) instanceof AddCommand);
-            assertTrue(Parser.parse("dinner burger /calories 100", autocorrect) instanceof AddCommand);
-            assertTrue(Parser.parse("dinner burger /calories 100 /date 1/1/2019", autocorrect)
+            assertTrue(Parser.parse("dinner burger") instanceof AddCommand);
+            assertTrue(Parser.parse("dinner burger /calories 100") instanceof AddCommand);
+            assertTrue(Parser.parse("dinner burger /calories 100 /date 1/1/2019")
                     instanceof AddCommand);
-            assertTrue(Parser.parse("add burger /calorie 100 /sodium 100 /fats 100", autocorrect)
+            assertTrue(Parser.parse("add burger /calorie 100 /sodium 100 /fats 100")
                     instanceof AddItemCommand);
-            assertTrue(Parser.parse("list", autocorrect) instanceof ListCommand);
-            assertTrue(Parser.parse("done 1", autocorrect) instanceof MarkDoneCommand);
-            assertTrue(Parser.parse("help", autocorrect) instanceof HelpCommand);
-            assertTrue(Parser.parse("help breakfast", autocorrect) instanceof HelpCommand);
+            assertTrue(Parser.parse("list") instanceof ListCommand);
+            assertTrue(Parser.parse("done 1") instanceof MarkDoneCommand);
+            assertTrue(Parser.parse("help") instanceof HelpCommand);
+            assertTrue(Parser.parse("help breakfast") instanceof HelpCommand);
         } catch (DukeException e) {
             System.out.println("Something is wrong with the parser");
         }
