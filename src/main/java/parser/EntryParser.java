@@ -15,7 +15,7 @@ public class EntryParser extends Parser {
     @Override
     public Command handleInput(String mode, String inputLine) {
 
-        if (commandToRun.equals("entry")) { //show entry list
+        if (commandToRun.equals("entries")) { //show entry list
             return new ShowListCommand(mode);
         }
 

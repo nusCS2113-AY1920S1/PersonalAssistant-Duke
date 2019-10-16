@@ -31,10 +31,10 @@ public class ShowListCommand extends Command {
         LogList logList = new LogList(new ArrayList<Log>());
 
         switch (mode) {
-        case "entries":
+        case "entry":
             logList = dollaData.entryList;
             break;
-        case "debts":
+        case "debt":
             logList = dollaData.debtList;
             break;
         default:
@@ -46,10 +46,10 @@ public class ShowListCommand extends Command {
         if (isListEmpty) { // TODO: Place this in proper place
             Ui.printEmptyListError(mode);
             return;
-        } else if (mode.equals("entries")) {
+        } else if (mode.equals("entry")) {
             Ui.printList(mode, dollaData.getEntryList());
             return;
-        } else if (mode.equals("debts")) {
+        } else if (mode.equals("debt")) {
             Ui.printList(mode, dollaData.getDebtList());
             return;
         }
