@@ -41,9 +41,9 @@ public class ViewAssignedTasksTest {
             project.getTask(1).assignMember(project.getMembers().getMember(2));
             project.getTask(2).assignMember(project.getMembers().getMember(1));
 
-            assertEquals(project.getTask(1).getAssignedTasks().getAllMemberDetails().get(0) + "\n"
-                    + project.getTask(1).getAssignedTasks().getAllMemberDetails().get(1),testAssignedTasks);
-            assertEquals(project.getTask(2).getAssignedTasks().getAllMemberDetails().get(0),testAssignedTasks2);
+            assertEquals(project.getTask(1).getAssignedMembers().getAllMemberDetails().get(0) + "\n"
+                    + project.getTask(1).getAssignedMembers().getAllMemberDetails().get(1),testAssignedTasks);
+            assertEquals(project.getTask(2).getAssignedMembers().getAllMemberDetails().get(0),testAssignedTasks2);
         } catch (ParseException e) {
             e.printStackTrace();
         }
