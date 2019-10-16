@@ -15,8 +15,6 @@ import java.text.ParseException;
 import java.util.Date;
 import java.util.HashMap;
 
-import static task.Deadline.dataformat;
-
 /**
  * Parser that parses input from the user.
  */

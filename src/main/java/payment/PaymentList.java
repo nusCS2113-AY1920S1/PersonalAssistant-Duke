@@ -3,7 +3,7 @@ package payment;
 import java.util.ArrayList;
 
 public class PaymentList {
-    
+
     private ArrayList<Payments> paymentlist;
 
     public PaymentList(ArrayList<Payments> paymentlist) {
