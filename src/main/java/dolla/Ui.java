@@ -3,6 +3,9 @@ package dolla;
 import dolla.task.Entry;
 import dolla.task.EntryList;
 import dolla.task.Task;
+import sort.Sort;
+import sort.SortDate;
+import sort.SortDescription;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -263,5 +266,6 @@ public class Ui {
             System.out.println("\t" + listNum + ". " + entryList.get().get(i).getLogText());
         }
         System.out.println(line);
+        new SortDescription().setEntriesToSort(entryList.get());
     }
 }

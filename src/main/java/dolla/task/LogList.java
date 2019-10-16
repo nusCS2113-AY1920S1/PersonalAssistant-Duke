@@ -5,8 +5,8 @@ import dolla.Storage;
 
 import java.util.ArrayList;
 
-public class LogList {
-    protected ArrayList<Log> list;
+public abstract class LogList {
+/*    protected ArrayList<Log> list;
 
     public LogList(ArrayList<Log> importEntryList) {
         this.list = importEntryList;
@@ -20,7 +20,7 @@ public class LogList {
 
     public void add(Log newLog) {
         list.add(newLog);
-        Storage.setEntries(get()); //save
+//        Storage.setEntries(get()); //save
     }
 
     public int size() {
@@ -33,6 +33,9 @@ public class LogList {
 
     public void removeFromList(int index) {
         list.remove(index);
-    }
+    } */
+    public abstract int size();
+
+    public abstract void removeFromList(int index);
 
 }

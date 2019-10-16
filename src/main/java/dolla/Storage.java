@@ -25,7 +25,7 @@ import java.util.Arrays;
  */
 public class Storage {
 
-    protected static ArrayList<Log> entries = new ArrayList<Log>();
+    protected static ArrayList<Entry> entries = new ArrayList<Entry>();
     protected static ArrayList<Log> limits = new ArrayList<Log>();
     protected static ArrayList<Log> debts = new ArrayList<Log>();
     protected static ArrayList<Log> shortcuts = new ArrayList<Log>();
@@ -76,11 +76,12 @@ public class Storage {
                 int numOfElements = inArray.length;
                 String type = inArray[0];
                 Log newLog = null;
+                Entry newEntry = null;
 //                System.out.println(inArray[0] + " ===----"+inArray[1]);
                 switch(type) {
                 case "I": //check if there is a tag
                     if(numOfElements == 4) {
-                        newLog = new Entry("income",stringToDouble(inArray[1]),inArray[2],Time.readDateTime(inArray[3])); //income [AMOUNT] [DESCRIPTION] /on [DATE]
+                        newEntry = new Entry("income",stringToDouble(inArray[1]),inArray[2],Time.readDateTime(inArray[3])); //income [AMOUNT] [DESCRIPTION] /on [DATE]
                     }
 //                    else if (numOfElements == 5) {
 //                        newLog = new income(inArray[1],inArray[2],Time.readDate(inArray[3]),inArray[4]); //income [AMOUNT] [DESCRIPTION] /on [DATE] /tag [TAG]
@@ -133,7 +134,7 @@ public class Storage {
                 }
 
                 if(type.equals("I") || type.equals(("E")) || type.equals("RI") || type.equals("RE")) {
-                    entries.add(newLog);
+                    entries.add(newEntry);
                 } else if(type.equals("B") || type.equals("S")) {
                     limits.add(newLog);
                 } else if (type.equals("O") || type.equals("B")) {
@@ -175,7 +176,7 @@ public class Storage {
 //        return list;
     }
 
-    public static ArrayList<Log> getEntriesFromSave() {
+    public static ArrayList<Entry> getEntriesFromSave() {
         return entries;
     }
 
@@ -191,7 +192,7 @@ public class Storage {
         return shortcuts;
     }
 
-    public static void setEntries(ArrayList<Log> entries) {
+    public static void setEntries(ArrayList<Entry> entries) {
         Storage.entries = entries;
         save();
     }
@@ -225,7 +226,7 @@ public class Storage {
     public static void save() {
         try (FileWriter file = new FileWriter("./data/duke.txt")) {
 
-            for (Log currEntries : entries) {
+            for (Entry currEntries : entries) {
                 String fileContent = currEntries.formatSave();
                 file.write(fileContent);
                 file.write(System.lineSeparator());

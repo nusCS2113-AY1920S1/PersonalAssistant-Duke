@@ -8,7 +8,7 @@ import java.time.LocalDateTime;
 /**
  * Entry is a Class that stores an instance of the user's expense or income.
  */
-public class Entry extends Log implements Comparable<Entry>{
+public class Entry extends Log{
     protected char sign; // '+' for income, '-' for expense
     protected String type;
     protected String saveType;
@@ -39,6 +39,10 @@ public class Entry extends Log implements Comparable<Entry>{
         return date;
     }
 
+    public String getDescription() {
+        return description;
+    }
+
     /**
      * Returns a string to with information about the entry to be displayed
      * to the user.
@@ -61,8 +65,4 @@ public class Entry extends Log implements Comparable<Entry>{
                 + Time.dateTimeToString(date);
     }
 
-    @Override
-    public int compareTo(Entry o) {/////////////////////////sort
-        return this.getDate().compareTo(o.getDate());
-    }
 }

@@ -5,15 +5,9 @@ import dolla.task.Entry;
 import java.util.ArrayList;
 import java.util.Collections;
 
-public class SortDate extends Sort{
-//    ArrayList<Entry> sortedEntriesList;
+public class SortDescription extends Sort {
     ArrayList<Entry> entriesToSort;
 
-//    public SortDate(ArrayList<Entry> entriesToSort) {
-//        this.entriesToSort = entriesToSort;
-//        sort();
-//        printSortedList();
-//    }
     public void setEntriesToSort(ArrayList<Entry> entriesToSort) {
         this.entriesToSort = entriesToSort;
         sort();
@@ -30,8 +24,7 @@ public class SortDate extends Sort{
 
     public ArrayList<Entry> sort() {
         System.out.println("here");
-        Collections.sort(entriesToSort,DateComparator.entryDateComparator());
+        Collections.sort(entriesToSort,DescriptionComparator.entryDescComparator());
         return entriesToSort;
     }
-
 }

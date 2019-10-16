@@ -3,10 +3,7 @@ package dolla.command;
 import dolla.DollaData;
 import dolla.Log;
 import dolla.Ui;
-import dolla.task.EntryList;
-import dolla.task.LogList;
-import dolla.task.Task;
-import dolla.task.TaskList;
+import dolla.task.*;
 
 import java.util.ArrayList;
 
@@ -27,17 +24,20 @@ public class ShowListCommand extends Command {
      */
     @Override
     public void execute(DollaData dollaData) {
-        LogList logList = new LogList(new ArrayList<Log>());
+//        LogList logList = new LogList(new ArrayList<Log>());
+        EntryList entryList = new EntryList(new ArrayList<Entry>());
 
         switch (mode) {
         case "entries":
-            logList = dollaData.entryList;
+//            logList = dollaData.entryList;
+            entryList = dollaData.entryList;
             break;
         default:
             break; // TODO: What to do here?
         }
         
-        boolean isListEmpty = (logList.size() == 0);
+//        boolean isListEmpty = (logList.size() == 0);
+        boolean isListEmpty = (entryList.size() == 0);
 
         if (isListEmpty) { // TODO: Place this in proper place
             Ui.printEmptyListError(mode);

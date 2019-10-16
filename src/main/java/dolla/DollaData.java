@@ -13,6 +13,7 @@ public class DollaData {
     public DollaData() {
  //       this.entryList = new EntryList(new ArrayList<Log>());
          this.entryList = new EntryList(getEntriesFromSave()); //Import from save file
+        System.out.println(entryList.get().size());
     }
 
     public EntryList getEntryList() {
