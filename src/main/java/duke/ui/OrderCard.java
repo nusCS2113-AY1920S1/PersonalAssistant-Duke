@@ -8,6 +8,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.FlowPane;
+import javafx.scene.paint.Paint;
 
 /**
  * Controller for OrderCard. An OrderCard displays an order, including its creation time, customer, items,
@@ -62,7 +63,20 @@ public class OrderCard extends UiPart<AnchorPane> {
             );
         }
 
+        changeIndexLabelColor(order.isIsIngredientEnough(), order.getStatus());
+        order.isIngredientEnoughProperty().addListener(((observable, oldValue, newValue) -> {
+            changeIndexLabelColor(newValue, order.getStatus());
+        }));
+
         total.setText(Double.toString(order.getTotal()));
 
+    }
+
+    private void changeIndexLabelColor(boolean isIngredientEnough, Order.Status status) {
+        if (!isIngredientEnough && status.equals(Order.Status.ACTIVE)) {
+            index.setTextFill(Paint.valueOf("red"));
+        } else {
+            index.setTextFill(Paint.valueOf("white"));
+        }
     }
 }
