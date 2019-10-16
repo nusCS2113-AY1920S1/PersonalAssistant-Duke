@@ -46,7 +46,7 @@ public class GsonStorageTest {
      */
     private Patient createComplexPatient() throws DukeException {
         Patient complexPatient = new Patient("Complexia", "C100", "cookies");
-        complexPatient.addNewImpression(new Impression("Afraid", "bit me", complexPatient.getName()));
+        complexPatient.addNewImpression(new Impression("Afraid", "bit me", complexPatient));
         complexPatient.setPriDiagnosis(0);
         complexPatient.setAllergies("dogs");
         complexPatient.setHeight(124);
