@@ -151,7 +151,7 @@ public abstract class TaskWithMultiplePeriods<E extends TimePeriod> extends Task
             }
         }
         return false;
-    };
+    }
 
     void initPeriodList() {
         if (this.periods == null) {

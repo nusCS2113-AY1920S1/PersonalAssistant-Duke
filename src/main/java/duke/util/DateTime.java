@@ -7,8 +7,8 @@ public class DateTime<E extends Temporal> {
 
     private E temporal;
 
-    public DateTime(E Temporal) {
-        this.temporal = Temporal;
+    public DateTime(E temporal) {
+        this.temporal = temporal;
     }
 
     public E value() {
