@@ -177,30 +177,6 @@ Examples:
 
 * `findtime 24`
 
-=== Listing all tasks/destinations : `list`
-
-Shows a list of all the tasks/destinations in SGTravel. +
-Format: `list`
-
-=== Locating tasks/destinations by name: `find`
-
-Finds tasks/destinations whose names contain any of the given keywords. +
-Format: `find KEYWORD [MORE_KEYWORDS]`
-
-****
-* The search is case sensitive. e.g `China` will match `China`
-* The order of the keywords does not matter. e.g. `China Bo` will match `Bo China`
-* The entire task is searched e.g `T` will match `T` in the task type: `**[T]**`
-* Tasks matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
-****
-
-Examples:
-
-* `find Singapore` +
-Returns `Singapore` and `Singapore Bishan`
-* `find Mexico Laos Singapore` +
-Returns any tasks containing names `Mexico`, `Laos`, or `Singapore`
-
 === List nearby bus stops of destination: `busstop`
 
 SGTravel recommends nearby bus stops of a certain location. +
@@ -391,6 +367,62 @@ There is also a button located at the top left corner of the application to call
 === Autocorrect
 
 SGTravel will help you autocorrect your spelling mistakes and users can tab to autocomplete!
+
+=== Viewing of information
+
+All relevant information will be displayed on a side panel of the SGTravel application. +
+SGTravel users can use the different commands to render and manipluate the information displayed on the side panel.
+
+==== Listing all places to visit : `list`
+
+Panel shows a list of all the places to visit in SGTravel. +
+Red color indicates places that are yet to be visited. +
+And green color indicates places that are already visited. +
+Format: `list`
+
+==== Finding certain places to visit: `find`
+
+Panel shows the places to visit whose names contain any of the given keywords. +
+Format: `find KEYWORD [MORE_KEYWORDS]`
+
+****
+* The search is case sensitive. e.g `Changi Airport` will match `Changi Airport`
+* The order of the keywords does not matter. e.g. `Airport Changi` will match `Changi Airport`
+* Places matching at least one keyword will be returned (i.e. `OR` search). e.g. `Changi Airport` will return `Changi Beach`, `Seletar Airport`
+****
+
+Examples:
+
+* `find Singapore` +
+Returns `Singapore` and `Singapore Bishan`
+* `find Tengah Gedong Singapore` +
+Returns any tasks containing names `Tengah`, `Gedong`, or `Singapore`
+
+==== Finding specific places to visit: `findOnly`
+
+Panel shows the places to visit whose names exactly matches the keyword. +
+Format: `findOnly KEYWORD`
+
+****
+* The search is case sensitive. e.g `Changi Airport` will match `Changi Airport`
+* Only results that exactly matches the keyword would be returned. e.g. `Gardens by the bay` will only match `Gardens by the bay`
+****
+
+Examples:
+
+* `findOnly Singapore` +
+Returns `Singapore` and `Singapore Bishan`
+* `findOnly Tengah Gedong Singapore` +
+Returns `Tengah Gedong Singapore` and `Tengah Gedong Singapore Bishan`
+
+==== Editing places of visit: `edit`
+
+Panel will automatically select an intial location and the selected location will be glowing. +
+Users will use `up, down, left, right or AWSD and Enter` key to then select the place of visit they want to edit. +
+Upon enter key pressed, a template will be generated on the console input for user to edit. +
+Alternatively, user can use `edit INDEX [startdate DATE enddate DATE venue LOCATION]` +
+Where INDEX is the index of the place of visit and startdate, enddate and venue are optional fields. +
+Not putting any optional fields will result in the place of visit being deleted instead.
 
 == Features that are coming in version 2.0!
 
