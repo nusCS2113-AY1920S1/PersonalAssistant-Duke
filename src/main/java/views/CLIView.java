@@ -79,12 +79,10 @@ public class CLIView {
     /**
      * Adds a member to the project.
      * @param projectToManage The project specified by the user.
-     * @param newMember A new member with details specified by the user.
      */
-    public void addMember(IProject projectToManage, Member newMember) {
-        projectToManage.addMember(newMember);
+    public void addMember(IProject projectToManage, String memberDetails) {
         consolePrint("Added new member to: " + projectToManage.getDescription(), ""
-            + "Member details: " + newMember.getDetails());
+            + "Member details: " + memberDetails);
     }
 
     /**
@@ -191,8 +189,24 @@ public class CLIView {
         consolePrint(toPrint.toArray(new String[0]));
     }
 
+    /**
+     * Shows specific requirements of a task.
+     * @param projectToManage The project in which the aforementioned task belongs to.
+     * @param taskIndex Index of task to be viewed.
+     */
     public void viewTaskRequirements(IProject projectToManage, int taskIndex) {
         ArrayList<String> taskRequirements = projectToManage.getTask(taskIndex).getTaskRequirements();
         consolePrint(taskRequirements.toArray(new String[0]));
+    }
+
+    public void editTask(IProject projectToManage, String updatedTaskDetails, int taskIndexNumber) {
+        projectToManage.editTask(updatedTaskDetails);
+        consolePrint("The task has been updated!");
+    }
+
+    public void editTaskRequirements(IProject projectToManage, int taskIndexNumber, String[] updatedTaskRequirements,
+                                     boolean haveRemove) {
+        projectToManage.editTaskRequirements(taskIndexNumber, updatedTaskRequirements, haveRemove);
+        consolePrint("The requirements of your specified task has been updated!");
     }
 }

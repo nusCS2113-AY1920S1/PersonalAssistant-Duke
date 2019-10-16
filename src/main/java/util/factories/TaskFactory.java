@@ -26,7 +26,7 @@ public class TaskFactory {
             if (taskDetails.length == 4) {
                 newTask = new Task(newTaskName, newTaskPriority,
                         null, Integer.parseInt(taskDetails[3].trim()), TaskState.OPEN,
-                        null);
+                        new ArrayList<>());
             } else {
                 ArrayList<String> taskRequirements = parseTaskRequirements(taskDetails, 4);
                 newTask = new Task(newTaskName, newTaskPriority,
@@ -38,7 +38,7 @@ public class TaskFactory {
             if (taskDetails.length == 5) {
                 Date dueDate = getDateObject(taskDetails[3]);
                 newTask = new Task(newTaskName, newTaskPriority,
-                        dueDate, Integer.parseInt(taskDetails[4].trim()), TaskState.OPEN, null);
+                        dueDate, Integer.parseInt(taskDetails[4].trim()), TaskState.OPEN, new ArrayList<>());
             } else {
                 Date dueDate = getDateObject(taskDetails[3]);
                 ArrayList<String> taskRequirements = parseTaskRequirements(taskDetails, 5);
@@ -49,7 +49,7 @@ public class TaskFactory {
             TaskState newTaskState = convertStringToTaskState(taskDetails[4]);
             if (taskDetails.length == 5) {
                 newTask = new Task(newTaskName, newTaskPriority,
-                        null, Integer.parseInt(taskDetails[3].trim()), newTaskState, null);
+                        null, Integer.parseInt(taskDetails[3].trim()), newTaskState, new ArrayList<>());
             } else {
                 ArrayList<String> taskRequirements = parseTaskRequirements(taskDetails, 5);
                 newTask = new Task(newTaskName, newTaskPriority,
@@ -71,6 +71,12 @@ public class TaskFactory {
         return newTask;
     }
 
+    /**
+     * Creates ArrayList of Strings containing task requirements.
+     * @param taskDetails  Details of new task.
+     * @param startIndexOfTaskRequirements index from which the content in taskDetails will be task requirements.
+     * @return ArrayList of type String containing task requirements.
+     */
     private ArrayList<String> parseTaskRequirements(String[] taskDetails, int startIndexOfTaskRequirements) {
         ArrayList<String> taskRequirements = new ArrayList<String>();
         for (int i = startIndexOfTaskRequirements; i < taskDetails.length; i++) {
