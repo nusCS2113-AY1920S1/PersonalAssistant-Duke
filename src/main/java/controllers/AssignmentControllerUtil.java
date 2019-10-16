@@ -1,11 +1,10 @@
 package controllers;
 
+import java.util.ArrayList;
+import java.util.HashSet;
 import models.data.IProject;
 import models.task.Task;
 import views.CLIView;
-
-import java.util.ArrayList;
-import java.util.HashSet;
 
 public class AssignmentControllerUtil {
     private ArrayList<Integer> assign;
@@ -38,8 +37,6 @@ public class AssignmentControllerUtil {
         } else {
             task = projectToManage.getTask(taskIndex);
             HashSet<Integer> assignedIndexes = task.getAssignedIndexes(); //existing assignments
-            ArrayList<Integer> assign = new ArrayList<>(); //List of members to be assigned task
-            ArrayList<Integer> unassign = new ArrayList<>();//List of members to be unassigned task
             boolean add = false;
             boolean remove = false;
             for (String s : details) {
@@ -84,5 +81,16 @@ public class AssignmentControllerUtil {
 
     public static void viewTaskAssigned(IProject projectToManage, CLIView consoleView) {
         consoleView.viewAssignedTask(projectToManage);
+    }
+
+    public ArrayList<Integer> getAssigneesIndex() {
+        return this.assign;
+    }
+    public ArrayList<Integer> getUnassigneesIndex() {
+        return this.unassign;
+    }
+
+    public ArrayList<String> getMessages() {
+        return this.messages;
     }
 }
