@@ -69,6 +69,10 @@ public class Executor {
             c = new CommandSchedule(userInput);
             break;
 
+        case SETBALANCE:
+            c = new CommandUpdateBalance(userInput);
+            break;
+
         default:
             c = new CommandNewTask(userInput);
             break;
