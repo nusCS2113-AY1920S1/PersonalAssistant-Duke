@@ -360,7 +360,7 @@ public class Ui {
      * @param priority The index of the priority.
      */
     public void showSetPriority(TaskList taskList, int taskNum, int priority) {
-        out.println("     Updated the priority of \n\t\t" + taskList.get(taskNum));
+        out.println("     Updated the priority of \n\t\t" + taskList.get(taskNum - 1));
         out.println("     Current priority: " + priority);
     }
 
