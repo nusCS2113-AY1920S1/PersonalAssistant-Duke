@@ -1,6 +1,5 @@
 package duke.gui;
 
-import duke.DukeGui;
 import duke.command.Command;
 import duke.command.Parser;
 import duke.exception.DukeException;
@@ -25,7 +24,6 @@ public class Gui extends AnchorPane {
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
     private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
 
-    private DukeGui dukeGui;
     private Parser parser;
     private String inputStr;
 
@@ -45,13 +43,8 @@ public class Gui extends AnchorPane {
         if (!inputStr.isEmpty()) {
             dialogContainer.getChildren().add(DialogBox.getUserDialog(inputStr, userImage));
 
-            dukeGui.respond();
             userInput.clear();
         }
-    }
-
-    public void setDuke(DukeGui dukeGui) {
-        this.dukeGui = dukeGui;
     }
 
     /**

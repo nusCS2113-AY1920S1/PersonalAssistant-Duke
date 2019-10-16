@@ -1,8 +1,8 @@
 import duke.DukeCore;
 import duke.exception.DukeFatalException;
 import duke.gui.Gui;
-import duke.task.Storage;
-import duke.task.TaskList;
+import duke.data.PatientMap;
+import duke.data.TaskList;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
@@ -31,8 +31,9 @@ public abstract class CommandTest {
 
         Gui ui = new Gui();
         try {
-            core = new DukeCore(new Storage("data" + File.separator + "test.tsv"), ui);
-            core.storage.writeTaskFile("");
+            core = new DukeCore();
+            core.patientMap = new PatientMap();
+            core.storage.writeJsonFile(core.patientMap.getPatientHashMap());
         } catch (DukeFatalException excp) {
             fail("Could not setup storage for testing!");
         }

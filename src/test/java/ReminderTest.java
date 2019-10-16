@@ -1,4 +1,4 @@
-import duke.task.Reminder;
+import duke.data.Reminder;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDateTime;

@@ -2,55 +2,61 @@ package duke;
 
 import duke.exception.DukeFatalException;
 import duke.exception.DukeResetException;
-import duke.gui.Gui;
-import duke.task.Storage;
-import duke.task.TaskList;
+import duke.data.GsonStorage;
+import duke.data.PatientMap;
+import duke.gui.Ui;
+import duke.gui.UiManager;
+import duke.data.TaskList;
+import javafx.application.Application;
+import javafx.stage.Stage;
 
-public class DukeCore {
-    public final Storage storage;
-    public final Gui ui;
-    public TaskList taskList;
+import java.io.File;
+
+/**
+ * Launching point for Dr. Duke. Contains the core which holds the UI manager, storage, and task list.
+ */
+public class DukeCore extends Application {
+    private static final String FILE_PATH = "data" + File.separator + "patients.json";
+
+    public GsonStorage storage;
+    public TaskList taskList = null; //deprecated
+    public PatientMap patientMap;
+    public Ui ui;
 
     /**
-     * Create new DukeCore, generating taskList from the provided Ui and Storage objects.
-     *
-     * @param storage Storage object to use in this context.
-     * @param ui      Ui object to use in this context.
-     * @throws DukeFatalException If unable to setup data file.
-     * @see Gui
-     * @see TaskList
-     * @see Storage
+     * Construct a DukeCore object.
      */
-    public DukeCore(Storage storage, Gui ui) throws DukeFatalException {
-        this.storage = storage;
-        this.ui = ui;
-
+    public DukeCore() {
+        ui = new UiManager(this);
         try {
-            taskList = new TaskList(storage);
-        } catch (DukeResetException excp) {
-            String resetStr;
-            ui.printError(excp);
-
-            while (true) { //wait for user to respond
-                // TODO: Read user input
-                // resetStr = ui.readLine();
-
-                resetStr = "Y";
-                if (resetStr.length() > 0) {
-                    resetStr = resetStr.substring(0, 1); //extract first char
-                    if (resetStr.equalsIgnoreCase("y")) {
-                        storage.writeTaskFile(""); //write empty string to data file
-                        taskList = new TaskList();
-                        ui.print("Your data has been reset!");
-                        break;
-                    } else if (resetStr.equalsIgnoreCase("n")) {
-                        ui.closeUi();
-                        //System.exit(0);
-                    }
-                }
+            try {
+                storage = new GsonStorage(FILE_PATH);
+                patientMap = new PatientMap(storage);
+            } catch (DukeResetException excp) {
+                // Reset data file
+                patientMap = new PatientMap();
+                storage.writeJsonFile(); //write empty data structure to data file
             }
-        } catch (DukeFatalException excp) {
-            excp.killProgram(ui);
+        } catch (DukeFatalException e) {
+            stop();
         }
+    }
+
+    /**
+     * Main function.
+     *
+     * @param args Arguments.
+     */
+    public static void main(String[] args) {
+        launch(args);
+    }
+
+    @Override
+    public void start(Stage primaryStage) {
+        ui.start(primaryStage);
+    }
+
+    @Override
+    public void stop() {
     }
 }
