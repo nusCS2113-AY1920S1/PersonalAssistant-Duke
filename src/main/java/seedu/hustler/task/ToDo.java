@@ -1,7 +1,5 @@
 package seedu.hustler.task;
 
-//import com.sun.tools.javac.comp.Todo;
-
 import java.time.LocalDateTime;
 
 /**
@@ -24,8 +22,8 @@ public class ToDo extends Task {
     /**
      * Initializes description and user input difficulty.
      */
-    public ToDo(String description, String difficulty, String tag) {
-        super(description, difficulty, tag);
+    public ToDo(String description, String difficulty, String tag, LocalDateTime now) {
+        super(description, difficulty, tag, now);
     }
 
     /**
@@ -45,7 +43,7 @@ public class ToDo extends Task {
      * @return inherited string plus task format.
      */
     public String toSaveFormat() {
-        return "T|" + super.toSaveFormat();
+        return "T|" + super.toSaveFormat() + super.toSaveInputDateTime();
     }
 
     /**
