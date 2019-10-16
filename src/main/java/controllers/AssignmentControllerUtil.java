@@ -1,10 +1,10 @@
 package controllers;
 
-import java.util.ArrayList;
-import java.util.HashSet;
 import models.data.IProject;
 import models.task.Task;
 import views.CLIView;
+import java.util.ArrayList;
+import java.util.HashSet;
 
 public class AssignmentControllerUtil {
     private ArrayList<Integer> assign;
