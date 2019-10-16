@@ -106,15 +106,8 @@ public class Task{
     /**
      * Sets the task to be done
      */
-    public void setDone() {
-        isDone = true;
-    }
-
-    /**
-     * Sets the task to be not done
-     */
-    public void setNotDone() {
-        isDone = false;
+    public void setDone(boolean done) {
+        isDone = done;
     }
 
     /**

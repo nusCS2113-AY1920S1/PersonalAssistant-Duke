@@ -30,7 +30,7 @@ public class Task_Test {
 
     @Test
     public void testGetStatusIcon() {
-        assertEquals("[✘] ", new Task("test", "user").getStatusIcon());
+        assertEquals("[\u2718] ", new Task("test", "user").getStatusIcon());
     }
 
     @Test
@@ -57,6 +57,6 @@ public class Task_Test {
 
     @Test
     public void testToString() {
-        assertEquals("[✘] test (user)", new Task("test", "user").toString());
+        assertEquals("[\u2718] test (user)", new Task("test", "user").toString());
     }
 }
