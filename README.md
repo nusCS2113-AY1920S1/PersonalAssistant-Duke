@@ -4,13 +4,13 @@
 
 # ArchDuke - A CLI Project Manager with Kanban board
 **Done by:**
-* Sean
-* Abhishek
-* Dillen
-* Cynthia
-* Jerry
+  * Sean
+  * Abhishek
+  * Dillen
+  * Cynthia
+  * Jerry
 
-# Introduction
+## Introduction
 * ArchDuke is a desktop Project Manager application. It has a GUI for better visualisation of the Kanban board and tasks
 , but most of the user interactions will happen using a Command Line Interface (CLI).
 * The Kanban board will also be printed onto command line for users that favour the usage of a CLI interface compared
