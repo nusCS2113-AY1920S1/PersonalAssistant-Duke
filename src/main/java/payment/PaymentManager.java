@@ -11,16 +11,14 @@ import java.util.HashMap;
  */
 public abstract class PaymentManager {
 
-
     /**
      * Finds the Payments objects containing a payee name and returns a list of Payments.
      * @param payee Payee of the item.
      */
-    public ArrayList<Payments> findPayee(String payee, HashMap<String, Payee> managermap) {
-        ArrayList<Payments> payeePaymentsList = null;
-        payeePaymentsList.addAll(managermap.get(payee).payments);
-        return payeePaymentsList;
-        //TODO add output to UI and add parser command
+    public void findPayee(String payee, HashMap<String, Payee> managermap) {
+        for (Payments payment : managermap.get(payee).payments) {
+            //TODO add output to UI and add parser command
+        }
     }
 
     /**

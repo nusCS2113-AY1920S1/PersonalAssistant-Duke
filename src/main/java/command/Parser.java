@@ -3,6 +3,7 @@ package command;
 import common.DukeException;
 import common.TaskList;
 import payment.Payee;
+import payment.PaymentList;
 import payment.PaymentManager;
 import payment.Payments;
 import task.Deadline;
@@ -86,7 +87,10 @@ public class Parser {
                 processEdit(input,tasklist,ui);
             } else if (isPayment(input)) {
                 processPayment(input, managermap, ui);
-            } else if (isPayee(input)) {
+            } else if(isgetpayee(input)){
+                processfindpayee(input, ui, managermap);
+            }
+            else if (isPayee(input)) {
                 processPayee(input, managermap, ui);
             } else {
                 throw new DukeException("     ☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
@@ -118,6 +122,18 @@ public class Parser {
         }
     }
 
+    private static void processfindpayee(String input, Ui ui, HashMap<String, Payee> managermap) {
+        try {
+            String[] splitspace = input.split(" ", 2);
+            PaymentList list_of_payments = new PaymentList();
+            for (Payments payment : managermap.get(splitspace[1]).payments) {
+                list_of_payments.addPayments(payment);
+            }
+            ui.printPaymentList(list_of_payments);
+        }catch (ArrayIndexOutOfBoundsException e) {
+            ui.exceptionMessage("     ☹ OOPS!!! The content to find cannot be empty.");
+        }
+    }
     /**
      * Processes the View Schedule command and outputs the schedule for the specific date entered in the input.
      * @param input Input from the user.
@@ -489,5 +505,9 @@ public class Parser {
 
     private static boolean isPayee(String input) {
         return input.startsWith("payee");
+    }
+
+    private static boolean isgetpayee(String input)  {
+        return input.startsWith("getpayee");
     }
 }
