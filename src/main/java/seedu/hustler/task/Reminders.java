@@ -1,5 +1,7 @@
 package seedu.hustler.task;
 
+import seedu.hustler.Hustler;
+
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -32,6 +34,51 @@ public class Reminders {
     private static final int THIRTY_MINUTES = 1800;
 
     /**
+     * Check if a task is overdue.
+     * @param i index of task in task list.
+     * @return true if task is overdue.
+     */
+    public static Boolean checkOverdue(int i) {
+        Boolean check = false;
+        LocalDateTime currentTime = LocalDateTime.now();
+        long duration = Duration.between(currentTime, Hustler.list.get(i).getDateTime()).getSeconds();
+        if (duration <= 0) {
+            check = true;
+        }
+        return check;
+    }
+
+    /**
+     * Check if a task is due in thirty minutes.
+     * @param i index of task in task list.
+     * @return true if task is due in thirty minutes.
+     */
+    public static Boolean checkThirty(int i) {
+        Boolean check = false;
+        LocalDateTime currentTime = LocalDateTime.now();
+        long duration = Duration.between(currentTime, Hustler.list.get(i).getDateTime()).getSeconds();
+        if (duration <= THIRTY_MINUTES && duration > 0) {
+            check = true;
+        }
+        return check;
+    }
+
+    /**
+     * Check if a task is due in 24 hours.
+     * @param i index of task in task list.
+     * @return true if task is due in 24 hours.
+     */
+    public static Boolean checkLastDay(int i) {
+        Boolean check = false;
+        LocalDateTime currentTime = LocalDateTime.now();
+        long duration = Duration.between(currentTime, Hustler.list.get(i).getDateTime()).getSeconds();
+        if (duration <= TWENTY_FOUR_HOURS && duration > THIRTY_MINUTES) {
+            check = true;
+        }
+        return check;
+    }
+
+    /**
      * List of overdue tasks.
      * @param list current TaskList.
      * @return a list of overdue tasks.
@@ -45,8 +92,7 @@ public class Reminders {
             boolean checkEvent = list.get(i).toString().contains("[E]");
             boolean checkRange = list.get(i).toString().contains("[R]");
             if (!done && checkDeadline || checkEvent || checkRange) {
-                long duration = Duration.between(currentTime, list.get(i).getDateTime()).getSeconds();
-                if (duration <= 0) {
+                if (checkOverdue(i)) {
                     overDueList.add(list.get(i));
                 }
             }

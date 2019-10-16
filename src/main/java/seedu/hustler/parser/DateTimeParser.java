@@ -82,9 +82,7 @@ public class DateTimeParser {
      * @return date of type String.
      */
     public static String convertDate(LocalDateTime localDate) {
-
         String date;
-
         try {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern(DATE_FORMATTER);
             date = localDate.format(formatter);
