@@ -18,7 +18,7 @@ import static java.util.Objects.requireNonNull;
 public class CompleteOrderCommand extends OrderCommand {
     public static final String COMMAND_WORD = "done";
 
-    public static final String MESSAGE_COMMIT = "Complete order";
+    private static final String MESSAGE_COMMIT = "Complete order";
     private static final String MESSAGE_COMPLETE_SUCCESS = "%s order(s) completed.";
     private static final String MESSAGE_INDEX_OUT_OF_BOUND = "Index [%d] out of bound.";
     private final Set<Index> indices;
@@ -47,9 +47,10 @@ public class CompleteOrderCommand extends OrderCommand {
 
             model.setOrder(index,
                     OrderCommandUtil.createNewOrder(
-                            model.getFilteredOrderList().get(index.getZeroBased()),
-                            descriptor,
-                            model.getFilteredProductList()
+                        model.getFilteredOrderList().get(index.getZeroBased()),
+                        descriptor,
+                        model.getFilteredProductList(),
+                        model.getFilteredInventoryList()
                     )
             );
         }

@@ -98,10 +98,10 @@ public class MainWindow extends UiPart<Stage> {
      * Creates Order, Product and Sales pages that fill up the placeholder window.
      */
     void fillInnerParts() {
-        orderPage = new OrderPage(logic.getFilteredOrderList());
+        orderPage = new OrderPage(logic.getFilteredOrderList(), logic.getFilteredInventoryList());
         productPage = new ProductPage(logic.getFilteredProductList());
         salePage = new SalePage(logic.getFilteredSaleList());
-        inventoryPage = new InventoryPage(logic.getFilteredInventoryList());
+        inventoryPage = new InventoryPage(logic.getFilteredInventoryList(), logic.getFilteredShoppingList());
         setAllPageAnchor(orderPage.getRoot(), productPage.getRoot(), salePage.getRoot(), inventoryPage.getRoot());
     }
 
@@ -157,10 +157,14 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     private void autocomplete() {
-        AutoCompleter.UserInputState completedUserInput = logic.getAutoCompletion(userInput.getText(),
-                userInput.getCaretPosition());
-        this.userInput.setText(completedUserInput.userInputString);
-        this.userInput.positionCaret(completedUserInput.caretPosition);
+        if (logic.isAutoCompletable(new AutoCompleter.UserInputState(
+                userInput.getText(),
+                userInput.getCaretPosition()
+        ))) {
+            AutoCompleter.UserInputState newState = logic.complete();
+            this.userInput.setText(newState.userInputString);
+            this.userInput.positionCaret(newState.caretPosition);
+        }
     }
 
     /**

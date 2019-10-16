@@ -13,7 +13,7 @@ public class OrderItemBox extends AnchorPane {
     @FXML
     private Label itemQuantity;
 
-    public OrderItemBox(String name, int quantity) {
+    public OrderItemBox(String name, double quantity) {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(MainWindow.class.getResource("/view/OrderItemBox.fxml"));
             fxmlLoader.setController(this);
@@ -22,9 +22,8 @@ public class OrderItemBox extends AnchorPane {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        //id.setText(Long.toString(orderID));
-        //index.setText(Integer.toString(indexNumber));
+
         itemName.setText(name);
-        itemQuantity.setText(Integer.toString(quantity));
+        itemQuantity.setText(Double.toString(quantity));
     }
 }

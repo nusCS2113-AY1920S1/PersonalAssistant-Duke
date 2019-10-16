@@ -40,6 +40,16 @@ public class EditSaleCommand extends SaleCommand implements Undoable {
         this.saleDescriptor = new SaleDescriptor(saleDescriptor);
     }
 
+    private static Sale createEditedSale(Sale toEdit, SaleDescriptor saleDescriptor)
+            throws CommandException {
+        assert toEdit != null;
+        String newDescription = saleDescriptor.getDescription().orElse(toEdit.getDescription());
+        double newValue = saleDescriptor.getValue();
+        Date newDate = saleDescriptor.getSaleDate().orElse(toEdit.getSaleDate());
+        String newRemarks = saleDescriptor.getRemarks().orElse(toEdit.getRemarks());
+        return new Sale(newDescription, newValue, newDate, newRemarks);
+    }
+
     @Override
     public void undo(Model model) throws CommandException {
         requireNonNull(model);
@@ -50,16 +60,6 @@ public class EditSaleCommand extends SaleCommand implements Undoable {
     @Override
     public void redo(Model model) throws CommandException {
         execute(model);
-    }
-
-    private static Sale createEditedSale(Sale toEdit, SaleDescriptor saleDescriptor)
-            throws CommandException {
-        assert toEdit != null;
-        String newDescription = saleDescriptor.getDescription().orElse(toEdit.getDescription());
-        double newValue = saleDescriptor.getValue();
-        Date newDate = saleDescriptor.getSaleDate().orElse(toEdit.getSaleDate());
-        String newRemarks = saleDescriptor.getRemarks().orElse(toEdit.getRemarks());
-        return new Sale(newDescription, newValue, newDate, newRemarks);
     }
 
     @Override

@@ -1,6 +1,8 @@
 package duke.ui;
 
 import duke.commons.core.LogsCenter;
+import duke.model.commons.Item;
+import duke.model.inventory.Ingredient;
 import duke.model.order.Order;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -17,7 +19,7 @@ public class OrderPage extends UiPart<AnchorPane> {
     @FXML
     private ListView<Order> orderListView;
 
-    public OrderPage(ObservableList<Order> orderList) {
+    public OrderPage(ObservableList<Order> orderList, ObservableList<Item<Ingredient>> inventoryList) {
         super(FXML);
         orderListView.setItems(orderList);
         orderListView.setCellFactory(listView -> new OrderListViewCell());

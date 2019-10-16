@@ -4,6 +4,8 @@ import duke.commons.core.Message;
 import duke.commons.core.index.Index;
 import duke.logic.command.CommandResult;
 import duke.logic.command.exceptions.CommandException;
+import duke.logic.parser.commons.CliSyntax;
+import duke.logic.parser.commons.Prefix;
 import duke.model.Model;
 import duke.model.order.Order;
 
@@ -18,6 +20,17 @@ import static java.util.Objects.requireNonNull;
 public class EditOrderCommand extends OrderCommand {
 
     public static final String COMMAND_WORD = "edit";
+
+    public static final String AUTO_COMPLETE_INDICATOR = OrderCommand.COMMAND_WORD + " " + COMMAND_WORD;
+    public static final Prefix[] AUTO_COMPLETE_PARAMETERS = {
+        CliSyntax.PREFIX_CUSTOMER_NAME,
+        CliSyntax.PREFIX_CUSTOMER_CONTACT,
+        CliSyntax.PREFIX_ORDER_DEADLINE,
+        CliSyntax.PREFIX_ORDER_STATUS,
+        CliSyntax.PREFIX_ORDER_ITEM,
+        CliSyntax.PREFIX_ORDER_REMARKS,
+        CliSyntax.PREFIX_ORDER_TOTAL
+    };
 
     private static final String MESSAGE_COMMIT = "Edit order";
     private static final String MESSAGE_EDIT_PERSON_SUCCESS = "Edited Order [%1$s]";
@@ -53,8 +66,11 @@ public class EditOrderCommand extends OrderCommand {
         if (orderToEdit.getStatus().equals(Order.Status.COMPLETED)) {
             throw new CommandException(MESSAGE_CANNOT_EDIT_COMPLETED_ORDER);
         }
-        Order editedOrder = OrderCommandUtil.createNewOrder(orderToEdit, orderDescriptor,
-                model.getFilteredProductList());
+        Order editedOrder = OrderCommandUtil.createNewOrder(
+            orderToEdit,
+            orderDescriptor,
+            model.getFilteredProductList(),
+            model.getFilteredInventoryList());
 
         model.setOrder(orderToEdit, editedOrder);
         model.updateFilteredOrderList(Model.PREDICATE_SHOW_ALL_ORDERS);
