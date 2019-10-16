@@ -25,14 +25,11 @@ public class Duke {
 
         try {
             store = storage.load();
-
-            // Adds the very first copy of store into undoStack
-            storage.addToUndoStackPush(store);
-
         } catch (DuchessException e) {
-            ui.showError(e.getMessage());
             store = new Store();
+            ui.showError(e.getMessage());
         }
+        storage.addToUndoStackPush(store);
     }
 
     /**
@@ -41,7 +38,6 @@ public class Duke {
     private void run() {
         ui.showWelcome();
         DuchessLog duchessLog = new DuchessLog();
-
 
         boolean isExit = false;
         while (!isExit) {

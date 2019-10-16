@@ -112,30 +112,23 @@ public class Storage {
      * @param store current store object
      * @throws DuchessException throws exception when unable to push object to stack
      */
-    public void addToUndoStackPush(Store store) throws DuchessException {
-        try {
-            String jsonVal = getObjectMapper().writeValueAsString(store);
-            String undoStackTop;
+    public void addToUndoStackPush(Store store) {
+        String jsonVal = getStoreToString(store);
+        String undoStackTop;
 
-            if (undoStack.size() != 0) {
-                undoStackTop = undoStack.peekLast();
-
-                // Only push to undoStack if the topmost stack object is different.
-                if (!undoStackTop.equals(jsonVal)) {
-                    undoStack.addLast(jsonVal);
-
-                    // Clears redo whenever there store is modified.
-                    redoStack.clear();
-                }
-            } else {
-                assert (undoStack.size() == 0);
+        if (undoStack.size() != 0) {
+            undoStackTop = undoStack.peekLast();
+            // Only push to undoStack if the topmost stack object is different.
+            if (!undoStackTop.equals(jsonVal)) {
                 undoStack.addLast(jsonVal);
-            }
-        } catch (JsonProcessingException e) {
-            e.printStackTrace();
-            throw new DuchessException("Undo stack push was unsuccessful.");
-        }
 
+                // Clears redo whenever there store is modified.
+                redoStack.clear();
+            }
+        } else {
+            assert (undoStack.size() == 0);
+            undoStack.addLast(jsonVal);
+        }
     }
 
     /**
@@ -150,7 +143,6 @@ public class Storage {
         }
 
         String jsonVal = redoStack.pollFirst();
-
         // Add this string to undoStack
         undoStack.addLast(jsonVal);
 
@@ -194,5 +186,23 @@ public class Storage {
             }
         }
         return new Store();
+    }
+
+    /**
+     * Returns a string representation of a Store object.
+     * Returns an empty string if exception thrown.
+     *
+     * @param store store object
+     * @return string representative of Store object
+     */
+    private String getStoreToString(Store store) {
+        String jsonVal;
+        try {
+            jsonVal = getObjectMapper().writeValueAsString(store);
+        } catch (JsonProcessingException e) {
+            jsonVal = new String();
+            e.printStackTrace();
+        }
+        return jsonVal;
     }
 }
