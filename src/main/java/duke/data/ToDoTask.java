@@ -1,4 +1,4 @@
-package duke.task;
+package duke.data;
 
 public class ToDoTask extends Task {
     public ToDoTask(String name) {

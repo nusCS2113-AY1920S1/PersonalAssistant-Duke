@@ -12,7 +12,7 @@ public class DeleteCommand extends ArgCommand {
     @Override
     public void execute(DukeCore core) throws DukeException {
         String delStr = core.taskList.deleteTask(arg);
-        core.storage.writeTaskFile(core.taskList.getFileStr());
+        core.storage.writeJsonFile(core.patientMap.getPatientHashMap());
         core.ui.print(core.taskList.getDelReport(System.lineSeparator() + "  " + delStr, 1));
     }
 }

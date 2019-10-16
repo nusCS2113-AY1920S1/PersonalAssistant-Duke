@@ -1,8 +1,8 @@
 import duke.exception.DukeException;
 import duke.exception.DukeFatalException;
-import duke.task.GsonStorage;
-import duke.task.Impression;
-import duke.task.Patient;
+import duke.data.GsonStorage;
+import duke.data.Impression;
+import duke.data.Patient;
 import org.junit.jupiter.api.Test;
 
 import java.io.File;

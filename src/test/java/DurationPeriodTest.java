@@ -1,9 +1,9 @@
 import duke.exception.DukeException;
-import duke.task.DoWithinPeriodTask;
-import duke.task.FixedDurationTask;
-import duke.task.TaskList;
-import duke.task.TimedTask;
-import duke.task.ToDoTask;
+import duke.data.DoWithinPeriodTask;
+import duke.data.FixedDurationTask;
+import duke.data.TaskList;
+import duke.data.TimedTask;
+import duke.data.ToDoTask;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

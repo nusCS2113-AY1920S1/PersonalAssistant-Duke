@@ -2,7 +2,7 @@ package duke.command;
 
 import duke.DukeCore;
 import duke.exception.DukeException;
-import duke.task.ToDoTask;
+import duke.data.Patient;
 
 public class NewPatientCommand extends ArgCommand {
     /**
@@ -27,11 +27,8 @@ public class NewPatientCommand extends ArgCommand {
     public void execute(DukeCore core) throws DukeException {
         super.execute(core);
 
-        String bedNo, allergies, address, history;
-        int height, weight, age, number;
-
-        String addStr = core.taskList.addTask(new ToDoTask(arg));
-        core.storage.writeTaskFile(core.taskList.getFileStr());
-        core.ui.print(core.taskList.getAddReport(System.lineSeparator() + "  " + addStr, 1));
+        core.patientMap.addPatient(new Patient(switchVals.get("name"), switchVals.get("bed"),
+                switchVals.get("allergies")));
+        core.storage.writeJsonFile(core.patientMap.getPatientHashMap());
     }
 }

@@ -6,7 +6,7 @@ import duke.exception.DukeFatalException;
 public class ByeCommand extends Command {
     @Override
     public void execute(DukeCore core) throws DukeFatalException {
-        core.storage.writeTaskFile(core.taskList.getFileStr());
+        core.storage.writeJsonFile(core.patientMap.getPatientHashMap());
         core.stop();
     }
 }

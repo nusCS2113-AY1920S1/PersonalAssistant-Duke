@@ -1,4 +1,4 @@
-package duke.task;
+package duke.data;
 
 public class Result extends Evidence {
 

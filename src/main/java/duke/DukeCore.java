@@ -2,12 +2,11 @@ package duke;
 
 import duke.exception.DukeFatalException;
 import duke.exception.DukeResetException;
-import duke.task.GsonStorage;
-import duke.task.PatientMap;
+import duke.data.GsonStorage;
+import duke.data.PatientMap;
 import duke.gui.Ui;
 import duke.gui.UiManager;
-import duke.task.Storage;
-import duke.task.TaskList;
+import duke.data.TaskList;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
@@ -20,7 +19,7 @@ public class DukeCore extends Application {
     private static final String FILE_PATH = "data" + File.separator + "tasks.tsv";
 
     public GsonStorage storage;
-    public TaskList taskList = null;
+    public TaskList taskList = null; //deprecated
     public PatientMap patientMap;
     public Ui ui;
 
