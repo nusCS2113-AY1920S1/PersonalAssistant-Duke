@@ -5,6 +5,9 @@ import duke.util.Storage;
 import duke.util.TaskList;
 import duke.util.Ui;
 import duke.exceptions.ModEmptyListException;
+import duke.modules.data.ModuleTask;
+import duke.util.commons.ModuleTasksList;
+import duke.modules.data.ModuleInfoDetailed;
 
 import java.util.List;
 import java.util.HashSet;
@@ -38,8 +41,7 @@ public class ReportCommand extends Command {
         }
     }
 
-    /*
-    private Set<String> coreModList = new HashSet<String>();
+    /* private Set<String> coreModList = new HashSet<String>();
 
     public Set<String> getCoreModList() {
         coreModList.add("CG111");
@@ -64,15 +66,6 @@ public class ReportCommand extends Command {
         coreModList.add("CG4002");
         coreModList.add("EE4204");
         return coreModList;
-    }
-
-    public boolean isCoreMod(duke.modules.Task module) {
-        getCoreModList();
-        if(coreModList.contains(module)) {
-            return true;
-        } else {
-            return false;
-        }
     }*/
 
     @Override

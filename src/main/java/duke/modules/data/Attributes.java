@@ -7,6 +7,9 @@ public class Attributes {
     private boolean ssgf = false;
     private boolean fyp = false;
     private boolean year = false;
+    private boolean coreMod = false;
+    private boolean geMod = false;
+    private boolean ueMod = false;
 
     public Attributes() {
 
@@ -19,6 +22,12 @@ public class Attributes {
     public boolean isFyp() {
         return fyp;
     }
+
+    public boolean isCoreMod() { return coreMod; }
+
+    public boolean isGeMod() { return geMod; }
+
+    public boolean isUeMod() { return ueMod; }
 
     @Override
     public String toString() {
