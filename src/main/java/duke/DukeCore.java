@@ -3,6 +3,7 @@ package duke;
 import duke.exception.DukeFatalException;
 import duke.exception.DukeResetException;
 import duke.gui.Gui;
+import duke.task.PatientMap;
 import duke.task.Storage;
 import duke.task.TaskList;
 
@@ -10,6 +11,7 @@ public class DukeCore {
     public final Storage storage;
     public final Gui ui;
     public TaskList taskList;
+    public PatientMap patientMap;
 
     /**
      * Create new DukeCore, generating taskList from the provided Ui and Storage objects.
