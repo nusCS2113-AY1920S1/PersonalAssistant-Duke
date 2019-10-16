@@ -16,6 +16,7 @@ import compal.logic.commands.DeadlineCommand;
 import compal.logic.commands.ByeCommand;
 import compal.logic.commands.ClearCommand;
 import compal.logic.commands.FindFreeSlotCommand;
+import compal.logic.commands.EditCommand;
 
 import compal.model.tasks.TaskList;
 
@@ -49,6 +50,7 @@ public class ParserManager {
     public static final String CMD_LAB = "lab";
     public static final String CMD_HELP = "help";
     public static final String CMD_FIND_FREE_SLOT = "findfreeslot";
+    public static final String CMD_EDIT = "edit";
 
     /*
      * Status tells the parser if ComPAL is expecting an answer from a prompt it gave. Parser will then
@@ -166,6 +168,11 @@ public class ParserManager {
                     FindFreeSlotCommand findFreeSlotCommand = new FindFreeSlotCommand(compal);
                     findFreeSlotCommand.parseCommand(userInput);
                     break;
+                case CMD_EDIT:
+                    EditCommand ec = new EditCommand(compal);
+                    ec.parseCommand(userInput);
+                    break;
+
                 default:
                     compal.ui.printg(MESSAGE_INVALID_COMMAND);
                     throw new Compal.DukeException(MESSAGE_INVALID_COMMAND);

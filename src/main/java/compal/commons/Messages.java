@@ -51,6 +51,8 @@ public class Messages {
     public static final String MESSAGE_MISSING_EDATE_ARG = "ArgumentError: Missing /edate";
     public static final String MESSAGE_INIT_REMINDER = "view-reminder";
     public static final String MESSAGE_INVALID_DATE = "DateError: You can only input current or future date!";
+    public static final String MESSAGE_INVALID_TASK_ID = "TaskIDError: No such task found";
+    public static final String MESSAGE_INVALID_PRIORITY = "No such priority level";
     private static Date currentDate = java.util.Calendar.getInstance().getTime();
     public static final String MESSAGE_INVALID_DATE_TIME_INPUT = "DateTimeError: You can only add "
             + "task after current date and time:\n" + currentDate;
