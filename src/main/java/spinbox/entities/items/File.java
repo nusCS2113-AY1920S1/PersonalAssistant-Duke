@@ -1,4 +1,4 @@
-package spinbox.items;
+package spinbox.entities.items;
 
 import spinbox.exceptions.CorruptedDataException;
 
@@ -28,7 +28,7 @@ public class File extends Item {
             this.setDone(Integer.parseInt(components[0]) == 1);
             this.setName(components[1]);
         } catch (ArrayIndexOutOfBoundsException e) {
-            throw new CorruptedDataException(CORRUPTED_FILES_DATA);
+            throw new CorruptedDataException();
         }
     }
 

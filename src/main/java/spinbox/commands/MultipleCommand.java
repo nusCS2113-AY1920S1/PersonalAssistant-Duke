@@ -3,9 +3,9 @@ package spinbox.commands;
 import spinbox.exceptions.SpinBoxException;
 import spinbox.exceptions.InputException;
 import spinbox.Storage;
-import spinbox.items.tasks.Task;
+import spinbox.entities.items.tasks.Task;
 import spinbox.Ui;
-import spinbox.lists.TaskList;
+import spinbox.containers.lists.TaskList;
 
 import java.util.ArrayList;
 import java.util.Collections;

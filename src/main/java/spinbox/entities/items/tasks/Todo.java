@@ -1,4 +1,4 @@
-package spinbox.items.tasks;
+package spinbox.entities.items.tasks;
 
 public class Todo extends NonSchedulable {
     public Todo(String taskName) {

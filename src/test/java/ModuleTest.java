@@ -1,21 +1,21 @@
 import org.junit.jupiter.api.Test;
-import spinbox.Module;
+import spinbox.entities.Module;
+import spinbox.exceptions.CorruptedDataException;
+import spinbox.exceptions.DataReadWriteException;
 import spinbox.exceptions.FileCreationException;
 import spinbox.exceptions.StorageException;
-import spinbox.items.File;
-import spinbox.items.GradedComponent;
-import spinbox.items.tasks.Todo;
-import spinbox.lists.FileList;
-import spinbox.lists.ModuleContainer;
-
-import java.util.ArrayList;
+import spinbox.entities.items.File;
+import spinbox.entities.items.GradedComponent;
+import spinbox.entities.items.tasks.Todo;
+import spinbox.containers.ModuleContainer;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class ModuleTest {
 
     @Test
-    public void moduleCreation_variousModules_successfulCreationWithWorkingGetters() throws FileCreationException {
+    public void moduleCreation_variousModules_successfulCreationWithWorkingGetters() throws FileCreationException,
+            CorruptedDataException, DataReadWriteException {
         ModuleContainer testContainer = new ModuleContainer();
         Module testModuleOne = new Module("CG1111", "Engineering Principles & Practice I");
 
@@ -51,31 +51,21 @@ public class ModuleTest {
     }
 
     @Test
-    public void addToStorage_oneModule_expectedFilesCreated() throws StorageException {
-        ModuleContainer testContainer = new ModuleContainer();
-        Module testModuleOne = new Module("CG1111", "Engineering Principles & Practice I");
-
-        testModuleOne.getFiles().add(new File(0, "testFile1"));
-        testModuleOne.getGrades().add(new GradedComponent("Essay", 20));
-        testModuleOne.getTasks().add(new Todo("test todo"));
-    }
-
-    @Test
-    public void addToStorage_oneModule_expectedFilesLoaded() throws StorageException {
+    public void loadDataFromStorageSuccessful_oneModule_expectedFilesLoaded() throws StorageException {
         ModuleContainer testContainer = new ModuleContainer();
         Module testModuleOne = new Module("CG1113", "Engineering Principles & Practice III");
 
         testModuleOne.getFiles().add(new File(0, "testFile1"));
         testModuleOne.getGrades().add(new GradedComponent("Essay", 20));
         testModuleOne.getTasks().add(new Todo("test todo"));
+        testModuleOne.getNotepad().addLine("hello123");
 
         testModuleOne.getFiles().getList().clear();
         testModuleOne.getGrades().getList().clear();
         testModuleOne.getTasks().getList().clear();
+        testModuleOne.getNotepad().getNotes().clear();
 
-        testModuleOne.getTasks().loadData();
-        testModuleOne.getGrades().loadData();
-        testModuleOne.getFiles().loadData();
+        testModuleOne.loadData();
 
         assertEquals(testModuleOne.getFiles().getList().remove(0).storeString(),
                 new File(0, "testFile1").storeString());
@@ -85,5 +75,7 @@ public class ModuleTest {
 
         assertEquals(testModuleOne.getTasks().getList().remove(0).storeString(),
                 new Todo("test todo").storeString());
+
+        assertEquals(testModuleOne.getNotepad().getNotes().remove(0), "hello123");
     }
 }

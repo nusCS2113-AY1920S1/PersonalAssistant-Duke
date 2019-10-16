@@ -1,11 +1,10 @@
-package spinbox.lists;
+package spinbox.containers.lists;
 
 import spinbox.Storage;
+import spinbox.exceptions.CorruptedDataException;
 import spinbox.exceptions.FileCreationException;
-import spinbox.exceptions.SpinBoxException;
-import spinbox.exceptions.StorageException;
-import spinbox.items.File;
-import spinbox.items.tasks.Task;
+import spinbox.exceptions.DataReadWriteException;
+import spinbox.entities.items.File;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -35,7 +34,7 @@ public class FileList extends SpinBoxList<File> {
     }
 
     @Override
-    public void loadData() throws StorageException {
+    public void loadData() throws DataReadWriteException, CorruptedDataException {
         List<String> savedData = localStorage.loadData();
         for (String datum : savedData) {
             this.add(new File(datum));
@@ -43,7 +42,7 @@ public class FileList extends SpinBoxList<File> {
     }
 
     @Override
-    public void saveData() throws StorageException {
+    public void saveData() throws DataReadWriteException {
         List<String> dataToSave = new ArrayList<>();
         for (File file: this.getList()) {
             dataToSave.add(file.storeString());

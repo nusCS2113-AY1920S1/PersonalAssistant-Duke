@@ -1,13 +1,11 @@
 package spinbox;
 
 import spinbox.commands.Command;
-import spinbox.exceptions.FileCreationException;
 import spinbox.exceptions.SpinBoxException;
 import spinbox.exceptions.StorageException;
-import spinbox.lists.ModuleContainer;
+import spinbox.containers.ModuleContainer;
 
 import java.util.ArrayDeque;
-import java.util.HashMap;
 
 public class SpinBox {
     private Ui userInterface;
@@ -25,7 +23,7 @@ public class SpinBox {
 
         try {
             modules = new ModuleContainer();
-        } catch (FileCreationException e) {
+        } catch (StorageException e) {
             userInterface.showFormatted(e.getMessage());
         }
 

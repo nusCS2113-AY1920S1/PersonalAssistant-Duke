@@ -1,4 +1,4 @@
-package spinbox.items.tasks;
+package spinbox.entities.items.tasks;
 
 public enum TaskType {
     DEADLINE,

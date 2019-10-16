@@ -1,7 +1,7 @@
 import spinbox.exceptions.CorruptedDataException;
 import spinbox.exceptions.SpinBoxException;
 import spinbox.exceptions.InputException;
-import spinbox.items.GradedComponent;
+import spinbox.entities.items.GradedComponent;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;

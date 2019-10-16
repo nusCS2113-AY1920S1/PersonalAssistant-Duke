@@ -1,6 +1,5 @@
 import org.junit.jupiter.api.Test;
 import spinbox.Storage;
-import spinbox.exceptions.FileCreationException;
 import spinbox.exceptions.StorageException;
 
 import java.io.File;
@@ -8,7 +7,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class StorageTest {
 

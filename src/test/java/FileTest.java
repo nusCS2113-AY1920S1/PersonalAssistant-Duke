@@ -1,6 +1,6 @@
 import spinbox.exceptions.CorruptedDataException;
-import spinbox.items.File;
-import spinbox.items.Item;
+import spinbox.entities.items.File;
+import spinbox.entities.items.Item;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 

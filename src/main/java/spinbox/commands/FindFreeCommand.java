@@ -2,11 +2,11 @@ package spinbox.commands;
 
 import spinbox.DateTime;
 import spinbox.Storage;
-import spinbox.items.tasks.Schedulable;
-import spinbox.lists.TaskList;
+import spinbox.entities.items.tasks.Schedulable;
+import spinbox.containers.lists.TaskList;
 import spinbox.Ui;
-import spinbox.items.tasks.Event;
-import spinbox.items.tasks.Task;
+import spinbox.entities.items.tasks.Event;
+import spinbox.entities.items.tasks.Task;
 import javafx.util.Pair;
 
 import java.util.ArrayList;

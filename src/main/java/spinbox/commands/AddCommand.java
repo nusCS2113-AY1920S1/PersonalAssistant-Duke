@@ -5,12 +5,12 @@ import spinbox.exceptions.SpinBoxException;
 import spinbox.exceptions.InputException;
 import spinbox.Storage;
 import spinbox.Ui;
-import spinbox.items.tasks.Deadline;
-import spinbox.items.tasks.Event;
-import spinbox.items.tasks.Task;
-import spinbox.items.tasks.Todo;
-import spinbox.items.tasks.Schedulable;
-import spinbox.lists.TaskList;
+import spinbox.entities.items.tasks.Deadline;
+import spinbox.entities.items.tasks.Event;
+import spinbox.entities.items.tasks.Task;
+import spinbox.entities.items.tasks.Todo;
+import spinbox.entities.items.tasks.Schedulable;
+import spinbox.containers.lists.TaskList;
 
 import java.util.ArrayList;
 import java.util.List;

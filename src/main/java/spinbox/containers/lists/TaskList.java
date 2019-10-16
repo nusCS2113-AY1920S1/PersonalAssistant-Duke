@@ -1,14 +1,14 @@
-package spinbox.lists;
+package spinbox.containers.lists;
 
 import spinbox.DateTime;
 import spinbox.Storage;
+import spinbox.exceptions.DataReadWriteException;
 import spinbox.exceptions.FileCreationException;
-import spinbox.exceptions.StorageException;
-import spinbox.items.tasks.Deadline;
-import spinbox.items.tasks.Task;
-import spinbox.items.tasks.Schedulable;
-import spinbox.items.tasks.Event;
-import spinbox.items.tasks.Todo;
+import spinbox.entities.items.tasks.Deadline;
+import spinbox.entities.items.tasks.Task;
+import spinbox.entities.items.tasks.Schedulable;
+import spinbox.entities.items.tasks.Event;
+import spinbox.entities.items.tasks.Todo;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -54,7 +54,7 @@ public class TaskList extends SpinBoxList<Task> {
     }
 
     @Override
-    public void loadData() throws StorageException {
+    public void loadData() throws DataReadWriteException {
         DateTime start;
         DateTime end;
         List<String> savedData = localStorage.loadData();
@@ -78,7 +78,7 @@ public class TaskList extends SpinBoxList<Task> {
     }
 
     @Override
-    public void saveData() throws StorageException {
+    public void saveData() throws DataReadWriteException {
         List<String> dataToSave = new ArrayList<>();
         for (Task task: this.getList()) {
             dataToSave.add(task.storeString());

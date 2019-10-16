@@ -1,4 +1,4 @@
-package spinbox.items;
+package spinbox.entities.items;
 
 import spinbox.exceptions.CorruptedDataException;
 import spinbox.exceptions.InputException;
@@ -44,7 +44,7 @@ public class GradedComponent extends Item {
             this.setWeight(Double.parseDouble(components[3]));
             this.setWeightedScore(Double.parseDouble(components[4]));
         } catch (ArrayIndexOutOfBoundsException e) {
-            throw new CorruptedDataException(CORRUPTED_GRADES_DATA);
+            throw new CorruptedDataException();
         }
 
     }

@@ -1,6 +1,6 @@
 package spinbox.commands;
 
-import spinbox.Module;
+import spinbox.entities.Module;
 import spinbox.Ui;
 import spinbox.exceptions.InputException;
 import spinbox.exceptions.SpinBoxException;

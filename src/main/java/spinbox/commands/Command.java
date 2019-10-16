@@ -1,10 +1,10 @@
 package spinbox.commands;
 
-import spinbox.Module;
+import spinbox.entities.Module;
 import spinbox.exceptions.SpinBoxException;
 import spinbox.Storage;
 import spinbox.Ui;
-import spinbox.lists.TaskList;
+import spinbox.containers.lists.TaskList;
 
 import java.util.HashMap;
 import java.util.ArrayDeque;

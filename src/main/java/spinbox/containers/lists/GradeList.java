@@ -1,9 +1,10 @@
-package spinbox.lists;
+package spinbox.containers.lists;
 
 import spinbox.Storage;
+import spinbox.exceptions.CorruptedDataException;
+import spinbox.exceptions.DataReadWriteException;
 import spinbox.exceptions.FileCreationException;
-import spinbox.exceptions.StorageException;
-import spinbox.items.GradedComponent;
+import spinbox.entities.items.GradedComponent;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -34,7 +35,7 @@ public class GradeList extends SpinBoxList<GradedComponent> {
     }
 
     @Override
-    public void loadData() throws StorageException {
+    public void loadData() throws DataReadWriteException, CorruptedDataException {
         List<String> savedData = localStorage.loadData();
         for (String datum : savedData) {
             this.add(new GradedComponent(datum));
@@ -42,7 +43,7 @@ public class GradeList extends SpinBoxList<GradedComponent> {
     }
 
     @Override
-    public void saveData() throws StorageException {
+    public void saveData() throws DataReadWriteException {
         List<String> dataToSave = new ArrayList<>();
         for (GradedComponent gradedComponent: this.getList()) {
             dataToSave.add(gradedComponent.storeString());

@@ -1,4 +1,4 @@
-package spinbox.items.tasks;
+package spinbox.entities.items.tasks;
 
 import spinbox.DateTime;
 

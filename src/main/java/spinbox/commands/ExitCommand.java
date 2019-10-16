@@ -1,8 +1,8 @@
 package spinbox.commands;
 
-import spinbox.Module;
+import spinbox.entities.Module;
 import spinbox.Storage;
-import spinbox.lists.TaskList;
+import spinbox.containers.lists.TaskList;
 import spinbox.Ui;
 
 import java.util.ArrayDeque;

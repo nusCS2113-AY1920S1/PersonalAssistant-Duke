@@ -1,7 +1,6 @@
-package spinbox.items.tasks;
+package spinbox.entities.items.tasks;
 
-import spinbox.DateTime;
-import spinbox.items.Item;
+import spinbox.entities.items.Item;
 
 public abstract class Task extends Item {
     /**

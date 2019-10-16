@@ -1,4 +1,4 @@
-package spinbox.items;
+package spinbox.entities.items;
 
 public abstract class Item {
     private static final String STORE_DELIMITER = " | ";

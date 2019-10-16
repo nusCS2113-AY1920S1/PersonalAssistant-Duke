@@ -1,10 +1,10 @@
 package spinbox.commands;
 
 import spinbox.Storage;
-import spinbox.items.tasks.Schedulable;
-import spinbox.lists.TaskList;
+import spinbox.entities.items.tasks.Schedulable;
+import spinbox.containers.lists.TaskList;
 import spinbox.Ui;
-import spinbox.items.tasks.Task;
+import spinbox.entities.items.tasks.Task;
 
 import java.time.LocalDateTime;
 import java.time.ZoneId;

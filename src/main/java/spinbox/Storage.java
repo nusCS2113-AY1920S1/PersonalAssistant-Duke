@@ -1,8 +1,7 @@
 package spinbox;
 
+import spinbox.exceptions.DataReadWriteException;
 import spinbox.exceptions.FileCreationException;
-import spinbox.exceptions.SpinBoxException;
-import spinbox.exceptions.StorageException;
 
 import java.io.File;
 import java.io.IOException;
@@ -19,14 +18,13 @@ public class Storage {
     /**
      * This constructor takes in a path, creating the file and/or folder as needed.
      * @param fileLocation relative path of the text file to store data in.
-     * @throws StorageException An exception is thrown for file creation errors.
+     * @throws FileCreationException An exception is thrown for file creation errors.
      */
     public Storage(String fileLocation) throws FileCreationException {
         try {
             spinBoxFile = new File(fileLocation);
-            if (spinBoxFile.getParentFile().mkdir()) {
-                spinBoxFile.createNewFile();
-            }
+            spinBoxFile.getParentFile().mkdir();
+            spinBoxFile.createNewFile();
         } catch (IOException e) {
             throw new FileCreationException(e.getMessage());
         }
@@ -35,9 +33,9 @@ public class Storage {
     /**
      * Retrieves lines of text from within the text file.
      * @return A list containing Strings of data retrieved from the text file.
-     * @throws SpinBoxException An exception is thrown for I/O errors.
+     * @throws DataReadWriteException An exception is thrown for I/O errors.
      */
-    public List<String> loadData() throws StorageException {
+    public List<String> loadData() throws DataReadWriteException {
         ArrayList<String> lines = new ArrayList<>();
         try {
             String currentLine;
@@ -47,7 +45,7 @@ public class Storage {
             }
             inputStream.close();
         } catch (IOException e) {
-            throw new StorageException(e.getMessage());
+            throw new DataReadWriteException();
         }
         return lines;
     }
@@ -55,9 +53,9 @@ public class Storage {
     /**
      * Saves lines of text to a text file at the path specified.
      * @param lines List of Strings to be saved line by line to the text file.
-     * @throws StorageException An exception is thrown for I/O errors.
+     * @throws DataReadWriteException An exception is thrown for I/O errors.
      */
-    public void saveData(List<String> lines) throws StorageException {
+    public void saveData(List<String> lines) throws DataReadWriteException {
         try {
             BufferedWriter outputStream = new BufferedWriter(new FileWriter(spinBoxFile));
             for (String line : lines) {
@@ -66,7 +64,7 @@ public class Storage {
             }
             outputStream.close();
         } catch (IOException e) {
-            throw new StorageException(e.getMessage());
+            throw new DataReadWriteException();
         }
     }
 }

@@ -1,9 +1,10 @@
-package spinbox.lists;
+package spinbox.containers;
 
-import spinbox.Module;
+import spinbox.entities.Module;
 import spinbox.Storage;
+import spinbox.exceptions.CorruptedDataException;
+import spinbox.exceptions.DataReadWriteException;
 import spinbox.exceptions.FileCreationException;
-import spinbox.exceptions.StorageException;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -17,9 +18,16 @@ public class ModuleContainer {
     private HashMap<String, Module> modules;
     private Storage localStorage;
 
-    public ModuleContainer() throws FileCreationException {
+    /**
+     * Constructor for a module container. Retrieves added modules, populates them and stores in program memory.
+     * @throws FileCreationException Creation of file hierarchy failed, perhaps due to permissions.
+     * @throws DataReadWriteException I/O error during file read/writes.
+     * @throws CorruptedDataException Text files have been improperly modified (unexpected formatting).
+     */
+    public ModuleContainer() throws FileCreationException, DataReadWriteException, CorruptedDataException {
         modules = new HashMap<>();
         localStorage = new Storage(DIRECTORY_NAME + MODULES_FILE_NAME);
+        this.loadData();
     }
 
     public HashMap<String, Module> getModules() {
@@ -28,9 +36,9 @@ public class ModuleContainer {
 
     /**
      * Saves data using the localStorage instance to the relevant .txt file.
-     * @throws StorageException I/O error.
+     * @throws DataReadWriteException I/O error.
      */
-    public void saveData() throws StorageException {
+    public void saveData() throws DataReadWriteException {
         List<String> dataToSave = new ArrayList<>();
         for (Map.Entry<String, Module> entry : modules.entrySet()) {
             dataToSave.add(entry.getValue().storeString());
@@ -40,12 +48,14 @@ public class ModuleContainer {
 
     /**
      * Loads data using the localStorage instance from the relevant .txt file.
-     * @throws StorageException I/O error.
+     * @throws DataReadWriteException I/O error.
+     * @throws CorruptedDataException polluted data within txt files.
      */
-    public void loadData() throws StorageException {
+    public void loadData() throws DataReadWriteException, CorruptedDataException, FileCreationException {
         List<String> savedData = localStorage.loadData();
         for (String datum : savedData) {
             Module temp = new Module(datum);
+            temp.loadData();
             this.modules.put(temp.getModuleCode(), temp);
         }
     }
