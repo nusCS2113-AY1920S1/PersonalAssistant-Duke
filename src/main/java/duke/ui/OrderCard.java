@@ -46,6 +46,7 @@ public class OrderCard extends UiPart<AnchorPane> {
      */
     public OrderCard(Order order, int displayedIndex) {
         super(FXML);
+
         id.setText(Long.toString(order.getId()));
         index.setText(displayedIndex + ".");
         deadline.setText(TimeParser.convertDateToString(order.getDeliveryDate()));
