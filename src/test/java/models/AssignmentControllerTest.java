@@ -79,9 +79,9 @@ public class AssignmentControllerTest {
             project.getTask(1).getAssignedMembers().getMember(2).getName());
         assertEquals("Cannot unassign member with index 2 (Dick) "
             + "because they are not assigned the task yet!",
-            assignmentController.getMessages().get(0));
+            assignmentController.getMessageForView().get(0));
         assertEquals("Member with index number 4 does not exist!",
-            assignmentController.getMessages().get(1));
+            assignmentController.getMessageForView().get(1));
 
         projectCommand = "assign task i/1 to/ 1 rm/ 3";
         assignmentController = new AssignmentController();
@@ -90,7 +90,7 @@ public class AssignmentControllerTest {
         assertEquals(0, assignmentController.getAssigneesIndex().size());
         assertEquals(1, assignmentController.getUnassigneesIndex().size());
         assertEquals("Member with index 1 (Tom) has already been assigned this task!",
-            assignmentController.getMessages().get(0));
+            assignmentController.getMessageForView().get(0));
         assertEquals(1,
             project.getTask(1).getAssignedMembers().getNumberOfAssignees());
         assertEquals("Tom",
@@ -109,8 +109,8 @@ public class AssignmentControllerTest {
         assertEquals(0, assignmentController.getAssigneesIndex().size());
         assertEquals(0, assignmentController.getUnassigneesIndex().size());
         assertEquals("The task you wish to assign (task index 200 ) does not exist!",
-            assignmentController.getMessages().get(0));
+            assignmentController.getMessageForView().get(0));
         assertEquals("Please check the index number of the task and try again.",
-            assignmentController.getMessages().get(1));
+            assignmentController.getMessageForView().get(1));
     }
 }

@@ -24,11 +24,11 @@ public class Task {
      * Class representing a task in a project.
      * @param taskName The name of the task.
      * @param taskPriority The priority value of the task.
-     * @param dueDate The date that the task is due.
+     * @param dueDate The date that the task is due. [Optional]
      * @param taskCredit The amount of credit a person would receive for completing the task.
      *                   A more difficult task would receive more credit.
      * @param taskState taskState refers to whether the task is in OPEN, TO-DO, DOING, DONE.
-     * @param taskRequirements ArrayList of Strings containing specific requirements of a task.
+     * @param taskRequirements ArrayList of Strings containing specific requirements of a task. [Optional]
      */
     public Task(String taskName, int taskPriority, Date dueDate, int taskCredit, TaskState taskState,
                 ArrayList<String> taskRequirements) {
@@ -78,16 +78,16 @@ public class Task {
         return this.taskCredit;
     }
 
-    public void assignMember(Member member) {
-        this.listOfMembersAssignedToTask.addMember(member);
-    }
-
     public ListOfMembersAssignedToTask getAssignedMembers() {
         return listOfMembersAssignedToTask;
     }
 
     public HashSet<Integer> getAssignedIndexes() {
         return this.listOfMembersAssignedToTask.getAssignedMembersIndexNumbers();
+    }
+
+    public void assignMember(Member member) {
+        this.listOfMembersAssignedToTask.addMember(member);
     }
 
     public void removeMember(Member memberToRemove) {

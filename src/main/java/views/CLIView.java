@@ -159,37 +159,6 @@ public class CLIView {
     }
 
     /**
-     * Assigns or unassigns a particular task to members in a project.
-     * @param assign ArrayList containing index number of members to be assigned task.
-     * @param unassign ArrayList containing index number of members to be unassigned task.
-     * @param task Task to assign or unassign to members.
-     * @param projectToManage The project in which the aforementioned task belongs to.
-     */
-    public void assignOrUnassignTask(ArrayList<Integer> assign, ArrayList<Integer> unassign,
-        Task task, IProject projectToManage) {
-        ArrayList<String> toPrint = new ArrayList<>();
-        if (assign.size() > 0) {
-            toPrint.add("The task: " + task.getTaskName() + " has been assigned to:");
-            for (Integer i : assign) {
-                Member toAssign = projectToManage.getMembers().getMember(i);
-                task.assignMember(toAssign);
-                toPrint.add(toAssign.getName());
-            }
-        }
-        if (unassign.size() > 0) {
-            toPrint.add("The task: " + task.getTaskName() + " has been unassigned from:");
-            for (Integer i : unassign) {
-                //bug here: removing by index.
-                Member memberToRemove = projectToManage.getMembers().getMember(i);
-                task.removeMember(memberToRemove);
-                toPrint.add(projectToManage.getMembers().getMember(i).getName());
-                //recalculate credits for other members assigned to task if necessary
-            }
-        }
-        consolePrint(toPrint.toArray(new String[0]));
-    }
-
-    /**
      * Shows specific requirements of a task.
      * @param projectToManage The project in which the aforementioned task belongs to.
      * @param taskIndex Index of task to be viewed.

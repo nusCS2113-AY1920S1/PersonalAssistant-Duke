@@ -3,22 +3,23 @@ package controllers;
 import java.util.ArrayList;
 import java.util.HashSet;
 import models.data.IProject;
+import models.member.Member;
 import models.task.Task;
 import views.CLIView;
 
 public class AssignmentController {
-    private ArrayList<Integer> assign;
-    private ArrayList<Integer> unassign;
-    private ArrayList<String> messages;
+    private ArrayList<Integer> indexOfMembersToAssign;
+    private ArrayList<Integer> indexOfMembersToRemove;
+    private ArrayList<String> messageForView;
 
     /**
      * Class that assists with parsing of input for assigning or unassigning tasks, and
      * delivering of messages to the main UI to inform user about task assignments.
      */
     public AssignmentController() {
-        this.assign = new ArrayList<>();
-        this.unassign = new ArrayList<>();
-        this.messages = new ArrayList<>();
+        this.indexOfMembersToAssign = new ArrayList<>();
+        this.indexOfMembersToRemove = new ArrayList<>();
+        this.messageForView = new ArrayList<>();
     }
 
     /**
@@ -32,54 +33,67 @@ public class AssignmentController {
     public void manageAssignment(IProject projectToManage, String[] details,
         CLIView consoleView) {
         int taskIndex = Integer.parseInt(details[0].substring(2).trim());
-        Task task;
+
         if (taskIndex > projectToManage.getNumOfTasks() || taskIndex <= 0) {
-            this.messages.add("The task you wish to assign (task index "
+            this.messageForView.add("The task you wish to assign (task index "
                 + taskIndex + " ) does not exist!");
-            this.messages.add("Please check the index number of the task and try again.");
-            consoleView.consolePrint(this.messages.toArray(new String[0]));
+            this.messageForView.add("Please check the index number of the task and try again.");
+            consoleView.consolePrint(this.messageForView.toArray(new String[0]));
         } else {
-            task = projectToManage.getTask(taskIndex);
-            HashSet<Integer> assignedIndexes = task.getAssignedIndexes(); //existing assignments
-            boolean add = false;
-            boolean remove = false;
+            Task selectedTask = projectToManage.getTask(taskIndex);
+            HashSet<Integer> assignedIndexes = selectedTask.getAssignedIndexes(); //existing assignments
+            boolean isAssigningMembers = false;
+            boolean isRemovingMembers = false;
             for (String s : details) {
                 if ("to/".equals(s)) {
-                    add = true;
-                    remove = false;
+                    isAssigningMembers = true;
+                    isRemovingMembers = false;
                 } else if ("rm/".equals(s)) {
-                    add = false;
-                    remove = true;
+                    isAssigningMembers = false;
+                    isRemovingMembers = true;
                 } else if (!s.contains("i/")) {
                     int indexNumber = Integer.parseInt(s);
                     if (projectToManage.memberIndexExists(indexNumber)) {
-                        if (add) {
+                        if (isAssigningMembers) {
                             if (assignedIndexes.contains(indexNumber)) {
-                                this.messages.add("Member with index "
+                                this.messageForView.add("Member with index "
                                     + indexNumber
                                     + " (" + projectToManage.getMembers().getMember(indexNumber).getName()
                                     + ") has already been assigned this task!");
                             } else {
-                                assign.add(indexNumber);
+                                indexOfMembersToAssign.add(indexNumber);
                             }
                         }
-                        if (remove) {
+                        if (isRemovingMembers) {
                             if (!assignedIndexes.contains(indexNumber)) {
-                                this.messages.add("Cannot unassign member with index "
+                                this.messageForView.add("Cannot unassign member with index "
                                     + indexNumber
                                     + " (" + projectToManage.getMembers().getMember(indexNumber).getName()
                                     + ") because they are not assigned the task yet!");
                             } else {
-                                unassign.add(indexNumber);
+                                indexOfMembersToRemove.add(indexNumber);
                             }
                         }
                     } else {
-                        messages.add("Member with index number " + indexNumber + " does not exist!");
+                        messageForView.add("Member with index number " + indexNumber + " does not exist!");
                     }
                 }
             }
-            consoleView.consolePrint(this.messages.toArray(new String[0]));
-            consoleView.assignOrUnassignTask(assign, unassign, task, projectToManage);
+            consoleView.consolePrint(this.messageForView.toArray(new String[0]));
+            ArrayList <String> forViewToPrint = new ArrayList<>();
+            forViewToPrint.add("The task: " + selectedTask.getTaskName() + " has been assigned to:");
+            for (Integer i : indexOfMembersToAssign) {
+                Member memberToAssign = projectToManage.getMembers().getMember(i);
+                selectedTask.assignMember(memberToAssign);
+                forViewToPrint.add(memberToAssign.getName());
+            }
+            forViewToPrint.add("The task: " + selectedTask.getTaskName() + " has been unassigned from:");
+            for (Integer i : indexOfMembersToRemove) {
+                Member memberToRemove = projectToManage.getMembers().getMember(i);
+                selectedTask.removeMember(memberToRemove);
+                forViewToPrint.add(memberToRemove.getName());
+            }
+            consoleView.consolePrint(forViewToPrint.toArray(new String[0]));
         }
     }
 
@@ -88,14 +102,14 @@ public class AssignmentController {
     }
 
     public ArrayList<Integer> getAssigneesIndex() {
-        return this.assign;
+        return this.indexOfMembersToAssign;
     }
 
     public ArrayList<Integer> getUnassigneesIndex() {
-        return this.unassign;
+        return this.indexOfMembersToRemove;
     }
 
-    public ArrayList<String> getMessages() {
-        return this.messages;
+    public ArrayList<String> getMessageForView() {
+        return this.messageForView;
     }
 }

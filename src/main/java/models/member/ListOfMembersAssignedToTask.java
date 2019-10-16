@@ -15,17 +15,12 @@ public class ListOfMembersAssignedToTask implements IMemberList {
         this.memberList.add(newMember);
     }
 
-    @Override
-    public void removeMember(int memberIndex) {
-
-    }
-
     //I rewrote this method because there was a bug in this particular case.
     //Imagine I assigned task to members 1 and 3, and then I want to unassign 3.
     //Using the index number 3 to unassign will result in IndexOutOfBounds.
     //So we have to remove by index of the object itself instead.
     public void removeMember(Member memberToRemove) {
-        this.memberList.remove(this.memberList.indexOf(memberToRemove));
+        this.memberList.remove(memberToRemove);
     }
 
     @Override
