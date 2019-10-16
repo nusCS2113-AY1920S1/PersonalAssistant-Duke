@@ -101,6 +101,7 @@ public class Parser {
      * @param ui Ui that interacts with the user.
      */
     private static void processFind(String input, TaskList tasklist, Ui ui) {
+
         try {
             TaskList findlist = new TaskList();
             String[] splitspace = input.split(" ", 2);
