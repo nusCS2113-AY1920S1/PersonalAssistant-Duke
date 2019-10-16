@@ -1,5 +1,6 @@
 package commands;
 
+import Contexts.SearchResultContext;
 import EPstorage.Blacklist;
 import MovieUI.Controller;
 import MovieUI.MovieHandler;
@@ -24,20 +25,41 @@ public class RemoveCommand extends CommandSuper {
                 break;
             case blacklist:
 
-                String movie = getPayload();
+                removeFromBlackList();
 
-                if (isInteger(movie , 10)) {
-                    int movieIndex = Integer.parseInt(movie);
-                    movie = Blacklist.getIndex(movieIndex);
-                }
-                if (Blacklist.removeFromBlacklist(movie)) {
-                    ((MovieHandler) getUIController()).setFeedbackText("Successfully Removed from BlackList");
-                } else {
-                    ((MovieHandler) getUIController()).setFeedbackText("Such a movie does not exist in your BlackList. Check your spelling?");
-                }
                 break;
             default:
                 break;
+        }
+    }
+
+    private void removeFromBlackList() {
+
+        String movie = getPayload();
+
+        boolean stat = false;
+        if (getFlagMap().get("-k") != null) {
+            System.out.print("REmoving ing keyword");
+            if (isInteger(movie, 10)) {
+                stat = Blacklist.removeFromBlacklistKeyWord(SearchResultContext.getIndex(Integer.parseInt(movie)).getTitle());
+            } else {
+                stat = Blacklist.removeFromBlacklistKeyWord(movie);
+            }
+        } else {
+            System.out.print("Removingg movie");
+            if (isInteger(movie, 10)) {
+                stat = Blacklist.removeFromBlacklistMovies(SearchResultContext.getIndex(Integer.parseInt(movie)));
+            } else {
+                stat = Blacklist.removeFromBlacklistMovieTitle(movie);
+            }
+
+        }
+
+        if (stat) {
+            ((MovieHandler) getUIController()).setFeedbackText("Successfully Removed from BlackList");
+        } else {
+            ((MovieHandler) getUIController())
+                    .setFeedbackText("Such a movie does not exist in your BlackList. Check your spelling?");
         }
     }
 

@@ -140,12 +140,12 @@ public abstract class CommandSuper {
 
         String f = "";
         boolean found = false;
-        String commandFlagSplit[] = command.split("-[a-z]");
+        String commandFlagSplit[] = command.split("-[a-z,A-Z]");
 
         ArrayList<String> flagOrder = new ArrayList<>();
 
         for (String s :commandArr) {
-            if (s.matches("-[a-z]")) {
+            if (s.matches("-[a-z,A-Z]")) {
                 flagOrder.add(s);
             }
         }
