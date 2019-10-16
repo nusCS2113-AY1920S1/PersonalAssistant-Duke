@@ -1,10 +1,6 @@
 package duke.core;
 
 import duke.command.*;
-import duke.patient.Patient;
-import duke.relation.EventPatientTask;
-import duke.relation.StandardPatientTask;
-import duke.task.*;
 
 /**
  * Represents a Parser that parses user input into a specific
@@ -35,15 +31,10 @@ public class CommandManager {
                         return new AddStandardTaskCommand(formattedInput);
                     }
                     else {
-                        throw new DukeException("Invalid format. ");
+                        throw new DukeException("Add command fails. ");
                     }
             case "assign":
-                try {
                     return new AssignTaskToPatientCommand(parser.parseAssign());
-                } catch (Exception e) {
-                    throw new DukeException("'Assign' command fails. " + e.getMessage());
-                }
-
             case "list":
                 try {
                     String[] tempCommand = command[1].split("\\s+");
@@ -62,19 +53,12 @@ public class CommandManager {
             case "delete":
                 try{
                     secondKeyword = command[1].toLowerCase();
-                    if (secondKeyword.equals("patient")){
-                        try {
-                            return new DeletePatientCommand(command[2]);
-                        }catch(Exception e){
-                            throw new Exception("Please follow the format 'delete patient #<id>'.");
-                        }
+                    if (secondKeyword.equals("patient")) {
+                        String formattedInput = parser.parseDeletePatient();
+                        return new DeletePatientCommand(formattedInput);
                     }
                     else if (secondKeyword.equals("task")){
-                        try {
-                            return new DeleteTaskCommand(command[2]);
-                        }catch(Exception e){
-                            throw new Exception("Please follow the format 'delete task #<id>'.");
-                        }
+                        return new DeleteTaskCommand(parser.parseDeleteTask());
                     }
                     else {
                         throw new Exception("Invalid format. ");

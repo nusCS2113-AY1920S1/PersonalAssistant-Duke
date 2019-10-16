@@ -14,23 +14,24 @@ import java.util.ArrayList;
 
 public class DeleteTaskCommand extends Command{
     private int id;
-    private String command;
+    private String deletedTaskInfo;
 
-    public DeleteTaskCommand(String command) {
-        this.command = command;
+    public DeleteTaskCommand(String deletedTaskInfo) throws DukeException {
+
+        this.deletedTaskInfo = deletedTaskInfo;
+        char firstChar = deletedTaskInfo.charAt(0);
+        if (firstChar == '#') {
+            try {
+                this.id = Integer.parseInt(deletedTaskInfo.substring(1));
+            } catch (Exception e) {
+                throw new DukeException("Please follow format 'delete task #<id>'. ");
+            }
+        }
     }
 
     @Override
     public void execute(PatientTaskList patientTask, TaskManager taskManager, PatientManager patientManager, Ui ui, PatientTaskStorage patientTaskStorage, TaskStorage taskStorage, PatientStorage patientStorage) throws DukeException {
-        char firstChar = command.charAt(0);
-        if (firstChar == '#') {
-            int id;
-            try{
-                id = Integer.parseInt(command.substring(1, command.length()));
-            }catch(Exception e){
-                throw new DukeException("Please follow the format 'delete task #<id>'.");
-            }
-
+        if (id != 0) {
             Task taskToBeDeleted = taskManager.getTask(id);
             boolean toDelete = ui.confirmTaskToBeDeleted(taskToBeDeleted);
             if (toDelete){
@@ -39,8 +40,8 @@ public class DeleteTaskCommand extends Command{
                 taskStorage.save(taskManager.getTaskList());
             }
         } else {
-            ArrayList<Task> tasksWithSameDescription = taskManager.getTaskByDescription(command);
-            ui.tasksFoundByDescription(tasksWithSameDescription, command);
+            ArrayList<Task> tasksWithSameDescription = taskManager.getTaskByDescription(deletedTaskInfo);
+            ui.tasksFoundByDescription(tasksWithSameDescription, deletedTaskInfo);
             if (tasksWithSameDescription.size() >= 1) {
                 int numberChosen = ui.chooseTaskToDelete(tasksWithSameDescription.size());
                 if (numberChosen >= 1){

@@ -15,23 +15,24 @@ import java.util.ArrayList;
 
 public class DeletePatientCommand extends Command {
     private int id;
-    private String command;
+    private String deletedPatientInfo;
 
-    public DeletePatientCommand(String command) {
-        this.command = command;
+    public DeletePatientCommand(String deletedPatientInfo) throws DukeException {
+
+        this.deletedPatientInfo = deletedPatientInfo;
+        char firstChar = deletedPatientInfo.charAt(0);
+        if (firstChar == '#') {
+            try {
+                this.id = Integer.parseInt(deletedPatientInfo.substring(1));
+            } catch (Exception e) {
+                throw new DukeException("Please follow format 'delete patient #<id>'. ");
+            }
+        }
     }
 
     @Override
-    public void execute(PatientTaskList patientTask, TaskManager tasks, PatientManager patientManager, Ui ui, PatientTaskStorage patientTaskStorage, TaskStorage taskStorage, PatientStorage patientStorage) throws DukeException {
-        char firstChar = command.charAt(0);
-        if (firstChar == '#') {
-            int id;
-            try{
-                id = Integer.parseInt(command.substring(1, command.length()));
-            }catch(Exception e){
-                throw new DukeException("Please follow the format 'delete patient #<id>'.");
-            }
-
+    public void execute(PatientTaskList patientTask, TaskManager tasks, PatientManager patientManager, Ui ui, PatientTaskStorage patientTaskStorage, TaskStorage taskStorage, PatientStorage patientStorage) throws DukeException { ;
+        if (id != 0) {
             Patient patientToBeDeleted = patientManager.getPatient(id);
             boolean toDelete = ui.confirmPatientToBeDeleted(patientToBeDeleted);
             if (toDelete){
@@ -40,8 +41,8 @@ public class DeletePatientCommand extends Command {
                 patientStorage.save(patientManager.getPatientList());
             }
         } else {
-            ArrayList<Patient> patientsWithSameName = patientManager.getPatientByName(command);
-            ui.patientsFoundByName(patientsWithSameName, command);
+            ArrayList<Patient> patientsWithSameName = patientManager.getPatientByName(deletedPatientInfo);
+            ui.patientsFoundByName(patientsWithSameName, deletedPatientInfo);
             if (patientsWithSameName.size() >= 1) {
                 int numberChosen = ui.choosePatientToDelete(patientsWithSameName.size());
                 if (numberChosen >= 1){

@@ -189,6 +189,9 @@ public class Ui {
             System.out.println(index
                     + ". "
                     + task.getDescription()
+                    + " (ID: "
+                    + task.getID()
+                    + ")"
                     + "\n");
             index++;
         }

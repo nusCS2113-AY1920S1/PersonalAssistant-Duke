@@ -30,6 +30,7 @@ public class Parser {
         try {
             String[] parsedCommand = userInput.toLowerCase().split("\\s+", 4);
             if (parsedCommand[1].equals("by") && parsedCommand[2].equals("id:")) {
+
                 String[] tempInput = userInput.replace("assign by id: ", "").split("\\s+", 4);
                 if (tempInput[0].equals("E")) {
                     String[] parsedTimes = tempInput[3].split(" to ", 2);
@@ -54,6 +55,20 @@ public class Parser {
         } catch (Exception e) {
             throw new DukeException("Please use the correct format for the 'assign by id' command. ");
         }
+    }
+
+    public String parseDeletePatient() throws DukeException {
+        String formattedInput;
+        String inputToParse = userInput.replaceAll("(?i)delete patient ", "").trim();
+        formattedInput = inputToParse;
+        return formattedInput;
+    }
+
+    public String parseDeleteTask() throws DukeException {
+        String formattedInput;
+        String inputToParse = userInput.replaceAll("(?i)delete task ", "").trim();
+        formattedInput = inputToParse;
+        return formattedInput;
     }
 
     
