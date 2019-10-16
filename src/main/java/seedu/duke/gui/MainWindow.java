@@ -338,7 +338,7 @@ public class MainWindow extends AnchorPane {
         //}
         ArrayList<EmailHBoxCell> list = new ArrayList<>();
         for (int i = 0; i < Duke.getEmailList().size(); i++) {
-            list.add(new EmailHBoxCell(Duke.getEmailList().get(i).getSubject(), i));
+            list.add(new EmailHBoxCell(Duke.getEmailList().get(i).toGuiString(), i));
         }
         ObservableList<EmailHBoxCell> observableList = FXCollections.observableList(list);
         emailsListView.setItems(observableList);

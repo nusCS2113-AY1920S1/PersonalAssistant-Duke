@@ -96,7 +96,14 @@ public class EmailStorage {
         for (Email serverEmail : serverEmailList) {
             boolean exist = false;
             for (Email localEmail : Duke.getEmailList()) {
-                if (localEmail.getSubject().equals(serverEmail.getSubject())) {
+                // Check existence of serverEmail in localEmail by comparing the email subject and
+                // ReceivedDateTime.
+                // If not checked by ReceivedDateTime, emails with same subject is filtered out from being
+                // added to emailList.
+                boolean isEqualSubject = localEmail.getSubject().equals(serverEmail.getSubject());
+                boolean isEqualDateTime =
+                        localEmail.getReceivedDateTime().equals(serverEmail.getReceivedDateTime());
+                if (isEqualSubject && isEqualDateTime) {
                     exist = true;
                     break;
                 }
@@ -126,8 +133,21 @@ public class EmailStorage {
             indexFile.createNewFile();
             FileOutputStream indexOut = new FileOutputStream(indexFile, false);
             String content = "";
+            String separator = " |";
             for (Email email : emailList) {
-                content += email.getFilename() + "\n";
+                content += email.getFilename() + separator;
+                ArrayList<String> tags = email.getTags();
+
+                // if this email does not have tags, add new line and continue with next email.
+                if (tags == null || tags.size() == 0) {
+                    content += "\n";
+                    continue;
+                }
+
+                for (String tag : tags) {
+                    content += " #" + tag;
+                }
+                content += separator + "\n";
             }
             indexOut.write(content.getBytes());
             indexOut.close();
@@ -232,7 +252,8 @@ public class EmailStorage {
                 if (input.length() <= 2) {
                     throw new TaskStorage.StorageException("Invalid Save File!");
                 }
-                String filename = input.split("\\|")[0].strip();
+                String[] splitString = input.split("\\|");
+                String filename = splitString[0].strip();
 
                 String fileDir = getFolderDir() + filename;
                 File emailFile = new File(fileDir);
@@ -242,7 +263,22 @@ public class EmailStorage {
                 while (emailScanner.hasNextLine()) {
                     emailContent += emailScanner.nextLine();
                 }
-                emailList.add(EmailFormatParser.parseRawJson(emailContent));
+                Email email = EmailFormatParser.parseRawJson(emailContent);
+
+                // If this email entry has no tags information, add this email to emailList and continue
+                // with next email iteration.
+                if (splitString.length == 1) {
+                    emailList.add(email);
+                    continue;
+                }
+
+                String[] tags = splitString[1].strip().split("#");
+                for (String tag : tags) {
+                    if (tag.strip().equals("")) continue;
+                    System.out.println(tag);
+                    email.addTag(tag.strip());
+                }
+                emailList.add(email);
             }
             Duke.getUI().showMessage("Saved email file successfully loaded...");
             indexIn.close();
