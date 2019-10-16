@@ -163,7 +163,7 @@ public class CLIView {
         for (Task task: projectToManage.getTasks().getTaskList()) {
             ArrayList<String> allAssignedTasks = new ArrayList<>();
             allAssignedTasks.add(task.getTaskName() + " is assigned to: ");
-            allAssignedTasks.addAll(task.getAssignedTasks().getAllMemberDetails());
+            allAssignedTasks.addAll(task.getAssignedMembers().getAllMemberDetails());
             consolePrint(allAssignedTasks.toArray(new String[0]));
         }
     }
@@ -177,25 +177,26 @@ public class CLIView {
      */
     public void assignOrUnassignTask(ArrayList<Integer> assign, ArrayList<Integer> unassign,
         Task task, IProject projectToManage) {
+        ArrayList<String> toPrint = new ArrayList<>();
         if (assign.size() > 0) {
+            toPrint.add("The task: " + task.getTaskName() + " has been assigned to:");
             for (Integer i : assign) {
                 Member toAssign = projectToManage.getMembers().getMember(i);
                 task.assignMember(toAssign);
-                //For now only tasks will have list of members assigned.
-                //Will refactor and implement a way such that when a task is assigned,
-                //both the tasklist (for the member) and the memberlist (for the task)
-                // will be updated.
-                consolePrint("Assigned task to: " + toAssign.getName());
+                toPrint.add(toAssign.getName());
             }
         }
         if (unassign.size() > 0) {
+            toPrint.add("The task: " + task.getTaskName() + " has been unassigned from:");
             for (Integer i : unassign) {
-                task.removeMember(i);
-                consolePrint("Unassigned task to: "
-                    + projectToManage.getMembers().getMember(i).getName());
+                //bug here: removing by index.
+                Member memberToRemove = projectToManage.getMembers().getMember(i);
+                task.removeMember(memberToRemove);
+                toPrint.add(projectToManage.getMembers().getMember(i).getName());
                 //recalculate credits for other members assigned to task if necessary
             }
         }
+        consolePrint(toPrint.toArray(new String[0]));
     }
 
     /**

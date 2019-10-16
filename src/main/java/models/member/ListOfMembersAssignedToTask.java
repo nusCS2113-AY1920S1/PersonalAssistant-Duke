@@ -3,10 +3,10 @@ package models.member;
 import java.util.ArrayList;
 import java.util.HashSet;
 
-public class ListOfMemebersAssignedToTask implements IMemberList {
+public class ListOfMembersAssignedToTask implements IMemberList {
     private ArrayList<Member> memberList;
 
-    public ListOfMemebersAssignedToTask() {
+    public ListOfMembersAssignedToTask() {
         this.memberList = new ArrayList<>();
     }
 
@@ -17,7 +17,15 @@ public class ListOfMemebersAssignedToTask implements IMemberList {
 
     @Override
     public void removeMember(int memberIndex) {
-        this.memberList.remove(this.memberList.get(memberIndex));
+
+    }
+
+    //I rewrote this method because there was a bug in this particular case.
+    //Imagine I assigned task to members 1 and 3, and then I want to unassign 3.
+    //Using the index number 3 to unassign will result in IndexOutOfBounds.
+    //So we have to remove by index of the object itself instead.
+    public void removeMember(Member memberToRemove) {
+        this.memberList.remove(this.memberList.indexOf(memberToRemove));
     }
 
     @Override
@@ -45,5 +53,9 @@ public class ListOfMemebersAssignedToTask implements IMemberList {
             assignedMemberIndexes.add(member.getIndexNumber());
         }
         return assignedMemberIndexes;
+    }
+
+    public int getNumberOfAssignees() {
+        return memberList.size();
     }
 }

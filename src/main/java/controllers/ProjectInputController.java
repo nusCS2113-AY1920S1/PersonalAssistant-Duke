@@ -86,7 +86,7 @@ public class ProjectInputController implements IController {
                         consoleView.consolePrint("Please enter your task format correctly");
                     }
                 } else if (projectCommand.length() >= 10 && ("view tasks").equals(projectCommand.substring(0,10))) {
-                    if ("view tasks".equals(projectCommand)) {
+                    if (("view tasks").equals(projectCommand)) {
                         consoleView.viewAllTasks(projectToManage);
                     } else if (projectCommand.length() >= 11) {
                         String sortCriteria = projectCommand.substring(11);
@@ -136,8 +136,9 @@ public class ProjectInputController implements IController {
                         consoleView.consolePrint("The task index entered is invalid.");
                     }
                 } else if (projectCommand.length() >= 12 && ("assign task ").equals(projectCommand.substring(0,12))) {
-                    AssignmentControllerUtil.manageAssignment(projectToManage,
-                        projectCommand.substring(12).split(" "), consoleView);
+                    AssignmentControllerUtil assignmentControllerUtil = new AssignmentControllerUtil();
+                    assignmentControllerUtil.manageAssignment(projectToManage,
+                    projectCommand.substring(12).split(" "), consoleView);
                 } else if ("bye".equals(projectCommand)) {
                     consoleView.end();
                 } else {
