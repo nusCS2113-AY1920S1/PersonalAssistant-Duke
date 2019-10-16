@@ -79,12 +79,10 @@ public class CLIView {
     /**
      * Adds a member to the project.
      * @param projectToManage The project specified by the user.
-     * @param newMember A new member with details specified by the user.
      */
-    public void addMember(IProject projectToManage, Member newMember) {
-        projectToManage.addMember(newMember);
+    public void addMember(IProject projectToManage, String memberDetails) {
         consolePrint("Added new member to: " + projectToManage.getDescription(), ""
-            + "Member details: " + newMember.getDetails());
+            + "Member details: " + memberDetails);
     }
 
     /**

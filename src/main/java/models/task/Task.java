@@ -1,5 +1,6 @@
 package models.task;
 
+import models.member.ListOfMemebersAssignedToTask;
 import models.member.Member;
 
 import java.text.ParseException;
@@ -7,9 +8,6 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
-
-import models.member.ListOfMemebersAssignedToTask;
-import models.member.Member;
 
 public class Task {
     private String taskName;
