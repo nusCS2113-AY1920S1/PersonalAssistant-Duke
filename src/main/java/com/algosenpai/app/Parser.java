@@ -28,7 +28,7 @@ public class Parser {
      */
 
     public static Command parse(String userInput) throws DukeExceptions {
-        String[] outputs = userInput.split(" ");
+        String[] outputs = userInput.trim().split(" ");
         String firstWord = outputs[0];
         int num = Integer.parseInt(outputs[1]);
 
