@@ -1,27 +1,20 @@
 package UserCode.Conditions;
 
+import Farmio.Farmio;
+import FarmioExceptions.FarmioException;
 import Places.ChickenFarm;
 import Places.CowFarm;
 import Places.Market;
 import Places.WheatFarm;
 
 public class ConditionChecker {
-    WheatFarm wheatFarm;
-    ChickenFarm chickenFarm;
-    CowFarm cowFarm;
-    Market market;
 
-
-    public ConditionChecker(WheatFarm wheatFarm, ChickenFarm chickenFarm, CowFarm cowFarm, Market market) {
-        this.wheatFarm = wheatFarm;
-        this.chickenFarm = chickenFarm;
-        this.cowFarm = cowFarm;
-        this.market = market;
+    public ConditionChecker() {
     }
 
-    public boolean check(BooleanConditionType condition) {
+    public static boolean check(BooleanConditionType condition, Farmio farmio) {
         if (condition == BooleanConditionType.hasSeeds) {
-            return wheatFarm.hasSeeds();
+            return farmio.getFarmer().getWheatFarm().hasSeeds();
         }
         if (condition == BooleanConditionType.TRUE) {
             return true;
@@ -29,22 +22,25 @@ public class ConditionChecker {
         return false;
     }
 
-    public boolean check(Comparator comparator, int val) {
-        boolean valid = false;
+    public static boolean check(ValueConditionType valueConditionType, Comparator comparator, int val, Farmio farmio) throws FarmioException {
+        int assetValue = 0;
+        switch (valueConditionType) {
+            case money:
+                assetValue = farmio.getFarmer().getMoney();
+                break;
+        }
+        System.out.println("comparing " + assetValue + " against " + val + " with comparator " + comparator.name());
         switch (comparator) {
             case lessThan:
-                valid = market.getMoney() < val;
-                break;
+                return assetValue < val;
             case lessThanOrEquals:
-                valid = market.getMoney() <= val;
-                break;
+                return assetValue <= val;
             case greaterThan:
-                valid = market.getMoney() > val;
-                break;
+                return assetValue > val;
             case greaterThanOrEquals:
-                valid = market.getMoney() >= val;
+                return assetValue >= val;
         }
-        return valid;
+        throw new FarmioException("Error validating condition!");
     }
 
 }

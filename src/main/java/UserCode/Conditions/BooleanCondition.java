@@ -1,16 +1,16 @@
 package UserCode.Conditions;
 
+import Farmio.Farmio;
+
 public class BooleanCondition extends Condition {
     BooleanConditionType type;
-    ConditionChecker checker;
 
-    public BooleanCondition (BooleanConditionType conditionType, ConditionChecker conditionChecker) {
+    public BooleanCondition (BooleanConditionType conditionType) {
         this.type = conditionType;
-        this.checker = conditionChecker;
     }
 
     @Override
-    public boolean check() {
-        return checker.check(type);
+    public boolean check(Farmio farmio) {
+        return ConditionChecker.check(type, farmio);
     }
 }

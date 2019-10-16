@@ -1,5 +1,7 @@
 package UserCode.Tasks;
 
+import Farmio.Farmio;
+import Places.Farm;
 import UserCode.Actions.Action;
 import UserCode.Conditions.Condition;
 import FrontEnd.Ui;
@@ -11,9 +13,9 @@ public class DoTask extends Task {
     }
 
     @Override
-    public void execute(Ui ui) {
+    public void execute(Farmio farmio) {
         {
-            action.execute(ui);
+            action.execute(farmio.getUi());
         }
     }
 }

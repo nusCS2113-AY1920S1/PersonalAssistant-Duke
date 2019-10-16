@@ -15,6 +15,8 @@ class Parser {
                 return parseMenuStart(userInput.toLowerCase());
             case TASK_ADD:
                 return parseTaskAdd(userInput);
+            case RUNNING_DAY:
+                return new CommandTasksRun();
             default:
                 //Game should not reach this stage.
                 stage = Farmio.Stage.WELCOME;
@@ -68,13 +70,10 @@ class Parser {
         } catch (Exception e) {
             throw new FarmioException("Invalid command format!");
         }
-        System.out.println(taskType);
-        System.out.println(condition);
-        System.out.println(action);
         if (!taskType.equals("if")  && ! taskType.equals("for") && !taskType.equals("while")) {
             throw new FarmioException("Invalid Task Type!");
         }
-        if (!Condition.validateBooleanCondition(condition) && !Condition.validateMoneyCondition(condition)) {
+        if (!Condition.validateCondition(condition)) {
             throw new FarmioException("Invalid Condition!");
         }
         if (!Action.validateAction(action)) {

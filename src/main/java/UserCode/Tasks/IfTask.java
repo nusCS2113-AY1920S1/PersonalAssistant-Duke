@@ -1,5 +1,7 @@
 package UserCode.Tasks;
 
+import Farmio.Farmio;
+import FarmioExceptions.FarmioException;
 import UserCode.Actions.Action;
 import UserCode.Conditions.Condition;
 import FrontEnd.Ui;
@@ -11,12 +13,12 @@ public class IfTask extends Task {
     }
 
     @Override
-    public void execute(Ui ui) {
+    public void execute(Farmio farmio) throws FarmioException {
         {
-            if (condition.check()) {
-                action.execute(ui);
+            if (condition.check(farmio)) {
+                action.execute(farmio.getUi());
             } else {
-                ui.show("Condition not fulfilled, not executing task!");
+                farmio.getUi().show("Condition not fulfilled, not executing task!");
             }
         }
     }

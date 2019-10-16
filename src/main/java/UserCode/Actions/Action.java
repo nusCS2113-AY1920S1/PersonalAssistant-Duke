@@ -1,43 +1,30 @@
 package UserCode.Actions;
 
 
+import Farmio.Farmio;
+import FarmioExceptions.FarmioException;
 import Places.ChickenFarm;
 import Places.CowFarm;
 import Places.WheatFarm;
 import Places.Market;
 import FrontEnd.Ui;
+import Farmio.Farmer;
 import org.json.simple.JSONObject;
 
 public abstract class Action {
-    WheatFarm wheatFarm;
-    ChickenFarm chickenFarm;
-    CowFarm cowFarm;
-    Market market;
+    Farmer farmer;
 
     public Action() {}
 
+    /**
     public Action(JSONObject obj) {
         this.wheatFarm = new WheatFarm((JSONObject) obj.get("farm_wheat"));
         this.chickenFarm = new ChickenFarm((JSONObject) obj.get("farm_chicken"));
         this.cowFarm = new CowFarm((JSONObject) obj.get("farm_cow"));
-        this.market = new Market((Integer) obj.get("money"));
     }
-
-    public Action(WheatFarm wheatFarm, ChickenFarm chickenFarm, CowFarm cowFarm, Market market) {
-        this.wheatFarm = wheatFarm;
-        this.chickenFarm = chickenFarm;
-        this.cowFarm = cowFarm;
-        this.market = market;
-    }
-
-    public WheatFarm extractWheatFarm() {
-        return this.wheatFarm;
-    }
-    public ChickenFarm extractChickenFarm() {
-        return this.chickenFarm;
-    }
-    public CowFarm extractCowFarm() {
-        return this.cowFarm;
+    **/
+    public Action(Farmer farmer) {
+        this.farmer = farmer;
     }
 
     public abstract void execute(Ui ui);
@@ -51,27 +38,29 @@ public abstract class Action {
         return false;
     }
 
-    public static Action stringToAction(String actionName, WheatFarm wheatFarm, ChickenFarm chickenFarm, CowFarm cowFarm, Market market) {
+    public static Action stringToAction(String actionName, Farmio farmio) throws FarmioException {
         Action action;
-        switch (actionName) {
-            case "buySeeds":
-                action = new BuySeedAction(wheatFarm, chickenFarm, cowFarm, market);
-                break;
-            case "harvestWheat":
-                action = new HarvestWheatAction(wheatFarm, chickenFarm, cowFarm, market);
-                break;
-            case "plantSeeds":
-                action =  new PlantSeedAction(wheatFarm, chickenFarm, cowFarm, market);
-                break;
-            case "sellWheat":
-                action = new SellWheatAction(wheatFarm, chickenFarm, cowFarm, market);
-                break;
-            default:
-                action = new EmptyAction();
+        ActionType actionType = ActionType.buySeeds;
+        for (ActionType a : ActionType.values()) {
+            if ((a.name()).toLowerCase().equals(actionName)) {
+                actionType = a;
+            }
         }
-        return action;
+        switch (actionType) {
+            case buySeeds:
+                return new BuySeedAction(farmio.getFarmer());
+            case harvestWheat:
+                return new HarvestWheatAction(farmio.getFarmer());
+            case plantSeeds:
+                return new PlantSeedAction(farmio.getFarmer());
+            case sellWheat:
+                return new SellWheatAction(farmio.getFarmer());
+            default:
+            throw new FarmioException("Error Creating Action!");
+        }
     }
 
+    /*
     public JSONObject toJSON() {
         JSONObject obj = new JSONObject();
         obj.put("farm_wheat", wheatFarm.toJSON());
@@ -79,5 +68,5 @@ public abstract class Action {
         obj.put("farm_cow", cowFarm.toJSON());
         obj.put("money", market.toJSON());
         return obj;
-    }
+    }*/
 }
