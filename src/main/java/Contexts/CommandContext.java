@@ -1,12 +1,11 @@
 package Contexts;
 
-import Commands.COMMAND_KEYS;
-import Commands.CommandStructure;
+import commands.COMMANDKEYS;
+import commands.CommandStructure;
 import javafx.util.Pair;
 
 import java.util.ArrayList;
 import java.util.Map;
-import java.util.TreeMap;
 
 public class CommandContext {
 
@@ -16,13 +15,17 @@ public class CommandContext {
 
     public static void initialiseContext(){
 
-        for( Map.Entry<COMMAND_KEYS, COMMAND_KEYS[]> e: CommandStructure.cmdStructure.entrySet()){
-            keywordsRoot.add(e.getKey().toString());
-            for(COMMAND_KEYS a: e.getValue()){
-                keywordsSubRoot.add(a.toString());
-            }
+        if(keywordsRoot.size() == 0){
+            for( Map.Entry<COMMANDKEYS, COMMANDKEYS[]> e: CommandStructure.cmdStructure.entrySet()){
+                keywordsRoot.add(e.getKey().toString());
+                for(COMMANDKEYS a: e.getValue()){
+                    keywordsSubRoot.add(a.toString());
+                }
 
+            }
         }
+
+
 
     }
 

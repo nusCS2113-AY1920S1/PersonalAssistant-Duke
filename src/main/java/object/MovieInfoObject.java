@@ -18,6 +18,8 @@ public class MovieInfoObject {
     private String movieFullBackdropPath;
     private double movieRating;
     private long[] movieGenreIDs;
+    private boolean adult;
+
 
     /**
      * Construct info about a movie/tv show
@@ -41,6 +43,7 @@ public class MovieInfoObject {
         moviePosterPath = posterPath;
         movieBackdropPath = backdropPath;
         movieGenreIDs = genreIDs;
+        this.adult = adult;
     }
 
     /**
@@ -114,4 +117,7 @@ public class MovieInfoObject {
         return movieType;
     }
 
+    public boolean isAdult() {
+        return adult;
+    }
 }

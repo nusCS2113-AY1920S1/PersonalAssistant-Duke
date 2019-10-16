@@ -1,0 +1,52 @@
+= Entertainment-Pro : User Guide
+:site-section: UserGuide
+:toc:
+:toc-title:
+:toc-placement: preamble
+:sectnums:
+:imagesDir: images
+:stylesDir: stylesheets
+:xrefstyle: full
+:experimental:
+ifdef::env-github[]
+:tip-caption: :bulb:
+:note-caption: :information_source:
+endif::[]
+:repoURL: https://github.com/AY1920S1-CS2113T-T09-4/main
+
+By: `Team Entertainment-Pro`      Since: `Sep 2019`  
+
+== Introduction
+
+Our Javafx app is primarily targeted at people in Singapore who have huge love and interest for movies and TV shows. Our app hence aims to provide a fast and efficient way to find and/or do movies and TV shows related stuff such as getting ratings and reviews for a particular movie and/or TV shows and etc. 
+
+Most importantly, the app is also intended for people who prefer desktop apps over other types of apps, have the ability to type fast and prefer typing over other means of input. As such, the app will have a GUI (Graphical User Interface) but most of the user interactions will happen using a CLI (Command Line Interface). 
+
+Interested? Jump to the Section 2, “Quick Start” to get started. Enjoy!
+
+== Quick Start
+
+.  Ensure you have Java `11` (revision `11` or later) installed in your Computer.
++
+[NOTE]
+Only Java 11+ is supported. +
+This app may not work with older major Java releases such as Java 10, 9, 8 etc.
++
+. Download the latest entertainmentpro.jar here.
+. Copy the file to the folder you want to use as the home folder for your Address Book.
+. Double-click the file to start the app. The GUI should appear in a few seconds.
+. Type the command in the command box and press Enter to execute it.
+     e.g. typing help and pressing Enter will open the help window.
+. Some example commands you can try:
+* *`search new movie:`* displays all the current movies that are showing on cinemas 
+* *`search upcoming movie:`* displays all the upcoming movies
+* *`display cinema:`* displays the location of all the nearby cinemas
+* *`exit the apprch new movie:`* displays all the current movies that are showing on cinemas 
+. Refer to Section 4, “Features” for details of each command.
+
+== Overview of the interface
+. Command Box: This is where users type commands.
+. Command Feedback: This shows the result of command execution in addition to useful tips and error messages.
+. Preferences List: This shows the list of preferences users have set in the app.
+. Movies List: This displays either the set of movies or information related to a particular movie with respect to users’ command.
+

@@ -50,12 +50,12 @@
                     <Label text="Genre(s):" GridPane.columnIndex="0" GridPane.margin="$x2" GridPane.rowIndex="1" />
                     <Label text="Cast &amp; Crew:" GridPane.columnIndex="0" GridPane.rowIndex="2">
                       <GridPane.margin>
-                        <Insets top="15.0" fx:id="x2" />
+                        <Insets top="15.0" fx:id="x3" />
                       </GridPane.margin>
                     </Label>
                     <Label id="movieSummaryLabel" fx:id="movieCastLabel" alignment="CENTER_LEFT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="Label" textAlignment="JUSTIFY" wrapText="true" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" GridPane.rowIndex="2" GridPane.vgrow="ALWAYS">
                       <GridPane.margin>
-                        <Insets top="15.0" fx:id="x2" />
+                        <Insets top="15.0" fx:id="x4" />
                       </GridPane.margin>
                     </Label>
                   </children>
@@ -74,7 +74,7 @@
                     <Label text="Rating:" />
                     <Label fx:id="movieRatingLabel" text="Label">
                       <HBox.margin>
-                        <Insets left="5.0" fx:id="x3" />
+                        <Insets left="5.0" fx:id="x5" />
                       </HBox.margin>
                     </Label>
                   </children>
@@ -102,29 +102,29 @@
     <VBox fx:id="mMovieTypeVBox" alignment="TOP_CENTER" prefHeight="343.0" prefWidth="145.0" spacing="8.0" BorderPane.alignment="CENTER">
       <children>
         <VBox fx:id="vBox1" minHeight="95.0" prefHeight="160.0" prefWidth="125.0">
-          <Label fx:id="titleLabel" styleClass="titleLabel" text="My Preferences" />
-          <HBox prefHeight="8.0" prefWidth="125.0">
-            <children>
-              <Text fx:id="langText" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Name: " />
-              <Label fx:id="userNameLabel" text="Label" />
-            </children>
-          </HBox>
-          <HBox prefHeight="13.0" prefWidth="125.0">
-            <children>
-              <Text fx:id="ageText" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Age: " />
-              <Label fx:id="userAgeLabel" text="Label" />
-            </children>
-          </HBox>
-          <HBox prefHeight="32.0" prefWidth="125.0">
-            <children>
-              <Label fx:id="genreText" text="Genres:" />
-            </children>
-          </HBox>
-          <HBox prefHeight="100.0" prefWidth="200.0">
-            <children>
-              <Label fx:id="genreListLabel" text="" wrapText="true" />
-            </children>
-          </HBox>
+          <children>
+            <Label fx:id="titleLabel" styleClass="titleLabel" text="My Preferences" />
+            <HBox prefHeight="8.0" prefWidth="125.0">
+              <children>
+                <Text fx:id="langText" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Name: " />
+                <Label fx:id="userNameLabel" text="Label" />
+              </children>
+            </HBox>
+            <HBox prefHeight="13.0" prefWidth="125.0">
+              <children>
+                <Text fx:id="ageText" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Age: " />
+                <Label fx:id="userAgeLabel" text="Label" />
+              </children>
+            </HBox>
+            <HBox prefHeight="100.0" prefWidth="200.0">
+              <children>
+                <Label fx:id="adultText" text="Adult: " />
+                <Label fx:id="adultLabel" text="Label" />
+              </children>
+            </HBox>
+          <Text fx:id="genreText" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Genre: " />
+            <TextFlow fx:id="genreListText" prefHeight="200.0" prefWidth="200.0"/>
+          </children>
         </VBox>
       </children>
       <padding>

@@ -1,7 +1,7 @@
 package Execution;
 
-import Commands.COMMAND_KEYS;
-import Commands.CommandSuper;
+import commands.COMMANDKEYS;
+import commands.CommandSuper;
 
 import java.io.IOException;
 import java.util.Stack;
@@ -10,7 +10,7 @@ public class CommandStack {
     private static Stack<CommandSuper> MyStack = new Stack<>();
 
     public static void pushCmd(CommandSuper cmd) throws IOException {
-        if(cmd.getRoot() == COMMAND_KEYS.yes){
+        if(cmd.getRoot() == COMMANDKEYS.yes){
             executeLastCommand();
         } else {
             MyStack.push(cmd);

@@ -13,6 +13,8 @@ public class SearchResultContext {
 
     static ArrayList<MovieInfoObject> mMovies = new ArrayList<>();
 
+    static ArrayList<MovieInfoObject> mCurrentMovies = new ArrayList<>();
+
     public static void initialiseContext(String[] listOfKeys){
         for(String a:listOfKeys){
 
@@ -50,18 +52,30 @@ public class SearchResultContext {
 
     }
 
+    public static String getIndex(int i){
+        return mCurrentMovies.get(i-1).getTitle();
+    }
+
     public static void clearResults(){
 
     }
 
     public static void addResults(ArrayList<MovieInfoObject> moviesInfo){
+        mCurrentMovies.clear();
+        for(MovieInfoObject mi : moviesInfo){
+            mCurrentMovies.add(mi);
+        }
         if(mMovies.size() == 0){
-            mMovies = moviesInfo;
             for(MovieInfoObject mi : moviesInfo){
+
+                mMovies.add(mi);
                 keywords.add(mi.getTitle());
             }
             return;
         }
+
+
+
 
         HashMap<Long , Integer> movieDup = new HashMap<Long, Integer>();
         for(MovieInfoObject a: mMovies){
