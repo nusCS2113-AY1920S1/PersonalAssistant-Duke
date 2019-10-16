@@ -101,6 +101,9 @@ public class CommandParser extends Parser {
                 System.out.println("\tPlease input buy <index>!");
                 return new InvalidCommand();
             }
+        } else if (userInput[0].equals("/prioritize") || userInput[0].equals("/chronological") ||
+                    userInput[0].equals("/normal")) {
+            return new SortCommand(rawInput);
         } else {
             return new InvalidCommand();
         }

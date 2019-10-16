@@ -3,21 +3,16 @@ package seedu.hustler.task;
 import java.io.IOException;
 import java.text.ParseException;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
+import java.util.*;
+
 import seedu.hustler.data.CommandLog;
-import java.util.Scanner;
 import seedu.hustler.Hustler;
 import seedu.hustler.data.AvatarStorage;
-import seedu.hustler.data.CommandLog;
 import seedu.hustler.data.Schedule;
-
-import java.util.Arrays;
-import java.util.List;
-import java.util.Scanner;
-
 import seedu.hustler.game.achievement.AchievementList;
 import seedu.hustler.game.achievement.AddTask;
 import seedu.hustler.game.achievement.DoneTask;
+import seedu.hustler.task.variables.Difficulty;
 import seedu.hustler.ui.Ui;
 import static seedu.hustler.game.achievement.AddTask.addAchievementLevel;
 import static seedu.hustler.game.achievement.DoneTask.doneAchievementLevel;
@@ -32,7 +27,7 @@ public class TaskList {
     /**
      * ArrayList of Tasks.
      */
-    private ArrayList<Task> list = new  ArrayList<Task>();
+    private ArrayList<Task> list;
 
     /**
      * Ui instance that communicates errors with the user.
@@ -43,7 +38,6 @@ public class TaskList {
      * Schedule instance to plan schedule.
      */
     private Schedule schedule = new Schedule();
-
 
     /**
      * Initializes list.
@@ -273,6 +267,59 @@ public class TaskList {
         }
     }
 
+    public void sortTask(String sortType) {
+        switch (sortType) {
+        case "normal":
+            TreeMap<LocalDateTime,Task> normalList = new TreeMap<>();
+            for (Task task : list) {
+                normalList.put(task.getInputDateTime(),task);
+            }
+            list.clear();
+            for (Map.Entry<LocalDateTime,Task> entry : normalList.entrySet()) {
+                list.add(entry.getValue());
+            }
+            break;
+        case "prioritize":
+            Collections.sort(list, new Comparator<Task>(){
+                public int compare(Task t1, Task t2) {
+                    if (t1.getDifficulty() == t2.getDifficulty()) {
+                        return t1.getInputDateTime().isBefore(t2.getInputDateTime()) ? 1 : 0;
+                    } else if (t1.getDifficulty().equals(new Difficulty("H"))) {
+                        return 0;
+                    } else if (t1.getDifficulty().equals(new Difficulty("M")) &&
+                            t2.getDifficulty().equals(new Difficulty("H"))) {
+                        return 0;
+                    }
+                    return 1;
+                }
+            });
+            break;
+        case "chronological":
+            TreeMap<LocalDateTime,Task> toDoList = new TreeMap<>();
+            TreeMap<LocalDateTime,Task> otherTasksList = new TreeMap<>();
+
+            for (Task task : list) {
+                if (task instanceof ToDo) {
+                    toDoList.put(task.getInputDateTime(),task);
+                } else {
+                    otherTasksList.put(task.getDateTime(),task);
+                }
+            }
+
+            list.clear();
+            for (Map.Entry<LocalDateTime,Task> entry : toDoList.entrySet()) {
+                list.add(entry.getValue());
+            }
+            for (Map.Entry<LocalDateTime,Task> entry : otherTasksList.entrySet()) {
+                list.add(entry.getValue());
+            }
+            break;
+        }
+        System.out.println("\t_____________________________________");
+        System.out.println("\tTask list has been successfully sorted!");
+        displayList();
+    }
+
     /**
      * Displays the list of tasks contained in the object.
      */
@@ -286,7 +333,7 @@ public class TaskList {
         System.out.println("\t_____________________________________");
         System.out.println("\tHere are the tasks in your list:");
         for (int i = 0; i < list.size(); i++) {
-            System.out.println("\t" + (i + 1) + "." + list.get(i).toString());
+            System.out.println("\t" + (i + 1) + ". " + list.get(i).toString());
         }
         System.out.println("\t_____________________________________\n\n");
     }
@@ -301,7 +348,7 @@ public class TaskList {
         for (int i = 0; i < list.size(); i++) {
             if (list.get(i).getDescription().contains(taskDescription)
                 || list.get(i).getTag().equalsIgnoreCase(taskDescription)) {
-                matchingTasks.add(Integer.valueOf(i));
+                matchingTasks.add(i);
             }
         }
         if (matchingTasks.isEmpty()) {

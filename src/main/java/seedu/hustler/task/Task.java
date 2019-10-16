@@ -31,12 +31,18 @@ public abstract class Task {
     protected Tag tag;
 
     /**
+     * Stores the current date and time at the instance when the user inputs the task.
+     */
+    protected LocalDateTime inputDateTime;
+
+    /**
      * Initializes description, sets isDone as false and difficulty as M.
      */
     public Task(String description) {
         this.description = description;
         this.isDone = false;
         this.difficulty = new Difficulty("M");
+        this.inputDateTime = LocalDateTime.now();
     }
 
     /**
@@ -48,6 +54,7 @@ public abstract class Task {
         this.isDone = false;
         this.difficulty = new Difficulty(difficulty);
         this.tag = new Tag(tagName);
+        this.inputDateTime = LocalDateTime.now();
     }
 
     /**
@@ -95,6 +102,10 @@ public abstract class Task {
      */
     public String getTag() {
         return this.tag.getTagName();
+    }
+
+    public LocalDateTime getInputDateTime() {
+        return this.inputDateTime;
     }
 
     /**
