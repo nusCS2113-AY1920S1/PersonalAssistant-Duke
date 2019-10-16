@@ -294,14 +294,14 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 **Use case 1: Store task or academic schedule**
 
-_Main Success Scenario (MSS)_
+**_Main Success Scenario (MSS)_**
 1.  . User inputs event command followed by all the mandatory parameters.
     
 2.  . System reflects the additions to the planner.
 
 	Use case ends.
 	
-_Extensions_:
+**_Extensions_**
 
 -   1a. System detects an error in the entered data.
     
@@ -320,7 +320,7 @@ _Extensions_:
 
 *Prerequisite: User is aware of the TaskID*
 
-_Main Success Scenario (MSS)_
+**MSS**
 1. User inputs command to edit a task along with the TaskID, followed by the parameters which is needed to be changed.
     
 2. System changes the specified parameters for the slot.
@@ -329,7 +329,7 @@ _Main Success Scenario (MSS)_
 
    Use case ends.
 
-   _Extensions_:
+**_Extensions_**
 
 -   1a. TaskID does not exist in COMPal.
     
@@ -348,13 +348,14 @@ _Main Success Scenario (MSS)_
 
 *Prerequisite: User is aware of the TaskID.*
 
+**MSS**
 1.  User enters command to mark task as done
     
 2.  COMPal reflects task status changes
 
      Use case ends.
 
- _Extensions_:
+ **_Extensions_**
 
 -   1a. TaskID does not exist in COMPal.
     
@@ -373,14 +374,14 @@ _Main Success Scenario (MSS)_
 
 **Use Case 4: Change the daily view date**
 
-_Main Success Scenario (MSS)_
+**MSS**
 1.  User enters command to change the date of daily calendar view.
   
 2.  COMPal displays the selected view date on GUI.
 
     Use case ends.
  
-  _Extensions_:
+ **_Extensions_**
 
 -   1a. System detects an error in the entered data.
     
@@ -395,11 +396,12 @@ _Main Success Scenario (MSS)_
     
 
 **Use Case 5: Search for Tasks**
-_Main Success Scenario (MSS)_
+**MSS**
 1.  User enter find command along with the parameter to search for.
     
 2.  COMPal reflects search results
-  _Extensions_:
+
+  **_Extensions_**
 
 -   1a. System does not find matching keyword
     
