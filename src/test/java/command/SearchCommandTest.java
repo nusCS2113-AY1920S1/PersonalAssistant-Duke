@@ -1,6 +1,7 @@
 package command;
 
 import exception.DukeException;
+import list.DegreeList;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -22,7 +23,7 @@ class SearchCommandTest {
             + "E | 0 | Sleeping | 01-01-1970 2200");
     private UI testUi = new UI();
     private Storage testStorage = new Storage("dummy.txt");
-
+    private DegreeList testList = new DegreeList();
     //Variable to catch system.out.println, must be converted to string to be usable
     private ByteArrayOutputStream systemOutput = new ByteArrayOutputStream();
     private PrintStream originalOut = System.out;
@@ -43,7 +44,7 @@ class SearchCommandTest {
     @Test
     void testFind() throws DukeException {
         testCommand = new SearchCommand("find", "Sleep");
-        testCommand.execute(testTaskList, testUi, testStorage);
+        testCommand.execute(testTaskList, testUi, testStorage, testList);
         assertEquals("Here are the matching tasks in your list:\r\n"
                 + "4. [E][N] Sleeping (At: 01-01-1970 2200)\r\n", systemOutput.toString());
     }
@@ -51,7 +52,7 @@ class SearchCommandTest {
     @Test
     void testSchedule() throws DukeException {
         testCommand = new SearchCommand("schedule", "01-01-1970");
-        testCommand.execute(testTaskList, testUi, testStorage);
+        testCommand.execute(testTaskList, testUi, testStorage, testList);
         assertEquals("Here's what the day looks like:\r\n"
                 + "4. [E][N] Sleeping (At: 01-01-1970 2200)\r\n", systemOutput.toString());
     }

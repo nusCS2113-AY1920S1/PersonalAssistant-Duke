@@ -2,6 +2,7 @@ package parser;
 
 import command.Command;
 import exception.DukeException;
+import list.DegreeList;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -23,6 +24,7 @@ class ParserTest {
             + "E | 0 | Sleeping | 01-01-1970 2200");
     private UI testUi = new UI();
     private Storage testStorage = new Storage("dummy.txt");
+    private DegreeList testList = new DegreeList();
 
     //Variable to catch system.out.println, must be converted to string to be usable
     private ByteArrayOutputStream systemOutput = new ByteArrayOutputStream();
@@ -110,21 +112,21 @@ class ParserTest {
     @Test
     void testAddCommand() throws DukeException {
         Command c = Parser.parse("todo JUnit Testing");
-        c.execute(testTaskList, testUi, testStorage);
+        c.execute(testTaskList, testUi, testStorage, testList);
         assertEquals("[T][N] JUnit Testing", testTaskList.get(4).toList());
 
         Command d = Parser.parse("event JUnit Testing /at 01-01-1970 2200");
-        d.execute(testTaskList, testUi, testStorage);
+        d.execute(testTaskList, testUi, testStorage, testList);
         assertEquals("[E][N] JUnit Testing (At: 01-01-1970 2200)", testTaskList.get(5).toList());
     }
 
     @Test
     void testModCommand() throws DukeException {
         Command c = Parser.parse("done 3");
-        c.execute(testTaskList, testUi, testStorage);
+        c.execute(testTaskList, testUi, testStorage, testList);
 
         Command d = Parser.parse("done 1");
-        d.execute(testTaskList, testUi, testStorage);
+        d.execute(testTaskList, testUi, testStorage, testList);
         assertEquals("Nice! I've marked this task as done:\n"
                 + "  [A][Y] Send less help (After: Sending Enough)\r\n"
                 + "Nice! I've marked this task as done:\n"
@@ -134,7 +136,7 @@ class ParserTest {
     @Test
     void testAnotherModCommand() throws DukeException {
         Command c = Parser.parse("delete 3");
-        c.execute(testTaskList, testUi, testStorage);
+        c.execute(testTaskList, testUi, testStorage, testList);
         assertEquals("Noted. I've removed this task:\n"
                 + "  [A][N] Send less help (After: Sending Enough)\r\n"
                 + "Now you have 3 tasks in the list.\r\n", systemOutput.toString());
@@ -143,7 +145,7 @@ class ParserTest {
     @Test
     void testFindCommand() throws DukeException {
         Command c = Parser.parse("find Sleep");
-        c.execute(testTaskList, testUi, testStorage);
+        c.execute(testTaskList, testUi, testStorage, testList);
         assertEquals("Here are the matching tasks in your list:\r\n"
                 + "4. [E][N] Sleeping (At: 01-01-1970 2200)\r\n", systemOutput.toString());
     }
@@ -151,7 +153,7 @@ class ParserTest {
     @Test
     void testScheduleCommand() throws DukeException {
         Command c = Parser.parse("schedule 01-01-1970");
-        c.execute(testTaskList, testUi, testStorage);
+        c.execute(testTaskList, testUi, testStorage, testList);
         assertEquals("Here's what the day looks like:\r\n"
                 + "4. [E][N] Sleeping (At: 01-01-1970 2200)\r\n", systemOutput.toString());
     }

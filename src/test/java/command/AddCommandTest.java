@@ -1,6 +1,7 @@
 package command;
 
 import exception.DukeException;
+import list.DegreeList;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -22,6 +23,7 @@ class AddCommandTest {
             + "W | 0 | Sleeping | Jan 15th and 25th");
     private UI testUi = new UI();
     private Storage testStorage = new Storage("dummy.txt");
+    private DegreeList testList = new DegreeList();
 
     //Variable to catch system.out.println, must be converted to string to be usable
     private ByteArrayOutputStream systemOutput = new ByteArrayOutputStream();
@@ -43,11 +45,11 @@ class AddCommandTest {
     @Test
     void testAddEvent() throws DukeException {
         testCommand = new AddCommand("event", "Sleep /at 01-01-1970 2200");
-        testCommand.execute(testTaskList, testUi, testStorage);
+        testCommand.execute(testTaskList, testUi, testStorage, testList);
         testCommand = new AddCommand("event", "Work /at 01-01-1970 2200");
         ByteArrayOutputStream freshOutput = new ByteArrayOutputStream();
         System.setOut(new PrintStream(freshOutput)); //sets the system output to a different stream
-        testCommand.execute(testTaskList, testUi, testStorage);
+        testCommand.execute(testTaskList, testUi, testStorage, testList);
         assertEquals("Got it. I've added this task:\n"
                 + "  [E][N] Work (At: 01-01-1970 2200)\n"
                 + "Now you have 6 tasks in the list.\r\n"
@@ -56,7 +58,7 @@ class AddCommandTest {
 
     @Test
     void testExecute() throws DukeException {
-        testCommand.execute(testTaskList, testUi, testStorage);
+        testCommand.execute(testTaskList, testUi, testStorage, testList);
         assertEquals("[T][N] Sleep", testTaskList.get(4).toList());
     }
 }
