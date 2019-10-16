@@ -10,8 +10,12 @@ import javafx.util.Pair;
  * Represents a priority list that stores a list of priorities associated with each task.
  */
 public class PriorityList {
+    private static final int ZERO = 0;
+    private static final int ONE = 1;
+    private static final int FIVE = 5;
+
     private ArrayList<Integer> priorityList;
-    private int defultPriority = 5;
+    private int defultPriority = FIVE;
 
     /**
      * Creates an empty priority list using an array list.
@@ -39,7 +43,7 @@ public class PriorityList {
      */
     public PriorityList setPriority(int taskNum, int priority) {
 
-        priorityList.set(taskNum - 1, priority);
+        priorityList.set(taskNum - ONE, priority);
 
         return new PriorityList(priorityList);
     }
@@ -65,7 +69,7 @@ public class PriorityList {
      */
     public PriorityList addMultiDefaultPriority(int numOfTimes) {
 
-        for (int i = 0; i < numOfTimes; i++) {
+        for (int i = ZERO; i < numOfTimes; i++) {
             priorityList.add(defultPriority);
         }
 
@@ -130,17 +134,17 @@ public class PriorityList {
      */
     public static ArrayList<Pair> sortPriority(TaskList taskList, PriorityList priorities) {
         ArrayList<Pair> pairList = new ArrayList<>();
-        for (int i = 0; i < taskList.size(); i++) {
+        for (int i = ZERO; i < taskList.size(); i++) {
             Pair<Integer, Task> pair = new Pair<>(priorities.getPriority(i), taskList.get(i));
             pairList.add(pair);
         }
 
-        for (int i = 1; i < taskList.size(); i++) {
-            for (int j = i; j > 0; j--) {
-                if (((int) pairList.get(j).getKey()) < (int) pairList.get(j - 1).getKey()) {
+        for (int i = ONE; i < taskList.size(); i++) {
+            for (int j = i; j > ZERO; j--) {
+                if (((int) pairList.get(j).getKey()) < (int) pairList.get(j - ONE).getKey()) {
                     Pair<Integer, String> temp = pairList.get(j);
-                    pairList.set(j, pairList.get(j - 1));
-                    pairList.set(j - 1, temp);
+                    pairList.set(j, pairList.get(j - ONE));
+                    pairList.set(j - ONE, temp);
                 } else {
                     break;
                 }
@@ -153,7 +157,7 @@ public class PriorityList {
     @Override
     public String toString() {
         String output = "";
-        for (int i = 0; i < priorityList.size(); i++) {
+        for (int i = ZERO; i < priorityList.size(); i++) {
             output += priorityList.get(i) + " ";
         }
 

@@ -3,7 +3,8 @@ package duke.task;
 import java.util.ArrayList;
 
 public class BudgetList {
-    public static final float INITIAL_BUDGET = 0;
+    private static final int ZERO = 0;
+    public static final float INITIAL_BUDGET = ZERO;
     private ArrayList<Float> budgetList;
 
     /**
@@ -30,9 +31,9 @@ public class BudgetList {
      * @param amount the amount to be added into the budget.
      */
     public void addToBudget(float amount) {
-        float currentBudget = budgetList.get(0);
+        float currentBudget = budgetList.get(ZERO);
         budgetList.add(amount);
-        budgetList.set(0, currentBudget + amount);
+        budgetList.set(ZERO, currentBudget + amount);
     }
 
     /**
@@ -41,7 +42,7 @@ public class BudgetList {
      * @return returns the budget that is stored in budgetList.
      */
     public float getBudget() {
-        return budgetList.get(0);
+        return budgetList.get(ZERO);
     }
 
     /**
@@ -50,7 +51,7 @@ public class BudgetList {
      * @param amount The budget amount that is to be reset to.
      */
     public void resetBudget(float amount) {
-        budgetList.set(0, amount);
+        budgetList.set(ZERO, amount);
     }
 
     /**

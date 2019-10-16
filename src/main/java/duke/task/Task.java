@@ -8,9 +8,11 @@ import java.time.LocalDateTime;
  * Represents a task that stores description and boolean that indicates the task as completed.
  */
 public class Task {
+    private static final int ZERO = 0;
+
     protected String description;
     protected boolean isDone;
-    public int numberOfDays = 0;
+    public int numberOfDays = ZERO;
     public LocalDateTime currentDate;
     public LocalDateTime dueDate;
 

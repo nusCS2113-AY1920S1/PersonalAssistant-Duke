@@ -11,6 +11,15 @@ public class Event extends Task {
     protected Date at;
     protected String[] suf = { "st", "nd", "rd", "th" };
     protected SimpleDateFormat datetimeFormat = new SimpleDateFormat("dd/MM/yyyy HHmm");
+    private static final int ZERO = 0;
+    private static final int ONE = 1;
+    private static final int MINUS_ONE = -1;
+    private static final int TWO = 2;
+    private static final int THREE = 3;
+    private static final int TWENTY_ONE = 21;
+    private static final int TWENTY_TWO = 22;
+    private static final int TWENTY_THREE = 23;
+    private static final int THIRTY_ONE = 31;
 
     /**
      * Creates an event with the specified description and date/time.
@@ -46,21 +55,21 @@ public class Event extends Task {
 
         int day = Integer.parseInt(new SimpleDateFormat("d").format(at));
         int min = Integer.parseInt(new SimpleDateFormat("m").format(at));
-        if (min > 0) {
+        if (min > ZERO) {
             displayDT = datetimeFormat2.format(at);
         } else {
             displayDT = datetimeFormat3.format(at);
         }
-        int sufIndex = -1;
+        int sufIndex = MINUS_ONE;
 
-        if (day == 1 || day == 21 || day == 31) {
-            sufIndex = 0;
-        } else if (day == 2 || day == 22) {
-            sufIndex = 1;
-        } else if (day == 3 || day == 23) {
-            sufIndex = 2;
-        } else if (day > 3 && day < 31) {
-            sufIndex = 3;
+        if (day == ONE || day == TWENTY_ONE || day == THIRTY_ONE) {
+            sufIndex = ZERO;
+        } else if (day == TWO || day == TWENTY_TWO) {
+            sufIndex = ONE;
+        } else if (day == THREE || day == TWENTY_THREE) {
+            sufIndex = TWO;
+        } else if (day > THREE && day < THIRTY_ONE) {
+            sufIndex = THREE;
         }
         String suffixStr = day + suf[sufIndex];
         displayDT = suffixStr + " of " + displayDT;
@@ -80,21 +89,21 @@ public class Event extends Task {
 
         int day = Integer.parseInt(new SimpleDateFormat("d").format(at));
         int min = Integer.parseInt(new SimpleDateFormat("m").format(at));
-        if (min > 0) {
+        if (min > ZERO) {
             displayDT = datetimeFormat2.format(at);
         } else {
             displayDT = datetimeFormat3.format(at);
         }
-        int sufIndex = -1;
+        int sufIndex = MINUS_ONE;
 
-        if (day == 1 || day == 21 || day == 31) {
-            sufIndex = 0;
-        } else if (day == 2 || day == 22) {
-            sufIndex = 1;
-        } else if (day == 3 || day == 23) {
-            sufIndex = 2;
-        } else if (day > 3 && day < 31) {
-            sufIndex = 3;
+        if (day == ONE || day == TWENTY_ONE || day == THIRTY_ONE) {
+            sufIndex = ZERO;
+        } else if (day == TWO || day == TWENTY_TWO) {
+            sufIndex = ONE;
+        } else if (day == THREE || day == TWENTY_THREE) {
+            sufIndex = TWO;
+        } else if (day > THREE && day < THIRTY_ONE) {
+            sufIndex = THREE;
         }
         String suffixStr = day + suf[sufIndex];
         displayDT = suffixStr + " of " + displayDT;
