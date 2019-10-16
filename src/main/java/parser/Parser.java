@@ -117,7 +117,16 @@ public class Parser {
                 return new FrequentlySearchedCommand(order);
             } else if (taskInfo[0].equals("edit")) {
                 // CREATE AN EDIT COMMAND TO DEAL WITH EDIT WORD
-                return null;
+                if (taskInfo.length == 1 || !taskInfo[1].startsWith("w/")) {
+                    throw new WrongEditFormatException();
+                }
+                String[] wordAndMeanings = taskInfo[1].split("m/");
+                if (wordAndMeanings.length != 2) {
+                    throw new WrongEditFormatException();
+                }
+                String wordDescription = wordAndMeanings[0].substring(2).trim();
+                String meaning = wordAndMeanings[1];
+                return new EditCommand(wordDescription,meaning);
             } else if (taskInfo[0].equals("tag")) {
                 if (taskInfo.length == 1 || !taskInfo[1].startsWith("w/")) {
                     throw new WrongAddTagFormatException();

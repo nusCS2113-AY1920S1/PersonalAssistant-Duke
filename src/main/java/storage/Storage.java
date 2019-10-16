@@ -149,4 +149,34 @@ public class Storage {
         }
     }
 
+    public void editFromFile(String oldString,String newString) {
+        File file = new File(FILE_PATH);
+        FileReader fr = null;
+        BufferedReader br = null;
+        try {
+            fr = new FileReader(file);
+            br = new BufferedReader(fr);
+            String oldContent = "";
+            String line = br.readLine();
+
+            while ((line != null) && (!line.equals("\n"))){
+                oldContent = oldContent + line + System.lineSeparator();
+                line = br.readLine();
+            }
+            oldContent = oldContent.substring(0, oldContent.length() - 1);
+            String newContent = oldContent.replace(oldString, newString).trim();
+            Storage writer = new Storage();
+            writer.writeFile(newContent,false);
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                br.close();
+                fr.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
 }
