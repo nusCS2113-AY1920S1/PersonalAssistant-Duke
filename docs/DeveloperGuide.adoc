@@ -57,11 +57,11 @@ Use case ends
 
 === Making notes    
 . User chooses to enter a command to start a note-taking/viewing session
-. System shows the user a list of categories (directories) of notes that have been made previously and prompts the user to enter one, or create a new file.
+. System shows the user a list of categories (directories) of notes that have been made previously and prompts the user to enter one or create a new file.
 . User makes a choice to enter a category directory or create a new one.
 . System shows the user a list of files containing notes, each file is named with the corresponding date, and a description of the file decided by the user. System also prompts the user if he wants to create a new file or enter an existing one.
-. User selects a file to enter, or chooses to create a new file.
-. System opens the file for viewing and editing, and the user can choose to make changes to the notes using commands: delete, add and move to delete, add or move notes around the file accordingly.
+. User selects a file to enter or chooses to create a new file.
+. System opens the file for viewing and editing. The user can choose to make changes to the notes using commands: delete, add and move to delete, add or move notes around the file accordingly.
 
 Extension 3.1: System detects there is no category file that user commands to edit on
 3.1.1. System generates warnings and ask the user whether or not he wishes to add a new category and take notes in
@@ -69,20 +69,20 @@ Extension 3.1: System detects there is no category file that user commands to ed
 3.1.3. System adds and opens a new category file with the name given by user
 
 === Viewing upcoming events
-. User enters command “list” followed by an integer N representing the number of weeks in advance he would like to view his schedule.
+. User enters command `list` followed by an integer N representing the number of weeks in advance he would like to view his schedule.
 . System responds by showing the user a list of events in the next N weeks.
 . User may enter a command to remove specific tasks from the list, to have a cleaner viewing experience.
 
 Extension 3.1: System can remove types of events from list at user’s command
-3.1.1. User can enter commands “remove examinations” for example, to remove the examinations from the display.
+3.1.1. User can enter commands `remove examinations` for example, to remove the examinations from the display.
 3.1.2. System responds accordingly, removing the type of event from the list and altering the list of events displayed.
 
 Extension: 3.2. System can allow the user to only view a specific type of event.
-3.2.1. User can also enter commands “show examinations” for example, to only show examinations in the list of events.
+3.2.1. User can also enter commands `show examinations` for example, to only show examinations in the list of events.
 3.2.2. System will respond accordingly, displaying only type of event that the user specified.
 
 === Entering the examination details
-. User enters command “examination”, together with a description of the examination, along with the date, time, venue and any other notes in a given format.
+. User enters command `examination`, together with a description of the examination, along with the date, time, venue and any other notes in a given format.
 . The system adds the examination to the list of events.
 
 Extension 1.1: System detects a clash with the examination date entered and another event.
@@ -127,5 +127,77 @@ There are three main components in the overall architecture of the application.
 
 `UserElements` Package: contains classes pertaining to I/O and the interaction between user and system.
 
+== Instructions for Manual Testing
+
+=== Launch and Shutdown
+. Initial Launch
+.. Open Duke.java in src.
+.. Run the file +
+   Expected: The Welcome Message is printed in stdout and the system requests for an input.
+   
+. Shutdown
+.. Key in `bye` as input. +
+   Expected: The Goodbye Message ('Bye. Hope to see you again soon!') is printed in stdout and the process exits.
+
+=== Obtain the list of items currently in stored in the system
+. Key in `list` as input +
+  Expected: A list of items is printed in stdout.
 
 
+=== Add a Task
+. Add Todo +
+   Key in `Todo tdtask` +
+   Expected: Output should be +
+   Got it. I've added this task: +
+   [T][x] tdtask +
+   Now you have <previous number of items + 1> items in your list. 
+
+. Add Exam +
+   Key in `exam Music Rudiments /08-08-2018 0800 0900` +
+   Expected: Output should be +
+   Got it. I've added this task: +
+   [E][x] Music Rudiments (on 08-08-2018, 0800 - 0900) +
+   Now you have <previous number of items + 1> tasks in the list.
+   
+. Add Practice session +
+   Key in `practice morningprac /07-08-2018 0800 0900` +
+   Expected: Added a recurring practice session that lasts for one semester.
+   
+. Add Concert +
+   Key in `concert Noon Concert /06-06-2016 1200 1400` +
+   Expected: Output should be +
+   Got it. I've added this task: +
+   [C][x] Noon Concert (on 06-06-2016, 1200 - 1400) +
+   Now you have <previous number of items + 1> tasks in the list.
+
+. Add Recital +
+   Key in `recital Evening Recital /07-07-2017 1900 2100` +
+   Expected: Output should be +
+   Got it. I've added this task: +
+   [R][x] Evening Recital (on 07-07-2017, 1900 - 2100) +
+   Now you have <previous number of items + 1> tasks in the list.
+
+. Add Lesson +
+   Key in `lesson Class /09-09-2019 0900 0100` +
+   Expected: Output should be +
+   Got it. I’ve added this task: +
+   [L][x] Class (on 09-09-2019, 0900 - 1000) +
+   Now you have <previous number of items + 1> tasks in the list.
+
+=== Set a Task as done
+Key in `done 1` +
+Expected: Prints a message that the first task on the list has been marked as done.
+
+=== Find tasks that contains a certain keyword or key phrase
+Key in `find <key>`, where `<key>` is the keyword or key phrase +
+Expected: Prints a list of tasks that contains the `<key>`.
+
+=== Get reminder
+Key in `reminder` +
+Expected: Prints a list of tasks to be completed in the next three days.
+
+=== View all tasks in a certain day
+Key in view `<date>`, where `<date>` has the format dd/MM/yyyy. +
+Expected: Prints a list of tasks that occurs on the given `<date>`.
+
+  

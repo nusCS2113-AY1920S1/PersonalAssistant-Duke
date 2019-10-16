@@ -4,12 +4,13 @@ import Events.EventTypes.Event;
 import Events.EventTypes.EventSubclasses.AssessmentSubclasses.Exam;
 import Events.EventTypes.EventSubclasses.AssessmentSubclasses.Recital;
 import Events.EventTypes.EventSubclasses.Concert;
+import Events.EventTypes.EventSubclasses.RecurringEventSubclasses.Lesson;
 import Events.EventTypes.EventSubclasses.RecurringEventSubclasses.Practice;
 import Events.EventTypes.EventSubclasses.ToDo;
-import Events.Formatting.DateObj;
-import Events.Storage.Storage;
+import Events.Formatting.EventDate;
+import Events.Storage.ClashException;
 import Events.Storage.EventList;
-import Events.EventTypes.EventSubclasses.RecurringEventSubclasses.Lesson;
+import Events.Storage.Storage;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -123,12 +124,17 @@ public class Command {
                 changesMade = false;
                 break;
 
+            case "reschedule":
+                rescheduleEvents(events, ui);
+                break;
+
             default:
                 ui.printInvalidCommand();
                 changesMade = false;
                 break;
         }
         if (changesMade) {
+            events.sortList();
             storage.saveToFile(events, ui);
         }
     }
@@ -152,26 +158,25 @@ public class Command {
     }
 
     public void checkFreeDays(EventList events, UI ui) {
-        SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
         Calendar dayToCheckIfFree = Calendar.getInstance();
-        DateObj dayToCheckIfFreeObject = new DateObj(formatter.format(dayToCheckIfFree.getTime()));
+        SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
+        String currentDay = formatter.format(dayToCheckIfFree.getTime());
+        EventDate dayToCheckIfFreeObject = new EventDate(currentDay);
         Queue<String> daysFree = new LinkedList<String>();
-        int numOfDays = 1;
+        int nextDays = 1;
         while (daysFree.size() <= 3) {
-            boolean flagFree = true;
+            boolean isFree = true;
             for (Event viewEvent : events.getEventArrayList()) {
-                dayToCheckIfFreeObject.formatDate();
-                if (viewEvent.toString().contains(dayToCheckIfFreeObject.getFormattedDateString())) {
-                    flagFree = false;
+                if (viewEvent.getStartDate().getFormattedDateString().equals(dayToCheckIfFreeObject.getFormattedDateString())) {
+                    isFree = false;
                     break;
                 }
             }
-            if (flagFree) {
-                dayToCheckIfFreeObject.formatDate();
+            if (isFree) {
                 daysFree.add(dayToCheckIfFreeObject.getFormattedDateString());
             }
-            dayToCheckIfFreeObject.addDaysAndSetMidnight(numOfDays);
-            numOfDays += 1;
+            dayToCheckIfFreeObject.addDaysAndSetMidnight(nextDays);
+            nextDays++;
         }
         ui.printFreeDays(daysFree);
     }
@@ -183,9 +188,8 @@ public class Command {
             String dateToView = continuation;
             String foundEvent = "";
             int viewIndex = 1;
-            DateObj findDate = new DateObj(dateToView);
+            EventDate findDate = new EventDate(dateToView);
             for (Event viewEvent : events.getEventArrayList()) {
-                findDate.formatDate();
                 if (viewEvent.toString().contains(findDate.getFormattedDateString())) {
                     foundEvent += viewIndex + ". " + viewEvent.toString() + "\n";
                     viewIndex++;
@@ -227,23 +231,23 @@ public class Command {
                                 entryForEvent.getEndDate());
                         break;
                 }
-                boolean succeeded;
 
                 if (entryForEvent.getPeriod() == NO_PERIOD) { //add non-recurring event
-                    succeeded = events.addEvent(newEvent);
+                    try {
+                        events.addEvent(newEvent);
+                        ui.eventAdded(newEvent, events.getNumEvents());
+                    } catch (ClashException e) {
+                        ui.scheduleClash(e.getClashEvent());
+                    }
                 } else { //add recurring event
-                    succeeded = events.addRecurringEvent(newEvent, entryForEvent.getPeriod());
+                    try {
+                        events.addRecurringEvent(newEvent, entryForEvent.getPeriod());
+                        ui.recurringEventAdded(newEvent, events.getNumEvents(), entryForEvent.getPeriod());
+                    } catch (ClashException e) {
+                        ui.scheduleClash(e.getClashEvent());
+                    }
                 }
 
-                if (succeeded) {
-                    if (entryForEvent.getPeriod() == NO_PERIOD) {
-                        ui.eventAdded(newEvent, events.getNumEvents());
-                    } else {
-                        ui.recurringEventAdded(newEvent, events.getNumEvents(), entryForEvent.getPeriod());
-                    }
-                } else {
-                    ui.scheduleClash(newEvent);
-                }
             } catch (StringIndexOutOfBoundsException outOfBoundsE) {
                 ui.eventFormatWrong();
             }
@@ -257,24 +261,9 @@ public class Command {
         }
         EntryForEvent entryForEvent = new EntryForEvent().invoke(); //separate all info into relevant details
         Event newEvent = new ToDo(entryForEvent.getDescription(), entryForEvent.getStartDate());
-        events.addEvent(newEvent);
+        events.addNewTodo(newEvent, ui);
         ui.eventAdded(newEvent, events.getNumEvents());
     }
-//
-//    public void searchEvents(EventList events, UI ui) {
-//        String searchFor = continuation;
-//        String allEventsFound = "";
-//        int index = 1;
-//        for (Event eventFound : events.getEventArrayList()) {
-//            if (eventFound.getDescription().contains(searchFor)) {
-//                allEventsFound += index + ". " + eventFound.toString() + "\n";
-//            }
-//            index++;
-//        }
-//
-//        boolean eventsFound = !allEventsFound.isEmpty();
-//        ui.searchEvents(allEventsFound, eventsFound);
-//    }
 
     public void deleteEvent(EventList events, UI ui) {
         try {
@@ -305,6 +294,42 @@ public class Command {
         }
     }
 
+    public void rescheduleEvents(EventList events, UI ui) {
+        try {
+            String[] rescheduleDetail = continuation.split(" ");
+            int eventIndex = Integer.parseInt(rescheduleDetail[0]) - 1;
+            Event tempEvent = events.getEvent(eventIndex);
+            events.deleteEvent(eventIndex);
+            EventDate newStartDate;
+            EventDate newEndDate;
+
+            if (rescheduleDetail.length > 2) {
+                newStartDate = new EventDate(rescheduleDetail[1] + " " + rescheduleDetail[2]);
+                newEndDate = new EventDate(rescheduleDetail[1] + " " + rescheduleDetail[3]);
+
+            } else {
+                newStartDate = new EventDate(rescheduleDetail[1]);
+                newEndDate = null;
+            }
+
+            tempEvent.rescheduleStartDate(newStartDate);
+            tempEvent.rescheduleEndDate(newEndDate);
+
+            try {
+                events.addEvent(tempEvent);
+                ui.rescheduleEvent(tempEvent);
+            } catch (ClashException clashE) {
+                ui.scheduleClash(clashE.getClashEvent());
+            }
+
+        } catch (IndexOutOfBoundsException outOfBoundsE) {
+            ui.noSuchEvent();
+
+        } catch (NumberFormatException notInteger) {
+            ui.notAnInteger();
+        }
+    }
+
     public void remindEvents(EventList events, UI ui) {
         ui.printReminder(events);
     }
@@ -314,13 +339,13 @@ public class Command {
     }
 
     /**
-     * Contains all info concerning a new entry for a recurring event.
+     * Contains all info concerning a new entry an event.
      */
     private class EntryForEvent {
         private String description;
         private String startDate;
         private String endDate;
-        private int period;
+        private int period; //recurring period. -1(NON_RECURRING) if non-recurring.
 
         public String getDescription() {
             return description;
@@ -354,7 +379,7 @@ public class Command {
             if (splitDate.length == 3) {
                 startDate = splitDate[0] + " " + splitDate[1];
                 endDate = splitDate[0] + " " + splitDate[2];
-            } else if (splitDate.length == 2){
+            } else if (splitDate.length == 2) {
                 startDate = splitDate[0] + " " + splitDate[1];
                 endDate = "";
             } else {

@@ -2,7 +2,7 @@ package UserElements;
 
 import Events.Storage.EventList;
 import Events.EventTypes.Event;
-import Events.Formatting.DateObj;
+import Events.Formatting.EventDate;
 import Events.Formatting.Predicate;
 
 import java.util.Date;
@@ -38,7 +38,7 @@ public class UI {
                 + "| |_| | |_| |   <  __/\n"
                 + "|____/ \\__,_|_|\\_\\___|\n";
         System.out.println("Hello from\n" + logo);
-        System.out.println(lineSeparation + "Hello! I'm Duke\nWhat can i do for you?\n");
+        System.out.println(lineSeparation + "Hello! I'm Duke\nWhat can I do for you?\n");
 
         System.out.println("Commands:");
         System.out.println("1. list: Print a list of events currently stored.");
@@ -62,9 +62,9 @@ public class UI {
 
     public void printReminder(EventList events) {
         String systemDateAndTime = new Date().toString();
-    	DateObj limit = new DateObj(systemDateAndTime);
+    	EventDate limit = new EventDate(systemDateAndTime);
     	limit.addDaysAndSetMidnight(3);
-    	String reminderDeadline = limit.getCurrentJavaDate().toString();
+    	String reminderDeadline = limit.getEventJavaDate().toString();
     	Predicate<Object> pred = new Predicate<>(limit, GREATER_THAN);
     	System.out.print(lineSeparation);
     	System.out.print("The time now is " + systemDateAndTime + ".\n");
@@ -114,14 +114,19 @@ public class UI {
      * @param numEvents  total number of events
      */
     public void eventAdded(Event eventAdded, int numEvents) {
-        eventAdded.getStartDate().formatDate();
-        eventAdded.getEndDate().formatDate();
-        System.out.println(lineSeparation + "Got it. I've added this event:");
-        System.out.println("[" + eventAdded.getDoneSymbol() + "][" + eventAdded.getType() + "] " +
-                eventAdded.getDescription() + " START: " + eventAdded.getStartDate().getFormattedDateString() +
-                " END: " + eventAdded.getEndDate().getFormattedDateString());
-        System.out.println("Now you have " + numEvents + " events in the list.");
-        System.out.print(lineSeparation);
+        try {
+            System.out.println(lineSeparation + "Got it. I've added this event:");
+            System.out.println("[" + eventAdded.getDoneSymbol() + "][" + eventAdded.getType() + "] " +
+                    eventAdded.getDescription() + " START: " + eventAdded.getStartDate().getFormattedDateString() +
+                    " END: " + eventAdded.getEndDate().getFormattedDateString());
+            System.out.println("Now you have " + numEvents + " events in the list.");
+            System.out.print(lineSeparation);
+        } catch (NullPointerException e) {
+            System.out.println("[" + eventAdded.getDoneSymbol() + "][" + eventAdded.getType() + "] " +
+                    eventAdded.getDescription() + " BY: " + eventAdded.getStartDate().getFormattedDateString());
+            System.out.println("Now you have " + numEvents + " events in the list.");
+            System.out.print(lineSeparation);
+        }
     }
 
     /**
@@ -208,6 +213,7 @@ public class UI {
         System.out.print(lineSeparation);
         System.out.println("That event clashes with another in the schedule! " +
                 "Please resolve the conflict and try again!");
+        System.out.println("Clashes with: " + event.toString());
         System.out.print(lineSeparation);
     }
 
@@ -215,8 +221,6 @@ public class UI {
      * prints message when recurring events are added to the list successfully
      */
     public void recurringEventAdded(Event eventAdded, int numEvents, int period) {
-        eventAdded.getStartDate().formatDate();
-        eventAdded.getEndDate().formatDate();
         System.out.println(lineSeparation + "Got it. I've added these recurring events:");
         System.out.println("[" + eventAdded.getDoneSymbol() + "][" + eventAdded.getType() + "] " +
                 eventAdded.getDescription() + " START: " + eventAdded.getStartDate().getFormattedDateString() +
@@ -245,6 +249,17 @@ public class UI {
         for(int i=0; i<=freeDays.size(); i++) {
             System.out.println(freeDays.poll());
         }
+        System.out.print(lineSeparation);
+    }
+
+    /**
+     * prints message when reschedule an event successfully
+     *
+     * @param event event after rescheduled
+     */
+    public void rescheduleEvent(Event event) {
+        System.out.print(lineSeparation);
+        System.out.println("Rescheduled event to " + event.toString() + " successfully!");
         System.out.print(lineSeparation);
     }
 
