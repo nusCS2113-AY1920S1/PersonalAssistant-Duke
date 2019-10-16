@@ -163,7 +163,7 @@ public class ReceiptTracker extends ArrayList<Receipt> {
                         + this.get(index).getDate()
                 );
             } catch (Exception e) {
-                System.out.println("Unable to print Receipts"
+                System.out.println("Unable to print Receipt "
                         + String.valueOf(index + 1)
                 );
             }
