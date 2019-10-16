@@ -29,7 +29,7 @@ public class CommandHelpers {
 
 
         ArrayList<String> suggestions = new ArrayList<String>();
-        return disambiguate(word, suggestions, command.getSwitches().keySet());
+        return disambiguate(word, suggestions, command.getSwitchMap().keySet());
     }
 
     public static String disambiguate(String word, ArrayList<String> suggestions, Set<String> valid) {
