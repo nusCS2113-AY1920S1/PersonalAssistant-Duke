@@ -50,7 +50,7 @@
 
 8.  Click `Finish`.
 
-# Tutorials 
+## Tutorials 
 
 |Duke Increment   |Tutorial                                                                                                                                                                                       |
 |---------------  |---------------                                                                                                                                                                                |
@@ -71,10 +71,10 @@ For more advanced users and developers, do refer to our Developer Guide:
 *   [Developer Guide](./docs/DeveloperGuide.adoc)
 
 ## Acknowledgements 
-* This application was written as submission for our Team project under the module CS2113 Software Engineering and
+  * This application was written as submission for our Team project under the module CS2113 Software Engineering and
  Object-Oriented Programming
 
-* Libraries used in this project: Natty?, GSON?, some Text to Speech?, JavaFX?, JUnit5
+  * Libraries used in this project: Natty?, GSON?, some Text to Speech?, JavaFX?, JUnit5
 
 ## License
 MIT Licensesd

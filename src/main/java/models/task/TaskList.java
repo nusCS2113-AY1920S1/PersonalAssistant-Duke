@@ -2,7 +2,6 @@ package models.task;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Comparator;
 
 public class TaskList {
     private ArrayList<Task> taskList;

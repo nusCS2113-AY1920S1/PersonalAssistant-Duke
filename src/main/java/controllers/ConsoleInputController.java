@@ -66,8 +66,11 @@ public class ConsoleInputController implements IController {
         case "help":
             // TODO help page displaying all commands available
             // Not implemented
+            consoleView.consolePrint("Not implemented");
+            break;
         default:
             consoleView.consolePrint("Invalid inputs. Please refer to User Guide or type help!");
+            break;
         }
     }
 
@@ -81,7 +84,7 @@ public class ConsoleInputController implements IController {
             gson.toJson(this.projectRepository, fileWriter);
             fileWriter.flush();
             fileWriter.close();
-        } catch (java.io.IOException err) {
+        } catch (IOException err) {
             consoleView.consolePrint("savedProjects file does not exist or is not created!");
         }
     }
