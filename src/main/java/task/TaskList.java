@@ -128,11 +128,14 @@ public class TaskList {
      *                  schedule.
      * @return sortDateList the sorted schedule of all the tasks on a particular date.
      */
-    public Task addLocation(Integer indexOfTask  , String taskWithLocation) {
-            Task taskHasLocation = listOfTasks.get(indexOfTask);
-            taskHasLocation.hasLocation = true;
-            taskHasLocation.comment += (" the" + taskHasLocation.getClass().toString().replace("class task.", " ") + " task is at " + taskWithLocation);
-            return taskHasLocation;
+    public Task addLocation(Integer indexOfTask, String taskWithLocation) {
+        Task taskHasLocation = listOfTasks.get(indexOfTask);
+        taskHasLocation.hasLocation = true;
+        taskHasLocation.comment += ("Location of the task is " + taskWithLocation);
+        // This is to later encompass further key information such as eg. exam is at location
+        // taskHasLocation.comment += (" the" + taskHasLocation.getClass().toString()
+        // .replace("class task.", " ") + " task is at " + taskWithLocation);
+        return taskHasLocation;
     }
 
 

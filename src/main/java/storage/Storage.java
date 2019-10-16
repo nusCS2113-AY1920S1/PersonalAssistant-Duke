@@ -10,6 +10,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
@@ -20,6 +21,11 @@ import java.util.ArrayList;
  * @version v2.0
  */
 public class Storage {
+
+    @SuppressWarnings("unchecked")
+    private static <T> T castToAnything(Object obj) {
+        return (T) obj;
+    }
 
     private File file;
 
@@ -67,22 +73,20 @@ public class Storage {
      *                       class in not found.
      */
     public ArrayList<Task> loadFile(File file) throws DukeException {
-        ArrayList<Task> listOfTasks = new ArrayList<>();
+        ArrayList<Task> listOfTasks = new ArrayList<Task>();
         try {
             FileInputStream fileInputStream = new FileInputStream(file);
             ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream);
-            listOfTasks = (ArrayList<Task>) objectInputStream.readObject();
+            listOfTasks = (ArrayList<Task>)(objectInputStream.readObject());
             fileInputStream.close();
             objectInputStream.close();
             return listOfTasks;
+
         } catch (FileNotFoundException e) {
             System.out.println(e.getMessage());
             throw new DukeException(DukeException.fileDoesNotExist());
-
         } catch (IOException e) {
             throw new DukeException(DukeException.unableToReadFile());
-        } catch (ClassNotFoundException e) {
-            throw new DukeException(DukeException.classDoesNotExist());
         } catch (Exception e) {
             throw new DukeException(DukeException.classDoesNotExist());
         }

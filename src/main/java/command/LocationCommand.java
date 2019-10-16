@@ -8,7 +8,7 @@ import ui.Ui;
 
 import javax.xml.stream.Location;
 
-public class LocationCommand extends Command{
+public class LocationCommand extends Command {
     private int indexOfTask;
     private String locationOfTask;
 

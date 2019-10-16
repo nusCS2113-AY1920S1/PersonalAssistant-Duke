@@ -186,7 +186,7 @@ public class ParserFactory {
             String location = "Default: Null Location";
             try {
                 location = userInput.split("\\s", 5)[4].trim();
-            } catch (ArrayIndexOutOfBoundsException e){
+            } catch (ArrayIndexOutOfBoundsException e) {
                 throw new DukeException(DukeException.invalidLocation());
             }
             return new LocationCommand(indexOfTask,location);
