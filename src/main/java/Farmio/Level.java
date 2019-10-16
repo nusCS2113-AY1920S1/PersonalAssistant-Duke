@@ -6,7 +6,7 @@ import org.json.simple.JSONObject;
 import java.util.ArrayList;
 
 public class Level {
-    ArrayList<String> narratives; //i assume the first row of the narrative is the objective, subsequent rows are the story
+    ArrayList<String> narratives;
     int startMoney;
     int startWheatSeed;
     int startWheatGreen;
