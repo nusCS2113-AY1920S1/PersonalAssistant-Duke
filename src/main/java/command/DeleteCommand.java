@@ -35,7 +35,7 @@ public class DeleteCommand extends Command {
             // delete word
             if (tags.size() == 0) {
                 word = wordBank.getAndDelete(this.deletedWord);
-                storage.deleteFromFile(word.toString() + "\r");
+                storage.editFromFile(word.toString() + "\r","");
                 return ui.showDeleted(word);
             }
             //delete tag
