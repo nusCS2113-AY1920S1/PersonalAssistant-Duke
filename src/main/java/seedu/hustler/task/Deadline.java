@@ -27,8 +27,8 @@ public class Deadline extends Task {
     /**
      * Initializes description, user input difficulty and by.
      */
-    public Deadline(String description,  LocalDateTime by, String difficulty, String tag) {
-        super(description, difficulty, tag);
+    public Deadline(String description, LocalDateTime by, String difficulty, String tag, LocalDateTime now) {
+        super(description, difficulty, tag, now);
         this.by = by;
     }
 
@@ -47,7 +47,7 @@ public class Deadline extends Task {
      * @return a string with pipe separated info.
      */
     public String toSaveFormat() {
-        return "D|" + super.toSaveFormat() + "|" + convertDateTime(by);
+        return "D|" + super.toSaveFormat() + "|" + convertDateTime(by) + super.toSaveInputDateTime();
     }
 
     /**

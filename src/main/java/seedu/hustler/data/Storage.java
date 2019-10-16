@@ -7,6 +7,7 @@ import seedu.hustler.task.Event;
 import seedu.hustler.task.Deadline;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Scanner;
@@ -29,6 +30,7 @@ public class Storage {
     private static String filePath;
     private static String filePathBackup;
     private Schedule schedule;
+    private static final DateTimeFormatter formatter = DateTimeFormatter.ISO_DATE_TIME;
 
     /**
      * Empty constructor.
@@ -59,12 +61,13 @@ public class Storage {
                 // splits line input based on |
                 String[] taskString = hustlerTxt.nextLine().split("\\|");
 
-                // instantiate classes
                 if (taskString[0].equals("T")) {
-                    list.add(new ToDo(taskString[4], taskString[2], taskString[3]));
+                    LocalDateTime now = LocalDateTime.parse(taskString[5], formatter);
+                    list.add(new ToDo(taskString[4], taskString[2], taskString[3], now));
                 } else if (taskString[0].equals("D")) {
                     LocalDateTime by = getDateTime(taskString[5]);
-                    list.add(new Deadline(taskString[4], by, taskString[2], taskString[3]));
+                    LocalDateTime now = LocalDateTime.parse(taskString[6], formatter);
+                    list.add(new Deadline(taskString[4], by, taskString[2], taskString[3], now));
                     try {
                         String dateOnly = taskString[5].split(" ")[0];
                         Date date = schedule.convertStringToDate(dateOnly);
@@ -75,7 +78,8 @@ public class Storage {
                     }
                 } else {
                     LocalDateTime at = getDateTime(taskString[5]);
-                    list.add(new Event(taskString[4], at, taskString[2], taskString[3]));
+                    LocalDateTime now = LocalDateTime.parse(taskString[6], formatter);
+                    list.add(new Event(taskString[4], at, taskString[2], taskString[3], now));
                     try {
                         String dateOnly = taskString[5].split(" ")[0];
                         Date date = schedule.convertStringToDate(dateOnly);
@@ -115,10 +119,12 @@ public class Storage {
 
                 // instantiate classes
                 if (taskString[0].equals("T")) {
-                    list.add(new ToDo(taskString[4], taskString[2], taskString[3]));
+                    LocalDateTime now = LocalDateTime.parse(taskString[5], formatter);
+                    list.add(new ToDo(taskString[4], taskString[2], taskString[3], now));
                 } else if (taskString[0].equals("D")) {
-                    LocalDateTime by = getDateTime(taskString[4]);
-                    list.add(new Deadline(taskString[4], by, taskString[2], taskString[3]));
+                    LocalDateTime by = getDateTime(taskString[5]);
+                    LocalDateTime now = LocalDateTime.parse(taskString[6], formatter);
+                    list.add(new Deadline(taskString[4], by, taskString[2], taskString[3], now));
                     try {
                         String dateOnly = taskString[4].split(" ")[0];
                         Date date = schedule.convertStringToDate(dateOnly);
@@ -129,7 +135,8 @@ public class Storage {
                     }
                 } else {
                     LocalDateTime at = getDateTime(taskString[4]);
-                    list.add(new Event(taskString[4], at, taskString[2], taskString[3]));
+                    LocalDateTime now = LocalDateTime.parse(taskString[6], formatter);
+                    list.add(new Event(taskString[4], at, taskString[2], taskString[3], now));
                     try {
                         String dateOnly = taskString[4].split(" ")[0];
                         Date date = schedule.convertStringToDate(dateOnly);
