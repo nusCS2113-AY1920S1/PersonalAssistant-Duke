@@ -1,5 +1,6 @@
 package FrontEnd;
 
+import Farmio.Farmio;
 import Farmio.Storage;
 
 import java.io.BufferedReader;
@@ -30,17 +31,17 @@ public class Ui {
             showWarning("'welcome' ascii art missing!");
         }
         show("Press ENTER to continue.");
-        show(GameConsole.content(loadStage("LevelTemplate", 1)));
-        typeWriter("story board or instructions go here...\t\t\t\t\tpress ENTER to continue");
     }
 
     public void showExit(){
         show("Bye-Bye");
     }
 
-    public void showNarrative(ArrayList<String> narratives) {
+    public void showNarrative(ArrayList<String> narratives, String directory, Farmio farmio) {
         for(int i = 0; i < narratives.size(); ++i){
             clearScreen();
+            show(GameConsole.content(loadStage(directory, i), farmio));
+//            typeWriter(narratives.get(i));
             show(narratives.get(i));
             if(i != narratives.size() - 1) {
                 show("Press ENTER to continue.");
@@ -117,6 +118,7 @@ public class Ui {
                 if (line.length() < 55) {
                     int padding_left = (55 - line.length()) / 2;
                     int padding_right = 55 - line.length() - padding_left;
+
                     line = blankSpace(padding_left) + line + blankSpace(padding_right);
                 } else if (line.length() > 55) {
                     line = blankSpace(55);

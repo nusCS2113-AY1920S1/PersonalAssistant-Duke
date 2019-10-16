@@ -1,5 +1,6 @@
 package FrontEnd;
 
+import Farmio.Farmio;
 import UserCode.Tasks.Task;
 import UserCode.Tasks.TaskList;
 import javafx.util.Pair;
@@ -7,7 +8,9 @@ import javafx.util.Pair;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.Arrays;
-
+/*
+ load new frame and new Farmio with delay
+ */
 public class GameConsole {
     private static final String TOP_BORDER = "._______________________________________________________________________________________________________.\n";
     private static final String MENU_PROMPT_AND_CODE_TITLE = "|-----------------"+ AsciiColours.CYAN + "<MENU>" + AsciiColours.SANE + " for instruction list or settings---------------|---------"+ AsciiColours.CYAN + "<USER CODE>" + AsciiColours.SANE + "-----------|\n";
@@ -28,23 +31,6 @@ public class GameConsole {
         }
         return title + content + blankspace;
     }
-    private static ArrayList<String> codePanel(TaskList tasks) {
-        ArrayList<String> userCode = new ArrayList<String>();
-        Integer taskCount = 0;
-        for (Task t: tasks) {
-            taskCount ++;
-            userCode.add(horizontalPanel(taskCount.toString() + ". ", t.toString(), 31) + "|");
-        }
-        for (int i = 0; i < 18 - taskCount; i ++) {
-            userCode.add(CODE_BODY_FILLER);
-        }
-        return userCode;
-    }
-//    private ArrayList<String> fillOptionStage() {
-//        ArrayList<String> taskOptions;
-//        ArrayList<String> conditionOptions;
-//        ArrayList<String> actionOptions;
-//    }
     private static ArrayList<String> fillDummyStage() {
         ArrayList<String> dummyStage = new ArrayList<>();
         for (int i = 0; i < 18; i ++) {
@@ -58,17 +44,26 @@ public class GameConsole {
         assets.add(new Pair<String, Integer>("Wheat", 0));
         return assets;
     }
-    public static String content(ArrayList<String> stage) { //does not include story
+    private static ArrayList<String> populateUserCode(ArrayList<String> userCode) {
+        ArrayList<String> userCodeOutput = new ArrayList<>();
+        while (userCode.size() < 18){
+            userCode.add("");
+        }
+        for (String s: userCode) {
+            userCodeOutput.add(horizontalPanel("",s , 31) + "|");
+        }
+        return userCodeOutput;
+    }
+    public static String content(ArrayList<String> stage, Farmio farmio) { //does not include story
         StringBuilder output = new StringBuilder();
-        String objective = "";
-        String location = "WheatFarm"; //can change to enum
-        int level = 1;
-        int day = 1;
-        int gold = 100;
-        TaskList tasks = new TaskList();
-        ArrayList<String> userCode = codePanel(tasks);
-        ArrayList<Pair<String, Integer>> assets = fillDummyAsset();
-//        ArrayList<String> stage = fillDummyStage(); //18 rows x 57 columns
+        String objective = "";// farmio.getLevel().getNarratives().get(0);
+        String location = farmio.getFarmer().getLocation();
+        int level = farmio.getFarmer().getLevel();
+        int day = farmio.getFarmer().getDay();
+        int gold = farmio.getFarmer().getMoney();
+        ArrayList<String> userCode = farmio.getFarmer().getTasks().toStringArray();
+        ArrayList<Pair<String, Integer>> assets = farmio.getFarmer().getAssets();
+        userCode = populateUserCode(userCode);
         output.append(AsciiColours.SANE + TOP_BORDER);
         output.append("|" + AsciiColours.RED + horizontalPanel("OBJECTIVE:", objective, 71) + AsciiColours.SANE).append(CODE_TITLE_FILLER);
         output.append(BOX_BOTTOM_BORDER);

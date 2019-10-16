@@ -2,6 +2,7 @@ package Farmio;
 
 import Commands.Command;
 import FarmioExceptions.FarmioException;
+import FrontEnd.GameConsole;
 import FrontEnd.Ui;
 
 public class Farmio {
@@ -14,6 +15,7 @@ public class Farmio {
 
     private Farmio() {
         this.storage = new Storage();
+        this.farmer = new Farmer(); //for ui testing not originally here
         this.ui = new Ui(storage);
         stage = Stage.WELCOME;
         isExit = false;
