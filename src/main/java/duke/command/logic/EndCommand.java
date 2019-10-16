@@ -27,6 +27,7 @@ public class EndCommand extends ModuleCommand {
             Storage store,
             JsonWrapper jsonWrapper) {
         plannerUi.goodbyeMsg();
-        Runtime.getRuntime().halt(0);
+        System.exit(0); //Safer
+        //Runtime.getRuntime().halt(0); //Forced kill
     }
 }
