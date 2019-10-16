@@ -15,17 +15,19 @@ public class SetCommand extends CommandSuper {
     public void executeCommands() throws IOException {
         switch (this.getSubRootCommand()){
             case name:
+                System.out.println("enter");
                 executeSetName();
                 break;
             case age:
-                System.out.println("enter");
                 executeSetAge();
                 break;
             case preference:
                 executeSetPreference();
                 break;
             case watchlist:
+                System.out.println("enter");
                 executeTaskDone();
+                break;
             case restriction:
                 executeSetRestriction();
                 break;
@@ -93,13 +95,14 @@ public class SetCommand extends CommandSuper {
         movieHandler.clearSearchTextField();
         movieHandler.setLabels();
     }
+
     private void executeTaskDone()  {
         try {
             String index = this.getFlagMap().get("-d").get(0);
             index = index.strip();
             int i = Integer.valueOf(index);
             System.out.println(i);
-            WatchlistHandler.markAsDone(i);
+            WatchlistHandler.markAsDone(i, (MovieHandler)(this.getUIController()));
         } catch (NullPointerException | IndexOutOfBoundsException e) {
             ((MovieHandler)(this.getUIController())).setFeedbackText("please enter a valid task number");
         }

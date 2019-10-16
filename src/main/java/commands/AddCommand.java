@@ -36,6 +36,7 @@ public class AddCommand extends CommandSuper {
     public void addToWatchList() {
         try {
             String movie = ((MovieHandler)this.getUIController()).getAPIRequester().beginAddRequest(getPayload());
+            movie = movie.toLowerCase();
             String type = this.getFlagMap().get("-d").get(0);
             switch (type) {
                 case " d ":

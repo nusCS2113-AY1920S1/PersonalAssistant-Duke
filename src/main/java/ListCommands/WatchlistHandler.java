@@ -37,8 +37,38 @@ public class WatchlistHandler {
         }
         handle.setFeedbackText(result);
     }
-    public static void markAsDone(int index) {
-        index--;
-        watch.get(index).setDone(true);
+
+    public static void markAsDone(int index, MovieHandler handle) {
+        try {
+            String result = "I've marked this task as Done: \n";
+            index--;
+            Tasks t = watch.get(index);
+            watch.get(index).setDone(true);
+            if (t.getType().equals("D")) {
+                result += space + index + 1 + ".[" + t.getType()
+                        + "][" + t.getStatusIcon() + "] " + ((Deadline) t).toMessage();
+            } else {
+                result += space + index + 1 + ".[" + t.getType()
+                        + "][" + t.getStatusIcon() + "] " + ((Period) t).toMessage();
+            }
+            handle.setFeedbackText(result);
+        } catch (IndexOutOfBoundsException e) {
+            handle.setFeedbackText("Please enter a valid index that is not greater than the size of the watchlist!");
+        }
+    }
+    public static boolean removeFromWatchlist(String movie, MovieHandler handle) {
+        movie = movie.toLowerCase();
+        int index = -1;
+        for (int i = 0; i < watch.size(); i++) {
+            if (watch.get(i).getDescription().equals(movie)) {
+                index = i;
+                break;
+            }
+        }
+        if (index != -1) {
+            watch.remove(index);
+            return true;
+        }
+        return false;
     }
 }
