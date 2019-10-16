@@ -233,8 +233,7 @@ public class Argparse4jWrapper {
                 ex.printStackTrace();
                 return null;
             }
-        }
-        else {
+        } else {
             return null;
         }
     }

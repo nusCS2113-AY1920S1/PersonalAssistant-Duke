@@ -2,7 +2,8 @@ package duke.exceptions;
 
 public class ModException extends Throwable {
 
-    public ModException() {}
+    public ModException() {
+    }
 
     public ModException(String message) {
         super(message);
