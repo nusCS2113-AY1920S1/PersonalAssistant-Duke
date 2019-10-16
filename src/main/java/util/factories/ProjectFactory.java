@@ -8,8 +8,6 @@ public class ProjectFactory implements IArchDukeFactory<IProject> {
     /**
      * Data Validation
      * Do not throw exceptions at places where errors are expected
-     * TODO refactoring this portion to a NullProject such that Repository can detect
-     * TODO and return false. Leave to controller to handle false or true and throw it to View
      */
     @Override
     public IProject create(String input) {

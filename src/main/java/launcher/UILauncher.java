@@ -1,3 +1,5 @@
+package launcher;
+
 import javafx.application.Application;
 import views.ui.Main;
 
