@@ -3,6 +3,7 @@ package task;
 import exception.DukeException;
 import parser.Parser;
 
+import java.io.Serializable;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -17,7 +18,7 @@ import java.util.Date;
  * @version 1.0
  * @since 08/2019
  */
-public class Task {
+public class Task implements Serializable {
     String description;
     boolean isDone;
     //protected String dueDate;

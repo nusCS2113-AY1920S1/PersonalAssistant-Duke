@@ -2,11 +2,13 @@ package list;
 import exception.DukeException;
 import parser.Parser;
 import task.Task;
+import task.TaskList;
 
+import java.io.*;
 import java.util.ArrayList;
 
 
-public class DegreeList {
+public class DegreeList implements Serializable, Cloneable{
     private ArrayList<String> list = new ArrayList<>();
 
 
@@ -18,6 +20,23 @@ public class DegreeList {
      */
     public long size() {
         return list.size();
+    }
+
+    public DegreeList deepClone() {
+        try {
+            //Serialization of object
+            ByteArrayOutputStream byteOutputStream = new ByteArrayOutputStream();
+            ObjectOutputStream objectOutputStream = new ObjectOutputStream(byteOutputStream);
+            objectOutputStream.writeObject(this);
+
+            //De-serialization of object
+            ByteArrayInputStream byteInputStream = new ByteArrayInputStream(byteOutputStream.toByteArray());
+            ObjectInputStream objectInputStream = new ObjectInputStream(byteInputStream);
+            return (DegreeList) objectInputStream.readObject();
+        } catch (IOException | ClassNotFoundException e) {
+            System.out.println(e.getLocalizedMessage());
+            return null;
+        }
     }
 
     /**

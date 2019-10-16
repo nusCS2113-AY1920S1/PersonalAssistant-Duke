@@ -35,15 +35,14 @@ public class ModCommand extends Command {
      * @throws DukeException DukeException throws exception
      */
     public void execute(TaskList tasks, UI ui, Storage storage, DegreeList lists) throws DukeException {
-        DegreeList degreesBuffer = new DegreeList();
+        DegreeList degreesBuffer;
+        TaskList tasksBuffer;
 
         switch (this.command) {
         case "remove":
             this.listType = 1;
 
-            for (int i = 0; i < lists.size(); i++) {
-                degreesBuffer.add(lists.get(i));
-            }
+            degreesBuffer = lists.deepClone();
             memento = new Memento(degreesBuffer);
 
             lists.delete(this.input);
@@ -51,8 +50,7 @@ public class ModCommand extends Command {
         case "done":
             this.listType = 0;
 
-            TaskList tasksBuffer = tasks.deepClone();
-
+            tasksBuffer = tasks.deepClone();
             memento = new Memento(tasksBuffer);
 
             tasks.markDone(this.input);
@@ -60,9 +58,7 @@ public class ModCommand extends Command {
         case "delete":
             this.listType = 0;
 
-            for (int i = 0; i < tasks.size(); i++) {
-                //tasksBuffer.add(tasks.get(i));
-            }
+            tasksBuffer = tasks.deepClone();
             memento = new Memento(tasksBuffer);
 
             tasks.banishDelete(this.input);
@@ -70,9 +66,7 @@ public class ModCommand extends Command {
         case "select":
             this.listType = 0;
 
-            for (int i = 0; i < tasks.size(); i++) {
-                tasksBuffer.add(tasks.get(i));
-            }
+            tasksBuffer = tasks.deepClone();
             memento = new Memento(tasksBuffer);
 
             tasks.select(this.input);
@@ -80,9 +74,7 @@ public class ModCommand extends Command {
         case "snooze":
             this.listType = 0;
 
-            for (int i = 0; i < tasks.size(); i++) {
-                tasksBuffer.add(tasks.get(i));
-            }
+            tasksBuffer = tasks.deepClone();
             memento = new Memento(tasksBuffer);
 
             tasks.snoozeTask(this.input);

@@ -117,7 +117,7 @@ public class Duke extends Application {
                 c = Parser.parse(line);
                 //check if the command is undoable
                 if ((c.getClass() == AddCommand.class) | (c.getClass() == ModCommand.class)) {
-                    commandList.addCommand(c, this.myList, this.ui, this.storage, this.lists);
+                    commandList.addCommand(c, this.myList, this.ui, this.storage, this.lists, line);
                 } else {
                     isExit = c.isExit();
                     c.execute(this.myList, this.ui, this.storage, this.lists);

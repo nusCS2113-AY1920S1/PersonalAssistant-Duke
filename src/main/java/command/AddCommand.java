@@ -38,38 +38,32 @@ public class AddCommand extends Command {
      * @throws DukeException DukeException throws exception.
      */
     public void execute(TaskList tasks, UI ui, Storage storage, DegreeList lists) throws DukeException {
+        TaskList tasksBuffer;
+        DegreeList degreesBuffer;
+
         if (this.command.matches("event")) {
             this.listType = 0; //0 for task list
 
-            TaskList tasksBuffer = new TaskList();
-            for (int i = 0; i < tasks.size(); i++) {
-                tasksBuffer.add(tasks.get(i));
-            }
-
+            tasksBuffer = tasks.deepClone();
             memento = new Memento(tasksBuffer);
+
             tasks.add(this.command, this.arguments);
             tasks.conflict_check();
         }
         else if (this.command.matches("add")) {
             this.listType = 1; //1 for degree list
 
-            DegreeList degreesBuffer = new DegreeList();
-            for (int i = 0; i < lists.size(); i++) {
-                degreesBuffer.add(lists.get(i));
-            }
-
+            degreesBuffer = lists.deepClone();
             memento = new Memento(degreesBuffer);
+
             lists.add_custom(this.arguments);
         }
         else {
             this.listType = 0;
 
-            TaskList tasksBuffer = new TaskList();
-            for (int i = 0; i < tasks.size(); i++) {
-                tasksBuffer.add(tasks.get(i));
-            }
-
+            tasksBuffer = tasks.deepClone();
             memento = new Memento(tasksBuffer);
+
             tasks.add(this.command, this.arguments);
         }
     }

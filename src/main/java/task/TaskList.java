@@ -24,14 +24,17 @@ public class TaskList implements Serializable, Cloneable {
 
     public TaskList deepClone() {
         try {
+            //Serialization of object
             ByteArrayOutputStream byteOutputStream = new ByteArrayOutputStream();
             ObjectOutputStream objectOutputStream = new ObjectOutputStream(byteOutputStream);
-            objectOutputStream.writeObject(list);
+            objectOutputStream.writeObject(this);
 
+            //De-serialization of object
             ByteArrayInputStream byteInputStream = new ByteArrayInputStream(byteOutputStream.toByteArray());
             ObjectInputStream objectInputStream = new ObjectInputStream(byteInputStream);
             return (TaskList) objectInputStream.readObject();
         } catch (IOException | ClassNotFoundException e) {
+            System.out.println(e.getLocalizedMessage());
             return null;
         }
     }
