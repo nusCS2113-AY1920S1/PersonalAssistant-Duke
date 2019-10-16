@@ -837,6 +837,6 @@ public class MainWindow extends AnchorPane{
         settings.textFillProperty().setValue(Paint.valueOf("#ffffff"));
     }
 
-    
+
 
 }
