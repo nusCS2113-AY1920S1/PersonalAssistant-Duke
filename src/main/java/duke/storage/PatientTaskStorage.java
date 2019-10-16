@@ -13,6 +13,11 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 
+/**
+ * TaskStorage.java - a class for writing/reading info of task associated with patient info to/from local in csv format.
+ * @author  HUANG XUAN KUN
+ * @version 1.2
+ */
 public class PatientTaskStorage {
 
     /**

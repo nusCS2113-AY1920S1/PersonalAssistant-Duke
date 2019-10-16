@@ -11,6 +11,11 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 
+/**
+ * TaskStorage.java - a simple class for writing/reading taskInfo to/from local in csv format.
+ * @author  HUANG XUAN KUN
+ * @version 1.2
+ */
 public class TaskStorage {
 
     /**
