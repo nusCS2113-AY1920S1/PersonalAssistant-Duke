@@ -9,7 +9,7 @@ public class DateTimeHelper {
      * This method takes in the date in String and return is as a Date object.
      * @param date String of the date
      * @return a Date object for consumption.
-     * @throws ParseException
+     * @throws ParseException throws when there is an error with parsing the date.
      */
     public Date formatDate(String date) throws ParseException {
         SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");

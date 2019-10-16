@@ -13,8 +13,8 @@ import java.util.Date;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class ViewAssignedTasksTest {
-    Project project = new Project("Infinity_Gauntlet");
-    DateTimeHelper dateTimeHelper = new DateTimeHelper();
+    private Project project = new Project("Infinity_Gauntlet");
+    private DateTimeHelper dateTimeHelper = new DateTimeHelper();
 
     @Test
     public void alwaysTrue() {
