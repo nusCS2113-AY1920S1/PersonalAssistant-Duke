@@ -6,13 +6,18 @@ import models.member.NullMember;
 import util.ParserHelper;
 
 public class MemberFactory implements IArchDukeFactory<IMember> {
+    private ParserHelper parserHelper;
+
+    public MemberFactory() {
+        this.parserHelper = new ParserHelper();
+    }
     /**
      * Method to create a new member.
      * @param input Input containing details of member to be added (name, phone, email).
      * @return Member with the relevant details. Index number is set later when adding to list.
      */
     public IMember create(String input) {
-        String[] memberDetails = ParserHelper.parseMemberDetails(input);
+        String[] memberDetails = this.parserHelper.parseMemberDetails(input);
         boolean isNameCreated = false;
         String name = memberDetails[0];
         if (!("No name").equals(name)) {

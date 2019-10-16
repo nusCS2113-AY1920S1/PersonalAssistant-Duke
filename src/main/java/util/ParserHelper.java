@@ -5,12 +5,18 @@ import models.task.Task;
 import java.util.ArrayList;
 
 public class ParserHelper {
+    private SortHelper sortHelper;
+
+    public ParserHelper() {
+        this.sortHelper = new SortHelper();
+    }
+
     /**
-     *  Parses the string input to extract the name, phone number and email.
+     * Parses the string input to extract the name, phone number and email.
      * @param input Contains the name, phone number and email.
      * @return An array consisting on name in index 0, phone number in index 1 and email in index 2.
      */
-    public static String[] parseMemberDetails(String input) {
+    public String[] parseMemberDetails(String input) {
         String[] memberDetails = new String[4];
         memberDetails[0] = "No name";
         memberDetails[1] = "No phone number";
@@ -40,30 +46,36 @@ public class ParserHelper {
         return memberDetails;
     }
 
-    public static ArrayList<String> parseSortTaskDetails(ArrayList<Task> taskList, String sortCriteria) {
+    /**
+     * Parses the criteria specified by the user to sort the list of tasks.
+     * @param taskList A list of all tasks in the project.
+     * @param sortCriteria Criteria to sort the list of tasks
+     * @return An ArrayList with String descriptions of task details sorted by the criteria specified by the user.
+     */
+    public ArrayList<String> parseSortTaskDetails(ArrayList<Task> taskList, String sortCriteria) {
         ArrayList<String> taskDetails = new ArrayList<>();
         if (sortCriteria.length() >= 3) {
             switch (sortCriteria) {
             case "/NAME":
-                taskDetails = SortHelper.sortTaskName(taskList);
+                taskDetails = this.sortHelper.sortTaskName(taskList);
                 break;
             case "/INDEX":
-                taskDetails = SortHelper.sortTaskIndex(taskList);
+                taskDetails = this.sortHelper.sortTaskIndex(taskList);
                 break;
             case "/DATE":
-                taskDetails = SortHelper.sortTaskDueDate(taskList);
+                taskDetails = this.sortHelper.sortTaskDueDate(taskList);
                 break;
             case "/PRIORITY":
-                taskDetails = SortHelper.sortTaskPriority(taskList);
+                taskDetails = this.sortHelper.sortTaskPriority(taskList);
                 break;
             case "/CREDIT":
-                taskDetails = SortHelper.sortTaskCredit(taskList);
+                taskDetails = this.sortHelper.sortTaskCredit(taskList);
                 break;
             case "/WHO":
-                taskDetails = SortHelper.sortTaskMembers(taskList);
+                taskDetails = this.sortHelper.sortTaskMembers(taskList);
                 break;
             case "/KANBAN/OPEN": case "/KANBAN/TODO": case "/KANBAN/DOING": case "/KANBAN/DONE":
-                taskDetails = SortHelper.sortTaskState(taskList, sortCriteria.substring(8));
+                taskDetails = this.sortHelper.sortTaskState(taskList, sortCriteria.substring(8));
             default:
                 break;
             }

@@ -145,6 +145,11 @@ public class CLIView {
         consolePrint(allTaskDetails.toArray(new String[0]));
     }
 
+    /**
+     * Shows a list of all tasks in the project, sorted based on certain criteria as chosen by the user.
+     * @param projectToManage The project specified by the user.
+     * @param sortCriteria Criteria to sort chosen by user.
+     */
     public void viewSortedTasks(IProject projectToManage, String sortCriteria) {
         ArrayList<String> allTaskDetails = projectToManage.getTasks().getAllSortedTaskDetails(sortCriteria);
         consolePrint(allTaskDetails.toArray(new String[0]));

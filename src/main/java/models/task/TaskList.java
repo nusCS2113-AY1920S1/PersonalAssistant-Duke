@@ -7,12 +7,14 @@ import java.util.Arrays;
 
 public class TaskList {
     private ArrayList<Task> taskList;
+    private ParserHelper parserHelper;
 
     /**
      * Class representing a list with all task sort in the project.
      */
     public TaskList() {
         this.taskList = new ArrayList<>();
+        this.parserHelper = new ParserHelper();
     }
 
     /**
@@ -33,21 +35,20 @@ public class TaskList {
 
     /**
      * Returns an ArrayList with String descriptions of task details.
-     * @return An ArrayList with String descriptions of task details.
+     * @return An ArrayList with String descriptions of task details sorted by name by default.
      */
     public ArrayList<String> getAllTaskDetails() {
-        ArrayList<String> taskDetails = new ArrayList<>();
-        // default method of printing (to be extracted out into another method)
-        int taskIndex = 1;
-        for (Task task : taskList) {
-            taskDetails.add(taskIndex + ". " + task.getDetails());
-            taskIndex++;
-        }
-        return taskDetails;
+        // after implementing task index, change "/NAME" to "/INDEX"
+        return this.parserHelper.parseSortTaskDetails(taskList,"/NAME");
     }
 
+    /**
+     * Returns an ArrayList with String descriptions of task details sorted by the criteria specified by the user.
+     * @param sortCriteria Criteria to sort chosen by user.
+     * @return An ArrayList with String descriptions of task details sorted by the criteria specified by the user.
+     */
     public ArrayList<String> getAllSortedTaskDetails(String sortCriteria) {
-        return ParserHelper.parseSortTaskDetails(taskList,sortCriteria);
+        return this.parserHelper.parseSortTaskDetails(taskList,sortCriteria);
     }
 
     /**
