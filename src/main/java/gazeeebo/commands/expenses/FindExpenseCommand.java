@@ -35,7 +35,6 @@ public class FindExpenseCommand {
                 break;
             }
         }
-
         if(!isExist) {
             System.out.println("Date does not exist!");
         }

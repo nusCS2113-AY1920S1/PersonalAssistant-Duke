@@ -38,10 +38,9 @@ public class AddExpensesCommand {
         DateTimeFormatter fmt = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         LocalDate dateOfPurchase = LocalDate.parse(date, fmt);
 
-        ArrayList<String> itemAndPriceList = new ArrayList<>();
-
         /*Storing expenses value as an array to the date keys. If the item were bought on the same date as a previous item,
           add the item in the array under the same key.*/
+        ArrayList<String> itemAndPriceList = new ArrayList<>();
         boolean isEqual = false;
         for(LocalDate key : expenses.keySet()) {
             if (dateOfPurchase.equals(key)) { //if date equal
@@ -53,8 +52,7 @@ public class AddExpensesCommand {
             itemAndPriceList.add(itemAndPrice);
             expenses.put(dateOfPurchase, itemAndPriceList);
         }
-
-        System.out.println("Okay we have successfully added your new expense: " + "\n" + itemAndPrice + " " + dateOfPurchase);
+        System.out.println("Okay we have successfully added your new expense: " + "\n" + itemAndPrice + ", bought on " + dateOfPurchase);
 
         /*Stores the updated expenses map after deletion of expenses*/
         String toStore = "";

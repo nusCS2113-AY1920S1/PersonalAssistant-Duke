@@ -1,5 +1,6 @@
 package gazeeebo.commands;
 import gazeeebo.Tasks.Task;
+import gazeeebo.TriviaManager.TriviaManager;
 import gazeeebo.UI.Ui;
 import gazeeebo.Storage.Storage;
 import gazeeebo.Exception.DukeException;
@@ -13,7 +14,7 @@ import java.util.Stack;
  */
 public abstract class Command {
 
-    public abstract void execute(ArrayList<Task> list, Ui ui, Storage storage, Stack<String> commandStack, ArrayList<Task> deletedTask) throws DukeException, ParseException, IOException, NullPointerException;
+    public abstract void execute(ArrayList<Task> list, Ui ui, Storage storage, Stack<String> commandStack, ArrayList<Task> deletedTask,TriviaManager triviaManager) throws DukeException, ParseException, IOException, NullPointerException;
     public abstract boolean isExit();
 }
 

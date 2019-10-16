@@ -2,6 +2,7 @@ package gazeeebo.commands.expenses;
 
 import gazeeebo.Storage.Storage;
 import gazeeebo.Tasks.Task;
+import gazeeebo.TriviaManager.TriviaManager;
 import gazeeebo.UI.Ui;
 import gazeeebo.commands.Command;
 
@@ -25,7 +26,7 @@ public class ExpenseCommand extends Command {
      * @throws IOException Catch error if the read file fails
      */
     @Override
-    public void execute(ArrayList<Task> list, Ui ui, Storage storage, Stack<String> commandStack,ArrayList<Task> deletedTask) throws IOException {
+    public void execute(ArrayList<Task> list, Ui ui, Storage storage, Stack<String> commandStack, ArrayList<Task> deletedTask, TriviaManager triviaManager) throws IOException {
         HashMap<LocalDate, ArrayList<String>> map = storage.Expenses(); //Read the file
         Map<LocalDate, ArrayList<String>> expenses = new TreeMap<LocalDate, ArrayList<String>>(map);
         ArrayList<String> expenseList = new ArrayList<>();

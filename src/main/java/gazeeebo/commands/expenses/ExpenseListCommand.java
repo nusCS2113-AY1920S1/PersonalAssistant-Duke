@@ -25,7 +25,6 @@ public class ExpenseListCommand {
                 expenseList.add(expenses.get(key).get(i) + " | bought on " + key);
             }
         }
-
         for (int j = 0; j < expenseList.size(); j++) {
             System.out.println((j + 1) + ". " + expenseList.get(j));
         }

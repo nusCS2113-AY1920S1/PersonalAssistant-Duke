@@ -1,6 +1,7 @@
 package gazeeebo.commands;
 
 import gazeeebo.Tasks.Task;
+import gazeeebo.TriviaManager.TriviaManager;
 import gazeeebo.UI.Ui;
 import gazeeebo.Storage.Storage;
 import gazeeebo.Exception.DukeException;
@@ -16,13 +17,14 @@ import java.util.Stack;
 
 public class EventCommand extends Command {
     @Override
-    public void execute(ArrayList<Task> list, Ui ui, Storage storage, Stack<String> commandStack, ArrayList<Task> deletedTask) throws DukeException, ParseException, IOException, NullPointerException {
+    public void execute(ArrayList<Task> list, Ui ui, Storage storage, Stack<String> commandStack, ArrayList<Task> deletedTask, TriviaManager triviaManager) throws DukeException, ParseException, IOException, NullPointerException {
         String description;
         try {
             if (ui.FullCommand.length() == 5) {
                 throw new DukeException("OOPS!!! The description of an event cannot be empty.");
             } else {
                 description = ui.FullCommand.split("/at ")[0].substring(6);
+                triviaManager.learnInput(ui.FullCommand,storage);
             }
             String at = ui.FullCommand.split("/at ")[1];
             Event ev = new Event(description, at);
@@ -57,6 +59,7 @@ public class EventCommand extends Command {
             storage.Storages(sb.toString());
         } catch (DukeException e) {
             System.out.println(e.getMessage());
+            triviaManager.showPossibleInputs("event");
         } catch (ArrayIndexOutOfBoundsException | DateTimeParseException a) {
             Ui.showEventDateFormatError();
         }

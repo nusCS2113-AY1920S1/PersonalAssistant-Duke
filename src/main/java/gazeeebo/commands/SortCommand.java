@@ -4,6 +4,7 @@ import gazeeebo.Storage.Storage;
 import gazeeebo.Tasks.Deadline;
 import gazeeebo.Tasks.Event;
 import gazeeebo.Tasks.Task;
+import gazeeebo.TriviaManager.TriviaManager;
 import gazeeebo.UI.Ui;
 import java.io.IOException;
 import gazeeebo.Exception.DukeException;
@@ -13,7 +14,7 @@ import java.util.*;
 
 public class SortCommand extends Command {
     @Override
-    public void execute(ArrayList<Task> list, Ui ui, Storage storage, Stack<String> commandStack, ArrayList<Task> deletedTask) throws DukeException, ParseException, IOException, NullPointerException {
+    public void execute(ArrayList<Task> list, Ui ui, Storage storage, Stack<String> commandStack, ArrayList<Task> deletedTask, TriviaManager triviaManager) throws DukeException, ParseException, IOException, NullPointerException {
         try {
             if(ui.FullCommand.length() == 4) {
                 throw new DukeException("OOPS!!! Please enter method of sorting.");

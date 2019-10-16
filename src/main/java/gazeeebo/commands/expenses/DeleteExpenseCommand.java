@@ -29,7 +29,6 @@ public class DeleteExpenseCommand {
                 expenseList.add(expenses.get(key).get(i) + " | bought on " + key);
             }
         }
-
         for (int j = 0; j < expenseList.size(); j++) {
             System.out.println((j + 1) + ". " + expenseList.get(j));
         }
@@ -39,7 +38,6 @@ public class DeleteExpenseCommand {
         String expenseIndex = ui.FullCommand;
         int index = Integer.parseInt(expenseIndex) - 1;
         System.out.println("Expense " +  expenseList.get(index) + " deleted!");
-
 
         String getKeyFromList = expenseList.get(index).split(" ")[0];
         DateTimeFormatter fmt = DateTimeFormatter.ofPattern("yyyy-MM-dd");
