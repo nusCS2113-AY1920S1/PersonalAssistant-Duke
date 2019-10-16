@@ -1,5 +1,6 @@
 package leduc.command;
 
+import leduc.exception.EmptyArgumentException;
 import leduc.storage.Storage;
 import leduc.Ui;
 import leduc.task.TaskList;
@@ -80,7 +81,17 @@ public class FindCommand extends Command {
      * @param storage leduc.storage.Storage which deals with loading tasks from the file and saving tasks in the file.
      */
 
-    public void execute(TaskList tasks, Ui ui, Storage storage){
+    public void execute(TaskList tasks, Ui ui, Storage storage) throws EmptyArgumentException {
+        String userSubstring;
+        if(callByShortcut){
+            userSubstring = user.substring(FindCommand.findShortcut.length());
+        }
+        else {
+            userSubstring = user.substring(4);
+        }
+        if(userSubstring.isBlank()){
+            throw new EmptyArgumentException();
+        }
         String find = user.substring(FindCommand.findShortcut.length()+1);
         ArrayList<Double> scores;
         //populate list of relevance scores
