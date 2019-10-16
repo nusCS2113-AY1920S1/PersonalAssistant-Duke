@@ -100,12 +100,15 @@ public class Task {
         switch(i) {
             case 0:
                 priority = Priority.LOW;
+                System.out.println(this + " has a new priority of LOW");
                 break;
             case 1:
                 priority = Priority.MEDIUM;
+                System.out.println(this + " has a new priority of MEDIUM");
                 break;
             case 2:
                 priority = Priority.HIGH;
+                System.out.println(this + " has a new priority of HIGH");
                 break;
             default:
                 throw new DukeException("No such priority exists.");
