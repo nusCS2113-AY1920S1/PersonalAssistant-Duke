@@ -3,7 +3,6 @@ package command;
 import common.DukeException;
 import common.TaskList;
 import payment.Payee;
-import payment.PaymentList;
 import payment.PaymentManager;
 import payment.Payments;
 import task.Deadline;
@@ -125,11 +124,9 @@ public class Parser {
     private static void processfindpayee(String input, Ui ui, HashMap<String, Payee> managermap) {
         try {
             String[] splitspace = input.split(" ", 2);
-            PaymentList list_of_payments = new PaymentList();
-            for (Payments payment : managermap.get(splitspace[1]).payments) {
-                list_of_payments.addPayments(payment);
-            }
-            ui.printPaymentList(list_of_payments);
+            ArrayList<Payments> paymentsArrayList = new ArrayList<Payments>();
+            paymentsArrayList  = PaymentManager.findPayee(splitspace[1], managermap);
+            ui.printPaymentList(paymentsArrayList);
         }catch (ArrayIndexOutOfBoundsException e) {
             ui.exceptionMessage("     ☹ OOPS!!! The content to find cannot be empty.");
         }

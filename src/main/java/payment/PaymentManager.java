@@ -1,6 +1,5 @@
 package payment;
 
-import java.lang.reflect.GenericDeclaration;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -15,12 +14,13 @@ public abstract class PaymentManager {
      * Finds the Payments objects containing a payee name and returns a list of Payments.
      * @param payee Payee of the item.
      */
-
-    public void findPayee(String payee, HashMap<String, Payee> managermap) {
+    static ArrayList<Payments> paymentsArrayList = new ArrayList<Payments>();
+    public static ArrayList<Payments> findPayee(String payee, HashMap<String, Payee> managermap) {
         for (Payments payment : managermap.get(payee).payments) {
+            paymentsArrayList.add(payment);
             //TODO Output payment to UI
         }
-
+        return paymentsArrayList;
     }
 
     /**

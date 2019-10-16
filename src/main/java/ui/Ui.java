@@ -2,11 +2,10 @@ package ui;
 
 import common.TaskList;
 import payment.Payee;
-import payment.PaymentList;
-import payment.PaymentManager;
 import payment.Payments;
 import task.Task;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Scanner;
 
@@ -73,7 +72,7 @@ public class Ui {
         }
         System.out.print(line);
     }
-    public void printPaymentList(PaymentList paymentList) {
+    public void printPaymentList(ArrayList<Payments> paymentList) {
         for (int i = 0; i < paymentList.size(); i = i + 1) {
             System.out.println(paymentList.get(i).givePayments());
         }
