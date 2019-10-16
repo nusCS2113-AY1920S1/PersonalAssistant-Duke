@@ -138,25 +138,25 @@ public class Email {
      * @return email body after the coloring
      */
     public String colorBodyOnTag() {
-        if (this.tags.size() == 0) {
-            Duke.getUI().showDebug("Empty tags");
-            return this.body;
-        }
         Tag highestTag = null;
         for (Tag tag : tags) {
-            if (highestTag == null || tag.relevance > highestTag.relevance) {
+            if (!tag.getKeywordPair().getKeyword().equals("Spam")
+                    && (highestTag == null || tag.relevance > highestTag.relevance)) {
                 highestTag = tag;
             }
         }
+        if (highestTag == null) {
+            return body;
+        }
         String output = this.body;
         ArrayList<String> expressions = highestTag.getKeywordPair().getExpressions();
-        Collections.sort(expressions, (ex1, ex2) -> ex1.length() >= ex2.length() ? 1 : -1);
+        Collections.sort(expressions, (ex1, ex2) -> ex1.length() >= ex2.length() ? -1 : 1);
         for (String expression: expressions) {
-            Pattern colorPattern = Pattern.compile("expression", Pattern.CASE_INSENSITIVE);
+            //Duke.getUI().showDebug(expression);
+            Pattern colorPattern = Pattern.compile("(" + expression + ")", Pattern.CASE_INSENSITIVE);
             Matcher colorMatcher = colorPattern.matcher(output);
-            colorMatcher.replaceAll(x -> "<p style=\"color:red\">" + x + "</p>");
+            output = colorMatcher.replaceAll("<font style=\"color:red\">" + expression + "</font>");
         }
-        //Duke.getUI().showDebug(output);
         return output;
     }
 

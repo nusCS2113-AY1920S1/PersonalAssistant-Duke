@@ -94,7 +94,7 @@ public class EmailStorage {
      * current email list with local storage after that by calling syncEmailListWithHtml().
      */
     public static void syncWithServer() {
-        EmailList serverEmailList = Http.fetchEmail(50);
+        EmailList serverEmailList = Http.fetchEmail(60);
         for (Email serverEmail : serverEmailList) {
             boolean exist = false;
             for (Email localEmail : Duke.getEmailList()) {

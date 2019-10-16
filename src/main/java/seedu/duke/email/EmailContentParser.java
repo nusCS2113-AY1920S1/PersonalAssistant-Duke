@@ -83,7 +83,7 @@ public class EmailContentParser {
     public static void initKeywordList() {
         ArrayList<KeywordPair> keywordList = new ArrayList<>();
         keywordList.add(new KeywordPair("CS2113T", new ArrayList<String>(List.of(
-                "CS2113T", "CS2113", "TAN KIAN WEI, JASON", "Leow Wei Xiang"))));
+                "CS2113T", "CS2113", "TAN KIAN WEI, JASON", "Leow Wei Xiang", "Akshay Narayan"))));
         keywordList.add(new KeywordPair("CS2101", new ArrayList<String>(List.of(
                 "CS2101", "Anita Toh Ann Lee"))));
         keywordList.add(new KeywordPair("CG2271", new ArrayList<String>(List.of(
