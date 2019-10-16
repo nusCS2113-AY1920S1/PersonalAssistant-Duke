@@ -1,9 +1,8 @@
 package cube.model.food;
 
-import java.io.Serializable;
 import java.util.Date;
 
-public class Food implements Serializable {
+public class Food {
 	protected String name;
 	protected String type;
 	protected static double revenue;

@@ -1,16 +1,16 @@
+/**
+ * Handling of JSON File Read/Write operations in Cube
+ *
+ * @author kuromono
+ */
 package cube.util;
 
 import java.io.File;
 import java.io.IOException;
 
-import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.annotation.PropertyAccessor;
-import com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility;
 import cube.exception.CubeException;
 import cube.exception.CubeLoadingException;
-import cube.storage.FoodStorage;
-import cube.storage.RevenueStorage;
 import cube.storage.StorageManager;
 
 public class FileUtilJson {
@@ -60,26 +60,22 @@ public class FileUtilJson {
     }
 
     /**
-     * Loads serialized StorageManager object from the file.
+     * Loads serialized StorageManager object from the JSON file.
      *
      * @return the list of tasks.
      * @throws CubeLoadingException exception occurs in reading from data file.
      */
     public StorageManager load() throws CubeException {
-        FoodStorage foodStorage = new FoodStorage();
-        RevenueStorage revenueStorage = new RevenueStorage();
-        StorageManager storageManager = new StorageManager(foodStorage, revenueStorage);
+        StorageManager storageManager = new StorageManager();
         if (checkFileAvailable()) {
             System.out.println("Loading file from : " + fileFullPath);
-            // read from file
-            try {
 
+            try {
                 File fileSave = new File(fileFullPath);
                 ObjectMapper mapper = new ObjectMapper();
-                mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
                 storageManager = mapper.readValue(fileSave, StorageManager.class);
-
             } catch (IOException e) {
+                e.printStackTrace();
                 throw new CubeLoadingException(fileFullPath);
             }
         }
@@ -87,7 +83,7 @@ public class FileUtilJson {
     }
 
     /**
-     * Saves the StorageManage object into a file.
+     * Saves the StorageManage object into a JSON file.
      *
      * @param storageManager containing FoodStorage & RevenueStorage data to save.
      * @throws CubeException exception happens in writing to the data file.
@@ -97,16 +93,10 @@ public class FileUtilJson {
         try {
             File fileSave = new File(fileFullPath);
             ObjectMapper mapper = new ObjectMapper();
-            //mapper.configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false);
-            //mapper.setVisibility(PropertyAccessor.FIELD, Visibility.ANY);
             mapper.writeValue(fileSave, storageManager);
-
         } catch (IOException e) {
             e.printStackTrace();
             throw new CubeLoadingException(fileFullPath);
         }
     }
-
-
-
 }
