@@ -22,6 +22,8 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import seedu.hustler.game.achievement.AchievementList;
+import seedu.hustler.parser.DateTimeParser;
+import seedu.hustler.task.Reminders;
 
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -137,8 +139,6 @@ public class MainWindow extends AnchorPane{
         stackPane.getChildren().addAll(text);
         stackPane.prefWidthProperty().bind(welcomeScreen.widthProperty());
         welcomeScreen.getChildren().addAll(whiteSpace,stackPane);
-
-
     }
 
     public void setHustler(Hustler h) {
@@ -183,6 +183,9 @@ public class MainWindow extends AnchorPane{
                 taskAction();
             } else if(input.equals("bye")) {
                 Hustler.run("bye");
+            } else {
+                Hustler.run(userInput.getText());
+                scrollPANEE.setContent(console);
             }
             userInput.clear();
             sendReleased();
@@ -209,14 +212,13 @@ public class MainWindow extends AnchorPane{
     }
 
     @FXML
-    public void taskAction() {
+    public void taskAction() throws IOException{
 
         heading.getChildren().clear();
         Text title1 = new Text("TASKS");
         title1.setFont(Font.font("Gill Sans", 15));
         title1.setFill(Color.GRAY);
         StackPane titlePane = new StackPane();
-        //titlePane.setMargin(title1, new Insets(0,0,0,50));
         titlePane.setAlignment(title1, Pos.CENTER);
         titlePane.prefHeightProperty().bind(heading.prefHeightProperty());
         titlePane.prefWidthProperty().bind(heading.widthProperty());
@@ -235,12 +237,20 @@ public class MainWindow extends AnchorPane{
         whiteSpace0.widthProperty().bind(scrollPANEE.widthProperty());
         flowPane.getChildren().add(whiteSpace0);
 
+
+        Image dateTimeIcon = new Image(new FileInputStream("images/datetime.png"));
+
+
         flowPane.setVgap(10);
         for(int i = 0; i < Hustler.list.size(); i += 1) {
-
+            ImageView imageView = new ImageView();
+            imageView.setImage(dateTimeIcon);
+            imageView.setFitHeight(10);
+            imageView.setFitWidth(10);
             StackPane stackPane = new StackPane();
             Rectangle rect = new Rectangle();
-            Text text = new Text(Hustler.list.get(i).getDescription());
+            
+            Text text = new Text(i + 1 + ". " + Hustler.list.get(i).getDescription());
             text.setFont(Font.font("Gill Sans", 20));
             text.setFill(Color.WHITE);
             rect.setOpacity(0.3);
@@ -249,10 +259,44 @@ public class MainWindow extends AnchorPane{
             rect.setArcHeight(30.0);
             rect.setArcWidth(30.0);
             rect.setStyle("#ffffff");
-            stackPane.setMargin(text,new Insets(0,0,0,50));
+            stackPane.setMargin(text,new Insets(0,0,3,50));
             stackPane.setAlignment(text,Pos.CENTER_LEFT);
-            stackPane.getChildren().addAll(rect, text);
-            flowPane.getChildren().add(stackPane);
+            if(Hustler.list.get(i).getDateTime() == null) {
+                stackPane.getChildren().addAll(rect, text);
+                flowPane.getChildren().add(stackPane);
+            }
+            else if(Hustler.list.get(i).getDateTime() != null) {
+                Text dateTime = new Text(DateTimeParser.convertDateTime(Hustler.list.get(i).getDateTime()));
+                stackPane.setMargin(dateTime, new Insets(0,0,3,70));
+                stackPane.setAlignment(dateTime,Pos.BOTTOM_LEFT);
+                stackPane.setMargin(imageView, new Insets(0,0,3,53));
+                stackPane.setAlignment(imageView,Pos.BOTTOM_LEFT);
+                dateTime.setFont(Font.font("Gill Sans", 10));
+                ColorAdjust colorAdjust = new ColorAdjust();
+                if(Reminders.checkOverdue(i)) {
+                    colorAdjust.setContrast(0.12);
+                    colorAdjust.setHue(-0.02);
+                    colorAdjust.setSaturation(0.81);
+                    imageView.setEffect(colorAdjust);
+                    dateTime.setFill(Color.RED);
+                } else if(Reminders.checkThirty(i)) {
+                    colorAdjust.setContrast(0.12);
+                    colorAdjust.setHue(0.2);
+                    colorAdjust.setSaturation(0.81);
+                    imageView.setEffect(colorAdjust);
+                    dateTime.setFill(Color.ORANGE);
+                } else if(Reminders.checkLastDay(i)) {
+                    colorAdjust.setContrast(0.14);
+                    colorAdjust.setHue(0.33);
+                    colorAdjust.setSaturation(0.81);
+                    imageView.setEffect(colorAdjust);
+                    dateTime.setFill(Color.YELLOW);
+                } else {
+                    dateTime.setFill(Color.WHITE);
+                }
+                stackPane.getChildren().addAll(rect, text, dateTime,imageView);
+                flowPane.getChildren().add(stackPane);
+            }
         }
 
         flowPane.prefWidthProperty().bind(scrollPANEE.widthProperty());
@@ -299,7 +343,6 @@ public class MainWindow extends AnchorPane{
         title1.setFont(Font.font("Gill Sans", 15));
         title1.setFill(Color.GRAY);
         StackPane titlePane = new StackPane();
-        //titlePane.setMargin(title1, new Insets(0,0,0,50));
         titlePane.setAlignment(title1, Pos.CENTER);
         titlePane.prefHeightProperty().bind(heading.prefHeightProperty());
         titlePane.prefWidthProperty().bind(heading.widthProperty());
@@ -354,7 +397,6 @@ public class MainWindow extends AnchorPane{
         title1.setFont(Font.font("Gill Sans", 15));
         title1.setFill(Color.GRAY);
         StackPane titlePane = new StackPane();
-//        titlePane.setMargin(title1, new Insets(0,0,0,50));
         titlePane.setAlignment(title1, Pos.CENTER);
         titlePane.prefHeightProperty().bind(heading.prefHeightProperty());
         titlePane.prefWidthProperty().bind(heading.widthProperty());
@@ -436,14 +478,12 @@ public class MainWindow extends AnchorPane{
 
         for(int i = 0; i < AchievementList.achievementList.size(); i += 1) {
             if(AchievementList.achievementList.get(i).checkLock()) {
-
                 ImageView imageview = new ImageView();
                 imageview.setImage(lock);
                 imageview.setFitHeight(30);
                 imageview.setFitWidth(30);
                 imageview.setOpacity(0.3);
                 StackPane stackPane = new StackPane();
-                StackPane stackPane2 = new StackPane();
                 Rectangle rect = new Rectangle();
                 Text text = new Text(AchievementList.achievementList.get(i).toString());
                 text.setFont(Font.font("Gill Sans", 20));
@@ -509,7 +549,6 @@ public class MainWindow extends AnchorPane{
         title1.setFont(Font.font("Gill Sans", 15));
         title1.setFill(Color.GRAY);
         StackPane titlePane = new StackPane();
-        //titlePane.setMargin(title1, new Insets(0,0,0,50));
         titlePane.setAlignment(title1, Pos.CENTER);
         titlePane.prefHeightProperty().bind(heading.prefHeightProperty());
         titlePane.prefWidthProperty().bind(heading.widthProperty());
@@ -563,7 +602,6 @@ public class MainWindow extends AnchorPane{
         title1.setFont(Font.font("Gill Sans", 15));
         title1.setFill(Color.GRAY);
         StackPane titlePane = new StackPane();
-        //titlePane.setMargin(title1, new Insets(0,0,0,50));
         titlePane.setAlignment(title1, Pos.CENTER);
         titlePane.prefHeightProperty().bind(heading.prefHeightProperty());
         titlePane.prefWidthProperty().bind(heading.widthProperty());
@@ -606,7 +644,10 @@ public class MainWindow extends AnchorPane{
         shop.textFillProperty().setValue(Paint.valueOf("#95a5a6"));
         arena.textFillProperty().setValue(Paint.valueOf("#95a5a6"));
         settings.textFillProperty().setValue(Paint.valueOf("#95a5a6"));
-
+        ps = new PrintStream(new Console(console));
+        console.clear();
+        Hustler.run("/avatar stats");
+        scrollPANEE.setContent(console);
     }
 
     @FXML
@@ -661,6 +702,12 @@ public class MainWindow extends AnchorPane{
         shop.textFillProperty().setValue(Paint.valueOf("#ffffff"));
         arena.textFillProperty().setValue(Paint.valueOf("#95a5a6"));
         settings.textFillProperty().setValue(Paint.valueOf("#95a5a6"));
+
+        ps = new PrintStream(new Console(console));
+        console.clear();
+        Hustler.run("/shop");
+        scrollPANEE.setContent(console);
+
     }
 
     @FXML
