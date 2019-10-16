@@ -13,7 +13,7 @@ public class Ui {
      * Returns the value to be printed to the GUI.
      * @return String to be printed on the GUI
      */
-    public String printToGui() {
+    public String printResponse() {
         return this.output;
     }
 
@@ -81,8 +81,8 @@ public class Ui {
      * Prompts the user for confirmation.
      * @return value given by user
      */
-    public String confirmPrompt() {
-        System.out.println("Are you sure you would like to make the change? (Y/N)");
+    public String confirmPrompt(String value) {
+        System.out.println(value);
         inputScanner = new Scanner(System.in);
 
         return inputScanner.nextLine();
@@ -109,14 +109,6 @@ public class Ui {
      */
     private void print(String text) {
         System.out.println(text);
-    }
-
-    /**
-     * Prints the error message for the user.
-     * @param message error message
-     */
-    public void showErrorMessage(String message) {
-        print(message);
     }
 
     /**
