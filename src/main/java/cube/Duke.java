@@ -36,11 +36,9 @@ public class Duke {
         try {
             storageManager = storage.load();
             foodList = storageManager.getFoodList();
-            Food.updateRevenue(storageManager.getRevenue());
         } catch (CubeException e) {
             ui.showLoadingError(filePath);
             foodList = new FoodList();
-            Food.updateRevenue(0);
             storageManager = new StorageManager();
         }
     }
