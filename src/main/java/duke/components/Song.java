@@ -60,11 +60,11 @@ public class Song {
         return groups;
     }
 
-    public int getNumBars(){
+    public int getNumBars() {
         return bars.size();
     }
 
-    public void updateBars(ArrayList<Bar> newBars){
+    public void updateBars(ArrayList<Bar> newBars) {
         this.bars = newBars;
     }
 

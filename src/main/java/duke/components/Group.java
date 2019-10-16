@@ -12,15 +12,15 @@ public class Group {
         this.bars = bars;
     }
 
-    public String getName(){
+    public String getName() {
         return this.name;
     }
 
-    public int size(){
+    public int size() {
         return bars.size();
     }
 
-    public Bar get(int i){
+    public Bar get(int i) {
         return bars.get(i);
     }
 

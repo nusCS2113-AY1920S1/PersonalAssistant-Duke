@@ -75,18 +75,18 @@ public class GroupCommand extends Command<SongList> {
         return false;
     }
 
-    private Group createGroup(String name, int start, int end) throws DukeException{
+    private Group createGroup(String name, int start, int end) throws DukeException {
         //check that the bounds are valid
-        if(start < 1 || end > song.getNumBars()){
+        if (start < 1 || end > song.getNumBars()) {
             throw new DukeException("", "group");
         }
 
-        ArrayList<Bar> mBars = new ArrayList<>();
+        ArrayList<Bar> myBars = new ArrayList<>();
         ArrayList<Bar> allBars = song.getBars();
-        for(int i = start - 1; i < end -1; i++){
-            mBars.add(allBars.get(i));
+        for (int i = start - 1; i < end - 1; i++) {
+            myBars.add(allBars.get(i));
         }
 
-        return new Group(name, mBars);
+        return new Group(name, myBars);
     }
 }
