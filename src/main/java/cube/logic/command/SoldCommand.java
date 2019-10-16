@@ -16,11 +16,11 @@ public class SoldCommand extends Command{
 	@Override
 	public void execute(FoodList list, Ui ui, StorageManager storage) {
 		Food food = list.get(foodName);
-		int originQty = food.getStock();
-		food.updateStock(originQty - quantity);
-		Food.updateRevenue(Food.getRevenue() + quantity * food.getPrice());
+		int originalQty = food.getStock();
+		food.setStock(originalQty - quantity);
+		double profit = quantity * food.getPrice();
+		Food.updateRevenue(Food.getRevenue() + profit);
 		storage.storeRevenue(Food.getRevenue());
-		System.out.println("reach sold");
-		//ui.showSold(foodName, Food.getRevenue());
+		ui.showSold(foodName, quantity, profit, Food.getRevenue());
 	}
 }

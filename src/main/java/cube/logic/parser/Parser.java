@@ -48,7 +48,7 @@ public class Parser {
 			case "delete":
 				return new DeleteCommandParser().parse(inputs);
 			case "sold":
-
+				return new SoldCommandParser().parse(inputs);
 			case "help":
 				return new HelpCommand();
 			case "bye":
