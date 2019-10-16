@@ -44,7 +44,7 @@
 
 #### 2.1  Architecture
 
-![architecture](https://github.com/9hafidz6/main/blob/master/docs/images/architectureV1.1.png)
+![architecture]( https://github.com/AY1920S1-CS2113-T14-2/main1/blob/master/docs/images/architectureV1.1.png )
 
 `main` has 1 class called `Duke`. It is responsible for,
 
@@ -61,7 +61,7 @@ The Application consist of 6 other components
 - `task`: stores a list of deadline/event/todo that needs to be done
 - `ui`: The UI of the application
 
-![sequence](https://github.com/9hafidz6/main/blob/master/docs/images/UMLsequence.png)
+![sequence]( https://github.com/AY1920S1-CS2113-T14-2/main1/blob/master/docs/images/UMLsequence.png )
 
 #### 2.2 UI
 
@@ -307,7 +307,7 @@ Target user profile: Restaurant Chef
 
 ### Appendix D: Non Functional Requirement
 
-1. should work on any windows OS as long it has `java 11` or newer installed 
+1. should work on any windows OS as long it has `java 11` or newer installed 
 2. The application needs to be secure. only specific users are able to access this application. for example, the restaurant manager as well as the chef
 3. should be reliable in displaying accurate and correct data 
 4. should be easy to use for users with basic knowledge of command line interface
