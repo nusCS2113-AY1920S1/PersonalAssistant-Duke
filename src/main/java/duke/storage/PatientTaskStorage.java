@@ -13,6 +13,11 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 
+/**
+ * TaskStorage.java - a class for writing/reading info of task associated with patient info to/from local in csv format.
+ * @author  HUANG XUAN KUN
+ * @version 1.2
+ */
 public class PatientTaskStorage {
 
     /**
@@ -30,33 +35,52 @@ public class PatientTaskStorage {
         this.filePath = filePath;
     }
 
+    /**
+     * Load the task info with associated patient from local csv files
+     *
+     * @return A arrayList of PatientTask which contain info of task with associated patient
+     * @throws DukeException throw a dukeException with error message for debugging
+     */
     public ArrayList<PatientTask> load() throws DukeException {
         ArrayList<PatientTask> patientTaskList = new ArrayList<PatientTask>();
+        File csvFile = new File(filePath);
         try {
-            Reader in = new FileReader(filePath);
-            Iterable<CSVRecord> records = CSVFormat.EXCEL.withFirstRecordAsHeader().parse(in);
-            for (CSVRecord record : records) {
-                Integer pid = Integer.parseInt(record.get("PID"));
-                Integer tid = Integer.parseInt(record.get("TID"));
-                boolean isDone = Boolean.parseBoolean(record.get("DONE"));
-                boolean isRecursive = Boolean.parseBoolean(record.get("RECURRENCE"));
-                String deadline = record.get("DEADLINE");
-                String startTime = record.get("STARTTIME");
-                String endTime = record.get("ENDTIME");
-                String taskType = record.get("TASKTYPE");
-                if (taskType.equals("S")){
-                    patientTaskList.add(new StandardPatientTask(pid,tid,isDone,isRecursive,deadline,taskType));
-                }
-                else if (taskType.equals("E")){
-                    patientTaskList.add(new EventPatientTask(pid,tid,isDone,isRecursive,startTime,endTime,taskType));
+            if (csvFile.createNewFile()) {
+                System.out.println("File " + filePath + " is created.");
+            } else {
+                Reader in = new FileReader(filePath);
+                Iterable<CSVRecord> records = CSVFormat.EXCEL.withFirstRecordAsHeader().parse(in);
+                for (CSVRecord record : records) {
+                    int pid = Integer.parseInt(record.get("PID"));
+                    int tid = Integer.parseInt(record.get("TID"));
+                    boolean isDone = Boolean.parseBoolean(record.get("DONE"));
+                    boolean isRecursive = Boolean.parseBoolean(record.get("RECURRENCE"));
+                    String deadline = record.get("DEADLINE");
+                    String startTime = record.get("STARTTIME");
+                    String endTime = record.get("ENDTIME");
+                    String taskType = record.get("TASKTYPE");
+                    if (taskType.equals("S")){
+                        patientTaskList.add(new StandardPatientTask(pid,tid,isDone,isRecursive,deadline,taskType));
+                    }
+                    else if (taskType.equals("E")){
+                        patientTaskList.add(new EventPatientTask(pid,tid,isDone,isRecursive,startTime,endTime,taskType));
+                    }
                 }
             }
             return patientTaskList;
-        } catch (IOException e) {
-            throw new DukeException(e.getMessage());
+        } catch (Exception e) {
+            throw new DukeException("Loading of " + filePath + "is unsuccessful." +
+                    "e.getMessage()");
         }
     }
 
+
+    /**
+     * Write info of task with associated patient to local csv files
+     *
+     * @param patientTask A list of patients containing info of patients to be written
+     * @throws DukeException throw exception with error message when i/o fails
+     */
     public void save(ArrayList<PatientTask> patientTask) throws DukeException {
         try {
             BufferedWriter writer = Files.newBufferedWriter(Paths.get(filePath));
