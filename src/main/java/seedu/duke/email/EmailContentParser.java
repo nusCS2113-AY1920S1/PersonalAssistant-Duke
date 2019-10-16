@@ -19,6 +19,7 @@ public class EmailContentParser {
     private static int KEYWORD_BODY_WEIGHTAGE = 1;
     private static ArrayList<KeywordPair> keywordList;
     private static int INFINITY = 0x3f3f3f;
+    private static int FUZZY_LIMIT = 3;
 
     public static void allKeywordInEmail(Email email) {
         for (KeywordPair keywordPair : keywordList) {
@@ -137,14 +138,33 @@ public class EmailContentParser {
                 dist[i][j] = min;
             }
         }
-        for (int i = 0; i <= A.length(); i++) {
-            for (int j = 0; j <= B.length(); j++) {
-                System.out.print(dist[i][j]);
-                System.out.print(" ");
-            }
-            System.out.println("\n");
-        }
         return dist[A.length()][B.length()];
+    }
+
+    /**
+     * Searches a keyword in input string with some tolerance of inaccuracy.
+     *
+     * @param input input string where the keyword is searched
+     * @param target the target keyword to be searched
+     * @return a relevance score related to both occurrence and relevance
+     */
+    private static int fuzzySearchInString(String input, String target) {
+        int score = 0;
+        String[] inputWords = input.split("\\W");
+        String[] targetWords = target.split("\\W");
+        for (String inputWord : inputWords) {
+            for (String targetWord : targetWords) {
+                if (inputWord.length() == 0 || targetWord.length() == 0) {
+                    continue;
+                }
+                int distance = editDistance(inputWord, targetWord);
+                if (distance <= FUZZY_LIMIT) {
+                    score += FUZZY_LIMIT - distance + 1;
+                }
+            }
+        }
+        Duke.getUI().showError(score + " : " + input + " <> " + target);
+        return score;
     }
 
     /**

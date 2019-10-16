@@ -17,5 +17,6 @@ public class EmailContentParserTest {
         assertEquals(2, editDistance("a", "bc"));
         assertEquals(1, editDistance("a", "ba"));
         assertEquals(4, editDistance("food", "money"));
+        assertEquals(3, editDistance("kitten", "sitting"));
     }
 }
