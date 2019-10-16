@@ -237,7 +237,8 @@ public class ExpenseList extends DukeList<Expense> {
                 .filter(expense -> expense.getTags().contains(tag))
                 .map(Expense::getAmount)
                 .reduce(BigDecimal.ZERO, BigDecimal::add);
-  
+        }
+
     public BigDecimal getTotalExternalAmount() {
         return externalList.stream()
             .map(Expense::getAmount)
