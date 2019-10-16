@@ -22,13 +22,20 @@ public class GsonStorageTest {
 
     private String filePath = "data/patients.json";
     private GsonStorage gsonStorage = new GsonStorage(filePath);
-    private Patient dummy1 = new Patient("dummy1", 100, "nuts");
-    private Patient dummy2 = new Patient("dummy2", 200, null);
-    private Patient dummy3 = new Patient("dummy3", 300, "cats");
-    private String expected = "[{\"bedNo\":100,\"allergies\":\"nuts\",\"impressions\":[],\"height\":0,\"we"
-            + "ight\":0,\"age\":0,\"number\":0,\"name\":\"dummy1\"},{\"bedNo\":200,\"impressions\":[],\"heig"
-            + "ht\":0,\"weight\":0,\"age\":0,\"number\":0,\"name\":\"dummy2\"},{\"bedNo\":300,\"allergies\":\"ca"
-            + "ts\",\"impressions\":[],\"height\":0,\"weight\":0,\"age\":0,\"number\":0,\"name\":\"dummy3\"}]";
+    private Patient dummy1 = new Patient("dummy1", "A100", "nuts");
+    private Patient dummy2 = new Patient("dummy2", "A200", null);
+    private Patient dummy3 = new Patient("dummy3", "A300", "cats");
+    /*private String expected = "[{\"bedNo\":\"A100\",\"allergies\":\"nuts\",\"impressions\":[],\"height\":0,\"we"
+            + "ight\":0,\"age\":0,\"number\":0,\"name\":\"dummy1\"},{\"bedNo\":\"A200\",\"impressions\":[],\"heig"
+            + "ht\":0,\"weight\":0,\"age\":0,\"number\":0,\"name\":\"dummy2\"},{\"bedNo\":\"A300\",\"allergies\":\"ca"
+            + "ts\",\"impressions\":[],\"height\":0,\"weight\":0,\"age\":0,\"number\":0,\"name\":\"dummy3\"}]";*/
+    private String expected = "["
+            + "{\"bedNo\":\"A300\",\"allergies\":\"cats\",\"impressions\":[],\"height\":0,"
+            + "\"weight\":0,\"age\":0,\"number\":0,\"name\":\"dummy3\"},"
+            + "{\"bedNo\":\"A100\",\"allergies\":\"nuts\",\"impressions\":[],\"height\":0,"
+            + "\"weight\":0,\"age\":0,\"number\":0,\"name\":\"dummy1\"},"
+            + "{\"bedNo\":\"A200\",\"impressions\":[],\"height\":0,"
+            + "\"weight\":0,\"age\":0,\"number\":0,\"name\":\"dummy2\"}]";
 
     GsonStorageTest() throws DukeFatalException, IOException {
         gsonStorage.resetAllData();
@@ -38,7 +45,7 @@ public class GsonStorageTest {
      * Creates a patient object and assign values to all of its attributes - used to test if the nesting works.
      */
     private Patient createComplexPatient() throws DukeException {
-        Patient complexPatient = new Patient("Complexia", 100, "cookies");
+        Patient complexPatient = new Patient("Complexia", "C100", "cookies");
         complexPatient.addNewImpression(new Impression("Afraid", "bit me", complexPatient.getName()));
         complexPatient.setPriDiagnosis(0);
         complexPatient.setAllergies("dogs");
@@ -57,7 +64,7 @@ public class GsonStorageTest {
      * TODO: compare impressions as well
      */
     private boolean identical(Patient patient1, Patient patient2) {
-        if (patient1.getBedNo() != patient2.getBedNo()) {
+        if (!(patient1.getBedNo().equals(patient2.getBedNo()))) {
             return false;
         } else if (!(java.util.Objects.equals(patient1.getAllergies(), patient2.getAllergies()))) {
             return false;
@@ -87,9 +94,9 @@ public class GsonStorageTest {
         fileWriter.write(expected);
         fileWriter.close();
         gsonStorage.loadPatientHashMap();
-        assertTrue(identical(gsonStorage.getPatient("dummy1"), dummy1));
-        assertTrue(identical(gsonStorage.getPatient("dummy2"), dummy2));
-        assertTrue(identical(gsonStorage.getPatient("dummy3"), dummy3));
+        assertTrue(identical(gsonStorage.getPatient("A100"), dummy1));
+        assertTrue(identical(gsonStorage.getPatient("A200"), dummy2));
+        assertTrue(identical(gsonStorage.getPatient("A300"), dummy3));
     }
 
     /**
@@ -103,7 +110,7 @@ public class GsonStorageTest {
         gsonStorage.addPatientToMap(dummy1);
         gsonStorage.writeJsonFile();
         gsonStorage.loadPatientHashMap();
-        Patient dummyPatientRecreated = gsonStorage.getPatient(dummy1.getName());
+        Patient dummyPatientRecreated = gsonStorage.getPatient(dummy1.getBedNo());
         boolean equals = identical(dummy1, dummyPatientRecreated);
         assertTrue(equals);
     }
@@ -120,7 +127,7 @@ public class GsonStorageTest {
         gsonStorage.addPatientToMap(complexPatient);
         gsonStorage.writeJsonFile();
         gsonStorage.loadPatientHashMap();
-        Patient complexPatientRecreated = gsonStorage.getPatient("Complexia");
+        Patient complexPatientRecreated = gsonStorage.getPatient("C100");
         boolean equals = identical(complexPatient, complexPatientRecreated);
         assertTrue(equals);
     }
@@ -136,6 +143,9 @@ public class GsonStorageTest {
         gsonStorage.addPatientToMap(dummy3);
         gsonStorage.writeJsonFile();
         String json = Files.readString(Paths.get(filePath), StandardCharsets.US_ASCII);
+        System.out.println(expected);
+        System.out.println("\n");
+        System.out.println(json);
         assertEquals(expected, json);
     }
 }

@@ -6,7 +6,7 @@ import java.util.ArrayList;
 
 public class Patient extends DukeObject {
 
-    private int bedNo;
+    private String bedNo;
     private String allergies;
     private Impression priDiagnosis;
     private ArrayList<Impression> impressions;
@@ -35,7 +35,7 @@ public class Patient extends DukeObject {
      * - allergies: the Food and Drug allergies a patient has
      * - impression: the list of all impressions of a patient
      */
-    public Patient(String name, int bedNo, String allergies) {
+    public Patient(String name, String bedNo, String allergies) {
         super(name);
         this.bedNo = bedNo;
         this.allergies = allergies;
@@ -150,7 +150,7 @@ public class Patient extends DukeObject {
         return null;
     }
 
-    public int getBedNo() {
+    public String getBedNo() {
         return bedNo;
     }
 

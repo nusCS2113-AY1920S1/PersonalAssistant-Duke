@@ -36,7 +36,7 @@ public class PatientMap {
      * @return the patient object added.
      */
     public Patient addPatient(Patient newPatient) {
-        patientMap.put(newPatient.getName(), newPatient);
+        patientMap.put(newPatient.getBedNo(), newPatient);
         return newPatient;
     }
 
