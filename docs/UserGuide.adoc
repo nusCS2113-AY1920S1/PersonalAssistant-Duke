@@ -36,28 +36,40 @@ image::Ui.png[]
 
 == Usage
 
-App-specific terms:
-
 * This app manages multiple Patients. Each Patient has one or more Impressions (diagnoses), and each Impression is supported by Evidence and treated by Treatments. Evidence consists of Observations and Results. Treatments consist of Plans, Investigations and Medicine. 
-* The different screens you can view are referred to as contexts. Each context is associated with a particular set of data to display.
+* The different screens you can view are referred to as contexts. Each context is associated with a particular set of data to display, and has its own set of commands.
 * `priority` refers to how critical a Treatment or Evidence is. 0 means not urgent, excluding the item from the criticality system, 1 means critical. The other values are not defined specifically but the greater they are, the lower the priority. These lower priority levels are meant to remain flexible for the user to provide his desired level of fine-graining and task management.
 ** `priority` 1 generally refers to something that needs to be followed up on or investigated immediately, e.g. signs of severe complications. `priority` 1 items will be displayed prominently to remind the user to respond to it when treating the patient. 
 * `status` refers to the stage of completion of a Treatment. The textual descriptions for each stage of completion are stored in the `statusArr` (and referred to as `<status name>`). 
 
-Specification syntax:
+= Specifying Commands
+
+Commands consist of a command name, an argument, and some number of swtiches: settings for a command that modify its behavior. Switches can also have arguments.
+
+For example, `discharge "John Doe" -sum "John Doe was discharged on 9 October 2019 at 3:54 pm."` represents the command `discharge` with the argument `"John Doe"`, modified by the switch `-sum` (meaning "summary"), which has the switch argument `"John Doe was discharged on 9 October 2019 at 3:54 pm."`. 
+
+Only a few characters have a special meaning when you are giving Dr. Duke commands. These are `"`, `\`, `-`, `<Space>`, and `<Enter>`:
+
+* `"` -> Indicates the start and end of a string: text input that is longer than a single word.
+* `\` -> Escape character: the special character after a backslash loses its special meaning. To type a literal backslash, you need to escape the backslash: `Hello\\World` becomes `Hello\World`.
+* `-` -> Indicates the start of a switch. Must immediately be followed by an argument, if the switch requries one. 
+* `<Space>` -> Words in a command are separated by spaces.
+* `<Enter>` -> This sends a command to Dr. Duke. `<Shift-Enter>` would insert a new line.
+
+The documentation below uses the following notation to describe the structure of the commands recognised:
 
 * `[]` -> optional element of a command
-* `<>` -> variable input, specified within bracket
+* `<>` -> input of the type specified
 * `(a|b|c)` -> input that can be one of several possible options, in this case `a`, `b` or `c`
-* `"<>"` -> string, must be surrounded by quotes if it contains a space, and cannot start with a -
-* `[]*` -> 0 or more of the contents of [], separated by spaces
+* `"<>"` -> string, must be surrounded by quotes if it contains a space (or escape the space with a backslash)
+* `[]*` -> 0 or more copies of the contents of `[]`, separated by spaces
 
-Reused patterns:
+The following italicised words refer to specific repeated patterns:
 
-* _patient_id_: `(<patient index>|"<part of name>"|-b <bed number>)`
-* _string_or_idx_: `(<index>|"<search string>")`
+* _patient_id_ -> `(<patient index>|"<part of name>"|-b <bed number>)`
+* _string_or_idx_ -> `(<index>|"<search string>")`
 ** `<index>` refers to the index assigned to the object in the display. `<search string>` will be searched for in the names of all relevant objects.
-* _type_: (`-m[edicine]`|`-i[nv(x|estigation)]`|`-p[lan]`|`-o[bservation]`|`-r[esult]`)
+* _type_ -> (`-m[edicine]`|`-i[nv(x|estigation)]`|`-p[lan]`|`-o[bservation]`|`-r[esult]`)
 
 Parsing rules:
 
@@ -70,7 +82,7 @@ The sections below describe what will be displayed in each context, and the comm
 
 === Home
 
-Shows up to 10 numbered panels displaying a summary of the critical details of some Patients: name, bed number, primary diagnosis, and number of critical issues.
+Shows up to 8 numbered panels displaying a summary of the critical details of some Patients: name, bed number, primary diagnosis, and number of critical issues.
 
 ==== `help` - Display a context-specific list of commands and options [[home-help]]
 
@@ -96,9 +108,9 @@ Format: `archive`
 
 ==== `open` - Go to a more detailed view of a particular Patient
 
-Format: `open _patient_id_ [-im[pression]]` 
+Format: `open _patient_id_ [-im[pression]]`
 
-If the `-b` switch is used, look up the bed number. If the `-i` switch is used, go to the impression specified by the index, or go to the primary impression for that particular Patient if no index is specified.
+If the `-b` switch is used, look up the bed number. If the `-im` switch is used, go to the primary impression for that particular Patient. 
 
 ==== `new` - Add a new Patient to the system
 
@@ -128,7 +140,7 @@ Format: `undo <number of commands>`
 
 _Available in:_ <<Home>>, <<Patient>>, <<Impression>>, <<Treatment and Evidence>>
 
-You can undo up to the last 10 commands. Only commands that affect the state of the system count against this limit (i.e. adding new Patients, editing data).
+You can undo up to the last 10 commands. Only commands that affect the state of the system count against this limit (e.g. adding new Patients or editing data, not navigating between contexts).
 
 ==== `redo` - Redo a command that has been undone [[home-redo]]
 
@@ -145,9 +157,9 @@ Shows a detailed view of a Patient, displaying in separate panels:
 * All personal details
 * A list of critical Treatments and Evidence (`priority` 1)
 * A list of Investigations to follow up on (i.e. all current investigations; completed investigations should be stored as Results)
-* Each Impression, with its name and an excerpt of its description
+* Each Impression, with its name and an excerpt of its description, and the number of critical items and follow-up investigations associated with it
 
-Inherits: <<home-help,`help`>>, <<home-next,`next`>>, <<home-prev,`prev`>>, <<home-undo,`undo`>>, <<home-redo,`redo`>>
+Inherits: <<home-help,`help`>>, <<home-undo,`undo`>>, <<home-redo,`redo`>> 
 
 ==== `back` - Go back to previous context [[patient-back]]
 
@@ -244,7 +256,7 @@ Shows a detailed view of an Impression, displaying in separate panels:
 * A list of Treatments for the Impression, sorted by default with critical items first, followed by investigations that require follow-up
 * A small panel with the patient's allergies
 
-Inherits: <<home-help,`help`>>, <<home-next,`next`>>, <<home-prev,`prev`>>, <<patient-back,`back`>>, <<patient-up,`up`>>, <<patient-report,`report`>>, <<home-undo,`undo`>>, <<home-redo,`redo`>>
+Inherits: <<home-help,`help`>>, <<patient-back,`back`>>, <<patient-up,`up`>>, <<patient-report,`report`>>, <<home-undo,`undo`>>, <<home-redo,`redo`>> 
 
 ==== `new` - Add a new Treatment or Evidence item to this Impression
 
@@ -359,7 +371,7 @@ Display a list of all Treatments and Evidence matching the criteria specified in
 
 All Treatment and Evidence contexts (one for each type of Treatment and each type of Evidence) behave in essentially the same way: they display all their data in full. This section will list the commands that they have in common. Each individual Treatment and Evidence context is assumed to have all these commands, and all the commands in this inheritance list.
 
-Inherits: <<home-help,`help`>>, <<home-next,`next`>>, <<home-prev,`prev`>>, <<patient-back,`back`>>, <<patient-up,`up`>>, <<patient-report,`report`>>, <<home-undo,`undo`>>, <<home-redo,`redo`>>
+Inherits: <<home-help,`help`>>, <<patient-back,`back`>>, <<patient-up,`up`>>, <<patient-report,`report`>>, <<home-undo,`undo`>>, <<home-redo,`redo`>>
 
 ==== `edit` - Edit one of the details of the Treatment or Evidence
 

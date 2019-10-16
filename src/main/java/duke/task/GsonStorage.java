@@ -47,7 +47,7 @@ public class GsonStorage {
      *
      * @throws DukeFatalException If data file cannot be setup.
      */
-    public void loadPatientHashMap() throws DukeFatalException {
+    public HashMap<String, Patient> loadPatientHashMap() throws DukeFatalException {
         try {
             String json = Files.readString(Paths.get(filePath), StandardCharsets.US_ASCII);
             Patient[] patientList = new Gson().fromJson(json, Patient[].class);
@@ -57,6 +57,7 @@ public class GsonStorage {
         } catch (IOException excp) {
             throw new DukeFatalException("Unable to load data file, try checking your permissions?");
         }
+        return this.patientMap;
     }
 
     /**
@@ -80,11 +81,11 @@ public class GsonStorage {
      * Adds a patient object to the hash map with all the patients - used when testing.
      */
     public void addPatientToMap(Patient patient) {
-        patientMap.put(patient.getName(), patient);
+        patientMap.put(patient.getBedNo(), patient);
     }
 
-    public Patient getPatient(String name) {
-        return patientMap.get(name);
+    public Patient getPatient(String bedNo) {
+        return patientMap.get(bedNo);
     }
 
     public String getFilePath() {

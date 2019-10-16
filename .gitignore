@@ -15,3 +15,6 @@ bin/
 
 # User data
 /data/*
+
+# Java build files
+*.javas
