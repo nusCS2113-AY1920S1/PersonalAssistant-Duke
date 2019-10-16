@@ -18,14 +18,13 @@ public class Room extends Resource {
         // find some way to generate ID
     }
 
-    public Room(String name, int id, boolean isBooked) {
-        super(name, id, isBooked);
+    public Room(String name, int id) {
+        super(name, id);
         this.type = 'R';
     }
 
-    public Room(String name, int id, boolean isBooked, int loanId, String stringDateFrom, String stringDateTill) throws ParseException {
-        super(name, id, isBooked, loanId, stringDateFrom, stringDateTill);
-        System.out.println(this.loanId);
+    public Room(String name, int id, int loanId, String stringDateFrom, String stringDateTill) throws ParseException {
+        super(name, id, loanId, stringDateFrom, stringDateTill);
         this.type = 'R';
     }
 }
