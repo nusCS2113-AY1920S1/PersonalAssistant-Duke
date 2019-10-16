@@ -35,7 +35,12 @@ public class Task {
         this.taskCredit = taskCredit;
         this.taskState = taskState;
         this.taskMemberList = new TaskMemberList();
-        this.taskRequirements = taskRequirements;
+        if (taskRequirements != null) {
+            this.taskRequirements = taskRequirements;
+        } else {
+            this.taskRequirements = new ArrayList<>();
+        }
+
     }
 
     public String getTaskName() {
@@ -91,8 +96,22 @@ public class Task {
         this.taskMemberList.removeMember(memberIndex);
     }
 
+    /**
+     * Adds index labels to task requirements for clearer viewing.
+     * @return ArrayList of String of task requirements with labelled indexes.
+     */
     public ArrayList<String> getTaskRequirements() {
-        return this.taskRequirements;
+        ArrayList<String> taskRequirements = new ArrayList<>();
+        int index = 1;
+        for (String s : this.taskRequirements) {
+            taskRequirements.add(index + ". " + s);
+            index++;
+        }
+        return taskRequirements;
+    }
+
+    public int getNumOfTaskRequirements() {
+        return this.taskRequirements.size();
     }
 
     public void setTaskName(String newTaskName) {

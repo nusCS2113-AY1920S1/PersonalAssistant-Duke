@@ -82,7 +82,7 @@ public class ProjectInputController {
                         && ("view task requirements i/").equals(projectCommand.substring(0, 25))) {
                     int taskIndex = Integer.parseInt(projectCommand.substring(25));
                     if (projectToManage.getNumOfTasks() >= taskIndex && taskIndex > 0) {
-                        if (projectToManage.getTask(taskIndex).getTaskRequirements() == null) {
+                        if (projectToManage.getTask(taskIndex).getNumOfTaskRequirements() == 0) {
                             consoleView.consolePrint("This task has no specific requirements.");
                         } else {
                             consoleView.viewTaskRequirements(projectToManage, taskIndex);
