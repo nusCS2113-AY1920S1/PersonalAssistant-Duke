@@ -1,17 +1,22 @@
-package duke.util;
+package duke.util.Argparse4j;
 
 import duke.command.logic.AddCcaCommand;
 import duke.command.logic.EndCommand;
 import duke.command.logic.ModuleCommand;
+import duke.command.logic.RemoveCcaCommand;
 import duke.command.logic.RemoveModCommand;
 import duke.command.logic.SearchThenAddCommand;
+import duke.command.logic.ShowCcaCommand;
 import duke.command.logic.ShowModuleCommand;
+import duke.exceptions.ModException;
+import duke.util.Argparse4j.customParserAction.Join;
+import java.lang.reflect.InvocationTargetException;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Scanner;
 import net.sourceforge.argparse4j.ArgumentParsers;
 import net.sourceforge.argparse4j.inf.Argument;
+import net.sourceforge.argparse4j.inf.ArgumentAction;
 import net.sourceforge.argparse4j.inf.ArgumentParser;
 import net.sourceforge.argparse4j.inf.ArgumentParserException;
 import net.sourceforge.argparse4j.inf.Namespace;
@@ -26,6 +31,7 @@ public class Argparse4jWrapper {
     private HashMap<String, Class<? extends ModuleCommand>> commandMapper;
     private HashMap<String, List<String>> argumentMapper;
     private HashMap<Class, Class> typeMapper;
+    private ArgumentAction joinString;
 
     /**
      * Constructor for parser.
@@ -47,6 +53,7 @@ public class Argparse4jWrapper {
         this.mapArgument("add", "moduleCode");
         this.mapArgument("remove", "index");
         this.mapArgument("addCca", "name", "begin", "end", "dayOfWeek");
+        this.mapArgument("removeCca", "index");
     }
 
     /**
@@ -56,9 +63,11 @@ public class Argparse4jWrapper {
     public void mapBuiltinCommands() {
         this.mapCommand("add", SearchThenAddCommand.class);
         this.mapCommand("show", ShowModuleCommand.class);
+        this.mapCommand("showCca", ShowCcaCommand.class);
         this.mapCommand("bye", EndCommand.class);
         this.mapCommand("remove", RemoveModCommand.class);
         this.mapCommand("addCca", AddCcaCommand.class);
+        this.mapCommand("removeCca", RemoveCcaCommand.class);
     }
 
     /**
@@ -78,26 +87,39 @@ public class Argparse4jWrapper {
                 .help("Index of module to remove");
 
         Subparser addCcaParser = this.getSubParser("addCca");
-        addCcaParser.addArgument("--name")
+        addCcaParser.addArgument("name")
                 .required(true)
                 .nargs("+")
+                .action(this.joinString)
                 .help("Name of cca");
         addCcaParser.addArgument("--begin")
                 .required(true)
                 .nargs("+")
+                .action(this.joinString)
                 .help("Begin time");
         addCcaParser.addArgument("--end")
                 .required(true)
                 .nargs("+")
+                .action(this.joinString)
                 .help("End time");
         addCcaParser.addArgument("--dayOfWeek")
                 .required(true)
                 .help("Day of week on which cca takes place");
+
+        Subparser removeCcaParser = this.getSubParser("removeCca");
+        removeCcaParser.addArgument("index")
+                .type(Integer.class)
+                .required(true)
+                .help("Index of cca to remove");
     }
 
     // This point onwards is automatic
     public void initTypeMapper() {
         this.typeMapper.put(Integer.class, int.class);
+    }
+
+    public void initBuiltinActions() {
+        this.joinString = new Join();
     }
 
     /**
@@ -109,6 +131,7 @@ public class Argparse4jWrapper {
         this.argumentMapper = new HashMap<>();
         this.commandMapper = new HashMap<>();
         this.typeMapper = new HashMap<>();
+        this.initBuiltinActions();
         this.mapBuiltinCommands();
         this.mapBuiltinCommandsArguments();
         this.initBuiltinParsers();
@@ -229,45 +252,54 @@ public class Argparse4jWrapper {
     }
 
     /**
-     * Parse input to ModuleCommand.
-     * @param userInput input String
-     * @return parsed ModuleCommand if input is valid else null
+     * Invoke a module command
+     * @param commandClass command class to invoke
+     * @param argumentsClasses corresponding classes of arguments
+     * @param objects corresponding arguments
+     * @return
      */
-    private ModuleCommand parseCommand(String userInput) {
-        Namespace parsedInput = this.parse(userInput);
-        if (parsedInput != null) {
-            String command = parsedInput.get("subParserName");
-            Class<? extends ModuleCommand> commandClass = this.commandMapper.get(command);
-            List<String> arguments = this.argumentMapper.get(command);
-            Object[] objects = new Object[arguments.size()];
-            Class[] argumentsClasses = new Class[arguments.size()];
-            for (int i = 0; i < argumentsClasses.length; ++i) {
-                objects[i] = parsedInput.get(arguments.get(i));
-                argumentsClasses[i] = objects[i].getClass();
+    private ModuleCommand invokeCommand(Class<? extends ModuleCommand> commandClass,
+                                        Class[] argumentsClasses,
+                                        Object[] objects) throws ModException {
+        try {
+            return commandClass.getConstructor(argumentsClasses).newInstance(objects);
+        } catch (InvocationTargetException ex) {
+            if (ex.getCause() instanceof ModException) {
+                throw (ModException) ex.getCause();
             }
-            this.remapTypes(argumentsClasses);
-            try {
-                return commandClass.getConstructor(argumentsClasses).newInstance(objects);
-            } catch (Throwable ex) {
-                ex.printStackTrace();
-                return null;
-            }
-        } else {
+            ex.printStackTrace();
+            return null;
+        } catch (Throwable ex) {
+            ex.printStackTrace();
             return null;
         }
     }
 
     /**
-     * Test run.
-     * @param args input args
+     * Parse input to ModuleCommand.
+     * @param userInput input String
+     * @return parsed ModuleCommand if input is valid else null
      */
-    public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
-
-        // Example of how to initialize parser
-        Argparse4jWrapper parser = new Argparse4jWrapper();
-        while (true) {
-            parser.parseCommand(scanner.nextLine());
+    public ModuleCommand parseCommand(String userInput) throws ModException {
+        Namespace parsedInput = this.parse(userInput);
+        if (parsedInput != null) {
+            String command = parsedInput.get("subParserName");
+            Class<? extends ModuleCommand> commandClass = this.commandMapper.get(command);
+            List<String> arguments = this.argumentMapper.get(command);
+            Object[] objects = null;
+            Class[] argumentsClasses = null;
+            if (arguments != null) {
+                objects = new Object[arguments.size()];
+                argumentsClasses = new Class[arguments.size()];
+                for (int i = 0; i < argumentsClasses.length; ++i) {
+                    objects[i] = parsedInput.get(arguments.get(i));
+                    argumentsClasses[i] = objects[i].getClass();
+                }
+                this.remapTypes(argumentsClasses);
+            }
+            return this.invokeCommand(commandClass, argumentsClasses, objects);
+        } else {
+            return null;
         }
     }
 }
