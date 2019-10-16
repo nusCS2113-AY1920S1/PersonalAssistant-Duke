@@ -10,7 +10,7 @@ import java.time.format.DateTimeParseException;
 /**
  * Class responsible for executing Command to create a new FixedDuration task.
  */
-public class NewFixedDurationCommand extends MultiArgCommand {
+public class NewFixedDurationCommand extends ArgCommand {
 
     private Duration period;
     /**
@@ -30,7 +30,7 @@ public class NewFixedDurationCommand extends MultiArgCommand {
      * with argv[0] as the description and argv[1] as the period of time in the Duration data format.
      *
      * @throws DukeException If task description is empty, or if duration is invalid.
-     * @see MultiArgCommand
+     * @see ArgCommand
      */
     @Override
     public void parse(String inputStr) throws DukeException {

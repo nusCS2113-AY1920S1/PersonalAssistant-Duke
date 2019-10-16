@@ -9,7 +9,7 @@ import java.time.format.DateTimeParseException;
 /**
  * Abstract class for Tasks that need to store a LocalDateTime object as part of their description.
  */
-public abstract class NewTimedTaskCommand extends MultiArgCommand {
+public abstract class NewTimedTaskCommand extends ArgCommand {
 
     protected LocalDateTime taskDateTime;
 
@@ -18,7 +18,7 @@ public abstract class NewTimedTaskCommand extends MultiArgCommand {
      * with argv[0] as the description and argv[1] as the date and time in the TimedTask data format.
      *
      * @throws DukeException If task description is empty, or if date and time are invalid.
-     * @see MultiArgCommand
+     * @see ArgCommand
      */
     @Override
     public void parse(String inputStr) throws DukeException {

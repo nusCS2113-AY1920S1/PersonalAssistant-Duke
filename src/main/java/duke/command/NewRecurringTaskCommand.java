@@ -10,7 +10,7 @@ import java.time.temporal.ChronoUnit;
 import java.time.temporal.TemporalUnit;
 
 //TODO This is complex enough that the generic Javadoc will not do
-public class NewRecurringTaskCommand extends MultiArgCommand {
+public class NewRecurringTaskCommand extends ArgCommand {
 
     /**
      * Creates a new NewRecurringTaskCommand, setting the parameters for its inherited methods.

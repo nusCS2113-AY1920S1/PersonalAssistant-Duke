@@ -13,7 +13,7 @@ import java.time.format.DateTimeParseException;
  *
  * @author Pang Jia Jun Vernon
  */
-public class NewReminderCommand extends MultiArgCommand {
+public class NewReminderCommand extends ArgCommand {
     private LocalDateTime reminderDateTime;
 
     /**

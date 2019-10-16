@@ -7,7 +7,7 @@ import duke.task.TimedTask;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
 
-public class SnoozeCommand extends MultiArgCommand {
+public class SnoozeCommand extends ArgCommand {
 
     /**
      * Creates a new SnoozeCommand which can be executed to snooze a TimedTask. The constructor sets the parameters

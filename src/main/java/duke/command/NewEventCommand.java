@@ -31,7 +31,7 @@ public class NewEventCommand extends NewTimedTaskCommand {
      * with argv[0] as the description and argv[1], argv[2] as the date and time in the TimedTask data format.
      *
      * @throws DukeException If task description is empty, or if date and time are invalid.
-     * @see MultiArgCommand
+     * @see ArgCommand
      */
     @Override
     public void parse(String inputStr) throws DukeException {
