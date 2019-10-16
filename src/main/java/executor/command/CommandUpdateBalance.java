@@ -5,16 +5,15 @@ import ui.Wallet;
 
 public class CommandUpdateBalance extends Command {
 
-    Double newBalance;
+    private Double newBalance;
 
     /**
      * Constructor for the CommandUpdateBalance class.
      * @param userInput The user Input from the CLI
      */
     public CommandUpdateBalance(String userInput) {
-        Double amount = Double.parseDouble(userInput.replace("setbalance", "").trim()) - 1;
+        Double amount = Double.parseDouble(userInput.replace("setbalance", "").trim());
         this.newBalance = amount;
-
     }
 
     @Override
