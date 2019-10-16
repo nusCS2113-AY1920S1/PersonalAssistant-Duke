@@ -30,20 +30,27 @@ public class PatientStorage {
 
     public ArrayList<Patient> load() throws DukeException {
         ArrayList<Patient> patientList = new ArrayList<Patient>();
+        File csvFile = new File(filePath);
         try {
-            Reader in = new FileReader(filePath);
-            Iterable<CSVRecord> records = CSVFormat.EXCEL.withFirstRecordAsHeader().parse(in);
-            for (CSVRecord record : records) {
-                int id = Integer.parseInt(record.get("Id"));
-                String name = record.get("Name");
-                String nric = record.get("NRIC");
-                String remark = record.get("Remark");
-                String room = record.get("Room");
-                patientList.add(new Patient(id, name, nric, room, remark));
+            if (csvFile.createNewFile()) {
+                System.out.println("File " + filePath + " is created.");
+            } else {
+                Reader in = new FileReader(filePath);
+                Iterable<CSVRecord> records = CSVFormat.EXCEL.withFirstRecordAsHeader().parse(in);
+                for (CSVRecord record : records) {
+                    int id = Integer.parseInt(record.get("Id"));
+                    String name = record.get("Name");
+                    String nric = record.get("NRIC");
+                    String remark = record.get("Remark");
+                    String room = record.get("Room");
+                    patientList.add(new Patient(id, name, nric, room, remark));
+                }
             }
+        } catch (IllegalArgumentException e) {
+            throw new DukeException("Loading of " + filePath + "is unsuccessful. Header is not found.\n" +
+                    "e.getMessage()");
+        } finally {
             return patientList;
-        } catch (IOException e) {
-            throw new DukeException(e.getMessage());
         }
     }
 
