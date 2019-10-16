@@ -1,16 +1,7 @@
 package duke.parser;
 
 import duke.Duke;
-import duke.command.AddCommand;
-import duke.command.Command;
-import duke.command.DeleteCommand;
-import duke.command.DoneCommand;
-import duke.command.ExitCommand;
-import duke.command.FindCommand;
-import duke.command.ListCommand;
-import duke.command.RemindCommand;
-import duke.command.Snooze;
-import duke.command.ViewCommand;
+import duke.command.*;
 import duke.exception.DukeException;
 import duke.task.Deadline;
 import duke.task.DoWithinPeriodTasks;
@@ -44,6 +35,8 @@ public class Parser {
         switch (splitted[0]) {
             case "list":
                 return new ListCommand();
+            case "listtoday":
+                return new FindToday();
             case "bye":
                 return new ExitCommand();
             case "done":
