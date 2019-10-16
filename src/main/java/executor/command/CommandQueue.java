@@ -5,6 +5,7 @@ import executor.task.TaskList;
 import interpreter.Interpreter;
 import interpreter.Parser;
 import ui.Ui;
+import ui.Wallet;
 
 public class CommandQueue extends Command {
     protected String userInput;
@@ -16,6 +17,11 @@ public class CommandQueue extends Command {
     public CommandQueue(String userInput) {
         this.userInput = userInput;
         this.commandType = CommandType.QUEUE;
+    }
+
+    @Override
+    public void execute(Wallet wallet) {
+
     }
 
     @Override

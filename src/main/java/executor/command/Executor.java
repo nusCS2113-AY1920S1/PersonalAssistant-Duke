@@ -1,6 +1,7 @@
 package executor.command;
 
 import executor.task.TaskList;
+import ui.Wallet;
 
 public class Executor {
 
@@ -16,9 +17,10 @@ public class Executor {
      * @param userInput User input from the CLI
      * @return True if the Command executed calls for an ExitRequest, false otherwise
      */
-    public static boolean runCommand(TaskList taskList, CommandType commandType, String userInput) {
+    public static boolean runCommand(TaskList taskList, Wallet wallet, CommandType commandType, String userInput) {
         Command c = createCommand(commandType, userInput);
         c.execute(taskList);
+        c.execute(wallet);
         return c.getExitRequest();
     }
 
