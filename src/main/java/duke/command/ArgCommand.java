@@ -13,6 +13,10 @@ import java.util.Map;
  */
 public abstract class ArgCommand extends Command {
 
+    // TODO: create <Command Type>Spec singletons that are each attached to individual Command types
+    // Use internal protected classes to specify the properties of switches: optional or not, whether it takes
+    // an argument, and whether it is an integer or a string
+
     private String arg = null; //argument supplied to the command
     private HashMap<String, String> switchVals = new HashMap<String, String>(); //hashmap of switch parameters
 
