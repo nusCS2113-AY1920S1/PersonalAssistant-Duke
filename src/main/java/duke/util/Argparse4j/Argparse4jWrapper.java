@@ -1,11 +1,11 @@
 package duke.util;
 
+import duke.command.logic.AddCcaCommand;
 import duke.command.logic.EndCommand;
 import duke.command.logic.ModuleCommand;
 import duke.command.logic.RemoveModCommand;
 import duke.command.logic.SearchThenAddCommand;
 import duke.command.logic.ShowModuleCommand;
-import duke.exceptions.ModCommandException;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -46,6 +46,7 @@ public class Argparse4jWrapper {
     public void mapBuiltinCommandsArguments() {
         this.mapArgument("add", "moduleCode");
         this.mapArgument("remove", "index");
+        this.mapArgument("addCca", "name", "begin", "end", "dayOfWeek");
     }
 
     /**
@@ -57,6 +58,7 @@ public class Argparse4jWrapper {
         this.mapCommand("show", ShowModuleCommand.class);
         this.mapCommand("bye", EndCommand.class);
         this.mapCommand("remove", RemoveModCommand.class);
+        this.mapCommand("addCca", AddCcaCommand.class);
     }
 
     /**
@@ -74,6 +76,23 @@ public class Argparse4jWrapper {
                 .type(Integer.class)
                 .required(true)
                 .help("Index of module to remove");
+
+        Subparser addCcaParser = this.getSubParser("addCca");
+        addCcaParser.addArgument("--name")
+                .required(true)
+                .nargs("+")
+                .help("Name of cca");
+        addCcaParser.addArgument("--begin")
+                .required(true)
+                .nargs("+")
+                .help("Begin time");
+        addCcaParser.addArgument("--end")
+                .required(true)
+                .nargs("+")
+                .help("End time");
+        addCcaParser.addArgument("--dayOfWeek")
+                .required(true)
+                .help("Day of week on which cca takes place");
     }
 
     // This point onwards is automatic
