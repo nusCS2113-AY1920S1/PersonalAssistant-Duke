@@ -1,5 +1,6 @@
 package command;
 
+import Dictionary.Word;
 import Dictionary.WordBank;
 import exception.NoWordFoundException;
 import storage.Storage;
@@ -28,8 +29,10 @@ public class EditCommand extends Command {
         //ask storage to write to file
         try {
             // edit word
-            word = wordBank.getAndEditMeaning(editedWord,newMeaning);
-            String returned = ui.showEdited(word);
+            String oldWordToString = wordBank.getWordBank().get(editedWord).toString();
+            Word newWord = wordBank.getAndEditMeaning(editedWord,newMeaning);
+            storage.editFromFile(oldWordToString,newWord.toString());
+            String returned = ui.showEdited(newWord);
             return returned;
 
         } catch (NoWordFoundException e) {
