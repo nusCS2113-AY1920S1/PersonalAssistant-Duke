@@ -44,6 +44,6 @@ public class ReminderCommand implements Command{
 				tasksReminder.add(task);
 			}
 		}
-		ui.showReminder(tasksReminder);
+		//ui.showReminder(tasksReminder);
 	}
 }
