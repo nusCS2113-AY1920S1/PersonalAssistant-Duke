@@ -263,6 +263,10 @@ public class BakingHome implements ReadOnlyBakingHome {
         shoppingList.set(toEdit, edited);
     }
 
+    public void clearShoppingList(List<Item<Ingredient>> emptyList) {
+        shoppingList.setAll(emptyList);
+    }
+
     @Override
     public ObservableList<Item<Ingredient>> getShoppingList() {
         return shoppingList.asUnmodifiableObservableList();

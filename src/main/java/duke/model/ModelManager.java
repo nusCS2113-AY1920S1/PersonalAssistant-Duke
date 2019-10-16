@@ -278,6 +278,10 @@ public class ModelManager implements Model {
         bakingHome.setShoppingList(toEdit, edited);
     }
 
+    public void clearShoppingList(List<Item<Ingredient>> emptyList) {
+        bakingHome.clearShoppingList(emptyList);
+    }
+
     @Override
     public ObservableList<Item<Ingredient>> getFilteredShoppingList() {
         return filteredShoppingList;
