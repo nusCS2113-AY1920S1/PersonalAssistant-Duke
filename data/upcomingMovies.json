@@ -1,0 +1,403 @@
+{
+  "results": [
+    {
+      "popularity": 70.155,
+      "vote_count": 24,
+      "video": false,
+      "poster_path": "\/uaXNjRkDdjfxfVuKHo25wkA6CiA.jpg",
+      "id": 481084,
+      "adult": false,
+      "backdrop_path": "\/nHZpVTiGLj0GXP3D9bFbmvzw73y.jpg",
+      "original_language": "en",
+      "original_title": "The Addams Family",
+      "genre_ids": [
+        16,
+        35,
+        14,
+        27,
+        10751
+      ],
+      "title": "The Addams Family",
+      "vote_average": 6.6,
+      "overview": "The Addams family's lives begin to unravel when they face-off against a treacherous, greedy crafty reality-TV host while also preparing for their extended family to arrive for a major celebration.",
+      "release_date": "2019-10-11"
+    },
+    {
+      "popularity": 68.642,
+      "vote_count": 20,
+      "video": false,
+      "poster_path": "\/pIcV8XXIIvJCbtPoxF9qHMKdRr2.jpg",
+      "id": 338967,
+      "adult": false,
+      "backdrop_path": "\/jCCdt0e8Xe9ttvevD4S3TSMNdH.jpg",
+      "original_language": "en",
+      "original_title": "Zombieland: Double Tap",
+      "genre_ids": [
+        28,
+        35,
+        27
+      ],
+      "title": "Zombieland: Double Tap",
+      "vote_average": 7.3,
+      "overview": "The group will face a new zombie threat as a new breed of zombie has developed. This new super-zombie type is faster, bigger, and stronger than the previous strain of zombies and harder to kill. These super-zombies have started grouping up into a horde going from city to city leaving a path of destruction behind them.",
+      "release_date": "2019-10-18"
+    },
+    {
+      "popularity": 40.513,
+      "vote_count": 102,
+      "video": false,
+      "poster_path": "\/llhj3xtNes2Ri4d9HqtleKo1CfL.jpg",
+      "id": 431580,
+      "adult": false,
+      "backdrop_path": "\/tLCDKsXo6D84IVFanoElosSEKdp.jpg",
+      "original_language": "en",
+      "original_title": "Abominable",
+      "genre_ids": [
+        12,
+        16,
+        35,
+        10751
+      ],
+      "title": "Abominable",
+      "vote_average": 6.9,
+      "overview": "Trekking the 3000-mile journey from Shanghai to the Himalayan snowscapes, a group of misfits encounter a young Yeti named Everest, and they set off to reunite the magical creature with his family on the mountain of his namesake.",
+      "release_date": "2019-09-27"
+    },
+    {
+      "popularity": 68.86,
+      "vote_count": 17,
+      "video": false,
+      "poster_path": "\/tBuabjEqxzoUBHfbyNbd8ulgy5j.jpg",
+      "id": 420809,
+      "adult": false,
+      "backdrop_path": "\/HmEXofYSc56wBHIqY6tJDroCSw.jpg",
+      "original_language": "en",
+      "original_title": "Maleficent: Mistress of Evil",
+      "genre_ids": [
+        12,
+        14,
+        10751
+      ],
+      "title": "Maleficent: Mistress of Evil",
+      "vote_average": 8.6,
+      "overview": "Maleficent and her goddaughter Aurora begin to question the complex family ties that bind them as they are pulled in different directions by impending nuptials, unexpected allies, and dark new forces at play.",
+      "release_date": "2019-10-18"
+    },
+    {
+      "popularity": 37.882,
+      "vote_count": 0,
+      "video": false,
+      "poster_path": "\/vqzNJRH4YyquRiWxCCOH0aXggHI.jpg",
+      "id": 290859,
+      "adult": false,
+      "backdrop_path": "\/a6cDxdwaQIFjSkXf7uskg78ZyTq.jpg",
+      "original_language": "en",
+      "original_title": "Terminator: Dark Fate",
+      "genre_ids": [
+        28,
+        878
+      ],
+      "title": "Terminator: Dark Fate",
+      "vote_average": 0,
+      "overview": "More than two decades after the events of Terminator 2: Judgment Day, Sarah Connor sets out to protect a young woman named Dani Ramos and her friends, as a liquid metal Terminator, sent from the future, attempts to terminate them.",
+      "release_date": "2019-11-01"
+    },
+    {
+      "popularity": 33.835,
+      "vote_count": 9246,
+      "video": false,
+      "poster_path": "\/9fgh3Ns1iRzlQNYuJyK0ARQZU7w.jpg",
+      "id": 694,
+      "adult": false,
+      "backdrop_path": "\/h4DcDCOkQBENWBJZjNlPv3adQfM.jpg",
+      "original_language": "en",
+      "original_title": "The Shining",
+      "genre_ids": [
+        27,
+        53
+      ],
+      "title": "The Shining",
+      "vote_average": 8.2,
+      "overview": "Jack Torrance accepts a caretaker job at the Overlook Hotel, where he, along with his wife Wendy and their son Danny, must live isolated from the rest of the world for the winter. But they aren't prepared for the madness that lurks within.",
+      "release_date": "1980-05-23"
+    },
+    {
+      "popularity": 11.741,
+      "vote_count": 0,
+      "video": false,
+      "poster_path": "\/4mCpuNPPJebk6P9zkBoY8CZVWZC.jpg",
+      "id": 501170,
+      "adult": false,
+      "backdrop_path": "\/4D4Ic9N4tnwaW4x241LGb1XOi7O.jpg",
+      "original_language": "en",
+      "original_title": "Doctor Sleep",
+      "genre_ids": [
+        27
+      ],
+      "title": "Doctor Sleep",
+      "vote_average": 0,
+      "overview": "A traumatized, alcoholic Dan Torrance meets Abra, a kid who also has the ability to \"shine.\" He tries to protect her from the True Knot, a cult who's goal is to feed off people like them in order to remain immortal.",
+      "release_date": "2019-11-08"
+    },
+    {
+      "popularity": 16.293,
+      "id": 519010,
+      "video": false,
+      "vote_count": 406,
+      "vote_average": 7.6,
+      "title": "Pain and Glory",
+      "release_date": "2019-10-04",
+      "original_language": "es",
+      "original_title": "Dolor y gloria",
+      "genre_ids": [
+        18
+      ],
+      "backdrop_path": "\/yCwcSCzcVKdI5Y9tA2T1s5Fr7jY.jpg",
+      "adult": false,
+      "overview": "Salvador Mallo, a filmmaker in the twilight of his career, remembers his life: his mother, his lovers, the actors he worked with. The sixties in a small village in Valencia, the eighties in Madrid, the present, when he feels an immeasurable emptiness, facing his mortality, the incapability of continuing filming, the impossibility of separating creation from his own life. The need of narrating his past can be his salvation.",
+      "poster_path": "\/cMlueArJXXwZbeLpb4NhC3pxmBk.jpg"
+    },
+    {
+      "popularity": 8.171,
+      "vote_count": 0,
+      "video": false,
+      "poster_path": "\/2EgfIW9lEBRz9P2CCDrSFR43Sf0.jpg",
+      "id": 629919,
+      "adult": false,
+      "backdrop_path": "\/7oQoXRqApi88LShKBPQhTsFZmDf.jpg",
+      "original_language": "zh",
+      "original_title": "犯罪现场",
+      "genre_ids": [
+        80,
+        9648,
+        53
+      ],
+      "title": "A Witness Out of the Blue",
+      "vote_average": 0,
+      "overview": "In this classic whodunit, a police detective must rely on the only witness - a parrot, to catch the killer of an armed robber.",
+      "release_date": "2019-10-12"
+    },
+    {
+      "popularity": 12.016,
+      "vote_count": 148,
+      "video": false,
+      "poster_path": "\/z6vDqTz4fQb60QRcMLNbeJ1IMVq.jpg",
+      "id": 418879,
+      "adult": false,
+      "backdrop_path": "\/uvIs2CYJ39ABFQKZ9UVbXE5Vmww.jpg",
+      "original_language": "en",
+      "original_title": "The Current War",
+      "genre_ids": [
+        18,
+        36
+      ],
+      "title": "The Current War",
+      "vote_average": 6.8,
+      "overview": "Electricity titans Thomas Edison and George Westinghouse compete to create a sustainable system and market it to the American people.",
+      "release_date": "2019-10-04"
+    },
+    {
+      "popularity": 10.062,
+      "vote_count": 0,
+      "video": false,
+      "poster_path": "\/36YiDLw3IWkQyhfJnCjG2GCNgg9.jpg",
+      "id": 458897,
+      "adult": false,
+      "backdrop_path": "\/j9oM3c4D1qiVLmweBQm78Tm2grW.jpg",
+      "original_language": "en",
+      "original_title": "Charlie's Angels",
+      "genre_ids": [
+        28,
+        12,
+        35
+      ],
+      "title": "Charlie's Angels",
+      "vote_average": 0,
+      "overview": "When a systems engineer blows the whistle on a dangerous technology, Charlie's Angels from across the globe are called into action, putting their lives on the line to protect society.",
+      "release_date": "2019-11-15"
+    },
+    {
+      "popularity": 11.133,
+      "vote_count": 0,
+      "video": false,
+      "poster_path": "\/qCDPKUMX5xrxxQY8XhGVCKO3fks.jpg",
+      "id": 599975,
+      "adult": false,
+      "backdrop_path": "\/hzL2P0tcU62A6JHPhprI8ZyBI73.jpg",
+      "original_language": "en",
+      "original_title": "Countdown",
+      "genre_ids": [
+        27,
+        53
+      ],
+      "title": "Countdown",
+      "vote_average": 0,
+      "overview": "A young nurse downloads an app that tells her she only has three days to live. With time ticking away and a mysterious figure haunting her, she must find a way to save her life before time runs out.",
+      "release_date": "2019-10-25"
+    },
+    {
+      "popularity": 7.042,
+      "id": 345934,
+      "video": false,
+      "vote_count": 62,
+      "vote_average": 3.9,
+      "title": "Air Strike",
+      "release_date": "2018-10-26",
+      "original_language": "en",
+      "original_title": "Air Strike",
+      "genre_ids": [
+        18,
+        10752,
+        28,
+        12
+      ],
+      "backdrop_path": "\/fhYWAKXeEbhD20S3sp4RFaxiOG9.jpg",
+      "adult": false,
+      "overview": "An American pilot is sent to a Chinese province to teach a crew of would-be pilots how to fly war planes against the Japanese during World War II.",
+      "poster_path": "\/ve7xmUK167YZloN8LnSyhKmmNgE.jpg"
+    },
+    {
+      "popularity": 7.151,
+      "vote_count": 0,
+      "video": false,
+      "poster_path": "\/ddV9cFT75AHxGmJy9QRtjuE1V35.jpg",
+      "id": 522162,
+      "adult": false,
+      "backdrop_path": "\/xjP88DFPCQ81mbZHXFscyYtGskT.jpg",
+      "original_language": "en",
+      "original_title": "Midway",
+      "genre_ids": [
+        28,
+        18,
+        36,
+        10752
+      ],
+      "title": "Midway",
+      "vote_average": 0,
+      "overview": "The story of the soldiers and aviators who helped turn the tide of the Second World War during the iconic Battle of Midway in June 1942.",
+      "release_date": "2019-11-08"
+    },
+    {
+      "popularity": 4.645,
+      "vote_count": 4,
+      "video": false,
+      "poster_path": "\/2wm20cbkH1L8nA54Gtwfgz2hTqo.jpg",
+      "id": 504562,
+      "adult": false,
+      "backdrop_path": "\/visyTVDc7SmudN85WPCQIhMpyP3.jpg",
+      "original_language": "en",
+      "original_title": "Motherless Brooklyn",
+      "genre_ids": [
+        80,
+        18
+      ],
+      "title": "Motherless Brooklyn",
+      "vote_average": 0,
+      "overview": "Lionel Essrog, a private detective living with Tourette syndrome, ventures to solve the murder of his mentor and best friend — a mystery that carries him from the gin-soaked jazz clubs of Harlem to the slums of Brooklyn to the gilded halls of New York's power brokers.",
+      "release_date": "2019-11-01"
+    },
+    {
+      "popularity": 11.865,
+      "vote_count": 3,
+      "video": false,
+      "poster_path": "\/wLRZbtrbV51oQuvqNeK6vhb6btV.jpg",
+      "id": 489245,
+      "adult": false,
+      "backdrop_path": "\/wWmLkSZbG6TPGGlA7jFWR794TMl.jpg",
+      "original_language": "en",
+      "original_title": "The Kill Team",
+      "genre_ids": [
+        18,
+        36,
+        10752
+      ],
+      "title": "The Kill Team",
+      "vote_average": 6.5,
+      "overview": "A young American soldier in Afghanistan is disturbed by his commanding officer's behavior and is faced with a moral dilemma.",
+      "release_date": "2019-10-25"
+    },
+    {
+      "popularity": 0.818,
+      "vote_count": 1,
+      "video": false,
+      "poster_path": "\/7C8qtx1UfU3nuIHaEKaZYloyg7O.jpg",
+      "id": 602663,
+      "adult": false,
+      "backdrop_path": "\/nG9x06K7lEkzYo8fluscti92V5H.jpg",
+      "original_language": "zh",
+      "original_title": "最好的我们",
+      "genre_ids": [
+        10749
+      ],
+      "title": "My Best Summer",
+      "vote_average": 4,
+      "overview": "Geng Geng had been an ordinary girl before her entry to the best high school in the province by chance. She doesn't like her life there until she meets Yu Huai, her seatmate - their names make up the word \"Geng geng yu huai\", meaning \"Unforgettable memories\". They don't like each other at the beginning, but soon they start to understand each other.",
+      "release_date": "2019-06-06"
+    },
+    {
+      "popularity": 1.735,
+      "vote_count": 0,
+      "video": false,
+      "poster_path": "\/aZYFkyeolN6Bv7FGSANZkPnaZAQ.jpg",
+      "id": 604605,
+      "adult": false,
+      "backdrop_path": "\/9cOkmhdl8hUA2Rgw2c037FkMCBe.jpg",
+      "original_language": "ja",
+      "original_title": "ハロー・ワールド",
+      "genre_ids": [
+        16,
+        878,
+        10749
+      ],
+      "title": "Hello World",
+      "vote_average": 0,
+      "overview": "",
+      "release_date": "2019-09-20"
+    },
+    {
+      "popularity": 0.6,
+      "vote_count": 0,
+      "video": false,
+      "poster_path": "\/gMWL3JlTz2OVPqp2TAa3NimHTor.jpg",
+      "id": 582666,
+      "adult": false,
+      "backdrop_path": null,
+      "original_language": "ja",
+      "original_title": "劇場版 うたの☆プリンスさまっ♪ マジLOVEキングダム",
+      "genre_ids": [
+        16,
+        10402,
+        10749
+      ],
+      "title": "Uta no☆Prince-sama♪ Maji Love Kingdom Movie",
+      "vote_average": 0,
+      "overview": "Movie of Uta no☆Prince-sama♪",
+      "release_date": "2019-06-14"
+    },
+    {
+      "popularity": 1.781,
+      "vote_count": 1,
+      "video": false,
+      "poster_path": "\/pRlNAWZPGI3hQupgZHSYJGkgs6T.jpg",
+      "id": 592661,
+      "adult": false,
+      "backdrop_path": "\/qNS1FxZsE3dnjd7Ws58kHvleZfM.jpg",
+      "original_language": "en",
+      "original_title": "The Kleptocrats",
+      "genre_ids": [
+        99
+      ],
+      "title": "The Kleptocrats",
+      "vote_average": 7,
+      "overview": "In full-on investigative mode, reporters from The New York Times, The Wall Street Journal and Hollywood Reporter doggedly pursue the story of US $3.5 billion missing from a Malaysian wealth fund. They trace the dirty money, via real estate deals and movie financing, back to the top tiers of the Malaysian government. Incredibly (but oh, how fitting!), the audacious swindlers chose to back the 2014 blockbuster The Wolf of Wall Street. Hollywood A-listers, including Leonardo DiCaprio, attended lavish parties hosted to launch the film. The embezzlement was orchestrated by a flamboyant fancier, Jho Low, and Riza Aziz, the stepson of the then-Malaysian Prime Minister. As the truth finally comes to light, assets are frozen and the fall-out begins.",
+      "release_date": "2018-11-09"
+    }
+  ],
+  "page": 1,
+  "total_results": 21,
+  "dates": {
+    "maximum": "2019-11-08",
+    "minimum": "2019-10-14"
+  },
+  "total_pages": 2
+}
