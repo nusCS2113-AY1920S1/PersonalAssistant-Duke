@@ -23,7 +23,7 @@ import java.util.ArrayList;
 import java.text.ParseException;
 
 import static duke.common.BookingMessages.*;
-import static duke.common.IngredientMessages.COMMAND_ADD_INGREDIENT;
+import static duke.common.IngredientMessages.*;
 import static duke.common.Messages.*;
 import static duke.common.RecipeMessages.*;
 
@@ -144,8 +144,26 @@ public class Duke {
             }
         } else if (userInput.contains(COMMAND_ADD_INGREDIENT)) {
             System.out.println("stuck here17");
-            if (userInput.trim().substring(0, 13).equals(COMMAND_ADD_INGREDIENT)) {
+            if (userInput.trim().substring(0, 14).equals(COMMAND_ADD_INGREDIENT)) {
                 System.out.println("stuck here18");
+                CommandIngredients command = Parser.parseIngredient(userInput);
+                return command.execute(ingredientList, ui, ingredientStorage);
+            } else {
+                System.out.println("stuck here19");
+                arrayList.add(ERROR_MESSAGE_RANDOM);
+                return arrayList;
+            }
+        } else if (userInput.contains(COMMAND_DELETE_INGREDIENT)) {
+            if (userInput.trim().substring(0, 19).equals(COMMAND_DELETE_INGREDIENT)) {
+                CommandIngredients command = Parser.parseIngredient(userInput);
+                return command.execute(ingredientList, ui, ingredientStorage);
+            } else {
+                System.out.println("stuck here19");
+                arrayList.add(ERROR_MESSAGE_RANDOM);
+                return arrayList;
+            }
+        } else if (userInput.contains(COMMAND_LIST_INGREDIENTS)) {
+            if (userInput.trim().substring(0, 13).equals(COMMAND_LIST_INGREDIENTS)) {
                 CommandIngredients command = Parser.parseIngredient(userInput);
                 return command.execute(ingredientList, ui, ingredientStorage);
             } else {
