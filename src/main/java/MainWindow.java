@@ -1,11 +1,15 @@
-import autocomplete.AutoComplete;
+import help.AutoComplete;
 import controlpanel.Parser;
 import guicommand.UserIcon;
+import help.MemorisePreviousFunctions;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import org.controlsfx.control.textfield.TextFields;
@@ -43,7 +47,8 @@ public class MainWindow extends AnchorPane implements DataTransfer {
 
     private static Image userImage;
     private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
-    private AutoComplete autoComplete = new AutoComplete();
+
+    private MemorisePreviousFunctions previousFunctions = new MemorisePreviousFunctions();
     /**
      * Initialises scroll bar and outputs Duke Welcome message on startup of GUI.
      */
@@ -111,6 +116,7 @@ public class MainWindow extends AnchorPane implements DataTransfer {
             graphContainer.getChildren().addAll(
                     DialogBox.getDukeDialog(response[1], dukeImage));
         }
+        previousFunctions.addingCommandsEntered(input);
         userInput.clear();
     }
 
@@ -131,6 +137,22 @@ public class MainWindow extends AnchorPane implements DataTransfer {
 
     @FXML
     private void autoCompleteSuggestion() {
+        userInput.setOnKeyPressed(new EventHandler<KeyEvent>() {
+            public void handle(KeyEvent ke) {
+                if(previousFunctions.getMaxIndex() == 0) {
+                    return;
+                }
+                previousFunctions.setCurrIndex();
+                if (ke.getCode() == KeyCode.UP && previousFunctions.getCurrIndex() != 0) {
+                    userInput.clear();
+                    //userInput.setText(previousFunctions.getPreviousCommand());
+                } else if(ke.getCode() == KeyCode.DOWN && previousFunctions.getCurrIndex() != previousFunctions.getMaxIndex()) {
+                    userInput.clear();
+                    //userInput.setText(previousFunctions.getNextCommand());
+                }
+            }
+        });
+        AutoComplete autoComplete = new AutoComplete();
         List<String> commands = autoComplete.Populate(userInput.getText());
         TextFields.bindAutoCompletion(userInput, commands);
     }

@@ -1,6 +1,8 @@
-package autocomplete;
+package help;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 public class AutoComplete {
@@ -49,13 +51,14 @@ public class AutoComplete {
     private List<String> CommandList = Arrays.asList(List);
 
     public AutoComplete()  {
-        this.PopUpList = null;
-        this.MatchList = null;
+        Collections.sort(CommandList);
+        this.PopUpList = new ArrayList<String>();
+        this.MatchList = new ArrayList<String>();
     }
 
     public List<String> Populate(String prefix) {
-        //populatePopup(prefix);
-        return CommandList;
+        populatePopup(prefix);
+        return PopUpList;
     }
 
     public void populatePopup(String prefix) {
@@ -75,16 +78,21 @@ public class AutoComplete {
                 break;
             }
         }
+
         if (firstIndex == -1) {
             return;
         }
 
         int lastIndex = firstIndex;
         for (int i = firstIndex + 1; i < CommandList.size(); i++) {
-            if (CommandList.get(i).startsWith(prefix)) {
-                continue;
+            if (!CommandList.get(i).startsWith(prefix)) {
+                lastIndex = i - 1;
+                break;
             }
-            lastIndex = i;
+        }
+
+        for(int i = firstIndex; i <= lastIndex; i++) {
+            MatchList.add(CommandList.get(i));
         }
     }
 }
