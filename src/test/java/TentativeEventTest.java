@@ -1,13 +1,11 @@
-import Tasks.TentativeEvent;
+import gazeeebo.Tasks.TentativeEvent;
 import org.junit.jupiter.api.Test;
-import java.io.IOException;
-import java.text.ParseException;
+
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
 import java.util.ArrayList;
-import Exception.DukeException;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 

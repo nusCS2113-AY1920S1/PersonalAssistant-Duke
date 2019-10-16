@@ -1,22 +1,15 @@
-import Storage.Storage;
-import Tasks.DoAfter;
-import Tasks.FixedDuration;
-import Tasks.Task;
-import UI.Ui;
-import commands.DeadlineCommand;
+import gazeeebo.Storage.Storage;
+import gazeeebo.Tasks.Task;
+import gazeeebo.TriviaManager.TriviaManager;
+import gazeeebo.UI.Ui;
+import gazeeebo.commands.DeadlineCommand;
 import org.junit.jupiter.api.Test;
 import java.io.IOException;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Stack;
 
-import Exception.DukeException;
-import java.io.IOException;
-import java.lang.reflect.Array;
-import java.text.ParseException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Stack;
+import gazeeebo.Exception.DukeException;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 public class DukeTest {
@@ -26,10 +19,11 @@ public class DukeTest {
         ArrayList<Task> tasks = new ArrayList<Task>();
         Ui ui = new Ui();
         Storage storage = new Storage();
+        TriviaManager triviaManager = new TriviaManager();
         Stack<String> commandStack = new Stack<>();
         ArrayList<Task> deletedTask = new ArrayList<>();
         try {
-            deadlineCommand.execute(tasks,ui,storage,commandStack,deletedTask);
+            deadlineCommand.execute(tasks,ui,storage,commandStack,deletedTask,triviaManager);
         } catch(IOException e) {
             assertEquals("An IOException was caught :" +e.getStackTrace()+"The system cannot find the path specified", e.getMessage());
         } catch (ParseException e) {

@@ -1,12 +1,12 @@
-import Tasks.Task;
-import UI.Ui;
-import Storage.Storage;
-import Storage.NoteStorage;
-import commands.Command;
-import notes.NoteList;
-import parsers.*;
-import Exception.DukeException;
-
+import gazeeebo.Tasks.Task;
+import gazeeebo.TriviaManager.TriviaManager;
+import gazeeebo.UI.Ui;
+import gazeeebo.Storage.Storage;
+import gazeeebo.commands.Command;
+import gazeeebo.notes.NoteList;
+import gazeeebo.parsers.*;
+import gazeeebo.Exception.DukeException;
+import gazeeebo.Storage.NoteStorage;
 import java.io.*;
 import java.text.ParseException;
 import java.util.ArrayList;
@@ -24,11 +24,13 @@ public class Duke {
         Stack<String> CommandStack = new Stack<String>();
         ArrayList<Task> deletedTask = new ArrayList<Task>();
         Storage store = new Storage();
+        TriviaManager triviaManager = new TriviaManager();
         boolean isExit = false;
         Ui ui = new Ui();
         try {
             ui.showWelcome();
             list = store.ReadFile();
+            store.Read_Trivia(triviaManager);
             NoteStorage.readFromFile("NoteDaily.txt", NoteList.daily);
             NoteStorage.readFromFile("NoteWeekly.txt", NoteList.weekly);
             NoteStorage.readFromFile("NoteMonthly.txt", NoteList.monthly);
@@ -37,8 +39,8 @@ public class Duke {
                 ui.ReadCommand();
                 String command = ui.FullCommand.trim();
                 Command c = Parser.parse(command);
-                c.execute(list, ui, store, CommandStack, deletedTask);
-                if(!command.equals("undo") && !command.equals("list") && !command.contains("confirm")) {
+                c.execute(list, ui, store, CommandStack, deletedTask,triviaManager);
+                if (!command.equals("undo") && !command.equals("list") && !command.contains("confirm")) {
                     CommandStack.push(command);
                 }
 

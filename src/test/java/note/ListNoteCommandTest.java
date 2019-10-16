@@ -1,9 +1,10 @@
 package note;
 
-import UI.Ui;
-import commands.note.ListNoteCommand;
-import notes.Note;
-import notes.NoteList;
+import gazeeebo.UI.Ui;
+import gazeeebo.commands.note.ListNoteCommand;
+import gazeeebo.notes.Note;
+import gazeeebo.notes.NoteList;
+
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -38,14 +39,14 @@ class ListNoteCommandTest extends ListNoteCommand {
         note.notes.add("note 3");
         NoteList.daily.add(note);
         ui.FullCommand = "listNote day 2019-11-12";
-        execute(null, ui, null, null, null);
+        execute(null, ui, null, null, null,null);
         assertEquals("Here are your notes for that day:\r\n" + "1. note 1\r\n2. note 2\r\n3. note 3\r\n", output.toString());
     }
 
     @Test
     void execute_noNotesExistForTheSpecifiedPeriod_success() throws IOException {
         ui.FullCommand = "listNote month 2019-10";
-        execute(null, ui, null, null, null);
+        execute(null, ui, null, null, null,null);
         assertEquals("There are no notes for that month.\r\n", output.toString());
     }
 }

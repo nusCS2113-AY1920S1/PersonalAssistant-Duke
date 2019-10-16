@@ -22,7 +22,7 @@ then
     exit 1
 fi
 
-# run the program, feed commands from input.txt file and redirect the output to the ACTUAL.TXT
+# run the program, feed gazeeebo.commands from input.txt file and redirect the output to the ACTUAL.TXT
 java -jar ./build/libs/duke-0.1.3.jar < ./text-ui-test/input.txt > ./text-ui-test/ACTUAL.TXT
 
 # compare the output to the expected output
