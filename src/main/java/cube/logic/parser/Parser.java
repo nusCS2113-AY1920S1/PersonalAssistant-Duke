@@ -16,7 +16,6 @@ import java.util.TimeZone;
 
 /**
  * Parse user command.
- * @author Zheng Kaining
  */
 public class Parser {
 
@@ -25,11 +24,12 @@ public class Parser {
 	 *
 	 * Format:
 	 * add -n foodName -t foodType -p price -s stock -e expiryDate
-	 * list
+	 * list --sort expiry/name/stock
 	 * delete -i index
 	 * sold -n foodName -q quantity
+	 * reminder
 	 * help
-	 * bye
+	 * bye / exit / quit
 	 *
 	 * Assumption: no repetitive parameters given.
 	 *
@@ -41,8 +41,6 @@ public class Parser {
 		String command = inputs[0];
 		command = command.trim().toLowerCase();
 		switch (command) {
-			case "reminder":
-				return new ReminderCommand();
 			case "add":
 				return new AddCommandParser().parse(inputs);
 			case "list":
@@ -51,6 +49,8 @@ public class Parser {
 				return new DeleteCommandParser().parse(inputs);
 			case "sold":
 				return new SoldCommandParser().parse(inputs);
+			case "reminder":
+				return new ReminderCommand();
 			case "help":
 				return new HelpCommand();
 			case "bye":
