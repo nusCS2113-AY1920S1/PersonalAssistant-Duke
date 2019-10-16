@@ -16,7 +16,7 @@ import java.io.File;
  * Launching point for Dr. Duke. Contains the core which holds the UI manager, storage, and task list.
  */
 public class DukeCore extends Application {
-    private static final String FILE_PATH = "data" + File.separator + "tasks.tsv";
+    private static final String FILE_PATH = "data" + File.separator + "patients.json";
 
     public GsonStorage storage;
     public TaskList taskList = null; //deprecated
