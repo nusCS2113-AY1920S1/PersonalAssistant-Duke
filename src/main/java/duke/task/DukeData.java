@@ -50,8 +50,19 @@ public abstract class DukeData extends DukeObject {
         return impression;
     }
 
+    /**
+     * This function sets the impression and updates the name of the DukeData object.
+     * @param impression the new impression used
+     */
     public void setImpression(Impression impression) {
         this.impression = impression.getName();
+        String[] bits = this.getName().split("\t");
+        String actualName = bits[bits.length - 1];
+        setName(actualName);
+    }
+
+    public void setName(String name) {
+        super.setName(this.impression + "\t" + name);
     }
 
     public int getPriority() {
