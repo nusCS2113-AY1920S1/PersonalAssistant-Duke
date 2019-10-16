@@ -2,6 +2,7 @@ package duke.relation;
 
 import duke.core.DukeException;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import com.google.common.collect.Multimap;
 import com.google.common.collect.ArrayListMultimap;
@@ -31,12 +32,31 @@ public class PatientTaskList {
         patientTaskIdMap.put(t.getPatientId(), t);
     }
 
-    public void deletePatientTask(Integer pid, Integer tid) throws DukeException {
+    public void deletePatientTask(Integer pid, Integer tid, LocalDateTime s, LocalDateTime e) throws DukeException {
 
         if (patientTaskIdMap.containsKey(pid)) {
             for (PatientTask patientTask : patientTaskIdMap.get(pid)) {
-                if (patientTask.getTaskID().equals(tid)) {
+                if ((patientTask instanceof EventPatientTask) && patientTask.getTaskID().equals(tid) && ((EventPatientTask) patientTask).getStartTime().equals(s) && ((EventPatientTask) patientTask).getEndTime().equals(e)) {
                     patientTaskIdMap.remove(pid, patientTask);
+                } else {
+                    throw new DukeException("The patient with id: " + pid + " has not been assigned with such task: " + tid);
+                }
+            }
+        } else {
+            throw new DukeException("Patient id: " + pid + " does not have any tasks!");
+        }
+    }
+
+    public void deletePatientTask(Integer pid, Integer tid, LocalDateTime end) throws DukeException {
+        if (patientTaskIdMap.containsKey(pid)) {
+            for (PatientTask patientTask : patientTaskIdMap.get(pid)) {
+                if ((patientTask instanceof StandardPatientTask)) {
+                    if (patientTask.getTaskID().equals(tid)&& ((StandardPatientTask) patientTask).getDeadline().equals(end)){
+                        this.patientTaskIdMap.remove(pid, patientTask);
+                    }
+                    else{
+                        throw new DukeException("The patient with id: " + pid + " has not been assigned with such task: " + tid);
+                    }
                 } else {
                     throw new DukeException("The patient with id: " + pid + " has not been assigned with such task: " + tid);
                 }

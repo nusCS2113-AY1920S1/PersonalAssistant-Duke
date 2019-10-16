@@ -60,6 +60,10 @@ public class CommandManager {
                     else if (secondKeyword.equals("task")){
                         return new DeleteTaskCommand(parser.parseDeleteTask());
                     }
+                    else if (secondKeyword.equals("patienttask")){
+
+                        return new DeletePatientTaskCommand(command[2]);
+                    }
                     else {
                         throw new Exception("Invalid format. ");
                     }

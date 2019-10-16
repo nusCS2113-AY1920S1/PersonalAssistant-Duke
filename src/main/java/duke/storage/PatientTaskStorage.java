@@ -73,7 +73,7 @@ public class PatientTaskStorage {
                 String type = patient.getTaskType();
                 if (patient instanceof  StandardPatientTask)
                 {
-                    deadline = ((StandardPatientTask) patient).getDeadline();
+                    deadline = ((StandardPatientTask) patient).getDeadlineRaw();
                 }
                 else if (patient instanceof EventPatientTask)
                 {

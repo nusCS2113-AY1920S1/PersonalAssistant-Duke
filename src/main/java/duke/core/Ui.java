@@ -175,6 +175,12 @@ public class Ui {
         System.out.println("Got it. The task is deleted.");
     }
 
+    public void patientTaskDeleted(PatientTask pt, Patient p, Task t) {
+        System.out.println("Got it. The task: " + t.getID() + ". " + t.getDescription() +"\n" );
+        System.out.println(pt.toString());
+        System.out.println("has been deleted from patient: " + p.getID() + " " + p.getName());
+    }
+
     public void listAllPatients(ArrayList<Patient> patients) {
         for (Patient patient : patients) {
             showPatientInfo(patient);
@@ -212,7 +218,27 @@ public class Ui {
             }
         }
     }
+/*
+    public boolean confirmPatientTaskToBeDeleted(PatientTask patientTask, Patient p, Task t) {
+        showLine();
+        System.out.println( t.getID() + ". " + t.getDescription() +"\n");
+        System.out.println( patientTask.toString());
+        showLine();
+        while (true) {
+            System.out.println("The task is to be deleted from patient: " + p.getName() + " " + p.getID());
 
+            String command = readCommand();
+            if (command.toLowerCase().equals("y")) {
+                return true;
+            } else if (command.toLowerCase().equals("n")) {
+                System.out.println("Delete command is canceled");
+                return false;
+            } else {
+                System.out.println("Please enter only Y/N to confirm/cancel deletion!");
+            }
+        }
+    }
+*/
     /**
      * Shows a divider line.
      */

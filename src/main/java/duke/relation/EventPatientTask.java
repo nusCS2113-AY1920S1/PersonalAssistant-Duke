@@ -51,6 +51,11 @@ public class EventPatientTask extends PatientTask {
     public String getEndTimeRaw(){
         return endTimeRaw;
     }
+
+    public LocalDateTime getStartTime(){return startTime;}
+
+    public LocalDateTime getEndTime() {return endTime;}
+
     public void updateStartTime(String time){
         try{
             this.startTime = DateTimeParser.convertToLocalDateTime(time);

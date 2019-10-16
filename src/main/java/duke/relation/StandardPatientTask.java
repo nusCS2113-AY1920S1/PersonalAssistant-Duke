@@ -32,7 +32,8 @@ public class StandardPatientTask extends PatientTask {
         }
     }
 
-    public String getDeadline(){
+    public LocalDateTime getDeadline(){return  this.deadline;}
+    public String getDeadlineRaw(){
         return this.deadlineRaw;
     }
 
