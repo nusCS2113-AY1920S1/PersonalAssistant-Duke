@@ -22,7 +22,7 @@ public class DeleteCommand extends Command{
 			Food temp = list.get(deleteIndex);
 			list.remove(deleteIndex);
 			storage.storeFoodList(list);
-			ui.showDelete(temp, list);
+			ui.showRemoveFood(temp, list);
 		}
 	}
 }

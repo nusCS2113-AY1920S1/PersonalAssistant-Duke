@@ -5,8 +5,6 @@
  */
 package cube.task;
 
-import cube.util.Parser;
-
 import java.util.Date;
 
 /**

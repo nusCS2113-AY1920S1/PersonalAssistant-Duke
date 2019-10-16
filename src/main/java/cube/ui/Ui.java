@@ -5,13 +5,18 @@
  */
 package cube.ui;
 
+import cube.logic.parser.AddCommandParser;
+import cube.logic.parser.Parser;
 import cube.model.food.Food;
 import cube.model.food.FoodList;
 import cube.task.TaskList;
 import cube.task.Task;
-import cube.util.Parser;
+
+import java.text.SimpleDateFormat;
+import java.util.Locale;
 import java.util.Scanner;
 import java.util.Date;
+import java.util.TimeZone;
 
 
 public class Ui {
@@ -57,16 +62,18 @@ public class Ui {
 	}
 
 	/**
-	 * Prints the information of the task added.
+	 * Prints the information of the food added.
 	 *
-	 * @param list the list of tasks stored in Cube.
+	 * @param list the list of food stored in Cube.
 	 */
+	//to be deleted----
 	public void showAdd(TaskList list) {
 		System.out.println("Got it. I've added this task:");
 		Task t = list.get(list.size() -1);
 		System.out.println("  " + t);
 		System.out.println("Now you have " + list.size() + " tasks in the list.");
 	}
+	//----to be deleted
 
 	public void showAddFood(FoodList list) {
 		System.out.println("Got it. I've added this food:");
@@ -76,16 +83,18 @@ public class Ui {
 	}
 
 	/**
-	 * Prints each task in the task list.
+	 * Prints each food in the food list.
 	 *
-	 * @param list the list of tasks stored in Cube.
+	 * @param list the list of food stored in Cube.
 	 */
+	//to be deleted----
 	public void showList(TaskList list) {
 		System.out.println("Here are the tasks in your list: ");
 		for(int i = 0; i < list.size(); i++) {
 			System.out.println((i + 1) + "." + list.get(i));
 		}
 	}
+	//----to be deleted
 
 	public void showListFood(FoodList list) {
 		System.out.println("Here are the food in your list: ");
@@ -95,17 +104,27 @@ public class Ui {
 	}
 
 	/**
-	 * Prints the list of task with specified keyword.
+	 * Prints the list of food with specified keyword.
 	 *
-	 * @param list the list of task stored in Cube.
+	 * @param list the list of food stored in Cube.
 	 */
+	//to be deleted----
 	public void showFind(TaskList list) {
 		System.out.println("Here are the matching tasks in your list:");
 		for(int i = 0; i < list.size(); i++) {
 			System.out.println((i + 1) + "." + list.get(i));
 		}
 	}
+	//----to be deleted
 
+	public void showFindFood(FoodList list) {
+		System.out.println("Here are the matching food in your list:");
+		for(int i = 0; i < list.size(); i++) {
+			System.out.println((i + 1) + "." + list.get(i));
+		}
+	}
+
+	//to be deleted----
 	/**
 	 * Prints the message of task being marked as done.
 	 *
@@ -115,8 +134,9 @@ public class Ui {
 		System.out.println("Nice! I've marked this task as done:");
 		System.out.println(finished);
 	}
+	//----to be deleted
 
-	//@@author LL-Pengfei
+	//to be deleted----
 	/**
 	 * Show Snooze Message.
 	 *
@@ -126,7 +146,7 @@ public class Ui {
 		System.out.println("Here is the task snoozed for 24 hours:");
 		System.out.println(snoozed);
 	}
-	//@@author
+	//----to be deleted
 
 	/**
 	 * Prints the list of food products whose expiry is in the next 7 days.
@@ -137,7 +157,7 @@ public class Ui {
 		System.out.println("Here are the upcoming expiry dates:");
 		for(int i = 0; i < list.size(); i++) {
 			Food food = list.get(i);
-			System.out.println(food.getName() + " due in " + Parser.parseDateToString(food.getExpiryDate()));
+			System.out.println(food.getName() + " due in " + parseDateToString(food.getExpiryDate()));
 		}
 	}
 
@@ -155,38 +175,49 @@ public class Ui {
 	}
 
 	/**
-	 * Prints the message of a task being removed.
+	 * Prints the message of a food being removed.
 	 *
-	 * @param removed the task being removed.
-	 * @param list the list of task stored in Cube.
+	 * @param removed the food being removed.
+	 * @param list the list of food stored in Cube.
 	 */
+	//to be deleted----
 	public void showRemove(Task removed, TaskList list) {
 		System.out.println("Nice! I've removed this task:");
 		System.out.println(removed);
 		System.out.println("Now you have " + list.size() + " tasks in the list.");
 	}
+	//----to be deleted
 
-	public void showDelete(Food removed, FoodList list) {
+	public void showRemoveFood(Food removed, FoodList list) {
 		System.out.println("Nice! I've removed this food:");
 		System.out.println(removed);
 		System.out.println("Now you have " + list.size() + " food in the list.");
 	}
 
+	/**
+	 * Prints the food to be sold.
+	 *
+	 * @param foodName the food being sold.
+	 * @param quantity the quantity sold.
+	 * @param profit the profit earned.
+	 * @param revenue total profit earned.
+	 */
 	public void showSold(String foodName, int quantity, double profit, double revenue) {
 		String display = String.format("%d of %s sold\n", quantity, foodName);
 		display += String.format("you have earn %f, the total revenue is %f", profit, revenue);
 		System.out.println(display);
 	}
 
+	//to be deleted----
 	/**
-	 * Prints the message of a task being removed.
+	 * Prints the message of a free day.
 	 *
-	 * @param removed the task being removed.
-	 * @param list the list of task stored in Cube.
+	 * @param date date of the free day.
 	 */
 	public void showFreeDay(Date date) {
-		System.out.println("Your next free day is: " + Parser.parseDateToString(date));
+		System.out.println("Your next free day is: " + parseDateToString(date));
 	}
+	//----to be deleted
 
 	/**
 	 * Prints the error message.
@@ -199,6 +230,7 @@ public class Ui {
 
 	/**
 	 * Prints the error message of loading error.
+	 * @param path the path that the user intended to load.
 	 */
 	public void showLoadingError(String path) {
 		showLine();
@@ -226,5 +258,19 @@ public class Ui {
 				+ String.format("%1$-50s", "  'bye' OR 'exit' OR 'quit'") + "to exit the programme\n"
 				+ String.format("%1$-50s", "  'help'") + "to show a list of available command\n";
 		System.out.print(help);
+	}
+
+	/**
+	 * Returns the string of date by parsing a date.
+	 * @param date the date to be parsed.
+	 * @return the string of date.
+	 */
+	public static String parseDateToString(Date date) {
+		if (date == null) {
+			return "";
+		}
+		SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy", Locale.ENGLISH);
+		formatter.setTimeZone(TimeZone.getTimeZone("GMT-8:00"));
+		return formatter.format(date);
 	}
 }
