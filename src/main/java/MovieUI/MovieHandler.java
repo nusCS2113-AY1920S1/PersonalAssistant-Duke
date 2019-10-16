@@ -29,6 +29,8 @@ import EPparser.CommandParser;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
+import sort.EditSortProfileJson;
+import sort.SortProfile;
 import ui.Ui;
 
 import java.io.BufferedOutputStream;
@@ -90,7 +92,7 @@ public class MovieHandler extends Controller implements RequestListener {
     private double[] mImagesLoadingProgress;
     private static RetrieveRequest mMovieRequest;
     private int num = 0;
-
+    private static SortProfile sortProfile;
 
     class KeyboardClick implements EventHandler<KeyEvent> {
 
@@ -133,6 +135,8 @@ public class MovieHandler extends Controller implements RequestListener {
     @FXML public void setLabels() throws IOException {
         EditProfileJson editProfileJson = new EditProfileJson();
         userProfile = editProfileJson.load();
+        EditSortProfileJson editSortProfileJson = new EditSortProfileJson();
+        sortProfile = editSortProfileJson.load();
         EditPlaylistJson editPlaylistJson = new EditPlaylistJson();
         playlists = editPlaylistJson.load();
         ProfileCommands command = new ProfileCommands(userProfile);
@@ -155,6 +159,9 @@ public class MovieHandler extends Controller implements RequestListener {
         restrictions.setFill(Paint.valueOf("#EC7063"));
         genreListText.getChildren().clear();
         genreListText.getChildren().addAll(preferences, restrictions);
+        sortAlphaOrderLabel.setText(sortProfile.getAlphaOrder());
+        sortLatestDateLabel.setText(sortProfile.getLatestDatesOrder());
+        sortHighestRatingLabel.setText(sortProfile.getHighestRatingOrder());
     }
 
     @FXML public void initialize() throws IOException {
@@ -417,6 +424,36 @@ public class MovieHandler extends Controller implements RequestListener {
      */
     public void setFeedbackText(String txt) {
         generalFeedbackText.setText(txt);
+    }
+
+    public void setSort(boolean isAlphaOrder, boolean isLatDatesOrder, boolean isRatingsOrder) {
+        String yes = "Y";
+        String no = "N";
+        if (isAlphaOrder) {
+            setSortText(yes, no, no);
+        } else if (isLatDatesOrder) {
+            setSortText(no, yes, no);
+        } else if (isRatingsOrder) {
+            setSortText(no, no, yes);
+        }
+
+    }
+
+
+    /**
+     * Sets the text for the sort components in the UI.
+     * @param txt1 String text to be set in sortAlphaOrderLabel.
+     * @param txt2 String text to be set in sortLatestDateLabel.
+     * @param txt3 String text to be set in sortHighestRatingLabel.
+     */
+    public void setSortText(String txt1, String txt2, String txt3) {
+        sortProfile.setAlphaOrder(txt1);
+        sortAlphaOrderLabel.setText(txt1);
+        sortProfile.setLatestDatesOrder(txt2);
+        sortLatestDateLabel.setText(txt2);
+        sortProfile.setHighestRatingOrder(txt3);
+        sortHighestRatingLabel.setText(txt3);
+        EditSortProfileJson.update(sortProfile);
     }
 
     public void updateTextField(String updateStr){
