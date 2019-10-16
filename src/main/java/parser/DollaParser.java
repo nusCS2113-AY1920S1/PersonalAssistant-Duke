@@ -42,8 +42,7 @@ public class DollaParser extends Parser {
             }
             */
 
-        }
-        else if(commandToRun.equals("owe") || commandToRun.equals("borrow")) {
+        } else if (commandToRun.equals("owe") || commandToRun.equals("borrow")) {
             String type = commandToRun;
             String name = null;
             double amount = 0.0;
@@ -51,15 +50,14 @@ public class DollaParser extends Parser {
                 name = inputArray[1];
                 amount = stringToDouble(inputArray[2]);
                 description = inputArray[3];
-            } catch (IndexOutOfBoundsException e){
+            } catch (IndexOutOfBoundsException e) {
                 Ui.printInvalidDebtFormatError();
                 return new ErrorCommand();
             } catch (Exception e) {
                 return new ErrorCommand();
             }
             return new AddDebtsCommand(type, name, amount, description);
-        }
-        else {
+        } else {
             return invalidCommand();
         }
     }
@@ -67,11 +65,7 @@ public class DollaParser extends Parser {
     public static String verifyType(String s) throws Exception {
         if (s.equals("income") || s.equals("expense")) {
             return s;
-        }
-//        else if(s.equals("owe") || s.equals("borrow")){
-//            return s;
-//        }
-            else {
+        } else {
             Ui.printInvalidEntryType();
             throw new Exception("invalid type");
         }

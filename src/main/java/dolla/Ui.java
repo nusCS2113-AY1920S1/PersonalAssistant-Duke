@@ -250,6 +250,7 @@ public class Ui {
                 + "'owe(/borrow) [NAME] [AMOUNT] [DESCRIPTION]'");
         System.out.println(line);
     }
+
     /**
      * Prints Dolla's new mode after being updated.
      * @param newMode The new mode to be switched.

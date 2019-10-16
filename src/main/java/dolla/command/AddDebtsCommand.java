@@ -11,7 +11,7 @@ public class AddDebtsCommand extends Command {
     private double amount;
     private String description;
 
-    public AddDebtsCommand(String type, String name, double amount, String description){
+    public AddDebtsCommand(String type, String name, double amount, String description) {
         this.type = type;
         this.name = name;
         this.amount = amount;
@@ -20,7 +20,7 @@ public class AddDebtsCommand extends Command {
 
 
     @Override
-    public void execute(DollaData dollaData){
+    public void execute(DollaData dollaData) {
         Debt newDebt = new Debt(type, name, amount,description);
         dollaData.debtList.add(newDebt);
         Ui.echoAddDebt(newDebt);

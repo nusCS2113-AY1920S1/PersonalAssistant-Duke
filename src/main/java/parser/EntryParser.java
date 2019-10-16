@@ -6,9 +6,7 @@ import dolla.command.Command;
 import dolla.command.ErrorCommand;
 import dolla.command.ShowListCommand;
 
-public class EntryParser extends Parser {
-
-    public EntryParser(String inputLine) {
+public class EntryParser extends Parser { public EntryParser(String inputLine) {
         super(inputLine);
     }
 
@@ -19,7 +17,7 @@ public class EntryParser extends Parser {
             return new ShowListCommand(mode);
         }
 
-        else if(commandToRun.equals("add")){
+        else if (commandToRun.equals("add")) {
             String entryType = null;
             double amount = 0.0;
             try {
@@ -35,7 +33,8 @@ public class EntryParser extends Parser {
             }
             return new AddEntryCommand(entryType, amount, description, date);
 
-        }else {
+        }
+        else {
             return invalidCommand();
         }
     }

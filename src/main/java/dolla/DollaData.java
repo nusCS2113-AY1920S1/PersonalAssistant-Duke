@@ -22,7 +22,10 @@ public class DollaData {
     public EntryList getEntryList() {
         return entryList;
     }
-    public DebtList getDebtList() {return debtList; }
+
+    public DebtList getDebtList() {
+        return debtList;
+    }
 
     public String getMode() {
         return mode;
