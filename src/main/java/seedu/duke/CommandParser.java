@@ -430,7 +430,14 @@ public class CommandParser {
         }
         try {
             String timeString = extractTime(optionList);
-            time = Task.parseDate(timeString);
+            if (!timeString.contains("/")) {
+                timeString = timeString.substring(0, 1).toUpperCase() + timeString.substring(1).toLowerCase();
+            }
+            if (Task.isCorrectNaturalDate(timeString)) {
+                time = Task.convertNaturalDate(timeString);
+            } else {
+                time = Task.parseDate(timeString);
+            }
         } catch (UserInputException e) {
             time = null; //todo can tolerate a null time, but not event and deadline
         }

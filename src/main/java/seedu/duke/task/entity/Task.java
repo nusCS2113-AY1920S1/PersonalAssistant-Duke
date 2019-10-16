@@ -1,12 +1,16 @@
 package seedu.duke.task.entity;
 
+import org.w3c.dom.Text;
 import seedu.duke.CommandParser;
 import seedu.duke.Duke;
+import seedu.duke.common.command.InvalidCommand;
 
+import java.time.DayOfWeek;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.time.format.ResolverStyle;
+import java.time.format.TextStyle;
 import java.util.ArrayList;
 import java.util.Locale;
 
@@ -120,6 +124,48 @@ public class Task {
      */
     public String toFileString() {
         return this.toString();
+    }
+
+    /**
+     * Checks if the input is a short form for a day of the week
+     *
+     * @param input an input to be checked
+     * @return true if the input is a short form for a day of the week
+     * @return false if the input is not short form or not a day of the week
+     */
+    public static boolean isCorrectNaturalDate(String input) {
+        DayOfWeek[] dayOfWeeks = DayOfWeek.values();
+        for (int i = 0; i < dayOfWeeks.length; i++) {
+            String day = dayOfWeeks[i].getDisplayName(TextStyle.SHORT, Locale.US);
+            if (day.equals(input)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Converts the input from a string that contains a day of the week to the next nearest date
+     * corresponding to the day of the week. If they day has already passed in that week, the next date
+     * corresponding to the day will be returned.
+     *
+     * @param naturalDate an input to be converted to a date
+     * @return dateTime that gives the date and time of naturalDate
+     */
+    public static LocalDateTime convertNaturalDate(String naturalDate) {
+        LocalDateTime dateTime = LocalDateTime.now();
+        DayOfWeek dow = dateTime.getDayOfWeek();
+        String day = dow.getDisplayName(TextStyle.SHORT, Locale.US);
+        try {
+            while (!day.contains(naturalDate)) {
+                dateTime = dateTime.plusDays(1);
+                dow = dateTime.getDayOfWeek();
+                day = dow.getDisplayName(TextStyle.SHORT, Locale.US);
+            }
+        } catch (Exception e) {
+            Duke.getUI().showError("Error");
+        }
+        return dateTime;
     }
 
     /**
