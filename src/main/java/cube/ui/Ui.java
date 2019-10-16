@@ -133,7 +133,7 @@ public class Ui {
 	 * @param list the list of food products that are low on stock.
 	 */
 	public void showStockReminder(FoodList list) {
-		System.out.println("Here are the food products low in stock:");
+		System.out.println("Here are the food products that are low in stock:");
 		for(int i = 0; i < list.size(); i++) {
 			Food food = list.get(i);
 			System.out.println(food.getName() + ": " + food.getStock() + " left");
@@ -191,7 +191,7 @@ public class Ui {
 				//+ String.format("%1$-50s", "  'Delete <number>'") + "delete the nth task in the list\n"
 				+ "Show task list:\n"
 				+ String.format("%1$-50s", "  'list'") + "shows the list of food products\n"
-				+ String.format("%1$-50s", "  'Reminder'") + "show the list of food products that are low on stock or are approaching its expiry date\n"
+				+ String.format("%1$-50s", "  'Reminder'") + "show the list of food products that are low on stock and/or are approaching its expiry date\n"
 				//+ String.format("%1$-50s", "  'List'") + "show the list of tasks\n"
 				//+ String.format("%1$-50s", "  'Find <keywords>'") + "show the list of tasks with specified keywords\n"
 				//+ String.format("%1$-50s", "  'FreeTime <number>'") + "show the nearest day with free time of n hours\n"
