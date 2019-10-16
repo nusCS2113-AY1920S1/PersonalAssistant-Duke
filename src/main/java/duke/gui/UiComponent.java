@@ -12,7 +12,7 @@ import static java.util.Objects.requireNonNull;
  * Represents a distinct UI component in the application, e.g. windows, panels, dialogs, etc.
  * It contains a scene graph with a root node of type {@code T}.
  *
- * @param <T> Type.
+ * @param <T> Root node's type.
  */
 public abstract class UiComponent<T> {
     /**
