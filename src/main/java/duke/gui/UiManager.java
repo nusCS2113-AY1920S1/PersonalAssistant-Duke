@@ -41,6 +41,10 @@ public class UiManager implements Ui {
         alert.showAndWait();
     }
 
+    private void showAlertDialogAndWait(Alert.AlertType type, String title, String headerText, String contentText) {
+        showAlertDialogAndWait(mainWindow.getPrimaryStage(), type, title, headerText, contentText);
+    }
+
     @Override
     public void start(Stage stage) {
         stage.getIcons().add(new Image(DukeCore.class.getResourceAsStream(UiManager.ICON_APPLICATION)));
@@ -57,10 +61,6 @@ public class UiManager implements Ui {
     @Override
     public void print(String output) {
         mainWindow.print(output);
-    }
-
-    private void showAlertDialogAndWait(Alert.AlertType type, String title, String headerText, String contentText) {
-        showAlertDialogAndWait(mainWindow.getPrimaryStage(), type, title, headerText, contentText);
     }
 
     /**

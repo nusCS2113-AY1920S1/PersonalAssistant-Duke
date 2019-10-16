@@ -31,7 +31,7 @@ public abstract class CommandTest {
 
         Gui ui = new Gui();
         try {
-            core = new DukeCore(new Storage("data" + File.separator + "test.tsv"), ui);
+            core = new DukeCore();
             core.storage.writeTaskFile("");
         } catch (DukeFatalException excp) {
             fail("Could not setup storage for testing!");
