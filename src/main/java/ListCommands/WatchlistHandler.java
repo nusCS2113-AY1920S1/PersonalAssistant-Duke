@@ -37,8 +37,8 @@ public class WatchlistHandler {
         }
         handle.setFeedbackText(result);
     }
-
-    public static void setWatch(ArrayList<Tasks> watch) {
-        WatchlistHandler.watch = watch;
+    public static void markAsDone(int index) {
+        index--;
+        watch.get(index).setDone(true);
     }
 }

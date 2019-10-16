@@ -3,7 +3,7 @@ package commands;
 import EPstorage.ProfileCommands;
 import MovieUI.Controller;
 import MovieUI.MovieHandler;
-
+import ListCommands.WatchlistHandler;
 import java.io.IOException;
 
 public class SetCommand extends CommandSuper {
@@ -14,17 +14,21 @@ public class SetCommand extends CommandSuper {
     @Override
     public void executeCommands() throws IOException {
         switch (this.getSubRootCommand()) {
-        case name:
-            executeSetName();
-            break;
-        case age:
-            executeSetAge();
-            break;
-        case preference:
-            executeSetPreference();
-            break;
-        default:
-            break;
+            case name:
+                executeSetName();
+                break;
+            case age:
+                System.out.println("enter");
+                executeSetAge();
+                break;
+            case preference:
+                executeSetPreference();
+                break;
+            case watchlist:
+                executeTaskDone();
+                break;
+            default:
+                break;
         }
     }
 
@@ -71,5 +75,16 @@ public class SetCommand extends CommandSuper {
         command.setPreference(this.getFlagMap());
         movieHandler.clearSearchTextField();
         movieHandler.initialize();
+    }
+    private void executeTaskDone()  {
+        try {
+            String index = this.getFlagMap().get("-d").get(0);
+            index = index.strip();
+            int i = Integer.valueOf(index);
+            System.out.println(i);
+            WatchlistHandler.markAsDone(i);
+        } catch (NullPointerException | IndexOutOfBoundsException e) {
+            ((MovieHandler)(this.getUIController())).setFeedbackText("please enter a valid task number");
+        }
     }
 }

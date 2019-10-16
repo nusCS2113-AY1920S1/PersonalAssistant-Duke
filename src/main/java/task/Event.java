@@ -35,9 +35,7 @@ public class Event extends Tasks {
         return date;
     }
 
-
     public String toMessage() {
         return description + "(at: " + date.toString() + ")";
     }
-
 }
