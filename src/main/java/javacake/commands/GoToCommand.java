@@ -6,9 +6,6 @@ import javacake.Profile;
 import javacake.Ui;
 import javacake.Storage;
 import javacake.quiz.Question;
-import javacake.topics.ListIndex1;
-import javacake.topics.ListIndex2;
-import javacake.topics.ListIndex3;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
