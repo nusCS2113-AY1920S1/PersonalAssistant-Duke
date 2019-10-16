@@ -3,6 +3,7 @@ package models.task;
 import models.data.Project;
 import models.member.Member;
 import org.junit.jupiter.api.Test;
+import util.date.DateTimeHelper;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -13,6 +14,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class ViewAssignedTasksTest {
     Project project = new Project("Infinity_Gauntlet");
+    DateTimeHelper dateTimeHelper = new DateTimeHelper();
 
     @Test
     public void alwaysTrue() {
@@ -25,8 +27,7 @@ public class ViewAssignedTasksTest {
                 + "2. Jerry (Phone: 9999 | Email: jerryn@gmail.com)";
         String testAssignedTasks2 = "1. Dillen (Phone: 9999 | Email: dillen@gmail.com)";
         try {
-            SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
-            Date dueDate = formatter.parse("19/10/2019");
+            Date dueDate = dateTimeHelper.formatDate("19/10/2019");
             ArrayList<String> taskRequirements = new ArrayList<>();
             taskRequirements.add("requirement1");
 

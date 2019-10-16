@@ -2,6 +2,7 @@ package models.task;
 
 import models.member.ListOfMemebersAssignedToTask;
 import models.member.Member;
+import util.date.DateTimeHelper;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -124,9 +125,9 @@ public class Task {
      * @param newDueDateString String form of the new dueDate to be set.
      */
     public void setDueDate(String newDueDateString) {
-        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+        DateTimeHelper dateTimeHelper = new DateTimeHelper();
         try {
-            this.dueDate = formatter.parse(newDueDateString);
+            this.dueDate = dateTimeHelper.formatDate(newDueDateString);
         } catch (ParseException e) {
             e.printStackTrace();
         }
