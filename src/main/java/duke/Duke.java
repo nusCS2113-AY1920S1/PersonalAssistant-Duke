@@ -2,7 +2,8 @@ package duke;
 
 import duke.command.logic.ModuleCommand;
 
-import duke.util.Argparse4jWrapper;
+import duke.util.Argparse4j.Argparse4jWrapper;
+import duke.util.CcaList;
 import duke.util.JsonWrapper;
 import duke.util.ParserWrapper;
 import duke.util.PlannerUi;
@@ -30,6 +31,7 @@ public class Duke {
     private Ui ui;
     private TaskList tasks;
     private ModuleTasksList modTasks;
+    private CcaList ccas;
     private ParserWrapper parser;
     private Argparse4jWrapper argparser;
     private Reminder reminder;
@@ -46,8 +48,10 @@ public class Duke {
         modUi = new PlannerUi();
         tasks = new TaskList(store);
         parser = new ParserWrapper();
+        argparser = new Argparse4jWrapper();
         jsonWrapper = new JsonWrapper();
         modTasks = new ModuleTasksList();
+        ccas = new CcaList();
     }
 
     private void modSetup() {
@@ -62,17 +66,34 @@ public class Duke {
         }
     }
 
+    private void modRunArgparse4j() {
+        modUi.helloMsg();
+        modSetup();
+        while (true) {
+            try {
+                String fullCommand = modUi.readCommand();
+                modUi.showLine();
+                ModuleCommand c = argparser.parseCommand(fullCommand);
+                if (c != null) {
+                    c.execute(modDetailedMap, modTasks, ccas, modUi, store, jsonWrapper);
+                }
+            } catch (ModException e) {
+                System.out.println(e.getMessage());
+            } finally {
+                modUi.showLine();
+            }
+        }
+    }
+
     private void modRun() {
         modUi.helloMsg();
         modSetup();
-        boolean isExit = false;
-        while (!isExit) {
+        while (true) {
             try {
                 String fullCommand = modUi.readCommand();
                 modUi.showLine();
                 ModuleCommand c = parser.parse(fullCommand, false);
-                c.execute(modDetailedMap, modTasks, modUi, store, jsonWrapper);
-                isExit = c.isExit();
+                c.execute(modDetailedMap, modTasks, ccas, modUi, store, jsonWrapper);
             } catch (ModException e) {
                 System.out.println(e.getMessage());
             } finally {
@@ -133,6 +154,7 @@ public class Duke {
         //TODO: args flag could be passed into program for optional runs
         Duke duke = new Duke();
         //duke.run();
-        duke.modRun();
+        //duke.modRun();
+        duke.modRunArgparse4j();
     }
 }
