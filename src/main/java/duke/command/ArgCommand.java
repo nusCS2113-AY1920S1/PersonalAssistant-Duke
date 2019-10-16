@@ -66,14 +66,28 @@ public abstract class ArgCommand extends Command {
         assert(switchNameArr.length == argLevelArr.length);
         assert(switchRootArr.length == switchNameArr.length);
         assert(aliases.length % 2 == 0);
+
         int switchCnt = switchNameArr.length;
         Map.Entry[] argLevelEntries = new Map.Entry[switchCnt];
-        ArrayList<Map.Entry> entryArrList = new ArrayList<Map.Entry>;
+        ArrayList<Map.Entry<String, String>> entryArrList = new ArrayList<Map.Entry<String, String>>();
+
+        // extract argument requirement levels and generate aliases
         for (int i = 0; i < switchCnt; ++i) {
-            argLevelEntries[i] = Map.entry(switchNameArr[i], argLevelArr[i]);
-            //TODO: generate switch aliases via loop
+            String name = switchNameArr[i];
+            argLevelEntries[i] = Map.entry(name, argLevelArr[i]);
+            assert(name.startsWith(switchRootArr[i]));
+            for (int j = switchRootArr[i].length(); j < name.length(); ++j) {
+                entryArrList.add(Map.entry(name.substring(0, j), name));
+            }
         }
-        //TODO: add extra aliases and create switchAlias Map
+
+        // extract remaining aliases
+        for (int k = 0; k < aliases.length; ++k) {
+            entryArrList.add(Map.entry(aliases[k], aliases[k + 1]));
+        }
+
+        // create static data structures
+        switchAliases = Map.ofEntries((Map.Entry[]) entryArrList.toArray());
         switches = Map.ofEntries(argLevelEntries);
         switchTree = new TreeSet<String>(switches.keySet());
     }
