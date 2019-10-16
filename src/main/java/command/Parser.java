@@ -85,13 +85,13 @@ public class Parser {
                 //processReminder(input, tasklist, ui);
             } else if (isEdit(input)) {
                 processEdit(input,tasklist,ui);
-            } else if (isPayment(input)) {
-                processPayment(input, managermap, ui);
+            } else if (isAddPayment(input)) {
+                processAddPayment(input, managermap, ui);
             } else if(isgetpayee(input)){
                 processfindpayee(input, ui, managermap);
             }
-            else if (isPayee(input)) {
-                processPayee(input, managermap, ui);
+            else if (isAddPayee(input)) {
+                processAddPayee(input, managermap, ui);
             } else {
                 throw new DukeException("     ☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
             }
@@ -396,22 +396,23 @@ public class Parser {
         }
     }
 
-    //INPUT FORMAT: payment add p/payee i/item c/111 v/invoice
-    private static void processPayment(String input, HashMap<String, Payee> managermap, Ui ui) {
+    /**
+     * Processes the add payment command.
+     * INPUT FORMAT: add payment p/payee i/item c/cost v/invoice
+     * @param input Input from the user.
+     * @param managermap HashMap containing all Payees and their Payments.
+     * @param ui Ui that interacts with the user.
+     */
+    private static void processAddPayment(String input, HashMap<String, Payee> managermap, Ui ui) {
         try {
-            String[] splitspace = input.split(" ", 2);
-            if (splitspace[1].startsWith("add")) {
-                String[] splitpayments = splitspace[1].split("p/|i/|c/|v/");
-                String payee = splitpayments[1];
-                String item = splitpayments[2];
-                Double cost = Double.parseDouble(splitpayments[3]);
-                String invoice = splitpayments[4];
-                Payments payment = PaymentManager.addPayments(payee, item, cost, invoice, managermap);
-                ui.printAddPaymentMessage(splitpayments[1], payment);
-            }
-            //TODO --> delete payment
-            //TODO --> edit payment
-
+            String[] splitspace = input.split("payment ", 2);
+            String[] splitpayments = splitspace[1].split("p/|i/|c/|v/");
+            String payee = splitpayments[1];
+            String item = splitpayments[2];
+            Double cost = Double.parseDouble(splitpayments[3]);
+            String invoice = splitpayments[4];
+            Payments payment = PaymentManager.addPayments(payee, item, cost, invoice, managermap);
+            ui.printAddPaymentMessage(splitpayments[1], payment);
         } catch (ArrayIndexOutOfBoundsException e) {
             ui.exceptionMessage("     ☹ OOPS!!! Please input the correct command format (refer to user guide)");
         } catch (NullPointerException e) {
@@ -419,20 +420,23 @@ public class Parser {
         }
     }
 
-    private static void processPayee(String input, HashMap<String, Payee> managermap, Ui ui) {
+    /**
+     * Processes the add payee command.
+     * INPUT FORMAT: add payee p/payee e/email m/matricNum ph/phoneNum
+     * @param input Input from the user.
+     * @param managermap HashMap containing all Payees and their Payments.
+     * @param ui Ui that interacts with the user.
+     */
+    private static void processAddPayee(String input, HashMap<String, Payee> managermap, Ui ui) {
         try {
-            String[] splitspace = input.split(" ", 2);
-            if (splitspace[1].startsWith("add")) {
-                String[] splitpayments = splitspace[1].split("p/|e/|m/|ph/");
-                String payeename = splitpayments[1];
-                String email = splitpayments[2];
-                String matricNum = splitpayments[3];
-                String phoneNum = splitpayments[4];
-                Payee payee = PaymentManager.addPayee(payeename, email, matricNum, phoneNum, managermap);
-                ui.printAddPayeeMessage(splitpayments[1], payee);
-            }
-            //TODO --> delete payee
-            //TODO --> edit payee
+            String[] splitspace = input.split("payee ", 2);
+            String[] splitpayments = splitspace[1].split("p/|e/|m/|ph/");
+            String payeename = splitpayments[1];
+            String email = splitpayments[2];
+            String matricNum = splitpayments[3];
+            String phoneNum = splitpayments[4];
+            Payee payee = PaymentManager.addPayee(payeename, email, matricNum, phoneNum, managermap);
+            ui.printAddPayeeMessage(splitpayments[1], payee);
 
         } catch (ArrayIndexOutOfBoundsException e) {
             ui.exceptionMessage("     ☹ OOPS!!! Please input the correct command format (refer to user guide)");
@@ -499,12 +503,12 @@ public class Parser {
         return input.startsWith("edit");
     }
 
-    private static boolean isPayment(String input) {
-        return input.startsWith("payment");
+    private static boolean isAddPayment(String input) {
+        return input.startsWith("add payment");
     }
 
-    private static boolean isPayee(String input) {
-        return input.startsWith("payee");
+    private static boolean isAddPayee(String input) {
+        return input.startsWith("add payee");
     }
 
     private static boolean isgetpayee(String input)  {
