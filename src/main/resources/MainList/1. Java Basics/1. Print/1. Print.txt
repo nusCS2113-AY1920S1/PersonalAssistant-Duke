@@ -1,0 +1,20 @@
+Let us look at a simple code that will print the words Hello World.
+
+Example
+
+public class MyFirstJavaProgram {
+
+    * This will print 'Hello World' as the output
+    */
+
+   public static void main(String []args) {
+      System.out.println("Hello World"); // prints Hello World
+   }
+}
+
+
+Note: To compile the program, use the following syntax:
+      javac MyFirstJavaProgram.java
+
+      To run the program, simply enter:
+      java MyFirstJavaProgram

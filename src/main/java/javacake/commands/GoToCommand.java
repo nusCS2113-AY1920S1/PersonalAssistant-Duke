@@ -1,6 +1,11 @@
 package javacake.commands;
 
-import javacake.*;
+import javacake.Duke;
+import javacake.DukeException;
+import javacake.Profile;
+import javacake.ProgressStack;
+import javacake.Storage;
+import javacake.Ui;
 import javacake.quiz.Question;
 import java.io.IOException;
 
@@ -15,7 +20,7 @@ public class GoToCommand extends Command {
 
     /**
      * Execute jumping to given index.
-     * @param progressStack TaskList containing current tasks
+     * @param progressStack tracks current location in program
      * @param ui the Ui responsible for outputting messages
      * @param storage Storage needed to write the updated data
      * @param profile Profile of the user
@@ -26,7 +31,7 @@ public class GoToCommand extends Command {
         progressStack.updateFilePath(progressStack.gotoFilePath(intIndex));
         String filePath = progressStack.getFullFilePath();
         if (filePath.contains("Quiz")) {
-            if (filePath.contains("1. Java Basics")){
+            if (filePath.contains("1. Java Basics")) {
                 if (Duke.isCliMode()) {
                     return new QuizCommand(Question.QuestionType.BASIC)
                             .execute(progressStack, ui, storage, profile);
@@ -61,15 +66,11 @@ public class GoToCommand extends Command {
             }
         }
         progressStack.insertQueries();
-        try {
-            if (progressStack.containsDirectory()) {
-                    return (progressStack.displayDirectories());
-                } else {
-                    progressStack.updateFilePath(progressStack.gotoFilePath(0));
-                    return (progressStack.readQuery());
-                }
-            } catch (IOException e) {
-                throw new DukeException(e.getMessage());
+        if (progressStack.containsDirectory()) {
+                return (progressStack.displayDirectories());
+            } else {
+                progressStack.updateFilePath(progressStack.gotoFilePath(0));
+                return (progressStack.readQuery());
             }
     }
 }

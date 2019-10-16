@@ -1,0 +1,6 @@
+The naming of this class _______ is in line with Java Convention.
+
+(1) MyHelloWord
+(2) myHelloWorld
+(3) myhelloword
+(4) my_hello_world | 1

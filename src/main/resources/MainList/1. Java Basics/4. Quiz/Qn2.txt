@@ -1,0 +1,13 @@
+A class attribute has a default value depending on its type. The following list shows the types and their corresponding default values.
+i. int: 0
+ii. int: no default value
+iii. char: '\u0000' (null character with ASCII value 0)
+iv. char: null
+v. String: null
+vi. String: "" (empty string)
+Which of the above are correct?
+(1) Only (i), (iii) and (v)
+(2) Only (i), (iii) and (vi)
+(3) Only (i), (iv) and (v)
+(4) Only (ii), (iii) and (v)
+(5) Only (ii), (iv) and (vi) | 1
