@@ -1,11 +1,10 @@
 package duke.util;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.Scanner;
 
-import duke.modules.data.ModuleInfoDetailed;
 import duke.modules.data.ModuleTask;
-import duke.modules.data.ModuleTime;
 
 /**
  * Mod Planner inherits functionality from Original Duke Ui.
@@ -107,17 +106,22 @@ public class PlannerUi {
     }
 
     /**
-     * Message to print the timetable.
+     * Message to print the sorted module list.
      */
-    public void printTimetableMsg() {
-        System.out.println("Here is your timetable!");
+    public void sortModuleMsg() {
+        System.out.println("Here are your modules!");
     }
 
     /**
-     * Sorts the modules into each day of the week and prints to the users.
+     * Sorts the modules by ascending order and prints to the users.
      * @param mods List of modules the student is taking
      */
-    //public void showAccordingToDays(List<ModuleTime> mods) {
-    public void showAccordingToDays(List<ModuleTask> mods) {
+    public void showSortedModules(List<ModuleTask> mods) {
+        showLine();
+        mods.sort(Comparator.comparing(ModuleTask::getModuleCode));
+        //mods.sort(Comparator.comparing(ModuleTask::getModuleCredit));
+        for (ModuleTask hold : mods) {
+            System.out.println(hold);
+        }
     }
 }

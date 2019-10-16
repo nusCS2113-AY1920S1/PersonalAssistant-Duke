@@ -3,7 +3,6 @@ package duke.command.logic;
 import duke.exceptions.ModException;
 import duke.modules.data.ModuleInfoDetailed;
 import duke.modules.data.ModuleTask;
-import duke.modules.data.ModuleTime;
 import duke.util.JsonWrapper;
 import duke.util.PlannerUi;
 import duke.util.Storage;
@@ -12,9 +11,9 @@ import duke.util.commons.ModuleTasksList;
 import java.util.HashMap;
 import java.util.List;
 
-public class PrintTimetableCommand extends ModuleCommand {
+public class SortCommand extends ModuleCommand {
 
-    public PrintTimetableCommand() {
+    public SortCommand() {
     }
 
     @Override
@@ -23,11 +22,9 @@ public class PrintTimetableCommand extends ModuleCommand {
                         PlannerUi plannerUi,
                         Storage store,
                         JsonWrapper jsonWrapper) throws ModException {
-        plannerUi.printTimetableMsg();
-        //List<ModuleTime> hold = tasks.getTasks();
+        plannerUi.sortModuleMsg();
         List<ModuleTask> hold = tasks.getTasks();
-        //sort the modules into days
-        plannerUi.showAccordingToDays(hold);
+        plannerUi.showSortedModules(hold);
     }
 
     @Override
