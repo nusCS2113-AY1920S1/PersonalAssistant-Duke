@@ -28,7 +28,7 @@ public class RemoveModCommand extends ModuleCommand {
                         PlannerUi plannerUi,
                         Storage store,
                         JsonWrapper jsonWrapper) throws ModException {
-        if (index < 0 || index > tasks.getSize() || tasks.getTasks().isEmpty()) {
+        if (index < 0 || index >= tasks.getSize() || tasks.getTasks().isEmpty()) {
             throw new ModEmptyListException();
         }
         ModuleTask delMod = tasks.getTasks().get(index);

@@ -31,7 +31,7 @@ public class RemoveCcaCommand extends ModuleCommand {
         if (ccas.size() == 0) {
             throw new ModEmptyListException("ccas");
         }
-        if (index < 0 || index > ccas.size()) {
+        if (index < 0 || index >= ccas.size()) {
             throw new ModOutOfBoundException();
         }
         Cca delCca = ccas.get(index);
