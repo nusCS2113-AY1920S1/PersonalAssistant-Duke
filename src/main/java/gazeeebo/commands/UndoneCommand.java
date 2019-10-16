@@ -2,6 +2,7 @@ package gazeeebo.commands;
 
 import gazeeebo.Storage.Storage;
 import gazeeebo.Tasks.Task;
+import gazeeebo.TriviaManager.TriviaManager;
 import gazeeebo.UI.Ui;
 import gazeeebo.Exception.DukeException;
 
@@ -12,7 +13,7 @@ import java.util.Stack;
 
 public class UndoneCommand extends Command {
     @Override
-    public void execute(ArrayList<Task> list, Ui ui, Storage storage, Stack<String> commandStack, ArrayList<Task> deletedTask) throws DukeException, ParseException, IOException, NullPointerException {
+    public void execute(ArrayList<Task> list, Ui ui, Storage storage, Stack<String> commandStack, ArrayList<Task> deletedTask, TriviaManager triviaManager) throws DukeException, ParseException, IOException, NullPointerException {
 
             if (ui.FullCommand.equals("undo")) {
                 throw new DukeException("The undo task number cannot be empty.");

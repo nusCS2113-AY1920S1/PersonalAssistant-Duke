@@ -1,5 +1,6 @@
 import gazeeebo.Storage.Storage;
 import gazeeebo.Tasks.Task;
+import gazeeebo.TriviaManager.TriviaManager;
 import gazeeebo.UI.Ui;
 import gazeeebo.commands.DeadlineCommand;
 import org.junit.jupiter.api.Test;
@@ -18,10 +19,11 @@ public class DukeTest {
         ArrayList<Task> tasks = new ArrayList<Task>();
         Ui ui = new Ui();
         Storage storage = new Storage();
+        TriviaManager triviaManager = new TriviaManager();
         Stack<String> commandStack = new Stack<>();
         ArrayList<Task> deletedTask = new ArrayList<>();
         try {
-            deadlineCommand.execute(tasks,ui,storage,commandStack,deletedTask);
+            deadlineCommand.execute(tasks,ui,storage,commandStack,deletedTask,triviaManager);
         } catch(IOException e) {
             assertEquals("An IOException was caught :" +e.getStackTrace()+"The system cannot find the path specified", e.getMessage());
         } catch (ParseException e) {

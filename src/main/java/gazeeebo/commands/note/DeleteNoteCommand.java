@@ -2,6 +2,7 @@ package gazeeebo.commands.note;
 import Storage.NoteStorage;
 import gazeeebo.Storage.Storage;
 import gazeeebo.Tasks.Task;
+import gazeeebo.TriviaManager.TriviaManager;
 import gazeeebo.UI.Ui;
 import gazeeebo.Exception.DukeException;
 import gazeeebo.notes.Note;
@@ -61,7 +62,7 @@ public class DeleteNoteCommand extends EditNoteCommand {
 
     /** The main method that executes all the sub methods. */
     @Override
-    public void execute(ArrayList<Task> list, Ui ui, Storage storage, Stack<String> commandStack, ArrayList<Task> deletedTask) throws IOException {
+    public void execute(ArrayList<Task> list, Ui ui, Storage storage, Stack<String> commandStack, ArrayList<Task> deletedTask, TriviaManager triviaManager) throws IOException {
         //deleteNote day/week/month yyyy-MM-dd <note_num>
         String[] command = ui.FullCommand.split(" ");
         LocalDate userDate;

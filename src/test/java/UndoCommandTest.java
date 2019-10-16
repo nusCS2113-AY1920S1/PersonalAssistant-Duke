@@ -1,5 +1,6 @@
 import gazeeebo.Storage.Storage;
 import gazeeebo.Tasks.Task;
+import gazeeebo.TriviaManager.TriviaManager;
 import gazeeebo.UI.Ui;
 import gazeeebo.commands.UndoCommand;
 import org.junit.jupiter.api.AfterEach;
@@ -39,8 +40,9 @@ public class UndoCommandTest {
         Stack<String> CommandStack = new Stack<>();
         ArrayList<Task> deletedTask = new ArrayList<Task>();
         Storage storage = new Storage();
+        TriviaManager triviaManager = new TriviaManager();
         try {
-            undoCommand.execute(tasks, ui, storage, CommandStack, deletedTask);
+            undoCommand.execute(tasks, ui, storage, CommandStack, deletedTask,triviaManager);
         } catch (ParseException | IOException | DukeException e) {
             e.printStackTrace();
         }

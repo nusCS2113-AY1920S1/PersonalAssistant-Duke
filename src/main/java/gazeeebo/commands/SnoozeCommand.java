@@ -3,6 +3,7 @@ import gazeeebo.Storage.Storage;
 import gazeeebo.Tasks.Deadline;
 import gazeeebo.Tasks.Event;
 import gazeeebo.Tasks.Task;
+import gazeeebo.TriviaManager.TriviaManager;
 import gazeeebo.UI.Ui;
 import java.io.IOException;
 import gazeeebo.Exception.DukeException;
@@ -17,12 +18,12 @@ import java.util.*;
 
 public class SnoozeCommand extends Command {
     @Override
-    public void execute(ArrayList<Task> list, Ui ui, Storage storage, Stack<String> commandStack, ArrayList<Task> deletedTask) throws DukeException, ParseException, IOException, NullPointerException {
+    public void execute(ArrayList<Task> list, Ui ui, Storage storage, Stack<String> commandStack, ArrayList<Task> deletedTask, TriviaManager triviaManager) throws DukeException, ParseException, IOException, NullPointerException {
         try {
         if(ui.FullCommand.length() == 6) {
             throw new DukeException("OOPS!!! The object of a snoozing cannot be null.");
         }else{
-
+            triviaManager.learnInput(ui.FullCommand,storage);
             int index = Integer.parseInt(ui.FullCommand.substring(6).trim()) - 1;
             String Description=list.get(index).description;
             System.out.println("You are snoozing this task: "+list.get(index).description);
@@ -69,6 +70,7 @@ public class SnoozeCommand extends Command {
         }
         catch (DukeException e) {
             System.out.println(e.getMessage());
+            triviaManager.showPossibleInputs("snooze");
         }
     }
     @Override

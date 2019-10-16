@@ -1,6 +1,7 @@
 import gazeeebo.Storage.Storage;
 import gazeeebo.Tasks.Deadline;
 import gazeeebo.Tasks.Task;
+import gazeeebo.TriviaManager.TriviaManager;
 import gazeeebo.UI.Ui;
 import gazeeebo.commands.DeadlineCommand;
 import gazeeebo.commands.SnoozeCommand;
@@ -25,11 +26,12 @@ public class SnoozeCommandTest {
         ArrayList<Task> tasks = new ArrayList<Task>();
         Ui ui = new Ui();
         Storage storage = new Storage();
+        TriviaManager triviaManager = new TriviaManager();
         Stack<String> CommandStack = new Stack<>();
         ArrayList<Task> deletedTask = new ArrayList<Task>();
         ui.FullCommand = "deadline return book /by 2008-07-07 03:03:03";
         try {
-            deadlineCommand.execute(tasks,ui,storage, CommandStack, deletedTask);
+            deadlineCommand.execute(tasks,ui,storage, CommandStack, deletedTask,triviaManager);
         } catch (DukeException | ParseException |IOException e) {
             e.printStackTrace();
         }

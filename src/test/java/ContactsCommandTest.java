@@ -1,17 +1,12 @@
-<<<<<<< HEAD
 import gazeeebo.Storage.Storage;
 import gazeeebo.Tasks.Task;
+import gazeeebo.TriviaManager.TriviaManager;
 import gazeeebo.UI.Ui;
+import gazeeebo.commands.Contact.AddContactCommand;
 import gazeeebo.commands.Contact.ContactsCommand;
-=======
-import Storage.Storage;
-import Tasks.Task;
-import UI.Ui;
-import commands.Contact.AddContactCommand;
-import commands.Contact.ContactsCommand;
-import commands.Contact.DeleteContactCommand;
-import commands.Contact.ListContactCommand;
->>>>>>> 85c7997012ee8ba5dcdc3e69104a9f4a5bf6c3a3
+
+import gazeeebo.commands.Contact.DeleteContactCommand;
+import gazeeebo.commands.Contact.ListContactCommand;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -27,6 +22,7 @@ import static org.junit.jupiter.api.Assertions.*;
 public class ContactsCommandTest {
     Ui ui = new Ui();
     Storage storage = new Storage();
+    TriviaManager triviaManager = new TriviaManager();
     ArrayList<Task> list = new ArrayList<>();
     Stack<String> commandStack = new Stack<>();
     ArrayList<Task> deletedTask = new ArrayList<>();
@@ -51,7 +47,7 @@ public class ContactsCommandTest {
         ContactsCommand testc = new ContactsCommand();
         ByteArrayInputStream in = new ByteArrayInputStream("esc".getBytes());
         System.setIn(in);
-        testc.execute(list, ui, storage, commandStack, deletedTask);
+        testc.execute(list, ui, storage, commandStack, deletedTask,triviaManager);
         assertEquals("CONTACTS PAGE\n\n" +
                 "Name:                         | Number:\n------------------------------------------\n" +
                 "RenHao                        | 8712 2345\n------------------------------------------\n" +
