@@ -112,6 +112,7 @@ public class Ui {
         System.out.println(LOGO); // Logo
         dukeSays("Hello! I'm Duke.\nDuke: What can I do for you?");
         printUserBalance();
+        printUserExpenses();
         printSeparator();
     }
 
@@ -120,5 +121,9 @@ public class Ui {
      */
     private void printUserBalance() {
         Interpreter.interpret(this.taskList, this.wallet, "balance");
+    }
+
+    private void printUserExpenses() {
+        Interpreter.interpret(this.taskList, this.wallet, "expenses");
     }
 }

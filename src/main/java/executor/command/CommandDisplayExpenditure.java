@@ -19,7 +19,7 @@ public class CommandDisplayExpenditure extends Command {
     public void execute(Wallet wallet) {
         double totalExpenses = wallet.getTotalExpenses();
         DecimalFormat decimalFormat = new DecimalFormat("#0.00");
-        Ui.dukeSays("Total Expenditure: $"
+        System.out.println("Total Expenditure: $"
                 + decimalFormat.format(totalExpenses)
         );
     }

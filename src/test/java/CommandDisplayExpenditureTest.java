@@ -38,7 +38,7 @@ public class CommandDisplayExpenditureTest {
         Command c = new CommandDisplayExpenditure();
         Wallet wallet = new Wallet();
         c.execute(wallet);
-        assertEquals("Duke: Total Expenditure: $0.00", outContent.toString().trim());
+        assertEquals("Total Expenditure: $0.00", outContent.toString().trim());
 
         resetTextTracker();
         for (double x = 0.00; x < 11.0; ++x) {
@@ -46,7 +46,7 @@ public class CommandDisplayExpenditureTest {
             wallet.addReceipt(receipt);
         }
         c.execute(wallet);
-        assertEquals("Duke: Total Expenditure: $55.00", outContent.toString().trim());
+        assertEquals("Total Expenditure: $55.00", outContent.toString().trim());
 
         endTextTracker();
     }

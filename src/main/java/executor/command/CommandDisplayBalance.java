@@ -20,7 +20,7 @@ public class CommandDisplayBalance extends Command {
     @Override
     public void execute(Wallet wallet) {
         DecimalFormat decimalFormat = new DecimalFormat("#0.00");
-        Ui.dukeSays("Your Balance: $"
+        System.out.println("Your Balance: $"
                 + decimalFormat.format(wallet.getBalance())
         );
     }

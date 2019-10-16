@@ -39,12 +39,12 @@ public class CommandDisplayBalanceTest {
         Wallet wallet = new Wallet();
         Command c = new CommandDisplayBalance();
         c.execute(wallet);
-        assertEquals("Duke: Your Balance: $0.00", outContent.toString().trim());
+        assertEquals("Your Balance: $0.00", outContent.toString().trim());
 
         resetTextTracker();
         wallet.setBalance(500.0);
         c.execute(wallet);
-        assertEquals("Duke: Your Balance: $500.00", outContent.toString().trim());
+        assertEquals("Your Balance: $500.00", outContent.toString().trim());
 
         endTextTracker();
     }
