@@ -1,5 +1,7 @@
 package gazeeebo.commands.note;
+
 import Storage.NoteStorage;
+
 import gazeeebo.Storage.Storage;
 import gazeeebo.Tasks.Task;
 import gazeeebo.TriviaManager.TriviaManager;

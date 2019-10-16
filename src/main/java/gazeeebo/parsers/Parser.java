@@ -85,7 +85,7 @@ public class Parser {
             return new DeleteNoteCommand();
         } else if (splitCommand[0].equals("listNote")) {
             return new ListNoteCommand();
-        } else if ((splitCommand[0] + " " + splitCommand[1]).equals("change password")) {
+        } else if (command.equals("change password")) {
             return new ChangePasswordCommand();
         } else if (command.contains("#")) {
             return new TagCommand();
