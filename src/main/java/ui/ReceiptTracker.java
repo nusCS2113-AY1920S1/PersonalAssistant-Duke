@@ -103,19 +103,17 @@ public class ReceiptTracker extends ArrayList<Receipt> {
     // -- Setters & Getters
 
     /**
-     * Retrieves the totalCashSpent based on a tag and initializes a Folder.
+     * Retrieves the totalCashSpent by a specific tag.
      * @param tag String representing the tag to filter by
      * @return Double, the total amount spent on a given tag
      */
     public double getCashSpentByTag(String tag) {
-        if (!isRegisteredTag(tag)) {
-            try {
-                this.addFolder(tag);
-            } catch (DukeException e) {
-                Ui.dukeSays(e.toString());
-            }
+        if (isRegisteredTag(tag)) {
+            return this.getFolders().get(tag).getTotalCashSpent();
+        } else {
+            ReceiptTracker temp = new ReceiptTracker(this.findReceiptsByTag(tag));
+            return temp.getTotalCashSpent();
         }
-        return this.getFolders().get(tag).getTotalCashSpent();
     }
 
     /**

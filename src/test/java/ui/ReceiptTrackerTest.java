@@ -141,14 +141,15 @@ public class ReceiptTrackerTest {
     void getCashSpentByTagTest() {
         ReceiptTracker tracker = initializeTracker();
         assertTrue(tracker.getFolders().isEmpty());
-
         assertEquals(9.00, tracker.getCashSpentByTag("loans"));
-        assertFalse(tracker.getFolders().isEmpty());
-        assertTrue(tracker.isRegisteredTag("loans"));
-        assertFalse(tracker.isRegisteredTag("ice"));
 
+        try {
+            tracker.addFolder("ice");
+        } catch (DukeException e) {
+            Ui.dukeSays(e.toString());
+        }
         assertEquals(-5.00, tracker.getCashSpentByTag("ice"));
-        assertTrue(tracker.isRegisteredTag("loans"));
+        assertFalse(tracker.isRegisteredTag("loans"));
         assertTrue(tracker.isRegisteredTag("ice"));
 
         assertEquals(-5.00, tracker.getCashSpentByTag("ice"));
