@@ -56,7 +56,7 @@ public class Task implements Serializable {
      * Sets a new value to the by attribute.
      */
     public void setBy(boolean inVoice) {
-        if(inVoice==true){
+        if (inVoice) {
             Date date = new Date(System.currentTimeMillis());
             java.util.Calendar calendar = java.util.Calendar.getInstance();
             calendar.setTime(date);
@@ -92,25 +92,32 @@ public class Task implements Serializable {
      * Gets the type of the Task.
      * @return Task type.
      */
-    public String getType(){ return this.type; }
+    public String getType() {
+        return this.type;
+    }
 
     /**
      * Gets the deadline of the Task.
      * @return Task by.
      */
-    public String getBy(){ return this.by; }
+    public String getBy() {
+        return this.by;
+    }
+
 
     /**
      * Gets the period of the Task.
      * @return Task at.
      */
-    public String getAt(){ return this.at; }
+    public String getAt() {
+        return this.at;
+    }
 
     /**
      * Gets the invoice status of the Task.
      * @return a boolean value invoice.
      */
-    public boolean getInVoice(){
+    public boolean getInVoice() {
         return this.inVoice;
     }
 }

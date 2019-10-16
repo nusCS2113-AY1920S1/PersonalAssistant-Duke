@@ -1,8 +1,12 @@
 package task;
 
 import java.text.SimpleDateFormat;
-import java.util.*;
+import java.util.Calendar;
+import java.util.Date;
 
+/**
+ * Reminder Class to handle reminders.
+ */
 public class Reminder {
     String currDate;
     Calendar cal;
@@ -13,6 +17,9 @@ public class Reminder {
 
     }
 
+    /**
+     * Gets the current date.
+     */
     public void getCurrDate() {
         SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
         Date date = new Date();

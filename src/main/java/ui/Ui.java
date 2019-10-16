@@ -2,6 +2,8 @@ package ui;
 
 import common.TaskList;
 import payment.Payee;
+import payment.PaymentList;
+import payment.PaymentManager;
 import payment.Payments;
 import task.Task;
 
@@ -71,6 +73,11 @@ public class Ui {
         }
         System.out.print(line);
     }
+    public void printPaymentList(PaymentList paymentList) {
+        for (int i = 0; i < paymentList.size(); i = i + 1) {
+            System.out.println(paymentList.get(i).givePayments());
+        }
+    }
 
     /**
      * Prints message to indicate deletion of a Payment from the Payee and the number of Payments left.
@@ -99,7 +106,11 @@ public class Ui {
         System.out.print(line);
     }
 
-
+    /**
+     * Prints message to indicate a task being added.
+     * @param task Task.
+     * @param tasklist Tasklist.
+     */
     public void printAddedMessage(Task task, TaskList tasklist) {
         System.out.print(line + "     Got it. I've added this task:  \n");
         System.out.print("       " + task.giveTask() + "\n");
@@ -112,7 +123,7 @@ public class Ui {
      * Prints message to indicate a Task being snoozed.
      * @param task Task to be snoozed.
      */
-        public void printSnoozeMessage(Task task) {
+    public void printSnoozeMessage(Task task) {
         System.out.print(line + "     Got it. I've snoozed this task:  \n");
         System.out.print("       " + task.giveTask() + "\n");
         System.out.print(line);
@@ -138,6 +149,10 @@ public class Ui {
         System.out.print(line);
     }
 
+    /**
+     * Prints message to indicate a task being edited.
+     * @param task Task to be edited.
+     */
     public void printEditMessage(Task task) {
         System.out.print(line + "     Got it. I've edited this task:  \n");
         System.out.print("       " + task.giveTask() + "\n");
@@ -159,7 +174,7 @@ public class Ui {
      * @param payee name of entity Payment is directed to
      * @param payment the new Payment containing the relevant information added to Payee object.
      */
-    public void printAddPaymentMessage(String payee, Payments payment){
+    public void printAddPaymentMessage(String payee, Payments payment) {
         System.out.print(line);
         System.out.println("\t" + "Got it. I've added this payment:");
         System.out.println("\t" + "Payee: " + payee);
@@ -176,7 +191,7 @@ public class Ui {
      * @param payee Payee containing identification information of Payee.
      * @param name the name of Payee to make Payments to.
      */
-    public void printAddPayeeMessage(String name, Payee payee){
+    public void printAddPayeeMessage(String name, Payee payee) {
         System.out.print(line);
         System.out.println("\t" + "Got it. I've added this payee:");
         System.out.println("\t" + "Payee: " + name);
@@ -186,9 +201,13 @@ public class Ui {
         System.out.print(line);
     }
 
-    public static void genSOA(HashMap<String, Payee> ManagerMap) {
+    /**
+     * Prints out the statement of accounts.
+     * @param managermap managermap containing Payee and Payments information.
+     */
+    public static void generateStatementofAccounts(HashMap<String, Payee> managermap) {
         System.out.print("Item\tExpense\n");
-        for ( Payee payee : ManagerMap.values()) {
+        for (Payee payee : managermap.values()) {
             for (Payments payment : payee.payments) {
                 System.out.println(payment.item + "\t" + payment.cost);
             }

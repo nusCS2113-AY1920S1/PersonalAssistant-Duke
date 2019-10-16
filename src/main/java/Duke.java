@@ -2,6 +2,7 @@ import command.Parser;
 import command.Storage;
 import common.TaskList;
 import payment.Payee;
+import payment.PaymentList;
 import task.Task;
 import ui.Ui;
 
@@ -18,8 +19,9 @@ import java.util.HashMap;
 public class Duke {
     private static Ui ui;
     private static TaskList tasklist;
+    private static PaymentList paymentlist;
     private static Storage storage;
-    private static HashMap<String, Payee> ManagerMap;
+    private static HashMap<String, Payee> managermap;
 
     /**
      * Creates a Duke instance and initialises the required attributes.
@@ -28,9 +30,10 @@ public class Duke {
     private Duke(String filepath) {
         ui = new Ui();
         storage = new Storage(filepath);
-        ArrayList<Task> arraylist = storage.load();
-        tasklist = new TaskList(arraylist);
-        ManagerMap = new HashMap<String, Payee>();
+        //ArrayList<Task> arraylist = storage.load(); <-- Giving file not found exception, to remove
+        tasklist = new TaskList();
+        paymentlist = new PaymentList();
+        managermap = new HashMap<String, Payee>();
     }
 
     /**
@@ -42,7 +45,7 @@ public class Duke {
         boolean isExit = false;
         while (!isExit) {
             String input = ui.readInput();
-            isExit = Parser.parse(input, tasklist, ui, storage, ManagerMap);
+            isExit = Parser.parse(input, tasklist, ui, storage, managermap);
         }
     }
 
