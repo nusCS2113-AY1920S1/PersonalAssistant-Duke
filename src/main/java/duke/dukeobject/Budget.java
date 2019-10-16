@@ -100,7 +100,7 @@ public class Budget {
     }
 
     /**
-     * Gets a string value for montlyBudget.
+     * Gets a string value for monthlyBudget.
      *
      * @return a String of the monthly budget
      */
