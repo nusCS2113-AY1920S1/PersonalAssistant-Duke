@@ -82,7 +82,9 @@ public class Parser {
         } else if (splitCommand[0].equals("deleteNote")) {
             return new DeleteNoteCommand();
         } else if (splitCommand[0].equals("listNote")) {
-                return new ListNoteCommand();
+            return new ListNoteCommand();
+        } else if (splitCommand[0].equals("help")) {
+                return new HelpCommand();
         } else if ((splitCommand[0] + " " + splitCommand[1]).equals("change password")) {
             return new ChangePasswordCommand();
         } else if (command.contains("#")) {
