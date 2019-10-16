@@ -396,6 +396,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
     
 
 **Use Case 5: Search for Tasks**
+
 **MSS**
 1.  User enter find command along with the parameter to search for.
     
