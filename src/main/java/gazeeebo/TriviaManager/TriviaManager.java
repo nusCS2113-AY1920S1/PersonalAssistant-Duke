@@ -5,8 +5,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-import gazeeebo.Storage.Storage;
-import gazeeebo.UI.Ui;
+import gazeeebo.storage.Storage;
+
 public class TriviaManager {
     public static Map<String, ArrayList<String>> CommandMemory;
 //    static {

@@ -1,11 +1,12 @@
-package gazeeebo.commands;
+package gazeeebo.commands.help;
 
-import gazeeebo.Storage.Storage;
-import gazeeebo.Tasks.Task;
+import gazeeebo.storage.Storage;
+import gazeeebo.tasks.Task;
 import gazeeebo.TriviaManager.TriviaManager;
 import gazeeebo.UI.Ui;
-import gazeeebo.Exception.DukeException;
-import help.HelpText;
+import gazeeebo.exception.DukeException;
+import gazeeebo.commands.Command;
+import gazeeebo.help.HelpText;
 
 import java.io.IOException;
 import java.text.ParseException;
@@ -16,8 +17,8 @@ public class HelpCommand extends Command {
 
     @Override
     public void execute(ArrayList<Task> list, Ui ui, Storage storage, Stack<String> commandStack, ArrayList<Task> deletedTask, TriviaManager triviaManager) throws DukeException, ParseException, IOException, NullPointerException {
-        //help COMMAND or just help
-        //description of a help can be empty
+        //gazeeebo.help COMMAND or just gazeeebo.help
+        //description of a gazeeebo.help can be empty
         HelpText help = new HelpText();
         String description;
         String[] command = ui.FullCommand.split(" ");

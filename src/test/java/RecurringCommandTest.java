@@ -1,7 +1,7 @@
 
-import gazeeebo.Storage.Storage;
-import gazeeebo.Tasks.Deadline;
-import gazeeebo.Tasks.Task;
+import gazeeebo.storage.Storage;
+import gazeeebo.tasks.Deadline;
+import gazeeebo.tasks.Task;
 import gazeeebo.UI.Ui;
 import gazeeebo.commands.RecurringCommand;
 import org.junit.jupiter.api.AfterEach;

@@ -1,6 +1,6 @@
 package note;
 
-import gazeeebo.Exception.DukeException;
+import gazeeebo.exception.DukeException;
 import gazeeebo.UI.Ui;
 import gazeeebo.commands.note.AddNoteCommand;
 import gazeeebo.notes.Note;

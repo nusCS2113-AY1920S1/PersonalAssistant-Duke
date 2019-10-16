@@ -1,4 +1,4 @@
-package gazeeebo.Exception;
+package gazeeebo.exception;
 
 
 public class DukeException extends Exception {

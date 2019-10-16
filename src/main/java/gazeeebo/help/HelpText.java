@@ -1,4 +1,4 @@
-package help;
+package gazeeebo.help;
 
 public class HelpText {
     public final String commandSeparator = System.lineSeparator() +
