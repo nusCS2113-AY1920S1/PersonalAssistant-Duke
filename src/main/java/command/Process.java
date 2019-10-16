@@ -21,7 +21,6 @@ import java.util.Calendar;
 
 public class Process {
     public SimpleDateFormat dataformat = new SimpleDateFormat("dd/MM/yyyy HHmm");
-
     /**
      * Trims leading and trailing whitespace of an array of strings
      * @param arr The array of Strings to clean
@@ -41,7 +40,9 @@ public class Process {
      * @param managermap HashMap containing all Payees and their Payments.
      * @param ui Ui that interacts with the user.
      */
+
     public void findPayee(String input, Ui ui, HashMap<String, Payee> managermap) {
+
         try {
             String[] splitspace = input.split(" ", 2);
             PaymentList payList = new PaymentList();

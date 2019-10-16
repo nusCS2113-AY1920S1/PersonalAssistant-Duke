@@ -3,10 +3,10 @@ package ui;
 import common.TaskList;
 import payment.Payee;
 import payment.PaymentList;
-import payment.PaymentManager;
 import payment.Payments;
 import task.Task;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Scanner;
 
@@ -75,8 +75,8 @@ public class Ui {
     }
 
     /**
-     * Prints message to indicate deletion of a Payment from the Payee and the number of Payments left.
-     * @param paymentList Representation of the Payment that is deleted.
+     * Prints the list of payments of a payee.
+     * @param paymentList paymentList of the payee.
      */
     public void printPaymentList(PaymentList paymentList) {
         for (int i = 0; i < paymentList.size(); i = i + 1) {
