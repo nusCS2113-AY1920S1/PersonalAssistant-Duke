@@ -47,7 +47,7 @@ public class AddCommandParser implements ParserPrototype<AddCommand> {
 			tempFood.setPrice(Integer.parseInt(args[priceIndex+1]));
 		}
 		if (stockIndex != -1) {
-			tempFood.updateStock(Integer.parseInt(args[stockIndex+1]));
+			tempFood.setStock(Integer.parseInt(args[stockIndex+1]));
 		}
 		if (expiryDateIndex != -1) {
 			tempFood.setExpiryDate(parseStringToDate(args[priceIndex+1]));

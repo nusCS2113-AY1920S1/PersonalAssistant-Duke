@@ -16,6 +16,6 @@ public class ExitCommand extends Command{
 
 	@Override
 	public void execute(FoodList list, Ui ui, StorageManager storage) {
-		System.out.println("reach exit");
+		ui.showExit();
 	}
 }

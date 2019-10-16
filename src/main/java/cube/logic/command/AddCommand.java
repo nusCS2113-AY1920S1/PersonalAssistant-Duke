@@ -20,9 +20,8 @@ public class AddCommand extends Command{
 	public void execute(FoodList list, Ui ui, StorageManager storage) {
 		if (isValid(list)) {
 			list.add(toAdd);
-			storage.appendFood(toAdd);
+			storage.storeFoodList(list);
 		}
-		System.out.println("reach add");
-		// todo: ui.showAdd();
+		ui.showAddFood(list);
 	}
 }

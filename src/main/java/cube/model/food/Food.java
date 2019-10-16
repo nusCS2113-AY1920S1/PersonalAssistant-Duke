@@ -131,7 +131,7 @@ public class Food implements Serializable {
 	 *
 	 * @param newStock New quantity of product available.
 	 */
-	public void updateStock(int newStock) {
+	public void setStock(int newStock) {
 		stock = newStock;
 	}
 
@@ -169,7 +169,7 @@ public class Food implements Serializable {
 				"\n  Price: " + price +
 				"\n  Stock: " + stock +
 				"\n  Expiry Date: " + expiryDate +
-				"\n  Revenue: " + revenue;
+				"\n  Revenue: " + revenue; // revenue should not be shown by individual food --guoquan
 
 	}
 }
