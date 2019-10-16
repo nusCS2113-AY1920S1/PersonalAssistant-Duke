@@ -53,7 +53,24 @@ public class PatientMap {
             patientMap.remove(keyIdentifier);
             return deletedP;
         } else {
-            throw new DukeException("The patient cannot be indentified");
+            throw new DukeException("The patient cannot be identified");
+        }
+
+    }
+
+    /**
+     * Gets a patient from the map.
+     *
+     * @param keyIdentifier The argument given by the user to identify the patient.
+     * @return the patient object
+     * @throws DukeException If bedNo cannot be resolved to a valid bedNo.
+     */
+    public Patient getPatient(String keyIdentifier) throws DukeException {
+        if (patientMap.containsKey(keyIdentifier)) {
+            Patient thePatient = patientMap.get(keyIdentifier);
+            return thePatient;
+        } else {
+            throw new DukeException("The patient cannot be identified");
         }
 
     }
