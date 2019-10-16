@@ -32,12 +32,11 @@ public class EmailContentParser {
     }
 
     /**
-     * Calculates the keyword relevance score within an email based on its position and number of
-     * occurrence.
+     * Calculates the keyword relevance score within an email based on its position and number of occurrence.
      *
      * @param email       the email where the keyword pair is to be looked for
      * @param keywordPair the target keyword pair
-     * @return            the occurrence score
+     * @return the occurrence score
      */
     public static int keywordInEmail(Email email, KeywordPair keywordPair) {
         int totalScore = 0;
@@ -145,7 +144,7 @@ public class EmailContentParser {
     /**
      * Searches a keyword in input string with some tolerance of inaccuracy.
      *
-     * @param input input string where the keyword is searched
+     * @param input  input string where the keyword is searched
      * @param target the target keyword to be searched
      * @return a relevance score related to both occurrence and relevance
      */
@@ -187,7 +186,8 @@ public class EmailContentParser {
         }
 
         /**
-         * Constructs a keyword pair with only keyword. Expression will be the same as the keyword by default.
+         * Constructs a keyword pair with only keyword. Expression will be the same as the keyword by
+         * default.
          *
          * @param keyword the value of keyword looked for
          */

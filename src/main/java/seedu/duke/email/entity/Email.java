@@ -45,7 +45,7 @@ public class Email {
      * @param receivedDateTime the date and time when the email is received
      * @param body             the body of the email
      * @param rawJson          the raw json of the email when retrieved from the Outlook server
-    */
+     */
     public Email(String subject, EmailFormatParser.Sender sender, LocalDateTime receivedDateTime, String body,
                  String rawJson) {
         this.subject = subject;
@@ -58,10 +58,10 @@ public class Email {
     /**
      * Alternative constructor for Email, used with the information retrieved from the index file.
      *
-     * @param subject subject of the
-     * @param sender the sender of the email
+     * @param subject          subject of the
+     * @param sender           the sender of the email
      * @param receivedDateTime the date and time when the email is received
-     * @param tags list of tags of the email
+     * @param tags             list of tags of the email
      */
     public Email(String subject, EmailFormatParser.Sender sender, LocalDateTime receivedDateTime,
                  ArrayList<Tag> tags) {
@@ -106,7 +106,7 @@ public class Email {
      * Add tag from keywordPair if not exist.
      *
      * @param keywordPair keywordPair of the tag
-     * @param relevance relevance of the tag
+     * @param relevance   relevance of the tag
      */
     public void addTag(EmailContentParser.KeywordPair keywordPair, int relevance) {
         for (Tag tag : tags) {
@@ -151,7 +151,7 @@ public class Email {
         String output = this.body;
         ArrayList<String> expressions = highestTag.getKeywordPair().getExpressions();
         Collections.sort(expressions, (ex1, ex2) -> ex1.length() >= ex2.length() ? -1 : 1);
-        for (String expression: expressions) {
+        for (String expression : expressions) {
             //Duke.getUI().showDebug(expression);
             Pattern colorPattern = Pattern.compile("(" + expression + ")", Pattern.CASE_INSENSITIVE);
             Matcher colorMatcher = colorPattern.matcher(output);
