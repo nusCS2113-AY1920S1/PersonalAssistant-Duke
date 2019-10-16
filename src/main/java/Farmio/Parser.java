@@ -8,15 +8,20 @@ import UserCode.Conditions.Condition;
 class Parser {
     static Command parse(String userInput, Farmio.Stage stage) throws FarmioException {
         userInput = userInput.toLowerCase();
+        if (userInput.equals("exit")) {
+            return new ExitCommand();
+        }
         switch (stage) {
             case WELCOME:
                 return new CommandMenuStart();
             case MENU_START:
-                return parseMenuStart(userInput.toLowerCase());
+                return parseMenuStart(userInput);
             case TASK_ADD:
                 return parseTaskAdd(userInput);
             case RUNNING_DAY:
                 return new CommandTasksRun();
+            case CHECK_OBJECTIVES:
+                return new CommandCheckObjectives();
             default:
                 //Game should not reach this stage.
                 stage = Farmio.Stage.WELCOME;

@@ -53,6 +53,6 @@ public class Level {
     }
 
     public String checkAnswer(){
-        return "";
+        return "checking answers";
     }
 }
