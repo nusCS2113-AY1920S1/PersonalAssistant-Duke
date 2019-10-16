@@ -150,17 +150,16 @@ public class RecurHandler {
         int index = 0;
         boolean isEdited = false;
         for (Task check : TaskList.currentList()) {
-            if (check.toString().contains(RECURRENCE_SYMBOL)) {
+            if (check instanceof RecurringToDo || check instanceof RecurringEvent || check instanceof RecurringDeadline) {
                 String temp = check.toString();
-                String[] array = temp.split("\\s+");
+                String[] array = temp.split("\\(");
                 String recurrenceSchedule;
                 RecurrenceScheduleType type;
                 String description = check.getDescription();
-                if (check.toString().contains(TODO_MARKER)) {
+                if (check instanceof RecurringToDo) {
                     // extract the recurrence schedule.
-                    recurrenceSchedule = array[4].substring(0, array[4].length() - 1);
+                    recurrenceSchedule = array[2].substring(3, array[2].length() - 1);
                     type = RecurrenceScheduleType.valueOf(recurrenceSchedule);
-
                     switch (type) {
                     case day:
                         // check if recurrence date has passed
@@ -191,13 +190,13 @@ public class RecurHandler {
                     }
                 } else {
                     // handling for deadline and event recurrences
-                    recurrenceSchedule = array[10].substring(0, array[10].length() - 1);
+                    recurrenceSchedule = array[3].substring(3, array[3].length() - 1);
                     type = RecurrenceScheduleType.valueOf(recurrenceSchedule);
                     switch (type) {
                     case week:
                         // check if recurrence date has passed
                         if (dateHasPassedOthers(currentTime, check, isEdited )) {
-                            if (check.toString().contains(DEADLINE_MARKER)) {
+                            if (check instanceof RecurringDeadline) {
                                 RecurringDeadline recurringDeadline = new RecurringDeadline(description, getNewDate(check), WEEK);
                                 taskList.replace(index, recurringDeadline);
                                 isEdited = true;
@@ -324,7 +323,7 @@ public class RecurHandler {
             }
         } catch (RoomShareException e) {
             System.out.println(DATE_ERROR_SET_AS_NOT_DONE);
-            check.setNotDone();
+            check.setDone(false);
             isEdited = true;
         }
         return isPassed;

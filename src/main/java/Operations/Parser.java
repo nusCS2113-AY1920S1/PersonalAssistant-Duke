@@ -120,7 +120,7 @@ public class Parser {
      * @return the amount of time the customer request to snooze
      */
     public int getAmount(){
-        String temp = scanner.next().trim();
+        String temp = scanner.nextLine().trim();
         return Integer.parseInt(temp);
     }
 
@@ -138,7 +138,7 @@ public class Parser {
      * @return the response of the user. Either yes or no.
      */
     public ReplyType getReply() {
-        String temp = scanner.next();
+        String temp = scanner.nextLine().trim();
         return ReplyType.valueOf(temp);
     }
 
@@ -152,8 +152,7 @@ public class Parser {
     }
 
     public String getResponse() {
-        String response = scanner.next();
-        return response;
+        return scanner.next();
     }
 
 }
