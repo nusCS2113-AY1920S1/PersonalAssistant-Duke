@@ -8,6 +8,7 @@ import models.data.Project;
 import models.member.Member;
 import models.task.Task;
 import models.task.TaskState;
+import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import views.CLIView;
 
@@ -40,11 +41,13 @@ public class AssignmentControllerTest {
     }
 
     @Test
+    @Order(1)
     public void alwaysTrue() {
         assertEquals(2, 2);
     }
 
     @Test
+    @Order(2)
     public void testSetupOfProjectAndMembers() {
         assertEquals("1. Tom (Phone: NIL | Email: NIL)",
             member1.getDetails());
@@ -64,13 +67,47 @@ public class AssignmentControllerTest {
     public void testManageAssignment() {
         assertEquals(1, project.getTasks().getSize());
         assertEquals("Test task", project.getTask(1).getTaskName());
-        String projectCommand = "assign task i/1 to/ 1 2 3";
+        String projectCommand = "assign task i/1 to/ 1 3 rm/ 2 4";
+        AssignmentControllerUtil assignmentController = new AssignmentControllerUtil();
+        assignmentController.manageAssignment(project,
+            projectCommand.substring(12).split(" "), this.consoleView);
+        assertEquals(2, assignmentController.getAssigneesIndex().size());
+        assertEquals(0, assignmentController.getUnassigneesIndex().size());
+        assertEquals(2,
+            project.getTask(1).getAssignedMembers().getNumberOfAssignees());
+        assertEquals("Tom",
+            project.getTask(1).getAssignedMembers().getMember(1).getName());
+        assertEquals("Harry",
+            project.getTask(1).getAssignedMembers().getMember(2).getName());
+        assertEquals("Cannot unassign member with index 2 (Dick) "
+            + "because they are not assigned the task yet!",
+            assignmentController.getMessages().get(0));
+        assertEquals("Member with index number 4 does not exist!",
+            assignmentController.getMessages().get(1));
+
+        projectCommand = "assign task i/1 to/ 1 rm/ 3";
+        assignmentController = new AssignmentControllerUtil();
+        assignmentController.manageAssignment(project,
+            projectCommand.substring(12).split(" "), consoleView);
+        assertEquals(0, assignmentController.getAssigneesIndex().size());
+        assertEquals(1, assignmentController.getUnassigneesIndex().size());
+    }
+
+    @Test
+    public void testManageAssignment_invalidTaskNumber() {
+        assertEquals(1, project.getTasks().getSize());
+        assertEquals("Test task", project.getTask(1).getTaskName());
+        String projectCommand = "assign task i/200 to/ 1";
         AssignmentControllerUtil assignmentController = new AssignmentControllerUtil();
         String[] args = projectCommand.substring(12).split(" ");
         assignmentController.manageAssignment(project,
             args, this.consoleView);
-        assertEquals(3, assignmentController.getAssigneesIndex().size());
         assertEquals(0, assignmentController.getAssigneesIndex().size());
-    }
+        assertEquals(0, assignmentController.getUnassigneesIndex().size());
+        assertEquals("The task you wish to assign (task index 200 ) does not exist!",
+            assignmentController.getMessages().get(0));
+        assertEquals("Please check the index number of the task and try again.",
+            assignmentController.getMessages().get(1));
 
+    }
 }

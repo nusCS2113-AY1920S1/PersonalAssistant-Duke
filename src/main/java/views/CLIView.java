@@ -155,7 +155,7 @@ public class CLIView {
         for (Task task: projectToManage.getTasks().getTaskList()) {
             ArrayList<String> allAssignedTasks = new ArrayList<>();
             allAssignedTasks.add(task.getTaskName() + " is assigned to: ");
-            allAssignedTasks.addAll(task.getAssignedTasks().getAllMemberDetails());
+            allAssignedTasks.addAll(task.getAssignedMembers().getAllMemberDetails());
             consolePrint(allAssignedTasks.toArray(new String[0]));
         }
     }
@@ -181,7 +181,9 @@ public class CLIView {
         if (unassign.size() > 0) {
             toPrint.add("The task: " + task.getTaskName() + " has been unassigned from:");
             for (Integer i : unassign) {
-                task.removeMember(i);
+                //bug here: removing by index.
+                Member memberToRemove = projectToManage.getMembers().getMember(i);
+                task.removeMember(memberToRemove);
                 toPrint.add(projectToManage.getMembers().getMember(i).getName());
                 //recalculate credits for other members assigned to task if necessary
             }

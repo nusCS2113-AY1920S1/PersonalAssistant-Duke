@@ -83,9 +83,8 @@ public class AssignmentControllerUtil {
         consoleView.viewAssignedTask(projectToManage);
     }
 
-    public ArrayList<Integer> getAssigneesIndex() {
-        return this.assign;
-    }
+    public ArrayList<Integer> getAssigneesIndex() { return this.assign;}
+
     public ArrayList<Integer> getUnassigneesIndex() {
         return this.unassign;
     }

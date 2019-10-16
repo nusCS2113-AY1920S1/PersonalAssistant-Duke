@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
 
-import models.member.ListOfMemebersAssignedToTask;
+import models.member.ListOfMembersAssignedToTask;
 import models.member.Member;
 
 public class Task {
@@ -14,7 +14,7 @@ public class Task {
     private Date dueDate;
     private int taskCredit;
     private TaskState taskState;
-    private ListOfMemebersAssignedToTask listOfMemebersAssignedToTask;
+    private ListOfMembersAssignedToTask listOfMembersAssignedToTask;
     private ArrayList<String> taskRequirements;
 
     /**
@@ -33,7 +33,7 @@ public class Task {
         this.dueDate = dueDate;
         this.taskCredit = taskCredit;
         this.taskState = taskState;
-        this.listOfMemebersAssignedToTask = new ListOfMemebersAssignedToTask();
+        this.listOfMembersAssignedToTask = new ListOfMembersAssignedToTask();
         this.taskRequirements = taskRequirements;
     }
 
@@ -75,19 +75,19 @@ public class Task {
     }
 
     public void assignMember(Member member) {
-        this.listOfMemebersAssignedToTask.addMember(member);
+        this.listOfMembersAssignedToTask.addMember(member);
     }
 
-    public ListOfMemebersAssignedToTask getAssignedTasks() {
-        return listOfMemebersAssignedToTask;
+    public ListOfMembersAssignedToTask getAssignedMembers() {
+        return listOfMembersAssignedToTask;
     }
 
     public HashSet<Integer> getAssignedIndexes() {
-        return this.listOfMemebersAssignedToTask.getAssignedMembersIndexNumbers();
+        return this.listOfMembersAssignedToTask.getAssignedMembersIndexNumbers();
     }
 
-    public void removeMember(Integer memberIndex) {
-        this.listOfMemebersAssignedToTask.removeMember(memberIndex);
+    public void removeMember(Member memberToRemove) {
+        this.listOfMembersAssignedToTask.removeMember(memberToRemove);
     }
 
     public ArrayList<String> getTaskRequirements() {
