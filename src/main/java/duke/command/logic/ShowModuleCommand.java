@@ -5,6 +5,7 @@ import java.util.List;
 
 import duke.exceptions.ModException;
 import duke.modules.data.ModuleInfoDetailed;
+import duke.modules.data.ModuleTask;
 import duke.util.JsonWrapper;
 import duke.util.PlannerUi;
 import duke.util.Storage;
@@ -20,8 +21,8 @@ public class ShowModuleCommand extends ModuleCommand {
                         JsonWrapper jsonWrapper) throws ModException {
         plannerUi.listMsg();
         int counter = 1;
-        List<ModuleInfoDetailed> hold = tasks.getTasks();
-        for (ModuleInfoDetailed temp : hold) {
+        List<ModuleTask> hold = tasks.getTasks();
+        for (ModuleTask temp : hold) {
             System.out.print(counter++ + " ");
             plannerUi.showObject(temp);
         }
