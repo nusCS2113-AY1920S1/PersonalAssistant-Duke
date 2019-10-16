@@ -10,7 +10,6 @@ import views.CLIView;
 import java.text.ParseException;
 import java.util.Scanner;
 
-
 public class ProjectInputController implements IController {
     private Scanner manageProjectInput;
     private ProjectRepository projectRepository;

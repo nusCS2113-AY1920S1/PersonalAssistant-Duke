@@ -3,7 +3,6 @@ package controllers;
 import models.data.IProject;
 import models.task.Task;
 import views.CLIView;
-
 import java.util.ArrayList;
 import java.util.HashSet;
 
