@@ -61,7 +61,7 @@ public class TaskStorage {
      * Saves tasks to the local file.
      *
      * @param tasks The TaskList storing tasks.
-     * @throws DukeException If writing to the local file failed.
+     * @throws DukeException throw with error message if writing to the local file failed.
      */
     public void save(ArrayList<Task> tasks) throws DukeException {
         try{

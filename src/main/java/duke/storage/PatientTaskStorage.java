@@ -30,6 +30,12 @@ public class PatientTaskStorage {
         this.filePath = filePath;
     }
 
+    /**
+     * Load the task info with associated patient from local csv files
+     *
+     * @return A arrayList of PatientTask which contain info of task with associated patient
+     * @throws DukeException throw a dukeException with error message for debugging
+     */
     public ArrayList<PatientTask> load() throws DukeException {
         ArrayList<PatientTask> patientTaskList = new ArrayList<PatientTask>();
         File csvFile = new File(filePath);
@@ -63,6 +69,13 @@ public class PatientTaskStorage {
         }
     }
 
+
+    /**
+     * Write info of task with associated patient to local csv files
+     *
+     * @param patientTask A list of patients containing info of patients to be written
+     * @throws DukeException throw exception with error message when i/o fails
+     */
     public void save(ArrayList<PatientTask> patientTask) throws DukeException {
         try {
             BufferedWriter writer = Files.newBufferedWriter(Paths.get(filePath));
