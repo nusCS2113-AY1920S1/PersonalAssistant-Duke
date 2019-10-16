@@ -52,6 +52,7 @@ public class UserProfile {
         this.adult = adult;
     }
 
+
     public ArrayList<Integer> getGenreIdRestriction() {
         return genreIdRestriction;
     }

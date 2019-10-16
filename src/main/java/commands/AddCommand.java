@@ -78,7 +78,7 @@ public class AddCommand extends CommandSuper {
                     continue;
                 }
             }
-            if (Character.digit(s.charAt(i),radix) < 0) {
+            if (Character.digit(s.charAt(i) , radix) < 0) {
                 return false;
             }
         }
@@ -92,13 +92,25 @@ public class AddCommand extends CommandSuper {
     public void addToBlackList() {
         System.out.print("HERE!!");
         String movie = getPayload().trim();
-        if(isInteger(movie,10)) {
-            Blacklist.addToBlacklist(SearchResultContext.getIndex(Integer.parseInt(movie)));
+
+        if (getFlagMap().get("-k") != null) {
+            System.out.print("ADDing keyword");
+            if (isInteger(movie, 10)) {
+                Blacklist.addToBlacklistKeyWord(SearchResultContext.getIndex(Integer.parseInt(movie)).getTitle());
+            } else {
+                Blacklist.addToBlacklistKeyWord(movie);
+            }
         } else {
-            Blacklist.addToBlacklist(movie);
+            System.out.print("ADDing movie");
+            if (isInteger(movie, 10)) {
+                Blacklist.addToBlacklistMoviesID(SearchResultContext.getIndex(Integer.parseInt(movie)));
+            } else {
+                Blacklist.addToBlacklistMovie(movie);
+            }
+
         }
 
-        Blacklist.printList();
+        ((MovieHandler) this.getUIController()).setFeedbackText(Blacklist.printList());
 
     }
 

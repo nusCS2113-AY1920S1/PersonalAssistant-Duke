@@ -4,8 +4,6 @@ import java.util.TreeMap;
 
 public class CommandStructure {
 
-
-
     /**
      * Defining the Command structure for the program.
      *
