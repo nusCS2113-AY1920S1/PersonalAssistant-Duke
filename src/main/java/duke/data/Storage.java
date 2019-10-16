@@ -336,7 +336,7 @@ public class Storage {
     }
 
     public void updateStudentList(ArrayList<MyStudent> student) {
-        File studentListFile = new File("C:\\Users\\Dell\\Desktop\\main\\src\\main\\java\\duke\\data\\studentList.txt");
+        File studentListFile = new File(".\\src\\main\\java\\duke\\data\\studentList.txt");
         try {
             PrintWriter printWriter = new PrintWriter(studentListFile);
             for (MyStudent x: student) {
@@ -356,7 +356,7 @@ public class Storage {
         ArrayList loadStudent = new ArrayList();
 
         try {
-            FileReader fr = new FileReader("C:\\Users\\Dell\\Desktop\\main\\src\\main\\java\\duke\\data\\studentList.txt");
+            FileReader fr = new FileReader(".\\src\\main\\java\\duke\\data\\studentList.txt");
             BufferedReader input = new BufferedReader(fr);
             if (!input.ready()) {
                 throw new IOException();
