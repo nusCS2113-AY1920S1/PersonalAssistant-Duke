@@ -199,7 +199,8 @@ public class BakingHome implements ReadOnlyBakingHome {
     //============Inventory operations==============
 
     /**
-     * Adds an ingredient to the inventory list
+
+     * Adds an ingredient to the inventory list.
      * @param toAdd The ingredient to be added to the inventory list
      */
     public void addInventory(Item<Ingredient> toAdd) {
@@ -207,7 +208,7 @@ public class BakingHome implements ReadOnlyBakingHome {
     }
 
     /**
-     * Removes an ingredient from the inventory list
+     * Removes an ingredient from the inventory list.
      * @param toRemove The ingredient to be removed from the inventory list
      */
     public void removeInventory(Item<Ingredient> toRemove) {
@@ -215,7 +216,7 @@ public class BakingHome implements ReadOnlyBakingHome {
     }
 
     /**
-     * Replaces the ingredient toEdit in the inventory list with the edited ingredient
+     * Replaces the ingredient toEdit in the inventory list with the edited ingredient.
      *
      * @param toEdit  the ingredient that needs to be edited
      * @param edited the edited ingredient

@@ -2,9 +2,11 @@ package duke.logic.command.order;
 
 import duke.logic.command.exceptions.CommandException;
 import duke.model.commons.Item;
+import duke.model.inventory.Ingredient;
 import duke.model.order.Customer;
 import duke.model.order.Order;
 import duke.model.product.Product;
+import javafx.collections.ObservableList;
 
 import java.util.Date;
 import java.util.HashSet;
@@ -33,7 +35,9 @@ class OrderCommandUtil {
         return products;
     }
 
-    static Order createNewOrder(Order original, OrderDescriptor orderDescriptor, List<Product> allProducts)
+    static Order createNewOrder(Order original, OrderDescriptor orderDescriptor,
+                                List<Product> productList,
+                                ObservableList<Item<Ingredient>> inventoryList)
             throws CommandException {
         assert original != null;
 
@@ -46,7 +50,7 @@ class OrderCommandUtil {
 
         Set<Item<Product>> newItems;
         if (orderDescriptor.getItems().isPresent()) {
-            newItems = getProducts(allProducts, orderDescriptor.getItems().get());
+            newItems = getProducts(productList, orderDescriptor.getItems().get());
         } else {
             newItems = original.getItems();
         }
@@ -54,7 +58,7 @@ class OrderCommandUtil {
         String newRemarks = orderDescriptor.getRemarks().orElse(original.getRemarks());
         Order.Status newStatus = orderDescriptor.getStatus().orElse(original.getStatus());
         double newTotal = orderDescriptor.getTotal().orElse(original.getTotal());
-        return new Order(newCustomer, newDate, newStatus, newRemarks, newItems, newTotal);
+        return new Order(newCustomer, newDate, newStatus, newRemarks, newItems, newTotal, inventoryList);
     }
 
     static double calculateTotal(Set<Item<Product>> productItems) {

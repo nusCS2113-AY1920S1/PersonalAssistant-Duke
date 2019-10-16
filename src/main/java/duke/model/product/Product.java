@@ -101,15 +101,19 @@ public class Product {
         return this.status;
     }
 
-/*
-    public List<Ingredient> getIngredients() {
-        return this.ingredients;
+    public IngredientItemList getIngredients() {
+        return ingredients;
     }
 
-    public void setIngredients(List<Ingredient> ingredients) {
-        this.ingredients = ingredients;
-    }
-*/
+    /*
+        public List<Ingredient> getIngredients() {
+            return this.ingredients;
+        }
+
+        public void setIngredients(List<Ingredient> ingredients) {
+            this.ingredients = ingredients;
+        }
+    */
     @Override
     public String toString() {
         return productName + ": " + retailPrice + "$" + ingredients.toString();
