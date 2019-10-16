@@ -40,21 +40,19 @@ task coverage(type: JacocoReport) {
             fileTree(dir: it, exclude: ['**/*.jar'])
         })
     }
-}
-
-tasks.coveralls {
-    dependsOn coverage
-    onlyIf { System.env.'CI' }
+    reports {
+        html.enabled = true
+        xml.enabled = true
+    }
 }
 
 coveralls {
     jacocoReportPath "${buildDir}/reports/jacoco/test/jacocoTestReport.xml"
 }
 
-dependencies {
-    testImplementation 'org.junit.jupiter:junit-jupiter:5.5.0'
-    implementation 'com.google.code.gson:gson:2.8.6'
-    implementation 'org.eluder.coveralls:coveralls-maven-plugin:4.3.0'
+tasks.coveralls {
+    dependsOn coverage
+    onlyIf { System.env.'CI' }
 }
 
 test {
@@ -92,6 +90,9 @@ javafx {
 
 dependencies {
     String javaFxVersion = '11'
+    testImplementation 'org.junit.jupiter:junit-jupiter:5.5.0'
+    implementation 'com.google.code.gson:gson:2.8.6'
+
     implementation group: 'org.openjfx', name: 'javafx-base', version: javaFxVersion, classifier: 'win'
     implementation group: 'org.openjfx', name: 'javafx-base', version: javaFxVersion, classifier: 'mac'
     implementation group: 'org.openjfx', name: 'javafx-base', version: javaFxVersion, classifier: 'linux'
