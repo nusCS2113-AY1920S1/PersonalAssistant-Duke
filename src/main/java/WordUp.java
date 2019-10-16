@@ -139,6 +139,7 @@ public class WordUp extends Application{
     private String getResponse(String fullCommand) {
         Command c = Parser.parse(fullCommand);
         return c.execute(ui, wordBank, storage);
+
     }
 
 

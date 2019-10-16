@@ -90,6 +90,30 @@ public class Ui {
         return ("Here is the meaning of " + description + ": " + meaning);
     }
 
+
+    public void quizDisplay(String question, String[] options, int optionSequence){
+        System.out.println("What is the meaning of " + question +"?");
+        int index=1;
+        for(int i=optionSequence; i<optionSequence+4; i++){
+            System.out.print(index + "." + options[i%4] + "  ");
+            index++;
+        }
+        System.out.println();
+        return;
+    }
+    public void quizResponse(Boolean isCorrect, String answer){
+        if(isCorrect){
+            System.out.println("Yes!! The correct answer is \""+ answer + "\".");
+        }
+        else{
+            System.out.println("Sorry, The answer is \""+ answer + "\".");
+        }
+        return;
+    }
+    public void quizWordsNotEnough(){
+        System.out.println("    Words not enough. Need at least 4 words to make a quiz!");
+        return;
+
     public void showHistory(Stack<Word> wordHistory, int numberOfWordsToDisplay) {
         int numberOfWords;
         if (numberOfWordsToDisplay > wordHistory.size()) {
