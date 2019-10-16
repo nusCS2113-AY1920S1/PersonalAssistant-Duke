@@ -11,6 +11,11 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 
+/**
+ * TaskStorage.java - a simple class for writing/reading taskInfo to/from local in csv format.
+ * @author  HUANG XUAN KUN
+ * @version 1.2
+ */
 public class TaskStorage {
 
     /**
@@ -37,26 +42,31 @@ public class TaskStorage {
      */
     public ArrayList<Task> load() throws DukeException {
         ArrayList<Task> taskList = new ArrayList<Task>();
+        File csvFile = new File(filePath);
         try {
-            Reader in = new FileReader(filePath);
-            Iterable<CSVRecord> records = CSVFormat.EXCEL.withFirstRecordAsHeader().parse(in);
-            for (CSVRecord record : records) {
-                int id = Integer.parseInt(record.get("Id"));
-                String description = record.get("Description");
-                taskList.add(new Task(id, description));
+            if (csvFile.createNewFile()) {
+                System.out.println("File " + filePath + " is created.");
+            } else {
+                Reader in = new FileReader(filePath);
+                Iterable<CSVRecord> records = CSVFormat.EXCEL.withFirstRecordAsHeader().parse(in);
+                for (CSVRecord record : records) {
+                    int id = Integer.parseInt(record.get("Id"));
+                    String description = record.get("Description");
+                    taskList.add(new Task(id, description));
+                }
             }
             return taskList;
-        } catch (IOException e) {
-            throw new DukeException(e.getMessage());
+        } catch (Exception e) {
+            throw new DukeException("Loading of " + filePath + "is unsuccessful.\n" +
+                    "e.getMessage()");
         }
     }
-
 
     /**
      * Saves tasks to the local file.
      *
      * @param tasks The TaskList storing tasks.
-     * @throws DukeException If writing to the local file failed.
+     * @throws DukeException throw with error message if writing to the local file failed.
      */
     public void save(ArrayList<Task> tasks) throws DukeException {
         try{
