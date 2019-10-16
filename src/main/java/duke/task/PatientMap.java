@@ -4,35 +4,28 @@ import duke.exception.DukeException;
 import duke.exception.DukeFatalException;
 import duke.exception.DukeResetException;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
-public class PatientList {
-    // TSV files will have one entry per line, tabs disallowed in input
+public class PatientMap {
 
     private HashMap<String, Patient> patientMap;
 
     /**
-     * Creates a new TaskList, loading data from the Storage object provided.
+     * Creates a new PatientMap, loading data from the Storage object provided.
      *
      * @param storage The Storage object pointing to the TSV file containing the data to load.
      * @throws DukeResetException If file is corrupted or the data has been edited to be unreadable.
      * @throws DukeFatalException If unable to write data file.
      */
-    public PatientList(GsonStorage storage) throws DukeResetException, DukeFatalException {
+    public PatientMap(GsonStorage storage) throws DukeResetException, DukeFatalException {
         patientMap = storage.loadPatientHashMap();
     }
 
     /**
      * Creates a new, empty TaskList.
      */
-    public PatientList() {
+    public PatientMap() {
         patientMap = new HashMap<>();
     }
 
@@ -71,12 +64,12 @@ public class PatientList {
      * @param searchTerm String to search through the patients for.
      * @return PatientList of matching patients.
      */
-    public PatientList find(String searchTerm) throws DukeException {
+    public PatientMap find(String searchTerm) throws DukeException {
         int i = 1;
-        PatientList filteredList = new PatientList();
+        PatientMap filteredList = new PatientMap();
         for (Map.Entry mapElement : patientMap.entrySet()) {
             Patient value = (Patient)mapElement.getValue();
-            if (value.getName().contains(searchTerm)){
+            if (value.getName().contains(searchTerm)) {
                 filteredList.addPatient(value);
                 ++i;
             }
