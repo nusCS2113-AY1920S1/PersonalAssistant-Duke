@@ -1,73 +1,133 @@
 package task;
+
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.time.Period;
 
 /**
- * This Task class is extended by the other tasks and serves as a template for all tasks.
+ * This Task class is extended by the other tasks and serves as a template for
+ * all tasks.
  *
- * @serial
  * @author Sai Ganesh Suresh
  * @version v2.0
  */
-public class Task implements Serializable{
+public abstract class Task implements Serializable {
 
-    public String description; // basically similar to describing features of the class
+    public String description;
+    public Priority priority;
+    public Reminder reminder;
+    public String comment;
+
+    protected boolean isIgnored;
     protected boolean isDone;
-    public LocalDateTime nullDate = LocalDateTime.of(1,1,1,1,1,1,1);
-    public LocalDateTime endDate = nullDate;
-    public LocalDateTime startDate = nullDate;
+    public boolean isPrioritizable = true;
+
+    public LocalDateTime endDate = null;
+    public LocalDateTime startDate = null;
     public LocalDateTime createdDate;
     public Period eventPeriod;
-    public int remindInHowManyDays = 0;
 
     /**
-     * This task constructor is used to obtain the parameters required by the task class.
+     * Constructor for task.
      *
-     * @param description This string holds the description provided by the user.
+     * @param description The description of the task
      */
-    public Task(String description) { // constructor
+    public Task(String description) {
         this.description = description;
         this.isDone = false;
+        this.isIgnored = false;
+        this.priority = Priority.MEDIUM;
         this.createdDate = LocalDateTime.now();
+        this.comment = "";
     }
 
     /**
-     * This getStatusIcon function returns the tick or cross symbols to be printed as output
+     * Check if any task reminders are triggered.
+     *
+     * @return if triggered
+     */
+    public boolean checkReminderTrigger() {
+        if (isIgnored) {
+            return false;
+        }
+        if (reminder != null) {
+            return reminder.checkReminderTrigger();
+        }
+        return false;
+    }
+
+    /**
+     * Returns a priority symbol to be printed as output.
+     *
+     * @return Unicode that represent priority level.
+     */
+    public String getPriorityIcon() {
+        if (!isPrioritizable) {
+            return "[\u26A0]"; // Return warning sign symbol
+        }
+        if (priority == Priority.HIGH) {
+            return "[\u2605\u2605\u2605]"; // Return triple star symbols
+        } else if (priority == Priority.MEDIUM) {
+            return "[\u2605\u2605]";// Return double star symbol
+        } else {
+            return "[\u2605]";// Return single star symbol
+        }
+    }
+
+    /**
+     * This getStatusIcon function returns the tick or cross symbols to be printed
+     * as output.
      *
      * @return This function returns either a tick or a cross.
      */
-    public String getStatusIcon() { // return tick or X symbols
-        return (isDone ? "\u2713" : "\u2718");
+    public String getStatusIcon() {
+        return (isDone ? "\u2713" : "\u2718"); // Return tick or cross symbol
     }
 
-    /**
-     * This markAsDone function allows the user to mark a task as done.
-     */
+    public String getDescription() {
+        return description;
+    }
+
+    public void setReminder(int days) {
+        reminder = new Reminder(days, startDate);
+    }
+
+    public void setPriority(Priority priority) {
+        this.priority = priority;
+    }
+
+    public void setStartDate(LocalDateTime startDate) {
+        this.startDate = startDate;
+    }
+
+    public void setEndDate(LocalDateTime endDate) {
+        this.endDate = endDate;
+    }
+
+    public void markAsIgnorable() {
+        this.isIgnored = true;
+        this.isPrioritizable = false;
+    }
+
+    public void markAsUnignorable() {
+        this.isIgnored = false;
+        this.isPrioritizable = true;
+    }
+
     public void markAsDone() {
         this.isDone = true;
     }
 
     /**
-     * This toString function of the task class etches the different portions of the user input into a
-     * single string.
-     *
-     * @return This function returns a string of the required task in the desired output format of string type.
+     * converts the task to a string.
      */
     public String toString() {
-        return "[" + getStatusIcon() + "] " + description;
-    }
-
-    public void setReminder(int days){
-        this.remindInHowManyDays = days;
-    }
-
-    public boolean checkReminderTrigger() {
-        if (!startDate.isEqual(nullDate)) {
-            LocalDateTime reminderDate = startDate.minusDays(remindInHowManyDays);
-            return LocalDateTime.now().isAfter(reminderDate);
+        String message = "[" + getPriorityIcon() + "]" + "[" + getStatusIcon() + "] " + description;
+        if (!comment.isBlank()) {
+            message = message + "  Note to self: " + comment;
         }
-        return false;
+        return message;
     }
 
+    abstract boolean checkForClash(Task taskToCheck);
 }

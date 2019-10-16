@@ -1,46 +1,44 @@
 package task;
+
 import java.time.LocalDateTime;
 import java.io.Serializable;
-import parser.DateTimeExtractor;
+
 /**
- * This extension of the task class will allow the user to add a task of to-do type.
+ * This extension of the task class will allow the user to add a task of to-do
+ * type.
  *
  * @author Sai Ganesh Suresh
  * @version v2.0
  */
 public class Todo extends Task implements Serializable {
 
-    public Todo(String description){
+    public Todo(String description) {
         super(description);
-    }
-
-    public Todo(String description, LocalDateTime at, LocalDateTime to){
-        super(description);
-        this.startDate = at;
-        this.endDate = to;
-        this.createdDate = LocalDateTime.now();
     }
 
     /**
-     * This override of the toString function of the task class etches the different portions of the user input into a
-     * single string.
+     * This override of the toString function of the task class etches the different
+     * portions of the user input into a single string.
      *
-     * @return This function returns a string of the required task in the desired output format of string type.
+     * @return This function returns a string of the required task in the desired
+     *         output format of string type.
      */
     @Override
     public String toString() {
-        if(!this.startDate.isEqual(nullDate) && !this.endDate.isEqual(nullDate)){
-            return "[T]" + "[" + super.getStatusIcon() + "] " + this.description + " " + " (from: " +
-                    this.startDate.format(DateTimeExtractor.DATE_FORMATTER) + ")" + " (to: " +
-                    this.endDate.format(DateTimeExtractor.DATE_FORMATTER) + ")";
+        String message = super.getPriorityIcon() + "[T]" + "[" + super.getStatusIcon() + "] " + this.description;
+        if (!comment.isBlank()) {
+            message = message + "  Note to self: " + comment;
         }
-        else {
-            return "[T]" + "[" + super.getStatusIcon() + "] " + this.description;
-        }
+        return message;
     }
 
     @Override
-    public boolean checkReminderTrigger(){
-        return LocalDateTime.now().isAfter(createdDate.plusDays(remindInHowManyDays));
+    public void setReminder(int days) {
+        reminder = new Reminder(days);
+    }
+
+    @Override
+    boolean checkForClash(Task taskToCheck) {
+        return false;
     }
 }

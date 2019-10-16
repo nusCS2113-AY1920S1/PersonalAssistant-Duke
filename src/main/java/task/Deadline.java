@@ -1,34 +1,48 @@
 package task;
+
 import parser.DateTimeExtractor;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
 /**
- * This extension of the task class will allow the user to add a task of deadline type.
+ * This extension of the task class will allow the user to add a task of
+ * deadline type.
  *
  * @author Sai Ganesh Suresh
  * @version v2.0
  */
-public class Deadline extends Task implements Serializable{
+public class Deadline extends Task implements Serializable {
 
-    public Deadline(String description, LocalDateTime atDate){
+    /**
+     * Constructor for deadline task.
+     *
+     * @param description Description of the deadline
+     * @param atDate      Due date for deadline
+     */
+    public Deadline(String description, LocalDateTime atDate) {
         super(description);
         this.startDate = atDate;
-        this.remindInHowManyDays = 3;
+        setReminder(3);
     }
-    
-    /**
-     * This override of the toString function of the task class etches the different portions of the user input into a
-     * single string.
-     *
-     * @return This function returns a string of the required task in the desired output format of string type.
-     */
+
     @Override
     public String toString() {
-        return "[D]" + "[" + super.getStatusIcon() + "]" + this.description + "(by: "
-                + this.startDate.format(DateTimeExtractor.DATE_FORMATTER) + ")";
+        String message = super.getPriorityIcon() + "[D]" + "[" + super.getStatusIcon() + "] " + this.description;
+        String dateString = "(by: " + this.startDate.format(DateTimeExtractor.DATE_FORMATTER) + ")";
+        if (!comment.isBlank()) {
+            dateString = dateString + "  Note to self: " + comment;
+        }
+        return message.concat(dateString);
+    }
+
+    @Override
+    public boolean checkForClash(Task taskToCheck) {
+        if (taskToCheck.endDate == null) {
+            return (this.startDate.isEqual(taskToCheck.startDate));
+        } else {
+            return (taskToCheck.startDate.isBefore(this.startDate) && taskToCheck.endDate.isAfter(this.startDate));
+        }
     }
 
 }
-
