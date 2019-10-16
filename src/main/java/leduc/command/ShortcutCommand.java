@@ -19,9 +19,14 @@ public class ShortcutCommand extends Command {
     public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
         String[] userCommand = user.split(" ");
         String newShortcut="";
-        if (userCommand.length >= 1){
-            ui.display("Please enter a shortcut for " + userCommand[1]);
-            newShortcut = ui.readCommand();
+        if (userCommand.length >= 2){
+            if(userCommand.length >= 3){
+                newShortcut = userCommand[2].trim();
+            }
+            else {
+                ui.display("Please enter a shortcut for " + userCommand[1]);
+                newShortcut = ui.readCommand();
+            }
             if(setShortcut.contains(newShortcut)){
                 throw new DuplicationShortcutException();
             }
