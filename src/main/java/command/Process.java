@@ -21,7 +21,6 @@ import java.util.Calendar;
 
 public class Process {
     public SimpleDateFormat dataformat = new SimpleDateFormat("dd/MM/yyyy HHmm");
-
     /**
      * Processes the find command and outputs a list of payments from the payee name given.
      * @param input Input from the user.
