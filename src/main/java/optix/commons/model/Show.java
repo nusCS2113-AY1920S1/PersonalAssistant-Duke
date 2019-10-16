@@ -16,4 +16,8 @@ public class Show {
     public double getProfit() {
         return profit;
     }
+
+    public boolean hasSameName(String checkName) {
+        return showName.toLowerCase().equals(checkName.toLowerCase());
+    }
 }

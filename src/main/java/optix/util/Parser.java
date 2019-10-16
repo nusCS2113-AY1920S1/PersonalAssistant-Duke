@@ -14,6 +14,7 @@ import optix.commands.shows.ListCommand;
 import optix.commands.shows.ListDateCommand;
 import optix.commands.shows.ListShowCommand;
 import optix.commands.shows.PostponeCommand;
+import optix.commands.shows.ViewProfitCommand;
 import optix.commands.seats.SellSeatCommand;
 import optix.commands.seats.ViewSeatsCommand;
 import optix.exceptions.OptixException;
@@ -111,6 +112,8 @@ public class Parser {
                 return parseDeleteAllOfShow(splitStr[1]);
             case "delete": // e.g. delete 2/10/2019|poto
                 return parseDeleteOneOfShow(splitStr[1]);
+            case "view-profit": //e.g. view-profit lion king|5/5/2020
+                return parseViewProfit(splitStr[1]);
             case "help":
                 return new HelpCommand(splitStr[1].trim());
             case "add-alias":
@@ -347,6 +350,26 @@ public class Parser {
         String newShowName = splitStr[2].trim();
 
         return new EditCommand(oldShowName, showDate, newShowName);
+    }
+
+    /**
+     * Parse the remaining user input to its respective parameters for ViewProfitCommand.
+     *
+     * @param details The details to create a new EditCommand Object.
+     * @return new ViewProfitCommand Object.
+     * @throws OptixInvalidCommandException if the user input does not have the correct number of parameters.
+     */
+    private static Command parseViewProfit(String details) throws OptixInvalidCommandException {
+        String[] splitStr = details.trim().split("\\|");
+
+        if (splitStr.length != 2) {
+            throw new OptixInvalidCommandException();
+        }
+
+        String showName = splitStr[0];
+        String showDate = splitStr[1];
+
+        return new ViewProfitCommand(showName, showDate);
     }
 
     /**

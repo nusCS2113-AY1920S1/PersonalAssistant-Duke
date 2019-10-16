@@ -284,6 +284,10 @@ public class Theatre {
         }
     }
 
+    public double getProfit() {
+        return revenue + cost;
+    }
+
     public int getTierOneSeats() {
         return tierOneSeats;
     }
