@@ -6,38 +6,24 @@ import models.data.Project;
 
 public class ProjectFactory implements IArchDukeFactory<IProject> {
     /**
-     * Data Validation
-     * Do not throw exceptions at places where errors are expected
-     * TODO refactoring this portion to a NullProject such that Repository can detect
-     * TODO and return false. Leave to controller to handle false or true and throw it to View
+     * Creation of an IProject object.
+     * Project may be a NullProject due to errors in input. Validation of project will be handled by Repository
+     * @param input : User input
+     * @return Method will return an IProject object
      */
     @Override
     public IProject create(String input) {
-        String[] allStrings = input.split(" ");
-        if (input.isEmpty()) {
-            System.out.println("IDK how you even got here");
+        if (input.length() < 8) {
+            System.out.println("Please specify the command correctly in the format create n/PROJECT_NAME");
             return new NullProject();
-        } else if (allStrings.length > 3) {
-            System.out.println("Too many arguments!");
+        } else if (!input.contains("n/")) {
+            System.out.println("Please specify the n/ flag before your PROJECT_NAME using n/PROJECT_NAME");
             return new NullProject();
-        } else if (allStrings.length < 3) {
-            System.out.println("Too little arguments!");
-            return new NullProject();
-        } else if (allStrings[1].contains("n/") && allStrings[2].contains("n/")) {
-            System.out.println("Please specify a name for your Project using n/PROJECT_NAME");
-            return new NullProject();
-        } else if (allStrings[1].contains("i/") && allStrings[2].contains("i/")) {
-            System.out.println("Please specify the number of members in this project using i/NUMBER");
+        } else if (input.length() < 10) {
+            System.out.println("Please remember to specify the project name after the n/ flag!");
             return new NullProject();
         }
-        int nameFlag = input.indexOf("n/");
-        int numberFlag = input.indexOf("i/");
-        String description;
-        if (nameFlag < numberFlag) {
-            description = input.substring(nameFlag + 2, numberFlag - 1);
-        } else {
-            description = input.substring(nameFlag + 1);
-        }
-        return new Project(description);
+        String projectName = input.substring(9);
+        return new Project(projectName);
     }
 }
