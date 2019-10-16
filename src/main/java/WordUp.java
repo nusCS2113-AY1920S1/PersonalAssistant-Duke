@@ -1,42 +1,39 @@
 import Dictionary.WordBank;
-import command.Command;
-import exception.CommandEmptyException;
+import scene.MainScene;
 import storage.Storage;
 import ui.Ui;
+import javafx.application.Application;
+import javafx.stage.Stage;
 
-public class WordUp {
+
+public class WordUp extends Application{
 
     public Ui ui;
     public Storage storage;
     public WordBank wordBank;
+    private Stage window;
+    public static void main(String[] args) {
+        launch(args);
+    }
 
-    public WordUp(String filePath) {
+    public WordUp() {
         ui = new Ui();
-        storage = new Storage(filePath);
+        storage = new Storage("C:\\Users\\zyueh\\Documents\\Y2S2_CS2113\\main\\data\\wordup.txt");
         wordBank = new WordBank(storage);
     }
 
-    public void run() {
-        ui.greet();
-        boolean isExit = false;
-        while (!isExit) {
-            try {
-                String fullCommand = ui.readCommand();
-                ui.showLine();
-                if (fullCommand.equals("")) { throw new CommandEmptyException(); }
-                Command c = Parser.parse(fullCommand);
-                c.execute(ui, wordBank, storage);
-                isExit = c.isExit();
-            } catch (CommandEmptyException e) {
-                e.showError();
-            } finally {
-                ui.showLine();
-            }
-        }
-    }
+    @Override
+    public void start(Stage stage) {
+        window = stage;
 
-    public static void main(String[] args) {
-        new WordUp("C:\\Users\\zyueh\\Documents\\Y2S2_CS2113\\main\\data\\localList.txt").run();
+        window.setScene(new MainScene(ui, wordBank, storage, window).getScene());
+        window.show();
+
+        //Step 2. Formatting the window to look as expected
+        window.setTitle("WordUp");
+        window.setResizable(false);
+        window.setMinHeight(600.0);
+        window.setMinWidth(400.0);
     }
 }
 

@@ -12,12 +12,9 @@ public abstract class Command {
 
     protected Word word;
 
-    public void execute(Ui ui, WordBank wordBank, Storage storage) {
+    public String execute(Ui ui, WordBank wordBank, Storage storage) {
         //ask ui to print something
         //ask storage to store the thing into tasks
-    }
-
-    public boolean isExit() {
-        return false;
+        return null;
     }
 }

@@ -8,24 +8,24 @@ import ui.Ui;
 import java.util.Stack;
 
 /**
- * Represents a command from user to delete a task.
+ * Represents a command from user to see recently added words.
  * Inherits from Command class.
  */
-public class HistoryCommand extends Command {
+public class RecentlyAddedCommand extends Command {
 
     protected int numberOfWordsToDisplay;
     protected Stack<Word> wordHistory;
 
-    public HistoryCommand(int numberOfWordsToDisplay) {
+    public RecentlyAddedCommand(int numberOfWordsToDisplay) {
         this.numberOfWordsToDisplay = numberOfWordsToDisplay;
     }
 
     @Override
-    public void execute(Ui ui, WordBank wordBank, Storage storage) {
+    public String execute(Ui ui, WordBank wordBank, Storage storage) {
         //ask ui to print something
         //ask tasks to store the thing in arraylist
         //ask storage to write to file
         wordHistory = storage.loadHistoryFromFile();
-        ui.showHistory(wordHistory, numberOfWordsToDisplay);
+        return ui.showHistory(wordHistory, numberOfWordsToDisplay);
     }
 }

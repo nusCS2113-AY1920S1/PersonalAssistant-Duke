@@ -1,0 +1,178 @@
+= WordUp - User Guide
+:site-section: UserGuide
+:toc:
+:toc-title:
+:toc-placement: preamble
+:sectnums:
+:imagesDir: images
+:stylesDir: stylesheets
+:xrefstyle: full
+:experimental:
+ifdef::env-github[]
+:tip-caption: :bulb:
+:note-caption: :information_source:
+endif::[]
+:repoURL: https://github.com/se-edu/addressbook-level3
+
+By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+
+== Introduction
+
+WordUp (WU) is a desktop-based application for english language learners who prefer having a digital version of a personal vocabulary booklet. More importantly, WU is great for on-the-go revision, which is not easily achieved with traditional hardcopy wordbanks. WU provides convenience and efficiency of adding words in a wordbank, and allows users to manage their word collection faster with a Command Line Interface (CLI), as well as having a Graphical User Interface (GUI) for more interactive functions and for better visualisation of content stored.
+
+== Quick Start
+
+.  Ensure you have Java `11` or above installed in your Computer.
+.  Download the latest `wordup.jar` link:{repoURL}/releases[here].
+.  Copy the file to the folder you want to use as the home folder for your WordUp.
+.  Double-click the file to start the app. The GUI should appear in a few seconds.
+.  Type the command in the command box and press Enter to execute it. e.g. typing help and pressing Enter opens up the window showing a list of commands available. +
+.  Some example commands you can try:
+
+* *`list`* : shows the list of words currently stored in the Word Bank in alphabetical order or otherwise customised in the app settings
+* **`add`**`w/life m/the existence of an individual human being or animal` : adds a word tagged by “w/” with its corresponding meaning tagged “m/” into the Word Bank
+* **`delete`**`freedom` : deletes the Word Bank entry of the word “freedom”
+* *`exit`* : exits the application
+
+.  Refer to <<Features>> for details of each command.
+
+[[Features]]
+== Features
+
+====
+*Command Format*
+
+* Words in `UPPER_CASE` are parameter values to be supplied by the user e.g. in `add w/WORD m/MEANING`, `WORD` and `MEANING` are parameters to be replaced by user input, such as in the form of `w/life` and `m/the existence of an individual human being or animal`.
+* Items in square brackets are optional e.g. `r/REMINDERDATE [TIME]` can be used as `r/24/02/2300 0900` or `r/24/02/2300`.
+* Items with `…` after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `t/negative`, `t/emotions`, `t/lesson3`
+====
+
+=== Viewing help : `help`
+
+Format: `help`
+
+=== Adding a word: `add`
+
+Adds a word to the Word Bank. +
+Format: `add w/WORD w/MEANING [r/REMINDER] [t/TAG]...`
+
+Examples:
+
+* `add w/life m/the existence of an individual human being or animal t/meaningoflife t/livingit` +
+* `add w/happy m/a state of joy r/24/02/2300 0900 t/lesson3`
+
+=== Listing all persons : `list`
+
+Shows a list of words categorised as specified. +
+Format: `list [t/EXISTING_TAG] [o/ORDER]`
+
+Example: `list t/emotions o/asc` shows the list of words tagged “emotions” in alphabetical order +
+
+[TIP]
+Not supplying any tags will show a list containing all words listed in alphabetical order. ++
+
+List of possible o/ORDER values: +
+ `asc` - order the list in ascending alphabetical order +
+ `desc` - order the list in descending alphabetical order
+
+=== Editing a person : `edit`
+
+Edits an existing person in the address book. +
+Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]...`
+
+****
+* Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index *must be a positive integer* 1, 2, 3, ...
+* At least one of the optional fields must be provided.
+* Existing values will be updated to the input values.
+* When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
+* You can remove all the person's tags by typing `t/` without specifying any tags after it.
+****
+
+Examples:
+
+* `edit 1 p/91234567 e/johndoe@example.com` +
+Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
+* `edit 2 n/Betsy Crower t/` +
+Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
+
+=== Locating persons by name: `find`
+
+Finds persons whose names contain any of the given keywords. +
+Format: `find KEYWORD [MORE_KEYWORDS]`
+
+****
+* The search is case insensitive. e.g `hans` will match `Hans`
+* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
+* Only the name is searched.
+* Only full words will be matched e.g. `Han` will not match `Hans`
+* Persons matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
+****
+
+Examples:
+
+* `find John` +
+Returns `john` and `John Doe`
+* `find Betsy Tim John` +
+Returns any person having names `Betsy`, `Tim`, or `John`
+
+// tag::delete[]
+=== Deleting a person : `delete`
+
+Deletes the specified person from the address book. +
+Format: `delete INDEX`
+
+****
+* Deletes the person at the specified `INDEX`.
+* The index refers to the index number shown in the displayed person list.
+* The index *must be a positive integer* 1, 2, 3, ...
+****
+
+Examples:
+
+* `list` +
+`delete 2` +
+Deletes the 2nd person in the address book.
+* `find Betsy` +
+`delete 1` +
+Deletes the 1st person in the results of the `find` command.
+
+// end::delete[]
+=== Clearing all entries : `clear`
+
+Clears all entries from the address book. +
+Format: `clear`
+
+=== Exiting the program : `exit`
+
+Exits the program. +
+Format: `exit`
+
+=== Saving the data
+
+Address book data are saved in the hard disk automatically after any command that changes the data. +
+There is no need to save manually.
+
+// tag::dataencryption[]
+=== Encrypting data files `[coming in v2.0]`
+
+_{explain how the user can enable/disable data encryption}_
+// end::dataencryption[]
+
+== FAQ
+
+*Q*: How do I transfer my data to another Computer? +
+*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Address Book folder.
+
+== Command Summary
+
+* *Add* `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...` +
+e.g. `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
+* *Clear* : `clear`
+* *Delete* : `delete INDEX` +
+e.g. `delete 3`
+* *Edit* : `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]...` +
+e.g. `edit 2 n/James Lee e/jameslee@example.com`
+* *Find* : `find KEYWORD [MORE_KEYWORDS]` +
+e.g. `find James Jake`
+* *List* : `list`
+* *Help* : `help`

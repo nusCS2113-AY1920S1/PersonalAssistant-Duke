@@ -3,8 +3,7 @@ plugins {
     id 'application'
     id 'checkstyle'
     id 'com.github.johnrengelman.shadow' version '5.1.0'
-    id 'org.openjfx.jfxplugin' version '0.0.7'
-    
+    id 'org.openjfx.javafxplugin' version '0.0.7'
 }
 
 checkstyle {
@@ -37,6 +36,7 @@ application {
     // Change this to your main class.
     mainClassName = "WordUp"
 }
+
 
 javafx {
     version = "11.0.2"

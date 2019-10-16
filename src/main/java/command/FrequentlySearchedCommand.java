@@ -1,26 +1,29 @@
 package command;
 
+import Dictionary.Word;
 import Dictionary.WordBank;
 import storage.Storage;
 import ui.Ui;
 
+import java.util.Stack;
+
 /**
- * Represents a command from system to abort task due to bad user command.
+ * Represents a command from user to see most/least searched words.
  * Inherits from Command class.
  */
-public class BadCommand extends Command {
+public class FrequentlySearchedCommand extends Command {
 
-    String errorMessage;
+    protected String order;
 
-    public BadCommand(String errorMessage) {
-        this.errorMessage = errorMessage;
+    public FrequentlySearchedCommand(String order) {
+        this.order = order;
     }
+
     @Override
     public String execute(Ui ui, WordBank wordBank, Storage storage) {
         //ask ui to print something
         //ask tasks to store the thing in arraylist
         //ask storage to write to file
-        return this.errorMessage;
+        return ui.showSearchFrequency(wordBank,order);
     }
-
 }

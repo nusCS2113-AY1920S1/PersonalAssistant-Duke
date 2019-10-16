@@ -15,12 +15,12 @@ public class AddCommand extends Command {
     }
 
     @Override
-    public void execute(Ui ui, WordBank wordBank, Storage storage) {
+    public String execute(Ui ui, WordBank wordBank, Storage storage) {
         //ask ui to print something
         //add task to tasks
         //ask storage to write to file
         wordBank.addWord(word);
         storage.writeFile(word.toString(), true);
-        ui.showAdded(word);
+        return ui.showAdded(word);
     }
 }

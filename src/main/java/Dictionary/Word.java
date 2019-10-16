@@ -1,6 +1,7 @@
 package Dictionary;
 
-import java.util.ArrayList;
+
+import java.util.HashSet;
 
 /**
  * Represents words stored in the Word Bank
@@ -9,7 +10,7 @@ import java.util.ArrayList;
 public class Word {
     private String word;
     private String meaning;
-    private ArrayList<String> tags;
+    private HashSet<String> tags;
 
     /**
      * Number of times that a word is searched
@@ -25,15 +26,15 @@ public class Word {
     public Word(String word, String meaning) {
         this.word = word;
         this.meaning = meaning;
-        this.tags = new ArrayList<>();
-        this.numberOfSearches = 1;
+        this.tags = new HashSet<>();
+        this.numberOfSearches = 0;
     }
 
-    public Word(String word, String meaning, ArrayList<String> tags) {
+    public Word(String word, String meaning, HashSet<String> tags) {
         this.word = word;
         this.meaning = meaning;
         this.tags = tags;
-        this.numberOfSearches = 1;
+        this.numberOfSearches = 0;
     }
 
     public void setClosetSearch(String closetSearch) {
@@ -48,6 +49,10 @@ public class Word {
         return numberOfSearches;
     }
 
+    public void incrementNumberOfSearches() {
+        this.numberOfSearches += 1;
+    }
+
     public String getClosetSearch() {
         return closetSearch;
     }
@@ -56,7 +61,7 @@ public class Word {
         return meaning;
     }
 
-    public ArrayList<String> getTags() {
+    public HashSet<String> getTags() {
         return tags;
     }
 
