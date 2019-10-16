@@ -1,8 +1,11 @@
 package models.task;
 
 import org.junit.jupiter.api.Test;
+import util.date.DateTimeHelper;
 
+import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Date;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -34,14 +37,13 @@ public class TaskListTest {
     }
 
     @Test
-    public void testGetTaskList() {
+    public void testGetAllTaskDetails() {
         TaskList taskList = new TaskList();
         ArrayList<String> taskRequirements = new ArrayList<>();
-
-        Task task1 = new Task("task1", 1, null,100, TaskState.OPEN,taskRequirements);
-        Task task2 = new Task("task2", 2, null,100, TaskState.OPEN,taskRequirements);
-        Task task3 = new Task("task3", 3, null,100, TaskState.OPEN,taskRequirements);
-        Task task4 = new Task("task4", 4, null,100, TaskState.OPEN,taskRequirements);
+        Task task1 = new Task("task1", 1, null, 100, TaskState.OPEN, taskRequirements);
+        Task task2 = new Task("task2", 2, null, 100, TaskState.OPEN, taskRequirements);
+        Task task3 = new Task("task3", 3, null, 100, TaskState.OPEN, taskRequirements);
+        Task task4 = new Task("task4", 4, null, 100, TaskState.OPEN, taskRequirements);
         taskList.addTask(task1);
         taskList.addTask(task2);
         taskList.addTask(task3);
@@ -52,12 +54,82 @@ public class TaskListTest {
                 + "2. task3 | Priority: 3 | Due: -- | Credit: 100 | State: OPEN, "
                 + "3. task2 | Priority: 2 | Due: -- | Credit: 100 | State: OPEN, "
                 + "4. task1 | Priority: 1 | Due: -- | Credit: 100 | State: OPEN]";
-        assertEquals(taskList.getAllTaskDetails().toString(), testTaskListString);
+        assertEquals(testTaskListString,taskList.getAllTaskDetails().toString());
 
         String testRemoveTaskListString = "[1. task4 | Priority: 4 | Due: -- | Credit: 100 | State: OPEN, "
                 + "2. task2 | Priority: 2 | Due: -- | Credit: 100 | State: OPEN, "
                 + "3. task1 | Priority: 1 | Due: -- | Credit: 100 | State: OPEN]";
         taskList.removeTask(2);
-        assertEquals(taskList.getAllTaskDetails().toString(), testRemoveTaskListString);
+        assertEquals(testRemoveTaskListString,taskList.getAllTaskDetails().toString());
+    }
+
+    @Test
+    public void testGetAllSortedTaskDetails() {
+        TaskList taskList = new TaskList();
+        ArrayList<String> taskRequirements = new ArrayList<>();
+        try {
+            DateTimeHelper dateTimeHelper = new DateTimeHelper();
+            Date dueDate1 = dateTimeHelper.formatDate("31/10/2019");
+            Date dueDate2 = dateTimeHelper.formatDate("21/09/2019");
+            Date dueDate3 = dateTimeHelper.formatDate("21/01/2020");
+            Date dueDate4 = dateTimeHelper.formatDate("21/12/1920");
+
+            Task task1 = new Task("taskOne", 1, dueDate1, 100, TaskState.OPEN, taskRequirements);
+            Task task2 = new Task("taskTwo", 2, dueDate2, 90, TaskState.DONE, taskRequirements);
+            Task task3 = new Task("taskEight", 3, dueDate3, 80, TaskState.OPEN, taskRequirements);
+            Task task4 = new Task("taskSix", 4, dueDate4, 70, TaskState.DONE, taskRequirements);
+            Task task5 = new Task("taskFive", 5, null, 60, TaskState.OPEN, taskRequirements);
+            taskList.addTask(task1);
+            taskList.addTask(task2);
+            taskList.addTask(task3);
+            taskList.addTask(task4);
+            taskList.addTask(task5);
+            assertNotNull(taskList.getTaskList());
+
+            String testPriorityTaskListString = "["
+                    + "1. taskFive | Priority: 5 | Due: -- | Credit: 60 | State: OPEN, "
+                    + "2. taskSix | Priority: 4 | Due: 21 Dec 1920 | Credit: 70 | State: DONE, "
+                    + "3. taskEight | Priority: 3 | Due: 21 Jan 2020 | Credit: 80 | State: OPEN, "
+                    + "4. taskTwo | Priority: 2 | Due: 21 Sep 2019 | Credit: 90 | State: DONE, "
+                    + "5. taskOne | Priority: 1 | Due: 31 Oct 2019 | Credit: 100 | State: OPEN"
+                    + "]";
+            assertEquals(testPriorityTaskListString,taskList.getAllSortedTaskDetails("/PRIORITY").toString());
+
+            String testNameTaskListString = "["
+                    + "1. taskEight | Priority: 3 | Due: 21 Jan 2020 | Credit: 80 | State: OPEN, "
+                    + "2. taskFive | Priority: 5 | Due: -- | Credit: 60 | State: OPEN, "
+                    + "3. taskOne | Priority: 1 | Due: 31 Oct 2019 | Credit: 100 | State: OPEN, "
+                    + "4. taskSix | Priority: 4 | Due: 21 Dec 1920 | Credit: 70 | State: DONE, "
+                    + "5. taskTwo | Priority: 2 | Due: 21 Sep 2019 | Credit: 90 | State: DONE"
+                    + "]";
+            assertEquals(testNameTaskListString,taskList.getAllSortedTaskDetails("/NAME").toString());
+
+            String testDueDateTaskListString = "["
+                    + "1. taskEight | Priority: 3 | Due: 21 Jan 2020 | Credit: 80 | State: OPEN, "
+                    + "2. taskOne | Priority: 1 | Due: 31 Oct 2019 | Credit: 100 | State: OPEN, "
+                    + "3. taskTwo | Priority: 2 | Due: 21 Sep 2019 | Credit: 90 | State: DONE, "
+                    + "4. taskSix | Priority: 4 | Due: 21 Dec 1920 | Credit: 70 | State: DONE"
+                    + "]";
+            assertEquals(testDueDateTaskListString,taskList.getAllSortedTaskDetails("/DATE").toString());
+
+            String testCreditTaskListString = "["
+                    + "1. taskOne | Priority: 1 | Due: 31 Oct 2019 | Credit: 100 | State: OPEN, "
+                    + "2. taskTwo | Priority: 2 | Due: 21 Sep 2019 | Credit: 90 | State: DONE, "
+                    + "3. taskEight | Priority: 3 | Due: 21 Jan 2020 | Credit: 80 | State: OPEN, "
+                    + "4. taskSix | Priority: 4 | Due: 21 Dec 1920 | Credit: 70 | State: DONE, "
+                    + "5. taskFive | Priority: 5 | Due: -- | Credit: 60 | State: OPEN"
+                    + "]";
+            assertEquals(testCreditTaskListString,taskList.getAllSortedTaskDetails("/CREDIT").toString());
+
+            String testKanbanTaskListString = "["
+                    + "2. taskTwo | Priority: 2 | Due: 21 Sep 2019 | Credit: 90 | State: DONE, "
+                    + "4. taskSix | Priority: 4 | Due: 21 Dec 1920 | Credit: 70 | State: DONE"
+                    + "]";
+            assertEquals(testKanbanTaskListString,taskList.getAllSortedTaskDetails("/KANBAN/DONE").toString());
+
+
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
     }
 }
