@@ -10,6 +10,7 @@ import list.DegreeList;
  * Abstract Command class.
  * Superclass of all commands.
  * Abstract Method execute.
+ * Override Method unexecute.
  * boolean exit.
  *
  * @author Kane Quah
@@ -34,6 +35,17 @@ public abstract class Command {
      */
     public abstract void execute(TaskList tasks, UI ui, Storage storage, DegreeList lists) throws DukeException;
 
+    /**
+     * unexecutes default.
+     * To be overwritten by commands that modify the task list or degree list.
+     * Used to undo that modification to the task list or degree list.
+     *
+     * @param tasks   TasksList has tasks
+     * @param ui      UI.UI prints messages
+     * @param storage Storage.Storage loads and saves files
+     * @param lists DegreeList has the array for the user to maintain a list of their degree choices.
+     * @throws DukeException DukeException throws exception
+     */
     //Should not be abstract, as only some command classes will use unExecute i.e. print does not need unExecute
     public void unExecute(TaskList tasks, UI ui, Storage storage, DegreeList lists) throws DukeException {
 

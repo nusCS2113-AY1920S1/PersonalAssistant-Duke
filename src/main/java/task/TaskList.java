@@ -22,6 +22,13 @@ public class TaskList implements Serializable, Cloneable {
 
     }
 
+    /**
+     * Method to facilitate the deep cloning of this taskList.
+     * Returns a copy of this taskList, but with different references.
+     * This is to avoid shallow copying, which will also modify the saved state of the taskList.
+     *
+     * @return A copy of this taskList with different references to objects.
+     */
     public TaskList deepClone() {
         try {
             //Serialization of object
@@ -390,6 +397,9 @@ public class TaskList implements Serializable, Cloneable {
         }
     }
 
+    /**
+     * Deletes the entire taskList.
+     */
     public void clear() {
         list.clear();
     }

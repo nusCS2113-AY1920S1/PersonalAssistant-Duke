@@ -26,7 +26,7 @@ public class ModCommand extends Command {
     }
 
     /**
-     * overwrites default execute to modify task in tasks.
+     * Overwrites default execute to modify task in tasks.
      *
      * @param tasks   TasksList has tasks
      * @param ui      UI prints messages
@@ -84,6 +84,17 @@ public class ModCommand extends Command {
         }
     }
 
+    /**
+     * Overwrites default unexecute to remove the modification of taskList and degreeList.
+     * Recalls the previous state of the taskList/degreeList via memento.
+     * It then returns this state to the current state of the taskList/degreeList.
+     *
+     * @param tasks   TasksList has tasks
+     * @param ui      UI.UI prints messages
+     * @param storage Storage.Storage loads and saves files
+     * @param lists DegreeList has the array for the user to maintain a list of their degree choices.
+     * @throws DukeException
+     */
     @Override
     public void unExecute(TaskList tasks, UI ui, Storage storage, DegreeList lists) throws DukeException {
         if (this.listType == 0) {

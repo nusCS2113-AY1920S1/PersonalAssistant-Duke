@@ -22,6 +22,13 @@ public class DegreeList implements Serializable, Cloneable{
         return list.size();
     }
 
+    /**
+     * Method to facilitate the deep cloning of this taskList.
+     * Returns a copy of this taskList, but with different references.
+     * This is to avoid shallow copying, which will also modify the saved state of the taskList.
+     *
+     * @return A copy of this taskList with different references to objects.
+     */
     public DegreeList deepClone() {
         try {
             //Serialization of object
@@ -49,10 +56,23 @@ public class DegreeList implements Serializable, Cloneable{
         return ((request < 0) || (request >= this.size()));
     }
 
+    /**
+     * Method to add a degree to degree list.
+     * Does not output anything to the user, used mostly for backend processes.
+     *
+     * @param input The degree to be added to the degree list.
+     */
     public void add(String input) {
         list.add(input); //Straightforward and quiet method to add degrees, for backend stuffs
     }
 
+    /**
+     * Method to add a degree to degree list.
+     * User-friendly method to display the degree added.
+     *
+     * @param input The degree as specified by the user.
+     * @throws DukeException The degree does not exist?
+     */
     public void add_custom(String input) throws DukeException {
         try {
             list.add(input);
@@ -66,6 +86,13 @@ public class DegreeList implements Serializable, Cloneable{
         }
     }
 
+    /**
+     * Displays the degree specified by the user.
+     *
+     * @param index The position of the degree in the degree list.
+     * @return The degree in the degree list.
+     * @throws DukeException Throws when degree is not found within the degree list.
+     */
     public String get(int index) throws DukeException {
         if (!this.isOutOfRange(index)) {
             return this.list.get(index);
@@ -74,6 +101,12 @@ public class DegreeList implements Serializable, Cloneable{
         }
     }
 
+    /**
+     * Method to delete a particular degree from the degree list.
+     *
+     * @param input The degree to be deleted
+     * @throws DukeException Throws an error if the degree does not exist.
+     */
     public void delete(String input) throws DukeException{
         try {
             int request = Integer.parseInt(input);
@@ -93,6 +126,9 @@ public class DegreeList implements Serializable, Cloneable{
         }
     }
 
+    /**
+     * Method to print out the entire list of degrees for the user.
+     */
     public void print() {
         if (list.size() == 0) {
             System.out.println("Whoops, there doesn't seem to be anything here at the moment");
@@ -103,6 +139,9 @@ public class DegreeList implements Serializable, Cloneable{
         }
     }
 
+    /**
+     * Deletes the entire degree list.
+     */
     public void clear() {
         list.clear();
     }
