@@ -77,4 +77,11 @@ public class Parser {
         formattedInput = inputToParse;
         return formattedInput;
     }
+
+    public String parseUpdateTask() throws DukeException {
+        String formattedInput;
+        String inputToParse = userInput.replaceAll("(?i)update task ", "").trim();
+        formattedInput = inputToParse;
+        return formattedInput;
+    }
 }

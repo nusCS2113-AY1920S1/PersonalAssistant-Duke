@@ -1,7 +1,8 @@
 package duke.core;
 
 import duke.command.*;
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
+import org.testng.annotations.Test;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
