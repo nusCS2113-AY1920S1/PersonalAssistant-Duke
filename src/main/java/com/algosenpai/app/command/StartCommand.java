@@ -5,7 +5,7 @@ import com.algosenpai.app.exceptions.DukeExceptions;
 public class StartCommand extends Command {
 
     @Override
-    public void execute() throws DukeExceptions {
+    public void execute() throws DukeExceptions{
 
     }
 }

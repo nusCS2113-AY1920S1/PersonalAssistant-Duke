@@ -11,7 +11,7 @@ public class SelectCommand extends Command {
     }
 
     @Override
-    public void execute() throws DukeExceptions {
+    public void execute() throws DukeExceptions{
 
     }
 

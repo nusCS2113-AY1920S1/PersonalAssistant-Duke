@@ -1,5 +1,7 @@
 package com.algosenpai.app.command;
 
+import com.algosenpai.app.exceptions.DukeExceptions;
+
 public class ConvertStringToIntegerArrayCommand extends Command {
 
     /**
