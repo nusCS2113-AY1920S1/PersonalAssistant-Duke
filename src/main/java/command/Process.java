@@ -27,7 +27,9 @@ public class Process {
      * @param managermap HashMap containing all Payees and their Payments.
      * @param ui Ui that interacts with the user.
      */
+
     public void findPayee(String input, Ui ui, HashMap<String, Payee> managermap) {
+
         try {
             String[] splitspace = input.split(" ", 2);
             PaymentList payList = new PaymentList();
