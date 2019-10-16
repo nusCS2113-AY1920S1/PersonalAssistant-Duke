@@ -9,6 +9,7 @@ import storage.Storage;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.TreeMap;
+import java.util.Set;
 
 public class WordBank {
     private TreeMap<String, Word> wordBank;
@@ -94,6 +95,19 @@ public class WordBank {
             word.addTag(tag);
         }
         return word.getTags();
+    }
+    /**
+     * Adds synonyms to a specific word in word bank
+     */
+    public HashSet<String> addSyn(String wordKey, ArrayList<String> synonymsWords) throws NoWordFoundException {
+        if(!wordBank.containsKey(wordKey)){
+            throw new NoWordFoundException(wordKey);
+        }
+        Word word = wordBank.get(wordKey);
+        for(String synoWord : synonymsWords){
+            word.addSyn(synoWord);
+        }
+        return word.getSynonyms();
     }
 
     public String getBankData() {

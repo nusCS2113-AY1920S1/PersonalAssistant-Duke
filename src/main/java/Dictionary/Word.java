@@ -11,6 +11,7 @@ public class Word {
     private String word;
     private String meaning;
     private HashSet<String> tags;
+    private HashSet<String> synonyms;
 
     /**
      * Number of times that a word is searched
@@ -35,6 +36,12 @@ public class Word {
         this.meaning = meaning;
         this.tags = tags;
         this.numberOfSearches = 1;
+    }
+
+    /**Tag synonyms to Word*/
+    public Word(String word, HashSet<String> synonyms){
+        this.word = word;
+        this.synonyms = synonyms;
     }
 
     public void setClosetSearch(String closetSearch) {
@@ -68,6 +75,10 @@ public class Word {
     public void editMeaning(String newMeaning) {
         this.meaning = newMeaning;
     }
+
+    public HashSet<String> getSynonyms() { return synonyms;}
+
+    public void addSyn(String synoWords){this.synonyms.add(synoWords);}
 
     @Override
     public String toString() {

@@ -21,7 +21,7 @@ public class OxfordCall{
     public static String onlineSearch(String word) throws NoWordFoundException{
         String queryWord = word;
         String alpha = doInBackground(queryWord);
-        String result = CleanUp(alpha);
+        String result = extractFirstDef(alpha);
         return result;
     }
 
@@ -34,6 +34,10 @@ public class OxfordCall{
         return "https://od-api.oxforddictionaries.com/api/v2/entries/" + language + "/" + word_id + "?" + "fields=" + fields + "&strictMatch=" + strictMatch;
     }
 
+    /**
+     * Request for metaData
+     * @author Ng Jian Wei
+     */
     public static String doInBackground(String word) throws NoWordFoundException {
         final String app_id = "11f848bf"; //obtained from Oxford account
         final String app_key = "5be9615c9940859a6ce549f449cc670d"; //obtained from Oxford account
@@ -61,13 +65,13 @@ public class OxfordCall{
      * Extract the first definition inside the metadata
      * @author Ng Jian Wei
      */
-    public static String CleanUp(String metaData){
+    public static String extractFirstDef(String metaData){
         String result ="";
         String[] temp = metaData.split("definitions", 2);
         String[] temp2 = temp[1].split("]", 2);
         temp2[0] = temp2[0].replaceAll(":","");
-        temp2[0] =temp2[0].replaceAll("\\[","");
-        temp2[0] =temp2[0].replaceAll("\"","");
+        temp2[0] = temp2[0].replaceAll("\\[","");
+        temp2[0] = temp2[0].replaceAll("\"","");
         return temp2[0].trim();
     }
 }
