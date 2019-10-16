@@ -1,6 +1,7 @@
 package UserCode.Actions;
 
 import Farmio.Farmio;
+import FrontEnd.GameConsole;
 import FrontEnd.Simulate;
 import FrontEnd.Ui;
 
@@ -10,9 +11,14 @@ public class GotoMarketAction extends Action {
     }
     @Override
     public void execute(Ui ui) {
+        final int NUMBER_OF_FRAMES = 3;
         try {
-            farmer.getWheatFarm().plantSeeds();
-            new Simulate(ui, "GotoMarketSimulation", 3).simulate(super.farmio);
+            Simulate GotoMarketSimulation = new Simulate("GotoMarketSimulation", super.farmio);
+            farmer.changeLocation("-Traveling-");
+            GotoMarketSimulation.simulate(0, NUMBER_OF_FRAMES - 2);
+            farmer.changeLocation("Market");
+            GotoMarketSimulation.showFrame(NUMBER_OF_FRAMES - 1);
+            ui.typeWriter("You have arrived at the market");
         } catch (Exception e){
             e.getMessage();
         }

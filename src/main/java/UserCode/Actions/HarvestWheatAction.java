@@ -18,7 +18,7 @@ public class HarvestWheatAction extends Action {
     public void execute(Ui ui) {
         try {
             farmer.getWheatFarm().harvestWheat();
-            new Simulate(ui, "PlantSeed", 10).simulate(super.farmio);
+            new Simulate("PlantSeed", super.farmio).simulate(0, 8);
         } catch (Exception e){
             e.getMessage();
         }

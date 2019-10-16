@@ -15,7 +15,7 @@ public class BuySeedAction extends Action {
         try {
             farmer.getWheatFarm().buySeeds();
             farmer.changeMoney(-100);
-            new Simulate(ui, "BuySeedSimulation", 4).simulate(super.farmio);
+            new Simulate("BuySeedSimulation", farmio).simulate(0, 4);
         } catch (Exception e) {
             e.getMessage();
         }
