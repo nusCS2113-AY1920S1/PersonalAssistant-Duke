@@ -1,4 +1,4 @@
-# Gazeeebo
+# gazeeebo
 
 ![](docs/images/Ui.png)
 
