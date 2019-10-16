@@ -3,6 +3,7 @@ package duke.command;
 import java.util.ArrayList;
 import java.util.Set;
 import java.util.TreeMap;
+import java.util.TreeSet;
 
 /**
  * Functions for command autocompletion and autocorrection.
@@ -23,7 +24,7 @@ public class CommandHelpers {
         unambiguously, and a HashMap to store the possible inputs. Suggestions might be
         better implemented as a map of command strings to possible inputs?*/
 
-
+        TreeSet<String>
 
         ArrayList<String> suggestions = new ArrayList<String>();
         return disambiguate(word, suggestions, command.getSwitches().keySet());

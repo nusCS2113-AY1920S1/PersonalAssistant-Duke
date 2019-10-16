@@ -6,7 +6,6 @@ import duke.exception.DukeException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.TreeSet;
 
 /**
  * Abstract class for commands that involve an argument.
@@ -14,7 +13,6 @@ import java.util.TreeSet;
 public abstract class ArgCommand extends Command {
 
     protected static Map<String, ArgLevel> switches; //list of recognised switches, and their argument requirements
-    protected static TreeSet switchTree; //tree of switches, used for fast lookup for autocomplete
     protected static Map<String, String> switchAliases; //map of all possible words that can be identified as switches,
     //and the switches they correspond to
     private String arg = null; //argument supplied to the command
@@ -89,7 +87,6 @@ public abstract class ArgCommand extends Command {
         // create static data structures
         switchAliases = Map.ofEntries((Map.Entry[]) entryArrList.toArray());
         switches = Map.ofEntries(argLevelEntries);
-        switchTree = new TreeSet<String>(switches.keySet());
     }
 
     // Override these methods to specify parameters of child classes
