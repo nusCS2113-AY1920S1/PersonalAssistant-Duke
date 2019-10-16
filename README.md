@@ -1,4 +1,4 @@
-# Duke (for dummy programmers)
+# El Duque (for dummy programmers)
 
 * Task manager programme
 * Command line application
