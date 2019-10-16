@@ -7,24 +7,21 @@ import duke.task.BudgetList;
 
 import java.io.IOException;
 
-public class UpdateBudgetCommand extends Command {
+public class ResetBudgetCommand extends Command {
     protected BudgetList budgetList;
     protected Ui ui = new Ui();
+    protected float amount;
+
 
     /**
-     * Updates the current budget with the input amount, and prompts the user to confirm
-     * his/her actions before carrying on with the action.
+     * Obtaining the parameters of budget from budget corner.
      *
      * @param budgetList The list of budget that is stored by Duke Manager.
      * @param amount The amount to be updated.
      */
-    public UpdateBudgetCommand(BudgetList budgetList, float amount) {
-        if (ui.isBudgetResetTrue()) {
-            budgetList.resetBudget(amount);
-            ui.showBudget(budgetList.getBudget());
-        } else {
-            ui.rejectBudgetResetMessage();
-        }
+    public ResetBudgetCommand(BudgetList budgetList, float amount) {
+        this.budgetList = budgetList;
+        this.amount = amount;
     }
 
 
@@ -37,7 +34,9 @@ public class UpdateBudgetCommand extends Command {
      */
     @Override
     public void execute(TaskList items, Ui ui) {
-
+        ui.showResetBudget(budgetList.getBudget());
+        budgetList.resetBudget(amount);
+        ui.showBudget(budgetList.getBudget());
     }
 
     /**
@@ -50,7 +49,9 @@ public class UpdateBudgetCommand extends Command {
      */
     @Override
     public String executeGui(TaskList items, Ui ui) {
-        return null;
+        Float previousBudget = budgetList.getBudget();
+        budgetList.resetBudget(amount);
+        return ui.showResetBudgetGui(previousBudget) + "\n" + ui.showBudgetGui(budgetList.getBudget());
     }
 
     /**

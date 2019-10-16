@@ -339,17 +339,16 @@ public class Ui {
     /**
      * Outputs a message to the user to let it know that it is updating.
      */
-    public void showBeforeBackupMsg() {
-        out.println("     Updating duke.txt...");
+    public void showBackupMessage() {
+        out.println("     Duke Manager has been backed up!");
     }
 
-    /**
-     * Outputs a message to the user to let it know that it has finished updating,
-     * and the file is shown in a folder.
-     */
-    public void showAfterBackupMsg() {
-        out.println("     Updated " + BACKUP_FILENAME + " with the current items in Duke Manager!");
-        out.println("     Directory of the file opened in explorer!");
+    public void showBackupFolderMessage() {
+        out.println("     Duke has opened the backup file location in file explorer!");
+    }
+
+    public String showBackupMessageGui() {
+        return "     Duke Manager has been backed up!";
     }
 
     /**
@@ -379,26 +378,70 @@ public class Ui {
         }
     }
 
+    /**
+     * Shows the current budget of the user.
+     *
+     * @param amount the budget the user currently has.
+     */
     public void showBudget(float amount) {
         out.println("     Your budget is : $" + amount);
     }
 
-    public void rejectBudgetResetMessage() {
-        out.println("     Budget reset cancelled.");
+    /**
+     * Shows the current budget of the user.
+     *
+     * @param amount the budget the user currently has.
+     * @return the message to be shown to the user.
+     */
+    public String showBudgetGui(float amount) {
+        return "     Your current Budget is : $" + amount;
     }
 
     /**
-     * Checks if the user is certain about resetting the budget by prompting the user to confirm his/her actions.
+     * Shows the user the amount that is added/subtracted to the existing budget.
      *
-     * @return returns true if user pressed Y, and false otherwise.
+     * @param amount The amount that is to be added/subtracted.
+     * @param budget The existing budget of the user.
      */
-    public boolean isBudgetResetTrue() {
-        out.println("     You have an existing budget, are you sure you want to do this? Y/N");
-        String choice = readCommand();
-        if (choice.equals("Y") || choice.equals("y")) {
-            return true;
+    public void showAddBudget(float amount, float budget) {
+        if (amount > 0) {
+            out.println("     You are adding $" + amount + " to your current budget of $" + budget);
         } else {
-            return false;
+            out.println("     You are subtracting $" + -amount + " from your current budget of $" + budget);
         }
+    }
+
+    /**
+     * Shows the user the amount that is added/subtracted to the existing budget. (GUI)
+     *
+     * @param amount The amount that is to be added/subtracted.
+     * @param budget The existing budget of the user.
+     * @return String of the text to show user.
+     */
+    public String showAddBudgetGui(float amount, float budget) {
+        if (amount > 0) {
+            return "     You are adding $" + amount + " to your current budget of $" + budget;
+        } else {
+            return "     You are subtracting $" + -amount + " from your current budget of $" + budget;
+        }
+    }
+
+    /**
+     * Shows the budget that the user has before the changes.
+     *
+     * @param budget The budget of the user.
+     */
+    public void showResetBudget(float budget) {
+        out.println("     Your previous budget of $" + budget + " has been reset.");
+    }
+
+    /**
+     * Shows the budget that the user has before the changes.
+     *
+     * @param budget The budget of the user.
+     * @return String of the reset message.
+     */
+    public String showResetBudgetGui(float budget) {
+        return "     Your previous budget of " + budget + " has been reset.";
     }
 }
