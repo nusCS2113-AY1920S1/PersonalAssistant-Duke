@@ -226,12 +226,10 @@ public class Command {
                         newEvent = new Exam(entryForEvent.getDescription(), false, entryForEvent.getStartDate(),
                                 entryForEvent.getEndDate());
                         break;
-
                     case 'R':
                         newEvent = new Recital(entryForEvent.getDescription(), false, entryForEvent.getStartDate(),
                                 entryForEvent.getEndDate());
                         break;
-
                 }
 
                 if (entryForEvent.getPeriod() == NO_PERIOD) { //add non-recurring event
