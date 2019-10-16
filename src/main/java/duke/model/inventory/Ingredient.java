@@ -15,7 +15,7 @@ public class Ingredient {
             + "and should not be blank";
     private static final String MESSAGE_CONSTRAINTS_PRICE = "Price is a float number";
 
-    private static final String DEFAULT_PRICE = "5.0";
+    private static final Double DEFAULT_PRICE = 0.0;
     private static final String DEFAULT_REMARKS = "-";
 
     public final String name;
@@ -29,13 +29,13 @@ public class Ingredient {
      * @param unitPrice the price of the ingredient per unit.
      * @param remarks      of the ingredient. For example, "kg", "liter", and additional info.
      */
-    public Ingredient(String name, String unitPrice, String remarks) {
+    public Ingredient(String name, Double unitPrice, String remarks) {
         requireAllNonNull(name, unitPrice, remarks);
         checkEmpty(name, MESSAGE_CONSTRAINTS_NAME);
-        checkArgument(unitPrice.matches(VALIDATION_FLOAT_NUMBER_REGEX), MESSAGE_CONSTRAINTS_PRICE);
+        checkArgument(String.valueOf(unitPrice).matches(VALIDATION_FLOAT_NUMBER_REGEX), MESSAGE_CONSTRAINTS_PRICE);
 
         this.name = name;
-        this.unitPrice = Double.parseDouble(unitPrice);
+        this.unitPrice = unitPrice;
         this.remarks = remarks;
     }
 

@@ -3,9 +3,7 @@ package duke.logic.parser.inventory;
 import duke.logic.command.inventory.InventoryDescriptor;
 import duke.logic.parser.commons.ArgumentMultimap;
 
-import static duke.logic.parser.commons.CliSyntax.PREFIX_INVENTORY_NAME;
-import static duke.logic.parser.commons.CliSyntax.PREFIX_INVENTORY_QUANTITY;
-import static duke.logic.parser.commons.CliSyntax.PREFIX_INVENTORY_REMARKS;
+import static duke.logic.parser.commons.CliSyntax.*;
 
 public class InventoryParserUtil {
     public static InventoryDescriptor createInventoryDescriptor(ArgumentMultimap map) {
