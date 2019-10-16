@@ -1,12 +1,8 @@
 package duke.Data;
 
 import duke.module.TimeSlot;
+
 import duke.sports.MyClass;
-import duke.Task.After;
-import duke.Task.Deadline;
-import duke.Task.Event;
-import duke.Task.Item;
-import duke.Task.ToDo;
 import duke.sports.MyPlan;
 import duke.sports.MyTraining;
 
