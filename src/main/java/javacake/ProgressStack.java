@@ -1,11 +1,21 @@
 package javacake;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
+import java.net.URISyntaxException;
+import java.net.URL;
+import java.nio.Buffer;
 import java.util.ArrayList;
 import java.util.Arrays;
 
 
 public class ProgressStack {
+    private File f1;
+    //private String defaultFilePath = null;
+    //private String currentFilePath = null;
+
     private String defaultFilePath = "src/main/resources/MainList";
     private static String currentFilePath = "src/main/resources/MainList";
     private static ArrayList<String> filePathQueries = new ArrayList<>();
@@ -13,10 +23,16 @@ public class ProgressStack {
     private File[] listOfFiles;
     private static boolean isDirectory = true;
 
-
-    public ProgressStack() {
-
-    }
+    /*public ProgressStack() throws DukeException {
+        try {
+            f1 = new File(getClass().getResource("/content/MainList").toURI());
+        } catch (URISyntaxException e) {
+            throw new DukeException("Unable to load file directory");
+        }
+        System.out.println(f1.getAbsolutePath());
+        defaultFilePath = f1.getPath();
+        currentFilePath = f1.getPath();
+    }*/
 
     /**
      * Returns the starting file path to application content.
@@ -130,16 +146,20 @@ public class ProgressStack {
     /**
      * Reads the content in content text file.
      *
-     * @throws IOException When the text file in currentFilePath is not found.
+     * @throws DukeException When the text file in currentFilePath is not found.
      */
-    public String readQuery() throws IOException {
-        BufferedReader br = new BufferedReader(new FileReader(currentFilePath));
-        StringBuilder sb = new StringBuilder();
-        String sentenceRead;
-        while ((sentenceRead = br.readLine()) != null) {
-            sb.append(sentenceRead).append("\n");
+    public String readQuery() throws DukeException {
+        try {
+            BufferedReader br = new BufferedReader(new FileReader(currentFilePath));
+            StringBuilder sb = new StringBuilder();
+            String sentenceRead;
+            while ((sentenceRead = br.readLine()) != null) {
+                sb.append(sentenceRead).append("\n");
+            }
+            return sb.toString();
+        } catch (IOException e) {
+            throw new DukeException(e.getMessage());
         }
-        return sb.toString();
     }
 
     /**
@@ -165,15 +185,11 @@ public class ProgressStack {
      */
     public String processQueries() throws DukeException {
         insertQueries();
-        try {
-            if (isDirectory) {
-                return displayDirectories();
-            }
-            else {
-                return readQuery();
-            }
-        } catch (IOException e) {
-            throw new DukeException(e.getMessage());
+        if (isDirectory) {
+            return displayDirectories();
+        }
+        else {
+            return readQuery();
         }
     }
 

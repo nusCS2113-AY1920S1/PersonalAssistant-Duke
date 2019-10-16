@@ -37,7 +37,7 @@ public class GoToCommand extends Command {
                             .execute(progressStack, ui, storage, profile);
                 } else {
                     QuizCommand.setProfile(profile);
-                    return "!@#_QUIZ_3";
+                    return "!@#_QUIZ_1";
                 }
             } else if (filePath.contains("2. Object-Oriented Programming")) {
                 if (Duke.isCliMode()) {
@@ -45,7 +45,7 @@ public class GoToCommand extends Command {
                             .execute(progressStack, ui, storage, profile);
                 } else {
                     QuizCommand.setProfile(profile);
-                    return "!@#_QUIZ_3";
+                    return "!@#_QUIZ_2";
                 }
             } else if (filePath.contains("3. Extensions")) {
                 if (Duke.isCliMode()) {
@@ -61,20 +61,16 @@ public class GoToCommand extends Command {
                             .execute(progressStack, ui, storage, profile);
                 } else {
                     QuizCommand.setProfile(profile);
-                    return "!@#_QUIZ_3";
+                    return "!@#_QUIZ_4";
                 }
             }
         }
         progressStack.insertQueries();
-        try {
-            if (progressStack.containsDirectory()) {
-                    return (progressStack.displayDirectories());
-                } else {
-                    progressStack.updateFilePath(progressStack.gotoFilePath(0));
-                    return (progressStack.readQuery());
-                }
-            } catch (IOException e) {
-                throw new DukeException(e.getMessage());
+        if (progressStack.containsDirectory()) {
+                return (progressStack.displayDirectories());
+            } else {
+                progressStack.updateFilePath(progressStack.gotoFilePath(0));
+                return (progressStack.readQuery());
             }
     }
 }
