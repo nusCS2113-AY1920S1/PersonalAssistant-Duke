@@ -22,12 +22,17 @@ import java.util.Calendar;
 public class Process {
     public SimpleDateFormat dataformat = new SimpleDateFormat("dd/MM/yyyy HHmm");
 
+    /**
+     * Trims leading and trailing whitespace of an array of strings
+     * @param arr The array of Strings to clean
+     * @return cleanArr The array of Strings after cleaning
+     */
     private String[] cleanStrStr(String[] arr) {
-        String[] clean_arr = arr.clone();
+        String[] cleanArr = arr.clone();
         for (int i = 0; i < arr.length; i++) {
-            clean_arr[i] = arr[i].trim();
+            cleanArr[i] = arr[i].trim();
         }
-        return clean_arr;
+        return cleanArr;
     }
 
     /**
