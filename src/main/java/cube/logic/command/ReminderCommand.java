@@ -21,7 +21,7 @@ public class ReminderCommand extends Command{
     }
 
     /**
-     * Shows the list of food products that are low on stock (less than quantity of 5?)
+     * Shows the list of food products that are low on stock (less than quantity of 5)
      * or approaching/nearing its expiry date (by a week or lesser).
      *
      * @param list the list of food products
@@ -45,7 +45,7 @@ public class ReminderCommand extends Command{
                 expiryReminder.add(food);
             }
 
-            if (stock != 0 && stock <= 5 ) {
+            if (stock != 0 && stock < 5 ) {
                 stockReminder.add(food);
             }
         }
