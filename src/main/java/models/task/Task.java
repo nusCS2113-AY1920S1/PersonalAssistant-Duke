@@ -5,12 +5,9 @@ import models.member.Member;
 import util.date.DateTimeHelper;
 
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
-
-import models.member.ListOfMembersAssignedToTask;
 
 public class Task {
     private String taskName;
