@@ -214,9 +214,10 @@ public class ModelManager implements Model {
     }
 
     //========Inventory operations==========
-    @Override
-    public void addInventory(Item<Ingredient> inventory) {
-        bakingHome.addInventory(inventory);
+
+    public void addInventory(Item<Ingredient> toAdd) {
+        requireNonNull(toAdd);
+        bakingHome.addInventory(toAdd);
         updateFilteredInventoryList(PREDICATE_SHOW_ALL_INVENTORY);
     }
 
@@ -225,14 +226,14 @@ public class ModelManager implements Model {
         filteredInventory.setPredicate(predicate);
     }
 
-    public boolean hasInventory(Item<Ingredient> inventory) {
-        requireNonNull(inventory);
-        return bakingHome.getInventoryList().contains(inventory);
+    public boolean hasInventory(Item<Ingredient> ingredientItem) {
+        requireNonNull(ingredientItem);
+        return bakingHome.getInventoryList().contains(ingredientItem);
     }
 
-    public void deleteInventory(Item<Ingredient> inventory) {
-        requireNonNull(inventory);
-        bakingHome.removeInventory(inventory);
+    public void deleteInventory(Item<Ingredient> toDelete) {
+        requireNonNull(toDelete);
+        bakingHome.removeInventory(toDelete);
     }
 
     public void setInventory(Item<Ingredient> toEdit, Item<Ingredient> edited) {
@@ -245,7 +246,33 @@ public class ModelManager implements Model {
         return filteredInventory;
     }
 
-    //========Shopping operations==========
+    //========Shopping List operations==========
+
+    public void addShoppingList(Item<Ingredient> toAdd) {
+        requireNonNull(toAdd);
+        bakingHome.addShoppingList(toAdd);
+        updateFilteredShoppingList(PREDICATE_SHOW_ALL_SHOPPING);
+    }
+
+    public void updateFilteredShoppingList(Predicate<Item<Ingredient>> predicate) {
+        requireNonNull(predicate);
+        filteredShoppingList.setPredicate(predicate);
+    }
+
+    public boolean hasShoppingList(Item<Ingredient> ingredientItem) {
+        requireNonNull(ingredientItem);
+        return bakingHome.getShoppingList().contains(ingredientItem);
+    }
+
+    public void deleteShoppingList(Item<Ingredient> toDelete) {
+        requireNonNull(toDelete);
+        bakingHome.removeShoppingList(toDelete);
+    }
+
+    public void setShoppingList(Item<Ingredient> toEdit, Item<Ingredient> edited) {
+        requireAllNonNull(toEdit, edited);
+        bakingHome.setShoppingList(toEdit, edited);
+    }
 
     @Override
     public ObservableList<Item<Ingredient>> getFilteredShoppingList() {

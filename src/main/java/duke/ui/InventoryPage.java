@@ -86,7 +86,7 @@ public class InventoryPage extends UiPart<AnchorPane> {
         TableColumn<Item<Ingredient>, String> quantityColumn = new TableColumn<>("Quantity");
         quantityColumn.setResizable(true);
         quantityColumn.setCellValueFactory(itemStringCellDataFeatures ->
-                new SimpleStringProperty(itemStringCellDataFeatures.getValue().getQuantity().getNumberAsString()));
+                new SimpleStringProperty(String.valueOf(itemStringCellDataFeatures.getValue().getQuantity().getNumber())));
 
         TableColumn<Item<Ingredient>, String> unitColumn = new TableColumn<>("Remarks");
         unitColumn.setResizable(true);
@@ -105,7 +105,7 @@ public class InventoryPage extends UiPart<AnchorPane> {
         TableColumn<Item<Ingredient>, String> quantityColumn = new TableColumn<>("Quantity");
         quantityColumn.setResizable(true);
         quantityColumn.setCellValueFactory(itemStringCellDataFeatures ->
-                new SimpleStringProperty(itemStringCellDataFeatures.getValue().getQuantity().getNumberAsString()));
+                new SimpleStringProperty(String.valueOf(itemStringCellDataFeatures.getValue().getQuantity().getNumber())));
 
         TableColumn<Item<Ingredient>, String> remarksColumn = new TableColumn<>("Remarks");
         remarksColumn.setResizable(true);
@@ -115,12 +115,16 @@ public class InventoryPage extends UiPart<AnchorPane> {
         TableColumn<Item<Ingredient>, String> priceColumn = new TableColumn<>("Unit Price");
         priceColumn.setResizable(true);
         priceColumn.setCellValueFactory(itemStringCellDataFeatures ->
-                new SimpleStringProperty(itemStringCellDataFeatures.getValue().getItem().getUnitPriceAsString()));
+                new SimpleStringProperty(String.valueOf(itemStringCellDataFeatures.getValue().getItem().getUnitPrice())));
 
-        shoppingListTable.getColumns().addAll(ingredientColumn, quantityColumn, remarksColumn, priceColumn);
+        TableColumn<Item<Ingredient>, String> totalPriceColumn = new TableColumn<>("Total Price");
+        totalPriceColumn.setResizable(true);
+        totalPriceColumn.setCellValueFactory(itemStringCellDataFeatures ->
+                new SimpleStringProperty(String.valueOf(itemStringCellDataFeatures.getValue().getTotalPrice())));
+
+        shoppingListTable.getColumns().addAll(ingredientColumn, quantityColumn, priceColumn,
+                totalPriceColumn, remarksColumn);
     }
-
-
 }
 
 

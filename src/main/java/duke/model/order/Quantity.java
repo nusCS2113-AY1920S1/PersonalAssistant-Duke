@@ -14,8 +14,4 @@ public class Quantity {
     public Integer getNumber() {
         return number;
     }
-
-    public String getNumberAsString() {
-        return String.valueOf(number);
-    }
 }

@@ -35,6 +35,9 @@ public interface ReadOnlyBakingHome {
      */
     ObservableList<Item<Ingredient>> getInventoryList();
 
+    /**
+     * Returns an unmodifiable view of the shopping list.
+     */
     ObservableList<Item<Ingredient>> getShoppingList();
 
     List<Shortcut> getShortcutList();

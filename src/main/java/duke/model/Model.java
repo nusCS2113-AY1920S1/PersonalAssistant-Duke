@@ -211,11 +211,43 @@ public interface Model {
      */
     void deleteInventory(Item<Ingredient> inventory);
 
+    /**
+     * Edits the ingredient toEdit with the ingredient edited
+     * @param toEdit the ingredient to be edited
+     * @param edited the edited ingredient with changes
+     */
     void setInventory(Item<Ingredient> toEdit, Item<Ingredient> edited);
 
     //======Shopping list operations=====
 
     ObservableList<Item<Ingredient>> getFilteredShoppingList();
+
+    void updateFilteredShoppingList(Predicate<Item<Ingredient>> predicate);
+
+    /**
+     * Adds an ingredient to the shopping list
+     * @param toAdd the ingredient to be added
+     */
+    void addShoppingList(Item<Ingredient> toAdd);
+
+    /**
+     * Checks if the item with the same name already exists in the shopping list
+     * @return true if the given ingredient item already exists in the shopping list
+     */
+    boolean hasShoppingList(Item<Ingredient> ingredientItem);
+
+    /**
+     * Removes an ingredient item from the shopping list
+     * @param toDelete the ingredient item
+     */
+    void deleteShoppingList(Item<Ingredient> toDelete);
+
+    /**
+     * Edits the ingredient toEdit with the ingredient edited
+     * @param toEdit the ingredient to be edited
+     * @param edited the edited ingredient with changes
+     */
+    void setShoppingList(Item<Ingredient> toEdit, Item<Ingredient> edited);
 
     //=========Shortcut operations=======
 
