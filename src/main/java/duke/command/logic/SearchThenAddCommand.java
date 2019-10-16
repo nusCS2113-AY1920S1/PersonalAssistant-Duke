@@ -4,6 +4,7 @@ import duke.exceptions.ModException;
 import duke.exceptions.planner.ModNotFoundException;
 import duke.modules.data.ModuleInfoDetailed;
 import duke.modules.data.ModuleTask;
+import duke.util.CcaList;
 import duke.util.JsonWrapper;
 import duke.util.PlannerUi;
 import duke.util.Storage;
@@ -22,6 +23,7 @@ public class SearchThenAddCommand extends ModuleCommand {
     @Override
     public void execute(HashMap<String, ModuleInfoDetailed> detailedMap,
                         ModuleTasksList tasks,
+                        CcaList ccas,
                         PlannerUi plannerUi,
                         Storage store,
                         JsonWrapper jsonWrapper) throws ModException {
@@ -34,10 +36,5 @@ public class SearchThenAddCommand extends ModuleCommand {
         } else {
             throw new ModNotFoundException();
         }
-    }
-
-    @Override
-    public boolean isExit() {
-        return false;
     }
 }
