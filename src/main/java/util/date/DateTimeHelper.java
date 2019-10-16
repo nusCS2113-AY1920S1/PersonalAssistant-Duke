@@ -10,4 +10,9 @@ public class DateTimeHelper {
         SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
         return formatter.parse(date);
     }
+
+    public String formatDateForDisplay(Date date) {
+        SimpleDateFormat formatter = new SimpleDateFormat("dd MMM yyyy");
+        return formatter.format(date);
+    }
 }

@@ -50,19 +50,15 @@ public class Task {
         return taskPriority;
     }
 
-    private String getDueDateString() {
-        SimpleDateFormat formatter = new SimpleDateFormat("dd MMM yyyy");
-        return formatter.format(this.dueDate);
-    }
-
     /**
      * Gets the details of the task in a String format in the correct layout.
      * @return String containing all the details of the task.
      */
     public String getDetails() {
+        DateTimeHelper dateTimeHelper = new DateTimeHelper();
         if (this.dueDate != null) {
             return this.taskName + " | Priority: "
-                    + this.taskPriority + " | Due: " + this.getDueDateString() + " | Credit: "
+                    + this.taskPriority + " | Due: " + dateTimeHelper.formatDateForDisplay(this.dueDate) + " | Credit: "
                     + this.taskCredit + " | State: " + this.taskState;
         } else {
             return this.taskName + " | Priority: "
