@@ -24,6 +24,8 @@ public class Parser {
         switch (keyword) {
             case "bye":
                 return new ExitCommand();
+            case "help":
+                return new HelpCommand();
             case "list":
                 if (fcArray.length == 1) {
                     return new ListCommand();
