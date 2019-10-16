@@ -1,13 +1,11 @@
 package eggventory;
 
-import java.util.ArrayList;
-
-import eggventory.items.Stock;
 import eggventory.items.StockType;
+
+import java.util.ArrayList;
 
 public class StockList {
     private ArrayList<StockType> stockList;
-    private int quantity;
 
     /**
      * Constructs a new StockList object using an already existing stockList.
@@ -15,7 +13,6 @@ public class StockList {
      */
     public StockList(ArrayList<StockType> stockList) {
         this.stockList = stockList;
-        this.quantity = stockList.size() - 1;
     }
 
     /**
@@ -24,7 +21,50 @@ public class StockList {
     public StockList() {
         this.stockList = new ArrayList<>();
         this.stockList.add(new StockType("Uncategorised", false));
-        this.quantity = 0;
+    }
+
+    /**
+     * Gets the whole stockList. Note: technically doing using this method will violate OOP.
+     * @return the list.
+     */
+    public ArrayList<StockType> getList() {
+        return stockList;
+    }
+
+    /**
+     * Returns a stockType from stockList if it exits else retuns a null StockType.
+     * @param stockType The unique string that identifies a stockType
+     * @return stockType of stockList
+     */
+    public StockType getStockType(String stockType) {
+        StockType nullType = new StockType("NULL", true);
+        for (StockType stType : stockList) {
+            if (stType.getName().equals(stockType)) {
+                return stType;
+            }
+        }
+        return nullType;
+    }
+
+    /**
+     * Gets the total number of stockTypes in this stockList. Not to be confused with getStockQuantity.
+     * @return the number of stockTypes.
+     */
+    public int getStockTypeQuantity() { //The number of stockTypes in the list.
+        return stockList.size();
+    }
+
+    /**
+     * Gets the total number of stocks in this stockList. This sums the number of stocks across stockTypes.
+     * @return the total number of stocks.
+     */
+    public int getStockQuantity() { //The number of stocks in the list, across all stockTypes.
+        int total = 0;
+        for (StockType stockType : stockList) {
+            total += stockType.getQuantity();
+        }
+
+        return total;
     }
 
     public void addStockType(String name) {
@@ -48,7 +88,6 @@ public class StockList {
 
         // "Uncategorised" is always the first element on stockList.
         stockList.get(0).addStock("Uncategorised", stockCode, quantity, description);
-        this.quantity++;
     }
 
     /**
@@ -58,7 +97,6 @@ public class StockList {
     public void deleteStock(String stockCode) {
         for (StockType stockType : stockList) {
             stockType.deleteStock(stockCode);
-            this.quantity--;
         }
     }
 
@@ -69,9 +107,10 @@ public class StockList {
     public String toString() {
         String ret = "";
         ret += "CURRENT INVENTORY\n";
-        for (int i = 0; i < quantity; i++) {
+
+        for (StockType stocktype : stockList) {
             ret += "------------------------\n";
-            ret += stockList.get(i).toString() + "\n";
+            ret += stocktype.toString() + "\n";
         }
 
         return ret;
@@ -85,33 +124,10 @@ public class StockList {
         String details = "";
 
         for (StockType stocktype : stockList) {
-            details += stocktype.saveDetailsString() + " ";
+            details += stocktype.saveDetailsString() + "\n";
         }
 
         return details;
-    }
-
-    /**
-     * Returns a stockType from stockList if it exits else retuns a null StockType.
-     * @param stockType The unique string that identifies a stockType
-     * @return stockType of stockList
-     */
-    public StockType getStockType(String stockType) {
-        StockType nullType = new StockType("NULL", true);
-        for (StockType stType : stockList) {
-            if (stType.getName().equals(stockType)) {
-                return stType;
-            }
-        }
-        return nullType;
-    }
-
-    public ArrayList<StockType> getList() {
-        return stockList;
-    }
-
-    public int getQuantity() {
-        return quantity;
     }
 
 }

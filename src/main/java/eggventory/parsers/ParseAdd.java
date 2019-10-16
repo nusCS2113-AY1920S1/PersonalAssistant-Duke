@@ -26,12 +26,9 @@ public class ParseAdd {
         if (addInput.length < 4) {
             throw new InsufficientInfoException("Please enter stock information after the 'add' command in"
                     + " this format:\nadd <StockType> <StockCode> <Quantity> <Description>");
-        } else {
-
-            if (addInput[0].isBlank() | addInput[1].isBlank() | addInput[2].isBlank() | addInput[3].isBlank()) {
-                throw new InsufficientInfoException("Please enter stock information after the 'add' command in"
-                        + " this format:\nadd <StockType> <StockCode> <Quantity> <Description>");
-            }
+        } else if (addInput[0].isBlank() | addInput[1].isBlank() | addInput[2].isBlank() | addInput[3].isBlank()) {
+            throw new InsufficientInfoException("Please enter stock information after the 'add' command in"
+                    + " this format:\nadd <StockType> <StockCode> <Quantity> <Description>");
         }
 
         return new AddCommand(CommandType.ADD, addInput[0], addInput[1],
