@@ -131,6 +131,7 @@ public class ModelManager implements Model {
 
     //================Sale operations=================
 
+
     @Override
     public void addSale(Sale sale) {
         bakingHome.addSale(sale);
