@@ -8,6 +8,10 @@ import seedu.hustler.ui.Ui;
  */
 public class CheckAvatarCommand extends Command {
 
+    public CheckAvatarCommand() {
+
+    }
+
     @Override
     public void execute() {
         Ui ui = new Ui();

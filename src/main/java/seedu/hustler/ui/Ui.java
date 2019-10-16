@@ -157,7 +157,6 @@ public class Ui {
                 + "|_| |_|  \\___/  /_____/      |_|     |____||____| |_|  \\_\\\n";
 
         System.out.println("Hello from\n" + logo);
-        System.out.println("Good morning, " + Hustler.avatar.getName() + "! How can I help you today?");
     }
 
 
