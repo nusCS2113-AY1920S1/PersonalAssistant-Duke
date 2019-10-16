@@ -14,8 +14,8 @@ public class SnoozeCommand extends Command {
     private String line;
 
     /**
-     * This is a class for command DONE, which mark one task in the task list as done.
-     * @param line the serial number of task to be marked as done
+     * This is a class for command SNOOZE, which changes a task to a different date.
+     * @param line the TASKNAME to another time
      */
     public SnoozeCommand(String line) {
         this.line = line;
