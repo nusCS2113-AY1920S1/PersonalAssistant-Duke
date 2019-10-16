@@ -10,6 +10,7 @@ package duke.command;
  */
 public enum Cmd {
 
+    // TODO: adapt getCommand to take in a Context as an argument and use it to disambiguate commands
     DOCTOR("doctor") {
         public Command getCommand() {
             return new DoctorCommand();
@@ -40,9 +41,9 @@ public enum Cmd {
             return new FindCommand();
         }
     },
-    VIEW("view") {
+    NEW("new") {
         public Command getCommand() {
-            return new ViewCommand();
+            return new NewPatientCommand();
         }
     };
 

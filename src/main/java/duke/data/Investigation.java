@@ -1,4 +1,4 @@
-package duke.task;
+package duke.data;
 
 public class Investigation extends Treatment {
 

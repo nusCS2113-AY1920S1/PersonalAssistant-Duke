@@ -1,4 +1,4 @@
-package duke.task;
+package duke.data;
 
 /*
  * Highest level of abstraction for all DukeObjects storing Patient related Data

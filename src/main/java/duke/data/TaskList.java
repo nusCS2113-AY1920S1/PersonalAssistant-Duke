@@ -1,4 +1,4 @@
-package duke.task;
+package duke.data;
 
 import duke.exception.DukeException;
 import duke.exception.DukeFatalException;

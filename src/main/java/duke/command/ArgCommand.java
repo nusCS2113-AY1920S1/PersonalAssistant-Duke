@@ -18,7 +18,8 @@ public abstract class ArgCommand extends Command {
 
     @Override
     public void execute(DukeCore core) throws DukeException {
-        if (arg == null) {
+        // input string should not have been empty, so at least one of these should have been set
+        if (arg == null && switches.isEmpty()) {
             throw new DukeException("Command needs to parse argument first!");
         }
     }
