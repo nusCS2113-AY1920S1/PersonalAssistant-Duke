@@ -90,6 +90,11 @@ public class CommandParser {
                 pfc.initCommand(CommandArr, Command , command.getSubRootCommand());
                 CommandStack.pushCmd(pfc);
                 break;
+            case restriction:
+                System.out.println("Restriction");
+                RestrictionCommand rc = new RestrictionCommand(UIController);
+                rc.initCommand(CommandArr, Command, command.getSubRootCommand());
+                CommandStack.pushCmd(rc);
             case remove:
                 System.out.println("REmove");
                 RemoveCommand removec = new RemoveCommand(UIController);
@@ -175,6 +180,12 @@ public class CommandParser {
                 PreferenceCommand pfc = new PreferenceCommand(UIController);
                 pfc.initCommand(CommandArr , Command );
                 CommandStack.pushCmd(pfc);
+                break;
+            case "restriction":
+                System.out.println("Restriction");
+                RestrictionCommand rc = new RestrictionCommand(UIController);
+                rc.initCommand(CommandArr, Command);
+                CommandStack.pushCmd(rc);
                 break;
             default:
                 CommandPair pair = CommandDebugger.commandSpellChecker(CommandArr , COMMANDKEYS.none, UIController);

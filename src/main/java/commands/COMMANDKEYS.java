@@ -31,5 +31,6 @@ public enum COMMANDKEYS {
     playlist ,
     create ,
     delete ,
-    mark
+    restriction ,
+    clear
 }
