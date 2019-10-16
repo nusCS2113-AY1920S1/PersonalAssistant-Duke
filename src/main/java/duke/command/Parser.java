@@ -214,7 +214,6 @@ public class Parser {
         }
     }
 
-    // TODO: requires major rewrite for autocorrect
     private void handleSwitch(char curr) throws DukeHelpException {
         switch (curr) {
         case '"':

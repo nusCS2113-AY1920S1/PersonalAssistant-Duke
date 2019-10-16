@@ -23,7 +23,7 @@ public abstract class ArgCommand extends Command {
     @Override
     public void execute(DukeCore core) throws DukeException {
         // input string should not have been empty, so at least one of these should have been set
-        if (arg == null && switches.isEmpty()) {
+        if (arg == null && switchVals.isEmpty()) {
             throw new DukeException("Command needs to parse argument first!");
         }
     }
@@ -92,7 +92,7 @@ public abstract class ArgCommand extends Command {
 
         // create static data structures
         return new Pair<Map<String, ArgLevel>, Map<String, String>> (
-                Map.ofEntries(entryArr), Map.ofEntries(argLevelEntries));
+                Map.ofEntries(argLevelEntries), Map.ofEntries(entryArr));
     }
 
     // Override these methods to specify parameters of child classes
