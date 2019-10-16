@@ -13,8 +13,8 @@ public class ListOfMembersInProject implements IMemberList {
      */
     public ListOfMembersInProject() {
         this.memberList = new ArrayList<>();
-        this.parserHelper = new ParserHelper()
-;    }
+        this.parserHelper = new ParserHelper();
+    }
 
     /**
      * Adds a new member to the member list of this project.

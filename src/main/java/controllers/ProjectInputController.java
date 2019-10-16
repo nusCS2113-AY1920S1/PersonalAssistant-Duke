@@ -7,7 +7,6 @@ import repositories.ProjectRepository;
 import util.factories.MemberFactory;
 import util.factories.TaskFactory;
 import views.CLIView;
-
 import java.text.ParseException;
 import java.util.Scanner;
 
@@ -138,7 +137,7 @@ public class ProjectInputController implements IController {
                 } else if (projectCommand.length() >= 12 && ("assign task ").equals(projectCommand.substring(0,12))) {
                     AssignmentControllerUtil assignmentControllerUtil = new AssignmentControllerUtil();
                     assignmentControllerUtil.manageAssignment(projectToManage,
-                    projectCommand.substring(12).split(" "), consoleView);
+                            projectCommand.substring(12).split(" "), consoleView);
                 } else if ("bye".equals(projectCommand)) {
                     consoleView.end();
                 } else {

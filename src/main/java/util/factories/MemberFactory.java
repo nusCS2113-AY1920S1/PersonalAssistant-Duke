@@ -11,6 +11,7 @@ public class MemberFactory implements IArchDukeFactory<IMember> {
     public MemberFactory() {
         this.parserHelper = new ParserHelper();
     }
+
     /**
      * Method to create a new member.
      * @param input Input containing details of member to be added (name, phone, email).

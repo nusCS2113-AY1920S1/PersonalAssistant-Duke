@@ -74,7 +74,10 @@ public class ParserHelper {
             case "/WHO":
                 taskDetails = this.sortHelper.sortTaskMembers(taskList);
                 break;
-            case "/KANBAN/OPEN": case "/KANBAN/TODO": case "/KANBAN/DOING": case "/KANBAN/DONE":
+            case "/KANBAN/OPEN":
+            case "/KANBAN/TODO":
+            case "/KANBAN/DOING":
+            case "/KANBAN/DONE":
                 taskDetails = this.sortHelper.sortTaskState(taskList, sortCriteria.substring(8));
             default:
                 break;
