@@ -78,6 +78,11 @@ public class Model {
     }
 
     //// Commands that deals with Seats.
+
+    public String viewSeats(LocalDate localDate) {
+        return shows.viewSeats(localDate);
+    }
+
     public String sellSeats(LocalDate localDate, String... seats) {
         return shows.sellSeats(localDate, seats);
     }

@@ -8,10 +8,6 @@ import optix.ui.Ui;
 public class DeleteAllCommand extends Command {
     private String[] showNames;
 
-    private static final String MESSAGE_SUCCESSFUL = "Noted. These are the deleted entries:\n";
-
-    private static final String MESSAGE_UNSUCCESSFUL = "Sorry, these shows were not found:\n";
-
     public DeleteAllCommand(String[] showNames) {
         this.showNames = showNames;
     }

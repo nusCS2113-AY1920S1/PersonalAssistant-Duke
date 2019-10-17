@@ -3,8 +3,6 @@ package optix.commands.seats;
 import optix.commands.Command;
 import optix.commons.Model;
 import optix.commons.Storage;
-import optix.commons.model.ShowMap;
-import optix.commons.model.Theatre;
 import optix.exceptions.OptixInvalidDateException;
 import optix.ui.Ui;
 import optix.util.OptixDateFormatter;
@@ -17,6 +15,10 @@ public class ViewSeatsCommand extends Command {
 
     private OptixDateFormatter formatter = new OptixDateFormatter();
 
+    private static final String MESSAGE_SHOW_FOUND = "Here is the layout of the theatre for %1$s on %2$s:\n";
+
+    private static final String MESSAGE_SHOW_NOT_FOUND = "☹ OOPS!!! Sorry the show %1$s cannot be found.\n";
+
     public ViewSeatsCommand(String showName, String showDate) {
         this.showName = showName;
         this.showDate = showDate;
@@ -24,21 +26,18 @@ public class ViewSeatsCommand extends Command {
 
     @Override
     public void execute(Model model, Ui ui, Storage storage) {
-        ShowMap shows = model.getShows();
-        StringBuilder message = new StringBuilder();
+        StringBuilder message = new StringBuilder(String.format(MESSAGE_SHOW_FOUND, showName, showDate));
         try {
             if (!formatter.isValidDate(showDate)) {
                 throw new OptixInvalidDateException();
             }
 
             LocalDate showLocalDate = formatter.toLocalDate(showDate);
-            message.append(String.format("Here is the layout of the theatre for %s on %s:\n", showName, showDate));
 
-            if (shows.containsKey(showLocalDate) && shows.get(showLocalDate).hasSameName(showName)) {
-                Theatre theatre = shows.get(showLocalDate);
-                message.append(theatre.getSeatingArrangement());
+            if (model.containsKey(showLocalDate) && model.hasSameName(showLocalDate, showName)) {
+                message.append(model.viewSeats(showLocalDate));
             } else {
-                message = new StringBuilder("☹ OOPS!!! Sorry the show " + showName + " cannot be found.\n");
+                message = new StringBuilder(String.format(MESSAGE_SHOW_NOT_FOUND, showName));
             }
 
         } catch (OptixInvalidDateException e) {

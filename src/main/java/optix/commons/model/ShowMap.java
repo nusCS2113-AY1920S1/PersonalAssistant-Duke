@@ -169,6 +169,10 @@ public class ShowMap extends TreeMap<LocalDate, Theatre> {
 
     //// Command that deals with seats
 
+    public String viewSeats(LocalDate localDate) {
+        return this.get(localDate).getSeatingArrangement();
+    }
+
     public String sellSeats(LocalDate localDate, String... seats) {
         return this.get(localDate).sellSeats(seats);
     }
