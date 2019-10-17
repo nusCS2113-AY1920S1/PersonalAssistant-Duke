@@ -30,7 +30,7 @@ public class undo {
 
         } else if(command.equals("borrow") || command.equals("owe")) {
 
-            undoInput = "remove" + userInput.substring(5);
+            undoInput = "remove" + userInput;
             undoCommand.push(undoInput);
 
         } else if(command.equals("remove")) {
@@ -55,6 +55,10 @@ public class undo {
 
         if(parser[0].equals("add") || parser[0].equals("set")) {
             redoInput = "remove" + undoInput.substring(5);
+        } else if(parser[0].equals("borrow") || parser[0].equals("owe")) {
+            redoInput = "remove" + undoInput;
+        } else if(parser[0].equals("remove")) {
+            
         }
 //        switch(parser[0]) {
 //            case("add"):
