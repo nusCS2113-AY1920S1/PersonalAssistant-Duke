@@ -25,7 +25,6 @@ public abstract class Task {
 
     public boolean checkCondition(Farmio farmio) throws FarmioException {
         return condition.check(farmio);
-
     }
 
     public String toString() {

@@ -44,13 +44,19 @@ public class GameConsole {
         assets.add(new Pair<String, Integer>("Wheat", 0));
         return assets;
     }
-    private static ArrayList<String> populateUserCode(ArrayList<String> userCode) {
+    private static ArrayList<String> populateUserCode(ArrayList<String> userCode, int highlightedLine) {
         ArrayList<String> userCodeOutput = new ArrayList<>();
         while (userCode.size() < 18){
             userCode.add("");
         }
+        int i = 1;
         for (String s: userCode) {
-            userCodeOutput.add(horizontalPanel("",s , 31) + "|");
+            if (i == highlightedLine) {
+                userCodeOutput.add(AsciiColours.RED + AsciiColours.HIGH_INTENSITY + horizontalPanel("", s, 31) + AsciiColours.SANE + "|");
+            } else {
+                userCodeOutput.add(horizontalPanel("", s, 31) + "|");
+            }
+            i ++;
         }
         return userCodeOutput;
     }
@@ -63,7 +69,7 @@ public class GameConsole {
         int gold = farmio.getFarmer().getMoney();
         ArrayList<String> userCode = farmio.getFarmer().getTasks().toStringArray();
         ArrayList<Pair<String, Integer>> assets = farmio.getFarmer().getAssets();
-        userCode = populateUserCode(userCode);
+        userCode = populateUserCode(userCode, 1);
         output.append(AsciiColours.SANE + TOP_BORDER);
         output.append("|" + AsciiColours.RED + horizontalPanel("OBJECTIVE:", objective, 71) + AsciiColours.SANE).append(CODE_TITLE_FILLER);
         output.append(BOX_BOTTOM_BORDER);

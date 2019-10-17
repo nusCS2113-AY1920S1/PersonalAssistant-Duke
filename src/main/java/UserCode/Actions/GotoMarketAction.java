@@ -8,6 +8,7 @@ import FrontEnd.Ui;
 public class GotoMarketAction extends Action {
     public GotoMarketAction(Farmio farmio) {
         super(farmio);
+        this.type = ActionType.gotoMarket;
     }
     @Override
     public void execute(Ui ui) {
@@ -16,7 +17,7 @@ public class GotoMarketAction extends Action {
             farmer.changeLocation("-Traveling-");
             GotoMarketSimulation.simulate(0, 1);
             farmer.changeLocation("Market");
-            GotoMarketSimulation.showFrame(3);
+            GotoMarketSimulation.showFrame(2);
             ui.typeWriter("You have arrived at the market");
         } catch (Exception e){
             e.getMessage();
