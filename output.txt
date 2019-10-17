@@ -1,4 +1,5 @@
 [T][Y] borrow another book (on: 13-10-2019)
+[D][N] homework (by: 13-10-2019 23:59)
 [E][N] lecture (from: 08-10-2019 10:00 to: 08-10-2019 12:00)
 [E][N] tutorial (from: 09-10-2019 17:00 to: 09-10-2019 18:00)
 [E][N] test (from: 10-10-2019 09:00 to: 10-10-2019 10:00)
@@ -17,4 +18,3 @@
 [T][N] borrow another book (on: 15-10-2019)
 [E][N] lecture (from: 15-10-2019 10:00 to: 15-10-2019 12:00)
 [E][N] lecture (from: 22-10-2019 10:00 to: 22-10-2019 12:00)
-[T][N] homework (on: 17-10-2019)
