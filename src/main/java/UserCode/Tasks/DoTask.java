@@ -18,4 +18,9 @@ public class DoTask extends Task {
             action.execute(farmio.getUi());
         }
     }
+
+    @Override
+    public String toString() {
+        return "do " + action.toString();
+    }
 }

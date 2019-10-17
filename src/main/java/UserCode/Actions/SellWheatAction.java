@@ -8,12 +8,13 @@ public class SellWheatAction extends Action {
 
     public SellWheatAction(Farmio farmio) {
         super(farmio);
+        this.type = ActionType.sellWheat;
     }
 
     @Override
     public void execute(Ui ui) {
         farmer.getWheatFarm().buySeeds(); //TODO create wheatFarm.sellWheat()
-        new Simulate(ui, "SellWheat", 10).simulate(super.farmio);
+        new Simulate("SellWheat", super.farmio).simulate(0, 7);
         ui.show("Selling wheat!");
     }
 

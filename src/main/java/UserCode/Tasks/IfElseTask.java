@@ -27,4 +27,9 @@ public class IfElseTask extends Task {
             }
         }
     }
+
+    @Override
+    public String toString() {
+        return "if " + condition.toString() + " " + ifAction.toString() + " else " + elseAction.toString();
+    }
 }

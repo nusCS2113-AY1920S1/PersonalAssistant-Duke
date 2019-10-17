@@ -8,15 +8,24 @@ import UserCode.Conditions.Condition;
 class Parser {
     static Command parse(String userInput, Farmio.Stage stage) throws FarmioException {
         userInput = userInput.toLowerCase();
+        if (userInput.equals("exit")) {
+            return new ExitCommand();
+        }
         switch (stage) {
             case WELCOME:
                 return new CommandMenuStart();
             case MENU_START:
-                return parseMenuStart(userInput.toLowerCase());
+                return parseMenuStart(userInput);
             case TASK_ADD:
                 return parseTaskAdd(userInput);
             case RUNNING_DAY:
                 return new CommandTasksRun();
+            case CHECK_OBJECTIVES:
+                return new CommandCheckObjectives();
+            case END_OF_DAY:
+                return new CommandDayEnd();
+            case START_OF_DAY:
+                return new CommandDayNew();
             default:
                 //Game should not reach this stage.
                 stage = Farmio.Stage.WELCOME;
@@ -42,7 +51,7 @@ class Parser {
             return new CommandMenuStart();
         }
         if (userInput.toLowerCase().equals("start")) {
-            return new CommandStart();
+            return new CommandDayStart();
         }
         if (userInput.startsWith("do")) {
             return parseDoTask(userInput);
@@ -55,7 +64,7 @@ class Parser {
     private static Command parseDoTask(String userInput) throws FarmioException {
         String userAction = (userInput.substring(userInput.indexOf(" "))).trim();
         if (Action.validateAction(userAction)) {
-            return new CommandTaskCreate("do","TRUE", userAction);
+            return new CommandTaskCreate("do","true", userAction);
         } else {
             throw new FarmioException("Invalid action!");
         }

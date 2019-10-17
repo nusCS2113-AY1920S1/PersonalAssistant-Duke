@@ -8,6 +8,7 @@ public class HarvestWheatAction extends Action {
 
     public HarvestWheatAction(Farmio farmio) {
         super(farmio);
+        this.type = ActionType.harvestWheat;
     }
 
     /*public HarvestWheatAction(JSONObject obj){
@@ -18,7 +19,7 @@ public class HarvestWheatAction extends Action {
     public void execute(Ui ui) {
         try {
             farmer.getWheatFarm().harvestWheat();
-            new Simulate(ui, "PlantSeed", 10).simulate(super.farmio);
+            new Simulate("PlantSeed", super.farmio).simulate(0, 8);
         } catch (Exception e){
             e.getMessage();
         }

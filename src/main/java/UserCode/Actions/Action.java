@@ -14,6 +14,7 @@ import org.json.simple.JSONObject;
 public abstract class Action {
     Farmer farmer;
     Farmio farmio;
+    ActionType type;
 
     public Action() {}
 
@@ -62,6 +63,10 @@ public abstract class Action {
             default:
             throw new FarmioException("Error Creating Action!");
         }
+    }
+
+    public String toString () {
+        return type.name();
     }
 
     /*

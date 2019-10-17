@@ -28,6 +28,10 @@ public abstract class Task {
 
     }
 
+    public String toString() {
+        return condition.toString() + " do " + action.toString();
+    }
+
     public abstract void execute(Farmio farmio) throws FarmioException;
 
 //    private Action parseJsonAction(JSONObject obj) throws FarmioException {

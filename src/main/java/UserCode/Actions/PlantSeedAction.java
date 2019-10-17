@@ -8,6 +8,7 @@ public class PlantSeedAction extends Action {
 
     public PlantSeedAction(Farmio farmio) {
         super(farmio);
+        this.type = ActionType.plantSeeds;
     }
 
     /*public PlantSeedAction(JSONObject obj){
@@ -18,7 +19,7 @@ public class PlantSeedAction extends Action {
     public void execute(Ui ui) {
         try {
             farmer.getWheatFarm().plantSeeds();
-            new Simulate(ui, "PlantSeedSimulation", 9).simulate(super.farmio);
+            new Simulate("PlantSeedSimulation", super.farmio).simulate(0, 7);
         } catch (Exception e){
             e.getMessage();
         }
