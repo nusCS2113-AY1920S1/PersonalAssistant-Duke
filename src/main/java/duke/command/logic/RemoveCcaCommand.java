@@ -1,23 +1,23 @@
 package duke.command.logic;
 
+import duke.exceptions.ModEmptyListException;
+import duke.exceptions.ModException;
+import duke.exceptions.ModOutOfBoundException;
+import duke.modules.Cca;
 import duke.util.CcaList;
 import duke.util.JsonWrapper;
 import duke.util.PlannerUi;
 import duke.util.Storage;
 import java.util.HashMap;
 
-import duke.exceptions.ModEmptyCommandException;
-import duke.exceptions.ModEmptyListException;
-import duke.exceptions.ModException;
 import duke.modules.data.ModuleInfoDetailed;
-import duke.modules.data.ModuleTask;
 import duke.util.commons.ModuleTasksList;
 
-public class RemoveModCommand extends ModuleCommand {
+public class RemoveCcaCommand extends ModuleCommand {
 
     private int index;
 
-    public RemoveModCommand(int index) {
+    public RemoveCcaCommand(int index) {
         this.index = index - 1;
     }
 
@@ -28,12 +28,14 @@ public class RemoveModCommand extends ModuleCommand {
                         PlannerUi plannerUi,
                         Storage store,
                         JsonWrapper jsonWrapper) throws ModException {
-        if (index < 0 || index >= tasks.getSize() || tasks.getTasks().isEmpty()) {
-            throw new ModEmptyListException();
+        if (ccas.size() == 0) {
+            throw new ModEmptyListException("ccas");
         }
-        ModuleTask delMod = tasks.getTasks().get(index);
-        plannerUi.deleteMsg(delMod);
-        tasks.delete(index);
-        jsonWrapper.storeTaskListAsJson(tasks.getTasks(), store);
+        if (index < 0 || index >= ccas.size()) {
+            throw new ModOutOfBoundException();
+        }
+        Cca delCca = ccas.get(index);
+        plannerUi.deleteMsg(delCca);
+        ccas.remove(index);
     }
 }

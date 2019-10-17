@@ -1,6 +1,7 @@
 package duke.command.logic;
 
 import duke.modules.data.ModuleInfoDetailed;
+import duke.util.CcaList;
 import duke.util.JsonWrapper;
 import duke.util.PlannerUi;
 import duke.util.Storage;
@@ -21,14 +22,12 @@ public class EndCommand extends ModuleCommand {
     public void execute(
             HashMap<String, ModuleInfoDetailed> detailedMap,
             ModuleTasksList tasks,
+            CcaList ccas,
             PlannerUi plannerUi,
             Storage store,
             JsonWrapper jsonWrapper) {
         plannerUi.goodbyeMsg();
-    }
-
-    @Override
-    public boolean isExit() {
-        return true;
+        System.exit(0); //Safer
+        //Runtime.getRuntime().halt(0); //Forced kill
     }
 }

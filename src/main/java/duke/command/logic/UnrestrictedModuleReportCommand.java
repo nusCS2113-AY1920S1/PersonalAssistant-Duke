@@ -3,6 +3,7 @@ package duke.command.logic;
 import duke.command.logic.CoreModuleReportCommand;
 import duke.modules.data.ModuleInfoDetailed;
 import duke.modules.data.ModuleTask;
+import duke.util.CcaList;
 import duke.util.JsonWrapper;
 import duke.util.PlannerUi;
 import duke.util.Storage;
@@ -48,6 +49,7 @@ public class UnrestrictedModuleReportCommand extends ModuleCommand {
     @Override
     public void execute(HashMap<String, ModuleInfoDetailed> detailedMap,
                         ModuleTasksList tasks,
+                        CcaList ccas,
                         PlannerUi plannerUi,
                         Storage store,
                         JsonWrapper jsonWrapper) {
@@ -63,10 +65,5 @@ public class UnrestrictedModuleReportCommand extends ModuleCommand {
                 count++;
             }
         }
-    }
-
-    @Override
-    public boolean isExit() {
-        return false;
     }
 }

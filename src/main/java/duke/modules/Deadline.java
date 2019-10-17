@@ -4,6 +4,7 @@ import duke.exceptions.ModInvalidTimeException;
 import duke.exceptions.ModInvalidTimePeriodException;
 import duke.util.DateTimeParser;
 
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 public class Deadline extends TaskWithSpanningPeriod {
@@ -24,7 +25,7 @@ public class Deadline extends TaskWithSpanningPeriod {
             + "|"
             + super.writingFile()
             + "|"
-            + this.getEnd().format(DateTimeFormatter.ofPattern("dd-MM-yyyy [HH:mm]"));
+            + ((LocalDateTime) this.getEnd()).format(DateTimeFormatter.ofPattern("dd-MM-yyyy [HH:mm]"));
     }
 
     @Override
@@ -32,7 +33,7 @@ public class Deadline extends TaskWithSpanningPeriod {
         return "[D]"
             + super.toString()
             + " (by: "
-            + this.getEnd().format(DateTimeFormatter.ofPattern("dd-MM-yyyy [HH:mm]"))
+            + ((LocalDateTime) this.getEnd()).format(DateTimeFormatter.ofPattern("dd-MM-yyyy [HH:mm]"))
             + ")";
     }
 }

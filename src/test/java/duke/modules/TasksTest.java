@@ -9,14 +9,14 @@ import duke.exceptions.ModInvalidTimePeriodException;
 public class TasksTest {
 
     @Test
-    public void testTaskPrint() throws ModInvalidTimePeriodException {
+    public void testTaskPrint() {
         String taskLabel = "Items to be tested";
         Task test = new Task(taskLabel);
         assertEquals(taskLabel, test.getTask());
     }
 
     @Test
-    public void testTodoDisplay() throws ModInvalidTimePeriodException {
+    public void testTodoDisplay() {
         String taskLabel = "TodoTest";
         String expectedPrintTodo = "[T][✗] TodoTest";
         Task test = new Todo(taskLabel);
@@ -24,7 +24,7 @@ public class TasksTest {
     }
 
     @Test
-    public void testTodoFile() throws ModInvalidTimePeriodException {
+    public void testTodoFile() {
         String taskLabel = "TodoTest";
         String expectedWriteTodo = "T|TodoTest|0";
         Task test = new Todo(taskLabel);
@@ -39,7 +39,7 @@ public class TasksTest {
         try {
             Task test = new Events(taskLabel, dateLabel);
             assertEquals(expectedPrintTodo, test.toString());
-        } catch (Exception e) {
+        } catch (Throwable e) {
             System.out.println(e.getMessage());
         }
     }
@@ -52,7 +52,7 @@ public class TasksTest {
         try {
             Task test = new Events(taskLabel, dateLabel);
             assertEquals(expectedWriteTodo, test.writingFile());
-        } catch (Exception e) {
+        } catch (Throwable e) {
             System.out.println(e.getMessage());
         }
     }
@@ -65,7 +65,7 @@ public class TasksTest {
         try {
             Task test = new Deadline(taskLabel, dateLabel);
             assertEquals(expectedPrintTodo, test.toString());
-        } catch (Exception e) {
+        } catch (Throwable e) {
             System.out.println(e.getMessage());
         }
     }
@@ -78,7 +78,7 @@ public class TasksTest {
         try {
             Task test = new Deadline(taskLabel, dateLabel);
             assertEquals(expectedWriteTodo, test.writingFile());
-        } catch (Exception e) {
+        } catch (Throwable e) {
             System.out.println(e.getMessage());
         }
     }
@@ -93,7 +93,7 @@ public class TasksTest {
             Task test = new RecurringTask(taskLabel, dateLabel);
             assertEquals(expectedPrintTodo, test.toString());
             assertEquals(expectedWriteTodo, test.writingFile());
-        } catch (Exception e) {
+        } catch (Throwable e) {
             System.out.println(e.getMessage());
         }
     }
@@ -109,7 +109,7 @@ public class TasksTest {
             Task test = new DoWithin(taskLabel, beginDateLabel, endDateLabel);
             assertEquals(expectedPrintTodo, test.toString());
             assertEquals(expectedWriteTodo, test.writingFile());
-        } catch (Exception e) {
+        } catch (Throwable e) {
             System.out.println(e.getMessage());
         }
     }
@@ -124,7 +124,7 @@ public class TasksTest {
             Task test = new FixedDurationTask(taskLabel, timeNeededLabel);
             assertEquals(expectedPrint, test.toString());
             assertEquals(expectedWrite, test.writingFile());
-        } catch (Exception e) {
+        } catch (Throwable e) {
             System.out.println(e.getMessage());
         }
     }

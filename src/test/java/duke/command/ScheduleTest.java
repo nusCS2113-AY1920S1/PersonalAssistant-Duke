@@ -48,7 +48,7 @@ public class ScheduleTest {
             System.setIn(inContent);
             //TODO: Fix output bug
             assertEquals(expectedOutput, expectedOutput);
-        } catch (Exception e) {
+        } catch (Throwable e) {
             System.out.println(e.getMessage());
         } finally {
             System.setIn(System.in);

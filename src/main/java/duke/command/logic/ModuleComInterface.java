@@ -12,7 +12,4 @@ public interface ModuleComInterface {
             HashMap<String, ModuleInfoSummary> summaryHashMap,
             HashMap<String, ModuleInfoDetailed> detailedHashMap,
             PlannerUi plannerUi) throws ModException;
-
-
-    boolean isExit();
 }

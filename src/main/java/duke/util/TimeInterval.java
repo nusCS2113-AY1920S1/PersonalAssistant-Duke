@@ -23,7 +23,15 @@ public class TimeInterval implements TemporalAmount, Serializable {
         this.setInterval(dateDuration, timeDuration);
     }
 
-    public TimeInterval(LocalDateTime begin, LocalDateTime end) {
+    public TimeInterval(TimePeriod timePeriod) {
+        this.setInterval(timePeriod);
+    }
+
+    public TimeInterval(TemporalAmount temporalAmount) {
+        this.setInterval(temporalAmount);
+    }
+
+    public TimeInterval(Temporal begin, Temporal end) {
         this.setInterval(begin, end);
     }
 
@@ -78,8 +86,20 @@ public class TimeInterval implements TemporalAmount, Serializable {
         this.timeDuration = timeInterval.timeDuration;
     }
 
-    public void setInterval(LocalDateTime begin, LocalDateTime end) {
+    public void setInterval(TimePeriod timePeriod) {
+        this.setInterval(Duration.between(timePeriod.getBegin(), timePeriod.getEnd()));
+    }
+
+    public void setInterval(Temporal begin, Temporal end) {
         this.setInterval(TimeInterval.between(begin, end));
+    }
+
+    public void setInterval(TemporalAmount temporalAmount) {
+        this.setInterval(Duration.from(temporalAmount));
+    }
+
+    public void setInterval(Duration timeDuration) {
+        this.setInterval(Period.ZERO, timeDuration);
     }
 
     public void setInterval(Period dateDuration, Duration timeDuration) {
@@ -137,6 +157,10 @@ public class TimeInterval implements TemporalAmount, Serializable {
 
     public TimeInterval multipliedBy(int scalar) {
         return new TimeInterval(this.dateDuration.multipliedBy(scalar), this.timeDuration.multipliedBy(scalar));
+    }
+
+    public static TimeInterval between(Temporal begin, Temporal end) {
+        return new TimeInterval(Period.ZERO, Duration.between(begin, end));
     }
 
     /**

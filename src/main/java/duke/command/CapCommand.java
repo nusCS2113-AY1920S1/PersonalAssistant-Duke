@@ -7,12 +7,10 @@ import duke.exceptions.ModMissingArgumentException;
 import duke.exceptions.planner.ModNotFoundException;
 import duke.modules.data.ModuleInfoDetailed;
 import duke.modules.data.ModuleInfoSummary;
+import duke.util.CcaList;
 import duke.util.JsonWrapper;
 import duke.util.PlannerUi;
-import duke.util.Reminder;
 import duke.util.Storage;
-import duke.util.TaskList;
-import duke.util.Ui;
 import duke.util.commons.ModuleTasksList;
 
 
@@ -197,6 +195,7 @@ public class CapCommand extends ModuleCommand {
     @Override
     public void execute(HashMap<String, ModuleInfoDetailed> detailedMap,
                         ModuleTasksList moduleTasksList,
+                        CcaList ccas,
                         PlannerUi plannerUi,
                         Storage store,
                         JsonWrapper jsonWrapper)
@@ -244,10 +243,5 @@ public class CapCommand extends ModuleCommand {
         }
         double averageCap = cumulativeCap / mcCount;
         plannerUi.capMsg(averageCap);
-    }
-
-    @Override
-    public boolean isExit() {
-        return false;
     }
 }

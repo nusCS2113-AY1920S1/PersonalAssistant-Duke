@@ -1,18 +1,18 @@
 package duke.util;
 
 import java.time.LocalDateTime;
-import java.time.temporal.TemporalAccessor;
+import java.time.temporal.Temporal;
 
-public class DateTime<E extends TemporalAccessor> {
+public class DateTime<E extends Temporal> {
 
-    private E temporalAccessor;
+    private E temporal;
 
-    public DateTime(E temporalAccessor) {
-        this.temporalAccessor = temporalAccessor;
+    public DateTime(E temporal) {
+        this.temporal = temporal;
     }
 
     public E value() {
-        return this.temporalAccessor;
+        return this.temporal;
     }
 
     public static LocalDateTime now() {
