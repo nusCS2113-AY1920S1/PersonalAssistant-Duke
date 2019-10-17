@@ -15,6 +15,7 @@ import list.DegreeList;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 import java.util.Scanner;
+import java.util.concurrent.TimeUnit;
 
 /**
  * The JavaFX.Main.Duke class inherits methods from Applications and allows it to be called by another class.
@@ -35,7 +36,6 @@ public class Duke extends Application {
     private Parser parse;
     private DegreeList lists;
     private CommandList commandList;
-
 
     /**
      * The constructor that is called when the GUI is starting up.
@@ -82,7 +82,7 @@ public class Duke extends Application {
      * @return
      */
     //method output initial reading of save file
-    public String run(String line) throws DukeException{
+    public String run(String line) throws DukeException {
         ByteArrayOutputStream output = new ByteArrayOutputStream();
         PrintStream ps = new PrintStream(output);
         // IMPORTANT: Save the old System.out!
@@ -91,11 +91,11 @@ public class Duke extends Application {
         System.setOut(ps);
         //ui.showWelcome();
         boolean isExit = false;
-        //while(!isExit) {
+        //while(!this.isExit) {
+        Command c;
         try {
             //String line = ui.readCommand();
             ui.showLine();
-            Command c;
             Scanner temp = new Scanner(line);
             if (!temp.hasNext()) {
                 throw new DukeException("Empty Command!");
@@ -132,8 +132,9 @@ public class Duke extends Application {
             System.setOut(old);
             // Show what happened
             System.out.println(output.toString());
-            return output.toString();
+
         }
+        return output.toString();
     }
 
     private void run() {
@@ -152,7 +153,6 @@ public class Duke extends Application {
                 ui.showLine();
             }
         }
-        return;
     }
 
     /**

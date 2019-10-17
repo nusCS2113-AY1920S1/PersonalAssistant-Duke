@@ -1,6 +1,9 @@
 package javafx;
 
 import exception.DukeException;
+import javafx.application.Platform;
+import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 import main.Duke;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -9,6 +12,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+
 
 /**
  * Controller for JavaFX.MainWindow. Provides the layout for the other controls.
@@ -28,6 +32,7 @@ public class MainWindow extends AnchorPane {
     private Button sendButton;
 
     private Duke duke;
+    private boolean exit = false;
 
     //Images are in jpg, not png, but this can be changed...
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.jpg"));
@@ -90,6 +95,13 @@ public class MainWindow extends AnchorPane {
                 DialogBox.getDukeDialog(response, dukeImage)
         );
 
+        if (input.equals("bye")) {
+            this.exit = true;
+        }
         userInput.clear();
+    }
+
+    public boolean isExit() {
+        return this.exit;
     }
 }
