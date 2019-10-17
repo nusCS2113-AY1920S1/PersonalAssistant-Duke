@@ -1,10 +1,7 @@
 package dolla.parser;
 
 import dolla.Ui;
-import dolla.command.AddEntryCommand;
-import dolla.command.Command;
-import dolla.command.ErrorCommand;
-import dolla.command.ShowListCommand;
+import dolla.command.*;
 
 public class EntryParser extends Parser { public EntryParser(String inputLine) {
         super(inputLine);
@@ -21,10 +18,17 @@ public class EntryParser extends Parser { public EntryParser(String inputLine) {
             } else {
                 return new ErrorCommand();
             }
+        } else if (commandToRun.equals("modify")) {
+            if (verifyModifyCommand() == true) {
+                return new InitialModifyCommand(inputArray[1]);
+            } else {
+                return new ErrorCommand();
+            }
         } else {
             return invalidCommand();
         }
     }
+
 
 
 }

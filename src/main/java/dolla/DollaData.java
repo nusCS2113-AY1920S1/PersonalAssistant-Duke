@@ -12,6 +12,9 @@ public class DollaData {
     private EntryList entryList; // TODO: Find out alternatives to using a public variable
     private DebtList debtList;
 
+    private String prevMode;
+    private int modifyIndex;
+
     //private EntryList entryList;
 
     public DollaData() {
@@ -53,5 +56,10 @@ public class DollaData {
 
     public void updateMode(String newMode) {
         mode = newMode;
+    }
+
+    public void prepForModify(String prevMode, int index) {
+        this.prevMode = prevMode;
+        modifyIndex = index;
     }
 }

@@ -197,13 +197,14 @@ public class Ui {
     }
 
     /**
-     * Prints error message when taskNum is not associated to a task.
-     * @param taskNum the task number that is not associated with a task.
+     * Prints error message when LogNum is not associated to a task.
+     * @param taskNum The Log number that does not exist in the specific list.
+     * @param mode The mode where the list is to be accessed.
      */
-    public static void printNoTaskAssocError(int taskNum) {
+    public static void printNoLogAssocError(int taskNum, String mode) {
         System.out.println(line);
-        System.out.println("\t" + taskNum + " is not associated to any task number.");
-        System.out.println("\tUse 'list' to check the tasks that are here first!");
+        System.out.println("\t" + mode + " number "+ taskNum + " doesn't seem to exist in my records!");
+        System.out.println("\tTry looking through the list of " + mode + "again.");
         System.out.println(line);
     }
 
@@ -296,6 +297,20 @@ public class Ui {
             int listNum = i + 1;
             System.out.println("\t" + listNum + ". " + logList.get().get(i).getLogText());
         }
+        System.out.println(line);
+    }
+
+    public static void printInvalidModifyFormatError() {
+        System.out.println(line);
+        System.out.println("\tplease follow the format "
+                + "'modify [LIST NUM]"
+                + "");
+        System.out.println(line);
+    }
+
+    public static void printInitialModifyMsg() {
+        System.out.println(line);
+        System.out.println("\tWhat would you want to change this entry to?");
         System.out.println(line);
     }
 }

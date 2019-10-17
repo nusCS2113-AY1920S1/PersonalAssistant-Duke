@@ -113,4 +113,15 @@ public abstract class Parser {
         }
         return true;
     }
+
+    public boolean verifyModifyCommand() {
+        try {
+            Integer.parseInt(inputArray[1]);
+            // TODO: Add support for modifying specific catogories
+        } catch (NumberFormatException e) {
+            Ui.printInvalidModifyFormatError();
+            return false;
+        }
+        return true;
+    }
 }
