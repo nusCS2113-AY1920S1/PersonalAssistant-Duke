@@ -2,6 +2,7 @@ package dolla.command;
 
 import dolla.DollaData;
 import dolla.task.Limit;
+import dolla.ui.LimitUi;
 
 /**
  * AddLimitCommand is used to create a new Limit entity.
@@ -17,10 +18,11 @@ public class AddLimitCommand extends Command {
         this.amount = amount;
         this.duration = duration;
     }
-    
 
     @Override
-    public void execute(DollaData dollaData) throws Exception {
-
+    public void execute(DollaData dollaData) {
+        Limit newLimit = new Limit(type, amount, duration);
+        dollaData.addToLogList("limit", newLimit);
+        LimitUi.echoAddLimit(newLimit);
     }
 }
