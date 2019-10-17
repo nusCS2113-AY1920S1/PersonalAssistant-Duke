@@ -64,6 +64,10 @@ public class Task {
         }
     }
 
+    public Date getDueDate() {
+        return this.dueDate;
+    }
+
     public TaskState getTaskState() {
         return this.taskState;
     }
