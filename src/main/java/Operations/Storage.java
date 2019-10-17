@@ -3,11 +3,11 @@ package Operations;
 import CustomExceptions.RoomShareException;
 import Enums.ExceptionType;
 import Enums.Priority;
+import Enums.RecurrenceScheduleType;
 import Enums.SaveType;
 import Model_Classes.*;
 
 import java.io.*;
-import java.lang.reflect.Array;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -45,9 +45,18 @@ public class Storage {
             }
             parser = new Parser();
             for (String list : tempList) {
-                String[] temp = list.split("#");
+                String[] temp = list.split("#", 7);
                 SaveType type;
                 Priority priority;
+                String description = temp[3];
+                String rawDate = temp[4];
+                String user = temp[6];
+                Date by = new Date();
+                try {
+                    by = parser.formatDate(rawDate);
+                } catch (RoomShareException e) {
+                    System.out.println("error in loading file: date format error");
+                }
                 try {
                     priority = Priority.valueOf(temp[2]);
                 } catch (IllegalArgumentException e) {
@@ -59,56 +68,41 @@ public class Storage {
                 } catch (IllegalArgumentException e) {
                     type = SaveType.empty;
                 }
-                if (list.contains("#week") || list.contains("#day") || list.contains("#month")) {
-                    switch (type) {
-                        case T:
-                            RecurringToDo tempToDo = new RecurringToDo(temp[3], temp[4], done, priority);
-                            taskArrayList.add(tempToDo);
-                            break;
-
-                        case E:
-                            Date by = parser.formatDate(temp[4]);
-                            RecurringEvent tempEvent = new RecurringEvent(temp[3], by, temp[5], done, priority);
-                            taskArrayList.add(tempEvent);
-                            break;
-                        case D:
-                            Date deadlineBy = parser.formatDate(temp[4]);
-                            RecurringDeadline tempDeadline = new RecurringDeadline(temp[3], deadlineBy, temp[5], done, priority);
-                            taskArrayList.add(tempDeadline);
-                            break;
+                if (temp[5].isEmpty()) {
+                    // no recurring type
+                    if (type.equals(SaveType.A)) {
+                        Assignment assignment = new Assignment(description, by);
+                        assignment.setPriority(priority);
+                        assignment.setUser(user);
+                        assignment.setRecurrenceSchedule(RecurrenceScheduleType.none);
+                        assignment.setDone(done);
+                        taskArrayList.add(assignment);
+                    } else {
+                        Meeting meeting = new Meeting(description, by);
+                        meeting.setRecurrenceSchedule(RecurrenceScheduleType.none);
+                        meeting.setPriority(priority);
+                        meeting.setUser(user);
+                        meeting.setDone(done);
+                        taskArrayList.add(meeting);
                     }
                 } else {
-                    switch (type) {
-                        case T:
-                            ToDo tempToDo = new ToDo(temp[3], temp[4]);
-                            tempToDo.setPriority(priority);
-                            tempToDo.setDone(done);
-                            taskArrayList.add(tempToDo);
-                            break;
-                        case E:
-                            Date by = parser.formatDate(temp[4]);
-                            if (temp.length == 8) {
-                                FixedDuration tempEvent = new FixedDuration(temp[3], by, Integer.parseInt(temp[5]), temp[7], temp[6]);
-                                tempEvent.setDone(done);
-                                tempEvent.setPriority(priority);
-                                taskArrayList.add(tempEvent);
-                            } else {
-                                Event tempEvent = new Event(temp[3], by, temp[5]);
-                                tempEvent.setDone(done);
-                                tempEvent.setPriority(priority);
-                                taskArrayList.add(tempEvent);
-                            }
-
-                            break;
-                        case D:
-                            Date deadlineBy = parser.formatDate(temp[4]);
-                            Deadline tempDeadline = new Deadline(temp[3], deadlineBy, temp[5]);
-                            tempDeadline.setDone(done);
-                            tempDeadline.setPriority(priority);
-                            taskArrayList.add(tempDeadline);
-                            break;
-                        default:
-                            throw new RoomShareException(ExceptionType.wrongFormat);
+                    // recurring type task
+                    if (type.equals(SaveType.A)) {
+                        Assignment assignment = new Assignment(description, by);
+                        RecurrenceScheduleType recurrenceScheduleType = RecurrenceScheduleType.valueOf(temp[5]);
+                        assignment.setRecurrenceSchedule(recurrenceScheduleType);
+                        assignment.setDone(done);
+                        assignment.setUser(user);
+                        assignment.setPriority(priority);
+                        taskArrayList.add(assignment);
+                    } else {
+                        Meeting meeting = new Meeting(description, by);
+                        RecurrenceScheduleType recurrenceScheduleType = RecurrenceScheduleType.valueOf(temp[5]);
+                        meeting.setRecurrenceSchedule(recurrenceScheduleType);
+                        meeting.setDone(done);
+                        meeting.setUser(user);
+                        meeting.setPriority(priority);
+                        taskArrayList.add(meeting);
                     }
                 }
             }
@@ -161,37 +155,20 @@ public class Storage {
             String time = "";
             String[] prelimSplit = task.toString().split("\\(");
             String[] tempString = prelimSplit[2].split("\\s+");
-            if (!(task instanceof RecurringToDo || task instanceof RecurringDeadline || task instanceof RecurringEvent)) {
-                // tasks that enter here are not recurring tasks
-                if (!(task instanceof ToDo)) {
-                    String year = tempString[6].substring(0, tempString[6].length() - 1);
-                    Date date = new SimpleDateFormat("MMM").parse(tempString[2]);
-                    DateFormat dateFormat = new SimpleDateFormat("MM");
-                    String month = dateFormat.format(date);
-                    String[] timeArray = tempString[4].split(":", 3);
-                    String day = tempString[3];
-                    time = day + "/" + month + "/" + year + " " + timeArray[0] + ":" + timeArray[1] + '#';
-                }
-                if (task instanceof FixedDuration) {
-                    String[] durationArray = prelimSplit[3].split(":");
-                    String temp = durationArray[1].trim();
-                    String[] tempDuration = temp.split("\\s+");
-                    time = time + tempDuration[0].trim() + "#" + tempDuration[1].trim().substring(0, tempDuration[1].length() - 1) + "#";
-                }
-            } else {
-                // tasks that enter here are recurring tasks
-                if (!(task instanceof RecurringToDo)) {
-                    String year = tempString[6].substring(0, tempString[6].length() - 1);
-                    Date date = new SimpleDateFormat("MMM").parse(tempString[2]);
-                    DateFormat dateFormat = new SimpleDateFormat("MM");
-                    String month = dateFormat.format(date);
-                    String day = tempString[3];
-                    String[] timeArray = tempString[4].split(":", 3);
-                    String recurringFrame = prelimSplit[3].substring(3, prelimSplit[3].length() - 1);
-                    time = day + "/" + month + "/" + year + " " + timeArray[0] + ":" + timeArray[1] + "#" + recurringFrame + "#";
-                } else {
-                    time = prelimSplit[2].substring(3, prelimSplit[2].length() - 1) + "#";
-                }
+            String year = tempString[6].substring(0, tempString[6].length() - 1);
+            Date date = new SimpleDateFormat("MMM").parse(tempString[2]);
+            DateFormat dateFormat = new SimpleDateFormat("MM");
+            String month = dateFormat.format(date);
+            String[] timeArray = tempString[4].split(":", 3);
+            String day = tempString[3];
+            String recurrence = task.getRecurrenceSchedule().toString();
+            time = day + "/" + month + "/" + year + " " + timeArray[0] + ":" + timeArray[1] + '#' + recurrence +"#";
+            if (task instanceof FixedDuration) {
+                String[] durationArray = prelimSplit[3].split(":");
+                String temp = durationArray[1].trim();
+                String[] tempDuration = temp.split("\\s+");
+                time = time + tempDuration[0].trim() + "#" +
+                        tempDuration[1].trim().substring(0, tempDuration[1].length() - 1) + "#" + recurrence + "#";
             }
             return time;
         } catch (ParseException e) {

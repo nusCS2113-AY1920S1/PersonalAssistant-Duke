@@ -270,8 +270,7 @@ public class TaskList {
         int listCount = 1;
         int recurringCount = 0;
         for (Task output : tasks) {
-            if (output instanceof RecurringEvent || output instanceof RecurringDeadline
-                    || output instanceof RecurringToDo) {
+            if (output.hasRecurring()) {
                 System.out.println("\t" + listCount + ". " + output.toString());
                 recurringCount += 1;
             }

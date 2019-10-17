@@ -1,5 +1,5 @@
 import CustomExceptions.RoomShareException;
-import Model_Classes.Deadline;
+import Model_Classes.Assignment;
 import Operations.Parser;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -19,6 +19,6 @@ public class EventTest {
 
     @Test
     public void testStringConversion() {
-        assertEquals("[D][\u2718] homework (by: Sun Dec 22 18:00:00 SGT 2019)", new Deadline("homework", by).toString());
+        assertEquals("[D][\u2718] homework (by: Sun Dec 22 18:00:00 SGT 2019)", new Assignment("homework", by).toString());
     }
 }
