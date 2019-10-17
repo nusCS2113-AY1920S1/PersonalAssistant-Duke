@@ -26,9 +26,6 @@ public class ParserHelper {
         for (String s : tempInput) {
             if (s.length() >= 2) {
                 switch (s.substring(0, 2)) {
-                case "n/":
-                    memberDetails[0] = s.substring(2);
-                    break;
                 case "i/":
                     memberDetails[1] = s.substring(2);
                     break;
@@ -42,6 +39,19 @@ public class ParserHelper {
                     break;
                 }
             }
+        }
+        int indexOfNameFlag = input.indexOf("n/");
+        int indexOfPhoneFlag = input.indexOf("i/");
+        int indexOfEmailFlag = input.indexOf("e/");
+        int indexOfMemberIndexFlag = input.indexOf("x/");
+        if (indexOfPhoneFlag != -1) {
+            memberDetails[0] = input.substring(indexOfNameFlag + 2, indexOfPhoneFlag - 1);
+        } else if (indexOfEmailFlag != -1) {
+            memberDetails[0] = input.substring(indexOfNameFlag + 2, indexOfEmailFlag - 1);
+        } else if (indexOfMemberIndexFlag != -1) {
+            memberDetails[0] = input.substring(indexOfNameFlag + 2, indexOfMemberIndexFlag - 1);
+        } else {
+            memberDetails[0] = input.substring(2);
         }
         return memberDetails;
     }
