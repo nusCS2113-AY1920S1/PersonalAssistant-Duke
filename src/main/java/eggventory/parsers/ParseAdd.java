@@ -81,7 +81,7 @@ public class ParseAdd {
             break;
 
         case "stocktype":
-            addCommand = processAddStockType(inputString);
+            addCommand = processAddStockType(addInput[1]);
             break;
         default:
             throw new BadInputException("Unexpected value: " + addInput[0]);
