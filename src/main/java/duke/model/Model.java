@@ -265,7 +265,7 @@ public interface Model {
 
     /**
      * Clears the shopping list
-     * @param emptyList
+     * @param emptyList an empty list
      */
     void clearShoppingList(List<Item<Ingredient>> emptyList);
 

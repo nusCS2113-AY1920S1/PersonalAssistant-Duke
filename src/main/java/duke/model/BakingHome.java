@@ -1,6 +1,7 @@
 package duke.model;
 
 import duke.commons.core.index.Index;
+import duke.model.commons.Quantity;
 import duke.model.inventory.Ingredient;
 import duke.model.commons.Item;
 import duke.model.order.Order;
@@ -243,10 +244,12 @@ public class BakingHome implements ReadOnlyBakingHome {
 
                 if (currentAmount >= amount) {
                     Double newAmount = currentAmount - amount;
-                    item.getQuantity().setQuantity(newAmount);
+
+                    inventory.set(item, new Item<>(item.getItem(), new Quantity(newAmount)));
+
                     isDeducted = true;
                 } else {
-                    item.getQuantity().setQuantity(0.0);
+                    inventory.set(item, new Item<>(item.getItem(), new Quantity(0.0)));
                 }
                 break;
             }
