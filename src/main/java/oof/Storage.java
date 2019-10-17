@@ -21,6 +21,7 @@ public class Storage {
 
     private ArrayList<Task> arr = new ArrayList<>();
     private static final String PATH_MANUAL = "src/main/manual.txt";
+    private static final String PATH_THRESHOLD = "oof.config";
     private static final int INDEX_LABEL_END = 7;
     private static final int INDEX_DESCRIPTION = 0;
     private static final int INDEX_DATE = 1;
@@ -49,6 +50,39 @@ public class Storage {
         }
     }
 
+    /**
+     * Reads the threshold previously saved to hard disk.
+     *
+     * @return threshold    Integer of threshold.
+     * @throws OofException if file does not exist.
+     */
+    public int readThreshold() throws OofException {
+        try {
+            BufferedReader reader = new BufferedReader(new FileReader(PATH_THRESHOLD));
+            String line;
+            line = reader.readLine();
+            int threshold;
+            threshold = Integer.parseInt(line);
+            return threshold;
+        } catch (IOException e) {
+            throw new OofException("File Unavailable!");
+        }
+    }
+
+    /**
+     * Writes updated threshold to hard disk.
+     *
+     * @param updateThreshold The new threshold to be saved.
+     */
+    public void writeThreshold(String updateThreshold) {
+        try {
+            BufferedWriter out = new BufferedWriter(new FileWriter(PATH_THRESHOLD));
+            out.write(updateThreshold);
+            out.close();
+        } catch (IOException e) {
+            System.out.println(e + ", thus please try inputting other things.");
+        }
+    }
 
     /**
      * Writes Task objects to hard disk.
@@ -157,6 +191,6 @@ public class Storage {
      * @return true if the Task object has already been marked as done, false otherwise.
      */
     public boolean checkDone(String line) {
-        return line.charAt(4) == 'Y'; //u2713 is a tick emoticon
+        return line.charAt(4) == 'Y';
     }
 }

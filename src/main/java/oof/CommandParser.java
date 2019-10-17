@@ -1,21 +1,6 @@
 package oof;
 
-import oof.command.Command;
-import oof.command.AddToDoCommand;
-import oof.command.AddEventCommand;
-import oof.command.AddDeadlineCommand;
-import oof.command.CalendarCommand;
-import oof.command.CompleteCommand;
-import oof.command.DeleteCommand;
-import oof.command.ExitCommand;
-import oof.command.FindCommand;
-import oof.command.FreeCommand;
-import oof.command.HelpCommand;
-import oof.command.ListCommand;
-import oof.command.RecurringCommand;
-import oof.command.ScheduleCommand;
-import oof.command.SnoozeCommand;
-import oof.command.SummaryCommand;
+import oof.command.*;
 
 import oof.exception.OofException;
 import java.util.InputMismatchException;
@@ -124,6 +109,9 @@ public class CommandParser {
         case "free":
             line = line.replaceFirst("free", "").trim();
             return new FreeCommand(line);
+        case "threshold":
+            line = line.replaceFirst("threshold", "").trim();
+            return new ThresholdCommand(line);
         default:
             throw new OofException("OOPS!!! I'm sorry, but I don't know what that means :-(");
         }
