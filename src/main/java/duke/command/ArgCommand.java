@@ -64,5 +64,7 @@ public abstract class ArgCommand extends Command {
 
     public Map<String, String> getSwitchAliases() {
         return getSpec().getSwitchAliases();
-    };
+    }
+
+    ;
 }

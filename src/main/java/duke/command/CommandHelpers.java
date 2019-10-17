@@ -8,6 +8,13 @@ import java.util.Set;
  */
 public class CommandHelpers {
 
+    /**
+     * Given a switch name provided by the user, finds the switch it is referring to, or the closest match,
+     * allowing the user to disambiguate.
+     * @param word The name provided by the user, which may not match any switch.
+     * @param command The command that the word is supposed to be a switch for.
+     * @return The full name of the switch of the command that matches the word.
+     */
     public static String findSwitch(String word, ArgCommand command) {
         /* TODO: Using a HashMap matching roots to full switches, generate a
         TreeMap matching each possible substring to the corresponding switch.
@@ -32,6 +39,14 @@ public class CommandHelpers {
         //return disambiguate(word, suggestions, command.getSwitchMap().keySet());
     }
 
+    /**
+     * Provides the user with the choice between several possible options for a switch which does not match exactly.
+     *
+     * @param word The user-provided switch name.
+     * @param suggestions A List of the closest matching switch names.
+     * @param valid The set of valid switches for this command.
+     * @return
+     */
     public static String disambiguate(String word, ArrayList<String> suggestions, Set<String> valid) {
         StringBuilder builder = new StringBuilder("I didn't understand '").append(word)
                 .append("'. Here are the closest matches:").append(System.lineSeparator());

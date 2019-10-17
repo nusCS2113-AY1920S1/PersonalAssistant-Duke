@@ -17,11 +17,11 @@ public class PatientFindSpec extends ArgSpec {
                 new Switch("allergies", String.class, false, ArgLevel.REQUIRED, "a"),
                 new Switch("go", String.class, true, ArgLevel.NONE, "g"),
                 new Switch("height", Integer.class, true, ArgLevel.REQUIRED, "h"),
-                new Switch("weight", Integer.class,true , ArgLevel.REQUIRED, "w"),
+                new Switch("weight", Integer.class, true, ArgLevel.REQUIRED, "w"),
                 new Switch("age", Integer.class, true, ArgLevel.REQUIRED, "ag"),
-                new Switch("number", Integer.class,true, ArgLevel.REQUIRED, "num"),
-                new Switch("address", String.class,true, ArgLevel.REQUIRED, "ad"),
-                new Switch("history", String.class,true, ArgLevel.REQUIRED, "hi")
+                new Switch("number", Integer.class, true, ArgLevel.REQUIRED, "num"),
+                new Switch("address", String.class, true, ArgLevel.REQUIRED, "ad"),
+                new Switch("history", String.class, true, ArgLevel.REQUIRED, "hi")
         );
     }
 }

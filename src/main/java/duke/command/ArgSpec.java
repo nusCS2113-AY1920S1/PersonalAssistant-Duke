@@ -1,8 +1,5 @@
 package duke.command;
 
-import javafx.util.Pair;
-
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
@@ -33,19 +30,19 @@ public abstract class ArgSpec {
         Map<String, Switch> tempSwitchMap = new HashMap<String, Switch>();
         Map<String, String> tempSwitchAliases = new HashMap<String, String>();
 
-        for (Switch aSwitch : switches) {
+        for (Switch currSwitch : switches) {
             // create map of switch names to switch objects
-            String name = aSwitch.name;
-            tempSwitchMap.put(name, aSwitch);
+            String name = currSwitch.name;
+            tempSwitchMap.put(name, currSwitch);
 
             // extract prefixes to build lookup table
-            assert (name.startsWith(aSwitch.root));
-            for (int j = aSwitch.root.length(); j <= name.length(); ++j) {
+            assert (name.startsWith(currSwitch.root));
+            for (int j = currSwitch.root.length(); j <= name.length(); ++j) {
                 tempSwitchAliases.put(name.substring(0, j), name);
             }
 
             // extract remaining aliases
-            for (String alias : aSwitch.aliases) {
+            for (String alias : currSwitch.aliases) {
                 tempSwitchAliases.put(alias, name);
             }
         }
