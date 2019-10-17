@@ -26,7 +26,7 @@ public class Duke {
     private User user;
     private boolean isExit;
     private Storage roomStorage;
-    private RoomList rooms;
+    private RoomList roomList;
 
     /**
      * Constructor for control.Duke
@@ -40,7 +40,7 @@ public class Duke {
         roomStorage = new Storage(roomListFile);
         try {
             bookingList = new BookingList(bookingStorage.load());
-            rooms = new RoomList(roomStorage.load());
+            roomList = new RoomList(roomStorage.load());
 
         } catch (FileNotFoundException | DukeException e) {
             ui.showLoadingError();
@@ -58,6 +58,7 @@ public class Duke {
                 ui.showUserInput(fullCommand);
                 Command c = Parser.parse(fullCommand, user.getLoginStatus());
                 c.execute(bookingList, ui, bookingStorage, user);
+                c.execute(roomList, ui, roomStorage);
                 isExit = c.isExit();
             } catch (DukeException | IOException | ParseException e) {
                 ui.showError(e.getMessage());
@@ -78,6 +79,7 @@ public class Duke {
             ui.setOutput("");
             Command c = Parser.parse(input, user.getLoginStatus());
             c.execute(bookingList, ui, bookingStorage, user);
+            c.execute(roomList, ui, roomStorage);
             System.out.println(ui.getOutput());
             return ui.getOutput();
         } catch (DukeException | IOException | ParseException e) {

@@ -1,5 +1,6 @@
 package command;
 
+import control.Duke;
 import exception.DukeException;
 import storage.Storage;
 import room.AddRoom;
@@ -7,9 +8,13 @@ import room.RoomList;
 import ui.Ui;
 import java.io.IOException;
 
+
 public class AddRoomCommand extends Command {
-    String[] date;
-    String[] timeslot;
+    private String[] splitC;
+    private String roomcode;
+    private String[] datesplit;
+    private String date;
+    private String timeslot;
 
     public AddRoomCommand(String input, String[] splitStr) throws DukeException {
         if (splitStr.length == 1) {
@@ -18,21 +23,26 @@ public class AddRoomCommand extends Command {
                     + "DATE format: DD/MM/YYYY.\n"
                     + "TIMESLOT format: HH:MM AM/PM to HH:MM AM/PM.");
         }
-        String tempAR = input.substring(8);
-        if (!tempAR.contains(" /date ")) {
+        if (!input.contains(" /date ")) {
             throw new DukeException("Please enter correct date for the room.");
         }
-        if (!tempAR.contains(" /timeslot ")) {
+        if (!input.contains(" /timeslot ")) {
             throw new DukeException("Please enter a timeslot for the room.");
         }
-        this.date = tempAR.split(" /date ");
-        this.timeslot = date[1].split(" /timeslot ");
+        // addroom ROOMCODE /date DATE /timeslot TIMESLOT
+        String tempAR = input.substring(8);
+        splitC = tempAR.split(" /date ", 2); // splitC[] = {ROOMCODE, DATE /timeslot TIMESLOT}
+        this.roomcode = splitC[0]; // ROOMCODE
+        this.datesplit = splitC[1].split(" /timeslot ", 2); // datesplit[] == {DATE, TIMESLOT}
+        this.date = datesplit[0];
+        this.timeslot = datesplit[1];
     }
 
+    @Override
     public void execute(RoomList rooms, Ui ui, Storage storage) throws IOException {
-        AddRoom addroom = new AddRoom(date[0], timeslot[0], timeslot[1]);
+        AddRoom addroom = new AddRoom(roomcode, date, timeslot);
         rooms.add(addroom);
-        //storage.saveToFile(rooms);
+        storage.saveToFile(rooms);
         ui.addToOutput("Got it, I've added this task:\n"
             + addroom.toString() + "\n" + "Now you have " + rooms.size() + " room(s) in the list.");
     }

@@ -37,14 +37,14 @@ public class AddBookingCommand extends Command {
         if (!input.contains(" /to ")) {
             throw new DukeException("Please add the end time of your booking");
         }
-        String temp = input.substring(4);
-        splitC = temp.split(" /at ", 3);
+        String temp = input.substring(4); // description /at roomcode /at dd/mm/yyyy hhmm /to dd/mm/yyyy hhmm
+        splitC = temp.split(" /at ", 3); // splitC[] = {description, roomcode, dd/mm/yyyy hhmm /to dd/mm/yyyy hhmm)
         if (splitC.length < 3) {
             throw new DukeException("☹ OOPS!!! Please create your booking with the following format: description, roomcode, date and time");
         }
-        this.description = splitC[0];
-        this.room = splitC[1];
-        this.datetime = splitC[2].split(" /to ", 2);
+        this.description = splitC[0]; // description
+        this.room = splitC[1]; // roomcode
+        this.datetime = splitC[2].split(" /to ", 2); // datetime[] = {dd/mm/yyyy hhmm, dd/mm/yyyy hhmm}
         this.timeStart = datetime[0];
     }
 
