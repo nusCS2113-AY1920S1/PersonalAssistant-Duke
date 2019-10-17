@@ -105,6 +105,18 @@ public class EventList {
     }
 
     /**
+     * Edit an event's description, start time and end time in the list.
+     *
+     * @param eventIndex Index of the event to be edited.
+     * @param newDescription The new description.
+     */
+    public void editEvent(int eventIndex, String newDescription) {
+        Event tempEvent = this.eventArrayList.get(eventIndex);
+        tempEvent.editEvent(newDescription);
+        this.eventArrayList.set(eventIndex, tempEvent);
+    }
+
+    /**
      * Checks for a clash, then adds a new event if possible.
      *
      * @param event Model_Class.Event object to be added

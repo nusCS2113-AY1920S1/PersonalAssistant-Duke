@@ -1,7 +1,7 @@
 package Events.EventTypes;
 
 import Events.Formatting.EventDate;
-import java.util.Comparator;
+import Events.Storage.EventDetails;
 
 /**
  * Model_Class.Event object inherits Model_Class.Task.
@@ -13,6 +13,7 @@ public abstract class Event implements Comparable<Event>{
     protected EventDate startEventDate;
     protected EventDate endEventDate;
     protected char eventType;
+    protected String details;
 
     /**
      * Creates event with one date input (e.g todo)
@@ -46,6 +47,15 @@ public abstract class Event implements Comparable<Event>{
     }
 
     /**
+     * Edit event with new description and two date input
+     *
+     * @param newDescription new event description
+     */
+    public void editEvent(String newDescription) {
+        this.description = newDescription;
+    }
+
+    /**
      * Converts event type task to string format for printing.
      *
      * @return Formatted string representing the event, whether or not it is completed and its date.
@@ -68,6 +78,11 @@ public abstract class Event implements Comparable<Event>{
         return getDoneSymbol() + getType() + " " + getDescription() + " " +
                 getStartDate().getUserInputDateString() + " " + getEndDate().getUserInputDateString();
     }
+
+    public void addDetails(String detailsInput) {
+        EventDetails eventDetails = new EventDetails(detailsInput);
+        this.details = eventDetails.getEventDetails();
+    }
     
     public char getType() {
     	return eventType;
@@ -87,6 +102,10 @@ public abstract class Event implements Comparable<Event>{
 
     public String getDoneSymbol() {
         return (isDone) ? "✓" : "✗";
+    }
+
+    public String getDetails() {
+        return details;
     }
 
     public void markAsDone() {
