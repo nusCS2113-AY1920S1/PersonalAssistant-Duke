@@ -81,6 +81,15 @@ public class ViewCommand extends Command {
             } else {
                 throw new InputException("Please input correct format for view command.");
             }
+        // modules <moduleCode> <tab>
+        } else if (contentComponents.length == 3) {
+            if (contentComponents[0].equals("modules")) {
+                page = "modules";
+                moduleCode = contentComponents[1];
+                tab = contentComponents[2];
+            }
+        } else {
+            throw new InputException("Please input correct format for view command.");
         }
     }
 
