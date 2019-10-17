@@ -7,7 +7,7 @@ import dolla.task.Deadline;
 import dolla.task.Recurring;
 import dolla.task.DoAfter;
 import dolla.task.FixDuration;
-import parser.MainParser;
+import dolla.parser.MainParser;
 
 
 import java.io.BufferedReader;

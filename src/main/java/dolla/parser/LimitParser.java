@@ -1,9 +1,9 @@
-package parser;
+package dolla.parser;
 
 import dolla.command.Command;
 
 /**
- * This class handles all limit related parsing
+ * This class handles all limit related parsing.
  */
 public class LimitParser extends Parser {
 

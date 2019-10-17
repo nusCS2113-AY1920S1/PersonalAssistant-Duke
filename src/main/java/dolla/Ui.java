@@ -197,13 +197,14 @@ public class Ui {
     }
 
     /**
-     * Prints error message when taskNum is not associated to a task.
-     * @param taskNum the task number that is not associated with a task.
+     * Prints error message when LogNum is not associated to a task.
+     * @param taskNum The Log number that does not exist in the specific list.
+     * @param mode The mode where the list is to be accessed.
      */
-    public static void printNoTaskAssocError(int taskNum) {
+    public static void printNoLogAssocError(int index, String mode) {
         System.out.println(line);
-        System.out.println("\t" + taskNum + " is not associated to any task number.");
-        System.out.println("\tUse 'list' to check the tasks that are here first!");
+        System.out.println("\t" + mode + " number "+ index+1 + " doesn't seem to exist in my records!");
+        System.out.println("\tTry looking through the list of " + mode + "again.");
         System.out.println(line);
     }
 
@@ -235,6 +236,9 @@ public class Ui {
         System.out.println(line);
     }
 
+    /**
+     * Prints error message when the user did not properly specify the type of entry to add.
+     */
     public static void printInvalidEntryType() {
         System.out.println("\tPlease specify the type of entry you want to add: income or expense.");
     }
@@ -267,6 +271,10 @@ public class Ui {
         System.out.println(line);
     }
 
+    /**
+     * Prints error message when user wants to list down items in the specific list but it's empty.
+     * @param mode The mode that is used when the 'list' is input
+     */
     public static void printEmptyListError(String mode) {
         System.out.println(line);
         System.out.println("\tYou haven't added any " + mode + " yet!");
@@ -274,8 +282,13 @@ public class Ui {
     }
 
 
-   // public static void printList(String mode, LogList entryList) {
+    // public static void printList(String mode, LogList entryList) {
 
+    /**
+     * Prints out a list depending on the mode where 'list' is called.
+     * @param mode The mode that is used when 'list' is input.
+     * @param logList The LogList containing the data of the list to be printed.
+     */
     public static void printList(String mode, LogList logList) {
 
         System.out.println(line);
@@ -284,6 +297,20 @@ public class Ui {
             int listNum = i + 1;
             System.out.println("\t" + listNum + ". " + logList.get().get(i).getLogText());
         }
+        System.out.println(line);
+    }
+
+    public static void printInvalidModifyFormatError() {
+        System.out.println(line);
+        System.out.println("\tplease follow the format "
+                + "'modify [LIST NUM]"
+                + "");
+        System.out.println(line);
+    }
+
+    public static void printInitialModifyMsg() {
+        System.out.println(line);
+        System.out.println("\tWhat would you want to change this entry to?");
         System.out.println(line);
     }
 }
