@@ -6,7 +6,7 @@ import java.util.Scanner;
  * Represents the User Interface to be shown to the user.
  */
 public class Ui {
-    private String output;
+    private String output = null;
     private Scanner inputScanner;
 
     /**
@@ -97,13 +97,6 @@ public class Ui {
     }
 
     /**
-     * Prints a line to enclose message.
-     */
-    private void showLine() {
-        System.out.println("______________________________________________________________________________");
-    }
-
-    /**
      * Prints out a message enclosed between two lines.
      * @param text message to be printed
      */
@@ -116,13 +109,13 @@ public class Ui {
      * @param categoryName name of the new category
      */
     public void showNewCategoryMessage(String categoryName) {
-        print("Ok, I've added a new category named " + categoryName);
+        print("Ok, I've added a new category named " + categoryName + ".");
     }
 
     /**
      * Prompts the user to enter a category name.
      */
-    void showAddCategoryMessage() {
+    public void showAddCategoryMessage() {
         print("Please enter a name for your new category.");
     }
 
@@ -130,15 +123,18 @@ public class Ui {
      * Prints the list of categories.
      * @param categories list of current categories
      */
-    public void showCategoryList(String categories) {
-        print(categories);
+    void showCategoryList(String categories) {
+        print("These are your current categories:"
+                + "\n_______________________________________________"
+                + categories
+                + "\n_______________________________________________");
     }
 
     /**
      * Promts the user to enter a category index.
      */
-    public void showDeleteCategoryMessage() {
-        print("Please enter the index of the category you wish to delete.");
+    public void showEnterCategoryMessage() {
+        print("Please enter the index of a category.");
     }
 
     /**
@@ -146,6 +142,33 @@ public class Ui {
      * @param category name of the new category
      */
     public void showRemovedCategoryMessage(Category category) {
-        print("Ok, I've deleted the category named " + category.toString());
+        print("Ok, I've deleted the category named " + category.toString() + ".");
+    }
+
+    /**
+     * Promts the user to enter the number corresponding to a month.
+     */
+    public void showEnterMonthMessage() {
+        print("Please enter a month in the format MM.");
+    }
+
+    /**
+     * Shows the user his total spending for the month in a category.
+     * @param monthlyTotal total spending
+     * @param category category user wants to check
+     * @param month month that should be totaled
+     */
+    public void showMonthlyTotal(double monthlyTotal, Category category, int month) {
+        print("Your total spending in the month of " + month + " for " + category.getName()
+            + " is $" + monthlyTotal + ".");
+    }
+
+    /**
+     * Prompts the user to enter what to add.
+     */
+    void showAddMessage(String text) {
+        print("What do you wish to " + text + "?"
+                + "\ncategory"
+                + "\nexpenditure");
     }
 }

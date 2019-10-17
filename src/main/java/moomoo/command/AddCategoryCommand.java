@@ -10,11 +10,8 @@ import moomoo.task.Ui;
 
 public class AddCategoryCommand extends Command {
 
-    private String categoryName;
-
-    public AddCategoryCommand(String categoryName) {
+    public AddCategoryCommand() {
         super(false, "");
-        this.categoryName = categoryName;
     }
 
     @Override
@@ -22,6 +19,9 @@ public class AddCategoryCommand extends Command {
             throws MooMooException {
         super.execute(budget, categoryList, transList, ui, storage);
 
+        categoryList.list(ui);
+        ui.showAddCategoryMessage();
+        String categoryName = ui.readCommand();
         Category newCategory = new Category(categoryName);
         categoryList.add(newCategory);
         ui.showNewCategoryMessage(categoryName);
