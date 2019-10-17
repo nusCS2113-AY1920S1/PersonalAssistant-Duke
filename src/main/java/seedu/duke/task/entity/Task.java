@@ -158,7 +158,7 @@ public class Task {
     public static LocalDateTime convertNaturalDate(String parsedDay, String parsedTiming) {
         LocalDate date = LocalDate.now();
         LocalDateTime dateTime;
-        if (parsedTiming == null) { //if no timing is inputted, set time as 0000
+        if (parsedTiming == null || parsedTiming.isEmpty()) { //if no timing is inputted, set time as 0000
             dateTime = date.atStartOfDay();
         } else {
             LocalTime timing = LocalTime.parse(parsedTiming, DateTimeFormatter.ofPattern("HHmm"));

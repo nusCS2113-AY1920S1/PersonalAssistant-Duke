@@ -435,7 +435,7 @@ public class CommandParser {
             if (!timeString.contains("/")) {
                 timeString = timeString.substring(0, 1).toUpperCase() + timeString.substring(1).toLowerCase();
                 if (timeString.contains(" ")) {
-                    String[] tokens = timeString.split("\\s");
+                    String[] tokens = timeString.split("\\s", 3);
                     day = tokens[0];
                     timing = tokens[1];
                 } else {
