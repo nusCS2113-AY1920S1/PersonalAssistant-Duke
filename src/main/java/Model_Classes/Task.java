@@ -1,6 +1,7 @@
 package Model_Classes;
 
 import Enums.Priority;
+import Enums.RecurrenceScheduleType;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -15,6 +16,8 @@ public class Task{
     private String created;
     private Priority priority;
     private String user;
+    private RecurrenceScheduleType recurrenceSchedule;
+    private boolean hasRecurring;
 
     /**
      * Constructor for the task object. takes in the description of the task
@@ -23,6 +26,7 @@ public class Task{
     public Task(String description) {
         this.description = description;
         this.isDone = false;
+        this.hasRecurring = false;
         DateTimeFormatter dateTimeFormatterNow = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
         LocalDateTime now = LocalDateTime.now();
         this.created = now.format(dateTimeFormatterNow);
@@ -71,6 +75,10 @@ public class Task{
      * Returns String of the time Task was created
      * @return time the task was created
      */
+
+    public void setUser(String user) {
+        this.user = user;
+    }
     public String getCreated() {
         return this.created;
     }
@@ -107,15 +115,8 @@ public class Task{
     /**
      * Sets the task to be done
      */
-    public void setDone() {
-        isDone = true;
-    }
-
-    /**
-     * Sets the task to be not done
-     */
-    public void setNotDone() {
-        isDone = false;
+    public void setDone(boolean done) {
+        isDone = done;
     }
 
     /**
@@ -174,4 +175,20 @@ public class Task{
         return;
     }
 
+    public RecurrenceScheduleType getRecurrenceSchedule() {
+        return recurrenceSchedule;
+    }
+
+    public void setRecurrenceSchedule(RecurrenceScheduleType recurrenceSchedule) {
+        this.recurrenceSchedule = recurrenceSchedule;
+        if (recurrenceSchedule.equals(RecurrenceScheduleType.none)) {
+            this.hasRecurring = false;
+        } else {
+            this.hasRecurring = true;
+        }
+    }
+
+    public boolean hasRecurring() {
+        return hasRecurring;
+    }
 }
