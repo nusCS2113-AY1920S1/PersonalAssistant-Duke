@@ -2,10 +2,10 @@ package moomoo.command;
 
 import moomoo.task.Budget;
 import moomoo.task.CategoryList;
-import moomoo.task.TransactionList;
 import moomoo.task.Ui;
 import moomoo.task.Storage;
 import moomoo.task.MooMooException;
+import moomoo.task.Category;
 
 /**
  * Represents the command to exit the program.
@@ -22,7 +22,7 @@ public class ExitCommand extends Command {
     }
 
     @Override
-    public void execute(Budget budget, CategoryList catList, TransactionList transList, Ui ui, Storage storage)
+    public void execute(Budget budget, CategoryList catList, Category category, Ui ui, Storage storage)
             throws MooMooException {
         ui.showGoodbye();
     }
