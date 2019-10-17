@@ -71,9 +71,9 @@ checkstyle {
     ignoreFailures = true
 }
 
-/*shadowJar {
+shadowJar {
     archiveBaseName = "cube"
     archiveVersion = "0.1.2"
     archiveClassifier = null
     archiveAppendix = null
-}*/
+}
