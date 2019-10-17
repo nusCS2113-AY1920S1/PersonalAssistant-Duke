@@ -3,6 +3,7 @@ package duke.core;
 import duke.patient.Patient;
 import duke.relation.PatientTask;
 import duke.task.Task;
+
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -11,7 +12,7 @@ import java.util.Scanner;
  */
 public class Ui {
     /**
-     * weifeng
+     * 
      * A Scanner to read user input.
      */
     private Scanner scanner;
@@ -257,10 +258,10 @@ public class Ui {
 
     public void patientTaskFound(Patient patient, ArrayList<PatientTask> patientTask, ArrayList<Task> tasks) {
         System.out.println("The tasks of patient " + patient.getID() + " " + patient.getName() + " is found : \n");
-        for (int i = 0; i < patientTask.size(); i++){
+        for (int i = 0; i < patientTask.size(); i++) {
             showLine();
-            System.out.println( tasks.get(i).getID() + ". " + tasks.get(i).getDescription() +"\n");
-            System.out.println( patientTask.get(i).toString());
+            System.out.println(tasks.get(i).getID() + ". " + tasks.get(i).getDescription() + "\n");
+            System.out.println(patientTask.get(i).toString());
             showLine();
         }
     }
