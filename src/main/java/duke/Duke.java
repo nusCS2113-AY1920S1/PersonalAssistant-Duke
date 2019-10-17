@@ -1,8 +1,16 @@
 package duke;
 
 import duke.command.logic.ModuleCommand;
-import duke.util.PlannerUi;
 
+import duke.util.argparse4j.Argparse4jWrapper;
+import duke.util.CcaList;
+import duke.util.JsonWrapper;
+import duke.util.ParserWrapper;
+import duke.util.PlannerUi;
+import duke.util.Reminder;
+import duke.util.Storage;
+import duke.util.TaskList;
+import duke.util.Ui;
 import java.util.HashMap;
 
 import duke.command.Command;
@@ -11,12 +19,6 @@ import duke.exceptions.ModException;
 import duke.exceptions.planner.ModFailedJsonException;
 import duke.exceptions.ModTimeIntervalTooCloseException;
 import duke.modules.data.ModuleInfoDetailed;
-import duke.util.JsonWrapper;
-import duke.util.ParserWrapper;
-import duke.util.Storage;
-import duke.util.TaskList;
-import duke.util.Ui;
-import duke.util.Reminder;
 import duke.util.commons.ModuleTasksList;
 
 public class Duke {
@@ -29,7 +31,9 @@ public class Duke {
     private Ui ui;
     private TaskList tasks;
     private ModuleTasksList modTasks;
+    private CcaList ccas;
     private ParserWrapper parser;
+    private Argparse4jWrapper argparser;
     private Reminder reminder;
     private JsonWrapper jsonWrapper;
     private PlannerUi modUi;
@@ -44,8 +48,10 @@ public class Duke {
         modUi = new PlannerUi();
         tasks = new TaskList(store);
         parser = new ParserWrapper();
+        argparser = new Argparse4jWrapper();
         jsonWrapper = new JsonWrapper();
         modTasks = new ModuleTasksList();
+        ccas = new CcaList();
     }
 
     private void modSetup() {
@@ -60,17 +66,34 @@ public class Duke {
         }
     }
 
+    private void modRunArgparse4j() {
+        modUi.helloMsg();
+        modSetup();
+        while (true) {
+            try {
+                String fullCommand = modUi.readCommand();
+                modUi.showLine();
+                ModuleCommand c = argparser.parseCommand(fullCommand);
+                if (c != null) {
+                    c.execute(modDetailedMap, modTasks, ccas, modUi, store, jsonWrapper);
+                }
+            } catch (ModException e) {
+                System.out.println(e.getMessage());
+            } finally {
+                modUi.showLine();
+            }
+        }
+    }
+
     private void modRun() {
         modUi.helloMsg();
         modSetup();
-        boolean isExit = false;
-        while (!isExit) {
+        while (true) {
             try {
                 String fullCommand = modUi.readCommand();
                 modUi.showLine();
                 ModuleCommand c = parser.parse(fullCommand, false);
-                c.execute(modDetailedMap, modTasks, modUi, store, jsonWrapper);
-                isExit = c.isExit();
+                c.execute(modDetailedMap, modTasks, ccas, modUi, store, jsonWrapper);
             } catch (ModException e) {
                 System.out.println(e.getMessage());
             } finally {
@@ -132,5 +155,6 @@ public class Duke {
         Duke duke = new Duke();
         //duke.run();
         duke.modRun();
+        //duke.modRunArgparse4j();
     }
 }

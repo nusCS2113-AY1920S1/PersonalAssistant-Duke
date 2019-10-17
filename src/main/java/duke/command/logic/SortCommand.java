@@ -3,6 +3,7 @@ package duke.command.logic;
 import duke.exceptions.ModException;
 import duke.modules.data.ModuleInfoDetailed;
 import duke.modules.data.ModuleTask;
+import duke.util.CcaList;
 import duke.util.JsonWrapper;
 import duke.util.PlannerUi;
 import duke.util.Storage;
@@ -20,6 +21,7 @@ public class SortCommand extends ModuleCommand {
     @Override
     public void execute(HashMap<String, ModuleInfoDetailed> detailedMap,
                         ModuleTasksList tasks,
+                        CcaList ccas,
                         PlannerUi plannerUi,
                         Storage store,
                         JsonWrapper jsonWrapper) throws ModException {
@@ -28,10 +30,5 @@ public class SortCommand extends ModuleCommand {
         hold.sort(Comparator.comparing(ModuleTask::getModuleCode));
         //hold.sort(Comparator.comparing(ModuleTask::getModuleCredit));
         plannerUi.showSortedModules(hold);
-    }
-
-    @Override
-    public boolean isExit() {
-        return false;
     }
 }
