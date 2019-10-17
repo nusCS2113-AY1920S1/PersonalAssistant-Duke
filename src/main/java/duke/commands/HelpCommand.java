@@ -32,15 +32,10 @@ public class HelpCommand extends Command<SongList> {
      * @throws DukeException if an exception occurs in the parsing of the message or in IO
      */
     public String execute(SongList songList, Ui ui, Storage storage) throws DukeException {
-        String helpMessage;
-        helpMessage = message.substring(5).trim();
-        if (message.isBlank()) {
-            return ui.formatHelp(songList.getSongList());
-        } else {
-            ArrayList<Song> helpList = new ArrayList<>();
-            helpList = songList.findSong(helpMessage);
-            return ui.formatHelp(helpList);
-        }
+        if (message.length() == 4)
+            return ui.formatHelp();
+        String helpMessage = message.substring(4).trim();
+        return ui.formatHelp(helpMessage);
     }
 
     /**

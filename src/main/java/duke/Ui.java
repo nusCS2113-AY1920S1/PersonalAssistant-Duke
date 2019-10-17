@@ -1,5 +1,7 @@
 package duke;
 
+import duke.commands.Command;
+import duke.commands.CommandSyntaxMessage;
 import duke.components.Bar;
 import duke.components.Song;
 import duke.tasks.RecurringTask;
@@ -229,23 +231,19 @@ public class Ui {
     /**
      * Returns a String formatted for display that shows all the elements in the command list
      * due to the help command.
-     * @param list the command list
+     * @param helpMessage the helpMessage user inputs
      * @return the formatted String to be displayed
      */
-    public String formatHelp(ArrayList<Song> list) {
-        StringBuilder result = new StringBuilder();
-        for (int i = 0; i < list.size(); i++) {
-            result.append(i + 1)
-                    .append(". ")
-                    .append(list.get(i).toString());
-            if (i != list.size() - 1) {
-                result.append("\n");
-            }
-        }
-        if (list.size() == 0) {
-            result.append("The help list for that command is empty!");
-        }
-        return wrap(result.toString());
+    public String formatHelp(String helpMessage) throws DukeException {
+        return CommandSyntaxMessage.getMessage(helpMessage);
+    }
+
+    /**
+     * Returns a String that contains all the commands with their command name and format
+     * @return the formatted command syntax
+     */
+    public String formatHelp() {
+        return CommandSyntaxMessage.getMessage();
     }
 
     /**
@@ -351,16 +349,16 @@ public class Ui {
                     + " to the end of the track";
         } else if (mode == 2) {
             result = "Got it. Successfully copied verse "
-                     + verseName
-                     + " to "
-                     + pasteStartNum;
+                    + verseName
+                    + " to "
+                    + pasteStartNum;
         } else if (mode == 3) {
             result = "Got it. Successfully copied bars from "
-                     + copyStartNum
-                     + " to "
-                     + copyEndNum
-                     + " and inserted them to "
-                     + pasteStartNum;
+                    + copyStartNum
+                    + " to "
+                    + copyEndNum
+                    + " and inserted them to "
+                    + pasteStartNum;
         } else {
             result = "Nothing is done";
         }
