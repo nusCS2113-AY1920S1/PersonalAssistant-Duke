@@ -60,4 +60,8 @@ public class Entry extends Log{
                 + Time.dateTimeToString(date);
     }
 
+    @Override
+    public String getDescription() {
+        return description;
+    }
 }

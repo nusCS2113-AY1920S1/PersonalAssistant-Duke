@@ -49,7 +49,7 @@ public class Ui {
      */
     public static void printMsg(String... s) {
         final StringBuilder messageAccumulator = new StringBuilder();
-        for (String str: s) {
+        for (String str : s) {
             messageAccumulator.append(str);
         }
         System.out.println(line);
@@ -168,6 +168,7 @@ public class Ui {
 
     /**
      * Prints the snoozed task with new date after successfully snoozing.
+     *
      * @param snoozedTask task that was snoozed
      */
     public static void printSnoozedTask(Task snoozedTask) {
@@ -197,18 +198,20 @@ public class Ui {
 
     /**
      * Prints error message when LogNum is not associated to a task.
+     *
      * @param index The Log number that does not exist in the specific list.
-     * @param mode The mode where the list is to be accessed.
+     * @param mode  The mode where the list is to be accessed.
      */
     public static void printNoLogAssocError(int index, String mode) {
         System.out.println(line);
-        System.out.println("\t" + mode + " number "+ index+1 + " doesn't seem to exist in my records!");
+        System.out.println("\t" + mode + " number " + index + 1 + " doesn't seem to exist in my records!");
         System.out.println("\tTry looking through the list of " + mode + "again.");
         System.out.println(line);
     }
 
     /**
      * Prints error message when string parsed is not an integer.
+     *
      * @param str to be parsed to an integer
      */
     public static void printInvalidNumberError(String str) {
@@ -262,6 +265,7 @@ public class Ui {
 
     /**
      * Prints Dolla's new mode after being updated.
+     *
      * @param newMode The new mode to be switched.
      */
     public static void printModeUpdated(String newMode) {
@@ -272,6 +276,7 @@ public class Ui {
 
     /**
      * Prints error message when user wants to list down items in the specific list but it's empty.
+     *
      * @param mode The mode that is used when the 'list' is input
      */
     public static void printEmptyListError(String mode) {
@@ -284,7 +289,8 @@ public class Ui {
 
     /**
      * Prints out a list depending on the mode where 'list' is called.
-     * @param mode The mode that is used when 'list' is input.
+     *
+     * @param mode    The mode that is used when 'list' is input.
      * @param logList The LogList containing the data of the list to be printed.
      */
     public static void printList(String mode, LogList logList) {
@@ -298,33 +304,47 @@ public class Ui {
         System.out.println(line);
     }
 
-    public static void printSortedList(ArrayList<Log> list,String type) {
-        System.out.println(line);
-        if (type.equals("date")) {
-            System.out.println("sorting date.........");
-        } else if (type.equals("description")) {
-            System.out.println("sorting description.........");
-        } else if (type.equals("name")) {
-            System.out.println("sorting name.........");
-        }
+    public static void printSearch(String mode, LogList logList, String searchContent) {
 
-        for (int i = 0; i < list.size(); i++) {
-            int listNum = i + 1;
-            System.out.println("\t" + listNum + ". " + list.get(i).getLogText());
+        System.out.println(line);
+        System.out.println("\tHere are the matching results found in " + mode);
+        int listNum = 0;
+        for (int i = 0; i < logList.size(); i++) {
+            String temp = logList.get().get(i).getDescription();
+            if (temp.contains(searchContent)) {
+                listNum += 1;
+                System.out.println("\t" + listNum + ". " + logList.get().get(i).getLogText());
+            }
         }
     }
 
-    public static void printInvalidModifyFormatError() {
-        System.out.println(line);
-        System.out.println("\tplease follow the format "
-                + "'modify [LIST NUM]"
-                + "");
-        System.out.println(line);
-    }
+        public static void printSortedList(ArrayList<Log> list, String type){
+            System.out.println(line);
+            if (type.equals("date")) {
+                System.out.println("sorting date.........");
+            } else if (type.equals("description")) {
+                System.out.println("sorting description.........");
+            } else if (type.equals("name")) {
+                System.out.println("sorting name.........");
+            }
 
-    public static void printInitialModifyMsg() {
-        System.out.println(line);
-        System.out.println("\tWhat would you want to change this entry to?");
-        System.out.println(line);
-    }
+            for (int i = 0; i < list.size(); i++) {
+                int listNum = i + 1;
+                System.out.println("\t" + listNum + ". " + list.get(i).getLogText());
+            }
+        }
+
+        public static void printInvalidModifyFormatError() {
+            System.out.println(line);
+            System.out.println("\tplease follow the format "
+                    + "'modify [LIST NUM]"
+                    + "");
+            System.out.println(line);
+        }
+
+        public static void printInitialModifyMsg() {
+            System.out.println(line);
+            System.out.println("\tWhat would you want to change this entry to?");
+            System.out.println(line);
+        }
 }
