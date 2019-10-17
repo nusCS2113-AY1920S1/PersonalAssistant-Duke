@@ -89,7 +89,7 @@ public class Ui {
      * @param payee the name of the payee to whom Payment was being made to
      * @param size the number of payments in the record for this Payee after deletion
      */
-    public void printDeleteMessage(String payee, Payments payment, int size) {
+    public void printDeletePaymentMessage(String payee, Payments payment, int size) {
         System.out.print(line + "     Noted. I've removed this payment: \n");
         System.out.println("\t" + "Payee: " + payee);
         System.out.println("\t" + "Item: " + payment.item);

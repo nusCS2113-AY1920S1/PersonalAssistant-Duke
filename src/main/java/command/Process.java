@@ -87,17 +87,17 @@ public class Process {
 
     /**
      * Processes the delete command.
-     * INPUT FORMAT: delete p/payee i/item
+     * INPUT FORMAT: delete payment p/payee i/item
      * @param input Input from the user.
      * @param managermap HashMap containing all Payees and their Payments.
      * @param ui Ui that interacts with the user.
      */
-    public void delete(String input, HashMap<String, Payee> managermap, Ui ui) {
-        String[] arr = input.split(" ", 2);
+    public void deletePayment(String input, HashMap<String, Payee> managermap, Ui ui) {
+        String[] arr = input.split("payment ", 2);
         String[] split = arr[1].split("p/|i/");
         split = cleanStrStr(split);
         Payments deleted = PaymentManager.deletePayments(split[1], split[2], managermap);
-        ui.printDeleteMessage(split[1], deleted, managermap.get(split[1]).payments.size());
+        ui.printDeletePaymentMessage(split[1], deleted, managermap.get(split[1]).payments.size());
     }
 
     /**

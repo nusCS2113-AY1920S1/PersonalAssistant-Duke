@@ -53,8 +53,8 @@ public class Parser {
             } else if (instr.isDoAfter(input)) {
                 process.doAfter(input, tasklist, ui);
                 Storage.save(tasklist.returnArrayList());
-            } else if (instr.isDelete(input)) {
-                process.delete(input, managermap, ui);
+            } else if (instr.isDeletePayment(input)) {
+                process.deletePayment(input, managermap, ui);
                 //storage.save(tasklist.returnArrayList());
 
             } else if (instr.isFind(input)) {

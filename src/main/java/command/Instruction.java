@@ -22,8 +22,8 @@ public class Instruction {
         return input.startsWith("DoAfter");
     }
 
-    public boolean isDelete(String input) {
-        return input.startsWith("delete");
+    public boolean isDeletePayment(String input) {
+        return input.startsWith("delete payment");
     }
 
     public boolean isFind(String input) {
