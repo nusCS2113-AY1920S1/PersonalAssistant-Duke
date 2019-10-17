@@ -266,25 +266,7 @@ public class ModelManager implements Model {
     @Override
     public boolean deductIngredient(Ingredient ingredient, double amount) {
         requireAllNonNull(ingredient, amount);
-        List<Item<Ingredient>> inventoryList = bakingHome.getInventoryList();
-        boolean isDeducted = false;
-
-        for (Item<Ingredient> item : inventoryList) {
-            if (item.getItem().getName().equals(ingredient.getName())) {
-                Double currentAmount = item.getQuantity().getNumber();
-
-                if (currentAmount >= amount) {
-                    Double newAmount = currentAmount - amount;
-                    item.getQuantity().setQuantity(newAmount);
-                    isDeducted = true;
-                }
-                else {
-                    item.getQuantity().setQuantity(0.0);
-                }
-                break;
-            }
-        }
-        return isDeducted;
+        return deductIngredient(ingredient, amount);
     }
 
     @Override
