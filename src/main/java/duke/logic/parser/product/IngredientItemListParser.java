@@ -70,15 +70,6 @@ public class IngredientItemListParser {
         return new Item<Ingredient>(newIngredient, quantity);
     }
 
-
-    private static Item<Ingredient> constructIngredientItem(Map.Entry<String, String> entry) {
-        //Todo: Implement search
-        if (false) {
-            return null;
-        }
-        return constructNewIngredientItem(entry);
-    }
-
     public static IngredientItemList getIngredientsInInput(String input) {
         IngredientItemList ingredientItemList = new IngredientItemList();
         Map<String, String> ingredientAndPortion = getIngredientPortion(input);

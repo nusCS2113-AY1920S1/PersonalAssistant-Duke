@@ -1,9 +1,6 @@
 package duke.logic.parser.product;
 
-import duke.logic.command.exceptions.CommandException;
 import duke.logic.command.product.AddProductCommand;
-import duke.logic.command.product.ProductCommandUtil;
-import duke.logic.command.product.ProductDescriptor;
 import duke.logic.parser.commons.ArgumentMultimap;
 import duke.logic.parser.commons.ArgumentTokenizer;
 import duke.logic.parser.commons.Parser;
@@ -11,16 +8,13 @@ import duke.logic.parser.exceptions.ParseException;
 import duke.model.product.IngredientItemList;
 import duke.model.product.Product;
 
-import java.util.Dictionary;
-import java.util.Hashtable;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
-import static duke.logic.parser.commons.CliSyntax.*;
+import static duke.logic.parser.commons.CliSyntax.PREFIX_PRODUCT_NAME;
+import static duke.logic.parser.commons.CliSyntax.PREFIX_PRODUCT_INGREDIENT;
+import static duke.logic.parser.commons.CliSyntax.PREFIX_PRODUCT_INGREDIENT_COST;
+import static duke.logic.parser.commons.CliSyntax.PREFIX_PRODUCT_RETAIL_PRICE;
+import static duke.logic.parser.commons.CliSyntax.PREFIX_CUSTOMER_NAME;
 import static duke.logic.parser.commons.CliSyntax.PREFIX_PRODUCT_STATUS;
 import static duke.logic.parser.product.IngredientItemListParser.getIngredientsInInput;
-import static duke.logic.parser.product.ProductParserUtil.createProductDescriptor;
-
 
 public class AddProductCommandParser implements Parser<AddProductCommand> {
 
@@ -92,9 +86,4 @@ public class AddProductCommandParser implements Parser<AddProductCommand> {
         }
         return product;
     }
-
-    /** Validate Ingredients */
-
-
-
 }
