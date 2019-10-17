@@ -235,6 +235,7 @@ public class Parser {
 
     private void writeElement() {
         assert (currSwitchName != null || currCommand.getArg() == null);
+        // if ambiguous whether argument is for command or switch, favour switch
         if (currSwitchName != null) {
             switchVals.put(currSwitchName, elementBuilder.toString());
             currSwitchName = null;
@@ -245,19 +246,23 @@ public class Parser {
         state = EMPTY;
     }
 
-    // TODO: this function is going to become very big with autocorrect
     private void addSwitch() throws DukeHelpException {
-        String newSwitch = elementBuilder.toString();
-        if (!switchMap.containsKey(newSwitch)) {
-            // TODO: call helpers
-            throw new DukeHelpException("I don't know what this switch is: " + newSwitch, currCommand);
-        } else if (switchVals.containsKey(newSwitch)) {
-            throw new DukeHelpException("Multiple values supplied for switch: " + newSwitch, currCommand);
+        String newSwitchName = elementBuilder.toString();
+        if (!switchMap.containsKey(newSwitchName)) {
+            String findSwitchName = CommandHelpers.findSwitch(newSwitchName, currCommand);
+            if (findSwitchName == null) {
+                throw new DukeHelpException("I don't know what this switch is: " + newSwitchName, currCommand);
+            }
+            newSwitchName = findSwitchName;
+        }
+
+        if (switchVals.containsKey(newSwitchName)) {
+            throw new DukeHelpException("Multiple values supplied for switch: " + newSwitchName, currCommand);
         } else {
-            if (switchMap.get(newSwitch).argLevel != ArgLevel.NONE) {
-                currSwitchName = newSwitch;
+            if (switchMap.get(newSwitchName).argLevel != ArgLevel.NONE) {
+                currSwitchName = newSwitchName;
             } else {
-                switchVals.put(newSwitch, null);
+                switchVals.put(newSwitchName, null);
             }
             elementBuilder.setLength(0); //clear elementBuilder
         }

@@ -27,9 +27,9 @@ public class CommandHelpers {
             return corrStr;
         }
 
-
         ArrayList<String> suggestions = new ArrayList<String>();
-        return disambiguate(word, suggestions, command.getSwitchMap().keySet());
+        return null;
+        //return disambiguate(word, suggestions, command.getSwitchMap().keySet());
     }
 
     public static String disambiguate(String word, ArrayList<String> suggestions, Set<String> valid) {
