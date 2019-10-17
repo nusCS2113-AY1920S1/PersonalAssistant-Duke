@@ -6,6 +6,7 @@ import oof.Ui;
 import oof.exception.OofException;
 import oof.task.Deadline;
 import oof.task.Event;
+import oof.task.Task;
 import oof.task.Todo;
 
 import java.time.LocalDateTime;
@@ -32,23 +33,11 @@ public class SummaryCommand extends Command {
      */
     private TaskList getSummary(String input, TaskList arr) {
         for (int i = 0; i < arr.getSize(); i++) {
-            if (arr.getTask(i) instanceof Todo) {
-                Todo t = (Todo) arr.getTask(i);
-                String date = t.getOn().substring(0, 10);
+            Task t = arr.getTask(i);
+            if (isValid(t)) {
+                String date = getDate(t);
                 if (input.equals(date)) {
                     summary.addTask(t);
-                }
-            } else if (arr.getTask(i) instanceof Deadline) {
-                Deadline d = (Deadline) arr.getTask(i);
-                String date = d.getBy().substring(0, 10);
-                if (input.equals(date)) {
-                    summary.addTask(d);
-                }
-            } else if (arr.getTask(i) instanceof Event) {
-                Event e = (Event) arr.getTask(i);
-                String date = e.getStartTiming().substring(0, 10);
-                if (input.equals(date)) {
-                    summary.addTask(e);
                 }
             }
         }
@@ -56,8 +45,33 @@ public class SummaryCommand extends Command {
     }
 
     /**
+     * Check Task type.
+     * @param task      Task object.
+     * @return          boolean if Task object is of a valid Task type or not.
+     */
+    private boolean isValid(Task task) {
+        return task instanceof Todo || task instanceof Deadline || task instanceof Event;
+    }
+
+    /**
+     * Get Date from Task object.
+     * @param task      Task object.
+     * @return          String containing date from Task object.
+     */
+    private String getDate(Task task) {
+        if (task instanceof Todo) {
+            return ((Todo) task).getOn().substring(0, 10);
+        } else if (task instanceof Deadline) {
+            return ((Deadline) task).getBy().substring(0, 10);
+        } else if (task instanceof Event) {
+            return ((Event) task).getStartTiming().substring(0, 10);
+        }
+        return null;
+    }
+
+    /**
      * Get the date of tomorrow in format DD-MM-YYYY.
-     * @return date     String containing formatted date of tomorrow
+     * @return date     String containing formatted date of tomorrow.
      */
     private String getTomorrowDate() {
         LocalDateTime ldt = LocalDateTime.now().plusDays(1);
