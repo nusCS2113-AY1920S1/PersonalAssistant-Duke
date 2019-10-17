@@ -8,6 +8,8 @@ import moomoo.command.DeleteCategoryCommand;
 import moomoo.command.ExitCommand;
 import moomoo.command.GraphCommand;
 import moomoo.command.ListCategoryCommand;
+import moomoo.command.ScheduleCommand;
+import moomoo.command.DeleteCategoryCommand;
 import moomoo.command.TotalCommand;
 
 import java.util.NoSuchElementException;
@@ -31,6 +33,8 @@ public class Parser {
         switch (commandType) {
         case ("bye"): return new ExitCommand(true, "");
         case ("budget"): return new BudgetCommand(false, input);
+        case ("categories"): return new ListCategoryCommand(false, "");
+        case ("schedule"): return new ScheduleCommand(false, input);
         case ("add"): return parseAdd(scanner, ui);
         case ("delete"): return parseDelete(scanner, ui);
         case ("list"): return parseList(scanner, ui);
