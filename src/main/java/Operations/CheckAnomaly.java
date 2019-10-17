@@ -65,7 +65,15 @@ public class CheckAnomaly {
             if( curr.get(i) instanceof Event && ((Event) curr.get(i)).checkDate().equals(at) ) {
                 return true;
             } else if( curr.get(i) instanceof FixedDuration ) {
-                return true;
+                Date listDate = ((FixedDuration) curr.get(i)).checkDate();
+                if( listDate.getYear() == at.getYear() && listDate.getMonth() == at.getMonth() && listDate.getDay() == at.getDay() ) {
+                    double checkTime = listDate.getTime();
+                    double currTime = at.getTime();
+                    double listDuration = ((FixedDuration) curr.get(i)).getDuration();
+                    if(checkTime <= currTime + listDuration && checkTime >= currTime || checkTime + listDuration <= currTime + listDuration && checkTime + listDuration >= currTime) {
+                        return true;
+                    }
+                }
             }
         }
         return false;

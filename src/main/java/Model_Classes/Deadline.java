@@ -1,7 +1,6 @@
 package Model_Classes;
 
 import Enums.Priority;
-
 import java.util.Date;
 
 /**
