@@ -340,28 +340,24 @@ public class Process {
     }
 
     /**
-     * Processes the payee add command, saves a new payee inside managermap.
-     * INPUT FORMAT: payment add p/payee i/item c/111 v/invoice
+     * Processes the add payee command, saves a new payee inside managermap.
+     * INPUT FORMAT: add payee p/payee e/email m/matricNum ph/phoneNum
      * @param input Input from the user.
      * @param managermap HashMap containing all Payees and their Payments.
      * @param ui Ui that interacts with the user.
      */
-    public void payee(String input, HashMap<String, Payee> managermap, Ui ui) {
+    public void addPayee(String input, HashMap<String, Payee> managermap, Ui ui) {
         try {
-            String[] splitspace = input.split(" ", 2);
-            if (splitspace[1].startsWith("add")) {
-                String[] splitpayments = splitspace[1].split("p/|e/|m/|ph/");
-                splitpayments = cleanStrStr(splitpayments);
-                String payeename = splitpayments[1];
-                String email = splitpayments[2];
-                String matricNum = splitpayments[3];
-                String phoneNum = splitpayments[4];
-                Payee payee = PaymentManager.addPayee(payeename, email, matricNum, phoneNum, managermap);
-                ui.printAddPayeeMessage(splitpayments[1], payee);
-            }
-            //TODO --> delete payee
-            //TODO --> edit payee
-
+            String[] splitspace = input.split("payee ", 2);
+            String[] splitpayments = splitspace[1].split("p/|e/|m/|ph/");
+            splitpayments = cleanStrStr(splitpayments);
+            String payeename = splitpayments[1];
+            String email = splitpayments[2];
+            String matricNum = splitpayments[3];
+            String phoneNum = splitpayments[4];
+            Payee payee = PaymentManager.addPayee(payeename, email, matricNum, phoneNum, managermap);
+            int payeesize = managermap.size();
+            ui.printAddPayeeMessage(splitpayments[1], payee, payeesize);
         } catch (ArrayIndexOutOfBoundsException e) {
             ui.exceptionMessage("     ☹ OOPS!!! Please input the correct command format (refer to user guide)");
         } catch (NullPointerException e) {

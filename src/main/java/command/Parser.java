@@ -55,7 +55,7 @@ public class Parser {
                 Storage.save(tasklist.returnArrayList());
             } else if (instr.isDelete(input)) {
                 process.delete(input, managermap, ui);
-                storage.save(tasklist.returnArrayList());
+                //storage.save(tasklist.returnArrayList());
 
             } else if (instr.isFind(input)) {
                 // process.find(input, tasklist, ui);
@@ -84,8 +84,8 @@ public class Parser {
                 process.addPayment(input, managermap, ui);
             } else if (instr.isgetpayee(input)) {
                 process.findPayee(input, ui, managermap);
-            } else if (instr.isPayee(input)) {
-                process.payee(input, managermap, ui);
+            } else if (instr.isAddPayee(input)) {
+                process.addPayee(input, managermap, ui);
             } else {
                 throw new DukeException("     ☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
             }
