@@ -1,10 +1,8 @@
 package duke.command;
 
-import duke.exception.DukeDevException;
 import duke.exception.DukeException;
 import duke.exception.DukeHelpException;
 
-import java.lang.reflect.Constructor;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
@@ -26,7 +24,7 @@ public class Parser {
         SWITCH //parsing a switch name
     }
 
-    private final Map<String, Constructor<Command>> commandMap;
+    private final Map<String, Enum> commandMap;
     private ArgCommand currCommand;
     private StringBuilder elementBuilder;
     private ParseState state;
@@ -38,21 +36,19 @@ public class Parser {
     /**
      * Constructs a new Parser, generating a HashMap from an array of enum values to allow fast lookup of command types.
      */
-    public Parser(Map<String, Constructor<Command>> cmdStrMap) {
-        commandMap = Collections.unmodifiableMap(cmdStrMap);
+    public Parser(Enum[] CmdEnum) {
+        Map<String, Enum> tempMap = new HashMap<String, Enum>();
+        for (Enum cmd : CmdEnum) {
+            tempMap.put(cmd.toString(), cmd);
+        }
+        commandMap = Collections.unmodifiableMap(tempMap);
     }
 
     /**
      * Constructs a new Parser, using the Cmd enum to supply the command names.
      */
     public Parser() {
-        Map<String, Constructor<Command>> tempMap = new HashMap<String, Constructor<Command>>();
-        try {
-            tempMap.put("bye", ByeCommand.class.getConstructor());
-
-        } catch (NoSuchMethodException excp) {
-            
-        }
+        this(Cmd.values());
     }
 
     /**
@@ -77,18 +73,11 @@ public class Parser {
                 cmdStr = inputStr.substring(0, min(sepIdx, spaceIdx));
             }
         }
-
-        Constructor<Command> cmdCtor = commandMap.get(cmdStr);
-        if (cmdCtor == null) {
+        Cmd cmd = commandMap.get(cmdStr);
+        if (cmd == null) {
             throw new DukeException("I'm sorry, but I don't recognise this command: " + cmdStr);
         }
-        Command command = null;
-        try {
-            command = cmdCtor.newInstance();
-        } catch (Exception excp) { //newInstance invocation can throw one of several types of exception
-            throw new DukeDevException("Can't use this constructor: " + cmdCtor.getName());
-        }
-
+        Command command = cmd.getCommand();
         // TODO: autocorrect system
         // trim command and first space after it from input if needed, and standardise newlines
         if (command instanceof ArgCommand) { // stripping not required otherwise
@@ -140,7 +129,7 @@ public class Parser {
                 handleSwitch(curr);
                 break;
             default:
-                throw new DukeDevException("Invalid parser state!");
+                throw new DukeException("Invalid parser state!");
             }
         }
 
@@ -159,7 +148,7 @@ public class Parser {
             addSwitch();
             break;
         default:
-            throw new DukeDevException("Invalid parser state!");
+            throw new DukeException("Invalid parser state!");
         }
 
         checkCommandValid();
