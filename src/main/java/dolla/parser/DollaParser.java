@@ -65,39 +65,4 @@ public class DollaParser extends Parser {
         }
     }
 
-
-    /**
-     * Checks if the first word after 'add' is either 'income' or 'expense'.
-     * @param s String to be analysed.
-     * @return Either 'expense' or 'income' if either are passed in.
-     * @throws Exception ???
-     */
-    public static String verifyType(String s) throws Exception {
-        if (s.equals("income") || s.equals("expense")) {
-            return s;
-        } else {
-            Ui.printInvalidEntryType();
-            throw new Exception("invalid type");
-        }
-    }
-
-    /**
-     * Returns true if no error occurs while creating the required variables for 'addEntryCommand'.
-     * Also splits description and time components in the process.
-     * @return true if no error occurs.
-     */
-    private boolean verifyAddCommand() {
-        try {
-            verifyType(inputArray[1]);
-            stringToDouble(inputArray[2]);
-            splitDescTime();
-        } catch (IndexOutOfBoundsException e) {
-            Ui.printInvalidEntryFormatError();
-            return false;
-        } catch (Exception e) {
-            return false; // If error occurs, stop the method!
-        }
-        System.out.println("Add command is ok");
-        return true;
-    }
 }

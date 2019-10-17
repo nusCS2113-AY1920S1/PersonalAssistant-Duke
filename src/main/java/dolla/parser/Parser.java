@@ -79,4 +79,38 @@ public abstract class Parser {
         Ui.printInvalidCommandError();
         return new ErrorCommand();
     }
+
+    /**
+     * Checks if the first word after 'add' is either 'income' or 'expense'.
+     * @param s String to be analysed.
+     * @return Either 'expense' or 'income' if either are passed in.
+     * @throws Exception ???
+     */
+    public static String verifyAddType(String s) throws Exception {
+        if (s.equals("income") || s.equals("expense")) {
+            return s;
+        } else {
+            Ui.printInvalidEntryType();
+            throw new Exception("invalid type");
+        }
+    }
+
+    /**
+     * Returns true if no error occurs while creating the required variables for 'addEntryCommand'.
+     * Also splits description and time components in the process.
+     * @return true if no error occurs.
+     */
+    public boolean verifyAddCommand() {
+        try {
+            verifyAddType(inputArray[1]);
+            stringToDouble(inputArray[2]);
+            splitDescTime();
+        } catch (IndexOutOfBoundsException e) {
+            Ui.printInvalidEntryFormatError();
+            return false;
+        } catch (Exception e) {
+            return false; // If error occurs, stop the method!
+        }
+        return true;
+    }
 }
