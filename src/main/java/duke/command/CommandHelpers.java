@@ -45,7 +45,7 @@ public class CommandHelpers {
      * @param word The user-provided switch name.
      * @param suggestions A List of the closest matching switch names.
      * @param valid The set of valid switches for this command.
-     * @return
+     * @return The string that the user has selected.
      */
     public static String disambiguate(String word, ArrayList<String> suggestions, Set<String> valid) {
         StringBuilder builder = new StringBuilder("I didn't understand '").append(word)

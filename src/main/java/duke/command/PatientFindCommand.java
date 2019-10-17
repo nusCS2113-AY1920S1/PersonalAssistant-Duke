@@ -10,8 +10,6 @@ public class PatientFindCommand extends ArgCommand {
         return PatientFindSpec.getSpec();
     }
 
-    ;
-
     @Override
     public void execute(DukeCore core) throws DukeException {
         // TODO: change code to find DukeObjects

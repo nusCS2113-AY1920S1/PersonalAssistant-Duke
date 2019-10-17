@@ -54,13 +54,22 @@ image::ArchitectureDiagram.png[]
 
 The *_Architecture Diagram_* shown above explains the high-level design of *Dr. Duke*.
 
-[[Class-Diagram]]
-=== Class Diagram
+[[Design-UI]]
+=== UI Design
+
+[[Design-Logic]]
+=== Parser Logic
+
+[[Design-Model]]
+=== Data Model
 
 .Class Diagram
 image::ClassDiagram.svg[]
 
-The *_Class Diagram_* shown above describes the relationship among the different classes used in *Dr. Duke*.
+The *_Class Diagram_* shown above describes the relationship among the different data classes used in *Dr. Duke*.
+
+[[Design-Storage]]
+=== Storage System 
 
 [appendix]
 == Product Scope

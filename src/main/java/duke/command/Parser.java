@@ -34,6 +34,7 @@ public class Parser {
     private HashMap<String, String> switchVals;
 
     static {
+        // TODO refactor to accept different enums
         Cmd[] cmdArr = Cmd.values();
         Map.Entry[] entryArr = new Map.Entry[cmdArr.length];
         for (int i = 0; i < cmdArr.length; ++i) {
