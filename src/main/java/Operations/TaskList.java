@@ -140,22 +140,47 @@ public class TaskList {
             System.out.println("Todo cannot be snoozed");
             return;
         }
-        switch (timeUnit) {
-            case year:
-                tasks.get(index).snoozeYear(amount);
-                break;
-            case month:
-                tasks.get(index).snoozeMonth(amount);
-                break;
-            case day:
-                tasks.get(index).snoozeDay(amount);
-                break;
-            case hours:
-                tasks.get(index).snoozeHour(amount);
-                break;
-            case minutes:
-                tasks.get(index).snoozeMinute(amount);
-                break;
+
+        if (tasks.get(index) instanceof Event) {
+            Event eventToSnooze = (Event) tasks.get(index);
+            switch (timeUnit) {
+                case year:
+                    eventToSnooze.snoozeYear(amount);
+                    break;
+                case month:
+                    eventToSnooze.snoozeMonth(amount);
+                    break;
+                case day:
+                    eventToSnooze.snoozeDay(amount);
+                    break;
+                case hours:
+                    eventToSnooze.snoozeHour(amount);
+                    break;
+                case minutes:
+                    eventToSnooze.snoozeMinute(amount);
+                    break;
+            }
+        }
+
+        if (tasks.get(index) instanceof Deadline) {
+            Deadline deadlineToSnooze = (Deadline) tasks.get(index);
+            switch (timeUnit) {
+                case year:
+                    deadlineToSnooze.snoozeYear(amount);
+                    break;
+                case month:
+                    deadlineToSnooze.snoozeMonth(amount);
+                    break;
+                case day:
+                    deadlineToSnooze.snoozeDay(amount);
+                    break;
+                case hours:
+                    deadlineToSnooze.snoozeHour(amount);
+                    break;
+                case minutes:
+                    deadlineToSnooze.snoozeMinute(amount);
+                    break;
+            }
         }
     }
 

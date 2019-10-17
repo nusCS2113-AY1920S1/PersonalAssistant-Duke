@@ -126,44 +126,44 @@ public class Task{
         return getStatusIcon() + getDescription() + " " + "(" + getUser() + ")";
     }
 
-    /**
-     * Snooze the task in year
-     * @param amount number of years to snooze
-     */
-    public void snoozeYear(int amount) {
-        return;
-    }
-
-    /**
-     * Snooze the task in month
-     * @param amount number of months to snooze
-     */
-    public void snoozeMonth(int amount) {
-        return;
-    }
-
-    /**
-     * Snooze the task in day
-     * @param amount number of days to snooze
-     */
-    public void snoozeDay(int amount) {
-        return;
-    }
-
-    /**
-     * Snooze the task in hour
-     * @param amount number of hours to snooze
-     */
-    public void snoozeHour(int amount) {
-        return;
-    }
-
-    /**
-     * Snooze the task in minute
-     * @param amount number of minutes to snooze
-     */
-    public void snoozeMinute(int amount) {
-        return;
-    }
+//    /**
+//     * Snooze the task in year
+//     * @param amount number of years to snooze
+//     */
+//    public void snoozeYear(int amount) {
+//        return;
+//    }
+//
+//    /**
+//     * Snooze the task in month
+//     * @param amount number of months to snooze
+//     */
+//    public void snoozeMonth(int amount) {
+//        return;
+//    }
+//
+//    /**
+//     * Snooze the task in day
+//     * @param amount number of days to snooze
+//     */
+//    public void snoozeDay(int amount) {
+//        return;
+//    }
+//
+//    /**
+//     * Snooze the task in hour
+//     * @param amount number of hours to snooze
+//     */
+//    public void snoozeHour(int amount) {
+//        return;
+//    }
+//
+//    /**
+//     * Snooze the task in minute
+//     * @param amount number of minutes to snooze
+//     */
+//    public void snoozeMinute(int amount) {
+//        return;
+//    }
 
 }

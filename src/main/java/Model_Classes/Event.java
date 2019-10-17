@@ -56,7 +56,7 @@ public class Event extends Task {
      * Snoozes the Event by set amount of years
      * @param amount number of years to snooze
      */
-    @Override
+//    @Override
     public void snoozeYear(int amount) {
         this.at.setYear(this.at.getYear() + amount);;
     }
@@ -65,7 +65,7 @@ public class Event extends Task {
      * Snoozes the Event by set amount of months
      * @param amount number of months to snooze
      */
-    @Override
+//    @Override
     public void snoozeMonth(int amount) {
         this.at.setMonth(this.at.getMonth() + amount);;
     }
@@ -74,7 +74,7 @@ public class Event extends Task {
      * Snoozes the Event by set amount of days
      * @param amount number of days to snooze
      */
-    @Override
+//    @Override
     public void snoozeDay(int amount) {
         this.at.setDate(this.at.getDate() + amount);;
     }
@@ -83,7 +83,7 @@ public class Event extends Task {
      * Snoozes the Event by set amount of hours
      * @param amount number of hours to snooze
      */
-    @Override
+//    @Override
     public void snoozeHour(int amount){
         this.at.setHours(this.at.getHours() + amount);
     }
@@ -92,7 +92,7 @@ public class Event extends Task {
      * Snoozes the Event by set amount of hours
      * @param amount number of minutes to snooze
      */
-    @Override
+//    @Override
     public void snoozeMinute(int amount){
         this.at.setMinutes(this.at.getMinutes() + amount);
     }
