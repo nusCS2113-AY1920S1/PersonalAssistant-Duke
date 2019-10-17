@@ -1,5 +1,6 @@
 package moomoo.task;
 
+import javax.xml.catalog.CatalogResolver;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.FileAlreadyExistsException;
@@ -18,18 +19,15 @@ import java.util.Map;
 public class Storage {
     private DecimalFormat df;
     private String budgetFilePath;
-    private String expenditureFilePath;
     private String categoryFilePath;
 
     /**
      * Initializes storage and the filepath for each file.
      * @param budgetFilePath File path to store the budget into.
-     * @param expenditureFilePath File path to store all expenditures
      * @param categoryFilePath File path to store all categories
      */
-    public Storage(String budgetFilePath, String expenditureFilePath, String categoryFilePath) {
+    public Storage(String budgetFilePath, String categoryFilePath) {
         this.budgetFilePath = budgetFilePath;
-        this.expenditureFilePath = expenditureFilePath;
         this.categoryFilePath = categoryFilePath;
         df = new DecimalFormat("#.00");
     }
@@ -41,7 +39,9 @@ public class Storage {
      */
     public ArrayList<Category> loadCategories() throws MooMooException {
         ArrayList<Category> categoryArrayList = new ArrayList<Category>();
-
+        if (Files.isRegularFile(Paths.get(this.categoryFilePath))) {
+            categoryArrayList.add(new Category());
+        }
         return categoryArrayList;
     }
 
@@ -64,7 +64,7 @@ public class Storage {
                         for (int i = 1; i < splitInput.length; ++i) {
                             if (i % 2 == 0) {
 
-                                if (!category.equals("")) {
+                                if (!"".equals(category)) {
                                     budget = Double.parseDouble(splitInput[i]);
                                     loadedBudgets.put(category, budget);
                                 }
@@ -116,7 +116,7 @@ public class Storage {
         Iterator budgetIterator = budget.getBudget().entrySet().iterator();
         while (budgetIterator.hasNext()) {
             Map.Entry mapElement = (Map.Entry)budgetIterator.next();
-            toSave += " | " + mapElement.getKey() + " | " + mapElement.getValue();
+            toSave += " | " + mapElement.getKey() + " | " + df.format(mapElement.getValue());
         }
         try {
             Files.writeString(Paths.get(this.budgetFilePath), toSave);

@@ -3,7 +3,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-import javafx.event.EventTarget;
 /**
  * Represents the Main GUI window to be shown to user when run.
  */
