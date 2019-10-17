@@ -32,15 +32,6 @@ public class MooMoo {
             categoryList = new CategoryList();
         }
 
-        /*
-        try {
-            category = new Category(storage.loadExpenditures());
-        } catch (MooMooException e) {
-            ui.printException(e);
-            ui.showResponse();
-            //category = new Category();
-        }*/
-
         try {
             budget = new Budget(storage.loadBudget(categoryList));
         } catch (MooMooException e) {
@@ -79,8 +70,7 @@ public class MooMoo {
      * @return String Response to display on GUI by the bot.
      */
     String getResponse(String input) {
-        String response;
-        boolean isExit = false;
+        boolean isExit;
         try {
             Command c = Parser.parse(input, ui);
             c.execute(budget, categoryList, category, ui, storage);

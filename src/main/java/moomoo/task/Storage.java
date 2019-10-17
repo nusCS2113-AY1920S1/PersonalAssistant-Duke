@@ -6,9 +6,6 @@ import java.nio.file.FileAlreadyExistsException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.text.DecimalFormat;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -46,17 +43,6 @@ public class Storage {
         ArrayList<Category> categoryArrayList = new ArrayList<Category>();
 
         return categoryArrayList;
-    }
-
-    /**
-     * Loads in expenditures from an existing file into a created ArrayList object.
-     * @return ArrayList object consisting of the expenditures read from the file.
-     * @throws MooMooException Thrown when the file does not exist
-     */
-    public ArrayList<Expenditure> loadExpenditures() throws MooMooException {
-        ArrayList<Expenditure> expenditureArrayList = new ArrayList<Expenditure>();
-
-        return expenditureArrayList;
     }
 
     /**
@@ -117,25 +103,6 @@ public class Storage {
         } catch (IOException e) {
             throw new MooMooException("Unable to create file. Please restart the program");
         }
-    }
-
-    private LocalDateTime parseDate(String dateToParse) {
-        try {
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
-            return LocalDateTime.parse(dateToParse, formatter);
-        } catch (DateTimeParseException e) {
-            return null;
-        }
-    }
-
-    /**
-     * Converts the LocalDateTime object into printable string for writing to file.
-     * @param dateTime LocalDateTime object to be converted
-     * @return String format of the LocalDateTime object
-     */
-    private String unparseDate(LocalDateTime dateTime) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
-        return dateTime.format(formatter);
     }
 
     /**
