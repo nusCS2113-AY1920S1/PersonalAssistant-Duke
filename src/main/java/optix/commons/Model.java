@@ -70,4 +70,8 @@ public class Model {
     public void deleteShow(LocalDate showDate) {
         shows.deleteShow(showDate);
     }
+
+    public String deleteShow(String[] showNames) {
+        return shows.deleteShow(showNames);
+    }
 }

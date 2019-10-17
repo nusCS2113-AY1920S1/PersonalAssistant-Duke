@@ -1,15 +1,9 @@
 package optix.commands.shows;
 
-import optix.commons.Model;
-import optix.ui.Ui;
 import optix.commands.Command;
+import optix.commons.Model;
 import optix.commons.Storage;
-import optix.commons.model.Theatre;
-import optix.commons.model.ShowMap;
-
-import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Map;
+import optix.ui.Ui;
 
 public class DeleteAllCommand extends Command {
     private String[] showNames;
@@ -27,47 +21,8 @@ public class DeleteAllCommand extends Command {
      * Command that deletes all instances of a specific show.
      */
     public void execute(Model model, Ui ui, Storage storage) {
-        ShowMap shows = model.getShows();
-        StringBuilder message = new StringBuilder();
-        ArrayList<String> deletedShows = new ArrayList<>();
-        ArrayList<String> missingShows = new ArrayList<>();
+        String message = model.deleteShow(showNames);
 
-        for (String show : this.showNames) {
-            boolean isFound = false;
-            ArrayList<Map.Entry<LocalDate, Theatre>> entryArrayList = new ArrayList<>();
-            for (Map.Entry<LocalDate, Theatre> entry : shows.entrySet()) {
-                if (entry.getValue().hasSameName(show.trim())) {
-                    String showDescription = entry.getKey().toString() + ' ' + entry.getValue().getShowName();
-                    entryArrayList.add(entry);
-                    deletedShows.add(showDescription);
-                    isFound = true;
-                }
-            }
-            // add show to missing show list if it's not found.
-            if (!isFound) {
-                missingShows.add(show);
-            }
-            // remove entry from shows.
-            for (Map.Entry<LocalDate, Theatre> entry : entryArrayList) {
-                shows.remove(entry.getKey(), entry.getValue());
-            }
-        }
-
-        if (!deletedShows.isEmpty()) {
-            message.append(MESSAGE_SUCCESSFUL);
-            for (String infoStrings : deletedShows) {
-                message.append(infoStrings.trim()).append('\n');
-            }
-        }
-
-        if (!missingShows.isEmpty()) {
-            message.append(MESSAGE_UNSUCCESSFUL);
-            for (String missingShow : missingShows) {
-                message.append(missingShow.trim()).append('\n');
-            }
-        }
-
-        model.setShows(shows);
-        ui.setMessage(message.toString());
+        ui.setMessage(message);
     }
 }
