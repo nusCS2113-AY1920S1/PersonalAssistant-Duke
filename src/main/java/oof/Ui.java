@@ -178,8 +178,7 @@ public class Ui {
     }
 
     /**
-     * Retrieves a new Timestamp from the user for the Task
-     * to be snoozed.
+     * Retrieves a new Timestamp from the user for the Task to be snoozed.
      *
      * @return Timestamp input by user.
      */
@@ -328,6 +327,7 @@ public class Ui {
 
     /**
      * Prints the tasks for a particular week.
+     *
      * @param tasks Tasks for the particular week to be printed.
      * @param startDate Starting date of the week.
      * @param largestTaskSize Size of the day with the largest number of tasks.
@@ -336,7 +336,7 @@ public class Ui {
     public void printViewWeek(ArrayList<ArrayList<String[]>> tasks, Date startDate, int largestTaskSize,
                               int largestColSize) {
         printViewWeekHeader(largestColSize);
-        printViewWeekBody(tasks, startDate, largestColSize);
+        printViewWeekBody(startDate, largestColSize);
         printViewWeekDetails(tasks, largestTaskSize, largestColSize);
     }
 
@@ -371,6 +371,7 @@ public class Ui {
 
     /**
      * Prints hyphens when the ViewWeek output needs to be resized.
+     *
      * @param numberOfHyphens Number of hyphens to be printed.
      */
     private void printHyphens(int numberOfHyphens) {
@@ -382,6 +383,7 @@ public class Ui {
 
     /**
      * Prints only spaces for empty rows in View Week output.
+     *
      * @param largestColSize Size of the largest column in the View Week output.
      */
     private void printBodySpaces(int largestColSize) {
@@ -392,6 +394,7 @@ public class Ui {
 
     /**
      * Print spaces when the ViewWeek output needs to be resized.
+     *
      * @param largestColSize Size of the largest column in the View Week output.
      */
     private void printHeaderSpaces(int largestColSize) {
@@ -413,11 +416,10 @@ public class Ui {
     /**
      * Prints the body for ViewWeek command.
      *
-     * @param tasks     The tasks for the particular week to be printed.
      * @param startDate Starting date of the week.
      * @param largestColSize Size of the largest column in the View Week output.
      */
-    private void printViewWeekBody(ArrayList<ArrayList<String[]>> tasks, Date startDate,int largestColSize) {
+    private void printViewWeekBody(Date startDate,int largestColSize) {
         ArrayList<String> calendarDates = new ArrayList<>();
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(startDate);
@@ -461,6 +463,7 @@ public class Ui {
 
     /**
      * Prints the details of tasks in the ViewWeek command.
+     *
      * @param tasks Tasks to be printed for the particular week.
      * @param largestTaskNo Size of the day with the largest number of tasks.
      * @param largestColSize Size of the largest column in the View Week output.
@@ -480,6 +483,7 @@ public class Ui {
 
     /**
      * Prints the tasks for ViewWeek command line by line.
+     *
      * @param tasks Tasks for the particular week to be printed.
      * @param taskNo Current index of the task that is being printed.
      * @param largestColSize Size of the largest column in the View Week output.
@@ -523,6 +527,7 @@ public class Ui {
 
     /**
      * Pads the details of a task to fit into a day of the ViewWeek command output.
+     *
      * @param details Details of a task.
      * @param largestColSize Size of the largest column in the ViewWeek command output.
      * @return Padded details of a task.
@@ -540,6 +545,7 @@ public class Ui {
 
     /**
      * Outputs the details of a task in a string.
+     *
      * @param details Array of the details containing time and description.
      * @return String containing the details of a task.
      */
