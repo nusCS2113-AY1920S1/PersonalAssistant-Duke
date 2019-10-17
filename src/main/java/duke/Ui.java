@@ -239,7 +239,7 @@ public class Ui {
     }
 
     /**
-     * Returns a String that contains all the commands with their command name and format
+     * Returns a String that contains all the commands with their command name and format.
      * @return the formatted command syntax
      */
     public String formatHelp() {

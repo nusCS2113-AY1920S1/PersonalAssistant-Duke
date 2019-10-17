@@ -34,31 +34,66 @@ class Parser {
     static Command parse(String message) throws DukeException {
         switch (message.split(" ")[0]) {
         case "bye":
-            if (message.length() == 3) return new ByeCommand();
+            if (message.length() == 3) {
+                return new ByeCommand();
+            }
+            break;
         case "list":
-            if (message.length() == 4) return new ListCommand();
+            if (message.length() == 4) {
+                return new ListCommand();
+            }
+            break;
         case "delete":
-            if (message.length() >= 8) return new DeleteCommand(message);
+            if (message.length() >= 8) {
+                return new DeleteCommand(message);
+            }
+            break;
         case "find":
-            if (message.length() >= 6) return new FindCommand(message);
+            if (message.length() >= 6) {
+                return new FindCommand(message);
+            }
+            break;
         case "done":
-            if (message.length() >= 6) return new DoneCommand(message);
+            if (message.length() >= 6) {
+                return new DoneCommand(message);
+            }
+            break;
         case "new":
-            if (message.length() >= 5) return new NewCommand(message);
-        case "help":
+            if (message.length() >= 5) {
+                return new NewCommand(message);
+            }
+            break;
+        case "help": {
             return new HelpCommand(message);
+        }
         case "view":
-            if (message.length() >= 6) return new ViewCommand(message);
+            if (message.length() >= 6) {
+                return new ViewCommand(message);
+            }
+            break;
         case "addbar":
-            if (message.length() >= 8) return new AddBarCommand(message);
+            if (message.length() >= 8) {
+                return new AddBarCommand(message);
+            }
+            break;
         case "overlay":
-            if (message.length() >= 8) return new AddOverlayCommand(message);
+            if (message.length() >= 8) {
+                return new AddOverlayCommand(message);
+            }
+            break;
         case "group":
-            if (message.length() >= 7) return new GroupCommand(message);
+            if (message.length() >= 7) {
+                return new GroupCommand(message);
+            }
+            break;
         case "copy":
-            if (message.length() >= 6) return new CopyCommand(message);
+            if (message.length() >= 6) {
+                return new CopyCommand(message);
+            }
+            break;
         default:
             return new AddCommand(message);
         }
+        throw new DukeException("", "Other");
     }
 }
