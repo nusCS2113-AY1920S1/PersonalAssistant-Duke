@@ -22,8 +22,8 @@ public class Instruction {
         return input.startsWith("DoAfter");
     }
 
-    public boolean isDelete(String input) {
-        return input.startsWith("delete");
+    public boolean isDeletePayment(String input) {
+        return input.startsWith("delete payment");
     }
 
     public boolean isFind(String input) {
@@ -60,12 +60,16 @@ public class Instruction {
         return input.startsWith("edit");
     }
 
-    public boolean isPayment(String input) {
-        return input.startsWith("payment");
+    public boolean isAddPayment(String input) {
+        return input.startsWith("add payment");
     }
 
-    public boolean isPayee(String input) {
-        return input.startsWith("payee");
+    public boolean isAddPayee(String input) {
+        return input.startsWith("add payee");
+    }
+
+    public boolean isDeletePayee(String input) {
+        return input.startsWith("delete payee");
     }
 
     public boolean isgetpayee(String input)  {

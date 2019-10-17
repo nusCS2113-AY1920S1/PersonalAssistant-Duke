@@ -53,9 +53,9 @@ public class Parser {
             } else if (instr.isDoAfter(input)) {
                 process.doAfter(input, tasklist, ui);
                 Storage.save(tasklist.returnArrayList());
-            } else if (instr.isDelete(input)) {
-                process.delete(input, managermap, ui);
-                storage.save(tasklist.returnArrayList());
+            } else if (instr.isDeletePayment(input)) {
+                process.deletePayment(input, managermap, ui);
+                //storage.save(tasklist.returnArrayList());
 
             } else if (instr.isFind(input)) {
                 // process.find(input, tasklist, ui);
@@ -80,12 +80,14 @@ public class Parser {
                 //process.reminder(input, tasklist, ui);
             } else if (instr.isEdit(input)) {
                 // process.edit(input,tasklist,ui);
-            } else if (instr.isPayment(input)) {
-                process.payment(input, managermap, ui);
+            } else if (instr.isAddPayment(input)) {
+                process.addPayment(input, managermap, ui);
             } else if (instr.isgetpayee(input)) {
                 process.findPayee(input, ui, managermap);
-            } else if (instr.isPayee(input)) {
-                process.payee(input, managermap, ui);
+            } else if (instr.isAddPayee(input)) {
+                process.addPayee(input, managermap, ui);
+            } else if (instr.isDeletePayee(input)) {
+                process.deletePayee(input, managermap, ui);
             } else if (instr.isInvoice(input)) {
                 process.inVoice(input, tasklist, ui);
             } else {
@@ -95,43 +97,6 @@ public class Parser {
             ui.exceptionMessage(e.getMessage());
         }
         return false;
-    }
-    /**
-     * Processes the find command and outputs a list of tasks containing the word.
-     * @param input Input from the user.
-     * @param tasklist Tasklist of the user.
-     * @param ui Ui that interacts with the user.
-     */
-
-    private static void processFind(String input, TaskList tasklist, Ui ui) {
-
-        try {
-            TaskList findlist = new TaskList();
-            String[] splitspace = input.split(" ", 2);
-            for (Task tasks : tasklist.returnArrayList()) {
-                if (tasks.getDescription().contains(splitspace[1])) {
-                    findlist.addTask(tasks);
-                }
-            }
-            ui.printList(findlist, "find");
-        } catch (ArrayIndexOutOfBoundsException e) {
-            ui.exceptionMessage("     ☹ OOPS!!! The content to find cannot be empty.");
-        }
-    }
-
-    private static void processEdit(String input, TaskList tasklist, Ui ui) {
-        try {
-            String[] splitspace = input.split(" ", 2);
-            String[] splitedit = splitspace[1].split(" d/", 2);
-            int nedit = Integer.parseInt(splitedit[0]) - 1;
-            String description = splitedit[1];
-            tasklist.get(nedit).setDescription(description);
-            ui.printEditMessage(tasklist.get(nedit));
-        } catch (ArrayIndexOutOfBoundsException e) {
-            ui.exceptionMessage("     ☹ OOPS!!! Please input the correct command format (refer to user guide)");
-        } catch (NumberFormatException e) {
-            ui.exceptionMessage("     ☹ OOPS!!! Please input the correct command format (refer to user guide)");
-        }
     }
 }
     
