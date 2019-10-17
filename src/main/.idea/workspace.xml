@@ -2,11 +2,13 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="92db3526-2a7c-4082-b93d-c4a4c7dbaed7" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/../../data/tasks.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../../data/tasks.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/$PRODUCT_WORKSPACE_FILE$" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/$PRODUCT_WORKSPACE_FILE$" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/java/duke/command/AddIngredientCommand.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/java/duke/ingredients/Ingredients.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/java/duke/ingredients/IngredientsList.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/java/duke/command/FindToday.java" beforeDir="false" afterPath="$PROJECT_DIR$/java/duke/command/FindToday.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/java/duke/command/FindCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/java/duke/command/FindIngredientCommand.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/java/duke/parser/Parser.java" beforeDir="false" afterPath="$PROJECT_DIR$/java/duke/parser/Parser.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -82,6 +84,7 @@
       <updated>1571229201024</updated>
       <workItem from="1571229204031" duration="2089000" />
       <workItem from="1571231702318" duration="1771000" />
+      <workItem from="1571297880311" duration="10987000" />
     </task>
     <servers />
   </component>
@@ -100,16 +103,5 @@
         </entry>
       </map>
     </option>
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/java/duke/command/FindToday.java</url>
-          <line>38</line>
-          <option name="timeStamp" value="3" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
   </component>
 </project>

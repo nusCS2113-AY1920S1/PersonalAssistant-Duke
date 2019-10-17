@@ -5,7 +5,7 @@ import duke.command.*;
 import duke.command.AddCommand;
 import duke.command.DoneCommand;
 import duke.command.ExitCommand;
-import duke.command.FindCommand;
+import duke.command.FindIngredientCommand;
 import duke.command.RemindCommand;
 import duke.command.ViewCommand;
 import duke.exception.DukeException;
@@ -63,7 +63,7 @@ public class Parser {
                 return new AddCommand(new Event(getAt[0], getAt[1]));
             case "find":
                 checkLength(splitted);
-                return new FindCommand(splitted[1]);
+                return new FindIngredientCommand(splitted[1]);
             case "delete":
                 checkLength(splitted);
                 return new DeleteCommand(checkNumber(splitted[1], size));
