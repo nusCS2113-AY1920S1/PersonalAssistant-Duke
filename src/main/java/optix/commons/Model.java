@@ -3,6 +3,8 @@ package optix.commons;
 import optix.commons.model.ShowHistoryMap;
 import optix.commons.model.ShowMap;
 
+import java.time.LocalDate;
+
 public class Model {
     private ShowHistoryMap showsHistory = new ShowHistoryMap();
     private ShowMap shows = new ShowMap();
@@ -32,4 +34,14 @@ public class Model {
     public void setShowsHistory(ShowHistoryMap showsHistory) {
         this.showsHistory = showsHistory;
     }
+
+
+    public boolean containsKey(LocalDate key) {
+        return shows.containsKey(key);
+    }
+
+    public void addShow(String showName, LocalDate showDate, double seatBasePrice) {
+        shows.addShow(showName, showDate, seatBasePrice);
+    }
+
 }

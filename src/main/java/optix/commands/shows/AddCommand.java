@@ -1,13 +1,11 @@
 package optix.commands.shows;
 
-import optix.commons.Model;
-import optix.ui.Ui;
 import optix.commands.Command;
+import optix.commons.Model;
 import optix.commons.Storage;
-import optix.commons.model.Theatre;
 import optix.exceptions.OptixInvalidDateException;
+import optix.ui.Ui;
 import optix.util.OptixDateFormatter;
-import optix.commons.model.ShowMap;
 
 import java.time.LocalDate;
 
@@ -42,8 +40,6 @@ public class AddCommand extends Command {
 
     @Override
     public void execute(Model model, Ui ui, Storage storage) {
-        ShowMap shows = model.getShows();
-        Theatre theatre = new Theatre(showName, seatBasePrice);
         LocalDate today = storage.getToday();
 
         try {
@@ -55,12 +51,11 @@ public class AddCommand extends Command {
 
             if (showLocalDate.compareTo(today) <= 0) {
                 ui.setMessage(MESSAGE_IN_THE_PAST);
-            } else if (shows.containsKey(showLocalDate)) {
+            } else if (model.containsKey(showLocalDate)) {
                 ui.setMessage(MESSAGE_THEATRE_BOOKED);
             } else {
-                shows.put(showLocalDate, theatre);
-                model.setShows(shows);
-                ui.setMessage(String.format(MESSAGE_SUCCESSFUL, theatre.getShowName(), date));
+                model.addShow(showName, showLocalDate, seatBasePrice);
+                ui.setMessage(String.format(MESSAGE_SUCCESSFUL, showName, date));
             }
         } catch (OptixInvalidDateException e) {
             ui.setMessage(e.getMessage());

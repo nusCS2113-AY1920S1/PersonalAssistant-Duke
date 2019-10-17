@@ -27,4 +27,9 @@ public class ShowMap extends TreeMap<LocalDate, Theatre> {
     public String getShowName(Object key) {
         return this.get(key).getShowName();
     }
+
+    public void addShow(String showName, LocalDate showDate, double seatBasePrice) {
+        Theatre theatre = new Theatre(showName, seatBasePrice);
+        this.put(showDate, theatre);
+    }
 }
