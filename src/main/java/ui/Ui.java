@@ -3,10 +3,10 @@ package ui;
 import common.TaskList;
 import payment.Payee;
 import payment.PaymentList;
-import payment.PaymentManager;
 import payment.Payments;
 import task.Task;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Scanner;
 
@@ -75,8 +75,8 @@ public class Ui {
     }
 
     /**
-     * Prints message to indicate deletion of a Payment from the Payee and the number of Payments left.
-     * @param paymentList Representation of the Payment that is deleted.
+     * Prints the list of payments of a payee.
+     * @param paymentList paymentList of the payee.
      */
     public void printPaymentList(PaymentList paymentList) {
         for (int i = 0; i < paymentList.size(); i = i + 1) {
@@ -214,6 +214,19 @@ public class Ui {
         System.out.print(line);
         System.out.println("\t" + "Got it. I've added invoice to this deadline:");
         System.out.print("\t" + task.giveTask() + "\n");
+    }
+  
+     * Prints message to indicate a Payment being deleted.
+     * @param payee Payee containing identification information of Payee.
+     * @param name the name of Payee to make Payments to.
+     */
+    public void printdeletePayeeMessage(String name, Payee payee) {
+        System.out.print(line);
+        System.out.println("\t" + "Got it. I've deleted this payee:");
+        System.out.println("\t" + "Payee: " + name);
+        System.out.println("\t" + "Email: " + payee.email);
+        System.out.println("\t" + "Matric No: " + payee.matricNum);
+        System.out.println("\t" + "Phone No: " + payee.phoneNum);
         System.out.print(line);
     }
 

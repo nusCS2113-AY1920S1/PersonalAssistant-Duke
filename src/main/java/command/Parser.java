@@ -3,7 +3,16 @@ package command;
 import common.DukeException;
 import common.TaskList;
 import payment.Payee;
+import payment.PaymentManager;
+import payment.Payments;
+import task.Deadline;
+import task.DoAfterTasks;
+import task.Task;
+import task.WithinPeriodTask;
 import ui.Ui;
+
+import java.text.ParseException;
+import java.util.Date;
 import java.util.HashMap;
 
 /**
@@ -86,6 +95,43 @@ public class Parser {
             ui.exceptionMessage(e.getMessage());
         }
         return false;
+    }
+    /**
+     * Processes the find command and outputs a list of tasks containing the word.
+     * @param input Input from the user.
+     * @param tasklist Tasklist of the user.
+     * @param ui Ui that interacts with the user.
+     */
+
+    private static void processFind(String input, TaskList tasklist, Ui ui) {
+
+        try {
+            TaskList findlist = new TaskList();
+            String[] splitspace = input.split(" ", 2);
+            for (Task tasks : tasklist.returnArrayList()) {
+                if (tasks.getDescription().contains(splitspace[1])) {
+                    findlist.addTask(tasks);
+                }
+            }
+            ui.printList(findlist, "find");
+        } catch (ArrayIndexOutOfBoundsException e) {
+            ui.exceptionMessage("     ☹ OOPS!!! The content to find cannot be empty.");
+        }
+    }
+
+    private static void processEdit(String input, TaskList tasklist, Ui ui) {
+        try {
+            String[] splitspace = input.split(" ", 2);
+            String[] splitedit = splitspace[1].split(" d/", 2);
+            int nedit = Integer.parseInt(splitedit[0]) - 1;
+            String description = splitedit[1];
+            tasklist.get(nedit).setDescription(description);
+            ui.printEditMessage(tasklist.get(nedit));
+        } catch (ArrayIndexOutOfBoundsException e) {
+            ui.exceptionMessage("     ☹ OOPS!!! Please input the correct command format (refer to user guide)");
+        } catch (NumberFormatException e) {
+            ui.exceptionMessage("     ☹ OOPS!!! Please input the correct command format (refer to user guide)");
+        }
     }
 }
     
