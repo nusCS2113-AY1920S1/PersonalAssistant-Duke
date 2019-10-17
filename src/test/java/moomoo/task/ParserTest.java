@@ -1,5 +1,6 @@
 package moomoo.task;
 
+import moomoo.command.BudgetCommand;
 import moomoo.command.ExitCommand;
 import org.junit.jupiter.api.Test;
 
@@ -10,10 +11,10 @@ public class ParserTest {
     @Test
     public void testParser() {
         try {
-            Ui ui = new Ui();
-            assertTrue(Parser.parse("bye", ui) instanceof ExitCommand);
+            Ui newUi = new Ui();
 
-            Parser.parse("invalid input", ui);
+            assertTrue(Parser.parse("bye", newUi) instanceof ExitCommand);
+            assertTrue(Parser.parse("budget", newUi) instanceof BudgetCommand);
         } catch (MooMooException e) {
             assertEquals("moomoo.task.MooMooException: OOPS!!! I'm sorry, but I don't know what that means :-(",
                     e.toString());

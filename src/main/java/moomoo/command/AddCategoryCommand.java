@@ -4,11 +4,8 @@ import moomoo.task.*;
 
 public class AddCategoryCommand extends Command {
 
-    private String categoryName;
-
-    public AddCategoryCommand(boolean isExit, String input, String categoryName) {
-        super(isExit, input);
-        this.categoryName = categoryName;
+    public AddCategoryCommand() {
+        super(false, "");
     }
 
     @Override
@@ -16,6 +13,9 @@ public class AddCategoryCommand extends Command {
             throws MooMooException {
         super.execute(calendar, budget, categoryList, transList, ui, storage);
 
+        categoryList.list(ui);
+        ui.showAddCategoryMessage();
+        String categoryName = ui.readCommand();
         Category newCategory = new Category(categoryName);
         categoryList.add(newCategory);
         ui.showNewCategoryMessage(categoryName);

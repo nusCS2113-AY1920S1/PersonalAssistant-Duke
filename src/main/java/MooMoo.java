@@ -17,11 +17,13 @@ public class MooMoo {
      */
     MooMoo() {
         ui = new Ui();
-        storage = new Storage("data/moomoo.txt");
+        storage = new Storage("data/budget.txt","data/transactions.txt","data/category.txt");
+
         try {
             categoryList = new CategoryList(storage.loadCategories());
         } catch (MooMooException e) {
             ui.printException(e);
+            ui.showResponse();
             categoryList = new CategoryList();
         }
 
@@ -29,13 +31,15 @@ public class MooMoo {
             transList = new TransactionList(storage.loadTransactions());
         } catch (MooMooException e) {
             ui.printException(e);
+            ui.showResponse();
             transList = new TransactionList();
         }
 
         try {
-            budget = new Budget(storage.loadBudget());
+            budget = new Budget(storage.loadBudget(categoryList));
         } catch (MooMooException e) {
             ui.printException(e);
+            ui.showResponse();
             budget = new Budget();
         }
 
@@ -58,8 +62,12 @@ public class MooMoo {
             try {
                 String fullCommand = ui.readCommand();
                 Command c = Parser.parse(fullCommand, ui);
+
                 c.execute(calendar, budget, categoryList, transList, ui, storage);
-                ui.showResponse();
+                if (!ui.printResponse().equals("")) {
+                    ui.showResponse();
+                }
+              
                 isExit = c.isExit;
             } catch (MooMooException e) {
                 ui.printException(e);
@@ -82,9 +90,9 @@ public class MooMoo {
             isExit = c.isExit;
             if (isExit) {
                 ui.showGoodbye();
-                return ui.printToGui();
+                return ui.printResponse();
             }
-            return ui.printToGui();
+            return ui.printResponse();
         } catch (MooMooException e) {
             return ui.printException(e);
         }
