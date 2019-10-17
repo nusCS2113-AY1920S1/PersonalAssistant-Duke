@@ -2,9 +2,9 @@ package util.factories;
 
 import models.task.Task;
 import models.task.TaskState;
+import util.date.DateTimeHelper;
 
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -19,6 +19,7 @@ public class TaskFactory {
         String [] taskDetails = input.split("[tpdcsr]\\/");
         Task newTask = null;
         String newTaskName = taskDetails[1].trim();
+        DateTimeHelper dateTimeHelper = new DateTimeHelper();
         int newTaskPriority = Integer.parseInt(taskDetails[2].trim());
         boolean hasDueDateFlag = input.contains(" d/");
         boolean hasStateFlag = input.contains(" s/");
@@ -36,11 +37,11 @@ public class TaskFactory {
 
         } else if (hasDueDateFlag && !hasStateFlag) {
             if (taskDetails.length == 5) {
-                Date dueDate = getDateObject(taskDetails[3]);
+                Date dueDate = dateTimeHelper.formatDate(taskDetails[3]);
                 newTask = new Task(newTaskName, newTaskPriority,
                         dueDate, Integer.parseInt(taskDetails[4].trim()), TaskState.OPEN, new ArrayList<>());
             } else {
-                Date dueDate = getDateObject(taskDetails[3]);
+                Date dueDate = dateTimeHelper.formatDate(taskDetails[3]);
                 ArrayList<String> taskRequirements = parseTaskRequirements(taskDetails, 5);
                 newTask = new Task(newTaskName, newTaskPriority,
                         dueDate, Integer.parseInt(taskDetails[4].trim()), TaskState.OPEN, taskRequirements);
@@ -57,7 +58,7 @@ public class TaskFactory {
             }
 
         } else if (hasDueDateFlag && hasStateFlag) {
-            Date dueDate = getDateObject(taskDetails[3]);
+            Date dueDate = dateTimeHelper.formatDate(taskDetails[3]);
             TaskState newTaskState = convertStringToTaskState(taskDetails[5].trim());
             if (taskDetails.length == 6) {
                 newTask = new Task(newTaskName, newTaskPriority,
@@ -83,11 +84,6 @@ public class TaskFactory {
             taskRequirements.add(taskDetails[i].trim());
         }
         return taskRequirements;
-    }
-
-    private Date getDateObject(String dateString) throws ParseException {
-        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
-        return formatter.parse(dateString);
     }
 
     /**

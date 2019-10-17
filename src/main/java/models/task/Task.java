@@ -1,10 +1,10 @@
 package models.task;
 
-import models.member.ListOfMemebersAssignedToTask;
+import models.member.ListOfMembersAssignedToTask;
 import models.member.Member;
+import util.date.DateTimeHelper;
 
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
@@ -15,18 +15,18 @@ public class Task {
     private Date dueDate;
     private int taskCredit;
     private TaskState taskState;
-    private ListOfMemebersAssignedToTask listOfMemebersAssignedToTask;
+    private ListOfMembersAssignedToTask listOfMembersAssignedToTask;
     private ArrayList<String> taskRequirements;
 
     /**
      * Class representing a task in a project.
      * @param taskName The name of the task.
      * @param taskPriority The priority value of the task.
-     * @param dueDate The date that the task is due.
+     * @param dueDate The date that the task is due. [Optional]
      * @param taskCredit The amount of credit a person would receive for completing the task.
      *                   A more difficult task would receive more credit.
      * @param taskState taskState refers to whether the task is in OPEN, TO-DO, DOING, DONE.
-     * @param taskRequirements ArrayList of Strings containing specific requirements of a task.
+     * @param taskRequirements ArrayList of Strings containing specific requirements of a task. [Optional]
      */
     public Task(String taskName, int taskPriority, Date dueDate, int taskCredit, TaskState taskState,
                 ArrayList<String> taskRequirements) {
@@ -35,8 +35,8 @@ public class Task {
         this.dueDate = dueDate;
         this.taskCredit = taskCredit;
         this.taskState = taskState;
+        this.listOfMembersAssignedToTask = new ListOfMembersAssignedToTask();
         this.taskRequirements = taskRequirements;
-        this.listOfMemebersAssignedToTask = new ListOfMemebersAssignedToTask();
     }
 
     public String getTaskName() {
@@ -47,25 +47,25 @@ public class Task {
         return taskPriority;
     }
 
-    private String getDueDateString() {
-        SimpleDateFormat formatter = new SimpleDateFormat("dd MMM yyyy");
-        return formatter.format(this.dueDate);
-    }
-
     /**
      * Gets the details of the task in a String format in the correct layout.
      * @return String containing all the details of the task.
      */
     public String getDetails() {
+        DateTimeHelper dateTimeHelper = new DateTimeHelper();
         if (this.dueDate != null) {
             return this.taskName + " | Priority: "
-                    + this.taskPriority + " | Due: " + this.getDueDateString() + " | Credit: "
+                    + this.taskPriority + " | Due: " + dateTimeHelper.formatDateForDisplay(this.dueDate) + " | Credit: "
                     + this.taskCredit + " | State: " + this.taskState;
         } else {
             return this.taskName + " | Priority: "
                     + this.taskPriority + " | Due: -- | Credit: " + this.taskCredit + " | State: "
                     + this.taskState;
         }
+    }
+
+    public Date getDueDate() {
+        return this.dueDate;
     }
 
     public TaskState getTaskState() {
@@ -76,20 +76,20 @@ public class Task {
         return this.taskCredit;
     }
 
-    public void assignMember(Member member) {
-        this.listOfMemebersAssignedToTask.addMember(member);
-    }
-
-    public ListOfMemebersAssignedToTask getAssignedTasks() {
-        return listOfMemebersAssignedToTask;
+    public ListOfMembersAssignedToTask getAssignedMembers() {
+        return listOfMembersAssignedToTask;
     }
 
     public HashSet<Integer> getAssignedIndexes() {
-        return this.listOfMemebersAssignedToTask.getAssignedMembersIndexNumbers();
+        return this.listOfMembersAssignedToTask.getAssignedMembersIndexNumbers();
     }
 
-    public void removeMember(Integer memberIndex) {
-        this.listOfMemebersAssignedToTask.removeMember(memberIndex);
+    public void assignMember(Member member) {
+        this.listOfMembersAssignedToTask.addMember(member);
+    }
+
+    public void removeMember(Member memberToRemove) {
+        this.listOfMembersAssignedToTask.removeMember(memberToRemove);
     }
 
     /**
@@ -124,9 +124,9 @@ public class Task {
      * @param newDueDateString String form of the new dueDate to be set.
      */
     public void setDueDate(String newDueDateString) {
-        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+        DateTimeHelper dateTimeHelper = new DateTimeHelper();
         try {
-            this.dueDate = formatter.parse(newDueDateString);
+            this.dueDate = dateTimeHelper.formatDate(newDueDateString);
         } catch (ParseException e) {
             e.printStackTrace();
         }

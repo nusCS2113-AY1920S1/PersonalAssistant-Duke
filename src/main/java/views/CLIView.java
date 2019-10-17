@@ -97,16 +97,6 @@ public class CLIView {
     }
 
     /**
-     * Deletes a member from the project.
-     * @param projectToManage The project specified by the user.
-     * @param memberIndexNumber The member to be removed from the project.
-     */
-    public void removeMember(IProject projectToManage, int memberIndexNumber) {
-        projectToManage.removeMember(memberIndexNumber);
-        consolePrint("Removed member with the index number " + memberIndexNumber);
-    }
-
-    /**
      * Adds a member to the project.
      * @param projectToManage The project specified by the user.
      * @param newTask A new task with details specified by the user.
@@ -146,6 +136,16 @@ public class CLIView {
     }
 
     /**
+     * Shows a list of all tasks in the project, sorted based on certain criteria as chosen by the user.
+     * @param projectToManage The project specified by the user.
+     * @param sortCriteria Criteria to sort chosen by user.
+     */
+    public void viewSortedTasks(IProject projectToManage, String sortCriteria) {
+        ArrayList<String> allTaskDetails = projectToManage.getTasks().getAllSortedTaskDetails(sortCriteria);
+        consolePrint(allTaskDetails.toArray(new String[0]));
+    }
+
+    /**
      * Shows all the task that is assigned in the project.
      * @param projectToManage The project specified by the user.
      */
@@ -153,38 +153,8 @@ public class CLIView {
         for (Task task: projectToManage.getTasks().getTaskList()) {
             ArrayList<String> allAssignedTasks = new ArrayList<>();
             allAssignedTasks.add(task.getTaskName() + " is assigned to: ");
-            allAssignedTasks.addAll(task.getAssignedTasks().getAllMemberDetails());
+            allAssignedTasks.addAll(task.getAssignedMembers().getAllMemberDetails());
             consolePrint(allAssignedTasks.toArray(new String[0]));
-        }
-    }
-
-    /**
-     * Assigns or unassigns a particular task to members in a project.
-     * @param assign ArrayList containing index number of members to be assigned task.
-     * @param unassign ArrayList containing index number of members to be unassigned task.
-     * @param task Task to assign or unassign to members.
-     * @param projectToManage The project in which the aforementioned task belongs to.
-     */
-    public void assignOrUnassignTask(ArrayList<Integer> assign, ArrayList<Integer> unassign,
-        Task task, IProject projectToManage) {
-        if (assign.size() > 0) {
-            for (Integer i : assign) {
-                Member toAssign = projectToManage.getMembers().getMember(i);
-                task.assignMember(toAssign);
-                //For now only tasks will have list of members assigned.
-                //Will refactor and implement a way such that when a task is assigned,
-                //both the tasklist (for the member) and the memberlist (for the task)
-                // will be updated.
-                consolePrint("Assigned task to: " + toAssign.getName());
-            }
-        }
-        if (unassign.size() > 0) {
-            for (Integer i : unassign) {
-                task.removeMember(i);
-                consolePrint("Unassigned task to: "
-                    + projectToManage.getMembers().getMember(i).getName());
-                //recalculate credits for other members assigned to task if necessary
-            }
         }
     }
 

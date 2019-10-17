@@ -1,16 +1,19 @@
 package models.member;
 
+import util.ParserHelper;
+
 import java.util.ArrayList;
-import util.ParserUtil;
 
 public class ListOfMembersInProject implements IMemberList {
     private ArrayList<Member> memberList;
+    private ParserHelper parserHelper;
 
     /**
      * Class representing a list with all members and their details.
      */
     public ListOfMembersInProject() {
         this.memberList = new ArrayList<>();
+        this.parserHelper = new ParserHelper();
     }
 
     /**
@@ -29,7 +32,7 @@ public class ListOfMembersInProject implements IMemberList {
      * @param updatedMemberDetails The updated member details.
      */
     public void editMember(int memberIndexNumber, String updatedMemberDetails) {
-        String [] memberDetails = ParserUtil.parseMemberDetails(updatedMemberDetails);
+        String [] memberDetails = parserHelper.parseMemberDetails(updatedMemberDetails);
         String name = memberDetails[0];
         String phone = memberDetails[1];
         String email = memberDetails[2];
@@ -45,10 +48,10 @@ public class ListOfMembersInProject implements IMemberList {
     /**
      * Removes a member from the list.
      * Shifts the index numbers of all members up if required.
-     * @param memberIndex THe index number of the member to be removed.
+     * @param toBeRemoved The Member that needs to be removed
      */
     @Override
-    public void removeMember(int memberIndex) {
+    public void removeMember(Member toBeRemoved) {
         /*
             Implement methods to ensure that task assignments are updated,
             credits are redistributed, etc.
@@ -57,11 +60,13 @@ public class ListOfMembersInProject implements IMemberList {
             3) Change task state if necessary (if only 1 member was DOING, now it is OPEN)
             4) Update index number of other members if necessary.
          */
-        this.memberList.remove(memberIndex - 1);
-        if (memberIndex < memberList.size()) { //if need to reassign index numbers after removal
+        if (toBeRemoved.getIndexNumber() < memberList.size()) { //if need to reassign index numbers after removal
+            this.memberList.remove(toBeRemoved);
             for (int i = 1; i <= memberList.size(); i++) {
                 memberList.get(i - 1).setIndexNumber(i);
             }
+        } else {
+            this.memberList.remove(toBeRemoved);
         }
     }
 

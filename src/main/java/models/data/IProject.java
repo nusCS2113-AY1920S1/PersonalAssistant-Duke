@@ -21,7 +21,7 @@ public interface IProject {
 
     void editMember(int memberIndexNumber, String updatedMemberDetails);
 
-    void removeMember(int memberIndexNumber);
+    void removeMember(Member toBeRemoved);
 
     void addTask(Task newTask);
 

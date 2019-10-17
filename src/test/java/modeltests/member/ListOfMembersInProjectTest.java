@@ -1,17 +1,19 @@
-package models.member;
+package modeltests.member;
 
+import models.member.ListOfMembersInProject;
+import models.member.Member;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class ListOfMembersInProjectTest {
+class ListOfMembersInProjectTest {
     @Test
-    public void alwaysTrue() {
+    void alwaysTrue() {
         assertEquals(2, 2);
     }
 
     @Test
-    public void testAddMember() {
+    void testAddMember() {
         Member member = new Member("Tom","91198766", "tom@gmail.com",1);
         ListOfMembersInProject listOfMembersInProject = new ListOfMembersInProject();
         listOfMembersInProject.addMember(member);
@@ -20,7 +22,7 @@ public class ListOfMembersInProjectTest {
     }
 
     @Test
-    public void testEditMember() {
+    void testEditMember() {
         Member member = new Member("Tom","91198766", "tom@gmail.com",1);
         ListOfMembersInProject listOfMembersInProject = new ListOfMembersInProject();
         listOfMembersInProject.addMember(member);
@@ -33,7 +35,7 @@ public class ListOfMembersInProjectTest {
     }
 
     @Test
-    public void testGetNumOfMembers() {
+    void testGetNumOfMembers() {
         Member member = new Member("Tom","91198766", "tom@gmail.com",1);
         ListOfMembersInProject listOfMembersInProject = new ListOfMembersInProject();
         listOfMembersInProject.addMember(member);
@@ -41,11 +43,12 @@ public class ListOfMembersInProjectTest {
     }
 
     @Test
-    public void testRemoveMember() {
+    void testRemoveMember() {
         Member member = new Member("Tom","91198766", "tom@gmail.com",1);
         ListOfMembersInProject listOfMembersInProject = new ListOfMembersInProject();
         listOfMembersInProject.addMember(member);
-        listOfMembersInProject.removeMember(1);
+        Member toBeRemoved = listOfMembersInProject.getMember(1);
+        listOfMembersInProject.removeMember(toBeRemoved);
         assertEquals(0, listOfMembersInProject.getNumOfMembers());
     }
 }

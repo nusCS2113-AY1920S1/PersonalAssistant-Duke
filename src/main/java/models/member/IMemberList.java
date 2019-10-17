@@ -3,11 +3,11 @@ package models.member;
 import java.util.ArrayList;
 
 public interface IMemberList {
-    public void addMember(Member newMember);
+    void addMember(Member newMember);
 
-    public void removeMember(int memberIndex);
+    void removeMember(Member memberToRemove);
 
-    public ArrayList<String> getAllMemberDetails();
+    ArrayList<String> getAllMemberDetails();
 
-    public Member getMember(int i);
+    Member getMember(int i);
 }

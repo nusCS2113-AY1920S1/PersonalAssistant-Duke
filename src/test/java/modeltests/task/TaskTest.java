@@ -1,10 +1,12 @@
-package models.task;
+package modeltests.task;
 
+import models.task.Task;
+import models.task.TaskState;
 import org.junit.jupiter.api.Test;
+import util.date.DateTimeHelper;
 import util.factories.TaskFactory;
 
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -12,20 +14,20 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class TaskTest {
     private TaskFactory consoleInputFactory = new TaskFactory();
+    private DateTimeHelper dateTimeHelper = new DateTimeHelper();
 
     @Test
-    public void alwaysTrue() {
+    void alwaysTrue() {
         assertEquals(2, 2);
     }
 
     @Test
-    public void testGetDetails() {
+    void testGetDetails() {
         ArrayList<String> taskRequirements = new ArrayList<>();
         Task task1 = new Task("task1", 5, null,100, TaskState.OPEN,taskRequirements);
         assertEquals("task1 | Priority: 5 | Due: -- | Credit: 100 | State: OPEN",task1.getDetails());
         try {
-            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/mm/yyyy");
-            Date date = simpleDateFormat.parse("20/1/2019");
+            Date date = dateTimeHelper.formatDate("20/1/2019");
             Task task2 = new Task("task2", 5, date, 100, TaskState.OPEN, taskRequirements);
             assertEquals("task2 | Priority: 5 | Due: 20 Jan 2019 | Credit: 100 | State: OPEN", task2.getDetails());
         } catch (ParseException e) {
@@ -34,10 +36,9 @@ class TaskTest {
     }
 
     @Test
-    public void testGetTaskRequirements() {
+    void testGetTaskRequirements() {
         try {
-            SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
-            Date dueDate = formatter.parse("19/10/2019");
+            Date dueDate = dateTimeHelper.formatDate("19/10/2019");
             ArrayList<String> taskRequirements = new ArrayList<>();
             taskRequirements.add("requirement1");
             Task dummyTask = new Task("task1",1,dueDate,10, TaskState.TODO, taskRequirements);
