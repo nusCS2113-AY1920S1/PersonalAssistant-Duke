@@ -36,17 +36,6 @@ public class AddContactsCommand extends Command {
     }
 
     /**
-     * Executes a command with task list and ui.
-     *
-     * @param items The task list that contains a list of tasks.
-     * @param contactList The contact list that contains a list of contacts.
-     * @param ui To tell the user that it is executed successfully.
-     */
-//    public void execute(TaskList items, ContactList contactList, Ui ui) {
-//
-//    }
-
-    /**
      * Executes a command that adds the task into task list and outputs the result (GUI).
      * (Not in use)
      *
@@ -83,7 +72,6 @@ public class AddContactsCommand extends Command {
      */
     @Override
     public void executeStorage(TaskList items, Ui ui, Storage storage) throws IOException {
-        contactStorage.write(contactList);
     }
 
     /**
@@ -95,8 +83,8 @@ public class AddContactsCommand extends Command {
      * @param contactList The list of contacts.
      * @throws IOException If there is an error reading the file.
      */
-//    public void executeStorage(TaskList items, Ui ui, ContactStorage contactStorage,
-//                               ContactList contactList) throws IOException {
-//        contactStorage.write(contactList);
-//    }
+    public void executeStorage(TaskList items, Ui ui, ContactStorage contactStorage,
+                               ContactList contactList) throws IOException {
+        contactStorage.write(contactList);
+    }
 }

@@ -23,11 +23,9 @@ import java.util.ArrayList;
  * Represents a storage to store the task list into a text file.
  */
 public class Storage {
-    //protected String filePath = "./";
-    protected String filePath = "";
-    String storageClassPath = Storage.class.getProtectionDomain().getCodeSource().getLocation().getPath();
-
-
+    protected String filePath = "./";
+    //protected String filePath = "";
+    //String storageClassPath = Storage.class.getProtectionDomain().getCodeSource().getLocation().getPath();    //27-28, 36-43
 
     /**
      * Creates a storage with a specified filePath.
@@ -35,14 +33,14 @@ public class Storage {
      * @param filePath The location of the text file for tasks.
      */
     public Storage(String filePath) {
-        String[] pathSplitter = storageClassPath.split("/");
-        for (String directory: pathSplitter) {
-            if (!directory.isEmpty() && !directory.equals("build")) {
-                this.filePath += directory + "/";
-            } else if (directory.equals("build")) {
-                break;
-            }
-        }
+//        String[] pathSplitter = storageClassPath.split("/");
+//        for (String directory: pathSplitter) {
+//            if (!directory.isEmpty() && !directory.equals("build")) {
+//                this.filePath += directory + "/";
+//            } else if (directory.equals("build")) {
+//                break;
+//            }
+//        }
         //System.out.println(this.filePath);
         this.filePath += filePath;
     }

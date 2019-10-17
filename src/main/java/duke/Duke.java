@@ -125,11 +125,16 @@ public class Duke {
      * @param cmd Command to be executed.
      * @return String to be outputted.
      */
-    public String executeCommand(Command cmd) {
+    public String executeCommand(Command cmd) throws IOException {
         if (cmd instanceof AddContactsCommand) {
             String str = cmd.executeGui(items, contactList, ui);
+            cmd.executeStorage(items, ui, contactStorage, contactList);
             return str;
-        } else {
+        } else if(cmd instanceof ListContactsCommand){
+            String str = cmd.executeGui(items, contactList, ui);
+            return str;
+        }
+        else {
             String str = cmd.executeGui(items, ui);
             return str;
         }
@@ -177,7 +182,7 @@ public class Duke {
                     cmd.executeStorage(items, ui, storage);
                 } else if (cmd instanceof AddContactsCommand) {
                     cmd.execute(items, contactList, ui);
-                    cmd.executeStorage(items, ui, contactStorage,contactList);
+                    //cmd.executeStorage(items, ui, contactStorage,contactList);
                 } else if (cmd instanceof ListContactsCommand) {
                     cmd.execute(items, contactList, ui);
                 } else {

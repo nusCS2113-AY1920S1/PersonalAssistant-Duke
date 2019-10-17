@@ -12,9 +12,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 public class ContactStorage {
-    //protected String filePathForContacts = "./";
-    protected String filePathForContacts = "";
-    String storageClassPath = Storage.class.getProtectionDomain().getCodeSource().getLocation().getPath();
+    protected String filePathForContacts = "./";
+//    protected String filePathForContacts = "";
+//    String storageClassPath = Storage.class.getProtectionDomain().getCodeSource().getLocation().getPath();
 
     /**
      * Creates a storage with a specified filePathForContacts.
@@ -22,14 +22,14 @@ public class ContactStorage {
      * @param filePathForContacts The location of the contacts text file.
      */
     public ContactStorage(String filePathForContacts) {
-        String[] pathSplitter = storageClassPath.split("/");
-        for (String directory: pathSplitter) {
-            if (!directory.isEmpty() && !directory.equals("build")) {
-                this.filePathForContacts += directory + "/";
-            } else if (directory.equals("build")) {
-                break;
-            }
-        }
+//        String[] pathSplitter = storageClassPath.split("/");
+//        for (String directory: pathSplitter) {
+//            if (!directory.isEmpty() && !directory.equals("build")) {
+//                this.filePathForContacts += directory + "/";
+//            } else if (directory.equals("build")) {
+//                break;
+//            }
+//        }
         this.filePathForContacts += filePathForContacts;
     }
 

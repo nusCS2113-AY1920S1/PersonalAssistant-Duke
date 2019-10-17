@@ -110,7 +110,7 @@ public class Ui {
     }
 
     /**
-     * Outputs all the contacts of the contact list to the user.
+     * Outputs all the contacts of the contact list to user through CLI.
      *
      * @param contactList The list of contacts.
      */
@@ -119,6 +119,17 @@ public class Ui {
         out.print(contactList.getContactList());
     }
 
+    /**
+     * Outputs all the contacts of the contact list to user through GUI.
+     *
+     * @param contactList The list of contacts.
+     */
+    public static String showContactListGui(ContactList contactList) {
+        String str = "";
+        str += "Here are all your contacts:\n";
+        str += contactList.getContactList();
+        return str;
+    }
     /**
      * Outputs all the tasks of the task list to the user (GUI).
      *
@@ -395,6 +406,7 @@ public class Ui {
             str += contactList.get(contactList.size() - 1);
             str += "\nNow you have " + contactList.size() + " contacts.";
         }
+        System.out.println("I was here");
         return str;
     }
 
