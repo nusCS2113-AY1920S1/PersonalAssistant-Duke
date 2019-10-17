@@ -6,14 +6,19 @@ import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVPrinter;
 import org.apache.commons.csv.CSVRecord;
 
-import java.io.*;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.Reader;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 
 /**
  * TaskStorage.java - a class for writing/reading patient info to/from local in csv format.
- * @author  HUANG XUAN KUN
+ *
+ * @author HUANG XUAN KUN
  * @version 1.2
  */
 public class PatientStorage {
@@ -34,7 +39,7 @@ public class PatientStorage {
     }
 
     /**
-     * Load the patients' info from local csv files
+     * Load the patients' info from local csv files.
      *
      * @return A arrayList of Patient which contain info of patients
      * @throws DukeException throw a dukeException with error message for debugging
@@ -59,13 +64,15 @@ public class PatientStorage {
             }
             return patientList;
         } catch (Exception e) {
-            throw new DukeException("Loading of " + filePath + "is unsuccessful.\n" +
-                    "e.getMessage()");
+            throw new DukeException("Loading of "
+                    + filePath
+                    + "is unsuccessful.\n"
+                    + "e.getMessage()");
         }
     }
 
     /**
-     * Write the patients' info to local csv files
+     * Write the patients' info to local csv files.
      *
      * @param patients A list of patients containing info of patients to be written
      * @throws DukeException throw exception with error message when i/o fails
@@ -78,10 +85,10 @@ public class PatientStorage {
             for (Patient patient : patients) {
                 int id = patient.getID();
                 String room = patient.getRoom();
-                String NRIC = patient.getNRIC();
+                String nric = patient.getNRIC();
                 String name = patient.getName();
                 String remark = patient.getRemark();
-                csvPrinter.printRecord(id, name, NRIC, room, remark);
+                csvPrinter.printRecord(id, name, nric, room, remark);
             }
             csvPrinter.flush();
         } catch (IOException e) {
