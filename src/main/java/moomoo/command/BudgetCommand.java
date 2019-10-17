@@ -435,7 +435,7 @@ public class BudgetCommand extends Command {
 
     private boolean inCategoryList(String value, CategoryList catList) {
         for (Category cat : catList.getCategoryList()) {
-            if (cat.getName().equals(value)) {
+            if (cat.toString().equals(value)) {
                 return true;
             }
         }
@@ -567,7 +567,7 @@ public class BudgetCommand extends Command {
     private String initialPrompt(CategoryList catList, Ui ui, Budget budget, String promptValue) {
         String outputValue = "CATEGORIES:\n";
         for (int i = 0; i < catList.getCategoryList().size(); ++i) {
-            String categoryName = catList.getCategoryList().get(i).getName();
+            String categoryName = catList.getCategoryList().get(i).toString();
             outputValue += categoryName + "\n";
         }
         if (outputValue.equals("CATEGORIES:\n")) {

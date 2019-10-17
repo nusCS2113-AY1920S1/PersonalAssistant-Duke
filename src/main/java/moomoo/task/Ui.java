@@ -159,7 +159,7 @@ public class Ui {
      * @param month month that should be totaled
      */
     public void showMonthlyTotal(double monthlyTotal, Category category, int month) {
-        print("Your total spending in the month of " + month + " for " + category.getName()
+        print("Your total spending in the month of " + month + " for " + category.toString()
             + " is $" + monthlyTotal + ".");
     }
 
