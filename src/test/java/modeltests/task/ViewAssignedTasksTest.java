@@ -1,7 +1,9 @@
-package models.task;
+package modeltests.task;
 
 import models.data.Project;
 import models.member.Member;
+import models.task.Task;
+import models.task.TaskState;
 import org.junit.jupiter.api.Test;
 import util.date.DateTimeHelper;
 
@@ -12,17 +14,17 @@ import java.util.Date;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class ViewAssignedTasksTest {
+class ViewAssignedTasksTest {
     private Project project = new Project("Infinity_Gauntlet");
     private DateTimeHelper dateTimeHelper = new DateTimeHelper();
 
     @Test
-    public void alwaysTrue() {
+    void alwaysTrue() {
         assertEquals(2, 2);
     }
 
     @Test
-    public void testViewAssignedTask() {
+    void testViewAssignedTask() {
         String testAssignedTasks = "1. Dillen (Phone: 9999 | Email: dillen@gmail.com)\n"
                 + "2. Jerry (Phone: 9999 | Email: jerryn@gmail.com)";
         String testAssignedTasks2 = "1. Dillen (Phone: 9999 | Email: dillen@gmail.com)";
