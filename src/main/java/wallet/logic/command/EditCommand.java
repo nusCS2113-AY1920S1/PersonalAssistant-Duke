@@ -17,6 +17,7 @@ public class EditCommand extends Command {
             + "\nExample: " + COMMAND_WORD + " expense 2 /d lunch /a 9 /c Food /r no";
     public static final String MESSAGE_SUCCESS_EDIT_EXPENSE = "Successfully edited this expense:";
     public static final String MESSAGE_SUCCESS_EDIT_CONTACT = "Successfully edited this contact:";
+    public static final String MESSAGE_ERROR_COMMAND = "An error encountered while executing command.";
 
     private Expense expense;
     private Contact contact;
@@ -69,12 +70,16 @@ public class EditCommand extends Command {
                 if (contact.getName() != null) {
                     currentContact.setName(contact.getName());
                 }
-
-                if (contact.getDetail() != null) {
+                //resetting detail
+                if (contact.getDetail() == "") {
+                    currentContact.setDetail(null);
+                } else if (contact.getDetail() != null) {
                     currentContact.setDetail(contact.getDetail());
                 }
-
-                if (contact.getPhoneNum() != null) {
+                //resetting phone number
+                if (contact.getPhoneNum() == "") {
+                    currentContact.setPhoneNum(null);
+                } else if (contact.getPhoneNum() != null) {
                     currentContact.setPhoneNum(contact.getPhoneNum());
                 }
 
@@ -82,6 +87,8 @@ public class EditCommand extends Command {
                 wallet.getContactList().setModified(true);
                 System.out.println(MESSAGE_SUCCESS_EDIT_CONTACT);
                 System.out.println(currentContact.toString());
+            } else {
+                System.out.println(MESSAGE_ERROR_COMMAND);
             }
         }
 

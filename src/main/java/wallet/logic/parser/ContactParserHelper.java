@@ -51,8 +51,8 @@ public class ContactParserHelper {
         int detailsIndex;
         int phoneIndex;
         String name;
-        String details = "[no details]";
-        String phone = "[no phone]";
+        String details;
+        String phone;
 
         ArrayList<String> nameList = new ArrayList<>();
         ArrayList<String> detailsList = new ArrayList<>();
@@ -76,28 +76,19 @@ public class ContactParserHelper {
             }
         }
 
-        if (nameList.isEmpty()) {
+        name = concatList(nameList);
+        if (name.trim().isEmpty()) {
             return null;
-        } else {
-            name = concatList(nameList);
-
-            if (name.trim().isEmpty()) {
-                return null;
-            }
         }
 
-        if (!detailsList.isEmpty()) {
-            details = concatList(detailsList);
-            if (details.trim().isEmpty()) {
-                details = "[no details]";
-            }
+        details = concatList(detailsList);
+        if (details.trim().isEmpty()) {
+            details = null;
         }
 
-        if (!phoneList.isEmpty()) {
-            phone = concatList(phoneList);
-            if (phone.trim().isEmpty()) {
-                phone = "[no phone]";
-            }
+        phone = concatList(phoneList);
+        if (phone.trim().isEmpty()) {
+            phone = null;
         }
 
         Contact processed = new Contact(name, details, phone);
@@ -117,7 +108,7 @@ public class ContactParserHelper {
         int phoneIndex;
         int nameIndex;
 
-        String name = null;
+        String name;
         String details = null;
         String phone = null;
 
@@ -149,29 +140,28 @@ public class ContactParserHelper {
             }
         }
 
-        if (!nameList.isEmpty()) {
-            name = concatList(nameList);
-            if (name.trim().isEmpty()) {
-                name = null;
-            }
+
+        name = concatList(nameList);
+        if (name.trim().isEmpty()) {
+            name = null;
         }
 
-        if (!detailsList.isEmpty()) {
+        if (detailsIndex != -1) {
             details = concatList(detailsList);
             if (details.trim().isEmpty()) {
-                details = "[no details]";
+                details = "";
             }
-        } else if (detailsIndex != -1 && detailsList.isEmpty()) {
-            details = "[no details]";
         }
 
-        if (!phoneList.isEmpty()) {
+        if (phoneIndex != -1) {
             phone = concatList(phoneList);
             if (phone.trim().isEmpty()) {
-                phone = "[no phone]";
+                phone = "";
             }
-        } else if (phoneIndex != -1 && phoneList.isEmpty()) {
-            phone = "[no phone]";
+        }
+
+        if (nameIndex == -1 && phoneIndex == -1 && detailsIndex == -1) {
+            return null;
         }
 
         Contact processed = new Contact(name, details, phone);

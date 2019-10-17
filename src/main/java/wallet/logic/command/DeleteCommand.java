@@ -76,6 +76,7 @@ public class DeleteCommand extends Command {
             break;
 
         case "contact":
+            //Delete by Id not Array Index
             Contact contact = wallet.getContactList().deleteContact(index);
             if (contact != null) {
                 wallet.getContactList().setModified(true);
