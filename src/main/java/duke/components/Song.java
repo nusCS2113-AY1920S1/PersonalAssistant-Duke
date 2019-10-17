@@ -99,7 +99,7 @@ public class Song {
     }
 
     /**
-     * Returns a String representation of the Song.
+     * Returns a String representation of the Song for the user to view.
      * @return a String representation of the Song to be viewed by the user
      */
     public String showSongChart() {
@@ -145,5 +145,19 @@ public class Song {
         return formattedChart.toString();
 
 
+    }
+
+    /**
+     * Returns a String representation of the Song to be used for persistent storage.
+     *
+     * @return a storage-friendly String representation
+     */
+    public String toString() {
+        StringBuilder result = new StringBuilder();
+        result.append(name).append(" ");
+        for (Bar bar: bars) {
+            result.append(bar.toString()).append(" ");
+        }
+        return result.toString();
     }
 }
