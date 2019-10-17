@@ -2,7 +2,14 @@ package duke.util;
 
 
 import duke.command.CapCommand;
-import duke.command.logic.*;
+import duke.command.logic.CoreModuleReportCommand;
+import duke.command.logic.EndCommand;
+import duke.command.logic.GeneralModuleReportCommand;
+import duke.command.logic.ModuleCommand;
+import duke.command.logic.RemoveModCommand;
+import duke.command.logic.SearchThenAddCommand;
+import duke.command.logic.ShowModuleCommand;
+import duke.command.logic.UnrestrictedModuleReportCommand;
 import duke.modules.Cca;
 import duke.modules.Deadline;
 import duke.modules.DoWithin;
@@ -91,6 +98,9 @@ public class ParserWrapper {
                     }
                     case ("ue"): {
                         return new UnrestrictedModuleReportCommand();
+                    }
+                    default: {
+                        throw new ModCommandException();
                     }
                 }
             }

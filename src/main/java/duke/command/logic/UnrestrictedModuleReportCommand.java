@@ -57,7 +57,7 @@ public class UnrestrictedModuleReportCommand extends ModuleCommand {
 
         for (int i = 0; i < tasks.getTasks().size(); i++) {
             String moduleCode = tasks.getTasks().get(i).getModuleInfoDetailed().getModuleCode();
-            if((!coreModList.contains(moduleCode)) && !moduleCode.startsWith("GE")) {
+            if ((!coreModList.contains(moduleCode)) && !moduleCode.startsWith("GE")) {
                 ModuleTask temp = tasks.getTasks().get(i);
                 System.out.println(count + ". " + temp);
                 count++;

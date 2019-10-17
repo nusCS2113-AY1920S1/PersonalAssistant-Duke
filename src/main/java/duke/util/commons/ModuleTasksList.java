@@ -52,6 +52,8 @@ public class ModuleTasksList {
         tasks.remove(index);
     }
 
-    public int getSize() { return tasks.size(); }
+    public int getSize() {
+        return tasks.size();
+    }
 
 }

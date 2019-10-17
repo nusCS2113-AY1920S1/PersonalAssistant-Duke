@@ -23,12 +23,6 @@ public class Attributes {
         return fyp;
     }
 
-    public boolean isCoreMod() { return coreMod; }
-
-    public boolean isGeMod() { return geMod; }
-
-    public boolean isUeMod() { return ueMod; }
-
     @Override
     public String toString() {
         return "SU:" + ((su) ? "True" : "False");
