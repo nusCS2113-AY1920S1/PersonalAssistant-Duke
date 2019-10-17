@@ -17,7 +17,7 @@ public class CommandGameNew extends Command {
         } catch (IOException | ParseException e) {
             throw new FarmioException("Load level failed! Fatal!");
         }
-        farmio.getUi().showNarrative(farmio.getLevel().getNarratives(), "Level1-01", farmio);
+        //farmio.getUi().showNarrative(farmio.getLevel().getNarratives(), "Level1-01", farmio);
         farmio.setStage(Farmio.Stage.TASK_ADD);
     }
 }
