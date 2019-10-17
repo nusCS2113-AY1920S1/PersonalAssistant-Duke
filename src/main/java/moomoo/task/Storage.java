@@ -77,6 +77,7 @@ public class Storage {
                         double budget = 0;
                         for (int i = 1; i < splitInput.length; ++i) {
                             if (i % 2 == 0) {
+
                                 if (!category.equals("")) {
                                     budget = Double.parseDouble(splitInput[i]);
                                     loadedBudgets.put(category, budget);
