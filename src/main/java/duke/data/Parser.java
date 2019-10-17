@@ -386,6 +386,7 @@ public class Parser {
             case "student":
                 switch (word[1]) {
                     case "add":
+                        System.out.println("Insert Name, Age, Address:\n");
                         Scanner sc = new Scanner(System.in);
                         String newStudent = sc.nextLine();
                         String[] splitByComma = newStudent.split(",");
