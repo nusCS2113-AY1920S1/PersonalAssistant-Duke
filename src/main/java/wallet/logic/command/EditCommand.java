@@ -71,13 +71,13 @@ public class EditCommand extends Command {
                     currentContact.setName(contact.getName());
                 }
                 //resetting detail
-                if (contact.getDetail() == "") {
+                if (contact.getDetail().equals("")) {
                     currentContact.setDetail(null);
                 } else if (contact.getDetail() != null) {
                     currentContact.setDetail(contact.getDetail());
                 }
                 //resetting phone number
-                if (contact.getPhoneNum() == "") {
+                if (contact.getPhoneNum().equals("")) {
                     currentContact.setPhoneNum(null);
                 } else if (contact.getPhoneNum() != null) {
                     currentContact.setPhoneNum(contact.getPhoneNum());
