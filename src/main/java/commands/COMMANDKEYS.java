@@ -1,6 +1,5 @@
 package commands;
 
-
 /**
  * Command Keywords.
  */
@@ -32,5 +31,6 @@ public enum COMMANDKEYS {
     create ,
     delete ,
     restriction ,
-    clear
+    clear,
+    sort
 }

@@ -52,13 +52,14 @@ public class Main extends Application {
     }
 
     /**
+
      * This function pass over the control to the MovieInfoController class.
      * To view more information on movies or tv shows.
-     */
+
     public void transitToMovieInfoController(MovieInfoObject movie) {
         try {
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(getClass().getClassLoader().getResource("MoreInfo.fxml"));
+            loader.setLocation(getClass().getClassLoader().getResource("Edit.fxml"));
             Pane layout = loader.load();
 
             // setup controller
@@ -72,11 +73,12 @@ public class Main extends Application {
             e.printStackTrace();
         }
     }
+    /**
 
     /**
      * This function pass over the control to the Main class from the MovieInfoController class.
      */
-    public void transitionBackToMoviesController() {
-        mainWindow.setScene(mainMoviesScene);
-    }
+   // public void transitionBackToMoviesController() {
+     //   mainWindow.setScene(mainMoviesScene);
+    //}
 }

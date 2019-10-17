@@ -9,7 +9,6 @@ public class CommandDebugger {
 
     //TODO MOVE THIS SOMEWHERE ELSE
 
-
     public static CommandPair commandSpellChecker(String[] undefinedCommandArr, COMMANDKEYS root, Controller controller) {
         System.out.println("Cant find anything");
         double score = -1;
