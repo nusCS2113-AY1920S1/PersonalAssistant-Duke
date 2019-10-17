@@ -10,8 +10,13 @@ public class ShoppingDescriptor {
     private String remarks;
     private Double unitCost;
 
-    public ShoppingDescriptor() {}
+    public ShoppingDescriptor() {
 
+    }
+
+    /**
+     * Creates a ShoppingDescriptor constructor and sets its values with toCopy's values
+     */
     public ShoppingDescriptor(ShoppingDescriptor toCopy) {
         setName(toCopy.name);
         setQuantity(toCopy.quantity);

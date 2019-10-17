@@ -9,7 +9,11 @@ import duke.logic.parser.commons.Parser;
 import duke.logic.parser.commons.ParserUtil;
 import duke.logic.parser.exceptions.ParseException;
 
-import static duke.logic.parser.commons.CliSyntax.*;
+
+import static duke.logic.parser.commons.CliSyntax.PREFIX_INVENTORY_INDEX;
+import static duke.logic.parser.commons.CliSyntax.PREFIX_INVENTORY_NAME;
+import static duke.logic.parser.commons.CliSyntax.PREFIX_INVENTORY_QUANTITY;
+import static duke.logic.parser.commons.CliSyntax.PREFIX_INVENTORY_REMARKS;
 import static duke.logic.parser.inventory.InventoryParserUtil.createInventoryDescriptor;
 
 public class EditInventoryCommandParser implements Parser<EditInventoryCommand> {
