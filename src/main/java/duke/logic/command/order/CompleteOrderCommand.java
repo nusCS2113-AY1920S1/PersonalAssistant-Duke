@@ -83,6 +83,7 @@ public class CompleteOrderCommand extends OrderCommand {
         for (Item<Product> productItem : order.getItems()) {
             for (Item<Ingredient> ingredientItem : productItem.getItem().getIngredients()) {
                 if (model.hasIngredient(ingredientItem.getItem())) {
+                    System.out.println("has");
                     if (model.deductIngredient(ingredientItem.getItem(),
                         productItem.getQuantity().getNumber() * ingredientItem.getQuantity().getNumber()
                         )) {

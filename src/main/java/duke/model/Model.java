@@ -207,7 +207,6 @@ public interface Model {
 
     boolean hasIngredient(Ingredient ingredient);
 
-    //TODO:Hi Eugene. This method returns false if deduction leads to negative. Thanks.
     boolean deductIngredient(Ingredient ingredient, double amount);
 
     /**
