@@ -1,9 +1,11 @@
+import duke.command.Parser;
+
 public class ParserTest {
 
     // TODO check whether every task can be detected
     // TODO check if exception are thrown for incorrect input formats
 
-    //private Parser uut = new Parser();
+    //private Parser uut = new Parser(new TestCommands());
 
     /*@Test
     public void parseCommands_validCommands_correctCommandsReturned() {
