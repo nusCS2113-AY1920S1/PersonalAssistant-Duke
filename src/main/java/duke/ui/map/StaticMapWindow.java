@@ -1,19 +1,11 @@
 package duke.ui.map;
 
-import duke.commands.results.CommandResultImage;
-import duke.model.locations.BusStop;
-import duke.model.locations.Venue;
 import duke.ui.UiPart;
-import javafx.collections.FXCollections;
-import javafx.collections.ListChangeListener;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-
-import java.util.List;
 
 public class StaticMapWindow extends UiPart<Stage> {
     @FXML

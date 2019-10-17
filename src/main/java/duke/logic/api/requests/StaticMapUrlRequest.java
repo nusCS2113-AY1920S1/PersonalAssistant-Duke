@@ -2,11 +2,7 @@ package duke.logic.api.requests;
 
 import duke.commons.Messages;
 import duke.commons.exceptions.DukeApiException;
-import duke.commons.exceptions.DukeException;
-import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.image.Image;
-
-import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.net.URL;
@@ -33,8 +29,7 @@ public class StaticMapUrlRequest extends UrlRequest {
         BufferedImage response;
         try {
             URL url = new URL(URL + param);
-            response = ImageIO.read(url);
-            image = SwingFXUtils.toFXImage(response, null);
+            image = new Image(url.toExternalForm());
             assert (image != null);
         } catch (IOException e) {
             throw new DukeApiException(Messages.DATA_NOT_FOUND);
