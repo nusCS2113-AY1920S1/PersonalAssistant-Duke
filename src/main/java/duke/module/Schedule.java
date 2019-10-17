@@ -129,11 +129,33 @@ public class Schedule {
                            TaskList taskList, Storage scheduleStorage) {
         Date start = taskList.dateConvert(startTime);
         Date end = taskList.dateConvert(endTime);
-        TimeSlot timeSlot = new TimeSlot(start, end, location, className);
-        this.list.add(timeSlot);
-        scheduleStorage.saveSchedule(timeSlot);
-        scheduleStorage.updateSchedule(this.list);
-        return "New training has been added";
+        boolean hasClash = false;
+        for (TimeSlot t : this.list) {
+            if (!hasClash) {
+                if (start.equals(t.getEndTime())) {
+                    hasClash = true;
+                    break;
+                }
+                Date temp = t.getStartTime();
+                while (!temp.equals(t.getEndTime())) {
+                    if (start.equals(temp)) {
+                        hasClash = true;
+                        break;
+                    }
+                    long curTimeInMs = temp.getTime();
+                    temp = new Date(curTimeInMs + 60000);
+                }
+            }
+        }
+        if (!hasClash) {
+            TimeSlot timeSlot = new TimeSlot(start, end, location, className);
+            this.list.add(timeSlot);
+            scheduleStorage.saveSchedule(timeSlot);
+            scheduleStorage.updateSchedule(this.list);
+            return "New class has been added";
+        } else {
+            return "Unable to add class. There is already another class in the same timeslot.";
+        }
     }
 
     public String delClass(String startTime, String name, Storage scheduleStorage) throws ParseException {
