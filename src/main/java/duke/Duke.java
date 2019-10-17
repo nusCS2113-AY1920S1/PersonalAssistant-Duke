@@ -112,7 +112,7 @@ public class Duke {
     }
 
     /**
-     * gMain setup function to start threads in reminder and fill module data on startup.
+     * Main setup function to start threads in reminder and fill module data on startup.
      */
     private void setup() {
         try {
