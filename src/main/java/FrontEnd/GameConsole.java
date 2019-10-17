@@ -54,7 +54,7 @@ public class GameConsole {
         }
         return userCodeOutput;
     }
-    public static String content(ArrayList<String> stage, Farmio farmio) { //does not include story
+    static String content(ArrayList<String> stage, Farmio farmio) { //does not include story
         StringBuilder output = new StringBuilder();
         String objective = "";// farmio.getLevel().getNarratives().get(0);
         String location = farmio.getFarmer().getLocation();

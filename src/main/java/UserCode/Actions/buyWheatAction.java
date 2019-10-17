@@ -7,10 +7,10 @@ import Places.WheatFarm;
 import FrontEnd.Ui;
 import Farmio.Farmer;
 
-public class buyWheatAction extends Action {
+public class BuyWheatAction extends Action {
     int moneyChange = -100;
 
-    public buyWheatAction(Farmio farmio) {
+    public BuyWheatAction(Farmio farmio) {
         super(farmio);
     }
 

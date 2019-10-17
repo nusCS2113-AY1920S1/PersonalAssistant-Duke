@@ -30,7 +30,7 @@ public class Ui {
         } catch (IOException e) {
             showWarning("'welcome' ascii art missing!");
         }
-        show("Press ENTER to continue.");
+        show( "Press ENTER to continue.");
     }
 
     public void showExit(){
@@ -38,11 +38,11 @@ public class Ui {
     }
 
     public void showNarrative(ArrayList<String> narratives, String directory, Farmio farmio) {
+        Simulate narrativeSimulation = new Simulate(directory, farmio);
         for(int i = 0; i < narratives.size(); ++i){
             clearScreen();
-            show(GameConsole.content(loadStage(directory, i), farmio));
-//            typeWriter(narratives.get(i));
-            show(narratives.get(i));
+            narrativeSimulation.showFrame(i);
+            typeWriter(narratives.get(i));
             if(i != narratives.size() - 1) {
                 show("Press ENTER to continue.");
                 getInput();
@@ -138,20 +138,21 @@ public class Ui {
         return output;
     }
     public void typeWriter(String text) { //use terminal to see full effects, in console only seem to beline by line..
-        int i;
-        System.out.print(">>> ");
-        try{
-            Thread.sleep(1500);//0.5s pause between characters
-        }catch(InterruptedException ex){
-            Thread.currentThread().interrupt();
-        }
-        for(i = 0; i < text.length(); i++) {
-            System.out.printf("%c", text.charAt(i));
-            try{
-                Thread.sleep(120);//0.5s pause between characters
-            }catch(InterruptedException ex){
-                Thread.currentThread().interrupt();
-            }
-        }
+//        int i;
+//        System.out.print(">>> ");
+//        try{
+//            Thread.sleep(1500);//0.5s pause between characters
+//        }catch(InterruptedException ex){
+//            Thread.currentThread().interrupt();
+//        }
+//        for(i = 0; i < text.length(); i++) {
+//            System.out.printf("%c", text.charAt(i));
+//            try{
+//                Thread.sleep(120);//0.5s pause between characters
+//            }catch(InterruptedException ex){
+//                Thread.currentThread().interrupt();
+//            }
+//        }
+        show("typewriter funtion: (for testing this is disabled cos slow af)"+text);
     }
 }
