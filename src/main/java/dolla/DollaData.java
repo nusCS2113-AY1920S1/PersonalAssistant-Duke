@@ -61,7 +61,6 @@ public class DollaData {
             entryList.addWithIndex(modifyIndex, newLog);
         }
     }
-
     public String getMode() {
         return mode;
     }

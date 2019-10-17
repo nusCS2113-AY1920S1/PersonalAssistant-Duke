@@ -1,7 +1,5 @@
 package dolla.task;
 
-import dolla.Log;
-
 import java.util.ArrayList;
 
 /**
