@@ -10,56 +10,60 @@ import java.util.Arrays;
  * It provides a method TypoCorrector.CommandCorrection which takes in an invalid input command
  * and return a possible matched command.
  *
- * @author  HUANG XUAN KUN
+ * @author HUANG XUAN KUN
  * @version 1.2
  */
 public class TypoCorrector {
 
     //The maximum ratio changes of a text in % that is acceptable
-    private final static double MAX_DISTANCE_DIFF_RATIO = 0.5;
+    private static final double MAX_DISTANCE_DIFF_RATIO = 0.5;
 
-
-    //Sets of "Dictionaries" for the command matching, categorised by number of keywords contain in a supported commands.
-    private final static ArrayList<String> oneKeywordCommand = new ArrayList<String>(Arrays.asList("bye"));
-    private final static ArrayList<String> twoKeywordsCommands = new ArrayList<String>(Arrays.asList("list patients", "list tasks"));
-    private final static ArrayList<String> otherCommands = new ArrayList<String>(Arrays.asList("update patient", "update task", "delete patient", "delete task", "add task", "add patient", "assign by"));
+    //Sets of "Dictionaries" for the command keyword, categorised by number of keywords contain in a supported commands.
+    private static final ArrayList<String> oneKeywordCommand = new ArrayList<String>(
+            Arrays.asList("bye"));
+    private static final ArrayList<String> twoKeywordsCommands = new ArrayList<String>(
+            Arrays.asList("list patients", "list tasks"));
+    private static final ArrayList<String> otherCommands = new ArrayList<String>(
+            Arrays.asList("update patient", "update task",
+                    "delete patient", "delete task", "add task", "add patient", "assign by"));
 
     /**
      * This method take in an user input command with typo and return a possible matches
      * If the return string is equal to the input command, there is no match.
      *
      * @param command the full userInput command without parsing
-     * @return
+     * @return a string of correctedCommand
      */
-    public static String CommandCorrection(String command) {
+    public static String commandCorrection(String command) {
         String[] splitCommand = command.split("\\s+");
         int commandSize = splitCommand.length;
-        String closestMatch, firstTwoKeywords;
+        String closestMatch;
+        String firstTwoKeywords;
         if (commandSize == 1 || command.length() <= 6) {
             closestMatch = matchStringFromDict(command, oneKeywordCommand);
-            if (isSimilar(command, closestMatch)){
+            if (isSimilar(command, closestMatch)) {
                 return closestMatch;
             }
         } else if (commandSize == 2) {
             firstTwoKeywords = command.toLowerCase();
             closestMatch = matchStringFromDict(firstTwoKeywords, twoKeywordsCommands);
-            if (isSimilar(firstTwoKeywords, closestMatch)){
+            if (isSimilar(firstTwoKeywords, closestMatch)) {
                 return closestMatch;
             }
         } else {
-            firstTwoKeywords = (splitCommand[0]+" " +splitCommand[1]).toLowerCase();
+            firstTwoKeywords = (splitCommand[0] + " " + splitCommand[1]).toLowerCase();
             closestMatch = matchStringFromDict(firstTwoKeywords, otherCommands);
-            if (isSimilar(firstTwoKeywords, closestMatch)){
-                splitCommand[0]="";
-                splitCommand[1]="";
-                return closestMatch + " " +String.join(" ",splitCommand).trim();
+            if (isSimilar(firstTwoKeywords, closestMatch)) {
+                splitCommand[0] = "";
+                splitCommand[1] = "";
+                return closestMatch + " " + String.join(" ", splitCommand).trim();
             }
         }
         return command;
     }
 
     /**
-     * Get the closest match string from the array targetDict
+     * Get the closest match string from the array targetDict.
      *
      * @param str the arbitrary string
      * @return
@@ -70,7 +74,7 @@ public class TypoCorrector {
         for (String keyword : targetDict) {
             int currDist = getDistance(keyword, str);
             if (currDist < minDist) {
-                if (currDist == 0){
+                if (currDist == 0) {
                     return keyword;
                 }
                 minDist = currDist;
@@ -81,7 +85,7 @@ public class TypoCorrector {
     }
 
     /**
-     * Get Levenshtein distance between target and an arbitrary string
+     * Get Levenshtein distance between target and an arbitrary string.
      *
      * @param str the arbitrary string
      * @return
@@ -92,7 +96,8 @@ public class TypoCorrector {
     }
 
     /**
-     * Method indicating if a message can be considered similar, based on Levenshtein distance calculation with an allowed variation of 50%
+     * Method indicating if a message can be considered similar, based on Levenshtein distance
+     * calculation with an allowed variation of 50%.
      *
      * <b>Note:</b> Max tolerated distance is derived from the current scenario's error message
      * The arbitrary MAX_DISTANCE_DIFF_RATIO (50%) means we consider 10% change to be acceptable
