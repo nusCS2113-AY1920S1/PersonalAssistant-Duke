@@ -10,6 +10,7 @@ public class CommandHelp extends Command {
      */
     public CommandHelp() {
         this.description = "Provides the user with all the available commands and descriptions.";
+        this.commandType = CommandType.HELP;
     }
 
     @Override
