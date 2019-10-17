@@ -226,9 +226,23 @@ public class ExpenseList extends DukeList<Expense> {
                 .reduce(BigDecimal.ZERO, BigDecimal::add);
     }
 
+    /**
+     * returns the total Amount given a specific tag.
+     *
+     * @param tag the tag of
+     * @return A BigDecimal which is the sum of all items of a single tag
+     */
+    public BigDecimal getTagAmount(String tag) {
+        return internalList.stream()
+                .filter(expense -> expense.getTags().contains(tag))
+                .map(Expense::getAmount)
+                .reduce(BigDecimal.ZERO, BigDecimal::add);
+        }
+
     public BigDecimal getTotalExternalAmount() {
         return externalList.stream()
             .map(Expense::getAmount)
             .reduce(BigDecimal.ZERO, BigDecimal::add);
     }
+      
 }
