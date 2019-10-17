@@ -234,6 +234,26 @@ public class BakingHome implements ReadOnlyBakingHome {
         inventory.setAll(emptyList);
     }
 
+    public boolean deductIngredient(Ingredient ingredient, double amount) {
+        boolean isDeducted = false;
+
+        for (Item<Ingredient> item : inventory) {
+            if (item.getItem().equals(ingredient)) {
+                Double currentAmount = item.getQuantity().getNumber();
+
+                if (currentAmount >= amount) {
+                    Double newAmount = currentAmount - amount;
+                    item.getQuantity().setQuantity(newAmount);
+                    isDeducted = true;
+                } else {
+                    item.getQuantity().setQuantity(0.0);
+                }
+                break;
+            }
+        }
+        return isDeducted;
+    }
+
     @Override
     public ObservableList<Item<Ingredient>> getInventoryList() {
         return inventory.asUnmodifiableObservableList();
