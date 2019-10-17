@@ -23,10 +23,12 @@ public final class AsciiColours {
 
     // Color code strings from:
     // http://www.topmudsites.com/forums/mud-coding/413-java-ansi.html
+
 //    static final String	SANE				= "\u001B[0m" + "\u001B[30m" + "\u001B[47m";
     public static final String	SANE				= "\u001B[0m";
 
-    static final String  HIGHLIGHT           = "\u001B[0m"  + "\u001B[1m" + "\u001B[3m";;;
+    static final String  HIGHLIGHT           = "\u001B[0m"  + "\u001B[1m";
+
     public static final String	HIGH_INTENSITY		= "\u001B[1m";
     public static final String	LOW_INTENSITY		= "\u001B[2m";
 
