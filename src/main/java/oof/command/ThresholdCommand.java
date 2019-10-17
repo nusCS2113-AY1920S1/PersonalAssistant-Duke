@@ -18,7 +18,7 @@ public class ThresholdCommand extends Command {
      *
      * @param newThreshold New threshold input by user.
      */
-    public ThresholdCommand (String newThreshold) {
+    public ThresholdCommand(String newThreshold) {
         super();
         this.newThreshold = newThreshold;
     }
@@ -35,7 +35,7 @@ public class ThresholdCommand extends Command {
      * @param newThreshold New threshold input by user.
      * @throws OofException Throws an exception if file to be updated cannot be found.
      */
-    public void updateThreshold (String newThreshold) {
+    public void updateThreshold(String newThreshold) {
         storage.writeThreshold(newThreshold);
     }
 

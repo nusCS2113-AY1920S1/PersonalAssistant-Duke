@@ -28,7 +28,7 @@ public class Reminder {
      */
     public void checkDeadline(TaskList taskList, Ui ui) throws OofException {
         int count = 1;
-        int upcoming_threshold = storage.readThreshold();
+        int upcomingThreshold = storage.readThreshold();
         for (int i = 0; i < taskList.getSize(); i++) {
             Task task = taskList.getTask(i);
             if (task instanceof Deadline) {
@@ -38,7 +38,7 @@ public class Reminder {
                 try {
                     Date dueDate = new SimpleDateFormat("dd-MM-yyyy HH:mm").parse(result);
                     Date now = new Date();
-                    if (isUpcoming(dueDate, now, upcoming_threshold)) {
+                    if (isUpcoming(dueDate, now, upcomingThreshold)) {
                         if (isFirstReminder(count)) {
                             ui.printReminder();
                             ui.printUpcomingDeadline(count, taskList.getTask(i));
@@ -66,10 +66,10 @@ public class Reminder {
      * @param now     Current time.
      * @return true if due date of current deadline is within threshold.
      */
-    private boolean isUpcoming(Date dueDate, Date now, int upcoming_threshold) {
+    private boolean isUpcoming(Date dueDate, Date now, int upcomingThreshold) {
         long diff = dueDate.getTime() - now.getTime(); // difference in time in milliseconds
         long diffHours = diff / MILLISECOND_TO_HOUR;
-        return diffHours < upcoming_threshold && diffHours > 0;
+        return diffHours < upcomingThreshold && diffHours > 0;
     }
 
     /**

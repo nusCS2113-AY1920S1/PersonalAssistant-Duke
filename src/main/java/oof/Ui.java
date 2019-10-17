@@ -457,7 +457,7 @@ public class Ui {
      * @param endDate The ending time of the free time slot.
      * @param count The index of the free time slots.
      */
-    public void printFreeTimings(String startDate, String endDate, int count) {
+    public void printFreeTimes(String startDate, String endDate, int count) {
         System.out.println("\t" + count + ". " + startDate + " to " + endDate);
     }
 
