@@ -3,6 +3,7 @@ package Places;
 import org.json.simple.JSONObject;
 
 public class CowFarm extends Farm {
+    private int milk;
     @Override
     public int sell() {
         return 0;
