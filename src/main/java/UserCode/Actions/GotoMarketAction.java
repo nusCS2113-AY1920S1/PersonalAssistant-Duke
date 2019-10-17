@@ -14,7 +14,7 @@ public class GotoMarketAction extends Action {
         try {
             Simulation GotoMarketSimulation = new Simulation("GotoMarketSimulation", super.farmio);
             farmer.changeLocation("-Traveling-");
-            GotoMarketSimulation.animate(0, 11);
+            GotoMarketSimulation.animate(1, 11);
             farmer.changeLocation("Market");
             GotoMarketSimulation.delayFrame(12, 1000);
             ui.typeWriter("You have arrived at the market");

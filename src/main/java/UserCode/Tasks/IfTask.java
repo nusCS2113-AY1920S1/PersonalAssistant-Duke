@@ -2,6 +2,7 @@ package UserCode.Tasks;
 
 import Farmio.Farmio;
 import FarmioExceptions.FarmioException;
+import FrontEnd.Simulation;
 import UserCode.Actions.Action;
 import UserCode.Conditions.Condition;
 import FrontEnd.Ui;
