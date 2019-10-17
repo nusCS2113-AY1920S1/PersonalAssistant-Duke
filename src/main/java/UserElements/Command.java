@@ -148,10 +148,11 @@ public class Command {
             int viewIndex = 1;
             for (Event viewEvent : events.getEventArrayList()) {
                 if (viewEvent.toString().contains(searchKeyWords)) {
-                    foundEvent += viewIndex + ". " + viewEvent.toString() + "\n";
-                    viewIndex++;
+                    foundEvent += viewIndex + ". " + viewEvent.toString() + "\n";    
                 }
+                viewIndex++;
             }
+            
             boolean isEventsFound = !foundEvent.isEmpty();
             ui.printFoundEvents(foundEvent, isEventsFound);
         }
@@ -192,8 +193,8 @@ public class Command {
             for (Event viewEvent : events.getEventArrayList()) {
                 if (viewEvent.toString().contains(findDate.getFormattedDateString())) {
                     foundEvent += viewIndex + ". " + viewEvent.toString() + "\n";
-                    viewIndex++;
                 }
+                viewIndex++;
             }
             boolean isEventsFound = !foundEvent.isEmpty();
             ui.printFoundEvents(foundEvent, isEventsFound);
@@ -392,8 +393,7 @@ public class Command {
             } else {
                 period = Integer.parseInt(splitEvent[2]);
             }
-
-            return this;
+            return this; 
         }
     }
 }
