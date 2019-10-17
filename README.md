@@ -18,7 +18,7 @@ Project is created with:
 
 ## User Guide
 
-For those who wish to use Duke 2.0 as-is, please refer to the [User Guide](docs/README.adoc).
+For those who wish to use Duke 2.0 as-is, please refer to the [User Guide](docs/UserGuide.adoc).
 
 ## For Developers
 
