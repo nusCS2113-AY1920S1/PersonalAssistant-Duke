@@ -1,11 +1,11 @@
-import duke.exception.DukeException;
-import duke.exception.DukeFatalException;
 import duke.data.GsonStorage;
 import duke.data.Impression;
 import duke.data.Patient;
+import duke.data.PatientMap;
+import duke.exception.DukeException;
+import duke.exception.DukeFatalException;
 import org.junit.jupiter.api.Test;
 
-import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
@@ -19,16 +19,11 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
  * JUnit class testing the class GsonStorage.
  */
 public class GsonStorageTest {
-
-    private String filePath = "data/patients.json";
-    private GsonStorage gsonStorage = new GsonStorage(filePath);
+    public PatientMap patientMap;
+    public GsonStorage storage;
     private Patient dummy1 = new Patient("dummy1", "A100", "nuts");
     private Patient dummy2 = new Patient("dummy2", "A200", null);
     private Patient dummy3 = new Patient("dummy3", "A300", "cats");
-    /*private String expected = "[{\"bedNo\":\"A100\",\"allergies\":\"nuts\",\"impressions\":[],\"height\":0,\"we"
-            + "ight\":0,\"age\":0,\"number\":0,\"name\":\"dummy1\"},{\"bedNo\":\"A200\",\"impressions\":[],\"heig"
-            + "ht\":0,\"weight\":0,\"age\":0,\"number\":0,\"name\":\"dummy2\"},{\"bedNo\":\"A300\",\"allergies\":\"ca"
-            + "ts\",\"impressions\":[],\"height\":0,\"weight\":0,\"age\":0,\"number\":0,\"name\":\"dummy3\"}]";*/
     private String expected = "["
             + "{\"bedNo\":\"A300\",\"allergies\":\"cats\",\"impressions\":[],\"height\":0,"
             + "\"weight\":0,\"age\":0,\"number\":0,\"name\":\"dummy3\"},"
@@ -38,7 +33,8 @@ public class GsonStorageTest {
             + "\"weight\":0,\"age\":0,\"number\":0,\"name\":\"dummy2\"}]";
 
     GsonStorageTest() throws DukeFatalException, IOException {
-        gsonStorage.resetAllData();
+        storage = new GsonStorage("data/patients.json");
+        patientMap = storage.resetAllData();
     }
 
     /**
@@ -61,7 +57,7 @@ public class GsonStorageTest {
     /**
      * Compares all the attributes of two patients and returns true if they all are the same, otherwise it returns
      * false.
-     * TODO: compare impressions as well
+     * TODO: compare impressions
      */
     private boolean identical(Patient patient1, Patient patient2) {
         if (!(patient1.getBedNo().equals(patient2.getBedNo()))) {
@@ -88,15 +84,15 @@ public class GsonStorageTest {
      * Tests if patients are transformed from the json file to the hashmap properly.
      */
     @Test
-    public void loadPatientHashMapTest() throws DukeFatalException, IOException {
-        gsonStorage.resetAllData();
-        FileWriter fileWriter = new FileWriter(new File(gsonStorage.getFilePath()));
+    public void loadPatientHashMapTest() throws DukeException, IOException {
+        patientMap = storage.resetAllData();
+        FileWriter fileWriter = new FileWriter(storage.getFilePath());
         fileWriter.write(expected);
         fileWriter.close();
-        gsonStorage.loadPatientHashMap();
-        assertTrue(identical(gsonStorage.getPatient("A100"), dummy1));
-        assertTrue(identical(gsonStorage.getPatient("A200"), dummy2));
-        assertTrue(identical(gsonStorage.getPatient("A300"), dummy3));
+        patientMap.patientHashMap = storage.loadPatientHashMap();
+        assertTrue(identical(patientMap.getPatient("A100"), dummy1));
+        assertTrue(identical(patientMap.getPatient("A200"), dummy2));
+        assertTrue(identical(patientMap.getPatient("A300"), dummy3));
     }
 
     /**
@@ -106,11 +102,11 @@ public class GsonStorageTest {
      */
     @Test
     public void identicalDummyPatient() throws IOException, DukeException, DukeFatalException {
-        gsonStorage.resetAllData();
-        gsonStorage.addPatientToMap(dummy1);
-        gsonStorage.writeJsonFile();
-        gsonStorage.loadPatientHashMap();
-        Patient dummyPatientRecreated = gsonStorage.getPatient(dummy1.getBedNo());
+        patientMap = storage.resetAllData();
+        patientMap.addPatient(dummy1);
+        storage.writeJsonFile(patientMap.patientHashMap);
+        patientMap.patientHashMap = storage.loadPatientHashMap();
+        Patient dummyPatientRecreated = patientMap.getPatient(dummy1.getBedNo());
         boolean equals = identical(dummy1, dummyPatientRecreated);
         assertTrue(equals);
     }
@@ -122,12 +118,12 @@ public class GsonStorageTest {
      */
     @Test
     public void identicalComplexPatient() throws IOException, DukeException, DukeFatalException {
-        gsonStorage.resetAllData();
+        patientMap = storage.resetAllData();
         Patient complexPatient = createComplexPatient();
-        gsonStorage.addPatientToMap(complexPatient);
-        gsonStorage.writeJsonFile();
-        gsonStorage.loadPatientHashMap();
-        Patient complexPatientRecreated = gsonStorage.getPatient("C100");
+        patientMap.addPatient(complexPatient);
+        storage.writeJsonFile(patientMap.patientHashMap);
+        storage.loadPatientHashMap();
+        Patient complexPatientRecreated = patientMap.getPatient("C100");
         boolean equals = identical(complexPatient, complexPatientRecreated);
         assertTrue(equals);
     }
@@ -137,12 +133,12 @@ public class GsonStorageTest {
      */
     @Test
     public void writeJsonFileTest() throws DukeFatalException, IOException, DukeFatalException {
-        gsonStorage.resetAllData();
-        gsonStorage.addPatientToMap(dummy1);
-        gsonStorage.addPatientToMap(dummy2);
-        gsonStorage.addPatientToMap(dummy3);
-        gsonStorage.writeJsonFile();
-        String json = Files.readString(Paths.get(filePath), StandardCharsets.US_ASCII);
+        patientMap = storage.resetAllData();
+        patientMap.addPatient(dummy1);
+        patientMap.addPatient(dummy2);
+        patientMap.addPatient(dummy3);
+        storage.writeJsonFile(patientMap.patientHashMap);
+        String json = Files.readString(Paths.get(storage.getFilePath()), StandardCharsets.US_ASCII);
         System.out.println(expected);
         System.out.println("\n");
         System.out.println(json);

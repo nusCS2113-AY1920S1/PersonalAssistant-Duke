@@ -11,6 +11,7 @@ import javafx.application.Application;
 import javafx.stage.Stage;
 
 import java.io.File;
+import java.io.IOException;
 
 /**
  * Launching point for Dr. Duke. Contains the core which holds the UI manager, storage, and task list.
@@ -34,10 +35,9 @@ public class DukeCore extends Application {
                 patientMap = new PatientMap(storage);
             } catch (DukeResetException excp) {
                 // Reset data file
-                patientMap = new PatientMap();
-                storage.writeJsonFile(); //write empty data structure to data file
+                patientMap = storage.resetAllData();
             }
-        } catch (DukeFatalException e) {
+        } catch (DukeFatalException | IOException e) {
             stop();
         }
     }
