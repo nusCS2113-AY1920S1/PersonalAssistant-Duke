@@ -107,10 +107,6 @@ public class Ui {
             String phone = c.getPhoneNum();
             String detail = c.getDetail();
 
-            if (id.equals("-1")) {
-                id = "ID";
-            }
-
             if (phone == null) {
                 phone = "";
             }
