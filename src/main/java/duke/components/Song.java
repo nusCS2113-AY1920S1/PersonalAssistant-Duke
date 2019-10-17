@@ -1,6 +1,12 @@
 package duke.components;
 
+import duke.components.Bar;
+import duke.components.Note;
+import duke.components.Song;
+import duke.components.Chord;
+
 import java.util.ArrayList;
+import java.util.Iterator;
 
 public class Song {
 
@@ -97,10 +103,47 @@ public class Song {
      * @return a String representation of the Song to be viewed by the user
      */
     public String showSongChart() {
-        StringBuilder formattedChart = new StringBuilder();
+
+        StringBuilder formattedChart1 = new StringBuilder();
         for (String chordString: songChart) {
-            formattedChart.append(chordString).append(" ");
+            formattedChart1.append(chordString).append(" ");
+        }
+        System.out.println(formattedChart1.toString());
+        //System.out.println(this.getBars().get(0).getChords().get(0).getNotes().get(0).getPitch());
+        //return formattedChart1.toString();
+
+        ArrayList<Bar> barList  = this.getBars();
+        Iterator<Bar> iterator1 = barList.iterator();
+        StringBuilder formattedChart = new StringBuilder();
+        int i = 0;
+        //System.out.println(bars.get(0).getChords().get(0).getNotes().get(0).getPitch());
+        while (iterator1.hasNext()) {
+            Bar barToAnalyse = iterator1.next();
+            ArrayList<Chord> chordToAnalyse  =  barToAnalyse.getChords();
+            Iterator<Chord> iterator = chordToAnalyse.iterator();
+            System.out.println(chordToAnalyse.size());
+            int j = 0;
+            while (iterator.hasNext() && j < chordToAnalyse.size() / 2) {
+                formattedChart.append("{");
+                Chord tempChordToAnalyse = iterator.next();
+                ArrayList<Note> notesAnalyse  =  tempChordToAnalyse.getNotes();
+                System.out.print(notesAnalyse.size());
+                Iterator<Note> iterator2 = notesAnalyse.iterator();
+                while (iterator2.hasNext()) {
+                    Note tempNote = iterator2.next();
+                    System.out.println("hello");
+                    formattedChart.append(tempNote.getPitch());
+                    formattedChart.append(" ");
+                }
+                formattedChart.append("}");
+                j += 1;
+            }
+
+            formattedChart.append("|");
+            i += 1;
         }
         return formattedChart.toString();
+
+
     }
 }
