@@ -7,7 +7,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
-public abstract class ArgCommandSpec {
+public abstract class ArgSpec {
     protected String emptyArgMsg;
     protected ArgLevel cmdArgLevel;
     protected Map<String, Switch> switchMap;

@@ -15,7 +15,7 @@ public class DoctorCommand extends ArgCommand {
     }
 
     @Override
-    ArgCommandSpec getSpec() {
-        return DoctorCommandSpec.getSpec();
+    ArgSpec getSpec() {
+        return DoctorSpec.getSpec();
     };
 }

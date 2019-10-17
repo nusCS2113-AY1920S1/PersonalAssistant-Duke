@@ -2,9 +2,7 @@ package duke.command;
 
 import duke.DukeCore;
 import duke.exception.DukeException;
-import javafx.util.Pair;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -48,21 +46,23 @@ public abstract class ArgCommand extends Command {
         return arg;
     }
 
-    abstract ArgCommandSpec getSpec();
+    abstract ArgSpec getSpec();
+
+    // I hate Java
 
     public String getEmptyArgMsg() {
-        return getSpec().emptyArgMsg;
+        return getSpec().getEmptyArgMsg();
     }
 
     public ArgLevel getCmdArgLevel() {
-        return getSpec().cmdArgLevel;
+        return getSpec().getCmdArgLevel();
     }
 
     public Map<String, Switch> getSwitchMap() {
-        return getSpec().switchMap;
+        return getSpec().getSwitchMap();
     }
 
     public Map<String, String> getSwitchAliases() {
-        return getSpec().switchAliases;
+        return getSpec().getSwitchAliases();
     };
 }

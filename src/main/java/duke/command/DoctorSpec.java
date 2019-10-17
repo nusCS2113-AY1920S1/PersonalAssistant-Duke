@@ -1,14 +1,14 @@
 package duke.command;
 
-public class DoctorCommandSpec extends ArgCommandSpec {
+public class DoctorSpec extends ArgSpec {
 
-    private static final DoctorCommandSpec spec = new DoctorCommandSpec();
+    private static final DoctorSpec spec = new DoctorSpec();
 
-    public static DoctorCommandSpec getSpec() {
+    public static DoctorSpec getSpec() {
         return spec;
     }
 
-    private DoctorCommandSpec() {
+    private DoctorSpec() {
         emptyArgMsg = "You didn't tell me what to do!";
         cmdArgLevel = ArgLevel.REQUIRED;
         initSwitches(
