@@ -21,10 +21,12 @@ public class TypoCorrectorTest {
                         new String[]{"bqe", "bye"},
                         new String[]{"lsit patant", "list patients"},
                         new String[]{"lsfvs takss", "list tasks"},
-                        new String[]{"deete Ptients #12", "delete patient #12"},
+                        new String[]{"deelte Ptients #12", "delete patient #12"},
                         new String[]{"deleot tasksa task description", "delete task task description"},
+                        new String[]{"delette tasks #1", "delete task #1"},
                         new String[]{"addd patents name nric room remark", "add patient name nric room remark"},
-                        new String[]{"dad tsak a very long task name", "add task a very long task name"}
+                        new String[]{"dad tsak a very long task name", "add task a very long task name"},
+                        new String[]{"addd task abc", "add task abc"}
                         ));
         for (String[] testPair : testCases){
             String correctedOutput = TypoCorrector.CommandCorrection(testPair[0]);
@@ -32,7 +34,7 @@ public class TypoCorrectorTest {
             System.out.println("Expected Command: " + testPair[1]);
             System.out.println("Corrected Command: "+ correctedOutput);
             System.out.println();
-//            assertEquals(testPair[1], correctedOutput);
+            assertEquals(testPair[1], correctedOutput);
         }
 
     }

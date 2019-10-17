@@ -34,21 +34,20 @@ public class TypoCorrector {
     public static String CommandCorrection(String command) {
         String[] splitCommand = command.split("\\s+");
         int commandSize = splitCommand.length;
-        String firstKeyword = splitCommand[0].toLowerCase();
-        String closestMatch;
+        String closestMatch, firstTwoKeywords;
         if (commandSize == 1 || command.length() <= 6) {
             closestMatch = matchStringFromDict(command, oneKeywordCommand);
             if (isSimilar(command, closestMatch)){
                 return closestMatch;
             }
-        } else if (commandSize == 2 || command.length() <= 16) {
-            String firstTwoKeywords = (splitCommand[0]+" " +splitCommand[1]).toLowerCase();
+        } else if (commandSize == 2) {
+            firstTwoKeywords = command.toLowerCase();
             closestMatch = matchStringFromDict(firstTwoKeywords, twoKeywordsCommands);
             if (isSimilar(firstTwoKeywords, closestMatch)){
                 return closestMatch;
             }
-        } else if (commandSize >= 3) {
-            String firstTwoKeywords = (splitCommand[0]+" " +splitCommand[1]).toLowerCase();
+        } else {
+            firstTwoKeywords = (splitCommand[0]+" " +splitCommand[1]).toLowerCase();
             closestMatch = matchStringFromDict(firstTwoKeywords, otherCommands);
             if (isSimilar(firstTwoKeywords, closestMatch)){
                 splitCommand[0]="";
@@ -93,8 +92,8 @@ public class TypoCorrector {
     }
 
     /**
-     * Method indicating if a message can be considered similar, based on Levenshtein distance calculation with an allowed variation of 10%
-     * <p>
+     * Method indicating if a message can be considered similar, based on Levenshtein distance calculation with an allowed variation of 50%
+     *
      * <b>Note:</b> Max tolerated distance is derived from the current scenario's error message
      * The arbitrary MAX_DISTANCE_DIFF_RATIO (50%) means we consider 10% change to be acceptable
      *
@@ -103,8 +102,8 @@ public class TypoCorrector {
      * @return true if the can be considered similar else false
      */
     public static boolean isSimilar(String referenceText, String targetText) {
-        final int threshold = (int) Math.round(MAX_DISTANCE_DIFF_RATIO * referenceText.length());
-        final LevenshteinDistance levenshteinDistance = new LevenshteinDistance(threshold);
+        int threshold = (int) Math.round(MAX_DISTANCE_DIFF_RATIO * referenceText.length());
+        LevenshteinDistance levenshteinDistance = new LevenshteinDistance(threshold);
         return levenshteinDistance.apply(referenceText, targetText) != -1;
     }
 }
