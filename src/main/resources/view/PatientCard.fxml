@@ -4,10 +4,12 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="cardView" maxHeight="Infinity" maxWidth="Infinity" minHeight="-Infinity" minWidth="-Infinity"
-            prefHeight="150.0" prefWidth="200.0" xmlns="http://javafx.com/javafx/11.0.1"
-            xmlns:fx="http://javafx.com/fxml/1">
+<fx:root fx:id="cardView" maxHeight="Infinity" maxWidth="Infinity" prefWidth="200.0"
+         style="-fx-border-color:black; -fx-border-width: 1; -fx-border-style: solid;"
+         type="javafx.scene.layout.AnchorPane" xmlns:fx="http://javafx.com/fxml/1"
+         xmlns="http://javafx.com/javafx/11.0.1">
     <children>
         <ImageView fitHeight="30.0" fitWidth="30.0" layoutX="6.0" layoutY="6.0" pickOnBounds="true"
                    preserveRatio="true">
@@ -33,9 +35,13 @@
                 <Image url="@../images/issues.png"/>
             </image>
         </ImageView>
-        <Label fx:id="nameLabel" layoutX="47.0" layoutY="13.0" text="Name"/>
+        <Label fx:id="nameLabel" layoutX="46.0" layoutY="6.0" text="Name">
+            <font>
+                <Font name="System Bold" size="20.0"/>
+            </font>
+        </Label>
         <Label fx:id="bedLabel" layoutX="47.0" layoutY="48.0" text="Bed no."/>
         <Label fx:id="diagnosisLabel" layoutX="47.0" layoutY="81.0" text="Diagnosis"/>
         <Label fx:id="issueLabel" layoutX="47.0" layoutY="117.0" text="Issues"/>
     </children>
-</AnchorPane>
+</fx:root>

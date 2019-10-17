@@ -23,6 +23,9 @@ public class MainWindow extends UiComponent<Stage> {
     private Stage primaryStage;
     private CommandWindow commandWindow;
     private HomeWindow homeWindow;
+    private Tab homeTab;
+    private PatientWindow patientWindow;
+    private Tab patientTab;
 
     private DukeCore core;
 
@@ -46,12 +49,16 @@ public class MainWindow extends UiComponent<Stage> {
      * Place all child views in the main window.
      */
     public void placeChildViews() {
-        commandWindow = new CommandWindow(core);
+        commandWindow = new CommandWindow(core, this);
         commandWindowPlaceholder.getChildren().add(commandWindow.getRoot());
 
-        homeWindow = new HomeWindow();
-        Tab homeTab = new Tab("Home", homeWindow.getRoot());
+        homeWindow = new HomeWindow(core);
+        homeTab = new Tab("Home", homeWindow.getRoot());
         contextWindowPlaceholder.getTabs().add(homeTab);
+
+        patientWindow = new PatientWindow();
+        patientTab = new Tab("Patient", patientWindow.getRoot());
+        contextWindowPlaceholder.getTabs().add(patientTab);
     }
 
     void show() {
@@ -60,5 +67,13 @@ public class MainWindow extends UiComponent<Stage> {
 
     void print(String output) {
         commandWindow.print(output);
+    }
+
+    void tmp(String tmp) {
+        if (tmp.equals("home")) {
+            contextWindowPlaceholder.getSelectionModel().select(homeTab);
+        } else {
+            contextWindowPlaceholder.getSelectionModel().select(patientTab);
+        }
     }
 }
