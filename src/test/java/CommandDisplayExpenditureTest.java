@@ -35,7 +35,7 @@ public class CommandDisplayExpenditureTest {
         assertEquals("", outContent.toString().trim());
 
         resetTextTracker();
-        Command c = new CommandDisplayExpenditure();
+        Command c = new CommandDisplayExpenditure("");
         Wallet wallet = new Wallet();
         c.execute(wallet);
         assertEquals("Total Expenditure: $0.00", outContent.toString().trim());

@@ -1,14 +1,36 @@
 package executor.command;
 
 public enum CommandType {
+    TEST(CommandDelete.class),
+    TASK(CommandNewTask.class),
+    BYE(CommandBye.class),
+    LIST(CommandList.class),
+    BLANK(CommandBlank.class),
+    FIND(CommandFind.class),
+    DELETE(CommandDelete.class),
+    DONE(CommandMarkDone.class),
+    QUEUE(CommandQueue.class),
+    VIEWSCHEDULE(CommandSchedule.class),
+    REMINDER(CommandReminder.class),
+    BALANCE(CommandDisplayBalance.class),
+    SORT(CommandSort.class),
+    IN(CommandAddIncomeReceipt.class),
+    OUT(CommandAddSpendingReceipt.class),
+    SETBALANCE(CommandUpdateBalance.class),
+    EXPENSES(CommandDisplayExpenditure.class),
+    HELP(CommandHelp.class);
 
-    TASK, BYE, LIST, BLANK, FIND, DELETE, DONE, QUEUE, VIEWSCHEDULE, REMINDER, BALANCE, SORT, IN, OUT, SETBALANCE, EXPENSES, HELP;
-
+    private final Class commandClass;
 
     /**
      * Constructor for 'CommandType' enum.
      */
-    private CommandType() {
+    private CommandType(Class commandClass) {
+        this.commandClass = commandClass;
+    }
+
+    public Class getCommandClass() {
+        return this.commandClass;
     }
 
     /**

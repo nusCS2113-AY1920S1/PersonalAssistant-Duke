@@ -5,9 +5,7 @@ import ui.Wallet;
 
 public class CommandSort extends Command {
 
-    protected String userInput;
-
-    //constructor
+    // Constructor
     public CommandSort(String userInput) {
         this.userInput = userInput;
         this.commandType = CommandType.SORT;

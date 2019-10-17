@@ -12,7 +12,8 @@ public class CommandReminder extends Command {
     //private String[] reminders;
     protected Date currentDate = Calendar.getInstance().getTime();
 
-    public CommandReminder() {
+    public CommandReminder(String userInput) {
+        this.userInput = userInput;
         this.currentDate.setTime(0);
     }
 

@@ -32,74 +32,12 @@ public class Executor {
      */
     public static Command createCommand(CommandType commandType, String userInput) {
         Command c;
-        switch (commandType) {
-        case BLANK:
-            c = new CommandBlank();
-            break;
-
-        case LIST:
-            c = new CommandList();
-            break;
-
-        case BYE:
-            c = new CommandBye();
-            break;
-
-        case DELETE:
-            c = new CommandDelete(userInput);
-            break;
-
-        case FIND:
-            c = new CommandFind(userInput);
-            break;
-
-        case DONE:
-            c = new CommandMarkDone(userInput);
-            break;
-
-        case REMINDER:
-            c = new CommandReminder();
-            break;
-
-        case QUEUE:
-            c = new CommandQueue(userInput);
-            break;
-
-        case VIEWSCHEDULE:
-            c = new CommandSchedule(userInput);
-            break;
-
-        case SORT:
-            c = new CommandSort(userInput);
-            break;
-
-        case IN:
-            c = new CommandIncome(userInput);
-            break;
-
-        case OUT:
-            c = new CommandSpending(userInput);
-            break;
-            
-        case HELP:
-            c = new CommandHelp();
-            break;
-            
-        case SETBALANCE:
-            c = new CommandUpdateBalance(userInput);
-            break;
-
-        case BALANCE:
-            c = new CommandDisplayBalance();
-            break;
-
-        case EXPENSES:
-            c = new CommandDisplayExpenditure();
-            break;
-
-        default:
-            c = new CommandNewTask(userInput);
-            break;
+        try {
+            c = (Command) commandType.getCommandClass().getDeclaredConstructor(String.class).newInstance(
+                    userInput);
+        } catch (Exception e) {
+            e.printStackTrace();
+            c = new CommandError(userInput);
         }
         return c;
     }

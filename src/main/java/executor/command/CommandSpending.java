@@ -10,8 +10,6 @@ import java.util.ArrayList;
 import java.util.Date;
 
 public class CommandSpending extends Command {
-
-    private String userInput;
     private Double spending;
     private Date date;
     private ArrayList<String> tags;
