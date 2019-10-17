@@ -3,6 +3,7 @@ package parser;
 import dolla.Ui;
 import dolla.command.*;
 
+import dolla.task.Limit;
 import dolla.task.TaskList;
 
 import java.time.format.DateTimeParseException;
@@ -46,6 +47,9 @@ public class MainParser {
         case "entries":
             EntryParser entryParser = new EntryParser(inputLine);
             return entryParser.handleInput(mode, inputLine);
+        case "limits":
+            LimitParser limitParser = new LimitParser(inputLine);
+            //return limitParser.handleInput(mode, inputLine);
         default:
             Ui.printInvalidCommandError();
             return new ErrorCommand();

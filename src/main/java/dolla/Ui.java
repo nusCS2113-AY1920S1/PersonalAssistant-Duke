@@ -19,7 +19,7 @@ public class Ui {
             + "| |_| | |_| |   <  __/\n"
             + "|____/ \\__,_|_|\\_\\___|\n";
 
-    private static String line = "\t____________________________________________________________";
+    public static String line = "\t____________________________________________________________";
 
     public static void showWelcome() {
         System.out.println("Hello from\n" + logo);
