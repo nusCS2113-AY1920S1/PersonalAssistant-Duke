@@ -38,7 +38,7 @@ public class Wallet {
      * @param receipt Receipt Object to be stored
      */
     public void addReceipt(Receipt receipt) {
-        this.receipts.add(receipt);
+        this.receipts.addReceipt(receipt);
     }
 
     // -- Boolean Functions
@@ -81,6 +81,14 @@ public class Wallet {
      * @return ArrayList of receipts property in Wallet Object
      */
     public ReceiptTracker getReceipts() {
-        return receipts;
+        return this.receipts;
+    }
+
+    /**
+     * Getter for the totalCashSpent property of the ReceiptTracker Object housed in the Wallet Object.
+     * @return Double representing the total cash spent as recorded by the ReceiptTracker
+     */
+    public double getTotalExpenses() {
+        return this.receipts.getTotalCashSpent();
     }
 }

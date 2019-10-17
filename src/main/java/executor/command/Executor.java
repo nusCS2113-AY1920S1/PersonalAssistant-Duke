@@ -72,6 +72,18 @@ public class Executor {
         case HELP:
             c = new CommandHelp();
             break;
+            
+        case SETBALANCE:
+            c = new CommandUpdateBalance(userInput);
+            break;
+
+        case BALANCE:
+            c = new CommandDisplayBalance();
+            break;
+
+        case EXPENSES:
+            c = new CommandDisplayExpenditure();
+            break;
 
         default:
             c = new CommandNewTask(userInput);
