@@ -35,10 +35,11 @@ class OrderCommandUtil {
         return products;
     }
 
-    static Order createNewOrder(Order original, OrderDescriptor orderDescriptor,
-                                List<Product> productList,
-                                ObservableList<Item<Ingredient>> inventoryList)
-            throws CommandException {
+    static Order modifyOrder(Order original, OrderDescriptor orderDescriptor,
+                             List<Product> productList,
+                             ObservableList<Item<Ingredient>> inventoryList)
+        throws CommandException {
+
         assert original != null;
 
         Customer newCustomer = new Customer(
