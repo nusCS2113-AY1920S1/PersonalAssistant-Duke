@@ -29,15 +29,17 @@ public class GameConsole {
         return title + content + blankspace;
     }
 
-    private static ArrayList<String> formatAndHighlightCode(ArrayList<String> userCode, int currentTask) {
+    private static ArrayList<String> formatAndHighlightCode(ArrayList<String> userCode, int currentTask, boolean hasFailedCurrentTask) {
         ArrayList<String> userCodeOutput = new ArrayList<>();
         while (userCode.size() < 18){
             userCode.add("");
         }
         int i = 0;
         for (String s: userCode) {
-            if (i == currentTask) {
-                userCodeOutput.add(AsciiColours.RED + AsciiColours.HIGH_INTENSITY + horizontalPanel("", s, 31) + AsciiColours.SANE + "|");
+            if (i == currentTask && !hasFailedCurrentTask) {
+                userCodeOutput.add(AsciiColours.HIGHLIGHT+ horizontalPanel("", s, 31) + AsciiColours.SANE + "|");
+            } else if (i == currentTask){
+                userCodeOutput.add(AsciiColours.ERROR + horizontalPanel("", s, 31) + AsciiColours.SANE + "|");
             } else {
                 userCodeOutput.add(horizontalPanel("", s, 31) + "|");
             }
@@ -54,7 +56,7 @@ public class GameConsole {
         int gold = farmio.getFarmer().getMoney();
         ArrayList<String> userCode = farmio.getFarmer().getTasks().toStringArray();
         ArrayList<Pair<String, Integer>> assets = farmio.getFarmer().getAssets();
-        userCode = formatAndHighlightCode(userCode, farmio.getFarmer().getCurrentTask());
+        userCode = formatAndHighlightCode(userCode, farmio.getFarmer().getCurrentTask(), farmio.getFarmer().isHasfailedCurrentTask());
         output.append(AsciiColours.SANE + TOP_BORDER);
         output.append("|" + AsciiColours.RED + horizontalPanel("OBJECTIVE:", objective, 71) + AsciiColours.SANE).append(CODE_TITLE_FILLER);
         output.append(BOX_BOTTOM_BORDER);
@@ -88,8 +90,8 @@ public class GameConsole {
     static String blankConsole(ArrayList<String> stage) {
         StringBuilder output = new StringBuilder();
         output.append(AsciiColours.SANE + TOP_BORDER);
-        for (int i = 0; i < 22; i ++) {
-            output.append(horizontalPanel("", stage.get(i), 103)).append("\n");
+        for (int i = 0; i < 20; i ++) {
+            output.append(horizontalPanel("", stage.get(i), 101)).append("\n");
         }
         output.append(BOTTOM_FULL_BORDER);
         StringBuilder output2 = new StringBuilder();

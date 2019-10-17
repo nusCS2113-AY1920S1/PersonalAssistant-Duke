@@ -21,6 +21,7 @@ public class Farmer {
     protected CowFarm cowFarm;
     protected TaskList tasks;
     private int currentTask;
+    private boolean hasfailedCurrentTask;
 
     public Farmer() {
         this.money = 100;
@@ -32,6 +33,7 @@ public class Farmer {
         this.cowFarm = new CowFarm(); //TODO: create cowFarm subclass
         this.tasks = new TaskList();
         this.currentTask = -1;
+        this.hasfailedCurrentTask = false;
     }
 
     public Farmer(JSONObject jsonObject) throws FarmioException {
@@ -98,6 +100,16 @@ public class Farmer {
     public CowFarm getCowFarm() { return cowFarm; }
 
     public TaskList getTasks() { return tasks; }
+
+    public boolean isHasfailedCurrentTask() {
+        if (hasfailedCurrentTask) {
+            hasfailedCurrentTask = false;
+            currentTask = -1;
+            return true;
+        }
+        return false;
+    }
+    public void setfailetask() {hasfailedCurrentTask = true;}
 
     public void setMoney(int money){
         this.money = money;
