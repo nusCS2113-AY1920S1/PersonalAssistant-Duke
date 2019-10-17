@@ -70,10 +70,11 @@ public class CommandHelpers {
     /**
      * Algorithm to compute a hybrid version of the Damerau-Levenshtein distance that takes into account distance
      * between keys on a standard QWERTY keyboard.
-     *
+     * <p>
      * https://stackoverflow.com/questions/29233888/
      * https://en.wikipedia.org/wiki/Damerau%E2%80%93Levenshtein_distance
      * https://dl.acm.org/citation.cfm?doid=1963190.1963191
+     * </p>
      *
      * @param str1 The first string to compare.
      * @param str2 The second string to compare.
