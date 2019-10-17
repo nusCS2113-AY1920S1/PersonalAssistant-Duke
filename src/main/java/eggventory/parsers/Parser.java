@@ -90,7 +90,14 @@ public class Parser {
             }
             break;
         }
-
+        case "edit": {
+            if (inputArr.length == 1) {
+                throw new BadInputException("'" + inputArr[0] + "' requires 1 or more arguments.");
+            } else {
+                command = editParser.parse(inputArr[1]);
+            }
+            break;
+        }
         case "help": {
             if (inputArr.length == 1) {
                 //display general help
@@ -101,7 +108,6 @@ public class Parser {
             }
             break;
         }
-
         default:
             command = new Command(); //Bad Command
             throw new BadInputException("Sorry, I don't recognise that input keyword!");
