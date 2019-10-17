@@ -520,6 +520,7 @@ public class Ui {
         System.out.print(ANSI_BRIGHT_WHITE + ANSI_BRIGHT_BG_YELLOW + "|");
         System.out.print(ANSI_RESET);
     }
+
     /**
      * Pads the details of a task to fit into a day of the ViewWeek command output.
      * @param details Details of a task.
