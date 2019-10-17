@@ -2,9 +2,11 @@ package javafx;
 
 import exception.DukeException;
 
+import javafx.animation.PauseTransition;
 import javafx.application.Platform;
 import javafx.event.EventHandler;
 import javafx.stage.WindowEvent;
+import javafx.util.Duration;
 import main.Duke;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;

@@ -27,17 +27,14 @@ import java.util.Collections;
 public class DialogBox extends HBox {
     @FXML
     private Label dialog;
-    @FXML
-    private ImageView displayPicture;
 
     /**
-     * Constructor that creates a dialog box containing text and an image of the poster.
+     * Constructor that creates a dialog box containing text of the poster.
      * The dimensions and settings of this dialog box is imported from an fxml file.
      *
      * @param text The text to be shown in the dialog box
-     * @param img The image of the poster of the text in the same dialog box
      */
-    private DialogBox(String text, Image img) {
+    private DialogBox(String text) {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(MainWindow.class.getResource("/view/DialogBox.fxml"));
             fxmlLoader.setController(this);
@@ -48,7 +45,7 @@ public class DialogBox extends HBox {
         }
 
         dialog.setText(text);
-        displayPicture.setImage(img);
+        //displayPicture.setImage(img);
     }
 
     /**
@@ -62,28 +59,27 @@ public class DialogBox extends HBox {
     }
 
     /**
-     * Method to get and display a text and an image in a dialog box.
+     * Method to get and display a text and in a dialog box.
      * This is used to get the input of the user.
      *
      * @param text The user input to be shown.
-     * @param img The image of the user.
-     * @return A dialog box containing the text and image to be displayed in the GUI
+     * @return A dialog box containing the text to be displayed in the GUI
      */
-    public static DialogBox getUserDialog(String text, Image img) {
-        return new DialogBox(text, img);
+    public static DialogBox getUserDialog(String text) {
+        var db = new DialogBox(text);
+        db.flip();
+        return db;
     }
 
     /**
-     * Method to get and display text and image in a dialog box.
+     * Method to get and display text in a dialog box.
      * This is used for responses from JavaFX.Main.Duke.
-     * It will be flipped to differentiate itself from a user dialog box.
      *
      * @param text JavaFX.Main.Duke's response to user input.
-     * @param img An image of JavaFX.Main.Duke.
-     * @return A flipped dialog box containing JavaFX.Main.Duke's response and his image
+     * @return A flipped dialog box containing JavaFX.Main.Duke's response
      */
-    public static DialogBox getDukeDialog(String text, Image img) {
-        var db = new DialogBox(text, img);
+    public static DialogBox getDukeDialog(String text) {
+        var db = new DialogBox(text);
         db.flip();
         return db;
     }
