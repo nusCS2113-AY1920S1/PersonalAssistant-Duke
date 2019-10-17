@@ -97,6 +97,18 @@ public class Project implements IProject {
         this.taskList.editTaskRequirements(taskIndexNumber, updatedTaskRequirements, haveRemove);
     }
 
+    @Override
+    public ArrayList<String> getAssignedTaskList() {
+        ArrayList<String> assignedTaskListString = new ArrayList<>();
+        for (HashMap.Entry<Task, ArrayList<Member>> task: tasksAssignedToMembers.entrySet()) {
+            assignedTaskListString.add(task.getKey().getTaskName() + " is assigned to: ");
+            for (Member member: task.getValue()) {
+                assignedTaskListString.add(member.getName());
+            }
+        }
+        return assignedTaskListString;
+    }
+
     /**
      * This method assign task to a list of member.
      * @param task the task which you wish to assign to the member
@@ -106,8 +118,7 @@ public class Project implements IProject {
     public void assignTaskToMembers(Task task, Member member) {
         if (tasksAssignedToMembers.containsKey(task)) {
             tasksAssignedToMembers.get(task).add(member);
-        }
-        else {
+        } else {
             ArrayList<Member> memberList = new ArrayList<>();
             memberList.add(member);
             tasksAssignedToMembers.put(task,memberList);
@@ -115,7 +126,7 @@ public class Project implements IProject {
     }
 
     /**
-     * This method assign member to a list of task/
+     * This method assign member to a list of task.
      * @param member the member which you wish to assign to a task.
      * @param task the task you wish to assign the member to.
      */

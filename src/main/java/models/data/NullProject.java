@@ -94,11 +94,17 @@ public class NullProject implements IProject {
     }
 
     @Override
+    public ArrayList<String> getAssignedTaskList() {
+        return null;
+    }
+
+    @Override
     public void assignTaskToMembers(Task task, Member member) {
         /*
         Empty method
          */
     }
+
     @Override
     public void assignMemberToTasks(Member member, Task task) {
         /*

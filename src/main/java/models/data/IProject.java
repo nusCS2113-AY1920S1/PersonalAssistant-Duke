@@ -38,6 +38,8 @@ public interface IProject {
 
     void editTaskRequirements(int taskIndexNumber, String[] updatedTaskRequirements, boolean haveRemove);
 
+    ArrayList<String> getAssignedTaskList();
+
     void assignTaskToMembers(Task task, Member member);
 
     void assignMemberToTasks(Member member, Task task);
