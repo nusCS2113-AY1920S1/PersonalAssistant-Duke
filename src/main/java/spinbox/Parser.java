@@ -3,6 +3,7 @@ package spinbox;
 import spinbox.commands.AddCommand;
 import spinbox.commands.Command;
 import spinbox.commands.ExitCommand;
+import spinbox.commands.MarkCommand;
 import spinbox.commands.RemoveCommand;
 import spinbox.commands.ViewCommand;
 
@@ -116,6 +117,9 @@ public class Parser {
             break;
         case "remove":
             command = new RemoveCommand(pageDataComponents[1], content);
+            break;
+        case "mark":
+            command = new MarkCommand(pageDataComponents[1], content);
             break;
         default:
         }
