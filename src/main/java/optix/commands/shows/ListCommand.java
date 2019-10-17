@@ -6,8 +6,6 @@ import optix.commons.Storage;
 import optix.commons.model.ShowMap;
 import optix.ui.Ui;
 
-import java.time.LocalDate;
-
 public class ListCommand extends Command {
 
     private static final String MESSAGE_LIST_FOUND = "Here are the list of shows:\n";
@@ -18,9 +16,6 @@ public class ListCommand extends Command {
     public void execute(Model model, Ui ui, Storage storage) {
         ShowMap shows = model.getShows();
         StringBuilder message = new StringBuilder();
-        LocalDate today = storage.getToday();
-
-        int counter = 1;
 
         if (!shows.isEmpty()) {
             message.append(MESSAGE_LIST_FOUND);

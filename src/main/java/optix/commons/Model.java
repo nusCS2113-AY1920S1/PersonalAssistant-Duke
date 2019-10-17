@@ -66,4 +66,8 @@ public class Model {
     public String listShow(LocalDate startOfMonth, LocalDate endOfMonth) {
         return shows.listShow(startOfMonth, endOfMonth);
     }
+
+    public void deleteShow(LocalDate showDate) {
+        shows.deleteShow(showDate);
+    }
 }

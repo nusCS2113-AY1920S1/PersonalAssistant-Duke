@@ -18,8 +18,6 @@ public class ListDateCommand extends Command {
 
     private static final String MESSAGE_NO_SHOWS_FOUND = "☹ OOPS!!! There are no shows on %1$s.\n";
 
-    private static final String MESSAGE_ENTRY = "%1$d. %2$s on %3$s\n";
-
     public ListDateCommand(String monthOfYear) {
         this.monthOfYear = monthOfYear;
     }

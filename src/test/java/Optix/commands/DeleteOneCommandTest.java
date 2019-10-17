@@ -26,14 +26,14 @@ class DeleteOneCommandTest {
         DeleteOneCommand testCommand1 = new DeleteOneCommand("Test Show 1", "5/5/2020");
         testCommand1.execute(model, ui, storage);
         String expected1 = "__________________________________________________________________________________\n"
-                + "Noted. The show <Test Show 1> scheduled on <5/5/2020> has been removed.\n"
+                + "Noted. The show Test Show 1 scheduled on 5/5/2020 has been removed.\n"
                 + "__________________________________________________________________________________\n";
         assertEquals(expected1, ui.showCommandLine());
 
         DeleteOneCommand testCommand2 = new DeleteOneCommand("Non-existent show", "4/5/2020");
         testCommand2.execute(model, ui, storage);
         String expected2 = "__________________________________________________________________________________\n"
-                + "Unable to find show called <Non-existent show> scheduled on <4/5/2020>.\n"
+                + "Unable to find show called Non-existent show scheduled on 4/5/2020.\n"
                 + "__________________________________________________________________________________\n";
         assertEquals(expected2, ui.showCommandLine());
         filePath.deleteOnExit();
