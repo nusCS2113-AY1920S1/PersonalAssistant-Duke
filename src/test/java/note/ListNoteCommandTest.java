@@ -1,17 +1,15 @@
 package note;
 
-import UI.Ui;
-import commands.note.ListNoteCommand;
-import notes.Note;
-import notes.NoteList;
+import gazeeebo.UI.Ui;
+import gazeeebo.commands.note.ListNoteCommand;
+import gazeeebo.notes.Note;
+import gazeeebo.notes.NoteList;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.PrintStream;
-
 import static org.junit.jupiter.api.Assertions.*;
 
 class ListNoteCommandTest extends ListNoteCommand {

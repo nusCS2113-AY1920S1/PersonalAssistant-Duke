@@ -1,9 +1,9 @@
 package note;
 
-import UI.Ui;
-import commands.note.DeleteNoteCommand;
-import notes.Note;
-import notes.NoteList;
+import gazeeebo.UI.Ui;
+import gazeeebo.commands.note.DeleteNoteCommand;
+import gazeeebo.notes.Note;
+import gazeeebo.notes.NoteList;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

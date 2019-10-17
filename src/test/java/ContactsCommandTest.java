@@ -1,28 +1,23 @@
-<<<<<<< HEAD
 import gazeeebo.Storage.Storage;
 import gazeeebo.Tasks.Task;
 import gazeeebo.UI.Ui;
+import gazeeebo.commands.Contact.AddContactCommand;
 import gazeeebo.commands.Contact.ContactsCommand;
-=======
-import Storage.Storage;
-import Tasks.Task;
-import UI.Ui;
-import commands.Contact.AddContactCommand;
-import commands.Contact.ContactsCommand;
-import commands.Contact.DeleteContactCommand;
-import commands.Contact.ListContactCommand;
->>>>>>> 85c7997012ee8ba5dcdc3e69104a9f4a5bf6c3a3
+import gazeeebo.commands.Contact.DeleteContactCommand;
+import gazeeebo.commands.Contact.ListContactCommand;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.PrintStream;
-import java.util.*;
-
-import static org.junit.jupiter.api.Assertions.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Stack;
+import java.util.TreeMap;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class ContactsCommandTest {
     Ui ui = new Ui();
@@ -52,23 +47,24 @@ public class ContactsCommandTest {
         ByteArrayInputStream in = new ByteArrayInputStream("esc".getBytes());
         System.setIn(in);
         testc.execute(list, ui, storage, commandStack, deletedTask);
-        assertEquals("CONTACTS PAGE\n\n" +
-                "Name:                         | Number:\n------------------------------------------\n" +
-                "RenHao                        | 8712 2345\n------------------------------------------\n" +
-                "janel                         | 9123 4567\n------------------------------------------\n" +
-                "jason                         | 9123 4567\n------------------------------------------\n" +
-                "jess                          | 9123 4567\n------------------------------------------\n" +
-                "yueyu                         | 9876 5432\n------------------------------------------\n" +
-                "\nNUS CONTACTS:\n" +
-                "NUS Campus.S(Bukit Timah)     | 6516 3636\n------------------------------------------\n" +
-                "NUS Campus.S(KR)              | 6874 1616\n------------------------------------------\n" +
-                "NUS Campus.S(Outram)          | 6222 5568\n------------------------------------------\n" +
-                "NUS Lifeline                  | 6516 7777\n------------------------------------------\n" +
-                "NUS OCS BTC                   | 6516 3636\n------------------------------------------\n" +
-                "NUS OCS KRC                   | 6874 1616\n------------------------------------------\n" +
-                "NUS OCS UTOWN                 | 6601 2004\n------------------------------------------\n" +
-                "NUS OSHE                      | 6778 6304\n------------------------------------------\n", output.toString());
-
+        assertEquals("CONTACTS PAGE\n\n"
+                + "Name:                         | Number:\n------------------------------------------\n"
+                + "RenHao                        | 8712 2345\n------------------------------------------\n"
+                + "janel                         | 9123 4567\n------------------------------------------\n"
+                + "jason                         | 9123 4567\n------------------------------------------\n"
+                + "jess                          | 9123 4567\n------------------------------------------\n"
+                + "yueyu                         | 9876 5432\n------------------------------------------\n"
+                + "\nNUS CONTACTS:\n"
+                + "NUS Campus.S(Bukit Timah)     | 6516 3636\n------------------------------------------\n"
+                + "NUS Campus.S(KR)              | 6874 1616\n------------------------------------------\n"
+                + "NUS Campus.S(Outram)          | 6222 5568\n------------------------------------------\n"
+                + "NUS Lifeline                  | 6516 7777\n------------------------------------------\n"
+                + "NUS OCS BTC                   | 6516 3636\n------------------------------------------\n"
+                + "NUS OCS KRC                   | 6874 1616\n------------------------------------------\n"
+                + "NUS OCS UTOWN                 | 6601 2004\n------------------------------------------\n"
+                + "NUS OSHE                      | 6778 6304\n------------------------------------------\n",
+                output.toString()
+        );
     }
 
     @Test
@@ -78,8 +74,8 @@ public class ContactsCommandTest {
         ByteArrayInputStream in = new ByteArrayInputStream("Test,9625 1822".getBytes());
         System.setIn(in);
         AddContactCommand test = new AddContactCommand(ui, contact);
-        assertEquals("Input in this format: Name,Number\n" +
-                "Okay we have successfully added a new contact - Test,9625 1822\n", output.toString());
+        assertEquals("Input in this format: Name,Number\n"
+                + "Okay we have successfully added a new contact - Test,9625 1822\n", output.toString());
     }
 
     @Test
@@ -120,9 +116,11 @@ public class ContactsCommandTest {
         contact.put("janel", "9625 1722");
         contact.put("jason", "9825 1822");
         ListContactCommand test = new ListContactCommand(contact, LINE_BREAK);
-        assertEquals("Name:                         | Number:\n" +
-                LINE_BREAK + "janel                         | 9625 1722\n"
-                + LINE_BREAK + "jason                         | 9825 1822\n" +
-                LINE_BREAK + "\nNUS CONTACTS:\n", output.toString());
+        assertEquals("Name:                         | Number:\n"
+                + LINE_BREAK
+                + "janel                         | 9625 1722\n"
+                + LINE_BREAK
+                + "jason                         | 9825 1822\n"
+                + LINE_BREAK + "\nNUS CONTACTS:\n", output.toString());
     }
 }

@@ -11,7 +11,9 @@ import java.util.Stack;
 import gazeeebo.Exception.DukeException;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+
 public class DukeTest {
+
     @Test
     public void test() {
         DeadlineCommand deadlineCommand = new DeadlineCommand();
@@ -22,16 +24,18 @@ public class DukeTest {
         ArrayList<Task> deletedTask = new ArrayList<>();
         try {
             deadlineCommand.execute(tasks,ui,storage,commandStack,deletedTask);
-        } catch(IOException e) {
-            assertEquals("An IOException was caught :" +e.getStackTrace()+"The system cannot find the path specified", e.getMessage());
+        } catch (IOException e) {
+            assertEquals("An IOException was caught :" + e.getStackTrace()
+                    + "The system cannot find the path specified", e.getMessage());
         } catch (ParseException e) {
             assertEquals("Date Time has to be in YYYY-MM-DD HH:mm:ss format",e.getMessage());
         } catch (DukeException e) {
             assertEquals(e.getMessage(),e.getMessage());
-        } catch (NullPointerException e){
+        } catch (NullPointerException e) {
             assertEquals(e.getMessage(),e.getMessage());
         }
     }
+
     @Test
     public void testUpcomingTasks() {
         ArrayList<Task> tasks = new ArrayList<Task>();
@@ -40,7 +44,7 @@ public class DukeTest {
             ui.UpcomingTask(tasks);
         } catch (ParseException e) {
             assertEquals("Date Time has to be in YYYY-MM-DD HH:mm:ss format",e.getMessage());
-        } catch (NullPointerException e){
+        } catch (NullPointerException e) {
             assertEquals(e.getMessage(),e.getMessage());
         }
     }

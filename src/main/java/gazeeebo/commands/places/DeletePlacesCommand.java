@@ -14,7 +14,7 @@ public class DeletePlacesCommand {
      * @param places Map each name to its own phone number
      * @throws IOException catch any error if read file fails
      */
-    public DeletePlacesCommand(Ui ui, Storage storage, Map<String,String> places) throws IOException {
+    public DeletePlacesCommand(Ui ui, Storage storage, Map<String,String> places) throws IOException,ArrayIndexOutOfBoundsException {
         String placeToDelete = ui.FullCommand.split("-")[1];
         if (ui.FullCommand.equals("delete")) {
             System.out.println("You need to indicate what you want to delete, Format: delete name");

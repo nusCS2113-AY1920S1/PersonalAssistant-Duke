@@ -19,19 +19,23 @@ public class PlacesCommand extends Command {
         boolean isExitFromPlaces = false;
         while (!isExitFromPlaces) {
             ui.ReadCommand();
-            if (ui.FullCommand.equals("add")) {
-                new AddPlacesCommand(ui,storage,places);
-            } else if (ui.FullCommand.split("-")[0].equals("find")) {
-                new FindPlacesCommand(ui,places, LINE_BREAK);
-            } else if (ui.FullCommand.equals("list")) {
-                new ListPlacesCommand(places, LINE_BREAK);
-            } else if (ui.FullCommand.contains("delete")) {
-                new DeletePlacesCommand(ui,storage,places);
-            } else if (ui.FullCommand.equals("esc")) {
-                System.out.println("Going back to Main Menu");
-                isExitFromPlaces = true;
-            } else {
-                System.out.println("There is no such command in Places.");
+            try {
+                if (ui.FullCommand.equals("add")) {
+                    new AddPlacesCommand(ui, storage, places);
+                } else if (ui.FullCommand.split("-")[0].equals("find")) {
+                    new FindPlacesCommand(ui, places, LINE_BREAK);
+                } else if (ui.FullCommand.equals("list")) {
+                    new ListPlacesCommand(places, LINE_BREAK);
+                } else if (ui.FullCommand.contains("delete")) {
+                    new DeletePlacesCommand(ui, storage, places);
+                } else if (ui.FullCommand.equals("esc")) {
+                    System.out.println("Going back to Main Menu");
+                    isExitFromPlaces = true;
+                } else {
+                    System.out.println("There is no such command in Places.");
+                }
+            } catch (ArrayIndexOutOfBoundsException e) {
+                System.out.println("Check input format again");
             }
         }
     }
