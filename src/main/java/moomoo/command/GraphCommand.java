@@ -49,8 +49,9 @@ public class GraphCommand extends Command {
                 }
                 verticalAxis.add(categoryName);
             }
-            double grandTotal = catList.getGrandMonthTotal();
-            int maxAxisUnit = (int) ((catList.getLargestExpenditure() / grandTotal) * 100) + 1;
+
+            double grandTotal = catList.getGrandMonthTotal(1);
+            int maxAxisUnit = (int) ((catList.getLargestExpenditure(1) / grandTotal) * 100) + 1;
             for (int i = 0; i < maxAxisUnit; i += 1) {
                 horizontalAxisTop += topBorder;
                 horizontalAxisBottom += bottomBorder;
@@ -62,8 +63,9 @@ public class GraphCommand extends Command {
             output += topSpace + horizontalAxisTop + "\n";
             for (int i = 0; i < catList.size(); i += 1) {
                 Category category = catList.get(i);
-                double percentage = 100 * (category.getCategoryMonthTotal() / grandTotal);
+                double percentage = 100 * (category.getMonthlyTotal(1) / grandTotal);
                 percentage = roundToTwoDp(percentage);
+                
                 int noOfFullBars = (int) percentage;
                 output = output + verticalAxis.get(i);
                 for (int j = 0; j < (catList.getLongestCategory() - verticalAxis.get(i).length() + 1); j += 1) {
