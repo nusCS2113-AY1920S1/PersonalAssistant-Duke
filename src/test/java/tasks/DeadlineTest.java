@@ -13,22 +13,22 @@ public class DeadlineTest {
 
     @Test
     public void checkDescription() throws DukeException {
-        String description = "This is a test Deadline";
-        String at = "10/12/2019 1130";
+        String description = "test method for deadline";
+        String at = "15/12/2019 1130";
         SimpleDateFormat ft = new SimpleDateFormat("dd/MM/yyyy");
         try {
             Date tempDate = ft.parse(at);
             Deadline temp = new Deadline(description, tempDate);
             assertEquals(description, temp.getDescription());
         } catch (ParseException e) {
-            throw new DukeException("Invalid date format, the correct format is: dd/MM/yyyy");
+            throw new DukeException("Invalid command format");
         }
 
     }
 
     @Test
     public void checkAt() throws DukeException {
-        String description = "This is a test Event";
+        String description = "This is a test method for deadline";
         String at = "10/12/2019 1130";
         SimpleDateFormat ft = new SimpleDateFormat("dd/MM/yyyy");
         try {
