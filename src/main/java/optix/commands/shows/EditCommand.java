@@ -1,13 +1,11 @@
 package optix.commands.shows;
 
-import optix.commons.Model;
-import optix.ui.Ui;
 import optix.commands.Command;
+import optix.commons.Model;
 import optix.commons.Storage;
-import optix.commons.model.Theatre;
 import optix.exceptions.OptixInvalidDateException;
+import optix.ui.Ui;
 import optix.util.OptixDateFormatter;
-import optix.commons.model.ShowMap;
 
 import java.time.LocalDate;
 
@@ -38,20 +36,19 @@ public class EditCommand extends Command {
 
     @Override
     public void execute(Model model, Ui ui, Storage storage) {
-        ShowMap shows = model.getShows();
         String message;
+
         try {
             if (!formatter.isValidDate(showDate)) {
                 throw new OptixInvalidDateException();
             }
+
             LocalDate localShowDate = formatter.toLocalDate(showDate);
 
-            if (shows.containsKey(localShowDate) && shows.get(localShowDate).hasSameName(oldShowName)) {
-                Theatre show = shows.get(localShowDate);
-                show.setShowName(newShowName);
+            if (model.containsKey(localShowDate) && model.hasSameName(localShowDate, oldShowName)) {
 
-                shows.replace(localShowDate, show);
-                model.setShows(shows);
+                model.editShowName(localShowDate, newShowName);
+
                 message = MESSAGE_UPDATE_SUCCESSFUL + newShowName + ".\n";
             } else {
                 message = MESSAGE_UPDATE_UNSUCCESSFUL;

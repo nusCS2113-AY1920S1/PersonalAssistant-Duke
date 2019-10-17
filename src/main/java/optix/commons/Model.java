@@ -35,6 +35,9 @@ public class Model {
         this.showsHistory = showsHistory;
     }
 
+    public boolean hasSameName(LocalDate key, String showName) {
+        return shows.get(key).hasSameName(showName);
+    }
 
     public boolean containsKey(LocalDate key) {
         return shows.containsKey(key);
@@ -42,6 +45,10 @@ public class Model {
 
     public void addShow(String showName, LocalDate showDate, double seatBasePrice) {
         shows.addShow(showName, showDate, seatBasePrice);
+    }
+
+    public void editShowName(LocalDate showDate, String showName) {
+        shows.editShowName(showDate, showName);
     }
 
 }
