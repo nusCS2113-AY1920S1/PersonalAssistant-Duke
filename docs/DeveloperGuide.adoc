@@ -157,7 +157,7 @@ There are three main components in the overall architecture of the application.
    Expected: Output should be +
    Got it. I've added this task: +
    [x][T] tdtask  BY: Sat, 01 Jan 2011, 01:00 +
-   Now you have <previous number of items + 1> items in your list. 
+   Now you have <previous number of items + 1> items in the list. 
 
 . Add Exam +
    Key in `exam Music Rudiments /08-08-2018 0800 0900` +
