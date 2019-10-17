@@ -1,9 +1,11 @@
 package models.data;
 
 import models.member.Member;
-import models.member.ListOfMembersInProject;
+import models.member.MemberList;
 import models.task.Task;
 import models.task.TaskList;
+
+import java.util.ArrayList;
 
 public class NullProject implements IProject {
     @Override
@@ -12,7 +14,7 @@ public class NullProject implements IProject {
     }
 
     @Override
-    public ListOfMembersInProject getMembers() {
+    public MemberList getMembers() {
         return null;
     }
 
@@ -85,6 +87,25 @@ public class NullProject implements IProject {
 
     @Override
     public void editTaskRequirements(int taskIndexNumber, String[] updatedTaskRequirements, boolean haveRemove) {
+        /*
+        Empty method
+         */
+    }
+
+    @Override
+    public ArrayList<String> getAssignedTaskList() {
+        return null;
+    }
+
+    @Override
+    public void assignTaskToMembers(Task task, Member member) {
+        /*
+        Empty method
+         */
+    }
+
+    @Override
+    public void assignMemberToTasks(Member member, Task task) {
         /*
         Empty method
          */

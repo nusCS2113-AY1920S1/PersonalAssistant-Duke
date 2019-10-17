@@ -1,15 +1,17 @@
 package models.data;
 
 import models.member.Member;
-import models.member.ListOfMembersInProject;
+import models.member.MemberList;
 import models.task.Task;
 import models.task.TaskList;
+
+import java.util.ArrayList;
 
 public interface IProject {
     // TODO Add attributes such as Members, Tasks, Name
     String getDescription();
 
-    ListOfMembersInProject getMembers();
+    MemberList getMembers();
 
     TaskList getTasks();
 
@@ -34,4 +36,10 @@ public interface IProject {
     void editTask(String updatedTaskDetails);
 
     void editTaskRequirements(int taskIndexNumber, String[] updatedTaskRequirements, boolean haveRemove);
+
+    ArrayList<String> getAssignedTaskList();
+
+    void assignTaskToMembers(Task task, Member member);
+
+    void assignMemberToTasks(Member member, Task task);
 }
