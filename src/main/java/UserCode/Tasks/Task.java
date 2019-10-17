@@ -25,12 +25,12 @@ public abstract class Task {
 
     public boolean checkCondition(Farmio farmio) throws FarmioException {
         return condition.check(farmio);
-
     }
 
     public String toString() {
         return condition.toString() + " do " + action.toString();
     }
+
 
     public abstract void execute(Farmio farmio) throws FarmioException;
 

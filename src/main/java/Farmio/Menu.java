@@ -1,5 +1,6 @@
 package Farmio;
 
+import FrontEnd.Simulate;
 import FrontEnd.Ui;
 
 import java.io.IOException;
@@ -16,23 +17,37 @@ public class Menu {
         } catch (IOException e) {
             ui.showWarning(ART_NAME.substring(0, 1).toUpperCase() + ART_NAME.substring(1) + " ascii art missing!\n");
         }
-        menu.append("\nMenu:\n");
-        if(resume){
-            menu.append(BULLET);
-            menu.append("Resume Game\n");
-            menu.append(BULLET);
-            menu.append("Save Game\n");
+//        menu.append("\nMenu:\n");
+//        if(resume){
+//            menu.append(BULLET);
+//            menu.append("Resume Game\n");
+//            menu.append(BULLET);
+//            menu.append("Save Game\n");
+//        }
+//        if(storage.getFarmerExist()){
+//            menu.append(BULLET);
+//            menu.append("Load Game\n");
+//        }
+//        menu.append(BULLET);
+//        menu.append("New Game\n");
+//        menu.append(BULLET);
+//        menu.append("Quit Game");
+//        ui.clearScreen();
+//        ui.show(menu.toString());
+        Simulate menuSimulation = new Simulate("Menu", ui);
+        if(resume && storage.getFarmerExist()) { //resume, save and load
+            menuSimulation.showFullFrame(2);
+            return;
         }
-        if(storage.getFarmerExist()){
-            menu.append(BULLET);
-            menu.append("Load Game\n");
+        if(resume){ //resume and save
+            menuSimulation.showFullFrame(4);
+            return;
         }
-        menu.append(BULLET);
-        menu.append("New Game\n");
-        menu.append(BULLET);
-        menu.append("Quit Game");
-        ui.clearScreen();
-        ui.show(menu.toString());
+        if(storage.getFarmerExist()){ //load
+            menuSimulation.showFullFrame(3);
+            return;
+        }
+        menuSimulation.showFullFrame(0); //only new and quit
     }
 
     public void showLoadGameWarning(Ui ui, Storage storage, boolean resume){
