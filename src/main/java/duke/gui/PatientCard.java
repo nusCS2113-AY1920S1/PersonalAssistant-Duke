@@ -44,7 +44,7 @@ public class PatientCard extends AnchorPane {
         nameLabel.setText(patient.getName());
         bedLabel.setText("Bed " + patient.getBedNo());
 
-        if (patient.getPriDiagnosis() != null){
+        if (patient.getPriDiagnosis() != null) {
             diagnosisLabel.setText(patient.getPriDiagnosis().getDescription());
         } else {
             diagnosisLabel.setText("N.A.");

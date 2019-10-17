@@ -8,8 +8,16 @@ package duke.command;
  */
 public class Commands {
     // TODO: adapt getCommand to take in a Context as an argument and use it to disambiguate commands
+
+
+    /**
+     * Constructs and returns the command corresponding to a name provided by the user.
+     *
+     * @param cmdStr The user-provided name.
+     * @return The newly constructed command without any parameters loaded.
+     */
     public Command getCommand(String cmdStr) {
-        switch(cmdStr) {
+        switch (cmdStr) {
         case "bye":
             return new ByeCommand();
         case "find":
