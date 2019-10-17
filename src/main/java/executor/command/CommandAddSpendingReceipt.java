@@ -24,7 +24,7 @@ public class CommandAddSpendingReceipt extends Command {
     public CommandAddSpendingReceipt(String userInput) {
         this.commandType = CommandType.OUT;
         this.userInput = userInput;
-        this.description = "_description_plus_how_to_use_command_for_user";
+        this.description = "You can add a new spendings receipt in format of 'Out $5.00 /tags tag'.";;
 
     }
 

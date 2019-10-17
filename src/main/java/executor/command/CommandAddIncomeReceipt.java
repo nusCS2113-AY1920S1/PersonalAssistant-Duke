@@ -24,7 +24,7 @@ public class CommandAddIncomeReceipt extends Command {
     public CommandAddIncomeReceipt(String userInput) {
         this.commandType = CommandType.IN;
         this.userInput = userInput;
-        this.description = "_description_plus_how_to_use_command_for_user";
+        this.description = "You can add a new income receipt in format of 'In $5.00 /tags tag'.";
 
     }
 
