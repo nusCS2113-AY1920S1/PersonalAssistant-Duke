@@ -1,6 +1,7 @@
 package wallet.ui;
 
 import wallet.logic.LogicManager;
+import wallet.model.contact.Contact;
 import wallet.model.record.Expense;
 
 import java.util.ArrayList;
@@ -86,5 +87,46 @@ public class Ui {
         System.out.println("-----------------------------------------------------"
                 + "-----------------------------------------------");
         System.out.println("Total amount spent: $" + total);
+    }
+
+    public static void printContactTable() {
+        ArrayList<Contact> contactListCopy = LogicManager.getWallet().getContactList().getContactList();
+        Contact headers = new Contact("Name", "Detail", "Phone");
+        headers.setId(-1);
+        contactListCopy.add(0, headers);
+        String dash = "-";
+        String lineBreak = dash.repeat(100);
+        String headerBreak = dash.repeat(98);
+
+        System.out.println("Here are the contacts in your list:");
+        System.out.println(lineBreak);
+
+        for (Contact c : contactListCopy) {
+            String id = Integer.toString(c.getId()).trim();
+            String name = c.getName();
+            String phone = c.getPhoneNum();
+            String detail = c.getDetail();
+
+            if (id.equals("-1")) {
+                id = "ID";
+            }
+
+            if (phone == null) {
+                phone = "";
+            }
+
+            if (detail == null) {
+                detail = "";
+            }
+
+            System.out.printf("| %-4s | %-20s | %-20s | %-43s |\n", id, name, phone, detail);
+
+            //After header
+            if (id.equals("ID")) {
+                System.out.println("|" + headerBreak + "|");
+            }
+        }
+
+        System.out.println(lineBreak);
     }
 }

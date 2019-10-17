@@ -66,7 +66,7 @@ public class ListCommand extends Command {
             //else fallthrough
 
         case "contact":
-           
+            Ui.printContactTable();
             if (!isListAll) {
                 break;
             }
