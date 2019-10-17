@@ -43,7 +43,6 @@ public abstract class Parser {
         String dateString = (data[1].split("/tag"))[0];
         try {
             date = Time.readDateTime(dateString);
-            //description = data[0];
         } catch (ArrayIndexOutOfBoundsException e) {
             Ui.printMsg("Please add '/at <date>' after your task to specify the entry date.");
             throw new Exception("missing date");

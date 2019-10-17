@@ -47,6 +47,11 @@ public class Limit extends Log {
                 + "[/for " + duration + "]";
     }
 
+    @Override
+    public String getDescription() {
+        return null; //to be modified
+    }
+
     public String amountToMoney() {
         return "$" + amount;
     }

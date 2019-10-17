@@ -46,7 +46,6 @@ public class DollaData {
                 debtList.add(newLog);
             }
     }
-
     public String getMode() {
         return mode;
     }

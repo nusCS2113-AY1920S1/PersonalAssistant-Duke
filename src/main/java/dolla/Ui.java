@@ -286,4 +286,19 @@ public class Ui {
         }
         System.out.println(line);
     }
+
+    public static void printSearch(String mode, LogList logList, String searchContent) {
+
+        System.out.println(line);
+        System.out.println("\tHere are the matching results found in " + mode);
+        int listNum = 0;
+        for (int i = 0; i < logList.size(); i++) {
+            String temp = logList.get().get(i).getDescription();
+            if (temp.contains(searchContent)) {
+                listNum += 1;
+                System.out.println("\t" + listNum + ". " + logList.get().get(i).getLogText());
+            }
+        }
+        System.out.println(line);
+    }
 }

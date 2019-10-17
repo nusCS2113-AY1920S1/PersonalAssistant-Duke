@@ -1,10 +1,7 @@
 package parser;
 
 import dolla.Ui;
-import dolla.command.AddEntryCommand;
-import dolla.command.Command;
-import dolla.command.ErrorCommand;
-import dolla.command.ShowListCommand;
+import dolla.command.*;
 
 public class EntryParser extends Parser { public EntryParser(String inputLine) {
         super(inputLine);
@@ -21,7 +18,11 @@ public class EntryParser extends Parser { public EntryParser(String inputLine) {
             try {
                 entryType = DollaParser.verifyType(inputArray[1]);
                 amount = stringToDouble(inputArray[2]);
-                description = inputArray[3];
+
+                String[] data = inputLine.split(" /on ");
+                String[] desc = data[0].split(inputArray[2] + " ");
+                description = desc[1];
+
                 splitDescTime();
             } catch (IndexOutOfBoundsException e) {
                 Ui.printInvalidEntryFormatError();
@@ -31,6 +32,9 @@ public class EntryParser extends Parser { public EntryParser(String inputLine) {
             }
             return new AddEntryCommand(entryType, amount, description, date);
 
+        } else if (commandToRun.equals("search")) {
+            String content = inputArray[1];
+            return new SearchCommand(mode, content);
         } else {
             return invalidCommand();
         }

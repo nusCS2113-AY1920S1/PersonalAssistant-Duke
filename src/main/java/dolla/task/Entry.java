@@ -47,4 +47,8 @@ public class Entry extends Log {
         return "$" + amount;
     }
 
+    @Override
+    public String getDescription() {
+        return description;
+    }
 }
