@@ -11,10 +11,10 @@ import java.util.ArrayList;
 
 public class GraphCommand extends Command {
     private ArrayList<String> verticalAxis;
-    private final String fullBlock = "█";
-    private final String halfBlock = "▌";
-    private final String topBorder = "┬";
-    private final String bottomBorder = "┴";
+    private final String fullBlock = "@";
+    private final String halfBlock = "#";
+    private final String topBorder = "$";
+    private final String bottomBorder = "%";
     private String horizontalAxisTop = "";
     private String horizontalAxisBottom = "";
     private String output = "";

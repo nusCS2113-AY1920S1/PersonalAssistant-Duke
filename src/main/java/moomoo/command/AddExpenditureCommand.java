@@ -13,6 +13,13 @@ public class AddExpenditureCommand extends Command {
     private String expenditureName;
     private double amount;
 
+    /**
+     * Command that takes in the amount of money spent and the expenditure name from the Parser as strings
+     * to be converted.
+     * @param isExit True if the program should exit after running this command, false otherwise
+     * @param input Input to be given by the user.
+     * @param expenditureName Input to be given by the user.
+     */
     public AddExpenditureCommand(boolean isExit, String input, String expenditureName) {
         super(isExit, input);
         this.expenditureName = expenditureName;
@@ -24,20 +31,15 @@ public class AddExpenditureCommand extends Command {
             throws MooMooException {
         super.execute(budget, categoryList, category, ui, storage);
 
-
         for (int i = 0; i < categoryList.size(); i++) {
             if (categoryList.get(i).toString().equals(expenditureName)) {
-                //Expenditure newExpenditure = new Expenditure(expenditureName, amount);
                 Expenditure newExpenditure = new Expenditure(amount);
-                //category.add(newExpenditure);
                 categoryList.get(i).add(newExpenditure);
-                //System.out.println(categoryList.get(i).toString());
                 ui.showNewExpenditureMessage(expenditureName);
             } else {
                 ui.showErrorMessage("Please add the category first.");
             }
         }
-        //Expenditure newExpenditure = new Expenditure(expenditureName);
     }
 }
 

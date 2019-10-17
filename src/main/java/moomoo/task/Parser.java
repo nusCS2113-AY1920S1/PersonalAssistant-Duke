@@ -1,6 +1,14 @@
 package moomoo.task;
 
-import moomoo.command.*;
+import moomoo.command.AddExpenditureCommand;
+import moomoo.command.AddCategoryCommand;
+import moomoo.command.BudgetCommand;
+import moomoo.command.Command;
+import moomoo.command.DeleteCategoryCommand;
+import moomoo.command.ExitCommand;
+import moomoo.command.GraphCommand;
+import moomoo.command.ListCategoryCommand;
+import moomoo.command.TotalCommand;
 
 import java.util.NoSuchElementException;
 import java.util.Scanner;
@@ -51,7 +59,7 @@ public class Parser {
     private static Command parseAdd(Scanner scanner, Ui ui) throws MooMooException {
         //String input = parseInput(scanner, ui, "add");
         //switch (input) {
-        switch(scanner.next()) {
+        switch (scanner.next()) {
         case ("category"): return new AddCategoryCommand();
         case ("expenditure"): return parseAddExpenditure(ui);
         default:
