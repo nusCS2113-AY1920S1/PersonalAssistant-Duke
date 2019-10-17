@@ -1,12 +1,13 @@
 package javacake;
 
-import java.io.*;
-import java.net.URISyntaxException;
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
 import java.net.URL;
-import java.nio.Buffer;
 import java.security.CodeSource;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
@@ -77,8 +78,9 @@ public class ProgressStack {
                         isJarMode = false;
                         break;
                     }
-                    if (e == null)
+                    if (e == null) {
                         break;
+                    }
                     String name = e.getName();
                     //System.out.println(name);
                     if (name.startsWith(currentFilePath)) {
@@ -87,17 +89,17 @@ public class ProgressStack {
                             System.out.println(name + " == " + currFileSlashCounter);
                             listOfFiles.add(listingFiles[currFileSlashCounter]);
                         }
-//                        else {
-//                            System.out.println(name);
-//                            listOfFiles.add(name);
-//                        }
+                        //                        else {
+                        //                            System.out.println(name);
+                        //                            listOfFiles.add(name);
+                        //                        }
 
-//                        StringBuilder reducedFilePath = new StringBuilder();
-//                        for (int i = 0; i < filesCapture.length - 1; i++) {
-//                            reducedFilePath.append(filesCapture[i]).append("/");
-//                        }
-//                        String finalTrim = reducedFilePath.toString();
-//                        finalTrim = finalTrim.substring(0, finalTrim.length() - 1);
+                        //                        StringBuilder reducedFilePath = new StringBuilder();
+                        //                        for (int i = 0; i < filesCapture.length - 1; i++) {
+                        //                            reducedFilePath.append(filesCapture[i]).append("/");
+                        //                        }
+                        //                        String finalTrim = reducedFilePath.toString();
+                        //                        finalTrim = finalTrim.substring(0, finalTrim.length() - 1);
                         /* Do something with this entry. */
 
 
@@ -121,7 +123,7 @@ public class ProgressStack {
                 //assert listOfFiles != null;
                 //Arrays.sort(listOfFiles); //in case the files stored locally are not in alphabetical order
             }
-        } catch (NullPointerException | IOException e ) {
+        } catch (NullPointerException | IOException e) {
             throw new DukeException("Content not found!" + "\nPls key 'back' or 'list' to view previous content!");
         }
     }
@@ -269,8 +271,7 @@ public class ProgressStack {
         insertQueries();
         if (isDirectory) {
             return displayDirectories();
-        }
-        else {
+        } else {
             return readQuery();
         }
     }
