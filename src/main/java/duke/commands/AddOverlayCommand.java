@@ -1,5 +1,6 @@
 package duke.commands;
 
+
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -11,6 +12,8 @@ import duke.components.Note;
 import duke.components.Song;
 import duke.components.Chord;
 import duke.components.SongList;
+import java.util.Iterator;
+import java.util.concurrent.ExecutionException;
 
 /**
  * A class representing the command to add a new bar of notes to the current song.
@@ -28,6 +31,40 @@ public class AddOverlayCommand extends Command<SongList> {
     }
 
     /**
+     * Combines two chords.
+     *
+     * @param chordBeCopiedFrom the chord that is being copied from
+     * @param chordCopiedTo the chord that is being copied to
+     */
+
+    public void combineChord(Chord chordBeCopiedFrom, Chord chordCopiedTo) {
+
+        //ArrayList<Note>noteArrayCopyFrom  = chordBeCopiedFrom.getNotes();
+        //Iterator<Note> iterator1 = noteArrayCopyFrom.iterator();
+        //while()
+        chordCopiedTo.getNotes().addAll(chordBeCopiedFrom.getNotes());
+    }
+    /**
+     * Combines two bars.
+     *
+     * @param barToBeCopied the bar that is being copied from
+     * @param barToCopyTo the bar that is being copied to
+     */
+
+    public void combineBar(Bar barToBeCopied, Bar barToCopyTo) {
+        //we need copy the chords from bar1 into bar 2
+        ArrayList<Chord> chordBeCopiedFrom = barToBeCopied.getChords();
+        ArrayList<Chord> chordCopiedTo = barToCopyTo.getChords();
+        System.out.println("here i after the chord from bar");
+        Iterator<Chord> iterator1 = chordBeCopiedFrom.iterator();
+        int i = 0;
+        while (iterator1.hasNext()) {
+            Chord chordAdd = iterator1.next();
+            combineChord(chordAdd,chordCopiedTo.get(i));
+            i += 1;
+        }
+    }
+    /**
      * Modifies the song in the song list and returns the messages intended to be displayed.
      *
      * @param songList the duke.components.SongList object that contains the song list
@@ -37,6 +74,7 @@ public class AddOverlayCommand extends Command<SongList> {
      * @return the string to be displayed in duke.Duke
      * @throws DukeException if an exception occurs in the parsing of the message or in IO
      */
+
     public String execute(SongList songList, Ui ui, Storage storage) throws DukeException {
         Note note1;
         Note note2;
@@ -49,12 +87,13 @@ public class AddOverlayCommand extends Command<SongList> {
         try {
             //the command consists of overlay 10 repeat
             String[] sections = message.substring(8).split(" ");
-            int barIndexToAdd = Integer.parseInt(sections[0]);
+            int barIndexToAdd = Integer.parseInt(sections[0]) - 1;
             System.out.println(barIndexToAdd);
             //System.out.println(Arrays.toString(sections));
             //System.out.println(songIndex);
             if (songList.getSize() > songIndex) {
                 Song song = songList.getSongIndex(songIndex);
+                //System.out.println("adjjdsa1213");
                 ArrayList<Bar> barList = song.getBars();
 
                 Bar overlayingBar = barList.get(barIndexToAdd);
@@ -63,26 +102,20 @@ public class AddOverlayCommand extends Command<SongList> {
                 //System.out.print("sections length ");
                 //System.out.println(sections.length);
                 if (sections.length > 2 && sections[2].equals("repeat")) {
-                    for (Bar temp : barList) {
-                        ArrayList<Chord> tempChordList = temp.getChords();
-                        for (int i = 0; i < tempChordList.size(); i++) {
-                            Chord chordAdd = chordsToAdd.get(i);
-                            for (Note noteTemp : chordAdd.getNotes()) {
-                                tempChordList.get(i).addToChord(noteTemp);
-                            }
-                        }
+                    Iterator<Bar> iterator1 = barList.iterator();
+                    int i = 0;
+                    while (iterator1.hasNext()) {
+                        Bar temp = iterator1.next();
+                        combineBar(overlayingBar,temp);
                     }
                 } else {
-                    System.out.println("no repeat found");
+                    //System.out.println("no repeat found");
                     Bar temp = barList.get(0);
-
+                    //System.out.println("bar temp gotten");
                     ArrayList<Chord> tempChordList = temp.getChords();
-                    for (int i = 0; i < tempChordList.size(); i++) {
-                        Chord chordAdd = chordsToAdd.get(i);
-                        for (Note noteTemp : chordAdd.getNotes()) {
-                            tempChordList.get(i).addToChord(noteTemp);
-                        }
-                    }
+                    //System.out.println("here i after the chord from bar");
+                    //Iterator<Chord> iterator1 = tempChordList.iterator();
+                    combineBar(overlayingBar,temp);
                 }
                 return ui.formatAddOverlay(songList.getSongList(), barIndexToAdd,song);
             } else {
@@ -94,6 +127,7 @@ public class AddOverlayCommand extends Command<SongList> {
             //storage.updateFile(taskList);
 
         } catch (Exception e) {
+            System.out.println(e);
             throw new DukeException(message, "no_index");
         }
     }
