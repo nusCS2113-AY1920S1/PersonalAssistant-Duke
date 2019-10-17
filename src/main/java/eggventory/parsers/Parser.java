@@ -51,7 +51,11 @@ public class Parser {
         switch (inputArr[0]) {
         //Commands which are single words.
         case "list":
-            command = new ListCommand(CommandType.LIST);
+            if (inputArr.length != 2) {
+                throw new BadInputException("Usage of list: list stock, list stocktypes or list <stocktype>");
+            } else {
+                command = new ListCommand(CommandType.LIST, inputArr[1]);
+            }
             break;
         case "bye":
             command = new Command(CommandType.BYE);

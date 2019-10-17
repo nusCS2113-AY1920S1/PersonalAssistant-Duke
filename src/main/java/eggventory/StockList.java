@@ -148,6 +148,40 @@ public class StockList {
     }
 
     /**
+     * Prints every stock within stocklist whose stocktype matches query. Should only be called by Cli.
+     * @return The string of the stocklist whose stocktype matches query.
+     */
+    public String findStock(String query) {
+        String ret = "";
+        boolean found = false;
+        for (StockType stocktype : stockList) {
+            if (stocktype.getName().equals(query)) {
+                if (found == false) {
+                    ret += query + " INVENTORY\n";
+                    ret += "------------------------\n";
+                    found = true;
+                }
+                ret += stocktype.toString() + "\n";
+            }
+        }
+        return ret;
+    }
+
+    /**
+     * Prints all the stocktypes that are currently handled by Eggventory. Should only be called by Cli.
+     * @return The string of all the stocktypes
+     */
+    public String toStocktypeString() {
+        String ret = "";
+        ret += "QUERY INVENTORY\n";
+        for (StockType stocktype : stockList) {
+            ret += "------------------------\n";
+            ret += stocktype.getName() + "\n";
+        }
+        return ret;
+    }
+
+    /**
      * Saves the list into a String.
      * @return The String that will be directly saved into file.
      */
