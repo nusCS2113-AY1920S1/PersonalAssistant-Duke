@@ -1,41 +1,62 @@
+import members.Member;
+import gui.Window;
 import commands.Command;
 import tasks.Task;
 import utils.DukeException;
 import utils.Parser;
 import utils.Storage;
+import utils.Reminder;
 import core.Ui;
 
-import java.io.File;
-import java.io.InputStream;
-import java.io.OutputStream;
 import java.util.Scanner;
 import java.util.ArrayList;
 
+/**
+ * This is the main class to be executed for DUKE PRO application
+ *
+ * @author T14-4 team
+ */
 public class Duke {
-    static File duketxt;
-    static InputStream is;
-    static OutputStream os;
 
+    /**
+     * deals with loading tasks from the file and saving tasks in the file
+     */
     private Storage storage;
+
+    /**
+     * an array list contains all the tasks
+     */
     private ArrayList<Task> tasks;
 
-    public Duke(String filePath) {
-        storage = new Storage(filePath);
-        tasks = storage.load();
+    private ArrayList<Member> members;
+
+
+    /**
+     * A constructor which applies the file path to load previous data
+     *
+     * @param taskFilePath the file path of task list
+     * @param memberFilePath the file path of member list
+     */
+    public Duke(String taskFilePath, String memberFilePath) {
+        storage = new Storage(taskFilePath, memberFilePath);
+        tasks = storage.loadTaskList();
+        members = storage.loadMemberList();
     }
 
     /**
-     * <p>main running structure of Duke.</p>
+     * main running structure of Duke.
      */
     public void run() {
+        Window window = new Window();
         Ui.welcome();
+        Reminder.checkReminders(tasks);
         boolean isExit = false;
         Scanner in = new Scanner(System.in);
         while (!isExit) {
             try {
                 String fullCommand = Ui.readLine(in);
                 Command c = Parser.commandLine(fullCommand);
-                c.execute(tasks, storage);
+                c.execute(tasks, members, storage);
                 isExit = c.isExit();
             } catch (DukeException e) {
                 Ui.print(e.getMessage());
@@ -44,10 +65,11 @@ public class Duke {
     }
 
     /**
-     * <p>Main method of the entire project.</p>
+     * Main method of the entire project.
+     *
      * @param args command line arguments, not used here
      */
     public static void main(String[] args) {
-        new Duke("data/tasks.txt").run();
+        new Duke("data/tasks.txt", "data/members.txt").run();
     }
 }

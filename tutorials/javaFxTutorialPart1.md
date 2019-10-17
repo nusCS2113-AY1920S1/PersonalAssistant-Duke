@@ -89,7 +89,7 @@ Run `Launcher` and you should see something like this:
 
 ![Hello World](assets/HelloWorld.png) 
 
-Congratulations! You have created your first GUI application!
+Congratulations! You have created your first gui application!
 
 ## Exercises
 

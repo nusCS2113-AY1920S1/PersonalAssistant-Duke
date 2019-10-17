@@ -11,16 +11,16 @@ We are a team based in the http://www.comp.nus.edu.sg[School of Computing, Natio
 == Project Team
 
 === Lim Jia Ying
-//image::damithc.jpg[width="150", align="left"]
+image::auggust.png[width="150", align="left"]
 {empty}[https://github.com/AugGust[github]]
 
-Role: Team Lead
-Responsibilities: UI
+Role: Team Lead +
+Responsibilities: gui
 
 '''
 
 === Chan Wei Qiang Jason
-//image::lejolly.jpg[width="150", align="left"]
+image::jasonchanwq.png[width="150", align="left"]
 {empty}[https://github.com/jasonchanwq[github]]
 
 Role: Developer +
@@ -29,7 +29,7 @@ Responsibilities: UI
 '''
 
 === Chen Yu Heng
-//image::yijinl.jpg[width="150", align="left"]
+image::chenyuheng.png[width="150", align="left"]
 {empty}[https://github.com/chenyuheng[github]]
 
 Role: Developer +
@@ -38,7 +38,7 @@ Responsibilities: Data
 '''
 
 === Justin Chia
-//image::m133225.jpg[width="150", align="left"]
+image::justinchia1997.png[width="150", align="left"]
 {empty}[https://github.com/JustinChia1997[github]]
 
 Role: Developer +
@@ -47,7 +47,7 @@ Responsibilities: Dev Ops + Threading
 '''
 
 === Lin Yu Yang
-//image::yl_coder.jpg[width="150", align="left"]
+image::yuyanglin28.png[width="150", align="left"]
 {empty}[https://github.com/yuyanglin28[github]]
 
 Role: Developer +

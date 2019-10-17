@@ -1,0 +1,187 @@
+= Duke Pro - Developer Guide
+:site-section: DeveloperGuide
+:toc:
+:toc-title:
+:toc-placement: preamble
+:sectnums:
+:imagesDir: images
+:stylesDir: stylesheets
+:xrefstyle: full
+ifdef::env-github[]
+:tip-caption: :bulb:
+:note-caption: :information_source:
+:warning-caption: :warning:
+endif::[]
+:repoURL: https://github.com/AY1920S1-CS2113-T14-4/main
+
+By: `Team AY1920S1-CS2113-T14-4`      Since: `Sept 2019`
+
+== Setting up
+
+Refer to the guide <<SettingUp#, here>>.
+
+
+== Problem
+
+The role of a project manager is to initiate, plan, design, execute and monitor the project to achieve its intended outcomes. This means the project manager must be able to efficiently organise and record down many details of the project to fulfill their responsibilities. However recording project details on pen and paper or word documents is too time consuming and lack many features that can aid in project management, such as deadline reminders.
+
+== Target user profile
+
+* has a need to manage complex projects
+* leader of the team
+* project manager
+* prefer desktop apps over other types and prefer typing over mouse input
+* is comfortable using CLI apps
+
+
+== Value proposition
+ The Duke personal assistant application will enable project manager to efficiently plan tasks, save time, and assign proper amount of tasks to team members, while providing an intuitive gui for them to visualise and easily keep track of the team progress.
+ User can use this app to manage projects faster than a typical mouse/gui driven app.
+
+
+[appendix]
+
+== User Stories
+
+Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (unlikely to have) - `*`
+
+[width="95%",cols="10%,<23%,<37%,<30%",options="header",]
+|=======================================================================
+|Priority |As  ... |I want to ... |So that I can...
+|High|Project Manager |Be able to set project milestones on a timeline | Track overall progress of project
+|High|Project Manager |Create a project and add team members | Track who are working on the project
+|High|Project Manager |Create team member profiles| Better manage team members using their profiles
+|Medium|Project Manager |Performance appraisal | track performance of team member
+|High|Project Manager |Create tasks | Log the exact details of the tasks(e.g requirements, Deadlines)
+|High|Project Manager |Have a task progress bar | Track progress of task
+|High|Project Manager |Assign task to multiple team members | split intensive tasks to more than one member
+|High|Project Manager |Add subtask checklist | understand parts of the task that are completed
+|High|Project Manager |Add tags to task | categorise tasks for better organization
+|High|Project Manager |Add priority for tasks | define importance of tasks
+|High|Project Manager |Add reviews/comments for tasks | provide my own feedback for the task
+|High|Project Manager |Create Reminders | remind myself of issues pertaining to the project
+|High|Project Manager |Create Deadlines | Keep track of issues that have a deadline
+|High|Project Manager |Create project meetings | plan project meetings
+|High|Project Manager |Record minutes of meeting in point format| review what was discussed
+|High|Project Manager |Record points raised by each team members | refer to seek clarification from team members
+|High|Project Manager |View all information on a calendar | Keep track of information visually, know what is coming up
+|High |Project Manager |Filter items being shown on calendar | narrow my view of items based on my needs
+|=======================================================================
+
+_{More to be added}_
+
+[appendix]
+== Use Cases
+
+[discrete]
+=== UC01: Managing team members
+Actors: Project Manager
+
+*MSS*
+
+1. User starts the Duke Pro.
+2. User requests to display the team members list.
+3. UI displays the members list.
+4. User chooses one member.
+5. UI displays the details of the member.
+6. User modifies the member’s profile.
+7. UI shows modified success.
+8. User adds a new member.
+9. UI shows added success.
+10. Use case ends.
+
+*Extensions*
+
+[none]
+* 3a. Team member list is empty
+** 3a1.Ui displays empty team member list message.
+** 3a2. Use case ends.
+
+[discrete]
+=== UC02: Manage project milestones/timeline
+Actors: Project Manager
+
+*MSS*
+
+1. User starts the Duke Pro.
+2. User creates a new milestone with date of completion
+3. UI updates milestone progress bar
+4. Duke Pro automatically saves the new milestone in persistent storage
+5. Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. Milestone date is not added
+** 2a1. Ui shows error message to include date
+** 2a2. Use case ends
+
+[discrete]
+=== UC03: Creating Project Meetings
+Actors: Project Manager
+
+*MSS*
+
+1. User starts the Duke Pro.
+2. User creates Project Meeting.
+3. User enters meeting title and date.
+4. Use Case ends.
+
+*Extensions*
+
+[none]
+* 3a. Invalid date input
+** 3a1. User inputs correct date format
+** 3a2. Use case ends
+
+[discrete]
+=== UC04: Assigning a task to team members
+Actors: Project Manager
+
+*MSS*
+
+1. User starts the Duke Pro.
+2. User adds team member to specific task.
+3. Use Case ends.
+
+*Extensions*
+
+[none]
+* 2a. Task does not exist
+** 2a1. Ui shows error message and list of tasks available/ closest match
+** 2a2. Use case ends
+
+[none]
+* 2b. Team member does not exist.
+** 2b1. Ui shows error message and list of team members
+** 2b2. Use case ends
+
+[discrete]
+=== UC05: Updating task progress
+Actors: Project Manager
+
+*MSS*
+
+1. User starts the Duke Pro.
+2. User enters task management.
+3. User marks sub tasks as complete.
+4. User adds remark for task.
+5. Use case ends.
+
+*Extensions*
+
+[none]
+* 3a. Task does not exist
+** 3a1. Ui shows error message, and shows a list of available tasks
+** 3a2. Use case continues from step 2.
+** 3a3. Use case ends.
+
+[appendix]
+== Non Functional Requirements
+
+* Login security, basic SHA256 protection of user’s password.
+* Storing the data.
+* Parsing the data into a readable text file so that power users can easily edit them.
+* Parsing user input.
+* Suggestion of relevant commands based on closest fit.
+* Duke can be used in any OS.

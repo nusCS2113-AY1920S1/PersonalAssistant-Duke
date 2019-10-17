@@ -1,7 +1,16 @@
 package utils;
 
+/**
+ * handle the error
+ */
 public class DukeException extends Exception {
-    public DukeException(String description) {
-        super(description);
+
+    /**
+     * constructor of Duke Exception
+     *
+     * @param msg error message
+     */
+    public DukeException(String msg) {
+        super(msg);
     }
 }

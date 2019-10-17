@@ -1,0 +1,125 @@
+= Duke Pro - User Guide
+:site-section: UserGuide
+:toc:
+:toc-title:
+:toc-placement: preamble
+:sectnums:
+:imagesDir: images
+:stylesDir: stylesheets
+:xrefstyle: full
+:experimental:
+ifdef::env-github[]
+:tip-caption: :bulb:
+:note-caption: :information_source:
+endif::[]
+:repoURL: https://github.com/AY1920S1-CS2113-T14-4/main/releases
+
+By: `Team AY1920S1-CS2113-T14-4`      Since: `Sept 2019`
+
+== Introduction
+
+AddressBook Level 3 (AB3) is for those who *prefer to use a desktop app for managing contacts*. More importantly, AB3 is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (gui). If you can type fast, AB3 can get your contact management tasks done faster than traditional gui apps. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
+
+== Quick Start
+
+.  Ensure you have Java `11` or above installed in your Computer.
+.  Download the latest `duke.jar` link:{repoURL}/releases[here].
+.  Copy the file to the folder you want to use as the home folder for your `Duke Pro`.
+.  Double-click the file to start the app. The gui should appear in a few seconds.
++
+image::UI.png[width="939", align="left"]
++
+.  Type the command in the command box and press kbd:[Enter] to execute it. +
+e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
+
+
+.  Refer to <<Features>> for details of each command.
+
+[[Features]]
+== Features
+
+====
+*Command Format*
+
+* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
+* Items in square brackets are optional e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
+* Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
+* Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
+====
+
+=== Viewing help : `help`
+
+Format: `help`
+
+{to be implemented}
+
+=== Adding a task: `add`
+Adds a task, there are *6* kinds of tasks.
+
+==== Deadline task
+  add deadline [description] /by [deadline]
+
+==== Event task
+  add event [description] /at [time]
+
+==== Last task(no start or end time)
+  add last [description] /last [duration]
+
+==== Period task
+  add period [description] /from [start time] /to [end time]
+
+==== Todo task
+  add todo [description]
+
+==== Do-after task
+  [add command] /after [prerequsite tasks indexs]
+
+
+Examples:
+
+* `add todo cs2113 lecture`
+* `add deadline cs2113 assignment1 /by Oct 1st`
+
+=== Marking a task as done : `done`
+
+Marks a specific task as finished. +
+Format: `done [index of the task]`
+
+=== Finding a task with key word : `find`
+
+Searches in the task list to find a task with a certain key word +
+Format: `find [keyword]`
+
+
+=== Listing all tasks: `list`
+
+Lists all tasks, in order of index. +
+Format: `list [tasks/members]`
+
+=== Deleting a task : `delete`
+
+Deletes the specified task with indext from the task list +
+Format: `delete INDEX`
+
+****
+* Deletes the person at the specified `INDEX`.
+* The index refers to the index number shown in the displayed task list.
+* The index *must be a positive integer* 1, 2, 3, ...
+****
+
+=== Recurring a task : `recurring`
+
+Recurs a specific task for a certain numbers of weeks.
+Format: `recurring [index of the task] [number of weeks]`
+
+=== Checking time crash : `check`
+
+=== Snooze :
+
+=== Viewing schedule :
+
+=== Exiting the program : `bye`
+
+Exits the program. +
+Format: `bye`
+
