@@ -26,12 +26,14 @@ public class TimeParser {
      * @return a human-friendly string representing the date
      */
     public static String convertDateToString(Date date) {
-        if (date.getTime() - System.currentTimeMillis() > 1000 * 3600 * 24 * 5) {
+        //TODO: remove magic number
+        if (Math.abs(date.getTime() - System.currentTimeMillis()) > 1000 * 3600 * 24 * 5) {
             return dateFormat.format(date);
         } else {
             return prettyTime.format(date);
         }
     }
+
 
     /**
      * Converts a string representing the date to a Date object.
