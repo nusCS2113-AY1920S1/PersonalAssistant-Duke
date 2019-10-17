@@ -1,5 +1,8 @@
-package models.task;
+package modeltests.task;
 
+import models.task.Task;
+import models.task.TaskList;
+import models.task.TaskState;
 import org.junit.jupiter.api.Test;
 import util.date.DateTimeHelper;
 
@@ -10,15 +13,15 @@ import java.util.Date;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-public class TaskListTest {
+class TaskListTest {
 
     @Test
-    public void alwaysTrue() {
+    void alwaysTrue() {
         assertEquals(2, 2);
     }
 
     @Test
-    public void testAddTask() {
+    void testAddTask() {
         ArrayList<String> taskRequirements = new ArrayList<>();
         Task task = new Task("task", 5, null,100, TaskState.OPEN,taskRequirements);
         TaskList taskList = new TaskList();
@@ -27,7 +30,7 @@ public class TaskListTest {
     }
 
     @Test
-    public void testRemoveTask() {
+    void testRemoveTask() {
         ArrayList<String> taskRequirements = new ArrayList<>();
         Task task = new Task("task", 5, null,100, TaskState.OPEN,taskRequirements);
         TaskList taskList = new TaskList();
@@ -37,7 +40,7 @@ public class TaskListTest {
     }
 
     @Test
-    public void testGetAllTaskDetails() {
+    void testGetAllTaskDetails() {
         TaskList taskList = new TaskList();
         ArrayList<String> taskRequirements = new ArrayList<>();
         Task task1 = new Task("task1", 1, null, 100, TaskState.OPEN, taskRequirements);
@@ -64,7 +67,7 @@ public class TaskListTest {
     }
 
     @Test
-    public void testGetAllSortedTaskDetails() {
+    void testGetAllSortedTaskDetails() {
         TaskList taskList = new TaskList();
         ArrayList<String> taskRequirements = new ArrayList<>();
         try {
