@@ -46,8 +46,8 @@ public class CommandParser {
     /**
      * Checks if input command is in the correct format.
      *
-     * @param commandString input command
-     * @return true if matches pattern, false otherwise
+     * @param commandString input command.
+     * @return true if matches pattern, false otherwise.
      */
     public static boolean isCommandFormat(String commandString) {
         return commandString.matches(
@@ -78,7 +78,7 @@ public class CommandParser {
     /**
      * Set to the new input type when it is toggled by "flip" command.
      *
-     * @param newInputType the input type that is going to be changed to
+     * @param newInputType the input type that is going to be changed to.
      */
     public static void setInputType(InputType newInputType) {
         inputType = newInputType;
@@ -87,8 +87,8 @@ public class CommandParser {
     /**
      * Parses input to retrieve options from command string.
      *
-     * @param input command string
-     * @return list of all options specified in the command
+     * @param input command string.
+     * @return list of all options specified in the command.
      */
     public static ArrayList<Option> parseOptions(String input) {
         ArrayList<Option> optionList = new ArrayList<>();
@@ -181,7 +181,7 @@ public class CommandParser {
      * @param rawInput  user/file input ready to be parsed.
      * @return an email-relevant Command.
      * @throws UserInputException an exception when the parsing is failed, probably due to the wrong format of
-     *                            input
+     *                            input.
      */
     public static Command parseEmailCommand(EmailList emailList, String rawInput,
                                             ArrayList<Option> optionList) throws UserInputException {
@@ -356,7 +356,7 @@ public class CommandParser {
         Pattern priorityCommandPattern = Pattern.compile("^set\\s+(?<index>[\\d]+)\\s*$");
         Matcher priorityCommandMatcher = priorityCommandPattern.matcher(input);
         if (!priorityCommandMatcher.matches()) {
-            if (ui!= null) {
+            if (ui != null) {
                 ui.showError("Please enter index after 'set' command and priority level after '-priority' option");
             }
             return new InvalidCommand();
@@ -430,11 +430,20 @@ public class CommandParser {
         }
         try {
             String timeString = extractTime(optionList);
+            String day = null;
+            String timing = null;
             if (!timeString.contains("/")) {
                 timeString = timeString.substring(0, 1).toUpperCase() + timeString.substring(1).toLowerCase();
+                if (timeString.contains(" ")) {
+                    String[] tokens = timeString.split("\\s");
+                    day = tokens[0];
+                    timing = tokens[1];
+                } else {
+                    day = timeString;
+                }
             }
-            if (Task.isCorrectNaturalDate(timeString)) {
-                time = Task.convertNaturalDate(timeString);
+            if (Task.isCorrectNaturalDate(day)) {
+                time = Task.convertNaturalDate(day, timing);
             } else {
                 time = Task.parseDate(timeString);
             }
@@ -574,10 +583,10 @@ public class CommandParser {
         return priority;
     }
 
-        /**
-         * An type of exception dedicated to handling the unexpected user/file input. The message contains more
-         * specific information.
-         */
+    /**
+     * An type of exception dedicated to handling the unexpected user/file input. The message contains more
+     * specific information.
+     */
     public static class UserInputException extends Exception {
         private String msg;
 
