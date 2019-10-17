@@ -14,7 +14,7 @@ public class Interpreter {
      * @return True if the Command executed calls for an ExitRequest, false otherwise
      */
     public static boolean interpret(TaskList taskList, Wallet wallet, String userInput) {
-        CommandType commandType = Parser.parseCommandType(userInput);
+        CommandType commandType = Parser.parseForCommandType(userInput);
         boolean exitRequest = Executor.runCommand(taskList, wallet, commandType, userInput);
         return exitRequest;
     }

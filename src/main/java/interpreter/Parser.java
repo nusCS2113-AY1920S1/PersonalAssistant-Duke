@@ -1,20 +1,8 @@
 package interpreter;
 
-import executor.command.Command;
 import executor.command.CommandType;
-import executor.command.CommandSchedule;
-import executor.command.CommandBlank;
-import executor.command.CommandBye;
-import executor.command.CommandNewTask;
-import executor.command.CommandFind;
-import executor.command.CommandDelete;
-import executor.command.CommandMarkDone;
-import executor.command.CommandList;
-import executor.command.CommandQueue;
-import executor.command.CommandReminder;
 
 import executor.task.Task;
-import executor.task.TaskType;
 
 /**
  * Parser will parse through user inputs.
@@ -38,23 +26,21 @@ public class Parser {
      * @param userInput The input that the user types from the CLI
      * @return CommandType enum that identifies the Command requested
      */
-    public static CommandType parseCommandType(String userInput) {
-        //user enter an empty command ( like a blank )
+    public static CommandType parseForCommandType(String userInput) {
+        // User enters an empty command (like a blank)
         if (userInput.trim() == "") {
             return CommandType.BLANK;
         }
         String commandStr = parseForEnum(userInput, CommandType.getNames());
-        // Default
-        // type of command not as specified inside the enum types
+        // Type of command not as specified inside the enum types
         if (commandStr == "") {
-            return CommandType.TASK;
+            return null;
         }
         return CommandType.valueOf(commandStr);
     }
 
     /**
      * Abstract Function that searches for a specific Enum type given an Enum.
-     *
      * @param userInput The String to search
      * @param enumTypes String Array containing the Enum Types
      * @return String value of the Enum Type
@@ -106,7 +92,7 @@ public class Parser {
         String[] returnArray = new String[3];
         String[] holder = taskString.split(PARSE_MARKER_IS_DONE, 2);
 
-        returnArray[0] = String.valueOf(parseCommandType(holder[0]));
+        returnArray[0] = String.valueOf(parseForCommandType(holder[0]));
         returnArray[1] = holder[0].replace(returnArray[0], "").trim();
         returnArray[2] = holder[1].replace(PARSE_MARKER_IS_DONE.substring(1), "").trim();
         return returnArray;
