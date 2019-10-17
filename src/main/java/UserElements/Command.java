@@ -128,6 +128,14 @@ public class Command {
                 rescheduleEvents(events, ui);
                 break;
 
+            case "details":
+                addEventDetails(events, ui);
+                break;
+
+            case "viewdetails":
+                viewDetails(events, ui);
+                break;
+            
             case "edit":
                 editEvent(events, ui);
                 break;
@@ -167,10 +175,11 @@ public class Command {
             int viewIndex = 1;
             for (Event viewEvent : events.getEventArrayList()) {
                 if (viewEvent.toString().contains(searchKeyWords)) {
-                    foundEvent += viewIndex + ". " + viewEvent.toString() + "\n";
-                    viewIndex++;
+                    foundEvent += viewIndex + ". " + viewEvent.toString() + "\n";    
                 }
+                viewIndex++;
             }
+            
             boolean isEventsFound = !foundEvent.isEmpty();
             ui.printFoundEvents(foundEvent, isEventsFound);
         }
@@ -211,12 +220,18 @@ public class Command {
             for (Event viewEvent : events.getEventArrayList()) {
                 if (viewEvent.toString().contains(findDate.getFormattedDateString())) {
                     foundEvent += viewIndex + ". " + viewEvent.toString() + "\n";
-                    viewIndex++;
                 }
+                viewIndex++;
             }
             boolean isEventsFound = !foundEvent.isEmpty();
             ui.printFoundEvents(foundEvent, isEventsFound);
         }
+    }
+
+    public void viewDetails(EventList events, UI ui) {
+        int eventNo = Integer.parseInt(continuation);
+        Event currEvent = events.getEvent(eventNo - 1);
+        ui.printEventDetails(currEvent);
     }
 
     public void createNewEvent(EventList events, UI ui, char eventType) {
@@ -306,6 +321,22 @@ public class Command {
             } else {
                 ui.noSuchEvent();
             }
+        } catch (IndexOutOfBoundsException outOfBoundsE) {
+            ui.noSuchEvent();
+        } catch (NumberFormatException notInteger) {
+            ui.notAnInteger();
+        }
+    }
+
+    public void addEventDetails(EventList events, UI ui) {
+        try {
+            Parser parser = new Parser();
+            int eventNo = Integer.parseInt(continuation);
+            Event currEvent = events.getEvent(eventNo - 1);
+            ui.inputDetails();
+            String detailsInput = parser.readUserInput();
+            currEvent.addDetails(detailsInput);
+            ui.eventDetailsAdded(currEvent);
         } catch (IndexOutOfBoundsException outOfBoundsE) {
             ui.noSuchEvent();
         } catch (NumberFormatException notInteger) {
@@ -411,8 +442,7 @@ public class Command {
             } else {
                 period = Integer.parseInt(splitEvent[2]);
             }
-
-            return this;
+            return this; 
         }
     }
 }
