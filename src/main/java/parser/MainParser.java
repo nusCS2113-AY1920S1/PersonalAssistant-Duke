@@ -6,6 +6,7 @@ import dolla.Ui;
 import dolla.command.Command;
 import dolla.command.ErrorCommand;
 import dolla.command.SwitchModeCommand;
+import dolla.task.Limit;
 import dolla.task.TaskList;
 
 import java.time.format.DateTimeParseException;
@@ -52,6 +53,9 @@ public class MainParser {
         case "debt":
             DebtsParser debtsParser = new DebtsParser(inputLine);
             return debtsParser.handleInput(mode, inputLine);
+        case "limits":
+            LimitParser limitParser = new LimitParser(inputLine);
+            //return limitParser.handleInput(mode, inputLine);
         default:
             Ui.printInvalidCommandError();
             return new ErrorCommand();

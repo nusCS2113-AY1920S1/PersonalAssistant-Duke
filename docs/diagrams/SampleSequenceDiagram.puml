@@ -1,0 +1,8 @@
+@startuml
+
+User -> Dolla: Hello
+Dolla -> MainParser: Hello
+MainParser --> Dolla: Hi
+Dolla --> User: Hi
+
+@enduml
