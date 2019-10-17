@@ -382,6 +382,7 @@ public class Process {
             ui.exceptionMessage("     ☹ OOPS!!! There is no payee with that name yet, please add the payee first!");
         }
     }
+
     /**
      * process the invoice command, set invoice status as true, update invoice value and set the deadline.
      * INPUT FORMAT: invoice id i/invoice_num
