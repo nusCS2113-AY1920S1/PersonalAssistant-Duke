@@ -20,7 +20,7 @@ public class Farmer {
     protected ChickenFarm chickenFarm;
     protected CowFarm cowFarm;
     protected TaskList tasks;
-    protected int currentTask;
+    private int currentTask;
 
     public Farmer() {
         this.money = 100;
@@ -109,18 +109,16 @@ public class Farmer {
 
     public void changeMoney(int change) { money -= change; }
 
+    public int getCurrentTask() {return this.currentTask;}
     public void nextLevel(){
         ++this.level;
     }
-
-    public int getCurrentTask () { return currentTask; }
 
     public void startDay(Farmio farmio) throws FarmioException {
         for (int i = 0; i < tasks.size(); i++) {
             this.currentTask = i;
             tasks.get(i).execute(farmio);
         }
-        this.currentTask = -1;
     }
 
     public JSONObject toJSON(){
