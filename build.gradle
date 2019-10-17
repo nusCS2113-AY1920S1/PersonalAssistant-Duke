@@ -22,18 +22,18 @@ run {
     standardInput = System.in
 }
 
-/*dependencies {
+dependencies {
     implementation group: 'com.fasterxml.jackson.core', name: 'jackson-databind';
-}*/
+}
 
 checkstyle {
     toolVersion = '8.23'
     ignoreFailures = true
 }
 
-/*shadowJar {
+shadowJar {
     archiveBaseName = "cube"
     archiveVersion = "0.1.1"
     archiveClassifier = null
     archiveAppendix = null
-}*/
+}
