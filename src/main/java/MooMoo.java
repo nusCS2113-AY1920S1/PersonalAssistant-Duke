@@ -3,7 +3,6 @@ import moomoo.task.ScheduleList;
 import moomoo.task.Budget;
 import moomoo.task.MooMooException;
 import moomoo.task.CategoryList;
-import moomoo.task.TransactionList;
 import moomoo.task.Ui;
 import moomoo.task.Storage;
 import moomoo.task.Parser;
@@ -25,7 +24,7 @@ public class MooMoo {
      */
     MooMoo() {
         ui = new Ui();
-        storage = new Storage("data/budget.txt", "data/category.txt");
+        storage = new Storage("data/budget.txt","data/schedule.txt");
 
         try {
             categoryList = new CategoryList(storage.loadCategories());
@@ -86,7 +85,6 @@ public class MooMoo {
         try {
             Command c = Parser.parse(input, ui);
             c.execute(calendar, budget, categoryList, category, ui, storage);
-            c.execute(calendar, budget, categoryList, transList, ui, storage);
 
             isExit = c.isExit;
             if (isExit) {

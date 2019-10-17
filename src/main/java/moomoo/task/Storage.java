@@ -18,16 +18,16 @@ import java.util.Map;
 public class Storage {
     private DecimalFormat df;
     private String budgetFilePath;
-    private String categoryFilePath;
+    private String scheduleFilePath;
 
     /**
      * Initializes storage and the filepath for each file.
      * @param budgetFilePath File path to store the budget into.
      * @param categoryFilePath File path to store all categories
      */
-    public Storage(String budgetFilePath, String categoryFilePath) {
+    public Storage(String budgetFilePath, String scheduleFilePath) {
         this.budgetFilePath = budgetFilePath;
-        this.categoryFilePath = categoryFilePath;
+        this.scheduleFilePath = scheduleFilePath;
         df = new DecimalFormat("#.00");
     }
 
@@ -97,8 +97,8 @@ public class Storage {
     public ArrayList<SchedulePayment> loadCalendar() throws MooMooException {
         ArrayList<SchedulePayment> scheduleArray = new ArrayList<>();
         try {
-            if (Files.isRegularFile(Paths.get(this.filePath))) {
-                List<String> input = Files.readAllLines(Paths.get(this.filePath));
+            if (Files.isRegularFile(Paths.get(this.scheduleFilePath))) {
+                List<String> input = Files.readAllLines(Paths.get(this.scheduleFilePath));
                 for (String s : input) {
                     if (s.startsWith("d/")) {
                         String[] splitInput = s.split(" ", 2);
@@ -156,7 +156,7 @@ public class Storage {
      * Writes scheduled payments to file.
      */
     public void saveScheduleToFile(ScheduleList calendar) throws MooMooException {
-        createFileAndDirectory();
+        createFileAndDirectory(this.scheduleFilePath);
 
         String list = "Schedule: \n";
         System.out.println(calendar.fullSchedule.size());
@@ -164,10 +164,12 @@ public class Storage {
             list += "d/" + c.date + " t/" + c.tasks + "\n";
         }
         try {
-            Files.writeString(Paths.get(this.filePath), list);
+            Files.writeString(Paths.get(this.scheduleFilePath), list);
         } catch (Exception e) {
             throw new MooMooException("Unable to write to file. Please try again.");
         }
+    }
+
     /**
      * Checks if a category is found in the list of categories.
      * @return true if it exists.
