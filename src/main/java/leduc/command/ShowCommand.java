@@ -12,7 +12,6 @@ import leduc.task.Task;
 import leduc.task.TaskList;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Locale;
@@ -27,6 +26,82 @@ public class ShowCommand extends Command {
      */
     public ShowCommand(String user) {
         super(user);
+    }
+
+    public int getDayOfWeekInInt(String dayOfWeek) throws MeaninglessException {
+        int dayOfWeekInt = 0;
+        switch(dayOfWeek){
+            case "monday":
+                dayOfWeekInt = 1;
+                break;
+            case "tuesday":
+                dayOfWeekInt = 2;
+                break;
+            case "wednesday":
+                dayOfWeekInt = 3;
+                break;
+            case "thursday":
+                dayOfWeekInt = 4;
+                break;
+            case "friday":
+                dayOfWeekInt = 5;
+                break;
+            case "saturday":
+                dayOfWeekInt = 6;
+                break;
+            case "sunday":
+                dayOfWeekInt = 7;
+                break;
+            default:
+                throw new MeaninglessException();
+        }
+        return dayOfWeekInt;
+
+    }
+
+    public void getListTaskExactDay(LocalDate date, ArrayList<Task> allTaskHavingDate, ArrayList<Task> showTaskList){
+        for(Task t : allTaskHavingDate){
+            if(t.isDeadline()){
+                if(((DeadlinesTask)t).getDeadlines().getD().toLocalDate().isEqual(date)){
+                    showTaskList.add(t);
+                }
+            }
+            if(t.isEvent()){
+                if(((EventsTask)t).getDateFirst().getD().toLocalDate().isEqual(date)){
+                    showTaskList.add(t);
+                }
+            }
+        }
+    }
+
+    public void getListTaskMonth(int dateMonth, int dateYear, ArrayList<Task> allTaskHavingDate, ArrayList<Task> showTaskList){
+        for(Task t : allTaskHavingDate){
+            if(t.isDeadline()){
+                if(((DeadlinesTask)t).getDeadlines().getD().getMonthValue() == dateMonth && ((DeadlinesTask)t).getDeadlines().getD().getYear() == dateYear){
+                    showTaskList.add(t);
+                }
+            }
+            if(t.isEvent()){
+                if(((EventsTask)t).getDateFirst().getD().getMonthValue() == dateMonth && ((EventsTask)t).getDateFirst().getD().getYear() == dateYear){
+                    showTaskList.add(t);
+                }
+            }
+        }
+    }
+
+    public void getListTaskYear(int dateYear, ArrayList<Task> allTaskHavingDate, ArrayList<Task> showTaskList){
+        for(Task t : allTaskHavingDate){
+            if(t.isDeadline()){
+                if(((DeadlinesTask)t).getDeadlines().getD().getYear() == dateYear){
+                    showTaskList.add(t);
+                }
+            }
+            if(t.isEvent()){
+                if(((EventsTask)t).getDateFirst().getD().getYear() == dateYear){
+                    showTaskList.add(t);
+                }
+            }
+        }
     }
 
     @Override
@@ -56,25 +131,14 @@ public class ShowCommand extends Command {
                 date = userSubSubString[1];
             }
 
-            LocalDate d1 = null;
+            LocalDate exactDate = null;
             try{
                 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy", Locale.ENGLISH);
-                d1 = LocalDate.parse(date.trim(), formatter);
+                exactDate = LocalDate.parse(date.trim(), formatter);
             }catch(Exception e){
                 throw new NonExistentDateException();
             }
-            for(Task t : allTaskHavingDate){
-                if(t.isDeadline()){
-                    if(((DeadlinesTask)t).getDeadlines().getD().toLocalDate().isEqual(d1)){
-                        showTaskList.add(t);
-                    }
-                }
-                if(t.isEvent()){
-                    if(((EventsTask)t).getDateFirst().getD().toLocalDate().isEqual(d1)){
-                        showTaskList.add(t);
-                    }
-                }
-            }
+            getListTaskExactDay(exactDate, allTaskHavingDate, showTaskList);
         }
         else if(userSubSubString[0].matches("dayofweek")){
             int dayOfWeekInt = 0;
@@ -87,81 +151,23 @@ public class ShowCommand extends Command {
                 dayOfWeek = userSubSubString[1];
             }
 
-            switch(dayOfWeek){
-                case "monday":
-                    dayOfWeekInt = 1;
-                    break;
-                case "tuesday":
-                    dayOfWeekInt = 2;
-                    break;
-                case "wednesday":
-                    dayOfWeekInt = 3;
-                    break;
-                case "thursday":
-                    dayOfWeekInt = 4;
-                    break;
-                case "friday":
-                    dayOfWeekInt = 5;
-                    break;
-                case "saturday":
-                    dayOfWeekInt = 6;
-                    break;
-                case "sunday":
-                    dayOfWeekInt = 7;
-                    break;
-                default:
-                    throw new MeaninglessException();
-            }
+            dayOfWeekInt = getDayOfWeekInInt(dayOfWeek);
             LocalDate dateNow = LocalDate.now();
             LocalDate dateFindDayOfWeek = dateNow.plusDays(1);
             while(dateFindDayOfWeek.getDayOfWeek().getValue()!= dayOfWeekInt){
                 dateFindDayOfWeek = dateFindDayOfWeek.plusDays(1);
             }
-
-            for(Task t : allTaskHavingDate){
-                if(t.isDeadline()){
-                    if(((DeadlinesTask)t).getDeadlines().getD().toLocalDate().isEqual(dateFindDayOfWeek)){
-                        showTaskList.add(t);
-                    }
-                }
-                if(t.isEvent()){
-                    if(((EventsTask)t).getDateFirst().getD().toLocalDate().isEqual(dateFindDayOfWeek)){
-                        showTaskList.add(t);
-                    }
-                }
-            }
+            getListTaskExactDay(dateFindDayOfWeek, allTaskHavingDate, showTaskList);
         }
         else if(userSubSubString[0].matches("today")){
             LocalDate dateNow = LocalDate.now();
-            for(Task t : allTaskHavingDate){
-                if(t.isDeadline()){
-                    if(((DeadlinesTask)t).getDeadlines().getD().toLocalDate().isEqual(dateNow)){
-                        showTaskList.add(t);
-                    }
-                }
-                if(t.isEvent()){
-                    if(((EventsTask)t).getDateFirst().getD().toLocalDate().isEqual(dateNow)){
-                        showTaskList.add(t);
-                    }
-                }
-            }
+            getListTaskExactDay(dateNow, allTaskHavingDate, showTaskList);
         }
         else if(userSubSubString[0].matches("week")){
             LocalDate dateNow = LocalDate.now();
             for (int i = 0; i < 7; i++){
                 LocalDate dateWeek = dateNow.plusDays(i);
-                for(Task t : allTaskHavingDate){
-                    if(t.isDeadline()){
-                        if(((DeadlinesTask)t).getDeadlines().getD().toLocalDate().isEqual(dateNow)){
-                            showTaskList.add(t);
-                        }
-                    }
-                    if(t.isEvent()){
-                        if(((EventsTask)t).getDateFirst().getD().toLocalDate().isEqual(dateNow)){
-                            showTaskList.add(t);
-                        }
-                    }
-                }
+                getListTaskExactDay(dateWeek, allTaskHavingDate, showTaskList);
             }
         }
         else if (userSubSubString[0].matches("month")){
@@ -188,18 +194,7 @@ public class ShowCommand extends Command {
             if(dateMonth <1 || dateMonth > 12){
                 throw new NonExistentDateException();
             }
-            for(Task t : allTaskHavingDate){
-                if(t.isDeadline()){
-                    if(((DeadlinesTask)t).getDeadlines().getD().getMonthValue() == dateMonth && ((DeadlinesTask)t).getDeadlines().getD().getYear() == dateYear){
-                        showTaskList.add(t);
-                    }
-                }
-                if(t.isEvent()){
-                    if(((EventsTask)t).getDateFirst().getD().getMonthValue() == dateMonth && ((EventsTask)t).getDateFirst().getD().getYear() == dateYear){
-                        showTaskList.add(t);
-                    }
-                }
-            }
+            getListTaskMonth(dateMonth, dateYear, allTaskHavingDate, showTaskList);
         }
         else if (userSubSubString[0].matches("year")){
             String date;
@@ -217,23 +212,12 @@ public class ShowCommand extends Command {
             }catch(Exception e){
                 throw new NonExistentDateException();
             }
-            for(Task t : allTaskHavingDate){
-                if(t.isDeadline()){
-                    if(((DeadlinesTask)t).getDeadlines().getD().getYear() == dateYear){
-                        showTaskList.add(t);
-                    }
-                }
-                if(t.isEvent()){
-                    if(((EventsTask)t).getDateFirst().getD().getYear() == dateYear){
-                        showTaskList.add(t);
-                    }
-                }
-            }
+            getListTaskYear(dateYear, allTaskHavingDate, showTaskList);
         }
         else {
             throw new WrongParameterException();
         }
-        ui.showNotCompeteList(showTaskList, tasks);
+        ui.showNotCompleteList(showTaskList, tasks);
     }
 
     /**

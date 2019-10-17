@@ -121,7 +121,7 @@ public class Ui {
         System.out.println("\t---------------------------------------------------------------------------------");
     }
 
-    public void showNotCompeteList(ArrayList<Task> notCompleteTasks, TaskList tasks){//print the task so they have the same index
+    public void showNotCompleteList(ArrayList<Task> notCompleteTasks, TaskList tasks){//print the task so they have the same index
         System.out.println("\t---------------------------------------------------------------------------------");
         System.out.println("\t Here are the tasks in your list:");
         for(int i = 0; i < tasks.size(); i++){
