@@ -3,6 +3,7 @@ package duke.command;
 import duke.exception.DukeException;
 import duke.exception.DukeHelpException;
 
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -23,7 +24,7 @@ public class Parser {
         SWITCH //parsing a switch name
     }
 
-    private static Map<String, Cmd> commandMap;
+    private final Map<String, Enum> commandMap;
     private ArgCommand currCommand;
     private StringBuilder elementBuilder;
     private ParseState state;
@@ -32,14 +33,22 @@ public class Parser {
     private Map<String, Switch> switchMap;
     private HashMap<String, String> switchVals;
 
-    static {
-        // TODO refactor to accept different enums
-        Cmd[] cmdArr = Cmd.values();
-        Map.Entry[] entryArr = new Map.Entry[cmdArr.length];
-        for (int i = 0; i < cmdArr.length; ++i) {
-            entryArr[i] = Map.entry(cmdArr[i].toString(), cmdArr[i]);
+    /**
+     * Constructs a new Parser, generating a HashMap from an array of enum values to allow fast lookup of command types.
+     */
+    public Parser(Enum[] CmdEnum) {
+        Map<String, Enum> tempMap = new HashMap<String, Enum>();
+        for (Enum cmd : CmdEnum) {
+            tempMap.put(cmd.toString(), cmd);
         }
-        commandMap = Map.ofEntries(entryArr);
+        commandMap = Collections.unmodifiableMap(tempMap);
+    }
+
+    /**
+     * Constructs a new Parser, using the Cmd enum to supply the command names.
+     */
+    public Parser() {
+        this(Cmd.values());
     }
 
     /**
