@@ -138,7 +138,7 @@ public class Storage {
         return list;
     }
 
-    boolean getFileExits() {
+    public boolean getFileExits() {
         return fileExists;
     }
 

@@ -1,13 +1,24 @@
 package duke.exceptions;
 
-public class ModException extends Exception {
+public class ModException extends Throwable {
 
     public ModException() {
-        super();
     }
 
     public ModException(String message) {
         super(message);
+    }
+
+    public ModException(String message, Throwable cause) {
+        super(message, cause);
+    }
+
+    public ModException(Throwable cause) {
+        super(cause);
+    }
+
+    protected ModException(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace) {
+        super(message, cause, enableSuppression, writableStackTrace);
     }
 
     /**

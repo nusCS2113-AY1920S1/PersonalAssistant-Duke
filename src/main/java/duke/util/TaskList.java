@@ -19,7 +19,7 @@ public class TaskList {
      * @param store Storage class handling file writing and reading.
      */
     public TaskList(Storage store) {
-        if (store.getFileExits()) {
+        if (store.getDataPathExists()) {
             try {
                 tasks = store.readData();
             } catch (ModInvalidTimeException | ModInvalidTimePeriodException e) {

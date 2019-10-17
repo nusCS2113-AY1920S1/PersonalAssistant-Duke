@@ -1,7 +1,9 @@
 package duke.util;
 
+import duke.exceptions.ModInvalidTimePeriodException;
 import java.time.DayOfWeek;
 import java.time.LocalTime;
+import java.time.temporal.Temporal;
 import java.time.temporal.TemporalAccessor;
 import java.util.List;
 
@@ -13,11 +15,15 @@ public interface TimePeriod {
 
     LocalTime getEndTime();
 
-    TemporalAccessor getBegin();
+    Temporal getBegin();
 
-    TemporalAccessor getEnd();
+    Temporal getEnd();
 
-    boolean isClashing(TimePeriod other);
+    <E extends TimePeriod> boolean isClashing(E other);
+
+    <E extends TemporalAccessor> boolean isClashing(E other);
+
+    <E extends TemporalAccessor> boolean isClashing(E begin, E end) throws ModInvalidTimePeriodException;
 
     List<DayOfWeek> getDaysOfWeek();
 

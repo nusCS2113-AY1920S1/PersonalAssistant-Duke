@@ -1,4 +1,4 @@
-package duke.modules;
+package duke.modules.data;
 
 public class Attributes {
 
@@ -7,7 +7,13 @@ public class Attributes {
     private boolean ssgf = false;
     private boolean fyp = false;
     private boolean year = false;
+    private boolean coreMod = false;
+    private boolean geMod = false;
+    private boolean ueMod = false;
 
+    public Attributes() {
+
+    }
 
     public boolean isSu() {
         return su;

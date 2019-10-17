@@ -12,7 +12,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-import duke.exceptions.ModBadRequestStatus;
+import duke.exceptions.planner.ModBadRequestStatus;
 
 public class RequestsData {
 
@@ -90,7 +90,7 @@ public class RequestsData {
      * @param responseBody String containing response from HttpRequest.
      * @return A list of string, separated by new line characters.
      */
-    private List<String> getResponseList(String responseBody) {
+    public List<String> getResponseList(String responseBody) {
         String[] test = responseBody.split("\n");
         List<String> ret = new ArrayList<>(Collections.emptyList());
         Collections.addAll(ret, test);

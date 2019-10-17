@@ -1,5 +1,16 @@
 package duke.util;
 
+
+import duke.command.CapCommand;
+import duke.command.logic.CoreModuleReportCommand;
+import duke.command.logic.EndCommand;
+import duke.command.logic.GeneralModuleReportCommand;
+import duke.command.logic.ModuleCommand;
+import duke.command.logic.SortCommand;
+import duke.command.logic.RemoveModCommand;
+import duke.command.logic.SearchThenAddCommand;
+import duke.command.logic.ShowModuleCommand;
+import duke.command.logic.UnrestrictedModuleReportCommand;
 import duke.modules.Cca;
 import duke.modules.Deadline;
 import duke.modules.DoWithin;
@@ -40,11 +51,13 @@ public class ParserWrapper {
      * @throws ModInvalidTimeException when string date cannot be parsed by natty.
      */
     private String formatInputToStringDate(String date) throws ModInvalidTimeException {
-        return natty.dateToLocalDateTime(date).format(DateTimeFormatter.ofPattern("dd-MM-yyyy [HH:mm]"));
+        return natty
+                .dateToLocalDateTime(date)
+                .format(DateTimeFormatter.ofPattern("dd-MM-yyyy [HH:mm]"));
     }
 
-    private Command modParser(String input) throws ModException {
-        return null;
+    private String[] splitFirstSpace(String input) {
+        return input.split(" ", 2);
     }
 
     /**
@@ -54,11 +67,50 @@ public class ParserWrapper {
      * @return Command class based on user input
      * @throws ModException If user inputs strings which are invalid.
      */
-    public Command parse(String input, boolean isDuke) throws ModException {
+    public ModuleCommand parse(String input, boolean isDuke) throws ModException {
         if (isDuke) {
-            return modParser(input);
-        } else {
-            return this.parse(input);
+            return new EndCommand();
+        }
+        String[] hold = splitFirstSpace(input);
+        //TODO: update the parsing below with a more robust Argsj4 library
+        switch (hold[0]) {
+            case "add": {
+                return new SearchThenAddCommand(hold[hold.length - 1]);
+            }
+            case "show": {
+                return new ShowModuleCommand();
+            }
+            case "bye": {
+                return new EndCommand();
+            }
+            case "remove": {
+                return new RemoveModCommand(Integer.parseInt(hold[hold.length - 1]));
+            }
+            case "cap": {
+                return new CapCommand(input);
+            }
+            case "print": {
+                return new SortCommand();
+            }
+            case "report": {
+                switch (hold[1]) {
+                    case ("core"): {
+                        return new CoreModuleReportCommand();
+                    }
+                    case ("ge"): {
+                        return new GeneralModuleReportCommand();
+                    }
+                    case ("ue"): {
+                        return new UnrestrictedModuleReportCommand();
+                    }
+                    default: {
+                        throw new ModCommandException();
+                    }
+                }
+            }
+            default: {
+                throw new ModCommandException();
+            }
         }
     }
 

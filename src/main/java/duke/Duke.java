@@ -1,22 +1,25 @@
 package duke;
 
-import java.util.Arrays;
-import java.util.HashMap;
+import duke.command.logic.ModuleCommand;
 
-import duke.command.Command;
-import duke.command.ListCommand;
-import duke.exceptions.ModBadRequestStatus;
-import duke.exceptions.ModException;
-import duke.exceptions.ModFailedJsonException;
-import duke.exceptions.ModTimeIntervalTooCloseException;
-import duke.modules.ModuleInfoDetailed;
-import duke.modules.ModuleInfoSummary;
+import duke.util.argparse4j.Argparse4jWrapper;
+import duke.util.CcaList;
 import duke.util.JsonWrapper;
 import duke.util.ParserWrapper;
+import duke.util.PlannerUi;
+import duke.util.Reminder;
 import duke.util.Storage;
 import duke.util.TaskList;
 import duke.util.Ui;
-import duke.util.Reminder;
+import java.util.HashMap;
+
+import duke.command.Command;
+import duke.exceptions.planner.ModBadRequestStatus;
+import duke.exceptions.ModException;
+import duke.exceptions.planner.ModFailedJsonException;
+import duke.exceptions.ModTimeIntervalTooCloseException;
+import duke.modules.data.ModuleInfoDetailed;
+import duke.util.commons.ModuleTasksList;
 
 public class Duke {
     /**
@@ -27,10 +30,13 @@ public class Duke {
     private Storage store;
     private Ui ui;
     private TaskList tasks;
+    private ModuleTasksList modTasks;
+    private CcaList ccas;
     private ParserWrapper parser;
+    private Argparse4jWrapper argparser;
     private Reminder reminder;
-    private JsonWrapper data;
-    private HashMap<String, ModuleInfoSummary> modSummaryMap;
+    private JsonWrapper jsonWrapper;
+    private PlannerUi modUi;
     private HashMap<String, ModuleInfoDetailed> modDetailedMap;
 
     /**
@@ -39,27 +45,62 @@ public class Duke {
     public Duke() {
         store = new Storage();
         ui = new Ui();
+        modUi = new PlannerUi();
         tasks = new TaskList(store);
         parser = new ParserWrapper();
-        data = new JsonWrapper();
+        argparser = new Argparse4jWrapper();
+        jsonWrapper = new JsonWrapper();
+        modTasks = new ModuleTasksList();
+        ccas = new CcaList();
     }
 
-    //TODO: function to be removed after implementing feature
-    /**
-     * Testing function for json parsing for both summary and detailed json files.
-     */
-    private void testJson(Command c) {
-        if (c instanceof ListCommand) {
-            // Demo test of commands
-            System.out.println(modSummaryMap.get("CS2101"));
-            System.out.println(modDetailedMap.get("CS2101"));
-            System.out.println(modDetailedMap.get("CS2101").getAttributes().isSu());
-            System.out.println(Arrays.toString(modSummaryMap.get("CS2113T").getSemesters()));
-            System.out.println(modSummaryMap.get("CG2028").getTitle());
-            System.out.println(modSummaryMap.get("CS1010"));
+    private void modSetup() {
+        try {
+            jsonWrapper.runRequests(store);
+            modDetailedMap = jsonWrapper.getModuleDetailedMap();
+            modTasks.setTasks(jsonWrapper.readJsonTaskList(store));
+        } catch (ModBadRequestStatus er) {
+            er.printStackTrace();
+        } catch (ModFailedJsonException ej) {
+            System.out.println(ej.getLocalizedMessage());
         }
     }
 
+    private void modRunArgparse4j() {
+        modUi.helloMsg();
+        modSetup();
+        while (true) {
+            try {
+                String fullCommand = modUi.readCommand();
+                modUi.showLine();
+                ModuleCommand c = argparser.parseCommand(fullCommand);
+                if (c != null) {
+                    c.execute(modDetailedMap, modTasks, ccas, modUi, store, jsonWrapper);
+                }
+            } catch (ModException e) {
+                System.out.println(e.getMessage());
+            } finally {
+                modUi.showLine();
+            }
+        }
+    }
+
+    private void modRun() {
+        modUi.helloMsg();
+        modSetup();
+        while (true) {
+            try {
+                String fullCommand = modUi.readCommand();
+                modUi.showLine();
+                ModuleCommand c = parser.parse(fullCommand, false);
+                c.execute(modDetailedMap, modTasks, ccas, modUi, store, jsonWrapper);
+            } catch (ModException e) {
+                System.out.println(e.getMessage());
+            } finally {
+                modUi.showLine();
+            }
+        }
+    }
 
     /**
      * Main setup function to start threads in reminder and fill module data on startup.
@@ -70,9 +111,8 @@ public class Duke {
             reminder = new Reminder(tasks.getTasks());
             reminder.run();
             // This pulls data once and stores in the data files.
-            data.runRequests(store);
-            modSummaryMap = data.getModuleSummaryMap();
-            modDetailedMap = data.getModuleDetailedMap();
+            jsonWrapper.runRequests(store);
+            modDetailedMap = jsonWrapper.getModuleDetailedMap();
         } catch (ModTimeIntervalTooCloseException e) {
             System.out.println(e.getMessage());
         } catch (ModBadRequestStatus er) {
@@ -97,7 +137,6 @@ public class Duke {
                 ui.showLine();
                 Command c = parser.parse(fullCommand);
                 c.execute(tasks, ui, store, reminder);
-                testJson(c);
                 isExit = c.isExit();
             } catch (ModException e) {
                 e.printStackTrace();
@@ -114,6 +153,8 @@ public class Duke {
     public static void main(String[] args) {
         //TODO: args flag could be passed into program for optional runs
         Duke duke = new Duke();
-        duke.run();
+        //duke.run();
+        duke.modRun();
+        //duke.modRunArgparse4j();
     }
 }

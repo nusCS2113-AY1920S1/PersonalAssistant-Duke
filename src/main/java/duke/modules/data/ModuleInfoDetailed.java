@@ -1,17 +1,15 @@
-package duke.modules;
-
-import java.util.List;
+package duke.modules.data;
 
 public class ModuleInfoDetailed {
 
-    private String moduleCode;
-    private String title;
-    private String description;
-    private String moduleCredit;
-    private String department;
-    private String faculty;
-    private String preclusion;
-    private Attributes attributes;
+    private String moduleCode = "";
+    private String title = "";
+    private String description = "";
+    private String moduleCredit = "";
+    private String department = "";
+    private String faculty = "";
+    private String preclusion = "";
+    private Attributes attributes = new Attributes();
     private ExamInfo[] semesterData;
 
 
@@ -54,6 +52,11 @@ public class ModuleInfoDetailed {
 
     @Override
     public String toString() {
-        return "ModuleCode:" + getModuleCode() + ", " + getPreclusion();
+        return "ModuleCode:"
+                + getModuleCode()
+                + ", MC:"
+                + getModuleCredit()
+                + ", SU:"
+                + getAttributes().isSu();
     }
 }

@@ -1,14 +1,14 @@
-package duke.modules;
+package duke.modules.data;
 
 import java.util.Arrays;
 
 public class ModuleInfoSummary {
 
-    private String moduleCode;
-    private String title;
-    private int[] semesters;
-    private boolean isDone;
-    private boolean suOption;
+    private String moduleCode = "";
+    private String title = "";
+    private int[] semesters = {0};
+    private boolean isDone = false;
+    private boolean suOption = false;
 
     /**
      * TODO JavaDocs.
@@ -46,11 +46,11 @@ public class ModuleInfoSummary {
         this.semesters = semesters;
     }
 
-    public void setsuOption(boolean suOption) {
+    public void setSuOption(boolean suOption) {
         this.suOption = suOption;
     }
 
-    public boolean getsuOption() {
+    public boolean getSuOption() {
         return this.suOption;
     }
 

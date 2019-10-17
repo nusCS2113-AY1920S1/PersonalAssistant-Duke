@@ -5,6 +5,7 @@ import duke.util.TimeInterval;
 import duke.util.TimePeriodWeekly;
 import java.time.DayOfWeek;
 import java.time.LocalTime;
+import java.time.temporal.TemporalAccessor;
 import java.util.List;
 
 public class TaskWithWeeklyPeriod extends TaskWithPeriod {
@@ -40,11 +41,11 @@ public class TaskWithWeeklyPeriod extends TaskWithPeriod {
     }
 
     public void setBegin(LocalTime begin) {
-        this.setPeriod(begin, this.getEnd());
+        this.setPeriod(begin, (LocalTime) this.getEnd());
     }
 
     public void setEnd(LocalTime end) {
-        this.setPeriod(this.getBegin(), end);
+        this.setPeriod((LocalTime) this.getBegin(), end);
     }
 
     public void setDayOfWeek(DayOfWeek dayOfWeek) {
@@ -52,7 +53,7 @@ public class TaskWithWeeklyPeriod extends TaskWithPeriod {
     }
 
     public LocalTime getTime() {
-        return (this.getBegin() != null) ? this.getBegin() : this.getEnd();
+        return (LocalTime) ((this.getBegin() != null) ? this.getBegin() : this.getEnd());
     }
 
     public DayOfWeek getDayOfWeek() {
@@ -60,38 +61,8 @@ public class TaskWithWeeklyPeriod extends TaskWithPeriod {
     }
 
     @Override
-    public List<DayOfWeek> getDaysOfWeek() {
-        return this.period.getDaysOfWeek();
-    }
-
-    @Override
-    public LocalTime getBeginTime() {
-        return this.period.getBegin();
-    }
-
-    @Override
-    public LocalTime getEndTime() {
-        return this.period.getEnd();
-    }
-
-    @Override
-    public LocalTime getBegin() {
-        return this.period.getBegin();
-    }
-
-    @Override
-    public LocalTime getEnd() {
-        return this.period.getEnd();
-    }
-
-    @Override
     public TimePeriodWeekly getPeriod() {
         return this.period;
-    }
-
-    @Override
-    public TimeInterval getInterval() {
-        return this.period.getInterval();
     }
 
     public boolean isClashing(LocalTime localTime) {
@@ -100,13 +71,5 @@ public class TaskWithWeeklyPeriod extends TaskWithPeriod {
 
     public boolean isClashing(LocalTime begin, LocalTime end) {
         return this.period.isClashing(begin, end);
-    }
-
-    public boolean isClashing(TimePeriodWeekly timePeriodWeekly) {
-        return this.period.isClashing(timePeriodWeekly);
-    }
-
-    public boolean isClashing(TaskWithWeeklyPeriod other) {
-        return this.period.isClashing(other.getPeriod());
     }
 }
